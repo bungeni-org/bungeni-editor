@@ -1,0 +1,4 @@
+akntohtml http://bungeni-portal.googlecode.com/svn/DocTransforms/trunk/ODTtoAKN/resources/akntohtml
+configfiles http://bungeni-portal.googlecode.com/svn/DocTransforms/trunk/ODTtoAKN/resources/configfiles
+odttoakn http://bungeni-portal.googlecode.com/svn/DocTransforms/trunk/ODTtoAKN/resources/odttoakn
+odttometalex http://bungeni-portal.googlecode.com/svn/DocTransforms/trunk/ODTtoAKN/resources/odttometalex

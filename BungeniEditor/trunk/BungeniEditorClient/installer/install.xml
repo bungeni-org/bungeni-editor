@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+
+<!-- 
+    A sample installation file.
+    Use it as a base for your own installers :-)
+    
+    To compile it :
+    - go in the bin directory where you installed IzPack
+    - call "compile ../sample/install.xml -b ../sample"
+-->
+
+<installation version="1.0">
+
+    <!-- 
+        The info section.
+        The meaning of the tags should be natural ...
+    -->
+    <info>
+        <appname>BungeniEditor installation</appname>
+        <appversion>0.7.1-rev2139</appversion>
+	<appsubpath>BungeniEditor-$APP_VER</appsubpath>
+        <authors>
+            <author name="UNDESA" email="undesa@parliaments.info"/>
+        </authors>
+        <url>http://www.bungeni.org</url>
+	<javaversion>1.6</javaversion>
+    </info>
+
+    <!-- 
+        The gui preferences indication.
+        Sets the installer window to 640x480. It will not be able to change the size.
+    -->
+    <guiprefs width="640" height="480" resizable="no"/>
+
+    <!-- 
+        The locale section.
+        Asks here to include the English and French langpacks.
+    -->
+    <locale>
+        <langpack iso3="eng"/>
+    </locale>
+
+    <!-- 
+        The resources section.
+        The ids must be these ones if you want to use the LicencePanel and/or the InfoPanel.
+    -->
+    <resources>
+        <res id="LicencePanel.licence" src="LICENCE.TXT"/>
+        <res id="InfoPanel.info" src="README.TXT"/>
+    </resources>
+
+    <!-- 
+        The panels section.
+        We indicate here which panels we want to use. The order will be respected.
+    -->
+    <panels>
+        <panel classname="HelloPanel"/>
+        <panel classname="InfoPanel"/>
+        <panel classname="LicencePanel"/>
+        <panel classname="TargetPanel"/>
+        <panel classname="PacksPanel"/>
+        <panel classname="InstallPanel"/>
+        <panel classname="FinishPanel"/>
+    </panels>
+
+    <!-- 
+        The packs section.
+        We specify here our packs.
+    -->
+    <packs>
+        <pack name="Base" required="yes">
+            <description>BungeniEditor core files</description>
+            <file src="README.TXT" targetdir="$INSTALL_PATH"/>
+            <file src="LICENCE.TXT" targetdir="$INSTALL_PATH"/>
+            <file src="runEditor.sh" targetdir="$INSTALL_PATH"/>
+            <file src="runEditor.bat" targetdir="$INSTALL_PATH"/>
+            <file src="base" targetdir="$INSTALL_PATH"/>
+            <parsable targetfile="$INSTALL_PATH/runEditor.bat"/>
+            <parsable targetfile="$INSTALL_PATH/runEditor.sh"/>
+            <executable targetfile="$INSTALL_PATH/runEditor.sh"/>
+            <!-- The file will be parsed -->
+        </pack>
+    </packs>
+
+</installation>

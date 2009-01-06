@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : testCommandChain.xml.xml
+    Created on : December 21, 2007, 11:46 AM
+    Author     : Administrator
+    Description:
+        Purpose of the document follows.
+-->
+
+<catalog name="testCatalog">
+  <chain name="testChain">
+      <command id="testCommand" className="org.bungeni.commaonds.testCommand" />
+  </chain>   
+</catalog>
