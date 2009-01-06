@@ -1,0 +1,14 @@
+saxon9.jar https://bungeni-portal.googlecode.com/svn/DocTransforms/trunk/ODTtoAKN/lib/saxon9.jar
+saxon9-dom.jar https://bungeni-portal.googlecode.com/svn/DocTransforms/trunk/ODTtoAKN/lib/saxon9-dom.jar
+saxon9-dom4j.jar https://bungeni-portal.googlecode.com/svn/DocTransforms/trunk/ODTtoAKN/lib/saxon9-dom4j.jar
+saxon9-jdom.jar https://bungeni-portal.googlecode.com/svn/DocTransforms/trunk/ODTtoAKN/lib/saxon9-jdom.jar
+saxon9-s9api.jar https://bungeni-portal.googlecode.com/svn/DocTransforms/trunk/ODTtoAKN/lib/saxon9-s9api.jar
+saxon9-sql.jar https://bungeni-portal.googlecode.com/svn/DocTransforms/trunk/ODTtoAKN/lib/saxon9-sql.jar
+saxon9-xom.jar https://bungeni-portal.googlecode.com/svn/DocTransforms/trunk/ODTtoAKN/lib/saxon9-xom.jar
+saxon9-xpath.jar https://bungeni-portal.googlecode.com/svn/DocTransforms/trunk/ODTtoAKN/lib/saxon9-xpath.jar
+saxon9-xqj.jar https://bungeni-portal.googlecode.com/svn/DocTransforms/trunk/ODTtoAKN/lib/saxon9-xqj.jar
+xercesImpl.jar https://bungeni-portal.googlecode.com/svn/DocTransforms/trunk/ODTtoAKN/lib/xercesImpl.jar
+
+
+
+
