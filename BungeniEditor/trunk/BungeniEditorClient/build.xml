@@ -67,13 +67,5 @@
     nbproject/build-impl.xml file. 
 
     -->
-    <!--
-     <target name="jar" depends="-uno-project-init,compile,-pre-jar,-do-jar-with-manifest,-do-jar-without-manifest,-do-jar-with-mainclass,-do-jar-with-libraries,-post-jar">
-
-        <jar basedir="${build.classes.dir}" compress="true" jarfile="${dist.jar}" manifest="manifest.mf">
-            <fileset refid="bootstrap.glue.code"/>
-        </jar>
         
-    </target>       
-   -->
 </project>

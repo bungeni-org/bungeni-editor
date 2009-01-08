@@ -5,13 +5,19 @@
 
     <import file="build-impl.xml"/>
 
-    <target name="-uno-project-init" depends="-do-init">
+    <target name="-post-init">
         <property file="nbproject/project-uno.properties"/>
-        <property name="build.uno.version" value="__BuildUnoVersion__"/>
+        <property name="build.uno.version" value="2.0.1"/>
+ 
+        <property name="run-sys-prop.com.sun.star.lib.loader.unopath" value="${office.program.dir}"/>
+        <property name="run-sys-prop.Application-Class" value="${uno.main.class}"/>
+    </target>
+    
+    <target name="-uno-project-init" depends="-do-init">
+        <dirname property="project.dir" file="build.xml"/>       
 
-        <fileset id="bootstrap.glue.code" dir="${oo.sdk.home}${file.separator}classes">
+        <fileset id="bootstrap.glue.code" dir="${project.dir}">
             <patternset>
-                <include name="com/sun/star/lib/loader/*.class"/>
                 <include name="win/unowinreg.dll"/>
             </patternset>
         </fileset>        
@@ -57,6 +63,9 @@
         <condition property="do.external.jars">
             <length string="${file.list}" when="greater" length="0"/>
         </condition>
+        <delete>
+            <filelist dir="${dist.dir}/lib" files="${exclude.office.jars}"/>
+        </delete>
     </target>
     
     <!-- build manifest for simple bootstrap -->
@@ -64,7 +73,7 @@
         <manifest file="${build.dir}/MANIFEST.MF" mode="update">
             <attribute name="Main-Class" value="com.sun.star.lib.loader.Loader"/>
             <section name="com/sun/star/lib/loader/Loader.class">
-                <attribute name="Application-Class" value="${main.class}"/>
+                <attribute name="Application-Class" value="${uno.main.class}"/>
             </section>
         </manifest>
     </target>
