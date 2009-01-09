@@ -12,7 +12,8 @@ import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooDocMetadata;
 
 /**
- *
+ * Defines the base metadata attributes applicable to all Bungeni documents
+ * This is extended for specific document types
  * @author undesa
  */
 public class BaseEditorDocMetaModel implements IEditorDocMetaModel {

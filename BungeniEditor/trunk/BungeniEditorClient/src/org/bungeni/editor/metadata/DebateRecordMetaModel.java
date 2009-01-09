@@ -6,7 +6,7 @@
 package org.bungeni.editor.metadata;
 
 /**
- *
+ * Extended metadata model for the debaterecord document type
  * @author undesa
  */
 public class DebateRecordMetaModel extends BaseEditorDocMetaModel {

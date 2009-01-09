@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 /**
- *
+ * Defines the metadata model for a Bungeni Document.
  * @author undesa
  */
 public interface IEditorDocMetaModel {
