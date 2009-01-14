@@ -93,7 +93,7 @@ import org.bungeni.editor.BungeniEditorProperties;
 import org.bungeni.editor.actions.EditorActionFactory;
 import org.bungeni.editor.actions.IEditorActionEvent;
 import org.bungeni.editor.actions.toolbarSubAction;
-import org.bungeni.editor.dialogs.debaterecord.DebateRecordMetadata;
+import org.bungeni.editor.metadata.editors.DebateRecordMetadata;
 import org.bungeni.editor.dialogs.metadatapanel.SectionMetadataLoad;
 import org.bungeni.editor.metadata.EditorDocMetadataDialogFactory;
 import org.bungeni.editor.metadata.IEditorDocMetadataDialog;

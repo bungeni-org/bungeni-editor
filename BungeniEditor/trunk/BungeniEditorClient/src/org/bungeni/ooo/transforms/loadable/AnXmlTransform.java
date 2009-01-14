@@ -22,6 +22,7 @@ import org.bungeni.ooo.transforms.impl.BungeniDocTransform;
 import org.bungeni.ooo.transforms.impl.TransformerConfigurationFactory;
 import org.bungeni.ooo.transforms.impl.TransformerConfigurationFactory.Transformer;
 import org.bungeni.utils.MessageBox;
+import org.un.bungeni.translators.globalconfigurations.GlobalConfigurations;
 import org.un.bungeni.translators.odttoakn.translator.OATranslator;
 
 /**
@@ -55,7 +56,8 @@ public class AnXmlTransform extends BungeniDocTransform {
         }
     }
     
-    private void writeOutputFile(File outputTrans)  {
+    private boolean writeOutputFile(File outputTrans)  {
+        boolean bState = false;
 		try 
 		{
                 FileInputStream fTrans = new FileInputStream(outputTrans);
@@ -69,11 +71,15 @@ public class AnXmlTransform extends BungeniDocTransform {
 		    }
                      if (fTrans != null) fTrans.close();
 		     if (fOutTrans != null) fOutTrans.close();
+                    bState = true;
 		}	
 		catch (Exception ex) 
 		{
+                    bState = false;
                     log.error("writeOutputFile : " + ex.getMessage());
-		}
+		} finally {
+                    return bState;
+                }
     }
 
     String EXPORT_OUTPUT_FILE  = "";
@@ -92,16 +98,23 @@ public class AnXmlTransform extends BungeniDocTransform {
                 EXPORT_OUTPUT_FILE = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH()+ File.separator + "workspace" + File.separator + "export" + File.separator + "result.xml";
                 
                 fopenDocumentFile = convertUrlToFile(sDocUrl);
-                OATranslator.AppPathPrefix = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + "transformer" + File.separator;
+                String pathPrefix = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + "transformer" + File.separator;
+                GlobalConfigurations.setApplicationPathPrefix(pathPrefix);
                 OATranslator ODTtrans = OATranslator.getInstance();
+               
                 Transformer tf = TransformerConfigurationFactory.getConfiguration(BungeniEditorPropertiesHelper.getCurrentDocType(), "debateRecordCommon");
                 File outputTrans = ODTtrans.translate(fopenDocumentFile, tf.configFile);
-                writeOutputFile(outputTrans);
-                MessageBox.OK(this.callerFrame, "Document was transformed!");
+                if (writeOutputFile(outputTrans)) 
+                    //MessageBox.OK(this.callerFrame, "Document was transformed!");
+                    bState = true;
+                else 
+                    bState = false;
+                    //MessageBox.OK(this.callerFrame, "Document transformation failed");
             } else {
                 MessageBox.OK("Please save the document before trying to transform it!");
+                bState = false;
             }
-            bState= true;
+           // bState= true;
         } catch (Exception ex) {
             log.error("transform : " + ex.getMessage());
         }

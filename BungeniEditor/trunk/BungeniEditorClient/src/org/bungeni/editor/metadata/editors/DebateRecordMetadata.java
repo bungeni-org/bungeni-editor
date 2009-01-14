@@ -4,7 +4,7 @@
  * Created on November 4, 2008, 1:43 PM
  */
 
-package org.bungeni.editor.dialogs.debaterecord;
+package org.bungeni.editor.metadata.editors;
 
 import java.awt.Color;
 import java.awt.Component;

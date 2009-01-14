@@ -45,7 +45,7 @@ import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.editor.BungeniEditorProperties;
 import org.bungeni.editor.BungeniEditorPropertiesHelper;
-import org.bungeni.editor.dialogs.debaterecord.DebateRecordMetadata;
+import org.bungeni.editor.metadata.editors.DebateRecordMetadata;
 import org.bungeni.editor.metadata.EditorDocMetadataDialogFactory;
 import org.bungeni.editor.metadata.IEditorDocMetadataDialog;
 import org.bungeni.editor.selectors.SelectorDialogModes;
