@@ -6,7 +6,6 @@
 
 package org.bungeni.editor.dialogs;
 
-import com.sun.star.awt.XWindow;
 import com.sun.star.beans.UnknownPropertyException;
 import com.sun.star.beans.XPropertySet;
 import com.sun.star.beans.XPropertySetInfo;
@@ -96,6 +95,8 @@ import org.bungeni.editor.actions.IEditorActionEvent;
 import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.editor.dialogs.debaterecord.DebateRecordMetadata;
 import org.bungeni.editor.dialogs.metadatapanel.SectionMetadataLoad;
+import org.bungeni.editor.metadata.EditorDocMetadataDialogFactory;
+import org.bungeni.editor.metadata.IEditorDocMetadataDialog;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
 import org.bungeni.editor.toolbar.BungeniToolbarTargetProcessor;
@@ -1836,27 +1837,17 @@ private void LaunchDebateMetadataSetter(XComponent xComp){
         OOComponentHelper oohc = new OOComponentHelper (xComp, ComponentContext);
         String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
         BungeniFrame frm = new BungeniFrame(docType + " Metadata");
-        DebateRecordMetadata meta = new DebateRecordMetadata(oohc, frm, SelectorDialogModes.TEXT_INSERTION);
+        IEditorDocMetadataDialog metaDlg = EditorDocMetadataDialogFactory.getInstance(BungeniEditorPropertiesHelper.getCurrentDocType());
+        metaDlg.initVariables(oohc, frm, SelectorDialogModes.TEXT_EDIT);
+        metaDlg.initialize();
+       // DebateRecordMetadata meta = new DebateRecordMetadata(oohc, frm, SelectorDialogModes.TEXT_INSERTION);
         frm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frm.setSize(new Dimension(410, 424));
-        frm.add(meta);
+        frm.add(metaDlg.getPanelComponent());
         frm.setVisible(true);
         frm.setAlwaysOnTop(true);
 }
 
-
-/*
- *
- *
- *
- *
- *
- */  
-  
-        
-        
-
-    
   
     
     
