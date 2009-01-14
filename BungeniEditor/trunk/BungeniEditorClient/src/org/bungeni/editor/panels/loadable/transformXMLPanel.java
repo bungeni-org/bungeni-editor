@@ -7,7 +7,6 @@
 package org.bungeni.editor.panels.loadable;
 
 import java.io.File;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.DefaultComboBoxModel;
@@ -15,8 +14,6 @@ import org.apache.log4j.Logger;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.editor.BungeniEditorProperties;
 import org.bungeni.editor.BungeniEditorPropertiesHelper;
-import org.bungeni.editor.document.DocumentSection;
-import org.bungeni.editor.document.DocumentSectionsContainer;
 import org.bungeni.editor.macro.ExternalMacro;
 import org.bungeni.editor.macro.ExternalMacroFactory;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
@@ -207,7 +204,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
         if (bState ) {
             MessageBox.OK(parentFrame, "Document was successfully Exported to the workspace folder");
         } else
-            MessageBox.OK(parentFrame, "Document was successfully Exported to the workspace folder");
+            MessageBox.OK(parentFrame, "Document export failed");
     }//GEN-LAST:event_btnExportActionPerformed
 
     public void initialize() {
