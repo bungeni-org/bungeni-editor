@@ -8,30 +8,23 @@ package org.bungeni.editor.dialogs.debaterecord;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Container;
 import java.io.File;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRootPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.editor.BungeniEditorProperties;
 import org.bungeni.editor.BungeniEditorPropertiesHelper;
+import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
 import org.bungeni.editor.selectors.SelectorDialogModes;
-import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTargetFactory;
 import org.bungeni.ooo.transforms.impl.IBungeniDocTransform;
 import org.bungeni.utils.BungeniFileSavePathFormat;
@@ -40,27 +33,163 @@ import org.bungeni.editor.metadata.LanguageCode;
 import org.bungeni.editor.metadata.CountryCode;
 import org.bungeni.editor.metadata.DebateRecordMetaModel;
 import org.bungeni.editor.metadata.DocumentPart;
+import org.bungeni.utils.CommonStringFunctions;
 
 /**
  *
  * @author  undesa
  */
-public class DebateRecordMetadata extends javax.swing.JPanel {
+public class DebateRecordMetadata extends BaseEditorDocMetadataDialog {
 
-     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DebateRecordMetadata.class.getName());
-     DebateRecordMetaModel docMetaModel = new DebateRecordMetaModel();
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DebateRecordMetadata.class.getName());
+   DebateRecordMetaModel docMetaModel = new DebateRecordMetaModel();
      
     
-    OOComponentHelper ooDocument  = null;
-    JFrame parentFrame = null;
-    SelectorDialogModes dlgMode = null;
+ //   OOComponentHelper ooDocument  = null;
+ //   JFrame parentFrame = null;
+ //    SelectorDialogModes dlgMode = null;
     
     
-        ArrayList<CountryCode> countryCodes = new ArrayList<CountryCode>(0);
-        ArrayList<LanguageCode> languageCodes = new ArrayList<LanguageCode>(0);
-        ArrayList<DocumentPart> documentParts = new ArrayList<DocumentPart>(0);
-        
+    public DebateRecordMetadata(){
+        super();
+        initComponents();
+    }
+    
+    @Override
+    public void initialize() {
+        super.initialize();
+        this.docMetaModel.setup();
+        initControls();
+           if (theMode == SelectorDialogModes.TEXT_EDIT) {
+            try {
+                //retrieve metadata... and set in controls....
+                docMetaModel.loadModel(ooDocument);
+                /*
+                ooDocMetadata docMeta = new ooDocMetadata(ooDocument);
+                String sParlId = docMeta.GetProperty("BungeniParliamentID");
+                String sParlSitting = docMeta.GetProperty("BungeniParliamentSitting");
+                String sParlSession = docMeta.GetProperty("BungeniParliamentSession");
+                String sCountryCode = docMeta.GetProperty("BungeniCountryCode");
+                String sLanguageCode = docMeta.GetProperty("BungeniLanguageCode");
+                String sOfficDate = docMeta.GetProperty("BungeniDebateOfficialDate");
+                String sOfficTime = docMeta.GetProperty("BungeniDebateOfficialTime");
+                */
+               String sParlId = docMetaModel.getItem("BungeniParliamentID");
+                String sParlSitting = docMetaModel.getItem("BungeniParliamentSitting");
+                String sParlSession = docMetaModel.getItem("BungeniParliamentSession");
+                String sCountryCode = docMetaModel.getItem("BungeniCountryCode");
+                String sLanguageCode = docMetaModel.getItem("BungeniLanguageCode");
+                String sOfficDate =docMetaModel.getItem("BungeniDebateOfficialDate");
+                String sOfficTime = docMetaModel.getItem("BungeniDebateOfficialTime");
+                String sPartName = docMetaModel.getItem("BungeniDocPart");
+                String sPublicationName = docMetaModel.getItem("BungeniPublicationName");
+                String sPublicationDate = docMetaModel.getItem("BungeniPublicationDate");
+                //official date
+                if (!CommonStringFunctions.emptyOrNull(sOfficDate)) {
+                SimpleDateFormat formatter = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
+                this.dt_initdebate_hansarddate.setDate(formatter.parse(sOfficDate));
+                }
+                //official time
+                if (!CommonStringFunctions.emptyOrNull(sOfficTime) ) {
+                    SimpleDateFormat timeFormat = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataTimeFormat"));
+                    dt_initdebate_timeofhansard.setValue(timeFormat.parse(sOfficTime));
+                }
+                if (!CommonStringFunctions.emptyOrNull(sPublicationDate)) {
+                    SimpleDateFormat timeFormat = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
+                    this.dt_publication_date.setDate(timeFormat.parse(sPublicationDate));
+                }
+                if (!CommonStringFunctions.emptyOrNull(sParlId))
+                    this.BungeniParliamentID.setText(sParlId);
+                if (!CommonStringFunctions.emptyOrNull(sParlSession))
+                    this.txtParliamentSession.setText(sParlSession);
+                if (!CommonStringFunctions.emptyOrNull(sParlSitting))
+                    this.txtParliamentSitting.setText(sParlSitting);
+                if (!CommonStringFunctions.emptyOrNull(sCountryCode))
+                    this.cboCountry.setSelectedItem(findCountryCode(sCountryCode));
+                if (!CommonStringFunctions.emptyOrNull(sLanguageCode))
+                    this.cboLanguage.setSelectedItem(findLanguageCode(sLanguageCode));
+                if (!CommonStringFunctions.emptyOrNull(sPartName)) 
+                    this.cboDocumentPart.setSelectedItem(findDocumentPart(sPartName));
+                if (!CommonStringFunctions.emptyOrNull(sPublicationName)) {
+                    this.txtPublicationName.setText(sPublicationName);
+                }
+                
+            } catch (ParseException ex) {
+                log.error("initalize()  =  "  + ex.getMessage());
+            }
+         
+        }
+    }
 
+    public Component getPanelComponent() {
+        return this;
+    }
+    /** Creates new form DebateRecordMetadata */
+    /*
+    public DebateRecordMetadata(OOComponentHelper ooDoc, JFrame parentFrame, SelectorDialogModes aMode) {
+        this.parentFrame = parentFrame;
+        this.ooDocument = ooDoc;
+        initComponents();
+        
+     //   dlgMode = aMode;
+   
+        initMetadata();
+        initControls();
+        
+        if (aMode == SelectorDialogModes.TEXT_EDIT) {
+            try {
+                //retrieve metadata... and set in controls....
+                docMetaModel.loadModel(ooDoc);
+               String sParlId = docMetaModel.getItem("BungeniParliamentID");
+                String sParlSitting = docMetaModel.getItem("BungeniParliamentSitting");
+                String sParlSession = docMetaModel.getItem("BungeniParliamentSession");
+                String sCountryCode = docMetaModel.getItem("BungeniCountryCode");
+                String sLanguageCode = docMetaModel.getItem("BungeniLanguageCode");
+                String sOfficDate =docMetaModel.getItem("BungeniDebateOfficialDate");
+                String sOfficTime = docMetaModel.getItem("BungeniDebateOfficialTime");
+                String sPartName = docMetaModel.getItem("BungeniDocPart");
+                String sPublicationName = docMetaModel.getItem("BungeniPublicationName");
+                String sPublicationDate = docMetaModel.getItem("BungeniPublicationDate");
+                //official date
+                if (!emptyOrNull(sOfficDate)) {
+                SimpleDateFormat formatter = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
+                this.dt_initdebate_hansarddate.setDate(formatter.parse(sOfficDate));
+                }
+                //official time
+                if (!emptyOrNull(sOfficTime) ) {
+                    SimpleDateFormat timeFormat = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataTimeFormat"));
+                    dt_initdebate_timeofhansard.setValue(timeFormat.parse(sOfficTime));
+                }
+                if (!emptyOrNull(sPublicationDate)) {
+                    SimpleDateFormat timeFormat = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
+                    this.dt_publication_date.setDate(timeFormat.parse(sPublicationDate));
+                }
+                if (!emptyOrNull(sParlId))
+                    this.BungeniParliamentID.setText(sParlId);
+                if (!emptyOrNull(sParlSession))
+                    this.txtParliamentSession.setText(sParlSession);
+                if (!emptyOrNull(sParlSitting))
+                    this.txtParliamentSitting.setText(sParlSitting);
+                if (!emptyOrNull(sCountryCode))
+                    this.cboCountry.setSelectedItem(findCountryCode(sCountryCode));
+                if (!emptyOrNull(sLanguageCode))
+                    this.cboLanguage.setSelectedItem(findLanguageCode(sLanguageCode));
+                if (!emptyOrNull(sPartName)) 
+                    this.cboDocumentPart.setSelectedItem(findDocumentPart(sPartName));
+                if (!emptyOrNull(sPublicationName)) {
+                    this.txtPublicationName.setText(sPublicationName);
+                }
+                
+            } catch (ParseException ex) {
+                Logger.getLogger(DebateRecordMetadata.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         
+        }
+       // getComponentWithNames(this);
+    }
+*/
+        
+/*
     private void initMetadata(){
         countryCodes.add(new CountryCode("ken", "Kenya"));
         countryCodes.add(new CountryCode("uga", "Uganda"));
@@ -76,33 +205,8 @@ public class DebateRecordMetadata extends javax.swing.JPanel {
         
         this.docMetaModel.setup();
     }
-    
-    private CountryCode findCountryCode (String countryCode) {
-        for (CountryCode c : countryCodes) {
-            if (c.countryCode.equals(countryCode)) {
-                return c;
-            }
-        }
-        return null;
-    }
-    
-    private LanguageCode findLanguageCode(String langCode) {
-        for (LanguageCode lc : languageCodes){
-            if (lc.languageCode.equals(langCode)){
-                return lc;
-            }
-        }
-        return null;
-    }
-    
-    private DocumentPart findDocumentPart(String documentPart) {
-        for (DocumentPart dp : documentParts) {
-            if (dp.PartName.equals(documentPart)){
-                return dp;
-            }
-        }
-        return null;
-    }
+  */  
+ 
     
     private void initControls(){
         String popupDlgBackColor = BungeniEditorProperties.getEditorProperty("popupDialogBackColor");
@@ -116,30 +220,6 @@ public class DebateRecordMetadata extends javax.swing.JPanel {
  
     }
     
-    public Component findComponentByName(Container container, String componentName) {
-  for (Component component: container.getComponents()) {
-    if (componentName.equals(component.getName())) {
-      return component;
-    }
-    if (component instanceof JRootPane) {
-      // According to the JavaDoc for JRootPane, JRootPane is
-      // "A lightweight container used behind the scenes by JFrame,
-      // JDialog, JWindow, JApplet, and JInternalFrame.". The reference
-      // to the RootPane is set up by implementing the RootPaneContainer
-      // interface by the JFrame, JDialog, JWindow, JApplet and
-      // JInternalFrame. See also the JavaDoc for RootPaneContainer.
-      // When a JRootPane is found, recurse into it and continue searching.
-      JRootPane nestedJRootPane = (JRootPane)component;
-      return findComponentByName(nestedJRootPane.getContentPane(), componentName);
-    }
-    if (component instanceof JPanel) {
-      // JPanel found. Recursing into this panel.
-      JPanel nestedJPanel = (JPanel)component;
-      return findComponentByName(nestedJPanel, componentName);
-    }
-  }
-  return null;
-}
 
 private boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
     boolean bState = false;
@@ -300,90 +380,8 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
 }
     
 
-class FieldAssociation {
-        String mapKey;
-        String fieldName;
-        String labelName;
-    }
-    
-private boolean emptyOrNull(String value) {
-    if (value == null ) return true;
-    if (value.length() == 0) return true;
-    return false;
-}
 
-    /** Creates new form DebateRecordMetadata */
-    public DebateRecordMetadata(OOComponentHelper ooDoc, JFrame parentFrame, SelectorDialogModes aMode) {
-        this.parentFrame = parentFrame;
-        this.ooDocument = ooDoc;
-        initComponents();
-        
-        dlgMode = aMode;
-   
-        initMetadata();
-        initControls();
-        
-        if (aMode == SelectorDialogModes.TEXT_EDIT) {
-            try {
-                //retrieve metadata... and set in controls....
-                docMetaModel.loadModel(ooDoc);
-                /*
-                ooDocMetadata docMeta = new ooDocMetadata(ooDocument);
-                String sParlId = docMeta.GetProperty("BungeniParliamentID");
-                String sParlSitting = docMeta.GetProperty("BungeniParliamentSitting");
-                String sParlSession = docMeta.GetProperty("BungeniParliamentSession");
-                String sCountryCode = docMeta.GetProperty("BungeniCountryCode");
-                String sLanguageCode = docMeta.GetProperty("BungeniLanguageCode");
-                String sOfficDate = docMeta.GetProperty("BungeniDebateOfficialDate");
-                String sOfficTime = docMeta.GetProperty("BungeniDebateOfficialTime");
-                */
-               String sParlId = docMetaModel.getItem("BungeniParliamentID");
-                String sParlSitting = docMetaModel.getItem("BungeniParliamentSitting");
-                String sParlSession = docMetaModel.getItem("BungeniParliamentSession");
-                String sCountryCode = docMetaModel.getItem("BungeniCountryCode");
-                String sLanguageCode = docMetaModel.getItem("BungeniLanguageCode");
-                String sOfficDate =docMetaModel.getItem("BungeniDebateOfficialDate");
-                String sOfficTime = docMetaModel.getItem("BungeniDebateOfficialTime");
-                String sPartName = docMetaModel.getItem("BungeniDocPart");
-                String sPublicationName = docMetaModel.getItem("BungeniPublicationName");
-                String sPublicationDate = docMetaModel.getItem("BungeniPublicationDate");
-                //official date
-                if (!emptyOrNull(sOfficDate)) {
-                SimpleDateFormat formatter = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
-                this.dt_initdebate_hansarddate.setDate(formatter.parse(sOfficDate));
-                }
-                //official time
-                if (!emptyOrNull(sOfficTime) ) {
-                    SimpleDateFormat timeFormat = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataTimeFormat"));
-                    dt_initdebate_timeofhansard.setValue(timeFormat.parse(sOfficTime));
-                }
-                if (!emptyOrNull(sPublicationDate)) {
-                    SimpleDateFormat timeFormat = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
-                    this.dt_publication_date.setDate(timeFormat.parse(sPublicationDate));
-                }
-                if (!emptyOrNull(sParlId))
-                    this.BungeniParliamentID.setText(sParlId);
-                if (!emptyOrNull(sParlSession))
-                    this.txtParliamentSession.setText(sParlSession);
-                if (!emptyOrNull(sParlSitting))
-                    this.txtParliamentSitting.setText(sParlSitting);
-                if (!emptyOrNull(sCountryCode))
-                    this.cboCountry.setSelectedItem(findCountryCode(sCountryCode));
-                if (!emptyOrNull(sLanguageCode))
-                    this.cboLanguage.setSelectedItem(findLanguageCode(sLanguageCode));
-                if (!emptyOrNull(sPartName)) 
-                    this.cboDocumentPart.setSelectedItem(findDocumentPart(sPartName));
-                if (!emptyOrNull(sPublicationName)) {
-                    this.txtPublicationName.setText(sPublicationName);
-                }
-                
-            } catch (ParseException ex) {
-                Logger.getLogger(DebateRecordMetadata.class.getName()).log(Level.SEVERE, null, ex);
-            }
-         
-        }
-       // getComponentWithNames(this);
-    }
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -702,4 +700,8 @@ private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
      //   f.setVisible(true);
      //   f.setAlwaysOnTop(true);
     }
+
+   
+
+
 }
