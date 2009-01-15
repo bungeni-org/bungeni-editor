@@ -1,0 +1,9 @@
+#summary How to install ttf fonts for OpenOffice
+#labels bungeni,bungeni-editor
+
+= Details =
+
+On Ubuntu simply run :
+{{{
+sudo apt-get install msttcorefonts
+}}}
