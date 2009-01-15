@@ -17,6 +17,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
@@ -33,6 +35,7 @@ import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
@@ -45,7 +48,6 @@ import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.editor.BungeniEditorProperties;
 import org.bungeni.editor.BungeniEditorPropertiesHelper;
-import org.bungeni.editor.metadata.editors.DebateRecordMetadata;
 import org.bungeni.editor.metadata.EditorDocMetadataDialogFactory;
 import org.bungeni.editor.metadata.IEditorDocMetadataDialog;
 import org.bungeni.editor.selectors.SelectorDialogModes;
@@ -222,9 +224,9 @@ public class editorApplicationController extends javax.swing.JPanel {
         tabAbout = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
-        editorAppTabbedPane.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        editorAppTabbedPane.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
 
-        createNewDocument.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        createNewDocument.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         createNewDocument.setText("Create New Document....");
         createNewDocument.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -232,16 +234,16 @@ public class editorApplicationController extends javax.swing.JPanel {
             }
         });
 
-        lblCurrentTemplate.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        lblCurrentTemplate.setFont(new java.awt.Font("Tahoma", 0, 11));
         lblCurrentTemplate.setText("Create a new document from selected template");
 
-        cboDocumentTypes.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        cboDocumentTypes.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         cboDocumentTypes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        lblDocumentTypes.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        lblDocumentTypes.setFont(new java.awt.Font("Tahoma", 0, 11));
         lblDocumentTypes.setText("Change Active Document mode for editor");
 
-        btnOpenExisting.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        btnOpenExisting.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         btnOpenExisting.setText("Open Existing Document...");
         btnOpenExisting.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -254,17 +256,17 @@ public class editorApplicationController extends javax.swing.JPanel {
         lblCurrentActiveMode.setText("CURRENT : %s");
         lblCurrentActiveMode.setOpaque(true);
 
-        jButton2.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        jButton2.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         jButton2.setText("Start and Accquire");
 
-        lblCreateNewDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        lblCreateNewDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         lblCreateNewDoc.setText("Composes a blank document of type : %s");
 
-        lblOpenCurrentDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
-        lblOpenCurrentDoc.setText("Launches a file selector dialog to open an existing %s document");
+        lblOpenCurrentDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
+        lblOpenCurrentDoc.setText("Launches a file selector dialog to open an existing: %s document");
 
-        lblLaunchAndAccquire.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
-        lblLaunchAndAccquire.setText("Launches the Editor and accquires open %s documents");
+        lblLaunchAndAccquire.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
+        lblLaunchAndAccquire.setText("Launches the Editor and accquires open : %s documents");
 
         org.jdesktop.layout.GroupLayout tabCurrentFileLayout = new org.jdesktop.layout.GroupLayout(tabCurrentFile);
         tabCurrentFile.setLayout(tabCurrentFileLayout);
@@ -593,7 +595,7 @@ public class editorApplicationController extends javax.swing.JPanel {
 
         editorAppTabbedPane.addTab("About", tabAbout);
 
-        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         jLabel1.setText("Bungeni Editor Application 0.7");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
@@ -727,8 +729,25 @@ public class editorApplicationController extends javax.swing.JPanel {
         if (dtArr != null) {
             this.m_documentTypes = dtArr;
             this.cboDocumentTypes.setModel(new DefaultComboBoxModel(m_documentTypes));
+            cboDocumentTypes.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent arg0) {
+                   updateCurrentDocTypeMode();
+                }
+            });
         }
+        
     }
+
+    private void updateCurrentDocTypeMode(){
+                documentType selectedDocType = (documentType) cboDocumentTypes.getSelectedItem();
+                BungeniEditorProperties.setEditorProperty("activeDocumentMode", selectedDocType.docType);
+                for (documentType dt : m_documentTypes) {
+                    if (dt.docType.equals(selectedDocType.docType)){
+                        setLabelTexts(dt.typeDesc);
+                    }
+                }
+    }
+
     
     private void initWorkspaceFolderModels(File dirStruct){
     log.debug("initializing workspace folder");
@@ -1023,7 +1042,7 @@ private void LaunchDebateMetadataSetter(XComponent xComp){
         metaDlg.initialize();
         //DebateRecordMetadata meta = new DebateRecordMetadata(oohc, frm, SelectorDialogModes.TEXT_EDIT);
         frm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frm.setSize(new Dimension(410, 424));
+        frm.setSize(metaDlg.getFrameSize());
         frm.add(metaDlg.getPanelComponent());
         frm.setVisible(true);
         FrameLauncher.CenterFrame(frm);
@@ -1065,12 +1084,23 @@ public void initDataReader(){
  */
 }
 
-private void setLabelTexts (String desc) {
-   this.lblCurrentActiveMode.setText(lblCurrentActiveMode.getText().replaceAll("%s", desc));
-   this.lblOpenCurrentDoc.setText(lblOpenCurrentDoc.getText().replaceAll("%s", desc));
-   this.lblCreateNewDoc.setText(lblCreateNewDoc.getText().replaceAll("%s", desc));
-   this.lblLaunchAndAccquire.setText(lblLaunchAndAccquire.getText().replaceAll("%s", desc));
+private void replaceTextinLabel(JLabel lbl, String newText) {
+   String lblText =  lbl.getText();
+   int nIndex = lblText.indexOf(":");
+   String newLblText  = lblText.substring(0, nIndex+1 );
+   newLblText = newLblText + " " + newText;
+   lbl.setText(newLblText);
 }
+
+private void setLabelTexts (String desc) {
+
+    replaceTextinLabel(lblCurrentActiveMode, desc);
+    replaceTextinLabel(lblOpenCurrentDoc, desc);
+    replaceTextinLabel(lblCreateNewDoc, desc);
+    replaceTextinLabel(lblLaunchAndAccquire, desc);
+    
+}
+
 
 private void launchFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_launchFrameActionPerformed
             //use template defined in m_settings_CurrentTemplate
@@ -1081,19 +1111,16 @@ private void launchFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             if (panel == null ) {
                 String templateURL = "";
                 log.debug("Current Template file :" + m_FullTemplatesPath+File.separatorChar+m_settings_CurrentTemplate);
+                
                 documentType selectedDocType = (documentType) cboDocumentTypes.getSelectedItem();
-                BungeniEditorProperties.setEditorProperty("activeDocumentMode", selectedDocType.docType);
+                
+                /*  BungeniEditorProperties.setEditorProperty("activeDocumentMode", selectedDocType.docType);
                 for (documentType dt : m_documentTypes) {
                     if (dt.docType.equals(selectedDocType.docType)){
                         setLabelTexts(dt.typeDesc);
-                        /*
-                        this.lblCurrentActiveMode.setText(lblCurrentActiveMode.getText().replaceAll("%s", dt.typeDesc));
-                        this.lblOpenCurrentDoc.setText(lblOpenCurrentDoc.getText().replaceAll("%s", dt.typeDesc));
-                        this.lblCreateNewDoc.setText(lblCreateNewDoc.getText().replaceAll("%s", dt.typeDesc));
-                        this.lblLaunchAndAccquire.setText(lblLaunchAndAccquire.getText().replaceAll("%s", dt.typeDesc));
-                         */
                     }
                 }
+                 */ 
                 final String templatePathNormalized = selectedDocType.templatePathNormalized();
                 
                 this.createNewDocument.setEnabled(false);

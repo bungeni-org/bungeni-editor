@@ -93,7 +93,6 @@ import org.bungeni.editor.BungeniEditorProperties;
 import org.bungeni.editor.actions.EditorActionFactory;
 import org.bungeni.editor.actions.IEditorActionEvent;
 import org.bungeni.editor.actions.toolbarSubAction;
-import org.bungeni.editor.metadata.editors.DebateRecordMetadata;
 import org.bungeni.editor.dialogs.metadatapanel.SectionMetadataLoad;
 import org.bungeni.editor.metadata.EditorDocMetadataDialogFactory;
 import org.bungeni.editor.metadata.IEditorDocMetadataDialog;
@@ -1842,7 +1841,7 @@ private void LaunchDebateMetadataSetter(XComponent xComp){
         metaDlg.initialize();
        // DebateRecordMetadata meta = new DebateRecordMetadata(oohc, frm, SelectorDialogModes.TEXT_INSERTION);
         frm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frm.setSize(new Dimension(410, 424));
+        frm.setSize(metaDlg.getFrameSize());
         frm.add(metaDlg.getPanelComponent());
         frm.setVisible(true);
         frm.setAlwaysOnTop(true);
