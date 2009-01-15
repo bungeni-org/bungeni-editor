@@ -25,6 +25,7 @@ import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.editor.BungeniEditorProperties;
 import org.bungeni.editor.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
+import org.bungeni.editor.metadata.BillMetaModel;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTargetFactory;
 import org.bungeni.ooo.transforms.impl.IBungeniDocTransform;
@@ -32,7 +33,6 @@ import org.bungeni.utils.BungeniFileSavePathFormat;
 import org.bungeni.utils.MessageBox;
 import org.bungeni.editor.metadata.LanguageCode;
 import org.bungeni.editor.metadata.CountryCode;
-import org.bungeni.editor.metadata.DebateRecordMetaModel;
 import org.bungeni.editor.metadata.DocumentPart;
 import org.bungeni.utils.CommonStringFunctions;
 
@@ -40,10 +40,10 @@ import org.bungeni.utils.CommonStringFunctions;
  *
  * @author  undesa
  */
-public class DebateRecordMetadata extends BaseEditorDocMetadataDialog {
+public class BillMetadata extends BaseEditorDocMetadataDialog {
 
-    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DebateRecordMetadata.class.getName());
-   DebateRecordMetaModel docMetaModel = new DebateRecordMetaModel();
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BillMetadata.class.getName());
+    BillMetaModel docMetaModel = new BillMetaModel();
      
     
  //   OOComponentHelper ooDocument  = null;
@@ -51,7 +51,7 @@ public class DebateRecordMetadata extends BaseEditorDocMetadataDialog {
  //    SelectorDialogModes dlgMode = null;
     
     
-    public DebateRecordMetadata(){
+    public BillMetadata(){
         super();
         initComponents();
     }
@@ -65,23 +65,14 @@ public class DebateRecordMetadata extends BaseEditorDocMetadataDialog {
             try {
                 //retrieve metadata... and set in controls....
                 docMetaModel.loadModel(ooDocument);
-                /*
-                ooDocMetadata docMeta = new ooDocMetadata(ooDocument);
-                String sParlId = docMeta.GetProperty("BungeniParliamentID");
-                String sParlSitting = docMeta.GetProperty("BungeniParliamentSitting");
-                String sParlSession = docMeta.GetProperty("BungeniParliamentSession");
-                String sCountryCode = docMeta.GetProperty("BungeniCountryCode");
-                String sLanguageCode = docMeta.GetProperty("BungeniLanguageCode");
-                String sOfficDate = docMeta.GetProperty("BungeniDebateOfficialDate");
-                String sOfficTime = docMeta.GetProperty("BungeniDebateOfficialTime");
-                */
+  
                String sParlId = docMetaModel.getItem("BungeniParliamentID");
                 String sParlSitting = docMetaModel.getItem("BungeniParliamentSitting");
                 String sParlSession = docMetaModel.getItem("BungeniParliamentSession");
                 String sCountryCode = docMetaModel.getItem("BungeniCountryCode");
                 String sLanguageCode = docMetaModel.getItem("BungeniLanguageCode");
-                String sOfficDate =docMetaModel.getItem("BungeniDebateOfficialDate");
-                String sOfficTime = docMetaModel.getItem("BungeniDebateOfficialTime");
+                String sOfficDate =docMetaModel.getItem("BungeniBillOfficialDate");
+                String sOfficTime = docMetaModel.getItem("BungeniBillOfficialTime");
                 String sPartName = docMetaModel.getItem("BungeniDocPart");
                 String sPublicationName = docMetaModel.getItem("BungeniPublicationName");
                 String sPublicationDate = docMetaModel.getItem("BungeniPublicationDate");
@@ -253,7 +244,7 @@ private boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
     docMetaModel.updateItem("BungeniParliamentSession", sParliamentSession);
     docMetaModel.updateItem("BungeniCountryCode", selCountry.countryCode);
     docMetaModel.updateItem("BungeniLanguageCode", selLanguage.languageCode);
-    docMetaModel.updateItem("BungeniDebateOfficialDate", strDebateDate);
+    docMetaModel.updateItem("BungeniBillOfficialDate", strDebateDate);
     docMetaModel.updateItem("BungeniWorkDate", strDebateDate);
     docMetaModel.updateItem("BungeniExpDate", strCurrentDate);
     docMetaModel.updateItem("BungeniManDate", strCurrentDate);
@@ -261,7 +252,7 @@ private boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
     docMetaModel.updateItem("BungeniPublicationName", strPubName);
     docMetaModel.updateItem("BungeniDocAuthor", "Ashok");
     
-    docMetaModel.updateItem("BungeniDebateOfficialTime", strTimeOfHansard);
+    docMetaModel.updateItem("BungeniBillOfficialTime", strTimeOfHansard);
     docMetaModel.updateItem("BungeniDocPart", selPart.PartName);
     
     spf.setSaveComponent("DocumentType", BungeniEditorPropertiesHelper.getCurrentDocType());
@@ -393,65 +384,43 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cboCountry = new javax.swing.JComboBox();
-        cboLanguage = new javax.swing.JComboBox();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         btnSave = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
-        BungeniParliamentID = new javax.swing.JTextField();
-        txtParliamentSession = new javax.swing.JTextField();
-        txtParliamentSitting = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        dt_initdebate_hansarddate = new org.jdesktop.swingx.JXDatePicker();
-        jLabel6 = new javax.swing.JLabel();
-        dt_initdebate_timeofhansard = new javax.swing.JSpinner();
-        jLabel7 = new javax.swing.JLabel();
-        cboDocumentPart = new javax.swing.JComboBox();
+        metadataTabContainer = new javax.swing.JTabbedPane();
+        tabGeneral = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        cboCountry = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
+        cboLanguage = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
-        dt_publication_date = new org.jdesktop.swingx.JXDatePicker();
+        cboDocumentPart = new javax.swing.JComboBox();
         jLabel9 = new javax.swing.JLabel();
+        dt_publication_date = new org.jdesktop.swingx.JXDatePicker();
         txtPublicationName = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtParliamentSession = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        BungeniParliamentID = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtParliamentSitting = new javax.swing.JTextField();
+        tabAdvanced = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        dt_initdebate_hansarddate = new org.jdesktop.swingx.JXDatePicker();
+        jLabel7 = new javax.swing.JLabel();
+        dt_initdebate_timeofhansard = new javax.swing.JSpinner();
+        txtBillNumber = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        txtBillName = new javax.swing.JTextField();
+        lblBillName = new javax.swing.JLabel();
+        dt_dateofassent = new org.jdesktop.swingx.JXDatePicker();
+        jLabel12 = new javax.swing.JLabel();
+        dt_dateofcommencement = new org.jdesktop.swingx.JXDatePicker();
+        jLabel13 = new javax.swing.JLabel();
 
         setBackground(java.awt.Color.lightGray);
-
-        cboCountry.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        cboCountry.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cboCountry.setName("fld.BungeniCountryCode"); // NOI18N
-        cboCountry.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboCountryActionPerformed(evt);
-            }
-        });
-
-        cboLanguage.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        cboLanguage.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cboLanguage.setName("fld.BungeniLanguageID"); // NOI18N
-
-        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        jLabel1.setText("Country");
-        jLabel1.setName("lbl.BungeniCountryCode"); // NOI18N
-
-        jLabel2.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        jLabel2.setText("Language");
-        jLabel2.setName("lbl.BungeniLanguageID"); // NOI18N
-
-        jLabel3.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        jLabel3.setText("Parliament ID");
-        jLabel3.setName("lbl.BungeniParliamentID"); // NOI18N
-
-        jLabel4.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        jLabel4.setText("Parliament Session");
-        jLabel4.setName("lbl.BungeniParliamentSession"); // NOI18N
-
-        jLabel5.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        jLabel5.setText("Parliament Sitting");
-        jLabel5.setName("lbl.BungeniParliamentSitting"); // NOI18N
 
         btnSave.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnSave.setText("Save");
@@ -469,20 +438,6 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
             }
         });
 
-        BungeniParliamentID.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        BungeniParliamentID.setName("fld.BungeniParliamentID"); // NOI18N
-        BungeniParliamentID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BungeniParliamentIDActionPerformed(evt);
-            }
-        });
-
-        txtParliamentSession.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        txtParliamentSession.setName("fld.BungeniParliamentSession"); // NOI18N
-
-        txtParliamentSitting.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        txtParliamentSitting.setName("BungeniParliamentSitting"); // NOI18N
-
         jTextArea1.setBackground(java.awt.Color.lightGray);
         jTextArea1.setColumns(20);
         jTextArea1.setEditable(false);
@@ -493,107 +448,123 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         jTextArea1.setBorder(null);
         jScrollPane1.setViewportView(jTextArea1);
 
-        dt_initdebate_hansarddate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        tabGeneral.setBackground(java.awt.Color.lightGray);
 
-        jLabel6.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        jLabel6.setText("Date");
-        jLabel6.setName("lbl.BungeniParliamentSitting"); // NOI18N
+        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        jLabel1.setText("Country");
+        jLabel1.setName("lbl.BungeniCountryCode"); // NOI18N
 
-        dt_initdebate_timeofhansard.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        dt_initdebate_timeofhansard.setName("dt_initdebate_timeofhansard"); // NOI18N
+        cboCountry.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        cboCountry.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboCountry.setName("fld.BungeniCountryCode"); // NOI18N
+        cboCountry.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboCountryActionPerformed(evt);
+            }
+        });
 
-        jLabel7.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        jLabel7.setText("TIme");
-        jLabel7.setName("lbl.BungeniParliamentSitting"); // NOI18N
+        jLabel2.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        jLabel2.setText("Language");
+        jLabel2.setName("lbl.BungeniLanguageID"); // NOI18N
 
-        cboDocumentPart.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        cboDocumentPart.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboLanguage.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        cboLanguage.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboLanguage.setName("fld.BungeniLanguageID"); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         jLabel8.setText("Document Part");
         jLabel8.setName("lbl.BungeniLanguageID"); // NOI18N
 
-        dt_publication_date.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        cboDocumentPart.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        cboDocumentPart.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel9.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         jLabel9.setText("Publication Date");
+
+        dt_publication_date.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
         txtPublicationName.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
         jLabel10.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         jLabel10.setText("Publication Name");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        jLabel4.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        jLabel4.setText("Parliament Session");
+        jLabel4.setName("lbl.BungeniParliamentSession"); // NOI18N
+
+        txtParliamentSession.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        txtParliamentSession.setName("fld.BungeniParliamentSession"); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        jLabel3.setText("Parliament ID");
+        jLabel3.setName("lbl.BungeniParliamentID"); // NOI18N
+
+        BungeniParliamentID.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        BungeniParliamentID.setName("fld.BungeniParliamentID"); // NOI18N
+        BungeniParliamentID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BungeniParliamentIDActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        jLabel5.setText("Parliament Sitting");
+        jLabel5.setName("lbl.BungeniParliamentSitting"); // NOI18N
+
+        txtParliamentSitting.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        txtParliamentSitting.setName("BungeniParliamentSitting"); // NOI18N
+
+        javax.swing.GroupLayout tabGeneralLayout = new javax.swing.GroupLayout(tabGeneral);
+        tabGeneral.setLayout(tabGeneralLayout);
+        tabGeneralLayout.setHorizontalGroup(
+            tabGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabGeneralLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(dt_initdebate_hansarddate, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(44, 44, 44))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-                                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(15, 15, 15)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(dt_initdebate_timeofhansard, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(23, 23, 23)
-                                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(84, 84, 84))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-                                .addContainerGap())))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cboLanguage, javax.swing.GroupLayout.Alignment.LEADING, 0, 381, Short.MAX_VALUE)
-                            .addComponent(cboCountry, javax.swing.GroupLayout.Alignment.LEADING, 0, 381, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(208, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cboDocumentPart, 0, 381, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtParliamentSitting)
-                                .addComponent(BungeniParliamentID, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(dt_publication_date, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
-                        .addGap(44, 44, 44)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(txtParliamentSession, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
-                                .addGap(39, 39, 39))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtPublicationName, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-                                .addContainerGap())))))
+                .addGroup(tabGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tabGeneralLayout.createSequentialGroup()
+                        .addGroup(tabGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboCountry, 0, 363, Short.MAX_VALUE)
+                            .addComponent(cboLanguage, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboDocumentPart, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(17, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabGeneralLayout.createSequentialGroup()
+                        .addGroup(tabGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(tabGeneralLayout.createSequentialGroup()
+                                .addGroup(tabGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(BungeniParliamentID, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                            .addComponent(dt_publication_date, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+                        .addGroup(tabGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(tabGeneralLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(tabGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(tabGeneralLayout.createSequentialGroup()
+                                        .addComponent(txtPublicationName, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabGeneralLayout.createSequentialGroup()
+                                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(81, 81, 81))
+                                    .addGroup(tabGeneralLayout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))
+                            .addGroup(tabGeneralLayout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(txtParliamentSession, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(39, 39, 39))
+                    .addGroup(tabGeneralLayout.createSequentialGroup()
+                        .addGroup(tabGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtParliamentSitting)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(270, Short.MAX_VALUE))))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        tabGeneralLayout.setVerticalGroup(
+            tabGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabGeneralLayout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cboCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -601,39 +572,174 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cboLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cboDocumentPart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(tabGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tabGeneralLayout.createSequentialGroup()
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dt_publication_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(tabGeneralLayout.createSequentialGroup()
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPublicationName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dt_publication_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPublicationName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(tabGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(1, 1, 1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(tabGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BungeniParliamentID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtParliamentSession, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtParliamentSitting, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        metadataTabContainer.addTab("Document Metadata", tabGeneral);
+
+        tabAdvanced.setBackground(java.awt.Color.lightGray);
+
+        jLabel6.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        jLabel6.setText("Date");
+        jLabel6.setName("lbl.BungeniParliamentSitting"); // NOI18N
+
+        dt_initdebate_hansarddate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+
+        jLabel7.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        jLabel7.setText("TIme");
+        jLabel7.setName("lbl.BungeniParliamentSitting"); // NOI18N
+
+        dt_initdebate_timeofhansard.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        dt_initdebate_timeofhansard.setName("dt_initdebate_timeofhansard"); // NOI18N
+
+        txtBillNumber.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+
+        jLabel11.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        jLabel11.setText("Bill Number");
+
+        txtBillName.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+
+        lblBillName.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        lblBillName.setText("Bill Name");
+
+        dt_dateofassent.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+
+        jLabel12.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        jLabel12.setText("Date of Assent");
+        jLabel12.setName("lbl.BungeniParliamentSitting"); // NOI18N
+
+        dt_dateofcommencement.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+
+        jLabel13.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        jLabel13.setText("Date of Commencement");
+        jLabel13.setName("lbl.BungeniParliamentSitting"); // NOI18N
+
+        javax.swing.GroupLayout tabAdvancedLayout = new javax.swing.GroupLayout(tabAdvanced);
+        tabAdvanced.setLayout(tabAdvancedLayout);
+        tabAdvancedLayout.setHorizontalGroup(
+            tabAdvancedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabAdvancedLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(tabAdvancedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tabAdvancedLayout.createSequentialGroup()
+                        .addComponent(txtBillNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(tabAdvancedLayout.createSequentialGroup()
+                        .addGroup(tabAdvancedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dt_initdebate_hansarddate, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(42, 42, 42)
+                        .addGroup(tabAdvancedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dt_initdebate_timeofhansard, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(70, 70, 70))
+                    .addGroup(tabAdvancedLayout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addContainerGap(324, Short.MAX_VALUE))
+                    .addGroup(tabAdvancedLayout.createSequentialGroup()
+                        .addComponent(txtBillName, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(tabAdvancedLayout.createSequentialGroup()
+                        .addComponent(lblBillName)
+                        .addContainerGap(334, Short.MAX_VALUE))
+                    .addGroup(tabAdvancedLayout.createSequentialGroup()
+                        .addGroup(tabAdvancedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dt_dateofassent, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(222, 222, 222))
+                    .addGroup(tabAdvancedLayout.createSequentialGroup()
+                        .addComponent(dt_dateofcommencement, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                        .addGap(222, 222, 222))
+                    .addGroup(tabAdvancedLayout.createSequentialGroup()
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+        );
+        tabAdvancedLayout.setVerticalGroup(
+            tabAdvancedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabAdvancedLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(tabAdvancedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tabAdvancedLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dt_initdebate_hansarddate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(tabAdvancedLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dt_initdebate_timeofhansard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(5, 5, 5)
+                .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
+                .addComponent(txtBillNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dt_initdebate_hansarddate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dt_initdebate_timeofhansard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblBillName)
+                .addGap(6, 6, 6)
+                .addComponent(txtBillName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dt_dateofassent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dt_dateofcommencement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(46, Short.MAX_VALUE))
+        );
+
+        metadataTabContainer.addTab("Bill Metadata", tabAdvanced);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(metadataTabContainer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(metadataTabContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
                     .addComponent(btnCancel))
@@ -673,11 +779,16 @@ private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JComboBox cboCountry;
     private javax.swing.JComboBox cboDocumentPart;
     private javax.swing.JComboBox cboLanguage;
+    private org.jdesktop.swingx.JXDatePicker dt_dateofassent;
+    private org.jdesktop.swingx.JXDatePicker dt_dateofcommencement;
     private org.jdesktop.swingx.JXDatePicker dt_initdebate_hansarddate;
     private javax.swing.JSpinner dt_initdebate_timeofhansard;
     private org.jdesktop.swingx.JXDatePicker dt_publication_date;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -688,6 +799,12 @@ private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel lblBillName;
+    private javax.swing.JTabbedPane metadataTabContainer;
+    private javax.swing.JPanel tabAdvanced;
+    private javax.swing.JPanel tabGeneral;
+    private javax.swing.JTextField txtBillName;
+    private javax.swing.JTextField txtBillNumber;
     private javax.swing.JTextField txtParliamentSession;
     private javax.swing.JTextField txtParliamentSitting;
     private javax.swing.JTextField txtPublicationName;
@@ -704,9 +821,11 @@ private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 
     @Override
     public Dimension getFrameSize() {
-           int DIM_X = 405 ; int DIM_Y = 419 ;
+        int DIM_X = 420 ; int DIM_Y = 432 ;
         return new Dimension(DIM_X, DIM_Y + 10);
     }
+
+
 
    
 
