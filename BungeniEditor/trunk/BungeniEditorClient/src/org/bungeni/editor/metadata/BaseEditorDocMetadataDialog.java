@@ -7,6 +7,7 @@ package org.bungeni.editor.metadata;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -53,6 +54,7 @@ public abstract class BaseEditorDocMetadataDialog extends javax.swing.JPanel imp
     }
 
     abstract public Component getPanelComponent() ;
+    abstract public Dimension getFrameSize();
     
        protected CountryCode findCountryCode (String countryCode) {
         for (CountryCode c : countryCodes) {

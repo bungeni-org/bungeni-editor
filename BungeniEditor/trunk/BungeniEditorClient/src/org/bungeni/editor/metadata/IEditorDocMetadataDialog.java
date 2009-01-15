@@ -6,6 +6,7 @@
 package org.bungeni.editor.metadata;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import javax.swing.JFrame;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.ooo.OOComponentHelper;
@@ -18,4 +19,5 @@ public interface IEditorDocMetadataDialog {
    public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, SelectorDialogModes dlgMode) ;
    public void initialize();
    public Component getPanelComponent();
+   public Dimension getFrameSize();
 }
