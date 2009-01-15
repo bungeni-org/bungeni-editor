@@ -86,6 +86,9 @@ public  class OOComponentHelper {
     private XComponent m_xComponent;
     private XComponentContext m_xComponentContext;
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(OOComponentHelper.class.getName());
+    /**
+     * Semantic namespace used for setting document metadata
+     */
     public static final String ATTRIBUTE_NAMESPACE = "urn:akomantoso:names:tc:opendocument:xmlns:semantic-text:1.0";  
     private static long MARGIN_MEASURE_BASE = 254;
     private boolean isXComponentNull = true;
@@ -174,6 +177,7 @@ public  class OOComponentHelper {
     
     /**
      * Gets the XModel interface of the current document controller.
+     * 
      */
     public XModel getDocumentModel(){
         return (XModel)UnoRuntime.queryInterface(XModel.class, this.m_xComponent);
@@ -188,6 +192,11 @@ public  class OOComponentHelper {
         return xFactory;
     }
     
+    /**
+     * Creates a named UNO instance
+     * @param instanceName - the full hierarchal name of the UNO instance you want to create
+     * @return The created instance returned as an object
+     */
     public Object createInstance(String instanceName){
         Object newInstance = null;
         try {
@@ -445,26 +454,6 @@ public  class OOComponentHelper {
             //get the section handle
             Object section = this.getTextSections().getByName(sectionName);
             XTextSection theSection = ooQueryInterface.XTextSection(section);
-            //get the propertySet Handle for the section
-            /*
-            XPropertySet theProperties = ooQueryInterface.XPropertySet(theSection);
-            XNameContainer attrContainer =  _getAttributeContainer(theProperties, ooProperties.SECTION_USERDEFINED_ATTRIBUTES);
-            //get attribute element names
-           if (attrContainer.getElementNames().length == 0) //no attributes available
-           {
-                log.debug("getSectionMetadataAttributes: no attributes available in section metadata");
-                return metadata;
-           }
-            String[] attributeNames = attrContainer.getElementNames();
-            metadata = new HashMap<String,String>();
-            for (int i=0;  i < attributeNames.length; i++) {
-                //get values for each attribute name
-                AttributeData attrValue = (AttributeData) AnyConverter.toObject(new Type(AttributeData.class), 
-                        attrContainer.getByName(attributeNames[i]));
-                String strValue = attrValue.Value    ;
-                metadata.put(attributeNames[i], strValue); 
-            } */
-            
             metadata = getSectionMetadataAttributes(theSection);
             
         } catch (NoSuchElementException ex) {
@@ -511,18 +500,24 @@ public  class OOComponentHelper {
      return xViewCursor;
     }
     
+    /**
+     * Provides a named access interface (XNameAccess) to the style families of the document
+     * @return XNameAccess interface to the style families of the document
+     */
     public XNameAccess getStyleFamilies(){
         XStyleFamiliesSupplier xStyleFamiliesSupplier = ooQueryInterface.XStyleFamiliesSupplier(getTextDocument());
         return xStyleFamiliesSupplier.getStyleFamilies();
     }
+
+    /**
+     * Returns the XDocumentInfo interface of the document
+     * @return
+     */
     public XDocumentInfo getDocumentInfo(){
       XDocumentInfoSupplier xdisInfoProvider =  (XDocumentInfoSupplier) UnoRuntime.queryInterface(XDocumentInfoSupplier.class, getTextDocument() );
       return  xdisInfoProvider.getDocumentInfo();
     }
     
-    public void getParaUserDefinedAttributes(){
-        
-    }
     /**
      * Adds a new property to the document
      * @param propertyName Property Name to Add
@@ -543,6 +538,10 @@ public  class OOComponentHelper {
         }
     }
     
+    /**
+     * Retrieves the document's properties as an array of Property objects
+     * @return
+     */
     public com.sun.star.beans.Property[] getDocumentProperties(){
         XDocumentInfo xInfo  = this.getDocumentInfo();
         XPropertySet xDocSet = ooQueryInterface.XPropertySet(xInfo);
@@ -571,7 +570,12 @@ public  class OOComponentHelper {
             }
     }
     
-    public String getPropertyValue(String propertyName ) throws UnknownPropertyException{
+    /**
+     * Retrieves a single named document property value
+     * @param propertyName - name of the property to retrieve
+     * @return - returns a string representation of the property value
+     */
+    public String getPropertyValue(String propertyName ) {
             XDocumentInfo xdi = getDocumentInfo();
             String value="";
         XPropertySet xDocProperties = (XPropertySet) UnoRuntime.queryInterface(XPropertySet.class, xdi);
@@ -588,6 +592,10 @@ public  class OOComponentHelper {
             
     }
     
+    /**
+     * Gets a named access interface to all the sections in the document
+     * @return
+     */
     public XNameAccess getTextSections(){
         XNameAccess xNamedSections = null; 
         try {
@@ -625,12 +633,28 @@ public  class OOComponentHelper {
             return bResult;
         }
     }
+    
+    /**
+     * Returns the XComponent handle of the current document
+     * @return
+     */
     public synchronized XComponent getComponent(){
         return this.m_xComponent;
     }
+    
+    /**
+     * Returns the remote service manager object for the current component context
+     * @return
+     */
     public XMultiComponentFactory getRemoteServiceManager() {
         return this.m_xComponentContext.getServiceManager();
     }
+    
+    /**
+     * Executes a dispatch command on the currently active document component
+     * @param cmd - name of the command
+     * @param oProperties - command parameters
+     */
     public void executeDispatch(String cmd, PropertyValue[] oProperties){
         try {
 
@@ -659,6 +683,10 @@ public  class OOComponentHelper {
     }
     
      
+    /**
+     * Returns a handle to the current selection
+     * @return
+     */
    public Object getCurrentSelection(){
         XController xDocController = this.getDocumentModel().getCurrentController();
         com.sun.star.view.XSelectionSupplier xSelSupplier = ooQueryInterface.XSelectionSupplier(xDocController);
@@ -666,6 +694,10 @@ public  class OOComponentHelper {
         return oSelection;
     }
     
+   /**
+    * Returns a handle to the current section. Current section is determined by cursor position in the document
+    * @return
+    */
     public XTextSection currentSection(){
         XTextSection currentSection = null; 
         try {
@@ -683,7 +715,10 @@ public  class OOComponentHelper {
         }
     }
  
-
+      /**
+       * Similar to currentSection(), but returns the current section name instead of the section handle
+       * @return
+       */
      public String currentSectionName() {
             XTextSection loXTextSection;
             XTextViewCursor loXTextCursor;
@@ -711,6 +746,10 @@ public  class OOComponentHelper {
           }
         }
    
+     /**
+      * Returns the metadata namespace used for the document.
+      * @return
+      */
     public static String getMetadataNameSpace() {
         return ATTRIBUTE_NAMESPACE;
     }  
