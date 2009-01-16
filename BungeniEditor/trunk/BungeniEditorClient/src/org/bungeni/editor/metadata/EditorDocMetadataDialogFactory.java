@@ -22,6 +22,7 @@ public class EditorDocMetadataDialogFactory {
     public static IEditorDocMetadataDialog getInstance(String docType) {
         IEditorDocMetadataDialog iInstance = null;
         String metadataModelClass= "";
+        String metadataModelTitle = "";
         try {
              BungeniClientDB db =  new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
              db.Connect();
@@ -32,6 +33,7 @@ public class EditorDocMetadataDialogFactory {
                    resultRows = qr.theResults();
                    for (Vector<String> resultRow: resultRows) {
                        metadataModelClass = qr.getField(resultRow, "METADATA_MODEL_EDITOR");
+                       metadataModelTitle = qr.getField(resultRow, "METADATA_MODEL_TITLE");
                        break;
                    } 
                  }
@@ -39,6 +41,7 @@ public class EditorDocMetadataDialogFactory {
               Class modelClass;
               modelClass = Class.forName(metadataModelClass);
               iInstance = (IEditorDocMetadataDialog)modelClass.newInstance();
+              iInstance.setTabTitle(metadataModelTitle);
            }
         } catch (Exception ex) {
             log.error("getInstance : "+ ex.getMessage());

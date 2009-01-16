@@ -50,6 +50,7 @@ import org.bungeni.editor.BungeniEditorProperties;
 import org.bungeni.editor.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.metadata.EditorDocMetadataDialogFactory;
 import org.bungeni.editor.metadata.IEditorDocMetadataDialog;
+import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.ooo.BungenioOoHelper;
 import org.bungeni.ooo.OOComponentHelper;
@@ -1037,13 +1038,15 @@ private void LaunchDebateMetadataSetter(XComponent xComp){
         String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
      
         BungeniFrame frm = new BungeniFrame(docType + " Metadata");
-        IEditorDocMetadataDialog metaDlg = EditorDocMetadataDialogFactory.getInstance(BungeniEditorPropertiesHelper.getCurrentDocType());
+     /*   IEditorDocMetadataDialog metaDlg = EditorDocMetadataDialogFactory.getInstance(BungeniEditorPropertiesHelper.getCurrentDocType());
         metaDlg.initVariables(oohc, frm, SelectorDialogModes.TEXT_EDIT);
-        metaDlg.initialize();
+        metaDlg.initialize();*/
+        MetadataEditorContainer meta = new MetadataEditorContainer(oohc, frm, SelectorDialogModes.TEXT_EDIT);
+        meta.initialize();
         //DebateRecordMetadata meta = new DebateRecordMetadata(oohc, frm, SelectorDialogModes.TEXT_EDIT);
         frm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frm.setSize(metaDlg.getFrameSize());
-        frm.add(metaDlg.getPanelComponent());
+        frm.setSize(meta.getFrameSize());
+        frm.add(meta.getPanelComponent());
         frm.setVisible(true);
         FrameLauncher.CenterFrame(frm);
         frm.setAlwaysOnTop(true);

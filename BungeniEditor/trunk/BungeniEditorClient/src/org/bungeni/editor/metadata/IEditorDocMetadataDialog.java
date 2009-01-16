@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.ooo.OOComponentHelper;
+import org.bungeni.utils.BungeniFileSavePathFormat;
 
 /**
  *
@@ -20,4 +21,7 @@ public interface IEditorDocMetadataDialog {
    public void initialize();
    public Component getPanelComponent();
    public Dimension getFrameSize();
+   public void setTabTitle(String sTitle);
+   public String getTabTitle();
+   public boolean applySelectedMetadata(BungeniFileSavePathFormat spf);
 }

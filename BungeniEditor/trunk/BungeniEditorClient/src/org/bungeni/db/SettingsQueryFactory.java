@@ -210,7 +210,7 @@ public class SettingsQueryFactory {
     }
 
     public static String Q_FETCH_DOCUMENT_TYPE_BY_NAME(String docType) {
-        String query = "Select doc_type, description, template_path, metadata_model_editor from DOCUMENT_TYPES ";
+        String query = "Select doc_type, description, template_path, metadata_model_editor, metadata_editor_title from DOCUMENT_TYPES ";
         query += " where doc_type='"+docType+"'";
         return query;
     }

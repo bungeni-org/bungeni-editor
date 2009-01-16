@@ -25,6 +25,7 @@ public abstract class BaseEditorDocMetadataDialog extends javax.swing.JPanel imp
     protected JFrame parentFrame;
     protected SelectorDialogModes theMode;
     protected  ArrayList<CountryCode> countryCodes = new ArrayList<CountryCode>(0);
+    protected String tabTitle;
     protected  ArrayList<LanguageCode> languageCodes = new ArrayList<LanguageCode>(0);
     protected  ArrayList<DocumentPart> documentParts = new ArrayList<DocumentPart>(0);
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BaseEditorDocMetadataDialog.class.getName());
@@ -55,6 +56,15 @@ public abstract class BaseEditorDocMetadataDialog extends javax.swing.JPanel imp
 
     abstract public Component getPanelComponent() ;
     abstract public Dimension getFrameSize();
+    
+    public void setTabTitle(String tt) {
+        this.tabTitle = tt;
+    }
+    
+    public String getTabTitle(){
+        return tabTitle;
+    }
+    
     
        protected CountryCode findCountryCode (String countryCode) {
         for (CountryCode c : countryCodes) {

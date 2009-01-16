@@ -96,6 +96,7 @@ import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.editor.dialogs.metadatapanel.SectionMetadataLoad;
 import org.bungeni.editor.metadata.EditorDocMetadataDialogFactory;
 import org.bungeni.editor.metadata.IEditorDocMetadataDialog;
+import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
 import org.bungeni.editor.toolbar.BungeniToolbarTargetProcessor;
@@ -202,7 +203,6 @@ public class editorTabbedPanel extends javax.swing.JPanel {
        initComponents();   
        //initListDocuments();
        initProviders();
-       initFields();
        //();
        SwingUtilities.invokeLater(new Runnable(){
 
@@ -540,62 +540,11 @@ public class editorTabbedPanel extends javax.swing.JPanel {
     
     public void setOOoHelper(BungenioOoHelper helper) {
         this.ooHelper = helper;
-        //cboListDocuments.addItemListener(new cboListDocumentsItemListener());
         initOpenDocuments();
     }
     
   
-    private void initFields(){
-        //initTree();
-       //rem treeDocStructure.setModel(new DefaultListModel());
-       //rem  this.initSectionTree();
-       //rem  this.initSectionStructureTree();
-       // treeSectionStructure = new JTree();
-        //treeSectionStructure.setExpandsSelectedPaths(true);
-        //treeDocStructureTree.addMouseListener(new treeDocStructureTreeMouseListener());
 
-        
-        
-        //initList();
-        //initSectionList();
-        //clear meatada listbox
-        //listboxMetadata.setModel(new DefaultListModel());
-        //init combo change structure
-        /*
-        changeStructureItem[] items = initChangeStructureItems();
-        changeStructureItem itemDefault = null;
-        String defaultHierarchyView = BungeniEditorProperties.getEditorProperty("defaultHierarchyView");
-        for (int i=0; i < items.length; i++) {
-            if (items[i].getIndex().equalsIgnoreCase(defaultHierarchyView)){
-                itemDefault = items[i];
-            }
-            comboChangeStructure.addItem(items[i]);    
-        }
-        comboChangeStructure.addActionListener (new comboChangeStructureListener());
-        if (itemDefault != null)
-            comboChangeStructure.setSelectedItem(itemDefault);
-        selectedChangeStructureItem = (changeStructureItem)comboChangeStructure.getSelectedItem();
-        */
-        //rem initList();
-    }
-    /*
-    private void initSectionTree(){
-        treeDocStructureTree = new JTree();
-        treeDocStructureTree.setExpandsSelectedPaths(true);
-        treeDocStructureTree.addMouseListener(new treeDocStructureTreeMouseListener());
-        NodeMoveTransferHandler transferHandler = new NodeMoveTransferHandler(this);
-        treeDocStructureTree.setTransferHandler(transferHandler);
-        treeDocStructureTree.setDropTarget(new TreeDropTarget(transferHandler));
-        treeDocStructureTree.setDragEnabled(true);
-        treeDocStructureTreeCellRenderer render = new treeDocStructureTreeCellRenderer();
-        treeDocStructureTree.setCellRenderer(render);
-        ComponentUI ui = treeDocStructureTree.getUI();
-         if (ui instanceof BasicTreeUI){
-             ((BasicTreeUI)ui).setExpandedIcon(CommonTreeFunctions.treeMinusIcon());
-             ((BasicTreeUI)ui).setCollapsedIcon(CommonTreeFunctions.treePlusIcon());
-         }
-    }
-    */
     
     public void uncheckEditModeButton() {
         //toggleEditSection.setSelected(false);
@@ -1836,13 +1785,16 @@ private void LaunchDebateMetadataSetter(XComponent xComp){
         OOComponentHelper oohc = new OOComponentHelper (xComp, ComponentContext);
         String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
         BungeniFrame frm = new BungeniFrame(docType + " Metadata");
-        IEditorDocMetadataDialog metaDlg = EditorDocMetadataDialogFactory.getInstance(BungeniEditorPropertiesHelper.getCurrentDocType());
-        metaDlg.initVariables(oohc, frm, SelectorDialogModes.TEXT_EDIT);
-        metaDlg.initialize();
+      //  IEditorDocMetadataDialog metaDlg = EditorDocMetadataDialogFactory.getInstance(BungeniEditorPropertiesHelper.getCurrentDocType());
+      //  metaDlg.initVariables(oohc, frm, SelectorDialogModes.TEXT_EDIT);
+     //   metaDlg.initialize();
+          MetadataEditorContainer meta = new MetadataEditorContainer(oohc, frm, SelectorDialogModes.TEXT_INSERTION);
+          meta.initialize();
+        
        // DebateRecordMetadata meta = new DebateRecordMetadata(oohc, frm, SelectorDialogModes.TEXT_INSERTION);
         frm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frm.setSize(metaDlg.getFrameSize());
-        frm.add(metaDlg.getPanelComponent());
+        frm.setSize(meta.getFrameSize());
+        frm.add(meta.getPanelComponent());
         frm.setVisible(true);
         frm.setAlwaysOnTop(true);
 }

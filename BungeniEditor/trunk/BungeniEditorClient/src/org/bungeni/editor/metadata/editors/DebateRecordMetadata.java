@@ -65,16 +65,7 @@ public class DebateRecordMetadata extends BaseEditorDocMetadataDialog {
             try {
                 //retrieve metadata... and set in controls....
                 docMetaModel.loadModel(ooDocument);
-                /*
-                ooDocMetadata docMeta = new ooDocMetadata(ooDocument);
-                String sParlId = docMeta.GetProperty("BungeniParliamentID");
-                String sParlSitting = docMeta.GetProperty("BungeniParliamentSitting");
-                String sParlSession = docMeta.GetProperty("BungeniParliamentSession");
-                String sCountryCode = docMeta.GetProperty("BungeniCountryCode");
-                String sLanguageCode = docMeta.GetProperty("BungeniLanguageCode");
-                String sOfficDate = docMeta.GetProperty("BungeniDebateOfficialDate");
-                String sOfficTime = docMeta.GetProperty("BungeniDebateOfficialTime");
-                */
+
                String sParlId = docMetaModel.getItem("BungeniParliamentID");
                 String sParlSitting = docMetaModel.getItem("BungeniParliamentSitting");
                 String sParlSession = docMetaModel.getItem("BungeniParliamentSession");
@@ -222,7 +213,7 @@ public class DebateRecordMetadata extends BaseEditorDocMetadataDialog {
     }
     
 
-private boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
+public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
     boolean bState = false;
     try {
     String sParliamentID = this.BungeniParliamentID.getText();
