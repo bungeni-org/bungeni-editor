@@ -27,3 +27,5 @@ Log in to the settings UI using the default password.
 Click DOCUMENT_TYPES in left hand panel. Then click 'Run' in the right hand panel, and then click edit on the displayed table listing.
 
 The parameter for the template is called TEMPLATE_PATH.
+
+Also see RegisteringNewDocTypeForBungeniEditor
