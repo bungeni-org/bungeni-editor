@@ -1,5 +1,5 @@
 #summary Bungeni Editor selector forms use a flow processor to process submissions. This page details how the flow processor has been implemented
-#labels BungeniEditorClient
+#labels BungeniEditorClient,Deprecated
 
 == Introduction ==
 
