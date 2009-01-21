@@ -25,9 +25,9 @@ public class TransformerConfigurationFactory {
         public Transformer(){}
     }
     
-    public static Transformer getConfiguration(String docType, String configName) {
+    public static Transformer getConfiguration(String docType) {
         BungeniClientDB instance = new BungeniClientDB (DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
-        QueryResults qr = instance.ConnectAndQuery(SettingsQueryFactory.Q_FETCH_TRANSFORM_CONFIG(docType, configName));
+        QueryResults qr = instance.ConnectAndQuery(SettingsQueryFactory.Q_FETCH_TRANSFORM_CONFIG(docType));
         Transformer tf = new Transformer();
         if (qr.hasResults()) {
                 Iterator<Vector<String>> resultsIterator = qr.theResultsIterator();
