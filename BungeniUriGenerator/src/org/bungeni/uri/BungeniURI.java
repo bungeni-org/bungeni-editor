@@ -37,15 +37,14 @@ public class BungeniURI {
      */
     
      String uriOrderString;
-     String fileUriOrderString;
      
      String outputUriOrderString;
-     String outputFileUriOrderString;
      
+     OutputType outputType ;
      
-     public BungeniURI(String orderOfURI, String orderOfFileNamingURI) {
+     public BungeniURI(String orderOfURI, OutputType output) {
          this.uriOrderString = orderOfURI;
-         this.fileUriOrderString = orderOfFileNamingURI;
+         this.outputType = output;
      }
      
      public void setURIComponent(String componentName, String componentValue) {
@@ -58,7 +57,6 @@ public class BungeniURI {
      public void parseURIs(){
          //set output uri
          String sURIorder = new String(this.uriOrderString);
-         String sFileURIorder = new String(this.fileUriOrderString);
          
          java.util.Iterator<String> uriKeys = uriComponents.keySet().iterator();
          while (uriKeys.hasNext()) {
@@ -67,29 +65,22 @@ public class BungeniURI {
                 //uri contains this component
                 sURIorder = sURIorder.replaceAll(key, uriComponents.get(key));
             }
-            if (sFileURIorder.indexOf(key) != -1) {
-                //uri contains this component
-                sFileURIorder = sFileURIorder.replaceAll(key, uriComponents.get(key));
-            }
          }
          this.outputUriOrderString = sURIorder;
-         this.outputFileUriOrderString = sFileURIorder;
      }
      
-     public void setFileURIComponentOrder(String sFileUriComponentOrder) {
-        this.fileUriOrderString = sFileUriComponentOrder;
-     }
              
      public void setURIComponentOrder (String sUriComponentOrder) {
          this.uriOrderString = sUriComponentOrder;
      }
      
-     public final String getURI(){
-         return this.outputUriOrderString.replaceAll("~", File.separator);
+     public final String get(){
+         if (outputType == OutputType.FILE_NAME) {
+             return this.outputUriOrderString.replaceAll("~", "_");
+         } else {
+             return this.outputUriOrderString.replaceAll("~", File.separator);
+         }
      }
      
-     public final String getFileURI(){
-         return this.outputFileUriOrderString.replaceAll("~", File.separator);
-     }
      
 }
