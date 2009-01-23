@@ -16,10 +16,10 @@ import static org.junit.Assert.*;
  *
  * @author undesa
  */
-public class BungeniURITest {
+public class BungeniManifestationNameTest {
 
-    BungeniURI myUri;
-    public BungeniURITest() {
+    BungeniManifestationName fname ;
+    public BungeniManifestationNameTest() {
     }
 
     @BeforeClass
@@ -32,11 +32,11 @@ public class BungeniURITest {
 
     @Before
     public void setUp() {
-        myUri = new BungeniURI("CountryCode~LanguageCode~PartName");
-        myUri.setURIComponent("CountryCode", "ken");
-        myUri.setURIComponent("LanguageCode", "eng");
-        myUri.setURIComponent("PartName", "main");
-        myUri.parse();
+        fname = new BungeniManifestationName("CountryCode~LanguageCode~PartName.odt");
+        fname.setURIComponent("CountryCode", "ken");
+        fname.setURIComponent("LanguageCode", "eng");
+        fname.setURIComponent("PartName", "main");
+        fname.parse();
     }
 
     @After
@@ -44,13 +44,13 @@ public class BungeniURITest {
     }
 
     /**
-     * Test of get method, of class BungeniURI.
+     * Test of get method, of class BungeniManifestationName.
      */
     @Test
     public void testGet() {
         System.out.println("get");
-        String expResult = "ken/eng/main";
-        String result = myUri.get();
+        String expResult = "ken_eng_main.odt";
+        String result = fname.get();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
     }
