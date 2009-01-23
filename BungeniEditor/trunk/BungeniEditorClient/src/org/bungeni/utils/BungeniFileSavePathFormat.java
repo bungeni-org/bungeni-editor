@@ -5,16 +5,54 @@
 
 package org.bungeni.utils;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import org.bungeni.editor.BungeniEditorProperties;
+import org.bungeni.uri.BungeniManifestationName;
+import org.bungeni.uri.BungeniURI;
 
 /**
  *
  * @author undesa
  */
 public class BungeniFileSavePathFormat {
+    
+    BungeniURI workURI;
+    BungeniURI expURI;
+    BungeniManifestationName fileNameFormat;
+      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BungeniFileSavePathFormat.class.getName());
+  
+    public BungeniFileSavePathFormat(String wURI, String eURI, String fnFormat){
+        workURI = new BungeniURI(wURI);
+        expURI = new BungeniURI(eURI);
+        fileNameFormat = new BungeniManifestationName(fnFormat);
+    }
+
+    public void setSaveComponent(String compName, String compValue) {
+        try {
+            setURIFormatComponent(workURI, compName, compValue );
+            setURIFormatComponent(expURI, compName, compValue );
+            setURIFormatComponent(fileNameFormat, compName, compValue );
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            
+        }
+    }
+
+    private void setURIFormatComponent(BungeniURI uriComp, String compName, String compValue) {
+        try {
+            uriComp.setURIComponent(compName, compValue);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+           log.debug("setURIFormatComponent (BungeniURI) " + ex.getMessage()); 
+        }
+    }
+    
+    private void setURIFormatComponent(BungeniManifestationName uriComp, String compName, String compValue) {
+        try {
+            uriComp.setURIComponent(compName, compValue);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+           log.debug("setURIFormatComponent (BungeniManifestationName) " + ex.getMessage()); 
+        }
+    }
+    
+    
+    /*
     private ArrayList<String> savePathFormatOrder = new ArrayList<String>();
     private HashMap<String,String> savePathComponents = new HashMap<String,String>(){
         {
@@ -81,5 +119,5 @@ public class BungeniFileSavePathFormat {
             fullFilename = fullFilename.substring(0, fullFilename.length() - 1 );
         }
         return fullFilename+".odt";
-    }
+    } */
 }
