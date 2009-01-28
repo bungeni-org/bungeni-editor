@@ -15,6 +15,7 @@ import org.bungeni.editor.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.metadata.DocumentMetadataTableModel;
 import org.bungeni.editor.metadata.EditorDocMetadataDialogFactory;
 import org.bungeni.editor.metadata.IEditorDocMetadataDialog;
+import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.ooo.OOComponentHelper;
@@ -143,13 +144,16 @@ private void btnEditMetadataActionPerformed(java.awt.event.ActionEvent evt) {
 // TODO add your handling code here:
         String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
         JFrame frm = new JFrame(docType + " Metadata");
-        IEditorDocMetadataDialog metaDlg = EditorDocMetadataDialogFactory.getInstance(BungeniEditorPropertiesHelper.getCurrentDocType());
-        metaDlg.initVariables(ooDocument, frm, SelectorDialogModes.TEXT_EDIT);
-        metaDlg.initialize();
+        MetadataEditorContainer meta = new MetadataEditorContainer(ooDocument, frm, SelectorDialogModes.TEXT_EDIT);
+        meta.initialize();
+          
+        //IEditorDocMetadataDialog metaDlg = EditorDocMetadataDialogFactory.getInstance(BungeniEditorPropertiesHelper.getCurrentDocType());
+        //metaDlg.initVariables(ooDocument, frm, SelectorDialogModes.TEXT_EDIT);
+        //metaDlg.initialize();
       //  DebateRecordMetadata meta = new DebateRecordMetadata(ooDocument, frm, SelectorDialogModes.TEXT_EDIT);
         frm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frm.setSize(new Dimension(410, 424));
-        frm.add(metaDlg.getPanelComponent());
+        frm.add(meta.getPanelComponent());
         frm.setVisible(true);
         FrameLauncher.CenterFrame(frm);
         frm.setAlwaysOnTop(true);

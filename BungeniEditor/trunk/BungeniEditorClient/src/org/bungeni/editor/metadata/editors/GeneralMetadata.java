@@ -34,6 +34,9 @@ import org.bungeni.editor.metadata.LanguageCode;
 import org.bungeni.editor.metadata.CountryCode;
 import org.bungeni.editor.metadata.DocumentPart;
 import org.bungeni.editor.metadata.GeneralMetadataModel;
+import org.bungeni.uri.BungeniManifestationName;
+import org.bungeni.uri.BungeniURI;
+import org.bungeni.uri.OutputType;
 import org.bungeni.utils.CommonStringFunctions;
 
 /**
@@ -126,16 +129,29 @@ public class GeneralMetadata extends BaseEditorDocMetadataDialog {
  
     }
     
+    /*
+    private void setURIattributes(){
+        BungeniURI workURI = new BungeniURI(this.mWorkURI);
+        workURI.setURIComponent(tabTitle, tabTitle);     
+        workURI.setURIComponent(tabTitle, tabTitle);     
+        workURI.setURIComponent(tabTitle, tabTitle);     
 
+        BungeniURI expURI = new BungeniURI(this.mExpURI);
+        BungeniManifestationName fullFileName = new BungeniManifestationName(this.mFileSavePathFormat);
+    }
+*/
+   
+    
+    
 public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
     boolean bState = false;
     try {
-    String sParliamentID = this.BungeniParliamentID.getText();
-    String sParliamentSitting = this.txtParliamentSitting.getText();
-    String sParliamentSession = this.txtParliamentSession.getText();
-    CountryCode selCountry = (CountryCode)this.cboCountry.getSelectedItem();
-    LanguageCode selLanguage = (LanguageCode) this.cboLanguage.getSelectedItem();
-    DocumentPart selPart = (DocumentPart) this.cboDocumentPart.getSelectedItem();
+        String sParliamentID = this.BungeniParliamentID.getText();
+        String sParliamentSitting = this.txtParliamentSitting.getText();
+        String sParliamentSession = this.txtParliamentSession.getText();
+        CountryCode selCountry = (CountryCode)this.cboCountry.getSelectedItem();
+        LanguageCode selLanguage = (LanguageCode) this.cboLanguage.getSelectedItem();
+        DocumentPart selPart = (DocumentPart) this.cboDocumentPart.getSelectedItem();
     //ooDocMetadata docMeta = new ooDocMetadata(ooDocument);
     //get the official time
         SimpleDateFormat tformatter = new SimpleDateFormat (BungeniEditorProperties.getEditorProperty("metadataTimeFormat"));
@@ -169,6 +185,19 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
     docMetaModel.updateItem("BungeniOfficialTime", strTimeOfHansard);
     docMetaModel.updateItem("BungeniDocPart", selPart.PartName);
     
+    //other metadata
+        docMetaModel.updateItem("BungeniWorkAuthor", "user.Ashok");
+        docMetaModel.updateItem("BungeniWorkAuthorURI", "user.Ashok");
+        docMetaModel.updateItem("BungeniWorkDateName","workDate");
+        //expression
+        docMetaModel.updateItem("BungeniExpAuthor", "user.Ashok");
+        docMetaModel.updateItem("BungeniExpAuthorURI", "user.Ashok");
+        docMetaModel.updateItem("BungeniExpDateName","expDate");
+        //manifestation
+        docMetaModel.updateItem("BungeniManAuthor", "user.Ashok");
+        docMetaModel.updateItem("BungeniManAuthorURI", "user.Ashok");
+        docMetaModel.updateItem("BungeniManDateName","manDate");
+   
     spf.setSaveComponent("DocumentType", BungeniEditorPropertiesHelper.getCurrentDocType());
     spf.setSaveComponent("CountryCode", selCountry.countryCode);
     spf.setSaveComponent("LanguageCode", selLanguage.languageCode);
@@ -179,7 +208,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
     spf.setSaveComponent("Month", debateCal.get(Calendar.MONTH) + 1);
     spf.setSaveComponent("Day", debateCal.get(Calendar.DAY_OF_MONTH));
     spf.setSaveComponent("PartName", selPart.PartName);
-    spf.setSaveComponent("FileName", spf.getFileName());
+   //  spf.setSaveComponent("FileName", spf.getFileName());
     
     docMetaModel.updateItem("__BungeniDocMeta", "true");
     docMetaModel.saveModel(ooDocument);
@@ -196,7 +225,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
 private final static String STORE_TO_URL = "StoreToURL";
 private final static String STORE_AS_URL = "StoreAsURL";
 
-private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
+/*private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         boolean bState = false; 
         //1 check if file is already open and saved 
             //if open check if there is a new path for the document different from the current path
@@ -284,7 +313,7 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         }
         }
 }
-    
+  */  
 
 
 

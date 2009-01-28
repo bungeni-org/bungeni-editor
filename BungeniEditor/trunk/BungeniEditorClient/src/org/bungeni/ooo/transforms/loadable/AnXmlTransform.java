@@ -16,11 +16,13 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import org.bungeni.db.DefaultInstanceFactory;
+import org.bungeni.editor.BungeniEditorProperties;
 import org.bungeni.editor.BungeniEditorPropertiesHelper;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.transforms.impl.BungeniDocTransform;
 import org.bungeni.ooo.transforms.impl.TransformerConfigurationFactory;
 import org.bungeni.ooo.transforms.impl.TransformerConfigurationFactory.Transformer;
+import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.bungeni.utils.MessageBox;
 import org.un.bungeni.translators.globalconfigurations.GlobalConfigurations;
 import org.un.bungeni.translators.odttoakn.translator.OATranslator;
@@ -62,6 +64,7 @@ public class AnXmlTransform extends BungeniDocTransform {
 		{
                 FileInputStream fTrans = new FileInputStream(outputTrans);
                 //String outputFilename = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + ooDocument.
+               // MessageBox.OK(EXPORT_OUTPUT_FILE);
                 FileOutputStream fOutTrans = new FileOutputStream(EXPORT_OUTPUT_FILE);
                     byte[] buf = new byte[1024];
 		    int i = 0;
@@ -85,6 +88,8 @@ public class AnXmlTransform extends BungeniDocTransform {
     String EXPORT_OUTPUT_FILE  = "";
     public boolean transform(OOComponentHelper ooDocument) {
         boolean bState = false;
+        //save the current class loader
+        final ClassLoader savedClassLoader = Thread.currentThread().getContextClassLoader();
         try {
        //      XStorable docStore =ooDocument.getStorable();
        //     String urlString = (String) getParams().get("StoreToUrl");
@@ -95,15 +100,31 @@ public class AnXmlTransform extends BungeniDocTransform {
             File fopenDocumentFile  = null ;
             if (ooDocument.isDocumentOnDisk())  {
                 String sDocUrl = ooDocument.getDocumentURL();
-                EXPORT_OUTPUT_FILE = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH()+ File.separator + "workspace" + File.separator + "export" + File.separator + "result.xml";
+                //set the path to the output xml file
+                
+                //EXPORT_OUTPUT_FILE = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH()+ File.separator + "workspace" + File.separator + "export" + File.separator + "result.xml";
                 
                 fopenDocumentFile = convertUrlToFile(sDocUrl);
+                String fullFileName = fopenDocumentFile.getName();
+                String ext = fullFileName.substring(fullFileName.lastIndexOf(".")+1, fullFileName.length());
+                String pref = fullFileName.substring(0, fullFileName.lastIndexOf(".")  );
+                
+                String defaultSavePath = BungeniEditorProperties.getEditorProperty("defaultSavePath");
+                defaultSavePath = defaultSavePath.replace('/', File.separatorChar);
+         
+                EXPORT_OUTPUT_FILE = fopenDocumentFile.getParentFile().getPath()+File.separator + pref+ ".xml";
+         
+        
                 String pathPrefix = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + "transformer" + File.separator;
                 GlobalConfigurations.setApplicationPathPrefix(pathPrefix);
                 OATranslator ODTtrans = OATranslator.getInstance();
-               
-                Transformer tf = TransformerConfigurationFactory.getConfiguration(BungeniEditorPropertiesHelper.getCurrentDocType(), "debateRecordCommon");
+                //switch the current context class loader
+                Thread.currentThread().setContextClassLoader(ODTtrans.getClass().getClassLoader());
+                
+                Transformer tf = TransformerConfigurationFactory.getConfiguration(BungeniEditorPropertiesHelper.getCurrentDocType());
+              ///commented for now  
                 File outputTrans = ODTtrans.translate(fopenDocumentFile, tf.configFile);
+                //File outputTrans = ODTtrans.translate("/home/undesa/Desktop/test/ken_bill_2009_1_10_eng_main.odt", "odttoakn/minixslt/bill/pipeline.xsl");
                 if (writeOutputFile(outputTrans)) 
                     //MessageBox.OK(this.callerFrame, "Document was transformed!");
                     bState = true;
@@ -117,8 +138,11 @@ public class AnXmlTransform extends BungeniDocTransform {
            // bState= true;
         } catch (Exception ex) {
             log.error("transform : " + ex.getMessage());
+            log.error("transform : " + CommonExceptionUtils.getStackTrace(ex));
+        } finally {
+            Thread.currentThread().setContextClassLoader(savedClassLoader);
+            return bState;
         }
-        return bState;
     }
     
 

@@ -265,7 +265,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
     spf.setSaveComponent("Month", debateCal.get(Calendar.MONTH) + 1);
     spf.setSaveComponent("Day", debateCal.get(Calendar.DAY_OF_MONTH));
     spf.setSaveComponent("PartName", selPart.PartName);
-    spf.setSaveComponent("FileName", spf.getFileName());
+   // spf.setSaveComponent("FileName", spf.getFileName());
     
     docMetaModel.updateItem("__BungeniDocMeta", "true");
     docMetaModel.saveModel(ooDocument);
@@ -281,7 +281,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
 
 private final static String STORE_TO_URL = "StoreToURL";
 private final static String STORE_AS_URL = "StoreAsURL";
-
+/*
 private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         boolean bState = false; 
         //1 check if file is already open and saved 
@@ -372,7 +372,7 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
 }
     
 
-
+*/
 
 
     /** This method is called from within the constructor to
@@ -444,13 +444,8 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         jLabel5.setText("Parliament Sitting");
         jLabel5.setName("lbl.BungeniParliamentSitting"); // NOI18N
 
-        btnSave.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnSave.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnSave.setText("Save");
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveActionPerformed(evt);
-            }
-        });
 
         btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnCancel.setText("Cancel");
@@ -639,17 +634,6 @@ private void cboCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 private void BungeniParliamentIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BungeniParliamentIDActionPerformed
 // TODO add your handling code here:
 }//GEN-LAST:event_BungeniParliamentIDActionPerformed
-
-private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-// TODO add your handling code here:
-   //APPLY SELECTED METADATA... 
-    BungeniFileSavePathFormat spf = new BungeniFileSavePathFormat();
-    if (applySelectedMetadata(spf)) {
-        if (saveDocumentToDisk(spf)) {
-            parentFrame.dispose();
-        }
-    }
-}//GEN-LAST:event_btnSaveActionPerformed
 
 private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
 // TODO add your handling code here:

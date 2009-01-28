@@ -210,7 +210,7 @@ public class SettingsQueryFactory {
     }
 
     public static String Q_FETCH_DOCUMENT_TYPE_BY_NAME(String docType) {
-        String query = "Select doc_type, description, template_path, metadata_model_editor, metadata_editor_title from DOCUMENT_TYPES ";
+        String query = "Select doc_type, description, template_path, metadata_model_editor, metadata_editor_title, work_uri, exp_uri, file_name_scheme from DOCUMENT_TYPES ";
         query += " where doc_type='"+docType+"'";
         return query;
     }
@@ -241,9 +241,9 @@ public class SettingsQueryFactory {
     }
     
     
-    public static String Q_FETCH_TRANSFORM_CONFIG(String docType, String configName) {
-        String query = "select DOC_TYPE, CONFIG_NAME, CONFIG_FILE from TRANFORM_CONFIGURATIONS where " +
-                "DOC_TYPE = '"+docType+"' and CONFIG_NAME='"+configName+"'";
+    public static String Q_FETCH_TRANSFORM_CONFIG(String docType) {
+        String query = "select DOC_TYPE, CONFIG_NAME, CONFIG_FILE from TRANSFORM_CONFIGURATIONS where " +
+                "DOC_TYPE = '"+docType+"' ";
         return query;
     }
 

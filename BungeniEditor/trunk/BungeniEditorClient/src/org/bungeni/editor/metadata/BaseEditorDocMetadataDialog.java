@@ -29,7 +29,9 @@ public abstract class BaseEditorDocMetadataDialog extends javax.swing.JPanel imp
     protected  ArrayList<LanguageCode> languageCodes = new ArrayList<LanguageCode>(0);
     protected  ArrayList<DocumentPart> documentParts = new ArrayList<DocumentPart>(0);
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BaseEditorDocMetadataDialog.class.getName());
- 
+   
+
+   
     public BaseEditorDocMetadataDialog(){
         super();
     }
@@ -119,4 +121,5 @@ public abstract class BaseEditorDocMetadataDialog extends javax.swing.JPanel imp
 }
 
 
+   
 }

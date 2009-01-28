@@ -31,8 +31,28 @@ public class BungeniFileSavePathFormat {
             setURIFormatComponent(expURI, compName, compValue );
             setURIFormatComponent(fileNameFormat, compName, compValue );
         } catch (ArrayIndexOutOfBoundsException ex) {
-            
+            log.debug("setSaveComponent missing compName : " + compName);
         }
+    }
+    
+    public void parseComponents(){
+        this.expURI.parse();
+        this.workURI.parse();
+        this.fileNameFormat.parse();
+    }
+    
+    public String getExpressionPath(){
+        return this.expURI.get();
+    }
+    
+    public String getManifestationName(){
+        return this.fileNameFormat.get();
+    }
+    
+    public void setSaveComponent(String compName , int compValue) {
+        String sCompValue = "";
+        sCompValue = Integer.toString(compValue);
+        setSaveComponent(compName, sCompValue);
     }
 
     private void setURIFormatComponent(BungeniURI uriComp, String compName, String compValue) {

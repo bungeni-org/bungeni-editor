@@ -40,7 +40,7 @@ public class MetadataEditorContainer extends JPanel {
      SelectorDialogModes dlgMode = null;
     IEditorDocMetadataDialog generalDlg = null;
     IEditorDocMetadataDialog metaDlg = null;
-    
+    BungeniFileSavePathFormat m_spf = null;
     
     public MetadataEditorContainer(){
         super();
@@ -65,15 +65,18 @@ public class MetadataEditorContainer extends JPanel {
        
         //add the panel for the document type
         metaDlg = EditorDocMetadataDialogFactory.getInstance(BungeniEditorPropertiesHelper.getCurrentDocType());
+        //load the work and expression formats for the current doc type
+        m_spf = new BungeniFileSavePathFormat(EditorDocMetadataDialogFactory.WORK_URI, EditorDocMetadataDialogFactory.EXP_URI, EditorDocMetadataDialogFactory.MANIFESTATION_FORMAT);
+
         if (!metaDlg.getClass().getName().equals(generalDlg.getClass().getName())) {
             metaDlg.initVariables(ooDocument, parentFrame, dlgMode);
             metaDlg.initialize();
         } else 
             metaDlg = null;
         
-        metadataTabContainer.add(metaDlg.getTabTitle(), generalDlg.getPanelComponent());    
+        metadataTabContainer.add(generalDlg.getPanelComponent(), generalDlg.getTabTitle() );    
         if (metaDlg != null)
-        metadataTabContainer.add(metaDlg.getTabTitle(), metaDlg.getPanelComponent());
+        metadataTabContainer.add(metaDlg.getPanelComponent(), metaDlg.getTabTitle());
     }
 
     public Component getPanelComponent() {
@@ -104,6 +107,7 @@ private boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
 private final static String STORE_TO_URL = "StoreToURL";
 private final static String STORE_AS_URL = "StoreAsURL";
 
+
 private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         boolean bState = false; 
         //1 check if file is already open and saved 
@@ -111,13 +115,18 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
             //warn the user provide an option to save to the old path
         //2 if file is not saved - save normally - check if there is a file existing in the path and warn if exists
         try {
-        String exportPath = BungeniEditorProperties.getEditorProperty("defaultSavePath");
-        exportPath = exportPath.replace('/', File.separatorChar);
-        exportPath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + exportPath + File.separator + spf.getSavePath();
-        
+        //this is the relative base path where hte files are stored
+        String defaultSavePath = BungeniEditorProperties.getEditorProperty("defaultSavePath");
+        defaultSavePath = defaultSavePath.replace('/', File.separatorChar);
+        //parse URI and save path components
+        m_spf.parseComponents();
+        //get the absolute path
+        String exportPath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + defaultSavePath + m_spf.getExpressionPath() ; 
+        //get the full path to the file
         String fileFullPath = "";
-        fileFullPath = exportPath + File.separator + spf.getFileName();
-
+        fileFullPath = exportPath + File.separator + spf.getManifestationName() + ".odt";
+       // MessageBox.OK(fileFullPath);
+        
         File fFile = new File(fileFullPath);
 
         HashMap<String,Object> saveParams = new HashMap<String,Object>();
@@ -177,7 +186,7 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         IBungeniDocTransform idocTrans = BungeniTransformationTargetFactory.getDocTransform("ODT");
         idocTrans.setParams(saveParams);
         bState= idocTrans.transform(ooDocument);
-
+       
         } catch (Exception ex) {
             log.error("saveDocumentToDisk : " + ex.getMessage());
             bState = false;
@@ -276,9 +285,9 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
 private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 // TODO add your handling code here:
    //APPLY SELECTED METADATA... 
-    BungeniFileSavePathFormat spf = new BungeniFileSavePathFormat();
-    if (applySelectedMetadata(spf)) {
-        if (saveDocumentToDisk(spf)) {
+  //  BungeniFileSavePathFormat spf = new BungeniFileSavePathFormat();
+    if (applySelectedMetadata(m_spf)) {
+        if (saveDocumentToDisk(m_spf)) {
             parentFrame.dispose();
         }
     }
@@ -314,7 +323,7 @@ private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         } else {
         return gSize;
         }*/
-        return new Dimension(420, 432 + 10);
+        return new Dimension(420, 432 + 15);
     }
 
 
