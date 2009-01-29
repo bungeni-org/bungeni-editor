@@ -7,10 +7,29 @@
 These installation instructions were tested on Ubuntu Dapper (6.06) and the same should apply for subsequent Ubuntu releases.
 
 
+== Quick Install Steps for Ubuntu == 
+
+If you dont want to bother with reading the detailed installation instructions, the following instructions will setup a working installation 95% of the time :
+ * install the sun jdk 6 : `sudo apt-get install sun-java6-jre`
+ * uninstall the openoffice.org installation packaged with ubuntu
+ * download install openoffice by downloading OO 3.0 from [http://downloads.openoffice.org http://downloads.openoffice.org] (look for the debian package installs).
+ * launch openoffice at least once and accept the license agreement
+ * unpack the editor application into its own folder
+ * run the script runEditor.sh to start the application
+
+
+== Quick Install steps for Windows -- 
+
+ * download and install openoffice.org from [http://downloads.openoffice.org http://downloads.openoffice.org]
+ * download and install the sun java6 jre (from [http://java.sun.com http://java.sun.com])
+ * unpack the editor, and open runEditor.bat in notepad. Edit java_home and log4j_properties to appropriate paths.
+ * run runEditor.bat to launch the editor.
+
+
 == Prerequisites ==
 
 
-===Installing the Java Runting===
+===Installing the Java Runtime===
 
 *OpenJVM / Sun Java JRE* - Ubuntu by default comes packaged with the GCJ open source JRE. The EditorClient will not work on this JRE as it requires the Swing UI libraries that come packaged with the Sun JVM / OpenJVM release. Install the Sun JRE on the Ubuntu box either through package manager or download the RPM package from [http://java.sun.com/ http://java.sun.com]. The EditorClient requires at least JRE / JDK version 1.6 + 
 
@@ -28,8 +47,8 @@ For windows, download and install the java 6 JRE using the instructions provided
 
 ===Installing OpenOffice.org===
 
-*OpenOffice.org 2.4* - Ubuntu comes packaged with an OpenOffice release. Unfortunately this OpenOffice installation is a repackaged installation produced by Ubuntu and it changes the folder structure of the OpenOffice installation. This change makes it incompatible with the cross platform UNO class loader used by Bungeni EditorClient. As a preliminary step, uninstall the packaged OpenOffice provided by ubuntu by uninstalling it using package manager. 
-Download the OpenOffice 2.4 debian package from [http://download.openoffice.org/ http://download.openoffice.org] . Download the OpenOffice installation package _Without JRE_ and extract it a folder on your computer. 
+*OpenOffice.org 3.0* - Ubuntu comes packaged with an OpenOffice release. Unfortunately this OpenOffice installation is a repackaged installation produced by Ubuntu and it changes the folder structure of the OpenOffice installation. This change makes it incompatible with the cross platform UNO class loader used by Bungeni EditorClient. As a preliminary step, uninstall the packaged OpenOffice provided by ubuntu by uninstalling it using package manager. 
+Download the OpenOffice 3.0 debian package from [http://download.openoffice.org/ http://download.openoffice.org] . Download the OpenOffice installation package _Without JRE_ and extract it a folder on your computer. 
 
 Install the package by running the following command from the openoffice-extracted-folder/DEBS path :
 
