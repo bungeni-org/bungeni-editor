@@ -45,7 +45,7 @@ public abstract class URIBase {
          this.uriOrderString = orderOfURI;
      }
      
-     public void setURIComponent(String componentName, String componentValue) {
+     public void setURIComponent(String componentName, String componentValue) throws ArrayIndexOutOfBoundsException {
         if (uriComponents.containsKey(componentName)){
             uriComponents.put(componentName, componentValue);
         } else 
