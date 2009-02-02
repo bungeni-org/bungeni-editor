@@ -13,7 +13,12 @@ import com.sun.star.lang.IllegalArgumentException;
 import com.sun.star.lang.WrappedTargetException;
 import com.sun.star.text.XTextContent;
 import com.sun.star.text.XTextViewCursor;
+import java.awt.Component;
 import javax.swing.JFrame;
+import org.bungeni.editor.actions.toolbarAction;
+import org.bungeni.editor.actions.toolbarSubAction;
+import org.bungeni.editor.selectors.IMetadataContainerPanel;
+import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
 import org.bungeni.utils.MessageBox;
@@ -22,11 +27,15 @@ import org.bungeni.utils.MessageBox;
  *
  * @author  undesa
  */
-public class routerCreateSideNote_panel extends javax.swing.JPanel {
+public class routerCreateSideNote_panel extends javax.swing.JPanel implements IMetadataContainerPanel {
 
     JFrame parentFrame;
     JFrame containerFrame;
     OOComponentHelper ooDocument;
+    toolbarAction theAction;
+    toolbarSubAction theSubAction;
+    SelectorDialogModes dialogMode;
+    
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(routerCreateSideNote_panel.class.getName());
  
     /** Creates new form routerCreateSideNote_panel */
@@ -36,6 +45,11 @@ public class routerCreateSideNote_panel extends javax.swing.JPanel {
         ooDocument = ooDoc;
         initComponents();
     }
+    
+       public routerCreateSideNote_panel() {
+        initComponents();
+    }
+
 
     private boolean applySideNote(String sideNoteTxt){
         boolean bState = false;
@@ -144,5 +158,25 @@ private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea txtSideNote;
     // End of variables declaration//GEN-END:variables
+
+    public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarAction aAction, toolbarSubAction aSubAction, SelectorDialogModes dlgMode) {
+       parentFrame = parentFrm;
+       ooDocument = ooDoc;
+       theAction = aAction;
+       theSubAction = aSubAction;
+       dialogMode = dlgMode;
+    }
+
+    public void initialize() {
+       //do nothing
+    }
+
+    public void setContainerFrame(JFrame frame) {
+        this.containerFrame = frame;
+    }
+
+    public Component getPanelComponent() {
+        return this;
+    }
 
 }

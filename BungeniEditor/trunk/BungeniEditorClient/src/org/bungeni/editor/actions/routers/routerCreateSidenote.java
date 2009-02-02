@@ -35,15 +35,7 @@ public class routerCreateSidenote extends defaultRouter {
     @Override
     public BungeniValidatorState route_TextSelectedInsert(toolbarAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame,OOComponentHelper ooDocument) {
      // String styleName = subAction.action_value();
-        BungeniFrame sidenoteFrame = new BungeniFrame("Enter Sidenote");
-        routerCreateSideNote_panel  rcsp = new routerCreateSideNote_panel( ooDocument,  pFrame,  sidenoteFrame);
-       
-        sidenoteFrame.setSize(328, 171);
-        sidenoteFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-       // sidenoteFrame.setSize(meta.getFrameSize());
-        sidenoteFrame.add(rcsp);
-        sidenoteFrame.setVisible(true);
-        sidenoteFrame.setAlwaysOnTop(true);
+            CommonRouterActions.displaySubActionDialog(action, subAction, pFrame, ooDocument);
           return new BungeniValidatorState(true, new BungeniMsg("SUCCESS")); 
     }
 

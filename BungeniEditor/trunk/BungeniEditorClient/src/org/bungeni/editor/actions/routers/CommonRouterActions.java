@@ -50,6 +50,38 @@ public class CommonRouterActions {
         abstract public void run();
     }
     
+    static class displaySubActionFrameRunner extends SwingRunner {
+        public displaySubActionFrameRunner(toolbarAction a, toolbarSubAction sa, JFrame pf, OOComponentHelper ooDoc){
+            super (a, sa, pf, ooDoc);
+        }
+        @Override
+        public void run() {
+                try {
+                    String mainDialogClass = subAction.dialog_class();
+                    //sString subActionDialogClass = subAction.dialog_class();
+                    IMetadataContainerPanel containerPanel = null;
+                    if (mainDialogClass.length() > 0 ) {
+                        containerPanel = BaseMetadataContainerPanel.getContainerPanelObject(mainDialogClass);
+                    }
+                    //also calls setupPanels()
+                    containerPanel.initVariables(ooDocument, parentFrame, action, subAction, subAction.getSelectorDialogMode());
+                    containerPanel.initialize();
+                    // Main m = new Main();
+                  // m.initVariables(ooDoc, parentFrm, aAction, aSubAction, dlgMode);
+                    javax.swing.JFrame f = new javax.swing.JFrame(action.action_display_text());
+                    containerPanel.setContainerFrame(f);
+                    f.add(containerPanel.getPanelComponent());
+                    f.pack();
+                    f.setLocationRelativeTo(null);
+                    f.setVisible(true);
+                    f.setAlwaysOnTop(true);   
+                   // f.setVisible(true);
+                } catch (Exception ex){
+                    log.error("displaySelectorFrameRunner exception :" + ex.getMessage());
+                }
+        }
+    }
+   
     static class displaySelectorFrameRunner extends SwingRunner {
         public displaySelectorFrameRunner(toolbarAction a, toolbarSubAction sa, JFrame pf, OOComponentHelper ooDoc){
             super (a, sa, pf, ooDoc);
@@ -83,6 +115,22 @@ public class CommonRouterActions {
         
     }
     
+    public static BungeniValidatorState displaySubActionDialog(toolbarAction action, toolbarSubAction subAction, JFrame parentFrame, OOComponentHelper ooDocument) {
+               BungeniValidatorState returnState = null;
+                try {
+
+                    displaySubActionFrameRunner dsfRunner = new displaySubActionFrameRunner( action,  subAction, parentFrame, ooDocument);
+                    javax.swing.SwingUtilities.invokeLater(dsfRunner);
+                    returnState = new BungeniValidatorState(true, new BungeniMsg("SUCCESS")); 
+
+                } catch (Exception ex) {
+                   log.error("displaySelectorDialog : " + ex.getMessage());
+                   returnState = new BungeniValidatorState(true, new BungeniMsg("EXCEPTION_FAILURE")); 
+                } finally {
+                    return returnState;
+                }
+        
+    }
     public static BungeniValidatorState displaySelectorDialog(toolbarAction action, toolbarSubAction subAction, JFrame parentFrame, OOComponentHelper ooDocument) {
                BungeniValidatorState returnState = null;
                 try {
