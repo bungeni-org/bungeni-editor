@@ -5,13 +5,10 @@
 
 package org.bungeni.editor.section.refactor;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jdom.Document;
+import org.jdom.output.XMLOutputter;
 import org.openoffice.odf.doc.OdfDocument;
 import org.openoffice.odf.doc.OdfFileDom;
 import org.openoffice.odf.doc.element.office.OdfAutomaticStyles;
@@ -34,10 +31,10 @@ public class JDomOdfDomBridge {
      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(JDomOdfDomBridge.class.getName());
 
 
-    public JDomOdfDomBridge(Document jdomDoc, OdfDocument odfDoc) {
+    public JDomOdfDomBridge( OdfDocument odfDoc) {
         //filter odfdom node lists
          this.odfDocument = odfDoc;
-         this.jdomDocument = jdomDoc;
+         this.jdomDocument = new Document();
     }
 
     private static String FILTER_SECTION_TYPE = "BungeniSectionType";
@@ -82,20 +79,25 @@ public class JDomOdfDomBridge {
                  return null;
     }
 
-    private void getChildSections(Node nNode, int nDepth) {
+    private void getChildSections(Node nNode, OdfJDomElement baseElement, int nDepth) {
         ++nDepth;
+        //get the child elements of the root section
         NodeList nChildren = nNode.getChildNodes();
         for (int i=0; i < nChildren.getLength() ; i++ ) {
             Node nnChild = nChildren.item(i);
+            //check if the child is an instance of OdfSection
             if (nnChild instanceof OdfSection) {
                 OdfSection childSection = (OdfSection) nnChild;
                 NamedNodeMap nattribs = getSectionMetadataAttributes(childSection);
+                OdfJDomElement newElement = new OdfJDomElement(childSection.getName());
+                baseElement.addContent(newElement);
+                /*
                 if (nattribs != null) {
                     //if section has metadata
                     for (int d=0 ; d < nDepth ; d++) System.out.print(" ");
                     System.out.println(" - section type = " + getSectionType(childSection, nattribs));
-                }
-                getChildSections(nnChild, nDepth);
+                }*/
+                getChildSections(nnChild, newElement, nDepth);
             }
         }
     }
@@ -130,19 +132,38 @@ public class JDomOdfDomBridge {
 
        private static String SECTION_ELEMENT = "text:section";
 
-    private void filterOdfDoc(){
+    public void filterOdfDoc(){
         try {
             //get all text sections
             NodeList lst = this.odfDocument.getContentDom().getElementsByTagName(SECTION_ELEMENT);
             //get the first node with the body property
             Node nBodyNode = getBodyNode (lst);
+            this.jdomDocument.setRootElement(new OdfJDomElement(nBodyNode.getNodeName()));
             System.out.println(" body node = " + nBodyNode.getNodeName());
             //get child sections
-            getChildSections(nBodyNode, 0);
+            getChildSections(nBodyNode, (OdfJDomElement) jdomDocument.getRootElement(), 0);
 
+        } catch (Exception ex) {
+            log.info("filterOdfDoc" + ex.getMessage());
+        }
+    }
+
+    public Document getJDomDocument(){
+        return this.jdomDocument;
+    }
+
+    public static void main(String[] args) {
+        try {
+            OdfDocument oDoc = OdfDocument.loadDocument("/Users/ashok/Desktop/ken_bill_2009_1_10_eng_main.odt");
+            JDomOdfDomBridge odfBridge = new JDomOdfDomBridge(oDoc);
+            odfBridge.filterOdfDoc();
+            Document jdoc = odfBridge.getJDomDocument();
+            XMLOutputter outputter = new XMLOutputter();
+            outputter.output(jdoc , System.out);
         } catch (Exception ex) {
             Logger.getLogger(JDomOdfDomBridge.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
 }

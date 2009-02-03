@@ -13,8 +13,10 @@ package org.bungeni.editor.section.refactor;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jdom.Document;
 import org.openoffice.odf.doc.OdfDocument;
 import org.openoffice.odf.doc.OdfFileDom;
+import org.w3c.dom.NodeList;
 
 /**
  *
@@ -39,13 +41,20 @@ public class panelSectionRefactor extends javax.swing.JPanel {
     private void loadDocument() {
         try {
             odfDocument = OdfDocument.loadDocument(pathToFile);
-            odfDocument.getContentDom();
+            JDomOdfDomBridge jdofBridge = new JDomOdfDomBridge(odfDocument);
+            //OdfFileDom fileDom = odfDocument.getContentDom();
+            //build a JDom tree made of sections
+
         } catch (Exception ex) {
             Logger.getLogger(panelSectionRefactor.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
 
+    private void buildJdomTree(OdfFileDom fileDom){
+        //build root element
+
+    }
 
 
     /** This method is called from within the constructor to
@@ -85,30 +94,22 @@ public class panelSectionRefactor extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 287, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 307, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .add(jScrollPane2, 0, 0, Short.MAX_VALUE)
-                        .addContainerGap())
+                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                         .add(btnCancel)
-                        .add(82, 82, 82))))
+                        .add(35, 35, 35))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 319, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .add(layout.createSequentialGroup()
-                        .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 163, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 86, Short.MAX_VALUE)
-                        .add(btnCancel)
-                        .add(61, 61, 61))))
+                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 237, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 76, Short.MAX_VALUE)
+                .add(btnCancel)
+                .addContainerGap())
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
