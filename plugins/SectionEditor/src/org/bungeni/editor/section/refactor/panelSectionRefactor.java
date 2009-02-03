@@ -9,7 +9,7 @@
  * Created on Jan 30, 2009, 10:00:03 AM
  */
 
-package sectionrefactorplugin;
+package org.bungeni.editor.section.refactor;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
