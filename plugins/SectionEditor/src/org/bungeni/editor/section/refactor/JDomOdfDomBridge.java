@@ -89,7 +89,12 @@ public class JDomOdfDomBridge {
             if (nnChild instanceof OdfSection) {
                 OdfSection childSection = (OdfSection) nnChild;
                 NamedNodeMap nattribs = getSectionMetadataAttributes(childSection);
-                OdfJDomElement newElement = new OdfJDomElement(childSection.getName());
+                String sectionType = "";
+                if (nattribs != null ) {
+                    sectionType = getSectionType(childSection, nattribs);
+                }
+                String sectionName = childSection.getName();
+                OdfJDomElement newElement = new OdfJDomElement(sectionName, sectionType);
                 baseElement.addContent(newElement);
                 /*
                 if (nattribs != null) {
@@ -131,6 +136,7 @@ public class JDomOdfDomBridge {
     }
 
        private static String SECTION_ELEMENT = "text:section";
+       private static String SECTION_ELEMENT_NAME_ATTR = "text:name";
 
     public void filterOdfDoc(){
         try {
@@ -138,7 +144,8 @@ public class JDomOdfDomBridge {
             NodeList lst = this.odfDocument.getContentDom().getElementsByTagName(SECTION_ELEMENT);
             //get the first node with the body property
             Node nBodyNode = getBodyNode (lst);
-            this.jdomDocument.setRootElement(new OdfJDomElement(nBodyNode.getNodeName()));
+            OdfJDomElement rootElement = new OdfJDomElement(nBodyNode.getAttributes().getNamedItem(SECTION_ELEMENT_NAME_ATTR).getNodeValue(), BODY_NODE);
+            this.jdomDocument.setRootElement(rootElement);
             System.out.println(" body node = " + nBodyNode.getNodeName());
             //get child sections
             getChildSections(nBodyNode, (OdfJDomElement) jdomDocument.getRootElement(), 0);

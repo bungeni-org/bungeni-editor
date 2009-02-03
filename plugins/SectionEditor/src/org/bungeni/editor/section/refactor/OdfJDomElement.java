@@ -13,10 +13,13 @@ import org.jdom.Element;
  */
 public class OdfJDomElement extends Element {
     private static String ELEMENT_NAME="section";
+    private static String NAME_ATTR="name";
+    private static String TYPE_ATTR="type";
 
-    OdfJDomElement(String strElement) {
+    OdfJDomElement(String nameAttribute, String typeAttribute) {
         super(ELEMENT_NAME);
-        this.setText(strElement);
+        this.setAttribute(NAME_ATTR, nameAttribute);
+        this.setAttribute(TYPE_ATTR, typeAttribute);
     }
         
 
