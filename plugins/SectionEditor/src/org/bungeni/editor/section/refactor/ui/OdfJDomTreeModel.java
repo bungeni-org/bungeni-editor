@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package org.bungeni.editor.section.refactor;
+package org.bungeni.editor.section.refactor.ui;
 
 /**
  *

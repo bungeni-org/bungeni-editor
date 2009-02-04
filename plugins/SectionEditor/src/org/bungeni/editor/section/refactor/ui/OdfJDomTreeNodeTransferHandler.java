@@ -38,8 +38,8 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreePath;
 import org.apache.log4j.Logger;
-import org.bungeni.editor.section.refactor.OdfJDomTreeModel;
-import org.bungeni.editor.section.refactor.OdfJDomTreeNode;
+import org.bungeni.editor.section.refactor.ui.OdfJDomTreeModel;
+import org.bungeni.editor.section.refactor.ui.OdfJDomTreeNode;
 import org.bungeni.editor.section.refactor.xml.OdfJDomElement;
 
 /**
@@ -215,13 +215,14 @@ public class OdfJDomTreeNodeTransferHandler extends TransferHandler {
           public void processPopupSelection(String sectionFrom, String sectionTo, String action_id ) {
               //go to selected range
                if (action_id.equals("0_MOVE_BEFORE")) {
-                    
+                    //move before section
               } else if (action_id.equals("1_MOVE_AFTER")) {
-
+                    //move after section
 
               } else if (action_id.equals("2_MOVE_INSIDE")) {
-
+                    //move inside section
               } else if (action_id.equals("3_CANCEL_ACTION")) {
+                   //dont do anything
                     return;
               }
           }

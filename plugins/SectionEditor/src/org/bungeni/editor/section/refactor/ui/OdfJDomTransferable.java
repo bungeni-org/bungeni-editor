@@ -5,7 +5,7 @@
 
 package org.bungeni.editor.section.refactor.ui;
 /*
- * GenericTransferHandler.java
+ * OfdfJDomTransferable.java
  *
  * Created on October 4, 2007, 11:26 AM
  *
