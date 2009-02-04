@@ -39,14 +39,14 @@ import org.apache.log4j.Logger;
  *
  * @version 1, 03.08.2005
  */
-public class TreeDropTarget extends DropTarget {
-     private static org.apache.log4j.Logger log = Logger.getLogger(TreeDropTarget.class.getName());
+public class OdfJDomTreeDropTarget extends DropTarget {
+     private static org.apache.log4j.Logger log = Logger.getLogger(OdfJDomTreeDropTarget.class.getName());
 
 	/**
 	 * constructor
 	 * @param the transfer handler that provides the drag image for the currently dragged node
 	 */
-  public TreeDropTarget(NodeMoveTransferHandler h) {
+  public OdfJDomTreeDropTarget(OdfJDomTreeNodeTransferHandler h) {
     super();
     this.handler = h;
   }
@@ -235,7 +235,7 @@ public class TreeDropTarget extends DropTarget {
   private Rectangle rect2D = new Rectangle();
 
   /** the transfer handler that provides the image for the currently dragged node */
-  private NodeMoveTransferHandler handler;
+  private OdfJDomTreeNodeTransferHandler handler;
 
   private Point mostRecentLocation;
 

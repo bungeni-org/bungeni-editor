@@ -16,6 +16,7 @@ import org.bungeni.editor.section.refactor.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.TransferHandler;
 import org.jdom.Document;
 import org.openoffice.odf.doc.OdfDocument;
 import org.openoffice.odf.doc.OdfFileDom;
@@ -50,8 +51,9 @@ public class panelSectionRefactor extends javax.swing.JPanel {
           this.treeSectionView.setModel(treeModel);
           this.treeSectionView.setCellRenderer(new OdfJDomTreeCellRenderer());
           //enable drag and drop
-          TransferHandler handler = new MyCustomTransferHandler();
-          tree.setTransferHandler(handtree.setDragEnabled(true);
+          TransferHandler handler = new OdfJDomTreeNodeTransferHandler();
+          this.treeSectionView.setTransferHandler(handler);
+          this.treeSectionView.setDragEnabled(true);
     }
 
     private Document loadDocument() {
