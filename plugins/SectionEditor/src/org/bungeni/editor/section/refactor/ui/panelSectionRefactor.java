@@ -9,14 +9,16 @@
  * Created on Jan 30, 2009, 10:00:03 AM
  */
 
-package org.bungeni.editor.section.refactor;
+package org.bungeni.editor.section.refactor.ui;
 
+import org.bungeni.editor.section.refactor.xml.JDomOdfDomBridge;
+import org.bungeni.editor.section.refactor.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import org.jdom.Document;
 import org.openoffice.odf.doc.OdfDocument;
 import org.openoffice.odf.doc.OdfFileDom;
-import org.w3c.dom.NodeList;
 
 /**
  *
@@ -26,6 +28,8 @@ public class panelSectionRefactor extends javax.swing.JPanel {
     String pathToFile = "";
     OdfDocument odfDocument = null;
     OdfFileDom contentDom = null;
+    OdfJDomTreeModel treeModel = null;
+     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(panelSectionRefactor.class.getName());
 
     /** Creates new form panelSectionRefactor */
     public panelSectionRefactor() {
@@ -35,26 +39,40 @@ public class panelSectionRefactor extends javax.swing.JPanel {
     public panelSectionRefactor(String fileName) {
         initComponents();
         this.pathToFile = fileName;
-        loadDocument();
+        Document jdomDoc = loadDocument();
+        setupTree(jdomDoc);
     }
 
-    private void loadDocument() {
+
+    private void setupTree(Document jdomDocument) {
+          treeModel = new OdfJDomTreeModel(jdomDocument);
+            //set the tree model
+          this.treeSectionView.setModel(treeModel);
+          this.treeSectionView.setCellRenderer(new OdfJDomTreeCellRenderer());
+          //enable drag and drop
+          TransferHandler handler = new MyCustomTransferHandler();
+          tree.setTransferHandler(handtree.setDragEnabled(true);
+    }
+
+    private Document loadDocument() {
+        Document jdomDocument = null;
         try {
+            //load the odf document
             odfDocument = OdfDocument.loadDocument(pathToFile);
+            //convert the odfdom tree to a filtered JDom tree of text:section-s
             JDomOdfDomBridge jdofBridge = new JDomOdfDomBridge(odfDocument);
-            //OdfFileDom fileDom = odfDocument.getContentDom();
-            //build a JDom tree made of sections
+            jdofBridge.filterOdfDoc();
+            jdomDocument = jdofBridge.getJDomDocument();
 
         } catch (Exception ex) {
-            Logger.getLogger(panelSectionRefactor.class.getName()).log(Level.SEVERE, null, ex);
+            log.error(ex.getMessage());
+        } finally {
+            return jdomDocument;
         }
         
     }
 
-    private void buildJdomTree(OdfFileDom fileDom){
-        //build root element
-
-    }
+  
 
 
     /** This method is called from within the constructor to
@@ -122,4 +140,15 @@ public class panelSectionRefactor extends javax.swing.JPanel {
     private javax.swing.JTree treeSectionView;
     // End of variables declaration//GEN-END:variables
 
+
+    public static void main(String[] args) {
+        JFrame mframe = new JFrame("test");
+        String fileName = "/Users/ashok/Desktop/ken_bill_2009_1_10_eng_main.odt";
+        panelSectionRefactor panel = new panelSectionRefactor(fileName);
+        mframe.add(panel);
+        mframe.setSize(500, 365);
+        mframe.pack();
+        mframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        mframe.setVisible(true);
+    }
 }

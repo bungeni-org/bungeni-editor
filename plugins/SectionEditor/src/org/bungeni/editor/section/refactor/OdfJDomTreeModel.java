@@ -5,56 +5,68 @@
 
 package org.bungeni.editor.section.refactor;
 
-import org.bungeni.editor.section.refactor.xml.OdfDomNode;
-import java.util.ArrayList;
-import java.util.Iterator;
-import javax.swing.event.TreeModelEvent;
-import javax.swing.event.TreeModelListener;
-import javax.swing.tree.TreeModel;
-import javax.swing.tree.TreePath;
-import org.jdom.Document;
-
 /**
  *
  * @author ashok
  */
-public class OdfDomTreeModel  implements TreeModel {
-   //JDOM Document to view as a tree
+
+import org.bungeni.editor.section.refactor.xml.OdfJDomElement;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import javax.swing.event.TreeModelEvent;
+import javax.swing.event.TreeModelListener;
+import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreePath;
+
+import org.jdom.Document;
+
+/**
+ * Converts a JDOM document into a TreeModel. Can be used for viewing XML
+ * documents in a JTree.
+ *
+ * @see http://java.sun.com/webservices/jaxp/dist/1.1/docs/tutorial/index.html
+ */
+public class OdfJDomTreeModel implements TreeModel {
+
+    //JDOM Document to view as a tree
     private Document document;
 
     //listeners for changes, not used in this example
-    private ArrayList listenerList = new ArrayList();
-    public OdfDomTreeModel(Document doc) {
+    private ArrayList<TreeModelListener> listenerList = new ArrayList<TreeModelListener>();
+
+    //constructor used to set the document to view
+    public OdfJDomTreeModel(Document doc) {
         document = doc;
     }
 
     //override from TreeModel
     public Object getRoot() {
         if(document == null) return null;
-        return new OdfDomNode(document.getRootElement());
+        return new OdfJDomTreeNode((OdfJDomElement)document.getRootElement());
     }
 
     //override from TreeModel
     public Object getChild(Object parent, int index) {
-        OdfDomNode node = (OdfDomNode) parent;
+        OdfJDomTreeNode node = (OdfJDomTreeNode) parent;
         return node.child(index);
     }
 
     //override from TreeModel
     public int getIndexOfChild(Object parent, Object child) {
-        OdfDomNode node = (OdfDomNode) parent;
-        return node.index((OdfDomNode) child);
+        OdfJDomTreeNode node = (OdfJDomTreeNode) parent;
+        return node.index((OdfJDomTreeNode) child);
     }
 
     //override from TreeModel
     public int getChildCount(Object parent) {
-        OdfDomNode jdomNode = (OdfDomNode)parent;
+        OdfJDomTreeNode jdomNode = (OdfJDomTreeNode)parent;
         return jdomNode.childCount();
     }
 
     //override from TreeModel
     public boolean isLeaf(Object node) {
-        OdfDomNode jdomNode = (OdfDomNode)node;
+        OdfJDomTreeNode jdomNode = (OdfJDomTreeNode)node;
         return (jdomNode.node.getTextTrim().length() > 0);
     }
 
@@ -92,32 +104,32 @@ public class OdfDomTreeModel  implements TreeModel {
 	 * just hacked 'em in here so they are immediately at hand.
 	 */
     public void fireTreeNodesChanged(TreeModelEvent e) {
-		Iterator listeners = listenerList.iterator();
+		Iterator<TreeModelListener> listeners = listenerList.iterator();
 		while (listeners.hasNext()) {
 			TreeModelListener listener = (TreeModelListener) listeners.next();
 			listener.treeNodesChanged(e);
 		}
 	}
     public void fireTreeNodesInserted(TreeModelEvent e) {
-		Iterator listeners = listenerList.iterator();
+		Iterator<TreeModelListener> listeners = listenerList.iterator();
 		while (listeners.hasNext()) {
 			TreeModelListener listener = (TreeModelListener) listeners.next();
 			listener.treeNodesInserted(e);
 		}
 	}
     public void fireTreeNodesRemoved(TreeModelEvent e) {
-		Iterator listeners = listenerList.iterator();
+		Iterator<TreeModelListener> listeners = listenerList.iterator();
 		while (listeners.hasNext()) {
 			TreeModelListener listener = (TreeModelListener) listeners.next();
 			listener.treeNodesRemoved(e);
 		}
 	}
     public void fireTreeStructureChanged(TreeModelEvent e) {
-		Iterator listeners = listenerList.iterator();
+		Iterator<TreeModelListener> listeners = listenerList.iterator();
 		while (listeners.hasNext()) {
 			TreeModelListener listener = (TreeModelListener) listeners.next();
 			listener.treeStructureChanged(e);
 		}
 	}
-
 }
+
