@@ -42,6 +42,7 @@ public class OdfRefactor {
     public OdfRefactor(String odfFile) {
         try {
             odfPackage = OdfPackage.loadPackage(odfFile);
+            
             //Set<String> setOfFileEntries = odfPackage.getFileEntries();
             //OdfFileEntry fileEntry  = odfPackage.getFileEntry(ODF_CONTENT_FILE);
             InputStream is = odfPackage.getInputStream(ODF_CONTENT_FILE);
