@@ -40,6 +40,7 @@ public class JDomOdfDomBridge {
     private static String FILTER_SECTION_TYPE = "BungeniSectionType";
 
     private String getSectionType(OdfSection nsection, NamedNodeMap nattr) {
+       
         Node nitem = nattr.getNamedItem(FILTER_SECTION_TYPE);
         if (nitem != null) {
             return nitem.getNodeValue();
