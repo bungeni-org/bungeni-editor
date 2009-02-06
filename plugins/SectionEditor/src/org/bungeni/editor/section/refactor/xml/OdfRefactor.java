@@ -5,6 +5,7 @@
 
 package org.bungeni.editor.section.refactor.xml;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
@@ -32,6 +33,10 @@ public class OdfRefactor {
      */
     org.jdom.Document xmlDocument ;
     org.w3c.dom.Document domDocument;
+    /**
+     * backup creator class
+     */
+    OdfPackageBackup packageBackup ;
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(OdfPackage.class.getName());
 
     private final static String ODF_CONTENT_FILE="content.xml";
@@ -42,7 +47,7 @@ public class OdfRefactor {
     public OdfRefactor(String odfFile) {
         try {
             odfPackage = OdfPackage.loadPackage(odfFile);
-            
+            packageBackup = new OdfPackageBackup(odfPackage);
             //Set<String> setOfFileEntries = odfPackage.getFileEntries();
             //OdfFileEntry fileEntry  = odfPackage.getFileEntry(ODF_CONTENT_FILE);
             InputStream is = odfPackage.getInputStream(ODF_CONTENT_FILE);
@@ -55,6 +60,13 @@ public class OdfRefactor {
         }
     }
 
+    private boolean backupPackage(){
+       File fbackupFile =  packageBackup.generateBackup();
+       if (fbackupFile == null) {
+            return false;
+       } else
+           return true;
+    }
 
 
 
@@ -110,6 +122,10 @@ public class OdfRefactor {
      */
     public boolean moveSectionBefore(String sourceSection, String targetSectionBefore) throws Exception {
         boolean bState = false;
+        //make a backup package first
+        if (!backupPackage()) {
+            log.error("moveSectionBefore : backup of package failed");
+        }
         try {
             //get the source element
             Element elemSourceSection = this.getSectionByName(sourceSection);
@@ -139,40 +155,12 @@ public class OdfRefactor {
                         if (nameAttr != null) {
                             if (nameAttr.getValue().equals(targetSectionBefore)) {
                                 contentList.add(i, elemSourceSection);
-                                System.out.println("preamble found");
                                 break;
                             }
                         }
                      }
                }
              }
-
-            /*
-            DOMOutputter converter = new DOMOutputter();
-            org.w3c.dom.Document domDoc = converter.output(xmlDocument);
-            //get source section node
-            Node sourceSectionNode = null;
-            sourceSectionNode = findSectionByName(sourceSection);
-            if (sourceSectionNode == null ) {
-                throw new Exception("Section sourceSection : " + sourceSection + " was not found");
-            }
-            //get target section node
-            Node targetSectionNode = null;
-            targetSectionNode = findSectionByName(targetSectionBefore);
-            if (targetSectionNode == null ) {
-                throw new Exception("Section targetSectionNode : " + targetSectionBefore + " was not found");
-            }
-            Node parentOfTargetNode = targetSectionNode.getParentNode();
-            Node insertedNode = parentOfTargetNode.insertBefore(sourceSectionNode, targetSectionNode);
-            //display the refactored xml
-            Source source = new DOMSource(domDoc);
-            StringWriter swriter = new StringWriter();
-            Result result = new StreamResult(swriter);
-            TransformerFactory factory = TransformerFactory.newInstance();
-            Transformer transformer = factory.newTransformer();
-            transformer.transform(source, result);
-            System.out.println(swriter.getBuffer().toString());
-             */
 
             bState = true;
         } catch (Exception ex) {
