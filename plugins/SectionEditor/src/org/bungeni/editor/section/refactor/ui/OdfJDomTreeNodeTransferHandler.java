@@ -41,6 +41,7 @@ import org.apache.log4j.Logger;
 import org.bungeni.editor.section.refactor.ui.OdfJDomTreeModel;
 import org.bungeni.editor.section.refactor.ui.OdfJDomTreeNode;
 import org.bungeni.editor.section.refactor.xml.OdfJDomElement;
+import org.bungeni.editor.section.refactor.xml.OdfRefactor;
 
 /**
  *
@@ -51,6 +52,9 @@ public class OdfJDomTreeNodeTransferHandler extends TransferHandler {
    private final Integer MOVE_BEFORE=0;
    private final Integer MOVE_AFTER=1;
    private JPopupMenu moveMenu = new JPopupMenu();
+   private panelSectionRefactor panelRefactor;
+   private String odfFile = "";
+   //private OdfRefactor odfRefactor = null;
   // private BungeniPopupMenuHelper menuHelper;
    private TreeMap<String,String> theMenu = new TreeMap<String,String>(){
        {
@@ -65,8 +69,14 @@ public class OdfJDomTreeNodeTransferHandler extends TransferHandler {
    */
   public OdfJDomTreeNodeTransferHandler() {
     super();
-  }
+   }
 
+  
+  public void setPanelForm(panelSectionRefactor panelFrm ){
+   this.panelRefactor  = panelFrm;
+   //this.odfRefactor = new OdfRefactor(odfFile);
+  }
+  
   /**
    * create a transferable that contains all paths that are currently selected in
    * a given tree
@@ -214,16 +224,24 @@ public class OdfJDomTreeNodeTransferHandler extends TransferHandler {
 
           public void processPopupSelection(String sectionFrom, String sectionTo, String action_id ) {
               //go to selected range
-               if (action_id.equals("0_MOVE_BEFORE")) {
-                    //move before section
-              } else if (action_id.equals("1_MOVE_AFTER")) {
-                    //move after section
-
-              } else if (action_id.equals("2_MOVE_INSIDE")) {
-                    //move inside section
-              } else if (action_id.equals("3_CANCEL_ACTION")) {
-                   //dont do anything
-                    return;
+              try {
+                 //move action is routed through panel UI dialog as we 
+                 //want to display an option to add a note
+                  if (action_id.equals("0_MOVE_BEFORE")) {
+                        //move before section
+                       // ref.saveDocument();
+                   } else if (action_id.equals("1_MOVE_AFTER")) {
+                        //move after section
+                   } else if (action_id.equals("2_MOVE_INSIDE")) {
+                          //move inside section
+                   } else if (action_id.equals("3_CANCEL_ACTION")) {
+                          //dont do anything
+                        return;
+                   }
+              } catch (Exception ex) {
+                  
+              } finally {
+                  
               }
           }
     }
