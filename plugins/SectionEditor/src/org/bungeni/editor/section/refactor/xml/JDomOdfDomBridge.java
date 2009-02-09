@@ -5,6 +5,7 @@
 
 package org.bungeni.editor.section.refactor.xml;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jdom.Document;
@@ -38,7 +39,8 @@ public class JDomOdfDomBridge {
     }
 
     private static String FILTER_SECTION_TYPE = "BungeniSectionType";
-
+    private static String FILTER_BUNGENI_SECTION_META="Bungeni";
+    
     private String getSectionType(OdfSection nsection, NamedNodeMap nattr) {
        
         Node nitem = nattr.getNamedItem(FILTER_SECTION_TYPE);
@@ -46,6 +48,19 @@ public class JDomOdfDomBridge {
             return nitem.getNodeValue();
         } else
             return nsection.getName();
+    }
+    
+    public ArrayList<Node> getBungeniMetadataAttributes (OdfSection nsection) {
+        ArrayList<Node> nodeLists = new ArrayList<Node>(0);
+        NamedNodeMap metaAttribs = getSectionMetadataAttributes(nsection);
+        for (int i=0; i < metaAttribs.getLength() ; i++) {
+            Node foundNode = metaAttribs.item(i);
+            String metaLocalname = foundNode.getNodeName();
+            if (metaLocalname.startsWith(FILTER_BUNGENI_SECTION_META)) {
+                nodeLists.add(foundNode);
+            }
+        }
+        return nodeLists;
     }
 
     private OdfStyle getSectionStyle (OdfSection oSection) {
@@ -95,7 +110,7 @@ public class JDomOdfDomBridge {
                     sectionType = getSectionType(childSection, nattribs);
                 }
                 String sectionName = childSection.getName();
-                OdfJDomElement newElement = new OdfJDomElement(sectionName, sectionType);
+                OdfJDomElement newElement = new OdfJDomElement(childSection, sectionName, sectionType);
                 baseElement.addContent(newElement);
                 /*
                 if (nattribs != null) {
@@ -145,7 +160,7 @@ public class JDomOdfDomBridge {
             NodeList lst = this.odfDocument.getContentDom().getElementsByTagName(SECTION_ELEMENT);
             //get the first node with the body property
             Node nBodyNode = getBodyNode (lst);
-            OdfJDomElement rootElement = new OdfJDomElement(nBodyNode.getAttributes().getNamedItem(SECTION_ELEMENT_NAME_ATTR).getNodeValue(), BODY_NODE);
+            OdfJDomElement rootElement = new OdfJDomElement((OdfSection) nBodyNode, nBodyNode.getAttributes().getNamedItem(SECTION_ELEMENT_NAME_ATTR).getNodeValue(), BODY_NODE);
             this.jdomDocument.setRootElement(rootElement);
             System.out.println(" body node = " + nBodyNode.getNodeName());
             //get child sections
