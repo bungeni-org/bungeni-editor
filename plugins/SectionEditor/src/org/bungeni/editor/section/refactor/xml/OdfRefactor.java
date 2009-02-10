@@ -22,6 +22,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.jdom.Attribute;
+import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.DOMOutputter;
@@ -84,6 +85,9 @@ public class OdfRefactor {
         }
     }
 
+        
+
+        
     /**
      * Wrapper function to generate incremental backups of document
      * @return
@@ -221,6 +225,10 @@ public class OdfRefactor {
         boolean bState = false;
         bState = moveSection(sourceSection, targetSectionAfter, MOVE_AFTER) ;
         return bState;
+    }
+    
+    public Document getXmlDocument(){
+        return this.xmlDocument;
     }
 
     public boolean saveDocument(){
