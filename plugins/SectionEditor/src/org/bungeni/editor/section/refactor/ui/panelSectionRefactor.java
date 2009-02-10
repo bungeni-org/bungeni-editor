@@ -12,11 +12,16 @@
 package org.bungeni.editor.section.refactor.ui;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.event.TreeSelectionEvent;
 import org.bungeni.editor.section.refactor.xml.JDomOdfDomBridge;
 import javax.swing.JFrame;
-import javax.swing.TransferHandler;
+import javax.swing.JOptionPane;
 import javax.swing.event.TreeSelectionListener;
+import org.bungeni.editor.section.refactor.xml.OdfJDomElement;
+import org.bungeni.editor.section.refactor.xml.OdfRefactor;
 import org.jdom.Document;
 import org.openoffice.odf.doc.OdfDocument;
 import org.openoffice.odf.doc.OdfFileDom;
@@ -33,6 +38,9 @@ public class panelSectionRefactor extends javax.swing.JPanel {
     OdfFileDom contentDom = null;
     OdfJDomTreeModel treeModel = null;
     JDomOdfDomBridge jdofBridge = null;
+    OdfRefactor refactorer = null;
+    JFrame parentFrame;
+     dialogCommitDocChange changePanel = new dialogCommitDocChange();
      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(panelSectionRefactor.class.getName());
 
     /** Creates new form panelSectionRefactor */
@@ -43,15 +51,72 @@ public class panelSectionRefactor extends javax.swing.JPanel {
     public panelSectionRefactor(String fileName) {
         initComponents();
         this.pathToFile = fileName;
+        //create a JDom dom 
         Document jdomDoc = loadDocument();
+        //setup ODF refactorer
+        refactorer = new OdfRefactor(fileName);
+       //setup the jtree ui
         setupTree(jdomDoc);
         setupTables();
     }
 
+    public void setParentFrame(JFrame parentFrame) {
+        this.parentFrame = parentFrame;
+    }
+    
+    public void moveAfter(String sectionFrom, String sectionTo) {
+        try {
+            //
+            int nSelect = confirmChange(sectionFrom, sectionTo);
+            if (JOptionPane.YES_OPTION == nSelect ) {
+                String commitLog = this.changePanel.getCommitLog();
+                refactorer.moveSectionAfter(sectionFrom, sectionTo);
+                refactorer.saveDocument();
+                updateTree();
+            }
+        } catch (Exception ex) {
+            log.error("moveAfter : from = " + sectionFrom + " to : " + sectionTo + ex.getMessage());
+        }
+    }
 
+    public void moveBefore(String sectionFrom, String sectionTo) {
+        try {
+            int nSelect = confirmChange(sectionFrom, sectionTo);
+            if (JOptionPane.YES_OPTION == nSelect ) {
+                refactorer.moveSectionBefore(sectionFrom, sectionTo);
+                refactorer.saveDocument();
+                updateTree();
+                //now we have to reload the document model
+            }
+        } catch (Exception ex) {
+            log.error("moveBefore : from = " + sectionFrom + " to : " + sectionTo + ex.getMessage());
+        }
+    }
+
+    private int confirmChange(String fromSection, String toSection) {
+        final JDialog dialog = new JDialog(this.parentFrame,
+                                                 "Confirm Change",
+                                                 true);
+        changePanel.setParentDialog(dialog);  
+        dialog.getContentPane().add(this.changePanel) ;
+                    dialog.setDefaultCloseOperation(
+                        JDialog.DISPOSE_ON_CLOSE);
+          dialog.pack();
+          dialog.setVisible(true);
+          //now the dialog has closed.
+         return changePanel.getCommitYesNo();
+    }
+    private void updateTree(){
+        Document updJdomDoc = loadDocument();
+        treeModel =  new OdfJDomTreeModel(new OdfJDomTreeNode((OdfJDomElement)updJdomDoc.getRootElement()));
+        this.treeSectionView.setModel(treeModel);
+    }
+    
+    
     private void setupTree(Document jdomDocument) {
-          treeModel = new OdfJDomTreeModel(jdomDocument);
-            //set the tree model
+          treeModel = new OdfJDomTreeModel(new OdfJDomTreeNode((OdfJDomElement)jdomDocument.getRootElement()));
+         
+          //set the tree model
           this.treeSectionView.setModel(treeModel);
           this.treeSectionView.setCellRenderer(new OdfJDomTreeCellRenderer());
           //enable drag and drop
@@ -122,20 +187,20 @@ public class panelSectionRefactor extends javax.swing.JPanel {
         scrollSectionMeta = new javax.swing.JScrollPane();
         tblSectionMeta = new javax.swing.JTable();
         panelChangeHistory = new javax.swing.JPanel();
-        scrollChangeVersions = new javax.swing.JScrollPane();
-        listChangeVersions = new javax.swing.JList();
         scrollChangeLog = new javax.swing.JScrollPane();
         txtChangeLog = new javax.swing.JTextArea();
         btnRevertToSelectedVersion = new javax.swing.JButton();
+        scrollSectionMeta1 = new javax.swing.JScrollPane();
+        tblSectionMeta1 = new javax.swing.JTable();
 
         scrollSectionView.setViewportView(treeSectionView);
 
-        btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnCancel.setText("Cancel");
 
-        tabSectionRefactor.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        tabSectionRefactor.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
-        tblSectionMeta.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        tblSectionMeta.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         tblSectionMeta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -164,21 +229,27 @@ public class panelSectionRefactor extends javax.swing.JPanel {
 
         tabSectionRefactor.addTab("Section Metadata", panelSectionMeta);
 
-        listChangeVersions.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        listChangeVersions.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        scrollChangeVersions.setViewportView(listChangeVersions);
-
         txtChangeLog.setColumns(20);
-        txtChangeLog.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        txtChangeLog.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         txtChangeLog.setRows(5);
         scrollChangeLog.setViewportView(txtChangeLog);
 
-        btnRevertToSelectedVersion.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        btnRevertToSelectedVersion.setText("jButton1");
+        btnRevertToSelectedVersion.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnRevertToSelectedVersion.setText("Revert to Selected Version");
+
+        tblSectionMeta1.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        tblSectionMeta1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        scrollSectionMeta1.setViewportView(tblSectionMeta1);
 
         org.jdesktop.layout.GroupLayout panelChangeHistoryLayout = new org.jdesktop.layout.GroupLayout(panelChangeHistory);
         panelChangeHistory.setLayout(panelChangeHistoryLayout);
@@ -191,19 +262,20 @@ public class panelSectionRefactor extends javax.swing.JPanel {
                         .add(scrollChangeLog, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE))
                     .add(org.jdesktop.layout.GroupLayout.LEADING, panelChangeHistoryLayout.createSequentialGroup()
                         .addContainerGap()
-                        .add(scrollChangeVersions, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE))
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, panelChangeHistoryLayout.createSequentialGroup()
-                        .add(134, 134, 134)
-                        .add(btnRevertToSelectedVersion)))
+                        .add(scrollSectionMeta1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)))
                 .addContainerGap())
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, panelChangeHistoryLayout.createSequentialGroup()
+                .addContainerGap(102, Short.MAX_VALUE)
+                .add(btnRevertToSelectedVersion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(81, 81, 81))
         );
         panelChangeHistoryLayout.setVerticalGroup(
             panelChangeHistoryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, panelChangeHistoryLayout.createSequentialGroup()
-                .add(23, 23, 23)
-                .add(scrollChangeVersions, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                .addContainerGap()
+                .add(scrollSectionMeta1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(scrollChangeLog, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 88, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(scrollChangeLog, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 94, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(btnRevertToSelectedVersion)
                 .add(26, 26, 26))
@@ -239,24 +311,25 @@ public class panelSectionRefactor extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnRevertToSelectedVersion;
-    private javax.swing.JList listChangeVersions;
     private javax.swing.JPanel panelChangeHistory;
     private javax.swing.JPanel panelSectionMeta;
     private javax.swing.JScrollPane scrollChangeLog;
-    private javax.swing.JScrollPane scrollChangeVersions;
     private javax.swing.JScrollPane scrollSectionMeta;
+    private javax.swing.JScrollPane scrollSectionMeta1;
     private javax.swing.JScrollPane scrollSectionView;
     private javax.swing.JTabbedPane tabSectionRefactor;
     private javax.swing.JTable tblSectionMeta;
+    private javax.swing.JTable tblSectionMeta1;
     private javax.swing.JTree treeSectionView;
     private javax.swing.JTextArea txtChangeLog;
     // End of variables declaration//GEN-END:variables
 
 
     public static void main(String[] args) {
-        JFrame mframe = new JFrame("test");
+        JFrame mframe = new JFrame("Restructure Document");
         String fileName = "/home/undesa/Desktop/ken_bill_2009_1_10_eng_main.odt";
         panelSectionRefactor panel = new panelSectionRefactor(fileName);
+        panel.setParentFrame(mframe);
         mframe.add(panel);
         mframe.setSize(500, 365);
         mframe.pack();

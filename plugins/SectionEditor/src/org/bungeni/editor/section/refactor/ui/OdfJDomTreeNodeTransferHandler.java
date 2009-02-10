@@ -20,7 +20,6 @@ import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.ActionEvent;
@@ -34,7 +33,6 @@ import javax.swing.JComponent;
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import javax.swing.TransferHandler;
-import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreePath;
 import org.apache.log4j.Logger;
@@ -226,10 +224,12 @@ public class OdfJDomTreeNodeTransferHandler extends TransferHandler {
                  //move action is routed through panel UI dialog as we 
                  //want to display an option to add a note
                   if (action_id.equals("0_MOVE_BEFORE")) {
+                      panelRefactor.moveBefore(sectionFrom, sectionTo);
                         //move before section
                        // ref.saveDocument();
                    } else if (action_id.equals("1_MOVE_AFTER")) {
                         //move after section
+                      panelRefactor.moveAfter(sectionFrom, sectionTo);
                    } else if (action_id.equals("2_MOVE_INSIDE")) {
                           //move inside section
                    } else if (action_id.equals("3_CANCEL_ACTION")) {

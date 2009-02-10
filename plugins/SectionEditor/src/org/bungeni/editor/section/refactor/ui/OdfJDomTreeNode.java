@@ -11,8 +11,8 @@ package org.bungeni.editor.section.refactor.ui;
  */
 
 
+import javax.swing.tree.DefaultMutableTreeNode;
 import org.bungeni.editor.section.refactor.xml.OdfJDomElement;
-import org.jdom.Element;
 
 
 /**
@@ -20,7 +20,7 @@ import org.jdom.Element;
  *
  * @see http://java.sun.com/webservices/jaxp/dist/1.1/docs/tutorial/index.html
  */
-public class OdfJDomTreeNode {
+public class OdfJDomTreeNode extends DefaultMutableTreeNode{
 
     /** the Element encapsulated by this node */
     public OdfJDomElement node;
