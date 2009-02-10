@@ -18,18 +18,19 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
+import javax.swing.tree.TreePath;
 
 /**
  *
- * @author Administrator
+ * @author Ashok Hariharan
  */
   class OdfJDomTransferable implements Transferable {
 
 	/**
 	 * construct a transferabe with a given object to transfer
-	 * @param data  the data object to transfer
+	 * @param data  the data object to transfer, in this case an array of treepath selections
 	 */
-      public OdfJDomTransferable(Object data) {
+      public OdfJDomTransferable(TreePath[] data) {
         super();
         this.data = data;
       }
@@ -39,7 +40,7 @@ import java.io.IOException;
        * @return an array of supported data flavors
        */
       public DataFlavor[] getTransferDataFlavors() {
-        return flavors;
+         return (DataFlavor[])flavors.clone();
       }
 
       /**
@@ -47,7 +48,12 @@ import java.io.IOException;
        * @return true, if the given data flavor is supported
        */
       public boolean isDataFlavorSupported(DataFlavor flavor) {
-        return true;
+            for (int i = 0; i < flavors.length; i++) {
+            if (flavor.equals(flavors[i])) {
+                return true;
+            }
+        }
+        return false;
       }
 
       /**
@@ -55,18 +61,35 @@ import java.io.IOException;
        * @return the data transported by this transferable
        */
       public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
-        return data;
+        if (flavor.equals(flavors[0])) {
+            return (Object)data;
+        } else {
+            throw new UnsupportedFlavorException(flavor);
+        }
       }
 
+      
       /** the data this transferable transports */
-      private Object data;
+      private TreePath[] data;
 
       /** storage for data flavors supported of this transferable */
-      private static final DataFlavor[] flavors = new DataFlavor[1];
+      public static DataFlavor localObjectFlavor;
 
       /** the actual flavors supported by this transferable */
-      static {
-        flavors[0] = DataFlavor.stringFlavor;
-      }
+        static {
+            try {
+                localObjectFlavor =
+                    new DataFlavor(DataFlavor.javaJVMLocalObjectMimeType +
+                        "; class=" + "\"" + TreePath.class.getName() + "\"");
+                } catch (ClassNotFoundException e) {
+                    // can not occur
+                    e.printStackTrace();
+                }
+            }
+
+        private static DataFlavor[] flavors = { localObjectFlavor };
+      
+      
+      
     }
 

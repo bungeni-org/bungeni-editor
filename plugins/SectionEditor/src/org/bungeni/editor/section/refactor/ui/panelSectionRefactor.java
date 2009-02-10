@@ -55,10 +55,11 @@ public class panelSectionRefactor extends javax.swing.JPanel {
           this.treeSectionView.setModel(treeModel);
           this.treeSectionView.setCellRenderer(new OdfJDomTreeCellRenderer());
           //enable drag and drop
-          OdfJDomTreeNodeTransferHandler handler = new OdfJDomTreeNodeTransferHandler();
-          handler.setPanelForm(this);
+          OdfJDomTreeNodeTransferHandler handler = new OdfJDomTreeNodeTransferHandler(this);
+         // handler.setPanelForm(this);
           this.treeSectionView.setTransferHandler(handler);
           this.treeSectionView.setDragEnabled(true);
+          this.treeSectionView.setDropTarget(new OdfJDomTreeDropTarget(handler));
           this.treeSectionView.addTreeSelectionListener(new treeSectionViewMouseListener());
      }
 

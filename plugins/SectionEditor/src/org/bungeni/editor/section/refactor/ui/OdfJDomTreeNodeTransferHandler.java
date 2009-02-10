@@ -38,10 +38,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreePath;
 import org.apache.log4j.Logger;
-import org.bungeni.editor.section.refactor.ui.OdfJDomTreeModel;
-import org.bungeni.editor.section.refactor.ui.OdfJDomTreeNode;
 import org.bungeni.editor.section.refactor.xml.OdfJDomElement;
-import org.bungeni.editor.section.refactor.xml.OdfRefactor;
 
 /**
  *
@@ -67,8 +64,9 @@ public class OdfJDomTreeNodeTransferHandler extends TransferHandler {
   /**
    * constructor
    */
-  public OdfJDomTreeNodeTransferHandler() {
+  public OdfJDomTreeNodeTransferHandler(panelSectionRefactor frm) {
     super();
+    this.panelRefactor = frm;
    }
 
   
@@ -93,7 +91,7 @@ public class OdfJDomTreeNodeTransferHandler extends TransferHandler {
               dragPath = tree.getSelectionPath();
               if (dragPath != null) {
                   Object obj = dragPath.getLastPathComponent();
-                  System.out.println("obj class = " + obj.getClass().getName());
+                 // System.out.println("obj class = " + obj.getClass().getName());
                 draggedNode = (OdfJDomTreeNode) dragPath.getLastPathComponent();
               }
 	  }
@@ -110,15 +108,15 @@ public class OdfJDomTreeNodeTransferHandler extends TransferHandler {
   protected void exportDone(JComponent source, Transferable data, int action) {
       try {
   	if(source instanceof JTree) {
-  		JTree tree = (JTree) source;
-        OdfJDomTreeModel model = (OdfJDomTreeModel) tree.getModel();
-  	    TreePath currentPath = tree.getSelectionPath();
-        Rectangle rectCoords = tree.getPathBounds(currentPath);
+              JTree tree = (JTree) source;
+              OdfJDomTreeModel model = (OdfJDomTreeModel) tree.getModel();
+              TreePath currentPath = tree.getSelectionPath();
+              Rectangle rectCoords = tree.getPathBounds(currentPath);
   		if(currentPath != null) {
                     //get the drop target node
                     OdfJDomTreeNode thisNode = (OdfJDomTreeNode) currentPath.getLastPathComponent();
                     //we dont handle multiple selections of the source, so the source node is always a single one.
-                    TreePath[] movedPaths = (TreePath[]) data.getTransferData(DataFlavor.stringFlavor);
+                    TreePath[] movedPaths = (TreePath[]) data.getTransferData(OdfJDomTransferable.localObjectFlavor);
                     OdfJDomTreeNode fromNode = (OdfJDomTreeNode) movedPaths[0].getLastPathComponent();
                     /*
                      *we dont actually move the nodes on the tree, since the nodes get refreshed from the document
@@ -183,7 +181,7 @@ public class OdfJDomTreeNodeTransferHandler extends TransferHandler {
       if (dragPath != null) {
         Rectangle pathBounds = tree.getPathBounds(dragPath);
         TreeCellRenderer r = tree.getCellRenderer();
-        DefaultTreeModel m = (DefaultTreeModel)tree.getModel();
+        OdfJDomTreeModel m = (OdfJDomTreeModel)tree.getModel();
         boolean nIsLeaf = m.isLeaf(dragPath.getLastPathComponent());
         JComponent lbl = (JComponent)r.getTreeCellRendererComponent(tree, draggedNode, false ,
         		tree.isExpanded(dragPath),nIsLeaf, 0,false);
