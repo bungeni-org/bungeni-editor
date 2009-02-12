@@ -96,7 +96,7 @@ public class editorApplicationController extends javax.swing.JPanel {
            
     private org.bungeni.editor.dialogs.editorTabbedPanel panel = null;
     private String m_FullFilesPath;
-    private org.bungeni.ooo.BungenioOoHelper openofficeObject;
+    private org.bungeni.ooo.BungenioOoHelper openofficeObject = null;
     private documentType[] m_documentTypes = null;
     /**
      * Constructor for editorApplicationController Class
@@ -192,6 +192,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         lblCreateNewDoc = new javax.swing.JLabel();
         lblOpenCurrentDoc = new javax.swing.JLabel();
         lblLaunchAndAccquire = new javax.swing.JLabel();
+        btnImportNew = new javax.swing.JButton();
         tabTemplates = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTemplatesList = new javax.swing.JTable();
@@ -269,6 +270,14 @@ public class editorApplicationController extends javax.swing.JPanel {
         lblLaunchAndAccquire.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         lblLaunchAndAccquire.setText("Launches the Editor and accquires open : %s documents");
 
+        btnImportNew.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
+        btnImportNew.setText("Import Existing Document..");
+        btnImportNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportNewActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout tabCurrentFileLayout = new org.jdesktop.layout.GroupLayout(tabCurrentFile);
         tabCurrentFile.setLayout(tabCurrentFileLayout);
         tabCurrentFileLayout.setHorizontalGroup(
@@ -278,29 +287,34 @@ public class editorApplicationController extends javax.swing.JPanel {
                 .add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(tabCurrentFileLayout.createSequentialGroup()
                         .add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(lblCurrentTemplate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 455, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(tabCurrentFileLayout.createSequentialGroup()
-                                    .add(cboDocumentTypes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(48, 48, 48)
-                                    .add(lblCurrentActiveMode, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                    .add(lblCurrentTemplateText, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 405, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                .add(tabCurrentFileLayout.createSequentialGroup()
-                                    .add(createNewDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                    .add(lblCreateNewDoc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 311, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                .add(lblDocumentTypes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 245, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(lblCurrentTemplate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 455, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(tabCurrentFileLayout.createSequentialGroup()
+                                .add(cboDocumentTypes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(48, 48, 48)
+                                .add(lblCurrentActiveMode, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                .add(lblCurrentTemplateText, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 405, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(tabCurrentFileLayout.createSequentialGroup()
+                                .add(createNewDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(lblCreateNewDoc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 311, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(lblDocumentTypes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 245, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(250, 250, 250))
+                    .add(tabCurrentFileLayout.createSequentialGroup()
+                        .add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(tabCurrentFileLayout.createSequentialGroup()
                                 .add(btnOpenExisting, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(lblOpenCurrentDoc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 418, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                        .add(250, 250, 250))
+                                .add(lblOpenCurrentDoc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 418, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(tabCurrentFileLayout.createSequentialGroup()
+                                .add(jButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(lblLaunchAndAccquire, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 311, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 107, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(13, Short.MAX_VALUE))
                     .add(tabCurrentFileLayout.createSequentialGroup()
-                        .add(jButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(lblLaunchAndAccquire, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 311, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(120, Short.MAX_VALUE))))
+                        .add(btnImportNew, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(443, Short.MAX_VALUE))))
         );
         tabCurrentFileLayout.setVerticalGroup(
             tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -324,15 +338,17 @@ public class editorApplicationController extends javax.swing.JPanel {
                 .add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(lblCreateNewDoc, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(createNewDocument, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(btnImportNew, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(4, 4, 4)
                 .add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(btnOpenExisting, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(lblOpenCurrentDoc, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(lblLaunchAndAccquire, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
-                .add(95, 95, 95))
+                .add(64, 64, 64))
         );
 
         editorAppTabbedPane.addTab("Quick Actions", tabCurrentFile);
@@ -1159,6 +1175,35 @@ private void btnOpenExistingActionPerformed(java.awt.event.ActionEvent evt) {//G
     this.btnOpenExisting.setEnabled(true);
 }//GEN-LAST:event_btnOpenExistingActionPerformed
 
+private void importDocument(String documentPath){
+    
+            if (openofficeObject == null ) {
+                openofficeObject = new org.bungeni.ooo.BungenioOoHelper(m_xContext);
+                openofficeObject.initoOo();
+            }
+            
+            String templateURL = BungenioOoHelper.convertPathToURL(documentPath);
+           XComponent xComponent;
+           log.debug("import URL= "+ templateURL);
+           xComponent = openofficeObject.openDocument(templateURL);
+           //    initFrame(xComponent);
+              // testFrame(xComponent);
+}
+
+
+private void btnImportNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportNewActionPerformed
+// TODO add your handling code here:
+    // TODO add your handling code here:
+    this.btnImportNew.setEnabled(false);
+    String basePath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH()+File.separator+"workspace"+File.separator+"files";
+    File openFile = CommonFileFunctions.getFileFromChooser(basePath, new org.bungeni.utils.fcfilter.ODTFileFilter(), JFileChooser.FILES_ONLY, null);
+    if (openFile != null) {
+                String fullPathToFile = openFile.getAbsolutePath();        
+            }
+    
+    this.btnImportNew.setEnabled(true);
+}//GEN-LAST:event_btnImportNewActionPerformed
+
 
 /**
  * Listener Classes Listed below
@@ -1196,11 +1241,7 @@ private void btnOpenExistingActionPerformed(java.awt.event.ActionEvent evt) {//G
             if (event.getValueIsAdjusting()) {
                 return;
             }
-            
-            String strFileName = "";
-            strFileName = (String) tblWorkspaceFolder.getValueAt(tblWorkspaceFolder.getSelectedRow(), 0);
-            lblSelectedFile.setText("Active Template: " + strFileName);
-            m_currentSelectedWorkspaceFile = m_FullFilesPath + File.separator + strFileName;
+            System.out.println("selected : " + event.getLastIndex());
             //  output.append("ROW SELECTION EVENT. ");
           //  outputSelection();
         }
@@ -1280,6 +1321,7 @@ private class tblServerFilesMouseAdapter implements MouseListener {
     private javax.swing.JButton btnBackOneFolder;
     private javax.swing.JButton btnBrowseWorkspacePath;
     private javax.swing.JButton btnEditWorkspaceDocument;
+    private javax.swing.JButton btnImportNew;
     private javax.swing.JButton btnOpenExisting;
     private javax.swing.JButton btnSaveSettings;
     private javax.swing.JButton btnSetCurrentTemplate;
