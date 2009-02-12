@@ -143,7 +143,7 @@ private void btnApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         return;
     }
     applySideNote(sideNoteTxt);
-    
+    containerFrame.dispose();
 }//GEN-LAST:event_btnApplyActionPerformed
 
 private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
