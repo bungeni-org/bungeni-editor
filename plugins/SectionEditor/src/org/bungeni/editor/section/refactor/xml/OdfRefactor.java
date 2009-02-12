@@ -21,6 +21,7 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import org.bungeni.editor.section.refactor.changelog.ChangeLog;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -57,7 +58,8 @@ public class OdfRefactor {
      */
     OdfPackageBackup packageBackup ;
 
-
+    private String commitLog = "";
+    
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(OdfPackage.class.getName());
 
     private final static String ODF_CONTENT_FILE="content.xml";
@@ -85,6 +87,10 @@ public class OdfRefactor {
         }
     }
 
+    public void updateCommitLog(String commitLog) {
+       this.commitLog = commitLog;
+    }
+
         
 
         
@@ -92,7 +98,12 @@ public class OdfRefactor {
      * Wrapper function to generate incremental backups of document
      * @return
      */
-    private boolean backupPackage(){
+    private boolean backupPackage(String sourceSection, String targetSection, int moveBeforeOrAfter){
+       //pass change log info to backup
+        packageBackup.updateChangeInfo(sourceSection, 
+               targetSection, 
+               ((moveBeforeOrAfter == MOVE_BEFORE)?ChangeLog.CHANGE_ACTION_MOVE_BEFORE:ChangeLog.CHANGE_ACTION_MOVE_AFTER), commitLog);       
+       //generate backup
        File fbackupFile =  packageBackup.generateBackup();
        if (fbackupFile == null) {
             return false;
@@ -151,7 +162,7 @@ public class OdfRefactor {
     private boolean moveSection(String sourceSection, String targetSection, int moveBeforeOrAfter) {
         boolean bState = false;
         //make a backup package first
-        if (!backupPackage()) {
+        if (!backupPackage(sourceSection, targetSection, moveBeforeOrAfter)) {
             log.error("moveSectionBefore : backup of package failed");
         }
         try {

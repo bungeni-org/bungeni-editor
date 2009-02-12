@@ -133,23 +133,24 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="scrollChangeLog" alignment="0" pref="326" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="scrollChangeHistory" pref="314" max="32767" attributes="2"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="scrollChangeLog" pref="314" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="256" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                              <Component id="btnRevertToSelectedVersion" min="-2" pref="231" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="scrollSectionMeta1" pref="314" max="32767" attributes="2"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="102" max="32767" attributes="0"/>
-                      <Component id="btnRevertToSelectedVersion" min="-2" pref="155" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -157,12 +158,14 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollSectionMeta1" pref="115" max="32767" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="scrollChangeLog" min="-2" pref="94" max="-2" attributes="0"/>
+                      <Component id="scrollChangeHistory" pref="115" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                      <Component id="scrollChangeLog" min="-2" pref="79" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnRevertToSelectedVersion" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -178,6 +181,7 @@
                 <Component class="javax.swing.JTextArea" name="txtChangeLog">
                   <Properties>
                     <Property name="columns" type="int" value="20"/>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="DejaVu Sans" size="10" style="0"/>
                     </Property>
@@ -194,14 +198,14 @@
                 <Property name="text" type="java.lang.String" value="Revert to Selected Version"/>
               </Properties>
             </Component>
-            <Container class="javax.swing.JScrollPane" name="scrollSectionMeta1">
+            <Container class="javax.swing.JScrollPane" name="scrollChangeHistory">
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="tblSectionMeta1">
+                <Component class="javax.swing.JTable" name="tblChangeHistory">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="DejaVu Sans" size="10" style="0"/>
@@ -218,6 +222,14 @@
                 </Component>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JLabel" name="jLabel1">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="DejaVu Sans" size="10" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Change Notes"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>
