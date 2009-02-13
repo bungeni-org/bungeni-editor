@@ -50,9 +50,6 @@ public class ooDocMetadata {
        try {
         if (PropertyExists (propertyName))
                 propertyValue = ooDocument.getPropertyValue(propertyName);
-       } catch (UnknownPropertyException ex) {
-                log.error("GetProperty:"+propertyName+" "+ ex.getMessage());
-               
        } finally {
        return propertyValue;
        }
@@ -73,7 +70,7 @@ public class ooDocMetadata {
                     String value = ooDoc.getPropertyValue(prop.Name);
                     ooDocMetadataFieldSet fld = new ooDocMetadataFieldSet(prop.Name, value);
                     matchedProperties.add(fld);
-                } catch (UnknownPropertyException ex) {
+                } catch (Exception ex) {
                     log.error("getMetadataObjectsByType : " + ex.getMessage());
                 }
             }

@@ -9,14 +9,11 @@
 
 package org.bungeni.ooo;
 
-import com.sun.star.beans.UnknownPropertyException;
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 import org.apache.commons.lang.StringEscapeUtils;
-import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
@@ -110,9 +107,9 @@ public class ooDocNotes {
     private String getNoteProperty () {
         String value = null;
         try {
-              value = ooDocument.getPropertyValue(this.NOTE_PROPERTY_NAME);
+              value = ooDocument.getPropertyValue(ooDocNotes.NOTE_PROPERTY_NAME);
               value = decodeXml(value);
-         } catch (UnknownPropertyException ex) {
+         } catch (Exception ex) {
             log.error("getNoteProperty:"+ ex.getLocalizedMessage());
         }
         return value;

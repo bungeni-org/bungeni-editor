@@ -1693,6 +1693,33 @@ public XTextField getTextFieldByName(String fieldName) {
           }
     }
     
+    
+      public static XComponent openTemplate(String documentPath) {
+          XComponent xComponent = null;
+          try {
+            documentPath = BungenioOoHelper.convertPathToURL(documentPath);
+            if (documentPath.length() > 0 ) {
+                PropertyValue[] loadProps = new com.sun.star.beans.PropertyValue[2];
+                PropertyValue xOpenProperty = new com.sun.star.beans.PropertyValue();
+                xOpenProperty.Name = "MacroExecutionMode";
+                xOpenProperty.Value = com.sun.star.document.MacroExecMode.ALWAYS_EXECUTE ;
+                loadProps[0] = xOpenProperty;
+                PropertyValue xTemplateProperty = new com.sun.star.beans.PropertyValue();
+                xOpenProperty.Name = "AsTemplate";
+                xOpenProperty.Value = false ;
+                loadProps[1] = xTemplateProperty;
+                
+                xComponent =  BungenioOoHelper.getComponentLoader().loadComponentFromURL(documentPath, "_blank", 0, loadProps);
+            }
+          } catch (Exception ex) {
+              log.error ("openExistingDocument : " + ex.getMessage());
+              log.error("openExistingDocument : " + CommonExceptionUtils.getStackTrace(ex));
+          } finally {
+              return xComponent;
+          }
+    }
+      
+      
     public boolean isDocumentOnDisk(){
         XStorable xStore = ooQueryInterface.XStorable(this.m_xComponent);
         return xStore.hasLocation();
