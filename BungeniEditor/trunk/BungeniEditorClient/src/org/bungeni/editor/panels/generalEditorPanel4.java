@@ -32,7 +32,7 @@ import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
-import org.bungeni.editor.BungeniEditorProperties;
+import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.editor.actions.EditorActionFactory;
 import org.bungeni.editor.actions.IEditorActionEvent;
 import org.bungeni.editor.actions.toolbarAction;
@@ -71,7 +71,7 @@ public class generalEditorPanel4 extends templatePanel implements IFloatingPanel
     public generalEditorPanel4() {
         log.debug("in constructor initComponents");
         initComponents();
-        property_ActiveDocumentMode = org.bungeni.editor.BungeniEditorProperties.getEditorProperty("activeDocumentMode");
+        property_ActiveDocumentMode = org.bungeni.utils.BungeniEditorProperties.getEditorProperty("activeDocumentMode");
         log.debug("in constructor initOthers");
         initOthers();
         log.debug("in constructor initTree");

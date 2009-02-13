@@ -7,7 +7,7 @@
  * and open the template in the editor.
  */
 
-package org.bungeni.editor;
+package org.bungeni.utils;
 
 import java.util.HashMap;
 import java.util.Vector;

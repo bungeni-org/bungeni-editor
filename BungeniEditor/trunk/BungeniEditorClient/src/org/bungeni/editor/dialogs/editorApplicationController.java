@@ -46,8 +46,8 @@ import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
-import org.bungeni.editor.BungeniEditorProperties;
-import org.bungeni.editor.BungeniEditorPropertiesHelper;
+import org.bungeni.utils.BungeniEditorProperties;
+import org.bungeni.utils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.metadata.EditorDocMetadataDialogFactory;
 import org.bungeni.editor.metadata.IEditorDocMetadataDialog;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
@@ -1043,7 +1043,7 @@ private void LaunchDebateMetadataSetter(XComponent xComp){
             String docMetaValue = "";
             try {
                 docMetaValue = oohc.getPropertyValue("__BungeniDocMeta");
-            } catch (UnknownPropertyException ex) {
+            } catch (Exception ex) {
                 log.error("LaunchDebateMetadataSetter : " + ex.getLocalizedMessage());
             }
             if (docMetaValue.equals("true")) //document already has metadata... 

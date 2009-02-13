@@ -72,7 +72,7 @@ import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
-import org.bungeni.editor.BungeniEditorPropertiesHelper;
+import org.bungeni.utils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.macro.ExternalMacro;
 import org.bungeni.editor.macro.ExternalMacroFactory;
 import org.bungeni.editor.metadata.DocumentMetadataTableModel;
@@ -89,13 +89,11 @@ import org.bungeni.utils.DocStructureElement;
 import org.bungeni.utils.MessageBox;
 import org.bungeni.utils.BungeniBTree;
 import org.bungeni.utils.BungeniBNode;
-import org.bungeni.editor.BungeniEditorProperties;
+import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.editor.actions.EditorActionFactory;
 import org.bungeni.editor.actions.IEditorActionEvent;
 import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.editor.dialogs.metadatapanel.SectionMetadataLoad;
-import org.bungeni.editor.metadata.EditorDocMetadataDialogFactory;
-import org.bungeni.editor.metadata.IEditorDocMetadataDialog;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
@@ -1341,7 +1339,7 @@ public TreeMap<String, editorTabbedPanel.componentHandleContainer> getCurrentlyO
         
         //txtDocAuthor.setText(strAuthor);
         //txtDocType.setText(strDocType);
-         } catch (UnknownPropertyException ex) {
+         } catch (Exception ex) {
                 ex.printStackTrace();
             }
        

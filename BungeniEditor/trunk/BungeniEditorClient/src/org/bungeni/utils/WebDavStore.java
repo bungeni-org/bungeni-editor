@@ -18,7 +18,6 @@ package org.bungeni.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.NoRouteToHostException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,7 +29,6 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.HttpURL;
 import org.apache.commons.httpclient.HttpsURL;
 import org.apache.commons.httpclient.URIException;
-import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.util.URIUtil;
 import org.apache.log4j.Logger;
 import org.apache.webdav.lib.WebdavResources;

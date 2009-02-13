@@ -9,8 +9,8 @@
 
 package org.bungeni.db;
 
-import org.bungeni.editor.BungeniEditorProperties;
-import org.bungeni.editor.BungeniEditorPropertiesHelper;
+import org.bungeni.utils.BungeniEditorProperties;
+import org.bungeni.utils.BungeniEditorPropertiesHelper;
 
 /**
  *

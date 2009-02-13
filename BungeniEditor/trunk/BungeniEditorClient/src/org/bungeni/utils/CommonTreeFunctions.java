@@ -12,7 +12,6 @@ package org.bungeni.utils;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
-import org.bungeni.editor.BungeniEditorProperties;
 
 /**
  *

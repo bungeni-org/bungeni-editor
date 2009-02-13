@@ -9,8 +9,6 @@
 
 package org.bungeni.db;
 
-import java.util.Vector;
-
 /**
  *
  * @author Administrator

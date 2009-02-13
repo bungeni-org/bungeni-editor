@@ -19,18 +19,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import org.apache.log4j.Logger;
-import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.selectors.DialogSelectorFactory;
 import org.bungeni.editor.selectors.IDialogSelector;
-import org.bungeni.editor.selectors.InitDebateRecord;
 import org.bungeni.editor.selectors.InitPapers;
-import org.bungeni.editor.selectors.InitQAsection;
-import org.bungeni.editor.selectors.InitQuestionBlock;
 import org.bungeni.editor.selectors.InitSpeech;
-import org.bungeni.editor.selectors.SelectSection;
 import org.bungeni.editor.selectors.SelectSectionEdit;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.ooo.OOComponentHelper;
@@ -95,23 +89,6 @@ public class EditorActionHandler implements IEditorActionEvent {
                 
                 action.setSelectedActionToActUpon(currentSection);
                 action.setSelectedSectionActionCommand("INSIDE_SECTION");
-                
-                //so we prompt for target section
-                /*
-                if (SelectSection.Launchable(ooDocument)) {
-                    JDialog dlg;
-                    dlg = SelectSection.Launch(ooDocument, action);
-                    SelectSection objPanel = (SelectSection)dlg.getContentPane().getComponent(0);
-                    if (objPanel.isCancelClicked())
-                        return;
-      
-                    String selAction = objPanel.getSelectedActionCommand();
-                    String selSection = objPanel.getSelectedSection();
-
-                    action.setSelectedActionToActUpon(selSection);
-                    action.setSelectedSectionActionCommand(selAction);
-                    System.out.println( "Selected Action = " + selAction+" , " + selSection);
-                } */
             }
         }
         

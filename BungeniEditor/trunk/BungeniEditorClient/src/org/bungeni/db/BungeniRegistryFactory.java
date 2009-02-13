@@ -11,7 +11,7 @@ package org.bungeni.db;
 
 import java.io.File;
 import java.util.HashMap;
-import org.bungeni.editor.BungeniEditorProperties;
+import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.utils.Installation;
 
 /**

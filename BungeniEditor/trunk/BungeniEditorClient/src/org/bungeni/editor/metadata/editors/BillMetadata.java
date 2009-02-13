@@ -11,7 +11,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import org.bungeni.editor.BungeniEditorProperties;
+import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
 import org.bungeni.editor.metadata.BillMetaModel;
 import org.bungeni.editor.selectors.SelectorDialogModes;

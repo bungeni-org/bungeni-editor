@@ -7,7 +7,6 @@ package org.bungeni.utils;
 
 import com.sun.star.text.XTextSection;
 import java.util.HashMap;
-import org.bungeni.editor.BungeniEditorPropertiesHelper;
 import org.bungeni.ooo.OOComponentHelper;
 
 /**

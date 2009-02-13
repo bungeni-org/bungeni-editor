@@ -9,7 +9,6 @@
 
 package org.bungeni.utils;
 
-import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.Toolkit;
 
@@ -21,6 +20,7 @@ public class TextSizeFilter extends DocumentFilter {
         maxCharacters = maxChars;
     }
 
+    @Override
     public void insertString(FilterBypass fb, int offs,
                              String str, AttributeSet a)
         throws BadLocationException {

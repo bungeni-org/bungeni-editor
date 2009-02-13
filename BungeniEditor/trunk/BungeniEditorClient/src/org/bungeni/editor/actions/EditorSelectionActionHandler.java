@@ -27,7 +27,7 @@ import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
-import org.bungeni.editor.BungeniEditorProperties;
+import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.editor.actions.routers.routerFactory;
 import org.bungeni.editor.selectors.DialogSelectorFactory;
 import org.bungeni.editor.selectors.IDialogSelector;

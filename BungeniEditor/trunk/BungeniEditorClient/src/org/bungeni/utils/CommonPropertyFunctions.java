@@ -9,8 +9,6 @@
 
 package org.bungeni.utils;
 
-import org.bungeni.editor.BungeniEditorProperties;
-
 /**
  *
  * @author Administrator

@@ -17,10 +17,7 @@ import java.util.Vector;
 import javax.swing.JProgressBar;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.webdav.lib.WebdavResource;
 import org.apache.log4j.Logger;
-import org.apache.webdav.lib.WebdavResources;
 /**
  * Table Model Class for WebDav JTable
  * @author Administrator

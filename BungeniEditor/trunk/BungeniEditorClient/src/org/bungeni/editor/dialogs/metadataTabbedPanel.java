@@ -33,7 +33,7 @@ import org.bungeni.editor.dialogs.metadatapanel.SectionMetadataLoad;
 import org.bungeni.ooo.BungenioOoHelper;
 import org.bungeni.ooo.OOComponentHelper;
 import org.apache.log4j.Logger;
-import org.bungeni.editor.BungeniEditorPropertiesHelper;
+import org.bungeni.utils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.dialogs.treetable.sectionHive;
 import org.jdesktop.swingx.JXTreeTable;
 

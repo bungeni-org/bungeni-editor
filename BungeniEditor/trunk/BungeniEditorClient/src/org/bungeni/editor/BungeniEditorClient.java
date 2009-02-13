@@ -12,12 +12,10 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.bungeni.editor.dialogs.editorApplicationController;
 import org.bungeni.utils.BungeniFrame;
-import org.bungeni.utils.CommonTreeFunctions;
 
 /**
  *

@@ -10,7 +10,6 @@
 package org.bungeni.editor.actions;
 
 import java.util.ArrayList;
-import org.bungeni.editor.actions.toolbarAction;
 
 /**
  *
