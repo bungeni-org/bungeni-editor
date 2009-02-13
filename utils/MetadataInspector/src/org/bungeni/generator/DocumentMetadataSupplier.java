@@ -75,7 +75,7 @@ public class DocumentMetadataSupplier {
             }
         }
         
-        } catch (UnknownPropertyException ex) {
+        } catch (Exception ex) {
         }
     }
     
