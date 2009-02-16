@@ -6,31 +6,41 @@
 The BungeniEditor supports multiple document types.  Additional document types can be added by adding configuration entries into the editor's settings database.
 The following steps describe the config entries required to register a new document type in the editor.
 
-== 1. Register the new Document Type ==
+== Create the template for the document type == 
+
+The templates for the different document types are stored under the workspace/templates folder.
+
+Create a template for the new document type (you can modify and renmae the templates for the hansard or bill). The root section of the document must be renamed to the name of the document type. e.g. the root section of the bill document type is called 'bill' ; for the debaterecord document type it is called 'debaterecord'
+
+
+== Create a Metadata Editor for the document type == 
+
+In typical circumstances you can use the GeneralMetadata editor class which provides a generic metadata editor UI for typically used AkomaNtoso metadata. Custom metadata editors can be written for a document type if you want to provide an editor for additional metadata variables. To do this you will have to write a JPanel UI class which extends `BaseEditorDocMetadataDialog` e.g :
+{{{
+
+public class MyDocTypeMetadata extends BaseEditorDocMetadataDialog {
+
+....
+}
+
+}}}
+A generic metadata metadata model is provided by the `GeneralMetadataModel` class. You can extend the general metadata model by writing your own class either by extending GeneralMetadataModel or BaseEditorDocMetaModel.  The new class needs to be registered for the document type using the document_types.metadata_model_editor config setting (see below).
+
+
+== Register the new Document Type ==
+
+Launch the settings editor
 
 Make an entry in the settings db's DOCUMENT_TYPES table, for e.g. if we were registering the bill document type, the following entry will be required :
 
-|| DOC_TYPE || DESCRIPTION || TEMPLATE_PATH ||
-|| debaterecord || debate record || workspace/templates/hansard.ott||
-|| bill || bill document || workspace/templates/bill.ott||
+|| DOC_TYPE || DESCRIPTION || TEMPLATE_PATH ||METADATA_MODEL_EDITOR||
+|| debaterecord || debate record || workspace/templates/hansard.ott||org.bungeni.editor.metadata.editors.BillMetadata||
+|| bill || bill document || workspace/templates/bill.ott||org.bungeni.editor.metadata.editors.GeneralMetadata||
 
 The DOC_TYPE column records the document type identifier used by the system.
 The TEMPLATE_PATH points to the document template for the document type.
 
-== 2. Root section definition ==
 
-The root section is the container for the document contents. The name of the root section needs to be parametrized as a general editor property.
-Add a general editor property in the following format:
-
-Property Name  = root:DOC_TYPE
-Property Value = rootName
-
-for e.g to define the root section for the bill document type :
-
-Property Name  = root:bill
-Property Value = root
-
-defines the root of the bill document type as "root".
 
 
 
