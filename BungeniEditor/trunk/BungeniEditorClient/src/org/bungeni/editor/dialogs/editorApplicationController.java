@@ -7,7 +7,6 @@
 package org.bungeni.editor.dialogs;
 
 import com.sun.star.awt.XWindow;
-import com.sun.star.beans.UnknownPropertyException;
 import com.sun.star.comp.helper.Bootstrap;
 import com.sun.star.comp.helper.BootstrapException;
 import com.sun.star.frame.XModel;
@@ -48,8 +47,6 @@ import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.utils.BungeniEditorPropertiesHelper;
-import org.bungeni.editor.metadata.EditorDocMetadataDialogFactory;
-import org.bungeni.editor.metadata.IEditorDocMetadataDialog;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.ooo.BungenioOoHelper;
