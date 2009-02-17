@@ -43,7 +43,9 @@ Make an entry in the settings db's DOCUMENT_TYPES table, for e.g. if we were reg
 
 The DOC_TYPE column records the document type identifier used by the system.
 The TEMPLATE_PATH points to the document template for the document type.
-The METADATA_MODEL_EDITOR sets the metadata model editor for the document type (in the above example, the 'debaterecord' document type is set to use the 
+The METADATA_MODEL_EDITOR sets the metadata model editor for the document type (in the above example, the 'debaterecord' document type is set to use the GeneralMetadata model / editor while the 'bill' document type uses a customized metadata model...
+
+
 
 
 == Registering Panels for the document type == 
@@ -59,7 +61,18 @@ The example below registers the document metadata panel and the document notes p
 ||judgement||tabbed||org.bungeni.editor.panels.loadable.documentNotesPanel||1||Document Notes||Document notes and document switcher||1||
 
 
+== Registering an Action set for the document type == 
 
+Every document type is associated with an action set which is presented as a hierarchichal toolbar. The action set is defined in a XML file defined in the TOOLBAR_XML_CONFIG table.
+
+The example below defines action sets for both the bill and the debaterecord document type.
+
+||DOC_TYPE||TOOLBAR_XML||
+||bill||settings/toolbar_bill.xml||
+||debaterecord||settings/toolbar_debate.xml||
+
+
+The action sets in the above example are present in the 'settings' folder of the editor installation. An action set is represented in XML and uses a particular syntax.  For details about action sets / and available actions provided by the editor refer to [http://code.google.com/p/bungeni-editor/wiki/ConditionProcessorsInBungeniEditor#Currently_Available_Conditions Condition Processors in Bungeni-Editor]
 
 
 <<<< TO DO >>>>> 
