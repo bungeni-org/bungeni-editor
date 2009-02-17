@@ -26,6 +26,10 @@ public class MyDocTypeMetadata extends BaseEditorDocMetadataDialog {
 }}}
 A generic metadata metadata model is provided by the `GeneralMetadataModel` class. You can extend the general metadata model by writing your own class either by extending GeneralMetadataModel or BaseEditorDocMetaModel.  The new class needs to be registered for the document type using the document_types.metadata_model_editor config setting (see below).
 
+The metadata editor is registered in the DOCUMENT_TYPES settings table in the METADATA_MODEL_EDITOR column. See the next section of how to set the DOCUMENT_TYPES settings.
+
+
+
 
 == Register the new Document Type ==
 
@@ -34,11 +38,12 @@ Launch the settings editor
 Make an entry in the settings db's DOCUMENT_TYPES table, for e.g. if we were registering the bill document type, the following entry will be required :
 
 || DOC_TYPE || DESCRIPTION || TEMPLATE_PATH ||METADATA_MODEL_EDITOR||
-|| debaterecord || debate record || workspace/templates/hansard.ott||org.bungeni.editor.metadata.editors.BillMetadata||
-|| bill || bill document || workspace/templates/bill.ott||org.bungeni.editor.metadata.editors.GeneralMetadata||
+|| debaterecord || debate record || workspace/templates/hansard.ott||org.bungeni.editor.metadata.editors.GeneralMetadata||
+|| bill || bill document || workspace/templates/bill.ott||org.bungeni.editor.metadata.editors.BillMetadata||
 
 The DOC_TYPE column records the document type identifier used by the system.
 The TEMPLATE_PATH points to the document template for the document type.
+The METADATA_MODEL_EDITOR sets the metadata model editor for the document type (in the above example, the 'debaterecord' document type is set to use the 
 
 
 == Registering Panels for the document type == 
@@ -52,8 +57,6 @@ The example below registers the document metadata panel and the document notes p
 ||DOCTYPE || PANEL_TYPE || PANEL_CLASS || PANEL_LOAD_ORDER || PANEL_TITLE || PANEL_DESC || STATE ||
 ||judgement||tabbed||org.bungeni.editor.panels.loadable.documentMetadataPanel||2||Document Metadata||Document metadata||1||
 ||judgement||tabbed||org.bungeni.editor.panels.loadable.documentNotesPanel||1||Document Notes||Document notes and document switcher||1||
-
-
 
 
 
