@@ -41,6 +41,18 @@ The DOC_TYPE column records the document type identifier used by the system.
 The TEMPLATE_PATH points to the document template for the document type.
 
 
+== Registering Panels for the document type == 
+
+In the settings editor you also need to register available panels for the document type :
+
+There are various panels provided for editing document metadata, viewing section metadata adding editor notes to the document etc.
+
+The example below registers the document metadata panel and the document notes panel for the 'judgement' document type.
+
+||DOCTYPE || PANEL_TYPE || PANEL_CLASS || PANEL_LOAD_ORDER || PANEL_TITLE || PANEL_DESC || STATE ||
+||judgement||tabbed||org.bungeni.editor.panels.loadable.documentMetadataPanel||2||Document Metadata||Document metadata||1||
+||judgement||tabbed||org.bungeni.editor.panels.loadable.documentNotesPanel||1||Document Notes||Document notes and document switcher||1||
+
 
 
 
