@@ -1,6 +1,17 @@
 #summary How to register a new document type for BungeniEditor
 #labels BungeniEditorClient
 
+*Table of Contents*
+
+* [ RegisteringNewDocTypeForBungeniEditor#Introduction Introduction] 
+
+* [ RegisteringNewDocTypeForBungeniEditor#Create_the_template_for_the_document_type  Create a template for the document type] 
+
+* [ RegisteringNewDocTypeForBungeniEditor#Create_a_Metadata_Editor_for_the_document_type Create a metadata editor for the document type] 
+
+* [ RegisteringNewDocTypeForBungeniEditor#Register_the_new_Document_Type Register the new document type] 
+
+
 = Introduction =
 
 The BungeniEditor supports multiple document types.  Additional document types can be added by adding configuration entries into the editor's settings database.
