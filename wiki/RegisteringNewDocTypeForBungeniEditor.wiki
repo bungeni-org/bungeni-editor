@@ -101,5 +101,17 @@ The example below defines action sets for both the bill and the debaterecord doc
 
 The action sets in the above example are present in the 'settings' folder of the editor installation. An action set is represented in XML and uses a particular syntax.  For details about action sets / and available actions provided by the editor refer to [http://code.google.com/p/bungeni-editor/wiki/ConditionProcessorsInBungeniEditor#Currently_Available_Conditions Condition Processors in Bungeni-Editor]
 
+== Set the root section parameter for the document type == 
+
+Every document type used by the editor must have a root section. The root section has the BungeniSectionType attribute set to 'body'. The root section is identified by a GENERAL_EDITOR_PROPERTIES property which takes the form :
+
+||property name|| property value||
+||root:judgement||judgement||
+
+This identifies the root section for the judgement document type as 'judgement'
+
+
+
+
 
 <<<< TO DO >>>>> 
