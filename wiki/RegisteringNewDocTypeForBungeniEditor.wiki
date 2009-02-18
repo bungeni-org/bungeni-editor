@@ -60,10 +60,26 @@ The example below registers the document metadata panel and the document notes p
 ||judgement||tabbed||org.bungeni.editor.panels.loadable.documentMetadataPanel||2||Document Metadata||Document metadata||1||
 ||judgement||tabbed||org.bungeni.editor.panels.loadable.documentNotesPanel||1||Document Notes||Document notes and document switcher||1||
 
+== Enable available actions for the document type ==
+
+Available action conditions for a document type are registered in the TOOLBAR_CONDITIONS table :
+
+||DOCTYPE||CONDITION_NAME||CONDITION_CLASS||  
+||debaterecord||fieldNotExists||org.bungeni.editor.toolbar.conditions.runnable.fieldNotExists||
+||debaterecord||fieldExists||org.bungeni.editor.toolbar.conditions.runnable.fieldExists||
+
+
+You can also import conditions form an existing doc type to the new doctype by using a SQL script for e.g. the following script imports all the conditions for the 'debaterecord' document type into the 'judgement' document type:
+{{{
+insert into toolbar_conditions ( doctype , condition_name, condition_class )
+select 'judgement' , condition_name, condition_class from toolbar_conditions  where doctype  = 'debaterecord'
+}}}
+
+
 
 == Registering an Action set for the document type == 
 
-Every document type is associated with an action set which is presented as a hierarchichal toolbar. The action set is defined in a XML file defined in the TOOLBAR_XML_CONFIG table.
+Every document type is associated with an action set which is presented as a hierarchichal toolbar. The action set is defined in a XML file defined in the TOOLBAR_XML_CONFIG table. An action set for a document type can make use of actions available to that document type (refer to the previous sections on how to make actions  availabe for a document type)
 
 The example below defines action sets for both the bill and the debaterecord document type.
 
