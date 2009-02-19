@@ -8,12 +8,14 @@ package org.bungeni.editor.metadata;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.ooo.OOComponentHelper;
+import org.bungeni.utils.BungeniEditorProperties;
 
 /**
  *
@@ -29,11 +31,14 @@ public abstract class BaseEditorDocMetadataDialog extends javax.swing.JPanel imp
     protected  ArrayList<LanguageCode> languageCodes = new ArrayList<LanguageCode>(0);
     protected  ArrayList<DocumentPart> documentParts = new ArrayList<DocumentPart>(0);
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BaseEditorDocMetadataDialog.class.getName());
-   
+    protected SimpleDateFormat sdfDateFormat ;
+    protected SimpleDateFormat sdfTimeFormat;
 
    
     public BaseEditorDocMetadataDialog(){
         super();
+        sdfDateFormat = new SimpleDateFormat (BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
+        sdfTimeFormat = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataTimeFormat"));
     }
 
     public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, SelectorDialogModes dlgMode) {

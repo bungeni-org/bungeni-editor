@@ -9,6 +9,8 @@ package org.bungeni.editor.metadata.editors;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
 import org.bungeni.editor.metadata.JudgementMetadataModel;
@@ -49,10 +51,14 @@ public class JudgementMetadata extends BaseEditorDocMetadataDialog {
   
                String sJudgementNo = docMetaModel.getItem("BungeniJudgementNo");
                 String sCaseNo = docMetaModel.getItem("BungeniCaseNo");
+                String sJudgementDate = docMetaModel.getItem("BungeniJudgementDate");
                 if (!CommonStringFunctions.emptyOrNull(sJudgementNo))
                     this.txtJudgementNo.setText(sJudgementNo);
                 if (!CommonStringFunctions.emptyOrNull(sCaseNo))
                     this.txtCaseNo.setText(sCaseNo);
+                 if (!CommonStringFunctions.emptyOrNull(sJudgementDate)) {
+                    this.dt_judgement_date.setDate(sdfDateFormat.parse(sJudgementDate));
+                }
             } catch (Exception ex) {
                 log.error("initalize()  =  "  + ex.getMessage());
             }
@@ -75,10 +81,13 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
     try {
     String sJudgementNo = this.txtJudgementNo.getText();
     String sCaseNo = this.txtCaseNo.getText();
+    Date dJudgementDate = this.dt_judgement_date.getDate();
+    String sJudgementDate = this.sdfDateFormat.format(dJudgementDate);
     //get the assent date
        // docMetaModel.updateItem("BungeniParliamentID")
         docMetaModel.updateItem("BungeniJudgementNo", sJudgementNo);
         docMetaModel.updateItem("BungeniCaseNo", sCaseNo);
+        docMetaModel.updateItem("BungeniJudgementDate", sJudgementDate);
         docMetaModel.saveModel(ooDocument);
     bState = true;
     } catch (Exception ex) {
@@ -102,6 +111,8 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
         jLabel11 = new javax.swing.JLabel();
         txtCaseNo = new javax.swing.JTextField();
         lblBillName = new javax.swing.JLabel();
+        dt_judgement_date = new org.jdesktop.swingx.JXDatePicker();
+        lblBillName1 = new javax.swing.JLabel();
 
         setBackground(java.awt.Color.lightGray);
 
@@ -115,18 +126,26 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
         lblBillName.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblBillName.setText("Case No.");
 
+        dt_judgement_date.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+
+        lblBillName1.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        lblBillName1.setText("Judgement Date");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel11)
-                    .addComponent(lblBillName)
-                    .addComponent(txtCaseNo)
-                    .addComponent(txtJudgementNo, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblBillName1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(dt_judgement_date, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblBillName, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtJudgementNo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                        .addComponent(txtCaseNo)))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,14 +158,20 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
                 .addComponent(lblBillName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtCaseNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addGap(9, 9, 9)
+                .addComponent(lblBillName1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dt_judgement_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private org.jdesktop.swingx.JXDatePicker dt_judgement_date;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel lblBillName;
+    private javax.swing.JLabel lblBillName1;
     private javax.swing.JTextField txtCaseNo;
     private javax.swing.JTextField txtJudgementNo;
     // End of variables declaration//GEN-END:variables

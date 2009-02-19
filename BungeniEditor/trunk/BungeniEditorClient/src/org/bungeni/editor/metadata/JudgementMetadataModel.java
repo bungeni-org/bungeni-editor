@@ -19,6 +19,7 @@ public class JudgementMetadataModel extends BaseEditorDocMetaModel {
         super.setup();
         this.docMeta.put("BungeniJudgementNo", "");
         this.docMeta.put("BungeniCaseNo", "");
+        this.docMeta.put("BungeniJudgementDate", "");
         this.docMeta.put("__BungeniDocMeta", "false");
     }
 }

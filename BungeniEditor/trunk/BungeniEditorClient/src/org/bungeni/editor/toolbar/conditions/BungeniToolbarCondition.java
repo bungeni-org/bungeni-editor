@@ -38,7 +38,7 @@ public class BungeniToolbarCondition {
             try {
                 setConditionClass(getConditionClassFromName(conditionName));
             } catch (Exception ex) {
-                log.error("BungeniToolbarCondition constructor: possibly the toolbar condition has not been setup for this document type "  + ex.getMessage() );
+                log.error("BungeniToolbarCondition constructor: possibly the toolbar condition has not been setup for this document type (" +fullCondition + " )"  + ex.getMessage() );
             }
         }
         
