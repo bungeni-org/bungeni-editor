@@ -18,7 +18,7 @@ If you dont want to bother with reading the detailed installation instructions, 
  * run the script runEditor.sh to start the application
 
 
-== Quick Install steps for Windows -- 
+== Quick Install steps for Windows ==
 
  * download and install openoffice.org from [http://downloads.openoffice.org http://downloads.openoffice.org]
  * download and install the sun java6 jre (from [http://java.sun.com http://java.sun.com])
