@@ -17,7 +17,7 @@
     -->
     <info>
         <appname>BungeniEditor installation</appname>
-        <appversion>0.7.1-rev2139</appversion>
+        <appversion>$APP_VER</appversion>
 	<appsubpath>BungeniEditor-$APP_VER</appsubpath>
         <authors>
             <author name="UNDESA" email="undesa@parliaments.info"/>
@@ -77,6 +77,8 @@
             <file src="base" targetdir="$INSTALL_PATH"/>
             <parsable targetfile="$INSTALL_PATH/runEditor.bat"/>
             <parsable targetfile="$INSTALL_PATH/runEditor.sh"/>
+            <parsable targetfile="$INSTALL_PATH/settingsEditor.sh"/>
+            <executable targetfile="$INSTALL_PATH/settingsEditor.sh"/>
             <executable targetfile="$INSTALL_PATH/runEditor.sh"/>
             <!-- The file will be parsed -->
         </pack>
