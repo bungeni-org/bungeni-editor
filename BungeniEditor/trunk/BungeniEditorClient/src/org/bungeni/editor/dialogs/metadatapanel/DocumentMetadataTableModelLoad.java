@@ -91,7 +91,7 @@ public class DocumentMetadataTableModelLoad extends AbstractTableModel {
                
 
             } 
-     } catch(UnknownPropertyException ex){
+     } catch(Exception ex){
           log.error(ex.getMessage());
       }
      

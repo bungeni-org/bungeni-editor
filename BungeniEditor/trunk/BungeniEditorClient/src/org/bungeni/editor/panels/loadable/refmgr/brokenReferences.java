@@ -256,7 +256,7 @@ public class brokenReferences extends BaseLaunchablePanel {
              String metaValue = "";
             try {
                 metaValue = ooDocument.getPropertyValue(metaName);
-            } catch (UnknownPropertyException ex) {
+            } catch (Exception ex) {
                 log.error("BrokenReferenceContainer : UnknownPropertyException : " + ex.getMessage());
             }
              Value = metaValue;

@@ -26,6 +26,7 @@ import org.bungeni.editor.metadata.EditorDocMetadataDialogFactory;
 import org.bungeni.editor.metadata.IEditorDocMetadataDialog;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.utils.BungeniFrame;
+import org.bungeni.utils.FrameLauncher;
 
 /**
  *
@@ -337,6 +338,7 @@ private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         frm.setSize(meta.getFrameSize());
         frm.add(meta.getPanelComponent());
         frm.setVisible(true);
+        FrameLauncher.CenterFrame(frm);
         frm.setAlwaysOnTop(true);
         return frm;
     }

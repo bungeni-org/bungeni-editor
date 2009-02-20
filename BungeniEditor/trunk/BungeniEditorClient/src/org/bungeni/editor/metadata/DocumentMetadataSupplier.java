@@ -10,7 +10,6 @@
 package org.bungeni.editor.metadata;
 
 import com.sun.star.beans.UnknownPropertyException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Vector;
@@ -99,7 +98,7 @@ public class DocumentMetadataSupplier {
                 }
             }
         }
-        } catch (UnknownPropertyException ex) {
+        } catch (Exception ex) {
             log.error("error in refreshmetadata() "+ ex.getMessage());
         }
     }
