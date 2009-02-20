@@ -25,6 +25,7 @@ import org.bungeni.utils.MessageBox;
 import org.bungeni.editor.metadata.EditorDocMetadataDialogFactory;
 import org.bungeni.editor.metadata.IEditorDocMetadataDialog;
 import org.bungeni.ooo.OOComponentHelper;
+import org.bungeni.utils.BungeniFrame;
 
 /**
  *
@@ -327,6 +328,18 @@ private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     }
 
 
+    public static JFrame launchMetadataEditor(OOComponentHelper oohc, SelectorDialogModes dlgMode){
+        String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
+        BungeniFrame frm = new BungeniFrame(docType + " Metadata");
+        MetadataEditorContainer meta = new MetadataEditorContainer(oohc, frm, dlgMode);
+        meta.initialize();
+        frm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frm.setSize(meta.getFrameSize());
+        frm.add(meta.getPanelComponent());
+        frm.setVisible(true);
+        frm.setAlwaysOnTop(true);
+        return frm;
+    }
 
    
 

@@ -13,8 +13,6 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 import org.bungeni.utils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.metadata.DocumentMetadataTableModel;
-import org.bungeni.editor.metadata.EditorDocMetadataDialogFactory;
-import org.bungeni.editor.metadata.IEditorDocMetadataDialog;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.editor.selectors.SelectorDialogModes;
@@ -142,6 +140,14 @@ public class documentMetadataPanel extends BaseClassForITabbedPanel {
 
 private void btnEditMetadataActionPerformed(java.awt.event.ActionEvent evt) {
 // TODO add your handling code here:
+    javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+              MetadataEditorContainer.launchMetadataEditor(ooDocument, SelectorDialogModes.TEXT_EDIT);
+            }
+        });
+
+    
+    /*
         String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
         JFrame frm = new JFrame(docType + " Metadata");
         MetadataEditorContainer meta = new MetadataEditorContainer(ooDocument, frm, SelectorDialogModes.TEXT_EDIT);
@@ -156,7 +162,7 @@ private void btnEditMetadataActionPerformed(java.awt.event.ActionEvent evt) {
         frm.add(meta.getPanelComponent());
         frm.setVisible(true);
         FrameLauncher.CenterFrame(frm);
-        frm.setAlwaysOnTop(true);
+        frm.setAlwaysOnTop(true);*/
 }
 
 
