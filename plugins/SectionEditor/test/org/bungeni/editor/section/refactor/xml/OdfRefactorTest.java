@@ -35,7 +35,7 @@ public class OdfRefactorTest {
 
     @Before
     public void setUp() {
-        ref = new OdfRefactor("/Users/ashok/NetbeansProjects/SectionRefactorPlugin/testdocs/ken_bill_2009_1_10_eng_main.odt");
+        ref = new OdfRefactor("/home/undesa/Projects/Bungeni/SectionRefactorPlugin/testdocs/ken_bill_2009_1_10_eng_main.odt");
     }
 
     @After
@@ -50,7 +50,7 @@ public class OdfRefactorTest {
     @Test
     public void testSaveDocument() {
         try {
-            boolean b = ref.moveSectionBefore("part1", "preamble");
+            boolean b = ref.moveSectionBefore("preamble", "part1");
             boolean result = ref.saveDocument();
             assertEquals(result, true);
             // TODO review the generated test code and remove the default call to fail.
