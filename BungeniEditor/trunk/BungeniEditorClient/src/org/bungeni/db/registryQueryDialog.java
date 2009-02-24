@@ -61,6 +61,13 @@ public class registryQueryDialog {
         parentFrame = parent;
     }
     
+    boolean bMultiSelect = false;
+    
+    public void setMultiSelect(boolean bMulti) {
+        bMultiSelect = bMulti;
+    }
+    
+    
     private void btnSelectMP_Clicked(java.awt.event.ActionEvent evt){
        int nRow =  dataTable.getSelectedRow();
        log.debug("Select clicked: row : " + nRow);
@@ -113,6 +120,7 @@ public class registryQueryDialog {
           
            DefaultTableModel dtm = new DefaultTableModel(vMps,vMpColumns);
              dataTable = new JTable() {
+                @Override
                  public boolean isCellEditable(int rowIndex, int vColIndex) {
                     return false;
                     }
