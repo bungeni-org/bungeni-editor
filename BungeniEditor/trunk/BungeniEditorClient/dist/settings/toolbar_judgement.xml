@@ -17,19 +17,19 @@
                   <subaction name="Masthead.selection.judgementNo" title="Markup Case No" tooltip="Select some text to mark it up as a Case No" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMetadataReference.mark:mBungeniJudgementDate" visible="true" condition="cursorInSection:header :and: textSelected:true"/>
  	    </action>
     	    <action name="Introduction.selection" tooltip="Introduction for judgement" title="Introduction"  target="null" visible="true" condition="none" showChildren="true" >
-     	          <subaction name="Introduction.create" title="Create Introduction" visible="true" condition="sectionNotExists:intro* :and: textSelected:true" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeIntroduction.section_create"/>	
+     	          <subaction name="Introduction.create" title="Create Introduction" visible="true" condition="sectionNotExists:intro* :and: textSelected:true" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeIntroduction.section_creation"/>	
  	    </action>
 	    <action name="Background.selection" tooltip="Background for judgement" title="Background"  target="null" visible="true" condition="none" showChildren="true" >
-     	          <subaction name="Background.create" title="Create Background" visible="true" condition="sectionNotExists:bg* :and: textSelected:true" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeBackground.section_create"/>	
+     	          <subaction name="Background.create" title="Create Background" visible="true" condition="sectionNotExists:bg* :and: textSelected:true" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeBackground.section_creation"/>	
  	    </action>
     	    <action name="Motivation.selection" tooltip="Motivation for judgement" title="Motivation"  target="null" visible="true" condition="none" showChildren="true" >
-     	          <subaction name="Motivation.create" title="Create Motivation" visible="true" condition="sectionNotExists:motive* :and: textSelected:true" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMotivation.section_create"/>	
+     	          <subaction name="Motivation.create" title="Create Motivation" visible="true" condition="sectionNotExists:motive* :and: textSelected:true" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMotivation.section_creation"/>	
  	    </action>
     	    <action name="Decision.selection" tooltip="Decision for judgement" title="Decision"  target="null" visible="true" condition="none" showChildren="true" >
-     	          <subaction name="Motivation.create" title="Create Motivation" visible="true" condition="sectionNotExists:decis* :and: textSelected:true" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDecision.section_create"/>	
+     	          <subaction name="Motivation.create" title="Create Decision" visible="true" condition="sectionNotExists:decis* :and: textSelected:true" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDecision.section_creation"/>	
  	    </action>
     	    <action name="Conclusion.selection" tooltip="Conclusion for judgement" title="Conclusion"  target="null" visible="true" condition="none" showChildren="true" >
-     	          <subaction name="Conclusion.create" title="Create Conclusion" visible="true" condition="sectionNotExists:concl* :and: textSelected:true" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeConclusion.section_create"/>	
+     	          <subaction name="Conclusion.create" title="Create Conclusion" visible="true" condition="sectionNotExists:concl* :and: textSelected:true" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeConclusion.section_creation"/>	
  	    </action>
 	</actionGroup>
     </root>
