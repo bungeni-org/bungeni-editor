@@ -107,12 +107,16 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jXTreeTable1 = new org.jdesktop.swingx.JXTreeTable();
         txtJudgementNo = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         txtCaseNo = new javax.swing.JTextField();
         lblBillName = new javax.swing.JLabel();
         dt_judgement_date = new org.jdesktop.swingx.JXDatePicker();
         lblBillName1 = new javax.swing.JLabel();
+
+        jScrollPane1.setViewportView(jXTreeTable1);
 
         setBackground(java.awt.Color.lightGray);
 
@@ -126,7 +130,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
         lblBillName.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblBillName.setText("Case No.");
 
-        dt_judgement_date.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        dt_judgement_date.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
         lblBillName1.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblBillName1.setText("Judgement Date");
@@ -170,6 +174,8 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jdesktop.swingx.JXDatePicker dt_judgement_date;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JScrollPane jScrollPane1;
+    private org.jdesktop.swingx.JXTreeTable jXTreeTable1;
     private javax.swing.JLabel lblBillName;
     private javax.swing.JLabel lblBillName1;
     private javax.swing.JTextField txtCaseNo;
