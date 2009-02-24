@@ -66,6 +66,16 @@ public class BaseEditorDocMetaModel implements IEditorDocMetaModel {
         }
     }
    
+    /**
+     * Api to add items to document metadata model outisde of default load / save mechanism
+     * @param itemName
+     * @param itemValue
+     */
+    public void addItem(String itemName, String itemValue) {
+        docMeta.put(itemName, itemValue);
+    }
+    
+    
     public String getItem(String itemName) {
         if (docMeta.containsKey(itemName)) {
             return docMeta.get(itemName);
@@ -104,5 +114,7 @@ public class BaseEditorDocMetaModel implements IEditorDocMetaModel {
             }
         }
     }
+    
+   
     
 }
