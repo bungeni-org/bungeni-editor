@@ -9,15 +9,19 @@ package org.bungeni.editor.metadata.editors;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import org.bungeni.db.registryQueryDialog2;
+import org.bungeni.ooo.ooDocMetadataFieldSet;
 import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
 import org.bungeni.editor.metadata.JudgementMetadataModel;
 import org.bungeni.editor.selectors.SelectorDialogModes;
+import org.bungeni.ooo.ooDocMetadata;
 import org.bungeni.utils.BungeniFileSavePathFormat;
 import org.bungeni.utils.CommonStringFunctions;
 
@@ -39,8 +43,6 @@ public class JudgementMetadata2 extends BaseEditorDocMetadataDialog {
     public JudgementMetadata2(){
         super();
         initComponents();
-        String[] tableColumns = {"First Name", "Last Name", "URI" };
-        this.tblJudges.setModel(new DefaultTableModel(tableColumns, 0));
     }
     
     @Override
@@ -64,6 +66,7 @@ public class JudgementMetadata2 extends BaseEditorDocMetadataDialog {
                  if (!CommonStringFunctions.emptyOrNull(sJudgementDate)) {
                     this.dt_judgement_date.setDate(sdfDateFormat.parse(sJudgementDate));
                 }
+                initJudgesTableModel();
             } catch (Exception ex) {
                 log.error("initalize()  =  "  + ex.getMessage());
             }
@@ -71,6 +74,13 @@ public class JudgementMetadata2 extends BaseEditorDocMetadataDialog {
         }
     }
 
+    private void initJudgesTableModel(){
+        String[] tableColumns = {"First Name", "Last Name", "URI" };
+        this.tblJudges.setModel(new DefaultTableModel(tableColumns, 0));
+        Vector tblModelVector = this.loadJudgesModelFromDocument();
+    }
+    
+    
     public Component getPanelComponent() {
         return this;
     }
@@ -93,6 +103,8 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
         docMetaModel.updateItem("BungeniJudgementNo", sJudgementNo);
         docMetaModel.updateItem("BungeniCaseNo", sCaseNo);
         docMetaModel.updateItem("BungeniJudgementDate", sJudgementDate);
+        //this saves the judges listing in the table into the document
+        this.saveJudgesMetadataToDocument();
         docMetaModel.saveModel(ooDocument);
     bState = true;
     } catch (Exception ex) {
@@ -298,8 +310,49 @@ private void btnAddJudgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         
     }
     
+    private void saveJudgesMetadataToDocument(){
+        DefaultTableModel model = (DefaultTableModel)this.tblJudges.getModel();
+        Vector vData = model.getDataVector();
+        for (int i = 0; i < vData.size(); i++) {
+            Vector rowData = (Vector) vData.elementAt(i);
+            addMetadataVariable(rowData);
+           // buildMetadataVariable()
+        }
+     
+        //vector with first name, last name, uri
+        
+    }
    
+    private static final String BUNGENI_JUDGE_META_PREFIX = "BungeniJudgeName:";
+    private void addMetadataVariable(Vector rowData) {
+        String firstName = (String) rowData.elementAt(0);
+        String lastName = (String) rowData.elementAt(1);
+        String uri = (String) rowData.elementAt(2);
+        String metadataVariable = BUNGENI_JUDGE_META_PREFIX + uri;
+        String metadataValue = firstName + "~" + lastName + "~" + uri;
+        //add metadata variable to model
+        docMetaModel.addItem(metadataVariable, metadataValue);
+    }
 
+    /**
+     * This is a custom metadata model loader that loads all the Judgement related metadata
+     * @return
+     */
+    private Vector loadJudgesModelFromDocument(){
+        ArrayList<ooDocMetadataFieldSet> metaObjectByType = ooDocMetadata.getMetadataObjectsByType(ooDocument, BUNGENI_JUDGE_META_PREFIX.replaceAll(":", ""));
+        Vector vTableModel = new Vector();
+        for (Iterator<ooDocMetadataFieldSet> it = metaObjectByType.iterator(); it.hasNext();) {
+            ooDocMetadataFieldSet docMetadataFieldSet = it.next();
+            String metaName = docMetadataFieldSet.getMetadataName();
+            String metaValue = docMetadataFieldSet.getMetadataValue();
+            String[] judgeMetaValues = metaValue.split("~");
+            Vector vRow = new Vector(Arrays.asList(judgeMetaValues));
+            vTableModel.add(vRow);
+            //add first name, last name , 
+        }
+        return vTableModel;
+        
+    }
 
    
 
