@@ -20,6 +20,7 @@ import org.bungeni.ooo.ooDocMetadataFieldSet;
 import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
 import org.bungeni.editor.metadata.JudgementMetadataModel;
+import org.bungeni.editor.metadata.TabularMetadataLoader;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.ooo.ooDocMetadata;
 import org.bungeni.utils.BungeniFileSavePathFormat;
@@ -75,9 +76,10 @@ public class JudgementMetadata2 extends BaseEditorDocMetadataDialog {
     }
 
     private void initJudgesTableModel(){
-        String[] tableColumns = {"First Name", "Last Name", "URI" };
-        this.tblJudges.setModel(new DefaultTableModel(tableColumns, 0));
-        Vector tblModelVector = this.loadJudgesModelFromDocument();
+        DefaultTableModel tblModel = TabularMetadataLoader.getTabularMetadataTableModel(ooDocument,BUNGENI_JUDGE_META_PREFIX );
+        this.tblJudges.setModel(tblModel);
+       // Vector tblModelVector = this.loadJudgesModelFromDocument();
+       // ((DefaultTableModel)this.tblJudges.getModel()).setDataVector(tblModelVector, new Vector(Arrays.asList(tableColumns)));
     }
     
     
@@ -139,7 +141,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
 
         setBackground(java.awt.Color.lightGray);
 
-        tabbedJudges.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        tabbedJudges.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
         panelJudgementInfo.setBackground(java.awt.Color.lightGray);
 
@@ -189,14 +191,14 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
                 .addComponent(lblBillName1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dt_judgement_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
 
         tabbedJudges.addTab("Judgement Info", panelJudgementInfo);
 
         panelJudges.setBackground(java.awt.Color.lightGray);
 
-        tblJudges.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        tblJudges.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         tblJudges.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -210,7 +212,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
         ));
         scrollJudges.setViewportView(tblJudges);
 
-        btnAddJudge.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnAddJudge.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnAddJudge.setText("Add Judge");
         btnAddJudge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -235,8 +237,8 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
                 .addContainerGap()
                 .addComponent(btnAddJudge)
                 .addGap(3, 3, 3)
-                .addComponent(scrollJudges, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addComponent(scrollJudges, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(127, Short.MAX_VALUE))
         );
 
         tabbedJudges.addTab("Judges", panelJudges);
@@ -249,9 +251,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(32, Short.MAX_VALUE)
-                .addComponent(tabbedJudges, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(tabbedJudges, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -339,7 +339,8 @@ private void btnAddJudgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
      * @return
      */
     private Vector loadJudgesModelFromDocument(){
-        ArrayList<ooDocMetadataFieldSet> metaObjectByType = ooDocMetadata.getMetadataObjectsByType(ooDocument, BUNGENI_JUDGE_META_PREFIX.replaceAll(":", ""));
+        String findMetaPrefix = BUNGENI_JUDGE_META_PREFIX.replaceAll(":", "");
+        ArrayList<ooDocMetadataFieldSet> metaObjectByType = ooDocMetadata.getMetadataObjectsByType(ooDocument, findMetaPrefix);
         Vector vTableModel = new Vector();
         for (Iterator<ooDocMetadataFieldSet> it = metaObjectByType.iterator(); it.hasNext();) {
             ooDocMetadataFieldSet docMetadataFieldSet = it.next();
