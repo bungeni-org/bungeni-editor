@@ -7,6 +7,7 @@
 package org.bungeni.editor.selectors;
 
 import com.l2fprod.common.swing.JTaskPaneGroup;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
     /**
      * this is the container JFrame
      */
-    protected JFrame containerFrame;
+    protected Window containerFrame;
     protected toolbarAction theAction = null;
     protected toolbarSubAction theSubAction = null;
     protected SelectorDialogModes dialogMode;
@@ -420,7 +421,7 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
     
     }
     
-    public void setContainerFrame (JFrame contFrame) {
+    public void setContainerFrame (Window contFrame) {
         this.containerFrame = contFrame;
     }
     

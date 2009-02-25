@@ -6,6 +6,7 @@
 package org.bungeni.editor.selectors;
 
 import java.awt.Component;
+import java.awt.Window;
 import javax.swing.JFrame;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.actions.toolbarSubAction;
@@ -21,7 +22,7 @@ public interface IMetadataContainerPanel {
     * initialize() is always invoked after initVariables();
     */
    public void initialize();
-   public void setContainerFrame (JFrame frame);
+   public void setContainerFrame (Window frame);
    public Component getPanelComponent();
   
 }

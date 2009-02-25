@@ -96,11 +96,11 @@ public class JudgementMetadata2 extends BaseEditorDocMetadataDialog {
 public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
     boolean bState = false;
     try {
-    String sJudgementNo = this.txtJudgementNo.getText();
-    String sCaseNo = this.txtCaseNo.getText();
-    Date dJudgementDate = this.dt_judgement_date.getDate();
-    String sJudgementDate = this.sdfDateFormat.format(dJudgementDate);
-    //get the assent date
+        String sJudgementNo = this.txtJudgementNo.getText();
+        String sCaseNo = this.txtCaseNo.getText();
+        Date dJudgementDate = this.dt_judgement_date.getDate();
+        String sJudgementDate = this.sdfDateFormat.format(dJudgementDate);
+        //get the assent date
        // docMetaModel.updateItem("BungeniParliamentID")
         docMetaModel.updateItem("BungeniJudgementNo", sJudgementNo);
         docMetaModel.updateItem("BungeniCaseNo", sCaseNo);
