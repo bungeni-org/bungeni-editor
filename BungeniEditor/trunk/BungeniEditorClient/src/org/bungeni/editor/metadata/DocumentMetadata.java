@@ -9,6 +9,10 @@
 
 package org.bungeni.editor.metadata;
 
+import java.util.Arrays;
+import java.util.Vector;
+import org.apache.log4j.Logger;
+
 /**
  * 
  * Document metadata container class
@@ -22,7 +26,9 @@ public class DocumentMetadata {
     private String DataType;
     private String Value = "";
     private boolean isVisible;
-
+    private String TabularConfig;
+    private static org.apache.log4j.Logger log = Logger.getLogger(DocumentMetadata.class.getName());
+ 
     /**
      * Creates a new instance of DocumentMetadata
      * @param name Name of metadata property
@@ -30,7 +36,7 @@ public class DocumentMetadata {
      * @param datatype data type of metadata value - string or datetime
      * @param displayname description displayed on the user interface
      */
-    public DocumentMetadata(String name, String type, String datatype, String displayname, int visible) {
+    public DocumentMetadata(String name, String type, String datatype, String displayname, int visible, String tabularConfig) {
         Name = name;
         Type = type;
         DataType = datatype;
@@ -39,6 +45,7 @@ public class DocumentMetadata {
             isVisible = true;
         else
             isVisible = false;
+        TabularConfig = tabularConfig;
     }
     
     /**
@@ -80,6 +87,23 @@ public class DocumentMetadata {
          return DataType;
     }
     
+    public Vector getTabularConfig(){
+        Vector vColumns = new Vector();
+        try {
+            if (TabularConfig.trim().length() == 0) {
+                return vColumns;
+            } else {
+                String[] arrColumns = TabularConfig.split("~");
+                vColumns = new  Vector(Arrays.asList(arrColumns));
+            }
+        } catch (Exception ex) {
+            log.error("getTabularConfig : " + ex.getMessage());
+        } finally {
+            return vColumns;
+        }
+    }
+    
+    @Override
     public String toString(){
         return this.DisplayName;
     }
