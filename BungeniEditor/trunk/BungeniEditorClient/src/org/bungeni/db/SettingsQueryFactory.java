@@ -75,13 +75,26 @@ public class SettingsQueryFactory {
     
     public static String Q_FETCH_DOCUMENT_METADATA_VARIABLES() {
         String activeDocument = BungeniEditorProperties.getEditorProperty("activeDocumentMode");
-        String query = "select metadata_name, metadata_datatype, metadata_type, display_name, visible  " +
+        String query = "select metadata_name, metadata_datatype, metadata_type, display_name, visible, tabular_config  " +
                 " from document_metadata " +
                 "where metadata_type = 'document'" +
                 "and doc_type = '"+activeDocument+"' " +
                 "order by display_name asc";
         return query;        
     }
+    
+    public static String Q_FETCH_DOCUMENT_METADATA_VARIABLE(String variableName) {
+        String activeDocument = BungeniEditorProperties.getEditorProperty("activeDocumentMode");
+        String query = "select metadata_name, metadata_datatype, metadata_type, display_name, visible, tabular_config  " +
+                " from document_metadata " +
+                "where metadata_type = 'document'" +
+                "and doc_type = '"+activeDocument+"' " +
+                "and metadata_name = '" + variableName+ "' "+
+                "order by display_name asc";
+        return query;        
+    }
+    
+    
     public static String Q_CHECK_IF_ACTION_HAS_PARENT(String actionName) {
         String query = "select count(parent_action) as the_count  from action_parent " +
                 " where action_name ='"+actionName+"'";
