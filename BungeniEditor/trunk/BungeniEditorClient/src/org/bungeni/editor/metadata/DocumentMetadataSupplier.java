@@ -34,6 +34,7 @@ public class DocumentMetadataSupplier {
     private static int METADATA_TYPE_COLUMN = 2;
     private static int METADATA_DISPLAYNAME_COLUMN = 3;
     private static int METADATA_VISIBLE_COLUMN = 4;
+    private static int METADATA_TABLE_CONFIG = 5;
     
     /** Creates a new instance of DocumentMetadataFactory */
     public DocumentMetadataSupplier(OOComponentHelper ooDoc) {
@@ -151,6 +152,7 @@ public class DocumentMetadataSupplier {
            for (int i = 0 ; i < resultRows.size(); i++ ) {
                    //get the results row by row into a string vector
                    tableRow = resultRows.elementAt(i);
+                   /*
                    String metaName = tableRow.elementAt(METADATA_NAME_COLUMN);
                    log.debug("fetching metaName = "+ metaName);
                    String metaDataType = tableRow.elementAt(METADATA_DATATYPE_COLUMN);
@@ -159,7 +161,9 @@ public class DocumentMetadataSupplier {
                    //String metaDisplay = tableRow.elementAt(METADATA_DISPLAYNAME_COLUMN);
                    String metaDisplay = org.bungeni.utils.CommonResourceBundleHelperFunctions.getDocMetaString(metaName);
                    String visible = tableRow.elementAt(METADATA_VISIBLE_COLUMN);
-                   DocumentMetadata meta = new DocumentMetadata(metaName, metaType , metaDataType, metaDisplay, Integer.parseInt(visible));
+                   String tableConfig = tableRow.elementAt(METADATA_TABLE_CONFIG);
+                   DocumentMetadata meta = new DocumentMetadata(metaName, metaType , metaDataType, metaDisplay, Integer.parseInt(visible), tableConfig);*/
+                   DocumentMetadata meta = convertVectorToDocumentMetadata(tableRow);
                    this.metadataMap.put (meta.getName(), meta);
                   // arrayMeta.add(meta);
                   // break;
@@ -172,5 +176,15 @@ public class DocumentMetadataSupplier {
         }
     }
     
-    
+    public static DocumentMetadata convertVectorToDocumentMetadata(Vector<String> tableRow) {
+                   String metaName = tableRow.elementAt(METADATA_NAME_COLUMN);
+                   log.debug("fetching metaName = "+ metaName);
+                   String metaDataType = tableRow.elementAt(METADATA_DATATYPE_COLUMN);
+                   String metaType = tableRow.elementAt(METADATA_TYPE_COLUMN);
+                   String metaDisplay = org.bungeni.utils.CommonResourceBundleHelperFunctions.getDocMetaString(metaName);
+                   String visible = tableRow.elementAt(METADATA_VISIBLE_COLUMN);
+                   String tableConfig = tableRow.elementAt(METADATA_TABLE_CONFIG);
+                   DocumentMetadata meta = new DocumentMetadata(metaName, metaType , metaDataType, metaDisplay, Integer.parseInt(visible), tableConfig);
+                   return meta;
+    }
 }
