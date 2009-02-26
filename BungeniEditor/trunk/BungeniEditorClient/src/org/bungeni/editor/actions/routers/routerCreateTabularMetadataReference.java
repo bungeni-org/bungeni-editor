@@ -28,7 +28,7 @@ public class routerCreateTabularMetadataReference extends defaultRouter {
 
  @Override
     public BungeniValidatorState route_TextSelectedInsert(toolbarAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
-       CommonRouterActions.displaySubActionModalDialog(action, subAction, pFrame, ooDocument);
+       CommonRouterActions.displaySubActionDialog(action, subAction, pFrame, ooDocument);
        return new BungeniValidatorState(true, new BungeniMsg("SUCCESS")); 
     }
 
