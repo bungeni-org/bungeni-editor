@@ -18,7 +18,6 @@ import java.awt.Window;
 import javax.swing.JFrame;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.actions.toolbarSubAction;
-import org.bungeni.editor.selectors.IMetadataContainerPanel;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
@@ -28,7 +27,7 @@ import org.bungeni.utils.MessageBox;
  *
  * @author  undesa
  */
-public class routerCreateSideNote_panel extends javax.swing.JPanel implements IMetadataContainerPanel {
+public class routerCreateSideNote_panel extends javax.swing.JPanel implements IRouterSelectorPanel {
 
     JFrame parentFrame;
     Window containerFrame;

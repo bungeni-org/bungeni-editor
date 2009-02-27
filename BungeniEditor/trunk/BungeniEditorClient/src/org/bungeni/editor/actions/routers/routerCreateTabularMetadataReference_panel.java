@@ -7,10 +7,8 @@
 package org.bungeni.editor.actions.routers;
 
 import java.awt.Component;
-import java.awt.Point;
 import java.awt.Window;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JTable;
@@ -19,22 +17,24 @@ import javax.swing.table.DefaultTableModel;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.editor.metadata.TabularMetadataLoader;
-import org.bungeni.editor.selectors.IMetadataContainerPanel;
+import org.bungeni.editor.metadata.TabularMetadataLoader.TabularMetadataModel;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.ooo.OOComponentHelper;
+import org.bungeni.utils.BungeniJTableMouseListener;
 
 /**
- *
- * @author  undesa
+ * This is a base class that implements a single abstract method which provides access to the selected metadata
+ * It is not recommended to use this class directly but instead derive a clas from this and override the makeReference method.
+ * @author  Ashok Hariharan
  */
-public class routerCreateTabularMetadataReference_panel extends javax.swing.JPanel implements IMetadataContainerPanel {
+public abstract class routerCreateTabularMetadataReference_panel extends javax.swing.JPanel implements IRouterSelectorPanel {
     JFrame parentFrame;
     Window containerFrame;
     OOComponentHelper ooDocument;
     toolbarAction theAction;
     toolbarSubAction theSubAction;
     SelectorDialogModes dialogMode;
-    
+    TabularMetadataModel selectedRowModel ;
       private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(routerCreateTabularMetadataReference_panel.class.getName());
  
     /** Creates new form routerCreateSideNote_panel */
@@ -159,40 +159,49 @@ private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     }
 
     public void initialize() {
-        //override matisse generated table
+        //override matisse generated table here - as we want to make the table cells read-only
+        //by default JTable using a DefaultTableModel provides a JTable wiht editable cells
         tblRefMetadata = new JTable(){
             @Override
             public boolean isCellEditable(int row, int col) {
+                //always return false since we want the table read-only
                 return false;
             }
         };
         tblRefMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        //connect the table to the scroll view
         scrollMetadataContainer.setViewportView(tblRefMetadata);
-        DefaultTableModel tblModel = TabularMetadataLoader.getTabularMetadataTableModel(ooDocument,theSubAction.action_value() );
-        this.tblRefMetadata.setModel(tblModel);
+        //load the table model with the tabular document metadata
+       selectedRowModel = TabularMetadataLoader.getTabularMetadataTableModel(ooDocument,theSubAction.action_value() );
+        this.tblRefMetadata.setModel(selectedRowModel.tabularModel);
         this.tblRefMetadata.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.tblRefMetadata.addMouseListener(new tblRefMetadataMouseListener());
+        //add listener for double click
+        this.tblRefMetadata.addMouseListener(new BungeniJTableMouseListener() {
+            @Override
+            public void wasDoubleClicked(JTable tbl, int nRow, int nCol) {
+                  DefaultTableModel dtm = ((DefaultTableModel)tbl.getModel());
+                  Vector columns = selectedRowModel.columnVector;
+                  Vector vRowData = (Vector) dtm.getDataVector().elementAt(nRow);
+                  makeAndInsertReference(dtm, columns, vRowData);
+            }
+            @Override
+            public void wasSingleClicked(JTable tbl, int nRow, int nCol) {
+               return;
+            }
+        });
         
     }
 
-    private class tblRefMetadataMouseListener extends MouseAdapter {
-        @Override
-        public void mousePressed(MouseEvent e) {
-            Object sourceTable = e.getSource();
-            if (sourceTable.getClass().getName().equals(JTable.class.getName())) {
-                JTable tbl = (JTable)sourceTable;
-                Point p = e.getPoint();
-                if (e.getClickCount() == 2) {
-                    int nRow = tbl.rowAtPoint(p);
-                    int nCol = tbl.columnAtPoint(p);
-                    Vector vRowData = (Vector) ((DefaultTableModel)tbl.getModel()).getDataVector().elementAt(nRow);
-                    
-                }
-            }
-         
-            
-        }
-    }
+    /**
+     * This function takes an input as vector row of seleced table data
+     * and creates a reference to the metadata detialed by the Vector row.
+     * 
+     * The name of the metadata prefix is passed into the class as the subAction.sub_action_value()
+     * 
+     * @param vData - row of selected table data
+     */
+    abstract public void makeAndInsertReference(DefaultTableModel model, Vector vCols, Vector vRows);
+    
     
     public void setContainerFrame(Window frame) {
        this.containerFrame = frame;

@@ -96,9 +96,9 @@ public class CommonRouterActions {
                 try {
                     String mainDialogClass = subAction.dialog_class();
                     //sString subActionDialogClass = subAction.dialog_class();
-                    IMetadataContainerPanel containerPanel = null;
+                    IRouterSelectorPanel containerPanel = null;
                     if (mainDialogClass.length() > 0 ) {
-                        containerPanel = BaseMetadataContainerPanel.getContainerPanelObject(mainDialogClass);
+                        containerPanel = RouterSelectorPanelFactory.getContainerPanelObject(mainDialogClass);
                     }
                     //also calls setupPanels()
                     containerPanel.initVariables(ooDocument, parentFrame, action, subAction, subAction.getSelectorDialogMode());
