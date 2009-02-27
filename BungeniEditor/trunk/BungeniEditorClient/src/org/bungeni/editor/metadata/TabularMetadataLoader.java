@@ -79,15 +79,39 @@ public class TabularMetadataLoader {
         return vTableModel;
     }
   
-  public static DefaultTableModel getTabularMetadataTableModel(OOComponentHelper ooDocument, String findByPrefix) {
+  
+  public static class TabularMetadataModel {
+      public Vector columnVector;
+      public Vector dataVector;
+      public DefaultTableModel tabularModel;
+      
+      public TabularMetadataModel(){
+          
+      }
+  }
+  /**
+   * 
+   * @param ooDocument
+   * @param findByPrefix
+   * @return Object array with 3 elements - 
+   * element 0 - column config Vector
+   * element 1 - data vector
+   * element 2 - defautablemodel composed of element 0 and 1 
+   */
+  public static TabularMetadataModel getTabularMetadataTableModel(OOComponentHelper ooDocument, String findByPrefix) {
+        TabularMetadataModel metamodel = new TabularMetadataModel();
+        
         String findMetaPrefix = findByPrefix.replaceAll(":", "");
         //get column config vector
         DocumentMetadata meta = fetchDocumentMetadataConfig(findMetaPrefix);
         Vector vColumnConfig = meta.getTabularConfig();
+        metamodel.columnVector = vColumnConfig;
         //get thet tabular metadata for the pattern
         Vector vMetadata = fetchTabularMetadata(ooDocument, findMetaPrefix);
+        metamodel.dataVector = vMetadata;
         DefaultTableModel mdl = new DefaultTableModel(vMetadata, vColumnConfig);
-        return mdl;
+        metamodel.tabularModel = mdl;
+        return metamodel;
 
   }
   
