@@ -21,6 +21,7 @@ import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
 import org.bungeni.editor.metadata.JudgementMetadataModel;
 import org.bungeni.editor.metadata.TabularMetadataLoader;
+import org.bungeni.editor.metadata.TabularMetadataLoader.TabularMetadataModel;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.ooo.ooDocMetadata;
 import org.bungeni.utils.BungeniFileSavePathFormat;
@@ -76,7 +77,8 @@ public class JudgementMetadata2 extends BaseEditorDocMetadataDialog {
     }
 
     private void initJudgesTableModel(){
-        DefaultTableModel tblModel = TabularMetadataLoader.getTabularMetadataTableModel(ooDocument,BUNGENI_JUDGE_META_PREFIX );
+        TabularMetadataModel model = TabularMetadataLoader.getTabularMetadataTableModel(ooDocument,BUNGENI_JUDGE_META_PREFIX );
+        DefaultTableModel tblModel = model.tabularModel;
         this.tblJudges.setModel(tblModel);
        // Vector tblModelVector = this.loadJudgesModelFromDocument();
        // ((DefaultTableModel)this.tblJudges.getModel()).setDataVector(tblModelVector, new Vector(Arrays.asList(tableColumns)));
