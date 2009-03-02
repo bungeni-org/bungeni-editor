@@ -11,14 +11,8 @@ package org.bungeni.editor.section.refactor.ui;
  */
 
 import org.bungeni.editor.section.refactor.xml.OdfJDomElement;
-import java.util.ArrayList;
-import java.util.Iterator;
 
-import javax.swing.event.TreeModelEvent;
-import javax.swing.event.TreeModelListener;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeModel;
-import javax.swing.tree.TreePath;
 
 import org.jdom.Document;
 
@@ -51,6 +45,7 @@ public class OdfJDomTreeModel extends DefaultTreeModel {
 
     
     //override from TreeModel
+    @Override
     public Object getChild(Object parent, int index) {
         OdfJDomTreeNode node = (OdfJDomTreeNode) parent;
         return node.child(index);
@@ -63,6 +58,7 @@ public class OdfJDomTreeModel extends DefaultTreeModel {
     }
 
     //override from TreeModel
+    @Override
     public int getChildCount(Object parent) {
         OdfJDomTreeNode jdomNode = (OdfJDomTreeNode)parent;
         return jdomNode.childCount();
