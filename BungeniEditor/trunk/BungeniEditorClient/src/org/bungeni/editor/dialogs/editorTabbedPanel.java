@@ -6,29 +6,17 @@
 
 package org.bungeni.editor.dialogs;
 
-import com.sun.star.beans.UnknownPropertyException;
 import com.sun.star.beans.XPropertySet;
-import com.sun.star.beans.XPropertySetInfo;
-import com.sun.star.container.NoSuchElementException;
 import com.sun.star.container.XEnumeration;
 import com.sun.star.container.XEnumerationAccess;
-import com.sun.star.container.XNamed;
 import com.sun.star.document.XDocumentInfo;
 import com.sun.star.document.XDocumentInfoSupplier;
 import com.sun.star.document.XEventBroadcaster;
 import com.sun.star.frame.XFrame;
 import com.sun.star.frame.XModel;
-import com.sun.star.lang.WrappedTargetException;
 import com.sun.star.lang.XComponent;
 import com.sun.star.lang.XServiceInfo;
-import com.sun.star.text.XRelativeTextContentInsert;
-import com.sun.star.text.XText;
-import com.sun.star.text.XTextContent;
 import com.sun.star.text.XTextDocument;
-import com.sun.star.text.XTextRange;
-import com.sun.star.text.XTextSection;
-import com.sun.star.text.XTextViewCursor;
-import com.sun.star.uno.Any;
 import com.sun.star.uno.AnyConverter;
 import com.sun.star.uno.Type;
 import com.sun.star.uno.UnoRuntime;
@@ -40,12 +28,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.TreeMap;
@@ -57,24 +41,18 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.utils.BungeniEditorPropertiesHelper;
-import org.bungeni.editor.macro.ExternalMacro;
-import org.bungeni.editor.macro.ExternalMacroFactory;
 import org.bungeni.editor.metadata.DocumentMetadataTableModel;
 import org.bungeni.editor.panels.impl.FloatingPanelFactory;
 import org.bungeni.editor.panels.impl.ICollapsiblePanel;
@@ -87,8 +65,6 @@ import org.bungeni.ooo.ooDocNotes;
 import org.bungeni.ooo.ooQueryInterface;
 import org.bungeni.utils.DocStructureElement;
 import org.bungeni.utils.MessageBox;
-import org.bungeni.utils.BungeniBTree;
-import org.bungeni.utils.BungeniBNode;
 import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.editor.actions.EditorActionFactory;
 import org.bungeni.editor.actions.IEditorActionEvent;
@@ -209,11 +185,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
             }
            
        });
-       //initFloatingPane();
-       
-        //initCollapsiblePane();
-       //initNotesPanel();
-       //initBodyMetadataPanel();
+
        initTimers();
        log.debug("calling initOpenDOcuments");
        initOpenDocuments();
@@ -226,15 +198,10 @@ public class editorTabbedPanel extends javax.swing.JPanel {
        initModeLabel();
        initSwitchTabs();
        initSectionMetadataDisplay();
-       //metadataChecks();
+
        
     }
-    /*
-    private void hideUnusedPanels(){
-         this.panelMetadata.setEnabled(false); this.panelMetadata.setVisible(false);
-        this.panelBodyMetadata.setEnabled(false); this.panelBodyMetadata.setVisible(false);
-        this.panelMarkup.setEnabled(false); this.panelMarkup.setVisible(false);
-    }*/
+
     private void initProviders(){
         org.bungeni.editor.providers.DocumentSectionProvider.initialize(this.ooDocument);
     }
@@ -252,15 +219,6 @@ public class editorTabbedPanel extends javax.swing.JPanel {
             this.jTabsContainer.add(panel.getPanelTitle(), panel.getObjectHandle());
         }
         log.debug("InitTabbedPanes: finished loading");
-
-        
-/*        
-        org.bungeni.editor.panels.sectionTreeMetadataPanel sectpanel = new org.bungeni.editor.panels.sectionTreeMetadataPanel (ooDocument, parentFrame);
-        this.jTabsContainer.insertTab(sectpanel.getAccessibleContext().getAccessibleDescription(), 
-                null,
-                (Component) sectpanel,  sectpanel.getAccessibleContext().getAccessibleDescription(), 3 );
-        
-                */
     }
 
     
@@ -327,46 +285,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
     
         }
     }
-/*
-    private void initTableDocMetadata(){
-        
-        //document metadata table model is created
-        docMetadataTableModel = new DocumentMetadataTableModel(ooDocument);
-        //add the check for valid metadata here 
-        //if (true) set it to the table, else error 
-       
-       if(checkTableDocMetadata()){
-            docMetadataTableModel.getMetadataSupplier().updateMetadataToDocument("doctype");
-            tableDocMetadata.setModel(docMetadataTableModel );
-       }
-       
-         //DocumentMetadataTableModel mModel  = (DocumentMetadataTableModel) tableDocMetadata.getModel();
-         DocumentMetadata [] m=docMetadataTableModel.getMetadataSupplier().getDocumentMetadata();
-         
-         
-         //checkDocument Type here
-         //check to see if current document has docttype
-    
-         for(int i=0;i<m.length;i++){
-              if ((m[i].getName().equals("doctype") && m[i].getValue().equals("")))
-              {
-                  log.debug("Setting document type value");
-                  m[i].setValue(activeDocument);
-                  // docMetadataTableModel.getMetadataSupplier().updateMetadataToDocument("doctype");
-             } 
-          }
-          
-         
-         
-        
-        
-        
-        //table model is set
-        //tableDocMetadata.setModel(docMetadataTableModel );
-        //various listeners are added 
-       //cboListDocuments.addVetoableChangeListener(new cboListDocumentsVetoableChangeListener());
-    }    
-*/
+
     protected void setOODocumentObject (OOComponentHelper ooDoc) {
         this.ooDocument = ooDoc;
     }
@@ -374,48 +293,14 @@ public class editorTabbedPanel extends javax.swing.JPanel {
     public OOComponentHelper getOODocumentObject(){
         return this.ooDocument;
     }
-    
-    /*
-    private void refreshTableDocMetadataModel(){
-       
-        docMetadataTableModel = new DocumentMetadataTableModel(ooDocument);
-        tableDocMetadata.setModel(docMetadataTableModel );
 
-        
-        
-    }
-    */
   
     /*
      *
      *at this point the table model for the metadata table has already been set,
      *we are checking the metadata of the table
      */
-    /*
-    private boolean metadataChecks(){
-        try {
-      DocumentMetadataTableModel mModel  = (DocumentMetadataTableModel) tableDocMetadata.getModel();
-      DocumentMetadata [] m=mModel.getMetadataSupplier().getDocumentMetadata();
-     //checkDocument Type here
-      //check to see if current document has docttype
-    
-       for(int i=0;i<m.length;i++){
-              if(m[i].getName().equals("doctype") && m[i].getValue().equals("")){
-                  log.debug("Setting document type value");
-                  m[i].setValue(activeDocument);
-                 // mModel.getMetadataSupplier().updateMetadataToDocument("doctype");
-             }
-          }
-        
-          mModel.refreshMetaData();
-        } catch (Exception ex) {
-            log.error ("metadataChecks = " + ex.getMessage());
-            log.error("metadataChecks = " + CommonExceptionUtils.getStackTrace(ex));
-        } finally {
-      
-       return true;
-        }
-    } */
+  
 	
     private void initListDocuments(){
         log.debug("initListDocuments: init");
@@ -468,25 +353,8 @@ public class editorTabbedPanel extends javax.swing.JPanel {
            log.error("InitOpenDocumentsList stacktrace : " + CommonExceptionUtils.getStackTrace(ex));
         }
     }
-    /*
-    private String getFrameTitle(XTextDocument xDoc) {
-        String strTitle = "";
-        try {
-            XFrame xframe = xDoc.getCurrentController().getFrame();
-            strTitle = (String) ooQueryInterface.XPropertySet(xframe).getPropertyValue("Title");
-            int dashIndex = strTitle.lastIndexOf("-");
-            if (dashIndex != -1)
-               strTitle = strTitle.substring(0, dashIndex);
- 
-        } catch (WrappedTargetException ex) {
-            log.error(ex.getMessage());
-        } catch (UnknownPropertyException ex) {
-            log.error(ex.getMessage());
-        } finally {
-        return strTitle;
-        }
-    }
-    */
+
+    
     private void initOpenDocuments(){
         log.debug("initOpenDocuments: calling");
         //commented here for listener synchronization issues, as the combox action
@@ -544,9 +412,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
   
 
     
-    public void uncheckEditModeButton() {
-        //toggleEditSection.setSelected(false);
-    }
+
     
     public void bringEditorWindowToFront(){
    	if (ooDocument.isXComponentValid()) {
@@ -590,13 +456,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
                     //updateCollapsiblePanels();
                     updateFloatingPanels();
                     updateTabbedPanes();
-                    //initNotesPanel();
-                    //initBodyMetadataPanel();
-                    //check and see if the doctype property exists before you refresh the metadata table
-                    ///if(!ooDocument.propertyExists("doctype")){
-                    ///   JOptionPane.showMessageDialog(null,"This is not a bungeni document.","Document Type Error",JOptionPane.ERROR_MESSAGE);
-                    ///   
-                    ///} 
+               
                     /**** commented *** refreshTableDocMetadataModel();****/
                     if (self().program_refresh_documents == false)
                         bringEditorWindowToFront();
@@ -621,17 +481,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
             }
     }
     
-    private changeStructureItem[] initChangeStructureItems() {
-        changeStructureItem itema = new changeStructureItem ("VIEW_PARAGRAPHS", "View Paragraphs");
-        changeStructureItem itemb = new changeStructureItem ("VIEW_SECTIONS", "View Sections");
-        changeStructureItem itemc = new changeStructureItem ("VIEW_PRETTY_SECTIONS", "View Structure");
-        changeStructureItem[] items = new changeStructureItem[3];
-        items[0] = itemb;
-        items[1] = itema;
-        items[2] = itemc;
-        return items;
-    }
-    
+
     class comboChangeStructureListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             JComboBox box = (JComboBox) e.getSource();
@@ -671,53 +521,14 @@ public class editorTabbedPanel extends javax.swing.JPanel {
             //int windowY = (screenSize.height - floatingFrame.getHeight())/2;
             int windowY = editorApplicationController.getFrameWindowDimension().y;
             log.debug("initFloatingPane : Window Y =  "+ windowY);
-            /*XModel xModel = ooQueryInterface.XModel(ooDocument.getComponent());
-            XWindow xCompWindow = xModel.getCurrentController().getFrame().getComponentWindow();
-            XWindow xContWindow = xModel.getCurrentController().getFrame().getContainerWindow();
-            com.sun.star.awt.Rectangle rSize = xCompWindow.getPosSize();
-            com.sun.star.awt.Rectangle rContSize = xContWindow.getPosSize();*/
-            
-           // floatingFrame.setLocation(editorTabbedPanel.coordX, editorTabbedPanel.coordY);
-            
+          
           floatingFrame.setLocation(windowX, editorTabbedPanel.coordY + 50);  // Don't use "f." inside constructor.
             floatingFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             
       
     }
 
-    /*
-    private void initCollapsiblePane(){
-     try {
-     
-     panelMarkup.removeAll();    
-     panelMarkup.setLayout(new FlowLayout());
-     
-     StackedBox box = new StackedBox(); 
-     
-     //create scroll pane with stacked box
-     log.debug("initializing stackedbox");
-     
-     JScrollPane scrollPane = new JScrollPane(box);
-     scrollPane.setBorder(null);
-     //add the scroll pane to the scroll pane
-     panelMarkup.add(scrollPane, BorderLayout.CENTER);
    
-     ICollapsiblePanel generalEditorPanel = CollapsiblePanelFactory.getPanelClass("generalEditorPanel4");
-     generalEditorPanel.setOOComponentHandle(ooDocument);
-     generalEditorPanel.setParentWindowHandle(parentFrame);
-     dynamicPanelMap.put("generalEditorPanel4", generalEditorPanel);
-     
-     box.addBox("Editor Tools", generalEditorPanel.getObjectHandle());
-     
-     
-     }
-     catch (Exception e){
-         log.error("InitCollapsiblePane: exception : "+ e.getMessage());
-         log.error("InitCollapsiblePane: stacktrace: " + org.bungeni.ooo.utils.CommonExceptionUtils.getStackTrace(e));
-     }
-     
-    }
-    */
     
     private void updateFloatingPanels(){
         if (!floatingPanelMap.isEmpty()){
@@ -729,18 +540,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
                          }
         }
     }
-    /*
-    private void updateCollapsiblePanels(){
-                  if (!dynamicPanelMap.isEmpty()) {
-                         Iterator<String> panelNames = dynamicPanelMap.keySet().iterator();
-                         while (panelNames.hasNext  ()) {
-                             
-                             ICollapsiblePanel panelObj = dynamicPanelMap.get(panelNames.next());
-                             panelObj.setOOComponentHandle(ooDocument);
-                         }
-                    }
-    }
-    */
+ 
     private editorTabbedPanel self() {
         return this;
     }
@@ -759,337 +559,16 @@ public class editorTabbedPanel extends javax.swing.JPanel {
             return text;
         }
     }
-    /*
-    private void initBodyMetadataPanel(){
-        //initilize cboSelectBodyMetadata
-        
-        cboSelectBodyMetadata.removeAllItems();
-        cboSelectBodyMetadata.addItem(new selectMetadataModel("Members of Parliament", GeneralQueryFactory.Q_FETCH_ALL_MPS()));;
-        panelEditDocumentMetadata.setVisible(false);
-    }
-     **/
+
     
     public Component getComponentHandle(){
         return this;
     }
-    /*
-    private void initList() {
-        if (!ooDocument.isXComponentValid()) return;
-        if (selectedChangeStructureItem.getIndex().equals("VIEW_PARAGRAPHS")) {
-            log.debug("initList: initParagraphList");
-            scrollPane_treeDocStructure.setViewportView(treeDocStructure);
-            initParagraphList(); 
-        } else if (selectedChangeStructureItem.getIndex().equals("VIEW_SECTIONS")){
-            log.debug("initList: initSectionList");
-            scrollPane_treeDocStructure.setViewportView(treeDocStructureTree);
-            //do not refresh if the mouse is over the tree
-            if (mouseOver_TreeDocStructureTree) {
-                log.debug("initList: mouseOver treeDocStructure = true");
-                return;
-            }
-           //rem  initSectionList();
-        } else if (selectedChangeStructureItem.getIndex().equals("VIEW_PRETTY_SECTIONS")){
-             scrollPane_treeDocStructure.setViewportView(treeSectionStructure);
-                      //   if (mouseOver_TreeDocStructureTree) {
-                      //      log.debug("initList: mouseOver treeDocStructure = true");
-                      //      return;
-                      //  }
-            //commented for section refresh changes / june 2007 / initSectionStructureTreeModel();
-            //initSectionList();
-             synchronized (ooDocument) {
-                 //update the named callback - must be same as seter callback in original node
-                NodeDisplayTextSetter nsetter = new NodeDisplayTextSetter(ooDocument);
-                BungeniBNode.setINodeSetterCallback(nsetter);
-                
-                BungeniBTree newTree = DocumentSectionProvider.getNewFriendlyTree();
-                log.debug("initList: refreshing tree : " + newTree.toString());
-                BungeniBNode newRootNode = newTree.getFirstRoot();
-                
-                DocumentSectionFriendlyAdapterDefaultTreeModel model = (DocumentSectionFriendlyAdapterDefaultTreeModel) treeSectionStructure.getModel();
-                DefaultMutableTreeNode mnode = (DefaultMutableTreeNode) model.getRoot();
-                BungeniBNode origNode = (BungeniBNode) mnode.getUserObject();
-                BungeniTreeRefactorTree refTree = new BungeniTreeRefactorTree (model, origNode, newRootNode);
-                refTree.doMerge();
-             }
-             //this.initSectionStructureTreeModel();
-        }   
-   }
-     */ 
         
-    private void clearTree(){
-        treeDocStructureTree.removeAll();
-       // treeDocStructureTree.updateUI();
-
-    }
+    
    
-
-    private void initSectionsArray(){
-        BungeniBTree treeRoot = new BungeniBTree();
-        TreeMap<Integer,String> namesMap = new TreeMap<Integer,String>();
-        try {
-            if (!ooDocument.isXComponentValid()) return;
-         	/*
-         	first clear the JTree
-         	*/
-            clearTree();
-            /*
-            do a basic check to see if the root section exists
-            */
-            if (!ooDocument.getTextSections().hasByName(ROOT_SECTION)) {
-                log.error("InitSectionsArray: no root section found");
-                return;
-            }
-            /*
-            get the root section and it as the root node to the JTree
-            */
-            Object root = ooDocument.getTextSections().getByName(ROOT_SECTION);
-            log.debug("InitSectionsArray: Adding root node");
-            treeRoot.addRootNode(new String(ROOT_SECTION));
-            /*
-            now get the enumeration of the TextSection
-            */
-
-            int currentIndex = 0;
-            String parentObject = ROOT_SECTION;
-            XTextSection theSection = ooQueryInterface.XTextSection(root);
-            XTextRange range = theSection.getAnchor();
-            XText xText = range.getText();
-            XEnumerationAccess enumAccess = (XEnumerationAccess) UnoRuntime.queryInterface(XEnumerationAccess.class, xText);
-            //namesMap.put(currentIndex++, parentObject);
-            XEnumeration enumeration = enumAccess.createEnumeration();
-             log.debug("InitSectionsArray: starting Enumeration ");
-            /*
-            start the enumeration of sections first
-            */ 
-             while (enumeration.hasMoreElements()) {
-                 Object elem = enumeration.nextElement();
-                 XPropertySet objProps = ooQueryInterface.XPropertySet(elem);
-                 XPropertySetInfo objPropsInfo = objProps.getPropertySetInfo();
-                 /*
-                  *enumerate only TextSection objects
-                  */
-                 if (objPropsInfo.hasPropertyByName("TextSection")) {
-                     XTextSection xConSection = (XTextSection) ((Any)objProps.getPropertyValue("TextSection")).getObject();
-                     if (xConSection != null ) {
-                         /*
-                          *Get the section name 
-                          */   
-                         XNamed objSectProps = ooQueryInterface.XNamed(xConSection);
-                         String sectionName = objSectProps.getName();
-                         /*
-                          *only enumerate non root sections
-                          */ 
-                         if (!sectionName.equals(ROOT_SECTION)) {
-                             log.debug("InitSectionsArray: Found Section :"+ sectionName);
-                              /*
-                              *check if the node exists in the tree
-                              */
-                              if (!namesMap.containsValue(sectionName)) {
-                              		namesMap.put(currentIndex++, sectionName);
-                              }
-                         } // if (!sectionName...)     
-                     } // if (xConSection !=...)
-                 } // if (objPropsInfo.hasProper....)
-             } // while (enumeration.hasMore.... )
-             
-             /*
-              *now scan through the enumerated list of sections
-              */
-             Iterator namesIterator = namesMap.keySet().iterator();
-              while (namesIterator.hasNext()) {
-                  Integer iOrder = (Integer) namesIterator.next();
-                  String sectionName = namesMap.get(iOrder);
-                  /*
-                   *check if the sectionName exists in our section tree
-                   */
-                  BungeniBNode theNode = treeRoot.getNodeByName(sectionName);
-                  if (theNode == null ) {
-                      /*
-                       *the node does not exist, build its parent chain
-                       */
-                       ArrayList<String> parentChain = buildParentChain(sectionName);
-                       /*
-                        *now iterate through the paren->child hierarchy of sections
-                        */
-                       Iterator<String> sections = parentChain.iterator();
-                       BungeniBNode currentNode = null, previousNode = null;
-                       while (sections.hasNext()) {
-                           String hierSection = sections.next();
-                           currentNode =  treeRoot.getNodeByName(hierSection);
-                           if (currentNode == null ) {
-                               /* the node doesnt exist in the tree */
-                               if (previousNode != null ) {
-                                    treeRoot.addNodeToNamedNode(previousNode.getName(), hierSection);
-                                    previousNode = treeRoot.getNodeByName(hierSection);
-                                    if (previousNode == null ) 
-                                        log.error("previousNode was null");
-                               } else {
-                                   log.error("The root section was not in the BungeniBTree hierarchy, this is an error condition");
-                               }
-                           } else {
-                               /* the node already exists...*/
-                               previousNode = currentNode;
-                           }
-                       }
-                  }
-                  
-                 
-              }
-               convertBTreetoJTreeNodes(treeRoot);
-        } catch (NoSuchElementException ex) {
-            log.error(ex.getMessage());
-        } catch (UnknownPropertyException ex) {
-            log.error(ex.getMessage());
-        } catch (WrappedTargetException ex) {
-            log.error(ex.getMessage());
-        }
-    }
-
-    private ArrayList<String> buildParentChain(String Sectionname){
-          XTextSection currentSection = ooDocument.getSection(Sectionname);
-          XTextSection sectionParent=currentSection.getParentSection();
-          XNamed parentProps = ooQueryInterface.XNamed(sectionParent);
-          String parentSectionname = parentProps.getName();
-          String currentSectionname = Sectionname;
-          ArrayList<String> nodeHierarchy = new ArrayList<String>();
-          //array list goes from child(0) to ancestors (n)
-          log.debug("buildParentChain: nodeHierarchy: Adding "+ currentSectionname);
-          nodeHierarchy.add(currentSectionname);
-          while (1==1) {
-              //go up the hierarchy until you reach root.
-              //break upon reaching the parent
-              if (parentSectionname.equals(ROOT_SECTION)) {
-                  nodeHierarchy.add(parentSectionname);
-                  log.debug("buildParentChain: nodeHierarchy: Adding "+ parentSectionname + " and breaking.");
-                  break;
-              }
-             nodeHierarchy.add(parentSectionname);
-             log.debug("buildParentChain: nodeHierarchy: Adding "+ parentSectionname + ".");
-             currentSectionname = parentSectionname;
-             sectionParent = sectionParent.getParentSection();
-             parentProps = ooQueryInterface.XNamed(sectionParent);
-             parentSectionname = parentProps.getName();
-          } //end while (1== 1)
-          if (nodeHierarchy.size() > 1 )
-            Collections.reverse(nodeHierarchy);
-          return nodeHierarchy;
-    }
+ 
     
-    private void convertBTreetoJTreeNodes(BungeniBTree theTree){
-        //TreeMap<Integer,BungeniBNode> sectionMap = theTree.getTree();
-        BungeniBNode rootNode = theTree.getNodeByName(ROOT_SECTION);
-        this.sectionsRootNode = null;
-        this.sectionsRootNode = new DefaultMutableTreeNode(new String(ROOT_SECTION));
-        TreeMap<Integer,BungeniBNode> sectionMap = rootNode.getChildrenByOrder();
-        Iterator<Integer> rootIter = sectionMap.keySet().iterator();
-           int depth = 0;
-           while (rootIter.hasNext()) {
-                Integer key = (Integer) rootIter.next();
-                BungeniBNode n = sectionMap.get(key);
-                DefaultMutableTreeNode n_child = new DefaultMutableTreeNode(n.getName());
-                sectionsRootNode.add(n_child);
-                //sbOut.append(padding(depth) + n.getName()+ "\n");
-                //walkNodeByOrder(n, depth);
-                walkBNodeTree(n , n_child);
-            }
-    }
-    
-    private void walkBNodeTree(BungeniBNode theNode, DefaultMutableTreeNode pNode){
-        if (theNode.hasChildren()) {
-           TreeMap<Integer, BungeniBNode> n_children = theNode.getChildrenByOrder();
-           Iterator<Integer> nodesByOrder = n_children.keySet().iterator();
-           while (nodesByOrder.hasNext()) {
-               Integer key = (Integer) nodesByOrder.next();
-               BungeniBNode n = n_children.get(key);
-               DefaultMutableTreeNode dmt_node = new DefaultMutableTreeNode(n.getName());
-               pNode.add(dmt_node);
-               walkBNodeTree(n, dmt_node);
-           }
-        } else
-            return;
-    }
-    
-    /****this is the old sections iterator, it uses getTextSections(), and the getChildSections() API, 
-     * which does not display sections in the correct order
-     * see http://www.openoffice.org/issues/show_bug.cgi?id=82420
-     *****/
-    
-/*    
-    private void recurseSections (XTextSection theSection, DefaultMutableTreeNode node ) {
-        try {
-     
-      //  mvSections.add(padding + sectionName);
-      //  log.debug("recurse sections, section name:"+padding+sectionName);
-        //recurse children
-        XTextSection[] sections = theSection.getChildSections();
-         
-        if (sections != null ) {
-            if (sections.length > 0 ) {
-                //start from last index and go to first
-                for (int nSection = sections.length - 1 ; nSection >=0 ; nSection--) {
-                    log.debug ("section name = "+ooQueryInterface.XNamed(sections[nSection]).getName() );
-                    //get the name for the section and add it to the root node.
-                    XPropertySet childSet = ooQueryInterface.XPropertySet(sections[nSection]);
-                    String childSectionName = (String) childSet.getPropertyValue("LinkDisplayName");
-                    DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(childSectionName);
-                    
-                    node.add(newNode);
-                    
-                    recurseSections (sections[nSection], newNode);
-                    
-                }
-            } else 
-                return;
-        } else 
-            return;
-        } catch (UnknownPropertyException ex) {
-            log.error(ex.getMessage());
-        } catch (WrappedTargetException ex ) {
-            log.error(ex.getMessage());
-        }
-    
-    }
-  */  
-    /*
-    private void initSectionList() {
-        initSectionsArray();  
-        log.debug("setting defaultTreeModel to sectionsRootNode");
-        treeDocStructureTree.setModel(new DefaultTreeModel(sectionsRootNode));
-        //-tree-deprecated--CommonTreeFunctions.expandAll(treeDocStructureTree, true);
-        CommonTreeFunctions.expandAll(treeDocStructureTree);
-      }
-    */
-    
-    /*
-    private void initSectionStructureTree(){
-         this.treeSectionStructure = new JTree();
-         treeSectionStructure.setExpandsSelectedPaths(true);
-         
-        // DefaultTreeCellRenderer sectionTreeRender = (DefaultTreeCellRenderer) this.treeSectionStructure.getCellRenderer();
-         ImageIcon minusIcon = CommonTreeFunctions.treeMinusIcon();
-         ImageIcon plusIcon = CommonTreeFunctions.treePlusIcon();
-       //  sectionTreeRender.setOpenIcon(minusIcon);
-       //  sectionTreeRender.setClosedIcon(plusIcon);
-     //    UIManager.put("Tree.expandedIcon", minusIcon);
-     //    UIManager.put("Tree.collapsedIcon", plusIcon);
-      //   sectionTreeRender.setLeafIcon(null);
-      //   treeSectionStructure.setCellRenderer(sectionTreeRender);
-         treeSectionStructure.setCellRenderer(new treeViewPrettySectionsTreeCellRenderer());
-         treeSectionStructure.setShowsRootHandles(true);
-         ComponentUI treeui = treeSectionStructure.getUI();
-         if (treeui instanceof BasicTreeUI){
-             ((BasicTreeUI)treeui).setExpandedIcon(minusIcon);
-             ((BasicTreeUI)treeui).setCollapsedIcon(plusIcon);
-         }
-       initSectionStructureTreeModel();  
-    }
-    private void initSectionStructureTreeModel(){
-        DocumentSectionFriendlyAdapterDefaultTreeModel model = DocumentSectionFriendlyTreeModelProvider.create() ;//_without_subscription();
-        //DefaultTreeModel model = new DefaultTreeModel(buildTreeModel());
-        this.treeSectionStructure.setModel(model);
-        CommonTreeFunctions.expandAll(treeSectionStructure);
-    }
-    */
         
    
    
@@ -1097,310 +576,12 @@ public TreeMap<String, editorTabbedPanel.componentHandleContainer> getCurrentlyO
     return this.editorMap;
 }
 
-     class treePopupMenu {
-        TreeMap<String,String> popupMenuMap = new TreeMap<String, String>();
-       
-        treePopupMenu (String menu_name_to_load_from_settings) {
-            //load the menu from settings, probably the db.
-            if (menu_name_to_load_from_settings.equals("treeDocStructureTree")) {
-                addItem("0_GOTO_SECTION", "Goto Section");
-                addItem("1_ADD_PARA_BEFORE_SECTION", "Add Para Before Section");
-                addItem("2_ADD_PARA_AFTER_SECTION", "Add Para After Section");
-                addItem("3_DELETE_SECTION", "Remove This Section");
-            }
-        }
-        
-        public void addItem(String menu_id, String text) {
-            popupMenuMap.put(menu_id, text);
-        }
-        
-        public TreeMap<String, String> getMenus() {
-            return popupMenuMap;
-        }
-        
-        
-    }
-    /*
-   class treeDocStructureTreeMouseListener implements MouseListener {
-       private treePopupMenu theMenu ; 
-       treeDocStructureTreeMouseListener() {
-            theMenu  = new treePopupMenu("treeDocStructureTree");
-        }
-        
-        public void mouseClicked(MouseEvent e) {
-        }     
-        
-         public void mousePressed(MouseEvent evt) {
-             
-                if (!toggleEditSection.isSelected()) {
-                    int selRow = treeDocStructureTree.getRowForLocation(evt.getX(), evt.getY());
-                    TreePath selPath = treeDocStructureTree.getPathForLocation(evt.getX(), evt.getY());
-                     if (selRow != -1 ) {
-                         if (evt.getClickCount() == 1) {
-                             DefaultMutableTreeNode node = (DefaultMutableTreeNode) selPath.getLastPathComponent();
-                             System.out.println("node = "+ (String) node.getUserObject());   
-                             String selectedSection = (String)node.getUserObject();
-                             createPopupMenuItems (selectedSection);
-                             popupMenuTreeStructure.show(evt.getComponent(), evt.getX(), evt.getY());
-                          return;
-                         }  
-
-                     }
-                }      
-        }
-
-        
-        public void mouseReleased(MouseEvent e) {
-        }
-
-        public void mouseEntered(MouseEvent e) {
-            log.debug("treeDocStructureTree: mouseEntered!!");
-            mouseOver_TreeDocStructureTree = true;
-        }
-
-        public void mouseExited(MouseEvent e) {
-            log.debug("treeDocStructureTree: mouseExiting!!");
-            mouseOver_TreeDocStructureTree = false;
-        }
-       
-               
-       private void createPopupMenuItems (String selectedSection){
-                popupMenuTreeStructure.removeAll();
-                //treePopupMenu menu = new treePopupMenu("treeDocStructureTree");
-                //popupMenu.add(new treePopupMenuAction(popup_section_actions[0], baseNodeAction, PopupTypeIdentifier.VIEW_ACTIONS));
-                TreeMap<String,String> menus = theMenu.getMenus();
-                Iterator<String> keys = menus.keySet().iterator();
-                while (keys.hasNext()) {
-                    String key = keys.next();
-                    popupMenuTreeStructure.add(new treeDocStructureTreePopupAction(key, menus.get(key), selectedSection));
-                }
-                //popupMenuTreeStructure.add(new treeDocStructureTreePopupAction(org.bungeni.editor.dialogs.editorTabbedPanel.PopupTypeIdentifier.GOTO_SECTION.popup_id(), selectedSection));
-               
-           }
-   }
-    */
-   /*
-    *Drag and Drop handlers for JTree - treeDocStructureTree
-    * available under the tree package
-    */
     
-   
-      class treeDocStructureTreePopupAction extends AbstractAction {
-           
-          treeDocStructureTreePopupAction () {
-              
-          }
-          
-          treeDocStructureTreePopupAction (String actionId, String actionText, String sectionName) {
-                super(actionText);
-                putValue("ACTION_ID", actionId);
-                putValue("USER_OBJECT", sectionName);
-            }
-       
-          public void actionPerformed(ActionEvent e) {
-              Object value = getValue("USER_OBJECT");
-              Object action_id = getValue("ACTION_ID");
-              if (value != null ) {
-                  processPopupSelection((String)value, (String) action_id);
-              }
-            }
-          
-          public void processPopupSelection(String sectionName, String action_id ) {
-              //go to selected range
-             XTextSection xSelectSection = ooDocument.getSection(sectionName);
-          
-              if (action_id.equals("0_GOTO_SECTION")) {
-                      if (xSelectSection != null  ) {
-                          XTextRange sectionRange = xSelectSection.getAnchor();
-                          XTextViewCursor xViewCursor = ooDocument.getViewCursor();
-                          xViewCursor.gotoRange(sectionRange, false);
-                      }
-                  
-              } else if (action_id.equals("1_ADD_PARA_BEFORE_SECTION")) {
-                   XTextContent oPar = ooQueryInterface.XTextContent(ooDocument.createInstance("com.sun.star.text.Paragraph"));
-                   XRelativeTextContentInsert xRelativeText = ooQueryInterface.XRelativeTextContentInsert(ooDocument.getTextDocument().getText());
-                    try {
-                        xRelativeText.insertTextContentBefore(oPar, ooQueryInterface.XTextContent(xSelectSection));
-                    } catch (com.sun.star.lang.IllegalArgumentException ex) {
-                        log.debug("insertTextContentbefore :" + ex.getMessage());
-                    }
-                    //move visible cursor to the point where the new para was added
-                   ooDocument.getViewCursor().gotoRange(xSelectSection.getAnchor().getStart(), false);
-              } else if (action_id.equals("2_ADD_PARA_AFTER_SECTION")) {
-                     XTextContent oPar = ooQueryInterface.XTextContent(ooDocument.createInstance("com.sun.star.text.Paragraph"));
-                     XRelativeTextContentInsert xRelativeText = ooQueryInterface.XRelativeTextContentInsert(ooDocument.getTextDocument().getText());
-                     try {
-                            xRelativeText.insertTextContentAfter(oPar, ooQueryInterface.XTextContent(xSelectSection));
-                     } catch (com.sun.star.lang.IllegalArgumentException ex) {
-                            log.error("insertTextContentbefore :" + ex.getMessage());
-                     }
-                     //move visible cursor to point where para was added
-                    ooDocument.getViewCursor().gotoRange(xSelectSection.getAnchor().getEnd(), false);
-              } else if (action_id.equals("3_DELETE_SECTION")) {
-                    //first select the range...
-                    
-                    XTextContent sectionContent = ooQueryInterface.XTextContent(xSelectSection);
-                    XTextRange sectionRange = sectionContent.getAnchor();
-                    ooDocument.getViewCursor().gotoRange(sectionRange, false);
-                    
-                    //now prompt with a warning....
-                    int nRet = MessageBox.Confirm(self(), "WARNING, The section: "+sectionName+ ", and its contents, \n" +
-                            "and any other sections nested inside it will be removed. \n " +
-                            "Are you sure you want to proceed ?", "Deletion Warning");
-                    if (nRet == JOptionPane.YES_OPTION) {
-                        //delete section and contents
-                         //aTextRange=section.getAnchor()
-                        ExternalMacro RemoveSectionAndContents = ExternalMacroFactory.getMacroDefinition("RemoveSectionAndContents");
-                        RemoveSectionAndContents.addParameter(ooDocument.getComponent());
-                        RemoveSectionAndContents.addParameter(sectionName);
-                        ooDocument.executeMacro(RemoveSectionAndContents.toString(), RemoveSectionAndContents.getParams());
-            
-                       } else 
-                        return;
-              }
-          }
-    }
+
    
    
-    /**
-     * Mouse event listener for list box displaying document structure
-     */
-    class DocStructureListMouseListener implements MouseListener{
-        public void mouseClicked(MouseEvent e) {
-            if (e.getClickCount() == 2){
-                JList listBox = (JList)e.getSource();
-                listBox.getMaxSelectionIndex();
-                int nIndex = listBox.locationToIndex(e.getPoint());
-                //JOptionPane.showMessageDialog(null, "current selected index is = "+ nIndex);
-                
-                //get view cursor 
-                XTextViewCursor xViewCursor = ooDocument.getViewCursor();
-                //get the current object range
-                DocStructureElement docElement = (DocStructureElement)mvDocumentHeadings.elementAt(nIndex);
-                //move the view cursor to the element's range
-                xViewCursor.gotoRange(docElement.getRange(), false);
-            }
-            if ((e.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK ){
-                //trap right click
-            }
-        }
-
-        public void mousePressed(MouseEvent e) {
-        }
-
-        public void mouseReleased(MouseEvent e) {
-        }
-
-        public void mouseEntered(MouseEvent e) {
-        }
-
-        public void mouseExited(MouseEvent e) {
-        }
-        
-    }
-    class DocStructureListSelectionHandler implements ListSelectionListener {
-    public void valueChanged(ListSelectionEvent e) {
-        ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-        if (lsm.isSelectionEmpty()) {
-            return;
-        } else {
-            // Find out which indexes are selected.
-            int minIndex = lsm.getMinSelectionIndex();
-            int maxIndex = lsm.getMaxSelectionIndex();
-            for (int i = minIndex; i <= maxIndex; i++) {
-                if (lsm.isSelectedIndex(i)) {
-                    JOptionPane.showMessageDialog(null, "Current Selected Index is = "+ i);
-                }
-            }
-        }
-    }
-}
-
     
-   private class documentNodeMapKey {
-       int level;
-       int count;
-   }
-   
-   
-   
-    private void initializeValues(){
-        //get metadata property alues
-        String strAuthor = ""; String strDocType = "";
-          try {
-        if (ooDocument.propertyExists("Bungeni_DocAuthor")){
-          
-                strAuthor = ooDocument.getPropertyValue("Bungeni_DocAuthor");
-           
-        }
-        if (ooDocument.propertyExists("doctype")){
-            strDocType = ooDocument.getPropertyValue("doctype");
-        }
-        
-        //txtDocAuthor.setText(strAuthor);
-        //txtDocType.setText(strDocType);
-         } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-       
-    }
-    
-    /**
-     * Class that handles rendering of List cell elements, in the Document Structure listbox
-     */
-    /*
-public class DocStructureListElementRenderer extends JLabel implements ListCellRenderer {
-    private  final Color HIGHLIGHT_COLOR = new Color(0, 0, 128);
-    private Color [] COLOR_LEVELS = {
-                        new Color(104, 104,104),
-                        new Color(124, 124,124),
-                        new Color(144, 144,144),
-                        new Color(164, 164,164),
-                        new Color(184, 184,184),
-                        new Color(204, 204,204),
-                        new Color(224, 224,224)
-    };
-    private Border raisedEtched, lineBorder;
-    public DocStructureListElementRenderer( ) {
-        setOpaque(true);
-        setIconTextGap(12);
-         raisedEtched = BorderFactory.createRaisedBevelBorder();
-         lineBorder = BorderFactory.createLineBorder(Color.GRAY);
-        
-    }
 
-    public Component getListCellRendererComponent(
-        JList list,
-        Object value,
-        int index,
-        boolean isSelected,
-        boolean cellHasFocus)
-    {
-        DocStructureElement entry = (DocStructureElement)value;
-        int nMaxIndex = COLOR_LEVELS.length - 1;
-        int nLevel = entry.getLevel();
-        if (nLevel > nMaxIndex)
-            setBackground(Color.WHITE);
-        else
-            setBackground(COLOR_LEVELS[nLevel]);
-        //setBorder(lineBorder);
-        this.setHorizontalAlignment(JLabel.LEFT);
-        this.setIconTextGap(0);
-        setText(entry.toString());
-        setFont(new java.awt.Font("Tahoma", 0, 10));
-        setIcon(null);
-        //setIcon(entry.getImage());
-        if(isSelected) {
-            setForeground(Color.white);
-            setBorder(raisedEtched);
-        } else {
-            setForeground(Color.black);
-            setBorder(lineBorder);
-        }
-        return this;
-    }
-}
-*/ 
 
 
  /** This method is called from within the constructor to
@@ -1762,10 +943,8 @@ class OpenDocumentAgent extends SwingWorker <XComponent, Void> {
                             else 
                                 bringEditorWindowToFront();
                         }
-                        String currentDocType = BungeniEditorPropertiesHelper.getCurrentDocType();
-                        if (currentDocType.equals("debaterecord")) {
-                            LaunchDebateMetadataSetter(xComp);
-                        }
+                            String currentDocType = BungeniEditorPropertiesHelper.getCurrentDocType();
+                            launchMetadataSetter(xComp);
                 }
             } catch (InterruptedException ex) {
                 log.error("openDocumentAgent : done: " + ex.getMessage());
@@ -1779,17 +958,14 @@ class OpenDocumentAgent extends SwingWorker <XComponent, Void> {
 }
    
 
-private void LaunchDebateMetadataSetter(XComponent xComp){
+private void launchMetadataSetter(XComponent xComp){
         OOComponentHelper oohc = new OOComponentHelper (xComp, ComponentContext);
         String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
         BungeniFrame frm = new BungeniFrame(docType + " Metadata");
-      //  IEditorDocMetadataDialog metaDlg = EditorDocMetadataDialogFactory.getInstance(BungeniEditorPropertiesHelper.getCurrentDocType());
-      //  metaDlg.initVariables(oohc, frm, SelectorDialogModes.TEXT_EDIT);
-     //   metaDlg.initialize();
+
           MetadataEditorContainer meta = new MetadataEditorContainer(oohc, frm, SelectorDialogModes.TEXT_INSERTION);
           meta.initialize();
         
-       // DebateRecordMetadata meta = new DebateRecordMetadata(oohc, frm, SelectorDialogModes.TEXT_INSERTION);
         frm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frm.setSize(meta.getFrameSize());
         frm.add(meta.getPanelComponent());
@@ -1893,16 +1069,7 @@ private void LaunchDebateMetadataSetter(XComponent xComp){
               for (Integer iRemove : modelIndexesToRemove) {
                   model.removeElementAt(iRemove);
               }
-              //String selectedItem = (String)cboListDocuments.getSelectedItem();
-          
-                  /*setProgrammaticRefreshOfDocumentListFlag(true);
-                  cboListDocuments.setModel(new DefaultComboBoxModel(componentHandles.toArray()));
-
-                  if (!getCurrentlyOpenDocuments().containsValue(selectedItem))
-                       cboListDocuments.setSelectedIndex(0);
-                   else
-                       cboListDocuments.setSelectedItem(selectedItem);
-                  setProgrammaticRefreshOfDocumentListFlag(false);*/
+         
          }
     }
     
@@ -2142,15 +1309,6 @@ private void LaunchDebateMetadataSetter(XComponent xComp){
         return this.floatingPanelMap;
     }
     
-    public static void main(String args[]) {
-    JFrame frame = new JFrame("Oval Sample");
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-   editorTabbedPanel panel = new editorTabbedPanel();
-   frame.add(panel);
-   frame.setSize(200,400);
-   frame.setVisible(true);
-  }   
 
 
 }
