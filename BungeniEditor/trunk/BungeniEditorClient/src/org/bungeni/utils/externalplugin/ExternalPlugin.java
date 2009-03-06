@@ -11,12 +11,14 @@ package org.bungeni.utils.externalplugin;
  */
 public class ExternalPlugin {
     public final String Name;
+    public final String JarFile;
     public final String Loader;
     public final String Description;
     public final boolean isEnabled;
     
-    public ExternalPlugin(String name, String loader, String desc, int enableDisable) {
+    public ExternalPlugin(String name, String jarFile, String loader, String desc, int enableDisable) {
         this.Name = name;
+        this.JarFile = jarFile;
         this.Loader = loader;
         this.Description = desc;
         this.isEnabled = (enableDisable == 0 ? false: true);

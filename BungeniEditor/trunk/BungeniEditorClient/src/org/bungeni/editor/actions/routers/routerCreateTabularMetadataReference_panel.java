@@ -133,7 +133,12 @@ public abstract class routerCreateTabularMetadataReference_panel extends javax.s
 
 private void btnApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApplyActionPerformed
 // TODO add your handling code here:
-    containerFrame.dispose();
+                  DefaultTableModel dtm = ((DefaultTableModel)tblRefMetadata.getModel());
+                  Vector columns = selectedRowModel.columnVector;
+                  int nRow = this.tblRefMetadata.getSelectedRow();
+                  Vector vRowData = (Vector) dtm.getDataVector().elementAt(nRow);
+                  makeAndInsertReference(dtm, columns, vRowData);
+    
 }//GEN-LAST:event_btnApplyActionPerformed
 
 private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed

@@ -270,6 +270,11 @@ public class SettingsQueryFactory {
         String query = "SELECT target_name, target_desc, target_ext, target_class FROM TRANSFORM_TARGETS where target_name='"+targetName+"'";
         return query;
     }
+    
+    public static String Q_FETCH_EXTERNAL_PLUGINS(){
+        String query = "SELECT plugin_name, plugin_loader, plugin_desc, plugin_enabled, plugin_jar FROM EXTERNAL_PLUGINS ";
+        return query;
+    }
 }
 
 

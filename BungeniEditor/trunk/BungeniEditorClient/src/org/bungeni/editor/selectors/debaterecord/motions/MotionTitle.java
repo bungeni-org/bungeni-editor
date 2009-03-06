@@ -7,9 +7,6 @@
 package org.bungeni.editor.selectors.debaterecord.motions;
 
 import java.awt.Component;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.Transferable;
 import java.util.HashMap;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.ooo.OOComponentHelper;

@@ -32,10 +32,11 @@ public class ExternalPluginsLoader {
                     Vector<String> resultRow = resultsIterator.next();
                     String pluginName = qr.getField(resultRow, "PLUGIN_NAME");
                     String pluginLoader = qr.getField(resultRow, "PLUGIN_LOADER");
+                    String pluginJar = qr.getField(resultRow, "PLUGIN_JAR");
                     String pluginDesc = qr.getField(resultRow, "PLUGIN_DESC");
                     String pluginEnabled = qr.getField(resultRow, "PLUGIN_ENABLED");
                     Integer intEnabled = Integer.parseInt(pluginEnabled);
-                    ExternalPlugin ep = new ExternalPlugin(pluginName, pluginLoader, pluginDesc, intEnabled);
+                    ExternalPlugin ep = new ExternalPlugin(pluginName, pluginJar, pluginLoader, pluginDesc, intEnabled);
                     listExtPlugins.add(ep);
                 }
            }        

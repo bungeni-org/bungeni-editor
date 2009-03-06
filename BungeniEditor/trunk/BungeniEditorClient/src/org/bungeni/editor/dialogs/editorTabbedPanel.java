@@ -33,7 +33,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.TreeMap;
-import java.util.Vector;
 import java.util.concurrent.ExecutionException;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -42,20 +41,15 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
-import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
-import javax.swing.tree.DefaultMutableTreeNode;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.utils.BungeniEditorPropertiesHelper;
-import org.bungeni.editor.metadata.DocumentMetadataTableModel;
 import org.bungeni.editor.panels.impl.FloatingPanelFactory;
-import org.bungeni.editor.panels.impl.ICollapsiblePanel;
 import org.bungeni.editor.panels.impl.IFloatingPanel;
 import org.bungeni.editor.panels.impl.ITabbedPanel;
 import org.bungeni.editor.panels.impl.TabbedPanelFactory;
@@ -63,7 +57,6 @@ import org.bungeni.ooo.BungenioOoHelper;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooDocNotes;
 import org.bungeni.ooo.ooQueryInterface;
-import org.bungeni.utils.DocStructureElement;
 import org.bungeni.utils.MessageBox;
 import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.editor.actions.EditorActionFactory;
@@ -71,6 +64,8 @@ import org.bungeni.editor.actions.IEditorActionEvent;
 import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.editor.dialogs.metadatapanel.SectionMetadataLoad;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
+import org.bungeni.editor.plugin.EditorPlugin;
+import org.bungeni.editor.plugin.impl.IEditorPluginAll;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
 import org.bungeni.editor.toolbar.BungeniToolbarTargetProcessor;
@@ -81,6 +76,9 @@ import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.bungeni.utils.BungeniFrame;
 import org.bungeni.utils.CommonFileFunctions;
 import org.bungeni.utils.CommonStringFunctions;
+import org.bungeni.utils.externalplugin.ExternalPlugin;
+import org.bungeni.utils.externalplugin.ExternalPluginsFinder;
+import org.bungeni.utils.externalplugin.ExternalPluginsLoader;
 /**
  *
  * @author  Administrator
@@ -97,21 +95,14 @@ public class editorTabbedPanel extends javax.swing.JPanel {
     private JFrame parentFrame;
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(editorTabbedPanel.class.getName());
     private String ROOT_SECTION = BungeniEditorPropertiesHelper.getDocumentRoot();
-    private String[] arrDocTypes = { "Acts" , "DebateRecords", "Bills" };
-    //vector that houses the list of document headings used by the display tree
-    private Vector<DocStructureElement> mvDocumentHeadings = new Vector<DocStructureElement>();
-    private Vector<String> mvSections = new Vector<String>();
-    private DefaultMutableTreeNode sectionsRootNode;
+ 
     private Timer sectionNameTimer;
     private String currentSelectedSectionName = "";
     private Timer docStructureTimer;
     private Timer componentsTrackingTimer;
     
-    private Thread tStructure;
     private changeStructureItem selectedChangeStructureItem;
-    private JTree treeDocStructureTree;
-    private JTree treeSectionStructure;
-    private JPopupMenu popupMenuTreeStructure = new JPopupMenu();
+
     private boolean mouseOver_TreeDocStructureTree = false;
     private boolean program_refresh_documents = false;
     
@@ -119,17 +110,12 @@ public class editorTabbedPanel extends javax.swing.JPanel {
     
     
     private String activeDocument; 
-    private DocumentMetadataTableModel docMetadataTableModel;
     
-    private HashMap<String, ICollapsiblePanel> dynamicPanelMap = new HashMap<String,ICollapsiblePanel>();
     private HashMap<String, IFloatingPanel> floatingPanelMap = new HashMap<String,IFloatingPanel>();
     private ArrayList<ITabbedPanel> m_tabbedPanelMap = new ArrayList<ITabbedPanel>();
     
     
-    private metadataTabbedPanel metadataTabbedPanel = null;
-
-    private JFrame metadataPanelParentFrame = null;
-
+   
     public static int coordX , coordY;
     /** Creates new form SwingTabbedJPanel */
     public editorTabbedPanel() {
@@ -197,8 +183,8 @@ public class editorTabbedPanel extends javax.swing.JPanel {
        initTabbedPanes();
        initModeLabel();
        initSwitchTabs();
-       initSectionMetadataDisplay();
-
+       //initSectionMetadataDisplay();
+       initExternalPlugins();
        
     }
 
@@ -229,9 +215,32 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         }
     }
     
+    private HashMap<String, IEditorPluginAll> loadedPluginsMap = new HashMap<String, IEditorPluginAll>();
+    
+    private void initExternalPlugins(){
+        ExternalPluginsLoader extLoader = new ExternalPluginsLoader();
+        ArrayList<ExternalPlugin> listExtPlugins = extLoader.getExternalPlugins();
+        for (ExternalPlugin ep : listExtPlugins ) {
+            if (ep.isEnabled) {
+               ExternalPluginsFinder epf = new ExternalPluginsFinder(ep.JarFile, ep.Loader);
+               IEditorPluginAll iepAll = epf.getPluginInstance();
+               iepAll.setOOComponentHelper(ooDocument);
+               iepAll.setInstallDirectory(DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH());
+               iepAll.setParentFrame(parentFrame);
+               loadedPluginsMap.put(ep.Name, iepAll);
+              //load the plugin
+              //call the classloader for the plugin and load it.
+               //IEditorPluginAll ipeAll = EditorPlugin.makeInstance(ep.JarFile,  ep.);
+               //ipeAll.setOOComponentHelper(ooDocument);
+               ///ipeAll.setInstallDirectory(DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH());
+               //ipeAll.setParentFrame(this.parentFrame);
+            }
+        }
+    }
+    
     SectionMetadataDisplay objMetaDisplay;
     private void initSectionMetadataDisplay(){
-           objMetaDisplay = new SectionMetadataDisplay();
+    //       objMetaDisplay = new SectionMetadataDisplay();
     }
     
     class SectionMetadataDisplay{
@@ -482,16 +491,6 @@ public class editorTabbedPanel extends javax.swing.JPanel {
     }
     
 
-    class comboChangeStructureListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            JComboBox box = (JComboBox) e.getSource();
-            changeStructureItem theItem = (changeStructureItem) box.getSelectedItem();
-            String theIndex = theItem.getIndex();
-            selectedChangeStructureItem = theItem;
-        }
-        
-    }
-    
     private static int  WIDTH_OOo_SCROLLBAR = 25;
     // added for Issue 246, http://code.google.com/p/bungeni-portal/issues/details?id=246
     private void initFloatingPane() {
@@ -544,45 +543,14 @@ public class editorTabbedPanel extends javax.swing.JPanel {
     private editorTabbedPanel self() {
         return this;
     }
-    
-    
-    
-    private class selectMetadataModel {
-        String query;
-        String text;
-        public selectMetadataModel(String t, String q) {
-            text = t;
-            query = q;
-        }
-        @Override
-        public String toString() {
-            return text;
-        }
-    }
 
-    
     public Component getComponentHandle(){
         return this;
     }
-        
-    
-   
- 
-    
-        
-   
-   
-public TreeMap<String, editorTabbedPanel.componentHandleContainer> getCurrentlyOpenDocuments(){
-    return this.editorMap;
-}
-
-    
-
-   
-   
-    
-
-
+     
+    public TreeMap<String, editorTabbedPanel.componentHandleContainer> getCurrentlyOpenDocuments(){
+        return this.editorMap;
+    }
 
  /** This method is called from within the constructor to
     * initialize the form.
