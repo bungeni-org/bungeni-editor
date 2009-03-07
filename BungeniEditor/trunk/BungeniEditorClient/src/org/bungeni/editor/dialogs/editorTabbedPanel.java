@@ -217,23 +217,23 @@ public class editorTabbedPanel extends javax.swing.JPanel {
     
     private HashMap<String, IEditorPluginAll> loadedPluginsMap = new HashMap<String, IEditorPluginAll>();
     
+    /**
+     * Loads the external plugins specified in the EXTERNAL_PLUGINS table.
+     */
     private void initExternalPlugins(){
         ExternalPluginsLoader extLoader = new ExternalPluginsLoader();
         ArrayList<ExternalPlugin> listExtPlugins = extLoader.getExternalPlugins();
         for (ExternalPlugin ep : listExtPlugins ) {
             if (ep.isEnabled) {
                ExternalPluginsFinder epf = new ExternalPluginsFinder(ep.JarFile, ep.Loader);
-               IEditorPluginAll iepAll = epf.getPluginInstance();
-               iepAll.setOOComponentHelper(ooDocument);
-               iepAll.setInstallDirectory(DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH());
-               iepAll.setParentFrame(parentFrame);
-               loadedPluginsMap.put(ep.Name, iepAll);
-              //load the plugin
-              //call the classloader for the plugin and load it.
-               //IEditorPluginAll ipeAll = EditorPlugin.makeInstance(ep.JarFile,  ep.);
-               //ipeAll.setOOComponentHelper(ooDocument);
-               ///ipeAll.setInstallDirectory(DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH());
-               //ipeAll.setParentFrame(this.parentFrame);
+               //added this check to make sure the plugin load is attempted only if it was found
+               if (epf.isPluginFound()) {
+                   IEditorPluginAll iepAll = epf.getPluginInstance();
+                   iepAll.setOOComponentHelper(ooDocument);
+                   iepAll.setInstallDirectory(DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH());
+                   iepAll.setParentFrame(parentFrame);
+                   loadedPluginsMap.put(ep.Name, iepAll);
+               }
             }
         }
     }
