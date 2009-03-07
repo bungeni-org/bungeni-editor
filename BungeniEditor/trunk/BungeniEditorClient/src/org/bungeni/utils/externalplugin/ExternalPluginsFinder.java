@@ -6,6 +6,7 @@
 package org.bungeni.utils.externalplugin;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -19,34 +20,45 @@ import org.bungeni.editor.plugin.impl.IEditorPluginAll;
  * @author Ashok Hariharan
  */
 public class ExternalPluginsFinder {
-  //  private static ArrayList<File> pluginFileHandles = new ArrayList<File>(0);
      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ExternalPluginsFinder.class.getName());
-      
-    class pluginFileFilter implements FilenameFilter {
-
-        public boolean accept(File dir, String fileName) {
-            return fileName.endsWith(".jar");
-        }
-        
-    }
+    
     
     private File jarFile ;
+    private String fullPathToJarFile = "";
     private String classInstantiator ; 
+    private boolean pluginFound = false;
     
     public ExternalPluginsFinder(String jarFileName, String classInstantiator){
         try {
             //look in this folder for plugin files
             String pathToPluginsFolder =  DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + "plugins";
-            //pathToPluginsFolder = pathToPluginsFolder + File.separator + "plugins/sectionrefactorplugin";
-            File fjar = new File(pathToPluginsFolder + File.separator + jarFileName);
-            this.jarFile = fjar;
+            //look for the plugin jar file in the plugin folder
+            //but we look only 1 level down
+            File fjar = findPluginJar(pathToPluginsFolder, jarFileName, 0);
+            if (fjar != null)  {
+                this.jarFile = fjar;
+                this.pluginFound = true;
+            } else {
+                this.jarFile = null;
+            }
             this.classInstantiator = classInstantiator;
-            // searchFolder(pathToPluginsFolder);
         } catch (Exception ex) {
             log.error(ex.getMessage());
         }
     }
     
+    /**
+     * If the plugin jar was found returns true, else false;
+     * @return
+     */
+    public boolean isPluginFound () {
+        return pluginFound;
+    }
+
+    /**
+     * Generates an IEditorPluginAll instance using the jar file / and class instance
+     * @return
+     */
     public IEditorPluginAll getPluginInstance() {
         IEditorPluginAll iepAll = null;
         try {
@@ -62,6 +74,61 @@ public class ExternalPluginsFinder {
             return iepAll;
         }
 
+    }
+    
+    class pluginFileFilter implements FilenameFilter {
+        private String lookforPlugin  = "";
+        pluginFileFilter (String fname ) {
+            lookforPlugin = fname;
+        }
+        public boolean accept(File dir, String fileName) {
+            return fileName.equals(lookforPlugin);
+        }
+        
+    }
+    
+    class pluginSubDirectoryFilter implements FileFilter {
+
+        public boolean accept(File foundFile) {
+            return foundFile.isDirectory();
+        }
+        
+    }
+    
+    /**
+     * Looks for plugin file and returns a handle to the jar file
+     * @param pluginFolder
+     * @param jarFileName
+     * @param nLevel
+     * @return
+     */
+    private File findPluginJar (String pluginFolder, String jarFileName, int nLevel) {
+        File fdir = new File (pluginFolder);
+        //search in the current folder 
+        File[] fFiles = fdir.listFiles(new pluginFileFilter(jarFileName));
+        if (fFiles != null) {
+            if (fFiles.length > 0) {
+                return fFiles[0];
+            } else {
+                //file was not found... look within subdirectories
+                //but we look in only 1 level 
+                if (nLevel == 0) {
+                    nLevel++;
+                    File[] fDirs = fdir.listFiles(new pluginSubDirectoryFilter()); 
+                    if (fDirs.length > 0 ) {
+                        for (File fDir : fDirs ) {
+                            File ffile = findPluginJar(fDir.getAbsolutePath(), jarFileName, nLevel);
+                            if (ffile != null) {
+                                return ffile;
+                            }
+                        }
+                    }
+                } else
+                    return null;
+            }
+                
+        } 
+        return null;
     }
     
     /*
