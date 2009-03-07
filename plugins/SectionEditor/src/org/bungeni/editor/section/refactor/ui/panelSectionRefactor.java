@@ -11,6 +11,7 @@
 
 package org.bungeni.editor.section.refactor.ui;
 
+import java.awt.Window;
 import java.util.ArrayList;
 import javax.swing.JDialog;
 import javax.swing.event.ListSelectionEvent;
@@ -42,7 +43,7 @@ public class panelSectionRefactor extends javax.swing.JPanel {
     OdfJDomTreeModel treeModel = null;
     JDomOdfDomBridge jdofBridge = null;
     OdfRefactor refactorer = null;
-    JFrame parentFrame;
+    Window parentFrame;
      dialogCommitDocChange changePanel = new dialogCommitDocChange();
      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(panelSectionRefactor.class.getName());
 
@@ -63,7 +64,7 @@ public class panelSectionRefactor extends javax.swing.JPanel {
         setupTables();
     }
 
-    public void setParentFrame(JFrame parentFrame) {
+    public void setParentFrame(Window parentFrame) {
         this.parentFrame = parentFrame;
     }
     
@@ -100,7 +101,7 @@ public class panelSectionRefactor extends javax.swing.JPanel {
     }
 
     private int confirmChange(String fromSection, String toSection) {
-        final JDialog dialog = new JDialog(this.parentFrame,
+        final JDialog dialog = new JDialog((JDialog)this.parentFrame,
                                                  "Confirm Change",
                                                  true);
         changePanel.setParentDialog(dialog);  
