@@ -55,22 +55,5 @@ public abstract class EditorPlugin implements IEditorPluginAll {
         return this.paramaterMap;
     }
     
-    public static IEditorPluginAll makeInstance(String classPath) {
-             IEditorPluginAll pPlugin = null;
-            try {
-                Class containerPanel = Class.forName(classPath);
-                pPlugin = (IEditorPluginAll) containerPanel.newInstance();
-             } catch (InstantiationException ex) {
-               log.debug("makeInstance :"+ ex.getMessage());
-               } catch (IllegalAccessException ex) {
-               log.debug("makeInstance :"+ ex.getMessage());
-               }  catch (ClassNotFoundException ex) {
-               log.debug("makeInstance :"+ ex.getMessage());
-              } catch (NullPointerException ex) {
-               log.debug("makeInstance :"+ ex.getMessage());
-              } finally {
-                  return pPlugin;
-              }
-        }
-
+   
 }
