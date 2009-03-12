@@ -10,6 +10,7 @@ import java.awt.Component;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.bungeni.error.BungeniValidatorState;
+import org.bungeni.ooo.ooDocMetadata;
 import org.bungeni.utils.BungeniEditorProperties;
 
 /**
@@ -109,7 +110,12 @@ private void btnApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     try {
         String actionType = this.cboActionType.getSelectedItem().toString();
         Date actionDate = this.dtActionDate.getDate();
-        makeAndInsertReference(actionType, actionDate);
+        //first we build the metadata variable and then we apply the metadata
+        //then we check if it already exists
+        //if it does not exist, we create a reference to it
+        //it it exists, we apply the metadata and then create reference to it.
+        if (makeMetadataEntry(actionType, actionDate))
+            makeAndInsertReference(actionType, actionDate);
         containerFrame.dispose();
     } catch (Exception ex) {
         log.error("btnApplyActionPerformed : "+ ex.getMessage());
@@ -118,6 +124,28 @@ private void btnApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
 
 public static final String BUNGENI_WORKFLOW_EVENT_PREFIX = "BungeniWorkflowEvent:";
+
+public boolean makeMetadataEntry(String actionType, Date actionDate) {
+    boolean bMetaEntry = false;
+    try {
+            String sActionname = theSubAction.action_value();
+            String sMetaname = BUNGENI_WORKFLOW_EVENT_PREFIX + sActionname;
+            String strActionDate = attributeDateFormat.format(actionDate);
+            String metaValue = sActionname + "~" + actionType + "~" + strActionDate ;
+            if (ooDocument.propertyExists(sMetaname)) {
+                bMetaEntry = true;
+            } else {
+                ooDocMetadata docMeta = new ooDocMetadata (ooDocument);
+                docMeta.AddProperty(sMetaname, metaValue);
+            }
+        bMetaEntry = true;
+    } catch (Exception ex) {
+        
+        log.error("makeMetadataEntry :" + ex.getMessage());
+    } finally {
+        return bMetaEntry;
+    }
+}
 
 /**
  * The default format for the Action reference is as follows  :

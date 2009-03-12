@@ -8,7 +8,6 @@ package org.bungeni.editor.actions.routers;
 
 import java.awt.Component;
 import java.awt.Window;
-import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JTable;
