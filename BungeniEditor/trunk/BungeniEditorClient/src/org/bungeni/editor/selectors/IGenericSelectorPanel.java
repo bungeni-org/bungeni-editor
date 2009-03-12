@@ -17,12 +17,29 @@ import org.bungeni.ooo.OOComponentHelper;
  * @author undesa
  */
 public interface IGenericSelectorPanel {
+   /**
+    * This is the pseudo-constructor function that sets up the class with the required parameters
+    * @param ooDoc
+    * @param parentFrm
+    * @param aAction
+    * @param aSubAction
+    * @param dlgMode
+    */
+   
    public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarAction aAction, toolbarSubAction aSubAction, SelectorDialogModes dlgMode) ;
    /**
     * initialize() is always invoked after initVariables();
     */
    public void initialize();
+   /**
+    * The Frame containing the selector panel
+    * @param frame
+    */
    public void setContainerFrame (Window frame);
+   /**
+    * Returns a handle to the current selector panel, usually a 'return this;'
+    * @return
+    */
    public Component getPanelComponent();
   
 }
