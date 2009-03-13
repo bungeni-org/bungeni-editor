@@ -183,8 +183,8 @@ public class editorTabbedPanel extends javax.swing.JPanel {
        initTabbedPanes();
        initModeLabel();
        initSwitchTabs();
-       //initSectionMetadataDisplay();
-       initExternalPlugins();
+       initSectionMetadataDisplay();
+    //   initExternalPlugins();
        
     }
 
@@ -239,8 +239,11 @@ public class editorTabbedPanel extends javax.swing.JPanel {
     }
     
     SectionMetadataDisplay objMetaDisplay;
+    /**
+     * Used to display section metadata in the tabbed panel
+     */
     private void initSectionMetadataDisplay(){
-    //       objMetaDisplay = new SectionMetadataDisplay();
+           objMetaDisplay = new SectionMetadataDisplay();
     }
     
     class SectionMetadataDisplay{
@@ -1049,7 +1052,6 @@ private void launchMetadataSetter(XComponent xComp){
                     log.debug("componentHandlesTracker: begin ");
                     //array list caches keys to be removed
                     ArrayList<String> keysToRemove = new ArrayList<String>();
-                    
                     //find the components that have been disposed
                     //and capture them in an array
                     log.debug("componentHandlesTracker: finding disposed documents ");
