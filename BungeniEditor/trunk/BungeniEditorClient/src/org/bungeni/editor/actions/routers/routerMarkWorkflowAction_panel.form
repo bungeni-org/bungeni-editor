@@ -22,13 +22,13 @@
                       <Component id="cboActionType" alignment="0" min="-2" pref="118" max="-2" attributes="1"/>
                       <Component id="lblActionType" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="btnApply" alignment="1" min="-2" pref="56" max="-2" attributes="0"/>
+                  <Component id="btnApply" min="-2" pref="83" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lbActionDate" min="-2" max="-2" attributes="0"/>
                   <Component id="dtActionDate" min="-2" pref="127" max="-2" attributes="1"/>
-                  <Component id="btnCancel" alignment="0" min="-2" pref="54" max="-2" attributes="0"/>
+                  <Component id="btnCancel" alignment="0" min="-2" pref="92" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -49,8 +49,8 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnCancel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnApply" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCancel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -63,11 +63,10 @@
           <Font name="DejaVu Sans" size="10" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="3">
+            <StringItem index="0" value="Hearing"/>
+            <StringItem index="1" value="Amendment"/>
+            <StringItem index="2" value="Postponement"/>
           </StringArray>
         </Property>
       </Properties>

@@ -7,9 +7,16 @@
 package org.bungeni.editor.actions.routers;
 
 import java.awt.Component;
+import java.awt.Window;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import org.bungeni.editor.actions.toolbarAction;
+import org.bungeni.editor.actions.toolbarSubAction;
+import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.error.BungeniValidatorState;
+import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooDocMetadata;
 import org.bungeni.utils.BungeniEditorProperties;
 
@@ -17,13 +24,25 @@ import org.bungeni.utils.BungeniEditorProperties;
  *
  * @author  undesa
  */
-public abstract class routerMarkWorkflowAction_panel extends BaseRouterSelectorPanel {
+public class routerMarkWorkflowAction_panel extends JPanel implements IRouterSelectorPanel {
+    JFrame parentFrame;
+    Window containerFrame;
+    OOComponentHelper ooDocument;
+    toolbarAction theAction;
+    toolbarSubAction theSubAction;
+    SelectorDialogModes dialogMode;
+    
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(routerMarkWorkflowAction_panel.class.getName());
     SimpleDateFormat attributeDateFormat;
     /** Creates new form routerMarkWorkflowAction_panel */
     public routerMarkWorkflowAction_panel() {
-        initComponents();
-        attributeDateFormat = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("attributeDateFormat"));
+        try {
+            initComponents();
+            String attribDateFormat = BungeniEditorProperties.getEditorProperty("attributeDateFormat");
+            attributeDateFormat = new SimpleDateFormat(attribDateFormat);
+        } catch (Exception ex) {
+            log.error("routerMarkWorkflowAction_panel : " + ex.getMessage());
+        }
     }
 
     /** This method is called from within the constructor to
@@ -43,17 +62,17 @@ public abstract class routerMarkWorkflowAction_panel extends BaseRouterSelectorP
         btnCancel = new javax.swing.JButton();
 
         cboActionType.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        cboActionType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboActionType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hearing", "Amendment", "Postponement" }));
 
-        lblActionType.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblActionType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblActionType.setText("Action Type");
 
-        dtActionDate.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        dtActionDate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
-        lbActionDate.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lbActionDate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lbActionDate.setText("Action Date");
 
-        btnApply.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnApply.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnApply.setText("Apply");
         btnApply.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -61,7 +80,7 @@ public abstract class routerMarkWorkflowAction_panel extends BaseRouterSelectorP
             }
         });
 
-        btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnCancel.setText("Cancel");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,12 +98,12 @@ public abstract class routerMarkWorkflowAction_panel extends BaseRouterSelectorP
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(cboActionType, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblActionType))
-                    .addComponent(btnApply, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnApply, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbActionDate)
                     .addComponent(dtActionDate, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -100,8 +119,8 @@ public abstract class routerMarkWorkflowAction_panel extends BaseRouterSelectorP
                     .addComponent(dtActionDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancel)
-                    .addComponent(btnApply)))
+                    .addComponent(btnApply)
+                    .addComponent(btnCancel)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -131,6 +150,7 @@ public boolean makeMetadataEntry(String actionType, Date actionDate) {
             String sActionname = theSubAction.action_value();
             String sMetaname = BUNGENI_WORKFLOW_EVENT_PREFIX + sActionname;
             String strActionDate = attributeDateFormat.format(actionDate);
+            sMetaname = sMetaname + ":"+ strActionDate + ":" + actionType;
             String metaValue = sActionname + "~" + actionType + "~" + strActionDate ;
             if (ooDocument.propertyExists(sMetaname)) {
                 bMetaEntry = true;
@@ -157,7 +177,7 @@ public void makeAndInsertReference(String actionType, Date actionDate){
         //the action name is just some descriptive text about the action
         String actionName = theSubAction.action_value();
         String strActionDate = attributeDateFormat.format(actionDate);
-        String fullRefString = BUNGENI_WORKFLOW_EVENT_PREFIX  + actionName + " ;" + actionType + " ;" + strActionDate ;
+        String fullRefString = BUNGENI_WORKFLOW_EVENT_PREFIX  + actionName + ":" + strActionDate +  ":" + actionType ;
         String documentRefString = fullRefString + " ;#1";
         int i = 1;
         while (ooDocument.getReferenceMarks().hasByName(documentRefString) ) {
@@ -194,5 +214,17 @@ private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JLabel lbActionDate;
     private javax.swing.JLabel lblActionType;
     // End of variables declaration//GEN-END:variables
+
+    public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarAction aAction, toolbarSubAction aSubAction, SelectorDialogModes dlgMode) {
+        this.ooDocument = ooDoc;
+        this.parentFrame = parentFrm;
+        this.theAction = aAction;
+        this.theSubAction = aSubAction;
+        this.dialogMode = dlgMode;
+    }
+
+    public void setContainerFrame(Window frame) {
+        this.containerFrame = frame;
+    }
 
 }
