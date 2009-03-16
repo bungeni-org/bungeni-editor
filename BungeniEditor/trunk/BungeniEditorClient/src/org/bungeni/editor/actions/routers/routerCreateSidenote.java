@@ -33,7 +33,7 @@ public class routerCreateSidenote extends defaultRouter {
     @Override
     public BungeniValidatorState route_TextSelectedInsert(toolbarAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame,OOComponentHelper ooDocument) {
      // String styleName = subAction.action_value();
-            CommonRouterActions.displaySubActionDialog(action, subAction, pFrame, ooDocument);
+            CommonRouterActions.displaySubActionDialog(action, subAction, pFrame, ooDocument, true);
           return new BungeniValidatorState(true, new BungeniMsg("SUCCESS")); 
     }
 
