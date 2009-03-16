@@ -16,7 +16,6 @@ public  class CommonResourceBundleHelperFunctions {
         if (name.length() == 0) return new String("");
         return BungeniResourceBundleFactory.getString("SectionMetaNames", name);
     }
-
     
     public static String getDocMetaString(String name) {
         return BungeniResourceBundleFactory.getString("DocMetaNames", name);
@@ -26,4 +25,8 @@ public  class CommonResourceBundleHelperFunctions {
         return BungeniResourceBundleFactory.getString("SectionTypeNames", sectionType);
     }
     
+    public static String getErrorMsgString(String name) {
+        return BungeniResourceBundleFactory.getString("ErrorMessages", name);
+    }
+
 }
