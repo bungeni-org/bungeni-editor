@@ -1784,6 +1784,20 @@ public XTextField getTextFieldByName(String fieldName) {
         }
     }
     
+    public boolean deleteBookmark(String bookmarkName) {
+        boolean bState = false;
+        try {
+            Object objBookmark = getBookmarks().getByName(bookmarkName);
+            XTextContent bookmarkContent = ooQueryInterface.XTextContent(objBookmark);
+            bookmarkContent.dispose();
+            bState = true;
+        } catch (Exception ex) {
+            log.error("deleteBookmark :" + ex.getMessage());
+        } finally {
+            return bState;
+        }
+    }
+    
     public static XComponent newDocument(String templatePath) {
         XComponent xComponent = null;
         
