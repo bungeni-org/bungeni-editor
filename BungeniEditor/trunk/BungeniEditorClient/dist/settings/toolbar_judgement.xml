@@ -24,6 +24,7 @@
      	          <subaction name="Introduction.create" title="Create Introduction" visible="true" condition="sectionNotExists:intro* :and: textSelected:true" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeIntroduction.section_creation"/>	
 		  <action name="Introduction.heading" title="Markup Introduction Heading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeIntroduction.make_introduction_heading:heading_introduction" visible="true" condition="textSelected:true :and: cursorInSection:intro[0-9]*" />
  		  <action name="Introduction.subheading" title="Markup Introduction SubHeading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeIntroduction.make_introduction_heading:subheading_introduction" visible="true" condition="textSelected:true :and: cursorInSection:intro[0-9]*" />
+ 		  <action name="Introduction.scale_section" title="Create Introduction (Scaled)" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeIntroduction.scale_section" visible="true" condition="sectionNotExists:intro[0-9]*" />
  	    </action>
 	    <action name="Background.selection" tooltip="Background for judgement" title="Background"  target="null" visible="true" condition="none" showChildren="true" >
      	          <subaction name="Background.create" title="Create Background" visible="true" condition="sectionNotExists:bg* :and: textSelected:true" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeBackground.section_creation"/>	
