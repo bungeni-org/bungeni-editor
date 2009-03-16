@@ -48,6 +48,7 @@ import com.sun.star.script.provider.XScriptProvider;
 import com.sun.star.script.provider.XScriptProviderSupplier;
 import com.sun.star.style.XStyle;
 import com.sun.star.style.XStyleFamiliesSupplier;
+import com.sun.star.text.XBookmarksSupplier;
 import com.sun.star.text.XReferenceMarksSupplier;
 import com.sun.star.text.XText;
 import com.sun.star.text.XTextColumns;
@@ -1199,7 +1200,7 @@ public Object executeMacro(String strMacroName, Object[] aParams) {
 
 
 public long inchesToOOoMeasure (long inches ) {
-    return this.MARGIN_MEASURE_BASE * inches ;
+    return OOComponentHelper.MARGIN_MEASURE_BASE * inches ;
 }
 
 
@@ -1725,6 +1726,10 @@ public XTextField getTextFieldByName(String fieldName) {
         return xStore.hasLocation();
     }
     
+    /**
+     * Saves the currently open document associated with the OOComponentHelper object
+     * @return
+     */
     public boolean saveDocument(){
         boolean bState = false; 
         try {
@@ -1741,6 +1746,10 @@ public XTextField getTextFieldByName(String fieldName) {
        }
     }
     
+    /**
+     * Returns the URL to the location of the document. 
+     * @return
+     */
     public String getDocumentURL(){
         XStorable xStore = ooQueryInterface.XStorable(this.m_xComponent);
         if (xStore.hasLocation()) {
@@ -1749,7 +1758,31 @@ public XTextField getTextFieldByName(String fieldName) {
             return null;
         }
     }
+ 
+    /**
+     * Checks if a particular bookmark exists in the document
+     * @param bookmarkName - bookmark name to check for existence
+     * @return
+     */
+    public boolean bookmarkExists(String bookmarkName) {
+        return getBookmarks().hasByName(bookmarkName);
+    }
     
+    /**
+     * Returns named index access to the Bookmarks present in the document
+     * @return
+     */
+    public XNameAccess getBookmarks(){
+        XNameAccess bookNameAccess = null;
+        try {
+            XBookmarksSupplier bookSupplier = ooQueryInterface.XBookmarksSupplier(this.m_xComponent);
+            bookNameAccess = bookSupplier.getBookmarks();
+        } catch (Exception ex) {
+            log.error("getBookmarks : " + ex.getMessage());
+        } finally {
+            return bookNameAccess;
+        }
+    }
     
     public static XComponent newDocument(String templatePath) {
         XComponent xComponent = null;

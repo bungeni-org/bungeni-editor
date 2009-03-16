@@ -36,6 +36,7 @@ import com.sun.star.view.*;
  */
 public class ooQueryInterface {
 
+ 
 
 
     
@@ -254,6 +255,10 @@ public class ooQueryInterface {
        return (XTextDocument)UnoRuntime.queryInterface(XTextDocument.class, obj);
     }
     
+    static public XBookmarksSupplier XBookmarksSupplier(Object m_xComponent) {
+       return (XBookmarksSupplier)UnoRuntime.queryInterface(XBookmarksSupplier.class, m_xComponent);
+    }
+
     //--------------------------------------------------
     //  Util                    com.sun.star.util.*
     //--------------------------------------------------

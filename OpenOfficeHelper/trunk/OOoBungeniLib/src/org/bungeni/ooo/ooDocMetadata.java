@@ -10,7 +10,6 @@
 package org.bungeni.ooo;
 
 import com.sun.star.beans.Property;
-import com.sun.star.beans.UnknownPropertyException;
 import java.util.ArrayList;
 
 /**
