@@ -10,7 +10,6 @@ package org.bungeni.editor.actions.validators;
 
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.editor.actions.validators.IBungeniActionValidator;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.error.BungeniMsg;
