@@ -17,10 +17,10 @@
     -->
     <info>
         <appname>BungeniEditor installation</appname>
-        <appversion>$APP_VER</appversion>
+        <appversion>r210</appversion>
 	<appsubpath>BungeniEditor-$APP_VER</appsubpath>
         <authors>
-            <author name="UNDESA" email="undesa@parliaments.info"/>
+            <author name="Ashok Hariharan" email="undesa@parliaments.info"/>
         </authors>
         <url>http://www.bungeni.org</url>
 	<javaversion>1.6</javaversion>
@@ -74,6 +74,7 @@
             <file src="LICENCE.TXT" targetdir="$INSTALL_PATH"/>
             <file src="runEditor.sh" targetdir="$INSTALL_PATH"/>
             <file src="runEditor.bat" targetdir="$INSTALL_PATH"/>
+            <file src="settingsEditor.sh" targetdir="$INSTALL_PATH"/>
             <file src="base" targetdir="$INSTALL_PATH"/>
             <parsable targetfile="$INSTALL_PATH/runEditor.bat"/>
             <parsable targetfile="$INSTALL_PATH/runEditor.sh"/>
