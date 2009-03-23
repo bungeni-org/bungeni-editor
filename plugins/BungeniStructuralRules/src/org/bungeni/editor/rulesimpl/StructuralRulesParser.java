@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package org.bungeni.editor.rules;
+package org.bungeni.editor.rulesimpl;
 
 
 /*
@@ -16,8 +16,6 @@ package org.bungeni.editor.rules;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -32,6 +30,8 @@ import org.jdom.xpath.XPath;
 public class StructuralRulesParser {
         Document xmlDocument ;
         String pathToXmlFile ;
+        
+
         private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(StructuralRulesParser.class.getName());
 
         /**
@@ -39,10 +39,21 @@ public class StructuralRulesParser {
          * @param xmlRules
          */
         public StructuralRulesParser(String xmlRules){
-            pathToXmlFile = xmlRules;
+            pathToXmlFile = StructuralRulesConfig.DOCSTRUCTURE_RULES_PATH_PREFIX +  xmlRules;
         }
 
         private static final  String GET_DOC_STRUCTURE_TYPE = "/DocumentStructure/@type";
+
+        private final static String GET_SECTION_TYPE_NAME = "/DocumentStructure/sectionType[@name='{thisSectionType}']";
+
+        private final static String GET_CHILD_REF_TYPES = "allowedTypes/ref";
+
+        private final static String GET_CHILD_SECTION_TYPES = "allowedTypes/ref[@type='sectionType']";
+
+        private final static String GET_CHILD_SECTION_TYPES_BY_NAME = "allowedTypes/ref[@type='sectionType' and @name='{refSectionType}']";
+
+        
+
         /**
          * Get the structure type for the document
          * @return
@@ -60,7 +71,8 @@ public class StructuralRulesParser {
         }
         }
 
-        private final static String GET_SECTION_TYPE_NAME = "/DocumentStructure/sectionType[@name='{thisSectionType}']";
+       
+
         /**
          * Gets a section type element from the document;
          * @param sectionTypeName
@@ -80,7 +92,6 @@ public class StructuralRulesParser {
             }
         }
 
-        public final static String GET_CHILD_REF_TYPES = "allowedTypes/ref";
         /**
          * Returns all allowed types for a section type, returns <ref /> elements
          * @param sectionTypeName
@@ -101,7 +112,6 @@ public class StructuralRulesParser {
             }
         }
 
-        public final static String GET_CHILD_SECTION_TYPES = "allowedTypes/ref[@type='sectionType']";
         /**
          * Get the allowed section types for a parent section type
          * @param sectionTypeName
@@ -131,6 +141,21 @@ public class StructuralRulesParser {
             }
         }
 
+         public boolean isAllowedSectionTypeForType (String sectionTypeName, String lookForThisType ) {
+             Element matchingChildSectionType = null;
+             try {
+                //Element foundSectionType = this.getSectionType(sectionTypeName);
+                String xpathGetparentSection = GET_SECTION_TYPE_NAME.replaceAll("\\{thisSectionType\\}", sectionTypeName);
+                String xpathGetChildSectionTypes = GET_CHILD_SECTION_TYPES_BY_NAME.replaceAll( "\\{refSectionType\\}", lookForThisType);
+                XPath selectPath = XPath.newInstance(xpathGetparentSection + "/" + xpathGetChildSectionTypes);
+                matchingChildSectionType = (Element) selectPath.selectSingleNode(xmlDocument);
+            } catch (Exception ex) {
+                log.error("isAllowedSectionTypeForType : "  + ex.getMessage());
+            } finally {
+                return (matchingChildSectionType == null) ? false : true;
+            }
+        }
+
         /**
          *Loads the rules Xml file and instantiates the JDom document
          */
@@ -152,6 +177,6 @@ public class StructuralRulesParser {
             srp.loadXml();
             System.out.println(srp.getDocStructureType());
             Element pref = srp.getSectionType("Preface");
-            System.out.println("found == " + srp.getAllowedSectionTypesForType("bill"));
+            System.out.println("found == " + srp.isAllowedSectionTypeForType("XXClause", "XXPart"));
         }
 }
