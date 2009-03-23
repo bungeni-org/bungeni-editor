@@ -6,8 +6,6 @@
 package org.bungeni.editor.rules;
 
 import org.bungeni.editor.rulesimpl.BaseStructuralRule;
-import org.bungeni.editor.rulesimpl.StructuralRulesEngine;
-import org.bungeni.ooo.OOComponentHelper;
 
 /**
  *
@@ -15,21 +13,11 @@ import org.bungeni.ooo.OOComponentHelper;
  */
 public class OrderOfChildSections extends BaseStructuralRule {
 
-    public String getName() {
+    @Override
+    public boolean applyRule(String forThisSectionName) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public String getSource() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public boolean setupRule(StructuralRulesEngine engine, OOComponentHelper ooDoc) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public boolean applyRule(String sectionName) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 
   
 }

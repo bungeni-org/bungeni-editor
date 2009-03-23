@@ -27,9 +27,7 @@ import org.jdom.xpath.XPath;
  * Class to parse section structural rules
  * @author Ashok Hariharan
  */
-public class StructuralRulesParser {
-        Document xmlDocument ;
-        String pathToXmlFile ;
+public class StructuralRulesParser extends RuleParser {
         
 
         private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(StructuralRulesParser.class.getName());
@@ -39,7 +37,7 @@ public class StructuralRulesParser {
          * @param xmlRules
          */
         public StructuralRulesParser(String xmlRules){
-            pathToXmlFile = StructuralRulesConfig.DOCSTRUCTURE_RULES_PATH_PREFIX +  xmlRules;
+            pathToXmlFile = StructuralRulesConfig.getDocRulesPath() +  xmlRules;
         }
 
         private static final  String GET_DOC_STRUCTURE_TYPE = "/DocumentStructure/@type";
@@ -156,21 +154,7 @@ public class StructuralRulesParser {
             }
         }
 
-        /**
-         *Loads the rules Xml file and instantiates the JDom document
-         */
-        public void loadXml() {
-        try {
-            File xmlfile = new File(pathToXmlFile);
-            SAXBuilder builder = new SAXBuilder();
-            xmlDocument = builder.build(xmlfile);
-        } catch (JDOMException ex) {
-            log.error("loadXml  : "+ex.getMessage());
-        } catch (IOException ex) {
-            log.error("loadXml  : "+ex.getMessage());
-        }
-      }
-
+     
         public static void main(String[] args){
             StructuralRulesParser srp = new
                     StructuralRulesParser("/home/undesa/Projects/Bungeni/BungeniStructuralRules/editorDocRules.xml");
