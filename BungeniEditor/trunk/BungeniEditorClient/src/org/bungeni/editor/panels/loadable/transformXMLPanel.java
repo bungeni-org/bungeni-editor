@@ -6,6 +6,8 @@
 
 package org.bungeni.editor.panels.loadable;
 
+import com.sun.star.container.XNamed;
+import com.sun.star.text.XTextSection;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,10 +19,16 @@ import org.bungeni.utils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.macro.ExternalMacro;
 import org.bungeni.editor.macro.ExternalMacroFactory;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
+import org.bungeni.editor.providers.DocumentSectionIterator2;
+import org.bungeni.editor.providers.IBungeniSectionIteratorListener2;
+import org.bungeni.editor.rulesimpl.StructuralRulesConfig;
+import org.bungeni.editor.rulesimpl.StructuralRulesEngine;
 import org.bungeni.ooo.OOComponentHelper;
+import org.bungeni.ooo.ooQueryInterface;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTarget;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTargetFactory;
 import org.bungeni.ooo.transforms.impl.IBungeniDocTransform;
+import org.bungeni.utils.CommonEditorFunctions;
 import org.bungeni.utils.MessageBox;
 
 /**
@@ -83,15 +91,21 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
         btnExport = new javax.swing.JButton();
         checkChangeColumns = new javax.swing.JCheckBox();
         checkboxMakePlain = new javax.swing.JCheckBox();
+        btnValidateStructure = new javax.swing.JButton();
 
+        cboTransformFrom.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         cboTransformFrom.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Portable Document Format (PDF)", "AkomaNtoso XML", "XHTML - eXtensible HTML", "Marginalia-safe HTML export" }));
 
+        cboExportTo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         cboExportTo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Export to File-System path", "Export to Server" }));
 
+        lblExportTo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblExportTo.setText("Export To:");
 
+        lblTransformFrom.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblTransformFrom.setText("Transformation Target");
 
+        btnExport.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnExport.setText("Export...");
         btnExport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,6 +113,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
             }
         });
 
+        checkChangeColumns.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         checkChangeColumns.setText("Switch to 2 columns");
         checkChangeColumns.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         checkChangeColumns.addActionListener(new java.awt.event.ActionListener() {
@@ -107,6 +122,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
             }
         });
 
+        checkboxMakePlain.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         checkboxMakePlain.setText("Make Document Plain");
         checkboxMakePlain.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         checkboxMakePlain.addActionListener(new java.awt.event.ActionListener() {
@@ -115,41 +131,47 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
             }
         });
 
+        btnValidateStructure.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnValidateStructure.setText("Validate Structure");
+        btnValidateStructure.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnValidateStructureActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
+                .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(lblExportTo)
+                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, cboExportTo, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, cboTransformFrom, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 223, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(layout.createSequentialGroup()
-                        .add(20, 20, 20)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(checkboxMakePlain)
-                            .add(checkChangeColumns, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                    .add(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(lblExportTo))
-                    .add(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, cboExportTo, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, cboTransformFrom, 0, 223, Short.MAX_VALUE)))
-                    .add(layout.createSequentialGroup()
-                        .add(49, 49, 49)
-                        .add(lblTransformFrom))
-                    .add(layout.createSequentialGroup()
-                        .add(41, 41, 41)
-                        .add(btnExport, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 143, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(29, 29, 29)
+                        .add(btnExport, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 143, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(lblTransformFrom)
+                    .add(checkboxMakePlain)
+                    .add(checkChangeColumns, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(46, Short.MAX_VALUE)
+                .add(btnValidateStructure, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 157, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(44, 44, 44))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .addContainerGap()
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .add(22, 22, 22)
+                .add(btnValidateStructure)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 47, Short.MAX_VALUE)
                 .add(checkChangeColumns)
-                .add(24, 24, 24)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(checkboxMakePlain)
-                .add(31, 31, 31)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(lblTransformFrom)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(cboTransformFrom, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 21, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -159,7 +181,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
                 .add(cboExportTo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(btnExport)
-                .addContainerGap(89, Short.MAX_VALUE))
+                .add(54, 54, 54))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -207,6 +229,44 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
             MessageBox.OK(parentFrame, "Document export failed");
     }//GEN-LAST:event_btnExportActionPerformed
 
+    private void btnValidateStructureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidateStructureActionPerformed
+        // TODO add your handling code here:
+        StructuralRulesConfig.APPLN_PATH_PREFIX=CommonEditorFunctions.getSettingsFolder() + File.separator + "structural_rules";
+        String ruleEnginesFile = StructuralRulesConfig.getRuleEnginesPath() + BungeniEditorPropertiesHelper.getCurrentDocType() + ".xml";
+        String docRulesFile  = StructuralRulesConfig.getDocRulesPath() + BungeniEditorPropertiesHelper.getCurrentDocType() + ".xml";
+
+        StructuralRulesEngine sre = new
+                StructuralRulesEngine(docRulesFile,
+                                        ruleEnginesFile);
+        //iterate through the document and process the rules for every section
+        processSections(sre);
+    }//GEN-LAST:event_btnValidateStructureActionPerformed
+
+    private void processSections(StructuralRulesEngine sre){
+         String currentDocType = BungeniEditorPropertiesHelper.getCurrentDocType();
+         //docType is the same name as the root section
+         XTextSection xSection = ooDocument.getSection(currentDocType);
+         DocumentSectionIterator2 sectionIterator = new DocumentSectionIterator2(ooDocument,
+                                                            currentDocType, new StructureIterator(sre));
+         sectionIterator.startIterator();
+         System.out.println(sre.getErrors());
+    }
+
+    class StructureIterator implements IBungeniSectionIteratorListener2 {
+        StructuralRulesEngine rulesEngine;
+        StructureIterator (StructuralRulesEngine sre) {
+            rulesEngine = sre;
+        }
+
+        public boolean iteratorCallback(XTextSection xSection) {
+                //we process the rules for each section and build the stack of error messages
+                XNamed xNamedSection = ooQueryInterface.XNamed(xSection);
+                rulesEngine.processRules(ooDocument, xNamedSection.getName());
+                return true;
+        }
+
+    }
+
     public void initialize() {
         this.initTransfromTargetCombo();
         this.initExportDestCombo();
@@ -223,6 +283,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExport;
+    private javax.swing.JButton btnValidateStructure;
     private javax.swing.JComboBox cboExportTo;
     private javax.swing.JComboBox cboTransformFrom;
     private javax.swing.JCheckBox checkChangeColumns;

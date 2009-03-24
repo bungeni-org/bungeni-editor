@@ -62,12 +62,16 @@ public class ExternalPluginsFinder {
     public IEditorPluginAll getPluginInstance() {
         IEditorPluginAll iepAll = null;
         try {
-            ArrayList<URL> urlArr = new ArrayList<URL>();
-            URL fileURL = jarFile.toURI().toURL();
-            urlArr.add(fileURL);
-            URLClassLoader loader = new URLClassLoader(urlArr.toArray(new URL[urlArr.size()]));
-            Class loadingClass = loader.loadClass(classInstantiator);
-            iepAll = (IEditorPluginAll) loadingClass.newInstance();
+            //attempt only if plugin jar was found
+            if (pluginFound) {
+                ArrayList<URL> urlArr = new ArrayList<URL>();
+                URL fileURL = jarFile.toURI().toURL();
+                urlArr.add(fileURL);
+                URLClassLoader loader = new URLClassLoader(urlArr.toArray(new URL[urlArr.size()]));
+                Class loadingClass = loader.loadClass(classInstantiator);
+                Object objPlugin = loadingClass.newInstance();
+                iepAll = (IEditorPluginAll) objPlugin;
+            }
         } catch (Exception ex) {
             log.error("getPluginInstance : " + ex.getMessage());
         } finally {
@@ -76,6 +80,9 @@ public class ExternalPluginsFinder {
 
     }
     
+    /**
+     * Filter classes to filter for directories and jar files
+     */
     class pluginFileFilter implements FilenameFilter {
         private String lookforPlugin  = "";
         pluginFileFilter (String fname ) {
