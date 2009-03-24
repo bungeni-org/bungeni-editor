@@ -37,7 +37,7 @@ public class StructuralRulesParser extends RuleParser {
          * @param xmlRules
          */
         public StructuralRulesParser(String xmlRules){
-            pathToXmlFile = StructuralRulesConfig.getDocRulesPath() +  xmlRules;
+            pathToXmlFile = xmlRules;
         }
 
         private static final  String GET_DOC_STRUCTURE_TYPE = "/DocumentStructure/@type";

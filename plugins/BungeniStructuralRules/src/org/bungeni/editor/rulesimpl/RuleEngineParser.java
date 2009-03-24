@@ -20,7 +20,7 @@ public class RuleEngineParser extends RuleParser {
          * @param xmlRules
          */
         public RuleEngineParser(String xmlRules){
-            pathToXmlFile = StructuralRulesConfig.getRuleEnginesPath() +  xmlRules;
+            pathToXmlFile = xmlRules;
         }
 
      

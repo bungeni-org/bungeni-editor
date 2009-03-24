@@ -15,6 +15,7 @@ public interface IStructuralRule {
     public String getName();
     public void setName(String sName);
     
-    public boolean setupRule(StructuralRulesEngine engine, OOComponentHelper ooDoc);
+    public boolean setupRule(StructuralRulesParser rulesParsingEngine, OOComponentHelper ooDoc);
     public boolean applyRule(String sectionName);
+    public StructuralError[] getErrors();
 }

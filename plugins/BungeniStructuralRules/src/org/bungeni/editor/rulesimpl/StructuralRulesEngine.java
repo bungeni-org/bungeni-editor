@@ -6,6 +6,7 @@
 package org.bungeni.editor.rulesimpl;
 
 import java.util.ArrayList;
+import org.bungeni.ooo.OOComponentHelper;
 import org.jdom.Element;
 
 /**
@@ -19,9 +20,6 @@ public class StructuralRulesEngine {
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(StructuralRulesEngine.class.getName());
 
 
-    public StructuralRulesEngine(StructuralRulesParser pParser){
-        rulesParser = pParser;
-    }
 
     public StructuralRulesEngine(String documentStructureFile, String ruleEngineFile) {
         rulesParser = new StructuralRulesParser(documentStructureFile);
@@ -52,8 +50,20 @@ public class StructuralRulesEngine {
         }
     }
 
-    
-    
+    public boolean processRules(OOComponentHelper ooDocument, String sectionName) {
+        for (IStructuralRule rule : rulesToApply) {
+          rule.setupRule(this.rulesParser, ooDocument);
+          rule.applyRule(sectionName);
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        StructuralRulesEngine sre = new StructuralRulesEngine("/home/undesa/Projects/Bungeni/BungeniStructuralRules/structural_rules/doc_rules/bill.xml",
+                "/home/undesa/Projects/Bungeni/BungeniStructuralRules/structural_rules/engine_rules/bill.xml");
+                
+    }
+
 
 
 }
