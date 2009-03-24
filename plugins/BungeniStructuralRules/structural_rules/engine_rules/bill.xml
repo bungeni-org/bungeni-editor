@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : EngineRules.xml.xml
+    Created on : March 23, 2009, 4:45 PM
+    Author     : undesa
+    Description:
+        Purpose of the document follows.
+-->
+
+<rules>
+    <engine name="OrderOfChildSections" source="org.bungeni.editor.rules.OrderOfChildSections" />
+</rules>

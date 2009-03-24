@@ -13,8 +13,8 @@ import org.bungeni.ooo.OOComponentHelper;
  */
 public interface IStructuralRule {
     public String getName();
-    public String getSource();
-
+    public void setName(String sName);
+    
     public boolean setupRule(StructuralRulesEngine engine, OOComponentHelper ooDoc);
     public boolean applyRule(String sectionName);
 }

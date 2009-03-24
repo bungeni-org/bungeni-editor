@@ -5,7 +5,8 @@
 
 package org.bungeni.editor.rulesimpl;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import org.jdom.Element;
 
 /**
  *
@@ -14,7 +15,9 @@ import java.util.HashMap;
 public class StructuralRulesEngine {
     StructuralRulesParser rulesParser = null;
     RuleEngineParser ruleEngineParser = null;
-    HashMap<String, IStructuralRule> rulesToApply = new HashMap<String, IStructuralRule>(0);
+    ArrayList<IStructuralRule> rulesToApply = new ArrayList<IStructuralRule>(0);
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(StructuralRulesEngine.class.getName());
+
 
     public StructuralRulesEngine(StructuralRulesParser pParser){
         rulesParser = pParser;
@@ -25,11 +28,28 @@ public class StructuralRulesEngine {
         rulesParser.loadXml();
         ruleEngineParser = new RuleEngineParser(ruleEngineFile);
         ruleEngineParser.loadXml();
+        //rule objects loaded into Map
+        loadRulesForDocumentType();
     }
 
     private void loadRulesForDocumentType(){
-        String docType = rulesParser.getDocStructureType();
         //open the rule engine file and load all the engines
+        //returns a list of <engine /> elements
+        ArrayList<Element> rules = ruleEngineParser.getRules();
+        for (Element rule : rules) {
+            String engineName = rule.getAttributeValue("name");
+            String engineSource = rule.getAttributeValue("source");
+            IStructuralRule iEngine = null;
+            try {
+            iEngine = StructuralRuleFactory.getStructuralRule(engineSource);
+            } catch (Exception ex) {
+                log.error("loadRulesForDocumentType , during engine instantiation of "+ 
+                        engineName +  " : " + ex.getMessage());
+            }
+            if (iEngine != null) {
+                rulesToApply.add(iEngine);
+            }
+        }
     }
 
     

@@ -23,9 +23,10 @@ public abstract class BaseStructuralRule implements IStructuralRule {
         return ruleName;
     }
 
-    public String getSource() {
-        return ruleSource;
+    public void setName(String sName) {
+        ruleName = sName;
     }
+   
 
     public boolean setupRule(StructuralRulesEngine engine, OOComponentHelper ooDoc) {
         this.ruleEngine = engine;
