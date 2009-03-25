@@ -590,8 +590,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
 
         setFont(new java.awt.Font("Tahoma", 0, 10));
 
-        jTabsContainer.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
-        jTabsContainer.setFont(new java.awt.Font("Tahoma", 0, 10));
+        jTabsContainer.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
 
         cboListDocuments.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         cboListDocuments.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -664,7 +663,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         lblSecName.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblSecName.setText("Current Section Name :");
 
-        btnEdit.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnEdit.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnEdit.setText("Edit ");
         btnEdit.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
