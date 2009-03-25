@@ -41,6 +41,8 @@ public class StructuralRulesEngine {
             IStructuralRule iEngine = null;
             try {
             iEngine = StructuralRuleFactory.getStructuralRule(engineSource);
+            //set name for rule engine
+            iEngine.setName(engineName);
             } catch (Exception ex) {
                 log.error("loadRulesForDocumentType , during engine instantiation of "+ 
                         engineName +  " : " + ex.getMessage());
