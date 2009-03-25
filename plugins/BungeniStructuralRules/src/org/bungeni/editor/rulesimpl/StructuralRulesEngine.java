@@ -6,6 +6,7 @@
 package org.bungeni.editor.rulesimpl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import org.bungeni.ooo.OOComponentHelper;
 import org.jdom.Element;
 
@@ -18,7 +19,7 @@ public class StructuralRulesEngine {
     RuleEngineParser ruleEngineParser = null;
     ArrayList<IStructuralRule> rulesToApply = new ArrayList<IStructuralRule>(0);
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(StructuralRulesEngine.class.getName());
-
+    ArrayList<StructuralError> errorLog = new ArrayList<StructuralError>(0);
 
 
     public StructuralRulesEngine(String documentStructureFile, String ruleEngineFile) {
@@ -54,8 +55,18 @@ public class StructuralRulesEngine {
         for (IStructuralRule rule : rulesToApply) {
           rule.setupRule(this.rulesParser, ooDocument);
           rule.applyRule(sectionName);
+          StructuralError[] errors = rule.getErrors();
+          if (errors != null ) {
+              if (errors.length > 0 ){
+                  errorLog.addAll(Arrays.asList(errors));
+              }
+          }
         }
         return true;
+    }
+
+    public ArrayList<StructuralError> getErrors(){
+        return errorLog;
     }
 
     public static void main(String[] args) {

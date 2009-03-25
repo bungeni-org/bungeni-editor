@@ -32,6 +32,8 @@ public abstract class BaseStructuralRule implements IStructuralRule {
     public boolean setupRule(StructuralRulesParser engine, OOComponentHelper ooDoc) {
         this.ruleParserEngine = engine;
         this.ooDocument = ooDoc;
+        //also clear the error log
+        this.errorLog.clear();
         return true;
     }
 

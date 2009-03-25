@@ -36,6 +36,8 @@ public class RuleEngineParser extends RuleParser {
             }
             catch (JDOMException ex) {
                 log.error("getRules : " + ex.getMessage());
+            } catch (RuntimeException ex) {
+                log.error("getRules : " + ex.getMessage());
             } finally {
                 return engineElements;
             }
