@@ -44,6 +44,12 @@
     	    <action name="Conclusion.selection" tooltip="Conclusion for judgement" title="Conclusion"  target="null" visible="true" condition="none" showChildren="true" >
      	          <subaction name="Conclusion.create" title="Create Conclusion" visible="true" condition="sectionNotExists:concl* :and: textSelected:true" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeConclusion.section_creation"/>	
  	    </action>
-	</actionGroup>
+	</actionGroup> 
+	<actionGroup name="LongSections" title="Markup Long Text" visible="true" tooltip="Use these actions to markup long blocks of text" >
+ 		  <action name="Introduction.scale_section" title="Create Introduction" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeIntroduction.scale_section" visible="true" condition="sectionNotExists:intro[0-9]* :and: cursorInSection:judgement" />
+ 		  <action name="Background.scale_section" title="Create Background" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeBackground.scale_section" visible="true" condition="sectionNotExists:bg[0-9]* :and: cursorInSection:judgement" />
+ 		  <action name="Motivation.scale_section" title="Create Motivation" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMotivation.scale_section" visible="true" condition="sectionNotExists:motive[0-9]* :and: cursorInSection:judgement" />
+ 		  <action name="Decision.scale_section" title="Create Decision" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDecision.scale_section" visible="true" condition="sectionNotExists:decis[0-9]* :and: cursorInSection:judgement" />
+	</actionGroup> 
     </root>
 </toolbar>
