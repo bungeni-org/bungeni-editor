@@ -16,7 +16,7 @@ import org.bungeni.ooo.OOComponentHelper;
  *
  * @author undesa
  */
-public interface IGenericSelectorPanel {
+public interface IGenericSelectorPanel extends IGenericPanel {
    /**
     * This is the pseudo-constructor function that sets up the class with the required parameters
     * @param ooDoc

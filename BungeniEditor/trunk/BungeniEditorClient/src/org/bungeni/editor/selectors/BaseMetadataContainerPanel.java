@@ -425,6 +425,10 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
         this.containerFrame = contFrame;
     }
     
+    public void setOOComponentHelper (OOComponentHelper ooDoc) {
+        this.ooDocument = ooDoc;
+    }
+
     public abstract java.awt.Component getPanelComponent();
     
     protected ArrayList<panelInfo> m_allPanels = new ArrayList<panelInfo>(0);
