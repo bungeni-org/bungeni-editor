@@ -8,10 +8,12 @@ package org.bungeni.editor.panels.loadable;
 
 import com.sun.star.container.XNamed;
 import com.sun.star.text.XTextSection;
+import java.awt.Dimension;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
 import org.apache.log4j.Logger;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.utils.BungeniEditorProperties;
@@ -21,6 +23,8 @@ import org.bungeni.editor.macro.ExternalMacroFactory;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.editor.providers.DocumentSectionIterator2;
 import org.bungeni.editor.providers.IBungeniSectionIteratorListener2;
+import org.bungeni.editor.rules.ui.panelStructuralError;
+import org.bungeni.editor.rulesimpl.StructuralError;
 import org.bungeni.editor.rulesimpl.StructuralRulesConfig;
 import org.bungeni.editor.rulesimpl.StructuralRulesEngine;
 import org.bungeni.ooo.OOComponentHelper;
@@ -28,7 +32,9 @@ import org.bungeni.ooo.ooQueryInterface;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTarget;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTargetFactory;
 import org.bungeni.ooo.transforms.impl.IBungeniDocTransform;
+import org.bungeni.utils.BungeniFrame;
 import org.bungeni.utils.CommonEditorFunctions;
+import org.bungeni.utils.FrameLauncher;
 import org.bungeni.utils.MessageBox;
 
 /**
@@ -230,11 +236,12 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
     }//GEN-LAST:event_btnExportActionPerformed
 
     private void btnValidateStructureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidateStructureActionPerformed
-        // TODO add your handling code here:
+        //set the correct application path for the structural rules checker
         StructuralRulesConfig.APPLN_PATH_PREFIX=CommonEditorFunctions.getSettingsFolder() + File.separator + "structural_rules";
+        //configure the source files
         String ruleEnginesFile = StructuralRulesConfig.getRuleEnginesPath() + BungeniEditorPropertiesHelper.getCurrentDocType() + ".xml";
         String docRulesFile  = StructuralRulesConfig.getDocRulesPath() + BungeniEditorPropertiesHelper.getCurrentDocType() + ".xml";
-
+        //initalize the rules engine
         StructuralRulesEngine sre = new
                 StructuralRulesEngine(docRulesFile,
                                         ruleEnginesFile);
@@ -249,9 +256,32 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
          DocumentSectionIterator2 sectionIterator = new DocumentSectionIterator2(ooDocument,
                                                             currentDocType, new StructureIterator(sre));
          sectionIterator.startIterator();
-         System.out.println(sre.getErrors());
+         ArrayList<StructuralError> sErrors = sre.getErrors();
+         /**
+          * Display the errors if any errors were returned
+          */
+         if (sErrors.size() > 0) {
+             launchErrorFrame(sErrors);
+         }
     }
 
+    /**
+     * Launches a window with the returned structural errors
+     * @param sErrors
+     */
+    private void launchErrorFrame(ArrayList<StructuralError> sErrors) {
+           BungeniFrame floatingFrame = new BungeniFrame();
+           floatingFrame.setTitle("Structural Errors Found");
+           BungeniFrame.BUNGENIFRAME_ALWAYS_ON_TOP = true;
+           BungeniFrame.BUNGENIFRAME_RESIZABLE = true;
+           panelStructuralError pPanel = new panelStructuralError(sErrors, ooDocument);
+           floatingFrame.launch(pPanel, pPanel.getFrameSize() );
+           FrameLauncher.CenterFrame(floatingFrame);
+    }
+    /**
+     * The IteratorCallback of the StructureIterator class is called for every section
+     * in the document
+     */
     class StructureIterator implements IBungeniSectionIteratorListener2 {
         StructuralRulesEngine rulesEngine;
         StructureIterator (StructuralRulesEngine sre) {
@@ -261,6 +291,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
         public boolean iteratorCallback(XTextSection xSection) {
                 //we process the rules for each section and build the stack of error messages
                 XNamed xNamedSection = ooQueryInterface.XNamed(xSection);
+                //the rule engine rules are applied to every section individually
                 rulesEngine.processRules(ooDocument, xNamedSection.getName());
                 return true;
         }
