@@ -179,4 +179,8 @@ private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         return this;
     }
 
+    public void setOOComponentHelper (OOComponentHelper ooDoc) {
+        this.ooDocument = ooDoc;
+    }
+
 }

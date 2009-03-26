@@ -44,6 +44,14 @@ public abstract class BaseRouterSelectorPanel extends JPanel implements IRouterS
         containerFrame = frame;
     }
 
+    public void setParentFrame(JFrame frm) {
+        this.parentFrame = frm;
+    }
+
+    public void setOOComponentHelper(OOComponentHelper ooDoc) {
+        this.ooDocument = ooDoc;
+    }
+
     abstract public Component getPanelComponent();
 
 }
