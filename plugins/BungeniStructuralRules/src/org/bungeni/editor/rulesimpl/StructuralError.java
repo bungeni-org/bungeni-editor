@@ -16,9 +16,11 @@ public class StructuralError {
     public String childSectionName;
     public String failRuleType;
     public boolean errorState;
+    public boolean errorChecked;
 
     public StructuralError(){
         //default to fail
         errorState = false;
+        errorChecked = false;
     }
 }
