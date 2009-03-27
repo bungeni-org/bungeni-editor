@@ -3,6 +3,8 @@
 
 = Installing the Bungeni Editor on Ubuntu Linux and Windows =
 
+<wiki:toc max_depth="3" />
+
 == Introduction ==
 These installation instructions were tested on Ubuntu 8.04 / Windows XP and the same should apply for subsequent OS releases.
 
