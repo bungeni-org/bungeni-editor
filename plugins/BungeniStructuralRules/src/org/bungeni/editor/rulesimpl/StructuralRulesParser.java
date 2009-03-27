@@ -13,14 +13,10 @@ package org.bungeni.editor.rulesimpl;
 
 
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import org.jdom.Attribute;
-import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
-import org.jdom.input.SAXBuilder;
 import org.jdom.xpath.XPath;
 
 /**

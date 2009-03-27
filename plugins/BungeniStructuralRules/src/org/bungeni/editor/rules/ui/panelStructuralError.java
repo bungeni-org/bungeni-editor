@@ -17,8 +17,11 @@ import com.sun.star.text.XTextViewCursor;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Window;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JTable;
@@ -40,7 +43,7 @@ public class panelStructuralError extends javax.swing.JPanel  {
 
     ArrayList<StructuralError> structuralErrors = new ArrayList<StructuralError>(0);
     JFrame parentFrame = null;
-    JFrame containerFrame = null;
+    Window containerFrame = null;
     OOComponentHelper ooDocument = null;
     
     /** Creates new form panelStructuralError */
@@ -148,6 +151,24 @@ public class panelStructuralError extends javax.swing.JPanel  {
 
     }
 
+       public void setContainerFrame(Window frm) {
+       // super.setContainerFrame(frm);
+        this.containerFrame = frm;
+        this.containerFrame.addWindowListener( new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent wEvent) {
+                //cleanupBookmarks();
+                parentWindowClosing();
+            }
+        });
+        }
+
+       private void parentWindowClosing(){
+           //save the panel xml to file
+           //first convert the error information to xml
+           StructuralErrorTableModel stModel = (StructuralErrorTableModel)this.tblErrors.getModel();
+           String outXml = stModel.asXmlStream();
+       }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is

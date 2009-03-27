@@ -5,6 +5,7 @@
 
 package org.bungeni.editor.rulesimpl;
 
+import com.thoughtworks.xstream.XStream;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
@@ -13,11 +14,40 @@ import javax.swing.table.AbstractTableModel;
  * @author Ashok Hariharan
  */
 public class StructuralErrorTableModel extends AbstractTableModel {
+
     ArrayList<StructuralError> structuralErrors = new ArrayList<StructuralError>(0);
     private String[] columnNames = {"No.", "Error", "Checked"};
+    XStream tblXmlStream = null;
+
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(StructuralRulesParser.class.getName());
+
 
     public StructuralErrorTableModel(ArrayList<StructuralError> errors) {
         structuralErrors = errors;
+        tblXmlStream = new XStream();
+    }
+
+    public ArrayList<StructuralError> getStructuralErrors(){
+        return structuralErrors;
+    }
+
+    public String asXmlStream(){
+        String outXml = this.tblXmlStream.toXML(structuralErrors);
+        return outXml;
+    }
+
+    public boolean loadXmlStream(String xmlStream){
+        boolean bState = false;
+        try {
+        ArrayList<StructuralError> newErrorList = (ArrayList<StructuralError>) this.tblXmlStream.fromXML(xmlStream);
+            synchronized(this) {
+                structuralErrors = newErrorList;
+            }
+            bState = true;
+        } catch (Exception ex) {
+            log.error("loadXmlStream : " + ex.getMessage());
+        }
+        return bState;
     }
 
     public int getColumnCount() {
