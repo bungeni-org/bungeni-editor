@@ -7,7 +7,7 @@
  * and open the template in the editor.
  */
 
-package org.bungeni.utils;
+package org.bungeni.extutils;
 
 import org.safehaus.uuid.UUID;
 import org.safehaus.uuid.UUIDGenerator;

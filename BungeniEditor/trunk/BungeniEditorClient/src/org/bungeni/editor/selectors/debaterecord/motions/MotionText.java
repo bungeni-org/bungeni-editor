@@ -9,7 +9,7 @@ package org.bungeni.editor.selectors.debaterecord.motions;
 import java.awt.Component;
 import java.util.HashMap;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
-import org.bungeni.utils.CommonDocumentUtilFunctions;
+import org.bungeni.extutils.CommonDocumentUtilFunctions;
 
 /**
  *

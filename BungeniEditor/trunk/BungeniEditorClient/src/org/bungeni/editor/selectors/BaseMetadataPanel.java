@@ -14,7 +14,7 @@ import org.apache.commons.chain.Catalog;
 import org.apache.commons.chain.Command;
 import org.bungeni.commands.chains.BungeniCatalogCommand;
 import org.bungeni.commands.chains.BungeniCommandsCatalogLoader;
-import org.bungeni.utils.BungeniEditorProperties;
+import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.editor.selectors.BaseMetadataContainerPanel.ConditionSet;

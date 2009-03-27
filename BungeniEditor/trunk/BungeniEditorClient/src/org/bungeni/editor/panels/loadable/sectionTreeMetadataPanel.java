@@ -24,7 +24,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
-import org.bungeni.utils.BungeniEditorPropertiesHelper;
+import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.dialogs.metadatapanel.SectionMetadataLoad;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.editor.providers.DocumentSectionFriendlyAdapterDefaultTreeModel;
@@ -32,7 +32,7 @@ import org.bungeni.editor.providers.DocumentSectionFriendlyTreeModelProvider;
 import org.bungeni.editor.providers.DocumentSectionProvider;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.utils.BungeniBNode;
-import org.bungeni.utils.CommonTreeFunctions;
+import org.bungeni.extutils.CommonTreeFunctions;
 import org.bungeni.utils.compare.BungeniTreeRefactorTree;
 
 /**

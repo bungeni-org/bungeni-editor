@@ -20,7 +20,7 @@ import org.jdesktop.swingx.treetable.DefaultTreeTableModel;
 import org.jdesktop.swingx.treetable.TreeTableNode;
 import org.jdesktop.swingx.treetable.DefaultMutableTreeTableNode;
 import org.apache.log4j.Logger;
-import org.bungeni.utils.BungeniEditorPropertiesHelper;
+import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.ooo.OOComponentHelper;
 
 /**

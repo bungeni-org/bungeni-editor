@@ -13,7 +13,7 @@ import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.error.BungeniMsg;
 import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.ooo.OOComponentHelper;
-import org.bungeni.utils.CommonDocumentUtilFunctions;
+import org.bungeni.extutils.CommonDocumentUtilFunctions;
 
 /**
  *

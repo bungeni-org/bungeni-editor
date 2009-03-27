@@ -18,7 +18,7 @@ import org.apache.log4j.Logger;
 import org.bungeni.editor.selectors.SelectSectionEdit;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.ooo.OOComponentHelper;
-import org.bungeni.utils.MessageBox;
+import org.bungeni.extutils.MessageBox;
 
 /**
  *

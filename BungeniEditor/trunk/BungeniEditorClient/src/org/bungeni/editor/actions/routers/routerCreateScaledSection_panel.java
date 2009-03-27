@@ -17,7 +17,7 @@ import java.awt.Window;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import org.bungeni.ooo.ooQueryInterface;
-import org.bungeni.utils.MessageBox;
+import org.bungeni.extutils.MessageBox;
 
 /**
  *

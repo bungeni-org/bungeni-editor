@@ -19,8 +19,8 @@ import javax.swing.table.AbstractTableModel;
 import org.apache.log4j.Logger;
 import org.bungeni.ooo.OOComponentHelper;
 import com.sun.star.beans.UnknownPropertyException;
-import org.bungeni.utils.BungeniResourceBundleFactory;
-import org.bungeni.utils.CommonResourceBundleHelperFunctions;
+import org.bungeni.extutils.BungeniResourceBundleFactory;
+import org.bungeni.extutils.CommonResourceBundleHelperFunctions;
 
 /**
  *

@@ -18,12 +18,12 @@ import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
-import org.bungeni.utils.BungeniEditorProperties;
+import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.editor.actions.routers.routerFactory;
 import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.error.ErrorMessages;
 import org.bungeni.ooo.OOComponentHelper;
-import org.bungeni.utils.MessageBox;
+import org.bungeni.extutils.MessageBox;
 
 /**
  *

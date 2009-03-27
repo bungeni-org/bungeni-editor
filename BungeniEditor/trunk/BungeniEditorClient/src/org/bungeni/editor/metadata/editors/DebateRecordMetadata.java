@@ -22,19 +22,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.utils.BungeniEditorProperties;
-import org.bungeni.utils.BungeniEditorPropertiesHelper;
+import org.bungeni.extutils.BungeniEditorProperties;
+import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTargetFactory;
 import org.bungeni.ooo.transforms.impl.IBungeniDocTransform;
 import org.bungeni.utils.BungeniFileSavePathFormat;
-import org.bungeni.utils.MessageBox;
+import org.bungeni.extutils.MessageBox;
 import org.bungeni.editor.metadata.LanguageCode;
 import org.bungeni.editor.metadata.CountryCode;
 import org.bungeni.editor.metadata.DebateRecordMetaModel;
 import org.bungeni.editor.metadata.DocumentPart;
-import org.bungeni.utils.CommonStringFunctions;
+import org.bungeni.extutils.CommonStringFunctions;
 
 /**
  *

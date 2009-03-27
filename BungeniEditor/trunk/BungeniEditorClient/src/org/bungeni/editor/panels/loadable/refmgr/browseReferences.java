@@ -41,7 +41,7 @@ import org.bungeni.ooo.ooDocMetadata;
 import org.bungeni.ooo.ooDocMetadataFieldSet;
 import org.bungeni.ooo.ooQueryInterface;
 import org.bungeni.utils.BungeniBNode;
-import org.bungeni.utils.MessageBox;
+import org.bungeni.extutils.MessageBox;
 
 /**
  *

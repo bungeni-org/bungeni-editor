@@ -15,7 +15,7 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.bungeni.editor.dialogs.editorApplicationController;
-import org.bungeni.utils.BungeniFrame;
+import org.bungeni.extutils.BungeniFrame;
 
 /**
  *

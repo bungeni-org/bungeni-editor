@@ -15,18 +15,18 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.utils.BungeniEditorProperties;
-import org.bungeni.utils.BungeniEditorPropertiesHelper;
+import org.bungeni.extutils.BungeniEditorProperties;
+import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTargetFactory;
 import org.bungeni.ooo.transforms.impl.IBungeniDocTransform;
 import org.bungeni.utils.BungeniFileSavePathFormat;
-import org.bungeni.utils.MessageBox;
+import org.bungeni.extutils.MessageBox;
 import org.bungeni.editor.metadata.EditorDocMetadataDialogFactory;
 import org.bungeni.editor.metadata.IEditorDocMetadataDialog;
 import org.bungeni.ooo.OOComponentHelper;
-import org.bungeni.utils.BungeniFrame;
-import org.bungeni.utils.FrameLauncher;
+import org.bungeni.extutils.BungeniFrame;
+import org.bungeni.extutils.FrameLauncher;
 
 /**
  *

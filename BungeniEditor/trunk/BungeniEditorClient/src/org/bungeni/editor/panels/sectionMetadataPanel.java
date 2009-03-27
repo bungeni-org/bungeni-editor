@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JTree;
 import javax.swing.Timer;
 import javax.swing.tree.TreeCellRenderer;
-import org.bungeni.utils.BungeniEditorPropertiesHelper;
+import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.dialogs.treetable.DocMetadataTreeTableModel;
 import org.bungeni.editor.dialogs.treetable.sectionHive;
 import org.bungeni.editor.metadata.DocumentMetadataTableModel;

@@ -181,7 +181,7 @@ public class DocumentMetadataSupplier {
                    log.debug("fetching metaName = "+ metaName);
                    String metaDataType = tableRow.elementAt(METADATA_DATATYPE_COLUMN);
                    String metaType = tableRow.elementAt(METADATA_TYPE_COLUMN);
-                   String metaDisplay = org.bungeni.utils.CommonResourceBundleHelperFunctions.getDocMetaString(metaName);
+                   String metaDisplay = org.bungeni.extutils.CommonResourceBundleHelperFunctions.getDocMetaString(metaName);
                    String visible = tableRow.elementAt(METADATA_VISIBLE_COLUMN);
                    String tableConfig = tableRow.elementAt(METADATA_TABLE_CONFIG);
                    DocumentMetadata meta = new DocumentMetadata(metaName, metaType , metaDataType, metaDisplay, Integer.parseInt(visible), tableConfig);

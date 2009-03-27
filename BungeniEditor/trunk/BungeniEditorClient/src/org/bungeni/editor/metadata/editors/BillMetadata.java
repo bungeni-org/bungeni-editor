@@ -11,12 +11,12 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import org.bungeni.utils.BungeniEditorProperties;
+import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
 import org.bungeni.editor.metadata.BillMetaModel;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.utils.BungeniFileSavePathFormat;
-import org.bungeni.utils.CommonStringFunctions;
+import org.bungeni.extutils.CommonStringFunctions;
 
 /**
  *

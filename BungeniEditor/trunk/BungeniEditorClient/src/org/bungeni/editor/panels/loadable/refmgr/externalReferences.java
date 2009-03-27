@@ -28,14 +28,14 @@ import java.util.concurrent.ExecutionException;
 import javax.swing.JTable;
 import javax.swing.SwingWorker;
 import javax.swing.table.AbstractTableModel;
-import org.bungeni.utils.BungeniEditorProperties;
+import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.editor.numbering.ooo.OOoNumberingHelper;
 import org.bungeni.editor.panels.impl.BaseLaunchablePanel;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooDocMetadata;
 import org.bungeni.ooo.ooDocMetadataFieldSet;
 import org.bungeni.ooo.ooQueryInterface;
-import org.bungeni.utils.BungeniUUID;
+import org.bungeni.extutils.BungeniUUID;
 
 /**
  *

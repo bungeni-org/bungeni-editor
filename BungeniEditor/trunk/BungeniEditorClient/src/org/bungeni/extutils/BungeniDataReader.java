@@ -7,8 +7,9 @@
  * and open the template in the editor.
  */
 
-package org.bungeni.utils;
+package org.bungeni.extutils;
 
+import org.bungeni.utils.*;
 import au.com.bytecode.opencsv.CSVReader;
 import java.io.File;
 import java.io.FileReader;

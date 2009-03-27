@@ -31,7 +31,7 @@ import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
-import org.bungeni.utils.BungeniUUID;
+import org.bungeni.extutils.BungeniUUID;
 
 /**
  *

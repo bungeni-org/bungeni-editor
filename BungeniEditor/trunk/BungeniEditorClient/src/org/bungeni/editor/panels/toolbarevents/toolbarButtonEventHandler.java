@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 import org.bungeni.editor.panels.ItoolbarButtonEvent;
 import org.bungeni.editor.panels.toolbarButtonCommandFactory;
 import org.bungeni.ooo.OOComponentHelper;
-import org.bungeni.utils.MessageBox;
+import org.bungeni.extutils.MessageBox;
 
 /**
  *

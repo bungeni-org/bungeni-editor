@@ -16,14 +16,14 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.utils.BungeniEditorProperties;
-import org.bungeni.utils.BungeniEditorPropertiesHelper;
+import org.bungeni.extutils.BungeniEditorProperties;
+import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.transforms.impl.BungeniDocTransform;
 import org.bungeni.ooo.transforms.impl.TransformerConfigurationFactory;
 import org.bungeni.ooo.transforms.impl.TransformerConfigurationFactory.Transformer;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
-import org.bungeni.utils.MessageBox;
+import org.bungeni.extutils.MessageBox;
 import org.un.bungeni.translators.globalconfigurations.GlobalConfigurations;
 import org.un.bungeni.translators.odttoakn.translator.OATranslator;
 

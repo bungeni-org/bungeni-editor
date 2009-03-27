@@ -15,7 +15,7 @@ import org.apache.log4j.Logger;
 import org.bungeni.commands.CommonActions;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.utils.BungeniEditorProperties;
+import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.error.ErrorMessages;
 import org.bungeni.ooo.OOComponentHelper;
 

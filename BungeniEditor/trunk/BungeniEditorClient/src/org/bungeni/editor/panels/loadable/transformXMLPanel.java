@@ -16,8 +16,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import org.apache.log4j.Logger;
 import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.utils.BungeniEditorProperties;
-import org.bungeni.utils.BungeniEditorPropertiesHelper;
+import org.bungeni.extutils.BungeniEditorProperties;
+import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.macro.ExternalMacro;
 import org.bungeni.editor.macro.ExternalMacroFactory;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
@@ -32,10 +32,10 @@ import org.bungeni.ooo.ooQueryInterface;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTarget;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTargetFactory;
 import org.bungeni.ooo.transforms.impl.IBungeniDocTransform;
-import org.bungeni.utils.BungeniFrame;
-import org.bungeni.utils.CommonEditorFunctions;
-import org.bungeni.utils.FrameLauncher;
-import org.bungeni.utils.MessageBox;
+import org.bungeni.extutils.BungeniFrame;
+import org.bungeni.extutils.CommonEditorFunctions;
+import org.bungeni.extutils.FrameLauncher;
+import org.bungeni.extutils.MessageBox;
 
 /**
  *
@@ -275,6 +275,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
            BungeniFrame.BUNGENIFRAME_ALWAYS_ON_TOP = true;
            BungeniFrame.BUNGENIFRAME_RESIZABLE = true;
            panelStructuralError pPanel = new panelStructuralError(sErrors, ooDocument);
+           pPanel.setContainerFrame(floatingFrame);
            floatingFrame.launch(pPanel, pPanel.getFrameSize() );
            FrameLauncher.CenterFrame(floatingFrame);
     }

@@ -15,7 +15,7 @@ import org.bungeni.error.BungeniMsg;
 import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
-import org.bungeni.utils.CommonDocumentUtilFunctions;
+import org.bungeni.extutils.CommonDocumentUtilFunctions;
 
 /**
  *

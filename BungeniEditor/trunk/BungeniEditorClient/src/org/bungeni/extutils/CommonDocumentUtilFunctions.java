@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package org.bungeni.utils;
+package org.bungeni.extutils;
 
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;

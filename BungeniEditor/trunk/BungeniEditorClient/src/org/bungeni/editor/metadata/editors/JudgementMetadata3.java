@@ -24,7 +24,7 @@ import org.bungeni.db.QueryResults;
 import org.bungeni.db.RegistryQueryFactory;
 import org.bungeni.db.registryQueryDialog2;
 import org.bungeni.ooo.ooDocMetadataFieldSet;
-import org.bungeni.utils.BungeniEditorProperties;
+import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
 import org.bungeni.editor.metadata.JudgementMetadataModel;
 import org.bungeni.editor.metadata.TabularMetadataLoader;
@@ -32,7 +32,7 @@ import org.bungeni.editor.metadata.TabularMetadataLoader.TabularMetadataModel;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.ooo.ooDocMetadata;
 import org.bungeni.utils.BungeniFileSavePathFormat;
-import org.bungeni.utils.CommonStringFunctions;
+import org.bungeni.extutils.CommonStringFunctions;
 
 /**
  *

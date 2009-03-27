@@ -42,7 +42,7 @@ import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
-import org.bungeni.utils.BungeniEditorProperties;
+import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.editor.actions.EditorActionFactory;
 import org.bungeni.editor.actions.IEditorActionEvent;
 import org.bungeni.editor.actions.toolbarAction;
@@ -64,7 +64,7 @@ import org.bungeni.ooo.ooQueryInterface;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.bungeni.utils.BungeniBNode;
 import org.bungeni.utils.BungeniBTree;
-import org.bungeni.utils.CommonTreeFunctions;
+import org.bungeni.extutils.CommonTreeFunctions;
 import org.bungeni.utils.NodeDisplayTextSetter;
 import org.bungeni.utils.compare.BungeniTreeRefactorTree;
 

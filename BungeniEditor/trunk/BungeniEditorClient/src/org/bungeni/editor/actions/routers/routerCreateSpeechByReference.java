@@ -10,8 +10,8 @@ import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.ooo.OOComponentHelper;
-import org.bungeni.utils.CommonDocumentUtilFunctions;
-import org.bungeni.utils.CommonStringFunctions;
+import org.bungeni.extutils.CommonDocumentUtilFunctions;
+import org.bungeni.extutils.CommonStringFunctions;
 
 /**
  *

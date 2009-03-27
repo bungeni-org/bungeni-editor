@@ -13,8 +13,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JFrame;
-import org.bungeni.utils.BungeniEditorProperties;
-import org.bungeni.utils.BungeniEditorPropertiesHelper;
+import org.bungeni.extutils.BungeniEditorProperties;
+import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
@@ -337,7 +337,7 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
     }
     
     public void displayErrors(){
-        org.bungeni.utils.MessageBox.OK(this, ErrorMessagesAsString());
+        org.bungeni.extutils.MessageBox.OK(this, ErrorMessagesAsString());
         clearErrorMessages();
     }
     

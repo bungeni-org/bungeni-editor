@@ -9,8 +9,8 @@
 
 package org.bungeni.editor.toolbar.conditions.runnable;
 
-import org.bungeni.utils.BungeniEditorProperties;
-import org.bungeni.utils.BungeniEditorPropertiesHelper;
+import org.bungeni.extutils.BungeniEditorProperties;
+import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.toolbar.conditions.BungeniToolbarCondition;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.utils.CommonExceptionUtils;

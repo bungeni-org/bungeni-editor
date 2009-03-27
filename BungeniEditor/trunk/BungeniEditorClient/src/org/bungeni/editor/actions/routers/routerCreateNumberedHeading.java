@@ -21,7 +21,7 @@ import org.bungeni.error.BungeniMsg;
 import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.editor.numbering.ooo.OOoNumberingHelper;
 import org.bungeni.ooo.OOComponentHelper;
-import org.bungeni.utils.BungeniUUID;
+import org.bungeni.extutils.BungeniUUID;
 
 /**
  *

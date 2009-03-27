@@ -9,9 +9,6 @@
 
 package org.bungeni.editor.selectors;
 
-import java.util.HashMap;
-import org.bungeni.editor.fragments.FragmentsFactory;
-
 /**
  *
  * @author Administrator

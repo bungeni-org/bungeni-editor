@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.ooo.OOComponentHelper;
-import org.bungeni.utils.BungeniEditorProperties;
+import org.bungeni.extutils.BungeniEditorProperties;
 
 /**
  *
