@@ -4,13 +4,18 @@
 = Installing the BungeniEditor Client on Ubuntu Linux =
 
 == Introduction ==
-These installation instructions were tested on Ubuntu Dapper (6.06) and the same should apply for subsequent Ubuntu releases.
+These installation instructions were tested on Ubuntu 8.04 and the same should apply for subsequent Ubuntu releases.
 
+== Installing using the IzPack installer == 
+
+ * install the sun jre 6 (see below for installations steps for windows and ubuntu)
+ * install openoffice.org 3.0 (see below for installations steps for windows and ubuntu)
+ * run the izpack installer provided on the downloads page.
 
 == Quick Install Steps for Ubuntu == 
 
 If you dont want to bother with reading the detailed installation instructions, the following instructions will setup a working installation 95% of the time :
- * install the sun jdk 6 : `sudo apt-get install sun-java6-jre`
+ * install the sun jre 6 : `sudo apt-get install sun-java6-jre`
  * uninstall the openoffice.org installation packaged with ubuntu
  * download install openoffice by downloading OO 3.0 from [http://downloads.openoffice.org http://downloads.openoffice.org] (look for the debian package installs).
  * launch openoffice at least once and accept the license agreement
