@@ -8,12 +8,10 @@ package org.bungeni.editor.panels.loadable;
 
 import com.sun.star.container.XNamed;
 import com.sun.star.text.XTextSection;
-import java.awt.Dimension;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFrame;
 import org.apache.log4j.Logger;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.extutils.BungeniEditorProperties;
@@ -299,7 +297,9 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
 
     }
 
+    @Override
     public void initialize() {
+        super.initialize();
         this.initTransfromTargetCombo();
         this.initExportDestCombo();
         String docType = BungeniEditorPropertiesHelper.getCurrentDocType();

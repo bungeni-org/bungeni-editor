@@ -328,7 +328,9 @@ public class documentNotesPanel extends BaseClassForITabbedPanel {
 
   
     
+    @Override
     public void initialize() {
+        super.initialize();
       // cboListDocuments.addActionListener(new cboListDocumentsActionListener());
      //  initListDocuments();
        initNotesPanel();

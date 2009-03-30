@@ -7,8 +7,6 @@
 package org.bungeni.editor.panels.loadable;
 
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Collections;
@@ -68,7 +66,6 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
         initComponents();
         initTreeStructure();
        // initTableDocumentMetadata();    
-        initTimer();
     }
     
     private sectionTreeMetadataPanel self(){
@@ -76,15 +73,6 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
     }
     
     private void initTableDocumentMetadata() {
- /*        DefaultTreeCellRenderer sectionMetaRender = (DefaultTreeCellRenderer) this.treeSectionTreeMetadata.getCellRenderer();
-         sectionMetaRender.setOpenIcon(CommonTreeFunctions.loadIcon("treeMinus.gif"));
-         sectionMetaRender.setClosedIcon(CommonTreeFunctions.loadIcon("treePlus.gif"));
-         sectionMetaRender.setLeafIcon(null);
-         sectionMetaRender.setBorder(null);
-         sectionMetaRender.setBackgroundSelectionColor( new java.awt.Color(207, 242, 255)); */
-         //sectionMetaRender.setBorderSelectionColor(Color.DARK_GRAY);
-        // this.treeSectionTreeMetadata.setModel(new DefaultTreeModel(DocumentSectionTreeModelProvider.newRootNode()));
-         //this.treeSectionTreeMetadata.setModel(new DefaultTreeModel(DocumentSectionFriendlyTreeModelProvider.newRootNode()));
         this.treeSectionTreeMetadata.addMouseListener(new treeDocStructureTreeMouseListener());
         DocumentSectionFriendlyAdapterDefaultTreeModel model = DocumentSectionFriendlyTreeModelProvider.create() ;//_without_subscription();
         this.treeSectionTreeMetadata.setModel(model);
@@ -121,22 +109,7 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
     }
  
     
-    private void initTimer(){
-          sectionMetadataRefreshTimer= new Timer(4000, new ActionListener() {
-              public void actionPerformed(ActionEvent e) {
-                //refreshSectionMetadataTreeTable();
-                 // captureTreeState();
-                  //*** crash warning ***
-                  /*
-                  if (isVisible())
-                  refreshTree();
-                   */ 
-                  //*** crash warning ***
-                 // restoreTreeState();
-              }
-           });
-           sectionMetadataRefreshTimer.start();
-    }
+
 
     private void refreshTree(){
             BungeniBNode newRootNode = DocumentSectionProvider.getNewFriendlyTree().getFirstRoot();
@@ -349,10 +322,11 @@ private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_btnRefreshActionPerformed
 
     
+    @Override
     public void initialize() {
+        super.initialize();
         //initTableDocumentMetadata();    
         initTreeStructure();
-        initTimer();
     }
 
     public void refreshPanel() {
