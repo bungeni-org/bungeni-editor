@@ -126,8 +126,6 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
         jLabel13 = new javax.swing.JLabel();
         dt_dateofcommencement = new org.jdesktop.swingx.JXDatePicker();
 
-        setBackground(java.awt.Color.lightGray);
-
         txtBillNumber.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
         jLabel11.setFont(new java.awt.Font("DejaVu Sans", 0, 10));

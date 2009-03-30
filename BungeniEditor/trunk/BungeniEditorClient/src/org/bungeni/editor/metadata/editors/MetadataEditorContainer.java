@@ -223,8 +223,6 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         jTextArea1 = new javax.swing.JTextArea();
         metadataTabContainer = new javax.swing.JTabbedPane();
 
-        setBackground(java.awt.Color.lightGray);
-
         btnSave.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {

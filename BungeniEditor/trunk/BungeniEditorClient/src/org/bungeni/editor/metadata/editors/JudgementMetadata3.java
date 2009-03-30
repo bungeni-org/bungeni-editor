@@ -236,9 +236,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
 
         setBackground(java.awt.Color.lightGray);
 
-        tabbedJudges.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-
-        panelJudgementInfo.setBackground(java.awt.Color.lightGray);
+        tabbedJudges.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
         jLabel11.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         jLabel11.setText("Judgement No.");
@@ -254,7 +252,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
         dt_judgement_date.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
         txtJudgementNo.setEditable(false);
-        txtJudgementNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        txtJudgementNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
         btnSelectJudgementNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnSelectJudgementNo.setText("Select..");
@@ -305,8 +303,6 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
         );
 
         tabbedJudges.addTab("Judgement Info", panelJudgementInfo);
-
-        panelJudges.setBackground(java.awt.Color.lightGray);
 
         tblJudges.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         tblJudges.setModel(new javax.swing.table.DefaultTableModel(
