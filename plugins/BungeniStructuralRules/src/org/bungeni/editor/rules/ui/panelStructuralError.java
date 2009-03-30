@@ -22,13 +22,19 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import org.bungeni.editor.rulesimpl.StructuralError;
+import org.bungeni.editor.rulesimpl.StructuralErrorSerialize;
 import org.bungeni.editor.rulesimpl.StructuralErrorTableModel;
 import org.bungeni.ooo.OOComponentHelper;
 
@@ -152,8 +158,9 @@ public class panelStructuralError extends javax.swing.JPanel  {
     }
 
        public void setContainerFrame(Window frm) {
-       // super.setContainerFrame(frm);
+       //set the container frame
         this.containerFrame = frm;
+        //add a frame closing listener
         this.containerFrame.addWindowListener( new WindowAdapter(){
             @Override
             public void windowClosing(WindowEvent wEvent) {
@@ -164,11 +171,15 @@ public class panelStructuralError extends javax.swing.JPanel  {
         }
 
        private void parentWindowClosing(){
-           //save the panel xml to file
-           //first convert the error information to xml
-           StructuralErrorTableModel stModel = (StructuralErrorTableModel)this.tblErrors.getModel();
-           String outXml = stModel.asXmlStream();
-       }
+            //save the panel xml to file
+            //first convert the error information to xml
+            StructuralErrorTableModel stModel = (StructuralErrorTableModel) this.tblErrors.getModel();
+            ArrayList<StructuralError> modelErrors = stModel.getStructuralErrors();
+            StructuralErrorSerialize seSerialize = new StructuralErrorSerialize(ooDocument.getDocumentURL());
+            seSerialize.writeErrorsToLog(modelErrors);
+        }
+
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is

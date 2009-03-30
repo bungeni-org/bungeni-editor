@@ -31,11 +31,20 @@ public class StructuralErrorTableModel extends AbstractTableModel {
         return structuralErrors;
     }
 
+    /**
+     * Returns the table model as an xml stream
+     * @return
+     */
     public String asXmlStream(){
         String outXml = this.tblXmlStream.toXML(structuralErrors);
         return outXml;
     }
 
+    /**
+     * Loads the table model from an Xml Stream
+     * @param xmlStream
+     * @return
+     */
     public boolean loadXmlStream(String xmlStream){
         boolean bState = false;
         try {
