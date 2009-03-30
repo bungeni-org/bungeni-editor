@@ -64,7 +64,6 @@ import org.bungeni.editor.actions.IEditorActionEvent;
 import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.editor.dialogs.metadatapanel.SectionMetadataLoad;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
-import org.bungeni.editor.plugin.EditorPlugin;
 import org.bungeni.editor.plugin.impl.IEditorPluginAll;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
@@ -160,7 +159,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
     }
    
     private void init() {
-       initComponents();   
+       initComponents();
        //initListDocuments();
        initProviders();
        //();
