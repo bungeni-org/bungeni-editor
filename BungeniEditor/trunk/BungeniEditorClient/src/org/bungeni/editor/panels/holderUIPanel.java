@@ -65,7 +65,6 @@ import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.bungeni.utils.BungeniBNode;
 import org.bungeni.utils.BungeniBTree;
 import org.bungeni.extutils.CommonTreeFunctions;
-import org.bungeni.utils.NodeDisplayTextSetter;
 import org.bungeni.utils.compare.BungeniTreeRefactorTree;
 
 
@@ -102,6 +101,91 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
        //the below are called from initUI()
         // initToolbarTree();
        // initSectionStructureTree();
+    }
+
+    /**
+     * Public APIs from interface
+     */
+
+    /**
+     * Set openoffice document handle
+     * @param ooComponent
+     */
+    public synchronized void setOOComponentHandle(OOComponentHelper ooComponent) {
+            String currentHandleKey = "", newHandleKey = "";
+            if (ooDocument != null ) {
+                currentHandleKey = editorTabbedPanel.componentHandleContainer.generateComponentKey(ooDocument.getDocumentTitle(), ooDocument.getComponent());
+                newHandleKey = editorTabbedPanel.componentHandleContainer.generateComponentKey(ooComponent.getDocumentTitle(), ooComponent.getComponent());
+                //update only when the incoming handle changes....
+                if (!currentHandleKey.equalsIgnoreCase(newHandleKey)) {
+                    log.debug("holderUIPanel, setOOComponentHandle : updating component handle" );
+                    this.ooDocument = ooComponent;
+                }
+                    //updatePanelonComponentChange();
+            } else {
+                log.debug("holderUIPanel, setOOComponentHandle : ooDocument was null updating component handle" );
+                this.ooDocument = ooComponent;
+            }
+                log.debug("setOOComponenthHandle: starting timer");
+    }
+
+    private synchronized OOComponentHelper getOODocument(){
+        return this.ooDocument;
+    }
+
+    public Component getObjectHandle() {
+        return this;
+    }
+
+    public IEditorActionEvent getEventClass(toolbarSubAction subAction) {
+       IEditorActionEvent event = EditorActionFactory.getEventClass(subAction);
+        return event;
+    }
+
+    public IEditorActionEvent getEventClass(toolbarAction action) {
+       IEditorActionEvent event = EditorActionFactory.getEventClass(action);
+        return event;
+    }
+
+    public void setParentWindowHandle(JFrame c) {
+        this.parentFrame = c;
+    }
+
+    public JFrame getParentWindowHandle() {
+        return this.parentFrame;
+    }
+
+    /**
+     *
+     */
+    public void initUI() {
+        this.initToolbarTree();
+        this.initSectionStructureTree();
+        this.initSectionInternalStructureTree();
+        this.initButtonListeners();
+        this.initMouseListener();
+        this.initComboChangeStructure();
+        this.initTimers();
+        this.initUIAttributes();
+    }
+
+
+    private void initUIAttributes(){
+        //set scroolbar widths
+        Dimension dimScrollbarVer = new Dimension(10,0);
+        Color bgColor = new Color(0xffffe5);
+        this.scrollToolbarTree.getVerticalScrollBar().setPreferredSize(dimScrollbarVer);
+        this.scrollTreeView.getVerticalScrollBar().setPreferredSize(dimScrollbarVer);
+        this.scrollToolbarTree.getVerticalScrollBar().setBackground(bgColor);
+        this.scrollTreeView.getVerticalScrollBar().setBackground(bgColor);
+
+
+        Dimension dimScrollbarHor = new Dimension(0,10);
+        this.scrollToolbarTree.getHorizontalScrollBar().setPreferredSize(dimScrollbarHor);
+        this.scrollTreeView.getHorizontalScrollBar().setPreferredSize(dimScrollbarHor);
+        this.scrollToolbarTree.getHorizontalScrollBar().setBackground(bgColor);
+        this.scrollTreeView.getHorizontalScrollBar().setBackground(bgColor);
+
     }
 
     private void initToolbarTree(){
@@ -936,57 +1020,4 @@ private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             floatingFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
-    public synchronized void setOOComponentHandle(OOComponentHelper ooComponent) {
-            String currentHandleKey = "", newHandleKey = "";
-            if (ooDocument != null ) {
-                currentHandleKey = editorTabbedPanel.componentHandleContainer.generateComponentKey(ooDocument.getDocumentTitle(), ooDocument.getComponent());
-                newHandleKey = editorTabbedPanel.componentHandleContainer.generateComponentKey(ooComponent.getDocumentTitle(), ooComponent.getComponent());
-                //update only when the incoming handle changes....
-                if (!currentHandleKey.equalsIgnoreCase(newHandleKey)) {
-                    log.debug("holderUIPanel, setOOComponentHandle : updating component handle" );
-                    this.ooDocument = ooComponent;
-                }
-                    //updatePanelonComponentChange();
-            } else {
-                log.debug("holderUIPanel, setOOComponentHandle : ooDocument was null updating component handle" );
-                this.ooDocument = ooComponent;
-            }
-                log.debug("setOOComponenthHandle: starting timer");            
-    }
-
-    private synchronized OOComponentHelper getOODocument(){
-        return this.ooDocument;
-    }
-    
-    public Component getObjectHandle() {
-        return this;
-    }
-
-    public IEditorActionEvent getEventClass(toolbarSubAction subAction) {
-       IEditorActionEvent event = EditorActionFactory.getEventClass(subAction);
-        return event;
-    }
-    
-    public IEditorActionEvent getEventClass(toolbarAction action) {
-       IEditorActionEvent event = EditorActionFactory.getEventClass(action);
-        return event;
-    }
-    
-    public void setParentWindowHandle(JFrame c) {
-        this.parentFrame = c;
-    }
-
-    public JFrame getParentWindowHandle() {
-        return this.parentFrame;
-    }
-
-    public void initUI() {
-        this.initToolbarTree();
-        this.initSectionStructureTree();
-        this.initSectionInternalStructureTree();
-        this.initButtonListeners();
-        this.initMouseListener();
-        this.initComboChangeStructure();
-        this.initTimers();
-    }
 }
