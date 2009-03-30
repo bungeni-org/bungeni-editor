@@ -70,7 +70,9 @@ public abstract class BaseClassForITabbedPanel extends JPanel implements ITabbed
         panelLoadOrder = loadOrder;
     }
 
-    abstract public void initialize() ;
+    public void initialize() {
+      // common initialization stuff here
+    }
 
     abstract public void refreshPanel();
     
