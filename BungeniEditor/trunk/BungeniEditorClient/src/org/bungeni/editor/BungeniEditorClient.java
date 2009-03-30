@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import org.bungeni.editor.dialogs.editorApplicationController;
 import org.bungeni.extutils.BungeniFrame;
 
@@ -34,12 +35,7 @@ public class BungeniEditorClient {
      */
     private static void createAndShowGUI() {
         //Use the Java look and feel.
-        try {
-           
-          //  UIManager.setLookAndFeel(
-          //     UIManager.getCrossPlatformLookAndFeelClassName());
-        } catch (Exception e) { }
-
+        initUI();
         //Make sure we have nice window decorations.
       // JFrame.setDefaultLookAndFeelDecorated(true);
        // JDialog.setDefaultLookAndFeelDecorated(true);
@@ -74,11 +70,16 @@ public class BungeniEditorClient {
         frame.setLocationRelativeTo(null); //center it
         frame.setVisible(true);
     }
-    
+
+    private  static void initUI(){
+        BungeniUIManager bungeniUI = new BungeniUIManager();
+        bungeniUI.loadBungeniUI();
+    }
+
+
     private static void preLaunch(){
        //do prelaunch stuff here... 
-        
-        //1 create the log file if it doesnt exist...
+       //1 create the log file if it doesnt exist...
         String curDir = System.getProperty("user.dir");
         curDir = curDir + File.separator+ "logs" + File.separator + "log.txt";
         File f = new File (curDir);
