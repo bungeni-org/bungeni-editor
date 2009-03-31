@@ -20,6 +20,7 @@ import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicTreeUI;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
@@ -85,14 +86,14 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
     private void initTreeStructure(){
          treeSectionTreeMetadata.setExpandsSelectedPaths(true);
          
-         DefaultTreeCellRenderer sectionTreeRender = (DefaultTreeCellRenderer) this.treeSectionTreeMetadata.getCellRenderer();
+         TreeCellRenderer sectionTreeRender =  this.treeSectionTreeMetadata.getCellRenderer();
          ImageIcon minusIcon = CommonTreeFunctions.treeMinusIcon();
          ImageIcon plusIcon = CommonTreeFunctions.treePlusIcon();
-         sectionTreeRender.setOpenIcon(null);
-         sectionTreeRender.setClosedIcon(null);
+       /**  sectionTreeRender.setOpenIcon(null); **/
+       /**  sectionTreeRender.setClosedIcon(null); **/
      //    UIManager.put("Tree.expandedIcon", minusIcon);
      //    UIManager.put("Tree.collapsedIcon", plusIcon);
-         sectionTreeRender.setLeafIcon(null);
+       /**  sectionTreeRender.setLeafIcon(null); **/
       //   treeSectionStructure.setCellRenderer(sectionTreeRender);
         // treeSectionTreeMetadata.setCellRenderer(new treeViewPrettySectionsTreeCellRenderer());
          treeSectionTreeMetadata.setShowsRootHandles(true);
