@@ -59,8 +59,8 @@ import org.bungeni.ooo.ooDocMetadata;
 import org.bungeni.ooo.ooQueryInterface;
 import org.bungeni.utils.BungeniBNode;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
-import org.bungeni.utils.FrameLauncher;
-import org.bungeni.utils.MessageBox;
+import org.bungeni.extutils.FrameLauncher;
+import org.bungeni.extutils.MessageBox;
 
 
 /**
@@ -68,8 +68,7 @@ import org.bungeni.utils.MessageBox;
  * @author  undesa
  */
 public class sectionNumbererPanel extends  BaseClassForITabbedPanel {
-   //  HashMap<String, String> sectionMetadataMap=new HashMap<String, String>();
-   //HashMap<String, String> sectionTypeMetadataMap=new HashMap<String, String>();
+
     private static org.apache.log4j.Logger log = Logger.getLogger(sectionNumbererPanel.class.getName());
    
     private boolean m_useParentPrefix = false;
@@ -1406,101 +1405,6 @@ public class sectionNumbererPanel extends  BaseClassForITabbedPanel {
     return OOoNumberingHelper.getSectionAppliedNumber(ooDocument, parentSectionName);
    }
    
-   /*******
-    *
-    **** OOBasic Unit test for the below function *****
-    *
-    *
-    Sub Main
-  Dim oSel: oSel =  thisComponent.getCurrentSelection().getByIndex(0)
-  Dim oCur: oCur = oSel.getText().createTextCursorByRange(oSel.getText().getStart())
-  oCur.getText().insertString(oSel.getText().getStart(), "IV ", false)
-
-       oCur.goLeft(1, false)
-       oCur.goLeft(2, true)
-       insertRef(oCur, "myNumRef")
-
-       oCur.goRight(3, false)
-       oCur.gotoEnd(true)
-       insertRef(oCur, "myHeadRef")
-
-End Sub
-
-Sub insertRef (oCur, nameRef )
-	Dim refMark
-	Set refMark = thisComponent.createInstance("com.sun.star.text.ReferenceMark")
-	refMark.setName(nameRef)
-	oCur.getText().insertTextContent(oCur,refMark, true)
-end Sub
-    ******/
-   
-   /*
-   private void insertField (XTextRange range, String theNumber, String fieldname) {
-        Object refField = ooDocument.createInstance("com.sun.star.text.TextField.Input");
-        XPropertySet propSet = ooQueryInterface.XPropertySet(refField);
-        try {
-            propSet.setPropertyValue("Hint", fieldname );
-            propSet.setPropertyValue("Content", theNumber);
-            //insert the field into the document
-            XTextContent fieldContent = ooQueryInterface.XTextContent(refField);
-            range.getText().insertTextContent(range, (XTextContent) fieldContent , true);
-            
-        } catch (PropertyVetoException ex) {
-            log.error("�nsertField :( " +ex.getClass().getName() + ")"+  ex.getMessage());
-        } catch (WrappedTargetException ex) {
-            log.error("�nsertField :( " +ex.getClass().getName() + ")"+  ex.getMessage());
-        } catch (UnknownPropertyException ex) {
-            log.error("�nsertField :( " +ex.getClass().getName() + ")"+  ex.getMessage());
-        } catch (com.sun.star.lang.IllegalArgumentException ex) {
-            log.error("�nsertField :( " +ex.getClass().getName() + ")"+  ex.getMessage());
-        }
-   }
-    */
-   
-   /*
-    * 
-    
-    insertField(oCur.getStart(), "myFieldRef")
-      oCur.goLeft(0,false)
-      oCur.getText().insertString(oCur, " ", true)
-      oCur.goLeft(0, false)
-      oCur.goLeft(1, true)
-      insertRef(oCur, "myNumRef")
-      oCur.goRight(2, false)
-      oCur.gotoEnd(true)
-    insertRef(oCur, "myHeadRef")
-    */
-   /*
-   private void insertNumberForHeading(XTextRange aRange, String theNumber, String parentPrefix, XTextSection theCurrentSection) {
-      //get the text object of the heading range  
-       XText xRangeText =    aRange.getText();
-       //get the heading string
-       String strHeading   =  aRange.getString();
-       //String theNumberPlusSpace = theNumber+NUMBER_SPACE;
-       String uuidStr = BungeniUUID.getStringUUID();
-       //create a cursor to walk the heading
-       XTextCursor headingCur = ooDocument.getTextDocument().getText().createTextCursor();
-       //map the cursor to the heading range
-       headingCur.gotoRange(aRange, false);
-       if (this.m_useParentPrefix)  {
-            insertField(headingCur.getStart(), parentPrefix + PARENT_PREFIX_SEPARATOR + theNumber, "numField_"+uuidStr);
-       } else {
-            insertField(headingCur.getStart(), theNumber, "numField_"+uuidStr);
-       }
-       headingCur.gotoRange(headingCur.getStart(), false);
-       //remmed headingCur.goRight((short)1, false);
-       //headingCur.goLeft((short)0, false);
-       headingCur.getText().insertString(headingCur, NUMBER_SPACE, true);
-       headingCur.goLeft((short) 0, false);
-       headingCur.goLeft((short) 1, true);
-       createReferenceMarkOverCursor("numRef_"+uuidStr , headingCur);
-       headingCur.goRight((short) 2, false);
-       headingCur.gotoEnd(true);
-       createReferenceMarkOverCursor("headRef_"+uuidStr , headingCur);
-       updateSectionNumberingMetadata(ooQueryInterface.XNamed(theCurrentSection).getName(),  theNumber, parentPrefix);
-  }
-  */
-
    
    private void createReferenceMarkOverCursor (String refName, XTextCursor thisCursor) {
        Object referenceMark = ooDocument.createInstance("com.sun.star.text.ReferenceMark");
@@ -1527,198 +1431,6 @@ end Sub
         
    }
    
-    /* private void getHeadingInSectionOnRenumbering() {
-        Iterator refIterator = refMarksForHeading.iterator();
-        String prevParent="";
-        int parentPrefix=0;;
-        //iterate through the sectionTypeMatchedSections and look for heading in section
-       Iterator typedMatchSectionItr = sectionTypeMatchedSections.iterator();
-       while(typedMatchSectionItr.hasNext()){
-           Object refMark=refIterator.next();
-            Object matchedSectionElem=typedMatchSectionItr.next();
-            
-            try{
-               
-            Object sectionName = ooDocument.getTextSections().getByName(matchedSectionElem.toString());
-            XTextSection theSection = ooQueryInterface.XTextSection(sectionName);
-            XTextRange range = theSection.getAnchor();
-            
-            XEnumerationAccess enumAcc  = (XEnumerationAccess) UnoRuntime.queryInterface(XEnumerationAccess.class, range);
-            XEnumeration xEnum = enumAcc.createEnumeration();
-           
-           
-            while (xEnum.hasMoreElements()) {
-                Object elem = xEnum.nextElement();
-                XServiceInfo xInfo = (XServiceInfo)UnoRuntime.queryInterface(XServiceInfo.class, elem);
-                if(xInfo.supportsService("com.sun.star.text.Paragraph")){
-                   
-                    XPropertySet objProps = ooQueryInterface.XPropertySet(xInfo);
-                    
-                     short nLevel = -1;
-                     nLevel = com.sun.star.uno.AnyConverter.toShort(objProps.getPropertyValue("ParaChapterNumberingLevel"));
-                     if(nLevel>=0){
-                        XTextContent xContent = ooDocument.getTextContent(elem);
-                        XTextRange aTextRange =   xContent.getAnchor();
-                        String strHeading = aTextRange.getString();
-                                              
-                       
-                         log.debug("getHeading: heading found " + strHeading);
-                          //insert number here
-                         XNamed xParentSecName= ooQueryInterface.XNamed(theSection.getParentSection());
-                         String currentParent=(String)xParentSecName.getName();
-                       
-                         System.out.println("currentParent " + currentParent);
-                         
-                       
-                         if(!currentParent.equalsIgnoreCase(prevParent)){
-                             //restart numbering here
-                             headCount=1;
-                             insertNumberOnRenumbering(aTextRange, headCount,elem,refMark);
-                            
-                         }else{
-                             //continue numbering
-                            headCount++;
-                            insertNumberOnRenumbering(aTextRange, headCount,elem,refMark);                 
-                          
-                            
-                         }
-                         
-                        prevParent=(String)xParentSecName.getName();
-                                              
-                      
-                      
-                        break;
-                        
-                         
-                      }
-                }
-                
-            }
-           
-             
-        
-            }catch (NoSuchElementException ex) {
-                log.error(ex.getClass().getName() + " - " + ex.getMessage());
-                log.error(ex.getClass().getName() + " - " + CommonExceptionUtils.getStackTrace(ex));
-            } catch (WrappedTargetException ex) {
-                log.error(ex.getClass().getName() + " - " + ex.getMessage());
-                log.error(ex.getClass().getName() + " - " + CommonExceptionUtils.getStackTrace(ex));
-            } catch(UnknownPropertyException ex){
-                log.error(ex.getClass().getName() + " - " + ex.getMessage());
-                log.error(ex.getClass().getName() + " - " + CommonExceptionUtils.getStackTrace(ex));
-            }catch(com.sun.star.lang.IllegalArgumentException ex){
-                log.error(ex.getClass().getName() + " - " + ex.getMessage());
-                log.error(ex.getClass().getName() + " - " + CommonExceptionUtils.getStackTrace(ex));
-            }
-            
-       }
-       
-         
-        
-        
-    }
-    
-    */
-    /*
-    private void findAndReplace(){
-        XReplaceable xReplaceable = (XReplaceable) UnoRuntime.queryInterface(XReplaceable.class, ooDocument.getTextDocument()); 
-        XReplaceDescriptor xRepDesc = xReplaceable.createReplaceDescriptor(); 
-       
-        xRepDesc.setSearchString("iii)");
-        xRepDesc.setReplaceString(" ");
-        
-        
-        long nResult = xReplaceable.replaceAll(xRepDesc); 
-      
-    }*/
-   /*
-    private void insertCrossReference(String sourceName){
-      int i=0;
-    
-       try { 
-       
-         XTextDocument xDoc = ooDocument.getTextDocument();
-            
-         XTextViewCursor xViewCursor=ooDocument.getViewCursor();
-         Object oRefField=ooDocument.createInstance("com.sun.star.text.TextField.GetReference");
-         
-         XReferenceMarksSupplier xRefSupplier = (XReferenceMarksSupplier) UnoRuntime.queryInterface(
-             XReferenceMarksSupplier.class, xDoc);
-         
-         // Get an XNameAccess which refers to all inserted reference marks
-         XNameAccess xMarks = (XNameAccess) UnoRuntime.queryInterface(XNameAccess.class,
-             xRefSupplier.getReferenceMarks());
-         
-        String[] aNames = xMarks.getElementNames();
-        XPropertySet oFieldSet = ooQueryInterface.XPropertySet(oRefField);
-     
-           
-            
-        
-             oFieldSet.setPropertyValue("ReferenceFieldSource",com.sun.star.text.ReferenceFieldSource.REFERENCE_MARK); 
-            
-         oFieldSet.setPropertyValue("SourceName", sourceName);
-             oFieldSet.setPropertyValue("ReferenceFieldPart",com.sun.star.text.ReferenceFieldPart.TEXT);
-
-
-             XTextContent xRefContent = (XTextContent) UnoRuntime.queryInterface(
-                     XTextContent.class, oFieldSet);
-             
-              xDoc.getText().insertTextContent(xViewCursor , xRefContent, true);
-               xDoc.getText().insertString(xViewCursor , " , ", false);
-            
-            
-              XRefreshable xRefresh = (XRefreshable) UnoRuntime.queryInterface(
-                 XRefreshable.class, xDoc);
-            xRefresh.refresh();   
-            
-         
-          
-        
-          } catch (UnknownPropertyException ex) {
-                ex.printStackTrace();
-            } catch (WrappedTargetException ex) {
-                ex.printStackTrace();
-            } catch (PropertyVetoException ex) {
-                ex.printStackTrace();
-            } catch (com.sun.star.lang.IllegalArgumentException ex) {
-                ex.printStackTrace();
-            } 
-         
-        
-   
-    }
-    */
-    /*
-    
-    private void packReferences(){
-           int i=0;
-     XTextDocument xDoc = ooDocument.getTextDocument();
-         XTextViewCursor xViewCursor=ooDocument.getViewCursor();
-         Object oRefField=ooDocument.createInstance("com.sun.star.text.TextField.GetReference");
-         
-         XReferenceMarksSupplier xRefSupplier = (XReferenceMarksSupplier) UnoRuntime.queryInterface(
-             XReferenceMarksSupplier.class, xDoc);
-         
-         // Get an XNameAccess which refers to all inserted reference marks
-         XNameAccess xMarks = (XNameAccess) UnoRuntime.queryInterface(XNameAccess.class,
-             xRefSupplier.getReferenceMarks());
-         
-        String[] aNames = xMarks.getElementNames();
-        XPropertySet oFieldSet = ooQueryInterface.XPropertySet(oRefField);
-       
-           
-          while(i<aNames.length){
-                docReferences.add(aNames[i].toString());
-             i++;
-            }
-          
-        
-         
-    }
-    */
-    
-    
   
 
     class sectionHeadingReferenceMarks {
@@ -1746,75 +1458,6 @@ end Sub
         }
     }
     
-    /*private void crossRef(){
-           String sectionHierarchy = "";
-           //clear the refMarks Map
-           refMarksMap.clear();
-           String strSection="";
-           //get the full hierarchy of the section selected by the user
-            sectionHierarchy = currentSectionNameHierarchy(selectedNodeName);
-            if (sectionHierarchy.trim().length() == 0){
-               
-                System.out.println("Cursor not in section");
-          } else{
-                 System.out.println("selectSection " + sectionHierarchy );
-           }
-           ArrayList<String> arrSectionTree = new ArrayList<String>();
-           //split the section hierarchy into an array
-          String[] sectionHeads=sectionHierarchy.split(">");
-          for(int i=0;i<sectionHeads.length;i++){
-              arrSectionTree.add(sectionHeads[i]);
-          }
-           //ArrayList<String> arrSectionTree = new ArrayList(sectionHierarchy.split(">"));
-          
-           arrSectionTree.remove(new String(BungeniEditorPropertiesHelper.getDocumentRoot()));
-           Collections.reverse(arrSectionTree);
-           System.out.println("section hierarchy = " + arrSectionTree);
-          //we have to reverse the array in order to have Child,Parent
-           //String [] refs=(String[]) this.reverse(sectionTree);
-            //String [] refs= sectionTree;
-           
-           //get the section hierarchy and populate a treemap with the order of the sections,
-            //and container for the reference marks
-            for(int i=0;i<arrSectionTree.size();i++){
-                    //refObj.sectionName=refs[i].toString();
-                    String sectionName = arrSectionTree.get(i).toString();
-                    //get headings contained in section
-                Object sectHeading= getNumberedHeadingsInsertCrossRef(sectionName);
-                refMarksMap.put(sectionName, new sectionHeadingReferenceMarks(sectionName, i , sectHeading));
-           }
-           
-
-           //now we get the ReferenceMark objects in each heading for each section
-           
-           Iterator<String> sectionIter = refMarksMap.keySet().iterator();
-           while (sectionIter.hasNext()){
-               String sectionKey = sectionIter.next();
-               //add not null check for heading
-               Object elem = refMarksMap.get(sectionKey).containedHeading;
-               XTextRange xRange = ooQueryInterface.XTextRange(elem);
-               System.out.println("portion " + xRange.getString());
-               ArrayList<String> refMarksInHeading = getReferenceMarksOnCross(elem);
-               refMarksMap.get(sectionKey).refMarks = refMarksInHeading;
-               
-               //iterate through the reference marks and insert into the document
-               Iterator<String> refMarksIterator = refMarksInHeading.iterator();
-               while(refMarksIterator.hasNext()){
-                   Object refMark=refMarksIterator.next();
-                    System.out.println("refMarksIterator " + refMark);
-                    insertCrossReference(refMark.toString());
-               }
-               
-           }
-           
-           
-         
-           
-         
-    }
-    */
-     
-   
     
 private Object getHeadingFromMatchedSection(Object matchedSectionElem){
         
@@ -1889,14 +1532,6 @@ private Object getHeadingFromMatchedSection(Object matchedSectionElem){
                 return sectionName;
             return sectionName;    
         }
-       
-        //copied from SelectSection
-        //was public String currentSectionNameHierarchy(String sectionName)
-
-    
-//was     private void initTreeSectionsArray() {
-    
-//was     private void recurseSections (XTextSection theSection, DefaultMutableTreeNode node ) {
        
  
     /** This method is called from within the constructor to
@@ -2022,6 +1657,7 @@ private void btnExternalReferenceActionPerformed(java.awt.event.ActionEvent evt)
     
     
     public void initialize() {
+        super.initialize();
         init();
     }
 
