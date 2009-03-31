@@ -176,8 +176,6 @@ public class JudgementMetadata3 extends BaseEditorDocMetadataDialog {
     }
     
     private void initControls(){
-        String popupDlgBackColor = BungeniEditorProperties.getEditorProperty("popupDialogBackColor");
-        this.setBackground(Color.decode(popupDlgBackColor));
         this.initJudgementComboSelector();
     }
     
@@ -233,8 +231,6 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
         scrollJudges1 = new javax.swing.JScrollPane();
         tblParties = new javax.swing.JTable();
         btnAddParty = new javax.swing.JButton();
-
-        setBackground(java.awt.Color.lightGray);
 
         tabbedJudges.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
