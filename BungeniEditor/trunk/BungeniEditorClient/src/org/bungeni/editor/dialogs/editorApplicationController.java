@@ -121,11 +121,15 @@ public class editorApplicationController extends javax.swing.JPanel {
         m_propSettings = new java.util.Properties();
         m_dav = new WebDavStore();
         initComponents();
+        
+    }
+
+    public void init() {
         CommonFileFunctions cfsObject=new CommonFileFunctions();
          m_installObject = new Installation();
         File dir =Installation.getInstallDirectory(this.getClass());
         //code to read properties file
-        
+
         initDocumentTypesModel();
         initProperties(dir);
          //init panels
@@ -134,9 +138,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         initPanels(dir);
         //initWebDav();
         initDataReader();
-        
     }
-    
    
  
     class ODTFileFilter extends FileFilter {
@@ -250,7 +252,7 @@ public class editorApplicationController extends javax.swing.JPanel {
             }
         });
 
-        lblCurrentActiveMode.setBackground(java.awt.Color.green);
+        lblCurrentActiveMode.setBackground(java.awt.Color.lightGray);
         lblCurrentActiveMode.setFont(lblCurrentActiveMode.getFont().deriveFont(lblCurrentActiveMode.getFont().getStyle() | java.awt.Font.BOLD, lblCurrentActiveMode.getFont().getSize()+4));
         lblCurrentActiveMode.setText("CURRENT : %s");
         lblCurrentActiveMode.setOpaque(true);
@@ -306,8 +308,7 @@ public class editorApplicationController extends javax.swing.JPanel {
                             .add(tabCurrentFileLayout.createSequentialGroup()
                                 .add(jButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(lblLaunchAndAccquire, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 311, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 107, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                                .add(lblLaunchAndAccquire, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 311, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(13, Short.MAX_VALUE))
                     .add(tabCurrentFileLayout.createSequentialGroup()
                         .add(btnImportNew, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -322,9 +323,7 @@ public class editorApplicationController extends javax.swing.JPanel {
                         .add(lblDocumentTypes)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(tabCurrentFileLayout.createSequentialGroup()
-                                .add(18, 18, 18)
-                                .add(cboDocumentTypes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(cboDocumentTypes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(tabCurrentFileLayout.createSequentialGroup()
                                 .add(6, 6, 6)
                                 .add(lblCurrentTemplateText, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
@@ -345,7 +344,7 @@ public class editorApplicationController extends javax.swing.JPanel {
                 .add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(lblLaunchAndAccquire, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
-                .add(64, 64, 64))
+                .add(70, 70, 70))
         );
 
         editorAppTabbedPane.addTab("Quick Actions", tabCurrentFile);
