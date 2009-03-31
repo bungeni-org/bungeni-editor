@@ -31,7 +31,7 @@ public class BungeniEditorTestCase extends TestCase {
     public BungeniEditorTestCase(String name) {
         super(name);
         initoOo();
-        File fileName=org.bungeni.utils.CommonFileFunctions.getFileFromChooser("/home/undesa/Documents", new ODTFileFilter(), JFileChooser.FILES_ONLY, null);
+        File fileName=org.bungeni.extutils.CommonFileFunctions.getFileFromChooser("/home/undesa/Documents", new ODTFileFilter(), JFileChooser.FILES_ONLY, null);
         if (fileName == null) {
             fail("Document file handle was null");
         }
