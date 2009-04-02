@@ -10,11 +10,17 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
+import org.bungeni.db.IQueryResultsIterator;
+import org.bungeni.db.QueryResults;
+import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.selectors.SelectorDialogModes;
@@ -40,8 +46,10 @@ public class MetadataEditorContainer extends JPanel {
    OOComponentHelper ooDocument  = null;
     JFrame parentFrame = null;
      SelectorDialogModes dlgMode = null;
-    IEditorDocMetadataDialog generalDlg = null;
-    IEditorDocMetadataDialog metaDlg = null;
+//    IEditorDocMetadataDialog generalDlg = null;
+//    IEditorDocMetadataDialog metaDlg = null;
+     ArrayList<IEditorDocMetadataDialog> metaTabs = new ArrayList<IEditorDocMetadataDialog>(0);
+
     BungeniFileSavePathFormat m_spf = null;
     
     public MetadataEditorContainer(){
@@ -57,28 +65,90 @@ public class MetadataEditorContainer extends JPanel {
         initComponents();
     }
     
-    
-    
+
+    /**
+     * Results iterator for retrieving metadata model info
+     */
+    class metadataModelInfoIterator implements IQueryResultsIterator {
+
+        public String WORK_URI, EXP_URI, MANIFESTATION_FORMAT ;
+
+        public boolean iterateRow(QueryResults mQR, Vector<String> rowData) {
+                       WORK_URI =  mQR.getField(rowData, "WORK_URI");
+                       EXP_URI = mQR.getField(rowData, "EXP_URI");
+                       MANIFESTATION_FORMAT = mQR.getField(rowData, "FILE_NAME_SCHEME");
+                       return true;
+        }
+    }
+
+    /**
+     * Loads the availabled metadata editors for this document type
+     * Retrieves the applicable URI types for this document type
+     */
     public void initialize() {
-        //add the general metadata panel
-        generalDlg = EditorDocMetadataDialogFactory.getInstance("document");
-        generalDlg.initVariables(ooDocument, parentFrame, dlgMode);
-        generalDlg.initialize();
+        //get the available tabs for this document type
+        this.metaTabs= EditorDocMetadataDialogFactory.getInstances(BungeniEditorPropertiesHelper.getCurrentDocType());
+        for (IEditorDocMetadataDialog mTab : this.metaTabs) {
+            mTab.initVariables(ooDocument, parentFrame, dlgMode);
+            mTab.initialize();
+        }
+
+        //get work, exp, manifestation formats :
+        BungeniClientDB db =  new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
+        db.Connect();
+        QueryResults qr = db.QueryResults(SettingsQueryFactory.Q_FETCH_DOCUMENT_TYPE_BY_NAME(BungeniEditorPropertiesHelper.getCurrentDocType()));
+        db.EndConnect();
+        metadataModelInfoIterator modelIterator = new metadataModelInfoIterator();
+        qr.resultsIterator(modelIterator );
+
+        m_spf = new BungeniFileSavePathFormat(modelIterator.WORK_URI, modelIterator.EXP_URI, modelIterator.MANIFESTATION_FORMAT);
+        //now load the newly created tabs
+        for (IEditorDocMetadataDialog thisTab : this.metaTabs) {
+            metadataTabContainer.add(thisTab.getPanelComponent(), thisTab.getTabTitle());
+        }
+
+        //now load the tabs
+
+        /*
+        qr.resultsIterator(iterResults);
+             if (qr.hasResults()){
+                   Vector<Vector<String>> resultRows  = new Vector<Vector<String>>();
+                   resultRows = qr.theResults();
+                   for (Vector<String> resultRow: resultRows) {
+                       metadataModelClass = qr.getField(resultRow, "METADATA_MODEL_EDITOR");
+                       metadataModelTitle = qr.getField(resultRow, "METADATA_EDITOR_TITLE");
+                       WORK_URI =  qr.getField(resultRow, "WORK_URI");
+                       EXP_URI = qr.getField(resultRow, "EXP_URI");
+                       MANIFESTATION_FORMAT = qr.getField(resultRow, "FILE_NAME_SCHEME");
+                       break;
+                   }
+                 }
+
+                 */
+
+
+//        generalDlg = EditorDocMetadataDialogFactory.getInstance("document");
+//        generalDlg.initVariables(ooDocument, parentFrame, dlgMode);
+//        generalDlg.initialize();
        
         //add the panel for the document type
-        metaDlg = EditorDocMetadataDialogFactory.getInstance(BungeniEditorPropertiesHelper.getCurrentDocType());
+//        metaDlg = EditorDocMetadataDialogFactory.getInstance(BungeniEditorPropertiesHelper.getCurrentDocType());
         //load the work and expression formats for the current doc type
-        m_spf = new BungeniFileSavePathFormat(EditorDocMetadataDialogFactory.WORK_URI, EditorDocMetadataDialogFactory.EXP_URI, EditorDocMetadataDialogFactory.MANIFESTATION_FORMAT);
 
+
+         /*
         if (!metaDlg.getClass().getName().equals(generalDlg.getClass().getName())) {
             metaDlg.initVariables(ooDocument, parentFrame, dlgMode);
             metaDlg.initialize();
         } else 
             metaDlg = null;
-        
+        */
+
+         /*
         metadataTabContainer.add(generalDlg.getPanelComponent(), generalDlg.getTabTitle() );    
         if (metaDlg != null)
         metadataTabContainer.add(metaDlg.getPanelComponent(), metaDlg.getTabTitle());
+          */
     }
 
     public Component getPanelComponent() {
@@ -92,10 +162,16 @@ public class MetadataEditorContainer extends JPanel {
 
 private boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
     boolean bState = false;
-    try {   
+    try {
+
+        for (IEditorDocMetadataDialog mTab : this.metaTabs) {
+            mTab.applySelectedMetadata(spf);
+        }
+
+        /*
         generalDlg.applySelectedMetadata(spf);
         if (metaDlg != null)
-            metaDlg.applySelectedMetadata(spf);
+            metaDlg.applySelectedMetadata(spf);*/
         bState = true;
     } catch (Exception ex) {
         log.error("applySelectedMetadata : " + ex.getMessage());
