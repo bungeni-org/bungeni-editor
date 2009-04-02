@@ -21,6 +21,7 @@ public class QueryResults {
    Vector<Vector<String>> theResults = null ;
    Vector<String> theColumns = null;
    HashMap<String,Integer> metadataColumnNameMap = null;
+   IQueryResultsIterator resultsIterator = null;
    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(QueryResults.class.getName());
  
     /** Creates a new instance of QueryResults */
@@ -93,7 +94,7 @@ public class QueryResults {
         return arrayColumns;
     }
     
-    public String getField (Vector<String> row, String fieldName) {
+    public  String getField (Vector<String> row, String fieldName) {
         return row.elementAt(getColumnIndex(fieldName) - 1);
     }
     
@@ -113,5 +114,17 @@ public class QueryResults {
         } else {
             return null;
         }
+    }
+
+    public void resultsIterator(IQueryResultsIterator iterResults) {
+        this.resultsIterator = iterResults;
+        if (hasResults()){
+                   Vector<Vector<String>> resultRows  = new Vector<Vector<String>>();
+                   resultRows = theResults();
+                   for (Vector<String> resultRow: resultRows) {
+                        if (!iterResults.iterateRow(this, resultRow))
+                            break;
+                   }
+             }
     }
 }

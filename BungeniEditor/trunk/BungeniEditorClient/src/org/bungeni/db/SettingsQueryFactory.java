@@ -275,6 +275,12 @@ public class SettingsQueryFactory {
         String query = "SELECT plugin_name, plugin_loader, plugin_desc, plugin_enabled, plugin_jar FROM EXTERNAL_PLUGINS ";
         return query;
     }
+
+    public static String Q_FETCH_METADATA_MODEL_EDITORS(String docType) {
+        String query = "SELECT DOC_TYPE, METADATA_MODEL_EDITOR, METADATA_EDITOR_TITLE  FROM METADATA_MODEL_EDITORS " +
+                        "WHERE DOC_TYPE = '"+ docType +  "'  ORDER BY ORDER_OF_LOADING";
+        return query;
+    }
 }
 
 
