@@ -25,6 +25,27 @@ public class EditorDocMetadataDialogFactory {
     public static String MANIFESTATION_FORMAT = "";
 
 
+    public static ArrayList<IEditorDocMetadataDialog> getInstances(String docType) {
+        ArrayList<IEditorDocMetadataDialog> dlgLists = new ArrayList<IEditorDocMetadataDialog>(0);
+        String workURI = "";
+        String expURI = "";
+        String fileSavePathFormat = "";
+        try {
+             BungeniClientDB db =  new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
+             db.Connect();
+             QueryResults qr = db.QueryResults(SettingsQueryFactory.Q_FETCH_METADATA_MODEL_EDITORS(docType));
+             db.EndConnect();
+             metadataModelResultsIterator resultsIter = new metadataModelResultsIterator();
+             qr.resultsIterator(resultsIter);
+             dlgLists = resultsIter.dlgLists;
+        } catch (Exception ex) {
+            log.error("getInstances : " + ex.getMessage());
+        } finally {
+            return dlgLists;
+        }
+    }
+
+
     public static class metadataModelResultsIterator implements IQueryResultsIterator {
         public ArrayList<IEditorDocMetadataDialog> dlgLists = new ArrayList<IEditorDocMetadataDialog>(0);
 
@@ -39,38 +60,6 @@ public class EditorDocMetadataDialogFactory {
         }
     }
 
-    public static ArrayList<IEditorDocMetadataDialog> getInstances(String docType) {
-        ArrayList<IEditorDocMetadataDialog> dlgLists = new ArrayList<IEditorDocMetadataDialog>(0);
-        String workURI = "";
-        String expURI = "";
-        String fileSavePathFormat = "";
-        try {
-             BungeniClientDB db =  new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
-             db.Connect();
-             QueryResults qr = db.QueryResults(SettingsQueryFactory.Q_FETCH_METADATA_MODEL_EDITORS(docType));
-             db.EndConnect();
-             metadataModelResultsIterator resultsIter = new metadataModelResultsIterator();
-             qr.resultsIterator(resultsIter);
-             dlgLists = resultsIter.dlgLists;
-             /*
-             if (qr.hasResults()){
-                   Vector<Vector<String>> resultRows  = new Vector<Vector<String>>();
-                   resultRows = qr.theResults();
-                   for (Vector<String> resultRow: resultRows) {
-                       metadataModelClass = qr.getField(resultRow, "METADATA_MODEL_EDITOR");
-                       metadataModelTitle = qr.getField(resultRow, "METADATA_EDITOR_TITLE");
-                       if (metadataModelClass.length() > 0 ) {
-                                IEditorDocMetadataDialog iInstance = newInstance(metadataModelClass, metadataModelTitle);
-                                dlgLists.add(iInstance);
-                           }
-                   }
-             }*/
-        } catch (Exception ex) {
-            log.error("getInstances : " + ex.getMessage());
-        } finally {
-            return dlgLists;
-        }
-    }
 
     public static IEditorDocMetadataDialog newInstance (String metaClassName, String metaTabTitle) {
         IEditorDocMetadataDialog iInstance = null;
@@ -90,81 +79,4 @@ public class EditorDocMetadataDialogFactory {
         }
     }
 
-
-    /*
-    public static void getManifestationInfo(String docType) {
-        IEditorDocMetadataDialog iInstance = null;
-        String metadataModelClass= "";
-        String metadataModelTitle = "";
-        String workURI = "";
-        String expURI = "";
-        String fileSavePathFormat = "";
-        try {
-             BungeniClientDB db =  new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
-             db.Connect();
-             QueryResults qr = db.QueryResults(SettingsQueryFactory.Q_FETCH_DOCUMENT_TYPE_BY_NAME(docType));
-             db.EndConnect();
-             if (qr.hasResults()){
-                   Vector<Vector<String>> resultRows  = new Vector<Vector<String>>();
-                   resultRows = qr.theResults();
-                   for (Vector<String> resultRow: resultRows) {
-                       metadataModelClass = qr.getField(resultRow, "METADATA_MODEL_EDITOR");
-                       metadataModelTitle = qr.getField(resultRow, "METADATA_EDITOR_TITLE");
-                       WORK_URI =  qr.getField(resultRow, "WORK_URI");
-                       EXP_URI = qr.getField(resultRow, "EXP_URI");
-                       MANIFESTATION_FORMAT = qr.getField(resultRow, "FILE_NAME_SCHEME");
-                       break;
-                   } 
-                 }
-           if (metadataModelClass.length() > 0 ) {
-              Class modelClass;
-              modelClass = Class.forName(metadataModelClass);
-              iInstance = (IEditorDocMetadataDialog)modelClass.newInstance();
-              iInstance.setTabTitle(metadataModelTitle);
-              //iInstance.setUriFormats(workURI, expURI, fileSavePathFormat);
-           }
-        } catch (Exception ex) {
-            log.error("getInstance : "+ ex.getMessage());
-        } finally {
-            return iInstance;
-        }
-    } */
-
-    public static IEditorDocMetadataDialog getInstance(String docType) {
-        IEditorDocMetadataDialog iInstance = null;
-        String metadataModelClass= "";
-        String metadataModelTitle = "";
-        String workURI = "";
-        String expURI = "";
-        String fileSavePathFormat = "";
-        try {
-             BungeniClientDB db =  new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
-             db.Connect();
-             QueryResults qr = db.QueryResults(SettingsQueryFactory.Q_FETCH_DOCUMENT_TYPE_BY_NAME(docType));
-             db.EndConnect();
-             if (qr.hasResults()){
-                   Vector<Vector<String>> resultRows  = new Vector<Vector<String>>();
-                   resultRows = qr.theResults();
-                   for (Vector<String> resultRow: resultRows) {
-                       metadataModelClass = qr.getField(resultRow, "METADATA_MODEL_EDITOR");
-                       metadataModelTitle = qr.getField(resultRow, "METADATA_EDITOR_TITLE");
-                       WORK_URI =  qr.getField(resultRow, "WORK_URI");
-                       EXP_URI = qr.getField(resultRow, "EXP_URI");
-                       MANIFESTATION_FORMAT = qr.getField(resultRow, "FILE_NAME_SCHEME");
-                       break;
-                   } 
-                 }
-           if (metadataModelClass.length() > 0 ) {
-              Class modelClass;
-              modelClass = Class.forName(metadataModelClass);
-              iInstance = (IEditorDocMetadataDialog)modelClass.newInstance();
-              iInstance.setTabTitle(metadataModelTitle);
-              //iInstance.setUriFormats(workURI, expURI, fileSavePathFormat);
-           }
-        } catch (Exception ex) {
-            log.error("getInstance : "+ ex.getMessage());
-        } finally {
-            return iInstance;
-        }
-    }
 }
