@@ -7,16 +7,21 @@
 
 package org.bungeni.editor;
 
+import org.bungeni.editor.ui.BungeniUIManager;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 import org.bungeni.editor.dialogs.editorApplicationController;
-import org.bungeni.extutils.BungeniFrame;
+import org.bungeni.editor.interfaces.ui.ILookAndFeel;
+import org.bungeni.editor.themes.CafeCremeLAF;
+import org.bungeni.editor.ui.LookAndFeelFactory;
 
 /**
  *
@@ -25,7 +30,9 @@ import org.bungeni.extutils.BungeniFrame;
 public class BungeniEditorClient {
  //   private static XComponentContext m_xContext;
     private static String __WINDOW_TITLE__="BungeniEditor Launcher";
-    private static BungeniFrame frame;
+    private static JFrame frame;
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BungeniEditorClient.class.getName());
+
     /** Creates a new instance of BungeniEditorClient */
     public BungeniEditorClient() {
     }
@@ -35,20 +42,16 @@ public class BungeniEditorClient {
      */
     private static void createAndShowGUI() {
         //Use the Java look and feel.
-        initUI();
-        //Make sure we have nice window decorations.
-      // JFrame.setDefaultLookAndFeelDecorated(true);
-       // JDialog.setDefaultLookAndFeelDecorated(true);
-
+      JFrame.setDefaultLookAndFeelDecorated(true);
+      JDialog.setDefaultLookAndFeelDecorated(true);
+      initUI();
         //Instantiate the controlling class.
-       frame = new BungeniFrame(__WINDOW_TITLE__);
-       frame.setResizable(false);
-     //  ImageIcon iconApp = CommonTreeFunctions.loadIcon("bungeni.jpg");
-     //  frame.setIconImage(iconApp.getImage());
+      frame = new JFrame(__WINDOW_TITLE__);
+      frame.setResizable(false);
        //force prompting of exit message 
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        WindowListener panelListener = new WindowAdapter() {
-            @Override
+      WindowListener panelListener = new WindowAdapter() {
+           @Override
                 public void windowClosing(WindowEvent e) {
                     int confirm = JOptionPane.showOptionDialog(frame, "Really Exit? This will close all Editor panels", "Exit Confirmation",
                                             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
@@ -62,7 +65,7 @@ public class BungeniEditorClient {
         frame.addWindowListener(panelListener);
         preLaunch();
         editorApplicationController panel = new editorApplicationController();
-       // frame.addWindowListener(new org.bungeni.editor.BungeniPanelFrameWindowListener(panel));
+        panel.init();
         frame.add(panel);
         frame.setSize(615,400);
         //Display the window.
@@ -71,9 +74,26 @@ public class BungeniEditorClient {
         frame.setVisible(true);
     }
 
+    /**
+     * Function to initialize UI
+     */
     private  static void initUI(){
-        BungeniUIManager bungeniUI = new BungeniUIManager();
-        bungeniUI.loadBungeniUI();
+        try {
+            //invoke look and feel from UI manager
+            //set the class loader to be used by the UI manager, so that the UI manager
+            //uses the appropriate thread context class loader
+            UIManager.put("ClassLoader", BungeniEditorClient.class.getClassLoader());
+            //access the deafault look and feel via the interface
+            //instantiate the look and feel
+            //LookAndFeel laf = new CafeCremeLAF();
+            ILookAndFeel iFeel = LookAndFeelFactory.getDefaultLookAndFeel();
+            UIManager.setLookAndFeel(iFeel.newLAFInstance());
+            //override theme colors if required
+            BungeniUIManager bungeniUI = new BungeniUIManager();
+            bungeniUI.loadBungeniUI();
+        } catch (Exception ex) {
+            log.error("initUI : " + ex.getMessage());
+        }
     }
 
 
