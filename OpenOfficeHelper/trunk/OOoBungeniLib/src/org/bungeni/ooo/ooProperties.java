@@ -18,10 +18,11 @@ public class ooProperties {
     /** Creates a new instance of ooProperties */
     public ooProperties() {
     }
-    static final String CHAR_BACK_COLOR="CharBackColor";
-    static final String TEXT_USERDEFINED_ATTRIBUTES="TextUserDefinedAttributes";
-    static final String PARA_USERDEFINED_ATTRIBUTES="ParaUserDefinedAttributes";
-    static final String SECTION_USERDEFINED_ATTRIBUTES="UserDefinedAttributes" ;
-    static final String TEXT_COLUMNS="TextColumns";
-    static final String SECTION_BACK_COLOR="BackColor";
+
+    public static final String CHAR_BACK_COLOR="CharBackColor";
+    public static final String TEXT_USERDEFINED_ATTRIBUTES="TextUserDefinedAttributes";
+    public static final String PARA_USERDEFINED_ATTRIBUTES="ParaUserDefinedAttributes";
+    public static final String SECTION_USERDEFINED_ATTRIBUTES="UserDefinedAttributes" ;
+    public static final String TEXT_COLUMNS="TextColumns";
+    public static final String SECTION_BACK_COLOR="BackColor";
 }

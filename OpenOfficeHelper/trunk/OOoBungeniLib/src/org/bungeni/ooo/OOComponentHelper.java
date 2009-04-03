@@ -1,12 +1,3 @@
-/*
- * OOComponentHelper.java
- *
- * Created on July 23, 2007, 6:57 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 package org.bungeni.ooo;
 
 import com.sun.star.awt.Rectangle;
@@ -78,10 +69,14 @@ import org.bungeni.ooo.utils.CommonExceptionUtils;
 
 
 /**
- * 
  * OpenOffice component helper class.
- * This class takes an XComponent object as input, and provides various document level helper functions.
- * @author Administrator
+ * This class takes an XComponent object as input, and provides various document level helper functions via a singleton.
+ * The UNO api is a complex hierarchical API, which this class attempts to simplify by providing a single point of
+ * access to the API. The API attempts to mimic the flavour of the UNO API provided by OpenOffice basic - and it is fairly
+ * easy to rewrite/translate OpenOffice Basic code into Java code , see {@link http://code.google.com/p/bungeni-editor/wiki/UsingTheOocomponentHelperClass }.
+ * <p>
+ *
+ * @author Ashok Hariharan
  */
 public  class OOComponentHelper {
     private XComponent m_xComponent;
@@ -96,6 +91,7 @@ public  class OOComponentHelper {
     private xComponentListener xEventListener;
     /**
      * Creates a new instance of OOComponentHelper
+     * <p>
      * @param xComponent XComponent handle of open document
      * @param xComponentContext XComponentContext handle of openoffice controller
      */
@@ -158,6 +154,7 @@ public  class OOComponentHelper {
     }
     /**
      * Returns the XTextDocument of the current openoffice document.
+     * @return XTextDocument the XTextDocument handle of the current document
      */
   public XTextDocument getTextDocument(){
       XTextDocument xTextDoc = null;
@@ -177,8 +174,9 @@ public  class OOComponentHelper {
     }
     
     /**
-     * Gets the XModel interface of the current document controller.
+     * Gets the XModel interface of the current document controller. The controller provides of the Model.
      * 
+     * @return the document Model (XModel) of the documents controller.
      */
     public XModel getDocumentModel(){
         return (XModel)UnoRuntime.queryInterface(XModel.class, this.m_xComponent);
@@ -186,7 +184,8 @@ public  class OOComponentHelper {
     
     
     /**
-     * Get the DocumentFactory interface.
+     * Provides access to the service manager for creating new UNO services
+     * @return the service factory class for UNO
      */
     public XMultiServiceFactory getDocumentFactory(){
         XMultiServiceFactory xFactory = (XMultiServiceFactory) UnoRuntime.queryInterface(XMultiServiceFactory.class, getTextDocument());
@@ -209,6 +208,11 @@ public  class OOComponentHelper {
         }
     }
     
+    /**
+     * Creates a new instance of the classified instance name (e.g. com.sun.star.text.Paragraph)
+     * @param instanceName - the classified instance name
+     * @return a handle to the object created out of the classified instance
+     */
     public Object createInstanceWithContext(String instanceName){
        Object newInstance = null;
         try {
@@ -222,6 +226,13 @@ public  class OOComponentHelper {
         }
    }
     
+    /**
+     * 
+     * @param sectionName
+     * @param numberOfColumns
+     * @param cBackColor
+     * @return
+     */
     public XTextContent createTextSection(String sectionName, short numberOfColumns, Integer cBackColor){
       XNamed xNamedSection = null;
        XTextContent xSectionContent = null;
@@ -288,6 +299,11 @@ public  class OOComponentHelper {
         
     }
     
+    /**
+     *
+     * @param sectionName
+     * @return
+     */
     public XTextContent addViewSection(String sectionName) {
            XTextViewCursor viewCursor = getViewCursor();
            XText xText = getViewCursor().getText();
@@ -301,6 +317,12 @@ public  class OOComponentHelper {
         }
     }
     
+    /**
+     *
+     * @param sectionName
+     * @param cBackColor
+     * @return
+     */
     public XTextContent addViewSection(String sectionName, Integer cBackColor) {
            XTextViewCursor viewCursor = getViewCursor();
            XText xText = getViewCursor().getText(); 
@@ -315,16 +337,30 @@ public  class OOComponentHelper {
     }
     
     
+    /**
+     *
+     * @param obj
+     * @return
+     */
     public XPropertySet getObjectPropertySet(Object obj){
         XPropertySet xObjProps = (XPropertySet) UnoRuntime.queryInterface(XPropertySet.class, obj); 
         return xObjProps;
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean isXComponentValid() {
         return !isXComponentNull;
     }
     
-    public void setSectionMetadataAttributes (XTextSection theSection, HashMap<String,String>metadataMap) {
+    /**
+     *
+     * @param theSection
+     * @param metadataMap
+     */
+    public void setSectionMetadataAttributes(XTextSection theSection, HashMap<String,String>metadataMap) {
         try {
             //get the propertySet Handle for the section
             XPropertySet theProperties = ooQueryInterface.XPropertySet(theSection);
@@ -360,7 +396,12 @@ public  class OOComponentHelper {
         }    
     }
     
-    public void setSectionMetadataAttributes ( String sectionName, HashMap<String,String> metadataMap) {
+    /**
+     *
+     * @param sectionName
+     * @param metadataMap
+     */
+    public void setSectionMetadataAttributes( String sectionName, HashMap<String,String> metadataMap) {
        HashMap<String,String> metadata = null; 
         try {
             //get the section handle
@@ -401,6 +442,11 @@ public  class OOComponentHelper {
         }    
     }
     
+    /**
+     *
+     * @param sectionName
+     * @return
+     */
     public String getSectionType(String sectionName) {
         HashMap<String,String> metamap = getSectionMetadataAttributes(sectionName);
         if (metamap.containsKey("BungeniSectionType")) {
@@ -409,7 +455,12 @@ public  class OOComponentHelper {
             return null;
     }
     
-    public String getSectionType (XTextSection sect) {
+    /**
+     *
+     * @param sect
+     * @return
+     */
+    public String getSectionType(XTextSection sect) {
         HashMap<String,String> metaMap = getSectionMetadataAttributes(sect);
         if (metaMap.containsKey("BungeniSectionType")) {
                return metaMap.get("BungeniSectionType");
@@ -418,6 +469,11 @@ public  class OOComponentHelper {
         }
     }
     
+    /**
+     *
+     * @param theSection
+     * @return
+     */
     public HashMap<String,String> getSectionMetadataAttributes(XTextSection theSection) {
         HashMap<String,String> metadata = new HashMap<String,String>(); 
         try {
@@ -449,6 +505,11 @@ public  class OOComponentHelper {
         }    
     }
     
+    /**
+     *
+     * @param sectionName
+     * @return
+     */
     public HashMap<String, String> getSectionMetadataAttributes(String sectionName){
         HashMap<String,String> metadata = new HashMap<String,String>(); 
         try {
@@ -468,7 +529,13 @@ public  class OOComponentHelper {
         }
     }
     
-    public boolean renameSection (String oldName, String newName ) {
+    /**
+     *
+     * @param oldName
+     * @param newName
+     * @return
+     */
+    public boolean renameSection(String oldName, String newName ) {
         XTextSection renameThisSection = getSection(oldName);
         if (getTextSections().hasByName(newName))
         {
@@ -494,6 +561,7 @@ public  class OOComponentHelper {
     
     /**
      * Gets the current view cursor.
+     * @return
      */
     public XTextViewCursor getViewCursor(){
      XTextViewCursorSupplier xViewCursorSupplier = (XTextViewCursorSupplier)UnoRuntime.queryInterface(XTextViewCursorSupplier.class, getDocumentModel().getCurrentController());
@@ -754,6 +822,10 @@ public  class OOComponentHelper {
     public static String getMetadataNameSpace() {
         return ATTRIBUTE_NAMESPACE;
     }  
+    /**
+     *
+     * @return
+     */
     public HashMap<String,Object> getSingleSelectionRange() {
         Object selection = this.getCurrentSelection();
         HashMap<String,Object> rangeMap = new HashMap<String,Object>();
@@ -808,6 +880,11 @@ public  class OOComponentHelper {
     * nEdge = 1 , means right edge
     *
     */
+    /**
+     *
+     * @param nEdge
+     * @return
+     */
     public XTextCursor getCursorEdgeSelection(int nEdge) {
         HashMap<String,Object> rangeSelectionMap = new HashMap<String,Object>();
         XTextRange edgeRange = null;
@@ -842,7 +919,12 @@ public  class OOComponentHelper {
     }
     
     
-    public void setAttributesToSelectedText (HashMap xmlAttributesMap, Integer backColor) {
+    /**
+     *
+     * @param xmlAttributesMap
+     * @param backColor
+     */
+    public void setAttributesToSelectedText(HashMap xmlAttributesMap, Integer backColor) {
         Object oSelection = this.getCurrentSelection();
            try {
         if (oSelection == null )     
@@ -914,6 +996,15 @@ public  class OOComponentHelper {
         }
    }
    
+    /**
+     *
+     * @param xmlAttrName
+     * @param xmlAttrVal
+     * @throws com.sun.star.beans.UnknownPropertyException
+     * @throws com.sun.star.beans.PropertyVetoException
+     * @throws com.sun.star.lang.IllegalArgumentException
+     * @throws java.lang.Exception
+     */
     public void setAttributeToSelectedText(String xmlAttrName, String xmlAttrVal) throws UnknownPropertyException, PropertyVetoException, com.sun.star.lang.IllegalArgumentException, Exception {
         try {
         XController xDocController = this.getDocumentModel().getCurrentController();
@@ -1016,7 +1107,16 @@ public  class OOComponentHelper {
    
   
    
-   public void setSelectedTextBackColor(Integer color) throws com.sun.star.lang.IndexOutOfBoundsException, WrappedTargetException, UnknownPropertyException, PropertyVetoException, com.sun.star.lang.IllegalArgumentException {
+  /**
+   *
+   * @param color
+   * @throws com.sun.star.lang.IndexOutOfBoundsException
+   * @throws com.sun.star.lang.WrappedTargetException
+   * @throws com.sun.star.beans.UnknownPropertyException
+   * @throws com.sun.star.beans.PropertyVetoException
+   * @throws com.sun.star.lang.IllegalArgumentException
+   */
+  public void setSelectedTextBackColor(Integer color) throws com.sun.star.lang.IndexOutOfBoundsException, WrappedTargetException, UnknownPropertyException, PropertyVetoException, com.sun.star.lang.IllegalArgumentException {
         XController xDocController = this.getDocumentModel().getCurrentController();
         com.sun.star.view.XSelectionSupplier xSelSupplier = ooQueryInterface.XSelectionSupplier(xDocController);
         Object oSelection = xSelSupplier.getSelection();
@@ -1059,6 +1159,11 @@ public  class OOComponentHelper {
       return xContainer;
    }
    
+   /**
+    *
+    * @param xmlAttrValue
+    * @return
+    */
    public AttributeData _makeAttributeCDATAvalue( String xmlAttrValue) {
        String nameSpace =  ATTRIBUTE_NAMESPACE ; 
        AttributeData attr = new AttributeData();
@@ -1067,6 +1172,18 @@ public  class OOComponentHelper {
        attr.Value = xmlAttrValue;
        return attr;
    }
+   /**
+    *
+    * @param xSet
+    * @param propertyName
+    * @param XMLAttrType
+    * @param XMLAttrName
+    * @param XMLAttrValue
+    * @return
+    * @throws com.sun.star.beans.UnknownPropertyException
+    * @throws com.sun.star.lang.WrappedTargetException
+    * @throws java.lang.Exception
+    */
    public XNameContainer createAttribute(XPropertySet xSet,  String propertyName,String XMLAttrType, String XMLAttrName, String XMLAttrValue) throws UnknownPropertyException, WrappedTargetException, Exception {
    
     String nameSpace= "urn:akomantoso:names:tc:opendocument:xmlns:semantic-text:1.0" ; //"urn:ooo:names:tc:opendocument:xmlns:semantic-text:1.0";
@@ -1096,7 +1213,10 @@ public  class OOComponentHelper {
 } 
    
    
-    public void getSelectedText() {
+   /**
+    *
+    */
+   public void getSelectedText() {
         try {
         XController xDocController = this.getDocumentModel().getCurrentController();
         com.sun.star.view.XSelectionSupplier xSelSupplier = ooQueryInterface.XSelectionSupplier(xDocController);
@@ -1143,7 +1263,12 @@ public  class OOComponentHelper {
       }    
 }
     
-    public boolean propertyExists(String propertyName){
+   /**
+    *
+    * @param propertyName
+    * @return
+    */
+   public boolean propertyExists(String propertyName){
         XDocumentInfo xdi = getDocumentInfo();
         boolean bExists = false;
         XPropertySet xDocProperties = (XPropertySet) UnoRuntime.queryInterface(XPropertySet.class, xdi);
@@ -1199,16 +1324,31 @@ public Object executeMacro(String strMacroName, Object[] aParams) {
 
 
 
-public long inchesToOOoMeasure (long inches ) {
+/**
+ *
+ * @param inches
+ * @return
+ */
+public long inchesToOOoMeasure(long inches ) {
     return OOComponentHelper.MARGIN_MEASURE_BASE * inches ;
 }
 
 
-public boolean isSectionProtected (String sectionName) {
+/**
+ *
+ * @param sectionName
+ * @return
+ */
+public boolean isSectionProtected(String sectionName) {
     XTextSection section = getSection(sectionName);
     return isSectionProtected(section);
 }
 
+/**
+ *
+ * @param section
+ * @return
+ */
 public boolean isSectionProtected(XTextSection section) {
      boolean isProtected=false;   
     try { 
@@ -1225,6 +1365,11 @@ public boolean isSectionProtected(XTextSection section) {
         }
 }
 
+/**
+ *
+ * @param sectionName
+ * @return
+ */
 public XTextSection getSection(String sectionName) {
             XTextSection section = null ;
         try {
@@ -1304,6 +1449,12 @@ public XTextSection getSection(String sectionName) {
         
     }   
     
+    /**
+     *
+     * @param parentSection
+     * @param childPrefix
+     * @return
+     */
     public String getFirstMatchingDescendantSection(String parentSection, String childPrefix) {
         String matching = "";
         try {
@@ -1351,6 +1502,12 @@ public XTextSection getSection(String sectionName) {
     }
    }     
 
+    /**
+     *
+     * @param sectionName
+     * @param childPrefix
+     * @return
+     */
     public String getMatchingChildSection(String sectionName, String childPrefix) {
         String matching = "";
         try {
@@ -1369,7 +1526,12 @@ public XTextSection getSection(String sectionName) {
         }
     }
 
-public void protectSection(String sectionName, boolean toState) {
+    /**
+     *
+     * @param sectionName
+     * @param toState
+     */
+    public void protectSection(String sectionName, boolean toState) {
       try {
            XTextSection childSection;
            childSection = ooQueryInterface.XTextSection(getTextSections().getByName(sectionName));
@@ -1381,7 +1543,13 @@ public void protectSection(String sectionName, boolean toState) {
           }
 }
 
- public String getChildSectionByType(String sParentSection, String lookForSectionType) {
+/**
+ *
+ * @param sParentSection
+ * @param lookForSectionType
+ * @return
+ */
+public String getChildSectionByType(String sParentSection, String lookForSectionType) {
        XTextSection parentSection = getSection(sParentSection);
        if (parentSection == null) 
            return null;
@@ -1392,6 +1560,12 @@ public void protectSection(String sectionName, boolean toState) {
        return childName;
  } 
  
+ /**
+  *
+  * @param parentSection
+  * @param lookForSectionType
+  * @return
+  */
  public XTextSection getChildSectionByType(XTextSection parentSection, String lookForSectionType) {
        XTextSection[] childSections = parentSection.getChildSections();
        for (XTextSection childSection: childSections) {
@@ -1407,17 +1581,30 @@ public void protectSection(String sectionName, boolean toState) {
    }  
 
 
-public XNameAccess getReferenceMarks() {
+ /**
+  *
+  * @return
+  */
+ public XNameAccess getReferenceMarks() {
        XReferenceMarksSupplier refSupplier = ooQueryInterface.XReferenceMarksSupplier(getTextDocument());
        XNameAccess nameAccess = refSupplier.getReferenceMarks();
        return nameAccess;
 }
+/**
+ *
+ * @return
+ */
 public XEnumerationAccess getTextFields() {
     XTextFieldsSupplier txtSupplier = ooQueryInterface.XTextFieldsSupplier(this.m_xComponent);
     XEnumerationAccess fieldAccess = txtSupplier.getTextFields();
     return fieldAccess;
 }
 
+/**
+ *
+ * @param section
+ * @param toState
+ */
 public void protectSection(XTextSection section, boolean toState) {
          try {
             XPropertySet childProperties = ooQueryInterface.XPropertySet(section);
@@ -1440,11 +1627,19 @@ public void protectSection(XTextSection section, boolean toState) {
  */
 
 
+/**
+ *
+ * @return
+ */
 public XNameAccess getGraphicObjects(){
     XTextGraphicObjectsSupplier gobSupplier = ooQueryInterface.XTextGraphicObjectsSupplier(this.getTextDocument());
     return gobSupplier.getGraphicObjects();
 }
 
+/**
+ *
+ * @return
+ */
 public boolean isTextGraphicObjectSelected(){
     boolean bReturn = false;
     XTextViewCursor viewCursor = this.getViewCursor();
@@ -1457,6 +1652,10 @@ public boolean isTextGraphicObjectSelected(){
     }
 }
 
+/**
+ *
+ * @return
+ */
 public String getSelectedTextImageName() {
     String selectedImage = "";
     if (this.isTextGraphicObjectSelected()) {
@@ -1469,6 +1668,11 @@ public String getSelectedTextImageName() {
         return selectedImage;
 }
 
+/**
+ *
+ * @param newName
+ * @return
+ */
 public int setSelectedTextImageName(String newName) {
     int nReturn = -1;
     try {
@@ -1489,6 +1693,11 @@ public int setSelectedTextImageName(String newName) {
 }
   
 
+/**
+ *
+ * @param styleName
+ * @return
+ */
 public boolean setSelectedTextStyle(String styleName) {
     Object oSelection = null;
     boolean bState = true;
@@ -1534,14 +1743,21 @@ public boolean setSelectedTextStyle(String styleName) {
     }
 }  
 
-    public String getDocumentTitle() {
+/**
+ *
+ * @return
+ */
+public String getDocumentTitle() {
         String strTitle = "";
         XTextDocument xDoc = this.getTextDocument();
         strTitle = getFrameTitle(xDoc);
         return strTitle;
     }
  
-    public void textFieldsRefresh(){
+/**
+ *
+ */
+public void textFieldsRefresh(){
         XEnumerationAccess enumFields = this.getTextFields();
         ooQueryInterface.XRefreshable(enumFields).refresh();
     }
@@ -1572,7 +1788,12 @@ public boolean setSelectedTextStyle(String styleName) {
     
     
     
-public XTextField getTextFieldByName(String fieldName) {
+    /**
+     *
+     * @param fieldName
+     * @return
+     */
+    public XTextField getTextFieldByName(String fieldName) {
         XTextField returnField = null;
         XEnumeration fieldEnumeration = getTextFields().createEnumeration();
        try {
@@ -1597,12 +1818,20 @@ public XTextField getTextFieldByName(String fieldName) {
      }
 }  
 
-    public void refreshTextField(XTextField aField) {
+/**
+ *
+ * @param aField
+ */
+public void refreshTextField(XTextField aField) {
         com.sun.star.util.XUpdatable updateField = ooQueryInterface.XUpdatable(aField);
         updateField.update();
     }
 
-    public XStorable getStorable(){
+/**
+ *
+ * @return
+ */
+public XStorable getStorable(){
             XComponent doc = getComponent();
             XStorable docStore = ooQueryInterface.XStorable(doc);   
             return docStore;
@@ -1618,7 +1847,11 @@ public XTextField getTextFieldByName(String fieldName) {
         oStandardPageStyles.TextColumns = oColumns
          */
 
-    public short getPageColumns() {
+/**
+ *
+ * @return
+ */
+public short getPageColumns() {
         short columns = 0;
         try {
               Object pageStyles = getStyleFamilies().getByName("PageStyles");
@@ -1642,7 +1875,11 @@ public XTextField getTextFieldByName(String fieldName) {
          }
     }
 
-    public void setPageColumns (short nColumns) {
+/**
+ *
+ * @param nColumns
+ */
+public void setPageColumns(short nColumns) {
         Object pageStyles=null;
         try {
               pageStyles = getStyleFamilies().getByName("PageStyles");
@@ -1695,7 +1932,12 @@ public XTextField getTextFieldByName(String fieldName) {
     }
     
     
-      public static XComponent openTemplate(String documentPath) {
+    /**
+     *
+     * @param documentPath
+     * @return
+     */
+    public static XComponent openTemplate(String documentPath) {
           XComponent xComponent = null;
           try {
             documentPath = BungenioOoHelper.convertPathToURL(documentPath);
@@ -1721,7 +1963,11 @@ public XTextField getTextFieldByName(String fieldName) {
     }
       
       
-    public boolean isDocumentOnDisk(){
+      /**
+       *
+       * @return
+       */
+      public boolean isDocumentOnDisk(){
         XStorable xStore = ooQueryInterface.XStorable(this.m_xComponent);
         return xStore.hasLocation();
     }
@@ -1784,6 +2030,11 @@ public XTextField getTextFieldByName(String fieldName) {
         }
     }
     
+    /**
+     *
+     * @param bookmarkName
+     * @return
+     */
     public boolean deleteBookmark(String bookmarkName) {
         boolean bState = false;
         try {
@@ -1798,6 +2049,11 @@ public XTextField getTextFieldByName(String fieldName) {
         }
     }
     
+    /**
+     *
+     * @param templatePath
+     * @return
+     */
     public static XComponent newDocument(String templatePath) {
         XComponent xComponent = null;
         
@@ -1824,6 +2080,12 @@ public XTextField getTextFieldByName(String fieldName) {
         }
      }
    
+    /**
+     *
+     * @param documentPath
+     * @param loader
+     * @return
+     */
     public static XComponent openExistingDocument(String documentPath, XComponentLoader loader) {
           XComponent xComponent = null;
           try {
@@ -1845,7 +2107,8 @@ public XTextField getTextFieldByName(String fieldName) {
     }
     /**
     * Maximises a openoffice document window frame 
-    * @param aComponent component handle of the window frame to be maximized.
+     * @param aComponent component handle of the window frame to be maximized.
+     * @param screenSize
     */ 
    public static void positionOOoWindow(XComponent aComponent, Dimension screenSize){
        try {
