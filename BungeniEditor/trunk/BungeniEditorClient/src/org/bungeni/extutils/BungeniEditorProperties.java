@@ -1,12 +1,3 @@
-/*
- * BungeniEditorProperties.java
- *
- * Created on August 24, 2007, 6:44 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 package org.bungeni.extutils;
 
 import java.util.HashMap;
@@ -18,8 +9,9 @@ import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
 
 /**
- *
- * @author Administrator
+ * Allows getting and setting of editor properties from the settings db's
+ * general_editor_properties table
+ * @author Ashok Hariharan
  */
 public class BungeniEditorProperties {
     private static HashMap<String,String> propertiesMap = new HashMap<String,String>();
@@ -50,38 +42,38 @@ public class BungeniEditorProperties {
     
     public static String getEditorProperty(String propertyName) {
         String propertyValue = "";
-        if (propertiesMap.containsKey(propertyName) ) {
-           log.debug("getEditorProperty : property found in map");
-           return (String) propertiesMap.get(propertyName);
-        } else {
-            log.debug("getEditorProperty: property not cached, querying");
-        }
-        
-        String settingsInstance = DefaultInstanceFactory.DEFAULT_INSTANCE();
-        BungeniClientDB db = new BungeniClientDB(settingsInstance, "");
-        db.Connect();
-        HashMap<String,Vector<Vector<String>>> resultsMap = db.Query(SettingsQueryFactory.Q_FETCH_EDITOR_PROPERTY(propertyName));
-        db.EndConnect();
-        QueryResults results = new QueryResults(resultsMap);
-        if (results.hasResults() ) {
-           Vector<Vector<String>> resultRows  = new Vector<Vector<String>>();
-           resultRows = results.theResults();
-           //it should always return a single row.... 
-           //so we process the first row and brea
-           Vector<java.lang.String> tableRow = new Vector<java.lang.String>();
-  
-               for (int i = 0 ; i < resultRows.size(); i++ ) {
-                   //get the results row by row into a string vector
-                   tableRow = resultRows.elementAt(i);
-                   break;
+            if (propertiesMap.containsKey(propertyName) ) {
+               log.debug("getEditorProperty : property found in map");
+               return (String) propertiesMap.get(propertyName);
+            } else {
+                log.debug("getEditorProperty: property not cached, querying");
+            }
+
+            String settingsInstance = DefaultInstanceFactory.DEFAULT_INSTANCE();
+            BungeniClientDB db = new BungeniClientDB(settingsInstance, "");
+            db.Connect();
+            HashMap<String,Vector<Vector<String>>> resultsMap = db.Query(SettingsQueryFactory.Q_FETCH_EDITOR_PROPERTY(propertyName));
+            db.EndConnect();
+            QueryResults results = new QueryResults(resultsMap);
+            if (results.hasResults() ) {
+               Vector<Vector<String>> resultRows  = new Vector<Vector<String>>();
+               resultRows = results.theResults();
+               //it should always return a single row....
+               //so we process the first row and brea
+               Vector<java.lang.String> tableRow = new Vector<java.lang.String>();
+
+                   for (int i = 0 ; i < resultRows.size(); i++ ) {
+                       //get the results row by row into a string vector
+                       tableRow = resultRows.elementAt(i);
+                       break;
+                   }
+               if (tableRow.size() > 0) {
+                propertyValue = tableRow.elementAt(PROPERTY_VALUE_COLUMN);
+                propertiesMap.put(propertyName, propertyValue);
+
                }
-           if (tableRow.size() > 0) {
-            propertyValue = tableRow.elementAt(PROPERTY_VALUE_COLUMN);    
-            propertiesMap.put(propertyName, propertyValue);
-        
-           }
-        } 
-         return propertyValue;
+            }
+            return propertyValue;
     }
     
 }
