@@ -1,5 +1,5 @@
 /*
- * DebateRecordMetadata.java
+ * MetadataEditorContainer.java
  *
  * Created on November 4, 2008, 1:43 PM
  */
@@ -35,8 +35,10 @@ import org.bungeni.extutils.BungeniFrame;
 import org.bungeni.extutils.FrameLauncher;
 
 /**
- *
- * @author  undesa
+ *This JPanel class is the main container for the metadata tabs for a document type.
+ * metadata tabs are loaded based on the metadata_model_editors configured for a particular
+ * document type
+ * @author  Ashok Hariharan
  */
 public class MetadataEditorContainer extends JPanel {
 
@@ -46,8 +48,9 @@ public class MetadataEditorContainer extends JPanel {
    OOComponentHelper ooDocument  = null;
     JFrame parentFrame = null;
      SelectorDialogModes dlgMode = null;
-//    IEditorDocMetadataDialog generalDlg = null;
-//    IEditorDocMetadataDialog metaDlg = null;
+     /**
+      * ArrayList to store all the available tabs for the document type.
+      */
      ArrayList<IEditorDocMetadataDialog> metaTabs = new ArrayList<IEditorDocMetadataDialog>(0);
 
     BungeniFileSavePathFormat m_spf = null;
@@ -66,20 +69,6 @@ public class MetadataEditorContainer extends JPanel {
     }
     
 
-    /**
-     * Results iterator for retrieving metadata model info
-     */
-    class metadataModelInfoIterator implements IQueryResultsIterator {
-
-        public String WORK_URI, EXP_URI, MANIFESTATION_FORMAT ;
-
-        public boolean iterateRow(QueryResults mQR, Vector<String> rowData) {
-                       WORK_URI =  mQR.getField(rowData, "WORK_URI");
-                       EXP_URI = mQR.getField(rowData, "EXP_URI");
-                       MANIFESTATION_FORMAT = mQR.getField(rowData, "FILE_NAME_SCHEME");
-                       return true;
-        }
-    }
 
     /**
      * Loads the availabled metadata editors for this document type
@@ -106,50 +95,23 @@ public class MetadataEditorContainer extends JPanel {
         for (IEditorDocMetadataDialog thisTab : this.metaTabs) {
             metadataTabContainer.add(thisTab.getPanelComponent(), thisTab.getTabTitle());
         }
-
-        //now load the tabs
-
-        /*
-        qr.resultsIterator(iterResults);
-             if (qr.hasResults()){
-                   Vector<Vector<String>> resultRows  = new Vector<Vector<String>>();
-                   resultRows = qr.theResults();
-                   for (Vector<String> resultRow: resultRows) {
-                       metadataModelClass = qr.getField(resultRow, "METADATA_MODEL_EDITOR");
-                       metadataModelTitle = qr.getField(resultRow, "METADATA_EDITOR_TITLE");
-                       WORK_URI =  qr.getField(resultRow, "WORK_URI");
-                       EXP_URI = qr.getField(resultRow, "EXP_URI");
-                       MANIFESTATION_FORMAT = qr.getField(resultRow, "FILE_NAME_SCHEME");
-                       break;
-                   }
-                 }
-
-                 */
-
-
-//        generalDlg = EditorDocMetadataDialogFactory.getInstance("document");
-//        generalDlg.initVariables(ooDocument, parentFrame, dlgMode);
-//        generalDlg.initialize();
-       
-        //add the panel for the document type
-//        metaDlg = EditorDocMetadataDialogFactory.getInstance(BungeniEditorPropertiesHelper.getCurrentDocType());
-        //load the work and expression formats for the current doc type
-
-
-         /*
-        if (!metaDlg.getClass().getName().equals(generalDlg.getClass().getName())) {
-            metaDlg.initVariables(ooDocument, parentFrame, dlgMode);
-            metaDlg.initialize();
-        } else 
-            metaDlg = null;
-        */
-
-         /*
-        metadataTabContainer.add(generalDlg.getPanelComponent(), generalDlg.getTabTitle() );    
-        if (metaDlg != null)
-        metadataTabContainer.add(metaDlg.getPanelComponent(), metaDlg.getTabTitle());
-          */
     }
+
+        /**
+     * Results iterator for retrieving metadata model info
+     */
+    class metadataModelInfoIterator implements IQueryResultsIterator {
+
+        public String WORK_URI, EXP_URI, MANIFESTATION_FORMAT ;
+
+        public boolean iterateRow(QueryResults mQR, Vector<String> rowData) {
+                       WORK_URI =  mQR.getField(rowData, "WORK_URI");
+                       EXP_URI = mQR.getField(rowData, "EXP_URI");
+                       MANIFESTATION_FORMAT = mQR.getField(rowData, "FILE_NAME_SCHEME");
+                       return true;
+        }
+    }
+
 
     public Component getPanelComponent() {
         return this;
@@ -159,19 +121,19 @@ public class MetadataEditorContainer extends JPanel {
     
    
     
-
+/**
+ * Apply the metadata in all the available tabs into the document
+ * @param spf
+ * @return
+ */
 private boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
     boolean bState = false;
     try {
-
+        //iterate through the tabs and apply them individually
         for (IEditorDocMetadataDialog mTab : this.metaTabs) {
             mTab.applySelectedMetadata(spf);
         }
 
-        /*
-        generalDlg.applySelectedMetadata(spf);
-        if (metaDlg != null)
-            metaDlg.applySelectedMetadata(spf);*/
         bState = true;
     } catch (Exception ex) {
         log.error("applySelectedMetadata : " + ex.getMessage());
@@ -185,7 +147,11 @@ private boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
 private final static String STORE_TO_URL = "StoreToURL";
 private final static String STORE_AS_URL = "StoreAsURL";
 
-
+/**
+ * Saves the document to disk
+ * @param spf
+ * @return
+ */
 private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         boolean bState = false; 
         //1 check if file is already open and saved 
@@ -386,23 +352,15 @@ private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
   
  
     public Dimension getFrameSize() {
-        /*
-        Dimension gSize = this.generalDlg.getFrameSize();
-        if (metaDlg != null ) {
-            Dimension mSize = metaDlg.getFrameSize();
-            int retWidth = gSize.width; int retHeight = gSize.height;
-            if (mSize.height >= gSize.height)
-                retHeight = mSize.height;
-            if (mSize.width >= gSize.width) 
-                retWidth = mSize.width;
-            return new Dimension(retWidth, retHeight);
-        } else {
-        return gSize;
-        }*/
         return new Dimension(420, 432 + 15);
     }
 
-
+    /**
+     * Static api to launch metadata editor for a document 
+     * @param oohc OpenOffice document handle
+     * @param dlgMode mode with which to open metadata dialog edit / insert
+     * @return Handle to metadata editor window frame
+     */
     public static JFrame launchMetadataEditor(OOComponentHelper oohc, SelectorDialogModes dlgMode){
         String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
         BungeniFrame frm = new BungeniFrame(docType + " Metadata");
@@ -416,8 +374,4 @@ private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         frm.setAlwaysOnTop(true);
         return frm;
     }
-
-   
-
-
 }
