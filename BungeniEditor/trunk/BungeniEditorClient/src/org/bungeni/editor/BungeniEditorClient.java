@@ -16,11 +16,9 @@ import java.io.IOException;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 import org.bungeni.editor.dialogs.editorApplicationController;
 import org.bungeni.editor.interfaces.ui.ILookAndFeel;
-import org.bungeni.editor.themes.CafeCremeLAF;
 import org.bungeni.editor.ui.LookAndFeelFactory;
 
 /**
