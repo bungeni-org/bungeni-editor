@@ -1,9 +1,3 @@
-/*
- * editorApplicationController.java
- *
- * Created on May 30, 2007, 11:22 AM
- */
-
 package org.bungeni.editor.dialogs;
 
 import com.sun.star.awt.XWindow;
@@ -121,7 +115,11 @@ public class editorApplicationController extends javax.swing.JPanel {
         m_propSettings = new java.util.Properties();
         m_dav = new WebDavStore();
         initComponents();
-        
+        //temporarily remove these two tabs
+        this.editorAppTabbedPane.remove(tabSettings);
+        this.editorAppTabbedPane.remove(tabServer);
+        this.editorAppTabbedPane.remove(this.tabAbout);
+
     }
 
     public void init() {
