@@ -68,13 +68,11 @@ import org.bungeni.editor.plugin.impl.IEditorPluginAll;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
 import org.bungeni.editor.toolbar.BungeniToolbarTargetProcessor;
-import org.bungeni.ooo.transforms.impl.BungeniTransformationTarget;
-import org.bungeni.ooo.transforms.impl.BungeniTransformationTargetFactory;
-import org.bungeni.ooo.transforms.impl.IBungeniDocTransform;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.bungeni.extutils.BungeniFrame;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonStringFunctions;
+import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.utils.externalplugin.ExternalPlugin;
 import org.bungeni.utils.externalplugin.ExternalPluginsFinder;
 import org.bungeni.utils.externalplugin.ExternalPluginsLoader;
@@ -757,6 +755,8 @@ private void btnNewDocumentActionPerformed(java.awt.event.ActionEvent evt) {//GE
 
 private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveDocumentActionPerformed
 // TODO add your handling code here:
+    saveOpenDocument();
+    /*
         BungeniTransformationTarget transform= new BungeniTransformationTarget ("ODT", "ODT (OpenDocument Format)", "odt" , "org.bungeni.ooo.transforms.loadable.ODTSaveTransform");
         //BungeniTransformationTarget transform = (BungeniTransformationTarget) this.cboTransformFrom.getSelectedItem();
         IBungeniDocTransform iTransform = BungeniTransformationTargetFactory.getTransformClass(transform);
@@ -776,7 +776,8 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
         if (bState ) {
             MessageBox.OK(parentFrame, "Document was successfully Exported ");
         } else
-            MessageBox.OK(parentFrame, "Document Export failed " );
+            MessageBox.OK(parentFrame, "Document Export failed " );*/
+
 }//GEN-LAST:event_btnSaveDocumentActionPerformed
 
 private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
@@ -784,7 +785,19 @@ private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
    launchSectionMetadataEditor();
 }//GEN-LAST:event_btnEditActionPerformed
 
-   
+
+public void saveOpenDocument() {
+    //if the document is on disk simply save it
+    if (ooDocument.isDocumentOnDisk()) {
+        ooDocument.saveDocument();
+    } else {
+      //if the document isnt on disk, we force metadata setting.
+        MetadataEditorContainer.launchMetadataEditor(ooDocument, SelectorDialogModes.TEXT_INSERTION);
+    }
+
+}
+
+
 public void newDocumentInPanel(){
     String templatePath = BungeniEditorProperties.getEditorProperty(BungeniEditorPropertiesHelper.getCurrentDocType()+"_template");
     Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -931,15 +944,14 @@ private void launchMetadataSetter(XComponent xComp){
         OOComponentHelper oohc = new OOComponentHelper (xComp, ComponentContext);
         String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
         BungeniFrame frm = new BungeniFrame(docType + " Metadata");
-
-          MetadataEditorContainer meta = new MetadataEditorContainer(oohc, frm, SelectorDialogModes.TEXT_INSERTION);
-          meta.initialize();
-        
+        MetadataEditorContainer meta = new MetadataEditorContainer(oohc, frm, SelectorDialogModes.TEXT_INSERTION);
+        meta.initialize();
         frm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frm.setSize(meta.getFrameSize());
         frm.add(meta.getPanelComponent());
         frm.setVisible(true);
         frm.setAlwaysOnTop(true);
+        FrameLauncher.CenterFrame(frm);
 }
 
   
@@ -947,28 +959,7 @@ private void launchMetadataSetter(XComponent xComp){
     
     private static boolean structureInitialized = false;
     private  void initTimers(){
-        
-      //  synchronized(this);
         try {
-            //structure list & tree structure refresh timer
-            /*
-            Action DocStructureListRunner = new AbstractAction() {
-                public void actionPerformed (ActionEvent e) {
-                    if (!structureInitialized) {
-                        //initSectionStructureTreeModel();
-                        structureInitialized = true;
-                    }
-                    initList();
-                }
-            };
-            docStructureTimer = new Timer(3000, DocStructureListRunner);
-            docStructureTimer.setInitialDelay(2000);
-            docStructureTimer.start(); */
-            //section name timer
-            /*
-            sectionNameTimer = new Timer(1000, new CurrentSectionNameUpdater());
-            sectionNameTimer.start();
-            */
             //component handle tracker timer
       
             Action componentsTrackingRunner = new AbstractAction(){
@@ -980,9 +971,6 @@ private void launchMetadataSetter(XComponent xComp){
             componentsTrackingTimer = new Timer(5000, componentsTrackingRunner);
             componentsTrackingTimer.start();
 
-            
-            //docStructureTimer = new java.util.Timer();
-            //docStructureTimer.schedule(task, 0, 3000);
         } catch (Exception e) {
             log.error(e.getMessage());
         }
