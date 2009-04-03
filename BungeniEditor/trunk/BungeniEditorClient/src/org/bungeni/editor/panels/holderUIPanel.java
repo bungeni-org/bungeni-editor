@@ -17,6 +17,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
@@ -66,11 +67,12 @@ import org.bungeni.utils.BungeniBNode;
 import org.bungeni.utils.BungeniBTree;
 import org.bungeni.extutils.CommonTreeFunctions;
 import org.bungeni.utils.compare.BungeniTreeRefactorTree;
+import org.jdom.Attribute;
 
 
 /**
- *
- * @author  undesa
+ * This is the floating panel implementation for the Editor's action bar
+ * @author  Ashok Hariharan
  */
 public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel {
     private OOComponentHelper ooDocument;
@@ -94,6 +96,7 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
     
     private JTree sectionInternalStructureTree;
     private String m_currentSelectedSectionName ;
+
     /** Creates new form holderUIPanel */
     public holderUIPanel() {
         initComponents();
@@ -328,18 +331,11 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
     
     private void initMouseListener(){
         //first move focus to frame on mouse over
-        parentFrame.addMouseListener(new MouseListener(){
-            public void mouseClicked(MouseEvent arg0) {
-            }
-            public void mousePressed(MouseEvent arg0) {
-            }
-            public void mouseReleased(MouseEvent arg0) {
-            }
+        parentFrame.addMouseListener(new MouseAdapter(){
+            @Override
             public void mouseEntered(MouseEvent arg0) {
                 log.debug("mouseListener : entered holderUIPanel" );
                 parentFrame.requestFocus();
-            }
-            public void mouseExited(MouseEvent arg0) {
             }
         });
         //after moving focus to frame, shift focus to the toolbar tree
@@ -492,7 +488,10 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
             log.error("exception updateSectionTree : " + ex.getMessage());
         }
     }
-    
+
+    /**
+     *
+     */
     class treeViewPrettySectionsTreeCellRenderer extends JLabel implements TreeCellRenderer {
         Color bgColor = new java.awt.Color(232, 255, 175);
         Color bgColorSelect = new java.awt.Color(207, 242, 255);
@@ -716,7 +715,9 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
     }
          
     enum treeGeneralEditorNodeState {ENABLED, DISABLED};
-    /*** caches conditionValue and condition processor for better performance **/
+    /**
+     * This is the TreeCellRenderer implementation for the Editor Action toolbar
+     */
     HashMap<String, BungeniToolbarConditionProcessor> conditionMap = new HashMap<String, BungeniToolbarConditionProcessor>();
     class toolbarTreeCellRenderer extends JLabel implements TreeCellRenderer {
 
@@ -726,19 +727,21 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
          int TOPLEVEL_ICON=3;
          int DISABLED_ICON=4;
          Font labelFont = new Font("Tahoma", Font.PLAIN, 11);
+         Color nodeEnabledColor = null;
+         Color nodeDisabledColor = null;
+         Color nodeNoTargetColor = null;
          public toolbarTreeCellRenderer() {
-            if (toolbarIconMap.size() == 0 ) {
+             if (toolbarIconMap.size() == 0 ) {
                 for (int i=0; i < icons.length; i++ ) {
                     toolbarIconMap.put(icons[i], new toolbarIcon(icons[i], "/gui/"));
                 }
             }
+            this.nodeEnabledColor = Color.decode(BungeniEditorProperties.getEditorProperty("toolbarNodeEnabledColor"));
+            this.nodeDisabledColor = Color.decode(BungeniEditorProperties.getEditorProperty("toolbarNodeDisabledColor"));
+            this.nodeNoTargetColor = Color.decode(BungeniEditorProperties.getEditorProperty("toolbarNodeNoTargetColor"));
          }
-        private int ACTION_OBJECT=0, SELECTION_OBJECT=1;
-        
-        public void setToolbarStates() {
-            
-        }
-        
+
+         private int ACTION_OBJECT=0, SELECTION_OBJECT=1;
         
         private toolbarIcon getIcon(String elementName ) {
             if (elementName.equals("root")) {
@@ -779,6 +782,8 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
                         org.jdom.Attribute visibleAttrib = toolbarNode.node.getAttribute("visible");
                         org.jdom.Attribute conditionAttrib = toolbarNode.node.getAttribute("condition");
                         org.jdom.Attribute nameAttrib = toolbarNode.node.getAttribute("name");
+                        //org.jdom.Attribute targetAttrib = toolbarNode.node.getAttribute("target");
+
                         setFont(labelFont);
                         //if visible = false - disable the action
                         //if visible = true  - check if condition is required
@@ -825,13 +830,15 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
             if (ttText != null) {
                setToolTipText(ttText.replace('\n','-'));
             }
-            setForeground(new java.awt.Color(0x00, 0x00,0x00));
-      
-            //setIcon(theIcon.enabledIcon);
+            Attribute targetAttrib = nodeProc.getAdapterNode().node.getAttribute("target");
+            if (targetAttrib == null ) {
+                setForeground(this.nodeNoTargetColor);
+            } else if (targetAttrib.getValue().trim().equals("null")) {
+                setForeground(this.nodeNoTargetColor);
+            } else {
+                setForeground(nodeEnabledColor);
+            }
             setText(nodeProc.getTitle());
-           // treeGeneralEditor.getModel().valueForPathChanged()
-            //this.repaint();
-            //tree.repaint();
         }
         
         
@@ -841,7 +848,7 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
             if (ttText != null) {
                 setToolTipText(ttText.replace('\n','-'));
             }
-            setForeground(new java.awt.Color(0xFF, 0xCC,0xFF));
+            setForeground(nodeDisabledColor);
             //setIcon(theIcon.disabledIcon);
             setText(nodeProc.getTitle());
                 //this.repaint();
