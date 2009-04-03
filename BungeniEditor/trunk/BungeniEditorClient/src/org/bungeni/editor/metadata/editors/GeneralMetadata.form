@@ -16,22 +16,9 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel3" min="-2" max="-2" attributes="1"/>
-                          <Component id="BungeniParliamentID" alignment="0" min="-2" pref="101" max="-2" attributes="1"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel5" min="-2" max="-2" attributes="1"/>
-                          <Component id="txtParliamentSitting" alignment="0" min="-2" pref="99" max="-2" attributes="1"/>
-                      </Group>
-                  </Group>
-                  <Component id="jLabel4" min="-2" max="-2" attributes="1"/>
-                  <Component id="txtParliamentSession" alignment="0" min="-2" pref="105" max="-2" attributes="1"/>
                   <Component id="jLabel8" alignment="0" min="-2" pref="185" max="-2" attributes="0"/>
                   <Component id="cboDocumentPart" alignment="0" min="-2" pref="151" max="-2" attributes="1"/>
                   <Group type="102" alignment="0" attributes="0">
@@ -56,7 +43,7 @@
                           <Component id="txtPublicationName" min="-2" pref="152" max="-2" attributes="1"/>
                       </Group>
                   </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="dt_official_date" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
@@ -105,43 +92,20 @@
                       <Component id="txtPublicationName" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="BungeniParliamentID" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtParliamentSitting" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel4" min="-2" pref="13" max="-2" attributes="0"/>
-                              <EmptySpace min="25" pref="25" max="25" attributes="0"/>
-                          </Group>
-                          <Component id="txtParliamentSession" alignment="1" min="-2" pref="19" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="dt_official_date" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="dt_official_time" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="85" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -249,57 +213,6 @@
           <Font name="DejaVu Sans" size="10" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Publication Name"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="BungeniParliamentID">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="DejaVu Sans" size="10" style="0"/>
-        </Property>
-        <Property name="name" type="java.lang.String" value="fld.BungeniParliamentID" noResource="true"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="DejaVu Sans" size="10" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Parliament ID"/>
-        <Property name="name" type="java.lang.String" value="lbl.BungeniParliamentID" noResource="true"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtParliamentSession">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="DejaVu Sans" size="10" style="0"/>
-        </Property>
-        <Property name="name" type="java.lang.String" value="fld.BungeniParliamentSession" noResource="true"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel4">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="DejaVu Sans" size="10" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Parliament Session"/>
-        <Property name="name" type="java.lang.String" value="lbl.BungeniParliamentSession" noResource="true"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtParliamentSitting">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="DejaVu Sans" size="10" style="0"/>
-        </Property>
-        <Property name="name" type="java.lang.String" value="BungeniParliamentSitting" noResource="true"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel5">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="DejaVu Sans" size="10" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Parliament Sitting"/>
-        <Property name="name" type="java.lang.String" value="lbl.BungeniParliamentSitting" noResource="true"/>
       </Properties>
     </Component>
     <Component class="org.jdesktop.swingx.JXDatePicker" name="dt_official_date">

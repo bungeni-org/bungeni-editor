@@ -6,26 +6,11 @@
 
 package org.bungeni.editor.metadata.editors;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerDateModel;
-import org.bungeni.extutils.BungeniEditorProperties;
-import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.utils.BungeniFileSavePathFormat;
-import org.bungeni.editor.metadata.LanguageCode;
-import org.bungeni.editor.metadata.CountryCode;
-import org.bungeni.editor.metadata.DocumentPart;
-import org.bungeni.editor.metadata.GeneralMetadataModel;
 import org.bungeni.editor.metadata.ParliamentMetadataModel;
 import org.bungeni.extutils.CommonStringFunctions;
 
@@ -106,12 +91,6 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
 }    
 
 
-private final static String STORE_TO_URL = "StoreToURL";
-private final static String STORE_AS_URL = "StoreAsURL";
-
-
-
-
 
 
     /** This method is called from within the constructor to
@@ -156,7 +135,7 @@ private final static String STORE_AS_URL = "StoreAsURL";
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3)
                     .addComponent(jLabel5)
@@ -164,12 +143,12 @@ private final static String STORE_AS_URL = "StoreAsURL";
                     .addComponent(BungeniParliamentID, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
                     .addComponent(txtParliamentSitting)
                     .addComponent(txtParliamentSession))
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addContainerGap()
                 .addComponent(jLabel3)
                 .addGap(2, 2, 2)
                 .addComponent(BungeniParliamentID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -181,7 +160,7 @@ private final static String STORE_AS_URL = "StoreAsURL";
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtParliamentSession, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

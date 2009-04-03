@@ -79,8 +79,8 @@ public class BillMetadata extends BaseEditorDocMetadataDialog {
     }
     
     private void initControls(){
-        String popupDlgBackColor = BungeniEditorProperties.getEditorProperty("popupDialogBackColor");
-        this.setBackground(Color.decode(popupDlgBackColor));
+    //    String popupDlgBackColor = BungeniEditorProperties.getEditorProperty("popupDialogBackColor");
+    //    this.setBackground(Color.decode(popupDlgBackColor));
     }
     
 
