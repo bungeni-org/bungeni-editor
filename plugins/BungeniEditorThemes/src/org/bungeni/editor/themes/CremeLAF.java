@@ -14,9 +14,17 @@ import org.jvnet.substance.skin.SubstanceCremeLookAndFeel;
  * @author undesa
  */
 public class CremeLAF implements ILookAndFeel {
+  private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(CremeLAF.class.getName());
 
     public LookAndFeel newLAFInstance() {
-        return new SubstanceCremeLookAndFeel();
+       SubstanceCremeLookAndFeel sbslFeel = null;
+        try {
+            sbslFeel = new SubstanceCremeLookAndFeel();
+        } catch (Exception ex) {
+            log.error("CremeLAF:newLAFInstance :" + ex.getMessage());
+        } finally {
+            return sbslFeel;
+        }
     }
 
 }

@@ -15,8 +15,17 @@ import org.bungeni.editor.interfaces.ui.ILookAndFeel;
  */
 public class GtkLAF implements ILookAndFeel {
 
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(GtkLAF.class.getName());
+
     public LookAndFeel newLAFInstance() {
-               return new GTKLookAndFeel();
+        GTKLookAndFeel sbslFeel = null;
+        try {
+            sbslFeel = new GTKLookAndFeel();
+        } catch (Exception ex) {
+            log.error("GtkLAF:newLAFInstance :" + ex.getMessage());
+        } finally {
+            return sbslFeel;
+        }
     }
 
 }

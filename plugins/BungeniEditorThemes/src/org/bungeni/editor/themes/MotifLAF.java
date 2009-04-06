@@ -15,8 +15,19 @@ import org.bungeni.editor.interfaces.ui.ILookAndFeel;
  */
 public class MotifLAF implements ILookAndFeel {
 
+
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(MotifLAF.class.getName());
+
     public LookAndFeel newLAFInstance() {
-        return new MotifLookAndFeel();
+        MotifLookAndFeel sbslFeel = null;
+        try {
+            sbslFeel = new MotifLookAndFeel();
+        } catch (Exception ex) {
+            log.error("MotifLAF:newLAFInstance :" + ex.getMessage());
+        } finally {
+            return sbslFeel;
+        }
     }
+
 
 }

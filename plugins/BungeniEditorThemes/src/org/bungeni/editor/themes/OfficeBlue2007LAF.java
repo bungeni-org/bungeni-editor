@@ -15,8 +15,17 @@ import org.jvnet.substance.skin.SubstanceOfficeBlue2007LookAndFeel;
  */
 public class OfficeBlue2007LAF implements ILookAndFeel {
 
+      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(OfficeBlue2007LAF.class.getName());
+
     public LookAndFeel newLAFInstance() {
-        return new SubstanceOfficeBlue2007LookAndFeel();
+        SubstanceOfficeBlue2007LookAndFeel sbslFeel = null;
+        try {
+            sbslFeel = new SubstanceOfficeBlue2007LookAndFeel();
+        } catch (Exception ex) {
+            log.error("OfficeBlue2007LAF:newLAFInstance :" + ex.getMessage());
+        } finally {
+            return sbslFeel;
+        }
     }
 
 }

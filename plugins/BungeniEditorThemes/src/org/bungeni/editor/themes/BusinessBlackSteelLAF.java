@@ -14,9 +14,17 @@ import org.jvnet.substance.skin.SubstanceBusinessBlackSteelLookAndFeel;
  * @author undesa
  */
 public class BusinessBlackSteelLAF implements ILookAndFeel {
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BusinessBlackSteelLAF.class.getName());
 
     public LookAndFeel newLAFInstance() {
-        return new SubstanceBusinessBlackSteelLookAndFeel();
+        SubstanceBusinessBlackSteelLookAndFeel sbslFeel = null;
+        try {
+            sbslFeel = new SubstanceBusinessBlackSteelLookAndFeel();
+        } catch (Exception ex) {
+            log.error("BusinessBlackSteelLAF:newLAFInstance :" + ex.getMessage());
+        } finally {
+            return sbslFeel;
+        }
     }
 
 }

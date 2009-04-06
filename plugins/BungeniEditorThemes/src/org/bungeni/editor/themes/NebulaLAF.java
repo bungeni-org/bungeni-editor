@@ -15,9 +15,19 @@ import org.jvnet.substance.skin.SubstanceNebulaLookAndFeel;
  */
 public class NebulaLAF implements ILookAndFeel {
 
-    public LookAndFeel newLAFInstance() {
-        return new SubstanceNebulaLookAndFeel();
-    }
 
+
+      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(NebulaLAF.class.getName());
+
+    public LookAndFeel newLAFInstance() {
+        SubstanceNebulaLookAndFeel sbslFeel = null;
+        try {
+            sbslFeel = new SubstanceNebulaLookAndFeel();
+        } catch (Exception ex) {
+            log.error("NebulaLAF:newLAFInstance :" + ex.getMessage());
+        } finally {
+            return sbslFeel;
+        }
+    }
     
 }

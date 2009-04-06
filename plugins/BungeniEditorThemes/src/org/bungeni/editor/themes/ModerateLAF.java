@@ -15,8 +15,16 @@ import org.jvnet.substance.skin.SubstanceModerateLookAndFeel;
  */
 public class ModerateLAF implements ILookAndFeel {
 
-    public LookAndFeel newLAFInstance() {
-        return new SubstanceModerateLookAndFeel();
-    }
+        private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ModerateLAF.class.getName());
 
+    public LookAndFeel newLAFInstance() {
+        SubstanceModerateLookAndFeel sbslFeel = null;
+        try {
+            sbslFeel = new SubstanceModerateLookAndFeel();
+        } catch (Exception ex) {
+            log.error("ModerateLAF:newLAFInstance :" + ex.getMessage());
+        } finally {
+            return sbslFeel;
+        }
+    }
 }

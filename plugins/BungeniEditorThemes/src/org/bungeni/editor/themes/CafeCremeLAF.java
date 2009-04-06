@@ -14,9 +14,18 @@ import org.jvnet.substance.skin.SubstanceCremeCoffeeLookAndFeel;
  * @author undesa
  */
 public class CafeCremeLAF implements ILookAndFeel {
-    
-    public LookAndFeel newLAFInstance() {
-        return new SubstanceCremeCoffeeLookAndFeel();
+
+      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(CafeCremeLAF.class.getName());
+
+      public LookAndFeel newLAFInstance() {
+        SubstanceCremeCoffeeLookAndFeel sbslFeel = null;
+        try {
+            sbslFeel = new SubstanceCremeCoffeeLookAndFeel();
+        } catch (Exception ex) {
+            log.error("CafeCremeLAF:newLAFInstance :" + ex.getMessage());
+        } finally {
+            return sbslFeel;
+        }
     }
 
 }

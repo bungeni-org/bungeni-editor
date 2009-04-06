@@ -15,8 +15,18 @@ import org.jvnet.substance.skin.SubstanceNebulaBrickWallLookAndFeel;
  */
 public class NebulaBrickWallLAF implements ILookAndFeel {
 
-    public LookAndFeel newLAFInstance() {
-            return new SubstanceNebulaBrickWallLookAndFeel();
-    }
+  
 
+      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(NebulaBrickWallLAF.class.getName());
+
+    public LookAndFeel newLAFInstance() {
+        SubstanceNebulaBrickWallLookAndFeel sbslFeel = null;
+        try {
+            sbslFeel = new SubstanceNebulaBrickWallLookAndFeel();
+        } catch (Exception ex) {
+            log.error("NebulaBrickWallLAF:newLAFInstance :" + ex.getMessage());
+        } finally {
+            return sbslFeel;
+        }
+    }
 }
