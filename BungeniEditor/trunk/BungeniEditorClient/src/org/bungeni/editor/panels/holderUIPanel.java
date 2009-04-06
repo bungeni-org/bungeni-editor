@@ -37,6 +37,7 @@ import javax.swing.ToolTipManager;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicTreeUI;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreePath;
 import org.bungeni.db.BungeniClientDB;
@@ -719,7 +720,7 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
      * This is the TreeCellRenderer implementation for the Editor Action toolbar
      */
     HashMap<String, BungeniToolbarConditionProcessor> conditionMap = new HashMap<String, BungeniToolbarConditionProcessor>();
-    class toolbarTreeCellRenderer extends JLabel implements TreeCellRenderer {
+    class toolbarTreeCellRenderer extends DefaultTreeCellRenderer /*JLabel implements TreeCellRenderer */ {
 
          int SECTION_ICON = 0;
          int SECTION_PLUS_ICON = 1;
@@ -759,7 +760,9 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
         }
         
         
+        @Override
         public Component getTreeCellRendererComponent(JTree tree, Object value, boolean selected, boolean expanded, boolean leaf, int row, boolean hasFocus) {
+                Component c = super.getTreeCellRendererComponent(tree, value, leaf, expanded, leaf, row, hasFocus);
                 int objectType = -1;
                 toolbarIcon currentIcon;
                 Object userObj;
@@ -767,10 +770,11 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
                     return this;
                 }
                 try {
-                   if (selected) 
-                      setOpaque(true);
-                   else
-                      setOpaque(false);
+                   //if (selected)  {
+                   //   setBackground(Color.YELLOW);
+                   //}  else {
+                   //   setOpaque(false);
+                  // }
                 
                     //for selection object the node user object is always a string
                     //if (userObj.getClass() == java.lang.String.class) 
@@ -791,25 +795,25 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
                         //if condition = something - check if the condition is valid
                         //enable the aciton only when the condition is valid
                         if (visibleAttrib == null) {
-                           nodeEnabled(theIcon, nodeProc);
+                           nodeEnabled(c, theIcon, nodeProc);
                         } else
                         if (visibleAttrib.getValue().equals("false")) {
-                            nodeDisabled(theIcon, nodeProc);
+                            nodeDisabled(c, theIcon, nodeProc);
                         } else
                         if (visibleAttrib.getValue().equals("true")) {
                             if (conditionAttrib == null ) {
                                 //no condition act as if true
-                                nodeEnabled(theIcon, nodeProc);
+                                nodeEnabled(c, theIcon, nodeProc);
                             } else if (conditionAttrib.getValue().equals("none")) {
                                 //no condition act as if true
-                                nodeEnabled(theIcon, nodeProc);
+                                nodeEnabled(c, theIcon, nodeProc);
                             } else if (conditionAttrib.getValue().length()> 0) {
                                 //other condition always evaluates to whether action should be enabeld or disabled
                                 boolean bCondition =  processActionCondition(conditionAttrib);
                                if (bCondition) {
-                                   nodeEnabled(theIcon, nodeProc);
+                                   nodeEnabled(c, theIcon, nodeProc);
                                } else {
-                                   nodeDisabled(theIcon, nodeProc);
+                                   nodeDisabled(c, theIcon, nodeProc);
                                }
                             }
                         }                    
@@ -820,11 +824,11 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
                     log.error("cellRender error: " + ex.getMessage());
                     log.error("cellRender stackTrace: "+ org.bungeni.ooo.utils.CommonExceptionUtils.getStackTrace(ex));
                 } finally {
-                return this;
+                return c;
                 }
         }
 
-        void nodeEnabled(toolbarIcon theIcon, BungeniToolbarXMLTreeNodeProcessor nodeProc) {
+        void nodeEnabled(Component c, toolbarIcon theIcon, BungeniToolbarXMLTreeNodeProcessor nodeProc) {
             nodeProc.getAdapterNode().setUserObject(treeGeneralEditorNodeState.ENABLED);
             String ttText = nodeProc.getToolTip();
             if (ttText != null) {
@@ -832,23 +836,23 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
             }
             Attribute targetAttrib = nodeProc.getAdapterNode().node.getAttribute("target");
             if (targetAttrib == null ) {
-                setForeground(this.nodeNoTargetColor);
+                c.setForeground(this.nodeNoTargetColor);
             } else if (targetAttrib.getValue().trim().equals("null")) {
-                setForeground(this.nodeNoTargetColor);
+                c.setForeground(this.nodeNoTargetColor);
             } else {
-                setForeground(nodeEnabledColor);
+                c.setForeground(nodeEnabledColor);
             }
             setText(nodeProc.getTitle());
         }
         
         
-        void nodeDisabled(toolbarIcon theIcon, BungeniToolbarXMLTreeNodeProcessor nodeProc) {
+        void nodeDisabled(Component c, toolbarIcon theIcon, BungeniToolbarXMLTreeNodeProcessor nodeProc) {
             nodeProc.getAdapterNode().setUserObject(treeGeneralEditorNodeState.DISABLED);
             String ttText = nodeProc.getToolTip();
             if (ttText != null) {
                 setToolTipText(ttText.replace('\n','-'));
             }
-            setForeground(nodeDisabledColor);
+            c.setForeground(nodeDisabledColor);
             //setIcon(theIcon.disabledIcon);
             setText(nodeProc.getTitle());
                 //this.repaint();
