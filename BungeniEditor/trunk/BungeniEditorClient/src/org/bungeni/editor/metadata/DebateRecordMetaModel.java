@@ -13,6 +13,8 @@ public class DebateRecordMetaModel extends BaseEditorDocMetaModel {
     public DebateRecordMetaModel(){
         super();
     }
+
+     
     
     @Override
     public void setup(){
@@ -22,6 +24,6 @@ public class DebateRecordMetaModel extends BaseEditorDocMetaModel {
         this.docMeta.put("BungeniParliamentSession", "");
         this.docMeta.put("BungeniDebateOfficialDate", "");
         this.docMeta.put("BungeniDebateOfficialTime", "");
-        this.docMeta.put("__BungeniDocMeta", "false");
+       // this.docMeta.put("__BungeniDocMeta", "false");
     }
 }

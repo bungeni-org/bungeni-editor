@@ -9,7 +9,6 @@
 
 package org.bungeni.editor.metadata;
 
-import com.sun.star.beans.UnknownPropertyException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Vector;
@@ -45,15 +44,6 @@ public class DocumentMetadataSupplier {
    
     public int getVisibleCount(){
         return metadataMap.size();
-        /*int counter = 0;
-        Iterator keyIterator = metadataMap.keySet().iterator();
-        while (keyIterator.hasNext()) {
-             String key = (String) keyIterator.next();
-             DocumentMetadata metadata = metadataMap.get(key);
-             if (metadata.IsVisible())
-                 counter++;
-        }
-        return counter;*/
     }
     
     public DocumentMetadata[] getDocumentMetadata(){
@@ -132,7 +122,8 @@ public class DocumentMetadataSupplier {
     
     private void initDocumentMetadataVariables () {
         try {
-        String query = SettingsQueryFactory.Q_FETCH_DOCUMENT_METADATA_VARIABLES();
+        //fetch only visible metadata
+        String query = SettingsQueryFactory.Q_FETCH_DOCUMENT_METADATA_VARIABLES("1");
        //ArrayList<DocumentMetadata> arrayMeta = new ArrayList<DocumentMetadata>();
         log.debug("getDocumentMetadataVariables :query = "+ query);
         String settingsInstance = DefaultInstanceFactory.DEFAULT_INSTANCE();
@@ -152,17 +143,6 @@ public class DocumentMetadataSupplier {
            for (int i = 0 ; i < resultRows.size(); i++ ) {
                    //get the results row by row into a string vector
                    tableRow = resultRows.elementAt(i);
-                   /*
-                   String metaName = tableRow.elementAt(METADATA_NAME_COLUMN);
-                   log.debug("fetching metaName = "+ metaName);
-                   String metaDataType = tableRow.elementAt(METADATA_DATATYPE_COLUMN);
-                   String metaType = tableRow.elementAt(METADATA_TYPE_COLUMN);
-                   //metadata display name deprecated from database.. moved to properties file... 
-                   //String metaDisplay = tableRow.elementAt(METADATA_DISPLAYNAME_COLUMN);
-                   String metaDisplay = org.bungeni.utils.CommonResourceBundleHelperFunctions.getDocMetaString(metaName);
-                   String visible = tableRow.elementAt(METADATA_VISIBLE_COLUMN);
-                   String tableConfig = tableRow.elementAt(METADATA_TABLE_CONFIG);
-                   DocumentMetadata meta = new DocumentMetadata(metaName, metaType , metaDataType, metaDisplay, Integer.parseInt(visible), tableConfig);*/
                    DocumentMetadata meta = convertVectorToDocumentMetadata(tableRow);
                    this.metadataMap.put (meta.getName(), meta);
                   // arrayMeta.add(meta);
