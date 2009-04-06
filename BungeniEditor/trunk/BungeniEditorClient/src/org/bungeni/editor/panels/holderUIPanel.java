@@ -61,6 +61,7 @@ import org.bungeni.editor.toolbar.BungeniToolbarTargetProcessor;
 import org.bungeni.editor.toolbar.BungeniToolbarXMLAdapterNode;
 import org.bungeni.editor.toolbar.BungeniToolbarXMLTreeNodeProcessor;
 import org.bungeni.editor.toolbar.conditions.BungeniToolbarConditionProcessor;
+import org.bungeni.extutils.CommonDocumentUtilFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
@@ -224,6 +225,26 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
          ImageIcon minusIcon = CommonTreeFunctions.treeMinusIcon();
          ImageIcon plusIcon = CommonTreeFunctions.treePlusIcon();
          sectionStructureTree.setCellRenderer(new treeViewPrettySectionsTreeCellRenderer());
+         sectionStructureTree.addMouseListener(new MouseAdapter(){
+            @Override
+                 public void mousePressed(MouseEvent evt) {
+                    if (evt.getClickCount() == 2)  {
+                        TreePath selPath = sectionStructureTree.getPathForLocation(evt.getX(), evt.getY());
+                        if (selPath != null ) {
+                            Object node = selPath.getLastPathComponent();
+                            DefaultMutableTreeNode dmt = (DefaultMutableTreeNode) node;
+                            Object userObject = dmt.getUserObject();
+                            if (userObject.getClass().getName().equals(BungeniBNode.class.getName())) {
+                                BungeniBNode bNode = (BungeniBNode) userObject;
+                                String sectionName = bNode.getName();
+                                if (ooDocument.hasSection(sectionName)) {
+                                    CommonDocumentUtilFunctions.selectSection(ooDocument, sectionName);
+                                }
+                            }
+                        }
+                    }
+                 }
+         });
          sectionStructureTree.setShowsRootHandles(true);
          ComponentUI treeui = sectionStructureTree.getUI();
          if (treeui instanceof BasicTreeUI){
