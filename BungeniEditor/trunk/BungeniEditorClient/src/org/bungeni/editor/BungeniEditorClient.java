@@ -7,7 +7,6 @@
 
 package org.bungeni.editor;
 
-import org.bungeni.editor.ui.BungeniUIManager;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -16,10 +15,12 @@ import java.io.IOException;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 import org.bungeni.editor.dialogs.editorApplicationController;
 import org.bungeni.editor.interfaces.ui.ILookAndFeel;
 import org.bungeni.editor.ui.LookAndFeelFactory;
+import org.bungeni.ooo.utils.CommonExceptionUtils;
 
 /**
  *
@@ -85,12 +86,15 @@ public class BungeniEditorClient {
             //instantiate the look and feel
             //LookAndFeel laf = new CafeCremeLAF();
             ILookAndFeel iFeel = LookAndFeelFactory.getDefaultLookAndFeel();
-            UIManager.setLookAndFeel(iFeel.newLAFInstance());
+            LookAndFeel lafInstance = iFeel.newLAFInstance();
+            if (lafInstance == null) log.error("lafInstance is null");
+            UIManager.setLookAndFeel(lafInstance);
             //override theme colors if required
-            BungeniUIManager bungeniUI = new BungeniUIManager();
-            bungeniUI.loadBungeniUI();
+          //  BungeniUIManager bungeniUI = new BungeniUIManager();
+          //  bungeniUI.loadBungeniUI();
         } catch (Exception ex) {
             log.error("initUI : " + ex.getMessage());
+            log.error("InitUI : " + CommonExceptionUtils.getStackTrace(ex));
         }
     }
 
