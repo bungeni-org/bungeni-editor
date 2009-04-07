@@ -5,14 +5,18 @@
 
 package org.bungeni.extutils;
 
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
+import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
+ * Extended JFrame class that abstracts regular boiler plate code for Bungeni Frames
  *
- * @author undesa
+ * @author Ashok Hariharan
  */
 public class BungeniFrame extends JFrame {
 
@@ -20,7 +24,7 @@ public class BungeniFrame extends JFrame {
         public static boolean BUNGENIFRAME_RESIZABLE = true;
         public static boolean BUNGENIFRAME_ALWAYS_ON_TOP = false;
 
-
+      
         public BungeniFrame(){
             super();
             setIconForFrame();
@@ -42,6 +46,29 @@ public class BungeniFrame extends JFrame {
            setIconImage(iconApp.getImage());
 
         }
+
+        /**
+         * Removes the min / max / close buttons used by the frames
+         */
+        public void removeMinMaxClose() {
+            removeMinMaxClose(this);
+        }
+
+        private void removeMinMaxClose(Component comp) {
+             if(comp instanceof AbstractButton)
+             {
+               AbstractButton btn = (AbstractButton) comp;
+               comp.getParent().remove(comp);
+             }
+             if (comp instanceof Container)
+             {
+               Component[] comps = ((Container)comp).getComponents();
+               for(int x = 0, y = comps.length; x < y; x++)
+               {
+                 removeMinMaxClose(comps[x]);
+               }
+             }
+       }
 
         /**
          * API to launch a frame with a panel and of a particular size
