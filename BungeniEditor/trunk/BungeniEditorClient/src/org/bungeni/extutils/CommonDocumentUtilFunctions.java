@@ -5,6 +5,9 @@
 
 package org.bungeni.extutils;
 
+import com.sun.star.text.XTextRange;
+import com.sun.star.text.XTextSection;
+import com.sun.star.text.XTextViewCursor;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -30,7 +33,18 @@ public class CommonDocumentUtilFunctions {
         }
       return sName; 
     } 
-    
+
+    public static void selectSection (OOComponentHelper ooDocument, String sectionName) {
+        if (ooDocument.hasSection(sectionName)) {
+            XTextViewCursor xCursor = ooDocument.getViewCursor();
+            XTextSection xSection = ooDocument.getSection(sectionName);
+            XTextRange sectionRange = xSection.getAnchor();
+            //clear any existing selections
+            xCursor.gotoRange(sectionRange.getStart(), false);
+            xCursor.gotoRange(sectionRange, true);
+        }
+    }
+
     public static String getUniqueReferenceName(String prefixName, OOComponentHelper ooDocument) {
         String sName = "";
         for (;;) {
