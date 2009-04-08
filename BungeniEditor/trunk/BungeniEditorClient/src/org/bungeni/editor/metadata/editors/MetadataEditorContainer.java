@@ -97,6 +97,7 @@ public class MetadataEditorContainer extends JPanel {
         }
     }
 
+
         /**
      * Results iterator for retrieving metadata model info
      */
@@ -117,7 +118,30 @@ public class MetadataEditorContainer extends JPanel {
         return this;
     }
         
- 
+
+    ArrayList<String> formErrors = new ArrayList<String>(0);
+
+    /**
+     * validateSelectedMetadata
+     * @param m_spf
+     * @return
+     */
+    private boolean validateSelectedMetadata(BungeniFileSavePathFormat m_spf) {
+        boolean bState = false;
+        try {
+            formErrors.clear();
+            //iterate through the tabs and apply them individually
+            for (IEditorDocMetadataDialog mTab : this.metaTabs) {
+                formErrors.addAll(mTab.validateSelectedMetadata(m_spf));
+            }
+
+        } catch (Exception ex) {
+
+        } finally {
+            return (formErrors.size() > 0)? false: true;
+        }
+    }
+
     
    
     
@@ -328,10 +352,18 @@ private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 // TODO add your handling code here:
    //APPLY SELECTED METADATA... 
   //  BungeniFileSavePathFormat spf = new BungeniFileSavePathFormat();
-    if (applySelectedMetadata(m_spf)) {
-        if (saveDocumentToDisk(m_spf)) {
-            parentFrame.dispose();
+    if (validateSelectedMetadata(m_spf)) {
+        if (applySelectedMetadata(m_spf)) {
+            if (saveDocumentToDisk(m_spf)) {
+                parentFrame.dispose();
+            }
         }
+    } else {
+        StringBuffer bf = new StringBuffer();
+        for (String msg : formErrors) {
+                bf.append(msg + "\n");
+        }
+        MessageBox.OK(this.parentFrame, bf.toString());
     }
 }//GEN-LAST:event_btnSaveActionPerformed
 

@@ -6,7 +6,6 @@
 
 package org.bungeni.editor.metadata.editors;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.text.ParseException;
@@ -16,6 +15,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.TreeMap;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import org.bungeni.db.BungeniClientDB;
@@ -24,7 +24,6 @@ import org.bungeni.db.QueryResults;
 import org.bungeni.db.RegistryQueryFactory;
 import org.bungeni.db.registryQueryDialog2;
 import org.bungeni.ooo.ooDocMetadataFieldSet;
-import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
 import org.bungeni.editor.metadata.JudgementMetadataModel;
 import org.bungeni.editor.metadata.TabularMetadataLoader;
@@ -216,10 +215,10 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
 
         tabbedJudges = new javax.swing.JTabbedPane();
         panelJudgementInfo = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        lblBillName = new javax.swing.JLabel();
+        lblJudgementNo = new javax.swing.JLabel();
+        lblCaseNo = new javax.swing.JLabel();
         txtCaseNo = new javax.swing.JTextField();
-        lblBillName1 = new javax.swing.JLabel();
+        lblJudgementDate = new javax.swing.JLabel();
         dt_judgement_date = new org.jdesktop.swingx.JXDatePicker();
         txtJudgementNo = new javax.swing.JTextField();
         btnSelectJudgementNo = new javax.swing.JButton();
@@ -227,31 +226,31 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
         scrollJudges = new javax.swing.JScrollPane();
         tblJudges = new javax.swing.JTable();
         btnAddJudge = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        panelParties = new javax.swing.JPanel();
         scrollJudges1 = new javax.swing.JScrollPane();
         tblParties = new javax.swing.JTable();
         btnAddParty = new javax.swing.JButton();
 
-        tabbedJudges.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        tabbedJudges.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
-        jLabel11.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        jLabel11.setText("Judgement No.");
+        lblJudgementNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
-        lblBillName.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        lblBillName.setText("Case No.");
+        lblCaseNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle"); // NOI18N
+        lblCaseNo.setText(bundle.getString("Case_No")); // NOI18N
 
-        txtCaseNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        txtCaseNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
-        lblBillName1.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        lblBillName1.setText("Judgement Date");
+        lblJudgementDate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        lblJudgementDate.setText(bundle.getString("Judgement_Date")); // NOI18N
 
         dt_judgement_date.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
         txtJudgementNo.setEditable(false);
-        txtJudgementNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        txtJudgementNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
         btnSelectJudgementNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnSelectJudgementNo.setText("Select..");
+        btnSelectJudgementNo.setText(bundle.getString("Select_dotdot")); // NOI18N
         btnSelectJudgementNo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSelectJudgementNoActionPerformed(evt);
@@ -271,9 +270,9 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
                         .addComponent(btnSelectJudgementNo))
                     .addGroup(panelJudgementInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(txtCaseNo, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblBillName1, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblBillName, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblJudgementDate, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblJudgementNo, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblCaseNo, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(dt_judgement_date, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
@@ -281,24 +280,24 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
             panelJudgementInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelJudgementInfoLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(jLabel11)
+                .addComponent(lblJudgementNo)
                 .addGap(4, 4, 4)
                 .addGroup(panelJudgementInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSelectJudgementNo)
                     .addGroup(panelJudgementInfoLayout.createSequentialGroup()
                         .addComponent(txtJudgementNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblBillName)
+                        .addComponent(lblCaseNo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCaseNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(9, 9, 9)
-                        .addComponent(lblBillName1)
+                        .addComponent(lblJudgementDate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dt_judgement_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
 
-        tabbedJudges.addTab("Judgement Info", panelJudgementInfo);
+        tabbedJudges.addTab(bundle.getString("JudgementMetadata3.panelJudgementInfo.TabConstraints.tabTitle"), panelJudgementInfo); // NOI18N
 
         tblJudges.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         tblJudges.setModel(new javax.swing.table.DefaultTableModel(
@@ -315,7 +314,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
         scrollJudges.setViewportView(tblJudges);
 
         btnAddJudge.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnAddJudge.setText("Add Judge");
+        btnAddJudge.setText(bundle.getString("Add_Judge")); // NOI18N
         btnAddJudge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddJudgeActionPerformed(evt);
@@ -343,7 +342,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
                 .addContainerGap(127, Short.MAX_VALUE))
         );
 
-        tabbedJudges.addTab("Judges", panelJudges);
+        tabbedJudges.addTab(bundle.getString("JudgementMetadata3.panelJudges.TabConstraints.tabTitle"), panelJudges); // NOI18N
 
         tblParties.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         tblParties.setModel(new javax.swing.table.DefaultTableModel(
@@ -360,27 +359,27 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
         scrollJudges1.setViewportView(tblParties);
 
         btnAddParty.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnAddParty.setText("Add Party");
+        btnAddParty.setText(bundle.getString("Add_Party")); // NOI18N
         btnAddParty.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddPartyActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelPartiesLayout = new javax.swing.GroupLayout(panelParties);
+        panelParties.setLayout(panelPartiesLayout);
+        panelPartiesLayout.setHorizontalGroup(
+            panelPartiesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPartiesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelPartiesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollJudges1, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
                     .addComponent(btnAddParty))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        panelPartiesLayout.setVerticalGroup(
+            panelPartiesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPartiesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnAddParty)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -388,7 +387,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
                 .addContainerGap(124, Short.MAX_VALUE))
         );
 
-        tabbedJudges.addTab("Parties", jPanel1);
+        tabbedJudges.addTab(bundle.getString("JudgementMetadata3.panelParties.TabConstraints.tabTitle"), panelParties); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -404,7 +403,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
 
 private void btnAddJudgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddJudgeActionPerformed
 // TODO add your handling code here:
-        rqs = new registryQueryDialog2("Select A Judge", "Select FIRST_NAME, LAST_NAME , URI from JUDGES order by LAST_NAME", parentFrame);
+        rqs = new registryQueryDialog2(java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle").getString("Select_A_Judge"), "Select FIRST_NAME, LAST_NAME , URI from JUDGES order by LAST_NAME", parentFrame);
         rqs.setMultiSelect(true);
         rqs.show();
         Vector selectionData = rqs.getData();
@@ -419,7 +418,7 @@ private void btnAddJudgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 private void btnSelectJudgementNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectJudgementNoActionPerformed
         try {
 // TODO add your handling code here:
-            rqs = new registryQueryDialog2("Select A Judgement No", RegistryQueryFactory.Q_FETCH_JUDGEMENTS(), parentFrame);
+            rqs = new registryQueryDialog2(java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle").getString("Select_A_Judgement_No"), RegistryQueryFactory.Q_FETCH_JUDGEMENTS(), parentFrame);
             rqs.setMultiSelect(false);
             rqs.show();
             if (rqs.applyClicked()) {
@@ -450,12 +449,12 @@ private void btnAddPartyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JButton btnAddParty;
     private javax.swing.JButton btnSelectJudgementNo;
     private org.jdesktop.swingx.JXDatePicker dt_judgement_date;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblBillName;
-    private javax.swing.JLabel lblBillName1;
+    private javax.swing.JLabel lblCaseNo;
+    private javax.swing.JLabel lblJudgementDate;
+    private javax.swing.JLabel lblJudgementNo;
     private javax.swing.JPanel panelJudgementInfo;
     private javax.swing.JPanel panelJudges;
+    private javax.swing.JPanel panelParties;
     private javax.swing.JScrollPane scrollJudges;
     private javax.swing.JScrollPane scrollJudges1;
     private javax.swing.JTabbedPane tabbedJudges;
@@ -558,7 +557,19 @@ private void btnAddPartyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         
     }
 
-   
+       @Override
+     public ArrayList<String> validateSelectedMetadata(BungeniFileSavePathFormat spf) {
+         addFieldsToValidate (new TreeMap<String,Component>(){
+            {
+                put(lblJudgementNo.getText(), txtJudgementNo);
+                put(lblCaseNo.getText(), txtCaseNo);
+                put(lblJudgementDate.getText(), dt_judgement_date);
+            }
+            });
+        return super.validateSelectedMetadata(spf);
+     }
+
+
 
 
 }

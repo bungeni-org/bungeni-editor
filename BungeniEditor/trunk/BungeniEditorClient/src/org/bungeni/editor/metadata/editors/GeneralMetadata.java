@@ -6,17 +6,24 @@
 
 package org.bungeni.editor.metadata.editors;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.TreeMap;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFormattedTextField;
 import javax.swing.JSpinner;
+import javax.swing.JSpinner.DateEditor;
+import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
+import javax.swing.SwingUtilities;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
@@ -103,12 +110,33 @@ public class GeneralMetadata extends BaseEditorDocMetadataDialog {
         cboCountry.setModel(new DefaultComboBoxModel(countryCodes.toArray()));
         cboLanguage.setModel(new DefaultComboBoxModel(languageCodes.toArray()));
         cboDocumentPart.setModel(new DefaultComboBoxModel(documentParts.toArray()));
-         dt_official_time.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.HOUR));
+        dt_official_time.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.HOUR));
         dt_official_time.setEditor(new JSpinner.DateEditor(dt_official_time, BungeniEditorProperties.getEditorProperty("metadataTimeFormat")));
-        ((JSpinner.DefaultEditor)dt_official_time.getEditor()).getTextField().setEditable(false);
+        ((DateEditor)dt_official_time.getEditor()).getTextField().addFocusListener(new FocusAdapter(){
+            @Override
+            public void focusGained(FocusEvent e) {
+                 Component c = e.getComponent();
+                 if (c instanceof JFormattedTextField) {
+                     selectItLater(c);
+                 } else if (c instanceof JTextField) {
+                     ((JTextField)c).selectAll();
+                 }
+            }
+        });
+
  
     }
-    
+
+    protected void selectItLater(Component c) {
+        if (c instanceof JFormattedTextField) {
+            final JFormattedTextField ftf = (JFormattedTextField) c;
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    ftf.selectAll();
+                }
+            });
+        }
+    }
     
     
 public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
@@ -201,24 +229,25 @@ private final static String STORE_AS_URL = "StoreAsURL";
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
+        lblLanguage = new javax.swing.JLabel();
         cboLanguage = new javax.swing.JComboBox();
         cboCountry = new javax.swing.JComboBox();
-        jLabel1 = new javax.swing.JLabel();
+        lblCountry = new javax.swing.JLabel();
         cboDocumentPart = new javax.swing.JComboBox();
-        jLabel8 = new javax.swing.JLabel();
+        lblDocumentPart = new javax.swing.JLabel();
         dt_publication_date = new org.jdesktop.swingx.JXDatePicker();
-        jLabel9 = new javax.swing.JLabel();
+        lblPublicationDate = new javax.swing.JLabel();
         txtPublicationName = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
+        lblPublicationName = new javax.swing.JLabel();
         dt_official_date = new org.jdesktop.swingx.JXDatePicker();
-        jLabel14 = new javax.swing.JLabel();
+        lblOfficialDate = new javax.swing.JLabel();
         dt_official_time = new javax.swing.JSpinner();
-        jLabel15 = new javax.swing.JLabel();
+        lblOfficialTime = new javax.swing.JLabel();
 
-        jLabel2.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        jLabel2.setText("Language");
-        jLabel2.setName("lbl.BungeniLanguageID"); // NOI18N
+        lblLanguage.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle"); // NOI18N
+        lblLanguage.setText(bundle.getString("GeneralMetadata.lblLanguage.text")); // NOI18N
+        lblLanguage.setName("lbl.BungeniLanguageID"); // NOI18N
 
         cboLanguage.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         cboLanguage.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -228,34 +257,34 @@ private final static String STORE_AS_URL = "StoreAsURL";
         cboCountry.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboCountry.setName("fld.BungeniCountryCode"); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        jLabel1.setText("Country");
-        jLabel1.setName("lbl.BungeniCountryCode"); // NOI18N
+        lblCountry.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblCountry.setText(bundle.getString("GeneralMetadata.lblCountry.text")); // NOI18N
+        lblCountry.setName("lbl.BungeniCountryCode"); // NOI18N
 
         cboDocumentPart.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         cboDocumentPart.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel8.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        jLabel8.setText("Document Part");
-        jLabel8.setName("lbl.BungeniLanguageID"); // NOI18N
+        lblDocumentPart.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        lblDocumentPart.setText(bundle.getString("GeneralMetadata.lblDocumentPart.text")); // NOI18N
+        lblDocumentPart.setName("lbl.BungeniLanguageID"); // NOI18N
 
         dt_publication_date.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
-        jLabel9.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        jLabel9.setText("Publication Date");
+        lblPublicationDate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        lblPublicationDate.setText(bundle.getString("GeneralMetadata.lblPublicationDate.text")); // NOI18N
 
         txtPublicationName.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
-        jLabel10.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        jLabel10.setText("Publication Name");
+        lblPublicationName.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        lblPublicationName.setText(bundle.getString("GeneralMetadata.lblPublicationName.text")); // NOI18N
 
         dt_official_date.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
-        jLabel14.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        jLabel14.setText("Date");
+        lblOfficialDate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        lblOfficialDate.setText(bundle.getString("GeneralMetadata.lblOfficialDate.text")); // NOI18N
 
-        jLabel15.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        jLabel15.setText("Time");
+        lblOfficialTime.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        lblOfficialTime.setText(bundle.getString("GeneralMetadata.lblOfficialTime.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -264,32 +293,32 @@ private final static String STORE_AS_URL = "StoreAsURL";
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDocumentPart, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cboDocumentPart, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
+                            .addComponent(lblCountry)
                             .addComponent(cboCountry, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
+                            .addComponent(lblLanguage)
                             .addComponent(cboLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dt_publication_date, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblPublicationDate, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPublicationName, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPublicationName, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14)
+                            .addComponent(lblOfficialDate)
                             .addComponent(dt_official_date, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dt_official_time, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15))))
+                            .addComponent(lblOfficialTime))))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -298,35 +327,35 @@ private final static String STORE_AS_URL = "StoreAsURL";
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblCountry, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cboCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cboLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(10, 10, 10)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblDocumentPart, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cboDocumentPart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblPublicationDate, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dt_publication_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblPublicationName, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtPublicationName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel14)
+                        .addComponent(lblOfficialDate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dt_official_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel15)
+                        .addComponent(lblOfficialTime)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dt_official_time, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(85, Short.MAX_VALUE))
@@ -341,13 +370,13 @@ private final static String STORE_AS_URL = "StoreAsURL";
     private org.jdesktop.swingx.JXDatePicker dt_official_date;
     private javax.swing.JSpinner dt_official_time;
     private org.jdesktop.swingx.JXDatePicker dt_publication_date;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel lblCountry;
+    private javax.swing.JLabel lblDocumentPart;
+    private javax.swing.JLabel lblLanguage;
+    private javax.swing.JLabel lblOfficialDate;
+    private javax.swing.JLabel lblOfficialTime;
+    private javax.swing.JLabel lblPublicationDate;
+    private javax.swing.JLabel lblPublicationName;
     private javax.swing.JTextField txtPublicationName;
     // End of variables declaration//GEN-END:variables
 
@@ -357,6 +386,19 @@ private final static String STORE_AS_URL = "StoreAsURL";
     public Dimension getFrameSize() {
         int DIM_X = 347 ; int DIM_Y = 294 ;
         return new Dimension(DIM_X, DIM_Y + 10);
+    }
+
+    @Override
+    public ArrayList<String> validateSelectedMetadata(BungeniFileSavePathFormat spf) {
+         addFieldsToValidate (new TreeMap<String,Component>(){
+            {
+                put("Publication Date", dt_publication_date );
+                put("Publication Name", txtPublicationName);
+                put ("Official Date", dt_official_date);
+                put ("Official Time", dt_official_time);
+            }
+            });
+        return super.validateSelectedMetadata(spf);
     }
 
 
