@@ -1,15 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.bungeni.utils;
-
-import org.bungeni.utils.BungeniBNode;
 
 /**
  *
- * @author undesa
+ * @author Ashok Hariharan
  */
 public interface INodeSetterCallback {
     public void setName(String name);
