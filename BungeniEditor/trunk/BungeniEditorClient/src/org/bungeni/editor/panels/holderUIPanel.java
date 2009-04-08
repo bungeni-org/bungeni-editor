@@ -514,32 +514,34 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
     /**
      *
      */
-    class treeViewPrettySectionsTreeCellRenderer extends JLabel implements TreeCellRenderer {
+    class treeViewPrettySectionsTreeCellRenderer extends DefaultTreeCellRenderer {
         Color bgColor = new java.awt.Color(232, 255, 175);
         Color bgColorSelect = new java.awt.Color(207, 242, 255);
         treeViewPrettySectionsTreeCellRenderer(){
-            setOpaque(true);
+           // setOpaque(true);
         }
         
+        @Override
         public Component getTreeCellRendererComponent(JTree tree, Object value, boolean selected, boolean expanded, boolean leaf, int row, boolean hasFocus) {
-            setText(value.toString());
+           Component c = super.getTreeCellRendererComponent(tree, value, selected, expanded, leaf, row, hasFocus);
+           setFont (TREE_LABEL_FONT);
+           setText(value.toString());
             if (value instanceof DefaultMutableTreeNode) {
                   DefaultMutableTreeNode uo = (DefaultMutableTreeNode)value;
                   Object uoObj = uo.getUserObject();
                   if (uoObj.getClass() == org.bungeni.utils.BungeniBNode.class) {
                       BungeniBNode aNode = (BungeniBNode) uoObj;
-                      
                       if (aNode.getName().equals(m_currentSelectedSectionName)) {
                           //setBorder(selBorder);
-                          setBackground(bgColor);
+                          c.setBackground(bgColor);
                       } else if (selected) {
-                            setBackground(bgColorSelect);
+                          c.setBackground(bgColorSelect);
                       }  else {
-                          setBackground(null);
+                          c.setBackground(null);
                       }
                   }
             }
-            return this;
+            return c;
         }
         
     }
@@ -735,7 +737,9 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
             }
     
     }
-         
+
+    private static final Font TREE_LABEL_FONT = new Font("Tahoma", Font.PLAIN, 11);
+
     enum treeGeneralEditorNodeState {ENABLED, DISABLED};
     /**
      * This is the TreeCellRenderer implementation for the Editor Action toolbar
@@ -748,7 +752,7 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
          int MARKUP_ICON = 2;
          int TOPLEVEL_ICON=3;
          int DISABLED_ICON=4;
-         Font labelFont = new Font("Tahoma", Font.PLAIN, 11);
+         Font labelFont = TREE_LABEL_FONT;
          Color nodeEnabledColor = null;
          Color nodeDisabledColor = null;
          Color nodeNoTargetColor = null;
