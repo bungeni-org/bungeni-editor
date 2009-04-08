@@ -235,14 +235,14 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
 
         lblJudgementNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
-        lblCaseNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        lblCaseNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle"); // NOI18N
-        lblCaseNo.setText(bundle.getString("Case_No")); // NOI18N
+        lblCaseNo.setText(bundle.getString("JudgementMetadata3.lblCaseNo.text")); // NOI18N
 
         txtCaseNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
-        lblJudgementDate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        lblJudgementDate.setText(bundle.getString("Judgement_Date")); // NOI18N
+        lblJudgementDate.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblJudgementDate.setText(bundle.getString("JudgementMetadata3.lblJudgementDate.text")); // NOI18N
 
         dt_judgement_date.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
@@ -294,7 +294,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
                         .addComponent(lblJudgementDate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dt_judgement_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
 
         tabbedJudges.addTab(bundle.getString("JudgementMetadata3.panelJudgementInfo.TabConstraints.tabTitle"), panelJudgementInfo); // NOI18N
