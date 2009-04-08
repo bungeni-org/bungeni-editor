@@ -54,29 +54,20 @@
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="lblCurrentMode" alignment="0" max="32767" attributes="1"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                      <Component id="lblSwitchTag" min="-2" pref="85" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="cboSwitchTabs" pref="132" max="32767" attributes="0"/>
+                      <Component id="btnBringToFront" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="lblCurrentMode" alignment="0" max="32767" attributes="1"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="btnBringToFront" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnOpenDocument" min="-2" pref="56" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnNewDocument" min="-2" pref="55" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnSaveDocument" min="-2" pref="52" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="btnOpenDocument" min="-2" pref="56" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnNewDocument" min="-2" pref="55" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnSaveDocument" min="-2" pref="52" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace pref="32" max="32767" attributes="0"/>
           </Group>
-          <Component id="jTabsContainer" alignment="0" pref="267" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <Component id="lblSecName" min="-2" pref="134" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -87,6 +78,7 @@
               <Component id="btnEdit" min="-2" pref="54" max="-2" attributes="0"/>
           </Group>
           <Component id="jScrollPane1" alignment="0" pref="267" max="32767" attributes="0"/>
+          <Component id="jTabsContainer" alignment="0" pref="267" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -105,12 +97,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="lblCurrentMode" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblSwitchTag" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cboSwitchTabs" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jTabsContainer" min="-2" pref="329" max="-2" attributes="0"/>
+              <Component id="jTabsContainer" min="-2" pref="355" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="lblSecName" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -197,29 +184,6 @@
           <Color blue="0" green="0" id="red" palette="1" red="ff" type="palette"/>
         </Property>
         <Property name="text" type="java.lang.String" value="CURRENT MODE : %s"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="cboSwitchTabs">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="DejaVu Sans" size="11" style="0"/>
-        </Property>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-          </StringArray>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblSwitchTag">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="DejaVu Sans" size="11" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Switch Tabs :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnNewDocument">

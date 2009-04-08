@@ -179,7 +179,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
        //initTableDocMetadata();
        initTabbedPanes();
        initModeLabel();
-       initSwitchTabs();
+       //initSwitchTabs();
        initSectionMetadataDisplay();
     //   initExternalPlugins();
        
@@ -396,8 +396,12 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         labelText = labelText.replaceAll("%s", BungeniEditorPropertiesHelper.getCurrentDocType());
         this.lblCurrentMode.setText(labelText);
     }
-    
+
+    /**
+     * Depreacted function - as combobox tab switching has been removed.
+     */
     private void initSwitchTabs(){
+        /*
         int iTabs = jTabsContainer.getTabCount();
         String[] tabs = new String[iTabs];
         for (int i=0; i < iTabs; i++) {
@@ -410,6 +414,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
                jTabsContainer.setSelectedIndex(iSelect);
             }
         });
+        */
         
     }
     
@@ -571,8 +576,6 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         btnBringToFront = new javax.swing.JButton();
         btnOpenDocument = new javax.swing.JButton();
         lblCurrentMode = new javax.swing.JLabel();
-        cboSwitchTabs = new javax.swing.JComboBox();
-        lblSwitchTag = new javax.swing.JLabel();
         btnNewDocument = new javax.swing.JButton();
         btnSaveDocument = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -587,7 +590,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
 
         setFont(new java.awt.Font("Tahoma", 0, 10));
 
-        jTabsContainer.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jTabsContainer.setFont(new java.awt.Font("Tahoma", 0, 10));
 
         cboListDocuments.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         cboListDocuments.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -616,12 +619,6 @@ public class editorTabbedPanel extends javax.swing.JPanel {
 
         lblCurrentMode.setForeground(java.awt.Color.red);
         lblCurrentMode.setText("CURRENT MODE : %s");
-
-        cboSwitchTabs.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
-        cboSwitchTabs.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        lblSwitchTag.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
-        lblSwitchTag.setText("Switch Tabs :");
 
         btnNewDocument.setFont(new java.awt.Font("DejaVu Sans", 0, 9));
         btnNewDocument.setText("New");
@@ -679,24 +676,17 @@ public class editorTabbedPanel extends javax.swing.JPanel {
                 .add(cboListDocuments, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 235, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .add(8, 8, 8)
-                        .add(lblSwitchTag, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(18, 18, 18)
-                        .add(cboSwitchTabs, 0, 132, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, lblCurrentMode, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                            .add(btnBringToFront)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(btnOpenDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 56, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(btnNewDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(btnSaveDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 52, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
-            .add(jTabsContainer, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, lblCurrentMode, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                        .add(btnBringToFront)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(btnOpenDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 56, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(btnNewDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(btnSaveDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 52, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(32, Short.MAX_VALUE))
             .add(layout.createSequentialGroup()
                 .add(lblSecName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 134, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -705,6 +695,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 79, Short.MAX_VALUE)
                 .add(btnEdit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 54, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
             .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+            .add(jTabsContainer, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -721,11 +712,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(lblCurrentMode)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(lblSwitchTag)
-                    .add(cboSwitchTabs, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jTabsContainer, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 329, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jTabsContainer, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 355, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(lblSecName)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -1084,7 +1071,6 @@ private void launchMetadataSetter(XComponent xComp){
     private javax.swing.JButton btnOpenDocument;
     private javax.swing.JButton btnSaveDocument;
     private javax.swing.JComboBox cboListDocuments;
-    private javax.swing.JComboBox cboSwitchTabs;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1095,7 +1081,6 @@ private void launchMetadataSetter(XComponent xComp){
     private javax.swing.JLabel lblCurrentlyOpenDocuments;
     private javax.swing.JLabel lblDisplaySectionName;
     private javax.swing.JLabel lblSecName;
-    private javax.swing.JLabel lblSwitchTag;
     private javax.swing.JTable tblSectionmeta;
     // End of variables declaration//GEN-END:variables
 
