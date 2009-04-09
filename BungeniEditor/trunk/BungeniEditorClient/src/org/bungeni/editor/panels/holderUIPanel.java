@@ -17,6 +17,9 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -28,7 +31,6 @@ import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
@@ -38,7 +40,6 @@ import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicTreeUI;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
-import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreePath;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
@@ -214,7 +215,27 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
         //for note above about firenodeschanged, this has been implemented but works for model refresh ==> tree update.
         //but does not reflect in case of document cursor changes ==> reflecting back to the tree, as this requires a full iteration 
         //of the tree again. so for now implemented both as a treeTimer and fireNodeschanged event refresh
-        ToolTipManager.sharedInstance().registerComponent(toolbarTree);       
+        ToolTipManager.sharedInstance().registerComponent(toolbarTree);
+        this.addKeyListener(new KeyAdapter(){
+
+                @Override
+                public void keyTyped(KeyEvent e) {
+                    e.consume();
+                }
+
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    System.out.println("the key " + e.getKeyChar() + " was pressed");
+                    if (e.getKeyChar() == '*') {
+                        System.out.println("* was pressed");
+                        TreePath selectionPath = toolbarTree.getSelectionPath();
+                        if (selectionPath != null) {
+
+                        }
+                    }
+                }
+
+        });
         } catch (Exception ex) {
             log.error("initTree: "+ ex.getMessage());
         }
