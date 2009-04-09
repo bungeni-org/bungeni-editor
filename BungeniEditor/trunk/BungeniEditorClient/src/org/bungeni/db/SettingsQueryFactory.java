@@ -73,13 +73,13 @@ public class SettingsQueryFactory {
                return query;
     }
     
-    public static String Q_FETCH_DOCUMENT_METADATA_VARIABLES() {
+    public static String Q_FETCH_DOCUMENT_METADATA_VARIABLES(String visibleFilter) {
         String activeDocument = BungeniEditorProperties.getEditorProperty("activeDocumentMode");
         String query = "select metadata_name, metadata_datatype, metadata_type, display_name, visible, tabular_config  " +
                 " from document_metadata " +
                 "where metadata_type = 'document'" +
-                "and doc_type = '"+activeDocument+"' " +
-                "order by display_name asc";
+                "and doc_type = '"+activeDocument+"'  and visible=" + visibleFilter +
+                " order by display_name asc";
         return query;        
     }
     
