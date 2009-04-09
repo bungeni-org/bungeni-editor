@@ -5,7 +5,8 @@
 
 package org.bungeni.uri;
 
-import java.io.File;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.HashMap;
 
 /**
@@ -13,6 +14,7 @@ import java.util.HashMap;
  * @author undesa
  */
 public abstract class URIBase {
+  private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(URIBase.class.getName());
 
     /**
      * URI components
@@ -54,17 +56,25 @@ public abstract class URIBase {
      
      public void parse(){
          //set output uri
+         try {
          String sURIorder = new String(this.uriOrderString);
-         
+         log.info("parse: original uri order string : " + uriOrderString);
          java.util.Iterator<String> uriKeys = uriComponents.keySet().iterator();
          while (uriKeys.hasNext()) {
             String key = uriKeys.next();
             if (sURIorder.indexOf(key) != -1 ) {
                 //uri contains this component
                 sURIorder = sURIorder.replaceAll(key, uriComponents.get(key));
+                log.info("parse: parsed order string " + sURIorder);
             }
          }
          this.outputUriOrderString = sURIorder;
+         } catch (Exception ex) {
+                log.error("parse: "+ ex.getMessage());
+                StringWriter sw = new StringWriter();
+                ex.printStackTrace(new PrintWriter(sw));
+                log.error("parse :" + sw.toString());
+         }
      }
      
              
