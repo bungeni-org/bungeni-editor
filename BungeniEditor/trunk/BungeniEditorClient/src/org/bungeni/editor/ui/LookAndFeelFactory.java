@@ -13,16 +13,20 @@ import java.util.Properties;
 import org.bungeni.editor.interfaces.ui.ILookAndFeel;
 
 /**
- *
- * @author Ashok
+ * Look and Feel Factory returns active look and feel from the settings file
+ * @author Ashok Hariharan
  */
 public class LookAndFeelFactory {
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(LookAndFeelFactory.class.getName());
 
-
+    /**
+     * Returns the active look and feel
+     * @return
+     */
     public static ILookAndFeel getDefaultLookAndFeel() {
             ILookAndFeel lafObject = null;
             String strUserDirPath = System.getProperty("user.dir");
+            log.info("getDefaultLookAndFeel (user.dir) : " + strUserDirPath );
             String themePropsFile = strUserDirPath + File.separator + "settings" + File.separator + "bungenitheme.properties";
             File fPropsFile = new File(themePropsFile);
             String DEFAULT_LAF_CLASS = "org.bungeni.editor.themes.CafeCremeLAF";
@@ -43,10 +47,7 @@ public class LookAndFeelFactory {
                          }
             }
             try {
-                //BungeniEditorClient.class.getClassLoader().
                 Class lafClass = Class.forName(DEFAULT_LAF_CLASS);
-                //Class lafClass = Class.forName(DEFAULT_LAF_CLASS);
-                //String s = System.getProperty( "java.class.path" );
                 lafObject = (ILookAndFeel) lafClass.newInstance();
              } catch (InstantiationException ex) {
                log.debug("getDefaultLookAndFeel :"+ ex.getMessage());
@@ -57,6 +58,7 @@ public class LookAndFeelFactory {
               } catch (NullPointerException ex) {
                log.debug("getDefaultLookAndFeel :"+ ex.getMessage());
               } finally {
+                  log.error("getDefaultLookAndFeel : returning instance :" + (lafObject == null) );
                   return lafObject;
               }
         }
