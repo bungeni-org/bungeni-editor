@@ -12,6 +12,7 @@ package org.bungeni.extutils;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
+import javax.swing.tree.TreePath;
 
 /**
  *
@@ -32,7 +33,24 @@ public class CommonTreeFunctions {
             i++;
         }
     }
-    
+
+    public static void expandAll(JTree tree, int nRow) {
+        tree.expandPath(tree.getPathForRow(nRow));
+    }
+
+    public static void expandAll(JTree tree, TreePath path) {
+        tree.expandPath(path);
+    }
+
+
+
+    public static void collapseAll(JTree tree) {
+        for (int i = 0; i < tree.getRowCount(); i++) {
+            tree.collapseRow(i);
+        }
+    }
+
+
     public static ImageIcon treeMinusIcon(){
         return loadIcon("treeMinus.gif");
     }
