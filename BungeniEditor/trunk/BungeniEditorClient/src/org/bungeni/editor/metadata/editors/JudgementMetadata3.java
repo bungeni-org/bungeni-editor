@@ -234,20 +234,21 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
         tabbedJudges.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
         lblJudgementNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-
-        lblCaseNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle"); // NOI18N
+        lblJudgementNo.setText(bundle.getString("JudgementMetadata3.lblJudgementNo.text")); // NOI18N
+
+        lblCaseNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblCaseNo.setText(bundle.getString("JudgementMetadata3.lblCaseNo.text")); // NOI18N
 
-        txtCaseNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        txtCaseNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
-        lblJudgementDate.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblJudgementDate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblJudgementDate.setText(bundle.getString("JudgementMetadata3.lblJudgementDate.text")); // NOI18N
 
         dt_judgement_date.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
         txtJudgementNo.setEditable(false);
-        txtJudgementNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        txtJudgementNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
         btnSelectJudgementNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnSelectJudgementNo.setText(bundle.getString("Select_dotdot")); // NOI18N
