@@ -10,12 +10,17 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeMap;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.extutils.BungeniEditorProperties;
+import org.bungeni.extutils.CommonFormFunctions;
+import org.bungeni.utils.BungeniFileSavePathFormat;
 
 /**
  *
@@ -125,6 +130,26 @@ public abstract class BaseEditorDocMetadataDialog extends javax.swing.JPanel imp
   return null;
 }
 
+
+    protected TreeMap<String,Component> fieldsToValidate = new TreeMap<String, Component>() ;
+
+    protected void addFieldsToValidate(TreeMap<String,Component> validFieldsMap) {
+        this.fieldsToValidate = validFieldsMap;
+    }
+
+    public ArrayList<String> validateSelectedMetadata(BungeniFileSavePathFormat spf) {
+         ArrayList<String> errors = new ArrayList<String>(0);
+         Set<String> fieldsToCheck = fieldsToValidate.keySet();
+         Iterator<String> iterFields = fieldsToCheck.iterator();
+         while (iterFields.hasNext()) {
+             String fieldName = iterFields.next();
+             boolean bState = CommonFormFunctions.validateField(fieldsToValidate.get(fieldName), fieldName);
+             if (bState == false) {
+                 errors.add(fieldName + ": is required and was empty ");
+             }
+         }
+         return errors;
+    }
 
    
 }
