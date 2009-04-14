@@ -32,6 +32,7 @@ import org.bungeni.editor.metadata.EditorDocMetadataDialogFactory;
 import org.bungeni.editor.metadata.IEditorDocMetadataDialog;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.extutils.BungeniFrame;
+import org.bungeni.extutils.BungeniRuntimeProperties;
 import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 
@@ -44,9 +45,8 @@ import org.bungeni.ooo.utils.CommonExceptionUtils;
 public class MetadataEditorContainer extends JPanel {
 
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(MetadataEditorContainer.class.getName());
-     
-    
-   OOComponentHelper ooDocument  = null;
+    private String EDIT_MESSAGE = "Please edit the metadata for the currently open document using the below form";
+    OOComponentHelper ooDocument  = null;
     JFrame parentFrame = null;
      SelectorDialogModes dlgMode = null;
      /**
@@ -63,10 +63,15 @@ public class MetadataEditorContainer extends JPanel {
     
     public MetadataEditorContainer(OOComponentHelper ooDoc, JFrame parentFrm, SelectorDialogModes dlg){
         super();
+        initComponents();
+
         ooDocument = ooDoc;
         parentFrame = parentFrm;
         dlgMode = dlg;
-        initComponents();
+        if (dlgMode.equals(SelectorDialogModes.TEXT_EDIT)) {
+            txtMsgArea.setText(EDIT_MESSAGE);
+        }
+
     }
     
 
@@ -178,7 +183,8 @@ private final static String STORE_AS_URL = "StoreAsURL";
  * @return
  */
 private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
-        boolean bState = false; 
+        boolean bState = false;
+        String savedFile = "";
         //1 check if file is already open and saved 
             //if open check if there is a new path for the document different from the current path
             //warn the user provide an option to save to the old path
@@ -203,7 +209,7 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         log.debug("saveDocumentToDisk : fileFullPath = " + fileFullPath);
         
         File fFile = new File(fileFullPath);
-
+        savedFile = fFile.toURI().toString();
         HashMap<String,Object> saveParams = new HashMap<String,Object>();
         
         //1
@@ -272,6 +278,8 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         } finally {
         
         if (bState) {
+            this.txtMsgArea.setText(EDIT_MESSAGE);
+            BungeniRuntimeProperties.setProperty("SAVED_FILE", savedFile);
             //MessageBox.OK(parentFrame, "Document was Saved!");
             return true;
         } else {
