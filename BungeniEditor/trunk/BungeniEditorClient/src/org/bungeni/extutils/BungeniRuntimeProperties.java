@@ -26,6 +26,10 @@ public class BungeniRuntimeProperties  {
            return (runtimeProperties.containsKey(key));
        }
 
+       public static void removeProperty(String key) {
+           runtimeProperties.remove(key);
+       }
+
        public static void printKeys(){
            System.out.println("printing keys : ");
            for (String s : runtimeProperties.stringPropertyNames()) {
