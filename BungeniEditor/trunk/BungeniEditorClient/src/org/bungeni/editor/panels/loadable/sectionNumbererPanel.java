@@ -1550,11 +1550,12 @@ private Object getHeadingFromMatchedSection(Object matchedSectionElem){
         btnExternalReference = new javax.swing.JButton();
 
         checkbxUseParentPrefix.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
-        checkbxUseParentPrefix.setText("Use Parent Prefix");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/panels/loadable/Bundle"); // NOI18N
+        checkbxUseParentPrefix.setText(bundle.getString("sectionNumbererPanel.checkbxUseParentPrefix.text")); // NOI18N
         checkbxUseParentPrefix.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
         btnRenumberSections.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
-        btnRenumberSections.setText("Number/Renumber All Headings");
+        btnRenumberSections.setText(bundle.getString("sectionNumbererPanel.btnRenumberSections.text")); // NOI18N
         btnRenumberSections.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRenumberSectionsActionPerformed(evt);
@@ -1562,23 +1563,23 @@ private Object getHeadingFromMatchedSection(Object matchedSectionElem){
         });
 
         btnInsertCrossReference.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
-        btnInsertCrossReference.setText("Insert Cross Reference");
+        btnInsertCrossReference.setText(bundle.getString("sectionNumbererPanel.btnInsertCrossReference.text")); // NOI18N
         btnInsertCrossReference.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInsertCrossReferenceActionPerformed(evt);
             }
         });
 
-        btnfixBrokenReferences.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
-        btnfixBrokenReferences.setText("Fix Broken Reference");
+        btnfixBrokenReferences.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
+        btnfixBrokenReferences.setText(bundle.getString("sectionNumbererPanel.btnfixBrokenReferences.text")); // NOI18N
         btnfixBrokenReferences.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnfixBrokenReferencesActionPerformed(evt);
             }
         });
 
-        btnExternalReference.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
-        btnExternalReference.setText("Insert External Reference");
+        btnExternalReference.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
+        btnExternalReference.setText(bundle.getString("sectionNumbererPanel.btnExternalReference.text")); // NOI18N
         btnExternalReference.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExternalReferenceActionPerformed(evt);
