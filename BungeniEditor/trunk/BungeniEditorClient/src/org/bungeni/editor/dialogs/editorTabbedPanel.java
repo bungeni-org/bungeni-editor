@@ -14,6 +14,7 @@ import com.sun.star.document.XDocumentInfoSupplier;
 import com.sun.star.document.XEventBroadcaster;
 import com.sun.star.frame.XFrame;
 import com.sun.star.frame.XModel;
+import com.sun.star.frame.XStorable;
 import com.sun.star.lang.XComponent;
 import com.sun.star.lang.XServiceInfo;
 import com.sun.star.text.XTextDocument;
@@ -29,6 +30,9 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -70,6 +74,7 @@ import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
 import org.bungeni.editor.toolbar.BungeniToolbarTargetProcessor;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.bungeni.extutils.BungeniFrame;
+import org.bungeni.extutils.BungeniRuntimeProperties;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonStringFunctions;
 import org.bungeni.extutils.FrameLauncher;
@@ -158,9 +163,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
    
     private void init() {
        initComponents();
-       //initListDocuments();
        initProviders();
-       //();
        SwingUtilities.invokeLater(new Runnable(){
 
             public void run() {
@@ -176,13 +179,9 @@ public class editorTabbedPanel extends javax.swing.JPanel {
        /***** control moved to other dialog... 
        updateListDocuments();
         *****/
-       //initTableDocMetadata();
        initTabbedPanes();
        initModeLabel();
-       //initSwitchTabs();
        initSectionMetadataDisplay();
-    //   initExternalPlugins();
-       
     }
 
     private void initProviders(){
@@ -319,44 +318,35 @@ public class editorTabbedPanel extends javax.swing.JPanel {
     }
 
     
-    private void initOpenDocumentsList(){
-             try {
-        log.debug("initOpenDocumentsList: getting components");
-        XEnumerationAccess enumComponentsAccess = BungenioOoHelper.getDesktop().getComponents();
-        XEnumeration enumComponents = enumComponentsAccess.createEnumeration();
-        log.debug("initOpenDocumentsList: enumerating components");
-        int i=0;
-        //cboListDocuments.removeAllItems();
-        editorMap.clear(); //reset the map before adding things to it.
-        while (enumComponents.hasMoreElements()) {
-            Object nextElem = enumComponents.nextElement();
-            log.debug("initOpenDocumentsList: getting model interface");
-            XModel docModel = ooQueryInterface.XModel(nextElem);
-            
-            if (docModel != null ) { //supports XModel interface 
-                log.debug("initOpenDocumentsList: docModel != null");
-                XServiceInfo serviceInfo = ooQueryInterface.XServiceInfo(nextElem);
-                if (serviceInfo.supportsService("com.sun.star.text.TextDocument")) {
-                    log.debug("initOpenDocumentsList: supports TextDocument "+ (++i));
-                    XTextDocument xDoc = (XTextDocument) UnoRuntime.queryInterface(XTextDocument.class, nextElem);
-                    /*
-                     XFrame xframe = xDoc.getCurrentController().getFrame();
-                    String strTitle = (String) ooQueryInterface.XPropertySet(xframe).getPropertyValue("Title");
-                    int dashIndex = strTitle.lastIndexOf("-");
-                    if (dashIndex != -1)
-                        strTitle = strTitle.substring(0, dashIndex);
-                     */
-                    String strTitle = OOComponentHelper.getFrameTitle(xDoc);
-                    XComponent xComponent = (XComponent)UnoRuntime.queryInterface(XComponent.class, nextElem);
-                    componentHandleContainer compContainer = new componentHandleContainer(strTitle, xComponent);
-                    if (!editorMap.containsKey(compContainer.componentKey())) {
-                        compContainer.setEventBroadcastListener();
-                        editorMap.put(compContainer.componentKey(), compContainer);
+    private void initOpenDocumentsList() {
+         try {
+            log.debug("initOpenDocumentsList: getting components");
+            XEnumerationAccess enumComponentsAccess = BungenioOoHelper.getDesktop().getComponents();
+            XEnumeration enumComponents = enumComponentsAccess.createEnumeration();
+            log.debug("initOpenDocumentsList: enumerating components");
+            int i=0;
+            editorMap.clear(); //reset the map before adding things to it.
+            while (enumComponents.hasMoreElements()) {
+                Object nextElem = enumComponents.nextElement();
+                log.debug("initOpenDocumentsList: getting model interface");
+                XModel docModel = ooQueryInterface.XModel(nextElem);
+
+                if (docModel != null ) { //supports XModel interface
+                    log.debug("initOpenDocumentsList: docModel != null");
+                    XServiceInfo serviceInfo = ooQueryInterface.XServiceInfo(nextElem);
+                    if (serviceInfo.supportsService("com.sun.star.text.TextDocument")) {
+                        log.debug("initOpenDocumentsList: supports TextDocument "+ (++i));
+                        XTextDocument xDoc = (XTextDocument) UnoRuntime.queryInterface(XTextDocument.class, nextElem);
+                        String strTitle = OOComponentHelper.getFrameTitle(xDoc);
+                        XComponent xComponent = (XComponent)UnoRuntime.queryInterface(XComponent.class, nextElem);
+                        componentHandleContainer compContainer = new componentHandleContainer(strTitle, xComponent);
+                        if (!editorMap.containsKey(compContainer.componentKey())) {
+                            compContainer.setEventBroadcastListener();
+                            editorMap.put(compContainer.componentKey(), compContainer);
+                        }
                     }
-                   // this.cboOpenDocuments.addItem(i+ " - " + strTitle);
                 }
             }
-        }
         } catch (Exception ex) {
            log.error("InitOpenDocumentsList error :" + ex.getMessage());
            log.error("InitOpenDocumentsList stacktrace : " + CommonExceptionUtils.getStackTrace(ex));
@@ -953,10 +943,16 @@ private void launchMetadataSetter(XComponent xComp){
             Action componentsTrackingRunner = new AbstractAction(){
                 public void actionPerformed(ActionEvent e) {
                   componentHandlesTracker();
-                  updateListDocuments();
+                    try {
+                        updateListDocuments();
+                    } catch (MalformedURLException ex) {
+                       log.error("updateListDocuments  : " + ex.getMessage());
+                    } catch (URISyntaxException ex) {
+                       log.error("updateListDocuments  : " + ex.getMessage());
+                    }
                 }
             };
-            componentsTrackingTimer = new Timer(5000, componentsTrackingRunner);
+            componentsTrackingTimer = new Timer(2500, componentsTrackingRunner);
             componentsTrackingTimer.start();
 
         } catch (Exception e) {
@@ -987,7 +983,7 @@ private void launchMetadataSetter(XComponent xComp){
           return bFound;
      }
      
-     private void updateListDocuments(){
+     private void updateListDocuments() throws MalformedURLException, URISyntaxException{
          //new refreshed list of component handles 
          synchronized(editorMap) {
              ArrayList<componentHandleContainer> componentHandles = getDocumentsComboModel();
@@ -1000,21 +996,72 @@ private void launchMetadataSetter(XComponent xComp){
                       model.addElement(getCurrentlyOpenDocuments().get(compKey));
                   }
               }
-              ArrayList<Integer> modelIndexesToRemove = new ArrayList<Integer>();
+              //build an array of disposed component handles i.e. documents which have been closed.
+              ArrayList<componentHandleContainer> handleContainer = new ArrayList<componentHandleContainer>(0);
               //remove closed documents from model
               for (int i=0; i < model.getSize(); i++ ){
                   componentHandleContainer compMatch = (componentHandleContainer) model.getElementAt(i);
-                  //check if model component handle exists in newly generate component map
-                  //if it doesnt we delete the componenth handle from them model
-                  if (!getCurrentlyOpenDocuments().containsKey(compMatch.componentKey())){
-                      modelIndexesToRemove.add(i);
+                    try {
+                      //test if disposed - if disposed this raises an exception
+                      String compMatchURL = compMatch.getDocURL();
+                      //check if model component handle exists in newly generate component map
+                      //if it doesnt we delete the componenth handle from them model
+                      if (!getCurrentlyOpenDocuments().containsKey(compMatch.componentKey())){
+                          handleContainer.add(compMatch);
+                     }
+                  } catch (com.sun.star.lang.DisposedException ex) {
+                      //if disposed exception was raised.. the document has been disposed
+                      //so add it for deletion
+                      handleContainer.add(compMatch);
                   }
               }
-              //finally remove all missingindexes
-              for (Integer iRemove : modelIndexesToRemove) {
-                  model.removeElementAt(iRemove);
-              }
-         
+
+              //remove all the handles marked for deletion from the combo box model.
+             for (componentHandleContainer chcHandle : handleContainer) {
+                 model.removeElement(chcHandle);
+             }
+              //set selected item
+              //first check if there is a saved document
+             if (BungeniRuntimeProperties.propertyExists("SAVED_FILE")) {
+                    //set the URI fo the saved document
+                    String savedDocumentURL = BungeniRuntimeProperties.getProperty("SAVED_FILE");
+                    URL urlDoc = new URL(savedDocumentURL);
+                    String savedDocumentURI = urlDoc.toString();
+                    //see if it matches any of the currently open documents
+                    DefaultComboBoxModel freshModel = (DefaultComboBoxModel) cboListDocuments.getModel();
+                    for (int i = 0; i < freshModel.getSize(); i++) {
+                            componentHandleContainer chc = (componentHandleContainer)freshModel.getElementAt(i);
+                            String chcDocUrl = chc.getDocURL();
+                            if (chcDocUrl != null ) {
+                                //check if the saved document url equals the url of one of the currently open documents
+                                //if it does set the combo index to that document.
+                                URL docUrl = new URL(chcDocUrl);
+                                if (docUrl.toString().equals(savedDocumentURI)){
+                                    //since this code runs in a timer thread .. it executes continuously
+                                    //but since we are removing "saved_file" from the static property map,
+                                    //this should never get executed
+
+                                    //temporarily disable combo action listeners
+                                    ActionListener[] actionListeners = cboListDocuments.getActionListeners();
+                                    for (ActionListener aListener : actionListeners) {
+                                        cboListDocuments.removeActionListener(aListener);
+                                    }
+                                    //set the combo index
+                                    cboListDocuments.setSelectedIndex(i);
+
+                                    //restore action listeners
+                                    for (ActionListener addListener : actionListeners) {
+                                        cboListDocuments.addActionListener(addListener);
+                                    }
+                                    //remove the saved_file property
+                                    BungeniRuntimeProperties.removeProperty("SAVED_FILE");
+                                    break;
+                                }
+                            }
+                    }
+                }
+
+             
          }
     }
     
@@ -1096,7 +1143,8 @@ private void launchMetadataSetter(XComponent xComp){
         private boolean componentDisposed = false;
         private xComponentListener compListener = new xComponentListener();
         private String componentKey = "";
-        componentHandleContainer(String name, XComponent xComponent) {
+
+        public componentHandleContainer(String name, XComponent xComponent) {
             log.debug("componentHandleContainer: in constructor()");
             aName = name;
             aComponent = xComponent;
@@ -1105,7 +1153,16 @@ private void launchMetadataSetter(XComponent xComp){
             componentKey = generateComponentKey();
             //add the event broadcaster to the same listener
         }
-        
+
+        public String getDocURL(){
+               XStorable xStore = ooQueryInterface.XStorable(aComponent);
+                 if (xStore.hasLocation()) {
+                         return xStore.getLocation();
+                    } else {
+                        return null;
+                      }
+        }
+
         public void setEventBroadcastListener(){
             XEventBroadcaster xEventBroadcaster = (com.sun.star.document.XEventBroadcaster) UnoRuntime.queryInterface (com.sun.star.document.XEventBroadcaster.class, aComponent);
             xEventBroadcaster.addEventListener (compListener); 
