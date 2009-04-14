@@ -210,19 +210,20 @@ public class documentNotesPanel extends BaseClassForITabbedPanel {
         lblArchivedNotes = new javax.swing.JLabel();
         listboxEditorNotes = new javax.swing.JList();
 
-        lblEditorNotes.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
-        lblEditorNotes.setText("Editor Note");
+        lblEditorNotes.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/panels/loadable/Bundle"); // NOI18N
+        lblEditorNotes.setText(bundle.getString("documentNotesPanel.lblEditorNotes.text")); // NOI18N
 
         txtEditorNote.setColumns(20);
         txtEditorNote.setEditable(false);
-        txtEditorNote.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        txtEditorNote.setFont(new java.awt.Font("Tahoma", 0, 11));
         txtEditorNote.setLineWrap(true);
         txtEditorNote.setRows(5);
-        txtEditorNote.setToolTipText("Type in your editor notes here.");
+        txtEditorNote.setToolTipText(bundle.getString("documentNotesPanel.txtEditorNote.toolTipText")); // NOI18N
         txtEditorNote.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
-        btnNewEditorNote.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
-        btnNewEditorNote.setText("New Note");
+        btnNewEditorNote.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
+        btnNewEditorNote.setText(bundle.getString("documentNotesPanel.btnNewEditorNote.text")); // NOI18N
         btnNewEditorNote.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNewEditorNoteActionPerformed(evt);
@@ -230,17 +231,17 @@ public class documentNotesPanel extends BaseClassForITabbedPanel {
         });
 
         btnSaveEditorNote.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
-        btnSaveEditorNote.setText("Save Note");
+        btnSaveEditorNote.setText(bundle.getString("documentNotesPanel.btnSaveEditorNote.text")); // NOI18N
         btnSaveEditorNote.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaveEditorNoteActionPerformed(evt);
             }
         });
 
-        lblArchivedNotes.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
-        lblArchivedNotes.setText("Archived Notes");
+        lblArchivedNotes.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
+        lblArchivedNotes.setText(bundle.getString("documentNotesPanel.lblArchivedNotes.text")); // NOI18N
 
-        listboxEditorNotes.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        listboxEditorNotes.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         listboxEditorNotes.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }

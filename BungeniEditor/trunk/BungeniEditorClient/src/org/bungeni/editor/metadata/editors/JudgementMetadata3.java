@@ -562,9 +562,9 @@ private void btnAddPartyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
      public ArrayList<String> validateSelectedMetadata(BungeniFileSavePathFormat spf) {
          addFieldsToValidate (new TreeMap<String,Component>(){
             {
-                put(lblJudgementNo.getText(), txtJudgementNo);
-                put(lblCaseNo.getText(), txtCaseNo);
-                put(lblJudgementDate.getText(), dt_judgement_date);
+                put(lblJudgementNo.getText().replace("*",""), txtJudgementNo);
+                put(lblCaseNo.getText().replace("*", ""), txtCaseNo);
+                put(lblJudgementDate.getText().replace("*", ""), dt_judgement_date);
             }
             });
         return super.validateSelectedMetadata(spf);

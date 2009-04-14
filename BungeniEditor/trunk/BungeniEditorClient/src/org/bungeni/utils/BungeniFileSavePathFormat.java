@@ -36,9 +36,16 @@ public class BungeniFileSavePathFormat {
     }
     
     public void parseComponents(){
-        this.expURI.parse();
-        this.workURI.parse();
-        this.fileNameFormat.parse();
+        try {
+            log.debug("parseComponents: parsing expURI");
+            this.expURI.parse();
+            log.debug("parseComponents: parsing workURI");
+            this.workURI.parse();
+            log.debug("parseComponents: parsing filename format");
+            this.fileNameFormat.parse();
+        } catch (Exception ex) {
+            log.error("parseComponents : " + ex.getMessage());
+        }
     }
     
     public String getExpressionPath(){

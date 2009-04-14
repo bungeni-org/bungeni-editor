@@ -230,7 +230,7 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
                         System.out.println("* was pressed");
                         TreePath selectionPath = toolbarTree.getSelectionPath();
                         if (selectionPath != null) {
-
+                                CommonTreeFunctions.expandAll(toolbarTree, selectionPath);
                         }
                     }
                 }
@@ -966,25 +966,26 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
 
         scrollTreeView.setViewportView(sectionStructureTree);
 
-        cboChangeStructure.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        cboChangeStructure.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         cboChangeStructure.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnGroupSwitchView.add(btnHideToolbarTree);
-        btnHideToolbarTree.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        btnHideToolbarTree.setText("Hide Toolbar Panel");
+        btnHideToolbarTree.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/panels/Bundle"); // NOI18N
+        btnHideToolbarTree.setText(bundle.getString("holderUIPanel.btnHideToolbarTree.text")); // NOI18N
 
         btnGroupSwitchView.add(btnHideTreeView);
-        btnHideTreeView.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        btnHideTreeView.setText("Hide Section View Panel");
+        btnHideTreeView.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnHideTreeView.setText(bundle.getString("holderUIPanel.btnHideTreeView.text")); // NOI18N
 
         btnGroupSwitchView.add(btnViewDefault);
-        btnViewDefault.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        btnViewDefault.setText("Switch to Default View");
+        btnViewDefault.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnViewDefault.setText(bundle.getString("holderUIPanel.btnViewDefault.text")); // NOI18N
 
         txtCurrentSectionName.setEditable(false);
 
-        btnRefresh.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        btnRefresh.setText("Refresh Tree");
+        btnRefresh.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnRefresh.setText(bundle.getString("holderUIPanel.btnRefresh.text")); // NOI18N
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefreshActionPerformed(evt);

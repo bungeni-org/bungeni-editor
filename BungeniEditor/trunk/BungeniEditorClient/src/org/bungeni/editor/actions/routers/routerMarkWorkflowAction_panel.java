@@ -61,19 +61,20 @@ public class routerMarkWorkflowAction_panel extends JPanel implements IRouterSel
         btnApply = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
 
-        cboActionType.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        cboActionType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         cboActionType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hearing", "Amendment", "Postponement" }));
 
         lblActionType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        lblActionType.setText("Action Type");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/actions/routers/Bundle"); // NOI18N
+        lblActionType.setText(bundle.getString("routerMarkWorkflowAction_panel.lblActionType.text")); // NOI18N
 
         dtActionDate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
         lbActionDate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        lbActionDate.setText("Action Date");
+        lbActionDate.setText(bundle.getString("routerMarkWorkflowAction_panel.lbActionDate.text")); // NOI18N
 
         btnApply.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnApply.setText("Apply");
+        btnApply.setText(bundle.getString("routerMarkWorkflowAction_panel.btnApply.text")); // NOI18N
         btnApply.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnApplyActionPerformed(evt);
@@ -81,7 +82,7 @@ public class routerMarkWorkflowAction_panel extends JPanel implements IRouterSel
         });
 
         btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnCancel.setText("Cancel");
+        btnCancel.setText(bundle.getString("routerMarkWorkflowAction_panel.btnCancel.text")); // NOI18N
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);

@@ -68,9 +68,12 @@ public class HouseClosingTime extends BaseMetadataPanel {
 
         setName("DebateRecord Time"); // NOI18N
 
+        dt_initdebate_timeofhansard.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         dt_initdebate_timeofhansard.setName("dt_initdebate_timeofhansard"); // NOI18N
 
-        lbl_initdebate_timeofhansard.setText("House Closing Time");
+        lbl_initdebate_timeofhansard.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/conclusion/Bundle"); // NOI18N
+        lbl_initdebate_timeofhansard.setText(bundle.getString("HouseClosingTime.lbl_initdebate_timeofhansard.text")); // NOI18N
         lbl_initdebate_timeofhansard.setName("lbl_initdebate_timeofhansard"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

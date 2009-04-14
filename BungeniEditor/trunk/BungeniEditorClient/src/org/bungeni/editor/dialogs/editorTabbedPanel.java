@@ -512,7 +512,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
             //frame.setSize(243, 650);
             floatingFrame.setSize(Integer.parseInt(FloatingPanelFactory.panelWidth), Integer.parseInt(FloatingPanelFactory.panelHeight));
            // floatingFrame.setResizable(false);
-           
+            floatingFrame.removeMinMaxClose();
             floatingFrame.setAlwaysOnTop(true);
             floatingFrame.setVisible(true);
             //position frame
@@ -596,10 +596,11 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         cboListDocuments.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lblCurrentlyOpenDocuments.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
-        lblCurrentlyOpenDocuments.setText("Currently Open Documents");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/dialogs/Bundle"); // NOI18N
+        lblCurrentlyOpenDocuments.setText(bundle.getString("editorTabbedPanel.lblCurrentlyOpenDocuments.text")); // NOI18N
 
         btnBringToFront.setFont(new java.awt.Font("DejaVu Sans", 0, 9));
-        btnBringToFront.setText("To Front");
+        btnBringToFront.setText(bundle.getString("editorTabbedPanel.btnBringToFront.text")); // NOI18N
         btnBringToFront.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnBringToFront.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -608,7 +609,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         });
 
         btnOpenDocument.setFont(new java.awt.Font("DejaVu Sans", 0, 9));
-        btnOpenDocument.setText("Open");
+        btnOpenDocument.setText(bundle.getString("editorTabbedPanel.btnOpenDocument.text")); // NOI18N
         btnOpenDocument.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnOpenDocument.setIconTextGap(2);
         btnOpenDocument.addActionListener(new java.awt.event.ActionListener() {
@@ -618,10 +619,10 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         });
 
         lblCurrentMode.setForeground(java.awt.Color.red);
-        lblCurrentMode.setText("CURRENT MODE : %s");
+        lblCurrentMode.setText(bundle.getString("editorTabbedPanel.lblCurrentMode.text")); // NOI18N
 
         btnNewDocument.setFont(new java.awt.Font("DejaVu Sans", 0, 9));
-        btnNewDocument.setText("New");
+        btnNewDocument.setText(bundle.getString("editorTabbedPanel.btnNewDocument.text")); // NOI18N
         btnNewDocument.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnNewDocument.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -630,7 +631,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         });
 
         btnSaveDocument.setFont(new java.awt.Font("DejaVu Sans", 0, 9));
-        btnSaveDocument.setText("Save");
+        btnSaveDocument.setText(bundle.getString("editorTabbedPanel.btnSaveDocument.text")); // NOI18N
         btnSaveDocument.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnSaveDocument.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -652,13 +653,13 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tblSectionmeta);
 
         lblDisplaySectionName.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        lblDisplaySectionName.setText("::");
+        lblDisplaySectionName.setText(bundle.getString("editorTabbedPanel.lblDisplaySectionName.text")); // NOI18N
 
         lblSecName.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        lblSecName.setText("Current Section Name :");
+        lblSecName.setText(bundle.getString("editorTabbedPanel.lblSecName.text")); // NOI18N
 
         btnEdit.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnEdit.setText("Edit ");
+        btnEdit.setText(bundle.getString("editorTabbedPanel.btnEdit.text")); // NOI18N
         btnEdit.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

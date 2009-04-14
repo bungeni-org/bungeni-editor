@@ -96,10 +96,11 @@ public class documentMetadataPanel extends BaseClassForITabbedPanel {
         scrollTableDocumentMetadata.setViewportView(tableDocumentMetadata);
 
         lblDescDocMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
-        lblDescDocMetadata.setText("Document Metadata");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/panels/loadable/Bundle"); // NOI18N
+        lblDescDocMetadata.setText(bundle.getString("documentMetadataPanel.lblDescDocMetadata.text")); // NOI18N
 
         btnEditMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnEditMetadata.setText("Edit Document Metadata");
+        btnEditMetadata.setText(bundle.getString("documentMetadataPanel.btnEditMetadata.text")); // NOI18N
         btnEditMetadata.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditMetadataActionPerformed(evt);

@@ -251,7 +251,8 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
         btnRefresh = new javax.swing.JButton();
 
         lblSectionMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
-        lblSectionMetadata.setText("Section Metadata");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/panels/loadable/Bundle"); // NOI18N
+        lblSectionMetadata.setText(bundle.getString("sectionTreeMetadataPanel.lblSectionMetadata.text")); // NOI18N
 
         treeSectionTreeMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         jScrollPane1.setViewportView(treeSectionTreeMetadata);
@@ -271,10 +272,10 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
         jScrollPane2.setViewportView(tblSectionViewMetadata);
 
         lblSectionTreeMetadataView.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
-        lblSectionTreeMetadataView.setText("Click on a section to view its Metadata");
+        lblSectionTreeMetadataView.setText(bundle.getString("sectionTreeMetadataPanel.lblSectionTreeMetadataView.text")); // NOI18N
 
-        btnRefresh.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        btnRefresh.setText("Refresh");
+        btnRefresh.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnRefresh.setText(bundle.getString("sectionTreeMetadataPanel.btnRefresh.text")); // NOI18N
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefreshActionPerformed(evt);

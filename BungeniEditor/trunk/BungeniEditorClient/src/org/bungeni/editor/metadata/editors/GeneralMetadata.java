@@ -244,7 +244,7 @@ private final static String STORE_AS_URL = "StoreAsURL";
         dt_official_time = new javax.swing.JSpinner();
         lblOfficialTime = new javax.swing.JLabel();
 
-        lblLanguage.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblLanguage.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle"); // NOI18N
         lblLanguage.setText(bundle.getString("GeneralMetadata.lblLanguage.text")); // NOI18N
         lblLanguage.setName("lbl.BungeniLanguageID"); // NOI18N

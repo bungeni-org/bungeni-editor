@@ -61,11 +61,11 @@ public abstract class routerCreateTabularMetadataReference_panel extends javax.s
 
         scrollMetadataContainer = new javax.swing.JScrollPane();
         tblRefMetadata = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        lblMetaReference = new javax.swing.JLabel();
         btnApply = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
 
-        tblRefMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        tblRefMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         tblRefMetadata.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -79,19 +79,20 @@ public abstract class routerCreateTabularMetadataReference_panel extends javax.s
         ));
         scrollMetadataContainer.setViewportView(tblRefMetadata);
 
-        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        jLabel1.setText("Create Reference to Metadata");
+        lblMetaReference.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/actions/routers/Bundle"); // NOI18N
+        lblMetaReference.setText(bundle.getString("routerCreateTabularMetadataReference_panel.lblMetaReference.text")); // NOI18N
 
-        btnApply.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        btnApply.setText("Apply");
+        btnApply.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnApply.setText(bundle.getString("routerCreateTabularMetadataReference_panel.btnApply.text")); // NOI18N
         btnApply.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnApplyActionPerformed(evt);
             }
         });
 
-        btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        btnCancel.setText("Cancel");
+        btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnCancel.setText(bundle.getString("routerCreateTabularMetadataReference_panel.btnCancel.text")); // NOI18N
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);
@@ -110,7 +111,7 @@ public abstract class routerCreateTabularMetadataReference_panel extends javax.s
                 .addGap(94, 94, 94))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblMetaReference, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(65, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -120,7 +121,7 @@ public abstract class routerCreateTabularMetadataReference_panel extends javax.s
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblMetaReference, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollMetadataContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -149,7 +150,7 @@ private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApply;
     private javax.swing.JButton btnCancel;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblMetaReference;
     private javax.swing.JScrollPane scrollMetadataContainer;
     private javax.swing.JTable tblRefMetadata;
     // End of variables declaration//GEN-END:variables

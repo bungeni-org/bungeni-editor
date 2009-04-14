@@ -33,6 +33,7 @@ import org.bungeni.editor.metadata.IEditorDocMetadataDialog;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.extutils.BungeniFrame;
 import org.bungeni.extutils.FrameLauncher;
+import org.bungeni.ooo.utils.CommonExceptionUtils;
 
 /**
  *This JPanel class is the main container for the metadata tabs for a document type.
@@ -184,16 +185,22 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         //2 if file is not saved - save normally - check if there is a file existing in the path and warn if exists
         try {
         //this is the relative base path where hte files are stored
+        log.debug("saveDocumentToDisk: begin");
         String defaultSavePath = BungeniEditorProperties.getEditorProperty("defaultSavePath");
         defaultSavePath = defaultSavePath.replace('/', File.separatorChar);
+        log.debug("saveDocumentToDisk: defaultSavePath : " + defaultSavePath);
+
         //parse URI and save path components
         m_spf.parseComponents();
         //get the absolute path
         String exportPath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + defaultSavePath + m_spf.getExpressionPath() ; 
+        
+        log.debug("saveDocumentToDisk : exportPath = " + exportPath);
         //get the full path to the file
         String fileFullPath = "";
         fileFullPath = exportPath + File.separator + spf.getManifestationName() + ".odt";
        // MessageBox.OK(fileFullPath);
+        log.debug("saveDocumentToDisk : fileFullPath = " + fileFullPath);
         
         File fFile = new File(fileFullPath);
 
@@ -201,6 +208,7 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         
         //1
         if (ooDocument.isDocumentOnDisk()) {
+            log.debug("saveDocumentToDisk : file is on disk");
             //document already exists... we just need to save it
             //check generated URL 
             URL genURL = fFile.toURI().toURL();
@@ -217,7 +225,7 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
                  //storeAsURL to new path
                   if (fFile.exists()) {
                         //error message and abort
-                        MessageBox.OK(parentFrame, "A file with these attributes already exists, \n please edit the existing file or amend the attributes to save as a different file");
+                        MessageBox.OK(parentFrame, "A file with these attributes already exists, \n please edit the existing file or amend the attributes to save as a different file. \n Usually this means you are trying to save a document with an 'Official Date' that already exists");
                         bState = false;
                         return false;
                   } else {    
@@ -235,6 +243,8 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
              }
         } else {
             //check if there is an existing file at the generated path
+            log.debug("saveDocumentToDisk : file is NOT on disk");
+
             if (fFile.exists()) {
                 //error message and abort
                 MessageBox.OK(parentFrame, "A file with these attributes already exists, \n please edit the existing file or amend the attributes to save as a different file");
@@ -257,11 +267,12 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
        
         } catch (Exception ex) {
             log.error("saveDocumentToDisk : " + ex.getMessage());
+            log.error("saveDocumentToDisk :" + CommonExceptionUtils.getStackTrace(ex));
             bState = false;
         } finally {
         
         if (bState) {
-            MessageBox.OK(parentFrame, "Document was Saved!");
+            //MessageBox.OK(parentFrame, "Document was Saved!");
             return true;
         } else {
             MessageBox.OK(parentFrame, "The Document could not be saved!");
@@ -286,11 +297,12 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         btnSave = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtMsgArea = new javax.swing.JTextArea();
         metadataTabContainer = new javax.swing.JTabbedPane();
 
         btnSave.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnSave.setText("Save");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle"); // NOI18N
+        btnSave.setText(bundle.getString("MetadataEditorContainer.btnSave.text")); // NOI18N
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaveActionPerformed(evt);
@@ -298,22 +310,22 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         });
 
         btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnCancel.setText("Cancel");
+        btnCancel.setText(bundle.getString("MetadataEditorContainer.btnCancel.text")); // NOI18N
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);
             }
         });
 
-        jTextArea1.setBackground(java.awt.Color.lightGray);
-        jTextArea1.setColumns(20);
-        jTextArea1.setEditable(false);
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setRows(5);
-        jTextArea1.setText("This is a new document, Please select and enter required metadata to initialize the document");
-        jTextArea1.setWrapStyleWord(true);
-        jTextArea1.setBorder(null);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtMsgArea.setBackground(java.awt.Color.lightGray);
+        txtMsgArea.setColumns(20);
+        txtMsgArea.setEditable(false);
+        txtMsgArea.setLineWrap(true);
+        txtMsgArea.setRows(5);
+        txtMsgArea.setText(bundle.getString("MetadataEditorContainer.txtMsgArea.text")); // NOI18N
+        txtMsgArea.setWrapStyleWord(true);
+        txtMsgArea.setBorder(null);
+        jScrollPane1.setViewportView(txtMsgArea);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -377,8 +389,8 @@ private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTabbedPane metadataTabContainer;
+    private javax.swing.JTextArea txtMsgArea;
     // End of variables declaration//GEN-END:variables
 
   

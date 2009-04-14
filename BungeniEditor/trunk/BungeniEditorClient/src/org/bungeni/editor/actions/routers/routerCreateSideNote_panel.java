@@ -96,16 +96,17 @@ public class routerCreateSideNote_panel extends javax.swing.JPanel implements IR
         txtSideNote.setRows(5);
         jScrollPane1.setViewportView(txtSideNote);
 
-        btnApply.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        btnApply.setText("Apply");
+        btnApply.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/actions/routers/Bundle"); // NOI18N
+        btnApply.setText(bundle.getString("routerCreateSideNote_panel.btnApply.text")); // NOI18N
         btnApply.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnApplyActionPerformed(evt);
             }
         });
 
-        btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        btnCancel.setText("Cancel");
+        btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnCancel.setText(bundle.getString("routerCreateSideNote_panel.btnCancel.text")); // NOI18N
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);

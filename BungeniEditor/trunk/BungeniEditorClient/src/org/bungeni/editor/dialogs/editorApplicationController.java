@@ -65,7 +65,8 @@ public class editorApplicationController extends javax.swing.JPanel {
     private Installation m_installObject;
     private static String __WINDOW_TITLE__ = "Bungeni Editor Client ";
     private WebDavStore m_dav;
-    
+    private JFrame parentFrame;
+
     //path to settings.properties
     private String m_iniFilePath;
     
@@ -101,7 +102,7 @@ public class editorApplicationController extends javax.swing.JPanel {
      * Main constructor for the class, initializes Panels and oOo environment
      * @param context Openoffice component context
      */
-    public editorApplicationController() {
+    public editorApplicationController(JFrame pFrame) {
         log.debug("in constructor");
         try {
             m_xContext = Bootstrap.bootstrap();
@@ -115,6 +116,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         m_propSettings = new java.util.Properties();
         m_dav = new WebDavStore();
         initComponents();
+        this.parentFrame = pFrame;
         //temporarily remove these two tabs
         this.editorAppTabbedPane.remove(tabSettings);
         this.editorAppTabbedPane.remove(tabServer);
@@ -185,7 +187,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         lblDocumentTypes = new javax.swing.JLabel();
         btnOpenExisting = new javax.swing.JButton();
         lblCurrentActiveMode = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnStartAndAccquire = new javax.swing.JButton();
         lblCreateNewDoc = new javax.swing.JLabel();
         lblOpenCurrentDoc = new javax.swing.JLabel();
         lblLaunchAndAccquire = new javax.swing.JLabel();
@@ -205,7 +207,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         lblWorkspacePath = new javax.swing.JLabel();
         txtWorkspacePath = new javax.swing.JTextField();
         btnBrowseWorkspacePath = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        lblServerIP = new javax.swing.JLabel();
         txtServerIp = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         lblServerPort = new javax.swing.JLabel();
@@ -221,12 +223,13 @@ public class editorApplicationController extends javax.swing.JPanel {
         progressServerFiles = new javax.swing.JProgressBar();
         btnBackOneFolder = new javax.swing.JButton();
         tabAbout = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblApplnTitle = new javax.swing.JLabel();
 
         editorAppTabbedPane.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
 
         createNewDocument.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
-        createNewDocument.setText("Create New Document....");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/dialogs/Bundle"); // NOI18N
+        createNewDocument.setText(bundle.getString("editorApplicationController.createNewDocument.text")); // NOI18N
         createNewDocument.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 launchFrameActionPerformed(evt);
@@ -234,16 +237,16 @@ public class editorApplicationController extends javax.swing.JPanel {
         });
 
         lblCurrentTemplate.setFont(new java.awt.Font("Tahoma", 0, 11));
-        lblCurrentTemplate.setText("Create a new document from selected template");
+        lblCurrentTemplate.setText(bundle.getString("editorApplicationController.lblCurrentTemplate.text")); // NOI18N
 
         cboDocumentTypes.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         cboDocumentTypes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lblDocumentTypes.setFont(new java.awt.Font("Tahoma", 0, 11));
-        lblDocumentTypes.setText("Change Active Document mode for editor");
+        lblDocumentTypes.setText(bundle.getString("editorApplicationController.lblDocumentTypes.text")); // NOI18N
 
         btnOpenExisting.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
-        btnOpenExisting.setText("Open Existing Document...");
+        btnOpenExisting.setText(bundle.getString("editorApplicationController.btnOpenExisting.text")); // NOI18N
         btnOpenExisting.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOpenExistingActionPerformed(evt);
@@ -252,23 +255,23 @@ public class editorApplicationController extends javax.swing.JPanel {
 
         lblCurrentActiveMode.setBackground(java.awt.Color.lightGray);
         lblCurrentActiveMode.setFont(lblCurrentActiveMode.getFont().deriveFont(lblCurrentActiveMode.getFont().getStyle() | java.awt.Font.BOLD, lblCurrentActiveMode.getFont().getSize()+4));
-        lblCurrentActiveMode.setText("CURRENT : %s");
+        lblCurrentActiveMode.setText(bundle.getString("editorApplicationController.lblCurrentActiveMode.text")); // NOI18N
         lblCurrentActiveMode.setOpaque(true);
 
-        jButton2.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
-        jButton2.setText("Start and Accquire");
+        btnStartAndAccquire.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
+        btnStartAndAccquire.setText(bundle.getString("editorApplicationController.btnStartAndAccquire.text")); // NOI18N
 
         lblCreateNewDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
-        lblCreateNewDoc.setText("Composes a blank document of type : %s");
+        lblCreateNewDoc.setText(bundle.getString("editorApplicationController.lblCreateNewDoc.text")); // NOI18N
 
         lblOpenCurrentDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
-        lblOpenCurrentDoc.setText("Launches a file selector dialog to open an existing: %s document");
+        lblOpenCurrentDoc.setText(bundle.getString("editorApplicationController.lblOpenCurrentDoc.text")); // NOI18N
 
         lblLaunchAndAccquire.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
-        lblLaunchAndAccquire.setText("Launches the Editor and accquires open : %s documents");
+        lblLaunchAndAccquire.setText(bundle.getString("editorApplicationController.lblLaunchAndAccquire.text")); // NOI18N
 
         btnImportNew.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
-        btnImportNew.setText("Import Existing Document..");
+        btnImportNew.setText(bundle.getString("editorApplicationController.btnImportNew.text")); // NOI18N
         btnImportNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnImportNewActionPerformed(evt);
@@ -304,7 +307,7 @@ public class editorApplicationController extends javax.swing.JPanel {
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(lblOpenCurrentDoc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 418, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                             .add(tabCurrentFileLayout.createSequentialGroup()
-                                .add(jButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(btnStartAndAccquire, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(lblLaunchAndAccquire, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 311, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(13, Short.MAX_VALUE))
@@ -340,12 +343,12 @@ public class editorApplicationController extends javax.swing.JPanel {
                     .add(lblOpenCurrentDoc, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(btnStartAndAccquire, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(lblLaunchAndAccquire, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
                 .add(70, 70, 70))
         );
 
-        editorAppTabbedPane.addTab("Quick Actions", tabCurrentFile);
+        editorAppTabbedPane.addTab(bundle.getString("editorApplicationController.tabCurrentFile.TabConstraints.tabTitle"), tabCurrentFile); // NOI18N
 
         tblTemplatesList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -360,7 +363,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblTemplatesList);
 
-        btnSetCurrentTemplate.setText("Set Current Template");
+        btnSetCurrentTemplate.setText(bundle.getString("editorApplicationController.btnSetCurrentTemplate.text")); // NOI18N
         btnSetCurrentTemplate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSetCurrentTemplateActionPerformed(evt);
@@ -394,7 +397,7 @@ public class editorApplicationController extends javax.swing.JPanel {
                 .addContainerGap(59, Short.MAX_VALUE))
         );
 
-        editorAppTabbedPane.addTab("Templates", tabTemplates);
+        editorAppTabbedPane.addTab(bundle.getString("editorApplicationController.tabTemplates.TabConstraints.tabTitle"), tabTemplates); // NOI18N
 
         tblWorkspaceFolder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -409,7 +412,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(tblWorkspaceFolder);
 
-        btnEditWorkspaceDocument.setText("Edit Selected Document..");
+        btnEditWorkspaceDocument.setText(bundle.getString("editorApplicationController.btnEditWorkspaceDocument.text")); // NOI18N
         btnEditWorkspaceDocument.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditWorkspaceDocumentActionPerformed(evt);
@@ -440,36 +443,36 @@ public class editorApplicationController extends javax.swing.JPanel {
                 .addContainerGap(46, Short.MAX_VALUE))
         );
 
-        editorAppTabbedPane.addTab("Workspace", tabWorkspace);
+        editorAppTabbedPane.addTab(bundle.getString("editorApplicationController.tabWorkspace.TabConstraints.tabTitle"), tabWorkspace); // NOI18N
 
         tabSettings.setFont(new java.awt.Font("Tahoma", 1, 11));
 
         lblWorkspacePath.setFont(new java.awt.Font("Tahoma", 1, 11));
-        lblWorkspacePath.setText("Workspace Path");
+        lblWorkspacePath.setText(bundle.getString("editorApplicationController.lblWorkspacePath.text")); // NOI18N
 
-        btnBrowseWorkspacePath.setText("Browse..");
+        btnBrowseWorkspacePath.setText(bundle.getString("editorApplicationController.btnBrowseWorkspacePath.text")); // NOI18N
         btnBrowseWorkspacePath.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBrowseWorkspacePathActionPerformed(evt);
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel2.setText("Server IP");
+        lblServerIP.setFont(new java.awt.Font("Tahoma", 1, 11));
+        lblServerIP.setText(bundle.getString("editorApplicationController.lblServerIP.text")); // NOI18N
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         lblServerPort.setFont(new java.awt.Font("Tahoma", 1, 11));
-        lblServerPort.setText("Server Port");
+        lblServerPort.setText(bundle.getString("editorApplicationController.lblServerPort.text")); // NOI18N
 
         lblServerHomeDir.setFont(new java.awt.Font("Tahoma", 1, 11));
-        lblServerHomeDir.setText("Server Home Directory");
+        lblServerHomeDir.setText(bundle.getString("editorApplicationController.lblServerHomeDir.text")); // NOI18N
 
         checkBoxConnectOnStartup.setFont(new java.awt.Font("Tahoma", 1, 11));
-        checkBoxConnectOnStartup.setText("Connect to Server on Start Up");
+        checkBoxConnectOnStartup.setText(bundle.getString("editorApplicationController.checkBoxConnectOnStartup.text")); // NOI18N
         checkBoxConnectOnStartup.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
-        btnSaveSettings.setText("Save Settings");
+        btnSaveSettings.setText(bundle.getString("editorApplicationController.btnSaveSettings.text")); // NOI18N
 
         org.jdesktop.layout.GroupLayout tabSettingsLayout = new org.jdesktop.layout.GroupLayout(tabSettings);
         tabSettings.setLayout(tabSettingsLayout);
@@ -490,7 +493,7 @@ public class editorApplicationController extends javax.swing.JPanel {
                             .add(lblWorkspacePath, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 174, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(tabSettingsLayout.createSequentialGroup()
                                 .add(tabSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jLabel2)
+                                    .add(lblServerIP)
                                     .add(txtServerIp, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE))
                                 .add(28, 28, 28)
                                 .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -527,7 +530,7 @@ public class editorApplicationController extends javax.swing.JPanel {
                 .add(tabSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(jSeparator1)
                     .add(tabSettingsLayout.createSequentialGroup()
-                        .add(jLabel2)
+                        .add(lblServerIP)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(txtServerIp, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(tabSettingsLayout.createSequentialGroup()
@@ -545,7 +548,7 @@ public class editorApplicationController extends javax.swing.JPanel {
                 .addContainerGap(57, Short.MAX_VALUE))
         );
 
-        editorAppTabbedPane.addTab("Settings", tabSettings);
+        editorAppTabbedPane.addTab(bundle.getString("editorApplicationController.tabSettings.TabConstraints.tabTitle"), tabSettings); // NOI18N
 
         tblServerFiles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -560,7 +563,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         ));
         jScrollPane3.setViewportView(tblServerFiles);
 
-        btnBackOneFolder.setText("« Back one Folder Level");
+        btnBackOneFolder.setText(bundle.getString("editorApplicationController.btnBackOneFolder.text")); // NOI18N
         btnBackOneFolder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackOneFolder_Clicked(evt);
@@ -591,7 +594,7 @@ public class editorApplicationController extends javax.swing.JPanel {
                 .addContainerGap(50, Short.MAX_VALUE))
         );
 
-        editorAppTabbedPane.addTab("Server", tabServer);
+        editorAppTabbedPane.addTab(bundle.getString("editorApplicationController.tabServer.TabConstraints.tabTitle"), tabServer); // NOI18N
 
         org.jdesktop.layout.GroupLayout tabAboutLayout = new org.jdesktop.layout.GroupLayout(tabAbout);
         tabAbout.setLayout(tabAboutLayout);
@@ -604,22 +607,22 @@ public class editorApplicationController extends javax.swing.JPanel {
             .add(0, 300, Short.MAX_VALUE)
         );
 
-        editorAppTabbedPane.addTab("About", tabAbout);
+        editorAppTabbedPane.addTab(bundle.getString("editorApplicationController.tabAbout.TabConstraints.tabTitle"), tabAbout); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
-        jLabel1.setText("Bungeni Editor Application 0.7");
+        lblApplnTitle.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
+        lblApplnTitle.setText(bundle.getString("editorApplicationController.lblApplnTitle.text")); // NOI18N
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 669, Short.MAX_VALUE)
+            .add(lblApplnTitle, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 669, Short.MAX_VALUE)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, editorAppTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 669, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(lblApplnTitle, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(editorAppTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 328, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -913,58 +916,62 @@ private void initFrame(XComponent component){
             
             panel = new org.bungeni.editor.dialogs.editorTabbedPanel(component, this.openofficeObject, frame);
             //panel.setOOoHelper(this.openofficeObject);
+           // frame.removeMinMaxClose();
+          
             frame.add(panel);
             WindowListener tabbedPanelListener = new WindowAdapter(){
-                  
-            @Override
-                public void windowDeiconified(WindowEvent e) {
-                        panel.bringEditorWindowToFront();
-                        //deiconize all floating panels
-                        HashMap<String,org.bungeni.editor.panels.impl.IFloatingPanel> panelMap = panel.getFloatingPanelMap();
-                        java.util.Iterator<String> iterPanels = panelMap.keySet().iterator();
-                        while (iterPanels.hasNext()) {
-                            final org.bungeni.editor.panels.impl.IFloatingPanel p = panelMap.get(iterPanels.next());
-                            SwingUtilities.invokeLater(new Runnable(){
-                            public void run() {
-                                    JFrame fr= p.getParentWindowHandle();
-                                    System.out.println("maximizing  other window");
-                                    fr.setExtendedState(JFrame.NORMAL);
-                                    fr.setVisible(true);                        
+                @Override
+                   public void windowClosing(WindowEvent e) {
+                        WindowEvent we = new WindowEvent(parentFrame, WindowEvent.WINDOW_CLOSING);
+                        parentFrame.dispatchEvent(we);
+                    }
+
+                @Override
+                    public void windowDeiconified(WindowEvent e) {
+                            panel.bringEditorWindowToFront();
+                            //deiconize all floating panels
+                            HashMap<String,org.bungeni.editor.panels.impl.IFloatingPanel> panelMap = panel.getFloatingPanelMap();
+                            java.util.Iterator<String> iterPanels = panelMap.keySet().iterator();
+                            while (iterPanels.hasNext()) {
+                                final org.bungeni.editor.panels.impl.IFloatingPanel p = panelMap.get(iterPanels.next());
+                                SwingUtilities.invokeLater(new Runnable(){
+                                public void run() {
+                                        JFrame fr= p.getParentWindowHandle();
+                                        System.out.println("maximizing  other window");
+                                        fr.setExtendedState(JFrame.NORMAL);
+                                        fr.setVisible(true);
+                                }
+
+                                });
+                            }
+                        }
+
+                @Override
+                        public void windowIconified(WindowEvent e) {
+                            System.out.println("panel minimized....");
+                            HashMap<String,org.bungeni.editor.panels.impl.IFloatingPanel> panelMap = panel.getFloatingPanelMap();
+                            java.util.Iterator<String> iterPanels = panelMap.keySet().iterator();
+                            while (iterPanels.hasNext()) {
+                                final org.bungeni.editor.panels.impl.IFloatingPanel p = panelMap.get(iterPanels.next());
+                                SwingUtilities.invokeLater(new Runnable(){
+                                    public void run() {
+                                        JFrame fr= p.getParentWindowHandle();
+                                        System.out.println("minimizing other window");
+                                        fr.setExtendedState(JFrame.ICONIFIED);
+                                        fr.setVisible(false);                                }
+                                });
+
                             }
 
-                            });
                         }
-                    }
-                    
-            @Override
-                    public void windowIconified(WindowEvent e) {
-                        System.out.println("panel minimized....");
-                        HashMap<String,org.bungeni.editor.panels.impl.IFloatingPanel> panelMap = panel.getFloatingPanelMap();
-                        java.util.Iterator<String> iterPanels = panelMap.keySet().iterator();
-                        while (iterPanels.hasNext()) {
-                            final org.bungeni.editor.panels.impl.IFloatingPanel p = panelMap.get(iterPanels.next());
-                            SwingUtilities.invokeLater(new Runnable(){
-                                public void run() {
-                                    JFrame fr= p.getParentWindowHandle();
-                                    System.out.println("minimizing other window");
-                                    fr.setExtendedState(JFrame.ICONIFIED);
-                                    fr.setVisible(false);                                }
-                            });
-
-                        }
-
-                    }
-  
             };
             frame.addWindowListener(tabbedPanelListener);
             //frame.setSize(243, 650);
-
             frame.setResizable(false);
             frame.setAlwaysOnTop(true);
             frame.setVisible(true);
             //prevent closing of main editor panel
             frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-       
             frame.setLocation(editorTabbedPanel.coordX, editorTabbedPanel.coordY);
             //frame.setLocation(windowX, windowY );  // Don't use "f." inside constructor.
 }
@@ -1319,17 +1326,16 @@ private class tblServerFilesMouseAdapter implements MouseListener {
     private javax.swing.JButton btnOpenExisting;
     private javax.swing.JButton btnSaveSettings;
     private javax.swing.JButton btnSetCurrentTemplate;
+    private javax.swing.JButton btnStartAndAccquire;
     private javax.swing.JComboBox cboDocumentTypes;
     private javax.swing.JCheckBox checkBoxConnectOnStartup;
     private javax.swing.JButton createNewDocument;
     private javax.swing.JTabbedPane editorAppTabbedPane;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblApplnTitle;
     private javax.swing.JLabel lblCreateNewDoc;
     private javax.swing.JLabel lblCurrentActiveMode;
     private javax.swing.JLabel lblCurrentDirectory;
@@ -1341,6 +1347,7 @@ private class tblServerFilesMouseAdapter implements MouseListener {
     private javax.swing.JLabel lblSelectedFile;
     private javax.swing.JLabel lblSelectedTemplate;
     private javax.swing.JLabel lblServerHomeDir;
+    private javax.swing.JLabel lblServerIP;
     private javax.swing.JLabel lblServerPort;
     private javax.swing.JLabel lblTemplatePath;
     private javax.swing.JLabel lblWorkspacePath;

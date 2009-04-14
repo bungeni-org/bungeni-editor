@@ -141,13 +141,14 @@ public class routerCreateScaledSection_panel extends BaseRouterSelectorPanel {
         txtMessage.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         txtMessage.setLineWrap(true);
         txtMessage.setRows(3);
-        txtMessage.setText("Place your cursor at the starting point of the section. Click 'start section'. Scroll the document to where you want to end the section and click 'End Section'");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/actions/routers/Bundle"); // NOI18N
+        txtMessage.setText(bundle.getString("routerCreateScaledSection_panel.txtMessage.text")); // NOI18N
         txtMessage.setWrapStyleWord(true);
         txtMessage.setBorder(null);
         scrollMessage.setViewportView(txtMessage);
 
         btnStartSection.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnStartSection.setText("Start Section");
+        btnStartSection.setText(bundle.getString("routerCreateScaledSection_panel.btnStartSection.text")); // NOI18N
         btnStartSection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnStartSectionActionPerformed(evt);
@@ -155,7 +156,7 @@ public class routerCreateScaledSection_panel extends BaseRouterSelectorPanel {
         });
 
         btnEndSection.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnEndSection.setText("End Section");
+        btnEndSection.setText(bundle.getString("routerCreateScaledSection_panel.btnEndSection.text")); // NOI18N
         btnEndSection.setEnabled(false);
         btnEndSection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

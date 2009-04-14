@@ -104,13 +104,14 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
         cboExportTo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Export to File-System path", "Export to Server" }));
 
         lblExportTo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        lblExportTo.setText("Export To:");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/panels/loadable/Bundle"); // NOI18N
+        lblExportTo.setText(bundle.getString("transformXMLPanel.lblExportTo.text")); // NOI18N
 
         lblTransformFrom.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        lblTransformFrom.setText("Transformation Target");
+        lblTransformFrom.setText(bundle.getString("transformXMLPanel.lblTransformFrom.text")); // NOI18N
 
         btnExport.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnExport.setText("Export...");
+        btnExport.setText(bundle.getString("transformXMLPanel.btnExport.text")); // NOI18N
         btnExport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExportActionPerformed(evt);
@@ -118,7 +119,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
         });
 
         checkChangeColumns.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        checkChangeColumns.setText("Switch to 2 columns");
+        checkChangeColumns.setText(bundle.getString("transformXMLPanel.checkChangeColumns.text")); // NOI18N
         checkChangeColumns.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         checkChangeColumns.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,7 +128,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
         });
 
         checkboxMakePlain.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        checkboxMakePlain.setText("Make Document Plain");
+        checkboxMakePlain.setText(bundle.getString("transformXMLPanel.checkboxMakePlain.text")); // NOI18N
         checkboxMakePlain.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         checkboxMakePlain.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,8 +136,8 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
             }
         });
 
-        btnValidateStructure.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        btnValidateStructure.setText("Validate Structure");
+        btnValidateStructure.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnValidateStructure.setText(bundle.getString("transformXMLPanel.btnValidateStructure.text")); // NOI18N
         btnValidateStructure.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnValidateStructureActionPerformed(evt);

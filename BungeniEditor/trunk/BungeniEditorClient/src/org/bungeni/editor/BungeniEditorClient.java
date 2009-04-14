@@ -63,7 +63,7 @@ public class BungeniEditorClient {
         };
         frame.addWindowListener(panelListener);
         preLaunch();
-        editorApplicationController panel = new editorApplicationController();
+        editorApplicationController panel = new editorApplicationController(frame);
         panel.init();
         frame.add(panel);
         frame.setSize(615,400);
