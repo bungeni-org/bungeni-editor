@@ -82,8 +82,9 @@ public class MotionSelect extends BaseMetadataPanel {
         setName("Select a Question"); // NOI18N
 
         btnSelectQuestion.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnSelectQuestion.setText("Select a Motion...");
-        btnSelectQuestion.setActionCommand("Select a Question");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/motions/Bundle"); // NOI18N
+        btnSelectQuestion.setText(bundle.getString("MotionSelect.btnSelectQuestion.text")); // NOI18N
+        btnSelectQuestion.setActionCommand(bundle.getString("MotionSelect.btnSelectQuestion.actionCommand")); // NOI18N
         btnSelectQuestion.setContentAreaFilled(false);
         btnSelectQuestion.setName("btn_select_question"); // NOI18N
         btnSelectQuestion.addActionListener(new java.awt.event.ActionListener() {
@@ -93,7 +94,7 @@ public class MotionSelect extends BaseMetadataPanel {
         });
 
         cboSelectMotion.setEditable(true);
-        cboSelectMotion.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        cboSelectMotion.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         cboSelectMotion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboSelectMotion.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 

@@ -37,12 +37,13 @@ public class MotionText extends BaseMetadataPanel {
 
         scrollQuestionText.setName("scroll_question_text"); // NOI18N
 
-        txtMotionText.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        txtMotionText.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         txtMotionText.setName("txt_question_text"); // NOI18N
         scrollQuestionText.setViewportView(txtMotionText);
 
-        lblQuestionText.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblQuestionText.setText("Motion Text");
+        lblQuestionText.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/motions/Bundle"); // NOI18N
+        lblQuestionText.setText(bundle.getString("MotionText.lblQuestionText.text")); // NOI18N
         lblQuestionText.setName("lbl_question_text"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

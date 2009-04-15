@@ -34,11 +34,12 @@ public class MotionTitle extends BaseMetadataPanel {
         txtMotionTitle = new javax.swing.JTextField();
         lblQuestionTitle = new javax.swing.JLabel();
 
-        txtMotionTitle.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        txtMotionTitle.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         txtMotionTitle.setName("txt_question_title"); // NOI18N
 
-        lblQuestionTitle.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblQuestionTitle.setText("Motion Title");
+        lblQuestionTitle.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/motions/Bundle"); // NOI18N
+        lblQuestionTitle.setText(bundle.getString("MotionTitle.lblQuestionTitle.text")); // NOI18N
         lblQuestionTitle.setName("lbl_question_title"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

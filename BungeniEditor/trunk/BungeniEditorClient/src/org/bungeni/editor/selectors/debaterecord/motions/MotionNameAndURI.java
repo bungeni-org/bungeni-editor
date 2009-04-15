@@ -36,19 +36,20 @@ public class MotionNameAndURI extends BaseMetadataPanel {
         lblPersonURI = new javax.swing.JLabel();
         txtMotionURI = new javax.swing.JTextField();
 
-        lblNameOfPersonFrom.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblNameOfPersonFrom.setText("Edit Name of Motion");
+        lblNameOfPersonFrom.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/motions/Bundle"); // NOI18N
+        lblNameOfPersonFrom.setText(bundle.getString("MotionNameAndURI.lblNameOfPersonFrom.text")); // NOI18N
         lblNameOfPersonFrom.setName("lbl_person_name"); // NOI18N
 
-        txtMotionName.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        txtMotionName.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         txtMotionName.setName("txt_person_name"); // NOI18N
 
-        lblPersonURI.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblPersonURI.setText("URI of Motion");
+        lblPersonURI.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        lblPersonURI.setText(bundle.getString("MotionNameAndURI.lblPersonURI.text")); // NOI18N
         lblPersonURI.setName("lbl_person_uri"); // NOI18N
 
         txtMotionURI.setEditable(false);
-        txtMotionURI.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        txtMotionURI.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         txtMotionURI.setName("txt_person_uri"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
