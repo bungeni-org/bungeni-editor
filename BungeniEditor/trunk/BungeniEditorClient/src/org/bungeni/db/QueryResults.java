@@ -95,7 +95,7 @@ public class QueryResults {
     }
     
     public  String getField (Vector<String> row, String fieldName) {
-        return row.elementAt(getColumnIndex(fieldName) - 1);
+        return row.elementAt(getColumnIndex(fieldName) - 1).trim();
     }
     
     public Vector<String> getColumnsAsVector(){
