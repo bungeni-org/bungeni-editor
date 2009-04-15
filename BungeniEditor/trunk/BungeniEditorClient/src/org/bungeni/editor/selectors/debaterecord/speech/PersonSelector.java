@@ -143,16 +143,17 @@ public class PersonSelector extends  BaseMetadataPanel {
 
         setName("Person Selector"); // NOI18N
 
-        btn_SpeechBy.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        btn_SpeechBy.setText("Select a Person...");
-        btn_SpeechBy.setActionCommand("Select a Question");
+        btn_SpeechBy.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/speech/Bundle"); // NOI18N
+        btn_SpeechBy.setText(bundle.getString("PersonSelector.btn_SpeechBy.text")); // NOI18N
+        btn_SpeechBy.setActionCommand(bundle.getString("PersonSelector.btn_SpeechBy.actionCommand")); // NOI18N
         btn_SpeechBy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_SpeechByActionPerformed(evt);
             }
         });
 
-        cboPersonSelect.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        cboPersonSelect.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         cboPersonSelect.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

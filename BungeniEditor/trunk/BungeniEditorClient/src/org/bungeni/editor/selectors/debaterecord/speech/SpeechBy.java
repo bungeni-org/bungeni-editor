@@ -37,7 +37,9 @@ public class SpeechBy extends  BaseMetadataPanel {
 
         setName("Speech By"); // NOI18N
 
-        lbl_SpeechBy.setText("Speech By");
+        lbl_SpeechBy.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/speech/Bundle"); // NOI18N
+        lbl_SpeechBy.setText(bundle.getString("SpeechBy.lbl_SpeechBy.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
