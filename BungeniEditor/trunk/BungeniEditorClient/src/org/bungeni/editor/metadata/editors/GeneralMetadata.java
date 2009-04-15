@@ -257,7 +257,7 @@ private final static String STORE_AS_URL = "StoreAsURL";
         cboCountry.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboCountry.setName("fld.BungeniCountryCode"); // NOI18N
 
-        lblCountry.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblCountry.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblCountry.setText(bundle.getString("GeneralMetadata.lblCountry.text")); // NOI18N
         lblCountry.setName("lbl.BungeniCountryCode"); // NOI18N
 
@@ -280,7 +280,8 @@ private final static String STORE_AS_URL = "StoreAsURL";
 
         dt_official_date.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
-        lblOfficialDate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        lblOfficialDate.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblOfficialDate.setLabelFor(dt_official_date);
         lblOfficialDate.setText(bundle.getString("GeneralMetadata.lblOfficialDate.text")); // NOI18N
 
         lblOfficialTime.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
@@ -392,10 +393,10 @@ private final static String STORE_AS_URL = "StoreAsURL";
     public ArrayList<String> validateSelectedMetadata(BungeniFileSavePathFormat spf) {
          addFieldsToValidate (new TreeMap<String,Component>(){
             {
-                put("Publication Date", dt_publication_date );
-                put("Publication Name", txtPublicationName);
-                put ("Official Date", dt_official_date);
-                put ("Official Time", dt_official_time);
+                put(lblPublicationDate.getText().replace("*",""), dt_publication_date );
+                put(lblPublicationName.getText().replace("*",""), txtPublicationName);
+                put (lblOfficialDate.getText().replace("*",""), dt_official_date);
+                put (lblOfficialTime.getText().replace("*",""), dt_official_time);
             }
             });
         return super.validateSelectedMetadata(spf);
