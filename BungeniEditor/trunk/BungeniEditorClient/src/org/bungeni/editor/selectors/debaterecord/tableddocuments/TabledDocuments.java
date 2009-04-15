@@ -76,7 +76,8 @@ public class TabledDocuments extends BaseMetadataPanel {
         tbl_tabledDocs = new javax.swing.JTable();
 
         lbl_tabledDocs.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
-        lbl_tabledDocs.setText("Select Tabled Documents");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/tableddocuments/Bundle"); // NOI18N
+        lbl_tabledDocs.setText(bundle.getString("TabledDocuments.lbl_tabledDocs.text")); // NOI18N
 
         tbl_tabledDocs.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         tbl_tabledDocs.setModel(new javax.swing.table.DefaultTableModel(

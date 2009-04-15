@@ -33,10 +33,11 @@ public class Title extends BaseMetadataPanel {
         txt_title = new javax.swing.JTextField();
         lbl_title = new javax.swing.JLabel();
 
-        txt_title.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        txt_title.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
 
-        lbl_title.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
-        lbl_title.setText("Enter Title");
+        lbl_title.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/tableddocuments/Bundle"); // NOI18N
+        lbl_title.setText(bundle.getString("Title.lbl_title.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
