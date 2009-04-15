@@ -62,10 +62,11 @@ public class DebateRecordDate extends BaseMetadataPanel {
         lbl_initdebate_hansard = new javax.swing.JLabel();
         dt_initdebate_hansarddate = new org.jdesktop.swingx.JXDatePicker();
 
-        lbl_initdebate_hansard.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lbl_initdebate_hansard.setText("DebateRecord Date");
+        lbl_initdebate_hansard.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/masthead/Bundle"); // NOI18N
+        lbl_initdebate_hansard.setText(bundle.getString("DebateRecordDate.lbl_initdebate_hansard.text")); // NOI18N
 
-        dt_initdebate_hansarddate.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        dt_initdebate_hansarddate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

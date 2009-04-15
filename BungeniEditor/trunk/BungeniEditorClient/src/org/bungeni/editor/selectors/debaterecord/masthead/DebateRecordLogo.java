@@ -45,11 +45,12 @@ public class DebateRecordLogo extends BaseMetadataPanel {
         btn_initdebate_selectlogo = new javax.swing.JButton();
 
         txt_initdebate_selectlogo.setEditable(false);
-        txt_initdebate_selectlogo.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        txt_initdebate_selectlogo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         txt_initdebate_selectlogo.setName("txt_initdebate_selectlogo"); // NOI18N
 
-        btn_initdebate_selectlogo.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        btn_initdebate_selectlogo.setText("Select Logo...");
+        btn_initdebate_selectlogo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/masthead/Bundle"); // NOI18N
+        btn_initdebate_selectlogo.setText(bundle.getString("DebateRecordLogo.btn_initdebate_selectlogo.text")); // NOI18N
         btn_initdebate_selectlogo.setName("btn_initdebate_selectlogo"); // NOI18N
         btn_initdebate_selectlogo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
