@@ -17,10 +17,10 @@
     -->
     <info>
         <appname>BungeniEditor installation</appname>
-        <appversion>r210</appversion>
+        <appversion>rev312</appversion>
 	<appsubpath>BungeniEditor-$APP_VER</appsubpath>
         <authors>
-            <author name="Ashok Hariharan" email="undesa@parliaments.info"/>
+            <author name="UNDESA" email="undesa@parliaments.info"/>
         </authors>
         <url>http://www.bungeni.org</url>
 	<javaversion>1.6</javaversion>
@@ -59,8 +59,10 @@
         <panel classname="LicencePanel"/>
         <panel classname="TargetPanel"/>
         <panel classname="PacksPanel"/>
+	<panel classname="SummaryPanel"/>
         <panel classname="InstallPanel"/>
-        <panel classname="FinishPanel"/>
+	<panel classname="ShortcutPanel" />
+ 	<panel classname="SimpleFinishPanel" />
     </panels>
 
     <!-- 
