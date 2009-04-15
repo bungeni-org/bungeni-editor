@@ -1,14 +1,7 @@
-/*
- * DocumentSection.java
- *
- * Created on May 22, 2008, 6:13 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 package org.bungeni.editor.document;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Vector;
 import org.bungeni.db.QueryResults;
@@ -26,6 +19,8 @@ public class DocumentSection {
     private String sectionNumberingStyle;
     private String sectionVisibility;
     private int sectionBackground = 0xffffff;
+    private String sectionBackgroundURL = "";
+    private boolean isSectionBackgroundURL = false;
     private double sectionLeftMargin = 0;
     private double sectionRightMargin = 0;
     private String sectionNumberingScheme = "";
@@ -83,7 +78,22 @@ public class DocumentSection {
     }
 
     public int getSectionBackground() {
-        return new Integer(sectionBackground);
+            return new Integer(sectionBackground);
+    }
+
+    public boolean isSectionBackgroundURL() {
+        return this.isSectionBackgroundURL;
+    }
+    
+    public URL getSectionBackgroundURL() {
+        URL url = null;
+        try {
+             url = new URL(this.sectionBackgroundURL);
+        } catch (MalformedURLException ex) {
+           log.error("getSectionBackgroundURL : " + ex.getMessage());
+        } finally {
+            return url;
+        }
     }
 
     public void setSectionBackground(int sectionBackground) {
@@ -93,8 +103,17 @@ public class DocumentSection {
     
     public void setSectionBackground(String sectionBackground) {
         try {
-
-        this.sectionBackground = Integer.decode(sectionBackground.trim());
+        if (sectionBackground.startsWith("0x")) {
+            //this is a colored section background
+           this.sectionBackground = Integer.decode(sectionBackground.trim());
+        } else if (sectionBackground.startsWith("url:")) {
+            String urlPath = sectionBackground.replaceAll("url:", "");
+            String relPath = System.getProperty("user.dir");
+            this.sectionBackgroundURL = relPath + urlPath;
+            this.isSectionBackgroundURL = true;
+        } else {
+            this.sectionBackground = 0xffffff;
+        }
        } catch (NumberFormatException ex) {
             this.sectionBackground = 0xffffff;
             log.error("setSectionBackground : there was an error parsing the section background");
