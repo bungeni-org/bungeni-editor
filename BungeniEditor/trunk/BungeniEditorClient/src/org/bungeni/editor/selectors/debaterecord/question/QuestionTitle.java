@@ -36,7 +36,9 @@ public class QuestionTitle extends BaseMetadataPanel {
 
         txtQuestionTitle.setName("txt_question_title"); // NOI18N
 
-        lblQuestionTitle.setText("Question Title ");
+        lblQuestionTitle.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/question/Bundle"); // NOI18N
+        lblQuestionTitle.setText(bundle.getString("QuestionTitle.lblQuestionTitle.text")); // NOI18N
         lblQuestionTitle.setName("lbl_question_title"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -55,7 +57,7 @@ public class QuestionTitle extends BaseMetadataPanel {
                 .addComponent(lblQuestionTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtQuestionTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

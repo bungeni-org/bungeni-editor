@@ -40,7 +40,9 @@ public class QuestionText extends BaseMetadataPanel {
         txtQuestionText.setName("txt_question_text"); // NOI18N
         scrollQuestionText.setViewportView(txtQuestionText);
 
-        lblQuestionText.setText("Question Text");
+        lblQuestionText.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/question/Bundle"); // NOI18N
+        lblQuestionText.setText(bundle.getString("QuestionText.lblQuestionText.text")); // NOI18N
         lblQuestionText.setName("lbl_question_text"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -55,7 +57,7 @@ public class QuestionText extends BaseMetadataPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lblQuestionText)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollQuestionText, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE))
+                .addComponent(scrollQuestionText, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -147,9 +147,10 @@ public class QuestionSelect extends BaseMetadataPanel {
 
         setName("Select a Question"); // NOI18N
 
-        btnSelectQuestion.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        btnSelectQuestion.setText("Select a Question...");
-        btnSelectQuestion.setActionCommand("Select a Question");
+        btnSelectQuestion.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/question/Bundle"); // NOI18N
+        btnSelectQuestion.setText(bundle.getString("QuestionSelect.btnSelectQuestion.text")); // NOI18N
+        btnSelectQuestion.setActionCommand(bundle.getString("QuestionSelect.btnSelectQuestion.actionCommand")); // NOI18N
         btnSelectQuestion.setName("btn_select_question"); // NOI18N
         btnSelectQuestion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,7 +159,7 @@ public class QuestionSelect extends BaseMetadataPanel {
         });
 
         cboQuestionSelect.setEditable(true);
-        cboQuestionSelect.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        cboQuestionSelect.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         cboQuestionSelect.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

@@ -40,12 +40,15 @@ public class QuestionerNameAndURI extends BaseMetadataPanel {
         lblPersonURI = new javax.swing.JLabel();
         txtPersonURI = new javax.swing.JTextField();
 
-        lblNameOfPersonFrom.setText("Edit name of Person asking Question");
+        lblNameOfPersonFrom.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/question/Bundle"); // NOI18N
+        lblNameOfPersonFrom.setText(bundle.getString("QuestionerNameAndURI.lblNameOfPersonFrom.text")); // NOI18N
         lblNameOfPersonFrom.setName("lbl_person_name"); // NOI18N
 
         txtPersonName.setName("txt_person_name"); // NOI18N
 
-        lblPersonURI.setText("URI of Person");
+        lblPersonURI.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        lblPersonURI.setText(bundle.getString("QuestionerNameAndURI.lblPersonURI.text")); // NOI18N
         lblPersonURI.setName("lbl_person_uri"); // NOI18N
 
         txtPersonURI.setName("txt_person_uri"); // NOI18N

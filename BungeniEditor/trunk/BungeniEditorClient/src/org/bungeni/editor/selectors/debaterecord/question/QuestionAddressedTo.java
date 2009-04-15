@@ -37,6 +37,7 @@ public class QuestionAddressedTo extends BaseMetadataPanel {
 
         txtAddressedTo.setName("txt_question_to"); // NOI18N
 
+        lblQuestionAddressedTo.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         lblQuestionAddressedTo.setText("Question Addressed To :");
         lblQuestionAddressedTo.setName("lbl_question_to"); // NOI18N
 
