@@ -1042,17 +1042,17 @@ private void launchMetadataSetter(XComponent xComp){
                                     //this should never get executed
 
                                     //temporarily disable combo action listeners
-                                    ActionListener[] actionListeners = cboListDocuments.getActionListeners();
-                                    for (ActionListener aListener : actionListeners) {
-                                        cboListDocuments.removeActionListener(aListener);
-                                    }
+                                  //  ActionListener[] actionListeners = cboListDocuments.getActionListeners();
+                                  //  for (ActionListener aListener : actionListeners) {
+                                  //    cboListDocuments.removeActionListener(aListener);
+                                  //  }
                                     //set the combo index
                                     cboListDocuments.setSelectedIndex(i);
 
                                     //restore action listeners
-                                    for (ActionListener addListener : actionListeners) {
-                                        cboListDocuments.addActionListener(addListener);
-                                    }
+                                    //for (ActionListener addListener : actionListeners) {
+                                    //    cboListDocuments.addActionListener(addListener);
+                                   // }
                                     //remove the saved_file property
                                     BungeniRuntimeProperties.removeProperty("SAVED_FILE");
                                     break;
