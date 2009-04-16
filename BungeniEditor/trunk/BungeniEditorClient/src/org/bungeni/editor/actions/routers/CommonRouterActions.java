@@ -334,7 +334,7 @@ public class CommonRouterActions {
     public static void setSectionProperties(toolbarAction pAction, String newSectionName, OOComponentHelper ooDocument) {
         String sectionType = pAction.action_section_type();
         DocumentSection secObj = DocumentSectionsContainer.getDocumentSectionByType(sectionType);
-        HashMap<String,Object> sectionProps = secObj.getSectionProperties();
+        HashMap<String,Object> sectionProps = secObj.getSectionProperties(ooDocument);
         XTextSection newSection = ooDocument.getSection(newSectionName);
         XNamed namedSection = ooQueryInterface.XNamed(newSection);
         XPropertySet xProps = ooQueryInterface.XPropertySet(newSection);
@@ -348,6 +348,8 @@ public class CommonRouterActions {
                       xProps.setPropertyValue(propName, (java.lang.Long) sectionProps.get(propName));               
                 } else if (propVal.getClass() == java.lang.String.class) {
                       xProps.setPropertyValue(propName, (java.lang.String) sectionProps.get(propName));
+                } else if (propVal.getClass() == com.sun.star.style.GraphicLocation.class) {
+                      xProps.setPropertyValue(propName, (com.sun.star.style.GraphicLocation) sectionProps.get(propName));
                 } else
                       xProps.setPropertyValue(propName, (java.lang.String) sectionProps.get(propName));
             } catch (Exception ex) {
