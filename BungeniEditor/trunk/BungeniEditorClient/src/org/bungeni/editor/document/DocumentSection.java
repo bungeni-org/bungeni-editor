@@ -1,10 +1,15 @@
 package org.bungeni.editor.document;
 
+import com.sun.star.style.GraphicLocation;
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bungeni.db.QueryResults;
+import org.bungeni.ooo.OOComponentHelper;
 
 /**
  *
@@ -18,7 +23,7 @@ public class DocumentSection {
     private String sectionNamePrefix;
     private String sectionNumberingStyle;
     private String sectionVisibility;
-    private int sectionBackground = 0xffffff;
+    private Integer sectionBackground = 0xffffff;
     private String sectionBackgroundURL = "";
     private boolean isSectionBackgroundURL = false;
     private double sectionLeftMargin = 0;
@@ -109,6 +114,7 @@ public class DocumentSection {
         } else if (sectionBackground.startsWith("url:")) {
             String urlPath = sectionBackground.replaceAll("url:", "");
             String relPath = System.getProperty("user.dir");
+            this.sectionBackground = null;
             this.sectionBackgroundURL = relPath + urlPath;
             this.isSectionBackgroundURL = true;
         } else {
@@ -177,9 +183,27 @@ public class DocumentSection {
         this.Protected = Protected;
     }
     
-    public HashMap<String,Object> getSectionProperties(){
+    public HashMap<String,Object> getSectionProperties(OOComponentHelper ooDocument){
         HashMap<String,Object> propsMap = new HashMap<String,Object>();
-        propsMap.put ("BackColor", getSectionBackground());
+        if (isSectionBackgroundURL()) {
+                File f = new File (this.sectionBackgroundURL);
+                if (f.exists()) {
+                    try {
+                        String graphicURL = ooDocument.loadGraphic(f.toURI().toURL().toString());
+                        propsMap.put("BackGraphicURL", graphicURL);
+                        propsMap.put("BackGraphicFilter", "PNG - Portable Network Graphic");
+                        propsMap.put("BackGraphicLocation", com.sun.star.style.GraphicLocation.TILED);
+                    } catch (MalformedURLException ex) {
+                        log.error("getSectionProperties : " + ex.getMessage());
+                        propsMap.put ("BackColor",getSectionBackground());
+                    } 
+                } else {
+                    log.error("getSectionProperties : wrong path to background URL");
+                    propsMap.put ("BackColor",getSectionBackground());
+                }
+        } else {
+            propsMap.put ("BackColor",getSectionBackground());
+        }
         propsMap.put ("SectionLeftMargin", getSectionLeftMargin());
         propsMap.put ("SectionRightMargin", getSectionRightMargin());
         return propsMap;
@@ -201,16 +225,6 @@ public class DocumentSection {
         this.sectionVisibility = visibility;
     }
     
-    public static void main(String[] args) {
-        DocumentSection s = new DocumentSection();
-        s.setSectionBackground("0xff");
-        s.setSectionLeftMargin(".3");
-        s.setSectionRightMargin(".5");
-        System.out.println(s.getSectionBackground());
-        System.out.println(s.getSectionLeftMargin());
-        System.out.println(s.getSectionRightMargin());
-        
-    }
 
     public void setNumberDecorator(String string) {
         this.sectionNumberDecorator = string;
