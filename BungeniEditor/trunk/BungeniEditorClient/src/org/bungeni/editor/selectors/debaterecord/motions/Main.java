@@ -15,6 +15,7 @@ import java.awt.Component;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JFrame;
+import org.bungeni.editor.actions.routers.CommonRouterActions;
 import org.bungeni.editor.document.DocumentSection;
 import org.bungeni.editor.document.DocumentSectionsContainer;
 import org.bungeni.editor.selectors.BaseMetadataContainerPanel;
@@ -97,12 +98,14 @@ public class Main extends BaseMetadataContainerPanel {
             mainSectionName = newSection;
             //get section poperties
             XTextSection xSection = ooDocument.getSection(newSection);
+            CommonRouterActions.setSectionProperties(theAction, newSection, ooDocument);
+            /* TO BE DELETED - 16th APril
             XNamed namedSection = ooQueryInterface.XNamed(xSection);
             XPropertySet xProps = ooQueryInterface.XPropertySet(xSection);
             //container section was created here ...
              String sectionType = theAction.action_section_type();
              DocumentSection secObj = DocumentSectionsContainer.getDocumentSectionByType(sectionType);
-             HashMap<String,Object> sectionProps = secObj.getSectionProperties();
+             HashMap<String,Object> sectionProps = secObj.getSectionProperties(ooDocument);
              //update properties...
              for (String propName: sectionProps.keySet()) {
              try {
@@ -121,10 +124,11 @@ public class Main extends BaseMetadataContainerPanel {
                 log.error("setSectionProperties :"+ propName +" : "  +ex.getMessage());
                 log.error("setSectionProperties :"+ CommonExceptionUtils.getStackTrace(ex));
                 } 
-            }
-            HashMap<String,String> metaMap = new HashMap<String,String>();
-            metaMap.put("BungeniSectionType", theAction.action_section_type());
-            ooDocument.setSectionMetadataAttributes(xSection, metaMap);
+            } */
+            //to be deleted 16th April
+          //  HashMap<String,String> metaMap = new HashMap<String,String>();
+          //  metaMap.put("BungeniSectionType", theAction.action_section_type());
+            ooDocument.setSectionMetadataAttributes(xSection, CommonRouterActions.get_newSectionMetadata(theAction));
             // ooDocument.c
         }
         return true;

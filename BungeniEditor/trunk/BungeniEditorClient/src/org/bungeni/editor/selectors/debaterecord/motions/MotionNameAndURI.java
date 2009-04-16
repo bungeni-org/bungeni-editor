@@ -44,7 +44,7 @@ public class MotionNameAndURI extends BaseMetadataPanel {
         txtMotionName.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         txtMotionName.setName("txt_person_name"); // NOI18N
 
-        lblPersonURI.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        lblPersonURI.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         lblPersonURI.setText(bundle.getString("MotionNameAndURI.lblPersonURI.text")); // NOI18N
         lblPersonURI.setName("lbl_person_uri"); // NOI18N
 
@@ -216,26 +216,6 @@ public String getPanelName() {
     
        @Override
     public boolean doUpdateEvent(){
-           /*
-        HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();  
-        BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
-        String questionFrom = ((Main)getContainerPanel()).selectionData.get("QUESTION_FROM");
-        dbInstance.Connect();
-        QueryResults rs = dbInstance.QueryResults(GeneralQueryFactory.Q_FETCH_PERSON_BY_URI(questionFrom));
-        dbInstance.EndConnect();
-            String fullName = "";
-            if (rs.hasResults()) {
-                
-                String[] firstName = rs.getSingleColumnResult("FIRST_NAME");
-                String[] lastName = rs.getSingleColumnResult("LAST_NAME");
-                if (firstName != null )
-                    fullName = firstName[0];
-                if (lastName != null ) 
-                    fullName += " " + lastName[0];
-            }
-
-        this.txtMotionName.setText(fullName);
-        this.txtMotionURI.setText(questionFrom);*/
                HashMap<String,String> selectionData = ((Main)getContainerPanel()).selectionData;   
         this.txtMotionName.setText(selectionData.get("MOTION_NAME"));
         this.txtMotionURI.setText(selectionData.get("MOTION_URI"));
