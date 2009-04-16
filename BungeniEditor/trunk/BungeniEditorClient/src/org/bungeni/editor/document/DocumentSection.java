@@ -183,7 +183,8 @@ public class DocumentSection {
         this.Protected = Protected;
     }
     
-    public HashMap<String,Object> getSectionProperties(OOComponentHelper ooDocument){
+    private HashMap<String,Object> createSectionPropertyMap(OOComponentHelper ooDocument) {
+
         HashMap<String,Object> propsMap = new HashMap<String,Object>();
         if (isSectionBackgroundURL()) {
                 File f = new File (this.sectionBackgroundURL);
@@ -194,11 +195,11 @@ public class DocumentSection {
                         propsMap.put("BackGraphicFilter", "PNG - Portable Network Graphic");
                         propsMap.put("BackGraphicLocation", com.sun.star.style.GraphicLocation.TILED);
                     } catch (MalformedURLException ex) {
-                        log.error("getSectionProperties : " + ex.getMessage());
+                        log.error("createSectionPropertyMap : " + ex.getMessage());
                         propsMap.put ("BackColor",getSectionBackground());
-                    } 
+                    }
                 } else {
-                    log.error("getSectionProperties : wrong path to background URL");
+                    log.error("createSectionPropertyMap : wrong path to background URL");
                     propsMap.put ("BackColor",getSectionBackground());
                 }
         } else {
@@ -206,6 +207,14 @@ public class DocumentSection {
         }
         propsMap.put ("SectionLeftMargin", getSectionLeftMargin());
         propsMap.put ("SectionRightMargin", getSectionRightMargin());
+        return propsMap;
+
+    }
+
+
+    public HashMap<String,Object> getSectionProperties(OOComponentHelper ooDocument){
+        HashMap<String,Object> propsMap = new HashMap<String,Object>();
+        propsMap = createSectionPropertyMap(ooDocument);
         return propsMap;
     }
 
