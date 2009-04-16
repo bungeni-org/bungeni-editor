@@ -29,6 +29,7 @@ import com.sun.star.frame.XModel;
 import com.sun.star.frame.XStorable;
 import com.sun.star.io.IOException;
 import com.sun.star.lang.EventObject;
+import com.sun.star.lang.IllegalArgumentException;
 import com.sun.star.lang.WrappedTargetException;
 import com.sun.star.lang.XComponent;
 import com.sun.star.lang.XMultiComponentFactory;
@@ -64,7 +65,10 @@ import com.sun.star.xml.AttributeData;
 import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 
 
@@ -85,7 +89,7 @@ public  class OOComponentHelper {
     /**
      * Semantic namespace used for setting document metadata
      */
-    public static final String ATTRIBUTE_NAMESPACE = "urn:akomantoso:names:tc:opendocument:xmlns:semantic-text:1.0";  
+    public static String ATTRIBUTE_NAMESPACE = "urn:akomantoso:names:tc:opendocument:xmlns:semantic-text:1.0";  
     private static long MARGIN_MEASURE_BASE = 254;
     private boolean isXComponentNull = true;
     private xComponentListener xEventListener;
@@ -227,11 +231,11 @@ public  class OOComponentHelper {
    }
     
     /**
-     * 
-     * @param sectionName
-     * @param numberOfColumns
-     * @param cBackColor
-     * @return
+     * Creates a text section and returns a Text Content handle to the Text section
+     * @param sectionName - the name of the section to be created
+     * @param numberOfColumns - the number of columns
+     * @param cBackColor - the background color for the section
+     * @return XTextContent handle of the section
      */
     public XTextContent createTextSection(String sectionName, short numberOfColumns, Integer cBackColor){
       XNamed xNamedSection = null;
@@ -298,11 +302,57 @@ public  class OOComponentHelper {
         }
         
     }
-    
+
     /**
-     *
+     * Creates a sectoin with a background as an image.
+     * The URL to the background image is passed as a parameter
      * @param sectionName
+     * @param numberOfColumns
+     * @param backGraphicURL
      * @return
+     */
+    public XTextContent createTextSection(String sectionName, short numberOfColumns, String backGraphicURL){
+       XNamed xNamedSection = null;
+       XTextContent xSectionContent = null;
+
+       try {
+            //create the section
+           Object newSection = createInstance("com.sun.star.text.TextSection");
+           //set the name
+           xNamedSection = (XNamed)UnoRuntime.queryInterface(XNamed.class, newSection);
+           xNamedSection.setName(sectionName);
+           //XTextContent xSectionContent = (XTextContent)UnoRuntime.queryInterface(XTextContent.class, newSection);
+           //create column instance, and set column count
+           XTextColumns xColumns = (XTextColumns) UnoRuntime.queryInterface( XTextColumns.class, createInstance("com.sun.star.text.TextColumns"));
+           xColumns.setColumnCount(numberOfColumns);
+
+           //set the column count to the section
+           getObjectPropertySet(xNamedSection).setPropertyValue(ooProperties.TEXT_COLUMNS, xColumns);
+           xSectionContent = (XTextContent) UnoRuntime.queryInterface(XTextContent.class, xNamedSection);
+
+           //get the newly created section
+           XPropertySet xProps = ooQueryInterface.XPropertySet(newSection);
+            String graphicURL = this.loadGraphic(backGraphicURL);
+            xProps.setPropertyValue("BackGraphic", graphicURL);
+            xProps.setPropertyValue("BackGraphicFilter", "PNG - Portable Network Graphic");
+            xProps.setPropertyValue("BackGraphicLocation",  com.sun.star.style.GraphicLocation.TILED);
+
+        } catch (UnknownPropertyException ex) {
+              log.error("createTextSection (graphic = "+ backGraphicURL +  ")"+  ex.getMessage() );
+        } catch (PropertyVetoException ex) {
+              log.error("createTextSection (graphic = "+ backGraphicURL +  ")"+  ex.getMessage() );
+        } catch (IllegalArgumentException ex) {
+              log.error("createTextSection (graphic = "+ backGraphicURL +  ")"+  ex.getMessage() );
+        } catch (WrappedTargetException ex) {
+              log.error("createTextSection (graphic = "+ backGraphicURL +  ")"+  ex.getMessage() );
+        } finally {
+            return xSectionContent;
+        }
+    }
+    /**
+     * Adds a section over the current selection (the "View" cursor)
+     * @param sectionName - the name of the section to be created
+     * @return the XTextContent handle to the newly created section
      */
     public XTextContent addViewSection(String sectionName) {
            XTextViewCursor viewCursor = getViewCursor();
@@ -348,15 +398,15 @@ public  class OOComponentHelper {
     }
     
     /**
-     *
-     * @return
+     * Checks if the XComponent handle is valid for the current object
+     * @return true if valid, false if invalid
      */
     public boolean isXComponentValid() {
         return !isXComponentNull;
     }
     
     /**
-     *
+     * This API allows adding metadata to a document section
      * @param theSection
      * @param metadataMap
      */
@@ -2029,7 +2079,35 @@ public void setPageColumns(short nColumns) {
             return bookNameAccess;
         }
     }
-    
+
+   
+    public String loadGraphic(String urlToGraphic) {
+        String graphicURL = "";
+        try {
+            Object bitmapTable = createInstance("com.sun.star.drawing.BitmapTable");
+            XNameContainer nameContainer = ooQueryInterface.XNameContainer(bitmapTable);
+            String graphicName = randomString();
+            nameContainer.insertByName(graphicName, urlToGraphic);
+            graphicURL  = (String) nameContainer.getByName(graphicName);
+
+        } catch (NoSuchElementException ex) {
+            log.error("loadGraphic : " + urlToGraphic + " " + ex.getMessage());
+        } catch (IllegalArgumentException ex) {
+            log.error("loadGraphic : " + urlToGraphic + " " + ex.getMessage());
+        } catch (ElementExistException ex) {
+            log.error("loadGraphic : " + urlToGraphic + " " + ex.getMessage());
+        } catch (WrappedTargetException ex) {
+            log.error("loadGraphic : " + urlToGraphic + " " + ex.getMessage());
+        } finally {
+            return graphicURL;
+        }
+    }
+
+    private String randomString() {
+        Random r = new Random();
+        return Long.toString(Math.abs(r.nextLong()), 36);
+    }
+
     /**
      *
      * @param bookmarkName
