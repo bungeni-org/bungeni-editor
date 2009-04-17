@@ -30,7 +30,6 @@ import org.bungeni.error.BungeniMsg;
 import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
-import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.bungeni.extutils.BungeniUUID;
 
 /**
@@ -140,8 +139,9 @@ public class routerCreateCompositeSection extends defaultRouter {
                
                 XTextContent xSectionContent = ooDocument.createTextSection(newBoundingSectionName, (short) 1);
                 ooDocument.getTextDocument().getText().insertTextContent(rangeCursor, xSectionContent, true);
-                setSectionProperties(ooDocument, newBoundingSection, newBoundingSectionName);
-                setSectionMetadata(ooDocument, newBoundingSection, newBoundingSectionName);
+                CommonRouterActions.setSectionProperties(action, newBoundingSectionName, ooDocument);
+                HashMap<String, String> metaMap = CommonRouterActions.get_newSectionMetadata(action);
+                ooDocument.setSectionMetadataAttributes(newBoundingSectionName, metaMap);
                 bState = true;
         }
             } catch (NullPointerException ex) {
@@ -153,13 +153,14 @@ public class routerCreateCompositeSection extends defaultRouter {
             }
     }
     
+    /*
     private void setSectionMetadata(OOComponentHelper ooDocument, DocumentSection secObj, String newSectionName) {
          HashMap<String,String> metaMap = new HashMap<String,String>();
          metaMap.put("BungeniSectionType",secObj.getSectionType());
          ooDocument.setSectionMetadataAttributes(newSectionName, metaMap);
-    }
+    }*/
     
-    
+    /*
     private void setSectionProperties(OOComponentHelper ooDocument, DocumentSection secObj, String newSectionName) {
         String sectionType = secObj.getSectionType();
         //DocumentSection secObj = DocumentSectionsContainer.getDocumentSectionByType(sectionType);
@@ -186,7 +187,7 @@ public class routerCreateCompositeSection extends defaultRouter {
             } 
         }
     }
-    
+    */
     class selectionProperties {
         XTextRange startRange = null;
         XTextRange endRange = null;

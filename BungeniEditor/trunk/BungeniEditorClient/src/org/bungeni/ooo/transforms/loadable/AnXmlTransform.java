@@ -117,13 +117,14 @@ public class AnXmlTransform extends BungeniDocTransform {
         
                 String pathPrefix = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + "transformer" + File.separator;
                 GlobalConfigurations.setApplicationPathPrefix(pathPrefix);
+                GlobalConfigurations.setConfigurationFilePath("configfiles/odttoakn/TranslatorConfig_debaterecord.xml");
                 OATranslator ODTtrans = OATranslator.getInstance();
                 //switch the current context class loader
                 Thread.currentThread().setContextClassLoader(ODTtrans.getClass().getClassLoader());
                 
                 Transformer tf = TransformerConfigurationFactory.getConfiguration(BungeniEditorPropertiesHelper.getCurrentDocType());
               ///commented for now  
-                File outputTrans = ODTtrans.translate(fopenDocumentFile, tf.configFile);
+                File outputTrans = ODTtrans.translate(fopenDocumentFile, GlobalConfigurations.getApplicationPathPrefix() +  tf.configFile);
                 //File outputTrans = ODTtrans.translate("/home/undesa/Desktop/test/ken_bill_2009_1_10_eng_main.odt", "odttoakn/minixslt/bill/pipeline.xsl");
                 if (writeOutputFile(outputTrans)) 
                     //MessageBox.OK(this.callerFrame, "Document was transformed!");

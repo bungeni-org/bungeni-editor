@@ -33,9 +33,6 @@ public class Main extends BaseMetadataContainerPanel {
            m_activePanels = new ArrayList<panelInfo>(){
                 {
                     add(new panelInfo(theSubAction.sub_action_name(), theSubAction.dialog_class()));        
-                   // add(new panelInfo("DebateRecordDate","org.bungeni.editor.selectors.debaterecord.masthead.DebateRecordDate"));
-                  //      add(new panelInfo("DebateRecordTime", "org.bungeni.editor.selectors.debaterecord.masthead.DebateRecordTime"));
-                  //      add(new panelInfo("DebateRecordLogo", "org.bungeni.editor.selectors.debaterecord.masthead.DebateRecordLogo"));
                 }
              };
        } else {

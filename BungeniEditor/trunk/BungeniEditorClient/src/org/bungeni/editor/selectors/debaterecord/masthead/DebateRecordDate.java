@@ -32,7 +32,7 @@ import org.bungeni.extutils.CommonPropertyFunctions;
 
 /**
  *
- * @author  undesa
+ * @author  Ashok Hariharan
  */
 public class DebateRecordDate extends BaseMetadataPanel {
 
@@ -41,7 +41,7 @@ public class DebateRecordDate extends BaseMetadataPanel {
       /**
        * Metadata variables
        */
-      final String _debatedateRefName_ = "BungeniDebateOfficialDate";
+      final String _debatedateRefName_ = "BungeniOfficialDate";
 
     /** Creates new form DebateRecordDate */
     public DebateRecordDate() {

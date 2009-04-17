@@ -6,14 +6,11 @@
 
 package org.bungeni.editor.panels;
 
-import com.sun.star.beans.UnknownPropertyException;
 import com.sun.star.beans.XPropertySet;
 import com.sun.star.container.NoSuchElementException;
 import com.sun.star.container.XNamed;
 import com.sun.star.lang.WrappedTargetException;
 import com.sun.star.text.XTextSection;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,28 +20,19 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.ArrayList;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JTree;
 import javax.swing.Timer;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
-import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.dialogs.metadatapanel.SectionMetadataLoad;
-import org.bungeni.editor.dialogs.treetable.DocMetadataTreeTableModel;
-import org.bungeni.editor.dialogs.treetable.sectionHive;
-import org.bungeni.editor.metadata.DocumentMetadataTableModel;
 import org.bungeni.editor.panels.loadable.sectionTreeMetadataPanel;
-import org.bungeni.editor.providers.DocumentSectionAdapterTreeModel;
-import org.bungeni.editor.providers.DocumentSectionAdapterTreeModel2;
 import org.bungeni.editor.providers.DocumentSectionTreeModelProvider;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
 import org.bungeni.extutils.CommonTreeFunctions;
-import org.jdesktop.swingx.JXTreeTable;
 
 /**
  *
