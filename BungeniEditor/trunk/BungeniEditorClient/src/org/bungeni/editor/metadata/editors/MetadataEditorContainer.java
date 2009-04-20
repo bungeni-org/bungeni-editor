@@ -196,8 +196,6 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         defaultSavePath = defaultSavePath.replace('/', File.separatorChar);
         log.debug("saveDocumentToDisk: defaultSavePath : " + defaultSavePath);
 
-        //parse URI and save path components
-        m_spf.parseComponents();
         //get the absolute path
         String exportPath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + defaultSavePath + m_spf.getExpressionPath() ; 
         

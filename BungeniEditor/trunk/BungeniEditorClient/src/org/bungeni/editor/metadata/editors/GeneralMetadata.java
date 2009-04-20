@@ -145,37 +145,37 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
         CountryCode selCountry = (CountryCode)this.cboCountry.getSelectedItem();
         LanguageCode selLanguage = (LanguageCode) this.cboLanguage.getSelectedItem();
         DocumentPart selPart = (DocumentPart) this.cboDocumentPart.getSelectedItem();
-    //ooDocMetadata docMeta = new ooDocMetadata(ooDocument);
-    //get the official time
+
+        //get the official time
         SimpleDateFormat tformatter = new SimpleDateFormat (BungeniEditorProperties.getEditorProperty("metadataTimeFormat"));
-       Object timeValue = this.dt_official_time.getValue();
-       Date hansardTime = (Date) timeValue;
-    final String strTimeOfHansard = tformatter.format(hansardTime);
-    //get the offical date
+        Object timeValue = this.dt_official_time.getValue();
+        Date hansardTime = (Date) timeValue;
+        final String strTimeOfHansard = tformatter.format(hansardTime);
+        //get the offical date
        SimpleDateFormat dformatter = new SimpleDateFormat (BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
        final String strDebateDate = dformatter.format( dt_official_date.getDate());
-    //get the current date
+        //get the current date
        Calendar cal = Calendar.getInstance();
        final String strCurrentDate = dformatter.format(cal.getTime());
-    //get the publication date
+        //get the publication date
        final String strPubDate = dformatter.format( this.dt_publication_date.getDate());
        final String strPubName = this.txtPublicationName.getText();
        
-   // docMetaModel.updateItem("BungeniParliamentID")
-    docMetaModel.updateItem("BungeniCountryCode", selCountry.countryCode);
-    docMetaModel.updateItem("BungeniLanguageCode", selLanguage.languageCode);
-    docMetaModel.updateItem("BungeniOfficialDate", strDebateDate);
-    docMetaModel.updateItem("BungeniWorkDate", strDebateDate);
-    docMetaModel.updateItem("BungeniExpDate", strCurrentDate);
-    docMetaModel.updateItem("BungeniManDate", strCurrentDate);
-    docMetaModel.updateItem("BungeniPublicationDate", strPubDate);
-    docMetaModel.updateItem("BungeniPublicationName", strPubName);
-    docMetaModel.updateItem("BungeniDocAuthor", "Ashok");
+        // docMetaModel.updateItem("BungeniParliamentID")
+        docMetaModel.updateItem("BungeniCountryCode", selCountry.countryCode);
+        docMetaModel.updateItem("BungeniLanguageCode", selLanguage.languageCode);
+        docMetaModel.updateItem("BungeniOfficialDate", strDebateDate);
+        docMetaModel.updateItem("BungeniWorkDate", strDebateDate);
+        docMetaModel.updateItem("BungeniExpDate", strCurrentDate);
+        docMetaModel.updateItem("BungeniManDate", strCurrentDate);
+        docMetaModel.updateItem("BungeniPublicationDate", strPubDate);
+        docMetaModel.updateItem("BungeniPublicationName", strPubName);
+        docMetaModel.updateItem("BungeniDocAuthor", "Ashok");
     
-    docMetaModel.updateItem("BungeniOfficialTime", strTimeOfHansard);
-    docMetaModel.updateItem("BungeniDocPart", selPart.PartName);
+        docMetaModel.updateItem("BungeniOfficialTime", strTimeOfHansard);
+        docMetaModel.updateItem("BungeniDocPart", selPart.PartName);
     
-    //other metadata
+        //other metadata
         docMetaModel.updateItem("BungeniWorkAuthor", "user.Ashok");
         docMetaModel.updateItem("BungeniWorkAuthorURI", "user.Ashok");
         docMetaModel.updateItem("BungeniWorkDateName","workDate");
@@ -188,21 +188,26 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
         docMetaModel.updateItem("BungeniManAuthorURI", "user.Ashok");
         docMetaModel.updateItem("BungeniManDateName","manDate");
    
-    spf.setSaveComponent("DocumentType", BungeniEditorPropertiesHelper.getCurrentDocType());
-    spf.setSaveComponent("CountryCode", selCountry.countryCode);
-    spf.setSaveComponent("LanguageCode", selLanguage.languageCode);
-    Date dtHansardDate = dt_official_date.getDate();
-    GregorianCalendar debateCal = new GregorianCalendar();
-    debateCal.setTime(dtHansardDate);
-    spf.setSaveComponent("Year", debateCal.get(Calendar.YEAR));
-    spf.setSaveComponent("Month", debateCal.get(Calendar.MONTH) + 1);
-    spf.setSaveComponent("Day", debateCal.get(Calendar.DAY_OF_MONTH));
-    spf.setSaveComponent("PartName", selPart.PartName);
-   //  spf.setSaveComponent("FileName", spf.getFileName());
-    
-    docMetaModel.updateItem("__BungeniDocMeta", "true");
-    docMetaModel.saveModel(ooDocument);
-    bState = true;
+        spf.setSaveComponent("DocumentType", BungeniEditorPropertiesHelper.getCurrentDocType());
+        spf.setSaveComponent("CountryCode", selCountry.countryCode);
+        spf.setSaveComponent("LanguageCode", selLanguage.languageCode);
+        Date dtHansardDate = dt_official_date.getDate();
+        GregorianCalendar debateCal = new GregorianCalendar();
+        debateCal.setTime(dtHansardDate);
+        spf.setSaveComponent("Year", debateCal.get(Calendar.YEAR));
+        spf.setSaveComponent("Month", debateCal.get(Calendar.MONTH) + 1);
+        spf.setSaveComponent("Day", debateCal.get(Calendar.DAY_OF_MONTH));
+        spf.setSaveComponent("PartName", selPart.PartName);
+           //  spf.setSaveComponent("FileName", spf.getFileName());
+        spf.parseComponents();
+
+        docMetaModel.updateItem("BungeniWorkURI", spf.getWorkPath());
+        docMetaModel.updateItem("BungeniExpURI", spf.getExpressionPath());
+        docMetaModel.updateItem("BungeniManURI", spf.getExpressionPath() + ".xml");
+
+        docMetaModel.updateItem("__BungeniDocMeta", "true");
+        docMetaModel.saveModel(ooDocument);
+        bState = true;
     } catch (Exception ex) {
         log.error("applySelectedMetadata : " + ex.getMessage());
         bState = false;
