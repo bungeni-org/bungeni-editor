@@ -51,6 +51,10 @@ public class BungeniFileSavePathFormat {
     public String getExpressionPath(){
         return this.expURI.get();
     }
+
+    public String getWorkPath(){
+        return this.workURI.get();
+    }
     
     public String getManifestationName(){
         return this.fileNameFormat.get();
