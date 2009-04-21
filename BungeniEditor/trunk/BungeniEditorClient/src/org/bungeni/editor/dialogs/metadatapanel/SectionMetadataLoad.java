@@ -9,17 +9,12 @@
 
 package org.bungeni.editor.dialogs.metadatapanel;
 
-import com.sun.star.beans.Property;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import javax.swing.table.AbstractTableModel;
 import org.apache.log4j.Logger;
 import org.bungeni.ooo.OOComponentHelper;
-import com.sun.star.beans.UnknownPropertyException;
-import org.bungeni.extutils.BungeniResourceBundleFactory;
 import org.bungeni.extutils.CommonResourceBundleHelperFunctions;
 
 /**
@@ -57,9 +52,12 @@ public class SectionMetadataLoad extends AbstractTableModel{
     public Object getValueAt(int rowIndex, int columnIndex) {
         if (columnIndex == 0 ) {
             return CommonResourceBundleHelperFunctions.getSectionMetaString(sectionMetadata[rowIndex][columnIndex].toString());
-        } else 
-        return sectionMetadata[rowIndex][columnIndex];
-    
+        } else  {
+            if (sectionMetadata[rowIndex][0].equals("BungeniSectionType"))
+                return CommonResourceBundleHelperFunctions.getSectionTypeMetaString((String)sectionMetadata[rowIndex][columnIndex]);
+            else
+                return sectionMetadata[rowIndex][columnIndex];
+        }
     }
     
     public void getSectionMetadata(String sectionName){
