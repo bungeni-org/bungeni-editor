@@ -26,11 +26,14 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.HashMap;
+import java.util.Set;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.JRadioButton;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
@@ -221,7 +224,91 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
         }
     }
 
+
+    JPopupMenu sectionStructureMenu;
+    private static HashMap<String,String> POPUP_ACTIONS = new HashMap<String,String>(){
+        {
+            put("GO_TO", "Go To");
+            put("NL_AFTER", "New Line After");
+            put("NL_BEFORE", "New Line Before");
+        }
+    };
+
+    private void initPopupMenu(){
+        sectionStructureMenu = new JPopupMenu();
+        sectionStructureMenu.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        ActionListener popupMenuListener = new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                if (e.getActionCommand().equals("GO_TO")) {
+                    //call go to section
+                    TreePath selPath =     sectionStructureTree.getSelectionPath();
+                    selectSectionFromTreePath(selPath);
+                }
+                if (e.getActionCommand().equals("NL_AFTER")) {
+                    //call go to after
+                    //add new line after section
+                    TreePath selPath = sectionStructureTree.getSelectionPath();
+                    String sectionName = getSectionFromTreePath(selPath);
+                    CommonDocumentUtilFunctions.addNewLineAfterSection(ooDocument, sectionName);
+                }
+                if (e.getActionCommand().equals("NL_BEFORE")) {
+                    //call go before
+                    //add new line before section
+                    TreePath selPath = sectionStructureTree.getSelectionPath();
+                    String sectionName = getSectionFromTreePath(selPath);
+                    CommonDocumentUtilFunctions.addNewLineBeforeSection(ooDocument, sectionName);
+
+                }
+            }
+        };
+
+        JMenuItem itemGoto = setupMenuItem("GO_TO", popupMenuListener);
+        JMenuItem itemnlAfter = setupMenuItem("NL_AFTER", popupMenuListener);
+        JMenuItem itemnlBefore = setupMenuItem("NL_BEFORE", popupMenuListener);
+        sectionStructureMenu.add(itemGoto);
+        sectionStructureMenu.add(itemnlAfter);
+        sectionStructureMenu.add(itemnlBefore);
+
+    }
+
+    private JMenuItem setupMenuItem(String key, ActionListener listener) {
+        String keyValue = POPUP_ACTIONS.get(key);
+        JMenuItem item = new JMenuItem (keyValue);
+        item.setActionCommand(key);
+        item.addActionListener(listener);
+        return item;
+
+    }
+
+    private String getSectionFromTreePath(TreePath selPath) {
+       String sectionName = "";
+       if (selPath != null ) {
+            try {
+                Object node = selPath.getLastPathComponent();
+                DefaultMutableTreeNode dmt = (DefaultMutableTreeNode) node;
+                Object userObject = dmt.getUserObject();
+                if (userObject.getClass().getName().equals(BungeniBNode.class.getName())) {
+                    BungeniBNode bNode = (BungeniBNode) userObject;
+                    sectionName = bNode.getName();
+                }
+            } catch (Exception ex) {
+                log.error("mousePressed: exception occured : " + ex.getMessage());
+            } finally {
+                return sectionName;
+            }
+        }
+       return sectionName;
+    }
+
+    private void selectSectionFromTreePath(TreePath selPath){
+        String sectionName = getSectionFromTreePath(selPath);
+        if (ooDocument.hasSection(sectionName)) {
+                 CommonDocumentUtilFunctions.selectSection(ooDocument, sectionName);
+        }
+    }
+
     private void initSectionStructureTree(){
+         initPopupMenu();
          sectionStructureTree.setExpandsSelectedPaths(true);
          ImageIcon minusIcon = CommonTreeFunctions.treeMinusIcon();
          ImageIcon plusIcon = CommonTreeFunctions.treePlusIcon();
@@ -229,20 +316,15 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
          sectionStructureTree.addMouseListener(new MouseAdapter(){
             @Override
                  public void mousePressed(MouseEvent evt) {
+                    //if event is the popup trigger for this os
+                    System.out.println(evt.getButton());
+                    if (evt.getButton() == MouseEvent.BUTTON3) {
+                        sectionStructureMenu.show((Component)evt.getSource(), evt.getX(), evt.getY());
+                    }
+                    //check if double click ...move focus to section
                     if (evt.getClickCount() == 2)  {
                         TreePath selPath = sectionStructureTree.getPathForLocation(evt.getX(), evt.getY());
-                        if (selPath != null ) {
-                            Object node = selPath.getLastPathComponent();
-                            DefaultMutableTreeNode dmt = (DefaultMutableTreeNode) node;
-                            Object userObject = dmt.getUserObject();
-                            if (userObject.getClass().getName().equals(BungeniBNode.class.getName())) {
-                                BungeniBNode bNode = (BungeniBNode) userObject;
-                                String sectionName = bNode.getName();
-                                if (ooDocument.hasSection(sectionName)) {
-                                    CommonDocumentUtilFunctions.selectSection(ooDocument, sectionName);
-                                }
-                            }
-                        }
+                        selectSectionFromTreePath(selPath);
                     }
                  }
          });
