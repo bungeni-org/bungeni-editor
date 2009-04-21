@@ -216,26 +216,6 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
         //but does not reflect in case of document cursor changes ==> reflecting back to the tree, as this requires a full iteration 
         //of the tree again. so for now implemented both as a treeTimer and fireNodeschanged event refresh
         ToolTipManager.sharedInstance().registerComponent(toolbarTree);
-        this.addKeyListener(new KeyAdapter(){
-
-                @Override
-                public void keyTyped(KeyEvent e) {
-                    e.consume();
-                }
-
-                @Override
-                public void keyPressed(KeyEvent e) {
-                    System.out.println("the key " + e.getKeyChar() + " was pressed");
-                    if (e.getKeyChar() == '*') {
-                        System.out.println("* was pressed");
-                        TreePath selectionPath = toolbarTree.getSelectionPath();
-                        if (selectionPath != null) {
-                                CommonTreeFunctions.expandAll(toolbarTree, selectionPath);
-                        }
-                    }
-                }
-
-        });
         } catch (Exception ex) {
             log.error("initTree: "+ ex.getMessage());
         }
@@ -316,6 +296,7 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
     }
     
     private void initTimers(){
+        /*
          Action sectionViewRefreshRunner = new AbstractAction() {
                 public void actionPerformed (ActionEvent e) {
                         updateCurrentSectionName();
@@ -328,6 +309,7 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
         timerSectionTree = new Timer(3000, sectionViewRefreshRunner);
         timerSectionTree.setInitialDelay(2000);
         timerSectionTree.start();
+         * */
     }
     private holderUIPanel self(){
         return this;
@@ -417,11 +399,11 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
             cboChangeStructure.setSelectedItem(itemDefault);
         m_selectedChangeStructureItem = (changeStructureItem)cboChangeStructure.getSelectedItem();        
     }
-    
+    /*
     private void updateCurrentSectionName(){
        String sectionHier = currentSectionName();
        this.txtCurrentSectionName.setText(sectionHier);
-    }
+    }*/
     
         public String getSectionHierarchy(XTextSection thisSection) {
                 String sectionName = "";
@@ -959,8 +941,11 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
         btnHideToolbarTree = new javax.swing.JRadioButton();
         btnHideTreeView = new javax.swing.JRadioButton();
         btnViewDefault = new javax.swing.JRadioButton();
-        txtCurrentSectionName = new javax.swing.JTextField();
         btnRefresh = new javax.swing.JButton();
+        btnActionsExpandAll = new javax.swing.JButton();
+        btnActionsCollapseAll = new javax.swing.JButton();
+        btnSectionsExpandAll = new javax.swing.JButton();
+        btnSectionsCollapseAll = new javax.swing.JButton();
 
         scrollToolbarTree.setViewportView(toolbarTree);
 
@@ -982,13 +967,43 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
         btnViewDefault.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnViewDefault.setText(bundle.getString("holderUIPanel.btnViewDefault.text")); // NOI18N
 
-        txtCurrentSectionName.setEditable(false);
-
         btnRefresh.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnRefresh.setText(bundle.getString("holderUIPanel.btnRefresh.text")); // NOI18N
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefreshActionPerformed(evt);
+            }
+        });
+
+        btnActionsExpandAll.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnActionsExpandAll.setText(bundle.getString("holderUIPanel.btnActionsExpandAll.text")); // NOI18N
+        btnActionsExpandAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActionsExpandAllActionPerformed(evt);
+            }
+        });
+
+        btnActionsCollapseAll.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnActionsCollapseAll.setText(bundle.getString("holderUIPanel.btnActionsCollapseAll.text")); // NOI18N
+        btnActionsCollapseAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActionsCollapseAllActionPerformed(evt);
+            }
+        });
+
+        btnSectionsExpandAll.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnSectionsExpandAll.setText(bundle.getString("holderUIPanel.btnSectionsExpandAll.text")); // NOI18N
+        btnSectionsExpandAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSectionsExpandAllActionPerformed(evt);
+            }
+        });
+
+        btnSectionsCollapseAll.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnSectionsCollapseAll.setText(bundle.getString("holderUIPanel.btnSectionsCollapseAll.text")); // NOI18N
+        btnSectionsCollapseAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSectionsCollapseAllActionPerformed(evt);
             }
         });
 
@@ -1010,27 +1025,36 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
                 .addComponent(btnHideTreeView)
                 .addContainerGap(70, Short.MAX_VALUE))
             .addComponent(scrollToolbarTree, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-            .addComponent(scrollTreeView, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+            .addComponent(scrollTreeView, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addComponent(btnActionsExpandAll, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnActionsCollapseAll, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(81, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtCurrentSectionName, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                .addComponent(btnSectionsExpandAll, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSectionsCollapseAll, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(scrollToolbarTree, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+                .addComponent(scrollToolbarTree, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollTreeView, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
-                .addGap(2, 2, 2)
-                .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnActionsExpandAll, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnActionsCollapseAll, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addComponent(scrollTreeView, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCurrentSectionName, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSectionsExpandAll, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSectionsCollapseAll, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cboChangeStructure, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnHideToolbarTree)
@@ -1046,19 +1070,42 @@ private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     this.updateSectionTree();
 }//GEN-LAST:event_btnRefreshActionPerformed
 
+private void btnSectionsExpandAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSectionsExpandAllActionPerformed
+    // TODO add your handling code here:
+    CommonTreeFunctions.expandAll(sectionStructureTree);
+}//GEN-LAST:event_btnSectionsExpandAllActionPerformed
+
+private void btnActionsCollapseAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActionsCollapseAllActionPerformed
+    // TODO add your handling code here:
+    CommonTreeFunctions.collapseAll(toolbarTree);
+}//GEN-LAST:event_btnActionsCollapseAllActionPerformed
+
+private void btnActionsExpandAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActionsExpandAllActionPerformed
+    // TODO add your handling code here:
+    CommonTreeFunctions.expandAll(toolbarTree);
+}//GEN-LAST:event_btnActionsExpandAllActionPerformed
+
+private void btnSectionsCollapseAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSectionsCollapseAllActionPerformed
+    // TODO add your handling code here:
+    CommonTreeFunctions.collapseAll(sectionStructureTree);
+}//GEN-LAST:event_btnSectionsCollapseAllActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActionsCollapseAll;
+    private javax.swing.JButton btnActionsExpandAll;
     private javax.swing.ButtonGroup btnGroupSwitchView;
     private javax.swing.JRadioButton btnHideToolbarTree;
     private javax.swing.JRadioButton btnHideTreeView;
     private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton btnSectionsCollapseAll;
+    private javax.swing.JButton btnSectionsExpandAll;
     private javax.swing.JRadioButton btnViewDefault;
     private javax.swing.JComboBox cboChangeStructure;
     private javax.swing.JScrollPane scrollToolbarTree;
     private javax.swing.JScrollPane scrollTreeView;
     private javax.swing.JTree sectionStructureTree;
     private javax.swing.JTree toolbarTree;
-    private javax.swing.JTextField txtCurrentSectionName;
     // End of variables declaration//GEN-END:variables
 
     public static void main (String[] args){
