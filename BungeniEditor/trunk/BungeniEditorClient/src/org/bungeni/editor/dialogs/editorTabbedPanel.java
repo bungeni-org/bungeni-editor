@@ -571,7 +571,6 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblSectionmeta = new javax.swing.JTable();
         lblDisplaySectionName = new javax.swing.JLabel();
-        lblSecName = new javax.swing.JLabel();
         btnEdit = new javax.swing.JButton();
 
         jScrollPane2.setViewportView(jTree1);
@@ -645,9 +644,6 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         lblDisplaySectionName.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblDisplaySectionName.setText(bundle.getString("editorTabbedPanel.lblDisplaySectionName.text")); // NOI18N
 
-        lblSecName.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        lblSecName.setText(bundle.getString("editorTabbedPanel.lblSecName.text")); // NOI18N
-
         btnEdit.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnEdit.setText(bundle.getString("editorTabbedPanel.btnEdit.text")); // NOI18N
         btnEdit.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -679,9 +675,6 @@ public class editorTabbedPanel extends javax.swing.JPanel {
                         .add(btnSaveDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 52, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(32, Short.MAX_VALUE))
             .add(layout.createSequentialGroup()
-                .add(lblSecName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 134, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .add(layout.createSequentialGroup()
                 .add(lblDisplaySectionName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 134, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 79, Short.MAX_VALUE)
                 .add(btnEdit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 54, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -703,10 +696,8 @@ public class editorTabbedPanel extends javax.swing.JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(lblCurrentMode)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jTabsContainer, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 355, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jTabsContainer, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 374, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(lblSecName)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(lblDisplaySectionName)
                     .add(btnEdit))
@@ -1128,7 +1119,6 @@ private void launchMetadataSetter(XComponent xComp){
     private javax.swing.JLabel lblCurrentMode;
     private javax.swing.JLabel lblCurrentlyOpenDocuments;
     private javax.swing.JLabel lblDisplaySectionName;
-    private javax.swing.JLabel lblSecName;
     private javax.swing.JTable tblSectionmeta;
     // End of variables declaration//GEN-END:variables
 
