@@ -473,8 +473,8 @@ public class editorTabbedPanel extends javax.swing.JPanel {
      */
     public void cleanup() {
         //shutdown timers
-            docStructureTimer.stop();   
-            sectionNameTimer.stop();
+          //  docStructureTimer.stop();
+           // sectionNameTimer.stop();
             componentsTrackingTimer.stop();
         //cleanup component listners
             Iterator keyIterator = editorMap.keySet().iterator();
