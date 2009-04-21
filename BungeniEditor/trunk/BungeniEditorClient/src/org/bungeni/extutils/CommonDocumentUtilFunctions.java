@@ -5,6 +5,8 @@
 
 package org.bungeni.extutils;
 
+import com.sun.star.text.XRelativeTextContentInsert;
+import com.sun.star.text.XTextContent;
 import com.sun.star.text.XTextRange;
 import com.sun.star.text.XTextSection;
 import com.sun.star.text.XTextViewCursor;
@@ -14,12 +16,16 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.util.Random;
 import org.bungeni.ooo.OOComponentHelper;
+import org.bungeni.ooo.ooQueryInterface;
 
 /**
  *
  * @author undesa
  */
 public class CommonDocumentUtilFunctions {
+
+         private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(CommonDocumentUtilFunctions.class.getName());
+
     
     public static String getUniqueSectionName(String prefixName, OOComponentHelper ooDocument) {
         String sName = "";
@@ -73,5 +79,32 @@ public class CommonDocumentUtilFunctions {
 			null);
     }
 
-    
+    public static void addNewLineBeforeSection(OOComponentHelper ooDoc, String sectionName) {
+          XTextSection xSelectSection = ooDoc.getSection(sectionName);
+          XTextContent oPar = ooQueryInterface.XTextContent(ooDoc.createInstance("com.sun.star.text.Paragraph"));
+          XRelativeTextContentInsert xRelativeText = ooQueryInterface.XRelativeTextContentInsert(ooDoc.getTextDocument().getText());
+               try {
+                   xRelativeText.insertTextContentBefore(oPar, ooQueryInterface.XTextContent(xSelectSection));
+                  } catch (com.sun.star.lang.IllegalArgumentException ex) {
+                    log.debug("insertTextContentbefore :" + ex.getMessage());
+                 }
+                    //move visible cursor to the point where the new para was added
+              ooDoc.getViewCursor().gotoRange(xSelectSection.getAnchor().getStart(), false);
+    }
+
+    public static void addNewLineAfterSection(OOComponentHelper ooDoc, String sectionName) {
+         XTextSection xSelectSection = ooDoc.getSection(sectionName);
+
+        XTextContent oPar = ooQueryInterface.XTextContent(ooDoc.createInstance("com.sun.star.text.Paragraph"));
+                     XRelativeTextContentInsert xRelativeText = ooQueryInterface.XRelativeTextContentInsert(ooDoc.getTextDocument().getText());
+                     try {
+                            xRelativeText.insertTextContentAfter(oPar, ooQueryInterface.XTextContent(xSelectSection));
+                     } catch (com.sun.star.lang.IllegalArgumentException ex) {
+                            log.error("insertTextContentbefore :" + ex.getMessage());
+                     }
+                     //move visible cursor to point where para was added
+                    ooDoc.getViewCursor().gotoRange(xSelectSection.getAnchor().getEnd(), false);
+    }
+
+
 }
