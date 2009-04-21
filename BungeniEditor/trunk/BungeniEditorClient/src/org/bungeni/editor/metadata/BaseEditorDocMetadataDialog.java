@@ -53,9 +53,9 @@ public abstract class BaseEditorDocMetadataDialog extends javax.swing.JPanel imp
     }
 
     public void initialize(){
-        countryCodes.add(new CountryCode("ken", "Kenya"));
-        countryCodes.add(new CountryCode("uga", "Uganda"));
-        countryCodes.add(new CountryCode("tza", "Tanzania"));
+        countryCodes.add(new CountryCode("ke", "Kenya"));
+        countryCodes.add(new CountryCode("ug", "Uganda"));
+        countryCodes.add(new CountryCode("tz", "Tanzania"));
         
         languageCodes.add(new LanguageCode("eng", "English"));
         languageCodes.add(new LanguageCode("fra", "French"));
