@@ -1,12 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.bungeni.editor.selectors.debaterecord.speech;
 
-import com.sun.star.beans.XPropertySet;
-import com.sun.star.container.XNamed;
 import com.sun.star.text.XText;
 import com.sun.star.text.XTextContent;
 import com.sun.star.text.XTextSection;
@@ -16,11 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JFrame;
 import org.bungeni.editor.actions.routers.CommonRouterActions;
-import org.bungeni.editor.document.DocumentSection;
-import org.bungeni.editor.document.DocumentSectionsContainer;
 import org.bungeni.editor.selectors.BaseMetadataContainerPanel;
-import org.bungeni.ooo.ooQueryInterface;
-import org.bungeni.ooo.utils.CommonExceptionUtils;
 
 /**
  *
