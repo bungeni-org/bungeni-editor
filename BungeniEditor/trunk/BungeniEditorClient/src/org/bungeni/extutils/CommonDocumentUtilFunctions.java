@@ -79,6 +79,11 @@ public class CommonDocumentUtilFunctions {
 			null);
     }
 
+    /**
+     * Adds a new line before a named section
+     * @param ooDoc
+     * @param sectionName
+     */
     public static void addNewLineBeforeSection(OOComponentHelper ooDoc, String sectionName) {
           XTextSection xSelectSection = ooDoc.getSection(sectionName);
           XTextContent oPar = ooQueryInterface.XTextContent(ooDoc.createInstance("com.sun.star.text.Paragraph"));
@@ -86,24 +91,29 @@ public class CommonDocumentUtilFunctions {
                try {
                    xRelativeText.insertTextContentBefore(oPar, ooQueryInterface.XTextContent(xSelectSection));
                   } catch (com.sun.star.lang.IllegalArgumentException ex) {
-                    log.debug("insertTextContentbefore :" + ex.getMessage());
+                    log.error("insertTextContentbefore :" + ex.getMessage());
                  }
                     //move visible cursor to the point where the new para was added
               ooDoc.getViewCursor().gotoRange(xSelectSection.getAnchor().getStart(), false);
     }
 
+    /**
+     * Add new line after section
+     * @param ooDoc
+     * @param sectionName
+     */
     public static void addNewLineAfterSection(OOComponentHelper ooDoc, String sectionName) {
          XTextSection xSelectSection = ooDoc.getSection(sectionName);
 
-        XTextContent oPar = ooQueryInterface.XTextContent(ooDoc.createInstance("com.sun.star.text.Paragraph"));
-                     XRelativeTextContentInsert xRelativeText = ooQueryInterface.XRelativeTextContentInsert(ooDoc.getTextDocument().getText());
-                     try {
-                            xRelativeText.insertTextContentAfter(oPar, ooQueryInterface.XTextContent(xSelectSection));
-                     } catch (com.sun.star.lang.IllegalArgumentException ex) {
-                            log.error("insertTextContentbefore :" + ex.getMessage());
-                     }
-                     //move visible cursor to point where para was added
-                    ooDoc.getViewCursor().gotoRange(xSelectSection.getAnchor().getEnd(), false);
+         XTextContent oPar = ooQueryInterface.XTextContent(ooDoc.createInstance("com.sun.star.text.Paragraph"));
+         XRelativeTextContentInsert xRelativeText = ooQueryInterface.XRelativeTextContentInsert(ooDoc.getTextDocument().getText());
+               try {
+               xRelativeText.insertTextContentAfter(oPar, ooQueryInterface.XTextContent(xSelectSection));
+               } catch (com.sun.star.lang.IllegalArgumentException ex) {
+                 log.error("insertTextContentbefore :" + ex.getMessage());
+               }
+         //move visible cursor to point where para was added
+         ooDoc.getViewCursor().gotoRange(xSelectSection.getAnchor().getEnd(), false);
     }
 
 
