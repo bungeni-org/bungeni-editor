@@ -838,7 +838,7 @@ public  class OOComponentHelper {
        * Similar to currentSection(), but returns the current section name instead of the section handle
        * @return
        */
-     public String currentSectionName() {
+     public synchronized String currentSectionName() {
             XTextSection loXTextSection;
             XTextViewCursor loXTextCursor;
             XPropertySet loXPropertySet;
@@ -848,6 +848,10 @@ public  class OOComponentHelper {
          {
             loXTextCursor = getViewCursor();
             loXPropertySet = ooQueryInterface.XPropertySet(loXTextCursor);
+            XPropertySetInfo xInfo = loXPropertySet.getPropertySetInfo();
+            if (!xInfo.hasPropertyByName("TextSection")) {
+                return lstrSectionName;
+            }
             loXTextSection = (XTextSection)((Any)loXPropertySet.getPropertyValue("TextSection")).getObject();
             if (loXTextSection != null)
             {
