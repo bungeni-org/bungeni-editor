@@ -1,9 +1,3 @@
-/*
- * holderUIPanel.java
- *
- * Created on July 1, 2008, 3:16 PM
- */
-
 package org.bungeni.editor.panels;
 
 import com.sun.star.beans.XPropertySet;
@@ -17,18 +11,12 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.HashMap;
-import java.util.Set;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -236,7 +224,8 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
 
     private void initPopupMenu(){
         sectionStructureMenu = new JPopupMenu();
-        sectionStructureMenu.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        Font menuFont = new java.awt.Font("DejaVu Sans", 0, 10);
+        sectionStructureMenu.setFont(menuFont);
         ActionListener popupMenuListener = new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                 if (e.getActionCommand().equals("GO_TO")) {
@@ -263,8 +252,12 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
         };
 
         JMenuItem itemGoto = setupMenuItem("GO_TO", popupMenuListener);
+        itemGoto.setFont(menuFont);
         JMenuItem itemnlAfter = setupMenuItem("NL_AFTER", popupMenuListener);
+        itemnlAfter.setFont(menuFont);
         JMenuItem itemnlBefore = setupMenuItem("NL_BEFORE", popupMenuListener);
+        itemnlBefore.setFont(menuFont);
+        
         sectionStructureMenu.add(itemGoto);
         sectionStructureMenu.add(itemnlAfter);
         sectionStructureMenu.add(itemnlBefore);
@@ -318,7 +311,7 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
                  public void mousePressed(MouseEvent evt) {
                     //if event is the popup trigger for this os
                     System.out.println(evt.getButton());
-                    if (evt.getButton() == MouseEvent.BUTTON3) {
+                    if (evt.isPopupTrigger()) {
                         sectionStructureMenu.show((Component)evt.getSource(), evt.getX(), evt.getY());
                     }
                     //check if double click ...move focus to section
