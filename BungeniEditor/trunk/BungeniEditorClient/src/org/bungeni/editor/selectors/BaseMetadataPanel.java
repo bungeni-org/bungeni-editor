@@ -5,6 +5,10 @@
 
 package org.bungeni.editor.selectors;
 
+import com.sun.star.lang.IllegalArgumentException;
+import com.sun.star.text.XText;
+import com.sun.star.text.XTextCursor;
+import com.sun.star.text.XTextRange;
 import com.sun.star.text.XTextSection;
 import java.awt.Component;
 import java.util.HashMap;
@@ -353,5 +357,22 @@ public abstract class BaseMetadataPanel extends JPanel implements IMetadataPanel
          }
         //return blank if not found
         return new String("");
+    }
+
+    protected boolean pasteTextIntoDocument(String text) {
+        boolean bState = false;
+        try {
+            XTextRange xStartRange = getContainerPanel().getOoDocument().getViewCursor().getStart();
+            XText xCursorText = getContainerPanel().getOoDocument().getViewCursor().getText();
+            XTextCursor startCur = xCursorText.createTextCursorByRange(xStartRange);
+            xCursorText.insertString(startCur, text, false);
+            xCursorText.insertControlCharacter(startCur, com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK, false);
+            bState = true;
+        } catch (IllegalArgumentException ex) {
+            log.error("pasteTextIntoDocument : " + ex.getMessage());
+        } finally {
+            return bState;
+        }
+
     }
 }

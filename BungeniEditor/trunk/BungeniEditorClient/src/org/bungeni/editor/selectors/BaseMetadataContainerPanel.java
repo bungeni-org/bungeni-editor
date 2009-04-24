@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JFrame;
-import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.actions.toolbarSubAction;
@@ -103,8 +102,9 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
     public BaseMetadataContainerPanel() {
         super();
         initComponents();
-        String popupDlgBackColor = BungeniEditorProperties.getEditorProperty("popupDialogBackColor");
-        this.setBackground(java.awt.Color.decode(popupDlgBackColor));
+        //dont do this -- use the theme color
+        //String popupDlgBackColor = BungeniEditorProperties.getEditorProperty("popupDialogBackColor");
+        //this.setBackground(java.awt.Color.decode(popupDlgBackColor));
     
         initListeners();
         conditionSet = new ConditionSet();
@@ -332,8 +332,8 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
         }
         
         boolean bRetPostApply = postMainApply();
-        
-        this.containerFrame.dispose();
+        //** do not dispose ... since user may be asked to paste content
+        //this.containerFrame.dispose();
     }
     
     public void displayErrors(){
@@ -501,9 +501,12 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
         percentLayout2.setOrientation(1);
         paneMain.setLayout(percentLayout2);
 
-        btnApply.setText("Apply");
+        btnApply.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/Bundle"); // NOI18N
+        btnApply.setText(bundle.getString("BaseMetadataContainerPanel.btnApply.text")); // NOI18N
 
-        btnCancel.setText("Cancel");
+        btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnCancel.setText(bundle.getString("BaseMetadataContainerPanel.btnCancel.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -521,7 +524,7 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(paneMain, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
                     .addComponent(btnApply)))
