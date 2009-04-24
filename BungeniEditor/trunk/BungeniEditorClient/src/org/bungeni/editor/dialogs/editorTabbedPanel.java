@@ -279,13 +279,15 @@ public class editorTabbedPanel extends javax.swing.JPanel {
             if (ooDocument != null ) {
                 String sSect = ooDocument.currentSectionName();
                 if (sSect != null) {
-                    newSectionName = sSect;
-                    if (newSectionName.equals(oldSectionName)) {
-                        //dont do anything
-                    } else {
-                        updateSectionMetadataView(newSectionName);
-                        updateSectionMetadataEditButton(newSectionName);
-                        oldSectionName = newSectionName;
+                    if (sSect.trim().length() > 0 ) {
+                        newSectionName = sSect;
+                        if (newSectionName.equals(oldSectionName)) {
+                            //dont do anything
+                        } else {
+                            updateSectionMetadataView(newSectionName);
+                            updateSectionMetadataEditButton(newSectionName);
+                            oldSectionName = newSectionName;
+                        }
                     }
                 }
             }
@@ -895,7 +897,7 @@ class OpenDocumentAgent extends SwingWorker <XComponent, Void> {
                                 bringEditorWindowToFront();
                         }
                             String currentDocType = BungeniEditorPropertiesHelper.getCurrentDocType();
-                            launchMetadataSetter(xComp);
+                            //launchMetadataSetter(xComp);
                 }
             } catch (InterruptedException ex) {
                 log.error("openDocumentAgent : done: " + ex.getMessage());
