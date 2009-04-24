@@ -33,6 +33,7 @@ public class QuestionTitle extends BaseMetadataPanel {
 
         txtQuestionTitle = new javax.swing.JTextField();
         lblQuestionTitle = new javax.swing.JLabel();
+        btnPaste = new javax.swing.JButton();
 
         txtQuestionTitle.setName("txt_question_title"); // NOI18N
 
@@ -41,25 +42,44 @@ public class QuestionTitle extends BaseMetadataPanel {
         lblQuestionTitle.setText(bundle.getString("QuestionTitle.lblQuestionTitle.text")); // NOI18N
         lblQuestionTitle.setName("lbl_question_title"); // NOI18N
 
+        btnPaste.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnPaste.setText(bundle.getString("QuestionTitle.btnPaste.text")); // NOI18N
+        btnPaste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPasteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblQuestionTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtQuestionTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE))
-                .addGap(82, 82, 82))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblQuestionTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnPaste, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtQuestionTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(lblQuestionTitle)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblQuestionTitle)
+                    .addComponent(btnPaste, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtQuestionTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnPasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasteActionPerformed
+        // TODO add your handling code here:
+        String questionTitle = this.txtQuestionTitle.getText();
+        pasteTextIntoDocument(questionTitle);
+}//GEN-LAST:event_btnPasteActionPerformed
 
 public String getPanelName() {
         return getName();
@@ -174,6 +194,7 @@ public String getPanelName() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPaste;
     private javax.swing.JLabel lblQuestionTitle;
     private javax.swing.JTextField txtQuestionTitle;
     // End of variables declaration//GEN-END:variables

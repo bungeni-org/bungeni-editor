@@ -34,35 +34,56 @@ public class QuestionText extends BaseMetadataPanel {
         scrollQuestionText = new javax.swing.JScrollPane();
         txtQuestionText = new javax.swing.JTextPane();
         lblQuestionText = new javax.swing.JLabel();
+        btnPaste = new javax.swing.JButton();
 
         scrollQuestionText.setName("scroll_question_text"); // NOI18N
 
         txtQuestionText.setName("txt_question_text"); // NOI18N
         scrollQuestionText.setViewportView(txtQuestionText);
 
-        lblQuestionText.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblQuestionText.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/question/Bundle"); // NOI18N
         lblQuestionText.setText(bundle.getString("QuestionText.lblQuestionText.text")); // NOI18N
         lblQuestionText.setName("lbl_question_text"); // NOI18N
+
+        btnPaste.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnPaste.setText(bundle.getString("QuestionText.btnPaste.text")); // NOI18N
+        btnPaste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPasteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(scrollQuestionText, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
-            .addComponent(lblQuestionText)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(lblQuestionText)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addComponent(btnPaste, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(lblQuestionText)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblQuestionText)
+                    .addComponent(btnPaste, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollQuestionText, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
+                .addComponent(scrollQuestionText, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnPasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasteActionPerformed
+        // TODO add your handling code here:
+        String questionText = this.txtQuestionText.getText();
+        pasteTextIntoDocument(questionText);
+}//GEN-LAST:event_btnPasteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPaste;
     private javax.swing.JLabel lblQuestionText;
     private javax.swing.JScrollPane scrollQuestionText;
     private javax.swing.JTextPane txtQuestionText;
