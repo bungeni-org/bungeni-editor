@@ -6,7 +6,7 @@
 package org.bungeni.editor.panels.toolbar;
 
 import java.awt.GridLayout;
-import org.jdesktop.swingx.JXPanel;
+import org.bungeni.extutils.BungeniScrollablePanel;
 
 /**
  * This class acts as the container for the buttonPanel() objects.
@@ -19,15 +19,23 @@ import org.jdesktop.swingx.JXPanel;
  * We use a gridlayout with 1 column as we want to stack the buttons vertically.
  * @author Ashok Hariharan
  */
-public class buttonContainerPanel  extends JXPanel {
+public class buttonContainerPanel  extends BungeniScrollablePanel {
    GridLayout gLayout = null;
    
     public buttonContainerPanel(){
+        updateLayout(1);
+    }
+    public buttonContainerPanel(int nLayoutRows){
+        updateLayout(nLayoutRows);
+    }
+
+    private void updateLayout(int nRows ) {
        gLayout = new GridLayout();
        gLayout.setColumns(1);
-       gLayout.setRows(1);
+       gLayout.setRows(nRows);
        setLayout(gLayout);
-   }
+    }
+
 
    public void setLayoutRows(int nRows) {
         gLayout.setRows(nRows);
