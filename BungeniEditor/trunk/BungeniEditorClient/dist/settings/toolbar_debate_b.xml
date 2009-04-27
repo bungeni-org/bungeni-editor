@@ -11,14 +11,14 @@
     <root lang="en" title="Editor Actions" visible="true" >
         <actionGroup name="blockActions" title="Structural Markup" visible="true">
             <!--<blockAction name="Root" title="Create Root Section" visible="true" condition="sectionNotExists:debaterecord"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.general_action.create_root_section:debaterecord" />-->
-	    <action name="Masthead.selection" tooltip="Masthead for debaterecord" title="Preface"  target="null" visible="true" condition="none" showChildren="true" >
+	    <blockAction name="Masthead.selection" tooltip="Masthead for debaterecord" title="Preface"  target="null" visible="true" condition="none" showChildren="true" >
      		     <subaction name="Root" title="Create Root Section" visible="true" condition="sectionNotExists:debaterecord :and: textSelected:true"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMastheadSection.create_root_section:debaterecord" />	
 	             <subaction name="Masthead.selection" title="Preface" tooltip="Select some text to mark it up as a Part" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMastheadSection.section_creation" visible="true" condition="cursorInSection:debaterecord :and: textSelected:true" />
                     <subaction name="Masthead.selection.date" title="Official Date" tooltip="Select some text to mark it up as a preface date" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMetadataReference.mark:mBungeniOfficialDate" visible="true" condition="cursorInSection:masthead :and: textSelected:true" />
                     <subaction name="Masthead.selection.time" title="Official Time" tooltip="Select some text to mark it up as a preface time" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMetadataReference.mark:mBungeniOfficialTime" visible="true" condition="cursorInSection:masthead :and: textSelected:true" />
                     <subaction name="Masthead.selection.logo" title="Logo" tooltip="Select some text to mark it up as a preface logo" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMastheadSection.markup_logo:main_logo" visible="true" condition="imageSelectedIsNot:main_logo" />
 		    <subaction name="Masthead.heading" title="Heading" tooltip="" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMastheadSection.markup_preface_heading:heading_preface" visible="true" condition="cursorInSection:masthead :and: textSelected:true"  />           
-		</action>
+		</blockAction>
     	  <blockAction name="Papers" title="Tabled Documents" target="null" visible="true" condition="none">
 		<action name="Papers.new" title="Tabled Documents" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makePapersLaidBlockSection.section_creation" visible="true" condition="textSelected:true :and: cursorInSection:debaterecord" />
 		<action name="Papers.heading" title="Heading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makePapersLaidBlockSection.markup_papers_heading:heading_papers" visible="true" condition="textSelected:true :and: cursorInSection:papers[0-9]*" />
