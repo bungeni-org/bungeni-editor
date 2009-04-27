@@ -5,8 +5,6 @@
 
 package org.bungeni.editor.selectors.debaterecord.motions;
 
-import com.sun.star.beans.XPropertySet;
-import com.sun.star.container.XNamed;
 import com.sun.star.text.XText;
 import com.sun.star.text.XTextContent;
 import com.sun.star.text.XTextSection;
@@ -16,11 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JFrame;
 import org.bungeni.editor.actions.routers.CommonRouterActions;
-import org.bungeni.editor.document.DocumentSection;
-import org.bungeni.editor.document.DocumentSectionsContainer;
 import org.bungeni.editor.selectors.BaseMetadataContainerPanel;
-import org.bungeni.ooo.ooQueryInterface;
-import org.bungeni.ooo.utils.CommonExceptionUtils;
 
 /**
  *
@@ -99,37 +93,7 @@ public class Main extends BaseMetadataContainerPanel {
             //get section poperties
             XTextSection xSection = ooDocument.getSection(newSection);
             CommonRouterActions.setSectionProperties(theAction, newSection, ooDocument);
-            /* TO BE DELETED - 16th APril
-            XNamed namedSection = ooQueryInterface.XNamed(xSection);
-            XPropertySet xProps = ooQueryInterface.XPropertySet(xSection);
-            //container section was created here ...
-             String sectionType = theAction.action_section_type();
-             DocumentSection secObj = DocumentSectionsContainer.getDocumentSectionByType(sectionType);
-             HashMap<String,Object> sectionProps = secObj.getSectionProperties(ooDocument);
-             //update properties...
-             for (String propName: sectionProps.keySet()) {
-             try {
-                    //log.debug("setSectionProperties : "+ propName + " value = " + sectionProps.get(propName).toString());
-                    //xProps.setPropertyValue(propName, sectionProps.get(propName));
-                    Object propVal = sectionProps.get(propName);
-                    if (propVal.getClass() == java.lang.Integer.class) {
-                          xProps.setPropertyValue(propName, (java.lang.Integer) sectionProps.get(propName));
-                    } else if (propVal.getClass() == java.lang.Long.class) {
-                          xProps.setPropertyValue(propName, (java.lang.Long) sectionProps.get(propName));               
-                    } else if (propVal.getClass() == java.lang.String.class) {
-                          xProps.setPropertyValue(propName, (java.lang.String) sectionProps.get(propName));
-                    } else
-                          xProps.setPropertyValue(propName, (java.lang.String) sectionProps.get(propName));
-                } catch (Exception ex) {
-                log.error("setSectionProperties :"+ propName +" : "  +ex.getMessage());
-                log.error("setSectionProperties :"+ CommonExceptionUtils.getStackTrace(ex));
-                } 
-            } */
-            //to be deleted 16th April
-          //  HashMap<String,String> metaMap = new HashMap<String,String>();
-          //  metaMap.put("BungeniSectionType", theAction.action_section_type());
             ooDocument.setSectionMetadataAttributes(xSection, CommonRouterActions.get_newSectionMetadata(theAction));
-            // ooDocument.c
         }
         return true;
     }

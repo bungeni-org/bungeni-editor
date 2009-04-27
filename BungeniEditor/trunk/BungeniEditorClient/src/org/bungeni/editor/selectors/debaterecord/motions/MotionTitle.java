@@ -6,6 +6,10 @@
 
 package org.bungeni.editor.selectors.debaterecord.motions;
 
+import com.sun.star.lang.IllegalArgumentException;
+import com.sun.star.text.XText;
+import com.sun.star.text.XTextCursor;
+import com.sun.star.text.XTextRange;
 import java.awt.Component;
 import java.util.HashMap;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
@@ -33,6 +37,7 @@ public class MotionTitle extends BaseMetadataPanel {
 
         txtMotionTitle = new javax.swing.JTextField();
         lblQuestionTitle = new javax.swing.JLabel();
+        btnPaste = new javax.swing.JButton();
 
         txtMotionTitle.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         txtMotionTitle.setName("txt_question_title"); // NOI18N
@@ -42,25 +47,44 @@ public class MotionTitle extends BaseMetadataPanel {
         lblQuestionTitle.setText(bundle.getString("MotionTitle.lblQuestionTitle.text")); // NOI18N
         lblQuestionTitle.setName("lbl_question_title"); // NOI18N
 
+        btnPaste.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnPaste.setText(bundle.getString("MotionTitle.btnPaste.text")); // NOI18N
+        btnPaste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPasteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblQuestionTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMotionTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE))
-                .addGap(82, 82, 82))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtMotionTitle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblQuestionTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnPaste, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(lblQuestionTitle)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblQuestionTitle)
+                    .addComponent(btnPaste, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtMotionTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnPasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasteActionPerformed
+            // TODO add your handling code here:
+            String motionTitle = this.txtMotionTitle.getText();
+            pasteTextIntoDocument(motionTitle);
+    }//GEN-LAST:event_btnPasteActionPerformed
 
 public String getPanelName() {
         return getName();
@@ -176,6 +200,7 @@ public String getPanelName() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPaste;
     private javax.swing.JLabel lblQuestionTitle;
     private javax.swing.JTextField txtMotionTitle;
     // End of variables declaration//GEN-END:variables
