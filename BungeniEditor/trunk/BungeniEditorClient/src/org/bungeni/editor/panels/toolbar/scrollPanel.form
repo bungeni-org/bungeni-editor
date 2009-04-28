@@ -27,6 +27,10 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JScrollPane" name="scrollActionButtons">
+      <Properties>
+        <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
+        <Property name="toolTipText" type="java.lang.String" value="Click on an action to execute it"/>
+      </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
     </Container>

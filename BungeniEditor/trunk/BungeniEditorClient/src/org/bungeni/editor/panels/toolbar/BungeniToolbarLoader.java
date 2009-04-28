@@ -17,14 +17,22 @@ import org.jdom.Element;
 public class BungeniToolbarLoader {
 
     private BungeniToolbarParser toolbarParser = null;
+    private ActionListener actionListener = null;
 
-    public BungeniToolbarLoader() {
+    /**
+     * Creates a BungeniToolbarLoader
+     * The action listener for the buttons is passed as parameter
+     * @param toolbarActionListener
+     */
+    public BungeniToolbarLoader(ActionListener toolbarActionListener) {
+        //instantiate a toolbar parser
         toolbarParser = new BungeniToolbarParser();
+        actionListener = toolbarActionListener;
     }
 
     /**
      * Load the tabs from the toolbar xml config
-     * @param thisPane
+     * @param thisPane - the JTabbedPane object which acts as the container for the ations
      */
     public void loadToolbar(JTabbedPane thisPane ) {
         //first build the toolbar - and then we processs the xml
@@ -38,7 +46,7 @@ public class BungeniToolbarLoader {
               //check if the tab has any actions -- we add a tab only when it has actions
               if (actionElements.size()  > 0 ) {
                  //get the tab title
-                 String tabTitle = tab.getAttributeValue("name");
+                 String tabTitle = tab.getAttributeValue("title");
                  //create the panel for the tab
                  scrollPanel scrollablePanel = new scrollPanel();
                  //create the button container to embed into the scrollablePanel()
@@ -46,12 +54,10 @@ public class BungeniToolbarLoader {
                  buttonContainerPanel buttonContainer = new buttonContainerPanel(actionElements.size());
                  //now add the button actions to the button container panel
                  for (Element action : actionElements) {
-                    String actionTitle = action.getAttributeValue("name");
-                    buttonPanel panelButton = new buttonPanel(actionTitle, new ActionListener(){
-                        public void actionPerformed(ActionEvent e) {
-                            JOptionPane.showMessageDialog(null, ((JButton)e.getSource()).getText());
-                        }
-                    });
+                    //get the title for the button
+                    String actionTitle = action.getAttributeValue("title");
+                    BungeniToolbarActionElement elem = new BungeniToolbarActionElement(action);
+                    buttonPanel panelButton = new buttonPanel(actionTitle, actionListener, elem);
                     buttonContainer.add(panelButton);
                  }
                  scrollablePanel.setScrollViewPort(buttonContainer);

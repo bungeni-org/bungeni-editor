@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
  * @author Ashok Hariharan
  */
 public class buttonPanel extends javax.swing.JPanel {
-
+    private BungeniToolbarActionElement actionElement = null;
     /** Creates new form buttonPanel */
     public buttonPanel() {
         initComponents();
@@ -24,10 +24,19 @@ public class buttonPanel extends javax.swing.JPanel {
      * @param text - the display text for the button
      * @param btnListener - the action listener associated wiht the button
      */
-    public buttonPanel(String text, ActionListener btnListener) {
+    public buttonPanel(String text, ActionListener btnListener, BungeniToolbarActionElement aElement) {
         initComponents();
         setButtonText(text);
         setButtonActionListener(btnListener);
+        setActionElement(aElement);
+    }
+
+    public BungeniToolbarActionElement getActionElement() {
+        return actionElement;
+    }
+
+    public void setActionElement(BungeniToolbarActionElement aElement) {
+        this.actionElement = aElement;
     }
 
     public void setButtonText(String text) {
@@ -36,6 +45,10 @@ public class buttonPanel extends javax.swing.JPanel {
 
     public void setButtonActionListener(ActionListener btnListener) {
         this.btnAction.addActionListener(btnListener);
+    }
+
+    public void enableActionButton (boolean bState) {
+        this.btnAction.setEnabled(bState);
     }
 
     /** This method is called from within the constructor to
@@ -49,6 +62,7 @@ public class buttonPanel extends javax.swing.JPanel {
 
         btnAction = new javax.swing.JButton();
 
+        btnAction.setBackground(new java.awt.Color(143, 204, 48));
         btnAction.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnAction.setText("some text");
 
@@ -56,11 +70,13 @@ public class buttonPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnAction, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+            .addComponent(btnAction, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnAction)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(btnAction)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

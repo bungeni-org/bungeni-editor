@@ -11,6 +11,8 @@
 
 package org.bungeni.editor.panels.toolbar;
 
+import java.awt.Component;
+
 /**
  *
  * @author undesa
@@ -26,6 +28,14 @@ public class scrollPanel extends javax.swing.JPanel {
         this.scrollActionButtons.setViewportView(panel);
     }
 
+    public buttonContainerPanel getViewPortPanel() {
+        Component viewComponent = this.scrollActionButtons.getViewport().getView();
+        if (viewComponent != null ) {
+            return (buttonContainerPanel)viewComponent;
+        }
+        return null;
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -36,6 +46,9 @@ public class scrollPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         scrollActionButtons = new javax.swing.JScrollPane();
+
+        scrollActionButtons.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollActionButtons.setToolTipText("Click on an action to execute it");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
