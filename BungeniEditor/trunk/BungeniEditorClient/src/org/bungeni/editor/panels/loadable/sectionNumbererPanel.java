@@ -141,14 +141,6 @@ public class sectionNumbererPanel extends  BaseClassForITabbedPanel {
         //findBrokenReferences();
     }
 
-    private void initTimer(){
-          timerSectionTypes = new Timer(4000, new ActionListener() {
-              public void actionPerformed(ActionEvent e) {
-                refreshSectionTypesList();
-              }
-           });
-           timerSectionTypes.start();
-    }
     
     private void refreshSectionTypesList(){
             java.awt.EventQueue.invokeLater(new Runnable() {
@@ -1657,6 +1649,7 @@ private void btnExternalReferenceActionPerformed(java.awt.event.ActionEvent evt)
     
     
     
+    @Override
     public void initialize() {
         super.initialize();
         init();
