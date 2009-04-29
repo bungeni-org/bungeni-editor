@@ -15,11 +15,9 @@ import java.awt.event.WindowEvent;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
-import javax.swing.JRadioButton;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
@@ -71,16 +69,10 @@ public class holderUIPanel2 extends javax.swing.JPanel implements IFloatingPanel
     private OOComponentHelper ooDocument;
     private JFrame parentFrame;
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(holderUIPanel2.class.getName());
-    private org.bungeni.editor.toolbar.BungeniToolbarXMLTree toolbarXmlTree;
+    //private org.bungeni.editor.toolbar.BungeniToolbarXMLTree toolbarXmlTree;
     private BungeniClientDB instance;
     private Timer timerSectionTree;
-    private changeStructureItem[] m_comboChangeStructureItems = {
-        //      new changeStructureItem ("VIEW_PARAGRAPHS", "View Paragraphs"),
-        new changeStructureItem("VIEW_SECTIONS", "View Sections"),
-        new changeStructureItem("VIEW_PRETTY_SECTIONS", "View Structure")
-    };
-    private changeStructureItem m_selectedChangeStructureItem = null;
-    private JTree sectionInternalStructureTree;
+    //private JTree sectionInternalStructureTree;
     private String m_currentSelectedSectionName;
     private Timer toolbarTimer = null;
     //cache for conditions
@@ -90,9 +82,6 @@ public class holderUIPanel2 extends javax.swing.JPanel implements IFloatingPanel
     public holderUIPanel2() {
         initComponents();
         instance = new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
-    //the below are called from initUI()
-    // aclbarTree();
-    // initSectionStructureTree();
     }
 
     /**
@@ -153,9 +142,9 @@ public class holderUIPanel2 extends javax.swing.JPanel implements IFloatingPanel
         this.initToolbarTabs();
         this.initSectionStructureTree();
         this.initSectionInternalStructureTree();
-        this.initButtonListeners();
+        // this.initButtonListeners();
         this.initMouseListener();
-        this.initComboChangeStructure();
+//        this.initComboChangeStructure();
         this.initTimers();
         this.initUIAttributes();
     }
@@ -179,14 +168,17 @@ public class holderUIPanel2 extends javax.swing.JPanel implements IFloatingPanel
      * is 3 seconds.
      */
     class BungeniToolbarTabChangeListener implements ChangeListener {
+
         public void stateChanged(ChangeEvent e) {
             processActionStatesForSelectedTab();
         }
     }
-    
+
     class BungeniToolbarTimerListener implements ActionListener {
+
         public void actionPerformed(ActionEvent e) {
             SwingUtilities.invokeLater(new Runnable() {
+
                 public void run() {
                     processActionStatesForSelectedTab();
                 }
@@ -195,7 +187,6 @@ public class holderUIPanel2 extends javax.swing.JPanel implements IFloatingPanel
     }
 
     /***** API for conditionally enabling / disabling command buttons *****/
-
     public Component[] getButtonPanelsForSelectedTab() {
         int nSelectedTab = toolbarTabs.getSelectedIndex();
         if (-1 != nSelectedTab) {
@@ -240,10 +231,7 @@ public class holderUIPanel2 extends javax.swing.JPanel implements IFloatingPanel
         return bAction;
     }
 
-
-   /***** API for conditionally enabling / disabling command buttons *****/
-
-
+    /***** API for conditionally enabling / disabling command buttons *****/
     class BungeniToolbarCommandListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -491,7 +479,7 @@ public class holderUIPanel2 extends javax.swing.JPanel implements IFloatingPanel
     }
 
     private void initSectionInternalStructureTree() {
-        this.sectionInternalStructureTree = new JTree();
+        // this.sectionInternalStructureTree = new JTree();
         sectionInternalStructureTree.setExpandsSelectedPaths(true);
         ImageIcon minusIcon = CommonTreeFunctions.treeMinusIcon();
         ImageIcon plusIcon = CommonTreeFunctions.treePlusIcon();
@@ -537,47 +525,47 @@ public class holderUIPanel2 extends javax.swing.JPanel implements IFloatingPanel
         return this;
     }
 
+    /*
     private void initButtonListeners() {
-        btnViewDefault.setSelected(true);
-        //add action listeners to button
-        btnViewDefault.addActionListener(new ActionListener() {
+    btnViewDefault.setSelected(true);
+    //add action listeners to button
+    btnViewDefault.addActionListener(new ActionListener() {
 
-            public void actionPerformed(ActionEvent arg0) {
-                JRadioButton btn = (JRadioButton) arg0.getSource();
-                if (btn.isSelected()) {
-                    //////fix this      scrollToolbarTree.setVisible(true);
-                    scrollTreeView.setVisible(true);
-                    self().parentFrame.setVisible(true);
-                    self().parentFrame.setExtendedState(JFrame.NORMAL);
-                }
-            }
-        });
-        btnHideToolbarTree.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent arg0) {
-                JRadioButton btn = (JRadioButton) arg0.getSource();
-                if (btn.isSelected()) {
-/////fix this                    scrollToolbarTree.setVisible(false);
-                    scrollTreeView.setVisible(true);
-                    //revalidate does 're-layout' of the panel
-                    self().revalidate();
-                }
-            }
-        });
-        btnHideTreeView.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent arg0) {
-                JRadioButton btn = (JRadioButton) arg0.getSource();
-                if (btn.isSelected()) {
-/////fix this                     scrollToolbarTree.setVisible(true);
-                    scrollTreeView.setVisible(false);
-                    //revalidate does 're-layout' of the panel
-                    self().revalidate();
-                }
-            }
-        });
+    public void actionPerformed(ActionEvent arg0) {
+    JRadioButton btn = (JRadioButton) arg0.getSource();
+    if (btn.isSelected()) {
+    //////fix this      scrollToolbarTree.setVisible(true);
+    scrollTreeView.setVisible(true);
+    self().parentFrame.setVisible(true);
+    self().parentFrame.setExtendedState(JFrame.NORMAL);
     }
+    }
+    });
+    btnHideToolbarTree.addActionListener(new ActionListener() {
 
+    public void actionPerformed(ActionEvent arg0) {
+    JRadioButton btn = (JRadioButton) arg0.getSource();
+    if (btn.isSelected()) {
+    /////fix this                    scrollToolbarTree.setVisible(false);
+    scrollTreeView.setVisible(true);
+    //revalidate does 're-layout' of the panel
+    self().revalidate();
+    }
+    }
+    });
+    btnHideTreeView.addActionListener(new ActionListener() {
+
+    public void actionPerformed(ActionEvent arg0) {
+    JRadioButton btn = (JRadioButton) arg0.getSource();
+    if (btn.isSelected()) {
+    /////fix this                     scrollToolbarTree.setVisible(true);
+    scrollTreeView.setVisible(false);
+    //revalidate does 're-layout' of the panel
+    self().revalidate();
+    }
+    }
+    });
+    }  */
     private void initMouseListener() {
         //first move focus to frame on mouse over
         parentFrame.addMouseListener(new MouseAdapter() {
@@ -599,94 +587,48 @@ public class holderUIPanel2 extends javax.swing.JPanel implements IFloatingPanel
 
     }
 
-    private void initComboChangeStructure() {
-        changeStructureItem itemDefault = null;
-        cboChangeStructure.removeAllItems();
-        String defaultHierarchyView = BungeniEditorProperties.getEditorProperty("defaultHierarchyView");
-        for (int i = 0; i < this.m_comboChangeStructureItems.length; i++) {
-            if (m_comboChangeStructureItems[i].getIndex().equalsIgnoreCase(defaultHierarchyView)) {
-                itemDefault = m_comboChangeStructureItems[i];
-            }
-            cboChangeStructure.addItem(m_comboChangeStructureItems[i]);
-        }
-
-        //add a change listener to the combobox...
-        cboChangeStructure.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent arg0) {
-                JComboBox box = (JComboBox) arg0.getSource();
-                changeStructureItem theItem = (changeStructureItem) box.getSelectedItem();
-                m_selectedChangeStructureItem = theItem;
-                updateViewPortForTree();
-                updateSectionTree();
-            }
-        });
-
-        if (itemDefault != null) {
-            cboChangeStructure.setSelectedItem(itemDefault);
-        }
-        m_selectedChangeStructureItem = (changeStructureItem) cboChangeStructure.getSelectedItem();
+    private void updateSectionInternalStructureTree() {
+        log.debug("updateSectionTree : refreshing section_internal_structure tree");
+        BungeniBTree newTree = DocumentSectionProvider.getNewTree();
+        BungeniBNode newRootNode = newTree.getFirstRoot();
+        DocumentSectionAdapterDefaultTreeModel model = (DocumentSectionAdapterDefaultTreeModel) this.sectionInternalStructureTree.getModel();
+        DefaultMutableTreeNode mnode = (DefaultMutableTreeNode) model.getRoot();
+        BungeniBNode origNode = (BungeniBNode) mnode.getUserObject();
+        BungeniTreeRefactorTree refTree = new BungeniTreeRefactorTree(model, origNode, newRootNode);
+        refTree.setMergeDisplayText(false);
+        refTree.doMerge();
     }
 
-    private void updatePanelonComponentChange() {
-        //refresh the tree model
-        this.timerSectionTree.stop();
-        // refreshTreeModel();
-        this.timerSectionTree.start();
-    }
+    private void updateSectionDocStructureTree() {
+        log.debug("updateSectionTree : refreshing section friendly structur tree");
+        //     NodeDisplayTextSetter nsetter = new NodeDisplayTextSetter(getOODocument());
+        //     BungeniBNode.setINodeSetterCallback(nsetter);
 
-    private void updateViewPortForTree() {
-        SwingUtilities.invokeLater(new Runnable() {
+        BungeniBTree newTree = DocumentSectionProvider.getNewFriendlyTree();//FriendlyTree();
+        BungeniBNode newRootNode = newTree.getFirstRoot();
 
-            public void run() {
-                if (m_selectedChangeStructureItem.itemIndex.equals("VIEW_SECTIONS")) {
-                    scrollTreeView.setViewportView(sectionInternalStructureTree);
-                } else if (m_selectedChangeStructureItem.itemIndex.equals("VIEW_PRETTY_SECTIONS")) {
-                    scrollTreeView.setViewportView(sectionStructureTree);
-                }
-            }
-        });
+        DocumentSectionFriendlyAdapterDefaultTreeModel model = (DocumentSectionFriendlyAdapterDefaultTreeModel) this.sectionStructureTree.getModel();
+        //DocumentSectionAdapterDefaultTreeModel model = (DocumentSectionAdapterDefaultTreeModel) this.sectionStructureTree.getModel();
+        DefaultMutableTreeNode mnode = (DefaultMutableTreeNode) model.getRoot();
+        BungeniBNode origNode = (BungeniBNode) mnode.getUserObject();
+        BungeniTreeRefactorTree refTree = new BungeniTreeRefactorTree(model, origNode, newRootNode);
+        refTree.setMergeDisplayText(false);
+        refTree.doMerge();
 
     }
 
     private void updateSectionTree() {
         try {
-            log.debug("updateSectionTree : " + m_selectedChangeStructureItem);
-            if (this.m_selectedChangeStructureItem.itemIndex.equals("VIEW_SECTIONS")) {
-                //do this only if the tree is visible
-                if (sectionInternalStructureTree.isShowing()) {
-                    log.debug("updateSectionTree : refreshing section_internal_structure tree");
-                    BungeniBTree newTree = DocumentSectionProvider.getNewTree();
-                    BungeniBNode newRootNode = newTree.getFirstRoot();
-                    DocumentSectionAdapterDefaultTreeModel model = (DocumentSectionAdapterDefaultTreeModel) this.sectionInternalStructureTree.getModel();
-                    DefaultMutableTreeNode mnode = (DefaultMutableTreeNode) model.getRoot();
-                    BungeniBNode origNode = (BungeniBNode) mnode.getUserObject();
-                    BungeniTreeRefactorTree refTree = new BungeniTreeRefactorTree(model, origNode, newRootNode);
-                    refTree.setMergeDisplayText(false);
-                    refTree.doMerge();
-                } else {
-                    log.debug("updateSectionTree : section internal structure tree is not visible");
-                }
-
-            } else if (this.m_selectedChangeStructureItem.itemIndex.equals("VIEW_PRETTY_SECTIONS")) {
-                if (sectionStructureTree.isShowing()) {
-                    log.debug("updateSectionTree : refreshing section friendly structur tree");
-                    //     NodeDisplayTextSetter nsetter = new NodeDisplayTextSetter(getOODocument());
-                    //     BungeniBNode.setINodeSetterCallback(nsetter);
-
-                    BungeniBTree newTree = DocumentSectionProvider.getNewFriendlyTree();//FriendlyTree();
-                    BungeniBNode newRootNode = newTree.getFirstRoot();
-
-                    DocumentSectionFriendlyAdapterDefaultTreeModel model = (DocumentSectionFriendlyAdapterDefaultTreeModel) this.sectionStructureTree.getModel();
-                    //DocumentSectionAdapterDefaultTreeModel model = (DocumentSectionAdapterDefaultTreeModel) this.sectionStructureTree.getModel();
-                    DefaultMutableTreeNode mnode = (DefaultMutableTreeNode) model.getRoot();
-                    BungeniBNode origNode = (BungeniBNode) mnode.getUserObject();
-                    BungeniTreeRefactorTree refTree = new BungeniTreeRefactorTree(model, origNode, newRootNode);
-                    refTree.setMergeDisplayText(false);
-                    refTree.doMerge();
-                } else {
-                    log.debug("updateSectionTree : section friendly structure tree is not visible");
-                }
+            int nIndex = tabSectionView.getSelectedIndex();
+            switch (nIndex) {
+                case 0:
+                    updateSectionDocStructureTree();
+                    break;
+                case 1:
+                    updateSectionInternalStructureTree();
+                    break;
+                default:
+                    return;
             }
         } catch (Exception ex) {
             log.error("exception updateSectionTree : " + ex.getMessage());
@@ -760,36 +702,18 @@ public class holderUIPanel2 extends javax.swing.JPanel implements IFloatingPanel
     private void initComponents() {
 
         btnGroupSwitchView = new javax.swing.ButtonGroup();
-        scrollTreeView = new javax.swing.JScrollPane();
-        sectionStructureTree = new javax.swing.JTree();
-        cboChangeStructure = new javax.swing.JComboBox();
-        btnHideToolbarTree = new javax.swing.JRadioButton();
-        btnHideTreeView = new javax.swing.JRadioButton();
-        btnViewDefault = new javax.swing.JRadioButton();
         btnRefresh = new javax.swing.JButton();
         btnSectionsExpandAll = new javax.swing.JButton();
         btnSectionsCollapseAll = new javax.swing.JButton();
         toolbarTabs = new javax.swing.JTabbedPane();
-
-        scrollTreeView.setViewportView(sectionStructureTree);
-
-        cboChangeStructure.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        cboChangeStructure.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        btnGroupSwitchView.add(btnHideToolbarTree);
-        btnHideToolbarTree.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/panels/Bundle"); // NOI18N
-        btnHideToolbarTree.setText(bundle.getString("holderUIPanel2.btnHideToolbarTree.text")); // NOI18N
-
-        btnGroupSwitchView.add(btnHideTreeView);
-        btnHideTreeView.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnHideTreeView.setText(bundle.getString("holderUIPanel2.btnHideTreeView.text")); // NOI18N
-
-        btnGroupSwitchView.add(btnViewDefault);
-        btnViewDefault.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnViewDefault.setText(bundle.getString("holderUIPanel2.btnViewDefault.text")); // NOI18N
+        tabSectionView = new javax.swing.JTabbedPane();
+        scrollTreeView = new javax.swing.JScrollPane();
+        sectionStructureTree = new javax.swing.JTree();
+        scrollInternalTreeView = new javax.swing.JScrollPane();
+        sectionInternalStructureTree = new javax.swing.JTree();
 
         btnRefresh.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/panels/Bundle"); // NOI18N
         btnRefresh.setText(bundle.getString("holderUIPanel2.btnRefresh.text")); // NOI18N
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -813,54 +737,45 @@ public class holderUIPanel2 extends javax.swing.JPanel implements IFloatingPanel
             }
         });
 
-        toolbarTabs.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        toolbarTabs.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+
+        tabSectionView.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+
+        scrollTreeView.setViewportView(sectionStructureTree);
+
+        tabSectionView.addTab(bundle.getString("holderUIPanel2.scrollTreeView.TabConstraints.tabTitle"), scrollTreeView); // NOI18N
+
+        scrollInternalTreeView.setViewportView(sectionInternalStructureTree);
+
+        tabSectionView.addTab(bundle.getString("holderUIPanel2.scrollInternalTreeView.TabConstraints.tabTitle"), scrollInternalTreeView); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cboChangeStructure, 0, 221, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+            .addComponent(toolbarTabs, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnHideToolbarTree)
-                .addContainerGap(97, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnViewDefault)
-                .addContainerGap(77, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnHideTreeView)
-                .addContainerGap(70, Short.MAX_VALUE))
-            .addComponent(scrollTreeView, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
                 .addComponent(btnSectionsExpandAll, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSectionsCollapseAll, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(toolbarTabs, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+            .addComponent(tabSectionView, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(toolbarTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollTreeView, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tabSectionView, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSectionsExpandAll, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSectionsCollapseAll, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cboChangeStructure, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnHideToolbarTree)
-                .addGap(5, 5, 5)
-                .addComponent(btnHideTreeView)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnViewDefault))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -870,25 +785,43 @@ private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_btnRefreshActionPerformed
 
 private void btnSectionsExpandAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSectionsExpandAllActionPerformed
-    // TODO add your handling code here:
-    CommonTreeFunctions.expandAll(sectionStructureTree);
+    int nSelectedIndex = this.tabSectionView.getSelectedIndex();
+    switch (nSelectedIndex) {
+        case 0:
+            CommonTreeFunctions.expandAll(sectionStructureTree);
+            break;
+        case 1:
+            CommonTreeFunctions.expandAll(sectionInternalStructureTree);
+            break;
+        default:
+            return;
+    }
 }//GEN-LAST:event_btnSectionsExpandAllActionPerformed
 
 private void btnSectionsCollapseAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSectionsCollapseAllActionPerformed
     // TODO add your handling code here:
-    CommonTreeFunctions.collapseAll(sectionStructureTree);
+    int nSelectedIndex = this.tabSectionView.getSelectedIndex();
+    switch (nSelectedIndex) {
+        case 0:
+            CommonTreeFunctions.collapseAll(sectionStructureTree);
+            break;
+        case 1:
+            CommonTreeFunctions.collapseAll(sectionInternalStructureTree);
+            break;
+        default:
+            return;
+    }
 }//GEN-LAST:event_btnSectionsCollapseAllActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btnGroupSwitchView;
-    private javax.swing.JRadioButton btnHideToolbarTree;
-    private javax.swing.JRadioButton btnHideTreeView;
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnSectionsCollapseAll;
     private javax.swing.JButton btnSectionsExpandAll;
-    private javax.swing.JRadioButton btnViewDefault;
-    private javax.swing.JComboBox cboChangeStructure;
+    private javax.swing.JScrollPane scrollInternalTreeView;
     private javax.swing.JScrollPane scrollTreeView;
+    private javax.swing.JTree sectionInternalStructureTree;
     private javax.swing.JTree sectionStructureTree;
+    private javax.swing.JTabbedPane tabSectionView;
     private javax.swing.JTabbedPane toolbarTabs;
     // End of variables declaration//GEN-END:variables
 
