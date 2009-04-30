@@ -11,6 +11,8 @@ package org.bungeni.editor.actions;
 
 import java.util.HashMap;
 import java.util.Vector;
+import org.bungeni.editor.document.DocumentSection;
+import org.bungeni.editor.document.DocumentSectionsContainer;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 
 /**
@@ -59,8 +61,6 @@ public class toolbarAction {
         action_class = (String) safeGet(actionDesc, action_mapping, "ACTION_CLASS");
         doc_type = (String) safeGet(actionDesc, action_mapping, "DOC_TYPE");
         action_type = (String) safeGet(actionDesc, action_mapping, "ACTION_TYPE");
-        action_naming_convention = (String) safeGet(actionDesc, action_mapping, "ACTION_NAMING_CONVENTION");
-        action_numbering_convention = (String) safeGet(actionDesc, action_mapping, "ACTION_NUMBERING_CONVENTION");
      //   action_parent = (String) safeGet(actionDesc, action_mapping, "ACTION_PARENT");
         action_icon = (String) safeGet(actionDesc, action_mapping, "ACTION_ICON");
         action_display_text = (String) safeGet(actionDesc, action_mapping, "ACTION_DISPLAY_TEXT");
@@ -68,6 +68,12 @@ public class toolbarAction {
         action_section_type = (String) safeGet(actionDesc, action_mapping, "ACTION_SECTION_TYPE");
         action_edit_dlg_allowed = (String) safeGet(actionDesc, action_mapping, "ACTION_EDIT_DLG_ALLOWED");
         action_dialog_class = (String) safeGet(actionDesc, action_mapping, "ACTION_DIALOG_CLASS");
+        //the below are deprecated fields - and no longer part of the action_settings table
+        //this info is fetched instead from the document_section_types tbale
+        DocumentSection associatedSection = DocumentSectionsContainer.getDocumentSectionByType(action_section_type);
+        action_naming_convention =  associatedSection.getSectionNamePrefix() ; //(String) safeGet(actionDesc, action_mapping, "ACTION_NAMING_CONVENTION");
+        action_numbering_convention =  associatedSection.getSectionNumberingStyle(); //(String) safeGet(actionDesc, action_mapping, "ACTION_NUMBERING_CONVENTION");
+
         } catch (Exception e) {
             log.debug("error in toolbarAction constructor : " + e.getMessage());
             e.printStackTrace();
