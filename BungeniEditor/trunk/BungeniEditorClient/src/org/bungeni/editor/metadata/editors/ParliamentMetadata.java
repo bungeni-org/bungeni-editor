@@ -190,9 +190,9 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
      public ArrayList<String> validateSelectedMetadata(BungeniFileSavePathFormat spf) {
          addFieldsToValidate (new TreeMap<String,Component>(){
             {
-                put(lblParliamentID.getText(), BungeniParliamentID);
-                put(lblParliamentSitting.getText(), txtParliamentSitting);
-                put(lblParliamentSession.getText(), txtParliamentSession);
+                put(lblParliamentID.getText().replace("*",""), BungeniParliamentID);
+                put(lblParliamentSitting.getText().replace("*",""), txtParliamentSitting);
+                put(lblParliamentSession.getText().replace("*",""), txtParliamentSession);
             }
             });
         return super.validateSelectedMetadata(spf);

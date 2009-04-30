@@ -8,14 +8,18 @@ package org.bungeni.editor.metadata.editors;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
+import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.db.IQueryResultsIterator;
@@ -55,7 +59,11 @@ public class MetadataEditorContainer extends JPanel {
      ArrayList<IEditorDocMetadataDialog> metaTabs = new ArrayList<IEditorDocMetadataDialog>(0);
 
     BungeniFileSavePathFormat m_spf = null;
-    
+
+    NextTabAction nextAction = new NextTabAction("Next >>");
+    PrevTabAction prevAction = new PrevTabAction("<< Previous");
+    ApplyButtonSaveAction saveAction = new ApplyButtonSaveAction("Save");
+
     public MetadataEditorContainer(){
         super();
         initComponents();
@@ -71,10 +79,53 @@ public class MetadataEditorContainer extends JPanel {
         if (dlgMode.equals(SelectorDialogModes.TEXT_EDIT)) {
             txtMsgArea.setText(EDIT_MESSAGE);
         }
+        
+        this.btnSave.setAction(saveAction);
+        this.btnNavigate.setAction(nextAction);
+        this.metadataTabContainer.addChangeListener(new MetaTabsChangeListener());
 
     }
-    
 
+    class NextTabAction extends AbstractAction {
+        public NextTabAction(String text) {
+            super(text);
+        }
+        public void actionPerformed(ActionEvent e) {
+            int nIndex = metadataTabContainer.getSelectedIndex();
+            int nNoOfTabs = metadataTabContainer.getTabCount();
+            if (!(nIndex == (nNoOfTabs - 1))) {
+                   metadataTabContainer.setSelectedIndex(nIndex + 1) ;
+            }
+        }
+
+    }
+
+    class PrevTabAction extends AbstractAction {
+        public PrevTabAction(String text) {
+            super(text);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            int nIndex = metadataTabContainer.getSelectedIndex();
+            if (nIndex  > 0) {
+                   metadataTabContainer.setSelectedIndex(nIndex - 1) ;
+            }
+        }
+
+    }
+
+    class MetaTabsChangeListener implements ChangeListener {
+
+        public void stateChanged(ChangeEvent e) {
+            int iIndex = metadataTabContainer.getSelectedIndex();
+            if (iIndex == 0 ) {
+                btnNavigate.setAction(nextAction);
+            } else {
+                btnNavigate.setAction(prevAction);
+            }
+        }
+
+    }
 
     /**
      * Loads the availabled metadata editors for this document type
@@ -138,7 +189,12 @@ public class MetadataEditorContainer extends JPanel {
             formErrors.clear();
             //iterate through the tabs and apply them individually
             for (IEditorDocMetadataDialog mTab : this.metaTabs) {
-                formErrors.addAll(mTab.validateSelectedMetadata(m_spf));
+                ArrayList<String> errors = mTab.validateSelectedMetadata(m_spf);
+                if (errors.size() > 0 )  {
+                    formErrors.add(mTab.getTabTitle() + " Tab :-");
+                    formErrors.addAll(errors);
+                    formErrors.add("");
+                }
             }
 
         } catch (Exception ex) {
@@ -289,6 +345,32 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
     
 
 
+    class ApplyButtonSaveAction extends AbstractAction {
+
+        public ApplyButtonSaveAction(String text ) {
+            super(text);
+        }
+        
+        public void actionPerformed(ActionEvent e) {
+
+            if (validateSelectedMetadata(m_spf)) {
+                if (applySelectedMetadata(m_spf)) {
+                    if (saveDocumentToDisk(m_spf)) {
+                        parentFrame.dispose();
+                    }
+                }
+            } else {
+                StringBuffer bf = new StringBuffer();
+                for (String msg : formErrors) {
+                    bf.append(msg + "\n");
+                }
+                MessageBox.OK(parentFrame, bf.toString(), "Incomplete Fields", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
+
+    }
+
 
 
     /** This method is called from within the constructor to
@@ -305,15 +387,11 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         jScrollPane1 = new javax.swing.JScrollPane();
         txtMsgArea = new javax.swing.JTextArea();
         metadataTabContainer = new javax.swing.JTabbedPane();
+        btnNavigate = new javax.swing.JButton();
 
-        btnSave.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnSave.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle"); // NOI18N
         btnSave.setText(bundle.getString("MetadataEditorContainer.btnSave.text")); // NOI18N
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveActionPerformed(evt);
-            }
-        });
 
         btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnCancel.setText(bundle.getString("MetadataEditorContainer.btnCancel.text")); // NOI18N
@@ -333,23 +411,28 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         txtMsgArea.setBorder(null);
         jScrollPane1.setViewportView(txtMsgArea);
 
+        btnNavigate.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnNavigate.setText(bundle.getString("MetadataEditorContainer.btnNavigate.text")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(metadataTabContainer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnNavigate, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45)
-                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(78, 78, 78))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -360,30 +443,12 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
                 .addComponent(metadataTabContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancel)
                     .addComponent(btnSave)
-                    .addComponent(btnCancel))
+                    .addComponent(btnNavigate))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
-private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-// TODO add your handling code here:
-   //APPLY SELECTED METADATA... 
-  //  BungeniFileSavePathFormat spf = new BungeniFileSavePathFormat();
-    if (validateSelectedMetadata(m_spf)) {
-        if (applySelectedMetadata(m_spf)) {
-            if (saveDocumentToDisk(m_spf)) {
-                parentFrame.dispose();
-            }
-        }
-    } else {
-        StringBuffer bf = new StringBuffer();
-        for (String msg : formErrors) {
-                bf.append(msg + "\n");
-        }
-        MessageBox.OK(this.parentFrame, bf.toString());
-    }
-}//GEN-LAST:event_btnSaveActionPerformed
 
 private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
 // TODO add your handling code here:
@@ -393,6 +458,7 @@ private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnNavigate;
     private javax.swing.JButton btnSave;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane metadataTabContainer;
