@@ -48,6 +48,37 @@ public class TabbedPanelFactory {
         }
     }
 
+    /**
+     * 
+     * @param docType the doctype associated with the panel or 'internal' for panels not associated with a doctype
+     * @param panelName
+     * @return
+     */
+    public static ITabbedPanel getPanelByName(String docType, String panelName) {
+       ITabbedPanel panel = null;
+        try {
+            BungeniClientDB instance = new BungeniClientDB (DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
+            QueryResults qr = instance.ConnectAndQuery(SettingsQueryFactory.Q_FETCH_TABS_BY_NAME(docType, panelName));
+            if (qr.hasResults()) {
+                Iterator<Vector<String>> resultsIterator = qr.theResultsIterator();
+                while (resultsIterator.hasNext()) {
+                    Vector<String> resultRow = resultsIterator.next();
+                    String panelClass = qr.getField(resultRow, "PANEL_CLASS");
+                    String panelTitle = qr.getField(resultRow, "PANEL_TITLE");
+                    String panelLoadOrder = qr.getField(resultRow, "PANEL_LOAD_ORDER");
+                    Integer panelLoad = Integer.parseInt(panelLoadOrder);
+                    panel = makePanel(panelClass, panelLoad, panelTitle);
+                }
+
+            }
+        } catch (Exception ex) {
+            log.error("getPanelByName : " + ex.getMessage());
+            log.error("getPanelByName : " + CommonExceptionUtils.getStackTrace(ex));
+        } finally {
+            return panel;
+        }
+
+    }
     public static  ArrayList<ITabbedPanel> getPanelsByDocType(String docType){
             
         ArrayList<ITabbedPanel> tabbedPanels = new ArrayList<ITabbedPanel>();
