@@ -36,6 +36,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
 import javax.swing.AbstractAction;
@@ -260,6 +261,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
     }  
        public void updateSectionMetadataView(String sectionName) {
           lblDisplaySectionName.setText(sectionName);
+
           SectionMetadataLoad sectionMetadataTableModel = new SectionMetadataLoad(ooDocument,sectionName);
           tblSectionmeta.setModel(sectionMetadataTableModel);
     }
@@ -286,6 +288,10 @@ public class editorTabbedPanel extends javax.swing.JPanel {
                         } else {
                             updateSectionMetadataView(newSectionName);
                             updateSectionMetadataEditButton(newSectionName);
+                            Set<String> floatingPanels = floatingPanelMap.keySet();
+                            for (String fPanelName : floatingPanels) {
+                                floatingPanelMap.get(fPanelName).setSectionChangeInfo(newSectionName);
+                            }
                             oldSectionName = newSectionName;
                         }
                     }
