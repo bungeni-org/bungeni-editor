@@ -332,6 +332,9 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
         }
         
         boolean bRetPostApply = postMainApply();
+
+        //disable the apply button
+        this.btnApply.setEnabled(false);
         //** do not dispose ... since user may be asked to paste content
         //this.containerFrame.dispose();
     }
