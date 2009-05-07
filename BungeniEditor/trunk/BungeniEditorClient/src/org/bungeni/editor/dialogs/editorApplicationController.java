@@ -888,7 +888,7 @@ private void initProperties(java.io.File currentFolder) {
 public static int OPENOFFICE_HEIGHT_OFFSET =60;
 
 private void initFrame(XComponent component){
-            BungeniFrame frame = new BungeniFrame("BungeniEditor Control Panel");
+            BungeniFrame frame = new BungeniFrame("Control Panel");
             //set the dimensions for the frame;
             frame.setSize(270, 655);
             //frame position information

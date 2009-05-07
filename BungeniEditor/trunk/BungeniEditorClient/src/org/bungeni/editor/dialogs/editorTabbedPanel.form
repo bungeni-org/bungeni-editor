@@ -73,7 +73,7 @@
               <EmptySpace pref="79" max="32767" attributes="0"/>
               <Component id="btnEdit" min="-2" pref="54" max="-2" attributes="0"/>
           </Group>
-          <Component id="jScrollPane1" alignment="0" pref="267" max="32767" attributes="0"/>
+          <Component id="scrollMeta" alignment="0" pref="267" max="32767" attributes="0"/>
           <Component id="jTabsContainer" alignment="0" pref="267" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
@@ -100,7 +100,7 @@
                   <Component id="btnEdit" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="157" max="-2" attributes="0"/>
+              <Component id="scrollMeta" min="-2" pref="157" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -224,7 +224,11 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveDocumentActionPerformed"/>
       </Events>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+    <Container class="javax.swing.JScrollPane" name="scrollMeta">
+      <Properties>
+        <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
+        <Property name="verticalScrollBarPolicy" type="int" value="22"/>
+      </Properties>
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>

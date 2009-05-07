@@ -490,10 +490,12 @@ public class editorTabbedPanel extends javax.swing.JPanel {
 
     private static int  WIDTH_OOo_SCROLLBAR = 25;
     // added for Issue 246, http://code.google.com/p/bungeni-portal/issues/details?id=246
+    @SuppressWarnings("empty-statement")
     private void initFloatingPane() {
             //load the map here 
             BungeniFrame floatingFrame = new BungeniFrame();
             IFloatingPanel floatingPanel = FloatingPanelFactory.getPanelClass("toolbarUIPanel");
+
             floatingPanel.setOOComponentHandle(ooDocument);
             floatingPanel.setParentWindowHandle(floatingFrame);
             floatingPanel.initUI();
@@ -506,7 +508,11 @@ public class editorTabbedPanel extends javax.swing.JPanel {
            // floatingFrame.setResizable(false);
             floatingFrame.removeMinMaxClose();
             floatingFrame.setAlwaysOnTop(true);
+            floatingFrame.pack();
             floatingFrame.setVisible(true);
+
+             floatingFrame.setResizable(false);
+
             //position frame
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             Dimension windowSize = floatingFrame.getSize();
@@ -517,8 +523,9 @@ public class editorTabbedPanel extends javax.swing.JPanel {
             //int windowY = (screenSize.height - floatingFrame.getHeight())/2;
             int windowY = editorApplicationController.getFrameWindowDimension().y;
             log.debug("initFloatingPane : Window Y =  "+ windowY);
-          
-          floatingFrame.setLocation(windowX, editorTabbedPanel.coordY + 50);  // Don't use "f." inside constructor.
+
+       //   floatingFrame.setLocation(windowX, editorTabbedPanel.coordY + 50);  // Don't use "f." inside constructor.
+            floatingFrame.setLocation(windowX, parentFrame.getLocation().y);
             floatingFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             
       
@@ -570,7 +577,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         lblCurrentMode = new javax.swing.JLabel();
         btnNewDocument = new javax.swing.JButton();
         btnSaveDocument = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        scrollMeta = new javax.swing.JScrollPane();
         tblSectionmeta = new javax.swing.JTable();
         lblDisplaySectionName = new javax.swing.JLabel();
         btnEdit = new javax.swing.JButton();
@@ -630,6 +637,9 @@ public class editorTabbedPanel extends javax.swing.JPanel {
             }
         });
 
+        scrollMeta.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollMeta.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
         tblSectionmeta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -641,7 +651,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblSectionmeta);
+        scrollMeta.setViewportView(tblSectionmeta);
 
         lblDisplaySectionName.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblDisplaySectionName.setText(bundle.getString("editorTabbedPanel.lblDisplaySectionName.text")); // NOI18N
@@ -680,7 +690,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
                 .add(lblDisplaySectionName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 134, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 79, Short.MAX_VALUE)
                 .add(btnEdit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 54, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+            .add(scrollMeta, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
             .add(jTabsContainer, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -704,7 +714,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
                     .add(lblDisplaySectionName)
                     .add(btnEdit))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 157, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(scrollMeta, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 157, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -1112,7 +1122,6 @@ private void launchMetadataSetter(XComponent xComp){
     private javax.swing.JButton btnOpenDocument;
     private javax.swing.JButton btnSaveDocument;
     private javax.swing.JComboBox cboListDocuments;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabsContainer;
@@ -1121,6 +1130,7 @@ private void launchMetadataSetter(XComponent xComp){
     private javax.swing.JLabel lblCurrentMode;
     private javax.swing.JLabel lblCurrentlyOpenDocuments;
     private javax.swing.JLabel lblDisplaySectionName;
+    private javax.swing.JScrollPane scrollMeta;
     private javax.swing.JTable tblSectionmeta;
     // End of variables declaration//GEN-END:variables
 
