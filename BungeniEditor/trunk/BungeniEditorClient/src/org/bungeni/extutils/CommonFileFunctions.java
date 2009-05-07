@@ -11,6 +11,9 @@ package org.bungeni.extutils;
 
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -94,5 +97,23 @@ public static String getPathFromParams (ArrayList<String> params, String fileNam
     }
     return fullPath + File.separator + fileName            ;
 }
+
+  public static  File convertUrlToFile(String sUrl) {
+        File f = null;
+        URL url = null;
+        try {
+            url = new URL(sUrl);
+        } catch (MalformedURLException ex) {
+            log.error("convertUrlToFile: "+ ex.getMessage());
+            return null;
+        }
+        try {
+            f = new File(url.toURI());
+        } catch(URISyntaxException e) {
+            f = new File(url.getPath());
+        } finally {
+            return f;
+        }
+    }
 
 }
