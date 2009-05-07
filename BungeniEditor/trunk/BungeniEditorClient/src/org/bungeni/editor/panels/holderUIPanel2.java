@@ -160,6 +160,10 @@ public class holderUIPanel2 extends javax.swing.JPanel implements IFloatingPanel
         toolbarTabs.getSelectedComponent().setBackground(toolbarTabSelectedBgColor);
     }
 
+    public void setSectionChangeInfo(String sectionChange) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 
     class BungeniToolbarPreTabChangeListener implements ChangeListener {
 

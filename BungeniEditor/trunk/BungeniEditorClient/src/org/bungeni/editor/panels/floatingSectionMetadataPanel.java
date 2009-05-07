@@ -185,6 +185,10 @@ public class floatingSectionMetadataPanel extends javax.swing.JPanel implements 
         refreshTimer.start();
     }
 
+    public void setSectionChangeInfo(String sectionChange) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
     private class viewRefreshAction extends AbstractAction {
         public String oldSectionName ; 
         public String newSectionName;

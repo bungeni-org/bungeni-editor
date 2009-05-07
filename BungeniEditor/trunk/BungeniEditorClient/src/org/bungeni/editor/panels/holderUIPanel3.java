@@ -140,6 +140,7 @@ public class holderUIPanel3 extends javax.swing.JPanel implements IFloatingPanel
         this.initToolbarTabs();
         this.initSectionStructureTree();
         this.initSectionInternalStructureTree();
+        this.initSectionTabsListener();
         this.initMouseListener();
         this.initUIAttributes();
     }
@@ -167,6 +168,18 @@ public class holderUIPanel3 extends javax.swing.JPanel implements IFloatingPanel
                     grpTab.getSelectedComponent().setBackground(toolbarTabSelectedBgColor);
 
         }
+    }
+
+    private void initSectionTabsListener() {
+        this.tabSectionView.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                updateSectionTree();
+            }
+        });
+    }
+
+    public void setSectionChangeInfo(String sectionChange) {
+        this.lblCurrentSectionName.setText(sectionChange);
     }
 
 
@@ -304,10 +317,23 @@ public class holderUIPanel3 extends javax.swing.JPanel implements IFloatingPanel
 
         }
 
+        private String[] POST_ROUTER_REFRESH_ACTIONS = {
+            "org.bungeni.editor.actions.routers.routerCreateSection"
+        };
+
         private void processSubAction(toolbarSubAction action) {
             log.debug("processSubAction:" + action.sub_action_name());
             IEditorActionEvent event = getEventClass(action);
             event.doCommand(getOODocument(), action, parentFrame);
+            runPostRouterActions(action);
+        }
+
+        private void runPostRouterActions(toolbarSubAction action) {
+            for (String routerClass : POST_ROUTER_REFRESH_ACTIONS) {
+                if (routerClass.equals(action.router_class())) {
+                    updateSectionTree();
+                }
+            }
         }
 
         private void processAction(toolbarAction action) {
@@ -751,6 +777,8 @@ public class holderUIPanel3 extends javax.swing.JPanel implements IFloatingPanel
         sectionStructureTree = new javax.swing.JTree();
         scrollInternalTreeView = new javax.swing.JScrollPane();
         sectionInternalStructureTree = new javax.swing.JTree();
+        lblCurrentSection = new javax.swing.JLabel();
+        lblCurrentSectionName = new javax.swing.JLabel();
 
         btnRefresh.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/panels/Bundle"); // NOI18N
@@ -790,11 +818,17 @@ public class holderUIPanel3 extends javax.swing.JPanel implements IFloatingPanel
 
         tabSectionView.addTab(bundle.getString("holderUIPanel3.scrollInternalTreeView.TabConstraints.tabTitle"), scrollInternalTreeView); // NOI18N
 
+        lblCurrentSection.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblCurrentSection.setForeground(new java.awt.Color(179, 27, 27));
+        lblCurrentSection.setText(bundle.getString("holderUIPanel3.lblCurrentSection.text")); // NOI18N
+
+        lblCurrentSectionName.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblCurrentSectionName.setText(bundle.getString("holderUIPanel3.lblCurrentSectionName.text")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(toolbarTabs, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(4, 4, 4)
                 .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -804,19 +838,28 @@ public class holderUIPanel3 extends javax.swing.JPanel implements IFloatingPanel
                 .addComponent(btnSectionsCollapseAll, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(tabSectionView, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(lblCurrentSection, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblCurrentSectionName, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
+            .addComponent(toolbarTabs, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(toolbarTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(toolbarTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCurrentSection)
+                    .addComponent(lblCurrentSectionName, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(1, 1, 1)
                 .addComponent(tabSectionView, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSectionsCollapseAll, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSectionsExpandAll, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21))
+                .addGap(23, 23, 23))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -858,6 +901,8 @@ private void btnSectionsCollapseAllActionPerformed(java.awt.event.ActionEvent ev
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnSectionsCollapseAll;
     private javax.swing.JButton btnSectionsExpandAll;
+    private javax.swing.JLabel lblCurrentSection;
+    private javax.swing.JLabel lblCurrentSectionName;
     private javax.swing.JScrollPane scrollInternalTreeView;
     private javax.swing.JScrollPane scrollTreeView;
     private javax.swing.JTree sectionInternalStructureTree;

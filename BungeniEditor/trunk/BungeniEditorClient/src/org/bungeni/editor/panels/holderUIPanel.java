@@ -589,6 +589,10 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
         }
     }
 
+    public void setSectionChangeInfo(String sectionChange) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
     /**
      *
      */
