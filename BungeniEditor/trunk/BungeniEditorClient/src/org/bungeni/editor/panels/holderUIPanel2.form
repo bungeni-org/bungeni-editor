@@ -20,17 +20,17 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="toolbarTabs" alignment="0" pref="221" max="32767" attributes="0"/>
-          <Group type="102" alignment="1" attributes="0">
+          <Component id="toolbarTabs" alignment="0" pref="222" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+              <Component id="btnRefresh" min="-2" pref="60" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnSectionsExpandAll" min="-2" pref="63" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnSectionsCollapseAll" min="-2" pref="71" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnRefresh" pref="51" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
-          <Component id="tabSectionView" alignment="0" pref="221" max="32767" attributes="0"/>
+          <Component id="tabSectionView" alignment="0" pref="222" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -38,14 +38,14 @@
           <Group type="102" alignment="1" attributes="0">
               <Component id="toolbarTabs" min="-2" pref="272" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="tabSectionView" pref="270" max="32767" attributes="0"/>
+              <Component id="tabSectionView" pref="261" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnSectionsExpandAll" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
-                  <Component id="btnSectionsCollapseAll" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
                   <Component id="btnRefresh" alignment="3" min="-2" pref="17" max="-2" attributes="0"/>
+                  <Component id="btnSectionsCollapseAll" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                  <Component id="btnSectionsExpandAll" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -101,6 +101,7 @@
     </Container>
     <Container class="javax.swing.JTabbedPane" name="tabSectionView">
       <Properties>
+        <Property name="tabPlacement" type="int" value="3"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="DejaVu Sans" size="10" style="0"/>
         </Property>

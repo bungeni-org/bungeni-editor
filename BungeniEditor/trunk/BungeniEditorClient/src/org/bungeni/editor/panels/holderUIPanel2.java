@@ -69,10 +69,8 @@ public class holderUIPanel2 extends javax.swing.JPanel implements IFloatingPanel
     private OOComponentHelper ooDocument;
     private JFrame parentFrame;
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(holderUIPanel2.class.getName());
-    //private org.bungeni.editor.toolbar.BungeniToolbarXMLTree toolbarXmlTree;
     private BungeniClientDB instance;
     private Timer timerSectionTree;
-    //private JTree sectionInternalStructureTree;
     private String m_currentSelectedSectionName;
     private Timer toolbarTimer = null;
     //cache for conditions
@@ -101,7 +99,6 @@ public class holderUIPanel2 extends javax.swing.JPanel implements IFloatingPanel
                 log.debug("holderUIPanel, setOOComponentHandle : updating component handle");
                 this.ooDocument = ooComponent;
             }
-        //updatePanelonComponentChange();
         } else {
             log.debug("holderUIPanel, setOOComponentHandle : ooDocument was null updating component handle");
             this.ooDocument = ooComponent;
@@ -142,35 +139,47 @@ public class holderUIPanel2 extends javax.swing.JPanel implements IFloatingPanel
         this.initToolbarTabs();
         this.initSectionStructureTree();
         this.initSectionInternalStructureTree();
-        // this.initButtonListeners();
         this.initMouseListener();
-//        this.initComboChangeStructure();
-        this.initTimers();
         this.initUIAttributes();
     }
     private BungeniToolbarLoader toolbarLoader = null;
+    private Color toolbarTabBgColor = null , toolbarTabSelectedBgColor = null;
 
     private void initToolbarTabs() {
         toolbarLoader = new BungeniToolbarLoader(new BungeniToolbarCommandListener());
         toolbarLoader.loadToolbar(this.toolbarTabs);
+        toolbarTabBgColor = toolbarTabs.getSelectedComponent().getBackground();
+        toolbarTabSelectedBgColor = toolbarTabBgColor.darker();
         //toolbar update timer
         toolbarTimer = new javax.swing.Timer(3000, new BungeniToolbarTimerListener());
         toolbarTimer.setInitialDelay(3000);
         toolbarTimer.start();
         //toolbar tab change listener
-        toolbarTabs.addChangeListener(new BungeniToolbarTabChangeListener());
+        toolbarTabs.addChangeListener(new BungeniToolbarPostTabChangeListener());
+        toolbarTabs.getModel().addChangeListener(new BungeniToolbarPreTabChangeListener());
+        toolbarTabs.getSelectedComponent().setBackground(toolbarTabSelectedBgColor);
+    }
+
+
+    class BungeniToolbarPreTabChangeListener implements ChangeListener {
+
+        public void stateChanged(ChangeEvent e) {
+            Component selectedComponent = toolbarTabs.getSelectedComponent();
+            selectedComponent.setBackground(toolbarTabBgColor);
+        }
 
     }
 
     /***
-     * This event is invoked whenever the Action tabs are switched.
+     * This event is invoked whenever the Action tabs are switched - it is invoked after the tabs have changed.
      * The toolbar action states are refreshed for the current tab since the timer delay
      * is 3 seconds.
      */
-    class BungeniToolbarTabChangeListener implements ChangeListener {
-
+    class BungeniToolbarPostTabChangeListener implements ChangeListener {
         public void stateChanged(ChangeEvent e) {
             processActionStatesForSelectedTab();
+            Component selectedComponent = toolbarTabs.getSelectedComponent();
+            selectedComponent.setBackground(toolbarTabSelectedBgColor);
         }
     }
 
@@ -354,35 +363,42 @@ public class holderUIPanel2 extends javax.swing.JPanel implements IFloatingPanel
         }
     };
 
-    private void initPopupMenu() {
-        sectionStructureMenu = new JPopupMenu();
-        Font menuFont = new java.awt.Font("DejaVu Sans", 0, 10);
-        sectionStructureMenu.setFont(menuFont);
-        ActionListener popupMenuListener = new ActionListener() {
 
-            public void actionPerformed(ActionEvent e) {
+    class PopupMenuActionListener implements ActionListener {
+
+        private JTree whichTree(){
+            if (sectionStructureTree.isVisible()) return sectionStructureTree;
+            return sectionInternalStructureTree;
+        }
+        
+        public void actionPerformed(ActionEvent e) {
                 if (e.getActionCommand().equals("GO_TO")) {
                     //call go to section
-                    TreePath selPath = sectionStructureTree.getSelectionPath();
+                    TreePath selPath = whichTree().getSelectionPath();
                     selectSectionFromTreePath(selPath);
                 }
                 if (e.getActionCommand().equals("NL_AFTER")) {
                     //call go to after
                     //add new line after section
-                    TreePath selPath = sectionStructureTree.getSelectionPath();
+                    TreePath selPath = whichTree().getSelectionPath();
                     String sectionName = getSectionFromTreePath(selPath);
                     CommonDocumentUtilFunctions.addNewLineAfterSection(ooDocument, sectionName);
                 }
                 if (e.getActionCommand().equals("NL_BEFORE")) {
                     //call go before
                     //add new line before section
-                    TreePath selPath = sectionStructureTree.getSelectionPath();
+                    TreePath selPath = whichTree().getSelectionPath();
                     String sectionName = getSectionFromTreePath(selPath);
                     CommonDocumentUtilFunctions.addNewLineBeforeSection(ooDocument, sectionName);
-
                 }
-            }
-        };
+        }
+    }
+    private void initPopupMenu() {
+        sectionStructureMenu = new JPopupMenu();
+        Font menuFont = new java.awt.Font("DejaVu Sans", 0, 10);
+        sectionStructureMenu.setFont(menuFont);
+
+        PopupMenuActionListener popupMenuListener = new PopupMenuActionListener();
 
         JMenuItem itemGoto = setupMenuItem("GO_TO", popupMenuListener);
         itemGoto.setFont(menuFont);
@@ -484,6 +500,23 @@ public class holderUIPanel2 extends javax.swing.JPanel implements IFloatingPanel
         ImageIcon minusIcon = CommonTreeFunctions.treeMinusIcon();
         ImageIcon plusIcon = CommonTreeFunctions.treePlusIcon();
         //sectionInternalStructureTree.setCellRenderer(new treeViewPrettySectionsTreeCellRenderer());
+        sectionInternalStructureTree.setCellRenderer(new treeInternalStructureSectionsTreeCellRenderer());
+        sectionInternalStructureTree.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mousePressed(MouseEvent evt) {
+                //if event is the popup trigger for this os
+                if (evt.isPopupTrigger()) {
+                    sectionStructureMenu.show((Component) evt.getSource(), evt.getX(), evt.getY());
+                }
+                //check if double click ...move focus to section
+                if (evt.getClickCount() == 2) {
+                    TreePath selPath = sectionInternalStructureTree.getPathForLocation(evt.getX(), evt.getY());
+                    selectSectionFromTreePath(selPath);
+                }
+            }
+        });
+
         sectionInternalStructureTree.setShowsRootHandles(true);
         ComponentUI treeui = sectionInternalStructureTree.getUI();
         if (treeui instanceof BasicTreeUI) {
@@ -504,69 +537,13 @@ public class holderUIPanel2 extends javax.swing.JPanel implements IFloatingPanel
         }
     }
 
-    private void initTimers() {
-        /*
-        Action sectionViewRefreshRunner = new AbstractAction() {
-        public void actionPerformed (ActionEvent e) {
-        updateCurrentSectionName();
-        //***** crash warning *****
-        //commented updateSectionTree 13-11-2008 to prevent crash on timed refresh...
-        //updateSectionTree();
-        //***** crash warning *****
-        };
-        };
-        timerSectionTree = new Timer(3000, sectionViewRefreshRunner);
-        timerSectionTree.setInitialDelay(2000);
-        timerSectionTree.start();
-         * */
-    }
+  
 
     private holderUIPanel2 self() {
         return this;
     }
 
-    /*
-    private void initButtonListeners() {
-    btnViewDefault.setSelected(true);
-    //add action listeners to button
-    btnViewDefault.addActionListener(new ActionListener() {
-
-    public void actionPerformed(ActionEvent arg0) {
-    JRadioButton btn = (JRadioButton) arg0.getSource();
-    if (btn.isSelected()) {
-    //////fix this      scrollToolbarTree.setVisible(true);
-    scrollTreeView.setVisible(true);
-    self().parentFrame.setVisible(true);
-    self().parentFrame.setExtendedState(JFrame.NORMAL);
-    }
-    }
-    });
-    btnHideToolbarTree.addActionListener(new ActionListener() {
-
-    public void actionPerformed(ActionEvent arg0) {
-    JRadioButton btn = (JRadioButton) arg0.getSource();
-    if (btn.isSelected()) {
-    /////fix this                    scrollToolbarTree.setVisible(false);
-    scrollTreeView.setVisible(true);
-    //revalidate does 're-layout' of the panel
-    self().revalidate();
-    }
-    }
-    });
-    btnHideTreeView.addActionListener(new ActionListener() {
-
-    public void actionPerformed(ActionEvent arg0) {
-    JRadioButton btn = (JRadioButton) arg0.getSource();
-    if (btn.isSelected()) {
-    /////fix this                     scrollToolbarTree.setVisible(true);
-    scrollTreeView.setVisible(false);
-    //revalidate does 're-layout' of the panel
-    self().revalidate();
-    }
-    }
-    });
-    }  */
-    private void initMouseListener() {
+   private void initMouseListener() {
         //first move focus to frame on mouse over
         parentFrame.addMouseListener(new MouseAdapter() {
 
@@ -635,9 +612,42 @@ public class holderUIPanel2 extends javax.swing.JPanel implements IFloatingPanel
         }
     }
 
+    private static final Font TREE_LABEL_FONT = new Font("Tahoma", Font.PLAIN, 11);
+
     /**
      *
      */
+
+    class treeInternalStructureSectionsTreeCellRenderer extends DefaultTreeCellRenderer {
+
+        Color bgColor = new java.awt.Color(232, 255, 175);
+        Color bgColorSelect = new java.awt.Color(207, 242, 255);
+
+        @Override
+        public Component getTreeCellRendererComponent(JTree tree, Object value, boolean selected, boolean expanded, boolean leaf, int row, boolean hasFocus) {
+            Component c = super.getTreeCellRendererComponent(tree, value, selected, expanded, leaf, row, hasFocus);
+            setFont(TREE_LABEL_FONT);
+            setText(value.toString());
+            if (value instanceof DefaultMutableTreeNode) {
+                DefaultMutableTreeNode uo = (DefaultMutableTreeNode) value;
+                Object uoObj = uo.getUserObject();
+                if (uoObj.getClass() == org.bungeni.utils.BungeniBNode.class) {
+                    BungeniBNode aNode = (BungeniBNode) uoObj;
+                    if (aNode.getName().equals(m_currentSelectedSectionName)) {
+                        //setBorder(selBorder);
+                        c.setBackground(bgColor);
+                    } else if (selected) {
+                        c.setBackground(bgColorSelect);
+                    } else {
+                        c.setBackground(null);
+                    }
+                }
+            }
+            return c;
+        }
+
+    }
+
     class treeViewPrettySectionsTreeCellRenderer extends DefaultTreeCellRenderer {
 
         Color bgColor = new java.awt.Color(232, 255, 175);
@@ -670,7 +680,6 @@ public class holderUIPanel2 extends javax.swing.JPanel implements IFloatingPanel
             return c;
         }
     }
-    private static final Font TREE_LABEL_FONT = new Font("Tahoma", Font.PLAIN, 11);
 
     class changeStructureItem {
 
@@ -739,6 +748,7 @@ public class holderUIPanel2 extends javax.swing.JPanel implements IFloatingPanel
 
         toolbarTabs.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
+        tabSectionView.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
         tabSectionView.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
         scrollTreeView.setViewportView(sectionStructureTree);
@@ -753,29 +763,29 @@ public class holderUIPanel2 extends javax.swing.JPanel implements IFloatingPanel
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(toolbarTabs, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+            .addComponent(toolbarTabs, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSectionsExpandAll, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSectionsCollapseAll, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-                .addContainerGap())
-            .addComponent(tabSectionView, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(tabSectionView, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(toolbarTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabSectionView, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                .addComponent(tabSectionView, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSectionsExpandAll, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSectionsCollapseAll, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(btnSectionsExpandAll, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21))
         );
     }// </editor-fold>//GEN-END:initComponents
 
