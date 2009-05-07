@@ -45,6 +45,14 @@ public class BungeniToolbarParser {
     private static Document       document;
     private static BufferedReader reader;
     private static SAXBuilder     saxBuilder;
+    /**
+     * actionGroups provide top level place holders (parent grouping of tabs)
+     */
+    private String                TOOLBAR_GROUPS = "/toolbar/root/actionGroup";
+    private String                TOOLBAR_BLOCKS_FOR_GROUP = "/blockAction";
+    /**
+     * blockActions allow sub-Grouping of actions as sub-tabs
+     */
     private String                TOOLBAR_BLOCKS        = "/toolbar/root/actionGroup/blockAction";
     private String                TOOLBAR_BLOCK_ACTIONS = "/action";
     private String                TOOLBAR_XML_FILE      =
@@ -119,6 +127,37 @@ public class BungeniToolbarParser {
         } finally {
             return blockElements;
         }
+    }
+
+    /**
+     *
+     * @param groupElement - an actionGroup element
+     * @return
+     */
+    public ArrayList<Element> getTabElements(Element groupElement) {
+        ArrayList<Element> blockElements = new ArrayList<Element>(0);
+        try {
+             blockElements = (ArrayList<Element>) XPath.selectNodes(groupElement, "blockAction");
+        } catch (JDOMException ex) {
+            log.error("getTabElements : " + ex.getMessage());
+        } finally {
+            return blockElements;
+        }
+
+    }
+
+    public ArrayList<Element> getTabActionGroups() {
+        ArrayList<Element> actionGrpElements = new ArrayList<Element>(0);
+
+        try {
+            XPath grpPath = XPath.newInstance(TOOLBAR_GROUPS);
+            actionGrpElements = (ArrayList<Element>) grpPath.selectNodes(document);
+        } catch (JDOMException ex) {
+            log.error("getTabElements : " + ex.getMessage());
+        } finally {
+            return actionGrpElements;
+        }
+
     }
 
     public ArrayList<Element> getTabActionElements(Element tabElement) {

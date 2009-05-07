@@ -7,6 +7,7 @@
 package org.bungeni.editor.panels.toolbar;
 
 import java.awt.event.ActionListener;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -27,6 +28,7 @@ public class buttonPanel extends javax.swing.JPanel {
     public buttonPanel(String text, ActionListener btnListener, BungeniToolbarActionElement aElement) {
         initComponents();
         setButtonText(text);
+        this.btnAction.setHorizontalAlignment(SwingConstants.LEADING);
         setButtonActionListener(btnListener);
         setActionElement(aElement);
     }
