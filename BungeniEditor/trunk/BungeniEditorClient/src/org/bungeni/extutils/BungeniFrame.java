@@ -42,7 +42,7 @@ public class BungeniFrame extends JFrame {
         }
         
         private void setIconForFrame(){
-           ImageIcon iconApp = CommonTreeFunctions.loadIcon("bungeni.jpg");
+           ImageIcon iconApp = CommonTreeFunctions.loadIcon("bungeni-icon.png");
            setIconImage(iconApp.getImage());
 
         }
