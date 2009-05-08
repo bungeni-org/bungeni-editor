@@ -3,6 +3,7 @@ package org.bungeni.editor.panels.toolbar;
 
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.BorderFactory;
 import javax.swing.JTabbedPane;
 import org.jdom.Element;
 
@@ -34,6 +35,7 @@ public class BungeniToolbarLoader {
     public void loadToolbar(JTabbedPane thisPane ) {
         //first build the toolbar - and then we processs the xml
         toolbarParser.buildToolbar();
+        thisPane.setBorder(BorderFactory.createEmptyBorder());
        // ArrayList<JTabbedPane> groupTabs = new ArrayList<JTabbedPane>(0);
         //get the tab elements
         ArrayList<Element> groupTabs = toolbarParser.getTabActionGroups();
@@ -42,6 +44,7 @@ public class BungeniToolbarLoader {
             String grpTabUImodel = groupTab.getAttributeValue("uimodel");
             //create a new group tab
             JTabbedPane grpPane = new JTabbedPane(JTabbedPane.TOP);
+            grpPane.setBorder(javax.swing.BorderFactory.createEmptyBorder());
             grpPane.setTabLayoutPolicy(grpTabUImodel.equals("wrap")?JTabbedPane.WRAP_TAB_LAYOUT:JTabbedPane.SCROLL_TAB_LAYOUT);
             grpPane.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
             // thisPane.addTab(grpTabTitle, grpPane);
@@ -68,7 +71,7 @@ public class BungeniToolbarLoader {
                         buttonContainer.add(panelButton);
                      }
                      scrollablePanel.setScrollViewPort(buttonContainer);
-                     grpPane.addTab(tabTitle, scrollablePanel);
+                     scrollablePanel.setBorder(javax.swing.BorderFactory.createEmptyBorder());                     grpPane.addTab(tabTitle, scrollablePanel);
                   }
              }
              thisPane.addTab(grpTabTitle, grpPane);
