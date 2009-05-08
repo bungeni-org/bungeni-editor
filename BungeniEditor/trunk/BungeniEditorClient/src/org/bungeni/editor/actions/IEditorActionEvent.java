@@ -10,8 +10,6 @@
 package org.bungeni.editor.actions;
 
 import java.util.ArrayList;
-import javax.swing.JFrame;
-import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.ooo.OOComponentHelper;
 
 /**
