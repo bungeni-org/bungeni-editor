@@ -743,28 +743,6 @@ private void btnNewDocumentActionPerformed(java.awt.event.ActionEvent evt) {//GE
 private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveDocumentActionPerformed
 // TODO add your handling code here:
     saveOpenDocument();
-    /*
-        BungeniTransformationTarget transform= new BungeniTransformationTarget ("ODT", "ODT (OpenDocument Format)", "odt" , "org.bungeni.ooo.transforms.loadable.ODTSaveTransform");
-        //BungeniTransformationTarget transform = (BungeniTransformationTarget) this.cboTransformFrom.getSelectedItem();
-        IBungeniDocTransform iTransform = BungeniTransformationTargetFactory.getTransformClass(transform);
-        
-        String exportPath = BungeniEditorProperties.getEditorProperty("defaultExportPath");
-        exportPath = exportPath.replace('/', File.separatorChar);
-        exportPath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + exportPath;
-        exportPath = exportPath + File.separatorChar + OOComponentHelper.getFrameTitle(ooDocument.getTextDocument()).trim()+"."+transform.targetExt;
-        File fileExp = new File(exportPath);
-        String exportPathURL = "";
-            exportPathURL = fileExp.toURI().toString();
-        HashMap<String,Object> params = new HashMap<String,Object>();
-        params.put("StoreToUrl", exportPathURL);
-        
-        iTransform.setParams(params);
-        boolean bState= iTransform.transform(ooDocument);
-        if (bState ) {
-            MessageBox.OK(parentFrame, "Document was successfully Exported ");
-        } else
-            MessageBox.OK(parentFrame, "Document Export failed " );*/
-
 }//GEN-LAST:event_btnSaveDocumentActionPerformed
 
 private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
@@ -789,7 +767,7 @@ public void newDocumentInPanel(){
     String templatePath = BungeniEditorProperties.getEditorProperty(BungeniEditorPropertiesHelper.getCurrentDocType()+"_template");
     Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
     boolean bActive = false;
-    int nConfirm = MessageBox.Confirm(parentFrame, "Make this document the active document ?", "Change active document");
+    int nConfirm = MessageBox.Confirm(parentFrame, "Do you want to make the NEW document the active document ?", "Change active document");
     if (JOptionPane.YES_OPTION == nConfirm) {
             bActive=true;
     }
