@@ -180,6 +180,7 @@ public class holderUIPanel3 extends javax.swing.JPanel implements IFloatingPanel
 
     public void setSectionChangeInfo(String sectionChange) {
         this.lblCurrentSectionName.setText(sectionChange);
+        this.m_currentSelectedSectionName = sectionChange;
     }
 
 
