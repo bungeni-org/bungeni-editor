@@ -9,7 +9,7 @@
 -->
 <toolbar>
     <root lang="en" title="Editor Actions" visible="true" >
-        <actionGroup name="tabFavourites" title="Favourites" visible="true" uimodel="wrap">
+        <actionGroup name="tabFavourites" title="Generic" visible="true" uimodel="wrap">
             <!--<blockAction name="Root" title="Create Root Section" visible="true" condition="sectionNotExists:debaterecord"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.general_action.create_root_section:debaterecord" />-->
 	    <blockAction name="Speeches" title="Speech" target="null" visible="true" condition="none">
 		<action name="Speech.create" title="Speech Section" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.section_creation" visible="true" condition="textSelected:true :and: cursorInSection:*" />
@@ -29,7 +29,8 @@
 		<action name="Speech.unlockHead" title="Unlock Speech By" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.unlock:BungeniSpeechBy,BungeniSpeechAs" visible="true" condition="cursorInSection:speech[0-9]*" />-->		
 	    </blockAction>
 	   <blockAction name="GeneralActions" title="General Actions" target="null" visible="true" condition="none"> 
-	    	<action name="Observation.create" title="Observation" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeObservationAction.section_creation" visible="true" condition="textSelected:true" />
+		<subaction name="Root" title="Create Root Section" visible="true" condition="sectionNotExists:debaterecord :and: textSelected:true"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMastheadSection.create_root_section:debaterecord" />	
+		 <action name="Observation.create" title="Observation" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeObservationAction.section_creation" visible="true" condition="textSelected:true" />
 	    	<action name="GroupActivity.create" title="Group Activity" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeGroupActivityAction.section_creation" visible="true" condition="textSelected:true" />
 		<!-- <action name="Communication.create" title="Communication" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeCommunicationAction.section_creation" visible="true" condition="textSelected:true" /> -->
 		<!--<action name="ParliamentID.create" title="Parliament ID" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMetadataReference.mark:BungeniParliamentID" visible="true" condition="textSelected:true" />
@@ -44,13 +45,12 @@
 	
 	</actionGroup>
 
-        <actionGroup name="tabOthers" title="Other Actions" visible="true" uimodel="scroll">
+        <actionGroup name="tabOthers" title="Structural" visible="true" uimodel="scroll">
 	<blockAction name="Masthead.Selection" tooltip="Masthead for debaterecord" title="Preface"  target="null" visible="true" condition="none" showChildren="true" >
-     		     <subaction name="Root" title="Create Root Section" visible="true" condition="sectionNotExists:debaterecord :and: textSelected:true"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMastheadSection.create_root_section:debaterecord" />	
-	             <subaction name="Masthead.selection" title="Preface Section" tooltip="Select some text to mark it up as a Part" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMastheadSection.section_creation" visible="true" condition="cursorInSection:debaterecord :and: textSelected:true" />
+                  <subaction name="Masthead.selection" title="Preface Section" tooltip="Select some text to mark it up as a Part" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMastheadSection.section_creation" visible="true" condition="cursorInSection:debaterecord :and: textSelected:true :and: sectionNotExists:preface" />
                     <!--<subaction name="Masthead.selection.date" title="Official Date" tooltip="Select some text to mark it up as a preface date" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMetadataReference.mark:mBungeniOfficialDate" visible="true" condition="cursorInSection:masthead :and: textSelected:true" />
                     <subaction name="Masthead.selection.time" title="Official Time" tooltip="Select some text to mark it up as a preface time" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMetadataReference.mark:mBungeniOfficialTime" visible="true" condition="cursorInSection:masthead :and: textSelected:true" /> -->
-		    <subaction name="Masthead.heading" title="---- Heading" tooltip="" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMastheadSection.markup_preface_heading:heading_preface" visible="true" condition="cursorInSection:masthead :and: textSelected:true"  />           
+		    <subaction name="Masthead.heading" title="---- Heading" tooltip="" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMastheadSection.markup_preface_heading:heading_preface" visible="true" condition="cursorInSection:preface :and: textSelected:true"  />           
                     <subaction name="Masthead.selection.logo" title="---- Logo" tooltip="Select some text to mark it up as a preface logo" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMastheadSection.markup_logo:main_logo" visible="true" condition="imageSelectedIsNot:main_logo" />
 	</blockAction>
     	 <blockAction name="Papers" title="Tabled Documents" target="null" visible="true" condition="none">
@@ -71,17 +71,33 @@
 	    </blockAction>            
 	   <blockAction name="Questions" tooltip="Create a Questions Section" title="Questions" target="null" visible="true" condition="none" >
 		<!--creates a question container --> 		
-		<action name="QuestionsGroup.new" title="Questions Section" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateQuestionGroupSection.section_creation" visible="true" condition="textSelected:true :and: cursorInSection:debaterecord" />
-		<action name="Questions.heading0" title="---- Heading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateQuestionBlockSection.apply_questiontext_style:heading_question" visible="true" condition="textSelected:true :and: cursorInSection:question[0-9]*." />
+		<action name="QuestionsGroup.new" title="Questions Section" mode="TEXT_SELECTED_INSERT" 
+			target="toolbarSubAction.makeDebateQuestionGroupSection.section_creation" visible="true" 
+			condition="textSelected:true :and: cursorInSection:debaterecord" />
+		<action name="Questions.heading0" title="---- Heading" mode="TEXT_SELECTED_INSERT" 
+			target="toolbarSubAction.makeDebateQuestionBlockSection.apply_questiontext_style:heading_allquestions" visible="true" 
+			condition="textSelected:true :and: cursorInSection:questions[0-9]*." />
 		<!-- pops up a selector dialog for a questions - creates a questionanswer container -->                
-		<action name="Questions.new" title="Question Sub-Section" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateQuestionBlockSection.section_creation" visible="true" condition="textSelected:true :and: cursorInSection:questions[0-9]*" />
-		<action name="Questions.heading1" title="---- Heading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateQuestionBlockSection.apply_questiontext_style:heading_question" visible="true" condition="textSelected:true :and: cursorInSection:question[0-9]*." />
-		<action name="Questions.subheading" title="---- ---- Sub-Heading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateQuestionBlockSection.apply_questiontext_style:subheading_question" visible="true" condition="textSelected:true :and: cursorInSection:question[0-9]*." />
-		<action name="QuestionsSection.Q.new" title="Spoken Question" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateQuestionSection.section_creation" visible="true" condition="textSelected:true :and: cursorInSection:qa[0-9]*" />
+		<action name="Questions.new" title="Question Sub-Section" mode="TEXT_SELECTED_INSERT" 
+			target="toolbarSubAction.makeDebateQuestionBlockSection.section_creation" visible="true" 
+			condition="textSelected:true :and: cursorInSection:questionss[0-9]*" />
+		<action name="Questions.heading1" title="---- Heading" mode="TEXT_SELECTED_INSERT" 
+			target="toolbarSubAction.makeDebateQuestionBlockSection.apply_questiontext_style:heading_question" visible="true" 
+			condition="textSelected:true :and: cursorInSection:questions[0-9]*." />
+		<action name="Questions.subheading" title="---- ---- Sub-Heading" mode="TEXT_SELECTED_INSERT" 
+			target="toolbarSubAction.makeDebateQuestionBlockSection.apply_questiontext_style:subheading_question" visible="true" 
+			condition="textSelected:true :and: cursorInSection:question[0-9]*." />
+		<action name="QuestionsSection.Q.new" title="Spoken Question" mode="TEXT_SELECTED_INSERT" 
+			target="toolbarSubAction.makeDebateQuestionSection.section_creation" visible="true" 
+			condition="textSelected:true :and: cursorInSection:qa[0-9]*" />
 		<!-- markup text as question no. -->		
-		<action name="Questions.markup" title="---- Number" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateQuestionBlockSection.markup_question_no" visible="true" condition="textSelected:true :and: cursorInSection:qa[0-9]*" />
+		<action name="Questions.markup" title="---- Number" mode="TEXT_SELECTED_INSERT" 
+			target="toolbarSubAction.makeDebateQuestionBlockSection.markup_question_no" visible="true" 
+			condition="textSelected:true :and: cursorInSection:qa[0-9]*" />
 		<!-- markup question by-->
-		<action name="Questions.by.markup" title="---- By" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateQuestionBlockSection.markup_question_by" visible="true" condition="textSelected:true :and: cursorInSection:qa[0-9]*" />
+		<action name="Questions.by.markup" title="---- By" mode="TEXT_SELECTED_INSERT" 
+			target="toolbarSubAction.makeDebateQuestionBlockSection.markup_question_by" visible="true" 
+			condition="textSelected:true :and: cursorInSection:qa[0-9]*" />
 		<!-- markup quetion to -->
 		<action name="Questions.to.markup" title="---- To" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateQuestionBlockSection.markup_question_to" visible="true" condition="textSelected:true :and: cursorInSection:qa[0-9]*" />
 		<!-- markup question heading -->
