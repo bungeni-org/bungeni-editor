@@ -12,7 +12,7 @@
         <actionGroup name="tabFavourites" title="Generic" visible="true" uimodel="wrap">
             <!--<blockAction name="Root" title="Create Root Section" visible="true" condition="sectionNotExists:debaterecord"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.general_action.create_root_section:debaterecord" />-->
 	    <blockAction name="Speeches" title="Speech" target="null" visible="true" condition="none">
-		<action name="Speech.create" title="Speech Section" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.section_creation" visible="true" condition="textSelected:true :and: cursorInSection:*" />
+		<action name="Speech.create" title="Speech Section" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.section_creation" visible="true" condition="textSelected:true :and: !cursorInSection:speech[0-9]*" />
 		<action name="Speech.SpeechBy" title="---- By" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.speech_by" visible="true" condition="textSelected:true :and: cursorInSection:speech[0-9]*" />
 		<action name="Speech.SpeechAs" title="---- As" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.speech_as" visible="true" condition="textSelected:true :and: cursorInSection:speech[0-9]*" />
 		<!--<action name="Speech.lockHead" title="Lock Speech By" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.lock:from(BungeniSpeechBy,BungeniSpeechAs);with(Person)" visible="true" condition="cursorInSection:speech[0-9]*" />			
