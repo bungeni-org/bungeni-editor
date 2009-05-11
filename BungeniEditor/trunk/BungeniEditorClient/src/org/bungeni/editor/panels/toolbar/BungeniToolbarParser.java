@@ -45,6 +45,7 @@ public class BungeniToolbarParser {
     private static Document       document;
     private static BufferedReader reader;
     private static SAXBuilder     saxBuilder;
+    private static String SAX_PARSER_IMPL = "com.bluecast.xml.Piccolo";
     /**
      * actionGroups provide top level place holders (parent grouping of tabs)
      */
@@ -59,7 +60,7 @@ public class BungeniToolbarParser {
         "/home/undesa/Projects/Bungeni/BungeniEditor/trunk/BungeniEditorClient/dist/settings/toolbar_debate_b.xml";
 
     public BungeniToolbarParser() {
-        saxBuilder = new SAXBuilder(validate);
+        saxBuilder = new SAXBuilder("org.apache.xerces.parsers.SAXParser",validate);
 
         String          activeDocumentMode = BungeniEditorProperties.getEditorProperty("activeDocumentMode");
         String          toolbarquery       = SettingsQueryFactory.Q_FETCH_TOOLBAR_CONFIG_FILE(activeDocumentMode);
