@@ -74,7 +74,8 @@ public class BungeniSectionConvertToPlain  {
     }
 
 
-    public void exec() {
+    public String exec() {
+        String outputFile = null;
         try {
             System.out.println("calling exec()");
 
@@ -92,10 +93,13 @@ public class BungeniSectionConvertToPlain  {
                                     System.out.println("making plain document");
 
             makePlainDocument(odfDoc, origFileCopy);
+            outputFile = origFileCopy.toURI().toURL().toString();
         } catch (Exception ex) {
             System.out.println("exec() "+ ex.getMessage());
             System.out.println("exec() " + ex.getClass().getName());
             System.out.println("exec() " + getStackTrace(ex));
+        } finally {
+            return outputFile;
         }
     }
 
