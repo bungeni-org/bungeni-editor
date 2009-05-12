@@ -12,5 +12,5 @@ import org.openoffice.odf.doc.element.text.OdfSection;
  * @author undesa
  */
 public interface IBungeniOdfSectionIterator  {
-    public boolean nextSection(OdfSection nSection);
+    public boolean nextSection(BungeniOdfSectionHelper helper, OdfSection nSection);
 }

@@ -146,7 +146,7 @@ public class BungeniOdfSectionHelper {
         NodeList nlist = getDocumentSections();
         for (int i = 0; i < nlist.getLength(); i++) {
             OdfSection odfSection = (OdfSection) nlist.item(i);
-            if (sectionIterator.nextSection(odfSection) == false) {
+            if (sectionIterator.nextSection(this, odfSection) == false) {
                 break;
             }
         }
