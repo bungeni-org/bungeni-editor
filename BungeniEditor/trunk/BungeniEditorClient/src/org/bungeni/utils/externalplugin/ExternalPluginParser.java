@@ -40,6 +40,7 @@ public class ExternalPluginParser {
      */
     String PLUGIN_BASE         = "/plugin/@base";
     String PLUGIN_MAIN_JAR     = "/plugin/main";
+    String PLUGIN_MAIN_CLASS     = "/plugin/main/@class";
     String PLUGIN_NAME         = "/plugin/@name";
     String PLUGIN_REQUIRED_JAR = "/plugin/required/lib";
 
@@ -85,7 +86,7 @@ public class ExternalPluginParser {
         } catch (JDOMException ex) {
             log.error("getPluginBase : " + ex.getMessage());
         } finally {
-            return pluginBase;
+            return pluginBase.trim();
         }
     }
 
@@ -98,7 +99,22 @@ public class ExternalPluginParser {
         } catch (JDOMException ex) {
             log.error("getPluginName : " + ex.getMessage());
         } finally {
-            return pluginMain;
+            return pluginMain.trim();
+        }
+    }
+
+    public String getPluginMainClass() {
+        String pluginMainClass = "";
+
+        try {
+            XPath     grpPath  = XPath.newInstance(PLUGIN_MAIN_CLASS);
+            Attribute baseAttr = (Attribute) grpPath.selectSingleNode(this.parsedPluginDocument);
+
+            pluginMainClass = baseAttr.getValue();
+        } catch (JDOMException ex) {
+            log.error("getPluginMainCLass : " + ex.getMessage());
+        } finally {
+            return pluginMainClass.trim();
         }
     }
 
@@ -110,7 +126,7 @@ public class ExternalPluginParser {
             actionGrpElements = (ArrayList<Element>) grpPath.selectNodes(this.parsedPluginDocument);
             for (Element elem : actionGrpElements) {
                 String libName = elem.getValue();
-                reqdLibs.add(libName);
+                reqdLibs.add(libName.trim());
             }
         } catch (JDOMException ex) {
             log.error("getTabElements : " + ex.getMessage());
@@ -119,18 +135,31 @@ public class ExternalPluginParser {
         }
     }
 
+     public ExternalPlugin getPluginObject() {
+
+            ExternalPlugin ep = new ExternalPlugin();
+            ep.Name = this.getPluginName();
+            ep.JarFile = this.getPluginMainJar();
+            ep.Loader = this.getPluginMainClass();
+            ep.dependentJars = this.getPluginReqdJar();
+            ep.PluginBaseFolder = this.getPluginBase();
+            return ep;
+
+     }
+
+
      public String getPluginName() {
-        String pluginBase = "";
+        String pluginName = "";
 
         try {
             XPath     grpPath  = XPath.newInstance(PLUGIN_NAME);
             Attribute baseAttr = (Attribute) grpPath.selectSingleNode(this.parsedPluginDocument);
 
-            pluginBase = baseAttr.getValue();
+            pluginName = baseAttr.getValue();
         } catch (JDOMException ex) {
             log.error("getPluginName : " + ex.getMessage());
         } finally {
-            return pluginBase;
+            return pluginName.trim();
         }
     }
 
@@ -145,6 +174,7 @@ public class ExternalPluginParser {
         System.out.println("plugin name = " + pp.getPluginName());
         System.out.println("plugin main = " + pp.getPluginMainJar());
         System.out.println("plugin reqd = " + pp.getPluginReqdJar());
+        System.out.println("plugin main class = " + pp.getPluginMainClass());
 
     }
 }

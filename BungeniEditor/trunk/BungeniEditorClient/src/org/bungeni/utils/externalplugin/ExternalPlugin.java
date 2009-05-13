@@ -5,24 +5,31 @@
 
 package org.bungeni.utils.externalplugin;
 
+import java.util.ArrayList;
+
 /**
  *
- * @author undesa
+ * @author Ashok Hariharan
  */
 public class ExternalPlugin {
-    public final String Name;
-    public final String JarFile;
-    public final String Loader;
-    public final String Description;
-    public final boolean isEnabled;
-    
-    public ExternalPlugin(String name, String jarFile, String loader, String desc, int enableDisable) {
+    public  String Name;
+    public  String JarFile;
+    public String Loader;
+    public String PluginBaseFolder ;
+    public ArrayList<String> dependentJars= new ArrayList<String>(0);
+
+    public ExternalPlugin(){
+        
+    }
+
+    public ExternalPlugin(String name, String jarFile, String loader) {
         this.Name = name;
         this.JarFile = jarFile;
         this.Loader = loader;
-        this.Description = desc;
-        this.isEnabled = (enableDisable == 0 ? false: true);
-        
+    }
+
+    public void addRequiredJars(String reqdJar) {
+        dependentJars.add(reqdJar);
     }
     
 }

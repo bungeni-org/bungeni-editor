@@ -8,11 +8,8 @@ package org.bungeni.utils.externalplugin;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FilenameFilter;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.ArrayList;
 import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.editor.plugin.impl.IEditorPluginAll;
+//import org.bungeni.editor.plugin.impl.IEditorPluginAll;
 
 /**
  * Maintains file handles to all external plugins found on disk.
@@ -59,7 +56,7 @@ public class ExternalPluginsFinder {
      * Generates an IEditorPluginAll instance using the jar file / and class instance
      * @return
      */
-    public IEditorPluginAll getPluginInstance() {
+    /*public IEditorPluginAll getPluginInstance() {
         IEditorPluginAll iepAll = null;
         try {
             //attempt only if plugin jar was found
@@ -79,7 +76,7 @@ public class ExternalPluginsFinder {
         }
 
     }
-    
+    */
     /**
      * Filter classes to filter for directories and jar files
      */
