@@ -16,7 +16,8 @@ import org.bungeni.db.SettingsQueryFactory;
 public class BungeniEditorProperties {
     private static HashMap<String,String> propertiesMap = new HashMap<String,String>();
     private static org.apache.log4j.Logger log = Logger.getLogger(BungeniEditorProperties.class.getName());
-    
+
+    public static String SAX_PARSER_DRIVER = "org.apache.xerces.parsers.SAXParser";
     /** Creates a new instance of BungeniEditorProperties */
     public BungeniEditorProperties() {
     }
