@@ -45,7 +45,7 @@ public class BungeniToolbarParser {
     private static Document       document;
     private static BufferedReader reader;
     private static SAXBuilder     saxBuilder;
-    private static String SAX_PARSER_IMPL = "com.bluecast.xml.Piccolo";
+    private static String SAX_PARSER_IMPL = "org.apache.xerces.parsers.SAXParser";
     /**
      * actionGroups provide top level place holders (parent grouping of tabs)
      */
