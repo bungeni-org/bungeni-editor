@@ -73,8 +73,11 @@
               <EmptySpace pref="79" max="32767" attributes="0"/>
               <Component id="btnEdit" min="-2" pref="54" max="-2" attributes="0"/>
           </Group>
-          <Component id="scrollMeta" alignment="0" pref="267" max="32767" attributes="0"/>
           <Component id="jTabsContainer" alignment="0" pref="267" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="scrollMeta" pref="255" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -100,8 +103,8 @@
                   <Component id="btnEdit" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="scrollMeta" min="-2" pref="157" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="scrollMeta" min="-2" pref="123" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

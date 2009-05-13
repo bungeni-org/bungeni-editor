@@ -69,7 +69,7 @@ import org.bungeni.editor.actions.IEditorActionEvent;
 import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.editor.dialogs.metadatapanel.SectionMetadataLoad;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
-import org.bungeni.editor.plugin.impl.IEditorPluginAll;
+//import org.bungeni.editor.plugin.impl.IEditorPluginAll;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
 import org.bungeni.editor.toolbar.BungeniToolbarTargetProcessor;
@@ -79,9 +79,6 @@ import org.bungeni.extutils.BungeniRuntimeProperties;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonStringFunctions;
 import org.bungeni.extutils.FrameLauncher;
-import org.bungeni.utils.externalplugin.ExternalPlugin;
-import org.bungeni.utils.externalplugin.ExternalPluginsFinder;
-import org.bungeni.utils.externalplugin.ExternalPluginsLoader;
 /**
  *
  * @author  Administrator
@@ -212,11 +209,12 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         }
     }
     
-    private HashMap<String, IEditorPluginAll> loadedPluginsMap = new HashMap<String, IEditorPluginAll>();
+ //   private HashMap<String, IEditorPluginAll> loadedPluginsMap = new HashMap<String, IEditorPluginAll>();
     
     /**
      * Loads the external plugins specified in the EXTERNAL_PLUGINS table.
      */
+     /*
     private void initExternalPlugins(){
         ExternalPluginsLoader extLoader = new ExternalPluginsLoader();
         ArrayList<ExternalPlugin> listExtPlugins = extLoader.getExternalPlugins();
@@ -233,7 +231,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
                }
             }
         }
-    }
+    }*/
     
     SectionMetadataDisplay objMetaDisplay;
     /**
@@ -696,8 +694,10 @@ public class editorTabbedPanel extends javax.swing.JPanel {
                 .add(lblDisplaySectionName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 134, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 79, Short.MAX_VALUE)
                 .add(btnEdit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 54, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .add(scrollMeta, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
             .add(jTabsContainer, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+            .add(layout.createSequentialGroup()
+                .add(scrollMeta, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -720,8 +720,8 @@ public class editorTabbedPanel extends javax.swing.JPanel {
                     .add(lblDisplaySectionName)
                     .add(btnEdit))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(scrollMeta, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 157, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .add(scrollMeta, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 123, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(46, 46, 46))
         );
     }// </editor-fold>//GEN-END:initComponents
 
