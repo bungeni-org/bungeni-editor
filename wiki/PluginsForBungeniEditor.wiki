@@ -8,6 +8,8 @@ A post-delegation classloader is used to load the plugin and its required librar
 
 = Plugin Definition =
 
+== Plugin XML configuration ==
+
 Plugins are described in xml configuration files within the 'plugins' subfolder of the editor installation. The following is an example plugin config file :
 
 {{{
@@ -27,4 +29,10 @@ The description of the individual components of the file is provided below :
  *   `<main class="org.bungeni.plugins.convertsection.BungeniSectionConvertToPlain" >BungeniSectionPlain.jar</main>` - 'class' is the entry point class for the plugin ; and the `<main>` element stores the name of the plugin jar file.
  *  `<required><lib>......</lib>...` - this contains the name of the required libraries for the plugin and which reside in the `base` folder. If a library from the parent classloader can be used by the plugin, do not include it here.
 
-Plugin configuration files use the following naming scheme : _plugin_<anytext>.xml_
+Plugin configuration files use the following naming scheme : *plugin_anytexthere.xml*
+
+== Required Interfaces == 
+
+The plugin is required to implement the [http://code.google.com/p/bungeni-editor/source/browse/plugins/BungeniEditorPluginInterface/src/org/bungeni/plugins/IEditorPlugin.java IEditorPlugin interface].
+
+The plugin methods are invoked by the editor using reflection. 
