@@ -2,34 +2,34 @@ package org.bungeni.plugins.convertsection;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
+import org.apache.log4j.Logger;
 import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
 import org.bungeni.odfdom.section.IBungeniOdfSectionIterator;
 import org.bungeni.odfdom.utils.BungeniOdfFileCopy;
 
+import org.bungeni.plugins.IEditorPlugin;
 import org.openoffice.odf.doc.OdfDocument;
 import org.openoffice.odf.doc.element.text.OdfSection;
 
 /**
- *
+ * Plugin library that converts a document to plain
  * @author Ashok Hariharan
  */
-public class BungeniSectionConvertToPlain  {
+public class BungeniSectionConvertToPlain  implements IEditorPlugin {
     private HashMap editorParams = null;
-//    private static org.apache.log4j.Logger log = Logger.getLogger(BungeniSectionConvertToPlain.class.getName());
+    private static org.apache.log4j.Logger log = Logger.getLogger(BungeniSectionConvertToPlain.class.getName());
 
     public BungeniSectionConvertToPlain(){
         editorParams = new HashMap();
-        System.out.println("instantiating BungeniSectionConvertToPlain");
+        log.debug("instantiating BungeniSectionConvertToPlain");
     }
 
     public void setParams(HashMap params) {
-        System.out.println("calling setParams");
+       log.debug("calling setParams");
         editorParams = params;
     }
 
@@ -39,7 +39,7 @@ public class BungeniSectionConvertToPlain  {
         try {
             url = new URL(sUrl);
         } catch (MalformedURLException ex) {
-            // log.error("convertUrlToFile: "+ ex.getMessage());
+            log.error("convertUrlToFile: "+ ex.getMessage());
             return null;
         }
         try {
@@ -65,7 +65,7 @@ public class BungeniSectionConvertToPlain  {
            odfDoc.save(fstream);
             bState = true;
         } catch (Exception ex) {
-       ///     log.error("makePlainDocument : " + ex.getMessage());
+           log.error("makePlainDocument : " + ex.getMessage());
         } finally {
             return bState;
         }
@@ -95,22 +95,13 @@ public class BungeniSectionConvertToPlain  {
             makePlainDocument(odfDoc, origFileCopy);
             outputFile = origFileCopy.toURI().toURL().toString();
         } catch (Exception ex) {
-            System.out.println("exec() "+ ex.getMessage());
-            System.out.println("exec() " + ex.getClass().getName());
-            System.out.println("exec() " + getStackTrace(ex));
+            log.error("exec() "+ ex.getMessage());
+            log.error("exec() " + ex.getClass().getName());
         } finally {
             return outputFile;
         }
     }
 
-     public  String getStackTrace(Exception exception ) {
-        StringWriter stringWriter = new StringWriter();
-        String stackTrace = "";
-        exception.printStackTrace(new PrintWriter(stringWriter));
-        // get he stackTrace as String...
-        stackTrace = stringWriter.toString();
-        return stackTrace;
-    }
         public static void main(String[] args) {
             BungeniSectionConvertToPlain p = new BungeniSectionConvertToPlain();
             HashMap mp = new HashMap();
@@ -118,5 +109,6 @@ public class BungeniSectionConvertToPlain  {
             p.setParams(mp);
             p.exec();
         }
+
 
 }
