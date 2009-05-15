@@ -30,6 +30,7 @@ import com.sun.star.frame.XStorable;
 import com.sun.star.io.IOException;
 import com.sun.star.lang.EventObject;
 import com.sun.star.lang.IllegalArgumentException;
+import com.sun.star.lang.IndexOutOfBoundsException;
 import com.sun.star.lang.WrappedTargetException;
 import com.sun.star.lang.XComponent;
 import com.sun.star.lang.XMultiComponentFactory;
@@ -1746,6 +1747,40 @@ public int setSelectedTextImageName(String newName) {
       }
 }
   
+
+public String getSelectedTextStyle(){
+    String selectedTextStyle = "";
+    try {
+        Object oSelection = this.getCurrentSelection();
+        if (oSelection != null) {
+             XServiceInfo xSelInfo = ooQueryInterface.XServiceInfo(oSelection);
+            if ( xSelInfo.supportsService("com.sun.star.text.TextRanges") ){
+                XIndexAccess xIndexAccess = ooQueryInterface.XIndexAccess(oSelection);
+                int count = xIndexAccess.getCount();
+                com.sun.star.text.XTextRange xTextRange = null;
+                if (count == 1 ) {
+                            Object singleSelection;
+                            singleSelection = xIndexAccess.getByIndex(0);
+                            xTextRange = ooQueryInterface.XTextRange(singleSelection);
+                            XPropertySet rangeProps = ooQueryInterface.XPropertySet(xTextRange);
+                            XPropertySetInfo xPropsInfo = rangeProps.getPropertySetInfo();
+                            if (xPropsInfo.hasPropertyByName("ParaStyleName")) {
+                                selectedTextStyle = (String) rangeProps.getPropertyValue("ParaStyleName");
+                            }
+                     }
+              }
+        }
+    } catch (com.sun.star.lang.IndexOutOfBoundsException ex) {
+        log.error(ex.getClass().getName() + " " + ex.getMessage());
+    } catch (UnknownPropertyException ex) {
+        log.error(ex.getClass().getName() + " " + ex.getMessage());
+    }catch (WrappedTargetException ex) {
+        log.error(ex.getClass().getName() + " " + ex.getMessage());
+    } finally {
+        return selectedTextStyle;
+    }
+}
+
 
 /**
  *
