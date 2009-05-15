@@ -1,12 +1,22 @@
 package org.bungeni.odfdom.section;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 import org.openoffice.odf.doc.OdfDocument;
+import org.openoffice.odf.doc.OdfFileDom;
 import org.openoffice.odf.doc.element.office.OdfAutomaticStyles;
 import org.openoffice.odf.doc.element.style.OdfBackgroundImage;
 import org.openoffice.odf.doc.element.style.OdfSectionProperties;
 import org.openoffice.odf.doc.element.style.OdfStyle;
 import org.openoffice.odf.doc.element.text.OdfSection;
+import org.openoffice.odf.dom.OdfNamespace;
 import org.openoffice.odf.dom.style.OdfStyleFamily;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -21,6 +31,7 @@ public class BungeniOdfSectionHelper {
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BungeniOdfSectionHelper.class.getName());
 
     private OdfDocument odfDocument = null;
+    private XPath xPath = null;
 
     private static String FILTER_SECTION_TYPE = "BungeniSectionType";
     private static String FILTER_BUNGENI_SECTION_META="Bungeni";
@@ -32,8 +43,32 @@ public class BungeniOdfSectionHelper {
 
     public BungeniOdfSectionHelper(OdfDocument odfDoc) {
         odfDocument = odfDoc;
+        xPath = XPathFactory.newInstance().newXPath();
+        xPath.setNamespaceContext(new OdfNamespace());
+
     }
 
+    public ArrayList<OdfSection> getChildSections(OdfSection nsection) {
+        ArrayList<OdfSection> foundChildren = new ArrayList<OdfSection>(0);
+        try {
+            NodeList nodeSet = (NodeList) xPath.evaluate(SECTION_ELEMENT, nsection, XPathConstants.NODESET);
+            for (int i = 0; i < nodeSet.getLength(); i++) {
+                Node foundNodeSection = nodeSet.item(i);
+                foundChildren.add((OdfSection)foundNodeSection);
+            }
+        } catch (XPathExpressionException ex) {
+            log.error("getChildSections : " + ex.getMessage());
+        } finally {
+            return foundChildren;
+        }
+        
+    }
+
+    public String getSectionType (OdfSection nsection) {
+        NamedNodeMap metaAttrs = getSectionMetadataAttributes(nsection);
+        return getSectionType(nsection, metaAttrs);
+    }
+    
     public String getSectionType(OdfSection nsection, NamedNodeMap nattr) {
 
         Node nitem = nattr.getNamedItem(FILTER_SECTION_TYPE);
@@ -142,6 +177,19 @@ public class BungeniOdfSectionHelper {
         }
     }
 
+    public OdfSection getSection(String sectionName) {
+        OdfSection oSection = null;
+        try {
+            OdfFileDom docDom = odfDocument.getContentDom();
+            oSection = (OdfSection) xPath.evaluate("//text:section[@text:name='"+sectionName+"']", docDom, XPathConstants.NODE);
+            
+        } catch (Exception ex) {
+
+        } finally {
+            return oSection;
+        }
+    }
+    
     public void iterateSections(IBungeniOdfSectionIterator sectionIterator) {
         NodeList nlist = getDocumentSections();
         for (int i = 0; i < nlist.getLength(); i++) {
@@ -182,6 +230,18 @@ public class BungeniOdfSectionHelper {
         return null;
     }
 
+public static void main(String[] args) {
+        try {
+            OdfDocument odoc = OdfDocument.loadDocument(new File("/home/undesa/Desktop/debate_file_02.odt"));
+            BungeniOdfSectionHelper os = new BungeniOdfSectionHelper(odoc);
+           ArrayList<OdfSection> listSections = os.getChildSections(os.getSection("debaterecord"));
+            for (OdfSection odfSection : listSections) {
+                System.out.println(odfSection.getName());
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(BungeniOdfSectionHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+}
 
 }
