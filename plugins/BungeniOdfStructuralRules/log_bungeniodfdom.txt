@@ -1,3 +1,3 @@
-ERROR [org.bungeni.editor.rulesimpl.RuleParser] loadXml  : /home/undesa/Projects/Bungeni/BungeniStructuralRules/editorDocRules.xml (No such file or directory)
-ERROR [org.bungeni.editor.rulesimpl.StructuralRulesParser] getDocStructureType :null
-ERROR [org.bungeni.editor.rulesimpl.StructuralRulesParser] isAllowedSectionTypeForType : null
+ INFO [org.bungeni.editor.rules.AllowedChildSections] searchForAllowedSectionTypes :  in debaterecord of body the child section comment1 of type :Observation is not allowed
+ERROR [org.bungeni.editor.rulesimpl.StructuralRulesParser] getAllowedSectionTypes : java.util.Collections$EmptyList cannot be cast to java.util.ArrayList
+ INFO [org.bungeni.editor.rules.AllowedChildSections] searchForAllowedSectionTypes :  in preface of MastHead the child section Section1 of type :Section1 is not allowed

@@ -26,6 +26,8 @@ public class AllowedChildSections extends BaseStructuralRule{
     ArrayList<Element> allowedSectionTypes = new ArrayList<Element>(0);
      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(AllowedChildSections.class.getName());
 
+     private static String INVALID_SECTION_TYPE_IN_DOCUMENT = "Invalid section type in document ";
+     private static String SECTION_TYPE_INVALID = "This section Type is not allowed at this location";
 
     @Override
     public boolean applyRule(String forThisSectionName) {
@@ -50,8 +52,16 @@ public class AllowedChildSections extends BaseStructuralRule{
             //now we have the list of allowed section types ....
             //we now scan the child sections of the document if they have allowed section types
              return true;
-        }
+        } {
+             StructuralError returnError = this.makeStructuralError(false,
+                                thisSectionType,
+                                "",
+                                thisSectionName,
+                                "",
+                                getName(),INVALID_SECTION_TYPE_IN_DOCUMENT );
+             errorLog.add(returnError);
         return false;
+        }
     }
 
 
@@ -72,7 +82,7 @@ public class AllowedChildSections extends BaseStructuralRule{
                                 childSectionType,
                                 thisSectionName,
                                 childSectionName,
-                                getName());
+                                getName(), SECTION_TYPE_INVALID);
                     errorLog.add(returnError);
                 }
             }

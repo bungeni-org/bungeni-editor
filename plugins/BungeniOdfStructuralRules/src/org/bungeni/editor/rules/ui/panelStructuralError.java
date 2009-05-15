@@ -20,9 +20,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JTable;
@@ -30,7 +27,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import org.bungeni.editor.rulesimpl.StructuralError;
-import org.bungeni.editor.rulesimpl.StructuralErrorSerialize;
 import org.bungeni.editor.rulesimpl.StructuralErrorTableModel;
 ////import org.bungeni.ooo.OOComponentHelper;
 

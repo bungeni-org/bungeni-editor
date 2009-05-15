@@ -5,8 +5,11 @@
 
 package org.bungeni.editor.rulesimpl;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
 import org.bungeni.odfdom.section.IBungeniOdfSectionIterator;
 import org.jdom.Element;
@@ -59,8 +62,8 @@ public class StructuralRulesEngine {
     class IterativeRulesForSections implements IBungeniOdfSectionIterator {
         public boolean nextSection(BungeniOdfSectionHelper helper, OdfSection nSection) {
             for (IStructuralRule iStructuralRule : rulesToApply) {
-                iStructuralRule.setupRule(rulesParser, helper.getDocument());
-                iStructuralRule.applyRule(nSection.getName());
+                if (iStructuralRule.setupRule(rulesParser, helper.getDocument()))
+                    iStructuralRule.applyRule(nSection.getName());
                 StructuralError[] errors = iStructuralRule.getErrors();
                   if (errors != null ) {
                       if (errors.length > 0 ){
@@ -72,7 +75,7 @@ public class StructuralRulesEngine {
         }
     }
 
-    public boolean processRulesForDocument(OdfDocument ooDocument, String rootSection) {
+    public boolean processRulesForDocument(OdfDocument ooDocument) {
         BungeniOdfSectionHelper sectionhelper = new BungeniOdfSectionHelper(ooDocument);
         sectionhelper.iterateSections(new IterativeRulesForSections());
         return true;
@@ -97,15 +100,27 @@ public class StructuralRulesEngine {
     }
 
     public static void main(String[] args) {
-       String docrules = "/home/undesa/Projects/Bungeni/BungeniOdfStructuralRules/structural_rules/doc_rules/debaterecord.xml";
-       String enginerules = "/home/undesa/Projects/Bungeni/BungeniOdfStructuralRules/structural_rules/engine_rules/debaterecord.xml";
-        //configure the source files
-        String ruleEnginesFile = enginerules;
-        String docRulesFile  =  docrules;
-        //initalize the rules engine
-        StructuralRulesEngine sre = new
-                StructuralRulesEngine(docRulesFile,
-                                        ruleEnginesFile);
+        try {
+            String docrules = "/home/undesa/Projects/Bungeni/BungeniOdfStructuralRules/structural_rules/doc_rules/debaterecord.xml";
+            String enginerules = "/home/undesa/Projects/Bungeni/BungeniOdfStructuralRules/structural_rules/engine_rules/debaterecord.xml";
+            //configure the source files
+            String ruleEnginesFile = enginerules;
+            String docRulesFile = docrules;
+            //initalize the rules engine
+            StructuralRulesEngine sre = new StructuralRulesEngine(docRulesFile, ruleEnginesFile);
+            OdfDocument odoc = OdfDocument.loadDocument(new File("/home/undesa/Projects/Bungeni/BungeniEditor/trunk/BungeniEditorClient/dist/workspace/files/ke/debaterecord/2009-5-26/eng/ke_debaterecord_2009-5-26_eng.odt"));
+            sre.processRulesForDocument(odoc);
+            for (StructuralError serr : sre.getErrors()) {
+                System.out.print(serr.parentSectionName);
+                System.out.print(" , " + serr.errorState);
+                System.out.print(" , " + serr.errorMessage);
+                System.out.println(" , " + serr.failRuleType);
+            }
+            //iterate through the document and process the rules for every section
+            //processSections(sre);*/
+        } catch (Exception ex) {
+
+        }
         //iterate through the document and process the rules for every section
         //processSections(sre);*/
     }

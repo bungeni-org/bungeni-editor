@@ -17,6 +17,7 @@ public class StructuralError {
     public String failRuleType;
     public boolean errorState;
     public boolean errorChecked;
+    public String errorMessage;
 
     public StructuralError(){
         //default to fail
