@@ -32,7 +32,7 @@ public class RuleParser {
         public void loadXml() {
         try {
             File xmlfile = new File(pathToXmlFile);
-            SAXBuilder builder = new SAXBuilder();
+            SAXBuilder builder = new SAXBuilder("org.apache.xerces.parsers.SAXParser");
             xmlDocument = builder.build(xmlfile);
         } catch (JDOMException ex) {
             log.error("loadXml  : "+ex.getMessage());

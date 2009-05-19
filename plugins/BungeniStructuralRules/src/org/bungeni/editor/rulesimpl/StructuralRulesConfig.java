@@ -1,15 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.bungeni.editor.rulesimpl;
 
 import java.io.File;
 
 /**
  *
- * @author undesa
+ * @author Ashok Hariharan
  */
 public class StructuralRulesConfig {
         public static String APPLN_PATH_PREFIX = "";
