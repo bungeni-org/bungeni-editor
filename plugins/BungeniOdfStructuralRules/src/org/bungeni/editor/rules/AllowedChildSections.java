@@ -40,11 +40,7 @@ public class AllowedChildSections extends BaseStructuralRule{
 
     private boolean setup(String forThisSectionName){
        //get section type for input section.
-        odfSectionHelper = new BungeniOdfSectionHelper(odfDocument);
-        xThisSection = odfSectionHelper.getSection(forThisSectionName);
-       thisSectionType = odfSectionHelper.getSectionType(xThisSection);
-       thisSectionName = forThisSectionName;
-        //look for this section type in the rules file
+       //look for this section type in the rules file
         Element elemSectionType = this.ruleParserEngine.getSectionType(thisSectionType);
         if (elemSectionType != null) { //rule for this section type exists
            //this is the list of allowed child section types for this section
