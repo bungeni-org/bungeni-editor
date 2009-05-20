@@ -42,6 +42,11 @@ public class ExternalPluginLoader {
         pluginBuilder     = new SAXBuilder(BungeniEditorProperties.SAX_PARSER_DRIVER);
     }
 
+    /**
+     * Finds a plugin and its configuration file in the file system, called by loadPlugin()
+     * @param pluginName
+     * @return
+     */
     public ExternalPlugin findPlugin(String pluginName) {
         ExternalPlugin foundPlugin = null;
 
