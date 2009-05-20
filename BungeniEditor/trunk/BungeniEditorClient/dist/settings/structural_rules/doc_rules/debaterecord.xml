@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DocumentStructure type="debaterecord">
+	<sectionType name="body"><!--bill allows three child section types -->
+		<allowedTypes>
+			<ref type="sectionType" name="MastHead"/>
+			<ref type="sectionType" name="TabledDocuments" />
+			<ref type="sectionType" name="MotionsContainer" />
+			<ref type="sectionType" name="QuestionsContainer" />
+			<ref type="sectionType" name="Conclusion"/>
+		</allowedTypes><!--order of children is specified here -->
+		<orderOfChildren>
+			<order type="sectionType" name="MastHead" order="0" required="yes" />
+			<order type="sectionType" name="TabledDocuments" order="1" required="yes" />
+			<order type="sectionType" name="MotionsContainer" order="2" required="yes" />
+			<order type="sectionType" name="QuestionsContainer" order="2" required="yes" />
+			<order type="sectionType" name="Conclusion" order="99" required="yes" />
+		</orderOfChildren>
+	</sectionType>
+	<sectionType name="MastHead">
+		<allowedTypes><!--no child sections are allowed -->
+			<!--<ref type="sectionType" name="None"/> -->
+		</allowedTypes>
+		<orderOfChildren><!--children can be in any order-->
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+	<sectionType name="MotionsContainer">
+		<allowedTypes>
+			<ref type="sectionType" name="None"/>
+		</allowedTypes>
+		<orderOfChildren>
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+
+	<sectionType name="TabledDocuments">
+		<allowedTypes>
+			<ref type="sectionType" name="TabledDocumentsList"/>
+		</allowedTypes>
+		<orderOfChildren>
+			<order type="sectionType" name="TabledDocumentsList" order="0" required="yes" />
+		</orderOfChildren>
+	</sectionType>
+
+	<sectionType name="Conclusion">
+		<allowedTypes>
+			<ref type="sectionType" name="None"/>
+		</allowedTypes>
+		<orderOfChildren>
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+</DocumentStructure>
