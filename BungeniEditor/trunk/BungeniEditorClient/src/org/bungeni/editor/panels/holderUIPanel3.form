@@ -31,9 +31,9 @@
           </Group>
           <Component id="tabSectionView" alignment="0" pref="222" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
-              <Component id="lblCurrentSection" min="-2" pref="83" max="-2" attributes="0"/>
+              <Component id="lblCurrentSection" min="-2" pref="77" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="lblCurrentSectionName" pref="127" max="32767" attributes="0"/>
+              <Component id="lblCurrentSectionName" pref="133" max="32767" attributes="0"/>
           </Group>
           <Component id="toolbarTabs" alignment="0" pref="222" max="32767" attributes="0"/>
       </Group>

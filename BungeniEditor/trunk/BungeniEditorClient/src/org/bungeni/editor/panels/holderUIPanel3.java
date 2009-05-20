@@ -179,7 +179,11 @@ public class holderUIPanel3 extends javax.swing.JPanel implements IFloatingPanel
     }
 
     public void setSectionChangeInfo(String sectionChange) {
-        this.lblCurrentSectionName.setText(sectionChange);
+        String strSelectedStyle = ooDocument.getSelectedTextStyle();
+        if (strSelectedStyle.trim().length() == 0)
+            this.lblCurrentSectionName.setText(sectionChange);
+        else
+            this.lblCurrentSectionName.setText(sectionChange + "(" + strSelectedStyle + ")");
         this.m_currentSelectedSectionName = sectionChange;
     }
 
@@ -819,7 +823,7 @@ public class holderUIPanel3 extends javax.swing.JPanel implements IFloatingPanel
 
         tabSectionView.addTab(bundle.getString("holderUIPanel3.scrollInternalTreeView.TabConstraints.tabTitle"), scrollInternalTreeView); // NOI18N
 
-        lblCurrentSection.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblCurrentSection.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblCurrentSection.setForeground(new java.awt.Color(179, 27, 27));
         lblCurrentSection.setText(bundle.getString("holderUIPanel3.lblCurrentSection.text")); // NOI18N
 
@@ -840,9 +844,9 @@ public class holderUIPanel3 extends javax.swing.JPanel implements IFloatingPanel
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(tabSectionView, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(lblCurrentSection, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblCurrentSection, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblCurrentSectionName, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
+                .addComponent(lblCurrentSectionName, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
             .addComponent(toolbarTabs, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
