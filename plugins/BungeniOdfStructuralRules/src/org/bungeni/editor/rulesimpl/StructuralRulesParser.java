@@ -311,8 +311,17 @@ public class StructuralRulesParser extends RuleParser {
 
 
 
+    public ArrayList<String> getFollowingSectionTypes (String withinThisType, String forThisType) {
+        //call this first to update the ruleOrderByType object for thr required sectionType
+        getOrderOfChildrenForType(withinThisType);
+        return this.ruleOrderBytype.getFollowingAllowedSectionTypes(withinThisType, forThisType);
+    }
 
-
+    public ArrayList<String> getPreceedingSectionTypes (String withinThisType, String forThisType) {
+        //call this first to update the ruleOrderByType object for thr required sectionType
+        getOrderOfChildrenForType(withinThisType);
+        return this.ruleOrderBytype.getPreceedingAllowedSectionTypes(withinThisType, forThisType);
+    }
 
     public boolean isAllowedTypeAtPosition(String withinThisType, String lookForThisType, Integer atThisPosition) {
         TreeMap<Integer, ruleOrderOfChildren> orderOfChildren = getOrderOfChildrenForType(withinThisType);
