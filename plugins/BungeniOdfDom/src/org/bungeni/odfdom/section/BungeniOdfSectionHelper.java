@@ -2,7 +2,6 @@ package org.bungeni.odfdom.section;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.xpath.XPath;
@@ -48,6 +47,15 @@ public class BungeniOdfSectionHelper {
 
     }
 
+    public OdfDocument getDocument() {
+        return odfDocument;
+    }
+
+    /**
+     * Gets the immediate child sections for a section
+     * @param nsection
+     * @return
+     */
     public ArrayList<OdfSection> getChildSections(OdfSection nsection) {
         ArrayList<OdfSection> foundChildren = new ArrayList<OdfSection>(0);
         try {
