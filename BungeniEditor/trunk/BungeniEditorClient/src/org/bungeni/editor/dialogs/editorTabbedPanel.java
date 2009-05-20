@@ -281,9 +281,9 @@ public class editorTabbedPanel extends javax.swing.JPanel {
                 if (sSect != null) {
                     if (sSect.trim().length() > 0 ) {
                         newSectionName = sSect;
-                        if (newSectionName.equals(oldSectionName)) {
+                        //if (newSectionName.equals(oldSectionName)) {
                             //dont do anything
-                        } else {
+                       // } else {
                             updateSectionMetadataView(newSectionName);
                             updateSectionMetadataEditButton(newSectionName);
                             Set<String> floatingPanels = floatingPanelMap.keySet();
@@ -291,7 +291,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
                                 floatingPanelMap.get(fPanelName).setSectionChangeInfo(newSectionName);
                             }
                             oldSectionName = newSectionName;
-                        }
+                       // }
                     }
                 }
             }
