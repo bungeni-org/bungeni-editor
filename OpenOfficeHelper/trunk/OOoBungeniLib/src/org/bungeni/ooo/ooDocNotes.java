@@ -92,14 +92,14 @@ public class ooDocNotes {
     
     private void addNoteProperty() {
         String value = encodeXml(_Note_Xml());
-        ooDocument.addProperty(this.NOTE_PROPERTY_NAME,value);
+        ooDocument.addProperty(ooDocNotes.NOTE_PROPERTY_NAME,value);
     }
     
     private void setNoteProperty (String value ) {
         //encode value 
         value = encodeXml (value);
         log.debug("setNoteProperty: setting value:" + decodeXml(value));
-        ooDocument.setPropertyValue(this.NOTE_PROPERTY_NAME, value);
+        ooDocument.setPropertyValue(ooDocNotes.NOTE_PROPERTY_NAME, value);
         log.debug("after setNoteProperty: setting value");
      
     }
@@ -182,7 +182,7 @@ public class ooDocNotes {
     private org.jdom.Document getXMLDocument(String bungeniEditorNotes) {
         org.jdom.Document xmlDocument = null;
         try {        
-        SAXBuilder saxBuilder=new SAXBuilder();
+        SAXBuilder saxBuilder=new SAXBuilder("org.apache.xerces.parsers.SAXParser");
         StringReader stringReader=new StringReader(bungeniEditorNotes);
         xmlDocument = saxBuilder.build(stringReader);
         } catch (IOException ex) {
