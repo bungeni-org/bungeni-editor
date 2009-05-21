@@ -699,7 +699,7 @@ public class holderUIPanel3 extends javax.swing.JPanel implements IFloatingPanel
                         //setBorder(selBorder);
                         c.setBackground(bgColor);
                     } else if (selected) {
-                        c.setBackground(bgColorSelect);
+                     //   c.setBackground(bgColorSelect);
                     } else {
                         c.setBackground(null);
                     }
@@ -733,7 +733,7 @@ public class holderUIPanel3 extends javax.swing.JPanel implements IFloatingPanel
                         //setBorder(selBorder);
                         c.setBackground(bgColor);
                     } else if (selected) {
-                        c.setBackground(bgColorSelect);
+                       // c.setBackground(bgColorSelect);
                     } else {
                         c.setBackground(null);
                     }
