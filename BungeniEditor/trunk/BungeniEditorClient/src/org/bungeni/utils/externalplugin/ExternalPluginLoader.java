@@ -21,6 +21,7 @@ import java.io.FilenameFilter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import org.bungeni.extutils.CommonEditorFunctions;
 
 /**
  * Loads external plugins from the file system
@@ -37,8 +38,8 @@ public class ExternalPluginLoader {
      */
     private static HashMap<String, ExternalPlugin> externalPluginCache = new HashMap<String,ExternalPlugin>();
 
-    public ExternalPluginLoader(String pluginSubFolder) {
-        pathToPluginsRoot = System.getProperty("user.dir") + File.separator + pluginSubFolder;
+    public ExternalPluginLoader() {
+        pathToPluginsRoot = CommonEditorFunctions.getPathRelativeToRoot(BungeniEditorProperties.getEditorProperty("pluginsPath"));
         pluginBuilder     = new SAXBuilder(BungeniEditorProperties.SAX_PARSER_DRIVER);
     }
 
