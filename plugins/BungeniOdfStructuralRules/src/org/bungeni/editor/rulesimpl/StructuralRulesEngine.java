@@ -8,8 +8,6 @@ package org.bungeni.editor.rulesimpl;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
 import org.bungeni.odfdom.section.IBungeniOdfSectionIterator;
 import org.jdom.Element;

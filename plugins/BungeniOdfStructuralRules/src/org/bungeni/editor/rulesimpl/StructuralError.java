@@ -24,4 +24,15 @@ public class StructuralError {
         errorState = false;
         errorChecked = false;
     }
+
+    @Override
+    public String toString(){
+            return "\n{ parentSectionType : " + parentSectionType + "\n" +
+                    "childSectionType : " + childSectionType + "\n" +
+                    "parentSectionName : " + parentSectionName + "\n"+
+                    "childSectionName : " + childSectionName + "\n" +
+                    "failRuleType : " + failRuleType + "\n" +
+                    "errorMessage : " + errorMessage +" } ";
+
+    }
 }
