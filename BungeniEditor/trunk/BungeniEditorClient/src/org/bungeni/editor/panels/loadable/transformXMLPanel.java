@@ -7,12 +7,9 @@
 package org.bungeni.editor.panels.loadable;
 
 import java.io.File;
-import java.lang.String;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
@@ -20,13 +17,15 @@ import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
+import org.bungeni.extutils.CommonEditorFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTarget;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTargetFactory;
 import org.bungeni.ooo.transforms.impl.IBungeniDocTransform;
 import org.bungeni.extutils.MessageBox;
+import org.bungeni.utils.externalplugin.ExternalPlugin;
+import org.bungeni.utils.externalplugin.ExternalPluginLoader;
 
-import org.bungeni.utils.externalplugin.PostDelegationClassLoader;
 
 /**
  *
@@ -74,6 +73,30 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
         this.cboExportTo.setModel(model);
     }
 
+    private void validateStructure() {
+          if (ooDocument.isDocumentOnDisk()) {
+          //  generatePlainDocument();
+            ExternalPluginLoader ep = new ExternalPluginLoader();
+            ExternalPlugin rulesValidator = ep.loadPlugin("StructuralRulesValidator");
+     
+            Object[] argSetParams = {new HashMap() {{ 
+                                            put("OdfFileURL", ooDocument.getDocumentURL());
+                                            put("CurrentDocType", BungeniEditorPropertiesHelper.getCurrentDocType());
+                                            put("RulesRootFolder",CommonEditorFunctions.getPathRelativeToRoot(BungeniEditorProperties.getEditorProperty("structuralRulesRootPath")));
+                                        }}};
+            rulesValidator.callMethod("setParams", argSetParams);
+            Object[] argExec = {};
+            Object retValue = rulesValidator.callMethod("exec", argExec);
+            if (retValue != null) {
+                    String outputFilePath = (String) retValue;
+                    MessageBox.OK(parentFrame, "A plain document was generated, it can be found at : \n" + outputFilePath, "Plain Document generation", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            MessageBox.OK(parentFrame, "Please save the document before proceeding !", "Save the document", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+    /*
     private void generatePlainDocument(){
                 try {
             URL url = (new File(System.getProperty("user.dir") + File.separator + "plugins/convert_to_plain/")).toURI().toURL();
@@ -114,64 +137,10 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
 
         }
 
-    }
-
-    /*
-    private boolean makePlainDocument(OdfDocument odfDoc) {
-        boolean bState = false;
-        try {
-          //  OdfDocument odfDoc = OdfDocument.loadDocument(makeThisFilePlain);
-            BungeniOdfSectionHelper odfDomHelper = new BungeniOdfSectionHelper(odfDoc);
-            odfDomHelper.iterateSections(new IBungeniOdfSectionIterator(){
-              public boolean nextSection(BungeniOdfSectionHelper helper, OdfSection arg0) {
-                   helper.removeSectionBackgroundImage(arg0);
-                    return true;
-                }
-            });
-           FileOutputStream fstream = new FileOutputStream(new File("/home/undesa/mfile.odt"));
-           odfDoc.save(fstream);
-            bState = true;
-        } catch (Exception ex) {
-            System.out.println("makePlainDocument : " + ex.getMessage());
-            System.out.println(CommonExceptionUtils.getStackTrace(ex));
-            //log.error("makePlainDocument : " + ex.getMessage());
-        } finally {
-            return bState;
-        }
-
-        
-    }*/
-
-
- /*   private boolean generatePlainDocument(){
-        final ClassLoader savedClassLoader = Thread.currentThread().getContextClassLoader();
-        boolean bState = false;
-        try {
-            // TODO add your handling code here:
-            if (ooDocument.isDocumentOnDisk()) {
-                String sUrl = ooDocument.getDocumentURL();
-                File fOpenFile = CommonFileFunctions.convertUrlToFile(sUrl);
-                Thread.currentThread().setContextClassLoader(BungeniEditorClient.class.getClassLoader());
-                OdfDocument odfDoc = OdfDocument.loadDocument(fOpenFile);
-                BungeniOdfFileCopy fcp = new BungeniOdfFileCopy(odfDoc.getPackage());
-                File origFileCopy = fcp.copyTo("_plain", true);
-                makePlainDocument(odfDoc);
-              //  BungeniOdfSectionHelper odfDomHelper = new BungeniOdfSectionHelper(odfDoc);
-                bState = true;
-            } else {
-                MessageBox.OK(parentFrame, "Document not saved!", "Please save the document first.", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (RuntimeException ex) {
-            log.error("makePlain : " + ex.getMessage());
-
-        } catch (Exception ex) {
-            log.error("makePlain : " + ex.getMessage());
-        } finally {
-              Thread.currentThread().setContextClassLoader(savedClassLoader);
-
-            return bState;
-        }
     } */
+
+ 
+ 
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -322,60 +291,81 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
     }//GEN-LAST:event_btnExportActionPerformed
 
     private void btnValidateStructureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidateStructureActionPerformed
-        //set the correct application path for the structural rules checker
-    /*    StructuralRulesConfig.APPLN_PATH_PREFIX=CommonEditorFunctions.getSettingsFolder() + File.separator + "structural_rules";
-        //configure the source files
-        String ruleEnginesFile = StructuralRulesConfig.getRuleEnginesPath() + BungeniEditorPropertiesHelper.getCurrentDocType() + ".xml";
-        String docRulesFile  = StructuralRulesConfig.getDocRulesPath() + BungeniEditorPropertiesHelper.getCurrentDocType() + ".xml";
-        //initalize the rules engine
-        StructuralRulesEngine sre = new
-                StructuralRulesEngine(docRulesFile,
-                                        ruleEnginesFile);
+        validateStructure();
         //iterate through the document and process the rules for every section
-        processSections(sre);*/
+        //processSections(sre);
     }//GEN-LAST:event_btnValidateStructureActionPerformed
 
-    /*
-      private OdfSectionProperties getSectionStyleProps(OdfStyle secStyle) {
-        OdfSectionProperties props = null;
-        NodeList nsectList = secStyle.getChildNodes();
-        for (int i=0; i < nsectList.getLength(); i++) {
-            Node nmatch = nsectList.item(i);
-            if (nmatch.getNodeName().equals("style:section-properties")) {
-                props = (OdfSectionProperties) nmatch;
-            }
-        }
-        return props;
-    }*/
 
 
     private void btnMakePlainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMakePlainActionPerformed
           //  generatePlainDocument();
         if (ooDocument.isDocumentOnDisk()) {
-            generatePlainDocument();
+          //  generatePlainDocument();
+            ExternalPluginLoader ep = new ExternalPluginLoader();
+            ExternalPlugin convertToPlain = ep.loadPlugin("ConvertToPlain");
+            Object[] argSetParams = {
+                                    new HashMap() {
+                                        { put("OdfFileURL", ooDocument.getDocumentURL()); }
+                                        }
+                                    };
+            convertToPlain.callMethod("setParams", argSetParams);
+            Object[] argExec = {};
+            Object retValue = convertToPlain.callMethod("exec", argExec);
+            if (retValue != null) {
+                    String outputFilePath = (String) retValue;
+                    MessageBox.OK(parentFrame, "A plain document was generated, it can be found at : \n" + outputFilePath, "Plain Document generation", JOptionPane.INFORMATION_MESSAGE);
+            }
         } else {
             MessageBox.OK(parentFrame, "Please save the document before proceeding !", "Save the document", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnMakePlainActionPerformed
 
-/*    private void processSections(StructuralRulesEngine sre){
-         String currentDocType = BungeniEditorPropertiesHelper.getCurrentDocType();
-         //docType is the same name as the root section
-         XTextSection xSection = ooDocument.getSection(currentDocType);
-         DocumentSectionIterator2 sectionIterator = new DocumentSectionIterator2(ooDocument,
-                                                            currentDocType, new StructureIterator(sre));
-         sectionIterator.startIterator();
-         ArrayList<StructuralError> sErrors = sre.getErrors();
-         if (sErrors.size() > 0) {
-             launchErrorFrame(sErrors);
+    /*
+    class OdfSectionIterator implements IBungeniOdfSectionIterator {
+        StructuralRulesEngine rulesEngine ;
+        public OdfSectionIterator (StructuralRulesEngine sre) {
+             rulesEngine = sre;
          }
-    } */
+
+        public boolean nextSection(BungeniOdfSectionHelper helper, OdfSection nSection) {
+            String secName = nSection.getName();
+            
+            return true;
+        }
+
+    }
+
+    private void processSections(StructuralRulesEngine sre){
+        try {
+            String currentDocType = BungeniEditorPropertiesHelper.getCurrentDocType();
+            //docType is the same name as the root section
+            XTextSection xSection = ooDocument.getSection(currentDocType);
+            String docURL = ooDocument.getDocumentURL();
+            URL fileURL = new URL(docURL);
+            File fdoc = new File(fileURL.toURI());
+            OdfDocument odfDoc = OdfDocument.loadDocument(fdoc);
+            BungeniOdfSectionHelper odfHelper = new BungeniOdfSectionHelper(odfDoc);
+            OdfSectionIterator oiter = new OdfSectionIterator(sre);
+            odfHelper.iterateSections(oiter);
+
+        //    DocumentSectionIterator2 sectionIterator = new DocumentSectionIterator2(ooDocument,
+        //    currentDocType, new StructureIterator(sre));
+        //    sectionIterator.startIterator();
+        //    ArrayList<StructuralError> sErrors = sre.getErrors();
+        //    if (sErrors.size() > 0) {
+        //    launchErrorFrame(sErrors);
+        //    }
+        } catch (Exception ex) {
+            java.util.logging.Logger.getLogger(transformXMLPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+*/
 
     /**
      * Launches a window with the returned structural errors
      * @param sErrors
      */
-    /* private void launchErrorFrame(ArrayList<StructuralError> sErrors) {
+     /*private void launchErrorFrame(ArrayList<StructuralError> sErrors) {
           BungeniFrame floatingFrame = new BungeniFrame();
            floatingFrame.setTitle("Structural Errors Found");
            BungeniFrame.BUNGENIFRAME_ALWAYS_ON_TOP = true;
@@ -385,25 +375,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
            floatingFrame.launch(pPanel, pPanel.getFrameSize() );
            FrameLauncher.CenterFrame(floatingFrame); 
     } */
-    /**
-     * The IteratorCallback of the StructureIterator class is called for every section
-     * in the document
-     */
-   /* class StructureIterator implements IBungeniSectionIteratorListener2 {
-        StructuralRulesEngine rulesEngine;
-        StructureIterator (StructuralRulesEngine sre) {
-            rulesEngine = sre;
-        }
 
-        public boolean iteratorCallback(XTextSection xSection) {
-                //we process the rules for each section and build the stack of error messages
-                XNamed xNamedSection = ooQueryInterface.XNamed(xSection);
-                //the rule engine rules are applied to every section individually
-                rulesEngine.processRules(ooDocument, xNamedSection.getName());
-                return true;
-        }
-
-    } */
 
     @Override
     public void initialize() {
