@@ -6,10 +6,9 @@
 package org.bungeni.editor.rulesimpl;
 
 import java.io.File;
-import java.io.IOException;
-import org.jdom.Document;
-import org.jdom.JDOMException;
-import org.jdom.input.SAXBuilder;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.io.SAXReader;
 
 /**
  * base class for Rule Parser
@@ -23,7 +22,7 @@ public class RuleParser {
         String pathToXmlFile ;
 
         public RuleParser(){
-            
+
         }
 
         /**
@@ -32,12 +31,10 @@ public class RuleParser {
         public void loadXml() {
         try {
             File xmlfile = new File(pathToXmlFile);
-            SAXBuilder builder = new SAXBuilder("org.apache.xerces.parsers.SAXParser");
-            xmlDocument = builder.build(xmlfile);
-        } catch (JDOMException ex) {
-            log.error("loadXml  : "+ex.getMessage());
-        } catch (IOException ex) {
-            log.error("loadXml  : "+ex.getMessage());
+            SAXReader builder = new SAXReader();
+            xmlDocument = builder.read(xmlfile);
+        } catch (DocumentException ex) {
+            log.error("loadXml:" + ex.getMessage());
         }
       }
 }

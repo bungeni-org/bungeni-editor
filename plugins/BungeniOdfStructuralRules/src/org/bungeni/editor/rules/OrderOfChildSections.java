@@ -28,6 +28,9 @@ public class OrderOfChildSections extends BaseStructuralRule {
     private static String INVALID_PRECEEDING_POSITION = "One or more preceeding sections for this section are invalid";
     private static String INVALID_FOLLOWING_POSITION = "One or more following sections for this section are invalid";
 
+    public OrderOfChildSections(){
+        super();
+    }
 
     @Override
     public boolean applyRule(String forThisSectionName) {

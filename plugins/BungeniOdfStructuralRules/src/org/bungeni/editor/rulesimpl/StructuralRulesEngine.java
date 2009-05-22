@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
 import org.bungeni.odfdom.section.IBungeniOdfSectionIterator;
-import org.jdom.Element;
+import org.dom4j.Element;
 import org.openoffice.odf.doc.OdfDocument;
 import org.openoffice.odf.doc.element.text.OdfSection;
 
@@ -40,14 +40,15 @@ public class StructuralRulesEngine {
         //returns a list of <engine /> elements
         ArrayList<Element> rules = ruleEngineParser.getRules();
         for (Element rule : rules) {
-            String engineName = rule.getAttributeValue("name");
-            String engineSource = rule.getAttributeValue("source");
+            String engineName = rule.attributeValue("name");
+            String engineSource = rule.attributeValue("source");
             IStructuralRule iEngine = null;
             try {
             iEngine = StructuralRuleFactory.getStructuralRule(engineSource);
             //set name for rule engine
             iEngine.setName(engineName);
             } catch (Exception ex) {
+                System.out.println("error loading engines");
                 log.error("loadRulesForDocumentType , during engine instantiation of "+ 
                         engineName +  " : " + ex.getMessage());
             }
@@ -59,21 +60,38 @@ public class StructuralRulesEngine {
 
     class IterativeRulesForSections implements IBungeniOdfSectionIterator {
         public boolean nextSection(BungeniOdfSectionHelper helper, OdfSection nSection) {
+            try {
+            System.out.println("iterating rules for section : " + nSection.getName());
+            System.out.println("rules to apply = " + rulesToApply.size()
+                    );
             for (IStructuralRule iStructuralRule : rulesToApply) {
-                if (iStructuralRule.setupRule(rulesParser, helper.getDocument()))
+                OdfDocument oddoc = helper.getDocument();
+                System.out.println("iterating rules for " + iStructuralRule.getName());
+
+                if (iStructuralRule.setupRule(rulesParser, helper.getDocument())) {
+                                    System.out.println("finished setup of rule");
+
                     iStructuralRule.applyRule(nSection.getName());
+                }
+                                System.out.println("after setup of rule");
+
                 StructuralError[] errors = iStructuralRule.getErrors();
                   if (errors != null ) {
                       if (errors.length > 0 ){
                           errorLog.addAll(Arrays.asList(errors));
                       }
                   }
+             }
+            } catch (Exception ex) {
+                System.out.println("Exception : " + ex.getMessage());
             }
+
             return true;
         }
     }
 
     public boolean processRulesForDocument(OdfDocument ooDocument) {
+        System.out.println("processing rules for :" + ooDocument.getDocumentPackagePath());
         BungeniOdfSectionHelper sectionhelper = new BungeniOdfSectionHelper(ooDocument);
         sectionhelper.iterateSections(new IterativeRulesForSections());
         return true;

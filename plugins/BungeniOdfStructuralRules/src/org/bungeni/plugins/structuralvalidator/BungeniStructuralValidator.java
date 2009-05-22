@@ -38,6 +38,7 @@ public class BungeniStructuralValidator implements IEditorPlugin {
      * @param inputParams
      */
     public void setParams(HashMap inputParams) {
+        System.out.println("setting inputparams");
         this.editorParams = inputParams;
         this.odfFileUrl = (String) this.editorParams.get("OdfFileURL");
         this.rulesRootFolder = (String) this.editorParams.get("RulesRootFolder");
@@ -47,6 +48,8 @@ public class BungeniStructuralValidator implements IEditorPlugin {
     public String exec() {
         String retValue = "";
         try {
+            System.out.println("calling exec()");
+
             StructuralRulesConfig.APPLN_PATH_PREFIX = rulesRootFolder;
             //configure the source files
             String ruleEnginesFile = StructuralRulesConfig.getRuleEnginesPath() + this.currentDocType + ".xml";
@@ -54,10 +57,15 @@ public class BungeniStructuralValidator implements IEditorPlugin {
             //initalize the rules engine
             StructuralRulesEngine sre = new StructuralRulesEngine(docRulesFile, ruleEnginesFile);
             URL oofileurl = new URL(this.odfFileUrl);
+            System.out.println("before loading document");
+
             OdfDocument odoc = OdfDocument.loadDocument(new File(oofileurl.toURI()));
+            System.out.println("after loading document");
+
             sre.processRulesForDocument(odoc);
+            System.out.println("processing rules for document");
             ArrayList<StructuralError> errors = sre.getErrors();
-            System.out.println(errors);
+            System.out.println("no.of errors = " + errors.size());
         } catch (Exception ex) {
             log.error("exec :" + ex.getMessage());
         } finally {

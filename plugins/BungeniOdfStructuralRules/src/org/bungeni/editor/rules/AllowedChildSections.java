@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import org.bungeni.editor.rulesimpl.BaseStructuralRule;
 import org.bungeni.editor.rulesimpl.StructuralError;
 import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
-import org.jdom.Element;
+import org.dom4j.Element;
 import org.openoffice.odf.doc.element.text.OdfSection;
 
 /**
@@ -28,6 +28,10 @@ public class AllowedChildSections extends BaseStructuralRule{
 
      private static String INVALID_SECTION_TYPE_IN_DOCUMENT = "Invalid section type in document ";
      private static String SECTION_TYPE_INVALID = "This section Type is not allowed at this location";
+
+     public AllowedChildSections() {
+         super();
+     }
 
     @Override
     public boolean applyRule(String forThisSectionName) {
@@ -99,7 +103,7 @@ public class AllowedChildSections extends BaseStructuralRule{
     private boolean isSectionTypeAllowed(String childSectionType) {
         boolean found = false;
         for (Element secType : this.allowedSectionTypes) {
-            String matchedSectionType = secType.getAttributeValue("name");
+            String matchedSectionType = secType.attributeValue("name");
             if (matchedSectionType.equals(childSectionType)) {
                 found = true;
                 break;
