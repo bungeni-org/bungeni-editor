@@ -78,12 +78,22 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
           //  generatePlainDocument();
             ExternalPluginLoader ep = new ExternalPluginLoader();
             ExternalPlugin rulesValidator = ep.loadPlugin("StructuralRulesValidator");
-     
-            Object[] argSetParams = {new HashMap() {{ 
+     /*
+      *       mmap.put("OdfFileURL", "file:/home/undesa/Projects/Bungeni/BungeniEditor/trunk/BungeniEditorClient/dist/workspace/files/ke/debaterecord/2009-5-22/eng/ke_debaterecord_2009-5-22_eng.odt");
+        mmap.put("RulesRootFolder","/home/undesa/Projects/Bungeni/BungeniEditor/trunk/BungeniEditorClient/dist/settings/structural_rules" );
+        mmap.put("CurrentDocType", "debaterecord");
+      */
+            Object[] argSetParams = {new HashMap() {{
+                                            put("OdfFileURL", "file:/home/undesa/Projects/Bungeni/BungeniEditor/trunk/BungeniEditorClient/dist/workspace/files/ke/debaterecord/2009-5-22/eng/ke_debaterecord_2009-5-22_eng.odt");
+                                            put("CurrentDocType", "debaterecord");
+                                            put("RulesRootFolder","/home/undesa/Projects/Bungeni/BungeniEditor/trunk/BungeniEditorClient/dist/settings/structural_rules");
+                                        }}};
+
+           /** Object[] argSetParams = {new HashMap() {{
                                             put("OdfFileURL", ooDocument.getDocumentURL());
                                             put("CurrentDocType", BungeniEditorPropertiesHelper.getCurrentDocType());
                                             put("RulesRootFolder",CommonEditorFunctions.getPathRelativeToRoot(BungeniEditorProperties.getEditorProperty("structuralRulesRootPath")));
-                                        }}};
+                                        }}};*/
             rulesValidator.callMethod("setParams", argSetParams);
             Object[] argExec = {};
             Object retValue = rulesValidator.callMethod("exec", argExec);
