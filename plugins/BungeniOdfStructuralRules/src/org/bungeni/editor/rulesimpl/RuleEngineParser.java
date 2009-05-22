@@ -1,9 +1,9 @@
 package org.bungeni.editor.rulesimpl;
 
 import java.util.ArrayList;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.xpath.XPath;
+import org.dom4j.Element;
+import org.dom4j.DocumentHelper;
+import org.dom4j.XPath;
 
 /**
  * Class to parse section structural rules
@@ -31,12 +31,10 @@ public class RuleEngineParser extends RuleParser {
         public ArrayList<Element> getRules(){
             ArrayList<Element> engineElements = new ArrayList<Element>(0);
             try {
-                XPath selectPath = XPath.newInstance("rules/engine");
+                XPath selectPath = DocumentHelper.createXPath("rules/engine");
                 engineElements =  (ArrayList<Element>) selectPath.selectNodes(xmlDocument);
             }
-            catch (JDOMException ex) {
-                log.error("getRules : " + ex.getMessage());
-            } catch (RuntimeException ex) {
+            catch (Exception ex) {
                 log.error("getRules : " + ex.getMessage());
             } finally {
                 return engineElements;

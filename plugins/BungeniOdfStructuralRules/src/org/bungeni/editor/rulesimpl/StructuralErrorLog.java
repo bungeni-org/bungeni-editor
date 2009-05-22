@@ -16,4 +16,8 @@ public class StructuralErrorLog {
     public String sourceFile;
     public Date timeStamp;
     public ArrayList<StructuralError> structuralErrors = new ArrayList<StructuralError>(0);
+
+    public StructuralErrorLog(){
+        
+    }
 }

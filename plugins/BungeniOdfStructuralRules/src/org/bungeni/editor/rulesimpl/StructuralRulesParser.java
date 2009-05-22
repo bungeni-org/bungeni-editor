@@ -3,10 +3,9 @@ package org.bungeni.editor.rulesimpl;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import org.jdom.Attribute;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.xpath.XPath;
+import org.dom4j.Attribute;
+import org.dom4j.Element;
+import org.dom4j.XPath;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -15,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
+import org.dom4j.DocumentHelper;
 
 /**
  * Class to parse section structural rules
@@ -35,6 +35,9 @@ public class StructuralRulesParser extends RuleParser {
     private static org.apache.log4j.Logger log                    =
         org.apache.log4j.Logger.getLogger(StructuralRulesParser.class.getName());
 
+    public StructuralRulesParser() {
+        
+    }
     /**
      * Path to rules Xml file
      * @param xmlRules
@@ -52,7 +55,7 @@ public class StructuralRulesParser extends RuleParser {
         String typeValue = "";
 
         try {
-            XPath  selectPath = XPath.newInstance(GET_DOC_STRUCTURE_TYPE);
+            XPath  selectPath = DocumentHelper.createXPath(GET_DOC_STRUCTURE_TYPE);
             Object foundNode  = selectPath.selectSingleNode(xmlDocument);
 
             typeValue = ((Attribute) foundNode).getValue();
@@ -76,7 +79,7 @@ public class StructuralRulesParser extends RuleParser {
 
             System.out.println("this = " + xpathSectionType);
 
-            XPath selectPath = XPath.newInstance(xpathSectionType);
+            XPath selectPath =DocumentHelper.createXPath(xpathSectionType);
 
             elemSecType = (Element) selectPath.selectSingleNode(this.xmlDocument);
         } catch (Exception ex) {
@@ -98,11 +101,11 @@ public class StructuralRulesParser extends RuleParser {
 
             // first get the section type element
             Element thisSectionType = getSectionType(sectionTypeName);
-            XPath   selectPath      = XPath.newInstance(GET_CHILD_REF_TYPES);
+            XPath   selectPath      = DocumentHelper.createXPath(GET_CHILD_REF_TYPES);
             List selectNodes = selectPath.selectNodes(thisSectionType);
             if (selectNodes.size() > 0 )
                 matchingNodes = (ArrayList<Element>) selectPath.selectNodes(thisSectionType);
-        } catch (JDOMException ex) {
+        } catch (Exception ex) {
             System.out.println("getAllowedTypesForSectionType :" + ex.getMessage());
         } finally {
             return matchingNodes;
@@ -119,14 +122,14 @@ public class StructuralRulesParser extends RuleParser {
 
         try {
             Element            foundSectionType  = this.getSectionType(sectionTypeName);
-            XPath              selectPath        = XPath.newInstance(GET_CHILD_SECTION_TYPES);
+            XPath              selectPath        = DocumentHelper.createXPath(GET_CHILD_SECTION_TYPES);
             ArrayList<Element> foundSectionTypes = new ArrayList<Element>(0);
             List selectedNodes = selectPath.selectNodes(foundSectionType);
             if (selectedNodes.size() > 0 )
                  foundSectionTypes = (ArrayList<Element>) selectPath.selectNodes(foundSectionType);
 
             for (Element elemrefSecType : foundSectionTypes) {
-                String  nameOfAllowedSectionType = elemrefSecType.getAttributeValue("name");
+                String  nameOfAllowedSectionType = elemrefSecType.attributeValue("name");
                 Element secType                  = this.getSectionType(nameOfAllowedSectionType);
 
                 if (secType != null) {
@@ -177,16 +180,16 @@ public class StructuralRulesParser extends RuleParser {
         public   ArrayList<Element> allowedElementsAtOrderPosition;
 
         public ruleOrderOfChildren (Element elem ) {
-            nOrder = Integer.parseInt(elem.getAttributeValue("order"));
+            nOrder = Integer.parseInt(elem.attributeValue("order"));
             allowedElementsAtOrderPosition.add(elem);
         }
 
         public ArrayList<String> getSectionTypesForRule() {
             ArrayList<String> allowedSectionTypes = new ArrayList<String>(0);
             for (Element element : allowedElementsAtOrderPosition) {
-                String elemType = element.getAttributeValue("type");
+                String elemType = element.attributeValue("type");
                 if (elemType.equals(ORDER_TYPE_SECTION_TYPE)) {
-                    String sectionTypeName = element.getAttributeValue("name");
+                    String sectionTypeName = element.attributeValue("name");
                     allowedSectionTypes.add(sectionTypeName);
                 }
             }
@@ -200,9 +203,9 @@ public class StructuralRulesParser extends RuleParser {
          */
         public boolean isSectionTypeOrderValid(String aSectionType) {
             for (Element element : allowedElementsAtOrderPosition) {
-                String orderType = element.getAttributeValue("type");
+                String orderType = element.attributeValue("type");
                 if (orderType.equals(ORDER_TYPE_SECTION_TYPE)) {
-                    String orderName = element.getAttributeValue("name");
+                    String orderName = element.attributeValue("name");
                     if (orderName.equals(aSectionType)) {
                         return true;
                     }
@@ -345,14 +348,14 @@ public class StructuralRulesParser extends RuleParser {
             TreeMap<Integer, ruleOrderOfChildren> childOrder= new TreeMap<Integer, ruleOrderOfChildren>();
         try {
             Element            foundSectionType  = this.getSectionType(sectionTypeName);
-            XPath              selectPath        = XPath.newInstance(GET_ORDER_OF_CHILDREN);
+            XPath              selectPath        = DocumentHelper.createXPath(GET_ORDER_OF_CHILDREN);
             List selectNodes = selectPath.selectNodes(foundSectionType);
             ArrayList<Element> foundSectionTypes = new ArrayList<Element>(0);
             if (selectNodes.size() > 0 )
                 foundSectionTypes = (ArrayList<Element>) selectPath.selectNodes(foundSectionType);
 
             for (Element elemrefSecType : foundSectionTypes) {
-                Integer elementOrder = Integer.parseInt(elemrefSecType.getAttributeValue("order"));
+                Integer elementOrder = Integer.parseInt(elemrefSecType.attributeValue("order"));
                 if (childOrder.containsKey(elementOrder)) {
                     childOrder.get(elementOrder).allowedElementsAtOrderPosition.add(elemrefSecType);
                 } else {
@@ -386,7 +389,7 @@ public class StructuralRulesParser extends RuleParser {
                                                    sectionTypeName);
             String xpathGetChildSectionTypes = GET_CHILD_SECTION_TYPES_BY_NAME.replaceAll("\\{refSectionType\\}",
                                                    lookForThisType);
-            XPath selectPath = XPath.newInstance(xpathGetparentSection + "/" + xpathGetChildSectionTypes);
+            XPath selectPath = DocumentHelper.createXPath(xpathGetparentSection + "/" + xpathGetChildSectionTypes);
 
             matchingChildSectionType = (Element) selectPath.selectSingleNode(xmlDocument);
         } catch (Exception ex) {

@@ -14,12 +14,15 @@ import org.openoffice.odf.doc.OdfDocument;
  */
 public abstract class BaseStructuralRule implements IStructuralRule {
 
-    protected String ruleName;
-    protected String ruleSource;
-    protected StructuralRulesParser ruleParserEngine;
-    protected OdfDocument odfDocument;
+    protected String ruleName = null;
+    protected String ruleSource = null;
+    protected StructuralRulesParser ruleParserEngine = null;
+    protected OdfDocument odfDocument = null;
     protected ArrayList<StructuralError> errorLog = new ArrayList<StructuralError>(0);
 
+    public BaseStructuralRule() {
+        
+    }
     public String getName() {
         return ruleName;
     }
@@ -30,10 +33,18 @@ public abstract class BaseStructuralRule implements IStructuralRule {
    
 
     public boolean setupRule(StructuralRulesParser engine, OdfDocument ooDoc) {
+        try {
+        System.out.println("setupRule 1");
         this.ruleParserEngine = engine;
+        System.out.println("setupRule 2");
         this.odfDocument = ooDoc;
         //also clear the error log
+        System.out.println("setupRule 3");
         this.errorLog.clear();
+        System.out.println("setting up rule for :" + ooDoc.getBaseURI());
+        } catch (Exception ex) {
+            System.out.println("setupRule exception");
+        }
         return true;
     }
 
