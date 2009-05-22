@@ -295,11 +295,13 @@ public class holderUIPanel3 extends javax.swing.JPanel implements IFloatingPanel
         public void actionPerformed(ActionEvent e) {
             //get the button originating the event
             JButton sourceButton = (JButton) e.getSource();
+            sourceButton.setEnabled(false);
             Container parentContainer = sourceButton.getParent();
             buttonPanel containerPanel = (buttonPanel) parentContainer;
             //get the action element
             BungeniToolbarActionElement actionElement = containerPanel.getActionElement();
             executeToolbarAction(actionElement);
+
         }
 
         public void executeToolbarAction(BungeniToolbarActionElement actionElement) {
