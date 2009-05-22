@@ -80,7 +80,7 @@
 		<!-- pops up a selector dialog for a questions - creates a questionanswer container -->                
 		<action name="Questions.new" title="Question Sub-Section" mode="TEXT_SELECTED_INSERT" 
 			target="toolbarSubAction.makeDebateQuestionBlockSection.section_creation" visible="true" 
-			condition="textSelected:true :and: cursorInSection:questionss[0-9]*" />
+			condition="textSelected:true :and: cursorInSection:questions[0-9]*" />
 		<action name="Questions.heading1" title="---- Heading" mode="TEXT_SELECTED_INSERT" 
 			target="toolbarSubAction.makeDebateQuestionBlockSection.apply_questiontext_style:heading_question" visible="true" 
 			condition="textSelected:true :and: cursorInSection:questions[0-9]*." />
