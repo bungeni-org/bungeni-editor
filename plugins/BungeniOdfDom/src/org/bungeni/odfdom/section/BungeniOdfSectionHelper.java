@@ -41,6 +41,7 @@ public class BungeniOdfSectionHelper {
 
 
     public BungeniOdfSectionHelper(OdfDocument odfDoc) {
+        
         odfDocument = odfDoc;
         xPath = XPathFactory.newInstance().newXPath();
         xPath.setNamespaceContext(new OdfNamespace());
@@ -197,7 +198,17 @@ public class BungeniOdfSectionHelper {
             return oSection;
         }
     }
-    
+
+    public void iterateSections(IBungeniOdfSectionObjectIterator sectionIterator) {
+        NodeList nlist = getDocumentSections();
+        for (int i = 0; i < nlist.getLength(); i++) {
+            OdfSection odfSection = (OdfSection) nlist.item(i);
+            if (sectionIterator.nextSection(this, odfSection) == false) {
+                break;
+            }
+        }
+    }
+
     public void iterateSections(IBungeniOdfSectionIterator sectionIterator) {
         NodeList nlist = getDocumentSections();
         for (int i = 0; i < nlist.getLength(); i++) {
