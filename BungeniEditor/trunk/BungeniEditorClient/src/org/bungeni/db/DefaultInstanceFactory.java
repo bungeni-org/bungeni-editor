@@ -17,14 +17,17 @@ import org.bungeni.utils.Installation;
  * @author Administrator
  */
 public class DefaultInstanceFactory {
-    
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DefaultInstanceFactory.class.getName());
+
     /** Creates a new instance of DefaultInstanceFactory */
     public DefaultInstanceFactory() {
     }
     
     public static String DEFAULT_INSTANCE() {
         String installDirectory = DEFAULT_INSTALLATION_PATH();
-        return installDirectory + File.separator + "settings" + File.separator + "db" + File.separator;
+        String defaultInstance =  installDirectory + File.separator + "settings" + File.separator + "db" + File.separator;
+        log.info("DEFAULT_INSTANCE : " + defaultInstance);
+        return defaultInstance;
   
     }
     
@@ -36,6 +39,7 @@ public class DefaultInstanceFactory {
     public static String DEFAULT_INSTALLATION_PATH() {
         Installation install = new Installation();
         String installDirectory = install.getAbsoluteInstallDir();
+        log.info("DEFAULT_INSTALLATION_PATH : " + installDirectory);
         return installDirectory;
     }
 }
