@@ -93,19 +93,30 @@ public class ExternalPluginLoader {
     private ArrayList<URL> buildUrlListForPluginClassLoader (ExternalPlugin foundPlugin) {
         ArrayList<URL> urlList = new ArrayList<URL>(0);
         try {
-            URL pluginBaseURL = (new File(this.pathToPluginsRoot + File.separator + foundPlugin.PluginBaseFolder + File.separator)).toURI().toURL();
-            String pluginBasePath = pluginBaseURL.toString();
-            urlList.add(new URL(pluginBasePath + foundPlugin.JarFile));
-            for (String depJar : foundPlugin.dependentJars) {
-                URL depURL = new URL(pluginBasePath + depJar);
-                urlList.add(depURL);
+            String pluginBaseFolder = this.pathToPluginsRoot + File.separator + foundPlugin.PluginBaseFolder + File.separator;
+            File fpluginBase = new File(pluginBaseFolder);
+            if (fpluginBase.exists()) {
+                if (fpluginBase.isDirectory()) {
+                    String pathToJar = pluginBaseFolder + foundPlugin.JarFile;
+                    URL pluginBaseJarURL = (new File(pathToJar )).toURI().toURL();
+                   // String pluginBasePath = pluginBaseURL.toString();
+                    urlList.add(pluginBaseJarURL);
+                    for (String depJar : foundPlugin.dependentJars) {
+                        File fDepPlugin = new File(pluginBaseFolder + depJar);
+                        URL depURL = fDepPlugin.toURI().toURL();
+                        urlList.add(depURL);
+                    }
+                } else {
+                    log.error ("buildUrlListForPluginClassLoader : plugin base folder is NOT a folder");
+                }
+            } else {
+                log.error("buildUrlListForPluginClassLoader : plugin base folder does not exist");
             }
         } catch (MalformedURLException ex) {
             log.error("buildUrlListForPluginClassLoader : " + ex.getMessage());
         } finally {
             return urlList;
         }
-
     }
 
     /**
