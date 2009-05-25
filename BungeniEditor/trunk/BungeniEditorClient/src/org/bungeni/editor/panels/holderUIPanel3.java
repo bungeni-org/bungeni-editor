@@ -21,6 +21,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTabbedPane;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -292,18 +293,41 @@ public class holderUIPanel3 extends javax.swing.JPanel implements IFloatingPanel
     /***** API for conditionally enabling / disabling command buttons *****/
     class BungeniToolbarCommandListener implements ActionListener {
 
-        public void actionPerformed(ActionEvent e) {
-            //get the button originating the event
-            JButton sourceButton = (JButton) e.getSource();
-            sourceButton.setEnabled(false);
-            Container parentContainer = sourceButton.getParent();
-            buttonPanel containerPanel = (buttonPanel) parentContainer;
-            //get the action element
-            BungeniToolbarActionElement actionElement = containerPanel.getActionElement();
-            executeToolbarAction(actionElement);
+        /**
+         * Run the button action in a swingworker thread, so the UI disabling happens immediately
+         */
+        class buttonActionRunner extends SwingWorker<Boolean, Object> {
+          JButton sourceButton ;
+
+          public buttonActionRunner (JButton origButton) {
+              this.sourceButton = origButton;
+          }
+
+          protected Boolean doInBackground() throws Exception {
+                         Container parentContainer = sourceButton.getParent();
+                        buttonPanel containerPanel = (buttonPanel) parentContainer;
+                        //get the action element
+                        BungeniToolbarActionElement actionElement = containerPanel.getActionElement();
+                        executeToolbarAction(actionElement);
+                        return new Boolean(true);
+            }
+
+            @Override
+          public void done(){
+
+          }
 
         }
+        public  synchronized void actionPerformed(ActionEvent e) {
+            //get the button originating the event
+            final JButton sourceButton = (JButton) e.getSource();
+            //disable the button immediately
+            sourceButton.setEnabled(false);
+            //call the swingworker thread for the button event
+            (new buttonActionRunner(sourceButton)).execute();
+        }
 
+        /*** class APIs ***/
         public void executeToolbarAction(BungeniToolbarActionElement actionElement) {
             BungeniToolbarTargetProcessor targetObj = new BungeniToolbarTargetProcessor(actionElement.getTarget());
             SelectorDialogModes selectedMode = actionElement.getMode();
@@ -397,6 +421,8 @@ public class holderUIPanel3 extends javax.swing.JPanel implements IFloatingPanel
                 return null;
             }
         }
+
+
     }
 
     private void initUIAttributes() {
