@@ -133,9 +133,14 @@ public class MetadataEditorContainer extends JPanel {
      */
     public void initialize() {
         //get the available tabs for this document type
-        this.metaTabs= EditorDocMetadataDialogFactory.getInstances(BungeniEditorPropertiesHelper.getCurrentDocType());
+        log.info("calling initialize .....");
+        String currentDocType = BungeniEditorPropertiesHelper.getCurrentDocType();
+        log.info("initialize : current doc type = " + currentDocType);
+        this.metaTabs= EditorDocMetadataDialogFactory.getInstances(currentDocType);
         for (IEditorDocMetadataDialog mTab : this.metaTabs) {
+            if (mTab == null ) log.error("initialize : returned metadata tab is null");
             mTab.initVariables(ooDocument, parentFrame, dlgMode);
+            log.info("initialize : after calling initVariables");
             mTab.initialize();
         }
 
