@@ -5,7 +5,9 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.JFrame;
 import org.apache.log4j.Logger;
+import org.bungeni.editor.rules.ui.panelStructuralError;
 import org.bungeni.editor.rulesimpl.StructuralError;
 import org.bungeni.editor.rulesimpl.StructuralRulesConfig;
 import org.bungeni.editor.rulesimpl.StructuralRulesEngine;
@@ -65,6 +67,17 @@ public class BungeniStructuralValidator implements IEditorPlugin {
             sre.processRulesForDocument(odoc);
             System.out.println("processing rules for document");
             ArrayList<StructuralError> errors = sre.getErrors();
+            panelStructuralError pse = new panelStructuralError(errors);
+  JFrame floatingFrame = new JFrame();
+           floatingFrame.setTitle("Structural Errors Found");
+           floatingFrame.setAlwaysOnTop(true);
+           floatingFrame.setResizable(false);
+        //   panelStructuralError pPanel = new panelStructuralError(sErrors, ooDocument);
+           pse.setContainerFrame(floatingFrame);
+           floatingFrame.add(pse);
+           floatingFrame.setSize(465, 320);
+           floatingFrame.pack();
+           floatingFrame.setVisible(true);
             System.out.println("no.of errors = " + errors.size());
         } catch (Exception ex) {
             log.error("exec :" + ex.getMessage());
@@ -82,5 +95,6 @@ public class BungeniStructuralValidator implements IEditorPlugin {
         mmap.put("CurrentDocType", "debaterecord");
         sval.setParams(mmap);
         sval.exec();
+
     }
 }

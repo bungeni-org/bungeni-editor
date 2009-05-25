@@ -95,6 +95,7 @@ public class OrderOfChildSections extends BaseStructuralRule {
       } catch (Exception ex) {
           log.error("checkOrderOfChildren : " + ex.getMessage());
       } finally {
+          System.out.println("no. of erros = " + errorLog.size());
           return bCheckPre & bCheckFol;
       }
    }

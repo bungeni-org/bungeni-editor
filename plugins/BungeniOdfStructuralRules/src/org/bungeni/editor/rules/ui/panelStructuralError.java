@@ -197,7 +197,7 @@ public class panelStructuralError extends javax.swing.JPanel  {
         ));
         scrollTblErrors.setViewportView(tblErrors);
 
-        lblErrors.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblErrors.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblErrors.setText("<html><p>Please review the structural errors listed below. Double clicking on an error will take you to the point in the document where the error occurs. </p></html>");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -206,10 +206,10 @@ public class panelStructuralError extends javax.swing.JPanel  {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblErrors, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
-                    .addComponent(scrollTblErrors, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblErrors, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scrollTblErrors, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
