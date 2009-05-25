@@ -83,17 +83,22 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
         mmap.put("RulesRootFolder","/home/undesa/Projects/Bungeni/BungeniEditor/trunk/BungeniEditorClient/dist/settings/structural_rules" );
         mmap.put("CurrentDocType", "debaterecord");
       */
+            /*
             Object[] argSetParams = {new HashMap() {{
                                             put("OdfFileURL", "file:/home/undesa/Projects/Bungeni/BungeniEditor/trunk/BungeniEditorClient/dist/workspace/files/ke/debaterecord/2009-5-22/eng/ke_debaterecord_2009-5-22_eng.odt");
                                             put("CurrentDocType", "debaterecord");
                                             put("RulesRootFolder","/home/undesa/Projects/Bungeni/BungeniEditor/trunk/BungeniEditorClient/dist/settings/structural_rules");
                                         }}};
+                                            */
+            final String odfFileUrl = ooDocument.getDocumentURL();
+            final String currentDocType = BungeniEditorPropertiesHelper.getCurrentDocType();
+            final String rulesRootFolder = CommonEditorFunctions.getPathRelativeToRoot(BungeniEditorProperties.getEditorProperty("structuralRulesRootPath"));
 
-           /** Object[] argSetParams = {new HashMap() {{
-                                            put("OdfFileURL", ooDocument.getDocumentURL());
-                                            put("CurrentDocType", BungeniEditorPropertiesHelper.getCurrentDocType());
-                                            put("RulesRootFolder",CommonEditorFunctions.getPathRelativeToRoot(BungeniEditorProperties.getEditorProperty("structuralRulesRootPath")));
-                                        }}};*/
+            Object[] argSetParams = {new HashMap() {{
+                                            put("OdfFileURL", odfFileUrl);
+                                            put("CurrentDocType", currentDocType);
+                                            put("RulesRootFolder",rulesRootFolder);
+                                        }}};
             rulesValidator.callMethod("setParams", argSetParams);
             Object[] argExec = {};
             Object retValue = rulesValidator.callMethod("exec", argExec);
