@@ -4,14 +4,14 @@
 		<allowedTypes>
 			<ref type="sectionType" name="MastHead"/>
 			<!--<ref type="sectionType" name="TabledDocuments" /> -->
-			<!--<ref type="sectionType" name="MotionsContainer" /> -->
+			<ref type="sectionType" name="MotionsContainer" />
 			<ref type="sectionType" name="QuestionsContainer" />
 			<ref type="sectionType" name="Conclusion"/>
 		</allowedTypes><!--order of children is specified here -->
 		<orderOfChildren>
 			<order type="sectionType" name="MastHead" order="0" required="yes" />
 			<order type="sectionType" name="TabledDocuments" order="1" required="yes" />
-			<!--<order type="sectionType" name="MotionsContainer" order="2" required="yes" /> -->
+			<order type="sectionType" name="MotionsContainer" order="2" required="yes" /> 
 			<order type="sectionType" name="QuestionsContainer" order="2" required="yes" />
 			<order type="sectionType" name="Conclusion" order="99" required="yes" />
 		</orderOfChildren>
