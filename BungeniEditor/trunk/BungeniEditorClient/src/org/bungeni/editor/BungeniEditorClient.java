@@ -21,6 +21,7 @@ import org.bungeni.editor.dialogs.editorApplicationController;
 import org.bungeni.editor.interfaces.ui.ILookAndFeel;
 import org.bungeni.editor.ui.LookAndFeelFactory;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
+import org.kohsuke.args4j.CmdLineParser;
 
 /**
  *
@@ -70,7 +71,14 @@ public class BungeniEditorClient {
         //Display the window.
         frame.pack();
         frame.setLocationRelativeTo(null); //center it
-        frame.setVisible(true);
+        if (cmdOptions.getDocType().equals("gui"))
+            frame.setVisible(true);
+        else {
+            frame.setVisible(false);
+            //do the other launch processing here
+            panel.launchDocumentType(cmdOptions.getDocType(), cmdOptions.getLaunchMode());
+        }
+
     }
 
     /**
@@ -113,12 +121,16 @@ public class BungeniEditorClient {
             }
         }
     }
-    
+
+    public static BungeniEditorClientCmdOptions cmdOptions;
+
     public static void main(String[] args) {
         try {
             // get the remote office component context
            // m_xContext = Bootstrap.bootstrap();
-            javax.swing.SwingUtilities.invokeLater(
+           cmdOptions = new BungeniEditorClientCmdOptions();
+           cmdOptions.doMain(args);
+           javax.swing.SwingUtilities.invokeLater(
                         new Runnable() {
                                 public void run() {
                                     createAndShowGUI();
