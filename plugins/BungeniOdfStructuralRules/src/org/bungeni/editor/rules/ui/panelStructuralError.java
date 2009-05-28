@@ -20,14 +20,18 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
+import org.apache.log4j.Logger;
 import org.bungeni.editor.rulesimpl.StructuralError;
 import org.bungeni.editor.rulesimpl.StructuralErrorTableModel;
+import org.bungeni.plugins.IEditorPluginEventDispatcher;
 ////import org.bungeni.ooo.OOComponentHelper;
 
 /**
@@ -35,6 +39,12 @@ import org.bungeni.editor.rulesimpl.StructuralErrorTableModel;
  * @author undesa
  */
 public class panelStructuralError extends javax.swing.JPanel  {
+
+    private static org.apache.log4j.Logger log            =
+        Logger.getLogger(panelStructuralError.class.getName());
+
+
+
     private static final int PANEL_WIDTH = 400;
     private static final int PANEL_HEIGHT = 300;
     private static final int PANEL_HEIGHT_PADDING = 15;
@@ -42,11 +52,17 @@ public class panelStructuralError extends javax.swing.JPanel  {
     ArrayList<StructuralError> structuralErrors = new ArrayList<StructuralError>(0);
     JFrame parentFrame = null;
     Window containerFrame = null;
-/////    OOComponentHelper ooDocument = null;
+    IEditorPluginEventDispatcher parentEventDispatcher = null;
+    String parentEventDispatcherClass = null;
     
     /** Creates new form panelStructuralError */
-    public panelStructuralError(ArrayList<StructuralError> serror /*, OOComponentHelper ooDocument */) {
+    public panelStructuralError(ArrayList<StructuralError> serror , Object parentEventDispatch, String dispatcherClass) {
         this.structuralErrors = serror;
+        if (parentEventDispatch == null) {
+            System.out.println("parentEventDispatch is null !!!!!");
+        }
+        this.parentEventDispatcher = (IEditorPluginEventDispatcher) parentEventDispatch;
+        this.parentEventDispatcherClass = dispatcherClass;
    /////     this.ooDocument = ooDocument;
         initComponents();
         initTable();
@@ -87,18 +103,78 @@ public class panelStructuralError extends javax.swing.JPanel  {
                         //call the api to scroll the document
                         pointToErrorInDocument(foundError);
                     }
-                }
+            }
         });
     }
+
+    Class eventDispatchClass = null;
+    Method dispatchMethodObject = null;
+    Object dispatchObject = null;
+    
+    private void dispatchEventToParent(String sectionName){
+        try {
+
+            System.out.println(this.parentEventDispatcher.getClass().getName());
+            if (eventDispatchClass == null)
+                eventDispatchClass = Class.forName(this.parentEventDispatcherClass);
+            if (dispatchMethodObject == null)
+                dispatchMethodObject = eventDispatchClass.getDeclaredMethod("dispatchEvent", new Class[]{String.class, Object[].class});
+            Object[] methodParam2 = {sectionName};
+            Object[] methodArgs = {"panelStructuralError", methodParam2};
+            if (dispatchObject == null)
+                dispatchObject = eventDispatchClass.newInstance();
+            dispatchMethodObject.invoke(dispatchObject, methodArgs);
+            
+         } catch (InstantiationException ex) {
+             System.out.println("error : " + ex.getMessage());
+             ex.printStackTrace();
+            log.error("dispatchEvent :" + ex.getMessage());
+        } catch (IllegalAccessException ex) {
+             System.out.println("error : " + ex.getMessage());
+             ex.printStackTrace();
+            log.error("dispatchEvent :" + ex.getMessage());
+        }  catch (IllegalArgumentException ex) {
+             System.out.println("error :" + ex.getMessage());
+             ex.printStackTrace();
+             log.error("dispatchEvent :" + ex.getMessage());
+         } catch (InvocationTargetException ex) {
+             System.out.println("error :" + ex.getMessage());
+             ex.printStackTrace();
+            log.error("dispatchEvent :" + ex.getMessage());
+         } catch (NoSuchMethodException ex) {
+             System.out.println("error :" + ex.getMessage());
+             ex.printStackTrace();
+            log.error("dispatchEvent :" + ex.getMessage());
+         } catch (SecurityException ex) {
+             System.out.println("error :" + ex.getMessage());
+             ex.printStackTrace();
+            log.error("dispatchEvent :" + ex.getMessage());
+         } catch (ClassNotFoundException ex) {
+             System.out.println("error :" + ex.getMessage());
+             ex.printStackTrace();
+            log.error("dispatchEvent :" + ex.getMessage());
+         }
+    }
+
 
     /**
      * Moves the document cursor to the erroneous section and selects it
      * @param foundError
      */
     private void pointToErrorInDocument(StructuralError foundError) {
-        /*
         //get section name
+        try {
         String errorInSection = foundError.childSectionName;
+        Object[] paramstoParent = { errorInSection };
+        if (this.parentEventDispatcher == null) System.out.println("pointToErrorInDocument : parent event dispatcher is null");
+        //dispatchEventToParent(errorInSection);
+        this.parentEventDispatcher.dispatchEvent("pointToErrorInDocument", paramstoParent);
+        } catch (NullPointerException ex) {
+            log.error("pointToErrorInDocument : " + ex.getMessage());
+            System.out.println(ex.getMessage());
+            ex.printStackTrace(System.out);
+        }
+        /*
         XTextSection xerrorSection = ooDocument.getSection(errorInSection);
         XTextRange sectionRange = xerrorSection.getAnchor();
         XTextViewCursor viewCursor = ooDocument.getViewCursor();
@@ -171,6 +247,7 @@ public class panelStructuralError extends javax.swing.JPanel  {
             ArrayList<StructuralError> modelErrors = stModel.getStructuralErrors();
           //  StructuralErrorSerialize seSerialize = new StructuralErrorSerialize(ooDocument.getDocumentURL());
           //  seSerialize.writeErrorsToLog(modelErrors);
+            containerFrame.dispose();
         }
 
 
@@ -186,6 +263,7 @@ public class panelStructuralError extends javax.swing.JPanel  {
         scrollTblErrors = new javax.swing.JScrollPane();
         tblErrors = new javax.swing.JTable();
         lblErrors = new javax.swing.JLabel();
+        btnClose = new javax.swing.JButton();
 
         tblErrors.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -200,16 +278,28 @@ public class panelStructuralError extends javax.swing.JPanel  {
         lblErrors.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblErrors.setText("<html><p>Please review the structural errors listed below. Double clicking on an error will take you to the point in the document where the error occurs. </p></html>");
 
+        btnClose.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnClose.setText("Close");
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblErrors, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(scrollTblErrors, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblErrors, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(181, 181, 181)
+                        .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(59, Short.MAX_VALUE))
+            .addComponent(scrollTblErrors, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,13 +307,20 @@ public class panelStructuralError extends javax.swing.JPanel  {
                 .addContainerGap()
                 .addComponent(lblErrors, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollTblErrors, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addComponent(scrollTblErrors, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnClose))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        // TODO add your handling code here:
+        this.containerFrame.dispose();
+    }//GEN-LAST:event_btnCloseActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClose;
     private javax.swing.JLabel lblErrors;
     private javax.swing.JScrollPane scrollTblErrors;
     private javax.swing.JTable tblErrors;
