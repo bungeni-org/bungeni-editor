@@ -3,8 +3,11 @@ package org.bungeni.editor.dialogs;
 import com.sun.star.awt.XWindow;
 import com.sun.star.comp.helper.Bootstrap;
 import com.sun.star.comp.helper.BootstrapException;
+import com.sun.star.frame.XDesktop;
 import com.sun.star.frame.XModel;
 import com.sun.star.lang.XComponent;
+import com.sun.star.lang.XMultiComponentFactory;
+
 import com.sun.star.uno.XComponentContext;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -25,6 +28,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Vector;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -1034,7 +1038,7 @@ public void testFrame(XComponent xComp){
 }
 
 private void initMeta(XComponent xComp){
-    LaunchDebateMetadataSetter(xComp);
+  LaunchDebateMetadataSetter(xComp);
 }
 
 private void LaunchDebateMetadataSetter(XComponent xComp){
@@ -1121,26 +1125,86 @@ private void setLabelTexts (String desc) {
     
 }
 
+private void launchDocumentType(documentType thisDocType, String launchMode) {
+    //if it is a new document ....
+    if (launchMode.equals("new")) {
+        //check if the editor panel is open -- this will be non-null in all cases except for the first initial launch
+         if (panel == null) {
+                //open the document and init the frame
+                String templateURL = "";
+                log.debug("Current Template file :" + m_FullTemplatesPath+File.separatorChar+m_settings_CurrentTemplate);
+                final String templatePathNormalized = thisDocType.templatePathNormalized();
+                SwingUtilities.invokeLater(new Runnable(){
+                    public void run() {
+                        initoOoAndLaunchFrame(templatePathNormalized, true);
+                    }
+                });
+         } else {
+             //open the document in the current panel
+              panel.newDocumentInPanel();
+         }
+    } else { //edit
+         if (panel == null) {
+                    String basePath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH()+File.separator+"workspace"+File.separator+"files";
+                    File openFile = CommonFileFunctions.getFileFromChooser(basePath, new org.bungeni.utils.fcfilter.ODTFileFilter(), JFileChooser.FILES_ONLY, null);
+                    if (openFile != null) {
+                        String fullPathToFile = openFile.getAbsolutePath();
+                        initoOoAndLaunchFrame(fullPathToFile, false);
+                    } else {
+                        if (launchMode.equals("edit")) {
+                         XMultiComponentFactory mcf = this.m_xContext.getServiceManager();
+                         Object oDesktop = null;
+                        try {
+                            oDesktop = mcf.createInstanceWithContext("com.sun.star.frame.Desktop", m_xContext);
+                        } catch (Exception ex) {
+                            log.error("Error Exiting : " + ex.getMessage());
+                        }
+                         XDesktop xDesk = (com.sun.star.frame.XDesktop) com.sun.star.uno.UnoRuntime.queryInterface(com.sun.star.frame.XDesktop.class, oDesktop);
+                         // (4a) get the XDesktop interface object
+                         xDesk.terminate();
+                         System.exit(0);
+                        }
+                    }
+          } else {
+                //open the document in the current panel
+                panel.loadDocumentInPanel();
+             }
+     }
+
+}
+public void launchDocumentType(String docType, String launchMode){
+    documentType thisDocType = null;
+    for (int i = 0; i < cboDocumentTypes.getModel().getSize() ; i++) {
+                documentType curdocType = (documentType) cboDocumentTypes.getModel().getElementAt(i);
+                if (curdocType.docType.equals(docType)) {
+                    thisDocType = curdocType;
+                    break;
+                }
+    }
+    if (thisDocType == null) {
+        //TODO throw exception
+        return;
+    }
+    BungeniEditorProperties.setEditorProperty("activeDocumentMode", thisDocType.docType);
+    launchDocumentType(thisDocType, launchMode);
+
+          
+}
 
 private void launchFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_launchFrameActionPerformed
             //use template defined in m_settings_CurrentTemplate
             //m_FullTemplatesPath
             //m_settings_CurrentTemplate = "hansard.ott";
             createNewDocument.setEnabled(false);
-
+            documentType selectedDocType = (documentType) cboDocumentTypes.getSelectedItem();
+            launchDocumentType(selectedDocType, "new");
+            /*
             if (panel == null ) {
                 String templateURL = "";
                 log.debug("Current Template file :" + m_FullTemplatesPath+File.separatorChar+m_settings_CurrentTemplate);
                 
                 documentType selectedDocType = (documentType) cboDocumentTypes.getSelectedItem();
-                
-                /*  BungeniEditorProperties.setEditorProperty("activeDocumentMode", selectedDocType.docType);
-                for (documentType dt : m_documentTypes) {
-                    if (dt.docType.equals(selectedDocType.docType)){
-                        setLabelTexts(dt.typeDesc);
-                    }
-                }
-                 */ 
+
                 final String templatePathNormalized = selectedDocType.templatePathNormalized();
                 
                 this.createNewDocument.setEnabled(false);
@@ -1155,14 +1219,18 @@ private void launchFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                 });
             } else {
                 panel.newDocumentInPanel();
-            }
-           createNewDocument.setEnabled(true);
+           } */
+            createNewDocument.setEnabled(true);
             
 }//GEN-LAST:event_launchFrameActionPerformed
 
 private void btnOpenExistingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenExistingActionPerformed
 // TODO add your handling code here:
     this.btnOpenExisting.setEnabled(false);
+       documentType selectedDocType = (documentType) cboDocumentTypes.getSelectedItem();
+      launchDocumentType(selectedDocType, "edit");
+
+    /*
     if (panel == null) {
             String basePath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH()+File.separator+"workspace"+File.separator+"files";
             File openFile = CommonFileFunctions.getFileFromChooser(basePath, new org.bungeni.utils.fcfilter.ODTFileFilter(), JFileChooser.FILES_ONLY, null);
@@ -1172,7 +1240,7 @@ private void btnOpenExistingActionPerformed(java.awt.event.ActionEvent evt) {//G
             }
      } else {
         panel.loadDocumentInPanel();
-     }
+     }*/
     this.btnOpenExisting.setEnabled(true);
 }//GEN-LAST:event_btnOpenExistingActionPerformed
 
