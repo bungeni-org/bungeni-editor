@@ -1,7 +1,7 @@
 <plugin name="StructuralRulesValidator" base="struct_rules" >
   <main class="org.bungeni.plugins.structuralvalidator.BungeniStructuralValidator">BungeniStructValidator.jar</main>
   <required>
-	<!--<lib>xercesImpl.jar</lib>-->
+	<lib>xercesImpl.jar</lib>
 	<lib>bungeniodfdom.jar</lib>
 	<lib>odfdom.jar</lib>
 	<lib>log4j.jar</lib>
