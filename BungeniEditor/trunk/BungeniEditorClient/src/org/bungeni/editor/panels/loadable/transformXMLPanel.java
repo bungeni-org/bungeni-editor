@@ -9,7 +9,6 @@ package org.bungeni.editor.panels.loadable;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Level;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
@@ -17,6 +16,7 @@ import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
+import org.bungeni.extutils.CommonDocumentUtilFunctions;
 import org.bungeni.extutils.CommonEditorFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTarget;
@@ -73,44 +73,66 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
         this.cboExportTo.setModel(model);
     }
 
-    private void validateStructure() {
+    public class StructValidatorEventHandler  {
+        public StructValidatorEventHandler(){
+
+        }
+        
+        public void dispatchEvent(String arg0, Object[] arg1) {
+                         String dispatchSectionName = (String) arg1[0];
+                         System.out.println(dispatchSectionName);
+        }
+
+    }
+
+//    final public IEditorPluginEventDispatcher evtDispatcher = new IEditorPluginEventDispatcher(){
+   //                                                                 public void dispatchEvent(String arg0, Object[] arg1) {
+  //                                                                      String dispatchSectionName = (String) arg1[0];
+    //                                                                    System.out.println(dispatchSectionName);
+    //                                                                            }
+    //};
+
+
+
+private void validateStructure() {
           if (ooDocument.isDocumentOnDisk()) {
           //  generatePlainDocument();
             ExternalPluginLoader ep = new ExternalPluginLoader();
+
+            final StructValidatorEventHandler seHandler = new StructValidatorEventHandler();
             ExternalPlugin rulesValidator = ep.loadPlugin("StructuralRulesValidator");
-     /*
-      *       mmap.put("OdfFileURL", "file:/home/undesa/Projects/Bungeni/BungeniEditor/trunk/BungeniEditorClient/dist/workspace/files/ke/debaterecord/2009-5-22/eng/ke_debaterecord_2009-5-22_eng.odt");
-        mmap.put("RulesRootFolder","/home/undesa/Projects/Bungeni/BungeniEditor/trunk/BungeniEditorClient/dist/settings/structural_rules" );
-        mmap.put("CurrentDocType", "debaterecord");
-      */
-            /*
-            Object[] argSetParams = {new HashMap() {{
-                                            put("OdfFileURL", "file:/home/undesa/Projects/Bungeni/BungeniEditor/trunk/BungeniEditorClient/dist/workspace/files/ke/debaterecord/2009-5-22/eng/ke_debaterecord_2009-5-22_eng.odt");
-                                            put("CurrentDocType", "debaterecord");
-                                            put("RulesRootFolder","/home/undesa/Projects/Bungeni/BungeniEditor/trunk/BungeniEditorClient/dist/settings/structural_rules");
-                                        }}};
-                                            */
+  
             final String odfFileUrl = ooDocument.getDocumentURL();
             final String currentDocType = BungeniEditorPropertiesHelper.getCurrentDocType();
             final String rulesRootFolder = CommonEditorFunctions.getPathRelativeToRoot(BungeniEditorProperties.getEditorProperty("structuralRulesRootPath"));
-
+            final transformXMLPanel ppPanel = this;
+     
             Object[] argSetParams = {new HashMap() {{
                                             put("OdfFileURL", odfFileUrl);
                                             put("CurrentDocType", currentDocType);
                                             put("RulesRootFolder",rulesRootFolder);
+                                            put("ParentFrame", parentFrame);
+                                            put("CallerPanel", ppPanel);
+                                            put("ParentEventDispatcher", seHandler);
+                                            put("ParentEventDispatcherClass", "org.bungeni.editor.panels.loadable.transformXMLPanel$StructValidatorEventHandler");
                                         }}};
             rulesValidator.callMethod("setParams", argSetParams);
             Object[] argExec = {};
             Object retValue = rulesValidator.callMethod("exec", argExec);
             if (retValue != null) {
                     String outputFilePath = (String) retValue;
-                    MessageBox.OK(parentFrame, "A plain document was generated, it can be found at : \n" + outputFilePath, "Plain Document generation", JOptionPane.INFORMATION_MESSAGE);
+                   // MessageBox.OK(parentFrame, "A plain document was generated, it can be found at : \n" + outputFilePath, "Plain Document generation", JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
             MessageBox.OK(parentFrame, "Please save the document before proceeding !", "Save the document", JOptionPane.ERROR_MESSAGE);
         }
 
     }
+
+public void goToSectionPosition(String sectionName) {
+    System.out.println(sectionName);
+    CommonDocumentUtilFunctions.selectSection(ooDocument, sectionName);
+}
     /*
     private void generatePlainDocument(){
                 try {
@@ -171,7 +193,6 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
         lblTransformFrom = new javax.swing.JLabel();
         btnExport = new javax.swing.JButton();
         checkChangeColumns = new javax.swing.JCheckBox();
-        btnValidateStructure = new javax.swing.JButton();
         btnMakePlain = new javax.swing.JButton();
 
         cboTransformFrom.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
@@ -204,15 +225,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
             }
         });
 
-        btnValidateStructure.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnValidateStructure.setText(bundle.getString("transformXMLPanel.btnValidateStructure.text")); // NOI18N
-        btnValidateStructure.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnValidateStructureActionPerformed(evt);
-            }
-        });
-
-        btnMakePlain.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnMakePlain.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnMakePlain.setText(bundle.getString("transformXMLPanel.btnMakePlain.text")); // NOI18N
         btnMakePlain.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -224,35 +237,26 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(lblExportTo)
-                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                .add(org.jdesktop.layout.GroupLayout.LEADING, cboExportTo, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .add(org.jdesktop.layout.GroupLayout.LEADING, cboTransformFrom, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 223, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(layout.createSequentialGroup()
-                                .add(29, 29, 29)
-                                .add(btnExport, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 143, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(lblTransformFrom)
-                            .add(checkChangeColumns, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                    .add(layout.createSequentialGroup()
-                        .add(43, 43, 43)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, btnMakePlain, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, btnValidateStructure, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE))))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, btnMakePlain, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, cboTransformFrom, 0, 210, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, lblExportTo)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                        .add(29, 29, 29)
+                        .add(btnExport, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 143, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, lblTransformFrom)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, checkChangeColumns, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, cboExportTo, 0, 210, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+                .add(27, 27, 27)
                 .add(btnMakePlain)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(btnValidateStructure)
-                .add(26, 26, 26)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 42, Short.MAX_VALUE)
                 .add(checkChangeColumns)
                 .add(32, 32, 32)
                 .add(lblTransformFrom)
@@ -304,12 +308,6 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
         } else
             MessageBox.OK(parentFrame, "Document export failed");
     }//GEN-LAST:event_btnExportActionPerformed
-
-    private void btnValidateStructureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidateStructureActionPerformed
-        validateStructure();
-        //iterate through the document and process the rules for every section
-        //processSections(sre);
-    }//GEN-LAST:event_btnValidateStructureActionPerformed
 
 
 
@@ -411,7 +409,6 @@ public class transformXMLPanel extends BaseClassForITabbedPanel{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExport;
     private javax.swing.JButton btnMakePlain;
-    private javax.swing.JButton btnValidateStructure;
     private javax.swing.JComboBox cboExportTo;
     private javax.swing.JComboBox cboTransformFrom;
     private javax.swing.JCheckBox checkChangeColumns;
