@@ -21,6 +21,8 @@ import org.bungeni.editor.dialogs.editorApplicationController;
 import org.bungeni.editor.interfaces.ui.ILookAndFeel;
 import org.bungeni.editor.ui.LookAndFeelFactory;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
+import org.bungeni.plugins.IEditorPlugin;
+import org.bungeni.plugins.IEditorPluginEventDispatcher;
 
 /**
  *
@@ -32,6 +34,14 @@ public class BungeniEditorClient {
     private static JFrame frame;
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BungeniEditorClient.class.getName());
 
+    private static IEditorPlugin pluginObject;
+    private static IEditorPluginEventDispatcher evtDispatcher = new IEditorPluginEventDispatcher(){
+          public void dispatchEvent(String arg0, Object[] arg1) {
+             String dispatchSectionName = (String) arg1[0];
+             System.out.println(dispatchSectionName);
+           }
+    };
+    
     /** Creates a new instance of BungeniEditorClient */
     public BungeniEditorClient() {
     }
