@@ -52,18 +52,12 @@ public class panelStructuralError extends javax.swing.JPanel  {
     ArrayList<StructuralError> structuralErrors = new ArrayList<StructuralError>(0);
     JFrame parentFrame = null;
     Window containerFrame = null;
-    IEditorPluginEventDispatcher parentEventDispatcher = null;
-    String parentEventDispatcherClass = null;
-    
+    Object callerPanel = null;
+
     /** Creates new form panelStructuralError */
-    public panelStructuralError(ArrayList<StructuralError> serror , Object parentEventDispatch, String dispatcherClass) {
+    public panelStructuralError(ArrayList<StructuralError> serror , Object cPanel) {
         this.structuralErrors = serror;
-        if (parentEventDispatch == null) {
-            System.out.println("parentEventDispatch is null !!!!!");
-        }
-        this.parentEventDispatcher = (IEditorPluginEventDispatcher) parentEventDispatch;
-        this.parentEventDispatcherClass = dispatcherClass;
-   /////     this.ooDocument = ooDocument;
+        this.callerPanel = cPanel;
         initComponents();
         initTable();
     }
@@ -111,25 +105,16 @@ public class panelStructuralError extends javax.swing.JPanel  {
     Method dispatchMethodObject = null;
     Object dispatchObject = null;
     
-    private void dispatchEventToParent(String sectionName){
+    private void dispatchEventToCaller(String sectionName){
         try {
 
-            System.out.println(this.parentEventDispatcher.getClass().getName());
-            if (eventDispatchClass == null)
-                eventDispatchClass = Class.forName(this.parentEventDispatcherClass);
-            if (dispatchMethodObject == null)
-                dispatchMethodObject = eventDispatchClass.getDeclaredMethod("dispatchEvent", new Class[]{String.class, Object[].class});
-            Object[] methodParam2 = {sectionName};
-            Object[] methodArgs = {"panelStructuralError", methodParam2};
-            if (dispatchObject == null)
-                dispatchObject = eventDispatchClass.newInstance();
-            dispatchMethodObject.invoke(dispatchObject, methodArgs);
+            if (dispatchMethodObject == null ) {
+            dispatchMethodObject = this.callerPanel.getClass().getDeclaredMethod("goToSectionPosition", new Class[]{String.class});
+            }
+            Object[] methodParam = {sectionName};
+            dispatchMethodObject.invoke(this.callerPanel, methodParam);
             
-         } catch (InstantiationException ex) {
-             System.out.println("error : " + ex.getMessage());
-             ex.printStackTrace();
-            log.error("dispatchEvent :" + ex.getMessage());
-        } catch (IllegalAccessException ex) {
+         }  catch (IllegalAccessException ex) {
              System.out.println("error : " + ex.getMessage());
              ex.printStackTrace();
             log.error("dispatchEvent :" + ex.getMessage());
@@ -149,11 +134,7 @@ public class panelStructuralError extends javax.swing.JPanel  {
              System.out.println("error :" + ex.getMessage());
              ex.printStackTrace();
             log.error("dispatchEvent :" + ex.getMessage());
-         } catch (ClassNotFoundException ex) {
-             System.out.println("error :" + ex.getMessage());
-             ex.printStackTrace();
-            log.error("dispatchEvent :" + ex.getMessage());
-         }
+         } 
     }
 
 
@@ -165,10 +146,7 @@ public class panelStructuralError extends javax.swing.JPanel  {
         //get section name
         try {
         String errorInSection = foundError.childSectionName;
-        Object[] paramstoParent = { errorInSection };
-        if (this.parentEventDispatcher == null) System.out.println("pointToErrorInDocument : parent event dispatcher is null");
-        //dispatchEventToParent(errorInSection);
-        this.parentEventDispatcher.dispatchEvent("pointToErrorInDocument", paramstoParent);
+        dispatchEventToCaller(errorInSection);
         } catch (NullPointerException ex) {
             log.error("pointToErrorInDocument : " + ex.getMessage());
             System.out.println(ex.getMessage());
