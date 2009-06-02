@@ -1,100 +1,152 @@
-
 package org.bungeni.plugins.structuralvalidator;
 
-import java.io.File;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import javax.swing.JFrame;
+//~--- non-JDK imports --------------------------------------------------------
+
 import org.apache.log4j.Logger;
-import org.bungeni.editor.rules.ui.panelStructuralError;
+
 import org.bungeni.editor.rulesimpl.StructuralError;
 import org.bungeni.editor.rulesimpl.StructuralRulesConfig;
 import org.bungeni.editor.rulesimpl.StructuralRulesEngine;
 import org.bungeni.plugins.IEditorPlugin;
+
 import org.openoffice.odf.doc.OdfDocument;
+
+//~--- JDK imports ------------------------------------------------------------
+
+import java.io.File;
+
+import java.net.URL;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
+import org.bungeni.editor.rules.ui.panelStructuralError;
+import org.bungeni.editor.rulesimpl.StructuralErrorSerialize;
 
 /**
  *
  * @author Ashok Hariharan
  */
 public class BungeniStructuralValidator implements IEditorPlugin {
+    private static org.apache.log4j.Logger log            =
+        Logger.getLogger(BungeniStructuralValidator.class.getName());
+    private JFrame                         callerFrame    = null;
+    private Object                         callerPanel = null;
+    private String                         currentDocType = null;
+
     /**
      * Supported Params :
      * OdfFileURL = url to odf file
      * SettingsFolder = path to settings folder
      * CurrentDocType = current document type
      */
-    private HashMap editorParams = null;
-    private String odfFileUrl = null;
-    private String rulesRootFolder = null;
-    private String currentDocType = null;
-    
-    private static org.apache.log4j.Logger log = Logger.getLogger(BungeniStructuralValidator.class.getName());
-    public BungeniStructuralValidator(){
-        
-    }
+    private HashMap                      editorParams    = null;
+    private String                       odfFileUrl      = null;
+    private String                       rulesRootFolder = null;
+
+    public BungeniStructuralValidator() {}
 
     /**
      *
      * @param inputParams
      */
     public void setParams(HashMap inputParams) {
-        System.out.println("setting inputparams");
-        this.editorParams = inputParams;
-        this.odfFileUrl = (String) this.editorParams.get("OdfFileURL");
+        try {
+        log.debug("setting inputparams");
+        this.editorParams    = inputParams;
+        this.odfFileUrl      = (String) this.editorParams.get("OdfFileURL");
         this.rulesRootFolder = (String) this.editorParams.get("RulesRootFolder");
-        this.currentDocType = (String) this.editorParams.get("CurrentDocType");
+        this.currentDocType  = (String) this.editorParams.get("CurrentDocType");
+        this.callerPanel = this.editorParams.get("CallerPanel");
+            if (this.editorParams.containsKey("ParentFrame")) {
+                this.callerFrame = (JFrame) this.editorParams.get("ParentFrame");
+            }
+        } catch (Exception ex) {
+            log.error("setParams : " + ex.getMessage());
+            log.error("setParams : stacktrace : ", ex);
+        }
     }
 
     public String exec() {
         String retValue = "";
         try {
-            System.out.println("calling exec()");
-
+            log.debug("calling exec()");
             StructuralRulesConfig.APPLN_PATH_PREFIX = rulesRootFolder;
-            //configure the source files
+
+            // configure the source files
             String ruleEnginesFile = StructuralRulesConfig.getRuleEnginesPath() + this.currentDocType + ".xml";
-            String docRulesFile = StructuralRulesConfig.getDocRulesPath() + this.currentDocType + ".xml";
-            //initalize the rules engine
-            StructuralRulesEngine sre = new StructuralRulesEngine(docRulesFile, ruleEnginesFile);
-            URL oofileurl = new URL(this.odfFileUrl);
-            System.out.println("before loading document");
+            String docRulesFile    = StructuralRulesConfig.getDocRulesPath() + this.currentDocType + ".xml";
+            // initalize the rules engine
+            StructuralRulesEngine sre       = new StructuralRulesEngine(docRulesFile, ruleEnginesFile);
+            URL                   oofileurl = new URL(this.odfFileUrl);
 
+            log.debug("before loading document");
             OdfDocument odoc = OdfDocument.loadDocument(new File(oofileurl.toURI()));
-            System.out.println("after loading document");
 
+            log.debug("after loading document");
             sre.processRulesForDocument(odoc);
-            System.out.println("processing rules for document");
+            log.debug("processing rules for document");
+
             ArrayList<StructuralError> errors = sre.getErrors();
-            panelStructuralError pse = new panelStructuralError(errors);
-  JFrame floatingFrame = new JFrame();
-           floatingFrame.setTitle("Structural Errors Found");
-           floatingFrame.setAlwaysOnTop(true);
-           floatingFrame.setResizable(false);
-        //   panelStructuralError pPanel = new panelStructuralError(sErrors, ooDocument);
-           pse.setContainerFrame(floatingFrame);
-           floatingFrame.add(pse);
-           floatingFrame.setSize(465, 320);
-           floatingFrame.pack();
-           floatingFrame.setVisible(true);
-            System.out.println("no.of errors = " + errors.size());
+            if (errors.size() > 0 ) {
+                StructuralErrorSerialize seSerialize = new StructuralErrorSerialize(this.odfFileUrl);
+                seSerialize.writeErrorsToLog(errors);
+
+                //Class[] objParams = {String.class};
+                //Method mgotoSection = this.callerPanel.getClass().getDeclaredMethod("goToSection", objParams);
+                //Object[] funcArgs = { "helloWorld" };
+                //mgotoSection.invoke(callerPanel, funcArgs);
+                panelStructuralError       pse    = new panelStructuralError(errors, callerPanel);
+                pse.setBorder(LineBorder.createGrayLineBorder());
+
+                JDialog floatingFrame = null;
+
+                if (this.callerFrame == null) {
+                    floatingFrame = new JDialog(callerFrame);
+                } else {
+                    floatingFrame = new JDialog();
+                }
+
+                floatingFrame.getContentPane().add(pse);
+                floatingFrame.setAlwaysOnTop(true);
+                if (this.callerFrame != null)
+                    floatingFrame.setLocationRelativeTo(null);
+                // panelStructuralError pPanel = new panelStructuralError(sErrors, ooDocument);
+                pse.setContainerFrame(floatingFrame);
+                floatingFrame.add(pse);
+                floatingFrame.setSize(465, 320);
+                floatingFrame.pack();
+                floatingFrame.setVisible(true);
+            } else {
+               JOptionPane.showMessageDialog(callerFrame, "No errors were found", "Structural Validator", JOptionPane.INFORMATION_MESSAGE);
+            }
         } catch (Exception ex) {
             log.error("exec :" + ex.getMessage());
+            log.error("exec : stacktrace : ", ex);
         } finally {
             return retValue;
         }
     }
 
-
     public static void main(String[] args) {
         BungeniStructuralValidator sval = new BungeniStructuralValidator();
-        HashMap mmap = new HashMap();
-        mmap.put("OdfFileURL", "file:/home/undesa/Projects/Bungeni/BungeniEditor/trunk/BungeniEditorClient/dist/workspace/files/ke/debaterecord/2009-5-22/eng/ke_debaterecord_2009-5-22_eng.odt");
-        mmap.put("RulesRootFolder","/home/undesa/Projects/Bungeni/BungeniEditor/trunk/BungeniEditorClient/dist/settings/structural_rules" );
+        HashMap                    mmap = new HashMap();
+
+        mmap.put(
+            "OdfFileURL",
+            "file:/home/undesa/Projects/Bungeni/BungeniEditor/trunk/BungeniEditorClient/dist/workspace/files/ke/debaterecord/2009-5-22/eng/ke_debaterecord_2009-5-22_eng.odt");
+        mmap.put(
+            "RulesRootFolder",
+            "/home/undesa/Projects/Bungeni/BungeniEditor/trunk/BungeniEditorClient/dist/settings/structural_rules");
         mmap.put("CurrentDocType", "debaterecord");
+       mmap.put("ParentEventDispatcher", new TestDispatcher());
+       mmap.put("ParentEventDispatcherClass", "org.bungeni.plugins.structuralvalidator.TestDispatcher");
+
         sval.setParams(mmap);
         sval.exec();
-
     }
 }
