@@ -45,7 +45,7 @@
 	
 	</actionGroup>
 
-        <actionGroup name="tabOthers" title="Structural" visible="true" uimodel="scroll">
+        <actionGroup name="tabOthers" title="Structural" visible="true" uimodel="wrap">
 	<blockAction name="Masthead.Selection" tooltip="Masthead for debaterecord" title="Preface"  target="null" visible="true" condition="none" showChildren="true" >
                   <subaction name="Masthead.selection" title="Preface Section" tooltip="Select some text to mark it up as a Part" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMastheadSection.section_creation" visible="true" condition="cursorInSection:debaterecord :and: textSelected:true :and: sectionNotExists:preface" />
                     <!--<subaction name="Masthead.selection.date" title="Official Date" tooltip="Select some text to mark it up as a preface date" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMetadataReference.mark:mBungeniOfficialDate" visible="true" condition="cursorInSection:masthead :and: textSelected:true" />
