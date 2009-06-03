@@ -20,11 +20,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.border.LineBorder;
 import org.bungeni.editor.rules.ui.panelStructuralError;
+import org.bungeni.editor.rules.ui.panelStructuralErrorBrowser;
 import org.bungeni.editor.rulesimpl.StructuralErrorSerialize;
 
 /**
@@ -62,6 +61,8 @@ public class BungeniStructuralValidator implements IEditorPlugin {
         this.rulesRootFolder = (String) this.editorParams.get("RulesRootFolder");
         this.currentDocType  = (String) this.editorParams.get("CurrentDocType");
         this.callerPanel = this.editorParams.get("CallerPanel");
+        StructuralRulesConfig.APPLN_PATH_PREFIX = rulesRootFolder;
+
             if (this.editorParams.containsKey("ParentFrame")) {
                 this.callerFrame = (JFrame) this.editorParams.get("ParentFrame");
             }
@@ -71,11 +72,18 @@ public class BungeniStructuralValidator implements IEditorPlugin {
         }
     }
 
+    public void showErrors() {
+          javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        panelStructuralErrorBrowser.launchFrame(odfFileUrl, callerFrame, callerPanel);
+                    }
+          });
+    }
+
     public String exec() {
         String retValue = "";
         try {
             log.debug("calling exec()");
-            StructuralRulesConfig.APPLN_PATH_PREFIX = rulesRootFolder;
 
             // configure the source files
             String ruleEnginesFile = StructuralRulesConfig.getRuleEnginesPath() + this.currentDocType + ".xml";
@@ -95,7 +103,13 @@ public class BungeniStructuralValidator implements IEditorPlugin {
             if (errors.size() > 0 ) {
                 StructuralErrorSerialize seSerialize = new StructuralErrorSerialize(this.odfFileUrl);
                 seSerialize.writeErrorsToLog(errors);
-
+                final ArrayList<StructuralError> finalErrors = errors;
+                javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        panelStructuralError.launchFrame(finalErrors, callerFrame, callerPanel);
+                    }
+                });
+                /*
                 //Class[] objParams = {String.class};
                 //Method mgotoSection = this.callerPanel.getClass().getDeclaredMethod("goToSection", objParams);
                 //Object[] funcArgs = { "helloWorld" };
@@ -110,7 +124,7 @@ public class BungeniStructuralValidator implements IEditorPlugin {
                 } else {
                     floatingFrame = new JDialog();
                 }
-
+                floatingFrame.setTitle("Structural Errors");
                 floatingFrame.getContentPane().add(pse);
                 floatingFrame.setAlwaysOnTop(true);
                 if (this.callerFrame != null)
@@ -120,7 +134,7 @@ public class BungeniStructuralValidator implements IEditorPlugin {
                 floatingFrame.add(pse);
                 floatingFrame.setSize(465, 320);
                 floatingFrame.pack();
-                floatingFrame.setVisible(true);
+                floatingFrame.setVisible(true); */
             } else {
                JOptionPane.showMessageDialog(callerFrame, "No errors were found", "Structural Validator", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -143,10 +157,12 @@ public class BungeniStructuralValidator implements IEditorPlugin {
             "RulesRootFolder",
             "/home/undesa/Projects/Bungeni/BungeniEditor/trunk/BungeniEditorClient/dist/settings/structural_rules");
         mmap.put("CurrentDocType", "debaterecord");
-       mmap.put("ParentEventDispatcher", new TestDispatcher());
-       mmap.put("ParentEventDispatcherClass", "org.bungeni.plugins.structuralvalidator.TestDispatcher");
+          mmap.put("ParentFrame",null);
+                                            mmap.put("CallerPanel", new Object());
+      // mmap.put("ParentEventDispatcher", new TestDispatcher());
+      // mmap.put("ParentEventDispatcherClass", "org.bungeni.plugins.structuralvalidator.TestDispatcher");
 
         sval.setParams(mmap);
-        sval.exec();
+        sval.showErrors();
     }
 }

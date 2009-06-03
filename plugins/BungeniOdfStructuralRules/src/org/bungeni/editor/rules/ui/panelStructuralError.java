@@ -23,15 +23,16 @@ import java.awt.event.WindowEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.LineBorder;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.rulesimpl.StructuralError;
 import org.bungeni.editor.rulesimpl.StructuralErrorTableModel;
-import org.bungeni.plugins.IEditorPluginEventDispatcher;
 ////import org.bungeni.ooo.OOComponentHelper;
 
 /**
@@ -50,7 +51,7 @@ public class panelStructuralError extends javax.swing.JPanel  {
     private static final int PANEL_HEIGHT_PADDING = 15;
 
     ArrayList<StructuralError> structuralErrors = new ArrayList<StructuralError>(0);
-    JFrame parentFrame = null;
+    Window parentFrame = null;
     Window containerFrame = null;
     Object callerPanel = null;
 
@@ -189,6 +190,14 @@ public class panelStructuralError extends javax.swing.JPanel  {
         this.scrollTblErrors.setViewportView(tblErrors);
     }
 
+    public void updatePanel(ArrayList<StructuralError> errors) {
+        this.structuralErrors = errors;
+        StructuralErrorTableModel stModel = new StructuralErrorTableModel(this.structuralErrors);
+        this.tblErrors.setModel(stModel);
+        initColumnConfig();
+    }
+
+
     private void initColumnConfig(){
        //set the second column to multiline mode
         TableColumnModel tblColumnModel = this.tblErrors.getColumnModel();
@@ -218,6 +227,9 @@ public class panelStructuralError extends javax.swing.JPanel  {
         });
         }
 
+       public Window getContainerFrame() {
+           return this.containerFrame;
+       }
        private void parentWindowClosing(){
             //save the panel xml to file
             //first convert the error information to xml
@@ -304,4 +316,31 @@ public class panelStructuralError extends javax.swing.JPanel  {
     private javax.swing.JTable tblErrors;
     // End of variables declaration//GEN-END:variables
 
+
+    public static panelStructuralError launchFrame(ArrayList<StructuralError> errors, Window callerFrame, Object callerPanel){
+
+                panelStructuralError       pse    = new panelStructuralError(errors, callerPanel);
+                pse.setBorder(LineBorder.createGrayLineBorder());
+
+                JDialog floatingFrame = null;
+
+                if (callerFrame == null) {
+                    floatingFrame = new JDialog(callerFrame);
+                } else {
+                    floatingFrame = new JDialog();
+                }
+                floatingFrame.setTitle("Structural Errors");
+                floatingFrame.getContentPane().add(pse);
+                floatingFrame.setAlwaysOnTop(true);
+                if (callerFrame != null)
+                    floatingFrame.setLocationRelativeTo(null);
+                pse.setContainerFrame(floatingFrame);
+                floatingFrame.add(pse);
+                floatingFrame.setSize(465, 320);
+                floatingFrame.pack();
+                floatingFrame.setVisible(true);
+                floatingFrame.toFront();
+                return pse;
+
+    }
 }

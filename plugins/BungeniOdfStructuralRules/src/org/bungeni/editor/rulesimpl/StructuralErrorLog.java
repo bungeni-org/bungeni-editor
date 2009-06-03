@@ -20,4 +20,9 @@ public class StructuralErrorLog {
     public StructuralErrorLog(){
         
     }
+
+    @Override
+    public String toString(){
+        return sourceFile + "\n" + timeStamp.toString() + "\n" + structuralErrors.toString();
+    }
 }
