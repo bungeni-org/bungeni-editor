@@ -92,6 +92,9 @@
           <ResourceString bundle="org/bungeni/editor/panels/loadable/Bundle.properties" key="validateAndCheckPanel.btnViewErrorLog.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnViewErrorLogActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="chkAllowedChildren">
       <Properties>

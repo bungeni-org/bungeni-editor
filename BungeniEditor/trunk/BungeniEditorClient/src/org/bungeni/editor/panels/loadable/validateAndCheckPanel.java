@@ -71,7 +71,36 @@ public class validateAndCheckPanel extends BaseClassForITabbedPanel{
     //};
 
 
+private Object[] getValidatePluginParams() {
+            final String odfFileUrl = ooDocument.getDocumentURL();
+            final String currentDocType = BungeniEditorPropertiesHelper.getCurrentDocType();
+            final String rulesRootFolder = CommonEditorFunctions.getPathRelativeToRoot(BungeniEditorProperties.getEditorProperty("structuralRulesRootPath"));
+            final validateAndCheckPanel ppPanel = this;
 
+            Object[] argSetParams = {new HashMap() {{
+                                            put("OdfFileURL", odfFileUrl);
+                                            put("CurrentDocType", currentDocType);
+                                            put("RulesRootFolder",rulesRootFolder);
+                                            put("ParentFrame", parentFrame);
+                                            put("CallerPanel", ppPanel);
+                                         //   put("ParentEventDispatcher", seHandler);
+                                         //   put("ParentEventDispatcherClass", "org.bungeni.editor.panels.loadable.transformXMLPanel$StructValidatorEventHandler");
+                                        }}};
+            return argSetParams;
+}
+
+private void viewErrorLog() {
+          if (ooDocument.isDocumentOnDisk()) {
+                ExternalPluginLoader ep = new ExternalPluginLoader();
+                final StructValidatorEventHandler seHandler = new StructValidatorEventHandler();
+                ExternalPlugin rulesValidator = ep.loadPlugin("StructuralRulesValidator");
+                Object[] argSetParams = getValidatePluginParams();
+                rulesValidator.callMethod("setParams", argSetParams);
+                Object[] argParams = {};
+                Object[] argExec = {argParams};
+                Object retValue = rulesValidator.callMethod("exec2", argExec);
+          }
+}
 private void validateStructure() {
           if (ooDocument.isDocumentOnDisk()) {
           //  generatePlainDocument();
@@ -80,20 +109,21 @@ private void validateStructure() {
             final StructValidatorEventHandler seHandler = new StructValidatorEventHandler();
             ExternalPlugin rulesValidator = ep.loadPlugin("StructuralRulesValidator");
   
-            final String odfFileUrl = ooDocument.getDocumentURL();
+           /* final String odfFileUrl = ooDocument.getDocumentURL();
             final String currentDocType = BungeniEditorPropertiesHelper.getCurrentDocType();
             final String rulesRootFolder = CommonEditorFunctions.getPathRelativeToRoot(BungeniEditorProperties.getEditorProperty("structuralRulesRootPath"));
-            final validateAndCheckPanel ppPanel = this;
+            final validateAndCheckPanel ppPanel = this;*/
      
-            Object[] argSetParams = {new HashMap() {{
+            /*Object[] argSetParams = {new HashMap() {{
                                             put("OdfFileURL", odfFileUrl);
                                             put("CurrentDocType", currentDocType);
                                             put("RulesRootFolder",rulesRootFolder);
                                             put("ParentFrame", parentFrame);
                                             put("CallerPanel", ppPanel);
-                                            put("ParentEventDispatcher", seHandler);
-                                            put("ParentEventDispatcherClass", "org.bungeni.editor.panels.loadable.transformXMLPanel$StructValidatorEventHandler");
-                                        }}};
+                                         //   put("ParentEventDispatcher", seHandler);
+                                         //   put("ParentEventDispatcherClass", "org.bungeni.editor.panels.loadable.transformXMLPanel$StructValidatorEventHandler");
+                                        }}};*/
+            Object[] argSetParams = getValidatePluginParams();
             rulesValidator.callMethod("setParams", argSetParams);
             Object[] argExec = {};
             Object retValue = rulesValidator.callMethod("exec", argExec);
@@ -142,30 +172,35 @@ public void goToSectionPosition(String sectionName) {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 1, 10)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 1, 10));
         jLabel1.setText(bundle.getString("validateAndCheckPanel.jLabel1.text")); // NOI18N
 
-        btnViewErrorLog.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnViewErrorLog.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnViewErrorLog.setText(bundle.getString("validateAndCheckPanel.btnViewErrorLog.text")); // NOI18N
+        btnViewErrorLog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewErrorLogActionPerformed(evt);
+            }
+        });
 
-        chkAllowedChildren.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        chkAllowedChildren.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         chkAllowedChildren.setSelected(true);
         chkAllowedChildren.setText(bundle.getString("validateAndCheckPanel.chkAllowedChildren.text")); // NOI18N
 
-        chkOrderOfSections.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        chkOrderOfSections.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         chkOrderOfSections.setSelected(true);
         chkOrderOfSections.setText(bundle.getString("validateAndCheckPanel.chkOrderOfSections.text")); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("DejaVu Sans", 1, 10)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("DejaVu Sans", 1, 10));
         jLabel2.setText(bundle.getString("validateAndCheckPanel.jLabel2.text")); // NOI18N
 
-        btnValidate.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnValidate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnValidate.setText(bundle.getString("validateAndCheckPanel.btnValidate.text")); // NOI18N
 
-        btnViewValidationErrors.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnViewValidationErrors.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnViewValidationErrors.setText(bundle.getString("validateAndCheckPanel.btnViewValidationErrors.text")); // NOI18N
 
-        btnViewXml.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnViewXml.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnViewXml.setText(bundle.getString("validateAndCheckPanel.btnViewXml.text")); // NOI18N
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
@@ -216,6 +251,11 @@ public void goToSectionPosition(String sectionName) {
         //iterate through the document and process the rules for every section
         //processSections(sre);
     }//GEN-LAST:event_btnValidateStructureActionPerformed
+
+    private void btnViewErrorLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewErrorLogActionPerformed
+        // TODO add your handling code here:
+        viewErrorLog();
+    }//GEN-LAST:event_btnViewErrorLogActionPerformed
 
     @Override
     public void initialize() {
