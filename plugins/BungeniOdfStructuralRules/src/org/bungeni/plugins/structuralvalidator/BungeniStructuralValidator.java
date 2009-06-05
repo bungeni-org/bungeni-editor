@@ -56,6 +56,7 @@ public class BungeniStructuralValidator implements IEditorPlugin {
     public void setParams(HashMap inputParams) {
         try {
         log.debug("setting inputparams");
+        System.out.println("setting input params");
         this.editorParams    = inputParams;
         this.odfFileUrl      = (String) this.editorParams.get("OdfFileURL");
         this.rulesRootFolder = (String) this.editorParams.get("RulesRootFolder");
@@ -66,18 +67,25 @@ public class BungeniStructuralValidator implements IEditorPlugin {
             if (this.editorParams.containsKey("ParentFrame")) {
                 this.callerFrame = (JFrame) this.editorParams.get("ParentFrame");
             }
+        System.out.println("finishing input params");
+
         } catch (Exception ex) {
             log.error("setParams : " + ex.getMessage());
             log.error("setParams : stacktrace : ", ex);
+            ex.printStackTrace(System.out);
         }
     }
 
-    public void showErrors() {
+    public Object exec2(Object[] params) {
+        String retValue = "";
+        System.out.println("calling showErrors");
           javax.swing.SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
+                        System.out.println("calling launchframe");
                         panelStructuralErrorBrowser.launchFrame(odfFileUrl, callerFrame, callerPanel);
                     }
           });
+       return retValue ;
     }
 
     public String exec() {
@@ -109,32 +117,6 @@ public class BungeniStructuralValidator implements IEditorPlugin {
                         panelStructuralError.launchFrame(finalErrors, callerFrame, callerPanel);
                     }
                 });
-                /*
-                //Class[] objParams = {String.class};
-                //Method mgotoSection = this.callerPanel.getClass().getDeclaredMethod("goToSection", objParams);
-                //Object[] funcArgs = { "helloWorld" };
-                //mgotoSection.invoke(callerPanel, funcArgs);
-                panelStructuralError       pse    = new panelStructuralError(errors, callerPanel);
-                pse.setBorder(LineBorder.createGrayLineBorder());
-
-                JDialog floatingFrame = null;
-
-                if (this.callerFrame == null) {
-                    floatingFrame = new JDialog(callerFrame);
-                } else {
-                    floatingFrame = new JDialog();
-                }
-                floatingFrame.setTitle("Structural Errors");
-                floatingFrame.getContentPane().add(pse);
-                floatingFrame.setAlwaysOnTop(true);
-                if (this.callerFrame != null)
-                    floatingFrame.setLocationRelativeTo(null);
-                // panelStructuralError pPanel = new panelStructuralError(sErrors, ooDocument);
-                pse.setContainerFrame(floatingFrame);
-                floatingFrame.add(pse);
-                floatingFrame.setSize(465, 320);
-                floatingFrame.pack();
-                floatingFrame.setVisible(true); */
             } else {
                JOptionPane.showMessageDialog(callerFrame, "No errors were found", "Structural Validator", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -163,6 +145,6 @@ public class BungeniStructuralValidator implements IEditorPlugin {
       // mmap.put("ParentEventDispatcherClass", "org.bungeni.plugins.structuralvalidator.TestDispatcher");
 
         sval.setParams(mmap);
-        sval.showErrors();
+       // sval.showErrors();
     }
 }

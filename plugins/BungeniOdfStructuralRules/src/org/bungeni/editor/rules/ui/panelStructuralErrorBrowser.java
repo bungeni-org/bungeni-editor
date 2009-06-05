@@ -173,7 +173,7 @@ public class panelStructuralErrorBrowser extends javax.swing.JPanel {
         lblErrors = new javax.swing.JLabel();
         btnCancel = new javax.swing.JButton();
 
-        listErrorLog.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        listErrorLog.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         listErrorLog.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -181,11 +181,16 @@ public class panelStructuralErrorBrowser extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(listErrorLog);
 
-        lblErrors.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblErrors.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblErrors.setText("Browse the Error Log");
 
-        btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnCancel.setText("Close");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -210,6 +215,11 @@ public class panelStructuralErrorBrowser extends javax.swing.JPanel {
                 .addComponent(btnCancel))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        // TODO add your handling code here:
+        parentWindowClosing();
+    }//GEN-LAST:event_btnCancelActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
