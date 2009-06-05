@@ -2,21 +2,30 @@ package org.bungeni.odfdom.section;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.openoffice.odf.doc.OdfDocument;
 import org.openoffice.odf.doc.OdfFileDom;
 import org.openoffice.odf.doc.element.office.OdfAutomaticStyles;
+import org.openoffice.odf.doc.element.office.OdfMasterStyles;
+import org.openoffice.odf.doc.element.office.OdfStyles;
 import org.openoffice.odf.doc.element.style.OdfBackgroundImage;
+import org.openoffice.odf.doc.element.style.OdfMasterPage;
+import org.openoffice.odf.doc.element.style.OdfPageLayout;
 import org.openoffice.odf.doc.element.style.OdfSectionProperties;
 import org.openoffice.odf.doc.element.style.OdfStyle;
 import org.openoffice.odf.doc.element.text.OdfSection;
 import org.openoffice.odf.dom.OdfNamespace;
+import org.openoffice.odf.dom.element.OdfStyleBase;
 import org.openoffice.odf.dom.style.OdfStyleFamily;
+import org.openoffice.odf.dom.style.props.OdfStyleProperty;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -252,11 +261,10 @@ public class BungeniOdfSectionHelper {
 public static void main(String[] args) {
         try {
             OdfDocument odoc = OdfDocument.loadDocument(new File("/home/undesa/Desktop/debate_file_02.odt"));
-            BungeniOdfSectionHelper os = new BungeniOdfSectionHelper(odoc);
-           ArrayList<OdfSection> listSections = os.getChildSections(os.getSection("debaterecord"));
-            for (OdfSection odfSection : listSections) {
-                System.out.println(odfSection.getName());
-            }
+            BungeniOdfDocumentHelper helper = new BungeniOdfDocumentHelper(odoc);
+            helper.removeBackgroundImage();
+            odoc.save("/home/undesa/new.odt");
+          //  System.out.println(nl);
         } catch (Exception ex) {
             Logger.getLogger(BungeniOdfSectionHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
