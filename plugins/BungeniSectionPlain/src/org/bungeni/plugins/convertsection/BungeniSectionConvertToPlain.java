@@ -110,5 +110,9 @@ public class BungeniSectionConvertToPlain  implements IEditorPlugin {
             p.exec();
         }
 
+    public Object exec2(Object[] arg0) {
+        return new Object();
+    }
+
 
 }
