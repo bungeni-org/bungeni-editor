@@ -1152,7 +1152,8 @@ private void launchDocumentType(documentType thisDocType, String launchMode) {
                         initoOoAndLaunchFrame(fullPathToFile, false);
                     } else {
                         if (launchMode.equals("edit")) {
-                         XMultiComponentFactory mcf = this.m_xContext.getServiceManager();
+                         /*
+                            XMultiComponentFactory mcf = this.m_xContext.getServiceManager();
                          Object oDesktop = null;
                         try {
                             oDesktop = mcf.createInstanceWithContext("com.sun.star.frame.Desktop", m_xContext);
@@ -1161,7 +1162,7 @@ private void launchDocumentType(documentType thisDocType, String launchMode) {
                         }
                          XDesktop xDesk = (com.sun.star.frame.XDesktop) com.sun.star.uno.UnoRuntime.queryInterface(com.sun.star.frame.XDesktop.class, oDesktop);
                          // (4a) get the XDesktop interface object
-                         xDesk.terminate();
+                         xDesk.terminate();*/
                          System.exit(0);
                         }
                     }

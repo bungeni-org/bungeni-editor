@@ -96,9 +96,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(editorTabbedPanel.class.getName());
     private String ROOT_SECTION = BungeniEditorPropertiesHelper.getDocumentRoot();
  
-    private Timer sectionNameTimer;
     private String currentSelectedSectionName = "";
-    private Timer docStructureTimer;
     private Timer componentsTrackingTimer;
     
     private changeStructureItem selectedChangeStructureItem;
@@ -891,7 +889,7 @@ class OpenDocumentAgent extends SwingWorker <XComponent, Void> {
                                 bringEditorWindowToFront();
                         }
                             String currentDocType = BungeniEditorPropertiesHelper.getCurrentDocType();
-                            //launchMetadataSetter(xComp);
+                            launchMetadataSetter(xComp);
                 }
             } catch (InterruptedException ex) {
                 log.error("openDocumentAgent : done: " + ex.getMessage());
