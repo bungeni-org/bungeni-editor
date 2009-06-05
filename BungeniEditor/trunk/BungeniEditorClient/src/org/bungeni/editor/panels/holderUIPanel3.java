@@ -12,7 +12,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,7 +22,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTabbedPane;
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
@@ -72,7 +73,6 @@ public class holderUIPanel3 extends javax.swing.JPanel implements IFloatingPanel
     private JFrame parentFrame;
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(holderUIPanel3.class.getName());
     private BungeniClientDB instance;
-    private Timer timerSectionTree;
     private String m_currentSelectedSectionName;
     private Timer toolbarTimer = null;
     //cache for conditions
@@ -225,15 +225,66 @@ public class holderUIPanel3 extends javax.swing.JPanel implements IFloatingPanel
         }
     }
 
+        class buttonPanelState {
+            buttonPanel btnPanel;
+            boolean panelState;
+            public buttonPanelState(buttonPanel bPanel, boolean bState) {
+                this.btnPanel = bPanel;
+                this.panelState = bState;
+            }
+        }
+
+        class buttonActionStateRunner extends SwingWorker<List<buttonPanelState>, buttonPanelState> {
+
+          public buttonActionStateRunner () {
+          }
+
+         @Override
+          public List<buttonPanelState> doInBackground() {
+                    boolean bState = false;
+                   ArrayList<buttonPanelState> panelStates = new ArrayList<buttonPanelState>();
+                    try {
+                        Component[] components = getButtonPanelsForSelectedTab();
+                        for (Component c : components) {
+                            //process only the child components that are button panels
+                            if (c.getClass().getName().equals(buttonPanel.class.getName())) {
+                                buttonPanel buttonPanel = (buttonPanel) c;
+                                BungeniToolbarActionElement actionElement = buttonPanel.getActionElement();
+                                bState = processActionCondition(actionElement.getCondition());
+                                buttonPanelState panelState = new buttonPanelState(buttonPanel, bState);
+                                panelStates.add(panelState);
+                                publish(panelState);
+
+                            }
+                        }
+                    } catch (Exception ex) {
+                        log.error("doInBackround : " + ex.getMessage());
+                        log.error("doInBackground : ", ex);
+                    } finally {
+                        return panelStates;
+                    }
+            }
+
+        @Override
+            protected void process(List<buttonPanelState> panelStates) {
+                for (buttonPanelState bps : panelStates) {
+                    bps.btnPanel.enableActionButton(bps.panelState);
+                }
+            }
+        }
+
+
     class BungeniToolbarTimerListener implements ActionListener {
+        buttonActionStateRunner actionStateRunner = null;
+
+        public BungeniToolbarTimerListener(){
+            actionStateRunner = new buttonActionStateRunner();
+        }
+
 
         public void actionPerformed(ActionEvent e) {
-            SwingUtilities.invokeLater(new Runnable() {
-
-                public void run() {
-                    processActionStatesForSelectedTab();
-                }
-            });
+            (new buttonActionStateRunner()).execute();
+         //   processActionStatesForSelectedTab();
         }
     }
 
