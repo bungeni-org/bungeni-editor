@@ -7,6 +7,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
 import org.apache.log4j.Logger;
+import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
 import org.bungeni.odfdom.section.IBungeniOdfSectionIterator;
 import org.bungeni.odfdom.utils.BungeniOdfFileCopy;
@@ -54,6 +55,10 @@ public class BungeniSectionConvertToPlain  implements IEditorPlugin {
       private boolean makePlainDocument(OdfDocument odfDoc, File fileCopy) {
         boolean bState = false;
         try {
+            //First remove page background image
+            BungeniOdfDocumentHelper docHelper = new BungeniOdfDocumentHelper(odfDoc);
+            docHelper.removeBackgroundImage();
+            //Remove section background images
             BungeniOdfSectionHelper odfDomHelper = new BungeniOdfSectionHelper(odfDoc);
             odfDomHelper.iterateSections(new IBungeniOdfSectionIterator(){
               public boolean nextSection(BungeniOdfSectionHelper helper, OdfSection arg0) {
@@ -105,7 +110,7 @@ public class BungeniSectionConvertToPlain  implements IEditorPlugin {
         public static void main(String[] args) {
             BungeniSectionConvertToPlain p = new BungeniSectionConvertToPlain();
             HashMap mp = new HashMap();
-            mp.put("OdfFileURL", "file:/home/undesa/Projects/Bungeni/BungeniEditor/trunk/BungeniEditorClient/dist/workspace/files/ke/debaterecord/2009-5-19/eng/ke_debaterecord_2009-5-19_eng.odt");
+            mp.put("OdfFileURL", "file:/home/undesa/Projects/Bungeni/BungeniEditor/trunk/BungeniEditorClient/dist/workspace/files/ke/debaterecord/2009-5-26/eng/ke_debaterecord_2009-5-26_eng.odt");
             p.setParams(mp);
             p.exec();
         }
