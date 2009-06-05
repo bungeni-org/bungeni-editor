@@ -97,6 +97,12 @@ public class ExternalPlugin {
                                 Class[] mExecParams = {};
                                 Method mExec = this.pluginClass.getDeclaredMethod("exec", mExecParams);
                                 this.methodMap.put("exec", mExec);
+                                //---- exec2 method ------------
+                                Class[] mExec2Params = {Object[].class};
+                                Method mExec2 = this.pluginClass.getDeclaredMethod("exec2", mExec2Params);
+                                this.methodMap.put("exec2", mExec2);
+
+
                                 bState = true ;
                         } else {
                             bState = true;
