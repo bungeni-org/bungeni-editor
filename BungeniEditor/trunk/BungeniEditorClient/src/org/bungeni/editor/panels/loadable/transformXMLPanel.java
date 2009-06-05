@@ -18,6 +18,7 @@ import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.extutils.CommonDocumentUtilFunctions;
 import org.bungeni.extutils.CommonEditorFunctions;
+import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTarget;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTargetFactory;
@@ -327,7 +328,12 @@ public void goToSectionPosition(String sectionName) {
             Object retValue = convertToPlain.callMethod("exec", argExec);
             if (retValue != null) {
                     String outputFilePath = (String) retValue;
-                    MessageBox.OK(parentFrame, "A plain document was generated, it can be found at : \n" + outputFilePath, "Plain Document generation", JOptionPane.INFORMATION_MESSAGE);
+                    File fFile = CommonFileFunctions.convertUrlToFile(outputFilePath);
+                    int nRet = MessageBox.Confirm(parentFrame, "Click Yes to open the plain document \n Click No to close this window", "Document Successfully Converted!");
+                    if (nRet == JOptionPane.YES_OPTION) {
+                        OOComponentHelper.openExistingDocument(fFile.getAbsolutePath());
+                    }
+                    //MessageBox.OK(parentFrame, "A plain document was generated, it can be found at : \n" + outputFilePath, "Plain Document generation", JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
             MessageBox.OK(parentFrame, "Please save the document before proceeding !", "Save the document", JOptionPane.ERROR_MESSAGE);
