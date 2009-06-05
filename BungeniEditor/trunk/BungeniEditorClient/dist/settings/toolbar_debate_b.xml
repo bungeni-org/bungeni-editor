@@ -12,6 +12,8 @@
         <actionGroup name="tabFavourites" title="Generic" visible="true" uimodel="wrap">
             <!--<blockAction name="Root" title="Create Root Section" visible="true" condition="sectionNotExists:debaterecord"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.general_action.create_root_section:debaterecord" />-->
 	    <blockAction name="Speeches" title="Speech" target="null" visible="true" condition="none">
+		<action name="PersonalStatement.create" title="Personal Statement" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makePersonalStatement.section_creation" visible="true" condition="textSelected:true :and: !cursorInSection:speech[0-9]* :and: cursorInSection:debaterecord" />
+		<subaction name="Heading.PersonalStatement" title="---- Heading" tooltip="Heading for personal statement" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeCommunicationAction.apply_style:heading_pstatement" visible="true" condition="cursorInSection:pstatemnt[0-9]* :and: textSelected:true"  />           
 		<action name="Speech.create" title="Speech Section" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.section_creation" visible="true" condition="textSelected:true :and: !cursorInSection:speech[0-9]*" />
 		<action name="Speech.SpeechBy" title="---- By" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.speech_by" visible="true" condition="textSelected:true :and: cursorInSection:speech[0-9]*" />
 		<action name="Speech.SpeechAs" title="---- As" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.speech_as" visible="true" condition="textSelected:true :and: cursorInSection:speech[0-9]*" />
@@ -20,8 +22,10 @@
 	    </blockAction>
             <blockAction name="Communication" title="Communication" target="null" visible="true" condition="none">
 		<!-- <action name="Communication.create" title="Mark as Communication" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeCommunicationAction.section_creation" visible="true" condition="textSelected:true" /> -->
-		<action name="Communication.fromTheChair" title="Communication From The Chair" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeCommunicationAction.section_creation" visible="true" condition="textSelected:true" />
-		<action name="Communication.pointOfOrder" title="Point of Order" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeCommunicationAction.section_creation" visible="true" condition="textSelected:true" />
+		<subaction name="Communication.fromTheChair" title="Communication From The Chair" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeCommunicationAction.section_creation" visible="true" condition="cursorInSection:debaterecord :and: textSelected:true" />
+		<subaction name="Heading.Communication.fromTheChair" title="---- Heading" tooltip="" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeCommunicationAction.apply_style:heading_comchair" visible="true" condition="cursorInSection:comnctn[0-9]* :and: textSelected:true"  />           
+		<subaction name="Communication.pointOfOrder" title="Point of Order" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makePointOfOrder.section_creation" visible="true" condition="cursorInSection:debaterecord :and: textSelected:true" />
+		<subaction name="Heading.Communication.pointOfOrder" title="---- Heading" tooltip="" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makePointOfOrder.apply_style:heading_pointoforder" visible="true" condition="cursorInSection:porder[0-9]* :and: textSelected:true"  />           
 		<!--<action name="Speech.create" title="Mark text Speech" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.section_creation" visible="true" condition="textSelected:true :and: cursorInSection:*" />
 		<action name="Speech.SpeechBy" title="Identify Speech By" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.speech_by" visible="true" condition="textSelected:true :and: cursorInSection:speech[0-9]*" />
 		<action name="Speech.SpeechAs" title="Identify Speech As" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.speech_as" visible="true" condition="textSelected:true :and: cursorInSection:speech[0-9]*" /> -->
