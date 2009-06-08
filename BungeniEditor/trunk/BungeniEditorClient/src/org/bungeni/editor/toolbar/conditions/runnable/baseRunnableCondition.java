@@ -9,38 +9,40 @@
 
 package org.bungeni.editor.toolbar.conditions.runnable;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bungeni.editor.toolbar.conditions.BungeniToolbarCondition;
 import org.bungeni.editor.toolbar.conditions.IBungeniToolbarCondition;
 import org.bungeni.ooo.OOComponentHelper;
 
 /**
- *
- * @author Administrator
+ *Base class that implements the toolbar condition processor interface
+ * @author Ashok Hariharsn
  */
 public abstract class baseRunnableCondition implements IBungeniToolbarCondition {
-    //protected OOComponentHelper ooDocument;
+
+      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(baseRunnableCondition.class.getName());
+
+
     /** Creates a new instance of baseRunnableCondition */
     public baseRunnableCondition() {
     }
-/*
-    public void setOOoComponentHelper(OOComponentHelper ooDocument) {
-        this.ooDocument = ooDocument;
-    }
-*/
-    public abstract boolean runCondition(OOComponentHelper ooDocument, BungeniToolbarCondition condition);
+
+    public abstract boolean runCondition(OOComponentHelper ooDocument, BungeniToolbarCondition condition) throws ConditionFailureException;
     
     public boolean processCondition(OOComponentHelper ooDocument, BungeniToolbarCondition condition) {
-        boolean bResult = false;
+            boolean bResult = false;
         try {
-        if (condition.hasNegationCondition())
-            bResult =  !runCondition(ooDocument, condition);
-        else
-            bResult = runCondition(ooDocument, condition);
-        } catch (Exception ex) {
-            
-        } finally {
-            return bResult;
+            if (condition.hasNegationCondition()) {
+                bResult = !runCondition(ooDocument, condition);
+            } else {
+                bResult = runCondition(ooDocument, condition);
+            }
+        } catch (Throwable ex) {
+            System.out.println("Catching condition Failure Exception");
         }
+
+        return bResult;
     }
     
 }

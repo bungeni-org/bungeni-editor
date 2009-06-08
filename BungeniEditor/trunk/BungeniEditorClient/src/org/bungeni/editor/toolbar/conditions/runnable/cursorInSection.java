@@ -76,8 +76,9 @@ public class cursorInSection extends baseRunnableCondition {
     }
     
     
-    boolean check_cursorInSection (OOComponentHelper ooDocument, BungeniToolbarCondition condition) {
+    boolean check_cursorInSection (OOComponentHelper ooDocument, BungeniToolbarCondition condition) throws ConditionFailureException {
         boolean bReturn = true;
+        ConditionFailureException cex = null;
         try {
         String sectionToActUpon =  condition.getConditionValue();
         if (sectionToActUpon.equals(BungeniEditorPropertiesHelper.getDocumentRoot())) {
@@ -112,24 +113,46 @@ public class cursorInSection extends baseRunnableCondition {
                         log.debug("check_cursorInSection: start and end range sections are NOT equal");
                         //fail condition if the starting span section is not equal to the ending span section
                         bReturn = false;
+                        //System.out.println("Throwing conditionfailureexception !!!!");
+                        //we throw a conditional failure exception to terminate the evaluation
+                        throw new ConditionFailureException("check_cursorInSection: start and end range sections are NOT equal");
                     }
                 }
          } else  {
              log.debug("check_cursorInSection: matchedSection was null");
              bReturn = false;
          }
+        } catch (ConditionFailureException cx) {
+          //System.out.println("Catching condition failure exception");
+           //cache the exception object
+          cex = cx;
         } catch (UnknownPropertyException ex) {
             log.error("check_cursorInSection: " + ex.getMessage());
         } catch (WrappedTargetException ex) {
             log.error("check_cursorInSection: " + ex.getMessage());
         } finally {
-            return bReturn;
+            //if no error was thrown return safely
+            if (cex == null)
+                return bReturn;
+            else {
+                //otherwise throw the exception again
+                //System.out.println("Throwing condition exception failure again");
+                throw new ConditionFailureException("calling exception handler parent");
+            }
         }
     }
     
-    
-    public boolean runCondition(OOComponentHelper ooDocument, BungeniToolbarCondition condition) {
-            return check_cursorInSection(ooDocument, condition);
+    /**
+     * We dont catch any exceptions here, simply throw it to the caller (ProcessCondition)
+     * @param ooDocument
+     * @param condition
+     * @return
+     * @throws org.bungeni.editor.toolbar.conditions.runnable.ConditionFailureException
+     */
+    public boolean runCondition(OOComponentHelper ooDocument, BungeniToolbarCondition condition) throws ConditionFailureException {
+            boolean bState = false;
+            bState = check_cursorInSection(ooDocument, condition);
+            return bState;
         }
     
 }
