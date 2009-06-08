@@ -504,11 +504,11 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
         percentLayout2.setOrientation(1);
         paneMain.setLayout(percentLayout2);
 
-        btnApply.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnApply.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/Bundle"); // NOI18N
         btnApply.setText(bundle.getString("BaseMetadataContainerPanel.btnApply.text")); // NOI18N
 
-        btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnCancel.setText(bundle.getString("BaseMetadataContainerPanel.btnCancel.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
