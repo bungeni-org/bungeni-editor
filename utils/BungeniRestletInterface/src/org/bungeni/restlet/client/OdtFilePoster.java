@@ -6,11 +6,11 @@
 package org.bungeni.restlet.client;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
+import java.io.OutputStream;
 import org.restlet.Client;
+import org.restlet.data.Form;
 import org.restlet.data.MediaType;
 import org.restlet.data.Method;
 import org.restlet.data.Protocol;
@@ -20,8 +20,26 @@ import org.restlet.data.Status;
 import org.restlet.resource.FileRepresentation;
 import org.restlet.resource.Representation;
 /**
+ * Helper class to post an ODT file to the transformer.
+ * Response is returned as an Xml Message.
+ * <TransformerRespose>
+ * <sourceFile></sourceFile>
+ * <transformResult>
+ *  <state></state>
+ *  <!-- for state; 0 = success / -1 = output with errors / -2 = failure -->
+ *  <errors>
+ *      <![CDATA[
  *
- * @author ashok
+ *      ]]>s
+ *  </errors>
+ *  <output>
+ *      <![CDATA[
+ *
+ *      ]]>
+ * </output>
+ * </transformResult>
+ * </TransformerResponse>
+ * @author Ashok Hariharan
  */
 public class OdtFilePoster {
 
@@ -35,23 +53,10 @@ public class OdtFilePoster {
     byte[] fileContents = null;
     String conversionMode = "";
 
-
-    private byte[] fileToByteArray(String fFile) {
-        byte[] bitesFile = null;
-        try {
-            File ffFile = new File(fFile);
-            FileInputStream fistream = new FileInputStream(ffFile);
-            Long fileSize = ffFile.length();
-            bitesFile = new byte[fileSize.intValue()];
-            fistream.read(bitesFile);
-        } catch (IOException ex) {
-            log.error("fileToyteArray :" , ex);
-        } finally {
-            return bitesFile;
-        }
-
-    }
-
+    /**
+     * Create a new request Object
+     * @return
+     */
     private  final Request getRequest(){
         final Request request = new Request();
         // Identify ourselves.
@@ -65,19 +70,42 @@ public class OdtFilePoster {
 
 
 
+    /**
+     * Initializae the poster by setting the server URI
+     * @param serverUri
+     */
     public OdtFilePoster (String serverUri) {
         this.serverURI = serverUri;
     }
 
-    public Status postFile(String filetoPost){
+    /***
+     * APi that does the actual "POST"
+     * @param filetoPost - path the to the file to be posted
+     * @param responseAsStream - the returned response will be written to this output stream
+     * @return
+     */
+    public Status postFile(String filetoPost, OutputStream responseAsStream){
         Status status = null;
         try {
+            //ge the file handle to the file to post
             this.fileName = filetoPost;
             File fileToPost = new File(this.fileName);
             final Request request= getRequest();
+            //create  a client connector
             Client client = new Client(Protocol.HTTP);
-            Representation rep = new FileRepresentation(fileToPost, MediaType.APPLICATION_PDF, 0);
+            //generate a file representation of the submission
+            Representation rep = new FileRepresentation(fileToPost, MediaType.APPLICATION_ZIP, 0);
             request.setEntity(rep);
+            //get the http headers
+            Form requestHeader = (Form) request.getAttributes().get("org.restlet.http.headers");
+            //if there is no http header, add one
+            if (requestHeader == null) {
+                requestHeader = new Form();
+                request.getAttributes().put("org.restlet.http.headers", requestHeader);
+            }
+            //we set a custom header so the file name gets transported
+            requestHeader.add("X-Odt-File", fileToPost.getName());
+            //finally post the request
             final Response response = client.handle(request);
 
             //byte[] fileBytes = this.fileToByteArray(this.fileName);
@@ -90,7 +118,7 @@ public class OdtFilePoster {
             //final Response response = client.handle(request);
             status = response.getStatus();
             Representation retRep = response.getEntity();
-            retRep.write(new FileOutputStream("/Users/ashok/out.xml"));
+            retRep.write(responseAsStream);
         } catch (IOException ex) {
            log.error("fileToyteArray :" , ex);
         } finally {
@@ -102,7 +130,7 @@ public class OdtFilePoster {
 
     public static void main(String[] args) {
         OdtFilePoster fc = new OdtFilePoster("http://localhost:8182/convert_to_anxml");
-        System.out.println(fc.postFile("/Users/ashok/Desktop/book.pdf"));
+       // System.out.println(fc.postFile("/home/undesa/Desktop/mark_this_up.odt"));
 
     }
 
