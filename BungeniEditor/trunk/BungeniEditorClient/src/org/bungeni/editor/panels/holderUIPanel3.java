@@ -22,6 +22,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTabbedPane;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
@@ -186,6 +187,15 @@ public class holderUIPanel3 extends javax.swing.JPanel implements IFloatingPanel
         else
             this.lblCurrentSectionName.setText(sectionChange + "(" + strSelectedStyle + ")");
         this.m_currentSelectedSectionName = sectionChange;
+
+        //update the section structure tree
+        SwingUtilities.invokeLater(new Runnable(){
+
+            public void run() {
+                SwingUtilities.updateComponentTreeUI(sectionStructureTree);
+            }
+
+        });
     }
 
 
