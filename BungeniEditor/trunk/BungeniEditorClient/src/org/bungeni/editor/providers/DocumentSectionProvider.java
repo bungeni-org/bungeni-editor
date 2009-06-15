@@ -28,7 +28,6 @@ import java.util.Iterator;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
 import javax.swing.SwingWorker;
-import javax.swing.Timer;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
@@ -39,14 +38,14 @@ import org.bungeni.utils.NodeDisplayTextSetter;
 
 /**
  *
- * @author Administrator
+ * @author Ashok Hariharan
  */
 public class DocumentSectionProvider {
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DocumentSectionProvider.class.getName());
     private static OOComponentHelper ooDocument;
     private static BungeniBTree theSectionTree = new BungeniBTree();
     public static int TIMER_DELAY = 4000;
-    static Timer sectionRefreshTimer;
+ //   static Timer sectionRefreshTimer;
     //private static ArrayList<DocumentSectionAdapterDefaultTreeModel> treeModelList = new ArrayList<DocumentSectionAdapterDefaultTreeModel>();
     private static ArrayList<IRefreshableSectionTreeModel> treeModelList = new ArrayList<IRefreshableSectionTreeModel>();
 
