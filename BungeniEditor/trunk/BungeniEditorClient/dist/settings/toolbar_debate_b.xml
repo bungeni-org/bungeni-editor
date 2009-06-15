@@ -87,23 +87,23 @@
 			condition="textSelected:true :and: cursorInSection:questions[0-9]*" />
 		<action name="Questions.heading1" title="---- Heading" mode="TEXT_SELECTED_INSERT" 
 			target="toolbarSubAction.makeDebateQuestionBlockSection.apply_questiontext_style:heading_question" visible="true" 
-			condition="textSelected:true :and: cursorInSection:questions[0-9]*." />
+			condition="textSelected:true :and: cursorInSection:qa[0-9]*." />
 		<action name="Questions.subheading" title="---- ---- Sub-Heading" mode="TEXT_SELECTED_INSERT" 
 			target="toolbarSubAction.makeDebateQuestionBlockSection.apply_questiontext_style:subheading_question" visible="true" 
-			condition="textSelected:true :and: cursorInSection:question[0-9]*." />
+			condition="textSelected:true :and: cursorInSection:qa[0-9]*." />
 		<action name="QuestionsSection.Q.new" title="Spoken Question" mode="TEXT_SELECTED_INSERT" 
 			target="toolbarSubAction.makeDebateQuestionSection.section_creation" visible="true" 
-			condition="textSelected:true :and: cursorInSection:qa[0-9]*" />
+			condition="textSelected:true :and: cursorInSection:qa[0-9]* :and: !sectionHasChild:sque[0-9]*" />
 		<!-- markup text as question no. -->		
 		<action name="Questions.markup" title="---- Number" mode="TEXT_SELECTED_INSERT" 
 			target="toolbarSubAction.makeDebateQuestionBlockSection.markup_question_no" visible="true" 
-			condition="textSelected:true :and: cursorInSection:qa[0-9]*" />
+			condition="textSelected:true :and: cursorInSection:sque[0-9]*" />
 		<!-- markup question by-->
 		<action name="Questions.by.markup" title="---- By" mode="TEXT_SELECTED_INSERT" 
 			target="toolbarSubAction.makeDebateQuestionBlockSection.markup_question_by" visible="true" 
-			condition="textSelected:true :and: cursorInSection:qa[0-9]*" />
+			condition="textSelected:true :and: cursorInSection:sque[0-9]*" />
 		<!-- markup quetion to -->
-		<action name="Questions.to.markup" title="---- To" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateQuestionBlockSection.markup_question_to" visible="true" condition="textSelected:true :and: cursorInSection:qa[0-9]*" />
+		<action name="Questions.to.markup" title="---- To" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateQuestionBlockSection.markup_question_to" visible="true" condition="textSelected:true :and: cursorInSection:sque[0-9]*" />
 		<!-- markup question heading -->
 		<!--<action name="Questions.heading" title="Question Heading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateQuestionBlockSection.apply_questiontext_style:question-text" visible="true" condition="textSelected:true :and: cursorInSection:question[0-9]*." />
 		<action name="Questions.text.markup" title="Question Text" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateQuestionBlockSection.apply_questiontext_style:question-subtitle" visible="true" condition="textSelected:true :and: cursorInSection:question[0-9]*." /> -->
