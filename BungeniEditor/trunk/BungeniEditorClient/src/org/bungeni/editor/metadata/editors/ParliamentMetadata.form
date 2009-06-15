@@ -16,17 +16,17 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="lblParliamentID" min="-2" max="-2" attributes="1"/>
-                  <Component id="lblParliamentSitting" min="-2" max="-2" attributes="1"/>
-                  <Component id="lblParliamentSession" min="-2" max="-2" attributes="1"/>
-                  <Component id="BungeniParliamentID" alignment="0" pref="177" max="32767" attributes="1"/>
-                  <Component id="txtParliamentSitting" alignment="0" max="32767" attributes="1"/>
-                  <Component id="txtParliamentSession" alignment="0" max="32767" attributes="1"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="txtParliamentSitting" alignment="0" pref="198" max="32767" attributes="1"/>
+                  <Component id="txtParliamentSession" alignment="0" pref="198" max="32767" attributes="1"/>
+                  <Component id="BungeniParliamentID" alignment="0" pref="198" max="32767" attributes="1"/>
+                  <Component id="lblParliamentID" alignment="0" min="-2" max="-2" attributes="1"/>
+                  <Component id="lblParliamentSession" alignment="0" min="-2" max="-2" attributes="1"/>
+                  <Component id="lblParliamentSitting" alignment="0" min="-2" max="-2" attributes="1"/>
               </Group>
-              <EmptySpace pref="33" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -38,14 +38,14 @@
               <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
               <Component id="BungeniParliamentID" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="lblParliamentSitting" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="txtParliamentSitting" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="lblParliamentSession" min="-2" pref="13" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="txtParliamentSession" min="-2" pref="19" max="-2" attributes="0"/>
-              <EmptySpace pref="46" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="lblParliamentSitting" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="txtParliamentSitting" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="52" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
