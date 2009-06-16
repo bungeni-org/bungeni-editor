@@ -84,10 +84,25 @@ public class OdtFilePoster {
        
     }
 
+    /**
+     * Sets the URI map for the server posting parameters
+     * the two URI maps supported are :
+     * convert_to_anxml
+     * set_convert_params
+     *
+     * @param postUriMap
+     */
     public static void setPostUriMap(HashMap<String,String> postUriMap) {
        POST_URI_MAP = postUriMap;
     }
 
+   
+
+    /**
+     * Set the parameters first
+     * @param documentType
+     * @return
+     */
     public Status postParams(String documentType) {
         Status status = null;
         try {
@@ -135,15 +150,6 @@ public class OdtFilePoster {
             requestHeader.add("X-Odt-File", fileToPost.getName());
             //finally post the request
             final Response response = client.handle(request);
-
-            //byte[] fileBytes = this.fileToByteArray(this.fileName);
-            // ByteArrayInputStream fileByteStream = new ByteArrayInputStream(fileBytes);
-            // Representation representation = new org.restlet.resource.InputRepresentation(fileByteStream, MediaType.APPLICATION_OCTET_STREAM);
-            // request.setEntity(representation);
-            // Prepare HTTP client connector.
-            //final Client client = new Client(Protocol.HTTP);
-            // Make the call.
-            //final Response response = client.handle(request);
             status = response.getStatus();
             Representation retRep = response.getEntity();
             retRep.write(responseAsStream);
@@ -156,12 +162,6 @@ public class OdtFilePoster {
 
     }
 
-    public static void main(String[] args) {
-            OdtFilePoster fc = new OdtFilePoster();
-            fc.postParams("judgement");
-            
-       // System.out.println(fc.postFile("/home/undesa/Desktop/mark_this_up.odt"));
 
-    }
 
 }
