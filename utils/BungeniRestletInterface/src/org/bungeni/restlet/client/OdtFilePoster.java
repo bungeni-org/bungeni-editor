@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 import java.io.OutputStream;
+import java.util.HashMap;
 import org.restlet.Client;
 import org.restlet.data.Form;
 import org.restlet.data.MediaType;
@@ -47,8 +48,13 @@ public class OdtFilePoster {
 
     
     String clientReferer = "http://localhost:8180";
-    String serverURI = "http://localhost:8182/convert_to_anxml";
-
+    private static HashMap<String, String> POST_URI_MAP = new HashMap<String,String>() {
+        {
+            put ("convert_to_anxml", "http://localhost:8182/convert_to_anxml");
+            put ("set_convert_params", "http://localhost:8182/set_convert_params");
+        }
+    };
+  
     String fileName = "";
     byte[] fileContents = null;
     String conversionMode = "";
@@ -57,12 +63,12 @@ public class OdtFilePoster {
      * Create a new request Object
      * @return
      */
-    private  final Request getRequest(){
+    private  final Request getRequest(String postMapKey){
         final Request request = new Request();
         // Identify ourselves.
         request.setReferrerRef(this.clientReferer);
         // Target resource.
-        request.setResourceRef(this.serverURI);
+        request.setResourceRef(POST_URI_MAP.get(postMapKey));
         // Action: Update
         request.setMethod(Method.POST);
         return request;
@@ -74,8 +80,30 @@ public class OdtFilePoster {
      * Initializae the poster by setting the server URI
      * @param serverUri
      */
-    public OdtFilePoster (String serverUri) {
-        this.serverURI = serverUri;
+    public OdtFilePoster () {
+       
+    }
+
+    public static void setPostUriMap(HashMap<String,String> postUriMap) {
+       POST_URI_MAP = postUriMap;
+    }
+
+    public Status postParams(String documentType) {
+        Status status = null;
+        try {
+            Form postParams = new Form();
+            postParams.add("DocumentType", documentType);
+            Representation formRep = postParams.getWebRepresentation();
+            Request request = getRequest("set_convert_params");
+            Client client = new Client(Protocol.HTTP);
+            request.setEntity(formRep);
+            final Response response = client.handle(request);
+            status = response.getStatus();
+        } catch (Exception ex) {
+            log.error("postParams : ",ex);
+        } finally {
+            return status;
+        }
     }
 
     /***
@@ -90,7 +118,7 @@ public class OdtFilePoster {
             //ge the file handle to the file to post
             this.fileName = filetoPost;
             File fileToPost = new File(this.fileName);
-            final Request request= getRequest();
+            final Request request= getRequest("convert_to_anxml");
             //create  a client connector
             Client client = new Client(Protocol.HTTP);
             //generate a file representation of the submission
@@ -120,7 +148,7 @@ public class OdtFilePoster {
             Representation retRep = response.getEntity();
             retRep.write(responseAsStream);
         } catch (IOException ex) {
-           log.error("fileToyteArray :" , ex);
+           log.error("postFile :" , ex);
         } finally {
             return status;
         }
@@ -129,7 +157,9 @@ public class OdtFilePoster {
     }
 
     public static void main(String[] args) {
-        OdtFilePoster fc = new OdtFilePoster("http://localhost:8182/convert_to_anxml");
+            OdtFilePoster fc = new OdtFilePoster();
+            fc.postParams("judgement");
+            
        // System.out.println(fc.postFile("/home/undesa/Desktop/mark_this_up.odt"));
 
     }

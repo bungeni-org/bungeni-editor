@@ -1,8 +1,7 @@
 package org.bungeni.restlet.server;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.bungeni.restlet.resources.OdtResource;
+import org.bungeni.restlet.restlets.TransformParamsRestlet;
 import org.restlet.Application;
 import org.restlet.Component;
 import org.restlet.Restlet;
@@ -15,7 +14,16 @@ public class TransformerServer extends Application {
    private static Component serverComponent = null;
    private static int SERVER_PORT = 8182;
    private static String SERVER_TMP_FOLDER = "/home/undesa/tmp";
+   private static Restlet setParamsRestlet;
 
+   static {
+       try {
+            setParamsRestlet = new TransformParamsRestlet();
+       } catch (Exception ex) {
+           log.error("TransformServer.setParamsRestlet : ", ex);
+       }
+
+   }
 
    public static void setServerPort(int nPort) {
        SERVER_PORT = nPort;
@@ -25,14 +33,14 @@ public class TransformerServer extends Application {
        SERVER_TMP_FOLDER = sFolder;
    }
 
-   public static void startServer() {
-    
+   public static TransformerServer startServer() {
+            TransformerServer ts = null;
             try {
                 if (serverComponent == null) {
                     serverComponent = new Component();
                     serverComponent.getServers().add(Protocol.HTTP, SERVER_PORT);
-                    TransformerServer transServer = new TransformerServer();
-                    serverComponent.getDefaultHost().attach("", transServer);
+                    ts = new TransformerServer();
+                    serverComponent.getDefaultHost().attach("", ts);
                     serverComponent.start();
                 } else {
                     if (serverComponent.isStopped()) {
@@ -44,6 +52,8 @@ public class TransformerServer extends Application {
 
             } catch (Exception ex) {
                 ex.printStackTrace(System.out);
+            } finally {
+                return ts;
             }
      }
 
@@ -55,6 +65,11 @@ public class TransformerServer extends Application {
       public Restlet createRoot() {
         Router router = new Router(getContext());
         router.attach("/convert_to_anxml", OdtResource.class);
+        router.attach("/set_convert_params",setParamsRestlet);
         return router;
       }
+
+     public static void main(String[] args) {
+         TransformerServer trans =TransformerServer.startServer();
+     }
 }
