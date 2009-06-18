@@ -6,6 +6,8 @@
 package org.bungeni.restlet.client;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import java.io.OutputStream;
@@ -103,11 +105,12 @@ public class OdtFilePoster {
      * @param documentType
      * @return
      */
-    public Status postParams(String documentType) {
+    public Status postParams(String documentType, String pluginMode) {
         Status status = null;
         try {
             Form postParams = new Form();
             postParams.add("DocumentType", documentType);
+            postParams.add("PluginMode", pluginMode);
             Representation formRep = postParams.getWebRepresentation();
             Request request = getRequest("set_convert_params");
             Client client = new Client(Protocol.HTTP);
@@ -163,5 +166,22 @@ public class OdtFilePoster {
     }
 
 
+    public static void main(String[] args){
+        FileOutputStream fostream = null;
+        try {
+            OdtFilePoster poster = new OdtFilePoster();
+            poster.postParams("debaterecord", "odt2akn");
+            fostream = new FileOutputStream(new File("/Users/ashok/dump.xml"));
+            poster.postFile("/Users/ashok/Desktop/debaterecord_ken_eng_2008_12_17_main.odt", fostream);
+        } catch (FileNotFoundException ex) {
+          ex.printStackTrace();
+        } finally {
+            try {
+                fostream.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 
 }
