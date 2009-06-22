@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.bungeni.restlet.client;
 
 import java.io.File;
@@ -11,7 +10,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import java.io.OutputStream;
+import java.net.ConnectException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.restlet.Client;
 import org.restlet.data.Form;
 import org.restlet.data.MediaType;
@@ -22,6 +24,7 @@ import org.restlet.data.Response;
 import org.restlet.data.Status;
 import org.restlet.resource.FileRepresentation;
 import org.restlet.resource.Representation;
+
 /**
  * Helper class to post an ODT file to the transformer.
  * Response is returned as an Xml Message.
@@ -47,16 +50,16 @@ import org.restlet.resource.Representation;
 public class OdtFilePoster {
 
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(OdtFilePoster.class.getName());
-
-    
     String clientReferer = "http://localhost:8180";
-    private static HashMap<String, String> POST_URI_MAP = new HashMap<String,String>() {
+    private static String SERVER_NAME = "localhost";
+    private static String SERVER_PORT = "8182";
+    private static HashMap<String, String> POST_URI_MAP = new HashMap<String, String>() {
+
         {
-            put ("convert_to_anxml", "http://localhost:8182/convert_to_anxml");
-            put ("set_convert_params", "http://localhost:8182/set_convert_params");
+            put("convert_to_anxml", "http://" + SERVER_NAME + ":" + SERVER_PORT + "/convert_to_anxml");
+            put("set_convert_params", "http://" + SERVER_NAME + ":" + SERVER_PORT + "/set_convert_params");
         }
     };
-  
     String fileName = "";
     byte[] fileContents = null;
     String conversionMode = "";
@@ -65,7 +68,7 @@ public class OdtFilePoster {
      * Create a new request Object
      * @return
      */
-    private  final Request getRequest(String postMapKey){
+    private final Request getRequest(String postMapKey) {
         final Request request = new Request();
         // Identify ourselves.
         request.setReferrerRef(this.clientReferer);
@@ -76,14 +79,11 @@ public class OdtFilePoster {
         return request;
     }
 
-
-
     /**
      * Initializae the poster by setting the server URI
      * @param serverUri
      */
-    public OdtFilePoster () {
-       
+    public OdtFilePoster() {
     }
 
     /**
@@ -94,11 +94,9 @@ public class OdtFilePoster {
      *
      * @param postUriMap
      */
-    public static void setPostUriMap(HashMap<String,String> postUriMap) {
-       POST_URI_MAP = postUriMap;
+    public static void setPostUriMap(HashMap<String, String> postUriMap) {
+        POST_URI_MAP = postUriMap;
     }
-
-   
 
     /**
      * Set the parameters first
@@ -118,7 +116,7 @@ public class OdtFilePoster {
             final Response response = client.handle(request);
             status = response.getStatus();
         } catch (Exception ex) {
-            log.error("postParams : ",ex);
+            log.error("postParams : ", ex);
         } finally {
             return status;
         }
@@ -130,13 +128,13 @@ public class OdtFilePoster {
      * @param responseAsStream - the returned response will be written to this output stream
      * @return
      */
-    public Status postFile(String filetoPost, OutputStream responseAsStream){
+    public Status postFile(String filetoPost, OutputStream responseAsStream) {
         Status status = null;
         try {
             //ge the file handle to the file to post
             this.fileName = filetoPost;
             File fileToPost = new File(this.fileName);
-            final Request request= getRequest("convert_to_anxml");
+            final Request request = getRequest("convert_to_anxml");
             //create  a client connector
             Client client = new Client(Protocol.HTTP);
             //generate a file representation of the submission
@@ -157,7 +155,7 @@ public class OdtFilePoster {
             Representation retRep = response.getEntity();
             retRep.write(responseAsStream);
         } catch (IOException ex) {
-           log.error("postFile :" , ex);
+            log.error("postFile :", ex);
         } finally {
             return status;
         }
@@ -165,23 +163,53 @@ public class OdtFilePoster {
 
     }
 
+    public boolean isServerRunning() {
+        boolean bResponse = false;
+        Client checkClient = null;
+        Response clientResponse = null;
+        try {
+            checkClient = new Client(Protocol.HTTP);
+            clientResponse = checkClient.get("http://" + SERVER_NAME + ":" + SERVER_PORT + "/");
+        } catch (Exception ex) {
+            log.error("isServerRunning:", ex);
+            System.out.println("THrowing Exceptipn");
+        } finally {
+            if (clientResponse != null) {
+                if (clientResponse.isEntityAvailable()) {
+                    Representation respRep = clientResponse.getEntity();
+                    String returnResponse = "";
+                    try {
+                        returnResponse = respRep.getText();
+                    } catch (IOException ex) {
+                        log.error("isServerRunning:", ex);
+                        bResponse = false;
 
-    public static void main(String[] args){
+                    }
+                    if (bResponse) {
+                        bResponse = returnResponse.equals("SERVER_RUNNING");
+                    }
+                }
+            }
+        }
+        return bResponse;
+    }
+
+    public static void main(String[] args) {
         FileOutputStream fostream = null;
         try {
             OdtFilePoster poster = new OdtFilePoster();
-            poster.postParams("debaterecord", "odt2akn");
-            fostream = new FileOutputStream(new File("/Users/ashok/dump.xml"));
-            poster.postFile("/Users/ashok/Desktop/debaterecord_ken_eng_2008_12_17_main.odt", fostream);
-        } catch (FileNotFoundException ex) {
-          ex.printStackTrace();
+            System.out.print(poster.isServerRunning());
+        //  poster.postParams("debaterecord", "odt2akn");
+        //  fostream = new FileOutputStream(new File("/Users/ashok/dump.xml"));
+        //  poster.postFile("/Users/ashok/Desktop/debaterecord_ken_eng_2008_12_17_main.odt", fostream);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         } finally {
-            try {
-                fostream.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+            //     try {
+            //         fostream.close();
+            //     } catch (IOException ex) {
+            //         ex.printStackTrace();
+            //     }
         }
     }
-
 }
