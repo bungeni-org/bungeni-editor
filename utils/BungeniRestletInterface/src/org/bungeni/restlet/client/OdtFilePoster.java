@@ -185,9 +185,7 @@ public class OdtFilePoster {
                         bResponse = false;
 
                     }
-                    if (bResponse) {
-                        bResponse = returnResponse.equals("SERVER_RUNNING");
-                    }
+                    bResponse = returnResponse.equals("SERVER_RUNNING");
                 }
             }
         }
@@ -199,17 +197,17 @@ public class OdtFilePoster {
         try {
             OdtFilePoster poster = new OdtFilePoster();
             System.out.print(poster.isServerRunning());
-        //  poster.postParams("debaterecord", "odt2akn");
-        //  fostream = new FileOutputStream(new File("/Users/ashok/dump.xml"));
-        //  poster.postFile("/Users/ashok/Desktop/debaterecord_ken_eng_2008_12_17_main.odt", fostream);
+              poster.postParams("debaterecord", "odt2akn");
+             fostream = new FileOutputStream(new File("/Users/ashok/dump.xml"));
+             poster.postFile("/Users/ashok/Desktop/debaterecord_ken_eng_2008_12_17_main.odt", fostream);
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
-            //     try {
-            //         fostream.close();
-            //     } catch (IOException ex) {
-            //         ex.printStackTrace();
-            //     }
+                 try {
+                     fostream.close();
+                 } catch (IOException ex) {
+                     ex.printStackTrace();
+                 }
         }
     }
 }
