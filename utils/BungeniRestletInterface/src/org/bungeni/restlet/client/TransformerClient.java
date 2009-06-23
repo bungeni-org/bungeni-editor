@@ -46,14 +46,43 @@ import org.restlet.resource.Representation;
 public class TransformerClient {
 
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(TransformerClient.class.getName());
+
+    /**
+     * @return the SERVER_NAME
+     */
+    public static String getServerName() {
+        return SERVER_NAME;
+    }
+
+    /**
+     * @return the SERVER_PORT
+     */
+    public static String getServerPort() {
+        return SERVER_PORT;
+    }
+
+    /**
+     * @param aSERVER_NAME the SERVER_NAME to set
+     */
+    public static void setServerName(String aSERVER_NAME) {
+        SERVER_NAME = aSERVER_NAME;
+    }
+
+    /**
+     * @param aSERVER_PORT the SERVER_PORT to set
+     */
+    public static void setServerPort(String aSERVER_PORT) {
+        SERVER_PORT = aSERVER_PORT;
+    }
+
+
     String clientReferer = "http://localhost:8180";
     private static String SERVER_NAME = "localhost";
     private static String SERVER_PORT = "8182";
     private static HashMap<String, String> POST_URI_MAP = new HashMap<String, String>() {
-
         {
-            put("convert_to_anxml", "http://" + SERVER_NAME + ":" + SERVER_PORT + "/convert_to_anxml");
-            put("set_convert_params", "http://" + SERVER_NAME + ":" + SERVER_PORT + "/set_convert_params");
+            put("convert_to_anxml", "http://" + getServerName() + ":" + getServerPort() + "/convert_to_anxml");
+            put("set_convert_params", "http://" + getServerName() + ":" + getServerPort() + "/set_convert_params");
         }
     };
     String fileName = "";
@@ -165,7 +194,7 @@ public class TransformerClient {
         Response clientResponse = null;
         try {
             checkClient = new Client(Protocol.HTTP);
-            clientResponse = checkClient.get("http://" + SERVER_NAME + ":" + SERVER_PORT + "/");
+            clientResponse = checkClient.get("http://" + getServerName() + ":" + getServerPort() + "/");
         } catch (Exception ex) {
             log.error("isServerRunning:", ex);
             System.out.println("THrowing Exceptipn");
@@ -188,6 +217,7 @@ public class TransformerClient {
         return bResponse;
     }
 
+    
     public static void main(String[] args) {
         FileOutputStream fostream = null;
         try {
