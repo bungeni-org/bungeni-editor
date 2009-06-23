@@ -249,7 +249,7 @@ public void goToSectionPosition(String sectionName) {
         btnExport = new javax.swing.JButton();
         checkChangeColumns = new javax.swing.JCheckBox();
         btnMakePlain = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnTransformerServer = new javax.swing.JButton();
 
         cboTransformFrom.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         cboTransformFrom.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Portable Document Format (PDF)", "AkomaNtoso XML", "XHTML - eXtensible HTML", "Marginalia-safe HTML export" }));
@@ -289,9 +289,9 @@ public void goToSectionPosition(String sectionName) {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/btn_off.png"))); // NOI18N
-        jButton1.setText(bundle.getString("transformXMLPanel.jButton1.text")); // NOI18N
+        btnTransformerServer.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnTransformerServer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/btn_off.png"))); // NOI18N
+        btnTransformerServer.setText(bundle.getString("transformXMLPanel.btnTransformerServer.text")); // NOI18N
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -309,14 +309,14 @@ public void goToSectionPosition(String sectionName) {
                     .add(checkChangeColumns, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(cboExportTo, 0, 210, Short.MAX_VALUE)
                     .add(btnMakePlain, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                    .add(jButton1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE))
+                    .add(btnTransformerServer, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(19, Short.MAX_VALUE)
-                .add(jButton1)
+                .add(btnTransformerServer)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(btnMakePlain)
                 .add(18, 18, 18)
@@ -477,10 +477,10 @@ public void goToSectionPosition(String sectionName) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExport;
     private javax.swing.JButton btnMakePlain;
+    private javax.swing.JButton btnTransformerServer;
     private javax.swing.JComboBox cboExportTo;
     private javax.swing.JComboBox cboTransformFrom;
     private javax.swing.JCheckBox checkChangeColumns;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lblExportTo;
     private javax.swing.JLabel lblTransformFrom;
     // End of variables declaration//GEN-END:variables

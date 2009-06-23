@@ -29,7 +29,7 @@
                   <Component id="checkChangeColumns" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
                   <Component id="cboExportTo" alignment="0" pref="210" max="32767" attributes="1"/>
                   <Component id="btnMakePlain" alignment="0" pref="210" max="32767" attributes="1"/>
-                  <Component id="jButton1" alignment="0" pref="210" max="32767" attributes="0"/>
+                  <Component id="btnTransformerServer" alignment="0" pref="210" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -39,7 +39,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace pref="19" max="32767" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <Component id="btnTransformerServer" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnMakePlain" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -152,7 +152,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMakePlainActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnTransformerServer">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="DejaVu Sans" size="10" style="0"/>
@@ -161,7 +161,7 @@
           <Image iconType="3" name="/gui/btn_off.png"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/bungeni/editor/panels/loadable/Bundle.properties" key="transformXMLPanel.jButton1.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/bungeni/editor/panels/loadable/Bundle.properties" key="transformXMLPanel.btnTransformerServer.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
