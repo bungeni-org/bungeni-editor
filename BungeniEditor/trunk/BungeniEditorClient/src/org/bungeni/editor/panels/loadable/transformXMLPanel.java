@@ -9,6 +9,7 @@ package org.bungeni.editor.panels.loadable;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
@@ -24,6 +25,8 @@ import org.bungeni.ooo.transforms.impl.BungeniTransformationTarget;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTargetFactory;
 import org.bungeni.ooo.transforms.impl.IBungeniDocTransform;
 import org.bungeni.extutils.MessageBox;
+import org.bungeni.restlet.client.TransformerClient;
+import org.bungeni.shell.SysCommandExecutor;
 import org.bungeni.utils.externalplugin.ExternalPlugin;
 import org.bungeni.utils.externalplugin.ExternalPluginLoader;
 
@@ -34,13 +37,64 @@ import org.bungeni.utils.externalplugin.ExternalPluginLoader;
  */
 public class transformXMLPanel extends BaseClassForITabbedPanel{
        private static org.apache.log4j.Logger log = Logger.getLogger(transformXMLPanel.class.getName());
-
+       private TransformerClient transformerClient ;
     /** Creates new form transformXMLPanel */
     public transformXMLPanel() {
         initComponents();
+        initTransformerClient();
+      //  try {
+        //initialize the transformer server client
+    
     }
 
- 
+    private void initTransformerClient(){
+      final ClassLoader savedClassLoader = Thread.currentThread().getContextClassLoader();
+      String serverName = BungeniEditorProperties.getEditorProperty("transformerServerName");
+      String serverPort = BungeniEditorProperties.getEditorProperty("transformerServerPort");
+      try {
+      Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+      TransformerClient.setServerName(serverName);
+      TransformerClient.setServerPort(serverPort);
+      transformerClient = new TransformerClient();
+
+       if (!transformerClient.isServerRunning()) {
+            System.out.println("Server NOT running");
+            startTransformationServer();
+            this.btnTransformerServer.setSelected(true);
+       } else {
+          System.out.println("Server already running");
+       }
+      
+    } catch (Exception ex) {
+        System.out.println("printing errors ....");
+        ex.printStackTrace(System.out);
+    } finally {
+        Thread.currentThread().setContextClassLoader(savedClassLoader);
+    }
+    }
+    private boolean startTransformationServer() {
+        try {
+            //first build the command string
+            // java -jar
+            String javaHome = System.getProperty("java.home");
+            String javaBinary = javaHome + File.separator + "bin" + File.separator + "java";
+            String transformerJar = BungeniEditorProperties.getEditorProperty("transformerJar");
+            transformerJar = CommonFileFunctions.convertRelativePathToFullPath(transformerJar);
+            String transformerWorkingDir = BungeniEditorProperties.getEditorProperty("transformerWorkingDir");
+            transformerWorkingDir = CommonFileFunctions.convertRelativePathToFullPath(transformerWorkingDir);
+            String runString = javaBinary + " -jar " + transformerJar + " " + transformerWorkingDir;
+            SysCommandExecutor sexec = new SysCommandExecutor();
+            int exitstatus = sexec.runCommand(runString);
+            String cmdError = sexec.getCommandError();
+            String cmdOut = sexec.getCommandOutput();
+            MessageBox.OK(this, cmdError + "\n\n" + cmdOut);
+        } catch (Exception ex) {
+            log.error("startTransformationServer :", ex);
+        }
+        return true;
+    }
+
+
     class exportDestination extends Object {
         String exportDestName;
         String exportDestDesc;
@@ -195,6 +249,7 @@ public void goToSectionPosition(String sectionName) {
         btnExport = new javax.swing.JButton();
         checkChangeColumns = new javax.swing.JCheckBox();
         btnMakePlain = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         cboTransformFrom.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         cboTransformFrom.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Portable Document Format (PDF)", "AkomaNtoso XML", "XHTML - eXtensible HTML", "Marginalia-safe HTML export" }));
@@ -234,30 +289,37 @@ public void goToSectionPosition(String sectionName) {
             }
         });
 
+        jButton1.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/btn_off.png"))); // NOI18N
+        jButton1.setText(bundle.getString("transformXMLPanel.jButton1.text")); // NOI18N
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+            .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, btnMakePlain, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, cboTransformFrom, 0, 210, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, lblExportTo)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(cboTransformFrom, 0, 210, Short.MAX_VALUE)
+                    .add(lblExportTo)
+                    .add(layout.createSequentialGroup()
                         .add(29, 29, 29)
                         .add(btnExport, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 143, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, lblTransformFrom)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, checkChangeColumns, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, cboExportTo, 0, 210, Short.MAX_VALUE))
+                    .add(lblTransformFrom)
+                    .add(checkChangeColumns, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(cboExportTo, 0, 210, Short.MAX_VALUE)
+                    .add(btnMakePlain, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                    .add(jButton1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .add(27, 27, 27)
+                .addContainerGap(19, Short.MAX_VALUE)
+                .add(jButton1)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(btnMakePlain)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 42, Short.MAX_VALUE)
+                .add(18, 18, 18)
                 .add(checkChangeColumns)
                 .add(32, 32, 32)
                 .add(lblTransformFrom)
@@ -418,6 +480,7 @@ public void goToSectionPosition(String sectionName) {
     private javax.swing.JComboBox cboExportTo;
     private javax.swing.JComboBox cboTransformFrom;
     private javax.swing.JCheckBox checkChangeColumns;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lblExportTo;
     private javax.swing.JLabel lblTransformFrom;
     // End of variables declaration//GEN-END:variables
