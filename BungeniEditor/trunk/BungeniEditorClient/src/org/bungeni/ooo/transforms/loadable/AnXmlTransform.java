@@ -17,16 +17,10 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.extutils.BungeniEditorProperties;
-import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.transforms.impl.BungeniDocTransform;
-import org.bungeni.ooo.transforms.impl.TransformerConfigurationFactory;
-import org.bungeni.ooo.transforms.impl.TransformerConfigurationFactory.Transformer;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.bungeni.extutils.MessageBox;
-import org.un.bungeni.translators.globalconfigurations.GlobalConfigurations;
-import org.un.bungeni.translators.odttoakn.translator.OATranslator;
-
 /**
  *
  * @author Administrator
@@ -116,21 +110,6 @@ public class AnXmlTransform extends BungeniDocTransform {
          
         
                 String pathPrefix = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + "transformer" + File.separator;
-                GlobalConfigurations.setApplicationPathPrefix(pathPrefix);
-                GlobalConfigurations.setConfigurationFilePath("configfiles/odttoakn/TranslatorConfig_debaterecord.xml");
-                OATranslator ODTtrans = OATranslator.getInstance();
-                //switch the current context class loader
-                Thread.currentThread().setContextClassLoader(ODTtrans.getClass().getClassLoader());
-                
-                Transformer tf = TransformerConfigurationFactory.getConfiguration(BungeniEditorPropertiesHelper.getCurrentDocType());
-              ///commented for now  
-                File outputTrans = ODTtrans.translate(fopenDocumentFile, GlobalConfigurations.getApplicationPathPrefix() +  tf.configFile);
-                //File outputTrans = ODTtrans.translate("/home/undesa/Desktop/test/ken_bill_2009_1_10_eng_main.odt", "odttoakn/minixslt/bill/pipeline.xsl");
-                if (writeOutputFile(outputTrans)) 
-                    //MessageBox.OK(this.callerFrame, "Document was transformed!");
-                    bState = true;
-                else 
-                    bState = false;
                     //MessageBox.OK(this.callerFrame, "Document transformation failed");
             } else {
                 MessageBox.OK("Please save the document before trying to transform it!");
