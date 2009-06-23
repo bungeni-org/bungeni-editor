@@ -4,8 +4,6 @@ package org.bungeni.extutils;
 //~--- non-JDK imports --------------------------------------------------------
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.bungeni.db.DefaultInstanceFactory;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -68,7 +66,7 @@ public class CommonFileFunctions {
             UIManager.put("FileChooser.readOnly", Boolean.TRUE);
 
             final JFileChooser fc = new JFileChooser(basePath);
-
+            fc.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
             fc.setFileFilter(filter);
             fc.setFileSelectionMode(fileSelectionMode);
 
