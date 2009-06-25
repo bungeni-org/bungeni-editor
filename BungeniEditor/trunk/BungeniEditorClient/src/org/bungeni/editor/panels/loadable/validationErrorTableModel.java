@@ -2,11 +2,13 @@ package org.bungeni.editor.panels.loadable;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.Element;
+
 import org.jdom.JDOMException;
 import org.jdom.xpath.XPath;
 
@@ -17,7 +19,7 @@ import org.jdom.xpath.XPath;
 public class validationErrorTableModel extends AbstractTableModel {
     private Document errorDocument  = null;
     private static Logger log = Logger.getLogger(validationErrorTableModel.class.getName());
-    private ArrayList<Element> elemValidationErrors = new ArrayList<Element>(0);
+    private List elemValidationErrors = new ArrayList(0);
     private String __VALIDATION_ERRORS__ = "/validationErrors/validationError";
     private final static String[] __COLUMNS__  = {"No" , "Error" };
     
@@ -26,7 +28,7 @@ public class validationErrorTableModel extends AbstractTableModel {
         this.errorDocument = errorDoc;
         try {
             XPath validationErrors = XPath.newInstance(__VALIDATION_ERRORS__);
-            elemValidationErrors = (ArrayList<Element>) validationErrors.selectNodes(errorDoc);
+            elemValidationErrors =  validationErrors.selectNodes(errorDoc);
         } catch (JDOMException ex) {
             log.info("validationErrorTableModel:", ex);
             elemValidationErrors = new ArrayList<Element>(0);
@@ -45,7 +47,7 @@ public class validationErrorTableModel extends AbstractTableModel {
     public Class getColumnClass(int nCol) {
         switch (nCol) {
             case 0:
-                return Integer.class;
+                return String.class;
             case 1:
                 return String.class;
             default:
@@ -53,10 +55,16 @@ public class validationErrorTableModel extends AbstractTableModel {
         }
     }
 
+
+     @Override
+     public String getColumnName(int column) {
+        return __COLUMNS__[column];
+     }
     public Object getValueAt(int rowIndex, int columnIndex) {
        switch (columnIndex) {
            case 0 :
-               return rowIndex + 1;
+              String s = "" + rowIndex + 1;
+              return s;
            case 1 :
                return getErrorMessage(rowIndex);
             default:
@@ -67,13 +75,15 @@ public class validationErrorTableModel extends AbstractTableModel {
     private String getErrorMessage(int rowIndex) {
         StringBuffer strError = new StringBuffer();
         try {
-        Element validationError = this.elemValidationErrors.get(rowIndex);
+        Element validationError = (Element) this.elemValidationErrors.get(rowIndex);
         Element errorMessage = validationError.getChild("msgs");
         if (errorMessage != null)  {
-          ArrayList<Element> msgs =  (ArrayList<Element>) errorMessage.getChildren("msg");
+          List msgs = errorMessage.getChildren("msg");
           if (msgs != null) {
-              for (Element msg : msgs) {
-                  strError.append(msg.getValue() + System.getProperty("line.separator"));
+              Iterator iterMsgs = msgs.iterator();
+              while (iterMsgs.hasNext()) {
+                 Element msg =  (Element) iterMsgs.next();
+                 strError.append(msg.getValue() + System.getProperty("line.separator"));
               }
           }
         }

@@ -3,9 +3,17 @@
  *
  * Created on Jun 25, 2009, 10:30:04 AM
  */
-
 package org.bungeni.editor.panels.loadable;
 
+import java.awt.Color;
+import java.awt.Component;
+import javax.swing.JFrame;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.UIManager;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.TableCellRenderer;
 import org.bungeni.editor.panels.impl.ITabbedPanel;
 import org.jdom.Document;
 
@@ -14,6 +22,7 @@ import org.jdom.Document;
  * @author Ashok Hariharan
  */
 public class validationErrorPanel extends javax.swing.JPanel {
+
     /**
      * handle to caller panel
      */
@@ -22,25 +31,30 @@ public class validationErrorPanel extends javax.swing.JPanel {
      * xml document containing validation errors
      */
     Document docValidationErrors = null;
+    JFrame parentFrame = null;
 
     /** Creates new form validationErrorPanel */
     public validationErrorPanel() {
         initComponents();
     }
 
-    public validationErrorPanel(ITabbedPanel callingPanel, Document xmlErrorDoc) {
+    public validationErrorPanel(ITabbedPanel callingPanel, JFrame parentFrme, Document xmlErrorDoc) {
         initComponents();
         this.callerPanel = callingPanel;
         this.docValidationErrors = xmlErrorDoc;
+        this.parentFrame = parentFrme;
         initTables();
     }
 
     /**
      * Sets up the jtable displaying the error mesages
      */
-    private void initTables(){
+    private void initTables() {
         validationErrorTableModel tblModel = new validationErrorTableModel(this.docValidationErrors);
         this.tblValidationErrors.setModel(tblModel);
+        this.tblValidationErrors.setDefaultRenderer(String.class, new MultiLineCellRenderer());
+        this.tblValidationErrors.getColumnModel().getColumn(0).setPreferredWidth( 25);
+        this.tblValidationErrors.getColumnModel().getColumn(1).setPreferredWidth(411);
     }
 
     /** This method is called from within the constructor to
@@ -56,8 +70,13 @@ public class validationErrorPanel extends javax.swing.JPanel {
         scrollValidationErrors = new javax.swing.JScrollPane();
         tblValidationErrors = new javax.swing.JTable();
 
-        btnClose.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnClose.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnClose.setText("Close");
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
+            }
+        });
 
         tblValidationErrors.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -77,24 +96,29 @@ public class validationErrorPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(142, 142, 142)
-                .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(161, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
-                .addComponent(scrollValidationErrors, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(scrollValidationErrors, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(156, 156, 156)
+                        .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollValidationErrors, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                .addComponent(scrollValidationErrors, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnClose))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        // TODO add your handling code here:
+        parentFrame.dispose();
+    }//GEN-LAST:event_btnCloseActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -102,4 +126,76 @@ public class validationErrorPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblValidationErrors;
     // End of variables declaration//GEN-END:variables
 
+    public class MultiLineCellRenderer extends JTextArea implements
+            TableCellRenderer {
+
+        protected Border noFocusBorder;
+        private Color unselectedForeground;
+        private Color unselectedBackground;
+
+        public MultiLineCellRenderer() {
+            super();
+            noFocusBorder = new EmptyBorder(1, 2, 1, 2);
+            setLineWrap(true);
+            setWrapStyleWord(false);
+            setOpaque(true);
+            setBorder(noFocusBorder);
+        }
+
+        @Override
+        public void setForeground(Color c) {
+            super.setForeground(c);
+            unselectedForeground = c;
+        }
+
+        public void setBackground(Color c) {
+            super.setBackground(c);
+            unselectedBackground = c;
+        }
+
+        public void updateUI() {
+            super.updateUI();
+            setForeground(null);
+            setBackground(null);
+        }
+
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                boolean isSelected, boolean hasFocus,
+                int row, int column) {
+
+            if (isSelected) {
+                super.setForeground(table.getSelectionForeground());
+                super.setBackground(table.getSelectionBackground());
+            } else {
+                super.setForeground((unselectedForeground != null) ? unselectedForeground
+                        : table.getForeground());
+                super.setBackground((unselectedBackground != null) ? unselectedBackground
+                        : table.getBackground());
+            }
+
+            setFont(table.getFont());
+
+            if (hasFocus) {
+                setBorder(UIManager.getBorder("Table.focusCellHighlightBorder"));
+                if (table.isCellEditable(row, column)) {
+                    super.setForeground(UIManager.getColor("Table.focusCellForeground"));
+                    super.setBackground(UIManager.getColor("Table.focusCellBackground"));
+                }
+            } else {
+                setBorder(noFocusBorder);
+            }
+
+            setValue(value);
+            int rowHeight = (int) getPreferredSize().getHeight();
+            if (table.getRowHeight() != rowHeight) {
+                table.setRowHeight(rowHeight);
+            }
+
+            return this;
+        }
+
+        protected void setValue(Object value) {
+            setText((value == null) ? "" : value.toString());
+        }
+    }
 }
