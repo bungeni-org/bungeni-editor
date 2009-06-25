@@ -34,6 +34,9 @@ public class FrameLauncher {
             f.toFront();
             f.setAlwaysOnTop(alwaysOnTop);
         }
+        if (centerWindow) {
+            CenterFrame(f);
+        }
     }
     
     public static void CenterFrame (JFrame frame) {
