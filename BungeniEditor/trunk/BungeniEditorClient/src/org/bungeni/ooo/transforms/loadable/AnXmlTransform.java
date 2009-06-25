@@ -1,12 +1,3 @@
-/*
- * HTMLTransform.java
- *
- * Created on June 3, 2008, 4:15 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 package org.bungeni.ooo.transforms.loadable;
 
 import java.io.BufferedWriter;
@@ -15,14 +6,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
+import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.transforms.impl.BungeniDocTransform;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
@@ -48,7 +35,7 @@ public class AnXmlTransform extends BungeniDocTransform {
         transformerClient = new TransformerClient();
     }
 
-    
+    /*
     
     private File convertUrlToFile(String sUrl) {
         File f = null;
@@ -67,7 +54,7 @@ public class AnXmlTransform extends BungeniDocTransform {
             return f;
         }
     }
-    
+    */
     private boolean writeOutputFile(File outputTrans)  {
         boolean bState = false;
 		try 
@@ -105,15 +92,11 @@ public class AnXmlTransform extends BungeniDocTransform {
             if (ooDocument.isDocumentOnDisk())  {
                 String sDocUrl = ooDocument.getDocumentURL();
                 //set the path to the output xml file
-                
-                fopenDocumentFile = convertUrlToFile(sDocUrl);
+                fopenDocumentFile = CommonFileFunctions.convertUrlToFile(sDocUrl);
                 String fullFileName = fopenDocumentFile.getName();
                 String ext = fullFileName.substring(fullFileName.lastIndexOf(".")+1, fullFileName.length());
                 String pref = fullFileName.substring(0, fullFileName.lastIndexOf(".")  );
                 
-                String defaultSavePath = BungeniEditorProperties.getEditorProperty("defaultSavePath");
-                defaultSavePath = defaultSavePath.replace('/', File.separatorChar);
-         
                 EXPORT_OUTPUT_FILE = fopenDocumentFile.getParentFile().getPath()+File.separator + pref+ ".xml";
                 //get temporary output file
                 File fOut = new File(EXPORT_OUTPUT_FILE);
