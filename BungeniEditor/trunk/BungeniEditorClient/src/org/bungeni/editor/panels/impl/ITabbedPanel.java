@@ -27,6 +27,8 @@ public interface ITabbedPanel  {
      * Set the OpenOffice component handle in the Panel class
      */
   public void setOOComponentHandle (OOComponentHelper ooComponent);
+
+  public OOComponentHelper getOOComponentHandle();
     /**
      * Get the current object handle as a "Component" type object
      */

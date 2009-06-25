@@ -96,7 +96,10 @@ public class TabbedPanelFactory {
                     String panelLoadOrder = qr.getField(resultRow, "PANEL_LOAD_ORDER");
                     Integer panelLoad = Integer.parseInt(panelLoadOrder);
                     ITabbedPanel panel = makePanel(panelClass, panelLoad, panelTitle);
-                    tabbedPanels.add(panel);
+                    if (panel == null) {
+                        log.error("getPanelsByDocType: the panel :" + panelClass + " could not be loaded");
+                    } else
+                        tabbedPanels.add(panel);
                 }
                 
             }

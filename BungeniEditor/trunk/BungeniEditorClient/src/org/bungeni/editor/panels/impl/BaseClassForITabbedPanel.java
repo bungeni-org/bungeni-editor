@@ -37,6 +37,14 @@ public abstract class BaseClassForITabbedPanel extends JPanel implements ITabbed
         this.ooDocument = ooComponent;
     }
 
+    /**
+     * Required for ITabbedPanel interface
+     * @return - OOComponentHelper - the openoffice document handle
+     */
+    public OOComponentHelper getOOComponentHandle(){
+        return this.ooDocument;
+    }
+
     public Component getObjectHandle() {
         return this;
     }
