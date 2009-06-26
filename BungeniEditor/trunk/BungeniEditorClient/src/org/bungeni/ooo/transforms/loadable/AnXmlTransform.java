@@ -6,9 +6,13 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
+import org.bungeni.extutils.CommonANUtils;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.transforms.impl.BungeniDocTransform;
@@ -22,7 +26,7 @@ import org.jdom.input.SAXBuilder;
 import org.jdom.xpath.XPath;
 /**
  *
- * @author Administrator
+ * @author Ashok
  */
 public class AnXmlTransform extends BungeniDocTransform {
         private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(AnXmlTransform.class.getName());
@@ -35,26 +39,7 @@ public class AnXmlTransform extends BungeniDocTransform {
         transformerClient = new TransformerClient();
     }
 
-    /*
-    
-    private File convertUrlToFile(String sUrl) {
-        File f = null;
-        URL url = null;
-        try {
-            url = new URL(sUrl);
-        } catch (MalformedURLException ex) {
-            log.error("convertUrlToFile: "+ ex.getMessage());
-            return null;
-        }
-        try {
-            f = new File(url.toURI());
-        } catch(URISyntaxException e) {
-            f = new File(url.getPath());
-        } finally {
-            return f;
-        }
-    }
-    */
+
     private boolean writeOutputFile(File outputTrans)  {
         boolean bState = false;
 		try 
@@ -83,6 +68,46 @@ public class AnXmlTransform extends BungeniDocTransform {
     }
 
     String EXPORT_OUTPUT_FILE  = "";
+
+
+   class OutputFileType {
+        String fileType ;
+     public OutputFileType (String fType) {
+            this.fileType = fType;
+        }
+
+        public String generateFileName(String baseFileName) {
+             String filePrefix =   CommonANUtils.getFilePrefix(baseFileName);
+             String fileExt = CommonANUtils.getFileExt(baseFileName);
+             if (fileExt.equals(fileType)) {
+                 return baseFileName;
+             } else
+                 return filePrefix + "_" + fileType + ((fileExt.length() > 0 ) ? "." + fileExt: "");
+        }
+    }
+
+    class OutputFile {
+        OutputFileType outputFileType;
+        String fileName;
+        String fullPathToFile ;
+
+        public OutputFile(String fullPath, String type) {
+            outputFileType = new OutputFileType(type);
+            fullPathToFile = fullPath;
+            fileName = (new File(fullPathToFile)).getName();
+        }
+
+        public String getFullFileName(){
+           return  outputFileType.generateFileName(fullPathToFile);
+        }
+
+        public File getFullFile(){
+            return new File(getFullFileName());
+        }
+    }
+
+
+
     public boolean transform(OOComponentHelper ooDocument) {
         boolean bState = false;
         try {
@@ -99,14 +124,20 @@ public class AnXmlTransform extends BungeniDocTransform {
                 
                 EXPORT_OUTPUT_FILE = fopenDocumentFile.getParentFile().getPath()+File.separator + pref+ ".xml";
                 //get temporary output file
-                File fOut = new File(EXPORT_OUTPUT_FILE);
-                File ftmpOutput = new File(fOut.getParent() + File.separator + TRANSFORM_OUTPUT_FILE );
+                OutputFile outANxmlFile = new OutputFile(EXPORT_OUTPUT_FILE, "xml");
+                OutputFile outMetalexFile = new OutputFile(EXPORT_OUTPUT_FILE, "metalex");
+                ArrayList<OutputFile> outputFiles = new ArrayList<OutputFile>();
+                outputFiles.add(outANxmlFile);
+                outputFiles.add(outMetalexFile);
+
+                // File fMetalexout = new File(outFile.getFullFileName());
+                File ftmpOutput = new File(outANxmlFile.getFullFile().getParent() + File.separator + TRANSFORM_OUTPUT_FILE );
 
                 String pathPrefix = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + "transformer" + File.separator;
                 //call the transformer server
                 callTransform(fopenDocumentFile.getPath(), ftmpOutput.getPath());
                 if (ftmpOutput.exists()) {
-                    processOutputFile(ftmpOutput, fOut);
+                    processOutputFile(ftmpOutput, outputFiles);
                     bState = true;
                 }
 
@@ -154,8 +185,8 @@ public class AnXmlTransform extends BungeniDocTransform {
 
     private String TRANSFORM_ERRORS = "/TransformerResponse/transformResult/errors";
 
-    private String TRANSFORM_OUTPUT = "/TransformerResponse/transformResult/output";
-
+    private String TRANSFORM_OUTPUT = "/TransformerResponse/transformResult/output[@name='OUT_XML_TYPE']";
+   
     private String getErrors(Document xmlDoc) {
         String foundErrors = "";
         try {
@@ -169,10 +200,11 @@ public class AnXmlTransform extends BungeniDocTransform {
         return foundErrors;
     }
 
-     private String getOutput(Document xmlDoc) {
+     private String getOutput(Document xmlDoc, String typeName) {
         String foundOut = "";
         try {
-            XPath errorPath = XPath.newInstance(TRANSFORM_OUTPUT);
+            String sTransType = TRANSFORM_OUTPUT.replace("OUT_XML_TYPE", typeName);
+            XPath errorPath = XPath.newInstance(sTransType);
             Element outputElem = (Element) errorPath.selectSingleNode(xmlDoc);
             foundOut =  outputElem.getValue();
             foundOut = foundOut.trim();
@@ -182,7 +214,7 @@ public class AnXmlTransform extends BungeniDocTransform {
         return foundOut;
     }
 
-    private void processOutputFile(File tmpoutputFile, File fOutputFile) {
+    private void processOutputFile(File tmpoutputFile, ArrayList<OutputFile> outFiles) {
         try {
             if (outputBuilder == null ) 
                         outputBuilder = new SAXBuilder(BungeniEditorProperties.SAX_PARSER_DRIVER, false);
@@ -190,12 +222,7 @@ public class AnXmlTransform extends BungeniDocTransform {
             //first get errors
             String outputErrors = getErrors(transDoc);
             //get the output file
-            String outputfile = getOutput(transDoc);
-            //write the output file
-            FileWriter fw = new FileWriter(fOutputFile);
-            BufferedWriter bOut = new BufferedWriter(fw);
-            bOut.write(outputfile);
-            bOut.close();
+            writeOutputFiles(transDoc, outFiles);
             //write the error file
             File fErrors = new File(tmpoutputFile.getParent() + File.separator + "errors.xml");
             FileWriter fwErrors = new FileWriter(fErrors);
@@ -206,6 +233,29 @@ public class AnXmlTransform extends BungeniDocTransform {
            log.error("processOutputFile", ex);
         } catch (IOException ex) {
            log.error("processOutputFile", ex);
+        }
+
+    }
+
+    private void writeOutputFiles (Document xDoc, ArrayList<OutputFile> outDocs) {
+       for (OutputFile outputFile : outDocs) {
+                FileWriter fw = null;
+                try {
+                    fw = new FileWriter(outputFile.getFullFile());
+                } catch (IOException ex) {
+                    log.error("writeOutputFiles", ex);
+                }
+                if (fw != null) {
+                    String sXmlOut = getOutput(xDoc, outputFile.outputFileType.fileType);
+                    BufferedWriter bOut = new BufferedWriter(fw);
+                    try {
+                        bOut.write(sXmlOut);
+                        bOut.close();
+                    } catch (IOException ex) {
+                        log.error("writeOutputFiles:write", ex);
+                    }
+                    }
+
         }
 
     }
