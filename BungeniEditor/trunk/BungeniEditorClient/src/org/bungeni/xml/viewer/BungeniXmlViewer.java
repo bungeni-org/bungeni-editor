@@ -1,16 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.bungeni.xml.viewer;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,15 +8,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTextArea;
-import javax.swing.tree.TreeSelectionModel;
 import javax.xml.parsers.ParserConfigurationException;
 import org.apache.log4j.Logger;
+import org.bungeni.extutils.BungeniFrame;
+import org.bungeni.extutils.FrameLauncher;
 
 /**
  * Description: ...
@@ -35,26 +21,12 @@ import org.apache.log4j.Logger;
  * @author Kyle Gabhart
  * @version 1.0
  */
-public class BungeniXmlViewer extends JFrame implements ActionListener {
+public class BungeniXmlViewer extends BungeniFrame {
    private static org.apache.log4j.Logger log = Logger.getLogger(BungeniXmlViewer.class.getName());
 
     private static BungeniXmlViewer xmlViewer = null;
     // This is the BungeniXmlTree object which displays the XML in a JTree
-    private BungeniXmlTree BungeniXmlTree;
-    // This is the textArea object that will display the raw XML text
-    private JTextArea textArea;
-    // One JScrollPane is the container for the JTree, the other is for the textArea
-    private JScrollPane jScroll,  jScrollRt;
-    // This JSplitPane is the container for the two JScrollPanes
-    private JSplitPane splitPane;
-    // This JButton handles the tree Refresh feature
-    private JButton refreshButton;
-    // This Listener allows the frame's close button to work properly
-    private WindowListener winClosing;
-
-    // These two constants set the width and height of the frame
-    private static final int FRAME_WIDTH = 600;
-    private static final int FRAME_HEIGHT = 450;
+    XmlViewerPanel xmlPanel = null;
 
     public static BungeniXmlViewer getInstance(String title, ArrayList<String> xmlText) throws ParserConfigurationException {
         if (xmlViewer == null) {
@@ -76,7 +48,8 @@ public class BungeniXmlViewer extends JFrame implements ActionListener {
             } //end while ( ( line = reader.readLine() ) != null )
             // The file will have to be re-read when the Document object is parsed
             reader.close();
-            BungeniXmlViewer.getInstance(title, xmlText);
+            BungeniXmlViewer frmViewer = BungeniXmlViewer.getInstance(title, xmlText);
+            FrameLauncher.CenterFrame(frmViewer);
         } catch (IOException ex) {
             log.error("launchXmlViewer" , ex);
         } finally {
@@ -91,11 +64,7 @@ public class BungeniXmlViewer extends JFrame implements ActionListener {
 
     private BungeniXmlViewer updateContent(String title, ArrayList<String> xmlText) {
         setTitle(title);
-        textArea.setText((String) xmlText.get(0) + "\n");
-        for (int i = 1; i < xmlText.size(); i++) {
-            textArea.append((String) xmlText.get(i) + "\n");
-        }
-        BungeniXmlTree.refresh(textArea.getText());
+        xmlPanel.updateComponent(xmlText);
         return this;
     }
 
@@ -105,103 +74,27 @@ public class BungeniXmlViewer extends JFrame implements ActionListener {
      */
     public BungeniXmlViewer(String title, ArrayList<String> xmlText) throws ParserConfigurationException {
         this(title);
+        xmlPanel = new XmlViewerPanel(this, xmlText);
         updateContent(title, xmlText);
+        // Add the split pane to the frame
+        getContentPane().add(xmlPanel, BorderLayout.CENTER);
+        //Put the final touches to the JFrame object
+        validate();
+        setAlwaysOnTop(true);
+        pack();
+        toFront();
+        setVisible(true);
     } //end BungeniXmlViewer( String title, String xml )
 
     /**
      * This constructor builds a frame containing a JSplitPane, which in turn contains two JScrollPanes.
      * One of the panes contains an BungeniXmlTree object and the other contains a JTextArea object.
      */
-    public BungeniXmlViewer(String title) throws ParserConfigurationException {
+    public BungeniXmlViewer(String title) {
         // This builds the JFrame portion of the object
         super(title);
-
-        Toolkit toolkit;
-        Dimension dim, minimumSize;
-        int screenHeight, screenWidth;
-
-        // Initialize basic layout properties
-        setBackground(Color.lightGray);
-        getContentPane().setLayout(new BorderLayout());
-
-        // Set the frame's display to be WIDTH x HEIGHT in the middle of the screen
-        toolkit = Toolkit.getDefaultToolkit();
-        dim = toolkit.getScreenSize();
-        screenHeight = dim.height;
-        screenWidth = dim.width;
-        setBounds((screenWidth - FRAME_WIDTH) / 2, (screenHeight - FRAME_HEIGHT) / 2, FRAME_WIDTH, FRAME_HEIGHT);
-
-        // Create the refresh button object
-        refreshButton = new JButton("Refresh");
-        refreshButton.setBorder(BorderFactory.createRaisedBevelBorder());
-        refreshButton.addActionListener(this);
-
-        // Add the button to the frame
-        getContentPane().add(refreshButton, BorderLayout.NORTH);
-
-        // Create two JScrollPane objects
-        jScroll = new JScrollPane();
-        jScrollRt = new JScrollPane();
-
-        // First, create the JTextArea:
-        // Create the JTextArea and add it to the right hand JScroll
-        textArea = new JTextArea(150, 150);
-        jScrollRt.getViewport().add(textArea);
-
-        // Next, create the BungeniXmlTree
-        BungeniXmlTree = new BungeniXmlTree();
-        BungeniXmlTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-        BungeniXmlTree.setShowsRootHandles(true);
-
-        // A more advanced version of this tool would allow the JTree to be editable
-        BungeniXmlTree.setEditable(false);
-
-        // Wrap the JTree in a JScroll so that we can scroll it in the JSplitPane.
-        jScroll.getViewport().add(BungeniXmlTree);
-
-        // Create the JSplitPane and add the two JScroll objects
-        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, jScroll, jScrollRt);
-        splitPane.setOneTouchExpandable(true);
-        splitPane.setDividerLocation(300);
-
-        // Provide minimum sizes for the two components in the split pane
-        minimumSize = new Dimension(200, 150);
-        jScroll.setMinimumSize(minimumSize);
-        jScrollRt.setMinimumSize(minimumSize);
-
-        // Provide a preferred size for the split pane
-        splitPane.setPreferredSize(new Dimension(400, 300));
-
-        // Add the split pane to the frame
-        getContentPane().add(splitPane, BorderLayout.CENTER);
-
-        //Put the final touches to the JFrame object
-        validate();
-        setAlwaysOnTop(true);
-        toFront();
-        setVisible(true);
-
-    // Add a WindowListener so that we can close the window
-    //  winClosing = new WindowAdapter()
-    //  {
-    //     public void windowClosing(WindowEvent e)
-    //     {
-    //        exit();
-    //     }
-    //  };
-    //  addWindowListener(winClosing);
     } //end BungeniXmlViewer()
 
-    /**
-     * When a user event occurs, this method is called.  If the action performed was a click
-     * of the "Refresh" button, then the BungeniXmlTree object is updated using the current XML text
-     * contained in the JTextArea
-     */
-    public void actionPerformed(ActionEvent ae) {
-        if (ae.getActionCommand().equals("Refresh")) {
-            BungeniXmlTree.refresh(textArea.getText());
-        }
-    } //end actionPerformed()
 
     // Program execution begins here.  An XML file (*.xml) must be passed into the method
     public static void main(String[] args) {
@@ -255,4 +148,5 @@ public class BungeniXmlViewer extends JFrame implements ActionListener {
         System.out.println("\nThank you for using BungeniXmlViewer 1.0");
         System.exit(0);
     } //end exit()
+
 } //end class BungeniXmlViewer

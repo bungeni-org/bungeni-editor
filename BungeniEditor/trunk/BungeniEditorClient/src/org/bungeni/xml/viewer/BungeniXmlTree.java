@@ -13,11 +13,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-
-
-
-
 /**
  * Description: The BungeniXmlTree class is an extension of the javax.swing.JTree class.
  * It behaves in every way like a JTree component, the difference is that additional
@@ -200,7 +195,7 @@ public class BungeniXmlTree extends JTree
             {
                if ( value.length() > 0 )
                {
-                  localtreeNode.add( new DefaultMutableTreeNode( "[Attribute] --> " + name + "=\"" + value + "\"" ) );
+                  localtreeNode.add( new DefaultMutableTreeNode( "@" + name + "=\"" + value + "\"" ) );
                } //end if ( value.length() > 0 )
             } //end if ( value != null )
          } //end for( int i = 0; i < attribs.getLength(); i++ )
