@@ -380,8 +380,9 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         if (ooDocument.isDocumentOnDisk()) {
             boolean bNoErrors = true;
             String sUrl = ooDocument.getDocumentURL();
-            File fFile = CommonFileFunctions.convertUrlToFile(sUrl);
-            File fErrors = new File(fFile.getParent() + File.separator + "errors.xml");
+            File fErrors = CommonANUtils.getNamedComponentFromFile(sUrl, "errors.xml");
+            //File fFile = CommonFileFunctions.convertUrlToFile(sUrl);
+            //File fErrors = new File(fFile.getParent() + File.separator + "errors.xml");
             if (fErrors.exists()) {
                 if (saxBuilder == null ) saxBuilder = new SAXBuilder(BungeniEditorProperties.SAX_PARSER_DRIVER, false);
                 Document xmlErrors = null;
