@@ -17,46 +17,33 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="checkChangeColumns" min="-2" pref="180" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="lblTransformFrom" alignment="1" max="32767" attributes="1"/>
-                          <Component id="btnViewValidationErrors" alignment="1" max="32767" attributes="1"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                      <Component id="btnViewXmlDoc" min="-2" pref="96" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnTransformerServer" alignment="1" pref="222" max="32767" attributes="0"/>
-                          <Component id="btnMakePlain" alignment="0" pref="222" max="32767" attributes="1"/>
-                          <Component id="jScrollPane1" alignment="0" pref="222" max="32767" attributes="0"/>
+                          <Component id="checkChangeColumns" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="lblTransformFrom" min="-2" max="-2" attributes="1"/>
+                          <Group type="102" attributes="0">
+                              <Component id="btnViewValidationErrors" min="-2" pref="108" max="-2" attributes="1"/>
+                              <EmptySpace pref="16" max="32767" attributes="0"/>
+                              <Component id="btnViewXmlDoc" min="-2" pref="96" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="cboExportTo" alignment="0" pref="220" max="32767" attributes="1"/>
+                          <Component id="cboTransformFrom" alignment="0" pref="220" max="32767" attributes="1"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="btnMakePlain" alignment="0" max="32767" attributes="1"/>
+                              <Component id="jScrollPane1" alignment="0" max="32767" attributes="1"/>
+                              <Component id="btnTransformerServer" alignment="0" pref="220" max="32767" attributes="1"/>
+                          </Group>
+                          <Component id="btnExportToXML" alignment="0" pref="220" max="32767" attributes="0"/>
                       </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnExportToXML" pref="222" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="cboExportTo" alignment="0" pref="222" max="32767" attributes="1"/>
-                          <Component id="cboTransformFrom" alignment="0" pref="222" max="32767" attributes="1"/>
-                      </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="btnExport" min="-2" pref="171" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="40" max="32767" attributes="0"/>
-              <Component id="btnExport" min="-2" pref="171" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -246,6 +233,9 @@
           <ResourceString bundle="org/bungeni/editor/panels/loadable/Bundle.properties" key="transformXMLPanel.btnViewXmlDoc.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnViewXmlDocActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

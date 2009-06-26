@@ -20,12 +20,14 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
+import javax.xml.parsers.ParserConfigurationException;
 import org.apache.log4j.Logger;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.extutils.BungeniFrame;
+import org.bungeni.extutils.CommonANUtils;
 import org.bungeni.extutils.CommonDocumentUtilFunctions;
 import org.bungeni.extutils.CommonEditorFunctions;
 import org.bungeni.extutils.CommonFileFunctions;
@@ -39,6 +41,7 @@ import org.bungeni.extutils.MessageBox;
 import org.bungeni.restlet.client.TransformerClient;
 import org.bungeni.utils.externalplugin.ExternalPlugin;
 import org.bungeni.utils.externalplugin.ExternalPluginLoader;
+import org.bungeni.xml.viewer.BungeniXmlViewer;
 import org.jdom.Document;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
@@ -46,7 +49,7 @@ import org.jdom.xpath.XPath;
 
 /**
  *
- * @author  Administrator
+ * @author  Ashok Hariharan
  */
 public class transformXMLPanel extends BaseClassForITabbedPanel {
 
@@ -352,6 +355,26 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
     }
 
 
+    private void viewXmlDoc(){
+        if (ooDocument.isDocumentOnDisk()) {
+            String sUrl = ooDocument.getDocumentURL();
+            File fXml = CommonANUtils.getComponentFromFile(sUrl, "xml");
+            if (fXml.exists()) {
+                try {
+                    BungeniXmlViewer.launchXmlViewer("Xml Viewer", fXml);
+                } catch (ParserConfigurationException ex) {
+                    log.error("viewXmlDoc ", ex);
+                    MessageBox.OK(parentFrame, bundle.getString("xml_not_wellformed"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                MessageBox.OK(parentFrame, bundle.getString("xml_does_not_exist"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            MessageBox.OK(parentFrame, bundle.getString("save_document_before_transform"));
+        }
+    }
+
+    
     private void viewExportErrors() {
         //check if errors file exists
         if (ooDocument.isDocumentOnDisk()) {
@@ -378,12 +401,11 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
                 }
             }
             if (bNoErrors) {
-                MessageBox.OK(parentFrame, "There were no validation errors !");
+                MessageBox.OK(parentFrame, bundle.getString("no_validation_errors"));
             }
 
         } else {
-            MessageBox.OK(parentFrame, "The document has not been saved or transformed to XML. \n" +
-                    "Please save the document and attempt a transformation to XML before trying to view errors");
+            MessageBox.OK(parentFrame, bundle.getString("save_document_before_transform"));
         }
     }
 
@@ -472,7 +494,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         txtServerMsg.setWrapStyleWord(true);
         jScrollPane1.setViewportView(txtServerMsg);
 
-        btnExportToXML.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnExportToXML.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnExportToXML.setText(bundle.getString("transformXMLPanel.btnExportToXML.text")); // NOI18N
         btnExportToXML.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -480,7 +502,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             }
         });
 
-        btnViewValidationErrors.setFont(new java.awt.Font("DejaVu Sans", 0, 9)); // NOI18N
+        btnViewValidationErrors.setFont(new java.awt.Font("DejaVu Sans", 0, 9));
         btnViewValidationErrors.setText(bundle.getString("transformXMLPanel.btnViewValidationErrors.text")); // NOI18N
         btnViewValidationErrors.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -488,44 +510,40 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             }
         });
 
-        btnViewXmlDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 9)); // NOI18N
+        btnViewXmlDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 9));
         btnViewXmlDoc.setText(bundle.getString("transformXMLPanel.btnViewXmlDoc.text")); // NOI18N
+        btnViewXmlDoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewXmlDocActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
+                .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(checkChangeColumns, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, lblTransformFrom, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, btnViewValidationErrors, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .add(5, 5, 5)
-                        .add(btnViewXmlDoc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 96, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(layout.createSequentialGroup()
-                        .addContainerGap()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, btnTransformerServer, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
-                            .add(btnMakePlain, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
-                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)))
-                    .add(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(btnExportToXML, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE))
-                    .add(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(cboExportTo, 0, 222, Short.MAX_VALUE)
-                            .add(cboTransformFrom, 0, 222, Short.MAX_VALUE))))
-                .addContainerGap())
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(40, Short.MAX_VALUE)
-                .add(btnExport, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 171, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(35, 35, 35))
+                            .add(checkChangeColumns, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(lblTransformFrom)
+                            .add(layout.createSequentialGroup()
+                                .add(btnViewValidationErrors, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 108, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 16, Short.MAX_VALUE)
+                                .add(btnViewXmlDoc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 96, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(cboExportTo, 0, 220, Short.MAX_VALUE)
+                            .add(cboTransformFrom, 0, 220, Short.MAX_VALUE)
+                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, btnMakePlain, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1)
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, btnTransformerServer, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
+                            .add(btnExportToXML, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(btnExport, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 171, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(35, 35, 35))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -642,6 +660,11 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         // TODO add your handling code here:
         viewExportErrors();
     }//GEN-LAST:event_btnViewValidationErrorsActionPerformed
+
+    private void btnViewXmlDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewXmlDocActionPerformed
+        // TODO add your handling code here:
+        viewXmlDoc();
+    }//GEN-LAST:event_btnViewXmlDocActionPerformed
 
     @Override
     public void initialize() {
