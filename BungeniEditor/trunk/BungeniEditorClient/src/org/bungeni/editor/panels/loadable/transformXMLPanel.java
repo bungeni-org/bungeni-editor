@@ -7,6 +7,7 @@ package org.bungeni.editor.panels.loadable;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,7 +18,9 @@ import java.util.logging.Level;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import javax.xml.parsers.ParserConfigurationException;
@@ -354,21 +357,70 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
 
     }
 
+     private JMenuItem setupMenuItem(String key, String title, ActionListener listener) {
+        JMenuItem item = new JMenuItem(title);
+        item.setActionCommand(key);
+        item.addActionListener(listener);
+        return item;
 
-    private void viewXmlDoc(){
+    }
+
+    class viewXmlListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            if (e.getActionCommand().equals("ANXML")) {
+                File fXml = CommonANUtils.getComponentFromFile(ooDocument.getDocumentURL(), "xml");
+                if (fXml.exists()) {
+                     try {
+                            BungeniXmlViewer.launchXmlViewer("Xml Viewer", fXml);
+                        } catch (ParserConfigurationException ex) {
+                            log.error("viewXmlDoc ", ex);
+                            MessageBox.OK(parentFrame, bundle.getString("xml_not_wellformed"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
+                        }
+                  } else {
+                        MessageBox.OK(parentFrame, bundle.getString("xml_does_not_exist"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
+                  }
+                return;
+            }
+            if (e.getActionCommand().equals("METALEX")) {
+                String sFilePrefix = CommonANUtils.getFilePrefix(ooDocument.getDocumentURL()) + "_metalex";
+                String sFileExt = "xml";
+                String sFileMlx = sFilePrefix + ((sFileExt.length() > 0 )? "." + sFileExt : "");
+                File fMlx = CommonFileFunctions.convertUrlToFile(sFileMlx);
+                if (fMlx.exists()) {
+                     try {
+                            BungeniXmlViewer.launchXmlViewer("Xml Viewer", fMlx);
+                        } catch (ParserConfigurationException ex) {
+                            log.error("viewXmlDoc ", ex);
+                            MessageBox.OK(parentFrame, bundle.getString("xml_not_wellformed"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
+                        }
+                  } else {
+                        MessageBox.OK(parentFrame, bundle.getString("xml_does_not_exist"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
+                  }
+                return;
+            }
+        }
+
+    }
+
+    private JPopupMenu getPopupMenu(){
+        JPopupMenu menu = new JPopupMenu();
+        viewXmlListener listener = new viewXmlListener();
+        JMenuItem menuItemXml = setupMenuItem("ANXML", "AkomaNtososo", listener);
+        JMenuItem menuItemMtlx =  setupMenuItem("METALEX", "MetaLEX", listener);
+        menu.add(menuItemXml);
+        menu.add(menuItemMtlx);
+        return menu;
+    }
+
+    JPopupMenu xmlPopupMenu = null;
+
+    private void viewXmlDoc(MouseEvent evt){
         if (ooDocument.isDocumentOnDisk()) {
             String sUrl = ooDocument.getDocumentURL();
-            File fXml = CommonANUtils.getComponentFromFile(sUrl, "xml");
-            if (fXml.exists()) {
-                try {
-                    BungeniXmlViewer.launchXmlViewer("Xml Viewer", fXml);
-                } catch (ParserConfigurationException ex) {
-                    log.error("viewXmlDoc ", ex);
-                    MessageBox.OK(parentFrame, bundle.getString("xml_not_wellformed"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
-                }
-            } else {
-                MessageBox.OK(parentFrame, bundle.getString("xml_does_not_exist"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
-            }
+            if (xmlPopupMenu == null ) xmlPopupMenu = getPopupMenu();
+                xmlPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+
         } else {
             MessageBox.OK(parentFrame, bundle.getString("save_document_before_transform"));
         }
@@ -495,7 +547,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         txtServerMsg.setWrapStyleWord(true);
         jScrollPane1.setViewportView(txtServerMsg);
 
-        btnExportToXML.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnExportToXML.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnExportToXML.setText(bundle.getString("transformXMLPanel.btnExportToXML.text")); // NOI18N
         btnExportToXML.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -511,11 +563,11 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             }
         });
 
-        btnViewXmlDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 9));
+        btnViewXmlDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 9)); // NOI18N
         btnViewXmlDoc.setText(bundle.getString("transformXMLPanel.btnViewXmlDoc.text")); // NOI18N
-        btnViewXmlDoc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnViewXmlDocActionPerformed(evt);
+        btnViewXmlDoc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnViewXmlDocMousePressed(evt);
             }
         });
 
@@ -540,7 +592,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
                                 .add(org.jdesktop.layout.GroupLayout.LEADING, btnMakePlain, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1)
                                 .add(org.jdesktop.layout.GroupLayout.LEADING, btnTransformerServer, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
-                            .add(btnExportToXML, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
+                            .add(btnExportToXML, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 220, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                         .add(btnExport, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 171, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -662,10 +714,10 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         viewExportErrors();
     }//GEN-LAST:event_btnViewValidationErrorsActionPerformed
 
-    private void btnViewXmlDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewXmlDocActionPerformed
+    private void btnViewXmlDocMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnViewXmlDocMousePressed
         // TODO add your handling code here:
-        viewXmlDoc();
-    }//GEN-LAST:event_btnViewXmlDocActionPerformed
+        viewXmlDoc(evt);
+    }//GEN-LAST:event_btnViewXmlDocMousePressed
 
     @Override
     public void initialize() {
