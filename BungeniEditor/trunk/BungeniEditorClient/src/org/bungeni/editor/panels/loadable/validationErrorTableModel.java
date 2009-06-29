@@ -47,7 +47,7 @@ public class validationErrorTableModel extends AbstractTableModel {
     public Class getColumnClass(int nCol) {
         switch (nCol) {
             case 0:
-                return String.class;
+                return Integer.class;
             case 1:
                 return String.class;
             default:
@@ -63,8 +63,9 @@ public class validationErrorTableModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
        switch (columnIndex) {
            case 0 :
-              String s = "" + rowIndex + 1;
-              return s;
+             // String s = "" + (rowIndex + 1);
+             // return s;
+               return rowIndex + 1;
            case 1 :
                return getErrorMessage(rowIndex);
             default:
