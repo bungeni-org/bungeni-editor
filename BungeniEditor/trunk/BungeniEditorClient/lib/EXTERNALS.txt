@@ -1,5 +1,7 @@
 h2db http://bungeni-editor.googlecode.com/svn/external_libs/h2db
 bungeni http://bungeni-editor.googlecode.com/svn/external_libs/bungeni
+bungeniodfdom http://bungeni-editor.googlecode.com/svn/external_libs/bungeniodfdom
+bungenistructrules http://bungeni-editor.googlecode.com/svn/external_libs/bungenistructrules
 saxon http://bungeni-editor.googlecode.com/svn/external_libs/saxon
 swingx http://bungeni-editor.googlecode.com/svn/external_libs/swingx
 xerces http://bungeni-editor.googlecode.com/svn/external_libs/xerces
