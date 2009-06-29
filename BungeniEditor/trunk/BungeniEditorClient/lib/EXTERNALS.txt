@@ -1,0 +1,19 @@
+h2db http://bungeni-editor.googlecode.com/svn/external_libs/h2db
+bungeni http://bungeni-editor.googlecode.com/svn/external_libs/bungeni
+saxon http://bungeni-editor.googlecode.com/svn/external_libs/saxon
+swingx http://bungeni-editor.googlecode.com/svn/external_libs/swingx
+xerces http://bungeni-editor.googlecode.com/svn/external_libs/xerces
+xstream http://bungeni-editor.googlecode.com/svn/external_libs/xstream
+commons http://bungeni-editor.googlecode.com/svn/external_libs/apache-commons
+log4j http://bungeni-editor.googlecode.com/svn/external_libs/apache-log4j
+odfdom http://bungeni-editor.googlecode.com/svn/external_libs/odfdom
+args4j http://bungeni-editor.googlecode.com/svn/external_libs/args4j
+jdom http://bungeni-editor.googlecode.com/svn/external_libs/jdom
+jaxen http://bungeni-editor.googlecode.com/svn/external_libs/jaxen
+substance http://bungeni-editor.googlecode.com/svn/external_libs/substance
+restlet http://bungeni-editor.googlecode.com/svn/external_libs/restlet
+slide http://bungeni-editor.googlecode.com/svn/external_libs/slide-2.2rc
+swing-layout http://bungeni-editor.googlecode.com/svn/external_libs/swing-layout-ext
+jug http://bungeni-editor.googlecode.com/svn/external_libs/jug
+opencsv http://bungeni-editor.googlecode.com/svn/external_libs/opencsv
+
