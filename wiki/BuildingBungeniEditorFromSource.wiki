@@ -1,0 +1,27 @@
+#summary How to build bungeni editor from source
+#labels Featured
+
+= Pre-requisites =
+
+ * Sun Java 6 JDK
+ * Ant
+ * OpenOffice.org 3.0.1
+
+= Building from source =
+
+== SVN checkout == 
+
+Create a folder for the editor source, and then check the source out into it :
+{{{
+svn co http://bundeni-editor.googlecode.com/svn/BungeniEditor/trunk/BungeniEditorClient
+}}}
+
+== Build == 
+
+We use ant for building the project.  The build script takes a parameter specifying the path to the openoffice installation :
+
+{{{
+ant -buildfile build-cmdline.xml -Dopenoffice.org.root=/opt/openoffice.org/basis3.0 jar
+}}}
+
+This creates the editor jar file 'BungeniEditorClient.jar' under the dist folder.
