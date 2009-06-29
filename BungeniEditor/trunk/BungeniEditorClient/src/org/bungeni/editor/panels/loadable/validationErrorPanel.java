@@ -7,6 +7,9 @@ package org.bungeni.editor.panels.loadable;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -14,6 +17,7 @@ import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
@@ -22,6 +26,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import org.bungeni.editor.panels.impl.ITabbedPanel;
+import org.bungeni.extutils.CommonDocumentUtilFunctions;
 import org.jdom.Document;
 
 /**
@@ -59,8 +64,8 @@ public class validationErrorPanel extends javax.swing.JPanel {
     private void initTables() {
          validationErrorTableModel tblModel = new validationErrorTableModel(this.docValidationErrors);
          this.tblValidationErrors.setModel(tblModel);
-    this.tblValidationErrors.getColumnModel().getColumn(1).setCellRenderer(new TextAreaRenderer());
-     
+         this.tblValidationErrors.getColumnModel().getColumn(1).setCellRenderer(new TextAreaRenderer());
+         this.tblValidationErrors.addMouseListener(new tblValidationErrorMouseListener());
     }
 
     /** This method is called from within the constructor to
@@ -105,9 +110,9 @@ public class validationErrorPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(scrollValidationErrors, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE))
+                        .addComponent(scrollValidationErrors, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(156, 156, 156)
+                        .addGap(195, 195, 195)
                         .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -132,6 +137,32 @@ public class validationErrorPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblValidationErrors;
     // End of variables declaration//GEN-END:variables
 
+    public class tblValidationErrorMouseListener extends MouseAdapter {
+            public void mouseClicked(MouseEvent e)
+    {
+        if (e.getClickCount() == 2)
+        {
+            Point p = e.getPoint();
+            int row = tblValidationErrors.rowAtPoint(p);
+            pointErrorInDocument(row);
+            // ...
+        }
+    }
+
+    }
+
+    private void pointErrorInDocument(int nrow) {
+       
+        validationErrorTableModel tblModel =  (validationErrorTableModel) this.tblValidationErrors.getModel();
+        final String matchedSectionName = tblModel.getSectionId(nrow);
+        new SwingWorker< Object , Object >() {
+              protected Object doInBackground() throws Exception {
+                CommonDocumentUtilFunctions.selectSection(callerPanel.getOOComponentHandle(), matchedSectionName);
+                return null;
+              }
+        }.execute();
+    }
+    
     public class TextAreaRenderer extends JTextArea
             implements TableCellRenderer {
 

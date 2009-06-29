@@ -73,6 +73,17 @@ public class validationErrorTableModel extends AbstractTableModel {
        }
     }
 
+    public String getSectionId (int rowIndex) {
+        String sSectionId = "";
+        try {
+            Element validationError = (Element) this.elemValidationErrors.get(rowIndex);
+            Element sSectiontype = validationError.getChild("sectionId");
+            sSectionId = sSectiontype.getValue();
+        } catch (Exception ex) {
+            log.error("getSectionId:", ex);
+        }
+        return sSectionId;
+    }
     private String getErrorMessage(int rowIndex) {
         StringBuffer strError = new StringBuffer();
         try {

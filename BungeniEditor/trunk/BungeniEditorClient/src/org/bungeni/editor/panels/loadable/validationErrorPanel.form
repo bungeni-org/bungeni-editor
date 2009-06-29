@@ -20,10 +20,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollValidationErrors" pref="412" max="32767" attributes="0"/>
+                      <Component id="scrollValidationErrors" pref="495" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="156" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="195" max="-2" attributes="0"/>
                       <Component id="btnClose" min="-2" pref="119" max="-2" attributes="0"/>
                   </Group>
               </Group>
