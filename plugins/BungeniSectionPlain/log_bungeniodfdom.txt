@@ -1,0 +1,2 @@
+DEBUG [org.bungeni.plugins.convertsection.BungeniSectionConvertToPlain] instantiating BungeniSectionConvertToPlain
+DEBUG [org.bungeni.plugins.convertsection.BungeniSectionConvertToPlain] calling setParams

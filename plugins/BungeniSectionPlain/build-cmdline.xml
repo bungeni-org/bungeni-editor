@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Ashok Hariharan 29/6/2009 : standalone build file for bungeni-editor ... 
+	to compile bungeni editor checkout the project and run :
+		ant -buildfile build-cmdline.xml jar
+	-->
+<project name="BungeniSectionPlain-cmdline" default="default" basedir=".">
+    <description>Builds, tests, and runs the project BungeniEditorClient from the commandline.</description>
+    <!-- set the custom properties here -->
+    <!-- now import the default build.xml to run it as if it was called from netbeans -->
+    <import file="build.xml"/>
+</project>
