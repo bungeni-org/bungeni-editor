@@ -67,5 +67,18 @@
     nbproject/build-impl.xml file. 
 
     -->
-        
+<!-- copy required folders for editor -->
+     <target name="-pre-jar" >
+         <copy todir="${dist.dir}" >
+             <fileset dir="runtime_required"></fileset>
+         </copy>
+     </target>
+     <target name="-post-jar" >
+	<copy todir="${dist.dir}/transformer">
+		<fileset dir="${dist.dir}/transformer/jar" >
+			<include name="**/transformer.ini" />		
+		</fileset>
+	</copy>
+     </target>
+
 </project>
