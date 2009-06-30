@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="BungeniOdfStructuralRules-cmdline" default="default" basedir=".">
+    <description>Builds, tests, and runs the project BungeniOdfStructuralRules.</description>
+	<property name="openoffice.org.root" value="/opt/openoffice.org/basis3.0" />
+	<path id="ooo.classpath" >
+		<pathelement location="${openoffice.org.root}/program/classes/unoil.jar" />
+		<pathelement location="${openoffice.org.root}/program/classes/officebean.jar" />
+		<pathelement location="${openoffice.org.root}/ure-link/share/java/juh.jar" />
+		<pathelement location="${openoffice.org.root}/ure-link/share/java/jurt.jar" />
+		<pathelement location="${openoffice.org.root}/ure-link/share/java/ridl.jar" />
+        </path>
+	<!-- the libs.bungeni.openoffice.org.classpath property is the one set by netbeans and passed into build.xml ... we generate the openoffice 
+		classpath and set the same variable -->
+	<property name="libs.bungeni.openoffice.org.classpath" refid="ooo.classpath" />
+    <import file="build.xml"/>
+</project>
