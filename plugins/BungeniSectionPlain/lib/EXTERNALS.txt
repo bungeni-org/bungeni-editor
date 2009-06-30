@@ -1,0 +1,5 @@
+bungeni http://bungeni-editor.googlecode.com/svn/external_libs/bungeni
+xerces http://bungeni-editor.googlecode.com/svn/external_libs/xerces
+odfdom http://bungeni-editor.googlecode.com/svn/external_libs/odfdom
+bungeniodfdom http://bungeni-editor.googlecode.com/svn/external_libs/bungeniodfdom
+log4j http://bungeni-editor.googlecode.com/svn/external_libs/apache-log4j
