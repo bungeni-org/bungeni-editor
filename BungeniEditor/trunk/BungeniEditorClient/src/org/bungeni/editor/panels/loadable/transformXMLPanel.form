@@ -25,7 +25,7 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="scrollMsg" alignment="0" pref="220" max="32767" attributes="1"/>
+                          <Component id="scrollMsg" alignment="0" min="-2" pref="220" max="-2" attributes="1"/>
                           <Component id="lblTransformFrom" alignment="0" min="-2" max="-2" attributes="1"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="btnViewValidationErrors" min="-2" pref="108" max="-2" attributes="1"/>
@@ -205,9 +205,6 @@
           <ResourceString bundle="org/bungeni/editor/panels/loadable/Bundle.properties" key="transformXMLPanel.btnExportToXML.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExportToXMLActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnViewValidationErrors">
       <Properties>

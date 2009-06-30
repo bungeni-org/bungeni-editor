@@ -5,6 +5,7 @@
  */
 package org.bungeni.editor.panels.loadable;
 
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -87,6 +88,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         initComponents();
         initTransformerClient();
         initTimers();
+        initButtons();
     }
 
     /**
@@ -128,6 +130,12 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             Thread.currentThread().setContextClassLoader(savedClassLoader);
         }
     }
+
+
+    private void initButtons(){
+        this.btnExportToXML.addActionListener(new transformXmlActionListener());
+    }
+
 
     /**
      * Starts the transformation server via a shell call
@@ -251,7 +259,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         }
     }
 
-    class transformerServerActionListener implements ActionListener {
+    class transformXmlActionListener implements ActionListener {
 
         /**
          * Run the button action in a swingworker thread, so the UI disabling happens immediately
@@ -266,13 +274,26 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
 
             protected Boolean doInBackground() throws Exception {
                 //check if server is running .. if running stop it
-
-                return new Boolean(true);
+                boolean bState = exportToXml();
+                return new Boolean(bState);
             }
 
             @Override
             public void done() {
-                btnTransformerServer.setEnabled(true);
+                boolean bState  = false;
+                try {
+                     sourceButton.setEnabled(true);
+                     parentFrame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                     bState = get();
+                } catch (InterruptedException ex) {
+                    log.error("done(),", ex);
+                } catch (ExecutionException ex) {
+                    log.error("done(),", ex);
+                }
+                if (bState)
+                    MessageBox.OK(parentFrame, bundle.getString("Document_was_successfully_Exported_to_the_workspace_folder"));
+                else
+                    MessageBox.OK(parentFrame, bundle.getString("Document_export_failed"));
             }
         }
 
@@ -281,6 +302,8 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             final JButton sourceButton = (JButton) e.getSource();
             //disable the button immediately
             sourceButton.setEnabled(false);
+            //set the wait cursor
+            parentFrame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             //call the swingworker thread for the button event
             (new buttonActionRunner(sourceButton)).execute();
         }
@@ -329,7 +352,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         CommonDocumentUtilFunctions.selectSection(ooDocument, sectionName);
     }
 
-    private void exportToXml() {
+    private boolean exportToXml() {
 
         //get a handle to the AN xml transformer
         BungeniTransformationTarget transform = __TRANSFORMATION_TARGETS__.get("AN-XML");
@@ -337,11 +360,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         HashMap<String, Object> params = new HashMap<String, Object>();
         iTransform.setParams(params);
         boolean bState = iTransform.transform(ooDocument);
-        if (bState) {
-            MessageBox.OK(parentFrame, bundle.getString("Document_was_successfully_Exported_to_the_workspace_folder"));
-        } else {
-            MessageBox.OK(parentFrame, bundle.getString("Document_export_failed"));
-        }
+        return bState;
     }
 
     private boolean errorsExist(Document xmlDoc) {
@@ -495,17 +514,17 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         btnViewValidationErrors = new javax.swing.JButton();
         btnViewXmlDoc = new javax.swing.JButton();
 
-        cboTransformFrom.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        cboTransformFrom.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         cboTransformFrom.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Portable Document Format (PDF)", "AkomaNtoso XML", "XHTML - eXtensible HTML", "Marginalia-safe HTML export" }));
 
-        cboExportTo.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        cboExportTo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         cboExportTo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Export to File-System path", "Export to Server" }));
 
-        lblTransformFrom.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblTransformFrom.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/panels/loadable/Bundle"); // NOI18N
         lblTransformFrom.setText(bundle.getString("transformXMLPanel.lblTransformFrom.text")); // NOI18N
 
-        btnExport.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnExport.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnExport.setText(bundle.getString("transformXMLPanel.btnExport.text")); // NOI18N
         btnExport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -513,7 +532,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             }
         });
 
-        checkChangeColumns.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        checkChangeColumns.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         checkChangeColumns.setText(bundle.getString("transformXMLPanel.checkChangeColumns.text")); // NOI18N
         checkChangeColumns.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         checkChangeColumns.addActionListener(new java.awt.event.ActionListener() {
@@ -522,7 +541,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             }
         });
 
-        btnMakePlain.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnMakePlain.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnMakePlain.setText(bundle.getString("transformXMLPanel.btnMakePlain.text")); // NOI18N
         btnMakePlain.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -541,7 +560,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
 
         txtServerMsg.setColumns(20);
         txtServerMsg.setEditable(false);
-        txtServerMsg.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        txtServerMsg.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         txtServerMsg.setLineWrap(true);
         txtServerMsg.setRows(5);
         txtServerMsg.setWrapStyleWord(true);
@@ -549,13 +568,8 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
 
         btnExportToXML.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnExportToXML.setText(bundle.getString("transformXMLPanel.btnExportToXML.text")); // NOI18N
-        btnExportToXML.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportToXMLActionPerformed(evt);
-            }
-        });
 
-        btnViewValidationErrors.setFont(new java.awt.Font("DejaVu Sans", 0, 9)); // NOI18N
+        btnViewValidationErrors.setFont(new java.awt.Font("DejaVu Sans", 0, 9));
         btnViewValidationErrors.setText(bundle.getString("transformXMLPanel.btnViewValidationErrors.text")); // NOI18N
         btnViewValidationErrors.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -563,7 +577,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             }
         });
 
-        btnViewXmlDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 9)); // NOI18N
+        btnViewXmlDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 9));
         btnViewXmlDoc.setText(bundle.getString("transformXMLPanel.btnViewXmlDoc.text")); // NOI18N
         btnViewXmlDoc.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -583,7 +597,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
                         .add(35, 35, 35))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, scrollMsg, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, scrollMsg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 220, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(org.jdesktop.layout.GroupLayout.LEADING, lblTransformFrom)
                             .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
                                 .add(btnViewValidationErrors, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 108, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -703,10 +717,6 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             MessageBox.OK(parentFrame, "Transformer Server is down");
         }
     }//GEN-LAST:event_btnTransformerServerActionPerformed
-
-    private void btnExportToXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportToXMLActionPerformed
-        exportToXml();
-    }//GEN-LAST:event_btnExportToXMLActionPerformed
 
     private void btnViewValidationErrorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewValidationErrorsActionPerformed
         // TODO add your handling code here:

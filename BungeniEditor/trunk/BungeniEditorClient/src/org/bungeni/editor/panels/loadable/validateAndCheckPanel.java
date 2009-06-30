@@ -6,8 +6,15 @@
 
 package org.bungeni.editor.panels.loadable;
 
+import java.awt.Cursor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
 import org.apache.log4j.Logger;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
@@ -29,6 +36,7 @@ public class validateAndCheckPanel extends BaseClassForITabbedPanel{
     /** Creates new form transformXMLPanel */
     public validateAndCheckPanel() {
         initComponents();
+        this.btnValidateStructure.addActionListener(new validateStructureActionListener());
     }
 
  
@@ -62,6 +70,7 @@ public class validateAndCheckPanel extends BaseClassForITabbedPanel{
         }
 
     }
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/panels/loadable/Bundle");
 
 //    final public IEditorPluginEventDispatcher evtDispatcher = new IEditorPluginEventDispatcher(){
    //                                                                 public void dispatchEvent(String arg0, Object[] arg1) {
@@ -101,7 +110,72 @@ private void viewErrorLog() {
                 Object retValue = rulesValidator.callMethod("exec2", argExec);
           }
 }
-private void validateStructure() {
+
+class validateStructureActionListener implements ActionListener {
+
+        /**
+         * Run the button action in a swingworker thread, so the UI disabling happens immediately
+         */
+        class buttonActionRunner extends SwingWorker<Integer, Object> {
+
+            JButton sourceButton;
+
+            public buttonActionRunner(JButton origButton) {
+                this.sourceButton = origButton;
+            }
+
+            protected Integer doInBackground() throws Exception {
+                //check if server is running .. if running stop it
+                int nRet = -1;
+                nRet = validateStructure();
+                return nRet;
+            }
+
+            @Override
+            public void done() {
+               int  nRet  = -2;
+                try {
+                     sourceButton.setEnabled(true);
+                     parentFrame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                     nRet = get();
+                } catch (InterruptedException ex) {
+                    log.error("done(),", ex);
+                } catch (ExecutionException ex) {
+                    log.error("done(),", ex);
+                }
+               switch (nRet) {
+                   case  -1:
+                       MessageBox.OK(parentFrame, bundle.getString("problem_running_struct_checker"), bundle.getString("save_the_document"), JOptionPane.ERROR_MESSAGE);
+                       break;
+                   case 0:
+                       break;
+                   case -2:
+                   default:
+                       MessageBox.OK(parentFrame, bundle.getString("save_document_before_proceeding"), bundle.getString("save_the_document"), JOptionPane.ERROR_MESSAGE);
+                       break;
+
+               }
+             //   if (bState)
+            //        MessageBox.OK(parentFrame, bundle.getString("Document_was_successfully_Exported_to_the_workspace_folder"));
+            //    else
+            //        MessageBox.OK(parentFrame, bundle.getString("Document_export_failed"));
+            }
+        }
+
+        public synchronized void actionPerformed(ActionEvent e) {
+            //get the button originating the event
+            final JButton sourceButton = (JButton) e.getSource();
+            //disable the button immediately
+            sourceButton.setEnabled(false);
+            //set the wait cursor
+            parentFrame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            //call the swingworker thread for the button event
+            (new buttonActionRunner(sourceButton)).execute();
+        }
+    }
+
+
+private int validateStructure() {
           if (ooDocument.isDocumentOnDisk()) {
           //  generatePlainDocument();
             ExternalPluginLoader ep = new ExternalPluginLoader();
@@ -130,9 +204,12 @@ private void validateStructure() {
             if (retValue != null) {
                     String outputFilePath = (String) retValue;
                    // MessageBox.OK(parentFrame, "A plain document was generated, it can be found at : \n" + outputFilePath, "Plain Document generation", JOptionPane.INFORMATION_MESSAGE);
-            }
+                   return 0;
+            } else
+                return -2;
         } else {
-            MessageBox.OK(parentFrame, "Please save the document before proceeding !", "Save the document", JOptionPane.ERROR_MESSAGE);
+              return -1;
+           // MessageBox.OK(parentFrame, bundle.getString("save_document_before_proceeding"), bundle.getString("save_the_document"), JOptionPane.ERROR_MESSAGE);
         }
 
     }
@@ -163,14 +240,9 @@ public void goToSectionPosition(String sectionName) {
         btnViewValidationErrors = new javax.swing.JButton();
         btnViewXml = new javax.swing.JButton();
 
-        btnValidateStructure.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnValidateStructure.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/panels/loadable/Bundle"); // NOI18N
         btnValidateStructure.setText(bundle.getString("validateAndCheckPanel.btnValidateStructure.text")); // NOI18N
-        btnValidateStructure.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnValidateStructureActionPerformed(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("DejaVu Sans", 1, 10));
         jLabel1.setText(bundle.getString("validateAndCheckPanel.jLabel1.text")); // NOI18N
@@ -245,12 +317,6 @@ public void goToSectionPosition(String sectionName) {
                 .addContainerGap(63, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnValidateStructureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidateStructureActionPerformed
-        validateStructure();
-        //iterate through the document and process the rules for every section
-        //processSections(sre);
-    }//GEN-LAST:event_btnValidateStructureActionPerformed
 
     private void btnViewErrorLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewErrorLogActionPerformed
         // TODO add your handling code here:
