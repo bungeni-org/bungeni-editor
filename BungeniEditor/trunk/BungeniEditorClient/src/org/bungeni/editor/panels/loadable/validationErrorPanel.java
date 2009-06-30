@@ -62,10 +62,10 @@ public class validationErrorPanel extends javax.swing.JPanel {
      * Sets up the jtable displaying the error mesages
      */
     private void initTables() {
-         validationErrorTableModel tblModel = new validationErrorTableModel(this.docValidationErrors);
-         this.tblValidationErrors.setModel(tblModel);
-         this.tblValidationErrors.getColumnModel().getColumn(1).setCellRenderer(new TextAreaRenderer());
-         this.tblValidationErrors.addMouseListener(new tblValidationErrorMouseListener());
+        validationErrorTableModel tblModel = new validationErrorTableModel(this.docValidationErrors);
+        this.tblValidationErrors.setModel(tblModel);
+        this.tblValidationErrors.getColumnModel().getColumn(1).setCellRenderer(new TextAreaRenderer());
+        this.tblValidationErrors.addMouseListener(new tblValidationErrorMouseListener());
     }
 
     /** This method is called from within the constructor to
@@ -84,46 +84,30 @@ public class validationErrorPanel extends javax.swing.JPanel {
         btnClose.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnClose.setText("Close");
         btnClose.addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCloseActionPerformed(evt);
             }
         });
 
         tblValidationErrors.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][]{
+                    {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null}
+                },
+                new String[]{
+                    "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         scrollValidationErrors.setViewportView(tblValidationErrors);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(scrollValidationErrors, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(195, 195, 195)
-                        .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout.createSequentialGroup().addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout.createSequentialGroup().addContainerGap().addComponent(scrollValidationErrors, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)).addGroup(layout.createSequentialGroup().addGap(195, 195, 195).addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))).addContainerGap()));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrollValidationErrors, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnClose))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup().addContainerGap().addComponent(scrollValidationErrors, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(btnClose)));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
@@ -138,31 +122,30 @@ public class validationErrorPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public class tblValidationErrorMouseListener extends MouseAdapter {
-            public void mouseClicked(MouseEvent e)
-    {
-        if (e.getClickCount() == 2)
-        {
-            Point p = e.getPoint();
-            int row = tblValidationErrors.rowAtPoint(p);
-            pointErrorInDocument(row);
+
+        public void mouseClicked(MouseEvent e) {
+            if (e.getClickCount() == 2) {
+                Point p = e.getPoint();
+                int row = tblValidationErrors.rowAtPoint(p);
+                pointErrorInDocument(row);
             // ...
+            }
         }
     }
 
-    }
-
     private void pointErrorInDocument(int nrow) {
-       
-        validationErrorTableModel tblModel =  (validationErrorTableModel) this.tblValidationErrors.getModel();
+
+        validationErrorTableModel tblModel = (validationErrorTableModel) this.tblValidationErrors.getModel();
         final String matchedSectionName = tblModel.getSectionId(nrow);
-        new SwingWorker< Object , Object >() {
-              protected Object doInBackground() throws Exception {
+        new SwingWorker<Object, Object>() {
+
+            protected Object doInBackground() throws Exception {
                 CommonDocumentUtilFunctions.selectSection(callerPanel.getOOComponentHandle(), matchedSectionName);
                 return null;
-              }
+            }
         }.execute();
     }
-    
+
     public class TextAreaRenderer extends JTextArea
             implements TableCellRenderer {
 

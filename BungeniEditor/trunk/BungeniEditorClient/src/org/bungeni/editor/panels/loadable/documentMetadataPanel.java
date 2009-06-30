@@ -3,7 +3,6 @@
  *
  * Created on May 15, 2008, 11:47 AM
  */
-
 package org.bungeni.editor.panels.loadable;
 
 import java.awt.event.ActionEvent;
@@ -21,53 +20,50 @@ import org.bungeni.ooo.OOComponentHelper;
  * @author  Administrator
  */
 public class documentMetadataPanel extends BaseClassForITabbedPanel {
-    
 
-    
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(documentMetadataPanel.class.getName());
-
-    
-    private DocumentMetadataTableModel docMetadataTableModel ;
+    private DocumentMetadataTableModel docMetadataTableModel;
     private Timer docMetadataTimer;
+
     /** Creates new form documentMetadataPanel */
     public documentMetadataPanel() {
         initComponents();
     }
-    
-   public documentMetadataPanel(OOComponentHelper ooDocument, JFrame parentFrame){
-         this.parentFrame=parentFrame;
-         this.ooDocument=ooDocument;
-         init();
-     }
-    
-    private void init() {
-       initComponents();
-       initTableDocumentMetadata();    
-       initTimer();
-    }
-    
 
-    
+    public documentMetadataPanel(OOComponentHelper ooDocument, JFrame parentFrame) {
+        this.parentFrame = parentFrame;
+        this.ooDocument = ooDocument;
+        init();
+    }
+
+    private void init() {
+        initComponents();
+        initTableDocumentMetadata();
+        initTimer();
+    }
+
     private void initTableDocumentMetadata() {
         docMetadataTableModel = new DocumentMetadataTableModel(ooDocument);
         this.tableDocumentMetadata.setModel(docMetadataTableModel);
     }
-    
-     private  void initTimer(){
-          docMetadataTimer = new Timer(4000, new ActionListener() {
-              public void actionPerformed(ActionEvent e) {
-                  if (isVisible())
+
+    private void initTimer() {
+        docMetadataTimer = new Timer(4000, new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                if (isVisible()) {
                     refreshDocMetadataTable();
-              }
-           });
-           docMetadataTimer.start();
+                }
+            }
+        });
+        docMetadataTimer.start();
     }
-     
-     private void refreshDocMetadataTable(){
+
+    private void refreshDocMetadataTable() {
         docMetadataTableModel.refreshMetaData();
 
-     }
-     
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -83,16 +79,15 @@ public class documentMetadataPanel extends BaseClassForITabbedPanel {
 
         tableDocumentMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         tableDocumentMetadata.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][]{
+                    {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null}
+                },
+                new String[]{
+                    "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         scrollTableDocumentMetadata.setViewportView(tableDocumentMetadata);
 
         lblDescDocMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
@@ -102,6 +97,7 @@ public class documentMetadataPanel extends BaseClassForITabbedPanel {
         btnEditMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnEditMetadata.setText(bundle.getString("documentMetadataPanel.btnEditMetadata.text")); // NOI18N
         btnEditMetadata.addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditMetadataActionPerformed(evt);
             }
@@ -110,60 +106,38 @@ public class documentMetadataPanel extends BaseClassForITabbedPanel {
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(lblDescDocMetadata, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 196, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(layout.createSequentialGroup()
-                        .add(12, 12, 12)
-                        .add(scrollTableDocumentMetadata, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE))
-                    .add(layout.createSequentialGroup()
-                        .add(46, 46, 46)
-                        .add(btnEditMetadata)))
-                .addContainerGap())
-        );
+                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(layout.createSequentialGroup().add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(lblDescDocMetadata, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 196, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).add(layout.createSequentialGroup().add(12, 12, 12).add(scrollTableDocumentMetadata, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)).add(layout.createSequentialGroup().add(46, 46, 46).add(btnEditMetadata))).addContainerGap()));
         layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(lblDescDocMetadata)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(scrollTableDocumentMetadata, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 231, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(btnEditMetadata)
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
+                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(layout.createSequentialGroup().add(lblDescDocMetadata).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(scrollTableDocumentMetadata, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 231, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED).add(btnEditMetadata).addContainerGap(27, Short.MAX_VALUE)));
 
         getAccessibleContext().setAccessibleDescription("Doc Metadata");
     }// </editor-fold>//GEN-END:initComponents
 
-private void btnEditMetadataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditMetadataActionPerformed
+    private void btnEditMetadataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditMetadataActionPerformed
 // TODO add your handling code here:
-    javax.swing.SwingUtilities.invokeLater(new Runnable() {
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+
             public void run() {
-              MetadataEditorContainer.launchMetadataEditor(ooDocument, SelectorDialogModes.TEXT_EDIT);
+                MetadataEditorContainer.launchMetadataEditor(ooDocument, SelectorDialogModes.TEXT_EDIT);
             }
         });
-  
-}//GEN-LAST:event_btnEditMetadataActionPerformed
 
+    }//GEN-LAST:event_btnEditMetadataActionPerformed
 
     @Override
     public void initialize() {
-       super.initialize();
-       initTableDocumentMetadata();    
-       initTimer();
+        super.initialize();
+        initTableDocumentMetadata();
+        initTimer();
     }
 
     public void refreshPanel() {
         initTableDocumentMetadata();
     }
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditMetadata;
     private javax.swing.JLabel lblDescDocMetadata;
     private javax.swing.JScrollPane scrollTableDocumentMetadata;
     private javax.swing.JTable tableDocumentMetadata;
     // End of variables declaration//GEN-END:variables
-    
 }

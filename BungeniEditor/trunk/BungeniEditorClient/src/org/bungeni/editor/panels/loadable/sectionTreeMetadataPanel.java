@@ -3,7 +3,6 @@
  *
  * Created on May 15, 2008, 11:47 AM
  */
-
 package org.bungeni.editor.panels.loadable;
 
 import java.awt.Font;
@@ -39,99 +38,95 @@ import org.bungeni.utils.compare.BungeniTreeRefactorTree;
  * @author  Administrator
  */
 public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
-    
-    
+
     private DefaultMutableTreeNode sectionRootNode = null;
-    private boolean emptyRootNode= false;
+    private boolean emptyRootNode = false;
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(sectionTreeMetadataPanel.class.getName());
     private static final String ROOT_SECTION = BungeniEditorPropertiesHelper.getDocumentRoot();
     //arraylist capturing tree state.
     private ArrayList<String> m_savedTreeState = new ArrayList<String>();
-   //object storing selected section
-    private BungeniBNode m_selectedSection ;
-    
+    //object storing selected section
+    private BungeniBNode m_selectedSection;
     private Timer sectionMetadataRefreshTimer;
+
     /** Creates new form documentMetadataPanel */
     public sectionTreeMetadataPanel() {
         log.debug("constructing sectionTreeMetadataPanel");
         initComponents();
     }
-    
-   public sectionTreeMetadataPanel(OOComponentHelper ooDoc, JFrame p){
-         parentFrame=p;
-         ooDocument=ooDoc;
-         init();
-     }
-    
+
+    public sectionTreeMetadataPanel(OOComponentHelper ooDoc, JFrame p) {
+        parentFrame = p;
+        ooDocument = ooDoc;
+        init();
+    }
+
     private void init() {
         initComponents();
         initTreeStructure();
-       // initTableDocumentMetadata();    
+    // initTableDocumentMetadata();
     }
-    
-    private sectionTreeMetadataPanel self(){
+
+    private sectionTreeMetadataPanel self() {
         return this;
     }
-    
+
     private void initTableDocumentMetadata() {
         this.treeSectionTreeMetadata.addMouseListener(new treeDocStructureTreeMouseListener());
-        DocumentSectionFriendlyAdapterDefaultTreeModel model = DocumentSectionFriendlyTreeModelProvider.create() ;//_without_subscription();
+        DocumentSectionFriendlyAdapterDefaultTreeModel model = DocumentSectionFriendlyTreeModelProvider.create();//_without_subscription();
         this.treeSectionTreeMetadata.setModel(model);
         //CommonTreeFunctions.expandAll(treeSectionStructure);
-         updateTableMetadataModel(ROOT_SECTION);
-         //-tree-deprecated--CommonTreeFunctions.expandAll(treeSectionStructure, true);
-         CommonTreeFunctions.expandAll(treeSectionTreeMetadata);
+        updateTableMetadataModel(ROOT_SECTION);
+        //-tree-deprecated--CommonTreeFunctions.expandAll(treeSectionStructure, true);
+        CommonTreeFunctions.expandAll(treeSectionTreeMetadata);
     }
-    
-    private void initTreeStructure(){
-         treeSectionTreeMetadata.setExpandsSelectedPaths(true);
-         
-         TreeCellRenderer sectionTreeRender =  this.treeSectionTreeMetadata.getCellRenderer();
-         ImageIcon minusIcon = CommonTreeFunctions.treeMinusIcon();
-         ImageIcon plusIcon = CommonTreeFunctions.treePlusIcon();
-       /**  sectionTreeRender.setOpenIcon(null); **/
-       /**  sectionTreeRender.setClosedIcon(null); **/
-     //    UIManager.put("Tree.expandedIcon", minusIcon);
-     //    UIManager.put("Tree.collapsedIcon", plusIcon);
-       /**  sectionTreeRender.setLeafIcon(null); **/
-      //   treeSectionStructure.setCellRenderer(sectionTreeRender);
+
+    private void initTreeStructure() {
+        treeSectionTreeMetadata.setExpandsSelectedPaths(true);
+
+        TreeCellRenderer sectionTreeRender = this.treeSectionTreeMetadata.getCellRenderer();
+        ImageIcon minusIcon = CommonTreeFunctions.treeMinusIcon();
+        ImageIcon plusIcon = CommonTreeFunctions.treePlusIcon();
+        /**  sectionTreeRender.setOpenIcon(null); **/
+        /**  sectionTreeRender.setClosedIcon(null); **/
+        //    UIManager.put("Tree.expandedIcon", minusIcon);
+        //    UIManager.put("Tree.collapsedIcon", plusIcon);
+        /**  sectionTreeRender.setLeafIcon(null); **/
+        //   treeSectionStructure.setCellRenderer(sectionTreeRender);
         // treeSectionTreeMetadata.setCellRenderer(new treeViewPrettySectionsTreeCellRenderer());
-         treeSectionTreeMetadata.setShowsRootHandles(true);
-         ComponentUI treeUI = treeSectionTreeMetadata.getUI();
-         if (treeUI instanceof BasicTreeUI){
-             ((BasicTreeUI)treeUI).setExpandedIcon(minusIcon);
-             ((BasicTreeUI)treeUI).setCollapsedIcon(plusIcon);
-         }
+        treeSectionTreeMetadata.setShowsRootHandles(true);
+        ComponentUI treeUI = treeSectionTreeMetadata.getUI();
+        if (treeUI instanceof BasicTreeUI) {
+            ((BasicTreeUI) treeUI).setExpandedIcon(minusIcon);
+            ((BasicTreeUI) treeUI).setCollapsedIcon(plusIcon);
+        }
         this.treeSectionTreeMetadata.addMouseListener(new treeDocStructureTreeMouseListener());
-        DocumentSectionFriendlyAdapterDefaultTreeModel model = DocumentSectionFriendlyTreeModelProvider.create() ;//_without_subscription();
+        DocumentSectionFriendlyAdapterDefaultTreeModel model = DocumentSectionFriendlyTreeModelProvider.create();//_without_subscription();
         this.treeSectionTreeMetadata.setModel(model);
         updateTableMetadataModel(ROOT_SECTION);
         CommonTreeFunctions.expandAll(treeSectionTreeMetadata);
     }
- 
-    
 
-
-    private void refreshTree(){
-            BungeniBNode newRootNode = DocumentSectionProvider.getNewFriendlyTree().getFirstRoot();
-            DocumentSectionFriendlyAdapterDefaultTreeModel model = (DocumentSectionFriendlyAdapterDefaultTreeModel) this.treeSectionTreeMetadata.getModel();
-            DefaultMutableTreeNode mnode = (DefaultMutableTreeNode) model.getRoot();
-            BungeniBNode origNode = (BungeniBNode) mnode.getUserObject();
-            BungeniTreeRefactorTree refTree = new BungeniTreeRefactorTree (model, origNode, newRootNode);
-            refTree.doMerge();
+    private void refreshTree() {
+        BungeniBNode newRootNode = DocumentSectionProvider.getNewFriendlyTree().getFirstRoot();
+        DocumentSectionFriendlyAdapterDefaultTreeModel model = (DocumentSectionFriendlyAdapterDefaultTreeModel) this.treeSectionTreeMetadata.getModel();
+        DefaultMutableTreeNode mnode = (DefaultMutableTreeNode) model.getRoot();
+        BungeniBNode origNode = (BungeniBNode) mnode.getUserObject();
+        BungeniTreeRefactorTree refTree = new BungeniTreeRefactorTree(model, origNode, newRootNode);
+        refTree.doMerge();
     }
-    
+
     /*
-   private void refreshTree(){
-       //TreePath[] selections = this.treeSectionTreeMetadata.getSelectionPaths();
-       captureTreeState();
-       //Enumeration expandedNodes = this.treeSectionTreeMetadata.getExpandedDescendants(new TreePath(this.treeSectionTreeMetadata.getModel().getRoot()));
-       refreshTreeModel();
-       CommonTreeFunctions.expandAll(treeSectionTreeMetadata);    
-       restoreTreeState();
-   }
- */
-   private void captureTreeState(){
+    private void refreshTree(){
+    //TreePath[] selections = this.treeSectionTreeMetadata.getSelectionPaths();
+    captureTreeState();
+    //Enumeration expandedNodes = this.treeSectionTreeMetadata.getExpandedDescendants(new TreePath(this.treeSectionTreeMetadata.getModel().getRoot()));
+    refreshTreeModel();
+    CommonTreeFunctions.expandAll(treeSectionTreeMetadata);
+    restoreTreeState();
+    }
+     */
+    private void captureTreeState() {
         TreePath selPath = this.treeSectionTreeMetadata.getSelectionPath();
         if (selPath != null) {
             this.m_savedTreeState.clear();
@@ -141,12 +136,12 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
                 m_savedTreeState.add(parent.getLastPathComponent().toString());
                 parent = parent.getParentPath();
             }
-          Collections.reverse(m_savedTreeState);
+            Collections.reverse(m_savedTreeState);
         }
-   }
-   
-   private void restoreTreeState() {
-        if (this.m_savedTreeState.size() > 0 ) {
+    }
+
+    private void restoreTreeState() {
+        if (this.m_savedTreeState.size() > 0) {
             String[] treeState = m_savedTreeState.toArray(new String[m_savedTreeState.size()]);
             TreePath foundPath = findByName(this.treeSectionTreeMetadata, treeState);
             if (foundPath != null) {
@@ -154,37 +149,38 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
                 this.treeSectionTreeMetadata.scrollPathToVisible(foundPath);
             }
         }
- }
-   
-   // Finds the path in tree as specified by the array of names. The names array is a
+    }
+
+    // Finds the path in tree as specified by the array of names. The names array is a
     // sequence of names where names[0] is the root and names[i] is a child of names[i-1].
     // Comparison is done using String.equals(). Returns null if not found.
     public TreePath findByName(JTree tree, String[] names) {
-        TreeNode root = (TreeNode)tree.getModel().getRoot();
+        TreeNode root = (TreeNode) tree.getModel().getRoot();
         return findNode(tree, new TreePath(root), names, 0, true);
     }
+
     private TreePath findNode(JTree tree, TreePath parent, Object[] nodes, int depth, boolean byName) {
-        TreeNode node = (TreeNode)parent.getLastPathComponent();
+        TreeNode node = (TreeNode) parent.getLastPathComponent();
         Object o = node;
-    
+
         // If by name, convert node to a string
         if (byName) {
             o = o.toString();
         }
-    
+
         // If equal, go down the branch
         if (o.equals(nodes[depth])) {
             // If at end, return match
-            if (depth == nodes.length-1) {
+            if (depth == nodes.length - 1) {
                 return parent;
             }
-    
+
             // Traverse children
             if (node.getChildCount() >= 0) {
-                for (Enumeration e=node.children(); e.hasMoreElements(); ) {
-                    TreeNode n = (TreeNode)e.nextElement();
+                for (Enumeration e = node.children(); e.hasMoreElements();) {
+                    TreeNode n = (TreeNode) e.nextElement();
                     TreePath path = parent.pathByAddingChild(n);
-                    TreePath result = findNode(tree, path, nodes, depth+1, byName);
+                    TreePath result = findNode(tree, path, nodes, depth + 1, byName);
                     // Found a match
                     if (result != null) {
                         return result;
@@ -192,38 +188,36 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
                 }
             }
         }
-    
+
         // No match at this branch
         return null;
     }
-   
 
+    public void updateTableMetadataModel(String sectionName) {
+        SectionMetadataLoad sectionMetadataTableModel = new SectionMetadataLoad(ooDocument, sectionName);
+        this.tblSectionViewMetadata.setModel(sectionMetadataTableModel);
+        this.tblSectionViewMetadata.setFont(new Font("Tahoma", Font.PLAIN, 11));
+    }
 
-   public void updateTableMetadataModel(String sectionName){
-          SectionMetadataLoad sectionMetadataTableModel = new SectionMetadataLoad(ooDocument,sectionName);
-          this.tblSectionViewMetadata.setModel(sectionMetadataTableModel);
-          this.tblSectionViewMetadata.setFont(new Font("Tahoma", Font.PLAIN, 11));   
-   }
-   
+    class treeDocStructureTreeMouseListener implements MouseListener {
 
-   
-  class treeDocStructureTreeMouseListener implements MouseListener {
-       treeDocStructureTreeMouseListener() {
+        treeDocStructureTreeMouseListener() {
         }
-        
+
         public void mouseClicked(MouseEvent e) {
-        }     
-        
-         public void mousePressed(MouseEvent evt) {
-              int selRow = treeSectionTreeMetadata.getRowForLocation(evt.getX(), evt.getY());
-                    TreePath selPath = treeSectionTreeMetadata.getPathForLocation(evt.getX(), evt.getY());
-                     if (selRow != -1 ) {
-                             DefaultMutableTreeNode node = (DefaultMutableTreeNode) selPath.getLastPathComponent();
-                             m_selectedSection = (BungeniBNode)node.getUserObject();
-                             updateTableMetadataModel(m_selectedSection.getName());
-                          return;
-                     }
         }
+
+        public void mousePressed(MouseEvent evt) {
+            int selRow = treeSectionTreeMetadata.getRowForLocation(evt.getX(), evt.getY());
+            TreePath selPath = treeSectionTreeMetadata.getPathForLocation(evt.getX(), evt.getY());
+            if (selRow != -1) {
+                DefaultMutableTreeNode node = (DefaultMutableTreeNode) selPath.getLastPathComponent();
+                m_selectedSection = (BungeniBNode) node.getUserObject();
+                updateTableMetadataModel(m_selectedSection.getName());
+                return;
+            }
+        }
+
         public void mouseReleased(MouseEvent e) {
         }
 
@@ -232,8 +226,8 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
 
         public void mouseExited(MouseEvent e) {
         }
-  }    
-    
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -259,16 +253,15 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
 
         tblSectionViewMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         tblSectionViewMetadata.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][]{
+                    {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null}
+                },
+                new String[]{
+                    "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jScrollPane2.setViewportView(tblSectionViewMetadata);
 
         lblSectionTreeMetadataView.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
@@ -277,6 +270,7 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
         btnRefresh.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnRefresh.setText(bundle.getString("sectionTreeMetadataPanel.btnRefresh.text")); // NOI18N
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefreshActionPerformed(evt);
             }
@@ -285,45 +279,18 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, lblSectionTreeMetadataView)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, lblSectionMetadata, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 196, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)))
-                    .add(layout.createSequentialGroup()
-                        .add(73, 73, 73)
-                        .add(btnRefresh, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 92, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
+                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(layout.createSequentialGroup().add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(layout.createSequentialGroup().addContainerGap().add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING).add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE).add(org.jdesktop.layout.GroupLayout.LEADING, lblSectionTreeMetadataView).add(org.jdesktop.layout.GroupLayout.LEADING, lblSectionMetadata, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 196, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))).add(layout.createSequentialGroup().add(73, 73, 73).add(btnRefresh, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 92, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))).addContainerGap()));
         layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(lblSectionTreeMetadataView)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(btnRefresh, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(lblSectionMetadata)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 83, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(layout.createSequentialGroup().add(lblSectionTreeMetadataView).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(btnRefresh, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(lblSectionMetadata).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 83, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addContainerGap()));
 
         getAccessibleContext().setAccessibleDescription("Section Metadata");
     }// </editor-fold>//GEN-END:initComponents
 
-private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
 // TODO add your handling code here:
-     refreshTree();
-}//GEN-LAST:event_btnRefreshActionPerformed
+        refreshTree();
+    }//GEN-LAST:event_btnRefreshActionPerformed
 
-    
     @Override
     public void initialize() {
         super.initialize();
@@ -334,8 +301,6 @@ private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     public void refreshPanel() {
         //nothing to do here... the timer refreshes itself....
     }
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRefresh;
     private javax.swing.JScrollPane jScrollPane1;
@@ -345,5 +310,4 @@ private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JTable tblSectionViewMetadata;
     private javax.swing.JTree treeSectionTreeMetadata;
     // End of variables declaration//GEN-END:variables
-    
 }

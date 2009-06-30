@@ -3,9 +3,7 @@
  *
  * Created on May 15, 2008, 11:47 AM
  */
-
 package org.bungeni.editor.panels.loadable;
-
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -37,86 +35,81 @@ import org.bungeni.utils.TextSizeFilter;
  * @author  Ashok Hariharan
  */
 public class documentNotesPanel extends BaseClassForITabbedPanel {
-    
-    
+
     private Timer tList;
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(documentNotesPanel.class.getName());
     //document notes
     private ooDocNotes m_ooNotes;
 
-   
     /** Creates new form documentMetadataPanel */
     public documentNotesPanel() {
         log.debug("constructing documentNotesPanel");
         initComponents();
     }
-    
-   public documentNotesPanel(OOComponentHelper ooDocument, JFrame parentFrame, JPanel parentPanel){
-         this.parentFrame=parentFrame;
-         this.parentPanel = (editorTabbedPanel) parentPanel;
-         this.ooDocument=ooDocument;
-         init();
-     }
-    
+
+    public documentNotesPanel(OOComponentHelper ooDocument, JFrame parentFrame, JPanel parentPanel) {
+        this.parentFrame = parentFrame;
+        this.parentPanel = (editorTabbedPanel) parentPanel;
+        this.ooDocument = ooDocument;
+        init();
+    }
+
     private void init() {
         initComponents();
-      //cboListDocuments.addActionListener(new cboListDocumentsActionListener());
-      // initListDocuments();
-       initNotesPanel();
-       //initTimer();
+        //cboListDocuments.addActionListener(new cboListDocumentsActionListener());
+        // initListDocuments();
+        initNotesPanel();
+    //initTimer();
     }
-    
- 
-
 
     private void initNotesPanel() {
         try {
-        //restrict editor note text field
-        javax.swing.text.Document txtEditorNoteDoc = txtEditorNote.getDocument();
-        if (txtEditorNoteDoc instanceof javax.swing.text.AbstractDocument) {
-            javax.swing.text.AbstractDocument doc = (javax.swing.text.AbstractDocument)txtEditorNoteDoc;
-            doc.setDocumentFilter(new TextSizeFilter(100));
-        } else {
-            log.debug("initNotesPanel: not an AbstratDocument instance");
-        }
-        //populate editor notes list
-        initEditorNotesList();
-        this.btnSaveEditorNote.setEnabled(false);
+            //restrict editor note text field
+            javax.swing.text.Document txtEditorNoteDoc = txtEditorNote.getDocument();
+            if (txtEditorNoteDoc instanceof javax.swing.text.AbstractDocument) {
+                javax.swing.text.AbstractDocument doc = (javax.swing.text.AbstractDocument) txtEditorNoteDoc;
+                doc.setDocumentFilter(new TextSizeFilter(100));
+            } else {
+                log.debug("initNotesPanel: not an AbstratDocument instance");
+            }
+            //populate editor notes list
+            initEditorNotesList();
+            this.btnSaveEditorNote.setEnabled(false);
         } catch (Exception ex) {
-            log.error("exception initNotesPanel:"+ ex.getMessage());
+            log.error("exception initNotesPanel:" + ex.getMessage());
             ex.printStackTrace();
         }
     }
-    
+
     private void initEditorNotesList() {
         try {
-        m_ooNotes = new ooDocNotes (ooDocument);
-        Vector<ooDocNoteStructure> allNotes = new Vector<ooDocNoteStructure>();
-        log.debug("after initializing ooDocNotes");
-        allNotes = m_ooNotes.readNotes();
-        DefaultListModel notesList = new DefaultListModel();
-        log.debug("getting default listmodel");
-   
-        if (allNotes != null) {
-            log.debug("allNotes is not null = "+ allNotes.size());
-            for (int i=0; i < allNotes.size(); i++ ) {
-                ooDocNoteStructure docNote = null;
-                docNote = allNotes.elementAt(i);
-                notesList.addElement(docNote);
-                log.debug("docNote no."+ i + " , value = "+ docNote.getNoteDate());
+            m_ooNotes = new ooDocNotes(ooDocument);
+            Vector<ooDocNoteStructure> allNotes = new Vector<ooDocNoteStructure>();
+            log.debug("after initializing ooDocNotes");
+            allNotes = m_ooNotes.readNotes();
+            DefaultListModel notesList = new DefaultListModel();
+            log.debug("getting default listmodel");
+
+            if (allNotes != null) {
+                log.debug("allNotes is not null = " + allNotes.size());
+                for (int i = 0; i < allNotes.size(); i++) {
+                    ooDocNoteStructure docNote = null;
+                    docNote = allNotes.elementAt(i);
+                    notesList.addElement(docNote);
+                    log.debug("docNote no." + i + " , value = " + docNote.getNoteDate());
+                }
             }
-        } 
-        listboxEditorNotes.setModel(notesList);
-        log.debug("initEditorNotesList: size = "+ listboxEditorNotes.getModel().getSize());
-        listboxEditorNotes.ensureIndexIsVisible(listboxEditorNotes.getModel().getSize());
-        listboxEditorNotes.setSelectedIndex(listboxEditorNotes.getModel().getSize());
+            listboxEditorNotes.setModel(notesList);
+            log.debug("initEditorNotesList: size = " + listboxEditorNotes.getModel().getSize());
+            listboxEditorNotes.ensureIndexIsVisible(listboxEditorNotes.getModel().getSize());
+            listboxEditorNotes.setSelectedIndex(listboxEditorNotes.getModel().getSize());
         } catch (Exception e) {
             log.error("initEditorNotesList: exception : " + e.getMessage());
         }
-        
+
     }
-    
-    public void updateEditorNoteField(boolean bState){
+
+    public void updateEditorNoteField(boolean bState) {
         if (bState) {
             this.txtEditorNote.setText("");
             this.txtEditorNote.setEditable(true);
@@ -128,73 +121,74 @@ public class documentNotesPanel extends BaseClassForITabbedPanel {
             this.txtEditorNote.setText("Click 'New Note' to start entering a new note");
         }
     }
-    
+
     /**
- * This action listener updates document handles when switching between documents
- * The listnere does not switch the handle by itself, merely raises an event in the parent
- * panel which switches the openoffice context and switches the other panesl
- * @author  Administrator
- */
+     * This action listener updates document handles when switching between documents
+     * The listnere does not switch the handle by itself, merely raises an event in the parent
+     * panel which switches the openoffice context and switches the other panesl
+     * @author  Administrator
+     */
     class cboListDocumentsActionListener implements ActionListener {
+
         Object oldItem;
+
         public void actionPerformed(ActionEvent e) {
             JComboBox cb = (JComboBox) e.getSource();
             Object newItem = cb.getSelectedItem();
             boolean same = newItem.equals(oldItem);
             oldItem = newItem;
             if ("comboBoxChanged".equals(e.getActionCommand())) {
-            //    myParentPanel().updateMain((String)newItem, same);
+                //    myParentPanel().updateMain((String)newItem, same);
                 /*
                 if (same) {
-                    if (self().program_refresh_documents == true)
-                        return;
-                    else
-                        //check and see if the doctype property exists before you bring the window front
-                     //  if(ooDocument.propertyExists("doctype")){
-                            bringEditorWindowToFront();
-                      // }
-                        
-                    //return;
+                if (self().program_refresh_documents == true)
+                return;
+                else
+                //check and see if the doctype property exists before you bring the window front
+                //  if(ooDocument.propertyExists("doctype")){
+                bringEditorWindowToFront();
+                // }
+
+                //return;
                 } else {
-                    String key = (String)newItem;
-                    componentHandleContainer xComp = editorMap.get(key);
-                    if (xComp == null ) {
-                        log.debug("XComponent is invalid");
-                    }
-                   // ooDocument.detachListener();
-                    setOODocumentObject(new OOComponentHelper(xComp.getComponent(), ComponentContext));
-                 
-                    initFields();
-                    //initializeValues();
-                   
-                    // removed call to collapsiblepane function
-                    //retrieve the list of dynamic panels from the the dynamicPanelMap and update their component handles
-                    //updateCollapsiblePanels();
-                    updateFloatingPanels();
-                    initNotesPanel();
-                    initBodyMetadataPanel();
-                    initDialogListeners();
-                    //check and see if the doctype property exists before you refresh the metadata table
-                    ///if(!ooDocument.propertyExists("doctype")){
-                    ///   JOptionPane.showMessageDialog(null,"This is not a bungeni document.","Document Type Error",JOptionPane.ERROR_MESSAGE);
-                    ///   
-                    ///} 
-                    refreshTableDocMetadataModel();
-                    
-                                                               
-                    if (self().program_refresh_documents == false)
-                        bringEditorWindowToFront();
-                    
-                   
-                 
-                       
+                String key = (String)newItem;
+                componentHandleContainer xComp = editorMap.get(key);
+                if (xComp == null ) {
+                log.debug("XComponent is invalid");
+                }
+                // ooDocument.detachListener();
+                setOODocumentObject(new OOComponentHelper(xComp.getComponent(), ComponentContext));
+
+                initFields();
+                //initializeValues();
+
+                // removed call to collapsiblepane function
+                //retrieve the list of dynamic panels from the the dynamicPanelMap and update their component handles
+                //updateCollapsiblePanels();
+                updateFloatingPanels();
+                initNotesPanel();
+                initBodyMetadataPanel();
+                initDialogListeners();
+                //check and see if the doctype property exists before you refresh the metadata table
+                ///if(!ooDocument.propertyExists("doctype")){
+                ///   JOptionPane.showMessageDialog(null,"This is not a bungeni document.","Document Type Error",JOptionPane.ERROR_MESSAGE);
+                ///
+                ///}
+                refreshTableDocMetadataModel();
+
+
+                if (self().program_refresh_documents == false)
+                bringEditorWindowToFront();
+
+
+
+
                 } */
             }
-            
+
         }
-        
     }
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -225,6 +219,7 @@ public class documentNotesPanel extends BaseClassForITabbedPanel {
         btnNewEditorNote.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         btnNewEditorNote.setText(bundle.getString("documentNotesPanel.btnNewEditorNote.text")); // NOI18N
         btnNewEditorNote.addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNewEditorNoteActionPerformed(evt);
             }
@@ -233,6 +228,7 @@ public class documentNotesPanel extends BaseClassForITabbedPanel {
         btnSaveEditorNote.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         btnSaveEditorNote.setText(bundle.getString("documentNotesPanel.btnSaveEditorNote.text")); // NOI18N
         btnSaveEditorNote.addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaveEditorNoteActionPerformed(evt);
             }
@@ -243,11 +239,19 @@ public class documentNotesPanel extends BaseClassForITabbedPanel {
 
         listboxEditorNotes.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         listboxEditorNotes.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+
+            String[] strings = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5"};
+
+            public int getSize() {
+                return strings.length;
+            }
+
+            public Object getElementAt(int i) {
+                return strings[i];
+            }
         });
         listboxEditorNotes.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 listboxEditorNotesValueChanged(evt);
             }
@@ -256,47 +260,19 @@ public class documentNotesPanel extends BaseClassForITabbedPanel {
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, listboxEditorNotes, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, lblEditorNotes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 163, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, txtEditorNote)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                        .add(btnNewEditorNote, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 73, Short.MAX_VALUE)
-                        .add(btnSaveEditorNote, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE))
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, lblArchivedNotes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 201, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
+                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup().addContainerGap().add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING).add(org.jdesktop.layout.GroupLayout.LEADING, listboxEditorNotes, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE).add(org.jdesktop.layout.GroupLayout.LEADING, lblEditorNotes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 163, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).add(org.jdesktop.layout.GroupLayout.LEADING, txtEditorNote).add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup().add(btnNewEditorNote, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 73, Short.MAX_VALUE).add(btnSaveEditorNote, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)).add(org.jdesktop.layout.GroupLayout.LEADING, lblArchivedNotes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 201, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)).addContainerGap()));
         layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(lblEditorNotes)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(txtEditorNote, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(btnNewEditorNote)
-                    .add(btnSaveEditorNote))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(lblArchivedNotes)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(listboxEditorNotes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 112, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(layout.createSequentialGroup().addContainerGap().add(lblEditorNotes).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(txtEditorNote, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE).add(btnNewEditorNote).add(btnSaveEditorNote)).addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED).add(lblArchivedNotes).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(listboxEditorNotes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 112, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addContainerGap()));
 
         getAccessibleContext().setAccessibleDescription("Document Notes");
     }// </editor-fold>//GEN-END:initComponents
 
     private void listboxEditorNotesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listboxEditorNotesValueChanged
 // TODO add your handling code here:
-        JList listbox = (JList)evt.getSource();
+        JList listbox = (JList) evt.getSource();
         ListModel model = listbox.getModel();
         int index = listbox.getMaxSelectionIndex();
-        if (index != -1 ) {
+        if (index != -1) {
             ooDocNoteStructure ooNote = (ooDocNoteStructure) model.getElementAt(index);
             String noteText = ooNote.getNoteText();
             txtEditorNote.setText(noteText);
@@ -311,7 +287,7 @@ public class documentNotesPanel extends BaseClassForITabbedPanel {
         calendar.setTime(current);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String strNoteDate = formatter.format(current);
-        String strAuthor= "Ashok";
+        String strAuthor = "Ashok";
         String strEditorNote = txtEditorNote.getText();
         log.debug("actionPerformed:saveEditorNote");
         ooDocNoteStructure ooNote = new ooDocNoteStructure(strNoteDate, strAuthor, strEditorNote);
@@ -323,28 +299,24 @@ public class documentNotesPanel extends BaseClassForITabbedPanel {
 
     private void btnNewEditorNoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewEditorNoteActionPerformed
 // TODO add your handling code here:
-    this.updateEditorNoteField(true);
-    this.btnSaveEditorNote.setEnabled(true);
+        this.updateEditorNoteField(true);
+        this.btnSaveEditorNote.setEnabled(true);
     }//GEN-LAST:event_btnNewEditorNoteActionPerformed
 
-  
-    
     @Override
     public void initialize() {
         super.initialize();
-      // cboListDocuments.addActionListener(new cboListDocumentsActionListener());
-     //  initListDocuments();
-       initNotesPanel();
-     //  initTimer();
-       updateEditorNoteField(false);
+        // cboListDocuments.addActionListener(new cboListDocumentsActionListener());
+        //  initListDocuments();
+        initNotesPanel();
+        //  initTimer();
+        updateEditorNoteField(false);
     }
 
     public void refreshPanel() {
         initEditorNotesList();
         this.updateEditorNoteField(false);
     }
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNewEditorNote;
     private javax.swing.JButton btnSaveEditorNote;
@@ -353,5 +325,4 @@ public class documentNotesPanel extends BaseClassForITabbedPanel {
     private javax.swing.JList listboxEditorNotes;
     private javax.swing.JTextArea txtEditorNote;
     // End of variables declaration//GEN-END:variables
-    
 }

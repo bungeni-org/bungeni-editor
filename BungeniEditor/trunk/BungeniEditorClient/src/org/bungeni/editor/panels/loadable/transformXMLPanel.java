@@ -74,7 +74,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             put("AN-XML", new BungeniTransformationTarget("AN-XML", bundle.getString("AN_Format"), "xml", "org.bungeni.ooo.transforms.loadable.AnXmlTransform"));
         }
     };
-    private  final HashMap<String, exportDestination> __EXPORT_DESTINATIONS__ = new HashMap<String, exportDestination>() {
+    private final HashMap<String, exportDestination> __EXPORT_DESTINATIONS__ = new HashMap<String, exportDestination>() {
 
         {
             put("ToBungeniServer", new exportDestination("ToBungeniServer", bundle.getString("Export_into_a_Bungeni_Server")));
@@ -131,11 +131,9 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         }
     }
 
-
-    private void initButtons(){
+    private void initButtons() {
         this.btnExportToXML.addActionListener(new transformXmlActionListener());
     }
-
 
     /**
      * Starts the transformation server via a shell call
@@ -234,10 +232,8 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         }
     }
 
-
-
     private void initTransfromTargetCombo() {
-        BungeniTransformationTarget[] targets =  __TRANSFORMATION_TARGETS__.values().toArray(new BungeniTransformationTarget[__TRANSFORMATION_TARGETS__.size()]);
+        BungeniTransformationTarget[] targets = __TRANSFORMATION_TARGETS__.values().toArray(new BungeniTransformationTarget[__TRANSFORMATION_TARGETS__.size()]);
         DefaultComboBoxModel model = new DefaultComboBoxModel(targets);
         this.cboTransformFrom.setModel(model);
     }
@@ -280,20 +276,79 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
 
             @Override
             public void done() {
-                boolean bState  = false;
+                boolean bState = false;
                 try {
-                     sourceButton.setEnabled(true);
-                     parentFrame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-                     bState = get();
+                    sourceButton.setEnabled(true);
+                    parentFrame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                    bState = get();
                 } catch (InterruptedException ex) {
                     log.error("done(),", ex);
                 } catch (ExecutionException ex) {
                     log.error("done(),", ex);
                 }
-                if (bState)
+                if (bState) {
                     MessageBox.OK(parentFrame, bundle.getString("Document_was_successfully_Exported_to_the_workspace_folder"));
-                else
+                } else {
                     MessageBox.OK(parentFrame, bundle.getString("Document_export_failed"));
+                }
+            }
+        }
+
+        public synchronized void actionPerformed(ActionEvent e) {
+            //get the button originating the event
+            final JButton sourceButton = (JButton) e.getSource();
+            //disable the button immediately
+            sourceButton.setEnabled(false);
+            //set the wait cursor
+            parentFrame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            //call the swingworker thread for the button event
+            (new buttonActionRunner(sourceButton)).execute();
+        }
+    }
+
+    class convertToPlain implements ActionListener {
+
+        /**
+         * Run the button action in a swingworker thread, so the UI disabling happens immediately
+         */
+        class buttonActionRunner extends SwingWorker<String, Object> {
+
+            JButton sourceButton;
+
+            public buttonActionRunner(JButton origButton) {
+                this.sourceButton = origButton;
+            }
+
+            protected String doInBackground() throws Exception {
+                //check if server is running .. if running stop it
+                String  retValue = convertToPlain();
+                return retValue;
+            }
+
+            @Override
+            public void done() {
+                 String retValue = "";
+                try {
+                    sourceButton.setEnabled(true);
+                    parentFrame.setCursor(Cursor.getDefaultCursor());
+                    retValue = get();
+                    if (retValue != null) {
+                        if (retValue.equals("save_the_document")) {
+                                        MessageBox.OK(parentFrame, bundle.getString("Please_save_the_document"), bundle.getString("Save_the_document"), JOptionPane.ERROR_MESSAGE);
+                        } else {
+                        String outputFilePath = (String) retValue;
+                        File fFile = CommonFileFunctions.convertUrlToFile(outputFilePath);
+                        int nRet = MessageBox.Confirm(parentFrame, bundle.getString("Click_Yes_to_open_the_plain_document_\n_Click_No_to_close_this_window"), bundle.getString("Document_Successfully_Converted!"));
+                        if (nRet == JOptionPane.YES_OPTION) {
+                            OOComponentHelper.openExistingDocument(fFile.getAbsolutePath());
+                        }
+                        }
+                    }
+              } catch (InterruptedException ex) {
+                    log.error("done(),", ex);
+                } catch (ExecutionException ex) {
+                    log.error("done(),", ex);
+                }
             }
         }
 
@@ -376,7 +431,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
 
     }
 
-     private JMenuItem setupMenuItem(String key, String title, ActionListener listener) {
+    private JMenuItem setupMenuItem(String key, String title, ActionListener listener) {
         JMenuItem item = new JMenuItem(title);
         item.setActionCommand(key);
         item.addActionListener(listener);
@@ -390,62 +445,85 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             if (e.getActionCommand().equals("ANXML")) {
                 File fXml = CommonANUtils.getComponentFromFile(ooDocument.getDocumentURL(), "xml");
                 if (fXml.exists()) {
-                     try {
-                            BungeniXmlViewer.launchXmlViewer("Xml Viewer", fXml);
-                        } catch (ParserConfigurationException ex) {
-                            log.error("viewXmlDoc ", ex);
-                            MessageBox.OK(parentFrame, bundle.getString("xml_not_wellformed"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
-                        }
-                  } else {
-                        MessageBox.OK(parentFrame, bundle.getString("xml_does_not_exist"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
-                  }
+                    try {
+                        BungeniXmlViewer.launchXmlViewer("Xml Viewer", fXml);
+                    } catch (ParserConfigurationException ex) {
+                        log.error("viewXmlDoc ", ex);
+                        MessageBox.OK(parentFrame, bundle.getString("xml_not_wellformed"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    MessageBox.OK(parentFrame, bundle.getString("xml_does_not_exist"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
+                }
                 return;
             }
             if (e.getActionCommand().equals("METALEX")) {
                 String sFilePrefix = CommonANUtils.getFilePrefix(ooDocument.getDocumentURL()) + "_metalex";
                 String sFileExt = "xml";
-                String sFileMlx = sFilePrefix + ((sFileExt.length() > 0 )? "." + sFileExt : "");
+                String sFileMlx = sFilePrefix + ((sFileExt.length() > 0) ? "." + sFileExt : "");
                 File fMlx = CommonFileFunctions.convertUrlToFile(sFileMlx);
                 if (fMlx.exists()) {
-                     try {
-                            BungeniXmlViewer.launchXmlViewer("Xml Viewer", fMlx);
-                        } catch (ParserConfigurationException ex) {
-                            log.error("viewXmlDoc ", ex);
-                            MessageBox.OK(parentFrame, bundle.getString("xml_not_wellformed"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
-                        }
-                  } else {
-                        MessageBox.OK(parentFrame, bundle.getString("xml_does_not_exist"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
-                  }
+                    try {
+                        BungeniXmlViewer.launchXmlViewer("Xml Viewer", fMlx);
+                    } catch (ParserConfigurationException ex) {
+                        log.error("viewXmlDoc ", ex);
+                        MessageBox.OK(parentFrame, bundle.getString("xml_not_wellformed"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    MessageBox.OK(parentFrame, bundle.getString("xml_does_not_exist"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
+                }
                 return;
             }
         }
-
     }
 
-    private JPopupMenu getPopupMenu(){
+    private JPopupMenu getPopupMenu() {
         JPopupMenu menu = new JPopupMenu();
         viewXmlListener listener = new viewXmlListener();
         JMenuItem menuItemXml = setupMenuItem("ANXML", "AkomaNtososo", listener);
-        JMenuItem menuItemMtlx =  setupMenuItem("METALEX", "MetaLEX", listener);
+        JMenuItem menuItemMtlx = setupMenuItem("METALEX", "MetaLEX", listener);
         menu.add(menuItemXml);
         menu.add(menuItemMtlx);
         return menu;
     }
-
     JPopupMenu xmlPopupMenu = null;
 
-    private void viewXmlDoc(MouseEvent evt){
+    private void viewXmlDoc(MouseEvent evt) {
         if (ooDocument.isDocumentOnDisk()) {
             String sUrl = ooDocument.getDocumentURL();
-            if (xmlPopupMenu == null ) xmlPopupMenu = getPopupMenu();
-                xmlPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+            if (xmlPopupMenu == null) {
+                xmlPopupMenu = getPopupMenu();
+            }
+            xmlPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
 
         } else {
             MessageBox.OK(parentFrame, bundle.getString("save_document_before_transform"));
         }
     }
 
-    
+
+    private String convertToPlain() {
+        boolean bState = false;
+        if (ooDocument.isDocumentOnDisk()) {
+            //  generatePlainDocument();
+            ExternalPluginLoader ep = new ExternalPluginLoader();
+            ExternalPlugin convertToPlain = ep.loadPlugin("ConvertToPlain");
+            Object[] argSetParams = {
+                new HashMap() {
+
+                    {
+                        put("OdfFileURL", ooDocument.getDocumentURL());
+                    }
+                }
+            };
+            convertToPlain.callMethod("setParams", argSetParams);
+            Object[] argExec = {};
+            Object retValue = convertToPlain.callMethod("exec", argExec);
+            return (String)retValue;
+        } else {
+            return new String("save_the_document");
+        }
+    }
+
     private void viewExportErrors() {
         //check if errors file exists
         if (ooDocument.isDocumentOnDisk()) {
@@ -455,14 +533,16 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             //File fFile = CommonFileFunctions.convertUrlToFile(sUrl);
             //File fErrors = new File(fFile.getParent() + File.separator + "errors.xml");
             if (fErrors.exists()) {
-                if (saxBuilder == null ) saxBuilder = new SAXBuilder(BungeniEditorProperties.SAX_PARSER_DRIVER, false);
+                if (saxBuilder == null) {
+                    saxBuilder = new SAXBuilder(BungeniEditorProperties.SAX_PARSER_DRIVER, false);
+                }
                 Document xmlErrors = null;
                 try {
                     xmlErrors = saxBuilder.build(fErrors);
                 } catch (JDOMException ex) {
-                   log.error("viewXmErrors ", ex);
+                    log.error("viewXmErrors ", ex);
                 } catch (IOException ex) {
-                   log.error("viewXmErrors ", ex);
+                    log.error("viewXmErrors ", ex);
                 }
                 if (xmlErrors != null) {
                     if (errorsExist(xmlErrors)) {
@@ -492,7 +572,6 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         FrameLauncher.LaunchFrame(frame, true, true);
     }
 
-
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -515,10 +594,10 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         btnViewXmlDoc = new javax.swing.JButton();
 
         cboTransformFrom.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        cboTransformFrom.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Portable Document Format (PDF)", "AkomaNtoso XML", "XHTML - eXtensible HTML", "Marginalia-safe HTML export" }));
+        cboTransformFrom.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Portable Document Format (PDF)", "AkomaNtoso XML", "XHTML - eXtensible HTML", "Marginalia-safe HTML export"}));
 
         cboExportTo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        cboExportTo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Export to File-System path", "Export to Server" }));
+        cboExportTo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Export to File-System path", "Export to Server"}));
 
         lblTransformFrom.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/panels/loadable/Bundle"); // NOI18N
@@ -527,6 +606,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         btnExport.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnExport.setText(bundle.getString("transformXMLPanel.btnExport.text")); // NOI18N
         btnExport.addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExportActionPerformed(evt);
             }
@@ -536,6 +616,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         checkChangeColumns.setText(bundle.getString("transformXMLPanel.checkChangeColumns.text")); // NOI18N
         checkChangeColumns.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         checkChangeColumns.addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkChangeColumnsActionPerformed(evt);
             }
@@ -544,6 +625,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         btnMakePlain.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnMakePlain.setText(bundle.getString("transformXMLPanel.btnMakePlain.text")); // NOI18N
         btnMakePlain.addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMakePlainActionPerformed(evt);
             }
@@ -553,6 +635,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         btnTransformerServer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/btn_off.png"))); // NOI18N
         btnTransformerServer.setText(bundle.getString("transformXMLPanel.btnTransformerServer.text")); // NOI18N
         btnTransformerServer.addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTransformerServerActionPerformed(evt);
             }
@@ -572,6 +655,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         btnViewValidationErrors.setFont(new java.awt.Font("DejaVu Sans", 0, 9));
         btnViewValidationErrors.setText(bundle.getString("transformXMLPanel.btnViewValidationErrors.text")); // NOI18N
         btnViewValidationErrors.addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnViewValidationErrorsActionPerformed(evt);
             }
@@ -580,6 +664,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         btnViewXmlDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 9));
         btnViewXmlDoc.setText(bundle.getString("transformXMLPanel.btnViewXmlDoc.text")); // NOI18N
         btnViewXmlDoc.addMouseListener(new java.awt.event.MouseAdapter() {
+
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btnViewXmlDocMousePressed(evt);
             }
@@ -588,56 +673,9 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .add(btnExport, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 171, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(35, 35, 35))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, scrollMsg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 220, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, lblTransformFrom)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                                .add(btnViewValidationErrors, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 108, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 16, Short.MAX_VALUE)
-                                .add(btnViewXmlDoc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 96, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, cboExportTo, 0, 220, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, cboTransformFrom, 0, 220, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, btnMakePlain)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, btnExportToXML, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, checkChangeColumns, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 134, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, btnTransformerServer, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 220, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
-        );
+                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(layout.createSequentialGroup().addContainerGap().add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup().add(btnExport, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 171, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).add(35, 35, 35)).add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup().add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING).add(org.jdesktop.layout.GroupLayout.LEADING, scrollMsg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 220, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).add(org.jdesktop.layout.GroupLayout.LEADING, lblTransformFrom).add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup().add(btnViewValidationErrors, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 108, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 16, Short.MAX_VALUE).add(btnViewXmlDoc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 96, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)).add(org.jdesktop.layout.GroupLayout.LEADING, cboExportTo, 0, 220, Short.MAX_VALUE).add(org.jdesktop.layout.GroupLayout.LEADING, cboTransformFrom, 0, 220, Short.MAX_VALUE).add(org.jdesktop.layout.GroupLayout.LEADING, btnMakePlain).add(org.jdesktop.layout.GroupLayout.LEADING, btnExportToXML, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE).add(org.jdesktop.layout.GroupLayout.LEADING, checkChangeColumns, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 134, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).add(org.jdesktop.layout.GroupLayout.LEADING, btnTransformerServer, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 220, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)).addContainerGap()))));
         layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(btnTransformerServer)
-                .add(1, 1, 1)
-                .add(scrollMsg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(btnMakePlain)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(checkChangeColumns)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(btnExportToXML)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(btnViewValidationErrors)
-                    .add(btnViewXmlDoc))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 23, Short.MAX_VALUE)
-                .add(lblTransformFrom)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(cboTransformFrom, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 21, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(cboExportTo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(btnExport)
-                .addContainerGap())
-        );
+                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(layout.createSequentialGroup().addContainerGap().add(btnTransformerServer).add(1, 1, 1).add(scrollMsg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(btnMakePlain).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(checkChangeColumns).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(btnExportToXML).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE).add(btnViewValidationErrors).add(btnViewXmlDoc)).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 23, Short.MAX_VALUE).add(lblTransformFrom).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(cboTransformFrom, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 21, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED).add(cboExportTo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED).add(btnExport).addContainerGap()));
     }// </editor-fold>//GEN-END:initComponents
 
     private void checkChangeColumnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkChangeColumnsActionPerformed
@@ -680,33 +718,6 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
 
     private void btnMakePlainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMakePlainActionPerformed
         //  generatePlainDocument();
-        if (ooDocument.isDocumentOnDisk()) {
-            //  generatePlainDocument();
-            ExternalPluginLoader ep = new ExternalPluginLoader();
-            ExternalPlugin convertToPlain = ep.loadPlugin("ConvertToPlain");
-            Object[] argSetParams = {
-                new HashMap() {
-
-                    {
-                        put("OdfFileURL", ooDocument.getDocumentURL());
-                    }
-                }
-            };
-            convertToPlain.callMethod("setParams", argSetParams);
-            Object[] argExec = {};
-            Object retValue = convertToPlain.callMethod("exec", argExec);
-            if (retValue != null) {
-                String outputFilePath = (String) retValue;
-                File fFile = CommonFileFunctions.convertUrlToFile(outputFilePath);
-                int nRet = MessageBox.Confirm(parentFrame, bundle.getString("Click_Yes_to_open_the_plain_document_\n_Click_No_to_close_this_window"), bundle.getString("Document_Successfully_Converted!"));
-                if (nRet == JOptionPane.YES_OPTION) {
-                    OOComponentHelper.openExistingDocument(fFile.getAbsolutePath());
-                }
-            //MessageBox.OK(parentFrame, "A plain document was generated, it can be found at : \n" + outputFilePath, "Plain Document generation", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } else {
-            MessageBox.OK(parentFrame, bundle.getString("Please_save_the_document"), bundle.getString("Save_the_document"), JOptionPane.ERROR_MESSAGE);
-        }
     }//GEN-LAST:event_btnMakePlainActionPerformed
 
     private void btnTransformerServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransformerServerActionPerformed

@@ -12,6 +12,7 @@ import org.bungeni.ooo.OOComponentHelper;
  * @author  Ashok Hariharan
  */
 public class MetadataPanel extends BaseClassForITabbedPanel {
+
     private static org.apache.log4j.Logger log = Logger.getLogger(MetadataPanel.class.getName());
     ArrayList<ITabbedPanel> tabbedPanels = new ArrayList<ITabbedPanel>(0);
 
@@ -25,13 +26,14 @@ public class MetadataPanel extends BaseClassForITabbedPanel {
      * @param tabName
      */
     private void addTabPanel(String tabName) {
-       ITabbedPanel panel = TabbedPanelFactory.getPanelByName("internal", tabName);
-       panel.setOOComponentHandle(ooDocument);
-       panel.setParentHandles(parentFrame, this);
-       panel.initialize();
-       this.tabsMetadata.addTab(panel.getPanelTitle(), panel.getObjectHandle());
-       tabbedPanels.add(panel);
-   }
+        ITabbedPanel panel = TabbedPanelFactory.getPanelByName("internal", tabName);
+        panel.setOOComponentHandle(ooDocument);
+        panel.setParentHandles(parentFrame, this);
+        panel.initialize();
+        this.tabsMetadata.addTab(panel.getPanelTitle(), panel.getObjectHandle());
+        tabbedPanels.add(panel);
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -48,39 +50,33 @@ public class MetadataPanel extends BaseClassForITabbedPanel {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabsMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(tabsMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabsMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(tabsMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE));
     }// </editor-fold>//GEN-END:initComponents
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane tabsMetadata;
     // End of variables declaration//GEN-END:variables
 
-   @Override
+    @Override
     public void initialize() {
         super.initialize();
         //load the tabs here
         addTabPanel("docmeta");
         addTabPanel("sectionmeta");
-   }
+    }
 
-   /**
-    * Override the OOo component handle setter to also set the subtabs
-    * @param ooDoc
-    */
+    /**
+     * Override the OOo component handle setter to also set the subtabs
+     * @param ooDoc
+     */
     @Override
-    public void setOOComponentHandle (OOComponentHelper ooDoc) {
+    public void setOOComponentHandle(OOComponentHelper ooDoc) {
         super.setOOComponentHandle(ooDoc);
         for (ITabbedPanel panel : tabbedPanels) {
             panel.setOOComponentHandle(ooDoc);
         }
-        
+
     }
 
     /**
@@ -92,5 +88,4 @@ public class MetadataPanel extends BaseClassForITabbedPanel {
             panel.refreshPanel();
         }
     }
-
 }
