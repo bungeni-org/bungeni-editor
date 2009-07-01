@@ -25,6 +25,6 @@ public class BillMetaModel extends BaseEditorDocMetaModel {
         this.docMeta.put("BungeniBillNo", "");
         this.docMeta.put("BungeniDateOfAssent", "");
         this.docMeta.put("BungeniDateOfCommencement", "");
-        this.docMeta.put("__BungeniDocMeta", "false");
+       // this.docMeta.put("__BungeniDocMeta", "false");
     }
 }

@@ -267,7 +267,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
     spf.setSaveComponent("PartName", selPart.PartName);
    // spf.setSaveComponent("FileName", spf.getFileName());
     
-    docMetaModel.updateItem("__BungeniDocMeta", "true");
+    //docMetaModel.updateItem("__BungeniDocMeta", "true");
     docMetaModel.saveModel(ooDocument);
     bState = true;
     } catch (Exception ex) {

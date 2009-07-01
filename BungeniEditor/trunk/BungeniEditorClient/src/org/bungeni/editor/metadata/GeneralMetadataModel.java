@@ -17,11 +17,8 @@ public class GeneralMetadataModel extends BaseEditorDocMetaModel {
     @Override
     public void setup(){
         super.setup();
-       /* this.docMeta.put("BungeniParliamentID", "");
-        this.docMeta.put("BungeniParliamentSitting", "");
-        this.docMeta.put("BungeniParliamentSession", "");*/
         this.docMeta.put("BungeniOfficialDate", "");
         this.docMeta.put("BungeniOfficialTime", "");
-        this.docMeta.put("__BungeniDocMeta", "false");
+        //this.docMeta.put("__BungeniDocMeta", "false");
     }
 }

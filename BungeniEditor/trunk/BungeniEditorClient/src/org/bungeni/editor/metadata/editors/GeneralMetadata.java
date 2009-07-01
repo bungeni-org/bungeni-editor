@@ -205,7 +205,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
         docMetaModel.updateItem("BungeniExpURI", spf.getExpressionPath());
         docMetaModel.updateItem("BungeniManURI", spf.getExpressionPath() + ".xml");
 
-        docMetaModel.updateItem("__BungeniDocMeta", "true");
+        //docMetaModel.updateItem("__BungeniDocMeta", "true");
         docMetaModel.saveModel(ooDocument);
         bState = true;
     } catch (Exception ex) {
