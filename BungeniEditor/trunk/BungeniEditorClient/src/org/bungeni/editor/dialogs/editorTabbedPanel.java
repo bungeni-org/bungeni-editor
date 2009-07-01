@@ -36,6 +36,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
@@ -68,6 +69,7 @@ import org.bungeni.editor.actions.EditorActionFactory;
 import org.bungeni.editor.actions.IEditorActionEvent;
 import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.editor.dialogs.metadatapanel.SectionMetadataLoad;
+import org.bungeni.editor.metadata.BaseEditorDocMetaModel;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
 //import org.bungeni.editor.plugin.impl.IEditorPluginAll;
 import org.bungeni.editor.selectors.SelectorDialogModes;
@@ -79,6 +81,7 @@ import org.bungeni.extutils.BungeniRuntimeProperties;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonStringFunctions;
 import org.bungeni.extutils.FrameLauncher;
+import org.bungeni.ooo.ooDocMetadata;
 /**
  *
  * @author  Administrator
@@ -765,7 +768,7 @@ public void newDocumentInPanel(){
     String templatePath = BungeniEditorProperties.getEditorProperty(BungeniEditorPropertiesHelper.getCurrentDocType()+"_template");
     Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
     boolean bActive = false;
-    int nConfirm = MessageBox.Confirm(parentFrame, "Do you want to make the NEW document the active document ?", "Change active document");
+    int nConfirm = MessageBox.Confirm(parentFrame, bundle.getString("make_new_active"), bundle.getString("change_active"));
     if (JOptionPane.YES_OPTION == nConfirm) {
             bActive=true;
     }
@@ -777,7 +780,7 @@ public synchronized void loadDocumentInPanel(){
     File openFile = CommonFileFunctions.getFileFromChooser(basePath, new org.bungeni.utils.fcfilter.ODTFileFilter(), JFileChooser.FILES_ONLY, parentFrame);
     if (openFile != null) {
         boolean bActive = false;
-        int nConfirm = MessageBox.Confirm(parentFrame, "Make this document the active document ?", "Change active document");
+        int nConfirm = MessageBox.Confirm(parentFrame, bundle.getString("make_active"), bundle.getString("change_active"));
         if (JOptionPane.YES_OPTION == nConfirm) {
             bActive=true;
         }
@@ -905,6 +908,15 @@ class OpenDocumentAgent extends SwingWorker <XComponent, Void> {
 
 private void launchMetadataSetter(XComponent xComp){
         OOComponentHelper oohc = new OOComponentHelper (xComp, ComponentContext);
+        //check if metadat variable is set
+        ooDocMetadata metaObj = new ooDocMetadata(oohc);
+        String sMetaSetProp = metaObj.GetProperty(BaseEditorDocMetaModel.__METADATA_SET_FLAG__);
+        //if empty or null ... prompt the metadata
+        if (!CommonStringFunctions.emptyOrNull(sMetaSetProp)) {
+            //if metadata has been set dont prompt the user for setting the metadata
+            if (sMetaSetProp.equals("true"))
+               return;
+        }
         String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
         BungeniFrame frm = new BungeniFrame(docType + " Metadata");
         MetadataEditorContainer meta = new MetadataEditorContainer(oohc, frm, SelectorDialogModes.TEXT_INSERTION);
@@ -967,6 +979,7 @@ private void launchMetadataSetter(XComponent xComp){
           }
           return bFound;
      }
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/dialogs/Bundle");
      
      private void updateListDocuments() throws MalformedURLException, URISyntaxException{
          //new refreshed list of component handles 
