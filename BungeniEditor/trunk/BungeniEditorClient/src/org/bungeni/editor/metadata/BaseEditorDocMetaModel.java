@@ -19,6 +19,8 @@ import org.bungeni.ooo.ooDocMetadata;
 public class BaseEditorDocMetaModel implements IEditorDocMetaModel {
     HashMap<String,String>docMeta = new HashMap<String,String>();
     
+    public static final String __METADATA_SET_FLAG__ = "__BungeniDocMeta";
+
     public void setup(){
         //document related
         docMeta.put("BungeniDocType", "");
@@ -48,7 +50,7 @@ public class BaseEditorDocMetaModel implements IEditorDocMetaModel {
         docMeta.put("BungeniManDateName","");
         docMeta.put("BungeniManURI", "");
         //metadata exists
-        //docMeta.put("__BungeniDocMeta", "");
+        docMeta.put(__METADATA_SET_FLAG__, "");
     }             
    
     
