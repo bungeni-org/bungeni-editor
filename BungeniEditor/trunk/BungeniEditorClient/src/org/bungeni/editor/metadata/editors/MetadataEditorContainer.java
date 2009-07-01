@@ -13,6 +13,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 import java.util.Vector;
 import javax.swing.AbstractAction;
 import javax.swing.JFrame;
@@ -25,6 +26,7 @@ import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.db.IQueryResultsIterator;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
+import org.bungeni.editor.metadata.BaseEditorDocMetaModel;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.selectors.SelectorDialogModes;
@@ -38,6 +40,7 @@ import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.extutils.BungeniFrame;
 import org.bungeni.extutils.BungeniRuntimeProperties;
 import org.bungeni.extutils.FrameLauncher;
+import org.bungeni.ooo.ooDocMetadata;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 
 /**
@@ -49,7 +52,7 @@ import org.bungeni.ooo.utils.CommonExceptionUtils;
 public class MetadataEditorContainer extends JPanel {
 
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(MetadataEditorContainer.class.getName());
-    private String EDIT_MESSAGE = "Please edit the metadata for the currently open document using the below form";
+    private String EDIT_MESSAGE = bundle.getString("edit_metadata_with_form");
     OOComponentHelper ooDocument  = null;
     JFrame parentFrame = null;
      SelectorDialogModes dlgMode = null;
@@ -60,9 +63,9 @@ public class MetadataEditorContainer extends JPanel {
 
     BungeniFileSavePathFormat m_spf = null;
 
-    NextTabAction nextAction = new NextTabAction("Next >>");
-    PrevTabAction prevAction = new PrevTabAction("<< Previous");
-    ApplyButtonSaveAction saveAction = new ApplyButtonSaveAction("Save");
+    NextTabAction nextAction = new NextTabAction(bundle.getString("btn_next"));
+    PrevTabAction prevAction = new PrevTabAction(bundle.getString("btn_prev"));
+    ApplyButtonSaveAction saveAction = new ApplyButtonSaveAction(bundle.getString("msg_save"));
 
     public MetadataEditorContainer(){
         super();
@@ -285,12 +288,12 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
                  saveParams.put(STORE_TO_URL, fFile.toURI().toString());
 
             } else {
-                int nConfirm = MessageBox.Confirm(parentFrame, "The document will be saved to a new location, as the URI of the document has changed \n Click Yes to save to a new location, Click No to continue saving the document at the current location", "Warning");
+                int nConfirm = MessageBox.Confirm(parentFrame, bundle.getString("prompt_doc_save_new_location"), bundle.getString("msg_warning"));
                 if (nConfirm == JOptionPane.YES_OPTION) {
                  //storeAsURL to new path
                   if (fFile.exists()) {
                         //error message and abort
-                        MessageBox.OK(parentFrame, "A file with these attributes already exists, \n please edit the existing file or amend the attributes to save as a different file. \n Usually this means you are trying to save a document with an 'Official Date' that already exists");
+                        MessageBox.OK(parentFrame, bundle.getString("file_exists"));
                         bState = false;
                         return false;
                   } else {    
@@ -312,7 +315,7 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
 
             if (fFile.exists()) {
                 //error message and abort
-                MessageBox.OK(parentFrame, "A file with these attributes already exists, \n please edit the existing file or amend the attributes to save as a different file");
+                MessageBox.OK(parentFrame, bundle.getString("file_exists2"));
                 bState = false;
                 return false;
             } else {
@@ -342,11 +345,12 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
             //MessageBox.OK(parentFrame, "Document was Saved!");
             return true;
         } else {
-            MessageBox.OK(parentFrame, "The Document could not be saved!");
+            MessageBox.OK(parentFrame, bundle.getString("doc_not_saved"));
             return false;
         }
         }
 }
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle");
     
 
 
@@ -360,8 +364,9 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
 
             if (validateSelectedMetadata(m_spf)) {
                 if (applySelectedMetadata(m_spf)) {
+                    applyMetadataSetFlag();
                     if (saveDocumentToDisk(m_spf)) {
-                        parentFrame.dispose();
+                         parentFrame.dispose();
                     }
                 }
             } else {
@@ -369,9 +374,14 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
                 for (String msg : formErrors) {
                     bf.append(msg + "\n");
                 }
-                MessageBox.OK(parentFrame, bf.toString(), "Incomplete Fields", JOptionPane.ERROR_MESSAGE);
+                MessageBox.OK(parentFrame, bf.toString(), bundle.getString("incomplete_fields"), JOptionPane.ERROR_MESSAGE);
             }
 
+        }
+
+        private void applyMetadataSetFlag() {
+            ooDocMetadata meta = new ooDocMetadata(ooDocument);
+            meta.AddProperty(BaseEditorDocMetaModel.__METADATA_SET_FLAG__, "true");
         }
 
     }
