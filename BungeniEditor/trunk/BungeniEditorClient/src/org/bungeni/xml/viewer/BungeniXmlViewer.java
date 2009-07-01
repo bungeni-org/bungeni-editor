@@ -21,19 +21,26 @@ import org.bungeni.extutils.FrameLauncher;
  * @author Kyle Gabhart
  * @version 1.0
  */
-public class BungeniXmlViewer extends BungeniFrame {
+public  class BungeniXmlViewer extends BungeniFrame {
    private static org.apache.log4j.Logger log = Logger.getLogger(BungeniXmlViewer.class.getName());
 
     private static BungeniXmlViewer xmlViewer = null;
     // This is the BungeniXmlTree object which displays the XML in a JTree
     XmlViewerPanel xmlPanel = null;
 
-    public static BungeniXmlViewer getInstance(String title, ArrayList<String> xmlText) throws ParserConfigurationException {
+    public static synchronized BungeniXmlViewer getInstance(String title, ArrayList<String> xmlText) throws ParserConfigurationException {
         if (xmlViewer == null) {
-            return new BungeniXmlViewer(title, xmlText);
+            synchronized(BungeniXmlViewer.class) {
+                if (xmlViewer == null) {
+                    xmlViewer = new BungeniXmlViewer(title, xmlText);
+                }
+            }
+           
         } else {
-            return xmlViewer.updateContent(title, xmlText);
+            xmlViewer.updateContent(title, xmlText);
+            xmlViewer.setVisible(true);
         }
+        return xmlViewer;
     }
 
     public static void launchXmlViewer(String title, File fFile) throws ParserConfigurationException {
@@ -72,7 +79,7 @@ public class BungeniXmlViewer extends BungeniFrame {
      * This constructor passes the graphical construction off to the overloaded constructor
      * and then handles the processing of the XML text
      */
-    public BungeniXmlViewer(String title, ArrayList<String> xmlText) throws ParserConfigurationException {
+    protected BungeniXmlViewer(String title, ArrayList<String> xmlText) throws ParserConfigurationException {
         this(title);
         xmlPanel = new XmlViewerPanel(this, xmlText);
         updateContent(title, xmlText);
@@ -90,9 +97,10 @@ public class BungeniXmlViewer extends BungeniFrame {
      * This constructor builds a frame containing a JSplitPane, which in turn contains two JScrollPanes.
      * One of the panes contains an BungeniXmlTree object and the other contains a JTextArea object.
      */
-    public BungeniXmlViewer(String title) {
+    protected BungeniXmlViewer(String title) {
         // This builds the JFrame portion of the object
         super(title);
+        this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     } //end BungeniXmlViewer()
 
 
