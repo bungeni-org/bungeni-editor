@@ -21,14 +21,21 @@ import com.sun.star.text.XText;
 import com.sun.star.text.XTextCursor;
 import com.sun.star.text.XTextRange;
 import java.awt.Component;
+import java.awt.event.ItemEvent;
+import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 import java.util.Vector;
+import javax.swing.AbstractButton;
 import javax.swing.table.DefaultTableModel;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.BungeniRegistryFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
+import org.bungeni.extutils.CommonResourceBundleHelperFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
 
@@ -38,30 +45,61 @@ import org.bungeni.ooo.ooQueryInterface;
  */
 public class TabledDocuments extends BaseMetadataPanel {
   private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(TabledDocuments.class.getName());
- 
+  private static final String __ODF_URI_PREFIX__ = "uri:";
     /** Creates new form TabledDocuments */
     public TabledDocuments() {
         super();
         initComponents();
         initTable();
     }
-    
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/tableddocuments/Bundle");
+
+
+    class TabledDocumentsModel extends DefaultTableModel {
+        private boolean cellsEditable = false;
+
+        public TabledDocumentsModel(){
+            super();
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int col) {
+            return cellsEditable;
+        }
+
+        public void setModelEditable(boolean bState) {
+            this.cellsEditable = bState;
+        }
+    }
+
     private void initTable(){
-         HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();  
+        HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();
             BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
             dbInstance.Connect();
             QueryResults qr = dbInstance.QueryResults("select document_title, document_uri, document_date from tabled_documents");
             dbInstance.EndConnect();
             if (qr != null ) {
                 if (qr.hasResults()) {
-                Vector<Vector<String>> resultRows = new Vector<Vector<String>>();
-                resultRows = qr.theResults();
-                DefaultTableModel mdl = new DefaultTableModel();
-                mdl.setDataVector(resultRows, qr.getColumnsAsVector());
-                tbl_tabledDocs.setModel(mdl);
-                }
+                    Vector<Vector<String>> resultRows = new Vector<Vector<String>>();
+                    resultRows = qr.theResults();
+                    TabledDocumentsModel mdl = new TabledDocumentsModel() ;
+                    mdl.setDataVector(resultRows, qr.getColumnsAsVector());
+                    tbl_tabledDocs.setModel(mdl);
+                     ((TabledDocumentsModel)this.tbl_tabledDocs.getModel()).setModelEditable(false);
+                     enableButtons(false);
+                    }
             }
      }
+
+    private void enableButtons(boolean b) {
+        Enumeration<AbstractButton> buttons = this.grpEditButtons.getElements();
+        while (buttons.hasMoreElements()) {
+            AbstractButton abButton = buttons.nextElement();
+            abButton.setEnabled(b);
+        }
+    }
+
+        
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -71,9 +109,15 @@ public class TabledDocuments extends BaseMetadataPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        grpEditButtons = new javax.swing.ButtonGroup();
         lbl_tabledDocs = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_tabledDocs = new javax.swing.JTable();
+        chkEditTable = new javax.swing.JCheckBox();
+        btnClear = new javax.swing.JButton();
+        btnDeleteSelected = new javax.swing.JButton();
+        btnAddRow = new javax.swing.JButton();
+        btnReset = new javax.swing.JButton();
 
         lbl_tabledDocs.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/tableddocuments/Bundle"); // NOI18N
@@ -93,6 +137,50 @@ public class TabledDocuments extends BaseMetadataPanel {
         ));
         jScrollPane1.setViewportView(tbl_tabledDocs);
 
+        chkEditTable.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        chkEditTable.setText(bundle.getString("TabledDocuments.chkEditTable.text")); // NOI18N
+        chkEditTable.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chkEditTableItemStateChanged(evt);
+            }
+        });
+
+        btnClear.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnClear.setText(bundle.getString("TabledDocuments.btnClear.text")); // NOI18N
+        grpEditButtons.add(btnClear);
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
+
+        btnDeleteSelected.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnDeleteSelected.setText(bundle.getString("TabledDocuments.btnDeleteSelected.text")); // NOI18N
+        grpEditButtons.add(btnDeleteSelected);
+        btnDeleteSelected.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteSelectedActionPerformed(evt);
+            }
+        });
+
+        btnAddRow.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnAddRow.setText(bundle.getString("TabledDocuments.btnAddRow.text")); // NOI18N
+        grpEditButtons.add(btnAddRow);
+        btnAddRow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddRowActionPerformed(evt);
+            }
+        });
+
+        btnReset.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnReset.setText(bundle.getString("TabledDocuments.btnReset.text")); // NOI18N
+        grpEditButtons.add(btnReset);
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -101,21 +189,100 @@ public class TabledDocuments extends BaseMetadataPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_tabledDocs, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lbl_tabledDocs, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                        .addComponent(chkEditTable))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnClear)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDeleteSelected)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAddRow)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(lbl_tabledDocs)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_tabledDocs)
+                    .addComponent(chkEditTable))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnClear)
+                    .addComponent(btnDeleteSelected)
+                    .addComponent(btnAddRow)
+                    .addComponent(btnReset)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void chkEditTableItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chkEditTableItemStateChanged
+        // TODO add your handling code here:
+        switch (evt.getStateChange()) {
+            case ItemEvent.SELECTED:
+                ((TabledDocumentsModel)this.tbl_tabledDocs.getModel()).setModelEditable(true);
+                enableButtons(true);
+                break;
+            case ItemEvent.DESELECTED:
+                ((TabledDocumentsModel)this.tbl_tabledDocs.getModel()).setModelEditable(false);
+                enableButtons(false);
+                break;
+            default:
+                return;
+        }
+    }//GEN-LAST:event_chkEditTableItemStateChanged
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        // TODO add your handling code here:
+       TabledDocumentsModel model =  ((TabledDocumentsModel)this.tbl_tabledDocs.getModel());
+        for (int i =  model.getRowCount() -1; i >= 0; i--) {
+            model.removeRow(i);
+        }
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void btnDeleteSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteSelectedActionPerformed
+        // TODO add your handling code here:
+        int[] arrSelected = this.tbl_tabledDocs.getSelectedRows();
+        TabledDocumentsModel model =  ((TabledDocumentsModel)this.tbl_tabledDocs.getModel());
+        if (arrSelected.length > 0) {
+            //remove the rows in descending order
+            Arrays.sort(arrSelected);
+            for (int i = arrSelected.length -1; i >= 0;  i--) {
+               model.removeRow(arrSelected[i]);
+            }
+        }
+
+    }//GEN-LAST:event_btnDeleteSelectedActionPerformed
+
+    private void btnAddRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddRowActionPerformed
+        // TODO add your handling code here:
+        TabledDocumentsModel model =  ((TabledDocumentsModel)this.tbl_tabledDocs.getModel());
+        final int nColumns = model.getColumnCount();
+        String[] newRow = new String[nColumns];
+        Arrays.fill(newRow, "");
+        model.addRow(newRow);
+    }//GEN-LAST:event_btnAddRowActionPerformed
+
+
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        // TODO add your handling code here:
+        initTable();
+        ((TabledDocumentsModel)this.tbl_tabledDocs.getModel()).setModelEditable(true);
+
+    }//GEN-LAST:event_btnResetActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddRow;
+    private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnDeleteSelected;
+    private javax.swing.JButton btnReset;
+    private javax.swing.JCheckBox chkEditTable;
+    private javax.swing.ButtonGroup grpEditButtons;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_tabledDocs;
     private javax.swing.JTable tbl_tabledDocs;
@@ -210,7 +377,7 @@ public class TabledDocuments extends BaseMetadataPanel {
       
                 //oCur.HyperLinkURL="http://akomantoso.org/resolver/"+ listItemURIs(i)
                 XPropertySet xCurProps = ooQueryInterface.XPropertySet(startCur);
-                xCurProps.setPropertyValue("HyperLinkURL", tblDocURIs.get(i));
+                xCurProps.setPropertyValue("HyperLinkURL", __ODF_URI_PREFIX__ + tblDocURIs.get(i));
                 xCursorText.insertString(startCur, tblDocTitles.get(i), false);
                // if (!(i == tblDocTitles.size() -1 ))
                 xCursorText.insertControlCharacter(startCur, com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK, false);
@@ -294,7 +461,35 @@ public class TabledDocuments extends BaseMetadataPanel {
 
     @Override
     public boolean validateSelectedInsert() {
-        return true;
+        //validate the tabled documents
+        //all rows in table need to be full.
+        boolean bState = true;
+
+        if (this.tbl_tabledDocs.getSelectedRowCount() == 0) {
+            addErrorMessage(this.tbl_tabledDocs, bundle.getString("no_row_selected"));
+            bState = false;
+        }  else {
+            //validate selected rows for empty data
+            int[] nRows = this.tbl_tabledDocs.getSelectedRows();
+            int nCols = this.tbl_tabledDocs.getColumnCount();
+
+            for (int i = 0; i < nRows.length; i++) {
+                for (int j = 0; j < nCols; j++) {
+                   String sValue = (String) this.tbl_tabledDocs.getValueAt(nRows[i], j);
+                   if (sValue.trim().length() == 0) {
+                       Object[] values = {Integer.toString(nRows[i]+1), Integer.toString(j+1)};
+                       String formattedMsg = MessageFormat.format(bundle.getString("tableValidationError"),
+                               values);
+                       this.addErrorMessage(this.tbl_tabledDocs, formattedMsg);
+                       bState = false;
+                   }
+                }
+            }
+        }
+
+
+  
+        return bState;
     }
 
     @Override
