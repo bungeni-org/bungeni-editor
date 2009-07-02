@@ -1,0 +1,2 @@
+log4j http://bungeni-editor.googlecode.com/svn/external_libs/apache-log4j
+restlet http://bungeni-editor.googlecode.com/svn/external_libs/restlet
