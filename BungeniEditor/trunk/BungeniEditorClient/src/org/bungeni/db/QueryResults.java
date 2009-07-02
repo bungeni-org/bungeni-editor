@@ -93,6 +93,10 @@ public class QueryResults {
         String[] arrayColumns  = theColumns.toArray(new String[theColumns.size()]);
         return arrayColumns;
     }
+
+    public int getColumnCount(){
+        return theColumns.size();
+    }
     
     public  String getField (Vector<String> row, String fieldName) {
         return row.elementAt(getColumnIndex(fieldName) - 1).trim();
