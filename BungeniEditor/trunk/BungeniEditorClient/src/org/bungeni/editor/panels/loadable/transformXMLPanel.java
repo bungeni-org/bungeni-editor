@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -478,9 +477,12 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
 
     private JPopupMenu getPopupMenu() {
         JPopupMenu menu = new JPopupMenu();
+        //menu.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         viewXmlListener listener = new viewXmlListener();
         JMenuItem menuItemXml = setupMenuItem("ANXML", "AkomaNtososo", listener);
+        menuItemXml.setFont(this.btnViewXmlDoc.getFont());
         JMenuItem menuItemMtlx = setupMenuItem("METALEX", "MetaLEX", listener);
+        menuItemMtlx.setFont(this.btnViewXmlDoc.getFont());
         menu.add(menuItemXml);
         menu.add(menuItemMtlx);
         return menu;
