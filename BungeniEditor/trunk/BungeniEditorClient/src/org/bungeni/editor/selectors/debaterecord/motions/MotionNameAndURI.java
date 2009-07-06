@@ -13,12 +13,15 @@ import org.bungeni.ooo.OOComponentHelper;
 
 /**
  *
- * @author  undesa
+ * @author  Ashok Hariharan
  */
 public class MotionNameAndURI extends BaseMetadataPanel {
 
+        public static final String __PANEL_NAME__ = "MotionNameAndURI";
+
     /** Creates new form QuestionerName */
     public MotionNameAndURI() {
+        super();
         initComponents();
     }
 

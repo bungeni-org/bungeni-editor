@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.bungeni.editor.selectors.debaterecord.motions;
 
 import com.sun.star.text.XText;
@@ -15,13 +10,15 @@ import java.util.HashMap;
 import javax.swing.JFrame;
 import org.bungeni.editor.actions.routers.CommonRouterActions;
 import org.bungeni.editor.selectors.BaseMetadataContainerPanel;
+import org.bungeni.editor.selectors.panelInfo;
 
 /**
  *
- * @author undesa
+ * @author Ashok Hariharan
  */
 public class Main extends BaseMetadataContainerPanel {
     public HashMap<String, String> selectionData = new HashMap<String,String>();
+   
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Main.class.getName());
     public String mainSectionName = "";
     public Main(){
@@ -47,6 +44,7 @@ public class Main extends BaseMetadataContainerPanel {
                     add(new panelInfo("MotionText", "org.bungeni.editor.selectors.debaterecord.motions.MotionText"));
             }
          };
+         this.enableAllChildPanels(false);
     }
 
      public static void main(String[] args){
@@ -128,4 +126,6 @@ public class Main extends BaseMetadataContainerPanel {
         } else
             return theAction.action_naming_convention();
     }
+
+ 
 }

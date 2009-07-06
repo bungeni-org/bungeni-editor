@@ -6,10 +6,6 @@
 
 package org.bungeni.editor.selectors.debaterecord.motions;
 
-import com.sun.star.lang.IllegalArgumentException;
-import com.sun.star.text.XText;
-import com.sun.star.text.XTextCursor;
-import com.sun.star.text.XTextRange;
 import java.awt.Component;
 import java.util.HashMap;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
@@ -21,8 +17,11 @@ import org.bungeni.ooo.OOComponentHelper;
  */
 public class MotionTitle extends BaseMetadataPanel {
 
+     public static final String __PANEL_NAME__ = "MotionTitle";
+
     /** Creates new form QuestionTitle */
     public MotionTitle() {
+        super();
         initComponents();
     }
 

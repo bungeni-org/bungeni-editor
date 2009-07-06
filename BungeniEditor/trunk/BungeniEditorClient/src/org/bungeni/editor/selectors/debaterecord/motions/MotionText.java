@@ -13,12 +13,15 @@ import org.bungeni.extutils.CommonDocumentUtilFunctions;
 
 /**
  *
- * @author  undesa
+ * @author  Ashok Hariharan
  */
 public class MotionText extends BaseMetadataPanel {
 
+    public static final String __PANEL_NAME__ = "MotionText";
+
     /** Creates new form QuestionText */
     public MotionText() {
+        super();
         initComponents();
     }
 
