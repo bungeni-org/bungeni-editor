@@ -35,7 +35,6 @@ import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.BungeniRegistryFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
-import org.bungeni.extutils.CommonResourceBundleHelperFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
 
@@ -45,7 +44,7 @@ import org.bungeni.ooo.ooQueryInterface;
  */
 public class TabledDocuments extends BaseMetadataPanel {
   private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(TabledDocuments.class.getName());
-  private static final String __ODF_URI_PREFIX__ = "uri:";
+  protected static final String __ODF_URI_PREFIX__ = "uri:";
     /** Creates new form TabledDocuments */
     public TabledDocuments() {
         super();
@@ -72,7 +71,7 @@ public class TabledDocuments extends BaseMetadataPanel {
         }
     }
 
-    private void initTable(){
+    protected void initTable(){
         HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();
             BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
             dbInstance.Connect();
@@ -111,7 +110,7 @@ public class TabledDocuments extends BaseMetadataPanel {
 
         grpEditButtons = new javax.swing.ButtonGroup();
         lbl_tabledDocs = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        scrollTabledDocs = new javax.swing.JScrollPane();
         tbl_tabledDocs = new javax.swing.JTable();
         chkEditTable = new javax.swing.JCheckBox();
         btnClear = new javax.swing.JButton();
@@ -135,9 +134,9 @@ public class TabledDocuments extends BaseMetadataPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tbl_tabledDocs);
+        scrollTabledDocs.setViewportView(tbl_tabledDocs);
 
-        chkEditTable.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        chkEditTable.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         chkEditTable.setText(bundle.getString("TabledDocuments.chkEditTable.text")); // NOI18N
         chkEditTable.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -154,7 +153,7 @@ public class TabledDocuments extends BaseMetadataPanel {
             }
         });
 
-        btnDeleteSelected.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnDeleteSelected.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnDeleteSelected.setText(bundle.getString("TabledDocuments.btnDeleteSelected.text")); // NOI18N
         grpEditButtons.add(btnDeleteSelected);
         btnDeleteSelected.addActionListener(new java.awt.event.ActionListener() {
@@ -163,7 +162,7 @@ public class TabledDocuments extends BaseMetadataPanel {
             }
         });
 
-        btnAddRow.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnAddRow.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnAddRow.setText(bundle.getString("TabledDocuments.btnAddRow.text")); // NOI18N
         grpEditButtons.add(btnAddRow);
         btnAddRow.addActionListener(new java.awt.event.ActionListener() {
@@ -172,7 +171,7 @@ public class TabledDocuments extends BaseMetadataPanel {
             }
         });
 
-        btnReset.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnReset.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnReset.setText(bundle.getString("TabledDocuments.btnReset.text")); // NOI18N
         grpEditButtons.add(btnReset);
         btnReset.addActionListener(new java.awt.event.ActionListener() {
@@ -188,7 +187,7 @@ public class TabledDocuments extends BaseMetadataPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scrollTabledDocs, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lbl_tabledDocs, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
@@ -210,7 +209,7 @@ public class TabledDocuments extends BaseMetadataPanel {
                     .addComponent(lbl_tabledDocs)
                     .addComponent(chkEditTable))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollTabledDocs, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnClear)
@@ -282,10 +281,10 @@ public class TabledDocuments extends BaseMetadataPanel {
     private javax.swing.JButton btnDeleteSelected;
     private javax.swing.JButton btnReset;
     private javax.swing.JCheckBox chkEditTable;
-    private javax.swing.ButtonGroup grpEditButtons;
-    private javax.swing.JScrollPane jScrollPane1;
+    protected javax.swing.ButtonGroup grpEditButtons;
     private javax.swing.JLabel lbl_tabledDocs;
-    private javax.swing.JTable tbl_tabledDocs;
+    protected javax.swing.JScrollPane scrollTabledDocs;
+    protected javax.swing.JTable tbl_tabledDocs;
     // End of variables declaration//GEN-END:variables
 
     public String getPanelName() {

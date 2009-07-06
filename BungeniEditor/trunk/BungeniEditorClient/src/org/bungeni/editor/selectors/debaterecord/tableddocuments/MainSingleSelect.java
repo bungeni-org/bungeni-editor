@@ -8,7 +8,6 @@ package org.bungeni.editor.selectors.debaterecord.tableddocuments;
 
 import java.awt.Component;
 import java.util.ArrayList;
-import javax.swing.JFrame;
 import org.bungeni.editor.selectors.BaseMetadataContainerPanel;
 import org.bungeni.editor.selectors.panelInfo;
 
@@ -16,16 +15,13 @@ import org.bungeni.editor.selectors.panelInfo;
  *
  * @author  Ashok
  */
-public class Main extends BaseMetadataContainerPanel {
-    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Main.class.getName());
+public class MainSingleSelect extends BaseMetadataContainerPanel {
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(MainSingleSelect.class.getName());
  
     
     /** Creates new form Main */
-    public Main() {
+    public MainSingleSelect() {
         super();
-      //  initComponents();
-      //  init();
-        
     }
 
     
@@ -59,27 +55,21 @@ public class Main extends BaseMetadataContainerPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
-    public static void main(String[] args){
-        Main m = new Main();
-        JFrame f = new JFrame("MastHead title");
-        f.add(m);
-        f.pack();
-        f.setVisible(true);
-    }
+
 
     @Override
     protected void setupPanels() {
         m_allPanels = new ArrayList<panelInfo>(){
                 {
                     //add(new panelInfo("Title","org.bungeni.editor.selectors.debaterecord.tableddocuments.Title"));
-                    add(new panelInfo("TabledDocuments", "org.bungeni.editor.selectors.debaterecord.tableddocuments.TabledDocuments"));
+                    add(new panelInfo("TabledDocuments", "org.bungeni.editor.selectors.debaterecord.tableddocuments.SingleSelectTabledDocuments"));
                 }
         };
     
        m_activePanels = new ArrayList<panelInfo>(){
             {
                     //add(new panelInfo("Title","org.bungeni.editor.selectors.debaterecord.tableddocuments.Title"));
-                    add(new panelInfo("TabledDocuments", "org.bungeni.editor.selectors.debaterecord.tableddocuments.TabledDocuments"));
+                    add(new panelInfo("TabledDocuments", "org.bungeni.editor.selectors.debaterecord.tableddocuments.SingleSelectTabledDocuments"));
             }
          };
     }
