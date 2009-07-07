@@ -64,7 +64,8 @@
 		<action name="Papers.subheading" title="---- -- Sub-Heading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makePapersLaidBlockSection.markup_papers_heading:subheading_papers" visible="true" condition="textSelected:true :and: cursorInSection:papers[0-9]*" />
 		<action name="Papers.doclist" title="---- Documents Sub-Section" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makePapersLaidListSection.section_creation" visible="true" condition="textSelected:true :and: cursorInSection:papers[0-9]*" />
 		<action name="Papers.select" title="---- --  Import Listing" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makePapersLaidBlockSection.select_documents" visible="true" condition="cursorInSection:tbldocs[0-9]*" />		
-	    </blockAction>   
+		<action name="Papers.selectSingle" title="---- --  Markup Link" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makePapersLaidMarkupSingle.markup_doc_link" visible="true" condition="textSelected:true :and: cursorInSection:tbldocs[0-9]*" />		
+	  </blockAction>   
 
 	    <blockAction name="Motions" title="Motions" target="null" visible="true" condition="none">
 		<action name="MotionsGroup.new" title="Motions Section" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMotionGroupSection.section_creation" visible="true" condition="textSelected:true :and: cursorInSection:debaterecord" />
