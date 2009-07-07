@@ -49,6 +49,7 @@ import org.jdom.Document;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.jdom.xpath.XPath;
+import org.w3c.dom.Node;
 
 /**
  *
@@ -421,8 +422,12 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         boolean bState = false;
         try {
             XPath xmlPath = XPath.newInstance("/validationErrors/validationError");
-            xmlPath.selectSingleNode(xmlDoc);
-            bState = true;
+            Node foundNode = (Node) xmlPath.selectSingleNode(xmlDoc);
+            if (foundNode == null) {
+                bState = false;
+            } else {
+                bState = true;
+            }
         } catch (JDOMException ex) {
             bState = false;
         }
