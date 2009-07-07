@@ -1,13 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.bungeni.editor.selectors.debaterecord.masthead;
 
 import java.awt.Component;
 import java.util.ArrayList;
 import org.bungeni.editor.selectors.BaseMetadataContainerPanel;
+import org.bungeni.editor.selectors.panelInfo;
 
 /**
  *
