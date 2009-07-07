@@ -10,5 +10,4 @@ package org.bungeni.editor.selectors;
  * @author Ashok
  */
 public interface IMetadataContainerPanel extends IGenericSelectorPanel {
-  
 }

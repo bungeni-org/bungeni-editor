@@ -1,8 +1,4 @@
-/*
- * Main.java
- *
- * Created on August 8, 2008, 1:56 PM
- */
+
 package org.bungeni.editor.selectors;
 
 import com.l2fprod.common.swing.JTaskPaneGroup;
@@ -12,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,7 +20,7 @@ import org.bungeni.ooo.OOComponentHelper;
 
 /**
  *
- * @author  undesa
+ * @author  Ashok Hariharan
  */
 public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel implements IMetadataContainerPanel {
 
@@ -310,7 +305,6 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
             public void done() {
                ApplyState applyState = null;
                 try {
-                    sourceButton.setEnabled(true);
                     parentFrame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
                     applyState  = get();
                     switch (applyState) {
@@ -318,12 +312,15 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
                          * Show message boxes
                          */
                         case validationFailed :
+                             sourceButton.setEnabled(true);
                              displayErrors();
                              break;
                         case applyFailed:
-                             displayErrors();
+                             sourceButton.setEnabled(true);
+                            displayErrors();
                              break;
                         default:
+                            sourceButton.setEnabled(false);
                             break;
                     }
                 } catch (InterruptedException ex) {
@@ -482,6 +479,8 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
         return dialogMode;
     }
 
+
+
     public static IMetadataContainerPanel getContainerPanelObject(String panelClass) {
         IMetadataContainerPanel panel = null;
         try {
@@ -500,45 +499,12 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
         }
     }
 
-    public class panelInfo {
-
-        String panelName;
-        String panelClass;
-        IMetadataPanel panelObject = null;
-
-        public panelInfo(String pname, String pclass) {
-            panelName = pname;
-            panelClass = pclass;
-        }
-
-        @Override
-        public String toString() {
-            return panelName;
-        }
-
-        public IMetadataPanel getPanelObject() {
-            IMetadataPanel panel = null;
-            if (panelObject != null) {
-                panel = panelObject;
-            } else {
-                try {
-                    Class metadataPanel = Class.forName(panelClass);
-                    panel = (IMetadataPanel) metadataPanel.newInstance();
-                    panelObject = panel;
-                } catch (InstantiationException ex) {
-                    log.debug("getPanelObject :" + ex.getMessage());
-                } catch (IllegalAccessException ex) {
-                    log.debug("getPanelObject :" + ex.getMessage());
-                } catch (ClassNotFoundException ex) {
-                    log.debug("getPanelObject :" + ex.getMessage());
-                } catch (NullPointerException ex) {
-                    log.debug("getPanelObject :" + ex.getMessage());
-                }
-            }
-            return panel;
-        }
+    public void enableAllChildPanels(boolean bState) {
+          for (panelInfo ppPanel : getActivePanels()) {
+              ppPanel.getPanelObject().enableChildControls(bState);
+          }
     }
-
+  
     public void setContainerFrame(Window contFrame) {
         this.containerFrame = contFrame;
     }
@@ -558,6 +524,29 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
     };
      */
     protected ArrayList<panelInfo> m_activePanels = new ArrayList<panelInfo>();
+
+    protected class panelField {
+
+        String fieldName;
+        panelInfo containerPanel;
+
+        public panelField (String fname, panelInfo cpanel) {
+            fieldName = fname;
+            containerPanel = cpanel;
+        }
+
+        public panelInfo getPanel(){
+            return containerPanel;
+        }
+
+        public String getName(){
+            return fieldName;
+        }
+
+    }
+
+    protected HashMap<panelField, Boolean> fieldStates = new HashMap<panelField, Boolean>();
+
     /*
     {
     {
@@ -570,6 +559,10 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
 
     protected ArrayList<panelInfo> getAllPanels() {
         return m_allPanels;
+    }
+
+    public void postPanelSetup() {
+        return;
     }
 
     protected ArrayList<panelInfo> getActivePanels() {

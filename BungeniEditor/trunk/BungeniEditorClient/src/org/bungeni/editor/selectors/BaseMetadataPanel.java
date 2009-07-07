@@ -11,6 +11,8 @@ import com.sun.star.text.XTextCursor;
 import com.sun.star.text.XTextRange;
 import com.sun.star.text.XTextSection;
 import java.awt.Component;
+import java.awt.Container;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,6 +24,7 @@ import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.editor.selectors.BaseMetadataContainerPanel.ConditionSet;
+import org.bungeni.extutils.CommonUIFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 
@@ -34,28 +37,35 @@ public abstract class BaseMetadataPanel extends JPanel implements IMetadataPanel
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BaseMetadataPanel.class.getName());
     private BaseMetadataContainerPanel containerPanel ;
     private BungeniFormContext formContext;
+
     private HashMap<String,Object> thePreInsertMap = new HashMap<String,Object>();
     protected HashMap<SelectorDialogModes,BungeniCatalogCommand> theCatalogCommands = new HashMap<SelectorDialogModes,BungeniCatalogCommand>();
-  
+
+    private ArrayList<String> fieldsWithNames = new ArrayList<String>(0);
+
+    private HashMap<String, Boolean> fieldNamesMap = new HashMap<String, Boolean>();
+
     public BaseMetadataPanel(){
         super();
     }
-    /*
-    public void initVariables(OOComponentHelper ooDoc, JFrame pFrame, toolbarAction tAction, toolbarSubAction tSubAction, SelectorDialogModes smode) {
-        ooDocument = ooDoc;
-        parentFrame = pFrame;
-        theAction = tAction;
-        theSubAction = tSubAction;
-        dialogMode = smode;
-    }*/
+
+    
     public void initVariables(BaseMetadataContainerPanel panel) {
         this.containerPanel = panel;
         String popupDlgBackColor = BungeniEditorProperties.getEditorProperty("popupDialogBackColor");
         this.setBackground(java.awt.Color.decode(popupDlgBackColor));
         createContext();
         initFields();
+        setFieldNamesMap();
     }
-    
+
+    private void setFieldNamesMap(){
+        this.fieldsWithNames =  CommonUIFunctions.findComponentsWithNames(this);
+        for (String sField : fieldsWithNames) {
+            this.fieldNamesMap.put(sField, Boolean.TRUE);
+        }
+    }
+
      private void createContext(){
         formContext = new BungeniFormContext();
         getFormContext().setTheAction(getTheAction());
@@ -375,4 +385,12 @@ public abstract class BaseMetadataPanel extends JPanel implements IMetadataPanel
         }
 
     }
+
+    public void enableChildControls( boolean bState) {
+        for (String fieldName : fieldsWithNames) {
+            Component cc = CommonUIFunctions.findComponentByName(this, fieldName);
+            cc.setEnabled(bState);
+        }
+    }
+
 }

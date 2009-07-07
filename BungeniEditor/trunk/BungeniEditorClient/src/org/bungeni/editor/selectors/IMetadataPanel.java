@@ -19,6 +19,7 @@ public interface IMetadataPanel {
     public boolean doApply();
     public boolean doUpdateEvent();
     public boolean doValidate();
+    public void enableChildControls(boolean b);
     //public void initVariables(OOComponentHelper ooDoc, JFrame pFrame, toolbarAction tAction, toolbarSubAction tSubAction, SelectorDialogModes smode) ;
 
 }
