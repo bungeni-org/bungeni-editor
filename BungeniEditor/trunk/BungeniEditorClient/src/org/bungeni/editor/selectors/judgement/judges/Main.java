@@ -10,6 +10,7 @@ import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import org.bungeni.editor.selectors.BaseMetadataContainerPanel;
+import org.bungeni.editor.selectors.panelInfo;
 
 /**
  *
