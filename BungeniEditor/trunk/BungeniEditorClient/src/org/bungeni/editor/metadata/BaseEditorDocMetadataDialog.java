@@ -105,30 +105,7 @@ public abstract class BaseEditorDocMetadataDialog extends javax.swing.JPanel imp
         return null;
     }
 
-  protected Component findComponentByName(Container container, String componentName) {
-  for (Component component: container.getComponents()) {
-    if (componentName.equals(component.getName())) {
-      return component;
-    }
-    if (component instanceof JRootPane) {
-      // According to the JavaDoc for JRootPane, JRootPane is
-      // "A lightweight container used behind the scenes by JFrame,
-      // JDialog, JWindow, JApplet, and JInternalFrame.". The reference
-      // to the RootPane is set up by implementing the RootPaneContainer
-      // interface by the JFrame, JDialog, JWindow, JApplet and
-      // JInternalFrame. See also the JavaDoc for RootPaneContainer.
-      // When a JRootPane is found, recurse into it and continue searching.
-      JRootPane nestedJRootPane = (JRootPane)component;
-      return findComponentByName(nestedJRootPane.getContentPane(), componentName);
-    }
-    if (component instanceof JPanel) {
-      // JPanel found. Recursing into this panel.
-      JPanel nestedJPanel = (JPanel)component;
-      return findComponentByName(nestedJPanel, componentName);
-    }
-  }
-  return null;
-}
+
 
 
     protected TreeMap<String,Component> fieldsToValidate = new TreeMap<String, Component>() ;
