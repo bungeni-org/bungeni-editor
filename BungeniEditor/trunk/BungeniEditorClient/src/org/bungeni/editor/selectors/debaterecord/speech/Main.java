@@ -10,6 +10,7 @@ import java.util.HashMap;
 import javax.swing.JFrame;
 import org.bungeni.editor.actions.routers.CommonRouterActions;
 import org.bungeni.editor.selectors.BaseMetadataContainerPanel;
+import org.bungeni.editor.selectors.panelInfo;
 
 /**
  *
