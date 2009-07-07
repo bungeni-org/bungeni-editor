@@ -71,11 +71,15 @@ public class TabledDocuments extends BaseMetadataPanel {
         }
     }
 
+    protected String getTableQuery(){
+        return new String("select document_title, document_uri, document_date from tabled_documents");
+    }
+
     protected void initTable(){
         HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();
             BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
             dbInstance.Connect();
-            QueryResults qr = dbInstance.QueryResults("select document_title, document_uri, document_date from tabled_documents");
+            QueryResults qr = dbInstance.QueryResults(getTableQuery());
             dbInstance.EndConnect();
             if (qr != null ) {
                 if (qr.hasResults()) {
@@ -144,7 +148,7 @@ public class TabledDocuments extends BaseMetadataPanel {
             }
         });
 
-        btnClear.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnClear.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnClear.setText(bundle.getString("TabledDocuments.btnClear.text")); // NOI18N
         grpEditButtons.add(btnClear);
         btnClear.addActionListener(new java.awt.event.ActionListener() {
@@ -280,7 +284,7 @@ public class TabledDocuments extends BaseMetadataPanel {
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDeleteSelected;
     private javax.swing.JButton btnReset;
-    private javax.swing.JCheckBox chkEditTable;
+    protected javax.swing.JCheckBox chkEditTable;
     protected javax.swing.ButtonGroup grpEditButtons;
     private javax.swing.JLabel lbl_tabledDocs;
     protected javax.swing.JScrollPane scrollTabledDocs;
