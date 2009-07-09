@@ -1,11 +1,3 @@
-/*
- * EditorActionFactory.java
- *
- * Created on August 20, 2007, 5:11 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 
 package org.bungeni.editor.actions;
 

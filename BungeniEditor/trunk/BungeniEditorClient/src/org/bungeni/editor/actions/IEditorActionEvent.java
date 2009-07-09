@@ -1,25 +1,21 @@
-/*
- * IEditorActionEvent.java
- *
- * Created on August 20, 2007, 4:35 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 package org.bungeni.editor.actions;
 
-import java.util.ArrayList;
+//~--- non-JDK imports --------------------------------------------------------
+
 import org.bungeni.ooo.OOComponentHelper;
+
+//~--- JDK imports ------------------------------------------------------------
+
+import java.util.ArrayList;
 
 /**
  *
- * @author Administrator
+ * @author Ashok Hariharan
  */
 public interface IEditorActionEvent {
-       public void doCommand(OOComponentHelper ooDocument, toolbarAction action, javax.swing.JFrame parentFrame);
-       public void doCommand(OOComponentHelper ooDocument, toolbarSubAction action, javax.swing.JFrame parentFrame);
-       public void doCommand(OOComponentHelper ooDocument, ArrayList<String> action, javax.swing.JFrame parentFrame);
+    public void doCommand(OOComponentHelper ooDocument, toolbarAction action, javax.swing.JFrame parentFrame);
 
-   
+    public void doCommand(OOComponentHelper ooDocument, toolbarSubAction action, javax.swing.JFrame parentFrame);
+
+    public void doCommand(OOComponentHelper ooDocument, ArrayList<String> action, javax.swing.JFrame parentFrame);
 }

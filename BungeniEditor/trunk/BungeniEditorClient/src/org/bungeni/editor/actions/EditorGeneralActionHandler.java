@@ -1,11 +1,3 @@
-/*
- * EditorGeneralActionHandler.java
- *
- * Created on January 21, 2008, 11:38 AM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 
 package org.bungeni.editor.actions;
 
