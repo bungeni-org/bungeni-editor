@@ -27,6 +27,10 @@ public class CommonShellFunctions {
                 //run it in the background without waiting for feedback
                 cmd.add(0,"nohup");
             }
+            System.out.println("running this command : in directory = " + workingDirectory);
+            for (String string : cmd) {
+                System.out.print(string + " ");
+            }
             ProcessBuilder builder = new ProcessBuilder(cmd);
             builder.directory(new File(workingDirectory));
             builder.redirectErrorStream(true);
