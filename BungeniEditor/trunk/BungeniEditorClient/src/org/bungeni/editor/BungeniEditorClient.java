@@ -145,6 +145,7 @@ public class BungeniEditorClient {
            javax.swing.SwingUtilities.invokeLater(
                         new Runnable() {
                                 public void run() {
+                                   // SplashPage splash = new SplashPage();
                                     createAndShowGUI();
                                 }
                         }
