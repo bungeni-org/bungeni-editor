@@ -8,14 +8,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Vector;
 import java.util.concurrent.ExecutionException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingWorker;
+import org.bungeni.db.BungeniClientDB;
+import org.bungeni.db.IQueryResultsIterator;
+import org.bungeni.db.QueryResults;
+import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
+import org.bungeni.extutils.BungeniUUID;
 import org.bungeni.ooo.OOComponentHelper;
 
 /**
@@ -514,7 +520,7 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
     }
 
     public abstract java.awt.Component getPanelComponent();
-    protected ArrayList<panelInfo> m_allPanels = new ArrayList<panelInfo>(0);
+  //  protected ArrayList<panelInfo> m_allPanels = new ArrayList<panelInfo>(0);
     /*
     {
     {
@@ -555,10 +561,39 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
     }
     };*/
 
-    abstract protected void setupPanels();
+    protected void setupPanels(){
+        //load the active panels for the current profile
+        String currentActiveProfile = BungeniEditorPropertiesHelper.getActiveProfile();
+        String sDocType = BungeniEditorPropertiesHelper.getCurrentDocType();
+        String sAction = this.theAction.action_name();
+        String sSubAction = this.theSubAction.sub_action_name();
+        accquirePanels(sDocType, sAction, currentActiveProfile);
+    }
 
-    protected ArrayList<panelInfo> getAllPanels() {
-        return m_allPanels;
+    class iteratePanels implements IQueryResultsIterator {
+        ArrayList<String> selectorDialogClass = new ArrayList<String>(0);
+
+        public boolean iterateRow(QueryResults mQR, Vector<String> rowData) {
+            selectorDialogClass.add(mQR.getField(rowData, "SELECTOR_DIALOG"));
+            return true;
+        }
+
+        public ArrayList<String> getSelectorDialogs(){
+            return selectorDialogClass;
+        }
+    }
+
+    private void accquirePanels(String docType, String actionName, String profileName){
+           BungeniClientDB db        = BungeniClientDB.defaultConnect();
+           QueryResults qr = db.ConnectAndQuery(SettingsQueryFactory.Q_FETCH_SELECTOR_DIALOGS(docType,
+                                                                        actionName,
+                                                                        profileName));
+           iteratePanels panelsIterate = new iteratePanels();
+           qr.resultsIterator(panelsIterate);
+           ArrayList<String> ppanels = panelsIterate.getSelectorDialogs();
+           for (String sPanel : ppanels) {
+                this.m_activePanels.add(new panelInfo(BungeniUUID.getStringUUID(), sPanel));
+            }
     }
 
     public void postPanelSetup() {

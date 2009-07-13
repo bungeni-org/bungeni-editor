@@ -1,11 +1,3 @@
-/*
- * DialogSelectorFactory.java
- *
- * Created on March 11, 2008, 2:29 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 
 package org.bungeni.editor.selectors;
 
