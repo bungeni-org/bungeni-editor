@@ -167,6 +167,32 @@ public class SettingsQueryFactory {
         return query;
     }
 
+    public static String Q_FETCH_SELECTOR_DIALOGS (String docType, String actionName, String profileName){
+        String  query = "select selector_dialog from selector_dialogs " +
+                            "where parent_dialog in ( " +
+                                "select action_dialog_class from action_settings  " +
+                                "where action_name='"+ actionName +"'" +
+                                " and doc_type='" + docType + "'" +
+                                " ) " +
+                                "and profiles like '%" + profileName + "%'";
+        return query;
+    }
+
+    public static String Q_FETCH_SUB_ACTIONS_BY_PROFILE(String docType, String parentAction, String profileName) {
+        String query =
+            "select doc_type, parent_action_name, sub_action_name, sub_action_order, sub_action_state, action_type, "
+            + "action_display_text, action_fields, action_class, system_container, validator_class, router_class, dialog_class, command_chain, profiles from sub_action_settings "
+            + "where doc_type = '" + docType + "'"
+            + " and parent_action_name = '" + parentAction + "' "
+           // + " and sub_action_name ='" + subActionName + "' "
+            + " and sub_action_state = 1 "
+            + " and profiles like '%" + profileName + "%' "
+            + " order by sub_action_order";
+
+        return query;
+    }
+
+
     public static String Q_FETCH_COMMANDS_BY_FORM(String formName) {
         String query =
             "SELECT fcs.FORM_NAME, fcc.FORM_MODE, fcc.COMMAND_CATALOG, fcc.COMMAND_CHAIN,  fcs.CATALOG_SOURCE "
