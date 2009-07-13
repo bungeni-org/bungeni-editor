@@ -15,15 +15,16 @@ public class Main extends BaseMetadataContainerPanel {
     public Main() {
         super();
     }
-    
+
+    /*
     @Override
     protected void setupPanels() {
         //to do : make this a base class function and move the usage to the the base class...
-       m_allPanels = new ArrayList<panelInfo>(){
-                {
-                    add(new panelInfo("debatedate","org.bungeni.editor.selectors.debaterecord.conclusion.HouseClosingTime"));
-                }
-        };
+     //  m_allPanels = new ArrayList<panelInfo>(){
+     //           {
+     //               add(new panelInfo("debatedate","org.bungeni.editor.selectors.debaterecord.conclusion.HouseClosingTime"));
+     //           }
+     //   };
        if (this.theSubAction != null) {
            m_activePanels = new ArrayList<panelInfo>(){
                 {
@@ -33,7 +34,7 @@ public class Main extends BaseMetadataContainerPanel {
        } else {
             m_activePanels = new ArrayList<panelInfo>(0);
        }
-    }
+    } */
 
      public static void main(String[] args){
         Main m = new Main();

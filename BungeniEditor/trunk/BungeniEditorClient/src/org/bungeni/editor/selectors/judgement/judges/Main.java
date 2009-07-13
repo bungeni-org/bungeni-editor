@@ -1,9 +1,3 @@
-/*
- * Main.java
- *
- * Created on August 8, 2008, 1:56 PM
- */
-
 package org.bungeni.editor.selectors.judgement.judges;
 
 import java.awt.Component;
@@ -14,7 +8,7 @@ import org.bungeni.editor.selectors.panelInfo;
 
 /**
  *
- * @author  undesa
+ * @author  Ashok Hariharan
  */
 public class Main extends BaseMetadataContainerPanel {
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Main.class.getName());
@@ -23,9 +17,6 @@ public class Main extends BaseMetadataContainerPanel {
     /** Creates new form Main */
     public Main() {
         super();
-      //  initComponents();
-      //  init();
-        
     }
 
     
@@ -67,14 +58,9 @@ public class Main extends BaseMetadataContainerPanel {
         f.setVisible(true);
     }
 
+    /*
     @Override
     protected void setupPanels() {
-        m_allPanels = new ArrayList<panelInfo>(){
-                {
-                    //add(new panelInfo("Title","org.bungeni.editor.selectors.debaterecord.tableddocuments.Title"));
-                    add(new panelInfo("TabledDocuments", "org.bungeni.editor.selectors.debaterecord.tableddocuments.TabledDocuments"));
-                }
-        };
     
        m_activePanels = new ArrayList<panelInfo>(){
             {
@@ -83,7 +69,7 @@ public class Main extends BaseMetadataContainerPanel {
             }
          };
     }
-
+ */
     @Override
     public Component getPanelComponent() {
         return this;

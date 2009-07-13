@@ -56,15 +56,10 @@ public class MainSingleSelect extends BaseMetadataContainerPanel {
     // End of variables declaration//GEN-END:variables
 
 
-
+    /*
     @Override
     protected void setupPanels() {
-        m_allPanels = new ArrayList<panelInfo>(){
-                {
-                    //add(new panelInfo("Title","org.bungeni.editor.selectors.debaterecord.tableddocuments.Title"));
-                    add(new panelInfo("TabledDocuments", "org.bungeni.editor.selectors.debaterecord.tableddocuments.SingleSelectTabledDocuments"));
-                }
-        };
+  
     
        m_activePanels = new ArrayList<panelInfo>(){
             {
@@ -72,7 +67,7 @@ public class MainSingleSelect extends BaseMetadataContainerPanel {
                     add(new panelInfo("TabledDocuments", "org.bungeni.editor.selectors.debaterecord.tableddocuments.SingleSelectTabledDocuments"));
             }
          };
-    }
+    } */
 
     @Override
     public Component getPanelComponent() {

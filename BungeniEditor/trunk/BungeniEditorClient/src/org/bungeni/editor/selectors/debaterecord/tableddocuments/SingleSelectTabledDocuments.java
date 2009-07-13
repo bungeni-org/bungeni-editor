@@ -6,8 +6,6 @@ import com.sun.star.beans.XPropertySet;
 import com.sun.star.lang.IllegalArgumentException;
 import com.sun.star.lang.WrappedTargetException;
 import com.sun.star.text.XText;
-import com.sun.star.text.XTextCursor;
-import com.sun.star.text.XTextRange;
 import com.sun.star.text.XTextViewCursor;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -19,7 +17,7 @@ import org.bungeni.ooo.ooQueryInterface;
 
 /**
  *
- * @author undesa
+ * @author Ashok 
  */
 public class SingleSelectTabledDocuments extends TabledDocuments {
 private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(SingleSelectTabledDocuments.class.getName());

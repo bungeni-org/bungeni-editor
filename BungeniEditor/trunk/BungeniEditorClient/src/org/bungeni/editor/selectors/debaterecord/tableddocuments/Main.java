@@ -1,9 +1,3 @@
-/*
- * Main.java
- *
- * Created on August 8, 2008, 1:56 PM
- */
-
 package org.bungeni.editor.selectors.debaterecord.tableddocuments;
 
 import java.awt.Component;
@@ -67,22 +61,17 @@ public class Main extends BaseMetadataContainerPanel {
         f.setVisible(true);
     }
 
+    /*
     @Override
     protected void setupPanels() {
-        m_allPanels = new ArrayList<panelInfo>(){
-                {
-                    //add(new panelInfo("Title","org.bungeni.editor.selectors.debaterecord.tableddocuments.Title"));
-                    add(new panelInfo("TabledDocuments", "org.bungeni.editor.selectors.debaterecord.tableddocuments.TabledDocuments"));
-                }
-        };
-    
+
        m_activePanels = new ArrayList<panelInfo>(){
             {
                     //add(new panelInfo("Title","org.bungeni.editor.selectors.debaterecord.tableddocuments.Title"));
                     add(new panelInfo("TabledDocuments", "org.bungeni.editor.selectors.debaterecord.tableddocuments.TabledDocuments"));
             }
          };
-    }
+    }*/
 
     @Override
     public Component getPanelComponent() {
