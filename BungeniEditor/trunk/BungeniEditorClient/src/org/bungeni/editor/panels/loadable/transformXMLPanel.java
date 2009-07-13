@@ -133,6 +133,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
 
     private void initButtons() {
         this.btnExportToXML.addActionListener(new transformXmlActionListener());
+        this.btnMakePlain.addActionListener(new convertToPlain());
     }
 
     /**
@@ -338,7 +339,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
                         } else {
                         String outputFilePath = (String) retValue;
                         File fFile = CommonFileFunctions.convertUrlToFile(outputFilePath);
-                        int nRet = MessageBox.Confirm(parentFrame, bundle.getString("Click_Yes_to_open_the_plain_document_\n_Click_No_to_close_this_window"), bundle.getString("Document_Successfully_Converted!"));
+                        int nRet = MessageBox.Confirm(parentFrame, bundle.getString("Yes_to_open_No_to_close"), bundle.getString("Document_Successfully_Converted!"));
                         if (nRet == JOptionPane.YES_OPTION) {
                             OOComponentHelper.openExistingDocument(fFile.getAbsolutePath());
                         }
@@ -601,10 +602,10 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         btnViewXmlDoc = new javax.swing.JButton();
 
         cboTransformFrom.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        cboTransformFrom.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Portable Document Format (PDF)", "AkomaNtoso XML", "XHTML - eXtensible HTML", "Marginalia-safe HTML export"}));
+        cboTransformFrom.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Portable Document Format (PDF)", "AkomaNtoso XML", "XHTML - eXtensible HTML", "Marginalia-safe HTML export" }));
 
         cboExportTo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        cboExportTo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Export to File-System path", "Export to Server"}));
+        cboExportTo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Export to File-System path", "Export to Server" }));
 
         lblTransformFrom.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/panels/loadable/Bundle"); // NOI18N
@@ -613,7 +614,6 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         btnExport.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnExport.setText(bundle.getString("transformXMLPanel.btnExport.text")); // NOI18N
         btnExport.addActionListener(new java.awt.event.ActionListener() {
-
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExportActionPerformed(evt);
             }
@@ -623,26 +623,18 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         checkChangeColumns.setText(bundle.getString("transformXMLPanel.checkChangeColumns.text")); // NOI18N
         checkChangeColumns.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         checkChangeColumns.addActionListener(new java.awt.event.ActionListener() {
-
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkChangeColumnsActionPerformed(evt);
             }
         });
 
-        btnMakePlain.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnMakePlain.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnMakePlain.setText(bundle.getString("transformXMLPanel.btnMakePlain.text")); // NOI18N
-        btnMakePlain.addActionListener(new java.awt.event.ActionListener() {
 
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMakePlainActionPerformed(evt);
-            }
-        });
-
-        btnTransformerServer.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnTransformerServer.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnTransformerServer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/btn_off.png"))); // NOI18N
         btnTransformerServer.setText(bundle.getString("transformXMLPanel.btnTransformerServer.text")); // NOI18N
         btnTransformerServer.addActionListener(new java.awt.event.ActionListener() {
-
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTransformerServerActionPerformed(evt);
             }
@@ -656,13 +648,12 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         txtServerMsg.setWrapStyleWord(true);
         scrollMsg.setViewportView(txtServerMsg);
 
-        btnExportToXML.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnExportToXML.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnExportToXML.setText(bundle.getString("transformXMLPanel.btnExportToXML.text")); // NOI18N
 
         btnViewValidationErrors.setFont(new java.awt.Font("DejaVu Sans", 0, 9));
         btnViewValidationErrors.setText(bundle.getString("transformXMLPanel.btnViewValidationErrors.text")); // NOI18N
         btnViewValidationErrors.addActionListener(new java.awt.event.ActionListener() {
-
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnViewValidationErrorsActionPerformed(evt);
             }
@@ -671,7 +662,6 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         btnViewXmlDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 9));
         btnViewXmlDoc.setText(bundle.getString("transformXMLPanel.btnViewXmlDoc.text")); // NOI18N
         btnViewXmlDoc.addMouseListener(new java.awt.event.MouseAdapter() {
-
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btnViewXmlDocMousePressed(evt);
             }
@@ -680,9 +670,56 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(layout.createSequentialGroup().addContainerGap().add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup().add(btnExport, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 171, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).add(35, 35, 35)).add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup().add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING).add(org.jdesktop.layout.GroupLayout.LEADING, scrollMsg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 220, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).add(org.jdesktop.layout.GroupLayout.LEADING, lblTransformFrom).add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup().add(btnViewValidationErrors, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 108, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 16, Short.MAX_VALUE).add(btnViewXmlDoc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 96, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)).add(org.jdesktop.layout.GroupLayout.LEADING, cboExportTo, 0, 220, Short.MAX_VALUE).add(org.jdesktop.layout.GroupLayout.LEADING, cboTransformFrom, 0, 220, Short.MAX_VALUE).add(org.jdesktop.layout.GroupLayout.LEADING, btnMakePlain).add(org.jdesktop.layout.GroupLayout.LEADING, btnExportToXML, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE).add(org.jdesktop.layout.GroupLayout.LEADING, checkChangeColumns, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 134, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).add(org.jdesktop.layout.GroupLayout.LEADING, btnTransformerServer, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 220, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)).addContainerGap()))));
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(btnExport, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 171, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(35, 35, 35))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, scrollMsg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 220, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, lblTransformFrom)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                                .add(btnViewValidationErrors, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 108, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 16, Short.MAX_VALUE)
+                                .add(btnViewXmlDoc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 96, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, cboExportTo, 0, 220, Short.MAX_VALUE)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, cboTransformFrom, 0, 220, Short.MAX_VALUE)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, btnMakePlain)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, btnExportToXML, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, checkChangeColumns, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 134, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, btnTransformerServer, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 220, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(layout.createSequentialGroup().addContainerGap().add(btnTransformerServer).add(1, 1, 1).add(scrollMsg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(btnMakePlain).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(checkChangeColumns).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(btnExportToXML).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE).add(btnViewValidationErrors).add(btnViewXmlDoc)).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 23, Short.MAX_VALUE).add(lblTransformFrom).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(cboTransformFrom, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 21, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED).add(cboExportTo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED).add(btnExport).addContainerGap()));
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(btnTransformerServer)
+                .add(1, 1, 1)
+                .add(scrollMsg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(btnMakePlain)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(checkChangeColumns)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(btnExportToXML)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(btnViewValidationErrors)
+                    .add(btnViewXmlDoc))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 23, Short.MAX_VALUE)
+                .add(lblTransformFrom)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(cboTransformFrom, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 21, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(cboExportTo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(btnExport)
+                .addContainerGap())
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void checkChangeColumnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkChangeColumnsActionPerformed
@@ -722,10 +759,6 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             MessageBox.OK(parentFrame, bundle.getString("Document_export_failed"));
         }
     }//GEN-LAST:event_btnExportActionPerformed
-
-    private void btnMakePlainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMakePlainActionPerformed
-        //  generatePlainDocument();
-    }//GEN-LAST:event_btnMakePlainActionPerformed
 
     private void btnTransformerServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransformerServerActionPerformed
         // TODO add your handling code here:
