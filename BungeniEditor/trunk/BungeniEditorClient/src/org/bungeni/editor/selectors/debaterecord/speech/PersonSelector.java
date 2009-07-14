@@ -1,8 +1,3 @@
-/*
- * PersonSelector.java
- *
- * Created on August 12, 2008, 8:25 PM
- */
 
 package org.bungeni.editor.selectors.debaterecord.speech;
 
@@ -118,9 +113,9 @@ public class PersonSelector extends  BaseMetadataPanel {
                selData.put("LAST_NAME", selectedPerson.lastName);
                selData.put("URI", selectedPerson.personURI);
                selData.put("ROLE", selectedPerson.personRole);
-                ((Main)getContainerPanel()).selectionData = selData;
-                if ( ((Main)getContainerPanel()).selectionData.size() > 0 ) 
-                    ((Main)getContainerPanel()).updateAllPanels();
+                (getContainerPanel()).selectionData = selData;
+                if ( (getContainerPanel()).selectionData.size() > 0 ) 
+                    (getContainerPanel()).updateAllPanels();
             }
             } catch (Exception ex) {
                 log.error("PersonSelect:actionPerformed : " + ex.getMessage());
@@ -182,8 +177,8 @@ private void btn_SpeechByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         rqs = new registryQueryDialog("Select A Person", "Select ID, FIRST_NAME, LAST_NAME, URI from persons", getParentFrame());
         rqs.show();
         log.debug("Moved on before closing child dialog");
-        ((Main)getContainerPanel()).selectionData = rqs.getData();
-        if (((Main)getContainerPanel()).selectionData.size() > 0 ) {
+        (getContainerPanel()).selectionData = rqs.getData();
+        if ((getContainerPanel()).selectionData.size() > 0 ) {
            // txt_SpeechBy.setText(selectionData.get("FIRST_NAME") + " " + selectionData.get("LAST_NAME"));
            // txt_URIofPerson.setText(selectionData.get("URI"));
             getContainerPanel().updateAllPanels();
@@ -275,11 +270,11 @@ private void btn_SpeechByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 
     @Override
     public boolean processSelectInsert() {
-        String personId = ((Main)getContainerPanel()).selectionData.get("ID");
-        String personRole =  ((Main)getContainerPanel()).selectionData.get("ROLE");
+        String personId = (getContainerPanel()).selectionData.get("ID");
+        String personRole =  (getContainerPanel()).selectionData.get("ROLE");
         OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
         HashMap<String,String> sectionMeta = new HashMap<String,String>();
-        String newSectionName = ((Main)getContainerPanel()).mainSectionName;
+        String newSectionName = (getContainerPanel()).mainSectionName;
         sectionMeta.put("BungeniPersonID", personId);
         sectionMeta.put("BungeniPersonRole", personId);
         ooDoc.setSectionMetadataAttributes(newSectionName, sectionMeta);

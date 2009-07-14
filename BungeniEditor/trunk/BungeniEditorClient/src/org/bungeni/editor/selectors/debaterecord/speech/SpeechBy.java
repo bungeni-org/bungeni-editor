@@ -1,8 +1,3 @@
-/*
- * PersonSelector.java
- *
- * Created on August 12, 2008, 8:25 PM
- */
 
 package org.bungeni.editor.selectors.debaterecord.speech;
 
@@ -87,7 +82,7 @@ public class SpeechBy extends  BaseMetadataPanel {
     public boolean processFullEdit() {
           OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
         HashMap<String,String> sectionMeta = new HashMap<String,String>();
-        String editSection = ((Main)getContainerPanel()).getEditSectionName();
+        String editSection = (getContainerPanel()).getEditSectionName();
         sectionMeta.put("BungeniSpeechBy", this.txt_SpeechBy.getText());
         //sectionMeta.put("BungeniQuestionByURI", this.txtPersonURI.getText());
         ooDoc.setSectionMetadataAttributes(editSection, sectionMeta);      
@@ -139,7 +134,7 @@ public class SpeechBy extends  BaseMetadataPanel {
     public boolean processSelectInsert() {
         OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
         HashMap<String,String> sectionMeta = new HashMap<String,String>();
-        String newSectionName = ((Main)getContainerPanel()).mainSectionName;
+        String newSectionName = (getContainerPanel()).mainSectionName;
         sectionMeta.put("BungeniSpeechBy", this.txt_SpeechBy.getText());
         //sectionMeta.put("BungeniQuestionByURI", this.txtPersonURI.getText());
         ooDoc.setSectionMetadataAttributes(newSectionName, sectionMeta);      
@@ -149,7 +144,7 @@ public class SpeechBy extends  BaseMetadataPanel {
 
     @Override
     public boolean doUpdateEvent(){
-        HashMap<String,String> selectionData = ((Main)getContainerPanel()).selectionData;
+        HashMap<String,String> selectionData = (getContainerPanel()).selectionData;
         if (selectionData.containsKey("FIRST_NAME"))
             this.txt_SpeechBy.setText(selectionData.get("FIRST_NAME") + " " + selectionData.get("LAST_NAME"));
         return true;

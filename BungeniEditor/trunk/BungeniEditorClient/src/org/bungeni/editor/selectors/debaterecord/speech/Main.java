@@ -4,7 +4,6 @@ package org.bungeni.editor.selectors.debaterecord.speech;
 
 import org.bungeni.editor.actions.routers.CommonRouterActions;
 import org.bungeni.editor.selectors.BaseMetadataContainerPanel;
-import org.bungeni.editor.selectors.panelInfo;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -15,7 +14,6 @@ import com.sun.star.text.XTextViewCursor;
 
 import java.awt.Component;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.JFrame;
@@ -27,8 +25,6 @@ import javax.swing.JFrame;
 public class Main extends BaseMetadataContainerPanel {
     private static org.apache.log4j.Logger log             = org.apache.log4j.Logger.getLogger(Main.class.getName());
     private final short                    SECTION_COLUMNS = 1;
-    public String                          mainSectionName = "";
-    public HashMap<String, String>         selectionData   = new HashMap<String, String>();
 
     public Main() {
         super();
