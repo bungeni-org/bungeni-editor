@@ -15,8 +15,6 @@ import com.sun.star.text.XTextViewCursor;
 
 import java.awt.Component;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.swing.JFrame;
 
@@ -29,9 +27,7 @@ public class Main extends BaseMetadataContainerPanel {
         org.apache.log4j.Logger.getLogger(Main.class.getName());
     private final short                    SECTION_COLUMNS       = 1;
     private String                         m_questionSectionName = "";
-    public String                          mainSectionName       = "";
-    public HashMap<String, String>         selectionData         = new HashMap<String, String>();
-
+  
     public Main() {
         super();
     }

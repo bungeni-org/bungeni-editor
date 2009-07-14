@@ -163,7 +163,7 @@ public String getPanelName() {
     public boolean processSelectInsert() {
         OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
         HashMap<String,String> sectionMeta = new HashMap<String,String>();
-        String newSectionName = ((Main)getContainerPanel()).mainSectionName;
+        String newSectionName = (getContainerPanel()).mainSectionName;
         sectionMeta.put("BungeniQuestionBy", this.txtPersonName.getText());
         sectionMeta.put("BungeniQuestionByURI", this.txtPersonURI.getText());
         ooDoc.setSectionMetadataAttributes(newSectionName, sectionMeta);        
@@ -221,10 +221,10 @@ public String getPanelName() {
     public boolean doUpdateEvent(){
         HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();  
         BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
-        HashMap<String,String> selectionData = ((Main)getContainerPanel()).selectionData;
+        HashMap<String,String> selectionData = (getContainerPanel()).selectionData;
         if (selectionData == null) return true;
         if (!selectionData.containsKey("QUESTION_FROM")) return true;
-        String questionFrom = ((Main)getContainerPanel()).selectionData.get("QUESTION_FROM");
+        String questionFrom = (getContainerPanel()).selectionData.get("QUESTION_FROM");
         dbInstance.Connect();
         QueryResults rs = dbInstance.QueryResults(GeneralQueryFactory.Q_FETCH_PERSON_BY_URI(questionFrom));
         dbInstance.EndConnect();

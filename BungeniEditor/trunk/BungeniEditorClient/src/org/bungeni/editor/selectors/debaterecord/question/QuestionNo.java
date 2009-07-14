@@ -1,9 +1,3 @@
-/*
- * QuestionTitle.java
- *
- * Created on August 12, 2008, 1:52 PM
- */
-
 package org.bungeni.editor.selectors.debaterecord.question;
 
 import java.awt.Component;
@@ -13,12 +7,12 @@ import org.bungeni.ooo.OOComponentHelper;
 
 /**
  *
- * @author  undesa
+ * @author  Ashok Hariharan
  */
-public class QuestionTitle extends BaseMetadataPanel {
+public class QuestionNo extends BaseMetadataPanel {
 
     /** Creates new form QuestionTitle */
-    public QuestionTitle() {
+    public QuestionNo() {
         initComponents();
     }
 
@@ -31,24 +25,15 @@ public class QuestionTitle extends BaseMetadataPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtQuestionTitle = new javax.swing.JTextField();
-        lblQuestionTitle = new javax.swing.JLabel();
-        btnPaste = new javax.swing.JButton();
+        txtQuestionNo = new javax.swing.JTextField();
+        lblQuestionNo = new javax.swing.JLabel();
 
-        txtQuestionTitle.setName("txt_question_title"); // NOI18N
+        txtQuestionNo.setName("txt_question_title"); // NOI18N
 
-        lblQuestionTitle.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        lblQuestionNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/question/Bundle"); // NOI18N
-        lblQuestionTitle.setText(bundle.getString("QuestionTitle.lblQuestionTitle.text")); // NOI18N
-        lblQuestionTitle.setName("lbl_question_title"); // NOI18N
-
-        btnPaste.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        btnPaste.setText(bundle.getString("QuestionTitle.btnPaste.text")); // NOI18N
-        btnPaste.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPasteActionPerformed(evt);
-            }
-        });
+        lblQuestionNo.setText(bundle.getString("QuestionNo.lblQuestionNo.text")); // NOI18N
+        lblQuestionNo.setName("lbl_question_title"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -56,30 +41,18 @@ public class QuestionTitle extends BaseMetadataPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblQuestionTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnPaste, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtQuestionTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE))
+                    .addComponent(lblQuestionNo, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtQuestionNo, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblQuestionTitle)
-                    .addComponent(btnPaste, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtQuestionTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lblQuestionNo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtQuestionNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnPasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasteActionPerformed
-        // TODO add your handling code here:
-        String questionTitle = this.txtQuestionTitle.getText();
-        pasteTextIntoDocument(questionTitle);
-}//GEN-LAST:event_btnPasteActionPerformed
 
 public String getPanelName() {
         return getName();
@@ -110,7 +83,7 @@ public String getPanelName() {
             String editSectionName = getContainerPanel().getEditSectionName();
         if (editSectionName.length() > 0 ) {
             HashMap<String,String> sectionMeta = new HashMap<String,String>();
-            sectionMeta.put("BungeniQuestionTitle", this.txtQuestionTitle.getText());
+            sectionMeta.put("BungeniQuestionNo", this.txtQuestionNo.getText());
              getContainerPanel().getOoDocument().setSectionMetadataAttributes(editSectionName, sectionMeta);
             
         }
@@ -163,7 +136,7 @@ public String getPanelName() {
         OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
         HashMap<String,String> sectionMeta = new HashMap<String,String>();
         String newSectionName = (getContainerPanel()).mainSectionName;
-        sectionMeta.put("BungeniQuestionTitle", this.txtQuestionTitle.getText());
+        sectionMeta.put("BungeniQuestionNo", this.txtQuestionNo.getText());
         ooDoc.setSectionMetadataAttributes(newSectionName, sectionMeta);
         return true;
     }
@@ -194,9 +167,8 @@ public String getPanelName() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnPaste;
-    private javax.swing.JLabel lblQuestionTitle;
-    private javax.swing.JTextField txtQuestionTitle;
+    private javax.swing.JLabel lblQuestionNo;
+    private javax.swing.JTextField txtQuestionNo;
     // End of variables declaration//GEN-END:variables
 
         @Override
@@ -216,19 +188,11 @@ public String getPanelName() {
 
     @Override
     protected void initFieldsEdit() {
-        this.txtQuestionTitle.setText(getSectionMetadataValue("BungeniQuestionTitle"));
+        this.txtQuestionNo.setText(getSectionMetadataValue("BungeniQuestionNo"));
         return;
     }
     
-    @Override
-    public boolean doUpdateEvent(){
-        HashMap<String,String> selectionData = (getContainerPanel()).selectionData;
-        if (selectionData != null ) {
-            if (selectionData.containsKey("QUESTION_TITLE"))
-                this.txtQuestionTitle.setText(selectionData.get("QUESTION_TITLE"));
-        }
-        return true;
-    }
+
 
     
 }

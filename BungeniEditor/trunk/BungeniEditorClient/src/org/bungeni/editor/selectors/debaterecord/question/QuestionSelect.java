@@ -191,17 +191,17 @@ private void btnSelectQuestionActionPerformed(java.awt.event.ActionEvent evt) {/
         rqs.show();
         log.debug("Moved on before closing child dialog");
        // HashMap<String,String> selectionData = ((Main)getContainerPanel()).selectionData;
-        ((Main)getContainerPanel()).selectionData = rqs.getData();
-        if ( ((Main)getContainerPanel()).selectionData.size() > 0 ) {
+        (getContainerPanel()).selectionData = rqs.getData();
+        if ( (getContainerPanel()).selectionData.size() > 0 ) {
             HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();  
             BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
         
-            Set keyset =  ((Main)getContainerPanel()).selectionData.keySet();
+            Set keyset =  (getContainerPanel()).selectionData.keySet();
             log.debug("selected keyset size = " + keyset.size());
         //    txtQuestionTitle.setText(selectionData.get("QUESTION_TITLE"));
         //    txtAddressedTo.setText(selectionData.get("QUESTION_TO"));
             //resolve person name URI to registry entry
-            ((Main)getContainerPanel()).updateAllPanels();
+            (getContainerPanel()).updateAllPanels();
             //  txtPersonName.setText(fullName);
             
             //
@@ -299,10 +299,10 @@ private void btnSelectQuestionActionPerformed(java.awt.event.ActionEvent evt) {/
 
     @Override
     public boolean processSelectInsert() {
-        String questionId = ((Main)getContainerPanel()).selectionData.get("ID");
+        String questionId = (getContainerPanel()).selectionData.get("ID");
         OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
         HashMap<String,String> sectionMeta = new HashMap<String,String>();
-        String newSectionName = ((Main)getContainerPanel()).mainSectionName;
+        String newSectionName = (getContainerPanel()).mainSectionName;
         sectionMeta.put("BungeniQuestionNo", questionId);
         ooDoc.setSectionMetadataAttributes(newSectionName, sectionMeta);
         return true;
@@ -393,9 +393,9 @@ private void btnSelectQuestionActionPerformed(java.awt.event.ActionEvent evt) {/
                    selData.put("QUESTION_TO", selectedQuestion.questionTo);
                    selData.put("QUESTION_TEXT", selectedQuestion.questionText);
 
-                    ((Main)getContainerPanel()).selectionData = selData;
-                    if ( ((Main)getContainerPanel()).selectionData.size() > 0 ) 
-                        ((Main)getContainerPanel()).updateAllPanels();
+                    (getContainerPanel()).selectionData = selData;
+                    if ( (getContainerPanel()).selectionData.size() > 0 ) 
+                        (getContainerPanel()).updateAllPanels();
     }
     
     private int findItem(ObjectQuestion oq) {

@@ -6,7 +6,6 @@
 
 package org.bungeni.editor.selectors.debaterecord.question;
 
-import com.sun.star.text.XTextSection;
 import java.awt.Component;
 import java.util.HashMap;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
@@ -143,7 +142,7 @@ public String getPanelName() {
     public boolean processSelectInsert() {
         OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
         HashMap<String,String> sectionMeta = new HashMap<String,String>();
-        String newSectionName = ((Main)getContainerPanel()).mainSectionName;
+        String newSectionName = (getContainerPanel()).mainSectionName;
         sectionMeta.put("BungeniQuestionTo", this.txtAddressedTo.getText());
         ooDoc.setSectionMetadataAttributes(newSectionName, sectionMeta);
         //ooDoc.setSectionMetadataAttributes(TOOL_TIP_TEXT_KEY, metadataMap);
@@ -208,7 +207,7 @@ public String getPanelName() {
     
     @Override
     public boolean doUpdateEvent(){
-        HashMap<String,String> selectionData = ((Main)getContainerPanel()).selectionData;   
+        HashMap<String,String> selectionData = (getContainerPanel()).selectionData;   
         if (selectionData != null ) {
             if (selectionData.containsKey("QUESTION_TO"))
             this.txtAddressedTo.setText(selectionData.get("QUESTION_TO"));

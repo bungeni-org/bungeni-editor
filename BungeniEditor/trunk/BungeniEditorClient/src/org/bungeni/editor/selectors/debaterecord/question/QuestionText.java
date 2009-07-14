@@ -219,7 +219,7 @@ public String getPanelName() {
     
     @Override
     public boolean doUpdateEvent(){
-        HashMap<String,String> selectionData = ((Main)getContainerPanel()).selectionData;
+        HashMap<String,String> selectionData = (getContainerPanel()).selectionData;
         if (selectionData != null) {
             if (selectionData.containsKey("QUESTION_TEXT"))
                 this.txtQuestionText.setText(selectionData.get("QUESTION_TEXT"));
