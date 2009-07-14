@@ -222,7 +222,7 @@ public String getPanelName() {
     
     @Override
     public boolean doUpdateEvent(){
-        HashMap<String,String> selectionData = ((Main)getContainerPanel()).selectionData;   
+        HashMap<String,String> selectionData = (getContainerPanel()).selectionData;   
         this.txtMotionText.setText(selectionData.get("MOTION_TEXT"));
         return true;
     }

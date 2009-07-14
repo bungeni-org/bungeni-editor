@@ -167,7 +167,7 @@ public String getPanelName() {
     public boolean processSelectInsert() {
                 OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
         HashMap<String,String> sectionMeta = new HashMap<String,String>();
-        String newSectionName = ((Main)getContainerPanel()).mainSectionName;
+        String newSectionName = (getContainerPanel()).mainSectionName;
         sectionMeta.put("BungeniMotionTitle", this.txtMotionTitle.getText());
         ooDoc.setSectionMetadataAttributes(newSectionName, sectionMeta);
         return true;
@@ -226,7 +226,7 @@ public String getPanelName() {
     
     @Override
     public boolean doUpdateEvent(){
-        HashMap<String,String> selectionData = ((Main)getContainerPanel()).selectionData;
+        HashMap<String,String> selectionData = (getContainerPanel()).selectionData;
         this.txtMotionTitle.setText(selectionData.get("MOTION_TITLE"));
         return true;
     }

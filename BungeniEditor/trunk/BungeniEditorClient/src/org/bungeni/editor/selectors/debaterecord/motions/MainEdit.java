@@ -23,34 +23,24 @@ import javax.swing.JFrame;
  *
  * @author Ashok Hariharan
  */
-public class Main extends BaseMetadataContainerPanel {
+public class MainEdit extends BaseMetadataContainerPanel {
     private static org.apache.log4j.Logger log                 =
-        org.apache.log4j.Logger.getLogger(Main.class.getName());
+        org.apache.log4j.Logger.getLogger(MainEdit.class.getName());
     private final short                    SECTION_COLUMNS     = 1;
     private String                         m_motionSectionName = "";
-    
-    public Main() {
+  
+    public MainEdit() {
         super();
     }
 
     @Override
     protected void setupPanels() {
-    /*
-        m_activePanels = new ArrayList<panelInfo>() {
-            {
-                add(new panelInfo("MotionSelect", "org.bungeni.editor.selectors.debaterecord.motions.MotionSelect"));
-                add(new panelInfo("MotionTitle", "org.bungeni.editor.selectors.debaterecord.motions.MotionTitle"));
-                add(new panelInfo("MotionNameAndURI",
-                                  "org.bungeni.editor.selectors.debaterecord.motions.MotionNameAndURI"));
-                add(new panelInfo("MotionText", "org.bungeni.editor.selectors.debaterecord.motions.MotionText"));
-            }
-        }; */
         super.setupPanels();
-        this.enableAllChildPanels(false);
+        this.enableAllChildPanels(true);
     }
 
     public static void main(String[] args) {
-        Main m = new Main();
+        MainEdit m = new MainEdit();
 
         m.initialize();
 

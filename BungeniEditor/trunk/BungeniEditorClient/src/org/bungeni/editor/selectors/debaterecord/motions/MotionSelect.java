@@ -60,9 +60,9 @@ public class MotionSelect extends BaseMetadataPanel {
                selData.put("MOTION_TEXT", selectedMotion.motionText);
                selData.put("MOTION_TITLE", selectedMotion.motionTitle);
 
-                ((Main)getContainerPanel()).selectionData = selData;
-                if ( ((Main)getContainerPanel()).selectionData.size() > 0 ) 
-                    ((Main)getContainerPanel()).updateAllPanels();
+                (getContainerPanel()).selectionData = selData;
+                if ( (getContainerPanel()).selectionData.size() > 0 ) 
+                    (getContainerPanel()).updateAllPanels();
             }
         } catch (Exception ex) {
             log.error("MotionSelector:actionPerformed : " + ex.getMessage());
@@ -142,14 +142,14 @@ private void btnSelectQuestionActionPerformed(java.awt.event.ActionEvent evt) {/
         rqs.show();
         log.debug("Moved on before closing child dialog");
        // HashMap<String,String> selectionData = ((Main)getContainerPanel()).selectionData;
-        ((Main)getContainerPanel()).selectionData = rqs.getData();
-        if ( ((Main)getContainerPanel()).selectionData.size() > 0 ) {
+        (getContainerPanel()).selectionData = rqs.getData();
+        if ( (getContainerPanel()).selectionData.size() > 0 ) {
             HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();  
             BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
         
-            Set keyset =  ((Main)getContainerPanel()).selectionData.keySet();
+            Set keyset =  (getContainerPanel()).selectionData.keySet();
             log.debug("selected keyset size = " + keyset.size());
-            ((Main)getContainerPanel()).updateAllPanels();
+            (getContainerPanel()).updateAllPanels();
         } else {
             log.debug("selected keyset empty");
         }
@@ -159,7 +159,7 @@ private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     //make all the fields editable
     //
     //((Main)getContainerPanel()).
-    ((Main)getContainerPanel()).enableAllChildPanels(true);
+    (getContainerPanel()).enableAllChildPanels(true);
 
 }//GEN-LAST:event_btnAddActionPerformed
 
@@ -306,10 +306,10 @@ private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 
     @Override
     public boolean processSelectInsert() {
-        String motionId = ((Main)getContainerPanel()).selectionData.get("MOTION_ID");
+        String motionId = (getContainerPanel()).selectionData.get("MOTION_ID");
         OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
         HashMap<String,String> sectionMeta = new HashMap<String,String>();
-        String newSectionName = ((Main)getContainerPanel()).mainSectionName;
+        String newSectionName = (getContainerPanel()).mainSectionName;
         sectionMeta.put("BungeniMotionNo", motionId);
         ooDoc.setSectionMetadataAttributes(newSectionName, sectionMeta);
         return true;
