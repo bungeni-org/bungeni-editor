@@ -7,9 +7,7 @@
 package org.bungeni.editor.selectors.debaterecord.tableddocuments;
 
 import java.awt.Component;
-import java.util.ArrayList;
 import org.bungeni.editor.selectors.BaseMetadataContainerPanel;
-import org.bungeni.editor.selectors.panelInfo;
 
 /**
  *
