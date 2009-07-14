@@ -48,6 +48,8 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
     protected SelectorDialogModes dialogMode;
     protected SectionMetadataEditor sectionMetadataEditor = null;
     protected String editSectionName = "";
+    public String                          mainSectionName     = "";
+    public HashMap<String, String>         selectionData         = new HashMap<String, String>();
 
     public class ConditionSet {
 
