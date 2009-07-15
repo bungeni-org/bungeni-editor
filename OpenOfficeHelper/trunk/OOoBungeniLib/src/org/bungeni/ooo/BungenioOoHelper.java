@@ -1,11 +1,3 @@
-/*
- * BungenioOoHelper.java
- * 
- * Created on May 30, 2007, 5:41:55 PM
- * 
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 
 package org.bungeni.ooo;
 
@@ -28,7 +20,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Administrator
+ * @author Ashok Hariharan
  */
 public class BungenioOoHelper {
 
