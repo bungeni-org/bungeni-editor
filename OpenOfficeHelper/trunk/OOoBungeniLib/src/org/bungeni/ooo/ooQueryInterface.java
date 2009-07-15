@@ -36,6 +36,7 @@ import com.sun.star.view.*;
  */
 public class ooQueryInterface {
 
+
  
 
 
@@ -328,6 +329,10 @@ public class ooQueryInterface {
 
     public static XUpdatable XUpdatable(Object obj) {
         return (XUpdatable) UnoRuntime.queryInterface(XUpdatable.class, obj);
+    }
+
+    static XModifiable XModifiable(Object obj) {
+        return (XModifiable) UnoRuntime.queryInterface(XModifiable.class, obj);
     }
 
     public static XStyle XStyle(Object object) {
