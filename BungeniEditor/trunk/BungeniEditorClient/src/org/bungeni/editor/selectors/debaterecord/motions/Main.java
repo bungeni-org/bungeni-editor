@@ -15,7 +15,6 @@ import com.sun.star.text.XTextViewCursor;
 
 import java.awt.Component;
 
-import java.util.HashMap;
 
 import javax.swing.JFrame;
 
@@ -35,16 +34,6 @@ public class Main extends BaseMetadataContainerPanel {
 
     @Override
     protected void setupPanels() {
-    /*
-        m_activePanels = new ArrayList<panelInfo>() {
-            {
-                add(new panelInfo("MotionSelect", "org.bungeni.editor.selectors.debaterecord.motions.MotionSelect"));
-                add(new panelInfo("MotionTitle", "org.bungeni.editor.selectors.debaterecord.motions.MotionTitle"));
-                add(new panelInfo("MotionNameAndURI",
-                                  "org.bungeni.editor.selectors.debaterecord.motions.MotionNameAndURI"));
-                add(new panelInfo("MotionText", "org.bungeni.editor.selectors.debaterecord.motions.MotionText"));
-            }
-        }; */
         super.setupPanels();
         this.enableAllChildPanels(false);
     }

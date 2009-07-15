@@ -15,9 +15,6 @@ public class Main extends BaseMetadataContainerPanel {
     /** Creates new form Main */
     public Main() {
         super();
-      //  initComponents();
-      //  init();
-        
     }
 
     
@@ -59,17 +56,6 @@ public class Main extends BaseMetadataContainerPanel {
         f.setVisible(true);
     }
 
-    /*
-    @Override
-    protected void setupPanels() {
-
-       m_activePanels = new ArrayList<panelInfo>(){
-            {
-                    //add(new panelInfo("Title","org.bungeni.editor.selectors.debaterecord.tableddocuments.Title"));
-                    add(new panelInfo("TabledDocuments", "org.bungeni.editor.selectors.debaterecord.tableddocuments.TabledDocuments"));
-            }
-         };
-    }*/
 
     @Override
     public Component getPanelComponent() {

@@ -12,6 +12,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import javax.swing.AbstractButton;
 import javax.swing.ListSelectionModel;
+import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
 
@@ -56,7 +57,7 @@ private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(S
          XText xCursorText = viewCursor.getText();
                 //oCur.HyperLinkURL="http://akomantoso.org/resolver/"+ listItemURIs(i)
                 XPropertySet xCurProps = ooQueryInterface.XPropertySet(viewCursor);
-                xCurProps.setPropertyValue("HyperLinkURL", __ODF_URI_PREFIX__ + tblDocURIs.get(0));
+                xCurProps.setPropertyValue("HyperLinkURL", BungeniEditorProperties.ODF_URI_PREFIX + tblDocURIs.get(0));
                 xCursorText.insertString(viewCursor,viewCursor.getString(), true);
                // if (!(i == tblDocTitles.size() -1 ))
                // xCursorText.insertControlCharacter(ooDocument.getViewCursor(), com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK, false);

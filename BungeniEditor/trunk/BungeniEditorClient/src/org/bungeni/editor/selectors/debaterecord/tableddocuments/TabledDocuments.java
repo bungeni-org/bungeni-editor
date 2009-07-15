@@ -44,7 +44,7 @@ import org.bungeni.ooo.ooQueryInterface;
  */
 public class TabledDocuments extends BaseMetadataPanel {
   private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(TabledDocuments.class.getName());
-  protected static final String __ODF_URI_PREFIX__ = "uri:";
+
     /** Creates new form TabledDocuments */
     public TabledDocuments() {
         super();
@@ -380,7 +380,7 @@ public class TabledDocuments extends BaseMetadataPanel {
       
                 //oCur.HyperLinkURL="http://akomantoso.org/resolver/"+ listItemURIs(i)
                 XPropertySet xCurProps = ooQueryInterface.XPropertySet(startCur);
-                xCurProps.setPropertyValue("HyperLinkURL", __ODF_URI_PREFIX__ + tblDocURIs.get(i));
+                xCurProps.setPropertyValue("HyperLinkURL", org.bungeni.extutils.BungeniEditorProperties.ODF_URI_PREFIX + tblDocURIs.get(i));
                 xCursorText.insertString(startCur, tblDocTitles.get(i), false);
                // if (!(i == tblDocTitles.size() -1 ))
                 xCursorText.insertControlCharacter(startCur, com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK, false);
