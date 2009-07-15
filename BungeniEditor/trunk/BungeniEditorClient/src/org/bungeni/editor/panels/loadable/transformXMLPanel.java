@@ -354,6 +354,11 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         }
 
         public synchronized void actionPerformed(ActionEvent e) {
+            //check if document has been saved
+            if (ooDocument.documentRequiresSaving()) {
+                 MessageBox.OK(parentFrame, bundle.getString("Please_save_the_document"), bundle.getString("Save_the_document"), JOptionPane.ERROR_MESSAGE);
+                 return;
+            }
             //get the button originating the event
             final JButton sourceButton = (JButton) e.getSource();
             //disable the button immediately
