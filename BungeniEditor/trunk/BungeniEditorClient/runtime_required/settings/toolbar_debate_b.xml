@@ -45,6 +45,7 @@
 
 	    <blockAction name="Notices of Motion" title="Notices of Motions" target="null" visible="true" condition="none">
 		<action name="MotionsGroup.new" title="Motions Section" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMotionGroupSection.section_creation" visible="true" condition="textSelected:true :and: cursorInSection:debaterecord" />
+		<action name="AllMotions.heading" title="---- Heading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMotionBlockSection.markup_motion_title:heading_allmotions" visible="true" condition="textSelected:true :and: cursorInSection:allmotions[0-9]*" />
 		<action name="Motions.new" title="Import Motion" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMotionBlockSection.section_creation" visible="true" condition="textSelected:true :and: cursorInSection:allmotions[0-9]*" />
 		<action name="Motions.new" title="Add Motion" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMotionBlockSectionEdit.section_creation" visible="true" condition="textSelected:true :and: cursorInSection:allmotions[0-9]*" />
 		<action name="Motions.heading" title="---- Heading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMotionBlockSection.markup_motion_title:heading_motion" visible="true" condition="textSelected:true :and: cursorInSection:motion[0-9]*" />
