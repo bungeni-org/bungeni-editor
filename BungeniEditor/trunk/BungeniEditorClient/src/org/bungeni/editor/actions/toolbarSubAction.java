@@ -16,7 +16,7 @@ import java.util.Vector;
 public class toolbarSubAction {
     private static org.apache.log4j.Logger log      =
         org.apache.log4j.Logger.getLogger(toolbarSubAction.class.getName());
-    private String[]                       profiles = null;
+  //  private String[]                       profiles = null;
     private SelectorDialogModes            theMode  = null;
     private String                         action_class;
     private String                         action_display_text;
@@ -50,14 +50,14 @@ public class toolbarSubAction {
         this.validator_class     = (String) safeGetString(actionDesc, action_mapping, "VALIDATOR_CLASS");
         this.router_class        = (String) safeGetString(actionDesc, action_mapping, "ROUTER_CLASS");
         this.dialog_class        = (String) safeGetString(actionDesc, action_mapping, "DIALOG_CLASS");
-
+        /*
         String sProfiles = (String) safeGetString(actionDesc, action_mapping, "PROFILES");
 
         this.profiles = sProfiles.split(",");
 
         for (int i = 0; i < profiles.length; i++) {
             profiles[i] = profiles[i].trim();
-        }
+        }*/
 
         buildCommandChain((String) safeGet(actionDesc, action_mapping, "COMMAND_CHAIN"));
     }
@@ -191,7 +191,7 @@ public class toolbarSubAction {
     public String action_command_chain() {
         return this.command_chain;
     }
-
+/*
     public String[] profiles() {
         return this.profiles;
     }
@@ -204,7 +204,7 @@ public class toolbarSubAction {
         }
 
         return false;
-    }
+    }*/
 
     public String action_command_catalog() {
         return this.command_catalog;
