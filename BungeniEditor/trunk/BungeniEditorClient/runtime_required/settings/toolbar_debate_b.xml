@@ -1,49 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-    Document   : toolbar.xml.xml
-    Created on : January 9, 2008, 1:52 PM
-    Author     : Administrator
-    Description:
-        Purpose of the document follows.
--->
 <toolbar>
     <root lang="en" title="Editor Actions" visible="true" >
         <actionGroup name="tabFavourites" title="Generic" visible="true" uimodel="wrap">
-            <!--<blockAction name="Root" title="Create Root Section" visible="true" condition="sectionNotExists:debaterecord"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.general_action.create_root_section:debaterecord" />-->
 	    <blockAction name="Speeches" title="Speech" target="null" visible="true" condition="none">
 		<action name="PersonalStatement.create" title="Personal Statement" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makePersonalStatement.section_creation" visible="true" condition="textSelected:true :and: !cursorInSection:speech[0-9]* :and: cursorInSection:debaterecord" />
 		<subaction name="Heading.PersonalStatement" title="---- Heading" tooltip="Heading for personal statement" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeCommunicationAction.apply_style:heading_pstatement" visible="true" condition="cursorInSection:pstatemnt[0-9]* :and: textSelected:true"  />           
 		<action name="Speech.create" title="Speech Section" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.section_creation" visible="true" condition="textSelected:true :and: !cursorInSection:speech[0-9]*" />
 		<action name="Speech.SpeechBy" title="---- By" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.speech_by" visible="true" condition="textSelected:true :and: cursorInSection:speech[0-9]*" />
 		<action name="Speech.SpeechAs" title="---- As" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.speech_as" visible="true" condition="textSelected:true :and: cursorInSection:speech[0-9]*" />
-		<!--<action name="Speech.lockHead" title="Lock Speech By" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.lock:from(BungeniSpeechBy,BungeniSpeechAs);with(Person)" visible="true" condition="cursorInSection:speech[0-9]*" />			
-		<action name="Speech.unlockHead" title="Unlock Speech By" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.unlock:BungeniSpeechBy,BungeniSpeechAs" visible="true" condition="cursorInSection:speech[0-9]*" />-->		
 	    </blockAction>
             <blockAction name="Communication" title="Communication" target="null" visible="true" condition="none">
-		<!-- <action name="Communication.create" title="Mark as Communication" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeCommunicationAction.section_creation" visible="true" condition="textSelected:true" /> -->
 		<subaction name="Communication.fromTheChair" title="Communication From The Chair" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeCommunicationAction.section_creation" visible="true" condition="cursorInSection:debaterecord :and: textSelected:true" />
 		<subaction name="Heading.Communication.fromTheChair" title="---- Heading" tooltip="" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeCommunicationAction.apply_style:heading_comchair" visible="true" condition="cursorInSection:comnctn[0-9]* :and: textSelected:true"  />           
 		<subaction name="Communication.pointOfOrder" title="Point of Order" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makePointOfOrder.section_creation" visible="true" condition="cursorInSection:debaterecord :and: textSelected:true" />
 		<subaction name="Heading.Communication.pointOfOrder" title="---- Heading" tooltip="" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makePointOfOrder.apply_style:heading_pointoforder" visible="true" condition="cursorInSection:porder[0-9]* :and: textSelected:true"  />           
-		<!--<action name="Speech.create" title="Mark text Speech" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.section_creation" visible="true" condition="textSelected:true :and: cursorInSection:*" />
-		<action name="Speech.SpeechBy" title="Identify Speech By" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.speech_by" visible="true" condition="textSelected:true :and: cursorInSection:speech[0-9]*" />
-		<action name="Speech.SpeechAs" title="Identify Speech As" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.speech_as" visible="true" condition="textSelected:true :and: cursorInSection:speech[0-9]*" /> -->
-		<!--<action name="Speech.lockHead" title="Lock Speech By" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.lock:from(BungeniSpeechBy,BungeniSpeechAs);with(Person)" visible="true" condition="cursorInSection:speech[0-9]*" />			
-		<action name="Speech.unlockHead" title="Unlock Speech By" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.unlock:BungeniSpeechBy,BungeniSpeechAs" visible="true" condition="cursorInSection:speech[0-9]*" />-->		
 	    </blockAction>
 	   <blockAction name="GeneralActions" title="General Actions" target="null" visible="true" condition="none"> 
 		<subaction name="Root" title="Create Root Section" visible="true" condition="sectionNotExists:debaterecord :and: textSelected:true"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMastheadSection.create_root_section:debaterecord" />	
 		 <action name="Observation.create" title="Observation" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeObservationAction.section_creation" visible="true" condition="textSelected:true" />
 	    	<action name="GroupActivity.create" title="Group Activity" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeGroupActivityAction.section_creation" visible="true" condition="textSelected:true" />
-		<!-- <action name="Communication.create" title="Communication" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeCommunicationAction.section_creation" visible="true" condition="textSelected:true" /> -->
-		<!--<action name="ParliamentID.create" title="Parliament ID" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMetadataReference.mark:BungeniParliamentID" visible="true" condition="textSelected:true" />
-		<action name="ParliamentSitting.create" title="Parliament Sitting" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMetadataReference.mark:BungeniParliamentSitting" visible="true" condition="textSelected:true" />
-		<action name="ParliamentSession.create" title="Parliament Session" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMetadataReference.mark:BungeniParliamentSession" visible="true" condition="textSelected:true" /> -->
-	  <!--  </blockAction> -->
-	  <!-- <blockAction name="Event Markup" title="Markup Events" target="null" visible="true" condition="none"> -->
 		<action name="Adjournment.create" title="Adjournment" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeAdjournmentAction.mark_as_action:Adjournment" visible="true" condition="textSelected:true :and: cursorInSection:debaterecord" />
-		<action name="NoticeOfMotion.create" title="Notice of Motion" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeNoticeOfMotionAction.mark_as_action:NoticeOfMotion" visible="true" condition="textSelected:true :and: cursorInSection:debaterecord" />	
 	</blockAction>	
 
 	
@@ -52,30 +29,37 @@
         <actionGroup name="tabOthers" title="Structural" visible="true" uimodel="wrap">
 	<blockAction name="Masthead.Selection" tooltip="Masthead for debaterecord" title="Preface"  target="null" visible="true" condition="none" showChildren="true" >
                   <subaction name="Masthead.selection" title="Preface Section" tooltip="Select some text to mark it up as a Part" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMastheadSection.section_creation" visible="true" condition="cursorInSection:debaterecord :and: textSelected:true :and: sectionNotExists:preface" />
-                    <!--<subaction name="Masthead.selection.date" title="Official Date" tooltip="Select some text to mark it up as a preface date" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMetadataReference.mark:mBungeniOfficialDate" visible="true" condition="cursorInSection:masthead :and: textSelected:true" />
-                    <subaction name="Masthead.selection.time" title="Official Time" tooltip="Select some text to mark it up as a preface time" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMetadataReference.mark:mBungeniOfficialTime" visible="true" condition="cursorInSection:masthead :and: textSelected:true" /> -->
 		    <subaction name="Masthead.heading" title="---- Heading" tooltip="" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMastheadSection.markup_preface_heading:heading_preface" visible="true" condition="cursorInSection:preface :and: textSelected:true"  />           
 		    <subaction name="Masthead.subheading" title="---- -- Sub-Heading" tooltip="" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMastheadSection.markup_preface_heading:subheading_preface" visible="true" condition="cursorInSection:preface :and: textSelected:true"  />           
                     <subaction name="Masthead.selection.logo" title="---- Logo" tooltip="Select some text to mark it up as a preface logo" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMastheadSection.markup_logo:main_logo" visible="true" condition="imageSelectedIsNot:main_logo" />
 	</blockAction>
-    	 <blockAction name="Papers" title="Tabled Documents" target="null" visible="true" condition="none">
-		<action name="Papers.new" title="Tabled Documents Section" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makePapersLaidBlockSection.section_creation" visible="true" condition="textSelected:true :and: cursorInSection:debaterecord" />
+    	 <blockAction name="Papers" title="Papers Laid" target="null" visible="true" condition="none">
+		<action name="Papers.new" title="Papers Laid Section" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makePapersLaidBlockSection.section_creation" visible="true" condition="textSelected:true :and: cursorInSection:debaterecord" />
 		<action name="Papers.heading" title="---- Heading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makePapersLaidBlockSection.markup_papers_heading:heading_papers" visible="true" condition="textSelected:true :and: cursorInSection:papers[0-9]*" />
 		<action name="Papers.subheading" title="---- -- Sub-Heading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makePapersLaidBlockSection.markup_papers_heading:subheading_papers" visible="true" condition="textSelected:true :and: cursorInSection:papers[0-9]*" />
 		<action name="Papers.doclist" title="---- Documents Sub-Section" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makePapersLaidListSection.section_creation" visible="true" condition="textSelected:true :and: cursorInSection:papers[0-9]*" />
 		<action name="Papers.select" title="---- --  Import Listing" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makePapersLaidBlockSection.select_documents" visible="true" condition="cursorInSection:tbldocs[0-9]*" />		
-		<action name="Papers.selectSingle" title="---- --  Markup Link" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makePapersLaidMarkupSingle.markup_doc_link" visible="true" condition="textSelected:true :and: cursorInSection:tbldocs[0-9]*" />		
+		<action name="Papers.selectSingle" title="---- -- Select/Markup Link" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makePapersLaidMarkupSingle.markup_doc_link" visible="true" condition="textSelected:true :and: cursorInSection:tbldocs[0-9]*" />		
+		<action name="Papers.selectSingleData" title="---- -- Add/Markup Link" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makePapersLaidDataEntry.markup_doc_link" visible="true" condition="textSelected:true :and: cursorInSection:tbldocs[0-9]*" />		
 	  </blockAction>   
 
-	    <blockAction name="Motions" title="Motions" target="null" visible="true" condition="none">
+	    <blockAction name="Notices of Motion" title="Notices of Motions" target="null" visible="true" condition="none">
 		<action name="MotionsGroup.new" title="Motions Section" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMotionGroupSection.section_creation" visible="true" condition="textSelected:true :and: cursorInSection:debaterecord" />
-		<action name="Motions.new" title="Motions Sub-Section" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMotionBlockSection.section_creation" visible="true" condition="textSelected:true :and: cursorInSection:allmotions[0-9]*" />
+		<action name="Motions.new" title="Import Motion" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMotionBlockSection.section_creation" visible="true" condition="textSelected:true :and: cursorInSection:allmotions[0-9]*" />
+		<action name="Motions.new" title="Add Motion" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMotionBlockSectionEdit.section_creation" visible="true" condition="textSelected:true :and: cursorInSection:allmotions[0-9]*" />
 		<action name="Motions.heading" title="---- Heading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMotionBlockSection.markup_motion_title:heading_motion" visible="true" condition="textSelected:true :and: cursorInSection:motion[0-9]*" />
 		<action name="Motions.subheading" title="---- -- SubHeading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMotionBlockSection.markup_motion_title:subheading_motion" visible="true" condition="textSelected:true :and: cursorInSection:motion[0-9]*" />
-		<!-- <action name="Speech.create" title="Speech" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.section_creation" visible="true" condition="textSelected:true :and: cursorInSection:motion[0-9]*" />
-		<action name="Speech.SpeechBy" title="Speech By" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.speech_by" visible="true" condition="textSelected:true :and: cursorInSection:speech[0-9]*" />
-		<action name="Speech.SpeechAs" title="Speech As" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.speech_as" visible="true" condition="textSelected:true :and: cursorInSection:speech[0-9]*" /> -->
+	    </blockAction>        
+
+	    <blockAction name="Procedural Motions" title="Procedural Motions" target="null" visible="true" condition="none">
+		<action name="MotionsGroup.new" title="Motions Section" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMotionGroupSection.section_creation" visible="true" condition="textSelected:true :and: cursorInSection:debaterecord" />
+		<action name="Motions.new" title="Motions Sub-Section" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeProcMotionBlockSection.section_creation" visible="true" condition="textSelected:true :and: cursorInSection:allmotions[0-9]*" />
+		<action name="Motions.heading" title="---- Heading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeProcMotionBlockSection.markup_motion_title:heading_motion" visible="true" condition="textSelected:true :and: cursorInSection:pmotion[0-9]*" />
+		<action name="Motions.subheading" title="---- -- SubHeading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeProcMotionBlockSection.markup_motion_title:subheading_motion" visible="true" condition="textSelected:true :and: cursorInSection:pmotion[0-9]*" />
 	    </blockAction>            
+	
+	    
+
 	   <blockAction name="Questions" tooltip="Create a Questions Section" title="Questions" target="null" visible="true" condition="none" >
 		<!--creates a question container --> 		
 		<action name="QuestionsGroup.new" title="Questions Section" mode="TEXT_SELECTED_INSERT" 
@@ -85,8 +69,11 @@
 			target="toolbarSubAction.makeDebateQuestionBlockSection.apply_questiontext_style:heading_allquestions" visible="true" 
 			condition="textSelected:true :and: cursorInSection:questions[0-9]*." />
 		<!-- pops up a selector dialog for a questions - creates a questionanswer container -->                
-		<action name="Questions.new" title="Question Sub-Section" mode="TEXT_SELECTED_INSERT" 
+		<action name="Questions.new" title="Import Question" mode="TEXT_SELECTED_INSERT" 
 			target="toolbarSubAction.makeDebateQuestionBlockSection.section_creation" visible="true" 
+			condition="textSelected:true :and: cursorInSection:questions[0-9]*" />
+		<action name="Questions.new" title="Add Question" mode="TEXT_SELECTED_INSERT" 
+			target="toolbarSubAction.makeDebateQuestionBlockSectionEdit.section_creation" visible="true" 
 			condition="textSelected:true :and: cursorInSection:questions[0-9]*" />
 		<action name="Questions.heading1" title="---- Heading" mode="TEXT_SELECTED_INSERT" 
 			target="toolbarSubAction.makeDebateQuestionBlockSection.apply_questiontext_style:heading_question" visible="true" 
@@ -107,21 +94,11 @@
 			condition="textSelected:true :and: cursorInSection:sque[0-9]*" />
 		<!-- markup quetion to -->
 		<action name="Questions.to.markup" title="---- To" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateQuestionBlockSection.markup_question_to" visible="true" condition="textSelected:true :and: cursorInSection:sque[0-9]*" />
-		<!-- markup question heading -->
-		<!--<action name="Questions.heading" title="Question Heading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateQuestionBlockSection.apply_questiontext_style:question-text" visible="true" condition="textSelected:true :and: cursorInSection:question[0-9]*." />
-		<action name="Questions.text.markup" title="Question Text" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateQuestionBlockSection.apply_questiontext_style:question-subtitle" visible="true" condition="textSelected:true :and: cursorInSection:question[0-9]*." /> -->
             </blockAction>
 	<blockAction name="Conclusion Markup" title="Adjournment" target="null" visible="true" condition="none">
 		<action name="Conclusion.create" title="Adjournment Section" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeConclusionSection.section_creation" visible="true" condition="cursorInSection:debaterecord :and: textSelected:true" />
 		<action name="Conclusion.markHouseClosing" title="---- House Adjournment Time" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeConclusionSection.mark_house_closing" visible="true" condition="cursorInSection:concl[0-9]* :and: textSelected:true" />
-		<!-- <action name="Speech.create" title="Mark text Speech" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.section_creation" visible="true" condition="textSelected:true :and: cursorInSection:concl[0-9]*" /> -->
 	    </blockAction>
-		<!--
-	    <blockAction name="Speeches" title="Speech" target="null" visible="true" condition="none">
-		<action name="Speech.create" title="Mark text Speech" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.section_creation" visible="true" condition="textSelected:true :and: cursorInSection:*" />
-		<action name="Speech.SpeechBy" title="Identify Speech By" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.speech_by" visible="true" condition="textSelected:true :and: cursorInSection:speech[0-9]*" />
-		<action name="Speech.SpeechAs" title="Identify Speech As" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.speech_as" visible="true" condition="textSelected:true :and: cursorInSection:speech[0-9]*" />
-	    </blockAction> -->
 	</actionGroup>
     </root>
 </toolbar>
