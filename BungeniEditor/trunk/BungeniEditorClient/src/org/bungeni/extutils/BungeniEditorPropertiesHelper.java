@@ -3,6 +3,7 @@ package org.bungeni.extutils;
 //~--- JDK imports ------------------------------------------------------------
 
 import java.awt.Color;
+import java.text.SimpleDateFormat;
 
 /**
  *Short hand functions to access property values
@@ -33,5 +34,14 @@ public class BungeniEditorPropertiesHelper {
         Color  backColor = Color.decode(popColor);
 
         return backColor;
+    }
+
+    private static SimpleDateFormat metadataDateFormat = null;
+
+    public static SimpleDateFormat getMetadataDateFormat() {
+        if (metadataDateFormat == null) {
+            metadataDateFormat = new SimpleDateFormat (BungeniEditorProperties.getEditorProperty("metadataTimeFormat"));
+        }
+        return metadataDateFormat;
     }
 }
