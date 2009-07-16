@@ -1,8 +1,3 @@
-/*
- * QuestionerName.java
- *
- * Created on August 12, 2008, 1:53 PM
- */
 
 package org.bungeni.editor.selectors.debaterecord.motions;
 
@@ -25,6 +20,32 @@ public class MotionNameAndURI extends BaseMetadataPanel {
         initComponents();
     }
 
+    private boolean validateMotionFields() {
+         boolean bState = true;
+         String sMotionName = this.txtMotionName.getText().trim();
+         String sMotionURI = this.txtMotionURI.getText().trim();
+         if (sMotionName.length() == 0 ) {
+            this.addErrorMessage(txtMotionName, "Please enter the motion name");
+            bState = false;
+        }
+        if (sMotionURI.length() == 0) {
+            this.addErrorMessage(txtMotionURI, "Please enter the motion URI");
+            bState = false;
+        }
+        return bState;
+    }
+
+
+    private void saveMetadata(String toSectionName){
+        if (toSectionName.length() > 0 ) {
+            OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
+            HashMap<String,String> sectionMeta = new HashMap<String,String>();
+            sectionMeta.put("BungeniMotionName", this.txtMotionName.getText());
+            sectionMeta.put("BungeniMotionURI", this.txtMotionURI.getText());
+            ooDoc.setSectionMetadataAttributes(toSectionName, sectionMeta);
+        }
+
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -44,7 +65,7 @@ public class MotionNameAndURI extends BaseMetadataPanel {
         lblNameOfPersonFrom.setText(bundle.getString("MotionNameAndURI.lblNameOfPersonFrom.text")); // NOI18N
         lblNameOfPersonFrom.setName("lbl_person_name"); // NOI18N
 
-        txtMotionName.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        txtMotionName.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         txtMotionName.setName("txt_person_name"); // NOI18N
 
         lblPersonURI.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
@@ -68,11 +89,11 @@ public class MotionNameAndURI extends BaseMetadataPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lblNameOfPersonFrom)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtMotionName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtMotionName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblPersonURI)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtMotionURI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txtMotionURI))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -104,19 +125,14 @@ public String getPanelName() {
 
     @Override
     public boolean preFullEdit() {
-        return true;
+      return true;
     }
 
     @Override
     public boolean processFullEdit() {
          String editSectionName = getContainerPanel().getEditSectionName();
-        if (editSectionName.length() > 0 ) {
-            HashMap<String,String> sectionMeta = new HashMap<String,String>();
-            sectionMeta.put("BungeniMotionName", this.txtMotionName.getText());
-            sectionMeta.put("BungeniMotionURI", this.txtMotionURI.getText());
-            getContainerPanel().getOoDocument().setSectionMetadataAttributes(editSectionName, sectionMeta);
-            
-        }
+         editSectionName = editSectionName.trim();
+         saveMetadata(editSectionName);
         return true;
     }
 
@@ -162,12 +178,9 @@ public String getPanelName() {
 
     @Override
     public boolean processSelectInsert() {
-        OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
-        HashMap<String,String> sectionMeta = new HashMap<String,String>();
-        String newSectionName = (getContainerPanel()).mainSectionName;
-        sectionMeta.put("BungeniMotionName", this.txtMotionName.getText());
-        sectionMeta.put("BungeniMotionURI", this.txtMotionURI.getText());
-        ooDoc.setSectionMetadataAttributes(newSectionName, sectionMeta);        
+        String newSection = getContainerPanel().mainSectionName;
+        newSection  = newSection.trim();
+        saveMetadata(newSection);
         return true;
     }
 
@@ -178,12 +191,12 @@ public String getPanelName() {
 
     @Override
     public boolean validateSelectedEdit() {
-        return true;
+                return validateMotionFields();
     }
 
     @Override
     public boolean validateSelectedInsert() {
-        return true;
+        return validateMotionFields();
     }
 
     @Override
@@ -193,7 +206,7 @@ public String getPanelName() {
 
     @Override
     public boolean validateFullEdit() {
-        return true;
+                return validateMotionFields();
     }
 
         @Override
@@ -213,7 +226,12 @@ public String getPanelName() {
 
     @Override
     protected void initFieldsEdit() {
-        return;
+          String eSectionName = getContainerPanel().getEditSectionName();
+        OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
+        HashMap<String,String> sectionMeta = ooDoc.getSectionMetadataAttributes(eSectionName);
+        this.txtMotionName.setText(sectionMeta.get("BungeniMotionName"));
+        this.txtMotionURI.setText(sectionMeta.get("BungeniMotionURI"));
+         return;
     }
     
        @Override

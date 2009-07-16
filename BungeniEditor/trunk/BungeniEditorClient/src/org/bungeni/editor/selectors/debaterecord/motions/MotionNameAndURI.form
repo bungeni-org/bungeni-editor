@@ -27,11 +27,11 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="lblNameOfPersonFrom" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="txtMotionName" min="-2" max="-2" attributes="0"/>
+              <Component id="txtMotionName" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="lblPersonURI" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="txtMotionURI" min="-2" max="-2" attributes="0"/>
+              <Component id="txtMotionURI" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
