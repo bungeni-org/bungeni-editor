@@ -1,0 +1,17 @@
+#summary Describes the mapping between bungeni editor Section types and AkomaNtoso element names
+#labels bungeni-editor,Phase-Implementation
+= For DebateRecord =
+
+||Editor Section Type || Description ||  AkomaNtoso XML Element ||
+||Preface||Preface of the doc || preface||
+||body|| root section of the doc || body||
+||Adjournment|| The concluding section of the doc ||conclusion||
+||Communication|| Communication from the chair  ||communication||
+||NMotionsContainer|| A container to hold notices of motion || noticesOfMotion ||
+||Motion|| A motion within a notices of motion container || subdivision||
+||PMotionsContainer|| A container to hold procedural motions || proceduralMotions ||
+||ProceduralMotion|| A procedural motion within a procedural motions container (perhaps this is not required as the procedural motiosn container appears to have only speeches) || subdivision||
+||PapersLaid || A container for tabled documents || papers ||
+||PapersLaidList || A container for holding tabled document listings || subdivision||
+ 
+
