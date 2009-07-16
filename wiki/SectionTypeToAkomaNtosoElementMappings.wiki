@@ -2,7 +2,7 @@
 #labels bungeni-editor,Phase-Implementation
 = For DebateRecord =
 
-||Editor Section Type || Description ||  AkomaNtoso XML Element ||
+||*Editor Section Type* || *Description* || * AkomaNtoso XML Element* ||
 ||Preface||Preface of the doc || preface||
 ||body|| root section of the doc || body||
 ||Adjournment|| The concluding section of the doc ||conclusion||
@@ -10,8 +10,12 @@
 ||NMotionsContainer|| A container to hold notices of motion || noticesOfMotion ||
 ||Motion|| A motion within a notices of motion container || subdivision||
 ||PMotionsContainer|| A container to hold procedural motions || proceduralMotions ||
-||ProceduralMotion|| A procedural motion within a procedural motions container (perhaps this is not required as the procedural motiosn container appears to have only speeches) || subdivision||
+||ProceduralMotion|| A procedural motion within a procedural motions container _(perhaps this is not required as the procedural motions container appears to have only speeches)_ || subdivision||
 ||PapersLaid || A container for tabled documents || papers ||
 ||PapersLaidList || A container for holding tabled document listings || subdivision||
+||PersonalStatement|| A container for speeches || subdivision||
+||MinisterialStatement|| A container for speeches|| subdivision||
+||Petitions || A container for petitions || petitions||
+||PetitionsList || a container for holding petition listings ||subdivision ||
+||PointOfOrder || A container for holding speeches || pointOfOrder ||
  
-
