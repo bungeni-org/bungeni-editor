@@ -14,7 +14,6 @@ import com.sun.star.text.XTextViewCursor;
 
 import java.awt.Component;
 
-import java.util.HashMap;
 
 import javax.swing.JFrame;
 
@@ -39,17 +38,7 @@ public class Main extends BaseMetadataContainerPanel {
         f.setVisible(true);
     }
 
-    /* @Override
-    protected void setupPanels() {
 
-        m_activePanels = new ArrayList<panelInfo>() {
-            {
-                add(new panelInfo("PersonSelector", "org.bungeni.editor.selectors.debaterecord.speech.PersonSelector"));
-                add(new panelInfo("PersonURI", "org.bungeni.editor.selectors.debaterecord.speech.PersonURI"));
-                add(new panelInfo("SpeechBy", "org.bungeni.editor.selectors.debaterecord.speech.SpeechBy"));
-            }
-        };
-    } */
 
     @Override
     public Component getPanelComponent() {
@@ -84,40 +73,6 @@ public class Main extends BaseMetadataContainerPanel {
 
             CommonRouterActions.setSectionProperties(theAction, newSection, ooDocument);
             ooDocument.setSectionMetadataAttributes(xSection, CommonRouterActions.get_newSectionMetadata(theAction));
-
-            /*
-             *
-             * XNamed namedSection = ooQueryInterface.XNamed(xSection);
-             * XPropertySet xProps = ooQueryInterface.XPropertySet(xSection);
-             * //container section was created here ...
-             * String sectionType = theAction.action_section_type();
-             * DocumentSection secObj = DocumentSectionsContainer.getDocumentSectionByType(sectionType);
-             * HashMap<String,Object> sectionProps = secObj.getSectionProperties(ooDocument);
-             * //update properties...
-             * for (String propName: sectionProps.keySet()) {
-             * try {
-             *       //log.debug("setSectionProperties : "+ propName + " value = " + sectionProps.get(propName).toString());
-             *       //xProps.setPropertyValue(propName, sectionProps.get(propName));
-             *       Object propVal = sectionProps.get(propName);
-             *       if (propVal.getClass() == java.lang.Integer.class) {
-             *             xProps.setPropertyValue(propName, (java.lang.Integer) sectionProps.get(propName));
-             *       } else if (propVal.getClass() == java.lang.Long.class) {
-             *             xProps.setPropertyValue(propName, (java.lang.Long) sectionProps.get(propName));
-             *       } else if (propVal.getClass() == java.lang.String.class) {
-             *             xProps.setPropertyValue(propName, (java.lang.String) sectionProps.get(propName));
-             *       } else
-             *             xProps.setPropertyValue(propName, (java.lang.String) sectionProps.get(propName));
-             *   } catch (Exception ex) {
-             *   log.error("setSectionProperties :"+ propName +" : "  +ex.getMessage());
-             *   log.error("setSectionProperties :"+ CommonExceptionUtils.getStackTrace(ex));
-             *   }
-             * }
-             * HashMap<String,String> metaMap = new HashMap<String,String>();
-             * metaMap.put("BungeniSectionType", theAction.action_section_type());
-             * ooDocument.setSectionMetadataAttributes(xSection, metaMap);
-             */
-
-            // ooDocument.c
         }
 
         return true;

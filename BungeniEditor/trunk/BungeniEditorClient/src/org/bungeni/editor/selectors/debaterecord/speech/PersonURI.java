@@ -36,6 +36,8 @@ public class PersonURI extends  BaseMetadataPanel {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/speech/Bundle"); // NOI18N
         lbl_URIofPerson.setText(bundle.getString("PersonURI.lbl_URIofPerson.text")); // NOI18N
 
+        txt_URIofPerson.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -48,7 +50,7 @@ public class PersonURI extends  BaseMetadataPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lbl_URIofPerson)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_URIofPerson, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txt_URIofPerson, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
