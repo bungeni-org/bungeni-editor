@@ -2,7 +2,7 @@
 #labels bungeni-editor,Phase-Implementation
 = For DebateRecord =
 
-||*Editor Section Type* || *Description* || * AkomaNtoso XML Element* ||
+|| *Editor Section Type* || *Description* || * AkomaNtoso XML Element* ||
 ||Preface||Preface of the doc || preface||
 ||body|| root section of the doc || body||
 ||Adjournment|| The concluding section of the doc ||conclusion||
@@ -18,4 +18,10 @@
 ||Petitions || A container for petitions || petitions||
 ||PetitionsList || a container for holding petition listings ||subdivision ||
 ||PointOfOrder || A container for holding speeches || pointOfOrder ||
+||QuestionsContainer || A container for holding questions & answers || questions ||
+||QuestionAnswer || A container for holding a specific question and its answers || subdivision ||
+||Question || A container for holding a question  || question ||
+||Speech || A container for holding a speech  || speech ||
+
+
  
