@@ -196,13 +196,14 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
      */
     public void initialize() {
         //setupPanels();
-        init();
+        //moved here to fix section metadata edit bug
         if (ooDocument.currentSection() != null) {
             sectionMetadataEditor = new SectionMetadataEditor(getMetadataEditorString());
             if (getDialogMode() == SelectorDialogModes.TEXT_EDIT) {
                 editSectionName = ooDocument.currentSectionName();
             }
         }
+        init();
     }
 
     /**
