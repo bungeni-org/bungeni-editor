@@ -10,7 +10,7 @@ import org.bungeni.db.SettingsQueryFactory;
 
 /**
  *
- * @author undesa
+ * @author Ashok Hariharan
  */
 public class EditorDocMetadataDialogFactory {
     

@@ -1,28 +1,30 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.bungeni.editor.metadata;
+
+//~--- non-JDK imports --------------------------------------------------------
+
+import org.bungeni.ooo.OOComponentHelper;
+import org.bungeni.ooo.ooDocMetadata;
+
+//~--- JDK imports ------------------------------------------------------------
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
-import org.bungeni.ooo.OOComponentHelper;
-import org.bungeni.ooo.ooDocMetadata;
 
 /**
  * Defines the base metadata attributes applicable to all Bungeni documents
  * This is extended for specific document types
- * @author undesa
+ * @author Ashok
  */
 public class BaseEditorDocMetaModel implements IEditorDocMetaModel {
-    HashMap<String,String>docMeta = new HashMap<String,String>();
-    
     public static final String __METADATA_SET_FLAG__ = "__BungeniDocMeta";
+    HashMap<String, String>    docMeta               = new HashMap<String, String>();
 
-    public void setup(){
-        //document related
+    public BaseEditorDocMetaModel() {}
+
+    public void setup() {
+
+        // document related
         docMeta.put("BungeniDocType", "");
         docMeta.put("BungeniPublicationName", "");
         docMeta.put("BungeniPublicationNameFull", "");
@@ -30,44 +32,43 @@ public class BaseEditorDocMetaModel implements IEditorDocMetaModel {
         docMeta.put("BungeniDocPart", "");
         docMeta.put("BungeniCountryCode", "");
         docMeta.put("BungeniLanguageCode", "");
-        //FRBR Items
-        //work
+
+        // FRBR Items
+        // work
         docMeta.put("BungeniWorkAuthor", "");
         docMeta.put("BungeniWorkAuthorURI", "");
         docMeta.put("BungeniWorkDate", "");
-        docMeta.put("BungeniWorkDateName","");
+        docMeta.put("BungeniWorkDateName", "");
         docMeta.put("BungeniWorkURI", "");
-        //expression
+
+        // expression
         docMeta.put("BungeniExpAuthor", "");
         docMeta.put("BungeniExpAuthorURI", "");
         docMeta.put("BungeniExpDate", "");
-        docMeta.put("BungeniExpDateName","");
+        docMeta.put("BungeniExpDateName", "");
         docMeta.put("BungeniExpURI", "");
-        //manifestation
+
+        // manifestation
         docMeta.put("BungeniManAuthor", "");
         docMeta.put("BungeniManAuthorURI", "");
         docMeta.put("BungeniManDate", "");
-        docMeta.put("BungeniManDateName","");
+        docMeta.put("BungeniManDateName", "");
         docMeta.put("BungeniManURI", "");
-        //metadata exists
+
+        // metadata exists
         docMeta.put(__METADATA_SET_FLAG__, "");
-    }             
-   
-    
-    public BaseEditorDocMetaModel(){
-        
     }
 
     public HashMap<String, String> getModelMap() {
         return docMeta;
     }
-    
+
     public void updateItem(String itemName, String itemValue) {
         if (docMeta.containsKey(itemName)) {
             docMeta.put(itemName, itemValue);
         }
     }
-   
+
     /**
      * Api to add items to document metadata model outisde of default load / save mechanism
      * @param itemName
@@ -76,47 +77,58 @@ public class BaseEditorDocMetaModel implements IEditorDocMetaModel {
     public void addItem(String itemName, String itemValue) {
         docMeta.put(itemName, itemValue);
     }
-    
-    
+
     public String getItem(String itemName) {
         if (docMeta.containsKey(itemName)) {
             return docMeta.get(itemName);
-        } else 
+        } else {
             return null;
+        }
     }
-    
-    public Set<String> getMetaNames(){
+
+    public Set<String> getMetaNames() {
         return docMeta.keySet();
     }
-    
+
     public void saveItem(String itemName, OOComponentHelper ooDoc) {
         ooDocMetadata docM = new ooDocMetadata(ooDoc);
+
         if (docMeta.containsKey(itemName)) {
             docM.AddProperty(itemName, docMeta.get(itemName));
         }
     }
-    
+
+    /**
+     * Saves the modified model back into the document as document metadata proeprty
+     * @param ooDoc
+     */
     public void saveModel(OOComponentHelper ooDoc) {
-        ooDocMetadata docM = new ooDocMetadata(ooDoc);
+        ooDocMetadata    docM     = new ooDocMetadata(ooDoc);
         Iterator<String> iterKeys = docMeta.keySet().iterator();
+
         while (iterKeys.hasNext()) {
             String nextKey = iterKeys.next();
-            docM.AddProperty(nextKey,docMeta.get(nextKey));
+
+            docM.AddProperty(nextKey, docMeta.get(nextKey));
         }
     }
-    
-    public void loadModel(OOComponentHelper ooDoc){
-        ooDocMetadata docM = new ooDocMetadata(ooDoc);
+
+    /**
+     * Loads the document medata into the metadata model from the openoffice document
+     * @param ooDoc
+     */
+    public void loadModel(OOComponentHelper ooDoc) {
+        ooDocMetadata    docM     = new ooDocMetadata(ooDoc);
         Iterator<String> iterKeys = docMeta.keySet().iterator();
+
         while (iterKeys.hasNext()) {
             String nextKey = iterKeys.next();
+
             if (docM.PropertyExists(nextKey)) {
                 String docPropValue = docM.GetProperty(nextKey);
+
                 docMeta.put(nextKey, docPropValue);
             }
         }
     }
-    
-   
-    
 }
