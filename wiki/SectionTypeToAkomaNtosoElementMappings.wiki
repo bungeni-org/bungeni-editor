@@ -1,5 +1,5 @@
 #summary Describes the mapping between bungeni editor Section types and AkomaNtoso element names
-#labels bungeni-editor,Phase-Implementation
+#labels bungeni-editor,Phase-Implementation,akomantoso,customization
 = For DebateRecord =
 
 || *Editor Section Type* || *Description* || * AkomaNtoso XML Element* ||
