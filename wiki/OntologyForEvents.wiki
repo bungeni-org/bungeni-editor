@@ -1,5 +1,5 @@
 #summary documents the ontology for events recorded in a document
-#labels Phase-Design,bungeni-editor
+#labels Phase-Design,bungeni-editor,akomantoso,customization
 
 = For DebateRecord =
 
@@ -13,4 +13,3 @@
 || Bill reading (1st) || /ontology/event/bill/reading/1 ||
 || Bill reading (2nd) || /ontology/event/bill/reading/2 ||
 || Bill reading (3rd) || /ontology/event/bill/reading/3 ||
-
