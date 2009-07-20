@@ -8,7 +8,7 @@
 ||Conclusion|| The concluding section of the doc (i.e.the Adjournment) ||conclusion||
 ||Communication|| Communication from the chair  ||communication||
 ||NMotionsContainer|| A container to hold notices of motion || noticesOfMotion ||
-||Motion|| A motion within a notices of motion container || subdivision||
+||~~Motion~~NoticeOfMotion|| A motion within a notices of motion container || subdivision||
 ||PMotionsContainer|| A container to hold procedural motions || proceduralMotions ||
 ||ProceduralMotion|| A procedural motion within a procedural motions container _(perhaps this is not required as the procedural motions container appears to have only speeches)_ || subdivision||
 ||PapersLaid || A container for tabled documents || papers ||
