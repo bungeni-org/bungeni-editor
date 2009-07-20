@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package org.bungeni.editor.selectors;
 
@@ -10,8 +6,8 @@ import java.awt.Window;
 import org.bungeni.ooo.OOComponentHelper;
 
 /**
- *
- * @author undesa
+ * Generic selector panel class with methods for setting the OOo handle and accesing the frame
+ * @author Ashok Hariharan
  */
 public interface IGenericPanel {
    /**
