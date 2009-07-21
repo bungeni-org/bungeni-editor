@@ -527,6 +527,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
 
                 IFloatingPanel panelObj = floatingPanelMap.get(panelNames.next());
                 panelObj.setOOComponentHandle(ooDocument);
+                panelObj.updateEvent();
             }
         }
     }
