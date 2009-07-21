@@ -1,8 +1,4 @@
-/*
- * floatingSectionMetadataPanel.java
- *
- * Created on November 19, 2008, 9:10 PM
- */
+
 
 package org.bungeni.editor.panels;
 
@@ -186,6 +182,10 @@ public class floatingSectionMetadataPanel extends javax.swing.JPanel implements 
     }
 
     public void setSectionChangeInfo(String sectionChange) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void updateEvent() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

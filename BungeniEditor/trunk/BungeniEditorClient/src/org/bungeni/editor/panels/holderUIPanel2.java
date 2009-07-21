@@ -164,6 +164,10 @@ public class holderUIPanel2 extends javax.swing.JPanel implements IFloatingPanel
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    public void updateEvent() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 
     class BungeniToolbarPreTabChangeListener implements ChangeListener {
 

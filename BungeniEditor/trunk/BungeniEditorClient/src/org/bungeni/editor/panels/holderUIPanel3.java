@@ -198,6 +198,10 @@ public class holderUIPanel3 extends javax.swing.JPanel implements IFloatingPanel
         });
     }
 
+    public void updateEvent() {
+        this.updateSectionTree();
+    }
+
 
     class BungeniToolbarPreTabChangeListener implements ChangeListener {
 

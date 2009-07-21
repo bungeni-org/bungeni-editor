@@ -593,6 +593,10 @@ public class holderUIPanel extends javax.swing.JPanel implements IFloatingPanel 
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    public void updateEvent() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
     /**
      *
      */
