@@ -39,4 +39,5 @@ public interface IFloatingPanel  {
   public JFrame getParentWindowHandle();
   public void initUI();
   public void setSectionChangeInfo(String sectionChange);
+  public void updateEvent();
 }

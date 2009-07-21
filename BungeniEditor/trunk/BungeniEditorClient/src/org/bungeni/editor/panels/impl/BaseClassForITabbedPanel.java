@@ -1,11 +1,3 @@
-/*
- * BaseClassForITabbedPanel.java
- *
- * Created on May 20, 2008, 3:16 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 
 package org.bungeni.editor.panels.impl;
 
