@@ -46,6 +46,7 @@ import org.bungeni.utils.externalplugin.ExternalPlugin;
 import org.bungeni.utils.externalplugin.ExternalPluginLoader;
 import org.bungeni.xml.viewer.BungeniXmlViewer;
 import org.jdom.Document;
+import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.jdom.xpath.XPath;
@@ -428,7 +429,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         boolean bState = false;
         try {
             XPath xmlPath = XPath.newInstance("/validationErrors/validationError");
-            Node foundNode = (Node) xmlPath.selectSingleNode(xmlDoc);
+            Element foundNode = (Element) xmlPath.selectSingleNode(xmlDoc);
             if (foundNode == null) {
                 bState = false;
             } else {
@@ -455,15 +456,18 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             if (e.getActionCommand().equals("ANXML")) {
                 File fXml = CommonANUtils.getComponentFromFile(ooDocument.getDocumentURL(), "xml");
                 if (fXml.exists()) {
-                    try {
+                  if (fXml.length() != 0 ) {
+                      try {
                         BungeniXmlViewer.launchXmlViewer("Xml Viewer", fXml);
+                        return;
                     } catch (ParserConfigurationException ex) {
                         log.error("viewXmlDoc ", ex);
                         MessageBox.OK(parentFrame, bundle.getString("xml_not_wellformed"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
+                        return;
                     }
-                } else {
-                    MessageBox.OK(parentFrame, bundle.getString("xml_does_not_exist"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
+                  }
                 }
+                 MessageBox.OK(parentFrame, bundle.getString("xml_does_not_exist"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (e.getActionCommand().equals("METALEX")) {
@@ -472,15 +476,18 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
                 String sFileMlx = sFilePrefix + ((sFileExt.length() > 0) ? "." + sFileExt : "");
                 File fMlx = CommonFileFunctions.convertUrlToFile(sFileMlx);
                 if (fMlx.exists()) {
+                    if (fMlx.length() != 0 ) {
                     try {
                         BungeniXmlViewer.launchXmlViewer("Xml Viewer", fMlx);
+                        return;
                     } catch (ParserConfigurationException ex) {
                         log.error("viewXmlDoc ", ex);
                         MessageBox.OK(parentFrame, bundle.getString("xml_not_wellformed"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
+                        return;
                     }
-                } else {
-                    MessageBox.OK(parentFrame, bundle.getString("xml_does_not_exist"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
+                    }
                 }
+                MessageBox.OK(parentFrame, bundle.getString("xml_does_not_exist"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
                 return;
             }
         }
@@ -633,7 +640,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             }
         });
 
-        btnMakePlain.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnMakePlain.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnMakePlain.setText(bundle.getString("transformXMLPanel.btnMakePlain.text")); // NOI18N
 
         btnTransformerServer.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
@@ -664,7 +671,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             }
         });
 
-        btnViewXmlDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 9));
+        btnViewXmlDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 9)); // NOI18N
         btnViewXmlDoc.setText(bundle.getString("transformXMLPanel.btnViewXmlDoc.text")); // NOI18N
         btnViewXmlDoc.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
