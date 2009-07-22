@@ -64,6 +64,15 @@ public class PersonURI extends  BaseMetadataPanel {
     }
 
 
+    private boolean validateSpeechURI(){
+        String sUri = this.txt_URIofPerson.getText();
+        if (sUri.trim().length() == 0) {
+            this.addErrorMessage(this, "Please enter the Speech URI");
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public boolean doCancel() {
         return true;
@@ -156,22 +165,22 @@ public class PersonURI extends  BaseMetadataPanel {
 
     @Override
     public boolean validateSelectedEdit() {
-        return true;
+        return this.validateSpeechURI();
     }
 
     @Override
     public boolean validateSelectedInsert() {
-        return true;
+        return this.validateSpeechURI();
     }
 
     @Override
     public boolean validateFullInsert() {
-        return true;
+        return this.validateSpeechURI();
     }
 
     @Override
     public boolean validateFullEdit() {
-        return true;
+        return this.validateSpeechURI();
     }
 
 

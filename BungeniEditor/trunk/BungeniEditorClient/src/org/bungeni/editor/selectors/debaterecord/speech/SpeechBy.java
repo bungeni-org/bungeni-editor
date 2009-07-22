@@ -65,6 +65,15 @@ public class SpeechBy extends  BaseMetadataPanel {
         return this;
     }
 
+    private boolean validateSpeechBy() {
+        String sSpeechBy = this.txt_SpeechBy.getText();
+        if (sSpeechBy.trim().length() == 0) {
+            this.addErrorMessage(this.txt_SpeechBy, "Please enter Speech By");
+            return false;
+        }
+        return true;
+    }
+
 
     @Override
     public boolean doCancel() {
@@ -159,22 +168,22 @@ public class SpeechBy extends  BaseMetadataPanel {
 
     @Override
     public boolean validateSelectedEdit() {
-        return true;
+        return validateSpeechBy();
     }
 
     @Override
     public boolean validateSelectedInsert() {
-        return true;
+        return validateSpeechBy();
     }
 
     @Override
     public boolean validateFullInsert() {
-        return true;
+        return validateSpeechBy();
     }
 
     @Override
     public boolean validateFullEdit() {
-        return true;
+        return validateSpeechBy();
     }
 
 
