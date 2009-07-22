@@ -331,4 +331,12 @@ public class SettingsQueryFactory {
 
         return query;
     }
+
+
+    public static String Q_FETCH_ONTOLOGY_FOR_EVENT (String docType, String eventName) {
+        String query = "SELECT ONTOLOGY, EVENT_NAME, EVENT_DESC FROM" +
+                " EVENT_ONTOLOGIES WHERE DOC_TYPE = '"+ docType + "' " +
+                "and event_name= '" +  eventName + "'";
+        return query;
+    }
 }
