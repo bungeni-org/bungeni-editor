@@ -1,8 +1,3 @@
-/*
- * QuestionSelect.java
- *
- * Created on August 12, 2008, 12:09 PM
- */
 
 package org.bungeni.editor.selectors.debaterecord.motions;
 
@@ -171,25 +166,6 @@ private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     // End of variables declaration//GEN-END:variables
 
     private void initComboSelect(){
-        /*
-                       HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();  
-            BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
-            dbInstance.Connect();
-            QueryResults qr = dbInstance.QueryResults("Select MOTION_ID, MOTION_TITLE, MOTION_NAME, MOTION_TEXT, MOTION_URI from motions order by motion_name");
-            dbInstance.EndConnect();
-            String motionId, motionTitle, motionName, motionText, motionURI;
-            if (qr.hasResults()) {
-                Vector<Vector<String>> theResults = qr.theResults();
-                for (Vector<String> row : theResults) {
-                     motionId = qr.getField(row, "MOTION_ID");
-                     motionTitle = qr.getField(row, "MOTION_TITLE");
-                     motionName = qr.getField(row, "MOTION_NAME");
-                     motionText = qr.getField(row, "MOTION_TITLE");
-                     motionURI = qr.getField(row, "MOTION_URI");
-                    ObjectMotion m = new ObjectMotion(motionId, motionTitle, motionName, motionText, motionURI);
-                    motions.add(m);
-                }
-            }*/
             motions = getMotionObjects("");
             this.cboSelectMotion.setModel(new DefaultComboBoxModel(motions.toArray()));
             AutoCompleteDecorator.decorate(cboSelectMotion);
