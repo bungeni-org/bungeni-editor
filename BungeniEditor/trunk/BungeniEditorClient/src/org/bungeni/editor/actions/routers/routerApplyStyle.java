@@ -1,11 +1,3 @@
-/*
- * routerCreateSection.java
- *
- * Created on March 11, 2008, 12:54 AM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 
 package org.bungeni.editor.actions.routers;
 
@@ -18,7 +10,7 @@ import org.bungeni.ooo.OOComponentHelper;
 
 /**
  *
- * @author Administrator
+ * @author Ashok Hariharan
  */
 public class routerApplyStyle extends defaultRouter {
    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(routerApplyStyle.class.getName());
