@@ -9,11 +9,13 @@ import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.ooo.OOComponentHelper;
 
 /**
- *
- * @author  undesa
+ * Captures the SpeechAs attribute role for a speech
+ * @author  Ashok
  */
 public class SpeechAs extends  BaseMetadataPanel {
 
+    private String __COMBO_SELECT_DEFAULT__ = "MemberOfParliament";
+    
     /** Creates new form PersonSelector */
     public SpeechAs() {
         super();
@@ -89,6 +91,7 @@ public class SpeechAs extends  BaseMetadataPanel {
     private void initSpeechAsCombo(){
         DefaultComboBoxModel speechRoleModel = new DefaultComboBoxModel(getSpeechRoles());
         this.cboSpeechAs.setModel(speechRoleModel);
+        this.setComboSelection(this.__COMBO_SELECT_DEFAULT__);
     }
 
     private String getComboSelection(){
@@ -138,7 +141,6 @@ public class SpeechAs extends  BaseMetadataPanel {
         HashMap<String,String> sectionMeta = new HashMap<String,String>();
         String editSection = (getContainerPanel()).getEditSectionName();
         sectionMeta.put("BungeniSpeechAs", getComboSelection());
-        //sectionMeta.put("BungeniQuestionByURI", this.txtPersonURI.getText());
         ooDoc.setSectionMetadataAttributes(editSection, sectionMeta);      
         
         return true;
@@ -190,8 +192,7 @@ public class SpeechAs extends  BaseMetadataPanel {
         HashMap<String,String> sectionMeta = new HashMap<String,String>();
         String newSectionName = (getContainerPanel()).mainSectionName;
         sectionMeta.put("BungeniSpeechAs", getComboSelection());
-        //sectionMeta.put("BungeniQuestionByURI", this.txtPersonURI.getText());
-        ooDoc.setSectionMetadataAttributes(newSectionName, sectionMeta);      
+         ooDoc.setSectionMetadataAttributes(newSectionName, sectionMeta);      
         
         return true;
     }

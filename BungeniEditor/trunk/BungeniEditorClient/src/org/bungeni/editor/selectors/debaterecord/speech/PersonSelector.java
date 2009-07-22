@@ -135,6 +135,7 @@ public class PersonSelector extends  BaseMetadataPanel {
 
         btn_SpeechBy = new javax.swing.JButton();
         cboPersonSelect = new javax.swing.JComboBox();
+        lblPersonSelect = new javax.swing.JLabel();
 
         setName("Person Selector"); // NOI18N
 
@@ -151,23 +152,28 @@ public class PersonSelector extends  BaseMetadataPanel {
         cboPersonSelect.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         cboPersonSelect.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        lblPersonSelect.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblPersonSelect.setText(bundle.getString("PersonSelector.lblPersonSelect.text")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cboPersonSelect, 0, 271, Short.MAX_VALUE)
-                    .addComponent(btn_SpeechBy, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addComponent(lblPersonSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addComponent(cboPersonSelect, 0, 267, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btn_SpeechBy))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblPersonSelect)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cboPersonSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_SpeechBy))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -310,6 +316,7 @@ private void btn_SpeechByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_SpeechBy;
     private javax.swing.JComboBox cboPersonSelect;
+    private javax.swing.JLabel lblPersonSelect;
     // End of variables declaration//GEN-END:variables
 
     @Override

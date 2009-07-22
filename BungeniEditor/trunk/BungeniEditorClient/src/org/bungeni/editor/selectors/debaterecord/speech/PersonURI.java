@@ -36,6 +36,7 @@ public class PersonURI extends  BaseMetadataPanel {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/speech/Bundle"); // NOI18N
         lbl_URIofPerson.setText(bundle.getString("PersonURI.lbl_URIofPerson.text")); // NOI18N
 
+        txt_URIofPerson.setEditable(false);
         txt_URIofPerson.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
