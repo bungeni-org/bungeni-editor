@@ -26,15 +26,15 @@
 	</blockAction>	
 
 	   <blockAction name="EventActions" title="Event Actions" target="null" visible="true" condition="none"> 
-		<subaction name="QuestionProposed" title="Question Proposed" visible="true" condition="textSelected:true"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeActionEvent.section_creation:QuestionProposed" />
-		<subaction name="QuestionAccepted" title="Question Accepted" visible="true" condition="textSelected:true"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeActionEvent.section_creation:QuestionAccepted" />
-		<subaction name="QuestionWithdrawn" title="Question Withdrawn" visible="true" condition="textSelected:true"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeActionEvent.section_creation:QuestionWithdrawn" />
-		<subaction name="QuestionDeferred" title="Question Deferred" visible="true" condition="textSelected:true"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeActionEvent.section_creation:QuestionDeferred" />
-		<subaction name="DebateInterruption" title="Debate Interruption" visible="true" condition="textSelected:true"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeActionEvent.section_creation:DebateInterruption" />
-		<subaction name="DebateResumption" title="Debate Resumption" visible="true" condition="textSelected:true"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeActionEvent.section_creation:DebateResumption" />
-		<subaction name="BillFirstReading" title="Bill 1st Reading" visible="true" condition="textSelected:true"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeActionEvent.section_creation:BillFirstReading" />
-		<subaction name="BillSecondReading" title="Bill 2nd Reading" visible="true" condition="textSelected:true"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeActionEvent.section_creation:BillSecondReading" />
-		<subaction name="BillThirdReading" title="Bill 3nd Reading" visible="true" condition="textSelected:true"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeActionEvent.section_creation:BillThirdReading" />
+		<subaction name="QuestionProposed" title="Question Proposed" visible="true" condition="textSelected:true :and: !cursorInSection:actionevt[0-9]*"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeActionEvent.section_creation:QuestionProposed" />
+		<subaction name="QuestionAccepted" title="Question Accepted" visible="true" condition="textSelected:true :and: !cursorInSection:actionevt[0-9]*"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeActionEvent.section_creation:QuestionAccepted" />
+		<subaction name="QuestionWithdrawn" title="Question Withdrawn" visible="true" condition="textSelected:true :and: !cursorInSection:actionevt[0-9]*"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeActionEvent.section_creation:QuestionWithdrawn" />
+		<subaction name="QuestionDeferred" title="Question Deferred" visible="true" condition="textSelected:true :and: !cursorInSection:actionevt[0-9]*"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeActionEvent.section_creation:QuestionDeferred" />
+		<subaction name="DebateInterruption" title="Debate Interruption" visible="true" condition="textSelected:true :and: !cursorInSection:actionevt[0-9]*"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeActionEvent.section_creation:DebateInterruption" />
+		<subaction name="DebateResumption" title="Debate Resumption" visible="true" condition="textSelected:true :and: !cursorInSection:actionevt[0-9]*"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeActionEvent.section_creation:DebateResumption" />
+		<subaction name="BillFirstReading" title="Bill 1st Reading" visible="true" condition="textSelected:true :and: !cursorInSection:actionevt[0-9]*"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeActionEvent.section_creation:BillFirstReading" />
+		<subaction name="BillSecondReading" title="Bill 2nd Reading" visible="true" condition="textSelected:true :and: !cursorInSection:actionevt[0-9]*"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeActionEvent.section_creation:BillSecondReading" />
+		<subaction name="BillThirdReading" title="Bill 3nd Reading" visible="true" condition="textSelected:true :and: !cursorInSection:actionevt[0-9]*"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeActionEvent.section_creation:BillThirdReading" />
 	</blockAction>	
 
 	
