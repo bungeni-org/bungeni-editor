@@ -199,6 +199,18 @@ public class CommonFileFunctions {
         }
     }
 
+    public static BufferedReader getFileasBufferedReader (File fFile) {
+        FileReader freader = null;
+        BufferedReader bufReader = null;
+        try {
+            freader = new FileReader(fFile);
+            bufReader = new BufferedReader(freader);
+        } catch (FileNotFoundException ex) {
+           log.error("getFileasBufferedReader", ex);
+        }
+        return bufReader;
+    }
+
 
 }
 
