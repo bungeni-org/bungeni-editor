@@ -1,14 +1,14 @@
 package org.bungeni.ooo.transforms.loadable;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
@@ -218,7 +218,9 @@ public class AnXmlTransform extends BungeniDocTransform {
         try {
             if (outputBuilder == null ) 
                         outputBuilder = new SAXBuilder(BungeniEditorProperties.SAX_PARSER_DRIVER, false);
-            Document transDoc = outputBuilder.build(tmpoutputFile);
+            FileReader outFilereader = new FileReader(tmpoutputFile);
+            BufferedReader bufReader = new BufferedReader(outFilereader);
+            Document transDoc = outputBuilder.build(bufReader);
             //first get errors
             String outputErrors = getErrors(transDoc);
             //get the output file
