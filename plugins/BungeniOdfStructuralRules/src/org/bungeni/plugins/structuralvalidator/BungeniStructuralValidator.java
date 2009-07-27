@@ -42,10 +42,12 @@ public class BungeniStructuralValidator implements IEditorPlugin {
      * OdfFileURL = url to odf file
      * SettingsFolder = path to settings folder
      * CurrentDocType = current document type
+     * RunChecks = which checks are to be run
      */
     private HashMap                      editorParams    = null;
     private String                       odfFileUrl      = null;
     private String                       rulesRootFolder = null;
+    private String[]                     checksToRun = null;
 
     public BungeniStructuralValidator() {}
 
@@ -61,6 +63,7 @@ public class BungeniStructuralValidator implements IEditorPlugin {
         this.odfFileUrl      = (String) this.editorParams.get("OdfFileURL");
         this.rulesRootFolder = (String) this.editorParams.get("RulesRootFolder");
         this.currentDocType  = (String) this.editorParams.get("CurrentDocType");
+        this.checksToRun = (String[]) this.editorParams.get("RunChecks");
         this.callerPanel = this.editorParams.get("CallerPanel");
         StructuralRulesConfig.APPLN_PATH_PREFIX = rulesRootFolder;
 
@@ -92,12 +95,12 @@ public class BungeniStructuralValidator implements IEditorPlugin {
         String retValue = "";
         try {
             log.debug("calling exec()");
-
+            
             // configure the source files
             String ruleEnginesFile = StructuralRulesConfig.getRuleEnginesPath() + this.currentDocType + ".xml";
             String docRulesFile    = StructuralRulesConfig.getDocRulesPath() + this.currentDocType + ".xml";
             // initalize the rules engine
-            StructuralRulesEngine sre       = new StructuralRulesEngine(docRulesFile, ruleEnginesFile);
+            StructuralRulesEngine sre       = new StructuralRulesEngine(docRulesFile, ruleEnginesFile, this.checksToRun);
             URL                   oofileurl = new URL(this.odfFileUrl);
 
             log.debug("before loading document");

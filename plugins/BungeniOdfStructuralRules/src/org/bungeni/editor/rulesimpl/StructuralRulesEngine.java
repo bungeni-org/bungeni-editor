@@ -24,13 +24,14 @@ public class StructuralRulesEngine {
     ArrayList<IStructuralRule> rulesToApply = new ArrayList<IStructuralRule>(0);
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(StructuralRulesEngine.class.getName());
     ArrayList<StructuralError> errorLog = new ArrayList<StructuralError>(0);
+    String[] m_runTheseRules = null;
 
-
-    public StructuralRulesEngine(String documentStructureFile, String ruleEngineFile) {
+    public StructuralRulesEngine(String documentStructureFile, String ruleEngineFile, String[] runTheseRules) {
         rulesParser = new StructuralRulesParser(documentStructureFile);
         rulesParser.loadXml();
         ruleEngineParser = new RuleEngineParser(ruleEngineFile);
         ruleEngineParser.loadXml();
+        this.m_runTheseRules = runTheseRules;
         //rule objects loaded into Map
         loadRulesForDocumentType();
     }
@@ -42,20 +43,31 @@ public class StructuralRulesEngine {
         for (Element rule : rules) {
             String engineName = rule.attributeValue("name");
             String engineSource = rule.attributeValue("source");
-            IStructuralRule iEngine = null;
-            try {
-            iEngine = StructuralRuleFactory.getStructuralRule(engineSource);
-            //set name for rule engine
-            iEngine.setName(engineName);
-            } catch (Exception ex) {
-                System.out.println("error loading engines");
-                log.error("loadRulesForDocumentType , during engine instantiation of "+ 
-                        engineName +  " : " + ex.getMessage());
-            }
-            if (iEngine != null) {
-                rulesToApply.add(iEngine);
+            if (checkThisRule(engineName)) {
+                IStructuralRule iEngine = null;
+                    try {
+                        iEngine = StructuralRuleFactory.getStructuralRule(engineSource);
+                        //set name for rule engine
+                        iEngine.setName(engineName);
+                    } catch (Exception ex) {
+                        System.out.println("error loading engines");
+                        log.error("loadRulesForDocumentType , during engine instantiation of "+
+                                engineName +  " : " + ex.getMessage());
+                    }
+                if (iEngine != null) {
+                    rulesToApply.add(iEngine);
+                }
             }
         }
+    }
+
+    private boolean checkThisRule (String engineName) {
+        for (String engineRuleName : this.m_runTheseRules) {
+                if (engineName.trim().equals(engineRuleName)) {
+                    return true;
+                }
+        }
+        return false;
     }
 
     class IterativeRulesForSections implements IBungeniOdfSectionIterator {
@@ -117,13 +129,14 @@ public class StructuralRulesEngine {
 
     public static void main(String[] args) {
         try {
-            String docrules = "/home/undesa/Projects/Bungeni/BungeniOdfStructuralRules/structural_rules/doc_rules/debaterecord.xml";
-            String enginerules = "/home/undesa/Projects/Bungeni/BungeniOdfStructuralRules/structural_rules/engine_rules/debaterecord.xml";
+            String docrules = "/structural_rules/doc_rules/debaterecord.xml";
+            String enginerules = "/structural_rules/engine_rules/debaterecord.xml";
             //configure the source files
             String ruleEnginesFile = enginerules;
             String docRulesFile = docrules;
+            String[] runTheseRules =  {};
             //initalize the rules engine
-            StructuralRulesEngine sre = new StructuralRulesEngine(docRulesFile, ruleEnginesFile);
+            StructuralRulesEngine sre = new StructuralRulesEngine(docRulesFile, ruleEnginesFile, runTheseRules);
             OdfDocument odoc = OdfDocument.loadDocument(new File("/home/undesa/Projects/Bungeni/BungeniEditor/trunk/BungeniEditorClient/dist/workspace/files/ke/debaterecord/2009-5-26/eng/ke_debaterecord_2009-5-26_eng.odt"));
             sre.processRulesForDocument(odoc);
             for (StructuralError serr : sre.getErrors()) {
