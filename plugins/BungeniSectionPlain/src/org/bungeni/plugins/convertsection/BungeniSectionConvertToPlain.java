@@ -14,6 +14,7 @@ import org.bungeni.odfdom.utils.BungeniOdfFileCopy;
 
 import org.bungeni.plugins.IEditorPlugin;
 import org.openoffice.odf.doc.OdfDocument;
+import org.openoffice.odf.doc.element.style.OdfSectionProperties;
 import org.openoffice.odf.doc.element.text.OdfSection;
 
 /**
@@ -63,6 +64,7 @@ public class BungeniSectionConvertToPlain  implements IEditorPlugin {
             odfDomHelper.iterateSections(new IBungeniOdfSectionIterator(){
               public boolean nextSection(BungeniOdfSectionHelper helper, OdfSection arg0) {
                    helper.removeSectionBackgroundImage(arg0);
+                   arg0.setProperty(OdfSectionProperties.MarginLeft, "0.0in" );
                     return true;
                 }
             });
