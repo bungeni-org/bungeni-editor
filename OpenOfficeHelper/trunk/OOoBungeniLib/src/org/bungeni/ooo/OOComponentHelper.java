@@ -890,6 +890,27 @@ public class OOComponentHelper {
         return oSelection;
     }
 
+    public XTextRange getSelectionRangeIndex (int nIndex) {
+        Object selection = getCurrentSelection();
+        XTextRange xSelectionRange = null;
+        XServiceInfo xSelInfo = ooQueryInterface.XServiceInfo(selection);
+         if ( xSelInfo.supportsService("com.sun.star.text.TextRanges") ){
+                XIndexAccess xIndexAccess = ooQueryInterface.XIndexAccess(selection);
+                int count = xIndexAccess.getCount();
+                try {
+                    if (nIndex <= count - 1) {
+                        Object singleSelection;
+                        singleSelection = xIndexAccess.getByIndex(nIndex);
+                        //get selection ranges
+                        xSelectionRange = ooQueryInterface.XTextRange(singleSelection);
+                    }
+                } catch (Exception ex) {
+                    log.error("getSelectionRangeIndex", ex);
+                }
+         }
+        return xSelectionRange;
+      }
+    
     /**
      * Returns a handle to the current section. Current section is determined by cursor position in the document
      * @return
