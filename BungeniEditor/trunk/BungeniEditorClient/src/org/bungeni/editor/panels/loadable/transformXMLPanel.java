@@ -5,6 +5,7 @@
  */
 package org.bungeni.editor.panels.loadable;
 
+import org.bungeni.ooo.transforms.impl.exportDestination;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,6 +43,7 @@ import org.bungeni.ooo.transforms.impl.BungeniTransformationTarget;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTargetFactory;
 import org.bungeni.ooo.transforms.impl.IBungeniDocTransform;
 import org.bungeni.extutils.MessageBox;
+import org.bungeni.ooo.transforms.impl.BungeniTransformationTargets;
 import org.bungeni.restlet.client.TransformerClient;
 import org.bungeni.utils.externalplugin.ExternalPlugin;
 import org.bungeni.utils.externalplugin.ExternalPluginLoader;
@@ -68,6 +70,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
     private boolean transformerServerRunning = false;
     private Timer transformerServerTimer;
     private SAXBuilder saxBuilder = null;
+    /*
     private final HashMap<String, BungeniTransformationTarget> __TRANSFORMATION_TARGETS__ = new HashMap<String, BungeniTransformationTarget>() {
 
         {
@@ -83,7 +86,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             put("FTP", new exportDestination("FTP", bundle.getString("Export_using_FTP")));
             put("FileSystem", new exportDestination("FileSystem", bundle.getString("Folder_on_your_computer")));
         }
-    };
+    };*/
 
     /** Creates new form transformXMLPanel */
     public transformXMLPanel() {
@@ -236,13 +239,13 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
     }
 
     private void initTransfromTargetCombo() {
-        BungeniTransformationTarget[] targets = __TRANSFORMATION_TARGETS__.values().toArray(new BungeniTransformationTarget[__TRANSFORMATION_TARGETS__.size()]);
+        BungeniTransformationTarget[] targets = BungeniTransformationTargets.getTransformationTargets().values().toArray(new BungeniTransformationTarget[BungeniTransformationTargets.getTransformationTargets().size()]);
         DefaultComboBoxModel model = new DefaultComboBoxModel(targets);
         this.cboTransformFrom.setModel(model);
     }
 
     private void initExportDestCombo() {
-        exportDestination[] destinations = __EXPORT_DESTINATIONS__.values().toArray(new exportDestination[__EXPORT_DESTINATIONS__.size()]);
+        exportDestination[] destinations = BungeniTransformationTargets.getExportDestinations().values().toArray(new exportDestination[ BungeniTransformationTargets.getExportDestinations().size()]);
         DefaultComboBoxModel model = new DefaultComboBoxModel(destinations);
         this.cboExportTo.setModel(model);
     }
@@ -415,10 +418,8 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         CommonDocumentUtilFunctions.selectSection(ooDocument, sectionName);
     }
 
-    private boolean exportToXml() {
-
-        //get a handle to the AN xml transformer
-        BungeniTransformationTarget transform = __TRANSFORMATION_TARGETS__.get("AN-XML");
+    private boolean exportToXml() {        //get a handle to the AN xml transformer
+        BungeniTransformationTarget transform = BungeniTransformationTargets.getTransformationTargets().get("AN-XML");
         IBungeniDocTransform iTransform = BungeniTransformationTargetFactory.getTransformClass(transform);
         HashMap<String, Object> params = new HashMap<String, Object>();
         iTransform.setParams(params);

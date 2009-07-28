@@ -1,16 +1,19 @@
-/*
- * transformXMLPanel.java
- *
- * Created on May 20, 2008, 10:59 AM
- */
+
 package org.bungeni.editor.panels.loadable;
 
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
+
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -21,9 +24,15 @@ import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.extutils.CommonDocumentUtilFunctions;
 import org.bungeni.extutils.CommonEditorFunctions;
+import org.bungeni.extutils.CommonXmlUtils;
 import org.bungeni.extutils.MessageBox;
 import org.bungeni.utils.externalplugin.ExternalPlugin;
 import org.bungeni.utils.externalplugin.ExternalPluginLoader;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.JDOMException;
+import org.jdom.input.SAXBuilder;
+import org.jdom.xpath.XPath;
 
 /**
  *
@@ -32,6 +41,7 @@ import org.bungeni.utils.externalplugin.ExternalPluginLoader;
 public class validateAndCheckPanel extends BaseClassForITabbedPanel {
 
     private static org.apache.log4j.Logger log = Logger.getLogger(validateAndCheckPanel.class.getName());
+    private static final String ENGINE_RULES_FOLDER = "engine_rules";
 
     /** Creates new form transformXMLPanel */
     public validateAndCheckPanel() {
@@ -67,12 +77,61 @@ public class validateAndCheckPanel extends BaseClassForITabbedPanel {
     }
     private static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/panels/loadable/Bundle");
 
-//    final public IEditorPluginEventDispatcher evtDispatcher = new IEditorPluginEventDispatcher(){
-    //                                                                 public void dispatchEvent(String arg0, Object[] arg1) {
-    //                                                                      String dispatchSectionName = (String) arg1[0];
-    //                                                                    System.out.println(dispatchSectionName);
-    //                                                                            }
-    //};
+    class engineRule {
+        String engineName;
+        String engineDesc;
+        
+        public engineRule (String eName, String eDesc) {
+            this.engineName = eName;
+            this.engineDesc = eDesc;
+        }
+        
+        @Override
+        public String toString(){
+            return this.engineDesc;
+        }
+
+        public String getName(){
+            return this.engineName;
+        }
+        
+    }
+
+
+    private ArrayList<engineRule> loadRuleEngines() {
+        FileReader freader = null;
+        ArrayList<engineRule> engineRules = new ArrayList<engineRule>(0);
+
+        try {
+            final String currentDocType = BungeniEditorPropertiesHelper.getCurrentDocType();
+            final String rulesRootFolder = CommonEditorFunctions.getPathRelativeToRoot(BungeniEditorProperties.getEditorProperty("structuralRulesRootPath"));
+            freader = new FileReader(rulesRootFolder + File.separator + ENGINE_RULES_FOLDER + File.separator + currentDocType + ".xml");
+            SAXBuilder builder = CommonXmlUtils.getNonValidatingSaxBuilder();
+            Document engineDoc = builder.build(freader);
+            //get available engines
+            XPath engines = XPath.newInstance("/rules/engine");
+            List foundNodes = engines.selectNodes(engineDoc);
+            for (int i = 0; i < foundNodes.size() ; i++) {
+                Element foundElement = (Element) foundNodes.get(i);
+                String foundElemName = foundElement.getAttributeValue("name");
+                String foundElemDesc = foundElement.getAttributeValue("desc");
+                engineRule eRule = new engineRule (foundElemName, foundElemDesc);
+                engineRules.add(eRule);
+            }
+        } catch (JDOMException ex) {
+          ex.printStackTrace();
+        } catch (IOException ex) {
+          ex.printStackTrace();
+        } finally {
+            try {
+                freader.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return engineRules;
+    }
+
     private Object[] getValidatePluginParams() {
         final String odfFileUrl = ooDocument.getDocumentURL();
         final String currentDocType = BungeniEditorPropertiesHelper.getCurrentDocType();
@@ -296,6 +355,11 @@ public class validateAndCheckPanel extends BaseClassForITabbedPanel {
     public void initialize() {
         super.initialize();
         String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
+        ArrayList<engineRule> rules = this.loadRuleEngines();
+        for (engineRule rule : rules) {
+            System.out.println(rule);
+        }
+
     }
 
     public void refreshPanel() {
