@@ -2,6 +2,9 @@
 package org.bungeni.editor.selectors;
 
 import com.l2fprod.common.swing.JTaskPaneGroup;
+import com.sun.star.lang.IllegalArgumentException;
+import com.sun.star.text.XTextRange;
+import com.sun.star.text.XTextRangeCompare;
 import java.awt.Cursor;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
@@ -10,6 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingWorker;
@@ -23,6 +28,7 @@ import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
 import org.bungeni.extutils.BungeniUUID;
 import org.bungeni.ooo.OOComponentHelper;
+import org.bungeni.ooo.ooQueryInterface;
 
 /**
  *
@@ -50,6 +56,8 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
     protected String editSectionName = "";
     public String                          mainSectionName     = "";
     public HashMap<String, String>         selectionData         = new HashMap<String, String>();
+
+    protected XTextRange capturedCursorRange = null;
 
     public class ConditionSet {
 
@@ -204,8 +212,44 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
             }
         }
         init();
+        captureCursorRange();
     }
 
+    /**
+     * Records the selected cursor range on launch of the selector form
+     */
+    private void captureCursorRange() {
+        this.capturedCursorRange = ooDocument.getSelectionRangeIndex(0);
+    }
+
+    /**
+     * Compares the captured Cursor range with the current selected cursor range,
+     * fail if the user has changed the selection range after the launch of th eselector dialog
+     * @param currentRange
+     * @return
+     */
+    private boolean compareCursorRange (XTextRange currentRange) {
+        boolean bState = false;
+        try {
+            //first get the range compare object
+            XTextRangeCompare objCompare = ooQueryInterface.XTextRangeCompare(ooDocument.getTextDocument().getText());
+            //now compare the currentRange with the saved Range.
+            if (objCompare.compareRegionStarts(this.capturedCursorRange, currentRange) == 0) {
+                if (objCompare.compareRegionEnds(this.capturedCursorRange, currentRange) == 0) {
+                    //regions are equal return true;
+                    bState =  true;
+                } else {
+                    bState = false;
+                }
+            } else {
+                bState = false;
+            }
+            
+        } catch (IllegalArgumentException ex) {
+            log.error("compareCursorRange", ex);
+        }
+        return bState;
+    }
     /**
      * current section name in edit mode, in all other modes, returns blank
      * @return
@@ -361,6 +405,13 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
      * @return
      */
     public boolean preMainApply() {
+        //check for current range selection,
+        //if it has changed since launch, return an error.
+        if (!this.compareCursorRange(ooDocument.getSelectionRangeIndex(0))) {
+             this.addErrorMessage(this,  this, "The selection of text on the document was moved after the launch of the metadata entry dialog.\n Please close the dialog and re-do the action to be able to proceed");
+            return false;
+        }
+
         switch (getDialogMode()) {
             case TEXT_SELECTED_EDIT:
                 return preApplySelectedEdit();
