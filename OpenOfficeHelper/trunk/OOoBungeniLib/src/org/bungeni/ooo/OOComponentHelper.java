@@ -890,6 +890,11 @@ public class OOComponentHelper {
         return oSelection;
     }
 
+    /**
+     * Get the selection range by index from the current selection
+     * @param nIndex
+     * @return
+     */
     public XTextRange getSelectionRangeIndex (int nIndex) {
         Object selection = getCurrentSelection();
         XTextRange xSelectionRange = null;
@@ -898,6 +903,7 @@ public class OOComponentHelper {
                 XIndexAccess xIndexAccess = ooQueryInterface.XIndexAccess(selection);
                 int count = xIndexAccess.getCount();
                 try {
+                    //check if index is within the selection range count
                     if (nIndex <= count - 1) {
                         Object singleSelection;
                         singleSelection = xIndexAccess.getByIndex(nIndex);
