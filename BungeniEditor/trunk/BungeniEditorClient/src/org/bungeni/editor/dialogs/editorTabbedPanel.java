@@ -122,7 +122,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         if (helperObj == null) {
             log.debug("constructor:editortabbedpanel helperObj was null");
         }
-        this.ComponentContext = ooHelper.getComponentContext();
+        this.ComponentContext = BungenioOoHelper.getComponentContext();
         editorMap = new TreeMap<String, componentHandleContainer>();
         ooDocument = new OOComponentHelper(impComponent, ComponentContext);
         this.parentFrame = parentFrame;
