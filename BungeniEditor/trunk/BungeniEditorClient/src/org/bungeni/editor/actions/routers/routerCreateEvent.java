@@ -28,6 +28,8 @@ public class routerCreateEvent extends defaultRouter {
     // private final String __EVENT_ONTOLOGY_DESC__ = "BungeniOntologyName";
 
     private final String                   __EVENT_ONTOLOGY__      = "BungeniOntology";
+    private final String                   __EVENT_NAME__ = "BungeniEventName";
+
     String                                 nameOfNewSection        = "";
 
     /** Creates a new instance of routerCreateSection */
@@ -51,6 +53,7 @@ public class routerCreateEvent extends defaultRouter {
         eventMetaMap.put(__EVENT_ONTOLOGY__, sOntology[0]);
         eventMetaMap.put(__EVENT_ONTOLOGY_NAME__, sEventName[0]);
         eventMetaMap.put("BungeniEventDesc", sEventDesc[0]);
+        eventMetaMap.put(__EVENT_NAME__,nameOfNewSection);
 
         return eventMetaMap;
     }
@@ -86,6 +89,8 @@ public class routerCreateEvent extends defaultRouter {
                 // set custom meta
                 sectionMetadata.put(__EVENT_ONTOLOGY__, customMeta.get(__EVENT_ONTOLOGY__));
                 sectionMetadata.put(__EVENT_ONTOLOGY_NAME__, customMeta.get(__EVENT_ONTOLOGY_NAME__));
+                sectionMetadata.put(__EVENT_NAME__, customMeta.get(__EVENT_NAME__));
+
                 ooDocument.setSectionMetadataAttributes(newSectionName, sectionMetadata);
             } else {
                 log.error("routeAction_TextSelectedInsertAction_CreateSection: error while creating section ");
