@@ -291,52 +291,7 @@ public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
         }
 
     }
-/*
-    private int validateXml() {
-        BungeniTransformationTarget transform = BungeniTransformationTargets.getTransformationTargets().get("AN-XML");
-        IBungeniDocTransform iTransform = BungeniTransformationTargetFactory.getTransformClass(transform);
-        HashMap<String, Object> params = new HashMap<String, Object>();
-        iTransform.setParams(params);
-        boolean bState = iTransform.transform(ooDocument);
-        ///
-          String sUrl = ooDocument.getDocumentURL();
-            File fErrors = CommonANUtils.getNamedComponentFromFile(sUrl, "errors.xml");
-            //File fFile = CommonFileFunctions.convertUrlToFile(sUrl);
-            //File fErrors = new File(fFile.getParent() + File.separator + "errors.xml");
-            if (fErrors.exists()) {
-                SAXBuilder builder = CommonXmlUtils.getNonValidatingSaxBuilder();
-                Document xmlErrors = null;
-                try {
-                    BufferedReader errReader = CommonFileFunctions.getFileasBufferedReader(fErrors);
-                    xmlErrors = builder.build(errReader);
-                } catch (JDOMException ex) {
-                    log.error("viewXmErrors ", ex);
-                } catch (IOException ex) {
-                    log.error("viewXmErrors ", ex);
-                }
-                if (xmlErrors != null) {
-                    if (errorsExist(xmlErrors)) {
-                        bNoErrors = false;
-                        launchErrorPanel(xmlErrors);
-                        return;
-                    }
-                }
-            }
-            if (bNoErrors) {
-                MessageBox.OK(parentFrame, bundle.getString("no_validation_errors"));
-            }
 
-        } else {
-            MessageBox.OK(parentFrame, bundle.getString("save_document_before_transform"));
-        }
-    }
-
-
-
-
-        ////
-    }
-*/
     public void goToSectionPosition(String sectionName) {
         System.out.println(sectionName);
         CommonDocumentUtilFunctions.selectSection(ooDocument, sectionName);
