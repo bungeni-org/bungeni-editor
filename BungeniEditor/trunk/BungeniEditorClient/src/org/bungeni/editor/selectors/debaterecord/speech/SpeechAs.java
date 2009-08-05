@@ -66,10 +66,13 @@ public class SpeechAs extends  BaseMetadataPanel {
     class SpeechRole {
         String roleName;
         String roleDesc;
+        String roleURI;
 
-        public SpeechRole(String rName, String rDesc) {
+
+        public SpeechRole(String rName, String rDesc, String rURI) {
             this.roleName = rName;
             this.roleDesc = rDesc;
+            this.roleURI = rURI;
         }
 
         @Override
@@ -80,11 +83,11 @@ public class SpeechAs extends  BaseMetadataPanel {
 
     private Vector<SpeechRole> getSpeechRoles(){
         Vector<SpeechRole> vRoles = new Vector<SpeechRole>();
-        vRoles.add(new SpeechRole("Minister", "Minister"));
-        vRoles.add(new SpeechRole("AsstMinister", "Assistant Minister"));
-        vRoles.add(new SpeechRole("MemberOfParliament", "Member of Parliament"));
-        vRoles.add(new SpeechRole("Speaker", "Speaker"));
-        vRoles.add(new SpeechRole("DySpeaker", "Deputy Speaker"));
+        vRoles.add(new SpeechRole("Minister", "Minister", "/ontology/roles/ke/minister"));
+        vRoles.add(new SpeechRole("AsstMinister", "Assistant Minister", "/ontology/roles/ke/asstminister"));
+        vRoles.add(new SpeechRole("MemberOfParliament", "Member of Parliament", "/ontology/roles/ke/member"));
+        vRoles.add(new SpeechRole("Speaker", "Speaker", "/ontology/roles/ke/speaker"));
+        vRoles.add(new SpeechRole("DySpeaker", "Deputy Speaker", "/ontology/roles/ke/dyspeaker"));
         return vRoles;
     }
 
@@ -94,9 +97,9 @@ public class SpeechAs extends  BaseMetadataPanel {
         this.setComboSelection(this.__COMBO_SELECT_DEFAULT__);
     }
 
-    private String getComboSelection(){
+    private SpeechRole getComboSelection(){
         SpeechRole speechRole = (SpeechRole) this.cboSpeechAs.getSelectedItem();
-        return speechRole.roleName;
+        return speechRole;
 
     }
 
@@ -140,7 +143,11 @@ public class SpeechAs extends  BaseMetadataPanel {
           OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
         HashMap<String,String> sectionMeta = new HashMap<String,String>();
         String editSection = (getContainerPanel()).getEditSectionName();
-        sectionMeta.put("BungeniSpeechAs", getComboSelection());
+        SpeechRole comboSelection = getComboSelection();
+        sectionMeta.put("BungeniSpeechAs", comboSelection.roleName);
+        sectionMeta.put("BungeniSpeechAsDesc", comboSelection.roleDesc);
+        sectionMeta.put("BungeniSpeechAsURI", comboSelection.roleURI);
+
         ooDoc.setSectionMetadataAttributes(editSection, sectionMeta);      
         
         return true;
@@ -191,7 +198,11 @@ public class SpeechAs extends  BaseMetadataPanel {
         OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
         HashMap<String,String> sectionMeta = new HashMap<String,String>();
         String newSectionName = (getContainerPanel()).mainSectionName;
-        sectionMeta.put("BungeniSpeechAs", getComboSelection());
+        SpeechRole rrole = getComboSelection();
+        sectionMeta.put("BungeniSpeechAs", rrole.roleName);
+        sectionMeta.put("BungeniSpeechAsURI", rrole.roleURI);
+        sectionMeta.put("BungeniSpeechAsDesc", rrole.roleDesc);
+
          ooDoc.setSectionMetadataAttributes(newSectionName, sectionMeta);      
         
         return true;
