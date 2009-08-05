@@ -42,11 +42,7 @@ public class JudgementMetadata3 extends BaseEditorDocMetadataDialog {
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(JudgementMetadata3.class.getName());
     JudgementMetadataModel docMetaModel = new JudgementMetadataModel();
     registryQueryDialog2 rqs = null;
-    
- //   OOComponentHelper ooDocument  = null;
- //   JFrame parentFrame = null;
- //    SelectorDialogModes dlgMode = null;
-    
+
     
     public JudgementMetadata3(){
         super();
@@ -56,12 +52,7 @@ public class JudgementMetadata3 extends BaseEditorDocMetadataDialog {
     @Override
     public void initialize() {
         super.initialize();
-        //initialize combo box selection model
-        //check if the document has a judgment no.
-        //if it has set the judgmeent number to readonly
-        
-        //this.cboJudgementNo.setModel(arg0);
-        
+
         
         this.docMetaModel.setup();
         initControls();
@@ -192,8 +183,10 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
         docMetaModel.updateItem("BungeniCaseNo", sCaseNo);
         docMetaModel.updateItem("BungeniJudgementDate", sJudgementDate);
         //this saves the judges listing in the table into the document
+        System.out.println("docmetamodel size before = " + docMetaModel.getMetaNames().size());
         this.saveJudgesMetadataToDocument();
         this.savePartiesMetadataToDocument();
+        System.out.println("docmetamodel size after = " + docMetaModel.getMetaNames().size());
         docMetaModel.saveModel(ooDocument);
     bState = true;
     } catch (Exception ex) {
@@ -441,7 +434,15 @@ private void btnSelectJudgementNoActionPerformed(java.awt.event.ActionEvent evt)
 }//GEN-LAST:event_btnSelectJudgementNoActionPerformed
 
 private void btnAddPartyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPartyActionPerformed
-// TODO add your handling code here:
+        rqs = new registryQueryDialog2(java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle").getString("Select_A_Party"), "Select ID, PARTY_NAME , PARTY_TYPE from PARTIES order by PARTY_NAME", parentFrame);
+        rqs.setMultiSelect(true);
+        rqs.show();
+        Vector selectionData = rqs.getData();
+        String[] selectionColumns = rqs.getDataColumns();
+        Vector vColumns = new Vector(Arrays.asList(selectionColumns));
+        Vector existingData = ((DefaultTableModel)this.tblParties.getModel()).getDataVector();
+        existingData.addAll(selectionData);
+        ((DefaultTableModel)this.tblParties.getModel()).setDataVector(existingData, vColumns);
 }//GEN-LAST:event_btnAddPartyActionPerformed
 
 
