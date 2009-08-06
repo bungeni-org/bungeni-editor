@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rules>
+    <engine name="AllowedChildSections" source="org.bungeni.editor.rules.AllowedChildSections" />
+</rules>

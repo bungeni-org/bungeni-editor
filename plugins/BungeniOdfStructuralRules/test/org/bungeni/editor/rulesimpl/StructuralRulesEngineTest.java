@@ -54,7 +54,7 @@ public class StructuralRulesEngineTest {
             //configure the source files
             String ruleEnginesFile = enginerules;
             String docRulesFile = docrules;
-            String[] runTheseRules =  {"AllowedChildSections", "OrderOfChildSections"};
+            String[] runTheseRules =  { "OrderOfChildSections","AllowedChildSections"};
             //initalize the rules engine
             StructuralRulesEngine sre = new StructuralRulesEngine(docRulesFile, ruleEnginesFile, runTheseRules);
             boolean bState = sre.processRulesForDocument(odoc);

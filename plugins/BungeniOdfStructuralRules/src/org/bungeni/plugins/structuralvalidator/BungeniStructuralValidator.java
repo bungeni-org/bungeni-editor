@@ -64,10 +64,13 @@ public class BungeniStructuralValidator implements IEditorPlugin {
         this.rulesRootFolder = (String) this.editorParams.get("RulesRootFolder");
         this.currentDocType  = (String) this.editorParams.get("CurrentDocType");
         this.checksToRun = (String[]) this.editorParams.get("RunChecks");
-        this.callerPanel = this.editorParams.get("CallerPanel");
+        if (this.editorParams.containsKey("CallerPanel")) {
+            this.callerPanel = this.editorParams.get("CallerPanel");
+        }
+
         StructuralRulesConfig.APPLN_PATH_PREFIX = rulesRootFolder;
 
-            if (this.editorParams.containsKey("ParentFrame")) {
+        if (this.editorParams.containsKey("ParentFrame")) {
                 this.callerFrame = (JFrame) this.editorParams.get("ParentFrame");
             }
         System.out.println("finishing input params");
@@ -117,7 +120,7 @@ public class BungeniStructuralValidator implements IEditorPlugin {
 
             ArrayList<StructuralError> errors = sre.getErrors();
             StringBuilder sBuilder = new StringBuilder();
-            sBuilder.append("<structuralErrors>");
+            sBuilder.append("<structuralErrors>\n");
             if (errors.size() > 0 ) {
                 //if there were errros we write them to the log file
                 StructuralErrorSerialize seSerialize = new StructuralErrorSerialize(this.odfFileUrl);
@@ -135,7 +138,7 @@ public class BungeniStructuralValidator implements IEditorPlugin {
 
 
             }
-            sBuilder.append("</structuralErrors>");
+            sBuilder.append("\n</structuralErrors>");
             retValue = sBuilder.toString();
         } catch (Exception ex) {
             log.error("exec :" + ex.getMessage());

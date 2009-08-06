@@ -1,7 +1,13 @@
 package org.bungeni.editor.rulesimpl;
 
+//~--- non-JDK imports --------------------------------------------------------
+
 import com.thoughtworks.xstream.XStream;
+
+//~--- JDK imports ------------------------------------------------------------
+
 import java.util.ArrayList;
+
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -9,20 +15,18 @@ import javax.swing.table.AbstractTableModel;
  * @author Ashok Hariharan
  */
 public class StructuralErrorTableModel extends AbstractTableModel {
-
+    private static org.apache.log4j.Logger log =
+        org.apache.log4j.Logger.getLogger(StructuralRulesParser.class.getName());
+    private String[]           columnNames      = { "No.", "Error", "Checked" };
     ArrayList<StructuralError> structuralErrors = new ArrayList<StructuralError>(0);
-    private String[] columnNames = {"No.", "Error", "Checked"};
-    XStream tblXmlStream = null;
-
-    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(StructuralRulesParser.class.getName());
-
+    XStream                    tblXmlStream     = null;
 
     public StructuralErrorTableModel(ArrayList<StructuralError> errors) {
         structuralErrors = errors;
-        tblXmlStream = new XStream();
+        tblXmlStream     = new XStream();
     }
 
-    public ArrayList<StructuralError> getStructuralErrors(){
+    public ArrayList<StructuralError> getStructuralErrors() {
         return structuralErrors;
     }
 
@@ -30,8 +34,9 @@ public class StructuralErrorTableModel extends AbstractTableModel {
      * Returns the table model as an xml stream
      * @return
      */
-    public String asXmlStream(){
+    public String asXmlStream() {
         String outXml = this.tblXmlStream.toXML(structuralErrors);
+
         return outXml;
     }
 
@@ -40,17 +45,21 @@ public class StructuralErrorTableModel extends AbstractTableModel {
      * @param xmlStream
      * @return
      */
-    public boolean loadXmlStream(String xmlStream){
+    public boolean loadXmlStream(String xmlStream) {
         boolean bState = false;
+
         try {
-        ArrayList<StructuralError> newErrorList = (ArrayList<StructuralError>) this.tblXmlStream.fromXML(xmlStream);
-            synchronized(this) {
+            ArrayList<StructuralError> newErrorList = (ArrayList<StructuralError>) this.tblXmlStream.fromXML(xmlStream);
+
+            synchronized (this) {
                 structuralErrors = newErrorList;
             }
+
             bState = true;
         } catch (Exception ex) {
             log.error("loadXmlStream : " + ex.getMessage());
         }
+
         return bState;
     }
 
@@ -68,27 +77,37 @@ public class StructuralErrorTableModel extends AbstractTableModel {
     }
 
     public Object getValueAt(int row, int col) {
-       StructuralError foundError = structuralErrors.get(row);
+        StructuralError foundError = structuralErrors.get(row);
 
         switch (col) {
-            case 0:
-                return row + 1;
-            case 1: 
-                return StructuralErrorMessage.toErrorMessage(foundError);
-            case 2:
-                return foundError.errorChecked;
-            default :
-                return "column not available";
+        case 0 :
+            return row + 1;
+
+        case 1 :
+            return StructuralErrorMessage.toErrorMessage(foundError);
+
+        case 2 :
+            return foundError.errorChecked;
+
+        default :
+            return "column not available";
         }
     }
 
     @Override
     public Class getColumnClass(int c) {
         switch (c) {
-            case 0: return Integer.class;
-            case 1: return String.class;
-            case 2: return Boolean.class;
-            default: return String.class;
+        case 0 :
+            return Integer.class;
+
+        case 1 :
+            return String.class;
+
+        case 2 :
+            return Boolean.class;
+
+        default :
+            return String.class;
         }
     }
 
@@ -98,11 +117,11 @@ public class StructuralErrorTableModel extends AbstractTableModel {
      */
     @Override
     public boolean isCellEditable(int row, int col) {
-       return col == 2;
+        return col == 2;
     }
 
     @Override
-    public void setValueAt(Object value, int row, int col){
+    public void setValueAt(Object value, int row, int col) {
         structuralErrors.get(row).errorChecked = (Boolean) value;
     }
 }
