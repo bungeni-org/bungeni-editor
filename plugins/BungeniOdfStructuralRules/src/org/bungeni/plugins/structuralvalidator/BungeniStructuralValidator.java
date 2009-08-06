@@ -2,6 +2,7 @@ package org.bungeni.plugins.structuralvalidator;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import com.thoughtworks.xstream.XStream;
 import org.apache.log4j.Logger;
 
 import org.bungeni.editor.rulesimpl.StructuralError;
@@ -15,14 +16,13 @@ import org.openoffice.odf.doc.OdfDocument;
 
 import java.io.File;
 
+import java.io.StringWriter;
 import java.net.URL;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import org.bungeni.editor.rules.ui.panelStructuralError;
 import org.bungeni.editor.rules.ui.panelStructuralErrorBrowser;
 import org.bungeni.editor.rulesimpl.StructuralErrorSerialize;
 
@@ -91,10 +91,15 @@ public class BungeniStructuralValidator implements IEditorPlugin {
        return retValue ;
     }
 
+    /**
+     * Return rule errros as an XMl document
+     * @return
+     */
     public String exec() {
         String retValue = "";
+
         try {
-            log.debug("calling exec()");
+            log.debug("calling exec2()");
             
             // configure the source files
             String ruleEnginesFile = StructuralRulesConfig.getRuleEnginesPath() + this.currentDocType + ".xml";
@@ -111,24 +116,32 @@ public class BungeniStructuralValidator implements IEditorPlugin {
             log.debug("processing rules for document");
 
             ArrayList<StructuralError> errors = sre.getErrors();
+            StringBuilder sBuilder = new StringBuilder();
+            sBuilder.append("<structuralErrors>");
             if (errors.size() > 0 ) {
+                //if there were errros we write them to the log file
                 StructuralErrorSerialize seSerialize = new StructuralErrorSerialize(this.odfFileUrl);
                 seSerialize.writeErrorsToLog(errors);
-                final ArrayList<StructuralError> finalErrors = errors;
-                javax.swing.SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        panelStructuralError.launchFrame(finalErrors, callerFrame, callerPanel);
-                    }
-                });
-            } else {
-               JOptionPane.showMessageDialog(callerFrame, "No errors were found", "Structural Validator", JOptionPane.INFORMATION_MESSAGE);
+                //then we extract the string representation of the errors and return them to the caller client
+                XStream xst = new XStream();
+                StringWriter swLogFile = new StringWriter();
+                xst.toXML(errors, swLogFile);
+                sBuilder.append(swLogFile.toString());
+                //javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                //    public void run() {
+                //        panelStructuralError.launchFrame(finalErrors, callerFrame, callerPanel);
+                //    }
+                //});
+
+
             }
+            sBuilder.append("</structuralErrors>");
+            retValue = sBuilder.toString();
         } catch (Exception ex) {
             log.error("exec :" + ex.getMessage());
             log.error("exec : stacktrace : ", ex);
-        } finally {
-            return retValue;
-        }
+        } 
+        return retValue;
     }
 
     public static void main(String[] args) {
