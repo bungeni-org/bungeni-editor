@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rules>
-    <engine name="OrderOfChildSections" source="org.bungeni.editor.rules.OrderOfChildSections" />
+    <engine name="AllowedChildSections" desc="Allowed Child Sections" source="org.bungeni.editor.rules.AllowedChildSections" />
+    <engine name="OrderOfChildSections" desc="Order of Child Sections" source="org.bungeni.editor.rules.OrderOfChildSections" />
 </rules>
