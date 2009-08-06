@@ -10,7 +10,6 @@
 		<subaction name="Heading.MinStatement" title="---- Heading" tooltip="Heading for ministerial statement" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeCommunicationAction.apply_style:heading_mstatement" visible="true" condition="cursorInSection:mstatemnt[0-9]* :and: textSelected:true"  />           
 		<action name="Speech.create" title="Speech Section" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.section_creation" visible="true" condition="textSelected:true :and: !cursorInSection:speech[0-9]*" />
 		<action name="Speech.SpeechBy" title="---- By" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.speech_by" visible="true" condition="textSelected:true :and: cursorInSection:speech[0-9]*" />
-		<!-- <action name="Speech.SpeechAs" title="---- As" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateSpeechBlockSection.speech_as" visible="true" condition="textSelected:true :and: cursorInSection:speech[0-9]*" /> -->
 	    </blockAction>
             <blockAction name="Communication" title="Communication" target="null" visible="true" condition="none">
 		<subaction name="Communication.fromTheChair" title="Communication From The Chair" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeCommunicationAction.section_creation" visible="true" condition="cursorInSection:debaterecord :and: textSelected:true" />
