@@ -25,7 +25,7 @@ public class RegistryQueryFactory {
 
     public static String Q_FETCH_JUDGEMENT_JUDGES(String judgementId) {
         String query = new String("" +
-            "SELECT J.ID, J.FIRST_NAME, J.LAST_NAME, J.URI " +
+            "SELECT J.FIRST_NAME, J.LAST_NAME, J.URI " +
             "FROM JUDGES J INNER JOIN JUDGEMENT_JUDGES JJ ON J.ID = JJ.JUDGE_ID " + 
             "WHERE JJ.JUDGEMENT_ID  = '" + judgementId +  "'");
             return query;
