@@ -1,14 +1,18 @@
 
 package org.bungeni.editor.panels.loadable;
 
+import com.thoughtworks.xstream.XStream;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
-import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,22 +31,19 @@ import org.apache.log4j.Logger;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
-import org.bungeni.extutils.CommonANUtils;
+import org.bungeni.editor.panels.loadable.structuralerror.StructuralError;
+import org.bungeni.editor.panels.loadable.structuralerror.panelStructuralError;
 import org.bungeni.extutils.CommonDocumentUtilFunctions;
 import org.bungeni.extutils.CommonEditorFunctions;
-import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonXmlUtils;
 import org.bungeni.extutils.MessageBox;
-import org.bungeni.ooo.transforms.impl.BungeniTransformationTarget;
-import org.bungeni.ooo.transforms.impl.BungeniTransformationTargetFactory;
-import org.bungeni.ooo.transforms.impl.BungeniTransformationTargets;
-import org.bungeni.ooo.transforms.impl.IBungeniDocTransform;
 import org.bungeni.utils.externalplugin.ExternalPlugin;
 import org.bungeni.utils.externalplugin.ExternalPluginLoader;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
+import org.jdom.output.XMLOutputter;
 import org.jdom.xpath.XPath;
 
 /**
@@ -277,7 +278,9 @@ public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
             Object[] argExec = {};
             Object retValue = rulesValidator.callMethod("exec", argExec);
             if (retValue != null) {
-                String outputFilePath = (String) retValue;
+                System.out.println("error size = " + ((String)retValue).length());
+                //String outputFilePath = (String) retValue;
+                processErrorOutput((String) retValue);
                 // MessageBox.OK(parentFrame, "A plain document was generated, it can be found at : \n" + outputFilePath, "Plain Document generation", JOptionPane.INFORMATION_MESSAGE);
                 return 0;
             } else {
@@ -292,6 +295,36 @@ public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
 
     }
 
+    private void processErrorOutput(String outError) {
+        StringReader sr = new StringReader(outError);
+        //System.out.println(outError);
+        try {
+            SAXBuilder builder = CommonXmlUtils.getNonValidatingSaxBuilder();
+            Document engineDoc = builder.build(sr);
+            //get available engines
+            XPath engines = XPath.newInstance("/structuralErrors/list");
+            Element foundNode = (Element) engines.selectSingleNode(engineDoc);
+            if (foundNode != null ) {
+                XMLOutputter outer = new XMLOutputter();
+                StringWriter srw = new StringWriter();
+                outer.output(foundNode,srw );
+                InputStream is = new ByteArrayInputStream(srw.toString().getBytes());
+                XStream xst = new XStream();
+                xst.alias("structuralError", StructuralError.class);
+                ArrayList<StructuralError> listErrors  = (ArrayList<StructuralError>) xst.fromXML(is);
+                System.out.println("output error list size =  "+ listErrors.size());
+                if (listErrors.size() > 0 ) {
+                    panelStructuralError.launchFrame(listErrors, parentFrame, parentPanel);
+                }
+            } else {
+                //no errors were found
+            }
+        } catch (JDOMException ex) {
+            log.error("processErrorOutput", ex);
+        } catch (IOException ex) {
+            log.error("processErrorOutput", ex);
+        }
+    }
     public void goToSectionPosition(String sectionName) {
         System.out.println(sectionName);
         CommonDocumentUtilFunctions.selectSection(ooDocument, sectionName);
