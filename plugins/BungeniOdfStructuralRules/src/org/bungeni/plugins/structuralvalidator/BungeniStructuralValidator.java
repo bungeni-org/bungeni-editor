@@ -123,8 +123,11 @@ public class BungeniStructuralValidator implements IEditorPlugin {
             sBuilder.append("<structuralErrors>\n");
             if (errors.size() > 0 ) {
                 //if there were errros we write them to the log file
+                //we disable this for now
+                /*
                 StructuralErrorSerialize seSerialize = new StructuralErrorSerialize(this.odfFileUrl);
                 seSerialize.writeErrorsToLog(errors);
+                */
                 //then we extract the string representation of the errors and return them to the caller client
                 XStream xst = new XStream();
                 StringWriter swLogFile = new StringWriter();
