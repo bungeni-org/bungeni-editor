@@ -118,6 +118,7 @@ public class StructuralErrorSerialize {
 
             // write the object to xml
             XStream    xst       = new XStream();
+            xst.alias("structuralError", StructuralError.class);
             FileWriter fwLogFile = new FileWriter(fLogFile);
 
             xst.toXML(sel, fwLogFile);

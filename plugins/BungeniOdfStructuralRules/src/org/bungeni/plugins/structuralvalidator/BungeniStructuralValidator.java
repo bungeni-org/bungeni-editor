@@ -128,6 +128,7 @@ public class BungeniStructuralValidator implements IEditorPlugin {
                 //then we extract the string representation of the errors and return them to the caller client
                 XStream xst = new XStream();
                 StringWriter swLogFile = new StringWriter();
+                xst.alias("structuralError", StructuralError.class);
                 xst.toXML(errors, swLogFile);
                 sBuilder.append(swLogFile.toString());
                 //javax.swing.SwingUtilities.invokeLater(new Runnable() {
