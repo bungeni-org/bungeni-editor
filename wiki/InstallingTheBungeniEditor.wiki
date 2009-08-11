@@ -10,8 +10,8 @@ These installation instructions were tested on Ubuntu 8.04 / Windows XP and the 
 
 == Installing using the IzPack installer == 
 
- * install the sun jre 6 (see below for installations steps for windows and ubuntu)
- * install openoffice.org 3.0 (see below for installations steps for windows and ubuntu)
+ * install the sun jre 6 (see below for installations steps for windows and ubuntu) -- note that the editor has been tested *only* with the Sun jdk / jre release.
+ * install openoffice.org 3.0.1 (see below for installations steps for windows and ubuntu). The editor app is not yet compatible with openoffice.org 3.1.0 due to a regression bug in the java integration of openoffice.org 3.1.0.
  * run the izpack installer provided on the downloads page.
 
 == Quick Install Steps for Ubuntu == 
@@ -19,7 +19,7 @@ These installation instructions were tested on Ubuntu 8.04 / Windows XP and the 
 If you dont want to bother with reading the detailed installation instructions, the following instructions will setup a working installation 95% of the time :
  * install the sun jre 6 : `sudo apt-get install sun-java6-jre`
  * uninstall the openoffice.org installation packaged with ubuntu
- * download install openoffice by downloading OO 3.0 from [http://downloads.openoffice.org http://downloads.openoffice.org] (look for the debian package installs).
+ * download install openoffice by downloading OO 3.0.1 from [http://openoffice.mirrors.tds.net/pub/openoffice/stable/3.0.1/OOo_3.0.1_LinuxIntel_install_en-US_deb.tar.gz http://downloads.openoffice.org] 
  * launch openoffice at least once and accept the license agreement
  * unpack the editor application into its own folder
  * run the script runEditor.sh to start the application
@@ -27,7 +27,7 @@ If you dont want to bother with reading the detailed installation instructions, 
 
 == Quick Install steps for Windows ==
 
- * download and install openoffice.org from [http://downloads.openoffice.org http://downloads.openoffice.org]
+ * download and install openoffice.org from [http://openoffice.mirrors.tds.net/pub/openoffice/stable/3.0.1/OOo_3.0.1_Win32Intel_install_wJRE_en-US.exe http://downloads.openoffice.org]
  * download and install the sun java6 jre (from [http://java.sun.com http://java.sun.com])
  * unpack the editor, and open runEditor.bat in notepad. Edit java_home and log4j_properties to appropriate paths.
  * run runEditor.bat to launch the editor.
@@ -54,8 +54,8 @@ For windows, download and install the java 6 JRE using the instructions provided
 
 ===Installing OpenOffice.org===
 
-*OpenOffice.org 3.0* - Ubuntu comes packaged with an OpenOffice release. Unfortunately this OpenOffice installation is a repackaged installation produced by Ubuntu and it changes the folder structure of the OpenOffice installation. This change makes it incompatible with the cross platform UNO class loader used by Bungeni EditorClient. As a preliminary step, uninstall the packaged OpenOffice provided by ubuntu by uninstalling it using package manager. 
-Download the OpenOffice 3.0 debian package from [http://download.openoffice.org/ http://download.openoffice.org] . Download the OpenOffice installation package _Without JRE_ and extract it a folder on your computer. 
+*OpenOffice.org 3.0* - Ubuntu comes packaged with an OpenOffice release. Unfortunately this OpenOffice installation is a repackaged installation produced by Ubuntu and it changes the folder structure of the OpenOffice installation. This change makes it incompatible with the cross platform UNO class loader used by the BungeniEditor. As a preliminary step, uninstall the packaged OpenOffice provided by ubuntu by uninstalling it using package manager. 
+Download the OpenOffice 3.0 debian package from [http://openoffice.mirrors.tds.net/pub/openoffice/stable/3.0.1/OOo_3.0.1_LinuxIntel_install_en-US_deb.tar.gz  http://download.openoffice.org] . Download the OpenOffice installation package and extract it a folder on your computer. 
 
 Install the package by running the following command from the openoffice-extracted-folder/DEBS path :
 
