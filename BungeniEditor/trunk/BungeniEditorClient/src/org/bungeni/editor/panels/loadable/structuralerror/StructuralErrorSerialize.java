@@ -69,10 +69,9 @@ public class StructuralErrorSerialize {
         File fLogs = null;
 
         try {
-            URL urlLogFolder = new URL(this.logFileFolder);
+           fLogs = new File(this.logFileFolder);
 
-            fLogs = new File(urlLogFolder.getPath());
-        } catch (MalformedURLException ex) {
+        } catch (Exception ex) {
             log.error("getLogFolderHandle : ", ex);
         } finally {
             return fLogs;
@@ -88,11 +87,8 @@ public class StructuralErrorSerialize {
 
         try {
             this.logFileName   = getTimestamp() + ".xml";
-            this.pathToLogFile = logFileFolder + logFileName;
-
-            URL logURL = new URL(this.pathToLogFile);
-
-            flog = new File(logURL.toURI());
+            this.pathToLogFile = logFileFolder + File.separator + logFileName;
+            flog = new File(this.pathToLogFile);
 
             if (!flog.exists()) {
                 flog.createNewFile();

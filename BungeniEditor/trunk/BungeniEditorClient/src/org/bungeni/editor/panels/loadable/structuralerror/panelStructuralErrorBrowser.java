@@ -45,6 +45,11 @@ public class panelStructuralErrorBrowser extends javax.swing.JPanel {
         initModel();
     }
 
+    public void updatePanel(String  sourceDocURL) {
+        this.sourceDocURL = sourceDocURL;
+        initModel();
+    }
+
     class ErrorLogFile implements Comparable {
         File logFile ;
         Date logTimestamp;
@@ -120,6 +125,7 @@ public class panelStructuralErrorBrowser extends javax.swing.JPanel {
         try {
             FileReader freader = new FileReader(elfFile.logFile);
             XStream xst = new XStream();
+            StructuralErrorHelper.structuralErrorAlias(xst);
             StructuralErrorLog errorLog = (StructuralErrorLog) xst.fromXML(freader);
             if (structuralErrorPanel == null) {
                 structuralErrorPanel = panelStructuralError.launchFrame(errorLog.structuralErrors, callerFrame, callerPanel);
@@ -227,34 +233,40 @@ public class panelStructuralErrorBrowser extends javax.swing.JPanel {
     private javax.swing.JList listErrorLog;
     // End of variables declaration//GEN-END:variables
 
+    private static panelStructuralErrorBrowser instance = null;
+    private static JDialog floatingFrame = null;
+
     public static panelStructuralErrorBrowser launchFrame(String sourceUrl, JFrame callerFrame, Object callerPanel) {
-                panelStructuralErrorBrowser pse = null;
                 try {
-                pse    = new panelStructuralErrorBrowser(sourceUrl, callerFrame, callerPanel);
-                pse.setBorder(LineBorder.createGrayLineBorder());
-
-                JDialog floatingFrame = null;
-
-                if (callerFrame == null) {
-                    floatingFrame = new JDialog(callerFrame);
+                if (instance == null ) {
+                        instance    = new panelStructuralErrorBrowser(sourceUrl, callerFrame, callerPanel);
+                        instance.setBorder(LineBorder.createGrayLineBorder());
                 } else {
-                    floatingFrame = new JDialog();
+                    instance.updatePanel(sourceUrl);
                 }
-                floatingFrame.setTitle("Browse Error Archive");
-                floatingFrame.getContentPane().add(pse);
-                floatingFrame.setAlwaysOnTop(true);
-                if (callerFrame != null)
-                    floatingFrame.setLocationRelativeTo(null);
-                pse.setContainerFrame(floatingFrame);
-                floatingFrame.add(pse);
-                floatingFrame.setSize(315, 226);
-                floatingFrame.pack();
+
+                if (floatingFrame == null) {
+                    if (callerFrame == null) {
+                        floatingFrame = new JDialog(callerFrame);
+                    } else {
+                        floatingFrame = new JDialog();
+                    }
+                    floatingFrame.setTitle("Browse Error Archive");
+                    floatingFrame.getContentPane().add(instance);
+                    floatingFrame.setAlwaysOnTop(true);
+                    if (callerFrame != null)
+                        floatingFrame.setLocationRelativeTo(null);
+                    instance.setContainerFrame(floatingFrame);
+                    floatingFrame.add(instance);
+                    floatingFrame.setSize(315, 226);
+                    floatingFrame.pack();
+                }
                 floatingFrame.setVisible(true);
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
-                    ex.printStackTrace(System.out);
+                    log.error("Error launching error browser", ex);
                 } finally {
-                return pse;
+                return instance;
                 }
     }
 
