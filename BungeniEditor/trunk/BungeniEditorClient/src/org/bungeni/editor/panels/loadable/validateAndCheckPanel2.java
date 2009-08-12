@@ -32,7 +32,9 @@ import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.editor.panels.loadable.structuralerror.StructuralError;
+import org.bungeni.editor.panels.loadable.structuralerror.StructuralErrorSerialize;
 import org.bungeni.editor.panels.loadable.structuralerror.panelStructuralError;
+import org.bungeni.editor.panels.loadable.structuralerror.panelStructuralErrorBrowser;
 import org.bungeni.extutils.CommonDocumentUtilFunctions;
 import org.bungeni.extutils.CommonEditorFunctions;
 import org.bungeni.extutils.CommonXmlUtils;
@@ -105,6 +107,9 @@ public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
         return checkNames.toArray(new String[checkNames.size()]);
     }
 
+    private JPanel getThisPanel() {
+        return this;
+    }
     /**
      * Loads the available rule engines from the engine root fodler
      * engine Rule description files are always named after the document type and are present in the engine rules folder
@@ -181,6 +186,8 @@ public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
 
     private void viewErrorLog() {
         if (ooDocument.isDocumentOnDisk()) {
+            panelStructuralErrorBrowser.launchFrame(ooDocument.getDocumentURL(), this.parentFrame, this);
+             /*
             ExternalPluginLoader ep = new ExternalPluginLoader();
             final StructValidatorEventHandler seHandler = new StructValidatorEventHandler();
             ExternalPlugin rulesValidator = ep.loadPlugin("StructuralRulesValidator");
@@ -189,6 +196,9 @@ public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
             Object[] argParams = {};
             Object[] argExec = {argParams};
             Object retValue = rulesValidator.callMethod("exec2", argExec);
+              */
+
+
         }
     }
 
@@ -251,13 +261,37 @@ public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
             sourceButton.setEnabled(false);
             //set the wait cursor
             parentFrame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            //eliminate all the error conditions
+            if (!chkStructural.isSelected() && !chkValidation.isSelected()) {
+                MessageBox.OK(getThisPanel(), "You have not selected any validation options !", "No Validation Options Selected", JOptionPane.ERROR_MESSAGE);
+                sourceButton.setEnabled(true);
+                //set the wait cursor
+                parentFrame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                return;
+            }
+
+            if (chkStructural.isSelected() && !chkValidation.isSelected()) {
+                if (getSelectedChecks().length == 0) {
+                    MessageBox.OK(getThisPanel(), "You have not selected any structural validation options !", "No Validation Options Selected", JOptionPane.ERROR_MESSAGE);
+                    sourceButton.setEnabled(true);
+                    //set the wait cursor
+                    parentFrame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                return;
+                }
+            }
+            
             //call the swingworker thread for the button event
             SwingUtilities.invokeLater(new Runnable() {
 
              public void run() {
-                   validateStructure();
-                   sourceButton.setEnabled(true);
-                   parentFrame.setCursor(Cursor.getDefaultCursor());
+                  if (chkStructural.isSelected()) {
+                    validateStructure();
+                  }
+                  if (chkValidation.isSelected()) {
+                      //validateXml();
+                  }
+                  sourceButton.setEnabled(true);
+                  parentFrame.setCursor(Cursor.getDefaultCursor());
                 }
             });
             
@@ -314,6 +348,8 @@ public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
                 ArrayList<StructuralError> listErrors  = (ArrayList<StructuralError>) xst.fromXML(is);
                 System.out.println("output error list size =  "+ listErrors.size());
                 if (listErrors.size() > 0 ) {
+                    StructuralErrorSerialize sez = new StructuralErrorSerialize(ooDocument.getDocumentURL());
+                    sez.writeErrorsToLog(listErrors);
                     panelStructuralError.launchFrame(listErrors, parentFrame, parentPanel);
                 }
             } else {
