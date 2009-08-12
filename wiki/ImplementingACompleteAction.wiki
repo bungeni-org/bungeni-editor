@@ -1,5 +1,5 @@
 #summary How to implement a complete action
-#labels BungeniEditorClient
+#labels bungeni-editor
 
 *Table of Contents*
 
@@ -19,7 +19,8 @@ actionGroup - this element allows grouping contained actions into UI tabs
 blockAction - this element is rendered as a tab panel and contains actions
 action/subAction - these elements map to actual actions and appear as buttons on the UI.
 
-[http://bungeni-editor.googlecode.com/files/Toolbar_Actions.png Toolbar XML Actions mapped to the rendered UI]
+_Figure : Toolbar XML Actions mapped to the rendered UI_
+<img src="http://bungeni-editor.googlecode.com/files/Toolbar_Actions.png" alt="Toolbar XML Actions mapped to the rendered UI" />
 
 
 
