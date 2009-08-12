@@ -1,6 +1,8 @@
 #summary Changing the UI theme for the Bungeni Editor
 #labels bungeni-editor,ui
 
+<wiki:toc max_depth="4" />
+
 = Introduction =
 The UI of the editor is fully “skinnable”. The Bungeni Editor uses a skinning engine called [“Substance” https://substance.dev.java.net/] - there are various default skins provided, and can be switched via a configuration file.
 Additional themes can be created using the Java Look-and-Feel API.
