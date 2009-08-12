@@ -1,13 +1,7 @@
 #summary How to implement a complete action
 #labels bungeni-editor
 
-*Table of Contents*
-
-* [ImplementingACompleteAction#1_Define_a_toolbar_action_in_toolbar_xml 1 Define a toolbar action in toolbar xml]
-  * [ImplementingACompleteAction#Adding_a_blockAction  Adding a blockAction]
-  * [ImplementingACompleteAction#Adding_a_Action_element Adding a action element]
-  * [ImplementingACompleteAction#Adding_a_subAction_element Adding a subAction element]
-* [ImplementingACompleteAction#2_Calling_a_router_action_in_response_to_a_toolbar_action 2 Calling a router action in response to a toolbar action]
+<wiki:toc max_depth="4" />
 
 = 1 Define a toolbar action in toolbar xml =
 
@@ -129,6 +123,84 @@ The subAction element is described here:
 }}}
 
 The attributes function exactly as described for the <action> element
+
+
+== Schema for toolbar xml config == 
+
+See this [http://code.google.com/p/bungeni-editor/source/browse/BungeniEditor/trunk/BungeniEditorClient/src/xsd/toolbar.xsd link]
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="toolbar">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="root"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="root">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="actionGroup"/>
+      </xs:sequence>
+      <xs:attribute name="lang" use="required" type="xs:NCName"/>
+      <xs:attribute name="title" use="required"/>
+      <xs:attribute name="visible" use="required" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="actionGroup">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="blockAction"/>
+      </xs:sequence>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="title" use="required" type="xs:NCName"/>
+      <xs:attribute name="uimodel" use="required" type="xs:NCName"/>
+      <xs:attribute name="visible" use="required" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="blockAction">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element ref="action"/>
+        <xs:element ref="subaction"/>
+      </xs:choice>
+      <xs:attribute name="condition" use="required" type="xs:NCName"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="showChildren" type="xs:boolean"/>
+      <xs:attribute name="target" use="required" type="xs:NCName"/>
+      <xs:attribute name="title" use="required"/>
+      <xs:attribute name="tooltip"/>
+      <xs:attribute name="visible" use="required" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="action">
+    <xs:complexType>
+      <xs:attribute name="condition" use="required" type="xs:anyURI"/>
+      <xs:attribute name="mode" use="required" type="xs:NCName"/>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="target" use="required"/>
+      <xs:attribute name="title" use="required"/>
+      <xs:attribute name="visible" use="required" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="subaction">
+    <xs:complexType>
+      <xs:attribute name="condition" use="required" type="xs:anyURI"/>
+      <xs:attribute name="mode" use="required" type="xs:NCName"/>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="target" use="required"/>
+      <xs:attribute name="title" use="required"/>
+      <xs:attribute name="tooltip"/>
+      <xs:attribute name="visible" use="required" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+
+
+}}}
+
+
 
 = 2 Calling a router action in response to a toolbar action =
 
