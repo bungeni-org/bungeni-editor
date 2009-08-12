@@ -11,6 +11,17 @@
 
 = 1 Define a toolbar action in toolbar xml =
 
+== Elements in a toolbar xml config == 
+
+toolbar - this is a required root element in all action configurations
+root - All the actions are contained and grouped within the root element.  The root element suports a 'xsd:lang' attribute - and this allows localization of the action configurations.
+actionGroup - this element allows grouping contained actions into UI tabs
+blockAction - this element is rendered as a tab panel and contains actions
+action/subAction - these elements map to actual actions and appear as buttons on the UI.
+
+
+
+
 == Adding a blockAction == 
 
 Add a block action for the action.  A complete block action is illustrated below.
@@ -257,4 +268,3 @@ pre<mode function>() ==> process<mode function>() ==> post<mode function>()
 == Connecting the dialog class to the toolbar action == 
 
 The dialog class is invoked via a standard interface by the bungeni editor. The above class for example needs to be specified in the `DIALOG_CLASS` column in the appropriate entry for the subAction in SUB_ACTION_SETTINGS table.
-
