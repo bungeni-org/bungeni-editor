@@ -68,7 +68,7 @@ The blockAction element is described here.
 
 `target` - the address of the handler that is invoked upon clicking the toolbar item. Use _null_  - to indicate no action.
 
-`condition` - conditions under which the action is displayed. For condition syntax see: [http://code.google.com/p/bungeni-portal/wiki/ConditionProcessorsInBungeniEditor Condition Processors]
+`condition` - conditions under which the action is displayed. If the condition evaluates to true - the button is enabled for clicking, if the condition evaluates to false, the button is in a disabled state. For condition processor documentation and syntax see: [http://code.google.com/p/bungeni-editor/wiki/ConditionProcessorsInBungeniEditor Condition Processors]
 
 == Adding a Action element == 
 
