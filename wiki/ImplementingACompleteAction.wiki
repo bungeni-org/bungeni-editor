@@ -19,6 +19,7 @@ actionGroup - this element allows grouping contained actions into UI tabs
 blockAction - this element is rendered as a tab panel and contains actions
 action/subAction - these elements map to actual actions and appear as buttons on the UI.
 
+[http://bungeni-editor.googlecode.com/files/Toolbar_Actions.png Toolbar XML Actions mapped to the rendered UI]
 
 
 
