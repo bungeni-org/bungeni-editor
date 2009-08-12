@@ -13,11 +13,11 @@
 
 == Elements in a toolbar xml config == 
 
-toolbar - this is a required root element in all action configurations
-root - All the actions are contained and grouped within the root element.  The root element suports a 'xsd:lang' attribute - and this allows localization of the action configurations.
-actionGroup - this element allows grouping contained actions into UI tabs
-blockAction - this element is rendered as a tab panel and contains actions
-action/subAction - these elements map to actual actions and appear as buttons on the UI.
+ * _toolbar - this is a required root element in all action configurations
+ * _root_ - All the actions are contained and grouped within the root element.  The root element suports a 'xsd:lang' attribute - and this allows localization of the action configurations.
+ * _actionGroup_ - this element allows grouping contained actions into UI tabs
+ * _blockAction_ - this element is rendered as a tab panel and contains actions
+ * _action/subAction_ - these elements map to actual actions and appear as buttons on the UI.
 
 _Figure : Toolbar XML Actions mapped to the rendered UI_
 <img src="http://bungeni-editor.googlecode.com/files/Toolbar_Actions.png" alt="Toolbar XML Actions mapped to the rendered UI" />
