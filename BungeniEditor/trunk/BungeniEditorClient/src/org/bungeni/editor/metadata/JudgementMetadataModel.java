@@ -22,6 +22,11 @@ public class JudgementMetadataModel extends BaseEditorDocMetaModel {
         "BungeniCaseNo",
         "BungeniJudgementDate"
     };
+
+    public static final String[] GROUPED_METADATA = {
+        "BungeniJudgeName:",
+        "BungeniPartyName:"
+    };
     
     @Override
     public void setup(){
@@ -36,6 +41,13 @@ public class JudgementMetadataModel extends BaseEditorDocMetaModel {
          ooDocMetadata docM = new ooDocMetadata(ooDocument);
          for (String sMeta : THIS_METAMODEL) {
              docM.AddProperty(sMeta, docMeta.get(sMeta));
+         }
+         //now process grouped metadata
+         //we process all metadata starting with the grouped metadata filter :
+         for (String sGmeta : docMeta.keySet()) {
+             for (String sGfilter : GROUPED_METADATA) {
+
+             }
          }
     }
 }
