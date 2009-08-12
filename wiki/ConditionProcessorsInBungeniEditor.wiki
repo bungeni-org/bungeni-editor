@@ -1,17 +1,7 @@
 #summary how to setup conditional processors in the Bungeni Editor
-#labels BungeniEditorClient
+#labels bungeni-editor
 
-*Table of Contents*
-
-* [ConditionProcessorsInBungeniEditor#Introduction Introduction] 
-
-* [ConditionProcessorsInBungeniEditor#Writing_a_new_Conditon  Writing a new condition] 
-
-* [ConditionProcessorsInBungeniEditor#Registering_a_Conditon Registering a condition] 
-
-* [ConditionProcessorsInBungeniEditor#Currently_Available_Conditions Currently Available Conditions] 
-
-
+<wiki:toc max_depth="4" />
 
 = Introduction =
 
@@ -149,4 +139,4 @@ Chained conditions :
 condition="cursorInSection:masthead :and: textSelected:true :and: fieldNotExists:debaterecord_official_date"
 }}}
 
-[http://code.google.com/p/bungeni-portal/source/browse/BungeniOOo/BungeniEditor/trunk/BungeniEditorClient/dist/settings/toolbar_debate.xml  example toolbar.xml file]
+[http://code.google.com/p/bungeni-portal/source/browse/BungeniOOo/BungeniEditor/trunk/BungeniEditorClient/dist/settings/toolbar_debate_b.xml  example toolbar.xml file]
