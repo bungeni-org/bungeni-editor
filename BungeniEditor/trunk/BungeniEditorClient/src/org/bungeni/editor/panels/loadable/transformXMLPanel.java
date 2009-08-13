@@ -427,22 +427,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         return bState;
     }
 
-    private boolean errorsExist(Document xmlDoc) {
-        boolean bState = false;
-        try {
-            XPath xmlPath = XPath.newInstance("/validationErrors/validationError");
-            Element foundNode = (Element) xmlPath.selectSingleNode(xmlDoc);
-            if (foundNode == null) {
-                bState = false;
-            } else {
-                bState = true;
-            }
-        } catch (JDOMException ex) {
-            bState = false;
-        }
-        return bState;
 
-    }
 
     private JMenuItem setupMenuItem(String key, String title, ActionListener listener) {
         JMenuItem item = new JMenuItem(title);
@@ -568,7 +553,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
                     log.error("viewXmErrors ", ex);
                 }
                 if (xmlErrors != null) {
-                    if (errorsExist(xmlErrors)) {
+                    if (validationErrorHelper.errorsExist(xmlErrors)) {
                         bNoErrors = false;
                         launchErrorPanel(xmlErrors);
                         return;

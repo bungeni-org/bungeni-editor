@@ -6,6 +6,7 @@ import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileReader;
@@ -35,10 +36,16 @@ import org.bungeni.editor.panels.loadable.structuralerror.StructuralError;
 import org.bungeni.editor.panels.loadable.structuralerror.StructuralErrorSerialize;
 import org.bungeni.editor.panels.loadable.structuralerror.panelStructuralError;
 import org.bungeni.editor.panels.loadable.structuralerror.panelStructuralErrorBrowser;
+import org.bungeni.extutils.CommonANUtils;
 import org.bungeni.extutils.CommonDocumentUtilFunctions;
 import org.bungeni.extutils.CommonEditorFunctions;
+import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonXmlUtils;
 import org.bungeni.extutils.MessageBox;
+import org.bungeni.ooo.transforms.impl.BungeniTransformationTarget;
+import org.bungeni.ooo.transforms.impl.BungeniTransformationTargetFactory;
+import org.bungeni.ooo.transforms.impl.BungeniTransformationTargets;
+import org.bungeni.ooo.transforms.impl.IBungeniDocTransform;
 import org.bungeni.utils.externalplugin.ExternalPlugin;
 import org.bungeni.utils.externalplugin.ExternalPluginLoader;
 import org.jdom.Document;
@@ -55,6 +62,7 @@ import org.jdom.xpath.XPath;
 public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
 
     private static org.apache.log4j.Logger log = Logger.getLogger(validateAndCheckPanel2.class.getName());
+    private SAXBuilder saxBuilder = null;
 
     /** Creates new form transformXMLPanel */
     public validateAndCheckPanel2() {
@@ -223,7 +231,7 @@ public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
             protected Integer doInBackground() throws Exception {
                 //check if server is running .. if running stop it
                 int nRet = -1;
-                nRet = validateStructure();
+               /// nRet = validateStructure();
                 return nRet;
             }
 
@@ -254,6 +262,8 @@ public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
             }
         }
 
+        Object structuralCheckReturnValue = null;
+        
         public synchronized void actionPerformed(ActionEvent e) {
             //get the button originating the event
             final JButton sourceButton = (JButton) e.getSource();
@@ -284,13 +294,23 @@ public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
             SwingUtilities.invokeLater(new Runnable() {
 
              public void run() {
-                  if (chkStructural.isSelected()) {
-                    validateStructure();
-                  }
+
+                 if (chkStructural.isSelected()) {
+                    structuralCheckReturnValue = validateStructure();
+                  } else
+                    structuralCheckReturnValue = null;
+
                   if (chkValidation.isSelected()) {
-                      //validateXml();
+                      validateXml();
                   }
-                  sourceButton.setEnabled(true);
+
+                  if (structuralCheckReturnValue != null) {
+                      //process the error output
+                     ArrayList<StructuralError> listErrors =  prepareStructuralErrorsOutput((String)structuralCheckReturnValue);
+                     Document xmlErrors = prepareXmlValidationErrorOutput();
+                  }
+
+                 sourceButton.setEnabled(true);
                   parentFrame.setCursor(Cursor.getDefaultCursor());
                 }
             });
@@ -299,7 +319,7 @@ public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
         }
     }
 
-    private int validateStructure() {
+    private Object validateStructure() {
         if (!ooDocument.documentRequiresSaving()) {
             //  generatePlainDocument();
             ExternalPluginLoader ep = new ExternalPluginLoader();
@@ -314,21 +334,84 @@ public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
             if (retValue != null) {
                 System.out.println("error size = " + ((String)retValue).length());
                 //String outputFilePath = (String) retValue;
-                processErrorOutput((String) retValue);
+                //processErrorOutput((String) retValue);
                 // MessageBox.OK(parentFrame, "A plain document was generated, it can be found at : \n" + outputFilePath, "Plain Document generation", JOptionPane.INFORMATION_MESSAGE);
-                return 0;
+                return retValue;
             } else {
                 MessageBox.OK(parentFrame, bundle.getString("problem_running_struct_checker"), bundle.getString("save_the_document"), JOptionPane.ERROR_MESSAGE);
-                return -2;
+                return null;
             }
         } else {
             MessageBox.OK(parentFrame, bundle.getString("save_document_before_proceeding"), bundle.getString("save_the_document"), JOptionPane.ERROR_MESSAGE);
-            return -1;
+            return null;
 
         }
 
     }
 
+
+    private void validateXml(){
+        boolean transformState = false;
+        transformState = transformXml();
+    }
+
+    private boolean transformXml() {
+       BungeniTransformationTarget transform = BungeniTransformationTargets.getTransformationTargets().get("AN-XML");
+        IBungeniDocTransform iTransform = BungeniTransformationTargetFactory.getTransformClass(transform);
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        iTransform.setParams(params);
+        boolean bState = iTransform.transform(ooDocument);
+        return bState;
+    }
+
+    private Document prepareXmlValidationErrorOutput() {
+          boolean bNoErrors = true;
+          Document xmlErrors = null;
+
+          String sUrl = ooDocument.getDocumentURL();
+          xmlErrors = validationErrorHelper.getValidationErrors(sUrl);
+          if (xmlErrors != null) {
+              if (validationErrorHelper.errorsExist(xmlErrors)) {
+                return xmlErrors;
+              }
+          }
+          return null;
+    }
+
+    private ArrayList<StructuralError> prepareStructuralErrorsOutput(String outError) {
+        StringReader sr = new StringReader(outError);
+        ArrayList<StructuralError> listErrors = new ArrayList<StructuralError>(0);
+        //System.out.println(outError);
+        try {
+            SAXBuilder builder = CommonXmlUtils.getNonValidatingSaxBuilder();
+            Document engineDoc = builder.build(sr);
+            //get available engines
+            XPath engines = XPath.newInstance("/structuralErrors/list");
+            Element foundNode = (Element) engines.selectSingleNode(engineDoc);
+            if (foundNode != null ) {
+                XMLOutputter outer = new XMLOutputter();
+                StringWriter srw = new StringWriter();
+                outer.output(foundNode,srw );
+                InputStream is = new ByteArrayInputStream(srw.toString().getBytes());
+                XStream xst = new XStream();
+                xst.alias("structuralError", StructuralError.class);
+                listErrors  = (ArrayList<StructuralError>) xst.fromXML(is);
+                System.out.println("output error list size =  "+ listErrors.size());
+                if (listErrors.size() > 0 ) {
+                    StructuralErrorSerialize sez = new StructuralErrorSerialize(ooDocument.getDocumentURL());
+                    //write errors to log
+                    sez.writeErrorsToLog(listErrors);
+                   //  panelStructuralError.launchFrame(listErrors, parentFrame, parentPanel);
+                }
+            } 
+        } catch (JDOMException ex) {
+            log.error("processErrorOutput", ex);
+        } catch (IOException ex) {
+            log.error("processErrorOutput", ex);
+        }
+        return listErrors;
+    }
+    
     private void processErrorOutput(String outError) {
         StringReader sr = new StringReader(outError);
         //System.out.println(outError);
