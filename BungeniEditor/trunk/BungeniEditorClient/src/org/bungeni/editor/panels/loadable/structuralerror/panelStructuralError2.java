@@ -6,6 +6,7 @@ package org.bungeni.editor.panels.loadable.structuralerror;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.Window;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -18,10 +19,13 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingWorker;
 import javax.swing.border.LineBorder;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import org.apache.log4j.Logger;
+import org.bungeni.editor.panels.loadable.validationErrorTableModel;
+import org.bungeni.extutils.CommonDocumentUtilFunctions;
 import org.jdom.Document;
 
 ////import org.bungeni.ooo.OOComponentHelper;
@@ -53,12 +57,14 @@ public class panelStructuralError2 extends javax.swing.JPanel  {
         this.validationErrors = xmlErrors;
         this.callerPanel = cPanel;
         initComponents();
-        initTable();
+        initStructErrorTable();
+        initValidationErrorTable();
     }
 
     public void update (ArrayList<StructuralError> serror) {
         this.structuralErrors = serror;
-        initTable();
+        initStructErrorTable();
+        initValidationErrorTable();
     }
 
     /**
@@ -74,11 +80,48 @@ public class panelStructuralError2 extends javax.swing.JPanel  {
      * Setups up the table model, then configures the column widths, finally attaches a mouse listener
      * to detect double click events
      */
-    private void initTable(){
+      
+    private void initStructErrorTable(){
         initTableModel();
         initColumnConfig();
         initMouseListeners();
     }
+
+    private void initValidationErrorTable(){
+        validationErrorTableModel tblModel = new validationErrorTableModel(this.validationErrors);
+        this.tblValidationErrors.setModel(tblModel);
+        this.tblValidationErrors.getColumnModel().getColumn(1).setCellRenderer(new TextAreaRenderer());
+     //   this.tblValidationErrors.addMouseListener(new tblValidationErrorMouseListener());
+    
+    }
+
+      public class tblValidationErrorMouseListener extends MouseAdapter {
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (e.getClickCount() == 2) {
+                Point p = e.getPoint();
+                int row = tblValidationErrors.rowAtPoint(p);
+                pointErrorInDocument(row);
+            // ...
+            }
+        }
+    }
+
+
+    private void pointErrorInDocument(int nrow) {
+
+        validationErrorTableModel tblModel = (validationErrorTableModel) this.tblValidationErrors.getModel();
+        final String matchedSectionName = tblModel.getSectionId(nrow);
+     /*   new SwingWorker<Object, Object>() {
+
+            protected Object doInBackground() throws Exception {
+                CommonDocumentUtilFunctions.selectSection(ooDocument, matchedSectionName);
+                return null;
+            }
+        }.execute();*/
+    }
+
 
     /**
      * We scroll to the  point in the document where the error occured during double click
@@ -199,6 +242,9 @@ public class panelStructuralError2 extends javax.swing.JPanel  {
     private void initColumnConfig(){
        //set the second column to multiline mode
         TableColumnModel tblColumnModel = this.tblErrors.getColumnModel();
+        if (tblColumnModel.getColumnCount() <= 2) {
+            return;
+        }
         tblColumnModel.getColumn(1).setCellRenderer(new TextAreaRenderer());
        //set column widths
         int tblWidth = 375;
