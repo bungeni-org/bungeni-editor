@@ -17,7 +17,7 @@
     -->
     <info>
         <appname>BungeniEditor installation</appname>
-        <appversion>rev383</appversion>
+        <appversion>rev897</appversion>
 	<appsubpath>BungeniEditor-$APP_VER</appsubpath>
         <authors>
             <author name="UNDESA" email="undesa@parliaments.info"/>
@@ -74,37 +74,59 @@
             <description>BungeniEditor core files</description>
             <file src="README.TXT" targetdir="$INSTALL_PATH"/>
             <file src="LICENCE.TXT" targetdir="$INSTALL_PATH"/>
-            <file src="run_gui.sh" targetdir="$INSTALL_PATH"/>
-            <file src="run_debate_new.sh" targetdir="$INSTALL_PATH"/>
-            <file src="run_debate_edit.sh" targetdir="$INSTALL_PATH"/>
-            <file src="run_judgement_edit.sh" targetdir="$INSTALL_PATH"/>
-            <file src="run_judgement_new.sh" targetdir="$INSTALL_PATH"/>
-            <file src="run_bill_edit.sh" targetdir="$INSTALL_PATH"/>
-            <file src="run_bill_new.sh" targetdir="$INSTALL_PATH"/>
+		<!-- linux primary launchers -->
+            <file src="linux/run_gui.sh" targetdir="$INSTALL_PATH/linux"/>
+            <file src="linux/run_debate_new.sh" targetdir="$INSTALL_PATH/linux"/>
+            <file src="linux/run_debate_edit.sh" targetdir="$INSTALL_PATH/linux"/>
+            <file src="linux/run_judgement_edit.sh" targetdir="$INSTALL_PATH/linux"/>
+            <file src="linux/run_judgement_new.sh" targetdir="$INSTALL_PATH/linux"/>
+            <file src="linux/run_bill_edit.sh" targetdir="$INSTALL_PATH/linux"/>
+            <file src="linux/run_bill_new.sh" targetdir="$INSTALL_PATH/linux"/>
+		<!-- windoze primary launchers -->
+
+            <file src="win/run_debate_new.bat" targetdir="$INSTALL_PATH/win"/>
+            <file src="win/run_debate_edit.bat" targetdir="$INSTALL_PATH/win"/>
+
+
+		<!-- config launcher scripts -->
             <file src="scripts/main.sh" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/config.sh" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/gui.sh" targetdir="$INSTALL_PATH/scripts"/>
+            <file src="scripts/main.bat" targetdir="$INSTALL_PATH/scripts"/>
+            <file src="scripts/config.bat" targetdir="$INSTALL_PATH/scripts"/>
+        	<!-- linux run scripts -->
             <file src="scripts/debate_new.sh" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/debate_edit.sh" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/bill_edit.sh" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/bill_new.sh" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/judgement_edit.sh" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/judgement_new.sh" targetdir="$INSTALL_PATH/scripts"/>
+		<!-- windows run scripts -->
+            <file src="scripts/debate_new.bat" targetdir="$INSTALL_PATH/scripts"/>
+            <file src="scripts/debate_edit.bat" targetdir="$INSTALL_PATH/scripts"/>
+            <file src="scripts/bill_edit.bat" targetdir="$INSTALL_PATH/scripts"/>
+            <file src="scripts/bill_new.bat" targetdir="$INSTALL_PATH/scripts"/>
+            <file src="scripts/judgement_edit.bat" targetdir="$INSTALL_PATH/scripts"/>
+            <file src="scripts/judgement_new.bat" targetdir="$INSTALL_PATH/scripts"/>
             <file src="runEditor.bat" targetdir="$INSTALL_PATH"/>
             <file src="settingsEditor.sh" targetdir="$INSTALL_PATH"/>
             <file src="base" targetdir="$INSTALL_PATH"/>
-            <parsable targetfile="$INSTALL_PATH/runEditor.bat"/>
+            <!-- <parsable targetfile="$INSTALL_PATH/runEditor.bat"/> -->
             <parsable targetfile="$INSTALL_PATH/scripts/config.sh"/>
-            <parsable targetfile="$INSTALL_PATH/scripts/main.sh"/>	    
+            <parsable targetfile="$INSTALL_PATH/scripts/main.sh"/>
+            <parsable targetfile="$INSTALL_PATH/scripts/config.bat"/>
+            <parsable targetfile="$INSTALL_PATH/scripts/main.bat"/>
             <parsable targetfile="$INSTALL_PATH/settingsEditor.sh"/>
             <executable targetfile="$INSTALL_PATH/settingsEditor.sh"/>
-            <executable targetfile="$INSTALL_PATH/run_gui.sh"/>
-            <executable targetfile="$INSTALL_PATH/run_debate_edit.sh"/>
-            <executable targetfile="$INSTALL_PATH/run_debate_new.sh"/>
-            <executable targetfile="$INSTALL_PATH/run_judgement_edit.sh"/>
-            <executable targetfile="$INSTALL_PATH/run_judgement_new.sh"/>
-            <executable targetfile="$INSTALL_PATH/run_bill_edit.sh"/>
-            <executable targetfile="$INSTALL_PATH/run_bill_new.sh"/>
+		<!-- linux launchers -->
+            <executable targetfile="$INSTALL_PATH/linux/run_gui.sh"/>
+            <executable targetfile="$INSTALL_PATH/linux/run_debate_edit.sh"/>
+            <executable targetfile="$INSTALL_PATH/linux/run_debate_new.sh"/>
+            <executable targetfile="$INSTALL_PATH/linux/run_judgement_edit.sh"/>
+            <executable targetfile="$INSTALL_PATH/linux/run_judgement_new.sh"/>
+            <executable targetfile="$INSTALL_PATH/linux/run_bill_edit.sh"/>
+            <executable targetfile="$INSTALL_PATH/linux/run_bill_new.sh"/>
+
             <!-- The file will be parsed -->
         </pack>
     </packs>
