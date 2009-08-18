@@ -82,18 +82,24 @@
             <file src="linux/run_judgement_new.sh" targetdir="$INSTALL_PATH/linux"/>
             <file src="linux/run_bill_edit.sh" targetdir="$INSTALL_PATH/linux"/>
             <file src="linux/run_bill_new.sh" targetdir="$INSTALL_PATH/linux"/>
+	     <file src="linux/settingsEditor.sh" targetdir="$INSTALL_PATH/linux"/>
+		
 		<!-- windoze primary launchers -->
 
             <file src="win/run_debate_new.bat" targetdir="$INSTALL_PATH/win"/>
             <file src="win/run_debate_edit.bat" targetdir="$INSTALL_PATH/win"/>
+            <file src="win/settingsEditor.bat" targetdir="$INSTALL_PATH/win"/>
 
 
-		<!-- config launcher scripts -->
+		<!-- config launcher scripts linux -->
             <file src="scripts/main.sh" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/config.sh" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/gui.sh" targetdir="$INSTALL_PATH/scripts"/>
+		<!-- config launcher scripts windoze -->
             <file src="scripts/main.bat" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/config.bat" targetdir="$INSTALL_PATH/scripts"/>
+            <file src="scripts/gui.bat" targetdir="$INSTALL_PATH/scripts"/>
+
         	<!-- linux run scripts -->
             <file src="scripts/debate_new.sh" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/debate_edit.sh" targetdir="$INSTALL_PATH/scripts"/>
@@ -108,16 +114,17 @@
             <file src="scripts/bill_new.bat" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/judgement_edit.bat" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/judgement_new.bat" targetdir="$INSTALL_PATH/scripts"/>
-            <file src="runEditor.bat" targetdir="$INSTALL_PATH"/>
-            <file src="settingsEditor.sh" targetdir="$INSTALL_PATH"/>
+  
             <file src="base" targetdir="$INSTALL_PATH"/>
-            <!-- <parsable targetfile="$INSTALL_PATH/runEditor.bat"/> -->
-            <parsable targetfile="$INSTALL_PATH/scripts/config.sh"/>
+  		<!-- parse all the target files -->		  
+           <parsable targetfile="$INSTALL_PATH/scripts/config.sh"/>
             <parsable targetfile="$INSTALL_PATH/scripts/main.sh"/>
             <parsable targetfile="$INSTALL_PATH/scripts/config.bat"/>
             <parsable targetfile="$INSTALL_PATH/scripts/main.bat"/>
-            <parsable targetfile="$INSTALL_PATH/settingsEditor.sh"/>
-            <executable targetfile="$INSTALL_PATH/settingsEditor.sh"/>
+            <parsable targetfile="$INSTALL_PATH/scripts/gui.sh"/>
+            <parsable targetfile="$INSTALL_PATH/scripts/gui.bat"/>
+            <parsable targetfile="$INSTALL_PATH/linux/settingsEditor.sh"/>
+            <parsable targetfile="$INSTALL_PATH/win/settingsEditor.bat"/>
 		<!-- linux launchers -->
             <executable targetfile="$INSTALL_PATH/linux/run_gui.sh"/>
             <executable targetfile="$INSTALL_PATH/linux/run_debate_edit.sh"/>
@@ -126,6 +133,8 @@
             <executable targetfile="$INSTALL_PATH/linux/run_judgement_new.sh"/>
             <executable targetfile="$INSTALL_PATH/linux/run_bill_edit.sh"/>
             <executable targetfile="$INSTALL_PATH/linux/run_bill_new.sh"/>
+            <executable targetfile="$INSTALL_PATH/linux/settingsEditor.sh"/>
+
 
             <!-- The file will be parsed -->
         </pack>
