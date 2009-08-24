@@ -1,9 +1,3 @@
-/*
- * DebateRecordMetadata.java
- *
- * Created on November 4, 2008, 1:43 PM
- */
-
 package org.bungeni.editor.metadata.editors;
 
 import java.awt.Component;
@@ -35,7 +29,7 @@ import org.bungeni.extutils.CommonStringFunctions;
 
 /**
  *
- * @author  undesa
+ * @author  Ashok
  */
 public class JudgementMetadata3 extends BaseEditorDocMetadataDialog {
 
@@ -522,7 +516,7 @@ private void btnAddPartyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         String partyName = (String) rowData.elementAt(1);
         String partyType = (String) rowData.elementAt(2);
         String metadataVariable = BUNGENI_PARTY_META_PREFIX + partyId;
-        String metadataValue = partyType + "~" + partyName + "~" + partyId;
+        String metadataValue = partyId + "~" + partyName + "~" + partyType;
         //add metadata variable to model
         docMetaModel.addItem(metadataVariable, metadataValue);
     }
