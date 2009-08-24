@@ -49,11 +49,8 @@ import org.bungeni.utils.externalplugin.ExternalPlugin;
 import org.bungeni.utils.externalplugin.ExternalPluginLoader;
 import org.bungeni.xml.viewer.BungeniXmlViewer;
 import org.jdom.Document;
-import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
-import org.jdom.xpath.XPath;
-import org.w3c.dom.Node;
 
 /**
  *
@@ -94,6 +91,11 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         initTransformerClient();
         initTimers();
         initButtons();
+         cboExportTo.setVisible(false);
+       
+      /*  cboTransformFrom.setVisible(false);
+        lblTransformFrom.setVisible(false);
+        btnExport.setVisible(false); */
     }
 
     /**
@@ -139,6 +141,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
     private void initButtons() {
         this.btnExportToXML.addActionListener(new transformXmlActionListener());
         this.btnMakePlain.addActionListener(new convertToPlain());
+        this.btnExport.addActionListener(new exportToOtherFormats());
     }
 
     /**
@@ -312,6 +315,9 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         }
     }
 
+    /**
+     * Convert documents to Plain documents
+     */
     class convertToPlain implements ActionListener {
 
         /**
@@ -349,6 +355,64 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
                             OOComponentHelper.openExistingDocument(fFile.getAbsolutePath());
                         }
                         }
+                    }
+              } catch (InterruptedException ex) {
+                    log.error("done(),", ex);
+                } catch (ExecutionException ex) {
+                    log.error("done(),", ex);
+                }
+            }
+        }
+
+        public synchronized void actionPerformed(ActionEvent e) {
+            //check if document has been saved
+            if (ooDocument.documentRequiresSaving()) {
+                 MessageBox.OK(parentFrame, bundle.getString("Please_save_the_document"), bundle.getString("Save_the_document"), JOptionPane.ERROR_MESSAGE);
+                 return;
+            }
+            //get the button originating the event
+            final JButton sourceButton = (JButton) e.getSource();
+            //disable the button immediately
+            sourceButton.setEnabled(false);
+            //set the wait cursor
+            parentFrame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            //call the swingworker thread for the button event
+            (new buttonActionRunner(sourceButton)).execute();
+        }
+    }
+
+    /**
+     * Export to Other formats
+     */
+      class exportToOtherFormats implements ActionListener {
+
+        /**
+         * Run the button action in a swingworker thread, so the UI disabling happens immediately
+         */
+        class buttonActionRunner extends SwingWorker<String, Object> {
+
+            JButton sourceButton;
+            BungeniTransformationTarget tTarget ;
+            public buttonActionRunner(JButton origButton) {
+                this.sourceButton = origButton;
+                tTarget = (BungeniTransformationTarget) cboTransformFrom.getSelectedItem();
+            }
+
+            protected String doInBackground() throws Exception {
+                //check if server is running .. if running stop it
+                String  retValue = exportToSelectedFormat(tTarget);
+                return retValue;
+            }
+
+            @Override
+            public void done() {
+                 String retValue = "";
+                try {
+                    sourceButton.setEnabled(true);
+                    parentFrame.setCursor(Cursor.getDefaultCursor());
+                    retValue = get();
+                    if (retValue != null) {
+                       MessageBox.OK(parentFrame, bundle.getString(retValue));
                     }
               } catch (InterruptedException ex) {
                     log.error("done(),", ex);
@@ -507,6 +571,30 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         }
     }
 
+    private String exportToSelectedFormat( BungeniTransformationTarget transform) {
+        
+        IBungeniDocTransform iTransform = BungeniTransformationTargetFactory.getTransformClass(transform);
+
+        String exportPath = BungeniEditorProperties.getEditorProperty("defaultExportPath");
+        exportPath = exportPath.replace('/', File.separatorChar);
+        exportPath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + exportPath;
+        exportPath = exportPath + File.separatorChar + OOComponentHelper.getFrameTitle(ooDocument.getTextDocument()).trim() + "." + transform.targetExt;
+        File fileExp = new File(exportPath);
+        String exportPathURL = "";
+        exportPathURL = fileExp.toURI().toString();
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("StoreToUrl", exportPathURL);
+
+        iTransform.setParams(params);
+        boolean bState = iTransform.transform(ooDocument);
+
+        if (bState) {
+            return new String("Document_was_successfully_Exported_to_the_workspace_folder");
+        } else {
+            return new String("Document_export_failed");
+        }
+        
+    }
 
     private String convertToPlain() {
         boolean bState = false;
@@ -601,23 +689,20 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         btnViewValidationErrors = new javax.swing.JButton();
         btnViewXmlDoc = new javax.swing.JButton();
 
-        cboTransformFrom.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        cboTransformFrom.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Portable Document Format (PDF)", "AkomaNtoso XML", "XHTML - eXtensible HTML", "Marginalia-safe HTML export" }));
+        cboTransformFrom.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        cboTransformFrom.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Portable Document Format (PDF)", "XHTML - eXtensible HTML", "Marginalia-safe HTML export" }));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/panels/loadable/Bundle"); // NOI18N
+        cboTransformFrom.setToolTipText(bundle.getString("transformXMLPanel.cboTransformFrom.toolTipText")); // NOI18N
 
         cboExportTo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         cboExportTo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Export to File-System path", "Export to Server" }));
 
         lblTransformFrom.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/panels/loadable/Bundle"); // NOI18N
         lblTransformFrom.setText(bundle.getString("transformXMLPanel.lblTransformFrom.text")); // NOI18N
 
-        btnExport.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnExport.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnExport.setText(bundle.getString("transformXMLPanel.btnExport.text")); // NOI18N
-        btnExport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportActionPerformed(evt);
-            }
-        });
+        btnExport.setToolTipText(bundle.getString("transformXMLPanel.btnExport.toolTipText")); // NOI18N
 
         checkChangeColumns.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         checkChangeColumns.setText(bundle.getString("transformXMLPanel.checkChangeColumns.text")); // NOI18N
@@ -659,7 +744,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             }
         });
 
-        btnViewXmlDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 9)); // NOI18N
+        btnViewXmlDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 9));
         btnViewXmlDoc.setText(bundle.getString("transformXMLPanel.btnViewXmlDoc.text")); // NOI18N
         btnViewXmlDoc.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -735,30 +820,6 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             }
         }
     }//GEN-LAST:event_checkChangeColumnsActionPerformed
-
-    private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
-// TODO add your handling code here:
-        BungeniTransformationTarget transform = (BungeniTransformationTarget) this.cboTransformFrom.getSelectedItem();
-        IBungeniDocTransform iTransform = BungeniTransformationTargetFactory.getTransformClass(transform);
-
-        String exportPath = BungeniEditorProperties.getEditorProperty("defaultExportPath");
-        exportPath = exportPath.replace('/', File.separatorChar);
-        exportPath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + exportPath;
-        exportPath = exportPath + File.separatorChar + OOComponentHelper.getFrameTitle(ooDocument.getTextDocument()).trim() + "." + transform.targetExt;
-        File fileExp = new File(exportPath);
-        String exportPathURL = "";
-        exportPathURL = fileExp.toURI().toString();
-        HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("StoreToUrl", exportPathURL);
-
-        iTransform.setParams(params);
-        boolean bState = iTransform.transform(ooDocument);
-        if (bState) {
-            MessageBox.OK(parentFrame, bundle.getString("Document_was_successfully_Exported_to_the_workspace_folder"));
-        } else {
-            MessageBox.OK(parentFrame, bundle.getString("Document_export_failed"));
-        }
-    }//GEN-LAST:event_btnExportActionPerformed
 
     private void btnTransformerServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransformerServerActionPerformed
         // TODO add your handling code here:

@@ -83,12 +83,14 @@
           <Font name="DejaVu Sans" size="10" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
+          <StringArray count="3">
             <StringItem index="0" value="Portable Document Format (PDF)"/>
-            <StringItem index="1" value="AkomaNtoso XML"/>
-            <StringItem index="2" value="XHTML - eXtensible HTML"/>
-            <StringItem index="3" value="Marginalia-safe HTML export"/>
+            <StringItem index="1" value="XHTML - eXtensible HTML"/>
+            <StringItem index="2" value="Marginalia-safe HTML export"/>
           </StringArray>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/bungeni/editor/panels/loadable/Bundle.properties" key="transformXMLPanel.cboTransformFrom.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
@@ -123,10 +125,10 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/bungeni/editor/panels/loadable/Bundle.properties" key="transformXMLPanel.btnExport.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/bungeni/editor/panels/loadable/Bundle.properties" key="transformXMLPanel.btnExport.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExportActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkChangeColumns">
       <Properties>

@@ -6,7 +6,6 @@ import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileReader;
@@ -35,11 +34,10 @@ import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.editor.panels.loadable.structuralerror.StructuralError;
 import org.bungeni.editor.panels.loadable.structuralerror.StructuralErrorSerialize;
 import org.bungeni.editor.panels.loadable.structuralerror.panelStructuralError;
+import org.bungeni.editor.panels.loadable.structuralerror.panelStructuralError2;
 import org.bungeni.editor.panels.loadable.structuralerror.panelStructuralErrorBrowser;
-import org.bungeni.extutils.CommonANUtils;
 import org.bungeni.extutils.CommonDocumentUtilFunctions;
 import org.bungeni.extutils.CommonEditorFunctions;
-import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonXmlUtils;
 import org.bungeni.extutils.MessageBox;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTarget;
@@ -68,6 +66,10 @@ public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
     public validateAndCheckPanel2() {
         initComponents();
         this.btnValidateStructure.addActionListener(new validateStructureActionListener());
+        for (JCheckBox jCheckBox : availableRules) {
+                jCheckBox.setEnabled(false);
+            }
+        btnViewErrorLog.setVisible(false);
     }
 
     /**
@@ -195,18 +197,6 @@ public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
     private void viewErrorLog() {
         if (ooDocument.isDocumentOnDisk()) {
             panelStructuralErrorBrowser.launchFrame(ooDocument.getDocumentURL(), this.parentFrame, this);
-             /*
-            ExternalPluginLoader ep = new ExternalPluginLoader();
-            final StructValidatorEventHandler seHandler = new StructValidatorEventHandler();
-            ExternalPlugin rulesValidator = ep.loadPlugin("StructuralRulesValidator");
-            Object[] argSetParams = getValidatePluginParams();
-            rulesValidator.callMethod("setParams", argSetParams);
-            Object[] argParams = {};
-            Object[] argExec = {argParams};
-            Object retValue = rulesValidator.callMethod("exec2", argExec);
-              */
-
-
         }
     }
 
@@ -308,6 +298,8 @@ public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
                       //process the error output
                      ArrayList<StructuralError> listErrors =  prepareStructuralErrorsOutput((String)structuralCheckReturnValue);
                      Document xmlErrors = prepareXmlValidationErrorOutput();
+                     panelStructuralError2.launchFrame(listErrors, xmlErrors, parentFrame, getThisPanel());
+
                   }
 
                  sourceButton.setEnabled(true);
@@ -471,7 +463,7 @@ public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
         lblSelect.setFont(new java.awt.Font("DejaVu Sans", 1, 10));
         lblSelect.setText(bundle.getString("validateAndCheckPanel2.lblSelect.text")); // NOI18N
 
-        btnViewErrorLog.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnViewErrorLog.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnViewErrorLog.setText(bundle.getString("validateAndCheckPanel2.btnViewErrorLog.text")); // NOI18N
         btnViewErrorLog.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -479,7 +471,7 @@ public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
             }
         });
 
-        chkStructural.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        chkStructural.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         chkStructural.setText(bundle.getString("validateAndCheckPanel2.chkStructural.text")); // NOI18N
         chkStructural.setToolTipText(bundle.getString("validateAndCheckPanel2.chkStructural.toolTipText")); // NOI18N
         chkStructural.setVerticalAlignment(javax.swing.SwingConstants.TOP);
@@ -489,7 +481,7 @@ public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
             }
         });
 
-        chkValidation.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        chkValidation.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         chkValidation.setText(bundle.getString("validateAndCheckPanel2.chkValidation.text")); // NOI18N
         chkValidation.setToolTipText(bundle.getString("validateAndCheckPanel2.chkValidation.toolTipText")); // NOI18N
 
@@ -502,18 +494,20 @@ public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(lblSelect, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 172, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(chkStructural)
                     .add(chkValidation)
                     .add(layout.createSequentialGroup()
                         .add(12, 12, 12)
-                        .add(scrollChecks, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 168, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .add(btnValidateStructure, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(18, 18, 18)
-                        .add(btnViewErrorLog, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 87, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(scrollChecks, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 168, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(49, Short.MAX_VALUE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, btnValidateStructure, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, btnViewErrorLog, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE))
+                .add(68, 68, 68))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -526,10 +520,10 @@ public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
                 .add(scrollChecks, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 76, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(chkValidation)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 84, Short.MAX_VALUE)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(btnValidateStructure)
-                    .add(btnViewErrorLog, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 49, Short.MAX_VALUE)
+                .add(btnValidateStructure)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(btnViewErrorLog, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents

@@ -18,7 +18,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblSelect" min="-2" pref="172" max="-2" attributes="0"/>
                   <Component id="chkStructural" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="chkValidation" alignment="0" min="-2" max="-2" attributes="1"/>
@@ -26,13 +26,16 @@
                       <EmptySpace min="12" pref="12" max="12" attributes="0"/>
                       <Component id="scrollChecks" min="-2" pref="168" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="1">
-                      <Component id="btnValidateStructure" max="32767" attributes="1"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnViewErrorLog" min="-2" pref="87" max="-2" attributes="1"/>
-                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace pref="49" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="btnValidateStructure" alignment="1" max="32767" attributes="1"/>
+                  <Component id="btnViewErrorLog" alignment="1" pref="87" max="32767" attributes="1"/>
+              </Group>
+              <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -47,11 +50,10 @@
               <Component id="scrollChecks" min="-2" pref="76" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="chkValidation" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="84" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnValidateStructure" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnViewErrorLog" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-              </Group>
+              <EmptySpace pref="49" max="32767" attributes="0"/>
+              <Component id="btnValidateStructure" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="btnViewErrorLog" min="-2" pref="23" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
