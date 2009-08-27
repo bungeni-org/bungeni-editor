@@ -1,5 +1,5 @@
+#summary convert_to_anxml REST API for the ODT-Transformer
 #labels Phase-Implementation
-#convert_to_anxml REST API for the ODT-Transformer
 
 =/convert_to_anxml=
 
@@ -11,6 +11,7 @@ The following parameters are mandatory for the HTTP post :
   * a custom header with the name "X-Odt-File" containing the name of the input file
 
 It is mandatory to call TransformerApiSetConvertParams before calling TransformerApiConvertToAnXML
-Return Response
+
+==Return Response==
 
 The API returns an XML message response containing both transformation errors, and transformation output. Transformation errors are returned in a CDATA block under //errors Transformation output is returned in a CDATA block under //output
