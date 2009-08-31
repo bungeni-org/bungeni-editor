@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package org.bungeni.editor.actions.routers;
 
@@ -11,7 +7,7 @@ import org.bungeni.error.BungeniValidatorState;
 
 /**
  *
- * @author undesa
+ * @author Ashok Hariharan
  */
 public class routerCreateBungeniJudgeName_panel extends routerCreateTabularMetadataReference_panel {
     
@@ -28,8 +24,8 @@ public class routerCreateBungeniJudgeName_panel extends routerCreateTabularMetad
         //the subaction value has the reference name.
         //column 3 has the uri (first name, last name , uri)
         //we build the metadata reference using the subaction value and column 3
-        String uriString = (String) vRows.elementAt(2);
-        String fullName = (String) vRows.elementAt(0) + " " + vRows.elementAt(1);
+        String uriString = (String) vRows.elementAt(0);
+        String fullName = (String) vRows.elementAt(2) + " " + vRows.elementAt(1);
         String metaPrefix = theSubAction.action_value();
         String metaName = metaPrefix + ":" + uriString;
         String fullRefString = metaName + ";" + fullName ;
