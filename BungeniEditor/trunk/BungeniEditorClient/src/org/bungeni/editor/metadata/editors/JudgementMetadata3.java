@@ -41,6 +41,8 @@ public class JudgementMetadata3 extends BaseEditorDocMetadataDialog {
     public JudgementMetadata3(){
         super();
         initComponents();
+        btnAddParty.setVisible(false);
+        btnAddJudge.setVisible(false);
     }
     
     @Override
@@ -86,6 +88,7 @@ public class JudgementMetadata3 extends BaseEditorDocMetadataDialog {
           dbReg.Connect();
           QueryResults qr = dbReg.QueryResults(query);
           dbReg.EndConnect();
+          System.out.println("has results = " + qr.hasResults());
           if (qr.hasResults()) {
               String[] columns = qr.getColumns();
               int columnCount = columns.length;
@@ -99,9 +102,8 @@ public class JudgementMetadata3 extends BaseEditorDocMetadataDialog {
           }
         } catch (Exception ex) {
             log.error("getRegistryDataAsTableModel : " + ex.getMessage());
-        } finally {
-            return model;
-        }
+        } 
+       return model;
     }
     
     private void fetchParties(String judgementNo) {
@@ -141,7 +143,8 @@ public class JudgementMetadata3 extends BaseEditorDocMetadataDialog {
     
     
     private void initJudgesTableModel(){
-        TabularMetadataModel model = TabularMetadataLoader.getTabularMetadataTableModel(ooDocument,BUNGENI_JUDGE_META_PREFIX );
+        int[] filterIndices = {0};
+        TabularMetadataModel model = TabularMetadataLoader.getTabularMetadataTableModel(ooDocument,BUNGENI_JUDGE_META_PREFIX, filterIndices );
         DefaultTableModel tblModel = model.tabularModel;
         this.tblJudges.setModel(tblModel);
        // Vector tblModelVector = this.loadJudgesModelFromDocument();
@@ -512,11 +515,12 @@ private void btnAddPartyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 
         
     private void addPartyMetadataVariable(Vector rowData) {
-        String partyId = (String) rowData.elementAt(0);
+        String partyURI = (String) rowData.elementAt(0);
         String partyName = (String) rowData.elementAt(1);
         String partyType = (String) rowData.elementAt(2);
+        String partyId = partyURI.replaceAll("[^a-zA-Z0-9_]", "");
         String metadataVariable = BUNGENI_PARTY_META_PREFIX + partyId;
-        String metadataValue = partyId + "~" + partyName + "~" + partyType;
+        String metadataValue = partyId + "~" + partyURI + "~"  + partyName + "~" + partyType;
         //add metadata variable to model
         docMetaModel.addItem(metadataVariable, metadataValue);
     }
@@ -527,7 +531,11 @@ private void btnAddPartyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         String lastName = (String) rowData.elementAt(1);
         String uri = (String) rowData.elementAt(2);
         String metadataVariable = BUNGENI_JUDGE_META_PREFIX + uri;
-        String metadataValue = firstName + "~" + lastName + "~" + uri;
+        //metadata is stored in the form :
+        //id ~ first name ~ last name ~ uri
+        //is is a shortende duri
+        String sId = uri.replaceAll("[^a-zA-Z0-9_]", "");
+        String metadataValue = sId  + "~" + firstName + "~" + lastName + "~" + uri;
         //add metadata variable to model
         docMetaModel.addItem(metadataVariable, metadataValue);
     }
@@ -546,6 +554,10 @@ private void btnAddPartyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             String metaValue = docMetadataFieldSet.getMetadataValue();
             String[] judgeMetaValues = metaValue.split("~");
             Vector vRow = new Vector(Arrays.asList(judgeMetaValues));
+            //we remove the first column containing judge id
+            //since its an internal reserved value used during translation
+            //it is never shown to the user
+            vRow.remove(0);
             vTableModel.add(vRow);
             //add first name, last name , 
         }
