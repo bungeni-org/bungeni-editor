@@ -1,0 +1,10 @@
+#summary Video Tutorials for the Bungeni Editor
+#labels Featured
+
+==Installing the Bungeni Editor==
+
+ <wiki:video url="http://www.youtube.com/watch?v=EULs0f-kSmo"/>
+
+==Launching the Editor for the first time==
+
+ <wiki:video url="http://www.youtube.com/watch?v=-kcv9M2oioA"/>
