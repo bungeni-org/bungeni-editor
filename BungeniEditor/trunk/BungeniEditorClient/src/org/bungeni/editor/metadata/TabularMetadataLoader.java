@@ -57,9 +57,9 @@ public class TabularMetadataLoader {
             }
         } catch (Exception ex) {
             log.error("fetchDocumentMetadataConfig : " + ex.getMessage());
-        } finally {
-            return returnmeta;
-        }
+        } 
+      return returnmeta;
+        
   }  
     
   public static Vector fetchTabularMetadata(OOComponentHelper ooDocument, String findByPrefix){
@@ -75,6 +75,26 @@ public class TabularMetadataLoader {
             Vector vRow = new Vector(Arrays.asList(judgeMetaValues));
             vTableModel.add(vRow);
             //add first name, last name , 
+        }
+        return vTableModel;
+    }
+
+    public static Vector fetchTabularMetadata(OOComponentHelper ooDocument, String findByPrefix, int[] indices){
+        String findMetaPrefix = findByPrefix.replaceAll(":", "");
+        ArrayList<ooDocMetadataFieldSet> metaObjectByType = ooDocMetadata.getMetadataObjectsByType(ooDocument, findMetaPrefix);
+        Vector vTableModel = new Vector();
+        for (Iterator<ooDocMetadataFieldSet> it = metaObjectByType.iterator(); it.hasNext();) {
+            ooDocMetadataFieldSet docMetadataFieldSet = it.next();
+            String metaName = docMetadataFieldSet.getMetadataName();
+            String metaValue = docMetadataFieldSet.getMetadataValue();
+            //fields are delimited by ~
+            String[] judgeMetaValues = metaValue.split("~");
+            Vector vRow = new Vector(Arrays.asList(judgeMetaValues));
+            for (int filterIndex : indices ) {
+                vRow.remove(filterIndex);
+            }
+            vTableModel.add(vRow);
+            //add first name, last name ,
         }
         return vTableModel;
     }
@@ -100,7 +120,8 @@ public class TabularMetadataLoader {
    */
   public static TabularMetadataModel getTabularMetadataTableModel(OOComponentHelper ooDocument, String findByPrefix) {
         TabularMetadataModel metamodel = new TabularMetadataModel();
-        
+
+        /*
         String findMetaPrefix = findByPrefix.replaceAll(":", "");
         //get column config vector
         DocumentMetadata meta = fetchDocumentMetadataConfig(findMetaPrefix);
@@ -109,10 +130,42 @@ public class TabularMetadataLoader {
         //get thet tabular metadata for the pattern
         Vector vMetadata = fetchTabularMetadata(ooDocument, findMetaPrefix);
         metamodel.dataVector = vMetadata;
-        DefaultTableModel mdl = new DefaultTableModel(vMetadata, vColumnConfig);
+        */
+        int[] filterIndices = {} ; // no filters
+        Vector[] arrMetadata = getMetadataVector(findByPrefix, ooDocument, filterIndices);
+ 
+        DefaultTableModel mdl = new DefaultTableModel(arrMetadata[1], arrMetadata[0]);
         metamodel.tabularModel = mdl;
         return metamodel;
 
+  }
+
+  /**
+   *
+   * @param metaPrefix
+   * @param ooDocument
+   * @return index 0 - column config, 1 - data vector
+   */
+  private static Vector[] getMetadataVector(String metaPrefix, OOComponentHelper ooDocument, int[] filterIndices) {
+        String findMetaPrefix = metaPrefix.replaceAll(":", "");
+        //get column config vector
+        DocumentMetadata meta = fetchDocumentMetadataConfig(findMetaPrefix);
+        Vector vColumnConfig = meta.getTabularConfig();
+        for (int filterIndex : filterIndices) {
+            vColumnConfig.remove(filterIndex);
+        }
+        Vector vMetadata = fetchTabularMetadata(ooDocument, findMetaPrefix, filterIndices);
+        Vector[] vData = {vColumnConfig, vMetadata};
+        return vData;
+  }
+
+  public static TabularMetadataModel getTabularMetadataTableModel(OOComponentHelper ooDocument, String findByPrefix, int[] filterTheseIndices) {
+        TabularMetadataModel metamodel = new TabularMetadataModel();
+        Vector[] arrMetadata = getMetadataVector(findByPrefix, ooDocument, filterTheseIndices);
+   
+        DefaultTableModel mdl = new DefaultTableModel(arrMetadata[1], arrMetadata[0]);
+        metamodel.tabularModel = mdl;
+        return metamodel;
   }
   
 }
