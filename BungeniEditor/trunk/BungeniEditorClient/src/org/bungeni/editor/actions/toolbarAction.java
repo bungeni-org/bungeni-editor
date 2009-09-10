@@ -96,9 +96,10 @@ public class toolbarAction {
             // the below are deprecated fields - and no longer part of the action_settings table
             // this info is fetched instead from the document_section_types tbale
             DocumentSection associatedSection = DocumentSectionsContainer.getDocumentSectionByType(action_section_type);
-
-            action_naming_convention = associatedSection.getSectionNamePrefix();    // (String) safeGet(actionDesc, action_mapping, "ACTION_NAMING_CONVENTION");
-            action_numbering_convention = associatedSection.getSectionNumberingStyle();    // (String) safeGet(actionDesc, action_mapping, "ACTION_NUMBERING_CONVENTION");
+            if (associatedSection != null ) {
+                action_naming_convention = associatedSection.getSectionNamePrefix();    // (String) safeGet(actionDesc, action_mapping, "ACTION_NAMING_CONVENTION");
+                action_numbering_convention = associatedSection.getSectionNumberingStyle();    // (String) safeGet(actionDesc, action_mapping, "ACTION_NUMBERING_CONVENTION");
+            }
         } catch (Exception e) {
             log.debug("error in toolbarAction constructor : " + e.getMessage());
             e.printStackTrace();
