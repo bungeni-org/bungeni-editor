@@ -2,20 +2,8 @@
 
 package org.bungeni.editor.selectors.debaterecord.committees;
 
-import com.sun.star.beans.PropertyValue;
-import com.sun.star.beans.PropertyVetoException;
-import com.sun.star.beans.UnknownPropertyException;
-import com.sun.star.beans.XPropertySet;
-import com.sun.star.container.XIndexAccess;
-import com.sun.star.container.XIndexReplace;
-import com.sun.star.lang.IllegalArgumentException;
-import com.sun.star.lang.IndexOutOfBoundsException;
-import com.sun.star.lang.WrappedTargetException;
-import com.sun.star.style.NumberingType;
-import com.sun.star.text.XParagraphCursor;
-import com.sun.star.text.XText;
-import com.sun.star.text.XTextCursor;
-import com.sun.star.text.XTextRange;
+import com.sun.star.text.XTextSection;
+import com.sun.star.text.XTextViewCursor;
 import java.awt.Component;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -30,12 +18,13 @@ import org.bungeni.db.BungeniRegistryFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.extutils.BungeniEditorProperties;
+import org.bungeni.extutils.CommonStringFunctions;
 import org.bungeni.ooo.OOComponentHelper;
-import org.bungeni.ooo.ooQueryInterface;
+import org.bungeni.ooo.OOComponentHelper;
 
 /**
  *
- * @author  undesa
+ * @author  Ashok Hariharan
  */
 public class Committees extends BaseMetadataPanel {
   private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Committees.class.getName());
@@ -115,7 +104,7 @@ public class Committees extends BaseMetadataPanel {
 
         setName("Form"); // NOI18N
 
-        lbl_SelectCommittee.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        lbl_SelectCommittee.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/committees/Bundle"); // NOI18N
         lbl_SelectCommittee.setText(bundle.getString("Committees.lbl_SelectCommittee.text")); // NOI18N
         lbl_SelectCommittee.setName("lbl_SelectCommittee"); // NOI18N
@@ -154,7 +143,7 @@ public class Committees extends BaseMetadataPanel {
                 .addComponent(lbl_SelectCommittee)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollTabledDocs, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -253,6 +242,7 @@ public class Committees extends BaseMetadataPanel {
     @Override
     public boolean processSelectInsert() {
         // applyBulletedList();
+        markupCommittee();
         return true;
     }
 
@@ -293,10 +283,68 @@ public class Committees extends BaseMetadataPanel {
                 }
             }
         }
-
-
-  
         return bState;
+    }
+
+    class objCommittee {
+        String committeeName ;
+        String committeeUri;
+        objCommittee() {
+            
+        }
+    }
+
+    private static final String BUNGENI_COMMITTEE_META = "BungeniCommittee-";
+    private static final String BUNGENI_COMMITTEE_REF_SEPARATOR = ":";
+    private static final String BUNGENI_COMMITTEE_REF_PREFIX = "sCommitteeRef";
+
+    
+    private void markupCommittee(){
+        //check if selected committee exists in section meta
+        //if it does make reference to it
+        //if it does not added meta for committe and then make reference
+        int nSelectedRow = this.tbl_Committees.getSelectedRow();
+        objCommittee aCommittee = new objCommittee();
+
+        aCommittee.committeeName = (String) tbl_Committees.getValueAt(nSelectedRow, 0);
+        aCommittee.committeeUri = (String) tbl_Committees.getValueAt(nSelectedRow, 1);
+        OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
+
+        XTextSection xCurrentSection = ooDoc.currentSection();
+        HashMap<String,String> sectionMeta = ooDoc.getSectionMetadataAttributes(xCurrentSection);
+        String sMetaReference = BUNGENI_COMMITTEE_META + aCommittee.committeeUri.trim();
+        //check if section meta exists
+        if (sectionMeta.containsKey(sMetaReference)) {
+            //we just add the references
+            String refString = generateReferenceToCommittee(ooDoc, sMetaReference);
+            addCommitteeReference(ooDoc, refString );
+        } else {
+            //we append to section meta
+            //the key is : bungenicommittee-comitte/uri , value = committee name;
+            sectionMeta.put(sMetaReference, aCommittee.committeeName);
+            ooDoc.setSectionMetadataAttributes(xCurrentSection, sectionMeta);
+            //now we add the reference
+            String refString = generateReferenceToCommittee(ooDoc, sMetaReference);
+            addCommitteeReference(ooDoc, refString );
+
+        }
+
+    }
+
+    private String generateReferenceToCommittee (OOComponentHelper ooDoc, String committeeMetaRef) {
+        //name of refernce mark
+        String sRefMark = BUNGENI_COMMITTEE_REF_PREFIX + BUNGENI_COMMITTEE_REF_SEPARATOR + CommonStringFunctions.makeReferenceFriendlyString(committeeMetaRef);
+        int i = 1;
+        String newRefNo  = sRefMark + ";#" +i;
+        while (ooDoc.referenceExists(newRefNo) ) {
+            newRefNo = sRefMark + ";#" + (++i);
+        }
+        return newRefNo;
+    }
+
+    private void addCommitteeReference(OOComponentHelper ooDoc, String referenceString) {
+        XTextViewCursor selCursor = ooDoc.getViewCursor();
+        ooDoc.insertReferenceMark(selCursor, referenceString);
     }
 
     @Override
