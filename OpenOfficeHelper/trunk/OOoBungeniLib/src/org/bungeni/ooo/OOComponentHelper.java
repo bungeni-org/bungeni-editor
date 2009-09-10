@@ -167,8 +167,9 @@ public class OOComponentHelper {
             log.error("getTextDocument " + ex.getMessage());
             log.error("getTextDocument = stacktrace, " + CommonExceptionUtils.getStackTrace(ex));
         } finally {
-            return xTextDoc;
+          
         }
+          return xTextDoc;
     }
 
     /**
@@ -205,8 +206,9 @@ public class OOComponentHelper {
             log.error("createInstance(instanceName=" + instanceName + "); error message follows :"
                       + ex.getLocalizedMessage(), ex);
         } finally {
-            return newInstance;
+            
         }
+        return newInstance;
     }
 
     /**
@@ -223,8 +225,9 @@ public class OOComponentHelper {
         } catch (com.sun.star.uno.Exception ex) {
             log.error(ex.getLocalizedMessage(), ex);
         } finally {
-            return newInstance;
+           
         }
+         return newInstance;
     }
 
     /**
@@ -267,8 +270,9 @@ public class OOComponentHelper {
         } catch (UnknownPropertyException ex) {
             log.error(ex.getLocalizedMessage());
         } finally {
-            return xSectionContent;
+          
         }
+          return xSectionContent;
     }
 
     /**
@@ -309,8 +313,9 @@ public class OOComponentHelper {
         } catch (UnknownPropertyException ex) {
             log.error(ex.getLocalizedMessage());
         } finally {
-            return xSectionContent;
+           
         }
+         return xSectionContent;
     }
 
     /**
@@ -361,8 +366,9 @@ public class OOComponentHelper {
         } catch (WrappedTargetException ex) {
             log.error("createTextSection (graphic = " + backGraphicURL + ")" + ex.getMessage());
         } finally {
-            return xSectionContent;
+          
         }
+          return xSectionContent;
     }
 
     /**
@@ -380,8 +386,9 @@ public class OOComponentHelper {
         } catch (com.sun.star.lang.IllegalArgumentException ex) {
             log.error("addViewSection:" + ex.getMessage());
         } finally {
-            return xSectionContent;
+          
         }
+          return xSectionContent;
     }
 
     /**
@@ -400,8 +407,9 @@ public class OOComponentHelper {
         } catch (com.sun.star.lang.IllegalArgumentException ex) {
             log.debug("addViewSection:" + ex.getMessage());
         } finally {
-            return xSectionContent;
+           
         }
+         return xSectionContent;
     }
 
     /**
@@ -628,8 +636,10 @@ public class OOComponentHelper {
               * }
               */
         finally {
-            return metadata;
+          
         }
+
+          return metadata;
     }
 
     /**
@@ -771,8 +781,9 @@ public class OOComponentHelper {
         } catch (WrappedTargetException ex) {
             log.error(ex.getLocalizedMessage(), ex);
         } finally {
-            return value;
+            
         }
+        return value;
     }
 
     /**
@@ -795,8 +806,9 @@ public class OOComponentHelper {
             log.error("getTextSections = " + ex.getMessage());
             log.error("getTextSections , stacktrace = " + CommonExceptionUtils.getStackTrace(ex));
         } finally {
-            return xNamedSections;
+            
         }
+        return xNamedSections;
     }
 
     /**
@@ -817,8 +829,9 @@ public class OOComponentHelper {
             log.error("hasSection = " + ex.getMessage());
             log.error("hasSection, stackTrace = " + CommonExceptionUtils.getStackTrace(ex));
         } finally {
-            return bResult;
+          
         }
+          return bResult;
     }
 
     /**
@@ -936,8 +949,9 @@ public class OOComponentHelper {
         } catch (UnknownPropertyException ex) {
             log.error("curentSection :  " + ex.getMessage());
         } finally {
-            return currentSection;
+            
         }
+        return currentSection;
     }
 
     /**
@@ -970,8 +984,9 @@ public class OOComponentHelper {
             log.error("currentSectionName:" + poException.getLocalizedMessage());
             log.error("currentSectionName : " + CommonExceptionUtils.getStackTrace(poException));
         } finally {
-            return lstrSectionName;
+           
         }
+         return lstrSectionName;
     }
 
     /**
@@ -1025,8 +1040,9 @@ public class OOComponentHelper {
         } catch (Exception ex) {
             log.error("getSingleSelectionCursor: " + ex.getMessage());
         } finally {
-            return rangeMap;
+           
         }
+         return rangeMap;
     }
 
     /**
@@ -1197,8 +1213,9 @@ public class OOComponentHelper {
         } catch (UnknownPropertyException ex) {
             log.error("getAttributeContainer:" + ex.getLocalizedMessage());
         } finally {
-            return attributeContainer;
+            
         }
+        return attributeContainer;
     }
 
     /**
@@ -1612,8 +1629,9 @@ public class OOComponentHelper {
         } catch (WrappedTargetException ex) {
             log.error(ex.getMessage());
         } finally {
-            return isProtected;
+           
         }
+         return isProtected;
     }
 
     /**
@@ -1631,8 +1649,9 @@ public class OOComponentHelper {
         } catch (NoSuchElementException ex) {
             log.error(ex.getMessage());
         } finally {
-            return section;
+           
         }
+         return section;
     }
 
     /**
@@ -1712,8 +1731,9 @@ public class OOComponentHelper {
         } catch (NoSuchElementException ex) {
             log.error(ex.getMessage());
         } finally {
-            return matching;
+           
         }
+         return matching;
     }
 
     /**
@@ -1779,8 +1799,9 @@ public class OOComponentHelper {
         } catch (NoSuchElementException ex) {
             log.error(ex.getMessage());
         } finally {
-            return matching;
+    
         }
+                return matching;
     }
 
     /**
@@ -1806,8 +1827,9 @@ public class OOComponentHelper {
         } catch (Exception ex) {
             log.error(ex.getMessage());
         } finally {
-            return matching;
+          
         }
+          return matching;
     }
 
     /**
@@ -1874,6 +1896,11 @@ public class OOComponentHelper {
         }
 
         return null;
+    }
+
+
+    public boolean referenceExists(String refName ) {
+        return getReferenceMarks().hasByName(refName);
     }
 
     /**
@@ -2035,8 +2062,9 @@ public class OOComponentHelper {
         } catch (WrappedTargetException ex) {
             log.error(ex.getClass().getName() + " " + ex.getMessage());
         } finally {
-            return selectedTextStyle;
+            
         }
+        return selectedTextStyle;
     }
 
     /**
@@ -2090,8 +2118,9 @@ public class OOComponentHelper {
             log.error(ex.getClass().getName() + " " + ex.getMessage());
             bState = false;
         } finally {
-            return bState;
+           
         }
+         return bState;
     }
 
     /**
@@ -2139,8 +2168,9 @@ public class OOComponentHelper {
         } catch (UnknownPropertyException ex) {
             log.error(ex.getMessage());
         } finally {
-            return strTitle;
+         
         }
+           return strTitle;
     }
 
     /**
@@ -2172,8 +2202,9 @@ public class OOComponentHelper {
             log.debug("getTextFieldByName :(" + ex.getClass().getName() + ") " + ex.getMessage());
             log.debug("getTextFieldByName : " + CommonExceptionUtils.getStackTrace(ex));
         } finally {
-            return returnField;
+       
         }
+             return returnField;
     }
 
     /**
@@ -2234,8 +2265,9 @@ public class OOComponentHelper {
         } catch (UnknownPropertyException ex) {
             log.error("setPageColumns : " + ex.getClass().getName() + " -- " + ex.getMessage());
         } finally {
-            return columns;
+           
         }
+         return columns;
     }
 
     /**
@@ -2297,8 +2329,9 @@ public class OOComponentHelper {
             log.error("openExistingDocument : " + ex.getMessage());
             log.error("openExistingDocument : " + CommonExceptionUtils.getStackTrace(ex));
         } finally {
-            return xComponent;
+
         }
+        return xComponent;
     }
 
     /**
@@ -2332,8 +2365,9 @@ public class OOComponentHelper {
             log.error("openExistingDocument : " + ex.getMessage());
             log.error("openExistingDocument : " + CommonExceptionUtils.getStackTrace(ex));
         } finally {
-            return xComponent;
+          
         }
+          return xComponent;
     }
 
     /**
@@ -2427,8 +2461,9 @@ public class OOComponentHelper {
         } catch (Exception ex) {
             log.error("getBookmarks : " + ex.getMessage());
         } finally {
-            return bookNameAccess;
+           
         }
+         return bookNameAccess;
     }
 
     public String loadGraphic(String urlToGraphic) {
@@ -2450,8 +2485,9 @@ public class OOComponentHelper {
         } catch (WrappedTargetException ex) {
             log.error("loadGraphic : " + urlToGraphic + " " + ex.getMessage());
         } finally {
-            return graphicURL;
+          
         }
+          return graphicURL;
     }
 
     private String randomString() {
@@ -2477,8 +2513,9 @@ public class OOComponentHelper {
         } catch (Exception ex) {
             log.error("deleteBookmark :" + ex.getMessage());
         } finally {
-            return bState;
+           
         }
+         return bState;
     }
 
     /**
@@ -2515,8 +2552,9 @@ public class OOComponentHelper {
         } catch (Exception ex) {
             log.error("newDocument : " + ex.getMessage());
         } finally {
-            return xComponent;
+            
         }
+        return xComponent;
     }
 
     /**
@@ -2544,8 +2582,9 @@ public class OOComponentHelper {
             log.error("openExistingDocument : " + ex.getMessage());
             log.error("openExistingDocument : " + CommonExceptionUtils.getStackTrace(ex));
         } finally {
-            return xComponent;
+      
         }
+              return xComponent;
     }
 
     /**
