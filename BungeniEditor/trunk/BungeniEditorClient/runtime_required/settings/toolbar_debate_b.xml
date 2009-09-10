@@ -63,7 +63,7 @@
 		<action name="Motions.new" title="Add Motion" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMotionBlockSectionEdit.section_creation" visible="true" condition="textSelected:true :and: cursorInSection:noticesmotion[0-9]*" />
 		<action name="Motions.heading" title="---- Heading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMotionBlockSection.markup_motion_title:heading_motion" visible="true" condition="textSelected:true :and: cursorInSection:noticeofmotion[0-9]*" />
 		<action name="Motions.subheading" title="---- -- SubHeading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMotionBlockSection.markup_motion_title:subheading_motion" visible="true" condition="textSelected:true :and: cursorInSection:noticeofmotion[0-9]*" />
-		<action name="Motions.markCommittee" title="Mark Committee" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDebateMotionBlockSection.markup_committee" visible="true" condition="textSelected:true :and: cursorInSection:noticeofmotion[0-9]*" />
+		<action name="Motions.markCommittee" title="Mark Committee" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeSelectCommittee.markup_committee" visible="true" condition="textSelected:true :and: cursorInSection:noticeofmotion[0-9]*" />
 	 </blockAction>        
 
 	    <blockAction name="Procedural Motions" title="Procedural Motions" target="null" visible="true" condition="none">
