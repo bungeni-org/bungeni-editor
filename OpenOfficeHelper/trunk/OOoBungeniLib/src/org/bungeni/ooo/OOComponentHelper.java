@@ -2557,6 +2557,27 @@ public class OOComponentHelper {
         return xComponent;
     }
 
+
+    /**
+     * Create a reference mark over the cursor seletion
+     * @param thisCursor - the cursor over which to insert
+     * @param referenceName - the reference name
+     */
+   public void insertReferenceMark (XTextCursor thisCursor, String referenceName ) {
+        //create reference mark instance
+       Object referenceMark = this.createInstance("com.sun.star.text.ReferenceMark");
+       XNamed xRefMark = ooQueryInterface.XNamed(referenceMark);
+       //set the name for the reference mark
+       xRefMark.setName(referenceName);
+       XTextContent xContent = ooQueryInterface.XTextContent(xRefMark);
+       try {
+            //set the reference over the cursor range.
+            thisCursor.getText().insertTextContent(thisCursor, xContent, true);
+       } catch (Exception ex) {
+           log.error("insertReferenceMark :" + ex.getMessage());
+       }
+   }
+
     /**
      *
      * @param documentPath
