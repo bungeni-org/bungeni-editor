@@ -15,12 +15,20 @@ public class CommonStringFunctions {
          return s.replaceAll("[^a-zA-Z0-9]", ""); 
       }
 
+      public static String stripNonAlphanumeric(String s, String sExcept) {
+         return s.replaceAll("[^a-zA-Z0-9"+ "\\"+ sExcept + "]", "");
+      }
+
     public static String convertUriForAttrUsage(String s) {
          return s.replaceAll("[/]", ".");
       }
 
     public static String makeReferenceFriendlyString(String s) {
         return stripNonAlphanumeric(s);
+    }
+
+    public static String makeReferenceFriendlyString(String s, String excl) {
+        return stripNonAlphanumeric(s, excl);
     }
     
     public static boolean emptyOrNull(String s) {
@@ -30,7 +38,7 @@ public class CommonStringFunctions {
     }
 
     public static void main (String[] args) {
-        String s = "/uri/ken/str";
-        System.out.println(CommonStringFunctions.convertUriForAttrUsage(s));
+        String s = "/uri/ken/str.name";
+        System.out.println(CommonStringFunctions.makeReferenceFriendlyString(s, "."));
     }
 }
