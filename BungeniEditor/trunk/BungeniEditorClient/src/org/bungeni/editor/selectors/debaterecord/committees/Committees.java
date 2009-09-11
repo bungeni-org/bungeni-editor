@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.Vector;
 import javax.swing.AbstractButton;
 import javax.swing.table.DefaultTableModel;
@@ -294,7 +295,7 @@ public class Committees extends BaseMetadataPanel {
         }
     }
 
-    private static final String BUNGENI_COMMITTEE_META = "BungeniCommittee-";
+    private static final String BUNGENI_COMMITTEE_META = "BungeniCommittee.";
     private static final String BUNGENI_COMMITTEE_REF_SEPARATOR = ":";
     private static final String BUNGENI_COMMITTEE_REF_PREFIX = "sCommitteeRef";
 
@@ -312,19 +313,34 @@ public class Committees extends BaseMetadataPanel {
 
         XTextSection xCurrentSection = ooDoc.currentSection();
         HashMap<String,String> sectionMeta = ooDoc.getSectionMetadataAttributes(xCurrentSection);
-        String sMetaReference = BUNGENI_COMMITTEE_META + aCommittee.committeeUri.trim();
+        String sMetaValue = aCommittee.committeeName + ";" + aCommittee.committeeUri;
+        //String sMetaReference = BUNGENI_COMMITTEE_META + CommonStringFunctions.convertUriForAttrUsage(aCommittee.committeeUri.trim());
         //check if section meta exists
-        if (sectionMeta.containsKey(sMetaReference)) {
+        if (sectionMeta.containsValue(sMetaValue)) {
             //we just add the references
-            String refString = generateReferenceToCommittee(ooDoc, sMetaReference);
+            //get key for value
+            String foundKey = "";
+            Set<String> committeeKeys = sectionMeta.keySet();
+            for (String sCommittee : committeeKeys) {
+                String commValue = sectionMeta.get(sCommittee);
+                if (commValue.trim().equals(sMetaValue)) {
+                    foundKey = sCommittee;
+                    break;
+                }
+            }
+            String refString = generateReferenceToCommittee(ooDoc, foundKey);
             addCommitteeReference(ooDoc, refString );
         } else {
             //we append to section meta
             //the key is : bungenicommittee-comitte/uri , value = committee name;
-            sectionMeta.put(sMetaReference, aCommittee.committeeName);
+            int i = 1;
+            while (sectionMeta.containsKey(BUNGENI_COMMITTEE_META + i)) {
+                i++;
+            }
+            sectionMeta.put(BUNGENI_COMMITTEE_META + i, sMetaValue);
             ooDoc.setSectionMetadataAttributes(xCurrentSection, sectionMeta);
             //now we add the reference
-            String refString = generateReferenceToCommittee(ooDoc, sMetaReference);
+            String refString = generateReferenceToCommittee(ooDoc, BUNGENI_COMMITTEE_META + i);
             addCommitteeReference(ooDoc, refString );
 
         }
@@ -333,7 +349,7 @@ public class Committees extends BaseMetadataPanel {
 
     private String generateReferenceToCommittee (OOComponentHelper ooDoc, String committeeMetaRef) {
         //name of refernce mark
-        String sRefMark = BUNGENI_COMMITTEE_REF_PREFIX + BUNGENI_COMMITTEE_REF_SEPARATOR + CommonStringFunctions.makeReferenceFriendlyString(committeeMetaRef);
+        String sRefMark = BUNGENI_COMMITTEE_REF_PREFIX + BUNGENI_COMMITTEE_REF_SEPARATOR + CommonStringFunctions.makeReferenceFriendlyString(committeeMetaRef, ".");
         int i = 1;
         String newRefNo  = sRefMark + ";#" +i;
         while (ooDoc.referenceExists(newRefNo) ) {
