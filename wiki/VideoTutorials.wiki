@@ -8,3 +8,7 @@
 ==Launching the Editor for the first time==
 
  <wiki:video url="http://www.youtube.com/watch?v=-kcv9M2oioA"/>
+
+==Introduction to markup using the Bungeni Editor==
+
+ <wiki:video url=http://www.youtube.com/watch?v=6PUhVMdSNhk" />
