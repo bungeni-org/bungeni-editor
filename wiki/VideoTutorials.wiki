@@ -1,6 +1,8 @@
 #summary Video Tutorials for the Bungeni Editor
 #labels Featured
 
+<wiki:toc max_depth="1" />
+
 ==Installing the Bungeni Editor==
 
  <wiki:video url="http://www.youtube.com/watch?v=EULs0f-kSmo"/>
