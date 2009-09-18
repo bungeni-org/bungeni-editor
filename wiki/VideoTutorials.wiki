@@ -1,7 +1,7 @@
 #summary Video Tutorials for the Bungeni Editor
 #labels Featured
 
-<wiki:toc max_depth="1" />
+<wiki:toc max_depth="4" />
 
 ==Installing the Bungeni Editor==
 
