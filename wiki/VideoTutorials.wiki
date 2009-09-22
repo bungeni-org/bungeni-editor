@@ -7,12 +7,16 @@
 
  <wiki:video url="http://www.youtube.com/watch?v=EULs0f-kSmo"/>
 
- [http://www.youtube.com/watch?v=EULs0f-kSmo&fmt=22 Click here for HD video]
+ [http://www.youtube.com/watch?v=EULs0f-kSmo&fmt=22 Click here for Fullscreen HD video]
 
 ==Launching the Editor for the first time==
 
  <wiki:video url="http://www.youtube.com/watch?v=-kcv9M2oioA"/>
 
+ [http://www.youtube.com/watch?v=-kcv9M2oioA&fmt=22 Click here for Fullscreen HD video]
+
 ==Introduction to markup using the Bungeni Editor==
 
  <wiki:video url=http://www.youtube.com/watch?v=6PUhVMdSNhk" />
+
+ [http://www.youtube.com/watch?v=6PUhVMdSNhk&fmt=22 Click here for Fullscreen HD video]
