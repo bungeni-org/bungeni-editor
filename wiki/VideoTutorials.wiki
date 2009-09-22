@@ -5,7 +5,7 @@
 
 ==Installing the Bungeni Editor==
 
- <wiki:video url="http://www.youtube.com/watch?v=EULs0f-kSmo"/>
+ <wiki:video url="http://www.youtube.com/watch?v=EULs0f-kSmo&fmt=22"/>
 
 ==Launching the Editor for the first time==
 
