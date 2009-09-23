@@ -2,6 +2,8 @@ package org.bungeni.ooo;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -2065,6 +2067,31 @@ public class OOComponentHelper {
             
         }
         return selectedTextStyle;
+    }
+
+    public boolean setStyleOverCursor(String styleName, XTextCursor xCursor) {
+       boolean bState = true;
+       XTextRange cursorRange = ooQueryInterface.XTextRange(xCursor);
+       XPropertySet     rangeProps = ooQueryInterface.XPropertySet(cursorRange);
+       XPropertySetInfo xPropsInfo = rangeProps.getPropertySetInfo();
+       if (xPropsInfo.hasPropertyByName("ParaStyleName")) {
+            try {
+                rangeProps.setPropertyValue("ParaStyleName", styleName);
+            } catch (UnknownPropertyException ex) {
+                bState = false;
+                log.error("setStyleOverCursor :  "+ ex.getMessage());
+            } catch (PropertyVetoException ex) {
+                bState = false;
+                log.error("setStyleOverCursor :  "+ ex.getMessage());
+            } catch (IllegalArgumentException ex) {
+                bState = false;
+                log.error("setStyleOverCursor :  "+ ex.getMessage());
+            } catch (WrappedTargetException ex) {
+                bState = false;
+                    log.error("setStyleOverCursor :  "+ ex.getMessage());
+            }
+       }
+       return bState;
     }
 
     /**
