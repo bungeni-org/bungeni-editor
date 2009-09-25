@@ -25,8 +25,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Properties;
 import java.util.Vector;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -124,6 +127,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         this.editorAppTabbedPane.remove(this.tabAbout);
         this.editorAppTabbedPane.remove(this.tabTemplates);
         this.editorAppTabbedPane.remove(this.tabWorkspace);
+
     }
 
     public void init() {
@@ -140,6 +144,20 @@ public class editorApplicationController extends javax.swing.JPanel {
         initPanels(dir);
         //initWebDav();
         initDataReader();
+        initLaunchLabels();
+    }
+
+    private void initLaunchLabels() {
+
+        try {
+            Properties props = new Properties();
+            props.load(getClass().getResourceAsStream("/version.properties"));
+            String versionInfo = (String) props.get("version");
+            replaceTextinLabel(lblApplnTitle, versionInfo);
+        } catch (IOException ex) {
+           log.error("unable to load version info :" , ex);
+        }
+        
     }
 
     class ODTFileFilter extends FileFilter {
