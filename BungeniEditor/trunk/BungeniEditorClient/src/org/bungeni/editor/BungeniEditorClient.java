@@ -1,9 +1,3 @@
-/*
- * BungeniEditorClient.java
- *
- * Created on 2007.04.30 - 10:30:04
- *
- */
 
 package org.bungeni.editor;
 
@@ -12,6 +6,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -20,13 +15,14 @@ import javax.swing.UIManager;
 import org.bungeni.editor.dialogs.editorApplicationController;
 import org.bungeni.editor.interfaces.ui.ILookAndFeel;
 import org.bungeni.editor.ui.LookAndFeelFactory;
+import org.bungeni.extutils.CommonTreeFunctions;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.bungeni.plugins.IEditorPlugin;
 import org.bungeni.plugins.IEditorPluginEventDispatcher;
 
 /**
  *
- * @author Administrator
+ * @author Ashok Hariharan
  */
 public class BungeniEditorClient {
  //   private static XComponentContext m_xContext;
@@ -56,6 +52,8 @@ public class BungeniEditorClient {
       initUI();
         //Instantiate the controlling class.
       frame = new JFrame(__WINDOW_TITLE__);
+      ImageIcon iconApp = CommonTreeFunctions.loadIcon("bungeni-icon.png");
+      frame.setIconImage(iconApp.getImage());
       frame.setResizable(false);
        //force prompting of exit message 
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
