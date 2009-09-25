@@ -136,3 +136,9 @@ The editor logs error and debug messages into the log/logs.txt (path relative to
 === Modifying Editor settings ===
 
 The editor settings can be modified by accesing the configuration database. The configuration database is an embedded java database accessible via the web browser.
+
+== Installation Screencast == 
+
+ <wiki:video url="http://www.youtube.com/watch?v=EULs0f-kSmo"/>
+
+ [http://www.youtube.com/watch?v=EULs0f-kSmo&fmt=22 Click here for Fullscreen HD video]
