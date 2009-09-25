@@ -33,18 +33,21 @@
 	    <blockAction name="Background.selection" tooltip="Background for judgement" title="Background"  target="null" visible="true" condition="none" showChildren="true" >
      	          <subaction name="Background.create" title="Create" visible="true" condition="sectionNotExists:bg* :and: textSelected:true  :and: cursorInSection:judgement" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeBackground.section_creation"/>	
 		  <action name="Background.heading" title="Heading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeBackground.make_background_heading:heading_background" visible="true" condition="textSelected:true :and: cursorInSection:bg[0-9]*" />
- 		  <action name="Background.subheading" title="SubHeading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeBackground.make_background_heading:subheading_background" visible="true" condition="textSelected:true :and: cursorInSection:bg[0-9]*" />
+		  <action name="Background.numheading" title="Mark Numbered Heading" visible="true"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMotivation.make_motivation_numheading:heading_background" condition="textSelected:true :and: cursorInSection:bg[0-9]*" />	   
+		  <action name="Background.subheading" title="SubHeading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeBackground.make_background_heading:subheading_background" visible="true" condition="textSelected:true :and: cursorInSection:bg[0-9]*" />
 	           <subaction name="Background.omissis" title="Mark as Omissis" visible="true" condition="cursorInSection:bg[0-9]* :and: textSelected:true" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeOmissisSection.section_creation"/>	
 	  </blockAction>
     	    <blockAction name="Motivation.selection" tooltip="Motivation for judgement" title="Motivation"  target="null" visible="true" condition="none" showChildren="true" >
      	          <subaction name="Motivation.create" title="Create" visible="true" condition="sectionNotExists:motive* :and: textSelected:true  :and: cursorInSection:judgement" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMotivation.section_creation"/>	
 		  <action name="Motivation.heading" title="Heading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMotivation.make_motivation_heading:heading_motivation" visible="true" condition="textSelected:true :and: cursorInSection:motive[0-9]*" />
- 		  <action name="Motivation.subheading" title="SubHeading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMotivation.make_motivation_heading:subheading_motivation" visible="true" condition="textSelected:true :and: cursorInSection:motive[0-9]*" />
+		  <action name="Motivation.numheading" title="Mark Numbered Heading" visible="true"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMotivation.make_motivation_numheading:heading_motivation" condition="textSelected:true :and: cursorInSection:motive[0-9]*" />	   
+ 		 <action name="Motivation.subheading" title="SubHeading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMotivation.make_motivation_heading:subheading_motivation" visible="true" condition="textSelected:true :and: cursorInSection:motive[0-9]*" />
 	           <subaction name="Motivation.omissis" title="Mark as Omissis" visible="true" condition="cursorInSection:motive[0-9]* :and: textSelected:true" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeOmissisSection.section_creation"/>	
- 	    </blockAction>
+	 </blockAction>
     	    <blockAction name="Decision.selection" tooltip="Decision for judgement" title="Decision"  target="null" visible="true" condition="none" showChildren="true" >
      	          <subaction name="Decision.create" title="Create" visible="true" condition="sectionNotExists:decis* :and: textSelected:true :and: cursorInSection:judgement" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDecision.section_creation"/>	
 		  <action name="Decision.heading" title="Heading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDecision.make_decision_heading:heading_decision" visible="true" condition="textSelected:true :and: cursorInSection:decis[0-9]*" />
+		  <action name="Decision.numheading" title="Mark Numbered Heading" visible="true"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMotivation.make_motivation_numheading:heading_motivation" condition="textSelected:true :and: cursorInSection:decis[0-9]*" />	   
  		  <action name="Decision.subheading" title="SubHeading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeDecision.make_decision_heading:subheading_decision" visible="true" condition="textSelected:true :and: cursorInSection:decis[0-9]*" />
 	           <subaction name="Decision.omissis" title="Mark as Omissis" visible="true" condition="cursorInSection:decis[0-9]* :and: textSelected:true" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeOmissisSection.section_creation"/>	
  	    </blockAction>
