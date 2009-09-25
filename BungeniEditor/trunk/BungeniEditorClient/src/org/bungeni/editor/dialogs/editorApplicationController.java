@@ -3,10 +3,8 @@ package org.bungeni.editor.dialogs;
 import com.sun.star.awt.XWindow;
 import com.sun.star.comp.helper.Bootstrap;
 import com.sun.star.comp.helper.BootstrapException;
-import com.sun.star.frame.XDesktop;
 import com.sun.star.frame.XModel;
 import com.sun.star.lang.XComponent;
-import com.sun.star.lang.XMultiComponentFactory;
 
 import com.sun.star.uno.XComponentContext;
 import java.awt.Component;
@@ -43,6 +41,7 @@ import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
+import org.bungeni.editor.SplashPage;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
@@ -64,7 +63,8 @@ import org.bungeni.utils.WorkspaceFolderTableModel;
  * @author Ashok Hariharan
  */
 public class editorApplicationController extends javax.swing.JPanel {
-    private  XComponentContext m_xContext;
+
+    private XComponentContext m_xContext;
     private java.util.Properties m_propSettings;
     private Installation m_installObject;
     private static String __WINDOW_TITLE__ = "Bungeni Editor Client ";
@@ -73,35 +73,32 @@ public class editorApplicationController extends javax.swing.JPanel {
 
     //path to settings.properties
     private String m_iniFilePath;
-    
     private String m_settings_WorkspacePath;
     private String m_settings_ServerIP;
     private String m_settings_ServerPort;
     private String m_settings_ServerPath;
     private String m_settings_ServerUser;
     private String m_settings_ServerPassword;
-   
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(editorApplicationController.class.getName());
-    private String m_FullWorkspacePath ;
-    private String m_FullTemplatesPath ;
-    private String m_currentTemplate;  
+    private String m_FullWorkspacePath;
+    private String m_FullTemplatesPath;
+    private String m_currentTemplate;
     private String m_currentSelectedWorkspaceFile;
     private String m_settings_CurrentTemplate;
-    private String m_currentMode ;
+    private String m_currentMode;
     private static String normalizedTemplatePath = "";
-           
     private org.bungeni.editor.dialogs.editorTabbedPanel panel = null;
     private String m_FullFilesPath;
     private org.bungeni.ooo.BungenioOoHelper openofficeObject = null;
     private documentType[] m_documentTypes = null;
+
     /**
      * Constructor for editorApplicationController Class
      */
     /*
     public editorApplicationController() {
-        initComponents();
+    initComponents();
     }*/
-    
     /**
      * Main constructor for the class, initializes Panels and oOo environment
      * @param context Openoffice component context
@@ -111,7 +108,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         try {
             m_xContext = Bootstrap.bootstrap();
         } catch (BootstrapException ex) {
-           log.error("editorApplicationController bootstrap : " + ex.getMessage());
+            log.error("editorApplicationController bootstrap : " + ex.getMessage());
         }
         m_FullWorkspacePath = "";
         m_FullTemplatesPath = "";
@@ -125,32 +122,34 @@ public class editorApplicationController extends javax.swing.JPanel {
         this.editorAppTabbedPane.remove(tabSettings);
         this.editorAppTabbedPane.remove(tabServer);
         this.editorAppTabbedPane.remove(this.tabAbout);
-
+        this.editorAppTabbedPane.remove(this.tabTemplates);
+        this.editorAppTabbedPane.remove(this.tabWorkspace);
     }
 
     public void init() {
-        CommonFileFunctions cfsObject=new CommonFileFunctions();
-         m_installObject = new Installation();
-        File dir =Installation.getInstallDirectory(this.getClass());
+        CommonFileFunctions cfsObject = new CommonFileFunctions();
+        m_installObject = new Installation();
+        File dir = Installation.getInstallDirectory(this.getClass());
         //code to read properties file
 
         initDocumentTypesModel();
         initProperties(dir);
-         //init panels
+        //init panels
         initFileTableModels(dir);
         initWorkspaceFolderModels(dir);
         initPanels(dir);
         //initWebDav();
         initDataReader();
     }
-   
- 
+
     class ODTFileFilter extends FileFilter {
 
         @Override
         public boolean accept(File arg0) {
-            if (arg0.isDirectory()) return true;
-       
+            if (arg0.isDirectory()) {
+                return true;
+            }
+
             String extension = getExtension(arg0);
             if (extension.equals("odt")) {
                 return true;
@@ -161,19 +160,19 @@ public class editorApplicationController extends javax.swing.JPanel {
 
         @Override
         public String getDescription() {
-           return "OpenDocument files";
+            return "OpenDocument files";
         }
-        
-        private String getExtension(File fname){
+
+        private String getExtension(File fname) {
             String filename = fname.getName();
             int i = filename.lastIndexOf(".");
-            if (i > 0 && i < filename.length() - 1)
-                return filename.substring(i+1).toLowerCase();
+            if (i > 0 && i < filename.length() - 1) {
+                return filename.substring(i + 1).toLowerCase();
+            }
             return "";
         }
-       
-        
     }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -191,11 +190,8 @@ public class editorApplicationController extends javax.swing.JPanel {
         lblDocumentTypes = new javax.swing.JLabel();
         btnOpenExisting = new javax.swing.JButton();
         lblCurrentActiveMode = new javax.swing.JLabel();
-        btnStartAndAccquire = new javax.swing.JButton();
         lblCreateNewDoc = new javax.swing.JLabel();
         lblOpenCurrentDoc = new javax.swing.JLabel();
-        lblLaunchAndAccquire = new javax.swing.JLabel();
-        btnImportNew = new javax.swing.JButton();
         tabTemplates = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTemplatesList = new javax.swing.JTable();
@@ -262,25 +258,11 @@ public class editorApplicationController extends javax.swing.JPanel {
         lblCurrentActiveMode.setText(bundle.getString("editorApplicationController.lblCurrentActiveMode.text")); // NOI18N
         lblCurrentActiveMode.setOpaque(true);
 
-        btnStartAndAccquire.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
-        btnStartAndAccquire.setText(bundle.getString("editorApplicationController.btnStartAndAccquire.text")); // NOI18N
-
         lblCreateNewDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         lblCreateNewDoc.setText(bundle.getString("editorApplicationController.lblCreateNewDoc.text")); // NOI18N
 
         lblOpenCurrentDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         lblOpenCurrentDoc.setText(bundle.getString("editorApplicationController.lblOpenCurrentDoc.text")); // NOI18N
-
-        lblLaunchAndAccquire.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
-        lblLaunchAndAccquire.setText(bundle.getString("editorApplicationController.lblLaunchAndAccquire.text")); // NOI18N
-
-        btnImportNew.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
-        btnImportNew.setText(bundle.getString("editorApplicationController.btnImportNew.text")); // NOI18N
-        btnImportNew.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnImportNewActionPerformed(evt);
-            }
-        });
 
         org.jdesktop.layout.GroupLayout tabCurrentFileLayout = new org.jdesktop.layout.GroupLayout(tabCurrentFile);
         tabCurrentFile.setLayout(tabCurrentFileLayout);
@@ -305,19 +287,10 @@ public class editorApplicationController extends javax.swing.JPanel {
                             .add(lblDocumentTypes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 245, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .add(250, 250, 250))
                     .add(tabCurrentFileLayout.createSequentialGroup()
-                        .add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(tabCurrentFileLayout.createSequentialGroup()
-                                .add(btnOpenExisting, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(lblOpenCurrentDoc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 418, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(tabCurrentFileLayout.createSequentialGroup()
-                                .add(btnStartAndAccquire, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(lblLaunchAndAccquire, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 311, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(13, Short.MAX_VALUE))
-                    .add(tabCurrentFileLayout.createSequentialGroup()
-                        .add(btnImportNew, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(443, Short.MAX_VALUE))))
+                        .add(btnOpenExisting, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(lblOpenCurrentDoc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 278, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         tabCurrentFileLayout.setVerticalGroup(
             tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -340,16 +313,10 @@ public class editorApplicationController extends javax.swing.JPanel {
                     .add(lblCreateNewDoc, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(createNewDocument, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(btnImportNew, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(4, 4, 4)
-                .add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(btnOpenExisting, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(lblOpenCurrentDoc, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(btnStartAndAccquire, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(lblLaunchAndAccquire, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
-                .add(70, 70, 70))
+                .add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(lblOpenCurrentDoc, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                    .add(btnOpenExisting, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         editorAppTabbedPane.addTab(bundle.getString("editorApplicationController.tabCurrentFile.TabConstraints.tabTitle"), tabCurrentFile); // NOI18N
@@ -379,12 +346,18 @@ public class editorApplicationController extends javax.swing.JPanel {
         tabTemplatesLayout.setHorizontalGroup(
             tabTemplatesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(tabTemplatesLayout.createSequentialGroup()
-                .addContainerGap()
                 .add(tabTemplatesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(lblTemplatePath, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
-                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
-                    .add(lblSelectedTemplate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 367, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, btnSetCurrentTemplate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 191, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(tabTemplatesLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(tabTemplatesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(lblTemplatePath, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 801, Short.MAX_VALUE)
+                            .add(tabTemplatesLayout.createSequentialGroup()
+                                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 422, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(lblSelectedTemplate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 367, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                    .add(tabTemplatesLayout.createSequentialGroup()
+                        .add(223, 223, 223)
+                        .add(btnSetCurrentTemplate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 191, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         tabTemplatesLayout.setVerticalGroup(
@@ -393,12 +366,12 @@ public class editorApplicationController extends javax.swing.JPanel {
                 .addContainerGap()
                 .add(lblTemplatePath)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(lblSelectedTemplate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(21, 21, 21)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 154, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(tabTemplatesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(lblSelectedTemplate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 88, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(btnSetCurrentTemplate)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         editorAppTabbedPane.addTab(bundle.getString("editorApplicationController.tabTemplates.TabConstraints.tabTitle"), tabTemplates); // NOI18N
@@ -430,21 +403,24 @@ public class editorApplicationController extends javax.swing.JPanel {
             .add(tabWorkspaceLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(tabWorkspaceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
-                    .add(lblSelectedFile, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 367, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(tabWorkspaceLayout.createSequentialGroup()
+                        .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 426, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(lblSelectedFile, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 367, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, btnEditWorkspaceDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 197, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .add(149, 149, 149))
         );
         tabWorkspaceLayout.setVerticalGroup(
             tabWorkspaceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(tabWorkspaceLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(lblSelectedFile, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(17, 17, 17)
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 177, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(btnEditWorkspaceDocument)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .add(tabWorkspaceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 96, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(tabWorkspaceLayout.createSequentialGroup()
+                        .add(lblSelectedFile, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(200, 200, 200)
+                        .add(btnEditWorkspaceDocument)))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         editorAppTabbedPane.addTab(bundle.getString("editorApplicationController.tabWorkspace.TabConstraints.tabTitle"), tabWorkspace); // NOI18N
@@ -498,10 +474,10 @@ public class editorApplicationController extends javax.swing.JPanel {
                             .add(tabSettingsLayout.createSequentialGroup()
                                 .add(tabSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(lblServerIP)
-                                    .add(txtServerIp, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE))
+                                    .add(txtServerIp, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE))
                                 .add(28, 28, 28)
                                 .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 62, Short.MAX_VALUE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 23, Short.MAX_VALUE)
                                 .add(tabSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(txtServerPort, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 107, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                     .add(lblServerPort)
@@ -509,14 +485,14 @@ public class editorApplicationController extends javax.swing.JPanel {
                         .add(92, 92, 92))
                     .add(tabSettingsLayout.createSequentialGroup()
                         .add(lblServerHomeDir, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 186, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(467, Short.MAX_VALUE))
+                        .addContainerGap(330, Short.MAX_VALUE))
                     .add(tabSettingsLayout.createSequentialGroup()
-                        .add(txtServerHomeDir, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+                        .add(txtServerHomeDir, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
                         .add(388, 388, 388))))
             .add(tabSettingsLayout.createSequentialGroup()
                 .add(208, 208, 208)
                 .add(btnSaveSettings, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(312, Short.MAX_VALUE))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
         tabSettingsLayout.setVerticalGroup(
             tabSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -549,7 +525,7 @@ public class editorApplicationController extends javax.swing.JPanel {
                     .add(checkBoxConnectOnStartup))
                 .add(31, 31, 31)
                 .add(btnSaveSettings)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         editorAppTabbedPane.addTab(bundle.getString("editorApplicationController.tabSettings.TabConstraints.tabTitle"), tabSettings); // NOI18N
@@ -581,8 +557,8 @@ public class editorApplicationController extends javax.swing.JPanel {
             .add(tabServerLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(tabServerLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(progressServerFiles, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
-                    .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
+                    .add(progressServerFiles, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+                    .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
                     .add(btnBackOneFolder))
                 .addContainerGap())
         );
@@ -595,7 +571,7 @@ public class editorApplicationController extends javax.swing.JPanel {
                 .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 175, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(progressServerFiles, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         editorAppTabbedPane.addTab(bundle.getString("editorApplicationController.tabServer.TabConstraints.tabTitle"), tabServer); // NOI18N
@@ -604,11 +580,11 @@ public class editorApplicationController extends javax.swing.JPanel {
         tabAbout.setLayout(tabAboutLayout);
         tabAboutLayout.setHorizontalGroup(
             tabAboutLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 665, Short.MAX_VALUE)
+            .add(0, 528, Short.MAX_VALUE)
         );
         tabAboutLayout.setVerticalGroup(
             tabAboutLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 300, Short.MAX_VALUE)
+            .add(0, 167, Short.MAX_VALUE)
         );
 
         editorAppTabbedPane.addTab(bundle.getString("editorApplicationController.tabAbout.TabConstraints.tabTitle"), tabAbout); // NOI18N
@@ -620,31 +596,35 @@ public class editorApplicationController extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(lblApplnTitle, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 669, Short.MAX_VALUE)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, editorAppTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 669, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(layout.createSequentialGroup()
+                .add(lblApplnTitle, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 526, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(editorAppTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 532, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(lblApplnTitle, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(editorAppTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 328, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(editorAppTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 195, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditWorkspaceDocumentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditWorkspaceDocumentActionPerformed
 // TODO add your handling code here:
-        
-        //JOptionPane.showMessageDialog(null, m_currentSelectedWorkspaceFile);
-        SwingUtilities.invokeLater(new Runnable(){
-       
-            public void run() {
-                  initoOoAndLaunchFrame(m_currentSelectedWorkspaceFile, false);
-            }
 
+        //JOptionPane.showMessageDialog(null, m_currentSelectedWorkspaceFile);
+        SwingUtilities.invokeLater(new Runnable() {
+
+            public void run() {
+                initoOoAndLaunchFrame(m_currentSelectedWorkspaceFile, false);
+            }
         });
-        
+
     }//GEN-LAST:event_btnEditWorkspaceDocumentActionPerformed
 
     private void btnSetCurrentTemplateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetCurrentTemplateActionPerformed
@@ -653,36 +633,35 @@ public class editorApplicationController extends javax.swing.JPanel {
         FileOutputStream fso;
         try {
             fso = new FileOutputStream(m_iniFilePath);
-        
-        m_propSettings.setProperty("workspace.currenttemplate", currentlySelectedTemplateinTable );
-            m_propSettings.store(fso, "" );
-        }     catch (FileNotFoundException ex){
-             log.debug(m_iniFilePath +" file not found : " + ex.getLocalizedMessage(), ex); 
-          } 
-               catch (IOException ex) {
+
+            m_propSettings.setProperty("workspace.currenttemplate", currentlySelectedTemplateinTable);
+            m_propSettings.store(fso, "");
+        } catch (FileNotFoundException ex) {
+            log.debug(m_iniFilePath + " file not found : " + ex.getLocalizedMessage(), ex);
+        } catch (IOException ex) {
             log.debug(ex.getLocalizedMessage(), ex);
         }
-    
-        
-        
+
+
+
     }//GEN-LAST:event_btnSetCurrentTemplateActionPerformed
 
     private void btnBackOneFolder_Clicked(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackOneFolder_Clicked
         // TODO add your handling code here:
         //
-       WebDavTableModel davModel = (WebDavTableModel) tblServerFiles.getModel();
-        String parentPath="";
+        WebDavTableModel davModel = (WebDavTableModel) tblServerFiles.getModel();
+        String parentPath = "";
         try {
             parentPath = davModel.getParentPath("");
         } catch (java.lang.Exception ex) {
-            if (ex.getMessage().equals("root-reached")){
+            if (ex.getMessage().equals("root-reached")) {
                 log.info("back one folder - root folder was reached");
                 JOptionPane.showMessageDialog(this, "You cannot browser beyond the home folder");
                 return;
             }
         }
-       log.debug("setting path on prev click = "+ parentPath);
-       davModel.setPath(parentPath); 
+        log.debug("setting path on prev click = " + parentPath);
+        davModel.setPath(parentPath);
     }//GEN-LAST:event_btnBackOneFolder_Clicked
 
     private void btnBrowseWorkspacePathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseWorkspacePathActionPerformed
@@ -691,359 +670,359 @@ public class editorApplicationController extends javax.swing.JPanel {
         //Create a file chooser
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        
+
         int nReturnVal = fc.showOpenDialog(this);
-        
+
         if (nReturnVal == JFileChooser.APPROVE_OPTION) {
-                File file = fc.getSelectedFile();
-                //This is where a real application would open the file.
-               //log.info("Opening: " + file.getName() + ".\n");
-               txtWorkspacePath.setText(file.getName());
-            } else {
-                //log.info("Open command cancelled by user.\n");
+            File file = fc.getSelectedFile();
+            //This is where a real application would open the file.
+            //log.info("Opening: " + file.getName() + ".\n");
+            txtWorkspacePath.setText(file.getName());
+        } else {
+            //log.info("Open command cancelled by user.\n");
             }
 
     }//GEN-LAST:event_btnBrowseWorkspacePathActionPerformed
 
     class documentType extends Object {
+
         String docType;
         String typeDesc;
         String templatePath;
-        
+
         @Override
-        public String toString(){
+        public String toString() {
             return typeDesc;
         }
-        
+
         public String templatePathNormalized() {
-               String normalizedPath = templatePath.replace('/', File.separatorChar);
-               normalizedPath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + normalizedPath;       
-               return normalizedPath;
+            String normalizedPath = templatePath.replace('/', File.separatorChar);
+            normalizedPath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + normalizedPath;
+            return normalizedPath;
         }
     }
-    
-    private void initDocumentTypesModel(){
+
+    private void initDocumentTypesModel() {
         documentType[] dtArr = null;
-        BungeniClientDB instance = new BungeniClientDB (DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
-        String query = SettingsQueryFactory.Q_FETCH_ALL_DOCUMENT_TYPES();
+        BungeniClientDB instance = new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
+        String query = SettingsQueryFactory.Q_FETCH_ALL_ACTIVE_DOCUMENT_TYPES();
         instance.Connect();
         QueryResults qr = instance.QueryResults(query);
-        instance.EndConnect();    
+        instance.EndConnect();
         if (qr.hasResults()) {
-              Vector<Vector<String>> resultRows  = new Vector<Vector<String>>();
-              resultRows = qr.theResults();
-              dtArr = new documentType[resultRows.size()];
-              int i=0;
-                for (Vector<String> resultRow: resultRows) {
-                    dtArr[i] = new documentType();
-                    dtArr[i].docType =  qr.getField(resultRow, "DOC_TYPE");
-                    dtArr[i].typeDesc = qr.getField(resultRow, "DESCRIPTION");
-                    dtArr[i].templatePath = qr.getField(resultRow, "TEMPLATE_PATH");
-                    BungeniEditorProperties.setPropertyInMap(dtArr[i].docType+"_template", dtArr[i].templatePathNormalized());
-                    i++;
-                }
+            Vector<Vector<String>> resultRows = new Vector<Vector<String>>();
+            resultRows = qr.theResults();
+            dtArr = new documentType[resultRows.size()];
+            int i = 0;
+            for (Vector<String> resultRow : resultRows) {
+                dtArr[i] = new documentType();
+                dtArr[i].docType = qr.getField(resultRow, "DOC_TYPE");
+                dtArr[i].typeDesc = qr.getField(resultRow, "DESCRIPTION");
+                dtArr[i].templatePath = qr.getField(resultRow, "TEMPLATE_PATH");
+                BungeniEditorProperties.setPropertyInMap(dtArr[i].docType + "_template", dtArr[i].templatePathNormalized());
+                i++;
+            }
         }
-        
+
         if (dtArr != null) {
             this.m_documentTypes = dtArr;
             this.cboDocumentTypes.setModel(new DefaultComboBoxModel(m_documentTypes));
-            cboDocumentTypes.addActionListener(new ActionListener(){
+            cboDocumentTypes.addActionListener(new ActionListener() {
+
                 public void actionPerformed(ActionEvent arg0) {
-                   updateCurrentDocTypeMode();
+                    updateCurrentDocTypeMode();
                 }
             });
         }
-        
+
     }
 
-    private void updateCurrentDocTypeMode(){
-                documentType selectedDocType = (documentType) cboDocumentTypes.getSelectedItem();
-                BungeniEditorProperties.setEditorProperty("activeDocumentMode", selectedDocType.docType);
-                for (documentType dt : m_documentTypes) {
-                    if (dt.docType.equals(selectedDocType.docType)){
-                        setLabelTexts(dt.typeDesc);
-                    }
-                }
+    private void updateCurrentDocTypeMode() {
+        documentType selectedDocType = (documentType) cboDocumentTypes.getSelectedItem();
+        BungeniEditorProperties.setEditorProperty("activeDocumentMode", selectedDocType.docType);
+        for (documentType dt : m_documentTypes) {
+            if (dt.docType.equals(selectedDocType.docType)) {
+                setLabelTexts(dt.typeDesc);
+            }
+        }
     }
 
-    
-    private void initWorkspaceFolderModels(File dirStruct){
-    log.debug("initializing workspace folder");
-    tblWorkspaceFolder.setRowSelectionAllowed(true);
-    tblWorkspaceFolder.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    tblWorkspaceFolder.getSelectionModel().addListSelectionListener(new tblWorkspaceFolderRowListener());
-    
-    String filesFolder = dirStruct.getAbsolutePath()+File.separator+m_settings_WorkspacePath+File.separator+"files";
-    m_FullFilesPath= filesFolder;
+    private void initWorkspaceFolderModels(File dirStruct) {
+        log.debug("initializing workspace folder");
+        tblWorkspaceFolder.setRowSelectionAllowed(true);
+        tblWorkspaceFolder.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tblWorkspaceFolder.getSelectionModel().addListSelectionListener(new tblWorkspaceFolderRowListener());
+
+        String filesFolder = dirStruct.getAbsolutePath() + File.separator + m_settings_WorkspacePath + File.separator + "files";
+        m_FullFilesPath = filesFolder;
 //   m_FullWorkspacePath = dirStruct.getAbsolutePath()+dirStruct.separator+m_settings_WorkspacePath;
-    log.debug("files folder = "+filesFolder);
-    File filesWSFolder = new File(filesFolder);
-    WorkspaceFolderTableModel dirModel = new WorkspaceFolderTableModel(filesWSFolder);
-    tblWorkspaceFolder.setModel(dirModel);
-}
+        log.debug("files folder = " + filesFolder);
+        File filesWSFolder = new File(filesFolder);
+        WorkspaceFolderTableModel dirModel = new WorkspaceFolderTableModel(filesWSFolder);
+        tblWorkspaceFolder.setModel(dirModel);
+    }
 
-private void initFileTableModels(File dirStruct ) {
-     //lblTemplatePath.setText(dirStruct.getAbsolutePath()+m_settings_WorkspacePath+File.separator+"templates");
-       //initialize Table in tab...
-       log.debug("initializing templates list table");
+    private void initFileTableModels(File dirStruct) {
+        //lblTemplatePath.setText(dirStruct.getAbsolutePath()+m_settings_WorkspacePath+File.separator+"templates");
+        //initialize Table in tab...
+        log.debug("initializing templates list table");
         tblTemplatesList.setRowSelectionAllowed(true);
         tblTemplatesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tblTemplatesList.getSelectionModel().addListSelectionListener(new tblTemplatesListRowListener());
-        /*******set up table models******/ 
+        /*******set up table models******/
         // build path to templates file
-        String templatesFolder = dirStruct.getAbsolutePath()+File.separator+m_settings_WorkspacePath+File.separator+"templates";
+        String templatesFolder = dirStruct.getAbsolutePath() + File.separator + m_settings_WorkspacePath + File.separator + "templates";
         m_FullTemplatesPath = templatesFolder;
-        m_FullWorkspacePath = dirStruct.getAbsolutePath()+File.separator+m_settings_WorkspacePath;
-        log.debug("templates folder = "+templatesFolder);
+        m_FullWorkspacePath = dirStruct.getAbsolutePath() + File.separator + m_settings_WorkspacePath;
+        log.debug("templates folder = " + templatesFolder);
         File fileTemplateFolder = new File(templatesFolder);
         FileTableModel dirModel = new FileTableModel(fileTemplateFolder);
         tblTemplatesList.setModel(dirModel);
-        
-        
-}
 
-private void initPanels(File currentDir){
-    //tabSettings.....
 
-    txtServerIp.setText(m_settings_ServerIP);
-    txtServerPort.setText(m_settings_ServerPort);
-    txtServerHomeDir.setText(m_settings_ServerPath);
-    txtWorkspacePath.setText( m_settings_WorkspacePath);
-    lblCurrentDirectory.setText("Current Directory : "+currentDir.getAbsolutePath());
-    m_currentMode = BungeniEditorPropertiesHelper.getCurrentDocType();
-    for (documentType dt : m_documentTypes) {
-        if (dt.docType.equals(m_currentMode)){
+    }
+
+    private void initPanels(File currentDir) {
+        //tabSettings.....
+
+        txtServerIp.setText(m_settings_ServerIP);
+        txtServerPort.setText(m_settings_ServerPort);
+        txtServerHomeDir.setText(m_settings_ServerPath);
+        txtWorkspacePath.setText(m_settings_WorkspacePath);
+        lblCurrentDirectory.setText("Current Directory : " + currentDir.getAbsolutePath());
+        m_currentMode = BungeniEditorPropertiesHelper.getCurrentDocType();
+        for (documentType dt : m_documentTypes) {
+            if (dt.docType.equals(m_currentMode)) {
                 this.cboDocumentTypes.getModel().setSelectedItem(dt);
                 //this.lblCurrentActiveMode.setText("CURRENT : " + dt.typeDesc);
                 setLabelTexts(dt.typeDesc);
                 break;
+            }
         }
     }
-}
 
-private void initWebDav(){
-    //log.info("initialiazing WebDav");
-   // WebDavStore wds = new WebDavStore();
-    m_dav.setConnectionUrl("http://" + m_settings_ServerIP);
-    m_dav.setConnectionPort(new Integer(m_settings_ServerPort));
-    m_dav.setConnectionUsername(m_settings_ServerUser);
-    m_dav.setConnectionPassword(m_settings_ServerPassword);
-    m_dav.setConnectionBaseDirectory(m_settings_ServerPath);
-    
-     m_dav.connect("");
-    
-    /*
-    m_dav.connect("");
-    WebdavResource dav =wds.getResourceHandle();
-    if (dav != null){
+    private void initWebDav() {
+        //log.info("initialiazing WebDav");
+        // WebDavStore wds = new WebDavStore();
+        m_dav.setConnectionUrl("http://" + m_settings_ServerIP);
+        m_dav.setConnectionPort(new Integer(m_settings_ServerPort));
+        m_dav.setConnectionUsername(m_settings_ServerUser);
+        m_dav.setConnectionPassword(m_settings_ServerPassword);
+        m_dav.setConnectionBaseDirectory(m_settings_ServerPath);
+
+        m_dav.connect("");
+
+        /*
+        m_dav.connect("");
+        WebdavResource dav =wds.getResourceHandle();
+        if (dav != null){
         log.info("Successfully connected using Webdav");
         initWebdavTableModel(dav);
-    }
-    else
+        }
+        else
         log.debug("Webdav connection failed...");
-     */
-    initWebdavTableModel();
-}
-
-
-
-private void initWebdavTableModel(){
-    //log.info("initializing webdav table model");
-    Component[] cpx = tabTemplates.getComponents();
-    for (int i=0; i < cpx.length; i++){
-        log.debug("component name = "+ cpx[i].getClass().getName());
+         */
+        initWebdavTableModel();
     }
-    WebDavTableModel davTable = new WebDavTableModel(m_dav, m_settings_ServerPath, tblServerFiles, progressServerFiles);
-    davTable.brains();
-    tblServerFiles.setModel(davTable);
-    tblServerFiles.addMouseListener(new tblServerFilesMouseAdapter());
-}
 
+    private void initWebdavTableModel() {
+        //log.info("initializing webdav table model");
+        Component[] cpx = tabTemplates.getComponents();
+        for (int i = 0; i < cpx.length; i++) {
+            log.debug("component name = " + cpx[i].getClass().getName());
+        }
+        WebDavTableModel davTable = new WebDavTableModel(m_dav, m_settings_ServerPath, tblServerFiles, progressServerFiles);
+        davTable.brains();
+        tblServerFiles.setModel(davTable);
+        tblServerFiles.addMouseListener(new tblServerFilesMouseAdapter());
+    }
 
-private void initProperties(java.io.File currentFolder) {
+    private void initProperties(java.io.File currentFolder) {
         try {
-            String iniFilePath = currentFolder.getAbsolutePath()+File.separator+"settings" +File.separator +"settings.properties";
+            String iniFilePath = currentFolder.getAbsolutePath() + File.separator + "settings" + File.separator + "settings.properties";
             m_iniFilePath = iniFilePath;
-            log.debug("Inifile path ="+ iniFilePath);
+            log.debug("Inifile path =" + iniFilePath);
             FileInputStream fsi = new FileInputStream(iniFilePath);
-            log.debug("no. of bytes available = "+ fsi.available() );
+            log.debug("no. of bytes available = " + fsi.available());
             m_propSettings.load(fsi);
-            if (m_propSettings.isEmpty()) { log.debug("Empty Settings");}
-            else { log.debug( "size is = " + m_propSettings.size()); }
+            if (m_propSettings.isEmpty()) {
+                log.debug("Empty Settings");
+            } else {
+                log.debug("size is = " + m_propSettings.size());
+            }
             String firstLaunch = "";
-            log.debug("First Launch = "+m_propSettings.getProperty("firstlaunch"));
+            log.debug("First Launch = " + m_propSettings.getProperty("firstlaunch"));
             firstLaunch = m_propSettings.getProperty("firstlaunch");
-            m_settings_WorkspacePath=m_propSettings.getProperty("workspace.folder");
-            m_settings_ServerIP=m_propSettings.getProperty("server.ip");
-            m_settings_ServerPort=m_propSettings.getProperty("server.port");
-            m_settings_ServerPath=m_propSettings.getProperty("server.path");
-            m_settings_ServerUser=m_propSettings.getProperty("server.user");
-            m_settings_ServerPassword=m_propSettings.getProperty("server.password");
+            m_settings_WorkspacePath = m_propSettings.getProperty("workspace.folder");
+            m_settings_ServerIP = m_propSettings.getProperty("server.ip");
+            m_settings_ServerPort = m_propSettings.getProperty("server.port");
+            m_settings_ServerPath = m_propSettings.getProperty("server.path");
+            m_settings_ServerUser = m_propSettings.getProperty("server.user");
+            m_settings_ServerPassword = m_propSettings.getProperty("server.password");
             m_settings_CurrentTemplate = m_propSettings.getProperty("workspace.currenttemplate");
-            
-            log.debug(" all 4 settings variables "+ m_settings_WorkspacePath  + ", " + m_settings_ServerIP+ ","+ m_settings_ServerPort);
-            
+
+            log.debug(" all 4 settings variables " + m_settings_WorkspacePath + ", " + m_settings_ServerIP + "," + m_settings_ServerPort);
+
         } catch (IOException ex) {
             //log.error(ex.getMessage(), ex);
             }
 
-}
+    }
+    public static int OPENOFFICE_HEIGHT_OFFSET = 60;
 
-public static int OPENOFFICE_HEIGHT_OFFSET =60;
+    private void initFrame(XComponent component) {
+        BungeniFrame frame = new BungeniFrame("Control Panel");
+        //set the dimensions for the frame;
+        frame.setSize(270, 655);
+        //frame position information
+        //position frame
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension windowSize = frame.getSize();
+        log.debug("screen size = " + screenSize);
+        log.debug("window size = " + windowSize);
 
-private void initFrame(XComponent component){
-            BungeniFrame frame = new BungeniFrame("Control Panel");
-            //set the dimensions for the frame;
-            frame.setSize(270, 655);
-            //frame position information
-            //position frame
-            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            Dimension windowSize = frame.getSize();
-            log.debug("screen size = "+ screenSize);
-            log.debug("window size = "+ windowSize);
-            
-            int windowX = 5; //Math.max(0, (screenSize.width  - windowSize.width));
-            int windowY = Math.max(0, (screenSize.height - windowSize.height) / 2) + OPENOFFICE_HEIGHT_OFFSET;
-            WINDOW_X = windowX;
-            WINDOW_Y = windowY;
-            
-            XModel xModel = ooQueryInterface.XModel(component);
-            XWindow xCompWindow = xModel.getCurrentController().getFrame().getComponentWindow();
-            XWindow xContWindow = xModel.getCurrentController().getFrame().getContainerWindow();
-            com.sun.star.awt.Rectangle rSize = xCompWindow.getPosSize();
-            com.sun.star.awt.Rectangle rContSize = xContWindow.getPosSize();
-            int coordX = rSize.X + rContSize.X;
-            int coordY =  rContSize.Y + rSize.Y + 40;
-            
-            editorTabbedPanel.coordX = coordX;
-            editorTabbedPanel.coordY = coordY;
-            
-            panel = new org.bungeni.editor.dialogs.editorTabbedPanel(component, this.openofficeObject, frame);
-            //panel.setOOoHelper(this.openofficeObject);
-           // frame.removeMinMaxClose();
-          
-            frame.add(panel);
-            WindowListener tabbedPanelListener = new WindowAdapter(){
-                @Override
-                   public void windowClosing(WindowEvent e) {
-                        WindowEvent we = new WindowEvent(parentFrame, WindowEvent.WINDOW_CLOSING);
-                        parentFrame.dispatchEvent(we);
-                    }
+        int windowX = 5; //Math.max(0, (screenSize.width  - windowSize.width));
+        int windowY = Math.max(0, (screenSize.height - windowSize.height) / 2) + OPENOFFICE_HEIGHT_OFFSET;
+        WINDOW_X = windowX;
+        WINDOW_Y = windowY;
 
-                @Override
-                    public void windowDeiconified(WindowEvent e) {
-                            panel.bringEditorWindowToFront();
-                            //deiconize all floating panels
-                            HashMap<String,org.bungeni.editor.panels.impl.IFloatingPanel> panelMap = panel.getFloatingPanelMap();
-                            java.util.Iterator<String> iterPanels = panelMap.keySet().iterator();
-                            while (iterPanels.hasNext()) {
-                                final org.bungeni.editor.panels.impl.IFloatingPanel p = panelMap.get(iterPanels.next());
-                                SwingUtilities.invokeLater(new Runnable(){
-                                public void run() {
-                                        JFrame fr= p.getParentWindowHandle();
-                                        System.out.println("maximizing  other window");
-                                        fr.setExtendedState(JFrame.NORMAL);
-                                        fr.setVisible(true);
-                                }
+        XModel xModel = ooQueryInterface.XModel(component);
+        XWindow xCompWindow = xModel.getCurrentController().getFrame().getComponentWindow();
+        XWindow xContWindow = xModel.getCurrentController().getFrame().getContainerWindow();
+        com.sun.star.awt.Rectangle rSize = xCompWindow.getPosSize();
+        com.sun.star.awt.Rectangle rContSize = xContWindow.getPosSize();
+        int coordX = rSize.X + rContSize.X;
+        int coordY = rContSize.Y + rSize.Y + 40;
 
-                                });
-                            }
-                        }
+        editorTabbedPanel.coordX = coordX;
+        editorTabbedPanel.coordY = coordY;
 
-                @Override
-                        public void windowIconified(WindowEvent e) {
-                            System.out.println("panel minimized....");
-                            HashMap<String,org.bungeni.editor.panels.impl.IFloatingPanel> panelMap = panel.getFloatingPanelMap();
-                            java.util.Iterator<String> iterPanels = panelMap.keySet().iterator();
-                            while (iterPanels.hasNext()) {
-                                final org.bungeni.editor.panels.impl.IFloatingPanel p = panelMap.get(iterPanels.next());
-                                SwingUtilities.invokeLater(new Runnable(){
-                                    public void run() {
-                                        JFrame fr= p.getParentWindowHandle();
-                                        System.out.println("minimizing other window");
-                                        fr.setExtendedState(JFrame.ICONIFIED);
-                                        fr.setVisible(false);                                }
-                                });
+        panel = new org.bungeni.editor.dialogs.editorTabbedPanel(component, this.openofficeObject, frame);
+        //panel.setOOoHelper(this.openofficeObject);
+        // frame.removeMinMaxClose();
 
-                            }
+        frame.add(panel);
+        WindowListener tabbedPanelListener = new WindowAdapter() {
 
-                        }
-            };
-            frame.addWindowListener(tabbedPanelListener);
-            //frame.setSize(243, 650);
-            frame.setResizable(false);
-            frame.setAlwaysOnTop(true);
-            frame.setVisible(true);
-            //prevent closing of main editor panel
-            frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-            frame.setLocation(editorTabbedPanel.coordX, editorTabbedPanel.coordY);
-            //frame.setLocation(windowX, windowY );  // Don't use "f." inside constructor.
-}
-
-private static int WINDOW_X = 0;
-private static int WINDOW_Y = 0;
-
-public static Point getFrameWindowDimension(){
-    return new Point(WINDOW_X, WINDOW_Y);
-}
-
-
-
-private void initoOoAndLaunchFrame(String templatePath, boolean isTemplate){
-            openofficeObject = new org.bungeni.ooo.BungenioOoHelper(m_xContext);
-            openofficeObject.initoOo();
-            
-            String templateURL = BungenioOoHelper.convertPathToURL(templatePath);
-            XComponent xComponent;
-            log.debug("template URL= "+ templateURL);
-            if (isTemplate) {
-                xComponent = openofficeObject.newDocument(templateURL);
-                initMeta(xComponent);
+            @Override
+            public void windowClosing(WindowEvent e) {
+                WindowEvent we = new WindowEvent(parentFrame, WindowEvent.WINDOW_CLOSING);
+                parentFrame.dispatchEvent(we);
             }
-            else
-                xComponent = openofficeObject.openDocument(templateURL);
-               initFrame(xComponent);
-              // testFrame(xComponent);
-}
 
-public void testFrame(XComponent xComp){
-     BungeniFrame frame = new BungeniFrame("BungeniEditor Control Panel @@@");
-            //set the dimensions for the frame;
-            frame.setSize(270, 400);
-            //frame position information
-            //position frame
-            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            Dimension windowSize = frame.getSize();
-            log.debug("screen size = "+ screenSize);
-            log.debug("window size = "+ windowSize);
-            
-            int windowX = 5; //Math.max(0, (screenSize.width  - windowSize.width));
-            int windowY = Math.max(0, (screenSize.height - windowSize.height) / 2) + OPENOFFICE_HEIGHT_OFFSET;
-            WINDOW_X = windowX;
-            WINDOW_Y = windowY;
-            XModel xModel = ooQueryInterface.XModel(xComp);
-            XWindow xCompWindow = xModel.getCurrentController().getFrame().getComponentWindow();
-            XWindow xContWindow = xModel.getCurrentController().getFrame().getContainerWindow();
-            com.sun.star.awt.Rectangle rSize = xCompWindow.getPosSize();
-            com.sun.star.awt.Rectangle rContSize = xContWindow.getPosSize();
-            
-            frame.setLocation(rSize.X + rContSize.X, rSize.Y + rContSize.Y + 40);
-            
-            frame.setResizable(false);
-            frame.setAlwaysOnTop(true);
-           //s frame.pack();
-            frame.setVisible(true);
-            //prevent closing of main editor panel
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-}
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+                panel.bringEditorWindowToFront();
+                //deiconize all floating panels
+                HashMap<String, org.bungeni.editor.panels.impl.IFloatingPanel> panelMap = panel.getFloatingPanelMap();
+                java.util.Iterator<String> iterPanels = panelMap.keySet().iterator();
+                while (iterPanels.hasNext()) {
+                    final org.bungeni.editor.panels.impl.IFloatingPanel p = panelMap.get(iterPanels.next());
+                    SwingUtilities.invokeLater(new Runnable() {
 
-private void initMeta(XComponent xComp){
-  LaunchDebateMetadataSetter(xComp);
-}
+                        public void run() {
+                            JFrame fr = p.getParentWindowHandle();
+                            System.out.println("maximizing  other window");
+                            fr.setExtendedState(JFrame.NORMAL);
+                            fr.setVisible(true);
+                        }
+                    });
+                }
+            }
 
-private void LaunchDebateMetadataSetter(XComponent xComp){
-        OOComponentHelper oohc = new OOComponentHelper (xComp, this.m_xContext );
-    
+            @Override
+            public void windowIconified(WindowEvent e) {
+                System.out.println("panel minimized....");
+                HashMap<String, org.bungeni.editor.panels.impl.IFloatingPanel> panelMap = panel.getFloatingPanelMap();
+                java.util.Iterator<String> iterPanels = panelMap.keySet().iterator();
+                while (iterPanels.hasNext()) {
+                    final org.bungeni.editor.panels.impl.IFloatingPanel p = panelMap.get(iterPanels.next());
+                    SwingUtilities.invokeLater(new Runnable() {
+
+                        public void run() {
+                            JFrame fr = p.getParentWindowHandle();
+                            System.out.println("minimizing other window");
+                            fr.setExtendedState(JFrame.ICONIFIED);
+                            fr.setVisible(false);
+                        }
+                    });
+
+                }
+
+            }
+        };
+        frame.addWindowListener(tabbedPanelListener);
+        //frame.setSize(243, 650);
+        frame.setResizable(false);
+        frame.setAlwaysOnTop(true);
+        frame.setVisible(true);
+        //prevent closing of main editor panel
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.setLocation(editorTabbedPanel.coordX, editorTabbedPanel.coordY);
+    //frame.setLocation(windowX, windowY );  // Don't use "f." inside constructor.
+    }
+    private static int WINDOW_X = 0;
+    private static int WINDOW_Y = 0;
+
+    public static Point getFrameWindowDimension() {
+        return new Point(WINDOW_X, WINDOW_Y);
+    }
+
+    private void initoOoAndLaunchFrame(String templatePath, boolean isTemplate) {
+        openofficeObject = new org.bungeni.ooo.BungenioOoHelper(m_xContext);
+        openofficeObject.initoOo();
+
+        String templateURL = BungenioOoHelper.convertPathToURL(templatePath);
+        XComponent xComponent;
+        log.debug("template URL= " + templateURL);
+        if (isTemplate) {
+            xComponent = openofficeObject.newDocument(templateURL);
+            initMeta(xComponent);
+        } else {
+            xComponent = openofficeObject.openDocument(templateURL);
+        }
+        initFrame(xComponent);
+    // testFrame(xComponent);
+    }
+
+    public void testFrame(XComponent xComp) {
+        BungeniFrame frame = new BungeniFrame("BungeniEditor Control Panel @@@");
+        //set the dimensions for the frame;
+        frame.setSize(270, 400);
+        //frame position information
+        //position frame
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension windowSize = frame.getSize();
+        log.debug("screen size = " + screenSize);
+        log.debug("window size = " + windowSize);
+
+        int windowX = 5; //Math.max(0, (screenSize.width  - windowSize.width));
+        int windowY = Math.max(0, (screenSize.height - windowSize.height) / 2) + OPENOFFICE_HEIGHT_OFFSET;
+        WINDOW_X = windowX;
+        WINDOW_Y = windowY;
+        XModel xModel = ooQueryInterface.XModel(xComp);
+        XWindow xCompWindow = xModel.getCurrentController().getFrame().getComponentWindow();
+        XWindow xContWindow = xModel.getCurrentController().getFrame().getContainerWindow();
+        com.sun.star.awt.Rectangle rSize = xCompWindow.getPosSize();
+        com.sun.star.awt.Rectangle rContSize = xContWindow.getPosSize();
+
+        frame.setLocation(rSize.X + rContSize.X, rSize.Y + rContSize.Y + 40);
+
+        frame.setResizable(false);
+        frame.setAlwaysOnTop(true);
+        //s frame.pack();
+        frame.setVisible(true);
+        //prevent closing of main editor panel
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
+
+    private void initMeta(XComponent xComp) {
+        LaunchDebateMetadataSetter(xComp);
+    }
+
+    private void LaunchDebateMetadataSetter(XComponent xComp) {
+        OOComponentHelper oohc = new OOComponentHelper(xComp, this.m_xContext);
+
         if (oohc.propertyExists("__BungeniDocMeta")) {
             String docMetaValue = "";
             try {
@@ -1052,14 +1031,16 @@ private void LaunchDebateMetadataSetter(XComponent xComp){
                 log.error("LaunchDebateMetadataSetter : " + ex.getLocalizedMessage());
             }
             if (docMetaValue.equals("true")) //document already has metadata... 
+            {
                 return;
+            }
         }
-        
+
 
         String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
-     
+
         BungeniFrame frm = new BungeniFrame(docType + " Metadata");
-     /*   IEditorDocMetadataDialog metaDlg = EditorDocMetadataDialogFactory.getInstance(BungeniEditorPropertiesHelper.getCurrentDocType());
+        /*   IEditorDocMetadataDialog metaDlg = EditorDocMetadataDialogFactory.getInstance(BungeniEditorPropertiesHelper.getCurrentDocType());
         metaDlg.initVariables(oohc, frm, SelectorDialogModes.TEXT_EDIT);
         metaDlg.initialize();*/
         MetadataEditorContainer meta = new MetadataEditorContainer(oohc, frm, SelectorDialogModes.TEXT_EDIT);
@@ -1071,254 +1052,228 @@ private void LaunchDebateMetadataSetter(XComponent xComp){
         frm.setVisible(true);
         FrameLauncher.CenterFrame(frm);
         frm.setAlwaysOnTop(true);
-}
+    }
 
-class RunOpenOffice implements Runnable {
+    class RunOpenOffice implements Runnable {
+
         XComponent returnComponent = null;
         boolean isTemplate = false;
         BungenioOoHelper helper;
         String urlToFile;
+
         public RunOpenOffice(BungenioOoHelper obj, String openURL, boolean bState) {
             isTemplate = bState;
             helper = obj;
             urlToFile = openURL;
         }
+
         public void run() {
             try {
-            if (isTemplate)
-                returnComponent = helper.newDocument(urlToFile);
-            else
-                returnComponent = helper.openDocument(urlToFile);
+                if (isTemplate) {
+                    returnComponent = helper.newDocument(urlToFile);
+                } else {
+                    returnComponent = helper.openDocument(urlToFile);
+                }
             } catch (Exception ex) {
                 log.error("RunOpenOffice: run : " + ex.getMessage());
             }
         }
-    
-}
+    }
 
-public void initDataReader(){
+    public void initDataReader() {
+        /**
+        BungeniDataReader rds = new BungeniDataReader();
+        Vector<String[]> vMpData = new Vector<String[]>();
+        vMpData = rds.read("mps.data");
+        System.out.println("size of mp.data = "+ vMpData.size());
 
-/**
-     BungeniDataReader rds = new BungeniDataReader();
-    Vector<String[]> vMpData = new Vector<String[]>();
-    vMpData = rds.read("mps.data");
-    System.out.println("size of mp.data = "+ vMpData.size());
+         *
+         */
+    }
 
- *
- */
-}
+    private void replaceTextinLabel(JLabel lbl, String newText) {
+        String lblText = lbl.getText();
+        int nIndex = lblText.indexOf(":");
+        String newLblText = lblText.substring(0, nIndex + 1);
+        newLblText = newLblText + " " + newText;
+        lbl.setText(newLblText);
+    }
 
-private void replaceTextinLabel(JLabel lbl, String newText) {
-   String lblText =  lbl.getText();
-   int nIndex = lblText.indexOf(":");
-   String newLblText  = lblText.substring(0, nIndex+1 );
-   newLblText = newLblText + " " + newText;
-   lbl.setText(newLblText);
-}
+    private void setLabelTexts(String desc) {
 
-private void setLabelTexts (String desc) {
+        replaceTextinLabel(lblCurrentActiveMode, desc);
+        replaceTextinLabel(lblOpenCurrentDoc, desc);
+        replaceTextinLabel(lblCreateNewDoc, desc);
+    // replaceTextinLabel(lblLaunchAndAccquire, desc);
 
-    replaceTextinLabel(lblCurrentActiveMode, desc);
-    replaceTextinLabel(lblOpenCurrentDoc, desc);
-    replaceTextinLabel(lblCreateNewDoc, desc);
-    replaceTextinLabel(lblLaunchAndAccquire, desc);
-    
-}
+    }
 
-private void launchDocumentType(documentType thisDocType, String launchMode) {
-    //if it is a new document ....
-    if (launchMode.equals("new")) {
-        //check if the editor panel is open -- this will be non-null in all cases except for the first initial launch
-         if (panel == null) {
+    private boolean launchDocumentType(documentType thisDocType, String launchMode) {
+        //if it is a new document ....
+        if (launchMode.equals("new")) {
+            //check if the editor panel is open -- this will be non-null in all cases except for the first initial launch
+            if (panel == null) {
                 //open the document and init the frame
                 String templateURL = "";
-                log.debug("Current Template file :" + m_FullTemplatesPath+File.separatorChar+m_settings_CurrentTemplate);
+                log.debug("Current Template file :" + m_FullTemplatesPath + File.separatorChar + m_settings_CurrentTemplate);
                 final String templatePathNormalized = thisDocType.templatePathNormalized();
-                SwingUtilities.invokeLater(new Runnable(){
+                SwingUtilities.invokeLater(new Runnable() {
+
                     public void run() {
                         initoOoAndLaunchFrame(templatePathNormalized, true);
                     }
                 });
-         } else {
-             //open the document in the current panel
-              panel.newDocumentInPanel();
-         }
-    } else { //edit
-         if (panel == null) {
-                    String basePath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH()+File.separator+"workspace"+File.separator+"files";
-                    File openFile = CommonFileFunctions.getFileFromChooser(basePath, new org.bungeni.utils.fcfilter.ODTFileFilter(), JFileChooser.FILES_ONLY, null);
-                    if (openFile != null) {
-                        String fullPathToFile = openFile.getAbsolutePath();
-                        initoOoAndLaunchFrame(fullPathToFile, false);
-                    } else {
-                        if (launchMode.equals("edit")) {
-                         /*
-                            XMultiComponentFactory mcf = this.m_xContext.getServiceManager();
-                         Object oDesktop = null;
-                        try {
-                            oDesktop = mcf.createInstanceWithContext("com.sun.star.frame.Desktop", m_xContext);
-                        } catch (Exception ex) {
-                            log.error("Error Exiting : " + ex.getMessage());
-                        }
-                         XDesktop xDesk = (com.sun.star.frame.XDesktop) com.sun.star.uno.UnoRuntime.queryInterface(com.sun.star.frame.XDesktop.class, oDesktop);
-                         // (4a) get the XDesktop interface object
-                         xDesk.terminate();*/
-                         System.exit(0);
-                        }
-                    }
-          } else {
+            } else {
+                //open the document in the current panel
+                panel.newDocumentInPanel();
+            }
+            return true;
+        } else { //edit
+            if (panel == null) {
+                String basePath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + "workspace" + File.separator + "files";
+                File openFile = CommonFileFunctions.getFileFromChooser(basePath, new org.bungeni.utils.fcfilter.ODTFileFilter(), JFileChooser.FILES_ONLY, null);
+                if (openFile != null) {
+                    String fullPathToFile = openFile.getAbsolutePath();
+                    initoOoAndLaunchFrame(fullPathToFile, false);
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
                 //open the document in the current panel
                 panel.loadDocumentInPanel();
-             }
-     }
+                return true;
+            }
+        }
 
-}
-public void launchDocumentType(String docType, String launchMode){
-    documentType thisDocType = null;
-    for (int i = 0; i < cboDocumentTypes.getModel().getSize() ; i++) {
-                documentType curdocType = (documentType) cboDocumentTypes.getModel().getElementAt(i);
-                if (curdocType.docType.equals(docType)) {
-                    thisDocType = curdocType;
-                    break;
-                }
     }
-    if (thisDocType == null) {
-        //TODO throw exception
-        return;
-    }
-    BungeniEditorProperties.setEditorProperty("activeDocumentMode", thisDocType.docType);
-    launchDocumentType(thisDocType, launchMode);
 
-          
-}
+    public void launchDocumentType(String docType, String launchMode) {
+        documentType thisDocType = null;
+        for (int i = 0; i < cboDocumentTypes.getModel().getSize(); i++) {
+            documentType curdocType = (documentType) cboDocumentTypes.getModel().getElementAt(i);
+            if (curdocType.docType.equals(docType)) {
+                thisDocType = curdocType;
+                break;
+            }
+        }
+        if (thisDocType == null) {
+            //TODO throw exception
+            return;
+        }
+        BungeniEditorProperties.setEditorProperty("activeDocumentMode", thisDocType.docType);
+        launchDocumentType(thisDocType, launchMode);
+
+
+    }
 
 private void launchFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_launchFrameActionPerformed
-            //use template defined in m_settings_CurrentTemplate
-            //m_FullTemplatesPath
-            //m_settings_CurrentTemplate = "hansard.ott";
-            createNewDocument.setEnabled(false);
-            documentType selectedDocType = (documentType) cboDocumentTypes.getSelectedItem();
-            launchDocumentType(selectedDocType, "new");
-            /*
-            if (panel == null ) {
-                String templateURL = "";
-                log.debug("Current Template file :" + m_FullTemplatesPath+File.separatorChar+m_settings_CurrentTemplate);
-                
-                documentType selectedDocType = (documentType) cboDocumentTypes.getSelectedItem();
+    //use template defined in m_settings_CurrentTemplate
+    //m_FullTemplatesPath
+    //m_settings_CurrentTemplate = "hansard.ott";
+    createNewDocument.setEnabled(false);
+    documentType selectedDocType = (documentType) cboDocumentTypes.getSelectedItem();
+    launchDocumentType(selectedDocType, "new");
+    /*
+    if (panel == null ) {
+    String templateURL = "";
+    log.debug("Current Template file :" + m_FullTemplatesPath+File.separatorChar+m_settings_CurrentTemplate);
 
-                final String templatePathNormalized = selectedDocType.templatePathNormalized();
-                
-                this.createNewDocument.setEnabled(false);
-                SwingUtilities.invokeLater(new Runnable(){
+    documentType selectedDocType = (documentType) cboDocumentTypes.getSelectedItem();
 
-                public void run() {
-                    
-                    initoOoAndLaunchFrame(templatePathNormalized, true); 
-                    
-                }
+    final String templatePathNormalized = selectedDocType.templatePathNormalized();
 
-                });
-            } else {
-                panel.newDocumentInPanel();
-           } */
-            createNewDocument.setEnabled(true);
-            
+    this.createNewDocument.setEnabled(false);
+    SwingUtilities.invokeLater(new Runnable(){
+
+    public void run() {
+
+    initoOoAndLaunchFrame(templatePathNormalized, true);
+
+    }
+
+    });
+    } else {
+    panel.newDocumentInPanel();
+    } */
+    createNewDocument.setEnabled(true);
+    hideWindow(false);
+
 }//GEN-LAST:event_launchFrameActionPerformed
 
 private void btnOpenExistingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenExistingActionPerformed
 // TODO add your handling code here:
     this.btnOpenExisting.setEnabled(false);
-       documentType selectedDocType = (documentType) cboDocumentTypes.getSelectedItem();
-      launchDocumentType(selectedDocType, "edit");
+    documentType selectedDocType = (documentType) cboDocumentTypes.getSelectedItem();
+    if (launchDocumentType(selectedDocType, "edit")) {
+        this.hideWindow(false);
+    }
 
-    /*
-    if (panel == null) {
-            String basePath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH()+File.separator+"workspace"+File.separator+"files";
-            File openFile = CommonFileFunctions.getFileFromChooser(basePath, new org.bungeni.utils.fcfilter.ODTFileFilter(), JFileChooser.FILES_ONLY, null);
-            if (openFile != null) {
-                String fullPathToFile = openFile.getAbsolutePath();        
-                initoOoAndLaunchFrame(fullPathToFile, false);
-            }
-     } else {
-        panel.loadDocumentInPanel();
-     }*/
     this.btnOpenExisting.setEnabled(true);
+    
 }//GEN-LAST:event_btnOpenExistingActionPerformed
 
-private void importDocument(String documentPath){
-    
-            if (openofficeObject == null ) {
-                openofficeObject = new org.bungeni.ooo.BungenioOoHelper(m_xContext);
-                openofficeObject.initoOo();
-            }
-            
-            String templateURL = BungenioOoHelper.convertPathToURL(documentPath);
-           XComponent xComponent;
-           log.debug("import URL= "+ templateURL);
-           xComponent = openofficeObject.openDocument(templateURL);
-           //    initFrame(xComponent);
-              // testFrame(xComponent);
-}
+    private void importDocument(String documentPath) {
 
+        if (openofficeObject == null) {
+            openofficeObject = new org.bungeni.ooo.BungenioOoHelper(m_xContext);
+            openofficeObject.initoOo();
+        }
 
-private void btnImportNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportNewActionPerformed
-// TODO add your handling code here:
-    // TODO add your handling code here:
-    this.btnImportNew.setEnabled(false);
-    String basePath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH()+File.separator+"workspace"+File.separator+"files";
-    File openFile = CommonFileFunctions.getFileFromChooser(basePath, new org.bungeni.utils.fcfilter.ODTFileFilter(), JFileChooser.FILES_ONLY, null);
-    if (openFile != null) {
-                String fullPathToFile = openFile.getAbsolutePath();        
-            }
-    
-    this.btnImportNew.setEnabled(true);
-}//GEN-LAST:event_btnImportNewActionPerformed
+        String templateURL = BungenioOoHelper.convertPathToURL(documentPath);
+        XComponent xComponent;
+        log.debug("import URL= " + templateURL);
+        xComponent = openofficeObject.openDocument(templateURL);
+    //    initFrame(xComponent);
+    // testFrame(xComponent);
+    }
+    SplashPage page = new SplashPage(5000);
 
+    private void hideWindow(boolean bState) {
+        this.parentFrame.setVisible(bState);
+    }
 
-/**
- * Listener Classes Listed below
- **/
+    /**
+     * Listener Classes Listed below
+     **/
+    /**
+     * Listener Class for JTable listing templates
+     * @author Ashok Hariharan
+     */
+    private class tblTemplatesListRowListener implements ListSelectionListener {
 
-
-
-/**
- * Listener Class for JTable listing templates
- * @author Ashok Hariharan
- */
-   private class tblTemplatesListRowListener implements ListSelectionListener {
-        
-       public void valueChanged(ListSelectionEvent event) {
+        public void valueChanged(ListSelectionEvent event) {
             if (event.getValueIsAdjusting()) {
                 return;
             }
-            
+
             String strTemplateName = "";
             strTemplateName = (String) tblTemplatesList.getValueAt(tblTemplatesList.getSelectedRow(), 0);
             m_settings_CurrentTemplate = strTemplateName;
             lblSelectedTemplate.setText("Active Template: " + strTemplateName);
-            //  output.append("ROW SELECTION EVENT. ");
-          //  outputSelection();
+        //  output.append("ROW SELECTION EVENT. ");
+        //  outputSelection();
         }
     }
 
- /**
- * Listener Class for JTable listing templates
- * @author Ashok Hariharan
- */
-  private class tblWorkspaceFolderRowListener implements ListSelectionListener {
-        
-       public void valueChanged(ListSelectionEvent event) {
+    /**
+     * Listener Class for JTable listing templates
+     * @author Ashok Hariharan
+     */
+    private class tblWorkspaceFolderRowListener implements ListSelectionListener {
+
+        public void valueChanged(ListSelectionEvent event) {
             if (event.getValueIsAdjusting()) {
                 return;
             }
             System.out.println("selected : " + event.getLastIndex());
-            //  output.append("ROW SELECTION EVENT. ");
-          //  outputSelection();
+        //  output.append("ROW SELECTION EVENT. ");
+        //  outputSelection();
         }
     }
 
-  
-  class editorTabbedPanelFrameWindowListener implements WindowListener {
+    class editorTabbedPanelFrameWindowListener implements WindowListener {
+
         public void windowOpened(WindowEvent e) {
         }
 
@@ -1338,39 +1293,39 @@ private void btnImportNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         }
 
         public void windowActivated(WindowEvent e) {
-          //  System.out.println("Window Was Activated!");
+            //  System.out.println("Window Was Activated!");
         }
 
         public void windowDeactivated(WindowEvent e) {
-         //   System.out.println("Window was De-Activated!");
-        }
-      
-  }
-/**
- *  Mouse Listener Class for Server file listing 
- *  It checks for "double cick" on the JTable control listing the files from the webdav server
- * @author Ashok Hariharan
- */
-private class tblServerFilesMouseAdapter implements MouseListener {
-    
-    public void mouseClicked(MouseEvent e){
-        if (e.getClickCount() == 2){
-            Point p = e.getPoint();
-            int row = tblServerFiles.rowAtPoint(p);
-            String fileName = (String)tblServerFiles.getValueAt(row, 0);
-            String fileType = (String) tblServerFiles.getValueAt(row, 3);
-            if (fileType.equals("folder")) {
-                log.debug("folder: "+fileName + "was clicked");
-                //switch to the clicked folder
-                //first get the table model
-                WebDavTableModel davModel = (WebDavTableModel) tblServerFiles.getModel();
-                davModel.brains();
-                davModel.setPathRelative(fileName);
-            }
-            else
-                log.debug("file was clicked");
+            //   System.out.println("Window was De-Activated!");
         }
     }
+
+    /**
+     *  Mouse Listener Class for Server file listing
+     *  It checks for "double cick" on the JTable control listing the files from the webdav server
+     * @author Ashok Hariharan
+     */
+    private class tblServerFilesMouseAdapter implements MouseListener {
+
+        public void mouseClicked(MouseEvent e) {
+            if (e.getClickCount() == 2) {
+                Point p = e.getPoint();
+                int row = tblServerFiles.rowAtPoint(p);
+                String fileName = (String) tblServerFiles.getValueAt(row, 0);
+                String fileType = (String) tblServerFiles.getValueAt(row, 3);
+                if (fileType.equals("folder")) {
+                    log.debug("folder: " + fileName + "was clicked");
+                    //switch to the clicked folder
+                    //first get the table model
+                    WebDavTableModel davModel = (WebDavTableModel) tblServerFiles.getModel();
+                    davModel.brains();
+                    davModel.setPathRelative(fileName);
+                } else {
+                    log.debug("file was clicked");
+                }
+            }
+        }
 
         public void mousePressed(MouseEvent e) {
         }
@@ -1383,19 +1338,14 @@ private class tblServerFilesMouseAdapter implements MouseListener {
 
         public void mouseExited(MouseEvent e) {
         }
-
-}
-   
-    
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBackOneFolder;
     private javax.swing.JButton btnBrowseWorkspacePath;
     private javax.swing.JButton btnEditWorkspaceDocument;
-    private javax.swing.JButton btnImportNew;
     private javax.swing.JButton btnOpenExisting;
     private javax.swing.JButton btnSaveSettings;
     private javax.swing.JButton btnSetCurrentTemplate;
-    private javax.swing.JButton btnStartAndAccquire;
     private javax.swing.JComboBox cboDocumentTypes;
     private javax.swing.JCheckBox checkBoxConnectOnStartup;
     private javax.swing.JButton createNewDocument;
@@ -1411,7 +1361,6 @@ private class tblServerFilesMouseAdapter implements MouseListener {
     private javax.swing.JLabel lblCurrentTemplate;
     private javax.swing.JLabel lblCurrentTemplateText;
     private javax.swing.JLabel lblDocumentTypes;
-    private javax.swing.JLabel lblLaunchAndAccquire;
     private javax.swing.JLabel lblOpenCurrentDoc;
     private javax.swing.JLabel lblSelectedFile;
     private javax.swing.JLabel lblSelectedTemplate;
@@ -1435,8 +1384,4 @@ private class tblServerFilesMouseAdapter implements MouseListener {
     private javax.swing.JTextField txtServerPort;
     private javax.swing.JTextField txtWorkspacePath;
     // End of variables declaration//GEN-END:variables
-
-    
- 
-    
 }
