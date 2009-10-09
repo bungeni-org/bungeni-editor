@@ -41,6 +41,7 @@
      	          <subaction name="Motivation.create" title="Create" visible="true" condition="sectionNotExists:motive* :and: textSelected:true  :and: cursorInSection:judgement" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMotivation.section_creation"/>	
 		  <action name="Motivation.heading" title="Heading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMotivation.make_motivation_heading:heading_motivation" visible="true" condition="textSelected:true :and: cursorInSection:motive[0-9]*" />
 		  <action name="Motivation.numheading" title="Mark Numbered Heading" visible="true"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMotivation.make_motivation_numheading:heading_motivation" condition="textSelected:true :and: cursorInSection:motive[0-9]*" />	   
+		  <action name="Motivation.num" title="Mark Number" visible="true"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMotivation.make_motivation_num" condition="textSelected:true :and: cursorInSection:motive[0-9]*" />	   
  		 <action name="Motivation.subheading" title="SubHeading" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMotivation.make_motivation_heading:subheading_motivation" visible="true" condition="textSelected:true :and: cursorInSection:motive[0-9]*" />
 	           <subaction name="Motivation.omissis" title="Mark as Omissis" visible="true" condition="cursorInSection:motive[0-9]* :and: textSelected:true" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeOmissisSection.section_creation"/>	
 	 </blockAction>
