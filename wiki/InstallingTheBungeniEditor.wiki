@@ -22,7 +22,7 @@ If you dont want to bother with reading the detailed installation instructions, 
  * download install openoffice by downloading OO 3.1.1 from [http://openoffice.mirrors.tds.net/pub/openoffice/stable/3.1.1/OOo_3.1.1_LinuxIntel_install_en-US_deb.tar.gz http://downloads.openoffice.org] 
  * launch openoffice at least once and accept the license agreement
  * unpack the editor application into its own folder
- * run the script runEditor.sh to start the application
+ * run the script linux.sh to start the application
 
 
 == Quick Install steps for Windows ==
@@ -56,6 +56,11 @@ For windows, download and install the java 6 JRE using the instructions provided
 
 *OpenOffice.org 3.1.1* - Ubuntu comes packaged with an OpenOffice release. Unfortunately this OpenOffice installation is a repackaged installation produced by Ubuntu and it changes the folder structure of the OpenOffice installation. This change makes it incompatible with the cross platform UNO class loader used by the BungeniEditor. As a preliminary step, uninstall the packaged OpenOffice provided by ubuntu by uninstalling it using package manager. 
 Download the OpenOffice 3.1.1 debian package from [http://openoffice.mirrors.tds.net/pub/openoffice/stable/3.1.1/OOo_3.1.1_LinuxIntel_install_en-US_deb.tar.gz  http://download.openoffice.org] . Download the OpenOffice installation package and extract it a folder on your computer. 
+
+First, uninstall the existing openoffice installation (say 'yes' when it prompts for confirmation)
+{{{
+sudo apt-get autoremove openoffice.org*.*
+}}}
 
 Install the package by running the following command from the openoffice-extracted-folder/DEBS path :
 
