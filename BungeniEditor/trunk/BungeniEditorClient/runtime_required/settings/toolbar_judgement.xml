@@ -57,8 +57,8 @@
 	      <subaction name="Conclusion.omissis" title="Mark as Omissis" visible="true" condition="cursorInSection:concl[0-9]* :and: textSelected:true" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeOmissisSection.section_creation"/>	
 	    </blockAction>
 	</actionGroup> 
-	<actionGroup name="LongSections" title="Scaled Actions" visible="true" tooltip="Use these actions to markup long blocks of text" uimodel="scroll" >
-    	    <blockAction name="scale.selection" tooltip="Conclusion for judgement" title="Scaled Actions"  target="null" visible="true" condition="none" showChildren="true" >
+	<actionGroup name="LongSections" title="Other Actions" visible="true" tooltip="Use these actions to markup long blocks of text" uimodel="scroll" >
+    	    <blockAction name="scale.selection" tooltip="Use these to create section containers when you are unable to select sections which are a few pages long" title="Long Sections"  target="null" visible="true" condition="none" showChildren="true" >
  		  <action name="Introduction.scale_section" title="Introduction" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeIntroduction.scale_section" visible="true" condition="sectionNotExists:intro[0-9]* :and: cursorInSection:judgement" />
  		  <action name="Background.scale_section" title="Background" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeBackground.scale_section" visible="true" condition="sectionNotExists:bg[0-9]* :and: cursorInSection:judgement" />
  		  <action name="Motivation.scale_section" title="Motivation" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeMotivation.scale_section" visible="true" condition="sectionNotExists:motive[0-9]* :and: cursorInSection:judgement" />
