@@ -1,0 +1,136 @@
+<akomaNtoso xmlns="http://www.akomantoso.org/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.akomantoso.org/1.0 ./akomantoso10.xsd"><judgement><meta><identification source="#bungeni"><FRBRWork><FRBRthis value="/zm/judgement/2007-07-25/14-2007/main"/><FRBRuri value="/zm/judgement/2007-07-25/14-2007"/><FRBRdate date="2007-03-28" name="Hearing"/><FRBRauthor href="#Scoz" as="#Author"/></FRBRWork><FRBRExpression><FRBRthis value="/zm/judgement/2007-07-25/14-2007/eng@/main"/><FRBRuri value="/zm/judgement/2007-07-25/14-2007/eng@"/><FRBRdate date="2007-07-25" name="Delivery"/><FRBRauthor href="#Cervone" as="#Editor"/></FRBRExpression><FRBRManifestation><FRBRthis value="/zm/judgement/2007-07-25/14-2007/eng@/main.xml"/><FRBRuri value="/zm/judgement/2007-07-25/14-2007/eng@.akn"/><FRBRdate date="2009-01-20" name="XMLConversion"/><FRBRauthor href="#Cervone" as="#Editor"/></FRBRManifestation></identification><publication date="2007-07-29" name="Law Report" showAs="Zambia Law Journal"/><lifecycle source="#bungeni"><event date="2007-07-25" id="e1" source="" type="generation"/></lifecycle><workflow source="#bungeni"><action date="2007-03-28" id="a1" source="#Hcp" type="hearing"/><action date="2007-07-25" id="a2" source="#Scoz" type="hearing"/></workflow><references source="#bungeni"><TLCOrganization id="bungeni" href="/ontology/organization/kn/kn.bungeni" showAs="Bungeni"/><TLCOrganization id="Scoz" href="/ontology/organization/zm.SoupremeCourt" showAs="SUPREME COURT OF ZAMBIA "/><TLCOrganization id="ag" href="/ontology/organization/zm.AttorneyGeneral" showAs="ATTORNEY GENERAL"/><TLCOrganization id="eac" href="/ontology/organization/zm.EllisAndCompany" showAs="Ellis and company"/><TLCOrganization id="ssaa" href="/ontology/organization/zm.SimezaSangwaAndAssociates" showAs="Simeza Sangwa and Associates"/><TLCOrganization id="lac" href="/ontology/organization/zm.LisimbaAndCompany" showAs="Lisimba and Company"/><TLCPerson id="mm" href="/ontology/persons/zm.MatildaMutale" showAs="MATILDA MUTALE"/><TLCPerson id="em" href="/ontology/persons/zm.EmmanuelMunaile" showAs="EMMAUEL MUNAILE"/><TLCPerson id="Cervone" href="/ontology/person/editors/it.cervone" showAs="Luca Cervone"/><TLCPerson id="Sakala" href="/ontology/person/judges/zm.sakala" showAs="Sakala, C. J."/><TLCPerson id="Lewanika" href="/ontology/person/judges/zm.lewanika" showAs="Lewanika, D. C. J."/><TLCPerson id="Mumba" href="/ontology/person/judges/zm.mumba" showAs="Mumba"/><TLCPerson id="Chibesakunda" href="/ontology/person/judges/zm.chibesakunda" showAs="Chibesakunda"/><TLCPerson id="Silomba" href="/ontology/person/judges/zm.silomba" showAs="Silomba, J. J. S."/><TLCPerson id="bm" href="/ontology/persons/zm.MutaleB" showAs="Mr. B. Mutale, S. C."/><TLCPerson id="ms" href="/ontology/persons/zm.Simeza" showAs="Mr. R. M. Simeza"/><TLCPerson id="sn" href="/ontology/persons/zm.Nkonde" showAs="Mr. S. Nkonde, S. C"/><TLCPerson id="rs" href="/ontology/persons/zm.Simuma" showAs="Mrs. R. Simuma"/><TLCPerson id="mk" href="/ontology/persons/zm.Kamwi" showAs="Mr. E. M. Kamwi"/><TLCPerson id="ml" href="/ontology/persons/zm.Lisimba" showAs="Mr. M. Lisimba"/><TLCRole id="Author" href="/ontology/role/Author" showAs="Author of Document"/><TLCRole id="Editor" href="/ontology/role/Editor" showAs="Editor of Document"/><TLCRole id="CoEditor" href="/ontology/role/CoEditor" showAs="Co-Editor of Document"/><TLCRole id="Appellant" href="/ontology/role/Appellant" showAs="Appellant"/><TLCRole id="FirstRespondant" href="/ontology/role/Respondant" showAs="1st Respondant"/><TLCRole id="SecondRespondant" href="/ontology/role/Respondant" showAs="2nd Respondant"/><TLCRole id="AppellantAdvocate" href="/ontology/role/AppellantAdvocate" showAs="Appellant Advocate"/><TLCRole id="FirstRespondantAdvocate" href="/ontology/role/FirstRespondantAdvocate" showAs="1st Respondant Advocate"/><TLCRole id="SecondRespondantAdvocate" href="/ontology/role/SecondRespondantAdvocate" showAs="2nd Respondant Advocate"/><TLCRole id="AdvocateAssistant" href="/ontology/role/AdvocateAssistant" showAs="Advocate Assistant"/></references><notes source="#bungeni"><note id="not1"><p>
+                        Some of the content of the motivations was deleted in order to simplify 
+                        the reading of the example. 
+                    </p></note></notes></meta><header><p class="judgementNumber"><b>Supreme Court Judgment No. <docNumber id="judgmentNumber">14 of 2007</docNumber></b></p><p class="caseNumber">APPEAL NO. <caseNumber>18 OF 2007</caseNumber></p><p>
+                IN THE SUPREME COURT OF ZAMBIA HOLDEN AT LUSAKA
+                <eol/>
+                (Civil Jurisdiction)
+            </p><p class="inTheMatter">
+                IN THE MATTER OF AN ELECTION PETITION FOR MALOLE CONSTITUENCY PARLIAMENTARY ELECTION
+            </p><p>BETWEEN:</p><parties><party id="p1" refersTo="mm" as="#Appellant">MATILDA MUTALE</party><span class="rightInline">APPELLANT</span><eol/>
+                AND
+                <eol/><party id="p2" refersTo="ag" as="#FirstRespondant">ATTORNEY GENERAL</party><span class="rightAndUnderlinedInline">1<span class="sup">st</span> RESPONDEND</span><eol/><party id="p3" refersTo="em" as="#SecondRespondant">EMMAUEL MUNAILE</party><span class="rightInline">2<span class="sup">nd</span> RESPONDEND</span></parties><coram><b>CORAM:
+                    <judge id="jud01" refersTo="Sakala">Sakala, C. J.</judge>, 
+                    <judge id="jud02" refersTo="Lewanika"> Lewanika, D. C. J.</judge>,
+                    <judge id="jud03" refersTo="Mumba"> Mumba</judge>, 
+                    <judge id="jud04" refersTo="Chibesakunda"> Chibesakunda</judge>, 
+                    <judge id="jud05" refersTo="Silomba"> Silomba, J. J. S.</judge></b></coram><p class="hearingDates">
+                on <span refersTo="a2">28<span class="sup">th</span> March</span> and
+                <docDate id="judgmentDate" date="2007-07-25">25<span class="sup">th</span> July</docDate>,
+                2007
+            </p><advocates><span class="appellantAdvocates">
+                    For the Appellant: 
+                    <advocate refersTo="bm" as="AppellantAdvocate">Mr. B. Mutale, S. C.</advocate> of 
+                    <span refersTo="eac">Ellis and company</span>; 
+                    assisted by <advocate refersTo="ms" as="AdvocateAssistant">Mr. R. M. Simeza</advocate> of 
+                    <span refersTo="ssaa">Simeza Sangwa and Associates</span>.
+                </span><eol/><span class="firstRespondantAdvocates">
+                    For the 1<span class="sup">st</span> Respondent: 
+                    <advocate refersTo="sn" as="FirstRespondentAdvocate"> Mr. S. Nkonde, S. C</advocate>, Solicitor General; 
+                    assisted by
+                    <advocate refersTo="rs" as="AdvocateAssistant">Mrs. R. Simuma</advocate>, Assistant Senior State advocate and 
+                    <advocate refersTo="mk" as="AdvocateAssistant">Mr. E. M. Kamwi</advocate>, Legal Counsel, E. C. Z.
+                </span><eol/><span class="secondRespondantAdvocates">
+                    For the 2<span class="sup">nd</span> Respondent:
+                    <advocate refersTo="ml" as="SecondRespondentAdvocate">Mr. M. Lisimba</advocate> of 
+                    <span refersTo="lac">Lisimba and Company</span>.
+                </span></advocates><p class="judgment"><b class="centered">JUDGMENT</b><eol/><b><judge id="jud06" refersTo="Silomba" as="#Editor">SILOMBA, J. S.</judge></b><b>delivered the judgment of the Court.</b></p><p><b class="underlined">Cases referred to:-</b></p><ol id="casesReferences" class="casesReferences"><li><ref id="ref01" type="caseCitation" href="/gb/judgement/1829/QB273/eng@/main.xml#290">
+                        Queen Vs. The Judge of the City London Court (1892) QB, 273 @ 290.
+                    </ref></li><li><ref id="ref02" type="caseCitation" href="/zm/judgement/1994/ZR/eng@/main.xml#164">
+                        The Attorney General and Another Vs. Lewanika and Others (1993 - 1994) ZR @164.
+                    </ref></li><li><ref id="ref03" type="caseCitation" href="/zm/judgement/1984/ZR1/eng@">
+                        The Attorney General Vs. Million Juma (1984) ZR1.
+                    </ref></li><li><ref id="ref04" type="caseCitation" href="/zm/judgement/1977/ZR108/eng@">
+                        Mwambazi Vs. Morester Farms Limited (1977) ZR, 108.
+                    </ref></li><li><ref id="ref05" type="caseCitation" href="/zm/judgement/1971/ZR1/eng@">
+                        The Attorney General Vs. William Chipango (1971). ZR 1
+                    </ref></li></ol><p><b class="underlined">Legislation referred to:</b></p><p class="legislationsReferences"><ref id="ref06" href="/zm/act/2006/12">Electoral Act No 12 of 2006</ref></p><p><b class="underlined">Authorities referred to:</b></p><ol id="booksReferences" class="booksReferences"><li><ref id="ref07" ref="bookCitation" href="/en/book/HalsburyLawsEngland/4/en@/main.xml#pag3-par1">
+                        Halsbury's Laws of England, 4th Edition, page 3, para. 1 
+                    </ref>
+                    and <ref id="ref08" ref="bookCitation" href="/en/book/HalsburyLawsEngland/4/en@/main.xml#pag8-par7"> page 8 para. 7</ref>.
+                </li><li><ref id="ref09" ref="bookCitation" href="/en/book/OdgersOnCivilCourtActions/24/en@/main.xml#pag27">
+                        Odgers on Civil Court Actions. Practice and Precedents. 24th Edition at p. 27
+                    </ref></li><li><ref id="ref10" ref="bookCitation" href="/en/book/Order18AOfTheRSC/1995/en@">
+                        Order 18A of the RSC. 1995 Edition
+                    </ref></li><li><ref id="ref11" ref="bookCitation" href="/en/book/Order18-0-2AOfTheRSC/1999/en@">
+                        Order 18 / 0 / 2 of the RSC. 1999 Edition. 
+                    </ref></li></ol></header><judgementBody><introduction><p> 
+                    This appeal is against the Ruling of the High Court delivered on the 6<span class="sup">th</span>
+                    February, 2007. In the Ruling, the learned trial judge dismissed the election petition of 
+                    the appellant on a preliminary point of law.
+                    For convenience, the appellant shall be referred to as the petitioner, 
+                    while the 1<span class="sup">st</span> and the 2<span class="sup">nd</span> 
+                    respondents shall retain their positions as this is what they were in the court below.
+                </p></introduction><background><p>
+                    The brief facts, common to both sides and which gave rise to the preliminary issues, 
+                    were that the petitioner stood as a parliamentary candidate in the Malole Constituency in the 
+                    Northern Province. Being dissatisfied with the election results, she instructed counsel to 
+                    petition and a petition was duly filed. 
+                    After a few days, an amended petition was filed. According to the record, all this was done 
+                    within 30 days in compliance with 
+                    <ref id="ref12" href="/zm/act/2006/12/eng@/main.xml#sec96">Section 96 of the Electoral Act No. 12 of 2006</ref> 
+                    (hereinafter to be referred to as "the Act").
+                    The petition, among other things, sought to declare the election of the 2<span class="sup">nd</span> 
+                    respondent null and void; declare the appellant as the duly elected Member of 
+                    Parliament for Malole Constituency and, therefore, entitled to take her seat in the 
+                    National Assembly and enjoy all the benefits due to that office.
+                </p></background><motivation><p><noteRef href="#not1" num="1"/><omissis>...</omissis></p><p>
+                    The preliminary issues, as points of law, were disposed of through submissions by counsel 
+                    representing the parties to the election petition. Mr. Lisimba, counsel for the 
+                    2<span class="sup">nd</span> respondent, submitted first because he had formally filed the 
+                    2<span class="sup">nd</span> respondent's notice to raise preliminary issues. 
+                    According to the record, the formal notice was in response to the learned trial Judge's 
+                    observations as to what status to accord the election petition that was not signed by the 
+                    petitioner herself in compliance with the provisions of Section 96(3) of the Act.
+                </p><p>
+                    The preliminary issues raised were in three parts. Without reproducing them, we shall, 
+                    for the purposes of this appeal, take the first one, which was
+                    not only vigorously argued before the lower court and this court but which is also the 
+                    subject of appeal.
+                </p><p>
+                    As recast by counsel for the 2<span class="sup">nd</span> respondent and argued by the 
+                    parties, the issue was: 
+                    <b>
+                        whether a petition filed into court and not signed by the 
+                        petitioner herself can be said to be properly before the court and whether or not the 
+                        court can entertain the petition or indeed allow an amendment
+                    </b></p><p>
+                    Mr. Lisimba contended before the learned trial Judge that it was a mandatory requirement 
+                    that the petition is signed by the petitioner in person and not through her legal 
+                    representative; that an adherence to the procedure provided by the Act was of the utmost 
+                    importance.
+                </p><p>
+                    Counsel contended that the omission by the petitioner, in not signing the petition herself,
+                    was so fatal that it rendered the petition dismissible in its current form for want of 
+                    procedure; that any defect in the petition could only be corrected within 30 days, 
+                    the period stipulated for bringing the petition to court.
+                </p><p>
+                    The record shows that Mr. Kamwi, counsel for the 1<span class="sup">st</span> respondent, 
+                    did not submit before the learned trial Judge because he was constrained by the
+                    application on account of what happened on their part during the elections. 
+                    He, therefore, found it appropriate not to offer any position.
+                </p><p>
+                    In response to the submissions by counsel for the 2<span class="sup">nd</span> respondent, 
+                    Mr. Simeza, counsel for the petitioner, submitted before the learned trial Judge that the 
+                    issue that had arisen related to or rested on a proper construction of Section 96(3) of 
+                    the Act.
+                </p><p>
+                    To that extent, counsel told the trial court that a petition was a pleading just like a statement 
+                    of claim or defence. With reference to 
+                    <ref id="ref13" type="bookCitation" href="/en/book/HalsburyLawsEngland/4/en@/main.xml#pag3-par1">
+                        Halsbury's Laws of England. 4th Edition
+                    </ref>, counsel submitted that where a pleading is settled by counsel it must 
+                    be signed by him or her. He, therefore, contended that the petition before the trial court,
+                    signed by the petitioner through her counsel, was properly signed as counsel did not have 
+                    an existence or life independent of a client.
+                </p><p><noteRef href="#not1" num="1"/><omissis>...</omissis></p></motivation><decision><p>
+                     In summary, our position is that the appeal has no merit. We reiterate our finding that 
+                     Section 96(3), as read with Section 2(1), makes it mandatory for the petitioner to sign 
+                     the petition personally under her or his hand before presenting it to the High Court 
+                     for trial and determination. 
+                     As this was a novel appeal case on a matter of public interest, we shall make no order 
+                     for costs. Each party to bear it own costs.
+                 </p></decision></judgementBody><conclusions><p class="signature"><judge id="jud07" refersTo="Sakala">E. L. Sakala</judge>,
+                <eol/><b class="underlined">CHIEF JUSTICE.</b><eol/><judge id="jud08" refersTo="Lewanika">D.M. Lewanika</judge>, 
+                <eol/><b class="underlined">DEPUTY CHIEF JUSTICE.</b><eol/><judge id="jud09" refersTo="Mumba">F.N.M. Mumba</judge>,
+                <eol/><b class="underlined">SUPREME COURT JUDGE.</b></p></conclusions></judgement></akomaNtoso>

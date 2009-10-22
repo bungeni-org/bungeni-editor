@@ -1,0 +1,25 @@
+<akomaNtoso xmlns="http://www.akomantoso.org/1.0" schemaLocation="http://www.akomantoso.org/1.0 ./akomantoso10.xsd"><doc><meta><identification source="#bungeni"><FRBRWork><FRBRthis value="/ke/doc/2008-03-19/main"/><FRBRuri value="/ke/doc/2008-03-19"/><FRBRdate date="2005-08-20" name="generation"/><FRBRauthor href="#parliament" as="#author"/></FRBRWork><FRBRExpression><FRBRthis value="/ke/doc/2008-03-19/eng@/main"/><FRBRuri value="/ke/doc/2008-03-19/eng@"/><FRBRdate date="2009-02-05" name="markup"/><FRBRauthor href="#cervone" as="#editor"/></FRBRExpression><FRBRManifestation><FRBRthis value="/ke/doc/2008-03-19/eng@/main.xml"/><FRBRuri value="/ke/doc/2008-03-19/eng@.akn"/><FRBRdate date="2009-02-05" name="publication"/><FRBRauthor href="#cervone" as="#editor"/></FRBRManifestation></identification><publication date="2005-08-29" name="internal" showAs="Internal Use Only"/><lifecycle source="#bungeni"><event id="e1" date="2008-03-19" source="#ro1" type="generation"/></lifecycle><references source="#bungeni"><original id="ro1" href="/ke/doc/2005-08-29/eng@/main" showAs="original"/><TLCOrganization id="bungeni" href="/ontology/organization/ke/bungeni" showAs="Bungeni"/><TLCPerson id="cervone" href="/ontology/persons/it/editors/cervone" showAs="Luca Cervone"/><TLCOrganization id="parliament" href="/ontology/organizations/ke/parliament" showAs="Parliament"/><TLCRole id="author" href="/ontology/roles/ke/author" showAs="Author of Document"/><TLCRole id="editor" href="/ontology/roles/it/editor" showAs="Editor of Document"/></references></meta><preface><p class="heading">REPUBLIC OF KENYA</p><p class="heading">NATIONAL ASSEMBLY</p><p class="heading">PROGRAMME OF PARLIAMENTARY BUSINESS</p><p class="heading">WEEK COMMENCING TUESDAY 25TH MARCH, 2008</p><p class="subheading">* 10<span class="sup">TH</span> PARLIAMENT * 2<span class="sup">ND</span>  SESSION</p></preface><preamble><p class="left">REF: <docNumber>HB/COMM/2008/VOL.1/(3)</docNumber></p><p class="right">
+                Clerk's Chambers <eol/>
+                National Assembly <eol/>
+                Parliament Buildings <eol/>
+                NAIROBI 
+            </p><p class="docDate"><docDate date="2008-03-19">19th March, 2008</docDate></p><p class="heading">REPUBLIC OF KENYA</p><p class="heading">NATIONAL ASSEMBLY</p><p class="heading">PROGRAMME OF PARLIAMENTARY BUSINESS</p><p class="heading">FOR THE WEEK COMMENCING TUESDAY 25<span class="sup">TH</span> MARCH, 2008</p></preamble><mainContent><subdivision id="day1" name="day"><heading><span class="left"><span class="day">TUESDAY:</span><eol/><span class="date">25/03/08</span></span><span class="right">
+                        Communication from the Chair, Petitions, Paper Laid, Notices of Motions and Questions
+                    </span></heading><noticesOfMotion id="day1-eve1"><num>A.</num><heading>MOTION–(The Leader of Government Business– 7<span class="th">th</span><i>Day</i>)</heading><other><p><span class="indented">THAT,</span> the thanks of this House be recorded for the exposition of public policy 
+                            contained in His Excellency’s Presidential Address from the Chair on 
+                            Thursday 6th March, 2008.
+                        </p></other></noticesOfMotion><subdivision id="day1-eve2" name="anyother"><num>B. </num><other><p>
+                            Any Other Government Business.
+                        </p></other></subdivision></subdivision><subdivision id="day2" name="day"><subdivision id="day2-mor" name="morningsitting"><heading class="dayperiod">MORNING SITTING</heading><subheading><span class="left"><span class="day">WEDNESDAY:</span><eol/><span class="date">26/03/08</span></span><span class="right">
+                            Communication from the Chair, Petitions, Papers Laid, Notices 
+                            Motion and Questions.
+                        </span></subheading><subdivision id="day2-mor-eve1" name="anyother"><num>B. </num><other><p>
+                                Any Other Government Business.
+                            </p></other></subdivision></subdivision><subdivision id="day2-aft" name="afternoonsitting"><heading class="dayperiod">AFTERNOON SITTING</heading><subheading><span class="left"><span class="day">WEDNESDAY:</span><eol/><span class="date">26/03/08</span></span><span class="right">
+                            Communication from the Chair, Petitions, Papers Laid, Notices 
+                            Motion and Questions.
+                        </span></subheading><subdivision id="day2-aft-eve1" name="anyother"><num>B. </num><other><p>
+                                Any Other Government Business.
+                            </p></other></subdivision></subdivision></subdivision><subdivision id="day3" name="day"><heading><span class="center"><span class="day">THURSDAY</span><eol/><span class="date">27/03/08</span></span></heading><other><p class="heading">
+                        INDUCTION AT SAFARI PARK HOTEL
+                    </p></other></subdivision></mainContent></doc></akomaNtoso>
