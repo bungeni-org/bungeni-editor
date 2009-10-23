@@ -51,7 +51,10 @@ declare function local:main() as node()?
 };
 
 <html>
-    <head><title>Number Guessing</title></head>
+    <head>
+    <link rel="stylesheet" href="css/form.css" />
+    <title>Hansard Search</title>
+    </head>
     <body>
     <form id="form1" name="frmHansardSearch" method="post" action="">
   <h1>Hansard Debates Search</h1>
