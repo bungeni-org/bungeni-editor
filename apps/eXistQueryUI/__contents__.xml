@@ -3,4 +3,5 @@
     <subcollection name="queries" filename="queries"/>
     <subcollection name="system" filename="system"/>
     <subcollection name="xmlcontent" filename="xmlcontent"/>
+    <subcollection name="test" filename="test"/>
 </collection>
