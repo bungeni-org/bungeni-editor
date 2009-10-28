@@ -21,6 +21,7 @@ return
 <html>
     <head>
         <title>{$title}</title>
+		<link href="css/form.css" type="text/css" rel="stylesheet" />
     </head>
     <body>
         <h1>{$title}</h1>
