@@ -15,9 +15,11 @@ import module namespace kwic="http://exist-db.org/xquery/kwic";
 
 
 let $title := 'AkomaNtoso Search'
-let $data-collection := '/db/xmlcontent/akomaNtoso'
+let $data-collection := '/db/xmlcontent'
 
 let $q := request:get-parameter('q', '')
+let $hits := collection($data-collection)//*[ft:query(., $q)]
+let $count_hits := count($hits)
 
 return
 
@@ -28,10 +30,6 @@ return
     <body>
         <h1>Search Results</h1>
          <p> <b> Searching for : </b> {$q} in collection : {$data-collection} </p>
-         <ol> {
-             for $hit in collection($data-collection)//*[ft:query(.,$q)]
-                 return
-                     <li>{data($hit)}</li>
-         }</ol>
+         <p> count = {$count_hits} </p>
     </body>
 </html>
