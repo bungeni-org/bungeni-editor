@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.TreeMap;
 import java.util.Vector;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.BungeniRegistryFactory;
@@ -43,7 +44,9 @@ public class JudgementMetadata3 extends BaseEditorDocMetadataDialog {
         initComponents();
         btnAddParty.setVisible(false);
         btnAddJudge.setVisible(false);
-    }
+      //  this.tabbedJudges.getTabComponentAt(1).setVisible(false);
+      //  this.tabbedJudges.getTabComponentAt(2).setVisible(false);
+        }
     
     @Override
     public void initialize() {
@@ -77,6 +80,9 @@ public class JudgementMetadata3 extends BaseEditorDocMetadataDialog {
             }
          
         }
+        tabbedJudges.removeTabAt(1);
+        tabbedJudges.removeTabAt(1);
+
     }
 
  
