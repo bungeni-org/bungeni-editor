@@ -164,7 +164,10 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             String transformerWorkingDir = BungeniEditorProperties.getEditorProperty("transformerWorkingDir");
             transformerWorkingDir = CommonFileFunctions.convertRelativePathToFullPath(transformerWorkingDir) + File.separator;
             commands.add(transformerWorkingDir);
-            String runString = javaBinary + " -jar " + transformerJar + " " + transformerWorkingDir;
+            String runString = javaBinary + " -jar " + "\""+  transformerJar + "\""+ " " + "\""+ transformerWorkingDir + "\"";
+            System.out.println("Starting transformation server : " + runString);
+            log.info("Starting transformation server : " + runString);
+            
             //now run the command
             boolean output = CommonShellFunctions.runCommand(commands, transformerWorkingDir, true);
             this.transformerServerRunning = true;
@@ -689,7 +692,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         btnViewValidationErrors = new javax.swing.JButton();
         btnViewXmlDoc = new javax.swing.JButton();
 
-        cboTransformFrom.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        cboTransformFrom.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         cboTransformFrom.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Portable Document Format (PDF)", "XHTML - eXtensible HTML", "Marginalia-safe HTML export" }));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/panels/loadable/Bundle"); // NOI18N
         cboTransformFrom.setToolTipText(bundle.getString("transformXMLPanel.cboTransformFrom.toolTipText")); // NOI18N
@@ -700,7 +703,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         lblTransformFrom.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblTransformFrom.setText(bundle.getString("transformXMLPanel.lblTransformFrom.text")); // NOI18N
 
-        btnExport.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnExport.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnExport.setText(bundle.getString("transformXMLPanel.btnExport.text")); // NOI18N
         btnExport.setToolTipText(bundle.getString("transformXMLPanel.btnExport.toolTipText")); // NOI18N
 
@@ -733,7 +736,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         txtServerMsg.setWrapStyleWord(true);
         scrollMsg.setViewportView(txtServerMsg);
 
-        btnExportToXML.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnExportToXML.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnExportToXML.setText(bundle.getString("transformXMLPanel.btnExportToXML.text")); // NOI18N
 
         btnViewValidationErrors.setFont(new java.awt.Font("DejaVu Sans", 0, 9));
