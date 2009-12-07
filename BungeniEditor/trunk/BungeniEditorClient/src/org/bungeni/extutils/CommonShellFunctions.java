@@ -25,7 +25,11 @@ public class CommonShellFunctions {
         try {
             if (backgroundFlag) {
                 //run it in the background without waiting for feedback
-                cmd.add(0,"nohup");
+                //dont use nohup on windows.
+                String osName = System.getProperty("os.name");
+                if (!osName.matches("(?i).*windows.*")) {
+                    cmd.add(0,"nohup");
+                }
             }
             System.out.println("running this command : in directory = " + workingDirectory);
             for (String string : cmd) {
