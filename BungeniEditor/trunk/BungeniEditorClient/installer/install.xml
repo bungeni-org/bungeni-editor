@@ -17,7 +17,7 @@
     -->
     <info>
         <appname>BungeniEditor installation</appname>
-        <appversion>rev897</appversion>
+        <appversion>0.9.953</appversion>
 	<appsubpath>BungeniEditor-$APP_VER</appsubpath>
         <authors>
             <author name="UNDESA" email="undesa@parliaments.info"/>
@@ -74,7 +74,12 @@
             <description>BungeniEditor core files</description>
             <file src="README.TXT" targetdir="$INSTALL_PATH"/>
             <file src="LICENCE.TXT" targetdir="$INSTALL_PATH"/>
+ 	     <file src="linux.sh" targetdir="$INSTALL_PATH" />
+ 	     <file src="windows.vbs" targetdir="$INSTALL_PATH" />
+	
+
 		<!-- linux primary launchers -->
+            <!--
             <file src="linux/run_gui.sh" targetdir="$INSTALL_PATH/linux"/>
             <file src="linux/run_debate_new.sh" targetdir="$INSTALL_PATH/linux"/>
             <file src="linux/run_debate_edit.sh" targetdir="$INSTALL_PATH/linux"/>
@@ -83,13 +88,13 @@
             <file src="linux/run_bill_edit.sh" targetdir="$INSTALL_PATH/linux"/>
             <file src="linux/run_bill_new.sh" targetdir="$INSTALL_PATH/linux"/>
 	     <file src="linux/settingsEditor.sh" targetdir="$INSTALL_PATH/linux"/>
-		
+		-->
 		<!-- windoze primary launchers -->
-
+		<!--
             <file src="win/run_debate_new.bat" targetdir="$INSTALL_PATH/win"/>
             <file src="win/run_debate_edit.bat" targetdir="$INSTALL_PATH/win"/>
             <file src="win/settingsEditor.bat" targetdir="$INSTALL_PATH/win"/>
-
+			-->
 
 		<!-- config launcher scripts linux -->
             <file src="scripts/main.sh" targetdir="$INSTALL_PATH/scripts"/>
@@ -99,7 +104,7 @@
             <file src="scripts/main.bat" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/config.bat" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/gui.bat" targetdir="$INSTALL_PATH/scripts"/>
-
+            <file src="scripts/windows.bat" targetdir="$INSTALL_PATH/scripts"/>
         	<!-- linux run scripts -->
             <file src="scripts/debate_new.sh" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/debate_edit.sh" targetdir="$INSTALL_PATH/scripts"/>
@@ -123,10 +128,11 @@
             <parsable targetfile="$INSTALL_PATH/scripts/main.bat"/>
             <parsable targetfile="$INSTALL_PATH/scripts/gui.sh"/>
             <parsable targetfile="$INSTALL_PATH/scripts/gui.bat"/>
-            <parsable targetfile="$INSTALL_PATH/linux/settingsEditor.sh"/>
-            <parsable targetfile="$INSTALL_PATH/win/settingsEditor.bat"/>
+            <!-- <parsable targetfile="$INSTALL_PATH/linux/settingsEditor.sh"/>
+            <parsable targetfile="$INSTALL_PATH/win/settingsEditor.bat"/> -->
 		<!-- linux launchers -->
-            <executable targetfile="$INSTALL_PATH/linux/run_gui.sh"/>
+		<!--            
+		<executable targetfile="$INSTALL_PATH/linux/run_gui.sh"/>
             <executable targetfile="$INSTALL_PATH/linux/run_debate_edit.sh"/>
             <executable targetfile="$INSTALL_PATH/linux/run_debate_new.sh"/>
             <executable targetfile="$INSTALL_PATH/linux/run_judgement_edit.sh"/>
@@ -134,8 +140,8 @@
             <executable targetfile="$INSTALL_PATH/linux/run_bill_edit.sh"/>
             <executable targetfile="$INSTALL_PATH/linux/run_bill_new.sh"/>
             <executable targetfile="$INSTALL_PATH/linux/settingsEditor.sh"/>
-
-
+		-->
+		<executable targetfile="$INSTALL_PATH/linux.sh" />
             <!-- The file will be parsed -->
         </pack>
     </packs>
