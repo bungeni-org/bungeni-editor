@@ -1,0 +1,290 @@
+{
+	"sort":null,
+	"recordsReturned":228,
+	"length":228,
+	"start":0,
+	"nodes":[
+			{
+				"user_id":"John Smith",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/gha/parliament/JohnSmith"
+			},
+			{
+				"user_id":"John Kwadjo Opare-Hammond",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/gha/parliament/JohnOpareHammond"
+			},
+			{
+				"user_id":"Joe Kwashie Gidisu",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/gha/parliament/JohnGidisu"
+			},			
+			{
+				"user_id":"John Yaw Osafo-Maafo",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/gha/parliament/JohnOsafoMaafo"
+			},
+			{
+				"user_id":"John Mzee",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/ken/parliament/JohnMzee"
+			},
+			{
+				"user_id":"John Kofa",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/ken/parliament/JohnKofa"
+			},	
+			{
+				"user_id":"Steve Manga",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/ken/parliament/JohnManga"
+			},	
+			{
+				"user_id":"Thomas Mak'Onyango",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/ken/parliament/JohnMakOnyango"
+			},	
+			{
+				"user_id":"Uri Manduku",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/ken/parliament/JohnManduku"
+			},	
+			{
+				"user_id":"Vincent Achola",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/ken/parliament/JohnAchola"
+			},	
+			{
+				"user_id":"Konstantino Criticos",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/ken/parliament/JohnCriticos"
+			},	
+			{
+				"user_id":"Owino Aluoch",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/ken/parliament/JohnAluoch"
+			},	
+			{
+				"user_id":"Bob Nthenge",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/ken/parliament/JohnNthenge"
+			},	
+			{
+				"user_id":"Colin Moiben",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/ken/parliament/JohnMoiben"
+			},	
+			{
+				"user_id":"David Barmasai",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/ken/parliament/JohnBarmasai"
+			},	
+			{
+				"user_id":"Evans Nyagah",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/ken/parliament/JohnNyagah"
+			},	
+			{
+				"user_id":"Florian Maore",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/ken/parliament/JohnMaore"
+			},	
+			{
+				"user_id":"Gerardo Obwocha",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/ken/parliament/JohnObwocha"
+			},	
+			{
+				"user_id":"Hero Shikuku",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/ken/parliament/JohnShikuku"
+			},	
+			{
+				"user_id":"Ian Kiluta",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/ken/parliament/JohnKiluta"
+			},	
+			{
+				"user_id":"Julio Karan",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/ken/parliament/JohnKaran"
+			},	
+			{
+				"user_id":"Kevin Lwali-Oyondi",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/ken/parliament/JohnLwaliOyondi"
+			},	
+			{
+				"user_id":"Luke Farah",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/ken/parliament/JohnFarah"
+			},
+			{
+				"user_id":"Mike Falana",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/ken/parliament/JohnFalana"
+			},
+			{
+				"user_id":"Nick Mungai",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/ken/parliament/JohnMungai"
+			},
+			{
+				"user_id":"Olivier Angatia",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/ken/parliament/JohnAngatia"
+			},
+			{
+				"user_id":"Percy Wetangula",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/ken/parliament/JohnWetangula"
+			},
+			{
+				"user_id":"Quentin Wako",
+				"elected_nominated":"E",
+				"end_date":"",
+				"membership_id":"Member",
+				"object_id":"obj-721",
+				"constituency_id":"Kemelele",
+				"start_date":"2003-01-05",
+				"uri":"/ontology/persons/ken/parliament/JohnWako"
+			}
+	],
+	"dir":"asc"
+}
+

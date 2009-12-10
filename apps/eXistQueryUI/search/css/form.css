@@ -118,3 +118,8 @@ a.menu_link:hover {
 	font-weight: bold;
 	font-style: italic
 }
+
+span.hi { 
+            font-weight: bold; 
+			background-color: yellow
+       }

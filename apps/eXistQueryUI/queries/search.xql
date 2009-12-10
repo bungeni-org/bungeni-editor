@@ -9,7 +9,7 @@ let $q := xs:string(request:get-parameter("q", ""))
 let $filtered-q := replace($q, "[&amp;&quot;-*;-`~!@#$%^*()_+-=\[\]\{\}\|';:/.,?(:]", "")
 let $scope := 
     ( 
-        collection('/db/xmlcontent')/an:akomaNtoso
+        collection('/db/xmlcontent')/an:akomaNtoso 
     )
 let $search-string := concat('$scope', '[. &amp;= "', $filtered-q, '"]')
 let $hits := util:eval($search-string)

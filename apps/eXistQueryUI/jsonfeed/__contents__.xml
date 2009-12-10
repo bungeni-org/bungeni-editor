@@ -1,0 +1,3 @@
+<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/jsonfeed" owner="admin" group="dba" mode="755" created="2009-12-10T16:06:46+03:00" version="1">
+    <resource type="BinaryResource" name="members.json" owner="admin" group="dba" mode="755" created="2009-12-10T18:21:48+03:00" modified="2009-12-10T18:21:48+03:00" filename="members.json" mimetype="application/octet-stream"/>
+</collection>

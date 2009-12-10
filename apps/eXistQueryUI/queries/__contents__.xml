@@ -1,5 +1,6 @@
 <collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/queries" owner="admin" group="dba" mode="755" created="2009-10-22T15:24:55+03:00" version="1">
     <resource type="BinaryResource" name="form.xql" owner="admin" group="dba" mode="755" created="2009-10-22T15:35:48+03:00" modified="2009-10-23T12:04:38+03:00" filename="form.xql" mimetype="application/xquery"/>
-    <resource type="BinaryResource" name="search.xql" owner="admin" group="dba" mode="755" created="2009-10-23T12:02:20+03:00" modified="2009-10-26T16:12:08+03:00" filename="search.xql" mimetype="application/xquery"/>
+    <resource type="BinaryResource" name="search.xql" owner="admin" group="dba" mode="755" created="2009-10-23T12:02:20+03:00" modified="2009-10-27T15:58:28+03:00" filename="search.xql" mimetype="application/xquery"/>
+    <resource type="BinaryResource" name="searchform.xql" owner="admin" group="dba" mode="755" created="2009-10-27T15:42:13+03:00" modified="2009-10-27T16:03:40+03:00" filename="searchform.xql" mimetype="application/xquery"/>
     <subcollection name="css" filename="css"/>
 </collection>
