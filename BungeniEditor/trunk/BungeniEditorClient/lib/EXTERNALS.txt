@@ -18,4 +18,4 @@ slide http://bungeni-editor.googlecode.com/svn/external_libs/slide-2.2rc
 swing-layout http://bungeni-editor.googlecode.com/svn/external_libs/swing-layout-ext
 jug http://bungeni-editor.googlecode.com/svn/external_libs/jug
 opencsv http://bungeni-editor.googlecode.com/svn/external_libs/opencsv
-
+uml http://bungeni-editor.googlecode.com/svn/external_libs/uml
