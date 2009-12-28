@@ -1,0 +1,20 @@
+{ "ResultSet" : {
+            "totalResultsAvailable":"100",
+            "totalResultsReturned":2,
+            "firstResultPosition":1,
+            "Result": [
+                {
+                    "ID": "897",
+                    "Title":"foo",
+                    "Summary":"... When foo' is used in connection with bar' it has generally traced...",
+                    "ModificationDate":1072684800
+                 },
+                {
+                    "ID": "492",
+                    "Title":"Foo Fighters",
+                    "Summary":"Official site with news, tour dates, discography, store, community, and more.",
+                    "ModificationDate":1138521600
+                }
+            ]
+        }
+    }

@@ -1,0 +1,30 @@
+<html><head>
+<!--CSS file (default YUI Sam Skin) --><link type="text/css" rel="stylesheet" href="/exist/rest/db/yui/css/autocomplete.css"/>
+
+<!-- Dependencies --><script type="text/javascript" src="/exist/rest/db/yui/js/yahoo-dom-event.js"/><script type="text/javascript" src="/exist/rest/db/yui/js/datasource-min.js"/>
+
+<!-- OPTIONAL: Get (required only if using ScriptNodeDataSource) --><script type="text/javascript" src="/exist/rest/db/yui/js/get-min.js"/>
+
+<!-- OPTIONAL: Connection (required only if using XHRDataSource) --><script type="text/javascript" src="/exist/rest/db/yui/js/connection-min.js"/>
+
+<!-- OPTIONAL: Animation (required only if enabling animation) --><script type="text/javascript" src="/exist/rest/db/yui/js/animation-min.js"/>
+
+<!-- OPTIONAL: JSON (enables JSON validation) --><script type="text/javascript" src="/exist/rest/db/yui/js/json-min.js"/>
+
+<!-- Source file --><script type="text/javascript" src="/exist/rest/db/yui/js/autocomplete-min.js"/></head><body class="yui-skin-sam">
+
+<!--BEGIN SOURCE CODE FOR EXAMPLE =============================== --><label for="myInput">Enter a state:</label><div id="myAutoComplete"><input id="myInput" type="text"/><div id="myContainer"/></div>
+<!-- <script type="text/javascript" src="/exist/rest/db/jsonfeed/members.js"/> --><script type="text/javascript">
+
+    var mySchema = ["ResultSet.Result","Title","ID","Url","ModificationDate"];
+    var myDataSource =new YAHOO.widget.DS_XHR("/exist/rest/db/jsonfeed/members.json", mySchema);
+    myDataSource.responseType =YAHOO.util.XHRDataSource.TYPE_JSON;
+    //var oDS = new YAHOO.util.XHRDataSource("/exist/rest/db/jsonfeed/members.json");
+	
+    // Optional to define fields for single-dimensional array
+    //myDataSource.responseSchema =  ["ResultSet.Result","Title","ID","ModificationDate"];
+    var myAutoComp = new YAHOO.widget.AutoComplete("myInput","myContainer", myDataSource);
+
+</script>
+
+<!--END SOURCE CODE FOR EXAMPLE =============================== --></body></html>
