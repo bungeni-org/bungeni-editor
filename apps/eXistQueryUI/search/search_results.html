@@ -18,56 +18,43 @@
     width:15em; /* set width here or else widget will expand to fit its container */
     padding-bottom:2em;
 }
-</style></head><body class="yui-skin-sam"> 
-// An outer container contains an input element and
-// a empty results container, both of which are passed
-// to the constructor
-<script type="text/javascript">
+
+</style><script type="text/javascript">
 function viewHidden() {
 var fieldHidden = document.getElementById('myInput_id');
 alert(fieldHidden.value);
 }
 
 
-</script><div id="myAutoComplete"><input id="myInput_id" type="hidden" name="myInput_id"/><input id="myInput" type="text"/><div id="myContainer"/></div><script type="text/javascript">
-var jsonDS = new YAHOO.util.XHRDataSource("http://localhost:8080/exist/rest/db/jsonfeed/members.json");
-jsonDS.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;
-jsonDS.responseSchema = {
-resultsList : "nodes",
-fields: [
-{key: "user_id"},
-{key: "object_id"}
-]
+</script></head><body class="yui-skin-sam"> 
+// An outer container contains an input element and
+// a empty results container, both of which are passed
+// to the constructor
+<div id="myAutoComplete"><input id="myInput_id" type="hidden" name="myInput_id"/><input id="myInput" type="text"/><div id="myContainer"/></div><script type="text/javascript">
+var xresponseSchema = [ "ResultSet.Result", "Title", "ID"];
+var jsonDS = new YAHOO.widget.DS_XHR("/exist/rest/db/jsonfeed/results.json", xresponseSchema);
+jsonDS.responseType = YAHOO.widget.DS_XHR.TYPE_JSON;
 
-};
  var myAutoComp = new YAHOO.widget.AutoComplete("myInput","myContainer", jsonDS);
-
-    myAutoComp.prehighlightClassName = "yui-ac-prehighlight";
-    myAutoComp.useShadow = true;
+myAutoComp.autoHighlight=true;
+myAutoComp.applyLocalFilter = true;
 
 
 myAutoComp.allowBrowserAutocomplete = false; 
 // Container will expand and collapse vertically
-myAutoComp.animVert = true;
-// Container will expand and collapse horizontally
-//myAutoComp.animHoriz = true;
-// Container animation will take 2 seconds to complete
-myAutoComp.minQueryLength = 1; 
-// Enable force selection 
-myAutoComp.forceSelection = true; 
-myAutoComp.typeAhead = true;
-myAutoComp.autoHighlight=true;
-myAutoComp.applyLocalFilter = true;
 
-var myHiddenField = YAHOO.util.Dom.get("myInput_id");
- var myHandler = function(sType, aArgs) {
-           var myAC = aArgs[0]; // reference back to the AC instance
-           var elLI = aArgs[1]; // reference to the selected LI element
-           var oData = aArgs[2]; // object literal of selected item's result data
-            
+
+
+
+//var myHiddenField = YAHOO.util.Dom.get("myInput_id");
+ //var myHandler = function(sType, aArgs) {
+   //        var myAC = aArgs[0]; // reference back to the AC instance
+      //     var elLI = aArgs[1]; // reference to the selected LI element
+     //      var oData = aArgs[2]; // object literal of selected item's result data
+             
            // update hidden form field with the selected item's ID
-           myHiddenField.value = oData.id;
-       };
-  myAutoComp.itemSelectEvent.subscribe(myHandler); 
+        //   myHiddenField.value = oData.id;
+       //};    
+  //myAutoComp.itemSelectEvent.subscribe(myHandler); 
 
 </script><input type="button" value="viewHidden" id="viewHidden" onClick="viewHidden();"/></body></html>

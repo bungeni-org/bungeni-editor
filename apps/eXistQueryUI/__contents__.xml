@@ -1,5 +1,6 @@
 <collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db" owner="admin" group="dba" mode="777" created="2009-10-21T16:49:05+03:00" version="1">
     <subcollection name="querymodules" filename="querymodules"/>
+    <subcollection name="testdata" filename="testdata"/>
     <subcollection name="search" filename="search"/>
     <subcollection name="queries" filename="queries"/>
     <subcollection name="system" filename="system"/>

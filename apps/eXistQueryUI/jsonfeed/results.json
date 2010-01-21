@@ -3,6 +3,12 @@
             "totalResultsReturned":2,
             "firstResultPosition":1,
             "Result": [
+	{
+                    "ID": "001",
+                    "Title":"Abra",
+                    "Summary":"Abra site with news, tour dates, discography, store, community, and more.",
+                    "ModificationDate":1138521610
+                },
                 {
                     "ID": "897",
                     "Title":"foo",
@@ -14,6 +20,13 @@
                     "Title":"Foo Fighters",
                     "Summary":"Official site with news, tour dates, discography, store, community, and more.",
                     "ModificationDate":1138521600
+                },
+  		
+			{
+                    "ID": "999",
+                    "Title":"Zebra",
+                    "Summary":"Zebra site with news, tour dates, discography, store, community, and more.",
+                    "ModificationDate":1138521609
                 }
             ]
         }

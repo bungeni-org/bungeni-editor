@@ -1,3 +1,10 @@
+xquery version "1.0";
+
+declare namespace request="http://exist-db.org/xquery/request";
+declare namespace util="http://exist-db.org/xquery/util";
+declare option exist:serialize "method=xhtml media-type=application/xhtml+html";
+
+
 <html><head>
 <!--CSS file (default YUI Sam Skin) --><link type="text/css" rel="stylesheet" href="http://yui.yahooapis.com/2.8.0r4/build/autocomplete/assets/skins/sam/autocomplete.css"/>
 
@@ -13,33 +20,23 @@
 
 <!-- Source file --><script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/autocomplete/autocomplete-min.js"/>
 
-<!--begin custom header content for this example--><style type="text/css">
-#myAutoComplete {
-    width:15em; /* set width here or else widget will expand to fit its container */
-    padding-bottom:2em;
-}
-</style></head><body class="yui-skin-sam"> 
+
+</head><body class="yui-skin-sam"> 
 // An outer container contains an input element and
 // a empty results container, both of which are passed
 // to the constructor
+<div id="myAutoComplete"><input id="myInput_id" type="hidden" name="myInput_id"/><input id="myInput" type="text"/><div id="myContainer"/></div>
 <script type="text/javascript">
-function viewHidden() {
-var fieldHidden = document.getElementById('myInput_id');
-alert(fieldHidden.value);
-}
-
-
-</script><div id="myAutoComplete"><input id="myInput_id" type="hidden" name="myInput_id"/><input id="myInput" type="text"/><div id="myContainer"/></div><script type="text/javascript">
 var jsonDS = new YAHOO.util.XHRDataSource("http://localhost:8080/exist/rest/db/jsonfeed/members.json");
 jsonDS.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;
-jsonDS.responseSchema = {
+jsonDS.responseSchema = {{
 resultsList : "nodes",
 fields: [
-{key: "user_id"},
-{key: "object_id"}
+{{key: "user_id"}},
+{{key: "object_id"}}
 ]
 
-};
+}};
  var myAutoComp = new YAHOO.widget.AutoComplete("myInput","myContainer", jsonDS);
 
     myAutoComp.prehighlightClassName = "yui-ac-prehighlight";
@@ -60,14 +57,14 @@ myAutoComp.autoHighlight=true;
 myAutoComp.applyLocalFilter = true;
 
 var myHiddenField = YAHOO.util.Dom.get("myInput_id");
- var myHandler = function(sType, aArgs) {
+ var myHandler = function(sType, aArgs) {{
            var myAC = aArgs[0]; // reference back to the AC instance
            var elLI = aArgs[1]; // reference to the selected LI element
            var oData = aArgs[2]; // object literal of selected item's result data
             
            // update hidden form field with the selected item's ID
            myHiddenField.value = oData.id;
-       };
+       }};
   myAutoComp.itemSelectEvent.subscribe(myHandler); 
 
 </script><input type="button" value="viewHidden" id="viewHidden" onClick="viewHidden();"/></body></html>

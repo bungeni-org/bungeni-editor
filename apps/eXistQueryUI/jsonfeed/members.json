@@ -11,7 +11,8 @@
          "membership_id":"Member",
          "object_id":"obj-721",
          "constituency_id":"Kemelele",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/EpainitoosAkaranga"
       },
       {
          "user_id":"Abo Aringo",
@@ -20,7 +21,8 @@
          "membership_id":"Member",
          "object_id":"obj-881",
          "constituency_id":"Vosop",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/AboAringo"
       },
       {
          "user_id":"Wakoli Bifwoli",
@@ -29,7 +31,8 @@
          "membership_id":"Member",
          "object_id":"obj-722",
          "constituency_id":"Corengo Eost",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/WakoliBifwoli"
       },
       {
          "user_id":"Adan Billow",
@@ -38,7 +41,8 @@
          "membership_id":"Member",
          "object_id":"obj-723",
          "constituency_id":"Lerombe",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/AdanBillow"
       },
       {
          "user_id":"Jimmy Buru",
@@ -47,7 +51,8 @@
          "membership_id":"Member",
          "object_id":"obj-719",
          "constituency_id":"Vokeene",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/JimmyBuru"
       },
       {
          "user_id":"Wangari Ceheri",
@@ -56,7 +61,8 @@
          "membership_id":"Member",
          "object_id":"obj-758",
          "constituency_id":"Kehore",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/WangariCeheri"
       },
       {
          "user_id":"Uhoru Celele",
@@ -65,7 +71,8 @@
          "membership_id":"Member",
          "object_id":"obj-759",
          "constituency_id":"Eldoret North",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/UhoruCelele"
       },
       {
          "user_id":"Staphan Cett",
@@ -74,7 +81,8 @@
          "membership_id":"Member",
          "object_id":"obj-760",
          "constituency_id":"Gwose",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/StaphanCett"
       },
       {
          "user_id":"Samoal Cheleite",
@@ -83,7 +91,8 @@
          "membership_id":"Member",
          "object_id":"obj-882",
          "constituency_id":"Voyole",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri": "/ontology/persons/ken/parliament/SamoalCheleite"
       },
       {
          "user_id":"Obdirehmen Cherles",
@@ -92,7 +101,8 @@
          "membership_id":"Member",
          "object_id":"obj-919",
          "constituency_id":"Norok Toeth",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/ObdirehmenCherles"
       },
       {
          "user_id":"Galgallo Christina",
@@ -101,7 +111,8 @@
          "membership_id":"Member",
          "object_id":"obj-906",
          "constituency_id":"",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/GalgalloChristina"
       },
       {
          "user_id":"Kivotha Chuge",
@@ -110,7 +121,8 @@
          "membership_id":"Member",
          "object_id":"obj-889",
          "constituency_id":"Jejo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/KivothaChuge"
       },
       {
          "user_id":"Jimmy Cuit",
@@ -119,7 +131,8 @@
          "membership_id":"Member",
          "object_id":"obj-858",
          "constituency_id":"Wojer North",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/JimmyCuit"
       },
       {
          "user_id":"Cheleite Daniel",
@@ -128,7 +141,8 @@
          "membership_id":"Member",
          "object_id":"obj-901",
          "constituency_id":"",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/CheleiteDaniel"
       },
       {
          "user_id":"Daodi Dehir",
@@ -137,7 +151,8 @@
          "membership_id":"Member",
          "object_id":"obj-846",
          "constituency_id":"Volo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/DaodiDehir"
       },
       {
          "user_id":"Weriu Deniel",
@@ -146,7 +161,8 @@
          "membership_id":"Member",
          "object_id":"obj-920",
          "constituency_id":"Gorsen",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/WeriuDeniel"
       },
       {
          "user_id":"M'Mkekindie Devid",
@@ -155,7 +171,8 @@
          "membership_id":"Member",
          "object_id":"obj-921",
          "constituency_id":"Ugenyo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/MkekindieDevid"
       },
       {
          "user_id":"Mwangi Devid",
@@ -164,7 +181,8 @@
          "membership_id":"Member",
          "object_id":"obj-947",
          "constituency_id":"Tereseo",
-         "start_date":"2004-07-06"
+         "start_date":"2004-07-06",
+         "uri":"/ontology/persons/ken/parliament/MwangiDevid"
       },
       {
          "user_id":"Mwirie Devid",
@@ -173,7 +191,8 @@
          "membership_id":"Member",
          "object_id":"obj-922",
          "constituency_id":"Lemere",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/MwirieDevid"
       },
       {
          "user_id":"Nengo Devid Kiprono Sotter",
@@ -182,7 +201,8 @@
          "membership_id":"Member",
          "object_id":"obj-923",
          "constituency_id":"Terkono Centrol",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/DevidKiprono"
       },
       {
          "user_id":"Rutu Devid Kiprono Sotter",
@@ -191,7 +211,8 @@
          "membership_id":"Member",
          "object_id":"obj-948",
          "constituency_id":"Ketee Centrol",
-         "start_date":"2005-05-21"
+         "start_date":"2005-05-21",
+         "uri":"/ontology/persons/ken/parliament/RutuDevid"
       },
       {
          "user_id":"Saif Dojiambo",
@@ -200,7 +221,8 @@
          "membership_id":"Member",
          "object_id":"obj-847",
          "constituency_id":"Vwenge North",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/SaifDojiambo"
       },
       {
          "user_id":"Annaniah Dzuru",
@@ -209,7 +231,8 @@
          "membership_id":"Member",
          "object_id":"obj-849",
          "constituency_id":"Tegoneo West",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/AnnaniahDzuru"
       },
       {
          "user_id":"Ojode Eric",
@@ -218,7 +241,8 @@
          "membership_id":"Member",
          "object_id":"obj-949",
          "constituency_id":"Komekenje",
-         "start_date":"2006-09-09"
+         "start_date":"2006-09-09",
+         "uri":"/ontology/persons/ken/parliament/OjodeEric"
       },
       {
          "user_id":"Raphaal Etheru",
@@ -227,7 +251,8 @@
          "membership_id":"Member",
          "object_id":"obj-761",
          "constituency_id":"Kongendo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/RaphaalEtheru"
       },
       {
          "user_id":"Dicksun Frencis",
@@ -236,7 +261,8 @@
          "membership_id":"Member",
          "object_id":"obj-950",
          "constituency_id":"Kepepere",
-         "start_date":"2006-09-30"
+         "start_date":"2006-09-30",
+         "uri":"/ontology/persons/ken/parliament/DicksunFrencis"
       },
       {
          "user_id":"Kimeto Frencis",
@@ -245,7 +271,8 @@
          "membership_id":"Member",
          "object_id":"obj-925",
          "constituency_id":"Vondero Centrol",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/KimetoFrencis"
       },
       {
          "user_id":"Obdelle Frencis",
@@ -254,7 +281,8 @@
          "membership_id":"Member",
          "object_id":"obj-926",
          "constituency_id":"Vboone",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/ObdelleFrencis"
       },
       {
          "user_id":"Odeke Frencis",
@@ -263,7 +291,8 @@
          "membership_id":"Member",
          "object_id":"obj-951",
          "constituency_id":"Cemelo",
-         "start_date":"2003-11-11"
+         "start_date":"2003-11-11",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Jamas Gachagea",
@@ -272,7 +301,8 @@
          "membership_id":"Member",
          "object_id":"obj-724",
          "constituency_id":"Vothero",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Githae Gachara",
@@ -281,7 +311,8 @@
          "membership_id":"Member",
          "object_id":"obj-896",
          "constituency_id":"",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Danson Gemo",
@@ -290,7 +321,8 @@
          "membership_id":"Member",
          "object_id":"obj-850",
          "constituency_id":"Wojer Eost",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Simaon Gitae",
@@ -299,7 +331,8 @@
          "membership_id":"Member",
          "object_id":"obj-880",
          "constituency_id":"Celget",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Seti Gitora",
@@ -308,7 +341,8 @@
          "membership_id":"Member",
          "object_id":"obj-911",
          "constituency_id":"Vondero West",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Cesyoka Gorrach",
@@ -317,7 +351,8 @@
          "membership_id":"Member",
          "object_id":"obj-904",
          "constituency_id":"Vwolo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"John Haji",
@@ -326,7 +361,8 @@
          "membership_id":"Member",
          "object_id":"obj-835",
          "constituency_id":"North Horr",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Raila Iveti",
@@ -335,7 +371,8 @@
          "membership_id":"Member",
          "object_id":"obj-762",
          "constituency_id":"Toeth Imente",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Ewetun Jimmy",
@@ -344,7 +381,8 @@
          "membership_id":"Member",
          "object_id":"obj-952",
          "constituency_id":"Chepolenge",
-         "start_date":"2007-04-14"
+         "start_date":"2007-04-14",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Mbee Jimmy",
@@ -353,7 +391,8 @@
          "membership_id":"Member",
          "object_id":"obj-927",
          "constituency_id":"Roreedo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Chebui Joal",
@@ -362,7 +401,8 @@
          "membership_id":"Member",
          "object_id":"obj-905",
          "constituency_id":"Nokere Town",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Leketun John",
@@ -371,7 +411,8 @@
          "membership_id":"Member",
          "object_id":"obj-929",
          "constituency_id":"Loekepeo West",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Sedi John",
@@ -380,7 +421,8 @@
          "membership_id":"Member",
          "object_id":"obj-928",
          "constituency_id":"",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Segwe Josaph",
@@ -389,7 +431,8 @@
          "membership_id":"Member",
          "object_id":"obj-908",
          "constituency_id":"Vogoteo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Techiri Kanachu",
@@ -398,7 +441,8 @@
          "membership_id":"Member",
          "object_id":"obj-902",
          "constituency_id":"",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Chepkituny Keroe",
@@ -407,7 +451,8 @@
          "membership_id":"Member",
          "object_id":"obj-930",
          "constituency_id":"Cero",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Fastos Kienjuri",
@@ -416,7 +461,8 @@
          "membership_id":"Member",
          "object_id":"obj-727",
          "constituency_id":"Cetere",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Jolius Kilonzo",
@@ -425,7 +471,8 @@
          "membership_id":"Member",
          "object_id":"obj-725",
          "constituency_id":"Corengo North",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Nawton Kilonzo",
@@ -434,7 +481,8 @@
          "membership_id":"Member",
          "object_id":"obj-836",
          "constituency_id":"Ntonyere",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Jamas Kimathi",
@@ -443,7 +491,8 @@
          "membership_id":"Member",
          "object_id":"obj-726",
          "constituency_id":"",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Chebui Kinyanjui",
@@ -452,7 +501,8 @@
          "membership_id":"Member",
          "object_id":"obj-900",
          "constituency_id":"",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Cesyoka Kiyung",
@@ -461,7 +511,8 @@
          "membership_id":"Member",
          "object_id":"obj-899",
          "constituency_id":"",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Mogava Kofa",
@@ -470,7 +521,8 @@
          "membership_id":"Member",
          "object_id":"obj-729",
          "constituency_id":"Vemeos",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Harrison Kombe",
@@ -479,7 +531,8 @@
          "membership_id":"Member",
          "object_id":"obj-730",
          "constituency_id":"Lekone",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Mosikari Kombo",
@@ -488,7 +541,8 @@
          "membership_id":"Member",
          "object_id":"obj-731",
          "constituency_id":"Thoroko",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Gidaon Konchella",
@@ -497,7 +551,8 @@
          "membership_id":"Member",
          "object_id":"obj-732",
          "constituency_id":"Kereo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Phillip Leshure",
@@ -506,7 +561,8 @@
          "membership_id":"Member",
          "object_id":"obj-838",
          "constituency_id":"Terkono North",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Yattani Lesirme",
@@ -515,7 +571,8 @@
          "membership_id":"Member",
          "object_id":"obj-867",
          "constituency_id":"Kebweze",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Nondin Ligele",
@@ -524,7 +581,8 @@
          "membership_id":"Member",
          "object_id":"obj-868",
          "constituency_id":"Vehego",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Richard Maore",
@@ -533,7 +591,8 @@
          "membership_id":"Member",
          "object_id":"obj-733",
          "constituency_id":"Cetelo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Kannath Marende",
@@ -542,7 +601,8 @@
          "membership_id":"Member",
          "object_id":"obj-734",
          "constituency_id":"Amogoro",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Godfray Masanya",
@@ -551,7 +611,8 @@
          "membership_id":"Member",
          "object_id":"obj-735",
          "constituency_id":"Dejes",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Sembe Masika",
@@ -560,7 +621,8 @@
          "membership_id":"Member",
          "object_id":"obj-903",
          "constituency_id":"",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Ali Mbai",
@@ -569,7 +631,8 @@
          "membership_id":"Member",
          "object_id":"obj-869",
          "constituency_id":"Keomboo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Godfray Meriuki",
@@ -578,7 +641,8 @@
          "membership_id":"Member",
          "object_id":"obj-891",
          "constituency_id":"Cobose",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Gidaon Meriungi",
@@ -587,7 +651,8 @@
          "membership_id":"Member",
          "object_id":"obj-892",
          "constituency_id":"Ndewo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Christophar Merungaru",
@@ -596,7 +661,8 @@
          "membership_id":"Member",
          "object_id":"obj-737",
          "constituency_id":"Tenderet",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Kiraito Merungi",
@@ -605,7 +671,8 @@
          "membership_id":"Member",
          "object_id":"obj-738",
          "constituency_id":"Kondoro",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Katoo Metito",
@@ -614,7 +681,8 @@
          "membership_id":"Member",
          "object_id":"obj-752",
          "constituency_id":"Tombere West",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Jostin Meturi",
@@ -623,7 +691,8 @@
          "membership_id":"Member",
          "object_id":"obj-739",
          "constituency_id":"",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Washington Midiwo",
@@ -632,7 +701,8 @@
          "membership_id":"Member",
          "object_id":"obj-736",
          "constituency_id":"Koete",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Samson Moivai",
@@ -641,7 +711,8 @@
          "membership_id":"Member",
          "object_id":"obj-860",
          "constituency_id":"Kelome",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Terieki Mose",
@@ -650,7 +721,8 @@
          "membership_id":"Member",
          "object_id":"obj-931",
          "constituency_id":"Rongwe",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Abdalla Muhamud",
@@ -659,7 +731,8 @@
          "membership_id":"Member",
          "object_id":"obj-897",
          "constituency_id":"",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Chirao Mwakwere",
@@ -668,7 +741,8 @@
          "membership_id":"Member",
          "object_id":"obj-740",
          "constituency_id":"",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Gidaon Ndambeki",
@@ -677,7 +751,8 @@
          "membership_id":"Member",
          "object_id":"obj-741",
          "constituency_id":"Vegore",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Nohana Ndeng'u",
@@ -686,7 +761,8 @@
          "membership_id":"Member",
          "object_id":"obj-861",
          "constituency_id":"Konoen",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Alfrad Nderite",
@@ -695,7 +771,8 @@
          "membership_id":"Member",
          "object_id":"obj-742",
          "constituency_id":"Kobete",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Abdollahi Ndile",
@@ -704,7 +781,8 @@
          "membership_id":"Member",
          "object_id":"obj-893",
          "constituency_id":"Gonze",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Amos Ndolo",
@@ -713,7 +791,8 @@
          "membership_id":"Member",
          "object_id":"obj-829",
          "constituency_id":"Corengo Centrol",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Amina Nekitere",
@@ -722,7 +801,8 @@
          "membership_id":"Member",
          "object_id":"obj-853",
          "constituency_id":"Votenge",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Gaorga Ngile",
@@ -731,7 +811,8 @@
          "membership_id":"Member",
          "object_id":"obj-803",
          "constituency_id":"Eldomo Roven",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Gaoffray Nguzi",
@@ -740,7 +821,8 @@
          "membership_id":"Member",
          "object_id":"obj-804",
          "constituency_id":"Emgwen",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Syongoh Nicholes",
@@ -749,7 +831,8 @@
          "membership_id":"Member",
          "object_id":"obj-932",
          "constituency_id":"Toke",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Franklin Nkeisserry",
@@ -758,7 +841,8 @@
          "membership_id":"Member",
          "object_id":"obj-805",
          "constituency_id":"Kesoene",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Francis NoKibaki",
@@ -767,7 +851,8 @@
          "membership_id":"Member",
          "object_id":"obj-720",
          "constituency_id":"Legore",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Wemenyinyi Noeh",
@@ -776,7 +861,8 @@
          "membership_id":"Member",
          "object_id":"obj-933",
          "constituency_id":"Vt.Elgon",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"David Ntetu",
@@ -785,7 +871,8 @@
          "membership_id":"Member",
          "object_id":"obj-875",
          "constituency_id":"Iseolo Toeth",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Enoch Ntimeme",
@@ -794,7 +881,8 @@
          "membership_id":"Member",
          "object_id":"obj-810",
          "constituency_id":"North Vegerongo/Corobe",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Eric Nuhene",
@@ -803,7 +891,8 @@
          "membership_id":"Member",
          "object_id":"obj-809",
          "constituency_id":"Ketee West",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Esthar Nuhene",
@@ -812,7 +901,8 @@
          "membership_id":"Member",
          "object_id":"obj-808",
          "constituency_id":"Ceret",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Fahim Nuhene",
@@ -821,7 +911,8 @@
          "membership_id":"Member",
          "object_id":"obj-807",
          "constituency_id":"Votego",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Fradrick Nuhene",
@@ -830,7 +921,8 @@
          "membership_id":"Member",
          "object_id":"obj-806",
          "constituency_id":"Vekerweene",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Emmanoal Nwige",
@@ -839,7 +931,8 @@
          "membership_id":"Member",
          "object_id":"obj-811",
          "constituency_id":"Vbeto",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Raoban Nwiraria",
@@ -848,7 +941,8 @@
          "membership_id":"Member",
          "object_id":"obj-845",
          "constituency_id":"Kenongop",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Simaon Nyachae",
@@ -857,7 +951,8 @@
          "membership_id":"Member",
          "object_id":"obj-743",
          "constituency_id":"Vorogeo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Josaph Nyagah",
@@ -866,7 +961,8 @@
          "membership_id":"Member",
          "object_id":"obj-744",
          "constituency_id":"Ttorehe",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Norman Nyagah",
@@ -875,7 +971,8 @@
          "membership_id":"Member",
          "object_id":"obj-745",
          "constituency_id":"Emehoyo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Kan Nyagedi",
@@ -884,7 +981,8 @@
          "membership_id":"Member",
          "object_id":"obj-748",
          "constituency_id":"Renyenjes",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Ekwaa Nyemenge",
@@ -893,7 +991,8 @@
          "membership_id":"Member",
          "object_id":"obj-812",
          "constituency_id":"Nyokoch",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Patar Nyung'u",
@@ -902,7 +1001,8 @@
          "membership_id":"Member",
          "object_id":"obj-863",
          "constituency_id":"Tobote",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Sirme Obdelleh",
@@ -911,7 +1011,8 @@
          "membership_id":"Member",
          "object_id":"obj-914",
          "constituency_id":"Eldoret Toeth",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Steju Obdi",
@@ -920,7 +1021,8 @@
          "membership_id":"Member",
          "object_id":"obj-915",
          "constituency_id":"Centrol Imente",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Sengu Oboru",
@@ -929,7 +1031,8 @@
          "membership_id":"Member",
          "object_id":"obj-934",
          "constituency_id":"Comet",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Bath Obwuche",
@@ -938,7 +1041,8 @@
          "membership_id":"Member",
          "object_id":"obj-873",
          "constituency_id":"Keeyo Toeth",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Seng Ochillo",
@@ -947,7 +1051,8 @@
          "membership_id":"Member",
          "object_id":"obj-909",
          "constituency_id":"Vorokwet Eost",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Kirogi Oduyu",
@@ -956,7 +1061,8 @@
          "membership_id":"Member",
          "object_id":"obj-832",
          "constituency_id":"Loesomes",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Sammy Oginge",
@@ -965,7 +1071,8 @@
          "membership_id":"Member",
          "object_id":"obj-894",
          "constituency_id":"Kopengereo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Nenye Ohmed Oden",
@@ -974,7 +1081,8 @@
          "membership_id":"Member",
          "object_id":"obj-916",
          "constituency_id":"Keseme Rerol",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"David Aoko Okemo",
@@ -983,7 +1091,8 @@
          "membership_id":"Member",
          "object_id":"obj-879",
          "constituency_id":"Nyere Town",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Koigi Okendi",
@@ -992,7 +1101,8 @@
          "membership_id":"Member",
          "object_id":"obj-826",
          "constituency_id":"Gochoko",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Banson Okiume",
@@ -1001,7 +1111,8 @@
          "membership_id":"Member",
          "object_id":"obj-843",
          "constituency_id":"Keresoe",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Ocheke Oli",
@@ -1010,7 +1121,8 @@
          "membership_id":"Member",
          "object_id":"obj-917",
          "constituency_id":"Nethe",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Patrick Olweny",
@@ -1019,7 +1131,8 @@
          "membership_id":"Member",
          "object_id":"obj-747",
          "constituency_id":"Loekepeo Eost",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Mardsan Omembe",
@@ -1028,7 +1141,8 @@
          "membership_id":"Member",
          "object_id":"obj-874",
          "constituency_id":"Kochelebo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"William Omondi",
@@ -1037,7 +1151,8 @@
          "membership_id":"Member",
          "object_id":"obj-749",
          "constituency_id":"Toboteo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Staphan Ondiek",
@@ -1046,7 +1161,8 @@
          "membership_id":"Member",
          "object_id":"obj-750",
          "constituency_id":"Tombere Eost",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Kenyingi Onesmos",
@@ -1055,7 +1171,8 @@
          "membership_id":"Member",
          "object_id":"obj-953",
          "constituency_id":"Vehorone",
-         "start_date":"2006-12-24"
+         "start_date":"2006-12-24",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"William Ongwenyi",
@@ -1064,7 +1181,8 @@
          "membership_id":"Member",
          "object_id":"obj-755",
          "constituency_id":"Lome West",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Charity Oniengu",
@@ -1073,7 +1191,8 @@
          "membership_id":"Member",
          "object_id":"obj-813",
          "constituency_id":"Kondeye",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Teres Onthony",
@@ -1082,7 +1201,8 @@
          "membership_id":"Member",
          "object_id":"obj-918",
          "constituency_id":"Ikolomone",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Solaiman Oparanya",
@@ -1091,7 +1211,8 @@
          "membership_id":"Member",
          "object_id":"obj-831",
          "constituency_id":"Longoto",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Robinson Opore",
@@ -1100,7 +1221,8 @@
          "membership_id":"Member",
          "object_id":"obj-844",
          "constituency_id":"Nombole",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Tobias Orao",
@@ -1109,7 +1231,8 @@
          "membership_id":"Member",
          "object_id":"obj-746",
          "constituency_id":"Gechege",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"William Orengeh",
@@ -1118,7 +1241,8 @@
          "membership_id":"Member",
          "object_id":"obj-756",
          "constituency_id":"Rongo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Wenjele Otieno",
@@ -1127,7 +1251,8 @@
          "membership_id":"Member",
          "object_id":"obj-936",
          "constituency_id":"Kojeodo Toeth",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Josaph Owidi",
@@ -1136,7 +1261,8 @@
          "membership_id":"Member",
          "object_id":"obj-862",
          "constituency_id":"Logdero",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Charlas Owino",
@@ -1145,7 +1271,8 @@
          "membership_id":"Member",
          "object_id":"obj-751",
          "constituency_id":"Vveto",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"William Owiti",
@@ -1163,7 +1290,8 @@
          "membership_id":"Member",
          "object_id":"obj-898",
          "constituency_id":"",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Githee Peter",
@@ -1172,7 +1300,8 @@
          "membership_id":"Member",
          "object_id":"obj-937",
          "constituency_id":"Dogorete",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Segow Phillip",
@@ -1181,7 +1310,8 @@
          "membership_id":"Member",
          "object_id":"obj-938",
          "constituency_id":"Aenomoe",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Samoal Poghisio",
@@ -1190,7 +1320,8 @@
          "membership_id":"Member",
          "object_id":"obj-753",
          "constituency_id":"",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Onyancha Prisa",
@@ -1199,7 +1330,8 @@
          "membership_id":"Member",
          "object_id":"obj-907",
          "constituency_id":"Tete",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Stiwott Raphaal",
@@ -1208,7 +1340,8 @@
          "membership_id":"Member",
          "object_id":"obj-912",
          "constituency_id":"Condo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Cacily Retu",
@@ -1217,7 +1350,8 @@
          "membership_id":"Member",
          "object_id":"obj-814",
          "constituency_id":"Teokogo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Senyette Richard",
@@ -1226,7 +1360,8 @@
          "membership_id":"Member",
          "object_id":"obj-910",
          "constituency_id":"Vogorene",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Chrysanthos Seinu",
@@ -1235,7 +1370,8 @@
          "membership_id":"Member",
          "object_id":"obj-841",
          "constituency_id":"Nyoteke",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Batty Seituti",
@@ -1244,7 +1380,8 @@
          "membership_id":"Member",
          "object_id":"obj-816",
          "constituency_id":"Voe",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Patrica Sejembe",
@@ -1253,7 +1390,8 @@
          "membership_id":"Member",
          "object_id":"obj-763",
          "constituency_id":"Kololene",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Patkay Sejweng'",
@@ -1262,7 +1400,8 @@
          "membership_id":"Member",
          "object_id":"obj-764",
          "constituency_id":"Ol'koloe",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Hanry Selundu",
@@ -1271,7 +1410,8 @@
          "membership_id":"Member",
          "object_id":"obj-870",
          "constituency_id":"Embokose",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Samoal Sembe",
@@ -1280,7 +1420,8 @@
          "membership_id":"Member",
          "object_id":"obj-885",
          "constituency_id":"Gem",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Martha Sembi",
@@ -1289,7 +1430,8 @@
          "membership_id":"Member",
          "object_id":"obj-888",
          "constituency_id":"Aldoe",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Patar ' Sememe",
@@ -1298,7 +1440,8 @@
          "membership_id":"Member",
          "object_id":"obj-765",
          "constituency_id":"Cedolonge",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Patar Semende",
@@ -1307,7 +1450,8 @@
          "membership_id":"Member",
          "object_id":"obj-766",
          "constituency_id":"Vondero Eost",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Patar Semuthu",
@@ -1316,7 +1460,8 @@
          "membership_id":"Member",
          "object_id":"obj-767",
          "constituency_id":"Eldoret Eost",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Patar Sepperru",
@@ -1325,7 +1470,8 @@
          "membership_id":"Member",
          "object_id":"obj-768",
          "constituency_id":"Ndorogwo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Patar Serebe",
@@ -1334,7 +1480,8 @@
          "membership_id":"Member",
          "object_id":"obj-769",
          "constituency_id":"Gethengere",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Patar Seree",
@@ -1343,7 +1490,8 @@
          "membership_id":"Member",
          "object_id":"obj-770",
          "constituency_id":"Vweo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Patar Sereme",
@@ -1352,7 +1500,8 @@
          "membership_id":"Member",
          "object_id":"obj-771",
          "constituency_id":"Totek",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Arthor Seret",
@@ -1361,7 +1510,8 @@
          "membership_id":"Member",
          "object_id":"obj-818",
          "constituency_id":"Volende",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Jayna Serieki",
@@ -1370,7 +1520,8 @@
          "membership_id":"Member",
          "object_id":"obj-890",
          "constituency_id":"Kongemo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Paol Serieki",
@@ -1379,7 +1530,8 @@
          "membership_id":"Member",
          "object_id":"obj-772",
          "constituency_id":"Norok North",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Asiman Sesere",
@@ -1388,7 +1540,8 @@
          "membership_id":"Member",
          "object_id":"obj-817",
          "constituency_id":"Cohore",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Danial Seteku",
@@ -1397,7 +1550,8 @@
          "membership_id":"Member",
          "object_id":"obj-830",
          "constituency_id":"Wojer Toeth",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Gaorga Sheben",
@@ -1406,7 +1560,8 @@
          "membership_id":"Member",
          "object_id":"obj-827",
          "constituency_id":"Urere",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Arthor Sheeben",
@@ -1415,7 +1570,8 @@
          "membership_id":"Member",
          "object_id":"obj-819",
          "constituency_id":"Kosepel-Kobondo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Andraw Shekumbu",
@@ -1424,7 +1580,8 @@
          "membership_id":"Member",
          "object_id":"obj-820",
          "constituency_id":"Korocheonyo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"John Shelif",
@@ -1433,7 +1590,8 @@
          "membership_id":"Member",
          "object_id":"obj-871",
          "constituency_id":"Alego/Usongo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Locas Shelwele",
@@ -1442,7 +1600,8 @@
          "membership_id":"Member",
          "object_id":"obj-864",
          "constituency_id":"Nyondo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Njoki Shemisi",
@@ -1451,7 +1610,8 @@
          "membership_id":"Member",
          "object_id":"obj-859",
          "constituency_id":"Kojeodo North",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Naomi Sheniri",
@@ -1460,7 +1620,8 @@
          "membership_id":"Member",
          "object_id":"obj-773",
          "constituency_id":"Tegor",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Najib Sibenguchy",
@@ -1469,7 +1630,8 @@
          "membership_id":"Member",
          "object_id":"obj-774",
          "constituency_id":"Vsombwene",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Mwangi Sibwene",
@@ -1478,7 +1640,8 @@
          "membership_id":"Member",
          "object_id":"obj-775",
          "constituency_id":"",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Motula Sihere",
@@ -1487,7 +1650,8 @@
          "membership_id":"Member",
          "object_id":"obj-776",
          "constituency_id":"Rongoe",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Motahi Silimu",
@@ -1496,7 +1660,8 @@
          "membership_id":"Member",
          "object_id":"obj-777",
          "constituency_id":"Ndeo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Mosas Silunzu",
@@ -1505,7 +1670,8 @@
          "membership_id":"Member",
          "object_id":"obj-778",
          "constituency_id":"Conchore",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Morris Simenye",
@@ -1514,7 +1680,8 @@
          "membership_id":"Member",
          "object_id":"obj-779",
          "constituency_id":"Kosorone",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Mokhisa Singi",
@@ -1523,7 +1690,8 @@
          "membership_id":"Member",
          "object_id":"obj-780",
          "constituency_id":"Gotende North",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Mirogi Sipchembe",
@@ -1532,7 +1700,8 @@
          "membership_id":"Member",
          "object_id":"obj-781",
          "constituency_id":"Kwonzo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Martin Sirwe",
@@ -1541,7 +1710,8 @@
          "membership_id":"Member",
          "object_id":"obj-782",
          "constituency_id":"Ketete Vosobo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Nohana Siteyi",
@@ -1550,7 +1720,8 @@
          "membership_id":"Member",
          "object_id":"obj-854",
          "constituency_id":"Keseme Town Eost",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Keter Stephen",
@@ -1559,7 +1730,8 @@
          "membership_id":"Member",
          "object_id":"obj-939",
          "constituency_id":"Comochoge",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Mesile Stephen",
@@ -1577,7 +1749,8 @@
          "membership_id":"Member",
          "object_id":"obj-941",
          "constituency_id":"Iseolo North",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Linah Sunes",
@@ -1586,7 +1759,8 @@
          "membership_id":"Member",
          "object_id":"obj-866",
          "constituency_id":"Vonyotto",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Nohana Surir",
@@ -1595,7 +1769,8 @@
          "membership_id":"Member",
          "object_id":"obj-886",
          "constituency_id":"Ketete Choche",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Maina Surus",
@@ -1604,7 +1779,8 @@
          "membership_id":"Member",
          "object_id":"obj-851",
          "constituency_id":"Nyorebore Vosobo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Sammy Suskey",
@@ -1613,7 +1789,8 @@
          "membership_id":"Member",
          "object_id":"obj-872",
          "constituency_id":"Golole",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Davias T'Nkirie",
@@ -1622,7 +1799,8 @@
          "membership_id":"Member",
          "object_id":"obj-848",
          "constituency_id":"Kojeodo Centrol",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Kiproto Techege",
@@ -1631,7 +1809,8 @@
          "membership_id":"Member",
          "object_id":"obj-783",
          "constituency_id":"Votheoyo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Patar Techiri",
@@ -1640,7 +1819,8 @@
          "membership_id":"Member",
          "object_id":"obj-883",
          "constituency_id":"Vochokos Town",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Kipkorir Teduke",
@@ -1649,7 +1829,8 @@
          "membership_id":"Member",
          "object_id":"obj-784",
          "constituency_id":"",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Patkay Teethei",
@@ -1658,7 +1839,8 @@
          "membership_id":"Member",
          "object_id":"obj-876",
          "constituency_id":"Khwesero",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Kasaina Tegegu",
@@ -1667,7 +1849,8 @@
          "membership_id":"Member",
          "object_id":"obj-786",
          "constituency_id":"Vwenge Toeth",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Kipkalia Tegere",
@@ -1676,7 +1859,8 @@
          "membership_id":"Member",
          "object_id":"obj-785",
          "constituency_id":"Ijoro",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Josaph Tegu",
@@ -1685,7 +1869,8 @@
          "membership_id":"Member",
          "object_id":"obj-791",
          "constituency_id":"Volovo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Jolius Teiruri",
@@ -1694,7 +1879,8 @@
          "membership_id":"Member",
          "object_id":"obj-792",
          "constituency_id":"Kenongo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"John 'a Teite",
@@ -1703,7 +1889,8 @@
          "membership_id":"Member",
          "object_id":"obj-793",
          "constituency_id":"",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Joshoa Teithe",
@@ -1712,7 +1899,8 @@
          "membership_id":"Member",
          "object_id":"obj-788",
          "constituency_id":"Yotto",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Kaosia Teithe",
@@ -1721,7 +1909,8 @@
          "membership_id":"Member",
          "object_id":"obj-787",
          "constituency_id":"Toeth Vegerongo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"John Tekiri",
@@ -1730,7 +1919,8 @@
          "membership_id":"Member",
          "object_id":"obj-794",
          "constituency_id":"Keene",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Josaph Tendeku",
@@ -1739,7 +1929,8 @@
          "membership_id":"Member",
          "object_id":"obj-789",
          "constituency_id":"Tebekeo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"John Tengetene",
@@ -1748,7 +1939,8 @@
          "membership_id":"Member",
          "object_id":"obj-795",
          "constituency_id":"Thenyole",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Josaph Tenuti",
@@ -1757,7 +1949,8 @@
          "membership_id":"Member",
          "object_id":"obj-790",
          "constituency_id":"Westlonds",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"John Tenyes",
@@ -1766,7 +1959,8 @@
          "membership_id":"Member",
          "object_id":"obj-796",
          "constituency_id":"Homese",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Joshoa Tenyeu",
@@ -1775,7 +1969,8 @@
          "membership_id":"Member",
          "object_id":"obj-840",
          "constituency_id":"Noevosho",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"John Teriithi",
@@ -1784,7 +1979,8 @@
          "membership_id":"Member",
          "object_id":"obj-797",
          "constituency_id":"West Vegerongo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Alica Tett",
@@ -1793,7 +1989,8 @@
          "membership_id":"Member",
          "object_id":"obj-821",
          "constituency_id":"Vokodoro",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Roth Tgenge",
@@ -1802,7 +1999,8 @@
          "membership_id":"Member",
          "object_id":"obj-878",
          "constituency_id":"Ketee Toeth",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Simon Tiwutt",
@@ -1811,7 +2009,8 @@
          "membership_id":"Member",
          "object_id":"obj-895",
          "constituency_id":"Othoyo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Ali Tudinge",
@@ -1820,7 +2019,8 @@
          "membership_id":"Member",
          "object_id":"obj-822",
          "constituency_id":"Webeye",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Locas Baya Tui",
@@ -1829,7 +2029,8 @@
          "membership_id":"Member",
          "object_id":"obj-856",
          "constituency_id":"Veteto",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Adho Turu",
@@ -1838,7 +2039,8 @@
          "membership_id":"Member",
          "object_id":"obj-824",
          "constituency_id":"Chongwomwe",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Jamas Turutu",
@@ -1847,7 +2049,8 @@
          "membership_id":"Member",
          "object_id":"obj-798",
          "constituency_id":"Vorokwet West",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Ali Tuu",
@@ -1856,7 +2059,8 @@
          "membership_id":"Member",
          "object_id":"obj-823",
          "constituency_id":"Vosengo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Hossain Twee",
@@ -1865,7 +2069,8 @@
          "membership_id":"Member",
          "object_id":"obj-799",
          "constituency_id":"Keseme Town West",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Wekese Twehe",
@@ -1874,7 +2079,8 @@
          "membership_id":"Member",
          "object_id":"obj-942",
          "constituency_id":"Wojer West",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Wilfrad Twehe",
@@ -1883,7 +2089,8 @@
          "membership_id":"Member",
          "object_id":"obj-884",
          "constituency_id":"Nyorebore Choche",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Hazron Twendewiru",
@@ -1892,7 +2099,8 @@
          "membership_id":"Member",
          "object_id":"obj-800",
          "constituency_id":"Gotende Toeth",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Nicholas Twendwe",
@@ -1901,7 +2109,8 @@
          "membership_id":"Member",
          "object_id":"obj-887",
          "constituency_id":"Wendonye",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Harman Twengi",
@@ -1910,7 +2119,8 @@
          "membership_id":"Member",
          "object_id":"obj-801",
          "constituency_id":"Kotheone",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Abdollahi Twenje",
@@ -1919,7 +2129,8 @@
          "membership_id":"Member",
          "object_id":"obj-865",
          "constituency_id":"Kelgores",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Hanry Twenzie",
@@ -1928,7 +2139,8 @@
          "membership_id":"Member",
          "object_id":"obj-802",
          "constituency_id":"Keeyo North",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Lyola Twirerie",
@@ -1937,7 +2149,8 @@
          "membership_id":"Member",
          "object_id":"obj-857",
          "constituency_id":"Lore",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Elias Uker",
@@ -1946,7 +2159,8 @@
          "membership_id":"Member",
          "object_id":"obj-839",
          "constituency_id":"Tegoneo Eost",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Oli Velerien",
@@ -1955,7 +2169,8 @@
          "membership_id":"Member",
          "object_id":"obj-943",
          "constituency_id":"Vwoteto",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Charlas Wakoko",
@@ -1964,7 +2179,8 @@
          "membership_id":"Member",
          "object_id":"obj-828",
          "constituency_id":"Igembe",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Macharia Weitheke",
@@ -1973,7 +2189,8 @@
          "membership_id":"Member",
          "object_id":"obj-834",
          "constituency_id":"North Imente",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Fradrick Wembure",
@@ -1982,7 +2199,8 @@
          "membership_id":"Member",
          "object_id":"obj-837",
          "constituency_id":"Kepkeleon",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Abdi Wemwere",
@@ -1991,7 +2209,8 @@
          "membership_id":"Member",
          "object_id":"obj-825",
          "constituency_id":"Cherongone",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Adalina Were",
@@ -2000,7 +2219,8 @@
          "membership_id":"Member",
          "object_id":"obj-842",
          "constituency_id":"Fenyelo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Nohana Wetangela",
@@ -2009,7 +2229,8 @@
          "membership_id":"Member",
          "object_id":"obj-877",
          "constituency_id":"Fofe",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Basiya Weya",
@@ -2018,7 +2239,8 @@
          "membership_id":"Member",
          "object_id":"obj-833",
          "constituency_id":"Kegemo",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Oyecku Williem",
@@ -2027,7 +2249,8 @@
          "membership_id":"Member",
          "object_id":"obj-944",
          "constituency_id":"Lome Eost",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Micheki Winfred",
@@ -2036,7 +2259,8 @@
          "membership_id":"Member",
          "object_id":"obj-945",
          "constituency_id":"Keregoyo/Ketes",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Tewuri Wycliffa",
@@ -2045,7 +2269,8 @@
          "membership_id":"Member",
          "object_id":"obj-913",
          "constituency_id":"Toveto",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       },
       {
          "user_id":"Turoitich Zeddock",
@@ -2054,7 +2279,8 @@
          "membership_id":"Member",
          "object_id":"obj-946",
          "constituency_id":"",
-         "start_date":"2003-01-05"
+         "start_date":"2003-01-05",
+         "uri":"/ontology/persons/ken/parliament/"
       }
    ],
    "dir":"asc"
