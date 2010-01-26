@@ -2,7 +2,7 @@ xquery version "1.0";
 declare namespace an="http://www.akomantoso.org/1.0";
 declare namespace request="http://exist-db.org/xquery/request";
 declare namespace util="http://exist-db.org/xquery/util";
-declare option exist:serialize "method=xhtml media-type=text/html";
+
 
 let $personURI := xs:string(request:get-parameter("uri_id", ""))
 let $personName := xs:string(request:get-parameter("user_id", ""))
@@ -34,26 +34,4 @@ let $for_html := <matches> <by> <uri>{$personURI}</uri><name> {$personName}</nam
    }
    </matches>
 
-return 
-       <html>
-       <head>
-       </head>
-       <body>
-       <h1>
-       Search Results for Member of Parliament : {$personName}       </h1>
- 		{
- 		(: loop for for all debate elements :)
- 		for $debate in $for_html/debate 
- 			let $debate_uri := $debate/@from/string()
-			let $uri_components := tokenize($debate_uri, '/')
-            return 
-				<p><a href="{$debate_uri}">Debate -- {$debate_uri}</a></p>
-				<div id="speeches">
-				{
-					
-
-				}
-				</div>
- 	    }
-       </body>
-       </html>
+return $for_html

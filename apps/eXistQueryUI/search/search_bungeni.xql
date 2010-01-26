@@ -2,6 +2,7 @@ xquery version "1.0";
 
 declare namespace request="http://exist-db.org/xquery/request";
 declare namespace util="http://exist-db.org/xquery/util";
+declare namespace xmldb="http://exist-db.org/xquery/xmldb";
 declare option exist:serialize "method=xhtml media-type=text/html";
 
 <html>
@@ -41,24 +42,24 @@ declare option exist:serialize "method=xhtml media-type=text/html";
 
 </head>
 <body class="yui-skin-sam"> 
-// An outer container contains an input element and
-// a empty results container, both of which are passed
-// to the constructor
+
 <script type="text/javascript">
 function dispHidden() {{
-var fieldHidden = document.getElementById('myInput_id');
+var fieldHidden = document.getElementById('uri_id');
 alert(fieldHidden.value);
 }}
 
 
 </script>
 
-<form action="{request:get-uri()}" method="get">
-
+<form action="results_bungeni.xql" method="get" class="cmxform">
+<fieldset>
+<legend>Search Debaterecords for Speechs by a Member of Parliament#160;</legend>
 <div id="myAutoComplete">
 
-<input id="myInput_id" type="hidden" name="myInput_id" value="{request:get-parameter("myInput_id",0)}"/>
-
+<input id="uri_id" type="hidden" name="uri_id" value="{request:get-parameter("uri_id","0")}"/>
+<input id="user_id" type="hidden" name="user_id" value="{request:get-parameter("user_id","0")}"/>
+<label for="myInput">Type Member's Name</label>
 <input id="myInput" type="text"/>
 
 <div id="myContainer"/>
@@ -75,7 +76,7 @@ jsonDS.responseSchema = {{
 resultsList : "nodes",
 fields: [
 {{key: "user_id"}},
-{{key: "object_id"}}
+{{key: "uri"}}
 ]
 
 }};
@@ -96,14 +97,17 @@ myAutoComp.autoHighlight=true;
 myAutoComp.applyLocalFilter = true;
 
 function fnCallback(e, args) {{
-    YAHOO.util.Dom.get("myInput_id").value = args[2][1];
+    YAHOO.util.Dom.get("uri_id").value = args[2][1];
+    YAHOO.util.Dom.get("user_id").value = args[2][0];
  }}
 myAutoComp.itemSelectEvent.subscribe(fnCallback);
 
 
 </script>
-<input type="submit" value="Submit" />
+<input type="submit" value="Submit" /> <!--
 <input type="button" value="View Hidden" id="viewHidden" onClick="dispHidden();" />
+-->
+</fieldset>
 </form>
 
 </body>

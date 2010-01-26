@@ -1,3 +1,3 @@
 <collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/search/custom_css" owner="admin" group="dba" mode="755" created="2009-12-29T19:23:13+03:00" version="1">
-    <resource type="BinaryResource" name="search_bungeni.css" owner="admin" group="dba" mode="755" created="2009-12-29T19:23:30+03:00" modified="2009-12-29T19:23:30+03:00" filename="search_bungeni.css" mimetype="text/css"/>
+    <resource type="BinaryResource" name="search_bungeni.css" owner="admin" group="dba" mode="755" created="2009-12-29T19:23:30+03:00" modified="2010-01-25T16:25:43+03:00" filename="search_bungeni.css" mimetype="text/css"/>
 </collection>

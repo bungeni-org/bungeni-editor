@@ -1,3 +1,4 @@
 <collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/testdata" owner="admin" group="dba" mode="755" created="2010-01-21T15:52:40+03:00" version="1">
-    <resource type="XMLResource" name="ken_en_debaterecord_1995-11-01.xml" owner="admin" group="dba" mode="755" created="2010-01-21T15:53:29+03:00" modified="2010-01-21T15:53:37+03:00" filename="ken_en_debaterecord_1995-11-01.xml" mimetype="text/xml"/>
+    <resource type="XMLResource" name="ken_en_debaterecod_2005-11-01.xml" owner="admin" group="dba" mode="755" created="2010-01-25T14:44:03+03:00" modified="2010-01-25T14:44:28+03:00" filename="ken_en_debaterecod_2005-11-01.xml" mimetype="text/xml"/>
+    <resource type="XMLResource" name="ken_en_debaterecord_1995-11-01.xml" owner="admin" group="dba" mode="755" created="2010-01-21T15:53:29+03:00" modified="2010-01-25T15:19:32+03:00" filename="ken_en_debaterecord_1995-11-01.xml" mimetype="text/xml"/>
 </collection>
