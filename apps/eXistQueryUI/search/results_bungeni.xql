@@ -1,15 +1,49 @@
 xquery version "1.0";
+
+(: Headers :)
+
+(: declare copy-namespaces no-preserve, no-inherit; :)
 declare namespace an="http://www.akomantoso.org/1.0";
 declare namespace request="http://exist-db.org/xquery/request";
 declare namespace util="http://exist-db.org/xquery/util";
-declare option exist:serialize "method=xhtml media-type=text/html";
+declare namespace transform="http://exist-db.org/xquery/transform";
 
+declare option exist:serialize "method=html media-type=text/html"; 
+
+
+
+(: Functions :)
+
+declare function local:strip-namespace($e as element()) as element() {
+  
+   element {QName((),local-name($e))} {
+    for $child in $e/(@*,node())
+    return
+      if ($child instance of element())
+      then
+        local:strip-namespace($child)
+      else
+        $child
+  }
+};
+
+
+
+
+(: Page Variables :)
+
+let $doc_xslt := "/db/xslt/speechbymp.xsl"
+let $doc_collection := "/db/testdata"
 let $personURI := xs:string(request:get-parameter("uri_id", ""))
 let $personName := xs:string(request:get-parameter("user_id", ""))
-let $personNode := collection("/db/testdata")/an:akomaNtoso/an:debateRecord/child::node()/descendant::an:TLCPerson[@href=$personURI]
+let $page_title := concat("Search Results for:" , $personName)
+
+
+
+let $personNode := collection($doc_collection)/an:akomaNtoso/an:debateRecord/child::node()/descendant::an:TLCPerson[@href=$personURI]
 let $personNodeId := $personNode/@id/string()
 
-let $speechNodes := collection("/db/testdata")/an:akomaNtoso/an:debateRecord/child::node()/descendant::an:speech[@by=$personNodeId]
+let $speechNodes := collection($doc_collection)/an:akomaNtoso/an:debateRecord/child::node()/descendant::an:speech[@by=$personNodeId]
 
 let $results :=
     for $speechNode in $speechNodes
@@ -34,24 +68,24 @@ let $for_html := <matches> <by> <uri>{$personURI}</uri><name> {$personName}</nam
    }
    </matches>
 
+let $for_html_nons := local:strip-namespace($for_html)
+
+
 return 
-       <html>
-       <head>
-       </head>
-       <body>
-       <h1>
-       Search Results for Member of Parliament : {$personName}       </h1>
- 		{
- 		(: loop for for all debate elements :)
- 		for $debate in $for_html/debate 
- 			let $debate_uri := $debate/@from/string()
-			let $uri_components := tokenize($debate_uri, '/')
-			let $date-debate := item-at($uri_components, 4)
-            return 
-				<p><a href="{$debate_uri}">Debate -- {$date-debate}</a>
-				{$uri_components}
-				</p>
-				
- 	    }
-       </body>
-       </html>
+		<html>
+		<head>
+			<title>	{$page_title} </title>
+			<link type="text/css" rel="stylesheet" href="/exist/rest/db/search/custom_css/search_bungeni.css" />
+		</head>
+		<body>
+			<div class="container">
+				<div class="main">
+				<h1>Search Results for : {$personName}</h1>
+				<h2>Matching results found in {count($for_html_nons//debate)} Debates, in {count($for_html_nons//speech)} speech(es)</h2>
+		 		{
+				transform:transform($for_html_nons, xs:anyURI(concat("xmldb:exist://", $doc_xslt)), ()) 
+				}
+				</div>
+			</div>
+ 	    </body>
+		</html>

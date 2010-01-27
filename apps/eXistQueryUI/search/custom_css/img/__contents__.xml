@@ -1,0 +1,10 @@
+<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/search/custom_css/img" owner="admin" group="dba" mode="755" created="2010-01-28T00:13:26+03:00" version="1">
+    <resource type="BinaryResource" name="bg.gif" owner="admin" group="dba" mode="755" created="2010-01-28T00:13:26+03:00" modified="2010-01-28T00:13:26+03:00" filename="bg.gif" mimetype="image/gif"/>
+    <resource type="BinaryResource" name="bgcode.gif" owner="admin" group="dba" mode="755" created="2010-01-28T00:13:26+03:00" modified="2010-01-28T00:13:26+03:00" filename="bgcode.gif" mimetype="image/gif"/>
+    <resource type="BinaryResource" name="bgcontainer.gif" owner="admin" group="dba" mode="755" created="2010-01-28T00:13:26+03:00" modified="2010-01-28T00:13:26+03:00" filename="bgcontainer.gif" mimetype="image/gif"/>
+    <resource type="BinaryResource" name="bgul.gif" owner="admin" group="dba" mode="755" created="2010-01-28T00:13:26+03:00" modified="2010-01-28T00:13:26+03:00" filename="bgul.gif" mimetype="image/gif"/>
+    <resource type="BinaryResource" name="header.gif" owner="admin" group="dba" mode="755" created="2010-01-28T00:13:26+03:00" modified="2010-01-28T00:13:26+03:00" filename="header.gif" mimetype="image/gif"/>
+    <resource type="BinaryResource" name="li.gif" owner="admin" group="dba" mode="755" created="2010-01-28T00:13:26+03:00" modified="2010-01-28T00:13:26+03:00" filename="li.gif" mimetype="image/gif"/>
+    <resource type="BinaryResource" name="quote.gif" owner="admin" group="dba" mode="755" created="2010-01-28T00:13:26+03:00" modified="2010-01-28T00:13:26+03:00" filename="quote.gif" mimetype="image/gif"/>
+    <resource type="BinaryResource" name="search.gif" owner="admin" group="dba" mode="755" created="2010-01-28T00:13:26+03:00" modified="2010-01-28T00:13:26+03:00" filename="search.gif" mimetype="image/gif"/>
+</collection>

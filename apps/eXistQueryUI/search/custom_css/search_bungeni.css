@@ -4,1340 +4,235 @@
 }
 
 
-/*
-form.cmxform fieldset {
-  margin-bottom: 10px;
+
+
+
+/*#############################################################
+Name: Transparentia
+Date: 2006-08-20
+Description: Simple, lightweight and slightly blue.
+Author: Viktor Persson
+URL: http://templates.arcsin.se
+
+Feel free to use and modify but please provide credits.
+#############################################################*/
+
+/* standard elements */
+* {
+	margin: 0;
+	padding: 0;
 }
-form.cmxform legend {
-  padding: 0 2px;
-  font-weight: bold;
+a {
+	color: #36C;
 }
-form.cmxform label {
-  display: inline-block;
-  line-height: 1.8;
-  vertical-align: top;
+a:hover {
+	color: #06F;
 }
-form.cmxform fieldset ol {
-  margin: 0;
-  padding: 0;
-}
-form.cmxform fieldset li {
-  list-style: none;
-  padding: 5px;
-  margin: 0;
-}
-form.cmxform fieldset fieldset {
-  border: none;
-  margin: 3px 0 0;
-}
-form.cmxform fieldset fieldset legend {
-  padding: 0 0 5px;
-  font-weight: normal;
-}
-form.cmxform fieldset fieldset label {
-  display: block;
-  width: auto;
-}
-form.cmxform em {
-  font-weight: bold;
-  font-style: normal;
-  color: #f00;
-}
-form.cmxform label {
-  width: 120px; /* Width of labels */
-}
-form.cmxform fieldset fieldset label {
-  margin-left: 123px; /* Width plus 3 (html space) */
-}
-*/
-
- ....loading....
-6 x 11
-Firebug's log limit has been reached. %S entries not shown.		Preferences	 
-				
-Firebug's log limit has been reached. %S entries not shown.		Preferences	 
-Net panel activated. Any requests while the net panel is inactive are not shown.
-GET search_bungeni.xql
-http://localhost:8080/exist/rest/search/search_bungeni.xql
-	
-200 OK
-	
-localhost:8080
-	
-3 KB
-	
- 
-82ms
-GET autocomplete.css
-http://localhost:8080/exist/rest/db/yui/css/autocomplete.css
-	
-200 OK
-	
-localhost:8080
-	
-1 KB
-	
- 
-4ms
-GET search_bungeni.css
-http://localhost:8080/exist/rest/db/search/custom_css/search_bungeni.css
-	
-200 OK
-	
-localhost:8080
-	
-933 B
-	
- 
-36ms
-GET yahoo-dom-event.js
-http://localhost:8080/exist/rest/db/yui/js/yahoo-dom-event.js
-	
-200 OK
-	
-localhost:8080
-	
-36 KB
-	
- 
-35ms
-GET datasource-min.js
-http://localhost:8080/exist/rest/db/yui/js/datasource-min.js
-	
-200 OK
-	
-localhost:8080
-	
-31 KB
-	
- 
-4ms
-GET get-min.js
-http://localhost:8080/exist/rest/db/yui/js/get-min.js
-	
-200 OK
-	
-localhost:8080
-	
-4 KB
-	
- 
-12ms
-GET connection-min.js
-http://localhost:8080/exist/rest/db/yui/js/connection-min.js
-	
-200 OK
-	
-localhost:8080
-	
-12 KB
-	
- 
-14ms
-GET animation-min.js
-http://localhost:8080/exist/rest/db/yui/js/animation-min.js
-	
-200 OK
-	
-localhost:8080
-	
-13 KB
-	
- 
-19ms
-GET json-min.js
-http://localhost:8080/exist/rest/db/yui/js/json-min.js
-	
-200 OK
-	
-localhost:8080
-	
-4 KB
-	
- 
-4ms
-GET autocomplete-min.js
-http://localhost:8080/exist/rest/db/yui/js/autocomplete-min.js
-	
-200 OK
-	
-localhost:8080
-	
-31 KB
-	
- 
-20ms
-Net panel activated. Any requests while the net panel is inactive are not shown.
-10 requests
-			
-139 KB
-	
-(0 B from cache)
-246ms
-<html>
-<head>
-</head>
-<div id="_firebugConsole" style="display: none;" FirebugVersion="1.4.5"/>
-<body class="yui-skin-sam">
-</body>
-</html>
-text
-Rulesets
-
-    * Printable View
-    * Help
-
-YSlow Help
-YSlow FAQ
-YSlow Blog
-YSlow Community
-Send Feedback
-YSlow Home
-
-    * Grade
-    * Components
-    * Statistics
-    * Tools
-
-splash image
-Grade your web pages with YSlow
-YSlow gives you:
-
-    * Grade based on the performance of the page (you can define your own ruleset)
-    * Summary of the page components
-    * Chart with statistics
-    * Tools for analyzing performance, including Smush.it™ and JSLint
-
-Autorun YSlow each time a web page is loaded
-Run Test
-»Learn more about YSlow and the Yahoo! Developer Network
-Copyright © 2009 Yahoo! Inc. All rights reserved.
-Firebug's log limit has been reached. %S entries not shown.		Preferences	 
-				
-Firebug's log limit has been reached. %S entries not shown.		Preferences	 
-Net panel activated. Any requests while the net panel is inactive are not shown.
-GET add
-http://192.168.0.48:8081/business/questions/add
-	
-200 Ok
-	
-192.168.0.48:8081
-	
-31 KB
-	
- 
-318ms
-GET yahoo.js
-http://192.168.0.48:8081/@@/yui-core/build/yahoo/yahoo.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-32 KB
-	
- 
-310ms
-GET dom.js
-http://192.168.0.48:8081/@@/yui-core/build/dom/dom.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-47 KB
-	
- 
-108ms
-GET event.js
-http://192.168.0.48:8081/@@/yui-core/build/event/event.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-88 KB
-	
- 
-491ms
-GET container.js
-http://192.168.0.48:8081/@@/yui-container/build/container/container.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-303 KB
-	
- 
-1.44s
-GET element-beta.js
-http://192.168.0.48:8081/@@/yui-element/build/element/element-beta.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-30 KB
-	
- 
-118ms
-GET simpleeditor.js
-http://192.168.0.48:8081/@@/yui-editor/build/editor/simpleeditor.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-280 KB
-	
- 
-1.5s
-GET dragdrop.js
-http://192.168.0.48:8081/@@/yui-dragdrop/build/dragdrop/dragdrop.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-120 KB
-	
- 
-445ms
-GET animation.js
-http://192.168.0.48:8081/@@/yui-animation/build/animation/animation.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-46 KB
-	
- 
-139ms
-GET resize.js
-http://192.168.0.48:8081/@@/yui-resize/build/resize/resize.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-60 KB
-	
- 
-200ms
-GET jquery-1.2.6.min.js
-http://192.168.0.48:8081/++resource++portal/jquery-1.2.6.min.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-54 KB
-	
- 
-161ms
-GET report.js
-http://192.168.0.48:8081/++resource++portal/report.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-6 KB
-	
- 
-152ms
-GET 10-base.css
-http://192.168.0.48:8081/++resource++portal/10-base.css
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-2 KB
-	
- 
-141ms
-GET 20-public.css
-http://192.168.0.48:8081/++resource++portal/20-public.css
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-23 KB
-	
- 
-181ms
-GET 30-columns.css
-http://192.168.0.48:8081/++resource++portal/30-columns.css
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-1 KB
-	
- 
-172ms
-GET 40-authoring.css
-http://192.168.0.48:8081/++resource++portal/40-authoring.css
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-10 KB
-	
- 
-174ms
-GET 50-portlets.css
-http://192.168.0.48:8081/++resource++portal/50-portlets.css
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-4 KB
-	
- 
-177ms
-GET 60-controlpanel.css
-http://192.168.0.48:8081/++resource++portal/60-controlpanel.css
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-1 KB
-	
- 
-199ms
-GET 70-print.css
-http://192.168.0.48:8081/++resource++portal/70-print.css
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-2 KB
-	
- 
-263ms
-GET 80-navtree.css
-http://192.168.0.48:8081/++resource++portal/80-navtree.css
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-2 KB
-	
- 
-603ms
-GET 85-invisibles.css
-http://192.168.0.48:8081/++resource++portal/85-invisibles.css
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-2 KB
-	
- 
-506ms
-GET 90-forms.css
-http://192.168.0.48:8081/++resource++portal/90-forms.css
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-5 KB
-	
- 
-205ms
-ParamsHeadersPostPutResponseCacheHTMLCookies
-Response Headers
-Server	PasteWSGIServer/0.5 Python/2.5.4
-Date	Mon, 25 Jan 2010 13:24:48 GMT
-X-Powered-By	Zope (www.zope.org), Python (www.python.org)
-X-Content-Type-Warning	guessed from content
-Content-Length	0
-Cache-Control	public,max-age=86400
-Expires	Tue, 26 Jan 2010 13:24:48 GMT
-Content-Type	text/plain
-Request Headers
-Host	192.168.0.48:8081
-User-Agent	Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US; rv:1.9.1.7) Gecko/20091221 Firefox/3.5.7 GTB6
-Accept	text/css,*/*;q=0.1
-Accept-Language	en-us,en;q=0.5
-Accept-Encoding	gzip,deflate
-Accept-Charset	ISO-8859-1,utf-8;q=0.7,*;q=0.7
-Keep-Alive	300
-Connection	keep-alive
-Referer	http://192.168.0.48:8081/business/questions/add
-Cookie	'wc.cookiecredentials'=a610ff19c3cc1fdfc4125e734cbf31224b5d6607admin!; __ac="mEYjIbm95511eJiVZr+eo5oK5M0gbS5jaGFyaXR5bQ=="
-If-Modified-Since	Wed, 16 Dec 2009 07:28:28 GMT
-Cache-Control	max-age=0
-Load Response
-GET 95-plonekss.css
-http://192.168.0.48:8081/++resource++portal/95-plonekss.css
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-1 KB
-	
- 
-252ms
-GET A0-bungeni.css
-http://192.168.0.48:8081/++resource++portal/A0-bungeni.css
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-1 KB
-	
- 
-252ms
-GET A1-calendar.css
-http://192.168.0.48:8081/++resource++portal/A1-calendar.css
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-2 KB
-	
- 
-405ms
-GET A2-scheduling.css
-http://192.168.0.48:8081/++resource++portal/A2-scheduling.css
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-799 B
-	
- 
-180ms
-GET A3-clockpick.css
-http://192.168.0.48:8081/++resource++portal/A3-clockpick.css
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-662 B
-	
- 
-381ms
-GET A4-plainTable.css
-http://192.168.0.48:8081/++resource++portal/A4-plainTable.css
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-1 KB
-	
- 
-422ms
-GET A5-report.css
-http://192.168.0.48:8081/++resource++portal/A5-report.css
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-692 B
-	
- 
-600ms
-GET B0-globalnav.css
-http://192.168.0.48:8081/++resource++portal/B0-globalnav.css
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-4 KB
-	
- 
-483ms
-GET jquery-ui-1.7.1.custom.css
-http://192.168.0.48:8081/++resource++portal/jquery-ui-1.7.1.custom.css
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-26 KB
-	
- 
-552ms
-GET datatable.css
-http://192.168.0.48:8081/@@/yui/build/assets/skins/sam/datatable.css
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-6 KB
-	
- 
-425ms
-GET datatable.css
-http://192.168.0.48:8081/@@/yui/build/datatable/assets/datatable.css
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-950 B
-	
- 
-455ms
-GET treeview.css
-http://192.168.0.48:8081/@@/yui/build/assets/skins/sam/treeview.css
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-2 KB
-	
- 
-395ms
-GET logger.css
-http://192.168.0.48:8081/@@/yui/build/logger/assets/skins/sam/logger.css
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-1 KB
-	
- 
-416ms
-GET yahoo.js
-http://192.168.0.48:8081/@@/yui/build/yahoo/yahoo.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-32 KB
-	
- 
-529ms
-GET connection.js
-http://192.168.0.48:8081/@@/yui/build/connection/connection.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-37 KB
-	
- 
-448ms
-GET dom.js
-http://192.168.0.48:8081/@@/yui/build/dom/dom.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-47 KB
-	
- 
-569ms
-GET logger-min.js
-http://192.168.0.48:8081/@@/yui/build/logger/logger-min.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-16 KB
-	
- 
-539ms
-GET element-beta.js
-http://192.168.0.48:8081/@@/yui/build/element/element-beta.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-30 KB
-	
- 
-489ms
-GET datasource.js
-http://192.168.0.48:8081/@@/yui/build/datasource/datasource.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-92 KB
-	
- 
-1.06s
-GET datatable.js
-http://192.168.0.48:8081/@@/yui/build/datatable/datatable.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-483 KB
-	
- 
-1.52s
-GET event.js
-http://192.168.0.48:8081/@@/yui/build/event/event.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-88 KB
-	
- 
-1.06s
-GET plugins.js
-http://192.168.0.48:8081/@@/bungeni-js/plugins.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-24 KB
-	
- 
-503ms
-GET dropdown.js
-http://192.168.0.48:8081/@@/js/dropdown.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-2 KB
-	
- 
-468ms
-GET ui.core.js
-http://192.168.0.48:8081/@@/bungeni-js/jquery/ui.core.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-7 KB
-	
- 
-442ms
-GET behavior.js
-http://192.168.0.48:8081/@@/bungeni-js/behavior.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-3 KB
-	
- 
-443ms
-GET ui.draggable.js
-http://192.168.0.48:8081/@@/bungeni-js/jquery/ui.draggable.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-23 KB
-	
- 
-926ms
-GET jquery.tablesorter.js
-http://192.168.0.48:8081/@@/bungeni-js/jquery/jquery.tablesorter.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-22 KB
-	
- 
-325ms
-GET recurring_events.js
-http://192.168.0.48:8081/@@/bungeni-js/recurring_events.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-1 KB
-	
- 
-798ms
-GET jquery.columnfilters.js
-http://192.168.0.48:8081/@@/bungeni-js/jquery/jquery.columnfilters.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-6 KB
-	
- 
-813ms
-GET jquery.clockpick.1.2.5.js
-http://192.168.0.48:8081/@@/bungeni-js/jquery/jquery.clockpick.1.2.5.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-16 KB
-	
- 
-748ms
-GET ui.resizable.js
-http://192.168.0.48:8081/@@/bungeni-js/jquery/ui.resizable.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-26 KB
-	
- 
-749ms
-GET ui.datepicker.js
-http://192.168.0.48:8081/@@/bungeni-js/jquery/ui.datepicker.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-67 KB
-	
- 
-1s
-GET form_tabbing.js
-http://192.168.0.48:8081/@@/bungeni-js/form_tabbing.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-5 KB
-	
- 
-726ms
-GET ui.droppable.js
-http://192.168.0.48:8081/@@/bungeni-js/jquery/ui.droppable.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-8 KB
-	
- 
-727ms
-GET jquery.form-2.12.js
-http://192.168.0.48:8081/@@/bungeni-js/jquery/jquery.form-2.12.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-21 KB
-	
- 
-712ms
-GET ui.sortable.js
-http://192.168.0.48:8081/@@/bungeni-js/jquery/ui.sortable.js
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-28 KB
-	
- 
-718ms
-GET container.css
-http://192.168.0.48:8081/@@/yui-container/build/container/assets/skins/sam/container.css
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-4 KB
-	
- 
-22ms
-GET simpleeditor.css
-http://192.168.0.48:8081/@@/yui-editor/build/editor/assets/skins/sam/simpleeditor.css
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-23 KB
-	
- 
-36ms
-GET resize.css
-http://192.168.0.48:8081/@@/yui-resize/build/resize/assets/skins/sam/resize.css
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-5 KB
-	
- 
-13ms
-GET required.gif
-http://192.168.0.48:8081/++resource++portal/required.gif
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-48 B
-	
- 
-2ms
-GET input_background.gif
-http://192.168.0.48:8081/++resource++portal/input_background.gif
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-460 B
-	
- 
-9ms
-GET blankimage.png
-http://192.168.0.48:8081/@@/yui-editor/build/editor/assets/skins/sam/blankimage.png
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-2 KB
-	
- 
-114ms
-GET linkTransparent.gif
-http://192.168.0.48:8081/++resource++portal/linkTransparent.gif
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-103 B
-	
- 
-101ms
-GET sprite.png
-http://192.168.0.48:8081/@@/yui-editor/build/assets/skins/sam/sprite.png
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-3 KB
-	
- 
-6ms
-GET editor-sprite.gif
-http://192.168.0.48:8081/@@/yui-editor/build/editor/assets/skins/sam/editor-sprite.gif
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-5 KB
-	
- 
-13ms
-GET spinner.gif
-http://192.168.0.48:8081/++resource++portal/spinner.gif
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-1 KB
-	
- 
-2ms
-GET bullet.gif
-http://192.168.0.48:8081/++resource++portal/bullet.gif
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-51 B
-	
- 
-2ms
-GET ui-bg_highlight-hard_100_f9f9f9_1x100.png
-http://192.168.0.48:8081/++resource++portal/images/ui-bg_highlight-hard_100_f9f9f9_1x100.png
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-86 B
-	
- 
-3ms
-GET layout_sprite.png
-http://192.168.0.48:8081/@@/yui-resize/build/resize/assets/skins/sam/layout_sprite.png
-	
-304 Not Modified
-	
-192.168.0.48:8081
-	
-1 KB
-	
- 
-2ms
-26 requests
-			
-142 KB
-	
-(142 KB from cache)
-2.14s
-text
-Rulesets
-
-    * Printable View
-    * Help
-
-YSlow Help
-YSlow FAQ
-YSlow Blog
-YSlow Community
-Send Feedback
-YSlow Home
-
-    * Grade
-    * Components
-    * Statistics
-    * Tools
-
-splash image
-Grade your web pages with YSlow
-YSlow gives you:
-
-    * Grade based on the performance of the page (you can define your own ruleset)
-    * Summary of the page components
-    * Chart with statistics
-    * Tools for analyzing performance, including Smush.it™ and JSLint
-
-Autorun YSlow each time a web page is loaded
-Run Test
-»Learn more about YSlow and the Yahoo! Developer Network
-Copyright © 2009 Yahoo! Inc. All rights reserved.
-textarea {
--moz-background-clip:border;
--moz-background-inline-policy:continuous;
--moz-background-origin:padding;
--x-system-font:none;
-background:White url(input_background.gif) repeat-x scroll 0 0;
-border-color:#666666 #DDDDDD #DDDDDD #666666;
-border-style:solid;
-border-width:1px;
-color:Black;
-font-family:Monaco,"Courier New",Courier,monospace;
-font-size:100%;
-font-size-adjust:none;
-font-stretch:normal;
-font-style:normal;
-font-variant:normal;
-font-weight:normal;
-line-height:normal;
-width:100%;
+body {
+	background: #EEE url(img/bg.gif);
+	color: #444;
+	font: normal 82.5% "Lucida Sans Unicode",sans-serif;
+	margin: 0;
 }
 input {
--moz-background-clip:border;
--moz-background-inline-policy:continuous;
--moz-background-origin:padding;
-background:transparent none repeat scroll 0 0;
-border-color:#666666 #DDDDDD #DDDDDD #666666;
-border-style:solid;
-border-width:1px;
-color:Black;
-font-family:"Lucida Grande",Verdana,Lucida,Helvetica,Arial,sans-serif;
-font-size:1em;
-vertical-align:top;
-visibility:visible;
+	color: #555;
+	font: normal 1.1em "Lucida Sans Unicode",sans-serif;
 }
-.noborder, .documentEditable * .noborder {
--moz-background-clip:border;
--moz-background-inline-policy:continuous;
--moz-background-origin:padding;
-background:transparent none repeat scroll 0 0;
-border:medium none;
-margin:0;
+p,cite,code,ul {
+	font-size: 1.2em;
+	padding-bottom: 1.2em;
 }
-input[type="checkbox"] {
--moz-background-clip:border;
--moz-background-inline-policy:continuous;
--moz-background-origin:padding;
-background:transparent none repeat scroll 0 0;
-border:medium none;
-margin:0;
-}
-#searchGadget {
-border:1px solid #8CACBB;
-}
-button {
-background-color:#DEE7EC;
-border:1px solid #8CACBB;
-color:Black;
-cursor:pointer;
-font-family:"Lucida Grande",Verdana,Lucida,Helvetica,Arial,sans-serif;
-font-size:90%;
-padding:1px;
-text-transform:none;
-vertical-align:middle;
-visibility:visible;
-}
-select {
-vertical-align:top;
-}
-form {
-border:medium none;
-margin:0;
-}
-fieldset {
-border:1px solid #8CACBB;
-line-height:1.5em;
-margin:1em 0;
-padding:0 1em 1em;
-width:auto;
-}
+
 legend {
--moz-background-clip:border;
--moz-background-inline-policy:continuous;
--moz-background-origin:padding;
-background:White none repeat scroll 0 0;
-font-size:90%;
-padding:0.5em;
+	font-size: 1.1em;
+	padding-right: .2em;
 }
+
 label {
-font-weight:bold;
+	font-size: 1.1em;
+	padding-right: .4em;
+	padding-left : .4em;
 }
-optgroup {
-color:#999999;
-font-style:normal;
-font-weight:bold;
-padding-left:0.25em;
+
+
+
+h1 {
+	font-size: 1.4em;
+	margin-bottom: 4px;
 }
-option {
-color:black;
+code {
+	background: url(img/bgcode.gif);
+	border: 1px solid #F0F0F0;
+	border-left: 6px solid #39F;
+	color: #555;
+	display: block;
+	font: normal 1.1em "Lucida Sans Unicode",serif;
+	margin-bottom: 12px;
+	padding: 8px 10px;
+	border-bottom: 3px solid #39f;
+	white-space: pre;
 }
-optgroup > option {
-padding:0 0.25em 0 1em;
+cite {
+	background: url(img/quote.gif) no-repeat;
+	color: #666;
+	display: block;
+	font: normal 1.1em "Lucida Sans Unicode",serif;
+	padding-left: 28px;
 }
-dl.enableFormTabbing dd {
-margin-left:0;
-padding-top:2em;
+h1,h2,h3 {
+	color: #367EA6;
+	padding-top: 6px;
 }
-#login-form {
-margin:0 auto;
-width:30em;
+
+/* misc */
+.clearer {
+	clear: both;
 }
-#login-form .field {
-clear:none;
+
+/* structure */
+.container {
+	background: url(img/bgcontainer.gif) repeat-y;
+	margin: 0 auto;
+	padding-bottom: 6px;
+	width: 767px;
 }
-#login-form input {
-font-size:150%;
+.header {
+	background: url(img/header.gif) repeat-x;
 }
-#login-form input.context {
-background-position:9px 5px;
-margin-bottom:1em;
-padding:1px 10px 1px 20px;
+
+/* title */
+.title h1 {
+	color: #FFF;
+	font: normal 3em Verdana,sans-serif;
+	height: 150px;
+	line-height: 150px;
+	margin-bottom: 8px;
+	text-align: center;
 }
-#forgotten-password {
-float:right;
-margin:0 1em;
-width:35%;
+
+/* navigation */
+.navigation {
+	margin-bottom: 4px;
 }
-.standalone, .documentEditable * .standalone {
--moz-background-clip:border;
--moz-background-inline-policy:continuous;
--moz-background-origin:padding;
-background:#DEE7EC url(linkOpaque.gif) no-repeat scroll 9px 1px;
-border:1px solid #8CACBB;
-color:Black;
-cursor:pointer;
-font-size:90%;
-padding:1px 1px 1px 15px;
-text-transform:none;
+.navigation a {
+	background-color: #4A91C3;
+	color: #FFF;
+	float: left;
+	font: bold 1.2em "Trebuchet MS",sans-serif;
+	padding: 8px 0;
+	width: 19%;
+	border-right: 1px solid #FFF;
+	text-align: center;
+	text-decoration: none;
 }
-.context, .formControls .actionButtons .button, .documentEditable * .context {
--moz-background-clip:border;
--moz-background-inline-policy:continuous;
--moz-background-origin:padding;
-background:transparent url(linkTransparent.gif) no-repeat scroll 9px 1px;
-border:1px solid #8CACBB;
-color:Black;
-cursor:pointer;
-font-size:90%;
-padding:1px 1px 1px 15px;
-text-transform:none;
+.navigation a:hover {
+	background-color: #000;
+	color: #FFF;
 }
-.destructive, .documentEditable * .destructive {
--moz-background-clip:border;
--moz-background-inline-policy:continuous;
--moz-background-origin:padding;
-background:#FFCE7B url(linkTransparent.gif) no-repeat scroll 9px 1px;
-border:1px solid #8CACBB;
-color:Black;
-cursor:pointer;
-font-size:90%;
-padding:1px 1px 1px 15px;
-text-transform:none;
+
+/* main */
+.main {
+	clear: both;
+	padding: 8px 18px;
 }
-input.searchButton {
--moz-background-clip:border;
--moz-background-inline-policy:continuous;
--moz-background-origin:padding;
-background:White url(search_icon.gif) no-repeat scroll 2px 1px;
-border:1px solid #8CACBB;
-color:Black;
-cursor:pointer;
-font-size:90%;
-margin-bottom:1px !important;
-padding:1px 1px 1px 19px;
-text-transform:none;
+
+/* main left */
+.sidenav h1,.sidenav ul {
+	padding-left: 12px;
 }
-.searchSection {
-color:#76797C;
-margin-top:0.25em;
+.sidenav {
+	background: #EEE;
+	border: 1px solid #E5E5E5;
+	float: left;
+	width: 200px;
 }
-.searchSection label:hover {
-color:Black;
+.sidenav h1 {
+	color: #666;
+	font-size: 1.2em;
+	height: 20px;
+	margin-top: 1.2em;
 }
-.field {
-clear:both;
-left:0;
-margin:0 0 1em 0;
-top:0;
+.sidenav ul {
+	border-top: 1px solid #FAFAFA;
+	background: url(img/bgul.gif) repeat-x;
+	margin: 0;
+	padding: 0;
 }
-.field .field {
-margin:0;
+.sidenav li {
+	border: 1px solid #FAFAFA;
+	border-top: none;
+	list-style: none;
+	margin: 0;
 }
-.fieldRequired {
--moz-background-clip:border;
--moz-background-inline-policy:continuous;
--moz-background-origin:padding;
-background:transparent url(required.gif) no-repeat scroll left center;
-color:White;
-padding:0 0 0 8px;
+.sidenav li a {
+	color: #777;
+	display: block;
+	font-size: 0.9em;
+	padding: 3px 6px 3px 14px;
+	text-decoration: none;
 }
-.fieldUploadFile {
-display:none;
-margin-right:0.75em;
-text-align:right;
+.sidenav li a:hover {
+	color: #111;
 }
-.fieldTextFormat {
-margin-right:0.75em;
-text-align:right;
+
+/* content */
+.content {
+	float: right;
+	width: 520px;
 }
-.formHelp {
-color:#76797C;
-font-size:90%;
-margin:0 0 0.2em;
+.content .item {
+	padding: 6px 12px;
+	border: 1px solid #EEE;
+	background: #FFF;
+	margin-bottom: 8px;
 }
-.formHelp:hover {
-color:Black;
-cursor:default;
+.content .descr {
+	color: #333;
+	margin-bottom: 6px;
 }
-div.error {
-background-color:#FFDDCC;
-border:1px solid #DD0000;
-margin:0 0 1em;
-padding:0.5em;
-width:95%;
+.content li {
+	list-style: url(img/li.gif);
+	margin-left: 18px;
 }
-.error .fieldRequired {
-color:#DD0000;
+
+/* search form */
+form {
+	padding: 0 0 6px 8px;
 }
-.widget-multicheckboxwidget .widget label {
-display:inline;
-font-size:0.9em;
-margin-right:1em;
+.styled {
+	border: 1px solid #DDD;
+	padding: 4px;
 }
-.widget-multicheckboxwidget br {
-display:none;
+.button {
+	background: url(img/search.gif) no-repeat left bottom;
+	border: none;
+	height: 27px;
+	width: 27px;
 }
-#archetypes-fieldname-title input, input#form.title {
-font-family:"Lucida Grande",Verdana,Lucida,Helvetica,Arial,sans-serif;
-font-size:160%;
-font-weight:normal;
-width:99%;
+
+/* footer */
+.footer {
+	background: #FFF;
+	border: 1px solid #EEE;
+	color: #666;
+	font-size: 1.1em;
+	margin: 0 auto;
+	text-align: center;
+	padding: 6px;
+	width: 720px;
 }
-#archetypes-fieldname-description textarea, textarea#form.description {
--x-system-font:none;
-font-family:"Lucida Grande",Verdana,Lucida,Helvetica,Arial,sans-serif;
-font-size:100%;
-font-size-adjust:none;
-font-stretch:normal;
-font-style:normal;
-font-variant:normal;
-font-weight:bold;
-line-height:normal;
+.footer a {
+	color: #36C;
+	text-decoration: none;
 }
-input.inputLabelActive {
-color:#76797C;
+.footer a:hover {
+	color: #06F;
+	text-decoration: underline;
 }
-textarea#form.description {
-height:6em;
-width:99%;
-}
-tr.selected {
-background-color:#FFFFAA;
-}
-.kupu-save-message {
-background-color:red;
-color:white;
-font-weight:bold;
-padding:0.3em;
-position:fixed;
-right:0;
-top:0;
-z-index:999;
-}
-div.content-left-column {
-float:left;
-width:30%;
-}
-div.content-right-column {
-float:right;
-width:70%;
-}
-tr.yui-dt-last th {
-white-space:nowrap;
-}
+.
+.main {background-color: light-gray; }
+.debate {background-color: light-gray;}
+
+.debate h2 { font: normal 1.1em "Lucida Sans Unicode",serif; color: #006633;}
+.main h1 {font: normal 1.4em "Lucida Sans Unicode",serif; }
+.main h2 {font: normal 1.2em "Lucida Sans Unicode",serif; }

@@ -5,8 +5,13 @@ declare namespace util="http://exist-db.org/xquery/util";
 declare namespace xmldb="http://exist-db.org/xquery/xmldb";
 declare option exist:serialize "method=xhtml media-type=text/html";
 
+
+let $page_title := "Search Debaterecords for Members of Parliament's speeches"
+
+return
 <html>
 <head>
+<title>{$page_title}</title>
 <!--CSS file (default YUI Sam Skin) -->
 
 <link type="text/css" rel="stylesheet" href="/exist/rest/db/yui/css/autocomplete.css"/>
@@ -51,10 +56,13 @@ alert(fieldHidden.value);
 
 
 </script>
+<div class="container">
+
+<div class="main">
 
 <form action="results_bungeni.xql" method="get" class="cmxform">
 <fieldset>
-<legend>Search Debaterecords for Speechs by a Member of Parliament#160;</legend>
+<legend>Search Debaterecords for Speechs by a Member of Parliament</legend>
 <div id="myAutoComplete">
 
 <input id="uri_id" type="hidden" name="uri_id" value="{request:get-parameter("uri_id","0")}"/>
@@ -109,6 +117,11 @@ myAutoComp.itemSelectEvent.subscribe(fnCallback);
 -->
 </fieldset>
 </form>
+
+</div>
+
+</div>
+
 
 </body>
 
