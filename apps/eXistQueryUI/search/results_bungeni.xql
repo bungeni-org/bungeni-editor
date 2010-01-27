@@ -46,14 +46,12 @@ return
  		for $debate in $for_html/debate 
  			let $debate_uri := $debate/@from/string()
 			let $uri_components := tokenize($debate_uri, '/')
+			let $date-debate := item-at($uri_components, 4)
             return 
-				<p><a href="{$debate_uri}">Debate -- {$debate_uri}</a></p>
-				<div id="speeches">
-				{
-					
-
-				}
-				</div>
+				<p><a href="{$debate_uri}">Debate -- {$date-debate}</a>
+				{$uri_components}
+				</p>
+				
  	    }
        </body>
        </html>
