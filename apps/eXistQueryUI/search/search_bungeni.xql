@@ -7,6 +7,7 @@ declare option exist:serialize "method=xhtml media-type=text/html";
 
 
 let $page_title := "Search Debaterecords for Members of Parliament's speeches"
+let $xslt_id := "/db/xslt/speechbymp.xsl"
 
 return
 <html>
@@ -67,6 +68,7 @@ alert(fieldHidden.value);
 
 <input id="uri_id" type="hidden" name="uri_id" value="{request:get-parameter("uri_id","0")}"/>
 <input id="user_id" type="hidden" name="user_id" value="{request:get-parameter("user_id","0")}"/>
+<input id="xslt_id" type="hidden" name="xslt_id" value="{$xslt_id}" />
 <label for="myInput">Type Member's Name</label>
 <input id="myInput" type="text"/>
 

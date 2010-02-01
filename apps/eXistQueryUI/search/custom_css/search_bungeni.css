@@ -236,3 +236,5 @@ form {
 .debate h2 { font: normal 1.1em "Lucida Sans Unicode",serif; color: #006633;}
 .main h1 {font: normal 1.4em "Lucida Sans Unicode",serif; }
 .main h2 {font: normal 1.2em "Lucida Sans Unicode",serif; }
+.debate em {font: normal 0.9em "Lucida Sans Unicode",serif; }
+.debate cite {font: normal 0.9em "Lucida Sans Unicode",serif; }
