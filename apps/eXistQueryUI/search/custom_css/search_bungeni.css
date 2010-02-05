@@ -238,3 +238,7 @@ form {
 .main h2 {font: normal 1.2em "Lucida Sans Unicode",serif; }
 .debate em {font: normal 0.9em "Lucida Sans Unicode",serif; }
 .debate cite {font: normal 0.9em "Lucida Sans Unicode",serif; }
+.contextresults {background-color:light-gray;}
+.speech {background-color: #e0e0e0;}
+.parent {background-color:#e6ffcc;}
+.highlight {background-color:#ffcc33;}

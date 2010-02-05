@@ -1,0 +1,3 @@
+<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/search/modules" owner="admin" group="dba" mode="755" created="2010-02-01T22:03:34+03:00" version="1">
+    <resource type="BinaryResource" name="anfunctions.xqm" owner="admin" group="dba" mode="755" created="2010-02-01T22:03:51+03:00" modified="2010-02-01T22:13:44+03:00" filename="anfunctions.xqm" mimetype="application/xquery"/>
+</collection>

@@ -11,8 +11,11 @@ declare namespace transform="http://exist-db.org/xquery/transform";
 
 import module namespace anfunc = "http://exist.bungeni.org/anfunctions" at "modules/anfunctions.xqm";
 
-
 declare option exist:serialize "method=html media-type=text/html";  
+
+
+
+(: Functions :)
 
 
 (: Page Variables :)
