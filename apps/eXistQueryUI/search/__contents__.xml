@@ -1,6 +1,6 @@
 <collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/search" owner="admin" group="dba" mode="755" created="2009-10-27T16:07:41+03:00" version="1">
     <resource type="BinaryResource" name="results2.xql" owner="admin" group="dba" mode="755" created="2010-02-01T22:04:51+03:00" modified="2010-02-01T22:09:21+03:00" filename="results2.xql" mimetype="application/xquery"/>
-    <resource type="BinaryResource" name="results_bungeni.xql" owner="admin" group="dba" mode="755" created="2010-01-21T16:21:49+03:00" modified="2010-02-02T16:53:42+03:00" filename="results_bungeni.xql" mimetype="application/xquery"/>
+    <resource type="BinaryResource" name="results_bungeni.xql" owner="admin" group="dba" mode="755" created="2010-01-21T16:21:49+03:00" modified="2010-02-06T23:29:45+03:00" filename="results_bungeni.xql" mimetype="application/xquery"/>
     <resource type="BinaryResource" name="search_bungeni.xql" owner="admin" group="dba" mode="755" created="2009-12-29T17:05:14+03:00" modified="2010-02-01T11:36:57+03:00" filename="search_bungeni.xql" mimetype="application/xquery"/>
     <resource type="BinaryResource" name="test_path.xql" owner="admin" group="dba" mode="755" created="2010-01-28T17:41:04+03:00" modified="2010-01-28T17:41:59+03:00" filename="test_path.xql" mimetype="application/xquery"/>
     <resource type="BinaryResource" name="view_in_xmlcontext.xql" owner="admin" group="dba" mode="755" created="2010-02-01T16:47:47+03:00" modified="2010-02-02T17:45:57+03:00" filename="view_in_xmlcontext.xql" mimetype="application/xquery"/>
