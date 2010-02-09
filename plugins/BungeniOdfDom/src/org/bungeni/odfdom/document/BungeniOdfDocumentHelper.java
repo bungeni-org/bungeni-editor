@@ -4,11 +4,11 @@ package org.bungeni.odfdom.document;
 
 import org.apache.log4j.Logger;
 
-import org.openoffice.odf.doc.OdfDocument;
-import org.openoffice.odf.doc.element.office.OdfMasterStyles;
-import org.openoffice.odf.doc.element.style.OdfBackgroundImage;
-import org.openoffice.odf.doc.element.style.OdfMasterPage;
-import org.openoffice.odf.doc.element.style.OdfPageLayout;
+import org.odftoolkit.odfdom.doc.OdfDocument;
+import org.odftoolkit.odfdom.doc.office.OdfOfficeMasterStyles;
+import org.odftoolkit.odfdom.doc.style.OdfStyleBackgroundImage;
+import org.odftoolkit.odfdom.doc.style.OdfStyleMasterPage;
+import org.odftoolkit.odfdom.doc.style.OdfStylePageLayout;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -18,7 +18,9 @@ import org.w3c.dom.NodeList;
 
 /**
  * Bungeni Odf Document Helper
- * @author Ashok
+ * This class provides a wrapper on the ODFDOM odf library.
+ * It tries to provide a UNO like API on ODFDOM
+ * @author Ashok Hariharan
  */
 public class BungeniOdfDocumentHelper {
     private static org.apache.log4j.Logger log = Logger.getLogger(BungeniOdfDocumentHelper.class.getName());
@@ -26,24 +28,28 @@ public class BungeniOdfDocumentHelper {
 
     /**
      * Init the object using the odfdocument handle
+     * This can be created using OdfDocument.loadDocument()
      * @param doc
      */
     public BungeniOdfDocumentHelper(OdfDocument doc) {
         this.odfDocument = doc;
     }
 
+    public OdfDocument getOdfDocument() {
+        return this.odfDocument;
+    }
+
     /**
      * Get the standard page layout for the document
      * @return
      */
-    public OdfPageLayout getStandardPageLayout() {
-        OdfPageLayout standardLayout = null;
+    public OdfStylePageLayout getStandardPageLayout() {
+        OdfStylePageLayout standardLayout = null;
 
         try {
-            OdfMasterStyles mastersStyles  = this.odfDocument.getOfficeMasterStyles();
-            OdfMasterPage   standardPage   = mastersStyles.getMasterPage("Standard");
-            String          pageLayoutName = standardPage.getPageLayoutName();
-
+            OdfOfficeMasterStyles mastersStyles  = this.odfDocument.getOfficeMasterStyles();
+            OdfStyleMasterPage   standardPage   = mastersStyles.getMasterPage("Standard");
+            String          pageLayoutName = standardPage.getStylePageLayoutNameAttribute();
             standardLayout = odfDocument.getStylesDom().getAutomaticStyles().getPageLayout(pageLayoutName);
         } catch (Exception ex) {
             log.error("getStandardPageLayout : ", ex);
@@ -62,14 +68,12 @@ public class BungeniOdfDocumentHelper {
             NodeList bgImageNodes = odfDocument.getStylesDom().getElementsByTagName("style:background-image");
 
             for (int i = 0; i < bgImageNodes.getLength(); i++) {
-                OdfBackgroundImage bgImage    = (OdfBackgroundImage) bgImageNodes.item(i);
+                OdfStyleBackgroundImage bgImage    = (OdfStyleBackgroundImage) bgImageNodes.item(i);
                 Node               parentNode = bgImage.getParentNode();
 
                 if (parentNode != null) {
                     if (parentNode.getNodeName().equals("style:page-layout-properties")) {
-
-                        // we reset the background imag for the page
-                        bgImage.setHref("");
+                        bgImage.setXlinkHrefAttribute("");
                     }
                 }
             }

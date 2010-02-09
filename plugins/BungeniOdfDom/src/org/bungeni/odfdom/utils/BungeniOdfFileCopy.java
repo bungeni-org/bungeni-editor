@@ -2,7 +2,7 @@ package org.bungeni.odfdom.utils;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import org.openoffice.odf.pkg.OdfPackage;
+import org.odftoolkit.odfdom.pkg.OdfPackage;
 
 //~--- JDK imports ------------------------------------------------------------
 
