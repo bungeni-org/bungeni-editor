@@ -473,23 +473,28 @@ public class OOComponentHelper {
 
             while (keyIter.hasNext()) {
                 String mapkey   = (String) keyIter.next();
+                //map key with namespace
+                String mapkeyNS = mapkey;
+                //get the value for the mapkey - note we use the non-ns key because the input key is
+                //always without the ns:
+                String mapValue = metadataMap.get(mapkey);
                 //check if the key name has the namespace prefix, if it doesnt add a namespace prefix
                 //all custom metadata attributes operate in the an: namespace
                 if (!hasNSPrefix(mapkey)) {
-                    mapkey = getNSPrefixedKey(mapkey);
+                    mapkeyNS = getNSPrefixedKey(mapkey);
                 }
-                String mapValue = metadataMap.get(mapkey);
+         
                 /*
                  * if the key exists it is updated
                  */
-                if (attrContainer.hasByName(mapkey)) {
+                if (attrContainer.hasByName(mapkeyNS)) {
                     AttributeData attrValue = (AttributeData) AnyConverter.toObject(new Type(AttributeData.class),
-                                                  attrContainer.getByName(mapkey));
+                                                  attrContainer.getByName(mapkeyNS));
 
                     attrValue.Namespace = ATTRIBUTE_NAMESPACE;
                     attrValue.Type  = "CDATA";
                     attrValue.Value = mapValue;
-                    attrContainer.replaceByName(mapkey, attrValue);
+                    attrContainer.replaceByName(mapkeyNS, attrValue);
                 } else {
                     /*
                      * if the key does not exist it is inserted
@@ -498,7 +503,7 @@ public class OOComponentHelper {
                     attrNewAttribute.Namespace = ATTRIBUTE_NAMESPACE;
                     attrNewAttribute.Type  = "CDATA";
                     attrNewAttribute.Value = mapValue;
-                    attrContainer.insertByName(mapkey, attrNewAttribute);
+                    attrContainer.insertByName(mapkeyNS, attrNewAttribute);
                 }
             }
 
