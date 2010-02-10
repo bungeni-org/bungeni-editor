@@ -2,8 +2,6 @@ package org.bungeni.ooo;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -95,8 +93,10 @@ public class OOComponentHelper {
     /**
      * Semantic namespace used for setting document metadata
      */
-    public static String                   ATTRIBUTE_NAMESPACE =
-        "urn:akomantoso:names:tc:opendocument:xmlns:semantic-text:1.0";
+    public static String                   ATTRIBUTE_NAMESPACE = "http://www.akomantoso.org/1.0";
+    public static String                   ATTRIBUTE_NAMESPACE_PREFIX = "an:";
+    public static String                   ATTR_SECTION_TYPE = "BungeniSectionType";
+
     private static long                    MARGIN_MEASURE_BASE = 254;
     private static org.apache.log4j.Logger log                 =
         org.apache.log4j.Logger.getLogger(OOComponentHelper.class.getName());
@@ -434,7 +434,28 @@ public class OOComponentHelper {
     }
 
     /**
-     * This API allows adding metadata to a document section
+     * Helper function returns the AkomaNtoso prefixd NS value 
+     * @param value
+     * @return
+     */
+    private String getNSPrefixedKey (String attrName) {
+        return OOComponentHelper.ATTRIBUTE_NAMESPACE_PREFIX + attrName;
+    }
+
+    /**
+     * Checks if attribute name has namespace prefix
+     * @param value
+     * @return
+     */
+    private boolean hasNSPrefix (String attrName) {
+        if (attrName.startsWith(ATTRIBUTE_NAMESPACE_PREFIX)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * This API allows adding metadata to a document section, metadata is input as a key-value map
      * @param theSection
      * @param metadataMap
      */
@@ -452,18 +473,24 @@ public class OOComponentHelper {
 
             while (keyIter.hasNext()) {
                 String mapkey   = (String) keyIter.next();
+                //check if the key name has the namespace prefix, if it doesnt add a namespace prefix
+                //all custom metadata attributes operate in the an: namespace
+                if (!hasNSPrefix(mapkey)) {
+                    mapkey = getNSPrefixedKey(mapkey);
+                }
                 String mapValue = metadataMap.get(mapkey);
 
                 if (attrContainer.hasByName(mapkey)) {
                     AttributeData attrValue = (AttributeData) AnyConverter.toObject(new Type(AttributeData.class),
                                                   attrContainer.getByName(mapkey));
 
+                    attrValue.Namespace = ATTRIBUTE_NAMESPACE;
                     attrValue.Type  = "CDATA";
                     attrValue.Value = mapValue;
                     attrContainer.replaceByName(mapkey, attrValue);
                 } else {
                     AttributeData attrNewAttribute = new AttributeData();
-
+                    attrNewAttribute.Namespace = ATTRIBUTE_NAMESPACE;
                     attrNewAttribute.Type  = "CDATA";
                     attrNewAttribute.Value = mapValue;
                     attrContainer.insertByName(mapkey, attrNewAttribute);
@@ -483,7 +510,7 @@ public class OOComponentHelper {
     }
 
     /**
-     *
+     *Wrapper function to set metadata attributes -- input is the section name instead of a handle to the section
      * @param sectionName
      * @param metadataMap
      */
@@ -495,42 +522,11 @@ public class OOComponentHelper {
             // get the section handle
             Object       section    = this.getTextSections().getByName(sectionName);
             XTextSection theSection = ooQueryInterface.XTextSection(section);
-
-            // get the propertySet Handle for the section
-            XPropertySet   theProperties = ooQueryInterface.XPropertySet(theSection);
-            XNameContainer attrContainer = _getAttributeContainer(theProperties,
-                                               ooProperties.SECTION_USERDEFINED_ATTRIBUTES);
-
-            // get attribute element names
-            String[] attributeNames = attrContainer.getElementNames();
-            Iterator keyIter        = metadataMap.keySet().iterator();
-
-            while (keyIter.hasNext()) {
-                String mapkey   = (String) keyIter.next();
-                String mapValue = metadataMap.get(mapkey);
-
-                if (attrContainer.hasByName(mapkey)) {
-                    AttributeData attrValue = (AttributeData) AnyConverter.toObject(new Type(AttributeData.class),
-                                                  attrContainer.getByName(mapkey));
-
-                    attrValue.Type  = "CDATA";
-                    attrValue.Value = mapValue;
-                    attrContainer.replaceByName(mapkey, attrValue);
-                } else {
-                    AttributeData attrNewAttribute = new AttributeData();
-
-                    attrNewAttribute.Type  = "CDATA";
-                    attrNewAttribute.Value = mapValue;
-                    attrContainer.insertByName(mapkey, attrNewAttribute);
-                }
-            }
-
-            theProperties.setPropertyValue(ooProperties.SECTION_USERDEFINED_ATTRIBUTES, attrContainer);
+            this.setSectionMetadataAttributes(theSection, metadataMap);
+           
         } catch (NoSuchElementException ex) {
             log.error(ex.getMessage());
         } catch (WrappedTargetException ex) {
-            log.error(ex.getMessage());
-        } catch (com.sun.star.lang.IllegalArgumentException ex) {
             log.error(ex.getMessage());
         } finally {
             return;
@@ -545,8 +541,8 @@ public class OOComponentHelper {
     public String getSectionType(String sectionName) {
         HashMap<String, String> metamap = getSectionMetadataAttributes(sectionName);
 
-        if (metamap.containsKey("BungeniSectionType")) {
-            return metamap.get("BungeniSectionType");
+        if (metamap.containsKey(sectionTypeNameNS())) {
+            return metamap.get(sectionTypeNameNS());
         } else {
             return null;
         }
@@ -560,8 +556,8 @@ public class OOComponentHelper {
     public String getSectionType(XTextSection sect) {
         HashMap<String, String> metaMap = getSectionMetadataAttributes(sect);
 
-        if (metaMap.containsKey("BungeniSectionType")) {
-            return metaMap.get("BungeniSectionType");
+       if (metaMap.containsKey(sectionTypeNameNS())) {
+            return metaMap.get(sectionTypeNameNS());
         } else {
             return null;
         }
@@ -1636,6 +1632,11 @@ public class OOComponentHelper {
          return isProtected;
     }
 
+
+    public String sectionTypeNameNS () {
+        return ATTRIBUTE_NAMESPACE_PREFIX + ATTR_SECTION_TYPE;
+    }
+
     /**
      *
      * @param sectionName
@@ -1888,8 +1889,8 @@ public class OOComponentHelper {
         for (XTextSection childSection : childSections) {
             HashMap<String, String> childMeta = getSectionMetadataAttributes(childSection);
 
-            if (childMeta.containsKey("BungeniSectionType")) {
-                String sectionType = childMeta.get("BungeniSectionType");
+            if (childMeta.containsKey(sectionTypeNameNS())) {
+                String sectionType = childMeta.get(sectionTypeNameNS());
 
                 if (sectionType.equals(lookForSectionType)) {
                     return childSection;
@@ -2052,11 +2053,13 @@ public class OOComponentHelper {
                         XPropertySetInfo xPropsInfo = rangeProps.getPropertySetInfo();
 
                         if (xPropsInfo.hasPropertyByName("ParaStyleName")) {
-                            selectedTextStyle = (String) rangeProps.getPropertyValue("ParaStyleName");
+                            selectedTextStyle = com.sun.star.uno.AnyConverter.toString(rangeProps.getPropertyValue("ParaStyleName"));
                         }
                     }
                 }
             }
+        } catch (com.sun.star.lang.IllegalArgumentException ex) {
+            log.error(ex.getClass().getName() + " " + ex.getMessage());
         } catch (com.sun.star.lang.IndexOutOfBoundsException ex) {
             log.error(ex.getClass().getName() + " " + ex.getMessage());
         } catch (UnknownPropertyException ex) {
