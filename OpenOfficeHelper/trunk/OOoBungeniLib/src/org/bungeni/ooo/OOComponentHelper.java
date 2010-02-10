@@ -479,7 +479,9 @@ public class OOComponentHelper {
                     mapkey = getNSPrefixedKey(mapkey);
                 }
                 String mapValue = metadataMap.get(mapkey);
-
+                /*
+                 * if the key exists it is updated
+                 */
                 if (attrContainer.hasByName(mapkey)) {
                     AttributeData attrValue = (AttributeData) AnyConverter.toObject(new Type(AttributeData.class),
                                                   attrContainer.getByName(mapkey));
@@ -489,6 +491,9 @@ public class OOComponentHelper {
                     attrValue.Value = mapValue;
                     attrContainer.replaceByName(mapkey, attrValue);
                 } else {
+                    /*
+                     * if the key does not exist it is inserted
+                     */
                     AttributeData attrNewAttribute = new AttributeData();
                     attrNewAttribute.Namespace = ATTRIBUTE_NAMESPACE;
                     attrNewAttribute.Type  = "CDATA";
@@ -541,8 +546,8 @@ public class OOComponentHelper {
     public String getSectionType(String sectionName) {
         HashMap<String, String> metamap = getSectionMetadataAttributes(sectionName);
 
-        if (metamap.containsKey(sectionTypeNameNS())) {
-            return metamap.get(sectionTypeNameNS());
+        if (metamap.containsKey(ATTR_SECTION_TYPE)) {
+            return metamap.get(ATTR_SECTION_TYPE);
         } else {
             return null;
         }
@@ -555,9 +560,11 @@ public class OOComponentHelper {
      */
     public String getSectionType(XTextSection sect) {
         HashMap<String, String> metaMap = getSectionMetadataAttributes(sect);
-
-       if (metaMap.containsKey(sectionTypeNameNS())) {
-            return metaMap.get(sectionTypeNameNS());
+        /*
+         * getSectionMetadataAttributes returns the attribute names without namespace
+         * prefixes so we check for the raw attribute name */
+       if (metaMap.containsKey(ATTR_SECTION_TYPE)) {
+            return metaMap.get(ATTR_SECTION_TYPE);
         } else {
             return null;
         }
@@ -594,8 +601,15 @@ public class OOComponentHelper {
                 AttributeData attrValue = (AttributeData) AnyConverter.toObject(new Type(AttributeData.class),
                                               attrContainer.getByName(attributeNames[i]));
                 String strValue = attrValue.Value;
-
-                metadata.put(attributeNames[i], strValue);
+                String attrName = "";
+                // we remove the namespace an: prefix from the attribute names,
+                // since the calling application is not aware of namespace prefixes
+                if (attributeNames[i].startsWith(ATTRIBUTE_NAMESPACE_PREFIX)) {
+                   attrName =  attributeNames[i].substring(ATTRIBUTE_NAMESPACE_PREFIX.length());
+                } else {
+                    attrName = attributeNames[i];
+                }
+                metadata.put(attrName, strValue);
             }
         } catch (NoSuchElementException ex) {
             log.error(ex.getMessage());
@@ -1889,8 +1903,8 @@ public class OOComponentHelper {
         for (XTextSection childSection : childSections) {
             HashMap<String, String> childMeta = getSectionMetadataAttributes(childSection);
 
-            if (childMeta.containsKey(sectionTypeNameNS())) {
-                String sectionType = childMeta.get(sectionTypeNameNS());
+            if (childMeta.containsKey(ATTR_SECTION_TYPE)) {
+                String sectionType = childMeta.get(ATTR_SECTION_TYPE);
 
                 if (sectionType.equals(lookForSectionType)) {
                     return childSection;
