@@ -93,8 +93,8 @@ public class OOComponentHelper {
     /**
      * Semantic namespace used for setting document metadata
      */
-    public static String                   ATTRIBUTE_NAMESPACE = "http://www.akomantoso.org/1.0";
-    public static String                   ATTRIBUTE_NAMESPACE_PREFIX = "an:";
+    public static String                   ATTRIBUTE_NAMESPACE = "http://anx.akomantoso.org/1.0";
+    public static String                   ATTRIBUTE_NAMESPACE_PREFIX = "anx:";
     public static String                   ATTR_SECTION_TYPE = "BungeniSectionType";
 
     private static long                    MARGIN_MEASURE_BASE = 254;
