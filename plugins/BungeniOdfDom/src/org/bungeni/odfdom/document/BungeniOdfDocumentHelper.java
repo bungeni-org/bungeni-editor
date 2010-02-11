@@ -2,8 +2,10 @@ package org.bungeni.odfdom.document;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.io.File;
 import org.apache.log4j.Logger;
 
+import org.bungeni.odfdom.document.properties.BungeniOdfPropertiesHelper;
 import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
 import org.odftoolkit.odfdom.doc.OdfDocument;
 import org.odftoolkit.odfdom.doc.office.OdfOfficeMasterStyles;
@@ -36,12 +38,20 @@ public class BungeniOdfDocumentHelper {
         this.odfDocument = doc;
     }
 
+    public BungeniOdfDocumentHelper(File fodfFile) throws Exception {
+        this.odfDocument = OdfDocument.loadDocument(fodfFile);
+    }
+
     public OdfDocument getOdfDocument() {
         return this.odfDocument;
     }
 
     public BungeniOdfSectionHelper getSectionHelper() {
         return new BungeniOdfSectionHelper(this.odfDocument);
+    }
+
+    public BungeniOdfPropertiesHelper getPropertiesHelper() {
+        return new BungeniOdfPropertiesHelper(this);
     }
     /**
      * Get the standard page layout for the document
