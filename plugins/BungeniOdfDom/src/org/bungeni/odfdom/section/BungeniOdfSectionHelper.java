@@ -36,9 +36,10 @@ import org.w3c.dom.Element;
  * @author Ashok Hariharan
  */
 public class BungeniOdfSectionHelper {
+    private static String                  ATTRIBUTE_NS_PREFIX         = "anx:";
     private static String                  BODY_NODE                   = "body";
     private static String                  FILTER_BUNGENI_SECTION_META = "Bungeni";
-    private static String                  FILTER_SECTION_TYPE         = "BungeniSectionType";
+    private static String                  FILTER_SECTION_TYPE         = ATTRIBUTE_NS_PREFIX + "BungeniSectionType";
     private static String                  SECTION_ELEMENT             = "text:section";
     private static String                  SECTION_ELEMENT_NAME_ATTR   = "text:name";
     private static String                  STYLE_SECTION_PROPS         = "style:section-properties";
@@ -53,11 +54,11 @@ public class BungeniOdfSectionHelper {
      */
     public BungeniOdfSectionHelper(OdfDocument odfDoc) {
         odfDocument = odfDoc;
-        xPath       = XPathFactory.newInstance().newXPath();
-        xPath.setNamespaceContext(new OdfNamespace());
+        xPath       = odfDocument.getXPath(); //XPathFactory.newInstance().newXPath();
+        //xPath.setNamespaceContext(new OdfNamespace());
     }
-
-    public OdfDocument getDocument() {
+    
+    public OdfDocument getOdfDocument() {
         return odfDocument;
     }
 
@@ -247,7 +248,9 @@ public class BungeniOdfSectionHelper {
 
             oSection = (OdfTextSection) xPath.evaluate("//text:section[@text:name='" + sectionName + "']", docDom,
                     XPathConstants.NODE);
-        } catch (Exception ex) {}
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage())
+;      ex.printStackTrace();  }
         finally {
             return oSection;
         }

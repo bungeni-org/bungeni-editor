@@ -4,6 +4,7 @@ package org.bungeni.odfdom.document;
 
 import org.apache.log4j.Logger;
 
+import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
 import org.odftoolkit.odfdom.doc.OdfDocument;
 import org.odftoolkit.odfdom.doc.office.OdfOfficeMasterStyles;
 import org.odftoolkit.odfdom.doc.style.OdfStyleBackgroundImage;
@@ -39,6 +40,9 @@ public class BungeniOdfDocumentHelper {
         return this.odfDocument;
     }
 
+    public BungeniOdfSectionHelper getSectionHelper() {
+        return new BungeniOdfSectionHelper(this.odfDocument);
+    }
     /**
      * Get the standard page layout for the document
      * @return
