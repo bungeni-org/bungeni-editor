@@ -82,14 +82,15 @@
      </target>
    <target name="umldocs" depends="jar" description="generates javadoc and also UML Diagram">
 		<mkdir dir="${reports.dir}"/>
-	        <javadoc sourcepath="${src.dir}" packagenames="org.bungeni.*" destdir="${reports.dir}/javadoc"
+	        <javadoc sourcepath="${src.dir}" destdir="${reports.dir}/javadoc"
 	        	 private="true">
              <classpath>
                 <path path="${javac.classpath}"/>
             </classpath>
+                <!--
             <fileset dir="${src.dir}" excludes="${excludes}" includes="${includes}">
                 <filename name="**/*.java"/>
-            </fileset>
+            </fileset> -->
 	        	   <doclet name="org.umlgraph.doclet.UmlGraphDoc"
 	        		  path="${file.reference.umlgraph}">
 	        	        <param name="-attributes" />
