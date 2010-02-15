@@ -10,7 +10,6 @@ import org.odftoolkit.odfdom.doc.office.OdfOfficeAutomaticStyles;
 import org.odftoolkit.odfdom.doc.style.OdfStyleBackgroundImage;
 import org.odftoolkit.odfdom.doc.style.OdfStyle;
 import org.odftoolkit.odfdom.doc.text.OdfTextSection;
-import org.odftoolkit.odfdom.OdfNamespace;
 import org.odftoolkit.odfdom.dom.style.OdfStyleFamily;
 
 import org.w3c.dom.NamedNodeMap;
@@ -28,7 +27,6 @@ import java.util.logging.Logger;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Element;
 
 /**
@@ -46,6 +44,7 @@ public class BungeniOdfSectionHelper {
     private static org.apache.log4j.Logger log                         =
         org.apache.log4j.Logger.getLogger(BungeniOdfSectionHelper.class.getName());
     private OdfDocument odfDocument = null;
+    private BungeniOdfDocumentHelper m_bodfDoc = null;
     private XPath       xPath       = null;
 
     /**
@@ -57,6 +56,14 @@ public class BungeniOdfSectionHelper {
         xPath       = odfDocument.getXPath(); //XPathFactory.newInstance().newXPath();
         //xPath.setNamespaceContext(new OdfNamespace());
     }
+
+    public BungeniOdfSectionHelper(BungeniOdfDocumentHelper bodfDoc) {
+        m_bodfDoc = bodfDoc;
+        odfDocument = m_bodfDoc.getOdfDocument();
+        xPath       = odfDocument.getXPath(); 
+    }
+
+
     
     public OdfDocument getOdfDocument() {
         return odfDocument;
