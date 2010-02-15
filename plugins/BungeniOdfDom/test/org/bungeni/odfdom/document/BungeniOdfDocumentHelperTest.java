@@ -1,7 +1,6 @@
 package org.bungeni.odfdom.document;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.UUID;
@@ -43,6 +42,7 @@ public class BungeniOdfDocumentHelperTest {
    
         try {
           OdfDocument odoc =   OdfDocument.loadDocument(f);
+          System.out.println("document uri = " + odoc.getPackage().getBaseURI());
           this.odfDomHelper = new BungeniOdfDocumentHelper(odoc);
         } catch (Exception ex) {
             Logger.getLogger(BungeniOdfDocumentHelperTest.class.getName()).log(Level.SEVERE, null, ex);

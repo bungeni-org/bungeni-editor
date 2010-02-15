@@ -1,20 +1,18 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package org.bungeni.odfdom.document.properties;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.junit.After;
+import static org.junit.Assert.*;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -57,4 +55,38 @@ public class BungeniOdfPropertiesHelperTest {
         
     }
 
+
+    /**
+     * Test of getUserDefinedPropertyValues method, of class BungeniOdfPropertiesHelper.
+     */
+    @Test
+    public void testGetUserDefinedPropertyValues() {
+        HashMap<String,String> testmap = new HashMap<String,String> (){
+            {
+                put("BungeniDocOwner", "Abo Iringo");
+                put("BungeniDocAuthor", "Clerk");
+            }
+        };
+        Iterator testKeys = testmap.keySet().iterator();
+        boolean bFail = false;
+        HashMap<String,String> values = docHelper.getPropertiesHelper().getUserDefinedPropertyValues();
+        if (values.size() == testmap.size()) {
+            Iterator valKeys = values.keySet().iterator();
+
+            while (testKeys.hasNext()) {
+                String keytest = (String) testKeys.next();
+                if (values.containsKey(keytest)) {
+                    String testVal = testmap.get(keytest).trim();
+                    String controlVal = values.get(keytest).trim();
+                    if (!testVal.equals(controlVal)) {
+                        bFail = true;
+                        break;
+                    }
+                }
+            }
+        }
+        assertEquals(false, bFail);
+        }
+
+       
 }
