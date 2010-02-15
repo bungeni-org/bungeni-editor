@@ -28,6 +28,8 @@ import org.w3c.dom.NodeList;
 public class BungeniOdfDocumentHelper {
     private static org.apache.log4j.Logger log = Logger.getLogger(BungeniOdfDocumentHelper.class.getName());
     private OdfDocument                    odfDocument;
+    private BungeniOdfSectionHelper s_sectionHelper = null;
+    private BungeniOdfPropertiesHelper s_propertiesHelper = null;
 
     /**
      * Init the object using the odfdocument handle
@@ -47,12 +49,19 @@ public class BungeniOdfDocumentHelper {
     }
 
     public BungeniOdfSectionHelper getSectionHelper() {
-        return new BungeniOdfSectionHelper(this.odfDocument);
+        if (s_sectionHelper == null ) {
+            s_sectionHelper = new BungeniOdfSectionHelper(this);
+        }
+        return s_sectionHelper;
     }
 
     public BungeniOdfPropertiesHelper getPropertiesHelper() {
-        return new BungeniOdfPropertiesHelper(this);
+        if (s_propertiesHelper == null ) {
+           s_propertiesHelper =  new BungeniOdfPropertiesHelper(this);
+        }
+        return s_propertiesHelper;
     }
+
     /**
      * Get the standard page layout for the document
      * @return
