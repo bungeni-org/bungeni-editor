@@ -6,15 +6,90 @@
 
 package org.bungeni.trackchanges;
 
+import java.io.File;
+import java.io.FilenameFilter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.AbstractListModel;
+import org.bungeni.odfdocument.docinfo.BungeniChangeDocumentsInfo;
+import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
+import org.odftoolkit.odfdom.doc.OdfDocument;
+
 /**
  *
  * @author  undesa
  */
 public class panelTrackChanges extends javax.swing.JPanel {
 
+    String __TEST_FOLDER__ = "";
+    BungeniChangeDocumentsInfo changesInfo = new BungeniChangeDocumentsInfo();
+
     /** Creates new form panelTrackChanges */
     public panelTrackChanges() {
         initComponents();
+        __TEST_FOLDER__ ="/Users/ashok/Devel/TrackChanges/netbeansProject/Files";
+        loadFilesFromFolder();
+        initialize();
+    }
+
+    /**
+     * Initialize controls with data
+     */
+    private void initialize() {
+        listMembers.setModel(new DocOwnerListModel());
+    }
+
+    /**
+     * Loads change files from folder
+     */
+    private void loadFilesFromFolder() {
+        File fFolder = new File(__TEST_FOLDER__);
+        //find files in changes folder
+        if (fFolder.isDirectory()) {
+           File[] files =  fFolder.listFiles(new FilenameFilter(){
+                public boolean accept(File dir, String name) {
+                    if (name.startsWith("doc_")){
+                        return true;
+                    }
+                    return false;
+                }
+
+            });
+
+            //load files from folder
+            for (int i = 0; i < files.length ; i++ ) {
+                OdfDocument oDoc = null;
+                try {
+
+                    BungeniOdfDocumentHelper docHelper = new BungeniOdfDocumentHelper(files[i]);
+                    changesInfo.addDocument(docHelper);
+
+                } catch (Exception ex) {
+                    Logger.getLogger(panelTrackChanges.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        }
+    }
+
+ 
+
+    /**
+     * List model for document owner
+     */
+    private class DocOwnerListModel extends AbstractListModel {
+
+        public int getSize() {
+          return changesInfo.getSize();
+        }
+
+        public Object getElementAt(int arg0) {
+            BungeniOdfDocumentHelper docHelper =  changesInfo.getDocuments().get(arg0);
+            return docHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniDocOwner");
+        }
+
+
+
     }
 
     /** This method is called from within the constructor to
