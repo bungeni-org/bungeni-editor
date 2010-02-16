@@ -11,6 +11,10 @@ import java.io.FilenameFilter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractListModel;
+import javax.swing.JFrame;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import org.bungeni.odfdocument.docinfo.BungeniChangeDocumentsInfo;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.odftoolkit.odfdom.doc.OdfDocument;
@@ -37,6 +41,30 @@ public class panelTrackChanges extends javax.swing.JPanel {
      */
     private void initialize() {
         listMembers.setModel(new DocOwnerListModel());
+        listMembers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        ListSelectionModel lsm = listMembers.getSelectionModel();
+        lsm.addListSelectionListener(new ListSelectionListener(){
+
+            public void valueChanged(ListSelectionEvent lse) {
+                ListSelectionModel lsm = (ListSelectionModel)lse.getSource();
+                if (lse.getValueIsAdjusting()) {
+                    return;
+                }
+
+                int firstIndex = lse.getFirstIndex();
+                int lastIndex = lse.getLastIndex();
+
+                if (lsm.isSelectionEmpty()) {
+                    return;
+                } else {
+                    // Find out which indexes are selected.
+                    int nIndex = lsm.getMinSelectionIndex();
+                    displayDocInfo(nIndex);
+                }
+              
+            }
+
+        });
     }
 
     /**
@@ -72,7 +100,15 @@ public class panelTrackChanges extends javax.swing.JPanel {
         }
     }
 
- 
+
+    private void displayDocInfo (int index ) {
+        BungeniOdfDocumentHelper docHelper = changesInfo.getDocuments().get(index);
+        StringBuffer sbDoc = new StringBuffer();
+        File fFile = new File(docHelper.getOdfDocument().getBaseURI());
+        sbDoc.append("Name:" + fFile.getName() + "\n");
+        sbDoc.append("Created on: " + docHelper.getPropertiesHelper().getMetaCreationDate() + "\n");
+        this.txtareaDocInfo.setText(sbDoc.toString());
+    }
 
     /**
      * List model for document owner
@@ -87,8 +123,6 @@ public class panelTrackChanges extends javax.swing.JPanel {
             BungeniOdfDocumentHelper docHelper =  changesInfo.getDocuments().get(arg0);
             return docHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniDocOwner");
         }
-
-
 
     }
 
@@ -115,8 +149,9 @@ public class panelTrackChanges extends javax.swing.JPanel {
         btnCancel = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        lblMembers.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        lblMembers.setText("Changes by User");
+        lblMembers.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle"); // NOI18N
+        lblMembers.setText(bundle.getString("panelTrackChanges.lblMembers.text")); // NOI18N
 
         listMembers.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Tinoula Awopetu", "Mashinski Murigi", "Raul Obwacha", "Felix Kerstengor" };
@@ -128,10 +163,11 @@ public class panelTrackChanges extends javax.swing.JPanel {
         txtareaDocInfo.setColumns(20);
         txtareaDocInfo.setEditable(false);
         txtareaDocInfo.setRows(5);
+        txtareaDocInfo.setWrapStyleWord(true);
         scrollDocInfo.setViewportView(txtareaDocInfo);
 
-        lblDocInfo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        lblDocInfo.setText("Document Info");
+        lblDocInfo.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblDocInfo.setText(bundle.getString("panelTrackChanges.lblDocInfo.text")); // NOI18N
 
         tblDocChanges.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -153,20 +189,20 @@ public class panelTrackChanges extends javax.swing.JPanel {
         });
         scrollDocChanges.setViewportView(tblDocChanges);
 
-        btnViewDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnViewDoc.setText("View Document");
+        btnViewDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnViewDoc.setText(bundle.getString("panelTrackChanges.btnViewDoc.text")); // NOI18N
 
-        btnViewOrigDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnViewOrigDoc.setText("View Original Document");
+        btnViewOrigDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnViewOrigDoc.setText(bundle.getString("panelTrackChanges.btnViewOrigDoc.text")); // NOI18N
 
-        btnApplyChanges.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnApplyChanges.setText("Apply Changes");
+        btnApplyChanges.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnApplyChanges.setText(bundle.getString("panelTrackChanges.btnApplyChanges.text")); // NOI18N
 
-        btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnCancel.setText("Cancel");
+        btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnCancel.setText(bundle.getString("panelTrackChanges.btnCancel.text")); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        jLabel1.setText("Document Changes");
+        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        jLabel1.setText(bundle.getString("panelTrackChanges.jLabel1.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -180,16 +216,13 @@ public class panelTrackChanges extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblDocInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(24, 24, 24))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(scrollDocInfo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-                                    .addComponent(scrollMembers, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-                                    .addComponent(lblMembers, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addComponent(scrollDocInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                            .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                            .addComponent(lblMembers))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(scrollDocChanges, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
+                                .addComponent(scrollDocChanges, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
                                 .addGap(6, 6, 6))
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
@@ -245,5 +278,15 @@ public class panelTrackChanges extends javax.swing.JPanel {
     private javax.swing.JTable tblDocChanges;
     private javax.swing.JTextArea txtareaDocInfo;
     // End of variables declaration//GEN-END:variables
+
+    public static void main(String[] args ) {
+        
+        JFrame frm = new JFrame("Track Changes");
+        frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frm.getContentPane().add(new panelTrackChanges());
+        frm.pack();
+        frm.setVisible(true);
+    }
+
 
 }
