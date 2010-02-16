@@ -5,6 +5,7 @@ package org.bungeni.odfdom.document;
 import java.io.File;
 import org.apache.log4j.Logger;
 
+import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper;
 import org.bungeni.odfdom.document.properties.BungeniOdfPropertiesHelper;
 import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
 import org.odftoolkit.odfdom.doc.OdfDocument;
@@ -30,6 +31,7 @@ public class BungeniOdfDocumentHelper {
     private OdfDocument                    odfDocument;
     private BungeniOdfSectionHelper s_sectionHelper = null;
     private BungeniOdfPropertiesHelper s_propertiesHelper = null;
+    private BungeniOdfTrackedChangesHelper s_changesHelper = null;
 
     /**
      * Init the object using the odfdocument handle
@@ -61,6 +63,14 @@ public class BungeniOdfDocumentHelper {
         }
         return s_propertiesHelper;
     }
+
+    public BungeniOdfTrackedChangesHelper getChangesHelper() {
+        if (s_changesHelper == null ) {
+           s_changesHelper =  new BungeniOdfTrackedChangesHelper(this);
+        }
+        return s_changesHelper;
+    }
+
 
     /**
      * Get the standard page layout for the document
