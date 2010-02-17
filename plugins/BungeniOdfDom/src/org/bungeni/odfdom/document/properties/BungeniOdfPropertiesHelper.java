@@ -7,26 +7,28 @@ import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 
 import org.odftoolkit.odfdom.OdfFileDom;
 
-import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 /**
- * Gives access to meta.xml
+ * Gives access to meta.xml. ODFDOM trunk is required for this to work since getMetaDom() API
+ * is provided only in ODFDOM trunk.
  * API provides access to user defined properties.
- * @author undesa
+ * @author Ashok Hariharan
  */
 public class BungeniOdfPropertiesHelper {
+
+    private static org.apache.log4j.Logger log = Logger.getLogger(BungeniOdfPropertiesHelper.class.getName());
+
     private BungeniOdfDocumentHelper m_docHelper  = null;
     private XPath                    m_docXpath   = null;
     private OdfFileDom               m_metaDom    = null;
@@ -39,7 +41,7 @@ public class BungeniOdfPropertiesHelper {
             this.m_metaDom   = this.m_docHelper.getOdfDocument().getMetaDom();
             m_docXpath       = m_docHelper.getOdfDocument().getXPath();
         } catch (Exception ex) {
-            Logger.getLogger(BungeniOdfPropertiesHelper.class.getName()).log(Level.SEVERE, null, ex);
+                  log.error("BungeniOdfPropertiesHelper.BungeniOdfPropertiesHelper : " + ex.getMessage(), ex);
         }
     }
 
@@ -55,7 +57,7 @@ public class BungeniOdfPropertiesHelper {
                 Node foundNode = (Node) m_docXpath.evaluate(xPathExpression, m_metaDom, XPathConstants.NODE);
                 nodeValue = foundNode.getNodeValue();
             } catch (XPathExpressionException ex) {
-                Logger.getLogger(BungeniOdfPropertiesHelper.class.getName()).log(Level.SEVERE, null, ex);
+                  log.error("BungeniOdfPropertiesHelper.getMetaInitialCreator : " + ex.getMessage(), ex);
             }
             return nodeValue;
     }
@@ -68,7 +70,7 @@ public class BungeniOdfPropertiesHelper {
                 Node foundNode = (Node) m_docXpath.evaluate(xPathExpression, m_metaDom, XPathConstants.NODE);
                 nodeValue = foundNode.getNodeValue();
             } catch (XPathExpressionException ex) {
-                Logger.getLogger(BungeniOdfPropertiesHelper.class.getName()).log(Level.SEVERE, null, ex);
+                  log.error("BungeniOdfPropertiesHelper.getMetaCreationDate : " + ex.getMessage(), ex);
             }
             return nodeValue;
     }
@@ -81,7 +83,7 @@ public class BungeniOdfPropertiesHelper {
                 Node foundNode = (Node) m_docXpath.evaluate(xPathExpression, m_metaDom, XPathConstants.NODE);
                 nodeValue = foundNode.getNodeValue();
             } catch (XPathExpressionException ex) {
-                Logger.getLogger(BungeniOdfPropertiesHelper.class.getName()).log(Level.SEVERE, null, ex);
+                  log.error("BungeniOdfPropertiesHelper.getMetaEditingDuration : " + ex.getMessage(), ex);
             }
             return nodeValue;
     }
@@ -94,8 +96,8 @@ public class BungeniOdfPropertiesHelper {
                 Node foundNode = (Node) m_docXpath.evaluate(xPathExpression, m_metaDom, XPathConstants.NODE);
                 nodeValue = foundNode.getNodeValue();
             } catch (XPathExpressionException ex) {
-                Logger.getLogger(BungeniOdfPropertiesHelper.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                  log.error("BungeniOdfPropertiesHelper.getMetaEditingCycles : " + ex.getMessage(), ex);
+              }
             return nodeValue;
     }
 
@@ -115,7 +117,7 @@ public class BungeniOdfPropertiesHelper {
                 propertyValues.put(attrName, attrValue);
             }
         } catch (XPathExpressionException ex) {
-            Logger.getLogger(BungeniOdfPropertiesHelper.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("BungeniOdfPropertiesHelper.getUserDefinedPropertyValues : " + ex.getMessage(), ex);
         }
             return propertyValues;
 
@@ -129,8 +131,8 @@ public class BungeniOdfPropertiesHelper {
             Node foundNode = (Node) m_docXpath.evaluate(xPathExpression, m_metaDom, XPathConstants.NODE);
           nodeValue = foundNode.getTextContent();
         } catch (XPathExpressionException ex) {
-            Logger.getLogger(BungeniOdfPropertiesHelper.class.getName()).log(Level.SEVERE, null, ex);
-        }
+              log.error("BungeniOdfPropertiesHelper.getUserDefinedPropertyValue : " + ex.getMessage(), ex);
+            }
 
         return nodeValue;
     }

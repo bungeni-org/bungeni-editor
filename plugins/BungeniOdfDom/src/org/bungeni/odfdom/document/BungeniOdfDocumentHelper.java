@@ -22,8 +22,10 @@ import org.w3c.dom.NodeList;
 
 /**
  * Bungeni Odf Document Helper
- * This class provides a wrapper on the ODFDOM odf library.
- * It tries to provide a UNO like API on ODFDOM
+ * This class provides a wrapper on the ODFDOM odf library. ODFDOM primarily provides access
+ * to the DOM of an ODF file -- BungeniOdfDOM provides a helper API on that to access common
+ * document elements like properties, sections and track changes
+ * 
  * @author Ashok Hariharan
  */
 public class BungeniOdfDocumentHelper {
@@ -34,22 +36,36 @@ public class BungeniOdfDocumentHelper {
     private BungeniOdfTrackedChangesHelper s_changesHelper = null;
 
     /**
-     * Init the object using the odfdocument handle
-     * This can be created using OdfDocument.loadDocument()
-     * @param doc
+     * Initialize the object using the ODFDOM OdfDocument handle
+     * The OdfDocument object can be created using OdfDocument.loadDocument()
+     * @param doc OdfDocument handle
      */
     public BungeniOdfDocumentHelper(OdfDocument doc) {
         this.odfDocument = doc;
     }
 
+    /**
+     *This API initializes the object using a File handle to a ODF document.
+     * The OdfDocument handle is created internally by the object
+     * @param fodfFile
+     * @throws java.lang.Exception
+     */
     public BungeniOdfDocumentHelper(File fodfFile) throws Exception {
         this.odfDocument = OdfDocument.loadDocument(fodfFile);
     }
 
+    /**
+     * Returns the handle to the OdfDocument object
+     * @return OdfDocument
+     */
     public OdfDocument getOdfDocument() {
         return this.odfDocument;
     }
 
+    /**
+     * Returns a BungeniOdfSectionHelper object
+     * @return
+     */
     public BungeniOdfSectionHelper getSectionHelper() {
         if (s_sectionHelper == null ) {
             s_sectionHelper = new BungeniOdfSectionHelper(this);
@@ -57,6 +73,10 @@ public class BungeniOdfDocumentHelper {
         return s_sectionHelper;
     }
 
+     /**
+     * Returns a BungeniOdfPropertiesHelper object
+     * @return
+     */
     public BungeniOdfPropertiesHelper getPropertiesHelper() {
         if (s_propertiesHelper == null ) {
            s_propertiesHelper =  new BungeniOdfPropertiesHelper(this);
@@ -64,6 +84,10 @@ public class BungeniOdfDocumentHelper {
         return s_propertiesHelper;
     }
 
+     /**
+     * Returns a BungeniOdfTrackedChangesHelper object
+     * @return
+     */
     public BungeniOdfTrackedChangesHelper getChangesHelper() {
         if (s_changesHelper == null ) {
            s_changesHelper =  new BungeniOdfTrackedChangesHelper(this);
@@ -93,6 +117,7 @@ public class BungeniOdfDocumentHelper {
 
     /**
      * Removes the background image for the page if it has one
+     * 
      */
     public void removeBackgroundImage() {
         try {

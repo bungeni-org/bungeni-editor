@@ -29,7 +29,7 @@ import org.odftoolkit.odfdom.type.DateTime;
 
 /**
  * This class assists in extracting tracked changes from a ODF document
- * @author Ashok
+ * @author Ashok Hariharan
  */
 public class BungeniOdfTrackedChangesHelper {
     private static String PRESENTATION_DATE_FORMAT = "EEE, MMM d, yyyy, h:mm:ss a";
