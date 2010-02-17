@@ -3,8 +3,10 @@ package org.bungeni.odfdom.document.changes;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import org.apache.log4j.Logger;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
+import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper.StructuredChangeType;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -71,16 +73,6 @@ public class BungeniOdfTrackedChangesHelperTest {
     /**
      * Test of getChange method, of class BungeniOdfTrackedChangesHelper.
      */
-    @Test
-    public void testGetChange() {
-        System.out.println("getChange");
-        Element changeContainer = docHelper.getChangesHelper().getTrackedChangeContainer();
-
-        ArrayList<OdfTextChangedRegion> result = docHelper.getChangesHelper().getChangedRegions(changeContainer);
-
-        Element changeElem = docHelper.getChangesHelper().getChange(result.get(0));
-        assertEquals("deletion", changeElem.getLocalName());
-    }
 
     
     /**
@@ -95,5 +87,19 @@ public class BungeniOdfTrackedChangesHelperTest {
         assertEquals("deletion", stype.changetype);
     }
 
-
+    /**
+     * Test of getChangeInfo method, of class BungeniOdfTrackedChangesHelper.
+     */
+    @Test
+    public void testGetChangeInfo() {
+        System.out.println("getChangeInfo");
+        Element changeContainer = docHelper.getChangesHelper().getTrackedChangeContainer();
+        ArrayList<OdfTextChangedRegion> result = docHelper.getChangesHelper().getChangedRegions(changeContainer);
+        BungeniOdfTrackedChangesHelper.StructuredChangeType stype = docHelper.getChangesHelper().getStructuredChangeType(result.get(0));
+        HashMap<String,String> changes = docHelper.getChangesHelper().getChangeInfo(stype);
+        assertEquals(changes.get("dcCreator"), "Ashok Hariharan");
+        assertEquals(changes.get("changeType"), "deletion");
+        assertEquals(changes.get("deletedText"), "Triffids");
+        assertEquals(changes.get("dcDate"), "Tue, Feb 9, 2010, 12:38:00 PM");
+    }
 }
