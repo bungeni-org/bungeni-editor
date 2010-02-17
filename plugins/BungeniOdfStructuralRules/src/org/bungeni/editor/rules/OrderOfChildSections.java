@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import org.bungeni.editor.rulesimpl.BaseStructuralRule;
 import org.bungeni.editor.rulesimpl.StructuralError;
 import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
-import org.openoffice.odf.doc.element.text.OdfSection;
+import org.odftoolkit.odfdom.doc.text.OdfTextSection;
 
 /**
  * For an input section this class determines if the child sections are in the correct order.
@@ -20,7 +20,7 @@ import org.openoffice.odf.doc.element.text.OdfSection;
  */
 public class OrderOfChildSections extends BaseStructuralRule {
      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(OrderOfChildSections.class.getName());
-     OdfSection xThisSection = null;
+     OdfTextSection xThisSection = null;
     BungeniOdfSectionHelper odfSectionHelper = null;
     String thisSectionName = "";
     String thisSectionType = "";
@@ -64,11 +64,11 @@ public class OrderOfChildSections extends BaseStructuralRule {
        //get the child sections
       boolean bCheckPre = false, bCheckFol = false;
       try {
-          ArrayList<OdfSection> listofSections = odfSectionHelper.getChildSections(xThisSection);
+          ArrayList<OdfTextSection> listofSections = odfSectionHelper.getChildSections(xThisSection);
            for (int i = 0; i < listofSections.size(); i++) {
-               OdfSection odfSection = listofSections.get(i);
+               OdfTextSection odfSection = listofSections.get(i);
                String childSectionType =  this.odfSectionHelper.getSectionType(odfSection);
-               String childSectionName = odfSection.getName();
+               String childSectionName = odfSection.getTextNameAttribute();
                //for the current child section - get the actual preceeding section type
                //and see if it matches with any of the rule preceeding section types
                bCheckPre =  checkPreceeding(childSectionType, i, listofSections);
@@ -100,7 +100,7 @@ public class OrderOfChildSections extends BaseStructuralRule {
       }
    }
 
-   private boolean checkPreceeding(String childSectionType, int currentIdx , ArrayList<OdfSection> listofChildren) {
+   private boolean checkPreceeding(String childSectionType, int currentIdx , ArrayList<OdfTextSection> listofChildren) {
        //get the allowed preceeding types from the rule
        ArrayList<String> allowedPreceedingTypes = this.ruleParserEngine.getPreceedingSectionTypes(thisSectionType, childSectionType);
        String actualPreceedingType = "";
@@ -117,7 +117,7 @@ public class OrderOfChildSections extends BaseStructuralRule {
            return false;
    }
 
-   private boolean checkFollowing(String childSectionType, int currentIdx , ArrayList<OdfSection> listofChildren) {
+   private boolean checkFollowing(String childSectionType, int currentIdx , ArrayList<OdfTextSection> listofChildren) {
   //get the allowed preceeding types from the rule
        ArrayList<String> allowedFollowingTypes = this.ruleParserEngine.getFollowingSectionTypes(thisSectionType, childSectionType);
        String actualFollowingType = "";

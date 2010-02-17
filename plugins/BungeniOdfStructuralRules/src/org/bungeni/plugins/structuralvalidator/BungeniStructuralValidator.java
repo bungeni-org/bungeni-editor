@@ -10,7 +10,7 @@ import org.bungeni.editor.rulesimpl.StructuralRulesConfig;
 import org.bungeni.editor.rulesimpl.StructuralRulesEngine;
 import org.bungeni.plugins.IEditorPlugin;
 
-import org.openoffice.odf.doc.OdfDocument;
+import org.odftoolkit.odfdom.doc.OdfDocument;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -24,7 +24,6 @@ import java.util.HashMap;
 
 import javax.swing.JFrame;
 import org.bungeni.editor.rules.ui.panelStructuralErrorBrowser;
-import org.bungeni.editor.rulesimpl.StructuralErrorSerialize;
 
 /**
  *

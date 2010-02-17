@@ -5,7 +5,7 @@
 
 package org.bungeni.editor.rulesimpl;
 
-import org.openoffice.odf.doc.OdfDocument;
+import org.odftoolkit.odfdom.doc.OdfDocument;
 
 /**
  *

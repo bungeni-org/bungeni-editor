@@ -10,7 +10,7 @@ import org.bungeni.editor.rulesimpl.BaseStructuralRule;
 import org.bungeni.editor.rulesimpl.StructuralError;
 import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
 import org.dom4j.Element;
-import org.openoffice.odf.doc.element.text.OdfSection;
+import org.odftoolkit.odfdom.doc.text.OdfTextSection;
 
 /**
  * Checks a section for allowed child sections.
@@ -19,7 +19,7 @@ import org.openoffice.odf.doc.element.text.OdfSection;
  * @author Ashok Hariharan
  */
 public class AllowedChildSections extends BaseStructuralRule{
-    OdfSection xThisSection = null;
+    OdfTextSection xThisSection = null;
     BungeniOdfSectionHelper odfSectionHelper = null;
     String thisSectionName = "";
     String thisSectionType = "";
@@ -43,6 +43,7 @@ public class AllowedChildSections extends BaseStructuralRule{
     }
 
     private boolean setup(String forThisSectionName){
+   //    BungeniOdfSectionHelper bsh = new BungeniOdfSectionHelper(odfDocument);
        odfSectionHelper = new BungeniOdfSectionHelper(odfDocument);
        xThisSection = odfSectionHelper.getSection(forThisSectionName);
        thisSectionType = odfSectionHelper.getSectionType(xThisSection);
@@ -76,10 +77,10 @@ public class AllowedChildSections extends BaseStructuralRule{
         ///get all child sections
         boolean bState = false;
         try {
-            ArrayList<OdfSection> listofSections = odfSectionHelper.getChildSections(xThisSection);
-            for (OdfSection odfSection : listofSections) {
+            ArrayList<OdfTextSection> listofSections = odfSectionHelper.getChildSections(xThisSection);
+            for (OdfTextSection odfSection : listofSections) {
                 String childSectionType = odfSectionHelper.getSectionType(odfSection);
-                String childSectionName = odfSection.getName();
+                String childSectionName = odfSection.getTextNameAttribute();
                 if (!isSectionTypeAllowed(childSectionType)) {
                     log.info("searchForAllowedSectionTypes :  in " + this.thisSectionName + " of " + this.thisSectionType +
                             " the child section " + childSectionName + " of type :" + childSectionType + " is not allowed");

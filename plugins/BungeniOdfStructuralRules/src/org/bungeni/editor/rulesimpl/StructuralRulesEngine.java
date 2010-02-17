@@ -7,8 +7,8 @@ import org.bungeni.odfdom.section.IBungeniOdfSectionIterator;
 
 import org.dom4j.Element;
 
-import org.openoffice.odf.doc.OdfDocument;
-import org.openoffice.odf.doc.element.text.OdfSection;
+import org.odftoolkit.odfdom.doc.OdfDocument;
+import org.odftoolkit.odfdom.doc.text.OdfTextSection;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -148,19 +148,19 @@ public class StructuralRulesEngine {
     }
 
     class IterativeRulesForSections implements IBungeniOdfSectionIterator {
-        public boolean nextSection(BungeniOdfSectionHelper helper, OdfSection nSection) {
+        public boolean nextSection(BungeniOdfSectionHelper helper, OdfTextSection nSection) {
             try {
-                System.out.println("iterating rules for section : " + nSection.getName());
+                System.out.println("iterating rules for section : " + nSection.getTextNameAttribute());
                 System.out.println("rules to apply = " + rulesToApply.size());
 
                 for (IStructuralRule iStructuralRule : rulesToApply) {
-                    OdfDocument oddoc = helper.getDocument();
+                    OdfDocument oddoc = helper.getOdfDocument();
 
                     System.out.println("iterating rules for " + iStructuralRule.getName());
 
-                    if (iStructuralRule.setupRule(rulesParser, helper.getDocument())) {
+                    if (iStructuralRule.setupRule(rulesParser, helper.getOdfDocument())) {
                         System.out.println("finished setup of rule");
-                        iStructuralRule.applyRule(nSection.getName());
+                        iStructuralRule.applyRule(nSection.getTextNameAttribute());
                     }
 
                     System.out.println("after setup of rule");

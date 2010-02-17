@@ -2,7 +2,7 @@ package org.bungeni.editor.rulesimpl;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import org.openoffice.odf.doc.OdfDocument;
+import org.odftoolkit.odfdom.doc.OdfDocument;
 
 //~--- JDK imports ------------------------------------------------------------
 
