@@ -8,6 +8,10 @@ package org.bungeni.trackchanges;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractListModel;
@@ -15,22 +19,31 @@ import javax.swing.JFrame;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import org.bungeni.odfdocument.docinfo.BungeniChangeDocumentsInfo;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
+import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper;
+import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper.StructuredChangeType;
 import org.odftoolkit.odfdom.doc.OdfDocument;
+import org.odftoolkit.odfdom.doc.text.OdfTextChangedRegion;
+import org.w3c.dom.Element;
 
 /**
  *
- * @author  undesa
+ * @author  Ashok Hariharan
  */
 public class panelTrackChanges extends javax.swing.JPanel {
 
+    ResourceBundle rBundle = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle");
+
     String __TEST_FOLDER__ = "";
     BungeniChangeDocumentsInfo changesInfo = new BungeniChangeDocumentsInfo();
-
+    JFrame parentFrame;
     /** Creates new form panelTrackChanges */
-    public panelTrackChanges() {
+    public panelTrackChanges(JFrame parentFrame) {
         initComponents();
+        this.parentFrame = parentFrame;
         __TEST_FOLDER__ ="/Users/ashok/Devel/TrackChanges/netbeansProject/Files";
         loadFilesFromFolder();
         initialize();
@@ -40,6 +53,10 @@ public class panelTrackChanges extends javax.swing.JPanel {
      * Initialize controls with data
      */
     private void initialize() {
+
+        initialize_listBoxes();
+        initialize_Tables();
+
         listMembers.setModel(new DocOwnerListModel());
         listMembers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ListSelectionModel lsm = listMembers.getSelectionModel();
@@ -60,12 +77,48 @@ public class panelTrackChanges extends javax.swing.JPanel {
                     // Find out which indexes are selected.
                     int nIndex = lsm.getMinSelectionIndex();
                     displayDocInfo(nIndex);
+                    displayChangesInfo(nIndex);
                 }
               
             }
 
         });
     }
+
+    private void initialize_listBoxes() {
+
+        listMembers.setModel(new DocOwnerListModel());
+        listMembers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        ListSelectionModel lsm = listMembers.getSelectionModel();
+        lsm.addListSelectionListener(new ListSelectionListener(){
+
+            public void valueChanged(ListSelectionEvent lse) {
+                ListSelectionModel lsm = (ListSelectionModel)lse.getSource();
+                if (lse.getValueIsAdjusting()) {
+                    return;
+                }
+
+                int firstIndex = lse.getFirstIndex();
+                int lastIndex = lse.getLastIndex();
+
+                if (lsm.isSelectionEmpty()) {
+                    return;
+                } else {
+                    // Find out which indexes are selected.
+                    int nIndex = lsm.getMinSelectionIndex();
+                    displayDocInfo(nIndex);
+                    displayChangesInfo(nIndex);
+                }
+
+            }
+
+        });
+    }
+
+    private void initialize_Tables() {
+        this.tblDocChanges.setModel(new DocumentChangesTableModel());
+    }
+
 
     /**
      * Loads change files from folder
@@ -110,12 +163,16 @@ public class panelTrackChanges extends javax.swing.JPanel {
         this.txtareaDocInfo.setText(sbDoc.toString());
     }
 
+    private void displayChangesInfo (int index) {
+        DocumentChangesTableModel tblModel = (DocumentChangesTableModel) this.tblDocChanges.getModel();
+        tblModel.updateModel(index);
+    }
     /**
      * List model for document owner
      */
     private class DocOwnerListModel extends AbstractListModel {
 
-        public int getSize() {
+         public int getSize() {
           return changesInfo.getSize();
         }
 
@@ -123,6 +180,93 @@ public class panelTrackChanges extends javax.swing.JPanel {
             BungeniOdfDocumentHelper docHelper =  changesInfo.getDocuments().get(arg0);
             return docHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniDocOwner");
         }
+
+    }
+
+    private class DocumentChangesTableModel extends AbstractTableModel {
+        List<HashMap<String,String>> changeMarks = new ArrayList<HashMap<String,String>>(0);
+        private  String[] column_names = {
+            rBundle.getString("panelTrackChanges.tblDocChanges.action.text"),
+            rBundle.getString("panelTrackChanges.tblDocChanges.date.text"),
+            rBundle.getString("panelTrackChanges.tblDocChanges.text.text"),
+            rBundle.getString("panelTrackChanges.tblDocChanges.position.text"),
+            rBundle.getString("panelTrackChanges.tblDocChanges.status.text")
+        };
+
+        public DocumentChangesTableModel () {
+            changeMarks = new ArrayList<HashMap<String,String>>(0);
+        }
+
+        public DocumentChangesTableModel (int iIndex) {
+            buildModel(iIndex);
+        }
+
+
+        public void updateModel(int iIndex) {
+            buildModel(iIndex);
+            fireTableDataChanged();
+        }
+
+        private void buildModel(int iIndex) {
+            changeMarks.clear();
+            BungeniOdfDocumentHelper docHelper = changesInfo.getDocuments().get(iIndex);
+            BungeniOdfTrackedChangesHelper changeHelper = docHelper.getChangesHelper();
+            Element changeContainer = changeHelper.getTrackedChangeContainer();
+            ArrayList<OdfTextChangedRegion> changes = changeHelper.getChangedRegions(changeContainer);
+            for (OdfTextChangedRegion odfTextChangedRegion : changes) {
+                StructuredChangeType scType = changeHelper.getStructuredChangeType(odfTextChangedRegion);
+                HashMap<String,String> changeMark = changeHelper.getChangeInfo(scType);
+                changeMarks.add(changeMark);
+            }
+        }
+
+        @Override
+        public int getRowCount() {
+            if (changeMarks == null) return 0;
+            return changeMarks.size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return column_names.length;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            HashMap<String,String> changeMark = changeMarks.get(rowIndex);
+            System.out.println("Change Mark = " + changeMark);
+            switch (columnIndex) {
+                case 0 :
+                    return changeMark.get("changeType");
+                case 1 :
+                    return changeMark.get("dcDate");
+                case 2 :
+                    if (changeMark.containsKey("deletedText")) {
+                        return changeMark.get("deletedText");
+                    } else
+                        return new String("");
+                case 3 :
+
+                    break;
+                case 4 :
+                    return "true";
+                default :
+                    return new String("");
+            }
+            return new String("");
+        }
+
+        @Override
+        public Class getColumnClass(int col) {
+              return String.class;
+        }
+
+
+        @Override
+        public String getColumnName(int column) {
+            return column_names[column];
+        }
+
 
     }
 
@@ -149,7 +293,7 @@ public class panelTrackChanges extends javax.swing.JPanel {
         btnCancel = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        lblMembers.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblMembers.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle"); // NOI18N
         lblMembers.setText(bundle.getString("panelTrackChanges.lblMembers.text")); // NOI18N
 
@@ -166,7 +310,7 @@ public class panelTrackChanges extends javax.swing.JPanel {
         txtareaDocInfo.setWrapStyleWord(true);
         scrollDocInfo.setViewportView(txtareaDocInfo);
 
-        lblDocInfo.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblDocInfo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblDocInfo.setText(bundle.getString("panelTrackChanges.lblDocInfo.text")); // NOI18N
 
         tblDocChanges.setModel(new javax.swing.table.DefaultTableModel(
@@ -189,19 +333,24 @@ public class panelTrackChanges extends javax.swing.JPanel {
         });
         scrollDocChanges.setViewportView(tblDocChanges);
 
-        btnViewDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnViewDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnViewDoc.setText(bundle.getString("panelTrackChanges.btnViewDoc.text")); // NOI18N
 
-        btnViewOrigDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnViewOrigDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnViewOrigDoc.setText(bundle.getString("panelTrackChanges.btnViewOrigDoc.text")); // NOI18N
 
-        btnApplyChanges.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnApplyChanges.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnApplyChanges.setText(bundle.getString("panelTrackChanges.btnApplyChanges.text")); // NOI18N
 
-        btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnCancel.setText(bundle.getString("panelTrackChanges.btnCancel.text")); // NOI18N
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
-        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         jLabel1.setText(bundle.getString("panelTrackChanges.jLabel1.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -262,6 +411,11 @@ public class panelTrackChanges extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_btnCancelActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApplyChanges;
@@ -283,7 +437,7 @@ public class panelTrackChanges extends javax.swing.JPanel {
         
         JFrame frm = new JFrame("Track Changes");
         frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frm.getContentPane().add(new panelTrackChanges());
+        frm.getContentPane().add(new panelTrackChanges(frm));
         frm.pack();
         frm.setVisible(true);
     }
