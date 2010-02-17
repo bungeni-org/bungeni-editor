@@ -101,5 +101,18 @@ public class BungeniOdfTrackedChangesHelperTest {
         assertEquals(changes.get("changeType"), "deletion");
         assertEquals(changes.get("deletedText"), "Triffids");
         assertEquals(changes.get("dcDate"), "Tue, Feb 9, 2010, 12:38:00 PM");
+        BungeniOdfTrackedChangesHelper.StructuredChangeType stype2 = docHelper.getChangesHelper().getStructuredChangeType(result.get(1));
+        HashMap<String,String> changes2 = docHelper.getChangesHelper().getChangeInfo(stype2);
+        System.out.println(changes2.get("dcCreator"));
+        System.out.println(changes2.get("changeType"));
+        System.out.println(changes2.get("deletedText"));
+        System.out.println(changes2.get("dcDate"));
+
+        assertEquals(changes2.get("dcCreator"), "Ashok Hariharan");
+        assertEquals(changes2.get("changeType"), "insertion");
+        //assertEquals(changes2.get("deletedText"), "Triffids");
+        assertEquals(changes2.get("dcDate"), "Tue, Feb 9, 2010, 12:38:00 PM");
+
+
     }
 }

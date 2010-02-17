@@ -113,14 +113,18 @@ public class BungeniOdfTrackedChangesHelper {
         OdfElement           elementChange = (OdfElement) getChange(textChangedRegion);
 
         log.debug("node name = " + elementChange.getLocalName());
+         String elemInsertion = OdfTextInsertion.ELEMENT_NAME.getLocalName();
+         String elemDeletion = OdfTextDeletion.ELEMENT_NAME.getLocalName();
+         String elemChangeName = elementChange.getLocalName();
+         
 
-        if (elementChange.getLocalName().equals(OdfTextDeletion.ELEMENT_NAME.getLocalName())) {
+        if (elemChangeName.equals(elemDeletion)) {
             scType.changetype    = "deletion";
             scType.elementChange = elementChange;
 
             // scType.changeRegion = textChangedRegion;
             return scType;
-        } else if (elementChange.getNodeName().equals(OdfTextInsertion.ELEMENT_NAME.getLocalName())) {
+        } else if (elemInsertion.equals(elemChangeName)) {
             scType.changetype    = "insertion";
             scType.elementChange = elementChange;
 
