@@ -110,13 +110,14 @@ public class BungeniOdfTrackedChangesHelper {
      */
     public StructuredChangeType getStructuredChangeType(OdfTextChangedRegion textChangedRegion) {
         StructuredChangeType scType        = new StructuredChangeType();
+        String changedId = textChangedRegion.getAttribute("text:id");
         OdfElement           elementChange = (OdfElement) getChange(textChangedRegion);
 
         log.debug("node name = " + elementChange.getLocalName());
          String elemInsertion = OdfTextInsertion.ELEMENT_NAME.getLocalName();
          String elemDeletion = OdfTextDeletion.ELEMENT_NAME.getLocalName();
          String elemChangeName = elementChange.getLocalName();
-         
+         scType.changeId = changedId;
 
         if (elemChangeName.equals(elemDeletion)) {
             scType.changetype    = "deletion";
@@ -151,8 +152,15 @@ public class BungeniOdfTrackedChangesHelper {
 
         if (scChangeType.changetype.equals("deletion")) {
             String     deletedText  = getDeletedText(elemInsOrDel);
-            changeInfo.put("deletedText", deletedText);
-        } 
+            changeInfo.put("changeText", deletedText);
+        }
+
+        if (scChangeType.changetype.equals("insertion")) {
+            String     insertedText  = getInsertedText(elemInsOrDel, scChangeType.changeId);
+            changeInfo.put("changeText", insertedText);
+        }
+
+
 
         return changeInfo;
     }
@@ -194,6 +202,59 @@ public class BungeniOdfTrackedChangesHelper {
         }
         return sbfDeletedText.toString();
     }
+
+
+
+    private String getInsertedText(OdfElement elemInsertion, String changeId) {
+        StringBuffer sbInsText = new StringBuffer();
+       
+        String xPathExpr =   "//text:change-start[@text:change-id='"+ changeId + "']/following::text()[not(preceding::text:change-end[@text:change-id='"+changeId +"'])]";
+          try {
+            NodeList matchedNodes = (NodeList) this.m_docXpath.evaluate(xPathExpr, this.m_docHelper.getOdfDocument().getContentDom(),XPathConstants.NODESET);
+            for (int i = 0; i < matchedNodes.getLength(); i++) {
+                Node foundNode = matchedNodes.item(i);
+                sbInsText.append(foundNode.getTextContent());
+            }
+        } catch (Exception ex) {
+            log.error("getInsertedText : " + ex.getMessage(), ex);
+        }
+        return sbInsText.toString();
+    }
+
+    /*
+
+    private String getInsertedText(OdfElement elemInsertion, String changeId) {
+        StringBuffer sbInsText = new StringBuffer();
+        String xPathExpr1 =   "//text:change-start[@text:change-id='" + changeId +"']/following::text ()" ;
+        String xPathExpr2 =   "//text:change-start[@text:change-id='"+changeId+"']/following::" +
+                  "*[@text:change-id='"+changeId+"'][1]/following::text()";
+          try {
+            NodeList matchedNodes = (NodeList) this.m_docXpath.evaluate(xPathExpr1, this.m_docHelper.getOdfDocument().getContentDom(),XPathConstants.NODESET);
+            NodeList exceptNodes = (NodeList) this.m_docXpath.evaluate(xPathExpr2, this.m_docHelper.getOdfDocument().getContentDom(),XPathConstants.NODESET);
+            for (int i = 0; i < matchedNodes.getLength(); i++) {
+                Node foundNode = matchedNodes.item(i);
+                boolean bDropThisNode = false;
+                System.out.println("nname = " + foundNode.getLocalName());
+                System.out.println("nvalue = " + foundNode.getTextContent());
+                for (int j = 0; j < exceptNodes.getLength(); j++) {
+                    short pos =  exceptNodes.item(j).compareDocumentPosition(foundNode);
+                    System.out.println("\tenname = " + exceptNodes.item(j).getLocalName());
+                    System.out.println("\tenvalue = " + exceptNodes.item(j).getTextContent());
+                    System.out.println("\tenpos = " + pos);
+                    //we want matching nodes to be removed
+                    if (pos == 0) {
+                        bDropThisNode = true;
+                    }
+                }
+                if (false == bDropThisNode)
+                    sbInsText.append(foundNode.getTextContent());
+            }
+        } catch (Exception ex) {
+            log.error("getDeletedText : " + ex.getMessage(), ex);
+        }
+        return sbInsText.toString();
+    } */
+//text:change-start[@text:change-id='ct472232592']/following::*[@text:change-id='ct472232592'][1]/following::text()
 
     /**
      * Get dc:creator for the change
@@ -237,6 +298,7 @@ public class BungeniOdfTrackedChangesHelper {
 
     public class StructuredChangeType {
         public OdfTextChangedRegion changeRegion;
+        public String               changeId;
         public String               changetype;    // deletion, insertion
         public OdfElement           elementChange;
     }
