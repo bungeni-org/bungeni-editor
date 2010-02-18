@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import org.apache.log4j.Logger;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
-import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper.StructuredChangeType;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -99,18 +98,18 @@ public class BungeniOdfTrackedChangesHelperTest {
         HashMap<String,String> changes = docHelper.getChangesHelper().getChangeInfo(stype);
         assertEquals(changes.get("dcCreator"), "Ashok Hariharan");
         assertEquals(changes.get("changeType"), "deletion");
-        assertEquals(changes.get("deletedText"), "Triffids");
+        assertEquals(changes.get("changeText"), "Triffids");
         assertEquals(changes.get("dcDate"), "Tue, Feb 9, 2010, 12:38:00 PM");
         BungeniOdfTrackedChangesHelper.StructuredChangeType stype2 = docHelper.getChangesHelper().getStructuredChangeType(result.get(1));
         HashMap<String,String> changes2 = docHelper.getChangesHelper().getChangeInfo(stype2);
         System.out.println(changes2.get("dcCreator"));
         System.out.println(changes2.get("changeType"));
-        System.out.println(changes2.get("deletedText"));
+        System.out.println(changes2.get("changeText"));
         System.out.println(changes2.get("dcDate"));
 
         assertEquals(changes2.get("dcCreator"), "Ashok Hariharan");
         assertEquals(changes2.get("changeType"), "insertion");
-        //assertEquals(changes2.get("deletedText"), "Triffids");
+        assertEquals(changes2.get("changeText"), "Nightingales");
         assertEquals(changes2.get("dcDate"), "Tue, Feb 9, 2010, 12:38:00 PM");
 
 
