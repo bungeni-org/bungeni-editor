@@ -27,13 +27,14 @@ import java.util.HashMap;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
+import org.bungeni.odfdom.utils.BungeniOdfDateHelper;
 
 /**
  * This class assists in extracting tracked changes from a ODF document
  * @author Ashok Hariharan
  */
 public class BungeniOdfTrackedChangesHelper {
-    private static String                  PRESENTATION_DATE_FORMAT = "EEE, MMM d, yyyy, h:mm:ss a";
+
     private static org.apache.log4j.Logger log                      =
         Logger.getLogger(BungeniOdfTrackedChangesHelper.class.getName());
     private BungeniOdfDocumentHelper       m_docHelper              = null;
@@ -166,6 +167,7 @@ public class BungeniOdfTrackedChangesHelper {
         changeInfo.put("changeType", scChangeType.changetype);
         changeInfo.put("dcCreator", dcCreator);
         changeInfo.put("dcDate", dcDate);
+        changeInfo.put("changeId", scChangeType.changeId);
 
         if (scChangeType.changetype.equals("deletion")) {
             String deletedText = getDeletedText(elemInsOrDel);
@@ -400,11 +402,7 @@ public class BungeniOdfTrackedChangesHelper {
              * all dates in odf uses the ODFDOM data type DateTime
              * we convert to the XML date type and then to Java date type
              */
-            DateTime         dtdcDate = DateTime.valueOf(dcDate.getTextContent());
-            Date             ddcDate  = dtdcDate.getXMLGregorianCalendar().toGregorianCalendar().getTime();
-            SimpleDateFormat dfFormat = new SimpleDateFormat(PRESENTATION_DATE_FORMAT);
-
-            outDate = dfFormat.format(ddcDate);
+            outDate = BungeniOdfDateHelper.odfDateToPresentationDate(dcDate.getTextContent());
         }
 
         return outDate;

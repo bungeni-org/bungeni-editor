@@ -2,6 +2,7 @@ package org.bungeni.odfdom.document.properties;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import com.catcode.odf.Duration;
 import java.util.HashMap;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 
@@ -16,6 +17,8 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import org.apache.log4j.Logger;
+import org.bungeni.odfdom.utils.BungeniOdfDateHelper;
+import org.odftoolkit.odfdom.doc.meta.OdfMetaEditingDuration;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -55,7 +58,7 @@ public class BungeniOdfPropertiesHelper {
 
                 String xPathExpression = "//meta:initial-creator";
                 Node foundNode = (Node) m_docXpath.evaluate(xPathExpression, m_metaDom, XPathConstants.NODE);
-                nodeValue = foundNode.getNodeValue();
+                nodeValue = foundNode.getTextContent();
             } catch (XPathExpressionException ex) {
                   log.error("BungeniOdfPropertiesHelper.getMetaInitialCreator : " + ex.getMessage(), ex);
             }
@@ -68,7 +71,7 @@ public class BungeniOdfPropertiesHelper {
 
                 String xPathExpression = "//meta:creation-date";
                 Node foundNode = (Node) m_docXpath.evaluate(xPathExpression, m_metaDom, XPathConstants.NODE);
-                nodeValue = foundNode.getNodeValue();
+                nodeValue = BungeniOdfDateHelper.odfDateToPresentationDate(foundNode.getTextContent());
             } catch (XPathExpressionException ex) {
                   log.error("BungeniOdfPropertiesHelper.getMetaCreationDate : " + ex.getMessage(), ex);
             }
@@ -85,7 +88,10 @@ public class BungeniOdfPropertiesHelper {
 
                 String xPathExpression = "//meta:editing-duration";
                 Node foundNode = (Node) m_docXpath.evaluate(xPathExpression, m_metaDom, XPathConstants.NODE);
-                nodeValue = foundNode.getNodeValue();
+                Duration objDuration = Duration.parseDuration(foundNode.getTextContent());
+                String sSeconds = (""+objDuration.getSeconds());
+                sSeconds = sSeconds.substring(0, sSeconds.indexOf("."));
+                nodeValue = objDuration.getHours() + ":" + objDuration.getMinutes() + ":" + sSeconds;
             } catch (XPathExpressionException ex) {
                   log.error("BungeniOdfPropertiesHelper.getMetaEditingDuration : " + ex.getMessage(), ex);
             }
@@ -103,7 +109,7 @@ public class BungeniOdfPropertiesHelper {
 
                 String xPathExpression = "//meta:editing-cycles";
                 Node foundNode = (Node) m_docXpath.evaluate(xPathExpression, m_metaDom, XPathConstants.NODE);
-                nodeValue = foundNode.getNodeValue();
+                nodeValue = foundNode.getTextContent();
             } catch (XPathExpressionException ex) {
                   log.error("BungeniOdfPropertiesHelper.getMetaEditingCycles : " + ex.getMessage(), ex);
               }

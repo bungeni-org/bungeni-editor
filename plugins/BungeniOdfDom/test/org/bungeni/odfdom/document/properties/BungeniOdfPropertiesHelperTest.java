@@ -88,5 +88,20 @@ public class BungeniOdfPropertiesHelperTest {
         assertEquals(false, bFail);
         }
 
-       
+    /**
+     * Test of getUserDefinedPropertyValues method, of class BungeniOdfPropertiesHelper.
+     */
+    @Test
+    public void testGetMetaEditingCycles() {
+            String result = docHelper.getPropertiesHelper().getMetaEditingCycles();
+            assertEquals("7", result);
+        }
+
+    @Test
+    public void testGetMetaEditingDuration() {
+            String result = docHelper.getPropertiesHelper().getMetaEditingDuration();
+            System.out.println(result);
+            assertEquals("0:9:3", result);
+        }
+      
 }
