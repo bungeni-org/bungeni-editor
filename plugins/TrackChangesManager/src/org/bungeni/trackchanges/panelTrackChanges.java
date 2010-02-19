@@ -21,10 +21,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import org.bungeni.odfdocument.docinfo.BungeniChangeDocumentsInfo;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper.StructuredChangeType;
+import org.bungeni.trackchanges.ui.support.TextAreaRenderer;
 import org.odftoolkit.odfdom.doc.OdfDocument;
 import org.odftoolkit.odfdom.doc.text.OdfTextChangedRegion;
 import org.w3c.dom.Element;
@@ -117,6 +119,9 @@ public class panelTrackChanges extends javax.swing.JPanel {
 
     private void initialize_Tables() {
         this.tblDocChanges.setModel(new DocumentChangesTableModel());
+        TableColumnModel tcmModel = this.tblDocChanges.getColumnModel();
+        TextAreaRenderer textAreaRenderer = new TextAreaRenderer();
+        tcmModel.getColumn(2).setCellRenderer(textAreaRenderer);
     }
 
 
@@ -160,6 +165,10 @@ public class panelTrackChanges extends javax.swing.JPanel {
         File fFile = new File(docHelper.getOdfDocument().getBaseURI());
         sbDoc.append("Name:" + fFile.getName() + "\n");
         sbDoc.append("Created on: " + docHelper.getPropertiesHelper().getMetaCreationDate() + "\n");
+        sbDoc.append("No. of times edited : " + docHelper.getPropertiesHelper().getMetaEditingCycles() + "\n");
+        sbDoc.append("Editing duration : " + docHelper.getPropertiesHelper().getMetaEditingDuration() + "\n");
+
+
         this.txtareaDocInfo.setText(sbDoc.toString());
     }
 
@@ -189,7 +198,7 @@ public class panelTrackChanges extends javax.swing.JPanel {
             rBundle.getString("panelTrackChanges.tblDocChanges.action.text"),
             rBundle.getString("panelTrackChanges.tblDocChanges.date.text"),
             rBundle.getString("panelTrackChanges.tblDocChanges.text.text"),
-            rBundle.getString("panelTrackChanges.tblDocChanges.position.text"),
+      //      rBundle.getString("panelTrackChanges.tblDocChanges.position.text"),
             rBundle.getString("panelTrackChanges.tblDocChanges.status.text")
         };
 
@@ -241,23 +250,22 @@ public class panelTrackChanges extends javax.swing.JPanel {
                 case 1 :
                     return changeMark.get("dcDate");
                 case 2 :
-                    if (changeMark.containsKey("deletedText")) {
-                        return changeMark.get("deletedText");
+                    if (changeMark.containsKey("changeText")) {
+                        return changeMark.get("changeText");
                     } else
                         return new String("");
                 case 3 :
-
-                    break;
-                case 4 :
-                    return "true";
+                    return true;
                 default :
                     return new String("");
             }
-            return new String("");
         }
 
         @Override
         public Class getColumnClass(int col) {
+            if (col == 3)
+                return Boolean.class;
+            else
               return String.class;
         }
 
