@@ -75,6 +75,10 @@ public class BungeniOdfPropertiesHelper {
             return nodeValue;
     }
 
+    /**
+     * Retrieve the editing duration
+     * @return
+     */
     public String getMetaEditingDuration() {
             String nodeValue = "";
             try {
@@ -88,6 +92,11 @@ public class BungeniOdfPropertiesHelper {
             return nodeValue;
     }
 
+    /**
+     * get the number of editing cycles the document has undergone.
+     *
+     * @return String containing the editing cycles property
+     */
     public String getMetaEditingCycles() {
             String nodeValue = "";
             try {
@@ -103,7 +112,11 @@ public class BungeniOdfPropertiesHelper {
 
 
 
-
+    /**
+     * Get all user defined property values.
+     * User defined property values are defined as //meta:user-defined
+     * @return HashMap of key value pairs containing the metadata names values
+     */
     public HashMap<String,String> getUserDefinedPropertyValues() {
         HashMap<String, String> propertyValues = new HashMap<String, String>();
     
@@ -123,6 +136,13 @@ public class BungeniOdfPropertiesHelper {
 
     }
 
+    /**
+     * Retrieves a single property value by taking the name of the property as an input.
+     * API uses the XPath : //meta:user-defined[@meta:name='propertyName']
+     *
+     * @param propName
+     * @return String containing the property value
+     */
     public String getUserDefinedPropertyValue(String propName) {
         String nodeValue       = "";
         String xPathExpression = "//meta:user-defined[@meta:name='" + propName + "']";
