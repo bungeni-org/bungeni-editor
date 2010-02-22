@@ -10,7 +10,6 @@ import org.odftoolkit.odfdom.OdfElement;
 import org.odftoolkit.odfdom.doc.text.OdfTextChangedRegion;
 import org.odftoolkit.odfdom.doc.text.OdfTextDeletion;
 import org.odftoolkit.odfdom.doc.text.OdfTextInsertion;
-import org.odftoolkit.odfdom.type.DateTime;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -18,10 +17,8 @@ import org.w3c.dom.NodeList;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 import javax.xml.xpath.XPath;
@@ -30,7 +27,7 @@ import javax.xml.xpath.XPathExpressionException;
 import org.bungeni.odfdom.utils.BungeniOdfDateHelper;
 
 /**
- * This class assists in extracting tracked changes from a ODF document
+ * <p>This class assists in extracting tracked changes from a ODF document</p>
  * @author Ashok Hariharan
  */
 public class BungeniOdfTrackedChangesHelper {
@@ -41,7 +38,7 @@ public class BungeniOdfTrackedChangesHelper {
     private XPath                          m_docXpath               = null;
 
     /**
-     * Track changes helper is initiialized using a Document Helper object
+     * <p>Track changes helper is initialized using a Document Helper object</p>
      * @param docH
      */
     public BungeniOdfTrackedChangesHelper(BungeniOdfDocumentHelper docH) {
@@ -51,7 +48,7 @@ public class BungeniOdfTrackedChangesHelper {
     }
 
     /**
-     * Retrieves the container for the changes header text:tracked-changes
+     * <p>Retrieves the container for the changes header text:tracked-changes</p>
      * @return
      */
     public Element getTrackedChangeContainer() {
@@ -80,8 +77,8 @@ public class BungeniOdfTrackedChangesHelper {
     }
 
     /**
-     * Get changed regions in a text change container
-     * text:tracked-changes/text:changed-regions
+     * <p>Get changed regions in a text change container
+     * text:tracked-changes/text:changed-regions</p>
      * @param changeContainer
      * @return
      */
@@ -100,8 +97,8 @@ public class BungeniOdfTrackedChangesHelper {
     }
 
     /**
-     * Helper function for getStructuredChangeType()
-     * gets the text:deletion or text:insertion element ...
+     * <p>Helper function for getStructuredChangeType()
+     * gets the text:deletion or text:insertion element</p>
      * @param textChangedRegion
      * @return
      */
@@ -119,7 +116,7 @@ public class BungeniOdfTrackedChangesHelper {
     }
 
     /**
-     * identifies and returns a text:deletion or text:insertion element from a change region
+     * <p>identifies and returns a text:deletion or text:insertion element from a change region</p>
      * @param textChangedRegion
      * @return
      */
@@ -154,7 +151,7 @@ public class BungeniOdfTrackedChangesHelper {
     }
 
     /**
-     * Returncs change info as a hashmap
+     * <p>Returncs change info as a hashmap</p>
      * @param scChangeType
      * @return
      */
@@ -185,7 +182,7 @@ public class BungeniOdfTrackedChangesHelper {
     }
 
     /***
-     * <br />
+     * <p>
      * The xml for text:deletion element looks like below -- [1]<br />
      * we want the deleted text which is all the child elements outside the<br />
      * &lt;office:change-info..&gt; block so we use the xpath to match all children excep<br />
@@ -199,10 +196,10 @@ public class BungeniOdfTrackedChangesHelper {
      * &lt;/office:change-info&gt;<br />
      * &lt;text:h text:style-name=&quot;Heading_20_1&quot; text:outline-level=&quot;1&quot;&gt;Triffids&lt;/text:h&gt;<br />
      * &lt;/text:deletion&gt;<br />
-     * <br />
+     * <br /></p>
      *
-     * @param elemDeletion - the text:deletion element<br />
-     * @return NodeList of al the deleted nodes<br />
+     * @param elemDeletion - the text:deletion element
+     * @return NodeList of al the deleted nodes
      */
     public NodeList getDeletedNodes(OdfElement elemDeletion) {
         NodeList matchedNodes = null;
@@ -225,8 +222,8 @@ public class BungeniOdfTrackedChangesHelper {
     }
 
     /**
-     * Helper function on getDeletedNodes, returns a String with the text content
-     * of all the nodes in the deleted nodes NodeList
+     * <p>Helper function on getDeletedNodes, returns a String with the text content
+     * of all the nodes in the deleted nodes NodeList</p>
      * @param elemDeletion the text:deletion element
      * @return String content of all the deleted nodes
      */
@@ -244,8 +241,8 @@ public class BungeniOdfTrackedChangesHelper {
     }
 
     /**
-     * Helper function on getInsertedNodes - converts the NodeList to a string,
-     * by evaluation text content of nodes.
+     * <p>Helper function on getInsertedNodes - converts the NodeList to a string,
+     * by evaluation text content of nodes.</p>
      * @param elemInsertion
      * @param changeId
      * @return
@@ -264,7 +261,7 @@ public class BungeniOdfTrackedChangesHelper {
     }
 
     /**
-     * This function extracts inserted text corresponding to a change mark.<br />
+     * <p>This function extracts inserted text corresponding to a change mark.<br />
      * [1] - Is the change mark header for the text insertion. <br />
      * <br />
      * The text:id attribute of the changed-region element corresponds to the <br />
@@ -286,6 +283,7 @@ public class BungeniOdfTrackedChangesHelper {
      * <br />
      * <br />
      * [1] --<br />
+     * <pre>
      * <br />
      * &lt;text:changed-region text:id=&quot;ct472232592&quot;&gt;<br />
      * &lt;text:insertion&gt;<br />
@@ -295,11 +293,13 @@ public class BungeniOdfTrackedChangesHelper {
      *   &lt;/office:change-info&gt;<br />
      * &lt;/text:insertion&gt;<br />
      * &lt;/text:changed-region&gt;<br />
+     * </pre>
      * <br />
      * <br />
      * <br />
      * [2] --<br />
      * <br />
+     * <pre>
      * &lt;text:p text:style-name=&quot;Standard&quot;&gt;Neque porro quisquam est, qui dolorem ipsum<br />
      * quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius<br />
      * modi &lt;text:change text:change-id=&quot;ct468041424&quot;/&gt;&lt;text:change-start<br />
@@ -312,8 +312,10 @@ public class BungeniOdfTrackedChangesHelper {
      * nulla pariatur?&lt;text:change-end text:change-id=&quot;ct472232592&quot;/&gt;&lt;text:change<br />
      * text:change-id=&quot;ct472209600&quot;/&gt;&lt;/text:p&gt;<br />
      * <br />
-     * @param elemInsertion - text:insertion element<br />
-     * @param changeId - id of the changed-region containing the text:insertion element<br />
+     * </pre>
+     * </p>
+     * @param elemInsertion - text:insertion element
+     * @param changeId - id of the changed-region containing the text:insertion element
      * @return a NodeList of all the newly inserted text() nodes
      */
     public NodeList getInsertedNodes(OdfElement elemInsertion, String changeId) {
@@ -334,7 +336,7 @@ public class BungeniOdfTrackedChangesHelper {
 
     /*
      *
-     * This is a version of the inserted text API that uses DOM traversal
+     * <p>This is a version of the inserted text API that uses DOM traversal
      *
      * private String getInsertedText(OdfElement elemInsertion, String changeId) {
      *   StringBuffer sbInsText = new StringBuffer();
@@ -370,7 +372,7 @@ public class BungeniOdfTrackedChangesHelper {
      */
 
     /**
-     * Get dc:creator for the change
+     * <p>Get dc:creator for the change</p>
      * @param elem
      * @return
      */
@@ -387,7 +389,7 @@ public class BungeniOdfTrackedChangesHelper {
     }
 
     /**
-     * get dc:date for change info
+     * <p>Get dc:date for change info</p>
      * @param elem
      * @return
      */
@@ -410,7 +412,7 @@ public class BungeniOdfTrackedChangesHelper {
 
     public class StructuredChangeType {
         public String               changeId;
-        public OdfTextChangedRegion changeRegion;
+        //public OdfTextChangedRegion changeRegion;
         public String               changetype;    // deletion, insertion
         public OdfElement           elementChange;
     }

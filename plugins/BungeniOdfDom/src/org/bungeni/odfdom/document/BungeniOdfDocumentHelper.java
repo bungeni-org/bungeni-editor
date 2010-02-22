@@ -21,11 +21,11 @@ import org.w3c.dom.NodeList;
 
 
 /**
- * Bungeni Odf Document Helper
+ *<p>
  * This class provides a wrapper on the ODFDOM odf library. ODFDOM primarily provides access
  * to the DOM of an ODF file -- BungeniOdfDOM provides a helper API on that to access common
  * document elements like properties, sections and track changes
- * 
+ * </p>
  * @author Ashok Hariharan
  */
 public class BungeniOdfDocumentHelper {
@@ -36,8 +36,8 @@ public class BungeniOdfDocumentHelper {
     private BungeniOdfTrackedChangesHelper s_changesHelper = null;
 
     /**
-     * Initialize the object using the ODFDOM OdfDocument handle
-     * The OdfDocument object can be created using OdfDocument.loadDocument()
+     * <p>Initialize the object using the ODFDOM OdfDocument handle
+     * The OdfDocument object can be created using OdfDocument.loadDocument()</p>
      * @param doc OdfDocument handle
      */
     public BungeniOdfDocumentHelper(OdfDocument doc) {
@@ -45,8 +45,8 @@ public class BungeniOdfDocumentHelper {
     }
 
     /**
-     *This API initializes the object using a File handle to a ODF document.
-     * The OdfDocument handle is created internally by the object
+     *<p>This API initializes the object using a File handle to a ODF document.
+     * The OdfDocument handle is created internally by the object</p>
      * @param fodfFile
      * @throws java.lang.Exception
      */
@@ -55,7 +55,7 @@ public class BungeniOdfDocumentHelper {
     }
 
     /**
-     * Returns the handle to the OdfDocument object
+     * <p>Returns the handle to the OdfDocument object</p>
      * @return OdfDocument
      */
     public OdfDocument getOdfDocument() {
@@ -63,7 +63,7 @@ public class BungeniOdfDocumentHelper {
     }
 
     /**
-     * Returns a BungeniOdfSectionHelper object
+     * <p>Returns a BungeniOdfSectionHelper object (non static singleton)</p>
      * @return
      */
     public BungeniOdfSectionHelper getSectionHelper() {
@@ -74,7 +74,7 @@ public class BungeniOdfDocumentHelper {
     }
 
      /**
-     * Returns a BungeniOdfPropertiesHelper object
+     * <p>Returns a BungeniOdfPropertiesHelper object</p>
      * @return
      */
     public BungeniOdfPropertiesHelper getPropertiesHelper() {
@@ -85,7 +85,7 @@ public class BungeniOdfDocumentHelper {
     }
 
      /**
-     * Returns a BungeniOdfTrackedChangesHelper object
+     * <p>Returns a BungeniOdfTrackedChangesHelper object</p>
      * @return
      */
     public BungeniOdfTrackedChangesHelper getChangesHelper() {
@@ -97,7 +97,7 @@ public class BungeniOdfDocumentHelper {
 
 
     /**
-     * Get the standard page layout for the document
+     * <p>Get the standard page layout for the document</p>
      * @return
      */
     public OdfStylePageLayout getStandardPageLayout() {
@@ -116,7 +116,7 @@ public class BungeniOdfDocumentHelper {
     }
 
     /**
-     * Removes the background image for the page if it has one
+     * <p>Removes the background image for the page if it has one</p>
      * 
      */
     public void removeBackgroundImage() {
