@@ -9,7 +9,7 @@ import org.junit.Test;
 
 /**
  *
- * @author undesa
+ * @author Ashok
  */
 public class StructuralErrorMessageTest {
 
@@ -44,6 +44,7 @@ public class StructuralErrorMessageTest {
        err.parentSectionName = "parent name";
        err.childSectionType = "child section";
        err.childSectionName = "child section name";
+       err.failRuleType = "AllowedChildSections";
        String result = StructuralErrorMessage.toErrorMessage(err);
        org.junit.Assert.assertTrue("Error message parsing failed = " + result, !result.contains("{"));
     }

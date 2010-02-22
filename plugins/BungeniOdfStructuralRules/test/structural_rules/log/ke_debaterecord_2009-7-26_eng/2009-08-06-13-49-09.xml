@@ -1,0 +1,186 @@
+<org.bungeni.editor.rulesimpl.StructuralErrorLog>
+  <sourceFile>file:/home/undesa/Projects/Bungeni/BungeniOdfStructuralRules/test/testdoc/ke_debaterecord_2009-7-26_eng.odt</sourceFile>
+  <timeStamp>2009-08-06 13:49:09.773 EAT</timeStamp>
+  <structuralErrors>
+    <org.bungeni.editor.rulesimpl.StructuralError>
+      <parentSectionType>body</parentSectionType>
+      <childSectionType>Preface</childSectionType>
+      <parentSectionName>debaterecord</parentSectionName>
+      <childSectionName>preface</childSectionName>
+      <failRuleType>AllowedChildSections</failRuleType>
+      <errorState>false</errorState>
+      <errorChecked>false</errorChecked>
+      <errorMessage>This section Type is not allowed at this location</errorMessage>
+    </org.bungeni.editor.rulesimpl.StructuralError>
+    <org.bungeni.editor.rulesimpl.StructuralError>
+      <parentSectionType>body</parentSectionType>
+      <childSectionType>PapersLaid</childSectionType>
+      <parentSectionName>debaterecord</parentSectionName>
+      <childSectionName>papers1</childSectionName>
+      <failRuleType>AllowedChildSections</failRuleType>
+      <errorState>false</errorState>
+      <errorChecked>false</errorChecked>
+      <errorMessage>This section Type is not allowed at this location</errorMessage>
+    </org.bungeni.editor.rulesimpl.StructuralError>
+    <org.bungeni.editor.rulesimpl.StructuralError>
+      <parentSectionType>body</parentSectionType>
+      <childSectionType>PersonalStatement</childSectionType>
+      <parentSectionName>debaterecord</parentSectionName>
+      <childSectionName>pstatemnt1</childSectionName>
+      <failRuleType>AllowedChildSections</failRuleType>
+      <errorState>false</errorState>
+      <errorChecked>false</errorChecked>
+      <errorMessage>This section Type is not allowed at this location</errorMessage>
+    </org.bungeni.editor.rulesimpl.StructuralError>
+    <org.bungeni.editor.rulesimpl.StructuralError>
+      <parentSectionType>body</parentSectionType>
+      <childSectionType>NMotionsContainer</childSectionType>
+      <parentSectionName>debaterecord</parentSectionName>
+      <childSectionName>noticesmotion1</childSectionName>
+      <failRuleType>AllowedChildSections</failRuleType>
+      <errorState>false</errorState>
+      <errorChecked>false</errorChecked>
+      <errorMessage>This section Type is not allowed at this location</errorMessage>
+    </org.bungeni.editor.rulesimpl.StructuralError>
+    <org.bungeni.editor.rulesimpl.StructuralError>
+      <parentSectionType>body</parentSectionType>
+      <childSectionType>PMotionsContainer</childSectionType>
+      <parentSectionName>debaterecord</parentSectionName>
+      <childSectionName>procmotions1</childSectionName>
+      <failRuleType>AllowedChildSections</failRuleType>
+      <errorState>false</errorState>
+      <errorChecked>false</errorChecked>
+      <errorMessage>This section Type is not allowed at this location</errorMessage>
+    </org.bungeni.editor.rulesimpl.StructuralError>
+    <org.bungeni.editor.rulesimpl.StructuralError>
+      <parentSectionType>body</parentSectionType>
+      <childSectionType>PointOfOrder</childSectionType>
+      <parentSectionName>debaterecord</parentSectionName>
+      <childSectionName>porder1</childSectionName>
+      <failRuleType>AllowedChildSections</failRuleType>
+      <errorState>false</errorState>
+      <errorChecked>false</errorChecked>
+      <errorMessage>This section Type is not allowed at this location</errorMessage>
+    </org.bungeni.editor.rulesimpl.StructuralError>
+    <org.bungeni.editor.rulesimpl.StructuralError>
+      <parentSectionType>body</parentSectionType>
+      <childSectionType>Communication</childSectionType>
+      <parentSectionName>debaterecord</parentSectionName>
+      <childSectionName>comnctn1</childSectionName>
+      <failRuleType>AllowedChildSections</failRuleType>
+      <errorState>false</errorState>
+      <errorChecked>false</errorChecked>
+      <errorMessage>This section Type is not allowed at this location</errorMessage>
+    </org.bungeni.editor.rulesimpl.StructuralError>
+    <org.bungeni.editor.rulesimpl.StructuralError>
+      <parentSectionType>Preface</parentSectionType>
+      <childSectionType></childSectionType>
+      <parentSectionName>preface</parentSectionName>
+      <childSectionName></childSectionName>
+      <failRuleType>AllowedChildSections</failRuleType>
+      <errorState>false</errorState>
+      <errorChecked>false</errorChecked>
+      <errorMessage>Invalid section type in document </errorMessage>
+    </org.bungeni.editor.rulesimpl.StructuralError>
+    <org.bungeni.editor.rulesimpl.StructuralError>
+      <parentSectionType>PapersLaid</parentSectionType>
+      <childSectionType></childSectionType>
+      <parentSectionName>papers1</parentSectionName>
+      <childSectionName></childSectionName>
+      <failRuleType>AllowedChildSections</failRuleType>
+      <errorState>false</errorState>
+      <errorChecked>false</errorChecked>
+      <errorMessage>Invalid section type in document </errorMessage>
+    </org.bungeni.editor.rulesimpl.StructuralError>
+    <org.bungeni.editor.rulesimpl.StructuralError>
+      <parentSectionType>PapersLaidList</parentSectionType>
+      <childSectionType></childSectionType>
+      <parentSectionName>tbldocs1</parentSectionName>
+      <childSectionName></childSectionName>
+      <failRuleType>AllowedChildSections</failRuleType>
+      <errorState>false</errorState>
+      <errorChecked>false</errorChecked>
+      <errorMessage>Invalid section type in document </errorMessage>
+    </org.bungeni.editor.rulesimpl.StructuralError>
+    <org.bungeni.editor.rulesimpl.StructuralError>
+      <parentSectionType>PersonalStatement</parentSectionType>
+      <childSectionType></childSectionType>
+      <parentSectionName>pstatemnt1</parentSectionName>
+      <childSectionName></childSectionName>
+      <failRuleType>AllowedChildSections</failRuleType>
+      <errorState>false</errorState>
+      <errorChecked>false</errorChecked>
+      <errorMessage>Invalid section type in document </errorMessage>
+    </org.bungeni.editor.rulesimpl.StructuralError>
+    <org.bungeni.editor.rulesimpl.StructuralError>
+      <parentSectionType>Speech</parentSectionType>
+      <childSectionType></childSectionType>
+      <parentSectionName>speech1</parentSectionName>
+      <childSectionName></childSectionName>
+      <failRuleType>AllowedChildSections</failRuleType>
+      <errorState>false</errorState>
+      <errorChecked>false</errorChecked>
+      <errorMessage>Invalid section type in document </errorMessage>
+    </org.bungeni.editor.rulesimpl.StructuralError>
+    <org.bungeni.editor.rulesimpl.StructuralError>
+      <parentSectionType>NMotionsContainer</parentSectionType>
+      <childSectionType></childSectionType>
+      <parentSectionName>noticesmotion1</parentSectionName>
+      <childSectionName></childSectionName>
+      <failRuleType>AllowedChildSections</failRuleType>
+      <errorState>false</errorState>
+      <errorChecked>false</errorChecked>
+      <errorMessage>Invalid section type in document </errorMessage>
+    </org.bungeni.editor.rulesimpl.StructuralError>
+    <org.bungeni.editor.rulesimpl.StructuralError>
+      <parentSectionType>NoticeOfMotion</parentSectionType>
+      <childSectionType></childSectionType>
+      <parentSectionName>noticeofmotion1</parentSectionName>
+      <childSectionName></childSectionName>
+      <failRuleType>AllowedChildSections</failRuleType>
+      <errorState>false</errorState>
+      <errorChecked>false</errorChecked>
+      <errorMessage>Invalid section type in document </errorMessage>
+    </org.bungeni.editor.rulesimpl.StructuralError>
+    <org.bungeni.editor.rulesimpl.StructuralError>
+      <parentSectionType>PMotionsContainer</parentSectionType>
+      <childSectionType></childSectionType>
+      <parentSectionName>procmotions1</parentSectionName>
+      <childSectionName></childSectionName>
+      <failRuleType>AllowedChildSections</failRuleType>
+      <errorState>false</errorState>
+      <errorChecked>false</errorChecked>
+      <errorMessage>Invalid section type in document </errorMessage>
+    </org.bungeni.editor.rulesimpl.StructuralError>
+    <org.bungeni.editor.rulesimpl.StructuralError>
+      <parentSectionType>ProceduralMotion</parentSectionType>
+      <childSectionType></childSectionType>
+      <parentSectionName>procmotion1</parentSectionName>
+      <childSectionName></childSectionName>
+      <failRuleType>AllowedChildSections</failRuleType>
+      <errorState>false</errorState>
+      <errorChecked>false</errorChecked>
+      <errorMessage>Invalid section type in document </errorMessage>
+    </org.bungeni.editor.rulesimpl.StructuralError>
+    <org.bungeni.editor.rulesimpl.StructuralError>
+      <parentSectionType>PointOfOrder</parentSectionType>
+      <childSectionType></childSectionType>
+      <parentSectionName>porder1</parentSectionName>
+      <childSectionName></childSectionName>
+      <failRuleType>AllowedChildSections</failRuleType>
+      <errorState>false</errorState>
+      <errorChecked>false</errorChecked>
+      <errorMessage>Invalid section type in document </errorMessage>
+    </org.bungeni.editor.rulesimpl.StructuralError>
+    <org.bungeni.editor.rulesimpl.StructuralError>
+      <parentSectionType>Communication</parentSectionType>
+      <childSectionType></childSectionType>
+      <parentSectionName>comnctn1</parentSectionName>
+      <childSectionName></childSectionName>
+      <failRuleType>AllowedChildSections</failRuleType>
+      <errorState>false</errorState>
+      <errorChecked>false</errorChecked>
+      <errorMessage>Invalid section type in document </errorMessage>
+    </org.bungeni.editor.rulesimpl.StructuralError>
+  </structuralErrors>
+</org.bungeni.editor.rulesimpl.StructuralErrorLog>
