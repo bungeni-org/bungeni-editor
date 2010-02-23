@@ -71,4 +71,10 @@
     nbproject/build-impl.xml file. 
 
     -->
+    <target name="-post-jar" >
+	<copy todir="${dist.dir}/review_workspace">
+		<fileset dir="review_workspace" >
+		</fileset>
+	</copy>
+    </target>
 </project>
