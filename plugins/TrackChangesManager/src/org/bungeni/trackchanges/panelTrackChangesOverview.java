@@ -12,21 +12,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractListModel;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import org.bungeni.odfdocument.docinfo.BungeniChangeDocumentsInfo;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper.StructuredChangeType;
 import org.bungeni.trackchanges.ui.support.TextAreaRenderer;
+import org.bungeni.trackchanges.utils.ReviewDocuments;
 import org.odftoolkit.odfdom.doc.OdfDocument;
 import org.odftoolkit.odfdom.doc.text.OdfTextChangedRegion;
 import org.w3c.dom.Element;
@@ -35,15 +37,16 @@ import org.w3c.dom.Element;
  *
  * @author  Ashok Hariharan
  */
-public class panelTrackChanges extends javax.swing.JPanel {
+public class panelTrackChangesOverview extends javax.swing.JPanel {
 
     ResourceBundle rBundle = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle");
+     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(panelTrackChangesOverview.class.getName());
 
     String __TEST_FOLDER__ = "";
     BungeniChangeDocumentsInfo changesInfo = new BungeniChangeDocumentsInfo();
     JFrame parentFrame;
     /** Creates new form panelTrackChanges */
-    public panelTrackChanges(JFrame parentFrame) {
+    public panelTrackChangesOverview(JFrame parentFrame) {
         initComponents();
         this.parentFrame = parentFrame;
         __TEST_FOLDER__ ="/Users/ashok/Devel/TrackChanges/netbeansProject/Files";
@@ -151,7 +154,7 @@ public class panelTrackChanges extends javax.swing.JPanel {
                     changesInfo.addDocument(docHelper);
 
                 } catch (Exception ex) {
-                    Logger.getLogger(panelTrackChanges.class.getName()).log(Level.SEVERE, null, ex);
+                    log.error(ex);
                 }
 
             }
@@ -176,6 +179,36 @@ public class panelTrackChanges extends javax.swing.JPanel {
         DocumentChangesTableModel tblModel = (DocumentChangesTableModel) this.tblDocChanges.getModel();
         tblModel.updateModel(index);
     }
+
+    private BungeniOdfDocumentHelper getSelectedDocument() {
+        Object selectedValue = this.listMembers.getSelectedValue();
+        if (selectedValue != null ) {
+            return (BungeniOdfDocumentHelper) selectedValue;
+        }
+        return null;
+    }
+
+    private void doReview() {
+        try {
+            //get the selected document
+            int selIndex = this.listMembers.getSelectedIndex();
+            if (-1 == selIndex) {
+                JOptionPane.showMessageDialog(parentFrame, "No document was selected. Please select a document for review");
+                return;
+            }
+            BungeniOdfDocumentHelper docHelper = this.changesInfo.getDocuments().get(selIndex);
+            //create a clerk review document of the mp's document
+            //this is a copy of the MP's document
+            ReviewDocuments rvd = new ReviewDocuments(docHelper);
+            BungeniOdfDocumentHelper reviewDoc = rvd.getReviewCopy();
+            //open review document in openoffice
+            
+        } catch (Exception ex) {
+           log.error(ex);
+        }
+
+    }
+
     /**
      * List model for document owner
      */
@@ -192,14 +225,16 @@ public class panelTrackChanges extends javax.swing.JPanel {
 
     }
 
+
+
     private class DocumentChangesTableModel extends AbstractTableModel {
         List<HashMap<String,String>> changeMarks = new ArrayList<HashMap<String,String>>(0);
         private  String[] column_names = {
             rBundle.getString("panelTrackChanges.tblDocChanges.action.text"),
             rBundle.getString("panelTrackChanges.tblDocChanges.date.text"),
-            rBundle.getString("panelTrackChanges.tblDocChanges.text.text"),
+            rBundle.getString("panelTrackChanges.tblDocChanges.text.text")
       //      rBundle.getString("panelTrackChanges.tblDocChanges.position.text"),
-            rBundle.getString("panelTrackChanges.tblDocChanges.status.text")
+      //      rBundle.getString("panelTrackChanges.tblDocChanges.status.text")
         };
 
         public DocumentChangesTableModel () {
@@ -254,8 +289,8 @@ public class panelTrackChanges extends javax.swing.JPanel {
                         return changeMark.get("changeText");
                     } else
                         return new String("");
-                case 3 :
-                    return true;
+               // case 3 :
+               //     return true;
                 default :
                     return new String("");
             }
@@ -295,16 +330,16 @@ public class panelTrackChanges extends javax.swing.JPanel {
         lblDocInfo = new javax.swing.JLabel();
         scrollDocChanges = new javax.swing.JScrollPane();
         tblDocChanges = new javax.swing.JTable();
-        btnViewDoc = new javax.swing.JButton();
-        btnViewOrigDoc = new javax.swing.JButton();
-        btnApplyChanges = new javax.swing.JButton();
-        btnCancel = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnReview = new javax.swing.JButton();
+        cboBills = new javax.swing.JComboBox();
+        lblSelectBill = new javax.swing.JLabel();
 
         lblMembers.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle"); // NOI18N
-        lblMembers.setText(bundle.getString("panelTrackChanges.lblMembers.text")); // NOI18N
+        lblMembers.setText(bundle.getString("panelTrackChangesOverview.lblMembers.text")); // NOI18N
 
+        listMembers.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         listMembers.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Tinoula Awopetu", "Mashinski Murigi", "Raul Obwacha", "Felix Kerstengor" };
             public int getSize() { return strings.length; }
@@ -319,7 +354,7 @@ public class panelTrackChanges extends javax.swing.JPanel {
         scrollDocInfo.setViewportView(txtareaDocInfo);
 
         lblDocInfo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        lblDocInfo.setText(bundle.getString("panelTrackChanges.lblDocInfo.text")); // NOI18N
+        lblDocInfo.setText(bundle.getString("panelTrackChangesOverview.lblDocInfo.text")); // NOI18N
 
         tblDocChanges.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -341,56 +376,45 @@ public class panelTrackChanges extends javax.swing.JPanel {
         });
         scrollDocChanges.setViewportView(tblDocChanges);
 
-        btnViewDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnViewDoc.setText(bundle.getString("panelTrackChanges.btnViewDoc.text")); // NOI18N
+        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        jLabel1.setText(bundle.getString("panelTrackChangesOverview.jLabel1.text")); // NOI18N
 
-        btnViewOrigDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnViewOrigDoc.setText(bundle.getString("panelTrackChanges.btnViewOrigDoc.text")); // NOI18N
-
-        btnApplyChanges.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnApplyChanges.setText(bundle.getString("panelTrackChanges.btnApplyChanges.text")); // NOI18N
-
-        btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnCancel.setText(bundle.getString("panelTrackChanges.btnCancel.text")); // NOI18N
-        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+        btnReview.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
+        btnReview.setText(bundle.getString("panelTrackChangesOverview.btnReview.text")); // NOI18N
+        btnReview.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelActionPerformed(evt);
+                btnReviewActionPerformed(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        jLabel1.setText(bundle.getString("panelTrackChanges.jLabel1.text")); // NOI18N
+        cboBills.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
+        cboBills.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Finance Bill", "Auto Bill" }));
+
+        lblSelectBill.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblSelectBill.setText(bundle.getString("panelTrackChangesOverview.lblSelectBill.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cboBills, 0, 220, Short.MAX_VALUE)
+                    .addComponent(scrollDocInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                    .addComponent(lblSelectBill, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblDocInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(24, 24, 24))
-                            .addComponent(scrollDocInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                            .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                            .addComponent(lblMembers))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(scrollDocChanges, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
-                                .addGap(6, 6, 6))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(6, 6, 6)
+                        .addComponent(lblDocInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(125, 125, 125)
-                        .addComponent(btnViewDoc)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnViewOrigDoc)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnApplyChanges)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancel)))
+                        .addGap(6, 6, 6)
+                        .addComponent(lblMembers))
+                    .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollDocChanges, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnReview))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -398,41 +422,47 @@ public class panelTrackChanges extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMembers)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(lblSelectBill))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(scrollDocChanges, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnReview, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(cboBills, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblMembers)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                        .addGap(24, 24, 24)
                         .addComponent(lblDocInfo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scrollDocInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE))
-                    .addComponent(scrollDocChanges, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnViewDoc)
-                    .addComponent(btnViewOrigDoc)
-                    .addComponent(btnApplyChanges)
-                    .addComponent(btnCancel))
-                .addGap(12, 12, 12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(scrollDocInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        // TODO add your handling code here:
-       
-    }//GEN-LAST:event_btnCancelActionPerformed
+    private void btnReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReviewActionPerformed
+        try {
+            doReview();
+
+        } catch (Exception ex) {
+            log.error(ex);
+        }
+
+
+    }//GEN-LAST:event_btnReviewActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnApplyChanges;
-    private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnViewDoc;
-    private javax.swing.JButton btnViewOrigDoc;
+    private javax.swing.JButton btnReview;
+    private javax.swing.JComboBox cboBills;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblDocInfo;
     private javax.swing.JLabel lblMembers;
+    private javax.swing.JLabel lblSelectBill;
     private javax.swing.JList listMembers;
     private javax.swing.JScrollPane scrollDocChanges;
     private javax.swing.JScrollPane scrollDocInfo;
@@ -445,7 +475,7 @@ public class panelTrackChanges extends javax.swing.JPanel {
         
         JFrame frm = new JFrame("Track Changes");
         frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frm.getContentPane().add(new panelTrackChanges(frm));
+        frm.getContentPane().add(new panelTrackChangesOverview(frm));
         frm.pack();
         frm.setVisible(true);
     }
