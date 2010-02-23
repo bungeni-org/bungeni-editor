@@ -29,6 +29,18 @@ public class BungeniOdfFileCopy {
         this.odfPackage = pkg;
     }
 
+  /**
+     * Copies source file to destination file. Uses the java nio libraries to do a bitstream transfer.
+     * May have issues on windows for files > 64mb (to be tested)
+     * @param toFile - Destination file
+     * @throws java.io.IOException
+     */
+    public void copyFile(File toFile) throws IOException  {
+        File origFile = getPackageFile();
+        copyFile(origFile, toFile);
+    }
+
+
     /**
      * Copies source file to destination file. Uses the java nio libraries to do a bitstream transfer.
      * May have issues on windows for files > 64mb (to be tested)
