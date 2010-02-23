@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractListModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -27,6 +28,7 @@ import org.bungeni.odfdocument.docinfo.BungeniChangeDocumentsInfo;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper.StructuredChangeType;
+import org.bungeni.trackchanges.registrydata.BungeniBill;
 import org.bungeni.trackchanges.ui.support.TextAreaRenderer;
 import org.bungeni.trackchanges.utils.ReviewDocuments;
 import org.odftoolkit.odfdom.doc.OdfDocument;
@@ -44,6 +46,12 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
 
     String __TEST_FOLDER__ = "";
     BungeniChangeDocumentsInfo changesInfo = new BungeniChangeDocumentsInfo();
+    ArrayList<BungeniBill> bungeniBills = new ArrayList<BungeniBill>() {
+        {
+           add( new BungeniBill("/ke/bills/en/finance-bill/01","Finance Bill","863524","2009-01-02"));
+           add( new BungeniBill("/ke/bills/en/education-bill/01","Education Bill","848524","2009-01-12"));
+        }
+    };
     JFrame parentFrame;
     /** Creates new form panelTrackChanges */
     public panelTrackChangesOverview(JFrame parentFrame) {
@@ -58,7 +66,7 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
      * Initialize controls with data
      */
     private void initialize() {
-
+        initialize_comboBoxes();
         initialize_listBoxes();
         initialize_Tables();
 
@@ -88,6 +96,11 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
             }
 
         });
+    }
+
+    private void initialize_comboBoxes() {
+        this.cboBills.setModel(new BillsComboBoxModel
+                (bungeniBills.toArray(new BungeniBill[bungeniBills.size()])));
     }
 
     private void initialize_listBoxes() {
@@ -207,6 +220,13 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
            log.error(ex);
         }
 
+    }
+
+
+    private class BillsComboBoxModel extends DefaultComboBoxModel {
+        public BillsComboBoxModel(BungeniBill[] bills) {
+            super(bills);
+        }
     }
 
     /**
