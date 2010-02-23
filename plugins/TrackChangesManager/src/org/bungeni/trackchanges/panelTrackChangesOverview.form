@@ -19,18 +19,12 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="cboBills" pref="220" max="32767" attributes="0"/>
                   <Component id="scrollDocInfo" pref="220" max="32767" attributes="2"/>
-                  <Component id="lblSelectBill" alignment="1" min="-2" pref="209" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="6" pref="6" max="6" attributes="0"/>
-                      <Component id="lblDocInfo" min="-2" pref="136" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="6" pref="6" max="6" attributes="0"/>
-                      <Component id="lblMembers" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="scrollMembers" alignment="0" pref="220" max="32767" attributes="2"/>
+                  <Component id="scrollMembers" pref="220" max="32767" attributes="2"/>
+                  <Component id="cboBills" pref="220" max="32767" attributes="0"/>
+                  <Component id="lblMembers" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblSelectBill" alignment="0" min="-2" pref="209" max="-2" attributes="0"/>
+                  <Component id="lblDocInfo" alignment="0" min="-2" pref="136" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -58,15 +52,15 @@
                       <Component id="btnReview" min="-2" pref="23" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="1">
-                      <Component id="cboBills" min="-2" pref="42" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="cboBills" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="lblMembers" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollMembers" pref="126" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="scrollMembers" pref="138" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="lblDocInfo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                      <Component id="scrollDocInfo" pref="90" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="scrollDocInfo" pref="113" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>

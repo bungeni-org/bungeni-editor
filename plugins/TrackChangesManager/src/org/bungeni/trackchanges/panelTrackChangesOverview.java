@@ -49,7 +49,7 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
     public panelTrackChangesOverview(JFrame parentFrame) {
         initComponents();
         this.parentFrame = parentFrame;
-        __TEST_FOLDER__ ="/Users/ashok/Devel/TrackChanges/netbeansProject/Files";
+        __TEST_FOLDER__ ="test_files";
         loadFilesFromFolder();
         initialize();
     }
@@ -339,7 +339,7 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle"); // NOI18N
         lblMembers.setText(bundle.getString("panelTrackChangesOverview.lblMembers.text")); // NOI18N
 
-        listMembers.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
+        listMembers.setFont(new java.awt.Font("Lucida Grande", 0, 10));
         listMembers.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Tinoula Awopetu", "Mashinski Murigi", "Raul Obwacha", "Felix Kerstengor" };
             public int getSize() { return strings.length; }
@@ -379,7 +379,7 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         jLabel1.setText(bundle.getString("panelTrackChangesOverview.jLabel1.text")); // NOI18N
 
-        btnReview.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
+        btnReview.setFont(new java.awt.Font("Lucida Grande", 0, 10));
         btnReview.setText(bundle.getString("panelTrackChangesOverview.btnReview.text")); // NOI18N
         btnReview.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -390,7 +390,7 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
         cboBills.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         cboBills.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Finance Bill", "Auto Bill" }));
 
-        lblSelectBill.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblSelectBill.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblSelectBill.setText(bundle.getString("panelTrackChangesOverview.lblSelectBill.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -400,16 +400,12 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cboBills, 0, 220, Short.MAX_VALUE)
                     .addComponent(scrollDocInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                    .addComponent(lblSelectBill, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(lblDocInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(lblMembers))
-                    .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
+                    .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                    .addComponent(cboBills, 0, 220, Short.MAX_VALUE)
+                    .addComponent(lblMembers)
+                    .addComponent(lblSelectBill, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDocInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollDocChanges, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
@@ -431,15 +427,15 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnReview, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(cboBills, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cboBills, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblMembers)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                        .addGap(24, 24, 24)
-                        .addComponent(lblDocInfo)
+                        .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(scrollDocInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)))
+                        .addComponent(lblDocInfo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(scrollDocInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
