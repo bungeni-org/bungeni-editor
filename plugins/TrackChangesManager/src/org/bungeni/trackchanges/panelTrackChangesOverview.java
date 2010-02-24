@@ -6,6 +6,7 @@
 
 package org.bungeni.trackchanges;
 
+import com.sun.star.lang.XComponent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -30,6 +31,7 @@ import org.bungeni.odfdocument.docinfo.BungeniChangeDocumentsInfo;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper.StructuredChangeType;
+import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.trackchanges.registrydata.BungeniBill;
 import org.bungeni.trackchanges.ui.support.TextAreaRenderer;
 import org.bungeni.trackchanges.utils.CommonFunctions;
@@ -236,6 +238,7 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
             //this is a copy of the MP's document
             ReviewDocuments rvd = new ReviewDocuments(docHelper);
             BungeniOdfDocumentHelper reviewDoc = rvd.getReviewCopy();
+
             //open review document in openoffice
             
         } catch (Exception ex) {

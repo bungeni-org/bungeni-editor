@@ -1,9 +1,6 @@
 package org.bungeni.trackchanges.utils;
 
-import java.io.File;
 import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

@@ -29,13 +29,13 @@ public class ReviewDocuments {
         String dirPath = fodfDoc.getParentFile().toURI().toString();
         String newBaseURI = dirPath + (dirPath.endsWith("/")?"":"/")  + REVIEW_PREFIX + fileName;
         File fodfCopyDoc = new File (new URI(newBaseURI));
-        if (fodfCopyDoc.exists()) {
-            reviewDocument = new BungeniOdfDocumentHelper(fodfCopyDoc);
-        } else {
+        if (!fodfCopyDoc.exists()) {
             BungeniOdfFileCopy fcp = new BungeniOdfFileCopy(originalDocument.getOdfDocument().getPackage());
             fodfCopyDoc.createNewFile();
             fcp.copyFile(fodfCopyDoc);
         }
+        this.reviewDocument = new BungeniOdfDocumentHelper(fodfCopyDoc);
+
     }
 
 
