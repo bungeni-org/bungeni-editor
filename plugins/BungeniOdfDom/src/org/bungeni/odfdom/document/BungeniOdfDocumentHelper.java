@@ -3,6 +3,9 @@ package org.bungeni.odfdom.document;
 //~--- non-JDK imports --------------------------------------------------------
 
 import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper;
@@ -62,6 +65,23 @@ public class BungeniOdfDocumentHelper {
         return this.odfDocument;
     }
 
+    /**
+     * Returns the path to the document
+     * @return String containing path to the document
+     */
+    public String getDocumentPath() {
+        String sPath= "";
+        try {
+            URI fURI = new URI(odfDocument.getBaseURI());
+            File fDoc = new File(fURI);
+            sPath = fDoc.getPath();
+
+        } catch (URISyntaxException ex) {
+            log.error("getDocumentPath :" + ex.getMessage(), ex);
+        }
+        return sPath;
+
+    }
     /**
      * <p>Returns a BungeniOdfSectionHelper object (non static singleton)</p>
      * @return
