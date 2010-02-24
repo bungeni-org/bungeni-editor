@@ -2,4 +2,4 @@ xerces http://bungeni-editor.googlecode.com/svn/external_libs/xerces
 odfdom http://bungeni-editor.googlecode.com/svn/external_libs/odfdom
 log4j http://bungeni-editor.googlecode.com/svn/external_libs/apache-log4j
 bungeniodfdom http://bungeni-editor.googlecode.com/svn/external_libs/bungeniodfdom
-bungeni http://bungnei-editor.googlecode.com/svn/external_libs/bungeni
+bungeni http://bungeni-editor.googlecode.com/svn/external_libs/bungeni
