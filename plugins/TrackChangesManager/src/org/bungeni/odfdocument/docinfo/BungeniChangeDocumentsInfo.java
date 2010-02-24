@@ -30,5 +30,8 @@ public class BungeniChangeDocumentsInfo {
         return changesInfo.size();
     }
 
+    public void clear(){
+        changesInfo.clear();
+    }
 
 }

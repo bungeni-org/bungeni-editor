@@ -6,6 +6,8 @@
 
 package org.bungeni.trackchanges;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
@@ -30,6 +32,7 @@ import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper.StructuredChangeType;
 import org.bungeni.trackchanges.registrydata.BungeniBill;
 import org.bungeni.trackchanges.ui.support.TextAreaRenderer;
+import org.bungeni.trackchanges.utils.CommonFunctions;
 import org.bungeni.trackchanges.utils.ReviewDocuments;
 import org.odftoolkit.odfdom.doc.OdfDocument;
 import org.odftoolkit.odfdom.doc.text.OdfTextChangedRegion;
@@ -45,6 +48,7 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(panelTrackChangesOverview.class.getName());
 
     String __TEST_FOLDER__ = "";
+    String __CURRENT_BILL_FOLDER__ = "";
     BungeniChangeDocumentsInfo changesInfo = new BungeniChangeDocumentsInfo();
     ArrayList<BungeniBill> bungeniBills = new ArrayList<BungeniBill>() {
         {
@@ -58,8 +62,9 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
         initComponents();
         this.parentFrame = parentFrame;
         __TEST_FOLDER__ ="test_files";
-        loadFilesFromFolder();
         initialize();
+        loadFilesFromFolder();
+
     }
 
     /**
@@ -101,6 +106,20 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
     private void initialize_comboBoxes() {
         this.cboBills.setModel(new BillsComboBoxModel
                 (bungeniBills.toArray(new BungeniBill[bungeniBills.size()])));
+        this.cboBills.addActionListener(new ActionListener(){
+
+            public void actionPerformed(ActionEvent e) {
+               BungeniBill bBill = (BungeniBill) cboBills.getSelectedItem();
+               String billId = bBill.getID();
+               String filesDir =  System.getProperty("user.dir") + File.separator + "review_workspace" + File.separator +  "bill-"+billId;
+               __CURRENT_BILL_FOLDER__ = filesDir;
+               System.out.println("CUrrent folder = " + __CURRENT_BILL_FOLDER__);
+               System.out.println("USer dir = " + System.getProperty("user.dir"));
+               loadFilesFromFolder();
+            }
+
+        });
+        this.cboBills.setSelectedItem(bungeniBills.get(0));
     }
 
     private void initialize_listBoxes() {
@@ -145,31 +164,34 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
      * Loads change files from folder
      */
     private void loadFilesFromFolder() {
-        File fFolder = new File(__TEST_FOLDER__);
-        //find files in changes folder
-        if (fFolder.isDirectory()) {
-           File[] files =  fFolder.listFiles(new FilenameFilter(){
-                public boolean accept(File dir, String name) {
-                    if (name.startsWith("doc_")){
-                        return true;
+        if (__CURRENT_BILL_FOLDER__.length() > 0 ) {
+            File fFolder = new File(__CURRENT_BILL_FOLDER__);
+            //find files in changes folder
+            if (fFolder.isDirectory()) {
+               File[] files =  fFolder.listFiles(new FilenameFilter(){
+                    public boolean accept(File dir, String name) {
+                        if (name.startsWith("doc_")){
+                            return true;
+                        }
+                        return false;
                     }
-                    return false;
+
+                });
+
+                //load files from folder
+                changesInfo.clear();
+                for (int i = 0; i < files.length ; i++ ) {
+                    OdfDocument oDoc = null;
+                    try {
+
+                        BungeniOdfDocumentHelper docHelper = new BungeniOdfDocumentHelper(files[i]);
+                        changesInfo.addDocument(docHelper);
+
+                    } catch (Exception ex) {
+                        log.error(ex);
+                    }
+
                 }
-
-            });
-
-            //load files from folder
-            for (int i = 0; i < files.length ; i++ ) {
-                OdfDocument oDoc = null;
-                try {
-
-                    BungeniOdfDocumentHelper docHelper = new BungeniOdfDocumentHelper(files[i]);
-                    changesInfo.addDocument(docHelper);
-
-                } catch (Exception ex) {
-                    log.error(ex);
-                }
-
             }
         }
     }

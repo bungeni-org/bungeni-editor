@@ -29,6 +29,10 @@ public class BungeniBill {
         return this.billUri;
     }
 
+    public String getID(){
+        return this.billId;
+    }
+    
     @Override
     public String toString() {
         return getTitle();
