@@ -23,6 +23,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
@@ -34,6 +35,8 @@ import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper.Struct
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.trackchanges.registrydata.BungeniBill;
 import org.bungeni.trackchanges.ui.support.TextAreaRenderer;
+import org.bungeni.trackchanges.uno.UnoOdfFile;
+import org.bungeni.trackchanges.uno.UnoOdfOpenFiles;
 import org.bungeni.trackchanges.utils.CommonFunctions;
 import org.bungeni.trackchanges.utils.ReviewDocuments;
 import org.odftoolkit.odfdom.doc.OdfDocument;
@@ -228,18 +231,30 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
     private void doReview() {
         try {
             //get the selected document
-            int selIndex = this.listMembers.getSelectedIndex();
+            final int selIndex = this.listMembers.getSelectedIndex();
             if (-1 == selIndex) {
                 JOptionPane.showMessageDialog(parentFrame, "No document was selected. Please select a document for review");
                 return;
             }
-            BungeniOdfDocumentHelper docHelper = this.changesInfo.getDocuments().get(selIndex);
-            //create a clerk review document of the mp's document
-            //this is a copy of the MP's document
-            ReviewDocuments rvd = new ReviewDocuments(docHelper);
-            BungeniOdfDocumentHelper reviewDoc = rvd.getReviewCopy();
 
-            //open review document in openoffice
+            SwingUtilities.invokeLater(new Runnable(){
+
+                public void run() {
+                    try {
+                        BungeniOdfDocumentHelper docHelper = changesInfo.getDocuments().get(selIndex);
+                        //create a clerk review document of the mp's document
+                        //this is a copy of the MP's document
+                        ReviewDocuments rvd = new ReviewDocuments(docHelper);
+                        BungeniOdfDocumentHelper reviewDoc = rvd.getReviewCopy();
+                        UnoOdfFile odfFile = UnoOdfOpenFiles.getFile(reviewDoc);
+                        //open review document in openoffice
+                    } catch (Exception ex) {
+                        log.error("doReview:opening document : " + ex.getMessage(), ex);
+                    }
+                    //open review document in openoffice
+                }
+
+            });
             
         } catch (Exception ex) {
            log.error(ex);
@@ -487,7 +502,9 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
 
     private void btnReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReviewActionPerformed
         try {
+            btnReview.setEnabled(false);
             doReview();
+            btnReview.setEnabled(true);
 
         } catch (Exception ex) {
             log.error(ex);
