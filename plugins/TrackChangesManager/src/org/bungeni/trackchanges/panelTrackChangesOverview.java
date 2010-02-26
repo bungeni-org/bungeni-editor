@@ -1,27 +1,21 @@
-/*
- * panelTrackChanges.java
- *
- * Created on March 9, 2009, 10:21 AM
- */
-
 package org.bungeni.trackchanges;
 
-import com.sun.star.lang.XComponent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
@@ -32,7 +26,6 @@ import org.bungeni.odfdocument.docinfo.BungeniChangeDocumentsInfo;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper.StructuredChangeType;
-import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.trackchanges.registrydata.BungeniBill;
 import org.bungeni.trackchanges.ui.support.TextAreaRenderer;
 import org.bungeni.trackchanges.uno.UnoOdfFile;
@@ -66,7 +59,6 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
     public panelTrackChangesOverview(JFrame parentFrame) {
         initComponents();
         this.parentFrame = parentFrame;
-        __TEST_FOLDER__ ="test_files";
         initialize();
         loadFilesFromFolder();
 
@@ -116,10 +108,7 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
             public void actionPerformed(ActionEvent e) {
                BungeniBill bBill = (BungeniBill) cboBills.getSelectedItem();
                String billId = bBill.getID();
-               String filesDir =  System.getProperty("user.dir") + File.separator + "review_workspace" + File.separator +  "bill-"+billId;
-               __CURRENT_BILL_FOLDER__ = filesDir;
-               System.out.println("CUrrent folder = " + __CURRENT_BILL_FOLDER__);
-               System.out.println("USer dir = " + System.getProperty("user.dir"));
+               __CURRENT_BILL_FOLDER__ = CommonFunctions.getWorkspaceForBill(billId);
                loadFilesFromFolder();
             }
 
@@ -174,8 +163,9 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
             //find files in changes folder
             if (fFolder.isDirectory()) {
                File[] files =  fFolder.listFiles(new FilenameFilter(){
+               Pattern pat = Pattern.compile("u[0-9][0-9][0-9][0-9]([a-z0-9_-]*?).odt");
                     public boolean accept(File dir, String name) {
-                        if (name.startsWith("doc_")){
+                        if (pat.matcher(name).matches()) {
                             return true;
                         }
                         return false;
@@ -279,8 +269,12 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
         }
 
         public Object getElementAt(int arg0) {
-            BungeniOdfDocumentHelper docHelper =  changesInfo.getDocuments().get(arg0);
-            return docHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniDocOwner");
+           return getAuthorAtIndex(arg0);
+        }
+
+        public String getAuthorAtIndex(int iIndex) {
+            BungeniOdfDocumentHelper docHelper =  changesInfo.getDocuments().get(iIndex);
+            return docHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniDocAuthor");
         }
 
     }
@@ -314,14 +308,23 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
         private void buildModel(int iIndex) {
             changeMarks.clear();
             BungeniOdfDocumentHelper docHelper = changesInfo.getDocuments().get(iIndex);
+            String docAuthor = docHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniDocAuthor");
             BungeniOdfTrackedChangesHelper changeHelper = docHelper.getChangesHelper();
             Element changeContainer = changeHelper.getTrackedChangeContainer();
-            ArrayList<OdfTextChangedRegion> changes = changeHelper.getChangedRegions(changeContainer);
+            ArrayList<OdfTextChangedRegion> changes = changeHelper.getChangedRegionsByCreator(changeContainer, docAuthor);
             for (OdfTextChangedRegion odfTextChangedRegion : changes) {
                 StructuredChangeType scType = changeHelper.getStructuredChangeType(odfTextChangedRegion);
                 HashMap<String,String> changeMark = changeHelper.getChangeInfo(scType);
                 changeMarks.add(changeMark);
             }
+            updateMsgNoOfChanges(changeMarks.size());
+        }
+
+        private void updateMsgNoOfChanges(int nSize) {
+            Object[] values = { new Integer(nSize) };
+            MessageFormat format = new MessageFormat(rBundle.getString("panelTrackChangesOverview.lblNoOfChanges.text"));
+            String sValue = format.format(values);
+            lblNoOfChanges.setText(sValue);
         }
 
         @Override
@@ -394,6 +397,7 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
         btnReview = new javax.swing.JButton();
         cboBills = new javax.swing.JComboBox();
         lblSelectBill = new javax.swing.JLabel();
+        lblNoOfChanges = new javax.swing.JLabel();
 
         lblMembers.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle"); // NOI18N
@@ -447,11 +451,15 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
             }
         });
 
-        cboBills.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
+        cboBills.setFont(new java.awt.Font("Lucida Grande", 0, 10));
         cboBills.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Finance Bill", "Auto Bill" }));
 
         lblSelectBill.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblSelectBill.setText(bundle.getString("panelTrackChangesOverview.lblSelectBill.text")); // NOI18N
+
+        lblNoOfChanges.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblNoOfChanges.setForeground(java.awt.Color.blue);
+        lblNoOfChanges.setText(bundle.getString("panelTrackChangesOverview.lblNoOfChanges.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -469,8 +477,11 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollDocChanges, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnReview))
+                    .addComponent(btnReview)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblNoOfChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -479,7 +490,8 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(lblSelectBill))
+                    .addComponent(lblSelectBill)
+                    .addComponent(lblNoOfChanges))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -503,6 +515,9 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
     private void btnReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReviewActionPerformed
         try {
             btnReview.setEnabled(false);
+            //switch to the review tab
+            ((JTabbedPane)getParent()).setSelectedIndex(1);
+            //do the review in the review tab
             doReview();
             btnReview.setEnabled(true);
 
@@ -520,6 +535,7 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblDocInfo;
     private javax.swing.JLabel lblMembers;
+    private javax.swing.JLabel lblNoOfChanges;
     private javax.swing.JLabel lblSelectBill;
     private javax.swing.JList listMembers;
     private javax.swing.JScrollPane scrollDocChanges;

@@ -28,7 +28,9 @@ public class trackChangesMain extends javax.swing.JPanel {
 
     private void init_Tabs() {
         panelTrackChangesOverview overviewPanel = new panelTrackChangesOverview(parentFrame);
-        this.tabContainer.addTab("Overview", overviewPanel);
+        panelClerkOverview clerkReviewPanel = new panelClerkOverview(parentFrame);
+        this.tabContainer.addTab("Members Overview", overviewPanel);
+        this.tabContainer.addTab("Clerks Overview", clerkReviewPanel);
     }
 
     /** This method is called from within the constructor to
