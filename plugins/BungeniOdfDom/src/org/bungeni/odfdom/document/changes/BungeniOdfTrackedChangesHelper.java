@@ -2,6 +2,7 @@ package org.bungeni.odfdom.document.changes;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
@@ -95,6 +96,30 @@ public class BungeniOdfTrackedChangesHelper {
 
         return textChangedRegions;
     }
+
+    /**
+     * <p>Get changed regions in a text change container by a specific user.
+     * Changes are filtered by the user name specified in dc:creator
+     * text:tracked-changes/text:changed-regions</p>
+     * @param changeContainer
+     * @return
+     */
+    public ArrayList<OdfTextChangedRegion> getChangedRegionsByCreator(Element changeContainer, String dcCreator) {
+        ArrayList<OdfTextChangedRegion> textChangedRegions = new ArrayList<OdfTextChangedRegion>(0);
+       try {
+            String xPathExpr = "./child::text:changed-region[descendant::dc:creator='" + dcCreator + "']";
+            NodeList changedRegions = (NodeList) this.m_docXpath.evaluate(xPathExpr, changeContainer, XPathConstants.NODESET);
+            for (int i = 0; i < changedRegions.getLength(); i++) {
+                OdfTextChangedRegion textChangedRegion = (OdfTextChangedRegion) (Element) changedRegions.item(i);
+                textChangedRegions.add(textChangedRegion);
+            }
+        } catch (XPathExpressionException ex) {
+            log.error("getChangedRegionsByCreator :" + ex.getMessage(), ex);
+        }
+                    return textChangedRegions;
+
+    }
+
 
     /**
      * <p>Helper function for getStructuredChangeType()
