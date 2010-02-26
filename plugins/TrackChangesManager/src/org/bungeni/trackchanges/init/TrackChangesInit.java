@@ -40,9 +40,6 @@ public class TrackChangesInit {
         catch (java.lang.Exception e){
             e.printStackTrace();
         }
-        finally {
-            System.exit( 0 );
-        }
     }
 
     /**
