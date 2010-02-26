@@ -65,8 +65,20 @@ public class BungeniOdfTrackedChangesHelperTest {
         Element changeContainer = docHelper.getChangesHelper().getTrackedChangeContainer();
        
         ArrayList<OdfTextChangedRegion> result = docHelper.getChangesHelper().getChangedRegions(changeContainer);
-        assertEquals(8, result.size());
+        int nResult = result.size();
+        assertEquals(11, nResult);
     }
+
+    @Test
+    public void testGetChangedRegionsByCreator() {
+        System.out.println("getChangedRegions");
+        Element changeContainer = docHelper.getChangesHelper().getTrackedChangeContainer();
+
+        ArrayList<OdfTextChangedRegion> result = docHelper.getChangesHelper().getChangedRegionsByCreator(changeContainer, "Another Ashok");
+        int nResult = result.size();
+        assertEquals(2, nResult);
+    }
+
 
     
     /**
