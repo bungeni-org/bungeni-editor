@@ -156,8 +156,10 @@ public class panelClerkOverview extends panelChangesBase {
         lblMembers = new javax.swing.JLabel();
         scrollDocChanges = new javax.swing.JScrollPane();
         tblDocChanges = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        lblDocumentChanges = new javax.swing.JLabel();
         chkFilterByClerk = new javax.swing.JCheckBox();
+        btnReview = new javax.swing.JButton();
+        btnConsolidate = new javax.swing.JButton();
 
         listMembers.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         listMembers.setModel(new javax.swing.AbstractListModel() {
@@ -167,7 +169,7 @@ public class panelClerkOverview extends panelChangesBase {
         });
         scrollMembers.setViewportView(listMembers);
 
-        lblMembers.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        lblMembers.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle"); // NOI18N
         lblMembers.setText(bundle.getString("panelTrackChangesOverview.lblMembers.text")); // NOI18N
 
@@ -191,29 +193,39 @@ public class panelClerkOverview extends panelChangesBase {
         });
         scrollDocChanges.setViewportView(tblDocChanges);
 
-        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        jLabel1.setText(bundle.getString("panelTrackChangesOverview.jLabel1.text")); // NOI18N
+        lblDocumentChanges.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblDocumentChanges.setText(bundle.getString("panelTrackChangesOverview.jLabel1.text")); // NOI18N
 
         chkFilterByClerk.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        chkFilterByClerk.setText("Don't Show my Changes");
+        chkFilterByClerk.setText(bundle.getString("panelClerkOverview.chkFilterByClerk.text")); // NOI18N
         chkFilterByClerk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkFilterByClerkActionPerformed(evt);
             }
         });
 
+        btnReview.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnReview.setText(bundle.getString("panelClerkOverview.btnReview.text")); // NOI18N
+
+        btnConsolidate.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnConsolidate.setText(bundle.getString("panelClerkOverview.btnConsolidate.text")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
                     .addComponent(lblMembers))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnReview)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnConsolidate))
+                    .addComponent(lblDocumentChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(chkFilterByClerk)
                     .addComponent(scrollDocChanges, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE))
                 .addContainerGap())
@@ -224,17 +236,21 @@ public class panelClerkOverview extends panelChangesBase {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblMembers)
-                    .addComponent(jLabel1))
+                    .addComponent(lblDocumentChanges))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(chkFilterByClerk, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scrollDocChanges, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
-                        .addGap(36, 36, 36))
+                        .addComponent(scrollDocChanges, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnReview)
+                            .addComponent(btnConsolidate))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
-                        .addGap(206, 206, 206))))
+                        .addComponent(scrollMembers)
+                        .addGap(213, 213, 213))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -245,8 +261,10 @@ public class panelClerkOverview extends panelChangesBase {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConsolidate;
+    private javax.swing.JButton btnReview;
     private javax.swing.JCheckBox chkFilterByClerk;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblDocumentChanges;
     private javax.swing.JLabel lblMembers;
     private javax.swing.JList listMembers;
     private javax.swing.JScrollPane scrollDocChanges;
