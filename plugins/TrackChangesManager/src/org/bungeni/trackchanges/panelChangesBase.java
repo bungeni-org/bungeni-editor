@@ -1,10 +1,13 @@
 package org.bungeni.trackchanges;
 
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import javax.swing.AbstractListModel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import org.bungeni.odfdocument.docinfo.BungeniChangeDocumentsInfo;
+import org.bungeni.odfdocument.docinfo.BungeniDocAuthor;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 
 /**
@@ -27,8 +30,13 @@ public class panelChangesBase extends JPanel implements IChangesPanel  {
    }
 
 
-    public void updatePanel() {
+    public void updatePanel(HashMap<String,Object> infomap) {
         //do nothing
+    }
+
+    public IChangesContainer getContainerInterface(){
+        IChangesContainer changeContainer = (IChangesContainer)((JTabbedPane)getParent()).getParent();
+        return changeContainer;
     }
 
     /**
@@ -44,9 +52,9 @@ public class panelChangesBase extends JPanel implements IChangesPanel  {
            return getAuthorAtIndex(arg0);
         }
 
-        public String getAuthorAtIndex(int iIndex) {
+        public BungeniDocAuthor getAuthorAtIndex(int iIndex) {
             BungeniOdfDocumentHelper docHelper =  changesInfo.getDocuments().get(iIndex);
-            return docHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniDocAuthor");
+            return new BungeniDocAuthor(docHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniDocAuthor"), "");
         }
 
     }
