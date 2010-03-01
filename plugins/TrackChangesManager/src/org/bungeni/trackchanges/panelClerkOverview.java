@@ -1,39 +1,107 @@
 
 package org.bungeni.trackchanges;
 
+import java.io.File;
+import java.io.FilenameFilter;
+import java.util.regex.Pattern;
 import javax.swing.JFrame;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
+import org.bungeni.trackchanges.utils.AppProperties;
+import org.bungeni.trackchanges.utils.CommonFunctions;
+import org.odftoolkit.odfdom.doc.OdfDocument;
 
 /**
  *
  * @author Ashok Hariharan
  */
-public class panelClerkOverview extends javax.swing.JPanel {
+public class panelClerkOverview extends panelChangesBase {
 
-    JFrame parentFrame ;
-    private  String __CURRENT_BILL_FOLDER__ = "";
+ 
+   
+     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(panelClerkOverview.class.getName());
+
+
+
     /** Creates new form panelClerkOverview */
     public panelClerkOverview() {
+        super();
         initComponents();
     }
 
     public panelClerkOverview(JFrame parentFrm) {
+        super(parentFrm);
         initComponents();
-        this.parentFrame = parentFrm;
         initialize();
         loadFilesFromFolder();
 
     }
 
     private void initialize(){
-        initialize_comboBoxes();
+       initialize_listBoxes();
 
     }
 
     private void loadFilesFromFolder(){
-        
+          String currentBillFolder = CommonFunctions.getWorkspaceForBill((String)AppProperties.getProperty("CurrentBillID"));
+          if (currentBillFolder.length() > 0 ) {
+            File fFolder = new File(currentBillFolder);
+            //find files in changes folder
+            if (fFolder.isDirectory()) {
+               File[] files =  fFolder.listFiles(new FilenameFilter(){
+               Pattern pat = Pattern.compile("clerk_u[0-9][0-9][0-9][0-9]([a-z0-9_-]*?).odt");
+                    public boolean accept(File dir, String name) {
+                        if (pat.matcher(name).matches()) {
+                            return true;
+                        }
+                        return false;
+                    }
+
+                });
+
+                //load files from folder
+                changesInfo.clear();
+                for (int i = 0; i < files.length ; i++ ) {
+                    OdfDocument oDoc = null;
+                    try {
+
+                        BungeniOdfDocumentHelper docHelper = new BungeniOdfDocumentHelper(files[i]);
+                        changesInfo.addDocument(docHelper);
+                        System.out.println("no. of change documents = " + changesInfo.getSize());
+                    } catch (Exception ex) {
+                        log.error("loadingFilesFromFolder : " + ex.getMessage(), ex);
+                    }
+
+                }
+            }
+        }
     }
 
-    private void initialize_comboBoxes(){
+    private void initialize_listBoxes(){
+        listMembers.setModel(new DocOwnerListModel());
+        listMembers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        ListSelectionModel lsm = listMembers.getSelectionModel();
+        lsm.addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent lse) {
+                ListSelectionModel lsm = (ListSelectionModel)lse.getSource();
+                if (lse.getValueIsAdjusting()) {
+                    return;
+                }
+                int firstIndex = lse.getFirstIndex();
+                int lastIndex = lse.getLastIndex();
+                if (lsm.isSelectionEmpty()) {
+                    return;
+                } else {
+                    // Find out which indexes are selected.
+                    int nIndex = lsm.getMinSelectionIndex();
+                    //do struff here
+                }
+
+            }
+
+        });
         
     }
 
@@ -132,5 +200,12 @@ public class panelClerkOverview extends javax.swing.JPanel {
     private javax.swing.JScrollPane scrollMembers;
     private javax.swing.JTable tblDocChanges;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void updatePanel() {
+        super.updatePanel();
+        loadFilesFromFolder();
+        this.listMembers.setModel(new DocOwnerListModel());
+    }
 
 }
