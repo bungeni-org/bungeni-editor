@@ -1,18 +1,14 @@
-/*
- * trackChangesMain.java
- *
- * Created on Feb 22, 2010, 11:52:08 AM
- */
-
 package org.bungeni.trackchanges;
 
 import javax.swing.JFrame;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  *
  * @author Ashok Hariharan
  */
-public class trackChangesMain extends javax.swing.JPanel {
+public class trackChangesMain extends javax.swing.JPanel implements IChangesContainer {
     
     JFrame parentFrame = null;
 
@@ -31,6 +27,14 @@ public class trackChangesMain extends javax.swing.JPanel {
         panelClerkOverview clerkReviewPanel = new panelClerkOverview(parentFrame);
         this.tabContainer.addTab("Members Overview", overviewPanel);
         this.tabContainer.addTab("Clerks Overview", clerkReviewPanel);
+        this.tabContainer.getModel().addChangeListener(new ChangeListener(){
+
+            public void stateChanged(ChangeEvent ce) {
+                System.out.println("Selected index = " + tabContainer.getSelectedIndex());
+                updateCurrentPanel();
+            }
+
+        });
     }
 
     /** This method is called from within the constructor to
@@ -94,6 +98,14 @@ public class trackChangesMain extends javax.swing.JPanel {
         frm.getContentPane().add(new trackChangesMain(frm));
         frm.pack();
         frm.setVisible(true);
+    }
+
+    public void updatePanels() {
+        //to be implemented
+    }
+
+    public void updateCurrentPanel() {
+        ((IChangesPanel)this.tabContainer.getSelectedComponent()).updatePanel();
     }
 
 

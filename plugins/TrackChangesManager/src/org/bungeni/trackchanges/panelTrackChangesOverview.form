@@ -52,7 +52,7 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="scrollDocChanges" pref="303" max="32767" attributes="0"/>
+                      <Component id="scrollDocChanges" pref="307" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnReview" min="-2" pref="23" max="-2" attributes="0"/>
                   </Group>

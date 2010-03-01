@@ -8,10 +8,8 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import java.util.regex.Pattern;
-import javax.swing.AbstractListModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -22,7 +20,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumnModel;
-import org.bungeni.odfdocument.docinfo.BungeniChangeDocumentsInfo;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper.StructuredChangeType;
@@ -30,6 +27,7 @@ import org.bungeni.trackchanges.registrydata.BungeniBill;
 import org.bungeni.trackchanges.ui.support.TextAreaRenderer;
 import org.bungeni.trackchanges.uno.UnoOdfFile;
 import org.bungeni.trackchanges.uno.UnoOdfOpenFiles;
+import org.bungeni.trackchanges.utils.AppProperties;
 import org.bungeni.trackchanges.utils.CommonFunctions;
 import org.bungeni.trackchanges.utils.ReviewDocuments;
 import org.odftoolkit.odfdom.doc.OdfDocument;
@@ -40,25 +38,21 @@ import org.w3c.dom.Element;
  *
  * @author  Ashok Hariharan
  */
-public class panelTrackChangesOverview extends javax.swing.JPanel {
+public class panelTrackChangesOverview extends panelChangesBase {
 
-    ResourceBundle rBundle = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle");
      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(panelTrackChangesOverview.class.getName());
-
-    String __TEST_FOLDER__ = "";
+  String __TEST_FOLDER__ = "";
     String __CURRENT_BILL_FOLDER__ = "";
-    BungeniChangeDocumentsInfo changesInfo = new BungeniChangeDocumentsInfo();
     ArrayList<BungeniBill> bungeniBills = new ArrayList<BungeniBill>() {
         {
            add( new BungeniBill("/ke/bills/en/finance-bill/01","Finance Bill","863524","2009-01-02"));
            add( new BungeniBill("/ke/bills/en/education-bill/01","Education Bill","848524","2009-01-12"));
         }
     };
-    JFrame parentFrame;
     /** Creates new form panelTrackChanges */
     public panelTrackChangesOverview(JFrame parentFrame) {
+        super(parentFrame);
         initComponents();
-        this.parentFrame = parentFrame;
         initialize();
         loadFilesFromFolder();
 
@@ -109,6 +103,7 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
                BungeniBill bBill = (BungeniBill) cboBills.getSelectedItem();
                String billId = bBill.getID();
                __CURRENT_BILL_FOLDER__ = CommonFunctions.getWorkspaceForBill(billId);
+               AppProperties.setProperty("CurrentBillID", billId);
                loadFilesFromFolder();
             }
 
@@ -220,24 +215,23 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
 
     private void doReview() {
         try {
-            //get the selected document
+            //get the selected document index
             final int selIndex = this.listMembers.getSelectedIndex();
             if (-1 == selIndex) {
                 JOptionPane.showMessageDialog(parentFrame, "No document was selected. Please select a document for review");
                 return;
             }
-
+            BungeniOdfDocumentHelper docHelper = changesInfo.getDocuments().get(selIndex);
+            //create a clerk review document of the mp's document
+            //this is a copy of the MP's document
+            ReviewDocuments rvd = new ReviewDocuments(docHelper);
+            final BungeniOdfDocumentHelper reviewDoc = rvd.getReviewCopy();
+            //invoke openoffice in a runnable thread
             SwingUtilities.invokeLater(new Runnable(){
 
                 public void run() {
                     try {
-                        BungeniOdfDocumentHelper docHelper = changesInfo.getDocuments().get(selIndex);
-                        //create a clerk review document of the mp's document
-                        //this is a copy of the MP's document
-                        ReviewDocuments rvd = new ReviewDocuments(docHelper);
-                        BungeniOdfDocumentHelper reviewDoc = rvd.getReviewCopy();
                         UnoOdfFile odfFile = UnoOdfOpenFiles.getFile(reviewDoc);
-                        //open review document in openoffice
                     } catch (Exception ex) {
                         log.error("doReview:opening document : " + ex.getMessage(), ex);
                     }
@@ -245,11 +239,15 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
                 }
 
             });
-            
         } catch (Exception ex) {
            log.error(ex);
         }
 
+    }
+
+    @Override
+    public void updatePanel() {
+       //to be implemented
     }
 
 
@@ -259,34 +257,13 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
         }
     }
 
-    /**
-     * List model for document owner
-     */
-    private class DocOwnerListModel extends AbstractListModel {
-
-         public int getSize() {
-          return changesInfo.getSize();
-        }
-
-        public Object getElementAt(int arg0) {
-           return getAuthorAtIndex(arg0);
-        }
-
-        public String getAuthorAtIndex(int iIndex) {
-            BungeniOdfDocumentHelper docHelper =  changesInfo.getDocuments().get(iIndex);
-            return docHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniDocAuthor");
-        }
-
-    }
-
-
 
     private class DocumentChangesTableModel extends AbstractTableModel {
         List<HashMap<String,String>> changeMarks = new ArrayList<HashMap<String,String>>(0);
         private  String[] column_names = {
-            rBundle.getString("panelTrackChanges.tblDocChanges.action.text"),
-            rBundle.getString("panelTrackChanges.tblDocChanges.date.text"),
-            rBundle.getString("panelTrackChanges.tblDocChanges.text.text")
+            bundleBase.getString("panelTrackChanges.tblDocChanges.action.text"),
+            bundleBase.getString("panelTrackChanges.tblDocChanges.date.text"),
+            bundleBase.getString("panelTrackChanges.tblDocChanges.text.text")
       //      rBundle.getString("panelTrackChanges.tblDocChanges.position.text"),
       //      rBundle.getString("panelTrackChanges.tblDocChanges.status.text")
         };
@@ -322,7 +299,7 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
 
         private void updateMsgNoOfChanges(int nSize) {
             Object[] values = { new Integer(nSize) };
-            MessageFormat format = new MessageFormat(rBundle.getString("panelTrackChangesOverview.lblNoOfChanges.text"));
+            MessageFormat format = new MessageFormat(bundleBase.getString("panelTrackChangesOverview.lblNoOfChanges.text"));
             String sValue = format.format(values);
             lblNoOfChanges.setText(sValue);
         }
@@ -515,10 +492,10 @@ public class panelTrackChangesOverview extends javax.swing.JPanel {
     private void btnReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReviewActionPerformed
         try {
             btnReview.setEnabled(false);
-            //switch to the review tab
-            ((JTabbedPane)getParent()).setSelectedIndex(1);
             //do the review in the review tab
             doReview();
+            //switch to the review tab
+            ((JTabbedPane)getParent()).setSelectedIndex(1);
             btnReview.setEnabled(true);
 
         } catch (Exception ex) {
