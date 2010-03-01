@@ -6,7 +6,7 @@ import java.util.HashMap;
  *
  * @author Ashok Hariharan
  */
-public class CommonAppProperties {
+public class AppProperties {
     private static HashMap<String, Object> appProps = new HashMap<String,Object>();
 
     public static Object getProperty(String key) {
