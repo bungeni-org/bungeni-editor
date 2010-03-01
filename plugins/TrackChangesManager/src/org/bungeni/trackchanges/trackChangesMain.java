@@ -1,5 +1,6 @@
 package org.bungeni.trackchanges;
 
+import java.util.HashMap;
 import javax.swing.JFrame;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -31,7 +32,8 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
 
             public void stateChanged(ChangeEvent ce) {
                 System.out.println("Selected index = " + tabContainer.getSelectedIndex());
-                updateCurrentPanel();
+                //call update with empty hashmap
+                updateCurrentPanel(new HashMap<String,Object>(){{}});
             }
 
         });
@@ -100,12 +102,12 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
         frm.setVisible(true);
     }
 
-    public void updatePanels() {
+    public void updatePanels(HashMap<String,Object> infomap) {
         //to be implemented
     }
 
-    public void updateCurrentPanel() {
-        ((IChangesPanel)this.tabContainer.getSelectedComponent()).updatePanel();
+    public void updateCurrentPanel(HashMap<String,Object> infomap) {
+        ((IChangesPanel)this.tabContainer.getSelectedComponent()).updatePanel(infomap);
     }
 
 

@@ -20,6 +20,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumnModel;
+import org.bungeni.odfdocument.docinfo.BungeniDocAuthor;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper.StructuredChangeType;
@@ -226,6 +227,7 @@ public class panelTrackChangesOverview extends panelChangesBase {
             //this is a copy of the MP's document
             ReviewDocuments rvd = new ReviewDocuments(docHelper);
             final BungeniOdfDocumentHelper reviewDoc = rvd.getReviewCopy();
+            final BungeniDocAuthor selectedAuthor = (BungeniDocAuthor) this.listMembers.getSelectedValue();
             //invoke openoffice in a runnable thread
             SwingUtilities.invokeLater(new Runnable(){
 
@@ -239,6 +241,18 @@ public class panelTrackChangesOverview extends panelChangesBase {
                 }
 
             });
+            ((JTabbedPane)getParent()).setSelectedIndex(1);
+           //switch to the review tab
+           //get the selected author in the message map
+            HashMap<String, Object> messageMap = new HashMap<String, Object>() {
+                {
+                    put("selectedAuthor", selectedAuthor);
+                }
+            };
+            getContainerInterface().updateCurrentPanel(messageMap);
+
+
+
         } catch (Exception ex) {
            log.error(ex);
         }
@@ -246,7 +260,7 @@ public class panelTrackChangesOverview extends panelChangesBase {
     }
 
     @Override
-    public void updatePanel() {
+    public void updatePanel(HashMap<String, Object> infomap) {
        //to be implemented
     }
 
@@ -494,8 +508,7 @@ public class panelTrackChangesOverview extends panelChangesBase {
             btnReview.setEnabled(false);
             //do the review in the review tab
             doReview();
-            //switch to the review tab
-            ((JTabbedPane)getParent()).setSelectedIndex(1);
+
             btnReview.setEnabled(true);
 
         } catch (Exception ex) {
