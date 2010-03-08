@@ -2,7 +2,6 @@ package org.bungeni.odfdom.document.changes;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
@@ -107,7 +106,12 @@ public class BungeniOdfTrackedChangesHelper {
     public ArrayList<OdfTextChangedRegion> getChangedRegionsByCreator(Element changeContainer, String dcCreator) {
         ArrayList<OdfTextChangedRegion> textChangedRegions = new ArrayList<OdfTextChangedRegion>(0);
        try {
-            String xPathExpr = "./child::text:changed-region[descendant::dc:creator='" + dcCreator + "']";
+           // to fix issue 70 - http://code.google.com/p/bungeni-editor/issues/detail?id=70
+            String xPathExpr = "./child::text:changed-region[" +
+                                "(descendant::text:insertion/office:change-info[@office:chg-author='"+ dcCreator  + "'])" +
+                                " or " +
+                                "(descendant::dc:creator='"+ dcCreator + "')]"  ;
+
             NodeList changedRegions = (NodeList) this.m_docXpath.evaluate(xPathExpr, changeContainer, XPathConstants.NODESET);
             for (int i = 0; i < changedRegions.getLength(); i++) {
                 OdfTextChangedRegion textChangedRegion = (OdfTextChangedRegion) (Element) changedRegions.item(i);
