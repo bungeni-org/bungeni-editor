@@ -2,6 +2,7 @@ package org.bungeni.odfdom.document.changes;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 
 import org.odftoolkit.odfdom.doc.text.OdfTextChangedRegion;
@@ -13,8 +14,11 @@ import java.util.ArrayList;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
+import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper.StructuredChangeType;
 import org.odftoolkit.odfdom.doc.text.OdfTextChangeEnd;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Text;
 
 /**
  * This class merges changes (accepts / rejects changes) into a document
@@ -28,15 +32,7 @@ public class BungeniOdfChangesMergeHelper {
     private BungeniOdfDocumentHelper m_docHelper = null;
     private XPath                          m_docXpath      = null;
 
-    /**
-     * User whose changes are merged into
-     */
-    String origUser;
 
-    /**
-     * User providing the changes to be merged
-     */
-    String replWithUser;
 
     public BungeniOdfChangesMergeHelper(BungeniOdfTrackedChangesHelper docH) {
         m_changesHelper = docH;
@@ -44,10 +40,19 @@ public class BungeniOdfChangesMergeHelper {
         m_docHelper = m_changesHelper.getOdfDocumentHelper();
     }
 
+    /**
+     * This API is used to merge one users changes into another. The source user's changes are appropriated into the
+     * target user's changes. The standard use case involves merely substituting all changes by 'source user' into 'target user' changes.
+     * The non-typical use case is the classical user-> review user workflow, where a user marks changes on the document, a review user marks
+     * further changes on the document - and may also 'change the changes' made by the original user.
+     * @param sourceUser - the review user
+     * @param targetUser - the user whose changes are being reviewed
+     * @return
+     */
     public boolean mergeChanges(String sourceUser, String targetUser) {
-   // find all changed regions by sourceUser
+       //Get all the changed regions of the sourceUser
         ArrayList<OdfTextChangedRegion> changesByTarget =
-            m_changesHelper.getChangedRegionsByCreator(m_changesHelper.getTrackedChangeContainer(), targetUser);
+            m_changesHelper.getChangedRegionsByCreator(m_changesHelper.getTrackedChangeContainer(), sourceUser);
         for (OdfTextChangedRegion odfTextChangedRegion : changesByTarget) {
             processChange(odfTextChangedRegion, sourceUser, targetUser);
         }
@@ -57,21 +62,25 @@ public class BungeniOdfChangesMergeHelper {
 
     private void processChange (OdfTextChangedRegion odfTextChangedRegion, String sourceUser, String targetUser ) {
             try {
-                //get the id of the change region
+                //First get the id of the change region
                 String changeId  = odfTextChangedRegion.getTextIdAttribute();
-                //1 check if the change id has an immediately preceding change-end
+                //Then check if the change id has an immediately preceding change-end
+                //the XPath expression will eliminate preceding text() nodes.
                 String xPathExpr = "//text:change-start[@text:change-id='"+ changeId +"']/preceding-sibling::node()[1][name()='text:change-end']";
-                Node foundNode = (Node) m_docXpath.evaluate(xPathExpr, m_docHelper.getOdfDocument().getContentDom(), XPathConstants.NODE);
-                if (foundNode != null ) {
-                    //if it does get the id of the change-end
-                    OdfTextChangeEnd endElement = (OdfTextChangeEnd) foundNode;
+                Node nodePrecedingChangeEnd = (Node) m_docXpath.evaluate(xPathExpr, m_docHelper.getOdfDocument().getContentDom(), XPathConstants.NODE);
+                if (nodePrecedingChangeEnd != null ) {
+                    //Get the id of the changed end element
+                    OdfTextChangeEnd endElement = (OdfTextChangeEnd) nodePrecedingChangeEnd;
                     String changeEndId = endElement.getTextChangeIdAttribute();
-                    //find the change-region for this id.
-                    String xPathChangeRegion = "//text:changed-region[@text:id='" +changeEndId + "']/descendant::dc:creator='" + sourceUser + "'";
+                    //Using the id of the change-end element get the changed-region for the id.
+                    //and check if the dc:creator of the changed-region is the user being merged into (the target user)
+                    String xPathChangeRegion = "//text:changed-region[@text:id='" +changeEndId + "']/descendant::dc:creator='" + targetUser + "'";
                     Boolean bResult = (Boolean) m_docXpath.evaluate(xPathExpr, m_docHelper.getOdfDocument().getContentDom(), XPathConstants.BOOLEAN);
+                    //if the user matches, the adjacent change is a merge-able change.
                     if (bResult) {
-                        //change is by Mp user
-                        //merge the changes
+                        //get the node content between change-start and change-end for the sourceUser and place it into the change of the
+                        //target user.
+                        mergeAdjacentChange(sourceUser, targetUser, changeId, changeEndId);
                     } else {
                         //change is by Unknonw user.
                     }
@@ -80,6 +89,34 @@ public class BungeniOdfChangesMergeHelper {
             } catch (Exception ex) {
                log.error("processChange:" + sourceUser + ", " + targetUser + ", " + ex.getMessage(), ex);
             }
+    }
+
+    private void mergeAdjacentChange(String sourceUser, String targetUser, String sourceUserChangeid, String targetUserChangeid) {
+        ///If the source change is an insert and the target change is an insert they can be successfully merged.
+        OdfTextChangedRegion sourceChangeRegion = this.m_changesHelper.getChangedRegionById(sourceUserChangeid);
+        OdfTextChangedRegion targetChangeRegion = this.m_changesHelper.getChangedRegionById(targetUserChangeid);
+        StructuredChangeType scSourceType = this.m_changesHelper.getStructuredChangeType(sourceChangeRegion);
+        StructuredChangeType scTargetType = this.m_changesHelper.getStructuredChangeType(targetChangeRegion);
+        if (scSourceType.changetype.equals(scTargetType.changetype)  && scSourceType.changetype.equals("insertion")) {
+            NodeList sourceChangesList = m_changesHelper.getInsertedNodes(sourceUserChangeid);
+            NodeList targetChangesList = m_changesHelper.getInsertedNodes(targetUserChangeid);
+            Node lastTargetItem = targetChangesList.item(targetChangesList.getLength() -1 );
+            //the next sibling of the last item should get you the <text:change-end ... /> element
+            Node nodeChangeEnd = lastTargetItem.getNextSibling();
+            for (int i = 0; i < sourceChangesList.getLength(); i++) {
+                try {
+                    Node sourceNode = sourceChangesList.item(i);
+                    if (sourceNode.getNodeType() == Node.TEXT_NODE) {
+                        Text srcText = (Text) sourceNode;
+                        nodeChangeEnd.getParentNode().insertBefore(srcText, nodeChangeEnd);
+                    }
+                } catch (Exception ex) {
+                    log.error("mergeAdjacentChange :" + ex.getMessage(), ex);
+                }
+            }
+        }
+
 
     }
+
 }

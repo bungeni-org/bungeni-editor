@@ -18,7 +18,6 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import org.apache.log4j.Logger;
 import org.bungeni.odfdom.utils.BungeniOdfDateHelper;
-import org.odftoolkit.odfdom.doc.meta.OdfMetaEditingDuration;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
