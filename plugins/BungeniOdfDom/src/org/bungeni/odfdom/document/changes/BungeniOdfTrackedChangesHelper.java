@@ -26,6 +26,7 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import org.bungeni.odfdom.utils.BungeniOdfDateHelper;
+import org.odftoolkit.odfdom.doc.text.OdfTextChangeEnd;
 import org.odftoolkit.odfdom.doc.text.OdfTextChangeStart;
 
 /**
@@ -490,13 +491,13 @@ public class BungeniOdfTrackedChangesHelper {
     }
 
 
-     public OdfTextChangeStart getChangeEndItem(String changeId) {
-        OdfTextChangeStart endNode = null;
+     public OdfTextChangeEnd getChangeEndItem(String changeId) {
+        OdfTextChangeEnd endNode = null;
         try {
             String xPathExpr = "//text:change-end[@text:change-id='" + changeId + "']";
             Node foundNode = (Node) this.m_docXpath.evaluate(xPathExpr, m_docHelper.getOdfDocument().getContentDom(), XPathConstants.NODE);
             if (foundNode == null) {
-                endNode = (OdfTextChangeStart) foundNode;
+                endNode = (OdfTextChangeEnd) foundNode;
             }
         } catch (Exception ex) {
            log.error("getChangeStartitem : " + changeId + ":" + ex.getMessage(), ex);
