@@ -114,13 +114,7 @@ transformer.transform(source, result);
 
 String xmlString = result.getWriter().toString();
 System.out.println(xmlString);
-            //System.out.println(foundNode.getNodeName());
-            /*
-            BungeniOdfChangesMergeHelper instance = docHelper.getChangesHelper().getChangesMergeHelper();
-            boolean result = instance.mergeChanges("Ashok Hariharan", "Flavio Zeni");
-            assertEquals(true, result);
-             *
-             */
+         
         } catch (Exception ex) {
             java.util.logging.Logger.getLogger(XmlMoveTest.class.getName()).log(Level.SEVERE, null, ex);
         }
