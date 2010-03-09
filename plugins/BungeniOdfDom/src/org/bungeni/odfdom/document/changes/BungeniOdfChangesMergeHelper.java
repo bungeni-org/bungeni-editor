@@ -16,6 +16,7 @@ import javax.xml.xpath.XPathConstants;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper.StructuredChangeType;
 import org.odftoolkit.odfdom.doc.text.OdfTextChangeEnd;
+import org.odftoolkit.odfdom.doc.text.OdfTextChangeStart;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
@@ -77,7 +78,7 @@ public class BungeniOdfChangesMergeHelper {
                     String xPathChangeRegion = "//text:changed-region[@text:id='" +changeEndId + "']/descendant::dc:creator='" + targetUser + "'";
                     Boolean bResult = (Boolean) m_docXpath.evaluate(xPathExpr, m_docHelper.getOdfDocument().getContentDom(), XPathConstants.BOOLEAN);
                     //if the user matches, the adjacent change is a merge-able change.
-                    if (bResult) {
+                     if (bResult) {
                         //get the node content between change-start and change-end for the sourceUser and place it into the change of the
                         //target user.
                         mergeAdjacentChange(sourceUser, targetUser, changeId, changeEndId);
@@ -91,6 +92,48 @@ public class BungeniOdfChangesMergeHelper {
             }
     }
 
+   private void mergeAdjacentChange(String sourceUser, String targetUser, String sourceUserChangeid, String targetUserChangeid) {
+
+        OdfTextChangedRegion sourceChangeRegion = this.m_changesHelper.getChangedRegionById(sourceUserChangeid);
+        OdfTextChangedRegion targetChangeRegion = this.m_changesHelper.getChangedRegionById(targetUserChangeid);
+        StructuredChangeType scSourceType = this.m_changesHelper.getStructuredChangeType(sourceChangeRegion);
+        StructuredChangeType scTargetType = this.m_changesHelper.getStructuredChangeType(targetChangeRegion);
+        //Merge only if the change types match and the change is an insert
+        if (scSourceType.changetype.equals(scTargetType.changetype)  && scSourceType.changetype.equals("insertion")) {
+
+            OdfTextChangeStart sourceStart = m_changesHelper.getChangeStartItem(sourceUserChangeid);
+            OdfTextChangeEnd sourceEnd = m_changesHelper.getChangeEndItem(sourceUserChangeid);
+            Node sourceNextSibling = sourceStart.getNextSibling();
+            //First build  a cloned array of change nodes
+            ArrayList<Node> clonedNodes = new ArrayList<Node>(0);
+            while (!sourceNextSibling.isSameNode(sourceEnd)) {
+                Node clonedNode = sourceNextSibling.cloneNode(true);
+                clonedNodes.add(clonedNode);
+                System.out.println(sourceNextSibling.getNodeName());
+                sourceNextSibling = sourceNextSibling.getNextSibling();
+            }
+            //Now we delete the changed nodes which we have cloned
+            sourceNextSibling = sourceStart.getNextSibling();
+            while(!sourceNextSibling.isSameNode(sourceEnd)) {
+                sourceNextSibling.getParentNode().removeChild(sourceNextSibling);
+                sourceNextSibling = sourceStart.getNextSibling();
+            }
+            //Remove the bounding start and end nodes
+            sourceStart.getParentNode().removeChild(sourceStart);
+            sourceEnd.getParentNode().removeChild(sourceEnd);
+            //Remove the source change region
+            sourceChangeRegion.getParentNode().removeChild(sourceChangeRegion);
+
+            //Get the ending node of the target node
+            Node targetEnd = m_changesHelper.getChangeEndItem(targetUserChangeid);
+            //Now Iterate through the cloned nodes and add them before the change-end element of the target.
+            for (Node node : clonedNodes) {
+                targetEnd.getParentNode().insertBefore(node, targetEnd);
+            }
+        }
+   }
+
+    /*
     private void mergeAdjacentChange(String sourceUser, String targetUser, String sourceUserChangeid, String targetUserChangeid) {
         ///If the source change is an insert and the target change is an insert they can be successfully merged.
         OdfTextChangedRegion sourceChangeRegion = this.m_changesHelper.getChangedRegionById(sourceUserChangeid);
@@ -118,5 +161,7 @@ public class BungeniOdfChangesMergeHelper {
 
 
     }
+     *
+     */
 
 }

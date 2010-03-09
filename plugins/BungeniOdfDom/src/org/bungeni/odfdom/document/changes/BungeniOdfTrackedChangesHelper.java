@@ -481,7 +481,7 @@ public class BungeniOdfTrackedChangesHelper {
         try {
             String xPathExpr = "//text:change-start[@text:change-id='" + changeId + "']";
             Node foundNode = (Node) this.m_docXpath.evaluate(xPathExpr, m_docHelper.getOdfDocument().getContentDom(), XPathConstants.NODE);
-            if (foundNode == null) {
+            if (foundNode != null) {
                 startNode = (OdfTextChangeStart) foundNode;
             }
         } catch (Exception ex) {
@@ -496,7 +496,7 @@ public class BungeniOdfTrackedChangesHelper {
         try {
             String xPathExpr = "//text:change-end[@text:change-id='" + changeId + "']";
             Node foundNode = (Node) this.m_docXpath.evaluate(xPathExpr, m_docHelper.getOdfDocument().getContentDom(), XPathConstants.NODE);
-            if (foundNode == null) {
+            if (foundNode != null) {
                 endNode = (OdfTextChangeEnd) foundNode;
             }
         } catch (Exception ex) {
