@@ -30,13 +30,13 @@ import org.xml.sax.SAXException;
  *
  * @author undesa
  */
-public class BungeniOdfChangesMergeHelperTest {
+public class XmlMoveTest {
  BungeniOdfDocumentHelper docHelper = null;
-    private static org.apache.log4j.Logger log = Logger.getLogger(BungeniOdfChangesMergeHelperTest.class.getName());
+    private static org.apache.log4j.Logger log = Logger.getLogger(XmlMoveTest.class.getName());
     String testDoc = "testdocs/test-test-move.xml";
     Document wdoc = null;
 
-    public BungeniOdfChangesMergeHelperTest() {
+    public XmlMoveTest() {
     }
 
     @BeforeClass
@@ -59,11 +59,11 @@ public class BungeniOdfChangesMergeHelperTest {
             log.error(ex);
             }*/
         } catch (SAXException ex) {
-            java.util.logging.Logger.getLogger(BungeniOdfChangesMergeHelperTest.class.getName()).log(Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(XmlMoveTest.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            java.util.logging.Logger.getLogger(BungeniOdfChangesMergeHelperTest.class.getName()).log(Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(XmlMoveTest.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParserConfigurationException ex) {
-            java.util.logging.Logger.getLogger(BungeniOdfChangesMergeHelperTest.class.getName()).log(Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(XmlMoveTest.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -99,10 +99,6 @@ public class BungeniOdfChangesMergeHelperTest {
             startNode.getParentNode().removeChild(startNode);
             endNode.getParentNode().removeChild(endNode);
 
-            /*
-            String xPath2 = "//change-end[@id='1']";
-            Node endNode = (Node) xpath.evaluate(xPath2, wdoc, XPathConstants.NODE);
-          */
             Node endNodeOne = (Node) xpath.evaluate("//change-end[@id='1']", wdoc, XPathConstants.NODE);
             for (Node node : clonedNodes) {
                 endNodeOne.getParentNode().insertBefore(node, endNodeOne);
@@ -126,7 +122,7 @@ System.out.println(xmlString);
              *
              */
         } catch (Exception ex) {
-            java.util.logging.Logger.getLogger(BungeniOdfChangesMergeHelperTest.class.getName()).log(Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(XmlMoveTest.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
