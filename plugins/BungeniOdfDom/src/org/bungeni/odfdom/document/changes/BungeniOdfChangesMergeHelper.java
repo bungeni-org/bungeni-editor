@@ -2,6 +2,8 @@ package org.bungeni.odfdom.document.changes;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.util.logging.Level;
+import javax.xml.xpath.XPathExpressionException;
 import org.apache.log4j.Logger;
 
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
+import org.w3c.dom.NodeList;
 
 /**
  * This class merges changes (accepts / rejects changes) into a document
@@ -64,6 +67,8 @@ public class BungeniOdfChangesMergeHelper {
             System.out.println("changed region id = " + odfTextChangedRegion.getTextIdAttribute());
             processChange(odfTextChangedRegion, sourceUser, targetUser);
         }
+
+        processUserSubstitutionMerge(sourceUser, targetUser);
 
         return true;
     }
@@ -133,7 +138,10 @@ public class BungeniOdfChangesMergeHelper {
                     // get the node content between change-start and change-end for the
                     // sourceUser and place it into the change of the
                     // target user.
-                    mergeAdjacentInsertChange(sourceUser, targetUser, changeId, changeEndId);
+                    int nRet = mergeAdjacentInsertChange(sourceUser, targetUser, changeId, changeEndId);
+                    if (nRet == -1 ) {
+                        log.debug("Insert change was dropped for " + changeId + " processing as userSubstitutionMerge");
+                    }
                 } else {
 
                     // change is by Unknonw user.
@@ -168,6 +176,28 @@ public class BungeniOdfChangesMergeHelper {
         odfTextChangedRegion.getParentNode().removeChild(odfTextChangedRegion);
     }
 
+    private void processUserSubstitutionMerge(String sourceUser, String targetUser) {
+        try {
+            //First process insert changes
+            String xPathExprIns = "//text:changed-region[./text:insertion/office:change-info/dc:creator='" + sourceUser + "']//dc:creator";
+            NodeList insertNodesDcCreators = (NodeList) this.m_docXpath.evaluate(xPathExprIns, m_docHelper.getOdfDocument().getContentDom(), XPathConstants.NODESET);
+            for (int i = 0; i < insertNodesDcCreators.getLength(); i++) {
+                Node insertNodeDcCreator = insertNodesDcCreators.item(i);
+                insertNodeDcCreator.setNodeValue(targetUser);
+            }
+            //Next process delete changes
+            String xPathExprDel = "//text:changed-region[./text:deletion/office:change-info/dc:creator='" + sourceUser + "']//dc:creator";
+            NodeList deleteNodesDcCreators = (NodeList) this.m_docXpath.evaluate(xPathExprIns, m_docHelper.getOdfDocument().getContentDom(), XPathConstants.NODESET);
+            for (int i = 0; i < deleteNodesDcCreators.getLength(); i++) {
+                Node deleteNodeDcCreator = deleteNodesDcCreators.item(i);
+                deleteNodeDcCreator.setNodeValue(targetUser);
+            }
+        } catch (Exception ex) {
+            log.error("processUserSubstitutionMerge, sourceUser = " + sourceUser + ", targetUser = " + targetUser, ex);
+        }
+
+    }
+
     /**
      *
      * @param sourceUser
@@ -175,7 +205,7 @@ public class BungeniOdfChangesMergeHelper {
      * @param sourceUserChangeid
      * @param targetUserChangeid
      */
-    private void mergeAdjacentInsertChange(String sourceUser, String targetUser, String sourceUserChangeid,
+    private int mergeAdjacentInsertChange(String sourceUser, String targetUser, String sourceUserChangeid,
             String targetUserChangeid) {
         OdfTextChangedRegion sourceChangeRegion = this.m_changesHelper.getChangedRegionById(sourceUserChangeid);
         OdfTextChangedRegion targetChangeRegion = this.m_changesHelper.getChangedRegionById(targetUserChangeid);
@@ -197,6 +227,14 @@ public class BungeniOdfChangesMergeHelper {
                 clonedNodes.add(clonedNode);
                 System.out.println(sourceNextSibling.getNodeName());
                 sourceNextSibling = sourceNextSibling.getNextSibling();
+                if (sourceNextSibling == null ) {
+                    //sourceNextSibling should never return null --
+                    //it returns null only when the next sibling is an
+                    //unclosed element e.g. a </p> occuring between change
+                    //start and change-end elements. In this case we do a
+                    //user substitution merge.
+                    return -1;
+                }
             }
 
             // Now we delete the changed nodes which we have cloned
@@ -222,5 +260,6 @@ public class BungeniOdfChangesMergeHelper {
                 targetEnd.getParentNode().insertBefore(node, targetEnd);
             }
         }
+        return 0;
     }
 }
