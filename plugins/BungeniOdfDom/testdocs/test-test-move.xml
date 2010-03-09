@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-    <change-start id="1" />this is some text<change-end id="1" /><change-start id="2" /><b>ashok</b> new text<change-end id="2" />
+    <change-start id="1" />this is some text<change-end id="1" /><p><change-start id="2" /><b>ashok</b></p> new text<change-end id="2" />
 </root>
