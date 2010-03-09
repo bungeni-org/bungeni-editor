@@ -68,7 +68,6 @@ public class BungeniOdfSectionHelperTest {
         OdfTextSection result = secHelper.getSection("preface");
         String strSecName = result.getTextNameAttribute();
         assertEquals("preface", strSecName);
-        // TODO review the generated test code and remove the default call to fail.
       
     }
 
@@ -82,7 +81,6 @@ public class BungeniOdfSectionHelperTest {
          OdfTextSection aSection = secHelper.getSection("questions1");
         ArrayList<OdfTextSection> result = secHelper.getChildSections(aSection);
         assertEquals(1, result.size());
-        // TODO review the generated test code and remove the default call to fail.
     }
 
     /**
@@ -95,7 +93,6 @@ public class BungeniOdfSectionHelperTest {
         String result = secHelper.getSectionType(nSection);
         System.out.println(result);
         assertEquals("QuestionAnswer", result);
-        // TODO review the generated test code and remove the default call to fail.
         }
 
 
@@ -118,7 +115,6 @@ public class BungeniOdfSectionHelperTest {
         boolean result = secHelper.removeSectionBackgroundImage(osec);
         secHelper.getOdfDocument().save(fout);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
       } catch (Exception ex) {
         fail("exception while removing section background");
       } finally {

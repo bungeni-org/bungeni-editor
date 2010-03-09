@@ -33,6 +33,10 @@ public class BungeniOdfChangesMergeHelper {
     private BungeniOdfDocumentHelper       m_docHelper     = null;
     private XPath                          m_docXpath      = null;
 
+    /**
+     *
+     * @param docH
+     */
     public BungeniOdfChangesMergeHelper(BungeniOdfTrackedChangesHelper docH) {
         m_changesHelper = docH;
         m_docXpath      = m_changesHelper.getOdfDocumentHelper().getOdfDocument().getXPath();
@@ -40,10 +44,12 @@ public class BungeniOdfChangesMergeHelper {
     }
 
     /**
-     * This API is used to merge one users changes into another. The source user's changes are appropriated into the
-     * target user's changes. The standard use case involves merely substituting all changes by 'source user' into 'target user' changes.
-     * The non-typical use case is the classical user-> review user workflow, where a user marks changes on the document, a review user marks
-     * further changes on the document - and may also 'change the changes' made by the original user.
+     * <p>This API is used to merge one users changes into another. The source user's
+     * changes are appropriated into the target user's changes. The standard use case
+     * involves merely substituting all changes by 'source user' into 'target user' changes.
+     * The non-typical use case is the classical user-> review user workflow, where a user
+     * marks changes on the document, a review user marks further changes on the document -
+     * and may also 'change the changes' made by the original user.
      * @param sourceUser - the review user
      * @param targetUser - the user whose changes are being reviewed
      * @return
@@ -62,6 +68,12 @@ public class BungeniOdfChangesMergeHelper {
         return true;
     }
 
+    /**
+     *
+     * @param odfTextChangedRegion
+     * @param sourceUser
+     * @param targetUser
+     */
     private void processChange(OdfTextChangedRegion odfTextChangedRegion, String sourceUser, String targetUser) {
         try {
             StructuredChangeType scType = m_changesHelper.getStructuredChangeType(odfTextChangedRegion);
@@ -73,13 +85,6 @@ public class BungeniOdfChangesMergeHelper {
             } else if (scType.changetype.equals("replacement")) {
 
                 // A "replacement" pattern was detected
-                // replacement pattern is one where the reviewer deletes some changes submitted by a user.
-                // the replacement change is a <text:deletion> element
-                // the original change is a <text:insertion> with a reference to the user information
-                // The merge for the replacement pattern works like this ... :
-                // 1) remove the <text:change > for the change id in the document i.e. remove the reference tot he delete
-                // 2) remove the changed region from the document
-                // 3) merge any post-adjacent i.e. after the delete <text:insert > with any pre-adjacent <text:insert>
                 System.out.println(scType.changetype);
                 processReplacementMerge(scType, odfTextChangedRegion, sourceUser, targetUser);
             }
@@ -125,7 +130,8 @@ public class BungeniOdfChangesMergeHelper {
                 // if the user matches, the adjacent change is a merge-able change.
                 if (bResult) {
 
-                    // get the node content between change-start and change-end for the sourceUser and place it into the change of the
+                    // get the node content between change-start and change-end for the
+                    // sourceUser and place it into the change of the
                     // target user.
                     mergeAdjacentInsertChange(sourceUser, targetUser, changeId, changeEndId);
                 } else {
@@ -138,6 +144,20 @@ public class BungeniOdfChangesMergeHelper {
         }
     }
 
+    /**
+     * Replacement pattern is one where the reviewer deletes some changes submitted by a user.
+     * the replacement change is a <text:deletion> element
+     * the original change is a <text:insertion> with a reference to the user information
+     * The merge for the replacement pattern works like this ... :
+     * 1) remove the <text:change > for the change id in the document i.e. remove the reference tot he delete
+     * 2) remove the changed region from the document
+     * 3) merge any post-adjacent i.e. after the delete <text:insert > with any pre-adjacent <text:insert>
+     *
+     * @param scType
+     * @param odfTextChangedRegion
+     * @param sourceUser
+     * @param targetUser
+     */
     private void processReplacementMerge(StructuredChangeType scType, OdfTextChangedRegion odfTextChangedRegion,
             String sourceUser, String targetUser) {
 
@@ -148,8 +168,15 @@ public class BungeniOdfChangesMergeHelper {
         odfTextChangedRegion.getParentNode().removeChild(odfTextChangedRegion);
     }
 
+    /**
+     *
+     * @param sourceUser
+     * @param targetUser
+     * @param sourceUserChangeid
+     * @param targetUserChangeid
+     */
     private void mergeAdjacentInsertChange(String sourceUser, String targetUser, String sourceUserChangeid,
-                                     String targetUserChangeid) {
+            String targetUserChangeid) {
         OdfTextChangedRegion sourceChangeRegion = this.m_changesHelper.getChangedRegionById(sourceUserChangeid);
         OdfTextChangedRegion targetChangeRegion = this.m_changesHelper.getChangedRegionById(targetUserChangeid);
         StructuredChangeType scSourceType       = this.m_changesHelper.getStructuredChangeType(sourceChangeRegion);
@@ -196,5 +223,4 @@ public class BungeniOdfChangesMergeHelper {
             }
         }
     }
-
 }

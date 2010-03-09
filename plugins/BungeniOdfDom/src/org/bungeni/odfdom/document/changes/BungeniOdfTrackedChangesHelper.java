@@ -2,7 +2,6 @@ package org.bungeni.odfdom.document.changes;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
@@ -82,6 +81,10 @@ public class BungeniOdfTrackedChangesHelper {
     }
 
 
+    /**
+     *
+     * @return
+     */
     public BungeniOdfChangesMergeHelper getChangesMergeHelper(){
         if (this.m_changesMergeHelper == null) {
             m_changesMergeHelper = new BungeniOdfChangesMergeHelper(this);
@@ -137,6 +140,11 @@ public class BungeniOdfTrackedChangesHelper {
 
     }
 
+    /**
+     * <p>Retrieves the changed-region by change id </p>
+     * @param changeId
+     * @return OdfTextChangedRegion 
+     */
     public OdfTextChangedRegion getChangedRegionById(String changeId ) {
         OdfTextChangedRegion foundRegion = null;
         try {
@@ -473,10 +481,19 @@ public class BungeniOdfTrackedChangesHelper {
         return outDate;
     }
 
+    /**
+     * <p>Returns the handle to the BungeniOdfDocumentHelper </p>
+     * @return
+     */
     public BungeniOdfDocumentHelper getOdfDocumentHelper() {
         return m_docHelper;
     }
 
+    /**
+     * <p>Returns the <text:change-start> element for a change id. </p>
+     * @param changeId
+     * @return OdfTextChangeStart element
+     */
     public OdfTextChangeStart getChangeStartItem(String changeId) {
         OdfTextChangeStart startNode = null;
         try {
@@ -492,6 +509,11 @@ public class BungeniOdfTrackedChangesHelper {
     }
 
 
+    /**
+     * <p>Returns the <text:change-end> element for a change id. </p>
+     * @param changeId
+     * @return
+     */
      public OdfTextChangeEnd getChangeEndItem(String changeId) {
         OdfTextChangeEnd endNode = null;
         try {
@@ -507,7 +529,7 @@ public class BungeniOdfTrackedChangesHelper {
     }
 
     /**
-     * Get the <text:change> item
+     * <p>Returns the <text:change> item for a change id</p>
      * @param changeId
      * @return
      */
@@ -526,9 +548,17 @@ public class BungeniOdfTrackedChangesHelper {
      }
     
     public class StructuredChangeType {
+        /**
+         * change id element for the change
+         */
         public String               changeId;
-        //public OdfTextChangedRegion changeRegion;
-        public String               changetype;    // deletion, insertion
+        /**
+         * The type of change : "insertion" / "deletion" / "replacement"
+         */
+        public String               changetype;
+        /**
+         * The child elements contained within a OdfTextChangedRegion
+         */
         public ArrayList<OdfElement>           elementChange = new ArrayList<OdfElement>(0);
     }
 }

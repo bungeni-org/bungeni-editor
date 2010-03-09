@@ -77,7 +77,6 @@ public class BungeniOdfDocumentHelperTest {
             this.odfDomHelper.removeBackgroundImage();
             fostream = new FileOutputStream(fout);
             this.odfDomHelper.getOdfDocument().save(fostream);
-            // TODO review the generated test code and remove the default call to fail.
             assertEquals(true, true);
         } catch (Exception ex) {
             Logger.getLogger(BungeniOdfDocumentHelperTest.class.getName()).log(Level.SEVERE, null, ex);
