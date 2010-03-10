@@ -255,7 +255,6 @@ public class panelClerkOverview extends panelChangesBase {
     }// </editor-fold>//GEN-END:initComponents
 
     private void chkFilterByClerkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFilterByClerkActionPerformed
-        // TODO add your handling code here:
         displayChangesInfo(listMembers.getSelectedIndex());
     }//GEN-LAST:event_chkFilterByClerkActionPerformed
 

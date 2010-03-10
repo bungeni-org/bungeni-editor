@@ -84,7 +84,6 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
-        // TODO add your handling code here:
         this.parentFrame.dispose();
     }//GEN-LAST:event_btnCloseActionPerformed
 
