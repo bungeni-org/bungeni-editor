@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -79,20 +80,7 @@ public class panelClerkOverview extends panelChangesBase {
 
                 });
 
-                //load files from folder
-                changesInfo.clear();
-                for (int i = 0; i < files.length ; i++ ) {
-                    OdfDocument oDoc = null;
-                    try {
-
-                        BungeniOdfDocumentHelper docHelper = new BungeniOdfDocumentHelper(files[i]);
-                        changesInfo.addDocument(docHelper);
-                        System.out.println("no. of change documents = " + changesInfo.getSize());
-                    } catch (Exception ex) {
-                        log.error("loadingFilesFromFolder : " + ex.getMessage(), ex);
-                    }
-
-                }
+              changesInfo.reload(files);
             }
         }
     }
@@ -160,8 +148,9 @@ public class panelClerkOverview extends panelChangesBase {
         chkFilterByClerk = new javax.swing.JCheckBox();
         btnReview = new javax.swing.JButton();
         btnConsolidate = new javax.swing.JButton();
+        cboDocumentReviewType = new javax.swing.JComboBox();
 
-        listMembers.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
+        listMembers.setFont(new java.awt.Font("Lucida Grande", 0, 10));
         listMembers.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Tinoula Awopetu", "Mashinski Murigi", "Raul Obwacha", "Felix Kerstengor" };
             public int getSize() { return strings.length; }
@@ -169,7 +158,7 @@ public class panelClerkOverview extends panelChangesBase {
         });
         scrollMembers.setViewportView(listMembers);
 
-        lblMembers.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblMembers.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle"); // NOI18N
         lblMembers.setText(bundle.getString("panelTrackChangesOverview.lblMembers.text")); // NOI18N
 
@@ -193,10 +182,10 @@ public class panelClerkOverview extends panelChangesBase {
         });
         scrollDocChanges.setViewportView(tblDocChanges);
 
-        lblDocumentChanges.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblDocumentChanges.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblDocumentChanges.setText(bundle.getString("panelTrackChangesOverview.jLabel1.text")); // NOI18N
 
-        chkFilterByClerk.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        chkFilterByClerk.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         chkFilterByClerk.setText(bundle.getString("panelClerkOverview.chkFilterByClerk.text")); // NOI18N
         chkFilterByClerk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,11 +193,14 @@ public class panelClerkOverview extends panelChangesBase {
             }
         });
 
-        btnReview.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnReview.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnReview.setText(bundle.getString("panelClerkOverview.btnReview.text")); // NOI18N
 
-        btnConsolidate.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnConsolidate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnConsolidate.setText(bundle.getString("panelClerkOverview.btnConsolidate.text")); // NOI18N
+
+        cboDocumentReviewType.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        cboDocumentReviewType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -218,7 +210,8 @@ public class panelClerkOverview extends panelChangesBase {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
-                    .addComponent(lblMembers))
+                    .addComponent(lblMembers)
+                    .addComponent(cboDocumentReviewType, 0, 237, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -250,7 +243,9 @@ public class panelClerkOverview extends panelChangesBase {
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(scrollMembers)
-                        .addGap(213, 213, 213))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cboDocumentReviewType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(180, 180, 180))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -262,6 +257,7 @@ public class panelClerkOverview extends panelChangesBase {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConsolidate;
     private javax.swing.JButton btnReview;
+    private javax.swing.JComboBox cboDocumentReviewType;
     private javax.swing.JCheckBox chkFilterByClerk;
     private javax.swing.JLabel lblDocumentChanges;
     private javax.swing.JLabel lblMembers;

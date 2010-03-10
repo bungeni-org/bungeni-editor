@@ -168,21 +168,7 @@ public class panelTrackChangesOverview extends panelChangesBase {
                     }
 
                 });
-
-                //load files from folder
-                changesInfo.clear();
-                for (int i = 0; i < files.length ; i++ ) {
-                    OdfDocument oDoc = null;
-                    try {
-
-                        BungeniOdfDocumentHelper docHelper = new BungeniOdfDocumentHelper(files[i]);
-                        changesInfo.addDocument(docHelper);
-
-                    } catch (Exception ex) {
-                        log.error(ex);
-                    }
-
-                }
+                changesInfo.reload(files);
             }
         }
     }
