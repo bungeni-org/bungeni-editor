@@ -3,7 +3,7 @@ package org.bungeni.trackchanges.utils;
 import java.util.HashMap;
 
 /**
- *
+ * Class for setting runtime properties in memory
  * @author Ashok Hariharan
  */
 public class AppProperties {

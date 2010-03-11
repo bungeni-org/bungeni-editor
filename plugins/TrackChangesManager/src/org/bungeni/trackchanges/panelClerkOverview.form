@@ -60,7 +60,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="scrollMembers" max="32767" attributes="0"/>
+                      <Component id="scrollMembers" pref="126" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="cboDocumentReviewType" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="180" max="-2" attributes="0"/>
@@ -192,6 +192,9 @@
           <ResourceString bundle="org/bungeni/trackchanges/Bundle.properties" key="panelClerkOverview.btnConsolidate.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConsolidateActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="cboDocumentReviewType">
       <Properties>

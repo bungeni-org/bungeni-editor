@@ -7,11 +7,11 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -26,7 +26,7 @@ import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper.Struct
 import org.bungeni.trackchanges.ui.support.TextAreaRenderer;
 import org.bungeni.trackchanges.utils.AppProperties;
 import org.bungeni.trackchanges.utils.CommonFunctions;
-import org.odftoolkit.odfdom.doc.OdfDocument;
+import org.bungeni.trackchanges.utils.RuntimeProperties;
 import org.odftoolkit.odfdom.doc.text.OdfTextChangedRegion;
 import org.w3c.dom.Element;
 
@@ -193,11 +193,16 @@ public class panelClerkOverview extends panelChangesBase {
             }
         });
 
-        btnReview.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnReview.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnReview.setText(bundle.getString("panelClerkOverview.btnReview.text")); // NOI18N
 
-        btnConsolidate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnConsolidate.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnConsolidate.setText(bundle.getString("panelClerkOverview.btnConsolidate.text")); // NOI18N
+        btnConsolidate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsolidateActionPerformed(evt);
+            }
+        });
 
         cboDocumentReviewType.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         cboDocumentReviewType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -252,6 +257,11 @@ public class panelClerkOverview extends panelChangesBase {
     private void chkFilterByClerkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFilterByClerkActionPerformed
         displayChangesInfo(listMembers.getSelectedIndex());
     }//GEN-LAST:event_chkFilterByClerkActionPerformed
+
+    private void btnConsolidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolidateActionPerformed
+        JOptionPane.showMessageDialog(this, RuntimeProperties.getProperty("clerk_user"));
+
+    }//GEN-LAST:event_btnConsolidateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

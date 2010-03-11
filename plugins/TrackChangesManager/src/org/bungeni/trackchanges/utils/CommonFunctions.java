@@ -16,7 +16,8 @@ public class CommonFunctions {
     public static String getRootPath() {    
         String sRootPath = "";
         try {
-            sRootPath =  CommonFunctions.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+            File fJar  =  new File(CommonFunctions.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+            sRootPath = fJar.getParent();
         } catch (URISyntaxException ex) {
             log.error("getRootPath : " + ex.getMessage(), ex);
         }
@@ -30,4 +31,6 @@ public class CommonFunctions {
     public static String getWorkspaceForBill(String billId) {
        return  System.getProperty("user.dir") + File.separator + __REVIEW_WORKSPACE_NAME__ + File.separator + __BILL_FOLDER_PREFIX__ +"-" +billId;
     }
+
+    
 }
