@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.bungeni.editor.themes;
 
 import org.bungeni.editor.interfaces.ui.ILookAndFeel;
@@ -11,7 +6,7 @@ import org.jvnet.substance.skin.SubstanceSaharaLookAndFeel;
 
 /**
  *
- * @author undesa
+ * @author Ashok Hariharan
  */
 public class SaharaLAF implements ILookAndFeel {
 
