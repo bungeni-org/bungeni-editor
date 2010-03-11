@@ -1,0 +1,3 @@
+log4j http://bungeni-editor.googlecode.com/svn/external_libs/apache-log4j
+bungeni http://bungeni-editor.googlecode.com/svn/external_libs/bungeni
+substance http://bungeni-editor.googlecode.com/svn/external_libs/substance
