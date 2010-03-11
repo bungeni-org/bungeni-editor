@@ -17,7 +17,10 @@ public class CommonFunctions {
         String sRootPath = "";
         try {
             File fJar  =  new File(CommonFunctions.class.getProtectionDomain().getCodeSource().getLocation().toURI());
-            sRootPath = fJar.getParent();
+            if (fJar.getPath().endsWith(".jar"))
+                 sRootPath = fJar.getParent();
+            else
+                sRootPath = fJar.getPath();
         } catch (URISyntaxException ex) {
             log.error("getRootPath : " + ex.getMessage(), ex);
         }
