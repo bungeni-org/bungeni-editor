@@ -3,3 +3,5 @@ odfdom http://bungeni-editor.googlecode.com/svn/external_libs/odfdom
 log4j http://bungeni-editor.googlecode.com/svn/external_libs/apache-log4j
 bungeniodfdom http://bungeni-editor.googlecode.com/svn/external_libs/bungeniodfdom
 bungeni http://bungeni-editor.googlecode.com/svn/external_libs/bungeni
+substance http://bungeni-editor.googlecode.com/svn/external_libs/substance
+swing-layout-ext http://bungeni-editor.googlecode.com/svn/external_libs/swing-layout-ext
