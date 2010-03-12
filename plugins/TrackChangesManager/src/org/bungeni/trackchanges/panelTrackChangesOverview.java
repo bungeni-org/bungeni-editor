@@ -211,7 +211,7 @@ public class panelTrackChangesOverview extends panelChangesBase {
             BungeniOdfDocumentHelper docHelper = changesInfo.getDocuments().get(selIndex);
             //create a clerk review document of the mp's document
             //this is a copy of the MP's document
-            ReviewDocuments rvd = new ReviewDocuments(docHelper);
+            ReviewDocuments rvd = new ReviewDocuments(docHelper, ""); //TODO 
             final BungeniOdfDocumentHelper reviewDoc = rvd.getReviewCopy();
             final BungeniDocAuthor selectedAuthor = (BungeniDocAuthor) this.listMembers.getSelectedValue();
             //invoke openoffice in a runnable thread

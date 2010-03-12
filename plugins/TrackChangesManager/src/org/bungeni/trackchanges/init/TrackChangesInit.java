@@ -85,7 +85,7 @@ public class TrackChangesInit {
                 openOfficeObject.initoOo();
                 javax.swing.SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
-                       // initUI();
+                        //initUI();
                         createAndShowGUI();
                     }
                 });
