@@ -9,11 +9,14 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
@@ -25,8 +28,11 @@ import org.bungeni.odfdom.document.changes.BungeniOdfChangesMergeHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper.StructuredChangeType;
 import org.bungeni.trackchanges.ui.support.TextAreaRenderer;
+import org.bungeni.trackchanges.uno.UnoOdfFile;
+import org.bungeni.trackchanges.uno.UnoOdfOpenFiles;
 import org.bungeni.trackchanges.utils.AppProperties;
 import org.bungeni.trackchanges.utils.CommonFunctions;
+import org.bungeni.trackchanges.utils.ReviewDocuments;
 import org.bungeni.trackchanges.utils.RuntimeProperties;
 import org.odftoolkit.odfdom.doc.text.OdfTextChangedRegion;
 import org.w3c.dom.Element;
@@ -41,7 +47,7 @@ public class panelClerkOverview extends panelChangesBase {
    
      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(panelClerkOverview.class.getName());
 
-
+    String                 PANEL_REVIEW_STAGE = "ClerkConsolidationReview";
 
     /** Creates new form panelClerkOverview */
     public panelClerkOverview() {
@@ -132,12 +138,41 @@ public class panelClerkOverview extends panelChangesBase {
     }
 
     private boolean consolidateCurrentDocument() {
-        BungeniOdfDocumentHelper dochelper = changesInfo.getDocuments().get(listMembers.getSelectedIndex());
-        JOptionPane.showMessageDialog(this, dochelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniDocAuthor") + " \n" + dochelper.getDocumentPath());
-        //BungeniOdfChangesMergeHelper changeMergeHelper = dochelper.getChangesHelper().getChangesMergeHelper();
+        boolean bReturn = false;
+        try {
+            // get the selected document index
+            final int selIndex = this.listMembers.getSelectedIndex();
+            if (-1 == selIndex) {
+                JOptionPane.showMessageDialog(parentFrame, "No document was selected. Please select a document for review");
+                bReturn = false;
+                return false;
+            }
+            BungeniOdfDocumentHelper docHelper = changesInfo.getDocuments().get(selIndex);
+            // create a clerk review document of the mp's document
+            // this is a copy of the MP's document
+            ReviewDocuments rvd = new ReviewDocuments(docHelper, this.PANEL_REVIEW_STAGE); // TODO
+            final BungeniOdfDocumentHelper reviewDoc = rvd.getReviewCopy();
+            final BungeniDocAuthor selectedAuthor = (BungeniDocAuthor) this.listMembers.getSelectedValue();
+            // invoke openoffice in a runnable thread
+            SwingUtilities.invokeLater(new Runnable() {
 
+                public void run() {
+                    try {
+                        UnoOdfFile odfFile = UnoOdfOpenFiles.getFile(reviewDoc);
+                    } catch (Exception ex) {
+                        log.error("doReview:opening document : " + ex.getMessage(), ex);
+                    }
+                    // open review document in openoffice
+                    // open review document in openoffice
+                }
+            });
+            bReturn =  true;
+        } catch (Exception ex) {
+            log.error("consolidateCurrentDocument : " + ex.getMessage(), ex);
+        }
+        
+        return bReturn;
 
-        return true;
     }
     
     /** This method is called from within the constructor to
@@ -281,7 +316,9 @@ public class panelClerkOverview extends panelChangesBase {
     }//GEN-LAST:event_chkFilterByClerkActionPerformed
 
     private void btnConsolidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolidateActionPerformed
-       consolidateCurrentDocument();
+        this.btnConsolidate.setEnabled(false);
+        consolidateCurrentDocument();
+        this.btnConsolidate.setEnabled(true);
     }//GEN-LAST:event_btnConsolidateActionPerformed
 
     private void btnConsolidateAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolidateAllActionPerformed

@@ -15,8 +15,11 @@ import org.bungeni.odfdom.utils.BungeniOdfFileCopy;
  */
 public class ReviewDocuments {
 
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ReviewDocuments.class.getName());
+
     public static final String DEFAULT_DOC_PATTERN = "(u[0-9][0-9][0-9][0-9][a-z0-9_-]*?.odt)";
-    public static final String PREFIX_DOC_PATTERN = "([a-z]*)_";
+    public static final String PREFIX_DOC_PATTERN = "([a-z]*)";
+    public static final String PREFIX_SEPARATOR = "_";
 
     class ReviewStage {
         private String stageName;
@@ -37,11 +40,13 @@ public class ReviewDocuments {
         }
     }
 
+    private String stageName ;
 
-    private BungeniOdfDocumentHelper originalDocument;
+    private BungeniOdfDocumentHelper originalDocument = null;
     private String originalDocumentName ;
+    private File fOriginalFile = null;
 
-    private BungeniOdfDocumentHelper reviewDocument;
+    private BungeniOdfDocumentHelper reviewDocument = null;
     private String reviewDocumentName;
 
     private HashMap<String,ReviewStage> stagePrefix = new HashMap<String,ReviewStage>(){
@@ -51,8 +56,6 @@ public class ReviewDocuments {
         }
     };
 
-    private String REVIEW_PREFIX = "clerk_";
-
 
     public ReviewDocuments() {
 
@@ -60,48 +63,74 @@ public class ReviewDocuments {
 
     public ReviewDocuments(BungeniOdfDocumentHelper reviewDoc, String stageName) throws Exception {
         this.originalDocument = reviewDoc;
-
+        this.stageName = stageName;
         String baseURI = this.originalDocument.getOdfDocument().getBaseURI();
-        File fodfDoc  = new File (new URI(baseURI));
-        String fileName = fodfDoc.getName();
+        this.fOriginalFile  = new File (new URI(baseURI));
+        String fileName =  this.fOriginalFile.getName();
         this.originalDocumentName = fileName;
-
-        String dirPath = fodfDoc.getParentFile().toURI().toString();
-        String newBaseURI = dirPath + (dirPath.endsWith("/")?"":"/")  + REVIEW_PREFIX + fileName;
-        File fodfCopyDoc = new File (new URI(newBaseURI));
-        if (!fodfCopyDoc.exists()) {
-            BungeniOdfFileCopy fcp = new BungeniOdfFileCopy(originalDocument.getOdfDocument().getPackage());
-            fodfCopyDoc.createNewFile();
-            fcp.copyFile(fodfCopyDoc);
-        }
-        this.reviewDocument = new BungeniOdfDocumentHelper(fodfCopyDoc);
-
     }
 
+    public String getStagePrefix(){
+        String sPrefix = null;
+        if (this.stagePrefix.containsKey(this.stageName)) {
+            ReviewStage rStage = this.stagePrefix.get(this.stageName);
+            sPrefix = rStage.getStageDocumentPrefix();
+        }
+        return sPrefix;
+    }
 
-    public String getDocumentNameWithoutPrefix(){
+    public   String getDocumentNameWithoutPrefix(){
         Pattern pDoc = Pattern.compile(ReviewDocuments.DEFAULT_DOC_PATTERN);
         Matcher pDocMatcher  = pDoc.matcher(this.originalDocumentName);
         boolean bDocMatcher = pDocMatcher.find();
         if (bDocMatcher) {
             //doc pattern was matched .. but it could still have a prefix
             //so we check by regexing for the prefix too.
-            Pattern pDocWithPrefix = Pattern.compile(ReviewDocuments.PREFIX_DOC_PATTERN + ReviewDocuments.DEFAULT_DOC_PATTERN);
+            Pattern pDocWithPrefix = Pattern.compile(ReviewDocuments.PREFIX_DOC_PATTERN + ReviewDocuments.PREFIX_SEPARATOR + ReviewDocuments.DEFAULT_DOC_PATTERN);
             Matcher pPrefixMatcher = pDocWithPrefix.matcher(this.originalDocumentName);
             boolean bPrefixMatch = pPrefixMatcher.find();
             if (!bPrefixMatch) {
                 //just the file name without the prefix
+                return this.originalDocumentName;
             } else {
                 //file name with prefix
+                int nGrp = pPrefixMatcher.groupCount();
+                if (nGrp == 2) {
+                    return pPrefixMatcher.group(2);
+                }
             }
         }
         return new String();
-
     }
 
 
+    private String getNewFileName() {
+       return this.getStagePrefix() + ReviewDocuments.PREFIX_SEPARATOR + this.getDocumentNameWithoutPrefix() ;
+
+    }
+
+    private String getFolderURI(){
+        String dirPath = fOriginalFile.getParentFile().toURI().toString();
+        String newBaseURI = dirPath + (dirPath.endsWith("/")?"":"/") ;
+        return newBaseURI;
+    }
 
     public BungeniOdfDocumentHelper getReviewCopy() {
+        if (reviewDocument == null) {
+            try {
+                String newBaseURI = getFolderURI() + getNewFileName();
+                File fodfCopy = new File(new URI(newBaseURI));
+                if (!fodfCopy.exists()) {
+                    BungeniOdfFileCopy fcp = new BungeniOdfFileCopy(originalDocument.getOdfDocument().getPackage());
+                    fodfCopy.createNewFile();
+                    fcp.copyFile(fodfCopy);
+                }
+                this.reviewDocument = new BungeniOdfDocumentHelper(fodfCopy);
+            } catch (Exception ex) {
+               log.error("getReviewCopy :" + ex.getMessage(), ex);
+            }
+
+        }
         return reviewDocument;
     }
 
@@ -114,11 +143,12 @@ public class ReviewDocuments {
         Pattern pat = Pattern.compile(ReviewDocuments.DEFAULT_DOC_PATTERN);
         Matcher mm = pat.matcher(s);
         boolean bFind = mm.find();
-        System.out.println(bFind);
+        System.out.println(mm.groupCount());
          for (int i=0; i<=mm.groupCount(); i++) {
         System.out.println(i + " " + mm.group(i));
     }
 
+     
 
     }
 

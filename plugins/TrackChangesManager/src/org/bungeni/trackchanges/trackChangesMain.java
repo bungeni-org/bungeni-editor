@@ -66,7 +66,7 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         tabContainer = new javax.swing.JTabbedPane();
         btnClose     = new javax.swing.JButton();
@@ -95,7 +95,7 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
                 layout.createSequentialGroup().addContainerGap().addComponent(
                     tabContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE).addPreferredGap(
                     javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(btnClose)));
-    }    // </editor-fold>
+    }// </editor-fold>//GEN-END:initComponents
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {
         parentFrame.dispose();
