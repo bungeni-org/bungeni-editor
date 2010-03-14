@@ -48,6 +48,7 @@ public class panelClerkOverview extends panelChangesBase {
      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(panelClerkOverview.class.getName());
 
     String                 PANEL_REVIEW_STAGE = "ClerkConsolidationReview";
+    String                  __CLERK_NAME__ = "";
 
     /** Creates new form panelClerkOverview */
     public panelClerkOverview() {
@@ -58,6 +59,7 @@ public class panelClerkOverview extends panelChangesBase {
     public panelClerkOverview(JFrame parentFrm) {
         super(parentFrm);
         initComponents();
+        __CLERK_NAME__ = RuntimeProperties.getProperty("ClerkUser");
         initialize();
         loadFilesFromFolder();
 
@@ -153,12 +155,20 @@ public class panelClerkOverview extends panelChangesBase {
             ReviewDocuments rvd = new ReviewDocuments(docHelper, this.PANEL_REVIEW_STAGE); // TODO
             final BungeniOdfDocumentHelper reviewDoc = rvd.getReviewCopy();
             final BungeniDocAuthor selectedAuthor = (BungeniDocAuthor) this.listMembers.getSelectedValue();
+
             // invoke openoffice in a runnable thread
             SwingUtilities.invokeLater(new Runnable() {
 
                 public void run() {
                     try {
+                      BungeniOdfChangesMergeHelper chm = reviewDoc.getChangesHelper().getChangesMergeHelper();
+                                String sourceUser = __CLERK_NAME__;
+                                String targetUser = selectedAuthor.toString();
+                                chm.mergeChanges(sourceUser, targetUser);
+                                reviewDoc.getOdfDocument().save(reviewDoc.getDocumentPath());
+
                         UnoOdfFile odfFile = UnoOdfOpenFiles.getFile(reviewDoc);
+
                     } catch (Exception ex) {
                         log.error("doReview:opening document : " + ex.getMessage(), ex);
                     }
@@ -364,7 +374,6 @@ public class panelClerkOverview extends panelChangesBase {
     }
 
 
-    private static String __CLERK_NAME__ = "Ashok Hariharan";
 
     private class DocumentChangesTableCellRenderer extends DefaultTableCellRenderer {
         @Override
