@@ -21,7 +21,28 @@ public class ReviewDocuments {
     public static final String PREFIX_DOC_PATTERN = "([a-z]*)";
     public static final String PREFIX_SEPARATOR = "_";
 
-    class ReviewStage {
+    /** These are the stage definitions **/
+    private static final HashMap<String,ReviewStage> stagePrefix = new HashMap<String,ReviewStage>(){
+        {
+            put ("Default", new ReviewStage("Default", ""));
+            put ("ClerkReview", new ReviewStage("ClerkReview", "clerk"));
+            put ("ClerkConsolidationReview", new ReviewStage("ClerkConsolidationReview", "cons"));
+        }
+    };
+
+    /**
+     *
+     * @param stage
+     * @return
+     */
+    public static final ReviewStage getReviewStage (String stage) {
+        return stagePrefix.get(stage);
+    }
+
+
+
+
+    public static class ReviewStage {
         private String stageName;
         private String stageDocumentPrefix;
 
@@ -38,6 +59,13 @@ public class ReviewDocuments {
         public String getStageDocumentPrefix(){
             return stageDocumentPrefix;
         }
+
+        public String getDocumentFilterPattern(){
+            if (stageDocumentPrefix.length() > 0 )
+                return stageDocumentPrefix + PREFIX_SEPARATOR + DEFAULT_DOC_PATTERN;
+            else
+                return DEFAULT_DOC_PATTERN;
+        }
     }
 
     private String stageName ;
@@ -49,12 +77,6 @@ public class ReviewDocuments {
     private BungeniOdfDocumentHelper reviewDocument = null;
     private String reviewDocumentName;
 
-    private HashMap<String,ReviewStage> stagePrefix = new HashMap<String,ReviewStage>(){
-        {
-            put ("ClerkReview", new ReviewStage("ClerkReview", "clerk"));
-            put ("ClerkConsolidationReview", new ReviewStage("ClerkConsolidationReview", "cons"));
-        }
-    };
 
 
     public ReviewDocuments() {
