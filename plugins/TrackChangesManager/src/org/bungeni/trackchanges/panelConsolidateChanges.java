@@ -124,6 +124,7 @@ public class panelConsolidateChanges extends panelChangesBase {
 
     private void displayChangesInfo (int index) {
         DocumentChangesTableModel tblModel = (DocumentChangesTableModel) this.tblDocChanges.getModel();
+        tblModel.updateModel(index, false);
     }
 
     
@@ -142,7 +143,8 @@ public class panelConsolidateChanges extends panelChangesBase {
         scrollDocChanges = new javax.swing.JScrollPane();
         tblDocChanges = new javax.swing.JTable();
         lblDocumentChanges = new javax.swing.JLabel();
-        btnReview = new javax.swing.JButton();
+        btnReport = new javax.swing.JButton();
+        btnEditTemplate = new javax.swing.JButton();
 
         listMembers.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         listMembers.setModel(new javax.swing.AbstractListModel() {
@@ -152,7 +154,7 @@ public class panelConsolidateChanges extends panelChangesBase {
         });
         scrollMembers.setViewportView(listMembers);
 
-        lblMembers.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblMembers.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle"); // NOI18N
         lblMembers.setText(bundle.getString("panelTrackChangesOverview.lblMembers.text")); // NOI18N
 
@@ -176,11 +178,14 @@ public class panelConsolidateChanges extends panelChangesBase {
         });
         scrollDocChanges.setViewportView(tblDocChanges);
 
-        lblDocumentChanges.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblDocumentChanges.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblDocumentChanges.setText(bundle.getString("panelTrackChangesOverview.jLabel1.text")); // NOI18N
 
-        btnReview.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnReview.setText(bundle.getString("panelConsolidateChanges.btnReview.text")); // NOI18N
+        btnReport.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnReport.setText(bundle.getString("panelConsolidateChanges.btnReport.text")); // NOI18N
+
+        btnEditTemplate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnEditTemplate.setText(bundle.getString("panelConsolidateChanges.btnEditTemplate.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -193,7 +198,10 @@ public class panelConsolidateChanges extends panelChangesBase {
                     .addComponent(lblMembers))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnReview)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnReport)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEditTemplate))
                     .addComponent(lblDocumentChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(scrollDocChanges, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE))
                 .addContainerGap())
@@ -210,7 +218,9 @@ public class panelConsolidateChanges extends panelChangesBase {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(scrollDocChanges, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnReview)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnReport)
+                            .addComponent(btnEditTemplate))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
@@ -220,7 +230,8 @@ public class panelConsolidateChanges extends panelChangesBase {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnReview;
+    private javax.swing.JButton btnEditTemplate;
+    private javax.swing.JButton btnReport;
     private javax.swing.JLabel lblDocumentChanges;
     private javax.swing.JLabel lblMembers;
     private javax.swing.JList listMembers;
@@ -291,7 +302,8 @@ public class panelConsolidateChanges extends panelChangesBase {
         public List<HashMap<String,String>> getModelBase() {
             return changeMarks;
         }
-        
+
+    
         public void updateModel(int iIndex, boolean bFilterbyAuthor) {
             buildModel(iIndex, bFilterbyAuthor);
             fireTableDataChanged();
