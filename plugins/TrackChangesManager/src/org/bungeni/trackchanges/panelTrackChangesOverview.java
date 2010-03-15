@@ -52,7 +52,6 @@ public class panelTrackChangesOverview extends panelChangesBase {
         org.apache.log4j.Logger.getLogger(panelTrackChangesOverview.class.getName());
     String                 __CURRENT_BILL_FOLDER__ = "";
     String                 __TEST_FOLDER__         = "";
-    String                 PANEL_REVIEW_STAGE = "ClerkReview";
     ArrayList<BungeniBill> bungeniBills            = new ArrayList<BungeniBill>() {
         {
             add(new BungeniBill("/ke/bills/en/finance-bill/01", "Finance Bill", "863524", "2009-01-02"));
@@ -64,6 +63,8 @@ public class panelTrackChangesOverview extends panelChangesBase {
     /** Creates new form panelTrackChanges */
     public panelTrackChangesOverview(JFrame parentFrame) {
         super(parentFrame);
+        PANEL_FILTER_REVIEW_STAGE = "Default";
+        PANEL_REVIEW_STAGE = "ClerkReview";
         initComponents();
         initialize();
         loadFilesFromFolder();
@@ -171,7 +172,7 @@ public class panelTrackChangesOverview extends panelChangesBase {
             // find files in changes folder
             if (fFolder.isDirectory()) {
                 File[] files = fFolder.listFiles(new FilenameFilter() {
-                    Pattern pat = Pattern.compile("u[0-9][0-9][0-9][0-9]([a-z0-9_-]*?).odt");
+                    Pattern pat = Pattern.compile(ReviewDocuments.getReviewStage(PANEL_FILTER_REVIEW_STAGE).getDocumentFilterPattern()); //("u[0-9][0-9][0-9][0-9]([a-z0-9_-]*?).odt");
                     public boolean accept(File dir, String name) {
                         if (pat.matcher(name).matches()) {
                             return true;

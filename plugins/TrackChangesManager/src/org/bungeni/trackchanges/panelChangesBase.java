@@ -17,7 +17,8 @@ import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 public class panelChangesBase extends JPanel implements IChangesPanel  {
      BungeniChangeDocumentsInfo changesInfo = new BungeniChangeDocumentsInfo();
      ResourceBundle bundleBase = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle");
-
+     String                 PANEL_FILTER_REVIEW_STAGE = "";
+     String                 PANEL_REVIEW_STAGE = "";
      JFrame parentFrame ;
 
 

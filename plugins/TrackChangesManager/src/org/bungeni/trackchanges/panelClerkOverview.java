@@ -47,7 +47,6 @@ public class panelClerkOverview extends panelChangesBase {
    
      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(panelClerkOverview.class.getName());
 
-    String                 PANEL_REVIEW_STAGE = "ClerkConsolidationReview";
     String                  __CLERK_NAME__ = "";
 
     /** Creates new form panelClerkOverview */
@@ -58,6 +57,8 @@ public class panelClerkOverview extends panelChangesBase {
 
     public panelClerkOverview(JFrame parentFrm) {
         super(parentFrm);
+        PANEL_FILTER_REVIEW_STAGE = "ClerkReview";
+        PANEL_REVIEW_STAGE = "ClerkConsolidationReview";
         initComponents();
         __CLERK_NAME__ = RuntimeProperties.getProperty("ClerkUser");
         initialize();
@@ -79,7 +80,7 @@ public class panelClerkOverview extends panelChangesBase {
             //find files in changes folder
             if (fFolder.isDirectory()) {
                File[] files =  fFolder.listFiles(new FilenameFilter(){
-               Pattern pat = Pattern.compile("clerk_u[0-9][0-9][0-9][0-9]([a-z0-9_-]*?).odt");
+               Pattern pat = Pattern.compile(ReviewDocuments.getReviewStage( PANEL_FILTER_REVIEW_STAGE).getDocumentFilterPattern()); //("clerk_u[0-9][0-9][0-9][0-9]([a-z0-9_-]*?).odt");
                     public boolean accept(File dir, String name) {
                         if (pat.matcher(name).matches()) {
                             return true;

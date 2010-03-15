@@ -25,6 +25,7 @@ import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper.Struct
 import org.bungeni.trackchanges.ui.support.TextAreaRenderer;
 import org.bungeni.trackchanges.utils.AppProperties;
 import org.bungeni.trackchanges.utils.CommonFunctions;
+import org.bungeni.trackchanges.utils.ReviewDocuments;
 import org.odftoolkit.odfdom.doc.text.OdfTextChangedRegion;
 import org.w3c.dom.Element;
 
@@ -48,6 +49,8 @@ public class panelConsolidateChanges extends panelChangesBase {
 
     public panelConsolidateChanges(JFrame parentFrm) {
         super(parentFrm);
+        PANEL_FILTER_REVIEW_STAGE = "ClerkConsolidationReview";
+        PANEL_REVIEW_STAGE = "";
         initComponents();
         initialize();
         loadFilesFromFolder();
@@ -68,7 +71,7 @@ public class panelConsolidateChanges extends panelChangesBase {
             //find files in changes folder
             if (fFolder.isDirectory()) {
                File[] files =  fFolder.listFiles(new FilenameFilter(){
-               Pattern pat = Pattern.compile("clerk_u[0-9][0-9][0-9][0-9]([a-z0-9_-]*?).odt");
+               Pattern pat = Pattern.compile(ReviewDocuments.getReviewStage(PANEL_FILTER_REVIEW_STAGE).getDocumentFilterPattern()) ; //("clerk_u[0-9][0-9][0-9][0-9]([a-z0-9_-]*?).odt");
                     public boolean accept(File dir, String name) {
                         if (pat.matcher(name).matches()) {
                             return true;

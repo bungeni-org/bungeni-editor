@@ -2,22 +2,15 @@ package org.bungeni.trackchanges;//GEN-FIRST:event_btnCloseActionPerformed
 //GEN-LAST:event_btnCloseActionPerformed
 //~--- non-JDK imports --------------------------------------------------------
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.UnsupportedLookAndFeelException;
-import org.bungeni.editor.interfaces.ui.ILookAndFeel;
-import org.bungeni.trackchanges.utils.RuntimeProperties;
 
 //~--- JDK imports ------------------------------------------------------------
 
 import java.util.HashMap;
+import java.util.ResourceBundle;
 
 import javax.swing.JFrame;
-import javax.swing.LookAndFeel;
-import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import org.bungeni.trackchanges.init.TrackChangesInit;
 
 /**
  *
@@ -27,7 +20,7 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
     private static org.apache.log4j.Logger log         =
         org.apache.log4j.Logger.getLogger(trackChangesMain.class.getName());
     public static JFrame                   parentFrame = null;
-
+    ResourceBundle bundleBase = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle");
     // Variables declaration - do not modify
     private javax.swing.JButton     btnClose;
     private javax.swing.JTabbedPane tabContainer;
@@ -43,9 +36,12 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
     private void init_Tabs() {
         panelTrackChangesOverview overviewPanel    = new panelTrackChangesOverview(parentFrame);
         panelClerkOverview        clerkReviewPanel = new panelClerkOverview(parentFrame);
+        panelConsolidateChanges consolidationPanel = new panelConsolidateChanges(parentFrame);
 
-        this.tabContainer.addTab("Members Overview", overviewPanel);
-        this.tabContainer.addTab("Clerks Overview", clerkReviewPanel);
+        this.tabContainer.addTab(bundleBase.getString("tabName.membersOverview"), overviewPanel);
+        this.tabContainer.addTab(bundleBase.getString("tabName.clerkOverview"), clerkReviewPanel);
+        this.tabContainer.addTab(bundleBase.getString("tabName.consolidationOverview"), consolidationPanel);
+
         this.tabContainer.getModel().addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent ce) {
                 System.out.println("Selected index = " + tabContainer.getSelectedIndex());
