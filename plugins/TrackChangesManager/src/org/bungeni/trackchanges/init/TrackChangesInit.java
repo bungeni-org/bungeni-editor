@@ -34,7 +34,7 @@ public class TrackChangesInit {
 
         try {
             String lafClassName = RuntimeProperties.getProperty("DefaultTheme");
-            Class  lafClass     = Class.forName(lafClassName);
+            Class  lafClass     = Class.forName("org.bungeni.editor.themes.SaharaLAF");
 
             lafObject = (ILookAndFeel) lafClass.newInstance();
         } catch (InstantiationException ex) {
@@ -85,7 +85,7 @@ public class TrackChangesInit {
                 openOfficeObject.initoOo();
                 javax.swing.SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
-                        //initUI();
+                        initUI();
                         createAndShowGUI();
                     }
                 });
