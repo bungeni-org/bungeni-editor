@@ -10,6 +10,10 @@ import java.util.regex.Pattern;
  * @author Ashok Hariharan
  */
 class XPathComponent {
+
+    /**
+     * if the xpathString was text:change[32]
+     */
     String xpathElement;
     String xpathIndex;
     String xpathPrefix;
@@ -18,6 +22,18 @@ class XPathComponent {
     XPathComponent(String xpathString) {
         this.xpathString = xpathString;
         parseComponent();
+    }
+
+    public String getPrefix(){
+        return xpathPrefix;
+    }
+
+    public String getElement(){
+        return xpathElement;
+    }
+
+    public String getIndex(){
+        return xpathIndex;
     }
 
     private void parseComponent() {
@@ -41,15 +57,12 @@ class XPathComponent {
 
         if (matElemDepth.find()) {
             if (bHasDepthPattern) {
-
-                // there are 3 groups
-                elementType  = matElemDepth.group(2);
-                elementIndex = matElemDepth.group(3);
-            } else {
-
-                // there are 2 groups
-                elementType = matElemDepth.group(2);
+                //match the index in the 3rd group
+                this.xpathIndex = matElemDepth.group(3);
             }
+            //find from the other 2 groups
+            this.xpathPrefix  = matElemDepth.group(1);
+            this.xpathElement = matElemDepth.group(2);
         }
     }
 }
