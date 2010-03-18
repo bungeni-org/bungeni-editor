@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  * Class that breaks down the XPath component into element / prefix / index
  * @author Ashok Hariharan
  */
-class XPathComponent {
+public class XPathComponent {
 
     /**
      * if the xpathString was text:change[32]
@@ -19,7 +19,7 @@ class XPathComponent {
     String xpathPrefix;
     String xpathString;
 
-    XPathComponent(String xpathString) {
+    public XPathComponent(String xpathString) {
         this.xpathString = xpathString;
         parseComponent();
     }
@@ -34,6 +34,10 @@ class XPathComponent {
 
     public String getIndex(){
         return xpathIndex;
+    }
+
+    public String getXPathString(){
+        return xpathString;
     }
 
     private void parseComponent() {
