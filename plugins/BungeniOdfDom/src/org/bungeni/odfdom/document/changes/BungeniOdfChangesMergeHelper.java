@@ -18,11 +18,9 @@ import org.w3c.dom.NodeList;
 //~--- JDK imports ------------------------------------------------------------
 
 import java.util.ArrayList;
-import java.util.logging.Level;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
 
 /**
  * This class merges changes (accepts / rejects changes) into a document
