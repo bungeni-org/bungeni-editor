@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //~--- JDK imports ------------------------------------------------------------
+import java.util.logging.Level;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
@@ -29,16 +30,63 @@ public class BungeniOdfChangeContext {
 
 
     BungeniOdfDocumentHelper m_docHelper;
-    Node changeElement;
-    String elementXpath;
+
+    Node changeElementStart = null;
+    Node changeElementEnd = null;
+    String elementXpathStart;
+    String elementXpathEnd;
+    boolean singleElementBoundary = false;
+
     String     formatString;
 
     public BungeniOdfChangeContext(Node changeElement, BungeniOdfDocumentHelper odfHelper) {
-        this.changeElement = changeElement;
-        this.elementXpath = BungeniOdfNodeHelper.getXPath(changeElement);
+        this.changeElementStart = changeElement;
+        this.elementXpathStart = BungeniOdfNodeHelper.getXPath(changeElement);
         this.m_docHelper = odfHelper;
+        this.singleElementBoundary = true;
     }
 
+    public BungeniOdfChangeContext(Node changeElementStart, Node changeElementEnd, BungeniOdfDocumentHelper odfHelper) {
+        this.changeElementStart = changeElementStart;
+        this.changeElementEnd = changeElementEnd;
+        this.elementXpathStart = BungeniOdfNodeHelper.getXPath(changeElementStart);
+        this.elementXpathEnd = BungeniOdfNodeHelper.getXPath(changeElementEnd);
+        this.m_docHelper = odfHelper;
+        this.singleElementBoundary = false;
+    }
+
+
+    private String getPrecedingText() {
+        StringBuffer precedingText = new StringBuffer();
+        try {
+            //preceding text boundary is always the start element
+            String precedingXpath = this.elementXpathStart + "/preceding-sibling::text()";
+            XPath xPath = m_docHelper.getOdfDocument().getXPath();
+            String precedingStr = (String) xPath.evaluate(precedingXpath, m_docHelper.getOdfDocument().getContentDom(), XPathConstants.STRING);
+            precedingText.append(precedingStr);
+        } catch (Exception ex) {
+            log.error("getPrecedingText : "+ ex.getMessage(), ex);
+        }
+        return precedingText.toString();
+    }
+
+    private String getFollowingSiblingText(Node aNode) {
+        StringBuffer followingText = new StringBuffer();
+        try {
+            //following text boundary can be the end element if it exists
+            String precedingXpath = ((this.singleElementBoundary == true) ? this.elementXpathStart : this.elementXpathEnd) +
+                    "/following-sibling::text()";
+            XPath xPath = m_docHelper.getOdfDocument().getXPath();
+            String followingStr = (String) xPath.evaluate(precedingXpath, m_docHelper.getOdfDocument().getContentDom(), XPathConstants.STRING);
+            followingText.append(followingStr);
+        } catch (Exception ex) {
+            log.error("getFollowingText : "+ ex.getMessage(), ex);
+        }
+        return followingText.toString();
+    }
+
+/**
+ * Do the reporting in the calling application
     public String getReportPath() {
         String xPathString = this.elementXpath;
         //"office:document-content/office:body[1]/office:text[1]/text:section[1]/text:section[5]/text:section[1]/text:section[2]/text:p[4]/text:change-start[3]";    // BungeniOdfNodeHelper.getXPath(changeElement);
@@ -73,22 +121,7 @@ public class BungeniOdfChangeContext {
 
         return sReportMessage.toString();
     }
-
-    private List<String> getSurroundingText(){
-        ArrayList<String> listSurrounding = new ArrayList<String>(0);
-        try {
-            String precedingXpath = this.elementXpath + "/preceding-sibling::text()";
-            String followingXpath = this.elementXpath + "/following-sibling::text()";
-            XPath xPath = m_docHelper.getOdfDocument().getXPath();
-            String precedingText = (String) xPath.evaluate(precedingXpath, m_docHelper.getOdfDocument().getContentDom(), XPathConstants.STRING);
-            String followingText = (String) xPath.evaluate(followingXpath, m_docHelper.getOdfDocument().getContentDom(), XPathConstants.STRING);
-            listSurrounding.add(precedingText);
-            listSurrounding.add(followingText);
-        } catch (Exception ex) {
-            log.error(ex.getMessage());
-        }
-        return listSurrounding;
-    }
+**/
 
     private String parsePathComponent(String xpathComponent) {
         XPathComponent objComponent = new XPathComponent(xpathComponent);
