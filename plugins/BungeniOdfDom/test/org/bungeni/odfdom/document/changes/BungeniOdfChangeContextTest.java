@@ -55,10 +55,14 @@ try {
             System.out.println("getReportPath");
             XPath xPath = dochelper.getOdfDocument().getXPath();
             String expResult = "office:document-content/office:body[1]/office:text[1]/text:section[1]/text:section[5]/text:section[1]/text:section[2]/text:p[4]/text:change-start[3]";
-            Node foundNode = (Node) xPath.evaluate("//text:change-start[@text:change-id='ct-1413428116']", dochelper.getOdfDocument().getContentDom(), XPathConstants.NODE);
-            BungeniOdfChangeContext cxt = new BungeniOdfChangeContext(foundNode, dochelper);
-            String reportPath = cxt.getReportPath();
-            System.out.println(reportPath);
+            Node foundNodeStart = (Node) xPath.evaluate("//text:change-start[@text:change-id='ct-1413428116']", dochelper.getOdfDocument().getContentDom(), XPathConstants.NODE);
+            Node foundNodeEnd = (Node) xPath.evaluate("//text:change-end[@text:change-id='ct-1413428116']", dochelper.getOdfDocument().getContentDom(), XPathConstants.NODE);
+
+            BungeniOdfChangeContext cxt = new BungeniOdfChangeContext(foundNodeStart,foundNodeEnd, dochelper);
+            String reportPathFollow = cxt.getFollowingSiblingText();
+            String reportPathPrecede = cxt.getPrecedingSiblingText();
+            System.out.println("Following = " + reportPathFollow);
+            System.out.println("Preceding = " + reportPathPrecede);
             assertEquals(true, true);
         } catch (Exception ex) {
             Logger.getLogger(BungeniOdfChangeContextTest.class.getName()).log(Level.SEVERE, null, ex);
