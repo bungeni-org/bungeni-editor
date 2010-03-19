@@ -9,8 +9,11 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -18,6 +21,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
 import org.bungeni.odfdocument.docinfo.BungeniDocAuthor;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper;
@@ -26,8 +31,10 @@ import org.bungeni.trackchanges.ui.support.TextAreaRenderer;
 import org.bungeni.trackchanges.utils.AppProperties;
 import org.bungeni.trackchanges.utils.CommonFunctions;
 import org.bungeni.trackchanges.utils.ReviewDocuments;
+import org.odftoolkit.odfdom.OdfFileDom;
 import org.odftoolkit.odfdom.doc.text.OdfTextChangedRegion;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 /**
  *
@@ -127,6 +134,47 @@ public class panelConsolidateChanges extends panelChangesBase {
         tblModel.updateModel(index, false);
     }
 
+
+    private boolean doReport() {
+        boolean bReturn = false;
+        //get the selected MP
+       // get the selected document index
+            final int selIndex = this.listMembers.getSelectedIndex();
+            if (-1 == selIndex) {
+                JOptionPane.showMessageDialog(parentFrame, "No document was selected. Please select a document for review");
+                bReturn = false;
+                return false;
+            }
+        //generate the report from the MP's document
+         String sAuthor =    (String) this.listMembers.getSelectedValue();
+         BungeniOdfDocumentHelper docHelper = changesInfo.getDocuments().get(selIndex);
+         XPath docXpath = docHelper.getOdfDocument().getXPath();
+         BungeniOdfTrackedChangesHelper changesHelper = docHelper.getChangesHelper();
+         List<OdfTextChangedRegion> changedRegions = changesHelper.getChangedRegionsByCreator(changesHelper.getTrackedChangeContainer(), sAuthor);
+         for (OdfTextChangedRegion odfTextChangedRegion : changedRegions) {
+            StructuredChangeType scType = changesHelper.getStructuredChangeType(odfTextChangedRegion);
+            HashMap<String,String> mapOfChange = changesHelper.getChangeInfo(scType);
+            String changeType = mapOfChange.get("changeType");
+            String changeText = mapOfChange.get("changeText");
+            String changeId = mapOfChange.get("changeId");
+            Node foundNode = null;
+            try {
+                if (changeType.equals("insertion")) {
+                        //look for text:change-start[@text:change-id
+                        String matchNode = "//text:change-start[@text:change-id='" + changeId + "']";
+                        foundNode = (Node) docXpath.evaluate(matchNode, docHelper.getOdfDocument().getContentDom(), XPathConstants.NODE);
+
+                } else if (changeType.equals("deletion")) {
+                        //look for text:change [@text:change-id
+                        String matchNode = "//text:change[@text:change-id='" + changeId + "']";
+                        foundNode = (Node) docXpath.evaluate(matchNode, docHelper.getOdfDocument().getContentDom(), XPathConstants.NODE);
+                }
+            } catch (Exception ex) {
+                
+            }
+        }
+
+    }
     
     /** This method is called from within the constructor to
      * initialize the form.
@@ -146,7 +194,7 @@ public class panelConsolidateChanges extends panelChangesBase {
         btnReport = new javax.swing.JButton();
         btnEditTemplate = new javax.swing.JButton();
 
-        listMembers.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
+        listMembers.setFont(new java.awt.Font("Lucida Grande", 0, 10));
         listMembers.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Tinoula Awopetu", "Mashinski Murigi", "Raul Obwacha", "Felix Kerstengor" };
             public int getSize() { return strings.length; }
@@ -183,6 +231,11 @@ public class panelConsolidateChanges extends panelChangesBase {
 
         btnReport.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnReport.setText(bundle.getString("panelConsolidateChanges.btnReport.text")); // NOI18N
+        btnReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportActionPerformed(evt);
+            }
+        });
 
         btnEditTemplate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnEditTemplate.setText(bundle.getString("panelConsolidateChanges.btnEditTemplate.text")); // NOI18N
@@ -227,6 +280,11 @@ public class panelConsolidateChanges extends panelChangesBase {
                         .addGap(209, 209, 209))))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
+        // TODO add your handling code here:
+        doReport();
+    }//GEN-LAST:event_btnReportActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
