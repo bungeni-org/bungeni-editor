@@ -16,6 +16,7 @@ import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.utils.BungeniOdfNodeHelper;
 import org.bungeni.odfdom.utils.XPathComponent;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * This class provides the context for a particular change in a document.
@@ -56,29 +57,34 @@ public class BungeniOdfChangeContext {
     }
 
 
-    private String getPrecedingText() {
+    public String getPrecedingSiblingText() {
         StringBuffer precedingText = new StringBuffer();
         try {
             //preceding text boundary is always the start element
             String precedingXpath = this.elementXpathStart + "/preceding-sibling::text()";
             XPath xPath = m_docHelper.getOdfDocument().getXPath();
-            String precedingStr = (String) xPath.evaluate(precedingXpath, m_docHelper.getOdfDocument().getContentDom(), XPathConstants.STRING);
-            precedingText.append(precedingStr);
+            NodeList textNodes = (NodeList) xPath.evaluate(precedingXpath, m_docHelper.getOdfDocument().getContentDom(), XPathConstants.NODESET);
+            for (int i = 0; i < textNodes.getLength(); i++) {
+                precedingText.append(textNodes.item(i).getTextContent());
+            }
         } catch (Exception ex) {
             log.error("getPrecedingText : "+ ex.getMessage(), ex);
         }
         return precedingText.toString();
     }
 
-    private String getFollowingSiblingText(Node aNode) {
+    public String getFollowingSiblingText() {
         StringBuffer followingText = new StringBuffer();
         try {
             //following text boundary can be the end element if it exists
             String precedingXpath = ((this.singleElementBoundary == true) ? this.elementXpathStart : this.elementXpathEnd) +
                     "/following-sibling::text()";
             XPath xPath = m_docHelper.getOdfDocument().getXPath();
-            String followingStr = (String) xPath.evaluate(precedingXpath, m_docHelper.getOdfDocument().getContentDom(), XPathConstants.STRING);
-            followingText.append(followingStr);
+            NodeList textNodes = (NodeList) xPath.evaluate(precedingXpath, m_docHelper.getOdfDocument().getContentDom(), XPathConstants.NODESET);
+            for (int i = 0; i < textNodes.getLength(); i++) {
+                followingText.append(textNodes.item(i).getTextContent());
+            }
+            
         } catch (Exception ex) {
             log.error("getFollowingText : "+ ex.getMessage(), ex);
         }
@@ -123,7 +129,7 @@ public class BungeniOdfChangeContext {
     }
 **/
 
-    private String parsePathComponent(String xpathComponent) {
+    public String parsePathComponent(String xpathComponent) {
         XPathComponent objComponent = new XPathComponent(xpathComponent);
         String strComponentElement = objComponent.getElement();
         StringBuffer friendlyPathMessage = new StringBuffer();
