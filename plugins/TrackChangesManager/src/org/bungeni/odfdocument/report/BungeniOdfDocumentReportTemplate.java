@@ -1,12 +1,11 @@
 package org.bungeni.odfdocument.report;
 
 import java.io.File;
-import java.io.IOException;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.utils.BungeniOdfFileCopy;
 
 /**
- *
+ * This class is a report template class --  it provides an API to generate copies of a report template
  * @author Ashok Hariharan
  */
 public class BungeniOdfDocumentReportTemplate {
@@ -21,14 +20,16 @@ public class BungeniOdfDocumentReportTemplate {
       m_docHelper = new BungeniOdfDocumentHelper (fTemplate);
     }
 
-    public void documentFromTemplate (File fOutputFile) {
+    public BungeniOdfDocumentHelper documentFromTemplate (File fOutputFile) {
+        BungeniOdfDocumentHelper docHelper = null;
         try {
             BungeniOdfFileCopy fcp = new BungeniOdfFileCopy(this.m_docHelper.getOdfDocument().getPackage());
             fcp.copyFile(fOutputFile);
-        } catch (IOException ex) {
-            log.error(ex.getMessage());
-        }
-
+            docHelper = new BungeniOdfDocumentHelper (fOutputFile);
+        } catch (Exception ex) {
+             log.error("documentFromTemplate : " + ex.getMessage(), ex);
+        } 
+        return docHelper;
     }
 
 }
