@@ -3,11 +3,8 @@ package org.bungeni.odfdom.document.changes;
 //~--- non-JDK imports --------------------------------------------------------
 
 
-import java.util.ArrayList;
-import java.util.List;
 
 //~--- JDK imports ------------------------------------------------------------
-import java.util.logging.Level;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
@@ -40,6 +37,11 @@ public class BungeniOdfChangeContext {
 
     String     formatString;
 
+    /**
+     * This constructor is used when we need the preceding / following context for a single element node
+     * @param changeElement
+     * @param odfHelper
+     */
     public BungeniOdfChangeContext(Node changeElement, BungeniOdfDocumentHelper odfHelper) {
         this.changeElementStart = changeElement;
         this.elementXpathStart = BungeniOdfNodeHelper.getXPath(changeElement);
@@ -47,6 +49,13 @@ public class BungeniOdfChangeContext {
         this.singleElementBoundary = true;
     }
 
+    /**
+     * This constructor is used when we need the preceding / following context for spanned node boundaries,
+     * the first one is used for the preceding context, the second one is used for the following context.
+     * @param changeElementStart
+     * @param changeElementEnd
+     * @param odfHelper
+     */
     public BungeniOdfChangeContext(Node changeElementStart, Node changeElementEnd, BungeniOdfDocumentHelper odfHelper) {
         this.changeElementStart = changeElementStart;
         this.changeElementEnd = changeElementEnd;
@@ -57,6 +66,10 @@ public class BungeniOdfChangeContext {
     }
 
 
+    /**
+     * Returns the content of the preceding text nodes 
+     * @return
+     */
     public String getPrecedingSiblingText() {
         StringBuffer precedingText = new StringBuffer();
         try {
@@ -73,6 +86,10 @@ public class BungeniOdfChangeContext {
         return precedingText.toString();
     }
 
+    /**
+     * Returns the content of the following text nodes (only siblings)
+     * @return
+     */
     public String getFollowingSiblingText() {
         StringBuffer followingText = new StringBuffer();
         try {
@@ -91,44 +108,11 @@ public class BungeniOdfChangeContext {
         return followingText.toString();
     }
 
-/**
- * Do the reporting in the calling application
-    public String getReportPath() {
-        String xPathString = this.elementXpath;
-        //"office:document-content/office:body[1]/office:text[1]/text:section[1]/text:section[5]/text:section[1]/text:section[2]/text:p[4]/text:change-start[3]";    // BungeniOdfNodeHelper.getXPath(changeElement);
-        // office:document-content/office:body[1]/office:text[1]/text:section[1]/text:section[5]/text:section[1]/text:section[2]/text:p[4]/text:change-start[3]
-        String[] xpathComponents = xPathString.split("/");
-        StringBuffer sReportMessage = new StringBuffer();
-        List<String> surrounds = getSurroundingText();
-        for (int i = 0; i < surrounds.size(); i++) {
-            String string = surrounds.get(i);
-            if (i == 0 ) {
-                if (string.trim().length() > 0) {
-                    sReportMessage.append(" After :\n");
-                    sReportMessage.append(string + "\n");
-                }
-            } else {
-                if (string.trim().length() > 0) {
-                    sReportMessage.append(" Before :\n");
-                    sReportMessage.append(string + "\n");
-                }
-            }
-        }
-        for (String string : surrounds) {
-            if (string.trim().length() > 0 ) {
-                sReportMessage.append(string);
-            }
-            
-        }
-        for (int i = xpathComponents.length - 2; i >= 0; i--) {
-            String xpathComponent = xpathComponents[i];
-            sReportMessage.append(parsePathComponent(xpathComponent));
-        }
-
-        return sReportMessage.toString();
-    }
-**/
-
+    /**
+     * Parse the path component
+     * @param xpathComponent
+     * @return
+     */
     public String parsePathComponent(String xpathComponent) {
         XPathComponent objComponent = new XPathComponent(xpathComponent);
         String strComponentElement = objComponent.getElement();

@@ -35,7 +35,7 @@ public class BungeniOdfChangesMergeHelper {
     private XPath                          m_docXpath      = null;
 
     /**
-     *
+     * Sets up the change merge helper, uses the ODF tracked changes helper 
      * @param docH
      */
     public BungeniOdfChangesMergeHelper(BungeniOdfTrackedChangesHelper docH) {
@@ -50,7 +50,7 @@ public class BungeniOdfChangesMergeHelper {
      * involves merely substituting all changes by 'source user' into 'target user' changes.
      * The non-typical use case is the classical user-> review user workflow, where a user
      * marks changes on the document, a review user marks further changes on the document -
-     * and may also 'change the changes' made by the original user.
+     * and may also 'change the changes' made by the original user.</p>
      * @param sourceUser - the review user
      * @param targetUser - the user whose changes are being reviewed
      * @return
@@ -72,7 +72,8 @@ public class BungeniOdfChangesMergeHelper {
     }
 
     /**
-     *
+     * Private API processes a single changed region - 'insetion' / 'replacement' merges are processed
+     * by this api.
      * @param odfTextChangedRegion
      * @param sourceUser
      * @param targetUser
@@ -178,6 +179,13 @@ public class BungeniOdfChangesMergeHelper {
         odfTextChangedRegion.getParentNode().removeChild(odfTextChangedRegion);
     }
 
+    /**
+     * Substitution Merge searches and replaces the user name for changes with another user.
+     * This is done for changes which are inserted by the clerk which dont overlap changes
+     * made by a mp user.
+     * @param sourceUser
+     * @param targetUser
+     */
     private void processUserSubstitutionMerge(String sourceUser, String targetUser) {
         try {
 
@@ -220,7 +228,7 @@ public class BungeniOdfChangesMergeHelper {
     }
 
     /**
-     *
+     * This API merges adjacent changes into one change
      * @param sourceUser
      * @param targetUser
      * @param sourceUserChangeid

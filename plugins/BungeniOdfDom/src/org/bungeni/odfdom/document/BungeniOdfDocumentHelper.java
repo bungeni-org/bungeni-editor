@@ -5,7 +5,6 @@ package org.bungeni.odfdom.document;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper;
