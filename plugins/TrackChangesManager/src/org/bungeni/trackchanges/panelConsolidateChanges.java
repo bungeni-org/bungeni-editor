@@ -9,8 +9,6 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -25,13 +23,13 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import org.bungeni.odfdocument.docinfo.BungeniDocAuthor;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
+import org.bungeni.odfdom.document.changes.BungeniOdfChangeContext;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper.StructuredChangeType;
 import org.bungeni.trackchanges.ui.support.TextAreaRenderer;
 import org.bungeni.trackchanges.utils.AppProperties;
 import org.bungeni.trackchanges.utils.CommonFunctions;
 import org.bungeni.trackchanges.utils.ReviewDocuments;
-import org.odftoolkit.odfdom.OdfFileDom;
 import org.odftoolkit.odfdom.doc.text.OdfTextChangedRegion;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -157,23 +155,27 @@ public class panelConsolidateChanges extends panelChangesBase {
             String changeType = mapOfChange.get("changeType");
             String changeText = mapOfChange.get("changeText");
             String changeId = mapOfChange.get("changeId");
-            Node foundNode = null;
+            Node foundNodeStart = null, foundNodeEnd = null, foundNode = null;
             try {
                 if (changeType.equals("insertion")) {
                         //look for text:change-start[@text:change-id
-                        String matchNode = "//text:change-start[@text:change-id='" + changeId + "']";
-                        foundNode = (Node) docXpath.evaluate(matchNode, docHelper.getOdfDocument().getContentDom(), XPathConstants.NODE);
+                        String matchNodeStart = "//text:change-start[@text:change-id='" + changeId + "']";
+                        String matchNodeEnd = "//text:change-end[@text:change-id='" + changeId + "']";
+                        foundNodeStart = (Node) docXpath.evaluate(matchNodeStart, docHelper.getOdfDocument().getContentDom(), XPathConstants.NODE);
+                        foundNodeEnd = (Node) docXpath.evaluate(matchNodeEnd, docHelper.getOdfDocument().getContentDom(), XPathConstants.NODE);
+                        BungeniOdfChangeContext changeContext = new BungeniOdfChangeContext(foundNodeStart, foundNodeEnd, docHelper );
 
                 } else if (changeType.equals("deletion")) {
                         //look for text:change [@text:change-id
                         String matchNode = "//text:change[@text:change-id='" + changeId + "']";
                         foundNode = (Node) docXpath.evaluate(matchNode, docHelper.getOdfDocument().getContentDom(), XPathConstants.NODE);
+                        BungeniOdfChangeContext changeContext = new BungeniOdfChangeContext(foundNode, docHelper );
                 }
             } catch (Exception ex) {
-                
+                log.error("doReport : " + ex.getMessage(), ex);
             }
         }
-
+        return true;
     }
     
     /** This method is called from within the constructor to
