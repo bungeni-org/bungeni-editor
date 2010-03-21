@@ -96,6 +96,10 @@ public class BungeniOdfDocumentReport {
         }
     }
 
+    public void processReportLines(){
+        
+    }
+
     public void generateReport(){
         try {
             processReportVariables();
