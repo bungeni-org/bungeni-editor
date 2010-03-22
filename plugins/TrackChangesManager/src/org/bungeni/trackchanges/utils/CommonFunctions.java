@@ -30,10 +30,21 @@ public class CommonFunctions {
 
     private static String __REVIEW_WORKSPACE_NAME__ = bundle.getString("review_workspace.name");
     private static String __BILL_FOLDER_PREFIX__ = bundle.getString("bill_folder_prefix.name");
+    private static String __TEMPLATE_FOLDER_NAME__ = bundle.getString("template_folder.name");
 
     public static String getWorkspaceForBill(String billId) {
        return  System.getProperty("user.dir") + File.separator + __REVIEW_WORKSPACE_NAME__ + File.separator + __BILL_FOLDER_PREFIX__ +"-" +billId;
     }
 
+    public static String getWorkspace(){
+        return System.getProperty("user.dir") + File.separator + __REVIEW_WORKSPACE_NAME__ ;
+    }
+
+    public static String getTemplateFolder() {
+        return System.getProperty("user.dir") + File.separator +__TEMPLATE_FOLDER_NAME__;
+    }
     
+    public static String normalizeName(String name) {
+        return name.replaceAll(" ", "_").toLowerCase();
+    }
 }
