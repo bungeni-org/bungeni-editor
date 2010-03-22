@@ -9,6 +9,8 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -22,6 +24,9 @@ import javax.swing.table.TableColumnModel;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import org.bungeni.odfdocument.docinfo.BungeniDocAuthor;
+import org.bungeni.odfdocument.report.BungeniOdfDocumentReport;
+import org.bungeni.odfdocument.report.BungeniOdfDocumentReportTemplate;
+import org.bungeni.odfdocument.report.BungeniOdfReportLine;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfChangeContext;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper;
@@ -132,6 +137,67 @@ public class panelConsolidateChanges extends panelChangesBase {
         tblModel.updateModel(index, false);
     }
 
+    private void generateReport(int selIndex){
+        try {
+            //generate the report from the MP's document
+            String billReviewFolder = CommonFunctions.getWorkspaceForBill((String) AppProperties.getProperty("CurrentBillID"));
+            String templatesFolder = CommonFunctions.getTemplateFolder();
+            //get the author name
+            String sAuthor = (String) this.listMembers.getSelectedValue();
+            File freportFile = new File(billReviewFolder + File.separator + CommonFunctions.normalizeName(sAuthor) + "_report.odt");
+            BungeniOdfDocumentReportTemplate reportTemplate = new BungeniOdfDocumentReportTemplate(templatesFolder + File.separator + "changes-by-user.odt");
+            BungeniOdfDocumentHelper docHelper = changesInfo.getDocuments().get(selIndex);
+            //create an xpath object
+            XPath docXpath = docHelper.getOdfDocument().getXPath();
+            //get the changes helper ont he merged document
+            BungeniOdfTrackedChangesHelper changesHelper = docHelper.getChangesHelper();
+            //get all the change regions created by the mp
+            List<OdfTextChangedRegion> changedRegions = changesHelper.getChangedRegionsByCreator(changesHelper.getTrackedChangeContainer(), sAuthor);
+            //iterate through all the changed regions
+            //build the report lines
+            ArrayList<BungeniOdfReportLine> reportLines = new ArrayList<BungeniOdfReportLine>(0);
+            for (OdfTextChangedRegion odfTextChangedRegion : changedRegions) {
+                //get the change map for the change - to be sent to the report line object
+                StructuredChangeType scType = changesHelper.getStructuredChangeType(odfTextChangedRegion);
+                HashMap<String, String> mapOfChange = changesHelper.getChangeInfo(scType);
+                String changeType = mapOfChange.get("changeType");
+                String changeText = mapOfChange.get("changeText");
+                String changeId = mapOfChange.get("changeId");
+                //below we build the change context object for the change
+                Node foundNodeStart = null;
+                Node foundNodeEnd = null;
+                Node foundNode = null;
+                BungeniOdfChangeContext changeContext = null;
+
+                    if (changeType.equals("insertion")) {
+                        //look for text:change-start[@text:change-id
+                        String matchNodeStart = "//text:change-start[@text:change-id='" + changeId + "']";
+                        String matchNodeEnd = "//text:change-end[@text:change-id='" + changeId + "']";
+                        foundNodeStart = (Node) docXpath.evaluate(matchNodeStart, docHelper.getOdfDocument().getContentDom(), XPathConstants.NODE);
+                        foundNodeEnd = (Node) docXpath.evaluate(matchNodeEnd, docHelper.getOdfDocument().getContentDom(), XPathConstants.NODE);
+                        changeContext = new BungeniOdfChangeContext(foundNodeStart, foundNodeEnd, docHelper);
+                    } else if (changeType.equals("deletion")) {
+                        //look for text:change [@text:change-id
+                        String matchNode = "//text:change[@text:change-id='" + changeId + "']";
+                        foundNode = (Node) docXpath.evaluate(matchNode, docHelper.getOdfDocument().getContentDom(), XPathConstants.NODE);
+                        changeContext = new BungeniOdfChangeContext(foundNode, docHelper);
+                    }
+                    BungeniOdfReportLine reportLine = new BungeniOdfReportLine(changeContext, mapOfChange);
+                    reportLines.add(reportLine);
+
+            }
+            BungeniOdfDocumentReport reportObject = new BungeniOdfDocumentReport(freportFile, reportTemplate);
+            reportObject.addReportVariable("REPORT_HEADER", "Bill Amendments Report");
+            reportObject.addReportVariable("BILL_NAME", "Finance Bill");
+            reportObject.addReportVariable("REPORT_FOOTER", "Bill Amendments Report");
+            reportObject.addReportVariable("NO_OF_AMENDMENTS", "");
+            reportObject.addReportVariable("MEMBER_OF_PARLIAMENT", sAuthor);
+
+
+        } catch (Exception ex) {
+             log.error("doReport : " + ex.getMessage(), ex);
+        }
+    }
 
     private boolean doReport() {
         boolean bReturn = false;
@@ -143,38 +209,8 @@ public class panelConsolidateChanges extends panelChangesBase {
                 bReturn = false;
                 return false;
             }
-        //generate the report from the MP's document
-         String sAuthor =    (String) this.listMembers.getSelectedValue();
-         BungeniOdfDocumentHelper docHelper = changesInfo.getDocuments().get(selIndex);
-         XPath docXpath = docHelper.getOdfDocument().getXPath();
-         BungeniOdfTrackedChangesHelper changesHelper = docHelper.getChangesHelper();
-         List<OdfTextChangedRegion> changedRegions = changesHelper.getChangedRegionsByCreator(changesHelper.getTrackedChangeContainer(), sAuthor);
-         for (OdfTextChangedRegion odfTextChangedRegion : changedRegions) {
-            StructuredChangeType scType = changesHelper.getStructuredChangeType(odfTextChangedRegion);
-            HashMap<String,String> mapOfChange = changesHelper.getChangeInfo(scType);
-            String changeType = mapOfChange.get("changeType");
-            String changeText = mapOfChange.get("changeText");
-            String changeId = mapOfChange.get("changeId");
-            Node foundNodeStart = null, foundNodeEnd = null, foundNode = null;
-            try {
-                if (changeType.equals("insertion")) {
-                        //look for text:change-start[@text:change-id
-                        String matchNodeStart = "//text:change-start[@text:change-id='" + changeId + "']";
-                        String matchNodeEnd = "//text:change-end[@text:change-id='" + changeId + "']";
-                        foundNodeStart = (Node) docXpath.evaluate(matchNodeStart, docHelper.getOdfDocument().getContentDom(), XPathConstants.NODE);
-                        foundNodeEnd = (Node) docXpath.evaluate(matchNodeEnd, docHelper.getOdfDocument().getContentDom(), XPathConstants.NODE);
-                        BungeniOdfChangeContext changeContext = new BungeniOdfChangeContext(foundNodeStart, foundNodeEnd, docHelper );
 
-                } else if (changeType.equals("deletion")) {
-                        //look for text:change [@text:change-id
-                        String matchNode = "//text:change[@text:change-id='" + changeId + "']";
-                        foundNode = (Node) docXpath.evaluate(matchNode, docHelper.getOdfDocument().getContentDom(), XPathConstants.NODE);
-                        BungeniOdfChangeContext changeContext = new BungeniOdfChangeContext(foundNode, docHelper );
-                }
-            } catch (Exception ex) {
-                log.error("doReport : " + ex.getMessage(), ex);
-            }
-        }
+        generateReport(selIndex);
         return true;
     }
     
