@@ -6,8 +6,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
 import org.odftoolkit.odfdom.OdfFileDom;
@@ -31,6 +34,17 @@ public class BungeniOdfDocumentReport {
     public BungeniOdfDocumentReport(File fnewReport, BungeniOdfDocumentReportTemplate fromTemplate){
         basedOnTemplate = fromTemplate;
         reportDocument = createNewReport(fnewReport);
+    }
+
+    public boolean saveReport() {
+        boolean bSave = false;
+        try {
+            this.reportDocument.getOdfDocument().save(this.reportDocument.getDocumentPath());
+            bSave = true;
+            
+        } catch (Exception ex) {
+            log.error("saveReport : " + ex.getMessage(), ex);
+        } return bSave;
     }
 
     public BungeniOdfDocumentHelper createNewReport(File fnewReport){
@@ -131,29 +145,45 @@ public class BungeniOdfDocumentReport {
         XPath xpath = this.reportDocument.getOdfDocument().getXPath();
 
         ArrayList<OdfTextSection> reportLineSections = secHelper.getChildSections(nsection);
-
-        for (int i = 0; i < reportLineSections.size(); i++) {
+        //iterate through each of the sections
+        for (int iSecIndex = 0; iSecIndex < reportLineSections.size(); iSecIndex++) {
             //get the input section
-            OdfTextSection aSection = reportLineSections.get(i);
+            OdfTextSection aSection = reportLineSections.get(iSecIndex);
             //get the input section feeder
-            BungeniOdfReportLine reportLine = this.reportLines.get(i);
+            BungeniOdfReportLine reportLine = this.reportLines.get(iSecIndex);
+            //get the available report line variables
             Set<String> lineVariableNames = reportLine.getLineVariableNames();
-            Iterator varIterator = lineVariableNames.iterator();
+            Iterator<String> varIterator = lineVariableNames.iterator();
             while (varIterator.hasNext()) {
-                String ss = varIterator.next();
+                try {
+                    String ssVar = varIterator.next();
+                    String xpathString = genericRelativeTextMatchXpath(ssVar);
+                    NodeList matchingTextNodes = (NodeList) xpath.evaluate(xpathString, aSection, XPathConstants.NODESET);
+                    for (int j = 0 ; j < matchingTextNodes.getLength() ; j++) {
+                        Node aNode = matchingTextNodes.item(j);
+                        String sContent = aNode.getTextContent();
+                        String escKey = this.buildEscapedKey(ssVar);
+                        sContent = sContent.replaceAll(escKey, reportLine.getLineVariable(ssVar).toString());
+                        aNode.setTextContent(sContent);
+                    }
+                }
+                //now that we have the report line text node
+                //  String xpathString = this.genericRelativeTextMatchXpath(null)
+                catch (XPathExpressionException ex) {
+                    log.error("feedReportLines : " + ex.getMessage(), ex);
+                }
+
+
             }
             //now that we have the report line text node
            //  String xpathString = this.genericRelativeTextMatchXpath(null)
-
-
-
         }
     }
 
     public void processReportLines(){
         //first generate report lines
         generateReportLines();
-        //
+        //build the data into the report lines
         feedReportLines();
     }
 
@@ -161,7 +191,8 @@ public class BungeniOdfDocumentReport {
         try {
             processReportVariables();
             processReportLines();
-            this.reportDocument.getOdfDocument().save(this.reportDocument.getDocumentPath());
+            String savePath = this.reportDocument.getDocumentPath();
+            this.reportDocument.getOdfDocument().save(savePath);
         } catch (Exception ex) {
           log.error("generateReport :  " + ex.getMessage(), ex);
         }

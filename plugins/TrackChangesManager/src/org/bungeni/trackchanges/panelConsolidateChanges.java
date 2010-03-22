@@ -143,7 +143,7 @@ public class panelConsolidateChanges extends panelChangesBase {
             String billReviewFolder = CommonFunctions.getWorkspaceForBill((String) AppProperties.getProperty("CurrentBillID"));
             String templatesFolder = CommonFunctions.getTemplateFolder();
             //get the author name
-            String sAuthor = (String) this.listMembers.getSelectedValue();
+            String sAuthor = this.listMembers.getSelectedValue().toString();
             File freportFile = new File(billReviewFolder + File.separator + CommonFunctions.normalizeName(sAuthor) + "_report.odt");
             BungeniOdfDocumentReportTemplate reportTemplate = new BungeniOdfDocumentReportTemplate(templatesFolder + File.separator + "changes-by-user.odt");
             BungeniOdfDocumentHelper docHelper = changesInfo.getDocuments().get(selIndex);
@@ -192,7 +192,9 @@ public class panelConsolidateChanges extends panelChangesBase {
             reportObject.addReportVariable("REPORT_FOOTER", "Bill Amendments Report");
             reportObject.addReportVariable("NO_OF_AMENDMENTS", "");
             reportObject.addReportVariable("MEMBER_OF_PARLIAMENT", sAuthor);
-
+            reportObject.addReportLines(reportLines);
+            reportObject.generateReport();
+            reportObject.saveReport();
 
         } catch (Exception ex) {
              log.error("doReport : " + ex.getMessage(), ex);

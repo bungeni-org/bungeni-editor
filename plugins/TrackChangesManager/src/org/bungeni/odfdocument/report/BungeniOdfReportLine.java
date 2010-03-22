@@ -21,12 +21,20 @@ public class BungeniOdfReportLine {
 
     }
 
+    private HashMap<String, String> pastTenseForm = new HashMap<String,String>(){
+        {
+            put("insertion", "inserted");
+            put("deletion", "deleted");
+        }
+    };
+
     private void buildLineVariables(){
         lineVariables.put("CHANGE_TYPE" , changeMap.get("changeType"));
-        lineVariables.put("CHANGE_TEXT", changeMap.get("changeText"));
+        String sChangeText = "\n\n The following text : \n\"" + changeMap.get("changeText") +"\" \n was " + pastTenseForm.get(changeMap.get("changeType"));
+        lineVariables.put("CHANGE_TEXT",sChangeText);
         String precText = changeContext.getPrecedingSiblingText();
         String follText = changeContext.getFollowingSiblingText();
-        lineVariables.put("CHANGE_DESC", ((precText.length() > 0)? "After : \n \"" + precText + "\"" :"") + ((follText.length() > 0)?"Before : \n \"" +follText + "\"" :""));
+        lineVariables.put("CHANGE_DESC", ((precText.length() > 0)? " \nAfter : \n \"" + precText + "\"" :"") + ((follText.length() > 0)?" \nBefore : \n \"" +follText + "\"" :""));
     }
 
     public void addLineVariable(String key, Object value) {

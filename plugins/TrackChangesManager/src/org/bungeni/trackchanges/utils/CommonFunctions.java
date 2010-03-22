@@ -41,7 +41,7 @@ public class CommonFunctions {
     }
 
     public static String getTemplateFolder() {
-        return System.getProperty("user.dir") + File.separator +__TEMPLATE_FOLDER_NAME__;
+        return getWorkspace() + File.separator +__TEMPLATE_FOLDER_NAME__;
     }
     
     public static String normalizeName(String name) {
