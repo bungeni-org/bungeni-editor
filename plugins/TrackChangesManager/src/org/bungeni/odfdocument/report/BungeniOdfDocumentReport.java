@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeMap;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
@@ -51,7 +52,16 @@ public class BungeniOdfDocumentReport {
         reportLines.add(reportLine);
     }
 
+    public void addReportLines(List<BungeniOdfReportLine> lines) {
+        for (BungeniOdfReportLine bungeniOdfReportLine : lines) {
+            reportLines.add(bungeniOdfReportLine);
+        }
+    }
 
+    /**
+     * This function generates the report lines within the report body
+     * @return
+     */
     public boolean generateReportLines() {
         //first duplicate sections for number of lines.
         boolean bReturn = false;
@@ -70,10 +80,29 @@ public class BungeniOdfDocumentReport {
         return bReturn;
     }
 
+    private String genericTextMatchXpathTemplate(){
+        return "//office:text//text()[contains(.,'[%var%]')]";
+    }
+
+    private String genericRelativeTextMatchXpathTemplate(){
+        return "./descendant::text()[contains(.,'[%var%]')]";
+    }
+
+    private String genericTextMatchXpath(String variable) {
+        return genericTextMatchXpathTemplate().replaceAll("%var%", variable);
+    }
+
+    private String genericRelativeTextMatchXpath(String variable) {
+        return genericRelativeTextMatchXpathTemplate().replaceAll("%var%", variable);
+    }
+
+    private String buildEscapedKey(String key) {
+        return "\\[" + key + "\\]";
+    }
+
     public void processReportVariables(){
         try {
             XPath xpath = this.reportDocument.getOdfDocument().getXPath();
-            String xpathString = "//office:text//text()[contains(.,'[%var%]')]";
             OdfFileDom contentDom = this.reportDocument.getOdfDocument().getContentDom();
             Iterator<String> keyIter = reportVariables.keySet().iterator();
 
@@ -81,12 +110,12 @@ public class BungeniOdfDocumentReport {
                 String sKey = keyIter.next();
                 String sValue = reportVariables.get(sKey).toString();
                 System.out.println("processing Key : " + sValue);
-                String xpathSrch = xpathString.replaceAll("%var%", sKey);
+                String xpathSrch = this.genericTextMatchXpath(sKey);
                 NodeList nltextNodes = (NodeList) xpath.evaluate(xpathSrch, contentDom, XPathConstants.NODESET);
                 for (int i = 0; i < nltextNodes.getLength(); i++) {
                      Node ntextNode =  nltextNodes.item(i);
                      String stextContent = ntextNode.getTextContent();
-                     String rptVariable = "\\[" + sKey + "\\]";
+                     String rptVariable = buildEscapedKey(sKey);
                      String newContent = stextContent.replaceAll(rptVariable, sValue);
                      ntextNode.setTextContent(newContent);
                 }
@@ -96,8 +125,36 @@ public class BungeniOdfDocumentReport {
         }
     }
 
+    private void feedReportLines(){
+        BungeniOdfSectionHelper secHelper = this.reportDocument.getSectionHelper();
+        OdfTextSection nsection = secHelper.getSection("ReportBody");
+        XPath xpath = this.reportDocument.getOdfDocument().getXPath();
+
+        ArrayList<OdfTextSection> reportLineSections = secHelper.getChildSections(nsection);
+
+        for (int i = 0; i < reportLineSections.size(); i++) {
+            //get the input section
+            OdfTextSection aSection = reportLineSections.get(i);
+            //get the input section feeder
+            BungeniOdfReportLine reportLine = this.reportLines.get(i);
+            Set<String> lineVariableNames = reportLine.getLineVariableNames();
+            Iterator varIterator = lineVariableNames.iterator();
+            while (varIterator.hasNext()) {
+                String ss = varIterator.next();
+            }
+            //now that we have the report line text node
+           //  String xpathString = this.genericRelativeTextMatchXpath(null)
+
+
+
+        }
+    }
+
     public void processReportLines(){
-        
+        //first generate report lines
+        generateReportLines();
+        //
+        feedReportLines();
     }
 
     public void generateReport(){
