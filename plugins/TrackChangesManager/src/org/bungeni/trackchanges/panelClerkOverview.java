@@ -9,6 +9,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -17,11 +18,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
+import net.java.swingfx.waitwithstyle.InfiniteProgressPanel;
 import org.bungeni.odfdocument.docinfo.BungeniDocAuthor;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfChangesMergeHelper;
@@ -48,7 +51,7 @@ public class panelClerkOverview extends panelChangesBase {
      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(panelClerkOverview.class.getName());
 
     String                  __CLERK_NAME__ = "";
-
+  InfiniteProgressPanel m_glassPane =  null;
     /** Creates new form panelClerkOverview */
     public panelClerkOverview() {
         super();
@@ -63,6 +66,8 @@ public class panelClerkOverview extends panelChangesBase {
         __CLERK_NAME__ = RuntimeProperties.getProperty("ClerkUser");
         initialize();
         loadFilesFromFolder();
+         m_glassPane = new InfiniteProgressPanel();
+        parentFrame.setGlassPane(m_glassPane);
 
     }
 
@@ -140,33 +145,88 @@ public class panelClerkOverview extends panelChangesBase {
           return this.chkFilterByClerk.isSelected();
     }
 
-    private boolean consolidateCurrentDocument() {
+
+    private boolean doConsolidateAll(){
+        List<BungeniDocAuthor> docAuthors = new ArrayList<BungeniDocAuthor>(0);
+        for (int i = 0; i < listMembers.getModel().getSize() ; i++) {
+                docAuthors.add((BungeniDocAuthor)listMembers.getModel().getElementAt(i));
+        }
+
+        return true;
+    }
+
+    private boolean doConsolidate(){
         boolean bReturn = false;
-        try {
-            // get the selected document index
             final int selIndex = this.listMembers.getSelectedIndex();
             if (-1 == selIndex) {
                 JOptionPane.showMessageDialog(parentFrame, "No document was selected. Please select a document for review");
                 bReturn = false;
                 return false;
-            }
+            } else {
+            m_glassPane.start();
+            btnConsolidate.setEnabled(false);
+            SwingWorker consolidateWorker = new SwingWorker(){
+                    @Override
+                    protected Object doInBackground() throws Exception {
+                        BungeniOdfDocumentHelper envelope = consolidateCurrentDocument(selIndex);
+                        return envelope;
+                    }
+
+                     @Override
+                     protected void done() {
+                    try {
+                        // get the return envelope
+                        BungeniOdfDocumentHelper envelope = (BungeniOdfDocumentHelper) this.get();
+                        m_glassPane.stop();
+                        btnConsolidate.setEnabled(true);
+                        //viewConsolidatedDocument(envelope);
+                    } catch (InterruptedException ex) {
+                        log.error("consolidateWorker = " + ex.getMessage());
+                    } catch (ExecutionException ex) {
+                        log.error("consolidateWorker = " + ex.getMessage());
+                    }
+
+                     }
+            };
+            consolidateWorker.execute();
+         }
+    return true;
+
+    }
+
+
+    private BungeniOdfDocumentHelper  consolidateCurrentDocument(int selIndex) {
+        BungeniOdfDocumentHelper returnDoc = null;
+        try {
+            // get the selected document index
             BungeniOdfDocumentHelper docHelper = changesInfo.getDocuments().get(selIndex);
             // create a clerk review document of the mp's document
             // this is a copy of the MP's document
             ReviewDocuments rvd = new ReviewDocuments(docHelper, this.PANEL_REVIEW_STAGE); // TODO
             final BungeniOdfDocumentHelper reviewDoc = rvd.getReviewCopy();
             final BungeniDocAuthor selectedAuthor = (BungeniDocAuthor) this.listMembers.getSelectedValue();
+              BungeniOdfChangesMergeHelper chm = reviewDoc.getChangesHelper().getChangesMergeHelper();
+              String sourceUser = __CLERK_NAME__;
+              String targetUser = selectedAuthor.toString();
+              chm.mergeChanges(sourceUser, targetUser);
+              reviewDoc.getOdfDocument().save(reviewDoc.getDocumentPath());
+              returnDoc = reviewDoc;
+        } catch (Exception ex) {
+            log.error("consolidateCurrentDocument : " + ex.getMessage(), ex);
+        }
+        
+        return returnDoc;
 
-            // invoke openoffice in a runnable thread
+    }
+
+    private boolean viewConsolidatedDocument (BungeniOdfDocumentHelper reviewD ) {
+                    // invoke openoffice in a runnable thread
+            boolean bState = false;
+            final BungeniOdfDocumentHelper reviewDoc = reviewD;
             SwingUtilities.invokeLater(new Runnable() {
 
                 public void run() {
                     try {
-                      BungeniOdfChangesMergeHelper chm = reviewDoc.getChangesHelper().getChangesMergeHelper();
-                                String sourceUser = __CLERK_NAME__;
-                                String targetUser = selectedAuthor.toString();
-                                chm.mergeChanges(sourceUser, targetUser);
-                                reviewDoc.getOdfDocument().save(reviewDoc.getDocumentPath());
 
                         UnoOdfFile odfFile = UnoOdfOpenFiles.getFile(reviewDoc);
 
@@ -177,13 +237,8 @@ public class panelClerkOverview extends panelChangesBase {
                     // open review document in openoffice
                 }
             });
-            bReturn =  true;
-        } catch (Exception ex) {
-            log.error("consolidateCurrentDocument : " + ex.getMessage(), ex);
-        }
-        
-        return bReturn;
-
+           bState = true;
+           return bState;
     }
     
     /** This method is called from within the constructor to
@@ -327,13 +382,19 @@ public class panelClerkOverview extends panelChangesBase {
     }//GEN-LAST:event_chkFilterByClerkActionPerformed
 
     private void btnConsolidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolidateActionPerformed
-        this.btnConsolidate.setEnabled(false);
-        consolidateCurrentDocument();
-        this.btnConsolidate.setEnabled(true);
+    SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                doConsolidate();
+            }
+    });
     }//GEN-LAST:event_btnConsolidateActionPerformed
 
     private void btnConsolidateAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolidateAllActionPerformed
-        // TODO add your handling code here:
+       SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                doConsolidateAll();
+            }
+    });
     }//GEN-LAST:event_btnConsolidateAllActionPerformed
 
 

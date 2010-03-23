@@ -9,13 +9,13 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
+import net.java.swingfx.waitwithstyle.InfiniteProgressPanel;
 import org.bungeni.odfdocument.docinfo.BungeniDocAuthor;
 import org.bungeni.odfdocument.report.BungeniOdfDocumentReport;
 import org.bungeni.odfdocument.report.BungeniOdfDocumentReportTemplate;
@@ -48,7 +49,7 @@ public class panelConsolidateChanges extends panelChangesBase {
  
    
      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(panelConsolidateChanges.class.getName());
-
+    InfiniteProgressPanel m_glassPane =  null;
 
 
     /** Creates new form panelClerkOverview */
@@ -64,6 +65,8 @@ public class panelConsolidateChanges extends panelChangesBase {
         initComponents();
         initialize();
         loadFilesFromFolder();
+        m_glassPane = new InfiniteProgressPanel();
+        parentFrame.setGlassPane(m_glassPane);
 
     }
 
@@ -137,7 +140,8 @@ public class panelConsolidateChanges extends panelChangesBase {
         tblModel.updateModel(index, false);
     }
 
-    private void generateReport(int selIndex){
+    private boolean generateReport(int selIndex){
+        boolean bState = false;
         try {
             //generate the report from the MP's document
             String billReviewFolder = CommonFunctions.getWorkspaceForBill((String) AppProperties.getProperty("CurrentBillID"));
@@ -195,25 +199,41 @@ public class panelConsolidateChanges extends panelChangesBase {
             reportObject.addReportLines(reportLines);
             reportObject.generateReport();
             reportObject.saveReport();
-
+            bState = true;
         } catch (Exception ex) {
              log.error("doReport : " + ex.getMessage(), ex);
         }
+        return bState;
     }
 
     private boolean doReport() {
         boolean bReturn = false;
         //get the selected MP
        // get the selected document index
-            final int selIndex = this.listMembers.getSelectedIndex();
-            if (-1 == selIndex) {
+         final int selIndex = this.listMembers.getSelectedIndex();
+         if (-1 == selIndex) {
                 JOptionPane.showMessageDialog(parentFrame, "No document was selected. Please select a document for review");
                 bReturn = false;
                 return false;
-            }
+         } else {
+            m_glassPane.start();
+            btnReport.setEnabled(false);
+            SwingWorker reportWorker = new SwingWorker(){
+                    @Override
+                    protected Object doInBackground() throws Exception {
+                        boolean b = generateReport(selIndex);
+                        return Boolean.valueOf(b);
+                    }
 
-        generateReport(selIndex);
-        return true;
+                     @Override
+                     protected void done() {
+                        m_glassPane.stop();
+                        btnReport.setEnabled(true);
+                     }
+            };
+            reportWorker.execute();
+         }
+    return true;
     }
     
     /** This method is called from within the constructor to
@@ -323,7 +343,12 @@ public class panelConsolidateChanges extends panelChangesBase {
 
     private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
         // TODO add your handling code here:
-        doReport();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                  btnReport.setEnabled(false);
+                  doReport();
+            }
+        });
     }//GEN-LAST:event_btnReportActionPerformed
 
 
@@ -403,8 +428,23 @@ public class panelConsolidateChanges extends panelChangesBase {
 
     
         public void updateModel(int iIndex, boolean bFilterbyAuthor) {
-            buildModel(iIndex, bFilterbyAuthor);
-            fireTableDataChanged();
+            final int sIndex = iIndex; final boolean bFilter = bFilterbyAuthor;
+            //m_glassPane.start();
+            SwingWorker modelWorker = new SwingWorker(){
+                @Override
+                protected Object doInBackground()  {
+                     buildModel(sIndex, bFilter);
+                     return Boolean.TRUE;
+                }
+
+                @Override
+                protected void done(){
+                    fireTableDataChanged();
+                    m_glassPane.stop();
+                }
+            };
+            modelWorker.execute();
+            
         }
 
         private void buildModel(int iIndex , boolean bFilterByAuthor) {
