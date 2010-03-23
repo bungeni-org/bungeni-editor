@@ -5,3 +5,5 @@ bungeniodfdom http://bungeni-editor.googlecode.com/svn/external_libs/bungeniodfd
 bungeni http://bungeni-editor.googlecode.com/svn/external_libs/bungeni
 substance http://bungeni-editor.googlecode.com/svn/external_libs/substance
 swing-layout-ext http://bungeni-editor.googlecode.com/svn/external_libs/swing-layout-ext
+swingfx https://bungeni-editor.googlecode.com/svn/external_libs/swingfx
+
