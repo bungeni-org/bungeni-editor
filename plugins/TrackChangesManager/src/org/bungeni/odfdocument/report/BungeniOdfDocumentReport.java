@@ -6,8 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
@@ -145,6 +143,7 @@ public class BungeniOdfDocumentReport {
         XPath xpath = this.reportDocument.getOdfDocument().getXPath();
 
         ArrayList<OdfTextSection> reportLineSections = secHelper.getChildSections(nsection);
+        List<Node> nodesMarkedForDeletion = new ArrayList<Node>(0);
         //iterate through each of the sections
         for (int iSecIndex = 0; iSecIndex < reportLineSections.size(); iSecIndex++) {
             //get the input section
@@ -163,8 +162,16 @@ public class BungeniOdfDocumentReport {
                         Node aNode = matchingTextNodes.item(j);
                         String sContent = aNode.getTextContent();
                         String escKey = this.buildEscapedKey(ssVar);
-                        sContent = sContent.replaceAll(escKey, reportLine.getLineVariable(ssVar).toString());
-                        aNode.setTextContent(sContent);
+                        String lineVariable = reportLine.getLineVariable(ssVar).toString();
+                        if (lineVariable.equals("[DELETE]")) {
+                            if (aNode.getParentNode().getTextContent().equals(aNode.getTextContent()))
+                                nodesMarkedForDeletion.add(aNode.getParentNode());
+                            else
+                                nodesMarkedForDeletion.add(aNode);
+                        } else {
+                            sContent = sContent.replaceAll(escKey, lineVariable);
+                            aNode.setTextContent(sContent);
+                        }
                     }
                 }
                 //now that we have the report line text node
@@ -172,9 +179,11 @@ public class BungeniOdfDocumentReport {
                 catch (XPathExpressionException ex) {
                     log.error("feedReportLines : " + ex.getMessage(), ex);
                 }
-
-
             }
+            for (Node delNode :  nodesMarkedForDeletion) {
+                delNode.getParentNode().removeChild(delNode);
+            }
+            nodesMarkedForDeletion.clear();
             //now that we have the report line text node
            //  String xpathString = this.genericRelativeTextMatchXpath(null)
         }

@@ -206,6 +206,37 @@ public class panelConsolidateChanges extends panelChangesBase {
         return bState;
     }
 
+    private boolean doReportsAll(){
+      boolean bReturn = false;
+        //get the selected MP
+       // get the selected document index
+         final int selIndex = this.listMembers.getSelectedIndex();
+         if (-1 == selIndex) {
+                JOptionPane.showMessageDialog(parentFrame, "No document was selected. Please select a document for review");
+                bReturn = false;
+                return false;
+         } else {
+            m_glassPane.start();
+            btnReport.setEnabled(false);
+            SwingWorker reportWorker = new SwingWorker(){
+                    @Override
+                    protected Object doInBackground() throws Exception {
+                        boolean b = generateReport(selIndex);
+                        return Boolean.valueOf(b);
+                    }
+
+                     @Override
+                     protected void done() {
+                        m_glassPane.stop();
+                        btnReport.setEnabled(true);
+                     }
+            };
+            reportWorker.execute();
+         }
+    return true;
+    }
+
+
     private boolean doReport() {
         boolean bReturn = false;
         //get the selected MP
@@ -345,7 +376,6 @@ public class panelConsolidateChanges extends panelChangesBase {
         // TODO add your handling code here:
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                  btnReport.setEnabled(false);
                   doReport();
             }
         });

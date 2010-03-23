@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -147,28 +145,69 @@ public class panelClerkOverview extends panelChangesBase {
 
 
     private boolean doConsolidateAll(){
-        List<BungeniDocAuthor> docAuthors = new ArrayList<BungeniDocAuthor>(0);
-        for (int i = 0; i < listMembers.getModel().getSize() ; i++) {
-                docAuthors.add((BungeniDocAuthor)listMembers.getModel().getElementAt(i));
+        boolean bReturn = false;
+        //build a list of all authors in the list
+        final List<BungeniDocAuthor> docAuthors = new ArrayList<BungeniDocAuthor>(){{
+                for (int i = 0; i < listMembers.getModel().getSize() ; i++) {
+                        add((BungeniDocAuthor)listMembers.getModel().getElementAt(i));
+                }
+        }};
+
+        if (docAuthors.size() == 0 ) {
+                JOptionPane.showMessageDialog(parentFrame, java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle").getString("no_dox_for_consolidation"));
+        } else {
+
+            m_glassPane.start();
+            btnConsolidateAll.setEnabled(false);
+            SwingWorker consolidateAllWorker = new SwingWorker(){
+                    @Override
+                    protected Object doInBackground() throws Exception {
+                        List<BungeniOdfDocumentHelper> consolidatedDocs = new ArrayList<BungeniOdfDocumentHelper>(0);
+                        for (int i = 0; i < docAuthors.size(); i++) {
+                             BungeniDocAuthor docAuthor = docAuthors.get(i);
+                             consolidateCurrentDocument(i, docAuthor);
+                        }
+                        return consolidatedDocs;
+                    }
+
+                     @Override
+                     protected void done() {
+                    try {
+                        // get the return envelope
+                        List<BungeniOdfDocumentHelper> docs = (List<BungeniOdfDocumentHelper>) this.get();
+                        m_glassPane.stop();
+                        btnConsolidateAll.setEnabled(true);
+                        //viewConsolidatedDocument(envelope);
+                    } catch (InterruptedException ex) {
+                        log.error("consolidateWorker = " + ex.getMessage());
+                    } catch (ExecutionException ex) {
+                        log.error("consolidateWorker = " + ex.getMessage());
+                    }
+
+                     }
+            };
+            consolidateAllWorker.execute();
         }
 
-        return true;
+        return bReturn;
     }
 
     private boolean doConsolidate(){
         boolean bReturn = false;
             final int selIndex = this.listMembers.getSelectedIndex();
             if (-1 == selIndex) {
-                JOptionPane.showMessageDialog(parentFrame, "No document was selected. Please select a document for review");
+                JOptionPane.showMessageDialog(parentFrame, java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle").getString("no_doc_selected_for_review"));
                 bReturn = false;
                 return false;
             } else {
+            final BungeniDocAuthor selectedAuthor = (BungeniDocAuthor) this.listMembers.getSelectedValue();
+
             m_glassPane.start();
             btnConsolidate.setEnabled(false);
             SwingWorker consolidateWorker = new SwingWorker(){
                     @Override
                     protected Object doInBackground() throws Exception {
-                        BungeniOdfDocumentHelper envelope = consolidateCurrentDocument(selIndex);
+                        BungeniOdfDocumentHelper envelope = consolidateCurrentDocument(selIndex, selectedAuthor);
                         return envelope;
                     }
 
@@ -195,7 +234,7 @@ public class panelClerkOverview extends panelChangesBase {
     }
 
 
-    private BungeniOdfDocumentHelper  consolidateCurrentDocument(int selIndex) {
+    private BungeniOdfDocumentHelper  consolidateCurrentDocument(int selIndex, final BungeniDocAuthor selectedAuthor) {
         BungeniOdfDocumentHelper returnDoc = null;
         try {
             // get the selected document index
@@ -204,7 +243,7 @@ public class panelClerkOverview extends panelChangesBase {
             // this is a copy of the MP's document
             ReviewDocuments rvd = new ReviewDocuments(docHelper, this.PANEL_REVIEW_STAGE); // TODO
             final BungeniOdfDocumentHelper reviewDoc = rvd.getReviewCopy();
-            final BungeniDocAuthor selectedAuthor = (BungeniDocAuthor) this.listMembers.getSelectedValue();
+            //final BungeniDocAuthor selectedAuthor = (BungeniDocAuthor) this.listMembers.getSelectedValue();
               BungeniOdfChangesMergeHelper chm = reviewDoc.getChangesHelper().getChangesMergeHelper();
               String sourceUser = __CLERK_NAME__;
               String targetUser = selectedAuthor.toString();
@@ -220,7 +259,7 @@ public class panelClerkOverview extends panelChangesBase {
     }
 
     private boolean viewConsolidatedDocument (BungeniOdfDocumentHelper reviewD ) {
-                    // invoke openoffice in a runnable thread
+            // invoke openoffice in a runnable thread
             boolean bState = false;
             final BungeniOdfDocumentHelper reviewDoc = reviewD;
             SwingUtilities.invokeLater(new Runnable() {
