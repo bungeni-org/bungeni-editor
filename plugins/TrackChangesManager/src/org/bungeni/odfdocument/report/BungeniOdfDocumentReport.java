@@ -206,6 +206,10 @@ public class BungeniOdfDocumentReport {
           log.error("generateReport :  " + ex.getMessage(), ex);
         }
     }
+
+    public BungeniOdfDocumentHelper getReportDocument(){
+        return this.reportDocument;
+    }
    
     public static void main(String[] args) {
         String s = "[REPORT]";

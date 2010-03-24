@@ -1,6 +1,8 @@
 package org.bungeni.odfdocument.report;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.utils.BungeniOdfFileCopy;
 
@@ -13,6 +15,7 @@ public class BungeniOdfDocumentReportTemplate {
       private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BungeniOdfDocumentReportTemplate.class.getName());
 
     BungeniOdfDocumentHelper m_docHelper;
+
 
     public BungeniOdfDocumentReportTemplate(String pathToFile) throws Exception {
       fullPathToTemplateFile = pathToFile;
@@ -30,6 +33,24 @@ public class BungeniOdfDocumentReportTemplate {
              log.error("documentFromTemplate : " + ex.getMessage(), ex);
         } 
         return docHelper;
+    }
+
+    public SimpleDateFormat getReportDateFormat(){
+        String sDateFormat = m_docHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniReportDateFormat");
+        SimpleDateFormat sdf = new SimpleDateFormat(sDateFormat);
+        return sdf;
+    }
+
+    @Override
+    public String toString(){
+        String reportName =  m_docHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniReportName");
+        if (reportName == null) {
+            return "Unknown Report, BungeniReportName is not set";
+        }
+        if (reportName.length() == 0 ) {
+            return "Unknown Report, BungeniReportName is not set";
+        }
+        return reportName;
     }
 
 }
