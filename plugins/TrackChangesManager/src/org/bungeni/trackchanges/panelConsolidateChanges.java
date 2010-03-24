@@ -545,12 +545,23 @@ public class panelConsolidateChanges extends panelChangesBase {
        super.updatePanel(infomap);
        SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                 loadFilesFromFolder();
-                 listMembers.setModel(new DocOwnerListModel());
-                 if (infomap.containsKey("selectedAuthor")) {
-                    BungeniDocAuthor selAut  = (BungeniDocAuthor) infomap.get("selectedAuthor");
-                    selectAuthorinList(selAut);
-                }
+                 if (infomap.size() == 0) {
+                    BungeniDocAuthor selAuthor = (BungeniDocAuthor) listMembers.getSelectedValue();
+                    loadFilesFromFolder();
+                    DocOwnerListModel docOwnersModel = new DocOwnerListModel();
+                    listMembers.setModel(new DocOwnerListModel());
+                    if (selAuthor != null) {
+                        selectAuthorinList(selAuthor);
+                    }
+
+                 } else {
+                     loadFilesFromFolder();
+                     listMembers.setModel(new DocOwnerListModel());
+                     if (infomap.containsKey("selectedAuthor")) {
+                        BungeniDocAuthor selAut  = (BungeniDocAuthor) infomap.get("selectedAuthor");
+                        selectAuthorinList(selAut);
+                    }
+                 }
             }
         });
     }

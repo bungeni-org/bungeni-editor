@@ -116,9 +116,7 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
     public void updateCurrentPanel(HashMap<String, Object> infomap) {
         //route the update call only when there is a programattic update,
         //not when someone clicks on a tab
-        if (infomap.size() > 0 ) {
             ((IChangesPanel) this.tabContainer.getSelectedComponent()).updatePanel(infomap);
-        }
     }
 
  
