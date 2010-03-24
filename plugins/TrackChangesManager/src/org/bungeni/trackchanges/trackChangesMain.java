@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import javax.swing.JFrame;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import net.java.swingfx.waitwithstyle.InfiniteProgressPanel;
 
 /**
  *
@@ -22,10 +23,14 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
     public static JFrame                   parentFrame = null;
     ResourceBundle bundleBase = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle");
     int m_prevTabIndex = 0;
+
+    InfiniteProgressPanel m_glassPane =  null;
+
     /** Creates new form trackChangesMain */
     public trackChangesMain() {
         initComponents();
         init_Tabs();
+        init_GlassPane();
     }
 
     private void init_Tabs() {
@@ -47,6 +52,11 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
                 m_prevTabIndex = tabContainer.getSelectedIndex();
             }
         });
+    }
+
+    private void init_GlassPane(){
+        m_glassPane = new InfiniteProgressPanel();
+        parentFrame.setGlassPane(m_glassPane);
     }
 
     /**
@@ -117,6 +127,10 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
         //route the update call only when there is a programattic update,
         //not when someone clicks on a tab
             ((IChangesPanel) this.tabContainer.getSelectedComponent()).updatePanel(infomap);
+    }
+
+    public InfiniteProgressPanel getProgressPanel() {
+       return this.m_glassPane;
     }
 
  

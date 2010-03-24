@@ -49,7 +49,6 @@ public class panelClerkOverview extends panelChangesBase {
      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(panelClerkOverview.class.getName());
 
     String                  __CLERK_NAME__ = "";
-  InfiniteProgressPanel m_glassPane =  null;
     /** Creates new form panelClerkOverview */
     public panelClerkOverview() {
         super();
@@ -64,8 +63,6 @@ public class panelClerkOverview extends panelChangesBase {
         __CLERK_NAME__ = RuntimeProperties.getDefaultProp("ClerkUser");
         initialize();
         loadFilesFromFolder();
-         m_glassPane = new InfiniteProgressPanel();
-        parentFrame.setGlassPane(m_glassPane);
 
     }
 
@@ -157,7 +154,7 @@ public class panelClerkOverview extends panelChangesBase {
                 JOptionPane.showMessageDialog(parentFrame, java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle").getString("no_dox_for_consolidation"));
         } else {
 
-            m_glassPane.start();
+            getContainerInterface().getProgressPanel().start();
             btnConsolidateAll.setEnabled(false);
             SwingWorker consolidateAllWorker = new SwingWorker(){
                     @Override
@@ -176,7 +173,7 @@ public class panelClerkOverview extends panelChangesBase {
                     try {
                         // get the return envelope
                         List<BungeniOdfDocumentHelper> docs = (List<BungeniOdfDocumentHelper>) this.get();
-                        m_glassPane.stop();
+                       getContainerInterface().getProgressPanel().stop();
                         btnConsolidateAll.setEnabled(true);
                         //viewConsolidatedDocument(envelope);
                     } catch (InterruptedException ex) {
@@ -203,7 +200,7 @@ public class panelClerkOverview extends panelChangesBase {
             } else {
             final BungeniDocAuthor selectedAuthor = (BungeniDocAuthor) this.listMembers.getSelectedValue();
 
-            m_glassPane.start();
+            getContainerInterface().getProgressPanel().start();
             btnConsolidate.setEnabled(false);
             SwingWorker consolidateWorker = new SwingWorker(){
                     @Override
@@ -217,7 +214,7 @@ public class panelClerkOverview extends panelChangesBase {
                     try {
                         // get the return envelope
                         BungeniOdfDocumentHelper envelope = (BungeniOdfDocumentHelper) this.get();
-                        m_glassPane.stop();
+                        getContainerInterface().getProgressPanel().stop();
                         btnConsolidate.setEnabled(true);
                         //viewConsolidatedDocument(envelope);
                     } catch (InterruptedException ex) {
@@ -512,9 +509,23 @@ public class panelClerkOverview extends panelChangesBase {
             return changeMarks;
         }
         
-        public void updateModel(int iIndex, boolean bFilterbyAuthor) {
-            buildModel(iIndex, bFilterbyAuthor);
-            fireTableDataChanged();
+        public void updateModel(final int iIndex, final boolean bFilterbyAuthor) {
+            getContainerInterface().getProgressPanel().start();
+            SwingWorker modelWorker = new SwingWorker(){
+
+                @Override
+                protected Object doInBackground() throws Exception {
+                    buildModel(iIndex, bFilterbyAuthor);
+                    return Boolean.TRUE;
+                }
+
+                @Override
+                protected void done(){
+                    fireTableDataChanged();
+                    getContainerInterface().getProgressPanel().stop();
+                }
+            };
+            modelWorker.execute();
         }
 
         private void buildModel(int iIndex , boolean bFilterByAuthor) {

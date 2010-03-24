@@ -53,7 +53,7 @@ public class BungeniChangeDocumentsInfo {
         });
     }
 
-    public void reload(File[] files) {
+    public synchronized void reload(File[] files) {
                 this.clear();
                 for (int i = 0; i < files.length ; i++ ) {
                     OdfDocument oDoc = null;

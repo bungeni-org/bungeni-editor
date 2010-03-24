@@ -55,7 +55,7 @@ public class panelConsolidateChanges extends panelChangesBase {
  
    
      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(panelConsolidateChanges.class.getName());
-    InfiniteProgressPanel m_glassPane =  null;
+    //InfiniteProgressPanel m_glassPane =  null;
     private static String __CLERK_NAME__ = "";
 
     /** Creates new form panelClerkOverview */
@@ -73,8 +73,8 @@ public class panelConsolidateChanges extends panelChangesBase {
         initialize();
         loadFilesFromFolder();
 
-        m_glassPane = new InfiniteProgressPanel();
-        parentFrame.setGlassPane(m_glassPane);
+      //  m_glassPane = new InfiniteProgressPanel();
+      //  parentFrame.setGlassPane(m_glassPane);
 
     }
 
@@ -267,7 +267,7 @@ public class panelConsolidateChanges extends panelChangesBase {
                 bReturn = false;
                 return false;
          } else {
-            m_glassPane.start();
+            getContainerInterface().getProgressPanel().start();
             this.btnReportAll.setEnabled(false);
             SwingWorker reportAllWorker = new SwingWorker(){
                     @Override
@@ -284,9 +284,9 @@ public class panelConsolidateChanges extends panelChangesBase {
                      @Override
                      protected void done() {
                     try {
-                        // get the return envelope
+                        // get the return denvelope
                         List<BungeniOdfDocumentHelper> docs = (List<BungeniOdfDocumentHelper>) this.get();
-                        m_glassPane.stop();
+                        getContainerInterface().getProgressPanel().stop();
                         btnReportAll.setEnabled(true);
                         boolean errorCondition = false;
                         if (docs != null ) {
@@ -341,7 +341,7 @@ public class panelConsolidateChanges extends panelChangesBase {
                 return false;
          } else {
             final BungeniDocAuthor selectedAuthor = (BungeniDocAuthor) this.listMembers.getSelectedValue();
-            m_glassPane.start();
+            getContainerInterface().getProgressPanel().start();
             btnReport.setEnabled(false);
             SwingWorker reportWorker = new SwingWorker(){
                     @Override
@@ -354,7 +354,7 @@ public class panelConsolidateChanges extends panelChangesBase {
                      protected void done() {
                     try {
                         BungeniOdfDocumentHelper reportdoc = (BungeniOdfDocumentHelper) get();
-                        m_glassPane.stop();
+                        getContainerInterface().getProgressPanel().stop();
                         btnReport.setEnabled(true);
                         if (reportdoc != null) {
                             JOptionPane.showMessageDialog(parentFrame, java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle").getString("report_generated_for") + selectedAuthor.toString(), java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle").getString("report_gen_title"), JOptionPane.INFORMATION_MESSAGE);
@@ -542,7 +542,7 @@ public class panelConsolidateChanges extends panelChangesBase {
 
     @Override
     public void updatePanel(final HashMap<String, Object> infomap) {
-       super.updatePanel(infomap);
+       super.updatePanel(infomap); 
        SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                  if (infomap.size() == 0) {
@@ -550,6 +550,7 @@ public class panelConsolidateChanges extends panelChangesBase {
                     loadFilesFromFolder();
                     DocOwnerListModel docOwnersModel = new DocOwnerListModel();
                     listMembers.setModel(new DocOwnerListModel());
+                    listMembers.updateUI();
                     if (selAuthor != null) {
                         selectAuthorinList(selAuthor);
                     }
@@ -557,6 +558,7 @@ public class panelConsolidateChanges extends panelChangesBase {
                  } else {
                      loadFilesFromFolder();
                      listMembers.setModel(new DocOwnerListModel());
+                     listMembers.updateUI();
                      if (infomap.containsKey("selectedAuthor")) {
                         BungeniDocAuthor selAut  = (BungeniDocAuthor) infomap.get("selectedAuthor");
                         selectAuthorinList(selAut);
@@ -621,7 +623,7 @@ public class panelConsolidateChanges extends panelChangesBase {
     
         public void updateModel(int iIndex, boolean bFilterbyAuthor) {
             final int sIndex = iIndex; final boolean bFilter = bFilterbyAuthor;
-            //m_glassPane.start();
+            getContainerInterface().getProgressPanel().start();
             SwingWorker modelWorker = new SwingWorker(){
                 @Override
                 protected Object doInBackground()  {
@@ -632,11 +634,10 @@ public class panelConsolidateChanges extends panelChangesBase {
                 @Override
                 protected void done(){
                     fireTableDataChanged();
-                    m_glassPane.stop();
+                    getContainerInterface().getProgressPanel().stop();
                 }
             };
             modelWorker.execute();
-            
         }
 
         private void buildModel(int iIndex , boolean bFilterByAuthor) {

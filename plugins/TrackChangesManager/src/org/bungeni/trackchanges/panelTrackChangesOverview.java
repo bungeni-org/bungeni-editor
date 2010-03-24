@@ -38,6 +38,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
@@ -468,9 +469,21 @@ public class panelTrackChangesOverview extends panelChangesBase {
             buildModel(iIndex);
         }
 
-        public void updateModel(int iIndex) {
-            buildModel(iIndex);
-            fireTableDataChanged();
+        public void updateModel(final int iIndex) {
+            getContainerInterface().getProgressPanel().start();
+            SwingWorker modelWorker = new SwingWorker(){
+                @Override
+                protected Object doInBackground() throws Exception {
+                        buildModel(iIndex);
+                        return Boolean.TRUE;
+                }
+                @Override
+                protected void done(){
+                    fireTableDataChanged();
+                    getContainerInterface().getProgressPanel().stop();
+                }
+            };
+            modelWorker.execute();
         }
 
         private void buildModel(int iIndex) {
