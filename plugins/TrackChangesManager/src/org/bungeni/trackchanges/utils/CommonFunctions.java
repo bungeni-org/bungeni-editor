@@ -2,6 +2,7 @@ package org.bungeni.trackchanges.utils;
 
 import java.io.File;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -46,5 +47,9 @@ public class CommonFunctions {
     
     public static String normalizeName(String name) {
         return name.replaceAll(" ", "_").toLowerCase();
+    }
+
+    public static List<String> getAvailableReportReferences(){
+        return RuntimeProperties.getSectionProp("reports", "report.name");
     }
 }

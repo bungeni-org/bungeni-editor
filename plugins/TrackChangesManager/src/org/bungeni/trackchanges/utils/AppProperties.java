@@ -8,7 +8,12 @@ import java.util.HashMap;
  */
 public class AppProperties {
     private static HashMap<String, Object> appProps = new HashMap<String,Object>();
-
+    /*
+     * Currently used AppProperties :
+     *
+     * CurrentBillID
+     *
+     */
     public static Object getProperty(String key) {
         if (appProps.containsKey(key)) {
             return appProps.get(key);
