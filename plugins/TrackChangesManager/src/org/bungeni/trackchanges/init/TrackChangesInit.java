@@ -33,8 +33,8 @@ public class TrackChangesInit {
         ILookAndFeel lafObject = null;
 
         try {
-            String lafClassName = RuntimeProperties.getProperty("DefaultTheme");
-            Class  lafClass     = Class.forName("org.bungeni.editor.themes.SaharaLAF");
+            String lafClassName = RuntimeProperties.getDefaultProp("DefaultTheme");
+            Class  lafClass     = Class.forName(lafClassName); //"org.bungeni.editor.themes.SaharaLAF");
 
             lafObject = (ILookAndFeel) lafClass.newInstance();
         } catch (InstantiationException ex) {
