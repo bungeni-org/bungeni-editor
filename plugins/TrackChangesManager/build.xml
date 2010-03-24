@@ -76,7 +76,7 @@
 		<fileset dir="review_workspace" >
 		</fileset>
 	</copy>
-        <copy file="${src.dir}/../runtime.properties" todir="${dist.dir}"/>
-        <copy file="${src.dir}/../runtime.properties" todir="${build.dir}/classes" />
+        <copy file="${src.dir}/../app.ini" todir="${dist.dir}"/>
+        <copy file="${src.dir}/../app.ini" todir="${build.dir}/classes" />
     </target>
 </project>
