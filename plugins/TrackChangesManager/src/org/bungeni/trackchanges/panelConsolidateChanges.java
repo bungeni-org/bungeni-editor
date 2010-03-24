@@ -7,9 +7,12 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
+import javax.swing.AbstractListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -32,10 +35,13 @@ import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfChangeContext;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper.StructuredChangeType;
+import org.bungeni.trackchanges.registrydata.BungeniBill;
+import org.bungeni.trackchanges.rss.BungeniBillDataProvider;
 import org.bungeni.trackchanges.ui.support.TextAreaRenderer;
 import org.bungeni.trackchanges.utils.AppProperties;
 import org.bungeni.trackchanges.utils.CommonFunctions;
 import org.bungeni.trackchanges.utils.ReviewDocuments;
+import org.bungeni.trackchanges.utils.RuntimeProperties;
 import org.odftoolkit.odfdom.doc.text.OdfTextChangedRegion;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -50,7 +56,7 @@ public class panelConsolidateChanges extends panelChangesBase {
    
      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(panelConsolidateChanges.class.getName());
     InfiniteProgressPanel m_glassPane =  null;
-
+    private static String __CLERK_NAME__ = "";
 
     /** Creates new form panelClerkOverview */
     public panelConsolidateChanges() {
@@ -63,8 +69,10 @@ public class panelConsolidateChanges extends panelChangesBase {
         PANEL_FILTER_REVIEW_STAGE = "ClerkConsolidationReview";
         PANEL_REVIEW_STAGE = "";
         initComponents();
+        __CLERK_NAME__ = RuntimeProperties.getDefaultProp("ClerkUser");
         initialize();
         loadFilesFromFolder();
+
         m_glassPane = new InfiniteProgressPanel();
         parentFrame.setGlassPane(m_glassPane);
 
@@ -100,6 +108,13 @@ public class panelConsolidateChanges extends panelChangesBase {
     }
 
     private void initialize_listBoxes(){
+        /**
+         *
+         * Members list box
+         *
+         * 
+         */
+
         listMembers.setModel(new DocOwnerListModel());
         listMembers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ListSelectionModel lsm = listMembers.getSelectionModel();
@@ -123,6 +138,15 @@ public class panelConsolidateChanges extends panelChangesBase {
             }
 
         });
+
+        /**
+         *
+         * Available reports 
+         *
+         */
+
+        this.listReportTemplates.setModel(new DocReportTemplateListModel());
+        this.listReportTemplates.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
     }
 
@@ -140,16 +164,16 @@ public class panelConsolidateChanges extends panelChangesBase {
         tblModel.updateModel(index, false);
     }
 
-    private boolean generateReport(int selIndex){
-        boolean bState = false;
+    private BungeniOdfDocumentHelper generateReport(int selIndex, BungeniDocAuthor anAuthor, BungeniOdfDocumentReportTemplate reportTemplate){
+        BungeniOdfDocumentHelper reportOdfDoc = null;
         try {
             //generate the report from the MP's document
             String billReviewFolder = CommonFunctions.getWorkspaceForBill((String) AppProperties.getProperty("CurrentBillID"));
             String templatesFolder = CommonFunctions.getTemplateFolder();
             //get the author name
-            String sAuthor = this.listMembers.getSelectedValue().toString();
+            String sAuthor = anAuthor.toString();
             File freportFile = new File(billReviewFolder + File.separator + CommonFunctions.normalizeName(sAuthor) + "_report.odt");
-            BungeniOdfDocumentReportTemplate reportTemplate = new BungeniOdfDocumentReportTemplate(templatesFolder + File.separator + "changes-by-user.odt");
+            //BungeniOdfDocumentReportTemplate reportTemplate = new BungeniOdfDocumentReportTemplate(templatesFolder + File.separator + "changes-by-user.odt");
             BungeniOdfDocumentHelper docHelper = changesInfo.getDocuments().get(selIndex);
             //create an xpath object
             XPath docXpath = docHelper.getOdfDocument().getXPath();
@@ -191,49 +215,111 @@ public class panelConsolidateChanges extends panelChangesBase {
 
             }
             BungeniOdfDocumentReport reportObject = new BungeniOdfDocumentReport(freportFile, reportTemplate);
-            reportObject.addReportVariable("REPORT_HEADER", "Bill Amendments Report");
-            reportObject.addReportVariable("BILL_NAME", "Finance Bill");
-            reportObject.addReportVariable("REPORT_FOOTER", "Bill Amendments Report");
-            reportObject.addReportVariable("NO_OF_AMENDMENTS", "");
+            //reportObject.addReportVariable("REPORT_HEADER", "Bill Amendments Report");
+            //TODO : get the bill name from them MP documents
+            reportObject.addReportVariable("BILL_NAME", getBillName());
+            //reportObject.addReportVariable("REPORT_FOOTER", "Bill Amendments Report");
+            //
+            reportObject.addReportVariable("NO_OF_AMENDMENTS", reportLines.size());
             reportObject.addReportVariable("MEMBER_OF_PARLIAMENT", sAuthor);
+            reportObject.addReportVariable("OFFICIAL_DATE", reportTemplate.getReportDateFormat().format(Calendar.getInstance().getTime()));
             reportObject.addReportLines(reportLines);
             reportObject.generateReport();
             reportObject.saveReport();
-            bState = true;
+            reportOdfDoc = reportObject.getReportDocument();
         } catch (Exception ex) {
              log.error("doReport : " + ex.getMessage(), ex);
         }
-        return bState;
+        return reportOdfDoc;
+    }
+
+    private String getBillName(){
+        String aBillId = (String) AppProperties.getProperty("CurrentBillID");
+        String billTitle = "";
+        List<BungeniBill> bungeniBills = BungeniBillDataProvider.getData();
+        for (BungeniBill bungeniBill : bungeniBills) {
+            if (bungeniBill.getID().equals(aBillId)) {
+                billTitle = bungeniBill.getTitle();
+            }
+        }
+        if (billTitle.length() == 0 ) {
+            return "Unknown Bill Title";
+        }
+        return billTitle;
     }
 
     private boolean doReportsAll(){
       boolean bReturn = false;
-        //get the selected MP
-       // get the selected document index
-         final int selIndex = this.listMembers.getSelectedIndex();
-         if (-1 == selIndex) {
-                JOptionPane.showMessageDialog(parentFrame, "No document was selected. Please select a document for review");
+        final List<BungeniDocAuthor> docAuthors = new ArrayList<BungeniDocAuthor>(){{
+                for (int i = 0; i < listMembers.getModel().getSize() ; i++) {
+                        add((BungeniDocAuthor)listMembers.getModel().getElementAt(i));
+                }
+        }};
+        final BungeniOdfDocumentReportTemplate selReport = (BungeniOdfDocumentReportTemplate) this.listReportTemplates.getSelectedValue();
+        if (docAuthors.size() == 0 ) {
+                JOptionPane.showMessageDialog(parentFrame, java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle").getString("no_dox_for_consolidation"));
+                bReturn = false;
+
+        }
+
+        if (selReport == null) {
+                JOptionPane.showMessageDialog(parentFrame, java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle").getString("no_report_selected"));
                 bReturn = false;
                 return false;
          } else {
             m_glassPane.start();
-            btnReport.setEnabled(false);
-            SwingWorker reportWorker = new SwingWorker(){
+            this.btnReportAll.setEnabled(false);
+            SwingWorker reportAllWorker = new SwingWorker(){
                     @Override
                     protected Object doInBackground() throws Exception {
-                        boolean b = generateReport(selIndex);
-                        return Boolean.valueOf(b);
+                        List<BungeniOdfDocumentHelper> reportDocs = new ArrayList<BungeniOdfDocumentHelper>(0);
+                        for (int i = 0; i < docAuthors.size(); i++) {
+                             BungeniDocAuthor docAuthor = docAuthors.get(i);
+                             BungeniOdfDocumentHelper reportodfDoc = generateReport(i, docAuthor, selReport);
+                             reportDocs.add(reportodfDoc);
+                        }
+                        return reportDocs;
                     }
 
                      @Override
                      protected void done() {
+                    try {
+                        // get the return envelope
+                        List<BungeniOdfDocumentHelper> docs = (List<BungeniOdfDocumentHelper>) this.get();
                         m_glassPane.stop();
-                        btnReport.setEnabled(true);
+                        btnReportAll.setEnabled(true);
+                        boolean errorCondition = false;
+                        if (docs != null ) {
+                            if (docs.size() > 0 ) {
+                                StringBuffer sbBuffer = new StringBuffer();
+                                for (BungeniDocAuthor anAuthor : docAuthors) {
+                                    sbBuffer.append(anAuthor.toString() + "\n");
+                                }
+                                JOptionPane.showMessageDialog(parentFrame, java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle").getString("reports_generated_ok") + sbBuffer.toString(), java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle").getString("report_gen_title"), JOptionPane.INFORMATION_MESSAGE);
+                            } else {
+                                errorCondition = true;
+                            }
+                        } else {
+                            errorCondition = true;
+                        }
+
+                        if (errorCondition ) {
+                                JOptionPane.showMessageDialog(parentFrame, java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle").getString("report_gen_error_occured") , java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle").getString("report_gen_title"), JOptionPane.WARNING_MESSAGE);
+                        }
+
+                        //viewConsolidatedDocument(envelope);
+                    } catch (InterruptedException ex) {
+                        log.error("consolidateWorkerAll = " + ex.getMessage());
+                    } catch (ExecutionException ex) {
+                        log.error("consolidateWorkerAll = " + ex.getMessage());
+                    }
+
                      }
             };
-            reportWorker.execute();
+            reportAllWorker.execute();
+           bReturn = true;
          }
-    return true;
+    return bReturn;
     }
 
 
@@ -242,24 +328,44 @@ public class panelConsolidateChanges extends panelChangesBase {
         //get the selected MP
        // get the selected document index
          final int selIndex = this.listMembers.getSelectedIndex();
+         final BungeniOdfDocumentReportTemplate selReport = (BungeniOdfDocumentReportTemplate) this.listReportTemplates.getSelectedValue();
+
          if (-1 == selIndex) {
-                JOptionPane.showMessageDialog(parentFrame, "No document was selected. Please select a document for review");
+                JOptionPane.showMessageDialog(parentFrame, java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle").getString("no_document_selected"));
+                bReturn = false;
+                return false;
+         }
+         if (selReport == null) {
+                JOptionPane.showMessageDialog(parentFrame, java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle").getString("no_report_selected"));
                 bReturn = false;
                 return false;
          } else {
+            final BungeniDocAuthor selectedAuthor = (BungeniDocAuthor) this.listMembers.getSelectedValue();
             m_glassPane.start();
             btnReport.setEnabled(false);
             SwingWorker reportWorker = new SwingWorker(){
                     @Override
                     protected Object doInBackground() throws Exception {
-                        boolean b = generateReport(selIndex);
-                        return Boolean.valueOf(b);
+                        BungeniOdfDocumentHelper reportdoc  = generateReport(selIndex, selectedAuthor, selReport);
+                        return reportdoc;
                     }
 
                      @Override
                      protected void done() {
+                    try {
+                        BungeniOdfDocumentHelper reportdoc = (BungeniOdfDocumentHelper) get();
                         m_glassPane.stop();
                         btnReport.setEnabled(true);
+                        if (reportdoc != null) {
+                            JOptionPane.showMessageDialog(parentFrame, java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle").getString("report_generated_for") + selectedAuthor.toString(), java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle").getString("report_gen_title"), JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(parentFrame, java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle").getString("report_gen_error_occured") , java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle").getString("report_gen_title"), JOptionPane.WARNING_MESSAGE);
+                        }
+                    } catch (InterruptedException ex) {
+                        log.error("consolidateWorker = " + ex.getMessage());
+                    } catch (ExecutionException ex) {
+                        log.error("consolidateWorker = " + ex.getMessage());
+                    }
                      }
             };
             reportWorker.execute();
@@ -284,8 +390,12 @@ public class panelConsolidateChanges extends panelChangesBase {
         lblDocumentChanges = new javax.swing.JLabel();
         btnReport = new javax.swing.JButton();
         btnEditTemplate = new javax.swing.JButton();
+        btnReportAll = new javax.swing.JButton();
+        scrollReports = new javax.swing.JScrollPane();
+        listReportTemplates = new javax.swing.JList();
+        lblAvailableReports = new javax.swing.JLabel();
 
-        listMembers.setFont(new java.awt.Font("Lucida Grande", 0, 10));
+        listMembers.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         listMembers.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Tinoula Awopetu", "Mashinski Murigi", "Raul Obwacha", "Felix Kerstengor" };
             public int getSize() { return strings.length; }
@@ -293,7 +403,7 @@ public class panelConsolidateChanges extends panelChangesBase {
         });
         scrollMembers.setViewportView(listMembers);
 
-        lblMembers.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        lblMembers.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle"); // NOI18N
         lblMembers.setText(bundle.getString("panelTrackChangesOverview.lblMembers.text")); // NOI18N
 
@@ -331,6 +441,25 @@ public class panelConsolidateChanges extends panelChangesBase {
         btnEditTemplate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnEditTemplate.setText(bundle.getString("panelConsolidateChanges.btnEditTemplate.text")); // NOI18N
 
+        btnReportAll.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnReportAll.setText(bundle.getString("panelConsolidateChanges.btnReportAll.text")); // NOI18N
+        btnReportAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportAllActionPerformed(evt);
+            }
+        });
+
+        listReportTemplates.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
+        listReportTemplates.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Tinoula Awopetu", "Mashinski Murigi", "Raul Obwacha", "Felix Kerstengor" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        scrollReports.setViewportView(listReportTemplates);
+
+        lblAvailableReports.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblAvailableReports.setText(bundle.getString("panelConsolidateChanges.lblAvailableReports.text")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -339,11 +468,15 @@ public class panelConsolidateChanges extends panelChangesBase {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
-                    .addComponent(lblMembers))
+                    .addComponent(lblMembers)
+                    .addComponent(scrollReports, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                    .addComponent(lblAvailableReports))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnReport)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnReportAll)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEditTemplate))
                     .addComponent(lblDocumentChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -359,21 +492,23 @@ public class panelConsolidateChanges extends panelChangesBase {
                     .addComponent(lblDocumentChanges))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(scrollDocChanges, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnReport)
-                            .addComponent(btnEditTemplate))
-                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                        .addGap(209, 209, 209))))
+                        .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblAvailableReports)
+                        .addGap(9, 9, 9)
+                        .addComponent(scrollReports, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
+                    .addComponent(scrollDocChanges, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnReport)
+                    .addComponent(btnReportAll)
+                    .addComponent(btnEditTemplate))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
-        // TODO add your handling code here:
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                   doReport();
@@ -381,27 +516,43 @@ public class panelConsolidateChanges extends panelChangesBase {
         });
     }//GEN-LAST:event_btnReportActionPerformed
 
+    private void btnReportAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportAllActionPerformed
+           SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                  doReportsAll();
+            }
+        });
+    }//GEN-LAST:event_btnReportAllActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditTemplate;
     private javax.swing.JButton btnReport;
+    private javax.swing.JButton btnReportAll;
+    private javax.swing.JLabel lblAvailableReports;
     private javax.swing.JLabel lblDocumentChanges;
     private javax.swing.JLabel lblMembers;
     private javax.swing.JList listMembers;
+    private javax.swing.JList listReportTemplates;
     private javax.swing.JScrollPane scrollDocChanges;
     private javax.swing.JScrollPane scrollMembers;
+    private javax.swing.JScrollPane scrollReports;
     private javax.swing.JTable tblDocChanges;
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void updatePanel(HashMap<String, Object> infomap) {
-        super.updatePanel(infomap);
-        loadFilesFromFolder();
-        this.listMembers.setModel(new DocOwnerListModel());
-        if (infomap.containsKey("selectedAuthor")) {
-            BungeniDocAuthor selAut  = (BungeniDocAuthor) infomap.get("selectedAuthor");
-            selectAuthorinList(selAut);
-        }
+    public void updatePanel(final HashMap<String, Object> infomap) {
+       super.updatePanel(infomap);
+       SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                 loadFilesFromFolder();
+                 listMembers.setModel(new DocOwnerListModel());
+                 if (infomap.containsKey("selectedAuthor")) {
+                    BungeniDocAuthor selAut  = (BungeniDocAuthor) infomap.get("selectedAuthor");
+                    selectAuthorinList(selAut);
+                }
+            }
+        });
     }
 
     private void selectAuthorinList(BungeniDocAuthor selAut) {
@@ -417,7 +568,7 @@ public class panelConsolidateChanges extends panelChangesBase {
     }
 
 
-    private static String __CLERK_NAME__ = "Ashok Hariharan";
+
 
     private class DocumentChangesTableCellRenderer extends DefaultTableCellRenderer {
         @Override
@@ -547,6 +698,44 @@ public class panelConsolidateChanges extends panelChangesBase {
             return column_names[column];
         }
 
+
+    }
+
+
+     class DocReportTemplateListModel extends AbstractListModel {
+         List<BungeniOdfDocumentReportTemplate> reportTemplates = new ArrayList<BungeniOdfDocumentReportTemplate>(0);
+
+         public DocReportTemplateListModel(){
+             super();
+             buildModel();
+         }
+
+         private void buildModel(){
+             //get section name of reports in app.ini
+             List<String> reportRefs = CommonFunctions.getAvailableReportReferences();
+             reportTemplates.clear();
+             for (String reportRef : reportRefs) {
+                try {
+                    //get the report template
+                    List<String> reportTemplateFile = RuntimeProperties.getSectionProp(reportRef, "report.template");
+                    String pathToTemplateFile = CommonFunctions.getTemplateFolder() + File.separator + reportTemplateFile.get(0);
+                    BungeniOdfDocumentReportTemplate rptTemplate = new BungeniOdfDocumentReportTemplate(pathToTemplateFile);
+                    reportTemplates.add(rptTemplate);
+                } catch (Exception ex) {
+                    log.error("buildModel : " + ex.getMessage(), ex);
+                }
+             }
+
+         }
+
+         public int getSize() {
+          return reportTemplates.size();
+        }
+
+        @Override
+        public Object getElementAt(int arg0) {
+            return reportTemplates.get(arg0);
+        }
 
     }
 

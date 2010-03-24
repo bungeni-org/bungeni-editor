@@ -42,9 +42,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumnModel;
+import org.bungeni.trackchanges.rss.BungeniBillDataProvider;
 
 /**
- *
+ * This is the first tab / workflow in the bill amendments for the clerk
+ * This tab loads the documents and provides options for the clerk to review
+ * the documents submitted by the users
  * @author  Ashok Hariharan
  */
 public class panelTrackChangesOverview extends panelChangesBase {
@@ -52,12 +55,7 @@ public class panelTrackChangesOverview extends panelChangesBase {
         org.apache.log4j.Logger.getLogger(panelTrackChangesOverview.class.getName());
     String                 __CURRENT_BILL_FOLDER__ = "";
     String                 __TEST_FOLDER__         = "";
-    ArrayList<BungeniBill> bungeniBills            = new ArrayList<BungeniBill>() {
-        {
-            add(new BungeniBill("/ke/bills/en/finance-bill/01", "Finance Bill", "863524", "2009-01-02"));
-            add(new BungeniBill("/ke/bills/en/education-bill/01", "Education Bill", "848524", "2009-01-12"));
-        }
-    };
+    ArrayList<BungeniBill> bungeniBills            =  new ArrayList<BungeniBill>(0);
 
 
     /** Creates new form panelTrackChanges */
@@ -108,6 +106,7 @@ public class panelTrackChangesOverview extends panelChangesBase {
     }
 
     private void initialize_comboBoxes() {
+        this.bungeniBills = (ArrayList<BungeniBill>) BungeniBillDataProvider.getData();
         this.cboBills.setModel(new BillsComboBoxModel(bungeniBills.toArray(new BungeniBill[bungeniBills.size()])));
         this.cboBills.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

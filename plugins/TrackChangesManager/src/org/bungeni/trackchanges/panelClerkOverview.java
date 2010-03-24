@@ -61,7 +61,7 @@ public class panelClerkOverview extends panelChangesBase {
         PANEL_FILTER_REVIEW_STAGE = "ClerkReview";
         PANEL_REVIEW_STAGE = "ClerkConsolidationReview";
         initComponents();
-        __CLERK_NAME__ = RuntimeProperties.getProperty("ClerkUser");
+        __CLERK_NAME__ = RuntimeProperties.getDefaultProp("ClerkUser");
         initialize();
         loadFilesFromFolder();
          m_glassPane = new InfiniteProgressPanel();
@@ -165,7 +165,8 @@ public class panelClerkOverview extends panelChangesBase {
                         List<BungeniOdfDocumentHelper> consolidatedDocs = new ArrayList<BungeniOdfDocumentHelper>(0);
                         for (int i = 0; i < docAuthors.size(); i++) {
                              BungeniDocAuthor docAuthor = docAuthors.get(i);
-                             consolidateCurrentDocument(i, docAuthor);
+                             BungeniOdfDocumentHelper conDoc = consolidateCurrentDocument(i, docAuthor);
+                             consolidatedDocs.add(conDoc);
                         }
                         return consolidatedDocs;
                     }
@@ -298,7 +299,6 @@ public class panelClerkOverview extends panelChangesBase {
         chkFilterByClerk = new javax.swing.JCheckBox();
         btnReview = new javax.swing.JButton();
         btnConsolidate = new javax.swing.JButton();
-        cboDocumentReviewType = new javax.swing.JComboBox();
         btnConsolidateAll = new javax.swing.JButton();
 
         listMembers.setFont(new java.awt.Font("Lucida Grande", 0, 10));
@@ -344,10 +344,10 @@ public class panelClerkOverview extends panelChangesBase {
             }
         });
 
-        btnReview.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnReview.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnReview.setText(bundle.getString("panelClerkOverview.btnReview.text")); // NOI18N
 
-        btnConsolidate.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnConsolidate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnConsolidate.setText(bundle.getString("panelClerkOverview.btnConsolidate.text")); // NOI18N
         btnConsolidate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -355,10 +355,7 @@ public class panelClerkOverview extends panelChangesBase {
             }
         });
 
-        cboDocumentReviewType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        cboDocumentReviewType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        btnConsolidateAll.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnConsolidateAll.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnConsolidateAll.setText(bundle.getString("panelClerkOverview.btnConsolidateAll.text")); // NOI18N
         btnConsolidateAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -374,8 +371,7 @@ public class panelClerkOverview extends panelChangesBase {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
-                    .addComponent(lblMembers)
-                    .addComponent(cboDocumentReviewType, 0, 237, Short.MAX_VALUE))
+                    .addComponent(lblMembers))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -410,9 +406,7 @@ public class panelClerkOverview extends panelChangesBase {
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cboDocumentReviewType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(180, 180, 180))))
+                        .addGap(209, 209, 209))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -441,7 +435,6 @@ public class panelClerkOverview extends panelChangesBase {
     private javax.swing.JButton btnConsolidate;
     private javax.swing.JButton btnConsolidateAll;
     private javax.swing.JButton btnReview;
-    private javax.swing.JComboBox cboDocumentReviewType;
     private javax.swing.JCheckBox chkFilterByClerk;
     private javax.swing.JLabel lblDocumentChanges;
     private javax.swing.JLabel lblMembers;
@@ -452,14 +445,20 @@ public class panelClerkOverview extends panelChangesBase {
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void updatePanel(HashMap<String, Object> infomap) {
+    public void updatePanel(final HashMap<String, Object> infomap) {
         super.updatePanel(infomap);
-        loadFilesFromFolder();
-        this.listMembers.setModel(new DocOwnerListModel());
-        if (infomap.containsKey("selectedAuthor")) {
-            BungeniDocAuthor selAut  = (BungeniDocAuthor) infomap.get("selectedAuthor");
-            selectAuthorinList(selAut);
-        }
+        //always call in a non-EDT thread since this is called asynchronously
+        //on the tab change
+         SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                loadFilesFromFolder();
+                listMembers.setModel(new DocOwnerListModel());
+                if (infomap.containsKey("selectedAuthor")) {
+                    BungeniDocAuthor selAut  = (BungeniDocAuthor) infomap.get("selectedAuthor");
+                    selectAuthorinList(selAut);
+                }
+            }
+         });
     }
 
     private void selectAuthorinList(BungeniDocAuthor selAut) {

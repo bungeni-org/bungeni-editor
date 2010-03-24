@@ -21,7 +21,7 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
         org.apache.log4j.Logger.getLogger(trackChangesMain.class.getName());
     public static JFrame                   parentFrame = null;
     ResourceBundle bundleBase = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle");
-  
+    int m_prevTabIndex = 0;
     /** Creates new form trackChangesMain */
     public trackChangesMain() {
         initComponents();
@@ -40,11 +40,11 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
         this.tabContainer.getModel().addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent ce) {
                 System.out.println("Selected index = " + tabContainer.getSelectedIndex());
-
                 // call update with empty hashmap
                 updateCurrentPanel(new HashMap<String, Object>() {
                     {}
                 });
+                m_prevTabIndex = tabContainer.getSelectedIndex();
             }
         });
     }
@@ -58,9 +58,13 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
         tabContainer = new javax.swing.JTabbedPane();
-        btnClose     = new javax.swing.JButton();
-        btnClose.setFont(new java.awt.Font("Lucida Grande", 0, 10));    // NOI18N
+        btnClose = new javax.swing.JButton();
+
+        tabContainer.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+
+        btnClose.setFont(new java.awt.Font("Lucida Grande", 0, 10));
         btnClose.setText("Close");
         btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,22 +73,27 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
         });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addGroup(
-                    layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                        layout.createSequentialGroup().addContainerGap().addComponent(
-                            tabContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE)).addGroup(
-                                layout.createSequentialGroup().addGap(349, 349, 349).addComponent(
-                                    btnClose))).addContainerGap()));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(tabContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(349, 349, 349)
+                        .addComponent(btnClose)))
+                .addContainerGap())
+        );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                javax.swing.GroupLayout.Alignment.TRAILING,
-                layout.createSequentialGroup().addContainerGap().addComponent(
-                    tabContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE).addPreferredGap(
-                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(btnClose)));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tabContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnClose))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
@@ -94,7 +103,7 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton     btnClose;
+    private javax.swing.JButton btnClose;
     private javax.swing.JTabbedPane tabContainer;
     // End of variables declaration//GEN-END:variables
 
@@ -105,7 +114,11 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
     }
 
     public void updateCurrentPanel(HashMap<String, Object> infomap) {
-        ((IChangesPanel) this.tabContainer.getSelectedComponent()).updatePanel(infomap);
+        //route the update call only when there is a programattic update,
+        //not when someone clicks on a tab
+        if (infomap.size() > 0 ) {
+            ((IChangesPanel) this.tabContainer.getSelectedComponent()).updatePanel(infomap);
+        }
     }
 
  
