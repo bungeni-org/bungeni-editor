@@ -53,21 +53,29 @@ public class BungeniChangeDocumentsInfo {
         });
     }
 
-    public synchronized void reload(File[] files) {
+    public void reload(File[] files) {
+                System.out.println("Clearing changes");
                 this.clear();
                 for (int i = 0; i < files.length ; i++ ) {
+                    System.out.println("Adding file - " + files[i].getName());
                     OdfDocument oDoc = null;
                     try {
-
+                        System.out.println("Creating odf helper object");
                         BungeniOdfDocumentHelper docHelper = new BungeniOdfDocumentHelper(files[i]);
+                        System.out.println("Created odf helper object");
                         this.addDocument(docHelper);
+                        System.out.println("Added odfhelper object");
 
                     } catch (Exception ex) {
+                        System.out.println("reload exception = " + ex.getMessage() + " " + files[i].getName());
                         log.error("reload = " + ex.getMessage(), ex);
                     }
 
                 }
+                System.out.println("Sorting documents");
                 this.sortDocuments();
+                 System.out.println("Finishing sort..");
     }
+
 
 }

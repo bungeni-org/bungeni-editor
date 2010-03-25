@@ -470,7 +470,7 @@ public class panelTrackChangesOverview extends panelChangesBase {
         }
 
         public void updateModel(final int iIndex) {
-            getContainerInterface().getProgressPanel().start();
+            getContainerInterface().startProgress();
             SwingWorker modelWorker = new SwingWorker(){
                 @Override
                 protected Object doInBackground() throws Exception {
@@ -480,7 +480,7 @@ public class panelTrackChangesOverview extends panelChangesBase {
                 @Override
                 protected void done(){
                     fireTableDataChanged();
-                    getContainerInterface().getProgressPanel().stop();
+                    getContainerInterface().stopProgress();
                 }
             };
             modelWorker.execute();
@@ -534,7 +534,7 @@ public class panelTrackChangesOverview extends panelChangesBase {
         public Object getValueAt(int rowIndex, int columnIndex) {
             HashMap<String, String> changeMark = changeMarks.get(rowIndex);
 
-            System.out.println("Change Mark = " + changeMark);
+           log.debug("Change Mark = " + changeMark);
 
             switch (columnIndex) {
             case 0 :

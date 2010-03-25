@@ -121,7 +121,7 @@ public class BungeniOdfDocumentReport {
             while (keyIter.hasNext()) {
                 String sKey = keyIter.next();
                 String sValue = reportVariables.get(sKey).toString();
-                System.out.println("processing Key : " + sValue);
+                log.debug("processing Key : " + sValue);
                 String xpathSrch = this.genericTextMatchXpath(sKey);
                 NodeList nltextNodes = (NodeList) xpath.evaluate(xpathSrch, contentDom, XPathConstants.NODESET);
                 for (int i = 0; i < nltextNodes.getLength(); i++) {
@@ -211,9 +211,6 @@ public class BungeniOdfDocumentReport {
         return this.reportDocument;
     }
    
-    public static void main(String[] args) {
-        String s = "[REPORT]";
-        System.out.println(s.replaceAll("\\[REPORT\\]", "This is a report"));
-    }
+
 
 }

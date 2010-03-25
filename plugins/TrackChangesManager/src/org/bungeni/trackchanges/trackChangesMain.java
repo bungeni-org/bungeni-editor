@@ -5,13 +5,14 @@ package org.bungeni.trackchanges;
 
 //~--- JDK imports ------------------------------------------------------------
 
+import java.awt.Component;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import javax.swing.JFrame;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import net.java.swingfx.waitwithstyle.InfiniteProgressPanel;
+import net.java.swingfx.waitwithstyle.PerformanceInfiniteProgressPanel;
 
 /**
  *
@@ -24,7 +25,7 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
     ResourceBundle bundleBase = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle");
     int m_prevTabIndex = 0;
 
-    InfiniteProgressPanel m_glassPane =  null;
+    private PerformanceInfiniteProgressPanel m_glassPane =  null;
 
     /** Creates new form trackChangesMain */
     public trackChangesMain() {
@@ -55,7 +56,7 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
     }
 
     private void init_GlassPane(){
-        m_glassPane = new InfiniteProgressPanel();
+        m_glassPane = new PerformanceInfiniteProgressPanel();
         parentFrame.setGlassPane(m_glassPane);
     }
 
@@ -129,11 +130,36 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
             ((IChangesPanel) this.tabContainer.getSelectedComponent()).updatePanel(infomap);
     }
 
-    public InfiniteProgressPanel getProgressPanel() {
-       return this.m_glassPane;
+    Component originalPane;
+
+    public boolean startProgress(){
+        boolean bState = false;
+        try {
+            originalPane = parentFrame.getGlassPane();
+            PerformanceInfiniteProgressPanel glassPane;
+            parentFrame.setGlassPane(glassPane = new PerformanceInfiniteProgressPanel());
+            glassPane.setVisible(true);
+            bState = true;
+        } catch (Exception ex) {
+            log.error("startProgress : " + ex.getMessage());
+        }
+        return bState;
     }
 
- 
+
+    public boolean stopProgress() {
+        boolean bState = false;
+        try {
+          final PerformanceInfiniteProgressPanel pPanel =
+                  (PerformanceInfiniteProgressPanel) parentFrame.getGlassPane();
+                   pPanel.setVisible(false);
+                   parentFrame.setGlassPane(originalPane);
+                   bState = true;
+        } catch (Exception ex) {
+            log.error("endProgress : " + ex.getMessage());
+        }
+        return bState;
+    }
 
    
 

@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -26,7 +27,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
-import net.java.swingfx.waitwithstyle.InfiniteProgressPanel;
 import org.bungeni.odfdocument.docinfo.BungeniDocAuthor;
 import org.bungeni.odfdocument.report.BungeniOdfDocumentReport;
 import org.bungeni.odfdocument.report.BungeniOdfDocumentReportTemplate;
@@ -101,6 +101,11 @@ public class panelConsolidateChanges extends panelChangesBase {
                     }
 
                 });
+                System.out.println("cons files found :" + files.length);
+                for (File file : files) {
+
+                    System.out.println("cons file : " + file.getName());
+                }
 
               changesInfo.reload(files);
             }
@@ -131,6 +136,7 @@ public class panelConsolidateChanges extends panelChangesBase {
                 } else {
                     // Find out which indexes are selected.
                     int nIndex = lsm.getMinSelectionIndex();
+                    System.out.println("loading table changes");
                     //do struff here
                     displayChangesInfo(nIndex);
                 }
@@ -267,7 +273,7 @@ public class panelConsolidateChanges extends panelChangesBase {
                 bReturn = false;
                 return false;
          } else {
-            getContainerInterface().getProgressPanel().start();
+            getContainerInterface().startProgress();
             this.btnReportAll.setEnabled(false);
             SwingWorker reportAllWorker = new SwingWorker(){
                     @Override
@@ -286,7 +292,7 @@ public class panelConsolidateChanges extends panelChangesBase {
                     try {
                         // get the return denvelope
                         List<BungeniOdfDocumentHelper> docs = (List<BungeniOdfDocumentHelper>) this.get();
-                        getContainerInterface().getProgressPanel().stop();
+                        getContainerInterface().stopProgress();
                         btnReportAll.setEnabled(true);
                         boolean errorCondition = false;
                         if (docs != null ) {
@@ -341,7 +347,7 @@ public class panelConsolidateChanges extends panelChangesBase {
                 return false;
          } else {
             final BungeniDocAuthor selectedAuthor = (BungeniDocAuthor) this.listMembers.getSelectedValue();
-            getContainerInterface().getProgressPanel().start();
+            getContainerInterface().startProgress();
             btnReport.setEnabled(false);
             SwingWorker reportWorker = new SwingWorker(){
                     @Override
@@ -354,7 +360,7 @@ public class panelConsolidateChanges extends panelChangesBase {
                      protected void done() {
                     try {
                         BungeniOdfDocumentHelper reportdoc = (BungeniOdfDocumentHelper) get();
-                        getContainerInterface().getProgressPanel().stop();
+                        getContainerInterface().stopProgress();
                         btnReport.setEnabled(true);
                         if (reportdoc != null) {
                             JOptionPane.showMessageDialog(parentFrame, java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle").getString("report_generated_for") + selectedAuthor.toString(), java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle").getString("report_gen_title"), JOptionPane.INFORMATION_MESSAGE);
@@ -394,6 +400,7 @@ public class panelConsolidateChanges extends panelChangesBase {
         scrollReports = new javax.swing.JScrollPane();
         listReportTemplates = new javax.swing.JList();
         lblAvailableReports = new javax.swing.JLabel();
+        btnRefreshDocs = new javax.swing.JButton();
 
         listMembers.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         listMembers.setModel(new javax.swing.AbstractListModel() {
@@ -403,7 +410,7 @@ public class panelConsolidateChanges extends panelChangesBase {
         });
         scrollMembers.setViewportView(listMembers);
 
-        lblMembers.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblMembers.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle"); // NOI18N
         lblMembers.setText(bundle.getString("panelTrackChangesOverview.lblMembers.text")); // NOI18N
 
@@ -430,7 +437,7 @@ public class panelConsolidateChanges extends panelChangesBase {
         lblDocumentChanges.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblDocumentChanges.setText(bundle.getString("panelTrackChangesOverview.jLabel1.text")); // NOI18N
 
-        btnReport.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnReport.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnReport.setText(bundle.getString("panelConsolidateChanges.btnReport.text")); // NOI18N
         btnReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -441,7 +448,7 @@ public class panelConsolidateChanges extends panelChangesBase {
         btnEditTemplate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnEditTemplate.setText(bundle.getString("panelConsolidateChanges.btnEditTemplate.text")); // NOI18N
 
-        btnReportAll.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnReportAll.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnReportAll.setText(bundle.getString("panelConsolidateChanges.btnReportAll.text")); // NOI18N
         btnReportAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -449,7 +456,7 @@ public class panelConsolidateChanges extends panelChangesBase {
             }
         });
 
-        listReportTemplates.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
+        listReportTemplates.setFont(new java.awt.Font("Lucida Grande", 0, 10));
         listReportTemplates.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Tinoula Awopetu", "Mashinski Murigi", "Raul Obwacha", "Felix Kerstengor" };
             public int getSize() { return strings.length; }
@@ -457,8 +464,16 @@ public class panelConsolidateChanges extends panelChangesBase {
         });
         scrollReports.setViewportView(listReportTemplates);
 
-        lblAvailableReports.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblAvailableReports.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblAvailableReports.setText(bundle.getString("panelConsolidateChanges.lblAvailableReports.text")); // NOI18N
+
+        btnRefreshDocs.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnRefreshDocs.setText(bundle.getString("panelConsolidateChanges.btnRefreshDocs.text")); // NOI18N
+        btnRefreshDocs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshDocsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -470,7 +485,8 @@ public class panelConsolidateChanges extends panelChangesBase {
                     .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
                     .addComponent(lblMembers)
                     .addComponent(scrollReports, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
-                    .addComponent(lblAvailableReports))
+                    .addComponent(lblAvailableReports)
+                    .addComponent(btnRefreshDocs))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -503,7 +519,8 @@ public class panelConsolidateChanges extends panelChangesBase {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnReport)
                     .addComponent(btnReportAll)
-                    .addComponent(btnEditTemplate))
+                    .addComponent(btnEditTemplate)
+                    .addComponent(btnRefreshDocs))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -524,9 +541,20 @@ public class panelConsolidateChanges extends panelChangesBase {
         });
     }//GEN-LAST:event_btnReportAllActionPerformed
 
+    private void btnRefreshDocsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshDocsActionPerformed
+         final BungeniDocAuthor selAuthor = (BungeniDocAuthor) listMembers.getSelectedValue();
+         initialize_listBoxes();
+         this.loadFilesFromFolder();
+         System.out.println("After intListBox");
+         if (selAuthor != null) {
+                 selectAuthorinList(selAuthor);
+         }
+    }//GEN-LAST:event_btnRefreshDocsActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditTemplate;
+    private javax.swing.JButton btnRefreshDocs;
     private javax.swing.JButton btnReport;
     private javax.swing.JButton btnReportAll;
     private javax.swing.JLabel lblAvailableReports;
@@ -542,7 +570,36 @@ public class panelConsolidateChanges extends panelChangesBase {
 
     @Override
     public void updatePanel(final HashMap<String, Object> infomap) {
-       super.updatePanel(infomap); 
+
+       super.updatePanel(infomap);
+       /*
+       final BungeniDocAuthor selAuthor = (BungeniDocAuthor) listMembers.getSelectedValue();
+       //clear the list pre-emptively since we are going to reload it in the swing-worker thread
+       listMembers.setModel(new DefaultListModel());
+       SwingWorker panelUpdateWorker = new SwingWorker() {
+            @Override
+            protected Object doInBackground() throws Exception {
+                    loadFilesFromFolder();
+                    return Boolean.TRUE;
+            }
+
+            @Override
+            protected void done(){
+                listMembers.setModel(new DocOwnerListModel());
+                if (infomap.size() == 0 ) {
+                    if (selAuthor != null) {
+                        selectAuthorinList(selAuthor);
+                    }
+                } else {
+                     if (infomap.containsKey("selectedAuthor")) {
+                        BungeniDocAuthor selAut  = (BungeniDocAuthor) infomap.get("selectedAuthor");
+                        selectAuthorinList(selAut);
+                    }
+              }
+            }
+       };
+       panelUpdateWorker.execute(); */
+       /*
        SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                  if (infomap.size() == 0) {
@@ -565,7 +622,7 @@ public class panelConsolidateChanges extends panelChangesBase {
                     }
                  }
             }
-        });
+        }); */
     }
 
     private void selectAuthorinList(BungeniDocAuthor selAut) {
@@ -588,8 +645,8 @@ public class panelConsolidateChanges extends panelChangesBase {
         public Component getTableCellRendererComponent(JTable aTable, Object aNumberValue, boolean aIsSelected, boolean aHasFocus,int aRow, int aColumn) {
             Component p = super.getTableCellRendererComponent(aTable, aNumberValue, aHasFocus, aHasFocus, aRow, aColumn);
             DocumentChangesTableModel tblModel = ((DocumentChangesTableModel)tblDocChanges.getModel());
-            HashMap<String,String> changesInfo = tblModel.getModelBase().get(aRow);
-            String dcCreator = changesInfo.get("dcCreator");
+            HashMap<String,String> mapchangesInfo = tblModel.getModelBase().get(aRow);
+            String dcCreator = mapchangesInfo.get("dcCreator");
             if (dcCreator.equals(__CLERK_NAME__)) {
                 p.setBackground(Color.magenta);
             } else
@@ -623,7 +680,7 @@ public class panelConsolidateChanges extends panelChangesBase {
     
         public void updateModel(int iIndex, boolean bFilterbyAuthor) {
             final int sIndex = iIndex; final boolean bFilter = bFilterbyAuthor;
-            getContainerInterface().getProgressPanel().start();
+            getContainerInterface().startProgress();
             SwingWorker modelWorker = new SwingWorker(){
                 @Override
                 protected Object doInBackground()  {
@@ -633,8 +690,8 @@ public class panelConsolidateChanges extends panelChangesBase {
 
                 @Override
                 protected void done(){
-                    fireTableDataChanged();
-                    getContainerInterface().getProgressPanel().stop();
+                        fireTableDataChanged();
+                        getContainerInterface().stopProgress();
                 }
             };
             modelWorker.execute();

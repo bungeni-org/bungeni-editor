@@ -24,7 +24,7 @@ public class RuntimeProperties {
         FileInputStream fsProps = null;
         try {
             runtimeProperties = new Ini();
-            System.out.println("Loading properties from : " + CommonFunctions.getRootPath() + File.separator + PROPERTIES_FILE);
+            log.debug("Loading properties from : " + CommonFunctions.getRootPath() + File.separator + PROPERTIES_FILE);
             File fProps = new File(CommonFunctions.getRootPath() + File.separator + PROPERTIES_FILE);
             fsProps = new FileInputStream(fProps);
             runtimeProperties.load(fsProps);

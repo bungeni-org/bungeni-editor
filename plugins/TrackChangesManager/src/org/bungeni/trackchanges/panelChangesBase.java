@@ -40,6 +40,10 @@ public class panelChangesBase extends JPanel implements IChangesPanel  {
         return changeContainer;
     }
 
+    public synchronized BungeniChangeDocumentsInfo getChangesInfo() {
+        return changesInfo;
+    }
+
     /**
      * Common list model class used by derived classes
      */

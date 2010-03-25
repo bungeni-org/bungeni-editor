@@ -154,7 +154,7 @@ public class panelClerkOverview extends panelChangesBase {
                 JOptionPane.showMessageDialog(parentFrame, java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle").getString("no_dox_for_consolidation"));
         } else {
 
-            getContainerInterface().getProgressPanel().start();
+            getContainerInterface().startProgress();
             btnConsolidateAll.setEnabled(false);
             SwingWorker consolidateAllWorker = new SwingWorker(){
                     @Override
@@ -173,8 +173,13 @@ public class panelClerkOverview extends panelChangesBase {
                     try {
                         // get the return envelope
                         List<BungeniOdfDocumentHelper> docs = (List<BungeniOdfDocumentHelper>) this.get();
-                       getContainerInterface().getProgressPanel().stop();
+                        System.out.println("No. of docs returned = " + docs.size());
+                        Thread.sleep(2000);
+                        //this is required becuase the save done in the background thread may still be writing
+                        //the wait in this thread prevents a crash when switching to the other tab and hitting refresh
+                        getContainerInterface().stopProgress();
                         btnConsolidateAll.setEnabled(true);
+
                         //viewConsolidatedDocument(envelope);
                     } catch (InterruptedException ex) {
                         log.error("consolidateWorker = " + ex.getMessage());
@@ -200,7 +205,7 @@ public class panelClerkOverview extends panelChangesBase {
             } else {
             final BungeniDocAuthor selectedAuthor = (BungeniDocAuthor) this.listMembers.getSelectedValue();
 
-            getContainerInterface().getProgressPanel().start();
+            getContainerInterface().startProgress();
             btnConsolidate.setEnabled(false);
             SwingWorker consolidateWorker = new SwingWorker(){
                     @Override
@@ -214,7 +219,7 @@ public class panelClerkOverview extends panelChangesBase {
                     try {
                         // get the return envelope
                         BungeniOdfDocumentHelper envelope = (BungeniOdfDocumentHelper) this.get();
-                        getContainerInterface().getProgressPanel().stop();
+                        getContainerInterface().stopProgress();
                         btnConsolidate.setEnabled(true);
                         //viewConsolidatedDocument(envelope);
                     } catch (InterruptedException ex) {
@@ -510,7 +515,7 @@ public class panelClerkOverview extends panelChangesBase {
         }
         
         public void updateModel(final int iIndex, final boolean bFilterbyAuthor) {
-            getContainerInterface().getProgressPanel().start();
+            getContainerInterface().startProgress();
             SwingWorker modelWorker = new SwingWorker(){
 
                 @Override
@@ -522,7 +527,7 @@ public class panelClerkOverview extends panelChangesBase {
                 @Override
                 protected void done(){
                     fireTableDataChanged();
-                    getContainerInterface().getProgressPanel().stop();
+                    getContainerInterface().stopProgress();
                 }
             };
             modelWorker.execute();
@@ -566,7 +571,7 @@ public class panelClerkOverview extends panelChangesBase {
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             HashMap<String,String> changeMark = changeMarks.get(rowIndex);
-            System.out.println("Change Mark = " + changeMark);
+            log.debug("Change Mark = " + changeMark);
             switch (columnIndex) {
                 case 0 :
                     return changeMark.get("changeType");

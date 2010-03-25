@@ -160,18 +160,6 @@ public class ReviewDocuments {
         return originalDocument;
     }
 
-    public static void main(String[] args) {
-        String s = "cons_u2840_ke_bill_2010-2-25_eng.odt";
-        Pattern pat = Pattern.compile(ReviewDocuments.DEFAULT_DOC_PATTERN);
-        Matcher mm = pat.matcher(s);
-        boolean bFind = mm.find();
-        System.out.println(mm.groupCount());
-         for (int i=0; i<=mm.groupCount(); i++) {
-        System.out.println(i + " " + mm.group(i));
-    }
-
-     
-
-    }
+  
 
 }
