@@ -103,5 +103,13 @@ public class BungeniOdfPropertiesHelperTest {
             System.out.println(result);
             assertEquals("0:9:3", result);
         }
-      
+
+    @Test
+    public void testSetUserDefinedPropertyValue() {
+        System.out.println("setUserDefinedPropertyValue");
+        docHelper.getPropertiesHelper().setUserDefinedPropertyValue("alpha", "alphaValue");
+        String sVal = docHelper.getPropertiesHelper().getUserDefinedPropertyValue("alpha");
+        assertEquals(sVal, "alphaValue");
+
+    }
 }
