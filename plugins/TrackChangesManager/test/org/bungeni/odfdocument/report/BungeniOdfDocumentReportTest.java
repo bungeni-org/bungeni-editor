@@ -49,7 +49,7 @@ public class BungeniOdfDocumentReportTest {
         rpt.addReportVariable("MEMBER OF PARLIAMENT", "This is the MP");
         rpt.addReportVariable("NO_OF_AMENDMENTS", "This is the number of amendments");
 
-        rpt.generateReport();
+        rpt.generateReport("This is the MP");
         assertEquals(true, true);
         // TODO review the generated test code and remove the default call to fail.
        
