@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+
+
+<installation version="1.0">
+
+    <!--
+        The info section.
+        The meaning of the tags should be natural ...
+    -->
+    <info>
+        <appname>Track-Changes Manager installation</appname>
+        <appversion>0.1.1</appversion>
+	<appsubpath>TrackChangesManager-$APP_VER</appsubpath>
+        <authors>
+            <author name="UNDESA" email="undesa@parliaments.info"/>
+        </authors>
+        <url>http://www.bungeni.org</url>
+	<javaversion>1.6</javaversion>
+    </info>
+
+    <!--
+        The gui preferences indication.
+        Sets the installer window to 640x480. It will not be able to change the size.
+    -->
+    <guiprefs width="640" height="480" resizable="no"/>
+
+    <!--
+        The locale section.
+        Asks here to include the English and French langpacks.
+    -->
+    <locale>
+        <langpack iso3="eng"/>
+    </locale>
+
+    <!--
+        The resources section.
+        The ids must be these ones if you want to use the LicencePanel and/or the InfoPanel.
+    -->
+    <resources>
+        <res id="LicencePanel.licence" src="LICENCE.TXT"/>
+        <res id="InfoPanel.info" src="README.TXT"/>
+    </resources>
+
+    <!--
+        The panels section.
+        We indicate here which panels we want to use. The order will be respected.
+    -->
+    <panels>
+        <panel classname="HelloPanel"/>
+        <panel classname="InfoPanel"/>
+        <panel classname="LicencePanel"/>
+        <panel classname="TargetPanel"/>
+        <panel classname="PacksPanel"/>
+	<panel classname="SummaryPanel"/>
+        <panel classname="InstallPanel"/>
+	<panel classname="ShortcutPanel" />
+ 	<panel classname="SimpleFinishPanel" />
+    </panels>
+
+    <!--
+        The packs section.
+        We specify here our packs.
+    -->
+    <packs>
+        <pack name="Base" required="yes">
+            <description>Track Changes Manager core files</description>
+            <file src="README.TXT" targetdir="$INSTALL_PATH"/>
+            <file src="LICENCE.TXT" targetdir="$INSTALL_PATH"/>
+ 	     <file src="linux.sh" targetdir="$INSTALL_PATH" />
+             <file src="scripts/main.sh" targetdir="$INSTALL_PATH/scripts"/>
+            <file src="scripts/config.sh" targetdir="$INSTALL_PATH/scripts"/>
+            <file src="base" targetdir="$INSTALL_PATH"/>
+            <parsable targetfile="$INSTALL_PATH/scripts/config.sh"/>
+            <parsable targetfile="$INSTALL_PATH/scripts/main.sh"/>
+             <executable targetfile="$INSTALL_PATH/linux.sh" />
+            <!-- The file will be parsed -->
+        </pack>
+    </packs>
+
+</installation>
