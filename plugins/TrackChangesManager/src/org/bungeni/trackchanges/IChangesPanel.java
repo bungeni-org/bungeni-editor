@@ -8,4 +8,6 @@ import java.util.HashMap;
  */
 public interface IChangesPanel {
     public void updatePanel(HashMap<String,Object> infomap);
+    public String getPanelName();
+    public void setPanelName(String panelName);
 }

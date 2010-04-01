@@ -24,6 +24,7 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
     public static JFrame                   parentFrame = null;
     ResourceBundle bundleBase = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle");
     int m_prevTabIndex = 0;
+    public HashMap<String, IChangesPanel> panelsMap = new HashMap<String, IChangesPanel>();
 
     private PerformanceInfiniteProgressPanel m_glassPane =  null;
 
@@ -35,21 +36,28 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
     }
 
     private void init_Tabs() {
-        panelTrackChangesOverview overviewPanel    = new panelTrackChangesOverview(parentFrame);
-        panelClerkOverview        clerkReviewPanel = new panelClerkOverview(parentFrame);
-        panelConsolidateChanges consolidationPanel = new panelConsolidateChanges(parentFrame);
+        panelTrackChangesOverview overviewPanel    = new panelTrackChangesOverview(parentFrame, "Overview");
+        panelClerkOverview        clerkReviewPanel = new panelClerkOverview(parentFrame, "ClerkReview");
+        panelConsolidateChanges consolidationPanel = new panelConsolidateChanges(parentFrame, "ConsolidateReview");
+        panelReportsView reportsViewPanel = new panelReportsView(parentFrame, "ReportsView");
+
+        this.panelsMap.put(overviewPanel.getPanelName(), overviewPanel);
+        this.panelsMap.put(clerkReviewPanel.getPanelName(), clerkReviewPanel);
+        this.panelsMap.put(consolidationPanel.getPanelName(), consolidationPanel);
+        this.panelsMap.put(reportsViewPanel.getPanelName(), reportsViewPanel);
 
         this.tabContainer.addTab(bundleBase.getString("tabName.membersOverview"), overviewPanel);
         this.tabContainer.addTab(bundleBase.getString("tabName.clerkOverview"), clerkReviewPanel);
         this.tabContainer.addTab(bundleBase.getString("tabName.consolidationOverview"), consolidationPanel);
+        this.tabContainer.addTab(bundleBase.getString("tabName.reportsView"), reportsViewPanel);
 
         this.tabContainer.getModel().addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent ce) {
                 System.out.println("Selected index = " + tabContainer.getSelectedIndex());
                 // call update with empty hashmap
-                updateCurrentPanel(new HashMap<String, Object>() {
-                    {}
-                });
+               // updateCurrentPanel(new HashMap<String, Object>() {
+                //    {}
+                //});
                 m_prevTabIndex = tabContainer.getSelectedIndex();
             }
         });
@@ -159,6 +167,12 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
             log.error("endProgress : " + ex.getMessage());
         }
         return bState;
+    }
+
+    public void updatePanel(String panelName, HashMap<String, Object> infoMap) {
+        if (this.panelsMap.containsKey(panelName)) {
+            this.panelsMap.get(panelName).updatePanel(infoMap);
+        }
     }
 
    

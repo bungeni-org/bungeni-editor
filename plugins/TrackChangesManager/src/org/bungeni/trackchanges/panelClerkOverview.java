@@ -22,7 +22,6 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
-import net.java.swingfx.waitwithstyle.InfiniteProgressPanel;
 import org.bungeni.odfdocument.docinfo.BungeniDocAuthor;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfChangesMergeHelper;
@@ -55,8 +54,8 @@ public class panelClerkOverview extends panelChangesBase {
         initComponents();
     }
 
-    public panelClerkOverview(JFrame parentFrm) {
-        super(parentFrm);
+    public panelClerkOverview(JFrame parentFrm, String panelName) {
+        super(parentFrm, panelName);
         PANEL_FILTER_REVIEW_STAGE = "ClerkReview";
         PANEL_REVIEW_STAGE = "ClerkConsolidationReview";
         initComponents();
@@ -172,14 +171,38 @@ public class panelClerkOverview extends panelChangesBase {
                      protected void done() {
                     try {
                         // get the return envelope
-                        List<BungeniOdfDocumentHelper> docs = (List<BungeniOdfDocumentHelper>) this.get();
+                        final List<BungeniOdfDocumentHelper> docs = (List<BungeniOdfDocumentHelper>) this.get();
                         System.out.println("No. of docs returned = " + docs.size());
                         Thread.sleep(2000);
                         //this is required becuase the save done in the background thread may still be writing
                         //the wait in this thread prevents a crash when switching to the other tab and hitting refresh
+                        HashMap<String,Object> infomap = new HashMap<String, Object>(){{
+                            put("updateListFiles", docs);
+                        }};
+                        getContainerInterface().updatePanel("ConsolidateReview", infomap);
                         getContainerInterface().stopProgress();
-                        btnConsolidateAll.setEnabled(true);
 
+                        btnConsolidateAll.setEnabled(true);
+                            if (docs.size() > 0) {
+                                StringBuffer sbBuffer = new StringBuffer();
+
+                                for (BungeniDocAuthor anAuthor : docAuthors) {
+                                    sbBuffer.append(anAuthor.toString() + "\n");
+                                }
+
+                                JOptionPane
+                                    .showMessageDialog(parentFrame,
+                                                       bundleBase
+                                                       .getString("consolidation_generated_ok") + sbBuffer
+                                                           .toString(), bundleBase
+                                                           .getString("consolidation_gen_title"), JOptionPane
+                                                           .INFORMATION_MESSAGE);
+                            } else {
+                             JOptionPane.showMessageDialog(
+                                parentFrame, bundleBase.getString(
+                                    "consolidation_gen_error_occured"), bundleBase.getString(
+                                    "consolidation_gen_title"), JOptionPane.WARNING_MESSAGE);
+                            }
                         //viewConsolidatedDocument(envelope);
                     } catch (InterruptedException ex) {
                         log.error("consolidateWorker = " + ex.getMessage());
@@ -218,9 +241,26 @@ public class panelClerkOverview extends panelChangesBase {
                      protected void done() {
                     try {
                         // get the return envelope
-                        BungeniOdfDocumentHelper envelope = (BungeniOdfDocumentHelper) this.get();
+                        final BungeniOdfDocumentHelper envelope = (BungeniOdfDocumentHelper) this.get();
+                        HashMap<String,Object> infomap = new HashMap<String, Object>(){{
+                            put("updateListFile",envelope);
+                        }};
+                        getContainerInterface().updatePanel("ConsolidateReview", infomap);
                         getContainerInterface().stopProgress();
                         btnConsolidate.setEnabled(true);
+                        if (envelope != null) {
+                            JOptionPane.showMessageDialog(parentFrame,
+                                                   bundleBase
+                                                       .getString("consolidation_generated_for") + selectedAuthor
+                                                       .toString(),
+                                                       bundleBase
+                                                       .getString("consolidation_gen_title"), JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                             JOptionPane.showMessageDialog(
+                                parentFrame, bundleBase.getString(
+                                    "consolidation_gen_error_occured"), bundleBase.getString(
+                                    "consolidation_gen_title"), JOptionPane.WARNING_MESSAGE);
+                        }
                         //viewConsolidatedDocument(envelope);
                     } catch (InterruptedException ex) {
                         log.error("consolidateWorker = " + ex.getMessage());
@@ -417,19 +457,15 @@ public class panelClerkOverview extends panelChangesBase {
     }//GEN-LAST:event_chkFilterByClerkActionPerformed
 
     private void btnConsolidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolidateActionPerformed
-    SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
                 doConsolidate();
-            }
-    });
     }//GEN-LAST:event_btnConsolidateActionPerformed
 
     private void btnConsolidateAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolidateAllActionPerformed
-       SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
+      // SwingUtilities.invokeLater(new Runnable() {
+     //       public void run() {
                 doConsolidateAll();
-            }
-    });
+    //        }
+   // });
     }//GEN-LAST:event_btnConsolidateAllActionPerformed
 
 

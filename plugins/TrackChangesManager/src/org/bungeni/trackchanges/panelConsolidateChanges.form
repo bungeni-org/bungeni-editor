@@ -23,7 +23,6 @@
                   <Component id="lblMembers" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="scrollReports" alignment="0" pref="237" max="32767" attributes="2"/>
                   <Component id="lblAvailableReports" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnRefreshDocs" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -65,7 +64,6 @@
                   <Component id="btnReport" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnReportAll" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnEditTemplate" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnRefreshDocs" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -231,19 +229,6 @@
           <ResourceString bundle="org/bungeni/trackchanges/Bundle.properties" key="panelConsolidateChanges.lblAvailableReports.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnRefreshDocs">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="DejaVu Sans" size="10" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/bungeni/trackchanges/Bundle.properties" key="panelConsolidateChanges.btnRefreshDocs.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRefreshDocsActionPerformed"/>
-      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.odftoolkit.odfdom.doc.OdfDocument;
 
@@ -51,6 +52,33 @@ public class BungeniChangeDocumentsInfo {
             }
 
         });
+    }
+
+    public void reload(List<BungeniOdfDocumentHelper> files) {
+        this.changesInfo.clear();
+        for (BungeniOdfDocumentHelper bungeniOdfDocumentHelper : files) {
+            this.changesInfo.add(bungeniOdfDocumentHelper);
+        }
+        this.sortDocuments();
+    }
+
+    public void reload (BungeniOdfDocumentHelper file) {
+        int i = 0;
+        boolean bExists = false;
+        for (int j = 0; j < changesInfo.size(); j++) {
+            BungeniOdfDocumentHelper curfile = changesInfo.get(j);
+            if (file == null ) System.out.println("file WAS NULL");
+            if (curfile.getDocumentPath().equals(file.getDocumentPath())) {
+                changesInfo.remove(j);
+                changesInfo.add(file);
+                bExists = true;
+                break;
+            }
+        }
+        if (!bExists) {
+            changesInfo.add(file);
+        }
+        this.sortDocuments();
     }
 
     public void reload(File[] files) {

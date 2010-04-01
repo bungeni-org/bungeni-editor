@@ -15,7 +15,8 @@ import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
  * @author Ashok Hariharan
  */
 public class panelChangesBase extends JPanel implements IChangesPanel  {
-     BungeniChangeDocumentsInfo changesInfo = new BungeniChangeDocumentsInfo();
+     String m_panelName;
+    BungeniChangeDocumentsInfo changesInfo = new BungeniChangeDocumentsInfo();
      ResourceBundle bundleBase = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle");
      String                 PANEL_FILTER_REVIEW_STAGE = "";
      String                 PANEL_REVIEW_STAGE = "";
@@ -26,8 +27,9 @@ public class panelChangesBase extends JPanel implements IChangesPanel  {
 
    }
 
-   public panelChangesBase(JFrame parentFrm){
+   public panelChangesBase(JFrame parentFrm, String panelName){
        this.parentFrame = parentFrm;
+       this.m_panelName = panelName;
    }
 
 
@@ -42,6 +44,14 @@ public class panelChangesBase extends JPanel implements IChangesPanel  {
 
     public synchronized BungeniChangeDocumentsInfo getChangesInfo() {
         return changesInfo;
+    }
+
+    public String getPanelName() {
+        return m_panelName;
+    }
+
+    public void setPanelName(String panelName) {
+        this.m_panelName = panelName;
     }
 
     /**

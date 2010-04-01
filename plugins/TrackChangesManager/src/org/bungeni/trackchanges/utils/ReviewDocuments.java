@@ -27,6 +27,7 @@ public class ReviewDocuments {
             put ("Default", new ReviewStage("Default", ""));
             put ("ClerkReview", new ReviewStage("ClerkReview", "clerk"));
             put ("ClerkConsolidationReview", new ReviewStage("ClerkConsolidationReview", "cons"));
+            put ("ReportsView", new ReviewStage("ReportsView", "[a-z_]*?", "(report_[a-z_]*?.odt)"));
         }
     };
 
@@ -45,12 +46,17 @@ public class ReviewDocuments {
     public static class ReviewStage {
         private String stageName;
         private String stageDocumentPrefix;
+        private String stageDocPattern ;
 
         public ReviewStage(String stageN, String stagePref) {
-            this.stageName = stageN;
-            this.stageDocumentPrefix = stagePref;
+            this(stageN, stagePref, DEFAULT_DOC_PATTERN);
         }
 
+        public ReviewStage (String stageN, String stagePref, String docPattern) {
+            this.stageName = stageN;
+            this.stageDocumentPrefix = stagePref;
+            this.stageDocPattern = docPattern;
+        }
         @Override
         public String toString(){
             return stageName;
@@ -62,7 +68,7 @@ public class ReviewDocuments {
 
         public String getDocumentFilterPattern(){
             if (stageDocumentPrefix.length() > 0 )
-                return stageDocumentPrefix + PREFIX_SEPARATOR + DEFAULT_DOC_PATTERN;
+                return stageDocumentPrefix + PREFIX_SEPARATOR + stageDocPattern;
             else
                 return DEFAULT_DOC_PATTERN;
         }

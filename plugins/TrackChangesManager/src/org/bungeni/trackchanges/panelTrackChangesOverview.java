@@ -60,8 +60,8 @@ public class panelTrackChangesOverview extends panelChangesBase {
 
 
     /** Creates new form panelTrackChanges */
-    public panelTrackChangesOverview(JFrame parentFrame) {
-        super(parentFrame);
+    public panelTrackChangesOverview(JFrame parentFrame, String pName) {
+        super(parentFrame, pName);
         PANEL_FILTER_REVIEW_STAGE = "Default";
         PANEL_REVIEW_STAGE = "ClerkReview";
         initComponents();
@@ -434,14 +434,6 @@ public class panelTrackChangesOverview extends panelChangesBase {
     // End of variables declaration//GEN-END:variables
 
 
-    public static void main(String[] args) {
-        JFrame frm = new JFrame("Track Changes");
-
-        frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frm.getContentPane().add(new panelTrackChangesOverview(frm));
-        frm.pack();
-        frm.setVisible(true);
-    }
 
     private class BillsComboBoxModel extends DefaultComboBoxModel {
         public BillsComboBoxModel(BungeniBill[] bills) {

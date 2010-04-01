@@ -2,6 +2,8 @@ package org.bungeni.odfdocument.report;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -20,7 +22,7 @@ import org.w3c.dom.NodeList;
  * The main reporting class
  * @author Ashok Hariharan
  */
-public class BungeniOdfDocumentReport {
+public class BungeniOdfDocumentReport extends BungeniReportBase {
 
     BungeniOdfDocumentReportTemplate basedOnTemplate = null;
     BungeniOdfDocumentHelper reportDocument = null;
@@ -196,11 +198,13 @@ public class BungeniOdfDocumentReport {
         feedReportLines();
     }
 
-    public void generateReport(){
+    public void generateReport(String reportByFor){
         try {
             processReportVariables();
             processReportLines();
             String savePath = this.reportDocument.getDocumentPath();
+            this.reportDocument.getPropertiesHelper().setUserDefinedPropertyValue("BungeniReportFor", reportByFor);
+            this.reportDocument.getPropertiesHelper().setUserDefinedPropertyValue("BungeniReportCreateDate", getReportDateFormat().format(Calendar.getInstance().getTime()));
             this.reportDocument.getOdfDocument().save(savePath);
         } catch (Exception ex) {
           log.error("generateReport :  " + ex.getMessage(), ex);
