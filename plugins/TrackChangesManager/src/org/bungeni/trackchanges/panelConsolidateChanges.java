@@ -41,7 +41,6 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 
-import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -212,9 +211,9 @@ public class panelConsolidateChanges extends panelChangesBase {
         tblModel.updateModel(index, false);
     }
 
-    private BungeniOdfDocumentHelper generateReport(int selIndex, BungeniDocAuthor anAuthor,
+    private String generateReport(int selIndex, BungeniDocAuthor anAuthor,
             BungeniOdfDocumentReportTemplate reportTemplate) {
-        BungeniOdfDocumentHelper reportOdfDoc = null;
+        String reportOdfDoc = null;
 
         try {
 
@@ -300,8 +299,8 @@ public class panelConsolidateChanges extends panelChangesBase {
                 "OFFICIAL_DATE", reportTemplate.getReportDateFormat().format(Calendar.getInstance().getTime()));
             reportObject.addReportLines(reportLines);
             reportObject.generateReport(sAuthor);
-            reportObject.saveReport();
-            reportOdfDoc = reportObject.getReportDocument();
+           // reportObject.saveReport();
+            reportOdfDoc = reportObject.getReportPath();
         } catch (Exception ex) {
             log.error("doReport : " + ex.getMessage(), ex);
         }
@@ -361,11 +360,11 @@ public class panelConsolidateChanges extends panelChangesBase {
             SwingWorker reportAllWorker = new SwingWorker() {
                 @Override
                 protected Object doInBackground() throws Exception {
-                    List<BungeniOdfDocumentHelper> reportDocs = new ArrayList<BungeniOdfDocumentHelper>(0);
+                    List<String> reportDocs = new ArrayList<String>(0);
 
                     for (int i = 0; i < docAuthors.size(); i++) {
                         BungeniDocAuthor         docAuthor    = docAuthors.get(i);
-                        BungeniOdfDocumentHelper reportodfDoc = generateReport(i, docAuthor, selReport);
+                        String reportodfDoc = generateReport(i, docAuthor, selReport);
 
                         reportDocs.add(reportodfDoc);
                     }
@@ -377,8 +376,8 @@ public class panelConsolidateChanges extends panelChangesBase {
                     try {
 
                         // get the return denvelope
-                        List<BungeniOdfDocumentHelper> docs = (List<BungeniOdfDocumentHelper>) this.get();
-
+                        List<String> docs = (List<String>) this.get();
+                        Thread.sleep(2000);
                         getContainerInterface().stopProgress();
                         btnReportAll.setEnabled(true);
 
@@ -466,15 +465,14 @@ public class panelConsolidateChanges extends panelChangesBase {
             SwingWorker reportWorker = new SwingWorker() {
                 @Override
                 protected Object doInBackground() throws Exception {
-                    BungeniOdfDocumentHelper reportdoc = generateReport(selIndex, selectedAuthor, selReport);
+                    String reportdoc = generateReport(selIndex, selectedAuthor, selReport);
 
                     return reportdoc;
                 }
                 @Override
                 protected void done() {
                     try {
-                        BungeniOdfDocumentHelper reportdoc = (BungeniOdfDocumentHelper) get();
-
+                        String reportdoc = (String) get();
                         getContainerInterface().stopProgress();
                         btnReport.setEnabled(true);
 
@@ -661,18 +659,16 @@ public class panelConsolidateChanges extends panelChangesBase {
                 // final BungeniDocAuthor selAuthor = (BungeniDocAuthor) listMembers.getSelectedValue();
                 if (infomap.containsKey("updateListFiles")) {
                    tblDocChanges.setModel(new DocumentChangesTableModel());
-                    List<BungeniOdfDocumentHelper> odfdocs =
-                        (List<BungeniOdfDocumentHelper>) infomap.get("updateListFiles");
-
-                    changesInfo.reload(odfdocs);
+                    List<String> odfdocs =
+                        (List<String>) infomap.get("updateListFiles");
+                    changesInfo.reload(odfdocs.toArray(new String[odfdocs.size()]));
                     ((DocConsolidateListModel) listMembers.getModel()).resetModel();
 
                 }
 
                 if (infomap.containsKey("updateListFile")) {
                     tblDocChanges.setModel(new DocumentChangesTableModel());
-                    BungeniOdfDocumentHelper odfdoc = (BungeniOdfDocumentHelper) infomap.get("updateListFile");
-
+                    String odfdoc = (String) infomap.get("updateListFile");
                     changesInfo.reload(odfdoc);
                     ((DocConsolidateListModel) listMembers.getModel()).resetModel();
                 }
@@ -841,8 +837,15 @@ public class panelConsolidateChanges extends panelChangesBase {
                 }
                 @Override
                 protected void done() {
-                    fireTableDataChanged();
-                    getContainerInterface().stopProgress();
+                    try {
+                        Object bState = get();
+                        fireTableDataChanged();
+                        getContainerInterface().stopProgress();
+                    } catch (InterruptedException ex) {
+                        log.error("done ; "+ ex.getMessage());
+                    } catch (ExecutionException ex) {
+                        log.error("done ; "+ ex.getMessage());
+                    }
                 }
             };
 

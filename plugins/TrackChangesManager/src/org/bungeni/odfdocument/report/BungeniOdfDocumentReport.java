@@ -1,9 +1,9 @@
 package org.bungeni.odfdocument.report;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -25,7 +25,7 @@ import org.w3c.dom.NodeList;
 public class BungeniOdfDocumentReport extends BungeniReportBase {
 
     BungeniOdfDocumentReportTemplate basedOnTemplate = null;
-    BungeniOdfDocumentHelper reportDocument = null;
+ //   BungeniOdfDocumentHelper reportDocument = null;
     List<BungeniOdfReportLine> reportLines = new ArrayList<BungeniOdfReportLine>(0);
     TreeMap<String,Object> reportVariables = new TreeMap<String,Object>();
 
@@ -33,13 +33,14 @@ public class BungeniOdfDocumentReport extends BungeniReportBase {
 
     public BungeniOdfDocumentReport(File fnewReport, BungeniOdfDocumentReportTemplate fromTemplate){
         basedOnTemplate = fromTemplate;
-        reportDocument = createNewReport(fnewReport);
+        m_docHelper = createNewReport(fnewReport);
+        this.reportDocumentPath = m_docHelper.getDocumentPath();
     }
 
     public boolean saveReport() {
         boolean bSave = false;
         try {
-            this.reportDocument.getOdfDocument().save(this.reportDocument.getDocumentPath());
+            this.m_docHelper.getOdfDocument().save(this.m_docHelper.getDocumentPath());
             bSave = true;
             
         } catch (Exception ex) {
@@ -80,7 +81,7 @@ public class BungeniOdfDocumentReport extends BungeniReportBase {
         //first duplicate sections for number of lines.
         boolean bReturn = false;
         int nCount = this.reportLines.size();
-        BungeniOdfSectionHelper secHelper = this.reportDocument.getSectionHelper();
+        BungeniOdfSectionHelper secHelper = this.m_docHelper.getSectionHelper();
         OdfTextSection masterSection = secHelper.getSection("ReportLine-Repeat");
         OdfTextSection prevSection = masterSection;
         for (int i = nCount; i > 0; i--) {
@@ -116,8 +117,8 @@ public class BungeniOdfDocumentReport extends BungeniReportBase {
 
     public void processReportVariables(){
         try {
-            XPath xpath = this.reportDocument.getOdfDocument().getXPath();
-            OdfFileDom contentDom = this.reportDocument.getOdfDocument().getContentDom();
+            XPath xpath = this.m_docHelper.getOdfDocument().getXPath();
+            OdfFileDom contentDom = this.m_docHelper.getOdfDocument().getContentDom();
             Iterator<String> keyIter = reportVariables.keySet().iterator();
 
             while (keyIter.hasNext()) {
@@ -140,9 +141,9 @@ public class BungeniOdfDocumentReport extends BungeniReportBase {
     }
 
     private void feedReportLines(){
-        BungeniOdfSectionHelper secHelper = this.reportDocument.getSectionHelper();
+        BungeniOdfSectionHelper secHelper = this.m_docHelper.getSectionHelper();
         OdfTextSection nsection = secHelper.getSection("ReportBody");
-        XPath xpath = this.reportDocument.getOdfDocument().getXPath();
+        XPath xpath = this.m_docHelper.getOdfDocument().getXPath();
 
         ArrayList<OdfTextSection> reportLineSections = secHelper.getChildSections(nsection);
         List<Node> nodesMarkedForDeletion = new ArrayList<Node>(0);
@@ -198,23 +199,36 @@ public class BungeniOdfDocumentReport extends BungeniReportBase {
         feedReportLines();
     }
 
+    /**
+     * Generates, Saves and closes the document
+     * @param reportByFor
+     */
     public void generateReport(String reportByFor){
         try {
             processReportVariables();
             processReportLines();
-            String savePath = this.reportDocument.getDocumentPath();
-            this.reportDocument.getPropertiesHelper().setUserDefinedPropertyValue("BungeniReportFor", reportByFor);
-            this.reportDocument.getPropertiesHelper().setUserDefinedPropertyValue("BungeniReportCreateDate", getReportDateFormat().format(Calendar.getInstance().getTime()));
-            this.reportDocument.getOdfDocument().save(savePath);
+            String savePath = this.m_docHelper.getDocumentPath();
+            this.m_docHelper.getPropertiesHelper().setUserDefinedPropertyValue("BungeniReportFor", reportByFor);
+            SimpleDateFormat rFormat = getReportDateFormat();
+            String reportDate = rFormat.format(Calendar.getInstance().getTime());
+            System.out.println("report date = " + reportDate);
+            this.m_docHelper.getPropertiesHelper().setUserDefinedPropertyValue("BungeniReportCreateDate", reportDate);
+            //this.m_docHelper.getOdfDocument().save(savePath);
+            this.m_docHelper.saveDocument();
+            this.m_docHelper.closeDocument();
         } catch (Exception ex) {
           log.error("generateReport :  " + ex.getMessage(), ex);
+          ex.printStackTrace();
         }
     }
 
     public BungeniOdfDocumentHelper getReportDocument(){
-        return this.reportDocument;
+        return this.m_docHelper;
     }
    
 
+    public String getReportPath(){
+        return this.reportDocumentPath;
+    }
 
 }

@@ -1,6 +1,7 @@
 package org.bungeni.trackchanges;
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.util.concurrent.ExecutionException;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.trackchanges.utils.AppProperties;
 import org.bungeni.trackchanges.utils.CommonFunctions;
@@ -22,6 +23,8 @@ import java.util.regex.Pattern;
 
 import javax.swing.JFrame;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
@@ -74,12 +77,16 @@ public class panelReportsView extends panelChangesBase {
                 if (lsm.isSelectionEmpty()) {
                     return;
                 } else {
-
-                    // Find out which indexes are selected.
-                    int nIndex = lsm.getMinSelectionIndex();
-                    DocumentReportsTableModel model  = (DocumentReportsTableModel) tblDocReports.getModel();
-                    model.updateModel(listReportTemplates.getSelectedValue().toString());
-                    model.fireTableDataChanged();
+                    final int minIndex = lsm.getMinSelectionIndex();
+                    final String strSelection = (String) listReportTemplates.getSelectedValue().toString();
+                    SwingUtilities.invokeLater(new Runnable() {
+                        public void run() {
+                        // Find out which indexes are selected.
+                        tblDocReports.setModel(new DocumentReportsTableModel());
+                        DocumentReportsTableModel model  = (DocumentReportsTableModel) tblDocReports.getModel();
+                        model.updateModel(listReportTemplates.getSelectedValue().toString());
+                        model.fireTableDataChanged();                        }
+                    });
                 }
             }
         });
@@ -237,8 +244,38 @@ public class panelReportsView extends panelChangesBase {
             buildModel(sReportName);
           }
 
-        public void updateModel(String sReportName) {
-            buildModel(sReportName);
+        public void updateModel(final String sReportName) {
+
+             getContainerInterface().startProgress();
+
+             SwingWorker modelWorker = new SwingWorker() {
+
+                @Override
+                protected Object doInBackground() {
+                        boolean bState = false;
+                        bState = buildModel(sReportName);
+                        return Boolean.valueOf(bState);
+
+                }
+
+                @Override
+                protected void done(){
+                    try {
+                        Boolean bRet = (Boolean) get();
+                        fireTableDataChanged();
+                        getContainerInterface().stopProgress();
+                    } catch (InterruptedException ex) {
+                       log.error("tableModelWorker : done : " + ex.getMessage());
+                    } catch (ExecutionException ex) {
+                       log.error("tableModelWorker : done : " + ex.getMessage());
+                    }
+
+                }
+
+             };
+             modelWorker.execute();
+
+            
         }
 
         @Override
@@ -251,7 +288,8 @@ public class panelReportsView extends panelChangesBase {
             return column_names.length;
         }
     
-        private void buildModel(final String sReportName) {
+        private boolean buildModel(final String sReportName) {
+          boolean bState = false;
           String currentBillFolder = CommonFunctions.getWorkspaceForBill((String)AppProperties.getProperty("CurrentBillID"));
           if (currentBillFolder.length() > 0 ) {
             File fFolder = new File(currentBillFolder);
@@ -270,6 +308,9 @@ public class panelReportsView extends panelChangesBase {
                 for (File file : files) {
                       ReportFile rf ;
                       try {
+                         if (!file.canWrite() ) {
+                             System.out.println("file is still being writtern - " + file.getName());
+                         }
                          BungeniOdfDocumentHelper reportsHelper = new BungeniOdfDocumentHelper(file);
                          String matchReportName = reportsHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniReportName");
                          String matchReportFor = reportsHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniReportFor");
@@ -284,16 +325,18 @@ public class panelReportsView extends panelChangesBase {
                             }
                        } catch (Exception ex) {
                           log.error("panelReportsView : " + ex.getMessage());
+                          ex.printStackTrace();
                        }
 
                 }
+                bState = true;
             }
 
-
+           
 
         }
 
-
+        return bState;
         }
 
       

@@ -54,6 +54,29 @@ public class BungeniChangeDocumentsInfo {
         });
     }
 
+    public void reload(String aFile) {
+        try {
+            File afFile = new File(aFile);
+            BungeniOdfDocumentHelper odfFile = new BungeniOdfDocumentHelper(afFile);
+            reload(odfFile);
+        } catch (Exception ex) {
+            log.error("reload(String file) :" + ex.getMessage());
+        }
+    }
+
+    public void reload(String[] files) {
+        List<File> odfdocs = new ArrayList<File>(0);
+        for (String aFile : files) {
+            try {
+                File ffFile = new File(aFile);
+                odfdocs.add(ffFile);
+            } catch (Exception ex) {
+                log.error("reload(List<String> files) " + ex.getMessage());
+            }
+        }
+        reload(odfdocs.toArray(new File[odfdocs.size()]));
+    }
+
     public void reload(List<BungeniOdfDocumentHelper> files) {
         this.changesInfo.clear();
         for (BungeniOdfDocumentHelper bungeniOdfDocumentHelper : files) {

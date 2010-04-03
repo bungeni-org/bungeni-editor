@@ -1,7 +1,6 @@
 package org.bungeni.odfdocument.report;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.utils.BungeniOdfFileCopy;
 
@@ -14,6 +13,11 @@ public class BungeniOdfDocumentReportTemplate extends BungeniReportBase {
       private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BungeniOdfDocumentReportTemplate.class.getName());
 
  
+
+    @Override
+      public String toString(){
+          return super.toString();
+      }
 
     public BungeniOdfDocumentReportTemplate(String pathToFile) throws Exception {
        super(pathToFile);

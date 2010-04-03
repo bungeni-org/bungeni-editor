@@ -171,13 +171,19 @@ public class panelClerkOverview extends panelChangesBase {
                      protected void done() {
                     try {
                         // get the return envelope
-                        final List<BungeniOdfDocumentHelper> docs = (List<BungeniOdfDocumentHelper>) this.get();
+                        List<BungeniOdfDocumentHelper> docs = (List<BungeniOdfDocumentHelper>) this.get();
+                        final List<String> savePaths = new ArrayList<String>(0);
+                        for (BungeniOdfDocumentHelper doc : docs) {
+                            String spathToDocument = doc.getDocumentPath();
+                            doc.closeDocument();
+                            savePaths.add(spathToDocument);
+                        }
                         System.out.println("No. of docs returned = " + docs.size());
                         Thread.sleep(2000);
                         //this is required becuase the save done in the background thread may still be writing
                         //the wait in this thread prevents a crash when switching to the other tab and hitting refresh
                         HashMap<String,Object> infomap = new HashMap<String, Object>(){{
-                            put("updateListFiles", docs);
+                            put("updateListFiles", savePaths);
                         }};
                         getContainerInterface().updatePanel("ConsolidateReview", infomap);
                         getContainerInterface().stopProgress();
@@ -241,9 +247,12 @@ public class panelClerkOverview extends panelChangesBase {
                      protected void done() {
                     try {
                         // get the return envelope
-                        final BungeniOdfDocumentHelper envelope = (BungeniOdfDocumentHelper) this.get();
+                        BungeniOdfDocumentHelper envelope = (BungeniOdfDocumentHelper) this.get();
+                        final String pathtoDoc = envelope.getDocumentPath();
+                        // always close the document to finalize the save and close all handles
+                        envelope.closeDocument();
                         HashMap<String,Object> infomap = new HashMap<String, Object>(){{
-                            put("updateListFile",envelope);
+                            put("updateListFile",pathtoDoc);
                         }};
                         getContainerInterface().updatePanel("ConsolidateReview", infomap);
                         getContainerInterface().stopProgress();

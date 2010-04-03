@@ -3,8 +3,6 @@ package org.bungeni.odfdocument.report;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 
 /**
@@ -14,13 +12,17 @@ import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 class BungeniReportBase {
 
        BungeniOdfDocumentHelper m_docHelper;
-
+       SimpleDateFormat sdfReportDateFormat = null;
+       String reportDocumentPath = "";
       private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BungeniReportBase.class.getName());
 
       public BungeniReportBase(){
       
       }
 
+      public BungeniReportBase (BungeniOdfDocumentHelper reportDoc) {
+          this.m_docHelper = reportDoc;
+      }
       public BungeniReportBase (String pathToFile) {
         try {
             File fTemplate = new File(pathToFile);
@@ -32,9 +34,12 @@ class BungeniReportBase {
 
 
        public SimpleDateFormat getReportDateFormat(){
-        String sDateFormat = m_docHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniReportDateFormat");
-        SimpleDateFormat sdf = new SimpleDateFormat(sDateFormat);
-        return sdf;
+        if (this.sdfReportDateFormat == null) {
+            String sDateFormat = m_docHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniReportDateFormat");
+            if (sDateFormat != null)
+                this.sdfReportDateFormat = new SimpleDateFormat(sDateFormat);
+        }
+        return this.sdfReportDateFormat;
     }
 
     @Override
