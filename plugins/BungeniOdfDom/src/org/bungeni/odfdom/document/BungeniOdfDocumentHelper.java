@@ -15,6 +15,7 @@ import org.odftoolkit.odfdom.doc.office.OdfOfficeMasterStyles;
 import org.odftoolkit.odfdom.doc.style.OdfStyleBackgroundImage;
 import org.odftoolkit.odfdom.doc.style.OdfStyleMasterPage;
 import org.odftoolkit.odfdom.doc.style.OdfStylePageLayout;
+import org.odftoolkit.odfdom.pkg.OdfPackage;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -157,5 +158,58 @@ public class BungeniOdfDocumentHelper {
         } catch (Exception ex) {
             log.error("annulBackgroundImage : ", ex);
         }
+    }
+
+    /**
+     * Saves the current document to its current path
+     * @return
+     */
+    public boolean saveDocument(){
+        return saveDocument(this.getDocumentPath());
+    }
+
+    /**
+     * Saves the document to a parameter path
+     *
+     */
+    public boolean saveDocument(String fpath) {
+        boolean bState = false;
+        try {
+            OdfPackage docPackage = this.odfDocument.getPackage();
+            this.odfDocument.save(fpath);
+            bState = true;
+        } catch (Exception ex) {
+            log.error("saveDocument : "  + ex);
+        }
+        return bState;
+    }
+
+    /**
+     * saves the document to a output file handle
+     * @param foutputfile
+     * @return
+     */
+    public boolean saveDocument(File foutputfile) {
+        boolean bState = false;
+        try {
+            OdfPackage docPackage = this.odfDocument.getPackage();
+            this.odfDocument.save(foutputfile);
+            bState = true;
+        } catch (Exception ex) {
+            log.error("saveDocument : "  + ex);
+        }
+        return bState;
+    }
+
+    /**
+     * It is neccessary to close a document if you want to process an odf document across different threads.
+     * e.g. acrosss swingworker threads... you get an odfdocumenthelper from the first thread save the document,
+     * close the handle ... and do the same from the other
+     * 
+     */
+    public void closeDocument(){
+            OdfPackage docPackage = this.odfDocument.getPackage();
+            this.odfDocument.close();
+            docPackage.close();
     }
 }
