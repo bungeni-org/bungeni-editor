@@ -281,7 +281,8 @@ public class panelConsolidateChanges extends panelChangesBase {
                 }
 
                 BungeniOdfReportLine reportLine = new BungeniOdfReportLine(changeContext, mapOfChange);
-
+                reportLine.buildLineVariables();
+                
                 reportLines.add(reportLine);
             }
 

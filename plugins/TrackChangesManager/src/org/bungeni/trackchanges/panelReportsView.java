@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
@@ -29,6 +30,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import org.bungeni.odfdocument.report.DocReportTemplateListModel;
+import org.bungeni.trackchanges.uno.UnoOdfFile;
+import org.bungeni.trackchanges.uno.UnoOdfOpenFiles;
 
 /**
  * This is the first tab / workflow in the bill amendments for the clerk
@@ -122,11 +125,11 @@ public class panelReportsView extends panelChangesBase {
         jLabel1 = new javax.swing.JLabel();
         btnReview = new javax.swing.JButton();
 
-        lblMembers.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblMembers.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle"); // NOI18N
         lblMembers.setText(bundle.getString("panelReportsView.lblMembers.text")); // NOI18N
 
-        listReportTemplates.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
+        listReportTemplates.setFont(new java.awt.Font("Lucida Grande", 0, 10));
         listReportTemplates.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Tinoula Awopetu", "Mashinski Murigi", "Raul Obwacha", "Felix Kerstengor" };
             public int getSize() { return strings.length; }
@@ -202,10 +205,40 @@ public class panelReportsView extends panelChangesBase {
 
     private void btnReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReviewActionPerformed
         try {
+            int nSelectedRow = this.tblDocReports.getSelectedRow();
+            if (nSelectedRow == -1) {
+                JOptionPane.showMessageDialog(parentFrame, "No document was selected !");
+                return;
+            }
+            DocumentReportsTableModel model = (DocumentReportsTableModel) this.tblDocReports.getModel();
+            final DocumentReportsTableModel.ReportFile reportInfo = model.getReportInfoAt(nSelectedRow);
+            getContainerInterface().startProgress();
 
-            // do the review in the review tab
+            SwingWorker ooWorker = new SwingWorker(){
+
+                @Override
+                protected Object doInBackground() throws Exception {
+                    BungeniOdfDocumentHelper docHelper = new BungeniOdfDocumentHelper(new File(reportInfo.filePath));
+                    UnoOdfFile  reportFile = UnoOdfOpenFiles.getFile(docHelper);
+                    return Boolean.TRUE;
+                }
+                
+                @Override
+                protected void done(){
+                    try {
+                        Boolean bState = (Boolean) get();
+                        getContainerInterface().stopProgress();
+                    } catch (InterruptedException ex) {
+                        log.error("panelReportsView : " + ex.getMessage());
+                    } catch (ExecutionException ex) {
+                        log.error("panelReportsView : " + ex.getMessage());
+                    }
+                }
+                
+            };
+            ooWorker.execute();
         } catch (Exception ex) {
-            log.error(ex);
+            log.error("reports Review : " + ex);
         }
     }//GEN-LAST:event_btnReviewActionPerformed
 
@@ -244,6 +277,10 @@ public class panelReportsView extends panelChangesBase {
             buildModel(sReportName);
           }
 
+        public ReportFile getReportInfoAt(int iIndex) {
+            return this.reportInfo.get(iIndex);
+        }
+
         public void updateModel(final String sReportName) {
 
              getContainerInterface().startProgress();
@@ -274,9 +311,7 @@ public class panelReportsView extends panelChangesBase {
 
              };
              modelWorker.execute();
-
-            
-        }
+       }
 
         @Override
         public int getRowCount(){
@@ -327,15 +362,10 @@ public class panelReportsView extends panelChangesBase {
                           log.error("panelReportsView : " + ex.getMessage());
                           ex.printStackTrace();
                        }
-
                 }
                 bState = true;
             }
-
-           
-
         }
-
         return bState;
         }
 
