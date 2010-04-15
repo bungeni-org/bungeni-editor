@@ -262,8 +262,8 @@ public class BungeniOdfTrackedChangesHelper {
      * @param scChangeType
      * @return
      */
-    public HashMap<String, String> getChangeInfo(StructuredChangeType scChangeType) {
-        HashMap<String, String> changeInfo = new HashMap<String, String>();
+    public HashMap<String, Object> getChangeInfo(StructuredChangeType scChangeType) {
+        HashMap<String, Object> changeInfo = new HashMap<String, Object>();
         ArrayList<Node>         changes    = scChangeType.elementChange;
 
         // in the case of the replacement patter this will be the text:deletion element
