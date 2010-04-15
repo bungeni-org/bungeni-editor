@@ -248,10 +248,10 @@ public class panelConsolidateChanges extends panelChangesBase {
 
                 // get the change map for the change - to be sent to the report line object
                 StructuredChangeType    scType      = changesHelper.getStructuredChangeType(odfTextChangedRegion);
-                HashMap<String, String> mapOfChange = changesHelper.getChangeInfo(scType);
-                String                  changeType  = mapOfChange.get("changeType");
-                String                  changeText  = mapOfChange.get("changeText");
-                String                  changeId    = mapOfChange.get("changeId");
+                HashMap<String, Object> mapOfChange = changesHelper.getChangeInfo(scType);
+                String                  changeType  = mapOfChange.get("changeType").toString();
+                String                  changeText  = mapOfChange.get("changeText").toString();
+                String                  changeId    = mapOfChange.get("changeId").toString();
 
                 // below we build the change context object for the change
                 Node                    foundNodeStart = null;
@@ -786,8 +786,8 @@ public class panelConsolidateChanges extends panelChangesBase {
             Component p = super.getTableCellRendererComponent(aTable, aNumberValue, aHasFocus, aHasFocus, aRow,
                               aColumn);
             DocumentChangesTableModel tblModel       = ((DocumentChangesTableModel) tblDocChanges.getModel());
-            HashMap<String, String>   mapchangesInfo = tblModel.getModelBase().get(aRow);
-            String                    dcCreator      = mapchangesInfo.get("dcCreator");
+            HashMap<String, Object>   mapchangesInfo = tblModel.getModelBase().get(aRow);
+            String                    dcCreator      = mapchangesInfo.get("dcCreator").toString();
 
             if (dcCreator.equals(__CLERK_NAME__)) {
                 p.setBackground(Color.magenta);
@@ -801,7 +801,7 @@ public class panelConsolidateChanges extends panelChangesBase {
 
 
     private class DocumentChangesTableModel extends AbstractTableModel {
-        List<HashMap<String, String>> changeMarks  = new ArrayList<HashMap<String, String>>(0);
+        List<HashMap<String, Object>> changeMarks  = new ArrayList<HashMap<String, Object>>(0);
         private String[]              column_names = {
             bundleBase.getString("panelTrackChanges.tblDocChanges.action.text"),
             bundleBase.getString("panelTrackChanges.tblDocChanges.date.text"),
@@ -812,14 +812,14 @@ public class panelConsolidateChanges extends panelChangesBase {
         };
 
         public DocumentChangesTableModel() {
-            changeMarks = new ArrayList<HashMap<String, String>>(0);
+            changeMarks = new ArrayList<HashMap<String, Object>>(0);
         }
 
         public DocumentChangesTableModel(int iIndex, boolean bFilterbyAuthor) {
             buildModel(iIndex, bFilterbyAuthor);
         }
 
-        public List<HashMap<String, String>> getModelBase() {
+        public List<HashMap<String, Object>> getModelBase() {
             return changeMarks;
         }
 
@@ -872,7 +872,7 @@ public class panelConsolidateChanges extends panelChangesBase {
 
             for (OdfTextChangedRegion odfTextChangedRegion : changes) {
                 StructuredChangeType    scType     = changeHelper.getStructuredChangeType(odfTextChangedRegion);
-                HashMap<String, String> changeMark = changeHelper.getChangeInfo(scType);
+                HashMap<String, Object> changeMark = changeHelper.getChangeInfo(scType);
 
                 changeMarks.add(changeMark);
             }
@@ -902,7 +902,7 @@ public class panelConsolidateChanges extends panelChangesBase {
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            HashMap<String, String> changeMark = changeMarks.get(rowIndex);
+            HashMap<String, Object> changeMark = changeMarks.get(rowIndex);
 
             System.out.println("Change Mark = " + changeMark);
 

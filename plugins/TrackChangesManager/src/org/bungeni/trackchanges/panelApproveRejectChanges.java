@@ -98,9 +98,6 @@ public class panelApproveRejectChanges extends panelChangesBase {
         __CLERK_NAME__ = RuntimeProperties.getDefaultProp("ClerkUser");
         loadFilesFromFolder();
         initialize();
-
-        // m_glassPane = new InfiniteProgressPanel();
-        // parentFrame.setGlassPane(m_glassPane);
     }
 
     private void initialize() {
@@ -112,6 +109,34 @@ public class panelApproveRejectChanges extends panelChangesBase {
         String currentBillFolder =
             CommonFunctions.getWorkspaceForBill((String) AppProperties.getProperty("CurrentBillID"));
 
+        if (currentBillFolder.length() > 0) {
+            File fFolder = new File(currentBillFolder);
+
+            // find files in changes folder
+            if (fFolder.isDirectory()) {
+                File[] files = fFolder.listFiles(new FilenameFilter() {
+                    Pattern pat = Pattern.compile(
+                                      ReviewDocuments.getReviewStage(
+                                          PANEL_FILTER_REVIEW_STAGE).getDocumentFilterPattern());    // ("clerk_u[0-9][0-9][0-9][0-9]([a-z0-9_-]*?).odt");
+                    public boolean accept(File dir, String name) {
+                        if (pat.matcher(name).matches()) {
+                            return true;
+                        }
+
+                        return false;
+                    }
+                });
+
+                System.out.println("cons files found :" + files.length);
+
+                for (File file : files) {
+                    System.out.println("cons file : " + file.getName());
+                }
+
+                changesInfo.reload(files);
+            }
+        }
+
     }
 
     private void initialize_listBoxes() {
@@ -122,7 +147,7 @@ public class panelApproveRejectChanges extends panelChangesBase {
          *
          *
          */
-        DocConsolidateListModel consModel = new DocConsolidateListModel();
+        DocApproveRejectListModel consModel = new DocApproveRejectListModel();
 
         consModel.resetModel();
         listMembers.setModel(consModel);
@@ -151,7 +176,7 @@ public class panelApproveRejectChanges extends panelChangesBase {
                     System.out.println("loading table changes");
 
                     // do struff here
-                    //displayChangesInfo(nIndex);
+                    displayChangesInfo(nIndex);
                 }
             }
         });
@@ -166,11 +191,11 @@ public class panelApproveRejectChanges extends panelChangesBase {
     }
 
     private void initialize_Tables() {
-        this.tblDocChanges.setModel(new DocumentChangesTableModel());
+        this.tblDocChanges.setModel(new DocumentApproveRejectChangesTableModel());
 
         TableColumnModel tcmModel = this.tblDocChanges.getColumnModel();
 
-        this.tblDocChanges.setDefaultRenderer(String.class, new DocumentChangesTableCellRenderer());
+        this.tblDocChanges.setDefaultRenderer(String.class, new DocumentApproveRejectChangesTableCellRenderer());
 
         TextAreaRenderer textAreaRenderer = new TextAreaRenderer();
 
@@ -178,7 +203,7 @@ public class panelApproveRejectChanges extends panelChangesBase {
     }
 
     private void displayChangesInfo(int index) {
-        DocumentChangesTableModel tblModel = (DocumentChangesTableModel) this.tblDocChanges.getModel();
+        DocumentApproveRejectChangesTableModel tblModel = (DocumentApproveRejectChangesTableModel) this.tblDocChanges.getModel();
 
         tblModel.updateModel(index, false);
     }
@@ -220,10 +245,10 @@ public class panelApproveRejectChanges extends panelChangesBase {
 
                 // get the change map for the change - to be sent to the report line object
                 StructuredChangeType    scType      = changesHelper.getStructuredChangeType(odfTextChangedRegion);
-                HashMap<String, String> mapOfChange = changesHelper.getChangeInfo(scType);
-                String                  changeType  = mapOfChange.get("changeType");
-                String                  changeText  = mapOfChange.get("changeText");
-                String                  changeId    = mapOfChange.get("changeId");
+                HashMap<String, Object> mapOfChange = changesHelper.getChangeInfo(scType);
+                String                  changeType  = mapOfChange.get("changeType").toString();
+                String                  changeText  = mapOfChange.get("changeText").toString();
+                String                  changeId    = mapOfChange.get("changeId").toString();
 
                 // below we build the change context object for the change
                 Node                    foundNodeStart = null;
@@ -642,19 +667,19 @@ public class panelApproveRejectChanges extends panelChangesBase {
 
                 // final BungeniDocAuthor selAuthor = (BungeniDocAuthor) listMembers.getSelectedValue();
                 if (infomap.containsKey("updateListFiles")) {
-                   tblDocChanges.setModel(new DocumentChangesTableModel());
+                   tblDocChanges.setModel(new DocumentApproveRejectChangesTableModel());
                     List<String> odfdocs =
                         (List<String>) infomap.get("updateListFiles");
                     changesInfo.reload(odfdocs.toArray(new String[odfdocs.size()]));
-                    ((DocConsolidateListModel) listMembers.getModel()).resetModel();
+                    ((DocApproveRejectListModel) listMembers.getModel()).resetModel();
 
                 }
 
                 if (infomap.containsKey("updateListFile")) {
-                    tblDocChanges.setModel(new DocumentChangesTableModel());
+                    tblDocChanges.setModel(new DocumentApproveRejectChangesTableModel());
                     String odfdoc = (String) infomap.get("updateListFile");
                     changesInfo.reload(odfdoc);
-                    ((DocConsolidateListModel) listMembers.getModel()).resetModel();
+                    ((DocApproveRejectListModel) listMembers.getModel()).resetModel();
                 }
             }
         });
@@ -679,10 +704,10 @@ public class panelApproveRejectChanges extends panelChangesBase {
     /**
      * Common list model class used by derived classes
      */
-    class DocConsolidateListModel extends DefaultListModel {
+    class DocApproveRejectListModel extends DefaultListModel {
 
         // List<BungeniOdfDocumentHelper> listDocs = new ArrayList<BungeniOdfDocumentHelper>(0);
-        public DocConsolidateListModel() {
+        public DocApproveRejectListModel() {
             super();
         }
 
@@ -708,15 +733,15 @@ public class panelApproveRejectChanges extends panelChangesBase {
 
 
 
-    private class DocumentChangesTableCellRenderer extends DefaultTableCellRenderer {
+    private class DocumentApproveRejectChangesTableCellRenderer extends DefaultTableCellRenderer {
         @Override
         public Component getTableCellRendererComponent(JTable aTable, Object aNumberValue, boolean aIsSelected,
                 boolean aHasFocus, int aRow, int aColumn) {
             Component p = super.getTableCellRendererComponent(aTable, aNumberValue, aHasFocus, aHasFocus, aRow,
                               aColumn);
-            DocumentChangesTableModel tblModel       = ((DocumentChangesTableModel) tblDocChanges.getModel());
-            HashMap<String, String>   mapchangesInfo = tblModel.getModelBase().get(aRow);
-            String                    dcCreator      = mapchangesInfo.get("dcCreator");
+            DocumentApproveRejectChangesTableModel tblModel       = ((DocumentApproveRejectChangesTableModel) tblDocChanges.getModel());
+            HashMap<String, Object>   mapchangesInfo = tblModel.getModelBase().get(aRow);
+            String                    dcCreator      = mapchangesInfo.get("dcCreator").toString();
 
             if (dcCreator.equals(__CLERK_NAME__)) {
                 p.setBackground(Color.magenta);
@@ -729,24 +754,36 @@ public class panelApproveRejectChanges extends panelChangesBase {
     }
 
 
-    private class DocumentChangesTableModel extends AbstractTableModel {
-        List<HashMap<String, String>> changeMarks  = new ArrayList<HashMap<String, String>>(0);
+    private class DocumentApproveRejectChangesTableModel extends AbstractTableModel {
+        List<HashMap<String, Object>> changeMarks  = new ArrayList<HashMap<String, Object>>(0);
         private String[]              column_names = {
             bundleBase.getString("panelTrackChanges.tblDocChanges.action.text"),
             bundleBase.getString("panelTrackChanges.tblDocChanges.date.text"),
-            bundleBase.getString("panelTrackChanges.tblDocChanges.text.text")
+            bundleBase.getString("panelTrackChanges.tblDocChanges.text.text"),
+            bundleBase.getString("panelTrackChanges.tblDocChanges.select.text"),
         };
 
-        public DocumentChangesTableModel() {
-            changeMarks = new ArrayList<HashMap<String, String>>(0);
+        public DocumentApproveRejectChangesTableModel() {
+            changeMarks = new ArrayList<HashMap<String, Object>>(0);
         }
 
-        public DocumentChangesTableModel(int iIndex, boolean bFilterbyAuthor) {
+        public DocumentApproveRejectChangesTableModel(int iIndex, boolean bFilterbyAuthor) {
             buildModel(iIndex, bFilterbyAuthor);
         }
 
-        public List<HashMap<String, String>> getModelBase() {
+        public List<HashMap<String, Object>> getModelBase() {
             return changeMarks;
+        }
+
+        class changeStatus {
+
+            String changeId ;
+            Boolean changeStatus;
+
+            changeStatus (String cId, Boolean cStatus) {
+                this.changeId = cId;
+                this.changeStatus = cStatus;
+            }
         }
 
         public void updateModel(int iIndex, boolean bFilterbyAuthor) {
@@ -798,8 +835,8 @@ public class panelApproveRejectChanges extends panelChangesBase {
 
             for (OdfTextChangedRegion odfTextChangedRegion : changes) {
                 StructuredChangeType    scType     = changeHelper.getStructuredChangeType(odfTextChangedRegion);
-                HashMap<String, String> changeMark = changeHelper.getChangeInfo(scType);
-
+                HashMap<String, Object> changeMark = changeHelper.getChangeInfo(scType);
+                //inject the status here
                 changeMarks.add(changeMark);
             }
 
@@ -828,26 +865,26 @@ public class panelApproveRejectChanges extends panelChangesBase {
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            HashMap<String, String> changeMark = changeMarks.get(rowIndex);
+            HashMap<String, Object> changeMark = changeMarks.get(rowIndex);
 
             System.out.println("Change Mark = " + changeMark);
 
             switch (columnIndex) {
             case 0 :
-                return changeMark.get("changeType");
+                return changeMark.get("changeType").toString();
 
             case 1 :
-                return changeMark.get("dcDate");
+                return changeMark.get("dcDate").toString();
 
             case 2 :
                 if (changeMark.containsKey("changeText")) {
-                    return changeMark.get("changeText");
+                    return changeMark.get("changeText").toString();
                 } else {
                     return new String("");
                 }
 
-            // case 3 :
-            // return true;
+            case 3 :
+              return true;
             default :
                 return new String("");
             }

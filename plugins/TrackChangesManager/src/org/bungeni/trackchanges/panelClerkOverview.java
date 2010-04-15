@@ -527,8 +527,8 @@ public class panelClerkOverview extends panelChangesBase {
         public Component getTableCellRendererComponent(JTable aTable, Object aNumberValue, boolean aIsSelected, boolean aHasFocus,int aRow, int aColumn) {
             Component p = super.getTableCellRendererComponent(aTable, aNumberValue, aHasFocus, aHasFocus, aRow, aColumn);
             DocumentChangesTableModel tblModel = ((DocumentChangesTableModel)tblDocChanges.getModel());
-            HashMap<String,String> changesInfo = tblModel.getModelBase().get(aRow);
-            String dcCreator = changesInfo.get("dcCreator");
+            HashMap<String,Object> changesInfo = tblModel.getModelBase().get(aRow);
+            String dcCreator = changesInfo.get("dcCreator").toString();
             if (dcCreator.equals(__CLERK_NAME__)) {
                 p.setBackground(Color.magenta);
             } else
@@ -538,7 +538,7 @@ public class panelClerkOverview extends panelChangesBase {
     }
 
     private class DocumentChangesTableModel extends AbstractTableModel {
-        List<HashMap<String,String>> changeMarks = new ArrayList<HashMap<String,String>>(0);
+        List<HashMap<String,Object>> changeMarks = new ArrayList<HashMap<String,Object>>(0);
         private  String[] column_names = {
             bundleBase.getString("panelTrackChanges.tblDocChanges.action.text"),
             bundleBase.getString("panelTrackChanges.tblDocChanges.date.text"),
@@ -548,14 +548,14 @@ public class panelClerkOverview extends panelChangesBase {
         };
 
         public DocumentChangesTableModel () {
-            changeMarks = new ArrayList<HashMap<String,String>>(0);
+            changeMarks = new ArrayList<HashMap<String,Object>>(0);
         }
 
         public DocumentChangesTableModel (int iIndex, boolean bFilterbyAuthor) {
             buildModel(iIndex, bFilterbyAuthor);
         }
 
-        public List<HashMap<String,String>> getModelBase() {
+        public List<HashMap<String,Object>> getModelBase() {
             return changeMarks;
         }
         
@@ -591,7 +591,7 @@ public class panelClerkOverview extends panelChangesBase {
                 changes = changeHelper.getChangedRegionsByCreator(changeContainer, docAuthor);
             for (OdfTextChangedRegion odfTextChangedRegion : changes) {
                 StructuredChangeType scType = changeHelper.getStructuredChangeType(odfTextChangedRegion);
-                HashMap<String,String> changeMark = changeHelper.getChangeInfo(scType);
+                HashMap<String,Object> changeMark = changeHelper.getChangeInfo(scType);
                 changeMarks.add(changeMark);
             }
             updateMsgNoOfChanges(changeMarks.size());
@@ -615,7 +615,7 @@ public class panelClerkOverview extends panelChangesBase {
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            HashMap<String,String> changeMark = changeMarks.get(rowIndex);
+            HashMap<String,Object> changeMark = changeMarks.get(rowIndex);
             log.debug("Change Mark = " + changeMark);
             switch (columnIndex) {
                 case 0 :
