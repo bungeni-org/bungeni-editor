@@ -35,21 +35,27 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
         init_GlassPane();
     }
 
+    /**
+     * The Tabs are loaded in this function
+     */
     private void init_Tabs() {
         panelTrackChangesOverview overviewPanel    = new panelTrackChangesOverview(parentFrame, "Overview");
         panelClerkOverview        clerkReviewPanel = new panelClerkOverview(parentFrame, "ClerkReview");
         panelConsolidateChanges consolidationPanel = new panelConsolidateChanges(parentFrame, "ConsolidateReview");
         panelReportsView reportsViewPanel = new panelReportsView(parentFrame, "ReportsView");
+        panelApproveRejectChanges approvalPanel = new panelApproveRejectChanges(parentFrame, "ClerkApproveRejectView");
 
         this.panelsMap.put(overviewPanel.getPanelName(), overviewPanel);
         this.panelsMap.put(clerkReviewPanel.getPanelName(), clerkReviewPanel);
         this.panelsMap.put(consolidationPanel.getPanelName(), consolidationPanel);
         this.panelsMap.put(reportsViewPanel.getPanelName(), reportsViewPanel);
-
+        this.panelsMap.put(approvalPanel.getPanelName(), approvalPanel);
+        
         this.tabContainer.addTab(bundleBase.getString("tabName.membersOverview"), overviewPanel);
         this.tabContainer.addTab(bundleBase.getString("tabName.clerkOverview"), clerkReviewPanel);
         this.tabContainer.addTab(bundleBase.getString("tabName.consolidationOverview"), consolidationPanel);
         this.tabContainer.addTab(bundleBase.getString("tabName.reportsView"), reportsViewPanel);
+        this.tabContainer.addTab(bundleBase.getString("tabName.approveRejectView"), approvalPanel);
 
         this.tabContainer.getModel().addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent ce) {
@@ -63,6 +69,9 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
         });
     }
 
+    /**
+     * The glass pane is initialized here -- it is used for displaying the infinit progress bar
+     */
     private void init_GlassPane(){
         m_glassPane = new PerformanceInfiniteProgressPanel();
         parentFrame.setGlassPane(m_glassPane);
@@ -140,6 +149,11 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
 
     Component originalPane;
 
+    /**
+     * This covers the panel with a glass pane and runs the infinit progress bar.
+     * Must be called before invoking the worker thread
+     * @return
+     */
     public boolean startProgress(){
         boolean bState = false;
         try {
@@ -155,6 +169,12 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
     }
 
 
+    /**
+     * This must be called only after a startProgress() api has been called.
+     * stopProgress() is usually called when the worker threard completes , usually after
+     * the get() api in SwingWorker.done().
+     * @return
+     */
     public boolean stopProgress() {
         boolean bState = false;
         try {
