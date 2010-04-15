@@ -28,6 +28,7 @@ public class ReviewDocuments {
             put ("ClerkReview", new ReviewStage("ClerkReview", "clerk"));
             put ("ClerkConsolidationReview", new ReviewStage("ClerkConsolidationReview", "cons"));
             put ("ReportsView", new ReviewStage("ReportsView", "[a-z_]*?", "(report_[a-z_]*?.odt)"));
+            put ("ClerkApproveRejectView", new ReviewStage("ClerkApproveRejectView", "cons"));
         }
     };
 
@@ -100,8 +101,8 @@ public class ReviewDocuments {
 
     public String getStagePrefix(){
         String sPrefix = null;
-        if (this.stagePrefix.containsKey(this.stageName)) {
-            ReviewStage rStage = this.stagePrefix.get(this.stageName);
+        if (ReviewDocuments.stagePrefix.containsKey(this.stageName)) {
+            ReviewStage rStage = ReviewDocuments.stagePrefix.get(this.stageName);
             sPrefix = rStage.getStageDocumentPrefix();
         }
         return sPrefix;
