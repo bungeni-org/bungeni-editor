@@ -13,14 +13,14 @@ public class BungeniOdfReportLine extends BungeniOdfReportLineBase {
     public BungeniOdfReportLine(){
 
     }
-    public BungeniOdfReportLine(BungeniOdfChangeContext ctx, HashMap<String,String> cmap) {
-        super(ctx, cmap);
+    public BungeniOdfReportLine(BungeniOdfChangeContext ctx, HashMap<String,Object> cmap) {
+       super(ctx, cmap);
     }
     
     @Override
     public void buildLineVariables(){
         lineVariables.put("CHANGE_TYPE" , changeMap.get("changeType"));
-        String sChangeText = "\n The following text : \n\"" + changeMap.get("changeText") +"\" \n was " + pastTenseForm.get(changeMap.get("changeType"));
+        String sChangeText = "\n The following text : \n\"" + changeMap.get("changeText") +"\" \n was " + pastTenseForm.get(changeMap.get("changeType").toString());
         lineVariables.put("CHANGE_TEXT",sChangeText);
         String precText = changeContext.getPrecedingSiblingText();
         String follText = changeContext.getFollowingSiblingText();

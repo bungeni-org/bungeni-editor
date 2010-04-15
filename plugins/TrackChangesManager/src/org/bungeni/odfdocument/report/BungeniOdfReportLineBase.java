@@ -12,7 +12,7 @@ import org.bungeni.odfdom.document.changes.BungeniOdfChangeContext;
  */
 public abstract class BungeniOdfReportLineBase {
     BungeniOdfChangeContext changeContext;
-    HashMap<String,String> changeMap;
+    HashMap<String,Object> changeMap;
     TreeMap<String,Object> lineVariables = new TreeMap<String,Object>();
 
      protected HashMap<String, String> pastTenseForm = new HashMap<String,String>(){
@@ -23,11 +23,11 @@ public abstract class BungeniOdfReportLineBase {
     };
 
     public BungeniOdfReportLineBase(){
-        changeMap = new HashMap<String,String>();
+        changeMap = new HashMap<String,Object>();
         changeContext = null;
     }
 
-     public BungeniOdfReportLineBase(BungeniOdfChangeContext cxt, HashMap<String,String> cMap) {
+     public BungeniOdfReportLineBase(BungeniOdfChangeContext cxt, HashMap<String,Object> cMap) {
         this.changeContext = cxt;
         this.changeMap = cMap;
         init();
