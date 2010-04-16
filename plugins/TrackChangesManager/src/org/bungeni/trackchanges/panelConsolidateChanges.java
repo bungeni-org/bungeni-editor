@@ -70,19 +70,18 @@ public class panelConsolidateChanges extends panelChangesBase {
         org.apache.log4j.Logger.getLogger(panelConsolidateChanges.class.getName());
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton     btnEditTemplate;
-    private javax.swing.JButton     btnReport;
-    private javax.swing.JButton     btnReportAll;
-    private javax.swing.JLabel      lblAvailableReports;
-    private javax.swing.JLabel      lblDocumentChanges;
-    private javax.swing.JLabel      lblMembers;
-    private javax.swing.JList       listMembers;
-    private javax.swing.JList       listReportTemplates;
+    private javax.swing.JButton btnEditTemplate;
+    private javax.swing.JButton btnReport;
+    private javax.swing.JButton btnReportAll;
+    private javax.swing.JLabel lblAvailableReports;
+    private javax.swing.JLabel lblDocumentChanges;
+    private javax.swing.JLabel lblMembers;
+    private javax.swing.JList listMembers;
+    private javax.swing.JList listReportTemplates;
     private javax.swing.JScrollPane scrollDocChanges;
     private javax.swing.JScrollPane scrollMembers;
     private javax.swing.JScrollPane scrollReports;
-    private javax.swing.JTable      tblDocChanges;
-
+    private javax.swing.JTable tblDocChanges;
     // End of variables declaration//GEN-END:variables
 
     /** Creates new form panelClerkOverview */
@@ -517,120 +516,132 @@ public class panelConsolidateChanges extends panelChangesBase {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        scrollMembers       = new javax.swing.JScrollPane();
-        listMembers         = new javax.swing.JList();
-        lblMembers          = new javax.swing.JLabel();
-        scrollDocChanges    = new javax.swing.JScrollPane();
-        tblDocChanges       = new javax.swing.JTable();
-        lblDocumentChanges  = new javax.swing.JLabel();
-        btnReport           = new javax.swing.JButton();
-        btnEditTemplate     = new javax.swing.JButton();
-        btnReportAll        = new javax.swing.JButton();
-        scrollReports       = new javax.swing.JScrollPane();
+
+        scrollMembers = new javax.swing.JScrollPane();
+        listMembers = new javax.swing.JList();
+        lblMembers = new javax.swing.JLabel();
+        scrollDocChanges = new javax.swing.JScrollPane();
+        tblDocChanges = new javax.swing.JTable();
+        lblDocumentChanges = new javax.swing.JLabel();
+        btnReport = new javax.swing.JButton();
+        btnEditTemplate = new javax.swing.JButton();
+        btnReportAll = new javax.swing.JButton();
+        scrollReports = new javax.swing.JScrollPane();
         listReportTemplates = new javax.swing.JList();
         lblAvailableReports = new javax.swing.JLabel();
-        listMembers.setFont(new java.awt.Font("Lucida Grande", 0, 10));
+
+        listMembers.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         listMembers.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Tinoula Awopetu", "Mashinski Murigi", "Raul Obwacha", "Felix Kerstengor" };
-            public int getSize() {
-                return strings.length;
-            }
-            public Object getElementAt(int i) {
-                return strings[i];
-            }
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         scrollMembers.setViewportView(listMembers);
-        lblMembers.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle");    // NOI18N
+        lblMembers.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblMembers.setLabelFor(listMembers);
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle"); // NOI18N
+        lblMembers.setText(bundle.getString("panelTrackChangesOverview.lblMembers.text")); // NOI18N
 
-        lblMembers.setText(bundle.getString("panelTrackChangesOverview.lblMembers.text"));    // NOI18N
-        tblDocChanges.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
-            { "Delete", "23/12", "P(3)/L(4)", "This is an exceptional rule", null },
-            { "Insert", "23/12", "P(5)/L(6)", ", for eternity.", new Boolean(true) },
-            { "Delete", "23/12", "P(8)/W(23)", "The rule of law", new Boolean(true) }
-        }, new String[] { "Action", "Date", "Position", "Text", "Accept / Reject" }) {
-            Class[] types = new Class[] { java.lang.String.class, java.lang.String.class, java.lang.String.class,
-                                          java.lang.String.class, java.lang.Boolean.class };
+        tblDocChanges.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"Delete", "23/12", "P(3)/L(4)", "This is an exceptional rule", null},
+                {"Insert", "23/12", "P(5)/L(6)", ", for eternity.", new Boolean(true)},
+                {"Delete", "23/12", "P(8)/W(23)", "The rule of law", new Boolean(true)}
+            },
+            new String [] {
+                "Action", "Date", "Position", "Text", "Accept / Reject"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+            };
+
             public Class getColumnClass(int columnIndex) {
-                return types[columnIndex];
+                return types [columnIndex];
             }
         });
         scrollDocChanges.setViewportView(tblDocChanges);
+
         lblDocumentChanges.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        lblDocumentChanges.setText(bundle.getString("panelTrackChangesOverview.jLabel1.text"));    // NOI18N
+        lblDocumentChanges.setText(bundle.getString("panelTrackChangesOverview.jLabel1.text")); // NOI18N
+
         btnReport.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnReport.setText(bundle.getString("panelConsolidateChanges.btnReport.text"));             // NOI18N
+        btnReport.setText(bundle.getString("panelConsolidateChanges.btnReport.text")); // NOI18N
         btnReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReportActionPerformed(evt);
             }
         });
+
         btnEditTemplate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnEditTemplate.setText(bundle.getString("panelConsolidateChanges.btnEditTemplate.text"));    // NOI18N
+        btnEditTemplate.setText(bundle.getString("panelConsolidateChanges.btnEditTemplate.text")); // NOI18N
+
         btnReportAll.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnReportAll.setText(bundle.getString("panelConsolidateChanges.btnReportAll.text"));          // NOI18N
+        btnReportAll.setText(bundle.getString("panelConsolidateChanges.btnReportAll.text")); // NOI18N
         btnReportAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReportAllActionPerformed(evt);
             }
         });
+
         listReportTemplates.setFont(new java.awt.Font("Lucida Grande", 0, 10));
         listReportTemplates.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Tinoula Awopetu", "Mashinski Murigi", "Raul Obwacha", "Felix Kerstengor" };
-            public int getSize() {
-                return strings.length;
-            }
-            public Object getElementAt(int i) {
-                return strings[i];
-            }
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         scrollReports.setViewportView(listReportTemplates);
+
         lblAvailableReports.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        lblAvailableReports.setText(bundle.getString("panelConsolidateChanges.lblAvailableReports.text"));    // NOI18N
+        lblAvailableReports.setText(bundle.getString("panelConsolidateChanges.lblAvailableReports.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                javax.swing.GroupLayout.Alignment.TRAILING,
-                layout.createSequentialGroup().addContainerGap().addGroup(
-                    layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                        scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE).addComponent(
-                        lblMembers).addComponent(
-                        scrollReports, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE).addComponent(
-                        lblAvailableReports)).addPreferredGap(
-                            javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(
-                            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-                                layout.createSequentialGroup().addComponent(btnReport).addPreferredGap(
-                                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                    btnReportAll).addPreferredGap(
-                                    javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                    btnEditTemplate)).addComponent(
-                                        lblDocumentChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 158,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE).addComponent(
-                                            scrollDocChanges, javax.swing.GroupLayout.DEFAULT_SIZE, 488,
-                                                Short.MAX_VALUE)).addContainerGap()));
-        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup().addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMembers).addComponent(lblDocumentChanges))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                    .addComponent(lblMembers)
+                    .addComponent(scrollReports, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                    .addComponent(lblAvailableReports))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnReport)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblAvailableReports).addGap(9, 9, 9)
-                                .addComponent(scrollReports, javax.swing.GroupLayout.DEFAULT_SIZE, 126,
-                                    Short.MAX_VALUE))
-                                        .addComponent(scrollDocChanges, javax.swing.GroupLayout.Alignment.TRAILING,
-                                            javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                    .addGroup(layout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                            .addComponent(btnReport).addComponent(btnReportAll)
-                                                                .addComponent(btnEditTemplate)).addContainerGap()));
+                        .addComponent(btnReportAll)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEditTemplate))
+                    .addComponent(lblDocumentChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scrollDocChanges, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblMembers)
+                    .addComponent(lblDocumentChanges))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblAvailableReports)
+                        .addGap(9, 9, 9)
+                        .addComponent(scrollReports, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
+                    .addComponent(scrollDocChanges, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnReport)
+                    .addComponent(btnReportAll)
+                    .addComponent(btnEditTemplate))
+                .addContainerGap())
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed

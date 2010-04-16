@@ -38,12 +38,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
+import javax.swing.DefaultCellEditor;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
@@ -52,11 +54,13 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
-import org.bungeni.odfdocument.report.DocReportTemplateListModel;
+import org.bungeni.db.BungeniClientDB;
+import org.bungeni.trackchanges.queries.ProcessQueries;
 
 /**
  *
@@ -70,17 +74,15 @@ public class panelApproveRejectChanges extends panelChangesBase {
         org.apache.log4j.Logger.getLogger(panelApproveRejectChanges.class.getName());
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEditTemplate;
-    private javax.swing.JButton btnReport;
-    private javax.swing.JButton btnReportAll;
-    private javax.swing.JLabel lblAvailableReports;
+    private javax.swing.JButton btnComplete;
+    private javax.swing.JButton btnEndProcess;
+    private javax.swing.JButton btnRestartProcess;
+    private javax.swing.JButton btnStartProcess;
     private javax.swing.JLabel lblDocumentChanges;
     private javax.swing.JLabel lblMembers;
     private javax.swing.JList listMembers;
-    private javax.swing.JList listReportTemplates;
     private javax.swing.JScrollPane scrollDocChanges;
     private javax.swing.JScrollPane scrollMembers;
-    private javax.swing.JScrollPane scrollReports;
     private javax.swing.JTable tblDocChanges;
     // End of variables declaration//GEN-END:variables
 
@@ -180,14 +182,6 @@ public class panelApproveRejectChanges extends panelChangesBase {
                 }
             }
         });
-
-        /**
-         *
-         * Available reports
-         *
-         */
-        this.listReportTemplates.setModel(new DocReportTemplateListModel());
-        this.listReportTemplates.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
     private void initialize_Tables() {
@@ -200,7 +194,42 @@ public class panelApproveRejectChanges extends panelChangesBase {
         TextAreaRenderer textAreaRenderer = new TextAreaRenderer();
 
         tcmModel.getColumn(2).setCellRenderer(textAreaRenderer);
+
+        TableColumn tblColumnStatus = this.tblDocChanges.getColumnModel().getColumn(3);
+        final JCheckBox fjCheckBox = new JCheckBox();
+        ApproveRejectStatusEditor aprEditor = new ApproveRejectStatusEditor(fjCheckBox);
+        tblColumnStatus.setCellEditor(aprEditor);
+       
+
+
     }
+
+class ApproveRejectStatusEditor extends DefaultCellEditor {
+
+  public ApproveRejectStatusEditor(final JCheckBox tf) {
+   super(tf);
+   tf.setBorder(null);
+   delegate = new EditorDelegate() {
+
+    @Override
+    public void setValue(Object param) {
+     Boolean _value = (Boolean)param;
+     if (_value == null) {
+         tf.setSelected(Boolean.FALSE);
+     } else {
+          Boolean _d = _value.booleanValue();
+          tf.setSelected(_d);
+     }
+    }
+
+   @Override
+    public Object getCellEditorValue() {
+      Boolean _field = tf.isSelected();
+      return _field;
+    }
+   };
+  }
+}
 
     private void displayChangesInfo(int index) {
         DocumentApproveRejectChangesTableModel tblModel = (DocumentApproveRejectChangesTableModel) this.tblDocChanges.getModel();
@@ -324,184 +353,141 @@ public class panelApproveRejectChanges extends panelChangesBase {
         return billTitle;
     }
 
-    private boolean doReportsAll() {
-        boolean                      bReturn    = false;
-        final List<BungeniDocAuthor> docAuthors = new ArrayList<BungeniDocAuthor>() {
-            {
-                for (int i = 0; i < listMembers.getModel().getSize(); i++) {
-                    add((BungeniDocAuthor) listMembers.getModel().getElementAt(i));
+
+
+    /**
+     * Changes in a single document
+     */
+    class DocumentChange {
+
+        List<HashMap<String, Object>> changeMarks = new ArrayList<HashMap<String, Object>>(0);
+
+        public DocumentChange(){
+
+        }
+        
+        public void addChangeMark(HashMap<String,Object> cmark) {
+            changeMarks.add(cmark);
+        }
+
+        public void setChangeMarks(List<HashMap<String, Object>> cmarks) {
+            changeMarks = cmarks;
+        }
+
+        public List<HashMap<String, Object>>  getChangeMarks(){
+            return changeMarks;
+        }
+                
+    }
+
+    class DocumentChanges {
+        List<DocumentChange> documentChanges = new ArrayList<DocumentChange>(0);
+
+        public DocumentChanges(){
+
+        }
+
+        public void addChange(DocumentChange ch) {
+            this.documentChanges.add(ch);
+        }
+
+        public List<DocumentChange> getChanges(){
+            return documentChanges;
+        }
+    }
+
+    private List<String> getChangesAsQueries(DocumentChanges dChanges) {
+        List<DocumentChange> documentChanges = dChanges.getChanges();
+        for (DocumentChange documentChange : documentChanges) {
+                List<HashMap<String,Object>> changeMarks = documentChange.getChangeMarks();
+                 for (HashMap<String,Object> changeMark : changeMarks) {
+
+
+                 }
+        }
+
+    }
+
+     private DocumentChanges getDocChanges() {
+         DocumentChanges groupedChanges = new DocumentChanges();
+         for (BungeniOdfDocumentHelper docHelper : changesInfo.getDocuments()) {
+             DocumentChange aChange = getDocChange(docHelper, true);
+             groupedChanges.addChange(aChange);
+         }
+         return groupedChanges;
+     }
+
+      private DocumentChange getDocChange(BungeniOdfDocumentHelper docHelper, boolean bFilterByAuthor) {
+            DocumentChange change = new DocumentChange();
+            String                          docAuthor       =
+                docHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniDocAuthor");
+            System.out.println("building model for " + docAuthor);
+            BungeniOdfTrackedChangesHelper  changeHelper    = docHelper.getChangesHelper();
+            Element                         changeContainer = changeHelper.getTrackedChangeContainer();
+            ArrayList<OdfTextChangedRegion> changes         = new ArrayList<OdfTextChangedRegion>(0);
+
+            if (!bFilterByAuthor) {
+                changes = changeHelper.getChangedRegions(changeContainer);
+            } else {
+                changes = changeHelper.getChangedRegionsByCreator(changeContainer, docAuthor);
+            }
+
+            for (OdfTextChangedRegion odfTextChangedRegion : changes) {
+                StructuredChangeType    scType     = changeHelper.getStructuredChangeType(odfTextChangedRegion);
+                HashMap<String, Object> changeMark = changeHelper.getChangeInfo(scType);
+                //inject the status here
+                change.addChangeMark(changeMark);
+            }
+
+            return change;
+
+        }
+
+  
+    private void doProcessDocuments(){
+        SwingWorker procDocsWorker = new SwingWorker(){
+            @Override
+            protected Object doInBackground() throws Exception {
+                //first build a list of documents
+                ArrayList<String> listQueries = new ArrayList<String>(0);
+
+               String processId = UUID.randomUUID().toString();
+               String billId = (String) AppProperties.getProperty("CurrentBillID");
+               String insQuery = ProcessQueries.INSERT_PROCESS(processId, billId);
+               listQueries.add(insQuery);
+
+               for (BungeniOdfDocumentHelper docHelper  : changesInfo.getDocuments()) {
+                    String documentPath  = docHelper.getDocumentPath();
+                    String filename = documentPath.substring(documentPath.lastIndexOf(File.separator) + 1);
+                    String docAuthor = docHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniDocAuthor");
+                    String insQuery2 = ProcessQueries.INSERT_PROCESS_DOCS(processId, filename, documentPath, docAuthor);
+                    listQueries.add(insQuery2);
+                }
+
+                DocumentChanges docChanges = getDocChanges();
+
+
+                BungeniClientDB db = BungeniClientDB.defaultConnect();
+                db.Connect();
+                for (String sQuery : listQueries) {
+                   db.Update(sQuery);
+                }
+                db.EndConnect();
+                return Boolean.TRUE;
+            }
+            
+            @Override
+            protected void done(){
+                try {
+                    Boolean bState = (Boolean) get();
+                } catch (InterruptedException ex) {
+                    log.error(ex.getMessage());
+                } catch (ExecutionException ex) {
+                    log.error(ex.getMessage());
                 }
             }
         };
-        final BungeniOdfDocumentReportTemplate selReport =
-            (BungeniOdfDocumentReportTemplate) this.listReportTemplates.getSelectedValue();
-
-        if (docAuthors.size() == 0) {
-            JOptionPane.showMessageDialog(
-                parentFrame,
-                java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle").getString(
-                    "no_dox_for_consolidation"));
-            bReturn = false;
-        }
-
-        if (selReport == null) {
-            JOptionPane.showMessageDialog(
-                parentFrame,
-                java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle").getString("no_report_selected"));
-            bReturn = false;
-
-            return false;
-        } else {
-            getContainerInterface().startProgress();
-            this.btnReportAll.setEnabled(false);
-
-            SwingWorker reportAllWorker = new SwingWorker() {
-                @Override
-                protected Object doInBackground() throws Exception {
-                    List<String> reportDocs = new ArrayList<String>(0);
-
-                    for (int i = 0; i < docAuthors.size(); i++) {
-                        BungeniDocAuthor         docAuthor    = docAuthors.get(i);
-                        String reportodfDoc = generateReport(i, docAuthor, selReport);
-
-                        reportDocs.add(reportodfDoc);
-                    }
-
-                    return reportDocs;
-                }
-                @Override
-                protected void done() {
-                    try {
-
-                        // get the return denvelope
-                        List<String> docs = (List<String>) this.get();
-                        Thread.sleep(2000);
-                        getContainerInterface().stopProgress();
-                        btnReportAll.setEnabled(true);
-
-                        boolean errorCondition = false;
-
-                        if (docs != null) {
-                            if (docs.size() > 0) {
-                                StringBuffer sbBuffer = new StringBuffer();
-
-                                for (BungeniDocAuthor anAuthor : docAuthors) {
-                                    sbBuffer.append(anAuthor.toString() + "\n");
-                                }
-
-                                JOptionPane
-                                    .showMessageDialog(parentFrame,
-                                                       java.util.ResourceBundle
-                                                           .getBundle("org/bungeni/trackchanges/Bundle")
-                                                           .getString("reports_generated_ok") + sbBuffer
-                                                           .toString(), java.util.ResourceBundle
-                                                           .getBundle("org/bungeni/trackchanges/Bundle")
-                                                           .getString("report_gen_title"), JOptionPane
-                                                           .INFORMATION_MESSAGE);
-                            } else {
-                                errorCondition = true;
-                            }
-                        } else {
-                            errorCondition = true;
-                        }
-
-                        if (errorCondition) {
-                            JOptionPane.showMessageDialog(
-                                parentFrame, bundleBase.getString(
-                                    "report_gen_error_occured"), bundleBase.getString(
-                                    "report_gen_title"), JOptionPane.WARNING_MESSAGE);
-                        }
-
-                        // viewConsolidatedDocument(envelope);
-                    } catch (InterruptedException ex) {
-                        log.error("consolidateWorkerAll = " + ex.getMessage());
-                    } catch (ExecutionException ex) {
-                        log.error("consolidateWorkerAll = " + ex.getMessage());
-                    }
-                }
-            };
-
-            reportAllWorker.execute();
-            bReturn = true;
-        }
-
-        return bReturn;
-    }
-
-    private boolean doReport() {
-        boolean bReturn = false;
-
-        // get the selected MP
-        // get the selected document index
-        final int                              selIndex  = this.listMembers.getSelectedIndex();
-        final BungeniOdfDocumentReportTemplate selReport =
-            (BungeniOdfDocumentReportTemplate) this.listReportTemplates.getSelectedValue();
-
-        if (-1 == selIndex) {
-            JOptionPane.showMessageDialog(
-                parentFrame,
-                java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle").getString(
-                    "no_document_selected"));
-            bReturn = false;
-
-            return false;
-        }
-
-        if (selReport == null) {
-            JOptionPane.showMessageDialog(
-                parentFrame,
-                java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle").getString("no_report_selected"));
-            bReturn = false;
-
-            return false;
-        } else {
-            final BungeniDocAuthor selectedAuthor = (BungeniDocAuthor) this.listMembers.getSelectedValue();
-
-            getContainerInterface().startProgress();
-            btnReport.setEnabled(false);
-
-            SwingWorker reportWorker = new SwingWorker() {
-                @Override
-                protected Object doInBackground() throws Exception {
-                    String reportdoc = generateReport(selIndex, selectedAuthor, selReport);
-
-                    return reportdoc;
-                }
-                @Override
-                protected void done() {
-                    try {
-                        String reportdoc = (String) get();
-                        getContainerInterface().stopProgress();
-                        btnReport.setEnabled(true);
-
-                        if (reportdoc != null) {
-                            JOptionPane
-                                .showMessageDialog(parentFrame,
-                                                   java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle")
-                                                       .getString("report_generated_for") + selectedAuthor
-                                                       .toString(), java.util.ResourceBundle
-                                                       .getBundle("org/bungeni/trackchanges/Bundle")
-                                                       .getString("report_gen_title"), JOptionPane.INFORMATION_MESSAGE);
-                        } else {
-                            JOptionPane.showMessageDialog(
-                                parentFrame, java.util.ResourceBundle.getBundle(
-                                    "org/bungeni/trackchanges/Bundle").getString(
-                                    "report_gen_error_occured"), java.util.ResourceBundle.getBundle(
-                                    "org/bungeni/trackchanges/Bundle").getString(
-                                    "report_gen_title"), JOptionPane.WARNING_MESSAGE);
-                        }
-                    } catch (InterruptedException ex) {
-                        log.error("consolidateWorker = " + ex.getMessage());
-                    } catch (ExecutionException ex) {
-                        log.error("consolidateWorker = " + ex.getMessage());
-                    }
-                }
-            };
-
-            reportWorker.execute();
-        }
-
-        return true;
+        procDocsWorker.execute();
     }
 
     /**
@@ -521,12 +507,10 @@ public class panelApproveRejectChanges extends panelChangesBase {
         scrollDocChanges = new javax.swing.JScrollPane();
         tblDocChanges = new javax.swing.JTable();
         lblDocumentChanges = new javax.swing.JLabel();
-        btnReport = new javax.swing.JButton();
-        btnEditTemplate = new javax.swing.JButton();
-        btnReportAll = new javax.swing.JButton();
-        scrollReports = new javax.swing.JScrollPane();
-        listReportTemplates = new javax.swing.JList();
-        lblAvailableReports = new javax.swing.JLabel();
+        btnStartProcess = new javax.swing.JButton();
+        btnRestartProcess = new javax.swing.JButton();
+        btnEndProcess = new javax.swing.JButton();
+        btnComplete = new javax.swing.JButton();
 
         listMembers.setFont(new java.awt.Font("Lucida Grande", 0, 10));
         listMembers.setModel(new javax.swing.AbstractListModel() {
@@ -563,35 +547,27 @@ public class panelApproveRejectChanges extends panelChangesBase {
         lblDocumentChanges.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblDocumentChanges.setText(bundle.getString("panelTrackChangesOverview.jLabel1.text")); // NOI18N
 
-        btnReport.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnReport.setText(bundle.getString("panelApproveRejectChanges.btnReport.text")); // NOI18N
-        btnReport.addActionListener(new java.awt.event.ActionListener() {
+        btnStartProcess.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnStartProcess.setText(bundle.getString("panelApproveRejectChanges.btnStartProcess.text")); // NOI18N
+        btnStartProcess.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportActionPerformed(evt);
+                btnStartProcessActionPerformed(evt);
             }
         });
 
-        btnEditTemplate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnEditTemplate.setText(bundle.getString("panelApproveRejectChanges.btnEditTemplate.text")); // NOI18N
+        btnRestartProcess.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnRestartProcess.setText(bundle.getString("panelApproveRejectChanges.btnRestartProcess.text")); // NOI18N
 
-        btnReportAll.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnReportAll.setText(bundle.getString("panelApproveRejectChanges.btnReportAll.text")); // NOI18N
-        btnReportAll.addActionListener(new java.awt.event.ActionListener() {
+        btnEndProcess.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnEndProcess.setText(bundle.getString("panelApproveRejectChanges.btnEndProcess.text")); // NOI18N
+        btnEndProcess.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportAllActionPerformed(evt);
+                btnEndProcessActionPerformed(evt);
             }
         });
 
-        listReportTemplates.setFont(new java.awt.Font("Lucida Grande", 0, 10));
-        listReportTemplates.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Tinoula Awopetu", "Mashinski Murigi", "Raul Obwacha", "Felix Kerstengor" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        scrollReports.setViewportView(listReportTemplates);
-
-        lblAvailableReports.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        lblAvailableReports.setText(bundle.getString("panelApproveRejectChanges.lblAvailableReports.text")); // NOI18N
+        btnComplete.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnComplete.setText(bundle.getString("panelApproveRejectChanges.btnComplete.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -601,17 +577,17 @@ public class panelApproveRejectChanges extends panelChangesBase {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
-                    .addComponent(lblMembers)
-                    .addComponent(scrollReports, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
-                    .addComponent(lblAvailableReports))
+                    .addComponent(lblMembers))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnReport)
+                        .addComponent(btnStartProcess)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnReportAll)
+                        .addComponent(btnEndProcess)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEditTemplate))
+                        .addComponent(btnRestartProcess)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnComplete))
                     .addComponent(lblDocumentChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(scrollDocChanges, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE))
                 .addContainerGap())
@@ -627,36 +603,39 @@ public class panelApproveRejectChanges extends panelChangesBase {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblAvailableReports)
-                        .addGap(9, 9, 9)
-                        .addComponent(scrollReports, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
+                        .addGap(154, 154, 154))
                     .addComponent(scrollDocChanges, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnReport)
-                    .addComponent(btnReportAll)
-                    .addComponent(btnEditTemplate))
+                    .addComponent(btnStartProcess)
+                    .addComponent(btnEndProcess)
+                    .addComponent(btnRestartProcess)
+                    .addComponent(btnComplete))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
+    private void btnStartProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartProcessActionPerformed
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                doReport();
+                /**
+                 * We populate the process_documents table here
+                 */
+                doProcessDocuments();
+                //doReport();
+
             }
         });
-    }//GEN-LAST:event_btnReportActionPerformed
+    }//GEN-LAST:event_btnStartProcessActionPerformed
 
 
-    private void btnReportAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportAllActionPerformed
+    private void btnEndProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEndProcessActionPerformed
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                doReportsAll();
+                //doReportsAll();
             }
         });
-    }//GEN-LAST:event_btnReportAllActionPerformed
+    }//GEN-LAST:event_btnEndProcessActionPerformed
 
 
     @Override
@@ -756,15 +735,18 @@ public class panelApproveRejectChanges extends panelChangesBase {
 
     private class DocumentApproveRejectChangesTableModel extends AbstractTableModel {
         List<HashMap<String, Object>> changeMarks  = new ArrayList<HashMap<String, Object>>(0);
+        List<Boolean> statusMarks = new ArrayList<Boolean>(0);
+
         private String[]              column_names = {
-            bundleBase.getString("panelTrackChanges.tblDocChanges.action.text"),
-            bundleBase.getString("panelTrackChanges.tblDocChanges.date.text"),
-            bundleBase.getString("panelTrackChanges.tblDocChanges.text.text"),
-            bundleBase.getString("panelTrackChanges.tblDocChanges.select.text"),
+            bundleBase.getString("panelApproveRejectChanges.tblDocChanges.action.text"),
+            bundleBase.getString("panelApproveRejectChanges.tblDocChanges.date.text"),
+            bundleBase.getString("panelApproveRejectChanges.tblDocChanges.text.text"),
+            bundleBase.getString("panelApproveRejectChanges.tblDocChanges.select.text"),
         };
 
         public DocumentApproveRejectChangesTableModel() {
             changeMarks = new ArrayList<HashMap<String, Object>>(0);
+            statusMarks = new ArrayList<Boolean>(0);
         }
 
         public DocumentApproveRejectChangesTableModel(int iIndex, boolean bFilterbyAuthor) {
@@ -775,10 +757,20 @@ public class panelApproveRejectChanges extends panelChangesBase {
             return changeMarks;
         }
 
+        @Override
+        public boolean isCellEditable(int row, int col) {
+            return (col==3);
+        }
+
+
         class changeStatus {
 
             String changeId ;
             Boolean changeStatus;
+
+            changeStatus (){
+                changeStatus = false;
+            }
 
             changeStatus (String cId, Boolean cStatus) {
                 this.changeId = cId;
@@ -841,6 +833,10 @@ public class panelApproveRejectChanges extends panelChangesBase {
             }
 
             updateMsgNoOfChanges(changeMarks.size());
+            for (int i = 0; i < changeMarks.size(); i++) {
+                statusMarks.add(Boolean.FALSE);
+
+            }
         }
 
         private void updateMsgNoOfChanges(int nSize) {
@@ -884,11 +880,21 @@ public class panelApproveRejectChanges extends panelChangesBase {
                 }
 
             case 3 :
-              return true;
+              return statusMarks.get(rowIndex);
+
             default :
                 return new String("");
             }
         }
+
+        @Override
+           public void setValueAt(Object value, int row, int col) {
+                if (col == 3) {
+                    statusMarks.set(row, (Boolean) value);
+                    fireTableCellUpdated(row, col);
+                }
+            }
+
 
         @Override
         public Class getColumnClass(int col) {
