@@ -259,6 +259,14 @@ public class BungeniOdfTrackedChangesHelper {
 
     /**
      * <p>Returncs change info as a hashmap</p>
+     * <p>The following properties are available in the HashMap :</p>
+     * <ul>
+     * <li>changeType - the type of the change</li>
+     * <li>dcCreator - the author of the change </li>
+     * <li>dcDate - the date of the change</li>
+     * <li>changeId - the change id</li>
+     * <li>changeText - the inserted or deleted text of the change</li>
+     * </ul>
      * @param scChangeType
      * @return
      */
