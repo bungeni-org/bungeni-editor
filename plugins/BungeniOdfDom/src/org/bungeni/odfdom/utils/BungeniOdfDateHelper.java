@@ -43,14 +43,9 @@ public class BungeniOdfDateHelper {
      */
     public static Date odfDateToJavaDate(String odfDate) {
         Date dtPresDate = null;
-        try {
-            SimpleDateFormat dfFormat = new SimpleDateFormat(PRESENTATION_DATE_FORMAT);
-            dtPresDate = dfFormat.parse(odfDate);
-        } catch (ParseException ex) {
-           log.error(ex.getMessage());
-        }
+        DateTime         dtdcDate = DateTime.valueOf(odfDate);
+        dtPresDate  = dtdcDate.getXMLGregorianCalendar().toGregorianCalendar().getTime();
         return dtPresDate;
-
-    }
+   }
 
 }
