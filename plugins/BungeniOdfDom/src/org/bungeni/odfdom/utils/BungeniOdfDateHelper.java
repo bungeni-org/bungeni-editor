@@ -2,6 +2,7 @@ package org.bungeni.odfdom.utils;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.text.ParseException;
 import org.odftoolkit.odfdom.type.DateTime;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -18,7 +19,9 @@ public class BungeniOdfDateHelper {
     /**
      * This is the default presentation date format -- override / set as desired.
      */
-    private static String PRESENTATION_DATE_FORMAT = "EEE, MMM d, yyyy, h:mm:ss a";
+    public static String PRESENTATION_DATE_FORMAT = "EEE, MMM d, yyyy, h:mm:ss a";
+
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BungeniOdfDateHelper.class.getName());
 
     /**
      * Takes an ODF date and returns it as a formatted date using the date format specified in the PRESENTATION_DATE_FORMAT static variable.
@@ -32,4 +35,17 @@ public class BungeniOdfDateHelper {
 
         return dfFormat.format(ddcDate);
     }
+
+    public static Date presentationDateToDate(String presDate) {
+        Date dtPresDate = null;
+        try {
+            SimpleDateFormat dfFormat = new SimpleDateFormat(PRESENTATION_DATE_FORMAT);
+            dtPresDate = dfFormat.parse(presDate);
+        } catch (ParseException ex) {
+           log.error(ex.getMessage());
+        }
+        return dtPresDate;
+
+    }
+
 }

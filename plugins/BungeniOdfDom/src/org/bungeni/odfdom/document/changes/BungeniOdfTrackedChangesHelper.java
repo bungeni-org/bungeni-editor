@@ -535,8 +535,10 @@ public class BungeniOdfTrackedChangesHelper {
                 /*
                  * all dates in odf uses the ODFDOM data type DateTime
                  * we convert to the XML date type and then to Java date type
+                 *
+                 * Update : we dont do conversion .. the frontend application does the conversion
                  */
-                outDate = BungeniOdfDateHelper.odfDateToPresentationDate(dcDate.getTextContent());
+                outDate = dcDate.getTextContent();
             }
         } catch (XPathExpressionException ex) {
             java.util.logging.Logger.getLogger(BungeniOdfTrackedChangesHelper.class.getName()).log(Level.SEVERE, null,
