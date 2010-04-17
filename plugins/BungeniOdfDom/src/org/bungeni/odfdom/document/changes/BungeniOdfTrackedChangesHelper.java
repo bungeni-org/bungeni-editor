@@ -5,7 +5,6 @@ package org.bungeni.odfdom.document.changes;
 import org.apache.log4j.Logger;
 
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
-import org.bungeni.odfdom.utils.BungeniOdfDateHelper;
 
 import org.odftoolkit.odfdom.doc.text.OdfTextChange;
 import org.odftoolkit.odfdom.doc.text.OdfTextChangeEnd;
