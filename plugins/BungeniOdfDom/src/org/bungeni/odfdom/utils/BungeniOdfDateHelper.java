@@ -36,11 +36,16 @@ public class BungeniOdfDateHelper {
         return dfFormat.format(ddcDate);
     }
 
-    public static Date presentationDateToDate(String presDate) {
+    /**
+     * Converts an ODF Date to a Java Date type
+     * @param odfDate - odfDate as a string
+     * @return a Java Date
+     */
+    public static Date odfDateToJavaDate(String odfDate) {
         Date dtPresDate = null;
         try {
             SimpleDateFormat dfFormat = new SimpleDateFormat(PRESENTATION_DATE_FORMAT);
-            dtPresDate = dfFormat.parse(presDate);
+            dtPresDate = dfFormat.parse(odfDate);
         } catch (ParseException ex) {
            log.error(ex.getMessage());
         }
