@@ -2,6 +2,7 @@ package org.bungeni.db;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -9,6 +10,7 @@ import org.apache.log4j.Logger;
 import java.sql.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Vector;
 
 /**
@@ -57,6 +59,27 @@ public class BungeniClientDB {
         log.debug("connection string = " + connection_string);
     }
 
+    public boolean ConnectWithAutoCommitOff() {
+        return Connect(";AUTOCOMMIT=OFF");
+    }
+
+    public boolean Connect(String extConString) {
+        boolean bState = true;
+
+        try {
+            Class.forName(DRIVER);
+            db_connection = DriverManager.getConnection(connection_string + extConString, USER_NAME, PASS_WORD);
+        } catch (SQLException ex) {
+            log.error("Connect:" + ex.getMessage());
+            bState = false;
+        } catch (ClassNotFoundException ex) {
+            log.error("Connect:" + ex.getMessage());
+            bState = false;
+        } finally {
+            return bState;
+        }
+    }
+
     public boolean Connect() {
         boolean bState = true;
 
@@ -73,6 +96,7 @@ public class BungeniClientDB {
             return bState;
         }
     }
+
 
     public QueryResults QueryResults(String expression) {
         HashMap<String, Vector<Vector<String>>> qResults = Query(expression);
@@ -92,6 +116,44 @@ public class BungeniClientDB {
         return qr;
     }
 
+    public int Update(List<String> queries, boolean bTransacted) {
+        Statement st       = null;
+        int       nReturns = 0;
+        try {
+            st = db_connection.createStatement();    // statement objects can be reused with
+            // repeated calls to execute but we
+            // choose to make a new one each time
+            if (bTransacted) {
+                st.addBatch("set autocommit off");
+            }
+            for (String squery : queries) {
+                st.addBatch(squery);
+            }
+            if (bTransacted ) {
+            st.addBatch("prepare commit x_trans");
+            st.addBatch("commit");
+            }
+            st.executeBatch();
+            st.close();
+        } catch (SQLException ex) {
+            log.error("Update: " + ex.getMessage());
+            try {
+                if (bTransacted) {
+                if (!st.isClosed()) {
+                    st.execute("rollback transaction x_trans");
+                    st.close();
+                }
+                }
+            } catch (SQLException ex1) {
+                log.error("RollBack: " + ex.getMessage());
+            }
+        }
+
+        return nReturns;
+        
+
+    }
+
     public int Update(String expression) {
         Statement st       = null;
         int       nReturns = 0;
@@ -99,6 +161,7 @@ public class BungeniClientDB {
             st = db_connection.createStatement();    // statement objects can be reused with
             // repeated calls to execute but we
             // choose to make a new one each time
+
             nReturns = st.executeUpdate(expression);    // run the query
             st.close();
         } catch (SQLException ex) {
