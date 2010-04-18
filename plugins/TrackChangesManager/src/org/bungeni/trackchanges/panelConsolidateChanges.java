@@ -57,6 +57,7 @@ import javax.swing.table.TableColumnModel;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import org.bungeni.odfdocument.report.DocReportTemplateListModel;
+import org.bungeni.odfdom.utils.BungeniOdfDateHelper;
 
 /**
  *
@@ -922,7 +923,7 @@ public class panelConsolidateChanges extends panelChangesBase {
                 return changeMark.get("changeType");
 
             case 1 :
-                return changeMark.get("dcDate");
+                return BungeniOdfDateHelper.odfDateToPresentationDate(changeMark.get("dcDate").toString());
 
             case 2 :
                 if (changeMark.containsKey("changeText")) {

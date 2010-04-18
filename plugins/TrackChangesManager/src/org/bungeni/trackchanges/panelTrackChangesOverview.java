@@ -43,6 +43,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumnModel;
+import org.bungeni.odfdom.utils.BungeniOdfDateHelper;
 import org.bungeni.trackchanges.rss.BungeniBillDataProvider;
 
 /**
@@ -533,7 +534,7 @@ public class panelTrackChangesOverview extends panelChangesBase {
                 return changeMark.get("changeType").toString();
 
             case 1 :
-                return changeMark.get("dcDate").toString();
+                return BungeniOdfDateHelper.odfDateToPresentationDate(changeMark.get("dcDate").toString());
 
             case 2 :
                 if (changeMark.containsKey("changeText")) {

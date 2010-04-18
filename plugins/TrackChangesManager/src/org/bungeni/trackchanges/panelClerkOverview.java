@@ -27,6 +27,7 @@ import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfChangesMergeHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper.StructuredChangeType;
+import org.bungeni.odfdom.utils.BungeniOdfDateHelper;
 import org.bungeni.trackchanges.ui.support.TextAreaRenderer;
 import org.bungeni.trackchanges.uno.UnoOdfFile;
 import org.bungeni.trackchanges.uno.UnoOdfOpenFiles;
@@ -621,7 +622,7 @@ public class panelClerkOverview extends panelChangesBase {
                 case 0 :
                     return changeMark.get("changeType");
                 case 1 :
-                    return changeMark.get("dcDate");
+                    return BungeniOdfDateHelper.odfDateToPresentationDate(changeMark.get("dcDate").toString());
                 case 2 :
                     if (changeMark.containsKey("changeText")) {
                         return changeMark.get("changeText");
