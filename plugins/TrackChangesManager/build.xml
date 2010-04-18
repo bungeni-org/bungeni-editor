@@ -76,6 +76,10 @@
 		<fileset dir="review_workspace" >
 		</fileset>
 	</copy>
+	<copy todir="${dist.dir}/process">
+		<fileset dir="process" >
+		</fileset>
+	</copy>
         <copy file="${src.dir}/../app.ini" todir="${dist.dir}"/>
         <copy file="${src.dir}/../app.ini" todir="${build.dir}/classes" />
     </target>
