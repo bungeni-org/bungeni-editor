@@ -3,12 +3,9 @@ package org.bungeni.trackchanges;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.util.Vector;
 import org.bungeni.odfdocument.docinfo.BungeniDocAuthor;
-import org.bungeni.odfdocument.report.BungeniOdfDocumentReport;
-import org.bungeni.odfdocument.report.BungeniOdfDocumentReportTemplate;
-import org.bungeni.odfdocument.report.BungeniOdfReportLine;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
-import org.bungeni.odfdom.document.changes.BungeniOdfChangeContext;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper.StructuredChangeType;
 import org.bungeni.trackchanges.registrydata.BungeniBill;
@@ -22,7 +19,6 @@ import org.bungeni.trackchanges.utils.RuntimeProperties;
 import org.odftoolkit.odfdom.doc.text.OdfTextChangedRegion;
 
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -33,9 +29,10 @@ import java.io.File;
 import java.io.FilenameFilter;
 
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -50,17 +47,20 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
+import org.bungeni.db.AbstractQueryResultsIterator;
 import org.bungeni.db.BungeniClientDB;
+import org.bungeni.db.QueryResults;
+import org.bungeni.odfdom.utils.BungeniOdfDateHelper;
+import org.bungeni.trackchanges.process.schema.ProcessAmend;
+import org.bungeni.trackchanges.process.schema.ProcessAmends;
+import org.bungeni.trackchanges.process.schema.ProcessDocument;
 import org.bungeni.trackchanges.queries.ProcessQueries;
+import org.bungeni.trackchanges.utils.GenericListSelectionListener;
 
 /**
  *
@@ -109,7 +109,7 @@ public class panelApproveRejectChanges extends panelChangesBase {
 
     private void loadFilesFromFolder() {
         String currentBillFolder =
-            CommonFunctions.getWorkspaceForBill((String) AppProperties.getProperty("CurrentBillID"));
+            CommonFunctions.getWorkspaceForBill(CommonFunctions.getCurrentBillID());
 
         if (currentBillFolder.length() > 0) {
             File fFolder = new File(currentBillFolder);
@@ -157,29 +157,11 @@ public class panelApproveRejectChanges extends panelChangesBase {
 
         ListSelectionModel lsm = listMembers.getSelectionModel();
 
-        lsm.addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent lse) {
-                ListSelectionModel lsm = (ListSelectionModel) lse.getSource();
-
-                if (lse.getValueIsAdjusting()) {
-                    return;
-                }
-
-                int firstIndex = lse.getFirstIndex();
-                int lastIndex  = lse.getLastIndex();
-
-                if (lsm.isSelectionEmpty()) {
-                    return;
-                } else {
-
-                    // Find out which indexes are selected.
-                    int nIndex = lsm.getMinSelectionIndex();
-
-                    System.out.println("loading table changes");
-
-                    // do struff here
-                    displayChangesInfo(nIndex);
-                }
+        lsm.addListSelectionListener(new GenericListSelectionListener() {
+            @Override
+            public void onSelectIndex(int nIndex) {
+                //displayChangesInfo(nIndex);
+                
             }
         });
     }
@@ -234,106 +216,9 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
     private void displayChangesInfo(int index) {
         DocumentApproveRejectChangesTableModel tblModel = (DocumentApproveRejectChangesTableModel) this.tblDocChanges.getModel();
 
-        tblModel.updateModel(index, false);
+        tblModel.updateModel(index);
     }
 
-    private String generateReport(int selIndex, BungeniDocAuthor anAuthor,
-            BungeniOdfDocumentReportTemplate reportTemplate) {
-        String reportOdfDoc = null;
-
-        try {
-
-            // generate the report from the MP's document
-            String billReviewFolder =
-                CommonFunctions.getWorkspaceForBill((String) AppProperties.getProperty("CurrentBillID"));
-            String templatesFolder = CommonFunctions.getTemplateFolder();
-
-            // get the author name
-            String sAuthor     = anAuthor.toString();
-            File   freportFile = new File(billReviewFolder + File.separator + 
-                                        CommonFunctions.normalizeName(reportTemplate.toString())  + "_report_" + CommonFunctions.normalizeName(sAuthor) +".odt");
-
-            // BungeniOdfDocumentReportTemplate reportTemplate = new BungeniOdfDocumentReportTemplate(templatesFolder + File.separator + "changes-by-user.odt");
-            BungeniOdfDocumentHelper docHelper = changesInfo.getDocuments().get(selIndex);
-
-            // create an xpath object
-            XPath docXpath = docHelper.getOdfDocument().getXPath();
-
-            // get the changes helper ont he merged document
-            BungeniOdfTrackedChangesHelper changesHelper = docHelper.getChangesHelper();
-
-            // get all the change regions created by the mp
-            List<OdfTextChangedRegion> changedRegions =
-                changesHelper.getChangedRegionsByCreator(changesHelper.getTrackedChangeContainer(), sAuthor);
-
-            // iterate through all the changed regions
-            // build the report lines
-            ArrayList<BungeniOdfReportLine> reportLines = new ArrayList<BungeniOdfReportLine>(0);
-
-            for (OdfTextChangedRegion odfTextChangedRegion : changedRegions) {
-
-                // get the change map for the change - to be sent to the report line object
-                StructuredChangeType    scType      = changesHelper.getStructuredChangeType(odfTextChangedRegion);
-                HashMap<String, Object> mapOfChange = changesHelper.getChangeInfo(scType);
-                String                  changeType  = mapOfChange.get("changeType").toString();
-                String                  changeText  = mapOfChange.get("changeText").toString();
-                String                  changeId    = mapOfChange.get("changeId").toString();
-
-                // below we build the change context object for the change
-                Node                    foundNodeStart = null;
-                Node                    foundNodeEnd   = null;
-                Node                    foundNode      = null;
-                BungeniOdfChangeContext changeContext  = null;
-
-                if (changeType.equals("insertion")) {
-
-                    // look for text:change-start[@text:change-id
-                    String matchNodeStart = "//text:change-start[@text:change-id='" + changeId + "']";
-                    String matchNodeEnd   = "//text:change-end[@text:change-id='" + changeId + "']";
-
-                    foundNodeStart = (Node) docXpath.evaluate(matchNodeStart,
-                            docHelper.getOdfDocument().getContentDom(), XPathConstants.NODE);
-                    foundNodeEnd = (Node) docXpath.evaluate(matchNodeEnd, docHelper.getOdfDocument().getContentDom(),
-                            XPathConstants.NODE);
-                    changeContext = new BungeniOdfChangeContext(foundNodeStart, foundNodeEnd, docHelper);
-                } else if (changeType.equals("deletion")) {
-
-                    // look for text:change [@text:change-id
-                    String matchNode = "//text:change[@text:change-id='" + changeId + "']";
-
-                    foundNode = (Node) docXpath.evaluate(matchNode, docHelper.getOdfDocument().getContentDom(),
-                            XPathConstants.NODE);
-                    changeContext = new BungeniOdfChangeContext(foundNode, docHelper);
-                }
-
-                BungeniOdfReportLine reportLine = new BungeniOdfReportLine(changeContext, mapOfChange);
-                reportLine.buildLineVariables();
-                
-                reportLines.add(reportLine);
-            }
-
-            BungeniOdfDocumentReport reportObject = new BungeniOdfDocumentReport(freportFile, reportTemplate);
-
-            // reportObject.addReportVariable("REPORT_HEADER", "Bill Amendments Report");
-            // TODO : get the bill name from them MP documents
-            reportObject.addReportVariable("BILL_NAME", getBillName());
-
-            // reportObject.addReportVariable("REPORT_FOOTER", "Bill Amendments Report");
-            //
-            reportObject.addReportVariable("NO_OF_AMENDMENTS", reportLines.size());
-            reportObject.addReportVariable("MEMBER_OF_PARLIAMENT", sAuthor);
-            reportObject.addReportVariable(
-                "OFFICIAL_DATE", reportTemplate.getReportDateFormat().format(Calendar.getInstance().getTime()));
-            reportObject.addReportLines(reportLines);
-            reportObject.generateReport(sAuthor);
-           // reportObject.saveReport();
-            reportOdfDoc = reportObject.getReportPath();
-        } catch (Exception ex) {
-            log.error("doReport : " + ex.getMessage(), ex);
-        }
-
-        return reportOdfDoc;
-    }
 
     private String getBillName() {
         String            aBillId      = (String) AppProperties.getProperty("CurrentBillID");
@@ -360,6 +245,9 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
      */
     class DocumentChange {
 
+        String docName;
+        String docAuthor;
+
         List<HashMap<String, Object>> changeMarks = new ArrayList<HashMap<String, Object>>(0);
 
         public DocumentChange(){
@@ -376,6 +264,22 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
 
         public List<HashMap<String, Object>>  getChangeMarks(){
             return changeMarks;
+        }
+
+        public void setDocName(String dName) {
+            this.docName = dName;
+        }
+
+        public void setDocAuthor (String dAuthor) {
+            this.docAuthor = dAuthor;
+        }
+
+        public String getDocName(){
+            return this.docName;
+        }
+
+        public String getDocAuthor(){
+            return this.docAuthor;
         }
                 
     }
@@ -396,36 +300,48 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
         }
     }
 
-    private List<String> getChangesAsQueries(DocumentChanges dChanges) {
-        List<DocumentChange> documentChanges = dChanges.getChanges();
-        for (DocumentChange documentChange : documentChanges) {
-                List<HashMap<String,Object>> changeMarks = documentChange.getChangeMarks();
-                 for (HashMap<String,Object> changeMark : changeMarks) {
 
-
-                 }
-        }
-
-    }
-
-     private DocumentChanges getDocChanges() {
-         DocumentChanges groupedChanges = new DocumentChanges();
-         for (BungeniOdfDocumentHelper docHelper : changesInfo.getDocuments()) {
-             DocumentChange aChange = getDocChange(docHelper, true);
-             groupedChanges.addChange(aChange);
+    /**
+     *  String processId,
+            String docName,
+            String docAuthor,
+            String changeId,
+            String changeType ,
+            String changeDate,
+            String changeText,
+            String changeStatus
+     * @param docChange
+     * @return
+     */
+     private List<String> getDocChangeQueries(String processId, DocumentChange docChange) {
+         List<String> runQueries = new ArrayList<String>(0);
+         List<HashMap<String,Object>> changeList = docChange.getChangeMarks();
+         for (HashMap<String, Object> aChange : changeList) {
+             Date aDate = BungeniOdfDateHelper.odfDateToJavaDate(aChange.get("dcDate").toString());
+             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+             String sDcDate = sdf.format(aDate);
+             String aQuery = ProcessQueries.INSERT_PROCESS_AMENDS(
+                     processId, 
+                     docChange.getDocName(), 
+                     docChange.getDocAuthor(), 
+                     aChange.get("changeId").toString(), 
+                     aChange.get("changeType").toString(),
+                     sDcDate,
+                     aChange.get("changeText").toString(),
+                     "false");
+             runQueries.add(aQuery);
          }
-         return groupedChanges;
+         return runQueries;
      }
 
-      private DocumentChange getDocChange(BungeniOdfDocumentHelper docHelper, boolean bFilterByAuthor) {
+      private DocumentChange getDocChange(BungeniOdfDocumentHelper docHelper, boolean bFilterByAuthor, String docName, String docAuthor) {
             DocumentChange change = new DocumentChange();
-            String                          docAuthor       =
-                docHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniDocAuthor");
             System.out.println("building model for " + docAuthor);
             BungeniOdfTrackedChangesHelper  changeHelper    = docHelper.getChangesHelper();
             Element                         changeContainer = changeHelper.getTrackedChangeContainer();
             ArrayList<OdfTextChangedRegion> changes         = new ArrayList<OdfTextChangedRegion>(0);
-
+            change.setDocName(docName);
+            change.setDocAuthor(docAuthor);
             if (!bFilterByAuthor) {
                 changes = changeHelper.getChangedRegions(changeContainer);
             } else {
@@ -435,43 +351,44 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
             for (OdfTextChangedRegion odfTextChangedRegion : changes) {
                 StructuredChangeType    scType     = changeHelper.getStructuredChangeType(odfTextChangedRegion);
                 HashMap<String, Object> changeMark = changeHelper.getChangeInfo(scType);
-                //inject the status here
                 change.addChangeMark(changeMark);
             }
-
             return change;
 
         }
 
   
     private void doProcessDocuments(){
+       getContainerInterface().startProgress();
+       this.btnStartProcess.setEnabled(false);
+
         SwingWorker procDocsWorker = new SwingWorker(){
             @Override
             protected Object doInBackground() throws Exception {
                 //first build a list of documents
                 ArrayList<String> listQueries = new ArrayList<String>(0);
-
+               //get process query
                String processId = UUID.randomUUID().toString();
                String billId = (String) AppProperties.getProperty("CurrentBillID");
                String insQuery = ProcessQueries.INSERT_PROCESS(processId, billId);
                listQueries.add(insQuery);
-
+               loadFilesFromFolder();
                for (BungeniOdfDocumentHelper docHelper  : changesInfo.getDocuments()) {
+                    //get process docs queries
                     String documentPath  = docHelper.getDocumentPath();
                     String filename = documentPath.substring(documentPath.lastIndexOf(File.separator) + 1);
                     String docAuthor = docHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniDocAuthor");
                     String insQuery2 = ProcessQueries.INSERT_PROCESS_DOCS(processId, filename, documentPath, docAuthor);
                     listQueries.add(insQuery2);
+                    {
+                        //get process amend queries
+                        DocumentChange documentChange = getDocChange(docHelper, true, filename, docAuthor);
+                        listQueries.addAll(getDocChangeQueries(processId, documentChange));
+                    }
                 }
-
-                DocumentChanges docChanges = getDocChanges();
-
-
                 BungeniClientDB db = BungeniClientDB.defaultConnect();
                 db.Connect();
-                for (String sQuery : listQueries) {
-                   db.Update(sQuery);
-                }
+                db.Update(listQueries, true);
                 db.EndConnect();
                 return Boolean.TRUE;
             }
@@ -480,6 +397,8 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
             protected void done(){
                 try {
                     Boolean bState = (Boolean) get();
+                    btnStartProcess.setEnabled(true);
+                    getContainerInterface().stopProgress();
                 } catch (InterruptedException ex) {
                     log.error(ex.getMessage());
                 } catch (ExecutionException ex) {
@@ -680,6 +599,10 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
         }
     }
 
+    class Process {
+
+    }
+
     /**
      * Common list model class used by derived classes
      */
@@ -692,20 +615,38 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
 
         @Override
         public Object getElementAt(int iIndex) {
-            BungeniOdfDocumentHelper docHelper = (BungeniOdfDocumentHelper) get(iIndex);
+            ProcessDocument pd = (ProcessDocument) get(iIndex);
+            return new BungeniDocAuthor(pd.getDocOwner(), "");
+        }
 
-            return new BungeniDocAuthor(
-                docHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniDocAuthor"), "");
+        public ProcessDocument getProcessDocumentAt(int iindex) {
+            return (ProcessDocument) get(iindex);
         }
 
         public void resetModel() {
             clear();
+            BungeniClientDB db = BungeniClientDB.defaultConnect();
+            QueryResults qrDocs = db.ConnectAndQuery(ProcessQueries.GET_LATEST_DOCS_FOR_BILL(CommonFunctions.getCurrentBillID()));
+            qrDocs.resultsIterator(new AbstractQueryResultsIterator(){
+                @Override
+                public boolean iterateRow(QueryResults mQR, Vector<String> rowData) {
+                    boolean bState = false;
+                    try {
+                    ProcessDocument pd = new ProcessDocument (
+                        mQR.getField(rowData, "PROCESS_ID"),
+                        mQR.getField(rowData, "DOC_NAME"),
+                        mQR.getField(rowData, "DOC_PATH"),
+                        mQR.getField(rowData, "DOC_OWNER")
+                            );
+                        addElement(pd);
+                        bState = true;
+                    } catch (Exception ex) {
+                        log.error("resultsIterator : " + ex.getMessage());
+                    }
+                        return bState;
+                }
+            });
 
-            ArrayList<BungeniOdfDocumentHelper> listdocs = changesInfo.getDocuments();
-
-            for (BungeniOdfDocumentHelper bungeniOdfDocumentHelper : listdocs) {
-                this.addElement(bungeniOdfDocumentHelper);
-            }
         }
     }
 
@@ -719,23 +660,15 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
             Component p = super.getTableCellRendererComponent(aTable, aNumberValue, aHasFocus, aHasFocus, aRow,
                               aColumn);
             DocumentApproveRejectChangesTableModel tblModel       = ((DocumentApproveRejectChangesTableModel) tblDocChanges.getModel());
-            HashMap<String, Object>   mapchangesInfo = tblModel.getModelBase().get(aRow);
-            String                    dcCreator      = mapchangesInfo.get("dcCreator").toString();
-
-            if (dcCreator.equals(__CLERK_NAME__)) {
-                p.setBackground(Color.magenta);
-            } else {
+            ProcessAmends   mapchangesInfo = tblModel.getModelBase();
                 p.setBackground(null);
-            }
-
             return p;
         }
     }
 
 
     private class DocumentApproveRejectChangesTableModel extends AbstractTableModel {
-        List<HashMap<String, Object>> changeMarks  = new ArrayList<HashMap<String, Object>>(0);
-        List<Boolean> statusMarks = new ArrayList<Boolean>(0);
+        ProcessAmends processAmends = null;
 
         private String[]              column_names = {
             bundleBase.getString("panelApproveRejectChanges.tblDocChanges.action.text"),
@@ -745,16 +678,18 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
         };
 
         public DocumentApproveRejectChangesTableModel() {
-            changeMarks = new ArrayList<HashMap<String, Object>>(0);
-            statusMarks = new ArrayList<Boolean>(0);
+            processAmends = new ProcessAmends();
         }
 
-        public DocumentApproveRejectChangesTableModel(int iIndex, boolean bFilterbyAuthor) {
-            buildModel(iIndex, bFilterbyAuthor);
+        public DocumentApproveRejectChangesTableModel(int iIndex) {
+            final int     sIndex  = iIndex;
+            DocApproveRejectListModel upd_model = (DocApproveRejectListModel) listMembers.getModel();
+            final ProcessDocument pDocument = upd_model.getProcessDocumentAt(iIndex);
+            buildModel(pDocument);
         }
 
-        public List<HashMap<String, Object>> getModelBase() {
-            return changeMarks;
+        public ProcessAmends getModelBase() {
+            return processAmends;
         }
 
         @Override
@@ -762,32 +697,17 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
             return (col==3);
         }
 
-
-        class changeStatus {
-
-            String changeId ;
-            Boolean changeStatus;
-
-            changeStatus (){
-                changeStatus = false;
-            }
-
-            changeStatus (String cId, Boolean cStatus) {
-                this.changeId = cId;
-                this.changeStatus = cStatus;
-            }
-        }
-
-        public void updateModel(int iIndex, boolean bFilterbyAuthor) {
+        public void updateModel(int iIndex) {
             final int     sIndex  = iIndex;
-            final boolean bFilter = bFilterbyAuthor;
+            DocApproveRejectListModel upd_model = (DocApproveRejectListModel) listMembers.getModel();
+            final ProcessDocument pDocument = upd_model.getProcessDocumentAt(iIndex);
 
             getContainerInterface().startProgress();
 
             SwingWorker modelWorker = new SwingWorker() {
                 @Override
                 protected Object doInBackground() {
-                    buildModel(sIndex, bFilter);
+                    buildModel(pDocument);
 
                     return Boolean.TRUE;
                 }
@@ -808,35 +728,34 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
             modelWorker.execute();
         }
 
-        private void buildModel(int iIndex, boolean bFilterByAuthor) {
-            changeMarks.clear();
+        private void buildModel(final ProcessDocument pDocument) {
 
-            BungeniOdfDocumentHelper        docHelper       = changesInfo.getDocuments().get(iIndex);
-            String                          docAuthor       =
-                docHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniDocAuthor");
+            final String  docAuthor = pDocument.getDocOwner();
+            final String  docName = pDocument.getDocName();
+            final String  procId = pDocument.getProcessId();
+            BungeniClientDB db = BungeniClientDB.defaultConnect();
+            QueryResults qrAmends = db.ConnectAndQuery(ProcessQueries.GET_LATEST_AMENDS(procId, docName, docAuthor));
+            qrAmends.resultsIterator(new AbstractQueryResultsIterator(){
+                @Override
+                public boolean iterateRow(QueryResults mQR, Vector<String> rowData) {
+                  /**
+                   * String cId, String cAction, Date cDate, String cText, Boolean cStatus
+                   */
+                    ProcessAmend pamend = new ProcessAmend(pDocument,
+                                                            mQR.getField(rowData, "CHANGE_ID"),
+                                                            mQR.getField(rowData, "CHANGE_ACTION"),
+                                                            mQR.getField(rowData, "CHANGE_DATE"),
+                                                            mQR.getField(rowData, "CHANGE_TEXT"),
+                                                            mQR.getField(rowData, "CHANGE_STATUS")
+                                                            );
+                    processAmends.addProcessAmend(pamend);
+                    return Boolean.TRUE;
+                }
+            });
+
             System.out.println("building model for " + docAuthor);
-            BungeniOdfTrackedChangesHelper  changeHelper    = docHelper.getChangesHelper();
-            Element                         changeContainer = changeHelper.getTrackedChangeContainer();
-            ArrayList<OdfTextChangedRegion> changes         = new ArrayList<OdfTextChangedRegion>(0);
 
-            if (!bFilterByAuthor) {
-                changes = changeHelper.getChangedRegions(changeContainer);
-            } else {
-                changes = changeHelper.getChangedRegionsByCreator(changeContainer, docAuthor);
-            }
-
-            for (OdfTextChangedRegion odfTextChangedRegion : changes) {
-                StructuredChangeType    scType     = changeHelper.getStructuredChangeType(odfTextChangedRegion);
-                HashMap<String, Object> changeMark = changeHelper.getChangeInfo(scType);
-                //inject the status here
-                changeMarks.add(changeMark);
-            }
-
-            updateMsgNoOfChanges(changeMarks.size());
-            for (int i = 0; i < changeMarks.size(); i++) {
-                statusMarks.add(Boolean.FALSE);
-
-            }
+            updateMsgNoOfChanges(processAmends.getProcessAmends().size());
         }
 
         private void updateMsgNoOfChanges(int nSize) {
@@ -847,11 +766,11 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
 
         @Override
         public int getRowCount() {
-            if (changeMarks == null) {
+            if (processAmends == null) {
                 return 0;
             }
 
-            return changeMarks.size();
+            return processAmends.getProcessAmends().size();
         }
 
         @Override
@@ -861,26 +780,20 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            HashMap<String, Object> changeMark = changeMarks.get(rowIndex);
-
-            System.out.println("Change Mark = " + changeMark);
+            ProcessAmend pAmend = processAmends.getProcessAmends().get(rowIndex);
 
             switch (columnIndex) {
             case 0 :
-                return changeMark.get("changeType").toString();
+                return pAmend.getChangeAction();
 
             case 1 :
-                return changeMark.get("dcDate").toString();
+                return pAmend.getChangeDate();
 
             case 2 :
-                if (changeMark.containsKey("changeText")) {
-                    return changeMark.get("changeText").toString();
-                } else {
-                    return new String("");
-                }
+                return pAmend.getChangeText();
 
             case 3 :
-              return statusMarks.get(rowIndex);
+              return pAmend.getChangeStatus();
 
             default :
                 return new String("");
@@ -890,7 +803,8 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
         @Override
            public void setValueAt(Object value, int row, int col) {
                 if (col == 3) {
-                    statusMarks.set(row, (Boolean) value);
+                    //statusMarks.set(row, (Boolean) value);
+                    /** update the table here **/
                     fireTableCellUpdated(row, col);
                 }
             }
@@ -900,7 +814,9 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
         public Class getColumnClass(int col) {
             if (col == 3) {
                 return Boolean.class;
-            } else {
+            } else if (col == 1 ) {
+                return Date.class;
+            }else {
                 return String.class;
             }
         }
