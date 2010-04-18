@@ -52,4 +52,8 @@ public class CommonFunctions {
     public static List<String> getAvailableReportReferences(){
         return RuntimeProperties.getSectionProp("reports", "report.name");
     }
+
+    public static String getCurrentBillID(){
+        return AppProperties.getProperty("CurrentBillID").toString();
+    }
 }
