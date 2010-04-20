@@ -97,6 +97,20 @@ public class BungeniClientDB {
         }
     }
 
+    public boolean isConnected () {
+        boolean bstate = false;
+        try {
+            if (db_connection != null) {
+                if (!db_connection.isClosed()) {
+                bstate = true;
+            }
+            }
+        } catch (SQLException ex) {
+           log.error(ex.getMessage());
+        }
+        return bstate;
+    }
+
 
     public QueryResults QueryResults(String expression) {
         HashMap<String, Vector<Vector<String>>> qResults = Query(expression);
@@ -132,6 +146,7 @@ public class BungeniClientDB {
             if (bTransacted ) {
             st.addBatch("prepare commit x_trans");
             st.addBatch("commit");
+            st.addBatch("set autocommit on");
             }
             st.executeBatch();
             st.close();
@@ -158,17 +173,14 @@ public class BungeniClientDB {
         Statement st       = null;
         int       nReturns = 0;
         try {
-            st = db_connection.createStatement();    // statement objects can be reused with
-            // repeated calls to execute but we
-            // choose to make a new one each time
-
-            nReturns = st.executeUpdate(expression);    // run the query
+            st = db_connection.createStatement();    
+            nReturns = st.executeUpdate(expression);    
             st.close();
         } catch (SQLException ex) {
             log.error("Update: " + ex.getMessage());
-        } finally {
-            return nReturns;
         }
+            return nReturns;
+        
     }
 
     public HashMap<String, Vector<Vector<String>>> Query(String expression) {

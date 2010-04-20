@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bungeni.odfdom.utils.BungeniOdfDateHelper;
 
 /**
  *
@@ -27,18 +28,22 @@ public class ProcessAmend {
         
     }
 
-    public ProcessAmend (ProcessDocument pDoc, String cId, String cAction, String cDate, String cText, String cStatus) {
+    public ProcessAmend (ProcessDocument pDoc, String cId, String cAction, String cDate, String cText, String cStatus) throws ParseException {
         Date dDate =null;
         Boolean bStatus = null;
-        try {
-            SimpleDateFormat df = new SimpleDateFormat();
+            SimpleDateFormat df = new SimpleDateFormat(BungeniOdfDateHelper.DEFAULT_JAVA_DATE_FORMAT);
             dDate = df.parse(cDate);
             bStatus = Boolean.parseBoolean(cStatus);
             ProcessAmend(pDoc, cId, cAction, dDate, cText, bStatus);
-        } catch (ParseException ex) {
-            Logger.getLogger(ProcessAmend.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
+    }
+
+    @Override
+    public String toString(){
+        return this.parentDocument.toString() + "\n" +
+                this.changeAction + "\n" +
+                this.changeId + "\n" +
+                this.changeText + "\n";
     }
 
 

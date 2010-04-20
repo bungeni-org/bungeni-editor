@@ -3,6 +3,7 @@ package org.bungeni.trackchanges;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.text.ParseException;
 import java.util.Vector;
 import org.bungeni.odfdocument.docinfo.BungeniDocAuthor;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
@@ -15,6 +16,7 @@ import org.bungeni.trackchanges.utils.AppProperties;
 import org.bungeni.trackchanges.utils.CommonFunctions;
 import org.bungeni.trackchanges.utils.ReviewDocuments;
 import org.bungeni.trackchanges.utils.RuntimeProperties;
+import org.bungeni.trackchanges.process.schema.ProcessProcess;
 
 import org.odftoolkit.odfdom.doc.text.OdfTextChangedRegion;
 
@@ -22,7 +24,6 @@ import org.w3c.dom.Element;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.awt.Color;
 import java.awt.Component;
 
 import java.io.File;
@@ -59,6 +60,7 @@ import org.bungeni.odfdom.utils.BungeniOdfDateHelper;
 import org.bungeni.trackchanges.process.schema.ProcessAmend;
 import org.bungeni.trackchanges.process.schema.ProcessAmends;
 import org.bungeni.trackchanges.process.schema.ProcessDocument;
+import org.bungeni.trackchanges.process.schema.ProcessProcess.ProcessStatus;
 import org.bungeni.trackchanges.queries.ProcessQueries;
 import org.bungeni.trackchanges.utils.GenericListSelectionListener;
 
@@ -160,7 +162,7 @@ public class panelApproveRejectChanges extends panelChangesBase {
         lsm.addListSelectionListener(new GenericListSelectionListener() {
             @Override
             public void onSelectIndex(int nIndex) {
-                //displayChangesInfo(nIndex);
+                displayChangesInfo(nIndex);
                 
             }
         });
@@ -178,9 +180,9 @@ public class panelApproveRejectChanges extends panelChangesBase {
         tcmModel.getColumn(2).setCellRenderer(textAreaRenderer);
 
         TableColumn tblColumnStatus = this.tblDocChanges.getColumnModel().getColumn(3);
-        final JCheckBox fjCheckBox = new JCheckBox();
-        ApproveRejectStatusEditor aprEditor = new ApproveRejectStatusEditor(fjCheckBox);
-        tblColumnStatus.setCellEditor(aprEditor);
+        //final JCheckBox fjCheckBox = new JCheckBox();
+        //ApproveRejectStatusEditor aprEditor = new ApproveRejectStatusEditor(fjCheckBox);
+        //tblColumnStatus.setCellEditor(aprEditor);
        
 
 
@@ -215,7 +217,6 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
 
     private void displayChangesInfo(int index) {
         DocumentApproveRejectChangesTableModel tblModel = (DocumentApproveRejectChangesTableModel) this.tblDocChanges.getModel();
-
         tblModel.updateModel(index);
     }
 
@@ -318,7 +319,7 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
          List<HashMap<String,Object>> changeList = docChange.getChangeMarks();
          for (HashMap<String, Object> aChange : changeList) {
              Date aDate = BungeniOdfDateHelper.odfDateToJavaDate(aChange.get("dcDate").toString());
-             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+             SimpleDateFormat sdf = new SimpleDateFormat(BungeniOdfDateHelper.DEFAULT_JAVA_DATE_FORMAT);
              String sDcDate = sdf.format(aDate);
              String aQuery = ProcessQueries.INSERT_PROCESS_AMENDS(
                      processId, 
@@ -370,7 +371,8 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
                //get process query
                String processId = UUID.randomUUID().toString();
                String billId = (String) AppProperties.getProperty("CurrentBillID");
-               String insQuery = ProcessQueries.INSERT_PROCESS(processId, billId);
+               String processStatus = ProcessProcess.ProcessStatus.Start.toString();
+               String insQuery = ProcessQueries.INSERT_PROCESS(processId, billId, processStatus);
                listQueries.add(insQuery);
                loadFilesFromFolder();
                for (BungeniOdfDocumentHelper docHelper  : changesInfo.getDocuments()) {
@@ -378,7 +380,8 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
                     String documentPath  = docHelper.getDocumentPath();
                     String filename = documentPath.substring(documentPath.lastIndexOf(File.separator) + 1);
                     String docAuthor = docHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniDocAuthor");
-                    String insQuery2 = ProcessQueries.INSERT_PROCESS_DOCS(processId, filename, documentPath, docAuthor);
+                    Long lcheckSum = docHelper.getChecksum();
+                    String insQuery2 = ProcessQueries.INSERT_PROCESS_DOCS(processId, filename, documentPath, docAuthor, lcheckSum);
                     listQueries.add(insQuery2);
                     {
                         //get process amend queries
@@ -666,6 +669,30 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
         }
     }
 
+    private void updateProcessAmend (final ProcessAmend pAmend) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                    BungeniClientDB pdb = BungeniClientDB.defaultConnect();
+                    try {
+                          
+                           pdb.Connect();
+                           pdb.Update(
+                            ProcessQueries.UPDATE_AMEND_STATUS(
+                                pAmend.getParentDocument().getProcessId(),
+                                pAmend.getParentDocument().getDocName(),
+                                pAmend.getParentDocument().getDocOwner(),
+                                pAmend.getChangeId(),
+                                pAmend.getChangeStatus()
+                            )
+                            );
+                    } catch (Exception ex) {
+                        log.error ("updateProcessAmend : " + ex.getMessage());
+                    } finally {
+                        if (pdb.isConnected()) pdb.EndConnect();
+                    }
+            }
+        });
+    }
 
     private class DocumentApproveRejectChangesTableModel extends AbstractTableModel {
         ProcessAmends processAmends = null;
@@ -708,7 +735,6 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
                 @Override
                 protected Object doInBackground() {
                     buildModel(pDocument);
-
                     return Boolean.TRUE;
                 }
                 @Override
@@ -729,30 +755,37 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
         }
 
         private void buildModel(final ProcessDocument pDocument) {
-
+            processAmends.clear();
             final String  docAuthor = pDocument.getDocOwner();
             final String  docName = pDocument.getDocName();
             final String  procId = pDocument.getProcessId();
             BungeniClientDB db = BungeniClientDB.defaultConnect();
+            System.out.println("running query = " + ProcessQueries.GET_LATEST_AMENDS(procId, docName, docAuthor));
             QueryResults qrAmends = db.ConnectAndQuery(ProcessQueries.GET_LATEST_AMENDS(procId, docName, docAuthor));
             qrAmends.resultsIterator(new AbstractQueryResultsIterator(){
                 @Override
                 public boolean iterateRow(QueryResults mQR, Vector<String> rowData) {
-                  /**
-                   * String cId, String cAction, Date cDate, String cText, Boolean cStatus
-                   */
-                    ProcessAmend pamend = new ProcessAmend(pDocument,
-                                                            mQR.getField(rowData, "CHANGE_ID"),
-                                                            mQR.getField(rowData, "CHANGE_ACTION"),
-                                                            mQR.getField(rowData, "CHANGE_DATE"),
-                                                            mQR.getField(rowData, "CHANGE_TEXT"),
-                                                            mQR.getField(rowData, "CHANGE_STATUS")
-                                                            );
-                    processAmends.addProcessAmend(pamend);
-                    return Boolean.TRUE;
+                    Boolean bState = Boolean.FALSE;
+                    try {
+                        /**
+                         * String cId, String cAction, Date cDate, String cText, Boolean cStatus
+                         */
+                        ProcessAmend pamend = new ProcessAmend(pDocument,
+                                mQR.getField(rowData, "CHANGE_ID"),
+                                mQR.getField(rowData, "CHANGE_ACTION"),
+                                mQR.getField(rowData, "CHANGE_DATE"),
+                                mQR.getField(rowData, "CHANGE_TEXT"),
+                                mQR.getField(rowData, "CHANGE_STATUS"));
+                        System.out.println("ProcessAmend : " + pamend);
+                        processAmends.addProcessAmend(pamend);
+                        bState = Boolean.TRUE;
+                    } catch (ParseException ex) {
+                        log.error("while iterateRow : " + ex.getMessage());
+                    }
+                    return bState;
                 }
             });
-
+            
             System.out.println("building model for " + docAuthor);
 
             updateMsgNoOfChanges(processAmends.getProcessAmends().size());
@@ -803,6 +836,9 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
         @Override
            public void setValueAt(Object value, int row, int col) {
                 if (col == 3) {
+                    System.out.println("vale class = " + value.getClass().getName());
+                    processAmends.getProcessAmends().get(row).setChangeStatus((Boolean) value);
+                    updateProcessAmend(processAmends.getProcessAmends().get(row));
                     //statusMarks.set(row, (Boolean) value);
                     /** update the table here **/
                     fireTableCellUpdated(row, col);

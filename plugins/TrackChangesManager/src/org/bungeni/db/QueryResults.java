@@ -144,6 +144,8 @@ public class QueryResults {
                     break;
                 }
             }
+        } else {
+            System.out.println("No Results Found");
         }
     }
 }
