@@ -127,7 +127,7 @@ public class BungeniOdfTrackedChangesHelperTest {
             docHelper.getChangesHelper().getChangedRegions(changeContainer);
         BungeniOdfTrackedChangesHelper.StructuredChangeType stype           =
             docHelper.getChangesHelper().getStructuredChangeType(result.get(0));
-        HashMap<String, String> changes = docHelper.getChangesHelper().getChangeInfo(stype);
+        HashMap<String, Object> changes = docHelper.getChangesHelper().getChangeInfo(stype);
 
         assertEquals(changes.get("dcCreator"), "Ashok Hariharan");
         assertEquals(changes.get("changeType"), "deletion");
@@ -136,7 +136,7 @@ public class BungeniOdfTrackedChangesHelperTest {
 
         BungeniOdfTrackedChangesHelper.StructuredChangeType stype2 =
             docHelper.getChangesHelper().getStructuredChangeType(result.get(1));
-        HashMap<String, String> changes2 = docHelper.getChangesHelper().getChangeInfo(stype2);
+        HashMap<String, Object> changes2 = docHelper.getChangesHelper().getChangeInfo(stype2);
 
         System.out.println(changes2.get("dcCreator"));
         System.out.println(changes2.get("changeType"));
