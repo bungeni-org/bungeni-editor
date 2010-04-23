@@ -56,7 +56,9 @@ import javax.swing.table.TableColumnModel;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
+import org.bungeni.odfdocument.report.BungeniOdfUserReport;
 import org.bungeni.odfdocument.report.DocReportTemplateListModel;
+import org.bungeni.odfdocument.report.DocUserReportsListModel;
 import org.bungeni.odfdom.utils.BungeniOdfDateHelper;
 
 /**
@@ -189,7 +191,7 @@ public class panelConsolidateChanges extends panelChangesBase {
          * Available reports
          *
          */
-        this.listReportTemplates.setModel(new DocReportTemplateListModel());
+        this.listReportTemplates.setModel(new DocUserReportsListModel()); //new DocReportTemplateListModel());
         this.listReportTemplates.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
@@ -211,122 +213,13 @@ public class panelConsolidateChanges extends panelChangesBase {
         tblModel.updateModel(index, false);
     }
 
-    private String generateReport(int selIndex, BungeniDocAuthor anAuthor,
-            BungeniOdfDocumentReportTemplate reportTemplate) {
-        String reportOdfDoc = null;
+   private String generateReport (BungeniOdfUserReport userReport, BungeniOdfDocumentHelper aDoc) {
+       BungeniOdfDocumentReport reportObject = userReport.getReportProcess().generateReport(userReport.getReportTemplate(), aDoc);
+       String reportPath = reportObject.getReportPath();
+       return reportPath;
+   }
 
-        try {
-
-            // generate the report from the MP's document
-            String billReviewFolder =
-                CommonFunctions.getWorkspaceForBill((String) AppProperties.getProperty("CurrentBillID"));
-            String templatesFolder = CommonFunctions.getTemplateFolder();
-
-            // get the author name
-            String sAuthor     = anAuthor.toString();
-            File   freportFile = new File(billReviewFolder + File.separator + 
-                                        CommonFunctions.normalizeName(reportTemplate.toString())  + "_report_" + CommonFunctions.normalizeName(sAuthor) +".odt");
-
-            // BungeniOdfDocumentReportTemplate reportTemplate = new BungeniOdfDocumentReportTemplate(templatesFolder + File.separator + "changes-by-user.odt");
-            BungeniOdfDocumentHelper docHelper = changesInfo.getDocuments().get(selIndex);
-
-            // create an xpath object
-            XPath docXpath = docHelper.getOdfDocument().getXPath();
-
-            // get the changes helper ont he merged document
-            BungeniOdfTrackedChangesHelper changesHelper = docHelper.getChangesHelper();
-
-            // get all the change regions created by the mp
-            List<OdfTextChangedRegion> changedRegions =
-                changesHelper.getChangedRegionsByCreator(changesHelper.getTrackedChangeContainer(), sAuthor);
-
-            // iterate through all the changed regions
-            // build the report lines
-            ArrayList<BungeniOdfReportLine> reportLines = new ArrayList<BungeniOdfReportLine>(0);
-
-            for (OdfTextChangedRegion odfTextChangedRegion : changedRegions) {
-
-                // get the change map for the change - to be sent to the report line object
-                StructuredChangeType    scType      = changesHelper.getStructuredChangeType(odfTextChangedRegion);
-                HashMap<String, Object> mapOfChange = changesHelper.getChangeInfo(scType);
-                String                  changeType  = mapOfChange.get("changeType").toString();
-                String                  changeText  = mapOfChange.get("changeText").toString();
-                String                  changeId    = mapOfChange.get("changeId").toString();
-
-                // below we build the change context object for the change
-                Node                    foundNodeStart = null;
-                Node                    foundNodeEnd   = null;
-                Node                    foundNode      = null;
-                BungeniOdfChangeContext changeContext  = null;
-
-                if (changeType.equals("insertion")) {
-
-                    // look for text:change-start[@text:change-id
-                    String matchNodeStart = "//text:change-start[@text:change-id='" + changeId + "']";
-                    String matchNodeEnd   = "//text:change-end[@text:change-id='" + changeId + "']";
-
-                    foundNodeStart = (Node) docXpath.evaluate(matchNodeStart,
-                            docHelper.getOdfDocument().getContentDom(), XPathConstants.NODE);
-                    foundNodeEnd = (Node) docXpath.evaluate(matchNodeEnd, docHelper.getOdfDocument().getContentDom(),
-                            XPathConstants.NODE);
-                    changeContext = new BungeniOdfChangeContext(foundNodeStart, foundNodeEnd, docHelper);
-                } else if (changeType.equals("deletion")) {
-
-                    // look for text:change [@text:change-id
-                    String matchNode = "//text:change[@text:change-id='" + changeId + "']";
-
-                    foundNode = (Node) docXpath.evaluate(matchNode, docHelper.getOdfDocument().getContentDom(),
-                            XPathConstants.NODE);
-                    changeContext = new BungeniOdfChangeContext(foundNode, docHelper);
-                }
-
-                BungeniOdfReportLine reportLine = new BungeniOdfReportLine(changeContext, mapOfChange);
-                reportLine.buildLineVariables();
-                
-                reportLines.add(reportLine);
-            }
-
-            BungeniOdfDocumentReport reportObject = new BungeniOdfDocumentReport(freportFile, reportTemplate);
-
-            // reportObject.addReportVariable("REPORT_HEADER", "Bill Amendments Report");
-            // TODO : get the bill name from them MP documents
-            reportObject.addReportVariable("BILL_NAME", getBillName());
-
-            // reportObject.addReportVariable("REPORT_FOOTER", "Bill Amendments Report");
-            //
-            reportObject.addReportVariable("NO_OF_AMENDMENTS", reportLines.size());
-            reportObject.addReportVariable("MEMBER_OF_PARLIAMENT", sAuthor);
-            reportObject.addReportVariable(
-                "OFFICIAL_DATE", reportTemplate.getReportDateFormat().format(Calendar.getInstance().getTime()));
-            reportObject.addReportLines(reportLines);
-            reportObject.generateReport(sAuthor);
-           // reportObject.saveReport();
-            reportOdfDoc = reportObject.getReportPath();
-        } catch (Exception ex) {
-            log.error("doReport : " + ex.getMessage(), ex);
-        }
-
-        return reportOdfDoc;
-    }
-
-    private String getBillName() {
-        String            aBillId      = (String) AppProperties.getProperty("CurrentBillID");
-        String            billTitle    = "";
-        List<BungeniBill> bungeniBills = BungeniBillDataProvider.getData();
-
-        for (BungeniBill bungeniBill : bungeniBills) {
-            if (bungeniBill.getID().equals(aBillId)) {
-                billTitle = bungeniBill.getTitle();
-            }
-        }
-
-        if (billTitle.length() == 0) {
-            return "Unknown Bill Title";
-        }
-
-        return billTitle;
-    }
-
+   
     private boolean doReportsAll() {
         boolean                      bReturn    = false;
         final List<BungeniDocAuthor> docAuthors = new ArrayList<BungeniDocAuthor>() {
@@ -336,8 +229,8 @@ public class panelConsolidateChanges extends panelChangesBase {
                 }
             }
         };
-        final BungeniOdfDocumentReportTemplate selReport =
-            (BungeniOdfDocumentReportTemplate) this.listReportTemplates.getSelectedValue();
+        final BungeniOdfUserReport selReport =
+            (BungeniOdfUserReport) this.listReportTemplates.getSelectedValue();
 
         if (docAuthors.size() == 0) {
             JOptionPane.showMessageDialog(
@@ -361,16 +254,13 @@ public class panelConsolidateChanges extends panelChangesBase {
             SwingWorker reportAllWorker = new SwingWorker() {
                 @Override
                 protected Object doInBackground() throws Exception {
-                    List<String> reportDocs = new ArrayList<String>(0);
-
-                    for (int i = 0; i < docAuthors.size(); i++) {
-                        BungeniDocAuthor         docAuthor    = docAuthors.get(i);
-                        String reportodfDoc = generateReport(i, docAuthor, selReport);
-
-                        reportDocs.add(reportodfDoc);
+                    List<BungeniOdfDocumentHelper> docs = changesInfo.getDocuments();
+                    List<String> reports = new ArrayList<String>(0);
+                    for (BungeniOdfDocumentHelper bungeniOdfDocumentHelper : docs) {
+                        String reportDoc = generateReport (selReport,bungeniOdfDocumentHelper );
+                        reports.add(reportDoc);
                     }
-
-                    return reportDocs;
+                    return reports;
                 }
                 @Override
                 protected void done() {
@@ -437,9 +327,9 @@ public class panelConsolidateChanges extends panelChangesBase {
         // get the selected MP
         // get the selected document index
         final int                              selIndex  = this.listMembers.getSelectedIndex();
-        final BungeniOdfDocumentReportTemplate selReport =
-            (BungeniOdfDocumentReportTemplate) this.listReportTemplates.getSelectedValue();
-
+        final BungeniOdfUserReport selReport =
+            (BungeniOdfUserReport) this.listReportTemplates.getSelectedValue();
+        final BungeniOdfDocumentHelper selDocument = this.changesInfo.getDocuments().get(selIndex);
         if (-1 == selIndex) {
             JOptionPane.showMessageDialog(
                 parentFrame,
@@ -466,7 +356,7 @@ public class panelConsolidateChanges extends panelChangesBase {
             SwingWorker reportWorker = new SwingWorker() {
                 @Override
                 protected Object doInBackground() throws Exception {
-                    String reportdoc = generateReport(selIndex, selectedAuthor, selReport);
+                    String reportdoc = generateReport(selReport, selDocument) ; 
 
                     return reportdoc;
                 }
