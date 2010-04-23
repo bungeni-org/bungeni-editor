@@ -47,7 +47,7 @@ public class panelClerkOverview extends panelChangesBase {
  
    
      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(panelClerkOverview.class.getName());
-
+     private static Color __CLERK_ACTIVE_ROW_COLOR__ = new Color (51, 255, 255);
     String                  __CLERK_NAME__ = "";
     /** Creates new form panelClerkOverview */
     public panelClerkOverview() {
@@ -531,7 +531,7 @@ public class panelClerkOverview extends panelChangesBase {
             HashMap<String,Object> changesInfo = tblModel.getModelBase().get(aRow);
             String dcCreator = changesInfo.get("dcCreator").toString();
             if (dcCreator.equals(__CLERK_NAME__)) {
-                p.setBackground(Color.magenta);
+                p.setBackground(__CLERK_ACTIVE_ROW_COLOR__);
             } else
                 p.setBackground(null);
             return p;
