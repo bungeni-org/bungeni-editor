@@ -4,6 +4,8 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.ResourceBundle;
+import org.bungeni.trackchanges.registrydata.BungeniBill;
+import org.bungeni.trackchanges.rss.BungeniBillDataProvider;
 
 /**
  *
@@ -56,4 +58,23 @@ public class CommonFunctions {
     public static String getCurrentBillID(){
         return AppProperties.getProperty("CurrentBillID").toString();
     }
+
+    public static  String getCurrentBillName() {
+        String            aBillId      = (String) AppProperties.getProperty("CurrentBillID");
+        String            billTitle    = "";
+        List<BungeniBill> bungeniBills = BungeniBillDataProvider.getData();
+
+        for (BungeniBill bungeniBill : bungeniBills) {
+            if (bungeniBill.getID().equals(aBillId)) {
+                billTitle = bungeniBill.getTitle();
+            }
+        }
+
+        if (billTitle.length() == 0) {
+            return "Unknown Bill Title";
+        }
+
+        return billTitle;
+    }
+
 }
