@@ -39,6 +39,10 @@ public class BungeniOdfTrackedChangesHelper {
     private BungeniOdfDocumentHelper       m_docHelper          = null;
     private XPath                          m_docXpath           = null;
 
+    public static final String __CHANGE_TYPE_INSERTION__ = "insertion";
+    public static final String __CHANGE_TYPE_DELETION__ = "deletion";
+    public static final String __CHANGE_TYPE_REPLACEMENT__ = "replacement";
+
     /**
      * <p>Track changes helper is initialized using a Document Helper object</p>
      * @param docH

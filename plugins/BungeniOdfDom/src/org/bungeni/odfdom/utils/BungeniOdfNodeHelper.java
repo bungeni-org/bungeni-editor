@@ -100,63 +100,7 @@ public class BungeniOdfNodeHelper {
 
 
 
-    /**
-     * Calculates the XPath to a node
-     * @param aNode - the node for which the XPath is to be calculated
-     * @return - string with the XPath to the node
-     */
-    public static String getNodeXPath(Node aNode) {
-        if (aNode == null) {
-            return null;
-        }
-        if (aNode.getNodeType() == Node.DOCUMENT_NODE) {
-            /** this is the parent node **/
-            return "/" + ((Document)aNode).getDocumentElement().getLocalName();
-        }
-
-        if (aNode.getNodeType() == Node.ELEMENT_NODE) {
-            Node aNodeParent = aNode.getParentNode();
-            /** if the parent is null the aNode is at root **/
-            if (aNodeParent == null) {
-                return "/" + aNode.getLocalName();
-            }
-            /** build a stack of parent nodes **/
-            Stack<Node> stack = new Stack<Node>();
-            stack.add(aNode);
-            do {
-                stack.add(aNodeParent);
-                aNodeParent = aNodeParent.getParentNode();
-            } while (aNodeParent != null);
-            /** build a string path to the nodes **/
-            StringBuffer pathStr = new StringBuffer();
-            while (!stack.isEmpty()) {
-                pathStr.append(getNodeXPath(stack.pop()));
-            }
-            System.out.println(pathStr.toString());
-            return pathStr.toString();
-        }
-        if (aNode.getNodeType() == Node.ATTRIBUTE_NODE) {
-            /** an element node is the parent of an attribute node **/
-            Node aNodeParentOfAttr = aNode.getParentNode();
-            System.out.println("parent node type = " + ((aNodeParentOfAttr.getNodeType() == Node.ELEMENT_NODE)?"Element Node":"Unknonw"));
-            /** get the path to the parent node **/
-            String parentNodePath = getNodeXPath(aNodeParentOfAttr);
-            StringBuffer attrXpathStr = new StringBuffer(parentNodePath)
-                                        .append("[@")
-                                        .append(aNode.getLocalName())
-                                        .append("='")
-                                        .append(aNode.getTextContent())
-                                        .append("']");
-            return attrXpathStr.toString();
-        }
-        if (aNode.getNodeType() == Node.TEXT_NODE) {
-            Node aParentNodeOfText = aNode.getParentNode();
-            StringBuffer textXpathStr = new StringBuffer(getNodeXPath(aParentNodeOfText))
-                                            .append("[child::text()]");
-            return textXpathStr.toString();
-        }
-        return "UNSUPPORTED_NODE_TYPE";
-    }
+  
 
     /**
      * Find siblings with the same node name and namespace
