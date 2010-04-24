@@ -13,6 +13,8 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
+import org.bungeni.trackchanges.utils.AppProperties;
+import org.bungeni.trackchanges.utils.CommonFunctions;
 import org.odftoolkit.odfdom.OdfFileDom;
 import org.odftoolkit.odfdom.doc.text.OdfTextSection;
 import org.w3c.dom.Node;
@@ -229,6 +231,17 @@ public class BungeniOdfDocumentReport extends BungeniReportBase {
 
     public String getReportPath(){
         return this.reportDocumentPath;
+    }
+
+    public static File getNewReport(String inputAuthor, BungeniOdfDocumentReportTemplate rptTemplate) {
+           String billReviewFolder =
+                CommonFunctions.getWorkspaceForBill((String) AppProperties.getProperty("CurrentBillID"));
+            String templatesFolder = CommonFunctions.getTemplateFolder();
+            String sAuthor = inputAuthor;
+            File   freportFile = new File(billReviewFolder + File.separator +
+                                        CommonFunctions.normalizeName(rptTemplate.toString())  + "_report_" + CommonFunctions.normalizeName(sAuthor) +".odt");
+            return freportFile;
+
     }
 
 }
