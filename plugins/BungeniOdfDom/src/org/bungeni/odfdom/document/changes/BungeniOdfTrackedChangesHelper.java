@@ -21,6 +21,7 @@ import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 
 import javax.xml.xpath.XPath;
@@ -556,7 +557,7 @@ public class BungeniOdfTrackedChangesHelper {
     }
 
     /**
-     * <p>Returns the <text:change-start> element for a change id. </p>
+     * <p>Returns the &lt;text:change-start&gt; element for a change id. </p>
      * @param changeId
      * @return OdfTextChangeStart element
      */
@@ -622,6 +623,20 @@ public class BungeniOdfTrackedChangesHelper {
         }
 
         return changeNode;
+    }
+
+    /**
+     * Helper API returns all changes in the document as change type objects
+     * @return
+     */
+    public List<StructuredChangeType> getAllChanges() {
+        List<OdfTextChangedRegion> changeRegions = this.getChangedRegions(this.getTrackedChangeContainer());
+        List<StructuredChangeType> changes = new ArrayList<StructuredChangeType>(0);
+        for (OdfTextChangedRegion odfTextChangedRegion : changeRegions) {
+            changes.add(this.getStructuredChangeType(odfTextChangedRegion));
+        }
+        return changes;
+
     }
 
     public class StructuredChangeType {
