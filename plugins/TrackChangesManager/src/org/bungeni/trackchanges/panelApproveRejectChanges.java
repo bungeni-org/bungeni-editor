@@ -131,11 +131,9 @@ public class panelApproveRejectChanges extends panelChangesBase {
                     }
                 });
 
-                System.out.println("cons files found :" + files.length);
+                
 
-                for (File file : files) {
-                    System.out.println("cons file : " + file.getName());
-                }
+                
 
                 changesInfo.reload(files);
             }
@@ -337,7 +335,7 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
 
       private DocumentChange getDocChange(BungeniOdfDocumentHelper docHelper, boolean bFilterByAuthor, String docName, String docAuthor) {
             DocumentChange change = new DocumentChange();
-            System.out.println("building model for " + docAuthor);
+            
             BungeniOdfTrackedChangesHelper  changeHelper    = docHelper.getChangesHelper();
             Element                         changeContainer = changeHelper.getTrackedChangeContainer();
             ArrayList<OdfTextChangedRegion> changes         = new ArrayList<OdfTextChangedRegion>(0);
@@ -760,7 +758,7 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
             final String  docName = pDocument.getDocName();
             final String  procId = pDocument.getProcessId();
             BungeniClientDB db = BungeniClientDB.defaultConnect();
-            System.out.println("running query = " + ProcessQueries.GET_LATEST_AMENDS(procId, docName, docAuthor));
+            
             QueryResults qrAmends = db.ConnectAndQuery(ProcessQueries.GET_LATEST_AMENDS(procId, docName, docAuthor));
             qrAmends.resultsIterator(new AbstractQueryResultsIterator(){
                 @Override
@@ -776,7 +774,7 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
                                 mQR.getField(rowData, "CHANGE_DATE"),
                                 mQR.getField(rowData, "CHANGE_TEXT"),
                                 mQR.getField(rowData, "CHANGE_STATUS"));
-                        System.out.println("ProcessAmend : " + pamend);
+                        
                         processAmends.addProcessAmend(pamend);
                         bState = Boolean.TRUE;
                     } catch (ParseException ex) {
@@ -786,7 +784,7 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
                 }
             });
             
-            System.out.println("building model for " + docAuthor);
+            
 
             updateMsgNoOfChanges(processAmends.getProcessAmends().size());
         }
@@ -836,7 +834,7 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
         @Override
            public void setValueAt(Object value, int row, int col) {
                 if (col == 3) {
-                    System.out.println("vale class = " + value.getClass().getName());
+                   
                     processAmends.getProcessAmends().get(row).setChangeStatus((Boolean) value);
                     updateProcessAmend(processAmends.getProcessAmends().get(row));
                     //statusMarks.set(row, (Boolean) value);

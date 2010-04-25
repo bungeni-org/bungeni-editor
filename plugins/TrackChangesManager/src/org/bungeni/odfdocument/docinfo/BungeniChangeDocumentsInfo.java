@@ -90,7 +90,7 @@ public class BungeniChangeDocumentsInfo {
         boolean bExists = false;
         for (int j = 0; j < changesInfo.size(); j++) {
             BungeniOdfDocumentHelper curfile = changesInfo.get(j);
-            if (file == null ) System.out.println("file WAS NULL");
+            if (file == null ) log.info("file WAS NULL");
             if (curfile.getDocumentPath().equals(file.getDocumentPath())) {
                 changesInfo.remove(j);
                 changesInfo.add(file);
@@ -105,27 +105,22 @@ public class BungeniChangeDocumentsInfo {
     }
 
     public void reload(File[] files) {
-                System.out.println("Clearing changes");
+                log.debug("Clearing changes");
                 this.clear();
                 for (int i = 0; i < files.length ; i++ ) {
-                    System.out.println("Adding file - " + files[i].getName());
+                    log.debug("Adding file - " + files[i].getName());
                     OdfDocument oDoc = null;
                     try {
-                        System.out.println("Creating odf helper object");
+                        log.debug("Creating odf helper object");
                         BungeniOdfDocumentHelper docHelper = new BungeniOdfDocumentHelper(files[i]);
-                        System.out.println("Created odf helper object");
                         this.addDocument(docHelper);
-                        System.out.println("Added odfhelper object");
 
                     } catch (Exception ex) {
-                        System.out.println("reload exception = " + ex.getMessage() + " " + files[i].getName());
                         log.error("reload = " + ex.getMessage(), ex);
                     }
 
                 }
-                System.out.println("Sorting documents");
                 this.sortDocuments();
-                 System.out.println("Finishing sort..");
     }
 
 

@@ -133,12 +133,6 @@ public class panelConsolidateChanges extends panelChangesBase {
                     }
                 });
 
-                System.out.println("cons files found :" + files.length);
-
-                for (File file : files) {
-                    System.out.println("cons file : " + file.getName());
-                }
-
                 changesInfo.reload(files);
             }
         }
@@ -178,8 +172,7 @@ public class panelConsolidateChanges extends panelChangesBase {
                     // Find out which indexes are selected.
                     int nIndex = lsm.getMinSelectionIndex();
 
-                    System.out.println("loading table changes");
-
+              
                     // do struff here
                     displayChangesInfo(nIndex);
                 }
@@ -761,7 +754,7 @@ public class panelConsolidateChanges extends panelChangesBase {
             BungeniOdfDocumentHelper        docHelper       = changesInfo.getDocuments().get(iIndex);
             String                          docAuthor       =
                 docHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniDocAuthor");
-            System.out.println("building model for " + docAuthor);
+           
             BungeniOdfTrackedChangesHelper  changeHelper    = docHelper.getChangesHelper();
             Element                         changeContainer = changeHelper.getTrackedChangeContainer();
             ArrayList<OdfTextChangedRegion> changes         = new ArrayList<OdfTextChangedRegion>(0);
@@ -806,7 +799,7 @@ public class panelConsolidateChanges extends panelChangesBase {
         public Object getValueAt(int rowIndex, int columnIndex) {
             HashMap<String, Object> changeMark = changeMarks.get(rowIndex);
 
-            System.out.println("Change Mark = " + changeMark);
+            
 
             switch (columnIndex) {
             case 0 :

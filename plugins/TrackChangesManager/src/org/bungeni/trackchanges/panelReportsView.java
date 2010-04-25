@@ -344,7 +344,7 @@ public class panelReportsView extends panelChangesBase {
                       ReportFile rf ;
                       try {
                          if (!file.canWrite() ) {
-                             System.out.println("file is still being writtern - " + file.getName());
+                             log.info("file is still being writtern - " + file.getName());
                          }
                          BungeniOdfDocumentHelper reportsHelper = new BungeniOdfDocumentHelper(file);
                          String matchReportName = reportsHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniReportName");
