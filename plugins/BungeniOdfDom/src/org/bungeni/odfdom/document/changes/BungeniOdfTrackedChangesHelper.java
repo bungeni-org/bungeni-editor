@@ -350,6 +350,31 @@ public class BungeniOdfTrackedChangesHelper {
     }
 
     /**
+     * Adds an additional search filter to the getDeletedNodes API
+     * @param elemDeletion the text:deletion element
+     * @param xpathFilter any kind of xpathFilter extension e.g. //text:section
+     * @return
+     */
+    public NodeList getDeletedNodesExt(Node elemDeletion, String xpathFilter) {
+        NodeList matchedNodes = null;
+
+        try {
+
+            /*
+             * Note that here we have to use the ./ context for xpath since we
+             * want to search from the context node onwards... otherwise XPath will return
+             * results from the document root
+             */
+            String xPathExpr = "./child::*[local-name() != 'change-info']" + xpathFilter;
+
+            matchedNodes = (NodeList) this.m_docXpath.evaluate(xPathExpr, elemDeletion, XPathConstants.NODESET);
+        } catch (XPathExpressionException ex) {
+            log.error("getDeletedText : " + ex.getMessage(), ex);
+        }
+
+        return matchedNodes;
+    }
+    /**
      * <p>Helper function on getDeletedNodes, returns a String with the text content
      * of all the nodes in the deleted nodes NodeList</p>
      * @param elemDeletion the text:deletion element
