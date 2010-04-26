@@ -48,10 +48,13 @@ public class reportChangesByOrder  extends BungeniOdfDocumentReportProcess {
        final BungeniOdfTrackedChangesHelper changesHelper = aDochelper.getChangesHelper();
        List<StructuredChangeType> changes = changesHelper.getAllChanges();
        List<String> queries = new ArrayList<String>(0);
-       String documentPath = aDochelper.getDocumentPath();
+       final String documentPath = aDochelper.getDocumentPath();
        Integer iOrder = 0;
        queries.add(reportChangesByOrder_Queries.CLEANUP_QUERY(CommonFunctions.getCurrentBillID(), documentPath));
-        for (StructuredChangeType structuredChangeType : changes) {
+       queries = addInsertQueries(aDochelper, changes, queries) ;
+
+       /*
+       for (StructuredChangeType structuredChangeType : changes) {
             String xpathStart = "";
             String xpathEnd = "";
 
@@ -77,14 +80,19 @@ public class reportChangesByOrder  extends BungeniOdfDocumentReportProcess {
             queries.add(strQuery);
             System.out.println(strQuery);
         }
+        *
+        */
         // first we build up a data store with the nodes and then we proces the document
         // with the nodes in the db
         BungeniClientDB db = BungeniClientDB.defaultConnect();
         db.Connect();
         db.Update(queries, true);
         db.EndConnect();
+
         //now we iterate through the document ... and process all the top level nodes
         //lets do the sections first
+
+
        final BungeniOdfSectionHelper asectionHelper = aDochelper.getSectionHelper();
        Integer isecWeight = 0;
        NodeList nSections = asectionHelper.getDocumentSections();
@@ -109,8 +117,7 @@ public class reportChangesByOrder  extends BungeniOdfDocumentReportProcess {
             }
         }
 
-       
-        //now look for hte deleted one
+       //Now we handle the use ase
         String sQueryDeleted = reportChangesByOrder_Queries.CHECK_DELETED(CommonFunctions.getCurrentBillID(), documentPath);
         //look for the change id that was deleted
         QueryResults qr = db.ConnectAndQuery(sQueryDeleted);
@@ -133,6 +140,15 @@ public class reportChangesByOrder  extends BungeniOdfDocumentReportProcess {
                         String sectionName = aSection.getTextNameAttribute();
                         String sectionType = asectionHelper.getSectionType(aSection);
                         //here we have to update the changes order table with the deletion info
+                        String strUpdQuery  =
+                                reportChangesByOrder_Queries.UPDATE_CHANGES_FOR_DELETED_NODE(CommonFunctions.getCurrentBillID(),
+                                documentPath,
+                                scType.changeId,
+                                sectionType + "." + sectionName,
+                                0);
+                        BungeniClientDB aDb = BungeniClientDB.defaultConnect();
+                        aDb.Update(strUpdQuery);
+                        aDb.EndConnect();
                         log.debug(":::::: DELETED :::::::::::");
                         log.debug(" section = " + sectionName + " , sectionType = " + sectionType );
 
@@ -158,4 +174,34 @@ public class reportChangesByOrder  extends BungeniOdfDocumentReportProcess {
         return false;
     }
 
+    private List<String> addInsertQueries (BungeniOdfDocumentHelper aDochelper, List<StructuredChangeType> changes, List<String> queries) {
+            BungeniOdfTrackedChangesHelper changesHelper = aDochelper.getChangesHelper();
+            String documentPath = aDochelper.getDocumentPath();
+            for (StructuredChangeType structuredChangeType : changes) {
+            String xpathStart = "";
+            String xpathEnd = "";
+
+            if (structuredChangeType.changetype.equals(BungeniOdfTrackedChangesHelper.__CHANGE_TYPE_DELETION__)) {
+               OdfTextChange textChange = changesHelper.getChangeItem(structuredChangeType.changeId);
+               xpathStart  = BungeniOdfNodeHelper.getXPath(textChange);
+            } else {
+
+               OdfTextChangeStart changeNodeStart = changesHelper.getChangeStartItem(structuredChangeType.changeId);
+               OdfTextChangeEnd changeNodeEnd = changesHelper.getChangeEndItem(structuredChangeType.changeId);
+               xpathStart = BungeniOdfNodeHelper.getXPath(changeNodeStart);
+               xpathEnd = BungeniOdfNodeHelper.getXPath(changeNodeEnd);
+            }
+
+            String strQuery = reportChangesByOrder_Queries.ADD_CHANGE_BY_ORDER(
+                    CommonFunctions.getCurrentBillID(),
+                    documentPath,
+                    structuredChangeType.changeId,
+                    structuredChangeType.changetype,
+                    xpathStart,
+                    xpathEnd,
+                    Boolean.FALSE, 0);
+            queries.add(strQuery);
+        }
+        return queries;
+    }
 }

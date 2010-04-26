@@ -50,6 +50,21 @@ public class reportChangesByOrder_Queries {
         return sQuery;
     }
 
+    public static String UPDATE_CHANGES_FOR_DELETED_NODE (String billId, String docName, String changeId, String groupBy, Integer iWeight ) {
+        String sQuery = "Update changes_by_order " +
+                "set group_by = '" + groupBy + "' ," +
+                "processed = true ," +
+                "order_weight = " + iWeight + " where " +
+                "bill_id = '" + billId + "' and " +
+                "doc_name = '" + docName + "' and " +
+                "processed = false and " +
+                "group_by = '' and " +
+                "order_weight = 0" ;
+        return sQuery;
+
+
+    }
+
     public static String CLEANUP_QUERY (String billId, String docName ) {
         String sQuery = "delete from CHANGES_BY_ORDER where bill_id = '" + billId + "' " +
                 "and doc_name = '" + docName + "'";
