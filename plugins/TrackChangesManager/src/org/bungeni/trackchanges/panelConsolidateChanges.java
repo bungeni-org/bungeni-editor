@@ -57,7 +57,7 @@ import javax.swing.table.TableColumnModel;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import org.bungeni.odfdocument.report.BungeniOdfUserReport;
-import org.bungeni.odfdocument.report.DocReportTemplateListModel;
+import org.bungeni.odfdocument.report.BungeniOdfUserReport.ReportType;
 import org.bungeni.odfdocument.report.DocUserReportsListModel;
 import org.bungeni.odfdom.utils.BungeniOdfDateHelper;
 
@@ -212,6 +212,7 @@ public class panelConsolidateChanges extends panelChangesBase {
        return reportPath;
    }
 
+
    
     private boolean doReportsAll() {
         boolean                      bReturn    = false;
@@ -224,7 +225,6 @@ public class panelConsolidateChanges extends panelChangesBase {
         };
         final BungeniOdfUserReport selReport =
             (BungeniOdfUserReport) this.listReportTemplates.getSelectedValue();
-
         if (docAuthors.size() == 0) {
             JOptionPane.showMessageDialog(
                 parentFrame,
@@ -249,10 +249,29 @@ public class panelConsolidateChanges extends panelChangesBase {
                 protected Object doInBackground() throws Exception {
                     List<BungeniOdfDocumentHelper> docs = changesInfo.getDocuments();
                     List<String> reports = new ArrayList<String>(0);
+                    if (selReport.getReportType().equals(ReportType.MultiInputSingleReport)) {
+                        BungeniOdfDocumentReport dMReport = selReport.runProcess(docs.toArray(new BungeniOdfDocumentHelper[docs.size()]));
+                        reports.add(dMReport.getReportPath());
+                    }
+                    if (selReport.getReportType().equals(ReportType.SingleInputSingleReport)) {
+                        //  BungeniOdfDocumentReport docReport = selReport.runProcess(docs.toArray(new BungeniOdfDocumentHelper[docs.size()]));
+                        for (BungeniOdfDocumentHelper bungeniOdfDocumentHelper : docs) {
+                            BungeniOdfDocumentHelper[] arrProcDocHelper = {
+                                bungeniOdfDocumentHelper
+                            };
+                            BungeniOdfDocumentReport dSReport = selReport.runProcess(arrProcDocHelper);
+                            reports.add(dSReport.getReportPath());
+                            //
+                            //String reportDoc = generateReport (selReport,bungeniOdfDocumentHelper );
+                            //reports.add(reportDoc);
+                        }
+                    }
+                    /*
+                    BungeniOdfDocumentReport docReport = selReport.runProcess(docs.toArray(new BungeniOdfDocumentHelper[docs.size()]));
                     for (BungeniOdfDocumentHelper bungeniOdfDocumentHelper : docs) {
                         String reportDoc = generateReport (selReport,bungeniOdfDocumentHelper );
                         reports.add(reportDoc);
-                    }
+                    }*/
                     return reports;
                 }
                 @Override
@@ -322,6 +341,15 @@ public class panelConsolidateChanges extends panelChangesBase {
         final int                              selIndex  = this.listMembers.getSelectedIndex();
         final BungeniOdfUserReport selReport =
             (BungeniOdfUserReport) this.listReportTemplates.getSelectedValue();
+        //check if only the global report is valid for this report type
+        if (selReport.getReportType().equals(ReportType.MultiInputSingleReport)) {
+            JOptionPane.showMessageDialog(
+                parentFrame,
+                java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle").getString(
+                    "only_global_report"));
+            bReturn = false;
+            return false;
+        }
         final BungeniOdfDocumentHelper selDocument = this.changesInfo.getDocuments().get(selIndex);
         if (-1 == selIndex) {
             JOptionPane.showMessageDialog(
@@ -349,10 +377,16 @@ public class panelConsolidateChanges extends panelChangesBase {
             SwingWorker reportWorker = new SwingWorker() {
                 @Override
                 protected Object doInBackground() throws Exception {
-                    String reportdoc = generateReport(selReport, selDocument) ; 
+                    ///change this to use an array
+                    BungeniOdfDocumentHelper[] arrDocHelper = {
+                        selDocument
+                    } ;
+                    BungeniOdfDocumentReport dReport = selReport.runProcess(arrDocHelper);
+                    //String reportdoc = generateReport(selReport, arrDocHelper) ;
 
-                    return reportdoc;
+                    return dReport.getReportPath();
                 }
+
                 @Override
                 protected void done() {
                     try {
