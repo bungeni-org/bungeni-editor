@@ -45,7 +45,7 @@ public class reportChangesByOrder_Queries {
                 "order_weight = " + iWeight + " where  " +
                 "path_start like '" + nodeFragment + "%' and " +
                 "bill_id = '" + billId + "' and " +
-                "processed = false and" +
+                "processed = false and " +
                 "doc_name = '" + docName + "'";
         return sQuery;
     }
@@ -58,6 +58,7 @@ public class reportChangesByOrder_Queries {
                 "bill_id = '" + billId + "' and " +
                 "doc_name = '" + docName + "' and " +
                 "processed = false and " +
+                "change_id = '" +changeId +"' and " +
                 "group_by = '' and " +
                 "order_weight = 0" ;
         return sQuery;
@@ -71,6 +72,13 @@ public class reportChangesByOrder_Queries {
         return sQuery;
     }
 
+    public static String CHANGES_BY_ORDER (String billId) {
+        String sQuery = "Select doc_name, change_id, group_by, order_weight from changes_by_order " +
+                "where bill_id = '"+ billId +"' " +
+                " group by doc_name, change_id, group_by " +
+                " order by order_weight";
+        return sQuery;
+    }
     /*
      * Order weight 0 means the item has been deleted ... the section was never found.
      */

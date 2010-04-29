@@ -28,6 +28,8 @@ import org.w3c.dom.Node;
 public class reportChangesByUser extends BungeniOdfDocumentReportProcess {
     private static org.apache.log4j.Logger log            =
         org.apache.log4j.Logger.getLogger(reportChangesByUser.class.getName());
+
+
     @Override
     public BungeniOdfDocumentReport generateReport(BungeniOdfDocumentReportTemplate reportTemplate, BungeniOdfDocumentHelper docHelper ) {
         String reportOdfDoc = null;
@@ -122,5 +124,11 @@ public class reportChangesByUser extends BungeniOdfDocumentReportProcess {
         return reportObject;
 
     }
+
+    @Override
+    public BungeniOdfDocumentReport generateReport(BungeniOdfDocumentReportTemplate aTemplate, BungeniOdfDocumentHelper[] aDochelper) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 
 }
