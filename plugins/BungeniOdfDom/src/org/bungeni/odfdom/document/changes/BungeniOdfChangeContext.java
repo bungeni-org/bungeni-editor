@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.utils.BungeniOdfNodeHelper;
 import org.bungeni.odfdom.utils.XPathComponent;
+import org.odftoolkit.odfdom.doc.text.OdfTextSection;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -66,6 +67,28 @@ public class BungeniOdfChangeContext {
     }
 
 
+    public Node getParentSection() {
+        Node mainParent = null;
+        mainParent  = changeElementStart.getParentNode();
+        while (mainParent != null ) {
+        if (mainParent.getNodeName().equals("text:section")) {
+            break;
+        } else {
+            mainParent = mainParent.getParentNode();
+        }
+        }
+        return mainParent;
+    }
+
+    public String getParentSectionType(){
+        String sType = null;
+        Node aNode = getParentSection();
+        if (aNode != null ) {
+           sType = m_docHelper.getSectionHelper().getSectionType((OdfTextSection) aNode);
+        }
+        return sType;
+    }
+    
     /**
      * Returns the content of the preceding text nodes 
      * @return
@@ -106,6 +129,11 @@ public class BungeniOdfChangeContext {
             log.error("getFollowingText : "+ ex.getMessage(), ex);
         }
         return followingText.toString();
+    }
+
+
+    public BungeniOdfDocumentHelper getDocHelper(){
+        return this.m_docHelper;
     }
 
     /**
