@@ -247,6 +247,34 @@ public class BungeniOdfSectionHelper {
         }
     }
 
+    /**
+     * Gets the section type offset of the section
+     * @param sectionType
+     * @param aSection
+     * @return
+     */
+    public Integer getDocumentSectionNumber (String sectionType, OdfTextSection aSection) {
+        Integer foundIndex = 0;
+        NodeList secList = this.getDocumentSections();
+        for (int i = 0; i < secList.getLength(); i++) {
+            Node aSecNode = secList.item(i);
+            OdfTextSection foundSection = (OdfTextSection) aSecNode;
+            String fSectionType = this.getSectionType(foundSection);
+            String fSectionName = foundSection.getTextNameAttribute();
+            if (fSectionType.equals(sectionType)) {
+                //this is the same section type as the one we want to index
+                ++foundIndex;
+                //check if it is the same section, if yes, break
+                if (fSectionName.equals(aSection.getTextNameAttribute())) {
+                    break;
+                }
+            }
+
+        }
+
+        return foundIndex;
+    }
+
     public OdfTextSection getSection(String sectionName) {
         OdfTextSection oSection = null;
 
