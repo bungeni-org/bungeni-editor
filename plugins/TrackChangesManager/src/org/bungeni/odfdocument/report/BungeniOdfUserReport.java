@@ -1,6 +1,8 @@
 
 package org.bungeni.odfdocument.report;
 
+import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
+
 /**
  * A user report is composed of 3 things
  *  - A report object (object that generates the actual report, contains a report template object within itself
@@ -8,12 +10,57 @@ package org.bungeni.odfdocument.report;
  * @author Ashok Hariharan
  */
 public class BungeniOdfUserReport {
+
+    /**
+     * @return the reportType
+     */
+    public ReportType getReportType() {
+        return reportType;
+    }
+
+    /**
+     * @param reportType the reportType to set
+     */
+    public void setReportType(ReportType reportType) {
+        this.reportType = reportType;
+    }
+    public enum ReportType {
+        MultiInputSingleReport ("MultiInputSingleReport"),
+        SingleInputSingleReport ("SingleInputSingleReport");
+
+        String strRptType;
+
+         ReportType(String rType) {
+            this.strRptType = rType;
+        }
+
+        @Override
+        public String toString(){
+            return this.strRptType;
+
+        }
+
+        public static ReportType parseReportType(String rptType) {
+            if (rptType.equals(MultiInputSingleReport.toString())) {
+                return ReportType.MultiInputSingleReport;
+            } else if (rptType.equals(SingleInputSingleReport.toString())) {
+                return ReportType.SingleInputSingleReport;
+            } else 
+                throw new IllegalArgumentException("Unable to parse report type");
+        }
+
+
+  
+    };
+
     private BungeniOdfDocumentReportTemplate reportTemplate ;
     private IBungeniOdfDocumentReportProcess reportProcess;
-
-    public BungeniOdfUserReport (BungeniOdfDocumentReportTemplate reportTemplate, IBungeniOdfDocumentReportProcess iProcess) {
+    private ReportType reportType;
+    
+    public BungeniOdfUserReport (BungeniOdfDocumentReportTemplate reportTemplate, IBungeniOdfDocumentReportProcess iProcess, ReportType rType) {
         this.reportProcess = iProcess;
         this.reportTemplate = reportTemplate;
+        this.reportType = rType;
     }
 
     @Override
@@ -40,6 +87,21 @@ public class BungeniOdfUserReport {
      */
     public IBungeniOdfDocumentReportProcess getReportProcess() {
         return reportProcess;
+    }
+
+    public BungeniOdfDocumentReport runProcess(BungeniOdfDocumentHelper[] inputDocs){
+        BungeniOdfDocumentReport outReport = null;
+        switch (reportType) {
+            case MultiInputSingleReport :
+                    outReport = getReportProcess().generateReport(reportTemplate, inputDocs);
+                break;
+            case SingleInputSingleReport :
+                    outReport = getReportProcess().generateReport(reportTemplate, inputDocs[0]);
+                break;
+            default:
+                throw new UnsupportedOperationException("Unsupported Report Type");
+        }
+        return outReport;
     }
 
     /**

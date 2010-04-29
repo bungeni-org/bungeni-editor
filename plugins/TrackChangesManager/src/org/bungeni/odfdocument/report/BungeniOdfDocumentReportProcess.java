@@ -9,6 +9,11 @@ import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
  */
 public abstract class BungeniOdfDocumentReportProcess implements IBungeniOdfDocumentReportProcess {
 
- abstract public BungeniOdfDocumentReport generateReport (BungeniOdfDocumentReportTemplate aTemplate, BungeniOdfDocumentHelper aDochelper);
+ public  abstract BungeniOdfDocumentReport generateReport (BungeniOdfDocumentReportTemplate aTemplate, BungeniOdfDocumentHelper aDochelper);
+ public  abstract BungeniOdfDocumentReport generateReport (BungeniOdfDocumentReportTemplate aTemplate, BungeniOdfDocumentHelper[] aDochelper);
+
+
+
+
 
 }
