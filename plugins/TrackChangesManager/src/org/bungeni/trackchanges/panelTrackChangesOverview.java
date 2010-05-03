@@ -44,6 +44,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumnModel;
 import org.bungeni.odfdom.utils.BungeniOdfDateHelper;
+import org.bungeni.trackchanges.init.TrackChangesInit;
 import org.bungeni.trackchanges.rss.BungeniBillDataProvider;
 
 /**
@@ -229,22 +230,58 @@ public class panelTrackChangesOverview extends panelChangesBase {
                 return;
             }
 
+
             BungeniOdfDocumentHelper docHelper = changesInfo.getDocuments().get(selIndex);
 
             // create a clerk review document of the mp's document
             // this is a copy of the MP's document
             ReviewDocuments                rvd            = new ReviewDocuments(docHelper, this.PANEL_REVIEW_STAGE);    // TODO
+
+            if (rvd.reviewCopyExists()) {
+                boolean bOpen = true;
+
+                int nConfirm = JOptionPane.showConfirmDialog(this.parentFrame,
+                        "There is an existing review copy, to overwrite it select Yes, otherwise select No to review the existing copy",
+                        "Review Document",
+                        JOptionPane.YES_NO_CANCEL_OPTION);
+                   switch (nConfirm) {
+                       case JOptionPane.YES_OPTION :
+                            rvd.deleteReviewCopyFile();
+                            //do overwrite
+                            break;
+                       case JOptionPane.NO_OPTION :
+                            // open the review copy
+
+                           break;
+                       case JOptionPane.CANCEL_OPTION :
+                            // do nothing and return
+                           bOpen = false;
+                           break;
+                }
+                if (!bOpen) {
+                    return;
+                }
+            }
+
             final BungeniOdfDocumentHelper reviewDoc      = rvd.getReviewCopy();
             final BungeniDocAuthor         selectedAuthor = (BungeniDocAuthor) this.listMembers.getSelectedValue();
 
             // invoke openoffice in a runnable thread
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
-                    try {
-                        UnoOdfFile odfFile = UnoOdfOpenFiles.getFile(reviewDoc);
-                    } catch (Exception ex) {
-                        log.error("doReview:opening document : " + ex.getMessage(), ex);
-                    }
+                        try {
+                            UnoOdfFile odfFile = UnoOdfOpenFiles.getFile(reviewDoc);
+                        } catch (Exception ex) {
+                            if (ex.getClass().getName().equals("com.sun.star.lang.DisposedException")) {
+                                log.error("doReview: Bridge disposed exception was caused !!!!");
+                                //trying to recreate the bootrstrap handle and init.
+                                log.info("doReview: Retrying - bootstrapping OOo again ");
+                                TrackChangesInit.bootstrapOOo();
+                                log.info("doReview: OOo was bootrstrapped ");
+                                UnoOdfFile odfFile = UnoOdfOpenFiles.getFile(reviewDoc);
+                                log.info("doReview: File was successfully opened");
+                            }
+                        }
 
                     // open review document in openoffice
                 }
@@ -526,8 +563,6 @@ public class panelTrackChangesOverview extends panelChangesBase {
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             HashMap<String, Object> changeMark = changeMarks.get(rowIndex);
-
-           log.debug("Change Mark = " + changeMark);
 
             switch (columnIndex) {
             case 0 :

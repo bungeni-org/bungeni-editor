@@ -88,7 +88,7 @@ public class reportChangesByOrder  extends BungeniOdfDocumentReportProcess {
         // first we build up a data store with the nodes and then we proces the document
         // with the nodes in the db
        for (String istring : queries) {
-            System.out.println(istring + ";");
+            log.debug("generateReport :" + istring + ";");
         }
         BungeniClientDB db = BungeniClientDB.defaultConnect();
         db.Connect();
@@ -117,7 +117,7 @@ public class reportChangesByOrder  extends BungeniOdfDocumentReportProcess {
                             sectionxPath,
                             aSectionType + "." + aSectionName, ++isecWeight);
                     db.Connect();
-                    System.out.println(sCheckQuery + ";");
+                    log.debug(sCheckQuery + ";");
                     db.Update(sCheckQuery);
                     db.EndConnect();
                 }
@@ -159,7 +159,7 @@ public class reportChangesByOrder  extends BungeniOdfDocumentReportProcess {
             }
         }
         for (String dstring : delQueries) {
-            System.out.println(dstring + " ;");
+            log.debug(dstring + " ;");
         }
         db.Connect();
         db.Update(delQueries, true);
@@ -283,25 +283,21 @@ public class reportChangesByOrder  extends BungeniOdfDocumentReportProcess {
     public List<BungeniOdfReportLine> getReportLinesByChangeOrder(BungeniClientDB db) {
         List<BungeniOdfReportLine> reportLines = new ArrayList<BungeniOdfReportLine>(0);
         String sQuery = reportChangesByOrder_Queries.CHANGES_BY_ORDER(CommonFunctions.getCurrentBillID());
-        System.out.println(sQuery);
         QueryResults qr = db.ConnectAndQuery(sQuery);
-        System.out.println("After query");
         
         if (qr.hasResults()) {
-                    System.out.println("Yes results query");
-                    System.out.println("No results count = " + qr.theResults().size());
+                    log.debug("results count = " + qr.theResults().size());
             for ( Vector<String> theRow :      qr.theResults()) {
-                System.out.println("processing row ");
+
                 String docName = qr.getField(theRow, "DOC_NAME");
-                System.out.println("processing row 2");
+
                 String changeId = qr.getField(theRow, "CHANGE_ID");
-                System.out.println("change = " + changeId);
+
                 String groupBy = qr.getField(theRow, "GROUP_BY");
                 BungeniOdfDocumentHelper docHelper = null;
                 try {
                     docHelper = new BungeniOdfDocumentHelper(new File(docName));
                 } catch (Exception ex) {
-                    System.out.println("error occured");
                    log.error(ex);
                 }
 
@@ -324,7 +320,7 @@ public class reportChangesByOrder  extends BungeniOdfDocumentReportProcess {
                 }
             }
         } else {
-            System.out.println(" No Results");
+           log.debug(" No Results");
         }
         return reportLines;
     }
@@ -368,7 +364,7 @@ public class reportChangesByOrder  extends BungeniOdfDocumentReportProcess {
                                     sectionxPath,
                                     aSectionType + "." + aSectionName, ++isecWeight);
                             db.Connect();
-                            System.out.println(sCheckQuery + ";");
+                           log.debug(sCheckQuery + ";");
                             db.Update(sCheckQuery);
                             db.EndConnect();
                         }

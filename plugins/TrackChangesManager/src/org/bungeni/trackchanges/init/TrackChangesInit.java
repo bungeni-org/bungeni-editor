@@ -1,11 +1,18 @@
 package org.bungeni.trackchanges.init;
 
+import com.sun.star.comp.helper.BootstrapException;
+import com.sun.star.frame.TerminationVetoException;
+import com.sun.star.lang.EventObject;
 import com.sun.star.uno.XComponentContext;
 import com.sun.star.comp.helper.Bootstrap;
+import com.sun.star.frame.XTerminateListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import org.apache.log4j.BasicConfigurator;
 import org.bungeni.editor.interfaces.ui.ILookAndFeel;
 import org.bungeni.ooo.BungenioOoHelper;
 import org.bungeni.trackchanges.trackChangesMain;
@@ -70,12 +77,28 @@ public class TrackChangesInit {
                 }
     }
 
+     public static void bootstrapOOo() {
+        try {
+            OOoContext = Bootstrap.bootstrap();
+            if (OOoContext == null) {
+                System.err.println("ERROR: Could not bootstrap default Office.");
+            } else {
+                //create openoffice context
+                openOfficeObject = BungenioOoHelper.refreshInstance(OOoContext);
+                openOfficeObject.initoOo();
+            }
+        } catch (BootstrapException ex) {
+           log.error("BootstrapException :  " + ex.getMessage());
+        }
+     }
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         try {
             // get the remote office component context
+            BasicConfigurator.configure()
+                    ;
             OOoContext = Bootstrap.bootstrap();
             if (OOoContext == null) {
                 System.err.println("ERROR: Could not bootstrap default Office.");
@@ -83,6 +106,7 @@ public class TrackChangesInit {
                 //create openoffice context
                 openOfficeObject = new BungenioOoHelper(OOoContext);
                 openOfficeObject.initoOo();
+              
                 javax.swing.SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
                         initUI();

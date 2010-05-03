@@ -3,7 +3,10 @@ package org.bungeni.trackchanges.utils;
 
 import java.io.File;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
@@ -142,6 +145,35 @@ public class ReviewDocuments {
         String dirPath = fOriginalFile.getParentFile().toURI().toString();
         String newBaseURI = dirPath + (dirPath.endsWith("/")?"":"/") ;
         return newBaseURI;
+    }
+
+    public boolean reviewCopyExists(){
+        boolean bState = true;
+        bState =  reviewCopyFile().exists();
+        return bState;
+    }
+
+    public boolean deleteReviewCopyFile(){
+        boolean bState = false;
+        File freviewCopy = reviewCopyFile();
+        if (freviewCopy != null) {
+            if (freviewCopy.exists()){
+                bState = freviewCopy.delete();
+            }
+        }
+        return bState;
+    }
+
+    public File reviewCopyFile(){
+        File fcopy = null;
+        try {
+            String newBaseURI = getFolderURI() + getNewFileName();
+            fcopy = new File(new URI(newBaseURI));
+        } catch (URISyntaxException ex) {
+           log.error("reviewCopyFile : " + ex.getMessage());
+        }
+        return fcopy;
+
     }
 
     public BungeniOdfDocumentHelper getReviewCopy() {

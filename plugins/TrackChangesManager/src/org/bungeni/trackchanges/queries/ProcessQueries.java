@@ -58,7 +58,7 @@ public class ProcessQueries {
                                 " doc_name='" + docName + "' and " +
                                 " doc_owner = '" + docAuthor + "' and " +
                                 " change_id = '" + changeId + "' ";
-        System.out.println("UPDATE_AMEND_STATUS  = " + strQuery);
+        
         return strQuery;
     }
 

@@ -5,6 +5,7 @@ import com.sun.star.document.XEventListener;
 import com.sun.star.lang.XComponent;
 import java.io.File;
 import java.net.URI;
+import org.apache.log4j.Logger;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 
 /**
@@ -16,13 +17,19 @@ public class UnoOdfFile {
         URI fileURI;
         BungeniOdfDocumentHelper docHelper;
         XComponent xComponent;
+        boolean isDisposed = false;
+
+         private static org.apache.log4j.Logger log                  =
+        Logger.getLogger(UnoOdfFile.class.getName());
+
 
         public UnoOdfFile(BungeniOdfDocumentHelper docHelper, XComponent xComponent) {
             this.docHelper = docHelper;
             this.xComponent = xComponent;
             this.xComponent.addEventListener(new XEventListener(){
                  public void disposing(com.sun.star.lang.EventObject arg0) {
-                    System.out.println("Disposing component");
+                   log.info("Disposing component");
+                    isDisposed = true;
                 }
 
                 public void notifyEvent(EventObject arg0) {
@@ -46,12 +53,21 @@ public class UnoOdfFile {
             else return false;
         }
 
+        public boolean isFileDisposed() {
+            return isDisposed; 
+        }
+
         /**
          * Returns the UNO component handle
          * @return XComponent variable containing the UNO handle
          */
         public XComponent getComponent() {
             return xComponent;
+        }
+
+        public void setComponent (XComponent xComp) {
+            this.xComponent = xComp;
+            this.isDisposed = false;
         }
 
         /**

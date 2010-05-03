@@ -179,7 +179,7 @@ public class panelClerkOverview extends panelChangesBase {
                             doc.closeDocument();
                             savePaths.add(spathToDocument);
                         }
-                        System.out.println("No. of docs returned = " + docs.size());
+                        log.debug("No. of docs returned = " + docs.size());
                         Thread.sleep(2000);
                         //this is required becuase the save done in the background thread may still be writing
                         //the wait in this thread prevents a crash when switching to the other tab and hitting refresh
@@ -617,7 +617,7 @@ public class panelClerkOverview extends panelChangesBase {
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             HashMap<String,Object> changeMark = changeMarks.get(rowIndex);
-            log.debug("Change Mark = " + changeMark);
+            
             switch (columnIndex) {
                 case 0 :
                     return changeMark.get("changeType");

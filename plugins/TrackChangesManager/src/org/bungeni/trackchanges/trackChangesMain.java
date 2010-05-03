@@ -59,7 +59,7 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
 
         this.tabContainer.getModel().addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent ce) {
-                System.out.println("Selected index = " + tabContainer.getSelectedIndex());
+               
                 // call update with empty hashmap
                // updateCurrentPanel(new HashMap<String, Object>() {
                 //    {}

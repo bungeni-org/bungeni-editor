@@ -213,7 +213,7 @@ public class BungeniOdfDocumentReport extends BungeniReportBase {
             this.m_docHelper.getPropertiesHelper().setUserDefinedPropertyValue("BungeniReportFor", reportByFor);
             SimpleDateFormat rFormat = getReportDateFormat();
             String reportDate = rFormat.format(Calendar.getInstance().getTime());
-            System.out.println("report date = " + reportDate);
+            log.info("report date = " + reportDate);
             this.m_docHelper.getPropertiesHelper().setUserDefinedPropertyValue("BungeniReportCreateDate", reportDate);
             //this.m_docHelper.getOdfDocument().save(savePath);
             this.m_docHelper.saveDocument();
