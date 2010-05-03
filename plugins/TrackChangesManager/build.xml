@@ -82,5 +82,6 @@
 	</copy>
         <copy file="${src.dir}/../app.ini" todir="${dist.dir}"/>
         <copy file="${src.dir}/../app.ini" todir="${build.dir}/classes" />
+        <copy file="${src.dir}/../log4j.properties" todir="${build.dir}/classes/src" />
     </target>
 </project>
