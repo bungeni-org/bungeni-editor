@@ -5,9 +5,12 @@ package org.bungeni.ooo;
 import com.sun.star.awt.Rectangle;
 import com.sun.star.awt.XWindow;
 import com.sun.star.beans.PropertyValue;
+import com.sun.star.frame.TerminationVetoException;
 import com.sun.star.frame.XComponentLoader;
 import com.sun.star.frame.XDesktop;
+import com.sun.star.frame.XTerminateListener;
 import com.sun.star.io.IOException;
+import com.sun.star.lang.EventObject;
 import com.sun.star.lang.IllegalArgumentException;
 import com.sun.star.lang.XComponent;
 import com.sun.star.lang.XMultiComponentFactory;
@@ -36,9 +39,20 @@ public class BungenioOoHelper {
         org.apache.log4j.Logger.getLogger(BungenioOoHelper.class.getName());
     private XComponent                     m_ooComponent       = null;
     private static XComponentContext              m_ooContext         = null;
+    private static boolean m_bDesktopTerminated = false;
 
     public BungenioOoHelper(XComponentContext context) {
         m_ooContext = context;
+    }
+
+    public static BungenioOoHelper refreshInstance(XComponentContext context) {
+        instance = new BungenioOoHelper(context);
+        m_ooComponentLoader = null;
+        m_ooDesktop         = null;
+        m_ooMCF             = null;
+        instance.initoOo();
+        return instance;
+
     }
 
     /**
@@ -58,25 +72,56 @@ public class BungenioOoHelper {
      * Get the OOo desktop handle
      * @return
      */
-    public static XDesktop getDesktop() {
-        try {
-            if (m_ooDesktop == null) {
-                Object oDesktop = getMultiComponentFactory().createInstanceWithContext("com.sun.star.frame.Desktop", m_ooContext);
-                // (4a) get the XDesktop interface object
-                m_ooDesktop = (com.sun.star.frame.XDesktop) com.sun.star.uno.UnoRuntime.queryInterface(
-                        com.sun.star.frame.XDesktop.class, oDesktop);
-            }
-        } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
+    public static XDesktop getDesktop() throws com.sun.star.uno.Exception {
+        if (m_ooDesktop == null) {
+                m_ooDesktop = newDesktop();
+            if (m_ooDesktop != null ) m_bDesktopTerminated = false;
+            return m_ooDesktop;
         }
+        if (true == m_bDesktopTerminated) {
+                m_ooDesktop = newDesktop();
+            if (m_ooDesktop != null ) m_bDesktopTerminated = false;
+            return m_ooDesktop;
+        }
+
         return m_ooDesktop;
+    }
+
+    public static boolean isDesktopTerminated(){
+        return m_bDesktopTerminated;
+    }
+
+
+    private static XDesktop newDesktop() throws com.sun.star.uno.Exception {
+            Object oDesktop = getMultiComponentFactory().createInstanceWithContext("com.sun.star.frame.Desktop", m_ooContext);
+                // (4a) get the XDesktop interface object
+            XDesktop xDsk = (com.sun.star.frame.XDesktop) com.sun.star.uno.UnoRuntime.queryInterface(
+                        com.sun.star.frame.XDesktop.class, oDesktop);
+            xDsk.addTerminateListener(new XTerminateListener(){
+
+                    public void queryTermination(EventObject arg0) throws TerminationVetoException {
+                     
+                    }
+
+                    public void notifyTermination(EventObject arg0) {
+                       log.debug("XTerminateListener : disposing desktop");
+                       System.out.println("XTerminateListener : disposing desktop");
+                       m_bDesktopTerminated = true;
+                     
+                    }
+
+                    public void disposing(EventObject arg0) {
+                    }
+
+                });
+           return xDsk;
     }
 
     /**
      * Return a OOo component creation factory ibject
      * @return
      */
-    public static XMultiComponentFactory getMultiComponentFactory() {
+    public static XMultiComponentFactory getMultiComponentFactory() throws Exception {
         if (m_ooMCF == null) {
               m_ooMCF = m_ooContext.getServiceManager();
         }
@@ -87,13 +132,24 @@ public class BungenioOoHelper {
         return m_ooContext;
     }
 
-    public static XComponentLoader getComponentLoader() {
+    public static XComponentLoader getComponentLoader() throws com.sun.star.uno.Exception {
         if (m_ooComponentLoader == null) {
                 //  get the desktop's component loader interface object
-                m_ooComponentLoader = (com.sun.star.frame.XComponentLoader) com.sun.star.uno.UnoRuntime.queryInterface(
-                    com.sun.star.frame.XComponentLoader.class, getDesktop());
+                m_ooComponentLoader = newComponentLoader();
+                return m_ooComponentLoader;
         }
+        if (true == m_bDesktopTerminated) {
+                m_ooComponentLoader = newComponentLoader();
+                return m_ooComponentLoader;
+        }
+
         return m_ooComponentLoader;
+    }
+
+    private static XComponentLoader newComponentLoader() throws com.sun.star.uno.Exception{
+        XComponentLoader xLoader = (com.sun.star.frame.XComponentLoader) com.sun.star.uno.UnoRuntime.queryInterface(
+                    com.sun.star.frame.XComponentLoader.class, getDesktop());
+        return xLoader;
     }
 
     public XComponent getComponent() {

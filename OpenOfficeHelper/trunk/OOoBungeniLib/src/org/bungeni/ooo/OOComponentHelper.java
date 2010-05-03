@@ -2,6 +2,7 @@ package org.bungeni.ooo;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import com.sun.star.uno.Exception;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -112,7 +113,6 @@ public class OOComponentHelper {
      * @param xComponentContext XComponentContext handle of openoffice controller
      */
     public OOComponentHelper(XComponent xComponent, XComponentContext xComponentContext) {
-        try {
             isXComponentNull = false;
             m_xComponent     = xComponent;
 
@@ -123,9 +123,7 @@ public class OOComponentHelper {
              * m_xComponent.addEventListener(xEventListener);
              * m_xComponentContext = xComponentContext;
              */
-        } catch (Exception ex) {
-            log.error(ex.getLocalizedMessage(), ex);
-        }
+      
     }
 
     /**
@@ -157,7 +155,6 @@ public class OOComponentHelper {
     public XTextDocument getTextDocument() {
         XTextDocument xTextDoc = null;
 
-        try {
             xTextDoc = (XTextDocument) UnoRuntime.queryInterface(XTextDocument.class, this.m_xComponent);
 
             if (xTextDoc == null) {
@@ -165,12 +162,7 @@ public class OOComponentHelper {
             } else {
                 log.debug("getTextDocument is not null");
             }
-        } catch (Exception ex) {
-            log.error("getTextDocument " + ex.getMessage());
-            log.error("getTextDocument = stacktrace, " + CommonExceptionUtils.getStackTrace(ex));
-        } finally {
-          
-        }
+       
           return xTextDoc;
     }
 
@@ -810,8 +802,6 @@ public class OOComponentHelper {
     public XNameAccess getTextSections() {
         XNameAccess xNamedSections = null;
 
-        try {
-
             // get the text document, XText object
             // query interface for the textsections supplier
             XTextDocument         xDoc    = getTextDocument();
@@ -819,12 +809,6 @@ public class OOComponentHelper {
                 (XTextSectionsSupplier) UnoRuntime.queryInterface(XTextSectionsSupplier.class, xDoc);
 
             xNamedSections = oTSSupp.getTextSections();
-        } catch (Exception ex) {
-            log.error("getTextSections = " + ex.getMessage());
-            log.error("getTextSections , stacktrace = " + CommonExceptionUtils.getStackTrace(ex));
-        } finally {
-            
-        }
         return xNamedSections;
     }
 
@@ -836,18 +820,11 @@ public class OOComponentHelper {
     public boolean hasSection(String sectionName) {
         boolean bResult = false;
 
-        try {
             if (getTextSections().hasByName(sectionName.trim())) {
                 bResult = true;
             } else {
                 bResult = false;
             }
-        } catch (Exception ex) {
-            log.error("hasSection = " + ex.getMessage());
-            log.error("hasSection, stackTrace = " + CommonExceptionUtils.getStackTrace(ex));
-        } finally {
-          
-        }
           return bResult;
     }
 
@@ -1834,8 +1811,6 @@ public class OOComponentHelper {
      */
     public String getMatchingChildSection(String sectionName, String childPrefix) {
         String matching = "";
-
-        try {
             XTextSection   section  = getSection(sectionName);
             XTextSection[] sections = section.getChildSections();
 
@@ -1846,11 +1821,6 @@ public class OOComponentHelper {
                     matching = childName;
                 }
             }
-        } catch (Exception ex) {
-            log.error(ex.getMessage());
-        } finally {
-          
-        }
           return matching;
     }
 
@@ -2029,7 +1999,6 @@ public class OOComponentHelper {
     public int setSelectedTextImageName(String newName) {
         int nReturn = -1;
 
-        try {
             XTextViewCursor viewCursor = this.getViewCursor();
             Object          selection  = this.getCurrentSelection();
             XServiceInfo    xSelInfo   = ooQueryInterface.XServiceInfo(selection);
@@ -2040,12 +2009,7 @@ public class OOComponentHelper {
                 xGraphName.setName(newName);
                 nReturn = 0;
             }
-        } catch (Exception ex) {
-            log.error("changeSelectedTextImageName: " + ex.getMessage());
-            nReturn = -1;
-        } finally {
             return nReturn;
-        }
     }
 
     public String getSelectedTextStyle() {
@@ -2358,10 +2322,9 @@ public class OOComponentHelper {
      * @param documentPath - path to the openoffice document.
      * @return
      */
-    public static XComponent openExistingDocument(String documentPath) {
+    public static XComponent openExistingDocument(String documentPath) throws IOException, IllegalArgumentException, com.sun.star.uno.Exception {
         XComponent xComponent = null;
 
-        try {
             documentPath = BungenioOoHelper.convertPathToURL(documentPath);
 
             if (documentPath.length() > 0) {
@@ -2371,15 +2334,10 @@ public class OOComponentHelper {
                 xOpenProperty.Name  = "MacroExecutionMode";
                 xOpenProperty.Value = com.sun.star.document.MacroExecMode.ALWAYS_EXECUTE;
                 loadProps[0]        = xOpenProperty;
-                xComponent          = BungenioOoHelper.getComponentLoader().loadComponentFromURL(documentPath,
+                xComponent      = BungenioOoHelper.getComponentLoader().loadComponentFromURL(documentPath,
                         "_blank", 0, loadProps);
             }
-        } catch (Exception ex) {
-            log.error("openExistingDocument : " + ex.getMessage());
-            log.error("openExistingDocument : " + CommonExceptionUtils.getStackTrace(ex));
-        } finally {
-
-        }
+       
         return xComponent;
     }
 
@@ -2502,16 +2460,9 @@ public class OOComponentHelper {
      */
     public XNameAccess getBookmarks() {
         XNameAccess bookNameAccess = null;
-
-        try {
-            XBookmarksSupplier bookSupplier = ooQueryInterface.XBookmarksSupplier(this.m_xComponent);
+       XBookmarksSupplier bookSupplier = ooQueryInterface.XBookmarksSupplier(this.m_xComponent);
 
             bookNameAccess = bookSupplier.getBookmarks();
-        } catch (Exception ex) {
-            log.error("getBookmarks : " + ex.getMessage());
-        } finally {
-           
-        }
          return bookNameAccess;
     }
 
@@ -2663,7 +2614,6 @@ public class OOComponentHelper {
      * @param screenSize
      */
     public static void positionOOoWindow(XComponent aComponent, Dimension screenSize) {
-        try {
             XModel    aModel    = ooQueryInterface.XModel(aComponent);
             XFrame    aFrame    = aModel.getCurrentController().getFrame();
             XWindow   xWind     = aFrame.getContainerWindow();
@@ -2675,9 +2625,6 @@ public class OOComponentHelper {
             short     nSetpos   = 15;
 
             xWind.setPosSize(intXPos, intYPos, intWidth, intHeight, nSetpos);
-        } catch (Exception ex) {
-            log.error("positionoOoWinow : " + ex.getMessage());
-        }
     }
 
     /*
