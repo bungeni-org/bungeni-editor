@@ -1,0 +1,3 @@
+log4j http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/apache-log4j
+xerces http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/xerces
+h2db http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/h2db
