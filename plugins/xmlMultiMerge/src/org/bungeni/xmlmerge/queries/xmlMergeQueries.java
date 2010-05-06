@@ -12,6 +12,17 @@ public class xmlMergeQueries {
         return query;
     }
 
+    public static String GET_ALL_CHANGES_W_ORDER(int wOrder) {
+        String query = GET_ALL_CHANGES() +
+                " where w_order = " + wOrder ;
+        return query;
+    }
+
+
+    public static String DELETE_ALL_CHANGES(){
+        String query = "Delete from document_changes";
+        return query;
+    }
     public static String ADD_CHANGE( String docName, String changeId, String changeType,
             String changeBefore, String changeAfter, String fragMent, String wOrder) {
         String query = "insert into DOCUMENT_CHANGES (DOC_NAME, CHANGE_ID, CHANGE_TYPE, CHANGE_POS_BEFORE, CHANGE_POS_AFTER, FRAGMENT, W_ORDER) " +
@@ -28,10 +39,9 @@ public class xmlMergeQueries {
                 changeAfter
                 + "','" +
                 fragMent
-                + "','" +
+                + "'," +
                 wOrder
-                + "'" +
-                ")";
+                + ")";
                 return query ;
     }
 
