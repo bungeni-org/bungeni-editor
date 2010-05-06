@@ -71,4 +71,11 @@
     nbproject/build-impl.xml file. 
 
     -->
+     <target name="-post-jar" >
+        <copy todir="${dist.dir}/merge">
+                <fileset dir="merge" >
+                </fileset>
+        </copy>
+        <copy file="${src.dir}/../log4j.properties" todir="${build.dir}/classes/src" />
+    </target>
 </project>
