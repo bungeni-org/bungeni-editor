@@ -2,3 +2,4 @@ log4j http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/apach
 xerces http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/xerces
 h2db http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/h2db
 odfdom http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/odfdom
+bungeniodfdom http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeniodfdom
