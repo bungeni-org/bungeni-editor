@@ -40,6 +40,24 @@ public class xmlMergeQueries {
         return query;
     }
 
+    public static String ADD_DOCUMENT_VERSION( String docName, String docType, String docParent) {
+        String query = "insert into DOCUMENT_VERSIONS (DOC_NAME, DOC_TYPE, DOC_ORIG) values (" +
+                "'" +
+                docName +
+                "','"  +
+                docType +
+                "','"  +
+                docParent +
+                "')" ;
+        return query;
+    }
+
+    public static String GET_DOCUMENT_VERSIONS (String docName) {
+        String query = "Select DOC_NAME, DOC_TYPE, DOC_ORIG from DOCUMENT_VERSIONS " +
+                "where DOC_ORIG = '" + docName + "' and DOC_TYPE = 'version' " ;
+        return query;
+    }
+
 
     public static String DELETE_ALL_CHANGES(){
         String query = "Delete from document_changes";
@@ -60,7 +78,7 @@ public class xmlMergeQueries {
                 + "','" +
                 changeAfter
                 + "','" +
-                fragMent
+                escapeQuotes(fragMent)
                 + "'," +
                 wOrder
                 + ")";
