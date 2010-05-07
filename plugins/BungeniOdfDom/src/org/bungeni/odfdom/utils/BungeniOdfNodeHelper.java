@@ -1,10 +1,17 @@
 
 package org.bungeni.odfdom.utils;
 
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-import org.w3c.dom.Document;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -24,6 +31,11 @@ public class BungeniOdfNodeHelper {
   * @param n
   * @return
   */
+
+
+     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BungeniOdfNodeHelper.class.getName());
+
+
     public static String getXPath(Node aNode) {
       /** return if node is null **/
       if (null == aNode) return null;
@@ -102,61 +114,23 @@ public class BungeniOdfNodeHelper {
 
   
 
-    /**
-     * Find siblings with the same node name and namespace
-     * @param listofSiblings
-     * @param currentNodeName
-     * @param currentNsURI
-     * @return
-     */
-    public static List<Node> getNodesByNameAndNS(NodeList listofSiblings, String currentNodeName, String currentNsURI) {
-       List<Node> filteredSiblings = new ArrayList<Node>(0);
-       /** iterate through node list of children **/
-        for (int i = 0; i < listofSiblings.getLength(); i++) {
-             Node siblingNode = listofSiblings.item(i);
-             /** check if child node has the same name **/
-             if (siblingNode.getNodeName().equals(currentNodeName)) {
-                 /** check if child node has the same ns uri **/
-                 if (siblingNode.getNamespaceURI().equals(currentNsURI)) {
-                     filteredSiblings.add(siblingNode);
-                 }
-             }
-        }
-       return filteredSiblings;
-    }
+    
 
-    /**
-     * Gets the XPath to an element node relative to its siblings
-     * @param currentNode
-     * @return
-     */
-     public static String getElementXPath(Node currentNode) {
-        StringBuffer pathStr = new StringBuffer("/");
-        pathStr.append(currentNode.getNodeName());
-        /** now we get the path relative to siblings **/
-        Node parentNode = currentNode.getParentNode();
-        /** check if we are at the root element **/
-        if (parentNode == null ) {
-            return pathStr.toString();
-        }
-        /** check for other siblings of the current namespace **/
-        String currentNsURI =  currentNode.getNamespaceURI();
-        String currentNodeName = currentNode.getNodeName();
-        NodeList listofSiblings = parentNode.getChildNodes();
-        List<Node> filteredSiblings = getNodesByNameAndNS(listofSiblings, currentNodeName, currentNsURI);
-        int nodeIndex = 0;
-          for (nodeIndex = 0; nodeIndex < filteredSiblings.size(); nodeIndex++) {
-              Node aSibling = filteredSiblings.get(nodeIndex);
-              if (aSibling == currentNode) break;
-          }
-            /** if the index is 0 and there are no next elements - then this currentNode is the sole sibling **/
-            if ((nodeIndex == 0) && ((nodeIndex + 1) == filteredSiblings.size())) {
-                return pathStr.toString();
-            }
-            return pathStr.append("[")
-                          .append(String.valueOf(nodeIndex + 1))
-                          .append("]").toString();
-    }
+        public static String outputNodeAsXML(Node outputNode, StringWriter outputString) throws TransformerException  {
+        try {
 
+            // Prepare the DOM document for writing
+            Source source = new DOMSource(outputNode);
+            Result result = new StreamResult(outputString);
+            // Write the DOM document to the file
+            Transformer xformer = TransformerFactory.newInstance().newTransformer();
+            xformer.transform(source, result);
+           
+        } catch (TransformerException ex) {
+            log.error(ex);
+            throw ex;
+        }
+        return outputString.toString();
+    }
 
 }
