@@ -143,7 +143,7 @@ public class BungeniOdfNodeHelper {
         return outputString.toString();
     }
 
-        public File  outputNodeAsXML(Node outputNode, File foutfile ) throws TransformerConfigurationException, TransformerException {
+        public static  File  outputNodeAsXML(Node outputNode, File foutfile ) throws TransformerConfigurationException, TransformerException {
         // Prepare the DOM document for writing
         Source source = new DOMSource(outputNode);
         Result result = new StreamResult(foutfile);
