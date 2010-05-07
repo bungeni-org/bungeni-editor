@@ -18,6 +18,28 @@ public class xmlMergeQueries {
         return query;
     }
 
+    public static String escapeQuotes (String field) {
+        return field.replace("'", "''");
+    }
+
+    public static String ADD_DOCUMENT_FRAGMENT (String docName, String fragmentName, String clobFragment) {
+        String query = "insert into DOCUMENT_FRAGMENTS ( DOC_NAME, FRAGMENT_NAME, FRAGMENT) values (" +
+                        "'" +
+                        docName +
+                        "','" +
+                        fragmentName +
+                        "','" +
+                        escapeQuotes(clobFragment) +
+                        "')";
+        return query;
+    }
+
+    public static String GET_DOCUMENT_FRAGMENT (String docName, String fragmentName) {
+        String query = "Select DOC_NAME, FRAGMENT_NAME, FRAGMENT from DOCUMENT_CHANGES " +
+                "WHERE DOC_NAME = '" + docName + "' and FRAGMENT_NAME = '" + fragmentName + "'";
+        return query;
+    }
+
 
     public static String DELETE_ALL_CHANGES(){
         String query = "Delete from document_changes";
