@@ -1,6 +1,7 @@
 
 package org.bungeni.odfdom.utils;
 
+import java.io.File;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Stack;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -111,6 +113,14 @@ public class BungeniOdfNodeHelper {
    }
 
 
+   private static Transformer staticTransformer = null;
+   
+   private static synchronized Transformer getTransformer() throws TransformerConfigurationException {
+       if (staticTransformer == null) {
+           staticTransformer = TransformerFactory.newInstance().newTransformer();
+       }
+       return staticTransformer;
+   }
 
   
 
@@ -123,7 +133,7 @@ public class BungeniOdfNodeHelper {
             Source source = new DOMSource(outputNode);
             Result result = new StreamResult(outputString);
             // Write the DOM document to the file
-            Transformer xformer = TransformerFactory.newInstance().newTransformer();
+            Transformer xformer = getTransformer();
             xformer.transform(source, result);
            
         } catch (TransformerException ex) {
@@ -132,5 +142,16 @@ public class BungeniOdfNodeHelper {
         }
         return outputString.toString();
     }
+
+        public File  outputNodeAsXML(Node outputNode, File foutfile ) throws TransformerConfigurationException, TransformerException {
+        // Prepare the DOM document for writing
+        Source source = new DOMSource(outputNode);
+        Result result = new StreamResult(foutfile);
+        // Write the DOM document to the file
+        Transformer xformer = getTransformer();
+        xformer.transform(source, result);
+        return foutfile;
+
+        }
 
 }
