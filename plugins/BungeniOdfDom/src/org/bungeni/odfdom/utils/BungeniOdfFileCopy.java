@@ -48,7 +48,7 @@ public class BungeniOdfFileCopy {
      * @param destFile - file handle to target file
      * @throws java.io.IOException
      */
-    public void copyFile(File sourceFile, File destFile) throws IOException {
+    public static void copyFile(File sourceFile, File destFile) throws IOException {
         if (!destFile.exists()) {
             destFile.createNewFile();
         }
