@@ -654,6 +654,18 @@ public class BungeniOdfTrackedChangesHelper {
         return changeNode;
     }
 
+    public NodeList getAllChangeNodes() throws Exception{
+        NodeList nnodeList = null;
+        try {
+            String xpathExpr = "//node()[name()='text:change-start' or name()='text:change']";
+            nnodeList = (NodeList) this.m_docXpath.evaluate(xpathExpr, m_docHelper.getOdfDocument().getContentDom(), XPathConstants.NODESET);
+        } catch (Exception ex) {
+            log.error("getAllChangeNodes : "  + ex.getMessage());
+            throw ex;
+        }
+        return nnodeList;
+    }
+
     /**
      * Helper API returns all changes in the document as change type objects
      * @return
