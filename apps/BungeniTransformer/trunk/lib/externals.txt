@@ -3,5 +3,5 @@ log4j http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/apach
 xerces http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/xerces
 saxon http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/saxon
 ini4j http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/ini4j
-
+restlet http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/restlet
 
