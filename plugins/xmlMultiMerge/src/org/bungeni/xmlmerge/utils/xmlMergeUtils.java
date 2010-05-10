@@ -1,5 +1,7 @@
 package org.bungeni.xmlmerge.utils;
 
+//~--- JDK imports ------------------------------------------------------------
+
 import java.io.File;
 
 /**
@@ -7,9 +9,9 @@ import java.io.File;
  * @author ashok
  */
 public class xmlMergeUtils {
-
     public static String getFileNameFromPath(String fullPath) {
         File ffile = new File(fullPath);
+
         return ffile.getName();
     }
 
@@ -17,4 +19,7 @@ public class xmlMergeUtils {
         return fileName.substring(0, fileName.lastIndexOf("."));
     }
 
+    public static String parentNodeFromAddress (String nodeAddress) {
+        return nodeAddress.substring(0, nodeAddress.lastIndexOf("/"));
+    }
 }

@@ -96,26 +96,29 @@ public class BungeniClientDB {
         }
     }
 
-    public boolean isConnected () {
+    public boolean isConnected() {
         boolean bstate = false;
+
         try {
             if (db_connection != null) {
                 if (!db_connection.isClosed()) {
-                bstate = true;
-            }
+                    bstate = true;
+                }
             }
         } catch (SQLException ex) {
-           log.error(ex.getMessage());
+            log.error(ex.getMessage());
         }
+
         return bstate;
     }
-
 
     public QueryResults QueryResults(String expression) {
         HashMap<String, Vector<Vector<String>>> qResults = Query(expression);
         QueryResults                            qr       = null;
+
         if (qResults != null) {
             qr = new QueryResults(qResults);
+
             return qr;
         } else {
             return null;
@@ -124,39 +127,48 @@ public class BungeniClientDB {
 
     public QueryResults ConnectAndQuery(String query) {
         this.Connect();
+
         QueryResults qr = QueryResults(query);
+
         this.EndConnect();
+
         return qr;
     }
 
     public int Update(List<String> queries, boolean bTransacted) {
         Statement st       = null;
         int       nReturns = 0;
+
         try {
             st = db_connection.createStatement();    // statement objects can be reused with
+
             // repeated calls to execute but we
             // choose to make a new one each time
             if (bTransacted) {
                 st.addBatch("set autocommit off");
             }
+
             for (String squery : queries) {
                 st.addBatch(squery);
             }
-            if (bTransacted ) {
-            st.addBatch("prepare commit x_trans");
-            st.addBatch("commit");
-            st.addBatch("set autocommit on");
+
+            if (bTransacted) {
+                st.addBatch("prepare commit x_trans");
+                st.addBatch("commit");
+                st.addBatch("set autocommit on");
             }
+
             st.executeBatch();
             st.close();
         } catch (SQLException ex) {
             log.error("Update: " + ex.getMessage());
+
             try {
                 if (bTransacted) {
-                if (!st.isClosed()) {
-                    st.execute("rollback transaction x_trans");
-                    st.close();
-                }
+                    if (!st.isClosed()) {
+                        st.execute("rollback transaction x_trans");
+                        st.close();
+                    }
                 }
             } catch (SQLException ex1) {
                 log.error("RollBack: " + ex.getMessage());
@@ -164,22 +176,21 @@ public class BungeniClientDB {
         }
 
         return nReturns;
-        
-
     }
 
     public int Update(String expression) {
         Statement st       = null;
         int       nReturns = 0;
+
         try {
-            st = db_connection.createStatement();    
-            nReturns = st.executeUpdate(expression);    
+            st       = db_connection.createStatement();
+            nReturns = st.executeUpdate(expression);
             st.close();
         } catch (SQLException ex) {
             log.error("Update: " + ex.getMessage());
         }
-            return nReturns;
-        
+
+        return nReturns;
     }
 
     public HashMap<String, Vector<Vector<String>>> Query(String expression) {
@@ -193,7 +204,6 @@ public class BungeniClientDB {
         /*
          * Vector<Vector<String>> columns = new Vector<Vector<String>>();
          */
-
         try {
             st = db_connection.createStatement();    // statement objects can be reused with
 
