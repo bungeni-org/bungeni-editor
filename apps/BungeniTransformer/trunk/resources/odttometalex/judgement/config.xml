@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config name="JudgementCommon">
+	<map href="odttoakn/defaultvalues/judgement/map.xml" />
+	<replacements>
+		<!-- Normalise the produced ODF ref elements -->
+		<replacement step="1" name="replacerefmarkstart" pattern="&lt;text:reference-mark-start([^\/]+)/&gt;" replacement="&lt;ref$1&gt;" />
+		<replacement step="2" name="replacerefmarkend" pattern="&lt;text:reference-mark-end([^\/]+)/&gt;" replacement="&lt;/ref&gt;" />
+		<!-- Normalise the produced ODF bookmark elements -->
+		<replacement step="3" name="bookmarkstart" pattern="&lt;text:bookmark-start([^\/]+)/&gt;" replacement="&lt;ref$1&gt;" />
+		<replacement step="4" name="bookmarkend" pattern="&lt;text:bookmark-end([^\/]+)/&gt;" replacement="&lt;/ref&gt;" />
+		<!-- Delete the empty lines -->
+		<replacement step="5" name="replaceemptyline" pattern="\n" replacement="" />
+ 	</replacements>
+	<stylesheets>
+		<!-- This steps are performed BEFORE the above regex replacement -->
+		<input>
+			<!-- Extract the styles -->
+			<xslt step="1" name="mergeStyles" href="odttometalex/judgement/MergeStyles.xsl" />
+			<!-- Transform the document to the META Language -->
+			<xslt step="2" name="ODFToMetaLanguage" href="odttometalex/judgement/ODFToMetaLanguage.xsl" />
+		</input>
+		<!-- This steps are performed AFTER the above regex replacement -->
+		<output>
+			<!-- Normalise the produced META document -->
+			<xslt step="1" name="MetaLanguageNormalisation" href="odttometalex/judgement/MetaLanguageNormalisation.xsl" />
+			<!-- Add the METALEX namespace -->
+			<xslt step="2" name="MetaLanguageAddNamespace" href="odttometalex/judgement/MetaLanguageAddNamespace.xsl" />
+		</output>
+	</stylesheets>
+</config>

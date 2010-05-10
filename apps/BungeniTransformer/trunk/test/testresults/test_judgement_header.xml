@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><akomaNtoso xmlns="http://www.akomantoso.org/1.0">
+   <judgement>
+      <meta>
+         <identification source="#bungeni">
+            <FRBRWork>
+               <this value="/ke/judgement/2009-8-26"/>
+               <uri value=""/>
+               <date date="2009-08-26" name="workDate"/>
+               <author href="#user.Ashok"/>
+            </FRBRWork>
+            <FRBRExpression>
+               <this value="/ke/judgement/2009-8-26/eng"/>
+               <uri value="/eng@"/>
+               <date date="2009-08-31" name="expDate"/>
+               <author href="#user.Ashok"/>
+            </FRBRExpression>
+            <FRBRManifestation>
+               <this value="/ke/judgement/2009-8-26/eng.xml"/>
+               <uri value="/eng@.akn"/>
+               <date date="2009-08-31" name="manDate"/>
+               <author href="#user.Ashok"/>
+            </FRBRManifestation>
+         </identification>
+         <publication date="2009-08-26" name="judgmeent" showAs=""/>
+         <references source="#bungeni">
+            <TLCConcept id="judgementNo" href="/ontology/concept/judgement/Judgement/653/07" showAs="653/07"/>
+            <TLCPerson id="user.Ashok" href="user.Ashok" showAs="Author"/>
+            <TLCPerson id="kepartyagency4way" href="ke.party.agency.4way" showAs="FOURWAY HAULAGE SA (PTY) LTD"/>
+            <TLCRole id="appelant" href="/ontology/judgement/role/appelant" showAs="appelant"/>
+            <TLCPerson id="kepartyagencysaroads" href="ke.party.agency.saroads" showAs="SA NATIONAL ROADS AGENCY LTD"/>
+            <TLCRole id="respondent" href="/ontology/judgement/role/respondent" showAs="respondent"/>
+            <TLCPerson id="kenpersonBasiyaKhalwale19800412" href="ken.person.Basiya.Khalwale.1980-04-12" showAs="Khalwale"/>
+            <TLCPerson id="kenpersonJosaphKhamisi19800414" href="ken.person.Josaph.Khamisi.1980-04-14" showAs="Khamisi"/>
+            <TLCPerson id="kenpersonLyolaKhamasi19800413" href="ken.person.Lyola.Khamasi.1980-04-13" showAs="Khamasi"/>
+            <TLCPerson id="kenpersonNohanaKhalif19441010" href="ken.person.Nohana.Khalif.1944-10-10" showAs="Khalif"/>
+         </references>
+      </meta>
+      <header>
+         <heading>THE SUPREME COURT OF APPEAL REPUBLIC OF SOUTH AFRICA</heading>
+         <p>Judgement No :<docNumber id="judgement-no-d9e82" refersTo="#judgementNo">14 of 2007</docNumber>
+         </p>
+         <p>Case number:<caseNumber>653/07</caseNumber>
+         </p>
+         <p>In the matter between</p>
+         <p>
+            <party id="d9e106" refersTo="#kepartyagency4way" as="#appelant">FOURWAY HAULAGE SA (PTY) LTD</party>APPELLANT</p>
+         <p>and</p>
+         <p>
+            <party id="d9e122" refersTo="#kepartyagencysaroads" as="#respondent">SA NATIONAL ROADS AGENCY LTD</party>RESPONDENT</p>
+         <p>Neutral citation:</p>
+         <p>Fourway Haulage v SA National Roads Agency (653/07)</p>
+         <p>
+            <neutralCitation>[2008] ZASCA 134</neutralCitation>
+         </p>
+         <p>(26 November 2008)</p>
+         <p>CORAM:<judge id="d9e159" refersTo="#kenpersonBasiyaKhalwale19800412">SCOTT</judge>,<judge id="d9e162" refersTo="#kenpersonJosaphKhamisi19800414">FARLAM</judge>,<judge id="d9e165" refersTo="#kenpersonNohanaKhalif19441010">BRAND</judge>,<judge id="d9e168" refersTo="#kenpersonLyolaKhamasi19800413">LEWIS</judge>
+         </p>
+         <p>HEARD: 5 November 2008</p>
+         <p>DELIVERED:<ref href="3791"/>
+         </p>
+         <p>CORRECTED:</p>
+         <p>SUMMARY:Delict–pure economic loss–meaning of–policy considerations relevant in determining wrongfulness–remoteness of damage–application of flexible test</p>
+         <p>ORDEROn appeal from: High Court, Pretoria (Rabie J sitting as court of first instance)</p>
+         <p>The appeal is dismissed with costs</p>
+         <p>JUDGMENT : BRAND (Scott,Farlam, Lewis, Jafta concurring)</p>
+      </header>
+      <judgementBody/>
+   </judgement>
+</akomaNtoso>

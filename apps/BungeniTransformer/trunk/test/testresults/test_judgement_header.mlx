@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><root xmlns="http://www.metalex.org/1.0" name="root" id="d3e1">
+   <container id="judgement" class="Sect1" name="body">
+      <mcontainer name="meta">      
+         <mcontainer name="identification" id="identification_d3e151" source="#bungeni">         
+            <mcontainer name="FRBRWork" id="FRBRWork_d3e151">            
+               <meta name="this" id="FRBRWork_this_d3e151" value="/ke/judgement/2009-8-26"/>            
+               <meta name="uri" id="FRBRWork_uri_d3e151" value=""/>            
+               <meta name="date" id="FRBRWork_date_d3e151" contentName="workDate" date="2009-08-26"/>            
+               <meta name="author" id="FRBRWork_author_d3e151" href="#user.Ashok"/>         
+            </mcontainer>         
+            <mcontainer name="FRBRExpression" id="FRBRExpression_d3e151">            
+               <meta name="this" id="FRBRExpression_this_d3e151" value="/ke/judgement/2009-8-26/eng"/>            
+               <meta name="uri" id="FRBRExpression_uri_d3e151" value="/eng@"/>            
+               <meta name="date" id="FRBRExpression_date_d3e151" contentName="expDate" date="2009-08-31"/>            
+               <meta name="author" id="FRBRExpression_author_d3e151" href="#user.Ashok"/>         
+            </mcontainer>         
+            <mcontainer name="FRBRManifestation" id="FRBRManifestation_d3e151">            
+               <meta name="this" id="FRBRManifestation_this_d3e151" value="/ke/judgement/2009-8-26/eng.xml"/>            
+               <meta name="uri" id="FRBRManifestation_uri_d3e151" value="/eng@.akn"/>            
+               <meta name="date" id="FRBRManifestation_date_d3e151" contentName="manDate" date="2009-08-31"/>            
+               <meta name="author" id="FRBRManifestation_author_d3e151" href="#user.Ashok"/>         
+            </mcontainer>      
+         </mcontainer>      
+         <mcontainer name="publication_mcontainer" id="publication_containerd3e151">         
+            <meta id="publication_d3e151" name="publication" contentName="judgmeent" date="2009-08-26"/>      
+         </mcontainer>      
+         <mcontainer id="references_d3e151" name="references" source="#bungeni">         
+            <meta name="TLCConcept" id="judgementNo" href="/ontology/concept/judgement/Judgement/653/07" showAs="653/07"/>         
+            <meta name="TLCPerson" id="user.Ashok" href="user.Ashok" showAs="Author"/>                           
+            <meta name="TLCPerson" id="kepartyagency4way" href="ke.party.agency.4way" showAs="FOURWAY HAULAGE SA (PTY) LTD" inrole="appelant"/>         
+            <meta name="TLCRole" id="appelant" href="/ontology/judgement/role/appelant" showAs="appelant"/>         
+            <meta name="TLCPerson" id="kepartyagencysaroads" href="ke.party.agency.saroads" showAs="SA NATIONAL ROADS AGENCY LTD" inrole="respondent"/>         
+            <meta name="TLCRole" id="respondent" href="/ontology/judgement/role/respondent" showAs="respondent"/>         
+            <meta name="TLCPerson" id="kenpersonBasiyaKhalwale19800412" href="ken.person.Basiya.Khalwale.1980-04-12" showAs="Khalwale"/>         
+            <meta name="TLCPerson" id="kenpersonJosaphKhamisi19800414" href="ken.person.Josaph.Khamisi.1980-04-14" showAs="Khamisi"/>         
+            <meta name="TLCPerson" id="kenpersonLyolaKhamasi19800413" href="ken.person.Lyola.Khamasi.1980-04-13" showAs="Khamasi"/>         
+            <meta name="TLCPerson" id="kenpersonNohanaKhalif19441010" href="ken.person.Nohana.Khalif.1944-10-10" showAs="Khalif"/>      
+         </mcontainer>   
+      </mcontainer>
+      <hcontainer __BungeniMetaEditable="false" id="header" class="Sect2" name="Header">         
+         <htitle id="d3e7" name="heading" class="5f">THE SUPREME COURT OF APPEAL REPUBLIC OF SOUTH AFRICA</htitle>         
+         <container id="d5e10" name="fixing_hcontainer">
+            <block name="p" id="d3e10" class="Standard">Judgement No :<inline name="ref" class="mBungeniJudgementNo" href="839" id="d5e12">14 of 2007</inline>         
+            </block>
+         </container>         
+         <container id="d5e16" name="fixing_hcontainer">
+            <block name="p" id="d3e19" class="P3">Case number:<inline name="ref" class="mBungeniCaseNo" href="5166" id="d5e18">653/07</inline>         
+            </block>
+         </container>                  
+         <container id="d5e24" name="fixing_hcontainer">
+            <block name="p" id="d3e28" class="P3">In the matter between</block>
+         </container>                  
+         <container id="d5e30" name="fixing_hcontainer">
+            <block name="p" id="d3e34" class="P3">            
+               <inline name="ref" class="BungeniPartyName" href="kepartyagency4way;ke.party.agency.4way(FOURWAY HAULAGE SA (PTY) LTD) ;#1" id="d5e32">FOURWAY HAULAGE SA (PTY) LTD</inline>APPELLANT</block>
+         </container>         
+         <container id="d5e36" name="fixing_hcontainer">
+            <block name="p" id="d3e43" class="P3">and</block>
+         </container>         
+         <container id="d5e39" name="fixing_hcontainer">
+            <block name="p" id="d3e46" class="P3">            
+               <inline name="ref" class="BungeniPartyName" href="kepartyagencysaroads;ke.party.agency.saroads(SA NATIONAL ROADS AGENCY LTD) ;#1" id="d5e41">SA NATIONAL ROADS AGENCY LTD</inline>RESPONDENT</block>
+         </container>                  
+         <container id="d5e47" name="fixing_hcontainer">
+            <block name="p" id="d3e57" class="P3">Neutral citation:</block>
+         </container>         
+         <container id="d5e51" name="fixing_hcontainer">
+            <block name="p" id="d3e61" class="P2">Fourway Haulage v SA National Roads Agency (653/07)</block>
+         </container>         
+         <container id="d5e54" name="fixing_hcontainer">
+            <block name="p" id="d3e64" class="P3">            
+               <inline name="ref" class="mNeutralCitation" href="152" id="d5e56">[2008] ZASCA 134</inline>         
+            </block>
+         </container>                  
+         <container id="d5e62" name="fixing_hcontainer">
+            <block name="p" id="d3e73" class="P3">(26 November 2008)</block>
+         </container>                  
+         <container id="d5e67" name="fixing_hcontainer">
+            <block name="p" id="d3e78" class="P3">CORAM:<inline name="ref" class="BungeniJudgeName" href="kenpersonBasiyaKhalwale19800412;Khalwale Basiya ;#1" id="d5e69">SCOTT</inline>,<inline name="ref" class="BungeniJudgeName" href="kenpersonJosaphKhamisi19800414;Khamisi Josaph ;#1" id="d5e72">FARLAM</inline>,<inline name="ref" class="BungeniJudgeName" href="kenpersonNohanaKhalif19441010;Khalif Nohana ;#1" id="d5e75">BRAND</inline>,<inline name="ref" class="BungeniJudgeName" href="kenpersonLyolaKhamasi19800413;Khamasi Lyola ;#1" id="d5e78">LEWIS</inline>         
+            </block>
+         </container>                  
+         <container id="d5e85" name="fixing_hcontainer">
+            <block name="p" id="d3e101" class="P3">HEARD: 5 November 2008</block>
+         </container>                  
+         <container id="d5e90" name="fixing_hcontainer">
+            <block name="p" id="d3e106" class="P3">DELIVERED:<inline name="ref" class="mBungeniJudgementDate" href="3791" id="d5e92">26 November 2008</inline>         
+            </block>
+         </container>                  
+         <container id="d5e98" name="fixing_hcontainer">
+            <block name="p" id="d3e115" class="P3">CORRECTED:</block>
+         </container>                  
+         <container id="d5e104" name="fixing_hcontainer">
+            <block name="p" id="d3e121" class="P3">SUMMARY:Delict–pure economic loss–meaning of–policy considerations relevant in determining wrongfulness–remoteness of damage–application of flexible test</block>
+         </container>                  
+         <container id="d5e109" name="fixing_hcontainer">
+            <block name="p" id="d3e126" class="P3">ORDEROn appeal from: High Court, Pretoria (Rabie J sitting as court of first instance)</block>
+         </container>         
+         <container id="d5e112" name="fixing_hcontainer">
+            <block name="p" id="d3e129" class="P3">The appeal is dismissed with costs</block>
+         </container>                  
+         <container id="d5e118" name="fixing_hcontainer">
+            <block name="p" id="d3e135" class="P3">JUDGMENT : BRAND (Scott,Farlam, Lewis, Jafta concurring)</block>
+         </container>      
+      </hcontainer>
+   </container>
+</root>

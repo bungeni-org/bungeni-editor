@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><akomaNtoso xmlns="http://www.akomantoso.org/1.0">
+   <judgement>
+      <meta>
+         <identification source="#bungeni">
+            <FRBRWork>
+               <this value="/ke/judgement/2009-8-25"/>
+               <uri value=""/>
+               <date date="2009-08-25" name="workDate"/>
+               <author href="#user.Ashok"/>
+            </FRBRWork>
+            <FRBRExpression>
+               <this value="/ke/judgement/2009-8-25/eng"/>
+               <uri value="/eng@"/>
+               <date date="2009-08-25" name="expDate"/>
+               <author href="#user.Ashok"/>
+            </FRBRExpression>
+            <FRBRManifestation>
+               <this value="/ke/judgement/2009-8-25/eng.xml"/>
+               <uri value="/eng@.akn"/>
+               <date date="2009-08-25" name="manDate"/>
+               <author href="#user.Ashok"/>
+            </FRBRManifestation>
+         </identification>
+         <publication date="2009-08-25" name="judgement" showAs=""/>
+         <references source="#bungeni">
+            <TLCPerson id="user.Ashok" href="user.Ashok" showAs="Author"/>
+         </references>
+      </meta>
+      <header>blah</header>
+      <judgementBody>
+         <introduction>
+            <span>blah</span>
+         </introduction>
+         <background>
+            <span>blah</span>
+         </background>
+         <motivation>
+            <span>blah</span>
+         </motivation>
+         <decision>
+            <span>blah</span>
+         </decision>
+      </judgementBody>
+      <conclusions id="concl1">blah</conclusions>
+   </judgement>
+</akomaNtoso>

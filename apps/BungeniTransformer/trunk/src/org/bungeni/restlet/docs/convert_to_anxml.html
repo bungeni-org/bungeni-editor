@@ -1,0 +1,46 @@
+<html>
+<head>
+<title>ODT Transformer - Convert to AN xml </title>
+</head>
+<body>
+<h2>/convert_to_anxml</h2>
+
+<h3>Usage</h3>
+<p>
+To use this API post an ODT file to the http://server_name:server_port/convert_to_anxml
+<br />
+The following parameters are mandatory for the HTTP post :
+<br />
+-- an ODT file <br />
+-- a custom header with the name "X-Odt-File" containing the name of the input file <br />
+<br /><br />
+It is mandatory to call <a href="/set_convert_params" title="set convert params">/set_convert_params</a> before calling /convert_to_anxml
+</p>
+
+<h3>Return Response </h3>
+<p>
+The API returns an XML message response containing both transformation errors, and transformation output.
+Transformation errors are returned in a CDATA block under //errors
+Transformation output is returned in a CDATA block under //output
+</p>
+<pre>
+<TransformerRespose>
+  <sourceFile></sourceFile>
+    <transformResult>
+	   <state></state>
+		<!-- for state; 0 = success / -1 = output with errors / -2 = failure -->
+		<errors>
+		      <![CDATA[
+		 
+		       ]]>
+		 </errors>
+		 <output>
+		   <![CDATA[
+		 
+		      ]]>
+		 </output>
+		 </transformResult>
+</TransformerResponse>
+</pre>
+</body>
+</html>

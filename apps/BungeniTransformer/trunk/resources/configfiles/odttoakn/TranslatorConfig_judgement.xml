@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<!-- judgement -->
+	<entry key="metalexConfigPath">odttometalex/judgement/config.xml</entry>
+	<entry key="akomantosoSchemaPath">odttoakn/schema/akomantoso10.xsd</entry>
+	<entry key="akomantosoAddNamespaceXSLTPath">odttoakn/defaultvalues/judgement/OdtToAknAddNamespace.xsl</entry>
+	<entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry> 
+</properties>
