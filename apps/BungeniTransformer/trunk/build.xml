@@ -71,4 +71,23 @@
     nbproject/build-impl.xml file. 
 
     -->
+
+      <target name="-post-jar" >
+        <copy todir="${dist.dir}/akntohtml">
+                <fileset dir="resources/akntohtml" >
+                </fileset>
+        </copy>
+        <copy todir="${dist.dir}/configfiles">
+                <fileset dir="resources/configfiles" >
+                </fileset>
+        </copy>
+        <copy todir="${dist.dir}/odttoakn">
+                <fileset dir="resources/odttoakn" >
+                </fileset>
+        </copy>
+        <copy todir="${dist.dir}/odttometalex">
+                <fileset dir="resources/odttometalex" >
+                </fileset>
+        </copy>
+    </target>
 </project>

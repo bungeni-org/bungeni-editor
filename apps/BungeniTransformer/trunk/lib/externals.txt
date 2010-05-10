@@ -4,4 +4,4 @@ xerces http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/xerc
 saxon http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/saxon
 ini4j http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/ini4j
 restlet http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/restlet
-
+bungeni http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeni
