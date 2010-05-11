@@ -16,7 +16,6 @@ import org.restlet.data.Response;
 import org.restlet.data.Status;
 import org.restlet.resource.StringRepresentation;
 
-import com.sun.tools.javac.code.Type.MethodType;
 
 /**
  * Sets the dynamic parameters for the Odt Transformer.
