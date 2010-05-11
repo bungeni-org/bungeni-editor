@@ -16,9 +16,8 @@
    * [SectionTypeToAkomaNtosoElementMappings Editor Section Types -> AkomaNtoso Element mappings]
    * [OntologyForEvents Ontology for Event actions]
    * [TransformerParsingOdfReferences How ODF references are translated into AkomaNtoso]
-   * REST API documentation for the Editor's ODT Transformer
-     *[TransformerApiSetConvertParams set_convert_params API]
-     *[TransformerApiConvertToAnXML convert_to_anxml API]
+   * [TransformerApiSetConvertParams ODT Transform Docs : setconvertparams API]
+   * [TransformerApiConvertToAnXML ODT Transform Dos : converttoanxml API]
    * [UsingTheOocomponentHelperClass Using the Openoffice Helper API class]
  * Deployment & Implementation 
    * [EditorTheming Theming the Bungeni Editor]
