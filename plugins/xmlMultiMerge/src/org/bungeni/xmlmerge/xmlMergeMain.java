@@ -2,8 +2,6 @@ package org.bungeni.xmlmerge;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.log4j.BasicConfigurator;
 
 import org.bungeni.db.BungeniClientDB;
@@ -31,6 +29,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -101,48 +101,31 @@ public class xmlMergeMain {
         }
     }
 
-    class nodeAddress implements Comparable {
-        String xpathAddr ;
-
-        public nodeAddress (String xPath) {
-            this.xpathAddr = xPath;
-        }
-
-        public int compareTo(Object o) {
-            nodeAddress compObj = (nodeAddress) o;
-            int nComparer = 0;
-            if (xpathAddr.equals(compObj.xpathAddr)) {
-                nComparer = 0;
-            } else {
-                try {
-                    XPath xPath = originalFile.getXPath();
-                    Node thisNode = (Node) xPath.evaluate(this.xpathAddr, originalFile.getContentDom(), XPathConstants.NODE);
-                    Node otherNode = (Node) xPath.evaluate(compObj.xpathAddr, originalFile.getContentDom(), XPathConstants.NODE);
-                    int nComparison = thisNode.compareDocumentPosition(otherNode);
-                    if (nComparison == Node.DOCUMENT_POSITION_PRECEDING) {
-                       nComparer = -1;
-                    } else
-                       nComparer = 1;
-                } catch (Exception ex) {
-                    log.error("compareTo :" + ex.getMessage());
-                }
-            }
-             return nComparer;
-        }
-
-    }
-
     List<nodeAddress> getParentNodesInOrder() {
-        QueryResults qr = mergeDB.ConnectAndQuery(xmlMergeQueries.GET_CHANGE_PARENTS());
+        QueryResults      qr          = mergeDB.ConnectAndQuery(xmlMergeQueries.GET_CHANGE_PARENTS());
         List<nodeAddress> parentNodes = new ArrayList<nodeAddress>(0);
+
         if (qr.hasResults()) {
             for (Vector<String> aResult : qr.theResults()) {
                 String aNodeAddr = qr.getField(aResult, "CHANGE_PARENT");
+
                 parentNodes.add(new nodeAddress(aNodeAddr));
             }
         }
+
         Collections.sort(parentNodes);
+
         return parentNodes;
+    }
+
+    public OdfDocument getVersionDocByPath(String fileURIpath) {
+        for (OdfDocument odfDocument : fileVersions) {
+            if (odfDocument.getBaseURI().equals(fileURIpath)) {
+                return odfDocument;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -150,67 +133,65 @@ public class xmlMergeMain {
      * @param xPath
      */
     private void processChangesInOrder(XPath xPath) {
+
         // first get the parent nodes and sort them by document order
         // then for each parent node process the changes
         List<nodeAddress> orderedParentNodes = getParentNodesInOrder();
-        boolean bFirstChange = false;
+        boolean           bFirstChange       = false;
+
         for (int i = 0; i < orderedParentNodes.size(); i++) {
-            nodeAddress anAddress = orderedParentNodes.get(i);
-            QueryResults qr = mergeDB.ConnectAndQuery(xmlMergeQueries.GET_CHANGE_BY_PARENT(anAddress.xpathAddr));
+            nodeAddress  anAddress = orderedParentNodes.get(i);
+            QueryResults qr        = mergeDB.ConnectAndQuery(xmlMergeQueries.GET_CHANGE_BY_PARENT(anAddress.xpathAddr));
+
             if (qr.hasResults()) {
-                //all these changes have the same parent
-                //sort them by preceding address points
+
+                // all these changes have the same parent
+                // sort them by preceding address points
                 changePositions changePos = buildChangeNodeArray(i, qr);
+
                 changePos.sort();
-                //now process the change pos elements
-                //keep track of the last incmoing change
-                changePosition lastChange = null ;
+
+                // now process the change pos elements
+                // keep track of the last incmoing change
+                changePosition lastChange = null;
+
                 for (int j = 0; j < changePos.getChangePositions().size(); j++) {
                     changePosition cp = changePos.getChangePositions().get(j);
+
                     if (bFirstChange == false) {
                         try {
-                            //this is the very first change
+
+                            // this is the very first change
                             bFirstChange = true;
                             log.debug("First preceding change Position = " + cp);
-                            //get the first change preceding siblings
-                            //we get only the preceding siblings -- since the siblings themselves may containe
-                            //other nodes -- if we used preceding:: instead it would get parent and child nodes,
-                            //we are interested only in the parents
-                            String strPrecedingXML = extractFirstChangePrecedingSiblings(xPath, getVersionDocByPath(cp.docName), cp.changeId, cp.changeType);
-                            String strChangeXML = extractChangeContent (xPath, getVersionDocByPath(cp.docName), cp.changeId, cp.changeType );
+
+                            // get the first change preceding siblings
+                            // we get only the preceding siblings -- since the siblings themselves may containe
+                            // other nodes -- if we used preceding:: instead it would get parent and child nodes,
+                            // we are interested only in the parents
+                            String strPrecedingXML = extractFirstChangePrecedingSiblings(xPath,
+                                                         getVersionDocByPath(cp.docName), cp.changeId, cp.changeType);
+                            String strChangeXML = extractChangeContent(xPath, getVersionDocByPath(cp.docName),
+                                                      cp.changeId, cp.changeType);
+
                             log.debug("First preceding xml = \n\n" + strPrecedingXML);
                             log.debug("First change xml = \n\n" + strChangeXML);
-
                         } catch (Exception ex) {
                             log.error("processChangesInOrder : " + ex.getMessage());
                         }
                     } else {
                         try {
-                        //process next change
-                        //for the next change we capture the text between the end point of the
-                        //previous change and the starting point of the 2md change
-                        if (cp.changeType.equals(BungeniOdfTrackedChangesHelper.__CHANGE_TYPE_INSERTION__)) {
 
-                            // -- first process the last change end point --
-                            //get the node address of the node after the last change end
+                            // process next change
+                            // for the next change we capture the text between the end point of the
+                            // previous change and the starting point of the 2md change
+                            String nextChangePrecedingXml = this.extractNextChangePrecedingSiblings(xPath, cp,
+                                                                lastChange);
+                            String nextChangeXml = this.extractChangeContent(xPath, getVersionDocByPath(cp.docName),
+                                                       cp.changeId, cp.changeType);
 
-                            String lastEndNodeXpath =  "//" + lastChange.nodeAddressEnd + "/following::node()[1]";
-
-                            Node lastEndNode = (Node) xPath.evaluate(lastEndNodeXpath, getVersionDocByPath(lastChange.docName).getContentDom(), XPathConstants.NODE);
-                            //now we have the node address of the end point with respect to the original document
-                            //this node address should be valid even in the change document
-                            String xpathNodeAddress = BungeniOdfNodeHelper.getXPath(lastEndNode);
-
-                            // -- now process the start point of this change
-                            Node changeStartThis = (Node) xPath.evaluate(cp.nodeAddressStart, getVersionDocByPath(cp.docName).getContentDom(), XPathConstants.NODE);
-                            Node endNodeThis = (Node) xPath.evaluate(xpathNodeAddress, getVersionDocByPath(cp.docName).getContentDom(), XPathConstants.NODE);
-                            String xpathPrecedingNext = xpathNodeAddress + "/following-sibling::*[following::text:change-start[@text:change-id='" + cp.changeId + "']]";
-                            NodeList precedingNextList = (NodeList) xPath.evaluate(xpathPrecedingNext,  getVersionDocByPath(cp.docName).getContentDom(), XPathConstants.NODESET);
-                            StringWriter sw = new StringWriter();
-                            BungeniOdfNodeHelper.outputNodeAsXML(endNodeThis, sw);
-                            BungeniOdfNodeHelper.outputNodesAsXML(precedingNextList, sw);
-                            log.debug("Next change xml = \n\n " + sw.toString());
-                        }
+                            log.debug("Next preceding xml = \n\n" + nextChangePrecedingXml);
+                            log.debug("Next change xml = \n\n" + nextChangeXml);
                         } catch (java.lang.Exception ex) {
                             log.error("Error while processing next change " + cp + " exception " + ex.getMessage(), ex);
                         }
@@ -219,48 +200,55 @@ public class xmlMergeMain {
                     lastChange = cp;
                 }
 
+                try {
+                    String strLastChange = extractLastChangeFollowingSiblings(xPath, lastChange);
+
+                    log.debug("Last change xml = \n\n" + strLastChange);
+                } catch (Exception ex) {
+                    log.error("Error while processing last change " + lastChange + " exception", ex);
+                }
             }
         }
 
         /*
-        boolean bContinue = true;
-        int     i         = 0;
-        do {
-            // iterate changes in order from the smallest to the largest
-            QueryResults qr = mergeDB.ConnectAndQuery(xmlMergeQueries.GET_ALL_CHANGES_W_ORDER(i));
-            // now we get the first change from each document
-            // we are first interested in the lowest level change
-            if (qr.hasResults()) {
-                // get all the change node positons for order i
-                changePositions changePos = buildChangeNodeArray(i, qr);
-                log.debug(" changePos : " + changePos + " for order " + i);
-                processShallowestNodes(changePos);
-            } else {
-                bContinue = false;
-            }
-            i++;
-        } while (bContinue);
+         * boolean bContinue = true;
+         * int     i         = 0;
+         * do {
+         *   // iterate changes in order from the smallest to the largest
+         *   QueryResults qr = mergeDB.ConnectAndQuery(xmlMergeQueries.GET_ALL_CHANGES_W_ORDER(i));
+         *   // now we get the first change from each document
+         *   // we are first interested in the lowest level change
+         *   if (qr.hasResults()) {
+         *       // get all the change node positons for order i
+         *       changePositions changePos = buildChangeNodeArray(i, qr);
+         *       log.debug(" changePos : " + changePos + " for order " + i);
+         *       processShallowestNodes(changePos);
+         *   } else {
+         *       bContinue = false;
+         *   }
+         *   i++;
+         * } while (bContinue);
          *
          */
     }
 
-
     /*
-    private changePosition findShallowestNode(changePositions cpObject) {
-    changePosition shallowestNode = null;
-        for (int i = 0; i < cpObject.arrPostions.size(); i++) {
-            changePosition cp = cpObject.arrPostions.get(i);
-            if (0 == i){
-                shallowestNode = cpObject.arrPostions.get(i);
-            }
-            String parentNodeAddr = xmlMergeUtils.parentNodeFromAddress(cp.nodeAddressStart);
-            
-
-            
-        }
-    }*/
-
+     * private changePosition findShallowestNode(changePositions cpObject) {
+     * changePosition shallowestNode = null;
+     *   for (int i = 0; i < cpObject.arrPostions.size(); i++) {
+     *       changePosition cp = cpObject.arrPostions.get(i);
+     *       if (0 == i){
+     *           shallowestNode = cpObject.arrPostions.get(i);
+     *       }
+     *       String parentNodeAddr = xmlMergeUtils.parentNodeFromAddress(cp.nodeAddressStart);
+     *
+     *
+     *
+     *   }
+     * }
+     */
     private void processShallowestNodes(changePositions cpObject) {
+
         // find the shallowest node
         // step 1
         // get the immediately preceding node
@@ -269,11 +257,11 @@ public class xmlMergeMain {
         // the hierarchy... so ideally we have to collapse all insert hierachys ..store
         // them temporarily in a file and then recreate them
         changePosition lastNode = null;
+
         for (changePosition cp : cpObject.getChangePositions()) {
-            log.debug("node address = " + cp.nodeAddressStart.substring(0,cp.nodeAddressStart.lastIndexOf("/")));
-            if (lastNode != null ) {
-                
-            }
+            log.debug("node address = " + cp.nodeAddressStart.substring(0, cp.nodeAddressStart.lastIndexOf("/")));
+
+            if (lastNode != null) {}
         }
     }
 
@@ -354,9 +342,10 @@ public class xmlMergeMain {
                     } else {
                         changeType = BungeniOdfTrackedChangesHelper.__CHANGE_TYPE_DELETION__;
                     }
+
                     String parentNodeAddr = xmlMergeUtils.parentNodeFromAddress(xpathStart);
-                    String addQuery = xmlMergeQueries.ADD_CHANGE(document.getBaseURI(), changeId, changeType,
-                                          xpathStart, xpathEnd, "", Integer.toString(i), parentNodeAddr);
+                    String addQuery       = xmlMergeQueries.ADD_CHANGE(document.getBaseURI(), changeId, changeType,
+                                                xpathStart, xpathEnd, "", Integer.toString(i), parentNodeAddr);
 
                     addQueries.add(addQuery);
                     log.debug("buildChangeInfo : " + addQuery);
@@ -399,25 +388,31 @@ public class xmlMergeMain {
         BungeniOdfNodeHelper.outputNodeAsXML(seqDecls, outputFile);
     }
 
-
-    private String extractChangeContent(XPath xPath, OdfDocument document, String changeId, String changeType) throws Exception {
+    private String extractChangeContent(XPath xPath, OdfDocument document, String changeId, String changeType)
+            throws Exception {
         StringWriter buff = new StringWriter();
-        if (changeType.equals(BungeniOdfTrackedChangesHelper.__CHANGE_TYPE_INSERTION__)){
-            //generate the element prefixes :
-            Node startNode = (Node) xPath.evaluate("//text:change-start[@text:change-id='" + changeId + "']", document.getContentDom(), XPathConstants.NODE);
-            Node endNode = (Node) xPath.evaluate("//text:change-end[@text:change-id='" + changeId + "']", document.getContentDom(), XPathConstants.NODE);
-            String xpathForBetweenNodes = "./following-sibling::*[following::text:change-end[@text:change-id='"+ changeId +"']]";
-            //do an xpath relative to the startnode
-            NodeList xpathNodeList = (NodeList) xPath.evaluate(xpathForBetweenNodes,startNode, XPathConstants.NODESET);
+
+        if (changeType.equals(BungeniOdfTrackedChangesHelper.__CHANGE_TYPE_INSERTION__)) {
+
+            // generate the element prefixes :
+            Node startNode = (Node) xPath.evaluate("//text:change-start[@text:change-id='" + changeId + "']",
+                                 document.getContentDom(), XPathConstants.NODE);
+            Node endNode = (Node) xPath.evaluate("//text:change-end[@text:change-id='" + changeId + "']",
+                               document.getContentDom(), XPathConstants.NODE);
+            String xpathForBetweenNodes = "./following-sibling::*[following::text:change-end[@text:change-id='"
+                                          + changeId + "']]";
+
+            // do an xpath relative to the startnode
+            NodeList xpathNodeList = (NodeList) xPath.evaluate(xpathForBetweenNodes, startNode, XPathConstants.NODESET);
+
             BungeniOdfNodeHelper.outputNodeAsXML(startNode, buff);
             BungeniOdfNodeHelper.outputNodesAsXML(xpathNodeList, buff);
             BungeniOdfNodeHelper.outputNodeAsXML(endNode, buff);
 
-            //"//text:change-start[@text:change-id='ct472670048']/following-sibling::*[following::text:change-end[@text:change-id='ct472670048']]"
+            // "//text:change-start[@text:change-id='ct472670048']/following-sibling::*[following::text:change-end[@text:change-id='ct472670048']]"
+        } else {    // it is a deletion
+        }           // we dont handle replacement scenarios yet
 
-        } else { //it is a deletion
-
-        } //we dont handle replacement scenarios yet
         return buff.toString();
     }
 
@@ -430,113 +425,185 @@ public class xmlMergeMain {
      * @return
      * @throws Exception
      */
-    private String extractFirstChangePrecedingSiblings(XPath xPath, OdfDocument document, String changeId, String changeType)
+    private String extractFirstChangePrecedingSiblings(XPath xPath, OdfDocument document, String changeId,
+            String changeType)
             throws Exception {
         NodeList     nnodes;
-        StringWriter sw = new StringWriter();
+        StringBuffer sbf = new StringBuffer();
 
         try {
             if (changeType.equals(BungeniOdfTrackedChangesHelper.__CHANGE_TYPE_DELETION__)) {
-                nnodes = precedingSiblingsForFirstChangeDelete(xPath, document, changeId);
+                sbf.append(precedingSiblingsForFirstChangeDelete(xPath, document, changeId));
             } else {
-                nnodes = precedingSiblingsForFirstChangeInsert(xPath, document, changeId);
+                sbf.append(precedingSiblingsForFirstChangeInsert(xPath, document, changeId));
             }
 
             // List<String> xmlNodes = new ArrayList<String>(0);
-            BungeniOdfNodeHelper.outputNodesAsXML(nnodes, sw);
 
-            /**if (nnodes != null) {
-                for (int i = 0; i < nnodes.getLength(); i++) {
-                    Node aNode = nnodes.item(i);
-
-                    BungeniOdfNodeHelper.outputNodeAsXML(aNode, sw);
-
-                    // xmlNodes.add(sw.toString());
-                }
-            }***/
+            /**
+             * if (nnodes != null) {
+             *   for (int i = 0; i < nnodes.getLength(); i++) {
+             *       Node aNode = nnodes.item(i);
+             *
+             *       BungeniOdfNodeHelper.outputNodeAsXML(aNode, sw);
+             *
+             *       // xmlNodes.add(sw.toString());
+             *   }
+             * }
+             */
         } catch (Exception ex) {
             log.error("extractFirstChange : " + ex.getMessage());
 
             throw ex;
         }
 
-        return sw.toString();
+        return sbf.toString();
     }
 
-    private String extractNextChange(XPath xPath, OdfDocument document, String changeId, String changeType,
-                                     String prevChangeId)
+    private String extractNextChangePrecedingSiblings(XPath xPath, changePosition thisChange, changePosition prevChange)
             throws Exception {
         NodeList     nnodes;
-        StringWriter sw = new StringWriter();
+        StringBuffer sbf = new StringBuffer();
 
         try {
-            if (changeType.equals(BungeniOdfTrackedChangesHelper.__CHANGE_TYPE_DELETION__)) {
-                nnodes = precedingForNextChangeDelete(xPath, document, changeId, prevChangeId);
+            if (thisChange.changeType.equals(BungeniOdfTrackedChangesHelper.__CHANGE_TYPE_DELETION__)) {
+                sbf.append(precedingSiblingsForNextChangeDelete(xPath, thisChange, prevChange));
             } else {
-                nnodes = precedingForNextChangeInsert(xPath, document, changeId, prevChangeId);
+                sbf.append(precedingSiblingsForNextChangeInsert(xPath, thisChange, prevChange));
             }
 
-            
-            BungeniOdfNodeHelper.outputNodesAsXML(nnodes, sw);
-
-            
+            // BungeniOdfNodeHelper.outputNodesAsXML(nnodes, sw);
         } catch (Exception ex) {
             log.error("extractFirstChange : " + ex.getMessage());
 
             throw ex;
         }
 
-        return sw.toString();
+        return sbf.toString();
     }
 
-    private NodeList precedingSiblingsForFirstChangeInsert(XPath xPath, OdfDocument document, String changeId)
+    private String precedingSiblingsForFirstChangeInsert(XPath xPath, OdfDocument document, String changeId)
             throws Exception {
         String xpathExpr = "//text:change-start[@text:change-id='" + changeId
                            + "']/preceding-sibling::*[preceding::text:sequence-decls]";
         List<String> xmlNodes   = new ArrayList<String>(0);
         NodeList     foundNodes = (NodeList) xPath.evaluate(xpathExpr, document.getContentDom(),
                                       XPathConstants.NODESET);
+        StringWriter sw         = new StringWriter();
 
-        return foundNodes;
+        BungeniOdfNodeHelper.outputNodesAsXML(foundNodes, sw);
+
+        return sw.toString();
     }
 
-    private NodeList precedingSiblingsForFirstChangeDelete(XPath xPath, OdfDocument document, String changeId)
+    private String precedingSiblingsForFirstChangeDelete(XPath xPath, OdfDocument document, String changeId)
             throws Exception {
         String xpathExpr = "//text:change[@text:change-id='" + changeId
                            + "']/preceding-sibling::*[preceding::text:sequence-decls]";
         List<String> xmlNodes   = new ArrayList<String>(0);
         NodeList     foundNodes = (NodeList) xPath.evaluate(xpathExpr, document.getContentDom(),
                                       XPathConstants.NODESET);
+        StringWriter sw         = new StringWriter();
 
-        return foundNodes;
+        BungeniOdfNodeHelper.outputNodesAsXML(foundNodes, sw);
+
+        return sw.toString();
     }
 
-    private NodeList precedingForNextChangeInsert(XPath xPath, OdfDocument document, String changeId,
-            String previousChangeId)
+    private String precedingSiblingsForNextChangeInsert(XPath xPath, changePosition cp, changePosition lastChange)
             throws Exception {
-        String xpathExpr = "//text:change-start[@text:change-id='" + changeId + "']/"
-                           + "preceding::node()[not(following::text:*[@text:change-id='" + previousChangeId
-                           + "']) and " + "not(name()='text:change-end' or name='text:change')]";
 
-        // String xpathExpr = "//text:change-start[@text:change-id='" + changeId
-        // + "']/preceding::*[preceding::text:*[@change-id='" + previousChangeId + "']";
-        List<String> xmlNodes   = new ArrayList<String>(0);
-        NodeList     foundNodes = (NodeList) xPath.evaluate(xpathExpr, document.getContentDom(),
-                                      XPathConstants.NODESET);
+        // -- first process the last change end point --
+        // get the node address of the node after the last change end
+        String lastEndNodeXpath = "";
 
-        return foundNodes;
+        if (lastChange.changeType.equals(BungeniOdfTrackedChangesHelper.__CHANGE_TYPE_INSERTION__)) {
+
+            // if the lastnode was a insertion we use the insertion end point
+            lastEndNodeXpath = lastChange.nodeAddressEnd + "/following::node()[1]";
+        } else {
+
+            // if the lastnode was a deletion we use the deletion end point
+            lastEndNodeXpath = lastChange.nodeAddressStart + "/following::node()[1]";
+        }
+
+        Node lastEndNode = (Node) xPath.evaluate(lastEndNodeXpath,
+                               getVersionDocByPath(lastChange.docName).getContentDom(), XPathConstants.NODE);
+
+        // now we have the node address of the end point with respect to the original document
+        // this node address should be valid even in the change document
+        String xpathNodeAddress = BungeniOdfNodeHelper.getXPath(lastEndNode);
+
+        // -- now process the start point of the current change
+        Node changeStartThis = (Node) xPath.evaluate(cp.nodeAddressStart,
+                                   getVersionDocByPath(cp.docName).getContentDom(), XPathConstants.NODE);
+        Node endNodeThis = (Node) xPath.evaluate(xpathNodeAddress, getVersionDocByPath(cp.docName).getContentDom(),
+                               XPathConstants.NODE);
+        String xpathPrecedingNext = xpathNodeAddress
+                                    + "/following-sibling::*[following::text:change-start[@text:change-id='"
+                                    + cp.changeId + "']]";
+        NodeList precedingNextList = (NodeList) xPath.evaluate(xpathPrecedingNext,
+                                         getVersionDocByPath(cp.docName).getContentDom(), XPathConstants.NODESET);
+        StringWriter sw = new StringWriter();
+
+        BungeniOdfNodeHelper.outputNodeAsXML(endNodeThis, sw);
+        BungeniOdfNodeHelper.outputNodesAsXML(precedingNextList, sw);
+        log.debug("Next change xml = \n\n " + sw.toString());
+
+        return sw.toString();
     }
 
-    private NodeList precedingForNextChangeDelete(XPath xPath, OdfDocument document, String changeId,
-            String previousChangeId)
+    private String precedingSiblingsForNextChangeDelete(XPath xPath, changePosition cp, changePosition lastChange)
             throws Exception {
-        String xpathExpr = "//text:change[@text:change-id='" + changeId
-                           + "']/preceding::*[preceding::text:*[@change-id='" + previousChangeId + "']";
-        List<String> xmlNodes   = new ArrayList<String>(0);
-        NodeList     foundNodes = (NodeList) xPath.evaluate(xpathExpr, document.getContentDom(),
-                                      XPathConstants.NODESET);
 
-        return foundNodes;
+        // -- first process the last change end point --
+        // get the node address of the node after the last change end
+        String lastEndNodeXpath = "";
+
+        if (lastChange.changeType.equals(BungeniOdfTrackedChangesHelper.__CHANGE_TYPE_INSERTION__)) {
+
+            // if the lastnode was a insertion we use the insertion end point
+            lastEndNodeXpath = lastChange.nodeAddressEnd + "/following::node()[1]";
+        } else {
+
+            // if the lastnode was a deletion we use the deletion end point
+            lastEndNodeXpath = lastChange.nodeAddressStart + "/following::node()[1]";
+        }
+
+        Node lastEndNode = (Node) xPath.evaluate(lastEndNodeXpath,
+                               getVersionDocByPath(lastChange.docName).getContentDom(), XPathConstants.NODE);
+
+        // now we have the node address of the end point with respect to the original document
+        // this node address should be valid even in the change document
+        String xpathNodeAddress = BungeniOdfNodeHelper.getXPath(lastEndNode);
+
+        // -- now process the start point of the current change
+        Node changeStartThis = (Node) xPath.evaluate(cp.nodeAddressStart,
+                                   getVersionDocByPath(cp.docName).getContentDom(), XPathConstants.NODE);
+        Node endNodeThis = (Node) xPath.evaluate(xpathNodeAddress, getVersionDocByPath(cp.docName).getContentDom(),
+                               XPathConstants.NODE);
+        String xpathPrecedingNext = xpathNodeAddress + "/following-sibling::*[following::text:change[@text:change-id='"
+                                    + cp.changeId + "']]";
+        NodeList precedingNextList = (NodeList) xPath.evaluate(xpathPrecedingNext,
+                                         getVersionDocByPath(cp.docName).getContentDom(), XPathConstants.NODESET);
+        StringWriter sw = new StringWriter();
+
+        BungeniOdfNodeHelper.outputNodeAsXML(endNodeThis, sw);
+        BungeniOdfNodeHelper.outputNodesAsXML(precedingNextList, sw);
+        log.debug("Next change xml = \n\n " + sw.toString());
+
+        return sw.toString();
+
+        /*
+         * String xpathExpr = "//text:change[@text:change-id='" + changeId
+         *                  + "']/preceding::*[preceding::text:*[@change-id='" + previousChangeId + "']";
+         * List<String> xmlNodes   = new ArrayList<String>(0);
+         * NodeList     foundNodes = (NodeList) xPath.evaluate(xpathExpr, document.getContentDom(),
+         *                             XPathConstants.NODESET);
+         *
+         * return foundNodes;
+         *
+         */
     }
 
     private void cleanupChangeInfo() {
@@ -557,8 +624,10 @@ public class xmlMergeMain {
                     add(userDir + "/testfiles/version-2.odt");
                 }
             };
-            OdfDocument       xmlOrigFile = OdfDocument.loadDocument(new File(originalFile));
+            OdfDocument xmlOrigFile = OdfDocument.loadDocument(new File(originalFile));
+
             log.debug("File Path = " + xmlOrigFile.getPackage().getBaseURI());
+
             List<OdfDocument> xmlVersions = new ArrayList<OdfDocument>(0);
 
             for (String version : versions) {
@@ -574,20 +643,34 @@ public class xmlMergeMain {
         }
     }
 
-    public OdfDocument getVersionDocByPath (String fileURIpath) {
-        for (OdfDocument odfDocument : fileVersions) {
-            if (odfDocument.getBaseURI().equals(fileURIpath)){
-                return odfDocument;
-            }
+    private String extractLastChangeFollowingSiblings(XPath xPath, changePosition lastChange)
+            throws java.lang.Exception {
+        NodeList nnodes            = null;
+        String   changeElementType = "";
+
+        if (lastChange.changeType.equals(BungeniOdfTrackedChangesHelper.__CHANGE_TYPE_INSERTION__)) {
+            changeElementType = "//text:change-end";
+        } else {
+            changeElementType = "//text:change";
         }
-        return null;
+
+        String xPathExpr = changeElementType + "[@text:change-id='" + lastChange.changeId + "']/following-sibling::*";
+
+        nnodes = (NodeList) xPath.evaluate(xPathExpr, this.getVersionDocByPath(lastChange.docName).getContentDom(),
+                                           XPathConstants.NODESET);
+
+        StringWriter sw = new StringWriter();
+
+        BungeniOdfNodeHelper.outputNodesAsXML(nnodes, sw);
+
+        return sw.toString();
     }
 
     /**
      * This class implements a the properties of a change node
      * It does not cache the actual XML node for memory usage and performance reasons
      */
-    class changePosition implements Comparable{
+    class changePosition implements Comparable {
         String changeId;
         String changeType;
         String docName;
@@ -610,55 +693,68 @@ public class xmlMergeMain {
 
         public boolean parentsEqual(changePosition cp) {
             String parentCompareNode = xmlMergeUtils.parentNodeFromAddress(cp.nodeAddressStart);
-            String parentThisNode = xmlMergeUtils.parentNodeFromAddress(this.nodeAddressStart);
+            String parentThisNode    = xmlMergeUtils.parentNodeFromAddress(this.nodeAddressStart);
+
             return parentCompareNode.equals(parentThisNode);
         }
 
-        private String getPrecedingNodeAddress (String xpathStr) {
-            return xpathStr + "/preceding::node()[1]" ;
+        private String getPrecedingNodeAddress(String xpathStr) {
+            return xpathStr + "/preceding::node()[1]";
         }
 
         public int compareTo(Object objcp) {
-                changePosition cp = (changePosition) objcp;
-                try {
-                    //get the odfdocument handles for the 2 documents containing the change positions
-                    OdfDocument thisDocument = getVersionDocByPath(this.docName);
-                    OdfDocument compDocument = getVersionDocByPath(cp.docName);
-                    XPath xPath = thisDocument.getXPath();
-                    //get the preceding for the current node
-                    Node thisPreceding = (Node) xPath.evaluate( getPrecedingNodeAddress(this.nodeAddressStart), thisDocument.getContentDom(), XPathConstants.NODE);
-                    String xpathThisPreceding = BungeniOdfNodeHelper.getXPath(thisPreceding);
-                    //get the preceding for the change node
-                    Node compPreceding = (Node) xPath.evaluate( getPrecedingNodeAddress(cp.nodeAddressStart), compDocument.getContentDom(), XPathConstants.NODE);
-                    String xpathCompPreceding = BungeniOdfNodeHelper.getXPath(compPreceding);
-                    //if the preceding node paths are different, the nodes are at the same positions
-                    //this should never happen !!
-                    if (xpathThisPreceding.equals(xpathCompPreceding)) {
-                        log.debug("compareTo :  the node changes are at the same positions");
-                        return 0;
-                    } else {
-                        //get the preceding nodes in the original document .. and use the document position
-                        //api to determine order
-                        //this will work if both the
-                        Node thisNode = (Node) xPath.evaluate(xpathThisPreceding, originalFile.getContentDom(), XPathConstants.NODE);
-                        Node compNode = (Node) xPath.evaluate(xpathCompPreceding, originalFile.getContentDom(), XPathConstants.NODE);
-                        int nPosition = thisNode.compareDocumentPosition(compNode);
-                        if (nPosition == Node.DOCUMENT_POSITION_FOLLOWING) {
-                            //compared Node is after this node
-                            return -1;
-                        } else { //if (nPosition == Node.DOCUMENT_POSITION_PRECEDING) {
-                            //compared node is before this node
-                            return 1;
-                        }
+            changePosition cp = (changePosition) objcp;
 
+            try {
+
+                // get the odfdocument handles for the 2 documents containing the change positions
+                OdfDocument thisDocument = getVersionDocByPath(this.docName);
+                OdfDocument compDocument = getVersionDocByPath(cp.docName);
+                XPath       xPath        = thisDocument.getXPath();
+
+                // get the preceding for the current node
+                Node thisPreceding = (Node) xPath.evaluate(getPrecedingNodeAddress(this.nodeAddressStart),
+                                         thisDocument.getContentDom(), XPathConstants.NODE);
+                String xpathThisPreceding = BungeniOdfNodeHelper.getXPath(thisPreceding);
+
+                // get the preceding for the change node
+                Node compPreceding = (Node) xPath.evaluate(getPrecedingNodeAddress(cp.nodeAddressStart),
+                                         compDocument.getContentDom(), XPathConstants.NODE);
+                String xpathCompPreceding = BungeniOdfNodeHelper.getXPath(compPreceding);
+
+                // if the preceding node paths are different, the nodes are at the same positions
+                // this should never happen !!
+                if (xpathThisPreceding.equals(xpathCompPreceding)) {
+                    log.debug("compareTo :  the node changes are at the same positions");
+
+                    return 0;
+                } else {
+
+                    // get the preceding nodes in the original document .. and use the document position
+                    // api to determine order
+                    // this will work if both the
+                    Node thisNode = (Node) xPath.evaluate(xpathThisPreceding, originalFile.getContentDom(),
+                                        XPathConstants.NODE);
+                    Node compNode = (Node) xPath.evaluate(xpathCompPreceding, originalFile.getContentDom(),
+                                        XPathConstants.NODE);
+                    int nPosition = thisNode.compareDocumentPosition(compNode);
+
+                    if (nPosition == Node.DOCUMENT_POSITION_FOLLOWING) {
+
+                        // compared Node is after this node
+                        return -1;
+                    } else {    // if (nPosition == Node.DOCUMENT_POSITION_PRECEDING) {
+
+                        // compared node is before this node
+                        return 1;
                     }
-                } catch (java.lang.Exception ex) {
-                    log.error("compareTo " + ex.getMessage());
                 }
+            } catch (java.lang.Exception ex) {
+                log.error("compareTo " + ex.getMessage());
+            }
+
             return 0;
         }
-
-
     }
 
 
@@ -674,7 +770,7 @@ public class xmlMergeMain {
             this.arrPositions.add(pPos);
         }
 
-        public List<changePosition> getChangePositions(){
+        public List<changePosition> getChangePositions() {
             return arrPositions;
         }
 
@@ -691,6 +787,43 @@ public class xmlMergeMain {
 
         public void sort() {
             Collections.sort(arrPositions);
+        }
+    }
+
+
+    class nodeAddress implements Comparable {
+        String xpathAddr;
+
+        public nodeAddress(String xPath) {
+            this.xpathAddr = xPath;
+        }
+
+        public int compareTo(Object o) {
+            nodeAddress compObj   = (nodeAddress) o;
+            int         nComparer = 0;
+
+            if (xpathAddr.equals(compObj.xpathAddr)) {
+                nComparer = 0;
+            } else {
+                try {
+                    XPath xPath    = originalFile.getXPath();
+                    Node  thisNode = (Node) xPath.evaluate(this.xpathAddr, originalFile.getContentDom(),
+                                         XPathConstants.NODE);
+                    Node otherNode = (Node) xPath.evaluate(compObj.xpathAddr, originalFile.getContentDom(),
+                                         XPathConstants.NODE);
+                    int nComparison = thisNode.compareDocumentPosition(otherNode);
+
+                    if (nComparison == Node.DOCUMENT_POSITION_PRECEDING) {
+                        nComparer = -1;
+                    } else {
+                        nComparer = 1;
+                    }
+                } catch (Exception ex) {
+                    log.error("compareTo :" + ex.getMessage());
+                }
+            }
+
+            return nComparer;
         }
     }
 }
