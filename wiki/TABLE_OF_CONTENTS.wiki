@@ -1,0 +1,31 @@
+#summary Table of contents for the bungeni editor wiki
+
+ * Installation & Setup 
+   * [InstallingTheBungeniEditor Installing Bungeni Editor]
+   * [InstallingTtfFontsInOpenOffice Installing TTF fonts in OpenOffice]
+ * Architecture
+   * [StoringCustomMetadataInAnOpenOfficeDocument Custom metadata support in OpenOffice]
+ * Editor Customization & Configuration
+   * [EditorTheming Theming the Bungeni Editor]
+   * 
+ * Developers Guide
+   * [BuildingBungeniEditorFromSource Building the Bungeni Editor from Source]
+   * [ImplementingACompleteAction How to implement a complete Action]
+   * [HowToWriteaRouterAction How to write a new editor Router Action]
+   * [ConditionProcessorsInBungeniEditor Condition Processors in Bungeni Editor]
+   * [SectionTypeToAkomaNtosoElementMappings Editor Section Types -> AkomaNtoso Element mappings]
+   * [OntologyForEvents Ontology for Event actions]
+   * [TransformerParsingOdfReferences How ODF references are translated into AkomaNtoso]
+   * REST API documentation for the Editor's ODT Transformer
+     *[TransformerApiSetConvertParams set_convert_params API]
+     *[TransformerApiConvertToAnXML convert_to_anxml API]
+   * [UsingTheOocomponentHelperClass Using the Openoffice Helper API class]
+ * Deployment & Implementation 
+   * [EditorTheming Theming the Bungeni Editor]
+   * [RegisteringNewDocTypeForBungeniEditor Registering a new Document Type]
+ * Miscellaneous Documents
+   * [RunningOpenOfficeInServerMode Running OpenOffice in Server mode]
+   * [RunningTheJODConverterServer Using JODConverter]
+ * Training 
+   * [VideoTutorials Video Tutorials about the Bungeni Editor]
+    
