@@ -20,6 +20,9 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import org.odftoolkit.odfdom.OdfNamespace;
+import org.odftoolkit.odfdom.dom.OdfNamespaceNames;
+import org.w3c.dom.NodeList;
 
 /**
  * Helper class for special node functions
@@ -142,7 +145,7 @@ public class BungeniOdfNodeHelper {
         return staticTransformer;
     }
 
-    public static String outputNodeAsXML(Node outputNode, StringWriter outputString) throws TransformerException {
+    public static StringWriter outputNodeAsXML(Node outputNode, StringWriter outputString) throws TransformerException {
         try {
 
             // Prepare the DOM document for writing
@@ -159,7 +162,7 @@ public class BungeniOdfNodeHelper {
             throw ex;
         }
 
-        return outputString.toString();
+        return outputString;
     }
 
     public static File outputNodeAsXML(Node outputNode, File foutfile)
@@ -171,9 +174,20 @@ public class BungeniOdfNodeHelper {
 
         // Write the DOM document to the file
         Transformer xformer = getTransformer();
-
+        OdfNamespace ns = OdfNamespace.newNamespace(OdfNamespaceNames.TEXT);
+        xformer.setParameter("namespace", ns.toString());
         xformer.transform(source, result);
 
         return foutfile;
     }
+
+    public static StringWriter outputNodesAsXML(NodeList outputNodes, StringWriter outputString) throws TransformerException {
+        for (int i = 0; i < outputNodes.getLength(); i++) {
+            Node aNode = outputNodes.item(i);
+            outputNodeAsXML(aNode, outputString);
+        }
+        return outputString;
+    }
+
+
 }

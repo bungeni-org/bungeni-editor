@@ -23,13 +23,11 @@ import org.w3c.dom.NodeList;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import java.util.logging.Level;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedInputStream;
 
