@@ -1,0 +1,14 @@
+#summary Bungeni Editor Downloads
+#labels Phase-Implementation
+
+== Bungeni Editor == 
+[http://code.google.com/p/bungeni-editor/downloads/detail?name=install-0.9.958.jar Bungeni Editor v0.9.958 - requires OpenOffice.org 3.1.1]
+
+== Bungeni OpenOffice Helper == 
+[http://code.google.com/p/bungeni-editor/downloads/detail?name=ooobungenilib-2009-08-24.tar.gz Bungeni OpenOfficeHelper UNO Library - compatible with OpenOffice.org 3.1.1]
+
+== BungeniODFDOM == 
+[http://code.google.com/p/bungeni-editor/downloads/detail?name=BungeniODFDOM-r1042.tar.bz2 BungeniODFDOM - extension library to ODFDOM - compatible with ODFDOM 0.8]
+
+== Editor User Manual == 
+[http://code.google.com/p/bungeni-editor/downloads/detail?name=editor-operations-manual-2009-12-06.pdf Editor User Manual - last updated 2009-12-06]
