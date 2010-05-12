@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <data xmlns="http://www.netbeans.org/ns/profiler/1" version="0.9.1"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1">
+        <file>
+            <url>src/org/bungeni/editor/selectors/InitSpeech.java</url>
+            <line>378</line>
+            <line>538</line>
+        </file>
+        <file>
+            <url>src/org/bungeni/editor/actions/EditorSelectionActionHandler.java</url>
+            <line>93</line>
+        </file>
+        <file>
+            <url>src/org/bungeni/editor/selectors/InitQuestionBlock.java</url>
+            <line>352</line>
+            <line>651</line>
+        </file>
+        <file>
+            <url>src/org/bungeni/editor/selectors/selectorTemplatePanel.java</url>
+            <line>439</line>
+            <line>454</line>
+            <line>605</line>
+        </file>
+        <file>
+            <url>src/org/bungeni/editor/panels/loadable/refmgr/externalReferences.java</url>
+            <line>382</line>
+        </file>
+        <file>
+            <url>src/org/bungeni/editor/dialogs/editorApplicationController.java</url>
+            <line>616</line>
+        </file>
+        <file>
+            <url>src/org/bungeni/editor/panels/generalEditorPanel4.java</url>
+            <line>166</line>
+            <line>364</line>
+            <line>458</line>
+            <line>477</line>
+        </file>
+        <file>
+            <url>src/org/bungeni/editor/panels/loadable/sectionNumbererPanel.java</url>
+            <line>0</line>
+            <line>0</line>
+        </file>
+        <file>
+            <url>src/org/bungeni/ooo/OOComponentHelper.java</url>
+            <line>337</line>
+        </file>
+        <file>
+            <url>src/org/bungeni/editor/dialogs/editorTabbedPanel.java</url>
+            <line>0</line>
+            <line>345</line>
+            <line>1218</line>
+        </file>
+    </editor-bookmarks>
+</project-private>
