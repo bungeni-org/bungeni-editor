@@ -2,18 +2,14 @@ package org.bungeni.editor.selectors;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import org.apache.commons.chain.Catalog;
-import org.apache.commons.chain.Command;
 
 import org.bungeni.commands.chains.BungeniCatalogCommand;
-import org.bungeni.commands.chains.BungeniCommandsCatalogLoader;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.editor.selectors.BaseMetadataContainerPanel.ConditionSet;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.CommonUIFunctions;
 import org.bungeni.ooo.OOComponentHelper;
-import org.bungeni.ooo.utils.CommonExceptionUtils;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -330,64 +326,6 @@ public abstract class BaseMetadataPanel extends JPanel implements IMetadataPanel
         return thePreInsertMap;
     }
 
-    protected boolean processCatalogCommand() {
-        boolean bReturn = false;
-
-        try {
-            if (getTheSubAction() == null) {
-
-                // get the current catalog command object for the mode.
-                BungeniCatalogCommand cmd = theCatalogCommands.get(getDialogMode());
-
-                log.info("processCatalogCommand, cmd is : " + ((cmd == null)
-                        ? "null"
-                        : "not null"));
-
-                // /load the required catalog for the mode, getCatalogSource refers to the full path fo the command catalog
-                log.debug("processCatalogCommand : loading catalog");
-
-                BungeniCommandsCatalogLoader loader = new BungeniCommandsCatalogLoader(cmd);
-                Catalog                      selectedCatalog;
-
-                // selectedCatalog = loader.getCatalog(cmd.getCommandCatalog());
-
-                selectedCatalog = loader.getCatalog();
-                log.debug("processCatalogCommand : getting commandChain from catalog =  " + cmd.getCommandChain());
-
-                Command selectedCatalogCommand = selectedCatalog.getCommand(cmd.getCommandChain());
-
-                log.debug("processCatalogCommand : executing command ");
-                selectedCatalogCommand.execute(formContext);
-            } else {
-
-                // theSubAciton is not null use the
-                if (getTheSubAction().action_command_chain().length() > 0) {
-                    BungeniCatalogCommand        cmd    = theCatalogCommands.get(getDialogMode());
-                    BungeniCommandsCatalogLoader loader =
-                        new BungeniCommandsCatalogLoader(cmd /* .getCatalogSource() */);
-                    Catalog selectedCatalog;
-
-                    selectedCatalog = loader.getCatalog( /* cmd.getCommandCatalog() */);
-
-                    // now load the command chain from the sub_action rather than from the catalogcommand object
-                    String  commandChain           = getTheSubAction().action_command_chain();
-                    Command selectedCatalogCommand = selectedCatalog.getCommand(commandChain);
-
-                    selectedCatalogCommand.execute(formContext);
-                } else {
-                    log.debug("processCatalogCommand : command chain length = 0 ");
-                }
-            }
-
-            bReturn = true;
-        } catch (Exception ex) {
-            log.error("exception in  processCatalogCommand: " + ex.getMessage());
-            log.error("exception in  processCatalogCommand: " + CommonExceptionUtils.getStackTrace(ex));
-            bReturn = false;
-        } finally {
-            return bReturn;
-        }
-    }
 
     public boolean doUpdateEvent() {
         return true;
