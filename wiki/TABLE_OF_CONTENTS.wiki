@@ -3,6 +3,7 @@
  * Installation & Setup 
    * [InstallingTheBungeniEditor Installing Bungeni Editor]
    * [InstallingTtfFontsInOpenOffice Installing TTF fonts in OpenOffice]
+   * [DOWNLOADS Downloads]
  * Architecture
    * [StoringCustomMetadataInAnOpenOfficeDocument Custom metadata support in OpenOffice]
  * Editor Customization & Configuration
