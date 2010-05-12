@@ -23,11 +23,28 @@ public class xmlMergeQueries {
         return field.replace("'", "''");
     }
 
-    public static String ADD_DOCUMENT_FRAGMENT(String docName, String fragmentName, String clobFragment) {
+    public static String ADD_DOCUMENT_FRAGMENT(String docName, String fragmentName, String clobFragment, String changeFragment ) {
         String query = "insert into DOCUMENT_FRAGMENTS ( DOC_NAME, FRAGMENT_NAME, FRAGMENT) values (" + "'" + docName
-                       + "','" + fragmentName + "','" + escapeQuotes(clobFragment) + "')";
+                       + "','" + fragmentName + "','" + escapeQuotes(clobFragment) + "','" + escapeQuotes(changeFragment) + "')";
 
         return query;
+    }
+
+    public static String UPDATE_CHANGE_FRAGMENTS(String docName, String changeId , String clobFragment, String changeFragment) {
+        String query = "update DOCUMENT_CHANGES set FRAGMENT = '" + escapeQuotes(clobFragment) + "' , " +
+                "CHANGE_FRAGMENT='"+ escapeQuotes(changeFragment) + "' " +
+                " where DOC_NAME='" + docName + "' and " +
+                " CHANGE_ID = '" + changeId + "' ";
+        return query;
+    }
+
+    public static String UPDATE_FOLLOWING_FRAGMENT (String docName, String changeId, String followingFragment) {
+        String query = "update DOCUMENT_CHANGES set FRAGMENT = '" + escapeQuotes(followingFragment) + "' , " +
+                "FOLLOWING_FRAGMENT='"+ escapeQuotes(followingFragment) + "' " +
+                " where DOC_NAME='" + docName + "' and " +
+                " CHANGE_ID = '" + changeId + "' ";
+        return query;
+
     }
 
     public static String GET_CHANGE_PARENTS() {

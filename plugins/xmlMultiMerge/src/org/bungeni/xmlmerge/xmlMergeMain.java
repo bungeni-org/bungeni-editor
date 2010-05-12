@@ -95,6 +95,7 @@ public class xmlMergeMain {
             // extrat the change information for each node
             // capture the node order and info into the document
             buildChangeNodePoints(xPath);
+            //now process in order 
             processChangesInOrder(xPath);
         } catch (Exception ex) {
             log.error("buildChangeInfo : " + ex.getMessage(), ex);
@@ -139,6 +140,8 @@ public class xmlMergeMain {
         List<nodeAddress> orderedParentNodes = getParentNodesInOrder();
         boolean           bFirstChange       = false;
 
+        //process changes in order of parent node
+        
         for (int i = 0; i < orderedParentNodes.size(); i++) {
             nodeAddress  anAddress = orderedParentNodes.get(i);
             QueryResults qr        = mergeDB.ConnectAndQuery(xmlMergeQueries.GET_CHANGE_BY_PARENT(anAddress.xpathAddr));
@@ -173,7 +176,11 @@ public class xmlMergeMain {
                                                          getVersionDocByPath(cp.docName), cp.changeId, cp.changeType);
                             String strChangeXML = extractChangeContent(xPath, getVersionDocByPath(cp.docName),
                                                       cp.changeId, cp.changeType);
-
+                            String updateChangeXml = xmlMergeQueries.UPDATE_CHANGE_FRAGMENTS(cp.docName, cp.changeId, strPrecedingXML, strChangeXML);
+                            log.debug("Query == " + updateChangeXml + "\n\n");
+                            mergeDB.Connect();
+                            mergeDB.Update(updateChangeXml);
+                            mergeDB.EndConnect();
                             log.debug("First preceding xml = \n\n" + strPrecedingXML);
                             log.debug("First change xml = \n\n" + strChangeXML);
                         } catch (Exception ex) {
@@ -189,7 +196,11 @@ public class xmlMergeMain {
                                                                 lastChange);
                             String nextChangeXml = this.extractChangeContent(xPath, getVersionDocByPath(cp.docName),
                                                        cp.changeId, cp.changeType);
-
+                            String updateChangeXml = xmlMergeQueries.UPDATE_CHANGE_FRAGMENTS(cp.docName, cp.changeId, nextChangePrecedingXml, nextChangeXml);
+                            log.debug("Query == " + updateChangeXml + "\n\n");
+                            mergeDB.Connect();
+                            mergeDB.Update(updateChangeXml);
+                            mergeDB.EndConnect();
                             log.debug("Next preceding xml = \n\n" + nextChangePrecedingXml);
                             log.debug("Next change xml = \n\n" + nextChangeXml);
                         } catch (java.lang.Exception ex) {
@@ -202,51 +213,18 @@ public class xmlMergeMain {
 
                 try {
                     String strLastChange = extractLastChangeFollowingSiblings(xPath, lastChange);
-
+                    String updLastQuery = xmlMergeQueries.UPDATE_FOLLOWING_FRAGMENT(lastChange.docName, lastChange.changeId, strLastChange);
+                    mergeDB.Connect();
+                    mergeDB.Update(updLastQuery);
+                    mergeDB.EndConnect();
                     log.debug("Last change xml = \n\n" + strLastChange);
                 } catch (Exception ex) {
                     log.error("Error while processing last change " + lastChange + " exception", ex);
                 }
             }
         }
-
-        /*
-         * boolean bContinue = true;
-         * int     i         = 0;
-         * do {
-         *   // iterate changes in order from the smallest to the largest
-         *   QueryResults qr = mergeDB.ConnectAndQuery(xmlMergeQueries.GET_ALL_CHANGES_W_ORDER(i));
-         *   // now we get the first change from each document
-         *   // we are first interested in the lowest level change
-         *   if (qr.hasResults()) {
-         *       // get all the change node positons for order i
-         *       changePositions changePos = buildChangeNodeArray(i, qr);
-         *       log.debug(" changePos : " + changePos + " for order " + i);
-         *       processShallowestNodes(changePos);
-         *   } else {
-         *       bContinue = false;
-         *   }
-         *   i++;
-         * } while (bContinue);
-         *
-         */
     }
 
-    /*
-     * private changePosition findShallowestNode(changePositions cpObject) {
-     * changePosition shallowestNode = null;
-     *   for (int i = 0; i < cpObject.arrPostions.size(); i++) {
-     *       changePosition cp = cpObject.arrPostions.get(i);
-     *       if (0 == i){
-     *           shallowestNode = cpObject.arrPostions.get(i);
-     *       }
-     *       String parentNodeAddr = xmlMergeUtils.parentNodeFromAddress(cp.nodeAddressStart);
-     *
-     *
-     *
-     *   }
-     * }
-     */
     private void processShallowestNodes(changePositions cpObject) {
 
         // find the shallowest node
@@ -307,6 +285,12 @@ public class xmlMergeMain {
             try {
                 BungeniOdfDocumentHelper dochelper = new BungeniOdfDocumentHelper(document);
 
+                extractAutomaticStyles(document);
+
+                extractFontFaceDecls(document);
+
+                extractOfficeScripts(document);
+
                 // extract track changes container
                 extractTrackChangesContainer(document);
 
@@ -358,6 +342,55 @@ public class xmlMergeMain {
         this.mergeDB.Connect();
         this.mergeDB.Update(addQueries, true);
         this.mergeDB.EndConnect();
+    }
+
+    private void extractFontFaceDecls(OdfDocument document) {
+        try {
+            BungeniOdfDocumentHelper odoc          = new BungeniOdfDocumentHelper(document);
+            File                     outputFile    = getOutputFragmentFile("font-face-decls", odoc.getDocumentPath());
+            XPath                    xpath         = document.getXPath();
+            Node                     fontFaceDecls = (Node) xpath.evaluate("//office:font-face-decls",
+                                                         document.getContentDom(), XPathConstants.NODE);
+
+            BungeniOdfNodeHelper.outputNodeAsXML(fontFaceDecls, outputFile);
+
+            // write to disk
+        } catch (Exception ex) {
+            log.error("extractFontFaceDecls " + ex.getMessage(), ex);
+        }
+    }
+
+    private void extractAutomaticStyles(OdfDocument document) {
+        try {
+            BungeniOdfDocumentHelper odoc            = new BungeniOdfDocumentHelper(document);
+            File                     outputFile      = getOutputFragmentFile("automatic-styles",
+                                                           odoc.getDocumentPath());
+            XPath                    xpath           = document.getXPath();
+            Node                     automaticStyles = (Node) xpath.evaluate("//office:automatic-styles",
+                                                           document.getContentDom(), XPathConstants.NODE);
+
+            BungeniOdfNodeHelper.outputNodeAsXML(automaticStyles, outputFile);
+
+            // write to disk
+        } catch (Exception ex) {
+            log.error("extractAutomaticStyles :" + ex.getMessage(), ex);
+        }
+    }
+
+    private void extractOfficeScripts(OdfDocument document) {
+        try {
+            BungeniOdfDocumentHelper odoc            = new BungeniOdfDocumentHelper(document);
+            File                     outputFile      = getOutputFragmentFile("scripts", odoc.getDocumentPath());
+            XPath                    xpath           = document.getXPath();
+            Node                     automaticStyles = (Node) xpath.evaluate("//office:automatic-styles",
+                                                           document.getContentDom(), XPathConstants.NODE);
+
+            BungeniOdfNodeHelper.outputNodeAsXML(automaticStyles, outputFile);
+
+            // write to disk
+        } catch (Exception ex) {
+            log.error("extractOfficeScripts " + ex.getMessage(), ex);
+        }
     }
 
     private void extractTrackChangesContainer(OdfDocument document) {
