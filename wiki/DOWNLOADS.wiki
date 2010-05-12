@@ -12,3 +12,7 @@
 
 == Editor User Manual == 
 [http://code.google.com/p/bungeni-editor/downloads/detail?name=editor-operations-manual-2009-12-06.pdf Editor User Manual - last updated 2009-12-06]
+
+== OpenOffice.org == 
+
+[http://archive.services.openoffice.org/pub/openoffice-archive/stable/ Archived OpenOffice.org releases]
