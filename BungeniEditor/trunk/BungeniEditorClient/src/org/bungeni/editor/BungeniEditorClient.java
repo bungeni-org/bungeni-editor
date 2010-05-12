@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
+import org.apache.log4j.BasicConfigurator;
 import org.bungeni.editor.dialogs.editorApplicationController;
 import org.bungeni.editor.interfaces.ui.ILookAndFeel;
 import org.bungeni.editor.ui.LookAndFeelFactory;
@@ -138,6 +139,7 @@ public class BungeniEditorClient {
 
            //parse the command line options
            cmdOptions = new BungeniEditorClientCmdOptions();
+           BasicConfigurator.configure();
            cmdOptions.doMain(args);
            //launch the editor
            javax.swing.SwingUtilities.invokeLater(
