@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.StringWriter;
 
 import java.util.Stack;
+import javax.xml.transform.OutputKeys;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
@@ -176,6 +177,7 @@ public class BungeniOdfNodeHelper {
         Transformer xformer = getTransformer();
         OdfNamespace ns = OdfNamespace.newNamespace(OdfNamespaceNames.TEXT);
         xformer.setParameter("namespace", ns.toString());
+        xformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
         xformer.transform(source, result);
 
         return foutfile;
