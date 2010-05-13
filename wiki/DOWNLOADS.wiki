@@ -1,5 +1,5 @@
 #summary Bungeni Editor Downloads
-#labels Phase-Implementation
+#labels Phase-Implementation,Featured
 
 == Bungeni Editor == 
 [http://code.google.com/p/bungeni-editor/downloads/detail?name=install-0.9.958.jar Bungeni Editor v0.9.958 - requires OpenOffice.org 3.1.1]
