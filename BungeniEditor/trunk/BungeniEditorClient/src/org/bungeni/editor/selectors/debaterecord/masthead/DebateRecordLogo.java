@@ -180,7 +180,7 @@ private void btn_initdebate_selectlogoActionPerformed(java.awt.event.ActionEvent
 
     @Override
     public boolean processFullInsert() {
-        boolean bReturn = processCatalogCommand();
+      //  boolean bReturn = processCatalogCommand();
      return true;
     }
 

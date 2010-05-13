@@ -7,7 +7,6 @@ import com.sun.star.frame.XModel;
 import com.sun.star.lang.XComponent;
 
 import com.sun.star.uno.XComponentContext;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -28,13 +27,10 @@ import java.util.HashMap;
 import java.util.Properties;
 import java.util.Vector;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
@@ -57,8 +53,6 @@ import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.utils.FileTableModel;
 import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.utils.Installation;
-import org.bungeni.utils.WebDavStore;
-import org.bungeni.utils.WebDavTableModel;
 import org.bungeni.utils.WorkspaceFolderTableModel;
 
 /**
@@ -71,7 +65,6 @@ public class editorApplicationController extends javax.swing.JPanel {
     private java.util.Properties m_propSettings;
     private Installation m_installObject;
     private static String __WINDOW_TITLE__ = "Bungeni Editor Client ";
-    private WebDavStore m_dav;
     private JFrame parentFrame;
 
     //path to settings.properties
@@ -118,7 +111,6 @@ public class editorApplicationController extends javax.swing.JPanel {
         m_currentSelectedWorkspaceFile = "";
         m_iniFilePath = "";
         m_propSettings = new java.util.Properties();
-        m_dav = new WebDavStore();
         initComponents();
         this.parentFrame = pFrame;
         //temporarily remove these two tabs
@@ -667,19 +659,6 @@ public class editorApplicationController extends javax.swing.JPanel {
     private void btnBackOneFolder_Clicked(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackOneFolder_Clicked
         // TODO add your handling code here:
         //
-        WebDavTableModel davModel = (WebDavTableModel) tblServerFiles.getModel();
-        String parentPath = "";
-        try {
-            parentPath = davModel.getParentPath("");
-        } catch (java.lang.Exception ex) {
-            if (ex.getMessage().equals("root-reached")) {
-                log.info("back one folder - root folder was reached");
-                JOptionPane.showMessageDialog(this, "You cannot browser beyond the home folder");
-                return;
-            }
-        }
-        log.debug("setting path on prev click = " + parentPath);
-        davModel.setPath(parentPath);
     }//GEN-LAST:event_btnBackOneFolder_Clicked
 
     private void btnBrowseWorkspacePathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseWorkspacePathActionPerformed
@@ -820,39 +799,11 @@ public class editorApplicationController extends javax.swing.JPanel {
     }
 
     private void initWebDav() {
-        //log.info("initialiazing WebDav");
-        // WebDavStore wds = new WebDavStore();
-        m_dav.setConnectionUrl("http://" + m_settings_ServerIP);
-        m_dav.setConnectionPort(new Integer(m_settings_ServerPort));
-        m_dav.setConnectionUsername(m_settings_ServerUser);
-        m_dav.setConnectionPassword(m_settings_ServerPassword);
-        m_dav.setConnectionBaseDirectory(m_settings_ServerPath);
 
-        m_dav.connect("");
-
-        /*
-        m_dav.connect("");
-        WebdavResource dav =wds.getResourceHandle();
-        if (dav != null){
-        log.info("Successfully connected using Webdav");
-        initWebdavTableModel(dav);
-        }
-        else
-        log.debug("Webdav connection failed...");
-         */
         initWebdavTableModel();
     }
 
     private void initWebdavTableModel() {
-        //log.info("initializing webdav table model");
-        Component[] cpx = tabTemplates.getComponents();
-        for (int i = 0; i < cpx.length; i++) {
-            log.debug("component name = " + cpx[i].getClass().getName());
-        }
-        WebDavTableModel davTable = new WebDavTableModel(m_dav, m_settings_ServerPath, tblServerFiles, progressServerFiles);
-        davTable.brains();
-        tblServerFiles.setModel(davTable);
-        tblServerFiles.addMouseListener(new tblServerFilesMouseAdapter());
     }
 
     private void initProperties(java.io.File currentFolder) {
@@ -1328,20 +1279,6 @@ private void btnOpenExistingActionPerformed(java.awt.event.ActionEvent evt) {//G
 
         public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2) {
-                Point p = e.getPoint();
-                int row = tblServerFiles.rowAtPoint(p);
-                String fileName = (String) tblServerFiles.getValueAt(row, 0);
-                String fileType = (String) tblServerFiles.getValueAt(row, 3);
-                if (fileType.equals("folder")) {
-                    log.debug("folder: " + fileName + "was clicked");
-                    //switch to the clicked folder
-                    //first get the table model
-                    WebDavTableModel davModel = (WebDavTableModel) tblServerFiles.getModel();
-                    davModel.brains();
-                    davModel.setPathRelative(fileName);
-                } else {
-                    log.debug("file was clicked");
-                }
             }
         }
 

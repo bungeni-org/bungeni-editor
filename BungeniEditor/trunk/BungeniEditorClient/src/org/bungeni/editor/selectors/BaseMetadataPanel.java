@@ -3,7 +3,7 @@ package org.bungeni.editor.selectors;
 //~--- non-JDK imports --------------------------------------------------------
 
 
-import org.bungeni.commands.chains.BungeniCatalogCommand;
+
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.editor.selectors.BaseMetadataContainerPanel.ConditionSet;
@@ -35,8 +35,8 @@ public abstract class BaseMetadataPanel extends JPanel implements IMetadataPanel
     private static org.apache.log4j.Logger                        log                =
         org.apache.log4j.Logger.getLogger(BaseMetadataPanel.class.getName());
     private HashMap<String, Object>                               thePreInsertMap    = new HashMap<String, Object>();
-    protected HashMap<SelectorDialogModes, BungeniCatalogCommand> theCatalogCommands = new HashMap<SelectorDialogModes,
-                                                                                           BungeniCatalogCommand>();
+   // protected HashMap<SelectorDialogModes, BungeniCatalogCommand> theCatalogCommands = new HashMap<SelectorDialogModes,
+     //                                                                                      BungeniCatalogCommand>();
     private ArrayList<String>          fieldsWithNames = new ArrayList<String>(0);
     private HashMap<String, Boolean>   fieldNamesMap   = new HashMap<String, Boolean>();
     private BaseMetadataContainerPanel containerPanel;

@@ -4,9 +4,9 @@ package org.bungeni.editor.actions;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import org.apache.log4j.Logger;
-import org.bungeni.commands.CommonActions;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
+import org.bungeni.editor.actions.routers.CommonRouterActions;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.error.ErrorMessages;
 import org.bungeni.ooo.OOComponentHelper;
@@ -45,6 +45,6 @@ public class EditorGeneralActionHandler implements IEditorActionEvent {
     private void doCreateRootSection(){
         String currentDocType = BungeniEditorProperties.getEditorProperty("activeDocumentMode");
         String rootSectionName = BungeniEditorProperties.getEditorProperty("root:"+currentDocType);
-        CommonActions.action_createRootSection(ooDocument, rootSectionName);
+        CommonRouterActions.action_createRootSection(ooDocument, rootSectionName);
     }
 }

@@ -11,7 +11,6 @@ package org.bungeni.editor.selectors;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import org.apache.commons.chain.impl.ContextBase;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.actions.toolbarSubAction;
@@ -23,7 +22,7 @@ import org.bungeni.ooo.ooDocMetadataFieldSet;
  *
  * @author Administrator
  */
-public class BungeniFormContext extends ContextBase implements IBungeniFormContext{
+public class BungeniFormContext  implements IBungeniFormContext{
     private static org.apache.log4j.Logger log = Logger.getLogger(BungeniFormContext.class.getName());
    
     
