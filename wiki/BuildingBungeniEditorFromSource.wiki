@@ -1,5 +1,4 @@
 #summary How to build bungeni editor from source
-#labels Featured
 
 = Pre-requisites =
 
@@ -37,5 +36,3 @@ Netbeans build has been tested on Ubuntu 8.04 and Windows XP (It will *not* work
  * Install the Openoffice.org plugin from the netbeans update center
  * Check out the Bungeni Editor project from svn 
  * Open the Bungeni Editor project from within netbeans - and run in debug mode
-
-
