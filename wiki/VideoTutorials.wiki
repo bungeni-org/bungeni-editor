@@ -1,5 +1,4 @@
 #summary Video Tutorials for the Bungeni Editor
-#labels Featured
 
 <wiki:toc max_depth="4" />
 
