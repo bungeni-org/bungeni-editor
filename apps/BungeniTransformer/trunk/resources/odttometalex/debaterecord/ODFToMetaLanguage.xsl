@@ -23,7 +23,12 @@
                 xmlns:xforms="http://www.w3.org/2002/xforms" 
                 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                exclude-result-prefixes="xsl xsd xsi text office style table draw fo xlink dc meta number svg chart dr3d math form script ooo ooow oooc dom xforms"
+                xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2"
+                xmlns:rdfa="http://docs.oasis-open.org/opendocument/meta/rdfa#"
+                xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0"
+                xmlns:rpt="http://openoffice.org/2005/report"
+                xmlns:anx="http://anx.akomantoso.org/1.0"
+                exclude-result-prefixes="xsl xsd xsi text office style table draw fo xlink dc meta number svg chart dr3d math form script ooo ooow oooc dom xforms anx rdfa of"
 				version="2.0">
     <xsl:output indent="yes" method="xml" />
     

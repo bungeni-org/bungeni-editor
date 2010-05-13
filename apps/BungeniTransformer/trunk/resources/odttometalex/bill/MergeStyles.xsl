@@ -21,8 +21,13 @@
                 xmlns:oooc="http://openoffice.org/2004/calc" 
                 xmlns:dom="http://www.w3.org/2001/xml-events"
                 xmlns:xforms="http://www.w3.org/2002/xforms" 
+                xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2"
+                xmlns:rdfa="http://docs.oasis-open.org/opendocument/meta/rdfa#"
                 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0"
+                xmlns:rpt="http://openoffice.org/2005/report"
+                xmlns:anx="http://anx.akomantoso.org/1.0"
 				version="2.0">
     <xsl:output indent="yes" method="xml"/>
     
