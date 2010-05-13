@@ -1,4 +1,5 @@
 #summary Table of contents for the bungeni editor wiki
+#labels Featured
 
  * Installation & Setup 
    * [InstallingTheBungeniEditor Installing Bungeni Editor]
