@@ -9,10 +9,13 @@ import com.sun.star.document.XEventBroadcaster;
 import com.sun.star.frame.XFrame;
 import com.sun.star.frame.XModel;
 import com.sun.star.frame.XStorable;
+import com.sun.star.io.IOException;
+import com.sun.star.lang.IllegalArgumentException;
 import com.sun.star.lang.XComponent;
 import com.sun.star.lang.XServiceInfo;
 import com.sun.star.text.XTextDocument;
 import com.sun.star.uno.AnyConverter;
+import com.sun.star.uno.Exception;
 import com.sun.star.uno.Type;
 import com.sun.star.uno.UnoRuntime;
 import com.sun.star.uno.XComponentContext;
@@ -34,6 +37,8 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.DefaultComboBoxModel;
@@ -846,7 +851,15 @@ private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
             if (isTemplate) {
                 xComp = OOComponentHelper.newDocument(documentToOpen);
             } else {
-                xComp = OOComponentHelper.openExistingDocument(documentToOpen);
+                try {
+                    xComp = OOComponentHelper.openExistingDocument(documentToOpen);
+                } catch (IOException ex) {
+                    log.error("Error opening document in Ooo " + ex.getMessage(), ex);
+                } catch (IllegalArgumentException ex) {
+                    log.error("Error opening document in Ooo " + ex.getMessage(), ex);
+                } catch (Exception ex) {
+                    log.error("Error opening document in Ooo " + ex.getMessage(), ex);
+                }
             }
             if (xComp != null) {
                 OOComponentHelper.positionOOoWindow(xComp, screenDimension);
@@ -937,7 +950,7 @@ private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
             componentsTrackingTimer = new Timer(2500, componentsTrackingRunner);
             componentsTrackingTimer.start();
 
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             log.error(e.getMessage());
         }
     }
@@ -1280,7 +1293,7 @@ private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                 if ("comboBoxChanged".equals(e.getActionCommand())) {
                     updateMain((componentHandleContainer) newItem, same);
                 }
-            } catch (Exception ex) {
+            } catch (RuntimeException ex) {
                 log.error("cboListDocuments.actionPerformed = " + ex.getMessage());
                 log.error("cboListDocuments.actionPerformed = " + CommonExceptionUtils.getStackTrace(ex));
             }

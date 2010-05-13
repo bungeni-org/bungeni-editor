@@ -5,6 +5,9 @@
  */
 package org.bungeni.editor.panels.loadable;
 
+import com.sun.star.lang.IllegalArgumentException;
+import com.sun.star.uno.Exception;
+import java.util.logging.Level;
 import org.bungeni.ooo.transforms.impl.exportDestination;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
@@ -130,9 +133,6 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
                 System.out.println("Server already running");
             }
 
-        } catch (Exception ex) {
-            System.out.println("printing errors ....");
-            ex.printStackTrace(System.out);
         } finally {
             Thread.currentThread().setContextClassLoader(savedClassLoader);
         }
@@ -172,7 +172,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             boolean output = CommonShellFunctions.runCommand(commands, transformerWorkingDir, true);
             this.transformerServerRunning = true;
             bState = true;
-        } catch (Exception ex) {
+        } catch (RuntimeException ex) {
             log.error("startTransformationServer :", ex);
             ex.printStackTrace(System.out);
         }
@@ -190,7 +190,6 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         @Override
         public Boolean doInBackground() {
             Boolean bState = false;
-            try {
                 if (transformerClient != null) {
                     if (transformerClient.isServerRunning()) {
                         bState = true;
@@ -198,10 +197,6 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
                         bState = false;
                     }
                 }
-            } catch (Exception ex) {
-                log.error("doInBackround : " + ex.getMessage());
-                log.error("doInBackground : ", ex);
-            }
             return bState;
         }
 
@@ -355,7 +350,15 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
                         File fFile = CommonFileFunctions.convertUrlToFile(outputFilePath);
                         int nRet = MessageBox.Confirm(parentFrame, bundle.getString("Yes_to_open_No_to_close"), bundle.getString("Document_Successfully_Converted!"));
                         if (nRet == JOptionPane.YES_OPTION) {
-                            OOComponentHelper.openExistingDocument(fFile.getAbsolutePath());
+                                try {
+                                    OOComponentHelper.openExistingDocument(fFile.getAbsolutePath());
+                                } catch (com.sun.star.io.IOException ex) {
+                                    log.error("Error opening document in OOo.org " + ex.getMessage(), ex);
+                                } catch (IllegalArgumentException ex) {
+                                    log.error("Error opening document in OOo.org " + ex.getMessage(), ex);
+                                } catch (Exception ex) {
+                                    java.util.logging.Logger.getLogger(transformXMLPanel.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                         }
                         }
                     }
