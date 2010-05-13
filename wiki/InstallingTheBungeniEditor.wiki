@@ -1,5 +1,4 @@
 #summary Installing the Bungeni Editor
-#labels bungeni-editor,Featured
 
 = Installing the Bungeni Editor on Ubuntu Linux and Windows =
 
