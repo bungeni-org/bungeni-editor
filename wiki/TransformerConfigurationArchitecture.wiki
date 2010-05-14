@@ -34,3 +34,44 @@ marked up using the Bungeni Editor. Markup appears in the ODF in the following f
                         </text:p>
                     </text:section>
 }}}
+
+The style properties appear within the automatic-styles block in the header of the same document :
+
+{{{
+<style:style family="section" name="Sect12">
+            <style:section-properties anx:BungeniPersonID="559" anx:BungeniPersonRole="559"
+                anx:BungeniSectionType="Speech" anx:BungeniSpeechAs="Minister"
+                anx:BungeniSpeechAsDesc="Minister"
+                anx:BungeniSpeechAsURI="/ontology/roles/ke/minister"
+                anx:BungeniSpeechBy="Gideun Musiku"
+                anx:BungeniSpeechByURI="ken.person.Gideun.Musiku.1951-10-21"
+                anx:__BungeniMetaEditable="true"
+                anx:__BungeniMetaEditor="toolbarSubAction.makeDebateSpeechBlockSection.section_creation"
+                background-color="transparent" margin-left="0.6in" margin-right="0in"
+                editable="false">
+                <style:columns column-count="1" column-gap="0in"/>
+                <style:background-image filter-name="PNG - Portable Network Graphic"
+                    actuate="onLoad" href="Pictures/1000000000000004000000045A636FA8.png"
+                    type="simple"/>
+            </style:section-properties>
+        </style:style>
+}}}
+
+The marked up custom metadata for the speech is captured in the anx: namespace which is defined as follows in the ODF header :
+
+{{{
+xmlns:anx="http://anx.akomantoso.org/1.0"
+}}}
+
+ # *Translator Config* - The Bungeni translator uses a sequence of chained XSLT to convert a ODF document into ANxml. The translator configuration is passed as input to the ODT translator. The translator config file looks like as show below, and can be found in the configfiles/odttoakn folder of the translator. Translator configs are defined per document type. The following is what a translator configuration for the debate looks like  :
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<!-- debaterecord -->
+	<entry key="metalexConfigPath">odttometalex/debaterecord/config.xml</entry>
+	<entry key="akomantosoSchemaPath">odttoakn/schema/akomantoso10.xsd</entry>
+	<entry key="akomantosoAddNamespaceXSLTPath">odttoakn/defaultvalues/debaterecord/OdtToAknAddNamespace.xsl</entry>
+	<entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry> 
+</properties>
+}}}
