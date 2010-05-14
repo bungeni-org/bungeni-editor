@@ -143,7 +143,7 @@ public class OATranslator implements org.un.bungeni.translators.interfaces.Trans
             File       mergedOdfFile = odfUtil.mergeODF(aDocumentPath);
 
             // /// ---ASHOK--- //////
-            FileUtility.getInstance().copyFile(mergedOdfFile, new File("./test4235406.xml"));
+            ///FileUtility.getInstance().copyFile(mergedOdfFile, new File("./test4235406.xml"));
 
             // /// ---ASHOK--- //////
 
