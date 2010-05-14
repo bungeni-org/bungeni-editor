@@ -7,6 +7,7 @@
    * [DOWNLOADS Downloads]
  * Architecture
    * [StoringCustomMetadataInAnOpenOfficeDocument Custom metadata support in OpenOffice]
+   * [TransformerConfigurationArchitecture Transformer Configuration Architecture]
  * Editor Customization & Configuration
    * [EditorTheming Theming the Bungeni Editor]
    * 
