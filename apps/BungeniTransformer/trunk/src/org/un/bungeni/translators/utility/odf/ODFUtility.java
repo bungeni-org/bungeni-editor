@@ -1,10 +1,8 @@
 package org.un.bungeni.translators.utility.odf;
 
 import java.io.File;
-import java.io.InputStream;
 import java.io.StringWriter;
 
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
@@ -16,14 +14,15 @@ import javax.xml.transform.stream.StreamResult;
 import org.odftoolkit.odfdom.OdfFileDom;
 import org.odftoolkit.odfdom.doc.OdfDocument;
 
-import org.un.bungeni.translators.utility.files.FileUtility;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Element;
 
 /**
- * This class supplies several methods useful for the management of the ODF documents. 
+ * This class supplies several methods useful for the management of the ODF documents.
+ *
+ * 14 May 2010 - changed commonMergeODF to use newer getMetaDom() API to get the metadata as an output xml
  *
  */
 public class ODFUtility 
@@ -87,7 +86,19 @@ public class ODFUtility
 		File returnFile = commonMergeODF (odf);
 		return returnFile;
 	}
-	
+
+        /**
+         * ODF is composed of multiple xml files --
+         * content xml
+         * metadata xml
+         * styles xml
+         *
+         * this function creates a single merged xml file containing all the different xml files merged into 1
+         * @param odf
+         * @return
+         * @throws TransformerFactoryConfigurationError
+         * @throws Exception
+         */
 	private File commonMergeODF (OdfDocument odf)  throws TransformerFactoryConfigurationError, Exception 
 	{
 		
@@ -98,10 +109,10 @@ public class ODFUtility
 		Document odfStyle = odf.getStylesDom();
 		
 		//get the content of the meta.xml file
-		InputStream odfMetaStream = odf.getMetaStream();
+		//InputStream odfMetaStream = odf.getMetaStream();
 		
-		//create the dom of the metadata from the stream 
-		Document odfMeta = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(FileUtility.getInstance().StreamAsInputSource(odfMetaStream));
+		//create the dom of the metadata from the s tream
+		Document odfMeta = odf.getMetaDom(); // wasDocumentBuilderFactory.newInstance().newDocumentBuilder().parse(FileUtility.getInstance().StreamAsInputSource(odfMetaStream));
 		
 		//get all the style nodes contained in the in the style.xml file
 		Node stylesNodes = odfStyle.getElementsByTagName("office:styles").item(0);
