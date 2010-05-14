@@ -1,12 +1,24 @@
 package translatortest;
 
+
+/**
+ *This is the base class used for creating unit tests for debaterecord type documents.
+ * The base class sets up the the translator configuration and the piple for the translation.
+ * Any deriving unit test class need only set :
+ *
+ * 	m_inputDocument = "test/testdocs/test_debaterecord.odt";
+	m_outputDocument = "test/testresults/test_debaterecord.xml";
+	m_outputMetalex = "test/testresults/test_debaterecord.mlx";
+	m_comparisonDocument = "test/testdocs/test_debaterecord_out.xml";
+ *
+ * @author Ashok Hariharan
+ */
 public class OATranslatorTestDebateBase extends OATranslatorTestBase {
 
 	public OATranslatorTestDebateBase() {
 		super();
-		this.m_configFilePath = "configfiles/odttoakn/TranslatorConfig_debaterecord.xml";
-		this.m_pipeline = "odttoakn/minixslt/debaterecord/pipeline.xsl";
-		// TODO Auto-generated constructor stub
+		setConfigFilePath("configfiles/odttoakn/TranslatorConfig_debaterecord.xml");
+		setPipeline("odttoakn/minixslt/debaterecord/pipeline.xsl");
 	}
 }
 
