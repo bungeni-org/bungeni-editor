@@ -24,7 +24,7 @@
         xmlns:anx="http://anx.akomantoso.org/1.0"
         xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2"
         xmlns:rdfa="http://docs.oasis-open.org/opendocument/meta/rdfa#"
-	exclude-result-prefixes="xsl xsd xsi text office style table draw fo xlink dc meta number svg chart dr3d math form script ooo ooow oooc dom xforms field rpt anx rdfa of"
+	exclude-result-prefixes="xsl xsd xsi text office style table draw fo xlink dc meta number svg chart dr3d math form script ooo ooow oooc dom xforms field rpt rdfa of"
 	extension-element-prefixes="saxon" version="2.0">
 	<xsl:output indent="yes" method="xml"/>
 

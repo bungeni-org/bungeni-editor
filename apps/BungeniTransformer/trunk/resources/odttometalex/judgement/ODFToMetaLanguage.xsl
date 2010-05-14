@@ -59,8 +59,8 @@
     </xsl:template>
 
     <xsl:template match="office:meta">
-        <xsl:variable name="WORKUri" select="substring-before(//meta:user-defined[@meta:name='BungeniWorkURI'],concat('/',//meta:user-defined[@meta:name='BungeniDocPart']))" />
-        <xsl:variable name="EXPRESSIONUri" select="concat($WORKUri,'/',//meta:user-defined[@meta:name='BungeniLanguageCode'],'@')" />
+        <xsl:variable name="WORKUri" select="substring-before(//meta:user-defined[@name='BungeniWorkURI'],concat('/',//meta:user-defined[@name='BungeniDocPart']))" />
+        <xsl:variable name="EXPRESSIONUri" select="concat($WORKUri,'/',//meta:user-defined[@name='BungeniLanguageCode'],'@')" />
         <xsl:variable name="MANIFESTATIONUri" select="concat($EXPRESSIONUri,'.akn')" />
        <mcontainer name="meta">
 			<xsl:for-each select="@*">
@@ -70,41 +70,41 @@
 			</xsl:for-each>
             <mcontainer name="identification" id="identification_{generate-id()}" source="#bungeni">
                 <mcontainer name="FRBRWork" id="FRBRWork_{generate-id()}">
-                    <meta name="this" id="FRBRWork_this_{generate-id()}" value="{//meta:user-defined[@meta:name='BungeniWorkURI']}"/>
+                    <meta name="this" id="FRBRWork_this_{generate-id()}" value="{//meta:user-defined[@name='BungeniWorkURI']}"/>
                     <meta name="uri" id="FRBRWork_uri_{generate-id()}" value="{$WORKUri}"/>
-                    <meta name="date" id="FRBRWork_date_{generate-id()}" contentName="{//meta:user-defined[@meta:name='BungeniWorkDateName']}" date="{//meta:user-defined[@meta:name='BungeniWorkDate']}"/>
-                    <meta name="author" id="FRBRWork_author_{generate-id()}" href="#{//meta:user-defined[@meta:name='BungeniWorkAuthor']}"/>
+                    <meta name="date" id="FRBRWork_date_{generate-id()}" contentName="{//meta:user-defined[@name='BungeniWorkDateName']}" date="{//meta:user-defined[@name='BungeniWorkDate']}"/>
+                    <meta name="author" id="FRBRWork_author_{generate-id()}" href="#{//meta:user-defined[@name='BungeniWorkAuthor']}"/>
                 </mcontainer>
                 <mcontainer name="FRBRExpression" id="FRBRExpression_{generate-id()}">
-                    <meta name="this" id="FRBRExpression_this_{generate-id()}" value="{//meta:user-defined[@meta:name='BungeniExpURI']}" />
+                    <meta name="this" id="FRBRExpression_this_{generate-id()}" value="{//meta:user-defined[@name='BungeniExpURI']}" />
                     <meta name="uri" id="FRBRExpression_uri_{generate-id()}" value="{$EXPRESSIONUri}"/>
-                    <meta name="date" id="FRBRExpression_date_{generate-id()}" contentName="{//meta:user-defined[@meta:name='BungeniExpDateName']}" date="{//meta:user-defined[@meta:name='BungeniExpDate']}"/>
-                    <meta name="author" id="FRBRExpression_author_{generate-id()}" href="#{//meta:user-defined[@meta:name='BungeniExpAuthor']}"/>
+                    <meta name="date" id="FRBRExpression_date_{generate-id()}" contentName="{//meta:user-defined[@name='BungeniExpDateName']}" date="{//meta:user-defined[@name='BungeniExpDate']}"/>
+                    <meta name="author" id="FRBRExpression_author_{generate-id()}" href="#{//meta:user-defined[@name='BungeniExpAuthor']}"/>
                 </mcontainer>
                 <mcontainer name="FRBRManifestation" id="FRBRManifestation_{generate-id()}">
-                    <meta name="this" id="FRBRManifestation_this_{generate-id()}" value="{//meta:user-defined[@meta:name='BungeniManURI']}"/>
+                    <meta name="this" id="FRBRManifestation_this_{generate-id()}" value="{//meta:user-defined[@name='BungeniManURI']}"/>
                     <meta name="uri" id="FRBRManifestation_uri_{generate-id()}" value="{$MANIFESTATIONUri}"/>
-                    <meta name="date" id="FRBRManifestation_date_{generate-id()}" contentName="{//meta:user-defined[@meta:name='BungeniManDateName']}" date="{//meta:user-defined[@meta:name='BungeniManDate']}" />
-                    <meta name="author" id="FRBRManifestation_author_{generate-id()}" href="#{//meta:user-defined[@meta:name='BungeniManAuthor']}"/>
+                    <meta name="date" id="FRBRManifestation_date_{generate-id()}" contentName="{//meta:user-defined[@name='BungeniManDateName']}" date="{//meta:user-defined[@name='BungeniManDate']}" />
+                    <meta name="author" id="FRBRManifestation_author_{generate-id()}" href="#{//meta:user-defined[@name='BungeniManAuthor']}"/>
                 </mcontainer>
             </mcontainer>
             <mcontainer name="publication_mcontainer" id="publication_container{generate-id()}">
-                <meta id="publication_{generate-id()}" name="publication" contentName="{//meta:user-defined[@meta:name='BungeniPublicationName']}" date="{//meta:user-defined[@meta:name='BungeniPublicationDate']}"/>
+                <meta id="publication_{generate-id()}" name="publication" contentName="{//meta:user-defined[@name='BungeniPublicationName']}" date="{//meta:user-defined[@name='BungeniPublicationDate']}"/>
             </mcontainer>
             <mcontainer id="references_{generate-id()}" name="references" source="#bungeni">
-                <!-- <meta id="Parliament" name="TLCOrganization" href="{//meta:user-defined[@meta:name='BungeniParliamentID']}"  showAs="Parliament" /> -->
-                <meta name="TLCConcept" id="judgementNo" href="/ontology/concept/judgement/Judgement/{//meta:user-defined[@meta:name='BungeniJudgementNo']}" showAs="{//meta:user-defined[@meta:name='BungeniJudgementNo']}" />
-                <meta name="TLCPerson" id="{//meta:user-defined[@meta:name='BungeniWorkAuthor']}" href="{//meta:user-defined[@meta:name='BungeniWorkAuthorURI']}" showAs="Author"/>
-                <meta name="TLCPerson" id="{//meta:user-defined[@meta:name='BungeniExpAuthor']}" href="{//meta:user-defined[@meta:name='BungeniExpAuthorURI']}" showAs="Author"/>
-                <meta name="TLCPerson" id="{//meta:user-defined[@meta:name='BungeniManAuthor']}" href="{//meta:user-defined[@meta:name='BungeniManAuthorURI']}" showAs="Author"/>
+                <!-- <meta id="Parliament" name="TLCOrganization" href="{//meta:user-defined[@name='BungeniParliamentID']}"  showAs="Parliament" /> -->
+                <meta name="TLCConcept" id="judgementNo" href="/ontology/concept/judgement/Judgement/{//meta:user-defined[@name='BungeniJudgementNo']}" showAs="{//meta:user-defined[@name='BungeniJudgementNo']}" />
+                <meta name="TLCPerson" id="{//meta:user-defined[@name='BungeniWorkAuthor']}" href="{//meta:user-defined[@name='BungeniWorkAuthorURI']}" showAs="Author"/>
+                <meta name="TLCPerson" id="{//meta:user-defined[@name='BungeniExpAuthor']}" href="{//meta:user-defined[@name='BungeniExpAuthorURI']}" showAs="Author"/>
+                <meta name="TLCPerson" id="{//meta:user-defined[@name='BungeniManAuthor']}" href="{//meta:user-defined[@name='BungeniManAuthorURI']}" showAs="Author"/>
                 
-                <xsl:for-each select="//meta:user-defined[starts-with(@meta:name, 'BungeniPartyName')]">
+                <xsl:for-each select="//meta:user-defined[starts-with(@name, 'BungeniPartyName')]">
                   	<xsl:variable name="strHref"><xsl:value-of select="." /></xsl:variable>
 				    <xsl:variable name="tokenizedHref" select="tokenize($strHref,'~')"/>
 					<meta name="TLCPerson"  id="{$tokenizedHref[1]}" href="{$tokenizedHref[2]}" showAs="{$tokenizedHref[3]}" inrole="{$tokenizedHref[4]}" /> 
                 	<meta name="TLCRole"  id="{$tokenizedHref[4]}" href="/ontology/judgement/role/{$tokenizedHref[4]}" showAs="{$tokenizedHref[4]}" /> 
                 </xsl:for-each> 
-                <xsl:for-each select="//meta:user-defined[starts-with(@meta:name, 'BungeniJudgeName')]">
+                <xsl:for-each select="//meta:user-defined[starts-with(@name, 'BungeniJudgeName')]">
                   	<xsl:variable name="strHref"><xsl:value-of select="." /></xsl:variable>
 				    <xsl:variable name="tokenizedHref" select="tokenize($strHref,'~')"/>
 					<meta name="TLCPerson"  id="{$tokenizedHref[1]}"   href="{$tokenizedHref[4]}" showAs="{$tokenizedHref[3]}" /> 
@@ -128,10 +128,10 @@
 		        </xsl:attribute>
 		    </xsl:for-each>
 		    <xsl:attribute name="id">
-		     	<xsl:value-of select="@text:name"/>
+		     	<xsl:value-of select="@name"/>
 		    </xsl:attribute>
 		    <xsl:attribute name="class">
-		     	<xsl:value-of select="@text:style-name"/>
+		     	<xsl:value-of select="@style-name"/>
 		    </xsl:attribute>
 		    <xsl:attribute name="name">
 		     	<xsl:value-of select="@BungeniSectionType"/>
@@ -142,7 +142,7 @@
 
     <xsl:template match="text:list">
         <container name="list">
-            <xsl:attribute name="class" select="@text:style-name" />
+            <xsl:attribute name="class" select="@style-name" />
             <xsl:attribute name="id" select="generate-id(.)" />
             <xsl:apply-templates />
         </container>
@@ -167,7 +167,7 @@
     <xsl:template match="text:p">
         <block name="p">
             <xsl:attribute name="id" select="generate-id(.)" />
-            <xsl:attribute name="class" select="@text:style-name" />
+            <xsl:attribute name="class" select="@style-name" />
             <xsl:apply-templates />
         </block>
     </xsl:template>
@@ -175,7 +175,7 @@
     <xsl:template match="text:span">
         <inline name="span">
             <xsl:attribute name="id" select="generate-id(.)" />
-            <xsl:attribute name="class" select="@text:style-name" />
+            <xsl:attribute name="class" select="@style-name" />
             <xsl:apply-templates />
         </inline>
     </xsl:template>
@@ -183,43 +183,43 @@
     <xsl:template match="text:a">
         <inline name="a">
             <xsl:attribute name="id" select="generate-id(.)" />
-            <xsl:attribute name="href" select="tokenize(@xlink:href,':')[position()=2]" />
+            <xsl:attribute name="href" select="tokenize(@href,':')[position()=2]" />
             <xsl:apply-templates />
         </inline>
     </xsl:template>
 
-    <xsl:template match="text:p[tokenize(@text:style-name,'_')[position()=1] = 'heading']">
+    <xsl:template match="text:p[tokenize(@style-name,'_')[position()=1] = 'heading']">
         <htitle>
             <xsl:attribute name="id" select="generate-id(.)" />
-            <xsl:attribute name="name" select="tokenize(@text:style-name,'_')[position()=1]" />
-            <xsl:attribute name="class" select="tokenize(@text:style-name,'_')[position()=2]" />
+            <xsl:attribute name="name" select="tokenize(@style-name,'_')[position()=1]" />
+            <xsl:attribute name="class" select="tokenize(@style-name,'_')[position()=2]" />
             <xsl:apply-templates />
         </htitle>
     </xsl:template>
 
-    <xsl:template match="text:p[tokenize(@text:style-name,'_')[position()=1] = 'subheading']">
+    <xsl:template match="text:p[tokenize(@style-name,'_')[position()=1] = 'subheading']">
         <htitle>
             <xsl:attribute name="id" select="generate-id(.)" />
-            <xsl:attribute name="name" select="tokenize(@text:style-name,'_')[position()=1]" />
-            <xsl:attribute name="class" select="tokenize(@text:style-name,'_')[position()=2]" />
+            <xsl:attribute name="name" select="tokenize(@style-name,'_')[position()=1]" />
+            <xsl:attribute name="class" select="tokenize(@style-name,'_')[position()=2]" />
             <xsl:apply-templates />
         </htitle>
     </xsl:template>
 
-    <xsl:template match="text:p[tokenize(@text:style-name,'_')[position()=1] = 'num']">
+    <xsl:template match="text:p[tokenize(@style-name,'_')[position()=1] = 'num']">
         <htitle>
             <xsl:attribute name="id" select="generate-id(.)" />
-            <xsl:attribute name="name" select="tokenize(@text:style-name,'_')[position()=1]" />
-            <xsl:attribute name="class" select="tokenize(@text:style-name,'_')[position()=2]" />
+            <xsl:attribute name="name" select="tokenize(@style-name,'_')[position()=1]" />
+            <xsl:attribute name="class" select="tokenize(@style-name,'_')[position()=2]" />
             <xsl:apply-templates />
         </htitle>
     </xsl:template>
 
-    <xsl:template match="text:p[tokenize(@text:style-name,'_')[position()=1] = 'sidenote']">
+    <xsl:template match="text:p[tokenize(@style-name,'_')[position()=1] = 'sidenote']">
         <htitle>
             <xsl:attribute name="id" select="generate-id(.)" />
-            <xsl:attribute name="name" select="tokenize(@text:style-name,'_')[position()=1]" />
-            <xsl:attribute name="class" select="tokenize(@text:style-name,'_')[position()=2]" />
+            <xsl:attribute name="name" select="tokenize(@style-name,'_')[position()=1]" />
+            <xsl:attribute name="class" select="tokenize(@style-name,'_')[position()=2]" />
             <xsl:apply-templates />
         </htitle>
     </xsl:template>

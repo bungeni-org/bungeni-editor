@@ -37,14 +37,17 @@
     
 	<xsl:template match="*">
         <xsl:element name="{node-name(.)}">
-        	<xsl:variable name="stylename" select="@text:style-name" />
+        	<xsl:variable name="stylename" select="@style-name" />
 			<xsl:for-each select="@*">
 		    	<xsl:attribute name="{name(.)}">
 		        	<xsl:value-of select="."/>
 		        </xsl:attribute>
 		    </xsl:for-each>
-            <xsl:for-each select="//style:*[@style:name=$stylename]//*/@*[contains(name(),'Bungeni')]">
-                <xsl:attribute name="{node-name(.)}">
+            <xsl:for-each select="//style:*[@name=$stylename]//*/@*[contains(name(),'Bungeni')]">
+                <!-- we use local-name() instead of node-name() as we are flattening namespaces
+                the attribute int the anx namespace is merged into the parent elements namespace
+                with this -->
+                <xsl:attribute name="{local-name(.)}">
                     <xsl:value-of select="."/>
                 </xsl:attribute>
             </xsl:for-each>

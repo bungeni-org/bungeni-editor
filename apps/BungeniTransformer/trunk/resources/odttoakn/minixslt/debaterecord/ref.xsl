@@ -57,6 +57,11 @@
 							</ref>
 						</entity>
 					</xsl:when>
+                                        <!-- just output the text contained by house closing time
+                                            the markup needs to be fixed to set more information about house closing -->
+                                        <xsl:when test="@class='BungeniHouseClosingTime'">
+							<xsl:value-of select="."/>
+					</xsl:when>
 				<!-- otherwise generate normal reference -->
 					<xsl:otherwise>
 					     <ref>

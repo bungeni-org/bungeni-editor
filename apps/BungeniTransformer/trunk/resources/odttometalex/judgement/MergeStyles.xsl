@@ -37,7 +37,7 @@
     
 	<xsl:template match="*">
         <xsl:element name="{node-name(.)}">
-            <xsl:variable name="stylename" select="@text:style-name" />
+            <xsl:variable name="stylename" select="@style-name" />
 			<xsl:for-each select="@*">
 		    	<xsl:attribute name="{name(.)}">
 		        	<xsl:value-of select="."/>
@@ -45,8 +45,8 @@
 			</xsl:for-each>
            <!-- <xsl:attribute xmlns:saxon="http://saxon.sf.net/" name="linenumber" select="saxon:line-number(.)" />
             <xsl:attribute xmlns:saxon="http://saxon.sf.net/" name="columnnumber" select="saxon:column-number(.)" /> -->
-            <xsl:for-each select="//style:*[@style:name=$stylename]//*/@*[contains(name(),'Bungeni')]">
-                <xsl:attribute name="{node-name(.)}">
+            <xsl:for-each select="//style:*[@name=$stylename]//*/@*[contains(name(),'Bungeni')]">
+                <xsl:attribute name="{local-name(.)}">
                     <xsl:value-of select="."/>
                 </xsl:attribute>
             </xsl:for-each>
