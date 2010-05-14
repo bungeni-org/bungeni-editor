@@ -37,16 +37,15 @@
     
 	<xsl:template match="*">
         <xsl:element name="{node-name(.)}">
-            <xsl:variable name="stylename" select="@text:style-name" />
+            <xsl:variable name="stylename" select="@style-name" />
 			<xsl:for-each select="@*">
 		    	<xsl:attribute name="{name(.)}">
 		        	<xsl:value-of select="."/>
 		        </xsl:attribute>
 			</xsl:for-each>
-           <!-- <xsl:attribute xmlns:saxon="http://saxon.sf.net/" name="linenumber" select="saxon:line-number(.)" />
-            <xsl:attribute xmlns:saxon="http://saxon.sf.net/" name="columnnumber" select="saxon:column-number(.)" /> -->
-            <xsl:for-each select="//style:*[@style:name=$stylename]//*/@*[contains(name(),'Bungeni')]">
-                <xsl:attribute name="{node-name(.)}">
+
+            <xsl:for-each select="//style:*[@name=$stylename]//*/@*[contains(name(),'Bungeni')]">
+                <xsl:attribute name="{local-name(.)}">
                     <xsl:value-of select="."/>
                 </xsl:attribute>
             </xsl:for-each>
@@ -84,39 +83,6 @@
     <xsl:template match="text:sequence-decls">
     </xsl:template>
 
-
-
-<!--    <xsl:template match="meta:generation">
-    </xsl:template>
-
-    <xsl:template match="meta:initial-creator">
-    </xsl:template>
-
-    <xsl:template match="meta:creation-date">
-        <meta name="creationdate" value="{.}" />       
-    </xsl:template>
-
-    <xsl:template match="dc:creator">
-        <meta name="creator" value="{replace(.,' ','')}" />       
-    </xsl:template>
-
-    <xsl:template match="dc:date">
-    </xsl:template>
-
-    <xsl:template match="meta:editing-cycles">
-    </xsl:template>
-
-    <xsl:template match="meta:editing-duration">
-    </xsl:template>
-
-    <xsl:template match="meta:user-defined[contains(@meta:name,'Info')]">
-    </xsl:template>
-
-    <xsl:template match="meta:user-defined[@meta:name = 'BungeniDocAuthor']">
-    </xsl:template>
-
-    <xsl:template match="meta:user-defined[@meta:name = 'BungeniDebateOfficialTime']">
-    </xsl:template> -->
 
     <xsl:template match="text()">
         <xsl:value-of select="normalize-space(.)"/>
