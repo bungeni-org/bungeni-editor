@@ -1,0 +1,36 @@
+#summary This page describes the configuration architecture of the bungeni document transformer
+#labels Phase-Implementation
+
+= Introduction =
+
+The Bungeni Transformer uses XSLT to convert a ODT document to AkomaNtoso.
+Structural markup & metadata is transformed to akomantoso elements and attributes.
+
+= System Components = 
+
+The primary system components involved in the transformation process are as follows :
+
+ * ODFDOM - this is the open source ODF processing library provided by Sun
+ * Saxon - this is the open source XSLT 2.0 transformer written by Michael Kay
+ * Xerces - this is the DOM processor
+ * Restlet - this is used to provide a REST based API layer on the transformer. Client integration of the transformer is done over http using the restlet http client API.
+
+The transformer is a java jar application with a fixed manifest. _Perhaps this needs to be changed into a standard class library without a hard-coded manifest_.
+
+= How the Transformer Works = 
+
+ # *Input Document* - The input document is a marked up ODT document. The documents are 
+marked up using the Bungeni Editor. Markup appears in the ODF in the following form ; The following is the ODF source for a marked up speech. The speech is marked out as a named section. Metadata is associated via the style-properties of the section :
+
+{{{
+                    <text:section name="speech4" style-name="Sect12">
+                        <text:p style-name="Standard"><text:reference-mark-start
+                                name="BungeniSpeechBy:GideunMusiku8670"/>The Vice-President and
+                            Minister for Home Affairs (Mr. Musyoka):<text:reference-mark-end
+                                name="BungeniSpeechBy:GideunMusiku8670"/>
+                        </text:p>
+                        <text:p style-name="Standard">Mr. Speaker, Sir, I undertake to communicate
+                            that concern by the hon. Member to the Minister for Local Government.
+                        </text:p>
+                    </text:section>
+}}}
