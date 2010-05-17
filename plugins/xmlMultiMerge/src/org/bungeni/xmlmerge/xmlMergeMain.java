@@ -29,8 +29,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -139,7 +137,7 @@ public class xmlMergeMain {
         // then for each parent node process the changes
         List<nodeAddress> orderedParentNodes = getParentNodesInOrder();
         boolean           bFirstChange       = false;
-
+        int univChangeOrder = 0;
         //process changes in order of parent node
         
         for (int i = 0; i < orderedParentNodes.size(); i++) {
@@ -172,11 +170,13 @@ public class xmlMergeMain {
                             // we get only the preceding siblings -- since the siblings themselves may containe
                             // other nodes -- if we used preceding:: instead it would get parent and child nodes,
                             // we are interested only in the parents
+                            //if it is the first change in the
                             String strPrecedingXML = extractFirstChangePrecedingSiblings(xPath,
                                                          getVersionDocByPath(cp.docName), cp.changeId, cp.changeType);
                             String strChangeXML = extractChangeContent(xPath, getVersionDocByPath(cp.docName),
                                                       cp.changeId, cp.changeType);
-                            String updateChangeXml = xmlMergeQueries.UPDATE_CHANGE_FRAGMENTS(cp.docName, cp.changeId, strPrecedingXML, strChangeXML);
+                            String updateChangeXml = xmlMergeQueries.UPDATE_CHANGE_FRAGMENTS(cp.docName, cp.changeId, strPrecedingXML, strChangeXML, ++univChangeOrder);
+
                             log.debug("Query == " + updateChangeXml + "\n\n");
                             mergeDB.Connect();
                             mergeDB.Update(updateChangeXml);
@@ -196,7 +196,7 @@ public class xmlMergeMain {
                                                                 lastChange);
                             String nextChangeXml = this.extractChangeContent(xPath, getVersionDocByPath(cp.docName),
                                                        cp.changeId, cp.changeType);
-                            String updateChangeXml = xmlMergeQueries.UPDATE_CHANGE_FRAGMENTS(cp.docName, cp.changeId, nextChangePrecedingXml, nextChangeXml);
+                            String updateChangeXml = xmlMergeQueries.UPDATE_CHANGE_FRAGMENTS(cp.docName, cp.changeId, nextChangePrecedingXml, nextChangeXml, ++univChangeOrder);
                             log.debug("Query == " + updateChangeXml + "\n\n");
                             mergeDB.Connect();
                             mergeDB.Update(updateChangeXml);
@@ -212,7 +212,7 @@ public class xmlMergeMain {
                 }
 
                 try {
-                    String strLastChange = extractLastChangeFollowingSiblings(xPath, lastChange);
+                    String strLastChange = extractLastChangeFollowingSiblings(xPath, lastChange, anAddress.xpathAddr);
                     String updLastQuery = xmlMergeQueries.UPDATE_FOLLOWING_FRAGMENT(lastChange.docName, lastChange.changeId, strLastChange);
                     mergeDB.Connect();
                     mergeDB.Update(updLastQuery);
@@ -225,6 +225,10 @@ public class xmlMergeMain {
         }
     }
 
+    /**
+     * 
+     * @param cpObject
+     */
     private void processShallowestNodes(changePositions cpObject) {
 
         // find the shallowest node
@@ -243,6 +247,12 @@ public class xmlMergeMain {
         }
     }
 
+    /**
+     * 
+     * @param norder
+     * @param qr
+     * @return
+     */
     private changePositions buildChangeNodeArray(int norder, QueryResults qr) {
         changePositions cpos = new changePositions(norder);
 
@@ -260,6 +270,10 @@ public class xmlMergeMain {
         return cpos;
     }
 
+    /**
+     *
+     * @return
+     */
     private String getMergeWorkspace() {
         BungeniOdfDocumentHelper docH    = new BungeniOdfDocumentHelper(this.originalFile);
         String                   sFolder =
@@ -269,6 +283,12 @@ public class xmlMergeMain {
                + "fragments";
     }
 
+    /**
+     * 
+     * @param fragmentType
+     * @param filePath
+     * @return
+     */
     private File getOutputFragmentFile(String fragmentType, String filePath) {
         String fragmentSuffix = xmlMergeUtils.getFileNameWithoutExtension(xmlMergeUtils.getFileNameFromPath(filePath));
         File   ffragment      = new File(getMergeWorkspace() + File.separator + fragmentType + "_" + fragmentSuffix
@@ -277,6 +297,12 @@ public class xmlMergeMain {
         return ffragment;
     }
 
+
+    /**
+     *
+     * @param xPath
+     * @throws Exception
+     */
     private void buildChangeNodePoints(XPath xPath) throws Exception {
         List<String> addQueries   = new ArrayList<String>(0);
         NodeList     nodeListPrev = null;
@@ -344,6 +370,11 @@ public class xmlMergeMain {
         this.mergeDB.EndConnect();
     }
 
+
+    /**
+     *
+     * @param document
+     */
     private void extractFontFaceDecls(OdfDocument document) {
         try {
             BungeniOdfDocumentHelper odoc          = new BungeniOdfDocumentHelper(document);
@@ -360,6 +391,11 @@ public class xmlMergeMain {
         }
     }
 
+
+    /**
+     *
+     * @param document
+     */
     private void extractAutomaticStyles(OdfDocument document) {
         try {
             BungeniOdfDocumentHelper odoc            = new BungeniOdfDocumentHelper(document);
@@ -377,6 +413,10 @@ public class xmlMergeMain {
         }
     }
 
+    /**
+     *
+     * @param document
+     */
     private void extractOfficeScripts(OdfDocument document) {
         try {
             BungeniOdfDocumentHelper odoc            = new BungeniOdfDocumentHelper(document);
@@ -393,6 +433,10 @@ public class xmlMergeMain {
         }
     }
 
+    /**
+     * 
+     * @param document
+     */
     private void extractTrackChangesContainer(OdfDocument document) {
         try {
             BungeniOdfDocumentHelper odoc       = new BungeniOdfDocumentHelper(document);
@@ -411,6 +455,12 @@ public class xmlMergeMain {
         }
     }
 
+    /**
+     *
+     * @param document
+     * @throws XPathExpressionException
+     * @throws Exception
+     */
     private void extractTextSequenceDecls(OdfDocument document) throws XPathExpressionException, Exception {
         XPath                    xPath    = document.getXPath();
         BungeniOdfDocumentHelper odoc     = new BungeniOdfDocumentHelper(document);
@@ -421,6 +471,15 @@ public class xmlMergeMain {
         BungeniOdfNodeHelper.outputNodeAsXML(seqDecls, outputFile);
     }
 
+    /**
+     *
+     * @param xPath
+     * @param document
+     * @param changeId
+     * @param changeType
+     * @return
+     * @throws Exception
+     */
     private String extractChangeContent(XPath xPath, OdfDocument document, String changeId, String changeType)
             throws Exception {
         StringWriter buff = new StringWriter();
@@ -471,19 +530,6 @@ public class xmlMergeMain {
                 sbf.append(precedingSiblingsForFirstChangeInsert(xPath, document, changeId));
             }
 
-            // List<String> xmlNodes = new ArrayList<String>(0);
-
-            /**
-             * if (nnodes != null) {
-             *   for (int i = 0; i < nnodes.getLength(); i++) {
-             *       Node aNode = nnodes.item(i);
-             *
-             *       BungeniOdfNodeHelper.outputNodeAsXML(aNode, sw);
-             *
-             *       // xmlNodes.add(sw.toString());
-             *   }
-             * }
-             */
         } catch (Exception ex) {
             log.error("extractFirstChange : " + ex.getMessage());
 
@@ -493,6 +539,14 @@ public class xmlMergeMain {
         return sbf.toString();
     }
 
+    /**
+     * 
+     * @param xPath
+     * @param thisChange
+     * @param prevChange
+     * @return
+     * @throws Exception
+     */
     private String extractNextChangePrecedingSiblings(XPath xPath, changePosition thisChange, changePosition prevChange)
             throws Exception {
         NodeList     nnodes;
@@ -515,6 +569,14 @@ public class xmlMergeMain {
         return sbf.toString();
     }
 
+    /**
+     *
+     * @param xPath
+     * @param document
+     * @param changeId
+     * @return
+     * @throws Exception
+     */
     private String precedingSiblingsForFirstChangeInsert(XPath xPath, OdfDocument document, String changeId)
             throws Exception {
         String xpathExpr = "//text:change-start[@text:change-id='" + changeId
@@ -529,6 +591,14 @@ public class xmlMergeMain {
         return sw.toString();
     }
 
+    /**
+     *
+     * @param xPath
+     * @param document
+     * @param changeId
+     * @return
+     * @throws Exception
+     */
     private String precedingSiblingsForFirstChangeDelete(XPath xPath, OdfDocument document, String changeId)
             throws Exception {
         String xpathExpr = "//text:change[@text:change-id='" + changeId
@@ -543,6 +613,14 @@ public class xmlMergeMain {
         return sw.toString();
     }
 
+    /**
+     *
+     * @param xPath
+     * @param cp
+     * @param lastChange
+     * @return
+     * @throws Exception
+     */
     private String precedingSiblingsForNextChangeInsert(XPath xPath, changePosition cp, changePosition lastChange)
             throws Exception {
 
@@ -559,6 +637,7 @@ public class xmlMergeMain {
             // if the lastnode was a deletion we use the deletion end point
             lastEndNodeXpath = lastChange.nodeAddressStart + "/following::node()[1]";
         }
+        /// WE HAVE TO COLLAPSE INSERT NODES !!!! make a copy of the document and collapse the insert node
 
         Node lastEndNode = (Node) xPath.evaluate(lastEndNodeXpath,
                                getVersionDocByPath(lastChange.docName).getContentDom(), XPathConstants.NODE);
@@ -582,10 +661,17 @@ public class xmlMergeMain {
         BungeniOdfNodeHelper.outputNodeAsXML(endNodeThis, sw);
         BungeniOdfNodeHelper.outputNodesAsXML(precedingNextList, sw);
         log.debug("Next change xml = \n\n " + sw.toString());
-
         return sw.toString();
     }
 
+    /**
+     *
+     * @param xPath
+     * @param cp
+     * @param lastChange
+     * @return
+     * @throws Exception
+     */
     private String precedingSiblingsForNextChangeDelete(XPath xPath, changePosition cp, changePosition lastChange)
             throws Exception {
 
@@ -625,20 +711,12 @@ public class xmlMergeMain {
         BungeniOdfNodeHelper.outputNodesAsXML(precedingNextList, sw);
         log.debug("Next change xml = \n\n " + sw.toString());
 
-        return sw.toString();
-
-        /*
-         * String xpathExpr = "//text:change[@text:change-id='" + changeId
-         *                  + "']/preceding::*[preceding::text:*[@change-id='" + previousChangeId + "']";
-         * List<String> xmlNodes   = new ArrayList<String>(0);
-         * NodeList     foundNodes = (NodeList) xPath.evaluate(xpathExpr, document.getContentDom(),
-         *                             XPathConstants.NODESET);
-         *
-         * return foundNodes;
-         *
-         */
+        return sw.toString();       
     }
 
+    /**
+     * Clean up the changes table
+     */
     private void cleanupChangeInfo() {
         this.mergeDB.Connect();
         this.mergeDB.Update(xmlMergeQueries.DELETE_ALL_CHANGES());
@@ -676,7 +754,15 @@ public class xmlMergeMain {
         }
     }
 
-    private String extractLastChangeFollowingSiblings(XPath xPath, changePosition lastChange)
+    /**
+     * Get the last following sibling xml nodes 
+     * @param xPath
+     * @param lastChange
+     * @param parentXpath
+     * @return
+     * @throws java.lang.Exception
+     */
+    private String extractLastChangeFollowingSiblings(XPath xPath, changePosition lastChange, String parentXpath)
             throws java.lang.Exception {
         NodeList nnodes            = null;
         String   changeElementType = "";
@@ -687,7 +773,7 @@ public class xmlMergeMain {
             changeElementType = "//text:change";
         }
 
-        String xPathExpr = changeElementType + "[@text:change-id='" + lastChange.changeId + "']/following-sibling::*";
+        String xPathExpr = changeElementType + "[@text:change-id='" + lastChange.changeId + "']/following-sibling::*["+  parentXpath +"/child::node()[last()]]";
 
         nnodes = (NodeList) xPath.evaluate(xPathExpr, this.getVersionDocByPath(lastChange.docName).getContentDom(),
                                            XPathConstants.NODESET);
@@ -846,11 +932,25 @@ public class xmlMergeMain {
                                          XPathConstants.NODE);
                     int nComparison = thisNode.compareDocumentPosition(otherNode);
 
-                    if (nComparison == Node.DOCUMENT_POSITION_PRECEDING) {
-                        nComparer = -1;
-                    } else {
-                        nComparer = 1;
+                    switch (nComparison) {
+                        case Node.DOCUMENT_POSITION_PRECEDING:
+                            nComparer = -1;
+                            break;
+                        case Node.DOCUMENT_POSITION_FOLLOWING:
+                            nComparer = 1;
+                            break;
+
+                        case Node.DOCUMENT_POSITION_CONTAINED_BY:
+                            nComparer = 1;
+                            break;
+                        case Node.DOCUMENT_POSITION_CONTAINS:
+                            nComparer = -1;
+                            break;
+                        default :
+                            nComparer = 1;
+                            break;
                     }
+                    
                 } catch (Exception ex) {
                     log.error("compareTo :" + ex.getMessage());
                 }

@@ -30,11 +30,12 @@ public class xmlMergeQueries {
         return query;
     }
 
-    public static String UPDATE_CHANGE_FRAGMENTS(String docName, String changeId , String clobFragment, String changeFragment) {
+    public static String UPDATE_CHANGE_FRAGMENTS(String docName, String changeId , String clobFragment, String changeFragment, int changeOrder ) {
         String query = "update DOCUMENT_CHANGES set FRAGMENT = '" + escapeQuotes(clobFragment) + "' , " +
-                "CHANGE_FRAGMENT='"+ escapeQuotes(changeFragment) + "' " +
+                "CHANGE_FRAGMENT='"+ escapeQuotes(changeFragment) + "' , " +
+                "W_ORDER = " + Integer.toString(changeOrder) +
                 " where DOC_NAME='" + docName + "' and " +
-                " CHANGE_ID = '" + changeId + "' ";
+                " CHANGE_ID = '" + changeId + "' " ;
         return query;
     }
 
