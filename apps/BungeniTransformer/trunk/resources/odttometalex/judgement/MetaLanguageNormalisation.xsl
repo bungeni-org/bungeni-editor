@@ -24,7 +24,7 @@
         xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0"
         xmlns:rpt="http://openoffice.org/2005/report"
         xmlns:anx="http://anx.akomantoso.org/1.0"
-	exclude-result-prefixes="xsl xsd xsi text office style table draw fo xlink dc meta number svg chart dr3d math form script ooo ooow oooc dom xforms of rdfa anx rpt field"
+	exclude-result-prefixes="xsl xsd xsi text office style table draw fo xlink dc meta number svg chart dr3d math form script ooo ooow oooc dom xforms of rdfa rpt field"
 	extension-element-prefixes="saxon" version="2.0">
 	<xsl:output indent="yes" method="xml"/>
 
@@ -100,7 +100,8 @@
 		</inline>
 	</xsl:template>
 
-	<xsl:template match="container[./child::htitle]">
+        <!-- to prevent a non-ambiguous match for a section without a htitle we exclude the body -->
+	<xsl:template match="container[./child::htitle and @name != 'body']">
 		<hcontainer>
 			<xsl:for-each select="@*">
 				<xsl:attribute name="{local-name(.)}">
