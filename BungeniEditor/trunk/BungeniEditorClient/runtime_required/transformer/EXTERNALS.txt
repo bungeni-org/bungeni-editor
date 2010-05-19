@@ -1,6 +1,5 @@
-akntohtml http://bungeni-portal.googlecode.com/svn/DocTransforms/trunk/ODTtoAKN/resources/akntohtml
-configfiles http://bungeni-portal.googlecode.com/svn/DocTransforms/trunk/ODTtoAKN/resources/configfiles
-odttoakn http://bungeni-portal.googlecode.com/svn/DocTransforms/trunk/ODTtoAKN/resources/odttoakn
-odttometalex http://bungeni-portal.googlecode.com/svn/DocTransforms/trunk/ODTtoAKN/resources/odttometalex
-jar http://bungeni-editor.googlecode.com/svn/external_libs/transformer
-jar/lib http://bungeni-portal.googlecode.com/svn/DocTransforms/trunk/ODTtoAKN/lib
+akntohtml http://bungeni-editor.googlecode.com/svn/apps/BungeniTransformer/trunk/resources/akntohtml
+configfiles http://bungeni-editor.googlecode.com/svn/apps/BungeniTransformer/trunk/resources/configfiles
+odttoakn http://bungeni-editor.googlecode.com/svn/apps/BungeniTransformer/trunk/resources/odttoakn
+odttometalex http://bungeni-editor.googlecode.com/svn/apps/BungeniTransformer/trunk/resources/odttometalex
+jar http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/transformer
