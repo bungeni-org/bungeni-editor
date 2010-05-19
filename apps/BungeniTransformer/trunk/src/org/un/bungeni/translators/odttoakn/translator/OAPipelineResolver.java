@@ -22,8 +22,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
+import org.apache.log4j.Logger;
 
 public final class OAPipelineResolver implements org.un.bungeni.translators.interfaces.PipelineResolver {
+ private static org.apache.log4j.Logger log                   = Logger.getLogger(OAPipelineResolver.class.getName());
 
     /* The instance of this resolver */
     private static OAPipelineResolver instance = null;
@@ -63,7 +65,7 @@ public final class OAPipelineResolver implements org.un.bungeni.translators.inte
      */
     public Document resolve(String aPipelinePath)
             throws SAXException, IOException, ParserConfigurationException, XPathExpressionException {
-
+        log.debug("resolving pipeline path = " + aPipelinePath);
         // open the XSLT file into a DOM document
         Document pipeline = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(
                                 FileUtility.getInstance().FileAsInputSource(aPipelinePath));    // new File(aPipelinePath));
@@ -88,6 +90,7 @@ public final class OAPipelineResolver implements org.un.bungeni.translators.inte
             // get the XSLT file
             File XSLTFile = new File(GlobalConfigurations.getApplicationPathPrefix() + xsltURI);
 
+            log.debug("\t processing element :: " + elementName + " , " + xsltURI );
             // open the pointed XSLT as a DOM document
             Document XSLTDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(
                                    FileUtility.getInstance().FileAsInputSource(XSLTFile));

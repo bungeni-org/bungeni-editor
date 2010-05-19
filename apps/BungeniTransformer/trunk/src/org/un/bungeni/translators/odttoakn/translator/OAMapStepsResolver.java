@@ -13,11 +13,14 @@ import java.util.Iterator;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPathExpressionException;
+import org.apache.log4j.Logger;
 
 /**
+ * ASHOK ::: THIS DOES NOT APPEAR TO BE USED MARK FOR DELETION 
  * Used to resolve the MAP STEPS of a configuration file
  */
 public final class OAMapStepsResolver {
+ private static org.apache.log4j.Logger log                   = Logger.getLogger(OAMapStepsResolver.class.getName());
 
     /**
      * Return the StreamSource obtained after all the MAP steps of the given
@@ -29,7 +32,7 @@ public final class OAMapStepsResolver {
      * @throws TransformerException
      */
     protected static StreamSource resolve(OAMap aMap) throws XPathExpressionException, TransformerException {
-
+    log.debug("resolving map steps ");
         // get the map steps from the map
         HashMap<Integer, OAMapStep> mapSteps = aMap.getMapSteps();
 
@@ -48,6 +51,7 @@ public final class OAMapStepsResolver {
             paramMap.put("id", (Integer) nextMapStep.getId());
             paramMap.put("bungeniSectionType", (String) nextMapStep.getBungeniSectionType());
             paramMap.put("result", (String) nextMapStep.getResult());
+            log.debug(" map step for :" + paramMap.get("bungeniSectionType") + " , result = " + paramMap.get("result"));
         }
 
         // return the transformed document

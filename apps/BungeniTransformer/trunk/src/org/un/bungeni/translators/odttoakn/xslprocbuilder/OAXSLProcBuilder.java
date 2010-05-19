@@ -25,8 +25,14 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
+import org.apache.log4j.Logger;
 
+/**
+ * THIS CLASS NEVER GETS CALLED - MARK FOR DELETION 
+ * @author ASHOK
+ */
 public class OAXSLProcBuilder {
+ private static org.apache.log4j.Logger log                   = Logger.getLogger(OAXSLProcBuilder.class.getName());
 
     // the instance of this Configuration Builder
     private static OAXSLProcBuilder instance;
@@ -68,6 +74,7 @@ public class OAXSLProcBuilder {
         // get the empty pipeline path
         this.emptyPipelinePath = GlobalConfigurations.getApplicationPathPrefix()
                                  + properties.getProperty("emptyPipelinePath");
+        log.debug("setting up xslprocbuilder : defaultValuesPath = " +this.defaultValuesPath);
     }
 
     /**
@@ -110,7 +117,7 @@ public class OAXSLProcBuilder {
      */
     public void createXSLProc(String outputDirectory)
             throws SAXException, IOException, ParserConfigurationException, XPathExpressionException {
-
+            log.debug("creating xslProc");
         // get the default values container
         Document defaultValuesDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(
                                              FileUtility.getInstance().FileAsInputSource(this.defaultValuesPath));
