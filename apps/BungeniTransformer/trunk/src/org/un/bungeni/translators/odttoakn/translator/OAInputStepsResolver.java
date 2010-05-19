@@ -19,11 +19,13 @@ import java.util.Iterator;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPathExpressionException;
+import org.apache.log4j.Logger;
 
 /**
  * Used to resolve the XSLT INPUT STEPS of a configuration file
  */
 public final class OAInputStepsResolver {
+   private static org.apache.log4j.Logger log                   = Logger.getLogger(OAInputStepsResolver.class.getName());
 
     /**
      * Return the StreamSource obtained after all the INPUT XSLT steps of the given
@@ -72,7 +74,7 @@ public final class OAInputStepsResolver {
 
                 // start the transformation
                 iteratedDocument = XSLTTransformer.getInstance().transform(iteratedDocument, xsltStream);
-
+                log.debug("executing input step = " + nextStep.getName() + ", " + nextStep.getHref());
                 // /// ---ASHOK--- //////
 
                 /*

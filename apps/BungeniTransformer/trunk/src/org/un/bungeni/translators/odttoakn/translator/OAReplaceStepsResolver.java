@@ -20,11 +20,13 @@ import java.util.Iterator;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPathExpressionException;
+import org.apache.log4j.Logger;
 
 /**
  * Used to resolve the REPLACE STEPS of a configuration file
  */
 public final class OAReplaceStepsResolver {
+  private static org.apache.log4j.Logger log                   = Logger.getLogger(OAReplaceStepsResolver.class.getName());
 
     /**
      * Return the StreamSource obtained after all the result steps of the given
@@ -54,7 +56,7 @@ public final class OAReplaceStepsResolver {
 
             // get the next step
             OAReplaceStep nextStep = (OAReplaceStep) replaceIterator.next();
-
+            log.debug("executing replace step  :" + nextStep.getName()  );
             // get the pattern of the replace
             String pattern = nextStep.getPattern();
 

@@ -41,8 +41,7 @@ public final class OAMapStepsResolver {
 
             // get the next step
             OAMapStep nextMapStep = (OAMapStep) mapStepsIterator.next();
-
-            // the hash map that will contains the parametes
+            // the hash map that will cont ains the parametes
             HashMap<String, Object> paramMap = new HashMap<String, Object>();
 
             // get the map step info and fill them into the params map

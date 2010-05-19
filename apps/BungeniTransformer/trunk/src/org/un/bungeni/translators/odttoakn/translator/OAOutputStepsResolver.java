@@ -10,15 +10,7 @@ import org.un.bungeni.translators.utility.xslttransformer.XSLTTransformer;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 
 import java.util.HashMap;
@@ -27,11 +19,13 @@ import java.util.Iterator;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPathExpressionException;
+import org.apache.log4j.Logger;
 
 /**
  * Used to resolve the XSLT OUTPUT STEPS of a configuration file
  */
 public final class OAOutputStepsResolver {
+   private static org.apache.log4j.Logger log                   = Logger.getLogger(OAOutputStepsResolver.class.getName());
 
     /**
      * Return the StreamSource obtained after all the OUTPUT XSLT steps of the given
@@ -65,7 +59,7 @@ public final class OAOutputStepsResolver {
 
             // get the href from the step
             String stepHref = GlobalConfigurations.getApplicationPathPrefix() + nextStep.getHref();
-
+           log.debug("executing output step = " + nextStep.getName() + " , " + nextStep.getHref());
             // create a stream source by the href of the XSLT
             StreamSource xsltStream = FileUtility.getInstance().FileAsStreamSource(stepHref);
 
