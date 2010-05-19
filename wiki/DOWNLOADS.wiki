@@ -2,6 +2,13 @@
 #labels Phase-Implementation,Featured
 
 == Bungeni Editor == 
+
+=== Current Release === 
+
+[http://code.google.com/p/bungeni-editor/downloads/detail?name=install-0.9.1419.jar Bungeni Editor v0.9.958 - requires OpenOffice.org 3.1.1] -_Updates : ODF 1.2 compatible release. Minor fixes and improvements in translator. Templates do not have gradient backgrounds anymore_
+
+=== Older Releases === 
+
 [http://code.google.com/p/bungeni-editor/downloads/detail?name=install-0.9.958.jar Bungeni Editor v0.9.958 - requires OpenOffice.org 3.1.1]
 
 == Bungeni OpenOffice Helper == 
