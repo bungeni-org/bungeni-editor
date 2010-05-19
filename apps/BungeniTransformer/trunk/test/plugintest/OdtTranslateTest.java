@@ -22,10 +22,10 @@ public class OdtTranslateTest {
 		paramMap = new HashMap();
 		currentDirectory = System.getProperty("user.dir");
 		currentDocType = "debaterecord";
-		paramMap.put("OdfFileURL", currentDirectory + "/bin/ke_debaterecord_2009-7-26_eng.odt");
-		paramMap.put("OutputFilePath", currentDirectory + "/bin/ke_debaterecord_2009-7-26_eng.xml");
-		paramMap.put("OutputMetalexFilePath", currentDirectory + "/bin/ke_debaterecord_2009-7-26_eng_metalex.xml");
-		paramMap.put("TranslatorRootFolder", currentDirectory + "/bin/");
+		paramMap.put("OdfFileURL", currentDirectory + "/test/testdocs/test_debaterecord.odt");
+		paramMap.put("OutputFilePath", currentDirectory + "/test/testresults/plugintest_debaterecord.xml");
+		paramMap.put("OutputMetalexFilePath", currentDirectory + "/test/testresults/plugintest_debaterecord.mlx");
+		paramMap.put("TranslatorRootFolder", currentDirectory + "/resources/");
 		paramMap.put("TranslatorConfigFile", "configfiles/odttoakn/TranslatorConfig_debaterecord.xml");
 		paramMap.put("TranslatorPipeline","odttoakn/minixslt/debaterecord/pipeline.xsl" );
 		paramMap.put("CurrentDocType", currentDocType);

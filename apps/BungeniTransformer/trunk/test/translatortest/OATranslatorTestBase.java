@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.HashMap;
+import org.apache.log4j.BasicConfigurator;
 
 import org.junit.After;
 import org.junit.Before;
@@ -34,6 +35,8 @@ public class OATranslatorTestBase
     
 	public OATranslatorTestBase() {
 		super();
+                BasicConfigurator.configure();
+
 	}
 	
 	private OATranslator myTranslator;
