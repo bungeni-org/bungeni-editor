@@ -12,6 +12,13 @@
 [http://code.google.com/p/bungeni-editor/downloads/detail?name=install-0.9.958.jar Bungeni Editor v0.9.958 - requires OpenOffice.org 3.1.1]
 
 == Bungeni OpenOffice Helper == 
+
+=== Current Release === 
+
+[http://code.google.com/p/bungeni-editor/downloads/detail?name=ooobungenilib-2010-05-19.tar.gz Bungeni OpenOfficeHelper UNO Library- compatible with OpenOffice.org 3.1.1]
+
+=== Older Releases ===
+
 [http://code.google.com/p/bungeni-editor/downloads/detail?name=ooobungenilib-2009-08-24.tar.gz Bungeni OpenOfficeHelper UNO Library - compatible with OpenOffice.org 3.1.1]
 
 == BungeniODFDOM == 
