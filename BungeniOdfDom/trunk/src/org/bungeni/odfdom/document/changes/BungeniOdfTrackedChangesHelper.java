@@ -13,13 +13,16 @@ import org.odftoolkit.odfdom.doc.text.OdfTextChangedRegion;
 import org.odftoolkit.odfdom.doc.text.OdfTextDeletion;
 import org.odftoolkit.odfdom.doc.text.OdfTextInsertion;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 //~--- JDK imports ------------------------------------------------------------
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -33,15 +36,14 @@ import javax.xml.xpath.XPathExpressionException;
  * @author Ashok Hariharan
  */
 public class BungeniOdfTrackedChangesHelper {
-    private static org.apache.log4j.Logger log                  =
+    public static final String             __CHANGE_TYPE_DELETION__    = "deletion";
+    public static final String             __CHANGE_TYPE_INSERTION__   = "insertion";
+    public static final String             __CHANGE_TYPE_REPLACEMENT__ = "replacement";
+    private static org.apache.log4j.Logger log                         =
         Logger.getLogger(BungeniOdfTrackedChangesHelper.class.getName());
-    private BungeniOdfChangesMergeHelper   m_changesMergeHelper = null;
-    private BungeniOdfDocumentHelper       m_docHelper          = null;
-    private XPath                          m_docXpath           = null;
-
-    public static final String __CHANGE_TYPE_INSERTION__ = "insertion";
-    public static final String __CHANGE_TYPE_DELETION__ = "deletion";
-    public static final String __CHANGE_TYPE_REPLACEMENT__ = "replacement";
+    private BungeniOdfChangesMergeHelper   m_changesMergeHelper        = null;
+    private BungeniOdfDocumentHelper       m_docHelper                 = null;
+    private XPath                          m_docXpath                  = null;
 
     /**
      * <p>Track changes helper is initialized using a Document Helper object</p>
@@ -166,6 +168,305 @@ public class BungeniOdfTrackedChangesHelper {
         }
 
         return foundRegion;
+    }
+
+    /**
+     * Reverses a change
+     * - a insert change is removed from the header
+     * and also from the body of document.
+     *
+     * - a delete change reverts the original text
+     * back into the body of the document
+     *
+     * WARNING - this API must be used only in special circumstances -
+     * it does not guarantee integrity of the document when there are overlapping
+     * changes
+     *
+     * @param changeId
+     * @return
+     */
+    public boolean revertChange(String changeId) {
+        return false;
+    }
+
+    /**
+     *
+     * @param thisChangeId
+     * @return
+     */
+    public boolean revertAllChangesWithException(String thisChangeId) {
+        return false;
+    }
+
+    /**
+     * Reverse all track change markings in a document and restores original text
+     * @param dcCreator
+     * @param exceptTheseChangeIds
+     * @return
+     * @throws Exception
+     */
+    public boolean revertAllChangesByCreatorWithException(String dcCreator, List<String> exceptTheseChangeIds)
+            throws Exception {
+        String xPathExpr = "./child::text:changed-region["
+                           + "(descendant::text:insertion/office:change-info[@office:chg-author='" + dcCreator + "'])"
+                           + " or " + "(descendant::dc:creator='" + dcCreator + "')]";
+        NodeList foundNodes = (NodeList) this.m_docXpath.evaluate(xPathExpr,
+                                  this.m_docHelper.getChangesHelper().getTrackedChangeContainer(),
+                                  XPathConstants.NODESET);
+
+        for (int i = 0; i < foundNodes.getLength(); i++) {
+            OdfTextChangedRegion changeRegion = (OdfTextChangedRegion) foundNodes.item(i);
+            StructuredChangeType scType       = this.getStructuredChangeType(changeRegion);
+            boolean              bException   = false;
+
+            // check if the id is one of the exceptions
+            for (String exceptThisId : exceptTheseChangeIds) {
+                if (exceptThisId.equals(scType.changeId)) {
+                    bException = true;
+                }
+            }
+
+            // process only if it is not an exception
+            if (false == bException) {
+                if (scType.changetype.equals(__CHANGE_TYPE_INSERTION__)) {
+                    log.debug("removing insertion for change id :" + scType.changeId);
+
+                    // if it is an insertion we remove the nodes between the markers
+                    // first delete all the nodes between the markers and then delete
+                    // the marker nodes
+                    NodeList insertNodes = getNodesBetweenInsertMarkers(scType.changeId);
+
+                    for (int j = 0; j < insertNodes.getLength(); j++) {
+                        Node insNode = insertNodes.item(j);
+
+                        insNode.getParentNode().removeChild(insNode);
+                    }
+
+                    NodeList markerNodes = getMarkerNodesForChange(scType.changeId);
+
+                    for (int k = 0; k < markerNodes.getLength(); k++) {
+                        Node markerNode = markerNodes.item(k);
+
+                        markerNode.getParentNode().removeChild(markerNode);
+                    }
+                } else {
+                    log.debug("removing deletion for change id :" + scType.changeId);
+                    // its a deletion we add the deleted nodes after the delete change mark
+                    //but the case for deletion is a bit more complicate ...
+                    // -- prepare by getting allt he neccessary info
+                    NodeList deletdNodes          = changeRegion.getElementsByTagName("text:deletion");
+                    NodeList markerNodes          = getMarkerNodesForChange(scType.changeId);
+                    NodeList allDeletedNodes      = this.getDeletedNodes(deletdNodes.item(0));
+                    Node     deletemarker         = markerNodes.item(0);
+                    Node     insertBeforeThisNode = deletemarker;
+                    //check if the marker node has siblings
+                    //if marker node has no siblings it may be in an empty element e.g. a deleted paragraph
+                    //we need to merge the deleted nodes before the parent
+                    boolean bmarkerWithoutSiblings = hasNodeGotSiblings(insertBeforeThisNode);
+                    //test if the first deletenode has the same element type as the parent.
+                    Node parentofChangeMarker = insertBeforeThisNode.getParentNode();
+                    Node firstDeletedNode  = allDeletedNodes.item(0);
+                    boolean  bmarkerparentsameAsFirstDeletedNode = false;
+                    if (this.compareNodeSignatures(firstDeletedNode, parentofChangeMarker)) {
+                        //the first deleted node and the parent of the change marker have
+                        //the same signature so move the delete nodes prior to the parent of the change marker.
+                        bmarkerparentsameAsFirstDeletedNode = true;
+                    }
+                    //now we process the deleted nodes one by one starting from the bottom to the top since that
+                    //is the order we are going to add the nodes using insertBefore();
+                    for (int m = allDeletedNodes.getLength() - 1; m >= 0; m--) {
+                        Node aDeletedNode = allDeletedNodes.item(m);
+                        // first disconnect the node from the text:deletion parent container
+                        aDeletedNode.getParentNode().removeChild(aDeletedNode);
+                        //next we determine how best to add it back to the main document body
+                        //case 1) marker node has no siblings && the parent of the marker is the same signature as the 1st deleted node
+                        if ((true == bmarkerWithoutSiblings)  && (true == bmarkerparentsameAsFirstDeletedNode)) {
+                            //parent of marker node has the same signature as the first deleted node
+                            //so its any empty node we can simply add the node before this one.
+                                parentofChangeMarker.getParentNode().insertBefore(aDeletedNode, parentofChangeMarker);
+                        }
+                        //case 2) marker node has siblings && the parent of the marker node is the same signature as the 1st deleted node
+                        else if ((false == bmarkerWithoutSiblings) && (true == bmarkerparentsameAsFirstDeletedNode)) {
+                            //in this case we do a parent node signature comparison -- and merge the children
+                            //of the deleted node into the parent of the marker node
+                            NodeList childrenofThis = aDeletedNode.getChildNodes();
+                            Node childMarker = insertBeforeThisNode;
+                            for (int l = childrenofThis.getLength() - 1; l >= 0  ; l--) {
+                                Node childNode = childrenofThis.item(l);
+                                insertBeforeThisNode.getParentNode().insertBefore(childNode, childMarker);
+                                childMarker = childNode;
+                            }
+                        } else if (false == bmarkerparentsameAsFirstDeletedNode) {
+                            insertBeforeThisNode.getParentNode().insertBefore(aDeletedNode, insertBeforeThisNode);
+                            insertBeforeThisNode.getParentNode().normalize();
+                        }
+
+                        /*
+                        boolean nodeSignaturesEqual = compareNodeSignatures (moveThisNode, insertBeforeThisNode.getParentNode());
+                        if (nodeSignaturesEqual) {
+                            //we cannot add the node as a child to the parent.
+                            //we have to add its children to the parent.
+                            NodeList childrenofThis = moveThisNode.getChildNodes();
+                            Node childMarker = insertBeforeThisNode;
+                            for (int l = childrenofThis.getLength() - 1; l >= 0  ; l--) {
+                                Node childNode = childrenofThis.item(l);
+                                insertBeforeThisNode.getParentNode().insertBefore(childNode, childMarker);
+                                childMarker = childNode;
+                            }
+                        } else {
+                            insertBeforeThisNode.getParentNode().insertBefore(moveThisNode, insertBeforeThisNode);
+                            insertBeforeThisNode.getParentNode().normalize();
+                        }
+                        */
+                        insertBeforeThisNode = aDeletedNode;
+                    }
+                    if ((true == bmarkerWithoutSiblings)  && (true == bmarkerparentsameAsFirstDeletedNode))
+                        deletemarker.getParentNode().getParentNode().removeChild(deletemarker.getParentNode());
+                    else
+                        deletemarker.getParentNode().removeChild(deletemarker);
+                }
+            }
+
+            // now we delete the change region
+            changeRegion.getParentNode().removeChild(changeRegion);
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks if a node has any sibling nodes - if there no sibling nodes -- this is the only
+     * node contained by the parent node
+     * @param markerNode
+     * @return
+     */
+    private boolean hasNodeGotSiblings(Node markerNode) {
+        return ((markerNode.getNextSibling() == null) && (markerNode.getPreviousSibling() == null));
+    }
+
+    /**
+     * Adapted from DOMUtils - compares node signatures in terms of node name,
+     * namespace, attributes - but NOT content
+     *
+     * @param aNode
+     * @param bNode
+     * @return
+     */
+    private boolean compareNodeSignatures(Node aNode, Node bNode) {
+        if (aNode == null || bNode == null) {
+            return false;
+        }
+        if (aNode.getNodeType() != bNode.getNodeType()) {
+            return false;
+        }
+        if (aNode instanceof Element) {
+                Element aElement = (Element) aNode;
+                Element bElement = (Element) bNode;
+                // compare local names
+                if (!aElement.getLocalName().equals(bElement.getLocalName())) {
+                    log.info("compareNodeSignatures : local names did not match");
+                    return false;
+                }
+                // compare NS uris
+                String aElementNSUri = aElement.getNamespaceURI();
+                String bElementNSUri = bElement.getNamespaceURI();
+                if (((bElementNSUri == null) && (aElementNSUri != null))
+                        || ((bElementNSUri != null) &&!bElementNSUri.equals(aElementNSUri))) {
+                    log.info("compareNodeSignatures : namespace URIs did not match");
+                    return false;
+                }
+                String elementName = "{" + bElement.getNamespaceURI() + "}" + aElement.getLocalName();
+
+                // compare attributes
+                NamedNodeMap aAttrs = aElement.getAttributes();
+                NamedNodeMap bAttrs = bElement.getAttributes();
+
+                // first count attributes
+                if (this.countNonNamespaceAttribures(aAttrs) != this.countNonNamespaceAttribures(bAttrs)) {
+                    return false;
+                }
+
+                // then match attributes if the count is equal
+                for (int i = 0; i < bAttrs.getLength(); i++) {
+                    Attr expectedAttr = (Attr) bAttrs.item(i);
+                    if (expectedAttr.getName().startsWith("xmlns")) {
+                        continue;
+                    }
+                    Attr actualAttr = null;
+                    if (expectedAttr.getNamespaceURI() == null) {
+                        actualAttr = (Attr) aAttrs.getNamedItem(expectedAttr.getName());
+                    } else {
+                        actualAttr = (Attr) aAttrs.getNamedItemNS(expectedAttr.getNamespaceURI(),
+                                expectedAttr.getLocalName());
+                    }
+                    if (actualAttr == null) {
+                        log.info("compareNodeSignatures " + elementName + ": No attribute found:" + expectedAttr);
+                        return false;
+                    }
+                    if (!expectedAttr.getValue().equals(actualAttr.getValue())) {
+                        log.info("compareNodeSignatures " + elementName + ": Attribute values do not match: " + expectedAttr.getValue() + " "
+                                 + actualAttr.getValue());
+                        return false;
+                    }
+                }
+                log.debug("compareNodeSignature : returning true");
+                return true;
+        } else {
+            log.info("Problem : currently only parent nodes which are elements are handled");
+            return false;
+        }
+        
+    }
+
+    /**
+     * Counts the non -namespaced attributes in an attribute map
+     * @param attrs
+     * @return
+     */
+    private int countNonNamespaceAttribures(NamedNodeMap attrs) {
+        int n = 0;
+
+        for (int i = 0; i < attrs.getLength(); i++) {
+            Attr attr = (Attr) attrs.item(i);
+
+            if (!attr.getName().startsWith("xmlns")) {
+                n++;
+            }
+        }
+
+        return n;
+    }
+
+
+    /**
+     * Gets all the sibling nodes between a start and end change marker 
+     * @param changeId
+     * @return
+     * @throws Exception
+     */
+    public NodeList getNodesBetweenInsertMarkers(String changeId) throws Exception {
+        String xpathExpr = "//text:change-start[@text:change-id='" + changeId
+                           + "']/following::node()[following-sibling::text:change-end[@text:change-id='" + changeId
+                           + "']]";
+        NodeList insertNodes = (NodeList) this.m_docXpath.evaluate(xpathExpr,
+                                   this.m_docHelper.getOdfDocument().getContentDom(), XPathConstants.NODESET);
+
+        return insertNodes;
+    }
+
+    /**
+     * Gets a change mark based on the change id - can be used to return both insert and delete change marks
+     * in the case of delete change marks a NodeList wiht a single item will be returned.
+     * @param changeId
+     * @return
+     * @throws Exception
+     */
+    public NodeList getMarkerNodesForChange(String changeId) throws Exception {
+        String   xpathExpr   = "//node()[@text:change-id='" + changeId + "']";
+        NodeList markerNodes = (NodeList) this.m_docXpath.evaluate(xpathExpr,
+                                   this.m_docHelper.getOdfDocument().getContentDom(), XPathConstants.NODESET);
+
+        return markerNodes;
     }
 
     /**
@@ -374,6 +675,7 @@ public class BungeniOdfTrackedChangesHelper {
 
         return matchedNodes;
     }
+
     /**
      * <p>Helper function on getDeletedNodes, returns a String with the text content
      * of all the nodes in the deleted nodes NodeList</p>
@@ -654,15 +956,20 @@ public class BungeniOdfTrackedChangesHelper {
         return changeNode;
     }
 
-    public NodeList getAllChangeNodes() throws Exception{
+    public NodeList getAllChangeNodes() throws Exception {
         NodeList nnodeList = null;
+
         try {
             String xpathExpr = "//node()[name()='text:change-start' or name()='text:change']";
-            nnodeList = (NodeList) this.m_docXpath.evaluate(xpathExpr, m_docHelper.getOdfDocument().getContentDom(), XPathConstants.NODESET);
+
+            nnodeList = (NodeList) this.m_docXpath.evaluate(xpathExpr, m_docHelper.getOdfDocument().getContentDom(),
+                    XPathConstants.NODESET);
         } catch (Exception ex) {
-            log.error("getAllChangeNodes : "  + ex.getMessage());
+            log.error("getAllChangeNodes : " + ex.getMessage());
+
             throw ex;
         }
+
         return nnodeList;
     }
 
@@ -672,12 +979,11 @@ public class BungeniOdfTrackedChangesHelper {
      */
     public List<StructuredChangeType> getAllChanges() {
         List<OdfTextChangedRegion> changeRegions = this.getChangedRegions(this.getTrackedChangeContainer());
-        List<StructuredChangeType> changes = new ArrayList<StructuredChangeType>(0);
+        List<StructuredChangeType> changes       = new ArrayList<StructuredChangeType>(0);
         for (OdfTextChangedRegion odfTextChangedRegion : changeRegions) {
             changes.add(this.getStructuredChangeType(odfTextChangedRegion));
         }
         return changes;
-
     }
 
     public class StructuredChangeType {
