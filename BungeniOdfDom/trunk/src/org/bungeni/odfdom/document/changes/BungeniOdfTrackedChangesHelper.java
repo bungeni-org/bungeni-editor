@@ -274,7 +274,7 @@ public class BungeniOdfTrackedChangesHelper {
                     }
                     //now we process the deleted nodes one by one starting from the bottom to the top since that
                     //is the order we are going to add the nodes using insertBefore();
-                    for (int m = allDeletedNodes.getLength() - 1; m >= 0; m--) {
+                    for (int m = 0; m < allDeletedNodes.getLength() ; m++) {
                         Node aDeletedNode = allDeletedNodes.item(m);
                         // first disconnect the node from the text:deletion parent container
                         aDeletedNode.getParentNode().removeChild(aDeletedNode);
@@ -289,12 +289,16 @@ public class BungeniOdfTrackedChangesHelper {
                         else if ((false == bmarkerWithoutSiblings) && (true == bmarkerparentsameAsFirstDeletedNode)) {
                             //in this case we do a parent node signature comparison -- and merge the children
                             //of the deleted node into the parent of the marker node
-                            NodeList childrenofThis = aDeletedNode.getChildNodes();
-                            Node childMarker = insertBeforeThisNode;
-                            for (int l = childrenofThis.getLength() - 1; l >= 0  ; l--) {
-                                Node childNode = childrenofThis.item(l);
-                                insertBeforeThisNode.getParentNode().insertBefore(childNode, childMarker);
-                                childMarker = childNode;
+                            if (aDeletedNode.hasChildNodes()) {
+                                NodeList childrenofThis = aDeletedNode.getChildNodes();
+                                //Node childMarker = insertBeforeThisNode;
+                                for (int l = 0; l < childrenofThis.getLength() ; l++ ) {
+                                    Node childNode = childrenofThis.item(l);
+                                    insertBeforeThisNode.getParentNode().insertBefore(childNode, insertBeforeThisNode);
+                                }
+                            } else {
+                                //if the deleted node has no child nodes
+                               // insertBeforeThisNode.getParentNode().getParentNode().insertBefore(aDeletedNode, insertBeforeThisNode.getParentNode()) ;
                             }
                         } else if (false == bmarkerparentsameAsFirstDeletedNode) {
                             insertBeforeThisNode.getParentNode().insertBefore(aDeletedNode, insertBeforeThisNode);
@@ -318,7 +322,7 @@ public class BungeniOdfTrackedChangesHelper {
                             insertBeforeThisNode.getParentNode().normalize();
                         }
                         */
-                        insertBeforeThisNode = aDeletedNode;
+                        // insertBeforeThisNode = aDeletedNode;
                     }
                     if ((true == bmarkerWithoutSiblings)  && (true == bmarkerparentsameAsFirstDeletedNode))
                         deletemarker.getParentNode().getParentNode().removeChild(deletemarker.getParentNode());
