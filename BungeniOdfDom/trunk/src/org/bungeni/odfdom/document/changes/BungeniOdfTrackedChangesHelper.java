@@ -274,10 +274,20 @@ public class BungeniOdfTrackedChangesHelper {
                     }
                     //now we process the deleted nodes one by one starting from the bottom to the top since that
                     //is the order we are going to add the nodes using insertBefore();
+
+                    boolean brestoreNodesAfterParentofParentMarker = false;
+                    Node nodeAfterParentMarker = null;
+                    
                     for (int m = 0; m < allDeletedNodes.getLength() ; m++) {
                         Node aDeletedNode = allDeletedNodes.item(m);
+
                         // first disconnect the node from the text:deletion parent container
                         aDeletedNode.getParentNode().removeChild(aDeletedNode);
+                        //check if the deleted node needs to be moved after the parent marker
+                        //this flag is set further down below
+                        if (true == brestoreNodesAfterParentofParentMarker ) {
+                              nodeAfterParentMarker.getParentNode().insertBefore(aDeletedNode, nodeAfterParentMarker);
+                        } else
                         //next we determine how best to add it back to the main document body
                         //case 1) marker node has no siblings && the parent of the marker is the same signature as the 1st deleted node
                         if ((true == bmarkerWithoutSiblings)  && (true == bmarkerparentsameAsFirstDeletedNode)) {
@@ -298,32 +308,73 @@ public class BungeniOdfTrackedChangesHelper {
                                 }
                             } else {
                                 //if the deleted node has no child nodes
-                               // insertBeforeThisNode.getParentNode().getParentNode().insertBefore(aDeletedNode, insertBeforeThisNode.getParentNode()) ;
+                               // it could be something like an empty pargraph break <text:p />
+                                // we need to split the current node by creating an new pargagraph after the current parent
+                                //and moving the change marker and subsequent content into that.
+                                /*
+                                 * e.g.
+                                 * <text:p >dhdhd dhdh</text:p>
+                                 * <text:p />
+                                 * <text:p >2728d dgdhdh</text:p>
+                                 *
+                                 * the above the 2nd deleted node is a pargraph break and needs to break out
+                                 * of the change deletion container.
+                                 *
+                                 * Also we need to get the contents of the node containing the change mark
+                                 * after the change mark since that content needs to be moved out too 
+                                 *
+                                 */
+                                    if (this.compareNodeSignatures(aDeletedNode, parentofChangeMarker)) {
+                                        if (aDeletedNode.hasChildNodes()) {
+                                            log.debug("delete nodes has child nodes - parent nodes  signature eqal");
+                                        } else {
+                                            nodeAfterParentMarker = parentofChangeMarker.getNextSibling();
+                                            nodeAfterParentMarker.getParentNode().insertBefore(aDeletedNode, nodeAfterParentMarker);
+                                            brestoreNodesAfterParentofParentMarker = true;
+                                        }
+                                    }
+                                
+
+
                             }
                         } else if (false == bmarkerparentsameAsFirstDeletedNode) {
                             insertBeforeThisNode.getParentNode().insertBefore(aDeletedNode, insertBeforeThisNode);
                             insertBeforeThisNode.getParentNode().normalize();
                         }
 
-                        /*
-                        boolean nodeSignaturesEqual = compareNodeSignatures (moveThisNode, insertBeforeThisNode.getParentNode());
-                        if (nodeSignaturesEqual) {
-                            //we cannot add the node as a child to the parent.
-                            //we have to add its children to the parent.
-                            NodeList childrenofThis = moveThisNode.getChildNodes();
-                            Node childMarker = insertBeforeThisNode;
-                            for (int l = childrenofThis.getLength() - 1; l >= 0  ; l--) {
-                                Node childNode = childrenofThis.item(l);
-                                insertBeforeThisNode.getParentNode().insertBefore(childNode, childMarker);
-                                childMarker = childNode;
+      
+                    }
+                    if (true == brestoreNodesAfterParentofParentMarker) {
+                        /**
+                        //text:change[@text:change-id='ct-1413922776']/following::node()
+                          [preceding-sibling::text:change[@text:change-id='ct-1413922776']]
+                         **/
+                        OdfTextChange elemDelChangeMark  = (OdfTextChange) deletemarker;
+                        List<Node> repatriateTheseNodes = new ArrayList<Node> (0);
+                        Node nodeNext = null;
+                        Node copyofParent = parentofChangeMarker.cloneNode(false);
+                        for (nodeNext = elemDelChangeMark.getNextSibling(); nodeNext != null;  ) {
+                            repatriateTheseNodes.add(nodeNext);
+                            nodeNext = nodeNext.getNextSibling();
+                        }
+                        //test current preceding node to node after parent marker ... if it is NOT an empty paragrph
+                        //we simply append these nodes as children of that node
+                        Node precedingofparentMarker = nodeAfterParentMarker.getPreviousSibling();
+                        if (this.compareNodeSignatures(precedingofparentMarker, parentofChangeMarker) && precedingofparentMarker.hasChildNodes()) {
+                            for (Node repatriatenode : repatriateTheseNodes) {
+                                repatriatenode.getParentNode().removeChild(repatriatenode);
+                                precedingofparentMarker.appendChild(repatriatenode);
                             }
                         } else {
-                            insertBeforeThisNode.getParentNode().insertBefore(moveThisNode, insertBeforeThisNode);
-                            insertBeforeThisNode.getParentNode().normalize();
+                            for (Node repatriatenode : repatriateTheseNodes) {
+                                repatriatenode.getParentNode().removeChild(repatriatenode);
+                                copyofParent.appendChild(repatriatenode);
+                            }
+                            nodeAfterParentMarker.getParentNode().insertBefore(copyofParent, nodeAfterParentMarker);
                         }
-                        */
-                        // insertBeforeThisNode = aDeletedNode;
-                    }
+
+                        deletemarker.getParentNode().removeChild(deletemarker);
+                    } else
                     if ((true == bmarkerWithoutSiblings)  && (true == bmarkerparentsameAsFirstDeletedNode))
                         deletemarker.getParentNode().getParentNode().removeChild(deletemarker.getParentNode());
                     else
