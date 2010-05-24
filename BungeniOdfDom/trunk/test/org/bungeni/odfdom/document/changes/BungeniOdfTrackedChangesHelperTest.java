@@ -2,7 +2,6 @@ package org.bungeni.odfdom.document.changes;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import java.io.IOException;
 import org.apache.log4j.Logger;
 
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
@@ -26,7 +25,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.apache.log4j.BasicConfigurator;
-import org.bungeni.odfdom.utils.BungeniOdfFileCopy;
 
 /**
  *
@@ -51,7 +49,6 @@ BungeniOdfDocumentHelper               revertTestHelper = null;
     public void setUp() {
         try {
             docHelper = new BungeniOdfDocumentHelper(new File("testdocs/tracked-changes.odt"));
-            revertTestHelper = new BungeniOdfDocumentHelper(new File("testdocs/tracked-changes-revert-test.odt"));
         } catch (Exception ex) {
             log.error(ex);
         }
@@ -153,17 +150,6 @@ BungeniOdfDocumentHelper               revertTestHelper = null;
         assertEquals(changes2.get("changeText"), "Nightingales");
         assertEquals(changes2.get("dcDate"), "Tue, Feb 9, 2010, 12:38:00 PM");
     }
-    @Test
-    public void testRevertAllChangesByCreatorWithException() throws IOException, Exception {
-            BungeniOdfFileCopy.copyFile(new File(this.revertTestHelper.getDocumentPath()), new File("testdocs/test-revert-output.odt"));
-            BungeniOdfDocumentHelper testhelper = new BungeniOdfDocumentHelper(new File("testdocs/test-revert-output.odt"));
-            testhelper.getChangesHelper().revertAllChangesByCreatorWithException("Ashok Hariharan", new ArrayList<String>(){
-                {
-                 new String("ct-1423998720");
-                }
-            });
-            testhelper.saveDocument();
-            assertEquals(true, true);
-    }
+ 
     
 }
