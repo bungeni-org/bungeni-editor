@@ -241,7 +241,8 @@ public class BungeniOdfTrackedChangesHelper {
             }
 
             // now we delete the change region
-            changeRegion.getParentNode().removeChild(changeRegion);
+            if (!bException)
+                changeRegion.getParentNode().removeChild(changeRegion);
         }
 
         return true;
@@ -271,9 +272,9 @@ public class BungeniOdfTrackedChangesHelper {
                 parentofMarkerNode.removeChild(markerNode);
                 //if the parent of the marker node is empty -- remove it too 
                 //since its a boundary marker
-                if (!parentofMarkerNode.hasChildNodes()) {
-                    parentofMarkerNode.getParentNode().removeChild(parentofMarkerNode);
-                }
+                //if (!parentofMarkerNode.hasChildNodes()) {
+                //    parentofMarkerNode.getParentNode().removeChild(parentofMarkerNode);
+                //}
             }
             bstate = true;
         } catch (Exception ex) {
