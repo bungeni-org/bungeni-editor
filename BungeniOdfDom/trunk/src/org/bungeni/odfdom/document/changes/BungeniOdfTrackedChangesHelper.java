@@ -267,7 +267,13 @@ public class BungeniOdfTrackedChangesHelper {
             NodeList markerNodes = getMarkerNodesForChange(scType.changeId);
             for (int k = 0; k < markerNodes.getLength(); k++) {
                 Node markerNode = markerNodes.item(k);
-                markerNode.getParentNode().removeChild(markerNode);
+                Node parentofMarkerNode = markerNode.getParentNode();
+                parentofMarkerNode.removeChild(markerNode);
+                //if the parent of the marker node is empty -- remove it too 
+                //since its a boundary marker
+                if (!parentofMarkerNode.hasChildNodes()) {
+                    parentofMarkerNode.getParentNode().removeChild(parentofMarkerNode);
+                }
             }
             bstate = true;
         } catch (Exception ex) {
@@ -538,7 +544,7 @@ public class BungeniOdfTrackedChangesHelper {
      */
     public NodeList getNodesBetweenInsertMarkers(String changeId) throws Exception {
         String xpathExpr = "//text:change-start[@text:change-id='" + changeId
-                           + "']/following::node()[following-sibling::text:change-end[@text:change-id='" + changeId
+                           + "']/following-sibling::node()[following::text:change-end[@text:change-id='" + changeId
                            + "']]";
         NodeList insertNodes = (NodeList) this.m_docXpath.evaluate(xpathExpr,
                                    this.m_docHelper.getOdfDocument().getContentDom(), XPathConstants.NODESET);
