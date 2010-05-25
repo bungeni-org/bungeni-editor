@@ -37,7 +37,7 @@ BungeniOdfDocumentHelper               revertTestHelper = null;
 String inputFile = "testdocs/tracked-changes-revert-test-04.odt";
 String outputFile = "testdocs/test-revert-output-04.odt";
 String testCaseName = "Document with new section insertion";
-long validChecksum = 819548012L;
+long validChecksum = 2447130286L;
 
     public BungeniOdfTrackedChangesRevertTest04() {
         BasicConfigurator.configure();
