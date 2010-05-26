@@ -30,6 +30,7 @@ import java.util.logging.Level;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
+import net.sf.practicalxml.util.NodeListIterator;
 
 /**
  * <p>This class assists in extracting tracked changes from a ODF document</p>
@@ -214,9 +215,10 @@ public class BungeniOdfTrackedChangesHelper {
         NodeList foundNodes = (NodeList) this.m_docXpath.evaluate(xPathExpr,
                                   this.m_docHelper.getChangesHelper().getTrackedChangeContainer(),
                                   XPathConstants.NODESET);
+        NodeListIterator foundNodesIterator = new NodeListIterator(foundNodes);
         //iterate through the individual changes int he document
-        for (int i = 0; i < foundNodes.getLength(); i++) {
-            OdfTextChangedRegion changeRegion = (OdfTextChangedRegion) foundNodes.item(i);
+        while (foundNodesIterator.hasNext()) {
+            OdfTextChangedRegion changeRegion = (OdfTextChangedRegion) foundNodesIterator.next();
             StructuredChangeType scType       = this.getStructuredChangeType(changeRegion);
             boolean              bException   = false;
 
@@ -309,6 +311,11 @@ public class BungeniOdfTrackedChangesHelper {
             //indicates whether the deleted nodes should be restored after
             //the parent of the marker node
             boolean brestoreNodesAfterParentofParentMarker = false;
+
+            boolean bfollowingnodeshavedifferentParent = false;
+
+            boolean bfirstdeletedNode = false;
+
             //check if the marker node has siblings
             //if marker node has no siblings it may be in an empty element e.g. a deleted paragraph
             //we need to merge the deleted nodes before the parent
@@ -326,8 +333,17 @@ public class BungeniOdfTrackedChangesHelper {
             //is the order we are going to add the nodes using insertBefore();
 
             Node nodeAfterParentMarker = null;
-            for (int m = 0; m < allDeletedNodes.getLength(); m++) {
-                Node aDeletedNode = allDeletedNodes.item(m);
+            Node lastDeletedNode = null;
+            NodeListIterator deletedNodesIterator = new NodeListIterator(allDeletedNodes);
+            int i= 0;
+            while (deletedNodesIterator.hasNext()) {
+                Node aDeletedNode = deletedNodesIterator.next();
+                if (i == 0 ) {
+                    bfirstdeletedNode = true;
+                    i++;
+                } else {
+                    bfirstdeletedNode = false;
+                }
                 // first disconnect the node from the text:deletion parent container
                 aDeletedNode.getParentNode().removeChild(aDeletedNode);
                 //check if the deleted node needs to be moved after the parent marker
@@ -343,12 +359,13 @@ public class BungeniOdfTrackedChangesHelper {
                 } else if ((false == bmarkerHasNoSiblings) && (true == bmarkerparentsameAsFirstDeletedNode)) {
                     //in this case we do a parent node signature comparison -- and merge the children
                     //of the deleted node into the parent of the marker node
-                    if (aDeletedNode.hasChildNodes()) {
+                    if (aDeletedNode.hasChildNodes() && compareNodeSignatures(aDeletedNode, parentofChangeMarker)) {
                         NodeList childrenofThis = aDeletedNode.getChildNodes();
-                        for (int l = 0; l < childrenofThis.getLength(); l++) {
-                            Node childNode = childrenofThis.item(l);
+                        NodeListIterator childrenofThisIterator = new NodeListIterator(childrenofThis);
+                            while (childrenofThisIterator.hasNext()) {
+                            Node childNode = childrenofThisIterator.next();
                             insertBeforeThisNode.getParentNode().insertBefore(childNode, insertBeforeThisNode);
-                        }
+                            }
                     } else {
                         //if the deleted node has no child nodes
                         // it could be something like an empty pargraph break <text:p />
@@ -371,16 +388,44 @@ public class BungeniOdfTrackedChangesHelper {
                             if (aDeletedNode.hasChildNodes()) {
                                 log.debug("delete nodes has child nodes - parent nodes  signature eqal");
                             } else {
-                                nodeAfterParentMarker = parentofChangeMarker.getNextSibling();
-                                nodeAfterParentMarker.getParentNode().insertBefore(aDeletedNode, nodeAfterParentMarker);
-                                brestoreNodesAfterParentofParentMarker = true;
+                                //check if this is the first deleted node
+                                if (bfirstdeletedNode) {
+                                    //check if the change mark is the first child of the parent
+                                    Node firstchildofparentofChangeMarker = parentofChangeMarker.getFirstChild();
+                                    if (compareNodeSignatures (firstchildofparentofChangeMarker, deletemarker)) {
+                                        //they are the same -- this is what this scneario could look like
+                                        // this is the change in the documenmt
+                                        // <text:p><text:change ... /> ,......</text:p>
+                                        //this is the first deleted node :
+                                        // <text:p/> .. i.e. add a new paragrp before the parent of the change marker
+                                        parentofChangeMarker.getParentNode().insertBefore(aDeletedNode, parentofChangeMarker);
+                                    }
+                                } else {
+                                    // this is the change in the documenmt
+                                    // <text:p>....<text:change ... /> ,......</text:p>
+                                    //this is the not the first de;etenode :
+                                    // <text:p/> .. i.e. add a new paragrp before the parent of the change marker
+                                    nodeAfterParentMarker = parentofChangeMarker.getNextSibling();
+                                    nodeAfterParentMarker.getParentNode().insertBefore(aDeletedNode, nodeAfterParentMarker);
+                                    brestoreNodesAfterParentofParentMarker = true;
+                                }
                             }
+                        } else {
+                            //if the deleted node signature does not match parent change marker then break it out of the parent
+                            nodeAfterParentMarker = parentofChangeMarker.getNextSibling();
+                            Node parentofNodeAfterParentMarker = nodeAfterParentMarker.getParentNode();
+                            nodeAfterParentMarker.getParentNode().insertBefore(aDeletedNode, nodeAfterParentMarker);
+                             brestoreNodesAfterParentofParentMarker = true;
+                             bfollowingnodeshavedifferentParent= true;
+                            //we dont set the restore nodes after parent flag as in this case it is not required 
                         }
                     }
                 } else if (false == bmarkerparentsameAsFirstDeletedNode) {
                     insertBeforeThisNode.getParentNode().insertBefore(aDeletedNode, insertBeforeThisNode);
                     insertBeforeThisNode.getParentNode().normalize();
                 }
+
+                lastDeletedNode = aDeletedNode;
             }
             if (true == brestoreNodesAfterParentofParentMarker) {
                 /**
@@ -390,6 +435,40 @@ public class BungeniOdfTrackedChangesHelper {
                 OdfTextChange elemDelChangeMark = (OdfTextChange) deletemarker;
                 List<Node> repatriateTheseNodes = new ArrayList<Node>(0);
                 Node nodeNext = null;
+                /**
+                 * There are various use cases here
+                 * - if the last deleted node of the change has the same node signature
+                 * as the next sibling of the change mark - we simply add it to the parent clone of the
+                 * changemarker
+                 * - if the last deleted node is a text:p and the next sibling is a span, the span is subsumed into the
+                 * last deleted node.
+                 */
+                boolean lastdeletednodeisaParagraph = false;
+                boolean nextsiblingofchangeMarkisaSpan = false;
+
+                if (lastDeletedNode.getNodeName().equals("text:p")) {
+                    lastdeletednodeisaParagraph = true;
+                }
+                Node nodeAfterChangeMark = elemDelChangeMark.getNextSibling();
+                if (nodeAfterChangeMark != null ) {
+                    if (nodeAfterChangeMark.getNodeName().equals("text:span")) {
+                        nextsiblingofchangeMarkisaSpan = true;
+                    }
+                }
+
+                if (lastdeletednodeisaParagraph && nextsiblingofchangeMarkisaSpan ) {
+                    for (nodeNext = elemDelChangeMark.getNextSibling(); nodeNext != null;) {
+                        repatriateTheseNodes.add(nodeNext);
+                        nodeNext = nodeNext.getNextSibling();
+                    }
+                     for (Node repatriatenode : repatriateTheseNodes) {
+                        repatriatenode.getParentNode().removeChild(repatriatenode);
+                        lastDeletedNode.appendChild(repatriatenode);
+                    }
+
+                    //append these repatriated nodes to the lastDeletedNode
+
+                } else {
                 Node copyofParent = parentofChangeMarker.cloneNode(false);
                 for (nodeNext = elemDelChangeMark.getNextSibling(); nodeNext != null;) {
                     repatriateTheseNodes.add(nodeNext);
@@ -409,6 +488,7 @@ public class BungeniOdfTrackedChangesHelper {
                         copyofParent.appendChild(repatriatenode);
                     }
                     nodeAfterParentMarker.getParentNode().insertBefore(copyofParent, nodeAfterParentMarker);
+                }
                 }
                 deletemarker.getParentNode().removeChild(deletemarker);
             } else if ((true == bmarkerHasNoSiblings) && (true == bmarkerparentsameAsFirstDeletedNode)) {
