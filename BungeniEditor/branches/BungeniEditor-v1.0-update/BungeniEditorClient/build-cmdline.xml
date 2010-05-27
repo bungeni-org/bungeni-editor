@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Ashok Hariharan 29/6/2009 : standalone build file for bungeni-editor ... 
+	to compile bungeni editor checkout the project and run :
+		ant -buildfile build-cmdline.xml jar
+	-->
+<project name="BungeniEditorClient-cmdline" default="default" basedir=".">
+    <description>Builds, tests, and runs the project BungeniEditorClient from the commandline.</description>
+	<!-- the openoffice.org.root property can be set from the command line using ant -Dopenoffice.org.root=/path/to/openoffice/basis/folder
+		for now ...for testing purposes we set this value in the overriden build script -->
+	<property name="openoffice.org.root" value="/opt/openoffice.org/basis3.0" />
+	<path id="ooo.classpath" >
+		<pathelement location="${openoffice.org.root}/program/classes/unoil.jar" />
+		<pathelement location="${openoffice.org.root}/program/classes/officebean.jar" />
+		<pathelement location="${openoffice.org.root}/ure-link/share/java/juh.jar" />
+		<pathelement location="${openoffice.org.root}/ure-link/share/java/jurt.jar" />
+		<pathelement location="${openoffice.org.root}/ure-link/share/java/ridl.jar" />
+        </path>
+	<!-- the libs.bungeni.openoffice.org.classpath property is the one set by netbeans and passed into build.xml ... we generate the openoffice 
+		classpath and set the same variable -->
+	<property name="libs.bungeni.openoffice.org.classpath" refid="ooo.classpath" />
+    <!-- now import the default build.xml to run it as if it was called from netbeans -->
+    <import file="build.xml"/>
+</project>

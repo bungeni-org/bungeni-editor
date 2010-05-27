@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="toolbar">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="root"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="root">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="actionGroup"/>
+      </xs:sequence>
+      <xs:attribute name="lang" use="required" type="xs:NCName"/>
+      <xs:attribute name="title" use="required"/>
+      <xs:attribute name="visible" use="required" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="actionGroup">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="blockAction"/>
+      </xs:sequence>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="title" use="required" type="xs:NCName"/>
+      <xs:attribute name="uimodel" use="required" type="xs:NCName"/>
+      <xs:attribute name="visible" use="required" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="blockAction">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element ref="action"/>
+        <xs:element ref="subaction"/>
+      </xs:choice>
+      <xs:attribute name="condition" use="required" type="xs:NCName"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="showChildren" type="xs:boolean"/>
+      <xs:attribute name="target" use="required" type="xs:NCName"/>
+      <xs:attribute name="title" use="required"/>
+      <xs:attribute name="tooltip"/>
+      <xs:attribute name="visible" use="required" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="action">
+    <xs:complexType>
+      <xs:attribute name="condition" use="required" type="xs:anyURI"/>
+      <xs:attribute name="mode" use="required" type="xs:NCName"/>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="target" use="required"/>
+      <xs:attribute name="title" use="required"/>
+      <xs:attribute name="visible" use="required" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="subaction">
+    <xs:complexType>
+      <xs:attribute name="condition" use="required" type="xs:anyURI"/>
+      <xs:attribute name="mode" use="required" type="xs:NCName"/>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="target" use="required"/>
+      <xs:attribute name="title" use="required"/>
+      <xs:attribute name="tooltip"/>
+      <xs:attribute name="visible" use="required" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
