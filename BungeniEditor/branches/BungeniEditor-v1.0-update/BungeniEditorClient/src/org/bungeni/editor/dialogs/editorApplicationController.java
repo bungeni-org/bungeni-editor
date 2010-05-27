@@ -838,7 +838,7 @@ public class editorApplicationController extends javax.swing.JPanel {
 
     }
     public static int OPENOFFICE_HEIGHT_OFFSET = 60;
-
+    public static int WIDTH_OOo_SCROLLBAR = 25;
     private void initFrame(XComponent component) {
         BungeniFrame frame = new BungeniFrame("Control Panel");
         //set the dimensions for the frame;
@@ -850,8 +850,8 @@ public class editorApplicationController extends javax.swing.JPanel {
         log.debug("screen size = " + screenSize);
         log.debug("window size = " + windowSize);
 
-        int windowX = 5; //Math.max(0, (screenSize.width  - windowSize.width));
-        int windowY = Math.max(0, (screenSize.height - windowSize.height) / 2) + OPENOFFICE_HEIGHT_OFFSET;
+        int windowX = screenSize.width - frame.getWidth() - WIDTH_OOo_SCROLLBAR;
+        int windowY = editorApplicationController.getFrameWindowDimension().y;
         WINDOW_X = windowX;
         WINDOW_Y = windowY;
 
@@ -863,7 +863,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         int coordX = rSize.X + rContSize.X;
         int coordY = rContSize.Y + rSize.Y + 40;
 
-        editorTabbedPanel.coordX = coordX;
+        editorTabbedPanel.coordX = windowX;
         editorTabbedPanel.coordY = coordY;
 
         panel = new org.bungeni.editor.dialogs.editorTabbedPanel(component, this.openofficeObject, frame);
@@ -882,42 +882,11 @@ public class editorApplicationController extends javax.swing.JPanel {
             @Override
             public void windowDeiconified(WindowEvent e) {
                 panel.bringEditorWindowToFront();
-                //deiconize all floating panels
-                HashMap<String, org.bungeni.editor.panels.impl.IFloatingPanel> panelMap = panel.getFloatingPanelMap();
-                java.util.Iterator<String> iterPanels = panelMap.keySet().iterator();
-                while (iterPanels.hasNext()) {
-                    final org.bungeni.editor.panels.impl.IFloatingPanel p = panelMap.get(iterPanels.next());
-                    SwingUtilities.invokeLater(new Runnable() {
-
-                        public void run() {
-                            JFrame fr = p.getParentWindowHandle();
-                            System.out.println("maximizing  other window");
-                            fr.setExtendedState(JFrame.NORMAL);
-                            fr.setVisible(true);
-                        }
-                    });
-                }
             }
 
             @Override
             public void windowIconified(WindowEvent e) {
                 System.out.println("panel minimized....");
-                HashMap<String, org.bungeni.editor.panels.impl.IFloatingPanel> panelMap = panel.getFloatingPanelMap();
-                java.util.Iterator<String> iterPanels = panelMap.keySet().iterator();
-                while (iterPanels.hasNext()) {
-                    final org.bungeni.editor.panels.impl.IFloatingPanel p = panelMap.get(iterPanels.next());
-                    SwingUtilities.invokeLater(new Runnable() {
-
-                        public void run() {
-                            JFrame fr = p.getParentWindowHandle();
-                            System.out.println("minimizing other window");
-                            fr.setExtendedState(JFrame.ICONIFIED);
-                            fr.setVisible(false);
-                        }
-                    });
-
-                }
-
             }
         };
         frame.addWindowListener(tabbedPanelListener);
