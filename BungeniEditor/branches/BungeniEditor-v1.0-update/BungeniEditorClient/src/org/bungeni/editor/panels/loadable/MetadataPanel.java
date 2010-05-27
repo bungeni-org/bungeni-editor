@@ -45,14 +45,18 @@ public class MetadataPanel extends BaseClassForITabbedPanel {
 
         tabsMetadata = new javax.swing.JTabbedPane();
 
-        tabsMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        tabsMetadata.setBackground(new java.awt.Color(238, 229, 231));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(tabsMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tabsMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(tabsMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tabsMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
+        );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane tabsMetadata;

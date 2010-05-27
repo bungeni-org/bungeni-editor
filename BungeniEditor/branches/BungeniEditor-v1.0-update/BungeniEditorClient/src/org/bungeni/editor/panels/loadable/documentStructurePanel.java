@@ -65,7 +65,7 @@ public class documentStructurePanel extends BaseClassForITabbedPanel {
     /** Creates new form holderUIPanel */
     public documentStructurePanel() {
         initComponents();
-        instance = new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
+       
     }
 
 
@@ -73,6 +73,17 @@ public class documentStructurePanel extends BaseClassForITabbedPanel {
         return this.ooDocument;
     }
 
+
+    public documentStructurePanel(OOComponentHelper ooDocument, JFrame parentFrame) {
+        this.parentFrame = parentFrame;
+        this.ooDocument = ooDocument;
+        init();
+    }
+
+    private void init(){
+        initComponents();
+        instance = new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
+    }
 
     public IEditorActionEvent getEventClass(toolbarSubAction subAction) {
         IEditorActionEvent event = EditorActionFactory.getEventClass(subAction);
@@ -92,7 +103,9 @@ public class documentStructurePanel extends BaseClassForITabbedPanel {
     /**
      *
      */
-    public void initUI() {
+    @Override
+    public void initialize() {
+        super.initialize();
         this.initSectionStructureTree();
         this.initSectionInternalStructureTree();
         this.initSectionTabsListener();
@@ -542,7 +555,7 @@ public class documentStructurePanel extends BaseClassForITabbedPanel {
         });
 
         tabSectionView.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
-        tabSectionView.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        tabSectionView.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
         scrollTreeView.setViewportView(sectionStructureTree);
 
@@ -557,22 +570,24 @@ public class documentStructurePanel extends BaseClassForITabbedPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
                 .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addComponent(btnSectionsExpandAll, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSectionsCollapseAll, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSectionsExpandAll, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSectionsCollapseAll, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addComponent(tabSectionView, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(tabSectionView, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tabSectionView, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSectionsCollapseAll, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSectionsExpandAll, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnSectionsExpandAll, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSectionsCollapseAll, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 

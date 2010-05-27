@@ -509,9 +509,10 @@ public class editorTabbedPanel extends javax.swing.JPanel {
 
         jScrollPane3.setViewportView(jTree2);
 
-        setFont(new java.awt.Font("Tahoma", 0, 10));
+        setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
 
-        jTabsContainer.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jTabsContainer.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
+        jTabsContainer.setFont(new java.awt.Font("Tahoma", 0, 10));
 
         cboListDocuments.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         cboListDocuments.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -782,8 +783,8 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
                 log.error("openDocumentAgent : done: " + ex.getMessage());
             } finally {
                 cboListDocuments.setEnabled(true);
-                return;
-            }
+                
+        }
         }
     }
 
@@ -1083,8 +1084,9 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
                 log.error("generateComponentKey : " + ex.getMessage());
                 log.error("generateComponentKey : " + CommonExceptionUtils.getStackTrace(ex));
             } finally {
-                return compKey;
+                
             }
+            return compKey;
         }
 
         private static String UnoDateTimeToStr(DateTime dt) {
