@@ -1,0 +1,1 @@
+bungeniooolib http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeniooolib
