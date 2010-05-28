@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
 
-<!-- 
+<!--
     A sample installation file.
     Use it as a base for your own installers :-)
-    
+
     To compile it :
     - go in the bin directory where you installed IzPack
     - call "compile ../sample/install.xml -b ../sample"
@@ -11,13 +11,13 @@
 
 <installation version="1.0">
 
-    <!-- 
+    <!--
         The info section.
         The meaning of the tags should be natural ...
     -->
     <info>
         <appname>BungeniEditor installation</appname>
-        <appversion>0.9.953</appversion>
+        <appversion>1.0-rel-branch-r1454</appversion>
 	<appsubpath>BungeniEditor-$APP_VER</appsubpath>
         <authors>
             <author name="UNDESA" email="undesa@parliaments.info"/>
@@ -26,13 +26,13 @@
 	<javaversion>1.6</javaversion>
     </info>
 
-    <!-- 
+    <!--
         The gui preferences indication.
         Sets the installer window to 640x480. It will not be able to change the size.
     -->
     <guiprefs width="640" height="480" resizable="no"/>
 
-    <!-- 
+    <!--
         The locale section.
         Asks here to include the English and French langpacks.
     -->
@@ -40,7 +40,7 @@
         <langpack iso3="eng"/>
     </locale>
 
-    <!-- 
+    <!--
         The resources section.
         The ids must be these ones if you want to use the LicencePanel and/or the InfoPanel.
     -->
@@ -49,7 +49,7 @@
         <res id="InfoPanel.info" src="README.TXT"/>
     </resources>
 
-    <!-- 
+    <!--
         The panels section.
         We indicate here which panels we want to use. The order will be respected.
     -->
@@ -65,7 +65,7 @@
  	<panel classname="SimpleFinishPanel" />
     </panels>
 
-    <!-- 
+    <!--
         The packs section.
         We specify here our packs.
     -->
@@ -76,7 +76,7 @@
             <file src="LICENCE.TXT" targetdir="$INSTALL_PATH"/>
  	     <file src="linux.sh" targetdir="$INSTALL_PATH" />
  	     <file src="windows.vbs" targetdir="$INSTALL_PATH" />
-	
+
 
 		<!-- linux primary launchers -->
             <!--
@@ -119,9 +119,9 @@
             <file src="scripts/bill_new.bat" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/judgement_edit.bat" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/judgement_new.bat" targetdir="$INSTALL_PATH/scripts"/>
-  
+
             <file src="base" targetdir="$INSTALL_PATH"/>
-  		<!-- parse all the target files -->		  
+  		<!-- parse all the target files -->
            <parsable targetfile="$INSTALL_PATH/scripts/config.sh"/>
             <parsable targetfile="$INSTALL_PATH/scripts/main.sh"/>
             <parsable targetfile="$INSTALL_PATH/scripts/config.bat"/>
@@ -131,7 +131,7 @@
             <!-- <parsable targetfile="$INSTALL_PATH/linux/settingsEditor.sh"/>
             <parsable targetfile="$INSTALL_PATH/win/settingsEditor.bat"/> -->
 		<!-- linux launchers -->
-		<!--            
+		<!--
 		<executable targetfile="$INSTALL_PATH/linux/run_gui.sh"/>
             <executable targetfile="$INSTALL_PATH/linux/run_debate_edit.sh"/>
             <executable targetfile="$INSTALL_PATH/linux/run_debate_new.sh"/>
