@@ -24,6 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
@@ -86,7 +87,7 @@ public class editorApplicationController extends javax.swing.JPanel {
     private String m_FullFilesPath;
     private org.bungeni.ooo.BungenioOoHelper openofficeObject = null;
     private documentType[] m_documentTypes = null;
-
+  private static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/dialogs/Bundle");
     /**
      * Constructor for editorApplicationController Class
      */
@@ -839,7 +840,7 @@ public class editorApplicationController extends javax.swing.JPanel {
     public static int OPENOFFICE_HEIGHT_OFFSET = 60;
     public static int WIDTH_OOo_SCROLLBAR = 25;
     private void initFrame(XComponent component) {
-        BungeniFrame frame = new BungeniFrame("Control Panel");
+        BungeniFrame frame = new BungeniFrame(bundle.getString("editorTabbedPanel.panel.Title"));
         //set the dimensions for the frame;
         frame.setSize(270, 655);
         //frame position information

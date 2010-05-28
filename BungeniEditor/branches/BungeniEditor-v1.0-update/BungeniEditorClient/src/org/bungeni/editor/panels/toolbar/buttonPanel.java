@@ -67,12 +67,17 @@ public class buttonPanel extends javax.swing.JPanel {
         btnAction.setBackground(new java.awt.Color(143, 204, 48));
         btnAction.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnAction.setText("some text");
+        btnAction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnAction, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
+            .addComponent(btnAction, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -81,6 +86,10 @@ public class buttonPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnActionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

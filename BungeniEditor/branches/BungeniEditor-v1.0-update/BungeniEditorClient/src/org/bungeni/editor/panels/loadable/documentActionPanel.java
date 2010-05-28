@@ -59,14 +59,13 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
     /** Creates new form holderUIPanel */
     public documentActionPanel() {
         initComponents();
-       
     }
 
 
     public documentActionPanel(OOComponentHelper ooDocument, JFrame parentFrame) {
+        this();
         this.parentFrame = parentFrame;
         this.ooDocument = ooDocument;
-       instance = new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
     }
 
 
@@ -95,6 +94,7 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
     @Override
     public void initialize() {
         super.initialize();
+        this.initDB();
         this.initToolbarTabs();
         this.initMouseListener();
         this.initUIAttributes();
@@ -103,6 +103,10 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
     
     private BungeniToolbarLoader toolbarLoader = null;
     private Color toolbarTabBgColor = null , toolbarTabSelectedBgColor = null;
+
+    private void initDB(){
+        instance = new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
+    }
 
     private void initToolbarTabs() {
         toolbarLoader = new BungeniToolbarLoader(new BungeniToolbarCommandListener());

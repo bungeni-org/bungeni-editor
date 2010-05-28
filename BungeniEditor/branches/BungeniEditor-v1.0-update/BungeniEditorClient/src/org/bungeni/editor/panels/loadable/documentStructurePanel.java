@@ -75,13 +75,13 @@ public class documentStructurePanel extends BaseClassForITabbedPanel {
 
 
     public documentStructurePanel(OOComponentHelper ooDocument, JFrame parentFrame) {
+        this();
         this.parentFrame = parentFrame;
         this.ooDocument = ooDocument;
-        init();
+        
     }
 
-    private void init(){
-        initComponents();
+    private void initDB(){
         instance = new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
     }
 
@@ -106,6 +106,7 @@ public class documentStructurePanel extends BaseClassForITabbedPanel {
     @Override
     public void initialize() {
         super.initialize();
+        this.initDB();
         this.initSectionStructureTree();
         this.initSectionInternalStructureTree();
         this.initSectionTabsListener();
