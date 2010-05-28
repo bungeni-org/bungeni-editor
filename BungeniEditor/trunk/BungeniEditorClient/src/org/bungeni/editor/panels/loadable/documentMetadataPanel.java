@@ -77,27 +77,27 @@ public class documentMetadataPanel extends BaseClassForITabbedPanel {
         lblDescDocMetadata = new javax.swing.JLabel();
         btnEditMetadata = new javax.swing.JButton();
 
-        tableDocumentMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
+        tableDocumentMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
         tableDocumentMetadata.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null}
-                },
-                new String[]{
-                    "Title 1", "Title 2", "Title 3", "Title 4"
-                }));
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
         scrollTableDocumentMetadata.setViewportView(tableDocumentMetadata);
 
         lblDescDocMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/panels/loadable/Bundle"); // NOI18N
         lblDescDocMetadata.setText(bundle.getString("documentMetadataPanel.lblDescDocMetadata.text")); // NOI18N
 
-        btnEditMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnEditMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnEditMetadata.setText(bundle.getString("documentMetadataPanel.btnEditMetadata.text")); // NOI18N
         btnEditMetadata.addActionListener(new java.awt.event.ActionListener() {
-
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditMetadataActionPerformed(evt);
             }
@@ -106,9 +106,28 @@ public class documentMetadataPanel extends BaseClassForITabbedPanel {
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(layout.createSequentialGroup().add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(lblDescDocMetadata, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 196, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).add(layout.createSequentialGroup().add(12, 12, 12).add(scrollTableDocumentMetadata, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)).add(layout.createSequentialGroup().add(46, 46, 46).add(btnEditMetadata))).addContainerGap()));
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(lblDescDocMetadata, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 196, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(layout.createSequentialGroup()
+                        .add(61, 61, 61)
+                        .add(btnEditMetadata))
+                    .add(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(scrollTableDocumentMetadata, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 240, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(layout.createSequentialGroup().add(lblDescDocMetadata).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(scrollTableDocumentMetadata, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 231, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED).add(btnEditMetadata).addContainerGap(27, Short.MAX_VALUE)));
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .add(lblDescDocMetadata)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(scrollTableDocumentMetadata, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(btnEditMetadata)
+                .addContainerGap())
+        );
 
         getAccessibleContext().setAccessibleDescription("Doc Metadata");
     }// </editor-fold>//GEN-END:initComponents

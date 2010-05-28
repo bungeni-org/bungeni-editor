@@ -1,13 +1,5 @@
-/*
- * TabbedPanelFactory.java
- *
- * Created on May 20, 2008, 11:48 AM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 
-package org.bungeni.editor.panels.impl;
+package org.bungeni.editor.panels.factory;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,6 +8,7 @@ import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
+import org.bungeni.editor.panels.impl.ITabbedPanel;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 
 /**

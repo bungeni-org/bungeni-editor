@@ -244,33 +244,33 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
         lblSectionTreeMetadataView = new javax.swing.JLabel();
         btnRefresh = new javax.swing.JButton();
 
-        lblSectionMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
+        lblSectionMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/panels/loadable/Bundle"); // NOI18N
         lblSectionMetadata.setText(bundle.getString("sectionTreeMetadataPanel.lblSectionMetadata.text")); // NOI18N
 
-        treeSectionTreeMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
+        treeSectionTreeMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
         jScrollPane1.setViewportView(treeSectionTreeMetadata);
 
-        tblSectionViewMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
+        tblSectionViewMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
         tblSectionViewMetadata.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null}
-                },
-                new String[]{
-                    "Title 1", "Title 2", "Title 3", "Title 4"
-                }));
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
         jScrollPane2.setViewportView(tblSectionViewMetadata);
 
-        lblSectionTreeMetadataView.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
+        lblSectionTreeMetadataView.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
         lblSectionTreeMetadataView.setText(bundle.getString("sectionTreeMetadataPanel.lblSectionTreeMetadataView.text")); // NOI18N
 
-        btnRefresh.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnRefresh.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnRefresh.setText(bundle.getString("sectionTreeMetadataPanel.btnRefresh.text")); // NOI18N
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
-
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefreshActionPerformed(evt);
             }
@@ -279,9 +279,38 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(layout.createSequentialGroup().add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(layout.createSequentialGroup().addContainerGap().add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING).add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE).add(org.jdesktop.layout.GroupLayout.LEADING, lblSectionTreeMetadataView).add(org.jdesktop.layout.GroupLayout.LEADING, lblSectionMetadata, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 196, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))).add(layout.createSequentialGroup().add(73, 73, 73).add(btnRefresh, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 92, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))).addContainerGap()));
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(lblSectionMetadata, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 196, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+                        .add(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .add(lblSectionTreeMetadataView)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 28, Short.MAX_VALUE))
+                        .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE))
+                    .add(layout.createSequentialGroup()
+                        .add(93, 93, 93)
+                        .add(btnRefresh, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 92, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(layout.createSequentialGroup().add(lblSectionTreeMetadataView).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(btnRefresh, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(lblSectionMetadata).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 83, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addContainerGap()));
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .add(lblSectionTreeMetadataView)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 283, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(btnRefresh, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(lblSectionMetadata)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         getAccessibleContext().setAccessibleDescription("Section Metadata");
     }// </editor-fold>//GEN-END:initComponents

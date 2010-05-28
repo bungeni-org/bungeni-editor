@@ -22,8 +22,6 @@ import com.sun.star.uno.XComponentContext;
 import com.sun.star.util.DateTime;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -34,11 +32,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.ResourceBundle;
-import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.DefaultComboBoxModel;
@@ -46,7 +41,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import org.bungeni.db.BungeniClientDB;
@@ -54,10 +48,8 @@ import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
-import org.bungeni.editor.panels.impl.FloatingPanelFactory;
-import org.bungeni.editor.panels.impl.IFloatingPanel;
 import org.bungeni.editor.panels.impl.ITabbedPanel;
-import org.bungeni.editor.panels.impl.TabbedPanelFactory;
+import org.bungeni.editor.panels.factory.TabbedPanelFactory;
 import org.bungeni.ooo.BungenioOoHelper;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooDocNotes;
@@ -67,7 +59,6 @@ import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.editor.actions.EditorActionFactory;
 import org.bungeni.editor.actions.IEditorActionEvent;
 import org.bungeni.editor.actions.toolbarSubAction;
-import org.bungeni.editor.dialogs.metadatapanel.SectionMetadataLoad;
 import org.bungeni.editor.metadata.BaseEditorDocMetaModel;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
 import org.bungeni.editor.selectors.SelectorDialogModes;
@@ -105,7 +96,6 @@ public class editorTabbedPanel extends javax.swing.JPanel {
     private boolean program_refresh_documents = false;
     private TreeMap<String, editorTabbedPanel.componentHandleContainer> editorMap;
     private String activeDocument;
-    private HashMap<String, IFloatingPanel> floatingPanelMap = new HashMap<String, IFloatingPanel>();
     private ArrayList<ITabbedPanel> m_tabbedPanelMap = new ArrayList<ITabbedPanel>();
     public static int coordX,  coordY;
 
@@ -158,13 +148,14 @@ public class editorTabbedPanel extends javax.swing.JPanel {
     private void init() {
         initComponents();
         initProviders();
+        /*
         SwingUtilities.invokeLater(new Runnable() {
 
             public void run() {
                 initFloatingPane();
             }
         });
-
+        */
         initTimers();
         log.debug("calling initOpenDOcuments");
         initOpenDocuments();
@@ -174,7 +165,6 @@ public class editorTabbedPanel extends javax.swing.JPanel {
          *****/
         initTabbedPanes();
         initModeLabel();
-        initSectionMetadataDisplay();
     }
 
     private void initProviders() {
@@ -225,78 +215,12 @@ public class editorTabbedPanel extends javax.swing.JPanel {
     }
     }
     }*/
-    SectionMetadataDisplay objMetaDisplay;
-
+  
     /**
      * Used to display section metadata in the tabbed panel
      */
-    private void initSectionMetadataDisplay() {
-        objMetaDisplay = new SectionMetadataDisplay();
-    }
-
-    class SectionMetadataDisplay {
-
-        private Timer refreshTimer;
-        private Action sectionViewRefreshRunner;
-
-        public SectionMetadataDisplay() {
-            tblSectionmeta.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 11));
-            tblSectionmeta.setFont(new Font("Tahoma", Font.PLAIN, 11));
-            initTimers();
-        }
-
-        private void initTimers() {
-            sectionViewRefreshRunner = new viewRefreshAction();
-            refreshTimer = new Timer(3000, sectionViewRefreshRunner);
-            refreshTimer.setInitialDelay(2000);
-            refreshTimer.start();
-        }
-
-        public void updateSectionMetadataView(String sectionName) {
-            lblDisplaySectionName.setText(sectionName);
-
-            SectionMetadataLoad sectionMetadataTableModel = new SectionMetadataLoad(ooDocument, sectionName);
-            tblSectionmeta.setModel(sectionMetadataTableModel);
-        }
-
-        public void updateSectionMetadataEditButton(String newSectionName) {
-            HashMap<String, String> sectionMeta = ooDocument.getSectionMetadataAttributes(newSectionName);
-            if (sectionMeta.containsKey(SectionMetadataEditor.MetaEditor)) {
-                btnEdit.setEnabled(true);
-            } else {
-                btnEdit.setEnabled(false);
-            }
-        }
-
-        private class viewRefreshAction extends AbstractAction {
-
-            public String oldSectionName;
-            public String newSectionName;
-
-            public void actionPerformed(ActionEvent arg0) {
-                if (ooDocument != null) {
-                    String sSect = ooDocument.currentSectionName();
-                    if (sSect != null) {
-                        if (sSect.trim().length() > 0) {
-                            newSectionName = sSect;
-                            //if (newSectionName.equals(oldSectionName)) {
-                            //dont do anything
-                            // } else {
-                            updateSectionMetadataView(newSectionName);
-                            updateSectionMetadataEditButton(newSectionName);
-                            Set<String> floatingPanels = floatingPanelMap.keySet();
-                            for (String fPanelName : floatingPanels) {
-                                floatingPanelMap.get(fPanelName).setSectionChangeInfo(newSectionName);
-                            }
-                            oldSectionName = newSectionName;
-                        // }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
+  
+  
     protected void setOODocumentObject(OOComponentHelper ooDoc) {
         this.ooDocument = ooDoc;
     }
@@ -454,7 +378,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
             // removed call to collapsiblepane function
             //retrieve the list of dynamic panels from the the dynamicPanelMap and update their component handles
             //updateCollapsiblePanels();
-            updateFloatingPanels();
+            /*** updateFloatingPanels(); ***/
             updateTabbedPanes();
 
             /**** commented *** refreshTableDocMetadataModel();****/
@@ -484,6 +408,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
     private static int WIDTH_OOo_SCROLLBAR = 25;
     // added for Issue 246, http://code.google.com/p/bungeni-portal/issues/details?id=246
 
+    /*
     @SuppressWarnings("empty-statement")
     private void initFloatingPane() {
         //load the map here
@@ -536,7 +461,8 @@ public class editorTabbedPanel extends javax.swing.JPanel {
             }
         }
     }
-
+    */
+    
     private editorTabbedPanel self() {
         return this;
     }
@@ -570,17 +496,14 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         lblCurrentMode = new javax.swing.JLabel();
         btnNewDocument = new javax.swing.JButton();
         btnSaveDocument = new javax.swing.JButton();
-        scrollMeta = new javax.swing.JScrollPane();
-        tblSectionmeta = new javax.swing.JTable();
-        lblDisplaySectionName = new javax.swing.JLabel();
-        btnEdit = new javax.swing.JButton();
 
         jScrollPane2.setViewportView(jTree1);
 
         jScrollPane3.setViewportView(jTree2);
 
-        setFont(new java.awt.Font("Tahoma", 0, 10));
+        setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
 
+        jTabsContainer.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         jTabsContainer.setFont(new java.awt.Font("Tahoma", 0, 10));
 
         cboListDocuments.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
@@ -630,34 +553,6 @@ public class editorTabbedPanel extends javax.swing.JPanel {
             }
         });
 
-        scrollMeta.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollMeta.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-        tblSectionmeta.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        scrollMeta.setViewportView(tblSectionmeta);
-
-        lblDisplaySectionName.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        lblDisplaySectionName.setText(bundle.getString("editorTabbedPanel.lblDisplaySectionName.text")); // NOI18N
-
-        btnEdit.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnEdit.setText(bundle.getString("editorTabbedPanel.btnEdit.text")); // NOI18N
-        btnEdit.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditActionPerformed(evt);
-            }
-        });
-
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -677,16 +572,8 @@ public class editorTabbedPanel extends javax.swing.JPanel {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(btnNewDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(btnSaveDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 52, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(32, Short.MAX_VALUE))
-            .add(layout.createSequentialGroup()
-                .add(lblDisplaySectionName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 134, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 79, Short.MAX_VALUE)
-                .add(btnEdit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 54, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .add(jTabsContainer, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
-            .add(layout.createSequentialGroup()
-                .add(scrollMeta, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
-                .addContainerGap())
+                        .add(btnSaveDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 52, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+            .add(jTabsContainer, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 267, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -703,14 +590,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(lblCurrentMode)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jTabsContainer, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 374, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(lblDisplaySectionName)
-                    .add(btnEdit))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(scrollMeta, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 123, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(46, 46, 46))
+                .add(jTabsContainer, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -733,11 +613,6 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
 // TODO add your handling code here:
     saveOpenDocument();
 }//GEN-LAST:event_btnSaveDocumentActionPerformed
-
-private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-// TODO add your handling code here:
-    launchSectionMetadataEditor();
-}//GEN-LAST:event_btnEditActionPerformed
 
     public void saveOpenDocument() {
         //if the document is on disk simply save it
@@ -900,8 +775,8 @@ private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                 log.error("openDocumentAgent : done: " + ex.getMessage());
             } finally {
                 cboListDocuments.setEnabled(true);
-                return;
-            }
+                
+        }
         }
     }
 
@@ -1111,7 +986,6 @@ private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBringToFront;
-    private javax.swing.JButton btnEdit;
     private javax.swing.ButtonGroup btnGrpBodyMetadataTarget;
     private javax.swing.JButton btnNewDocument;
     private javax.swing.JButton btnOpenDocument;
@@ -1124,9 +998,6 @@ private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     private javax.swing.JTree jTree2;
     private javax.swing.JLabel lblCurrentMode;
     private javax.swing.JLabel lblCurrentlyOpenDocuments;
-    private javax.swing.JLabel lblDisplaySectionName;
-    private javax.swing.JScrollPane scrollMeta;
-    private javax.swing.JTable tblSectionmeta;
     // End of variables declaration//GEN-END:variables
 
     /*
@@ -1205,8 +1076,9 @@ private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                 log.error("generateComponentKey : " + ex.getMessage());
                 log.error("generateComponentKey : " + CommonExceptionUtils.getStackTrace(ex));
             } finally {
-                return compKey;
+                
             }
+            return compKey;
         }
 
         private static String UnoDateTimeToStr(DateTime dt) {
@@ -1301,7 +1173,9 @@ private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
         }
     }
 
+    /**
     public HashMap<String, IFloatingPanel> getFloatingPanelMap() {
         return this.floatingPanelMap;
     }
+     */
 }

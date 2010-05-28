@@ -1,21 +1,22 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-package org.bungeni.editor.panels.impl;
+package org.bungeni.editor.panels.factory;
 
 import java.util.HashMap;
+import org.bungeni.editor.panels.impl.ILaunchablePanel;
 
 /**
  *
- * @author undesa
+ * @author Ashok Hariharan
  */
 public class LaunchablePanelFactory {
 
     
        private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(LaunchablePanelFactory.class.getName());
-       private final static HashMap<String,String> launchablePanelMap 
+       /***
+        * THe usage of the map here needs to be refactored out since we are moving this into its own class library
+        * 
+        * ASHOK - May 28 -2010
+        */
+       private final static HashMap<String,String> launchablePanelMap
                = new HashMap<String, String>(){
                                        {
                                            put("browseReferences", "org.bungeni.editor.panels.loadable.refmgr.browseReferences");

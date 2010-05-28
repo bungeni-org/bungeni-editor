@@ -1,6 +1,6 @@
 BungeniEditor requires :
 
-OpenOffice.org 3.0 +
+OpenOffice.org 3.1.1
 Java 1.6 +
 
 on Windows XP or Ubuntu 8.04
