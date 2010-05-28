@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.editor.panels.impl.ITabbedPanel;
-import org.bungeni.editor.panels.impl.TabbedPanelFactory;
+import org.bungeni.editor.panels.factory.TabbedPanelFactory;
 import org.bungeni.ooo.OOComponentHelper;
 
 /**

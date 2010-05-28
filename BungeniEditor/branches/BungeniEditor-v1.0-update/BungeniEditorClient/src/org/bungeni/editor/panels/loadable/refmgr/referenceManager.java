@@ -48,7 +48,7 @@ public class referenceManager extends BaseLaunchablePanel {
             
             JTaskPaneGroup jtpGrp = new JTaskPaneGroup();
             
-            ILaunchablePanel panel = org.bungeni.editor.panels.impl.LaunchablePanelFactory.getPanelClass(launchablePane);
+            ILaunchablePanel panel = org.bungeni.editor.panels.factory.LaunchablePanelFactory.getPanelClass(launchablePane);
             panel.setOOComponentHandle(ooDocument);
             panel.setParentWindowHandle(parentFrame);
             panel.initUI();
