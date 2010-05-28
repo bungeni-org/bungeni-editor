@@ -1,12 +1,16 @@
 #summary This page describes the configuration architecture of the bungeni document transformer
 #labels Phase-Implementation
 
+<wiki:toc max_depth="4" />
+
 = Introduction =
 
 The Bungeni Transformer uses XSLT to convert a ODT document to AkomaNtoso.
 Structural markup & metadata is transformed to akomantoso elements and attributes.
 
-= System Components = 
+= Architecture = 
+
+The Bungeni Transformer does multiple transformations to convert the ODF document into AkomaNtoso.
 
 The primary system components involved in the transformation process are as follows :
 
@@ -15,11 +19,26 @@ The primary system components involved in the transformation process are as foll
  * Xerces - this is the DOM processor
  * Restlet - this is used to provide a REST based API layer on the transformer. Client integration of the transformer is done over http using the restlet http client API.
 
-The transformer is a java jar application with a fixed manifest. _Perhaps this needs to be changed into a standard class library without a hard-coded manifest_.
-
 = How the Transformer Works = 
 
- # *Input Document* - The input document is a marked up ODT document. The documents are 
+== General Overview == 
+
+The transformation from ODF to AkomaNtoso happens over multiple transformations. The different stages are bulleted below 
+
+ # ODF merging - the ODF schema separates content / presentation and metadata. These are stored in 3 separate files content.xml / styles.xml and meta.xml. In the ODF merging stage the 3 files are merged into one document so that the ODF document can be transformed as one unit.
+
+ # ODF transformation to meta language - In this stage the ODF document is transformed into an intermediate format based on MetaLEX 1.0. This is done because MetaLEX  provides generic containers and metadata representation support which makes it easier transformation to a higher level format (like AkomaNtoso).
+
+ # Meta language to Akomantoso - The metalex converted document is now converted to AkomaNtoso using a XSLT "pipeline". The "pipeline" (example [http://code.google.com/p/bungeni-editor/source/browse/apps/BungeniTransformer/trunk/resources/odttoakn/minixslt/debaterecord/pipeline.xsl here]  ) is simply a xslt template with template-matchers for specific elements, the template-matcher routes the template processing to a mini-xslt file (example [http://code.google.com/p/bungeni-editor/source/browse/apps/BungeniTransformer/trunk/resources/odttoakn/minixslt/debaterecord/TabledDocuments.xsl MiniXSLT for tabledDocuments] ). This makes it possible to customization transformation for specific elements in isolation.
+
+
+== Interface to Translator == 
+
+The translator provides a direct API interface (via standard Java API) and a REST API via an inbuilt REST server. The REST server interface is provided because the transformer imposes some class library requirements which may not be compatible with the caller application if the standard Java API were to be used. With the REST api -- the only integration requirement is for a REST / HTTP client.
+
+== The Input Document == 
+
+The input document is a marked up ODT document. The documents are 
 marked up using the Bungeni Editor. Markup appears in the ODF in the following form ; The following is the ODF source for a marked up speech. The speech is marked out as a named section. Metadata is associated via the style-properties of the section :
 
 {{{
@@ -63,7 +82,10 @@ The marked up custom metadata for the speech is captured in the anx: namespace w
 xmlns:anx="http://anx.akomantoso.org/1.0"
 }}}
 
- # *Translator Config* - The Bungeni translator uses a sequence of chained XSLT to convert a ODF document into ANxml. The translator configuration is passed as input to the ODT translator. The translator config file looks like as show below, and can be found in the configfiles/odttoakn folder of the translator. Translator configs are defined per document type. The following is what a translator configuration for the debate looks like  :
+
+== Translator Configuration == 
+
+The Bungeni translator uses a sequence of chained XSLT to convert a ODF document into ANxml. The translator configuration is passed as input to the ODT translator. The translator config file looks like as shown below, and can be found in the configfiles/odttoakn folder of the translator. Translator configs are defined per document type. The following is what a translator configuration for the debate looks like  :
 {{{
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
@@ -75,3 +97,6 @@ xmlns:anx="http://anx.akomantoso.org/1.0"
 	<entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry> 
 </properties>
 }}}
+
+
+TODO 
