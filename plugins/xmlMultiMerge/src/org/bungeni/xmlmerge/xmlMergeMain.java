@@ -23,6 +23,7 @@ import org.w3c.dom.NodeList;
 //~--- JDK imports ------------------------------------------------------------
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.StringWriter;
 
 import java.util.ArrayList;
@@ -181,8 +182,15 @@ public class xmlMergeMain {
                             mergeDB.Connect();
                             mergeDB.Update(updateChangeXml);
                             mergeDB.EndConnect();
-                            log.debug("First preceding xml = \n\n" + strPrecedingXML);
-                            log.debug("First change xml = \n\n" + strChangeXML);
+                            File fprecXml = new File(getMergeWorkspace() + File.separator + j+ "_prec_" + xmlMergeUtils.getFileNameWithoutExtension(xmlMergeUtils.getFileNameFromPath(cp.docName))+ ".xml");
+                            FileWriter fw = new FileWriter(fprecXml);
+                            fw.write(strPrecedingXML);
+                            fw.close();
+                            File fchangeXML = new File(getMergeWorkspace() + File.separator +  j+ "_chg_" + xmlMergeUtils.getFileNameWithoutExtension(xmlMergeUtils.getFileNameFromPath(cp.docName))+ ".xml");
+                            fw = new FileWriter(fchangeXML);
+                            fw.write(strChangeXML);
+                            fw.close();
+
                         } catch (Exception ex) {
                             log.error("processChangesInOrder : " + ex.getMessage());
                         }
@@ -197,12 +205,17 @@ public class xmlMergeMain {
                             String nextChangeXml = this.extractChangeContent(xPath, getVersionDocByPath(cp.docName),
                                                        cp.changeId, cp.changeType);
                             String updateChangeXml = xmlMergeQueries.UPDATE_CHANGE_FRAGMENTS(cp.docName, cp.changeId, nextChangePrecedingXml, nextChangeXml, ++univChangeOrder);
-                            log.debug("Query == " + updateChangeXml + "\n\n");
                             mergeDB.Connect();
                             mergeDB.Update(updateChangeXml);
                             mergeDB.EndConnect();
-                            log.debug("Next preceding xml = \n\n" + nextChangePrecedingXml);
-                            log.debug("Next change xml = \n\n" + nextChangeXml);
+                            File fprecXml = new File(getMergeWorkspace() + File.separator +  j+ "_prec_" + xmlMergeUtils.getFileNameWithoutExtension(xmlMergeUtils.getFileNameFromPath(cp.docName)) + ".xml");
+                            FileWriter fw = new FileWriter(fprecXml);
+                            fw.write(nextChangePrecedingXml);
+                            fw.close();
+                            File fchangeXML = new File(getMergeWorkspace() + File.separator +  j+ "_chg_" + xmlMergeUtils.getFileNameWithoutExtension(xmlMergeUtils.getFileNameFromPath(cp.docName))+ ".xml") ;
+                            fw = new FileWriter(fchangeXML);
+                            fw.write(nextChangeXml);
+                            fw.close();
                         } catch (java.lang.Exception ex) {
                             log.error("Error while processing next change " + cp + " exception " + ex.getMessage(), ex);
                         }
@@ -584,6 +597,7 @@ public class xmlMergeMain {
         List<String> xmlNodes   = new ArrayList<String>(0);
         NodeList     foundNodes = (NodeList) xPath.evaluate(xpathExpr, document.getContentDom(),
                                       XPathConstants.NODESET);
+        log.info("preceding nodes for " + document.getBaseURI() + " for " + changeId + " are " + foundNodes.getLength());
         StringWriter sw         = new StringWriter();
 
         BungeniOdfNodeHelper.outputNodesAsXML(foundNodes, sw);
