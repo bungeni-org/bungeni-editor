@@ -24,7 +24,6 @@ import org.w3c.dom.NodeList;
 //~--- JDK imports ------------------------------------------------------------
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -172,36 +171,16 @@ public class BungeniOdfTrackedChangesHelper {
         return foundRegion;
     }
 
-    /**
-     * Reverses a change
-     * - a insert change is removed from the header
-     * and also from the body of document.
-     *
-     * - a delete change reverts the original text
-     * back into the body of the document
-     *
-     * WARNING - this API must be used only in special circumstances -
-     * it does not guarantee integrity of the document when there are overlapping
-     * changes
-     *
-     * @param changeId
-     * @return
-     */
-    public boolean revertChange(String changeId) {
-        return false;
-    }
+
 
     /**
+     * Reverse all track change markings in a document by a user and restores original text.
+     * The API requies a user name to be specified as input, and also a list of changes to be ignored.
+     * If no changes to be ignored are provided, all the the changes by the user are reversed.
+     * It is the responsibility of the caller to save the doument after the API has been called.
+     * Failure to save the document before further processing may result in unpredictable results
+     * or crashes
      *
-     * @param thisChangeId
-     * @return
-     */
-    public boolean revertAllChangesWithException(String thisChangeId) {
-        return false;
-    }
-
-    /**
-     * Reverse all track change markings in a document and restores original text
      * @param dcCreator
      * @param exceptTheseChangeIds
      * @return
@@ -248,11 +227,8 @@ public class BungeniOdfTrackedChangesHelper {
                     delRevert.initialize();
                     delRevert.revert();
                 }
-            }
 
-            // now we delete the change region
-            if (!bException) {
-                changeRegion.getParentNode().removeChild(changeRegion);
+                 changeRegion.getParentNode().removeChild(changeRegion);
             }
         }
 
@@ -307,7 +283,13 @@ public class BungeniOdfTrackedChangesHelper {
 
 
     /**
-     * Class to handle restoration of deleted nodes
+     * This is a special internal class to handle reversion of delete nodes
+     * A special class has been setup because the delete reversal use case
+     * features many exceptions and unusal scenarios for reversion.
+     *
+     * To use the API - create a DeletedNodeRevertr object,
+     * call initialize() and then,
+     * call revert() to revert the change
      */
     private class DeletedNodeReverter {
 
@@ -382,6 +364,8 @@ public class BungeniOdfTrackedChangesHelper {
                 log.debug(ex);
             }
         }
+
+
 
         boolean revert(){
             Node currentDeletedNode = null;
