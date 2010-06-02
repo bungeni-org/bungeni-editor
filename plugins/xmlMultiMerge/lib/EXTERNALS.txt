@@ -1,5 +1,5 @@
-log4j http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/apache-log4j
-xerces http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/xerces
-h2db http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/h2db
-odfdom http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/odfdom
-bungeniodfdom http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeniodfdom
+log4j -r1470 http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/apache-log4j
+xerces -r1470 http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/xerces
+h2db -r1470 http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/h2db
+odfdom -r1470 http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/odfdom
+bungeniodfdom -r1470 http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeniodfdom
