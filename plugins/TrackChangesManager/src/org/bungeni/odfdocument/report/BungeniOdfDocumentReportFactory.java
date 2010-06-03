@@ -87,8 +87,10 @@ public class BungeniOdfDocumentReportFactory {
     public static IBungeniOdfDocumentReportUI getReportUIFromClass(String reportClass) {
         IBungeniOdfDocumentReportUI iProcess = null;
         try {
+            if (reportClass.length() > 0 ) {
             Class clsReport = Class.forName(reportClass);
             iProcess = (IBungeniOdfDocumentReportUI) clsReport.newInstance();
+            }
         } catch (InstantiationException ex) {
             log.error("getReportObjectFromClass " + ex.getMessage());
         } catch (IllegalAccessException ex) {

@@ -7,14 +7,18 @@
 package org.bungeni.trackchanges.ui;
 
 import javax.swing.JFrame;
+import org.bungeni.odfdocument.report.IBungeniOdfDocumentReportProcess;
+import org.bungeni.odfdocument.report.IBungeniOdfDocumentReportUI;
 
 /**
  *
  * @author Ashok Hariharan
  */
-public class panelReportByOrder extends panelChangesBase {
+public class panelReportByOrder extends panelChangesBase implements IBungeniOdfDocumentReportUI {
     private static org.apache.log4j.Logger log            =
         org.apache.log4j.Logger.getLogger(panelReportByOrder.class.getName());
+    public static JFrame                   thisFrame = null;
+    private IBungeniOdfDocumentReportProcess reportProcess = null;
     /** Creates new form panelReportByOrder */
     public panelReportByOrder() {
         super();
@@ -100,6 +104,37 @@ public class panelReportByOrder extends panelChangesBase {
        
     }
 
-    
+     public static void createAndShowGUI(JFrame parentFrame) {
+                if (panelReportByOrder.thisFrame == null) {
+                    panelReportByOrder.thisFrame = new JFrame("Report");
+                    panelReportByOrder.thisFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    panelReportByOrder.thisFrame.getContentPane().add(new panelReportByOrder(parentFrame, "ReportByOrder"));
+                    panelReportByOrder.thisFrame.pack();
+                    panelReportByOrder.thisFrame.setAlwaysOnTop(true);
+                    panelReportByOrder.thisFrame.setVisible(true);
+                } else {
+                    if (thisFrame.isVisible()) {
+                        thisFrame.requestFocus();
+                    } else {
+                        thisFrame.setVisible(true);
+                        thisFrame.requestFocus();
+                    }
+                }
+    }
+
+    public boolean showUI(JFrame parentf) {
+       createAndShowGUI(parentf);
+       return true;
+    }
+
+    public boolean hasUICompleted() {
+       return (!thisFrame.isVisible());
+    }
+
+    public boolean setProcessHook(IBungeniOdfDocumentReportProcess processHook) {
+        this.reportProcess = processHook;
+        return true;
+    }
+
 
 }

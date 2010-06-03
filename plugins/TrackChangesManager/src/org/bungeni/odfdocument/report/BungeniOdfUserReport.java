@@ -32,11 +32,18 @@ public class BungeniOdfUserReport {
         return reportUI;
     }
 
+    public boolean hasReportUI(){
+        return (null != reportUI);
+    }
+
     /**
      * @param reportUI the reportUI to set
      */
     public void setReportUI(IBungeniOdfDocumentReportUI reportUI) {
         this.reportUI = reportUI;
+        if (null != this.reportUI) {
+            this.reportUI.setProcessHook(reportProcess);
+        }
     }
     public enum ReportType {
         MultiInputSingleReport ("MultiInputSingleReport"),
@@ -74,9 +81,9 @@ public class BungeniOdfUserReport {
     private ReportType reportType;
     
     public BungeniOdfUserReport (BungeniOdfDocumentReportTemplate reportTemplate, IBungeniOdfDocumentReportProcess iProcess, IBungeniOdfDocumentReportUI reportUI, ReportType rType) {
-        this.reportProcess = iProcess;
+        setReportProcess(iProcess);
         this.reportTemplate = reportTemplate;
-        this.reportUI = reportUI;
+        setReportUI(reportUI);
         this.reportType = rType;
     }
 
@@ -126,5 +133,8 @@ public class BungeniOdfUserReport {
      */
     public void setReportProcess(IBungeniOdfDocumentReportProcess reportProcess) {
         this.reportProcess = reportProcess;
+        if (null != this.reportUI) {
+            this.reportUI.setProcessHook(reportProcess);
+        }
     }
 }

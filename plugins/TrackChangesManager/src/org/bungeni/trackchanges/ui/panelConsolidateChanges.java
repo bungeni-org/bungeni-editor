@@ -206,10 +206,34 @@ public class panelConsolidateChanges extends panelChangesBase {
 
             return false;
         } else {
-            getContainerInterface().startProgress();
-            this.btnReportAll.setEnabled(false);
+            //check if the report has a UI
+            //if it has a UI the report processing is done by the report UI
+            if (selReport.hasReportUI()) {
+                selReport.getReportUI().showUI(parentFrame);
+            } else {
+                //no UI so process inplace
+                getContainerInterface().startProgress();
+                this.btnReportAll.setEnabled(false);
 
-            SwingWorker reportAllWorker = new SwingWorker() {
+                AllReportsWorker reportAllWorker = new AllReportsWorker(selReport, docAuthors);
+                reportAllWorker.execute();
+
+                bReturn = true;
+            }
+        }
+
+        return bReturn;
+    }
+
+    class AllReportsWorker extends SwingWorker {
+
+            BungeniOdfUserReport selReport = null;
+            List<BungeniDocAuthor> docAuthors = null;
+                public AllReportsWorker (BungeniOdfUserReport aReport, List<BungeniDocAuthor> lauthors) {
+                        this.docAuthors = lauthors;
+                        this.selReport = aReport;
+                }
+
                 @Override
                 protected Object doInBackground() throws Exception {
                     List<BungeniOdfDocumentHelper> docs = changesInfo.getDocuments();
@@ -231,12 +255,6 @@ public class panelConsolidateChanges extends panelChangesBase {
                             //reports.add(reportDoc);
                         }
                     }
-                    /*
-                    BungeniOdfDocumentReport docReport = selReport.runProcess(docs.toArray(new BungeniOdfDocumentHelper[docs.size()]));
-                    for (BungeniOdfDocumentHelper bungeniOdfDocumentHelper : docs) {
-                        String reportDoc = generateReport (selReport,bungeniOdfDocumentHelper );
-                        reports.add(reportDoc);
-                    }*/
                     return reports;
                 }
                 @Override
@@ -289,13 +307,7 @@ public class panelConsolidateChanges extends panelChangesBase {
                         log.error("consolidateWorkerAll = " + ex.getMessage());
                     }
                 }
-            };
 
-            reportAllWorker.execute();
-            bReturn = true;
-        }
-
-        return bReturn;
     }
 
     private boolean doReport() {
