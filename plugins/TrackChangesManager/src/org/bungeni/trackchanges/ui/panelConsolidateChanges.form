@@ -52,13 +52,13 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="scrollMembers" pref="138" max="32767" attributes="0"/>
+                      <Component id="scrollMembers" pref="137" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblAvailableReports" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                      <Component id="scrollReports" pref="126" max="32767" attributes="0"/>
+                      <Component id="scrollReports" pref="127" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="scrollDocChanges" alignment="1" pref="292" max="32767" attributes="0"/>
+                  <Component id="scrollDocChanges" alignment="1" pref="279" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -169,7 +169,9 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="DejaVu Sans" size="10" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="null"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/bungeni/trackchanges/Bundle.properties" key="panelConsolidateChanges.btnReport.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReportActionPerformed"/>
@@ -180,7 +182,9 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="DejaVu Sans" size="10" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="null"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/bungeni/trackchanges/Bundle.properties" key="panelConsolidateChanges.btnEditTemplate.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnReportAll">
@@ -188,7 +192,9 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="DejaVu Sans" size="10" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="null"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/bungeni/trackchanges/Bundle.properties" key="panelConsolidateChanges.btnReportAll.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReportAllActionPerformed"/>

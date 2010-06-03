@@ -159,8 +159,9 @@ public class panelReportsView extends panelChangesBase {
         jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         jLabel1.setText(null);
 
-        btnReview.setFont(new java.awt.Font("Lucida Grande", 0, 10));
-        btnReview.setText(null);
+        btnReview.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle"); // NOI18N
+        btnReview.setText(bundle.getString("panelReportsView.btnReview.text")); // NOI18N
         btnReview.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReviewActionPerformed(evt);
