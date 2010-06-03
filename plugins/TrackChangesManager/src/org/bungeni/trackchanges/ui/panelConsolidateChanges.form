@@ -213,11 +213,9 @@
               <Font name="Lucida Grande" size="10" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Tinoula Awopetu"/>
-                <StringItem index="1" value="Mashinski Murigi"/>
-                <StringItem index="2" value="Raul Obwacha"/>
-                <StringItem index="3" value="Felix Kerstengor"/>
+              <StringArray count="2">
+                <StringItem index="0" value="Report 1"/>
+                <StringItem index="1" value="Report 2"/>
               </StringArray>
             </Property>
           </Properties>

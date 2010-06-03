@@ -164,30 +164,7 @@ public class panelTrackChangesOverview extends panelChangesBase {
         tcmModel.getColumn(2).setCellRenderer(textAreaRenderer);
     }
 
-    /**
-     * Loads change files from folder
-     */
-    private void loadFilesFromFolder() {
-        if (__CURRENT_BILL_FOLDER__.length() > 0) {
-            File fFolder = new File(__CURRENT_BILL_FOLDER__);
-
-            // find files in changes folder
-            if (fFolder.isDirectory()) {
-                File[] files = fFolder.listFiles(new FilenameFilter() {
-                    Pattern pat = Pattern.compile(ReviewDocuments.getReviewStage(PANEL_FILTER_REVIEW_STAGE).getDocumentFilterPattern()); //("u[0-9][0-9][0-9][0-9]([a-z0-9_-]*?).odt");
-                    public boolean accept(File dir, String name) {
-                        if (pat.matcher(name).matches()) {
-                            return true;
-                        }
-
-                        return false;
-                    }
-                });
-
-                changesInfo.reload(files);
-            }
-        }
-    }
+    
 
     private void displayDocInfo(int index) {
         BungeniOdfDocumentHelper docHelper = changesInfo.getDocuments().get(index);

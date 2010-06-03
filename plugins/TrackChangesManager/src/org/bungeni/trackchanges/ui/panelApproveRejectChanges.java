@@ -108,38 +108,8 @@ public class panelApproveRejectChanges extends panelChangesBase {
         initialize_Tables();
     }
 
-    private void loadFilesFromFolder() {
-        String currentBillFolder =
-            CommonFunctions.getWorkspaceForBill(CommonFunctions.getCurrentBillID());
-
-        if (currentBillFolder.length() > 0) {
-            File fFolder = new File(currentBillFolder);
-
-            // find files in changes folder
-            if (fFolder.isDirectory()) {
-                File[] files = fFolder.listFiles(new FilenameFilter() {
-                    Pattern pat = Pattern.compile(
-                                      ReviewDocuments.getReviewStage(
-                                          PANEL_FILTER_REVIEW_STAGE).getDocumentFilterPattern());    // ("clerk_u[0-9][0-9][0-9][0-9]([a-z0-9_-]*?).odt");
-                    public boolean accept(File dir, String name) {
-                        if (pat.matcher(name).matches()) {
-                            return true;
-                        }
-
-                        return false;
-                    }
-                });
-
-                
-
-                
-
-                changesInfo.reload(files);
-            }
-        }
-
-    }
-
+    
+    
     private void initialize_listBoxes() {
 
         /**

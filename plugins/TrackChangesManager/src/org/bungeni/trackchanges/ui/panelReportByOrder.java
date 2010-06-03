@@ -1,9 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * panelReportByOrder.java
  *
  * Created on Jun 3, 2010, 12:09:47 PM
@@ -11,17 +6,29 @@
 
 package org.bungeni.trackchanges.ui;
 
+import javax.swing.JFrame;
+
 /**
  *
- * @author undesa
+ * @author Ashok Hariharan
  */
-public class panelReportByOrder extends javax.swing.JPanel {
-
+public class panelReportByOrder extends panelChangesBase {
+    private static org.apache.log4j.Logger log            =
+        org.apache.log4j.Logger.getLogger(panelReportByOrder.class.getName());
     /** Creates new form panelReportByOrder */
     public panelReportByOrder() {
+        super();
         initComponents();
     }
 
+      public panelReportByOrder(JFrame parentFrm, String pName) {
+           super(parentFrm, pName);
+            PANEL_FILTER_REVIEW_STAGE = "ReportsView";
+            PANEL_REVIEW_STAGE = "ClerkReview";
+            initComponents();
+            initialize();
+            loadFilesFromFolder();
+     }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -88,5 +95,11 @@ public class panelReportByOrder extends javax.swing.JPanel {
     private javax.swing.JList listAmendmentsByorder;
     private javax.swing.JScrollPane scrollAmendments;
     // End of variables declaration//GEN-END:variables
+
+    private void initialize() {
+       
+    }
+
+    
 
 }

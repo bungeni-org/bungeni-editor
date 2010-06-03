@@ -1,7 +1,10 @@
 package org.bungeni.trackchanges.ui;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 import javax.swing.AbstractListModel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -9,6 +12,9 @@ import javax.swing.JTabbedPane;
 import org.bungeni.odfdocument.docinfo.BungeniChangeDocumentsInfo;
 import org.bungeni.odfdocument.docinfo.BungeniDocAuthor;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
+import org.bungeni.trackchanges.utils.AppProperties;
+import org.bungeni.trackchanges.utils.CommonFunctions;
+import org.bungeni.trackchanges.utils.ReviewDocuments;
 
 /**
  *
@@ -72,5 +78,33 @@ public class panelChangesBase extends JPanel implements IChangesPanel  {
             return new BungeniDocAuthor(docHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniDocAuthor"), "");
         }
 
+    }
+
+
+    protected void loadFilesFromFolder() {
+        String currentBillFolder =
+            CommonFunctions.getWorkspaceForBill((String) AppProperties.getProperty("CurrentBillID"));
+
+        if (currentBillFolder.length() > 0) {
+            File fFolder = new File(currentBillFolder);
+
+            // find files in changes folder
+            if (fFolder.isDirectory()) {
+                File[] files = fFolder.listFiles(new FilenameFilter() {
+                    Pattern pat = Pattern.compile(
+                                      ReviewDocuments.getReviewStage(
+                                          PANEL_FILTER_REVIEW_STAGE).getDocumentFilterPattern());    // ("clerk_u[0-9][0-9][0-9][0-9]([a-z0-9_-]*?).odt");
+                    public boolean accept(File dir, String name) {
+                        if (pat.matcher(name).matches()) {
+                            return true;
+                        }
+
+                        return false;
+                    }
+                });
+
+                changesInfo.reload(files);
+            }
+        }
     }
 }

@@ -5,14 +5,9 @@ package org.bungeni.trackchanges.ui;
 
 import org.bungeni.odfdocument.docinfo.BungeniDocAuthor;
 import org.bungeni.odfdocument.report.BungeniOdfDocumentReport;
-import org.bungeni.odfdocument.report.BungeniOdfDocumentReportTemplate;
-import org.bungeni.odfdocument.report.BungeniOdfReportLine;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
-import org.bungeni.odfdom.document.changes.BungeniOdfChangeContext;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper.StructuredChangeType;
-import org.bungeni.trackchanges.registrydata.BungeniBill;
-import org.bungeni.trackchanges.rss.BungeniBillDataProvider;
 import org.bungeni.trackchanges.ui.support.TextAreaRenderer;
 import org.bungeni.trackchanges.utils.AppProperties;
 import org.bungeni.trackchanges.utils.CommonFunctions;
@@ -22,7 +17,6 @@ import org.bungeni.trackchanges.utils.RuntimeProperties;
 import org.odftoolkit.odfdom.doc.text.OdfTextChangedRegion;
 
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -35,7 +29,6 @@ import java.io.FilenameFilter;
 import java.text.MessageFormat;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -54,8 +47,6 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
 import org.bungeni.odfdocument.report.BungeniOdfUserReport;
 import org.bungeni.odfdocument.report.BungeniOdfUserReport.ReportType;
 import org.bungeni.odfdocument.report.DocUserReportsListModel;
@@ -111,33 +102,7 @@ public class panelConsolidateChanges extends panelChangesBase {
         initialize_Tables();
     }
 
-    private void loadFilesFromFolder() {
-        String currentBillFolder =
-            CommonFunctions.getWorkspaceForBill((String) AppProperties.getProperty("CurrentBillID"));
-
-        if (currentBillFolder.length() > 0) {
-            File fFolder = new File(currentBillFolder);
-
-            // find files in changes folder
-            if (fFolder.isDirectory()) {
-                File[] files = fFolder.listFiles(new FilenameFilter() {
-                    Pattern pat = Pattern.compile(
-                                      ReviewDocuments.getReviewStage(
-                                          PANEL_FILTER_REVIEW_STAGE).getDocumentFilterPattern());    // ("clerk_u[0-9][0-9][0-9][0-9]([a-z0-9_-]*?).odt");
-                    public boolean accept(File dir, String name) {
-                        if (pat.matcher(name).matches()) {
-                            return true;
-                        }
-
-                        return false;
-                    }
-                });
-
-                changesInfo.reload(files);
-            }
-        }
-    }
-
+   
     private void initialize_listBoxes() {
 
         /**
@@ -484,7 +449,7 @@ public class panelConsolidateChanges extends panelChangesBase {
         lblDocumentChanges.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblDocumentChanges.setText(bundle.getString("panelTrackChangesOverview.jLabel1.text")); // NOI18N
 
-        btnReport.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnReport.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnReport.setText(bundle.getString("panelConsolidateChanges.btnReport.text")); // NOI18N
         btnReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -492,10 +457,10 @@ public class panelConsolidateChanges extends panelChangesBase {
             }
         });
 
-        btnEditTemplate.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnEditTemplate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnEditTemplate.setText(bundle.getString("panelConsolidateChanges.btnEditTemplate.text")); // NOI18N
 
-        btnReportAll.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnReportAll.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnReportAll.setText(bundle.getString("panelConsolidateChanges.btnReportAll.text")); // NOI18N
         btnReportAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -503,9 +468,9 @@ public class panelConsolidateChanges extends panelChangesBase {
             }
         });
 
-        listReportTemplates.setFont(new java.awt.Font("Lucida Grande", 0, 10));
+        listReportTemplates.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         listReportTemplates.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Tinoula Awopetu", "Mashinski Murigi", "Raul Obwacha", "Felix Kerstengor" };
+            String[] strings = { "Report 1", "Report 2" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
