@@ -1,4 +1,4 @@
-package org.bungeni.trackchanges;
+package org.bungeni.trackchanges.ui;
 
 //~--- non-JDK imports --------------------------------------------------------
 
@@ -90,7 +90,7 @@ public class trackChangesMain extends javax.swing.JPanel implements IChangesCont
         tabContainer = new javax.swing.JTabbedPane();
         btnClose = new javax.swing.JButton();
 
-        tabContainer.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        tabContainer.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
 
         btnClose.setFont(new java.awt.Font("Lucida Grande", 0, 10));
         btnClose.setText("Close");

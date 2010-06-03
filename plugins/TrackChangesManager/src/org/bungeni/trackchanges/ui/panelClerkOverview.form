@@ -4,6 +4,7 @@
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/bungeni/trackchanges/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="true"/>
@@ -33,7 +34,7 @@
                   </Group>
                   <Component id="lblDocumentChanges" min="-2" pref="158" max="-2" attributes="0"/>
                   <Component id="chkFilterByClerk" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="scrollDocChanges" alignment="0" pref="488" max="32767" attributes="0"/>
+                  <Component id="scrollDocChanges" alignment="0" pref="673" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>

@@ -1,4 +1,4 @@
-package org.bungeni.trackchanges;
+package org.bungeni.trackchanges.ui;
 
 
 //~--- non-JDK imports --------------------------------------------------------
@@ -60,7 +60,6 @@ import org.bungeni.odfdom.utils.BungeniOdfDateHelper;
 import org.bungeni.trackchanges.process.schema.ProcessAmend;
 import org.bungeni.trackchanges.process.schema.ProcessAmends;
 import org.bungeni.trackchanges.process.schema.ProcessDocument;
-import org.bungeni.trackchanges.process.schema.ProcessProcess.ProcessStatus;
 import org.bungeni.trackchanges.queries.ProcessQueries;
 import org.bungeni.trackchanges.utils.GenericListSelectionListener;
 
@@ -468,7 +467,7 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
         lblDocumentChanges.setText(bundle.getString("panelTrackChangesOverview.jLabel1.text")); // NOI18N
 
         btnStartProcess.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnStartProcess.setText(bundle.getString("panelApproveRejectChanges.btnStartProcess.text")); // NOI18N
+        btnStartProcess.setText(bundle.getString("panelApproveRejectChanges.btnStartProcess.text_1")); // NOI18N
         btnStartProcess.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnStartProcessActionPerformed(evt);
@@ -476,10 +475,10 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
         });
 
         btnRestartProcess.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnRestartProcess.setText(bundle.getString("panelApproveRejectChanges.btnRestartProcess.text")); // NOI18N
+        btnRestartProcess.setText(bundle.getString("panelApproveRejectChanges.btnRestartProcess.text_1")); // NOI18N
 
         btnEndProcess.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnEndProcess.setText(bundle.getString("panelApproveRejectChanges.btnEndProcess.text")); // NOI18N
+        btnEndProcess.setText(bundle.getString("panelApproveRejectChanges.btnEndProcess.text_1")); // NOI18N
         btnEndProcess.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEndProcessActionPerformed(evt);
@@ -487,7 +486,7 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
         });
 
         btnComplete.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnComplete.setText(bundle.getString("panelApproveRejectChanges.btnComplete.text")); // NOI18N
+        btnComplete.setText(bundle.getString("panelApproveRejectChanges.btnComplete.text_1")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

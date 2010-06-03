@@ -1,4 +1,4 @@
-package org.bungeni.trackchanges;
+package org.bungeni.trackchanges.ui;
 
 import java.util.HashMap;
 import java.util.ResourceBundle;

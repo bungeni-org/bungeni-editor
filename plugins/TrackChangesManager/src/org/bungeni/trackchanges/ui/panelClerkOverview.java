@@ -1,5 +1,5 @@
 
-package org.bungeni.trackchanges;
+package org.bungeni.trackchanges.ui;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -388,7 +388,7 @@ public class panelClerkOverview extends panelChangesBase {
         lblDocumentChanges.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblDocumentChanges.setText(bundle.getString("panelTrackChangesOverview.jLabel1.text")); // NOI18N
 
-        chkFilterByClerk.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        chkFilterByClerk.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         chkFilterByClerk.setText(bundle.getString("panelClerkOverview.chkFilterByClerk.text")); // NOI18N
         chkFilterByClerk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -396,10 +396,10 @@ public class panelClerkOverview extends panelChangesBase {
             }
         });
 
-        btnReview.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnReview.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnReview.setText(bundle.getString("panelClerkOverview.btnReview.text")); // NOI18N
 
-        btnConsolidate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnConsolidate.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnConsolidate.setText(bundle.getString("panelClerkOverview.btnConsolidate.text")); // NOI18N
         btnConsolidate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -407,7 +407,7 @@ public class panelClerkOverview extends panelChangesBase {
             }
         });
 
-        btnConsolidateAll.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnConsolidateAll.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnConsolidateAll.setText(bundle.getString("panelClerkOverview.btnConsolidateAll.text")); // NOI18N
         btnConsolidateAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -434,7 +434,7 @@ public class panelClerkOverview extends panelChangesBase {
                         .addComponent(btnConsolidateAll))
                     .addComponent(lblDocumentChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(chkFilterByClerk)
-                    .addComponent(scrollDocChanges, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE))
+                    .addComponent(scrollDocChanges, javax.swing.GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

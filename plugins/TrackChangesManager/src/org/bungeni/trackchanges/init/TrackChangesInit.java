@@ -15,7 +15,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import org.apache.log4j.BasicConfigurator;
 import org.bungeni.editor.interfaces.ui.ILookAndFeel;
 import org.bungeni.ooo.BungenioOoHelper;
-import org.bungeni.trackchanges.trackChangesMain;
+import org.bungeni.trackchanges.ui.trackChangesMain;
 import org.bungeni.trackchanges.utils.RuntimeProperties;
 
 /**

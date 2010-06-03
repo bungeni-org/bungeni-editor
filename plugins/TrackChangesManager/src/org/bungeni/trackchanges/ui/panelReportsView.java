@@ -1,4 +1,4 @@
-package org.bungeni.trackchanges;
+package org.bungeni.trackchanges.ui;
 //~--- non-JDK imports --------------------------------------------------------
 
 import java.util.concurrent.ExecutionException;
@@ -126,8 +126,7 @@ public class panelReportsView extends panelChangesBase {
         btnReview = new javax.swing.JButton();
 
         lblMembers.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle"); // NOI18N
-        lblMembers.setText(bundle.getString("panelReportsView.lblMembers.text")); // NOI18N
+        lblMembers.setText(null);
 
         listReportTemplates.setFont(new java.awt.Font("Lucida Grande", 0, 10));
         listReportTemplates.setModel(new javax.swing.AbstractListModel() {
@@ -158,10 +157,10 @@ public class panelReportsView extends panelChangesBase {
         scrollDocChanges.setViewportView(tblDocReports);
 
         jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        jLabel1.setText(bundle.getString("panelReportsView.jLabel1.text")); // NOI18N
+        jLabel1.setText(null);
 
         btnReview.setFont(new java.awt.Font("Lucida Grande", 0, 10));
-        btnReview.setText(bundle.getString("panelReportsView.btnReview.text")); // NOI18N
+        btnReview.setText(null);
         btnReview.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReviewActionPerformed(evt);
