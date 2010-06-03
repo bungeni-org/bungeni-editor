@@ -29,12 +29,14 @@ public class BungeniOdfDocumentReportFactory {
                 // get the report template
                 List<String> reportTemplateFile = RuntimeProperties.getSectionProp(reportRef, "report.template");
                 List<String> reportProcessClass = RuntimeProperties.getSectionProp(reportRef, "report.process");
+                List<String> reportUIClass  = RuntimeProperties.getSectionProp(reportRef, "report.ui");
                 List<String> reportProcessType = RuntimeProperties.getSectionProp(reportRef, "report.process_type");
 
                 BungeniOdfDocumentReportTemplate rptTemplate = getTemplateFromFile(reportTemplateFile.get(0));
                 IBungeniOdfDocumentReportProcess iReportProcess = getReportObjectFromClass(reportProcessClass.get(0));
+                IBungeniOdfDocumentReportUI iReportUI = getReportUIFromClass(reportUIClass.get(0));
                 ReportType objReportType = ReportType.parseReportType(reportProcessType.get(0));
-                BungeniOdfUserReport report = new BungeniOdfUserReport(rptTemplate, iReportProcess, objReportType);
+                BungeniOdfUserReport report = new BungeniOdfUserReport(rptTemplate, iReportProcess, iReportUI, objReportType);
                 reportObjects.add(report);
             } catch (Exception ex) {
                 log.error("getAllReports" + ex.getMessage());
@@ -76,4 +78,25 @@ public class BungeniOdfDocumentReportFactory {
         }
         return iProcess;
     }
+
+    /**
+     * Creates a report object instance from a class
+     * @param reportClass
+     * @return
+     */
+    public static IBungeniOdfDocumentReportUI getReportUIFromClass(String reportClass) {
+        IBungeniOdfDocumentReportUI iProcess = null;
+        try {
+            Class clsReport = Class.forName(reportClass);
+            iProcess = (IBungeniOdfDocumentReportUI) clsReport.newInstance();
+        } catch (InstantiationException ex) {
+            log.error("getReportObjectFromClass " + ex.getMessage());
+        } catch (IllegalAccessException ex) {
+            log.error("getReportObjectFromClass " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            log.error("getReportObjectFromClass " + ex.getMessage());
+        }
+        return iProcess;
+    }
+
 }
