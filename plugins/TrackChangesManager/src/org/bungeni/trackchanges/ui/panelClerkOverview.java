@@ -388,7 +388,7 @@ public class panelClerkOverview extends panelChangesBase {
         lblDocumentChanges.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblDocumentChanges.setText(bundle.getString("panelTrackChangesOverview.jLabel1.text")); // NOI18N
 
-        chkFilterByClerk.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        chkFilterByClerk.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         chkFilterByClerk.setText(bundle.getString("panelClerkOverview.chkFilterByClerk.text")); // NOI18N
         chkFilterByClerk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -426,9 +426,9 @@ public class panelClerkOverview extends panelChangesBase {
                     .addComponent(lblMembers))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(btnReview)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnConsolidate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnConsolidateAll))
@@ -452,9 +452,9 @@ public class panelClerkOverview extends panelChangesBase {
                         .addComponent(scrollDocChanges, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnConsolidateAll)
+                            .addComponent(btnReview)
                             .addComponent(btnConsolidate)
-                            .addComponent(btnReview))
+                            .addComponent(btnConsolidateAll))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)

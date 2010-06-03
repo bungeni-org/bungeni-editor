@@ -25,9 +25,9 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="btnReview" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnConsolidate" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnConsolidateAll" min="-2" max="-2" attributes="0"/>
@@ -56,9 +56,9 @@
                       <Component id="scrollDocChanges" pref="270" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnConsolidateAll" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnConsolidate" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnReview" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnConsolidate" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnConsolidateAll" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
