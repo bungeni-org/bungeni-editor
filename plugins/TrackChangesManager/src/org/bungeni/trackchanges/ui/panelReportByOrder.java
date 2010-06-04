@@ -6,9 +6,26 @@
 
 package org.bungeni.trackchanges.ui;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.SwingWorker;
 import org.bungeni.odfdocument.report.IBungeniOdfDocumentReportProcess;
 import org.bungeni.odfdocument.report.IBungeniOdfDocumentReportUI;
+import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
+import org.bungeni.odfdom.document.changes.BungeniOdfChangeContext;
+import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper;
+import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper.StructuredChangeType;
+import org.odftoolkit.odfdom.doc.text.OdfTextChangedRegion;
+import org.odftoolkit.odfdom.doc.text.OdfTextSection;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 /**
  *
@@ -101,8 +118,9 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
     // End of variables declaration//GEN-END:variables
 
     private void initialize() {
-       
+       initialize_listBoxes();
     }
+
 
      public static void createAndShowGUI(JFrame parentFrame) {
                 if (panelReportByOrder.thisFrame == null) {
@@ -134,6 +152,95 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
     public boolean setProcessHook(IBungeniOdfDocumentReportProcess processHook) {
         this.reportProcess = processHook;
         return true;
+    }
+
+    private void initialize_listBoxes() {
+       
+    }
+
+    /**
+     * Group changes acrosss documents by amendment order
+     */
+    class AmendmentsByOrderListModel extends DefaultListModel {
+
+        class documentChange {
+            String documentURI;
+            List<HashMap<String, Object>> changeMarks = new ArrayList<HashMap<String,Object>>(0);
+        }
+
+        class groupedChanges {
+            String sectionType ;
+            String sectionName ;
+            Integer nOrder = 0;
+            documentChange docChange;
+            
+            public groupedChanges(){
+
+            }
+
+            public groupedChanges(String sType, String sName, documentChange dChange) {
+                this.sectionName = sName;
+                this.sectionType = sType;
+                this.docChange = dChange;
+            }
+        }
+
+        HashMap<String, groupedChanges> groupedChangesmap = new HashMap<String, groupedChanges>();
+
+
+        public void updateModel(){
+            getContainerInterface().startProgress();
+            SwingWorker modelWorker = new SwingWorker(){
+                @Override
+                protected Object doInBackground() throws Exception {
+                        buildModel();
+                        return Boolean.TRUE;
+                }
+                @Override
+                protected void done(){
+                   
+                    getContainerInterface().stopProgress();
+                }
+            };
+            modelWorker.execute();
+        }
+
+        private void buildModel(){
+            //build the list model
+            for (BungeniOdfDocumentHelper docHelper : changesInfo.getDocuments()) {
+                String docAuthor       = docHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniDocAuthor");
+                BungeniOdfTrackedChangesHelper  changeHelper    = docHelper.getChangesHelper();
+                Element changeContainer = changeHelper.getTrackedChangeContainer();
+                ArrayList<OdfTextChangedRegion> changes = changeHelper.getChangedRegionsByCreator(changeContainer,
+                                                                      docAuthor);
+
+                for (OdfTextChangedRegion odfTextChangedRegion : changes) {
+                    StructuredChangeType    scType     = changeHelper.getStructuredChangeType(odfTextChangedRegion);
+                    Node changeitemStart = null, changeitemEnd = null;
+                    BungeniOdfChangeContext chctx = null;
+                    if (scType.changetype.equals(BungeniOdfTrackedChangesHelper.__CHANGE_TYPE_DELETION__)) {
+                        changeitemStart = changeHelper.getChangeItem(scType.changeId);
+                        chctx = new BungeniOdfChangeContext(changeitemStart, docHelper);
+                    }
+                    if (scType.changetype.equals(BungeniOdfTrackedChangesHelper.__CHANGE_TYPE_INSERTION__)) {
+                        changeitemStart = changeHelper.getChangeStartItem(scType.changeId);
+                        changeitemEnd = changeHelper.getChangeEndItem(scType.changeId);
+                        chctx = new BungeniOdfChangeContext(changeitemStart, changeitemEnd,  docHelper);
+                    }
+                    OdfTextSection aparentSection = (OdfTextSection) chctx.getParentSection();
+                    String sectionName = aparentSection.getTextNameAttribute();
+                    String sectionType = chctx.getParentSectionType();
+                    if (groupedChangesmap.containsKey(sectionType)) {
+                       // documentChange dChange = new
+                       // groupedChangesmap.put(n)
+                    }
+                }
+
+
+            }
+
+        }
+        
     }
 
 
