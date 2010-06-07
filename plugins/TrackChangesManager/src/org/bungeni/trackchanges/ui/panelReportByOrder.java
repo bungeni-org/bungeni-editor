@@ -6,26 +6,14 @@
 
 package org.bungeni.trackchanges.ui;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-import javax.swing.AbstractListModel;
-import javax.swing.DefaultListModel;
+import java.awt.Component;
+import java.util.concurrent.ExecutionException;
 import javax.swing.JFrame;
 import javax.swing.SwingWorker;
+import net.java.swingfx.waitwithstyle.PerformanceInfiniteProgressPanel;
 import org.bungeni.odfdocument.report.IBungeniOdfDocumentReportProcess;
 import org.bungeni.odfdocument.report.IBungeniOdfDocumentReportUI;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
-import org.bungeni.odfdom.document.changes.BungeniOdfChangeContext;
-import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper;
-import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper.StructuredChangeType;
-import org.odftoolkit.odfdom.doc.text.OdfTextChangedRegion;
-import org.odftoolkit.odfdom.doc.text.OdfTextSection;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 /**
  *
@@ -36,6 +24,8 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         org.apache.log4j.Logger.getLogger(panelReportByOrder.class.getName());
     public static JFrame                   thisFrame = null;
     private IBungeniOdfDocumentReportProcess reportProcess = null;
+    private BungeniOdfDocumentHelper[] reportInputDocuments;
+    
     /** Creates new form panelReportByOrder */
     public panelReportByOrder() {
         super();
@@ -44,12 +34,9 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
 
       public panelReportByOrder(JFrame parentFrm, String pName) {
            super(parentFrm, pName);
-            PANEL_FILTER_REVIEW_STAGE = "ReportsView";
-            PANEL_REVIEW_STAGE = "ClerkReview";
-            initComponents();
-            initialize();
-            loadFilesFromFolder();
+           initComponents();
      }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -59,28 +46,23 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        scrollAmendments = new javax.swing.JScrollPane();
-        listAmendmentsByorder = new javax.swing.JList();
         btnMoveUp = new javax.swing.JButton();
         btnMoveDown = new javax.swing.JButton();
         btnFinish = new javax.swing.JButton();
+        scrollReport = new javax.swing.JScrollPane();
+        treeReportByOrder = new javax.swing.JTree();
 
-        listAmendmentsByorder.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        listAmendmentsByorder.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        scrollAmendments.setViewportView(listAmendmentsByorder);
-
-        btnMoveUp.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnMoveUp.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnMoveUp.setText("Move UP");
 
-        btnMoveDown.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnMoveDown.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnMoveDown.setText("Move DOWN");
 
         btnFinish.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnFinish.setText("Finish");
+
+        treeReportByOrder.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        scrollReport.setViewportView(treeReportByOrder);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -93,13 +75,13 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnFinish, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(298, 298, 298))
-            .addComponent(scrollAmendments, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
+            .addComponent(scrollReport, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(scrollAmendments, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollReport, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnMoveUp)
                     .addComponent(btnMoveDown)
@@ -113,20 +95,54 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
     private javax.swing.JButton btnFinish;
     private javax.swing.JButton btnMoveDown;
     private javax.swing.JButton btnMoveUp;
-    private javax.swing.JList listAmendmentsByorder;
-    private javax.swing.JScrollPane scrollAmendments;
+    private javax.swing.JScrollPane scrollReport;
+    private javax.swing.JTree treeReportByOrder;
     // End of variables declaration//GEN-END:variables
 
     private void initialize() {
-       initialize_listBoxes();
+        PANEL_FILTER_REVIEW_STAGE = "ClerkConsolidationReview";
+        PANEL_REVIEW_STAGE        = "";
+       // loadFilesFromFolder();
+        startProgress();
+        loadTreeWorker treeLoader = new loadTreeWorker();
+        treeLoader.execute();
     }
 
 
-     public static void createAndShowGUI(JFrame parentFrame) {
+    class loadTreeWorker extends SwingWorker {
+
+        @Override
+        protected Object doInBackground() throws Exception {
+                getProcessHook().prepareProcess(reportInputDocuments);
+                return Boolean.TRUE;
+        }
+
+        @Override
+        protected void done(){
+                try {
+                    Boolean bProcessDocs = (Boolean) get();
+                    loadTree();
+                    stopProgress();
+                } catch (InterruptedException ex) {
+                    log.error("Error while loading tree ", ex);
+                } catch (ExecutionException ex) {
+                    log.error("Error while loading tree ", ex);
+                }
+        }
+
+        private void loadTree(){
+            
+        }
+
+    }
+
+     public  void createAndShowGUI(JFrame parentFrame) {
                 if (panelReportByOrder.thisFrame == null) {
                     panelReportByOrder.thisFrame = new JFrame("Report");
                     panelReportByOrder.thisFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    panelReportByOrder.thisFrame.getContentPane().add(new panelReportByOrder(parentFrame, "ReportByOrder"));
+                    this.setParentFrame(parentFrame);
+                    this.setPanelName("ReportByOrder");
+                    panelReportByOrder.thisFrame.getContentPane().add(this);
                     panelReportByOrder.thisFrame.pack();
                     panelReportByOrder.thisFrame.setAlwaysOnTop(true);
                     panelReportByOrder.thisFrame.setVisible(true);
@@ -154,94 +170,65 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         return true;
     }
 
+    public boolean setInputDocuments(BungeniOdfDocumentHelper[] dhelpers) {
+        this.reportInputDocuments = dhelpers;
+        return true;
+    }
+
+    public IBungeniOdfDocumentReportProcess getProcessHook(){
+        return this.reportProcess;
+    }
+
     private void initialize_listBoxes() {
        
     }
 
-    /**
-     * Group changes acrosss documents by amendment order
-     */
-    class AmendmentsByOrderListModel extends DefaultListModel {
-
-        class documentChange {
-            String documentURI;
-            List<HashMap<String, Object>> changeMarks = new ArrayList<HashMap<String,Object>>(0);
-        }
-
-        class groupedChanges {
-            String sectionType ;
-            String sectionName ;
-            Integer nOrder = 0;
-            documentChange docChange;
-            
-            public groupedChanges(){
-
-            }
-
-            public groupedChanges(String sType, String sName, documentChange dChange) {
-                this.sectionName = sName;
-                this.sectionType = sType;
-                this.docChange = dChange;
-            }
-        }
-
-        HashMap<String, groupedChanges> groupedChangesmap = new HashMap<String, groupedChanges>();
-
-
-        public void updateModel(){
-            getContainerInterface().startProgress();
-            SwingWorker modelWorker = new SwingWorker(){
-                @Override
-                protected Object doInBackground() throws Exception {
-                        buildModel();
-                        return Boolean.TRUE;
-                }
-                @Override
-                protected void done(){
-                   
-                    getContainerInterface().stopProgress();
-                }
-            };
-            modelWorker.execute();
-        }
-
-        private void buildModel(){
-            //build the list model
-            for (BungeniOdfDocumentHelper docHelper : changesInfo.getDocuments()) {
-                String docAuthor       = docHelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniDocAuthor");
-                BungeniOdfTrackedChangesHelper  changeHelper    = docHelper.getChangesHelper();
-                Element changeContainer = changeHelper.getTrackedChangeContainer();
-                ArrayList<OdfTextChangedRegion> changes = changeHelper.getChangedRegionsByCreator(changeContainer,
-                                                                      docAuthor);
-
-                for (OdfTextChangedRegion odfTextChangedRegion : changes) {
-                    StructuredChangeType    scType     = changeHelper.getStructuredChangeType(odfTextChangedRegion);
-                    Node changeitemStart = null, changeitemEnd = null;
-                    BungeniOdfChangeContext chctx = null;
-                    if (scType.changetype.equals(BungeniOdfTrackedChangesHelper.__CHANGE_TYPE_DELETION__)) {
-                        changeitemStart = changeHelper.getChangeItem(scType.changeId);
-                        chctx = new BungeniOdfChangeContext(changeitemStart, docHelper);
-                    }
-                    if (scType.changetype.equals(BungeniOdfTrackedChangesHelper.__CHANGE_TYPE_INSERTION__)) {
-                        changeitemStart = changeHelper.getChangeStartItem(scType.changeId);
-                        changeitemEnd = changeHelper.getChangeEndItem(scType.changeId);
-                        chctx = new BungeniOdfChangeContext(changeitemStart, changeitemEnd,  docHelper);
-                    }
-                    OdfTextSection aparentSection = (OdfTextSection) chctx.getParentSection();
-                    String sectionName = aparentSection.getTextNameAttribute();
-                    String sectionType = chctx.getParentSectionType();
-                    if (groupedChangesmap.containsKey(sectionType)) {
-                       // documentChange dChange = new
-                       // groupedChangesmap.put(n)
-                    }
-                }
-
-
-            }
-
-        }
         
+    public boolean initUI() {
+            initialize();
+            return true;
     }
 
+    Component originalPane;
+
+      /**
+     * This covers the panel with a glass pane and runs the infinit progress bar.
+     * Must be called before invoking the worker thread
+     * @return
+     */
+    public boolean startProgress(){
+        boolean bState = false;
+        try {
+            originalPane = thisFrame.getGlassPane();
+            PerformanceInfiniteProgressPanel glassPane;
+            parentFrame.setGlassPane(glassPane = new PerformanceInfiniteProgressPanel());
+            glassPane.setVisible(true);
+            bState = true;
+        } catch (Exception ex) {
+            log.error("startProgress : " + ex.getMessage());
+        }
+        return bState;
+    }
+
+
+    /**
+     * This must be called only after a startProgress() api has been called.
+     * stopProgress() is usually called when the worker threard completes , usually after
+     * the get() api in SwingWorker.done().
+     * @return
+     */
+    public boolean stopProgress() {
+        boolean bState = false;
+        try {
+          final PerformanceInfiniteProgressPanel pPanel =
+                  (PerformanceInfiniteProgressPanel) parentFrame.getGlassPane();
+                   pPanel.setVisible(false);
+                   parentFrame.setGlassPane(originalPane);
+                   bState = true;
+        } catch (Exception ex) {
+            log.error("endProgress : " + ex.getMessage());
+        }
+        return bState;
+    }
 
 }

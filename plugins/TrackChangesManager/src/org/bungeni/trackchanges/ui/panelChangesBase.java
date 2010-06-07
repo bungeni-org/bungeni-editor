@@ -60,6 +60,10 @@ public class panelChangesBase extends JPanel implements IChangesPanel  {
         this.m_panelName = panelName;
     }
 
+    public void setParentFrame(JFrame pframe) {
+        this.parentFrame = pframe;
+    }
+
     /**
      * Common list model class used by derived classes
      */
