@@ -130,5 +130,10 @@ public class reportChangesByUser extends BungeniOdfDocumentReportProcess {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
+    public boolean prepareProcess(BungeniOdfDocumentHelper[] aDochelper) {
+       return true;
+    }
+
 
 }

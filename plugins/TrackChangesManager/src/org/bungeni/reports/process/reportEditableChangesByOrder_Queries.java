@@ -6,8 +6,8 @@ package org.bungeni.reports.process;
  */
 public class reportEditableChangesByOrder_Queries {
 
-    public static String ADD_CHANGE_BY_ORDER(String billId, String docName, String changeId, String changeType, String pathStart, String pathEnd, Boolean bState, Integer orderWeight) {
-        String sQuery = "insert into changes_by_order (bill_id, doc_name, change_id, change_type, path_start, path_end, processed, group_by, order_weight) " +
+    public static String ADD_CHANGE_BY_ORDER(String billId, String docName, String changeId, String changeType, String pathStart, String pathEnd, Boolean bState, Integer orderWeight, Double manualOrder) {
+        String sQuery = "insert into changes_by_order (bill_id, doc_name, change_id, change_type, path_start, path_end, processed, group_by, order_weight, manual_order) " +
                 "values ("
                 + "'" +
                 billId
@@ -25,6 +25,8 @@ public class reportEditableChangesByOrder_Queries {
                 bState.toString()
                 + ",'', " +
                 orderWeight +
+                "," +
+                manualOrder +
                 ")";
         return sQuery;
 
@@ -38,11 +40,12 @@ public class reportEditableChangesByOrder_Queries {
                 return sQuery;
     }
 
-    public static String UPDATE_CHANGES_FOR_SECTION_NODE (String billId, String docName, String nodeFragment, String sectionType, Integer iWeight) {
+    public static String UPDATE_CHANGES_FOR_SECTION_NODE (String billId, String docName, String nodeFragment, String sectionType, Integer iWeight, Double dOrder) {
         String sQuery = "Update CHANGES_BY_ORDER " +
                 "set group_by = '" + sectionType + "' , " +
                 "processed = true , " +
-                "order_weight = " + iWeight + " where  " +
+                "order_weight = " + iWeight + ", " +
+                "manual_order = " + dOrder + " where  " +
                 "path_start like '" + nodeFragment + "%' and " +
                 "bill_id = '" + billId + "' and " +
                 "processed = false and " +
@@ -50,11 +53,12 @@ public class reportEditableChangesByOrder_Queries {
         return sQuery;
     }
 
-    public static String UPDATE_CHANGES_FOR_DELETED_NODE (String billId, String docName, String changeId, String groupBy, Integer iWeight ) {
+    public static String UPDATE_CHANGES_FOR_DELETED_NODE (String billId, String docName, String changeId, String groupBy, Integer iWeight, Double dOrder ) {
         String sQuery = "Update changes_by_order " +
                 "set group_by = '" + groupBy + "' ," +
                 "processed = true ," +
-                "order_weight = " + iWeight + " where " +
+                "order_weight = " + iWeight + ", " +
+                "manual_order = " + dOrder + " where " +
                 "bill_id = '" + billId + "' and " +
                 "doc_name = '" + docName + "' and " +
                 "processed = false and " +

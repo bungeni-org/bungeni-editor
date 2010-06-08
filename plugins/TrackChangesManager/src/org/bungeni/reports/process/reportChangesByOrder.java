@@ -41,6 +41,98 @@ public class reportChangesByOrder  extends BungeniOdfDocumentReportProcess {
         "body"
     };
 
+
+    public boolean prepareProcess(BungeniOdfDocumentHelper[] aDochelpers) {
+        BungeniClientDB db = BungeniClientDB.defaultConnect();
+        for (BungeniOdfDocumentHelper aDochelper : aDochelpers) {
+
+            final BungeniOdfTrackedChangesHelper changesHelper = aDochelper.getChangesHelper();
+            List<StructuredChangeType> changes = changesHelper.getAllChanges();
+            List<String> queries = new ArrayList<String>(0);
+            final String documentPath = aDochelper.getDocumentPath();
+            Integer iOrder = 0;
+            queries.add(reportChangesByOrder_Queries.CLEANUP_QUERY(CommonFunctions.getCurrentBillID(), documentPath));
+            queries = addInsertQueries(aDochelper, changes, queries) ;
+
+
+            db.Connect();
+            db.Update(queries, true);
+            db.EndConnect();
+
+                //now we iterate through the document ... and process all the top level nodes
+                //lets do the sections first
+
+             final BungeniOdfSectionHelper asectionHelper = aDochelper.getSectionHelper();
+             Integer isecWeight = 0;
+             NodeList nSections = asectionHelper.getDocumentSections();
+             for (int i = 0; i < nSections.getLength(); i++) {
+                    Node sectionNode = nSections.item(i);
+                    OdfTextSection aSection = (OdfTextSection) sectionNode;
+                    String aSectionType = asectionHelper.getSectionType(aSection);
+                    //if it is a different section
+                    String aSectionName = aSection.getTextNameAttribute();
+                    if (!aSectionType.equals(aSectionName)) {
+                        if (!isInFilter(aSectionType)) {
+                            //check for this section type
+                            String sectionxPath = BungeniOdfNodeHelper.getXPath(sectionNode);
+                            String sCheckQuery = reportChangesByOrder_Queries.UPDATE_CHANGES_FOR_SECTION_NODE(CommonFunctions.getCurrentBillID(),
+                                    documentPath,
+                                    sectionxPath,
+                                    aSectionType + "." + aSectionName, ++isecWeight);
+                            db.Connect();
+                           log.debug(sCheckQuery + ";");
+                            db.Update(sCheckQuery);
+                            db.EndConnect();
+                        }
+                    }
+                }
+
+               List<String> delQueries = new ArrayList<String>(0);
+               //Now we handle the use ase
+                String sQueryDeleted = reportChangesByOrder_Queries.CHECK_DELETED(CommonFunctions.getCurrentBillID(), documentPath);
+                //look for the change id that was deleted
+                QueryResults qr = db.ConnectAndQuery(sQueryDeleted);
+                if (qr.hasResults()) {
+                    for (Vector<String> aResult : qr.theResults()) {
+                        String docName = qr.getField(aResult, "DOC_NAME");
+                        String changeId = qr.getField(aResult, "CHANGE_ID");
+                        String changeType = qr.getField(aResult,"CHANGE_TYPE");
+                        if (changeType.equals("deletion")){
+                            log.debug("Processing deletion node ");
+                            OdfTextChangedRegion aRegion = changesHelper.getChangedRegionById(changeId);
+                            StructuredChangeType scType = changesHelper.getStructuredChangeType(aRegion);
+                            NodeList nodesList = changesHelper.getDeletedNodesExt(scType.elementChange.get(0), "//text:section");
+                           log.debug("Found nodes : " + nodesList.getLength());
+                            for (int i = 0; i < nodesList.getLength(); i++) {
+                                // this is the first section ... we only want the first section since its one change
+                                OdfTextSection aSection = (OdfTextSection) nodesList.item(i);
+                                String sectionName = aSection.getTextNameAttribute();
+                                String sectionType = asectionHelper.getSectionType(aSection);
+                                //here we have to update the changes order table with the deletion info
+                                String strUpdQuery  =
+                                        reportChangesByOrder_Queries.UPDATE_CHANGES_FOR_DELETED_NODE(CommonFunctions.getCurrentBillID(),
+                                        documentPath,
+                                        scType.changeId,
+                                        sectionType + "." + sectionName,
+                                        0);
+                                delQueries.add(strUpdQuery);
+                                break;
+                            }
+                        }
+                    }
+                }
+                for (String dstring : delQueries) {
+                    System.out.println(dstring + " ;");
+                }
+                db.Connect();
+                db.Update(delQueries, true);
+                db.EndConnect();
+        }
+        return true;
+    }
+
+
+
     @Override
     public BungeniOdfDocumentReport generateReport(BungeniOdfDocumentReportTemplate aTemplate, BungeniOdfDocumentHelper aDochelper) {
         /**
@@ -327,7 +419,9 @@ public class reportChangesByOrder  extends BungeniOdfDocumentReportProcess {
 
     @Override
     public BungeniOdfDocumentReport generateReport(BungeniOdfDocumentReportTemplate aTemplate, BungeniOdfDocumentHelper[] aDochelpers) {
-         BungeniClientDB db = BungeniClientDB.defaultConnect();
+        BungeniClientDB db = BungeniClientDB.defaultConnect();
+
+        /*
         for (BungeniOdfDocumentHelper aDochelper : aDochelpers) {
 
             final BungeniOdfTrackedChangesHelper changesHelper = aDochelper.getChangesHelper();
@@ -412,6 +506,8 @@ public class reportChangesByOrder  extends BungeniOdfDocumentReportProcess {
                 db.Update(delQueries, true);
                 db.EndConnect();
         }
+         *
+         */
         /** now generate the report from the db */
 
                 List<BungeniOdfReportLine> reportLines = this.getReportLinesByChangeOrder(db);
@@ -430,5 +526,7 @@ public class reportChangesByOrder  extends BungeniOdfDocumentReportProcess {
             return reportObject;
 
     }
+
+
 
 }

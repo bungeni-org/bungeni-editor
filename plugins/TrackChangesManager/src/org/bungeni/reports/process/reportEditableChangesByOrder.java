@@ -75,10 +75,11 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
                         if (!isInFilter(aSectionType)) {
                             //check for this section type
                             String sectionxPath = BungeniOdfNodeHelper.getXPath(sectionNode);
+                            ++isecWeight;
                             String sCheckQuery = reportEditableChangesByOrder_Queries.UPDATE_CHANGES_FOR_SECTION_NODE(CommonFunctions.getCurrentBillID(),
                                     documentPath,
                                     sectionxPath,
-                                    aSectionType + "." + aSectionName, ++isecWeight);
+                                    aSectionType + "." + aSectionName, isecWeight, isecWeight.doubleValue());
                             db.Connect();
                            log.info(sCheckQuery + ";");
                             db.Update(sCheckQuery);
@@ -114,7 +115,7 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
                                         documentPath,
                                         scType.changeId,
                                         sectionType + "." + sectionName,
-                                        0);
+                                        0, 0.0);
                                 delQueries.add(strUpdQuery);
                                 break;
                             }
@@ -204,10 +205,11 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
                 if (!isInFilter(aSectionType)) {
                     //check for this section type
                     String sectionxPath = BungeniOdfNodeHelper.getXPath(sectionNode);
+                    ++isecWeight;
                     String sCheckQuery = reportEditableChangesByOrder_Queries.UPDATE_CHANGES_FOR_SECTION_NODE(CommonFunctions.getCurrentBillID(),
                             documentPath,
                             sectionxPath,
-                            aSectionType + "." + aSectionName, ++isecWeight);
+                            aSectionType + "." + aSectionName, isecWeight, isecWeight.doubleValue() );
                     db.Connect();
                     log.debug(sCheckQuery + ";");
                     db.Update(sCheckQuery);
@@ -243,7 +245,7 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
                                 documentPath,
                                 scType.changeId,
                                 sectionType + "." + sectionName,
-                                0);
+                                0, 0.0);
                         delQueries.add(strUpdQuery);
                         break;
                     }
@@ -365,7 +367,7 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
                     structuredChangeType.changetype,
                     xpathStart,
                     xpathEnd,
-                    Boolean.FALSE, 0);
+                    Boolean.FALSE, 0, 0.0);
             queries.add(strQuery);
         }
         return queries;
