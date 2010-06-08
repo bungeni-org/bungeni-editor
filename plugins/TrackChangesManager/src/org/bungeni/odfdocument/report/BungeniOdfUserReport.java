@@ -137,4 +137,5 @@ public class BungeniOdfUserReport {
             this.reportUI.setProcessHook(reportProcess);
         }
     }
+
 }

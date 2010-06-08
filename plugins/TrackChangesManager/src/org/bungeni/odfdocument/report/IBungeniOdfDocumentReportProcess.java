@@ -16,4 +16,5 @@ public interface IBungeniOdfDocumentReportProcess {
     public BungeniOdfDocumentReport generateReport (BungeniOdfDocumentReportTemplate aTemplate, BungeniOdfDocumentHelper aDochelper);
     public BungeniOdfDocumentReport generateReport (BungeniOdfDocumentReportTemplate aTemplate, BungeniOdfDocumentHelper[] aDochelper);
 
+    public boolean prepareProcess(BungeniOdfDocumentHelper[] aDochelper);
 }

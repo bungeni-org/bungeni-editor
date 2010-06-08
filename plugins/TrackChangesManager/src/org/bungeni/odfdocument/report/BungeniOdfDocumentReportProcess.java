@@ -12,7 +12,7 @@ public abstract class BungeniOdfDocumentReportProcess implements IBungeniOdfDocu
  public  abstract BungeniOdfDocumentReport generateReport (BungeniOdfDocumentReportTemplate aTemplate, BungeniOdfDocumentHelper aDochelper);
  public  abstract BungeniOdfDocumentReport generateReport (BungeniOdfDocumentReportTemplate aTemplate, BungeniOdfDocumentHelper[] aDochelper);
 
-
+ public abstract boolean prepareProcess(BungeniOdfDocumentHelper[] aDochelper);
 
 
 
