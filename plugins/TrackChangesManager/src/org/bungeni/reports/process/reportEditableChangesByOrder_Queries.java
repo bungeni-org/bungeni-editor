@@ -6,8 +6,8 @@ package org.bungeni.reports.process;
  */
 public class reportEditableChangesByOrder_Queries {
 
-    public static String ADD_CHANGE_BY_ORDER(String billId, String docName, String changeId, String changeType, String pathStart, String pathEnd, Boolean bState, Integer orderWeight, Double manualOrder) {
-        String sQuery = "insert into changes_by_order (bill_id, doc_name, change_id, change_type, path_start, path_end, processed, group_by, order_weight, manual_order) " +
+    public static String ADD_CHANGE_BY_ORDER(String billId, String docName, String changeId, String changeType, String pathStart, String pathEnd, Boolean bState, Integer orderWeight, Double manualOrder, Integer orderInDoc, String sOwner) {
+        String sQuery = "insert into changes_by_order (bill_id, doc_name, change_id, change_type, path_start, path_end, processed, group_by, order_weight, manual_order, order_in_doc, owner) " +
                 "values ("
                 + "'" +
                 billId
@@ -27,7 +27,10 @@ public class reportEditableChangesByOrder_Queries {
                 orderWeight +
                 "," +
                 manualOrder +
-                ")";
+                "," +
+                orderInDoc +
+                ",'" + sOwner +
+                "')";
         return sQuery;
 
     }
@@ -39,6 +42,24 @@ public class reportEditableChangesByOrder_Queries {
                 "path_start like '" + nodeFragment + "%'";
                 return sQuery;
     }
+
+   public static String GET_CHANGE_GROUPS_BILL_BY_MANUAL_ORDER(String billId) {
+        String sQuery = "select  group_by from changes_by_order " +
+                "where bill_id = '" + billId + "' " +
+                "group by  group_by, manual_order order by manual_order ";
+        return sQuery;
+    }
+
+   public static String GET_CHANGES_BY_GROUP_IN_DOC_ORDER(String billId, String changeGroup) {
+       String sQuery =
+               "SELECT doc_name, change_id, change_type, path_start, path_end, order_in_doc  FROM CHANGES_BY_ORDER " +
+               "where group_by = '"+  changeGroup + "'  and " +
+               "bill_id = '" + billId  + "' " +
+               "group by doc_name, change_id, change_type, path_start, path_end " +
+               "order by doc_name, order_in_doc" ;
+       return sQuery;
+   }
+
 
     public static String UPDATE_CHANGES_FOR_SECTION_NODE (String billId, String docName, String nodeFragment, String sectionType, Integer iWeight, Double dOrder) {
         String sQuery = "Update CHANGES_BY_ORDER " +

@@ -345,6 +345,8 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
     private List<String> addInsertQueries (BungeniOdfDocumentHelper aDochelper, List<StructuredChangeType> changes, List<String> queries) {
             BungeniOdfTrackedChangesHelper changesHelper = aDochelper.getChangesHelper();
             String documentPath = aDochelper.getDocumentPath();
+            String changesOwner = aDochelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniDocAuthor");
+            Integer iOrderInDoc = 0;
             for (StructuredChangeType structuredChangeType : changes) {
             String xpathStart = "";
             String xpathEnd = "";
@@ -367,7 +369,7 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
                     structuredChangeType.changetype,
                     xpathStart,
                     xpathEnd,
-                    Boolean.FALSE, 0, 0.0);
+                    Boolean.FALSE, 0, 0.0, ++iOrderInDoc, changesOwner);
             queries.add(strQuery);
         }
         return queries;
