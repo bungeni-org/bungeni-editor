@@ -17,7 +17,7 @@ public class GroupedChange {
 
     /** child nodes **/
 
-    List<GroupedChange> childChanges = new ArrayList<GroupedChange>(0);
+    // List<GroupedChange> childChanges = new ArrayList<GroupedChange>(0);
 
     DocumentChange documentChange = null;
 

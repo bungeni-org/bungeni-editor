@@ -1,19 +1,24 @@
-/*
- * panelReportByOrder.java
- *
- * Created on Jun 3, 2010, 12:09:47 PM
- */
-
 package org.bungeni.trackchanges.ui;
 
 import java.awt.Component;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.Vector;
 import java.util.concurrent.ExecutionException;
 import javax.swing.JFrame;
 import javax.swing.SwingWorker;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 import net.java.swingfx.waitwithstyle.PerformanceInfiniteProgressPanel;
+import org.bungeni.db.BungeniClientDB;
+import org.bungeni.db.QueryResults;
 import org.bungeni.odfdocument.report.IBungeniOdfDocumentReportProcess;
 import org.bungeni.odfdocument.report.IBungeniOdfDocumentReportUI;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
+import org.bungeni.reports.process.reportEditableChangesByOrder_Queries;
+import org.bungeni.trackchanges.utils.CommonFunctions;
 
 /**
  *
@@ -52,16 +57,18 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         scrollReport = new javax.swing.JScrollPane();
         treeReportByOrder = new javax.swing.JTree();
 
-        btnMoveUp.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnMoveUp.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnMoveUp.setText("Move UP");
 
-        btnMoveDown.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnMoveDown.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnMoveDown.setText("Move DOWN");
 
         btnFinish.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnFinish.setText("Finish");
 
         treeReportByOrder.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Loading...");
+        treeReportByOrder.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         scrollReport.setViewportView(treeReportByOrder);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -73,20 +80,18 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnMoveDown)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnFinish, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(298, 298, 298))
-            .addComponent(scrollReport, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
+                .addComponent(btnFinish, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(scrollReport, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(scrollReport, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(scrollReport, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnMoveUp)
                     .addComponent(btnMoveDown)
-                    .addComponent(btnFinish))
-                .addContainerGap())
+                    .addComponent(btnFinish)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -121,7 +126,10 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         protected void done(){
                 try {
                     Boolean bProcessDocs = (Boolean) get();
-                    loadTree();
+                    if (bProcessDocs == true ) 
+                        loadTree();
+                    else
+                        log.error("loadTreeWorker : prepare process returned FALSE");
                     stopProgress();
                 } catch (InterruptedException ex) {
                     log.error("Error while loading tree ", ex);
@@ -132,6 +140,28 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
 
         private void loadTree(){
             //the tree is loaded here
+            DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("bill");
+            String groupedQuery = reportEditableChangesByOrder_Queries.GET_CHANGE_GROUPS_BILL_BY_MANUAL_ORDER(CommonFunctions.getCurrentBillID());
+            BungeniClientDB db = BungeniClientDB.defaultConnect();
+            QueryResults qr = db.ConnectAndQuery(groupedQuery);
+            String[] colgroupBy = qr.getSingleColumnResult("GROUP_BY");
+            colgroupBy = CommonFunctions.removeDuplicatesStringArray(colgroupBy);
+            for (String groupby : colgroupBy) {
+                    String []arrgrp = groupby.split("\\.");
+                    String sectionType = arrgrp[0];
+                    String sectionName = arrgrp[1];
+                    DefaultMutableTreeNode aNode = new DefaultMutableTreeNode(sectionType + "(" + sectionName + ")");
+                    rootNode.add(aNode);
+                        //now add changes for each of these sections
+                    String qryChangsInDocOrder = reportEditableChangesByOrder_Queries.GET_CHANGES_BY_GROUP_IN_DOC_ORDER (CommonFunctions.getCurrentBillID(), groupby);
+                    //SELECT doc_name, change_id, change_type, path_start, path_end, order_in_doc
+                    QueryResults qr2 = db.ConnectAndQuery(qryChangsInDocOrder);
+                    
+
+                        
+            }
+          DefaultTreeModel treeModel = new DefaultTreeModel(rootNode);
+          treeReportByOrder.setModel(treeModel);
         }
 
     }
