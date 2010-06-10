@@ -169,7 +169,8 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
                             qr2.getField(row, "ORDER_IN_DOC"),
                             qr2.getField(row, "OWNER") ,
                             qr2.getField(row, "CHANGE_DATE") ,
-                            qr2.getField(row, "CHANGE_TEXT")
+                            qr2.getField(row, "CHANGE_TEXT") ,
+                            Integer.parseInt(qr2.getField(row, "ORDER_WEIGHT").toString())
                                     );
                             GroupedChange groupedChange = new GroupedChange (sectionType, sectionName, docChange);
                             DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(groupedChange);
@@ -250,7 +251,7 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         try {
             originalPane = thisFrame.getGlassPane();
             PerformanceInfiniteProgressPanel glassPane;
-            parentFrame.setGlassPane(glassPane = new PerformanceInfiniteProgressPanel());
+            thisFrame.setGlassPane(glassPane = new PerformanceInfiniteProgressPanel());
             glassPane.setVisible(true);
             bState = true;
         } catch (Exception ex) {
@@ -270,9 +271,9 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         boolean bState = false;
         try {
           final PerformanceInfiniteProgressPanel pPanel =
-                  (PerformanceInfiniteProgressPanel) parentFrame.getGlassPane();
+                  (PerformanceInfiniteProgressPanel) thisFrame.getGlassPane();
                    pPanel.setVisible(false);
-                   parentFrame.setGlassPane(originalPane);
+                   thisFrame.setGlassPane(originalPane);
                    bState = true;
         } catch (Exception ex) {
             log.error("endProgress : " + ex.getMessage());

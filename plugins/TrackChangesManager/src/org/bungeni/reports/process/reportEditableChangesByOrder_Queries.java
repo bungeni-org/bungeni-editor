@@ -64,7 +64,7 @@ public class reportEditableChangesByOrder_Queries {
 
    public static String GET_CHANGES_BY_GROUP_IN_DOC_ORDER(String billId, String changeGroup) {
        String sQuery =
-               "SELECT doc_name, change_id, change_type, path_start, path_end, order_in_doc, owner, change_date, change_text  FROM CHANGES_BY_ORDER " +
+               "SELECT doc_name, change_id, change_type, path_start, path_end, order_in_doc, owner, change_date, change_text, order_weight  FROM CHANGES_BY_ORDER " +
                "where group_by = '"+  changeGroup + "'  and " +
                "bill_id = '" + billId  + "' " +
                "group by doc_name, change_id, change_type, path_start, path_end " +

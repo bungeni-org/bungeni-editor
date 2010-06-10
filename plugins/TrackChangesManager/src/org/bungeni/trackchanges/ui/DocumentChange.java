@@ -16,8 +16,9 @@ public class DocumentChange {
     private final String documentURI;
     private final String changeDate;
     private final String changeText;
+    private final Integer orderWeight;
 
-    public DocumentChange(String dURI, String cId, String cType, String pStart, String pEnd, String orderInDoc, String cOwner, String changeDate, String changeText) {
+    public DocumentChange(String dURI, String cId, String cType, String pStart, String pEnd, String orderInDoc, String cOwner, String changeDate, String changeText, Integer orderW) {
         this.documentURI = dURI;
         this.changeId = cId;
         this.changeType = cType;
@@ -27,6 +28,7 @@ public class DocumentChange {
         this.changeOwner = cOwner;
         this.changeDate = changeDate;
         this.changeText = changeText;
+        this.orderWeight = orderW;
     }
 
     /**
@@ -96,5 +98,14 @@ public class DocumentChange {
     public String getChangeText() {
         return changeText;
     }
+
+    /**
+     * @return the orderWeight
+     */
+    public Integer getOrderWright() {
+        return orderWeight;
+    }
+
+
 
 }
