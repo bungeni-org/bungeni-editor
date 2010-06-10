@@ -2,8 +2,11 @@ package org.bungeni.trackchanges.utils;
 
 import java.io.File;
 import java.net.URISyntaxException;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 import org.bungeni.trackchanges.registrydata.BungeniBill;
 import org.bungeni.trackchanges.rss.BungeniBillDataProvider;
 
@@ -75,6 +78,12 @@ public class CommonFunctions {
         }
 
         return billTitle;
+    }
+
+    public static String[] removeDuplicatesStringArray(String[] inputArr) {
+            Set set = new HashSet(Arrays.asList(inputArr));
+            String[] array2 = (String[])(set.toArray(new String[set.size()]));
+            return array2;
     }
 
 }
