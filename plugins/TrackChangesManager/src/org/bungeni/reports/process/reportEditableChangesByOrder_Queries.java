@@ -1,13 +1,24 @@
 package org.bungeni.reports.process;
 
+import org.bungeni.db.BungeniClientDB;
+
 /**
  *
  * @author Ashok Hariharan
  */
 public class reportEditableChangesByOrder_Queries {
 
-    public static String ADD_CHANGE_BY_ORDER(String billId, String docName, String changeId, String changeType, String pathStart, String pathEnd, Boolean bState, Integer orderWeight, Double manualOrder, Integer orderInDoc, String sOwner) {
-        String sQuery = "insert into changes_by_order (bill_id, doc_name, change_id, change_type, path_start, path_end, processed, group_by, order_weight, manual_order, order_in_doc, owner) " +
+    public static String ADD_CHANGE_BY_ORDER(String billId, String docName,
+                                                String changeId, String changeType,
+                                                String pathStart, String pathEnd,
+                                                Boolean bState, Integer orderWeight,
+                                                Double manualOrder, Integer orderInDoc,
+                                                String sOwner, String sChangeDate,
+                                                String sChangeText) {
+        String sQuery = "insert into changes_by_order (bill_id, doc_name, change_id, " +
+                "change_type, path_start, path_end, " +
+                "processed, group_by, order_weight, " +
+                "manual_order, order_in_doc, owner, change_date, change_text) " +
                 "values ("
                 + "'" +
                 billId
@@ -30,7 +41,8 @@ public class reportEditableChangesByOrder_Queries {
                 "," +
                 orderInDoc +
                 ",'" + sOwner +
-                "')";
+                "','" + sChangeDate +
+                "','" + sChangeText+ "')";
         return sQuery;
 
     }
@@ -52,7 +64,7 @@ public class reportEditableChangesByOrder_Queries {
 
    public static String GET_CHANGES_BY_GROUP_IN_DOC_ORDER(String billId, String changeGroup) {
        String sQuery =
-               "SELECT doc_name, change_id, change_type, path_start, path_end, order_in_doc  FROM CHANGES_BY_ORDER " +
+               "SELECT doc_name, change_id, change_type, path_start, path_end, order_in_doc, owner, change_date, change_text  FROM CHANGES_BY_ORDER " +
                "where group_by = '"+  changeGroup + "'  and " +
                "bill_id = '" + billId  + "' " +
                "group by doc_name, change_id, change_type, path_start, path_end " +

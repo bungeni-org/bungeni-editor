@@ -140,7 +140,7 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
 
         private void loadTree(){
             //the tree is loaded here
-            DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("bill");
+            DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(new GroupedChange("root", "bill"));
             String groupedQuery = reportEditableChangesByOrder_Queries.GET_CHANGE_GROUPS_BILL_BY_MANUAL_ORDER(CommonFunctions.getCurrentBillID());
             BungeniClientDB db = BungeniClientDB.defaultConnect();
             QueryResults qr = db.ConnectAndQuery(groupedQuery);
@@ -150,13 +150,32 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
                     String []arrgrp = groupby.split("\\.");
                     String sectionType = arrgrp[0];
                     String sectionName = arrgrp[1];
-                    DefaultMutableTreeNode aNode = new DefaultMutableTreeNode(sectionType + "(" + sectionName + ")");
+                    DefaultMutableTreeNode aNode = new DefaultMutableTreeNode(new GroupedChange(sectionType, sectionName));
                     rootNode.add(aNode);
                         //now add changes for each of these sections
                     String qryChangsInDocOrder = reportEditableChangesByOrder_Queries.GET_CHANGES_BY_GROUP_IN_DOC_ORDER (CommonFunctions.getCurrentBillID(), groupby);
                     //SELECT doc_name, change_id, change_type, path_start, path_end, order_in_doc
                     QueryResults qr2 = db.ConnectAndQuery(qryChangsInDocOrder);
-                    
+                    if (qr2.hasResults()) {
+                        Iterator<Vector<String>> results = qr2.theResultsIterator();
+                        while (results.hasNext()) {
+                            Vector<String> row = results.next();
+                            DocumentChange docChange = new DocumentChange(
+                            qr2.getField(row, "DOC_NAME"),
+                            qr2.getField(row, "CHANGE_ID"),
+                            qr2.getField(row, "CHANGE_TYPE"),
+                            qr2.getField(row, "PATH_START"),
+                            qr2.getField(row, "PATH_END"),
+                            qr2.getField(row, "ORDER_IN_DOC"),
+                            qr2.getField(row, "OWNER") ,
+                            qr2.getField(row, "CHANGE_DATE") ,
+                            qr2.getField(row, "CHANGE_TEXT")
+                                    );
+                            GroupedChange groupedChange = new GroupedChange (sectionType, sectionName, docChange);
+                            DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(groupedChange);
+                            aNode.add(childNode);
+                        }
+                    }
 
                         
             }

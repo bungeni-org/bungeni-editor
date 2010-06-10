@@ -2,7 +2,6 @@ package org.bungeni.db;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -268,5 +267,9 @@ public class BungeniClientDB {
 
     public static BungeniClientDB defaultConnect() {
         return new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
+    }
+
+   public static String escapeQuotes(String field) {
+        return field.replace("'", "''");
     }
 }
