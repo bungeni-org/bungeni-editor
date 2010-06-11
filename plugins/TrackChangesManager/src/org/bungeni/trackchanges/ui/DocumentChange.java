@@ -102,7 +102,7 @@ public class DocumentChange {
     /**
      * @return the orderWeight
      */
-    public Integer getOrderWright() {
+    public Integer getOrderWeight() {
         return orderWeight;
     }
 

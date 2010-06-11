@@ -16,6 +16,8 @@ public class GroupedChange {
     private final String sectionName;
     private final OBJECT_TYPE objType;
     private final DocumentChange documentChange;
+    private boolean sectionDeleteChange ;
+
     /** child nodes **/
 
 
@@ -29,6 +31,7 @@ public class GroupedChange {
             this.objType = OBJECT_TYPE.SECTION;
         }
         this.documentChange = null;
+        this.sectionDeleteChange = false;
     }
 
     public GroupedChange (String sType, String sname, DocumentChange docChange ) {
@@ -43,6 +46,14 @@ public class GroupedChange {
      */
     public String getSectionType() {
         return sectionType;
+    }
+
+    public boolean getSectionDeleteChange(){
+        return sectionDeleteChange;
+    }
+
+    public void setSectionDeleteChange(boolean dchange){
+        this.sectionDeleteChange = dchange;
     }
 
     /**

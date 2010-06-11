@@ -1,5 +1,6 @@
 package org.bungeni.trackchanges.ui;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -8,9 +9,12 @@ import java.util.Set;
 import java.util.Vector;
 import java.util.concurrent.ExecutionException;
 import javax.swing.JFrame;
+import javax.swing.JTree;
 import javax.swing.SwingWorker;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeCellRenderer;
 import net.java.swingfx.waitwithstyle.PerformanceInfiniteProgressPanel;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.QueryResults;
@@ -181,6 +185,7 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
                         
             }
           DefaultTreeModel treeModel = new DefaultTreeModel(rootNode);
+          treeReportByOrder.setCellRenderer(new reportCellRenderer());
           treeReportByOrder.setModel(treeModel);
         }
 
@@ -281,4 +286,53 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         return bState;
     }
 
+
+    class reportCellRenderer  extends DefaultTreeCellRenderer{
+
+        Color deletedColor = Color.ORANGE;
+        Color insertedColor = Color.BLUE;
+        Color sectionColor = Color.MAGENTA;
+        Color rootColor = Color.BLACK;
+        Color zeroWeight = Color.RED;
+
+        @Override
+        public Component getTreeCellRendererComponent(JTree jtree, Object value, boolean selected, boolean expanded, boolean leaf, int row, boolean hasFocus) {
+                Component c = super.getTreeCellRendererComponent(jtree, value, selected, expanded, leaf, row, hasFocus);
+                if ((value != null) && (value instanceof DefaultMutableTreeNode)) {
+                       DefaultMutableTreeNode dmt = ((DefaultMutableTreeNode) value);
+                       Object userObject = dmt.getUserObject();
+                       if (userObject instanceof GroupedChange) {
+                           GroupedChange gc = (GroupedChange) userObject;
+                           if (gc.getObjType() == GroupedChange.OBJECT_TYPE.CHANGE) {
+                                if (gc.getDocumentChange().getOrderWeight() == 0 ) {
+                                    c.setForeground(zeroWeight);
+                                    DefaultMutableTreeNode dmtParent = ((DefaultMutableTreeNode)dmt.getParent());
+                                    GroupedChange gcParent = (GroupedChange) dmtParent.getUserObject();
+                                    gcParent.setSectionDeleteChange(true);
+                                    dmtParent.setUserObject(gcParent);
+                                } else {
+                                    String cType = gc.getDocumentChange().getChangeType();
+                                    if (cType.equals("deletion")) {
+                                         c.setForeground(deletedColor);
+                                    } else {
+                                         c.setForeground(insertedColor);
+                                    }
+                                }
+                         } else
+                           if (gc.getObjType() == GroupedChange.OBJECT_TYPE.ROOT) {
+                                c.setForeground(rootColor);
+                           } else
+                           if (gc.getObjType() == GroupedChange.OBJECT_TYPE.SECTION) {
+                              if (gc.getSectionDeleteChange()) {
+                                    c.setForeground(zeroWeight);
+                              } else {
+                                   c.setForeground(sectionColor);
+                              }
+                           }
+                       }
+                }
+                return c;
+        }
+
+    }
 }
