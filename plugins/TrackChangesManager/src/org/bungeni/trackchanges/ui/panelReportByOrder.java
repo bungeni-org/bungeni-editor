@@ -154,7 +154,8 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
                     String []arrgrp = groupby.split("\\.");
                     String sectionType = arrgrp[0];
                     String sectionName = arrgrp[1];
-                    DefaultMutableTreeNode aNode = new DefaultMutableTreeNode(new GroupedChange(sectionType, sectionName));
+                    GroupedChange gparentNodeChange = new GroupedChange(sectionType, sectionName);
+                    DefaultMutableTreeNode aNode = new DefaultMutableTreeNode(gparentNodeChange);
                     rootNode.add(aNode);
                         //now add changes for each of these sections
                     String qryChangsInDocOrder = reportEditableChangesByOrder_Queries.GET_CHANGES_BY_GROUP_IN_DOC_ORDER (CommonFunctions.getCurrentBillID(), groupby);
@@ -179,6 +180,13 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
                             GroupedChange groupedChange = new GroupedChange (sectionType, sectionName, docChange);
                             DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(groupedChange);
                             aNode.add(childNode);
+                            if (!gparentNodeChange.getSectionDeleteChange())
+                                if (groupedChange.getObjType() == GroupedChange.OBJECT_TYPE.CHANGE) {
+                                    if (groupedChange.getDocumentChange().getOrderWeight() == 0 ) {
+                                        gparentNodeChange.setSectionDeleteChange(true);
+                                        aNode.setUserObject(gparentNodeChange);
+                                    }
+                                }
                         }
                     }
 
@@ -304,20 +312,20 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
                        if (userObject instanceof GroupedChange) {
                            GroupedChange gc = (GroupedChange) userObject;
                            if (gc.getObjType() == GroupedChange.OBJECT_TYPE.CHANGE) {
-                                if (gc.getDocumentChange().getOrderWeight() == 0 ) {
+                            /*    if (gc.getDocumentChange().getOrderWeight() == 0 ) {
                                     c.setForeground(zeroWeight);
                                     DefaultMutableTreeNode dmtParent = ((DefaultMutableTreeNode)dmt.getParent());
                                     GroupedChange gcParent = (GroupedChange) dmtParent.getUserObject();
                                     gcParent.setSectionDeleteChange(true);
                                     dmtParent.setUserObject(gcParent);
-                                } else {
+                                } else { */
                                     String cType = gc.getDocumentChange().getChangeType();
                                     if (cType.equals("deletion")) {
                                          c.setForeground(deletedColor);
                                     } else {
                                          c.setForeground(insertedColor);
                                     }
-                                }
+                                /*} */
                          } else
                            if (gc.getObjType() == GroupedChange.OBJECT_TYPE.ROOT) {
                                 c.setForeground(rootColor);
