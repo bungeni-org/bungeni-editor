@@ -11,6 +11,8 @@ import java.util.concurrent.ExecutionException;
 import javax.swing.JFrame;
 import javax.swing.JTree;
 import javax.swing.SwingWorker;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
@@ -58,22 +60,36 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         btnMoveUp = new javax.swing.JButton();
         btnMoveDown = new javax.swing.JButton();
         btnFinish = new javax.swing.JButton();
+        splitPane = new javax.swing.JSplitPane();
         scrollReport = new javax.swing.JScrollPane();
         treeReportByOrder = new javax.swing.JTree();
+        scrollPane = new javax.swing.JScrollPane();
+        treeContentPane = new javax.swing.JTextPane();
 
-        btnMoveUp.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnMoveUp.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnMoveUp.setText("Move UP");
 
-        btnMoveDown.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnMoveDown.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnMoveDown.setText("Move DOWN");
 
-        btnFinish.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnFinish.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnFinish.setText("Finish");
+
+        splitPane.setDividerLocation(350);
+        splitPane.setDividerSize(3);
 
         treeReportByOrder.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Loading...");
         treeReportByOrder.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         scrollReport.setViewportView(treeReportByOrder);
+
+        splitPane.setLeftComponent(scrollReport);
+
+        treeContentPane.setEditable(false);
+        treeContentPane.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        scrollPane.setViewportView(treeContentPane);
+
+        splitPane.setRightComponent(scrollPane);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -84,14 +100,15 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnMoveDown)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnFinish, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(scrollReport, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+                .addComponent(btnFinish, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(250, Short.MAX_VALUE))
+            .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(scrollReport, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnMoveUp)
                     .addComponent(btnMoveDown)
@@ -104,7 +121,10 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
     private javax.swing.JButton btnFinish;
     private javax.swing.JButton btnMoveDown;
     private javax.swing.JButton btnMoveUp;
+    private javax.swing.JScrollPane scrollPane;
     private javax.swing.JScrollPane scrollReport;
+    private javax.swing.JSplitPane splitPane;
+    private javax.swing.JTextPane treeContentPane;
     private javax.swing.JTree treeReportByOrder;
     // End of variables declaration//GEN-END:variables
 
@@ -112,11 +132,27 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         PANEL_FILTER_REVIEW_STAGE = "ClerkConsolidationReview";
         PANEL_REVIEW_STAGE        = "";
        // loadFilesFromFolder();
+        init_Tree();
+    }
+
+    private void init_Tree(){
         startProgress();
         loadTreeWorker treeLoader = new loadTreeWorker();
         treeLoader.execute();
-    }
+        this.treeReportByOrder.addTreeSelectionListener(new TreeSelectionListener(){
+            public void valueChanged(TreeSelectionEvent tse) {
+                  DefaultMutableTreeNode node = (DefaultMutableTreeNode)
+                       treeReportByOrder.getLastSelectedPathComponent();
+                  if (node == null) {
+                    //Nothing is selected.
+                    return;
+                  }
+                  GroupedChange gc = (GroupedChange) node.getUserObject();
+                  
 
+            }
+        });
+    }
 
     class loadTreeWorker extends SwingWorker {
 
