@@ -135,6 +135,9 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
                     else
                         log.error("loadTreeWorker : prepare process returned FALSE");
                     stopProgress();
+                    for (int i = 0; i < treeReportByOrder.getRowCount(); i++) {
+                            treeReportByOrder.expandRow(i);
+                       }
                 } catch (InterruptedException ex) {
                     log.error("Error while loading tree ", ex);
                 } catch (ExecutionException ex) {
@@ -195,6 +198,8 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
           DefaultTreeModel treeModel = new DefaultTreeModel(rootNode);
           treeReportByOrder.setCellRenderer(new reportCellRenderer());
           treeReportByOrder.setModel(treeModel);
+ 
+
         }
 
     }
