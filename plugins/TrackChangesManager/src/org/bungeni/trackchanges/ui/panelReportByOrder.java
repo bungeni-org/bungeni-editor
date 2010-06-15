@@ -2,9 +2,12 @@ package org.bungeni.trackchanges.ui;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
+import java.awt.font.TextAttribute;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 import java.util.concurrent.ExecutionException;
@@ -139,8 +142,17 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         startProgress();
         loadTreeWorker treeLoader = new loadTreeWorker();
         treeLoader.execute();
-        this.treeReportByOrder.addTreeSelectionListener(new TreeSelectionListener(){
-            public void valueChanged(TreeSelectionEvent tse) {
+        this.treeContentPane.setContentType("text/html");
+        this.treeReportByOrder.addTreeSelectionListener(new treeReportByOrderSelectionListener());
+    }
+
+    class treeReportByOrderSelectionListener implements TreeSelectionListener {
+
+
+          public treeReportByOrderSelectionListener(){
+          }
+
+          public void valueChanged(TreeSelectionEvent tse) {
                   DefaultMutableTreeNode node = (DefaultMutableTreeNode)
                        treeReportByOrder.getLastSelectedPathComponent();
                   if (node == null) {
@@ -148,10 +160,16 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
                     return;
                   }
                   GroupedChange gc = (GroupedChange) node.getUserObject();
+                  String changeText = gc.getDocumentChange().getChangeText();
+                  String changeType = gc.getDocumentChange().getChangeType();
+                  if (changeType.equals("insertion")) {
+                    treeContentPane.setText("<html><span style='color:blue;'>" + changeText + "</span></html>");
+                  } else {
+                    treeContentPane.setText("<html><s style='color:red;'>" + changeText + "</s></html>");
+                  }
                   
 
-            }
-        });
+         }
     }
 
     class loadTreeWorker extends SwingWorker {

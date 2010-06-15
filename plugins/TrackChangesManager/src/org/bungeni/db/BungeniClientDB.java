@@ -2,6 +2,8 @@ package org.bungeni.db;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.io.Reader;
+import java.io.StringReader;
 import org.apache.log4j.Logger;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -189,7 +191,7 @@ public class BungeniClientDB {
         Vector<Vector<String>>                  results       = new Vector<Vector<String>>();
         Vector<Vector<String>>                  columns       = new Vector<Vector<String>>();
         Vector<String>                          columnsMeta   = new Vector<String>();
-
+       
         /*
          * Vector<Vector<String>> columns = new Vector<Vector<String>>();
          */
@@ -200,7 +202,7 @@ public class BungeniClientDB {
             // repeated calls to execute but we
             // choose to make a new one each time
             rs = st.executeQuery(expression);    // run the query
-
+          
             // process result set metadata
             ResultSetMetaData meta   = rs.getMetaData();
             int               colmax = meta.getColumnCount();
@@ -226,8 +228,17 @@ public class BungeniClientDB {
                 Vector<String> resultsRow = new Vector<String>();
 
                 for (i = 0; i < colmax; ++i) {
-                    o = rs.getObject(i + 1);    // Is SQL the first column is indexed
-
+                    int colType = meta.getColumnType(i + 1);
+                    if (colType == Types.CLOB) {
+                        Clob clob = rs.getClob(i+1);
+                        char[] cBytes = new char[(int) clob.length()];
+                        Reader charReader = clob.getCharacterStream();
+                        charReader.read(cBytes);
+                        charReader.close();
+                        o = new String(cBytes);
+                    } else {
+                        o = rs.getObject(i + 1);    // Is SQL the first column is indexed
+                    }
                     // with 1 not 0
                     resultsRow.addElement(o.toString());
 
