@@ -96,6 +96,8 @@ public class DocumentChange {
      * @return the changeText
      */
     public String getChangeText() {
+        if (changeText == null)
+            return new String("");
         return changeText;
     }
 

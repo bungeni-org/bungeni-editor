@@ -2,13 +2,7 @@ package org.bungeni.trackchanges.ui;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Font;
-import java.awt.font.TextAttribute;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 import java.util.Vector;
 import java.util.concurrent.ExecutionException;
 import javax.swing.JFrame;
@@ -19,7 +13,6 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeCellRenderer;
 import net.java.swingfx.waitwithstyle.PerformanceInfiniteProgressPanel;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.QueryResults;
@@ -160,16 +153,25 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
                     return;
                   }
                   GroupedChange gc = (GroupedChange) node.getUserObject();
-                  String changeText = gc.getDocumentChange().getChangeText();
-                  String changeType = gc.getDocumentChange().getChangeType();
-                  if (changeType.equals("insertion")) {
-                    treeContentPane.setText("<html><span style='color:blue;'>" + changeText + "</span></html>");
-                  } else {
-                    treeContentPane.setText("<html><s style='color:red;'>" + changeText + "</s></html>");
+                  if (gc.getObjType() == GroupedChange.OBJECT_TYPE.CHANGE) {
+                      String changeText = gc.getDocumentChange().getChangeText();
+                      String changeType = gc.getDocumentChange().getChangeType();
+                      if (changeType.equals("insertion")) {
+                        treeContentPane.setText(getInsertStyle(changeText));
+                      } else {
+                        treeContentPane.setText(getDeleteStyle(changeText));
+                      }
                   }
-                  
-
          }
+
+          private String getInsertStyle (String text) {
+              return "<html><span style='color:blue;'>" + text.replace("\n", "<br />") + "</span></html>";
+          }
+
+          private String getDeleteStyle (String text) {
+              return "<html><s style='color:red;'>" + text.replace("\n", "<br />")  + "</s></html>";
+          }
+
     }
 
     class loadTreeWorker extends SwingWorker {
@@ -203,11 +205,13 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
             //the tree is loaded here
             DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(new GroupedChange("root", "bill"));
             String groupedQuery = reportEditableChangesByOrder_Queries.GET_CHANGE_GROUPS_BILL_BY_MANUAL_ORDER(CommonFunctions.getCurrentBillID());
+            log.info ("loadTree : groupedQuery = " + groupedQuery);
             BungeniClientDB db = BungeniClientDB.defaultConnect();
             QueryResults qr = db.ConnectAndQuery(groupedQuery);
             String[] colgroupBy = qr.getSingleColumnResult("GROUP_BY");
             colgroupBy = CommonFunctions.removeDuplicatesStringArray(colgroupBy);
             for (String groupby : colgroupBy) {
+                    log.info("Adding : " + groupby);
                     String []arrgrp = groupby.split("\\.");
                     String sectionType = arrgrp[0];
                     String sectionName = arrgrp[1];
@@ -246,8 +250,6 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
                                 }
                         }
                     }
-
-                        
             }
           DefaultTreeModel treeModel = new DefaultTreeModel(rootNode);
           treeReportByOrder.setCellRenderer(new reportCellRenderer());

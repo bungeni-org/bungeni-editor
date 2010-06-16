@@ -4,6 +4,7 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -80,8 +81,14 @@ public class CommonFunctions {
         return billTitle;
     }
 
+    /**
+     * Removes duplicates from a String array
+     * @param inputArr
+     * @return
+     */
     public static String[] removeDuplicatesStringArray(String[] inputArr) {
-            Set set = new HashSet(Arrays.asList(inputArr));
+            //we use LinkedHashSet to preserve insertion order
+            Set<String> set = new LinkedHashSet<String>(Arrays.asList(inputArr));
             String[] array2 = (String[])(set.toArray(new String[set.size()]));
             return array2;
     }
