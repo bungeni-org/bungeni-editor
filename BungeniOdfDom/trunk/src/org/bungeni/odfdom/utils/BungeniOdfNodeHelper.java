@@ -191,5 +191,5 @@ public class BungeniOdfNodeHelper {
         return outputString;
     }
 
-
+    
 }

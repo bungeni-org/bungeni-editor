@@ -939,7 +939,7 @@ public class BungeniOdfTrackedChangesHelper {
         for (int i = 0; i < matchedNodes.getLength(); i++) {
             Node foundNode = matchedNodes.item(i);
 
-            sbfDeletedText.append(foundNode.getTextContent());
+            sbfDeletedText.append(foundNode.getTextContent() + "\n");
         }
 
         return sbfDeletedText.toString();
@@ -959,7 +959,7 @@ public class BungeniOdfTrackedChangesHelper {
         for (int i = 0; i < matchedNodes.getLength(); i++) {
             Node foundNode = matchedNodes.item(i);
 
-            sbInsText.append(foundNode.getTextContent());
+            sbInsText.append(foundNode.getTextContent() + "\n");
         }
 
         return sbInsText.toString();
