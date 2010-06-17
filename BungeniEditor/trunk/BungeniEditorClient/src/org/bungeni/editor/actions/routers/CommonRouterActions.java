@@ -33,6 +33,7 @@ import java.util.HashMap;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
+import org.bungeni.extutils.BungeniUUID;
 
 /**
  *
@@ -222,6 +223,7 @@ public class CommonRouterActions {
         HashMap<String, String> metaMap = new HashMap<String, String>();
 
         metaMap.put("BungeniSectionType", pAction.action_section_type());
+        metaMap.put("BungeniSectionID", BungeniUUID.getShortUUID());
         metaMap.put(SectionMetadataEditor.MetaEditableFlag, "false");
 
         return metaMap;
