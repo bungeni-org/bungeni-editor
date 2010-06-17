@@ -15,10 +15,21 @@ public class reportEditableChangesByOrder_Queries {
                                                 Double manualOrder, Integer orderInDoc,
                                                 String sOwner, String sChangeDate,
                                                 String sChangeText) {
-        String sQuery = "insert into changes_by_order (bill_id, doc_name, change_id, " +
-                "change_type, path_start, path_end, " +
-                "processed, group_by, order_weight, " +
-                "manual_order, order_in_doc, owner, change_date, change_text) " +
+        String sQuery = "insert into changes_by_order (" +
+                "bill_id, " +
+                "doc_name, " +
+                "change_id, " +
+                "change_type, " +
+                "path_start, " +
+                "path_end, " +
+                "processed, " +
+                "group_by, " +
+                "order_weight, " +
+                "manual_order, " +
+                "order_in_doc, " +
+                "owner, " +
+                "change_date, " +
+                "change_text) " +
                 "values ("
                 + "'" +
                 billId
@@ -34,7 +45,8 @@ public class reportEditableChangesByOrder_Queries {
                 pathEnd
                 + "'," +
                 bState.toString()
-                + ",'', " +
+                + "," +
+                "''" + ", " +
                 orderWeight +
                 "," +
                 manualOrder +
