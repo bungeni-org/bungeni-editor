@@ -77,7 +77,9 @@ public class documentMetadataPanel extends BaseClassForITabbedPanel {
         lblDescDocMetadata = new javax.swing.JLabel();
         btnEditMetadata = new javax.swing.JButton();
 
-        tableDocumentMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+
+        tableDocumentMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         tableDocumentMetadata.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -95,7 +97,7 @@ public class documentMetadataPanel extends BaseClassForITabbedPanel {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/panels/loadable/Bundle"); // NOI18N
         lblDescDocMetadata.setText(bundle.getString("documentMetadataPanel.lblDescDocMetadata.text")); // NOI18N
 
-        btnEditMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnEditMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnEditMetadata.setText(bundle.getString("documentMetadataPanel.btnEditMetadata.text")); // NOI18N
         btnEditMetadata.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

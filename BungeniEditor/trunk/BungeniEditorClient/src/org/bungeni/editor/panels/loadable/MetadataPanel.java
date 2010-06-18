@@ -46,6 +46,7 @@ public class MetadataPanel extends BaseClassForITabbedPanel {
         tabsMetadata = new javax.swing.JTabbedPane();
 
         tabsMetadata.setBackground(new java.awt.Color(238, 229, 231));
+        tabsMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

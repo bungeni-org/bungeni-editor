@@ -244,14 +244,16 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
         lblSectionTreeMetadataView = new javax.swing.JLabel();
         btnRefresh = new javax.swing.JButton();
 
-        lblSectionMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+
+        lblSectionMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/panels/loadable/Bundle"); // NOI18N
         lblSectionMetadata.setText(bundle.getString("sectionTreeMetadataPanel.lblSectionMetadata.text")); // NOI18N
 
-        treeSectionTreeMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        treeSectionTreeMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         jScrollPane1.setViewportView(treeSectionTreeMetadata);
 
-        tblSectionViewMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        tblSectionViewMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         tblSectionViewMetadata.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -265,10 +267,10 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
         ));
         jScrollPane2.setViewportView(tblSectionViewMetadata);
 
-        lblSectionTreeMetadataView.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        lblSectionTreeMetadataView.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         lblSectionTreeMetadataView.setText(bundle.getString("sectionTreeMetadataPanel.lblSectionTreeMetadataView.text")); // NOI18N
 
-        btnRefresh.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnRefresh.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnRefresh.setText(bundle.getString("sectionTreeMetadataPanel.btnRefresh.text")); // NOI18N
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
