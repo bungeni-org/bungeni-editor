@@ -442,6 +442,7 @@ public class panelConsolidateChanges extends panelChangesBase {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle"); // NOI18N
         lblMembers.setText(bundle.getString("panelTrackChangesOverview.lblMembers.text")); // NOI18N
 
+        tblDocChanges.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         tblDocChanges.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Delete", "23/12", "P(3)/L(4)", "This is an exceptional rule", null},
@@ -484,7 +485,7 @@ public class panelConsolidateChanges extends panelChangesBase {
             }
         });
 
-        listReportTemplates.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
+        listReportTemplates.setFont(new java.awt.Font("Lucida Grande", 0, 10));
         listReportTemplates.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Report 1", "Report 2" };
             public int getSize() { return strings.length; }
