@@ -41,7 +41,7 @@ public class routerCreateObservation extends defaultRouter {
                 //set section type metadata
                 CommonRouterActions.setSectionProperties(action, newSectionName, ooDocument);
                 //setSectionProperties(action, newSectionName, ooDocument);
-                ooDocument.setSectionMetadataAttributes(newSectionName, get_newSectionMetadata(action));
+                ooDocument.setSectionMetadataAttributes(newSectionName, CommonRouterActions.get_newSectionMetadata(action));
             } else {
                 log.error("routeAction_TextSelectedInsertAction_CreateSection: error while creating section ");
                 return new BungeniValidatorState(true, new BungeniMsg("FAILURE_CREATE_SECTION"));
@@ -95,44 +95,5 @@ public class routerCreateObservation extends defaultRouter {
         }
     }
 
-     private HashMap<String,String> get_newSectionMetadata(toolbarAction pAction) {
-         HashMap<String,String> metaMap = new HashMap<String,String>();
-         metaMap.put("BungeniSectionType", pAction.action_section_type());
-         return metaMap;
-     }
 
-     /*
-    private void setSectionProperties(toolbarAction pAction, String newSectionName, OOComponentHelper ooDocument) {
-        String sectionType = pAction.action_section_type();
-        DocumentSection secObj = DocumentSectionsContainer.getDocumentSectionByType(sectionType);
-        HashMap<String,Object> sectionProps = secObj.getSectionProperties(ooDocument);
-        XTextSection newSection = ooDocument.getSection(newSectionName);
-        XNamed namedSection = ooQueryInterface.XNamed(newSection);
-       
-        XPropertySet xProps = ooQueryInterface.XPropertySet(newSection);
-        for (String propName: sectionProps.keySet()) {
-             try {
-                //Long margin = new Long(762);
-               
-                //Integer i = new Integer(0);
-                
-                log.debug("setSectionProperties : "+ propName + " value = " + sectionProps.get(propName).toString());
-                
-                //xProps.setPropertyValue(propName, sectionProps.get(propName));
-                Object propVal = sectionProps.get(propName);
-                if (propVal.getClass() == java.lang.Integer.class) {
-                      xProps.setPropertyValue(propName, (java.lang.Integer) sectionProps.get(propName));
-                } else if (propVal.getClass() == java.lang.Long.class) {
-                      xProps.setPropertyValue(propName, (java.lang.Long) sectionProps.get(propName));               
-                } else if (propVal.getClass() == java.lang.String.class) {
-                      xProps.setPropertyValue(propName, (java.lang.String) sectionProps.get(propName));
-                } else
-                      xProps.setPropertyValue(propName, (java.lang.String) sectionProps.get(propName));
-            } catch (Exception ex) {
-                log.error("setSectionProperties :"+ propName +" : "  +ex.getMessage());
-                log.error("setSectionProperties :"+ CommonExceptionUtils.getStackTrace(ex));
-            } 
-        }
-    }
-      */
 }
