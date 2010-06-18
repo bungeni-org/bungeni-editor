@@ -150,7 +150,7 @@ public class panelApproveRejectChanges extends panelChangesBase {
         //final JCheckBox fjCheckBox = new JCheckBox();
         //ApproveRejectStatusEditor aprEditor = new ApproveRejectStatusEditor(fjCheckBox);
         //tblColumnStatus.setCellEditor(aprEditor);
-       
+        this.tblDocChanges.getTableHeader().setFont(this.tblDocChanges.getFont());
 
 
     }
@@ -413,6 +413,7 @@ class ApproveRejectStatusEditor extends DefaultCellEditor {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle"); // NOI18N
         lblMembers.setText(bundle.getString("panelTrackChangesOverview.lblMembers.text")); // NOI18N
 
+        tblDocChanges.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         tblDocChanges.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Delete", "23/12", "P(3)/L(4)", "This is an exceptional rule", null},

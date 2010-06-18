@@ -163,6 +163,8 @@ public class panelConsolidateChanges extends panelChangesBase {
         TextAreaRenderer textAreaRenderer = new TextAreaRenderer();
 
         tcmModel.getColumn(2).setCellRenderer(textAreaRenderer);
+
+         this.tblDocChanges.getTableHeader().setFont(this.tblDocChanges.getFont());
     }
 
     private void displayChangesInfo(int index) {

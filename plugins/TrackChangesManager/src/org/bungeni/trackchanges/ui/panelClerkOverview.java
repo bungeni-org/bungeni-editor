@@ -105,6 +105,7 @@ public class panelClerkOverview extends panelChangesBase {
         this.tblDocChanges.setDefaultRenderer(String.class, new DocumentChangesTableCellRenderer());
         TextAreaRenderer textAreaRenderer = new TextAreaRenderer();
         tcmModel.getColumn(2).setCellRenderer(textAreaRenderer);
+         this.tblDocChanges.getTableHeader().setFont(this.tblDocChanges.getFont());
 
     }
 
@@ -342,6 +343,7 @@ public class panelClerkOverview extends panelChangesBase {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle"); // NOI18N
         lblMembers.setText(bundle.getString("panelTrackChangesOverview.lblMembers.text")); // NOI18N
 
+        tblDocChanges.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         tblDocChanges.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Delete", "23/12", "P(3)/L(4)", "This is an exceptional rule", null},
@@ -373,10 +375,10 @@ public class panelClerkOverview extends panelChangesBase {
             }
         });
 
-        btnReview.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnReview.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnReview.setText(bundle.getString("panelClerkOverview.btnReview.text")); // NOI18N
 
-        btnConsolidate.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnConsolidate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnConsolidate.setText(bundle.getString("panelClerkOverview.btnConsolidate.text")); // NOI18N
         btnConsolidate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -384,7 +386,7 @@ public class panelClerkOverview extends panelChangesBase {
             }
         });
 
-        btnConsolidateAll.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnConsolidateAll.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnConsolidateAll.setText(bundle.getString("panelClerkOverview.btnConsolidateAll.text")); // NOI18N
         btnConsolidateAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

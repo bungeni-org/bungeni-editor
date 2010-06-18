@@ -162,6 +162,7 @@ public class panelTrackChangesOverview extends panelChangesBase {
         TextAreaRenderer textAreaRenderer = new TextAreaRenderer();
 
         tcmModel.getColumn(2).setCellRenderer(textAreaRenderer);
+        this.tblDocChanges.getTableHeader().setFont(this.tblDocChanges.getFont());
     }
 
     
@@ -329,6 +330,7 @@ public class panelTrackChangesOverview extends panelChangesBase {
         lblDocInfo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblDocInfo.setText(null);
 
+        tblDocChanges.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         tblDocChanges.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Delete", "23/12", "P(3)/L(4)", "This is an exceptional rule", null},
@@ -352,7 +354,7 @@ public class panelTrackChangesOverview extends panelChangesBase {
         jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         jLabel1.setText(null);
 
-        btnReview.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
+        btnReview.setFont(new java.awt.Font("Lucida Grande", 0, 10));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle"); // NOI18N
         btnReview.setText(bundle.getString("panelTrackChangesOverview.btnReview.text")); // NOI18N
         btnReview.addActionListener(new java.awt.event.ActionListener() {
