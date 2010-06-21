@@ -1,12 +1,58 @@
 package org.bungeni.reports.process;
 
-import org.bungeni.db.BungeniClientDB;
-
 /**
  *
  * @author Ashok Hariharan
  */
 public class reportEditableChangesByOrder_Queries {
+
+
+    /**
+     * Clears the section hierarchy 
+     * @param billId Bill Identifier
+     * @param docName Document Name
+     * @return
+     */
+    public static String CLEAR_SECTION_HIERARCHY (String billId, String docName) {
+        String queries  = "delete from section_hierarchy where bill_id ='"+ billId + "' and doc_name='" + docName + "' " ;
+        return queries;
+    }
+
+    /**
+     * Inserts info about a section into the section hierarchy
+     * @param billId Bill Identifer
+     * @param docName Document Name
+     * @param secName Section Name
+     * @param secType Section Type
+     * @param secId Section Identifier
+     * @param secParent Section Parent
+     * @param secOrder Section Order (within Parent)
+     * @return
+     */
+    public static String ADD_SECTION_HIERARCHY (String billId, String docName, String secName, String secType, String secId, String secParent, Integer secOrder) {
+
+        String queries = "insert into section_hierarchy (" +
+                "bill_id, doc_name, section_name, section_type, section_id, section_parent, section_order" +
+                ") values " +
+                "('" +
+                billId +
+                "','" +
+                docName +
+                "','" +
+                secName +
+                "','" +
+                secType +
+                "','" +
+                secId +
+                "','" +
+                secParent +
+                "'," +
+                secOrder  +
+                ")";
+
+                return queries;
+
+    }
 
     public static String ADD_CHANGE_BY_ORDER(String billId, String docName,
                                                 String changeId, String changeType,
@@ -14,7 +60,8 @@ public class reportEditableChangesByOrder_Queries {
                                                 Boolean bState, Integer orderWeight,
                                                 Double manualOrder, Integer orderInDoc,
                                                 String sOwner, String sChangeDate,
-                                                String sChangeText) {
+                                                String sChangeText, String sectionName,
+                                                String sectionType, String sectionID) {
         String sQuery = "insert into changes_by_order (" +
                 "bill_id, " +
                 "doc_name, " +
@@ -29,7 +76,10 @@ public class reportEditableChangesByOrder_Queries {
                 "order_in_doc, " +
                 "owner, " +
                 "change_date, " +
-                "change_text) " +
+                "change_text, " +
+                "section_name, " +
+                "section_type, " +
+                "section_id ) " +
                 "values ("
                 + "'" +
                 billId
@@ -54,7 +104,11 @@ public class reportEditableChangesByOrder_Queries {
                 orderInDoc +
                 ",'" + sOwner +
                 "','" + sChangeDate +
-                "','" + sChangeText+ "')";
+                "','" + sChangeText+
+                "','" + sectionName +
+                "','" + sectionType +
+                "','" + sectionID +
+                "')";
         return sQuery;
 
     }

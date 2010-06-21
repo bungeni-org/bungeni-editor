@@ -1,11 +1,13 @@
 package org.bungeni.reports.process;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.QueryResults;
@@ -45,6 +47,16 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
 
     public boolean prepareProcess(BungeniOdfDocumentHelper[] aDochelpers) {
         BungeniClientDB db = BungeniClientDB.defaultConnect();
+        db.Connect();
+        List<String> hierarchyQueries = new ArrayList<String>(0);
+        try {
+            hierarchyQueries = buildHierarchy();
+        } catch (Exception ex) {
+            log.error("prepareProgress:buildHierarchy:" + ex.getMessage(), ex);
+        }
+        db.Update(hierarchyQueries, true);
+        db.EndConnect();
+        
         for (BungeniOdfDocumentHelper aDochelper : aDochelpers) {
 
             final BungeniOdfTrackedChangesHelper changesHelper = aDochelper.getChangesHelper();
@@ -134,6 +146,43 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
     }
 
 
+    private List<String> buildHierarchy() throws Exception{
+        ArrayList<String> queries = new ArrayList<String>(0);
+        String folderForMain = CommonFunctions.getWorkspaceForBill(CommonFunctions.getCurrentBillID()) + File.separator + "main";
+        File fFolderForMain = new File(folderForMain);
+        File[] files = fFolderForMain.listFiles(new FilenameFilter(){
+            public boolean accept(File dir, String name) {
+                if (name.endsWith(".odt")) {
+                    return true;
+                }
+                return false;
+            }
+        });
+        BungeniOdfDocumentHelper origDoc = new BungeniOdfDocumentHelper(files[0]);
+        BungeniOdfSectionHelper secHelper = origDoc.getSectionHelper();
+        OdfTextSection aSection = secHelper.getSection("bill");
+        String sectionID = secHelper.getSectionID(aSection);
+        queries.add(reportEditableChangesByOrder_Queries.CLEAR_SECTION_HIERARCHY(CommonFunctions.getCurrentBillID(), origDoc.getDocumentPath()));
+        queries.add(reportEditableChangesByOrder_Queries.ADD_SECTION_HIERARCHY(CommonFunctions.getCurrentBillID(), origDoc.getDocumentPath(), "bill", "root", sectionID, "", 0));
+        processHierarchyChildSections(origDoc, secHelper, aSection, queries);
+        return queries;
+
+    }
+
+    private void processHierarchyChildSections (BungeniOdfDocumentHelper origDoc, BungeniOdfSectionHelper secHelper, OdfTextSection aSection, ArrayList<String> queries) {
+        List<OdfTextSection> sections = secHelper.getChildSections(aSection);
+        String parentSectionId = secHelper.getSectionID(aSection);
+        for (int i = 0; i < sections.size(); i++) {
+            OdfTextSection thisSection = sections.get(i);
+            String thisSecType = secHelper.getSectionType(thisSection);
+            String thisSecName = thisSection.getTextNameAttribute();
+            String thisSecId = secHelper.getSectionID(thisSection);
+            if (thisSecId.length() > 0 ) {
+                queries.add(reportEditableChangesByOrder_Queries.ADD_SECTION_HIERARCHY(CommonFunctions.getCurrentBillID(), origDoc.getDocumentPath(), thisSecName, thisSecType, thisSecId,parentSectionId, i));
+                processHierarchyChildSections(origDoc, secHelper, thisSection, queries);
+            }
+        }
+    }
 
     @Override
     public BungeniOdfDocumentReport generateReport(BungeniOdfDocumentReportTemplate aTemplate, BungeniOdfDocumentHelper aDochelper) {
@@ -274,6 +323,20 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
         return false;
     }
 
+
+    private OdfTextSection getNearestSectionToChange(Node aChange) {
+        Node aParentNode = aChange.getParentNode();
+        while (aParentNode != null) {
+            if (aParentNode.getNodeName().equals(OdfTextSection.ELEMENT_NAME.getQName())) {
+                //this is a section 
+                return (OdfTextSection) aParentNode;
+            } else {
+                aParentNode = aParentNode.getParentNode();
+            }
+        }
+        return null;
+    }
+
     private List<String> addInsertQueries (BungeniOdfDocumentHelper aDochelper, List<StructuredChangeType> changes, List<String> queries) {
             BungeniOdfTrackedChangesHelper changesHelper = aDochelper.getChangesHelper();
             String documentPath = aDochelper.getDocumentPath();
@@ -285,14 +348,19 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
             HashMap<String,Object> changeInfo = changesHelper.getChangeInfo(structuredChangeType);
 
             if (structuredChangeType.changetype.equals(BungeniOdfTrackedChangesHelper.__CHANGE_TYPE_DELETION__)) {
-               OdfTextChange textChange = changesHelper.getChangeItem(structuredChangeType.changeId);
-               xpathStart  = BungeniOdfNodeHelper.getXPath(textChange);
+               OdfTextChange changeNode = changesHelper.getChangeItem(structuredChangeType.changeId);
+               xpathStart  = BungeniOdfNodeHelper.getXPath(changeNode);
+
+               OdfTextSection nearSection = getNearestSectionToChange(changeNode);
+
             } else {
 
                OdfTextChangeStart changeNodeStart = changesHelper.getChangeStartItem(structuredChangeType.changeId);
                OdfTextChangeEnd changeNodeEnd = changesHelper.getChangeEndItem(structuredChangeType.changeId);
                xpathStart = BungeniOdfNodeHelper.getXPath(changeNodeStart);
                xpathEnd = BungeniOdfNodeHelper.getXPath(changeNodeEnd);
+
+               OdfTextSection nearSection = getNearestSectionToChange(changeNodeStart);
             }
 
             String strQuery = reportEditableChangesByOrder_Queries.ADD_CHANGE_BY_ORDER(
