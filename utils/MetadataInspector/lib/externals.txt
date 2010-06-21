@@ -1,0 +1,2 @@
+bungeni http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeni
+log4j http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/apache-log4j
