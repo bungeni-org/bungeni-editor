@@ -14,11 +14,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.odftoolkit.odfdom.doc.OdfDocument;
-import org.odftoolkit.odfdom.doc.style.OdfStyle;
 import org.odftoolkit.odfdom.doc.text.OdfTextSection;
-import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
@@ -135,7 +132,7 @@ public class BungeniOdfSectionHelperTest {
         String expResult = "QuestionAnswer";
         nSection = secHelper.getSection("qa1");
         NamedNodeMap result = secHelper.getSectionMetadataAttributes(nSection);
-        String sType = secHelper.getSectionType(nSection, result);
+        String sType = secHelper.getFilterNamedItem(nSection, result, BungeniOdfSectionHelper.FILTER_SECTION_TYPE);
         assertEquals(expResult, sType);
     }
 

@@ -34,13 +34,14 @@ import org.w3c.dom.Element;
  * @author Ashok Hariharan
  */
 public class BungeniOdfSectionHelper {
-    private static String                  ATTRIBUTE_NS_PREFIX         = "anx:";
-    private static String                  BODY_NODE                   = "body";
-    private static String                  FILTER_BUNGENI_SECTION_META = "Bungeni";
-    private static String                  FILTER_SECTION_TYPE         = ATTRIBUTE_NS_PREFIX + "BungeniSectionType";
-    private static String                  SECTION_ELEMENT             = "text:section";
-    private static String                  SECTION_ELEMENT_NAME_ATTR   = "text:name";
-    private static String                  STYLE_SECTION_PROPS         = "style:section-properties";
+    public static final  String                  ATTRIBUTE_NS_PREFIX         = "anx:";
+    public static final String                  BODY_NODE                   = "body";
+    public static final String                  FILTER_BUNGENI_SECTION_META = "Bungeni";
+    public static final String                  FILTER_SECTION_TYPE         = ATTRIBUTE_NS_PREFIX + "BungeniSectionType";
+    public static final String                  FILTER_SECTION_ID         = ATTRIBUTE_NS_PREFIX + "BungeniSectionID";
+    public static final String                  SECTION_ELEMENT             = "text:section";
+    public static final String                  SECTION_ELEMENT_NAME_ATTR   = "text:name";
+    public static final String                  STYLE_SECTION_PROPS         = "style:section-properties";
     private static org.apache.log4j.Logger log                         =
         org.apache.log4j.Logger.getLogger(BungeniOdfSectionHelper.class.getName());
     private OdfDocument odfDocument = null;
@@ -99,14 +100,19 @@ public class BungeniOdfSectionHelper {
      */
     public String getSectionType(OdfTextSection nsection) {
         NamedNodeMap metaAttrs = getSectionMetadataAttributes(nsection);
-
-        return getSectionType(nsection, metaAttrs);
+        return getFilterNamedItem(nsection, metaAttrs, FILTER_SECTION_TYPE);
     }
 
 
-    public String getSectionType(OdfTextSection nsection, NamedNodeMap nattr) {
-        Node nitem = nattr.getNamedItem(FILTER_SECTION_TYPE);
+    public String getSectionID(OdfTextSection nsection) {
+        NamedNodeMap metaAttrs = getSectionMetadataAttributes(nsection);
+        return getFilterNamedItem(nsection, metaAttrs, FILTER_SECTION_ID);
+    }
 
+    
+
+    public String getFilterNamedItem(OdfTextSection nsection, NamedNodeMap nattr, String filterItem) {
+        Node nitem = nattr.getNamedItem(FILTER_SECTION_TYPE);
         if (nitem != null) {
             return nitem.getNodeValue();
         } else {

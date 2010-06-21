@@ -5,7 +5,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.junit.After;
 import org.junit.AfterClass;
