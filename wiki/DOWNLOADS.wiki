@@ -5,7 +5,8 @@
 
 === Beta Release ===
 
-[http://code.google.com/p/bungeni-editor/downloads/detail?name=install-1.0-rel-branch-r1454.jar&can=2&q= Bungeni Editor v1.0.1454 beta] - UI upgrade. 
+[http://code.google.com/p/bungeni-editor/downloads/detail?name=install-1.0-rel-branch-r1514.jar Bungeni Editor v1.0.1514 beta - requires Openoffice.org 3.1.1] - UI upgrade, enable judgement panels.
+
 
 === Current Release === 
 
