@@ -10,10 +10,13 @@ import com.sun.star.beans.PropertyValue;
 import com.sun.star.beans.XPropertySet;
 import com.sun.star.container.NoSuchElementException;
 import com.sun.star.container.XNameContainer;
+import com.sun.star.io.IOException;
+import com.sun.star.lang.IllegalArgumentException;
 import com.sun.star.lang.WrappedTargetException;
 import com.sun.star.lang.XComponent;
 import com.sun.star.text.XTextSection;
 import com.sun.star.uno.AnyConverter;
+import com.sun.star.uno.Exception;
 import com.sun.star.uno.Type;
 import com.sun.star.uno.XComponentContext;
 import java.io.File;
@@ -65,7 +68,7 @@ public class Generator extends javax.swing.JFrame {
                     returnFile = fc.getSelectedFile();
                     return returnFile; 
                 } 
-        } catch (Exception ex) {
+        } catch (RuntimeException ex) {
             
         } finally {
             return returnFile;
@@ -121,9 +124,17 @@ public class Generator extends javax.swing.JFrame {
         if (fileName == null) {
            return null;
         }
-        XComponent xComp;
+        XComponent xComp = null;
         if (bFiles) {
-            xComp = OOComponentHelper.openExistingDocument(fileName.getAbsolutePath());
+            try {
+                xComp = OOComponentHelper.openExistingDocument(fileName.getAbsolutePath());
+            } catch (IOException ex) {
+                Logger.getLogger(Generator.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalArgumentException ex) {
+                Logger.getLogger(Generator.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(Generator.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             xComp = newDocument(fileName.getAbsolutePath());
         }
