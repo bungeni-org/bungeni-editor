@@ -49,7 +49,7 @@ public class BungeniOdfSectionHelper {
     private XPath       xPath       = null;
 
     /**
-     *
+     * Returns a section helper object from an ODF document
      * @param odfDoc
      */
     public BungeniOdfSectionHelper(OdfDocument odfDoc) {
@@ -58,6 +58,10 @@ public class BungeniOdfSectionHelper {
         //xPath.setNamespaceContext(new OdfNamespace());
     }
 
+    /**
+     * Returns a section helper object from a ODF document helper object
+     * @param bodfDoc
+     */
     public BungeniOdfSectionHelper(BungeniOdfDocumentHelper bodfDoc) {
         m_bodfDoc = bodfDoc;
         odfDocument = m_bodfDoc.getOdfDocument();
@@ -65,7 +69,10 @@ public class BungeniOdfSectionHelper {
     }
 
 
-    
+    /**
+     * Provides access to the ODFDOM odf document
+     * @return
+     */
     public OdfDocument getOdfDocument() {
         return odfDocument;
     }
@@ -94,7 +101,8 @@ public class BungeniOdfSectionHelper {
     }
 
     /**
-     * Returns the Section Type
+     * Returns the Section Type for the document this is a custom property in the anx: namespace ,
+     * anx:BungeniSectionType
      * @param nsection
      * @return
      */
@@ -104,6 +112,12 @@ public class BungeniOdfSectionHelper {
     }
 
 
+    /**
+     * Returns the Section Id for the document this is a custom property in the anx: namespace,
+     * anx:BungeniSectionID
+     * @param nsection
+     * @return
+     */
     public String getSectionID(OdfTextSection nsection) {
         NamedNodeMap metaAttrs = getSectionMetadataAttributes(nsection);
         return getFilterNamedItem(nsection, metaAttrs, FILTER_SECTION_ID);
@@ -112,7 +126,7 @@ public class BungeniOdfSectionHelper {
     
 
     public String getFilterNamedItem(OdfTextSection nsection, NamedNodeMap nattr, String filterItem) {
-        Node nitem = nattr.getNamedItem(FILTER_SECTION_TYPE);
+        Node nitem = nattr.getNamedItem(filterItem);
         if (nitem != null) {
             return nitem.getNodeValue();
         } else {
@@ -136,6 +150,7 @@ public class BungeniOdfSectionHelper {
         return nodeLists;
     }
 
+
     public OdfStyle getSectionStyle(OdfTextSection oSection) {
         OdfOfficeAutomaticStyles osb      = oSection.getAutomaticStyles();
         OdfStyle           secStyle = osb.getStyle(oSection.getStyleName(), OdfStyleFamily.Section);
@@ -143,6 +158,11 @@ public class BungeniOdfSectionHelper {
         return secStyle;
     }
 
+    /**
+     * Removes the background image for a section
+     * @param oSection
+     * @return
+     */
     public boolean removeSectionBackgroundImage(OdfTextSection oSection) {
         boolean bState = false;
 
@@ -171,7 +191,7 @@ public class BungeniOdfSectionHelper {
     }
 
     /*
-     *
+     * Retrieves the style:section-properties for a section
      *
  <style:style style:name="Sect1" style:family="section">
             <style:section-properties fo:background-color="transparent" style:editable="false">
@@ -205,6 +225,12 @@ public class BungeniOdfSectionHelper {
          */
     }
 
+
+    /**
+     * Returns the metadata attributes for a section as  NamedNodeMap
+     * @param nSection a OdfTextSection handle for a section
+     * @return NamedNodeMap
+     */
     public NamedNodeMap getSectionMetadataAttributes(OdfTextSection nSection) {
         OdfStyle sectStyle = getSectionStyle(nSection);
 
@@ -218,28 +244,9 @@ public class BungeniOdfSectionHelper {
         }
     }
 
-    /*
-     * private void getChildSections(Node nNode, OdfJDomElement baseElement, int nDepth) {
-     *   ++nDepth;
-     *   //get the child elements of the root section
-     *   NodeList nChildren = nNode.getChildNodes();
-     *   for (int i=0; i < nChildren.getLength() ; i++ ) {
-     *       Node nnChild = nChildren.item(i);
-     *       //check if the child is an instance of OdfSection
-     *       if (nnChild instanceof OdfSection) {
-     *           OdfSection childSection = (OdfSection) nnChild;
-     *           NamedNodeMap nattribs = getSectionMetadataAttributes(childSection);
-     *           String sectionType = "";
-     *           if (nattribs != null ) {
-     *               sectionType = getSectionType(childSection, nattribs);
-     *           }
-     *           String sectionName = childSection.getName();
-     *           OdfJDomElement newElement = new OdfJDomElement(childSection, sectionName, sectionType);
-     *           baseElement.addContent(newElement);
-     *           getChildSections(nnChild, newElement, nDepth);
-     *       }
-     *   }
-     * }
+    /**
+     * Retuns a node list of ALL the document sections
+     * @return
      */
     public NodeList getDocumentSections() {
         NodeList lst = null;
@@ -281,6 +288,11 @@ public class BungeniOdfSectionHelper {
         return foundIndex;
     }
 
+    /**
+     * Given the name of a section , returns the section object
+     * @param sectionName
+     * @return
+     */
     public OdfTextSection getSection(String sectionName) {
         OdfTextSection oSection = null;
 
