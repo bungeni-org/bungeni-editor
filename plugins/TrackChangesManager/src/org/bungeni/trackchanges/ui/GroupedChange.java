@@ -14,6 +14,7 @@ public class GroupedChange {
     public enum OBJECT_TYPE { ROOT, SECTION, CHANGE }
     private final String sectionType;
     private final String sectionName;
+    private final String sectionID;
     private final OBJECT_TYPE objType;
     private final DocumentChange documentChange;
     private boolean sectionDeleteChange ;
@@ -22,9 +23,10 @@ public class GroupedChange {
 
 
 
-    public GroupedChange(String sType, String sname) {
+    public GroupedChange(String sType, String sname, String sId) {
         this.sectionType = sType;
         this.sectionName = sname;
+        this.sectionID = sId;
         if (sectionType.equals("root")) {
             this.objType = OBJECT_TYPE.ROOT;
         } else {
@@ -34,9 +36,10 @@ public class GroupedChange {
         this.sectionDeleteChange = false;
     }
 
-    public GroupedChange (String sType, String sname, DocumentChange docChange ) {
+    public GroupedChange (String sType, String sname, String sId, DocumentChange docChange ) {
         this.sectionName = sname;
         this.sectionType = sType;
+        this.sectionID = sId;
         this.documentChange = docChange;
         this.objType = OBJECT_TYPE.CHANGE;
     }
@@ -46,6 +49,10 @@ public class GroupedChange {
      */
     public String getSectionType() {
         return sectionType;
+    }
+
+    public String getSectionID(){
+        return this.sectionID;
     }
 
     public boolean getSectionDeleteChange(){

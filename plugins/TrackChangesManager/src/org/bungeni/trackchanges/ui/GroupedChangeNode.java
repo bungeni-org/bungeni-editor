@@ -13,8 +13,8 @@ public class GroupedChangeNode extends DefaultMutableTreeNode {
         super(gchangeNode);
     }
 
-    public GroupedChangeNode(String sType, String sname, DocumentChange docChange) {
-        super(new GroupedChange(sType, sname, docChange));
+    public GroupedChangeNode(String sType, String sname, String sid, DocumentChange docChange) {
+        super(new GroupedChange(sType, sname, sid, docChange));
     }
     
 }

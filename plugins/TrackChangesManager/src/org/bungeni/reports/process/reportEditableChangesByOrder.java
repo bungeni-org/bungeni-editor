@@ -7,7 +7,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.QueryResults;
@@ -74,7 +73,7 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
 
                 //now we iterate through the document ... and process all the top level nodes
                 //lets do the sections first
-
+                /*
              final BungeniOdfSectionHelper asectionHelper = aDochelper.getSectionHelper();
              Integer isecWeight = 0;
              NodeList nSections = asectionHelper.getDocumentSections();
@@ -141,6 +140,8 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
                 db.Connect();
                 db.Update(delQueries, true);
                 db.EndConnect();
+                 * 
+                 */
         }
         return true;
     }
@@ -346,12 +347,12 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
             String xpathStart = "";
             String xpathEnd = "";
             HashMap<String,Object> changeInfo = changesHelper.getChangeInfo(structuredChangeType);
-
+            OdfTextSection nearSection = null;
             if (structuredChangeType.changetype.equals(BungeniOdfTrackedChangesHelper.__CHANGE_TYPE_DELETION__)) {
                OdfTextChange changeNode = changesHelper.getChangeItem(structuredChangeType.changeId);
                xpathStart  = BungeniOdfNodeHelper.getXPath(changeNode);
 
-               OdfTextSection nearSection = getNearestSectionToChange(changeNode);
+                nearSection = getNearestSectionToChange(changeNode);
 
             } else {
 
@@ -360,8 +361,13 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
                xpathStart = BungeniOdfNodeHelper.getXPath(changeNodeStart);
                xpathEnd = BungeniOdfNodeHelper.getXPath(changeNodeEnd);
 
-               OdfTextSection nearSection = getNearestSectionToChange(changeNodeStart);
+               nearSection = getNearestSectionToChange(changeNodeStart);
             }
+            BungeniOdfSectionHelper secHelper = aDochelper.getSectionHelper();
+            String secId = secHelper.getSectionID(nearSection);
+            String secType = secHelper.getSectionType(nearSection);
+            String secName = nearSection.getTextNameAttribute();
+
 
             String strQuery = reportEditableChangesByOrder_Queries.ADD_CHANGE_BY_ORDER(
                     CommonFunctions.getCurrentBillID(),
@@ -373,7 +379,10 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
                     Boolean.FALSE, 0, 0.0, ++iOrderInDoc, 
                     changeInfo.get("dcCreator").toString(),
                     BungeniOdfDateHelper.odfDateToFormattedJavaDate(changeInfo.get("dcDate").toString()) ,
-                    BungeniClientDB.escapeQuotes(changeInfo.get("changeText").toString()));
+                    BungeniClientDB.escapeQuotes(changeInfo.get("changeText").toString()),
+                    secName,
+                    secType,
+                    secId);
             queries.add(strQuery);
         }
         return queries;

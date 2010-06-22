@@ -7,6 +7,24 @@ package org.bungeni.reports.process;
 public class reportEditableChangesByOrder_Queries {
 
 
+    public static String GET_ROOT_SECTION_HIERARCHY (String billId ) {
+        String query = SECTION_HIERARCHY_COLUMNS() +
+                " where bill_id = '"+ billId+ "' and section_type='root' ";
+                return query;
+    }
+
+    public static String GET_SECTION_HIERARCHY( String billId, String parentSectionID) {
+        String query =  SECTION_HIERARCHY_COLUMNS() + " where bill_id = '" + billId + "' and " +
+                "section_parent = '" + parentSectionID + "' order by section_order asc";
+        return query;
+    }
+
+    private static String SECTION_HIERARCHY_COLUMNS() {
+        String query ="Select section_name, section_type, section_id, section_parent, section_order, doc_name " +
+                "from section_hierarchy ";
+        return query;
+    }
+
     /**
      * Clears the section hierarchy 
      * @param billId Bill Identifier
@@ -128,10 +146,10 @@ public class reportEditableChangesByOrder_Queries {
         return sQuery;
     }
 
-   public static String GET_CHANGES_BY_GROUP_IN_DOC_ORDER(String billId, String changeGroup) {
+   public static String GET_CHANGES_BY_GROUP_IN_DOC_ORDER(String billId, String parentSectionId) {
        String sQuery =
                "SELECT doc_name, change_id, change_type, path_start, path_end, order_in_doc, owner, change_date, change_text, order_weight  FROM CHANGES_BY_ORDER " +
-               "where group_by = '"+  changeGroup + "'  and " +
+               "where section_id = '"+  parentSectionId + "'  and " +
                "bill_id = '" + billId  + "' " +
                "group by doc_name, change_id, change_type, path_start, path_end " +
                "order by doc_name, order_in_doc" ;

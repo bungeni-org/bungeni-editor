@@ -202,6 +202,95 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         }
 
         private void loadTree(){
+            DefaultMutableTreeNode dmtRoot = null;
+            String query = reportEditableChangesByOrder_Queries.GET_ROOT_SECTION_HIERARCHY(CommonFunctions.getCurrentBillID());
+            BungeniClientDB db = BungeniClientDB.defaultConnect();
+            QueryResults qr = db.ConnectAndQuery(query);
+            if (qr.hasResults()) {
+                Vector<Vector<String>> results = qr.theResults();
+                for (Vector<String> aRow : results) {
+                    String rootSecId = qr.getField(aRow, "SECTION_ID");
+                    String rootSecName = qr.getField(aRow, "SECTION_NAME");
+                    String rootSecType = qr.getField(aRow, "SECTION_TYPE");
+                    GroupedChange gc = new GroupedChange("root", "bill", rootSecId);
+                    dmtRoot = new DefaultMutableTreeNode(gc);
+                    //now look for all changes in the root section
+                    /*
+                    qr = db.ConnectAndQuery(reportEditableChangesByOrder_Queries.GET_CHANGES_BY_GROUP_IN_DOC_ORDER(CommonFunctions.getCurrentBillID(),
+                               rootSecId));
+
+                    if (qr.hasResults()) {
+                        //add change nodes
+                        qr.theResults();
+
+                    }
+
+                    //query child sections
+                    */
+                    processSubTreeHiearchy (db, CommonFunctions.getCurrentBillID(), dmtRoot, rootSecName, rootSecType, rootSecId );
+
+                    }
+
+                }
+            if (dmtRoot != null) {
+              DefaultTreeModel treeModel = new DefaultTreeModel(dmtRoot);
+              treeReportByOrder.setCellRenderer(new reportCellRenderer());
+              treeReportByOrder.setModel(treeModel);
+            }
+            }
+
+        }
+
+        private void processSubTreeHiearchy (BungeniClientDB db, String billId, DefaultMutableTreeNode dmtParent, String baseSecName, String baseSecType, String baseSecId  ) {
+
+                QueryResults qr = db.ConnectAndQuery(reportEditableChangesByOrder_Queries.GET_CHANGES_BY_GROUP_IN_DOC_ORDER(CommonFunctions.getCurrentBillID(),
+                               baseSecId));
+
+                    if (qr.hasResults()) {
+                        //add change nodes for this section
+                        Vector<Vector<String>> results = qr.theResults();
+                        for (Vector<String> aRow : results) {
+                            DocumentChange docChange = new DocumentChange(
+                            qr.getField(aRow, "DOC_NAME"),
+                            qr.getField(aRow, "CHANGE_ID"),
+                            qr.getField(aRow, "CHANGE_TYPE"),
+                            qr.getField(aRow, "PATH_START"),
+                            qr.getField(aRow, "PATH_END"),
+                            qr.getField(aRow, "ORDER_IN_DOC"),
+                            qr.getField(aRow, "OWNER") ,
+                            qr.getField(aRow, "CHANGE_DATE") ,
+                            qr.getField(aRow, "CHANGE_TEXT") ,
+                            Integer.parseInt(qr.getField(aRow, "ORDER_WEIGHT").toString())
+                                    );
+                            GroupedChange groupedChange = new GroupedChange (baseSecName, baseSecType, baseSecId,  docChange);
+                            DefaultMutableTreeNode dmtThis = new DefaultMutableTreeNode(groupedChange);
+                            dmtParent.add(dmtThis);
+                        }
+                    }
+
+                    //query child sections
+                qr = db.ConnectAndQuery(reportEditableChangesByOrder_Queries.GET_SECTION_HIERARCHY(
+                            CommonFunctions.getCurrentBillID(),
+                            baseSecId
+                            ));
+                 if (qr.hasResults()) {
+                     Vector<Vector<String>> results = qr.theResults();
+                     for (Vector<String> aRow : results) {
+                         String secId = qr.getField(aRow, "SECTION_ID");
+                         String secName = qr.getField(aRow, "SECTION_NAME");
+                         String secType  = qr.getField(aRow, "SECTION_TYPE");
+                         GroupedChange gc = new GroupedChange(secName, secType, secId);
+                         DefaultMutableTreeNode dmtSec = new DefaultMutableTreeNode(gc);
+                         processSubTreeHiearchy(db, billId, dmtSec, secName, secType, secId);
+                         dmtParent.add(dmtSec);
+                     }
+                 }
+
+
+       }
+
+        /*
+        private void loadTree(){
             //the tree is loaded here
             DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(new GroupedChange("root", "bill"));
             String groupedQuery = reportEditableChangesByOrder_Queries.GET_CHANGE_GROUPS_BILL_BY_MANUAL_ORDER(CommonFunctions.getCurrentBillID());
@@ -257,8 +346,7 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
  
 
         }
-
-    }
+        */
 
      public  void createAndShowGUI(JFrame parentFrame) {
                 if (panelReportByOrder.thisFrame == null) {
