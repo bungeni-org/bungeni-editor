@@ -28,7 +28,6 @@ import org.odftoolkit.odfdom.doc.text.OdfTextChangeStart;
 import org.odftoolkit.odfdom.doc.text.OdfTextChangedRegion;
 import org.odftoolkit.odfdom.doc.text.OdfTextSection;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
  *
@@ -65,8 +64,7 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
             Integer iOrder = 0;
             queries.add(reportEditableChangesByOrder_Queries.CLEANUP_QUERY(CommonFunctions.getCurrentBillID(), documentPath));
             queries = addInsertQueries(aDochelper, changes, queries) ;
-
-
+           
             db.Connect();
             db.Update(queries, true);
             db.EndConnect();
@@ -192,6 +190,8 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
          * for each change identifier we capture the start and end node position in the db
          * 
          */
+
+        /*
        final BungeniOdfTrackedChangesHelper changesHelper = aDochelper.getChangesHelper();
        List<StructuredChangeType> changes = changesHelper.getAllChanges();
        List<String> queries = new ArrayList<String>(0);
@@ -280,9 +280,11 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
         db.Connect();
         db.Update(delQueries, true);
         db.EndConnect();
+        */
 
         /** now generate the report from the db */
 
+        /*
         List<BungeniOdfReportLine> reportLines = this.getReportLinesByChangeOrder(db);
 
          File fNewReport = BungeniOdfDocumentReport.getNewReport(aDochelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniDocAuthor"), aTemplate);
@@ -301,7 +303,7 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
                 "OFFICIAL_DATE", aTemplate.getReportDateFormat().format(Calendar.getInstance().getTime()));
             reportObject.addReportLines(reportLines);
             reportObject.generateReport(sAuthor);
-
+            */
         /*
          * We do a grouped query ordered by the order_weight ...
          * the lowest order weight is the most damaging change.. followed by the others
@@ -309,8 +311,10 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
          * 
          */
 
+/*
+            return reportObject; */
 
-            return reportObject;
+        return null;
       
     }
 
@@ -368,6 +372,7 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
             String secType = secHelper.getSectionType(nearSection);
             String secName = nearSection.getTextNameAttribute();
 
+            ++iOrderInDoc;
 
             String strQuery = reportEditableChangesByOrder_Queries.ADD_CHANGE_BY_ORDER(
                     CommonFunctions.getCurrentBillID(),
@@ -376,7 +381,10 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
                     structuredChangeType.changetype,
                     xpathStart,
                     xpathEnd,
-                    Boolean.FALSE, 0, 0.0, ++iOrderInDoc, 
+                    //we set the manual order to the same as the order in the document
+                    //so that we can display the tree initially in manual order and still
+                    //show it in natural order initially
+                    Boolean.FALSE, 0, iOrderInDoc.doubleValue(), iOrderInDoc,
                     changeInfo.get("dcCreator").toString(),
                     BungeniOdfDateHelper.odfDateToFormattedJavaDate(changeInfo.get("dcDate").toString()) ,
                     BungeniClientDB.escapeQuotes(changeInfo.get("changeText").toString()),
