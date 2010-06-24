@@ -84,6 +84,8 @@ public class GroupedChange {
         return documentChange;
     }
 
+
+
     @Override
     public String toString(){
         if (this.objType == OBJECT_TYPE.ROOT || this.objType == OBJECT_TYPE.SECTION) {

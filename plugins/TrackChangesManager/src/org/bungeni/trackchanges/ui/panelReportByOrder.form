@@ -49,6 +49,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Move UP"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMoveUpActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnMoveDown">
       <Properties>
@@ -57,6 +60,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Move DOWN"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMoveDownActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnFinish">
       <Properties>

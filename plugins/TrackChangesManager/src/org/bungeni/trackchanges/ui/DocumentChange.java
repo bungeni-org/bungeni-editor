@@ -12,13 +12,14 @@ public class DocumentChange {
     private final String pathStart;
     private final String pathEnd;
     private final String orderInDoc;
+    private Double manualOrder;
     private final String changeOwner;
     private final String documentURI;
     private final String changeDate;
     private final String changeText;
     private final Integer orderWeight;
 
-    public DocumentChange(String dURI, String cId, String cType, String pStart, String pEnd, String orderInDoc, String cOwner, String changeDate, String changeText, Integer orderW) {
+    public DocumentChange(String dURI, String cId, String cType, String pStart, String pEnd, String orderInDoc, String cOwner, String changeDate, String changeText, Integer orderW, Double mOrder) {
         this.documentURI = dURI;
         this.changeId = cId;
         this.changeType = cType;
@@ -29,6 +30,7 @@ public class DocumentChange {
         this.changeDate = changeDate;
         this.changeText = changeText;
         this.orderWeight = orderW;
+        this.manualOrder = mOrder;
     }
 
     /**
@@ -106,6 +108,20 @@ public class DocumentChange {
      */
     public Integer getOrderWeight() {
         return orderWeight;
+    }
+
+    /**
+     * @return the manualOrder
+     */
+    public Double getManualOrder() {
+        return manualOrder;
+    }
+
+    /**
+     * @param manualOrder the manualOrder to set
+     */
+    public void setManualOrder(Double manualOrder) {
+        this.manualOrder = manualOrder;
     }
 
 

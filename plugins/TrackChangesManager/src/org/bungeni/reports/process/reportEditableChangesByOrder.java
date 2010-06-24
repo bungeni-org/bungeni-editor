@@ -391,6 +391,7 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
                     secName,
                     secType,
                     secId);
+            log.error("addInsertQueries : " + strQuery);
             queries.add(strQuery);
         }
         return queries;

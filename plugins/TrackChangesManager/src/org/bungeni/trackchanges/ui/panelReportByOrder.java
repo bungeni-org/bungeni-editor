@@ -2,9 +2,14 @@ package org.bungeni.trackchanges.ui;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTree;
 import javax.swing.SwingWorker;
@@ -13,6 +18,7 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 import net.java.swingfx.waitwithstyle.PerformanceInfiniteProgressPanel;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.QueryResults;
@@ -20,6 +26,7 @@ import org.bungeni.odfdocument.report.IBungeniOdfDocumentReportProcess;
 import org.bungeni.odfdocument.report.IBungeniOdfDocumentReportUI;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.reports.process.reportEditableChangesByOrder_Queries;
+import org.bungeni.trackchanges.ui.GroupedChange.OBJECT_TYPE;
 import org.bungeni.trackchanges.utils.CommonFunctions;
 
 /**
@@ -64,9 +71,19 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
 
         btnMoveUp.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnMoveUp.setText("Move UP");
+        btnMoveUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoveUpActionPerformed(evt);
+            }
+        });
 
         btnMoveDown.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnMoveDown.setText("Move DOWN");
+        btnMoveDown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoveDownActionPerformed(evt);
+            }
+        });
 
         btnFinish.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnFinish.setText("Finish");
@@ -74,7 +91,7 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         splitPane.setDividerLocation(350);
         splitPane.setDividerSize(3);
 
-        treeReportByOrder.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        treeReportByOrder.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Loading...");
         treeReportByOrder.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         scrollReport.setViewportView(treeReportByOrder);
@@ -82,7 +99,7 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         splitPane.setLeftComponent(scrollReport);
 
         treeContentPane.setEditable(false);
-        treeContentPane.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        treeContentPane.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         scrollPane.setViewportView(treeContentPane);
 
         splitPane.setRightComponent(scrollPane);
@@ -112,6 +129,16 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnMoveUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveUpActionPerformed
+        // TODO add your handling code here:
+        promoteChangeInBranch();
+    }//GEN-LAST:event_btnMoveUpActionPerformed
+
+    private void btnMoveDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveDownActionPerformed
+        // TODO add your handling code here:
+        demoteChangeInBranch();
+    }//GEN-LAST:event_btnMoveDownActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFinish;
@@ -137,6 +164,154 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         treeLoader.execute();
         this.treeContentPane.setContentType("text/html");
         this.treeReportByOrder.addTreeSelectionListener(new treeReportByOrderSelectionListener());
+    }
+
+
+    class PromoteChangeWorker extends SwingWorker {
+
+        DefaultMutableTreeNode dmtSelected ;
+        DefaultTreeModel treeModel;
+        DefaultMutableTreeNode dmtParent;
+        GroupedChange gc , gcPrev;
+        JButton thisButton ;
+        public PromoteChangeWorker (JButton btn){
+            thisButton = btn;
+            thisButton.setEnabled(false);
+        }
+
+        @Override
+        protected Object doInBackground() throws Exception {
+             // get the selected node
+            dmtSelected = (DefaultMutableTreeNode) treeReportByOrder.getSelectionPath().getLastPathComponent();
+            // get the tree model
+            treeModel = (DefaultTreeModel)treeReportByOrder.getModel();
+            // get the parent of the selected node
+            dmtParent = (DefaultMutableTreeNode) dmtSelected.getParent();
+            gc =  (GroupedChange) dmtSelected.getUserObject();
+            return gc.getObjType();
+        }
+
+        @Override
+        protected void done(){
+            try {
+                updateNode(get());
+                thisButton.setEnabled(true);
+            } catch (InterruptedException ex) {
+               log.error(ex.getMessage());
+            } catch (ExecutionException ex) {
+               log.error(ex.getMessage());
+            }
+
+        }
+
+        private void updateNode(Object fromGet){
+                GroupedChange.OBJECT_TYPE objType = (OBJECT_TYPE) fromGet;
+                if (objType.equals(GroupedChange.OBJECT_TYPE.CHANGE)) {
+                    DefaultMutableTreeNode dmtPrev = dmtSelected.getPreviousSibling();
+                    if (dmtPrev != null) {
+                        gcPrev = (GroupedChange) dmtPrev.getUserObject();
+                        Double tmpOrder = 0.0;
+                        tmpOrder = gcPrev.getDocumentChange().getManualOrder();
+                        gcPrev.getDocumentChange().setManualOrder(gc.getDocumentChange().getManualOrder());
+                        gc.getDocumentChange().setManualOrder(tmpOrder);
+                        dmtPrev.setUserObject(gc);
+                        dmtSelected.setUserObject(gcPrev);
+
+                        TreePath prevPath = new TreePath(dmtPrev.getPath());
+
+                        final int[] childIndices = {
+                            dmtParent.getIndex(dmtPrev),
+                            dmtParent.getIndex(dmtSelected)
+                        };
+
+                        treeModel.nodesChanged(dmtParent, childIndices);
+                        treeReportByOrder.setSelectionPath(prevPath);
+                        // now update the order in the db.
+                        BungeniClientDB db = BungeniClientDB.defaultConnect();
+                        List<String> updates = new ArrayList<String>(0);
+
+                        updates.add(reportEditableChangesByOrder_Queries.UPDATE_CHANGES_BY_ORDER_MANUAL_ORDER(CommonFunctions.getCurrentBillID(),
+                                                                                                gcPrev.getDocumentChange().getChangeId(),
+                                                                                                gcPrev.getDocumentChange().getManualOrder()));
+                        updates.add(reportEditableChangesByOrder_Queries.UPDATE_CHANGES_BY_ORDER_MANUAL_ORDER(CommonFunctions.getCurrentBillID(),
+                                                                                                gc.getDocumentChange().getChangeId(),
+                                                                                                gc.getDocumentChange().getManualOrder()));
+                        log.error("update : " + updates.get(0));
+                        log.error("update : " + updates.get(1));
+                        db.Connect();
+                        db.Update(updates, true);
+                        db.EndConnect();
+
+                    }
+                }
+
+        }
+
+    }
+
+
+    private void promoteChangeInBranch(){
+        PromoteChangeWorker worker = new PromoteChangeWorker(btnMoveUp);
+        worker.execute();
+    }
+
+
+    /***
+     * Promotes a change node above another node.
+     */
+    private void promoteChangeInBranch00(){
+        // get the selected node
+        DefaultMutableTreeNode dmtSelected = (DefaultMutableTreeNode) treeReportByOrder.getSelectionPath().getLastPathComponent();
+        // get the tree model
+        DefaultTreeModel treeModel = (DefaultTreeModel)treeReportByOrder.getModel();
+        // get the parent of the selected node
+        DefaultMutableTreeNode dmtParent = (DefaultMutableTreeNode) dmtSelected.getParent();
+
+        GroupedChange gc = (GroupedChange) dmtSelected.getUserObject();
+        log.debug("selected section = " + gc.getSectionName());
+        log.debug("selected type = " + gc.getObjType());
+        if (gc.getObjType().equals(GroupedChange.OBJECT_TYPE.CHANGE)) {
+            DefaultMutableTreeNode dmtPrev = dmtSelected.getPreviousSibling();
+            if (dmtPrev != null) {
+                GroupedChange gcPrev = (GroupedChange) dmtPrev.getUserObject();
+                Double tmpOrder = 0.0;
+                tmpOrder = gcPrev.getDocumentChange().getManualOrder();
+                gcPrev.getDocumentChange().setManualOrder(gc.getDocumentChange().getManualOrder());
+                gc.getDocumentChange().setManualOrder(tmpOrder);
+                dmtPrev.setUserObject(gc);
+                dmtSelected.setUserObject(gcPrev);
+
+                TreePath prevPath = new TreePath(dmtPrev.getPath());
+
+                final int[] childIndices = {
+                    dmtParent.getIndex(dmtPrev),
+                    dmtParent.getIndex(dmtSelected)
+                };
+
+                treeModel.nodesChanged(dmtParent, childIndices);
+                treeReportByOrder.setSelectionPath(prevPath);
+                // now update the order in the db.
+                BungeniClientDB db = BungeniClientDB.defaultConnect();
+                List<String> updates = new ArrayList<String>(0);
+                updates.add(reportEditableChangesByOrder_Queries.UPDATE_CHANGES_BY_ORDER_MANUAL_ORDER(CommonFunctions.getCurrentBillID(),
+                                                                                        gcPrev.getDocumentChange().getChangeId(),
+                                                                                        gcPrev.getDocumentChange().getManualOrder()));
+                updates.add(reportEditableChangesByOrder_Queries.UPDATE_CHANGES_BY_ORDER_MANUAL_ORDER(CommonFunctions.getCurrentBillID(),
+                                                                                        gc.getDocumentChange().getChangeId(),
+                                                                                        gc.getDocumentChange().getManualOrder()));
+                db.Connect();
+                db.Update(updates, true);
+                db.EndConnect();
+                
+            } else {
+                log.debug("No previous sibling");
+            }
+        }
+
+    }
+
+    private void demoteChangeInBranch(){
+        
     }
 
     class treeReportByOrderSelectionListener implements TreeSelectionListener {
@@ -260,7 +435,8 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
                             qr.getField(aRow, "OWNER") ,
                             qr.getField(aRow, "CHANGE_DATE") ,
                             qr.getField(aRow, "CHANGE_TEXT") ,
-                            Integer.parseInt(qr.getField(aRow, "ORDER_WEIGHT").toString())
+                            Integer.parseInt(qr.getField(aRow, "ORDER_WEIGHT").toString()),
+                            Double.parseDouble(qr.getField(aRow, "MANUAL_ORDER"))
                                     );
                             GroupedChange groupedChange = new GroupedChange (baseSecName, baseSecType, baseSecId,  docChange);
                             DefaultMutableTreeNode dmtThis = new DefaultMutableTreeNode(groupedChange);
@@ -395,7 +571,11 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
        
     }
 
-        
+
+    /**
+     * This is called right after showUI
+     * @return
+     */
     public boolean initUI() {
             initialize();
             return true;

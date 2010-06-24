@@ -148,14 +148,21 @@ public class reportEditableChangesByOrder_Queries {
 
    public static String GET_CHANGES_BY_GROUP_IN_DOC_ORDER(String billId, String parentSectionId) {
        String sQuery =
-               "SELECT doc_name, change_id, change_type, path_start, path_end, order_in_doc, owner, change_date, change_text, order_weight  FROM CHANGES_BY_ORDER " +
+               "SELECT doc_name, change_id, change_type, path_start, path_end, order_in_doc, owner, change_date, change_text, order_weight, manual_order  FROM CHANGES_BY_ORDER " +
                "where section_id = '"+  parentSectionId + "'  and " +
                "bill_id = '" + billId  + "' " +
                "group by doc_name, change_id, change_type, path_start, path_end " +
-               "order by doc_name, order_in_doc" ;
+               "order by doc_name, manual_order" ;
        return sQuery;
    }
 
+
+   public static String UPDATE_CHANGES_BY_ORDER_MANUAL_ORDER (String billId, String changeId, Double manualOrder){
+       String sQuery = "Update changes_by_order set manual_order = " + manualOrder.toString() +
+                        " where change_id = '" + changeId + "' and bill_id = '" + billId + "'";
+       return sQuery ;
+
+   }
 
     public static String UPDATE_CHANGES_FOR_SECTION_NODE (String billId, String docName, String nodeFragment, String sectionType, Integer iWeight, Double dOrder) {
         String sQuery = "Update CHANGES_BY_ORDER " +
