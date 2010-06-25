@@ -166,17 +166,26 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         this.treeReportByOrder.addTreeSelectionListener(new treeReportByOrderSelectionListener());
     }
 
+    public enum CHANGE_MOVEMENT { PROMOTE, DEMOTE }
 
-    class PromoteChangeWorker extends SwingWorker {
+    class PromoteDemoteChangeWorker extends SwingWorker {
 
+        CHANGE_MOVEMENT changeMovement;
         DefaultMutableTreeNode dmtSelected ;
         DefaultTreeModel treeModel;
         DefaultMutableTreeNode dmtParent;
         GroupedChange gc , gcPrev;
         JButton thisButton ;
-        public PromoteChangeWorker (JButton btn){
-            thisButton = btn;
-            thisButton.setEnabled(false);
+
+        /**
+         * Promotes  / demotes a node
+         * @param btn
+         * @param cm
+         */
+        public PromoteDemoteChangeWorker (JButton btn,  CHANGE_MOVEMENT cm){
+            this.thisButton = btn;
+            this.changeMovement = cm;
+            this.thisButton.setEnabled(false);
         }
 
         @Override
@@ -206,21 +215,26 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
 
         private void updateNode(Object fromGet){
                 GroupedChange.OBJECT_TYPE objType = (OBJECT_TYPE) fromGet;
+                DefaultMutableTreeNode dmtPrevNext = null;
                 if (objType.equals(GroupedChange.OBJECT_TYPE.CHANGE)) {
-                    DefaultMutableTreeNode dmtPrev = dmtSelected.getPreviousSibling();
-                    if (dmtPrev != null) {
-                        gcPrev = (GroupedChange) dmtPrev.getUserObject();
+                    if (changeMovement.equals(CHANGE_MOVEMENT.PROMOTE)) {
+                         dmtPrevNext = dmtSelected.getPreviousSibling();
+                    } else {
+                         dmtPrevNext = dmtSelected.getNextSibling();
+                    }
+                    if (dmtPrevNext != null) {
+                        gcPrev = (GroupedChange) dmtPrevNext.getUserObject();
                         Double tmpOrder = 0.0;
                         tmpOrder = gcPrev.getDocumentChange().getManualOrder();
                         gcPrev.getDocumentChange().setManualOrder(gc.getDocumentChange().getManualOrder());
                         gc.getDocumentChange().setManualOrder(tmpOrder);
-                        dmtPrev.setUserObject(gc);
+                        dmtPrevNext.setUserObject(gc);
                         dmtSelected.setUserObject(gcPrev);
 
-                        TreePath prevPath = new TreePath(dmtPrev.getPath());
+                        TreePath prevPath = new TreePath(dmtPrevNext.getPath());
 
                         final int[] childIndices = {
-                            dmtParent.getIndex(dmtPrev),
+                            dmtParent.getIndex(dmtPrevNext),
                             dmtParent.getIndex(dmtSelected)
                         };
 
@@ -251,7 +265,7 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
 
 
     private void promoteChangeInBranch(){
-        PromoteChangeWorker worker = new PromoteChangeWorker(btnMoveUp);
+        PromoteDemoteChangeWorker worker = new PromoteDemoteChangeWorker(btnMoveUp, CHANGE_MOVEMENT.PROMOTE);
         worker.execute();
     }
 
@@ -311,7 +325,8 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
     }
 
     private void demoteChangeInBranch(){
-        
+        PromoteDemoteChangeWorker worker = new PromoteDemoteChangeWorker(btnMoveUp, CHANGE_MOVEMENT.DEMOTE);
+        worker.execute();
     }
 
     class treeReportByOrderSelectionListener implements TreeSelectionListener {
