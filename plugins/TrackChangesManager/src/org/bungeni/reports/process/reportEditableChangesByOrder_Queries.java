@@ -1,11 +1,32 @@
 package org.bungeni.reports.process;
 
+import java.util.Date;
+
 /**
  *
  * @author Ashok Hariharan
  */
 public class reportEditableChangesByOrder_Queries {
 
+
+    public static String GET_NEWEST_REPORT_ID_FOR_BILL(String billId, String reportName) {
+        String query = "Select top 1 report_id, report_name, generated_date, user_edited_name from generated_reports where " +
+                "bill_id = '" + billId + "'  and report_name='"+ reportName +"' order by generated_date desc ";
+        return query;
+    }
+
+
+    public static String ADD_NEW_REPORT_FOR_BILL(String reportId, String reportName, Date genDate, String billId, Boolean userEditedName) {
+        String query = "insert into generated_reports (report_id, report_name, generated_date, bill_id, user_edited_name) values (" +
+                "'" + reportId + "','" + reportName + "','" + genDate + "','" + billId + "'," + userEditedName + ")";
+        return query;
+    }
+
+    public static String GET_INFO_FOR_REPORT_ID(String reportId) {
+        String query = "Select report_id, report_name, generated_date, bill_id, user_edited_name from generated_reports where " +
+                "report_id = '" + reportId + "'";
+        return query;
+    }
 
     public static String GET_ROOT_SECTION_HIERARCHY (String billId ) {
         String query = SECTION_HIERARCHY_COLUMNS() +
@@ -31,8 +52,8 @@ public class reportEditableChangesByOrder_Queries {
      * @param docName Document Name
      * @return
      */
-    public static String CLEAR_SECTION_HIERARCHY (String billId, String docName) {
-        String queries  = "delete from section_hierarchy where bill_id ='"+ billId + "' and doc_name='" + docName + "' " ;
+    public static String CLEAR_SECTION_HIERARCHY (String reportId) {
+        String queries  = "delete from section_hierarchy where report_id='"+ reportId + "' " ;
         return queries;
     }
 
@@ -47,12 +68,14 @@ public class reportEditableChangesByOrder_Queries {
      * @param secOrder Section Order (within Parent)
      * @return
      */
-    public static String ADD_SECTION_HIERARCHY (String billId, String docName, String secName, String secType, String secId, String secParent, Integer secOrder) {
+    public static String ADD_SECTION_HIERARCHY (String reportId, String billId, String docName, String secName, String secType, String secId, String secParent, Integer secOrder) {
 
         String queries = "insert into section_hierarchy (" +
-                "bill_id, doc_name, section_name, section_type, section_id, section_parent, section_order" +
+                "report_id, bill_id, doc_name, section_name, section_type, section_id, section_parent, section_order" +
                 ") values " +
                 "('" +
+                reportId +
+                "','"+
                 billId +
                 "','" +
                 docName +
@@ -72,7 +95,7 @@ public class reportEditableChangesByOrder_Queries {
 
     }
 
-    public static String ADD_CHANGE_BY_ORDER(String billId, String docName,
+    public static String ADD_CHANGE_BY_ORDER(String reportId, String billId, String docName,
                                                 String changeId, String changeType,
                                                 String pathStart, String pathEnd,
                                                 Boolean bState, Integer orderWeight,
@@ -81,6 +104,7 @@ public class reportEditableChangesByOrder_Queries {
                                                 String sChangeText, String sectionName,
                                                 String sectionType, String sectionID) {
         String sQuery = "insert into changes_by_order (" +
+                "report_id, " +
                 "bill_id, " +
                 "doc_name, " +
                 "change_id, " +
@@ -100,6 +124,8 @@ public class reportEditableChangesByOrder_Queries {
                 "section_id ) " +
                 "values ("
                 + "'" +
+                reportId 
+                + "','" +
                 billId
                 + "','" +
                 docName
@@ -194,9 +220,8 @@ public class reportEditableChangesByOrder_Queries {
 
     }
 
-    public static String CLEANUP_QUERY (String billId, String docName ) {
-        String sQuery = "delete from CHANGES_BY_ORDER where bill_id = '" + billId + "' " +
-                "and doc_name = '" + docName + "'";
+    public static String CLEANUP_QUERY (String reportId ) {
+        String sQuery = "delete from CHANGES_BY_ORDER where report_id = '" + reportId + "' ";
         return sQuery;
     }
 

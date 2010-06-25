@@ -42,7 +42,7 @@ public class reportChangesByOrder  extends BungeniOdfDocumentReportProcess {
     };
 
 
-    public boolean prepareProcess(BungeniOdfDocumentHelper[] aDochelpers) {
+    public boolean prepareProcess(BungeniOdfDocumentHelper[] aDochelpers, HashMap<String,Object> paramMap) {
         BungeniClientDB db = BungeniClientDB.defaultConnect();
         for (BungeniOdfDocumentHelper aDochelper : aDochelpers) {
 

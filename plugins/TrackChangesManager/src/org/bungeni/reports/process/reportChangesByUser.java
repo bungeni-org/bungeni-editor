@@ -131,7 +131,7 @@ public class reportChangesByUser extends BungeniOdfDocumentReportProcess {
     }
 
     @Override
-    public boolean prepareProcess(BungeniOdfDocumentHelper[] aDochelper) {
+    public boolean prepareProcess(BungeniOdfDocumentHelper[] aDochelper, HashMap<String,Object> paramMap) {
        return true;
     }
 
