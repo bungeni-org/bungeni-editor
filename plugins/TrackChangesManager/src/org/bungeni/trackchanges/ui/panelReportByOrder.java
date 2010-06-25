@@ -2,15 +2,17 @@ package org.bungeni.trackchanges.ui;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.SwingWorker;
 import javax.swing.event.TreeSelectionEvent;
@@ -22,9 +24,11 @@ import javax.swing.tree.TreePath;
 import net.java.swingfx.waitwithstyle.PerformanceInfiniteProgressPanel;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.QueryResults;
+import org.bungeni.odfdocument.report.GeneratedReport;
 import org.bungeni.odfdocument.report.IBungeniOdfDocumentReportProcess;
 import org.bungeni.odfdocument.report.IBungeniOdfDocumentReportUI;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
+import org.bungeni.odfdom.utils.BungeniOdfDateHelper;
 import org.bungeni.reports.process.reportEditableChangesByOrder_Queries;
 import org.bungeni.trackchanges.ui.GroupedChange.OBJECT_TYPE;
 import org.bungeni.trackchanges.utils.CommonFunctions;
@@ -39,7 +43,8 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
     public static JFrame                   thisFrame = null;
     private IBungeniOdfDocumentReportProcess reportProcess = null;
     private BungeniOdfDocumentHelper[] reportInputDocuments;
-    
+    private String m_reportName = "";
+
     /** Creates new form panelReportByOrder */
     public panelReportByOrder() {
         super();
@@ -68,6 +73,7 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         treeReportByOrder = new javax.swing.JTree();
         scrollPane = new javax.swing.JScrollPane();
         treeContentPane = new javax.swing.JTextPane();
+        lblStatus = new javax.swing.JLabel();
 
         btnMoveUp.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnMoveUp.setText("Move UP");
@@ -104,28 +110,35 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
 
         splitPane.setRightComponent(scrollPane);
 
+        lblStatus.setFont(new java.awt.Font("DejaVu Sans", 1, 11)); // NOI18N
+        lblStatus.setText(" ");
+        lblStatus.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(btnMoveUp, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnMoveDown)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnFinish, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(250, Short.MAX_VALUE))
-            .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnMoveUp)
                     .addComponent(btnMoveDown)
-                    .addComponent(btnFinish)))
+                    .addComponent(btnFinish))
+                .addGap(4, 4, 4)
+                .addComponent(lblStatus))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -144,6 +157,7 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
     private javax.swing.JButton btnFinish;
     private javax.swing.JButton btnMoveDown;
     private javax.swing.JButton btnMoveUp;
+    private javax.swing.JLabel lblStatus;
     private javax.swing.JScrollPane scrollPane;
     private javax.swing.JScrollPane scrollReport;
     private javax.swing.JSplitPane splitPane;
@@ -155,17 +169,68 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         PANEL_FILTER_REVIEW_STAGE = "ClerkConsolidationReview";
         PANEL_REVIEW_STAGE        = "";
        // loadFilesFromFolder();
-        init_Tree();
+        GeneratedReport aReport = lastReportExists();
+        init_Tree(aReport);
     }
 
-    private void init_Tree(){
-        startProgress();
-        loadTreeWorker treeLoader = new loadTreeWorker();
-        treeLoader.execute();
-        this.treeContentPane.setContentType("text/html");
-        this.treeReportByOrder.addTreeSelectionListener(new treeReportByOrderSelectionListener());
+
+  
+
+    private GeneratedReport lastReportExists () {
+        GeneratedReport reportObj = null;
+        BungeniClientDB db = BungeniClientDB.defaultConnect();
+        //Always returns 1 row because of top 1 query
+        QueryResults qr = db.ConnectAndQuery(reportEditableChangesByOrder_Queries.GET_NEWEST_REPORT_ID_FOR_BILL(CommonFunctions.getCurrentBillID(), this.m_reportName ));
+        if (qr.hasResults()) {
+            for (Vector<String> aRow : qr.theResults()) {
+                String reportId = qr.getField(aRow, "REPORT_ID");
+                String reportName = qr.getField(aRow, "REPORT_NAME");
+                String genDate = qr.getField(aRow, "GENERATED_DATE");
+                String userEditedName = qr.getField(aRow, "USER_EDITED_NAME");
+                reportObj = new GeneratedReport(reportId, reportName, genDate, CommonFunctions.getCurrentBillID(), userEditedName);
+                break;
+            }
+        }
+        return reportObj;
     }
 
+    private void init_Tree(GeneratedReport lastReport){
+        //there was no lastReport
+        if (null == lastReport) {
+            load_Tree(TREE_LOADING_MODES.NEW, GeneratedReport.newGeneratedReport(m_reportName, CommonFunctions.getCurrentBillID()));
+        } else {
+            //there is a last report .. prompt the user if they want to see that or generate  new one
+            final int nOption = JOptionPane.showConfirmDialog(this.parentFrame,
+                    "There is a previous report of this type for the bill. \n" +
+                    " Would you like to open the saved report ? Clicking no will regenerate report",
+                    "Report generation",
+                    JOptionPane.YES_NO_OPTION, 
+                    JOptionPane.INFORMATION_MESSAGE);
+           if (JOptionPane.YES_OPTION == nOption ) {
+               //open the saved report
+               load_Tree(TREE_LOADING_MODES.LOAD_RECENT, lastReport);
+           }   else {
+                //regenerate the report
+                load_Tree(TREE_LOADING_MODES.UPDATE_RECENT, lastReport);
+           }
+
+            
+          }
+    }
+
+    private void load_Tree(TREE_LOADING_MODES loadingMode, GeneratedReport genReport){
+              startProgress();
+              loadTreeWorker treeLoader = new loadTreeWorker(loadingMode, genReport);
+              treeLoader.execute();
+              this.treeContentPane.setContentType("text/html");
+              this.treeReportByOrder.addTreeSelectionListener(new treeReportByOrderSelectionListener());
+    }
+
+
+
+    /**
+     * This enum indicates states for "moving up" (promoting) and "moving down" (demoting) nodes in the report UI
+     */
     public enum CHANGE_MOVEMENT { PROMOTE, DEMOTE }
 
     class PromoteDemoteChangeWorker extends SwingWorker {
@@ -270,60 +335,6 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
     }
 
 
-    /***
-     * Promotes a change node above another node.
-     */
-    private void promoteChangeInBranch00(){
-        // get the selected node
-        DefaultMutableTreeNode dmtSelected = (DefaultMutableTreeNode) treeReportByOrder.getSelectionPath().getLastPathComponent();
-        // get the tree model
-        DefaultTreeModel treeModel = (DefaultTreeModel)treeReportByOrder.getModel();
-        // get the parent of the selected node
-        DefaultMutableTreeNode dmtParent = (DefaultMutableTreeNode) dmtSelected.getParent();
-
-        GroupedChange gc = (GroupedChange) dmtSelected.getUserObject();
-        log.debug("selected section = " + gc.getSectionName());
-        log.debug("selected type = " + gc.getObjType());
-        if (gc.getObjType().equals(GroupedChange.OBJECT_TYPE.CHANGE)) {
-            DefaultMutableTreeNode dmtPrev = dmtSelected.getPreviousSibling();
-            if (dmtPrev != null) {
-                GroupedChange gcPrev = (GroupedChange) dmtPrev.getUserObject();
-                Double tmpOrder = 0.0;
-                tmpOrder = gcPrev.getDocumentChange().getManualOrder();
-                gcPrev.getDocumentChange().setManualOrder(gc.getDocumentChange().getManualOrder());
-                gc.getDocumentChange().setManualOrder(tmpOrder);
-                dmtPrev.setUserObject(gc);
-                dmtSelected.setUserObject(gcPrev);
-
-                TreePath prevPath = new TreePath(dmtPrev.getPath());
-
-                final int[] childIndices = {
-                    dmtParent.getIndex(dmtPrev),
-                    dmtParent.getIndex(dmtSelected)
-                };
-
-                treeModel.nodesChanged(dmtParent, childIndices);
-                treeReportByOrder.setSelectionPath(prevPath);
-                // now update the order in the db.
-                BungeniClientDB db = BungeniClientDB.defaultConnect();
-                List<String> updates = new ArrayList<String>(0);
-                updates.add(reportEditableChangesByOrder_Queries.UPDATE_CHANGES_BY_ORDER_MANUAL_ORDER(CommonFunctions.getCurrentBillID(),
-                                                                                        gcPrev.getDocumentChange().getChangeId(),
-                                                                                        gcPrev.getDocumentChange().getManualOrder()));
-                updates.add(reportEditableChangesByOrder_Queries.UPDATE_CHANGES_BY_ORDER_MANUAL_ORDER(CommonFunctions.getCurrentBillID(),
-                                                                                        gc.getDocumentChange().getChangeId(),
-                                                                                        gc.getDocumentChange().getManualOrder()));
-                db.Connect();
-                db.Update(updates, true);
-                db.EndConnect();
-                
-            } else {
-                log.debug("No previous sibling");
-            }
-        }
-
-    }
-
     private void demoteChangeInBranch(){
         PromoteDemoteChangeWorker worker = new PromoteDemoteChangeWorker(btnMoveUp, CHANGE_MOVEMENT.DEMOTE);
         worker.execute();
@@ -364,22 +375,52 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
 
     }
 
+
+    public enum TREE_LOADING_MODES { NEW, LOAD_RECENT, UPDATE_RECENT }
+
     class loadTreeWorker extends SwingWorker {
+
+        final TREE_LOADING_MODES loadingMode;
+        final GeneratedReport reportinfo ;
+        public loadTreeWorker(TREE_LOADING_MODES loadMode, GeneratedReport rinfo){
+            loadingMode = loadMode;
+            reportinfo = rinfo;
+        }
 
         @Override
         protected Object doInBackground() throws Exception {
-                getProcessHook().prepareProcess(reportInputDocuments);
-                return Boolean.TRUE;
+             if (loadingMode.equals(TREE_LOADING_MODES.NEW)) {
+                    getProcessHook().prepareProcess(reportInputDocuments, new HashMap<String,Object>(){
+                        {
+                         put ("REPORT_INFO", reportinfo);
+                         put ("TREE_LOADING_MODE", loadingMode);
+                        }
+                    });
+                    DefaultMutableTreeNode rootNode = loadTree();
+                    return rootNode;
+             } else if (loadingMode.equals(TREE_LOADING_MODES.LOAD_RECENT)) {
+                    DefaultMutableTreeNode rootNode = loadTree();
+                    return rootNode;
+             } else {
+                    getProcessHook().prepareProcess(reportInputDocuments, new HashMap<String,Object>(){
+                        {
+                        put ("REPORT_INFO", reportinfo);
+                        put ("TREE_LOADING_MODE", loadingMode);
+                        }
+                    });
+                    DefaultMutableTreeNode rootNode = loadTree();
+                    return rootNode;
+             }
         }
 
         @Override
         protected void done(){
                 try {
-                    Boolean bProcessDocs = (Boolean) get();
-                    if (bProcessDocs == true ) 
-                        loadTree();
+                    DefaultMutableTreeNode dmtRoot = (DefaultMutableTreeNode) get();
+                    if (dmtRoot != null )
+                        displayTree(dmtRoot);
                     else
-                        log.error("loadTreeWorker : prepare process returned FALSE");
+                        log.error("loadTreeWorker : prepare process returned NULL");
                     stopProgress();
                     for (int i = 0; i < treeReportByOrder.getRowCount(); i++) {
                             treeReportByOrder.expandRow(i);
@@ -391,7 +432,15 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
                 }
         }
 
-        private void loadTree(){
+        private void displayTree(DefaultMutableTreeNode dmtRoot) {
+            if (dmtRoot != null) {
+              DefaultTreeModel treeModel = new DefaultTreeModel(dmtRoot);
+              treeReportByOrder.setCellRenderer(new reportCellRenderer());
+              treeReportByOrder.setModel(treeModel);
+            }
+        }
+
+        private DefaultMutableTreeNode loadTree(){
             DefaultMutableTreeNode dmtRoot = null;
             String query = reportEditableChangesByOrder_Queries.GET_ROOT_SECTION_HIERARCHY(CommonFunctions.getCurrentBillID());
             BungeniClientDB db = BungeniClientDB.defaultConnect();
@@ -420,14 +469,9 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
                     processSubTreeHiearchy (db, CommonFunctions.getCurrentBillID(), dmtRoot, rootSecName, rootSecType, rootSecId );
 
                     }
-
                 }
-            if (dmtRoot != null) {
-              DefaultTreeModel treeModel = new DefaultTreeModel(dmtRoot);
-              treeReportByOrder.setCellRenderer(new reportCellRenderer());
-              treeReportByOrder.setModel(treeModel);
-            }
-            }
+                return dmtRoot;
+        }
 
         }
 
@@ -591,7 +635,8 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
      * This is called right after showUI
      * @return
      */
-    public boolean initUI() {
+    public boolean initUI(HashMap<String,String> inputParams) {
+            this.m_reportName = inputParams.get("REPORT_NAME");
             initialize();
             return true;
     }

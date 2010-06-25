@@ -213,7 +213,11 @@ public class panelConsolidateChanges extends panelChangesBase {
             if (selReport.hasReportUI()) {
                 selReport.getReportUI().setInputDocuments(changesInfo.getDocuments().toArray(new BungeniOdfDocumentHelper[changesInfo.getDocuments().size()]));
                 selReport.getReportUI().showUI(parentFrame);
-                selReport.getReportUI().initUI();
+                selReport.getReportUI().initUI(new HashMap<String,String>(){
+                                                                            {
+                                                                                put("REPORT_NAME", selReport.getReportName());
+                                                                            }
+                                                                        });
             } else {
                 //no UI so process inplace
                 getContainerInterface().startProgress();
