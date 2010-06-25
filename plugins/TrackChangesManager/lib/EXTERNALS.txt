@@ -8,3 +8,4 @@ swing-layout-ext http://bungeni-editor.googlecode.com/svn/external_imports/trunk
 swingfx http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/swingfx
 ini4j http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/ini4j
 h2db http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/h2db
+commons-codec http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/commons-codec
