@@ -385,7 +385,7 @@ public class xmlMergeMain {
 
 
     /**
-     *
+     * Extracts the font-face declarations in a ODF file -- these also need to be merged
      * @param document
      */
     private void extractFontFaceDecls(OdfDocument document) {
@@ -406,7 +406,7 @@ public class xmlMergeMain {
 
 
     /**
-     *
+     * extract automatic styles in a odf document - these also need to be merged
      * @param document
      */
     private void extractAutomaticStyles(OdfDocument document) {
