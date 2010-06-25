@@ -36,7 +36,7 @@ public class BungeniOdfDocumentReportFactory {
                 IBungeniOdfDocumentReportProcess iReportProcess = getReportObjectFromClass(reportProcessClass.get(0));
                 IBungeniOdfDocumentReportUI iReportUI = getReportUIFromClass(reportUIClass.get(0));
                 ReportType objReportType = ReportType.parseReportType(reportProcessType.get(0));
-                BungeniOdfUserReport report = new BungeniOdfUserReport(rptTemplate, iReportProcess, iReportUI, objReportType);
+                BungeniOdfUserReport report = new BungeniOdfUserReport(reportRef, rptTemplate, iReportProcess, iReportUI, objReportType);
                 reportObjects.add(report);
             } catch (Exception ex) {
                 log.error("getAllReports" + ex.getMessage());

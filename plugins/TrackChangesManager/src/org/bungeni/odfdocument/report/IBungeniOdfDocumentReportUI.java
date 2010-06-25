@@ -1,5 +1,6 @@
 package org.bungeni.odfdocument.report;
 
+import java.util.HashMap;
 import javax.swing.JFrame;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 
@@ -14,6 +15,11 @@ public interface IBungeniOdfDocumentReportUI {
     public boolean setProcessHook(IBungeniOdfDocumentReportProcess processHook);
     public boolean setInputDocuments(BungeniOdfDocumentHelper[] docHelpers);
     public IBungeniOdfDocumentReportProcess getProcessHook();
-    public boolean initUI();
+    /**
+     * A hashmap to pass key value pairs into the report creation interface
+     * @param reportInfo
+     * @return
+     */
+    public boolean initUI(HashMap<String,String> reportInfo);
 
 }

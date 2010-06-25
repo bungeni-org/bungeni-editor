@@ -1,5 +1,6 @@
 package org.bungeni.odfdocument.report;
 
+import java.util.HashMap;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 
 /**
@@ -12,7 +13,7 @@ public abstract class BungeniOdfDocumentReportProcess implements IBungeniOdfDocu
  public  abstract BungeniOdfDocumentReport generateReport (BungeniOdfDocumentReportTemplate aTemplate, BungeniOdfDocumentHelper aDochelper);
  public  abstract BungeniOdfDocumentReport generateReport (BungeniOdfDocumentReportTemplate aTemplate, BungeniOdfDocumentHelper[] aDochelper);
 
- public abstract boolean prepareProcess(BungeniOdfDocumentHelper[] aDochelper);
+ public abstract boolean prepareProcess(BungeniOdfDocumentHelper[] aDochelper, HashMap<String,Object> paramMap);
 
 
 
