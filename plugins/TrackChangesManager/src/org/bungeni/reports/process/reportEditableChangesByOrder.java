@@ -90,27 +90,31 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
             db.Update(hierarchyQueries, true);
             db.EndConnect();
         }
+        int iOrder = 0;
+        List<String> queries = new ArrayList<String>(0);
         
         for (BungeniOdfDocumentHelper aDochelper : aDochelpers) {
-
             final BungeniOdfTrackedChangesHelper changesHelper = aDochelper.getChangesHelper();
             List<StructuredChangeType> changes = changesHelper.getAllChanges();
-            List<String> queries = new ArrayList<String>(0);
             final String documentPath = aDochelper.getDocumentPath();
-            Integer iOrder = 0;
             /**
-             * Cleanup is only requiered in UPDATE_RECENT mode
+             * Cleanup is only requiered in UPDATE_RECENT mode for the very first execution
              */
-            if (this.m_loadingMode == TREE_LOADING_MODES.UPDATE_RECENT) {
-                queries.add(reportEditableChangesByOrder_Queries.CLEANUP_QUERY(m_genReport.getReportId()));
+            if (this.m_loadingMode == TREE_LOADING_MODES.UPDATE_RECENT && iOrder == 0) {
+                db.Connect();
+                db.Update(reportEditableChangesByOrder_Queries.CLEANUP_QUERY(m_genReport.getReportId()));
+                db.EndConnect();
+                iOrder++;
             }
-            queries = addInsertQueries(aDochelper, changes, queries) ;
-           
-            db.Connect();
-            db.Update(queries, true);
-            db.EndConnect();
 
+
+            queries.addAll(addInsertQueries(aDochelper, changes));
         }
+
+        db.Connect();
+        db.Update(queries, true);
+        db.EndConnect();
+
         return true;
     }
 
@@ -132,7 +136,7 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
         OdfTextSection aSection = secHelper.getSection("bill");
         String sectionID = secHelper.getSectionID(aSection);
         queries.add(reportEditableChangesByOrder_Queries.CLEAR_SECTION_HIERARCHY( m_genReport.getReportId()));
-        queries.add(reportEditableChangesByOrder_Queries.ADD_SECTION_HIERARCHY(m_genReport.getReportId(), CommonFunctions.getCurrentBillID(), origDoc.getDocumentPath(), "bill", "root", sectionID, "", 0));
+        queries.add(reportEditableChangesByOrder_Queries.ADD_SECTION_HIERARCHY(m_genReport.getReportId(),  origDoc.getDocumentPath(), "bill", "root", sectionID, "", 0));
         processHierarchyChildSections(origDoc, secHelper, aSection, queries);
         return queries;
 
@@ -147,7 +151,7 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
             String thisSecName = thisSection.getTextNameAttribute();
             String thisSecId = secHelper.getSectionID(thisSection);
             if (thisSecId.length() > 0 ) {
-                queries.add(reportEditableChangesByOrder_Queries.ADD_SECTION_HIERARCHY(m_genReport.getReportId(), CommonFunctions.getCurrentBillID(), origDoc.getDocumentPath(), thisSecName, thisSecType, thisSecId,parentSectionId, i));
+                queries.add(reportEditableChangesByOrder_Queries.ADD_SECTION_HIERARCHY(m_genReport.getReportId(),  origDoc.getDocumentPath(), thisSecName, thisSecType, thisSecId,parentSectionId, i));
                 processHierarchyChildSections(origDoc, secHelper, thisSection, queries);
             }
         }
@@ -312,7 +316,8 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
         return null;
     }
 
-    private List<String> addInsertQueries (BungeniOdfDocumentHelper aDochelper, List<StructuredChangeType> changes, List<String> queries) {
+    private List<String> addInsertQueries (BungeniOdfDocumentHelper aDochelper, List<StructuredChangeType> changes) {
+            List<String> queries = new ArrayList<String>(0);
             BungeniOdfTrackedChangesHelper changesHelper = aDochelper.getChangesHelper();
             String documentPath = aDochelper.getDocumentPath();
             //String changesOwner = aDochelper.getPropertiesHelper().getUserDefinedPropertyValue("BungeniDocAuthor");
@@ -346,7 +351,6 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
 
             String strQuery = reportEditableChangesByOrder_Queries.ADD_CHANGE_BY_ORDER(
                     this.m_genReport.getReportId(),
-                    CommonFunctions.getCurrentBillID(),
                     documentPath,
                     structuredChangeType.changeId,
                     structuredChangeType.changetype,
@@ -371,7 +375,7 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
 
     public List<BungeniOdfReportLine> getReportLinesByChangeOrder(BungeniClientDB db) {
         List<BungeniOdfReportLine> reportLines = new ArrayList<BungeniOdfReportLine>(0);
-        String sQuery = reportEditableChangesByOrder_Queries.CHANGES_BY_ORDER(CommonFunctions.getCurrentBillID());
+        String sQuery = reportEditableChangesByOrder_Queries.CHANGES_BY_ORDER(m_genReport.getReportId());
         QueryResults qr = db.ConnectAndQuery(sQuery);
         
         if (qr.hasResults()) {

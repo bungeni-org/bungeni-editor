@@ -7,7 +7,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 import org.apache.commons.codec.binary.Base64;
+import org.bungeni.db.BungeniClientDB;
 import org.bungeni.odfdom.utils.BungeniOdfDateHelper;
+import org.bungeni.reports.process.reportEditableChangesByOrder_Queries;
 
 /**
  *
@@ -124,7 +126,18 @@ public class GeneratedReport {
             Calendar cal = Calendar.getInstance();
             SimpleDateFormat sdf = new SimpleDateFormat(BungeniOdfDateHelper.DEFAULT_JAVA_DATE_FORMAT);
             String sDateNow = sdf.format(cal.getTime());
-
-            return new GeneratedReport (getShortUUID(), reportName, sDateNow, billId, "false");
+            GeneratedReport genReport  = new GeneratedReport (getShortUUID(), reportName, sDateNow, billId, "false");
+            BungeniClientDB db = BungeniClientDB.defaultConnect();
+            db.Connect();
+            String updQuery = reportEditableChangesByOrder_Queries.ADD_NEW_REPORT_FOR_BILL(
+                    genReport.reportId,
+                    genReport.reportName,
+                    genReport.reportGenerationDate,
+                    genReport.billId,
+                    genReport.userEditedName);
+            log.info("newGeneratedReport :" + updQuery);
+            db.Update(updQuery);
+            db.EndConnect();
+            return genReport;
     }
 }

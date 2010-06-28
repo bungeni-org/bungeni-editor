@@ -21,5 +21,5 @@ public interface IBungeniOdfDocumentReportUI {
      * @return
      */
     public boolean initUI(HashMap<String,String> reportInfo);
-
+    public boolean refreshUI();
 }

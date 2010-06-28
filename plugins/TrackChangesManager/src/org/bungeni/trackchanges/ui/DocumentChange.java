@@ -84,7 +84,7 @@ public class DocumentChange {
 
     @Override
     public String toString(){
-        return "[" + changeOwner + " - " + changeDate + " ]";
+        return "[" + changeOwner + " - " + changeId + " ]";
     }
 
     /**

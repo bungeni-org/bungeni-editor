@@ -18,7 +18,7 @@ public class reportEditableChangesByOrder_Queries {
 
     public static String ADD_NEW_REPORT_FOR_BILL(String reportId, String reportName, Date genDate, String billId, Boolean userEditedName) {
         String query = "insert into generated_reports (report_id, report_name, generated_date, bill_id, user_edited_name) values (" +
-                "'" + reportId + "','" + reportName + "','" + genDate + "','" + billId + "'," + userEditedName + ")";
+                "'" + reportId + "','" + reportName + "','" + (new java.sql.Timestamp(genDate.getTime())) + "','" + billId + "'," + userEditedName + ")";
         return query;
     }
 
@@ -28,14 +28,14 @@ public class reportEditableChangesByOrder_Queries {
         return query;
     }
 
-    public static String GET_ROOT_SECTION_HIERARCHY (String billId ) {
+    public static String GET_ROOT_SECTION_HIERARCHY (String reportId ) {
         String query = SECTION_HIERARCHY_COLUMNS() +
-                " where bill_id = '"+ billId+ "' and section_type='root' ";
+                " where report_id = '"+ reportId + "' and section_type='root' ";
                 return query;
     }
 
-    public static String GET_SECTION_HIERARCHY( String billId, String parentSectionID) {
-        String query =  SECTION_HIERARCHY_COLUMNS() + " where bill_id = '" + billId + "' and " +
+    public static String GET_SECTION_HIERARCHY( String reportId, String parentSectionID) {
+        String query =  SECTION_HIERARCHY_COLUMNS() + " where report_id = '" + reportId + "' and " +
                 "section_parent = '" + parentSectionID + "' order by section_order asc";
         return query;
     }
@@ -68,16 +68,14 @@ public class reportEditableChangesByOrder_Queries {
      * @param secOrder Section Order (within Parent)
      * @return
      */
-    public static String ADD_SECTION_HIERARCHY (String reportId, String billId, String docName, String secName, String secType, String secId, String secParent, Integer secOrder) {
+    public static String ADD_SECTION_HIERARCHY (String reportId,  String docName, String secName, String secType, String secId, String secParent, Integer secOrder) {
 
         String queries = "insert into section_hierarchy (" +
-                "report_id, bill_id, doc_name, section_name, section_type, section_id, section_parent, section_order" +
+                "report_id, doc_name, section_name, section_type, section_id, section_parent, section_order" +
                 ") values " +
                 "('" +
                 reportId +
                 "','"+
-                billId +
-                "','" +
                 docName +
                 "','" +
                 secName +
@@ -95,7 +93,7 @@ public class reportEditableChangesByOrder_Queries {
 
     }
 
-    public static String ADD_CHANGE_BY_ORDER(String reportId, String billId, String docName,
+    public static String ADD_CHANGE_BY_ORDER(String reportId,  String docName,
                                                 String changeId, String changeType,
                                                 String pathStart, String pathEnd,
                                                 Boolean bState, Integer orderWeight,
@@ -105,7 +103,6 @@ public class reportEditableChangesByOrder_Queries {
                                                 String sectionType, String sectionID) {
         String sQuery = "insert into changes_by_order (" +
                 "report_id, " +
-                "bill_id, " +
                 "doc_name, " +
                 "change_id, " +
                 "change_type, " +
@@ -125,8 +122,6 @@ public class reportEditableChangesByOrder_Queries {
                 "values ("
                 + "'" +
                 reportId 
-                + "','" +
-                billId
                 + "','" +
                 docName
                 + "','" +
@@ -164,32 +159,33 @@ public class reportEditableChangesByOrder_Queries {
                 "path_start like '" + nodeFragment + "%'";
                 return sQuery;
     }
-
+/*
    public static String GET_CHANGE_GROUPS_BILL_BY_MANUAL_ORDER(String billId) {
         String sQuery = "select  group_by from changes_by_order " +
                 "where bill_id = '" + billId + "' " +
                 "group by  group_by, manual_order order by manual_order ";
         return sQuery;
     }
+*/
 
-   public static String GET_CHANGES_BY_GROUP_IN_DOC_ORDER(String billId, String parentSectionId) {
+   public static String GET_CHANGES_BY_GROUP_IN_DOC_ORDER(String report_id, String parentSectionId) {
        String sQuery =
                "SELECT doc_name, change_id, change_type, path_start, path_end, order_in_doc, owner, change_date, change_text, order_weight, manual_order  FROM CHANGES_BY_ORDER " +
                "where section_id = '"+  parentSectionId + "'  and " +
-               "bill_id = '" + billId  + "' " +
+               "report_id = '" + report_id  + "' " +
                "group by doc_name, change_id, change_type, path_start, path_end " +
-               "order by doc_name, manual_order" ;
+               "order by manual_order" ;
        return sQuery;
    }
 
 
-   public static String UPDATE_CHANGES_BY_ORDER_MANUAL_ORDER (String billId, String changeId, Double manualOrder){
+   public static String UPDATE_CHANGES_BY_ORDER_MANUAL_ORDER (String reportId, String changeId, Double manualOrder){
        String sQuery = "Update changes_by_order set manual_order = " + manualOrder.toString() +
-                        " where change_id = '" + changeId + "' and bill_id = '" + billId + "'";
+                        " where change_id = '" + changeId + "' and report_id = '" + reportId + "'";
        return sQuery ;
 
    }
-
+/*
     public static String UPDATE_CHANGES_FOR_SECTION_NODE (String billId, String docName, String nodeFragment, String sectionType, Integer iWeight, Double dOrder) {
         String sQuery = "Update CHANGES_BY_ORDER " +
                 "set group_by = '" + sectionType + "' , " +
@@ -202,7 +198,8 @@ public class reportEditableChangesByOrder_Queries {
                 "doc_name = '" + docName + "'";
         return sQuery;
     }
-
+*/
+/*
     public static String UPDATE_CHANGES_FOR_DELETED_NODE (String billId, String docName, String changeId, String groupBy, Integer iWeight, Double dOrder ) {
         String sQuery = "Update changes_by_order " +
                 "set group_by = '" + groupBy + "' ," +
@@ -219,15 +216,15 @@ public class reportEditableChangesByOrder_Queries {
 
 
     }
-
+*/
     public static String CLEANUP_QUERY (String reportId ) {
         String sQuery = "delete from CHANGES_BY_ORDER where report_id = '" + reportId + "' ";
         return sQuery;
     }
 
-    public static String CHANGES_BY_ORDER (String billId) {
+    public static String CHANGES_BY_ORDER (String reportId) {
         String sQuery = "Select doc_name, change_id, group_by, order_weight from changes_by_order " +
-                "where bill_id = '"+ billId +"' " +
+                "where report_id = '"+ reportId +"' " +
                 " group by doc_name, change_id, group_by " +
                 " order by order_weight";
         return sQuery;
@@ -235,6 +232,7 @@ public class reportEditableChangesByOrder_Queries {
     /*
      * Order weight 0 means the item has been deleted ... the section was never found.
      */
+    /*
     public static String CHECK_DELETED (String billId, String docName) {
         String sQuery = "select doc_name, change_id, change_type, path_start, path_end, processed, group_by " +
                 "from changes_by_order " +
@@ -242,6 +240,6 @@ public class reportEditableChangesByOrder_Queries {
                 "doc_name = '"+ docName +"'  and " +
                 "order_weight=0 and group_by=''";
         return sQuery;
-    }
+    }*/
 
 }

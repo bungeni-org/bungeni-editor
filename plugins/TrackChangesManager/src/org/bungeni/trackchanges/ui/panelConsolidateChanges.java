@@ -9,9 +9,6 @@ import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper.StructuredChangeType;
 import org.bungeni.trackchanges.ui.support.TextAreaRenderer;
-import org.bungeni.trackchanges.utils.AppProperties;
-import org.bungeni.trackchanges.utils.CommonFunctions;
-import org.bungeni.trackchanges.utils.ReviewDocuments;
 import org.bungeni.trackchanges.utils.RuntimeProperties;
 
 import org.odftoolkit.odfdom.doc.text.OdfTextChangedRegion;
@@ -23,8 +20,6 @@ import org.w3c.dom.Element;
 import java.awt.Color;
 import java.awt.Component;
 
-import java.io.File;
-import java.io.FilenameFilter;
 
 import java.text.MessageFormat;
 
@@ -32,7 +27,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.regex.Pattern;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;

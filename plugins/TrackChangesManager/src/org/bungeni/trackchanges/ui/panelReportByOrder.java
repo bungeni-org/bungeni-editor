@@ -2,10 +2,9 @@ package org.bungeni.trackchanges.ui;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
@@ -28,7 +27,6 @@ import org.bungeni.odfdocument.report.GeneratedReport;
 import org.bungeni.odfdocument.report.IBungeniOdfDocumentReportProcess;
 import org.bungeni.odfdocument.report.IBungeniOdfDocumentReportUI;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
-import org.bungeni.odfdom.utils.BungeniOdfDateHelper;
 import org.bungeni.reports.process.reportEditableChangesByOrder_Queries;
 import org.bungeni.trackchanges.ui.GroupedChange.OBJECT_TYPE;
 import org.bungeni.trackchanges.utils.CommonFunctions;
@@ -173,7 +171,10 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         init_Tree(aReport);
     }
 
-
+    public void clearTree(){
+         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Loading...");
+        treeReportByOrder.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+    }
   
 
     private GeneratedReport lastReportExists () {
@@ -191,6 +192,7 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
                 break;
             }
         }
+
         return reportObj;
     }
 
@@ -200,7 +202,7 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
             load_Tree(TREE_LOADING_MODES.NEW, GeneratedReport.newGeneratedReport(m_reportName, CommonFunctions.getCurrentBillID()));
         } else {
             //there is a last report .. prompt the user if they want to see that or generate  new one
-            final int nOption = JOptionPane.showConfirmDialog(this.parentFrame,
+            final int nOption = JOptionPane.showConfirmDialog(panelReportByOrder.thisFrame,
                     "There is a previous report of this type for the bill. \n" +
                     " Would you like to open the saved report ? Clicking no will regenerate report",
                     "Report generation",
@@ -226,6 +228,11 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
               this.treeReportByOrder.addTreeSelectionListener(new treeReportByOrderSelectionListener());
     }
 
+    public boolean refreshUI() {
+        initComponents();
+        return true;
+    }
+
 
 
     /**
@@ -241,7 +248,7 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         DefaultMutableTreeNode dmtParent;
         GroupedChange gc , gcPrev;
         JButton thisButton ;
-
+        GeneratedReport genReport ;
         /**
          * Promotes  / demotes a node
          * @param btn
@@ -251,6 +258,8 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
             this.thisButton = btn;
             this.changeMovement = cm;
             this.thisButton.setEnabled(false);
+            genReport = lastReportExists();
+
         }
 
         @Override
@@ -309,10 +318,10 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
                         BungeniClientDB db = BungeniClientDB.defaultConnect();
                         List<String> updates = new ArrayList<String>(0);
 
-                        updates.add(reportEditableChangesByOrder_Queries.UPDATE_CHANGES_BY_ORDER_MANUAL_ORDER(CommonFunctions.getCurrentBillID(),
+                        updates.add(reportEditableChangesByOrder_Queries.UPDATE_CHANGES_BY_ORDER_MANUAL_ORDER(genReport.getReportId(),
                                                                                                 gcPrev.getDocumentChange().getChangeId(),
                                                                                                 gcPrev.getDocumentChange().getManualOrder()));
-                        updates.add(reportEditableChangesByOrder_Queries.UPDATE_CHANGES_BY_ORDER_MANUAL_ORDER(CommonFunctions.getCurrentBillID(),
+                        updates.add(reportEditableChangesByOrder_Queries.UPDATE_CHANGES_BY_ORDER_MANUAL_ORDER(genReport.getReportId(),
                                                                                                 gc.getDocumentChange().getChangeId(),
                                                                                                 gc.getDocumentChange().getManualOrder()));
                         log.error("update : " + updates.get(0));
@@ -330,12 +339,18 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
 
 
     private void promoteChangeInBranch(){
+        if (this.treeReportByOrder.getSelectionCount() == 0 ) {
+            return;
+        }
         PromoteDemoteChangeWorker worker = new PromoteDemoteChangeWorker(btnMoveUp, CHANGE_MOVEMENT.PROMOTE);
         worker.execute();
     }
 
 
     private void demoteChangeInBranch(){
+        if (this.treeReportByOrder.getSelectionCount() == 0 ) {
+            return;
+        }
         PromoteDemoteChangeWorker worker = new PromoteDemoteChangeWorker(btnMoveUp, CHANGE_MOVEMENT.DEMOTE);
         worker.execute();
     }
@@ -442,7 +457,7 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
 
         private DefaultMutableTreeNode loadTree(){
             DefaultMutableTreeNode dmtRoot = null;
-            String query = reportEditableChangesByOrder_Queries.GET_ROOT_SECTION_HIERARCHY(CommonFunctions.getCurrentBillID());
+            String query = reportEditableChangesByOrder_Queries.GET_ROOT_SECTION_HIERARCHY(this.reportinfo.getReportId());
             BungeniClientDB db = BungeniClientDB.defaultConnect();
             QueryResults qr = db.ConnectAndQuery(query);
             if (qr.hasResults()) {
@@ -466,18 +481,16 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
 
                     //query child sections
                     */
-                    processSubTreeHiearchy (db, CommonFunctions.getCurrentBillID(), dmtRoot, rootSecName, rootSecType, rootSecId );
+                    processSubTreeHiearchy (db, dmtRoot, rootSecName, rootSecType, rootSecId );
 
                     }
                 }
                 return dmtRoot;
         }
 
-        }
+          private void processSubTreeHiearchy (BungeniClientDB db, DefaultMutableTreeNode dmtParent, String baseSecName, String baseSecType, String baseSecId  ) {
 
-        private void processSubTreeHiearchy (BungeniClientDB db, String billId, DefaultMutableTreeNode dmtParent, String baseSecName, String baseSecType, String baseSecId  ) {
-
-                QueryResults qr = db.ConnectAndQuery(reportEditableChangesByOrder_Queries.GET_CHANGES_BY_GROUP_IN_DOC_ORDER(CommonFunctions.getCurrentBillID(),
+                QueryResults qr = db.ConnectAndQuery(reportEditableChangesByOrder_Queries.GET_CHANGES_BY_GROUP_IN_DOC_ORDER(reportinfo.getReportId(),
                                baseSecId));
 
                     if (qr.hasResults()) {
@@ -505,7 +518,7 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
 
                     //query child sections
                 qr = db.ConnectAndQuery(reportEditableChangesByOrder_Queries.GET_SECTION_HIERARCHY(
-                            CommonFunctions.getCurrentBillID(),
+                            this.reportinfo.getReportId(),
                             baseSecId
                             ));
                  if (qr.hasResults()) {
@@ -516,13 +529,17 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
                          String secType  = qr.getField(aRow, "SECTION_TYPE");
                          GroupedChange gc = new GroupedChange(secName, secType, secId);
                          DefaultMutableTreeNode dmtSec = new DefaultMutableTreeNode(gc);
-                         processSubTreeHiearchy(db, billId, dmtSec, secName, secType, secId);
+                         processSubTreeHiearchy(db,dmtSec, secName, secType, secId);
                          dmtParent.add(dmtSec);
                      }
                  }
 
 
-       }
+        }
+
+        }
+
+      
 
         /*
         private void loadTree(){
@@ -584,8 +601,16 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         */
 
      public  void createAndShowGUI(JFrame parentFrame) {
+                final panelReportByOrder thispanel = this;
                 if (panelReportByOrder.thisFrame == null) {
                     panelReportByOrder.thisFrame = new JFrame("Report");
+                    panelReportByOrder.thisFrame.addWindowListener(new WindowAdapter(){
+                        @Override
+                        public void windowClosed(WindowEvent e) {
+                            log.debug("Window closed");
+                            thispanel.clearTree();
+                        }
+                    });
                     panelReportByOrder.thisFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     this.setParentFrame(parentFrame);
                     this.setPanelName("ReportByOrder");
@@ -597,6 +622,7 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
                     if (thisFrame.isVisible()) {
                         thisFrame.requestFocus();
                     } else {
+                        thisFrame.setExtendedState(JFrame.NORMAL);
                         thisFrame.setVisible(true);
                         thisFrame.requestFocus();
                     }
