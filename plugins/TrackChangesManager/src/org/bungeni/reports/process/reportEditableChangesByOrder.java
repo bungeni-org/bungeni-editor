@@ -186,8 +186,8 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
                          BungeniOdfSectionHelper sechelper = dochelper.getSectionHelper();
                          
                          reportHeader.setHeaderValue("SECTION_ID", secId);
-                         reportHeader.setHeaderValue("SECTION_NAME",  qr.getField(aRow, "SECTION_NAME"));
-                         reportHeader.setHeaderValue("SECTION_TYPE",  qr.getField(aRow, "SECTION_TYPE"));
+                         reportHeader.setHeaderValue("SECTION_NAME",  secName);
+                         reportHeader.setHeaderValue("SECTION_TYPE",  secType);
                          reportHeader.setHeaderValue("SECTION_TYPE_INDEX", getSectionOrder(db, secId).toString());
 
                          headers.add(reportHeader);
@@ -201,7 +201,9 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
     private void buildReportLines (BungeniClientDB db, BungeniOdfReportHeader hdr) {
         QueryResults qr = db.ConnectAndQuery(reportEditableChangesByOrder_Queries.GET_CHANGES_BY_GROUP_IN_DOC_ORDER(this.m_genReport.getReportId(), hdr.getHeaderValue("SECTION_ID")));
         if (qr.hasResults()) {
-            
+            for (Vector<String> aRow : qr.theResults()) {
+
+            }
         }
     }
 
