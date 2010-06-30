@@ -28,7 +28,8 @@ public class BungeniOdfDocumentReport extends BungeniReportBase {
 
     BungeniOdfDocumentReportTemplate basedOnTemplate = null;
  //   BungeniOdfDocumentHelper reportDocument = null;
-    List<BungeniOdfReportLine> reportLines = new ArrayList<BungeniOdfReportLine>(0);
+    List<BungeniOdfReportHeader> reportHeaders = new ArrayList<BungeniOdfReportHeader>(0);
+    /**List<BungeniOdfReportLine> reportLines = new ArrayList<BungeniOdfReportLine>(0); **/
     TreeMap<String,Object> reportVariables = new TreeMap<String,Object>();
 
          private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BungeniOdfDocumentReport.class.getName());
@@ -65,30 +66,29 @@ public class BungeniOdfDocumentReport extends BungeniReportBase {
 
 
 
-    public void addReportLine(BungeniOdfReportLine reportLine) {
-        reportLines.add(reportLine);
+    public void addReportHeader(BungeniOdfReportHeader reportHeader) {
+        this.reportHeaders.add(reportHeader);
     }
 
-    public void addReportLines(List<BungeniOdfReportLine> lines) {
-        for (BungeniOdfReportLine bungeniOdfReportLine : lines) {
-            reportLines.add(bungeniOdfReportLine);
-        }
+    public void addReportHeaders(List<BungeniOdfReportHeader> headers) {
+        this.reportHeaders.addAll(headers);
     }
 
     /**
      * This function generates the report lines within the report body
      * @return
      */
-    public boolean generateReportLines() {
+    public boolean generateReportHeaders() {
         //first duplicate sections for number of lines.
         boolean bReturn = false;
-        int nCount = this.reportLines.size();
+        int nCount = this.reportHeaders.size();
         BungeniOdfSectionHelper secHelper = this.m_docHelper.getSectionHelper();
-        OdfTextSection masterSection = secHelper.getSection("ReportLine-Repeat");
+        //ReportLine-Repeat is the repeater for the header
+        OdfTextSection masterSection = secHelper.getSection("ReportHeader-Repeat");
         OdfTextSection prevSection = masterSection;
         for (int i = nCount; i > 0; i--) {
              OdfTextSection copySection = (OdfTextSection) masterSection.cloneNode(true);
-             copySection.setTextNameAttribute("reportline-"+ i);
+             copySection.setTextNameAttribute("reporthdr-"+ i);
              prevSection.getParentNode().insertBefore(copySection, prevSection);
              prevSection = copySection;
         }
@@ -154,10 +154,10 @@ public class BungeniOdfDocumentReport extends BungeniReportBase {
             //get the input section
             OdfTextSection aSection = reportLineSections.get(iSecIndex);
             //get the input section feeder
-            BungeniOdfReportLine reportLine = this.reportLines.get(iSecIndex);
+            BungeniOdfReportHeader reportHeader = this.reportHeaders.get(iSecIndex);
             //get the available report line variables
-            Set<String> lineVariableNames = reportLine.getLineVariableNames();
-            Iterator<String> varIterator = lineVariableNames.iterator();
+            Set<String> hdrVariableNames = reportHeader.getHeaderVariableNames();
+            Iterator<String> varIterator = hdrVariableNames.iterator();
             while (varIterator.hasNext()) {
                 try {
                     String ssVar = varIterator.next();
@@ -167,14 +167,14 @@ public class BungeniOdfDocumentReport extends BungeniReportBase {
                         Node aNode = matchingTextNodes.item(j);
                         String sContent = aNode.getTextContent();
                         String escKey = this.buildEscapedKey(ssVar);
-                        String lineVariable = reportLine.getLineVariable(ssVar).toString();
-                        if (lineVariable.equals("[DELETE]")) {
+                        String headerVariable = reportHeader.getHeaderValue(ssVar).toString();
+                        if (headerVariable.equals("[DELETE]")) {
                             if (aNode.getParentNode().getTextContent().equals(aNode.getTextContent()))
                                 nodesMarkedForDeletion.add(aNode.getParentNode());
                             else
                                 nodesMarkedForDeletion.add(aNode);
                         } else {
-                            sContent = sContent.replaceAll(escKey, lineVariable);
+                            sContent = sContent.replaceAll(escKey, headerVariable);
                             aNode.setTextContent(sContent);
                         }
                     }
@@ -196,6 +196,7 @@ public class BungeniOdfDocumentReport extends BungeniReportBase {
 
     public void processReportLines(){
         //first generate report lines
+        generateReportHeaders();
         generateReportLines();
         //build the data into the report lines
         feedReportLines();

@@ -7,12 +7,14 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.QueryResults;
 import org.bungeni.odfdocument.report.BungeniOdfDocumentReport;
 import org.bungeni.odfdocument.report.BungeniOdfDocumentReportProcess;
 import org.bungeni.odfdocument.report.BungeniOdfDocumentReportTemplate;
+import org.bungeni.odfdocument.report.BungeniOdfReportHeader;
 import org.bungeni.odfdocument.report.BungeniOdfReportLine;
 import org.bungeni.odfdocument.report.GeneratedReport;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
@@ -157,8 +159,91 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
         }
     }
 
+
+    //Returns the order of a section within its parent container
+   private Integer getSectionOrder(BungeniClientDB db, String secId) {
+       QueryResults qr = db.ConnectAndQuery(reportEditableChangesByOrder_Queries.GET_SECTION_INFO(this.m_genReport.getReportId(), secId));
+       if (qr.hasResults()) {
+           return Integer.parseInt(qr.getSingleColumnResult("SECTION_ORDER")[0]) + 1;
+       }
+       return 0;
+   }
+
+
+    private void processHeaderHiearchy (BungeniClientDB db, List<BungeniOdfReportHeader> headers, String baseSecId, BungeniOdfDocumentHelper dochelper  ) {
+                    //query child sections
+                QueryResults qr = db.ConnectAndQuery(reportEditableChangesByOrder_Queries.GET_SECTION_HIERARCHY(
+                            this.m_genReport.getReportId(),
+                            baseSecId
+                            ));
+                 if (qr.hasResults()) {
+                     Vector<Vector<String>> results = qr.theResults();
+                     for (Vector<String> aRow : results) {
+                         BungeniOdfReportHeader reportHeader = new BungeniOdfReportHeader();
+                         String secId = qr.getField(aRow, "SECTION_ID");
+                         String secType = qr.getField(aRow, "SECTION_TYPE");
+                         String secName = qr.getField(aRow, "SECTION_NAME");
+                         BungeniOdfSectionHelper sechelper = dochelper.getSectionHelper();
+                         
+                         reportHeader.setHeaderValue("SECTION_ID", secId);
+                         reportHeader.setHeaderValue("SECTION_NAME",  qr.getField(aRow, "SECTION_NAME"));
+                         reportHeader.setHeaderValue("SECTION_TYPE",  qr.getField(aRow, "SECTION_TYPE"));
+                         reportHeader.setHeaderValue("SECTION_TYPE_INDEX", getSectionOrder(db, secId).toString());
+
+                         headers.add(reportHeader);
+                         buildReportLines (db, reportHeader);
+                         processHeaderHiearchy(db,headers, secId, dochelper);
+                         //dmtParent.add(dmtSec);
+                     }
+                 }
+        }
+
+    private void buildReportLines (BungeniClientDB db, BungeniOdfReportHeader hdr) {
+        QueryResults qr = db.ConnectAndQuery(reportEditableChangesByOrder_Queries.GET_CHANGES_BY_GROUP_IN_DOC_ORDER(this.m_genReport.getReportId(), hdr.getHeaderValue("SECTION_ID")));
+        if (qr.hasResults()) {
+            
+        }
+    }
+
+       
+
+
     @Override
     public BungeniOdfDocumentReport generateReport(BungeniOdfDocumentReportTemplate aTemplate, BungeniOdfDocumentHelper aDochelper) {
+        /**
+         * 
+         * First we setup the document structure 
+         * and then we fill in the blanks
+         *
+         * 1) Order by sections and types
+         * 2) Get changes within each section and populate the report line
+         */
+
+         List<BungeniOdfReportHeader> headers = new ArrayList<BungeniOdfReportHeader>(0);
+         String rQuery = reportEditableChangesByOrder_Queries.GET_ROOT_SECTION_HIERARCHY(this.m_genReport.getReportId());
+         BungeniClientDB db = BungeniClientDB.defaultConnect();
+         QueryResults qr = db.ConnectAndQuery(rQuery);
+         if (qr.hasResults()) {
+             //Select section_name, section_type, section_id, section_parent, section_order, doc_name
+                Vector<Vector<String>> rows = qr.theResults();
+                String[] idColumns = qr.getSingleColumnResult("SECTION_ID");
+                String[] docNames = qr.getSingleColumnResult("DOC_NAME");
+
+                String rootSectionId = idColumns[0];
+                String docName = docNames[0];
+                BungeniOdfDocumentHelper docHelper = null;
+            try {
+                docHelper = new BungeniOdfDocumentHelper(new File(docName));
+            } catch (Exception ex) {
+                log.error(ex);
+            }
+                //now iterate through the hieararchy
+                processHeaderHiearchy(db, headers, rootSectionId, docHelper);
+
+         }
+
+
+
         /**
          * We iterate through the change identifiers for each document.
          * for each change identifier we capture the start and end node position in the db

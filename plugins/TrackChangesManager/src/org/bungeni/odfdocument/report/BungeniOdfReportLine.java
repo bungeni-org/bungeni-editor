@@ -8,6 +8,7 @@ import org.w3c.dom.Node;
 
 /**
  * Outputs a report line
+ * A report line is contained within a BungeniOdfReportHeader
  * @author Ashok Hariharan
  */
 public class BungeniOdfReportLine extends BungeniOdfReportLineBase {
