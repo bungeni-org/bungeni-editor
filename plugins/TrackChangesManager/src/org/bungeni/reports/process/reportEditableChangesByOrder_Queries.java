@@ -95,7 +95,7 @@ public class reportEditableChangesByOrder_Queries {
 
 
     public static String GET_SECTION_INFO(String reportId, String sectionId ) {
-        String query = "select  section_name, section_id, section_parent, section_order from section_hierarchy where report_id = '"+ reportId +  "' and section_id = '"+ reportId+ "' ";
+        String query = "select  section_name, section_id, section_parent, section_order from section_hierarchy where report_id = '"+ reportId +  "' and section_id = '"+ sectionId+ "' ";
         return query;
 
     }

@@ -14,6 +14,7 @@ public interface IBungeniOdfDocumentReportUI {
     public boolean hasUICompleted();
     public boolean setProcessHook(IBungeniOdfDocumentReportProcess processHook);
     public boolean setInputDocuments(BungeniOdfDocumentHelper[] docHelpers);
+    public boolean setReportTemplate(BungeniOdfDocumentReportTemplate reportTemplate);
     public IBungeniOdfDocumentReportProcess getProcessHook();
     /**
      * A hashmap to pass key value pairs into the report creation interface

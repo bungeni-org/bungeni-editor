@@ -113,7 +113,7 @@ public class reportChangesByUser extends BungeniOdfDocumentReportProcess {
             reportObject.addReportVariable("MEMBER_OF_PARLIAMENT", sAuthor);
             reportObject.addReportVariable(
                 "OFFICIAL_DATE", reportTemplate.getReportDateFormat().format(Calendar.getInstance().getTime()));
-            reportObject.addReportLines(reportLines);
+///COMMENTED OUT FOR NOW            reportObject.addReportLines(reportLines);
             reportObject.generateReport(sAuthor);
            // reportObject.saveReport();
            // reportOdfDoc = reportObject.getReportPath();

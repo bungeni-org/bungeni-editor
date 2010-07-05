@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -23,6 +25,7 @@ import javax.swing.tree.TreePath;
 import net.java.swingfx.waitwithstyle.PerformanceInfiniteProgressPanel;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.QueryResults;
+import org.bungeni.odfdocument.report.BungeniOdfDocumentReportTemplate;
 import org.bungeni.odfdocument.report.GeneratedReport;
 import org.bungeni.odfdocument.report.IBungeniOdfDocumentReportProcess;
 import org.bungeni.odfdocument.report.IBungeniOdfDocumentReportUI;
@@ -41,6 +44,7 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
     public static JFrame                   thisFrame = null;
     private IBungeniOdfDocumentReportProcess reportProcess = null;
     private BungeniOdfDocumentHelper[] reportInputDocuments;
+    private BungeniOdfDocumentReportTemplate reportTemplate = null;
     private String m_reportName = "";
 
     /** Creates new form panelReportByOrder */
@@ -91,6 +95,11 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
 
         btnFinish.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnFinish.setText("Finish");
+        btnFinish.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinishActionPerformed(evt);
+            }
+        });
 
         splitPane.setDividerLocation(350);
         splitPane.setDividerSize(3);
@@ -108,7 +117,7 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
 
         splitPane.setRightComponent(scrollPane);
 
-        lblStatus.setFont(new java.awt.Font("DejaVu Sans", 1, 11)); // NOI18N
+        lblStatus.setFont(new java.awt.Font("DejaVu Sans", 1, 11));
         lblStatus.setText(" ");
         lblStatus.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -149,6 +158,11 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         // TODO add your handling code here:
         demoteChangeInBranch();
     }//GEN-LAST:event_btnMoveDownActionPerformed
+
+    private void btnFinishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinishActionPerformed
+        // TODO add your handling code here:
+        generateReport();
+    }//GEN-LAST:event_btnFinishActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -230,6 +244,11 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
 
     public boolean refreshUI() {
         initComponents();
+        return true;
+    }
+
+    public boolean setReportTemplate(BungeniOdfDocumentReportTemplate reportTemplate) {
+        this.reportTemplate   = reportTemplate;
         return true;
     }
 
@@ -414,6 +433,12 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
                     DefaultMutableTreeNode rootNode = loadTree();
                     return rootNode;
              } else if (loadingMode.equals(TREE_LOADING_MODES.LOAD_RECENT)) {
+                 getProcessHook().prepareProcess(reportInputDocuments, new HashMap<String,Object>(){
+                        {
+                        put ("REPORT_INFO", reportinfo);
+                        put ("TREE_LOADING_MODE", loadingMode);
+                        }
+                    });
                     DefaultMutableTreeNode rootNode = loadTree();
                     return rootNode;
              } else {
@@ -539,66 +564,7 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
 
         }
 
-      
 
-        /*
-        private void loadTree(){
-            //the tree is loaded here
-            DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(new GroupedChange("root", "bill"));
-            String groupedQuery = reportEditableChangesByOrder_Queries.GET_CHANGE_GROUPS_BILL_BY_MANUAL_ORDER(CommonFunctions.getCurrentBillID());
-            log.info ("loadTree : groupedQuery = " + groupedQuery);
-            BungeniClientDB db = BungeniClientDB.defaultConnect();
-            QueryResults qr = db.ConnectAndQuery(groupedQuery);
-            String[] colgroupBy = qr.getSingleColumnResult("GROUP_BY");
-            colgroupBy = CommonFunctions.removeDuplicatesStringArray(colgroupBy);
-            for (String groupby : colgroupBy) {
-                    log.info("Adding : " + groupby);
-                    String []arrgrp = groupby.split("\\.");
-                    String sectionType = arrgrp[0];
-                    String sectionName = arrgrp[1];
-                    GroupedChange gparentNodeChange = new GroupedChange(sectionType, sectionName);
-                    DefaultMutableTreeNode aNode = new DefaultMutableTreeNode(gparentNodeChange);
-                    rootNode.add(aNode);
-                        //now add changes for each of these sections
-                    String qryChangsInDocOrder = reportEditableChangesByOrder_Queries.GET_CHANGES_BY_GROUP_IN_DOC_ORDER (CommonFunctions.getCurrentBillID(), groupby);
-                    //SELECT doc_name, change_id, change_type, path_start, path_end, order_in_doc
-                    QueryResults qr2 = db.ConnectAndQuery(qryChangsInDocOrder);
-                    if (qr2.hasResults()) {
-                        Iterator<Vector<String>> results = qr2.theResultsIterator();
-                        while (results.hasNext()) {
-                            Vector<String> row = results.next();
-                            DocumentChange docChange = new DocumentChange(
-                            qr2.getField(row, "DOC_NAME"),
-                            qr2.getField(row, "CHANGE_ID"),
-                            qr2.getField(row, "CHANGE_TYPE"),
-                            qr2.getField(row, "PATH_START"),
-                            qr2.getField(row, "PATH_END"),
-                            qr2.getField(row, "ORDER_IN_DOC"),
-                            qr2.getField(row, "OWNER") ,
-                            qr2.getField(row, "CHANGE_DATE") ,
-                            qr2.getField(row, "CHANGE_TEXT") ,
-                            Integer.parseInt(qr2.getField(row, "ORDER_WEIGHT").toString())
-                                    );
-                            GroupedChange groupedChange = new GroupedChange (sectionType, sectionName, docChange);
-                            DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(groupedChange);
-                            aNode.add(childNode);
-                            if (!gparentNodeChange.getSectionDeleteChange())
-                                if (groupedChange.getObjType() == GroupedChange.OBJECT_TYPE.CHANGE) {
-                                    if (groupedChange.getDocumentChange().getOrderWeight() == 0 ) {
-                                        gparentNodeChange.setSectionDeleteChange(true);
-                                        aNode.setUserObject(gparentNodeChange);
-                                    }
-                                }
-                        }
-                    }
-            }
-          DefaultTreeModel treeModel = new DefaultTreeModel(rootNode);
-          treeReportByOrder.setCellRenderer(new reportCellRenderer());
-          treeReportByOrder.setModel(treeModel);
- 
-
-        }
-        */
 
      public  void createAndShowGUI(JFrame parentFrame) {
                 final panelReportByOrder thispanel = this;
@@ -758,4 +724,31 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         }
 
     }
+
+private void generateReport(){
+     (new SwingWorker(){
+
+            @Override
+            protected Object doInBackground() throws Exception {
+                reportProcess.generateReport(reportTemplate, reportInputDocuments);
+                return Boolean.TRUE;
+            }
+
+
+            @Override
+            protected void done(){
+                try {
+                    Boolean stat = (Boolean) get();
+                } catch (InterruptedException ex) {
+                    log.error("generateReport : " +  ex.getMessage());
+                } catch (ExecutionException ex) {
+                    Logger.getLogger(panelReportByOrder.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+    }).execute();
+    
+}
+
+
 }

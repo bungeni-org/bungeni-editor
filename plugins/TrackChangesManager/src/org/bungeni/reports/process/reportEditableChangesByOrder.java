@@ -69,14 +69,15 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
 
 
     public boolean prepareProcess(BungeniOdfDocumentHelper[] aDochelpers, HashMap<String,Object> paramMap) {
+        BungeniClientDB db = BungeniClientDB.defaultConnect();
+        _prepareInputParams(db, paramMap);
         /**
-         * Normally it should never come here when the loading mode is LOAD_RECENT 
+         * if its LOAD_RECENT we dont process further
          */
         if (m_loadingMode == TREE_LOADING_MODES.LOAD_RECENT) {
             return true;
         }
-        BungeniClientDB db = BungeniClientDB.defaultConnect();
-        _prepareInputParams(db, paramMap);
+
         /**
          * We rebuild the section hierarchy only if the report is being generated afresh or an existing report is being regenerated.
          */
@@ -161,11 +162,14 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
 
     //Returns the order of a section within its parent container
    private Integer _getSectionOrder(BungeniClientDB db, String secId) {
-       QueryResults qr = db.ConnectAndQuery(reportEditableChangesByOrder_Queries.GET_SECTION_INFO(this.m_genReport.getReportId(), secId));
+       String query = reportEditableChangesByOrder_Queries.GET_SECTION_INFO(this.m_genReport.getReportId(), secId);
+               log.debug("_getSectionOrder : " + query);
+       QueryResults qr = db.ConnectAndQuery(query);
+
        if (qr.hasResults()) {
            return Integer.parseInt(qr.getSingleColumnResult("SECTION_ORDER")[0]) + 1;
        }
-       return 0;
+       return -1;
    }
 
 

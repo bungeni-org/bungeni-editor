@@ -14,7 +14,7 @@ public abstract class BungeniOdfReportLineBase {
     BungeniOdfChangeContext changeContext;
     HashMap<String,Object> changeMap;
     TreeMap<String,Object> lineVariables = new TreeMap<String,Object>();
-
+    private String reportLineSectionName = "";
      protected HashMap<String, String> pastTenseForm = new HashMap<String,String>(){
         {
             put("insertion", "inserted");
@@ -46,6 +46,20 @@ public abstract class BungeniOdfReportLineBase {
 
     public Set<String> getLineVariableNames() {
         return this.lineVariables.keySet();
+    }
+
+    /**
+     * @return the reportLineSectionName
+     */
+    public String getReportLineSectionName() {
+        return reportLineSectionName;
+    }
+
+    /**
+     * @param reportLineSectionName the reportLineSectionName to set
+     */
+    public void setReportLineSectionName(String reportLineSectionName) {
+        this.reportLineSectionName = reportLineSectionName;
     }
 
 }

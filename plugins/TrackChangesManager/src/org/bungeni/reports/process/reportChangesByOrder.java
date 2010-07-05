@@ -275,7 +275,7 @@ public class reportChangesByOrder  extends BungeniOdfDocumentReportProcess {
             reportObject.addReportVariable("MEMBER_OF_PARLIAMENT", sAuthor);
             reportObject.addReportVariable(
                 "OFFICIAL_DATE", aTemplate.getReportDateFormat().format(Calendar.getInstance().getTime()));
-            reportObject.addReportLines(reportLines);
+           ///COMMENTED OUT FOR NOW reportObject.addReportLines(reportLines);
             reportObject.generateReport(sAuthor);
 
         /*
@@ -519,7 +519,7 @@ public class reportChangesByOrder  extends BungeniOdfDocumentReportProcess {
                 reportObject.addReportVariable("NO_OF_AMENDMENTS", reportLines.size());
                 reportObject.addReportVariable(
                         "OFFICIAL_DATE", aTemplate.getReportDateFormat().format(Calendar.getInstance().getTime()));
-                reportObject.addReportLines(reportLines);
+///COMMENTED OUT FOR NOW                reportObject.addReportLines(reportLines);
                 reportObject.generateReport("common");
 
 

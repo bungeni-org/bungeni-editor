@@ -16,7 +16,7 @@ public class BungeniOdfReportHeader {
     private List<BungeniOdfReportLine> reportLines = new ArrayList<BungeniOdfReportLine>(0);
     private List<BungeniOdfReportHeader> reportHeaders = new ArrayList<BungeniOdfReportHeader>(0);
     private final Map<String,String> reportHeaderVariables = initMap();
-
+    private String headerSectionName = "";
     private Map<String,String> initMap (){
         Map<String,String> aMap = new HashMap<String,String>();
             aMap.put("SECTION_TYPE", "");
@@ -76,6 +76,20 @@ public class BungeniOdfReportHeader {
 
     public static void main (String[] args) {
 
+    }
+
+    /**
+     * @return the headerSectionName
+     */
+    public String getHeaderSectionName() {
+        return headerSectionName;
+    }
+
+    /**
+     * @param headerSectionName the headerSectionName to set
+     */
+    public void setHeaderSectionName(String headerSectionName) {
+        this.headerSectionName = headerSectionName;
     }
 
     

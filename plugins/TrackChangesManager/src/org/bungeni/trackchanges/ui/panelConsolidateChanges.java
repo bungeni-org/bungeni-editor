@@ -206,6 +206,7 @@ public class panelConsolidateChanges extends panelChangesBase {
             //if it has a UI the report processing is done by the report UI
             if (selReport.hasReportUI()) {
                 selReport.getReportUI().setInputDocuments(changesInfo.getDocuments().toArray(new BungeniOdfDocumentHelper[changesInfo.getDocuments().size()]));
+                selReport.getReportUI().setReportTemplate(selReport.getReportTemplate());
                 selReport.getReportUI().showUI(parentFrame);
                 selReport.getReportUI().initUI(new HashMap<String,String>(){
                                                                             {
