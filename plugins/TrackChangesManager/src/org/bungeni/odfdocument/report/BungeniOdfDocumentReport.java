@@ -75,20 +75,78 @@ public class BungeniOdfDocumentReport extends BungeniReportBase {
     }
 
     /**
-     * This function generates the report lines within the report body
+     * This function generates the report Headers within the report body
+     * And within each report Header generates the required number of report lines
      * @return
      */
     public boolean generateReportHeaders() {
-        //first duplicate sections for number of lines.
+        //first duplicate sections for number of headers
         boolean bReturn = false;
         int nCount = this.reportHeaders.size();
         BungeniOdfSectionHelper secHelper = this.m_docHelper.getSectionHelper();
         //ReportLine-Repeat is the repeater for the header
         OdfTextSection masterSection = secHelper.getSection("ReportHeader-Repeat");
         OdfTextSection prevSection = masterSection;
+
+        for (int j = reportHeaders.size() - 1; j >= 0; j--) {
+                BungeniOdfReportHeader hdr = reportHeaders.get(j);
+                //copy a main header section
+                OdfTextSection copySection = (OdfTextSection) masterSection.cloneNode(true);
+                //rename the copied section
+                copySection.setTextNameAttribute("reporthdr-" + j);
+                    //now generate the report line sections
+                    generateReportLines(j, copySection, hdr);
+                prevSection.getParentNode().insertBefore(copySection, prevSection);
+                prevSection = copySection;
+        }
+        //Sections are added in reverse order
         for (int i = nCount; i > 0; i--) {
+
              OdfTextSection copySection = (OdfTextSection) masterSection.cloneNode(true);
              copySection.setTextNameAttribute("reporthdr-"+ i);
+             prevSection.getParentNode().insertBefore(copySection, prevSection);
+             prevSection = copySection;
+        }
+        //finally remove the master section which was used for cloning
+        prevSection.getParentNode().removeChild(masterSection);
+        bReturn = true;
+        return bReturn;
+    }
+
+    public boolean generateReportLines(int headerIndex, OdfTextSection copySection, BungeniOdfReportHeader rptHeader) {
+        XPath xPath = this.m_docHelper.getOdfDocument().getXPath();
+        try {
+        OdfTextSection masterLineNode = (OdfTextSection) xPath.evaluate(".//text:section[@text:name='ReportLine-Repeat']", copySection, XPathConstants.NODE);
+        OdfTextSection prevSection = masterLineNode;
+
+        for(int i = rptHeader.getReportLines().size() - 1  ; i >=0 ; i-- ) {
+                BungeniOdfReportLine line = rptHeader.getReportLines().get(i);
+                OdfTextSection copyLineSection = (OdfTextSection) masterLineNode.cloneNode(true);
+                copyLineSection.setTextNameAttribute("rptlin-" + Integer.toString(headerIndex)  + Integer.toString(i));
+                prevSection.getParentNode().insertBefore(copyLineSection, prevSection);
+        }
+        prevSection.getParentNode().removeChild(masterLineNode);
+          } catch (XPathExpressionException ex) {
+               log.error("generateReportLines", ex);
+           }
+           return true;
+
+    }
+
+
+
+    public boolean generateReportLines() {
+        //first duplicate sections for number of lines.
+        boolean bReturn = false;
+        int nCount = this.reportHeaders.size();
+
+        BungeniOdfSectionHelper secHelper = this.m_docHelper.getSectionHelper();
+        //ReportLine-Repeat is the repeater for the header
+        OdfTextSection masterSection = secHelper.getSection("ReportLine-Repeat");
+        OdfTextSection prevSection = masterSection;
+        for (int i = nCount; i > 0; i--) {
+             OdfTextSection copySection = (OdfTextSection) masterSection.cloneNode(true);
+             copySection.setTextNameAttribute("reportline-"+ i);
              prevSection.getParentNode().insertBefore(copySection, prevSection);
              prevSection = copySection;
         }
@@ -142,17 +200,28 @@ public class BungeniOdfDocumentReport extends BungeniReportBase {
         }
     }
 
-    private void feedReportLines(){
+    private List<OdfTextSection> getReportHeaderSections(List<OdfTextSection> childSections){
+        List<OdfTextSection> secs = new ArrayList<OdfTextSection>(0);
+        for (OdfTextSection odfTextSection : childSections) {
+             if (odfTextSection.getTextNameAttribute().startsWith("ReportHeader")) {
+                 secs.add(odfTextSection);
+             }
+        }
+        return secs;
+    }
+
+
+    private void feedReportHeaderAndLines(){
         BungeniOdfSectionHelper secHelper = this.m_docHelper.getSectionHelper();
         OdfTextSection nsection = secHelper.getSection("ReportBody");
         XPath xpath = this.m_docHelper.getOdfDocument().getXPath();
 
-        ArrayList<OdfTextSection> reportLineSections = secHelper.getChildSections(nsection);
+        List<OdfTextSection> reportHeaderSections = getReportHeaderSections(secHelper.getChildSections(nsection));
         List<Node> nodesMarkedForDeletion = new ArrayList<Node>(0);
         //iterate through each of the sections
-        for (int iSecIndex = 0; iSecIndex < reportLineSections.size(); iSecIndex++) {
+        for (int iSecIndex = 0; iSecIndex < reportHeaderSections.size(); iSecIndex++) {
             //get the input section
-            OdfTextSection aSection = reportLineSections.get(iSecIndex);
+            OdfTextSection aSection = reportHeaderSections.get(iSecIndex);
             //get the input section feeder
             BungeniOdfReportHeader reportHeader = this.reportHeaders.get(iSecIndex);
             //get the available report line variables
@@ -194,12 +263,12 @@ public class BungeniOdfDocumentReport extends BungeniReportBase {
         }
     }
 
-    public void processReportLines(){
+    public void processReportHeaders(){
         //first generate report lines
         generateReportHeaders();
         generateReportLines();
         //build the data into the report lines
-        feedReportLines();
+        feedReportHeaderAndLines();
     }
 
     /**
@@ -209,7 +278,7 @@ public class BungeniOdfDocumentReport extends BungeniReportBase {
     public void generateReport(String reportByFor){
         try {
             processReportVariables();
-            processReportLines();
+            processReportHeaders();
             String savePath = this.m_docHelper.getDocumentPath();
             this.m_docHelper.getPropertiesHelper().setUserDefinedPropertyValue("BungeniReportFor", reportByFor);
             SimpleDateFormat rFormat = getReportDateFormat();
