@@ -192,7 +192,8 @@ public class reportEditableChangesByOrder  extends BungeniOdfDocumentReportProce
                          reportHeader.setHeaderValue("SECTION_NAME",  secName);
                          reportHeader.setHeaderValue("SECTION_TYPE",  secType);
                          reportHeader.setHeaderValue("SECTION_TYPE_INDEX", _getSectionOrder(db, secId).toString());
-
+                         reportHeader.setHeaderValue("SECTION_TYPE_INDEX_SUFFIX", CommonFunctions.getOrdinalFor(reportHeader.getHeaderValue("SECTION_TYPE_INDEX")));
+                         reportHeader.setHeaderValue("OLD_TEXT", sechelper.getSection(secName).getTextContent());
                          headers.add(reportHeader);
                          _buildReportLines (db, reportHeader);
                          _processHeaderHiearchy(db,headers, secId, dochelper);
