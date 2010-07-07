@@ -22,6 +22,7 @@ public class BungeniOdfReportHeader {
             aMap.put("SECTION_TYPE", "");
             aMap.put("SECTION_NAME", "");
             aMap.put("SECTION_ID", "");
+            aMap.put("OLD_TEXT", "");
            return aMap;
     }
 

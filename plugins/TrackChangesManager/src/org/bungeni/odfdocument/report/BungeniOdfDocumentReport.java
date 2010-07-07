@@ -208,15 +208,25 @@ public class BungeniOdfDocumentReport extends BungeniReportBase {
         return secs;
     }
 
+    private List<OdfTextSection> getReportLineSections(List<OdfTextSection> childSections) {
+        List<OdfTextSection> secs = new ArrayList<OdfTextSection>(0);
+        for (OdfTextSection odfTextSection : childSections) {
+             if (odfTextSection.getTextNameAttribute().startsWith(BungeniOdfDocumentReport.__REPORT_LINE_PREFIX__)) {
+                 secs.add(odfTextSection);
+             }
+        }
+        return secs;
+    }
+
 
     private void feedReportHeaderAndLines(){
         BungeniOdfSectionHelper secHelper = this.m_docHelper.getSectionHelper();
         OdfTextSection nsection = secHelper.getSection("ReportBody");
         XPath xpath = this.m_docHelper.getOdfDocument().getXPath();
         //this returns all the report header sections
-        List<OdfTextSection> reportHeaderSections = getReportHeaderSections(secHelper.getChildSections(nsection));
+        List<OdfTextSection> reportHeaderSections = getReportHeaderSections(secHelper.getDescendantChildSections(nsection));
         List<Node> nodesMarkedForDeletion = new ArrayList<Node>(0);
-        //iterate through each of the sections
+        //iterate through each of the report header sections
         for (int iSecIndex = 0; iSecIndex < reportHeaderSections.size(); iSecIndex++) {
             //get the first report header section
             OdfTextSection aSection = reportHeaderSections.get(iSecIndex);
@@ -225,6 +235,9 @@ public class BungeniOdfDocumentReport extends BungeniReportBase {
             if (!aSection.getTextNameAttribute().equals(reportHeader.getHeaderSectionName())) {
                 log.error("the header is not comaptible with this section");
             }
+            /**
+             * Now process the report header
+             */
             //check if the two have
             //get the available report line variables
             Set<String> hdrVariableNames = reportHeader.getHeaderVariableNames();
@@ -260,9 +273,70 @@ public class BungeniOdfDocumentReport extends BungeniReportBase {
                 delNode.getParentNode().removeChild(delNode);
             }
             nodesMarkedForDeletion.clear();
+             /**
+             * Now we process the report lines within the report header
+             */
+             feedReportLine(secHelper, aSection, reportHeader);
+
             //now that we have the report line text node
            //  String xpathString = this.genericRelativeTextMatchXpath(null)
         }
+    }
+
+    private void feedReportLine(BungeniOdfSectionHelper secHelper, OdfTextSection headerSection, BungeniOdfReportHeader reportHeader) {
+        List<OdfTextSection> reportLineSections = getReportLineSections(secHelper.getDescendantChildSections(headerSection));
+        XPath xPath = this.m_docHelper.getOdfDocument().getXPath();
+        List<Node> nodesMarkedForDeletion = new ArrayList<Node>(0);
+
+         for (int iSecIndex = 0; iSecIndex < reportLineSections.size(); iSecIndex++) {
+            //get the first report header section
+            OdfTextSection aSection = reportLineSections.get(iSecIndex);
+            //get the corresponding header section feeder
+            BungeniOdfReportLine reportLine =  reportHeader.getReportLines().get(iSecIndex);
+            if (!aSection.getTextNameAttribute().equals(reportLine.getReportLineSectionName())) {
+                log.error("the line is not comaptible with this section");
+            }
+            /**
+             * Now process the report header
+             */
+            //check if the two have
+            //get the available report line variables
+            Set<String> lineVariableNames = reportLine.getLineVariableNames();
+            Iterator<String> varIterator = lineVariableNames.iterator();
+            while (varIterator.hasNext()) {
+                try {
+                    String ssVar = varIterator.next();
+                    String xpathString = genericRelativeTextMatchXpath(ssVar);
+                    NodeList matchingTextNodes = (NodeList) xPath.evaluate(xpathString, aSection, XPathConstants.NODESET);
+                    for (int j = 0 ; j < matchingTextNodes.getLength() ; j++) {
+                        Node aNode = matchingTextNodes.item(j);
+                        String sContent = aNode.getTextContent();
+                        String escKey = this.buildEscapedKey(ssVar);
+                        String lineVariable = reportLine.getLineVariable(ssVar).toString();
+                        if (lineVariable.equals("[DELETE]")) {
+                            if (aNode.getParentNode().getTextContent().equals(aNode.getTextContent()))
+                                nodesMarkedForDeletion.add(aNode.getParentNode());
+                            else
+                                nodesMarkedForDeletion.add(aNode);
+                        } else {
+                            sContent = sContent.replaceAll(escKey, lineVariable);
+                            aNode.setTextContent(sContent);
+                        }
+                    }
+                }
+                //now that we have the report line text node
+                //  String xpathString = this.genericRelativeTextMatchXpath(null)
+                catch (XPathExpressionException ex) {
+                    log.error("feedReportLines : " + ex.getMessage(), ex);
+                }
+             for (Node delNode :  nodesMarkedForDeletion) {
+                delNode.getParentNode().removeChild(delNode);
+            }
+            nodesMarkedForDeletion.clear();}
+
+
+         }
+
     }
 
     public void processReportHeaders(){
