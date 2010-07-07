@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -47,6 +45,8 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
     private BungeniOdfDocumentReportTemplate reportTemplate = null;
     private String m_reportName = "";
 
+    private static java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle");
+
     /** Creates new form panelReportByOrder */
     public panelReportByOrder() {
         super();
@@ -78,7 +78,8 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         lblStatus = new javax.swing.JLabel();
 
         btnMoveUp.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnMoveUp.setText("Move UP");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle"); // NOI18N
+        btnMoveUp.setText(bundle.getString("panelReportByOrder.btnMoveUp.text")); // NOI18N
         btnMoveUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMoveUpActionPerformed(evt);
@@ -86,7 +87,7 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         });
 
         btnMoveDown.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnMoveDown.setText("Move DOWN");
+        btnMoveDown.setText(bundle.getString("panelReportByOrder.btnMoveDown.text")); // NOI18N
         btnMoveDown.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMoveDownActionPerformed(evt);
@@ -94,7 +95,7 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         });
 
         btnFinish.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnFinish.setText("Finish");
+        btnFinish.setText(bundle.getString("panelReportByOrder.btnFinish.text")); // NOI18N
         btnFinish.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFinishActionPerformed(evt);
@@ -117,8 +118,8 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
 
         splitPane.setRightComponent(scrollPane);
 
-        lblStatus.setFont(new java.awt.Font("DejaVu Sans", 1, 11));
-        lblStatus.setText(" ");
+        lblStatus.setFont(new java.awt.Font("DejaVu Sans", 1, 11)); // NOI18N
+        lblStatus.setText(bundle.getString("panelReportByOrder.lblStatus.text")); // NOI18N
         lblStatus.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -138,7 +139,7 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
+                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnMoveUp)
@@ -186,7 +187,7 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
     }
 
     public void clearTree(){
-         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Loading...");
+         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode(BUNDLE.getString("LOADING"));
         treeReportByOrder.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
     }
   
@@ -217,9 +218,8 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
         } else {
             //there is a last report .. prompt the user if they want to see that or generate  new one
             final int nOption = JOptionPane.showConfirmDialog(panelReportByOrder.thisFrame,
-                    "There is a previous report of this type for the bill. \n" +
-                    " Would you like to open the saved report ? Clicking no will regenerate report",
-                    "Report generation",
+                    BUNDLE.getString("OPEN_SAVED_OR_GENERATE"),
+                    BUNDLE.getString("REPORT_GENERATION"),
                     JOptionPane.YES_NO_OPTION, 
                     JOptionPane.INFORMATION_MESSAGE);
            if (JOptionPane.YES_OPTION == nOption ) {
@@ -726,6 +726,7 @@ public class panelReportByOrder extends panelChangesBase implements IBungeniOdfD
     }
 
 private void generateReport(){
+    startProgress();
      (new SwingWorker(){
 
             @Override
@@ -739,10 +740,11 @@ private void generateReport(){
             protected void done(){
                 try {
                     Boolean stat = (Boolean) get();
+                    stopProgress();
                 } catch (InterruptedException ex) {
                     log.error("generateReport : " +  ex.getMessage());
                 } catch (ExecutionException ex) {
-                    Logger.getLogger(panelReportByOrder.class.getName()).log(Level.SEVERE, null, ex);
+                    log.error("generateReport : " + ex.getMessage(), ex);
                 }
             }
 
