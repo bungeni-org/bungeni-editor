@@ -21,6 +21,7 @@ import org.w3c.dom.NodeList;
 import java.io.File;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -78,7 +79,7 @@ public class BungeniOdfSectionHelper {
     }
 
     /**
-     * Gets the immediate child sections for a section
+     * Gets the immediate child sections for a section (not descendants)
      * @param nsection
      * @return
      */
@@ -95,11 +96,34 @@ public class BungeniOdfSectionHelper {
             }
         } catch (XPathExpressionException ex) {
             log.error("getChildSections : " + ex.getMessage());
-        } finally {
-            return foundChildren;
         }
+
+        return foundChildren;
+        
     }
 
+    /**
+     * Gets all descendant sections 
+     * @param nsection
+     * @return
+     */
+    public List<OdfTextSection> getDescendantChildSections(OdfTextSection nsection) {
+        List<OdfTextSection> foundChildren = new ArrayList<OdfTextSection>(0);
+
+        try {
+            NodeList nodeSet = (NodeList) xPath.evaluate("descendant::" + SECTION_ELEMENT, nsection, XPathConstants.NODESET);
+
+            for (int i = 0; i < nodeSet.getLength(); i++) {
+                Node foundNodeSection = nodeSet.item(i);
+
+                foundChildren.add((OdfTextSection) foundNodeSection);
+            }
+        } catch (XPathExpressionException ex) {
+            log.error("getDescendantChildSections : " + ex.getMessage());
+        }
+        return foundChildren;
+
+    }
     /**
      * Returns the Section Type for the document this is a custom property in the anx: namespace ,
      * anx:BungeniSectionType
