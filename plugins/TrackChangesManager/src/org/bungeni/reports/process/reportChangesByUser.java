@@ -11,6 +11,7 @@ import javax.xml.xpath.XPathConstants;
 import org.bungeni.odfdocument.report.BungeniOdfDocumentReport;
 import org.bungeni.odfdocument.report.BungeniOdfDocumentReportProcess;
 import org.bungeni.odfdocument.report.BungeniOdfDocumentReportTemplate;
+import org.bungeni.odfdocument.report.BungeniOdfReportHeader;
 import org.bungeni.odfdocument.report.BungeniOdfReportLine;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfChangeContext;
@@ -22,8 +23,8 @@ import org.odftoolkit.odfdom.doc.text.OdfTextChangedRegion;
 import org.w3c.dom.Node;
 
 /**
- *
- * @author Ashok
+ * Produce report Changes By user 
+ * @author Ashok Hariharan
  */
 public class reportChangesByUser extends BungeniOdfDocumentReportProcess {
     private static org.apache.log4j.Logger log            =
@@ -57,6 +58,7 @@ public class reportChangesByUser extends BungeniOdfDocumentReportProcess {
 
             // iterate through all the changed regions
             // build the report lines
+            BungeniOdfReportHeader rptHeader = new BungeniOdfReportHeader();
             ArrayList<BungeniOdfReportLine> reportLines = new ArrayList<BungeniOdfReportLine>(0);
 
             for (OdfTextChangedRegion odfTextChangedRegion : changedRegions) {
@@ -100,7 +102,7 @@ public class reportChangesByUser extends BungeniOdfDocumentReportProcess {
 
                 reportLines.add(reportLine);
             }
-
+            rptHeader.setReportLines(reportLines);
             reportObject = new BungeniOdfDocumentReport(freportFile, reportTemplate);
 
             // reportObject.addReportVariable("REPORT_HEADER", "Bill Amendments Report");
@@ -113,10 +115,9 @@ public class reportChangesByUser extends BungeniOdfDocumentReportProcess {
             reportObject.addReportVariable("MEMBER_OF_PARLIAMENT", sAuthor);
             reportObject.addReportVariable(
                 "OFFICIAL_DATE", reportTemplate.getReportDateFormat().format(Calendar.getInstance().getTime()));
-///COMMENTED OUT FOR NOW            reportObject.addReportLines(reportLines);
+            reportObject.addReportHeader(rptHeader);
             reportObject.generateReport(sAuthor);
-           // reportObject.saveReport();
-           // reportOdfDoc = reportObject.getReportPath();
+     
         } catch (Exception ex) {
             log.error("doReport : " + ex.getMessage(), ex);
         }

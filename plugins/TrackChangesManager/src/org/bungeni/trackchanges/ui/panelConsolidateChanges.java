@@ -242,7 +242,7 @@ public class panelConsolidateChanges extends panelChangesBase {
                     List<BungeniOdfDocumentHelper> docs = changesInfo.getDocuments();
                     List<String> reports = new ArrayList<String>(0);
                     if (selReport.getReportType().equals(ReportType.MultiInputSingleReport)) {
-                        BungeniOdfDocumentReport dMReport = selReport.runProcess(docs.toArray(new BungeniOdfDocumentHelper[docs.size()]));
+                        BungeniOdfDocumentReport dMReport = selReport.generateReport(docs.toArray(new BungeniOdfDocumentHelper[docs.size()]));
                         reports.add(dMReport.getReportPath());
                     }
                     if (selReport.getReportType().equals(ReportType.SingleInputSingleReport)) {
@@ -251,7 +251,7 @@ public class panelConsolidateChanges extends panelChangesBase {
                             BungeniOdfDocumentHelper[] arrProcDocHelper = {
                                 bungeniOdfDocumentHelper
                             };
-                            BungeniOdfDocumentReport dSReport = selReport.runProcess(arrProcDocHelper);
+                            BungeniOdfDocumentReport dSReport = selReport.generateReport(arrProcDocHelper);
                             reports.add(dSReport.getReportPath());
                             //
                             //String reportDoc = generateReport (selReport,bungeniOdfDocumentHelper );
@@ -361,7 +361,11 @@ public class panelConsolidateChanges extends panelChangesBase {
                     BungeniOdfDocumentHelper[] arrDocHelper = {
                         selDocument
                     } ;
-                    BungeniOdfDocumentReport dReport = selReport.runProcess(arrDocHelper);
+
+                    // run prepare process for the report
+                    selReport.prepareProcess(arrDocHelper, new HashMap<String,Object>(){{}});
+                    
+                    BungeniOdfDocumentReport dReport = selReport.generateReport(arrDocHelper);
                     //String reportdoc = generateReport(selReport, arrDocHelper) ;
 
                     return dReport.getReportPath();

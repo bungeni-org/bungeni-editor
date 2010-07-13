@@ -219,6 +219,8 @@ public class BungeniOdfDocumentReport extends BungeniReportBase {
     }
 
 
+
+
     private void feedReportHeaderAndLines(){
         BungeniOdfSectionHelper secHelper = this.m_docHelper.getSectionHelper();
         OdfTextSection nsection = secHelper.getSection("ReportBody");

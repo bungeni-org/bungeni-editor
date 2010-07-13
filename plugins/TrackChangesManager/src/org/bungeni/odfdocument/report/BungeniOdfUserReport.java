@@ -1,6 +1,7 @@
 
 package org.bungeni.odfdocument.report;
 
+import java.util.HashMap;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 
 /**
@@ -123,13 +124,20 @@ public class BungeniOdfUserReport {
         return reportProcess;
     }
 
-    public BungeniOdfDocumentReport runProcess(BungeniOdfDocumentHelper[] inputDocs){
+
+    public boolean prepareProcess(BungeniOdfDocumentHelper[] inputDocs, HashMap<String,Object> reportMap) {
+        return getReportProcess().prepareProcess(inputDocs, reportMap);
+    }
+
+    public BungeniOdfDocumentReport generateReport(BungeniOdfDocumentHelper[] inputDocs){
         BungeniOdfDocumentReport outReport = null;
         switch (reportType) {
             case MultiInputSingleReport :
+                    //getReportProcess().prepareProcess(inputDocs, new HashMap<String,Object>(){{}});
                     outReport = getReportProcess().generateReport(reportTemplate, inputDocs);
                 break;
             case SingleInputSingleReport :
+                    //getReportProcess().prepareProcess(inputDocs, new HashMap<String,Object>(){{}});
                     outReport = getReportProcess().generateReport(reportTemplate, inputDocs[0]);
                 break;
             default:
