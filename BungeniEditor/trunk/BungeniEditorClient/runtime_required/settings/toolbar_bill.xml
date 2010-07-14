@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-    Document   : toolbar.xml
-    Created on : January 9, 2008, 1:52 PM
-    Author     : Administrator
-    Description:
-        Purpose of the document follows.
+Action configuration for bill document type
 -->
-<toolbar>
-    <root lang="en" title="Editor Actions" visible="true" >
-        <actionGroup name="blockActions" title="Bill Actions" visible="true">
+<toolbar doctype="bill">
+    <root title="Editor Actions" visible="true" >
+        <title xml:lang="en">Editor Actions</title>
+        <actionGroup name="blockActions" title="Bill Actions" visible="true"  uimodel="wrap">
+            <title xml:lang="en">Bill Actions</title>
             <blockAction name="Root" title="Create Root Section" visible="true" condition="sectionNotExists:bill" target="generalAction.createRootSection" />
-
+                <title xml:lang="en">Create Root Section</title>
                 <action name="Preface.selection" tooltip="Select some text in the document to mark it up as a Preface." title="Preface"  target="null" visible="true" condition="none" showChildren="true" >
                     <subaction name="Preface.selection" tooltip="Select some text to mark it up as a Preface" title="Markup Preface" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeBillPrefaceSection.section_creation" visible="true" condition="cursorInSection:bill :and: sectionNotExists:preface :and: textSelected:true" />
                 </action>          
