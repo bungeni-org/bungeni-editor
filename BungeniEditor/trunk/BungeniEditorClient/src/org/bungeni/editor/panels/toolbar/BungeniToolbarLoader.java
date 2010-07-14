@@ -3,9 +3,12 @@ package org.bungeni.editor.panels.toolbar;
 
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JTabbedPane;
+import org.bungeni.extutils.BungeniEditorProperties;
 import org.jdom.Element;
+import org.jdom.Namespace;
 
 /**
  * Reads the toolbar XML - translates the <blockAction> as tabs and <action> and <subaction> as buttons
@@ -28,6 +31,33 @@ public class BungeniToolbarLoader {
         actionListener = toolbarActionListener;
     }
 
+
+    /**
+     * Retrieves the localized title for toolbar actions.
+     * Localized titles are entered in a element called 'title' instead of as an attribute
+     *
+     * <subaction.... >
+     *      <title xml:lang="fra">French Action Title</title>
+     *      <title xml:lang="eng">English Action Title</title>
+     * </subaction ....>
+     * 
+     * @param anElement
+     * @param localizedAttr
+     * @return
+     */
+    private String geti18nTitle(Element anElement, String localizedAttr ) {
+        List<Element> childTitles = anElement.getChildren(localizedAttr);
+        String langCode = BungeniEditorProperties.getEditorProperty("locale.Language.iso639-2");
+        for (Element title : childTitles) {
+           String foundLang =  title.getAttributeValue("lang", Namespace.XML_NAMESPACE);
+           if (foundLang.equals(langCode)) {
+               return title.getText();
+           }
+        }
+        //otherwise look for an attribute called title in the main element
+        return anElement.getAttributeValue("title");
+    }
+
     /**
      * Load the tabs from the toolbar xml config
      * @param thisPane - the JTabbedPane object which acts as the container for the ations
@@ -40,7 +70,7 @@ public class BungeniToolbarLoader {
         //get the tab elements
         ArrayList<Element> groupTabs = toolbarParser.getTabActionGroups();
         for (Element groupTab : groupTabs) {
-            String grpTabTitle = groupTab.getAttributeValue("title");
+            String grpTabTitle =  geti18nTitle(groupTab, "title");//i18n groupTab.getAttributeValue("title");
             String grpTabUImodel = groupTab.getAttributeValue("uimodel");
             //create a new group tab
             JTabbedPane grpPane = new JTabbedPane(JTabbedPane.TOP);
@@ -56,7 +86,7 @@ public class BungeniToolbarLoader {
                   //check if the tab has any actions -- we add a tab only when it has actions
                   if (actionElements.size()  > 0 ) {
                      //get the tab title
-                     String tabTitle = tab.getAttributeValue("title");
+                     String tabTitle =  geti18nTitle(tab, "title"); //i18n tab.getAttributeValue("title");
                      //create the panel for the tab
                      scrollPanel scrollablePanel = new scrollPanel();
                      //create the button container to embed into the scrollablePanel()
@@ -65,7 +95,7 @@ public class BungeniToolbarLoader {
                      //now add the button actions to the button container panel
                      for (Element action : actionElements) {
                         //get the title for the button
-                        String actionTitle = action.getAttributeValue("title");
+                        String actionTitle = geti18nTitle(action, "title"); //action.getAttributeValue("title");
                         BungeniToolbarActionElement elem = new BungeniToolbarActionElement(action);
                         buttonPanel panelButton = new buttonPanel(actionTitle, actionListener, elem);
                         buttonContainer.add(panelButton);
