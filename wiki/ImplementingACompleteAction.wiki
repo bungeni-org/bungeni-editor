@@ -56,6 +56,10 @@ The below example shows a `blockAction` with titles in different languages.
 
 Additionally the `tooltip` attribute has been deprecated and replaced with a `tooltip` element.
 
+The editor property `GENERAL_EDITOR_PROPERTIES.locale.Language.iso639-2` is used to retrieve the title for the appropriate language.
+
+
+
 == Adding a blockAction == 
 
 Add a block action for the action.  A complete block action is illustrated below.
@@ -110,7 +114,7 @@ The blockAction element is described here.
 
 == Adding a Action element == 
 
-blockActions can contain <action> elements.
+blockActions can contain `<action>` elements.
 
 The action element is described here.
 
@@ -146,7 +150,7 @@ For differences between the two action types see BungeniEditorActionTypes).
 
 == Adding a subAction element == 
 
-<action> elements can contain <subAction> elements.
+`<action>` elements can contain `<subAction>` elements.
 The subAction element is described here:
 
 {{{
@@ -159,7 +163,7 @@ The subAction element is described here:
 	condition="cursorInSection:qa :and: textSelected:true" />
 }}}
 
-The attributes function exactly as described for the <action> element
+The attributes function exactly as described for the `<action>` element
 
 
 == Schema for toolbar xml config == 
