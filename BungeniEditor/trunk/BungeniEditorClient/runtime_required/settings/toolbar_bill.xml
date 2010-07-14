@@ -4,26 +4,44 @@
 Action configuration for bill document type
 -->
 <toolbar doctype="bill">
-    <root title="Editor Actions" visible="true" >
-        <title xml:lang="en">Editor Actions</title>
-        <actionGroup name="blockActions" title="Bill Actions" visible="true"  uimodel="wrap">
-            <title xml:lang="en">Bill Actions</title>
-            <blockAction name="Root" title="Create Root Section" visible="true" condition="sectionNotExists:bill" target="generalAction.createRootSection" />
-                <title xml:lang="en">Create Root Section</title>
-                <action name="Preface.selection" tooltip="Select some text in the document to mark it up as a Preface." title="Preface"  target="null" visible="true" condition="none" showChildren="true" >
-                    <subaction name="Preface.selection" tooltip="Select some text to mark it up as a Preface" title="Markup Preface" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeBillPrefaceSection.section_creation" visible="true" condition="cursorInSection:bill :and: sectionNotExists:preface :and: textSelected:true" />
+    <root visible="true" >
+        <title xml:lang="eng">Editor Actions</title>
+        <actionGroup name="blockActions" visible="true"  uimodel="wrap">
+            <title xml:lang="eng">Bill Actions</title>
+            <blockAction name="Root" visible="true" condition="sectionNotExists:bill" target="generalAction.createRootSection" />
+                <title xml:lang="eng">Create Root Section</title>
+                <action name="Preface.selection" tooltip="Select some text in the document to mark it up as a Preface."  target="null" visible="true" condition="none" showChildren="true" >
+                    <title xml:lang="eng">Preface</title>
+                    <subaction name="Preface.selection" tooltip="Select some text to mark it up as a Preface"  mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeBillPrefaceSection.section_creation" visible="true" condition="cursorInSection:bill :and: sectionNotExists:preface :and: textSelected:true" >
+                        <title xml:lang="eng">"Markup Preface</title>
+                    </subaction>
                 </action>          
-	    <action name="Part.selection" tooltip="Parts can be created as top-level containers in a document" title="Part"  target="null" visible="true" condition="none" showChildren="true" >
-                    <subaction name="Part.selection" title="Create from Selection" tooltip="Select some text to mark it up as a Part" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeBillPartSection.section_creation" visible="true" condition="cursorInSection:bill :and: textSelected:true" />
-                    <subaction name="Part.selection.title" title="Markup title" tooltip="Select some text to mark it up as a  Part title" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeBillPartSection.apply_numbered_heading:heading_part" visible="true" condition="cursorInSection:part([0-9]*) :and: textSelected:true :and: !sectionHasChildType:NumberedContainer" />
-		   <subaction name="Part.sidenote" title="Add Sidenote" tooltip="Insert a sidenote" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeBillGeneralAction.create_sidenote" visible="true" condition="cursorInSection:part([0-9]*)" />	               
+                <action name="Part.selection" tooltip="Parts can be created as top-level containers in a document" title="Part"  target="null" visible="true" condition="none" showChildren="true" >
+                    <title xml:lang="eng">Part</title>
+                    <subaction name="Part.selection" tooltip="Select some text to mark it up as a Part" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeBillPartSection.section_creation" visible="true" condition="cursorInSection:bill :and: textSelected:true">
+                        <title xml:lang="eng">Create from Selection</title>
+                    </subaction>
+                    <subaction name="Part.selection.title" tooltip="Select some text to mark it up as a  Part title" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeBillPartSection.apply_numbered_heading:heading_part" visible="true" condition="cursorInSection:part([0-9]*) :and: textSelected:true :and: !sectionHasChildType:NumberedContainer" >
+                        <title xml:lang="eng">Markup Title</title>
+                    </subaction>
+		   <subaction name="Part.sidenote" tooltip="Insert a sidenote" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeBillGeneralAction.create_sidenote" visible="true" condition="cursorInSection:part([0-9]*)" >	               
+                       <title xml:lang="eng">Add Sidenote</title>
+                   </subaction>
 		 </action>
-
-              <action name="Chapter.selection" tooltip="Chapter can be created inside Parts" title="Chapter"  target="null" visible="true" condition="none" showChildren="true" >
-                    <subaction name="Chapter.selection" title="Create from Selection" tooltip="Select some text to mark it up as a Part" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeBillChapterSection.section_creation" visible="true" condition="cursorInSection:part([0-9]*) :and: textSelected:true" />
-                    <subaction name="Chapter.selection.title" title="Markup title" tooltip="Select some text to mark it up as a  Part title" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeBillChapterSection.apply_numbered_heading:heading_chapter" visible="true" condition="cursorInSection:chapter([0-9]*) :and: textSelected:true :and: !sectionHasChildType:NumberedContainer" />
-                    <subaction name="Chapter.composite" title="Markup title and section" tooltip="Select some text to mark it up as a Chapter" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeBillChapterSection.composite_section_creation:heading_chapter" visible="true" condition="cursorInSection:part([0-9]*) :and: textSelected:true" />
-		   <subaction name="Chapter.sidenote" title="Add Sidenote" tooltip="Insert a sidenote" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeBillGeneralAction.create_sidenote" visible="true" condition="cursorInSection:chapter([0-9]*)" />	               
+                  <action name="Chapter.selection" tooltip="Chapter can be created inside Parts" target="null" visible="true" condition="none" showChildren="true" >
+                    <title xml:lang="eng">Chapter</title>
+                    <subaction name="Chapter.selection" tooltip="Select some text to mark it up as a Part" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeBillChapterSection.section_creation" visible="true" condition="cursorInSection:part([0-9]*) :and: textSelected:true">
+                        <title xml:lang="eng">Create from Selection</title>
+                    </subaction>
+                    <subaction name="Chapter.selection.title" tooltip="Select some text to mark it up as a  Part title" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeBillChapterSection.apply_numbered_heading:heading_chapter" visible="true" condition="cursorInSection:chapter([0-9]*) :and: textSelected:true :and: !sectionHasChildType:NumberedContainer" >
+                        <title xml:lang="eng">Markup title</title>
+                    </subaction>
+                    <subaction name="Chapter.composite"  tooltip="Select some text to mark it up as a Chapter" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeBillChapterSection.composite_section_creation:heading_chapter" visible="true" condition="cursorInSection:part([0-9]*) :and: textSelected:true" >
+                        <title xml:lang="eng">Markup title and section</title>
+                    </subaction>
+		   <subaction name="Chapter.sidenote"  tooltip="Insert a sidenote" mode="TEXT_SELECTED_INSERT" target="toolbarSubAction.makeBillGeneralAction.create_sidenote" visible="true" condition="cursorInSection:chapter([0-9]*)" >
+                       <title xml:lang="eng">Add Sidenote</title>
+                   </subaction>
             </action>
 
               <action name="SubChapter.selection" tooltip="SubChapter can be created inside a chapter" title="SubChapter"  target="null" visible="true" condition="none" showChildren="true" >
