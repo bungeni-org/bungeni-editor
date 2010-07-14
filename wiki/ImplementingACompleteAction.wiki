@@ -17,6 +17,44 @@ _Figure : Toolbar XML Actions mapped to the rendered UI_
 <img src="http://bungeni-editor.googlecode.com/files/Toolbar_Actions.png" alt="Toolbar XML Actions mapped to the rendered UI" />
 
 
+== Adding a actionGroup == 
+
+The actionGroup element is container block that encloses multiple blockActions.
+
+The actionGroup gets rendered as a parent level tab. The tab structure is controlled via the *uimodel* parameter.
+
+Example :
+
+{{{
+
+ <actionGroup name="tabFavourites" visible="true" uimodel="wrap">
+            <title xml:lang="eng">Favourites</title>
+
+}}}
+
+
+`uimodel` - can take 2 values either `wrap` or `scroll`
+
+== Localization == 
+
+The `title` attribute has been deprecated for `root`, `blockAction`, `action` and `subaction` as it is not suitable for localization.
+
+Instead now `title` is an element which takes a `xml:lang` attribute. 
+
+The below example shows a `blockAction` with titles in different languages.
+
+{{{
+    <blockAction name="QA" tooltip="Create a QA Section" title="Papers" 
+    	target="null" 
+    	visible="true" 
+    	condition="none" >
+		<title xml:lang="eng">Papers</title>
+		<title xml:lang="swa">Karatasi</title>
+		<title xml:lang="fra">Carta</title>
+		
+}}}
+
+Additionally the `tooltip` attribute has been deprecated and replaced with a `tooltip` element.
 
 == Adding a blockAction == 
 
@@ -60,9 +98,9 @@ The blockAction element is described here.
 }}}
 `name` - the name attribute
 
-`tooltip` - the tooltip text to display when mousing over the block action in the toolbar
+~~`tooltip` - the tooltip text to display when mousing over the block action in the toolbar~~ (deprecated)
 
-`title` - the title text displayed in the toolbar
+~~`title` - the title text displayed in the toolbar~~ (deprecated)
 
 `visible` - true / false to display / hide the element
 
@@ -78,7 +116,6 @@ The action element is described here.
 
 {{{
    <action name="QA.selection" 
-		title="From Selection" 
 		mode="TEXT_SELECTED_INSERT" 
 		target="toolbarSubAction.makeQA.section_creation" 
 		condition="sectionNotExists:qa :and: textSelected:true" 
@@ -87,7 +124,7 @@ The action element is described here.
 
 `name` - the name of the action element
 
-`title` - the title text displayed in the toolbar for the action
+~~`title` - the title text displayed in the toolbar for the action~~
 
 `mode` - applicable modes for this action. For modes and their description, see BungeniEditorModes
 
@@ -130,73 +167,86 @@ The attributes function exactly as described for the <action> element
 See this [http://code.google.com/p/bungeni-editor/source/browse/BungeniEditor/trunk/BungeniEditorClient/src/xsd/toolbar.xsd link]
 {{{
 <?xml version="1.0" encoding="UTF-8"?>
+
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace"
+   schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>
   <xs:element name="toolbar">
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="root"/>
       </xs:sequence>
+      <xs:attribute name="doctype" use="required" type="xs:NCName"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="root">
     <xs:complexType>
       <xs:sequence>
-        <xs:element maxOccurs="unbounded" ref="actionGroup"/>
+        <xs:element ref="title" minOccurs="1"/>
+        <xs:element ref="tooltip" minOccurs="0"/>
+        <xs:element ref="actionGroup"/>
       </xs:sequence>
-      <xs:attribute name="lang" use="required" type="xs:NCName"/>
-      <xs:attribute name="title" use="required"/>
       <xs:attribute name="visible" use="required" type="xs:boolean"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="actionGroup">
     <xs:complexType>
       <xs:sequence>
+        <xs:element ref="title" minOccurs="1"/>
+        <xs:element ref="tooltip" minOccurs="0"/>
         <xs:element maxOccurs="unbounded" ref="blockAction"/>
       </xs:sequence>
       <xs:attribute name="name" use="required" type="xs:NCName"/>
-      <xs:attribute name="title" use="required" type="xs:NCName"/>
-      <xs:attribute name="uimodel" use="required" type="xs:NCName"/>
+        <xs:attribute name="uimodel" use="required" >
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="wrap"/>
+              <xs:enumeration value="scroll"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
       <xs:attribute name="visible" use="required" type="xs:boolean"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="blockAction">
     <xs:complexType>
-      <xs:choice maxOccurs="unbounded">
-        <xs:element ref="action"/>
-        <xs:element ref="subaction"/>
-      </xs:choice>
+      <xs:sequence>
+        <xs:element minOccurs="1" ref="title"/>
+        <xs:element ref="tooltip" minOccurs="0"/>
+        <xs:element maxOccurs="unbounded" ref="subaction"/>
+      </xs:sequence>
       <xs:attribute name="condition" use="required" type="xs:NCName"/>
-      <xs:attribute name="name" use="required"/>
-      <xs:attribute name="showChildren" type="xs:boolean"/>
-      <xs:attribute name="target" use="required" type="xs:NCName"/>
-      <xs:attribute name="title" use="required"/>
-      <xs:attribute name="tooltip"/>
-      <xs:attribute name="visible" use="required" type="xs:boolean"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="action">
-    <xs:complexType>
-      <xs:attribute name="condition" use="required" type="xs:anyURI"/>
-      <xs:attribute name="mode" use="required" type="xs:NCName"/>
       <xs:attribute name="name" use="required" type="xs:NCName"/>
-      <xs:attribute name="target" use="required"/>
-      <xs:attribute name="title" use="required"/>
+      <xs:attribute name="target" use="required" type="xs:NCName"/>
       <xs:attribute name="visible" use="required" type="xs:boolean"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="subaction">
     <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="title" minOccurs="1"/>
+        <xs:element ref="tooltip" minOccurs="0"/>
+      </xs:sequence>
       <xs:attribute name="condition" use="required" type="xs:anyURI"/>
       <xs:attribute name="mode" use="required" type="xs:NCName"/>
       <xs:attribute name="name" use="required" type="xs:NCName"/>
       <xs:attribute name="target" use="required"/>
-      <xs:attribute name="title" use="required"/>
-      <xs:attribute name="tooltip"/>
+      <xs:attribute name="title"/>
+      <xs:attribute name="tooltip" use="required"/>
       <xs:attribute name="visible" use="required" type="xs:boolean"/>
     </xs:complexType>
   </xs:element>
+  <xs:element name="title">
+    <xs:complexType mixed="true">
+      <xs:attribute ref="xml:lang"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="tooltip">
+    <xs:complexType mixed="true">
+      <xs:attribute ref="xml:lang"/>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
-
 
 }}}
 
