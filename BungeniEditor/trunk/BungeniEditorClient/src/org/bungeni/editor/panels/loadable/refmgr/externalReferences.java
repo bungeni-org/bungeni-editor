@@ -709,8 +709,8 @@ private void btnAddURIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
    String buildURI = "";
    Date selectedDate = dtURIdate.getDate();
    String docType = ((String)cboDocType.getSelectedItem()).toLowerCase();
-   String langISO = BungeniEditorProperties.getEditorProperty("langISO");
-   String countryISO = BungeniEditorProperties.getEditorProperty("countryISO");
+   String langISO = BungeniEditorProperties.getEditorProperty("locale.Language.iso639-2");
+   String countryISO = BungeniEditorProperties.getEditorProperty("locale.Country.iso3166-1-a2");
    String docIdentifier = this.txtDocId.getText();
    String refId = BungeniUUID.getStringUUID();
    DocumentExternalReference extRef = new DocumentExternalReference (refId, selectedDate, docType, langISO, countryISO, docIdentifier, txtURIlabel.getText());

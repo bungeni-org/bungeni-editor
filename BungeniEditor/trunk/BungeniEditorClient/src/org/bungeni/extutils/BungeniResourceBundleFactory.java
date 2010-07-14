@@ -49,8 +49,8 @@ public class BungeniResourceBundleFactory {
         
     }
     public static Locale getActiveLocale() {
-        String langC = BungeniEditorProperties.getEditorProperty("locale.Language");
-        String countryC = BungeniEditorProperties.getEditorProperty("locale.Country");
+        String langC = BungeniEditorProperties.getEditorProperty("locale.Language.iso639-1");
+        String countryC = BungeniEditorProperties.getEditorProperty("locale.Country.iso3166-1-a2");
         Locale lc = new Locale(langC, countryC);
         return lc;
     }

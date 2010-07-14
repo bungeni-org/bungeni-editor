@@ -57,7 +57,7 @@ public class Committees extends BaseMetadataPanel {
     }
 
     protected String getTableQuery(){
-        String countryIso = BungeniEditorProperties.getEditorProperty("countryISO");
+        String countryIso = BungeniEditorProperties.getEditorProperty("locale.Country.iso3166-1-a2");
         return new String("select committee_name, committee_uri from committees where country = '" +  countryIso + "'");
     }
 

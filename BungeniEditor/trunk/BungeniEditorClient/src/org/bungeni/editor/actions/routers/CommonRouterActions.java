@@ -36,8 +36,8 @@ import javax.swing.WindowConstants;
 import org.bungeni.extutils.BungeniUUID;
 
 /**
- *
- * @author Administrator
+ * Utility class that defines the shared APIs used during markup
+ * @author Ashok Hariharan
  */
 public class CommonRouterActions {
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(CommonRouterActions.class.getName());
@@ -219,6 +219,11 @@ public class CommonRouterActions {
         }
     }
 
+    /**
+     * This API defines the default metadata for all sections created via markup
+     * @param pAction
+     * @return
+     */
     public static HashMap<String, String> get_newSectionMetadata(toolbarAction pAction) {
         HashMap<String, String> metaMap = new HashMap<String, String>();
 

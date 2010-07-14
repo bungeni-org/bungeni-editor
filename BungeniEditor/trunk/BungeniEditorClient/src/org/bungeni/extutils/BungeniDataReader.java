@@ -1,11 +1,3 @@
-/*
- * BungeniDataReader.java
- *
- * Created on August 8, 2007, 7:03 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 
 package org.bungeni.extutils;
 
@@ -18,7 +10,7 @@ import java.util.Vector;
 
 /**
  *
- * @author Administrator
+ * @author Ashok Hariharan
  */
 public class BungeniDataReader {
    
@@ -35,9 +27,9 @@ public class BungeniDataReader {
           
           CommonFileFunctions cfsObject = new CommonFileFunctions();
           Installation installObject = new Installation();
-          File dir =  installObject.getInstallDirectory(this.getClass());
+          File dir =  Installation.getInstallDirectory(this.getClass());
          
-          String dataFilePath = dir.getAbsolutePath()+dir.separator+"data" +dir.separator +fileName;
+          String dataFilePath = dir.getAbsolutePath()+File.separator+"data" +File.separator +fileName;
           FileReader frData = new FileReader(dataFilePath);
           CSVReader reader = new CSVReader(frData);
           String[] nextLine;

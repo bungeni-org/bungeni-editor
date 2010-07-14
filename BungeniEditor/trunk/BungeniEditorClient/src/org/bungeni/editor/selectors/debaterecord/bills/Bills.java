@@ -56,7 +56,7 @@ public class Bills extends BaseMetadataPanel {
     }
 
     protected String getTableQuery(){
-        String countryIso = BungeniEditorProperties.getEditorProperty("countryISO");
+        String countryIso = BungeniEditorProperties.getEditorProperty("locale.Country.iso3166-1-a2");
         return new String("select bill_name, bill_uri, bill_ontology from bills where country = '" +  countryIso + "'");
     }
 
