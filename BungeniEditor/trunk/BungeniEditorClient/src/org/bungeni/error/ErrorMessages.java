@@ -1,11 +1,4 @@
-/*
- * ErrorMessages.java
- *
- * Created on December 12, 2007, 3:39 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
+
 
 package org.bungeni.error;
 

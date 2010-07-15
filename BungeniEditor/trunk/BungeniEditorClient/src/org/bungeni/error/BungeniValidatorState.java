@@ -1,11 +1,3 @@
-/*
- * BungeniValidator.java
- *
- * Created on March 4, 2008, 1:25 AM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 
 package org.bungeni.error;
 
