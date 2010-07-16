@@ -11,6 +11,7 @@ import java.awt.Dimension;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeMap;
@@ -18,6 +19,7 @@ import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
 import org.bungeni.editor.metadata.BillMetaModel;
 import org.bungeni.editor.selectors.SelectorDialogModes;
+import org.bungeni.extutils.CommonDateFunctions;
 import org.bungeni.extutils.CommonFormFunctions;
 import org.bungeni.utils.BungeniFileSavePathFormat;
 import org.bungeni.extutils.CommonStringFunctions;
@@ -49,31 +51,28 @@ public class BillMetadata extends BaseEditorDocMetadataDialog {
         this.docMetaModel.setup();
         initControls();
            if (theMode == SelectorDialogModes.TEXT_EDIT) {
-            try {
                 //retrieve metadata... and set in controls....
                 docMetaModel.loadModel(ooDocument);
-  
                String sBillNo = docMetaModel.getItem("BungeniBillNo");
                 String sBillName = docMetaModel.getItem("BungeniBillName");
                 String sAssentDate = docMetaModel.getItem("BungeniDateOfAssent");
                 String sCommencementDate = docMetaModel.getItem("BungeniDateOfCommencement");
-                SimpleDateFormat formatter = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
                 //official date
                 if (!CommonStringFunctions.emptyOrNull(sAssentDate)) {
-                this.dt_dateofassent.setDate(formatter.parse(sAssentDate));
+                    Date assentdate = CommonDateFunctions.parseDate(sAssentDate, BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
+                    if (assentdate != null)
+                        this.dt_dateofassent.setDate(assentdate);
                 }
                 //official time
                 if (!CommonStringFunctions.emptyOrNull(sCommencementDate) ) {
-                    SimpleDateFormat timeFormat = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataTimeFormat"));
-                    this.dt_dateofcommencement.setDate(timeFormat.parse(sCommencementDate));
+                    Date commencement = CommonDateFunctions.parseDate(sCommencementDate, BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
+                    if (commencement != null)
+                        this.dt_dateofcommencement.setDate(commencement);
                 }
                 if (!CommonStringFunctions.emptyOrNull(sBillNo))
                     this.txtBillNumber.setText(sBillNo);
                 if (!CommonStringFunctions.emptyOrNull(sBillName))
                     this.txtBillName.setText(sBillName);
-            } catch (ParseException ex) {
-                log.error("initalize()  =  "  + ex.getMessage());
-            }
          
         }
     }
