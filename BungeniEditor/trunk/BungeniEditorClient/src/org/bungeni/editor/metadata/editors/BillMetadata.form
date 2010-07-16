@@ -19,32 +19,16 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="lblBillNo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="161" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="lblBillName" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="148" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="lblDateOfAssent" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="68" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="dt_dateofcommencement" alignment="0" pref="182" max="32767" attributes="1"/>
-                          <Component id="dt_dateofassent" alignment="0" pref="182" max="32767" attributes="1"/>
-                          <Component id="txtBillName" alignment="0" pref="182" max="32767" attributes="1"/>
-                          <Component id="txtBillNumber" alignment="1" pref="182" max="32767" attributes="1"/>
-                      </Group>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="lblDateOfCommencement" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="71" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="lblBillNo" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblBillName" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblDateOfAssent" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="dt_dateofcommencement" alignment="0" pref="190" max="32767" attributes="1"/>
+                  <Component id="dt_dateofassent" alignment="0" pref="190" max="32767" attributes="1"/>
+                  <Component id="txtBillName" alignment="0" pref="190" max="32767" attributes="1"/>
+                  <Component id="txtBillNumber" alignment="1" pref="190" max="32767" attributes="1"/>
+                  <Component id="lblDateOfCommencement" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

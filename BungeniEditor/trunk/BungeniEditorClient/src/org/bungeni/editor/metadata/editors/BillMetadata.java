@@ -130,25 +130,25 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
         lblDateOfAssent = new javax.swing.JLabel();
         lblDateOfCommencement = new javax.swing.JLabel();
 
-        txtBillNumber.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        txtBillNumber.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
-        txtBillName.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        txtBillName.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
-        lblBillName.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblBillName.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle"); // NOI18N
         lblBillName.setText(bundle.getString("BillMetadata.lblBillName.text")); // NOI18N
 
-        dt_dateofassent.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        dt_dateofassent.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
-        dt_dateofcommencement.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        dt_dateofcommencement.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
-        lblBillNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblBillNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblBillNo.setText(bundle.getString("BillMetadata.lblBillNo.text")); // NOI18N
 
-        lblDateOfAssent.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblDateOfAssent.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblDateOfAssent.setText(bundle.getString("BillMetadata.lblDateOfAssent.text")); // NOI18N
 
-        lblDateOfCommencement.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblDateOfCommencement.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblDateOfCommencement.setText(bundle.getString("BillMetadata.lblDateOfCommencement.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -158,25 +158,15 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblBillNo)
-                        .addContainerGap(161, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblBillName)
-                        .addContainerGap(148, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblDateOfAssent)
-                        .addContainerGap(68, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(dt_dateofcommencement, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-                            .addComponent(dt_dateofassent, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-                            .addComponent(txtBillName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-                            .addComponent(txtBillNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblDateOfCommencement)
-                        .addContainerGap(71, Short.MAX_VALUE))))
+                    .addComponent(lblBillNo)
+                    .addComponent(lblBillName)
+                    .addComponent(lblDateOfAssent)
+                    .addComponent(dt_dateofcommencement, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                    .addComponent(dt_dateofassent, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                    .addComponent(txtBillName, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                    .addComponent(txtBillNumber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                    .addComponent(lblDateOfCommencement))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,8 +217,8 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
             {
                 put(java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle").getString("Bill_Name"), txtBillName);
                 put(java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle").getString("Bill_No"), txtBillNumber);
-                put(java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle").getString("Date_of_Assent"), dt_dateofassent);
-                put (java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle").getString("Date_of_Commencement"), dt_dateofcommencement);
+              //  put(java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle").getString("Date_of_Assent"), dt_dateofassent);
+              //  put (java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle").getString("Date_of_Commencement"), dt_dateofcommencement);
             }
             });
         return super.validateSelectedMetadata(spf);
