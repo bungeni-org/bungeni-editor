@@ -3,6 +3,7 @@ package org.bungeni.odfdocument.report;
 import java.util.HashMap;
 import java.util.TreeMap;
 import org.bungeni.odfdom.document.changes.BungeniOdfChangeContext;
+import org.bungeni.trackchanges.utils.CommonFunctions;
 import org.odftoolkit.odfdom.doc.text.OdfTextSection;
 import org.w3c.dom.Node;
 
@@ -32,6 +33,7 @@ public class BungeniOdfReportLine extends BungeniOdfReportLineBase {
             Integer nSectionNumber = changeContext.getDocHelper().getSectionHelper().getDocumentSectionNumber(sType, aSection);
             if (nSectionNumber != 0) {
                 lineVariables.put("SECTION_TYPE_INDEX", nSectionNumber);
+                lineVariables.put("SECTION_TYPE_INDEX_SUFFIX", CommonFunctions.getOrdinalFor(nSectionNumber));
             }
             }
         }
@@ -74,6 +76,7 @@ public class BungeniOdfReportLine extends BungeniOdfReportLineBase {
             put("CHANGE_TEXT", "");
             put("SECTION_TYPE", "");
             put("SECTION_TYPE_INDEX", "");
+            put("SECTION_TYPE_INDEX_SUFFIX", "");
             put("MEMBER_OF_PARLIAMENT", "");
             put("SECTION_TYPE_INFO", "");
         }};

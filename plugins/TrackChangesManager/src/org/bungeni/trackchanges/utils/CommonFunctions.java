@@ -119,13 +119,13 @@ public class CommonFunctions {
     }
 
     public static void main(String[] args) {
-        System.out.println(getOrdinalFor(20));
-        System.out.println(getOrdinalFor(21));
-        System.out.println(getOrdinalFor(22));
-        System.out.println(getOrdinalFor(23));
-        System.out.println(getOrdinalFor(24));
-        System.out.println(getOrdinalFor(25));
-        System.out.println(getOrdinalFor(26));
+        System.out.println(getOrdinalFor(1));
+        System.out.println(getOrdinalFor(2));
+        System.out.println(getOrdinalFor(3));
+        System.out.println(getOrdinalFor(4));
+        System.out.println(getOrdinalFor(5));
+        System.out.println(getOrdinalFor(6));
+        System.out.println(getOrdinalFor(7));
     }
 
 }

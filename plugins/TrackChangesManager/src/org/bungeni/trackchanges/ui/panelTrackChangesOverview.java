@@ -115,8 +115,9 @@ public class panelTrackChangesOverview extends panelChangesBase {
             public void actionPerformed(ActionEvent e) {
                 BungeniBill bBill  = (BungeniBill) cboBills.getSelectedItem();
                 String      billId = bBill.getID();
-
+                log.error("cboBill.actionPerformed  :" + billId);
                 __CURRENT_BILL_FOLDER__ = CommonFunctions.getWorkspaceForBill(billId);
+                log.error("cboBill.current_bill_folder  :" + __CURRENT_BILL_FOLDER__);
                 AppProperties.setProperty("CurrentBillID", billId);
                 loadFilesFromFolder();
             }
