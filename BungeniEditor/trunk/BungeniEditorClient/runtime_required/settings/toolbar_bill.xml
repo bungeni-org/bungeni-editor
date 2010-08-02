@@ -16,7 +16,7 @@ Action configuration for bill document type
                     mode="TEXT_SELECTED_INSERT"
                     target="toolbarSubAction.makeBillPrefaceSection.section_creation" visible="true"
                     condition="cursorInSection:bill :and: sectionNotExists:preface :and: textSelected:true">
-                    <title xml:lang="eng">"Markup Preface</title>
+                    <title xml:lang="eng">Markup Preface</title>
                 </subaction>
             </blockAction>
             <blockAction name="Part" target="null" visible="true" condition="none">
