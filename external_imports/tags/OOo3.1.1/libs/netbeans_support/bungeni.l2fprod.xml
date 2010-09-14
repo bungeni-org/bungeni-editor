@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE library PUBLIC "-//NetBeans//DTD Library Declaration 1.0//EN" "http://www.netbeans.org/dtds/library-declaration-1_0.dtd">
+<library version="1.0">
+	<name>bungeni.l2fprod</name>
+	<type>j2se</type>
+	<volume>
+		<type>classpath</type>
+		<resource>jar:file:lib_path/external_libs/swingx/l2fprod-common-all.jar!/</resource>
+		<resource>jar:file:lib_path/external_libs/swingx/l2fprod-common-shared.jar!/</resource>
+		<resource>jar:file:lib_path/external_libs/swingx/l2fprod-common-tasks.jar!/</resource>
+	</volume>
+	<volume>
+		<type>src</type>
+	</volume>
+	<volume>
+		<type>javadoc</type>
+	</volume>
+</library>
