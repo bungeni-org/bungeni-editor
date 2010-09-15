@@ -2,8 +2,13 @@
 <DocumentStructure type="debaterecord">
 	<sectionType name="body"><!--bill allows three child section types -->
 		<allowedTypes>
-			<ref type="sectionType" name="MastHead"/>
+                        <!-- each of these ref types must be defined as a sectionType -->
+			<ref type="sectionType" name="Preface"/>
+			<ref type="sectionType" name="Observation"/>
+			<ref type="sectionType" name="PapersLaid"/>
 			<ref type="sectionType" name="Conclusion"/>
+                        <ref type="sectionType" name="Communication"/>
+                        <ref type="sectionType" name="PointOfOrder"/>
 		</allowedTypes><!--order of children is specified here -->
 		<orderOfChildren>
 			<order type="sectionType" name="Clause" order="1" required="yes" />
@@ -11,19 +16,79 @@
 			<order type="sectionType" name="Conclusion" order="2" required="no" />
 		</orderOfChildren>
 	</sectionType>
-	<sectionType name="MastHead">
+        
+	<sectionType name="Observation">
 		<allowedTypes><!--no child sections are allowed -->
-			<!--<ref type="sectionType" name="None"/> -->
+			<ref type="sectionType" name="None"/>
 		</allowedTypes>
 		<orderOfChildren><!--children can be in any order-->
 			<unordered/>
 		</orderOfChildren>
 	</sectionType>
-	<sectionType name="Clause">
-		<allowedTypes>
-			<ref type="sectionType" name="Part"/>
+
+
+	<sectionType name="Preface">
+		<allowedTypes><!--no child sections are allowed -->
+			<ref type="sectionType" name="Observation"/>
 		</allowedTypes>
-		<orderOfChildren>
+		<orderOfChildren><!--children can be in any order-->
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+
+	<sectionType name="PapersLaid">
+		<allowedTypes><!--no child sections are allowed -->
+			<ref type="sectionType" name="PapersLaidList"/>
+                        <ref type="sectionType" name="Observation"/>
+		</allowedTypes>
+		<orderOfChildren><!--children can be in any order-->
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+
+        <sectionType name="PapersLaidList">
+		<allowedTypes><!--no child sections are allowed -->
+                        <ref type="sectionType" name="Observation"/>
+		</allowedTypes>
+		<orderOfChildren><!--children can be in any order-->
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+
+        <sectionType name="PapersLaidList">
+		<allowedTypes><!--no child sections are allowed -->
+                        <ref type="sectionType" name="Observation"/>
+		</allowedTypes>
+		<orderOfChildren><!--children can be in any order-->
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+
+        <sectionType name="Communication">
+		<allowedTypes><!--no child sections are allowed -->
+                        <ref type="sectionType" name="Speech"/>
+                        <ref type="sectionType" name="Observation"/>
+		</allowedTypes>
+		<orderOfChildren><!--children can be in any order-->
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+
+        <sectionType name="PointOfOrder">
+		<allowedTypes><!--no child sections are allowed -->
+                        <ref type="sectionType" name="Speech"/>
+                        <ref type="sectionType" name="Observation"/>
+		</allowedTypes>
+		<orderOfChildren><!--children can be in any order-->
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+
+        <sectionType name="MastHead">
+		<allowedTypes><!--no child sections are allowed -->
+			<!--<ref type="sectionType" name="None"/> -->
+		</allowedTypes>
+		<orderOfChildren><!--children can be in any order-->
 			<unordered/>
 		</orderOfChildren>
 	</sectionType>

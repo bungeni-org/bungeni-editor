@@ -34,7 +34,7 @@ public class StructuralRulesEngineTest {
     @Before
     public void setUp() {
         try {
-            odoc = OdfDocument.loadDocument(new File("test/testdoc/ke_debaterecord_2009-7-26_eng.odt"));
+            odoc = OdfDocument.loadDocument(new File("test/testdoc/ke_debaterecord_2010-5-13_eng.odt"));
         } catch (Exception ex) {
           ex.printStackTrace();
         }
@@ -54,10 +54,13 @@ public class StructuralRulesEngineTest {
             //configure the source files
             String ruleEnginesFile = enginerules;
             String docRulesFile = docrules;
-            String[] runTheseRules =  { "OrderOfChildSections","AllowedChildSections"};
+            String[] runTheseRules =  { "AllowedChildSections"};
             //initalize the rules engine
             StructuralRulesEngine sre = new StructuralRulesEngine(docRulesFile, ruleEnginesFile, runTheseRules);
             boolean bState = sre.processRulesForDocument(odoc);
+            for (StructuralError e : sre.getErrors()) {
+                System.out.println(e.toString());
+            }
             org.junit.Assert.assertEquals(ERRORS_RESULT, sre.getErrors().size());
      
     }
