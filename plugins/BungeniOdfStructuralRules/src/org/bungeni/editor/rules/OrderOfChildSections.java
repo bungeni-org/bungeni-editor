@@ -107,7 +107,11 @@ public class OrderOfChildSections extends BaseStructuralRule {
        } else {
            actualPreceedingType = this.odfSectionHelper.getSectionType(listofChildren.get(currentIdx-1));
        }
-       if (allowedPreceedingTypes.contains(actualPreceedingType)) 
+
+       if (actualPreceedingType.equals("AT_FIRST")) {
+           return true;
+       }
+       if (allowedPreceedingTypes.contains(actualPreceedingType))
            return true;
        else
            return false;

@@ -177,7 +177,7 @@ public class StructuralRulesParser extends RuleParser {
         /**
          * List of allowed elements for this order level, for this e.g. order level 0 can have both the "Preface" and the "MastHead"
          */
-        public   ArrayList<Element> allowedElementsAtOrderPosition;
+        public   ArrayList<Element> allowedElementsAtOrderPosition = new ArrayList<Element>(0);
 
         public ruleOrderOfChildren (Element elem ) {
             nOrder = Integer.parseInt(elem.attributeValue("order"));

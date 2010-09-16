@@ -70,7 +70,7 @@ public class AllowedChildSections extends BaseStructuralRule{
 
     public boolean checkAllowedSectionTypes() {
         ///get all child sections
-        boolean bState = false;
+        boolean bState = true;
         try {
             ArrayList<OdfTextSection> listofSections = odfSectionHelper.getChildSections(xThisSection);
             for (OdfTextSection odfSection : listofSections) {
@@ -86,13 +86,15 @@ public class AllowedChildSections extends BaseStructuralRule{
                                 childSectionName,
                                 getName(), SECTION_TYPE_INVALID);
                     errorLog.add(returnError);
+                    bState = false;
                 }
             }
         } catch (Exception ex) {
             log.error("checkAllowedSectionTypes : " + ex.getMessage());
-        } finally {
+            bState = false;
+        } 
             return bState;
-        }
+        
     }
     
 
