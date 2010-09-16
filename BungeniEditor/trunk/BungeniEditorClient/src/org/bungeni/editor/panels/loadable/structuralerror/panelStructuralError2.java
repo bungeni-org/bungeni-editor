@@ -25,7 +25,6 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.panels.loadable.validationErrorTableModel;
-import org.bungeni.extutils.CommonDocumentUtilFunctions;
 import org.jdom.Document;
 
 ////import org.bungeni.ooo.OOComponentHelper;
@@ -88,9 +87,11 @@ public class panelStructuralError2 extends javax.swing.JPanel  {
     }
 
     private void initValidationErrorTable(){
-        validationErrorTableModel tblModel = new validationErrorTableModel(this.validationErrors);
-        this.tblValidationErrors.setModel(tblModel);
-        this.tblValidationErrors.getColumnModel().getColumn(1).setCellRenderer(new TextAreaRenderer());
+        if (this.validationErrors != null ) {
+            validationErrorTableModel tblModel = new validationErrorTableModel(this.validationErrors);
+            this.tblValidationErrors.setModel(tblModel);
+            this.tblValidationErrors.getColumnModel().getColumn(1).setCellRenderer(new TextAreaRenderer());
+        }
      //   this.tblValidationErrors.addMouseListener(new tblValidationErrorMouseListener());
     
     }
