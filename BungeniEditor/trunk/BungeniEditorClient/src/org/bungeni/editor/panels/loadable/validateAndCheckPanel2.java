@@ -202,56 +202,6 @@ public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
 
     class validateStructureActionListener implements ActionListener {
 
-        /**
-         * Run the button action in a swingworker thread, so the UI disabling happens immediately
-         */
-        class buttonActionRunner extends SwingWorker<Integer, Object> {
-
-            JButton sourceButton;
-           
-            public buttonActionRunner(JButton origButton) {
-                this.sourceButton = origButton;
-                //change the curssor to the wait cursor
-                sourceButton.setEnabled(false);
-                 //set the wait cursor
-                parentFrame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-
-            }
-
-            protected Integer doInBackground() throws Exception {
-                //check if server is running .. if running stop it
-                int nRet = -1;
-               /// nRet = validateStructure();
-                return nRet;
-            }
-
-            @Override
-            public void done() {
-                int nRet = -2;
-                try {
-                    sourceButton.setEnabled(true);
-                    parentFrame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-                    nRet = get();
-                } catch (InterruptedException ex) {
-                    log.error("done(),", ex);
-                } catch (ExecutionException ex) {
-                    log.error("done(),", ex);
-                }
-                switch (nRet) {
-                    case -1:
-                        MessageBox.OK(parentFrame, bundle.getString("problem_running_struct_checker"), bundle.getString("save_the_document"), JOptionPane.ERROR_MESSAGE);
-                        break;
-                    case 0:
-                        break;
-                    case -2:
-                    default:
-                        MessageBox.OK(parentFrame, bundle.getString("save_document_before_proceeding"), bundle.getString("save_the_document"), JOptionPane.ERROR_MESSAGE);
-                        break;
-
-                }
-            }
-        }
-
         Object structuralCheckReturnValue = null;
         
         public synchronized void actionPerformed(ActionEvent e) {
