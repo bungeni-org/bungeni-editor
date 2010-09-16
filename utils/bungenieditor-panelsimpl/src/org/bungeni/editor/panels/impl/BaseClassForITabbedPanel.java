@@ -1,30 +1,35 @@
-
 package org.bungeni.editor.panels.impl;
 
+//~--- non-JDK imports --------------------------------------------------------
+
+import org.bungeni.ooo.OOComponentHelper;
+
+//~--- JDK imports ------------------------------------------------------------
+
 import java.awt.Component;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import org.bungeni.ooo.OOComponentHelper;
 
 /**
  *
  * @author Ashok Hariharan
  */
 public abstract class BaseClassForITabbedPanel extends JPanel implements ITabbedPanel {
-    
-    /*** interface impplmenentation varibales */
+
+    /** * interface impplmenentation varibales */
     protected OOComponentHelper ooDocument;
-    protected JFrame parentFrame;
-    protected JPanel parentPanel;
-    protected String panelTitle;
-    protected Integer panelLoadOrder;
-    
+    protected Integer           panelLoadOrder;
+    protected String            panelTitle;
+    protected JFrame            parentFrame;
+    protected JPanel            parentPanel;
+
     /** Creates a new instance of BaseClassForITabbedPanel */
-    public BaseClassForITabbedPanel() {
-    }
-   /**
-     * Required functions for ITabbedPanel interface
-     **/
+    public BaseClassForITabbedPanel() {}
+
+    /**
+     *  Required functions for ITabbedPanel interface
+     */
     public void setOOComponentHandle(OOComponentHelper ooComponent) {
         this.ooDocument = ooComponent;
     }
@@ -33,7 +38,7 @@ public abstract class BaseClassForITabbedPanel extends JPanel implements ITabbed
      * Required for ITabbedPanel interface
      * @return - OOComponentHelper - the openoffice document handle
      */
-    public OOComponentHelper getOOComponentHandle(){
+    public OOComponentHelper getOOComponentHandle() {
         return this.ooDocument;
     }
 
@@ -71,11 +76,9 @@ public abstract class BaseClassForITabbedPanel extends JPanel implements ITabbed
     }
 
     public void initialize() {
-      // common initialization stuff here
+
+        // common initialization stuff here
     }
 
     abstract public void refreshPanel();
-    
-    
-    
 }
