@@ -2,6 +2,7 @@
 package org.bungeni.editor.rules;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import org.bungeni.editor.rulesimpl.BaseStructuralRule;
 import org.bungeni.editor.rulesimpl.StructuralError;
 import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
@@ -96,7 +97,33 @@ public class OrderOfChildSections extends BaseStructuralRule {
       }
    }
 
+   private boolean checkPrecedingException (String childSectionType) {
+       HashMap<String,Boolean> returnMap = this.ruleParserEngine.getSectionTypeOrderException(childSectionType);
+       if (returnMap.isEmpty()) {
+           return false;
+       }
+       if (returnMap.containsKey("preceding")) {
+           return returnMap.get("preceding");
+       }
+       return false;
+   }
+
+    private boolean checkFollowingException (String childSectionType) {
+      HashMap<String,Boolean> returnMap = this.ruleParserEngine.getSectionTypeOrderException(childSectionType);
+       if (returnMap.isEmpty()) {
+           return false;
+       }
+       if (returnMap.containsKey("following")) {
+           return returnMap.get("following");
+       }
+       return false;
+   }
+
    private boolean checkPreceeding(String childSectionType, int currentIdx , ArrayList<OdfTextSection> listofChildren) {
+
+       if (checkPrecedingException(childSectionType) == true ) {
+           return true;
+       }
        //get the allowed preceeding types from the rule
        ArrayList<String> allowedPreceedingTypes = this.ruleParserEngine.getPreceedingSectionTypes(thisSectionType, childSectionType);
        String actualPreceedingType = "";
@@ -111,6 +138,11 @@ public class OrderOfChildSections extends BaseStructuralRule {
        if (actualPreceedingType.equals("AT_FIRST")) {
            return true;
        }
+
+        if (checkPrecedingException(actualPreceedingType) == true)
+           return true;
+
+
        if (allowedPreceedingTypes.contains(actualPreceedingType))
            return true;
        else
@@ -119,6 +151,10 @@ public class OrderOfChildSections extends BaseStructuralRule {
 
    private boolean checkFollowing(String childSectionType, int currentIdx , ArrayList<OdfTextSection> listofChildren) {
   //get the allowed preceeding types from the rule
+       if (checkFollowingException(childSectionType) == true ) {
+           return true;
+       }
+
        ArrayList<String> allowedFollowingTypes = this.ruleParserEngine.getFollowingSectionTypes(thisSectionType, childSectionType);
        String actualFollowingType = "";
        //get the actual preceeding type
@@ -129,6 +165,10 @@ public class OrderOfChildSections extends BaseStructuralRule {
            //get the following section type
            actualFollowingType = this.odfSectionHelper.getSectionType(listofChildren.get(currentIdx+1));
        }
+
+       if (checkFollowingException(actualFollowingType) == true)
+           return true;
+
        if (allowedFollowingTypes.contains(actualFollowingType))
            return true;
        else

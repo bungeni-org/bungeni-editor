@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
 import org.dom4j.DocumentHelper;
+import org.dom4j.Node;
 
 /**
  * Class to parse section structural rules
@@ -87,6 +88,21 @@ public class StructuralRulesParser extends RuleParser {
         } finally {
             return elemSecType;
         }
+    }
+
+    public HashMap<String,Boolean> getSectionTypeOrderException(String sectionTypeName) {
+        HashMap<String,Boolean> returnMap = new HashMap<String,Boolean>();
+        Element secType = getSectionType(sectionTypeName);
+        Node orderException = secType.selectSingleNode("orderException");
+        if (orderException == null) {
+            return returnMap;
+        }
+        Node preceding = orderException.selectSingleNode("@preceding");
+        Node following = orderException.selectSingleNode("@following");
+        returnMap.put("preceding", Boolean.parseBoolean(preceding.getStringValue()));
+        returnMap.put("following", Boolean.parseBoolean(following.getStringValue()));
+
+        return returnMap;
     }
 
     /**
