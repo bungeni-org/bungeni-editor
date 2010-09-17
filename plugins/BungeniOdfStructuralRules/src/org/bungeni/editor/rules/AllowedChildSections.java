@@ -60,7 +60,7 @@ public class AllowedChildSections extends BaseStructuralRule{
                                 "",
                                 thisSectionName,
                                 "",
-                                getName(),INVALID_SECTION_TYPE_IN_DOCUMENT );
+                                getName(),INVALID_SECTION_TYPE_IN_DOCUMENT, "", "" );
              errorLog.add(returnError);
         return false;
         }
@@ -84,7 +84,7 @@ public class AllowedChildSections extends BaseStructuralRule{
                                 childSectionType,
                                 thisSectionName,
                                 childSectionName,
-                                getName(), SECTION_TYPE_INVALID);
+                                getName(), SECTION_TYPE_INVALID, "", "");
                     errorLog.add(returnError);
                     bState = false;
                 }

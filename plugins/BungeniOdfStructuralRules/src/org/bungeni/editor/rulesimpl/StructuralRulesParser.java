@@ -30,6 +30,7 @@ public class StructuralRulesParser extends RuleParser {
     private final static String            GET_SECTION_TYPE_NAME  =
         "/DocumentStructure/sectionType[@name='{thisSectionType}']";
     private final static String            GET_ORDER_OF_CHILDREN = "orderOfChildren/order";
+    private final static String            UNORDERED_CHILDREN = "orderOfChildren/unordered";
 
     private ruleOrderOfChildrenByType ruleOrderBytype = null;
 
@@ -190,15 +191,23 @@ public class StructuralRulesParser extends RuleParser {
          * Multiple elements can exist at an oder level, order level is the order/@order element
          */
         public  Integer nOrder ;
+        public  String orderState ; 
         /**
          * List of allowed elements for this order level, for this e.g. order level 0 can have both the "Preface" and the "MastHead"
          */
         public   ArrayList<Element> allowedElementsAtOrderPosition = new ArrayList<Element>(0);
 
         public ruleOrderOfChildren (Element elem ) {
-            nOrder = Integer.parseInt(elem.attributeValue("order"));
-            allowedElementsAtOrderPosition.add(elem);
+            if (elem.getName().equals("unordered")){
+                orderState = "unordered";
+            } else {
+                nOrder = Integer.parseInt(elem.attributeValue("order"));
+                allowedElementsAtOrderPosition.add(elem);
+                orderState = "ordered";
+            }
         }
+
+
 
         public ArrayList<String> getSectionTypesForRule() {
             ArrayList<String> allowedSectionTypes = new ArrayList<String>(0);
@@ -360,10 +369,25 @@ public class StructuralRulesParser extends RuleParser {
             return false;
     }
 
+
+    public boolean areSectionTypeChildrenUnordered(String sectionType){
+            Element            foundSectionType  = this.getSectionType(sectionType);
+            //check if unordered
+            XPath              selectPath        = DocumentHelper.createXPath(UNORDERED_CHILDREN);
+            Node unorderedNode = selectPath.selectSingleNode(foundSectionType);
+
+            if (unorderedNode != null) {
+                return true;
+            } else
+                return false;
+    }
+
+
     private TreeMap<Integer, ruleOrderOfChildren> retrieveOrderRulesForType (String sectionTypeName) {
             TreeMap<Integer, ruleOrderOfChildren> childOrder= new TreeMap<Integer, ruleOrderOfChildren>();
         try {
             Element            foundSectionType  = this.getSectionType(sectionTypeName);
+            //check if unordered
             XPath              selectPath        = DocumentHelper.createXPath(GET_ORDER_OF_CHILDREN);
             List selectNodes = selectPath.selectNodes(foundSectionType);
             ArrayList<Element> foundSectionTypes = new ArrayList<Element>(0);
@@ -381,9 +405,8 @@ public class StructuralRulesParser extends RuleParser {
             }
         } catch (Exception ex) {
             log.error("retrieveOrderRulesForType : " + ex.getMessage());
-        } finally {
+        } 
             return childOrder;
-        }
     }
 
     public TreeMap<Integer, ruleOrderOfChildren> getOrderOfChildrenForType(String sectionTypeName) {

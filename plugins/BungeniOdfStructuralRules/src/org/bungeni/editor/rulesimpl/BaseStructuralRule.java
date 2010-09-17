@@ -64,7 +64,7 @@ public abstract class BaseStructuralRule implements IStructuralRule {
      * @return
      */
     protected StructuralError makeStructuralError(boolean state, String psecType, String csecType, String psecName,
-            String csecName, String errType, String errMsg) {
+            String csecName, String errType, String errMsg, String failSectType, String failSectName) {
         StructuralError err = new StructuralError();
 
         err.errorState        = state;
@@ -74,6 +74,8 @@ public abstract class BaseStructuralRule implements IStructuralRule {
         err.childSectionName  = csecName;
         err.failRuleType      = errType;
         err.errorMessage      = errMsg;
+        err.failureSectionType = failSectType;
+        err.failureSectionName = failSectName;
 
         return err;
     }

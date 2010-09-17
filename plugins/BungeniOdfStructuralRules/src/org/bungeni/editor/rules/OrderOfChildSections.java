@@ -32,7 +32,13 @@ public class OrderOfChildSections extends BaseStructuralRule {
     @Override
     public boolean applyRule(String forThisSectionName) {
           if (setup(forThisSectionName)) {
-            return checkOrderOfChildren();
+            //check if children can be unordered
+            //if yes -- return true
+            //else check order of children
+            if (checkIsUnordered()) {
+                return true;
+            } else
+                return checkOrderOfChildren();
          }
         return false;
     }
@@ -57,6 +63,12 @@ public class OrderOfChildSections extends BaseStructuralRule {
        }
     }
 
+
+   private boolean checkIsUnordered(){
+       boolean bState = this.ruleParserEngine.areSectionTypeChildrenUnordered(thisSectionType);
+       return bState;
+   }
+
    private boolean checkOrderOfChildren() {
        //get the child sections
       boolean bCheckPre = false, bCheckFol = false;
@@ -68,24 +80,25 @@ public class OrderOfChildSections extends BaseStructuralRule {
                String childSectionName = odfSection.getTextNameAttribute();
                //for the current child section - get the actual preceeding section type
                //and see if it matches with any of the rule preceeding section types
-               bCheckPre =  checkPreceeding(childSectionType, i, listofSections);
-               if (!bCheckPre) {
+               checkState precState =  checkPreceeding(childSectionType, i, listofSections);
+               if (!precState.checkState) {
                       StructuralError returnError = this.makeStructuralError(false,
                                 thisSectionType,
                                 childSectionType,
                                 thisSectionName,
                                 childSectionName,
-                                getName(), INVALID_PRECEEDING_POSITION);
+                                getName(), INVALID_PRECEEDING_POSITION,
+                                precState.failedSectionType, precState.failedSectionName);
                     errorLog.add(returnError);
                }
-               bCheckFol = checkFollowing(childSectionType, i, listofSections);
-               if (!bCheckFol) {
+               checkState follState = checkFollowing(childSectionType, i, listofSections);
+               if (!follState.checkState) {
                       StructuralError returnError = this.makeStructuralError(false,
                                 thisSectionType,
                                 childSectionType,
                                 thisSectionName,
                                 childSectionName,
-                                getName(), INVALID_FOLLOWING_POSITION);
+                                getName(), INVALID_FOLLOWING_POSITION, follState.failedSectionType, follState.failedSectionName);
                     errorLog.add(returnError);
                }
            }
@@ -119,10 +132,10 @@ public class OrderOfChildSections extends BaseStructuralRule {
        return false;
    }
 
-   private boolean checkPreceeding(String childSectionType, int currentIdx , ArrayList<OdfTextSection> listofChildren) {
-
+   private checkState checkPreceeding(String childSectionType, int currentIdx , ArrayList<OdfTextSection> listofChildren) {
+       checkState cs = new checkState();
        if (checkPrecedingException(childSectionType) == true ) {
-           return true;
+           return cs;
        }
        //get the allowed preceeding types from the rule
        ArrayList<String> allowedPreceedingTypes = this.ruleParserEngine.getPreceedingSectionTypes(thisSectionType, childSectionType);
@@ -136,27 +149,44 @@ public class OrderOfChildSections extends BaseStructuralRule {
        }
 
        if (actualPreceedingType.equals("AT_FIRST")) {
-           return true;
+           return cs;
        }
 
         if (checkPrecedingException(actualPreceedingType) == true)
-           return true;
+           return cs;
 
 
        if (allowedPreceedingTypes.contains(actualPreceedingType))
-           return true;
-       else
-           return false;
+           return cs;
+       else {
+           OdfTextSection failSection = listofChildren.get(currentIdx -1);
+           cs.checkState = false;
+           cs.failedSectionName = failSection.getTextNameAttribute();
+           cs.failedSectionType = actualPreceedingType;
+           return cs;
+       }
    }
 
-   private boolean checkFollowing(String childSectionType, int currentIdx , ArrayList<OdfTextSection> listofChildren) {
+   public class checkState {
+       Boolean checkState;
+       String failedSectionType;
+       String failedSectionName;
+
+       public checkState (){
+         checkState = true;
+       }
+   }
+
+   private checkState checkFollowing(String childSectionType, int currentIdx , ArrayList<OdfTextSection> listofChildren) {
+        checkState cs = new checkState();
   //get the allowed preceeding types from the rule
        if (checkFollowingException(childSectionType) == true ) {
-           return true;
+           return cs;
        }
 
        ArrayList<String> allowedFollowingTypes = this.ruleParserEngine.getFollowingSectionTypes(thisSectionType, childSectionType);
        String actualFollowingType = "";
+
        //get the actual preceeding type
        if (currentIdx == listofChildren.size() - 1) {
            //we are at the last section section
@@ -167,12 +197,17 @@ public class OrderOfChildSections extends BaseStructuralRule {
        }
 
        if (checkFollowingException(actualFollowingType) == true)
-           return true;
+           return cs;
 
        if (allowedFollowingTypes.contains(actualFollowingType))
-           return true;
-       else
-           return false;
+           return cs;
+       else {
+            OdfTextSection otextSection = listofChildren.get(currentIdx+1);
+            cs.checkState = false;
+            cs.failedSectionType = actualFollowingType;
+            cs.failedSectionName = otextSection.getTextNameAttribute();
+           return cs;
+       }
    }
 
 
