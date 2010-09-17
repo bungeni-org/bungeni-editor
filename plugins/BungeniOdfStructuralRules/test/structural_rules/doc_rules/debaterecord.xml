@@ -22,8 +22,8 @@
 
 		</allowedTypes><!--order of children is specified here -->
 		<orderOfChildren>
-			<order type="sectionType" name="Clause" order="1" required="yes" />
 			<order type="sectionType" name="Preface" order="0" required="yes" />
+                        <order type="sectionType" name="PapersLaid" order="1" required="yes" />
 			<order type="sectionType" name="Conclusion" order="2" required="no" />
 		</orderOfChildren>
 	</sectionType>

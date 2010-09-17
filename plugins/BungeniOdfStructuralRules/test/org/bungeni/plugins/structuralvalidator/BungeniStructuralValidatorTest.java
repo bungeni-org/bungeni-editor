@@ -23,7 +23,7 @@ import static org.junit.Assert.*;
 public class BungeniStructuralValidatorTest {
 
     BungeniStructuralValidator validator = null;
-    String inputFile = "test/testdoc/ke_debaterecord_2009-7-26_eng.odt";
+    String inputFile = "test/testdoc/ke_debaterecord_2010-5-13_eng.odt";
     String rulesRoot = "test/structural_rules";
     String expectedOutputFile = "test/testdoc/plugin_test_output.txt";
     String expectedResult = "<error />";
@@ -59,7 +59,7 @@ public class BungeniStructuralValidatorTest {
         structValidator.put("OdfFileURL", filePath);
         structValidator.put("RulesRootFolder", fRules.getAbsolutePath() );
         structValidator.put("CurrentDocType", "debaterecord");
-        String[] runtheseChecks = {"AllowedChildSections", "OrderOfChildSections"};
+        String[] runtheseChecks = {"AllowedChildSections"};
         structValidator.put("RunChecks", runtheseChecks );
         validator.setParams(structValidator);
         StructuralRulesConfig.APPLN_PATH_PREFIX = fRules.getAbsolutePath();
