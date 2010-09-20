@@ -21,7 +21,7 @@
     <xsl:template match="*[@name='TLCPerson']">
         <TLCPerson>
 			<xsl:if test="@id">
-				<xsl:attribute name="id"><xsl:value-of select="@id" /></xsl:attribute>
+				<xsl:attribute name="id"><xsl:text>p</xsl:text><xsl:value-of select="@id" /></xsl:attribute>
 			</xsl:if>
 			<xsl:if test="@href">
 				<xsl:attribute name="href"><xsl:value-of select="@href" /></xsl:attribute>

@@ -20,8 +20,7 @@
 
     <xsl:template match="*[@name='Person']">
         <from>
- 
-            <xsl:apply-templates />
+           <xsl:apply-templates />
         </from>
     </xsl:template>
     

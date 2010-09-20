@@ -24,7 +24,7 @@
 				<xsl:attribute name="id"><xsl:value-of select="@id" /></xsl:attribute>
 			</xsl:if>
             <xsl:if test="@BungeniSpeechBy">
-				<xsl:attribute name="by"><xsl:value-of select="@BungeniPersonID" /></xsl:attribute>
+				<xsl:attribute name="by"><xsl:text>#p</xsl:text><xsl:value-of select="@BungeniPersonID" /></xsl:attribute>
 			</xsl:if>
             <xsl:if test="@BungeniSpeechTo">
 				<xsl:attribute name="to"><xsl:value-of select="@BungeniSpeechTo" /></xsl:attribute>

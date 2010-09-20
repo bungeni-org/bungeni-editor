@@ -19,7 +19,7 @@
     </xsl:template>
 
     <xsl:template match="*[@name='author']">
-        <author>
+        <FRBRauthor>
 			<xsl:if test="@href">
 				<xsl:attribute name="href"><xsl:value-of select="@href" /></xsl:attribute>
 			</xsl:if>
@@ -28,7 +28,7 @@
 			</xsl:if>
 
             <xsl:apply-templates />
-        </author>
+        </FRBRauthor>
     </xsl:template>
     
     <xsl:template match="text()">

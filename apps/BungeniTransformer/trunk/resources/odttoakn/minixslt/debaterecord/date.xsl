@@ -19,14 +19,14 @@
     </xsl:template>
 
     <xsl:template match="*[@name='date']">
-        <date>
+        <FRBRdate>
 			<xsl:if test="@date">
 				<xsl:attribute name="date"><xsl:value-of select="@date" /></xsl:attribute>
 			</xsl:if>
 			<xsl:attribute name="name"><xsl:value-of select="@contentName" /></xsl:attribute>
 			
             <xsl:apply-templates />
-        </date>
+        </FRBRdate>
     </xsl:template>
     
     <xsl:template match="text()">
