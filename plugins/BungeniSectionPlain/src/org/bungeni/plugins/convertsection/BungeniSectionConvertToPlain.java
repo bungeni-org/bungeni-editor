@@ -13,9 +13,9 @@ import org.bungeni.odfdom.section.IBungeniOdfSectionIterator;
 import org.bungeni.odfdom.utils.BungeniOdfFileCopy;
 
 import org.bungeni.plugins.IEditorPlugin;
-import org.openoffice.odf.doc.OdfDocument;
-import org.openoffice.odf.doc.element.style.OdfSectionProperties;
-import org.openoffice.odf.doc.element.text.OdfSection;
+import org.odftoolkit.odfdom.doc.OdfDocument;
+import org.odftoolkit.odfdom.doc.text.OdfTextSection;
+import org.odftoolkit.odfdom.dom.style.props.OdfSectionProperties;
 
 /**
  * Plugin library that converts a document to plain
@@ -62,7 +62,7 @@ public class BungeniSectionConvertToPlain  implements IEditorPlugin {
             //Remove section background images
             BungeniOdfSectionHelper odfDomHelper = new BungeniOdfSectionHelper(odfDoc);
             odfDomHelper.iterateSections(new IBungeniOdfSectionIterator(){
-              public boolean nextSection(BungeniOdfSectionHelper helper, OdfSection arg0) {
+              public boolean nextSection(BungeniOdfSectionHelper helper, OdfTextSection arg0) {
                    helper.removeSectionBackgroundImage(arg0);
                    arg0.setProperty(OdfSectionProperties.MarginLeft, "0.0in" );
                     return true;
