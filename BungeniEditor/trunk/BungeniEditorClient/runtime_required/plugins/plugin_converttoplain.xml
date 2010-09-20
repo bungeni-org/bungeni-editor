@@ -1,8 +1,8 @@
 <plugin name="ConvertToPlain" base="convert_to_plain" >
-  <main class="org.bungeni.plugins.convertsection.BungeniSectionConvertToPlain">BungeniSectionPlain.jar</main>
+  <main class="org.bungeni.plugins.convertsection.BungeniSectionConvertToPlain">bungenisectionplain/BungeniSectionPlain.jar</main>
   <required>
-	<lib>bungeniodfdom.jar</lib>
-	<lib>odfdom.jar</lib>
-	<lib>log4j.jar</lib>
+	<lib>bungeniodfdom/bungeniodfdom.jar</lib>
+	<lib>odfdom/odfdom.jar</lib>
+	<lib>apache-log4j/log4j.jar</lib>
   </required>	
 </plugin>
