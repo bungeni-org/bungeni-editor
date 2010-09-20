@@ -14,6 +14,8 @@ public class StructuralError {
     public String childSectionType;
     public String parentSectionName;
     public String childSectionName;
+    public String failureSectionName;
+    public String failureSectionType;
     public String failRuleType;
     public boolean errorState;
     public boolean errorChecked;

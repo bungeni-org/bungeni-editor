@@ -334,6 +334,7 @@ public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
                 XMLOutputter outer = new XMLOutputter();
                 StringWriter srw = new StringWriter();
                 outer.output(foundNode,srw );
+                log.info("Structural Errors + " + srw.toString());
                 InputStream is = new ByteArrayInputStream(srw.toString().getBytes());
                 XStream xst = new XStream();
                 xst.alias("structuralError", StructuralError.class);
