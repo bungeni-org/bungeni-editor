@@ -19,16 +19,30 @@
                         <ref type="sectionType" name="PMotionsContainer"/>
                         <ref type="sectionType" name="ProceduralMotion"/>
                         <ref type="sectionType" name="ActionEvent"/>
-
+                        <ref type="sectionType" name="Conclusion"/>
 		</allowedTypes><!--order of children is specified here -->
 		<orderOfChildren>
-			<order type="sectionType" name="Clause" order="1" required="yes" />
 			<order type="sectionType" name="Preface" order="0" required="yes" />
-			<order type="sectionType" name="Conclusion" order="2" required="no" />
+
+                        <order type="sectionType" name="Observation" order="0" required="no" />
+                        <!--
+                        <order type="sectionType" name="Observation" order="1" required="no" />
+                        <order type="sectionType" name="Observation" order="2" required="no" />
+                        <order type="sectionType" name="Observation" order="3" required="no" />
+                         -->
+                        <order type="sectionType" name="PapersLaid" order="1" required="yes" />
+
+                        <order type="sectionType" name="Communication" order="3" required="no" />
+                        <order type="sectionType" name="PointOfOrder" order="3" required="no" />
+                        <order type="sectionType" name="QuestionsContainer" order="3" required="no" />
+
+                        <order type="sectionType" name="Conclusion" order="9" required="no" />
 		</orderOfChildren>
 	</sectionType>
 
 	<sectionType name="Observation">
+                <!-- defines an exception for this section, no preceding or following order is checked for this section -->
+                <orderException preceding="true" following="true" />
 		<allowedTypes><!--no child sections are allowed -->
 			<ref type="sectionType" name="None"/>
 		</allowedTypes>
