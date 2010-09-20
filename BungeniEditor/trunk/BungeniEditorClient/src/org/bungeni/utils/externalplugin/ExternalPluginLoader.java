@@ -97,11 +97,12 @@ public class ExternalPluginLoader {
             File fpluginBase = new File(pluginBaseFolder);
             if (fpluginBase.exists()) {
                 if (fpluginBase.isDirectory()) {
-                    String pathToJar = pluginBaseFolder + foundPlugin.JarFile;
+                    String pathToJar = pluginBaseFolder + foundPlugin.getJarFile();
                     URL pluginBaseJarURL = (new File(pathToJar )).toURI().toURL();
                    // String pluginBasePath = pluginBaseURL.toString();
                     urlList.add(pluginBaseJarURL);
-                    for (String depJar : foundPlugin.dependentJars) {
+                    for (String depJar : foundPlugin.getDependentJars()) {
+                        //replace the file separator char with the platform independent separator char
                         File fDepPlugin = new File(pluginBaseFolder + depJar);
                         URL depURL = fDepPlugin.toURI().toURL();
                         urlList.add(depURL);

@@ -139,9 +139,9 @@ public class ExternalPluginParser {
 
             ExternalPlugin ep = new ExternalPlugin();
             ep.Name = this.getPluginName();
-            ep.JarFile = this.getPluginMainJar();
+            ep.setJarFile(this.getPluginMainJar());
             ep.Loader = this.getPluginMainClass();
-            ep.dependentJars = this.getPluginReqdJar();
+            ep.setDependentJars(this.getPluginReqdJar());
             ep.PluginBaseFolder = this.getPluginBase();
             return ep;
 

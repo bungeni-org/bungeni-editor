@@ -1,5 +1,6 @@
 package org.bungeni.utils.externalplugin;
 
+import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -12,10 +13,10 @@ import java.util.HashMap;
  */
 public class ExternalPlugin {
     public  String Name;
-    public  String JarFile;
+    private  String JarFile;
     public String Loader;
     public String PluginBaseFolder ;
-    public ArrayList<String> dependentJars= new ArrayList<String>(0);
+    private ArrayList<String> dependentJars= new ArrayList<String>(0);
     private static org.apache.log4j.Logger log =
         org.apache.log4j.Logger.getLogger(ExternalPlugin.class.getName());
 
@@ -32,12 +33,12 @@ public class ExternalPlugin {
 
     public ExternalPlugin(String name, String jarFile, String loader) {
         this.Name = name;
-        this.JarFile = jarFile;
+        this.JarFile = jarFile.replaceAll("[/\\\\]+", "\\" + File.separator);
         this.Loader = loader;
     }
 
     public void addRequiredJars(String reqdJar) {
-        dependentJars.add(reqdJar);
+        getDependentJars().add(reqdJar);
     }
 
     /**
@@ -128,6 +129,41 @@ public class ExternalPlugin {
             } finally {
                 return bState;
             }
+    }
+
+    /**
+     * @return the JarFile
+     */
+    public String getJarFile() {
+        return JarFile;
+    }
+
+    private String prefixJarPath(String jarFile) {
+        return jarFile.replaceAll("[/\\\\]+", "\\" + File.separator);
+    }
+
+    /**
+     * @param JarFile the JarFile to set
+     */
+    public void setJarFile(String JarFile) {
+        this.JarFile = prefixJarPath(JarFile);
+    }
+
+    /**
+     * @return the dependentJars
+     */
+    public ArrayList<String> getDependentJars() {
+
+        return dependentJars;
+    }
+
+    /**
+     * @param dependentJars the dependentJars to set
+     */
+    public void setDependentJars(ArrayList<String> dependentJars) {
+        for (String depJar : dependentJars) {
+            this.dependentJars.add(prefixJarPath(depJar));
+        }
     }
    
 }
