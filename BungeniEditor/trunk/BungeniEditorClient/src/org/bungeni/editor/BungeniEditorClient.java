@@ -30,7 +30,7 @@ public class BungeniEditorClient {
     private static String __WINDOW_TITLE__="BungeniEditor Launcher";
     private static JFrame frame;
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BungeniEditorClient.class.getName());
-
+    private static editorApplicationController panel;
     private static IEditorPlugin pluginObject;
     private static IEditorPluginEventDispatcher evtDispatcher = new IEditorPluginEventDispatcher(){
           public void dispatchEvent(String arg0, Object[] arg1) {
@@ -65,6 +65,7 @@ public class BungeniEditorClient {
                                             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
                                             null, null, null);
                     if (confirm == 0 ) {
+                        panel.cleanup();
                         frame.dispose();
                         System.exit(0);
                     }
@@ -72,7 +73,7 @@ public class BungeniEditorClient {
         };
         frame.addWindowListener(panelListener);
         preLaunch();
-        editorApplicationController panel = new editorApplicationController(frame);
+        panel = new editorApplicationController(frame);
         panel.init();
         frame.add(panel);
         frame.setSize(615,400);

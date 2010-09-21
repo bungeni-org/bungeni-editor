@@ -833,6 +833,12 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
     //     this.checkboxMakePlain.setVisible(false);
     }
 
+    @Override
+    public void cleanup(){
+            this.transformerClient.stopServer();
+    }
+
+
     public void refreshPanel() {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -393,6 +393,11 @@ public class editorTabbedPanel extends javax.swing.JPanel {
      *this is invoked on window closing, by the JFrame that contains the panel
      */
     public void cleanup() {
+        for (ITabbedPanel panel : m_tabbedPanelMap) {
+            panel.cleanup();
+        }
+
+
         //shutdown timers
         //  docStructureTimer.stop();
         // sectionNameTimer.stop();

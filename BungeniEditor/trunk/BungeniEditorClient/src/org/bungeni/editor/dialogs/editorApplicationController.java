@@ -122,6 +122,10 @@ public class editorApplicationController extends javax.swing.JPanel {
 
     }
 
+    public void cleanup(){
+        panel.cleanup();
+    }
+
     public void init() {
         CommonFileFunctions cfsObject = new CommonFileFunctions();
         m_installObject = new Installation();
