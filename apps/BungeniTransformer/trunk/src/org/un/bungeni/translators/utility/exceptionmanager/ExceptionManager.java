@@ -403,6 +403,13 @@ public class ExceptionManager implements ErrorHandler {
                 // print the stack trace
                 e.printStackTrace();
             }
+        } else {
+            validationError.setColNo(ex.getColumnNumber());
+            validationError.setLineNo(ex.getLineNumber());
+            validationError.getFullErrorMessage().add(0, ex.getMessage());
+            this.validationErrors.add(validationError);
+
+
         }
     }
 
@@ -448,7 +455,7 @@ public class ExceptionManager implements ErrorHandler {
             System.err.println(message);
 
             // System.exit(0);
-        }
+        } 
     }
 
     /**
