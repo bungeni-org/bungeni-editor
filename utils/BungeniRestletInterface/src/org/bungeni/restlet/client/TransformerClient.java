@@ -188,6 +188,15 @@ public class TransformerClient {
 
     }
 
+
+    public boolean stopServer(){
+          if (isServerRunning()) {
+              Client checkClient = new Client(Protocol.HTTP);
+              Response clientResponse = checkClient.get("http://" + getServerName() + ":" + getServerPort() + "/stop_server");
+          }
+          return true;
+    }
+
     public boolean isServerRunning() {
         boolean bResponse = false;
         Client checkClient = null;
