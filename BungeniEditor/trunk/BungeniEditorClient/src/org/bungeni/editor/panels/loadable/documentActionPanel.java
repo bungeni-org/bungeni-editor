@@ -129,6 +129,8 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
                     grpTab.getSelectedComponent().setBackground(toolbarTabSelectedBgColor);
 
         }
+        //set the structural tab as the current tab
+        toolbarTabs.setSelectedIndex(1);
     }
 
 
