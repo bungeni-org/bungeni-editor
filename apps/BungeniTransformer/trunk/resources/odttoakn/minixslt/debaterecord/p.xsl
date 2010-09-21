@@ -19,10 +19,18 @@
     </xsl:template>
 
     <xsl:template match="*[@name='p']">
-        <p>
- 
-            <xsl:apply-templates />
-        </p>
+        <!-- when the descendant is a ref within a paragraph, its usually a <from>,
+        if its a from we dont decoreate the template with a paragraph 'p' element -->
+        <xsl:choose>
+            <xsl:when test="descendant::*[@name='ref']">
+                <xsl:apply-templates />    
+            </xsl:when>
+            <xsl:otherwise>
+                <p>
+                    <xsl:apply-templates />
+                </p>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     
     <xsl:template match="text()">

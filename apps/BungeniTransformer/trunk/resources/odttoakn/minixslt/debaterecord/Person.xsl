@@ -19,9 +19,12 @@
     </xsl:template>
 
     <xsl:template match="*[@name='Person']">
+        <!-- is this ever used ? the 'from' element is rendered
+        from the 'ref' template, this isnt used anymore -->
         <from>
            <xsl:apply-templates />
-        </from>
+        </from> -->
+        <xsl:apply-templates />
     </xsl:template>
     
     <xsl:template match="text()">
