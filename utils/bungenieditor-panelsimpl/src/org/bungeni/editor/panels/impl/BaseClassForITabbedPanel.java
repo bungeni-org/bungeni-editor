@@ -81,4 +81,8 @@ public abstract class BaseClassForITabbedPanel extends JPanel implements ITabbed
     }
 
     abstract public void refreshPanel();
+
+    public void cleanup(){
+        
+    }
 }

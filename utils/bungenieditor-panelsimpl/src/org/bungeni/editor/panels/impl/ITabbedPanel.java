@@ -58,4 +58,6 @@ public interface ITabbedPanel {
      * put all the code to refresh the panels here
      */
     public void refreshPanel();
+
+    public void cleanup();
 }
