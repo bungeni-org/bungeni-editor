@@ -22,7 +22,7 @@
         <!-- when the descendant is a ref within a paragraph, its usually a <from>,
         if its a from we dont decoreate the template with a paragraph 'p' element -->
         <xsl:choose>
-            <xsl:when test="descendant::*[@name='ref']">
+            <xsl:when test="descendant::*[@name='ref' and @class='BungeniSpeechBy']">
                 <xsl:apply-templates />    
             </xsl:when>
             <xsl:otherwise>
