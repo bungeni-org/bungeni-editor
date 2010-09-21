@@ -19,13 +19,13 @@
     </xsl:template>
 
     <xsl:template match="*[@name='this']">
-        <this>
+        <FRBRthis>
 			<xsl:if test="@value">
 				<xsl:attribute name="value"><xsl:value-of select="@value" /></xsl:attribute>
 			</xsl:if>
 
             <xsl:apply-templates />
-        </this>
+        </FRBRthis>
     </xsl:template>
     
     <xsl:template match="text()">

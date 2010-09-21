@@ -19,13 +19,13 @@
     </xsl:template>
 
     <xsl:template match="*[@name='uri']">
-        <uri>
+        <FRBRuri>
 			<xsl:if test="@value">
 				<xsl:attribute name="value"><xsl:value-of select="@value" /></xsl:attribute>
 			</xsl:if>
 
             <xsl:apply-templates />
-        </uri>
+        </FRBRuri>
     </xsl:template>
     
     <xsl:template match="text()">
