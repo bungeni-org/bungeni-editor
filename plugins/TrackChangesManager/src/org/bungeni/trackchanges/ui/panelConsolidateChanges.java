@@ -59,6 +59,7 @@ public class panelConsolidateChanges extends panelChangesBase {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditTemplate;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnReport;
     private javax.swing.JButton btnReportAll;
     private javax.swing.JLabel lblAvailableReports;
@@ -431,6 +432,7 @@ public class panelConsolidateChanges extends panelChangesBase {
         scrollReports = new javax.swing.JScrollPane();
         listReportTemplates = new javax.swing.JList();
         lblAvailableReports = new javax.swing.JLabel();
+        btnRefresh = new javax.swing.JButton();
 
         listMembers.setFont(new java.awt.Font("Lucida Grande", 0, 10));
         listMembers.setModel(new javax.swing.AbstractListModel() {
@@ -445,7 +447,7 @@ public class panelConsolidateChanges extends panelChangesBase {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle"); // NOI18N
         lblMembers.setText(bundle.getString("panelTrackChangesOverview.lblMembers.text")); // NOI18N
 
-        tblDocChanges.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        tblDocChanges.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         tblDocChanges.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Delete", "23/12", "P(3)/L(4)", "This is an exceptional rule", null},
@@ -499,17 +501,30 @@ public class panelConsolidateChanges extends panelChangesBase {
         lblAvailableReports.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblAvailableReports.setText(null);
 
+        btnRefresh.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnRefresh.setText(bundle.getString("panelConsolidateChanges.btnRefresh.text")); // NOI18N
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
-                    .addComponent(lblMembers)
-                    .addComponent(scrollReports, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
-                    .addComponent(lblAvailableReports))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(78, 78, 78)
+                        .addComponent(btnRefresh))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(scrollReports, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                            .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                            .addComponent(lblMembers)
+                            .addComponent(lblAvailableReports))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -532,11 +547,13 @@ public class panelConsolidateChanges extends panelChangesBase {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                        .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblAvailableReports)
-                        .addGap(9, 9, 9)
-                        .addComponent(scrollReports, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblAvailableReports)
+                            .addComponent(btnRefresh))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(scrollReports, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(scrollDocChanges, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -563,6 +580,11 @@ public class panelConsolidateChanges extends panelChangesBase {
             }
         });
     }//GEN-LAST:event_btnReportAllActionPerformed
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        // TODO add your handling code here:
+        this.updatePanel(new HashMap<String,Object>(){{}});
+    }//GEN-LAST:event_btnRefreshActionPerformed
 
 
     @Override

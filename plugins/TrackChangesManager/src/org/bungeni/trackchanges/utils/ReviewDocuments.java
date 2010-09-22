@@ -181,11 +181,12 @@ public class ReviewDocuments {
             try {
                 String newBaseURI = getFolderURI() + getNewFileName();
                 File fodfCopy = new File(new URI(newBaseURI));
-                if (!fodfCopy.exists()) {
+                if (fodfCopy.exists()) fodfCopy.delete();
+                //if (!fodfCopy.exists()) {
                     BungeniOdfFileCopy fcp = new BungeniOdfFileCopy(originalDocument.getOdfDocument().getPackage());
                     fodfCopy.createNewFile();
                     fcp.copyFile(fodfCopy);
-                }
+               // }
                 this.reviewDocument = new BungeniOdfDocumentHelper(fodfCopy);
             } catch (Exception ex) {
                log.error("getReviewCopy :" + ex.getMessage(), ex);

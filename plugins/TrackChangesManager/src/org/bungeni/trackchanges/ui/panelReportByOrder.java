@@ -741,6 +741,7 @@ private void generateReport(){
                 try {
                     Boolean stat = (Boolean) get();
                     stopProgress();
+                    JOptionPane.showMessageDialog(thisFrame, "Report was generated ! \n You may browse the report by switching to the 'Reports' tab");
                 } catch (InterruptedException ex) {
                     log.error("generateReport : " +  ex.getMessage());
                 } catch (ExecutionException ex) {

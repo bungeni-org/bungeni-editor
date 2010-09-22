@@ -273,7 +273,8 @@ public class panelClerkOverview extends panelChangesBase {
             // create a clerk review document of the mp's document
             // this is a copy of the MP's document
             ReviewDocuments rvd = new ReviewDocuments(docHelper, this.PANEL_REVIEW_STAGE); // TODO
-            final BungeniOdfDocumentHelper reviewDoc = rvd.getReviewCopy();
+            BungeniOdfDocumentHelper reviewDoc = rvd.getReviewCopy();
+            String fullPath = reviewDoc.getDocumentPath();
             //final BungeniDocAuthor selectedAuthor = (BungeniDocAuthor) this.listMembers.getSelectedValue();
               BungeniOdfChangesMergeHelper chm = reviewDoc.getChangesHelper().getChangesMergeHelper();
               String sourceUser = __CLERK_NAME__;
@@ -327,11 +328,11 @@ public class panelClerkOverview extends panelChangesBase {
         tblDocChanges = new javax.swing.JTable();
         lblDocumentChanges = new javax.swing.JLabel();
         chkFilterByClerk = new javax.swing.JCheckBox();
-        btnReview = new javax.swing.JButton();
         btnConsolidate = new javax.swing.JButton();
         btnConsolidateAll = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
 
-        listMembers.setFont(new java.awt.Font("Lucida Grande", 0, 10));
+        listMembers.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         listMembers.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Tinoula Awopetu", "Mashinski Murigi", "Raul Obwacha", "Felix Kerstengor" };
             public int getSize() { return strings.length; }
@@ -343,7 +344,7 @@ public class panelClerkOverview extends panelChangesBase {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/trackchanges/Bundle"); // NOI18N
         lblMembers.setText(bundle.getString("panelTrackChangesOverview.lblMembers.text")); // NOI18N
 
-        tblDocChanges.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        tblDocChanges.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         tblDocChanges.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Delete", "23/12", "P(3)/L(4)", "This is an exceptional rule", null},
@@ -375,9 +376,6 @@ public class panelClerkOverview extends panelChangesBase {
             }
         });
 
-        btnReview.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnReview.setText(bundle.getString("panelClerkOverview.btnReview.text")); // NOI18N
-
         btnConsolidate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnConsolidate.setText(bundle.getString("panelClerkOverview.btnConsolidate.text")); // NOI18N
         btnConsolidate.addActionListener(new java.awt.event.ActionListener() {
@@ -394,6 +392,14 @@ public class panelClerkOverview extends panelChangesBase {
             }
         });
 
+        btnRefresh.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnRefresh.setText(bundle.getString("panelClerkOverview.btnRefresh.text")); // NOI18N
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -401,15 +407,18 @@ public class panelClerkOverview extends panelChangesBase {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
-                    .addComponent(lblMembers))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                            .addComponent(lblMembers))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnRefresh)
+                        .addGap(70, 70, 70)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnReview)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnConsolidate)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnConsolidateAll))
                     .addComponent(lblDocumentChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(chkFilterByClerk)
@@ -431,13 +440,14 @@ public class panelClerkOverview extends panelChangesBase {
                         .addComponent(scrollDocChanges, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnReview)
                             .addComponent(btnConsolidate)
                             .addComponent(btnConsolidateAll))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                        .addGap(209, 209, 209))))
+                        .addComponent(scrollMembers, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnRefresh)
+                        .addGap(168, 168, 168))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -457,11 +467,18 @@ public class panelClerkOverview extends panelChangesBase {
    // });
     }//GEN-LAST:event_btnConsolidateAllActionPerformed
 
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        // TODO add your handling code here:
+        int nIndex = this.listMembers.getSelectedIndex();
+        this.updatePanel(new HashMap<String,Object>(){{}});
+        this.listMembers.setSelectedIndex(nIndex);
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConsolidate;
     private javax.swing.JButton btnConsolidateAll;
-    private javax.swing.JButton btnReview;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JCheckBox chkFilterByClerk;
     private javax.swing.JLabel lblDocumentChanges;
     private javax.swing.JLabel lblMembers;
