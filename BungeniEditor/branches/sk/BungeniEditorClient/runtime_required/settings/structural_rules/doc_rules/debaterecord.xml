@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DocumentStructure type="debaterecord">
+	<sectionType name="body"><!--bill allows three child section types -->
+		<allowedTypes>
+                        <!-- each of these ref types must be defined as a sectionType -->
+			<ref type="sectionType" name="Preface"/>
+			<ref type="sectionType" name="Observation"/>
+			<ref type="sectionType" name="PapersLaid"/>
+			<ref type="sectionType" name="Conclusion"/>
+                        <ref type="sectionType" name="Communication"/>
+                        <ref type="sectionType" name="PointOfOrder"/>
+                        <ref type="sectionType" name="Petitions"/>
+                        <ref type="sectionType" name="Question"/>
+                        <ref type="sectionType" name="QuestionsContainer"/>
+                        <ref type="sectionType" name="QuestionAnswer"/>
+                        <ref type="sectionType" name="Speech"/>
+                        <ref type="sectionType" name="NMotionsContainer"/>
+                        <ref type="sectionType" name="NoticeOfMotion"/>
+                        <ref type="sectionType" name="PMotionsContainer"/>
+                        <ref type="sectionType" name="ProceduralMotion"/>
+                        <ref type="sectionType" name="ActionEvent"/>
+                        <ref type="sectionType" name="Conclusion"/>
+		</allowedTypes><!--order of children is specified here -->
+		<orderOfChildren>
+			<order type="sectionType" name="Preface" order="0" required="yes" />
+
+                        <order type="sectionType" name="Observation" order="0" required="no" />
+                        <!--
+                        <order type="sectionType" name="Observation" order="1" required="no" />
+                        <order type="sectionType" name="Observation" order="2" required="no" />
+                        <order type="sectionType" name="Observation" order="3" required="no" />
+                         -->
+                        <order type="sectionType" name="PapersLaid" order="1" required="yes" />
+
+                        <order type="sectionType" name="Communication" order="3" required="no" />
+                        <order type="sectionType" name="PointOfOrder" order="3" required="no" />
+                        <order type="sectionType" name="QuestionsContainer" order="3" required="no" />
+
+                        <order type="sectionType" name="Conclusion" order="9" required="no" />
+		</orderOfChildren>
+	</sectionType>
+
+	<sectionType name="Observation">
+                <!-- defines an exception for this section, no preceding or following order is checked for this section -->
+                <orderException preceding="true" following="true" />
+		<allowedTypes><!--no child sections are allowed -->
+			<ref type="sectionType" name="None"/>
+		</allowedTypes>
+		<orderOfChildren><!--children can be in any order-->
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+
+
+	<sectionType name="Preface">
+		<allowedTypes><!--no child sections are allowed -->
+			<ref type="sectionType" name="Observation"/>
+		</allowedTypes>
+		<orderOfChildren><!--children can be in any order-->
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+
+	<sectionType name="PapersLaid">
+		<allowedTypes><!--no child sections are allowed -->
+			<ref type="sectionType" name="PapersLaidList"/>
+                        <ref type="sectionType" name="Observation"/>
+		</allowedTypes>
+		<orderOfChildren><!--children can be in any order-->
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+
+        <sectionType name="PapersLaidList">
+		<allowedTypes><!--no child sections are allowed -->
+                        <ref type="sectionType" name="Observation"/>
+		</allowedTypes>
+		<orderOfChildren><!--children can be in any order-->
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+
+        <sectionType name="PapersLaidList">
+		<allowedTypes><!--no child sections are allowed -->
+                        <ref type="sectionType" name="Observation"/>
+		</allowedTypes>
+		<orderOfChildren><!--children can be in any order-->
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+
+        <sectionType name="Communication">
+		<allowedTypes><!--no child sections are allowed -->
+                        <ref type="sectionType" name="Speech"/>
+                        <ref type="sectionType" name="Observation"/>
+		</allowedTypes>
+		<orderOfChildren><!--children can be in any order-->
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+
+        <sectionType name="PointOfOrder">
+		<allowedTypes><!--no child sections are allowed -->
+                        <ref type="sectionType" name="Speech"/>
+                        <ref type="sectionType" name="Observation"/>
+		</allowedTypes>
+		<orderOfChildren><!--children can be in any order-->
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+
+        <sectionType name="Petitions">
+		<allowedTypes><!--no child sections are allowed -->
+                        <ref type="sectionType" name="Speech"/>
+                        <ref type="sectionType" name="Observation"/>
+		</allowedTypes>
+		<orderOfChildren><!--children can be in any order-->
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+
+
+
+        <sectionType name="QuestionsContainer">
+		<allowedTypes><!--no child sections are allowed -->
+                        <ref type="sectionType" name="Question"/>
+                        <ref type="sectionType" name="Observation"/>
+		</allowedTypes>
+		<orderOfChildren><!--children can be in any order-->
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+
+
+        <sectionType name="Question">
+		<allowedTypes><!--no child sections are allowed -->
+                        <ref type="sectionType" name="Speech"/>
+                        <ref type="sectionType" name="Observation"/>
+		</allowedTypes>
+		<orderOfChildren><!--children can be in any order-->
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+
+
+
+        <sectionType name="Speech">
+		<allowedTypes><!--no child sections are allowed -->
+                        <ref type="sectionType" name="Observation"/>
+ 		</allowedTypes>
+		<orderOfChildren><!--children can be in any order-->
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+
+
+
+        <sectionType name="AnySectionType">
+		<allowedTypes><!--no child sections are allowed -->
+			<!--<ref type="sectionType" name="None"/> -->
+		</allowedTypes>
+		<orderOfChildren><!--children can be in any order-->
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+	<sectionType name="Conclusion">
+		<allowedTypes>
+			<ref type="sectionType" name="None"/>
+		</allowedTypes>
+		<orderOfChildren>
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+
+      <sectionType name="PMotionsContainer">
+		<allowedTypes><!--no child sections are allowed -->
+                        <ref type="sectionType" name="ProceduralMotion"/>
+                        <ref type="sectionType" name="Observation"/>
+		</allowedTypes>
+		<orderOfChildren><!--children can be in any order-->
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+
+
+      <sectionType name="ProceduralMotion">
+		<allowedTypes><!--no child sections are allowed -->
+                        <ref type="sectionType" name="Speech"/>
+                        <ref type="sectionType" name="Observation"/>
+		</allowedTypes>
+		<orderOfChildren><!--children can be in any order-->
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+
+      <sectionType name="NMotionsContainer">
+		<allowedTypes><!--no child sections are allowed -->
+                        <ref type="sectionType" name="None"/>
+		</allowedTypes>
+		<orderOfChildren><!--children can be in any order-->
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+
+
+      <sectionType name="ProceduralMotion">
+		<allowedTypes><!--no child sections are allowed -->
+                        <ref type="sectionType" name="Speech"/>
+                        <ref type="sectionType" name="Observation"/>
+		</allowedTypes>
+		<orderOfChildren><!--children can be in any order-->
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+
+      <sectionType name="ActionEvent">
+		<allowedTypes><!--no child sections are allowed -->
+                        <ref type="sectionType" name="Speech"/>
+                        <ref type="sectionType" name="Observation"/>
+		</allowedTypes>
+		<orderOfChildren><!--children can be in any order-->
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+
+
+
+
+</DocumentStructure>

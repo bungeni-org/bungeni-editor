@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+
+<!--
+    A sample installation file.
+    Use it as a base for your own installers :-)
+
+    To compile it :
+    - go in the bin directory where you installed IzPack
+    - call "compile ../sample/install.xml -b ../sample"
+-->
+
+<installation version="1.0">
+
+    <!--
+        The info section.
+        The meaning of the tags should be natural ...
+    -->
+    <info>
+        <appname>BungeniEditor installation</appname>
+        <appversion>1.0-rel-branch-r1454</appversion>
+	<appsubpath>BungeniEditor-$APP_VER</appsubpath>
+        <authors>
+            <author name="UNDESA" email="undesa@parliaments.info"/>
+        </authors>
+        <url>http://www.bungeni.org</url>
+	<javaversion>1.6</javaversion>
+    </info>
+
+    <!--
+        The gui preferences indication.
+        Sets the installer window to 640x480. It will not be able to change the size.
+    -->
+    <guiprefs width="640" height="480" resizable="no"/>
+
+    <!--
+        The locale section.
+        Asks here to include the English and French langpacks.
+    -->
+    <locale>
+        <langpack iso3="eng"/>
+    </locale>
+
+    <!--
+        The resources section.
+        The ids must be these ones if you want to use the LicencePanel and/or the InfoPanel.
+    -->
+    <resources>
+        <res id="LicencePanel.licence" src="LICENCE.TXT"/>
+        <res id="InfoPanel.info" src="README.TXT"/>
+    </resources>
+
+    <!--
+        The panels section.
+        We indicate here which panels we want to use. The order will be respected.
+    -->
+    <panels>
+        <panel classname="HelloPanel"/>
+        <panel classname="InfoPanel"/>
+        <panel classname="LicencePanel"/>
+        <panel classname="TargetPanel"/>
+        <panel classname="PacksPanel"/>
+	<panel classname="SummaryPanel"/>
+        <panel classname="InstallPanel"/>
+	<panel classname="ShortcutPanel" />
+ 	<panel classname="SimpleFinishPanel" />
+    </panels>
+
+    <!--
+        The packs section.
+        We specify here our packs.
+    -->
+    <packs>
+        <pack name="Base" required="yes">
+            <description>BungeniEditor core files</description>
+            <file src="README.TXT" targetdir="$INSTALL_PATH"/>
+            <file src="LICENCE.TXT" targetdir="$INSTALL_PATH"/>
+ 	     <file src="linux.sh" targetdir="$INSTALL_PATH" />
+ 	     <file src="windows.vbs" targetdir="$INSTALL_PATH" />
+
+
+		<!-- linux primary launchers -->
+            <!--
+            <file src="linux/run_gui.sh" targetdir="$INSTALL_PATH/linux"/>
+            <file src="linux/run_debate_new.sh" targetdir="$INSTALL_PATH/linux"/>
+            <file src="linux/run_debate_edit.sh" targetdir="$INSTALL_PATH/linux"/>
+            <file src="linux/run_judgement_edit.sh" targetdir="$INSTALL_PATH/linux"/>
+            <file src="linux/run_judgement_new.sh" targetdir="$INSTALL_PATH/linux"/>
+            <file src="linux/run_bill_edit.sh" targetdir="$INSTALL_PATH/linux"/>
+            <file src="linux/run_bill_new.sh" targetdir="$INSTALL_PATH/linux"/>
+	     <file src="linux/settingsEditor.sh" targetdir="$INSTALL_PATH/linux"/>
+		-->
+		<!-- windoze primary launchers -->
+		<!--
+            <file src="win/run_debate_new.bat" targetdir="$INSTALL_PATH/win"/>
+            <file src="win/run_debate_edit.bat" targetdir="$INSTALL_PATH/win"/>
+            <file src="win/settingsEditor.bat" targetdir="$INSTALL_PATH/win"/>
+			-->
+
+		<!-- config launcher scripts linux -->
+            <file src="scripts/main.sh" targetdir="$INSTALL_PATH/scripts"/>
+            <file src="scripts/config.sh" targetdir="$INSTALL_PATH/scripts"/>
+            <file src="scripts/gui.sh" targetdir="$INSTALL_PATH/scripts"/>
+		<!-- config launcher scripts windoze -->
+            <file src="scripts/main.bat" targetdir="$INSTALL_PATH/scripts"/>
+            <file src="scripts/config.bat" targetdir="$INSTALL_PATH/scripts"/>
+            <file src="scripts/gui.bat" targetdir="$INSTALL_PATH/scripts"/>
+            <file src="scripts/windows.bat" targetdir="$INSTALL_PATH/scripts"/>
+        	<!-- linux run scripts -->
+            <file src="scripts/debate_new.sh" targetdir="$INSTALL_PATH/scripts"/>
+            <file src="scripts/debate_edit.sh" targetdir="$INSTALL_PATH/scripts"/>
+            <file src="scripts/bill_edit.sh" targetdir="$INSTALL_PATH/scripts"/>
+            <file src="scripts/bill_new.sh" targetdir="$INSTALL_PATH/scripts"/>
+            <file src="scripts/judgement_edit.sh" targetdir="$INSTALL_PATH/scripts"/>
+            <file src="scripts/judgement_new.sh" targetdir="$INSTALL_PATH/scripts"/>
+		<!-- windows run scripts -->
+            <file src="scripts/debate_new.bat" targetdir="$INSTALL_PATH/scripts"/>
+            <file src="scripts/debate_edit.bat" targetdir="$INSTALL_PATH/scripts"/>
+            <file src="scripts/bill_edit.bat" targetdir="$INSTALL_PATH/scripts"/>
+            <file src="scripts/bill_new.bat" targetdir="$INSTALL_PATH/scripts"/>
+            <file src="scripts/judgement_edit.bat" targetdir="$INSTALL_PATH/scripts"/>
+            <file src="scripts/judgement_new.bat" targetdir="$INSTALL_PATH/scripts"/>
+
+            <file src="base" targetdir="$INSTALL_PATH"/>
+  		<!-- parse all the target files -->
+           <parsable targetfile="$INSTALL_PATH/scripts/config.sh"/>
+            <parsable targetfile="$INSTALL_PATH/scripts/main.sh"/>
+            <parsable targetfile="$INSTALL_PATH/scripts/config.bat"/>
+            <parsable targetfile="$INSTALL_PATH/scripts/main.bat"/>
+            <parsable targetfile="$INSTALL_PATH/scripts/gui.sh"/>
+            <parsable targetfile="$INSTALL_PATH/scripts/gui.bat"/>
+            <!-- <parsable targetfile="$INSTALL_PATH/linux/settingsEditor.sh"/>
+            <parsable targetfile="$INSTALL_PATH/win/settingsEditor.bat"/> -->
+		<!-- linux launchers -->
+		<!--
+		<executable targetfile="$INSTALL_PATH/linux/run_gui.sh"/>
+            <executable targetfile="$INSTALL_PATH/linux/run_debate_edit.sh"/>
+            <executable targetfile="$INSTALL_PATH/linux/run_debate_new.sh"/>
+            <executable targetfile="$INSTALL_PATH/linux/run_judgement_edit.sh"/>
+            <executable targetfile="$INSTALL_PATH/linux/run_judgement_new.sh"/>
+            <executable targetfile="$INSTALL_PATH/linux/run_bill_edit.sh"/>
+            <executable targetfile="$INSTALL_PATH/linux/run_bill_new.sh"/>
+            <executable targetfile="$INSTALL_PATH/linux/settingsEditor.sh"/>
+		-->
+		<executable targetfile="$INSTALL_PATH/linux.sh" />
+            <!-- The file will be parsed -->
+        </pack>
+    </packs>
+
+</installation>
