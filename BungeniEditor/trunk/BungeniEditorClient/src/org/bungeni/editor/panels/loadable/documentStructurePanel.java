@@ -142,7 +142,7 @@ public class documentStructurePanel extends BaseClassForITabbedPanel {
 
     @Override
     public void refreshPanel() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
 
