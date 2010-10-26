@@ -18,7 +18,7 @@ These installation instructions were tested on Ubuntu 8.04 / Windows XP and the 
 If you dont want to bother with reading the detailed installation instructions, the following instructions will setup a working installation 95% of the time :
  * install the sun jre 6 : `sudo apt-get install sun-java6-jre`
  * uninstall the openoffice.org installation packaged with ubuntu
- * download install openoffice by downloading OO 3.2.1 from [http://openoffice.mirrors.tds.net/pub/openoffice/stable/3.2.1/OOo_3.2.1_LinuxIntel_install_en-US_deb.tar.gz http://downloads.openoffice.org] 
+ * download install openoffice by downloading OO 3.2.1 from [http://www.mirrorservice.org/sites/download.openoffice.org/stable/3.2.1/OOo_3.2.1_Linux_x86_install-deb_en-US.tar.gz http://downloads.openoffice.org] 
  * launch openoffice at least once and accept the license agreement
  * unpack the editor application into its own folder
  * run the script linux.sh to start the application
@@ -26,7 +26,7 @@ If you dont want to bother with reading the detailed installation instructions, 
 
 == Quick Install steps for Windows ==
 
- * download and install openoffice.org from [http://openoffice.mirrors.tds.net/pub/openoffice/stable/3.2.1/OOo_3.2.1_Win32Intel_install_wJRE_en-US.exe http://downloads.openoffice.org]
+ * download and install openoffice.org from [http://www.mirrorservice.org/sites/download.openoffice.org/stable/3.2.1/OOo_3.2.1_Win_x86_install_en-US.exe http://downloads.openoffice.org]
  * download and install the sun java6 jre (from [http://java.sun.com http://java.sun.com])
  * unpack the editor, and open runEditor.bat in notepad. Edit java_home and log4j_properties to appropriate paths.
  * run runEditor.bat to launch the editor.
