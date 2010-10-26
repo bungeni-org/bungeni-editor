@@ -10,9 +10,9 @@ package translatortest;
 public class TestDebate extends OATranslatorTestDebateBase {
 	public TestDebate(){
 		super();
-		setInputDocument("test/testdocs/test_debaterecord.odt");
-		setOutputDocument("test/testresults/test_debaterecord.xml");
-		setOutputMetalex("test/testresults/test_debaterecord.mlx");
+		setInputDocument("test/testdocs/test_debaterecord_2.odt");
+		setOutputDocument("test/testresults/test_debaterecord_2.xml");
+		setOutputMetalex("test/testresults/test_debaterecord_2.mlx");
 		setComparisonDocument("test/testdocs/test_debaterecord_out.xml");
 	}
 	

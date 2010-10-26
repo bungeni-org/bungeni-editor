@@ -22,7 +22,7 @@ public class OdtTranslateTest {
 		paramMap = new HashMap();
 		currentDirectory = System.getProperty("user.dir");
 		currentDocType = "debaterecord";
-		paramMap.put("OdfFileURL", currentDirectory + "/test/testdocs/test_debaterecord.odt");
+		paramMap.put("OdfFileURL", currentDirectory + "/test/testdocs/test_debaterecord_2.odt");
 		paramMap.put("OutputFilePath", currentDirectory + "/test/testresults/plugintest_debaterecord.xml");
 		paramMap.put("OutputMetalexFilePath", currentDirectory + "/test/testresults/plugintest_debaterecord.mlx");
 		paramMap.put("TranslatorRootFolder", currentDirectory + "/resources/");
