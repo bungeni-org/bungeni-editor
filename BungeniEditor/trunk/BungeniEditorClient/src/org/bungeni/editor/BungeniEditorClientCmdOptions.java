@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class that describes command line options for bungnei
+ * Class that describes and parses command line options for bungeni editor
+ * Uses args4j
  * @author Ashok Hariharan
  */
 public class BungeniEditorClientCmdOptions {
@@ -24,18 +25,48 @@ public class BungeniEditorClientCmdOptions {
     public static final int LAUNCH_WITH_LAUNCHER = 2;
     @Argument
     private List<String>    arguments            = new ArrayList<String>();
+    /**
+     * Args4j uses a decorator to map commandline parameter to a class variable.
+     * declared variable after decorator stores the input parameter
+     */
+
     @Option(
         name                                     = "-dt",
         required                                 = true,
         usage                                    = "specify one of the available document types debaterecord / bill / judgement / gui"
     )
     private String          documentType;
+
     @Option(
         name     = "-om",
         required = true,
         usage    = "specify one of the launch modes -- new / edit"
     )
     private String          openMode;
+
+   /**
+    * Set the launch language for the application
+    */
+    @Option(
+        name     = "-lang",
+        required = true,
+        usage    = "specifies user language e.g. en,fr,es"
+    )
+    private String          userLanguage;
+
+    /**
+     * Set the launch region for the application
+     * language + region = Locale
+     */
+    @Option(
+        name     = "-region",
+        required = true,
+        usage    = "specifies user region e.g. US, UK"
+    )
+    private String          userRegion;
+
+
+   
 
     public int doMain(String[] args) {
         for (String string : args) {
@@ -79,4 +110,14 @@ public class BungeniEditorClientCmdOptions {
     public String getLaunchMode() {
         return this.openMode;
     }
+
+    public String getLang(){
+        return this.userLanguage;
+    }
+
+    public String getRegion(){
+        return this.userRegion;
+    }
+
 }
+

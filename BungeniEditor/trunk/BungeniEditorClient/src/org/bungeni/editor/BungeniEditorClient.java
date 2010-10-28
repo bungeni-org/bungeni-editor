@@ -6,6 +6,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -42,7 +43,15 @@ public class BungeniEditorClient {
     /** Creates a new instance of BungeniEditorClient */
     public BungeniEditorClient() {
     }
-    
+
+    /**
+     * Set the default language and locale for the Editor
+     */
+    private static void setLangAndLocale(){
+        Locale locale = new Locale(cmdOptions.getLang(), cmdOptions.getRegion());
+        Locale.setDefault(locale);
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -146,7 +155,9 @@ public class BungeniEditorClient {
            javax.swing.SwingUtilities.invokeLater(
                         new Runnable() {
                                 public void run() {
-                                   // SplashPage splash = new SplashPage();
+                                    //set the default language and locale
+                                    setLangAndLocale();
+                                    //show the UI
                                     createAndShowGUI();
                                 }
                         }

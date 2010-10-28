@@ -23,6 +23,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Vector;
@@ -87,7 +88,7 @@ public class editorApplicationController extends javax.swing.JPanel {
     private String m_FullFilesPath;
     private org.bungeni.ooo.BungenioOoHelper openofficeObject = null;
     private documentType[] m_documentTypes = null;
-  private static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/dialogs/Bundle");
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/dialogs/Bundle");
     /**
      * Constructor for editorApplicationController Class
      */
@@ -101,6 +102,7 @@ public class editorApplicationController extends javax.swing.JPanel {
      */
     public editorApplicationController(JFrame pFrame) {
         log.debug("in constructor");
+        log.debug("launch locale language = " + Locale.getDefault().getLanguage());
         try {
             m_xContext = Bootstrap.bootstrap();
         } catch (BootstrapException ex) {
@@ -123,6 +125,7 @@ public class editorApplicationController extends javax.swing.JPanel {
     }
 
     public void cleanup(){
+       if  (panel != null)
         panel.cleanup();
     }
 
