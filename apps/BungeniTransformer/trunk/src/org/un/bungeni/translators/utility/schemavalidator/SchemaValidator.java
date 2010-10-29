@@ -6,7 +6,7 @@ import org.apache.xerces.parsers.DOMParser;
 
 import org.un.bungeni.translators.exceptions.MissingAttributeException;
 import org.un.bungeni.translators.globalconfigurations.GlobalConfigurations;
-import org.un.bungeni.translators.utility.exceptionmanager.ExceptionManager;
+import org.un.bungeni.translators.utility.exceptionmanager.BaseExceptionManager;
 import org.un.bungeni.translators.utility.exceptionmanager.LocationHandler;
 import org.un.bungeni.translators.utility.exceptionmanager.ValidationError;
 
@@ -40,6 +40,9 @@ public class SchemaValidator implements SchemaValidatorInterface {
      * Private constructor used to create the Schema Validator instance
      */
     private SchemaValidator() {}
+    
+    private String exceptionMatcherConfigurationFile =
+            "configfiles/exceptionmanager/exceptionhandlers.xml";
 
     /**
      * Get the current instance of the Schema Validator
@@ -111,9 +114,12 @@ public class SchemaValidator implements SchemaValidatorInterface {
                               GlobalConfigurations.getAkomaNtosoNamespace() + " "
                               + new File(aSchemaPath).toURI().toURL().toExternalForm());
 
-        ExceptionManager exceptionManager = ExceptionManager.getInstance();
+        BaseExceptionManager exceptionManager = BaseExceptionManager.getInstance();
 
         exceptionManager.init();
+
+        //exception manager set configuration file path
+        exceptionManager.setConfigurationFilePath(this.exceptionMatcherConfigurationFile);
 
         // get the exception manager and set the dom parser as parser
         exceptionManager.setDOMParser(domParser);
@@ -153,7 +159,7 @@ public class SchemaValidator implements SchemaValidatorInterface {
      * @return
      */
     public ArrayList<ValidationError> getValidationErrors() {
-        ExceptionManager inst = ExceptionManager.getInstance();
+        BaseExceptionManager inst = BaseExceptionManager.getInstance();
 
         return inst.getValidationErrors();
     }
