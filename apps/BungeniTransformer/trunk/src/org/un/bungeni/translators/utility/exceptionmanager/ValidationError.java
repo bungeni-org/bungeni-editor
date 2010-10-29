@@ -43,6 +43,9 @@ public class ValidationError {
     }
 
     public ArrayList<String> getFullErrorMessage() {
+        if (fullErrorMessage == null){
+            fullErrorMessage = new ArrayList<String>();
+        }
         return fullErrorMessage;
     }
 
