@@ -1,6 +1,7 @@
 package org.un.bungeni.translators.utility.exceptionmanager;
 
 /* JDK imports */
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,13 +18,13 @@ import org.un.bungeni.translators.globalconfigurations.GlobalConfigurations;
 import org.un.bungeni.translators.utility.exceptionmanager.handlers.IExceptionHandler;
 import org.xml.sax.SAXParseException;
 /**
- *
- * @author murithi
+ * This class implements the exception handler
+ * @author murithi borona
  */
 public class BaseExceptionManager implements IExceptionManager{
 
     /* This is the logger */
-    private static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(ExceptionManager.class.getName());
+    private static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(BaseExceptionManager.class.getName());
 
     /* This is the string that will contain the path to the original ODF document */
     public String ODFDocument;
@@ -95,6 +96,7 @@ public class BaseExceptionManager implements IExceptionManager{
     /**
      * Prevent cloning of singleton
      */
+    @Override
     public Object clone() throws CloneNotSupportedException {
         throw new CloneNotSupportedException();
     }
@@ -130,15 +132,30 @@ public class BaseExceptionManager implements IExceptionManager{
         this.parser = parser;
     }
 
+    /***
+     * Implemenetation for handling validtion fatal errors provided by ErrorHandler.
+     * @param ex
+     */
     public void fatalError(SAXParseException ex){
-
-    }
-
-    public void warning(SAXParseException ex){
+        logger.info("fatalError handler");
         this.processExceptions(ex);
     }
 
+    /**
+     * Implemenetation for handling validation warnings provided by ErrorHandler.
+     * @param ex
+     */
+    public void warning(SAXParseException ex){
+        logger.info("warning handler");
+        this.processExceptions(ex);
+    }
+
+    /**
+     * Implemenetation for handling validation errors provided by ErrorHandler.
+     * @param ex
+     */
     public void error(SAXParseException ex){
+        logger.info("error handler");
         this.processExceptions(ex);
     }
 
@@ -158,12 +175,19 @@ public class BaseExceptionManager implements IExceptionManager{
         Pattern matchedPattern = null;
         ValidationError validationError = new ValidationError();
         Properties errorConfigProperties = new Properties();
+        //!--ASHOK--! The below is not required --
+        // the path prefix is set by the caller
+        // the globalconfiguration file path is the global *translator* configuration
+        // and not the exception handler configuration which is really a local
+        // configuration for this class.
+        //to set the parameters appropriateky
+        /**
         GlobalConfigurations.setApplicationPathPrefix("resources/");
         GlobalConfigurations.setConfigurationFilePath(this.getConfigurationFilePath());
-
+        **/
         String finalConfigurationFilePath =
                 GlobalConfigurations.getApplicationPathPrefix()+
-                GlobalConfigurations.getConfigurationFilePath();
+                this.getConfigurationFilePath();
         try {
             InputStream configStream =
                     new FileInputStream(finalConfigurationFilePath);
@@ -171,7 +195,7 @@ public class BaseExceptionManager implements IExceptionManager{
             allPropertyNames = errorConfigProperties.propertyNames();
 
         } catch (IOException e) {
-            //TODO log execption message
+           logger.error("error while loading validation error handler configuration", e);
         }
 
         // Configuration contains keys as class names and values as regular
@@ -192,9 +216,13 @@ public class BaseExceptionManager implements IExceptionManager{
 
         if (matchedExceptionClass != null){
             try {
+                //!--ASHOK--! moved class initializer to factory class
+                /**
                 Class handlerClass = Class.forName(matchedExceptionClass);            
                 IExceptionHandler exceptionHandler =
                         (IExceptionHandler) handlerClass.newInstance();
+                 **/
+                IExceptionHandler exceptionHandler = ExceptionHandlerFactory.getExceptionHandler(matchedExceptionClass);
                 exceptionHandler.initialize(ex,
                         resourceBundle,
                         parser,
@@ -202,11 +230,11 @@ public class BaseExceptionManager implements IExceptionManager{
                 exceptionHandler.processException(validationError, matchedPattern);
 
             } catch (ClassNotFoundException e) {
-                //TODO log exception message
+                logger.error("error while setting up handlers", e);
             } catch (InstantiationException e){
-                //TODO log exception message here
+                logger.error("error while setting up handlers", e);
             } catch (IllegalAccessException e){
-                //TODO log exception message here
+                logger.error("error while setting up handlers", e);
             }
 
             if (validationError != null){
