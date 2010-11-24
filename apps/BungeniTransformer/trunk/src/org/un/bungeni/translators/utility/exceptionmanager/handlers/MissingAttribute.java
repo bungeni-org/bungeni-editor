@@ -168,9 +168,14 @@ public class MissingAttribute extends BaseExceptionHandler{
 
         // the result that will contain the first words of the section
         String result = null;
-
+        String[] sections;
+        
         // get the the lines of the sections string into an array
-        String[] sections = this.ODFSectionString.split("\n");
+        if (this.ODFSectionString == null){
+            return null;
+        }else{
+            sections = this.ODFSectionString.split("\n");
+        }
 
         // iterate all the line of the sections string
         for (int i = 0; i < sections.length; i++) {
