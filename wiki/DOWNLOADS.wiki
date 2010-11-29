@@ -3,17 +3,18 @@
 
 == Bungeni Editor == 
 
-=== Beta Release ===
-
-[http://code.google.com/p/bungeni-editor/downloads/detail?name=install-1.0-rel-branch-r1514.jar Bungeni Editor v1.0.1514 beta - requires Openoffice.org 3.1.1] - UI upgrade, enable judgement panels.
-
 
 === Current Release === 
 
-[http://code.google.com/p/bungeni-editor/downloads/detail?name=install-0.9.1419.jar Bungeni Editor v0.9.1419 - requires OpenOffice.org 3.1.1] - 19 May 2009 _Updates  : ODF 1.2 compatible release. Minor fixes and improvements in translator. Templates do not have gradient backgrounds anymore_
-
+[
+http://bungeni-editor.googlecode.com/files/install-1.0.1654.jar Bungeni Editor v1.0.1654 - requires OpenOffice.org 3.2.1] - Added support for i18n message translations, upgraded to h2b new database format.
 
 === Older Releases === 
+
+[http://code.google.com/p/bungeni-editor/downloads/detail?name=install-1.0-rel-branch-r1514.jar Bungeni Editor v1.0.1514 beta - requires Openoffice.org 3.1.1] - UI upgrade, enable judgement panels.
+
+[http://code.google.com/p/bungeni-editor/downloads/detail?name=install-0.9.1419.jar Bungeni Editor v0.9.1419 - requires OpenOffice.org 3.1.1] - 19 May 2009 _Updates  : ODF 1.2 compatible release. Minor fixes and improvements in translator. Templates do not have gradient backgrounds anymore_
+
 
 [http://code.google.com/p/bungeni-editor/downloads/detail?name=install-0.9.958.jar Bungeni Editor v0.9.958 - requires OpenOffice.org 3.1.1]
 
