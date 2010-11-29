@@ -6,8 +6,7 @@
 
 === Current Release === 
 
-[
-http://bungeni-editor.googlecode.com/files/install-1.0.1654.jar Bungeni Editor v1.0.1654 - requires OpenOffice.org 3.2.1] - Added support for i18n message translations, upgraded to h2b new database format.
+[http://bungeni-editor.googlecode.com/files/install-1.0.1654.jar Bungeni Editor v1.0.1654 - requires OpenOffice.org 3.2.1] - Added support for i18n message translations, upgraded to h2b new database format.
 
 === Older Releases === 
 
