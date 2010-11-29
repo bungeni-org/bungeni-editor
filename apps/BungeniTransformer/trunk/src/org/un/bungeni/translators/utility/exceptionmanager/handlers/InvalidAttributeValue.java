@@ -5,11 +5,14 @@
 
 package org.un.bungeni.translators.utility.exceptionmanager.handlers;
 
+import java.util.regex.Pattern;
+import org.un.bungeni.translators.utility.exceptionmanager.ValidationError;
+
 /**
  *
  * @author undesa
  */
-public class InvalidAttributeValue extends MissingAttribute{
+public class InvalidAttributeValue extends BaseExceptionHandler{
     @Override
     public String getLocalizedMessage(String attribute, String element){
         String localizedMessage = null;
@@ -20,5 +23,13 @@ public class InvalidAttributeValue extends MissingAttribute{
                 element +
                 resourceBundle.getString("INVALID_ATTRIBUTE_VALUE_RIGHT");
         return localizedMessage;
+    }
+
+    public void processException(ValidationError validationError, Pattern pattern) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public String getSectionMessage(ValidationError validationError) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

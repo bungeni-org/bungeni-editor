@@ -1,11 +1,14 @@
 package org.un.bungeni.translators.utility.exceptionmanager.handlers;
 
+import java.util.regex.Pattern;
+import org.un.bungeni.translators.utility.exceptionmanager.ValidationError;
+
 /**
  *
  * @author UNDESA/Africa i-Parliaments Action Plan
  */
 
-public class InvalidContent extends MissingAttribute{
+public class InvalidContent extends BaseExceptionHandler{
     
     @Override
     public String getLocalizedMessage(String attribute, String element){
@@ -15,6 +18,14 @@ public class InvalidContent extends MissingAttribute{
                 " has invalid content. Allowed content is :  " +
                 attribute;
         return localizedMessage;
+    }
+
+    public void processException(ValidationError validationError, Pattern pattern) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public String getSectionMessage(ValidationError validationError) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }
