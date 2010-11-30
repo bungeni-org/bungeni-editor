@@ -27,6 +27,8 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
@@ -42,6 +44,8 @@ import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.editor.SplashPage;
+import org.bungeni.editor.locales.BungeniEditorLocale;
+import org.bungeni.editor.locales.BungeniEditorLocalesFactory;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
@@ -50,9 +54,11 @@ import org.bungeni.ooo.BungenioOoHelper;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
 import org.bungeni.extutils.BungeniFrame;
+import org.bungeni.extutils.BungeniRuntimeProperties;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.utils.FileTableModel;
 import org.bungeni.extutils.FrameLauncher;
+import org.bungeni.extutils.MessageBox;
 import org.bungeni.utils.Installation;
 import org.bungeni.utils.WorkspaceFolderTableModel;
 
@@ -115,6 +121,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         m_propSettings = new java.util.Properties();
         initComponents();
         this.parentFrame = pFrame;
+
         //temporarily remove these two tabs
         this.editorAppTabbedPane.remove(tabSettings);
         this.editorAppTabbedPane.remove(tabServer);
@@ -136,6 +143,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         //code to read properties file
 
         initDocumentTypesModel();
+        initLocales();
         initProperties(dir);
         //init panels
         initFileTableModels(dir);
@@ -241,6 +249,8 @@ public class editorApplicationController extends javax.swing.JPanel {
         btnBackOneFolder = new javax.swing.JButton();
         tabAbout = new javax.swing.JPanel();
         lblApplnTitle = new javax.swing.JLabel();
+        cboLocale = new javax.swing.JComboBox();
+        lblLocale = new javax.swing.JLabel();
 
         editorAppTabbedPane.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
 
@@ -333,7 +343,7 @@ public class editorApplicationController extends javax.swing.JPanel {
                 .add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(lblOpenCurrentDoc, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
                     .add(btnOpenExisting, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         editorAppTabbedPane.addTab(bundle.getString("editorApplicationController.tabCurrentFile.TabConstraints.tabTitle"), tabCurrentFile); // NOI18N
@@ -388,7 +398,7 @@ public class editorApplicationController extends javax.swing.JPanel {
                     .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 88, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(btnSetCurrentTemplate)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         editorAppTabbedPane.addTab(bundle.getString("editorApplicationController.tabTemplates.TabConstraints.tabTitle"), tabTemplates); // NOI18N
@@ -491,10 +501,10 @@ public class editorApplicationController extends javax.swing.JPanel {
                             .add(tabSettingsLayout.createSequentialGroup()
                                 .add(tabSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(lblServerIP)
-                                    .add(txtServerIp, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE))
+                                    .add(txtServerIp, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE))
                                 .add(28, 28, 28)
                                 .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 23, Short.MAX_VALUE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .add(tabSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(txtServerPort, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 107, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                     .add(lblServerPort)
@@ -502,14 +512,14 @@ public class editorApplicationController extends javax.swing.JPanel {
                         .add(92, 92, 92))
                     .add(tabSettingsLayout.createSequentialGroup()
                         .add(lblServerHomeDir, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 186, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(330, Short.MAX_VALUE))
+                        .addContainerGap(322, Short.MAX_VALUE))
                     .add(tabSettingsLayout.createSequentialGroup()
-                        .add(txtServerHomeDir, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                        .add(txtServerHomeDir, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                         .add(388, 388, 388))))
             .add(tabSettingsLayout.createSequentialGroup()
                 .add(208, 208, 208)
                 .add(btnSaveSettings, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addContainerGap(167, Short.MAX_VALUE))
         );
         tabSettingsLayout.setVerticalGroup(
             tabSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -574,8 +584,8 @@ public class editorApplicationController extends javax.swing.JPanel {
             .add(tabServerLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(tabServerLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(progressServerFiles, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
-                    .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+                    .add(progressServerFiles, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
+                    .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
                     .add(btnBackOneFolder))
                 .addContainerGap())
         );
@@ -597,11 +607,11 @@ public class editorApplicationController extends javax.swing.JPanel {
         tabAbout.setLayout(tabAboutLayout);
         tabAboutLayout.setHorizontalGroup(
             tabAboutLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 528, Short.MAX_VALUE)
+            .add(0, 520, Short.MAX_VALUE)
         );
         tabAboutLayout.setVerticalGroup(
             tabAboutLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 167, Short.MAX_VALUE)
+            .add(0, 155, Short.MAX_VALUE)
         );
 
         editorAppTabbedPane.addTab(bundle.getString("editorApplicationController.tabAbout.TabConstraints.tabTitle"), tabAbout); // NOI18N
@@ -609,25 +619,36 @@ public class editorApplicationController extends javax.swing.JPanel {
         lblApplnTitle.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         lblApplnTitle.setText(bundle.getString("editorApplicationController.lblApplnTitle.text")); // NOI18N
 
+        cboLocale.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        cboLocale.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        lblLocale.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        lblLocale.setText(bundle.getString("editorApplicationController.lblLocale.text")); // NOI18N
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(lblApplnTitle, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 526, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(editorAppTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 532, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(lblApplnTitle, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 368, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(editorAppTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 532, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(layout.createSequentialGroup()
+                        .add(lblLocale, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(cboLocale, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 199, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(lblApplnTitle, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(editorAppTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 195, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(lblLocale)
+                    .add(cboLocale, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 21, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(editorAppTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 195, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -687,6 +708,42 @@ public class editorApplicationController extends javax.swing.JPanel {
             }
 
     }//GEN-LAST:event_btnBrowseWorkspacePathActionPerformed
+
+   /**
+    * Sets the default locale in the locale selection combobox
+    */
+   private void initLocales(){
+       DefaultComboBoxModel cboModel = new DefaultComboBoxModel(BungeniEditorLocalesFactory.getAvailableLocales());
+       this.cboLocale.setModel(cboModel);
+       //get the current default locale which was set at startup in the class BungeniEditorClient
+       BungeniEditorLocale defLocale = new BungeniEditorLocale(Locale.getDefault());
+       cboLocale.setSelectedItem(defLocale);
+       cboLocale.addActionListener( new ActionListener(){
+            public void actionPerformed(ActionEvent ae) {
+                try {
+                    updateLocaleIni();
+                } catch (FileNotFoundException ex) {
+                    log.error("while updating editor.ini", ex);
+                } catch (IOException ex) {
+                    log.error("while updating editor.ini", ex);
+                }
+            }
+       });
+
+   }
+
+
+   private void updateLocaleIni() throws FileNotFoundException, IOException {
+       log.info("Updating locale ini");
+       Properties pEditorIni = new Properties();
+       pEditorIni.load(new FileInputStream(BungeniRuntimeProperties.getProperty("EDITOR_INI")));
+       Object[] objects = cboLocale.getSelectedObjects();
+       BungeniEditorLocale selectedLocale = (BungeniEditorLocale) objects[0];
+       pEditorIni.setProperty("lang", selectedLocale.getLocale().getLanguage());
+       pEditorIni.setProperty("region", selectedLocale.getLocale().getCountry());
+       pEditorIni.store(new FileOutputStream(BungeniRuntimeProperties.getProperty("EDITOR_INI")), "Updating locale in editor.ini");
+       MessageBox.OK(this.parentFrame, bundle.getString("change_locale"));
+   }
 
     class documentType extends Object {
 
@@ -1278,6 +1335,7 @@ private void btnOpenExistingActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JButton btnSaveSettings;
     private javax.swing.JButton btnSetCurrentTemplate;
     private javax.swing.JComboBox cboDocumentTypes;
+    private javax.swing.JComboBox cboLocale;
     private javax.swing.JCheckBox checkBoxConnectOnStartup;
     private javax.swing.JButton createNewDocument;
     private javax.swing.JTabbedPane editorAppTabbedPane;
@@ -1292,6 +1350,7 @@ private void btnOpenExistingActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JLabel lblCurrentTemplate;
     private javax.swing.JLabel lblCurrentTemplateText;
     private javax.swing.JLabel lblDocumentTypes;
+    private javax.swing.JLabel lblLocale;
     private javax.swing.JLabel lblOpenCurrentDoc;
     private javax.swing.JLabel lblSelectedFile;
     private javax.swing.JLabel lblSelectedTemplate;
