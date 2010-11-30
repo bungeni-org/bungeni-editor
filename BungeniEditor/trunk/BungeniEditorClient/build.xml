@@ -79,6 +79,7 @@
 			<include name="**/transformer.ini" />		
 		</fileset>
 	</copy>
+        <copy file="src/editor.ini" todir="${dist.dir}" />
      </target>
    <target name="umldocs" depends="jar" description="generates javadoc and also UML Diagram">
 		<mkdir dir="${reports.dir}"/>
