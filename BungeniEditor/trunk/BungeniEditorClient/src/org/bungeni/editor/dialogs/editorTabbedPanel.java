@@ -179,10 +179,14 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         log.debug("InitTabbedPanes: begin");
         m_tabbedPanelMap = TabbedPanelFactory.getPanelsByDocType(BungeniEditorProperties.getEditorProperty("activeDocumentMode"));
         for (ITabbedPanel panel : m_tabbedPanelMap) {
-            panel.setOOComponentHandle(ooDocument);
-            panel.setParentHandles(parentFrame, this);
-            panel.initialize();
-            this.jTabsContainer.add(panel.getPanelTitle(), panel.getObjectHandle());
+            try {
+                  panel.setOOComponentHandle(ooDocument);
+                  panel.setParentHandles(parentFrame, this);
+                  panel.initialize();
+                  this.jTabsContainer.add(panel.getPanelTitle(), panel.getObjectHandle());
+            } catch (java.lang.Exception ex) {
+                log.error("initTabbedPanes : error while initializaing pane :" + panel.getPanelTitle() , ex);
+            }
         }
         log.debug("InitTabbedPanes: finished loading");
     }
@@ -861,7 +865,7 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
 
     private void updateListDocuments() throws MalformedURLException, URISyntaxException {
         //new refreshed list of component handles
-        synchronized (editorMap) {
+      
             ArrayList<componentHandleContainer> componentHandles = getDocumentsComboModel();
             //capture currentlySelected item
             componentHandleContainer selectedItem = (componentHandleContainer) cboListDocuments.getModel().getSelectedItem();
@@ -938,7 +942,7 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
             }
 
 
-        }
+        
     }
 
     public void setProgrammaticRefreshOfDocumentListFlag(boolean bState) {
