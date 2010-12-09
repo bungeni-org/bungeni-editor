@@ -34,18 +34,8 @@ public class SettingsQueryFactory {
         return query;
     }
 
-    public static String Q_FETCH_PARENT_ACTIONS() {
-        String query =
-            "" + "SELECT distinct act.doc_type, act.action_name, act.action_order, "
-            + "act.action_state, act.action_class, act.action_type, act.action_naming_convention, "
-            + "act.action_numbering_convention,  "
-            + "act.action_icon, act.action_display_text, act.action_dimension, act.action_section_type, act.action_edit_dlg_allowed, act.action_dialog_class "
-            + " FROM action_settings act inner join " + "action_parent p on (act.action_name = p.parent_action)"
-            + " where p.parent_action not in (select action_name from action_parent) " + " order by action_order";
-
-        return query;
-    }
-
+ 
+    /*
     public static String Q_FETCH_PARENT_ACTIONS(String byAction) {
         String query =
             "SELECT distinct act.doc_type, act.action_name, act.action_order,"
@@ -57,7 +47,7 @@ public class SettingsQueryFactory {
 
         return query;
     }
-
+    */
     public static String Q_FETCH_ACTION_BY_NAME(String docType, String byActionName) {
         String query = Common_ToolbarAction_Selection() + " from action_settings act " + "where act.doc_type='"
                        + docType + "' and act.action_name = '" + byActionName + "'";
@@ -84,14 +74,15 @@ public class SettingsQueryFactory {
 
         return query;
     }
-
+    /*
     public static String Q_CHECK_IF_ACTION_HAS_PARENT(String actionName) {
         String query = "select count(parent_action) as the_count  from action_parent " + " where action_name ='"
                        + actionName + "'";
 
         return query;
-    }
+    }*/
 
+    /*
     public static String Q_GET_PARENT_ACTIONS(String byAction) {
         String query =
             "SELECT distinct act.doc_type, act.action_name, act.action_order,"
@@ -103,7 +94,8 @@ public class SettingsQueryFactory {
 
         return query;
     }
-
+    */
+    
     public static String Q_GET_SECTION_PARENT(String actionName) {
         String query = "select action_naming_convention from action_settings  "
                        + "where action_name in (select distinct parent_action from action_parent "
@@ -113,8 +105,7 @@ public class SettingsQueryFactory {
     }
 
     public static String Q_FETCH_EDITOR_PROPERTY(String propertyName) {
-        String query = new String("" + "Select property_name, property_value from general_editor_properties "
-                                  + "where property_name='" + propertyName + "' ");
+        String query =  "Select property_name, property_value from general_editor_properties " + "where property_name='" + propertyName + "' ";
 
         return query;
     }
@@ -193,20 +184,7 @@ public class SettingsQueryFactory {
     } */
 
 
-    public static String Q_FETCH_COMMANDS_BY_FORM(String formName) {
-        String query =
-            "SELECT fcs.FORM_NAME, fcc.FORM_MODE, fcc.COMMAND_CATALOG, fcc.COMMAND_CHAIN,  fcs.CATALOG_SOURCE "
-            + "FROM FORM_COMMAND_CHAIN fcc INNER JOIN FORM_CATALOG_SOURCE fcs ON ( fcc.FORM_NAME = fcs.FORM_NAME ) "
-            + "WHERE FCC.FORM_NAME = '" + formName + "'";
-
-        return query;
-    }
-
-    public static String Q_FETCH_CATALOG_SOURCE(String formName) {
-        String query = "SELECT fcs.CATALOG_SOURCE FROM FORM_CATALOG_SOURCE fcs WHERE fcs.FORM_NAME='" + formName + "'";
-
-        return query;
-    }
+   
 
     public static String Q_FETCH_CONDITIONAL_OPERATORS() {
         String query = "SELECT condition_name, condition_syntax, condition_class FROM CONDITIONAL_OPERATORS";
@@ -231,10 +209,7 @@ public class SettingsQueryFactory {
                + "and action_mode='" + currentMode + "' " + "and sub_action_name = '" + subActionName + "'";
     }
 
-    public static String Q_FETCH_PANEL_BY_TYPE(String panelName, String panelType) {
-        return "SELECT panel_type, panel_name, panel_desc, panel_class, panel_width, panel_height, panel_x, panel_y "
-               + " from PLUGIN_DIALOGS where PANEL_TYPE = '" + panelType + "' and panel_name = '" + panelName + "'";
-    }
+    
 
     public static String Q_FETCH_TOOLBAR_CONFIG_FILE(String documentType) {
         String query = "SELECT doc_type, toolbar_xml  FROM TOOLBAR_XML_CONFIG " + "where DOC_TYPE = '" + documentType
