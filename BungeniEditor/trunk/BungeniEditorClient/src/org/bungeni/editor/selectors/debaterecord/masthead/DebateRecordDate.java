@@ -122,6 +122,7 @@ public class DebateRecordDate extends BaseMetadataPanel {
      */
     @Override
     public boolean preFullInsert() {
+        /*
            long sectionBackColor = 0xffffff;
             float sectionLeftMargin = (float).2;
             String parentSection = getParentSection();
@@ -159,7 +160,7 @@ public class DebateRecordDate extends BaseMetadataPanel {
                                             newSectionName));
            //getFormContext().addFieldSet("container_section");
           // getFormContext().getFieldSets("container_section").add(containerSection);
-            
+            */
         return true;    
     }
 
@@ -349,6 +350,7 @@ public class DebateRecordDate extends BaseMetadataPanel {
      
   }
 
+      /*
    public String getParentSection(){
       String parentSection = "";
       BungeniClientDB dbSettings = new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
@@ -365,7 +367,7 @@ public class DebateRecordDate extends BaseMetadataPanel {
         }
      return parentSection;
     }
-  
+    */
  
        
   public String getNewSectionName() {

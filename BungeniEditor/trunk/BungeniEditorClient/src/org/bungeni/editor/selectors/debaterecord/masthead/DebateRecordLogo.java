@@ -137,6 +137,7 @@ private void btn_initdebate_selectlogoActionPerformed(java.awt.event.ActionEvent
 
     @Override
     public boolean preFullInsert() {
+        /*
             long sectionBackColor = 0xffffff;
             float sectionLeftMargin = (float).2;
             String parentSection = getParentSection();
@@ -171,7 +172,7 @@ private void btn_initdebate_selectlogoActionPerformed(java.awt.event.ActionEvent
             String selectedLogoText = this.txt_initdebate_selectlogo.getText();
             getFormContext().getFieldSets("selected_logo").add((String) selectedLogoText);
       
-            
+            */
          //   getFormContext().addFieldSet("selected_logo");
           //  getFormContext().addFieldSet("document_fragment");
            // getFormContext().addFieldSet("image_import_section");
@@ -301,7 +302,7 @@ private void btn_initdebate_selectlogoActionPerformed(java.awt.event.ActionEvent
                m_strLogoPath = m_defaultInstallationPath + File.separator + m_logoPathProperty + File.separator + "default_logo.jpg";
 
     }
-    
+    /*
       public String getParentSection(){
       String parentSection = "";
       BungeniClientDB dbSettings = new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
@@ -317,7 +318,7 @@ private void btn_initdebate_selectlogoActionPerformed(java.awt.event.ActionEvent
           parentSection = CommonPropertyFunctions.getDocumentRootSection();
         }
      return parentSection;
-    }
+    }*/
   
  
        
