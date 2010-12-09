@@ -5,8 +5,7 @@ Action configuration for bill document type
 <toolbar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="../../src/xsd/toolbar.xsd"
  doctype="bill">
-    <root visible="true">
-        <title xml:lang="eng">Editor Actions</title>
+    <root lang="en" title="bill actions" visible="true">
         <actionGroup name="tabFavourites" visible="true" uimodel="wrap">
             <title xml:lang="eng">Favourites</title>
             <blockAction name="Preface" target="null" visible="true" condition="none">
@@ -19,6 +18,7 @@ Action configuration for bill document type
                     <title xml:lang="eng">Markup Preface</title>
                 </subaction>
             </blockAction>
+            
             <blockAction name="Part" target="null" visible="true" condition="none">
                 <title xml:lang="eng">Part</title>
                 <subaction name="Part.selection" tooltip="Select some text to mark it up as a Part"
@@ -42,6 +42,7 @@ Action configuration for bill document type
                     <title xml:lang="eng">Add Sidenote</title>
                 </subaction>
             </blockAction>
+            
             <blockAction name="Chapter" target="null" visible="true" condition="none">
                 <title xml:lang="eng">Chapter</title>
                 <subaction name="Chapter.selection"
@@ -105,6 +106,7 @@ Action configuration for bill document type
                     <title xml:lang="eng">Add Sidenote</title>
                 </subaction>
             </blockAction>
+            
             <blockAction name="Section" target="null" visible="true" condition="none">
                 <title xml:lang="eng">Section</title>
                 <subaction name="Section.selection" 
@@ -217,6 +219,7 @@ Action configuration for bill document type
                     <title xml:lang="eng">add sidenote</title>
                 </subaction>
             </blockAction>
+            
         </actionGroup>
     </root>
 </toolbar>
