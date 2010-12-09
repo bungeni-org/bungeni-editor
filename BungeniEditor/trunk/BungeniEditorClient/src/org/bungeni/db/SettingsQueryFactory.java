@@ -15,11 +15,11 @@ public class SettingsQueryFactory {
     public SettingsQueryFactory() {}
 
     public static String Q_FETCH_CHILD_TOOLBAR_ACTIONS(String parent_name) {
-        String query = new String("" + "Select doc_type,action_name,action_order,action_state,action_class, "
-                                  + "action_type,action_naming_convention,action_numbering_convention,"
-                                  + "action_icon,action_display_text,action_dimension, action_dialog_class "
-                                  + "from action_settings " + "where action_parent='" + parent_name
-                                  + "' and action_state=1 " + "order by action_order");
+        String query =  "Select doc_type,action_name,action_order,action_state,action_class, " +
+                "action_type,action_naming_convention,action_numbering_convention," +
+                "action_icon,action_display_text,action_dimension, action_dialog_class " +
+                "from action_settings " + "where action_parent='" + parent_name + "' and action_state=1 " +
+                "order by action_order";
 
         return query;
     }
@@ -35,19 +35,7 @@ public class SettingsQueryFactory {
     }
 
  
-    /*
-    public static String Q_FETCH_PARENT_ACTIONS(String byAction) {
-        String query =
-            "SELECT distinct act.doc_type, act.action_name, act.action_order,"
-            + "act.action_state, act.action_class, act.action_type, act.action_naming_convention, "
-            + "act.action_numbering_convention, "
-            + "act.action_icon, act.action_display_text, act.action_dimension, act.action_section_type, act.action_edit_dlg_allowed, act.action_dialog_class "
-            + " FROM " + "action_settings act where act.action_name in "
-            + "(select action_name from action_parent where " + "parent_action='" + byAction + "')";
-
-        return query;
-    }
-    */
+    
     public static String Q_FETCH_ACTION_BY_NAME(String docType, String byActionName) {
         String query = Common_ToolbarAction_Selection() + " from action_settings act " + "where act.doc_type='"
                        + docType + "' and act.action_name = '" + byActionName + "'";
