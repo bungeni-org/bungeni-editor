@@ -130,7 +130,7 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
 
         }
         //set the structural tab as the current tab
-        toolbarTabs.setSelectedIndex(1);
+        toolbarTabs.setSelectedIndex(0);
     }
 
 
