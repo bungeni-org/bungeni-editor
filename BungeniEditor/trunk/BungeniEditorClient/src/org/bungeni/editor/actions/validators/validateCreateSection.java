@@ -80,15 +80,18 @@ public class validateCreateSection extends defaultValidator {
          if (currentSectionname.equals(CommonPropertyFunctions.getDocumentRootSection())) {
                 //current section is the root section
                 //can the section be added inside the root section ?
-                bstate = check_containment_RootSection(action, subAction, ooDocument, currentSectionname);
-            } else {
+               // bstate = check_containment_RootSection(action, subAction, ooDocument, currentSectionname);
+               log.error("check_containment has been deprecated");
+         } else {
                 //current section is not the root section
                 //can the section be added inside this section
-                bstate = check_containment_Section(action, subAction, ooDocument, currentSectionname);
-            }
+                // bstate = check_containment_Section(action, subAction, ooDocument, currentSectionname);
+                log.error("check_containment has been deprecated");
+
+         }
         return bstate;
     }
-    
+    /* DISABLED r1681 ACTION_PARENT Needs to be deprecated.
     private boolean check_containment_RootSection(toolbarAction action, toolbarSubAction subAction, OOComponentHelper ooDocument, String currentSectionname) {
         //check if the current section can have the root section as a parent
         String strQuery = "Select count(*) as THE_COUNT from ACTION_PARENT where ACTION_NAME='"+action.action_name()+"'";
@@ -106,8 +109,9 @@ public class validateCreateSection extends defaultValidator {
         } else {
             return false;
         }
-    }
-    
+    }*/
+
+    /*
     private boolean check_containment_Section(toolbarAction action, toolbarSubAction subAction, OOComponentHelper ooDocument, String currentSectionname) {
         
         boolean bstate = false;
@@ -144,7 +148,7 @@ public class validateCreateSection extends defaultValidator {
         } finally {
             return bstate;
         }
-    }   
+    } */
     
     private boolean check_actionSectionExists(toolbarAction action, toolbarSubAction subAction, OOComponentHelper ooDocument) {
         if (action.action_numbering_convention().equals("single")) {
