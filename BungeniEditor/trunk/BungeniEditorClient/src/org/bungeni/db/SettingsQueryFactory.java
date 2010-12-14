@@ -14,6 +14,7 @@ public class SettingsQueryFactory {
     /** Creates a new instance of SettingsQueryFactory */
     public SettingsQueryFactory() {}
 
+    /** 14-12-2010
     public static String Q_FETCH_CHILD_TOOLBAR_ACTIONS(String parent_name) {
         String query =  "Select doc_type,action_name,action_order,action_state,action_class, " +
                 "action_type,action_naming_convention,action_numbering_convention," +
@@ -23,7 +24,7 @@ public class SettingsQueryFactory {
 
         return query;
     }
-
+    **/
     private static String Common_ToolbarAction_Selection() {
         String query =
             "" + "SELECT distinct act.doc_type, act.action_name, act.action_order, "
@@ -82,7 +83,7 @@ public class SettingsQueryFactory {
 
         return query;
     }
-    */
+   
     
     public static String Q_GET_SECTION_PARENT(String actionName) {
         String query = "select action_naming_convention from action_settings  "
@@ -91,20 +92,13 @@ public class SettingsQueryFactory {
 
         return query;
     }
-
+ */
     public static String Q_FETCH_EDITOR_PROPERTY(String propertyName) {
         String query =  "Select property_name, property_value from general_editor_properties " + "where property_name='" + propertyName + "' ";
 
         return query;
     }
 
-    public static String Q_FETCH_NEIGBOURING_ACTIONS_deprecated(String preceeding, String following) {
-        String query = "SELECT * FROM action_settings where action_type  = 'section'"
-                       + " and action_name not in (select action_name from action_parent) " + " and action_order in  ("
-                       + preceeding + "," + following + ") order by action_order asc";
-
-        return query;
-    }
 
     public static String Q_FETCH_ALL_SELECTION_ACTIONS(String docType) {
         String query =

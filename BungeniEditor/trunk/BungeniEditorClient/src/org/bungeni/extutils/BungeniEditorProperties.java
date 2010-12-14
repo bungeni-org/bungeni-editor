@@ -27,8 +27,7 @@ public class BungeniEditorProperties {
     
     public static void setEditorProperty(String propertyName, String propertyValue ) {
         BungeniClientDB instance = new BungeniClientDB (DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
-        String query = SettingsQueryFactory.Q_FETCH_ALL_DOCUMENT_TYPES();
-        instance.Connect();
+       instance.Connect();
         int nRow = instance.Update(SettingsQueryFactory.Q_SET_EDITOR_PROPERTY(propertyName, propertyValue));
         instance.EndConnect();
         if (nRow > 0 ) {
