@@ -24,12 +24,11 @@ public class toolbarAction {
     private SelectorDialogModes            theMode             = null;
     private String                         action_class;
     private String                         action_dialog_class;
-    private String                         action_dimension;
     private String                         action_display_text;
     private String                         action_edit_dlg_allowed;
 
     // private String action_parent;
-    private String        action_icon;
+   // private String        action_icon;
     private String        action_name;
     private String        action_naming_convention;
     private String        action_numbering_convention;
@@ -86,9 +85,8 @@ public class toolbarAction {
             action_type      = (String) safeGet(actionDesc, action_mapping, "ACTION_TYPE");
 
             // action_parent = (String) safeGet(actionDesc, action_mapping, "ACTION_PARENT");
-            action_icon             = (String) safeGet(actionDesc, action_mapping, "ACTION_ICON");
+           // action_icon             = (String) safeGet(actionDesc, action_mapping, "ACTION_ICON");
             action_display_text     = (String) safeGet(actionDesc, action_mapping, "ACTION_DISPLAY_TEXT");
-            action_dimension        = (String) safeGet(actionDesc, action_mapping, "ACTION_DIMENSION");
             action_section_type     = (String) safeGet(actionDesc, action_mapping, "ACTION_SECTION_TYPE");
             action_edit_dlg_allowed = (String) safeGet(actionDesc, action_mapping, "ACTION_EDIT_DLG_ALLOWED");
             action_dialog_class     = (String) safeGet(actionDesc, action_mapping, "ACTION_DIALOG_CLASS");
@@ -101,8 +99,8 @@ public class toolbarAction {
                 action_numbering_convention = associatedSection.getSectionNumberingStyle();    // (String) safeGet(actionDesc, action_mapping, "ACTION_NUMBERING_CONVENTION");
             }
         } catch (Exception e) {
-            log.debug("error in toolbarAction constructor : " + e.getMessage());
-            e.printStackTrace();
+            log.error("error in toolbarAction constructor : " + e.getMessage());
+           
         }
 
         log.debug("finished toolbarAction constructor");
