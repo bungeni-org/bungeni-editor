@@ -5,7 +5,7 @@ Action configuration for bill document type
 <toolbar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="../../src/xsd/toolbar.xsd"
  doctype="bill">
-    <root lang="en" title="bill actions" visible="true">
+    <root visible="true">
         <actionGroup name="tabFavourites" visible="true" uimodel="wrap">
             <title xml:lang="eng">Favourites</title>
             <blockAction name="Preface" target="null" visible="true" condition="none">
@@ -132,7 +132,7 @@ Action configuration for bill document type
                     condition="cursorInSection:(subchapter|part)([0-9]*) :and: textSelected:true">
                     <title xml:lang="eng">markup title and section</title>
                 </subaction>
-                <subaction name="Section.sidenote" title="Add Sidenote" tooltip="Insert a sidenote"
+                <subaction name="Section.sidenote"  tooltip="Insert a sidenote"
                     mode="TEXT_SELECTED_INSERT"
                     target="toolbarSubAction.makeBillGeneralAction.create_sidenote" visible="true"
                     condition="cursorInSection:section([0-9]*)">
@@ -149,7 +149,7 @@ Action configuration for bill document type
                     condition="cursorInSection:section([0-9]*) :and: textSelected:true">
                     <title xml:lang="eng">create from selection</title>
                 </subaction>
-                <subaction name="SubSection.selection.title" title="Markup title"
+                <subaction name="SubSection.selection.title" 
                     tooltip="Select some text to mark it up as a  SubSection title"
                     mode="TEXT_SELECTED_INSERT"
                     target="toolbarSubAction.makeBillSubSectionSection.apply_numbered_heading:heading_subsection"
@@ -157,7 +157,7 @@ Action configuration for bill document type
                     condition="cursorInSection:subsection([0-9]*) :and: textSelected:true :and: !sectionHasChildType:NumberedContainer">
                     <title xml:lang="eng">markup title</title>
                 </subaction>
-                <subaction name="SubSection.composite" title="Markup title and SubSection"
+                <subaction name="SubSection.composite" 
                     tooltip="Select some text to mark it up as a Section"
                     mode="TEXT_SELECTED_INSERT"
                     target="toolbarSubAction.makeBillSubSectionSection.composite_section_creation:heading_subsection"
@@ -165,7 +165,7 @@ Action configuration for bill document type
                     condition="cursorInSection:section([0-9]*) :and: textSelected:true">
                     <title xml:lang="eng">markup title and sub-section</title>
                 </subaction>
-                <subaction name="SubSection.sidenote" title="Add Sidenote"
+                <subaction name="SubSection.sidenote" 
                     tooltip="Insert a sidenote" mode="TEXT_SELECTED_INSERT"
                     target="toolbarSubAction.makeBillGeneralAction.create_sidenote" visible="true"
                     condition="cursorInSection:subsection([0-9]*)">
@@ -174,21 +174,21 @@ Action configuration for bill document type
             </blockAction>    
             <blockAction name="Paragraph" target="null" visible="true" condition="none">
                 <title xml:lang="eng">Paragraph</title>
-                <subaction name="Paragraph.selection" title="Create from Selection"
+                <subaction name="Paragraph.selection" 
                     tooltip="Select some text to mark it up as a Paragraph"
                     mode="TEXT_SELECTED_INSERT"
                     target="toolbarSubAction.makeBillParaSection.section_creation" visible="true"
                     condition="cursorInSection:section([0-9]*) :and: textSelected:true">
                     <title xml:lang="eng">create from selection</title>                    
                 </subaction>
-                <subaction name="Paragraph.selection.title" title="Markup title"
+                <subaction name="Paragraph.selection.title" 
                     tooltip="Select some text to mark it up as a  Para title"
                     mode="TEXT_SELECTED_INSERT"
                     target="toolbarSubAction.makeBillParaSection.apply_numbered_heading:heading_para"
                     visible="true" condition="cursorInSection:para([0-9]*) :and: textSelected:true">
                     <title xml:lang="eng">markup title</title>
                 </subaction>
-                <subaction name="Paragraph.sidenote" title="Add Sidenote"
+                <subaction name="Paragraph.sidenote" 
                     tooltip="Insert a sidenote" mode="TEXT_SELECTED_INSERT"
                     target="toolbarSubAction.makeBillGeneralAction.create_sidenote" visible="true"
                     condition="cursorInSection:para([0-9]*)">
@@ -197,14 +197,14 @@ Action configuration for bill document type
             </blockAction>
             <blockAction name="Sub-Paragraph" target="null" visible="true" condition="none">
                 <title xml:lang="eng">Sub Paragraph</title>
-                <subaction name="SubParagraph.selection" title="Create from Selection"
+                <subaction name="SubParagraph.selection" 
                     tooltip="Select some text to mark it up as a SubParagraph"
                     mode="TEXT_SELECTED_INSERT"
                     target="toolbarSubAction.makeBillSubParaSection.section_creation" visible="true"
                     condition="cursorInSection:para([0-9]*) :and: textSelected:true">
                     <title xml:lang="eng">create from selection</title>
                 </subaction>
-                <subaction name="SubParagraph.selection.title" title="Markup title"
+                <subaction name="SubParagraph.selection.title" 
                     tooltip="Select some text to mark it up as a SubPara title"
                     mode="TEXT_SELECTED_INSERT"
                     target="toolbarSubAction.makeBillSubParaSection.apply_numbered_heading:heading_subpara"
@@ -212,7 +212,7 @@ Action configuration for bill document type
                     condition="cursorInSection:subpara([0-9]*) :and: textSelected:true">
                     <title xml:lang="eng">markup title</title>
                 </subaction>
-                <subaction name="SubParagraph.sidenote" title="Add Sidenote"
+                <subaction name="SubParagraph.sidenote" 
                     tooltip="Insert a sidenote" mode="TEXT_SELECTED_INSERT"
                     target="toolbarSubAction.makeBillGeneralAction.create_sidenote" visible="true"
                     condition="cursorInSection:subpara([0-9]*)">
