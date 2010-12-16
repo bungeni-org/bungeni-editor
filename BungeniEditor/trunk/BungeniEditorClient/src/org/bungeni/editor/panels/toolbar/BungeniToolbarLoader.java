@@ -4,6 +4,7 @@ package org.bungeni.editor.panels.toolbar;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.BorderFactory;
 import javax.swing.JTabbedPane;
 import org.bungeni.extutils.BungeniEditorProperties;
@@ -19,6 +20,7 @@ public class BungeniToolbarLoader {
 
     private BungeniToolbarParser toolbarParser = null;
     private ActionListener actionListener = null;
+    private String iso3Language = "";
 
     /**
      * Creates a BungeniToolbarLoader
@@ -29,6 +31,11 @@ public class BungeniToolbarLoader {
         //instantiate a toolbar parser
         toolbarParser = new BungeniToolbarParser();
         actionListener = toolbarActionListener;
+        Locale defLocale = Locale.getDefault();
+        //we capture the iso3 default language for the current locale
+        //xml config uses iso3 language representation
+        iso3Language = defLocale.getISO3Language();
+
     }
 
 
@@ -47,17 +54,24 @@ public class BungeniToolbarLoader {
      */
     private String geti18nTitle(Element anElement, String localizedAttr ) {
         List<Element> childTitles = anElement.getChildren(localizedAttr);
-        String langCode = BungeniEditorProperties.getEditorProperty("locale.Language.iso639-2");
-        for (Element title : childTitles) {
+        //get the default
+        String langCodeDefault = BungeniEditorProperties.getEditorProperty("locale.Language.iso639-2");
+        String foundTitle = _findi18nTitle(childTitles, this.iso3Language);
+        if (foundTitle.equals("UNDEFINED")) {
+            foundTitle = _findi18nTitle(childTitles, langCodeDefault );
+        }
+        return foundTitle;
+    }
+
+    private String _findi18nTitle(List<Element> childTitles, String langCode) {
+         for (Element title : childTitles) {
            String foundLang =  title.getAttributeValue("lang", Namespace.XML_NAMESPACE);
            if (foundLang.equals(langCode)) {
                return title.getText();
            }
         }
-        //otherwise look for an attribute called title in the main element
-        return anElement.getAttributeValue("title");
+       return "UNDEFINED";
     }
-
     /**
      * Load the tabs from the toolbar xml config
      * @param thisPane - the JTabbedPane object which acts as the container for the ations
