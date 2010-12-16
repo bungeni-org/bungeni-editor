@@ -17,6 +17,29 @@ Action configuration for bill document type
                     condition="cursorInSection:bill :and: sectionNotExists:preface :and: textSelected:true">
                     <title xml:lang="eng">Markup Preface</title>
                 </subaction>
+                <subaction name="Preface.selection.heading"
+                    tooltip="Select some text to mark it up as a Heading"
+                    mode="TEXT_SELECTED_INSERT"
+                    target="toolbarSubAction.makeBillPrefaceSection.apply_style:heading_generic" visible="true"
+                    condition="cursorInSection:preface :and: textSelected:true">
+                    <title xml:lang="eng">---- heading</title>
+                </subaction>
+                <subaction name="Preface.selection.subheading"
+                    tooltip="Select some text to mark it up as a SubHeading"
+                    mode="TEXT_SELECTED_INSERT"
+                    target="toolbarSubAction.makeBillPrefaceSection.apply_style:subheading_generic" visible="true"
+                    condition="cursorInSection:preface :and: textSelected:true">
+                    <title xml:lang="eng">---- -- sub-heading</title>
+                </subaction>
+                <subaction name="Preface.selection.docTitle"
+                    tooltip="Select some text to mark it up as a SubHeading"
+                    mode="TEXT_SELECTED_INSERT"
+                    target="toolbarSubAction.makeBillPrefaceSection.char_style:char_doctitle" visible="true"
+                    condition="cursorInSection:preface :and: textSelected:true">
+                    <title xml:lang="eng">---- -- mark doc-title</title>
+                </subaction>
+                
+                
             </blockAction>
             
             <blockAction name="Part" target="null" visible="true" condition="none">
