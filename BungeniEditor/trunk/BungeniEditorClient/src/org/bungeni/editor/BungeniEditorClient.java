@@ -99,7 +99,7 @@ public class BungeniEditorClient {
         }
 
         Locale locale = new Locale(lang, region);
-
+        
         Locale.setDefault(locale);
     }
 

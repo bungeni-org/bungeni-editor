@@ -97,7 +97,8 @@ public class toolbarAction {
             if (associatedSection != null ) {
                 action_naming_convention = associatedSection.getSectionNamePrefix();    // (String) safeGet(actionDesc, action_mapping, "ACTION_NAMING_CONVENTION");
                 action_numbering_convention = associatedSection.getSectionNumberingStyle();    // (String) safeGet(actionDesc, action_mapping, "ACTION_NUMBERING_CONVENTION");
-            }
+             }
+            
         } catch (Exception e) {
             log.error("error in toolbarAction constructor : " + e.getMessage());
            
@@ -122,6 +123,7 @@ public class toolbarAction {
         return this.action_naming_convention;
     }
 
+   
     public String action_numbering_convention() {
         return this.action_numbering_convention;
     }
@@ -144,7 +146,7 @@ public class toolbarAction {
 
     public String action_dialog_class() {
         if (action_dialog_class == null) {
-            return new String("");
+            return "";
         } else {
             return this.action_dialog_class;
         }
@@ -157,6 +159,7 @@ public class toolbarAction {
         }
     }
 
+    @Override
     public String toString() {
         return this.action_display_text;
     }

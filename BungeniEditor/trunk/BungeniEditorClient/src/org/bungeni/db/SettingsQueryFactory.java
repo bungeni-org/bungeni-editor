@@ -28,8 +28,8 @@ public class SettingsQueryFactory {
     private static String Common_ToolbarAction_Selection() {
         String query =
             "" + "SELECT distinct act.doc_type, act.action_name, act.action_order, "
-            + "act.action_state, act.action_class, act.action_type,  "
-            + "act.action_display_text, act.action_dimension, act.action_section_type, act.action_dialog_class, act.action_edit_dlg_allowed ";
+            + "act.action_state, act.action_section_type, act.action_class, act.action_type,  "
+            + "act.action_display_text,  act.action_dialog_class, act.action_edit_dlg_allowed ";
 
         return query;
     }
