@@ -10,6 +10,7 @@ import com.sun.star.text.XText;
 import com.sun.star.text.XTextViewCursor;
 import java.awt.Component;
 import java.util.Date;
+import java.util.ResourceBundle;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
@@ -22,7 +23,10 @@ import org.bungeni.ooo.ooQueryInterface;
  */
 public class EnterTabledDocument extends BaseMetadataPanel {
 private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(EnterTabledDocument.class.getName());
+ private static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/tableddocuments/Bundle");
 
+
+private static final String __URI_TO_TABLED_DOCUMENT__ = bundle.getString("URI_TABLED_DOCUMENTS")  ;
     /** Creates new form EnterTabledDocument */
     public EnterTabledDocument() {
         super();
@@ -187,7 +191,9 @@ private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(E
             XText xCursorText = viewCursor.getText();
             XPropertySet xCurProps = ooQueryInterface.XPropertySet(viewCursor);
             xCurProps.setPropertyValue("HyperLinkURL", BungeniEditorProperties.ODF_URI_PREFIX + docURI);
-            xCursorText.insertString(viewCursor,viewCursor.getString(), true);
+            xCurProps.setPropertyValue("HyperLinkName",__URI_TO_TABLED_DOCUMENT__);
+            //AH-17-01-11 -- the below isnt required since the text has already been selected !!
+            //xCursorText.insertString(viewCursor,viewCursor.getString(), true);
         } catch (IllegalArgumentException ex) {
                  log.error("markupLink : " + ex.getMessage(),ex);
         } catch (UnknownPropertyException ex) {

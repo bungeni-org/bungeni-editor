@@ -44,6 +44,7 @@ import org.bungeni.ooo.ooQueryInterface;
  */
 public class TabledDocuments extends BaseMetadataPanel {
   private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(TabledDocuments.class.getName());
+  protected static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/tableddocuments/Bundle");
 
     /** Creates new form TabledDocuments */
     public TabledDocuments() {
@@ -51,8 +52,7 @@ public class TabledDocuments extends BaseMetadataPanel {
         initComponents();
         initTable();
     }
-    private static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/tableddocuments/Bundle");
-
+ 
 
     class TabledDocumentsModel extends DefaultTableModel {
         private boolean cellsEditable = false;

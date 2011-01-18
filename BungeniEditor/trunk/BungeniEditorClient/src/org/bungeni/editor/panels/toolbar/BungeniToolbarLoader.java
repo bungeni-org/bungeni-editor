@@ -63,6 +63,19 @@ public class BungeniToolbarLoader {
         return foundTitle;
     }
 
+
+     private String geti18nTooltip(Element anElement, String localizedAttr ) {
+        List<Element> childTooltips = anElement.getChildren(localizedAttr);
+        //get the default
+        String langCodeDefault = BungeniEditorProperties.getEditorProperty("locale.Language.iso639-2");
+        String foundTooltip = _findi18nTitle(childTooltips, this.iso3Language);
+        if (foundTooltip.equals("UNDEFINED")) {
+            foundTooltip = _findi18nTitle(childTooltips, langCodeDefault );
+        }
+        return foundTooltip;
+    }
+
+
     private String _findi18nTitle(List<Element> childTitles, String langCode) {
          for (Element title : childTitles) {
            String foundLang =  title.getAttributeValue("lang", Namespace.XML_NAMESPACE);
@@ -110,8 +123,9 @@ public class BungeniToolbarLoader {
                      for (Element action : actionElements) {
                         //get the title for the button
                         String actionTitle = geti18nTitle(action, "title"); //action.getAttributeValue("title");
+                        String actionTooltip = geti18nTooltip(action, "tooltip");
                         BungeniToolbarActionElement elem = new BungeniToolbarActionElement(action);
-                        buttonPanel panelButton = new buttonPanel(actionTitle, actionListener, elem);
+                        buttonPanel panelButton = new buttonPanel(actionTitle, actionTooltip, actionListener, elem);
                         buttonContainer.add(panelButton);
                      }
                      scrollablePanel.setScrollViewPort(buttonContainer);

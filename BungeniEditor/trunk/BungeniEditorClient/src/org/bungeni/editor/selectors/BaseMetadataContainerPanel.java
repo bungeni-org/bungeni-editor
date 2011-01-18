@@ -31,6 +31,13 @@ import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
 
 /**
+ * This class is the base class for all interactive dialogs with the Editor.
+ * This is a container class that loads sub-panels -- Sub Panels are added to the task pane widget serially.
+ * The loading is done in the following manner --
+ *
+ * First the action_dialog property for an action is queried to determine the action container dialog (the action\
+ * container dialog is the container for all sub-panels.
+ * Sub Panels are mapped to container dialogs in the selector_dialogs table.
  *
  * @author  Ashok Hariharan
  */

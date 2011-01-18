@@ -10,6 +10,7 @@ import com.sun.star.text.XTextViewCursor;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 import javax.swing.AbstractButton;
 import javax.swing.ListSelectionModel;
 import org.bungeni.extutils.BungeniEditorProperties;
@@ -21,8 +22,10 @@ import org.bungeni.ooo.ooQueryInterface;
  * @author Ashok 
  */
 public class SingleSelectTabledDocuments extends TabledDocuments {
-private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(SingleSelectTabledDocuments.class.getName());
 
+
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(SingleSelectTabledDocuments.class.getName());
+  
     public SingleSelectTabledDocuments() {
             super();
         }
@@ -57,8 +60,10 @@ private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(S
          XText xCursorText = viewCursor.getText();
                 //oCur.HyperLinkURL="http://akomantoso.org/resolver/"+ listItemURIs(i)
                 XPropertySet xCurProps = ooQueryInterface.XPropertySet(viewCursor);
-                xCurProps.setPropertyValue("HyperLinkURL", BungeniEditorProperties.ODF_URI_PREFIX + tblDocURIs.get(0));
                 xCursorText.insertString(viewCursor,viewCursor.getString(), true);
+                xCurProps.setPropertyValue("HyperLinkURL", BungeniEditorProperties.ODF_URI_PREFIX + tblDocURIs.get(0));
+                xCurProps.setPropertyValue("HyperLinkName", bundle.getString("URI_TABLED_DOCUMENTS"));
+               
                // if (!(i == tblDocTitles.size() -1 ))
                // xCursorText.insertControlCharacter(ooDocument.getViewCursor(), com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK, false);
         //}

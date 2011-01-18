@@ -25,9 +25,10 @@ public class buttonPanel extends javax.swing.JPanel {
      * @param text - the display text for the button
      * @param btnListener - the action listener associated wiht the button
      */
-    public buttonPanel(String text, ActionListener btnListener, BungeniToolbarActionElement aElement) {
+    public buttonPanel(String text, String tooltipText, ActionListener btnListener, BungeniToolbarActionElement aElement) {
         initComponents();
         setButtonText(text);
+        setButtonTooltip(tooltipText);
         this.btnAction.setHorizontalAlignment(SwingConstants.LEADING);
         setButtonActionListener(btnListener);
         setActionElement(aElement);
@@ -37,15 +38,19 @@ public class buttonPanel extends javax.swing.JPanel {
         return actionElement;
     }
 
-    public void setActionElement(BungeniToolbarActionElement aElement) {
+    private  void setActionElement(BungeniToolbarActionElement aElement) {
         this.actionElement = aElement;
     }
 
-    public void setButtonText(String text) {
+    private void setButtonText(String text) {
         this.btnAction.setText(text);
     }
 
-    public void setButtonActionListener(ActionListener btnListener) {
+   private void setButtonTooltip(String text){
+        this.btnAction.setToolTipText(text);
+    }
+
+   private void setButtonActionListener(ActionListener btnListener) {
         this.btnAction.addActionListener(btnListener);
     }
 
