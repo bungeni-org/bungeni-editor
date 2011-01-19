@@ -305,8 +305,9 @@ public class TabledDocuments extends BaseMetadataPanel {
          ArrayList<String> docTitles = new ArrayList<String>();
          ArrayList<String> docURIs = new ArrayList<String>();
              for (int i=0; i < selectedRows.length; i++) {
-                 String docTitle = (String)tbl_tabledDocs.getModel().getValueAt(i, 0 );
-                 String docURI = (String) tbl_tabledDocs.getModel().getValueAt(i, 1);
+                 //AH-18-01-11 -- fixed bug in array referencing
+                 String docTitle = (String)tbl_tabledDocs.getModel().getValueAt(selectedRows[i], 0 );
+                 String docURI = (String) tbl_tabledDocs.getModel().getValueAt(selectedRows[i], 1);
                  docTitles.add(docTitle);
                  docURIs.add(docURI);
              }
@@ -377,16 +378,18 @@ public class TabledDocuments extends BaseMetadataPanel {
         ArrayList<String> tblDocURIs = arrTableSelection.get("tabled_document_uris");
        //For i=LBound(selectItemsArray) to UBound(selectItemsArray)
         for (int i=0; i < tblDocTitles.size(); i++) {
-      
-                //oCur.HyperLinkURL="http://akomantoso.org/resolver/"+ listItemURIs(i)
+                //AH-18-01-11 Fixed url not being written problem
                 XPropertySet xCurProps = ooQueryInterface.XPropertySet(startCur);
+                xCursorText.insertString(startCur, tblDocTitles.get(i), true);
                 xCurProps.setPropertyValue("HyperLinkURL", org.bungeni.extutils.BungeniEditorProperties.ODF_URI_PREFIX + tblDocURIs.get(i));
-                xCursorText.insertString(startCur, tblDocTitles.get(i), false);
-               // if (!(i == tblDocTitles.size() -1 ))
-                xCursorText.insertControlCharacter(startCur, com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK, false);
+                xCurProps.setPropertyValue("HyperLinkName", bundle.getString("URI_TABLED_DOCUMENTS") );
+                startCur.gotoRange(startCur.getEnd(), false);
+                startCur.goRight((short)1, false);
+                // if (!(i == tblDocTitles.size() -1 ))
+                // xCursorText.insertControlCharacter(startCur, com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK, false);
         }
-        
-        setNumberingRules(ooDocument, startCur, xStartRange);
+        //AH-18-01-11 - remove auto bulleting -- the user has to bullet it
+        //setNumberingRules(ooDocument, startCur);
         
             } catch (UnknownPropertyException ex) {
                 log.error("applyBulletedList : " + ex.getMessage());
@@ -400,7 +403,7 @@ public class TabledDocuments extends BaseMetadataPanel {
         
     }
     
-    public void setNumberingRules(OOComponentHelper ooDocument, XTextCursor xCursor, XTextRange xStartRange ){
+    public void setNumberingRules(OOComponentHelper ooDocument, XTextCursor xCursor ){
         try {
             Object objNumeringRules = ooDocument.createInstance("com.sun.star.text.NumberingRules");
             XIndexAccess numIndexAccess = ooQueryInterface.XIndexAccess(objNumeringRules);
