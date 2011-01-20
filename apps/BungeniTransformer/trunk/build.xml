@@ -89,5 +89,8 @@
                 <fileset dir="resources/odttometalex" >
                 </fileset>
         </copy>
+        <copy todir="${dist.dir}">
+           <fileset file="resources/transformer.ini" />
+        </copy>
     </target>
 </project>
