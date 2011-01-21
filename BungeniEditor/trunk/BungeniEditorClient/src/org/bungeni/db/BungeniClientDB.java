@@ -153,7 +153,10 @@ public class BungeniClientDB {
 
                 for (i = 0; i < colmax; ++i) {
                     o = rs.getObject(i + 1);    // Is SQL the first column is indexed
-
+                    //AH-21-01-11 added check for null
+                    if (null == o) {
+                        o = new String();
+                    }
                     // with 1 not 0
                     resultsRow.addElement(o.toString());
 

@@ -13,10 +13,12 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.Vector;
 import javax.swing.AbstractButton;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.BungeniRegistryFactory;
 import org.bungeni.db.QueryResults;
+import org.bungeni.db.RegistryQueryFactory;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.CommonStringFunctions;
@@ -56,11 +58,12 @@ public class Bills extends BaseMetadataPanel {
     }
 
     protected String getTableQuery(){
-        String countryIso = BungeniEditorProperties.getEditorProperty("locale.Country.iso3166-1-a2");
-        return new String("select bill_name, bill_uri, bill_ontology from bills where country = '" +  countryIso + "'");
+        String countryIso = BungeniEditorProperties.getEditorProperty("parliament.CountryCode");
+        String sQuery = RegistryQueryFactory.Q_FETCH_BILLS(countryIso);
+        return sQuery;
     }
 
-    protected void initTable(){
+    private void initTable(){
         HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();
             BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
             dbInstance.Connect();
@@ -77,6 +80,7 @@ public class Bills extends BaseMetadataPanel {
                      enableButtons(false);
                     }
             }
+            tbl_Bills.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
      }
 
     private void enableButtons(boolean b) {

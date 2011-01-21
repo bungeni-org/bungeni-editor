@@ -13,10 +13,12 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.Vector;
 import javax.swing.AbstractButton;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.BungeniRegistryFactory;
 import org.bungeni.db.QueryResults;
+import org.bungeni.db.RegistryQueryFactory;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.CommonStringFunctions;
@@ -39,10 +41,10 @@ public class Committees extends BaseMetadataPanel {
     private static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/committees/Bundle");
 
 
-    class TabledDocumentsModel extends DefaultTableModel {
+    class CommitteesModel extends DefaultTableModel {
         private boolean cellsEditable = false;
 
-        public TabledDocumentsModel(){
+        public CommitteesModel(){
             super();
         }
 
@@ -57,11 +59,11 @@ public class Committees extends BaseMetadataPanel {
     }
 
     protected String getTableQuery(){
-        String countryIso = BungeniEditorProperties.getEditorProperty("locale.Country.iso3166-1-a2");
-        return new String("select committee_name, committee_uri from committees where country = '" +  countryIso + "'");
+        String countryCode = BungeniEditorProperties.getEditorProperty("parliament.CountryCode");
+        return RegistryQueryFactory.Q_FETCH_COMMITTEES(countryCode);
     }
 
-    protected void initTable(){
+    private void initTable(){
         HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();
             BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
             dbInstance.Connect();
@@ -71,13 +73,14 @@ public class Committees extends BaseMetadataPanel {
                 if (qr.hasResults()) {
                     Vector<Vector<String>> resultRows = new Vector<Vector<String>>();
                     resultRows = qr.theResults();
-                    TabledDocumentsModel mdl = new TabledDocumentsModel() ;
+                    CommitteesModel mdl = new CommitteesModel() ;
                     mdl.setDataVector(resultRows, qr.getColumnsAsVector());
                     tbl_Committees.setModel(mdl);
-                     ((TabledDocumentsModel)this.tbl_Committees.getModel()).setModelEditable(false);
+                     ((CommitteesModel)this.tbl_Committees.getModel()).setModelEditable(false);
                      enableButtons(false);
                     }
             }
+            tbl_Committees.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
      }
 
     private void enableButtons(boolean b) {
@@ -168,17 +171,17 @@ public class Committees extends BaseMetadataPanel {
       public HashMap<String,ArrayList<String>> getTableSelection() {
 
          int[] selectedRows = tbl_Committees.getSelectedRows();
-         ArrayList<String> docTitles = new ArrayList<String>();
-         ArrayList<String> docURIs = new ArrayList<String>();
+         ArrayList<String> committeNames = new ArrayList<String>();
+         ArrayList<String> committeeURIs = new ArrayList<String>();
              for (int i=0; i < selectedRows.length; i++) {
-                 String docTitle = (String)tbl_Committees.getModel().getValueAt(i, 0 );
-                 String docURI = (String) tbl_Committees.getModel().getValueAt(i, 1);
-                 docTitles.add(docTitle);
-                 docURIs.add(docURI);
+                 String docTitle = (String)tbl_Committees.getModel().getValueAt(selectedRows[i], 0 );
+                 String docURI = (String) tbl_Committees.getModel().getValueAt(selectedRows[i], 1);
+                 committeNames.add(docTitle);
+                 committeeURIs.add(docURI);
              }
         HashMap<String,ArrayList<String>> tblData = new HashMap<String,ArrayList<String>>();
-        tblData.put("document_titles", docTitles);
-        tblData.put("document_uris", docURIs);
+        tblData.put("document_titles", committeNames);
+        tblData.put("document_uris", committeeURIs);
         return tblData;
     
       }
