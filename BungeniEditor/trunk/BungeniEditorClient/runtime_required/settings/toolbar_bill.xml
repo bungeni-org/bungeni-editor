@@ -3,7 +3,6 @@
 Action configuration for bill document type
 -->
 <toolbar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:noNamespaceSchemaLocation="../../src/xsd/toolbar.xsd"
  doctype="bill">
     <root visible="true">
         <actionGroup name="tabFavourites" visible="true" uimodel="wrap">
@@ -16,27 +15,31 @@ Action configuration for bill document type
                     target="toolbarSubAction.makeBillPrefaceSection.section_creation" visible="true"
                     condition="cursorInSection:bill :and: sectionNotExists:preface :and: textSelected:true">
                     <title xml:lang="eng">Markup Preface</title>
+                    <tooltip xml:lang="eng">Select and markup text as preface</tooltip>
                 </subaction>
                 <subaction name="Preface.selection.heading"
                     tooltip="Select some text to mark it up as a Heading"
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeBillPrefaceSection.apply_style:heading_generic" visible="true"
+                    target="toolbarSubAction.makeBillPrefaceSection.apply_style:heading_preface" visible="true"
                     condition="cursorInSection:preface :and: textSelected:true">
                     <title xml:lang="eng">---- heading</title>
+                    <tooltip xml:lang="eng">Mark highlighted text as heading</tooltip>
                 </subaction>
                 <subaction name="Preface.selection.subheading"
                     tooltip="Select some text to mark it up as a SubHeading"
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeBillPrefaceSection.apply_style:subheading_generic" visible="true"
+                    target="toolbarSubAction.makeBillPrefaceSection.apply_style:subheading_preface" visible="true"
                     condition="cursorInSection:preface :and: textSelected:true">
                     <title xml:lang="eng">---- -- sub-heading</title>
+                    <tooltip xml:lang="eng">Mark highlighted text sub-heading</tooltip>
                 </subaction>
                 <subaction name="Preface.selection.docTitle"
                     tooltip="Select some text to mark it up as a SubHeading"
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeBillPrefaceSection.char_style:char_doctitle" visible="true"
+                    target="toolbarSubAction.makeBillPrefaceSection.char_style:doc_title" visible="true"
                     condition="cursorInSection:preface :and: textSelected:true">
                     <title xml:lang="eng">---- -- mark doc-title</title>
+                    <tooltip xml:lang="eng">Mark highlighted text as document title</tooltip>
                 </subaction>
                 
                 
