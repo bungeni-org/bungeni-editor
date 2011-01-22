@@ -9,7 +9,7 @@ import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.ooo.OOComponentHelper;
 
 /**
- *
+ * Applys a paragraph style to a block of selected text
  * @author Ashok Hariharan
  */
 public class routerApplyStyle extends defaultRouter {
@@ -25,7 +25,7 @@ public class routerApplyStyle extends defaultRouter {
     @Override
     public BungeniValidatorState route_TextSelectedInsert(toolbarAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame,OOComponentHelper ooDocument) {
       String styleName = subAction.action_value();
-      boolean bState = ooDocument.setSelectedTextStyle(styleName);
+      boolean bState = ooDocument.setSelectedTextParaStyle(styleName);
       if (bState)
           return new BungeniValidatorState(true, new BungeniMsg("SUCCESS")); 
       else    
