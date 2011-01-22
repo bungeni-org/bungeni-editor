@@ -2081,10 +2081,11 @@ public class OOComponentHelper {
     }
 
     /**
-     *
+     * Sets the ParaStyleName property for selected text i.e. sets the paragraph style
      * @param styleName
      * @return
      */
+    @Deprecated
     public boolean setSelectedTextStyle(String styleName) {
         Object  oSelection = null;
         boolean bState     = true;
@@ -2135,6 +2136,87 @@ public class OOComponentHelper {
         }
          return bState;
     }
+
+
+    /**
+     *Sets the ParaStyleName property for the selection
+     * @param styleName
+     * @return
+     */
+    public boolean setSelectedTextParaStyle(String styleName) {
+        boolean bState     = true;
+        bState = setTextStyle("ParaStyleName", styleName);
+        return bState;
+    }
+
+
+    /**
+     * Set the character style name for the selection
+     * @param styleName
+     * @return
+     */
+    public boolean setSelectedTextCharStyle(String styleName) {
+        boolean bState  = setTextStyle("CharStyleName", styleName);
+        return bState;
+    }
+
+
+    /**
+     *
+     * @param styleName
+     * @return
+     */
+    private boolean setTextStyle(String stylePropertyName, String styleName) {
+        Object  oSelection = null;
+        boolean bState     = true;
+
+        try {
+            oSelection = this.getCurrentSelection();
+
+            if (oSelection != null) {
+                XServiceInfo xSelInfo = ooQueryInterface.XServiceInfo(oSelection);
+
+                if (xSelInfo.supportsService("com.sun.star.text.TextRanges")) {
+                    XIndexAccess                 xIndexAccess = ooQueryInterface.XIndexAccess(oSelection);
+                    int                          count        = xIndexAccess.getCount();
+                    com.sun.star.text.XTextRange xTextRange   = null;
+
+                    if (count == 1) {
+                        Object singleSelection;
+
+                        singleSelection = xIndexAccess.getByIndex(0);
+                        xTextRange      = ooQueryInterface.XTextRange(singleSelection);
+
+                        XPropertySet     rangeProps = ooQueryInterface.XPropertySet(xTextRange);
+                        XPropertySetInfo xPropsInfo = rangeProps.getPropertySetInfo();
+
+                        if (xPropsInfo.hasPropertyByName(stylePropertyName)) {
+                            rangeProps.setPropertyValue(stylePropertyName, styleName);
+                        }
+                    }
+                }
+            }
+        } catch (com.sun.star.lang.IndexOutOfBoundsException ex) {
+            log.error(ex.getClass().getName() + " " + ex.getMessage());
+            bState = false;
+        } catch (UnknownPropertyException ex) {
+            log.error(ex.getClass().getName() + " " + ex.getMessage());
+            bState = false;
+        } catch (PropertyVetoException ex) {
+            log.error(ex.getClass().getName() + " " + ex.getMessage());
+            bState = false;
+        } catch (com.sun.star.lang.IllegalArgumentException ex) {
+            log.error(ex.getClass().getName() + " " + ex.getMessage());
+            bState = false;
+        } catch (WrappedTargetException ex) {
+            log.error(ex.getClass().getName() + " " + ex.getMessage());
+            bState = false;
+        } finally {
+
+        }
+         return bState;
+    }
+
 
     /**
      *
