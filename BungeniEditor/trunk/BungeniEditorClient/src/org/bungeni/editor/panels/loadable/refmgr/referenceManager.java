@@ -10,6 +10,8 @@ import com.l2fprod.common.swing.JTaskPaneGroup;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JFrame;
 import org.bungeni.editor.panels.impl.BaseLaunchablePanel;
 import org.bungeni.editor.panels.impl.ILaunchablePanel;
@@ -33,6 +35,16 @@ public class referenceManager extends BaseLaunchablePanel {
         "brokenReferences",
         "externalReferences"
     };
+
+    //AH-23-01-11 converted array to a map
+    private final static Map<String,String> mapLaunchablePanelClasses = new HashMap<String,String>(){
+        {
+        put ("BROWSE_REF",      "browseReferences");
+        put ("BROKEN_REF",      "brokenReferences");
+        put ("EXTERNAL_REF",    "externalReferences");
+        }
+    };
+
     /** Creates new form referenceManager */
     public referenceManager() {
        // initComponents();
@@ -41,7 +53,16 @@ public class referenceManager extends BaseLaunchablePanel {
     public void setLaunchMode(String launchMode) {
         this.launchModeClass = launchMode;
     }
-    
+
+    private void initPaneGroups(){
+        initPaneGroup(mapLaunchablePanelClasses.get("BROWSE_REF"));
+        initPaneGroup(mapLaunchablePanelClasses.get("BROKEN_REF"));
+        initPaneGroup(mapLaunchablePanelClasses.get("EXTERNAL_REF"));
+    }
+
+
+    //AH-23-01-11 removed default initializer below and added a generic initializer for the panes
+    /***
     private void initPaneGroups(){
         try {
         for (String launchablePane : launchablePanelClasses) {
@@ -71,10 +92,38 @@ public class referenceManager extends BaseLaunchablePanel {
         }
     }
 
+   **/
+
+
+    /**
+     * Defines a launchable pane
+     * @param launchablePane
+     */
+    private void initPaneGroup(String launchablePane){
+            JTaskPaneGroup jtpGrp = new JTaskPaneGroup();
+
+            ILaunchablePanel panel = org.bungeni.editor.panels.factory.LaunchablePanelFactory.getPanelClass(launchablePane);
+            panel.setOOComponentHandle(ooDocument);
+            panel.setParentWindowHandle(parentFrame);
+            panel.initUI();
+
+            jtpGrp.add(panel.getObjectHandle());
+            jtpGrp.setTitle(panel.getPanelTitle());
+            this.taskPane.add(jtpGrp);
+            paneGroups.add(jtpGrp);
+            if (this.launchModeClass.equals(launchablePane)) {
+                //expand this window
+                jtpGrp.setExpanded(true);
+            } else {
+                jtpGrp.setExpanded(false);
+            }
+    }
+
     
     private void init() {
         initPaneGroups();
     }
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is

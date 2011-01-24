@@ -99,18 +99,25 @@ public class DocumentSectionProvider {
         return theSectionTree.getTree().get(theSectionTree.getTree().firstKey());
             
     }
+
     public static BungeniBTree getNewTree(){
         SectionTree aTree = new SectionTree(ooDocument);
         BungeniBTree bTree = aTree.newTree();
         return bTree;
-        
-     //   BungeniBTree bnewTree = generateSectionsTree(null);
-     //   return bnewTree;
-         /* 
-        NewTreeAgent newTree = new NewTreeAgent(0);
-        newTree.execute();
-        return newTree.theTree;*/
     }
+
+    //AH-23-01-11
+    /**
+     * Create a tree with a list of exclusions
+     * @param ignoreThese
+     * @return
+     */
+    public static BungeniBTree getNewTree(String[] ignoreThese) {
+        SectionTree aTree = new SectionTree(ooDocument, ignoreThese, true);
+        BungeniBTree bTree = aTree.newTree();
+        return bTree;
+    }
+
     
    static class NewTreeAgent extends SwingWorker<BungeniBTree, Void> {
         BungeniBTree theTree = null;
@@ -178,7 +185,11 @@ public class DocumentSectionProvider {
     
   public static  class SectionTree {
         OOComponentHelper sectionTreeOpenDocument;
-          public static ArrayList<String> ignoreTheseSections = new ArrayList<String>(){
+        //AH-23-11-01
+        //this was a static type previously -- changing this to a private member 
+        //variable ... by default numbered heading section types are ignored
+        //numbered heading section types are named starting with num_
+        private  ArrayList<String> ignoreTheseSections = new ArrayList<String>(){
         {
             add("num_");
         }
@@ -187,7 +198,29 @@ public class DocumentSectionProvider {
         public SectionTree(OOComponentHelper ooDoc) {
             sectionTreeOpenDocument = ooDoc;
         }
-        
+      
+        //AH-23-01-11 overriden constructor allows setting of ignorable sections
+        //existing ignorable section defaults are included if the the clearExisting flag is set to 
+        //false
+        /**
+         * Initialize SectionTree class
+         * @param ooDoc OpenOffice document context
+         * @param sectionsToIgnore array of string containing list of sections to ignore
+         * @param clearExisting if set to true ignores the default list of exclusions, if set to false
+         * existing set of ignorable sections are included.
+         */
+        public SectionTree(OOComponentHelper ooDoc, String[] sectionsToIgnore, boolean clearExisting) {
+            this.sectionTreeOpenDocument = ooDoc;
+            if (clearExisting) {
+                this.ignoreTheseSections.clear();
+            }
+            for (String ignorethisSection : sectionsToIgnore) {
+                if (!this.ignoreTheseSections.contains(ignorethisSection)) {
+                    this.ignoreTheseSections.add(ignorethisSection);
+                }
+            }
+        }
+
        private boolean sectionExclusions(String checkSection){
         for (String secName : ignoreTheseSections) {
            if (checkSection.startsWith(secName)) {

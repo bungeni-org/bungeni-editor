@@ -29,6 +29,17 @@ public  class DocumentSectionIterator {
         this.callback = callback;
     }
 
+    //AH-23-01-11
+    /**
+     * Added an additional constructor to iterate sections with some ignored sections
+     * @param callback
+     * @param ignoreThese
+     */
+    public DocumentSectionIterator(IBungeniSectionIteratorListener callback, String[] ignoreThese) {
+        this.rootNode = DocumentSectionProvider.getNewTree(ignoreThese).getFirstRoot();
+        this.callback = callback;
+    }
+
     /** Creates a new instance of DocumentSectionIterator with custom root node*/
     public DocumentSectionIterator(BungeniBNode myRootNode, IBungeniSectionIteratorListener callback) {
         this.rootNode = myRootNode;
@@ -48,7 +59,7 @@ public  class DocumentSectionIterator {
        // BungeniBNode theBNode = (BungeniBNode) theNode.getUserObject();
         try {
             if (theBNode.hasChildren()) {
-                log.debug("recurseAllNodes : iterating children = " + theBNode.getName());
+                log.error("recurseAllNodes : iterating children = " + theBNode.getName());
                 TreeMap<Integer, BungeniBNode> children = theBNode.getChildrenByOrder();
                 Iterator<Integer> childIterator = children.keySet().iterator();
                 while (childIterator.hasNext()) {

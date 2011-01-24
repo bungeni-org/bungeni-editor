@@ -48,10 +48,10 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import javax.swing.SwingWorker;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
 
 /**
- *
+ * Displays references in the document and allows inserting a cross reference on
+ * the selected text
  * @author  Ashok Hariharan
  */
 public class browseReferences extends BaseLaunchablePanel {
@@ -75,8 +75,23 @@ public class browseReferences extends BaseLaunchablePanel {
 
     /** Creates new form browseReferences */
     public browseReferences() {
-
+        //because initComponents is called by initUI()
         // initComponents();
+    }
+
+    /**
+     * initUI() is called after panel class initialization and after setting the component
+     * handle and the parent window handle
+     *
+            ILaunchablePanel panel = org.bungeni.editor.panels.factory.LaunchablePanelFactory.getPanelClass(launchablePane);
+            panel.setOOComponentHandle(ooDocument);
+            panel.setParentWindowHandle(parentFrame);
+            panel.initUI();
+     */
+    @Override
+    public void initUI() {
+        initComponents();
+        init();
     }
 
     private void init() {
@@ -85,7 +100,6 @@ public class browseReferences extends BaseLaunchablePanel {
     }
 
     private void initTableModel() {
-
         // lazy load of tree....
         ReferencesTableModelAgent rtmAgent = new ReferencesTableModelAgent(this.tblAllReferences);
 
@@ -93,9 +107,8 @@ public class browseReferences extends BaseLaunchablePanel {
         tblAllReferences.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
+                //if double clicked
                 if (evt.getClickCount() == 2) {
-
-                    // doublic clicked
                     int nRow = tblAllReferences.getSelectedRow();
 
                     if (nRow != -1) {
@@ -294,8 +307,10 @@ public class browseReferences extends BaseLaunchablePanel {
                                                                  OOoNumberingHelper.INTERNAL_REF_PREFIX);
 
         // but they are not in document sequential order
+        //AH-24-01-11 - use an empty array toclear the exclusion list for section iteration
+        String[] ignoreTheseSections = {};
         ReferencesInSectionListener allRefsListener = new ReferencesInSectionListener(metadataFieldSets);
-        DocumentSectionIterator     iterateRefs     = new DocumentSectionIterator(allRefsListener);
+        DocumentSectionIterator     iterateRefs     = new DocumentSectionIterator(allRefsListener, ignoreTheseSections);
 
         // so we iterate through all the sections in the document
         iterateRefs.startIterator();
@@ -475,11 +490,6 @@ public class browseReferences extends BaseLaunchablePanel {
         return this;
     }
 
-    @Override
-    public void initUI() {
-        initComponents();
-        init();
-    }
 
     @Override
     public String getPanelTitle() {

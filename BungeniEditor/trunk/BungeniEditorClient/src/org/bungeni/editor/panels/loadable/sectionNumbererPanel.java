@@ -61,8 +61,13 @@ import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.extutils.MessageBox;
 
 /**
- *
- * @author  undesa
+ * This is the panel that does numbering / renumbering of bill elements
+ * AH-23-11-01 -- The code in this class is an urgent candidate for a full rewrite.
+ * Most of this code was written for openoffice 2.4 where character level styling support was poor.
+ * OOo 3 has much improved character level styling and API support -- and the below method using
+ * named references needs to be rewritten and simplified using character styles.
+ * @author  Ashok Hariharan
+ * @rewritecandidate
  */
 public class sectionNumbererPanel extends BaseClassForITabbedPanel {
 
@@ -93,23 +98,12 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
     public sectionNumbererPanel() {
         initComponents();
     }
-    /*
-    public sectionNumbererPanel(XComponentContext xContext){
-    this.xContext=xContext;
-    initComponents();
-    init();
-    }
-     */
 
     private void init() {
         //initComponents();
         initSectionTypesMap();
         //get all section types for the document tyep
         this.sectionTypesForDocumentType = DocumentSectionsContainer.getDocumentSectionsContainer();
-
-        // initSectionTypesListBox();
-        // listSectionTypes.addListSelectionListener(new NumberingSchemeListener());
-        //panelNumberingScheme.setVisible(false);
         /*init parent prefix checkbox */
         checkbxUseParentPrefix.setSelected(false);
         m_useParentPrefix = false;
@@ -319,14 +313,10 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
     this.lblNumberingScheme.setEnabled(bState);
     }*/
     private ArrayList<String> findNumberedContainers() {
-        /*
-        ArrayList<String> numberedContainers = new ArrayList<String>(0);
-        BungeniBNode bRootNode = DocumentSectionProvider.getTreeRoot();
-        recurseNumberedNodes(bRootNode, numberedContainers );
-        return numberedContainers;*/
-        log.debug("findNumberedContainers : starting ");
+         log.debug("findNumberedContainers : starting ");
         findNumberedContainersListener findNumberedContainers = new findNumberedContainersListener();
-        DocumentSectionProvider.SectionTree.ignoreTheseSections = new ArrayList<String>(0);
+        //AH-23-01-11 removed this call since ignoreTheseSections is now a private member
+        //DocumentSectionProvider.SectionTree.ignoreTheseSections = new ArrayList<String>(0);
         DocumentSectionIterator iterateNumberedContainers = new DocumentSectionIterator(findNumberedContainers);
         iterateNumberedContainers.startIterator();
         log.debug("findNumberedContainers : returning numbered containers : " + findNumberedContainers.numberedContainers.toString());

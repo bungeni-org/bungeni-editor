@@ -51,7 +51,13 @@ import org.bungeni.utils.compare.BungeniTreeRefactorTree;
 
 /**
  * This is the floating panel implementation for the Editor's action bar
+ * AH-23-11-01 This class is a good candidate for a rewrite.
+ * Currently the section structure is iterated using the UNO API. This presents some performance and thread
+ * contention limitations. Since Openoffice 3 there is a ODFDOM API which allows browsing ODF structures via
+ * the file system -- this structure presentation part should be rewritten to use the ODFDOM api.
+ * 
  * @author  Ashok Hariharan
+ * @rewritecandidate
  */
 public class documentStructurePanel extends BaseClassForITabbedPanel {
 
