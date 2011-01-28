@@ -2,4 +2,8 @@
 <rules>
     <engine name="AllowedChildSections" desc="Allowed Child Sections" source="org.bungeni.editor.rules.AllowedChildSections" />
     <engine name="OrderOfChildSections" desc="Order of Child Sections" source="org.bungeni.editor.rules.OrderOfChildSections" />
+    <!--
+	@rewritecandidate 
+	Add an integrator engine to  map xml validation to structural validtion 
+	-->
 </rules>

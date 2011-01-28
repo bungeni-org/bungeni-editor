@@ -206,6 +206,7 @@ Action configuration for debate-records
 					<title xml:lang="eng">---- logo</title>
 					<tooltip xml:lang="eng">Select an Image and mark it as the preface logo </tooltip>
 				</subaction>
+
 			</blockAction>
 			<blockAction name="Papers" target="null" visible="true" condition="none">
 				<title xml:lang="eng">papers laid</title>
