@@ -6,10 +6,13 @@
 
 === Current Release === 
 
-[http://bungeni-editor.googlecode.com/files/install-1.0.1671.jar Bungeni Editor v1.0.1671 - requires OpenOffice.org 3.2.1] - Added user interface for locale selection
+[http://bungeni-editor.googlecode.com/files/install-1.0.1713.jar Bungeni Editor v1.0.1713 - requires OpenOffice.org 3.2.1] - Various fixes -- updating the bill document type which was crashing earlier.
+
 
 
 === Older Releases === 
+
+[http://bungeni-editor.googlecode.com/files/install-1.0.1671.jar Bungeni Editor v1.0.1671 - requires OpenOffice.org 3.2.1] - Added user interface for locale selection
 
 [http://bungeni-editor.googlecode.com/files/install-1.0.1654.jar Bungeni Editor v1.0.1654 - requires OpenOffice.org 3.2.1] - Added support for i18n message translations, upgraded to h2b new database format.
 
