@@ -1,0 +1,5 @@
+akntohtml http://bungeni-editor.googlecode.com/svn/apps/BungeniTransformer/trunk/resources/akntohtml
+configfiles http://bungeni-editor.googlecode.com/svn/apps/BungeniTransformer/trunk/resources/configfiles
+odttoakn http://bungeni-editor.googlecode.com/svn/apps/BungeniTransformer/trunk/resources/odttoakn
+odttometalex http://bungeni-editor.googlecode.com/svn/apps/BungeniTransformer/trunk/resources/odttometalex
+jar http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/transformer

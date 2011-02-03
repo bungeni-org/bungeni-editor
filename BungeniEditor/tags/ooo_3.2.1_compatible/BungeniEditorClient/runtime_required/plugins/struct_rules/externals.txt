@@ -1,0 +1,8 @@
+ruleslib http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungenistructrules
+bungeniodfdom http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeniodfdom
+odfdom http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/odfdom
+xerces http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/xerces
+dom4j http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/dom4j
+xstream http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/xstream
+jaxen http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/jaxen
+apache-log4j http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/apache-log4j

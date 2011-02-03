@@ -1,0 +1,2 @@
+doc_rules http://bungeni-editor.googlecode.com/svn/plugins/BungeniOdfStructuralRules/structural_rules/doc_rules
+engine_rules http://bungeni-editor.googlecode.com/svn/plugins/BungeniOdfStructuralRules/structural_rules/engine_rules
