@@ -32,6 +32,8 @@ import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
 import javax.swing.JFrame;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
@@ -271,42 +273,7 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
 
     }
 
-    private void applyRenumberingScheme() {
-        // String sectionType=listSectionTypes.getSelectedValue().toString();
-        /// findSectionsMatchingSectionType(sectionType);
-        //renumber happes for all sections
-        //1) iterate through numbered headings (sections containing a child NumberedContainer section)
-        //2) find those that dont have numbers (sections without NumberingScheme or AppliedNumber properties...)
-        //3) apply blank numbering metadata to them (do an apply numbering markup on these sections but dont put any numbers...)
-        //4) make another pass and apply numbering (finally apply numbering on the whole structure...)
-
-        //1)
-        log.debug("applyRenumberingScheme : invoking findNumberedContainers");
-        ArrayList<String> numberedContainers = findNumberedContainers();
-        if (numberedContainers.size() == 0) {
-            MessageBox.OK(parentFrame, bundle.getString("no_headings_for_numbering"));
-            return;
-        }
-        //check if document has numbering scheme
-        //if it already does we use that otherwise we warn that a new scheme will be set
-         /*
-        if (!ooDocument.propertyExists("BungeniDocNumberingScheme")) {
-        int nConfirm = MessageBox.Confirm(parentFrame, "If you proceed, the document numbering scheme will be fixed to :" + this.getSelectedNumberingScheme().schemeName, "Please confirm");
-        if (JOptionPane.YES_OPTION == nConfirm) {
-        ooDocMetadata docmeta = new ooDocMetadata(ooDocument);
-        docmeta.AddProperty("BungeniDocNumberingScheme", this.getSelectedNumberingScheme().schemeName);
-        enableNumberingSchemeCombo (false);
-        } else
-        return;
-        }*/
-
-        //2) & 3)
-        log.debug("applyRenumberingScheme : invoking applyNumberingMarkupToNonNumberedContainers");
-        applyNumberingMarkupToNonNumberedContainers(numberedContainers);
-        //4)
-        log.debug("applyRenumberingScheme : invoking reApplyNumberingOnNumberedContainers");
-        reApplyNumberingOnNumberedContainers();
-    }
+ 
 
     /*private void enableNumberingSchemeCombo (boolean bState) {
     this.cboNumberingScheme.setEnabled(bState);
@@ -317,7 +284,10 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
         findNumberedContainersListener findNumberedContainers = new findNumberedContainersListener();
         //AH-23-01-11 removed this call since ignoreTheseSections is now a private member
         //DocumentSectionProvider.SectionTree.ignoreTheseSections = new ArrayList<String>(0);
-        DocumentSectionIterator iterateNumberedContainers = new DocumentSectionIterator(findNumberedContainers);
+        //AH-02-0-11 - added extra ignorethese parameter to reset the ignore sections array for the
+        //section iterator
+        String[] ignoreThese = {};
+        DocumentSectionIterator iterateNumberedContainers = new DocumentSectionIterator(findNumberedContainers, ignoreThese);
         iterateNumberedContainers.startIterator();
         log.debug("findNumberedContainers : returning numbered containers : " + findNumberedContainers.numberedContainers.toString());
         return findNumberedContainers.numberedContainers;
@@ -1588,12 +1558,12 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
     }
 
     class RenumberingAgent extends SwingWorker<Boolean, Void> {
-
+        String errorMessage = "";
         @Override
         protected Boolean doInBackground() {
             boolean bState = true;
             try {
-                applyRenumberingScheme();
+                bState = applyRenumberingScheme();
             } catch (Exception ex) {
                 log.error("applyRenumberingScheme :" + ex.getMessage());
                 log.error("applyRenumberingScheme : " + CommonExceptionUtils.getStackTrace(ex));
@@ -1602,12 +1572,63 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
             }
         }
 
+        private boolean applyRenumberingScheme() {
+        // String sectionType=listSectionTypes.getSelectedValue().toString();
+        /// findSectionsMatchingSectionType(sectionType);
+        //renumber happes for all sections
+        //1) iterate through numbered headings (sections containing a child NumberedContainer section)
+        //2) find those that dont have numbers (sections without NumberingScheme or AppliedNumber properties...)
+        //3) apply blank numbering metadata to them (do an apply numbering markup on these sections but dont put any numbers...)
+        //4) make another pass and apply numbering (finally apply numbering on the whole structure...)
+
+        //1)
+        log.debug("applyRenumberingScheme : invoking findNumberedContainers");
+        ArrayList<String> numberedContainers = findNumberedContainers();
+        if (numberedContainers.isEmpty()) {
+            this.errorMessage =  bundle.getString("no_headings_for_numbering");
+            return false;
+        }
+        //check if document has numbering scheme
+        //if it already does we use that otherwise we warn that a new scheme will be set
+         /*
+        if (!ooDocument.propertyExists("BungeniDocNumberingScheme")) {
+        int nConfirm = MessageBox.Confirm(parentFrame, "If you proceed, the document numbering scheme will be fixed to :" + this.getSelectedNumberingScheme().schemeName, "Please confirm");
+        if (JOptionPane.YES_OPTION == nConfirm) {
+        ooDocMetadata docmeta = new ooDocMetadata(ooDocument);
+        docmeta.AddProperty("BungeniDocNumberingScheme", this.getSelectedNumberingScheme().schemeName);
+        enableNumberingSchemeCombo (false);
+        } else
+        return;
+        }*/
+
+        //2) & 3)
+        log.debug("applyRenumberingScheme : invoking applyNumberingMarkupToNonNumberedContainers");
+        applyNumberingMarkupToNonNumberedContainers(numberedContainers);
+        //4)
+        log.debug("applyRenumberingScheme : invoking reApplyNumberingOnNumberedContainers");
+        reApplyNumberingOnNumberedContainers();
+
+        return true;
+    }
+
         @Override
         protected void done() {
             progressNumbering.setIndeterminate(false);
             progressNumbering.setValue(100);
             progressNumbering.setString((bundle.getString("completed")));
-            parentFrame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            boolean bState = true;
+             parentFrame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            try {
+                bState = get();
+            } catch (InterruptedException ex) {
+                log.error(ex.getMessage());
+            } catch (ExecutionException ex) {
+                log.error(ex.getMessage());
+            }
+            if (!bState) {
+                MessageBox.OK("There was an error : \n" + errorMessage);
+            }
+           
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
