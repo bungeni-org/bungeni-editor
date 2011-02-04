@@ -15,6 +15,8 @@ These installation instructions were tested on Ubuntu 8.04 / Windows XP and the 
 
 == Quick Install Steps for Ubuntu == 
 
+*NOTE* : Bungeni Editor is not compatible with OpenOffice installation packaged with Ubuntu since it is a different distirbution of OpenOffice called 'LibreOffice'.  Bungeni Editor is only compatible with the OpenOffice.org distribution on the the [http://www.openoffice.org OpenOffice.org webiste]
+
 If you dont want to bother with reading the detailed installation instructions, the following instructions will setup a working installation 95% of the time :
  * install the sun jre 6 : `sudo apt-get install sun-java6-jre`
  * uninstall the openoffice.org installation packaged with ubuntu
