@@ -17,7 +17,13 @@
  */
 package org.bungeni.editor.locales;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import org.bungeni.db.BungeniClientDB;
+import org.bungeni.db.DefaultInstanceFactory;
+import org.bungeni.db.QueryResults;
+import org.bungeni.db.SettingsQueryFactory;
 
 /**
  * Provides a list of supported locales by the editor
@@ -26,18 +32,51 @@ import java.util.Arrays;
  */
 public class BungeniEditorLocalesFactory {
 
-    private static BungeniEditorLocale[] locales = {
-        new BungeniEditorLocale("en", "US"),
-        new BungeniEditorLocale("en", "KE"),
-        new BungeniEditorLocale("fr", "FR"),
-        new BungeniEditorLocale("it", "IT"),
+    /**
+     * This the internal array of available locales
+     */
+    private static List<BungeniEditorLocale> locales =  new ArrayList<BungeniEditorLocale>(){
+        {
+        //this is the fallback default locale
+        new BungeniEditorLocale("en", "US");
+        }
     };
 
+    /**
+     * Returns the list of available locales in the system as a "lightweight" locale description object
+     * @return
+     */
     public static BungeniEditorLocale[] getAvailableLocales(){
-       Arrays.sort(locales);
-       return locales;
+       //get the set of active locales from the db
+       fetchAvailableLocales();
+       //sort only when the array has more than one element
+       if (locales.size() > 1 ) {
+            Collections.sort(locales);
+        }
+       return locales.toArray(new BungeniEditorLocale[locales.size()]);
     }
 
+    private static void fetchAvailableLocales(){
+          BungeniClientDB db =  new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
+          db.Connect();
+          QueryResults qr = db.QueryResults(SettingsQueryFactory.Q_FETCH_LOCALES());
+          db.EndConnect();
+          List<BungeniEditorLocale> list_locales = new ArrayList<BungeniEditorLocale>(0);
+          if (qr.hasResults()) {
+              String[] countryCodes = qr.getSingleColumnResult("COUNTRY_CODE");
+              String[] langCodes = qr.getSingleColumnResult("LANG_CODE_2");
+              for (int i=0; i < langCodes.length ; i++ ) {
+                  BungeniEditorLocale aLocale = new BungeniEditorLocale(langCodes[i], countryCodes[i]);
+                  list_locales.add(aLocale);
+              }
+          }
+          //if some locales were retrieved ... replace the cache of available locales with the 
+          //retrieved one
+          if (!list_locales.isEmpty()) {
+              locales = list_locales;
+          }
+          //else leave the default locale in place 
+    }
 
     public static void main(String[] args) {
         for (BungeniEditorLocale l : getAvailableLocales()) {

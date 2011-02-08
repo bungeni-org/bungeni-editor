@@ -301,4 +301,10 @@ public class SettingsQueryFactory {
                 "and event_name= '" +  eventName + "'";
         return query;
     }
+
+    public static String Q_FETCH_LOCALES() {
+        String query = "SELECT LANG_CODE_2, COUNTRY_CODE FROM LOCALES ";
+        return query;
+    }
+
 }
