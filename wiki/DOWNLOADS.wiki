@@ -6,7 +6,7 @@
 
 === Current Release === 
 
-[http://bungeni-editor.googlecode.com/files/install-1.0.1725.jar Bungeni Editor v1.0.1713 - requires OpenOffice.org 3.3.0] - Updated mechanism to set default locales. See [http://code.google.com/p/bungeni-editor/source/detail?r=1725 r1725]
+[http://bungeni-editor.googlecode.com/files/install-1.0.1725.jar Bungeni Editor v1.0.1725 - requires OpenOffice.org 3.3.0] - Updated mechanism to set default locales. See [http://code.google.com/p/bungeni-editor/source/detail?r=1725 r1725]
 
 
 
