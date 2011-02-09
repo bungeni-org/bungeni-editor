@@ -1,5 +1,7 @@
 #summary how to use rdf metadata in openoffice
 
+<wiki:toc max_depth="3" />
+
 = Introduction = 
 
 Since OpenOffice.org 3.3 it is possible to apply RDF metadata on ODF elements.
@@ -86,3 +88,47 @@ The identifer in `rdf:Description/@rdf:about` ...
 </text:section>
 }}}
 
+== Apply metadata on a section ==
+
+Metadata can also be applied directly on the section as a whole.
+In this example -- we add metadata triples in a foreign namespace to the section rdf metadata :
+
+{{{
+ Dim odoc, osection, otext
+ odoc = ThisComponent
+ osection = odoc.getTextSections().getByName("Section1")
+ otext = odoc.getText()
+ 
+ UriService = com.sun.star.rdf.URI
+ UrisService = com.sun.star.rdf.URIs
+ LiteralService = com.sun.star.rdf.Literal
+ 
+ Dim uriAnx, rdfMetafile, rdfGraph 
+ uriAnx = UriService.create("http://editor.bungeni.org/anx")
+ rdfMetafile = odoc.addMetadataFile("meta/meta.rdf", Array(uriAnx))
+ rdfGraph = odoc.getRDFRepository().getGraph(rdfMetafile)
+ 
+ Dim uriType, litType
+ uriType = UriService.create("http://editor.bungeni.org/anx/Type")
+ litType = LiteralService.create("Clause")
+ 
+ Dim uriUuid, litUuid
+ uriUuid = UriService.create("http://editor.bungeni.org/anx/UUID")
+ litUuid = LiteralService.create("1234-3876-5150-3615")
+ 
+ rdfGraph.addStatement(osection, uriType, litType)
+ rdfGraph.addStatement(osection, uriUuid, litUuid)
+}}}
+
+The rdf statements appear like this :
+
+{{{
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="../content.xml#id1269007312">
+    <ns1:Type xmlns:ns1="http://editor.bungeni.org/anx/">Clause</ns1:Type>
+    <ns2:UUID xmlns:ns2="http://editor.bungeni.org/anx/">1234-3876-5150-3615</ns2:UUID>
+  </rdf:Description>
+</rdf:RDF>
+
+}}}
