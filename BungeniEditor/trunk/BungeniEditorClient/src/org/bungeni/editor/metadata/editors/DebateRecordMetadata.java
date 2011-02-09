@@ -203,8 +203,8 @@ public class DebateRecordMetadata extends BaseEditorDocMetadataDialog {
     private void initControls(){
         String popupDlgBackColor = BungeniEditorProperties.getEditorProperty("popupDialogBackColor");
         this.setBackground(Color.decode(popupDlgBackColor));
-        cboCountry.setModel(new DefaultComboBoxModel(countryCodes.toArray()));
-        cboLanguage.setModel(new DefaultComboBoxModel(languageCodes.toArray()));
+        cboCountry.setModel(new DefaultComboBoxModel(countryCodes));
+        cboLanguage.setModel(new DefaultComboBoxModel(languageCodes));
         cboDocumentPart.setModel(new DefaultComboBoxModel(documentParts.toArray()));
          dt_initdebate_timeofhansard.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.HOUR));
         dt_initdebate_timeofhansard.setEditor(new JSpinner.DateEditor(dt_initdebate_timeofhansard, BungeniEditorProperties.getEditorProperty("metadataTimeFormat")));
@@ -242,8 +242,8 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
     docMetaModel.updateItem("BungeniParliamentID", sParliamentID);
     docMetaModel.updateItem("BungeniParliamentSitting", sParliamentSitting);
     docMetaModel.updateItem("BungeniParliamentSession", sParliamentSession);
-    docMetaModel.updateItem("BungeniCountryCode", selCountry.countryCode);
-    docMetaModel.updateItem("BungeniLanguageCode", selLanguage.languageCode);
+    docMetaModel.updateItem("BungeniCountryCode", selCountry.getCountryCodeLower());
+    docMetaModel.updateItem("BungeniLanguageCode", selLanguage.getLanguageCode2());
     docMetaModel.updateItem("BungeniDebateOfficialDate", strDebateDate);
     docMetaModel.updateItem("BungeniWorkDate", strDebateDate);
     docMetaModel.updateItem("BungeniExpDate", strCurrentDate);
@@ -256,8 +256,8 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
     docMetaModel.updateItem("BungeniDocPart", selPart.PartName);
     
     spf.setSaveComponent("DocumentType", BungeniEditorPropertiesHelper.getCurrentDocType());
-    spf.setSaveComponent("CountryCode", selCountry.countryCode);
-    spf.setSaveComponent("LanguageCode", selLanguage.languageCode);
+    spf.setSaveComponent("CountryCode", selCountry.getCountryCodeLower());
+    spf.setSaveComponent("LanguageCode", selLanguage.getLanguageCode2());
     Date dtHansardDate = dt_initdebate_hansarddate.getDate();
     GregorianCalendar debateCal = new GregorianCalendar();
     debateCal.setTime(dtHansardDate);

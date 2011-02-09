@@ -29,8 +29,8 @@ import javax.swing.JFrame;
 public abstract class BaseEditorDocMetadataDialog extends javax.swing.JPanel implements IEditorDocMetadataDialog {
     private static org.apache.log4j.Logger log =
         org.apache.log4j.Logger.getLogger(BaseEditorDocMetadataDialog.class.getName());
-    protected ArrayList<CountryCode>     countryCodes     = new ArrayList<CountryCode>(0);
-    protected ArrayList<LanguageCode>    languageCodes    = new ArrayList<LanguageCode>(0);
+    protected CountryCode[]     countryCodes     =  {};
+    protected LanguageCode[]    languageCodes    =  {};
     protected TreeMap<String, Component> fieldsToValidate = new TreeMap<String, Component>();
     protected ArrayList<DocumentPart>    documentParts    = new ArrayList<DocumentPart>(0);
     protected OOComponentHelper          ooDocument;
@@ -57,11 +57,16 @@ public abstract class BaseEditorDocMetadataDialog extends javax.swing.JPanel imp
         /**
          * Hard code this for now .. in the future this will have to load from the settings db
          */
-        countryCodes.add(new CountryCode("ke", "Kenya"));
-        countryCodes.add(new CountryCode("ug", "Uganda"));
-        countryCodes.add(new CountryCode("tz", "Tanzania"));
-        languageCodes.add(new LanguageCode("eng", "English"));
-        languageCodes.add(new LanguageCode("fra", "French"));
+        //get country codes from
+        //AH-09-02-11
+        countryCodes = CountryCodesFactory.getAvailableCountryCodes();
+        //AH-09-02-11
+       
+        //AH-09-02-11
+        languageCodes = LanguageCodesFactory.getAvailableLanguageCodes();
+       
+        //AH-09-02-11 -- to fix below to add a factory class
+        //@rewritecandidate
         documentParts.add(new DocumentPart("main", "Main"));
         documentParts.add(new DocumentPart("annex", "Annex"));
         documentParts.add(new DocumentPart("attachment", "Attachment"));
@@ -81,7 +86,7 @@ public abstract class BaseEditorDocMetadataDialog extends javax.swing.JPanel imp
 
     protected CountryCode findCountryCode(String countryCode) {
         for (CountryCode c : countryCodes) {
-            if (c.countryCode.equals(countryCode)) {
+            if (c.getCountryCodeLower().equals(countryCode)) {
                 return c;
             }
         }
@@ -91,7 +96,7 @@ public abstract class BaseEditorDocMetadataDialog extends javax.swing.JPanel imp
 
     protected LanguageCode findLanguageCode(String langCode) {
         for (LanguageCode lc : languageCodes) {
-            if (lc.languageCode.equals(langCode)) {
+            if (lc.getLanguageCode2().equals(langCode)) {
                 return lc;
             }
         }

@@ -307,4 +307,16 @@ public class SettingsQueryFactory {
         return query;
     }
 
+    public static String Q_FETCH_COUNTRY_CODES(){
+        String query = "SELECT COUNTRY_CODE, COUNTRY_NAME FROM COUNTRY_CODES";
+        return query;
+    }
+
+    public static String Q_FETCH_LANGUAGE_CODES() {
+      String query = "SELECT LANG_CODE, LANG_CODE_2, LANG_NAME FROM LANGUAGE_CODES";
+        return query;
+
+    }
+
+
 }
