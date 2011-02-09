@@ -6,11 +6,14 @@
 
 === Current Release === 
 
-[http://bungeni-editor.googlecode.com/files/install-1.0.1725.jar Bungeni Editor v1.0.1725 - requires OpenOffice.org 3.3.0] - Updated mechanism to set default locales. See [http://code.google.com/p/bungeni-editor/source/detail?r=1725 r1725]
-
+[http://bungeni-editor.googlecode.com/files/install-1.0.1729.jar Bungeni Editor v1.0.1729 - requires OpenOffice.org 3.3.0] - Fixes to language and country selection in metadata dialogs. 9 Feb 2011. See [http://code.google.com/p/bungeni-editor/source/detail?r=1729 r1729]
 
 
 === Older Releases === 
+
+
+[http://bungeni-editor.googlecode.com/files/install-1.0.1725.jar Bungeni Editor v1.0.1725 - requires OpenOffice.org 3.3.0] - Updated mechanism to set default locales. 8 Feb 2011. See [http://code.google.com/p/bungeni-editor/source/detail?r=1725 r1725]
+
 
 [http://bungeni-editor.googlecode.com/files/install-1.0.1713.jar Bungeni Editor v1.0.1713 - requires OpenOffice.org 3.2.1] - Various fixes -- updating the bill document type which was crashing earlier.
 
