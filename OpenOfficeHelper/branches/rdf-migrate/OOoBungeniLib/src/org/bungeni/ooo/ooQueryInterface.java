@@ -1,12 +1,3 @@
-/*
- * ooQueryInterface.java
- *
- * Created on August 6, 2007, 4:28 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 package org.bungeni.ooo;
 
 import com.sun.star.bridge.XUnoUrlResolver;
@@ -19,6 +10,7 @@ import com.sun.star.document.*;
 import com.sun.star.drawing.*;
 import com.sun.star.frame.*;
 import com.sun.star.lang.*;
+import com.sun.star.rdf.*;
 import com.sun.star.sheet.*;
 import com.sun.star.style.XStyle;
 import com.sun.star.style.XStyleFamiliesSupplier;
@@ -31,15 +23,10 @@ import com.sun.star.view.*;
 
 
 /**
- *
- * @author Administrator
+ * This class provides a short hand for doing UNO QueryInterfacing
+ * @author Ashok Hariharan
  */
 public class ooQueryInterface {
-
-
- 
-
-
     
     /** Creates a new instance of ooQueryInterface */
     public ooQueryInterface() {
@@ -347,6 +334,17 @@ public class ooQueryInterface {
     
     public static XIndexReplace XIndexReplace(Object numIndexAccess) {
          return (XIndexReplace) UnoRuntime.queryInterface(XIndexReplace.class, numIndexAccess);
+    }
+
+    /*
+     *
+     * com.sun.star.rdf
+     *
+     *
+     */
+
+    public static XDocumentMetadataAccess XDocumentMetadataAccess(Object xModel) {
+          return (XDocumentMetadataAccess) UnoRuntime.queryInterface(XDocumentMetadataAccess.class, xModel);
     }
 
 }

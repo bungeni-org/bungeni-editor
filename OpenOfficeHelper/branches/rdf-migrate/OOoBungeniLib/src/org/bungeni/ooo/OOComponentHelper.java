@@ -98,6 +98,15 @@ public class OOComponentHelper {
     public static String                   ATTRIBUTE_NAMESPACE_PREFIX = "anx:";
     public static String                   ATTR_SECTION_TYPE = "BungeniSectionType";
 
+    /**
+     * This flag switches the component helper between old style metadata and new style metadata
+     *   old style metadata = metadata for sections is stored in the style properties
+     *   new style metsdata = metadata for sections is captured in a RDF graph
+     *   The exposed API to the application is the same, but the internal representation and namespaces
+     *   for the metadata change because of this flag.
+     */
+    public static Boolean USE_OLD_STYLE_METADATA = true;
+
     private static long                    MARGIN_MEASURE_BASE = 254;
     private static org.apache.log4j.Logger log                 =
         org.apache.log4j.Logger.getLogger(OOComponentHelper.class.getName());
@@ -124,6 +133,15 @@ public class OOComponentHelper {
              * m_xComponentContext = xComponentContext;
              */
       
+    }
+
+
+    /**
+     * Returns the component context for openoffice
+     * @return XComponentContext object
+     */
+    public XComponentContext getComponentContext(){
+        return this.m_xComponentContext;
     }
 
     /**
@@ -446,12 +464,28 @@ public class OOComponentHelper {
         return false;
     }
 
+    public void setSectionMetadataAttributes(XTextSection theSection, HashMap<String, String> metadataMap) {
+      if (USE_OLD_STYLE_METADATA) {
+            STYLE_setSectionMetadataAttributes(theSection, metadataMap);
+      } else {
+            RDF_setSectionMetadataAttributes(theSection, metadataMap);
+      }
+    }
+
+
+     public void RDF_setSectionMetadataAttributes(XTextSection theSection, HashMap<String, String> metadataMap) {
+     
+
+
+
+     }
+
     /**
      * This API allows adding metadata to a document section, metadata is input as a key-value map
      * @param theSection
      * @param metadataMap
      */
-    public void setSectionMetadataAttributes(XTextSection theSection, HashMap<String, String> metadataMap) {
+    public void STYLE_setSectionMetadataAttributes(XTextSection theSection, HashMap<String, String> metadataMap) {
         try {
 
             // get the propertySet Handle for the section
