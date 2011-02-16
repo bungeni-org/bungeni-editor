@@ -94,30 +94,39 @@ Metadata can also be applied directly on the section as a whole.
 In this example -- we add metadata triples in a foreign namespace to the section rdf metadata :
 
 {{{
- Dim odoc, osection, otext
- odoc = ThisComponent
- osection = odoc.getTextSections().getByName("Section1")
- otext = odoc.getText()
- 
- UriService = com.sun.star.rdf.URI
- UrisService = com.sun.star.rdf.URIs
- LiteralService = com.sun.star.rdf.Literal
- 
- Dim uriAnx, rdfMetafile, rdfGraph 
- uriAnx = UriService.create("http://editor.bungeni.org/anx")
- rdfMetafile = odoc.addMetadataFile("meta/meta.rdf", Array(uriAnx))
- rdfGraph = odoc.getRDFRepository().getGraph(rdfMetafile)
- 
- Dim uriType, litType
- uriType = UriService.create("http://editor.bungeni.org/anx/Type")
- litType = LiteralService.create("Clause")
- 
- Dim uriUuid, litUuid
- uriUuid = UriService.create("http://editor.bungeni.org/anx/UUID")
- litUuid = LiteralService.create("1234-3876-5150-3615")
- 
- rdfGraph.addStatement(osection, uriType, litType)
- rdfGraph.addStatement(osection, uriUuid, litUuid)
+Dim odoc
+odoc = thisComponent
+
+Dim osection 
+osection = odoc.getTextSections().getByName("Section1")
+
+Dim docText
+docText= odoc.getText()
+
+UriService = com.sun.star.rdf.URI
+UriSService = com.sun.star.rdf.URIs
+LiteralService = com.sun.star.rdf.Literal
+
+Dim uriAnx 
+uriAnx = UriService.create("http://editor.bungeni.org/1.0/anx" )
+
+Dim rdfMetafile
+rdfMetafile = odoc.addMetadataFile("meta/meta.rdf", Array(uriAnx))
+
+Dim rdfGraph
+rdfGraph = odoc.getRDFRepository().getGraph(rdfMetafile)
+
+Dim uriSecType, litSecType
+uriSecType = UriService.create("http://editor.bungeni.org/1.0/anx/Type")
+litSecType = LiteralService.create("Clause")
+rdfGraph.addStatement(osection, uriSecType, litSecType)
+
+Dim uriSecUUID, litSecUUID
+uriSecUUID = UriService.create("http://editor.bungeni.org/1.0/anx/UUID")
+litSecUUID = LiteralService.create("1723-18388-38383-38383")
+rdfGraph.addStatement(osection, uriSecUUID, litSecUUID)
+
+End Sub
 }}}
 
 The rdf statements appear like this :
@@ -125,10 +134,69 @@ The rdf statements appear like this :
 {{{
 <?xml version="1.0" encoding="utf-8"?>
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-  <rdf:Description rdf:about="../content.xml#id1269007312">
-    <ns1:Type xmlns:ns1="http://editor.bungeni.org/anx/">Clause</ns1:Type>
-    <ns2:UUID xmlns:ns2="http://editor.bungeni.org/anx/">1234-3876-5150-3615</ns2:UUID>
+  <rdf:Description rdf:about="../content.xml#id780566046">
+    <ns1:Type xmlns:ns1="http://editor.bungeni.org/1.0/anx/">Clause</ns1:Type>
+    <ns2:UUID xmlns:ns2="http://editor.bungeni.org/1.0/anx/">1723-18388-38383-38383</ns2:UUID>
   </rdf:Description>
 </rdf:RDF>
+
+}}}
+
+There is also a RDF manifest generated for the ODF file :
+
+{{{
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <ns1:anx xmlns:ns1="http://editor.bungeni.org/1.0/" rdf:about="meta/meta.rdf">
+    <rdf:type rdf:resource="http://docs.oasis-open.org/ns/office/1.2/meta/pkg#MetadataFile"/>
+  </ns1:anx>
+  <ns2:Document xmlns:ns2="http://docs.oasis-open.org/ns/office/1.2/meta/pkg#" rdf:about="">
+    <ns2:hasPart rdf:resource="content.xml"/>
+    <ns2:hasPart rdf:resource="meta/meta.rdf"/>
+    <ns2:hasPart rdf:resource="styles.xml"/>
+  </ns2:Document>
+  <ns3:StylesFile xmlns:ns3="http://docs.oasis-open.org/ns/office/1.2/meta/odf#" rdf:about="styles.xml"/>
+  <ns4:ContentFile xmlns:ns4="http://docs.oasis-open.org/ns/office/1.2/meta/odf#" rdf:about="content.xml"/>
+</rdf:RDF>
+
+}}}
+
+Note: Due to an issue in the RDF serialization used in OOo 3.3 -- there are some restrictions on the format of the namespace used, See [http://www.openoffice.org/issues/show_bug.cgi?id=116443 http://www.openoffice.org/issues/show_bug.cgi?id=116443]
+
+
+== Read metadata on a section ==
+
+Metadata can be read back for a Section by retrieving the RDF graph and getting the statement with the Subject of the statement as the section with the metadata.
+
+{{{
+
+Dim uriAnx 
+uriAnx = UriService.create("http://editor.bungeni.org/1.0/anx" )
+
+
+Dim rdfGraphs
+rdfGraphs = odoc.getRDFRepository().getGraphNames()
+
+For each graphName in rdfGraphs
+    if graphName.LocalName = "meta.rdf" then
+ 	  
+ 	  dim secsMeta
+ 	  
+      secsMeta = odoc.getRDFRepository().getGraph(graphName)
+      
+      dim secMeta, secTypeURI
+      
+      secTypeURI = UriService.create("http://editor.bungeni.org/1.0/anx/Type")
+      
+      secMeta = secsMeta.getStatements(odoc.getTextSections().getByName("Section1"), secTypeURI, null )
+      
+      do while (secMeta.hasMoreElements() ) 
+        Dim astatement
+      	astatement = secMeta.nextElement()
+      	
+      loop
+      
+    end if
+Next graphName
 
 }}}
