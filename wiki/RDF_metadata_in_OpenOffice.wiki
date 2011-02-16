@@ -193,10 +193,24 @@ For each graphName in rdfGraphs
       do while (secMeta.hasMoreElements() ) 
         Dim astatement
       	astatement = secMeta.nextElement()
-      	
+      	' The statement contains the metadata triple
       loop
       
     end if
 Next graphName
 
+}}}
+
+
+To check if the section has any RDF Metadata, you can use something like :
+
+{{{
+  secMeta = secsMeta.getStatements(odoc.getTextSections().getByName("Section1"), secTypeURI, null )
+  if (secMeta.hasMoreElements() ) then 
+     Print "Section has RDF metadata" 
+  else
+     Print "Section has no RDF metadata"
+
+  end if
+}}}
 }}}
