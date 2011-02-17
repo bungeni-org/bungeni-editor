@@ -347,4 +347,7 @@ public class ooQueryInterface {
           return (XDocumentMetadataAccess) UnoRuntime.queryInterface(XDocumentMetadataAccess.class, xModel);
     }
 
+    public static XMetadatable XMetadatable(Object xObject) {
+        return (XMetadatable) UnoRuntime.queryInterface(XMetadatable.class, xObject);
+    }
 }
