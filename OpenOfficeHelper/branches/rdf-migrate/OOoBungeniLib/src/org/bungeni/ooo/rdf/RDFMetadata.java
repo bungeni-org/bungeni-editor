@@ -15,8 +15,6 @@ import com.sun.star.rdf.XMetadatable;
 import com.sun.star.rdf.XNamedGraph;
 import com.sun.star.rdf.XURI;
 import com.sun.star.text.XTextSection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
@@ -174,7 +172,9 @@ public class RDFMetadata {
 
 
     /**
-     * Adds section metadata ; and after adding returns the added metadata as a statmement
+     * Adds section metadata ; checks if the subject and predicate exists ; if
+     * they do ; it deletes it and adds a new tripe; finally returns the added
+     * metadata as a statmement
      * @param aSection
      * @param sectionMetaName
      * @param sectionMetaValue
@@ -200,6 +200,9 @@ public class RDFMetadata {
                 XLiteral uSectionValue = makeEscapedLiteral(sectionMetaValue);
                 //get the metadatable interface of the section
                 XMetadatable metaSection = ooQueryInterface.XMetadatable(aSection);
+
+                
+                
 
                 //now attempt to add the RDF statement
                 try {
@@ -271,4 +274,7 @@ public class RDFMetadata {
         return sectionStatement;
 
     }
-}
+
+   
+    }
+
