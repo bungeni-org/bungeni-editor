@@ -15,12 +15,15 @@ import com.sun.star.rdf.XMetadatable;
 import com.sun.star.rdf.XNamedGraph;
 import com.sun.star.rdf.XURI;
 import com.sun.star.text.XTextSection;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
 
 /**
- * This class manages RDF Metadata
+ * This class manages RDF Metadata for a ODT document
+ * Most of the API is specific to the XTextSection object
  * @author Ashok Hariharan
  */
 public class RDFMetadata {
@@ -201,20 +204,26 @@ public class RDFMetadata {
                 //get the metadatable interface of the section
                 XMetadatable metaSection = ooQueryInterface.XMetadatable(aSection);
 
-                
-                
+                //first remove section metadata
+                boolean bRemoved = removeMetadataByPredicate(xGraph, metaSection, uSectionMeta);
+                log.info("Removing section meta : " + sectionMetaName  + " returned = " + bRemoved);
 
                 //now attempt to add the RDF statement
+                boolean bError = true;
                 try {
                     xGraph.addStatement(metaSection, uSectionMeta, uSectionValue);
+                    bError = false;
                 } catch (NoSuchElementException ex) {
                     log.error("error while adding section metadata", ex);
                 } catch (RepositoryException ex) {
                     log.error("error while adding section metadata", ex);
                 }
 
-                sectionStatement = getSectionMetadata(aSection, sectionMetaName);
-
+                //now refetch the RDF statmeent
+                if (!bError) {
+                    //if there were no exceptions
+                    sectionStatement = getMetadataByPredicate(xGraph, metaSection, uSectionMeta);
+                }
             } catch (IllegalArgumentException ex) {
                 log.error("error while getting root namespace", ex);
             }
@@ -224,13 +233,50 @@ public class RDFMetadata {
     }
 
     /**
+     * Returns section metadata by subject + predicate combination 
+     * @param metadataGraph
+     * @param xSubject
+     * @param xPredicate
+     * @return
+     */
+
+    public Statement getMetadataByPredicate(XNamedGraph metadataGraph, XMetadatable xSubject, XURI xPredicate) {
+        XEnumeration xEnum = null;
+        Statement foundStatement = null;
+            try {
+                xEnum = metadataGraph.getStatements(xSubject, xPredicate, null);
+            } catch (NoSuchElementException ex) {
+                log.info("Error while getting rdf statement" ,ex );
+            } catch (RepositoryException ex) {
+                log.info("Error while getting rdf statement" ,ex );
+            }
+           if (xEnum != null ) {
+              while(xEnum.hasMoreElements()) {
+                try {
+                    Statement aStatement = (Statement) xEnum.nextElement();
+                    if (aStatement.Predicate.getStringValue().equals(xPredicate.getStringValue())) {
+                        foundStatement = aStatement;
+                        break;
+                    }
+                } catch (NoSuchElementException ex) {
+                    log.error("error while enumeration section rdf", ex);
+                } catch (WrappedTargetException ex) {
+                    log.error("error while enumeration section rdf", ex);
+                }
+              }
+           }
+        return foundStatement;
+        }
+
+
+    /**
      * Queries the section for the metadata ; if the metadata exists, returns a
-     * statement ; otherwise returns null
+     * statement ; otherwise returns null. This is a wrapper on getSectionMetadataByPredicate
      * @param aSection
      * @param sectionMetaName
      * @return
      */
-    public Statement getSectionMetadata(XTextSection aSection, String sectionMetaName) {
+    public Statement getSectionMetadataByName(XTextSection aSection, String sectionMetaName) {
         Statement sectionStatement = null;
         XNamedGraph xGraph = null;
         XEnumeration sectionEnumerator = null;
@@ -248,25 +294,8 @@ public class RDFMetadata {
                 XMetadatable sectionResource = ooQueryInterface.XMetadatable(aSection);
 
                 //enumerate the section metadata
-                try {
-                    sectionEnumerator = xGraph.getStatements(sectionResource, uSectionMeta, null);
-                } catch (NoSuchElementException ex) {
-                    log.error("error while getting getting section enum", ex);
-                } catch (RepositoryException ex) {
-                    log.error("error while getting getting section enum", ex);
-                }
+                sectionStatement =  getMetadataByPredicate(xGraph, sectionResource, uSectionMeta);
 
-                if (sectionEnumerator != null) {
-                    while (sectionEnumerator.hasMoreElements()) {
-                        try {
-                            sectionStatement = (Statement) sectionEnumerator.nextElement();
-                        } catch (NoSuchElementException ex) {
-                            log.error("error while enumeration section rdf", ex);
-                        } catch (WrappedTargetException ex) {
-                            log.error("error while enumeration section rdf", ex);
-                        }
-                    }
-                }
             } catch (IllegalArgumentException ex) {
                 log.error("error while getting root namespace", ex);
             }
@@ -275,6 +304,62 @@ public class RDFMetadata {
 
     }
 
-   
+     /**
+      * Removes a RDF metadata statmeent
+      * @param metadataGraph
+      * @param xSubject
+      * @param xPredicate
+      * @return
+      */
+     public boolean removeMetadataByPredicate(XNamedGraph metadataGraph, XMetadatable xSubject, XURI xPredicate) {
+        boolean bRemoved = false;
+        try {
+            metadataGraph.removeStatements(xSubject, xPredicate, null);
+            bRemoved = true;
+        } catch (NoSuchElementException ex) {
+            log.info("Element not removed as it does not exist" , ex);
+            bRemoved = true;
+        } catch (RepositoryException ex) {
+            log.error("Attempt to remove raised an error" , ex);
+        }
+        return bRemoved;
+     }
+
+
+     /**
+      * Returns all the metadata attached to a section as an array of
+      * RDF Statement objects
+      * @param aGraph
+      * @param aSection
+      * @return
+      */
+     public Statement[] getMetadata(XNamedGraph aGraph, XMetadatable xSubject) {
+         List<Statement> statements = new ArrayList<Statement>(0);
+         XEnumeration xEnum = null;
+            try {
+               xEnum = aGraph.getStatements(xSubject, null, null);
+            } catch (NoSuchElementException ex) {
+               log.error("error getting document metadata graph", ex);
+            } catch (RepositoryException ex) {
+               log.error("error getting document metadata graph", ex);
+            }
+          if (xEnum != null) {
+            while (xEnum.hasMoreElements() ) {
+                Statement aStatement  = null;
+                try {
+                     aStatement = (Statement) xEnum.nextElement();
+                } catch (NoSuchElementException ex) {
+                     log.error("error browsing elements", ex);
+                } catch (WrappedTargetException ex) {
+                    log.error("error browsing elements", ex);
+                }
+               if (aStatement != null ) {
+                   statements.add(aStatement);
+               }
+            }
+          }
+         return statements.toArray(new Statement[statements.size()]);
+     }
+
     }
 
