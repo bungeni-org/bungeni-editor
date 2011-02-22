@@ -228,6 +228,8 @@ public class RDFMetadata {
             } catch (IllegalArgumentException ex) {
                 log.error("error while getting root namespace", ex);
             }
+        } else {
+            log.error("There is no metadata graph for this document");
         }
 
         return sectionStatement;

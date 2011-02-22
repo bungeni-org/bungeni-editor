@@ -2,6 +2,7 @@ package org.bungeni.ooo;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import com.sun.star.rdf.RepositoryException;
 import com.sun.star.uno.Exception;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 
@@ -37,12 +38,12 @@ import com.sun.star.frame.XStorable;
 import com.sun.star.io.IOException;
 import com.sun.star.lang.EventObject;
 import com.sun.star.lang.IllegalArgumentException;
-import com.sun.star.lang.IndexOutOfBoundsException;
 import com.sun.star.lang.WrappedTargetException;
 import com.sun.star.lang.XComponent;
 import com.sun.star.lang.XMultiComponentFactory;
 import com.sun.star.lang.XMultiServiceFactory;
 import com.sun.star.lang.XServiceInfo;
+import com.sun.star.rdf.Statement;
 import com.sun.star.script.provider.XScript;
 import com.sun.star.script.provider.XScriptProvider;
 import com.sun.star.script.provider.XScriptProviderSupplier;
@@ -78,6 +79,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
+import org.bungeni.ooo.rdf.RDFMetadata;
 
 /**
  * OpenOffice component helper class.
@@ -93,6 +95,7 @@ public class OOComponentHelper {
 
     /**
      * Semantic namespace used for setting document metadata
+     * AH-22-02-11 This is only used for OLD_STYLE_METADATA
      */
     public static String                   ATTRIBUTE_NAMESPACE = "http://anx.akomantoso.org/1.0";
     public static String                   ATTRIBUTE_NAMESPACE_PREFIX = "anx:";
@@ -114,6 +117,11 @@ public class OOComponentHelper {
     private XComponent                     m_xComponent;
     private XComponentContext              m_xComponentContext;
     private xComponentListener             xEventListener;
+    /**
+     * This is used only when USE_OLD_STYLE_METADATA == false
+     * When we use old style metadata the rdf instance object is null
+     */
+    private RDFMetadata                    m_rdfInstance = null;
 
     /**
      * Creates a new instance of OOComponentHelper
@@ -125,8 +133,24 @@ public class OOComponentHelper {
             isXComponentNull = false;
             m_xComponent     = xComponent;
             m_xComponentContext = xComponentContext;
-            // add listener to listen for document closing events.
 
+            if (oldStyleMetadata()) {
+            //if we are using RDF metadata -- initialize the object
+            // and create the base rdf graph
+                m_rdfInstance = new RDFMetadata(this);
+                try {
+                    m_rdfInstance.initDocumentMetadataGraph();
+                } catch (IllegalArgumentException ex) {
+                    log.error("Error while initialzing rdf Metadata instance");
+                } catch (RepositoryException ex) {
+                    log.error("Error while initialzing rdf Metadata instance");
+                }
+
+            }
+
+            // add listener to listen for document closing events.
+            //AH - we dont do this here -- we let the caller take care of attaching to listeners
+            //etc.
             /*
              * xEventListener = new xComponentListener();
              * m_xComponent.addEventListener(xEventListener);
@@ -142,6 +166,10 @@ public class OOComponentHelper {
      */
     public XComponentContext getComponentContext(){
         return this.m_xComponentContext;
+    }
+
+    public static boolean oldStyleMetadata() {
+        return USE_OLD_STYLE_METADATA;
     }
 
     /**
@@ -465,7 +493,7 @@ public class OOComponentHelper {
     }
 
     public void setSectionMetadataAttributes(XTextSection theSection, HashMap<String, String> metadataMap) {
-      if (USE_OLD_STYLE_METADATA) {
+      if (oldStyleMetadata()) {
             STYLE_setSectionMetadataAttributes(theSection, metadataMap);
       } else {
             RDF_setSectionMetadataAttributes(theSection, metadataMap);
@@ -474,11 +502,13 @@ public class OOComponentHelper {
 
 
      public void RDF_setSectionMetadataAttributes(XTextSection theSection, HashMap<String, String> metadataMap) {
-     
-
-
-
+            Set<String> metaKeys = metadataMap.keySet();
+            for (String metaName : metaKeys) {
+                m_rdfInstance.addSectionMetadata(theSection, metaName, metadataMap.get(metaName));
+             }
      }
+
+    
 
     /**
      * This API allows adding metadata to a document section, metadata is input as a key-value map
@@ -575,13 +605,8 @@ public class OOComponentHelper {
      * @return
      */
     public String getSectionType(String sectionName) {
-        HashMap<String, String> metamap = getSectionMetadataAttributes(sectionName);
-
-        if (metamap.containsKey(ATTR_SECTION_TYPE)) {
-            return metamap.get(ATTR_SECTION_TYPE);
-        } else {
-            return null;
-        }
+       XTextSection aSection  = this.getSection(sectionName);
+       return getSectionType(aSection);
     }
 
     /**
@@ -590,6 +615,14 @@ public class OOComponentHelper {
      * @return
      */
     public String getSectionType(XTextSection sect) {
+         if (oldStyleMetadata()) {
+            return STYLE_getSectionType(sect);
+         } else {
+            return RDF_getSectionType(sect);
+         }
+    }
+
+    public String STYLE_getSectionType(XTextSection sect) {
         HashMap<String, String> metaMap = getSectionMetadataAttributes(sect);
         /*
          * getSectionMetadataAttributes returns the attribute names without namespace
@@ -600,13 +633,44 @@ public class OOComponentHelper {
             return null;
         }
     }
+    
+    public String RDF_getSectionType(XTextSection sect) {
+       Statement aStatement =  m_rdfInstance.getSectionMetadataByName(sect, "Type");
+       return aStatement.Object.getStringValue();
+    }
+
+
+
+
+    public HashMap<String,String> getSectionMetadataAttributes(XTextSection theSection) {
+        if (oldStyleMetadata()) {
+            return this.STYLE_getSectionMetadataAttributes(theSection);
+        } else {
+            return this.RDF_getSectionMetadataAttributes(theSection);
+        }
+
+    }
+
+     public HashMap<String, String> RDF_getSectionMetadataAttributes(XTextSection theSection) {
+         HashMap<String, String> metadataMap = new HashMap<String,String>();
+
+
+         Statement[] metadata = this.m_rdfInstance.getSectionMetadata(theSection);
+         for (Statement statement : metadata) {
+            String mapKey = statement.Predicate.getLocalName();
+            String mapValue = statement.Subject.getStringValue();
+            metadataMap.put(mapKey, mapValue);
+         }
+         
+         return metadataMap;
+     }
 
     /**
      *Returns the section's custom metadata attributes in key-value map
      * @param theSection - the XTextSection handle to the section
      * @return HashMap containing the section metadata attributes
      */
-    public HashMap<String, String> getSectionMetadataAttributes(XTextSection theSection) {
+    public HashMap<String, String> STYLE_getSectionMetadataAttributes(XTextSection theSection) {
         HashMap<String, String> metadata = new HashMap<String, String>();
 
         try {
@@ -673,14 +737,7 @@ public class OOComponentHelper {
             log.error(ex.getMessage());
         } catch (WrappedTargetException ex) {
             log.error(ex.getMessage());
-        }    /*
-              * catch (com.sun.star.lang.IllegalArgumentException ex){
-              * log.error(ex.getMessage());
-              * }
-              */
-        finally {
-          
-        }
+        }  
 
           return metadata;
     }
