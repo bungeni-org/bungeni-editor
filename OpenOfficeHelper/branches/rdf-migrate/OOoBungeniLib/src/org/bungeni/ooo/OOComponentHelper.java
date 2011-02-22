@@ -124,7 +124,7 @@ public class OOComponentHelper {
     public OOComponentHelper(XComponent xComponent, XComponentContext xComponentContext) {
             isXComponentNull = false;
             m_xComponent     = xComponent;
-
+            m_xComponentContext = xComponentContext;
             // add listener to listen for document closing events.
 
             /*

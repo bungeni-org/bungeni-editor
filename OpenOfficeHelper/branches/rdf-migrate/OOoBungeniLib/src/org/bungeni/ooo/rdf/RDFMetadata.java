@@ -72,6 +72,7 @@ public class RDFMetadata {
      */
     private String makeElementNS(String prefix, String elementName) {
         prefix = prefix.trim();
+        if (!prefix.startsWith("/")) prefix = "/" + prefix;
         if (prefix.endsWith("/")) {
             return RDFConstants.RDF_META_NAMESPACE + prefix + elementName;
         } else {
@@ -325,6 +326,22 @@ public class RDFMetadata {
         return bRemoved;
      }
 
+
+     public Statement[] getSectionMetadata(XTextSection aSection) {
+       XNamedGraph xGraph = null;
+       Statement[] metaStatements = {};
+       try {
+            xGraph = getDocumentMetadataGraph();
+        } catch (IllegalArgumentException ex) {
+            log.error("error getting document metadata graph", ex);
+        } catch (RepositoryException ex) {
+            log.error("error getting document metadata graph", ex);
+        }
+        if (xGraph != null) {
+           metaStatements = getMetadata(xGraph, ooQueryInterface.XMetadatable(aSection));
+        }
+        return metaStatements;
+     }
 
      /**
       * Returns all the metadata attached to a section as an array of
