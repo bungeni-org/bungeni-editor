@@ -133,8 +133,8 @@ public class OOComponentHelper {
             isXComponentNull = false;
             m_xComponent     = xComponent;
             m_xComponentContext = xComponentContext;
-
-            if (oldStyleMetadata()) {
+            //check if old or rdf metadata
+            if (false == oldStyleMetadata()) {
             //if we are using RDF metadata -- initialize the object
             // and create the base rdf graph
                 m_rdfInstance = new RDFMetadata(this);
@@ -658,7 +658,7 @@ public class OOComponentHelper {
          Statement[] metadata = this.m_rdfInstance.getSectionMetadata(theSection);
          for (Statement statement : metadata) {
             String mapKey = statement.Predicate.getLocalName();
-            String mapValue = statement.Subject.getStringValue();
+            String mapValue = statement.Object.getStringValue();
             metadataMap.put(mapKey, mapValue);
          }
          
