@@ -83,6 +83,16 @@ public class RDFMetadataTest extends UnoTest{
         assertNotTrue(result.Object.getStringValue().equals("Clause"), "testAddSectionMetadata", "");
     }
 
+    public void testUpdateSectionMetadata() {
+        System.out.println("addSectionMetadata");
+        XTextSection aSection = ooComponent.getSection("Section1");
+        String sectionMetaName = "Type";
+        String sectionMetaValue = "OldTypeWasClause";
+        RDFMetadata instance = new RDFMetadata(ooComponent);
+        Statement result = instance.addSectionMetadata(aSection, sectionMetaName, sectionMetaValue);
+        assertNotTrue(result.Predicate.getLocalName().equals("Type"), "testAddSectionMetadata", "");
+        assertNotTrue(result.Object.getStringValue().equals("OldTypeWasClause"), "testAddSectionMetadata", "");
+    }
 
     /**
      * Test of getSectionMetadataByName method, of class RDFMetadata.
@@ -94,6 +104,7 @@ public class RDFMetadataTest extends UnoTest{
         String sectionMetaName = "Type";
         RDFMetadata instance = new RDFMetadata(ooComponent);
         Statement result = instance.getSectionMetadataByName(aSection, sectionMetaName);
+        p(result.toString());
         assertNotTrue(result.Predicate.getLocalName().equals("Type"), "testGetSectionMetadataByName", "");
     }
 
@@ -123,6 +134,9 @@ public class RDFMetadataTest extends UnoTest{
         XTextSection aSection = ooComponent.getSection("Section1");
         RDFMetadata instance = new RDFMetadata(ooComponent);
         Statement[] result = instance.getSectionMetadata(aSection);
+        for (Statement statement : result) {
+            p(statement.toString());
+        }
         assertNotTrue(1 == result.length, "testGetSectionMetadata", "");
     }
 
@@ -139,6 +153,7 @@ public class RDFMetadataTest extends UnoTest{
             testAddSectionMetadata();
             testGetSectionMetadataByName();
             testGetSectionMetadata();
+            testUpdateSectionMetadata();
             
         } catch (Exception ex) {
             Logger.getLogger(RDFMetadataTest.class.getName()).log(Level.SEVERE, null, ex);
