@@ -7,25 +7,10 @@
 
 package org.bungenitest;
 
-import com.sun.star.uno.XComponentContext;
-import com.sun.star.comp.helper.Bootstrap;
-import com.sun.star.frame.XComponentLoader;
-import com.sun.star.frame.XDesktop;
-import com.sun.star.lang.XComponent;
-import com.sun.star.lang.XMultiComponentFactory;
-import com.sun.star.rdf.Statement;
-import com.sun.star.rdf.XMetadatable;
-import com.sun.star.rdf.XNamedGraph;
-import com.sun.star.rdf.XURI;
-import com.sun.star.text.XTextSection;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.channels.FileChannel;
 import org.bungeni.editor.test.UnoTest;
 import org.bungeni.ooo.OOComponentHelper;
-import org.bungeni.ooo.rdf.RDFMetadata;
+import org.bungeni.ooo.OOComponentHelperOldStyle_Test;
+import org.bungeni.ooo.OOComponentHelperTest;
 import org.bungeni.ooo.rdf.RDFMetadataTest;
 
 /**
@@ -51,7 +36,28 @@ public class Tester extends UnoTest {
             RDFMetadataTest rdfTest = new RDFMetadataTest();
             rdfTest.setupTests("test/testdocs/rdf_metadata.odt");
             rdfTest.runTests();
-            
+
+
+           
+            UnoTest.disposeDocument();
+
+            OOComponentHelper.USE_OLD_STYLE_METADATA = false;
+
+
+            OOComponentHelperTest  ooTest= new OOComponentHelperTest();
+            ooTest.setupTests("test/testdocs/oo_metadata.odt");
+            ooTest.runTests();
+
+            UnoTest.disposeDocument();
+
+            OOComponentHelper.USE_OLD_STYLE_METADATA = true;
+
+
+            OOComponentHelperOldStyle_Test  ooTestS= new OOComponentHelperOldStyle_Test();
+            ooTestS.setupTests("test/testdocs/oo_metadata.odt");
+            ooTestS.runTests();
+           
+           
 
            
         }

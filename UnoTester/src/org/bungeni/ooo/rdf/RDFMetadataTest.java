@@ -51,7 +51,6 @@ public class RDFMetadataTest extends UnoTest{
         System.out.println("initDocumentMetadataGraph");
         RDFMetadata instance = new RDFMetadata(ooComponent);
         XNamedGraph result = instance.initDocumentMetadataGraph();
-        p(result.getStringValue());
         assertNotTrue(result != null, "testInitDocumentMetadataGraph", "");
     }
 

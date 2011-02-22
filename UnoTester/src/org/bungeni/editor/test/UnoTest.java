@@ -34,6 +34,11 @@ public class UnoTest {
 
 
 
+    public static void disposeDocument(){
+        ooComponent.getComponent().dispose();
+        ooComponent = null;
+    }
+
     protected static void initoOo() {
 
         try {
