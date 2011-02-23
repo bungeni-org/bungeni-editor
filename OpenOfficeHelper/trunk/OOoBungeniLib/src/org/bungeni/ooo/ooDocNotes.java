@@ -19,10 +19,17 @@ import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
 /**
+ *
+ * AH-23-11-01
+ * The below functionality is a hack from the openoffice 2.4 days.
+ * ODF 1.2 (i.e. in openoffice 3) has much better support for hierarchical structures via
+ * native supprot for rdf structures.  This code needs to be rewritten to use that.
+ * @rewritecandidate
+ *
  * An openoffice document allows storage of text / string 
  * type properties, but not structured properties like XML 
  * or container properties.  A bungeniEditorNote is an xmlEncoded 
- * XML string which is stored in a property called "bungeniEditoNotes" 
+ * XML string which is stored in a property called "bungeniEditorNotes"
  * a "bungeniEditorNotes" XML looks like this:
  * <notes>
  *     <note>
