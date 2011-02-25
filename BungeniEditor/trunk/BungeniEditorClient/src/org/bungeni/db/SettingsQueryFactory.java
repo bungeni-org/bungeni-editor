@@ -318,5 +318,10 @@ public class SettingsQueryFactory {
 
     }
 
+    public static String Q_FETCH_DOCUMENT_PARTS(String docType) {
+       String query = "SELECT DOC_TYPE, DOC_PART, PART_NAME from DOCUMENT_PART "
+               + " where DOC_TYPE = '" + docType + "'" ;
+       return query ;
+    }
 
 }

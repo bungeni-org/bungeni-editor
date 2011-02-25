@@ -109,7 +109,7 @@ public class GeneralMetadata extends BaseEditorDocMetadataDialog {
        // this.setBackground(Color.decode(popupDlgBackColor));
         cboCountry.setModel(new DefaultComboBoxModel(countryCodes));
         cboLanguage.setModel(new DefaultComboBoxModel(languageCodes));
-        cboDocumentPart.setModel(new DefaultComboBoxModel(documentParts.toArray()));
+        cboDocumentPart.setModel(new DefaultComboBoxModel(documentParts));
         dt_official_time.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.HOUR));
         dt_official_time.setEditor(new JSpinner.DateEditor(dt_official_time, BungeniEditorProperties.getEditorProperty("metadataTimeFormat")));
         ((DateEditor)dt_official_time.getEditor()).getTextField().addFocusListener(new FocusAdapter(){
@@ -173,7 +173,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
         docMetaModel.updateItem("BungeniDocAuthor", "Ashok");
     
         docMetaModel.updateItem("BungeniOfficialTime", strTimeOfHansard);
-        docMetaModel.updateItem("BungeniDocPart", selPart.PartName);
+        docMetaModel.updateItem("BungeniDocPart", selPart.getPartName());
     
         //other metadata
         docMetaModel.updateItem("BungeniWorkAuthor", "user.Ashok");
@@ -197,7 +197,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
         spf.setSaveComponent("Year", debateCal.get(Calendar.YEAR));
         spf.setSaveComponent("Month", debateCal.get(Calendar.MONTH) + 1);
         spf.setSaveComponent("Day", debateCal.get(Calendar.DAY_OF_MONTH));
-        spf.setSaveComponent("PartName", selPart.PartName);
+        spf.setSaveComponent("PartName", selPart.getPartName());
            //  spf.setSaveComponent("FileName", spf.getFileName());
         spf.parseComponents();
 

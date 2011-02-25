@@ -32,7 +32,7 @@ public abstract class BaseEditorDocMetadataDialog extends javax.swing.JPanel imp
     protected CountryCode[]     countryCodes     =  {};
     protected LanguageCode[]    languageCodes    =  {};
     protected TreeMap<String, Component> fieldsToValidate = new TreeMap<String, Component>();
-    protected ArrayList<DocumentPart>    documentParts    = new ArrayList<DocumentPart>(0);
+    protected DocumentPart[]    documentParts    = {};
     protected OOComponentHelper          ooDocument;
     protected JFrame                     parentFrame;
     protected SimpleDateFormat           sdfDateFormat;
@@ -65,11 +65,8 @@ public abstract class BaseEditorDocMetadataDialog extends javax.swing.JPanel imp
         //AH-09-02-11
         languageCodes = LanguageCodesFactory.getAvailableLanguageCodes();
        
-        //AH-09-02-11 -- to fix below to add a factory class
-        //@rewritecandidate
-        documentParts.add(new DocumentPart("main", "Main"));
-        documentParts.add(new DocumentPart("annex", "Annex"));
-        documentParts.add(new DocumentPart("attachment", "Attachment"));
+        //AH-10-02-11
+        documentParts = DocumentPartsFactory.getAvailableDocumentParts();
     }
 
     abstract public Component getPanelComponent();
@@ -106,7 +103,7 @@ public abstract class BaseEditorDocMetadataDialog extends javax.swing.JPanel imp
 
     protected DocumentPart findDocumentPart(String documentPart) {
         for (DocumentPart dp : documentParts) {
-            if (dp.PartName.equals(documentPart)) {
+            if (dp.getPartName().equals(documentPart)) {
                 return dp;
             }
         }
