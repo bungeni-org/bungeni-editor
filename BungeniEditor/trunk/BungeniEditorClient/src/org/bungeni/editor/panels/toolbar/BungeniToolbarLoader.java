@@ -17,6 +17,7 @@ import org.jdom.Namespace;
  * @author Ashok Hariharan
  */
 public class BungeniToolbarLoader {
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BungeniToolbarLoader.class.getName());
 
     private BungeniToolbarParser toolbarParser = null;
     private ActionListener actionListener = null;
@@ -65,6 +66,7 @@ public class BungeniToolbarLoader {
 
 
      private String geti18nTooltip(Element anElement, String localizedAttr ) {
+        System.out.println("XXXX ATTR XXXX " + anElement.getAttribute("name"));
         List<Element> childTooltips = anElement.getChildren(localizedAttr);
         //get the default
         String langCodeDefault = BungeniEditorProperties.getEditorProperty("locale.Language.iso639-2");
@@ -79,6 +81,20 @@ public class BungeniToolbarLoader {
     private String _findi18nTitle(List<Element> childTitles, String langCode) {
          for (Element title : childTitles) {
            String foundLang =  title.getAttributeValue("lang", Namespace.XML_NAMESPACE);
+           //AH-25-02-11 if the xml:lang attribute is not set on title or tooltip, foundLang
+           //is set to null -- added a check to log such errors and continue processing
+           if (foundLang == null) {
+               String sError = "";
+               Element pElement = title.getParentElement();
+               if (pElement != null ) {
+                   String s = pElement.getAttributeValue("name");
+                   if (s != null) {
+                       sError = s;
+                   }
+               }
+               log.error("language was not specified for :" + sError + " returning title anyway");
+               return title.getText();
+           }
            if (foundLang.equals(langCode)) {
                return title.getText();
            }
