@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.TreeMap;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFormattedTextField;
@@ -56,6 +57,7 @@ public class GeneralMetadata extends BaseEditorDocMetadataDialog {
         super.initialize();
         this.docMetaModel.setup();
         initControls();
+        
            if (theMode == SelectorDialogModes.TEXT_EDIT) {
             try {
                 //retrieve metadata... and set in controls....
@@ -103,7 +105,9 @@ public class GeneralMetadata extends BaseEditorDocMetadataDialog {
         return this;
     }
         
-    
+
+
+
     private void initControls(){
        // String popupDlgBackColor = BungeniEditorProperties.getEditorProperty("popupDialogBackColor");
        // this.setBackground(Color.decode(popupDlgBackColor));
@@ -124,7 +128,11 @@ public class GeneralMetadata extends BaseEditorDocMetadataDialog {
             }
         });
 
- 
+        //set Default selections
+        this.cboCountry.setSelectedItem(findCountryCode(Locale.getDefault().getCountry().toLowerCase()));
+        this.cboLanguage.setSelectedItem(findLanguageCode(Locale.getDefault().getLanguage()));
+        this.cboDocumentPart.setSelectedItem(findDocumentPart(BungeniEditorProperties.get("parliament.DefaultPart")));
+       
     }
 
     protected void selectItLater(Component c) {

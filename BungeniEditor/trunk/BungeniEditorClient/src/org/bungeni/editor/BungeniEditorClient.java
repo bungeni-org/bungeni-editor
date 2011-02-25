@@ -1,7 +1,6 @@
 package org.bungeni.editor;
 
 //~--- non-JDK imports --------------------------------------------------------
-
 import org.apache.log4j.BasicConfigurator;
 
 import org.bungeni.editor.dialogs.editorApplicationController;
@@ -42,36 +41,38 @@ import org.bungeni.extutils.BungeniRuntimeProperties;
 public class BungeniEditorClient {
 
     // private static XComponentContext m_xContext;
-    private static String                       __WINDOW_TITLE__ = "BungeniEditor Launcher";
-    public static BungeniEditorClientCmdOptions cmdOptions       = null;
-    private static org.apache.log4j.Logger      log              =
-        org.apache.log4j.Logger.getLogger(BungeniEditorClient.class.getName());
-    private static IEditorPluginEventDispatcher evtDispatcher    = new IEditorPluginEventDispatcher() {
+    private static String __WINDOW_TITLE__ = "BungeniEditor Launcher";
+    public static BungeniEditorClientCmdOptions cmdOptions = null;
+    private static org.apache.log4j.Logger log =
+            org.apache.log4j.Logger.getLogger(BungeniEditorClient.class.getName());
+    private static IEditorPluginEventDispatcher evtDispatcher = new IEditorPluginEventDispatcher() {
+
         public void dispatchEvent(String arg0, Object[] arg1) {
             String dispatchSectionName = (String) arg1[0];
 
             System.out.println(dispatchSectionName);
         }
     };
-    private static JFrame                      frame;
+    private static JFrame frame;
     private static editorApplicationController panel;
-    private static IEditorPlugin               pluginObject;
+    private static IEditorPlugin pluginObject;
 
     /** Creates a new instance of BungeniEditorClient */
-    public BungeniEditorClient() {}
+    public BungeniEditorClient() {
+    }
 
     /**
      * Set the default language and locale for the Editor
      * Command line options for locale are mandatory -- however this can be overriden by
      * specifying alternate default locale in editor.ini
      */
-    private static void setLangAndLocale() throws FileNotFoundException, IOException {
+    private static void setIniProperties() throws FileNotFoundException, IOException {
 
         // check if the default language has been specified in a ini file
-        String lang   = cmdOptions.getLang();
+        String lang = cmdOptions.getLang();
         String region = cmdOptions.getRegion();
 
-        File   dir    = Installation.getInstallDirectory(BungeniEditorClient.class);
+        File dir = Installation.getInstallDirectory(BungeniEditorClient.class);
 
         log.info("setLangAndLocale : current directory =  " + dir.getAbsolutePath());
 
@@ -82,25 +83,34 @@ public class BungeniEditorClient {
 
         if (fini.exists()) {
             log.info("Found editor.ini - attempting to set locale from ini");
-        
+            //setting locale
             // if the ini file exists use the defaults in the ini file
             Properties pini = new Properties();
-
             pini.load(new FileInputStream(fini));
-
             if (pini.containsKey("lang") && pini.containsKey("region")) {
 
                 // if the keys exist in editor.ini use them for setting lang and region
-                lang   = pini.getProperty("lang");
+                lang = pini.getProperty("lang");
                 region = pini.getProperty("region");
             } else {
                 log.info("editor.ini has missing key for lang or region - ignoring ini setting - using commandline");
             }
+            //getting metadata property
+            if (pini.containsKey("metadata_format")) {
+                String metaFormat = pini.getProperty("metadata_format");
+                if (metaFormat.trim().equals("rdf")) {
+                    org.bungeni.ooo.OOComponentHelper.USE_OLD_STYLE_METADATA = false;
+                } else {
+                    org.bungeni.ooo.OOComponentHelper.USE_OLD_STYLE_METADATA = true;
+                }
+            } else {
+                log.info("editor.ini metadata_format not set using rdf metadata");
+            }
+
+            Locale locale = new Locale(lang, region);
+            Locale.setDefault(locale);
         }
 
-        Locale locale = new Locale(lang, region);
-        
-        Locale.setDefault(locale);
     }
 
     /**
@@ -125,11 +135,12 @@ public class BungeniEditorClient {
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         WindowListener panelListener = new WindowAdapter() {
+
             @Override
             public void windowClosing(WindowEvent e) {
                 int confirm = JOptionPane.showOptionDialog(frame, "Really Exit? This will close all Editor panels",
-                                  "Exit Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
-                                  null, null);
+                        "Exit Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                        null, null);
 
                 if (confirm == 0) {
                     panel.cleanup();
@@ -177,8 +188,8 @@ public class BungeniEditorClient {
             // access the deafault look and feel via the interface
             // instantiate the look and feel
             // LookAndFeel laf = new CafeCremeLAF();
-            ILookAndFeel iFeel       = LookAndFeelFactory.getDefaultLookAndFeel();
-            LookAndFeel  lafInstance = iFeel.newLAFInstance();
+            ILookAndFeel iFeel = LookAndFeelFactory.getDefaultLookAndFeel();
+            LookAndFeel lafInstance = iFeel.newLAFInstance();
 
             if (lafInstance == null) {
                 log.error("lafInstance is null");
@@ -224,12 +235,13 @@ public class BungeniEditorClient {
 
             // launch the editor
             javax.swing.SwingUtilities.invokeLater(new Runnable() {
+
                 public void run() {
                     try {
                         // set the default language and locale
-                        setLangAndLocale();
+                        setIniProperties();
                     } catch (FileNotFoundException ex) {
-                       log.error("editor.ini not found", ex);
+                        log.error("editor.ini not found", ex);
                     } catch (IOException ex) {
                         log.error("editor.ini not found", ex);
                     }

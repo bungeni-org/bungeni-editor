@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <!--
 Action configuration for debate-records
 -->
@@ -8,10 +8,12 @@ Action configuration for debate-records
 			<title xml:lang="eng">generic</title>
 			<blockAction name="Speeches" target="null" visible="true" condition="none">
 				<title xml:lang="eng">Speech</title>
+                <title xml:lang="fra">FR-Speech</title>
+                <title xml:lang="spa">Discurso</title>
 				<action name="PersonalStatement.create" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makePersonalStatement.section_creation" visible="true"
 					condition="textSelected:true :and: !cursorInSection:speech[0-9]* :and: cursorInSection:debaterecord"
-					tooltip="">
+					>
 					<title xml:lang="eng">personal statement</title>
 					<tooltip xml:lang="eng">Personal Statement </tooltip>
 				</action>
@@ -28,7 +30,7 @@ Action configuration for debate-records
 					target="toolbarSubAction.makeMinisterialStatement.section_creation"
 					visible="true"
 					condition="textSelected:true :and: !cursorInSection:speech[0-9]* :and: cursorInSection:debaterecord"
-					tooltip="">
+					>
 					<title xml:lang="eng">ministerial statement</title>
 					<tooltip xml:lang="eng">Mark selected text as Ministerial Statement </tooltip>
 				</action>
@@ -43,13 +45,13 @@ Action configuration for debate-records
 				<action name="Speech.create" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makeDebateSpeechBlockSection.section_creation"
 					visible="true" condition="textSelected:true :and: !cursorInSection:speech[0-9]*"
-					tooltip="">
+					>
 					<title xml:lang="eng">speech section</title>
 					<tooltip xml:lang="eng">Mark selection as a Speech  </tooltip>
 				</action>
 				<action name="Speech.SpeechBy" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makeDebateSpeechBlockSection.speech_by" visible="true"
-					condition="textSelected:true :and: cursorInSection:speech[0-9]*" tooltip="">
+					condition="textSelected:true :and: cursorInSection:speech[0-9]*" >
 					<title xml:lang="eng">---- by</title>
 					<tooltip xml:lang="eng">Identify selected text as speech author's name </tooltip>
 				</action>
@@ -62,7 +64,7 @@ Action configuration for debate-records
 					<title xml:lang="eng">communication from the chair</title>
 					<tooltip xml:lang="eng">Mark selection as communication from the chair </tooltip>
 				</subaction>
-				<subaction name="Heading.Communication.fromTheChair" tooltip=""
+				<subaction name="Heading.Communication.fromTheChair" 
 					mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makeCommunicationAction.apply_style:heading_comchair"
 					visible="true" condition="cursorInSection:comnctn[0-9]* :and: textSelected:true">
@@ -75,7 +77,7 @@ Action configuration for debate-records
 					<title xml:lang="eng">point of order</title>
 					<tooltip xml:lang="eng">Mark selection as Point of Order </tooltip>
 				</subaction>
-				<subaction name="Heading.Communication.pointOfOrder" tooltip=""
+				<subaction name="Heading.Communication.pointOfOrder" 
 					mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makePointOfOrder.apply_style:heading_pointoforder"
 					visible="true" condition="cursorInSection:porder[0-9]* :and: textSelected:true">
@@ -95,7 +97,7 @@ Action configuration for debate-records
 
 				<action name="Observation.create" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makeObservationAction.section_creation" visible="true"
-					condition="textSelected:true" tooltip="">
+					condition="textSelected:true" >
 					<title xml:lang="eng">observation</title>
 					<tooltip xml:lang="eng">Mark selection as Observation </tooltip>
 				</action>
@@ -186,13 +188,13 @@ Action configuration for debate-records
 					<title xml:lang="eng">preface section</title>
 					<tooltip xml:lang="eng">Mark selection as Preface </tooltip>
 				</subaction>
-				<subaction name="Masthead.heading" tooltip="" mode="TEXT_SELECTED_INSERT"
+				<subaction name="Masthead.heading"  mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makeDebateMastheadSection.markup_preface_heading:heading_preface"
 					visible="true" condition="cursorInSection:preface :and: textSelected:true">
 					<title xml:lang="eng">---- heading</title>
 					<tooltip xml:lang="eng">Mark selection as Heading </tooltip>
 				</subaction>
-				<subaction name="Masthead.subheading" tooltip="" mode="TEXT_SELECTED_INSERT"
+				<subaction name="Masthead.subheading"  mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makeDebateMastheadSection.markup_preface_heading:subheading_preface"
 					visible="true" condition="cursorInSection:preface :and: textSelected:true">
 					<title xml:lang="eng">---- -- sub-heading</title>
@@ -213,47 +215,47 @@ Action configuration for debate-records
 				<action name="Papers.new" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makePapersLaidBlockSection.section_creation"
 					visible="true" condition="textSelected:true :and: cursorInSection:debaterecord"
-					tooltip="">
+					>
 					<title xml:lang="eng">papers laid section</title>
 					<tooltip xml:lang="eng">Mark selection to identify papers laid during the debate </tooltip>
 				</action>
 				<action name="Papers.heading" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makePapersLaidBlockSection.markup_papers_heading:heading_papers"
 					visible="true" condition="textSelected:true :and: cursorInSection:papers[0-9]*"
-					tooltip="">
+					>
 					<title xml:lang="eng">---- heading</title>
 					<tooltip xml:lang="eng">Mark selection as Heading</tooltip>
 				</action>
 				<action name="Papers.subheading" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makePapersLaidBlockSection.markup_papers_heading:subheading_papers"
 					visible="true" condition="textSelected:true :and: cursorInSection:papers[0-9]*"
-					tooltip="">
+					>
 					<title xml:lang="eng">---- -- sub-heading</title>
 					<tooltip xml:lang="eng">Mark selection as Sub Heading</tooltip>
 				</action>
 				<action name="Papers.doclist" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makePapersLaidListSection.section_creation"
 					visible="true" condition="textSelected:true :and: cursorInSection:papers[0-9]*"
-					tooltip="">
+					>
 					<title xml:lang="eng">---- documents sub-section</title>
 					<tooltip xml:lang="eng">Mark selection as a list of presented documents </tooltip>
 				</action>
 				<action name="Papers.select" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makePapersLaidBlockSection.select_documents"
-					visible="true" condition="cursorInSection:tbldocs[0-9]*" tooltip="">
+					visible="true" condition="cursorInSection:tbldocs[0-9]*" >
 					<title xml:lang="eng">---- -- import listing</title>
 					<tooltip xml:lang="eng">Import listing from a DB </tooltip>
 				</action>
 				<action name="Papers.selectSingle" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makePapersLaidMarkupSingle.markup_doc_link"
 					visible="true" condition="textSelected:true :and: cursorInSection:tbldocs[0-9]*"
-					tooltip="">
+					>
 					<title xml:lang="eng">---- -- select/markup link</title>
 					<tooltip xml:lang="eng">Mark selection as hyperlink to an existing tabled document </tooltip>
 				</action>
 				<action name="Papers.selectSingleData" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makePapersLaidDataEntry.markup_doc_link" visible="true"
-					condition="textSelected:true :and: cursorInSection:tbldocs[0-9]*" tooltip="">
+					condition="textSelected:true :and: cursorInSection:tbldocs[0-9]*" >
 					<title xml:lang="eng">---- -- add/markup link</title>
 					<tooltip xml:lang="eng">Add hyperlink to document </tooltip>
 				</action>
@@ -264,7 +266,7 @@ Action configuration for debate-records
 				<action name="MotionsGroup.new" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makeDebateMotionGroupSection.section_creation"
 					visible="true" condition="textSelected:true :and: cursorInSection:debaterecord"
-					tooltip="">
+					>
 					<title xml:lang="eng">motions section</title>
 					<tooltip xml:lang="eng">Mark selection as a motion</tooltip>
 				</action>
@@ -272,7 +274,7 @@ Action configuration for debate-records
 					target="toolbarSubAction.makeDebateMotionBlockSection.markup_motion_title:heading_noticesofmotion"
 					visible="true"
 					condition="textSelected:true :and: cursorInSection:noticesmotion[0-9]*"
-					tooltip="">
+					>
 					<title xml:lang="eng">---- heading</title>
 					<tooltip xml:lang="eng">Mark selection as a heading </tooltip>
 				</action>
@@ -280,7 +282,7 @@ Action configuration for debate-records
 					target="toolbarSubAction.makeDebateMotionBlockSection.section_creation"
 					visible="true"
 					condition="textSelected:true :and: cursorInSection:noticesmotion[0-9]*"
-					tooltip="">
+					>
 					<title xml:lang="eng">import motion</title>
 					<tooltip xml:lang="eng">Import Motion from DB</tooltip>
 				</action>
@@ -288,7 +290,7 @@ Action configuration for debate-records
 					target="toolbarSubAction.makeDebateMotionBlockSectionEdit.section_creation"
 					visible="true"
 					condition="textSelected:true :and: cursorInSection:noticesmotion[0-9]*"
-					tooltip="">
+					>
 					<title xml:lang="eng">add motion</title>
 					<tooltip xml:lang="eng">Personal Statement </tooltip>
 				</action>
@@ -296,7 +298,7 @@ Action configuration for debate-records
 					target="toolbarSubAction.makeDebateMotionBlockSection.markup_motion_title:heading_motion"
 					visible="true"
 					condition="textSelected:true :and: cursorInSection:noticeofmotion[0-9]*"
-					tooltip="">
+					>
 					<title xml:lang="eng">---- heading</title>
 					<tooltip xml:lang="eng">Personal Statement </tooltip>
 				</action>
@@ -304,7 +306,7 @@ Action configuration for debate-records
 					target="toolbarSubAction.makeDebateMotionBlockSection.markup_motion_title:subheading_motion"
 					visible="true"
 					condition="textSelected:true :and: cursorInSection:noticeofmotion[0-9]*"
-					tooltip="">
+					>
 					<title xml:lang="eng">---- -- subheading</title>
 					<tooltip xml:lang="eng">Personal Statement </tooltip>
 				</action>
@@ -312,7 +314,7 @@ Action configuration for debate-records
 				<action name="Motions.markCommittee" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makeSelectCommittee.markup_committee" visible="true"
 					condition="textSelected:true :and: cursorInSection:noticeofmotion[0-9]*"
-					tooltip="">
+					>
 					<title xml:lang="eng">mark committee</title>
 					<tooltip xml:lang="eng">Personal Statement </tooltip>
 				</action>
@@ -320,7 +322,7 @@ Action configuration for debate-records
 				<action name="Motions.markBill" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makeSelectBill.markup_bill" visible="true"
 					condition="textSelected:true :and: cursorInSection:noticeofmotion[0-9]*"
-					tooltip="">
+					>
 					<title xml:lang="eng">mark bill</title>
 					<tooltip xml:lang="eng">Personal Statement </tooltip>
 				</action>
@@ -332,35 +334,35 @@ Action configuration for debate-records
 				<action name="MotionsGroup.new" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makeProcMotionGroupSection.section_creation"
 					visible="true" condition="textSelected:true :and: cursorInSection:debaterecord"
-					tooltip="">
+					>
 					<title xml:lang="eng">motions section</title>
 					<tooltip xml:lang="eng">Personal Statement </tooltip>
 				</action>
 				<action name="AllMotions.heading" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makeProcMotionBlockSection.markup_motion_title:heading_procmotions"
 					visible="true"
-					condition="textSelected:true :and: cursorInSection:procmotions[0-9]*" tooltip="">
+					condition="textSelected:true :and: cursorInSection:procmotions[0-9]*" >
 					<title xml:lang="eng">---- heading</title>
 					<tooltip xml:lang="eng">Personal Statement </tooltip>
 				</action>
 				<action name="Motions.new" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makeProcMotionBlockSection.section_creation"
 					visible="true"
-					condition="textSelected:true :and: cursorInSection:procmotions[0-9]*" tooltip="">
+					condition="textSelected:true :and: cursorInSection:procmotions[0-9]*" >
 					<title xml:lang="eng">markup motion</title>
 					<tooltip xml:lang="eng">Personal Statement </tooltip>
 				</action>
 				<action name="Motions.heading" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makeProcMotionBlockSection.markup_motion_title:heading_motion"
 					visible="true"
-					condition="textSelected:true :and: cursorInSection:procmotion[0-9]*" tooltip="">
+					condition="textSelected:true :and: cursorInSection:procmotion[0-9]*" >
 					<title xml:lang="eng">---- heading</title>
 					<tooltip xml:lang="eng">Personal Statement </tooltip>
 				</action>
 				<action name="Motions.subheading" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makeProcMotionBlockSection.markup_motion_title:subheading_motion"
 					visible="true"
-					condition="textSelected:true :and: cursorInSection:procmotion[0-9]*" tooltip="">
+					condition="textSelected:true :and: cursorInSection:procmotion[0-9]*" >
 					<title xml:lang="eng">---- -- subheading</title>
 					<tooltip xml:lang="eng">Personal Statement </tooltip>
 				</action>
@@ -375,14 +377,14 @@ Action configuration for debate-records
 				<action name="QuestionsGroup.new" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makeDebateQuestionGroupSection.section_creation"
 					visible="true" condition="textSelected:true :and: cursorInSection:debaterecord"
-					tooltip="">
+					>
 					<title xml:lang="eng">questions section</title>
 					<tooltip xml:lang="eng">Personal Statement </tooltip>
 				</action>
 				<action name="Questions.heading0" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makeDebateQuestionBlockSection.apply_questiontext_style:heading_allquestions"
 					visible="true"
-					condition="textSelected:true :and: cursorInSection:questions[0-9]*." tooltip="">
+					condition="textSelected:true :and: cursorInSection:questions[0-9]*." >
 					<title xml:lang="eng">---- heading</title>
 					<tooltip xml:lang="eng">Personal Statement </tooltip>
 				</action>
@@ -390,28 +392,28 @@ Action configuration for debate-records
 				<action name="Questions.new" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makeDebateQuestionBlockSection.section_creation"
 					visible="true"
-					condition="textSelected:true :and: cursorInSection:questions[0-9]*" tooltip="">
+					condition="textSelected:true :and: cursorInSection:questions[0-9]*" >
 					<title xml:lang="eng">import question</title>
 					<tooltip xml:lang="eng">Personal Statement </tooltip>
 				</action>
 				<action name="Questions.new" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makeDebateQuestionBlockSectionEdit.section_creation"
 					visible="true"
-					condition="textSelected:true :and: cursorInSection:questions[0-9]*" tooltip="">
+					condition="textSelected:true :and: cursorInSection:questions[0-9]*" >
 					<title xml:lang="eng">add question</title>
 					<tooltip xml:lang="eng">Personal Statement </tooltip>
 				</action>
 				<action name="Questions.heading1" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makeDebateQuestionBlockSection.apply_questiontext_style:heading_question"
 					visible="true" condition="textSelected:true :and: cursorInSection:qa[0-9]*."
-					tooltip="">
+					>
 					<title xml:lang="eng">---- heading</title>
 					<tooltip xml:lang="eng">Personal Statement </tooltip>
 				</action>
 				<action name="Questions.subheading" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makeDebateQuestionBlockSection.apply_questiontext_style:subheading_question"
 					visible="true" condition="textSelected:true :and: cursorInSection:qa[0-9]*."
-					tooltip="">
+					>
 					<title xml:lang="eng">---- -- sub-heading</title>
 					<tooltip xml:lang="eng">Personal Statement </tooltip>
 				</action>
@@ -419,7 +421,7 @@ Action configuration for debate-records
 					target="toolbarSubAction.makeDebateQuestionSection.section_creation"
 					visible="true"
 					condition="textSelected:true :and: cursorInSection:qa[0-9]* :and: !sectionHasChild:sque[0-9]*"
-					tooltip="">
+					>
 					<title xml:lang="eng">spoken question</title>
 					<tooltip xml:lang="eng">Personal Statement </tooltip>
 				</action>
@@ -427,7 +429,7 @@ Action configuration for debate-records
 				<action name="Questions.markup" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makeDebateQuestionBlockSection.markup_question_no"
 					visible="true" condition="textSelected:true :and: cursorInSection:sque[0-9]*"
-					tooltip="">
+					>
 					<title xml:lang="eng">---- number</title>
 					<tooltip xml:lang="eng">Personal Statement </tooltip>
 				</action>
@@ -435,7 +437,7 @@ Action configuration for debate-records
 				<action name="Questions.by.markup" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makeDebateQuestionBlockSection.markup_question_by"
 					visible="true" condition="textSelected:true :and: cursorInSection:sque[0-9]*"
-					tooltip="">
+					>
 					<title xml:lang="eng">---- by</title>
 					<tooltip xml:lang="eng">Personal Statement </tooltip>
 				</action>
@@ -443,7 +445,7 @@ Action configuration for debate-records
 				<action name="Questions.to.markup" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makeDebateQuestionBlockSection.markup_question_to"
 					visible="true" condition="textSelected:true :and: cursorInSection:sque[0-9]*"
-					tooltip="">
+					>
 					<title xml:lang="eng">---- to</title>
 					<tooltip xml:lang="eng">Personal Statement </tooltip>
 				</action>
@@ -452,14 +454,14 @@ Action configuration for debate-records
 				<title xml:lang="eng">adjournment</title>
 				<action name="Conclusion.create" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makeConclusionSection.section_creation" visible="true"
-					condition="cursorInSection:debaterecord :and: textSelected:true" tooltip="">
+					condition="cursorInSection:debaterecord :and: textSelected:true" >
 					<title xml:lang="eng">adjournment section</title>
 					<tooltip xml:lang="eng">Personal Statement </tooltip>
 				</action>
 				<action name="Conclusion.markHouseClosing" mode="TEXT_SELECTED_INSERT"
 					target="toolbarSubAction.makeConclusionSection.mark_house_closing"
 					visible="true" condition="cursorInSection:concl[0-9]* :and: textSelected:true"
-					tooltip="">
+					>
 					<title xml:lang="eng">---- house adjournment time</title>
 					<tooltip xml:lang="eng">Personal Statement </tooltip>
 				</action>

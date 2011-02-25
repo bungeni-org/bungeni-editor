@@ -23,11 +23,11 @@ public class SectionMetadataEditor {
     /**
      * metadata variable to indicate true / false for editable metadata
      */
-    public static final String MetaEditableFlag = "__BungeniMetaEditable";
+    public static final String MetaEditableFlag = "hiddenBungeniMetaEditable";
     /**
      * metadata variable pointing to actual editor
      */ 
-    public static final String MetaEditor = "__BungeniMetaEditor";
+    public static final String MetaEditor = "hiddenBungeniMetaEditor";
     
     //private String editableSectionName = "";
     private String metadataEditorString = "";
