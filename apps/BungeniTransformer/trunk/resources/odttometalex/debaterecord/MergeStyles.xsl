@@ -34,7 +34,17 @@
     <xsl:template match="/">
         <xsl:apply-templates />
     </xsl:template>
-    
+	<!-- 
+	in the original method metadata for a section was stored in style properties. 
+	The section was associated with a style name. This style sheet copied over the metadata
+	attributes over from the style property into the text:section
+
+	We now change that to copy over the rdf metadata properties into the section, perhaps into 
+	a sub-container metadata structure instead of an attribute to account for future requirement
+	for hierarchical metadata
+	
+	-->
+
 	<xsl:template match="*">
         <xsl:element name="{node-name(.)}">
             <xsl:variable name="stylename" select="@style-name" />
