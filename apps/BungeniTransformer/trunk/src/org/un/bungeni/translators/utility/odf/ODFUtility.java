@@ -2,7 +2,7 @@ package org.un.bungeni.translators.utility.odf;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import org.odftoolkit.odfdom.OdfFileDom;
+import org.odftoolkit.odfdom.pkg.OdfFileDom;
 import org.odftoolkit.odfdom.doc.OdfDocument;
 
 import org.w3c.dom.Document;
@@ -23,6 +23,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import org.un.bungeni.translators.utility.files.FileUtility;
+
 
 /**
  * This class supplies several methods useful for the management of the ODF documents.
@@ -115,17 +117,26 @@ public class ODFUtility {
         // create the dom of the metadata from the s tream
         Document odfMeta = odf.getMetaDom();    // wasDocumentBuilderFactory.newInstance().newDocumentBuilder().parse(FileUtility.getInstance().StreamAsInputSource(odfMetaStream));
 
+        //AH-02-03-11 - Adding support for extracting rdf metadata
+        Document odfRdfMeta = odf.getFileDom("meta/meta.rdf");
+
         // get all the style nodes contained in the in the style.xml file
         Node stylesNodes = odfStyle.getElementsByTagName("office:styles").item(0);
 
         // get all the meta nodes contained in the in the meta.xml file
         Node metaNodes = odfMeta.getElementsByTagName("office:document-meta").item(0);
 
+        //AH-02-03-11 get rdf metadata
+        Node rdfNodes = odfRdfMeta.getElementsByTagName("rdf:RDF").item(0);
+
         // appends the style nodes to the content.xml document
         odfDom.getElementsByTagName("office:document-content").item(0).appendChild(odfDom.adoptNode(stylesNodes));
 
         // appends the meta nodes to the content.xml document
         odfDom.getElementsByTagName("office:document-content").item(0).appendChild(odfDom.adoptNode(metaNodes));
+
+        //AH-02-03-11 attach the rdf metadata to the content dom
+        odfDom.getElementsByTagName("office:document-content").item(0).appendChild(odfDom.adoptNode(rdfNodes));
 
         // Prepare the DOM document for writing
         Source source = new DOMSource(odfDom);
@@ -144,6 +155,9 @@ public class ODFUtility {
 
         // Write the DOM document to the file
         xformer.transform(source, result);
+
+        //AH-02-03-11 **(DEBUG)** 
+        FileUtility.getInstance().copyFile(returnFile, new File("/home/undesa/out.txt"));
 
         // return the file
         return returnFile;
