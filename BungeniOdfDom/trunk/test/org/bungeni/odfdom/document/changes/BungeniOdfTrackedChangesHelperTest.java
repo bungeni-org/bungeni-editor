@@ -12,7 +12,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import org.odftoolkit.odfdom.doc.text.OdfTextChangedRegion;
 
 import org.w3c.dom.Element;
 
@@ -25,6 +24,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.apache.log4j.BasicConfigurator;
+import org.odftoolkit.odfdom.dom.element.text.TextChangedRegionElement;
 
 /**
  *
@@ -77,7 +77,7 @@ BungeniOdfDocumentHelper               revertTestHelper = null;
         System.out.println("getChangedRegions");
 
         Element                         changeContainer = docHelper.getChangesHelper().getTrackedChangeContainer();
-        ArrayList<OdfTextChangedRegion> result          =
+        ArrayList<TextChangedRegionElement> result          =
             docHelper.getChangesHelper().getChangedRegions(changeContainer);
         int                             nResult         = result.size();
 
@@ -89,7 +89,7 @@ BungeniOdfDocumentHelper               revertTestHelper = null;
         System.out.println("getChangedRegions");
 
         Element                         changeContainer = docHelper.getChangesHelper().getTrackedChangeContainer();
-        ArrayList<OdfTextChangedRegion> result          =
+        ArrayList<TextChangedRegionElement> result          =
             docHelper.getChangesHelper().getChangedRegionsByCreator(changeContainer, "John Smith");
         int nResult = result.size();
 
@@ -109,7 +109,7 @@ BungeniOdfDocumentHelper               revertTestHelper = null;
 
         Element                                             changeContainer =
             docHelper.getChangesHelper().getTrackedChangeContainer();
-        ArrayList<OdfTextChangedRegion>                     result          =
+        ArrayList<TextChangedRegionElement>                     result          =
             docHelper.getChangesHelper().getChangedRegions(changeContainer);
         BungeniOdfTrackedChangesHelper.StructuredChangeType stype           =
             docHelper.getChangesHelper().getStructuredChangeType(result.get(0));
@@ -126,7 +126,7 @@ BungeniOdfDocumentHelper               revertTestHelper = null;
 
         Element                                             changeContainer =
             docHelper.getChangesHelper().getTrackedChangeContainer();
-        ArrayList<OdfTextChangedRegion>                     result          =
+        ArrayList<TextChangedRegionElement>                     result          =
             docHelper.getChangesHelper().getChangedRegions(changeContainer);
         BungeniOdfTrackedChangesHelper.StructuredChangeType stype           =
             docHelper.getChangesHelper().getStructuredChangeType(result.get(0));

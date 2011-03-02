@@ -9,10 +9,8 @@ import org.bungeni.odfdom.document.properties.BungeniOdfPropertiesHelper;
 import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
 
 import org.odftoolkit.odfdom.doc.OdfDocument;
-import org.odftoolkit.odfdom.doc.office.OdfOfficeMasterStyles;
-import org.odftoolkit.odfdom.doc.style.OdfStyleBackgroundImage;
-import org.odftoolkit.odfdom.doc.style.OdfStyleMasterPage;
-import org.odftoolkit.odfdom.doc.style.OdfStylePageLayout;
+import org.odftoolkit.odfdom.incubator.doc.office.OdfOfficeMasterStyles;
+import org.odftoolkit.odfdom.dom.element.style.StyleBackgroundImageElement;
 import org.odftoolkit.odfdom.pkg.OdfPackage;
 
 import org.w3c.dom.Node;
@@ -30,6 +28,8 @@ import java.net.URISyntaxException;
 
 import java.util.zip.CRC32;
 import java.util.zip.CheckedInputStream;
+import org.odftoolkit.odfdom.dom.element.style.StyleMasterPageElement;
+import org.odftoolkit.odfdom.incubator.doc.style.OdfStylePageLayout;
 
 /**
  * <p>
@@ -138,7 +138,7 @@ public class BungeniOdfDocumentHelper {
 
         try {
             OdfOfficeMasterStyles mastersStyles  = this.odfDocument.getOfficeMasterStyles();
-            OdfStyleMasterPage    standardPage   = mastersStyles.getMasterPage("Standard");
+            StyleMasterPageElement    standardPage   = mastersStyles.getMasterPage("Standard");
             String                pageLayoutName = standardPage.getStylePageLayoutNameAttribute();
 
             standardLayout = odfDocument.getStylesDom().getAutomaticStyles().getPageLayout(pageLayoutName);
@@ -160,7 +160,7 @@ public class BungeniOdfDocumentHelper {
             NodeList bgImageNodes = odfDocument.getStylesDom().getElementsByTagName("style:background-image");
 
             for (int i = 0; i < bgImageNodes.getLength(); i++) {
-                OdfStyleBackgroundImage bgImage    = (OdfStyleBackgroundImage) bgImageNodes.item(i);
+                StyleBackgroundImageElement bgImage    = (StyleBackgroundImageElement) bgImageNodes.item(i);
                 Node                    parentNode = bgImage.getParentNode();
 
                 if (parentNode != null) {

@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.utils.BungeniOdfNodeHelper;
 import org.bungeni.odfdom.utils.XPathComponent;
-import org.odftoolkit.odfdom.doc.text.OdfTextSection;
+import org.odftoolkit.odfdom.dom.element.text.TextSectionElement;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -84,7 +84,7 @@ public class BungeniOdfChangeContext {
         String sType = null;
         Node aNode = getParentSection();
         if (aNode != null ) {
-           sType = m_docHelper.getSectionHelper().getSectionType((OdfTextSection) aNode);
+           sType = m_docHelper.getSectionHelper().getSectionType((TextSectionElement) aNode);
         }
         return sType;
     }
@@ -94,11 +94,11 @@ public class BungeniOdfChangeContext {
      * @return
      */
     public String getPrecedingSiblingText() {
-        StringBuffer precedingText = new StringBuffer();
+        StringBuilder precedingText = new StringBuilder();
         try {
             //preceding text boundary is always the start element
             String precedingXpath = this.elementXpathStart + "/preceding-sibling::text()";
-            XPath xPath = m_docHelper.getOdfDocument().getXPath();
+            XPath xPath = m_docHelper.getOdfDocument().getContentDom().getXPath();
             NodeList textNodes = (NodeList) xPath.evaluate(precedingXpath, m_docHelper.getOdfDocument().getContentDom(), XPathConstants.NODESET);
             for (int i = 0; i < textNodes.getLength(); i++) {
                 precedingText.append(textNodes.item(i).getTextContent());
@@ -114,12 +114,12 @@ public class BungeniOdfChangeContext {
      * @return
      */
     public String getFollowingSiblingText() {
-        StringBuffer followingText = new StringBuffer();
+        StringBuilder followingText = new StringBuilder();
         try {
             //following text boundary can be the end element if it exists
             String precedingXpath = ((this.singleElementBoundary == true) ? this.elementXpathStart : this.elementXpathEnd) +
                     "/following-sibling::text()";
-            XPath xPath = m_docHelper.getOdfDocument().getXPath();
+            XPath xPath = m_docHelper.getOdfDocument().getContentDom().getXPath();
             NodeList textNodes = (NodeList) xPath.evaluate(precedingXpath, m_docHelper.getOdfDocument().getContentDom(), XPathConstants.NODESET);
             for (int i = 0; i < textNodes.getLength(); i++) {
                 followingText.append(textNodes.item(i).getTextContent());
@@ -144,7 +144,7 @@ public class BungeniOdfChangeContext {
     public String parsePathComponent(String xpathComponent) {
         XPathComponent objComponent = new XPathComponent(xpathComponent);
         String strComponentElement = objComponent.getElement();
-        StringBuffer friendlyPathMessage = new StringBuffer();
+        StringBuilder friendlyPathMessage = new StringBuilder();
         if (strComponentElement.equals("p")) {
            friendlyPathMessage.append(pathMessage_p(objComponent));
         } else if (strComponentElement.equals("section")) {

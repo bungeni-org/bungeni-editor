@@ -14,7 +14,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.odftoolkit.odfdom.doc.OdfDocument;
-import org.odftoolkit.odfdom.doc.text.OdfTextSection;
+import org.odftoolkit.odfdom.dom.element.text.TextSectionElement;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 
@@ -62,7 +62,7 @@ public class BungeniOdfSectionHelperTest {
     @Test
     public void testGetSection() {
         System.out.println("getSection");
-        OdfTextSection result = secHelper.getSection("preface");
+        TextSectionElement result = secHelper.getSection("preface");
         String strSecName = result.getTextNameAttribute();
         assertEquals("preface", strSecName);
       
@@ -74,9 +74,9 @@ public class BungeniOdfSectionHelperTest {
     @Test
     public void testGetChildSections() {
         System.out.println("getChildSections");
-         ArrayList<OdfTextSection> expResult = null;
-         OdfTextSection aSection = secHelper.getSection("questions1");
-        ArrayList<OdfTextSection> result = secHelper.getChildSections(aSection);
+         ArrayList<TextSectionElement> expResult = null;
+         TextSectionElement aSection = secHelper.getSection("questions1");
+        ArrayList<TextSectionElement> result = secHelper.getChildSections(aSection);
         assertEquals(1, result.size());
     }
 
@@ -84,9 +84,9 @@ public class BungeniOdfSectionHelperTest {
      * Test of getSectionType method, of class BungeniOdfSectionHelper.
      */
     @Test
-    public void testGetSectionType_OdfTextSection() {
+    public void testGetSectionType_TextSectionElement() {
         System.out.println("getSectionType");
-        OdfTextSection nSection = secHelper.getSection("qa1");
+        TextSectionElement nSection = secHelper.getSection("qa1");
         String result = secHelper.getSectionType(nSection);
         System.out.println(result);
         assertEquals("QuestionAnswer", result);
@@ -106,9 +106,9 @@ public class BungeniOdfSectionHelperTest {
 
       try {
         System.out.println("removeSectionBackgroundImage");
-        OdfTextSection oSection = null;
+        TextSectionElement oSection = null;
         boolean expResult = true;
-        OdfTextSection osec  = secHelper.getSection("qa1");
+        TextSectionElement osec  = secHelper.getSection("qa1");
         boolean result = secHelper.removeSectionBackgroundImage(osec);
         secHelper.getOdfDocument().save(fout);
         assertEquals(expResult, result);
@@ -127,7 +127,7 @@ public class BungeniOdfSectionHelperTest {
     @Test
     public void testGetSectionMetadataAttributes() {
         System.out.println("getSectionMetadataAttributes");
-        OdfTextSection nSection = null;
+        TextSectionElement nSection = null;
         BungeniOdfSectionHelper instance = null;
         String expResult = "QuestionAnswer";
         nSection = secHelper.getSection("qa1");

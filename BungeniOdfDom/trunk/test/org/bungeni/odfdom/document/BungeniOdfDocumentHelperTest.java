@@ -13,7 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.odftoolkit.odfdom.doc.OdfDocument;
 import static org.junit.Assert.*;
-import org.odftoolkit.odfdom.doc.style.OdfStylePageLayout;
+import org.odftoolkit.odfdom.incubator.doc.style.OdfStylePageLayout;
 
 /**
  *

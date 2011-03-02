@@ -5,11 +5,6 @@ package org.bungeni.odfdom.section;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 
 import org.odftoolkit.odfdom.doc.OdfDocument;
-import org.odftoolkit.odfdom.OdfFileDom;
-import org.odftoolkit.odfdom.doc.office.OdfOfficeAutomaticStyles;
-import org.odftoolkit.odfdom.doc.style.OdfStyleBackgroundImage;
-import org.odftoolkit.odfdom.doc.style.OdfStyle;
-import org.odftoolkit.odfdom.doc.text.OdfTextSection;
 import org.odftoolkit.odfdom.dom.style.OdfStyleFamily;
 
 import org.w3c.dom.NamedNodeMap;
@@ -28,6 +23,11 @@ import java.util.logging.Logger;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
+import org.odftoolkit.odfdom.dom.element.style.StyleBackgroundImageElement;
+import org.odftoolkit.odfdom.dom.element.text.TextSectionElement;
+import org.odftoolkit.odfdom.incubator.doc.office.OdfOfficeAutomaticStyles;
+import org.odftoolkit.odfdom.incubator.doc.style.OdfStyle;
+import org.odftoolkit.odfdom.pkg.OdfFileDom;
 import org.w3c.dom.Element;
 
 /**
@@ -55,8 +55,12 @@ public class BungeniOdfSectionHelper {
      */
     public BungeniOdfSectionHelper(OdfDocument odfDoc) {
         odfDocument = odfDoc;
-        xPath       = odfDocument.getXPath(); //XPathFactory.newInstance().newXPath();
-        //xPath.setNamespaceContext(new OdfNamespace());
+        try {
+            xPath = odfDocument.getContentDom().getXPath(); //xPath.setNamespaceContext(new OdfNamespace());
+            //xPath.setNamespaceContext(new OdfNamespace());
+        } catch (Exception ex) {
+            log.error("Error while getting Xpath handle");
+        }
     }
 
     /**
@@ -66,7 +70,11 @@ public class BungeniOdfSectionHelper {
     public BungeniOdfSectionHelper(BungeniOdfDocumentHelper bodfDoc) {
         m_bodfDoc = bodfDoc;
         odfDocument = m_bodfDoc.getOdfDocument();
-        xPath       = odfDocument.getXPath(); 
+        try {
+            xPath = odfDocument.getContentDom().getXPath();
+        } catch (Exception ex) {
+            log.error("Error while getting xpath handle");
+        }
     }
 
 
@@ -83,8 +91,8 @@ public class BungeniOdfSectionHelper {
      * @param nsection
      * @return
      */
-    public ArrayList<OdfTextSection> getChildSections(OdfTextSection nsection) {
-        ArrayList<OdfTextSection> foundChildren = new ArrayList<OdfTextSection>(0);
+    public ArrayList<TextSectionElement> getChildSections(TextSectionElement nsection) {
+        ArrayList<TextSectionElement> foundChildren = new ArrayList<TextSectionElement>(0);
 
         try {
             NodeList nodeSet = (NodeList) xPath.evaluate(SECTION_ELEMENT, nsection, XPathConstants.NODESET);
@@ -92,7 +100,7 @@ public class BungeniOdfSectionHelper {
             for (int i = 0; i < nodeSet.getLength(); i++) {
                 Node foundNodeSection = nodeSet.item(i);
 
-                foundChildren.add((OdfTextSection) foundNodeSection);
+                foundChildren.add((TextSectionElement) foundNodeSection);
             }
         } catch (XPathExpressionException ex) {
             log.error("getChildSections : " + ex.getMessage());
@@ -107,8 +115,8 @@ public class BungeniOdfSectionHelper {
      * @param nsection
      * @return
      */
-    public List<OdfTextSection> getDescendantChildSections(OdfTextSection nsection) {
-        List<OdfTextSection> foundChildren = new ArrayList<OdfTextSection>(0);
+    public List<TextSectionElement> getDescendantChildSections(TextSectionElement nsection) {
+        List<TextSectionElement> foundChildren = new ArrayList<TextSectionElement>(0);
 
         try {
             NodeList nodeSet = (NodeList) xPath.evaluate("descendant::" + SECTION_ELEMENT, nsection, XPathConstants.NODESET);
@@ -116,7 +124,7 @@ public class BungeniOdfSectionHelper {
             for (int i = 0; i < nodeSet.getLength(); i++) {
                 Node foundNodeSection = nodeSet.item(i);
 
-                foundChildren.add((OdfTextSection) foundNodeSection);
+                foundChildren.add((TextSectionElement) foundNodeSection);
             }
         } catch (XPathExpressionException ex) {
             log.error("getDescendantChildSections : " + ex.getMessage());
@@ -130,7 +138,7 @@ public class BungeniOdfSectionHelper {
      * @param nsection
      * @return
      */
-    public String getSectionType(OdfTextSection nsection) {
+    public String getSectionType(TextSectionElement nsection) {
         NamedNodeMap metaAttrs = getSectionMetadataAttributes(nsection);
         return getFilterNamedItem(nsection, metaAttrs, FILTER_SECTION_TYPE);
     }
@@ -142,14 +150,14 @@ public class BungeniOdfSectionHelper {
      * @param nsection
      * @return
      */
-    public String getSectionID(OdfTextSection nsection) {
+    public String getSectionID(TextSectionElement nsection) {
         NamedNodeMap metaAttrs = getSectionMetadataAttributes(nsection);
         return getFilterNamedItem(nsection, metaAttrs, FILTER_SECTION_ID);
     }
 
     
 
-    public String getFilterNamedItem(OdfTextSection nsection, NamedNodeMap nattr, String filterItem) {
+    public String getFilterNamedItem(TextSectionElement nsection, NamedNodeMap nattr, String filterItem) {
         Node nitem = nattr.getNamedItem(filterItem);
         if (nitem != null) {
             return nitem.getNodeValue();
@@ -158,7 +166,7 @@ public class BungeniOdfSectionHelper {
         }
     }
 
-    public ArrayList<Node> getBungeniMetadataAttributes(OdfTextSection nsection) {
+    public ArrayList<Node> getBungeniMetadataAttributes(TextSectionElement nsection) {
         ArrayList<Node> nodeLists   = new ArrayList<Node>(0);
         NamedNodeMap    metaAttribs = getSectionMetadataAttributes(nsection);
 
@@ -175,7 +183,7 @@ public class BungeniOdfSectionHelper {
     }
 
 
-    public OdfStyle getSectionStyle(OdfTextSection oSection) {
+    public OdfStyle getSectionStyle(TextSectionElement oSection) {
         OdfOfficeAutomaticStyles osb      = oSection.getAutomaticStyles();
         OdfStyle           secStyle = osb.getStyle(oSection.getStyleName(), OdfStyleFamily.Section);
 
@@ -187,7 +195,7 @@ public class BungeniOdfSectionHelper {
      * @param oSection
      * @return
      */
-    public boolean removeSectionBackgroundImage(OdfTextSection oSection) {
+    public boolean removeSectionBackgroundImage(TextSectionElement oSection) {
         boolean bState = false;
 
         try {
@@ -197,12 +205,12 @@ public class BungeniOdfSectionHelper {
             NodeList             nl         = sprops.getElementsByTagName("style:background-image");
 
             if (nl.getLength() > 0) {
-                OdfStyleBackgroundImage img = (OdfStyleBackgroundImage) nl.item(0);
+                StyleBackgroundImageElement img = (StyleBackgroundImageElement) nl.item(0);
 
                 // odfPackage.getPackage().remove(img.getHref());
                 sprops.removeChild(img);
 
-                OdfStyleBackgroundImage newimg = new OdfStyleBackgroundImage(odfDocument.getContentDom());
+                StyleBackgroundImageElement newimg = new StyleBackgroundImageElement(odfDocument.getContentDom());
 
                 sprops.appendChild(newimg);
                 bState = true;
@@ -252,10 +260,10 @@ public class BungeniOdfSectionHelper {
 
     /**
      * Returns the metadata attributes for a section as  NamedNodeMap
-     * @param nSection a OdfTextSection handle for a section
+     * @param nSection a TextSectionElement handle for a section
      * @return NamedNodeMap
      */
-    public NamedNodeMap getSectionMetadataAttributes(OdfTextSection nSection) {
+    public NamedNodeMap getSectionMetadataAttributes(TextSectionElement nSection) {
         OdfStyle sectStyle = getSectionStyle(nSection);
 
         if (sectStyle != null) {
@@ -290,12 +298,12 @@ public class BungeniOdfSectionHelper {
      * @param aSection
      * @return
      */
-    public Integer getDocumentSectionNumber (String sectionType, OdfTextSection aSection) {
+    public Integer getDocumentSectionNumber (String sectionType, TextSectionElement aSection) {
         Integer foundIndex = 0;
         NodeList secList = this.getDocumentSections();
         for (int i = 0; i < secList.getLength(); i++) {
             Node aSecNode = secList.item(i);
-            OdfTextSection foundSection = (OdfTextSection) aSecNode;
+            TextSectionElement foundSection = (TextSectionElement) aSecNode;
             String fSectionType = this.getSectionType(foundSection);
             String fSectionName = foundSection.getTextNameAttribute();
             if (fSectionType.equals(sectionType)) {
@@ -317,13 +325,13 @@ public class BungeniOdfSectionHelper {
      * @param sectionName
      * @return
      */
-    public OdfTextSection getSection(String sectionName) {
-        OdfTextSection oSection = null;
+    public TextSectionElement getSection(String sectionName) {
+        TextSectionElement oSection = null;
 
         try {
             OdfFileDom docDom = odfDocument.getContentDom();
 
-            oSection = (OdfTextSection) xPath.evaluate("//text:section[@text:name='" + sectionName + "']", docDom,
+            oSection = (TextSectionElement) xPath.evaluate("//text:section[@text:name='" + sectionName + "']", docDom,
                     XPathConstants.NODE);
         } catch (Exception ex) {
             System.out.println(ex.getMessage())
@@ -337,7 +345,7 @@ public class BungeniOdfSectionHelper {
         NodeList nlist = getDocumentSections();
 
         for (int i = 0; i < nlist.getLength(); i++) {
-            OdfTextSection odfSection = (OdfTextSection) nlist.item(i);
+            TextSectionElement odfSection = (TextSectionElement) nlist.item(i);
 
             if (sectionIterator.nextSection(this, odfSection) == false) {
                 break;
@@ -349,7 +357,7 @@ public class BungeniOdfSectionHelper {
         NodeList nlist = getDocumentSections();
 
         for (int i = 0; i < nlist.getLength(); i++) {
-            OdfTextSection odfSection = (OdfTextSection) nlist.item(i);
+            TextSectionElement odfSection = (TextSectionElement) nlist.item(i);
 
             if (sectionIterator.nextSection(this, odfSection) == false) {
                 break;
@@ -361,8 +369,8 @@ public class BungeniOdfSectionHelper {
         for (int i = 0; i < nlist.getLength(); i++) {
             Node nnode = nlist.item(i);
 
-            if (nnode instanceof OdfTextSection) {
-                OdfTextSection nsection = (OdfTextSection) nnode;
+            if (nnode instanceof TextSectionElement) {
+                TextSectionElement nsection = (TextSectionElement) nnode;
 
                 // get section style name
                 String sectionStyleName = nsection.getStyleName();

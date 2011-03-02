@@ -7,8 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.odftoolkit.odfdom.dom.attribute.meta.MetaValueTypeAttribute.Value;
-import org.odftoolkit.odfdom.OdfFileDom;
-
 import org.w3c.dom.Node;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -20,6 +18,7 @@ import javax.xml.xpath.XPathExpressionException;
 import org.apache.log4j.Logger;
 import org.bungeni.odfdom.utils.BungeniOdfDateHelper;
 import org.odftoolkit.odfdom.incubator.meta.OdfOfficeMeta;
+import org.odftoolkit.odfdom.pkg.OdfFileDom;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -43,7 +42,7 @@ public class BungeniOdfPropertiesHelper {
         try {
             this.m_docHelper = docHelper;
             this.m_metaDom   = this.m_docHelper.getOdfDocument().getMetaDom();
-            m_docXpath       = m_docHelper.getOdfDocument().getXPath();
+            m_docXpath       = m_docHelper.getOdfDocument().getMetaDom().getXPath();
         } catch (Exception ex) {
                   log.error("BungeniOdfPropertiesHelper.BungeniOdfPropertiesHelper : " + ex.getMessage(), ex);
         }

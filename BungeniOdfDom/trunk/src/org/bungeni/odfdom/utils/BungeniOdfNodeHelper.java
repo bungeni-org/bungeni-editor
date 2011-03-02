@@ -21,8 +21,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.odftoolkit.odfdom.OdfNamespace;
-import org.odftoolkit.odfdom.dom.OdfNamespaceNames;
+import org.odftoolkit.odfdom.dom.OdfDocumentNamespace;
+import org.odftoolkit.odfdom.pkg.OdfNamespace;
 import org.w3c.dom.NodeList;
 
 /**
@@ -58,7 +58,7 @@ public class BungeniOdfNodeHelper {
         Stack<Node> hierarchy = new Stack<Node>();
 
         /** buffer to store node path */
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         /** push the current node into the node hierarchy */
         hierarchy.push(aNode);
@@ -102,12 +102,12 @@ public class BungeniOdfNodeHelper {
                         if (e.hasAttribute("id")) {
 
                             // id attribute found - use that
-                            buffer.append("[@id='" + e.getAttribute("id") + "']");
+                            buffer.append("[@id='").append(e.getAttribute("id")).append("']");
                             handled = true;
                         } else if (e.hasAttribute("name")) {
 
                             // name attribute found - use that
-                            buffer.append("[@name='" + e.getAttribute("name") + "']");
+                            buffer.append("[@name='").append(e.getAttribute("name")).append("']");
                             handled = true;
                         }
                     }
@@ -128,7 +128,7 @@ public class BungeniOdfNodeHelper {
                             prev_sibling = prev_sibling.getPreviousSibling();
                         }
 
-                        buffer.append("[" + prev_siblings + "]");
+                        buffer.append("[").append(prev_siblings).append("]");
                     }
                 }
             }
@@ -175,7 +175,7 @@ public class BungeniOdfNodeHelper {
 
         // Write the DOM document to the file
         Transformer xformer = getTransformer();
-        OdfNamespace ns = OdfNamespace.newNamespace(OdfNamespaceNames.TEXT);
+        OdfNamespace ns = OdfNamespace.newNamespace(OdfDocumentNamespace.TEXT);
         xformer.setParameter("namespace", ns.toString());
         xformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
         xformer.transform(source, result);

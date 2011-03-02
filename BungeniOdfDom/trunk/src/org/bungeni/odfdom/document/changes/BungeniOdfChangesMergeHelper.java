@@ -2,15 +2,12 @@ package org.bungeni.odfdom.document.changes;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper.StructuredChangeType;
 
-import org.odftoolkit.odfdom.doc.text.OdfTextChange;
-import org.odftoolkit.odfdom.doc.text.OdfTextChangeEnd;
-import org.odftoolkit.odfdom.doc.text.OdfTextChangeStart;
-import org.odftoolkit.odfdom.doc.text.OdfTextChangedRegion;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -21,6 +18,10 @@ import java.util.ArrayList;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
+import org.odftoolkit.odfdom.dom.element.text.TextChangeElement;
+import org.odftoolkit.odfdom.dom.element.text.TextChangeEndElement;
+import org.odftoolkit.odfdom.dom.element.text.TextChangeStartElement;
+import org.odftoolkit.odfdom.dom.element.text.TextChangedRegionElement;
 
 /**
  * This class merges changes (accepts / rejects changes) into a document
@@ -40,7 +41,11 @@ public class BungeniOdfChangesMergeHelper {
      */
     public BungeniOdfChangesMergeHelper(BungeniOdfTrackedChangesHelper docH) {
         m_changesHelper = docH;
-        m_docXpath      = m_changesHelper.getOdfDocumentHelper().getOdfDocument().getXPath();
+        try {
+            m_docXpath = m_changesHelper.getOdfDocumentHelper().getOdfDocument().getContentDom().getXPath();
+        } catch (Exception ex) {
+           log.error("Exception while trying to get XPath handle");
+        }
         m_docHelper     = m_changesHelper.getOdfDocumentHelper();
     }
 
@@ -58,10 +63,10 @@ public class BungeniOdfChangesMergeHelper {
     public boolean mergeChanges(String sourceUser, String targetUser) {
 
         // Get all the changed regions of the sourceUser
-        ArrayList<OdfTextChangedRegion> changesByTarget =
+        ArrayList<TextChangedRegionElement> changesByTarget =
             m_changesHelper.getChangedRegionsByCreator(m_changesHelper.getTrackedChangeContainer(), sourceUser);
 
-        for (OdfTextChangedRegion odfTextChangedRegion : changesByTarget) {
+        for (TextChangedRegionElement odfTextChangedRegion : changesByTarget) {
             System.out.println("changed region id = " + odfTextChangedRegion.getTextIdAttribute());
             processChange(odfTextChangedRegion, sourceUser, targetUser);
         }
@@ -78,7 +83,7 @@ public class BungeniOdfChangesMergeHelper {
      * @param sourceUser
      * @param targetUser
      */
-    private void processChange(OdfTextChangedRegion odfTextChangedRegion, String sourceUser, String targetUser) {
+    private void processChange(TextChangedRegionElement odfTextChangedRegion, String sourceUser, String targetUser) {
         StructuredChangeType scType = null;
 
         try {
@@ -107,7 +112,7 @@ public class BungeniOdfChangesMergeHelper {
      * @param sourceUser
      * @param targetUser
      */
-    private void processInsertionMerge(StructuredChangeType scType, OdfTextChangedRegion odfTextChangedRegion,
+    private void processInsertionMerge(StructuredChangeType scType, TextChangedRegionElement odfTextChangedRegion,
                                        String sourceUser, String targetUser) {
         try {
 
@@ -124,7 +129,7 @@ public class BungeniOdfChangesMergeHelper {
             if (nodePrecedingChangeEnd != null) {
 
                 // Get the id of the changed end element
-                OdfTextChangeEnd endElement  = (OdfTextChangeEnd) nodePrecedingChangeEnd;
+                TextChangeEndElement endElement  = (TextChangeEndElement) nodePrecedingChangeEnd;
                 String           changeEndId = endElement.getTextChangeIdAttribute();
 
                 // Using the id of the change-end element get the changed-region for the id.
@@ -169,11 +174,11 @@ public class BungeniOdfChangesMergeHelper {
      * @param sourceUser
      * @param targetUser
      */
-    private void processReplacementMerge(StructuredChangeType scType, OdfTextChangedRegion odfTextChangedRegion,
+    private void processReplacementMerge(StructuredChangeType scType, TextChangedRegionElement odfTextChangedRegion,
             String sourceUser, String targetUser) {
 
         // Get the <text:change> element and delete it
-        OdfTextChange changeItem = m_changesHelper.getChangeItem(scType.changeId);
+        TextChangeElement changeItem = m_changesHelper.getChangeItem(scType.changeId);
 
         changeItem.getParentNode().removeChild(changeItem);
         odfTextChangedRegion.getParentNode().removeChild(odfTextChangedRegion);
@@ -236,15 +241,15 @@ public class BungeniOdfChangesMergeHelper {
      */
     private int mergeAdjacentInsertChange(String sourceUser, String targetUser, String sourceUserChangeid,
             String targetUserChangeid) {
-        OdfTextChangedRegion sourceChangeRegion = this.m_changesHelper.getChangedRegionById(sourceUserChangeid);
-        OdfTextChangedRegion targetChangeRegion = this.m_changesHelper.getChangedRegionById(targetUserChangeid);
+        TextChangedRegionElement sourceChangeRegion = this.m_changesHelper.getChangedRegionById(sourceUserChangeid);
+        TextChangedRegionElement targetChangeRegion = this.m_changesHelper.getChangedRegionById(targetUserChangeid);
         StructuredChangeType scSourceType       = this.m_changesHelper.getStructuredChangeType(sourceChangeRegion);
         StructuredChangeType scTargetType       = this.m_changesHelper.getStructuredChangeType(targetChangeRegion);
 
         // Merge only if the change types match and the change is an insert
         if (scSourceType.changetype.equals(scTargetType.changetype) && scSourceType.changetype.equals("insertion")) {
-            OdfTextChangeStart sourceStart       = m_changesHelper.getChangeStartItem(sourceUserChangeid);
-            OdfTextChangeEnd   sourceEnd         = m_changesHelper.getChangeEndItem(sourceUserChangeid);
+            TextChangeStartElement sourceStart       = m_changesHelper.getChangeStartItem(sourceUserChangeid);
+            TextChangeEndElement   sourceEnd         = m_changesHelper.getChangeEndItem(sourceUserChangeid);
             Node               sourceNextSibling = sourceStart.getNextSibling();
 
             // First build  a cloned array of change nodes
