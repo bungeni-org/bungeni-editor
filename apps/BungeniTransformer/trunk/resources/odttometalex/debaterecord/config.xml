@@ -30,10 +30,10 @@
         <output>
             <!-- Normalise the produced META document -->
             <xslt step="1" name="MetaLanguageNormalisation"
-                href="odttometalex/debaterecord/MetaLanguageNormalisation.xsl"/>
+                href="odttometalex/common/MetaLanguageNormalisation.xsl"/>
             <!-- Add the METALEX namespace -->
             <xslt step="2" name="MetaLanguageAddNamespace"
-                href="odttometalex/debaterecord/MetaLanguageAddNamespace.xsl"/>
+                href="odttometalex/common/MetaLanguageAddNamespace.xsl"/>
         </output>
     </stylesheets>
 </config>
