@@ -47,7 +47,8 @@
             <!-- ***DOC*** 
                 only for elements which hav an id attribute 
             -->
-            <xsl:if test="@id"> <xsl:variable name="itemid" select="@id"/>
+            <xsl:if test="@id">
+                <xsl:variable name="itemid" select="@id"/>
                 <!-- ***DOC*** 
                     copy all the current attributes 
                 -->
@@ -93,8 +94,8 @@
                         </xsl:for-each>
                     </xsl:element>
                 </xsl:if>
-            </xsl:if> 
-            
+            </xsl:if>
+
             <!-- ***DOC*** 
                 
             The above translates an ODF section with rdf metadata into : 
@@ -125,8 +126,8 @@
             </text:section>
             
             -->
-            
-            
+
+
             <xsl:apply-templates/>
         </xsl:element>
 
