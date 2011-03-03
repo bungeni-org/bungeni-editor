@@ -14,10 +14,12 @@
 	<stylesheets>
 		<!-- This steps are performed BEFORE the above regex replacement -->
 		<input>
-			<!-- Extract the styles -->
-			<xslt step="1" name="mergeStyles" href="odttometalex/common/MergeStyles.xsl" />
+			<!-- Add RDF ns -->
+			<xslt step="1" name="appendRDFNS" href="odttometalex/common/add_rdf_ns.xsl" />
+            <!-- Extract the styles -->
+            <xslt step="2" name="mergeStyles" href="odttometalex/common/MergeStyles.xsl" />
 			<!-- Transform the document to the META Language -->
-			<xslt step="2" name="ODFToMetaLanguage" href="odttometalex/debaterecord/ODFToMetaLanguage.xsl" />
+			<xslt step="3" name="ODFToMetaLanguage" href="odttometalex/debaterecord/ODFToMetaLanguage.xsl" />
 		</input>
 		<!-- This steps are performed AFTER the above regex replacement -->
 		<output>
