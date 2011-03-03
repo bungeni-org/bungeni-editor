@@ -22,13 +22,19 @@
     xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0"
     xmlns:rpt="http://openoffice.org/2005/report" xmlns:anx="http://anx.akomantoso.org/1.0"
     xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2"
-    xmlns:rdfa="http://docs.oasis-open.org/opendocument/meta/rdfa#" version="2.0"
-    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-    <xsl:output indent="yes" method="xml"/>
-
-    <xsl:template match="/">
-        <xsl:apply-templates/>
+    xmlns:rdfa="http://docs.oasis-open.org/opendocument/meta/rdfa#" 
+    xmlns:bungeni="http://editor.bungeni.org/1.0/anx/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+    version="2.0"
+    >
+    <xsl:output indent="yes" method="xml" />
+    
+    <xsl:template match="@* | node()">
+        <xsl:copy>
+            <xsl:apply-templates select="@* | node()"/>
+        </xsl:copy>
     </xsl:template>
+    
     <!-- ***DOC***
 	in the original method metadata for a section was stored in style properties. 
 	The section was associated with a style name. This style sheet copied over the metadata
@@ -42,8 +48,9 @@
 	
 	-->
 
-    <xsl:template match="*">
-        <xsl:element name="{node-name(.)}">
+    <!-- match only carriers of metadata text:section | text:charstyle -->
+    <xsl:template match="text:section">
+        <xsl:element name="{node-name(.)}" >
             <!-- ***DOC*** 
                 only for elements which hav an id attribute 
             -->
@@ -154,7 +161,7 @@
     </xsl:template>
 
     <xsl:template match="office:document-meta">
-        <xsl:apply-templates/>
+       <xsl:apply-templates />
     </xsl:template>
 
     <xsl:template match="text:sequence-decls"> </xsl:template>
