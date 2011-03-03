@@ -15,7 +15,7 @@
 		<!-- This steps are performed BEFORE the above regex replacement -->
 		<input>
 			<!-- Extract the styles -->
-			<xslt step="1" name="mergeStyles" href="odttometalex/debaterecord/MergeStyles.xsl" />
+			<xslt step="1" name="mergeStyles" href="odttometalex/common/MergeStyles.xsl" />
 			<!-- Transform the document to the META Language -->
 			<xslt step="2" name="ODFToMetaLanguage" href="odttometalex/debaterecord/ODFToMetaLanguage.xsl" />
 		</input>
