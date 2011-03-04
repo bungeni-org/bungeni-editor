@@ -33,6 +33,8 @@
 				version="2.0">
     <xsl:output indent="yes" method="xml" />
     
+    <xsl:key name="bySectionType" match="bungenimeta" use="BungeniSectionType" />
+    
     <xsl:template match="/">
         <xsl:apply-templates />
     </xsl:template>
@@ -97,15 +99,58 @@
                 <meta name="TLCPerson" id="{//meta:user-defined[@name='BungeniWorkAuthor']}" href="{//meta:user-defined[@name='BungeniWorkAuthorURI']}" showAs="Author"/>
                 <meta name="TLCPerson" id="{//meta:user-defined[@name='BungeniExpAuthor']}" href="{//meta:user-defined[@name='BungeniExpAuthorURI']}" showAs="Editor"/>
                 <meta name="TLCPerson" id="{//meta:user-defined[@name='BungeniManAuthor']}" href="{//meta:user-defined[@name='BungeniManAuthorURI']}" showAs="Publisher"/>
-                <xsl:for-each select="//*[@BungeniSectionType='Speech']">
-                    <meta name="TLCPerson" id="{@BungeniPersonID}" href="{@BungeniSpeechByURI}" showAs="{@BungeniSpeechBy}"/>
-                </xsl:for-each> 
-                <xsl:for-each select="//*[@BungeniSectionType='ActionEvent']">
-                    <meta name="TLCEvent" id="{@BungeniEventName}" href="{@BungeniOntology}" showAs="{@BungeniOntologyName}"/>
-                </xsl:for-each> 
-                <xsl:for-each select="//*[@BungeniSectionType='Speech']">
-                    <meta name="TLCRole" id="{@BungeniSpeechAs}" href="{@BungeniSpeechAsURI}" showAs="{@BungeniSpeechAsDesc}"/>
+                
+                <!-- TLCPerson -->
+                
+                <xsl:for-each select="key('bySectionType', 'Speech')">
+                    <xsl:element name="meta">
+                        <xsl:attribute name="name">TLCPerson</xsl:attribute>
+                        <xsl:attribute name="id">
+                            <xsl:value-of select="./BungeniPersonID"></xsl:value-of>
+                        </xsl:attribute>
+                        <xsl:attribute name="href">
+                            <xsl:value-of select="./BungeniSpeechByURI"></xsl:value-of>
+                        </xsl:attribute>
+                        <xsl:attribute name="showAs">
+                            <xsl:value-of select="./BungeniSpeechBy"></xsl:value-of>
+                         </xsl:attribute>
+                    </xsl:element>
                 </xsl:for-each>
+               
+               <!-- TLCEvent -->
+                
+                <xsl:for-each select="key('bySectionType', 'ActionEvent')">
+                    <xsl:element name="meta">
+                        <xsl:attribute name="name">TLCEvent</xsl:attribute>
+                        <xsl:attribute name="id">
+                            <xsl:value-of select="./BungeniEventName"></xsl:value-of>
+                        </xsl:attribute>
+                        <xsl:attribute name="href">
+                            <xsl:value-of select="./BungeniOntology"></xsl:value-of>
+                        </xsl:attribute>
+                        <xsl:attribute name="showAs">
+                            <xsl:value-of select="./BungeniOntologyName"></xsl:value-of>
+                        </xsl:attribute>
+                    </xsl:element>
+                </xsl:for-each>
+
+                <!-- TLCRole -->
+                
+                <xsl:for-each select="key('bySectionType', 'Speech')">
+                    <xsl:element name="meta">
+                        <xsl:attribute name="name">TLCRole</xsl:attribute>
+                        <xsl:attribute name="id">
+                            <xsl:value-of select="./BungeniSpeechAs"></xsl:value-of>
+                        </xsl:attribute>
+                        <xsl:attribute name="href">
+                            <xsl:value-of select="./BungeniSpeechAsURI"></xsl:value-of>
+                        </xsl:attribute>
+                        <xsl:attribute name="showAs">
+                            <xsl:value-of select="./BungeniSpeechAsDesc"></xsl:value-of>
+                        </xsl:attribute>
+                    </xsl:element>
+                </xsl:for-each>
+                
                 <!-- adding support for bill references -->
                 <!-- first we filter the nodes for the ones that have the attribute starting with bungeni bill 
                     then we filter the attribute nodes for the ones starting with bungeni bill -->
@@ -143,7 +188,7 @@
 		     	<xsl:value-of select="@style-name"/>
 		    </xsl:attribute>
 		    <xsl:attribute name="name">
-		     	<xsl:value-of select="@BungeniSectionType"/>
+		     	<xsl:value-of select="./bungenimeta/BungeniSectionType"/>
 		    </xsl:attribute>
                         <!-- outputting comment -->
 			<xsl:apply-templates />

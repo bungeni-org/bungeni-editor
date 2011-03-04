@@ -21,19 +21,19 @@
             <!-- Add RDF ns -->
             <xslt step="1" name="appendRDFNS" href="odttometalex/common/add_rdf_ns.xsl"/>
             <!-- Extract the styles -->
-            <xslt step="2" name="mergeStyles" href="odttometalex/common/MergeStyles.xsl"/>
+            <xslt step="2" name="mergeStyles" href="odttometalex/common/merge_styles.xsl"/>
             <!-- Transform the document to the META Language -->
             <xslt step="3" name="ODFToMetaLanguage"
-                href="odttometalex/debaterecord/ODFToMetaLanguage.xsl"/>
+                href="odttometalex/debaterecord/odf_to_meta_language.xsl"/>
         </input>
         <!-- This steps are performed AFTER the above regex replacement -->
         <output>
             <!-- Normalise the produced META document -->
             <xslt step="1" name="MetaLanguageNormalisation"
-                href="odttometalex/common/MetaLanguageNormalisation.xsl"/>
+                href="odttometalex/common/meta_language_normalization.xsl"/>
             <!-- Add the METALEX namespace -->
             <xslt step="2" name="MetaLanguageAddNamespace"
-                href="odttometalex/common/MetaLanguageAddNamespace.xsl"/>
+                href="odttometalex/common/meta_language_add_ns.xsl"/>
         </output>
     </stylesheets>
 </config>
