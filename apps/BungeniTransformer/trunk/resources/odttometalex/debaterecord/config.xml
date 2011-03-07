@@ -32,9 +32,12 @@
             <!-- Normalise the produced META document -->
             <xslt step="1" name="MetaLanguageNormalisation"
                 href="odttometalex/common/meta_language_normalization.xsl"/>
-            <!-- Add the METALEX namespace -->
-            <xslt step="2" name="MetaLanguageAddNamespace"
-                href="odttometalex/common/meta_language_add_ns.xsl"/>
+            <!-- Add the Metalex namespace -->
+            <xslt step="2" name="MetaLanguageAddNamespaceMetalex"
+                href="odttometalex/common/meta_language_add_mlx_ns.xsl"/>
+            <!-- Add the Bungeni namespace -->
+            <xslt step="3" name="MetaLanguageAddNamespaceBungeni"
+                href="odttometalex/common/meta_language_add_bungeni_ns.xsl"/>
         </output>
     </stylesheets>
 </config>

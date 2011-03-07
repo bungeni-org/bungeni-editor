@@ -34,7 +34,7 @@
 				version="2.0">
     <xsl:output indent="yes" method="xml" />
     
-    <xsl:key name="bySectionType" match="bungenimeta" use="BungeniSectionType" />
+    <xsl:key name="bySectionType" match="bungeni:bungenimeta" use="bungeni:BungeniSectionType" />
     
     <xsl:template match="/">
         <xsl:apply-templates />
@@ -101,53 +101,62 @@
                 <meta name="TLCPerson" id="{//meta:user-defined[@name='BungeniExpAuthor']}" href="{//meta:user-defined[@name='BungeniExpAuthorURI']}" showAs="Editor"/>
                 <meta name="TLCPerson" id="{//meta:user-defined[@name='BungeniManAuthor']}" href="{//meta:user-defined[@name='BungeniManAuthorURI']}" showAs="Publisher"/>
                 
-                <!-- TLCPerson -->
+               
+                <xsl:comment> TLCPerson </xsl:comment>
                 
                 <xsl:for-each select="key('bySectionType', 'Speech')">
                     <xsl:element name="meta">
                         <xsl:attribute name="name">TLCPerson</xsl:attribute>
                         <xsl:attribute name="id">
-                            <xsl:value-of select="./BungeniPersonID"></xsl:value-of>
+                            <xsl:value-of select="./bungeni:BungeniPersonID"></xsl:value-of>
                         </xsl:attribute>
                         <xsl:attribute name="href">
-                            <xsl:value-of select="./BungeniSpeechByURI"></xsl:value-of>
+                            <xsl:value-of select="./bungeni:BungeniSpeechByURI"></xsl:value-of>
                         </xsl:attribute>
                         <xsl:attribute name="showAs">
-                            <xsl:value-of select="./BungeniSpeechBy"></xsl:value-of>
+                            <xsl:value-of select="./bungeni:BungeniSpeechBy"></xsl:value-of>
                          </xsl:attribute>
                     </xsl:element>
                 </xsl:for-each>
                
-               <!-- TLCEvent -->
+           
+           
+           
+                <xsl:comment> TLCEvent </xsl:comment>
                 
                 <xsl:for-each select="key('bySectionType', 'ActionEvent')">
+                    
                     <xsl:element name="meta">
                         <xsl:attribute name="name">TLCEvent</xsl:attribute>
                         <xsl:attribute name="id">
-                            <xsl:value-of select="./BungeniEventName"></xsl:value-of>
+                            <xsl:value-of select="./bungeni:BungeniEventName"></xsl:value-of>
                         </xsl:attribute>
                         <xsl:attribute name="href">
-                            <xsl:value-of select="./BungeniOntology"></xsl:value-of>
+                            <xsl:value-of select="./bungeni:BungeniOntology"></xsl:value-of>
                         </xsl:attribute>
                         <xsl:attribute name="showAs">
-                            <xsl:value-of select="./BungeniOntologyName"></xsl:value-of>
+                            <xsl:value-of select="./bungeni:BungeniOntologyName"></xsl:value-of>
                         </xsl:attribute>
                     </xsl:element>
                 </xsl:for-each>
 
-                <!-- TLCRole -->
+             
+
+                <xsl:comment>  TLCRole  </xsl:comment>
+               
                 
                 <xsl:for-each select="key('bySectionType', 'Speech')">
+                    
                     <xsl:element name="meta">
                         <xsl:attribute name="name">TLCRole</xsl:attribute>
                         <xsl:attribute name="id">
-                            <xsl:value-of select="./BungeniSpeechAs"></xsl:value-of>
+                            <xsl:value-of select="./bungeni:BungeniSpeechAs"></xsl:value-of>
                         </xsl:attribute>
                         <xsl:attribute name="href">
-                            <xsl:value-of select="./BungeniSpeechAsURI"></xsl:value-of>
+                            <xsl:value-of select="./bungeni:BungeniSpeechAsURI"></xsl:value-of>
                         </xsl:attribute>
                         <xsl:attribute name="showAs">
-                            <xsl:value-of select="./BungeniSpeechAsDesc"></xsl:value-of>
+                            <xsl:value-of select="./bungeni:BungeniSpeechAsDesc"></xsl:value-of>
                         </xsl:attribute>
                     </xsl:element>
                 </xsl:for-each>
@@ -189,7 +198,7 @@
 		     	<xsl:value-of select="@style-name"/>
 		    </xsl:attribute>
 		    <xsl:attribute name="name">
-		     	<xsl:value-of select="./bungenimeta/BungeniSectionType"/>
+		     	<xsl:value-of select="./bungeni:bungenimeta/bungeni:BungeniSectionType"/>
 		    </xsl:attribute>
                         <!-- outputting comment -->
 			<xsl:apply-templates />

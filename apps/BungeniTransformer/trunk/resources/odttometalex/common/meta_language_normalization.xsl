@@ -59,6 +59,7 @@
 
 	<xsl:template match="container[@name = 'body']">
 		<container>
+		   
 			<xsl:for-each select="@*">
 				<xsl:attribute name="{local-name(.)}">
 					<xsl:value-of select="."/>
