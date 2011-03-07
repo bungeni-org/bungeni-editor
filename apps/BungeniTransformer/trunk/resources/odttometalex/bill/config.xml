@@ -14,19 +14,26 @@
 	<stylesheets>
 		<!-- This steps are performed BEFORE the above regex replacement -->
 		<input>
-			<!-- Extract the styles -->
-			<xslt step="1" name="mergeStyles" href="odttometalex/bill/MergeStyles.xsl" />
-			<!-- Transform the document to the META Language -->
-			<xslt step="2" name="ODFToMetaLanguage" href="odttometalex/bill/ODFToMetaLanguage.xsl" />
+		    <xslt step="1" name="appendBungeniNS" href="odttometalex/common/add_bungeni_ns.xsl"/>
+		    <!-- Add RDF ns -->
+		    <xslt step="2" name="appendRDFNS" href="odttometalex/common/add_rdf_ns.xsl"/>
+		    <!-- Extract the styles -->
+		    <xslt step="3" name="mergeStyles" href="odttometalex/common/merge_styles.xsl"/>
+		    <!-- Transform the document to the META Language -->
+		    <xslt step="4" name="ODFToMetaLanguage"
+		        href="odttometalex/bill/odf_to_meta_language.xsl"/>
 		</input>
 		<!-- This steps are performed AFTER the above regex replacement -->
 		<output>
-			<!-- Normalise the produced META document -->
-			<xslt step="1" name="MetaLanguageNormalisation" href="odttometalex/bill/MetaLanguageNormalisation.xsl" /> 
-			<!-- Normalise the produced META document (Step 2 Delete Empty Container) -->
-			<xslt step="2" name="MetaLanguageNormalisation_DeleteEmptyContainer" href="odttometalex/bill/MetaLanguageNormalisationDeleteEmptyContainer.xsl" /> 
-			<!-- Add the METALEX namespace -->
-			<xslt step="3" name="MetaLanguageAddNamespace" href="odttometalex/bill/MetaLanguageAddNamespace.xsl" />
+		    <!-- Normalise the produced META document -->
+		    <xslt step="1" name="MetaLanguageNormalisation"
+		        href="odttometalex/common/meta_language_normalization.xsl"/>
+		    <!-- Add the Metalex namespace -->
+		    <xslt step="2" name="MetaLanguageAddNamespaceMetalex"
+		        href="odttometalex/common/meta_language_add_mlx_ns.xsl"/>
+		    <!-- Add the Bungeni namespace -->
+		    <xslt step="3" name="MetaLanguageAddNamespaceBungeni"
+		        href="odttometalex/common/meta_language_add_bungeni_ns.xsl"/>
 		</output>
 	</stylesheets>
 </config>

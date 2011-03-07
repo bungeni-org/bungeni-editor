@@ -34,6 +34,10 @@
         <xsl:apply-templates/>
     </xsl:template>
 
+    <!--
+    Match all elements without a namespace - i.e. all elements in the default namespace.
+    All these elements are placed in the metalex namespace
+    -->
     <xsl:template match="*[ (namespace-uri() ne 'http://www.metalex.org/1.0') 
                                and (namespace-uri() ne 'http://editor.bungeni.org/1.0/anx') ]">
         <xsl:element name="{name()}" namespace="http://www.metalex.org/1.0">
@@ -46,6 +50,9 @@
         </xsl:element>
     </xsl:template>
 
+    <!--
+    Copy all elements which have an explicit bungeni namespace as is
+    -->
     <xsl:template match="*[namespace-uri() eq 'http://editor.bungeni.org/1.0/anx/']">
         <xsl:copy>
             <xsl:apply-templates select="@* | node() " />
