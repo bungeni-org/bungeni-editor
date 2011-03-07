@@ -46,8 +46,8 @@
 		</xsl:if>
 	</xsl:template> 
 	
-	<xsl:template match="root">
-		<xsl:element name="{name()}">
+	<xsl:template match="root" >
+		<xsl:element name="{name()}" inherit-namespaces="yes" >
 			<xsl:for-each select="@*">
 				<xsl:attribute name="{local-name(.)}">
 					<xsl:value-of select="."/>

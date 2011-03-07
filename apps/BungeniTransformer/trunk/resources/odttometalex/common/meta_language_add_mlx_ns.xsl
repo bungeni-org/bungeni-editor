@@ -34,7 +34,8 @@
         <xsl:apply-templates/>
     </xsl:template>
 
-    <xsl:template match="*">
+    <xsl:template match="*[ (namespace-uri() ne 'http://www.metalex.org/1.0') 
+                               and (namespace-uri() ne 'http://editor.bungeni.org/1.0/anx') ]">
         <xsl:element name="{name()}" namespace="http://www.metalex.org/1.0">
             <xsl:for-each select="@*">
                 <xsl:attribute name="{local-name(.)}">
@@ -44,5 +45,12 @@
             <xsl:apply-templates/>
         </xsl:element>
     </xsl:template>
+
+    <xsl:template match="*[namespace-uri() eq 'http://editor.bungeni.org/1.0/anx/']">
+        <xsl:copy>
+            <xsl:apply-templates select="@* | node() " />
+        </xsl:copy>
+    </xsl:template>
+    
 
 </xsl:stylesheet>
