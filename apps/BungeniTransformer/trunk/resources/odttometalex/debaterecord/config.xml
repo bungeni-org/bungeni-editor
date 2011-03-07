@@ -18,12 +18,13 @@
     <stylesheets>
         <!-- This steps are performed BEFORE the above regex replacement -->
         <input>
+            <xslt step="1" name="appendBungeniNS" href="odttometalex/common/add_bungeni_ns.xsl"/>
             <!-- Add RDF ns -->
-            <xslt step="1" name="appendRDFNS" href="odttometalex/common/add_rdf_ns.xsl"/>
+            <xslt step="2" name="appendRDFNS" href="odttometalex/common/add_rdf_ns.xsl"/>
             <!-- Extract the styles -->
-            <xslt step="2" name="mergeStyles" href="odttometalex/common/merge_styles.xsl"/>
+            <xslt step="3" name="mergeStyles" href="odttometalex/common/merge_styles.xsl"/>
             <!-- Transform the document to the META Language -->
-            <xslt step="3" name="ODFToMetaLanguage"
+            <xslt step="4" name="ODFToMetaLanguage"
                 href="odttometalex/debaterecord/odf_to_meta_language.xsl"/>
         </input>
         <!-- This steps are performed AFTER the above regex replacement -->

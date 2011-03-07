@@ -81,7 +81,7 @@
                     only if there is the correspoinding rdf metadata graph 
                 -->
                 <xsl:if test="//rdf:RDF/rdf:Description[@rdf:about=$rdfid]">
-                    <xsl:element name="bungenimeta">
+                    <xsl:element name="bungeni:bungenimeta">
                         <xsl:attribute name="for">
                             <xsl:text>#</xsl:text>
                             <xsl:value-of select="$itemid"/>
@@ -95,7 +95,7 @@
                             <!-- ***DOC***
                                 we select all the child metadata metadata elements
                             -->
-                            <xsl:element name="{local-name()}">
+                            <xsl:element name="bungeni:{local-name()}">
                                 <xsl:value-of select="."/>
                             </xsl:element>
                         </xsl:for-each>
