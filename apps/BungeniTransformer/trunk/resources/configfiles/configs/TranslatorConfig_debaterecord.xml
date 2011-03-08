@@ -4,6 +4,7 @@
 	<!-- debaterecord -->
 	<entry key="metalexConfigPath">odt2metalex/debaterecord/config.xml</entry>
 	<entry key="akomantosoSchemaPath">metalex2akn/schema/akomantoso10.xsd</entry>
-	<entry key="akomantosoAddNamespaceXSLTPath">metalex2akn/defaultvalues/debaterecord/metalex2aknAddNamespace.xsl</entry>
-	<entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry> 
+	<entry key="akomantosoAddNamespaceXSLTPath">metalex2akn/defaultvalues/debaterecord/add_an_ns.xsl</entry>
+	<entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
+        <entry key="cachePipelineXSLT">true</entry>
 </properties>
