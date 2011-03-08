@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-<properties>
-	<!-- debaterecord -->
-	<entry key="metalexConfigPath">odttometalex/debaterecord/config.xml</entry>
-	<entry key="akomantosoSchemaPath">odttoakn/schema/akomantoso10.xsd</entry>
-	<entry key="akomantosoAddNamespaceXSLTPath">odttoakn/defaultvalues/debaterecord/OdtToAknAddNamespace.xsl</entry>
-	<entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry> 
-</properties>

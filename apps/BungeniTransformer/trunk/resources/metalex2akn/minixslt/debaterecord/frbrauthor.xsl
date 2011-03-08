@@ -6,7 +6,18 @@
         <xsl:apply-templates/>
     </xsl:template>
 
-    <xsl:include href="../common/identity_template.xsl"/>
+    <xsl:template match="*">
+        <xsl:element name="{node-name(.)}">
+            <xsl:for-each select="@*">
+                <xsl:attribute name="{name(.)}">
+                    <xsl:value-of select="."/>
+                </xsl:attribute>
+            </xsl:for-each>
+            <xsl:apply-templates />
+        </xsl:element>
+    </xsl:template>
+    
+   <!-- <xsl:include href="../common/identity_template.xsl"/>-->
 
     <xsl:template match="*[@name='author']">
         <FRBRauthor>
@@ -25,6 +36,9 @@
         </FRBRauthor>
     </xsl:template>
 
-    <xsl:include href="../common/normalize_text_template.xsl"/>
+   <!-- <xsl:include href="../common/normalize_text_template.xsl"/>-->
 
+    <xsl:template match="text()">
+        <xsl:value-of select="normalize-space(.)"/>
+    </xsl:template> 
 </xsl:stylesheet>

@@ -19,264 +19,265 @@
     </xsl:template>
 
     <xsl:template match="*[@name='root']">
-        <xslt name="root" href="odttoakn/minixslt/debaterecord/root.xsl"/>
+        <xslt name="root" href="metalex2akn/minixslt/debaterecord/root.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='body']">
-        <xslt name="body" href="odttoakn/minixslt/debaterecord/debate_body.xsl"/>
+        <xslt name="body" href="metalex2akn/minixslt/debaterecord/debate_body.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='Preface']">
-        <xslt name="Preface" href="odttoakn/minixslt/debaterecord/preface.xsl"/>
+        <xslt name="Preface" href="metalex2akn/minixslt/debaterecord/preface.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='Observation']">
-        <xslt name="Observation" href="odttoakn/minixslt/debaterecord/observation.xsl"/>
+        <xslt name="Observation" href="metalex2akn/minixslt/debaterecord/observation.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='PapersLaid']">
-        <xslt name="PapersLaid" href="odttoakn/minixslt/debaterecord/tableddocuments.xsl"/>
+        <xslt name="PapersLaid" href="metalex2akn/minixslt/debaterecord/tableddocuments.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='PapersLaidList']">
-        <xslt name="PapersLaidList" href="odttoakn/minixslt/debaterecord/tableddocumentslist.xsl"/>
+        <xslt name="PapersLaidList" href="metalex2akn/minixslt/debaterecord/tableddocumentslist.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='GroupActivity']">
-        <xslt name="GroupActivity" href="odttoakn/minixslt/debaterecord/groupactivity.xsl"/>
+        <xslt name="GroupActivity" href="metalex2akn/minixslt/debaterecord/groupactivity.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='Speech']">
-        <xslt name="Speech" href="odttoakn/minixslt/debaterecord/speech.xsl"/>
+        <xslt name="Speech" href="metalex2akn/minixslt/debaterecord/speech.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='QuestionsContainer']">
-        <xslt name="QuestionsContainer" href="odttoakn/minixslt/debaterecord/questionscontainer.xsl"/>
+        <xslt name="QuestionsContainer" href="metalex2akn/minixslt/debaterecord/questionscontainer.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='QuestionAnswer']">
-        <xslt name="QuestionAnswer" href="odttoakn/minixslt/debaterecord/questionanswer.xsl"/>
+        <xslt name="QuestionAnswer" href="metalex2akn/minixslt/debaterecord/questionanswer.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='Question']">
-        <xslt name="Question" href="odttoakn/minixslt/debaterecord/question.xsl"/>
+        <xslt name="Question" href="metalex2akn/minixslt/debaterecord/question.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='PointOfOrder']">
-        <xslt name="PointOfOrder" href="odttoakn/minixslt/debaterecord/pointoforder.xsl"/>
+        <xslt name="PointOfOrder" href="metalex2akn/minixslt/debaterecord/pointoforder.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='PersonalStatement']">
-        <xslt name="PersonalStatement" href="odttoakn/minixslt/debaterecord/personalstatement.xsl"/>
+        <xslt name="PersonalStatement" href="metalex2akn/minixslt/debaterecord/personalstatement.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='MinisterialStatement']">
         <xslt name="MinisterialStatement"
-            href="odttoakn/minixslt/debaterecord/ministerialstatement.xsl"/>
+            href="metalex2akn/minixslt/debaterecord/ministerialstatement.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='Petitions']">
-        <xslt name="Petitions" href="odttoakn/minixslt/debaterecord/petitions.xsl"/>
+        <xslt name="Petitions" href="metalex2akn/minixslt/debaterecord/petitions.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
 
     <xsl:template match="*[@name='PetitionsList']">
-        <xslt name="PetitionsList" href="odttoakn/minixslt/debaterecord/petitionslist.xsl"/>
+        <xslt name="PetitionsList" href="metalex2akn/minixslt/debaterecord/petitionslist.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
 
     <xsl:template match="*[@name='PMotionsContainer']">
-        <xslt name="PMotionsContainer" href="odttoakn/minixslt/debaterecord/pmotionscontainer.xsl"/>
+        <xslt name="PMotionsContainer" href="metalex2akn/minixslt/debaterecord/pmotionscontainer.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='NMotionsContainer']">
-        <xslt name="NMotionsContainer" href="odttoakn/minixslt/debaterecord/nmotionsContainer.xsl"/>
+        <xslt name="NMotionsContainer" href="metalex2akn/minixslt/debaterecord/nmotionscontainer.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
+    
     <!--
 	<xsl:template match="*[@name='ProceduralMotion']">
-		<xslt step name="ProceduralMotion" href="odttoakn/minixslt/debaterecord/ProceduralMotion.xsl" />
+		<xslt step name="ProceduralMotion" href="metalex2akn/minixslt/debaterecord/ProceduralMotion.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='MotionsContainer']">
-		<xslt step name="MotionsContainer" href="odttoakn/minixslt/debaterecord/MotionsContainer.xsl" />
+		<xslt step name="MotionsContainer" href="metalex2akn/minixslt/debaterecord/MotionsContainer.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 	-->
 
     <!-- changed to NoticeOfMotion 20/July/2009 -->
     <xsl:template match="*[@name='NoticeOfMotion']">
-        <xslt name="NoticeOfMotion" href="odttoakn/minixslt/debaterecord/noticeofmotion.xsl"/>
+        <xslt name="NoticeOfMotion" href="metalex2akn/minixslt/debaterecord/noticeofmotion.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='ProceduralMotion']">
-        <xslt name="ProceduralMotion" href="odttoakn/minixslt/debaterecord/proceduralmotion.xsl"/>
+        <xslt name="ProceduralMotion" href="metalex2akn/minixslt/debaterecord/proceduralmotion.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
 
     <xsl:template match="*[@name='Person']">
-        <xslt name="Person" href="odttoakn/minixslt/debaterecord/person.xsl"/>
+        <xslt name="Person" href="metalex2akn/minixslt/debaterecord/person.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='ActionEvent']">
-        <xslt name="ActionEvent" href="odttoakn/minixslt/debaterecord/actionevent.xsl"/>
+        <xslt name="ActionEvent" href="metalex2akn/minixslt/debaterecord/actionevent.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='Communication']">
-        <xslt name="Communication" href="odttoakn/minixslt/debaterecord/communication.xsl"/>
+        <xslt name="Communication" href="metalex2akn/minixslt/debaterecord/communication.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='Conclusion']">
-        <xslt name="Conclusion" href="odttoakn/minixslt/debaterecord/conclusion.xsl"/>
+        <xslt name="Conclusion" href="metalex2akn/minixslt/debaterecord/conclusion.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='span']">
-        <xslt name="span" href="odttoakn/minixslt/debaterecord/span.xsl"/>
+        <xslt name="span" href="metalex2akn/minixslt/debaterecord/span.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='p']">
-        <xslt name="p" href="odttoakn/minixslt/debaterecord/p.xsl"/>
+        <xslt name="p" href="metalex2akn/minixslt/debaterecord/p.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='ref']">
-        <xslt name="ref" href="odttoakn/minixslt/debaterecord/ref.xsl"/>
+        <xslt name="ref" href="metalex2akn/minixslt/debaterecord/ref.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='heading']">
-        <xslt name="heading" href="odttoakn/minixslt/debaterecord/heading.xsl"/>
+        <xslt name="heading" href="metalex2akn/minixslt/debaterecord/heading.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='subheading']">
-        <xslt name="subheading" href="odttoakn/minixslt/debaterecord/subheading.xsl"/>
+        <xslt name="subheading" href="metalex2akn/minixslt/debaterecord/subheading.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='list']">
-        <xslt name="list" href="odttoakn/minixslt/debaterecord/list.xsl"/>
+        <xslt name="list" href="metalex2akn/minixslt/debaterecord/list.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='item']">
-        <xslt name="item" href="odttoakn/minixslt/debaterecord/item.xsl"/>
+        <xslt name="item" href="metalex2akn/minixslt/debaterecord/item.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='a']">
-        <xslt name="a" href="odttoakn/minixslt/debaterecord/a.xsl"/>
+        <xslt name="a" href="metalex2akn/minixslt/debaterecord/a.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='meta']">
-        <xslt name="meta" href="odttoakn/minixslt/debaterecord/meta.xsl"/>
+        <xslt name="meta" href="metalex2akn/minixslt/debaterecord/meta.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='identification']">
-        <xslt name="identification" href="odttoakn/minixslt/debaterecord/identification.xsl"/>
+        <xslt name="identification" href="metalex2akn/minixslt/debaterecord/identification.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='FRBRWork']">
-        <xslt name="FRBRWork" href="odttoakn/minixslt/debaterecord/frbrwork.xsl"/>
+        <xslt name="FRBRWork" href="metalex2akn/minixslt/debaterecord/frbrwork.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='FRBRExpression']">
-        <xslt name="FRBRExpression" href="odttoakn/minixslt/debaterecord/frbrexpression.xsl"/>
+        <xslt name="FRBRExpression" href="metalex2akn/minixslt/debaterecord/frbrexpression.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='FRBRManifestation']">
-        <xslt name="FRBRManifestation" href="odttoakn/minixslt/debaterecord/frbrmanifestation.xsl"/>
+        <xslt name="FRBRManifestation" href="metalex2akn/minixslt/debaterecord/frbrmanifestation.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='this']">
-        <xslt name="this" href="odttoakn/minixslt/debaterecord/this.xsl"/>
+        <xslt name="this" href="metalex2akn/minixslt/debaterecord/this.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='uri']">
-        <xslt name="uri" href="odttoakn/minixslt/debaterecord/uri.xsl"/>
+        <xslt name="uri" href="metalex2akn/minixslt/debaterecord/uri.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='date']">
-        <xslt name="date" href="odttoakn/minixslt/debaterecord/date.xsl"/>
+        <xslt name="date" href="metalex2akn/minixslt/debaterecord/date.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='author']">
-        <xslt name="FRBRauthor" href="odttoakn/minixslt/debaterecord/frbrauthor.xsl"/>
+        <xslt name="author" href="metalex2akn/minixslt/debaterecord/frbrauthor.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='publication_mcontainer']">
         <xslt name="publication_mcontainer"
-            href="odttoakn/minixslt/debaterecord/publication_mcontainer.xsl"/>
+            href="metalex2akn/minixslt/debaterecord/publication_mcontainer.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='publication']">
-        <xslt name="publication" href="odttoakn/minixslt/debaterecord/publication.xsl"/>
+        <xslt name="publication" href="metalex2akn/minixslt/debaterecord/publication.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='references']">
-        <xslt name="references" href="odttoakn/minixslt/debaterecord/references.xsl"/>
+        <xslt name="references" href="metalex2akn/minixslt/debaterecord/references.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='TLCOrganization']">
-        <xslt name="TLCOrganization" href="odttoakn/minixslt/debaterecord/tlcorganization.xsl"/>
+        <xslt name="TLCOrganization" href="metalex2akn/minixslt/debaterecord/tlcorganization.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='TLCPerson']">
-        <xslt name="TLCPerson" href="odttoakn/minixslt/debaterecord/tlcperson.xsl"/>
+        <xslt name="TLCPerson" href="metalex2akn/minixslt/debaterecord/tlcperson.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='TLCEvent']">
-        <xslt name="TLCEvent" href="odttoakn/minixslt/debaterecord/tlcevent.xsl"/>
+        <xslt name="TLCEvent" href="metalex2akn/minixslt/debaterecord/tlcevent.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='TLCRole']">
-        <xslt name="TLCRole" href="odttoakn/minixslt/debaterecord/tlcrole.xsl"/>
+        <xslt name="TLCRole" href="metalex2akn/minixslt/debaterecord/tlcrole.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='TLCReference']">
-        <xslt name="TLCReference" href="odttoakn/minixslt/debaterecord/tlcreference.xsl"/>
+        <xslt name="TLCReference" href="metalex2akn/minixslt/debaterecord/tlcreference.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 </xsl:stylesheet>
