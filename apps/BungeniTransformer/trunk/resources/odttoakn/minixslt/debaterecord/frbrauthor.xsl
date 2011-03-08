@@ -8,21 +8,21 @@
 
     <xsl:include href="../common/identity_template.xsl"/>
 
-    <xsl:template match="*[@name='a']">
-        <a>
-            <xsl:if test="@id">
-                <xsl:attribute name="id">
-                    <xsl:value-of select="@id"/>
-                </xsl:attribute>
-            </xsl:if>
+    <xsl:template match="*[@name='author']">
+        <FRBRauthor>
             <xsl:if test="@href">
                 <xsl:attribute name="href">
                     <xsl:value-of select="@href"/>
                 </xsl:attribute>
             </xsl:if>
+            <xsl:if test="@as">
+                <xsl:attribute name="as">
+                    <xsl:value-of select="@as"/>
+                </xsl:attribute>
+            </xsl:if>
 
             <xsl:apply-templates/>
-        </a>
+        </FRBRauthor>
     </xsl:template>
 
     <xsl:include href="../common/normalize_text_template.xsl"/>
