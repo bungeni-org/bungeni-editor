@@ -12,9 +12,9 @@ import org.apache.log4j.BasicConfigurator;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.un.bungeni.translators.globalconfigurations.GlobalConfigurations;
-import org.un.bungeni.translators.odttoakn.translator.OATranslator;
-import org.un.bungeni.translators.utility.files.FileUtility;
+import org.bungeni.translators.globalconfigurations.GlobalConfigurations;
+import org.bungeni.translators.translator.OATranslator;
+import org.bungeni.translators.utility.files.FileUtility;
 
 
 /**

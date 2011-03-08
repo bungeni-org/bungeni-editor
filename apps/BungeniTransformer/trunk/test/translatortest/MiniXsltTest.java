@@ -11,12 +11,12 @@ import java.io.UnsupportedEncodingException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
 
-import org.un.bungeni.translators.utility.files.FileUtility;
-import org.un.bungeni.translators.utility.xslttransformer.XSLTTransformer;
+import org.bungeni.translators.utility.files.FileUtility;
+import org.bungeni.translators.utility.xslttransformer.XSLTTransformer;
 
 public class MiniXsltTest {
 	public static void main (String[] args) {
-		String inputXslt = "resources/odttoakn/minixslt/judgement/ref.xsl";
+		String inputXslt = "resources/metalex2akn/minixslt/judgement/ref.xsl";
 		String inputFile = "tests/testresults/test_judgement_header.mlx";
 		System.out.println((new File(inputXslt)).getAbsolutePath());
 		

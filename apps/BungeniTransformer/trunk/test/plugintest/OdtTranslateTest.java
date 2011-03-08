@@ -26,8 +26,8 @@ public class OdtTranslateTest {
 		paramMap.put("OutputFilePath", currentDirectory + "/test/testresults/plugintest_debaterecord.xml");
 		paramMap.put("OutputMetalexFilePath", currentDirectory + "/test/testresults/plugintest_debaterecord.mlx");
 		paramMap.put("TranslatorRootFolder", currentDirectory + "/resources/");
-		paramMap.put("TranslatorConfigFile", "configfiles/odttoakn/TranslatorConfig_debaterecord.xml");
-		paramMap.put("TranslatorPipeline","odttoakn/minixslt/debaterecord/pipeline.xsl" );
+		paramMap.put("TranslatorConfigFile", "configfiles/configs/TranslatorConfig_debaterecord.xml");
+		paramMap.put("TranslatorPipeline","metalex2akn/minixslt/debaterecord/pipeline.xsl" );
 		paramMap.put("CurrentDocType", currentDocType);
 		paramMap.put("CallerPanel", null);
 		paramMap.put("PluginMode", "odt2akn");

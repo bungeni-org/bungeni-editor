@@ -16,8 +16,8 @@ public class OATranslatorTestJudgementBase extends OATranslatorTestBase {
 
 	public OATranslatorTestJudgementBase() {
 		super();
-		setConfigFilePath("configfiles/odttoakn/TranslatorConfig_judgement.xml");
-		setPipeline("odttoakn/minixslt/judgement/pipeline.xsl");
+		setConfigFilePath("configfiles/configs/TranslatorConfig_judgement.xml");
+		setPipeline("metalex2akn/minixslt/judgement/pipeline.xsl");
 	}
 }
 

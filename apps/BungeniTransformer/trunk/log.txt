@@ -1,0 +1,63 @@
+DEBUG [org.bungeni.translators.translator.OAInputStepsResolver] executing input step = appendBungeniNS, odt2metalex/common/add_bungeni_ns.xsl
+DEBUG [org.bungeni.translators.translator.OAInputStepsResolver] executing input step = appendRDFNS, odt2metalex/common/add_rdf_ns.xsl
+DEBUG [org.bungeni.translators.translator.OAInputStepsResolver] executing input step = mergeStyles, odt2metalex/common/merge_styles.xsl
+DEBUG [org.bungeni.translators.translator.OAInputStepsResolver] executing input step = ODFToMetaLanguage, odt2metalex/debaterecord/odf_to_meta_language.xsl
+DEBUG [org.bungeni.translators.translator.OAReplaceStepsResolver] executing replace step  :replacerefmarkstart
+DEBUG [org.bungeni.translators.translator.OAReplaceStepsResolver] executing replace step  :replacerefmarkend
+DEBUG [org.bungeni.translators.translator.OAReplaceStepsResolver] executing replace step  :bookmarkstart
+DEBUG [org.bungeni.translators.translator.OAReplaceStepsResolver] executing replace step  :bookmarkend
+DEBUG [org.bungeni.translators.translator.OAReplaceStepsResolver] executing replace step  :replaceemptyline
+DEBUG [org.bungeni.translators.translator.OAOutputStepsResolver] executing output step = MetaLanguageNormalisation , odt2metalex/common/meta_language_normalization.xsl
+DEBUG [org.bungeni.translators.translator.OAOutputStepsResolver] executing output step = MetaLanguageAddNamespaceMetalex , odt2metalex/common/meta_language_add_mlx_ns.xsl
+DEBUG [org.bungeni.translators.translator.OAOutputStepsResolver] executing output step = MetaLanguageAddNamespaceBungeni , odt2metalex/common/meta_language_add_bungeni_ns.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] resolving pipeline path = resources/metalex2akn/minixslt/debaterecord/pipeline.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: root , metalex2akn/minixslt/debaterecord/root.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: body , metalex2akn/minixslt/debaterecord/debate_body.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: Preface , metalex2akn/minixslt/debaterecord/preface.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: Observation , metalex2akn/minixslt/debaterecord/observation.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: PapersLaid , metalex2akn/minixslt/debaterecord/tableddocuments.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: PapersLaidList , metalex2akn/minixslt/debaterecord/tableddocumentslist.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: GroupActivity , metalex2akn/minixslt/debaterecord/groupactivity.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: Speech , metalex2akn/minixslt/debaterecord/speech.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: QuestionsContainer , metalex2akn/minixslt/debaterecord/questionscontainer.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: QuestionAnswer , metalex2akn/minixslt/debaterecord/questionanswer.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: Question , metalex2akn/minixslt/debaterecord/question.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: PointOfOrder , metalex2akn/minixslt/debaterecord/pointoforder.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: PersonalStatement , metalex2akn/minixslt/debaterecord/personalstatement.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: MinisterialStatement , metalex2akn/minixslt/debaterecord/ministerialstatement.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: Petitions , metalex2akn/minixslt/debaterecord/petitions.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: PetitionsList , metalex2akn/minixslt/debaterecord/petitionslist.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: PMotionsContainer , metalex2akn/minixslt/debaterecord/pmotionscontainer.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: NMotionsContainer , metalex2akn/minixslt/debaterecord/nmotionscontainer.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: NoticeOfMotion , metalex2akn/minixslt/debaterecord/noticeofmotion.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: ProceduralMotion , metalex2akn/minixslt/debaterecord/proceduralmotion.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: Person , metalex2akn/minixslt/debaterecord/person.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: ActionEvent , metalex2akn/minixslt/debaterecord/actionevent.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: Communication , metalex2akn/minixslt/debaterecord/communication.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: Conclusion , metalex2akn/minixslt/debaterecord/conclusion.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: span , metalex2akn/minixslt/debaterecord/span.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: p , metalex2akn/minixslt/debaterecord/p.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: ref , metalex2akn/minixslt/debaterecord/ref.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: heading , metalex2akn/minixslt/debaterecord/heading.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: subheading , metalex2akn/minixslt/debaterecord/subheading.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: list , metalex2akn/minixslt/debaterecord/list.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: item , metalex2akn/minixslt/debaterecord/item.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: a , metalex2akn/minixslt/debaterecord/a.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: meta , metalex2akn/minixslt/debaterecord/meta.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: identification , metalex2akn/minixslt/debaterecord/identification.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: FRBRWork , metalex2akn/minixslt/debaterecord/frbrwork.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: FRBRExpression , metalex2akn/minixslt/debaterecord/frbrexpression.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: FRBRManifestation , metalex2akn/minixslt/debaterecord/frbrmanifestation.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: this , metalex2akn/minixslt/debaterecord/this.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: uri , metalex2akn/minixslt/debaterecord/uri.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: date , metalex2akn/minixslt/debaterecord/date.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: author , metalex2akn/minixslt/debaterecord/frbrauthor.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: publication_mcontainer , metalex2akn/minixslt/debaterecord/publication_mcontainer.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: publication , metalex2akn/minixslt/debaterecord/publication.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: references , metalex2akn/minixslt/debaterecord/references.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: TLCOrganization , metalex2akn/minixslt/debaterecord/tlcorganization.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: TLCPerson , metalex2akn/minixslt/debaterecord/tlcperson.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: TLCEvent , metalex2akn/minixslt/debaterecord/tlcevent.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: TLCRole , metalex2akn/minixslt/debaterecord/tlcrole.xsl
+DEBUG [org.bungeni.translators.translator.OAPipelineResolver] 	 processing element :: TLCReference , metalex2akn/minixslt/debaterecord/tlcreference.xsl
+FATAL [org.bungeni.translators.translator.OATranslator] [Ljava.lang.StackTraceElement;@6482d603

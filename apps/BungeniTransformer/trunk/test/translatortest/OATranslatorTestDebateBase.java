@@ -17,8 +17,8 @@ public class OATranslatorTestDebateBase extends OATranslatorTestBase {
 
 	public OATranslatorTestDebateBase() {
 		super();
-		setConfigFilePath("configfiles/odttoakn/TranslatorConfig_debaterecord.xml");
-		setPipeline("odttoakn/minixslt/debaterecord/pipeline.xsl");
+		setConfigFilePath("configfiles/configs/TranslatorConfig_debaterecord.xml");
+		setPipeline("metalex2akn/minixslt/debaterecord/pipeline.xsl");
 	}
 }
 

@@ -12,8 +12,8 @@ import java.util.HashMap;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.un.bungeni.translators.globalconfigurations.GlobalConfigurations;
-import org.un.bungeni.translators.odttoakn.translator.OATranslator;
+import org.bungeni.translators.globalconfigurations.GlobalConfigurations;
+import org.bungeni.translators.translator.OATranslator;
 //import org.un.bungeni.translators.odttoakn.xslprocbuilder.OAXSLProcBuilder;
 //import org.un.bungeni.translators.utility.exceptionmanager.ExceptionManager;
 
@@ -34,8 +34,8 @@ public class OATranslatorTestDebate
 		//set the application path prefix
 		//GlobalConfigurations.setApplicationPathPrefix("/Users/lucacervone/Documents/AKNTranslatorData/resources/");
 		GlobalConfigurations.setApplicationPathPrefix("resources/");
-		//GlobalConfigurations.setConfigurationFilePath("configfiles/odttoakn/TranslatorConfig_debaterecord.xml");
-		GlobalConfigurations.setConfigurationFilePath("configfiles/odttoakn/TranslatorConfig_debaterecord.xml");
+		//GlobalConfigurations.setConfigurationFilePath("configfiles/metalex2akn/TranslatorConfig_debaterecord.xml");
+		GlobalConfigurations.setConfigurationFilePath("configfiles/configs/TranslatorConfig_debaterecord.xml");
 
 		//get the instance of the translator
 		myTranslator = OATranslator.getInstance();
@@ -66,7 +66,7 @@ public class OATranslatorTestDebate
 	public final void testTranslate() throws Exception 
 	{
 		//perform a translation
-		HashMap<String, File> translatedFiles = myTranslator.translate("resources/ke_debaterecord_2009-10-14_eng.odt",GlobalConfigurations.getApplicationPathPrefix() + "odttoakn/minixslt/debaterecord/pipeline.xsl");
+		HashMap<String, File> translatedFiles = myTranslator.translate("resources/ke_debaterecord_2009-10-14_eng.odt",GlobalConfigurations.getApplicationPathPrefix() + "odt2akn/minixslt/debaterecord/pipeline.xsl");
 		//File translation = myTranslator.translate("resources/debaterecord_ken_eng_2008_12_17_main.odt", GlobalConfigurations.getApplicationPathPrefix() + "odttoakn/minixslt/debaterecord/pipeline.xsl");
 		System.out.println("OUTPUTTING ERRORS = \n\n" + myTranslator.getValidationErrors());
 		

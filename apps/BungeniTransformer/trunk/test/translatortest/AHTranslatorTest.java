@@ -12,8 +12,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 //import org.un.bungeni.translators.akntohtml.configurations.AHConfigurationBuilder;
-import org.un.bungeni.translators.akntohtml.translator.AHTranslator;
-import org.un.bungeni.translators.globalconfigurations.GlobalConfigurations;
+import org.bungeni.translators.akntohtml.translator.AHTranslator;
+import org.bungeni.translators.globalconfigurations.GlobalConfigurations;
 //import org.un.bungeni.translators.akntohtml.xslprocbuilder.AHXSLProcBuilder;
 //import org.un.bungeni.translators.utility.exceptionmanager.ExceptionManager;
 

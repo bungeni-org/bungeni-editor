@@ -10,9 +10,9 @@ import org.apache.log4j.Logger;
 
 import org.bungeni.plugins.IEditorPlugin;
 
-import org.un.bungeni.translators.globalconfigurations.GlobalConfigurations;
-import org.un.bungeni.translators.odttoakn.translator.OATranslator;
-import org.un.bungeni.translators.utility.files.FileUtility;
+import org.bungeni.translators.globalconfigurations.GlobalConfigurations;
+import org.bungeni.translators.translator.OATranslator;
+import org.bungeni.translators.utility.files.FileUtility;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -187,7 +187,6 @@ public class OdtTranslate implements IEditorPlugin {
         // setting application prefixes etc..
         GlobalConfigurations.setApplicationPathPrefix(this.translatorRootFolder);
 
-        // GlobalConfigurations.setConfigurationFilePath("configfiles/odttoakn/TranslatorConfig_debaterecord.xml");
         GlobalConfigurations.setConfigurationFilePath(this.translatorConfigFile);
     }
 

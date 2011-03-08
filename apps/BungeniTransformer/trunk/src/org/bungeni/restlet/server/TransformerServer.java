@@ -65,6 +65,7 @@ public class TransformerServer extends Application {
 
         try {
             String iniFile = workingDir + File.separator + SERVER_CONFIG_FILE;
+
             File   fIni    = new File(iniFile);
 
             if (fIni.exists()) {
