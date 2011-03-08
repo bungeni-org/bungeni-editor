@@ -31,7 +31,12 @@ public class Outputs {
     }
 
     private Outputs() throws IOException{
-        File fruntimeDir = new File(GlobalConfigurations.getApplicationPathPrefix()+ "../runtime");
+        File fruntimeDir = null;
+        if (GlobalConfigurations.getApplicationPathPrefix().endsWith(File.separator)) {
+            fruntimeDir = new File(GlobalConfigurations.getApplicationPathPrefix()+"runtime");
+        } else {
+            fruntimeDir = new File(GlobalConfigurations.getApplicationPathPrefix()+ File.separator + "runtime");
+        }
         fruntimeDir.mkdirs();
         this.runtimeDirectory = fruntimeDir.getCanonicalPath();
     }

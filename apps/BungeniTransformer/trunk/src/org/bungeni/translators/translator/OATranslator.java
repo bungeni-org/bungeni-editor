@@ -62,6 +62,8 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
     /* The resource bundle for the messages */
     private ResourceBundle resourceBundle;
 
+    private Boolean cachePipelineXSLT = false;
+
     /**
      * Private constructor used to create the Translator instance
      * @throws IOException
@@ -94,6 +96,10 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
 
         // create the resource bundle
         this.resourceBundle = ResourceBundle.getBundle(properties.getProperty("resourceBundlePath"));
+
+        // check if pipeline xslt needs to be cached
+        this.cachePipelineXSLT = Boolean.parseBoolean(properties.getProperty("cachePipelineXSLT"));
+
     }
 
     /**
@@ -162,16 +168,22 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
 
             /** Convert the metalex to AN xml using the pipeline **/
             // create the XSLT that transforms the metalex
-            //AH-08-03-11 -- an optimization can be done here ;
+            //AH-08-03-11 -- an optimization has been be done here ;
             //we dont need to buildXSLT every time - the pipelined
             //XSLT can be cached and run and regenerated only when required
-            File xslt = this.buildXSLT(aPipelinePath);
-
-            /** **DEBUG** */
-            FileUtility.getInstance().copyFile(xslt, Outputs.getInstance().File("xslt_pipeline.xsl"));
-            /** **DEBUG** */
-
-
+            File xslt = null;
+            if (this.cachePipelineXSLT) {
+                File outputXSLT = Outputs.getInstance().File("xslt_pipeline.xsl");
+                if (outputXSLT.exists()) {
+                    xslt = outputXSLT;
+                } else {
+                    xslt = this.buildXSLT(aPipelinePath);
+                    /** **DEBUG** */
+                    FileUtility.getInstance().copyFile(xslt, Outputs.getInstance().File("xslt_pipeline.xsl"));
+                    /** **DEBUG** */
+                }
+            }
+            
             // Stream for metalex file
             StreamSource ssMetalex = FileUtility.getInstance().FileAsStreamSource(metalexFile);
 
@@ -195,8 +207,8 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             translatedFiles.put("anxml", fileToReturn);
 
             // validate the produced document
-            // SchemaValidator.getInstance().validate(new StreamSource(fileToReturn), this.akomantosoSchemaPath);
-            SchemaValidator.getInstance().validate(fileToReturn, aDocumentPath, this.akomantosoSchemaPath);
+            //AH-8-03-11 COMMENTED OUT FOR NOW UNTIL TESTED
+            //SchemaValidator.getInstance().validate(fileToReturn, aDocumentPath, this.akomantosoSchemaPath);
 
             // write the stream to a File and return it
             // return fileToReturn;
