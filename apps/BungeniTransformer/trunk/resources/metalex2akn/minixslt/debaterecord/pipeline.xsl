@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:ml="http://www.metalex.org/1.0" xmlns:bungeni="http://editor.bungeni.org/1.0/anx/"
+    xmlns:ml="http://www.metalex.org/1.0" 
+    xmlns:bungeni="http://editor.bungeni.org/1.0/anx/"
     version="2.0">
     <xsl:output indent="yes" method="xml"/>
+
+    <!--
+
+    Default templates :
+    These templates are required
+
+    -->
 
     <xsl:template match="/">
         <stylesheets>
@@ -17,6 +25,17 @@
     <xsl:template match="text()">
         <xsl:value-of select="normalize-space(.)"/>
     </xsl:template>
+
+
+    <xsl:template match="bungeni:*">
+      <!--We dont want to output the bungeni namespace metadata -->
+    </xsl:template>
+
+    <!--
+
+    PIPELINE TEMPLATES FOLLOW
+
+    -->
 
     <xsl:template match="*[@name='root']">
         <xslt name="root" href="metalex2akn/minixslt/debaterecord/root.xsl"/>
@@ -111,19 +130,6 @@
         <xsl:apply-templates/>
     </xsl:template>
     
-    <!--
-	<xsl:template match="*[@name='ProceduralMotion']">
-		<xslt step name="ProceduralMotion" href="metalex2akn/minixslt/debaterecord/ProceduralMotion.xsl" />
-		<xsl:apply-templates />
-	</xsl:template>
-
-	<xsl:template match="*[@name='MotionsContainer']">
-		<xslt step name="MotionsContainer" href="metalex2akn/minixslt/debaterecord/MotionsContainer.xsl" />
-		<xsl:apply-templates />
-	</xsl:template>
-	-->
-
-    <!-- changed to NoticeOfMotion 20/July/2009 -->
     <xsl:template match="*[@name='NoticeOfMotion']">
         <xslt name="NoticeOfMotion" href="metalex2akn/minixslt/debaterecord/noticeofmotion.xsl"/>
         <xsl:apply-templates/>
@@ -280,4 +286,12 @@
         <xslt name="TLCReference" href="metalex2akn/minixslt/debaterecord/tlcreference.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
+
+    <!--
+
+    PIPELINE TEMPLATES END 
+
+    -->
+
+    
 </xsl:stylesheet>
