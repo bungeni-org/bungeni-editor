@@ -82,11 +82,11 @@
                 </fileset>
         </copy>
         <copy todir="${dist.dir}/odttoakn">
-                <fileset dir="resources/odttoakn" >
+                <fileset dir="resources/metalex2akn" >
                 </fileset>
         </copy>
         <copy todir="${dist.dir}/odttometalex">
-                <fileset dir="resources/odttometalex" >
+                <fileset dir="resources/odt2metalex" >
                 </fileset>
         </copy>
         <copy todir="${dist.dir}">
