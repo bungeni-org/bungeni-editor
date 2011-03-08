@@ -65,6 +65,20 @@ public final class OAOutputStepsResolver {
 
             // start the transformation
             iteratedDocument = XSLTTransformer.getInstance().transform(iteratedDocument, xsltStream);
+
+                      // /// ---ASHOK--- //////
+                /*
+                if (nextStep.getPosition() == 1) {
+                 try {
+
+                       java.io.File ftmp = org.un.bungeni.translators.utility.streams.StreamSourceUtility.getInstance().writeToFile(iteratedDocument);
+                       FileUtility.getInstance().copyFile(ftmp, new java.io.File("/home/undesa/tmp/"+nextStep.getName()+"_out.xml"));
+                   } catch (java.io.IOException ex) {
+                      System.out.println(ex.getMessage());
+                   }
+                }
+                */
+                // /// ---ASHOK--- //////
         }
 
         // return the StreamSource of the transformed document

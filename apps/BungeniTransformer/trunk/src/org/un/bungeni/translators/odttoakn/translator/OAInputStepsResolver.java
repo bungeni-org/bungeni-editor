@@ -65,9 +65,7 @@ public final class OAInputStepsResolver {
             try {
                 xsltStream = FileUtility.getInstance().FileAsStreamSource(stepHref);
             } catch (FileNotFoundException e) {
-
-                // TODO Auto-generated catch block
-                // do nothing
+                    log.error("input step xslt file : " + stepHref + " not found." , e);
             }
 
             if (xsltStream != null) {
@@ -76,17 +74,17 @@ public final class OAInputStepsResolver {
                 iteratedDocument = XSLTTransformer.getInstance().transform(iteratedDocument, xsltStream);
                 log.debug("executing input step = " + nextStep.getName() + ", " + nextStep.getHref());
                 // /// ---ASHOK--- //////
-
                 /*
-                 * try {
-                 *
-                 *       File ftmp = StreamSourceUtility.getInstance().writeToFile(iteratedDocument);
-                 *       FileUtility.getInstance().copyFile(ftmp, new File("./"+nextStep.getName()+"test92359064.xml"));
-                 *   } catch (IOException ex) {
-                 *      System.out.println(ex.getMessage());
-                 *   }
-                 */
-
+                if (nextStep.getPosition() == 4) {
+                 try {
+                
+                       java.io.File ftmp = org.un.bungeni.translators.utility.streams.StreamSourceUtility.getInstance().writeToFile(iteratedDocument);
+                       FileUtility.getInstance().copyFile(ftmp, new java.io.File("/home/undesa/tmp/"+nextStep.getName()+"_out.xml"));
+                   } catch (java.io.IOException ex) {
+                      System.out.println(ex.getMessage());
+                   }
+                }
+                */
                 // /// ---ASHOK--- //////
             }
         }

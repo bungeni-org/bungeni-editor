@@ -39,6 +39,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPathExpressionException;
+import org.un.bungeni.translators.utility.runtime.Outputs;
 
 public class OATranslator implements org.un.bungeni.translators.interfaces.Translator {
 
@@ -46,8 +47,8 @@ public class OATranslator implements org.un.bungeni.translators.interfaces.Trans
     private static OATranslator instance = null;
 
     /* This is the logger */
-    private static org.apache.log4j.Logger logger =
-        org.apache.log4j.Logger.getLogger("org.un.bungeni.translators.odttoakn.translator.OATranslator");
+     private static org.apache.log4j.Logger logger              =
+        org.apache.log4j.Logger.getLogger(OATranslator.class.getName());
 
     /* The path of the AKOMA NTOSO schema */
     private String akomantosoAddNamespaceXSLTPath;
@@ -151,11 +152,22 @@ public class OATranslator implements org.un.bungeni.translators.interfaces.Trans
             // translate the document to METALEX
             File metalexFile = translateToMetalex(ODFDocument, this.metalexConfigPath);
 
+            // **DEBUG**
+            FileUtility.getInstance().copyFile(metalexFile, Outputs.getInstance().File("metalex.xml"));
+            // **DEBUG**
+
+
             // FileUtility.getInstance().copyFile(metalexFile, new File("/Users/ashok/out.txt"));
             translatedFiles.put("metalex", metalexFile);
 
+            /** Convert the metalex to AN xml using the pipeline **/
             // create the XSLT that transforms the metalex
             File xslt = this.buildXSLT(aPipelinePath);
+
+            /** **DEBUG** */
+            FileUtility.getInstance().copyFile(xslt, Outputs.getInstance().File("xslt_pipeline.xsl"));
+            /** **DEBUG** */
+
 
             // Stream for metalex file
             StreamSource ssMetalex = FileUtility.getInstance().FileAsStreamSource(metalexFile);
@@ -246,7 +258,7 @@ public class OATranslator implements org.un.bungeni.translators.interfaces.Trans
      * @throws TransformerFactoryConfigurationError
      * @throws Exception
      */
-    public File translateToMetalex(StreamSource ODFDocument, String aConfigurationPath)
+     public File translateToMetalex(StreamSource ODFDocument, String aConfigurationPath)
             throws TransformerFactoryConfigurationError, Exception {
         try {
 
@@ -262,6 +274,11 @@ public class OATranslator implements org.un.bungeni.translators.interfaces.Trans
 
             // applies the map steps to the StreamSource of the ODF document
             iteratedDocument = OAReplaceStepsResolver.resolve(iteratedDocument, configuration);
+
+            // **DEBUG**
+            // java.io.File ftmp = org.un.bungeni.translators.utility.streams.StreamSourceUtility.getInstance().writeToFile(iteratedDocument);
+            // FileUtility.getInstance().copyFile(ftmp, new java.io.File("/home/undesa/input_out.xml"));
+            // **DEBUG** 
 
             // apply the OUTPUT XSLT to the StreamSource
             StreamSource resultStream = OAOutputStepsResolver.resolve(iteratedDocument, configuration);
@@ -327,7 +344,7 @@ public class OATranslator implements org.un.bungeni.translators.interfaces.Trans
 
     public String getValidationErrors() {
         ArrayList<ValidationError> validationErrors = SchemaValidator.getInstance().getValidationErrors();
-        StringBuffer               errorBuffer      = new StringBuffer();
+        StringBuilder               errorBuffer      = new StringBuilder();
 
         errorBuffer.append("<validationErrors>\n");
 
