@@ -62,6 +62,8 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
     /* The resource bundle for the messages */
     private ResourceBundle resourceBundle;
 
+    private String defaultPipelinePath ;
+
     private Boolean cachePipelineXSLT = false;
 
     /**
@@ -97,6 +99,9 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         // create the resource bundle
         this.resourceBundle = ResourceBundle.getBundle(properties.getProperty("resourceBundlePath"));
 
+        
+        this.defaultPipelinePath = GlobalConfigurations.getApplicationPathPrefix() + properties.getProperty("defaultPipeline");
+
         // check if pipeline xslt needs to be cached
         this.cachePipelineXSLT = Boolean.parseBoolean(properties.getProperty("cachePipelineXSLT"));
 
@@ -129,6 +134,18 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
     @Override
     public Object clone() throws CloneNotSupportedException {
         throw new CloneNotSupportedException();
+    }
+
+     /**
+     * Transforms the document at the given path using the default pipeline
+      * specified in translator config.
+     * @param aDocumentPath the path of the document to translate
+     * @return a hashmap containing handles to both the AN xml and the Metalex file ("anxml", "metalex")
+     * @throws Exception
+     * @throws TransformerFactoryConfigurationError
+     */
+    public HashMap<String,File> translate(String aDocumentPath) throws TransformerFactoryConfigurationError, Exception {
+        return translate(aDocumentPath, this.defaultPipelinePath);
     }
 
     /**
