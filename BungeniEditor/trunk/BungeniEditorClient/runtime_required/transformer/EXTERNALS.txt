@@ -1,5 +1,5 @@
 akntohtml http://bungeni-editor.googlecode.com/svn/apps/BungeniTransformer/trunk/resources/akntohtml
 configfiles http://bungeni-editor.googlecode.com/svn/apps/BungeniTransformer/trunk/resources/configfiles
-odttoakn http://bungeni-editor.googlecode.com/svn/apps/BungeniTransformer/trunk/resources/odttoakn
-odttometalex http://bungeni-editor.googlecode.com/svn/apps/BungeniTransformer/trunk/resources/odttometalex
+metalex2akn http://bungeni-editor.googlecode.com/svn/apps/BungeniTransformer/trunk/resources/metalex2akn
+odt2metalex http://bungeni-editor.googlecode.com/svn/apps/BungeniTransformer/trunk/resources/odt2metalex
 jar http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/transformer
