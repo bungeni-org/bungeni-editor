@@ -81,7 +81,7 @@ public class OATranslatorTestBase
 		//perform a translation
                 File f = new File(this.getInputDocument());
                 System.out.println("FULL PATH  for Test Document = " + f.getAbsolutePath());
-		HashMap<String, File> translatedFiles = myTranslator.translate(this.getInputDocument(),GlobalConfigurations.getApplicationPathPrefix() + this.getPipeline());
+		HashMap<String, File> translatedFiles = myTranslator.translate(this.getInputDocument());
 		//File translation = myTranslator.translate("resources/debaterecord_ken_eng_2008_12_17_main.odt", GlobalConfigurations.getApplicationPathPrefix() + "odttoakn/minixslt/debaterecord/pipeline.xsl");
 		System.out.println("OUTPUTTING ERRORS = \n\n" + myTranslator.getValidationErrors());
 		

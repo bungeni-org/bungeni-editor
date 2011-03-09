@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><akomaNtoso xmlns="http://www.akomantoso.org/1.0">
+   <debateRecord>
+      <meta>
+         <identification source="#bungeni">
+            <FRBRWork>
+               <FRBRthis value="/ke/debaterecord/2011-3-2"/>
+               <FRBRuri value=""/>
+               <FRBRdate date="2011-03-02" name="workDate"/>
+               <FRBRauthor href="#user.Ashok"/>
+            </FRBRWork>
+            <FRBRExpression>
+               <FRBRthis value="/ke/debaterecord/2011-3-2/en"/>
+               <FRBRuri value="/en@"/>
+               <FRBRdate date="2011-03-02" name="expDate"/>
+               <FRBRauthor href="#user.Ashok"/>
+            </FRBRExpression>
+            <FRBRManifestation>
+               <FRBRthis value="/ke/debaterecord/2011-3-2/en.xml"/>
+               <FRBRuri value="/en@.akn"/>
+               <FRBRdate date="2011-03-02" name="manDate"/>
+               <FRBRauthor href="#user.Ashok"/>
+            </FRBRManifestation>
+         </identification>
+         <publication date="2011-03-02" name="debaterecord" showAs=""/>
+         <references source="#bungeni">
+            <TLCOrganization id="Parliament" href="2" showAs="Parliament"/>
+            <TLCPerson id="puser.Ashok" href="user.Ashok" showAs="Author"/>
+            <TLCPerson id="p4" href="ken.person.Francis.Acheka.1951-12-10" showAs="Francis Acheka"/>
+            <TLCPerson id="p151" href="ken.person.Norman.Nyagah.1932-03-02" showAs="Norman Nyagah"/>
+            <TLCPerson id="p212" href="ken.person.Amina.Abdalla.1956-02-09" showAs="Amina Abdalla"/>
+            <TLCRole id="Speaker" href="/ontology/roles/ke/speaker" showAs="Speaker"/>
+            <TLCRole id="MemberOfParliament" href="/ontology/roles/ke/member" showAs="Member of Parliament"/>
+            <TLCRole id="DySpeaker" href="/ontology/roles/ke/dyspeaker" showAs="Deputy Speaker"/>
+         </references>
+      </meta>
+      <preface>
+         <p>NATIONAL ASSEMBLY</p>
+         <subheading>OFFICIAL REPORT</subheading>
+         <p>Wednesday, 20th March, 1991</p>
+         <p>The House met at thirty minutes past Two o’ clock.</p>
+         <scene>
+            <span>[Mr Speaker in the Chair]</span>
+         </scene>
+      </preface>
+      <debate>
+         <subdivision id="d15e124" name="SceneSubdivision">
+            <scene>
+               <span>PRAYERS</span>
+            </scene>
+         </subdivision>
+         <papers id="papers1">
+            <heading>PAPERS LAID</heading>
+            <subheading>The following Papers were laid on the Table:</subheading>
+            <other id="tbldocs1">
+               <p>Kenya Accountants and Secretaries National Examinations Board Report and Accounts for the year ended 30th June, 1986.</p>
+               <p>Kenya Accountants and Secretaries National Examinations Board Report and Accounts for the year ended 30th June, 1987.</p>
+               <p>Kenya Reinsurance Corporation—Annual Report and Accounts for the year ended 31st December, 1985.</p>
+               <p>Kenya Reinsurance Corporation—Annual Report and Accounts for the year ended 31st December, 1986.</p>
+               <p>Kenya Post Office Savings Bank—Annual Report and Accounts for the year ended 31st December, 1980.</p>
+               <p>Kenya Post Office Savings Bank—Annual Report and Accounts for the year ended 31st December, 1981.</p>
+               <p>Kenya Post Office Savings Bank—Annual Report and Accounts for the year ended 31st December, 1982.</p>
+               <p>Kenya Post Office Savings Bank—Annual Report and Accounts for the year ended 31st December, 1983.</p>
+               <p>(By the Assistant Minister for Finance (Mr. Keah) on behalf of the Minister for Finance)</p>
+            </other>
+         </papers>
+         <communication id="comnctn1">
+            <heading>COMMUNICATION FROM THE CHAIR</heading>
+            <speech id="speech1" by="#p4" as="Speaker">
+               <from>THE SPEAKER:</from>
+               <p>Honourable members, I welcome you. However, I note that the number is smaller than yesterday’s. I know there is a committee, which is busy in the Eastern part of Uganda, but others should be here. I do not know what is happening, even to the Front Bench. I do not know whether they have a meeting, but I have not been informed. Anyway, I welcome you.</p>
+               <p>I will be adjusting the Order Paper to allow a statement from hon. Baba Diri and an informal question from hon. Banyenzaki. I would also like to take this opportunity to point out that there is something which we as Parliament should take note of and find a solution to. Theproblem is the road carnage. There are very many deaths on our roads. I think something should be done to curb this because there was an accident in Mabira and another one on Masaka road. I think something has to be done. There must be something wrong. I am not supposed to participate in the debate, but I also own a constituency and I am a citizen who takes advantage of my seat here to point out what is going on. Something should be done.</p>
+            </speech>
+            <speech id="speech2" by="#p151" as="MemberOfParliament">
+               <from>MR WILLIAM NSUBUGA:</from>
+               <p>Thank you, Mr Speaker. One of the issues why the attendance is poor is that in most cases we begin plenary very late, yet you always adjourn this House to 2.00 p.m. Members are always here at 2.00 p.m. but we begin towards 3.00 p.m., so there is need to keep time.</p>
+            </speech>
+            <speech id="speech3" by="#p212" as="DySpeaker">
+               <from>THE SPEAKER:</from>That has no merit, I must say. You mean they went away because we did not start at 2.00 p.m.? When I am in my chambers I watch the attendance here.</speech>
+         </communication>
+      </debate>
+      <conclusions id="concl1">
+         <p>ADJOURNMENT</p>
+         <p>The Temporary Deputy Speaker (Mr. Kabingu-Muregi): It is now time for the interruption of business. The House is, therefore, adjourned until tomorrow, Wednesday, 11th May, at 9.00 a.m.</p>
+         <p>The House rose at thirty minutes</p>
+         <p>past Six o’clock.</p>
+      </conclusions>
+   </debateRecord>
+</akomaNtoso>
