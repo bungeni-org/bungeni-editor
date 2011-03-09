@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<!-- debaterecord -->
-	<entry key="metalexConfigPath">odt2metalex/debaterecord/config.xml</entry>
-	<entry key="akomantosoSchemaPath">metalex2akn/schema/akomantoso10.xsd</entry>
-	<entry key="akomantosoAddNamespaceXSLTPath">metalex2akn/defaultvalues/debaterecord/add_an_ns.xsl</entry>
-	<entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
+        <!-- metalex config path -->
+        <entry key="metalexConfigPath">odt2metalex/debaterecord/config.xml</entry>
+        <!-- AN schema path -->
+        <entry key="akomantosoSchemaPath">configfiles/schema/akomantoso10.xsd</entry>
+        <!-- add AN xslt -->
+        <entry key="akomantosoAddNamespaceXSLTPath">metalex2akn/defaultvalues/debaterecord/add_an_ns.xsl</entry>
+        <!-- default pipeline to use -->
+        <entry key="defaultPipeline">metalex2akn/minixslt/debaterecord/pipeline.xsl</entry>
+        <!-- resource bundle -->
+        <entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
+        <!-- parameter to specify cached pipeline property -->
         <entry key="cachePipelineXSLT">true</entry>
 </properties>
