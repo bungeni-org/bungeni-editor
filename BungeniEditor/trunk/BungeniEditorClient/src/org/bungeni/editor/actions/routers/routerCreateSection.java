@@ -24,7 +24,7 @@ public class routerCreateSection extends defaultRouter {
     @Override
     public BungeniValidatorState route_TextSelectedInsert(toolbarAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
      String newSectionName = "";
-      newSectionName = CommonRouterActions.get_newSectionNameForAction(action, ooDocument);
+      newSectionName = CommonRouterActions.get_newSectionNameForAction(subAction, ooDocument);
       this.nameOfNewSection = newSectionName;
          if (newSectionName.length() == 0 ) {
              
@@ -32,8 +32,8 @@ public class routerCreateSection extends defaultRouter {
             boolean bAction = CommonRouterActions.action_createSystemContainerFromSelection(ooDocument, newSectionName);
             if (bAction ) {
                 //set section type metadata
-                CommonRouterActions.setSectionProperties(action, newSectionName, ooDocument);
-                ooDocument.setSectionMetadataAttributes(newSectionName, CommonRouterActions.get_newSectionMetadata(action));
+                CommonRouterActions.setSectionProperties(subAction, newSectionName, ooDocument);
+                ooDocument.setSectionMetadataAttributes(newSectionName, CommonRouterActions.get_newSectionMetadata(subAction));
             } else {
                 log.error("routeAction_TextSelectedInsertAction_CreateSection: error while creating section ");
                 return new BungeniValidatorState(true, new BungeniMsg("FAILURE_CREATE_SECTION"));

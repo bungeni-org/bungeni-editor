@@ -32,16 +32,16 @@ public class routerCreateObservation extends defaultRouter {
      subAction.setActionValue("observation");
      ras.route_TextSelectedInsert(action, subAction, pFrame, ooDocument);
      
-     newSectionName = get_newSectionNameForAction(action, ooDocument);
+     newSectionName = CommonRouterActions.get_newSectionNameForAction(subAction, ooDocument);
          if (newSectionName.length() == 0 ) {
              
          } else {
             boolean bAction = action_createSystemContainerFromSelection(ooDocument, newSectionName);
             if (bAction ) {
                 //set section type metadata
-                CommonRouterActions.setSectionProperties(action, newSectionName, ooDocument);
+                CommonRouterActions.setSectionProperties(subAction, newSectionName, ooDocument);
                 //setSectionProperties(action, newSectionName, ooDocument);
-                ooDocument.setSectionMetadataAttributes(newSectionName, CommonRouterActions.get_newSectionMetadata(action));
+                ooDocument.setSectionMetadataAttributes(newSectionName, CommonRouterActions.get_newSectionMetadata(subAction));
             } else {
                 log.error("routeAction_TextSelectedInsertAction_CreateSection: error while creating section ");
                 return new BungeniValidatorState(true, new BungeniMsg("FAILURE_CREATE_SECTION"));
@@ -49,35 +49,7 @@ public class routerCreateObservation extends defaultRouter {
          }      
       return new BungeniValidatorState(true, new BungeniMsg("SUCCESS")); 
     }
-
     
-    
-    /**** 
-     *
-     * private APIs for this action 
-     *
-     ****/
- private String get_newSectionNameForAction(toolbarAction pAction, OOComponentHelper ooDocument) {
-         String newSectionName = "";
-         if (pAction.action_numbering_convention().equals("single")) {
-             newSectionName = pAction.action_naming_convention();
-         } else if (pAction.action_numbering_convention().equals("serial")) {
-             String sectionPrefix = pAction.action_naming_convention();
-             for (int i=1 ; ; i++) {
-                if (ooDocument.hasSection(sectionPrefix+i)) {
-                    continue;
-                } else {
-                    newSectionName = sectionPrefix+i;
-                    break;
-                }
-             }
-           
-         } else {
-             log.error("get_newSectionNameForAction: invalid action naming convention: "+ pAction.action_naming_convention());
-         }
-         this.nameOfNewSection = newSectionName;
-         return newSectionName;
-    }
 
  private boolean action_createSystemContainerFromSelection(OOComponentHelper ooDoc, String systemContainerName){
         boolean bResult = false; 

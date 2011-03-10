@@ -8,18 +8,11 @@
  */
 package org.bungeni.editor.actions.validators;
 
-import java.util.HashMap;
 import org.apache.log4j.Logger;
-import org.bungeni.db.BungeniClientDB;
-import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.db.QueryResults;
-import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.editor.actions.*;
-import org.bungeni.error.BungeniMessage;
 import org.bungeni.error.BungeniMsg;
 import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.ooo.OOComponentHelper;
-import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.bungeni.extutils.CommonPropertyFunctions;
 
 /**
@@ -151,8 +144,8 @@ public class validateCreateSection extends defaultValidator {
     } */
     
     private boolean check_actionSectionExists(toolbarAction action, toolbarSubAction subAction, OOComponentHelper ooDocument) {
-        if (action.action_numbering_convention().equals("single")) {
-            if (ooDocument.hasSection(action.action_naming_convention())) {
+        if (subAction.section_numbering_convention().equals("single")) {
+            if (ooDocument.hasSection(subAction.section_naming_convention())) {
                 return true;
             } else {
                 return false;

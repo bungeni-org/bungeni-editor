@@ -71,8 +71,8 @@ public class Main extends BaseMetadataContainerPanel {
             // get section poperties
             XTextSection xSection = ooDocument.getSection(newSection);
 
-            CommonRouterActions.setSectionProperties(theAction, newSection, ooDocument);
-            ooDocument.setSectionMetadataAttributes(xSection, CommonRouterActions.get_newSectionMetadata(theAction));
+            CommonRouterActions.setSectionProperties(theSubAction, newSection, ooDocument);
+            ooDocument.setSectionMetadataAttributes(xSection, CommonRouterActions.get_newSectionMetadata(theSubAction));
         }
 
         return true;
@@ -82,20 +82,20 @@ public class Main extends BaseMetadataContainerPanel {
     public String getActionSectionName() {
 
         // get the action naming convention
-        String numberingConvention = theAction.action_numbering_convention();
+        String numberingConvention = theSubAction.section_numbering_convention();
 
         if (numberingConvention.equals("none") || numberingConvention.equals("single")) {
-            return theAction.action_naming_convention();
+            return theSubAction.section_naming_convention();
         } else if (numberingConvention.equals("serial")) {
 
             // get highest section name possible
             int iStart = 1;
 
-            for (; ooDocument.hasSection(theAction.action_naming_convention() + iStart); iStart++);
+            for (; ooDocument.hasSection(theSubAction.section_naming_convention() + iStart); iStart++);
 
-            return theAction.action_naming_convention() + iStart;
+            return theSubAction.section_naming_convention() + iStart;
         } else {
-            return theAction.action_naming_convention();
+            return theSubAction.section_naming_convention();
         }
     }
 

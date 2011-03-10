@@ -106,7 +106,7 @@ public class routerCreateScaledSection_panel extends BaseRouterSelectorPanel {
     
     protected void createSection(){
          String newSectionName = "";
-          newSectionName = CommonRouterActions.get_newSectionNameForAction(theAction, ooDocument);
+          newSectionName = CommonRouterActions.get_newSectionNameForAction(theSubAction, ooDocument);
          if (newSectionName.length() == 0 ) {
              log.error("createSection : new section name could not be generated");
          } else {
@@ -114,8 +114,8 @@ public class routerCreateScaledSection_panel extends BaseRouterSelectorPanel {
             if (bAction ) {
                 log.info("createSection : spanned section was created");
                 //set section type metadata
-                CommonRouterActions.setSectionProperties(theAction, newSectionName, ooDocument);
-                ooDocument.setSectionMetadataAttributes(newSectionName, CommonRouterActions.get_newSectionMetadata(theAction));
+                CommonRouterActions.setSectionProperties(theSubAction, newSectionName, ooDocument);
+                ooDocument.setSectionMetadataAttributes(newSectionName, CommonRouterActions.get_newSectionMetadata(theSubAction));
             } else {
                 log.error("createSection: error while creating section ");
             }

@@ -14,7 +14,8 @@ import org.bungeni.extutils.MessageBox;
 
 /**
  *
- * @author Administrator
+ *  Note : Some Handlers disable on AH-10-03-11
+ * @author Ashok Hariharan
  */
 public class EditorActionHandler implements IEditorActionEvent {
      private static org.apache.log4j.Logger log = Logger.getLogger(EditorActionHandler.class.getName());
@@ -31,6 +32,9 @@ public class EditorActionHandler implements IEditorActionEvent {
         String cmd = action.action_name();
         if (action.action_type().equals("section")) {
             if (action.getSelectorDialogMode() == SelectorDialogModes.TEXT_EDIT) {
+                log.debug("XXXXXX -- EDIT MODE DISABLED !!!! XXXXXX");
+                //AH-10-03-11
+                /***
                 //edit mode checks
                 //check if an editable section exists..., find all editable sections
                 int nCheckSection = 0;
@@ -51,9 +55,12 @@ public class EditorActionHandler implements IEditorActionEvent {
                         return;
                 String selSection = objPanel.getSelectedSection();
                 action.setSelectedActionToActUpon(selSection);
+                 *****/
             }
             if (action.getSelectorDialogMode() == SelectorDialogModes.TEXT_INSERTION) {
                 //first we check if section can indeed be inserted, make the neccessary checks
+                //AH-10-03-11
+                /*****
                 int nCheckSection = 0;
                 nCheckSection = checkSection(action);
                 if (nCheckSection < 0) {
@@ -71,7 +78,8 @@ public class EditorActionHandler implements IEditorActionEvent {
                 
                 action.setSelectedActionToActUpon(currentSection);
                 action.setSelectedSectionActionCommand("INSIDE_SECTION");
-            }
+                *******/
+             }
         }
         
         log.debug("doCommand executed : "+ cmd);
@@ -81,6 +89,9 @@ public class EditorActionHandler implements IEditorActionEvent {
     // -1 returns error for section already existing
     // -2 returns error for section 
      private int checkSection(toolbarAction action ) {
+
+         /****
+          * AH-10-03-11
          //first check if its a markup section or section
          if (action.action_type().equals(toolbarAction.ACTION_TYPE_MARKUP)) {
              return 0;
@@ -99,13 +110,18 @@ public class EditorActionHandler implements IEditorActionEvent {
              }
              
          }
+          ****/
          return 0;
      }
      
      private ArrayList<String> checkEditableSections(toolbarAction action) {
+
+         ArrayList<String> validSections = new ArrayList<String>();
+         //AH-10-03-11 
+         /*****
          String sectionType = action.action_section_type().trim();
          String[] sections = new String[ooDocument.getTextSections().getElementNames().length];
-         ArrayList<String> validSections = new ArrayList<String>();
+       
          String validSection = "";
          sections = ooDocument.getTextSections().getElementNames();
          //look for sections of the same type
@@ -122,6 +138,7 @@ public class EditorActionHandler implements IEditorActionEvent {
                     } else log.debug("checkEditableSections: equation failed : "+ sections[i]);
               }
          }
+          *****/
          return validSections;
      }
      

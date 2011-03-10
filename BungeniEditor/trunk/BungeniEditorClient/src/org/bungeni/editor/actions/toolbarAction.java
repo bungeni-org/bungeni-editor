@@ -30,10 +30,16 @@ public class toolbarAction {
     // private String action_parent;
    // private String        action_icon;
     private String        action_name;
+    //AH-10-03-11
+    /**
     private String        action_naming_convention;
     private String        action_numbering_convention;
+     **/
     private String        action_order;
+    //AH-10-03-11
+    /**
     private String        action_section_type;
+    **/
     private String        action_type;
     Vector<toolbarAction> containedActions;
     private String        doc_type;
@@ -87,17 +93,22 @@ public class toolbarAction {
             // action_parent = (String) safeGet(actionDesc, action_mapping, "ACTION_PARENT");
            // action_icon             = (String) safeGet(actionDesc, action_mapping, "ACTION_ICON");
             action_display_text     = (String) safeGet(actionDesc, action_mapping, "ACTION_DISPLAY_TEXT");
+            //AH-10-03-11
+            /**
             action_section_type     = (String) safeGet(actionDesc, action_mapping, "ACTION_SECTION_TYPE");
+            **/
             action_edit_dlg_allowed = (String) safeGet(actionDesc, action_mapping, "ACTION_EDIT_DLG_ALLOWED");
             action_dialog_class     = (String) safeGet(actionDesc, action_mapping, "ACTION_DIALOG_CLASS");
 
             // the below are deprecated fields - and no longer part of the action_settings table
             // this info is fetched instead from the document_section_types tbale
+           //AH-10-03-11
+            /**
             DocumentSection associatedSection = DocumentSectionsContainer.getDocumentSectionByType(action_section_type);
             if (associatedSection != null ) {
                 action_naming_convention = associatedSection.getSectionNamePrefix();    // (String) safeGet(actionDesc, action_mapping, "ACTION_NAMING_CONVENTION");
                 action_numbering_convention = associatedSection.getSectionNumberingStyle();    // (String) safeGet(actionDesc, action_mapping, "ACTION_NUMBERING_CONVENTION");
-             }
+             }**/
             
         } catch (Exception e) {
             log.error("error in toolbarAction constructor : " + e.getMessage());
@@ -119,6 +130,8 @@ public class toolbarAction {
         return this.action_display_text;
     }
 
+    //AH-10-03-11
+    /**
     public String action_naming_convention() {
         return this.action_naming_convention;
     }
@@ -127,15 +140,19 @@ public class toolbarAction {
     public String action_numbering_convention() {
         return this.action_numbering_convention;
     }
-
+    **/
+    
     public String action_type() {
         return this.action_type;
     }
 
+    //AH-10-03-11 -- REMOVED TO toolbarSubAction
+    /**
     public String action_section_type() {
         return this.action_section_type;
     }
-
+    **/
+    
     public int action_order() {
         return Integer.parseInt(this.action_order);
     }

@@ -63,7 +63,7 @@ public class routerCreateEvent extends defaultRouter {
             javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
         String newSectionName = "";
 
-        newSectionName = CommonRouterActions.get_newSectionNameForAction(action, ooDocument);
+        newSectionName = CommonRouterActions.get_newSectionNameForAction(subAction, ooDocument);
 
         String sEventName = subAction.action_value().trim();
 
@@ -79,9 +79,9 @@ public class routerCreateEvent extends defaultRouter {
             if (bAction) {
 
                 // set section type metadata
-                CommonRouterActions.setSectionProperties(action, newSectionName, ooDocument);
+                CommonRouterActions.setSectionProperties(subAction, newSectionName, ooDocument);
 
-                HashMap<String, String> sectionMetadata = CommonRouterActions.get_newSectionMetadata(action);
+                HashMap<String, String> sectionMetadata = CommonRouterActions.get_newSectionMetadata(subAction);
 
                 // query ontology values
                 HashMap<String, String> customMeta = getMetadataForEvent(sEventName);

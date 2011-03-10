@@ -8,6 +8,8 @@ import org.bungeni.editor.selectors.SelectorDialogModes;
 
 import java.util.HashMap;
 import java.util.Vector;
+import org.bungeni.editor.document.DocumentSection;
+import org.bungeni.editor.document.DocumentSectionsContainer;
 
 /**
  *
@@ -30,8 +32,11 @@ public class toolbarSubAction {
     private String                         sub_action_name;
     private String                         sub_action_order;
     private String                         sub_action_state;
+    private String                         sub_section_type;
    
     private String                         validator_class;
+    private String                         section_naming_convention;
+    private String                         section_numbering_convention;
 
     /** Creates a new instance of toolbarSubAction */
     public toolbarSubAction(Vector<String> actionDesc, HashMap action_mapping) {
@@ -46,6 +51,21 @@ public class toolbarSubAction {
         this.validator_class     = (String) safeGetString(actionDesc, action_mapping, "VALIDATOR_CLASS");
         this.router_class        = (String) safeGetString(actionDesc, action_mapping, "ROUTER_CLASS");
         this.dialog_class        = (String) safeGetString(actionDesc, action_mapping, "DIALOG_CLASS");
+        this.sub_section_type    = (String) safeGetString(actionDesc, action_mapping, "SECTION_TYPE");
+
+        if (this.sub_section_type.length() > 0 ) {
+            DocumentSection associatedSection = DocumentSectionsContainer.getDocumentSectionByType(this.sub_section_type);
+            if (associatedSection != null ) {
+                this.section_naming_convention = associatedSection.getSectionNamePrefix();    // (String) safeGet(actionDesc, action_mapping, "ACTION_NAMING_CONVENTION");
+                this.section_numbering_convention = associatedSection.getSectionNumberingStyle();    // (String) safeGet(actionDesc, action_mapping, "ACTION_NUMBERING_CONVENTION");
+             } else {
+                this.section_naming_convention = "" ;    
+                this.section_numbering_convention = "" ;
+             }
+        } else {
+              this.section_naming_convention = "" ;
+              this.section_numbering_convention = "" ;
+        }
         /*
         String sProfiles = (String) safeGetString(actionDesc, action_mapping, "PROFILES");
 
@@ -150,7 +170,17 @@ public class toolbarSubAction {
         return this.action_value;
     }
 
-   
+    public String section_type(){
+        return this.sub_section_type;
+    }
+
+    public String section_naming_convention(){
+        return this.section_naming_convention;
+    }
+
+    public String section_numbering_convention(){
+        return this.section_numbering_convention;
+    }
 /*
     public String[] profiles() {
         return this.profiles;

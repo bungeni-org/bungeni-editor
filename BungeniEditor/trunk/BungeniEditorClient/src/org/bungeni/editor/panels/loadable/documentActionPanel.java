@@ -352,28 +352,16 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
 
         }
 
-        private String[] POST_ROUTER_REFRESH_ACTIONS = {
-            "org.bungeni.editor.actions.routers.routerCreateSection"
-        };
+      
 
         private void processSubAction(toolbarSubAction action) {
             log.debug("processSubAction:" + action.sub_action_name());
             IEditorActionEvent event = getEventClass(action);
             event.doCommand(getOODocument(), action, parentFrame);
-            runPostRouterActions(action);
-        }
-
-        private void runPostRouterActions(toolbarSubAction action) {
-            for (String routerClass : POST_ROUTER_REFRESH_ACTIONS) {
-                if (routerClass.equals(action.router_class())) {
-                   ///////TOFIX  updateSectionTree();
-                }
-            }
         }
 
         private void processAction(toolbarAction action) {
             log.debug("processAction:" + action.action_name());
-
             if (action.isTopLevelAction()) {
                 log.info("toolbar: processAction: not processing topLevelAction type");
                 return;
@@ -381,6 +369,10 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
             IEditorActionEvent event = getEventClass(action);
             event.doCommand(getOODocument(), action, parentFrame);
         }
+
+    
+
+      
 
         private toolbarSubAction processSelection(BungeniToolbarTargetProcessor targetObj) {
 

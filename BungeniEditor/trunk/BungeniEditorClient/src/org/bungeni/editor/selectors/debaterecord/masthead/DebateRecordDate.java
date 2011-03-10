@@ -18,17 +18,12 @@ import java.util.HashMap;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
-import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.db.QueryResults;
-import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.ooo.OOComponentHelper;
-import org.bungeni.ooo.ooDocFieldSet;
 import org.bungeni.ooo.ooDocMetadata;
 import org.bungeni.ooo.ooQueryInterface;
-import org.bungeni.extutils.CommonPropertyFunctions;
 
 /**
  *
@@ -373,10 +368,10 @@ public class DebateRecordDate extends BaseMetadataPanel {
   public String getNewSectionName() {
         String newSectionName ="";
         if (getTheAction().action_type().equals("section")) {
-            if (getTheAction().action_numbering_convention().equals("single")) {
-                return getTheAction().action_naming_convention();
+            if (getTheSubAction().section_numbering_convention().equals("single")) {
+                return getTheSubAction().section_naming_convention();
             } else {
-                String sectionPrefix = getTheAction().action_naming_convention();
+                String sectionPrefix = getTheSubAction().section_naming_convention();
                 log.debug("getNewSectionName: sectionPrefix = "+ sectionPrefix);
                 for (int i=1; ; i++) {
                     newSectionName = sectionPrefix+i;

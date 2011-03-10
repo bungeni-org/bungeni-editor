@@ -1,21 +1,11 @@
-/*
- * DebateRecordLogo.java
- *
- * Created on August 11, 2008, 10:42 PM
- */
-
 package org.bungeni.editor.selectors.debaterecord.masthead;
 
 import java.awt.Component;
 import java.io.File;
 import javax.swing.JFileChooser;
-import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.db.QueryResults;
-import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
-import org.bungeni.extutils.CommonPropertyFunctions;
 
 /**
  *
@@ -325,10 +315,10 @@ private void btn_initdebate_selectlogoActionPerformed(java.awt.event.ActionEvent
   public String getNewSectionName() {
         String newSectionName ="";
         if (getTheAction().action_type().equals("section")) {
-            if (getTheAction().action_numbering_convention().equals("single")) {
-                return getTheAction().action_naming_convention();
+            if (getTheSubAction().section_numbering_convention().equals("single")) {
+                return getTheSubAction().section_naming_convention();
             } else {
-                String sectionPrefix = getTheAction().action_naming_convention();
+                String sectionPrefix = getTheSubAction().section_naming_convention();
                 log.debug("getNewSectionName: sectionPrefix = "+ sectionPrefix);
                 for (int i=1; ; i++) {
                     newSectionName = sectionPrefix+i;

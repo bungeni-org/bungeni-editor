@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.bungeni.editor.actions.routers;
 
 import com.sun.star.beans.UnknownPropertyException;
@@ -61,7 +56,7 @@ public class routerCreateCompositeSection extends defaultRouter {
             //now create the main container section for the boundary
 //            DocumentSection boundarySection = DocumentSectionsContainer.getDocumentSectionByType(action.action_section_type());
  //           String boundarySectionName = newSectionNameForType(boundarySection);
-            if (action_createBoundarySection(ooDocument, action, foundSelection)) {
+            if (action_createBoundarySection(ooDocument, action, subAction, foundSelection)) {
                 log.debug("routerCreateCompositeSection: marking numbered heading");
                 if (routerCreateNumberedHeading.action_markSelectionAsNumbered(ooDocument, numberedSection, headingSectionName, applyHeadingStyle, sectionUUID)) {
                     //now create the numbered heading section
@@ -102,13 +97,13 @@ public class routerCreateCompositeSection extends defaultRouter {
     }
      
     
-    private boolean action_createBoundarySection(OOComponentHelper ooDocument, toolbarAction action, selectionProperties foundSelection){
+    private boolean action_createBoundarySection(OOComponentHelper ooDocument, toolbarAction action, toolbarSubAction subAction, selectionProperties foundSelection){
         boolean bState = false;
         try {
 
         //get properties for new section to create
         //the boundarySection object contains the template for the new section to be created
-        DocumentSection newBoundingSection = DocumentSectionsContainer.getDocumentSectionByType(action.action_section_type());
+        DocumentSection newBoundingSection = DocumentSectionsContainer.getDocumentSectionByType(subAction.section_type());
         //get the name for the new section
         String newBoundingSectionName = this.newSectionNameForType(ooDocument, newBoundingSection);
         if (newBoundingSectionName.length() > 0 ) {
@@ -139,8 +134,8 @@ public class routerCreateCompositeSection extends defaultRouter {
                
                 XTextContent xSectionContent = ooDocument.createTextSection(newBoundingSectionName, (short) 1);
                 ooDocument.getTextDocument().getText().insertTextContent(rangeCursor, xSectionContent, true);
-                CommonRouterActions.setSectionProperties(action, newBoundingSectionName, ooDocument);
-                HashMap<String, String> metaMap = CommonRouterActions.get_newSectionMetadata(action);
+                CommonRouterActions.setSectionProperties(subAction, newBoundingSectionName, ooDocument);
+                HashMap<String, String> metaMap = CommonRouterActions.get_newSectionMetadata(subAction);
                 ooDocument.setSectionMetadataAttributes(newBoundingSectionName, metaMap);
                 bState = true;
         }
@@ -153,41 +148,7 @@ public class routerCreateCompositeSection extends defaultRouter {
             }
     }
     
-    /*
-    private void setSectionMetadata(OOComponentHelper ooDocument, DocumentSection secObj, String newSectionName) {
-         HashMap<String,String> metaMap = new HashMap<String,String>();
-         metaMap.put("BungeniSectionType",secObj.getSectionType());
-         ooDocument.setSectionMetadataAttributes(newSectionName, metaMap);
-    }*/
-    
-    /*
-    private void setSectionProperties(OOComponentHelper ooDocument, DocumentSection secObj, String newSectionName) {
-        String sectionType = secObj.getSectionType();
-        //DocumentSection secObj = DocumentSectionsContainer.getDocumentSectionByType(sectionType);
-        HashMap<String,Object> sectionProps = secObj.getSectionProperties();
-        XTextSection newSection = ooDocument.getSection(newSectionName);
-        XNamed namedSection = ooQueryInterface.XNamed(newSection);
-        XPropertySet xProps = ooQueryInterface.XPropertySet(newSection);
-
-        for (String propName: sectionProps.keySet()) {
-             try {
-                log.debug("setSectionProperties : "+ propName + " value = " + sectionProps.get(propName).toString());
-                Object propVal = sectionProps.get(propName);
-                if (propVal.getClass() == java.lang.Integer.class) {
-                      xProps.setPropertyValue(propName, (java.lang.Integer) sectionProps.get(propName));
-                } else if (propVal.getClass() == java.lang.Long.class) {
-                      xProps.setPropertyValue(propName, (java.lang.Long) sectionProps.get(propName));               
-                } else if (propVal.getClass() == java.lang.String.class) {
-                      xProps.setPropertyValue(propName, (java.lang.String) sectionProps.get(propName));
-                } else
-                      xProps.setPropertyValue(propName, (java.lang.String) sectionProps.get(propName));
-            } catch (Exception ex) {
-                log.error("setSectionProperties :"+ propName +" : "  +ex.getMessage());
-                log.error("setSectionProperties :"+ CommonExceptionUtils.getStackTrace(ex));
-            } 
-        }
-    }
-    */
+   
     class selectionProperties {
         XTextRange startRange = null;
         XTextRange endRange = null;

@@ -138,13 +138,13 @@ public class CommonRouterActions {
         }
     }
 
-    public static String get_newSectionNameForAction(toolbarAction pAction, OOComponentHelper ooDocument) {
+    public static String get_newSectionNameForAction(toolbarSubAction subAction, OOComponentHelper ooDocument) {
         String newSectionName = "";
 
-        if (pAction.action_numbering_convention().equals("single")) {
-            newSectionName = pAction.action_naming_convention();
-        } else if (pAction.action_numbering_convention().equals("serial")) {
-            String sectionPrefix = pAction.action_naming_convention();
+        if (subAction.section_numbering_convention().equals("single")) {
+            newSectionName = subAction.section_naming_convention();
+        } else if (subAction.section_numbering_convention().equals("serial")) {
+            String sectionPrefix = subAction.section_naming_convention();
 
             for (int i = 1; ; i++) {
                 if (ooDocument.hasSection(sectionPrefix + i)) {
@@ -157,7 +157,7 @@ public class CommonRouterActions {
             }
         } else {
             log.error("get_newSectionNameForAction: invalid action naming convention: "
-                      + pAction.action_naming_convention());
+                      + subAction.section_naming_convention());
         }
 
         return newSectionName;
@@ -224,19 +224,19 @@ public class CommonRouterActions {
      * @param pAction
      * @return
      */
-    public static HashMap<String, String> get_newSectionMetadata(toolbarAction pAction) {
+    public static HashMap<String, String> get_newSectionMetadata(toolbarSubAction subAction) {
         HashMap<String, String> metaMap = new HashMap<String, String>();
 
-        metaMap.put("BungeniSectionType", pAction.action_section_type());
+        metaMap.put("BungeniSectionType", subAction.section_type());
         metaMap.put("BungeniSectionID", BungeniUUID.getShortUUID());
         metaMap.put(SectionMetadataEditor.MetaEditableFlag, "false");
 
         return metaMap;
     }
 
-    public static void setSectionProperties(toolbarAction pAction, String newSectionName,
+    public static void setSectionProperties(toolbarSubAction pAction, String newSectionName,
             OOComponentHelper ooDocument) {
-        String                  sectionType  = pAction.action_section_type();
+        String                  sectionType  = pAction.section_type();
         DocumentSection         secObj       = DocumentSectionsContainer.getDocumentSectionByType(sectionType);
         HashMap<String, Object> sectionProps = secObj.getSectionProperties(ooDocument);
         XTextSection            newSection   = ooDocument.getSection(newSectionName);
