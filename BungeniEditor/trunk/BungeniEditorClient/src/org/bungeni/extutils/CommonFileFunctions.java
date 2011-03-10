@@ -211,7 +211,28 @@ public class CommonFileFunctions {
         return bufReader;
     }
 
-  
+  /**
+   * Returns RDF3986 compliant File urls.
+   * Java by default returns RFC2396 file urls without an authority part.
+   * OpenOffice switched to using RFC3986 URLs since OOo 3.3
+   * @param f The File handle
+   * @return The URL as a String
+   * @throws MalformedURLException
+   */
+  public static String getFileAuthorityURL(File f)
+          throws MalformedURLException {
+          java.net.URL fileURL = f.toURI().toURL();
+          String fileURLAuthority = fileURL.getAuthority();
+          //Check if the authority part is null
+          if (fileURLAuthority == null) {
+              //This is a file:/ type URL so no authority
+              String filePath = fileURL.getFile();
+              return "file://" + filePath;
+          }
+          //if the authority was not null -- return the URL as is in its external
+          //form
+          return fileURL.toExternalForm();
+  }
 
 }
 

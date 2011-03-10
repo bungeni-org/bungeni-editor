@@ -1,21 +1,19 @@
 package org.bungeni.editor.document;
 
-import com.sun.star.style.GraphicLocation;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.bungeni.db.QueryResults;
+import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 
 /**
  *
  * @author Administrator
  */
-public class DocumentSection {
+public final class DocumentSection {
      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DocumentSection.class.getName());
  
     private String documentType;
@@ -190,7 +188,8 @@ public class DocumentSection {
                 File f = new File (this.sectionBackgroundURL);
                 if (f.exists()) {
                     try {
-                        String graphicURL = ooDocument.loadGraphic(f.toURI().toURL().toString());
+                        String bgURL = CommonFileFunctions.getFileAuthorityURL(f);
+                        String graphicURL = ooDocument.loadGraphic(bgURL);
                         propsMap.put("BackGraphicURL", graphicURL);
                         propsMap.put("BackGraphicFilter", "PNG - Portable Network Graphic");
                         propsMap.put("BackGraphicLocation", com.sun.star.style.GraphicLocation.TILED);
