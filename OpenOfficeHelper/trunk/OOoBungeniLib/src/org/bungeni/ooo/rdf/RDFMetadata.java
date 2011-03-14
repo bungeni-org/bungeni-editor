@@ -14,9 +14,14 @@ import com.sun.star.rdf.XLiteral;
 import com.sun.star.rdf.XMetadatable;
 import com.sun.star.rdf.XNamedGraph;
 import com.sun.star.rdf.XURI;
+import com.sun.star.text.XTextContent;
+import com.sun.star.text.XTextRange;
 import com.sun.star.text.XTextSection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
@@ -235,8 +240,65 @@ public class RDFMetadata {
         return sectionStatement;
     }
 
+
     /**
-     * Returns section metadata by subject + predicate combination 
+     * Add metadata to selection -- the current view controller selection is used
+     * as the current selection
+     * @param selMetaName metadata name
+     * @param selMetaValue metadata value
+     * @return
+     */
+    public Statement addSelectionMetadata( String selMetaName, String selMetaValue) {
+        Statement selStatement = null;
+        HashMap<String,Object> selectionRange = this.openofficeHelper.getSingleSelectionRange();
+        if (selectionRange == null )
+                return null;
+        XTextRange aRange = (XTextRange) selectionRange.get("XTextRange");
+        
+        XNamedGraph xGraph = null;
+        //get the document metadata graph
+        try {
+            xGraph = getDocumentMetadataGraph();
+        } catch (IllegalArgumentException ex) {
+            log.error("error getting document metadata graph", ex);
+        } catch (RepositoryException ex) {
+            log.error("error getting document metadata graph", ex);
+        }
+        if (xGraph != null) {
+              boolean bError = true;
+              try{
+                //create incontent metadata object and add it to content
+                Object xIcMeta =   this.openofficeHelper.createInstance("com.sun.star.text.InContentMetadata");
+                XTextContent xTcIcMeta = this.openofficeHelper.getTextContent(xIcMeta);
+                this.openofficeHelper.getTextDocument().getText().insertTextContent(aRange, xTcIcMeta, true);
+                //prepare the URI for the metaName
+                XURI uSelMeta = getMetaURI(selMetaName);
+                XLiteral uSectionValue = makeEscapedLiteral(selMetaValue);
+                //get the metadatable interface of the section
+                XMetadatable metaSelection = ooQueryInterface.XMetadatable(xTcIcMeta);
+                try {
+                    //add the metadata graph 
+                    xGraph.addStatement(metaSelection, uSelMeta, uSectionValue);
+                    bError = false;
+                } catch (NoSuchElementException ex) {
+                     log.error("error while adding Statement", ex);
+                } catch (RepositoryException ex) {
+                    log.error("error while adding Statement", ex);
+                }
+                if (!bError) {
+                     selStatement = getMetadataByPredicate(xGraph, metaSelection, uSelMeta);
+                }
+
+              } catch (IllegalArgumentException ex) {
+                log.error("error while getting root namespace", ex);
+            }
+        }
+        return selStatement;
+    }
+
+
+    /**
+     * Returns Item metadata by subject + predicate combination
      * @param metadataGraph
      * @param xSubject
      * @param xPredicate
