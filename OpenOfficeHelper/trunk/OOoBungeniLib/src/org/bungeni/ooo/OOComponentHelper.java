@@ -1219,79 +1219,28 @@ public class OOComponentHelper {
     }
 
     /**
-     *
+     * Sets metadata on selected text
      * @param xmlAttributesMap
      * @param backColor
      */
-    public void setAttributesToSelectedText(HashMap xmlAttributesMap, Integer backColor) {
-        Object oSelection = this.getCurrentSelection();
-
-        try {
-            if (oSelection == null) {
-                log.debug("getSelectedText: nothing was selected");
-            }
-
-            XServiceInfo xSelInfo = ooQueryInterface.XServiceInfo(oSelection);
-
-            if (xSelInfo.supportsService("com.sun.star.text.TextRanges")) {
-                XIndexAccess                 xIndexAccess = ooQueryInterface.XIndexAccess(oSelection);
-                int                          count        = xIndexAccess.getCount();
-                com.sun.star.text.XTextRange xTextRange   = null;
-
-                if (count == 1) {
-                    Object singleSelection;
-
-                    singleSelection = xIndexAccess.getByIndex(0);
-                    xTextRange      = ooQueryInterface.XTextRange(singleSelection);
-
-                    // get the cursor for the selected range
-                    XTextCursor xRangeCursor = xTextRange.getText().createTextCursorByRange(xTextRange);
-
-                    // get cursor propertyes
-                    _setAttributesToSelectedRange(xRangeCursor, xmlAttributesMap, backColor);
-                    log.debug("after adding attribute");
-
-                    // XPropertySet xCursorProps = ooQueryInterface.XPropertySet(xRangeCursor);
-                    // xCursorProps.setPropertyValue("CharBackColor", charBackColor);
-                    return;
+    public void setSelectedTextAttributes(HashMap<String,String> xmlAttributesMap) {
+        HashMap<String,Object> selectionRangeMap = this.getSingleSelectionRange();
+        if (selectionRangeMap != null ) {
+            if (!selectionRangeMap.isEmpty()) {
+                XTextRange rangeMap = (XTextRange) selectionRangeMap.get("XTextRange");
+                Set<String> keys = xmlAttributesMap.keySet();
+                for (String key : keys) {
+                    this.m_rdfInstance.addRangeMetadata(rangeMap, key, (String) xmlAttributesMap.get(key));
                 }
+            } else {
+                log.error("Selection no settable range" );
             }
-        } catch (com.sun.star.lang.IndexOutOfBoundsException ex) {
-            log.error("setAttributesToSelectedText: " + ex.getLocalizedMessage());
-        } catch (WrappedTargetException ex) {
-            log.error("setAttributesToSelectedText: " + ex.getLocalizedMessage());
+        } else {
+             log.error("Selection range map is null" );
         }
     }
 
-    private void _setAttributesToSelectedRange(XTextCursor xRangeCursor, HashMap xmlAttributesMap, Integer backColor) {
-        XPropertySet xCursorProperties = ooQueryInterface.XPropertySet(xRangeCursor);
-
-        log.debug("adding attribute");
-
-        // get the attribute container from the cursor
-        // the attribute container stores multiple XML properties to be set to the fragment of text
-        XNameContainer nameContainer = _getAttributeContainer(xCursorProperties,
-                                           ooProperties.TEXT_USERDEFINED_ATTRIBUTES);
-
-        // parse hashmap for the different properties to be set
-        Set      attribKeys  = xmlAttributesMap.keySet();
-        Iterator keyIterator = attribKeys.iterator();
-
-        while (keyIterator.hasNext()) {
-            String key   = (String) keyIterator.next();
-            String value = (String) xmlAttributesMap.get(key);
-
-            // helper function converts value to AttributeData type
-            nameContainer = _addAttributeToContainer(nameContainer, key, value);
-        }
-
-        _addAttributesToText(xCursorProperties, ooProperties.TEXT_USERDEFINED_ATTRIBUTES, nameContainer);
-
-        if (backColor == 0) {
-            this._addAttributeToText(xCursorProperties, "CharBackColor", backColor);
-        }
-    }
-
+    
     private XNameContainer _getAttributeContainer(XPropertySet xProperties, String attrName) {
         XNameContainer attributeContainer = null;
 
@@ -1313,75 +1262,6 @@ public class OOComponentHelper {
         return attributeContainer;
     }
 
-    /**
-     *
-     * @param xmlAttrName
-     * @param xmlAttrVal
-     * @throws com.sun.star.beans.UnknownPropertyException
-     * @throws com.sun.star.beans.PropertyVetoException
-     * @throws com.sun.star.lang.IllegalArgumentException
-     * @throws java.lang.Exception
-     */
-    public void setAttributeToSelectedText(String xmlAttrName, String xmlAttrVal)
-            throws UnknownPropertyException, PropertyVetoException, com.sun.star.lang.IllegalArgumentException,
-                   Exception {
-        try {
-            XController                          xDocController = this.getDocumentModel().getCurrentController();
-            com.sun.star.view.XSelectionSupplier xSelSupplier   = ooQueryInterface.XSelectionSupplier(xDocController);
-            Object                               oSelection     = xSelSupplier.getSelection();
-
-            if (oSelection == null) {
-                log.debug("getSelectedText: nothing was selected");
-            }
-
-            XServiceInfo xSelInfo = ooQueryInterface.XServiceInfo(oSelection);
-
-            if (xSelInfo.supportsService("com.sun.star.text.TextRanges")) {
-                XIndexAccess                 xIndexAccess = ooQueryInterface.XIndexAccess(oSelection);
-                int                          count        = xIndexAccess.getCount();
-                com.sun.star.text.XTextRange xTextRange   = null;
-
-                if (count == 1) {
-
-                    // a single range has been selected, set the textattribute metadata for it.
-                    Object singleSelection = xIndexAccess.getByIndex(0);
-
-                    xTextRange = ooQueryInterface.XTextRange(singleSelection);
-
-                    XTextCursor xRangeCursor = xTextRange.getText().createTextCursorByRange(xTextRange);
-
-                    log.debug("adding attribute");
-                    _addAttributeToText(xRangeCursor, xmlAttrName, xmlAttrVal);
-                    log.debug("after adding attribute");
-
-                    // XPropertySet xCursorProps = ooQueryInterface.XPropertySet(xRangeCursor);
-                    // xCursorProps.setPropertyValue("CharBackColor", charBackColor);
-                    return;
-                } else {
-
-                    // multiple ranges have been selected, you must the textattribute metadata for it.
-                    for (int i = 0; i < count; i++) {
-                        xTextRange = ooQueryInterface.XTextRange(xIndexAccess.getByIndex(i));
-                        log.debug("You have selected a text range: \"" + xTextRange.getString() + "\".");
-                    }
-
-                    log.debug("Multiple Selection Attributes have not been implemented yet");
-                }
-            }
-
-            if (xSelInfo.supportsService("com.sun.star.text.TextGraphicObject")) {
-                log.debug("You have selected a graphics.");
-            }
-
-            if (xSelInfo.supportsService("com.sun.star.text.TextTableCursor")) {
-                log.debug("You have selected a text table.");
-            }
-        } catch (WrappedTargetException ex) {
-            log.error("in getselectedtext" + ex.getLocalizedMessage());
-        } catch (com.sun.star.lang.IndexOutOfBoundsException ex) {
-            log.error("in getselectedtext" + ex.getLocalizedMessage());
-        }
-    }
 
     private XNameContainer _addAttributeToContainer(XNameContainer nameContainer, String xmlAttrName,
             String xmlAttrVal) {
