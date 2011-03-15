@@ -1,5 +1,8 @@
 package org.bungeni.ooo.rdf;
 
+import com.sun.star.beans.UnknownPropertyException;
+import com.sun.star.beans.XPropertySet;
+import com.sun.star.beans.XPropertySetInfo;
 import com.sun.star.container.ElementExistException;
 import com.sun.star.container.NoSuchElementException;
 import com.sun.star.container.XEnumeration;
@@ -18,10 +21,7 @@ import com.sun.star.text.XTextContent;
 import com.sun.star.text.XTextRange;
 import com.sun.star.text.XTextSection;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
@@ -248,15 +248,13 @@ public class RDFMetadata {
      * @param selMetaValue metadata value
      * @return
      */
-    public Statement addSelectionMetadata( String selMetaName, String selMetaValue) {
+    public Statement addRangeMetadata(XTextRange aRange, String selMetaName, String selMetaValue) {
         Statement selStatement = null;
-        HashMap<String,Object> selectionRange = this.openofficeHelper.getSingleSelectionRange();
-        if (selectionRange == null )
-                return null;
-        XTextRange aRange = (XTextRange) selectionRange.get("XTextRange");
-        
         XNamedGraph xGraph = null;
-        //get the document metadata graph
+
+        /**
+         * Get the document metadata graph
+         */
         try {
             xGraph = getDocumentMetadataGraph();
         } catch (IllegalArgumentException ex) {
@@ -266,19 +264,57 @@ public class RDFMetadata {
         }
         if (xGraph != null) {
               boolean bError = true;
+              XMetadatable xSelMeta = null;
               try{
-                //create incontent metadata object and add it to content
-                Object xIcMeta =   this.openofficeHelper.createInstance("com.sun.star.text.InContentMetadata");
-                XTextContent xTcIcMeta = this.openofficeHelper.getTextContent(xIcMeta);
-                this.openofficeHelper.getTextDocument().getText().insertTextContent(aRange, xTcIcMeta, true);
-                //prepare the URI for the metaName
+                /**
+                 * Setup the URI for the metadata name and value
+                 */
                 XURI uSelMeta = getMetaURI(selMetaName);
                 XLiteral uSectionValue = makeEscapedLiteral(selMetaValue);
-                //get the metadatable interface of the section
-                XMetadatable metaSelection = ooQueryInterface.XMetadatable(xTcIcMeta);
+                /**
+                 * Does incontentmetadata exist ?
+                 */
+                if (this.hasRangeMetadata(aRange)) {
+                    /**
+                     * If it does ...get the handle to the selection
+                     */
+                    try {
+
+                        xSelMeta = this.getRangeMetadatable(aRange);
+
+                    } catch (UnknownPropertyException ex) {
+                        log.info("Error while getting XMetadatable from selection range", ex);
+                    } catch (WrappedTargetException ex) {
+                        log.info("Error while getting XMetadatable from selection range", ex);
+                    }
+
+                    if (xSelMeta == null) {
+                        log.error("XMetadatable was null in selection metadata");
+                        return null;
+                    }
+                    /**
+                     * Remove the metadata object being inserted if it exists
+                     */
+                    boolean bRemoved = this.removeMetadataByPredicate(xGraph, xSelMeta, uSelMeta);
+
+                    log.info("Removing section meta : " + selMetaName  + " returned = " + bRemoved);
+                }
+                /**
+                 * Check if the selection metadata exists
+                 */
+
+                if (xSelMeta == null ) {
+                    //if selection metadata does not exist ...
+                    //create incontent metadata object and add it to content
+                    Object xIcMeta =   this.openofficeHelper.createInstance("com.sun.star.text.InContentMetadata");
+                    XTextContent xTcIcMeta = this.openofficeHelper.getTextContent(xIcMeta);
+                    this.openofficeHelper.getTextDocument().getText().insertTextContent(aRange, xTcIcMeta, true);
+                    //get the metadatable interface of the section
+                    xSelMeta = ooQueryInterface.XMetadatable(xTcIcMeta);
+                  }
                 try {
                     //add the metadata graph 
-                    xGraph.addStatement(metaSelection, uSelMeta, uSectionValue);
+                    xGraph.addStatement(xSelMeta, uSelMeta, uSectionValue);
                     bError = false;
                 } catch (NoSuchElementException ex) {
                      log.error("error while adding Statement", ex);
@@ -286,7 +322,7 @@ public class RDFMetadata {
                     log.error("error while adding Statement", ex);
                 }
                 if (!bError) {
-                     selStatement = getMetadataByPredicate(xGraph, metaSelection, uSelMeta);
+                     selStatement = getMetadataByPredicate(xGraph, xSelMeta, uSelMeta);
                 }
 
               } catch (IllegalArgumentException ex) {
@@ -296,6 +332,32 @@ public class RDFMetadata {
         return selStatement;
     }
 
+
+    /**
+     * hasSelectionMetadata
+     * @param aRange
+     * @return
+     */
+    public boolean hasRangeMetadata(XTextRange aRange){
+         XPropertySet xPropsInfo = (XPropertySet) ooQueryInterface.XPropertySet(aRange);
+         XPropertySetInfo xPropSetInfo = xPropsInfo.getPropertySetInfo();
+         if (xPropSetInfo.hasPropertyByName("NestedTextContent")) {
+             return true;
+         } else {
+             return false;
+         }
+
+    }
+
+    public XMetadatable getRangeMetadatable(XTextRange aRange) throws UnknownPropertyException, WrappedTargetException {
+         XPropertySet xPropsInfo = (XPropertySet) ooQueryInterface.XPropertySet(aRange);
+         Object xnestedContent = xPropsInfo.getPropertyValue("NestedTextContent");
+         XTextContent xmetaTC = ooQueryInterface.XTextContent(xnestedContent);
+         XMetadatable xmeta = ooQueryInterface.XMetadatable(xnestedContent);
+         return xmeta;
+    }
+
+    
 
     /**
      * Returns Item metadata by subject + predicate combination
@@ -369,6 +431,47 @@ public class RDFMetadata {
 
     }
 
+    /**
+     * Get range metadata by name
+     * @param aRange
+     * @param rangeMetaName
+     * @return
+     */
+    public Statement getRangeMetadataByName(XTextRange aRange, String rangeMetaName) {
+        Statement selStatement = null;
+        XNamedGraph xGraph = null;
+        XEnumeration sectionEnumerator = null;
+        try {
+            xGraph = getDocumentMetadataGraph();
+        } catch (IllegalArgumentException ex) {
+            log.error("error getting document metadata graph", ex);
+        } catch (RepositoryException ex) {
+            log.error("error getting document metadata graph", ex);
+        }
+        if (xGraph != null) {
+            try {
+                //prepare the URI for the metaName
+                XURI uRangeMeta = getMetaURI(rangeMetaName);
+                if (this.hasRangeMetadata(aRange)) {
+                    XMetadatable rangeResource = null;
+                    try {
+                        rangeResource = this.getRangeMetadatable(aRange);
+                    } catch (UnknownPropertyException ex) {
+                       log.error(ex);
+                    } catch (WrappedTargetException ex) {
+                       log.error(ex);
+                    }
+                    if (rangeResource == null) {
+                        selStatement =  getMetadataByPredicate(xGraph, rangeResource, uRangeMeta);
+                    }
+                }
+            } catch (IllegalArgumentException ex) {
+                log.error("error while getting root namespace", ex);
+            }
+        }
+        return selStatement;
+    }
+
      /**
       * Removes a RDF metadata statmeent
       * @param metadataGraph
@@ -391,6 +494,11 @@ public class RDFMetadata {
      }
 
 
+     /**
+      * Get all the metadata associated with a section
+      * @param aSection
+      * @return
+      */
      public Statement[] getSectionMetadata(XTextSection aSection) {
        XNamedGraph xGraph = null;
        Statement[] metaStatements = {};
@@ -403,6 +511,36 @@ public class RDFMetadata {
         }
         if (xGraph != null) {
            metaStatements = getMetadata(xGraph, ooQueryInterface.XMetadatable(aSection));
+        }
+        return metaStatements;
+     }
+
+     /**
+      * Get all the metadata associated with a range
+      * @param aRange
+      * @return
+      */
+     public Statement[] getRangeMetadata(XTextRange aRange) {
+       XNamedGraph xGraph = null;
+       Statement[] metaStatements = {};
+       try {
+            xGraph = getDocumentMetadataGraph();
+        } catch (IllegalArgumentException ex) {
+            log.error("error getting document metadata graph", ex);
+        } catch (RepositoryException ex) {
+            log.error("error getting document metadata graph", ex);
+        }
+        if (xGraph != null) {
+           XMetadatable xMeta = null;
+            try {
+                xMeta = this.getRangeMetadatable(aRange);
+            } catch (UnknownPropertyException ex) {
+                log.error(ex);
+            } catch (WrappedTargetException ex) {
+                log.error(ex);
+            }
+            if (null == xMeta)
+                metaStatements = getMetadata(xGraph, xMeta);
         }
         return metaStatements;
      }

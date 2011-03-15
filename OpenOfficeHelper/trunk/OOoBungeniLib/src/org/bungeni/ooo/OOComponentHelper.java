@@ -725,13 +725,10 @@ public class OOComponentHelper {
      */
     public HashMap<String, String> getSectionMetadataAttributes(String sectionName) {
         HashMap<String, String> metadata = new HashMap<String, String>();
-
         try {
-
-            // get the section handle
+           // get the section handle
             Object       section    = this.getTextSections().getByName(sectionName);
             XTextSection theSection = ooQueryInterface.XTextSection(section);
-
             metadata = getSectionMetadataAttributes(theSection);
         } catch (NoSuchElementException ex) {
             log.error(ex.getMessage());
@@ -743,6 +740,23 @@ public class OOComponentHelper {
     }
 
     /**
+     * Returns the metadata for the current selection on the document
+     * @return
+     */
+    public HashMap<String,String> getSelectionMetadataAttributes(){
+        HashMap<String, String> metadataMap = new HashMap<String, String>();
+        HashMap<String, Object> rangeSel = this.getSingleSelectionRange();
+        XTextRange selRange = (XTextRange) rangeSel.get("XTextRange");
+        Statement[] metadata = this.m_rdfInstance.getRangeMetadata(selRange);
+         for (Statement statement : metadata) {
+            String mapKey = statement.Predicate.getLocalName();
+            String mapValue = statement.Object.getStringValue();
+            metadataMap.put(mapKey, mapValue);
+         }
+         return metadataMap;
+    }
+
+    /**
      * Renames a section
      * @param oldName
      * @param newName
@@ -750,15 +764,11 @@ public class OOComponentHelper {
      */
     public boolean renameSection(String oldName, String newName) {
         XTextSection renameThisSection = getSection(oldName);
-
         if (getTextSections().hasByName(newName)) {
             log.debug("renameSection: section with name = " + newName + " already exists");
-
             return false;
         }
-
         boolean stateProtected = false;
-
         if (isSectionProtected(renameThisSection)) {
             stateProtected = true;
             this.protectSection(renameThisSection, false);
