@@ -13,9 +13,10 @@ import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.extutils.CommonStringFunctions;
 
 /**
- *
- * @author undesa
+ * AH-16-03-11 -- THIS ACTION IS DEPRECATED
+ * @author Ashok Hariharan
  */
+@Deprecated
 public class routerCreateQuestionToReference extends defaultRouter {
     public routerCreateQuestionToReference(){
         super();

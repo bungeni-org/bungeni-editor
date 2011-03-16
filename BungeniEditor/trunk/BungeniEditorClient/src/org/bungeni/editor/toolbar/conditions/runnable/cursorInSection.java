@@ -1,12 +1,3 @@
-/*
- * sectionExists.java
- *
- * Created on January 26, 2008, 10:25 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 package org.bungeni.editor.toolbar.conditions.runnable;
 
 import com.sun.star.beans.UnknownPropertyException;
@@ -33,9 +24,10 @@ import org.bungeni.ooo.ooQueryInterface;
  * @author Administrator
  */
 public class cursorInSection extends baseRunnableCondition {
-   // private OOComponentHelper ooDocument;
+    // private OOComponentHelper ooDocument;
+
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(cursorInSection.class.getName());
- 
+
     /** Creates a new instance of sectionExists */
     public cursorInSection() {
     }
@@ -44,19 +36,19 @@ public class cursorInSection extends baseRunnableCondition {
 //        this.ooDocument = ooDocument;
 //    }
 
-    private String getSectionFromRange(XTextRange theRange ) {
-        String theSectionName = ""; 
+    private String getSectionFromRange(XTextRange theRange) {
+        String theSectionName = "";
         try {
             log.debug("cursorInSection:getSectionFromRange()");
-            XPropertySet rangeProps= ooQueryInterface.XPropertySet(theRange);
+            XPropertySet rangeProps = ooQueryInterface.XPropertySet(theRange);
             XTextSection sectionInRange;
             sectionInRange = (XTextSection) ((Any) rangeProps.getPropertyValue("TextSection")).getObject();
-            if ( sectionInRange != null) {
-                 XNamed nameOfSection = ooQueryInterface.XNamed(sectionInRange);
-                 theSectionName = nameOfSection.getName();       
-                 log.debug("cursorInSection:getSectionFromRange(), sectionRange is not null =  theSectionName = "+ theSectionName);
+            if (sectionInRange != null) {
+                XNamed nameOfSection = ooQueryInterface.XNamed(sectionInRange);
+                theSectionName = nameOfSection.getName();
+                log.debug("cursorInSection:getSectionFromRange(), sectionRange is not null =  theSectionName = " + theSectionName);
             } else {
-                 log.debug("cursorInSection:getSectionFromRange(), sectionRange is null ");
+                log.debug("cursorInSection:getSectionFromRange(), sectionRange is null ");
             }
         } catch (UnknownPropertyException ex) {
             log.error("getSectionFromRange: " + ex.getMessage());
@@ -66,36 +58,36 @@ public class cursorInSection extends baseRunnableCondition {
             return theSectionName;
         }
     }
-    
+
     private boolean check_condition(String sectionCurrent, String sectionCheck) {
-            log.debug("check_condition : sectionCurrent, sectionCheck : " + sectionCurrent + ", " + sectionCheck);
-             if (sectionCurrent.matches(sectionCheck)) 
-                     return true;
-             else
-                     return false;
+        log.debug("check_condition : sectionCurrent, sectionCheck : " + sectionCurrent + ", " + sectionCheck);
+        if (sectionCurrent.matches(sectionCheck)) {
+            return true;
+        } else {
+            return false;
+        }
     }
-    
-    
-    boolean check_cursorInSection (OOComponentHelper ooDocument, BungeniToolbarCondition condition) throws ConditionFailureException {
+
+    boolean check_cursorInSection(OOComponentHelper ooDocument, BungeniToolbarCondition condition) throws ConditionFailureException {
         boolean bReturn = true;
         ConditionFailureException cex = null;
         try {
-        String sectionToActUpon =  condition.getConditionValue();
-        if (sectionToActUpon.equals(BungeniEditorPropertiesHelper.getDocumentRoot())) {
-           String activeDoc =  BungeniEditorProperties.getEditorProperty("activeDocumentMode");
-           sectionToActUpon = BungeniEditorProperties.getEditorProperty("root:"+activeDoc);
-        }
-        XTextViewCursor viewCursor = ooDocument.getViewCursor();
-        XPropertySet loXPropertySet = ooQueryInterface.XPropertySet(viewCursor);
-        XTextSection matchedSection = (XTextSection)((Any)loXPropertySet.getPropertyValue("TextSection")).getObject();
-        if (matchedSection != null){
+            String sectionToActUpon = condition.getConditionValue();
+            if (sectionToActUpon.equals(BungeniEditorPropertiesHelper.getDocumentRoot())) {
+                String activeDoc = BungeniEditorProperties.getEditorProperty("activeDocumentMode");
+                sectionToActUpon = BungeniEditorProperties.getEditorProperty("root:" + activeDoc);
+            }
+            XTextViewCursor viewCursor = ooDocument.getViewCursor();
+            XPropertySet loXPropertySet = ooQueryInterface.XPropertySet(viewCursor);
+            XTextSection matchedSection = (XTextSection) ((Any) loXPropertySet.getPropertyValue("TextSection")).getObject();
+            if (matchedSection != null) {
                 log.debug("check_cursorInSection: matchedSection was not null");
                 //cursor is indeed inside a section
                 //check if cursor is collapsed
                 if (viewCursor.isCollapsed()) {
-                        log.debug("check_cursorInSection: viewCursor is collapsed");
-                        String matchedSectionName = ooQueryInterface.XNamed(matchedSection).getName();
-                        bReturn = check_condition(matchedSectionName, sectionToActUpon);
+                    log.debug("check_cursorInSection: viewCursor is collapsed");
+                    String matchedSectionName = ooQueryInterface.XNamed(matchedSection).getName();
+                    bReturn = check_condition(matchedSectionName, sectionToActUpon);
                     //evaluate condition immeediately
                 } else {
                     //get start range
@@ -103,9 +95,9 @@ public class cursorInSection extends baseRunnableCondition {
                     //get end range
                     XTextRange rangeEnd = viewCursor.getEnd();
                     String strSectRangeStart = "", strSectRangeEnd = "";
-                    strSectRangeStart =  this.getSectionFromRange(rangeStart);
+                    strSectRangeStart = this.getSectionFromRange(rangeStart);
                     strSectRangeEnd = this.getSectionFromRange(rangeEnd);
-                    if (strSectRangeStart.equals(strSectRangeEnd))  {
+                    if (strSectRangeStart.equals(strSectRangeEnd)) {
                         log.debug("check_cursorInSection: start and end range sections are equal");
                         //evaluate condition here
                         bReturn = check_condition(strSectRangeStart, sectionToActUpon);
@@ -118,30 +110,30 @@ public class cursorInSection extends baseRunnableCondition {
                         throw new ConditionFailureException("check_cursorInSection: start and end range sections are NOT equal");
                     }
                 }
-         } else  {
-             log.debug("check_cursorInSection: matchedSection was null");
-             bReturn = false;
-         }
+            } else {
+                log.debug("check_cursorInSection: matchedSection was null");
+                bReturn = false;
+            }
         } catch (ConditionFailureException cx) {
-          //System.out.println("Catching condition failure exception");
-           //cache the exception object
-          cex = cx;
+            //System.out.println("Catching condition failure exception");
+            //cache the exception object
+            cex = cx;
         } catch (UnknownPropertyException ex) {
             log.error("check_cursorInSection: " + ex.getMessage());
         } catch (WrappedTargetException ex) {
             log.error("check_cursorInSection: " + ex.getMessage());
         } finally {
             //if no error was thrown return safely
-            if (cex == null)
+            if (cex == null) {
                 return bReturn;
-            else {
+            } else {
                 //otherwise throw the exception again
                 //System.out.println("Throwing condition exception failure again");
                 throw new ConditionFailureException("calling exception handler parent");
             }
         }
     }
-    
+
     /**
      * We dont catch any exceptions here, simply throw it to the caller (ProcessCondition)
      * @param ooDocument
@@ -149,15 +141,13 @@ public class cursorInSection extends baseRunnableCondition {
      * @return
      * @throws org.bungeni.editor.toolbar.conditions.runnable.ConditionFailureException
      */
-    public boolean runCondition(OOComponentHelper ooDocument, BungeniToolbarCondition condition) throws ConditionFailureException {
-            boolean bState = false;
+    public boolean runCondition(OOComponentHelper ooDocument, BungeniToolbarCondition condition) {
+        boolean bState = false;
+        try {
             bState = check_cursorInSection(ooDocument, condition);
-            return bState;
+        } catch (ConditionFailureException ex) {
+            log.error("cursorInSection failed ", ex);
         }
-    
+        return bState;
+    }
 }
-        
- 
-
-
- 

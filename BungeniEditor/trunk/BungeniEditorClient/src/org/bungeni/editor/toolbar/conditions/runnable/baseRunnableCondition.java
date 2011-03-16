@@ -1,16 +1,6 @@
-/*
- * baseRunnableCondition.java
- *
- * Created on May 30, 2008, 5:28 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 package org.bungeni.editor.toolbar.conditions.runnable;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import org.bungeni.editor.toolbar.conditions.BungeniToolbarCondition;
 import org.bungeni.editor.toolbar.conditions.IBungeniToolbarCondition;
 import org.bungeni.ooo.OOComponentHelper;

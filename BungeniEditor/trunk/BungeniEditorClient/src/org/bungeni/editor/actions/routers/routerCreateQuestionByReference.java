@@ -4,9 +4,9 @@ package org.bungeni.editor.actions.routers;
 import java.util.HashMap;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.actions.toolbarSubAction;
+import org.bungeni.error.BungeniMsg;
 import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.ooo.OOComponentHelper;
-import org.bungeni.extutils.CommonStringFunctions;
 
 /**
  *
@@ -16,26 +16,21 @@ public class routerCreateQuestionByReference extends defaultRouter {
     public routerCreateQuestionByReference(){
         super();
     }
-    
-    final String _referencePrefix_ = "BungeniQuestionBy";
-    final String _referenceNameSeparator_ = ":";
+
     @Override
     public BungeniValidatorState route_TextSelectedInsert(toolbarAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
-           
-        String currentSection =  ooDocument.currentSectionName();
-        HashMap<String,String> sectionMeta = ooDocument.getSectionMetadataAttributes(currentSection);
-        String strQuestionNo = sectionMeta.get(_referencePrefix_);
-        strQuestionNo = CommonStringFunctions.makeReferenceFriendlyString(strQuestionNo);
-        String newRefNo  = _referencePrefix_ + _referenceNameSeparator_ + strQuestionNo;
-        int i = 1;
-        while (ooDocument.getReferenceMarks().hasByName(newRefNo) ) {
-            newRefNo = _referencePrefix_ + _referenceNameSeparator_ + strQuestionNo + "_"+i;
-            i++;
-        }
-        subAction.setActionValue(newRefNo);
-        //chain the routerCreateReference to this.. 
-        routerCreateReference rcf = new routerCreateReference();
-        BungeniValidatorState bvState = rcf.route_TextSelectedInsert(action, subAction, pFrame, ooDocument);
-        return bvState; 
+        //AH-15-03-11 see comment below
+        /**
+         * Style metadata was inherited -- i.e. if i had a nested section with metadata it
+         * inherited the non local metadata onto the current section.  This behavior is not
+         * the same with the RDF metadata it is not inherited by sub-sections
+         */
+        HashMap<String,String> fromMap = new HashMap<String,String>(){
+            {
+                put("InlineType","from");
+            }
+        };
+        ooDocument.setSelectedTextAttributes(fromMap);
+        return new BungeniValidatorState(true, new BungeniMsg("SUCCESS")); 
     }
 }

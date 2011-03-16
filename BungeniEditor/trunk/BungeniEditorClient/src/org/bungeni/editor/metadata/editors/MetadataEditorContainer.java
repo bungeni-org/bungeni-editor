@@ -370,9 +370,9 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
                     }
                 }
             } else {
-                StringBuffer bf = new StringBuffer();
+                StringBuilder bf = new StringBuilder();
                 for (String msg : formErrors) {
-                    bf.append(msg + "\n");
+                    bf.append(msg).append("\n");
                 }
                 MessageBox.OK(parentFrame, bf.toString(), bundle.getString("incomplete_fields"), JOptionPane.ERROR_MESSAGE);
             }

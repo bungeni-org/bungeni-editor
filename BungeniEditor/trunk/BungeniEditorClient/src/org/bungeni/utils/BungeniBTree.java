@@ -1,27 +1,4 @@
-/*
- * BungeniBTree.java
- *
- * Created on October 21, 2007, 5:10 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 package org.bungeni.utils;
-
-/**
- *
- * @author Administrator
- */
-/*
- * Main.java
- *
- * Created on October 21, 2007, 2:01 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -169,7 +146,7 @@ public final class BungeniBTree {
             }
             return pad;
         }
-        private StringBuffer sbOut = new StringBuffer();
+        private StringBuilder sbOut = new StringBuilder();
        
     /**
      * Returns a indented string representation of the tree structure
@@ -177,13 +154,13 @@ public final class BungeniBTree {
      */
     @Override
         public String toString() {
-           sbOut = new StringBuffer();
+           sbOut = new StringBuilder();
            Iterator<Integer> rootIter = roots.keySet().iterator();
            int depth = 0;
            while (rootIter.hasNext()) {
                 Integer key = (Integer) rootIter.next();
                 BungeniBNode n = roots.get(key);
-                sbOut.append(padding(depth) + n.getName()+ "\n");
+                sbOut.append(padding(depth)).append(n.getName()).append("\n");
                 walkNodeByOrder(n, depth);
             }
            return sbOut.toString(); 
@@ -224,13 +201,13 @@ public final class BungeniBTree {
 
        public static void main(String[] args){
             BungeniBTree aTree= new BungeniBTree();
-            aTree.addRootNode(new String("root"));
+            aTree.addRootNode("root");
             BungeniBNode nRoot = aTree.getTree().get(1) ;
             add(nRoot, "child1");
             add(nRoot, "child2");
             
             BungeniBTree aTree2= new BungeniBTree();
-            aTree2.addRootNode(new String("root"));
+            aTree2.addRootNode("root");
             BungeniBNode nRoot2 = aTree2.getTree().get(1) ;
            // add(nRoot2, "child1");
             add(nRoot2, "child1.1");

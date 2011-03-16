@@ -2,8 +2,9 @@
 <!--
 Action configuration for debate-records
 -->
-<toolbar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    doctype="debaterecord">
+<toolbar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="../../src/xsd/toolbar.xsd"
+ doctype="debaterecord">
     <root visible="true">
         <actionGroup name="tabFavourites" 
             visible="true" 
@@ -536,7 +537,7 @@ Action configuration for debate-records
                     condition="textSelected:true :and: 
                                 cursorInSection:questions[0-9]*">
                     <title xml:lang="eng">import question</title>
-                    <tooltip xml:lang="eng">Personal Statement </tooltip>
+                    <tooltip xml:lang="eng">Import a question </tooltip>
                 </action>
                 <action name="Questions.new" 
                     mode="TEXT_SELECTED_INSERT"
@@ -545,7 +546,17 @@ Action configuration for debate-records
                     condition="textSelected:true :and: 
                                 cursorInSection:questions[0-9]*">
                     <title xml:lang="eng">add question</title>
-                    <tooltip xml:lang="eng">Personal Statement </tooltip>
+                    <tooltip xml:lang="eng">Add Question </tooltip>
+                </action>
+                 <!-- markup text as question no. -->
+                <action name="Questions.question_number"
+                    mode="TEXT_SELECTED_INSERT"
+                    target="toolbarSubAction.makeDebateQuestionBlockSection.markup_question_no"
+                    visible="true"
+                    condition="textSelected:true :and:
+                                cursorInSection:questions[0-9]*">
+                    <title xml:lang="eng">---- number</title>
+                    <tooltip xml:lang="eng">Question Number </tooltip>
                 </action>
                 <action name="Questions.heading1" 
                     mode="TEXT_SELECTED_INSERT"
@@ -554,7 +565,7 @@ Action configuration for debate-records
                     condition="textSelected:true :and: 
                                 cursorInSection:qa[0-9]*.">
                     <title xml:lang="eng">---- heading</title>
-                    <tooltip xml:lang="eng">Personal Statement </tooltip>
+                    <tooltip xml:lang="eng">Heading </tooltip>
                 </action>
                 <action name="Questions.subheading" 
                     mode="TEXT_SELECTED_INSERT"
@@ -563,7 +574,7 @@ Action configuration for debate-records
                     condition="textSelected:true :and: 
                                 cursorInSection:qa[0-9]*.">
                     <title xml:lang="eng">---- -- sub-heading</title>
-                    <tooltip xml:lang="eng">Personal Statement </tooltip>
+                    <tooltip xml:lang="eng">Sub Heading </tooltip>
                 </action>
                 <action name="QuestionsSection.Q.new" 
                     mode="TEXT_SELECTED_INSERT"
@@ -573,18 +584,9 @@ Action configuration for debate-records
                                 cursorInSection:qa[0-9]* :and: 
                                 !sectionHasChild:sque[0-9]*">
                     <title xml:lang="eng">spoken question</title>
-                    <tooltip xml:lang="eng">Personal Statement </tooltip>
+                    <tooltip xml:lang="eng">Mark Spoken Question </tooltip>
                 </action>
-                <!-- markup text as question no. -->
-                <action name="Questions.markup" 
-                    mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateQuestionBlockSection.markup_question_no"
-                    visible="true" 
-                    condition="textSelected:true :and: 
-                                cursorInSection:sque[0-9]*">
-                    <title xml:lang="eng">---- number</title>
-                    <tooltip xml:lang="eng">Personal Statement </tooltip>
-                </action>
+               
                 <!-- markup question by-->
                 <action name="Questions.by.markup" 
                     mode="TEXT_SELECTED_INSERT"
@@ -593,18 +595,19 @@ Action configuration for debate-records
                     condition="textSelected:true :and: 
                                 cursorInSection:sque[0-9]*">
                     <title xml:lang="eng">---- by</title>
-                    <tooltip xml:lang="eng">Personal Statement </tooltip>
+                    <tooltip xml:lang="eng">Question By </tooltip>
                 </action>
-                <!-- markup quetion to -->
+                <!-- markup quetion to 
                 <action name="Questions.to.markup" 
                     mode="TEXT_SELECTED_INSERT"
                     target="toolbarSubAction.makeDebateQuestionBlockSection.markup_question_to"
                     visible="true" 
                     condition="textSelected:true :and: 
                                 cursorInSection:sque[0-9]*">
-                    <title xml:lang="eng">---- to</title>
-                    <tooltip xml:lang="eng">Personal Statement </tooltip>
+                    <title xml:lang="eng">++++ to</title>
+                    <tooltip xml:lang="eng">Question To </tooltip>
                 </action>
+                -->
             </blockAction>
             
             <blockAction name="Conclusion Markup" 

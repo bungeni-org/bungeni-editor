@@ -1,17 +1,8 @@
-/*
- * IteratorAsEnumeration.java
- *
- * Created on February 25, 2008, 1:03 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 package org.bungeni.utils;
 
 /**
  *
- * @author undesa
+ * @author Ashok Hariharan
  */
 import java.util.Enumeration;
 import java.util.Iterator;
