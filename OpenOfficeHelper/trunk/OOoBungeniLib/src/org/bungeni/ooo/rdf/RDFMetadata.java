@@ -22,6 +22,8 @@ import com.sun.star.text.XTextRange;
 import com.sun.star.text.XTextSection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
@@ -271,40 +273,25 @@ public class RDFMetadata {
                  */
                 XURI uSelMeta = getMetaURI(selMetaName);
                 XLiteral uSectionValue = makeEscapedLiteral(selMetaValue);
-                /**
-                 * Does incontentmetadata exist ?
-                 */
-                if (this.hasRangeMetadata(aRange)) {
+                try {
                     /**
-                     * If it does ...get the handle to the selection
+                     * Does incontentmetadata exist ?
                      */
-                    try {
-
-                        xSelMeta = this.getRangeMetadatable(aRange);
-
-                    } catch (UnknownPropertyException ex) {
+                    xSelMeta = this.getRangeMetadatable(aRange);
+                } catch (UnknownPropertyException ex) {
                         log.info("Error while getting XMetadatable from selection range", ex);
                     } catch (WrappedTargetException ex) {
                         log.info("Error while getting XMetadatable from selection range", ex);
                     }
-
-                    if (xSelMeta == null) {
-                        log.error("XMetadatable was null in selection metadata");
-                        return null;
-                    }
+                if (null != xSelMeta) {
                     /**
                      * Remove the metadata object being inserted if it exists
                      */
                     boolean bRemoved = this.removeMetadataByPredicate(xGraph, xSelMeta, uSelMeta);
 
                     log.info("Removing section meta : " + selMetaName  + " returned = " + bRemoved);
-                }
-                /**
-                 * Check if the selection metadata exists
-                 */
-
-                if (xSelMeta == null ) {
-                    //if selection metadata does not exist ...
+                } else {
+                    //selection metadata does not exist ...
                     //create incontent metadata object and add it to content
                     Object xIcMeta =   this.openofficeHelper.createInstance("com.sun.star.text.InContentMetadata");
                     XTextContent xTcIcMeta = this.openofficeHelper.getTextContent(xIcMeta);
@@ -333,22 +320,16 @@ public class RDFMetadata {
     }
 
 
+
+
     /**
-     * hasSelectionMetadata
+     * Returns the metadatable handle from a XTextRange
+     * Returns null if the range is not metadatable
      * @param aRange
      * @return
+     * @throws UnknownPropertyException
+     * @throws WrappedTargetException
      */
-    public boolean hasRangeMetadata(XTextRange aRange){
-         XPropertySet xPropsInfo = (XPropertySet) ooQueryInterface.XPropertySet(aRange);
-         XPropertySetInfo xPropSetInfo = xPropsInfo.getPropertySetInfo();
-         if (xPropSetInfo.hasPropertyByName("NestedTextContent")) {
-             return true;
-         } else {
-             return false;
-         }
-
-    }
-
     public XMetadatable getRangeMetadatable(XTextRange aRange) throws UnknownPropertyException, WrappedTargetException {
          XPropertySet xPropsInfo = (XPropertySet) ooQueryInterface.XPropertySet(aRange);
          Object xnestedContent = xPropsInfo.getPropertyValue("NestedTextContent");
@@ -452,19 +433,18 @@ public class RDFMetadata {
             try {
                 //prepare the URI for the metaName
                 XURI uRangeMeta = getMetaURI(rangeMetaName);
-                if (this.hasRangeMetadata(aRange)) {
-                    XMetadatable rangeResource = null;
-                    try {
-                        rangeResource = this.getRangeMetadatable(aRange);
-                    } catch (UnknownPropertyException ex) {
+                XMetadatable rangeResource = null;
+                try {
+                  rangeResource = this.getRangeMetadatable(aRange);
+                 } catch (UnknownPropertyException ex) {
+                     log.error(ex);
+                 } catch (WrappedTargetException ex) {
                        log.error(ex);
-                    } catch (WrappedTargetException ex) {
-                       log.error(ex);
-                    }
-                    if (rangeResource == null) {
+                 }
+                 if (rangeResource == null) {
                         selStatement =  getMetadataByPredicate(xGraph, rangeResource, uRangeMeta);
-                    }
-                }
+                 }
+               
             } catch (IllegalArgumentException ex) {
                 log.error("error while getting root namespace", ex);
             }
