@@ -1,6 +1,6 @@
 #summary Bungeni Editor ODF to AkomaNtoso metadata mapping
 
-<wiki:toc max_depth="4" />
+<wiki:toc max_depth="6" />
 
 = Introduction =
 
@@ -177,6 +177,73 @@ The Mapping for this is provided below --
 
 === Content metadata mappings === 
 
+==== `<speech>` element ====
+
+===== In Akoma Ntoso =====
+
+This is the speech element -- 
+
+{{{
+<speech by="#AnMp" as="#asMp">
+    <from>An. Mp</from>
+    <p>Mr. Speaker, Sir, I beg to give notice of the following Motion:-</p>
+    <p>Lorem ipsum dolor sit amet, consectetur
+        adipisicing elit, sed do eiusmod tempor incididunt
+        ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris
+        nisi ut aliquip ex ea commodo consequat. Duis aute
+        irure dolor in reprehenderit in voluptate velit
+        esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident,
+        sunt in culpa qui officia deserunt mollit anim id
+        est laborum..</p>
+</speech>
+
+}}}
 
 
+===== In ODF =====
+
+{{{
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+.....
+ <rdf:Description rdf:about="../content.xml#id81842116">
+   ......
+    <ns17:BungeniSpeechBy xmlns:ns17="http://editor.bungeni.org/1.0/anx/">Francis Acheka</ns17:BungeniSpeechBy>
+    <ns18:BungeniSpeechByURI xmlns:ns18="http://editor.bungeni.org/1.0/anx/">ken.person.Francis.Acheka.1951-12-10</ns18:BungeniSpeechByURI>
+  ......
+  </rdf:Description>
+ ......
+</rdf:RDF>
+}}}
+
+
+
+
+==== `<from>` element ====
+
+===== In Akoma Ntoso ===== 
+{{{
+<from>The Assistant Minister for Transport and Communications (Dr.Momanyi):</from>
+}}}
+
+===== In ODF ===== 
+
+In the content marked up as :
+
+{{{
+<text:p text:style-name="Standard">
+    <text:meta xml:id="id394891649">The Assistant Minister for Transport and Communications (Dr.
+        Momanyi): </text:meta>
+</text:p>
+}}}
+
+In the rdf as :
+
+{{{
+  <rdf:Description rdf:about="../content.xml#id394891649">
+    <ns9:InlineType xmlns:ns9="http://editor.bungeni.org/1.0/anx/">from</ns9:InlineType>
+  </rdf:Description>
+}}}
 
