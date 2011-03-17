@@ -145,20 +145,8 @@ The Mapping for this is provided below --
 
 ||ODF Meta Name || Example ODF Meta Value || AN XML Representation || 
 ||BungeniCountryCode||ke||  part of FRBR URIs||
-||BungeniDocAuthor|| || FRBRManifestation/FRBRauthor ||
-||BungeniDocPart||main|| 
-{{{ 
-<FRBRWork>
-                    <FRBRthis value="/ke/act/2010-08-27/1/main"/>
-                    <FRBRuri value="/ke/act/2010-08-27/1"/>
-                    <FRBRdate date="2010-08-27" name="Generation"/>
-                    <FRBRauthor as="#author" href="#parliament"/>
-                    <components>
-                        <component href="#emain" id="wmain" name="main" showAs="Main document"/>  <==
-                    </components>
-                </FRBRWork> 
-}}}
-||
+||BungeniDocAuthor|| || {{{ FRBRManifestation/FRBRauthor }}} ||
+||BungeniDocPart||main|| {{{ FRBRWork/components/component[@name="main"] }}} ||
 ||BungeniDocType||debaterecord|| {{{ <debateRecord> , <debate> }}}  ||
 ||BungeniExpAuthor||user.Ashok||  {{{ FRBRExpression/FRBRauthor/@as }}}||
 ||BungeniExpAuthorURI||user.Ashok|| {{{ FRBRExpression/FRBRauthor/@href }}} ||
