@@ -167,7 +167,7 @@ The Mapping for this is provided below --
 ||BungeniPublicationDate||2011-02-25|| {{{ meta/publication/@date }}} ||
 ||BungeniPublicationName||debaterecord|| {{{ meta/publication/@name }}} ||
 ||BungeniPublicationNameFull|| || {{{ meta/publication/@showAs }}}  ||
-||BungeniWorkAuthor||user.Ashok|| {{FRBRWork/FRBRauthor/@showAs }}} ||
+||BungeniWorkAuthor||user.Ashok|| {{{ FRBRWork/FRBRauthor/@showAs }}} ||
 ||BungeniWorkAuthorURI||user.Ashok|| {{FRBRWork/FRBRauthor/@href }}} ||
 ||BungeniWorkDate||2011-02-26|| {{{ FRBRWork/FRBRdate/@date }}}||
 ||BungeniWorkDateName||workDate|| {{{ FRBRWork/FRBRdate/@name }}}   ||
@@ -177,6 +177,42 @@ The Mapping for this is provided below --
 
 === Content metadata mappings === 
 
+==== Container Element Identification ====
+
+The `anx:BungeniSectionType` metadata predicate is used to identify a container element.
+
+For e.g. the following specifies a the `anx:BungeniSectionType` for a `text:section` as `Question` --
+
+{{{
+  <rdf:Description rdf:about="../content.xml#id151718213">
+    <ns23:BungeniSectionID xmlns:ns23="http://editor.bungeni.org/1.0/anx/">a3kXAao7Qau3BdZwckaRBQ</ns23:BungeniSectionID>
+    <ns24:BungeniSectionType xmlns:ns24="http://editor.bungeni.org/1.0/anx/">Question</ns24:BungeniSectionType>
+    <ns25:hiddenBungeniMetaEditable xmlns:ns25="http://editor.bungeni.org/1.0/anx/">false</ns25:hiddenBungeniMetaEditable>
+  </rdf:Description>
+}}}
+
+The following table specifies the mapping between sectionType and Akoma Ntoso element --
+
+||ODF Section Type|| AN XML Element ||
+||Preface||preface||
+||Prayers`*`||prayers||
+||Speech||speech||
+||SpeechBody||All content after `<from>` in a `speech`||
+||Question||question||
+||QuestionBody||All content after `<from>` in a `question`||
+||Narrative||narrative||
+||MinisterialStatement||ministerialStatements||
+||PersonalStatement||personalStatements||
+||QuestionsContainer||questions||
+||PMotionsContainer||proceduralMotions||
+||NMotionsContainer||noticesOfMotion||
+||PointOfOrder||PointOfOrder||
+||Communication||Communication||
+||PapersLaid||papersLaid||
+||Observation||observation||
+
+_TODO -- add missing_
+
 ==== `<speech>` element ====
 
 ===== In Akoma Ntoso =====
@@ -184,8 +220,20 @@ The Mapping for this is provided below --
 This is the speech element -- 
 
 {{{
-<speech by="#AnMp" as="#asMp">
-    <from>An. Mp</from>
+
+<meta>
+.....
+<references ...>
+    ...
+	<TLCPerson id="FrancisAcheka" href="/ontology/person/ken/Francis.Acheka.1951-12-10" showAs="Francis Acheka" />
+    <TLCRole id="MemberOfParliament" href="/ontology/roles/ken/mp" showAs="Member of Parliament"/>
+    ...
+</references>            
+.....
+</meta>
+....
+<speech by="#FrancisAcheka" as="#MemberOfParliament">
+    <from>Mr Francis Acheka:</from>
     <p>Mr. Speaker, Sir, I beg to give notice of the following Motion:-</p>
     <p>Lorem ipsum dolor sit amet, consectetur
         adipisicing elit, sed do eiusmod tempor incididunt
@@ -211,15 +259,24 @@ This is the speech element --
  <rdf:Description rdf:about="../content.xml#id81842116">
    ......
     <ns17:BungeniSpeechBy xmlns:ns17="http://editor.bungeni.org/1.0/anx/">Francis Acheka</ns17:BungeniSpeechBy>
-    <ns18:BungeniSpeechByURI xmlns:ns18="http://editor.bungeni.org/1.0/anx/">ken.person.Francis.Acheka.1951-12-10</ns18:BungeniSpeechByURI>
+    <ns18:BungeniSpeechByURI xmlns:ns18="http://editor.bungeni.org/1.0/anx/">/ontology/person/ken/Francis.Acheka.1951-12-10</ns18:BungeniSpeechByURI>
+    <ns14:BungeniSpeechAs xmlns:ns14="http://editor.bungeni.org/1.0/anx/">MemberOfParliament</ns14:BungeniSpeechAs>
+    <ns15:BungeniSpeechAsDesc xmlns:ns15="http://editor.bungeni.org/1.0/anx/">Member of Parliament</ns15:BungeniSpeechAsDesc>
+    <ns16:BungeniSpeechAsURI xmlns:ns16="http://editor.bungeni.org/1.0/anx/">/ontology/roles/ken/mp</ns16:BungeniSpeechAsURI>
   ......
   </rdf:Description>
  ......
 </rdf:RDF>
 }}}
 
+So, the mapping from ODF to Akoma Ntoso happens as follows --
 
-
+||BungeniPersonID||TLCPerson/@id||
+||BungeniSpeechBy||TLCPerson/@showAs||
+||BungeniSpeechByURI||TLCPerson/@href||
+||BungeniSpeechAs||TLCRole/@id||
+||BungeniSpeechAsDesc||TLCRole/@showAs||
+||BungeniSpeechAsURI||TLCRole/@href||
 
 ==== `<from>` element ====
 

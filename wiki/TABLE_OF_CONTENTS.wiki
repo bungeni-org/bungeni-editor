@@ -8,6 +8,7 @@
  * Architecture
    * [StoringCustomMetadataInAnOpenOfficeDocument Custom metadata support in OpenOffice]
    * [RDF_metadata_in_OpenOffice RDF Metadata support]
+   * [ODF_to_AN_XML_Mapping How ODF metadata is mapped to Akoma Ntoso metadata]
    * [TransformerConfigurationArchitecture Transformer Configuration Architecture]
  * Editor Customization & Configuration
    * [EditorTheming Theming the Bungeni Editor]
