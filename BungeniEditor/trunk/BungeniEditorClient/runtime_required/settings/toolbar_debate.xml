@@ -77,6 +77,7 @@ Action configuration for debate-records
                     <tooltip xml:lang="eng">Identify selected text as speech author's name
                     </tooltip>
                 </action>
+  
                 <action name="Speech.SpeechBody" 
                     mode="TEXT_SELECTED_INSERT"
                     target="toolbarSubAction.makeDebateSpeechBlockSection.speech_body" 
@@ -87,6 +88,16 @@ Action configuration for debate-records
                     <title xml:lang="eng">---- body</title>
                     <tooltip xml:lang="eng">Select and mark speech body
                     </tooltip>
+                </action>
+                <!-- markup a list item number in a speech, these action target names need to rationalized -->
+                <action name="Speech.body.item_number"
+                    mode="TEXT_SELECTED_INSERT"
+                    target="toolbarSubAction.makeDebateQuestionBlockSection.markup_question_no"
+                    visible="true"
+                    condition="textSelected:true :and: 
+                    cursorInSection:spbody[0-9]*">
+                    <title xml:lang="eng">---- item num</title>
+                    <tooltip xml:lang="eng">Item Number </tooltip>
                 </action>
                 
             </blockAction>
@@ -510,6 +521,17 @@ Action configuration for debate-records
                 target="null"
                 visible="true" condition="none">
                 <title xml:lang="eng">questions</title>
+                <!-- create a narrative -->
+                <action name="Question.narrative"
+                    mode="TEXT_SELECTED_INSERT"
+                    target="toolbarSubAction.makeObservationAction.narrative"
+                    visible="true"
+                    condition="textSelected:true :and:
+                                !cursorInSection:debaterecord :and:
+                                !cursorInSection:narr[0-9]*">
+                    <title xml:lang="eng">narrative</title>
+                    <tooltip xml:lang="eng">Mark selection as a Narrative</tooltip>
+                </action>
                 <!--creates a question container -->
                 <action name="QuestionsGroup.new" 
                     mode="TEXT_SELECTED_INSERT"
@@ -553,8 +575,8 @@ Action configuration for debate-records
                     mode="TEXT_SELECTED_INSERT"
                     target="toolbarSubAction.makeDebateQuestionBlockSection.markup_question_no"
                     visible="true"
-                    condition="textSelected:true :and:
-                                cursorInSection:questions[0-9]*">
+                    condition="textSelected:true :and: 
+                                cursorInSection:qa[0-9]*">
                     <title xml:lang="eng">---- number</title>
                     <tooltip xml:lang="eng">Question Number </tooltip>
                 </action>
@@ -586,17 +608,40 @@ Action configuration for debate-records
                     <title xml:lang="eng">spoken question</title>
                     <tooltip xml:lang="eng">Mark Spoken Question </tooltip>
                 </action>
-               
+
+                <!-- markup question bodyy-->
+                <action name="Questions.body.markup" 
+                    mode="TEXT_SELECTED_INSERT"
+                    target="toolbarSubAction.makeDebateQuestionBlockSection.question_body"
+                    visible="true" 
+                    condition="textSelected:true :and: 
+                    cursorInSection:sque[0-9]*">
+                    <title xml:lang="eng">-- body</title>
+                    <tooltip xml:lang="eng">Question Body </tooltip>
+                </action>
+                
+                
                 <!-- markup question by-->
                 <action name="Questions.by.markup" 
                     mode="TEXT_SELECTED_INSERT"
                     target="toolbarSubAction.makeDebateQuestionBlockSection.markup_question_by"
                     visible="true" 
                     condition="textSelected:true :and: 
-                                cursorInSection:sque[0-9]*">
+                                cursorInSection:quebody[0-9]*">
                     <title xml:lang="eng">---- by</title>
                     <tooltip xml:lang="eng">Question By </tooltip>
                 </action>
+                
+                <action name="Questions.spoken_question.item_number"
+                    mode="TEXT_SELECTED_INSERT"
+                    target="toolbarSubAction.makeDebateQuestionBlockSection.markup_question_no"
+                    visible="true"
+                    condition="textSelected:true :and: 
+                    cursorInSection:quebody[0-9]*">
+                    <title xml:lang="eng">---- item num</title>
+                    <tooltip xml:lang="eng">Item Number </tooltip>
+                </action>
+                
                 <!-- markup quetion to 
                 <action name="Questions.to.markup" 
                     mode="TEXT_SELECTED_INSERT"

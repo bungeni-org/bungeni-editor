@@ -177,9 +177,9 @@ public class CommonRouterActions {
         } catch (com.sun.star.lang.IllegalArgumentException ex) {
             bResult = false;
             log.error("in addTextSection : " + ex.getLocalizedMessage(), ex);
-        } finally {
-            return bResult;
         }
+        return bResult;
+        
     }
 
     public static boolean action_createSpannedContainer(OOComponentHelper ooDocument, String sectionName,
@@ -214,9 +214,8 @@ public class CommonRouterActions {
             bState = true;
         } catch (Exception ex) {
             log.error("action_createSpannedContainer :" + ex.getMessage());
-        } finally {
-            return bState;
         }
+        return bState;
     }
 
     /**
@@ -427,12 +426,11 @@ public class CommonRouterActions {
             XTextContent theContent = ooDoc.createTextSection(sectionName, (short)1);
             docText.insertTextContent(docCursor, theContent, true);
             bResult = true;
-        } catch (IllegalArgumentException ex) {
+        } catch (com.sun.star.lang.IllegalArgumentException ex) {
             log.error("in action_createRootSection :" + ex.getMessage());
             log.error("in action_createRootSection :" + CommonExceptionUtils.getStackTrace(ex));
-        } finally {
-            return bResult;
         }
+        return bResult;
     }
 
 }
