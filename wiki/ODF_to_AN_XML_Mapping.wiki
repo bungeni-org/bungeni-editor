@@ -157,7 +157,7 @@ The Mapping for this is provided below --
                         <component href="#emain" id="wmain" name="main" showAs="Main document"/>  <==
                     </components>
                 </FRBRWork> 
-}}
+}}}
 ||
 ||BungeniDocType||debaterecord|| {{{ <debateRecord> , <debate> }}}  ||
 ||BungeniExpAuthor||user.Ashok||  {{{ FRBRExpression/FRBRauthor/@as }}}||
