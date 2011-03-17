@@ -1,10 +1,10 @@
 #summary Bungeni Editor ODF to AkomaNtoso metadata mapping
 
+<wiki:toc max_depth="4" />
+
 = Introduction =
 
 This page describes how metadata is represented in Bungeni Editor ODF documents and how that is mapped to Akoma Ntoso 
-
-= Bungeni Editor Metadata = 
 
 Bungeni Editor uses a couple of different mechanisms to record metadata in a ODF document.
 
@@ -12,7 +12,7 @@ Document level metadata is recorded in the `office:document-meta` element as use
 
 Inline and container level metadata is recorded in the  RDF namespace (`rdf:RDF`) using a custom namespace for Bungeni metadata.
 
-== Document Level Metadata == 
+= Document Level Metadata =
 
 Document level metadata can be found in `./meta.xml` within the ODF package.
 
@@ -25,43 +25,11 @@ Bungeni Editor writes document level metadata as ODF user-defined properties :
     ...........................
   }}}
 
-The Mapping for this is provided below -- 
 
 
-||ODF Meta Name || Example ODF Meta Value || AN XML Representation || 
-||BungeniCountryCode||ke|| ||
-||BungeniDocAuthor|| || ||
-||BungeniDocPart||main|| ||
-||BungeniDocType||debaterecord|| ||
-||BungeniExpAuthor||user.Ashok|| ||
-||BungeniExpAuthorURI||user.Ashok|| ||
-||BungeniExpDate||2011-02-25|| ||
-||BungeniExpDateName||expDate|| ||
-||BungeniExpURI||/ke/debaterecord/2011-2-26/en|| ||
-||BungeniLanguageCode||en|| ||
-||BungeniManAuthor||user.Ashok|| ||
-||BungeniManAuthorURI||user.Ashok|| ||
-||BungeniManDate||2011-02-25|| ||
-||BungeniManDateName||manDate|| ||
-||BungeniManURI||/ke/debaterecord/2011-2-26/en.xml|| ||
-||BungeniOfficialDate||2011-02-26|| ||
-||BungeniOfficialTime||17:01|| ||
-||BungeniParliamentID||2|| ||
-||BungeniParliamentSession||3|| ||
-||BungeniParliamentSitting||4|| ||
-||BungeniPublicationDate||2011-02-25|| ||
-||BungeniPublicationName||debaterecord|| ||
-||BungeniPublicationNameFull|| || ||
-||BungeniWorkAuthor||user.Ashok|| ||
-||BungeniWorkAuthorURI||user.Ashok|| ||
-||BungeniWorkDate||2011-02-26|| ||
-||BungeniWorkDateName||workDate|| ||
-||BungeniWorkURI||/ke/debaterecord/2011-2-26|| ||
+= Content Metadata =
 
-
-== Container Metadata == 
-
-=== Section level metadata === 
+== Section level metadata ==
 
 Akoma Ntoso defines different Element containers. These containers are of course not supported in ODF. We represent AN element containers in ODF using the `text:section` element.
 
@@ -144,6 +112,82 @@ This maps to the RDF triple --
 
 ||Subject || Predicate || Object ||
 || URL to section : "../content.xml#id81842116" || BungeniPersonID || 4 ||
+
+== Inline metadata ==
+
+Inline markup is done using inline metadata e.g. the `<from>` part of the speech is marked up as follows using `text:meta` :
+
+{{{
+<text:p text:style-name="Standard">
+    <text:meta xml:id="id394891649">The Assistant Minister for Transport and Communications (Dr.
+        Momanyi): </text:meta>
+</text:p>
+}}}
+
+This gets represented in RDF as :
+{{{
+  <rdf:Description rdf:about="../content.xml#id394891649">
+    <ns9:InlineType xmlns:ns9="http://editor.bungeni.org/1.0/anx/">from</ns9:InlineType>
+  </rdf:Description>
+}}}
+
+This maps to the RDF triple -- 
+
+||Subject || Predicate || Object ||
+|| URL to inline meta : "../content.xml#id394891649" || InlineType || from ||
+
+== ODF to AN xml metadata mappings == 
+
+=== Document level metadata mappings === 
+
+The Mapping for this is provided below -- 
+
+
+||ODF Meta Name || Example ODF Meta Value || AN XML Representation || 
+||BungeniCountryCode||ke||  part of FRBR URIs||
+||BungeniDocAuthor|| || FRBRManifestation/FRBRauthor ||
+||BungeniDocPart||main|| 
+{{{ 
+<FRBRWork>
+                    <FRBRthis value="/ke/act/2010-08-27/1/main"/>
+                    <FRBRuri value="/ke/act/2010-08-27/1"/>
+                    <FRBRdate date="2010-08-27" name="Generation"/>
+                    <FRBRauthor as="#author" href="#parliament"/>
+                    <components>
+                        <component href="#emain" id="wmain" name="main" showAs="Main document"/>  <==
+                    </components>
+                </FRBRWork> 
+}}
+||
+||BungeniDocType||debaterecord|| {{{ <debateRecord> , <debate> }}}  ||
+||BungeniExpAuthor||user.Ashok||  {{{ FRBRExpression/FRBRauthor/@as }}}||
+||BungeniExpAuthorURI||user.Ashok|| {{{ FRBRExpression/FRBRauthor/@href }}} ||
+||BungeniExpDate||2011-02-25|| {{{ FRBRExpression/FRBRdate/@date }}}||
+||BungeniExpDateName||expDate||{{{ FRBRExpression/FRBRdate/@name }}}||
+||BungeniExpURI|| {{{ /ke/debaterecord/2011-2-26/eng@ }}}|| {{{ FRBRExpression/FRBRuri/@value }}}||
+||BungeniLanguageCode||en|| {{{ FRBRExpression/FRBRlanguage/@language }}} ||
+||BungeniManAuthor||user.Ashok|| {{{FRBRManifestation/FRBRauthor/@as }}} ||
+||BungeniManAuthorURI||user.Ashok|| {{{FRBRManifestation/FRBRauthor/@href }}} ||
+||BungeniManDate||2011-02-25|| {{{FRBRManifestation/FRBRdate/@date }}} ||
+||BungeniManDateName||manDate|| {{{FRBRManifestation/FRBRdate/@name }}} ||
+||BungeniManURI||/ke/debaterecord/2011-2-26/en.xml|| {{{FRBRManifestation/FRBuri/@value }}} ||
+||BungeniOfficialDate||2011-02-26|| ??? ||
+||BungeniOfficialTime||17:01|| ??? ||
+||BungeniParliamentID||2|| ??? ||
+||BungeniParliamentSession||3|| ???? ||
+||BungeniParliamentSitting||4||  ???? ||
+||BungeniPublicationDate||2011-02-25|| {{{ meta/publication/@date }}} ||
+||BungeniPublicationName||debaterecord|| {{{ meta/publication/@name }}} ||
+||BungeniPublicationNameFull|| || {{{ meta/publication/@showAs }}}  ||
+||BungeniWorkAuthor||user.Ashok|| {{FRBRWork/FRBRauthor/@showAs }}} ||
+||BungeniWorkAuthorURI||user.Ashok|| {{FRBRWork/FRBRauthor/@href }}} ||
+||BungeniWorkDate||2011-02-26|| {{{ FRBRWork/FRBRdate/@date }}}||
+||BungeniWorkDateName||workDate|| {{{ FRBRWork/FRBRdate/@name }}}   ||
+||BungeniWorkURI||/ke/debaterecord/2011-2-26|| {{{ FRBRwork/FRBRuri/@value }}} ||
+
+
+
+=== Content metadata mappings === 
 
 
 
