@@ -59,7 +59,7 @@ Once a condition has been registered in the settings database it is available fo
 
 == cursorInSection == 
 
-*parameter* - sectionName
+*parameter* - comma separated list of section names sectionName,sectionNameAnother,... 
 
 example:
 {{{
@@ -74,6 +74,15 @@ example:
 {{{
 cursorInSection:sectionQ.
 }}}
+
+or 
+
+{{{
+cursorInSection:section[0-9]*,question[0-9]*
+}}}
+
+will match "section1", "section2" ...or "question1", "question2" ... etc
+
 
 the above returns true for all section names matching the sectionQ. pattern :
 sectionQuestion, sectionQuestionAnswer, sectionQA...etc..
