@@ -653,7 +653,18 @@ Action configuration for debate-records
                     <title xml:lang="eng">---- item num</title>
                     <tooltip xml:lang="eng">Item Number </tooltip>
                 </action>
-                
+
+                <action name="Question.listitem"
+                    mode="TEXT_SELECTED_INSERT"
+                    target="toolbarSubAction.makeDebateSpeechBlockSection.char_style:an-list-item"
+                    visible="true"
+                    condition="textSelected:true :and:
+                                cursorInSection:quebody[0-9]*,sque[0-9]*,qa[0-9]*">
+                    <title xml:lang="eng">---- list-item</title>
+                    <tooltip xml:lang="eng">Identify selected text as speech author's name
+                    </tooltip>
+                </action>
+
                 <!-- markup quetion to 
                 <action name="Questions.to.markup" 
                     mode="TEXT_SELECTED_INSERT"
