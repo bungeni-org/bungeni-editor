@@ -67,6 +67,18 @@ Action configuration for debate-records
                     <title xml:lang="eng">speech section</title>
                     <tooltip xml:lang="eng">Mark selection as a Speech </tooltip>
                 </action>
+
+                 <action name="Speech.listitem"
+                    mode="TEXT_SELECTED_INSERT"
+                    target="toolbarSubAction.makeDebateSpeechBlockSection.char_style:an-list-item"
+                    visible="true"
+                    condition="textSelected:true :and:
+                                cursorInSection:speech[0-9]*,spbody[0-9]*">
+                    <title xml:lang="eng">---- list-item</title>
+                    <tooltip xml:lang="eng">Identify selected text as speech author's name
+                    </tooltip>
+                </action>
+
                 <action name="Speech.SpeechBy" 
                     mode="TEXT_SELECTED_INSERT"
                     target="toolbarSubAction.makeDebateSpeechBlockSection.speech_by" 

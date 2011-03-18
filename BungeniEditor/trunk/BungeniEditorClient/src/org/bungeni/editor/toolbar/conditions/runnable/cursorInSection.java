@@ -16,25 +16,21 @@ import org.bungeni.ooo.ooQueryInterface;
 
 /**
  * 
- * Contextual evauluator that checks if the cursor is in a particular section in the document.
+ * Contextual evaluator that checks if the cursor is in a particular section in the document.
  * e.g. cursorInSection:section_name
  * will evaluate to true if the cursor is placed in section called section_name
  * will evaluate to false if the cursor is placed in section not called section_name
  * will evaluate to false if the cursor is not placed in a section.
- * @author Administrator
+ * @author Ashok Hariharan
  */
 public class cursorInSection extends baseRunnableCondition {
-    // private OOComponentHelper ooDocument;
 
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(cursorInSection.class.getName());
 
     /** Creates a new instance of sectionExists */
     public cursorInSection() {
     }
-//
-//    public void setOOoComponentHelper(OOComponentHelper ooDocument) {
-//        this.ooDocument = ooDocument;
-//    }
+
 
     private String getSectionFromRange(XTextRange theRange) {
         String theSectionName = "";
@@ -68,11 +64,11 @@ public class cursorInSection extends baseRunnableCondition {
         }
     }
 
-    boolean check_cursorInSection(OOComponentHelper ooDocument, BungeniToolbarCondition condition) throws ConditionFailureException {
+    boolean check_cursorInSection(OOComponentHelper ooDocument, String condition) throws ConditionFailureException {
         boolean bReturn = true;
         ConditionFailureException cex = null;
         try {
-            String sectionToActUpon = condition.getConditionValue();
+            String sectionToActUpon = condition;
             if (sectionToActUpon.equals(BungeniEditorPropertiesHelper.getDocumentRoot())) {
                 String activeDoc = BungeniEditorProperties.getEditorProperty("activeDocumentMode");
                 sectionToActUpon = BungeniEditorProperties.getEditorProperty("root:" + activeDoc);
@@ -144,7 +140,17 @@ public class cursorInSection extends baseRunnableCondition {
     public boolean runCondition(OOComponentHelper ooDocument, BungeniToolbarCondition condition) {
         boolean bState = false;
         try {
-            bState = check_cursorInSection(ooDocument, condition);
+            String strValue = condition.getConditionValue();
+            String[] conditions = strValue.split(",");
+            Boolean[] arrBooleans = new Boolean[conditions.length];
+            for (int i=0; i < conditions.length ; i++ ) {
+                arrBooleans[i] = check_cursorInSection(ooDocument, conditions[i]);
+                if (arrBooleans[i] == true) {
+                    bState = true;
+                    break;
+                }
+            }
+            //bState = check_cursorInSection(ooDocument, condition);
         } catch (ConditionFailureException ex) {
             log.error("cursorInSection failed ", ex);
         }
