@@ -38,8 +38,7 @@ For e.g. -- the following is representative markup in ODF of a `speech` in a deb
 {{{
 <text:section text:style-name="Sect10" xml:id="id81842116" text:name="speech1">
     <text:p text:style-name="Standard">
-        <text:meta xml:id="id394891649">The Assistant Minister for Transport and Communications (Dr.
-            Momanyi): </text:meta>
+        <text:meta xml:id="id394891649">Mr. Francis Acheka: </text:meta>
     </text:p>
     <text:section text:style-name="Sect9" xml:id="id1636983406" text:name="spbody1">
         <text:p text:style-name="Standard">Mr. Speaker, Sir, I beg to reply.</text:p>
@@ -119,8 +118,7 @@ Inline markup is done using inline metadata e.g. the `<from>` part of the speech
 
 {{{
 <text:p text:style-name="Standard">
-    <text:meta xml:id="id394891649">The Assistant Minister for Transport and Communications (Dr.
-        Momanyi): </text:meta>
+    <text:meta xml:id="id394891649">Mr. Francis Acheka: </text:meta>
 </text:p>
 }}}
 
@@ -234,23 +232,38 @@ This is the speech element --
 ....
 <speech by="#FrancisAcheka" as="#MemberOfParliament">
     <from>Mr Francis Acheka:</from>
-    <p>Mr. Speaker, Sir, I beg to give notice of the following Motion:-</p>
-    <p>Lorem ipsum dolor sit amet, consectetur
-        adipisicing elit, sed do eiusmod tempor incididunt
-        ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris
-        nisi ut aliquip ex ea commodo consequat. Duis aute
-        irure dolor in reprehenderit in voluptate velit
-        esse cillum dolore eu fugiat nulla pariatur.
-        Excepteur sint occaecat cupidatat non proident,
-        sunt in culpa qui officia deserunt mollit anim id
-        est laborum..</p>
+    <p>Mr. Speaker, Sir, I beg to reply.</p>
+    <list id="lst-speech-1">
+        <item id="it1-lst-speech-1">
+        <num>(a)</num>
+        <p>
+            The Arabia Airstrip is of gravel surface, and
+            that is how it was intended to be. At no time has any bitumen work ever been
+            undertaken in 1978 and stopped, as the question implies. The airstrip was last
+            graded in June, 1988.
+        </p>
+        </item>
+        <item id="it2-lst-speech-1">
+        <num>(b)</num>
+        <p>
+            According to the Ministry’s current
+            Development Plan there is no provision to bituminize Arabia Airstrip.
+        </p>
+        </item>
+    </list>
+
 </speech>
 
 }}}
 
 
 ===== In ODF =====
+
+The content markup:
+
+See the ODF markup for the speech in [#Section_level_metadata Section Level Metadata]
+
+The RDF metadata : 
 
 {{{
 <?xml version="1.0" encoding="utf-8"?>
@@ -282,7 +295,7 @@ So, the mapping from ODF to Akoma Ntoso happens as follows --
 
 ===== In Akoma Ntoso ===== 
 {{{
-<from>The Assistant Minister for Transport and Communications (Dr.Momanyi):</from>
+<from>Mr. Francis Acheka:</from>
 }}}
 
 ===== In ODF ===== 
@@ -304,3 +317,37 @@ In the rdf as :
   </rdf:Description>
 }}}
 
+
+==== `<num>` element ====
+
+===== In Akoma Ntoso ===== 
+{{{
+<num>(a)</num>
+}}}
+
+===== In ODF ===== 
+
+In the content marked up as :
+
+{{{
+<text:p text:style-name="Standard">
+    <text:meta xml:id="id415166567">(a)</text:meta>
+</text:p>
+}}}
+
+In the RDF with 'InlineType' predicate :
+
+{{{
+  <rdf:Description rdf:about="../content.xml#id415166567">
+    <ns9:InlineType xmlns:ns9="http://editor.bungeni.org/1.0/anx/">num</ns9:InlineType>
+  </rdf:Description>
+}}}
+
+
+
+==== listitem element ====
+
+The listitem is identified by style markup --
+{{{
+ <text:span text:style-name="an-list-item"> item text </text:span>
+}}}
