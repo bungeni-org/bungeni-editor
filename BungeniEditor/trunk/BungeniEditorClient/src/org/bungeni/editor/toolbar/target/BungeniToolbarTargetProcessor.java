@@ -1,13 +1,4 @@
-/*
- * BungeniToolbarTargetProcessor.java
- *
- * Created on March 3, 2008, 9:05 AM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
-package org.bungeni.editor.toolbar;
+package org.bungeni.editor.toolbar.target;
 
 /**
  * valid subAction reference = toolbarSubAction.makePrayerSection.debatedate_entry

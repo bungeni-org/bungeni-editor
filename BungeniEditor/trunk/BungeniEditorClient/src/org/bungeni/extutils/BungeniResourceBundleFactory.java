@@ -14,7 +14,7 @@ import org.bungeni.db.SettingsQueryFactory;
 
 /**
  *
- * @author undesa
+ * @author Ashok Hariharan
  */
 public class BungeniResourceBundleFactory {
     public static HashMap<String,ResourceBundle> messageBundles = new HashMap<String, ResourceBundle>();
@@ -50,7 +50,10 @@ public class BungeniResourceBundleFactory {
         return lc;
     }
     
-    
+    /**
+     * Loads the message bundles for the section type names and document metanames and error messages.
+     * The other bundles are loaded by the individual dialog classes
+     */
     public static void loadMessageBundles(){
         try {
           Locale activeLocale = getActiveLocale();

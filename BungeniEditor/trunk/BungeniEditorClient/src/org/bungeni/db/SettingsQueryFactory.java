@@ -198,8 +198,14 @@ public class SettingsQueryFactory {
 
     public static String Q_FETCH_TOOLBAR_CONFIG_FILE(String documentType) {
         String query = "SELECT doc_type, toolbar_xml  FROM TOOLBAR_XML_CONFIG " + "where DOC_TYPE = '" + documentType
-                       + "'";
+                       + "' and file_type = 'actions'";
+        return query;
+    }
 
+    public static String Q_FETCH_TOOLBAR_CONFIG_BYTYPE(String documentType, String configType) {
+        String query = "SELECT doc_type, toolbar_xml  FROM TOOLBAR_XML_CONFIG " +
+                       "where DOC_TYPE = '" + documentType + "' "
+                       + "and file_type = '" + configType  +  "'";
         return query;
     }
 

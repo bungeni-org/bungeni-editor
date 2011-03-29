@@ -39,7 +39,7 @@ import org.bungeni.editor.panels.toolbar.buttonContainerPanel;
 import org.bungeni.editor.panels.toolbar.buttonPanel;
 import org.bungeni.editor.panels.toolbar.scrollPanel;
 import org.bungeni.editor.selectors.SelectorDialogModes;
-import org.bungeni.editor.toolbar.BungeniToolbarTargetProcessor;
+import org.bungeni.editor.toolbar.target.BungeniToolbarTargetProcessor;
 import org.bungeni.editor.toolbar.conditions.BungeniToolbarConditionProcessor;
 import org.bungeni.ooo.OOComponentHelper;
 

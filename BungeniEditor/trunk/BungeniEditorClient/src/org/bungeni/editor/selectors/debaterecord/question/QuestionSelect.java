@@ -1,9 +1,3 @@
-/*
- * QuestionSelect.java
- *
- * Created on August 12, 2008, 12:09 PM
- */
-
 package org.bungeni.editor.selectors.debaterecord.question;
 
 import com.sun.star.text.XTextSection;
@@ -25,7 +19,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  *
- * @author  undesa
+ * @author  Ashok Hariharan
  */
 public class QuestionSelect extends BaseMetadataPanel {
  
@@ -93,18 +87,7 @@ public class QuestionSelect extends BaseMetadataPanel {
                 if (cboQuestionSelect.getSelectedIndex() != -1) {
                    ObjectQuestion selectedQuestion = (ObjectQuestion)cboQuestionSelect.getSelectedItem();
                    updateQuestionSelection(selectedQuestion); 
-                   /*
-                   HashMap<String,String> selData = new HashMap<String,String>();
-                   selData.put("ID", selectedQuestion.questionId);
-                   selData.put("QUESTION_TITLE", selectedQuestion.questionTitle);
-                   selData.put("QUESTION_FROM", selectedQuestion.questionFrom);
-                   selData.put("QUESTION_TO", selectedQuestion.questionTo);
-                   selData.put("QUESTION_TEXT", selectedQuestion.questionText);
-
-                    ((Main)getContainerPanel()).selectionData = selData;
-                    if ( ((Main)getContainerPanel()).selectionData.size() > 0 ) 
-                        ((Main)getContainerPanel()).updateAllPanels();
-                     */ 
+             
                 } else {
                     log.error("QuestionSelect:actionperformed : for -1 index");
                 }

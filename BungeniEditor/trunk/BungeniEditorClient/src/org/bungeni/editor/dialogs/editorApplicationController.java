@@ -27,8 +27,6 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
@@ -1176,28 +1174,7 @@ private void launchFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     createNewDocument.setEnabled(false);
     documentType selectedDocType = (documentType) cboDocumentTypes.getSelectedItem();
     launchDocumentType(selectedDocType, "new");
-    /*
-    if (panel == null ) {
-    String templateURL = "";
-    log.debug("Current Template file :" + m_FullTemplatesPath+File.separatorChar+m_settings_CurrentTemplate);
-
-    documentType selectedDocType = (documentType) cboDocumentTypes.getSelectedItem();
-
-    final String templatePathNormalized = selectedDocType.templatePathNormalized();
-
-    this.createNewDocument.setEnabled(false);
-    SwingUtilities.invokeLater(new Runnable(){
-
-    public void run() {
-
-    initoOoAndLaunchFrame(templatePathNormalized, true);
-
-    }
-
-    });
-    } else {
-    panel.newDocumentInPanel();
-    } */
+    
     createNewDocument.setEnabled(true);
     hideWindow(false);
 

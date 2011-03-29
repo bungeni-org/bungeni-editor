@@ -63,7 +63,7 @@ import org.bungeni.editor.metadata.BaseEditorDocMetaModel;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
-import org.bungeni.editor.toolbar.BungeniToolbarTargetProcessor;
+import org.bungeni.editor.toolbar.target.BungeniToolbarTargetProcessor;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.bungeni.extutils.BungeniFrame;
 import org.bungeni.extutils.BungeniRuntimeProperties;
