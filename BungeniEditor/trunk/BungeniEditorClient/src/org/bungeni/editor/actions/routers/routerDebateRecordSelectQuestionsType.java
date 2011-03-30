@@ -7,13 +7,13 @@ import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.ooo.OOComponentHelper;
 
 /**
- *
+ * Selects a question type for a questions Section
  * @author Ashok Hariharan
  */
-public class routerDebateRecordSelectQuestion extends defaultRouter {
- private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(routerDebateRecordMarkupLogo.class.getName());
+public class routerDebateRecordSelectQuestionsType extends defaultRouter {
+ private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(routerDebateRecordSelectQuestionsType.class.getName());
  
-  public routerDebateRecordSelectQuestion(){
+  public routerDebateRecordSelectQuestionsType(){
       super();
   }
   

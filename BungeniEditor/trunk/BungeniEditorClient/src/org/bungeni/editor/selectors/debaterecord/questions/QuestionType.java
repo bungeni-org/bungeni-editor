@@ -1,17 +1,11 @@
-package org.bungeni.editor.selectors.debaterecord.question;
+package org.bungeni.editor.selectors.debaterecord.questions;
 
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -22,10 +16,10 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.db.IQueryResultsIterator;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
+import org.bungeni.editor.selectors.debaterecord.question.ObjectQuestionType;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.ooo.OOComponentHelper;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
@@ -50,6 +44,7 @@ public class QuestionType extends BaseMetadataPanel {
     public QuestionType() {
         try {
             dbfInstance = DocumentBuilderFactory.newInstance();
+            dbfInstance.setNamespaceAware(false);
             dbuilder = dbfInstance.newDocumentBuilder();
             xpathInstance = XPathFactory.newInstance().newXPath();
             initComponents();
@@ -70,12 +65,12 @@ public class QuestionType extends BaseMetadataPanel {
         lblQuestionType = new javax.swing.JLabel();
         cboQuestionType = new javax.swing.JComboBox();
 
-        lblQuestionType.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/question/Bundle"); // NOI18N
+        lblQuestionType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/questions/Bundle"); // NOI18N
         lblQuestionType.setText(bundle.getString("QuestionType.lblQuestionType.text")); // NOI18N
         lblQuestionType.setName("lbl_question_title"); // NOI18N
 
-        cboQuestionType.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        cboQuestionType.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         cboQuestionType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -308,9 +303,11 @@ public class QuestionType extends BaseMetadataPanel {
                 //we capture the iso3 default language for the current locale
                 //xml config uses iso3 language representation
                 String iso3Language = defLocale.getISO3Language();
+                Node contextNode = questionOntologyNodes.item(i);
+                
                 Node foundNode = null;
                 try {
-                    foundNode = (Node) xpathInstance.evaluate("showAs[@xml:lang='" + iso3Language + "']", ontoElement, XPathConstants.NODE);
+                    foundNode = (Node) xpathInstance.evaluate("./showAs[@lang='" + iso3Language + "']", contextNode, XPathConstants.NODE);
                 } catch (XPathExpressionException ex) {
                     log.error("Node for language : " + iso3Language + " not found", ex);
                 }
