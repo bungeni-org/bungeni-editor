@@ -26,8 +26,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JFrame;
@@ -54,7 +52,7 @@ import org.bungeni.extutils.MessageBox;
 
 /**
  *
- * @author  Administrator
+ * @author  Ashok Hariharan
  */
 public class frameBrokenReferences2 extends javax.swing.JFrame {
 
@@ -84,8 +82,8 @@ public class frameBrokenReferences2 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        taskpaneBrokenReferences = new com.l2fprod.common.swing.JTaskPane();
-        taskpaneGrpFindBrokenReferences = new com.l2fprod.common.swing.JTaskPaneGroup();
+        taskpaneBrokenReferences = new org.jdesktop.swingx.JXTaskPaneContainer();
+        taskpaneGrpFindBrokenReferences = new org.jdesktop.swingx.JXTaskPane();
         panelBrowseBrokenReferences = new javax.swing.JPanel();
         scrollBrowseBrokenReferences = new javax.swing.JScrollPane();
         tblBrowseBrokenReferences = new javax.swing.JTable();
@@ -94,7 +92,7 @@ public class frameBrokenReferences2 extends javax.swing.JFrame {
         btnFindBroken = new javax.swing.JButton();
         btnFixBroken = new javax.swing.JButton();
         btnClose1 = new javax.swing.JButton();
-        taskpaneGrpFixBrokenReferences = new com.l2fprod.common.swing.JTaskPaneGroup();
+        taskpaneGrpFixBrokenReferences = new org.jdesktop.swingx.JXTaskPane();
         panelFixBrokenReferences = new javax.swing.JPanel();
         btnFixBrokenReferences = new javax.swing.JButton();
         btnCloseFrame = new javax.swing.JButton();
@@ -107,21 +105,22 @@ public class frameBrokenReferences2 extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
 
-        taskpaneGrpFindBrokenReferences.setCollapsable(false);
         taskpaneGrpFindBrokenReferences.setTitle("Find Broken References");
+        taskpaneGrpFindBrokenReferences.setFont(new java.awt.Font("DejaVu Sans", 1, 11)); // NOI18N
 
         panelBrowseBrokenReferences.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
 
         tblBrowseBrokenReferences.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null}
-                },
-                new String[]{
-                    "Title 1", "Title 2", "Title 3", "Title 4"
-                }));
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
         scrollBrowseBrokenReferences.setViewportView(tblBrowseBrokenReferences);
 
         txtMessageArea.setColumns(20);
@@ -132,7 +131,6 @@ public class frameBrokenReferences2 extends javax.swing.JFrame {
         btnFindBroken.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         btnFindBroken.setText("Find Broken");
         btnFindBroken.addActionListener(new java.awt.event.ActionListener() {
-
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFindBrokenActionPerformed(evt);
             }
@@ -141,7 +139,6 @@ public class frameBrokenReferences2 extends javax.swing.JFrame {
         btnFixBroken.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         btnFixBroken.setText("Fix References");
         btnFixBroken.addActionListener(new java.awt.event.ActionListener() {
-
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFixBrokenActionPerformed(evt);
             }
@@ -153,59 +150,110 @@ public class frameBrokenReferences2 extends javax.swing.JFrame {
         org.jdesktop.layout.GroupLayout panelBrowseBrokenReferencesLayout = new org.jdesktop.layout.GroupLayout(panelBrowseBrokenReferences);
         panelBrowseBrokenReferences.setLayout(panelBrowseBrokenReferencesLayout);
         panelBrowseBrokenReferencesLayout.setHorizontalGroup(
-                panelBrowseBrokenReferencesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(panelBrowseBrokenReferencesLayout.createSequentialGroup().addContainerGap().add(panelBrowseBrokenReferencesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(scrollMessageArea, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE).add(panelBrowseBrokenReferencesLayout.createSequentialGroup().addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(btnFindBroken, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 138, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(btnFixBroken, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 123, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(btnClose1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)).add(scrollBrowseBrokenReferences, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)).add(15, 15, 15)));
+            panelBrowseBrokenReferencesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(panelBrowseBrokenReferencesLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(panelBrowseBrokenReferencesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(scrollMessageArea, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
+                    .add(panelBrowseBrokenReferencesLayout.createSequentialGroup()
+                        .add(btnFindBroken, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 138, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(btnFixBroken, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 123, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(btnClose1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
+                    .add(scrollBrowseBrokenReferences, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE))
+                .add(49, 49, 49))
+        );
         panelBrowseBrokenReferencesLayout.setVerticalGroup(
-                panelBrowseBrokenReferencesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(panelBrowseBrokenReferencesLayout.createSequentialGroup().add(scrollMessageArea, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(scrollBrowseBrokenReferences, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 112, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).add(14, 14, 14).add(panelBrowseBrokenReferencesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE).add(btnFindBroken).add(btnFixBroken).add(btnClose1)).addContainerGap()));
+            panelBrowseBrokenReferencesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(panelBrowseBrokenReferencesLayout.createSequentialGroup()
+                .add(scrollMessageArea, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(scrollBrowseBrokenReferences, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 112, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(14, 14, 14)
+                .add(panelBrowseBrokenReferencesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(btnFindBroken)
+                    .add(btnFixBroken)
+                    .add(btnClose1))
+                .addContainerGap())
+        );
 
         taskpaneGrpFindBrokenReferences.getContentPane().add(panelBrowseBrokenReferences);
 
         taskpaneBrokenReferences.add(taskpaneGrpFindBrokenReferences);
 
         taskpaneGrpFixBrokenReferences.setTitle("Fix Broken References");
-        taskpaneGrpFixBrokenReferences.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
+        taskpaneGrpFixBrokenReferences.setFont(new java.awt.Font("DejaVu Sans", 1, 11)); // NOI18N
 
-        btnFixBrokenReferences.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        btnFixBrokenReferences.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         btnFixBrokenReferences.setText("Insert Cross Ref");
         btnFixBrokenReferences.addActionListener(new java.awt.event.ActionListener() {
-
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFixBrokenReferencesActionPerformed(evt);
             }
         });
 
-        btnCloseFrame.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        btnCloseFrame.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         btnCloseFrame.setText("Browse Broken ");
         btnCloseFrame.addActionListener(new java.awt.event.ActionListener() {
-
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCloseFrameActionPerformed(evt);
             }
         });
 
-        btnClose2.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        btnClose2.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         btnClose2.setText("Close");
 
         tblAllReferences.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null}
-                },
-                new String[]{
-                    "Title 1", "Title 2", "Title 3", "Title 4"
-                }));
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
         jScrollPane1.setViewportView(tblAllReferences);
 
-        lblFIlterReferences.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        lblFIlterReferences.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         lblFIlterReferences.setText("Filter References");
 
         org.jdesktop.layout.GroupLayout panelFixBrokenReferencesLayout = new org.jdesktop.layout.GroupLayout(panelFixBrokenReferences);
         panelFixBrokenReferences.setLayout(panelFixBrokenReferencesLayout);
         panelFixBrokenReferencesLayout.setHorizontalGroup(
-                panelFixBrokenReferencesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(panelFixBrokenReferencesLayout.createSequentialGroup().add(panelFixBrokenReferencesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(panelFixBrokenReferencesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false).add(org.jdesktop.layout.GroupLayout.LEADING, lblFIlterReferences, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).add(org.jdesktop.layout.GroupLayout.LEADING, txtRefFilter, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)).add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE).add(panelFixBrokenReferencesLayout.createSequentialGroup().addContainerGap().add(btnFixBrokenReferences, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 138, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(btnCloseFrame, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 129, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(btnClose2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))).addContainerGap()));
+            panelFixBrokenReferencesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(panelFixBrokenReferencesLayout.createSequentialGroup()
+                .add(panelFixBrokenReferencesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(panelFixBrokenReferencesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, lblFIlterReferences, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, txtRefFilter, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
+                    .add(panelFixBrokenReferencesLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(btnFixBrokenReferences, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 138, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(btnCloseFrame, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 129, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(btnClose2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
         panelFixBrokenReferencesLayout.setVerticalGroup(
-                panelFixBrokenReferencesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(org.jdesktop.layout.GroupLayout.TRAILING, panelFixBrokenReferencesLayout.createSequentialGroup().add(lblFIlterReferences).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).add(txtRefFilter, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED).add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 271, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(panelFixBrokenReferencesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE).add(btnFixBrokenReferences).add(btnCloseFrame).add(btnClose2)).add(164, 164, 164)));
+            panelFixBrokenReferencesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, panelFixBrokenReferencesLayout.createSequentialGroup()
+                .add(lblFIlterReferences)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(txtRefFilter, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 271, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(panelFixBrokenReferencesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(btnFixBrokenReferences)
+                    .add(btnCloseFrame)
+                    .add(btnClose2))
+                .add(164, 164, 164))
+        );
 
         taskpaneGrpFixBrokenReferences.getContentPane().add(panelFixBrokenReferences);
 
@@ -214,9 +262,15 @@ public class frameBrokenReferences2 extends javax.swing.JFrame {
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(taskpaneBrokenReferences, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE));
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(taskpaneBrokenReferences, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 472, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(layout.createSequentialGroup().add(taskpaneBrokenReferences, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE).addContainerGap()));
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .add(taskpaneBrokenReferences, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 556, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -241,33 +295,33 @@ public class frameBrokenReferences2 extends javax.swing.JFrame {
 
     private void btnCloseFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseFrameActionPerformed
 // TODO add your handling code here:
-        this.taskpaneGrpFixBrokenReferences.setExpanded(false);
+        this.taskpaneGrpFixBrokenReferences.setCollapsed(true);
         this.taskpaneGrpFixBrokenReferences.setVisible(false);
-        this.taskpaneGrpFindBrokenReferences.setExpanded(true);
+        this.taskpaneGrpFindBrokenReferences.setCollapsed(true);
         this.taskpaneGrpFindBrokenReferences.setVisible(true);
 
     }//GEN-LAST:event_btnCloseFrameActionPerformed
 
     private void btnFixBrokenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFixBrokenActionPerformed
 // TODO add your handling code here:
-        this.taskpaneGrpFindBrokenReferences.setExpanded(false);
+        this.taskpaneGrpFindBrokenReferences.setCollapsed(false);
         this.taskpaneGrpFindBrokenReferences.setVisible(false);
-        this.taskpaneGrpFixBrokenReferences.setExpanded(true);
+        this.taskpaneGrpFixBrokenReferences.setCollapsed(true);
         this.taskpaneGrpFixBrokenReferences.setVisible(true);
     }//GEN-LAST:event_btnFixBrokenActionPerformed
 
     public void findBrokenFrameSetExpanded(boolean bState) {
         this.taskpaneGrpFindBrokenReferences.setVisible(bState);
-        this.taskpaneGrpFindBrokenReferences.setExpanded(bState);
+        this.taskpaneGrpFindBrokenReferences.setCollapsed(bState);
         this.taskpaneGrpFixBrokenReferences.setVisible(!bState);
-        this.taskpaneGrpFixBrokenReferences.setExpanded(!bState);
+        this.taskpaneGrpFixBrokenReferences.setCollapsed(!bState);
     }
 
     public void fixBrokenFrameSetExpanded(boolean bState) {
         this.taskpaneGrpFixBrokenReferences.setVisible(bState);
-        this.taskpaneGrpFixBrokenReferences.setExpanded(bState);
+        this.taskpaneGrpFixBrokenReferences.setCollapsed(bState);
         this.taskpaneGrpFindBrokenReferences.setVisible(!bState);
-        this.taskpaneGrpFindBrokenReferences.setExpanded(!bState);
+        this.taskpaneGrpFindBrokenReferences.setCollapsed(!bState);
     }
 
     public enum LaunchMode {
@@ -418,63 +472,6 @@ public class frameBrokenReferences2 extends javax.swing.JFrame {
             return bState;
         }
     }
-    /*
-    private void insertCrossReference(String sourceName){
-    int i=0;
-    
-    try {
-
-    XTextDocument xDoc = ooDocument.getTextDocument();
-
-    XTextViewCursor xViewCursor=ooDocument.getViewCursor();
-    Object oRefField=ooDocument.createInstance("com.sun.star.text.TextField.GetReference");
-
-    XReferenceMarksSupplier xRefSupplier = (XReferenceMarksSupplier) UnoRuntime.queryInterface(
-    XReferenceMarksSupplier.class, xDoc);
-
-    // Get an XNameAccess which refers to all inserted reference marks
-    XNameAccess xMarks = (XNameAccess) UnoRuntime.queryInterface(XNameAccess.class,
-    xRefSupplier.getReferenceMarks());
-
-    String[] aNames = xMarks.getElementNames();
-    XPropertySet oFieldSet = ooQueryInterface.XPropertySet(oRefField);
-
-
-
-
-    oFieldSet.setPropertyValue("ReferenceFieldSource",com.sun.star.text.ReferenceFieldSource.REFERENCE_MARK);
-
-    oFieldSet.setPropertyValue("SourceName", sourceName);
-    oFieldSet.setPropertyValue("ReferenceFieldPart",com.sun.star.text.ReferenceFieldPart.TEXT);
-
-
-    XTextContent xRefContent = (XTextContent) UnoRuntime.queryInterface(
-    XTextContent.class, oFieldSet);
-
-    xDoc.getText().insertTextContent(xViewCursor , xRefContent, true);
-    xDoc.getText().insertString(xViewCursor , " , ", false);
-
-
-    XRefreshable xRefresh = (XRefreshable) UnoRuntime.queryInterface(
-    XRefreshable.class, xDoc);
-    xRefresh.refresh();
-
-
-
-
-    } catch (UnknownPropertyException ex) {
-    ex.printStackTrace();
-    } catch (WrappedTargetException ex) {
-    ex.printStackTrace();
-    } catch (PropertyVetoException ex) {
-    ex.printStackTrace();
-    } catch (com.sun.star.lang.IllegalArgumentException ex) {
-    ex.printStackTrace();
-    }
-
-
-
-    }*/
 
     /**
      * @param args the command line arguments
@@ -529,19 +526,6 @@ public class frameBrokenReferences2 extends javax.swing.JFrame {
         //do a lazy load of the references tree.
         ReferencesTableModelAgent agent = new ReferencesTableModelAgent();
         agent.execute();
-
-        /*
-        
-        DefaultTreeModel treeFixBrokenModel = new DefaultTreeModel(buildTreeModel());
-        this.treeFixBrokenReferences.setModel(treeFixBrokenModel);
-        DefaultTreeCellRenderer renderTree = new DefaultTreeCellRenderer();
-        this.treeFixBrokenReferences.setCellRenderer(
-        new treeBrokenReferencesCellRenderer(
-        renderTree.getOpenIcon(),
-        renderTree.getClosedIcon(),
-        renderTree.getLeafIcon()));
-        CommonTreeFunctions.expandAll(treeFixBrokenReferences);
-         */
 
         this.btnClose1.addActionListener(new ActionListener() {
 
@@ -872,9 +856,9 @@ public class frameBrokenReferences2 extends javax.swing.JFrame {
     private javax.swing.JPanel panelFixBrokenReferences;
     private javax.swing.JScrollPane scrollBrowseBrokenReferences;
     private javax.swing.JScrollPane scrollMessageArea;
-    private com.l2fprod.common.swing.JTaskPane taskpaneBrokenReferences;
-    private com.l2fprod.common.swing.JTaskPaneGroup taskpaneGrpFindBrokenReferences;
-    private com.l2fprod.common.swing.JTaskPaneGroup taskpaneGrpFixBrokenReferences;
+    private org.jdesktop.swingx.JXTaskPaneContainer taskpaneBrokenReferences;
+    private org.jdesktop.swingx.JXTaskPane taskpaneGrpFindBrokenReferences;
+    private org.jdesktop.swingx.JXTaskPane taskpaneGrpFixBrokenReferences;
     private javax.swing.JTable tblAllReferences;
     private javax.swing.JTable tblBrowseBrokenReferences;
     private javax.swing.JTextArea txtMessageArea;

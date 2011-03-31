@@ -1,12 +1,6 @@
-/*
- * referenceManager.java
- *
- * Created on July 14, 2008, 4:47 PM
- */
 
 package org.bungeni.editor.panels.loadable.refmgr;
 
-import com.l2fprod.common.swing.JTaskPaneGroup;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -15,15 +9,15 @@ import java.util.Map;
 import javax.swing.JFrame;
 import org.bungeni.editor.panels.impl.BaseLaunchablePanel;
 import org.bungeni.editor.panels.impl.ILaunchablePanel;
-import org.bungeni.ooo.utils.CommonExceptionUtils;
+import org.jdesktop.swingx.JXTaskPane;
 
 /**
  *
- * @author  undesa
+ * @author  Ashok
  */
 public class referenceManager extends BaseLaunchablePanel {
     
-    ArrayList<JTaskPaneGroup> paneGroups = new ArrayList<JTaskPaneGroup>(0);
+    ArrayList<JXTaskPane> paneGroups = new ArrayList<JXTaskPane>(0);
     
     public final static String __TITLE__ = "Reference Manager";
     public final static Dimension FRAME_DIMENSION = new Dimension(498, 480);
@@ -100,7 +94,7 @@ public class referenceManager extends BaseLaunchablePanel {
      * @param launchablePane
      */
     private void initPaneGroup(String launchablePane){
-            JTaskPaneGroup jtpGrp = new JTaskPaneGroup();
+            JXTaskPane jtpGrp = new JXTaskPane();
 
             ILaunchablePanel panel = org.bungeni.editor.panels.factory.LaunchablePanelFactory.getPanelClass(launchablePane);
             panel.setOOComponentHandle(ooDocument);
@@ -113,9 +107,9 @@ public class referenceManager extends BaseLaunchablePanel {
             paneGroups.add(jtpGrp);
             if (this.launchModeClass.equals(launchablePane)) {
                 //expand this window
-                jtpGrp.setExpanded(true);
+                jtpGrp.setCollapsed(false);
             } else {
-                jtpGrp.setExpanded(false);
+                jtpGrp.setCollapsed(true);
             }
     }
 
@@ -133,12 +127,7 @@ public class referenceManager extends BaseLaunchablePanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        taskPane = new com.l2fprod.common.swing.JTaskPane();
-
-        com.l2fprod.common.swing.PercentLayout percentLayout2 = new com.l2fprod.common.swing.PercentLayout();
-        percentLayout2.setGap(14);
-        percentLayout2.setOrientation(1);
-        taskPane.setLayout(percentLayout2);
+        taskPane = new org.jdesktop.swingx.JXTaskPaneContainer();
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -154,7 +143,7 @@ public class referenceManager extends BaseLaunchablePanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.l2fprod.common.swing.JTaskPane taskPane;
+    private org.jdesktop.swingx.JXTaskPaneContainer taskPane;
     // End of variables declaration//GEN-END:variables
    
     public static void main (String[] args) {
