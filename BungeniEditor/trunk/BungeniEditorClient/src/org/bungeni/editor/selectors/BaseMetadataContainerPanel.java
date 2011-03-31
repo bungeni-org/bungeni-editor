@@ -1,7 +1,6 @@
 
 package org.bungeni.editor.selectors;
 
-import com.l2fprod.common.swing.JTaskPaneGroup;
 import com.sun.star.lang.IllegalArgumentException;
 import com.sun.star.text.XTextRange;
 import com.sun.star.text.XTextRangeCompare;
@@ -13,8 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingWorker;
@@ -676,17 +673,17 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
         setBorder(null);
         paneMain.setBorder(null);
         paneMain.setBackground(BungeniEditorPropertiesHelper.getDialogBackColor());
-        JTaskPaneGroup mainTPgroup = new JTaskPaneGroup();
-        mainTPgroup.setTitle(this.theAction.action_display_text() + " ::");
-        mainTPgroup.getContentPane().setBackground(BungeniEditorPropertiesHelper.getDialogBackColor());
+        //JXTaskPaneGroup mainTPgroup = new JXTaskPaneGroup();
+        //mainTPgroup.setsetTitle(this.theAction.action_display_text() + " ::");
+        //mainTPgroup.getgetContentPane().setBackground(BungeniEditorPropertiesHelper.getDialogBackColor());
         //mainTPgroup.setBackground(BungeniEditorPropertiesHelper.getDialogBackColor());
         for (panelInfo panelInf : getActivePanels()) {
             IMetadataPanel panel = panelInf.getPanelObject();
             panel.initVariables(this);
-            mainTPgroup.add(panel.getPanelComponent());
+            paneMain.add(panel.getPanelComponent());
         }
-        mainTPgroup.setCollapsable(false);
-        paneMain.add(mainTPgroup);
+        paneMain.setCollapsed(false);
+        //paneMain.add(mainTPgroup);
     //   paneMain.add(tpgTD);
     }
 
@@ -699,14 +696,9 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        paneMain = new com.l2fprod.common.swing.JTaskPane();
         btnApply = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
-
-        com.l2fprod.common.swing.PercentLayout percentLayout2 = new com.l2fprod.common.swing.PercentLayout();
-        percentLayout2.setGap(14);
-        percentLayout2.setOrientation(1);
-        paneMain.setLayout(percentLayout2);
+        paneMain = new org.jdesktop.swingx.JXTaskPane();
 
         btnApply.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/Bundle"); // NOI18N
@@ -730,8 +722,8 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(paneMain, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addComponent(paneMain, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
                     .addComponent(btnApply)))
@@ -742,7 +734,7 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApply;
     private javax.swing.JButton btnCancel;
-    private com.l2fprod.common.swing.JTaskPane paneMain;
+    private org.jdesktop.swingx.JXTaskPane paneMain;
     // End of variables declaration//GEN-END:variables
 
     public static void main(String[] args) {
