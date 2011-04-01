@@ -902,9 +902,13 @@ public class editorApplicationController extends javax.swing.JPanel {
     public static int OPENOFFICE_HEIGHT_OFFSET = 60;
     public static int WIDTH_OOo_SCROLLBAR = 25;
     private void initFrame(XComponent component) {
-        BungeniFrame frame = new BungeniFrame(bundle.getString("editorTabbedPanel.panel.Title"));
+        //BungeniFrame frame = new BungeniFrame(bundle.getString("editorTabbedPanel.panel.Title"));
+        BungeniFrameEmbedded frame = new BungeniFrameEmbedded(bundle.getString("editorTabbedPanel.panel.Title"));
+        
         //set the dimensions for the frame;
-        frame.setSize(270, 655);
+        //frame.setSize(270, 655);
+        frame.setSize(800, 655);
+
         //frame position information
         //position frame
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
