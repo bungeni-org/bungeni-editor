@@ -1,0 +1,25 @@
+h2db http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/h2db
+bungeni http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeni
+bungeniooolib http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeniooolib
+bungenieditor-panelsimpl http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungenieditor-panelsimpl
+bungeniodfdom http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeniodfdom
+bungenistructrules http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungenistructrules
+saxon http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/saxon
+swingx http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/swingx
+l2fprod http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/l2fprod
+xerces http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/xerces
+xstream http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/xstream
+log4j http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/apache-log4j
+odfdom http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/odfdom
+args4j http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/args4j
+jdom http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/jdom
+jaxen http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/jaxen
+substance http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/substance
+restlet http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/restlet
+swing-layout http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/swing-layout-ext
+jug http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/jug
+opencsv http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/opencsv
+uml http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/uml
+commons-lang http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/commons-lang
+commons-codec http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/commons-codec
+

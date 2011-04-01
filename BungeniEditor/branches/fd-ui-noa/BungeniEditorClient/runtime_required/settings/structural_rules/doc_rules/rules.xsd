@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="DocumentStructure">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="sectionType"/>
+      </xs:sequence>
+      <xs:attribute name="type" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sectionType">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="orderException"/>
+        <xs:element ref="allowedTypes"/>
+        <xs:element ref="orderOfChildren"/>
+      </xs:sequence>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="orderException">
+    <xs:complexType>
+      <xs:attribute name="following" use="required" type="xs:boolean"/>
+      <xs:attribute name="preceding" use="required" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="allowedTypes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="ref"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ref">
+    <xs:complexType>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="type" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="orderOfChildren">
+    <xs:complexType>
+      <xs:choice>
+        <xs:element ref="unordered"/>
+        <xs:element maxOccurs="unbounded" ref="order"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="unordered">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="order">
+    <xs:complexType>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="order" use="required" type="xs:integer"/>
+      <xs:attribute name="required" use="required" type="xs:NCName"/>
+      <xs:attribute name="type" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
