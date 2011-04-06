@@ -68,47 +68,57 @@
 
     -->
 <!-- copy required folders for editor -->
-     <target name="-pre-jar" >
-         <copy todir="${dist.dir}" >
-             <fileset dir="runtime_required"></fileset>
-         </copy>
-     </target>
-     <target name="-post-jar" >
-	<copy todir="${dist.dir}/transformer">
-		<fileset dir="${dist.dir}/transformer/jar" >
-			<include name="**/transformer.ini" />		
-		</fileset>
-	</copy>
+    <target name="-pre-jar" >
+        <copy todir="${dist.dir}" >
+            <fileset dir="runtime_required"></fileset>
+        </copy>
+    </target>
+    <target name="-post-jar" >
+
+        <copy todir="${dist.dir}/transformer">
+            <fileset dir="${dist.dir}/transformer/jar" >
+                <include name="**/transformer.ini" />
+            </fileset>
+        </copy>
+
+        <!-- copy required NOA binaries -->
+        <copy todir="${dist.dir}/lib/noa">
+            <fileset dir="lib/noa" >
+                <include name="*.dll" />
+                <include name="*.so" />
+            </fileset>
+        </copy>
+
         <delete file="${dist.dir}/transformer/EXTERNALS.txt" />
         <copy file="src/editor.ini" todir="${dist.dir}" />
-     </target>
-   <target name="umldocs" depends="jar" description="generates javadoc and also UML Diagram">
-		<mkdir dir="${reports.dir}"/>
-	        <javadoc sourcepath="${src.dir}" destdir="${reports.dir}/javadoc"
+    </target>
+    <target name="umldocs" depends="jar" description="generates javadoc and also UML Diagram">
+        <mkdir dir="${reports.dir}"/>
+        <javadoc sourcepath="${src.dir}" destdir="${reports.dir}/javadoc"
 	        	 private="true">
-             <classpath>
+            <classpath>
                 <path path="${javac.classpath}"/>
             </classpath>
                 <!--
             <fileset dir="${src.dir}" excludes="${excludes}" includes="${includes}">
                 <filename name="**/*.java"/>
             </fileset> -->
-	        	   <doclet name="org.umlgraph.doclet.UmlGraphDoc"
+            <doclet name="org.umlgraph.doclet.UmlGraphDoc"
 	        		  path="${file.reference.umlgraph}">
-	        	        <param name="-attributes" />
-	        	        <param name="-operations" />
-	        	        <param name="-qualify" />
-	        	        <param name="-types" />
-	        	        <param name="-visibility" />
-	        	    </doclet>
-	        	  </javadoc>
-		  <apply executable="dot" dest="${reports.dir}" parallel="false">
-		    <arg value="-Tpng"/>
-		    <arg value="-o"/>
-		     <targetfile/>
-		     <srcfile/>
-		     <fileset dir="${reports.dir}" includes="*.dot"/>
-		     <mapper type="glob" from="*.dot" to="*.png"/>
-		  </apply>
-	</target>
+                <param name="-attributes" />
+                <param name="-operations" />
+                <param name="-qualify" />
+                <param name="-types" />
+                <param name="-visibility" />
+            </doclet>
+        </javadoc>
+        <apply executable="dot" dest="${reports.dir}" parallel="false">
+            <arg value="-Tpng"/>
+            <arg value="-o"/>
+            <targetfile/>
+            <srcfile/>
+            <fileset dir="${reports.dir}" includes="*.dot"/>
+            <mapper type="glob" from="*.dot" to="*.png"/>
+        </apply>
+    </target>
 </project>
