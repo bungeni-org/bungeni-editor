@@ -1,0 +1,4 @@
+commons http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/commons-lang
+log4j http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/apache-log4j
+jdom http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/jdom
+

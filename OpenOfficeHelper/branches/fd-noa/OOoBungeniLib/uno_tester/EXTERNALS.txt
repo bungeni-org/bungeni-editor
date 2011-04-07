@@ -1,0 +1,1 @@
+https://bungeni-editor.googlecode.com/svn/UnoTester test-runner
