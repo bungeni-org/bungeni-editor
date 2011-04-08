@@ -64,4 +64,13 @@ public class BungeniNoaApp {
         this.officeApplication.activate();
 
     }
+
+    /**
+     * This returns a BungeniLocalOfficeApplication object -- OOo context is accessible via
+     * the getOfficeConnection() custom API
+     * @return
+     */
+    public BungeniLocalOfficeApplication getOfficeApp(){
+        return this.officeApplication;
+    }
 }
