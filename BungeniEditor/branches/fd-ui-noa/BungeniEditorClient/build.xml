@@ -89,6 +89,13 @@
             </fileset>
         </copy>
 
+        <copy todir="${dist.dir}/lib/noa32">
+            <fileset dir="lib/noa/noa32"></fileset>
+        </copy>
+        <copy todir="${dist.dir}/lib/noa64">
+            <fileset dir="lib/noa/noa64"></fileset>
+        </copy>
+
         <delete file="${dist.dir}/transformer/EXTERNALS.txt" />
         <copy file="src/editor.ini" todir="${dist.dir}" />
     </target>
