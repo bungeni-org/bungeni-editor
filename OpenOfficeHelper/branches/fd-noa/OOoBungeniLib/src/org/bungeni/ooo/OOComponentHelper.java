@@ -2384,6 +2384,7 @@ public class OOComponentHelper {
      * This function must be run from a SwingWorker thread to avoid hanging the Swing event queue.
      * @param documentPath - path to the openoffice document.
      * @return
+     * @deprecated 
      */
     public static XComponent openExistingDocument(String documentPath) throws IOException, IllegalArgumentException, com.sun.star.uno.Exception {
         XComponent xComponent = null;
@@ -2397,7 +2398,7 @@ public class OOComponentHelper {
                 xOpenProperty.Name  = "MacroExecutionMode";
                 xOpenProperty.Value = com.sun.star.document.MacroExecMode.ALWAYS_EXECUTE;
                 loadProps[0]        = xOpenProperty;
-                xComponent      = BungenioOoHelper.getComponentLoader().loadComponentFromURL(documentPath,
+                xComponent      = BungenioOoHelper.getInstance().getComponentLoader().loadComponentFromURL(documentPath,
                         "_blank", 0, loadProps);
             }
        
@@ -2428,7 +2429,7 @@ public class OOComponentHelper {
                 xOpenProperty.Name  = "AsTemplate";
                 xOpenProperty.Value = false;
                 loadProps[1]        = xTemplateProperty;
-                xComponent          = BungenioOoHelper.getComponentLoader().loadComponentFromURL(documentPath,
+                xComponent          = BungenioOoHelper.getInstance().getComponentLoader().loadComponentFromURL(documentPath,
                         "_blank", 0, loadProps);
             }
         } catch (Exception ex) {
@@ -2585,6 +2586,7 @@ public class OOComponentHelper {
      *
      * @param templatePath
      * @return
+     * @deprecated
      */
     public static XComponent newDocument(String templatePath) {
         XComponent xComponent = null;
@@ -2610,7 +2612,7 @@ public class OOComponentHelper {
             }
 
             // launch window
-            xComponent = BungenioOoHelper.getComponentLoader().loadComponentFromURL(templatePath, "_blank", 0,
+            xComponent = BungenioOoHelper.getInstance().getComponentLoader().loadComponentFromURL(templatePath, "_blank", 0,
                     loadProps);
         } catch (Exception ex) {
             log.error("newDocument : " + ex.getMessage());
