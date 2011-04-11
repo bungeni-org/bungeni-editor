@@ -1,20 +1,16 @@
 package org.bungeni.editor.dialogs;
 
-import com.sun.star.awt.XWindow;
-import com.sun.star.comp.helper.Bootstrap;
-import com.sun.star.comp.helper.BootstrapException;
-import com.sun.star.frame.XModel;
+import ag.ion.bion.officelayer.application.OfficeApplicationException;
+import ag.ion.bion.officelayer.document.DocumentException;
+import ag.ion.noa.NOAException;
 import com.sun.star.lang.XComponent;
-
 import com.sun.star.uno.XComponentContext;
-import java.awt.Dimension;
+
 import java.awt.Point;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
@@ -27,6 +23,8 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
@@ -41,18 +39,18 @@ import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
+import org.bungeni.editor.noa.BungeniNoaApp;
 import org.bungeni.editor.SplashPage;
 import org.bungeni.editor.locales.BungeniEditorLocale;
 import org.bungeni.editor.locales.BungeniEditorLocalesFactory;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
+import org.bungeni.editor.noa.BungeniNoaFrame;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.ooo.BungenioOoHelper;
 import org.bungeni.ooo.OOComponentHelper;
-import org.bungeni.ooo.ooQueryInterface;
 import org.bungeni.extutils.BungeniFrame;
-import org.bungeni.extutils.BungeniFrameEmbedded;
 import org.bungeni.extutils.BungeniRuntimeProperties;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.utils.FileTableModel;
@@ -67,31 +65,32 @@ import org.bungeni.utils.WorkspaceFolderTableModel;
  */
 public class editorApplicationController extends javax.swing.JPanel {
 
-    private XComponentContext m_xContext;
+
     private java.util.Properties m_propSettings;
     private Installation m_installObject;
     private static String __WINDOW_TITLE__ = "Bungeni Editor Client ";
     private JFrame parentFrame;
     //path to settings.properties
-    private String m_iniFilePath;
-    private String m_settings_WorkspacePath;
-    private String m_settings_ServerIP;
-    private String m_settings_ServerPort;
-    private String m_settings_ServerPath;
-    private String m_settings_ServerUser;
-    private String m_settings_ServerPassword;
+    private String m_iniFilePath = "";
+    private String m_settings_WorkspacePath = "";
+    private String m_settings_ServerIP = "";
+    private String m_settings_ServerPort = "";
+    private String m_settings_ServerPath = "";
+    private String m_settings_ServerUser = "";
+    private String m_settings_ServerPassword = "";
+
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(editorApplicationController.class.getName());
-    private String m_FullWorkspacePath;
-    private String m_FullTemplatesPath;
-    private String m_currentTemplate;
-    private String m_currentSelectedWorkspaceFile;
-    private String m_settings_CurrentTemplate;
-    private String m_currentMode;
+    private String m_FullWorkspacePath = "";
+    private String m_FullTemplatesPath = "";
+    private String m_currentTemplate = "";
+    private String m_currentSelectedWorkspaceFile = "";
+    private String m_settings_CurrentTemplate = "";
+    private String m_currentMode = "";
     private static String normalizedTemplatePath = "";
-    private org.bungeni.editor.dialogs.editorTabbedPanel panel = null;
-    private String m_FullFilesPath;
-    private org.bungeni.ooo.BungenioOoHelper openofficeObject = null;
+
+    private String m_FullFilesPath = "";
     private documentType[] m_documentTypes = null;
+
     private static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/dialogs/Bundle");
 
     /**
@@ -108,15 +107,21 @@ public class editorApplicationController extends javax.swing.JPanel {
     public editorApplicationController(JFrame pFrame) {
         log.debug("in constructor");
         log.debug("launch locale language = " + Locale.getDefault().getLanguage());
-        try {
-            m_xContext = Bootstrap.bootstrap();
-        } catch (BootstrapException ex) {
-            log.error("editorApplicationController bootstrap : " + ex.getMessage());
-        }
-        m_FullWorkspacePath = "";
-        m_FullTemplatesPath = "";
-        m_currentSelectedWorkspaceFile = "";
-        m_iniFilePath = "";
+    
+            try {
+                BungeniNoaApp noaAppInstance = BungeniNoaApp.getInstance();
+                if (noaAppInstance != null) {
+                    BungenioOoHelper helperObj = org.bungeni.ooo.BungenioOoHelper.getInstance();
+                    if (helperObj.getComponentContext() == null ) {
+                         helperObj.init(noaAppInstance.
+                                getOfficeApp().
+                                getOfficeConnection().
+                                getXComponentContext());
+                    }
+                }
+            } catch (Throwable ex) {
+                log.error("Error while initializing NOA" , ex);
+            }
         m_propSettings = new java.util.Properties();
         initComponents();
         this.parentFrame = pFrame;
@@ -131,8 +136,8 @@ public class editorApplicationController extends javax.swing.JPanel {
     }
 
     public void cleanup() {
-        if (panel != null) {
-            panel.cleanup();
+        if (editorTabbedPanel.getInstance() != null) {
+            editorTabbedPanel.getInstance().cleanup();
         }
     }
 
@@ -258,32 +263,28 @@ public class editorApplicationController extends javax.swing.JPanel {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/dialogs/Bundle"); // NOI18N
         createNewDocument.setText(bundle.getString("editorApplicationController.createNewDocument.text")); // NOI18N
         createNewDocument.addActionListener(new java.awt.event.ActionListener() {
-
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 launchFrameActionPerformed(evt);
             }
         });
 
-        lblCurrentTemplate.setFont(new java.awt.Font("Tahoma", 0, 11));
         lblCurrentTemplate.setText(bundle.getString("editorApplicationController.lblCurrentTemplate.text")); // NOI18N
 
         cboDocumentTypes.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
-        cboDocumentTypes.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+        cboDocumentTypes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        lblDocumentTypes.setFont(new java.awt.Font("Tahoma", 0, 11));
         lblDocumentTypes.setText(bundle.getString("editorApplicationController.lblDocumentTypes.text")); // NOI18N
 
         btnOpenExisting.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         btnOpenExisting.setText(bundle.getString("editorApplicationController.btnOpenExisting.text")); // NOI18N
         btnOpenExisting.addActionListener(new java.awt.event.ActionListener() {
-
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOpenExistingActionPerformed(evt);
             }
         });
 
         lblCurrentActiveMode.setBackground(java.awt.Color.lightGray);
-        lblCurrentActiveMode.setFont(lblCurrentActiveMode.getFont().deriveFont(lblCurrentActiveMode.getFont().getStyle() | java.awt.Font.BOLD, lblCurrentActiveMode.getFont().getSize() + 4));
+        lblCurrentActiveMode.setFont(lblCurrentActiveMode.getFont().deriveFont(lblCurrentActiveMode.getFont().getStyle() | java.awt.Font.BOLD, lblCurrentActiveMode.getFont().getSize()+4));
         lblCurrentActiveMode.setText(bundle.getString("editorApplicationController.lblCurrentActiveMode.text")); // NOI18N
         lblCurrentActiveMode.setOpaque(true);
 
@@ -296,27 +297,75 @@ public class editorApplicationController extends javax.swing.JPanel {
         org.jdesktop.layout.GroupLayout tabCurrentFileLayout = new org.jdesktop.layout.GroupLayout(tabCurrentFile);
         tabCurrentFile.setLayout(tabCurrentFileLayout);
         tabCurrentFileLayout.setHorizontalGroup(
-                tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(tabCurrentFileLayout.createSequentialGroup().addContainerGap().add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(tabCurrentFileLayout.createSequentialGroup().add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(lblCurrentTemplate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 455, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).add(tabCurrentFileLayout.createSequentialGroup().add(cboDocumentTypes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).add(48, 48, 48).add(lblCurrentActiveMode, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED).add(lblCurrentTemplateText, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 405, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)).add(tabCurrentFileLayout.createSequentialGroup().add(createNewDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(lblCreateNewDoc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 311, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)).add(lblDocumentTypes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 245, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)).add(250, 250, 250)).add(tabCurrentFileLayout.createSequentialGroup().add(btnOpenExisting, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(lblOpenCurrentDoc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 278, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addContainerGap()))));
+            tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(tabCurrentFileLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(tabCurrentFileLayout.createSequentialGroup()
+                        .add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(lblCurrentTemplate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 455, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(tabCurrentFileLayout.createSequentialGroup()
+                                .add(cboDocumentTypes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(48, 48, 48)
+                                .add(lblCurrentActiveMode, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                .add(lblCurrentTemplateText, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 405, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(tabCurrentFileLayout.createSequentialGroup()
+                                .add(createNewDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(lblCreateNewDoc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 311, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(lblDocumentTypes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 245, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(250, 250, 250))
+                    .add(tabCurrentFileLayout.createSequentialGroup()
+                        .add(btnOpenExisting, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(lblOpenCurrentDoc, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 278, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+        );
         tabCurrentFileLayout.setVerticalGroup(
-                tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(tabCurrentFileLayout.createSequentialGroup().addContainerGap().add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING).add(tabCurrentFileLayout.createSequentialGroup().add(lblDocumentTypes).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(cboDocumentTypes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).add(tabCurrentFileLayout.createSequentialGroup().add(6, 6, 6).add(lblCurrentTemplateText, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))).add(lblCurrentActiveMode, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(lblCurrentTemplate).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false).add(lblCreateNewDoc, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).add(createNewDocument, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(lblOpenCurrentDoc, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE).add(btnOpenExisting, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)).addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+            tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(tabCurrentFileLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(tabCurrentFileLayout.createSequentialGroup()
+                        .add(lblDocumentTypes)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(cboDocumentTypes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(tabCurrentFileLayout.createSequentialGroup()
+                                .add(6, 6, 6)
+                                .add(lblCurrentTemplateText, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                    .add(lblCurrentActiveMode, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(lblCurrentTemplate)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(lblCreateNewDoc, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(createNewDocument, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(tabCurrentFileLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(lblOpenCurrentDoc, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                    .add(btnOpenExisting, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         editorAppTabbedPane.addTab(bundle.getString("editorApplicationController.tabCurrentFile.TabConstraints.tabTitle"), tabCurrentFile); // NOI18N
 
         tblTemplatesList.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null}
-                },
-                new String[]{
-                    "Title 1", "Title 2", "Title 3", "Title 4"
-                }));
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
         jScrollPane1.setViewportView(tblTemplatesList);
 
         btnSetCurrentTemplate.setText(bundle.getString("editorApplicationController.btnSetCurrentTemplate.text")); // NOI18N
         btnSetCurrentTemplate.addActionListener(new java.awt.event.ActionListener() {
-
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSetCurrentTemplateActionPerformed(evt);
             }
@@ -325,27 +374,53 @@ public class editorApplicationController extends javax.swing.JPanel {
         org.jdesktop.layout.GroupLayout tabTemplatesLayout = new org.jdesktop.layout.GroupLayout(tabTemplates);
         tabTemplates.setLayout(tabTemplatesLayout);
         tabTemplatesLayout.setHorizontalGroup(
-                tabTemplatesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(tabTemplatesLayout.createSequentialGroup().add(tabTemplatesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(tabTemplatesLayout.createSequentialGroup().addContainerGap().add(tabTemplatesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(lblTemplatePath, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 801, Short.MAX_VALUE).add(tabTemplatesLayout.createSequentialGroup().add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 422, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(lblSelectedTemplate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 367, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))).add(tabTemplatesLayout.createSequentialGroup().add(223, 223, 223).add(btnSetCurrentTemplate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 191, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))).addContainerGap()));
+            tabTemplatesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(tabTemplatesLayout.createSequentialGroup()
+                .add(tabTemplatesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(tabTemplatesLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(tabTemplatesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(lblTemplatePath, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 801, Short.MAX_VALUE)
+                            .add(tabTemplatesLayout.createSequentialGroup()
+                                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 422, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(lblSelectedTemplate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 367, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                    .add(tabTemplatesLayout.createSequentialGroup()
+                        .add(223, 223, 223)
+                        .add(btnSetCurrentTemplate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 191, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
         tabTemplatesLayout.setVerticalGroup(
-                tabTemplatesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(tabTemplatesLayout.createSequentialGroup().addContainerGap().add(lblTemplatePath).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(tabTemplatesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(lblSelectedTemplate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 88, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)).addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED).add(btnSetCurrentTemplate).addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+            tabTemplatesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(tabTemplatesLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(lblTemplatePath)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(tabTemplatesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(lblSelectedTemplate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 88, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(btnSetCurrentTemplate)
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
 
         editorAppTabbedPane.addTab(bundle.getString("editorApplicationController.tabTemplates.TabConstraints.tabTitle"), tabTemplates); // NOI18N
 
         tblWorkspaceFolder.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null}
-                },
-                new String[]{
-                    "Title 1", "Title 2", "Title 3", "Title 4"
-                }));
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
         jScrollPane2.setViewportView(tblWorkspaceFolder);
 
         btnEditWorkspaceDocument.setText(bundle.getString("editorApplicationController.btnEditWorkspaceDocument.text")); // NOI18N
         btnEditWorkspaceDocument.addActionListener(new java.awt.event.ActionListener() {
-
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditWorkspaceDocumentActionPerformed(evt);
             }
@@ -354,9 +429,29 @@ public class editorApplicationController extends javax.swing.JPanel {
         org.jdesktop.layout.GroupLayout tabWorkspaceLayout = new org.jdesktop.layout.GroupLayout(tabWorkspace);
         tabWorkspace.setLayout(tabWorkspaceLayout);
         tabWorkspaceLayout.setHorizontalGroup(
-                tabWorkspaceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(tabWorkspaceLayout.createSequentialGroup().addContainerGap().add(tabWorkspaceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(tabWorkspaceLayout.createSequentialGroup().add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 426, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(lblSelectedFile, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 367, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)).add(org.jdesktop.layout.GroupLayout.TRAILING, btnEditWorkspaceDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 197, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)).add(149, 149, 149)));
+            tabWorkspaceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(tabWorkspaceLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(tabWorkspaceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(tabWorkspaceLayout.createSequentialGroup()
+                        .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 426, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(lblSelectedFile, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 367, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, btnEditWorkspaceDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 197, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(149, 149, 149))
+        );
         tabWorkspaceLayout.setVerticalGroup(
-                tabWorkspaceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(tabWorkspaceLayout.createSequentialGroup().addContainerGap().add(tabWorkspaceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 96, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).add(tabWorkspaceLayout.createSequentialGroup().add(lblSelectedFile, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).add(200, 200, 200).add(btnEditWorkspaceDocument))).addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+            tabWorkspaceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(tabWorkspaceLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(tabWorkspaceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 96, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(tabWorkspaceLayout.createSequentialGroup()
+                        .add(lblSelectedFile, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(200, 200, 200)
+                        .add(btnEditWorkspaceDocument)))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         editorAppTabbedPane.addTab(bundle.getString("editorApplicationController.tabWorkspace.TabConstraints.tabTitle"), tabWorkspace); // NOI18N
 
@@ -367,7 +462,6 @@ public class editorApplicationController extends javax.swing.JPanel {
 
         btnBrowseWorkspacePath.setText(bundle.getString("editorApplicationController.btnBrowseWorkspacePath.text")); // NOI18N
         btnBrowseWorkspacePath.addActionListener(new java.awt.event.ActionListener() {
-
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBrowseWorkspacePathActionPerformed(evt);
             }
@@ -393,27 +487,94 @@ public class editorApplicationController extends javax.swing.JPanel {
         org.jdesktop.layout.GroupLayout tabSettingsLayout = new org.jdesktop.layout.GroupLayout(tabSettings);
         tabSettings.setLayout(tabSettingsLayout);
         tabSettingsLayout.setHorizontalGroup(
-                tabSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(tabSettingsLayout.createSequentialGroup().addContainerGap().add(tabSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(tabSettingsLayout.createSequentialGroup().add(lblCurrentDirectory, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 443, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addContainerGap()).add(tabSettingsLayout.createSequentialGroup().add(tabSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(tabSettingsLayout.createSequentialGroup().add(txtWorkspacePath, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 334, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(btnBrowseWorkspacePath)).add(lblWorkspacePath, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 174, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).add(tabSettingsLayout.createSequentialGroup().add(tabSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(lblServerIP).add(txtServerIp, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)).add(28, 28, 28).add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).add(tabSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(txtServerPort, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 107, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).add(lblServerPort).add(checkBoxConnectOnStartup)))).add(92, 92, 92)).add(tabSettingsLayout.createSequentialGroup().add(lblServerHomeDir, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 186, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addContainerGap(322, Short.MAX_VALUE)).add(tabSettingsLayout.createSequentialGroup().add(txtServerHomeDir, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE).add(388, 388, 388)))).add(tabSettingsLayout.createSequentialGroup().add(208, 208, 208).add(btnSaveSettings, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addContainerGap(167, Short.MAX_VALUE)));
+            tabSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(tabSettingsLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(tabSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(tabSettingsLayout.createSequentialGroup()
+                        .add(lblCurrentDirectory, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 443, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .add(tabSettingsLayout.createSequentialGroup()
+                        .add(tabSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(tabSettingsLayout.createSequentialGroup()
+                                .add(txtWorkspacePath, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 334, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(btnBrowseWorkspacePath))
+                            .add(lblWorkspacePath, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 174, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(tabSettingsLayout.createSequentialGroup()
+                                .add(tabSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(lblServerIP)
+                                    .add(txtServerIp, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE))
+                                .add(28, 28, 28)
+                                .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .add(tabSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(txtServerPort, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 107, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(lblServerPort)
+                                    .add(checkBoxConnectOnStartup))))
+                        .add(92, 92, 92))
+                    .add(tabSettingsLayout.createSequentialGroup()
+                        .add(lblServerHomeDir, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 186, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(322, Short.MAX_VALUE))
+                    .add(tabSettingsLayout.createSequentialGroup()
+                        .add(txtServerHomeDir, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                        .add(388, 388, 388))))
+            .add(tabSettingsLayout.createSequentialGroup()
+                .add(208, 208, 208)
+                .add(btnSaveSettings, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(167, Short.MAX_VALUE))
+        );
         tabSettingsLayout.setVerticalGroup(
-                tabSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(tabSettingsLayout.createSequentialGroup().addContainerGap().add(tabSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING).add(btnBrowseWorkspacePath).add(tabSettingsLayout.createSequentialGroup().add(lblWorkspacePath).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(txtWorkspacePath, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(lblCurrentDirectory, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 19, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(tabSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false).add(jSeparator1).add(tabSettingsLayout.createSequentialGroup().add(lblServerIP).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(txtServerIp, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)).add(tabSettingsLayout.createSequentialGroup().add(lblServerPort).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(txtServerPort, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))).add(21, 21, 21).add(lblServerHomeDir).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(tabSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(txtServerHomeDir, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).add(checkBoxConnectOnStartup)).add(31, 31, 31).add(btnSaveSettings).addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+            tabSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(tabSettingsLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(tabSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(btnBrowseWorkspacePath)
+                    .add(tabSettingsLayout.createSequentialGroup()
+                        .add(lblWorkspacePath)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(txtWorkspacePath, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(lblCurrentDirectory, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 19, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(tabSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(jSeparator1)
+                    .add(tabSettingsLayout.createSequentialGroup()
+                        .add(lblServerIP)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(txtServerIp, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(tabSettingsLayout.createSequentialGroup()
+                        .add(lblServerPort)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(txtServerPort, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .add(21, 21, 21)
+                .add(lblServerHomeDir)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(tabSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(txtServerHomeDir, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(checkBoxConnectOnStartup))
+                .add(31, 31, 31)
+                .add(btnSaveSettings)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         editorAppTabbedPane.addTab(bundle.getString("editorApplicationController.tabSettings.TabConstraints.tabTitle"), tabSettings); // NOI18N
 
         tblServerFiles.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null}
-                },
-                new String[]{
-                    "Title 1", "Title 2", "Title 3", "Title 4"
-                }));
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
         jScrollPane3.setViewportView(tblServerFiles);
 
         btnBackOneFolder.setText(bundle.getString("editorApplicationController.btnBackOneFolder.text")); // NOI18N
         btnBackOneFolder.addActionListener(new java.awt.event.ActionListener() {
-
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackOneFolder_Clicked(evt);
             }
@@ -422,36 +583,77 @@ public class editorApplicationController extends javax.swing.JPanel {
         org.jdesktop.layout.GroupLayout tabServerLayout = new org.jdesktop.layout.GroupLayout(tabServer);
         tabServer.setLayout(tabServerLayout);
         tabServerLayout.setHorizontalGroup(
-                tabServerLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(tabServerLayout.createSequentialGroup().addContainerGap().add(tabServerLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(progressServerFiles, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE).add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE).add(btnBackOneFolder)).addContainerGap()));
+            tabServerLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(tabServerLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(tabServerLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(progressServerFiles, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
+                    .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
+                    .add(btnBackOneFolder))
+                .addContainerGap())
+        );
         tabServerLayout.setVerticalGroup(
-                tabServerLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(tabServerLayout.createSequentialGroup().add(20, 20, 20).add(btnBackOneFolder).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 175, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(progressServerFiles, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+            tabServerLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(tabServerLayout.createSequentialGroup()
+                .add(20, 20, 20)
+                .add(btnBackOneFolder)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 175, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(progressServerFiles, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         editorAppTabbedPane.addTab(bundle.getString("editorApplicationController.tabServer.TabConstraints.tabTitle"), tabServer); // NOI18N
 
         org.jdesktop.layout.GroupLayout tabAboutLayout = new org.jdesktop.layout.GroupLayout(tabAbout);
         tabAbout.setLayout(tabAboutLayout);
         tabAboutLayout.setHorizontalGroup(
-                tabAboutLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(0, 520, Short.MAX_VALUE));
+            tabAboutLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 520, Short.MAX_VALUE)
+        );
         tabAboutLayout.setVerticalGroup(
-                tabAboutLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(0, 155, Short.MAX_VALUE));
+            tabAboutLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 167, Short.MAX_VALUE)
+        );
 
         editorAppTabbedPane.addTab(bundle.getString("editorApplicationController.tabAbout.TabConstraints.tabTitle"), tabAbout); // NOI18N
 
         lblApplnTitle.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         lblApplnTitle.setText(bundle.getString("editorApplicationController.lblApplnTitle.text")); // NOI18N
 
-        cboLocale.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        cboLocale.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+        cboLocale.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        cboLocale.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        lblLocale.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        lblLocale.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         lblLocale.setText(bundle.getString("editorApplicationController.lblLocale.text")); // NOI18N
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(layout.createSequentialGroup().add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(lblApplnTitle, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 368, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).add(editorAppTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 532, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).add(layout.createSequentialGroup().add(lblLocale, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(cboLocale, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 199, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))).addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(lblApplnTitle, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 368, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(layout.createSequentialGroup()
+                        .add(lblLocale, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(cboLocale, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 199, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(editorAppTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 532, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(layout.createSequentialGroup().add(lblApplnTitle, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE).add(lblLocale).add(cboLocale, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 21, Short.MAX_VALUE)).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(editorAppTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 195, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)));
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .add(lblApplnTitle, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(lblLocale)
+                    .add(cboLocale, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 21, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(editorAppTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 207, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditWorkspaceDocumentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditWorkspaceDocumentActionPerformed
@@ -461,7 +663,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         SwingUtilities.invokeLater(new Runnable() {
 
             public void run() {
-                initoOoAndLaunchFrame(m_currentSelectedWorkspaceFile, false);
+                launchDocumentInFrame(m_currentSelectedWorkspaceFile, false);
             }
         });
 
@@ -664,13 +866,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         }
     }
 
-    private void initWebDav() {
-
-        initWebdavTableModel();
-    }
-
-    private void initWebdavTableModel() {
-    }
+   
 
     private void initProperties(java.io.File currentFolder) {
         try {
@@ -706,9 +902,11 @@ public class editorApplicationController extends javax.swing.JPanel {
     public static int OPENOFFICE_HEIGHT_OFFSET = 60;
     public static int WIDTH_OOo_SCROLLBAR = 25;
 
+
+    /****
     private void initFrame(XComponent component) {
         //BungeniFrame frame = new BungeniFrame(bundle.getString("editorTabbedPanel.panel.Title"));
-        BungeniFrameEmbedded frame = new BungeniFrameEmbedded(bundle.getString("editorTabbedPanel.panel.Title"));
+        BungeniNoaFrame frame = new BungeniNoaFrame(bundle.getString("editorTabbedPanel.panel.Title"));
         component = frame.getDocument().getXComponent();
 
         //set the dimensions for the frame;
@@ -737,9 +935,9 @@ public class editorApplicationController extends javax.swing.JPanel {
         editorTabbedPanel.coordX = windowX;
         editorTabbedPanel.coordY = coordY;
 
-        panel = new org.bungeni.editor.dialogs.editorTabbedPanel(component, this.openofficeObject, frame);
-        //panel.setOOoHelper(this.openofficeObject);
-        // frame.removeMinMaxClose();
+        editorTabbedPanel panel = editorTabbedPanel.getInstance();
+        panel.init(component, parentFrame);
+
 
         frame.add(panel);
         WindowListener tabbedPanelListener = new WindowAdapter() {
@@ -752,7 +950,7 @@ public class editorApplicationController extends javax.swing.JPanel {
 
             @Override
             public void windowDeiconified(WindowEvent e) {
-                panel.bringEditorWindowToFront();
+                editorTabbedPanel.getInstance().bringEditorWindowToFront();
             }
 
             @Override
@@ -770,6 +968,8 @@ public class editorApplicationController extends javax.swing.JPanel {
         frame.setLocation(editorTabbedPanel.coordX, editorTabbedPanel.coordY);
         //frame.setLocation(windowX, windowY );  // Don't use "f." inside constructor.
     }
+    ****/
+    
     private static int WINDOW_X = 0;
     private static int WINDOW_Y = 0;
 
@@ -777,29 +977,38 @@ public class editorApplicationController extends javax.swing.JPanel {
         return new Point(WINDOW_X, WINDOW_Y);
     }
 
-    private void initoOoAndLaunchFrame(String templatePath, boolean isTemplate) {
-        openofficeObject = new org.bungeni.ooo.BungenioOoHelper(m_xContext);
-        openofficeObject.initoOo();
+    private void launchDocumentInFrame(String templatePath, boolean isTemplate) {
 
         String templateURL = BungenioOoHelper.convertPathToURL(templatePath);
-        XComponent xComponent = null;
+       
         log.debug("template URL= " + templateURL);
 
-//        if (isTemplate) {
-//        xComponent = openofficeObject.newDocument(templateURL);
-//        initMeta(xComponent);
-//        } else {
-//        xComponent = openofficeObject.openDocument(templateURL);
-//        }
-        initFrame(xComponent);
+        BungeniNoaFrame frame = new BungeniNoaFrame(bundle.getString("editorTabbedPanel.panel.Title"));
+        try {
+            frame.loadDocumentInPanel(templatePath, isTemplate);
+        } catch (OfficeApplicationException ex) {
+            log.error("Error while loading document !!!", ex);
+        } catch (NOAException ex) {
+            log.error("Error while loading document !!!", ex);
+        } catch (DocumentException ex) {
+            log.error("Error while loading document !!!", ex);
+        }
+        XComponent xopenedDocument = frame.getDocument().getXComponent();
 
-        // testFrame(xComponent);
-    }
+        editorTabbedPanel panel = editorTabbedPanel.getInstance();
+        panel.init(xopenedDocument, frame);
+        frame.add(panel);
+        frame.setResizable(true);
+        frame.setExtendedState(frame.getExtendedState()|JFrame.MAXIMIZED_BOTH);
+        frame.setVisible(true);
 
-    public void testFrame(XComponent xComp) {
-        BungeniFrame frame = new BungeniFrame("BungeniEditor Control Panel @@@");
+
+
+
+        /**
         //set the dimensions for the frame;
-        frame.setSize(270, 400);
+        //frame.setSize(270, 655);
+        frame.setSize(540, 655);
         //frame position information
         //position frame
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -807,32 +1016,74 @@ public class editorApplicationController extends javax.swing.JPanel {
         log.debug("screen size = " + screenSize);
         log.debug("window size = " + windowSize);
 
-        int windowX = 5; //Math.max(0, (screenSize.width  - windowSize.width));
-        int windowY = Math.max(0, (screenSize.height - windowSize.height) / 2) + OPENOFFICE_HEIGHT_OFFSET;
+        int windowX = screenSize.width - frame.getWidth() - WIDTH_OOo_SCROLLBAR;
+        int windowY = editorApplicationController.getFrameWindowDimension().y;
         WINDOW_X = windowX;
         WINDOW_Y = windowY;
-        XModel xModel = ooQueryInterface.XModel(xComp);
+
+        XModel xModel = ooQueryInterface.XModel(component);
         XWindow xCompWindow = xModel.getCurrentController().getFrame().getComponentWindow();
         XWindow xContWindow = xModel.getCurrentController().getFrame().getContainerWindow();
         com.sun.star.awt.Rectangle rSize = xCompWindow.getPosSize();
         com.sun.star.awt.Rectangle rContSize = xContWindow.getPosSize();
+        int coordX = rSize.X + rContSize.X;
+        int coordY = rContSize.Y + rSize.Y + 40;
 
-        frame.setLocation(rSize.X + rContSize.X, rSize.Y + rContSize.Y + 40);
+        editorTabbedPanel.coordX = windowX;
+        editorTabbedPanel.coordY = coordY;
 
+        editorTabbedPanel panel = editorTabbedPanel.getInstance();
+        panel.init(component, parentFrame);
+
+
+        frame.add(panel);
+        WindowListener tabbedPanelListener = new WindowAdapter() {
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                WindowEvent we = new WindowEvent(parentFrame, WindowEvent.WINDOW_CLOSING);
+                parentFrame.dispatchEvent(we);
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+                editorTabbedPanel.getInstance().bringEditorWindowToFront();
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+                System.out.println("panel minimized....");
+            }
+        };
+        frame.addWindowListener(tabbedPanelListener);
+        //frame.setSize(243, 650);
         frame.setResizable(false);
         frame.setAlwaysOnTop(true);
-        //s frame.pack();
         frame.setVisible(true);
         //prevent closing of main editor panel
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+         *****/
+        
+       }
+
+    /*** AH-07-04-11
+    private void initoOoAndLaunchFrame(String templatePath, boolean isTemplate) {
+        openofficeObject = new org.bungeni.ooo.BungenioOoHelper(m_xContext);
+        openofficeObject.initoOo();
+
+        String templateURL = BungenioOoHelper.convertPathToURL(templatePath);
+        XComponent xComponent = null;
+        log.debug("template URL= " + templateURL);
+        initFrame(xComponent);
     }
+    ***/
 
     private void initMeta(XComponent xComp) {
         LaunchDebateMetadataSetter(xComp);
     }
 
     private void LaunchDebateMetadataSetter(XComponent xComp) {
-        OOComponentHelper oohc = new OOComponentHelper(xComp, this.m_xContext);
+        OOComponentHelper oohc = new OOComponentHelper(xComp, BungenioOoHelper.getInstance().getComponentContext());
 
         if (oohc.propertyExists("__BungeniDocMeta")) {
             String docMetaValue = "";
@@ -865,6 +1116,9 @@ public class editorApplicationController extends javax.swing.JPanel {
         frm.setAlwaysOnTop(true);
     }
 
+    /** 10-04-11
+     *
+
     class RunOpenOffice implements Runnable {
 
         XComponent returnComponent = null;
@@ -891,6 +1145,8 @@ public class editorApplicationController extends javax.swing.JPanel {
         }
     }
 
+     */
+    
     public void initDataReader() {
         /**
         BungeniDataReader rds = new BungeniDataReader();
@@ -919,11 +1175,13 @@ public class editorApplicationController extends javax.swing.JPanel {
 
     }
 
+    
     private boolean launchDocumentType(documentType thisDocType, String launchMode) {
+
         //if it is a new document ....
         if (launchMode.equals("new")) {
             //check if the editor panel is open -- this will be non-null in all cases except for the first initial launch
-            if (panel == null) {
+            if (editorTabbedPanel.isInstanceNull() ) {
                 //open the document and init the frame
                 String templateURL = "";
                 log.debug("Current Template file :" + m_FullTemplatesPath + File.separatorChar + m_settings_CurrentTemplate);
@@ -931,34 +1189,36 @@ public class editorApplicationController extends javax.swing.JPanel {
                 SwingUtilities.invokeLater(new Runnable() {
 
                     public void run() {
-                        initoOoAndLaunchFrame(templatePathNormalized, true);
+                        launchDocumentInFrame(templatePathNormalized, true);
                     }
                 });
             } else {
                 //open the document in the current panel
-                panel.newDocumentInPanel();
+                editorTabbedPanel.getInstance().newDocumentInPanel();
             }
             return true;
-        } else { //edit
-            if (panel == null) {
+        }
+
+      if (launchMode.equals("edit")){ //edit
+            if (editorTabbedPanel.isInstanceNull()) {
                 String basePath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + "workspace" + File.separator + "files";
                 File openFile = CommonFileFunctions.getFileFromChooser(basePath, new org.bungeni.utils.fcfilter.ODTFileFilter(), JFileChooser.FILES_ONLY, null);
                 if (openFile != null) {
                     String fullPathToFile = openFile.getAbsolutePath();
-                    initoOoAndLaunchFrame(fullPathToFile, false);
+                    launchDocumentInFrame(fullPathToFile, false);
                     return true;
                 } else {
                     return false;
                 }
             } else {
                 //open the document in the current panel
-                panel.loadDocumentInPanel();
+                editorTabbedPanel.getInstance().loadDocumentInPanel();
                 return true;
             }
         }
-
+      return false;
     }
-
+   
     public void launchDocumentType(String docType, String launchMode) {
         documentType thisDocType = null;
         for (int i = 0; i < cboDocumentTypes.getModel().getSize(); i++) {
@@ -1003,20 +1263,6 @@ public class editorApplicationController extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnOpenExistingActionPerformed
 
-    private void importDocument(String documentPath) {
-
-        if (openofficeObject == null) {
-            openofficeObject = new org.bungeni.ooo.BungenioOoHelper(m_xContext);
-            openofficeObject.initoOo();
-        }
-
-        String templateURL = BungenioOoHelper.convertPathToURL(documentPath);
-        XComponent xComponent;
-        log.debug("import URL= " + templateURL);
-        xComponent = openofficeObject.openDocument(templateURL);
-        //    initFrame(xComponent);
-        // testFrame(xComponent);
-    }
     SplashPage page = new SplashPage(5000);
 
     private void hideWindow(boolean bState) {
@@ -1069,7 +1315,7 @@ public class editorApplicationController extends javax.swing.JPanel {
 
         public void windowClosing(WindowEvent e) {
             //System.out.println("windowClosing....");
-            panel.cleanup();
+            editorTabbedPanel.getInstance().cleanup();
         }
 
         public void windowClosed(WindowEvent e) {
@@ -1079,7 +1325,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         }
 
         public void windowDeiconified(WindowEvent e) {
-            panel.bringEditorWindowToFront();
+            editorTabbedPanel.getInstance().bringEditorWindowToFront();
         }
 
         public void windowActivated(WindowEvent e) {

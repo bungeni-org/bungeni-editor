@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2011 undesa
+ *  Copyright (C) 2011 Africa i-Parliaments
  * 
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -16,7 +16,7 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-package org.bungeni.editor.extnoa;
+package org.bungeni.editor.noa.ext;
 
 import ag.ion.bion.officelayer.application.IOfficeApplication;
 import ag.ion.bion.officelayer.application.OfficeApplicationException;
@@ -24,11 +24,22 @@ import ag.ion.bion.officelayer.application.OfficeApplicationRuntime;
 import java.util.Map;
 
 /**
+ * OfficeApplicationRuntime returns objects with the IOfficeApplication interface,
+ * However -- OfficeApplicationRuntime only returns LocalOfficeApplication,
+ * RemoteOfficeApplication objects -- we have to use an extended class to
+ * make it return a BungeniLocalOfficeApplication.
  *
  * @author ashok
  */
 public class BungeniOfficeApplicationRuntime extends OfficeApplicationRuntime {
 
+ /**
+  * Hacked out of OfficeApplicationRuntime.getApplication() - why does it
+  * make critical OOo context handles and service accessors as private ??
+  * @param configuration
+  * @return
+  * @throws OfficeApplicationException
+  */
  public static IOfficeApplication getBungeniApplication(Map configuration) throws OfficeApplicationException {
 
      if(configuration == null)

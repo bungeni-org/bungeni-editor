@@ -73,10 +73,12 @@ import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.ooo.ooDocMetadata;
 
 /**
- *
+ * This is a single class since there is only 1 tabbed panel allowed in the system
  * @author  Ashok Hariharan
  */
 public class editorTabbedPanel extends javax.swing.JPanel {
+
+    private static editorTabbedPanel thisPanel = null;
 
     /**
      * XComponent object, handle to current openoffice document instance
@@ -99,63 +101,42 @@ public class editorTabbedPanel extends javax.swing.JPanel {
     private ArrayList<ITabbedPanel> m_tabbedPanelMap = new ArrayList<ITabbedPanel>();
     public static int coordX,  coordY;
 
-    /** Creates new form SwingTabbedJPanel */
-    public editorTabbedPanel() {
-        initComponents();
+    /**
+     *
+     */
+    private editorTabbedPanel() {
+        
     }
 
     /**
-     * Constructor for main Tabbed panel interface
+     * Does an instance exist ?
+     * @return
      */
-    public editorTabbedPanel(XComponent impComponent, BungenioOoHelper helperObj, JFrame parentFrame) {
-        log.debug("constructor:editortabbedpanel");
-        this.Component = impComponent;
-        if (impComponent == null) {
-            log.debug("constructor:editortabbedpanel impComponent was null");
-        }
-        this.ooHelper = helperObj;
-        if (helperObj == null) {
-            log.debug("constructor:editortabbedpanel helperObj was null");
-        }
-        this.ComponentContext = BungenioOoHelper.getComponentContext();
-        editorMap = new TreeMap<String, componentHandleContainer>();
-        ooDocument = new OOComponentHelper(impComponent, ComponentContext);
-        this.parentFrame = parentFrame;
-        this.activeDocument = BungeniEditorProperties.getEditorProperty("activeDocumentMode");
-        init();
-
+    public static boolean isInstanceNull(){
+        return (null == thisPanel);
     }
 
-    /* we need three options,
-     *one that launches with a blank document
-     *the other that allows the user to edit a document
-     *the last that launches just the editor panel and attaches it self to existing instances of oOo
+    /**
+     * Returns a singleton instance of editorTabbedPanel
+     * The Panel is not initialized yet - you still need to call init()
+     * @return
      */
-    /*this one prompts the user to select a currently open document */
-    public editorTabbedPanel(BungenioOoHelper helperObj, JFrame parentFrame) {
-
-        // this.Component = impComponent;
-        //  this.ComponentContext = impComponentContext;
-        this.ooHelper = helperObj;
-        editorMap = new TreeMap<String, componentHandleContainer>();
-        //prompt the user to select a document
-        //ooDocument = new OOComponentHelper(impComponent, impComponentContext);
-        this.parentFrame = parentFrame;
-
-        init();
+    public static editorTabbedPanel getInstance(){
+        if (null == thisPanel) {
+            thisPanel = new editorTabbedPanel();
+        }
+        return thisPanel;
     }
 
-    private void init() {
+    /**
+     *
+     * @param impComponent
+     * @param pFrame
+     */
+    public void init(XComponent impComponent, JFrame pFrame) {
+        initMain(impComponent, pFrame);
         initComponents();
         initProviders();
-        /*
-        SwingUtilities.invokeLater(new Runnable() {
-
-            public void run() {
-                initFloatingPane();
-            }
-        });
-        */
         initTimers();
         log.debug("calling initOpenDOcuments");
         initOpenDocuments();
@@ -166,6 +147,24 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         initTabbedPanes();
         initModeLabel();
     }
+
+    private void initMain(XComponent impComponent, JFrame parentFrame) {
+        log.debug("constructor:editortabbedpanel");
+
+        this.Component = impComponent;
+        if (impComponent == null) {
+            log.error("constructor:editortabbedpanel impComponent was null");
+        }
+
+        this.ComponentContext = BungenioOoHelper.getInstance().getComponentContext();
+
+        editorMap = new TreeMap<String, componentHandleContainer>();
+        ooDocument = new OOComponentHelper(impComponent, ComponentContext);
+
+        this.parentFrame = parentFrame;
+        this.activeDocument = BungeniEditorProperties.getEditorProperty("activeDocumentMode");
+    }
+
 
     private void initProviders() {
         org.bungeni.editor.providers.DocumentSectionProvider.initialize(this.ooDocument);
@@ -245,6 +244,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         this.cboListDocuments.setModel(new DefaultComboBoxModel(listDocuments.toArray()));
     }
 
+    /**
     private void initOpenDocumentsList() {
         try {
             log.debug("initOpenDocumentsList: getting components");
@@ -279,13 +279,13 @@ public class editorTabbedPanel extends javax.swing.JPanel {
             log.error("InitOpenDocumentsList stacktrace : " + CommonExceptionUtils.getStackTrace(ex));
         }
     }
-
+     ***/
     private void initOpenDocuments() {
         log.debug("initOpenDocuments: calling");
         //commented here for listener synchronization issues, as the combox action
         //listener depends on the tree data model being set.
         // cboListDocuments.addActionListener(new cboListDocumentsActionListener());
-        initOpenDocumentsList();
+       // initOpenDocumentsList();
         initListDocuments();
         initListDocumentsListener();
         initSelectionInOpenDocuments();
@@ -967,7 +967,7 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
         //some documents may have been opened in the meanwhile... we look for them and add them
         log.debug("componentHandlesTracker: refreshing document open keyset map ");
 
-        initOpenDocumentsList();
+        //initOpenDocumentsList();
 
     //now update the combo box...
 

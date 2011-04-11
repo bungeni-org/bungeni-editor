@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2011 undesa
+ *  Copyright (C) 2011 Africa i-Parliaments
  * 
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -16,31 +16,35 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-package org.bungeni.editor.extnoa;
+package org.bungeni.editor.noa;
 
-import ag.ion.bion.officelayer.application.connection.IOfficeConnection;
-import ag.ion.bion.officelayer.internal.application.LocalOfficeApplication;
-import java.util.Map;
+import javax.swing.JPanel;
 
 /**
  *
- * @author ashok
+ * @author Ashok
  */
-public class BungeniLocalOfficeApplication extends LocalOfficeApplication {
-    IOfficeConnection shadow_officeConnection = null;
+public class BungeniNoaPanel {
 
-    public BungeniLocalOfficeApplication(Map config ) {
-        super(config);
+    private static BungeniNoaPanel thisPanel = null;
+
+    private JPanel panel = null;
+    
+    private BungeniNoaPanel(){
+        panel = new JPanel();
     }
 
-   @Override
-   protected void setOfficeConnection(IOfficeConnection officeConnection) {
-    super.setOfficeConnection(officeConnection);
-    this.shadow_officeConnection = officeConnection;
-  }
+    public static BungeniNoaPanel getInstance(){
+        if (null == thisPanel ) {
+            thisPanel = new BungeniNoaPanel();
+        }
+        return thisPanel;
+    }
 
-   public IOfficeConnection getOfficeConnection(){
-       return this.shadow_officeConnection;
-   }
+    public JPanel getPanel(){
+        return panel;
+    }
+
+
 
 }
