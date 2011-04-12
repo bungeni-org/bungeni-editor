@@ -21,7 +21,8 @@ package org.bungeni.editor.noa;
 import javax.swing.JPanel;
 
 /**
- *
+ * This is a singleton JPanel. The NativeView containing the Openoffice window
+ * is attached to this panel.
  * @author Ashok
  */
 public class BungeniNoaPanel {

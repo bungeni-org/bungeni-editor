@@ -21,7 +21,9 @@ package org.bungeni.editor.noa;
 import ag.ion.bion.officelayer.desktop.IFrame;
 
 /**
- * Singleton class to get handle to OOo Office frame
+ * Singleton class to factor out OpenOffice frame creation.
+ * Note that this is different from BungeniNoaFrame -- which is a JFrame derived class.
+ * This is a container for an OpenOffice XFrame document window
  * Assumption here currently is we will have only 1 office Frame
  * Until we understand how NOA handles multiple frames ?
  * @author Ashok

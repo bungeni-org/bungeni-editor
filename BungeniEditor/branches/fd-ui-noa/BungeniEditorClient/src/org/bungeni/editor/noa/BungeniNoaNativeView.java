@@ -29,6 +29,8 @@ import org.bungeni.extutils.JavaPlatformArch;
 /**
  * Prepares a NOA native view
  * Provides API to map a awt Container to a NativeView
+ * Loads the correct NativeView DLL or SO file depending on the platform
+ * architecture
  * @author Ashok
  */
 public class BungeniNoaNativeView {
@@ -38,6 +40,9 @@ public class BungeniNoaNativeView {
     private NativeView nativeView = null;
     private Container parentContainer = null;
 
+    /**
+     * Create the nativeView using the NOA C runtime libraries
+     */
     private BungeniNoaNativeView() {
         //32 bit dlls / so files are in lib/noa32
         //64 bit dlls / so files are in lib/noa64
@@ -59,6 +64,11 @@ public class BungeniNoaNativeView {
         return this.nativeView;
     }
 
+    /**
+     * This API is used to associate the BungeniNoaPanel with an OpenOffice
+     * Frame
+     * @param parent
+     */
     public void attachContainerToNativeView(Container parent) {
         //add nativeview to the container
         this.parentContainer = parent;
@@ -75,10 +85,6 @@ public class BungeniNoaNativeView {
         });
         getNativeView().setPreferredSize(new Dimension(parent.getWidth() - 5, parent.getHeight() - 5));
         parent.getLayout().layoutContainer(parent);
-        //IFrame officeFrame = officeApplication.getDesktopService().constructNewOfficeFrame(nativeView);
-        //parent.validate();
-        //return officeFrame;
-
     }
 
 

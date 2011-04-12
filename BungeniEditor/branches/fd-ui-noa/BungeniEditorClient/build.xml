@@ -82,18 +82,12 @@
         </copy>
 
         <!-- copy required NOA binaries -->
-        <copy todir="${dist.dir}/lib/noa">
-            <fileset dir="lib/noa" >
-                <include name="*.dll" />
-                <include name="*.so" />
-            </fileset>
-        </copy>
-
+      
         <copy todir="${dist.dir}/lib/noa32">
-            <fileset dir="lib/noa/noa32"></fileset>
+            <fileset dir="lib/noa/runtimes/x32"></fileset>
         </copy>
         <copy todir="${dist.dir}/lib/noa64">
-            <fileset dir="lib/noa/noa64"></fileset>
+            <fileset dir="lib/noa/runtimes/x64"></fileset>
         </copy>
 
         <delete file="${dist.dir}/transformer/EXTERNALS.txt" />

@@ -4,7 +4,6 @@ import ag.ion.bion.officelayer.application.OfficeApplicationException;
 import ag.ion.bion.officelayer.document.DocumentException;
 import ag.ion.noa.NOAException;
 import com.sun.star.lang.XComponent;
-import com.sun.star.uno.XComponentContext;
 
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -23,8 +22,6 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
@@ -902,74 +899,7 @@ public class editorApplicationController extends javax.swing.JPanel {
     public static int OPENOFFICE_HEIGHT_OFFSET = 60;
     public static int WIDTH_OOo_SCROLLBAR = 25;
 
-
-    /****
-    private void initFrame(XComponent component) {
-        //BungeniFrame frame = new BungeniFrame(bundle.getString("editorTabbedPanel.panel.Title"));
-        BungeniNoaFrame frame = new BungeniNoaFrame(bundle.getString("editorTabbedPanel.panel.Title"));
-        component = frame.getDocument().getXComponent();
-
-        //set the dimensions for the frame;
-        //frame.setSize(270, 655);
-        frame.setSize(540, 655);
-        //frame position information
-        //position frame
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension windowSize = frame.getSize();
-        log.debug("screen size = " + screenSize);
-        log.debug("window size = " + windowSize);
-
-        int windowX = screenSize.width - frame.getWidth() - WIDTH_OOo_SCROLLBAR;
-        int windowY = editorApplicationController.getFrameWindowDimension().y;
-        WINDOW_X = windowX;
-        WINDOW_Y = windowY;
-
-        XModel xModel = ooQueryInterface.XModel(component);
-        XWindow xCompWindow = xModel.getCurrentController().getFrame().getComponentWindow();
-        XWindow xContWindow = xModel.getCurrentController().getFrame().getContainerWindow();
-        com.sun.star.awt.Rectangle rSize = xCompWindow.getPosSize();
-        com.sun.star.awt.Rectangle rContSize = xContWindow.getPosSize();
-        int coordX = rSize.X + rContSize.X;
-        int coordY = rContSize.Y + rSize.Y + 40;
-
-        editorTabbedPanel.coordX = windowX;
-        editorTabbedPanel.coordY = coordY;
-
-        editorTabbedPanel panel = editorTabbedPanel.getInstance();
-        panel.init(component, parentFrame);
-
-
-        frame.add(panel);
-        WindowListener tabbedPanelListener = new WindowAdapter() {
-
-            @Override
-            public void windowClosing(WindowEvent e) {
-                WindowEvent we = new WindowEvent(parentFrame, WindowEvent.WINDOW_CLOSING);
-                parentFrame.dispatchEvent(we);
-            }
-
-            @Override
-            public void windowDeiconified(WindowEvent e) {
-                editorTabbedPanel.getInstance().bringEditorWindowToFront();
-            }
-
-            @Override
-            public void windowIconified(WindowEvent e) {
-                System.out.println("panel minimized....");
-            }
-        };
-        frame.addWindowListener(tabbedPanelListener);
-        //frame.setSize(243, 650);
-        frame.setResizable(false);
-        frame.setAlwaysOnTop(true);
-        frame.setVisible(true);
-        //prevent closing of main editor panel
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        frame.setLocation(editorTabbedPanel.coordX, editorTabbedPanel.coordY);
-        //frame.setLocation(windowX, windowY );  // Don't use "f." inside constructor.
-    }
-    ****/
-    
+ 
     private static int WINDOW_X = 0;
     private static int WINDOW_Y = 0;
 
@@ -997,73 +927,9 @@ public class editorApplicationController extends javax.swing.JPanel {
 
         editorTabbedPanel panel = editorTabbedPanel.getInstance();
         panel.init(xopenedDocument, frame);
-        frame.add(panel);
-        frame.setResizable(true);
+        frame.getBasePanel().add(panel, "shrink 0");
+        frame.validate();
         frame.setExtendedState(frame.getExtendedState()|JFrame.MAXIMIZED_BOTH);
-        frame.setVisible(true);
-
-
-
-
-        /**
-        //set the dimensions for the frame;
-        //frame.setSize(270, 655);
-        frame.setSize(540, 655);
-        //frame position information
-        //position frame
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension windowSize = frame.getSize();
-        log.debug("screen size = " + screenSize);
-        log.debug("window size = " + windowSize);
-
-        int windowX = screenSize.width - frame.getWidth() - WIDTH_OOo_SCROLLBAR;
-        int windowY = editorApplicationController.getFrameWindowDimension().y;
-        WINDOW_X = windowX;
-        WINDOW_Y = windowY;
-
-        XModel xModel = ooQueryInterface.XModel(component);
-        XWindow xCompWindow = xModel.getCurrentController().getFrame().getComponentWindow();
-        XWindow xContWindow = xModel.getCurrentController().getFrame().getContainerWindow();
-        com.sun.star.awt.Rectangle rSize = xCompWindow.getPosSize();
-        com.sun.star.awt.Rectangle rContSize = xContWindow.getPosSize();
-        int coordX = rSize.X + rContSize.X;
-        int coordY = rContSize.Y + rSize.Y + 40;
-
-        editorTabbedPanel.coordX = windowX;
-        editorTabbedPanel.coordY = coordY;
-
-        editorTabbedPanel panel = editorTabbedPanel.getInstance();
-        panel.init(component, parentFrame);
-
-
-        frame.add(panel);
-        WindowListener tabbedPanelListener = new WindowAdapter() {
-
-            @Override
-            public void windowClosing(WindowEvent e) {
-                WindowEvent we = new WindowEvent(parentFrame, WindowEvent.WINDOW_CLOSING);
-                parentFrame.dispatchEvent(we);
-            }
-
-            @Override
-            public void windowDeiconified(WindowEvent e) {
-                editorTabbedPanel.getInstance().bringEditorWindowToFront();
-            }
-
-            @Override
-            public void windowIconified(WindowEvent e) {
-                System.out.println("panel minimized....");
-            }
-        };
-        frame.addWindowListener(tabbedPanelListener);
-        //frame.setSize(243, 650);
-        frame.setResizable(false);
-        frame.setAlwaysOnTop(true);
-        frame.setVisible(true);
-        //prevent closing of main editor panel
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-         *****/
-        
        }
 
     /*** AH-07-04-11
