@@ -4,13 +4,8 @@ package org.bungeni.ooo;
 
 import com.sun.star.awt.Rectangle;
 import com.sun.star.awt.XWindow;
-import com.sun.star.beans.PropertyValue;
-import com.sun.star.frame.TerminationVetoException;
 import com.sun.star.frame.XComponentLoader;
 import com.sun.star.frame.XDesktop;
-import com.sun.star.frame.XTerminateListener;
-import com.sun.star.lang.EventObject;
-import com.sun.star.lang.XComponent;
 import com.sun.star.lang.XMultiComponentFactory;
 import com.sun.star.uno.Exception;
 import com.sun.star.uno.XComponentContext;
@@ -37,12 +32,10 @@ public class BungenioOoHelper {
     private XDesktop                m_ooDesktop         = null;
     private XMultiComponentFactory  m_ooMCF             = null;
 
-    private boolean m_bDesktopTerminated = false;
-
+   
     private BungenioOoHelper() {
-    }
-
     
+    }
 
     /**
      * Singleton for BungenioOoHelper specific to a XComponentContext object
@@ -69,66 +62,25 @@ public class BungenioOoHelper {
     }
 
     /**
+     * Set the desktop handle
+     * @param xDesk
+     */
+    public void setDesktop(XDesktop xDesk) {
+        this.m_ooDesktop = xDesk;
+    }
+
+    /**
      * Get the OOo desktop handle
      * Warning : Do not call this directly from the Bungeni Editor code --
      * In Bungeni Editor desktop creation is done using the NOA library
      * @return XDesktop
-     * @deprecated 
+     * 
      */
     public XDesktop getDesktop() throws com.sun.star.uno.Exception {
-        if (m_ooDesktop == null) {
-                m_ooDesktop = newDesktop();
-            if (m_ooDesktop != null ) m_bDesktopTerminated = false;
-            return m_ooDesktop;
-        }
-        if (true == m_bDesktopTerminated) {
-                m_ooDesktop = newDesktop();
-            if (m_ooDesktop != null ) m_bDesktopTerminated = false;
-            return m_ooDesktop;
-        }
-
         return m_ooDesktop;
     }
 
-    /**
-     * @deprecated 
-     * @return
-     */
-    public boolean isDesktopTerminated(){
-        return m_bDesktopTerminated;
-    }
-
-
-    /**
-     * @deprecated 
-     * @return
-     * @throws com.sun.star.uno.Exception
-     */
-    private XDesktop newDesktop() throws com.sun.star.uno.Exception {
-            Object oDesktop = getMultiComponentFactory().createInstanceWithContext("com.sun.star.frame.Desktop", m_ooContext);
-                // (4a) get the XDesktop interface object
-            XDesktop xDsk = (com.sun.star.frame.XDesktop) com.sun.star.uno.UnoRuntime.queryInterface(
-                        com.sun.star.frame.XDesktop.class, oDesktop);
-            xDsk.addTerminateListener(new XTerminateListener(){
-
-                    public void queryTermination(EventObject arg0) throws TerminationVetoException {
-                     
-                    }
-
-                    public void notifyTermination(EventObject arg0) {
-                       log.debug("XTerminateListener : disposing desktop");
-                       System.out.println("XTerminateListener : disposing desktop");
-                       m_bDesktopTerminated = true;
-                     
-                    }
-
-                    public void disposing(EventObject arg0) {
-                    }
-
-                });
-           return xDsk;
-    }
-
+    
     /**
      * Return a OOo component creation factory object
      * @return
@@ -140,40 +92,29 @@ public class BungenioOoHelper {
         return m_ooMCF;
     }
 
+    /**
+     * Returns the XComponentContext
+     * @return
+     */
     public XComponentContext getComponentContext() {
         return m_ooContext;
     }
 
     /**
-     * @deprecated 
+     * Returns a XComponent loader handle
      * @return
      * @throws com.sun.star.uno.Exception
      */
     public XComponentLoader getComponentLoader() throws com.sun.star.uno.Exception {
         if (m_ooComponentLoader == null) {
-                //  get the desktop's component loader interface object
-                m_ooComponentLoader = newComponentLoader();
-                return m_ooComponentLoader;
+            if (m_ooDesktop == null ) {
+                return null;
+            }
+            m_ooComponentLoader = ooQueryInterface.XComponentLoader(m_ooDesktop);
         }
-        if (true == m_bDesktopTerminated) {
-                m_ooComponentLoader = newComponentLoader();
-                return m_ooComponentLoader;
-        }
-
         return m_ooComponentLoader;
     }
 
-    /**
-     *
-     * @deprecated 
-     * @return
-     * @throws com.sun.star.uno.Exception
-     */
-    private XComponentLoader newComponentLoader() throws com.sun.star.uno.Exception{
-        XComponentLoader xLoader = (com.sun.star.frame.XComponentLoader) com.sun.star.uno.UnoRuntime.queryInterface(
-                    com.sun.star.frame.XComponentLoader.class, getDesktop());
-        return xLoader;
-    }
 
   
     /*
