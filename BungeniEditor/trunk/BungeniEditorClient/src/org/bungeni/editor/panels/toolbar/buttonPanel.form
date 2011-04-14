@@ -39,9 +39,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="some text"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActionActionPerformed"/>
-      </Events>
     </Component>
   </SubComponents>
 </Form>

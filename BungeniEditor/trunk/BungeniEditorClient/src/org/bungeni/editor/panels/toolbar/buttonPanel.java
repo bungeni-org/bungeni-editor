@@ -26,9 +26,20 @@ public class buttonPanel extends javax.swing.JPanel {
      * @param btnListener - the action listener associated wiht the button
      */
     public buttonPanel(String text, String tooltipText, ActionListener btnListener, BungeniToolbarActionElement aElement) {
-        initComponents();
+        this();
+        /**
+         *
+        this.btnAction = new JButton() {
+            @Override
+            public JToolTip createToolTip(){
+                MultiLineToolTip tip = new MultiLineToolTip();
+                tip.setComponent(this);
+                return tip;
+            }
+        };
+         */
         setButtonText(text);
-        setButtonTooltip(tooltipText);
+        setButtonTooltip(tooltipText.trim().replaceAll("  ", ""));
         this.btnAction.setHorizontalAlignment(SwingConstants.LEADING);
         setButtonActionListener(btnListener);
         setActionElement(aElement);
@@ -43,7 +54,7 @@ public class buttonPanel extends javax.swing.JPanel {
     }
 
     private void setButtonText(String text) {
-        this.btnAction.setText(text);
+        this.btnAction.setText("<html>" + text + "</html>");
     }
 
    private void setButtonTooltip(String text){
@@ -72,11 +83,6 @@ public class buttonPanel extends javax.swing.JPanel {
         btnAction.setBackground(new java.awt.Color(143, 204, 48));
         btnAction.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnAction.setText("some text");
-        btnAction.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActionActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -91,10 +97,6 @@ public class buttonPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnActionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
