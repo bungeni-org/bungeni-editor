@@ -18,7 +18,7 @@ import org.bungeni.translators.globalconfigurations.GlobalConfigurations;
 //import org.un.bungeni.translators.utility.exceptionmanager.ExceptionManager;
 
 public class AHTranslatorTest {
-
+        /*SVN TEST*/
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
