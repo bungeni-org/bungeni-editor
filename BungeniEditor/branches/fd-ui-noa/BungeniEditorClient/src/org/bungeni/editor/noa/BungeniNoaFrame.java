@@ -4,12 +4,9 @@ import ag.ion.bion.officelayer.application.OfficeApplicationException;
 import ag.ion.bion.officelayer.document.DocumentException;
 import ag.ion.noa.NOAException;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 
@@ -17,7 +14,6 @@ import ag.ion.bion.officelayer.desktop.IFrame;
 import ag.ion.bion.officelayer.document.DocumentDescriptor;
 import ag.ion.bion.officelayer.document.IDocument;
 import ag.ion.bion.officelayer.text.ITextDocument;
-import java.awt.GridBagLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
@@ -46,7 +42,11 @@ public class BungeniNoaFrame extends BungeniFrame {
      *       |---{content-pane}--|
      *                           basePanel (JPanel)
      *                           |
-     *                           |---- BungeniNoaPanel (contains Openoffice Window)
+     *                           |---- BungeniNoaTabbedPanel
+     *                           |       +
+     *                           |       +-----tab BungeniNoaPanel (contains Openoffice Window)
+     *                           |       +
+     *                           |       +-----tab BungeniNoaPanel (contains Openoffice Window)
      *                           |
      *                           |---- editorTabbedPanel (contains the action panel)
      */
@@ -59,7 +59,7 @@ public class BungeniNoaFrame extends BungeniFrame {
     /**
      * This is the JPanel with the embdedded OpenOffice 
      */
-    private BungeniNoaPanel noaPanel = null;
+    private BungeniNoaTabbedPane noaTabbedPane = null;
     private IFrame openofficeFrame = null;
     private ITextDocument document = null;
 
@@ -153,9 +153,10 @@ public class BungeniNoaFrame extends BungeniFrame {
         //add the NOA panel to the content pane of the frame
         //the NOA panel is a singleton -- this is the panel that contains
         //the openoffice window
-        this.noaPanel = BungeniNoaPanel.getInstance();
+        this.noaTabbedPane = BungeniNoaTabbedPane.getInstance();
         //add the noa panel with a grow on y axis directive
-        getBasePanel().add(noaPanel.getPanel(), "growy");
+        getBasePanel().add(noaTabbedPane.getTabbedPane(), "growy");
+        noaTabbedPane.getTabbedPane().addTab("openOffice", BungeniNoaPanel.getInstance().getPanel());
     }
 
    
@@ -188,8 +189,8 @@ public class BungeniNoaFrame extends BungeniFrame {
 
         }
         this.document = loadedDocument;
-        
-        this.noaPanel.getPanel().setVisible(true);
+        BungeniNoaTabbedPane.getInstance().getTabbedPane().validate();
+        BungeniNoaPanel.getInstance().getPanel().setVisible(true);
     }
 
     

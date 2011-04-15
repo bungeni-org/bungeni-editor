@@ -929,6 +929,8 @@ public class editorApplicationController extends javax.swing.JPanel {
         panel.init(xopenedDocument, frame);
         frame.getBasePanel().add(panel, "shrink 0");
         frame.validate();
+        frame.setVisible(true);
+        frame.setSize(800, 600);
         frame.setExtendedState(frame.getExtendedState()|JFrame.MAXIMIZED_BOTH);
        }
 
