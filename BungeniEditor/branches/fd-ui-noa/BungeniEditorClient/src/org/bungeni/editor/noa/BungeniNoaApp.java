@@ -58,7 +58,7 @@ public class BungeniNoaApp {
     private BungeniNoaApp()  {
         try {
             //get native view lib
-            IApplicationAssistant applicationAssistant = new ApplicationAssistant(System.getProperty("user.dir") + "\\lib\\noa-64");
+            IApplicationAssistant applicationAssistant = new ApplicationAssistant();
             ILazyApplicationInfo[] appInfos = applicationAssistant.getLocalApplications();
             if (appInfos.length < 1) {
                 log.error("Couldnt find OpenOffice.org, bailing out !!!");
