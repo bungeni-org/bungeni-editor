@@ -46,11 +46,16 @@ public class BungeniNoaNativeView {
     private BungeniNoaNativeView() {
         //32 bit dlls / so files are in lib/noa32
         //64 bit dlls / so files are in lib/noa64
+        
+        nativeView = new NativeView(getNativeViewPath());
+    }
+
+    public static String getNativeViewPath(){
         int javaPlatform = JavaPlatformArch.platform();
         String nativeViewPath = System.getProperty("user.dir") +
                 File.separator + "lib" +
                 File.separator + "noa" + javaPlatform;
-        nativeView = new NativeView(nativeViewPath);
+        return nativeViewPath;
     }
 
     public static BungeniNoaNativeView getInstance(){
