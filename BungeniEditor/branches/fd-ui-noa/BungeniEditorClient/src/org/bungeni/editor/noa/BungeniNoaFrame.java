@@ -15,8 +15,10 @@ import ag.ion.bion.officelayer.document.DocumentDescriptor;
 import ag.ion.bion.officelayer.document.IDocument;
 import ag.ion.bion.officelayer.text.ITextDocument;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
+import org.bungeni.editor.dialogs.editorTabbedPanel;
 import org.bungeni.editor.noa.ext.BungeniLocalOfficeApplication;
 import org.bungeni.extutils.BungeniFrame;
 import org.bungeni.extutils.CommonTreeFunctions;
@@ -111,27 +113,63 @@ public class BungeniNoaFrame extends BungeniFrame {
         setResizable(true);
         setSize(800, 600);
         pack();
-        //perhaps handle this ?
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //We set it to do_nothing_on_close since we want to add
+        //an exit handler and exit cleanly
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setVisible(true);
 
         addWindowListener(new WindowAdapter() {
 
             @Override
             public void windowClosing(WindowEvent windowEvent) {
-                try {
-                    if (document != null) {
-                        document.close();
-                    }
-                    document = null;
-                    if (officeApplication != null) {
-                        officeApplication.deactivate();
-                        officeApplication.dispose();
-                        BungeniNoaApp.getInstance().setOfficeApp(null);
-                    }
-                } catch (Throwable ex) {
-                    log.error("Error while closing window", ex);
-                }
+                  JFrame aFrame = (JFrame) windowEvent.getSource();
+                  int confirm = JOptionPane.showOptionDialog(aFrame, "Really Exit? This will close all Editor panels",
+                        "Exit Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                        null, null);
+                  if (confirm == JOptionPane.YES_OPTION) {
+                      /**
+                       * We probably need to check if all the OOo documents have been saved
+                       */
+                        // to do 
+
+                      /**
+                       * Clean up the main tabbed panel
+                       */
+
+                      if (!editorTabbedPanel.isInstanceNull()) {
+                          editorTabbedPanel.getInstance().cleanup();
+                      }
+
+                      /***
+                       * Clean up the openoffice handles 
+                       */
+
+                      try {
+                            if (document != null) {
+                                document.close();
+                            }
+                            document = null;
+                            if (officeApplication != null) {
+                                officeApplication.deactivate();
+                                officeApplication.dispose();
+                                BungeniNoaApp.getInstance().setOfficeApp(null);
+                            }
+                        } catch (Throwable ex) {
+                            log.error("Error while closing window", ex);
+                        }
+
+                      /**
+                       * Dispose the main JFrame
+                       */
+
+                      dispose();
+
+                      /**
+                       *Finally exit the system
+                       */
+
+                      System.exit(0);
+                      }
             }
         });
 
