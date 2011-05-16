@@ -226,7 +226,7 @@ public class BungeniNoaFrame extends BungeniFrame {
      * @throws NOAException
      * @throws DocumentException
      */
-    public void loadDocumentInPanel(String pathToDocumentOrTemplate, boolean isTemplate) throws OfficeApplicationException, NOAException, DocumentException {
+    public DocumentComposition loadDocumentInPanel(String pathToDocumentOrTemplate, boolean isTemplate) throws OfficeApplicationException, NOAException, DocumentException {
         //if the Office XFrame does not exist, construct it
         DocumentComposition dc =  constructOOoFrame();
         //now load the document - if its a template, create a new instance from 
@@ -248,6 +248,8 @@ public class BungeniNoaFrame extends BungeniFrame {
         noaTabbedPane.getTabbedPane().addTab(tabTitle, dc.getPanel().getPanel());
         BungeniNoaTabbedPane.getInstance().getTabbedPane().validate();
         dc.getPanel().getPanel().setVisible(true);
+
+        return dc;
     }
 
 
@@ -287,7 +289,7 @@ public class BungeniNoaFrame extends BungeniFrame {
      *  -- noa panel
      *  -- noa native view
      */
-    class DocumentComposition {
+    public class DocumentComposition {
         private IFrame frame;
         private BungeniNoaNativeView nativeView;
         private BungeniNoaPanel panel;

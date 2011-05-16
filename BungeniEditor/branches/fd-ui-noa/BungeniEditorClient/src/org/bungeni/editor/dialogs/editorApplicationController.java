@@ -44,6 +44,7 @@ import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
 import org.bungeni.editor.noa.BungeniNoaFrame;
+import org.bungeni.editor.noa.BungeniNoaFrame.DocumentComposition;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.ooo.BungenioOoHelper;
 import org.bungeni.ooo.OOComponentHelper;
@@ -913,9 +914,11 @@ public class editorApplicationController extends javax.swing.JPanel {
        
         log.debug("template URL= " + templateURL);
 
-        BungeniNoaFrame frame = new BungeniNoaFrame(bundle.getString("editorTabbedPanel.panel.Title"));
+        BungeniNoaFrame frame = BungeniNoaFrame.getInstance();
+        frame.setTitle(bundle.getString("editorTabbedPanel.panel.Title"));
+        DocumentComposition dc = null;
         try {
-            frame.loadDocumentInPanel(templatePath, isTemplate);
+            dc = frame.loadDocumentInPanel(templatePath, isTemplate);
         } catch (OfficeApplicationException ex) {
             log.error("Error while loading document !!!", ex);
         } catch (NOAException ex) {
@@ -923,7 +926,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         } catch (DocumentException ex) {
             log.error("Error while loading document !!!", ex);
         }
-        XComponent xopenedDocument = frame.getDocument().getXComponent();
+        XComponent xopenedDocument = dc.getDocument().getXComponent();
 
         editorTabbedPanel panel = editorTabbedPanel.getInstance();
         panel.init(xopenedDocument, frame);
