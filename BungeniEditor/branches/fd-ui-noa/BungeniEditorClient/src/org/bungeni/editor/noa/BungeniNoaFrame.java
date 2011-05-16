@@ -14,6 +14,8 @@ import ag.ion.bion.officelayer.desktop.IFrame;
 import ag.ion.bion.officelayer.document.DocumentDescriptor;
 import ag.ion.bion.officelayer.document.IDocument;
 import ag.ion.bion.officelayer.text.ITextDocument;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -22,19 +24,25 @@ import org.bungeni.editor.dialogs.editorTabbedPanel;
 import org.bungeni.editor.noa.ext.BungeniLocalOfficeApplication;
 import org.bungeni.extutils.BungeniFrame;
 import org.bungeni.extutils.CommonTreeFunctions;
+import org.bungeni.ooo.OOComponentHelper;
 
 /**
  * This is an extended BungeniFrame which acts as a frame for :
  *  -- container NOA panel
  *  -- editorTabbedPanel
- * 
+ * 16-05-2011 - Converted to a Singleton
  * (formerly BungeniFrameEmbedded)
  * @author ashok, fdraicchio
  */
 public class BungeniNoaFrame extends BungeniFrame {
 
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BungeniNoaFrame.class.getName());
+    
+    private static BungeniNoaFrame thisBungeniNoaFrame = null;
+
     private BungeniLocalOfficeApplication officeApplication = null;
+
+    private List<DocumentComposition> officeDocuments = new ArrayList<DocumentComposition>(0);
 
     /**
      * The structure of this Frame is as follows :
@@ -61,26 +69,28 @@ public class BungeniNoaFrame extends BungeniFrame {
     /**
      * This is the JPanel with the embdedded OpenOffice 
      */
-    private BungeniNoaTabbedPane noaTabbedPane = null;
-    private IFrame openofficeFrame = null;
-    private ITextDocument document = null;
+    private  BungeniNoaTabbedPane noaTabbedPane = null;
 
-    public ITextDocument getDocument() {
-        return document;
+    public static BungeniNoaFrame getInstance(){
+        if (null == thisBungeniNoaFrame) {
+            thisBungeniNoaFrame = new BungeniNoaFrame();
+        }
+        return thisBungeniNoaFrame;
     }
 
-    public BungeniNoaFrame() {
+    
+    private BungeniNoaFrame() {
         super();
         init();
     }
 
-    public BungeniNoaFrame(String titleStr) {
+    private BungeniNoaFrame(String titleStr) {
         super(titleStr);
         setIconForFrame();
         init();
     }
 
-    public BungeniNoaFrame(String titleStr, Dimension frmSize) {
+    private BungeniNoaFrame(String titleStr, Dimension frmSize) {
         super(titleStr);
         setIconForFrame();
         this.setSize(frmSize);
@@ -92,6 +102,7 @@ public class BungeniNoaFrame extends BungeniFrame {
         setIconImage(iconApp.getImage());
 
     }
+
 
     public JPanel getBasePanel() {
         if (this.basePanel == null) {
@@ -145,11 +156,17 @@ public class BungeniNoaFrame extends BungeniFrame {
                        */
 
                       try {
-                            if (document != null) {
-                                document.close();
-                            }
-                            document = null;
-                            if (officeApplication != null) {
+                          //iterate through the document composition list and close every document
+                          for (DocumentComposition document : officeDocuments) {
+                              //XXXX-TODO-XXX check if document has been saved, warn etc.
+                              if (document.getDocument() != null) {
+                                 document.getDocument().close();
+                                }
+                              document.setDocument(null);
+                              officeDocuments.remove(document);
+                          }
+                          //then shutdown OOo completely
+                          if (officeApplication != null) {
                                 officeApplication.deactivate();
                                 officeApplication.dispose();
                                 BungeniNoaApp.getInstance().setOfficeApp(null);
@@ -194,7 +211,8 @@ public class BungeniNoaFrame extends BungeniFrame {
         this.noaTabbedPane = BungeniNoaTabbedPane.getInstance();
         //add the noa panel with a grow on y axis directive
         getBasePanel().add(noaTabbedPane.getTabbedPane(), "growy");
-        noaTabbedPane.getTabbedPane().addTab("openOffice", BungeniNoaPanel.getInstance().getPanel());
+        //AH-13-05-11 comment the below for now
+        //noaTabbedPane.getTabbedPane().addTab("openOffice", BungeniNoaPanel.getInstance().getPanel());
     }
 
    
@@ -210,55 +228,145 @@ public class BungeniNoaFrame extends BungeniFrame {
      */
     public void loadDocumentInPanel(String pathToDocumentOrTemplate, boolean isTemplate) throws OfficeApplicationException, NOAException, DocumentException {
         //if the Office XFrame does not exist, construct it
-        if (null == this.openofficeFrame) {
-            constructOOoFrame();
-        }
+        DocumentComposition dc =  constructOOoFrame();
         //now load the document - if its a template, create a new instance from 
         DocumentDescriptor ddObject = null;
         ITextDocument loadedDocument = null;
         if (isTemplate) {
             ddObject = BungeniNoaDocumentDescriptor.forTemplate(pathToDocumentOrTemplate);
             loadedDocument = (ITextDocument) officeApplication.getDocumentService().
-                    constructNewDocument(openofficeFrame, IDocument.WRITER, ddObject);
+                    constructNewDocument(dc.getFrame(),IDocument.WRITER, ddObject);
         } else {
             ddObject = BungeniNoaDocumentDescriptor.forDocument(pathToDocumentOrTemplate);
             loadedDocument = (ITextDocument) officeApplication.getDocumentService().
-                    loadDocument(openofficeFrame, pathToDocumentOrTemplate, ddObject);
+                    loadDocument(dc.getFrame(), pathToDocumentOrTemplate, ddObject);
 
         }
-        this.document = loadedDocument;
+        String tabTitle = OOComponentHelper.getFrameTitle(loadedDocument.getXTextDocument());
+        //set the loaded document into the document composition object
+        dc.setDocument(loadedDocument);
+        noaTabbedPane.getTabbedPane().addTab(tabTitle, dc.getPanel().getPanel());
         BungeniNoaTabbedPane.getInstance().getTabbedPane().validate();
-        BungeniNoaPanel.getInstance().getPanel().setVisible(true);
+        dc.getPanel().getPanel().setVisible(true);
     }
+
 
     
     /**
      * Creates a OpenOffice XFrame , the document is loaded in a XFrame
+     * A native view is attached to an XFrame
      * @return
      * @throws Throwable
      */
-    private void constructOOoFrame() {
+    private DocumentComposition constructOOoFrame() {
+        DocumentComposition dc = null;
         try {
             //get a handle to the native view & attach it to the NOA Panel
             BungeniNoaNativeView nativeView = BungeniNoaNativeView.getInstance();
-            nativeView.attachContainerToNativeView(BungeniNoaPanel.getInstance().getPanel());
+            //create noa panel
+            BungeniNoaPanel noaPanel = new BungeniNoaPanel();
+            //attach the native view to that paenl
+            nativeView.attachContainerToNativeView(noaPanel.getPanel());
             //now we create a OOo Frame and attach that to the native view
             IFrame oooFrame = BungeniNoaOfficeFrame.getInstance().getFrame();
             //finally validate the NOA panel
-            BungeniNoaPanel.getInstance().getPanel().validate();
+            noaPanel.getPanel().validate();
             //this is an empty OpenOffice XFrame -- it will be used to load a document
-            this.openofficeFrame = oooFrame;
+            //this.openofficeFrame = oooFrame;
+            dc = new DocumentComposition(oooFrame, nativeView, noaPanel, null);
         } catch (Exception ex) {
             log.error("There was an error constructing the Openoffice frame", ex);
         }
+        return dc;
     }
 
+
     /**
-     * Returns the IFrame object of the created OpenOffice frame
-     * @return
+     * A document in Bungeni Editor is displayed using the 3 components :
+     *  -- openoffice frame
+     *  -- noa panel
+     *  -- noa native view
      */
-    public IFrame getOpenOfficeFrame() {
-        return this.openofficeFrame;
+    class DocumentComposition {
+        private IFrame frame;
+        private BungeniNoaNativeView nativeView;
+        private BungeniNoaPanel panel;
+        private ITextDocument document;
+
+        /**
+         *Create a DocumentComposition object
+         * @param frame
+         * @param nativeView
+         * @param panel
+         * @param doc
+         */
+        public DocumentComposition(IFrame frame, BungeniNoaNativeView nativeView,
+                BungeniNoaPanel panel, ITextDocument doc ) {
+            this.frame = frame;
+            this.nativeView = nativeView;
+            this.panel = panel;
+            this.document = doc;
+        }
+
+        /**
+         * @return the frame
+         */
+        public IFrame getFrame() {
+            return frame;
+        }
+
+        /**
+         * @param frame the frame to set
+         */
+        public void setFrame(IFrame frame) {
+            this.frame = frame;
+        }
+
+        /**
+         * @return the nativeView
+         */
+        public BungeniNoaNativeView getNativeView() {
+            return nativeView;
+        }
+
+        /**
+         * @param nativeView the nativeView to set
+         */
+        public void setNativeView(BungeniNoaNativeView nativeView) {
+            this.nativeView = nativeView;
+        }
+
+        /**
+         * @return the panel
+         */
+        public BungeniNoaPanel getPanel() {
+            return panel;
+        }
+
+        /**
+         * @param panel the panel to set
+         */
+        public void setPanel(BungeniNoaPanel panel) {
+            this.panel = panel;
+        }
+
+        /**
+         * @return the document
+         */
+        public ITextDocument getDocument() {
+            return document;
+        }
+
+        /**
+         * @param document the document to set
+         */
+        public void setDocument(ITextDocument document) {
+            this.document = document;
+        }
+
+
+
     }
+    
 }
 
