@@ -27,8 +27,6 @@ import javax.swing.JPanel;
  */
 public class BungeniNoaPanel {
 
-    private static BungeniNoaPanel thisPanel = null;
-
     private JPanel panel = null;
     
     public BungeniNoaPanel(){

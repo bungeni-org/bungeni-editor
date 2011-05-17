@@ -18,46 +18,38 @@
 
 package org.bungeni.editor.noa;
 
+import ag.ion.bion.officelayer.desktop.IDesktopService;
 import ag.ion.bion.officelayer.desktop.IFrame;
 
 /**
- * Singleton class to factor out OpenOffice frame creation.
+ * Class that does OpenOffice frame creation.
  * Note that this is different from BungeniNoaFrame -- which is a JFrame derived class.
  * This is a container for an OpenOffice XFrame document window
- * Assumption here currently is we will have only 1 office Frame
- * Until we understand how NOA handles multiple frames ?
+ * 1 XFrame window for 1 OOo document
  * @author Ashok
  */
 public class BungeniNoaOfficeFrame {
 
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BungeniNoaOfficeFrame.class.getName());
 
-    private static BungeniNoaOfficeFrame thisFrame = null;
-
+   
     private IFrame officeFrame = null;
 
     /**
      * Assumption here is that the native instance has already been attached
      * to a container panel. 
      */
-    private BungeniNoaOfficeFrame(){
+    public BungeniNoaOfficeFrame(){
         try {
-            officeFrame =
-                  BungeniNoaApp.getInstance().getOfficeApp().
-                    getDesktopService().
-                      constructNewOfficeFrame(BungeniNoaNativeView.getInstance().
+            IDesktopService idesk = BungeniNoaApp.getInstance().getOfficeApp().getDesktopService();
+
+            officeFrame = idesk.constructNewOfficeFrame(BungeniNoaNativeView.getInstance().
                          getNativeView());
         } catch (Throwable ex) {
             log.error("Error while getting NoaOfficeFrame");
         }
     }
 
-    public static BungeniNoaOfficeFrame getInstance(){
-        if (thisFrame == null) {
-            thisFrame = new BungeniNoaOfficeFrame();
-        }
-        return thisFrame;
-    }
 
     public IFrame getFrame(){
         return this.officeFrame;
