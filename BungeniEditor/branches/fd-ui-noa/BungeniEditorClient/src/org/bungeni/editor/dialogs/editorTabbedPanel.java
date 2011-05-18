@@ -1,5 +1,8 @@
 package org.bungeni.editor.dialogs;
 
+import ag.ion.bion.officelayer.application.OfficeApplicationException;
+import ag.ion.bion.officelayer.document.DocumentException;
+import ag.ion.noa.NOAException;
 import com.sun.star.beans.XPropertySet;
 import com.sun.star.container.XEnumeration;
 import com.sun.star.container.XEnumerationAccess;
@@ -34,6 +37,8 @@ import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.DefaultComboBoxModel;
@@ -61,6 +66,8 @@ import org.bungeni.editor.actions.IEditorActionEvent;
 import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.editor.metadata.BaseEditorDocMetaModel;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
+import org.bungeni.editor.noa.BungeniNoaFrame;
+import org.bungeni.editor.noa.BungeniNoaFrame.DocumentComposition;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
 import org.bungeni.editor.toolbar.target.BungeniToolbarTargetProcessor;
@@ -636,14 +643,25 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
 
     public void newDocumentInPanel() {
         String templatePath = BungeniEditorProperties.getEditorProperty(BungeniEditorPropertiesHelper.getCurrentDocType() + "_template");
-        Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         boolean bActive = false;
         int nConfirm = MessageBox.Confirm(parentFrame, bundle.getString("make_new_active"), bundle.getString("change_active"));
         if (JOptionPane.YES_OPTION == nConfirm) {
             bActive = true;
         }
-        OpenDocumentAgent openDocAgent = new OpenDocumentAgent(templatePath, screenSize, bActive, true);
-        openDocAgent.execute();
+       //we dont use the OpenDocumentAgent anymore -- as we are using noa,
+       //OOo document needs to be opened in the event dispatch thread, not
+       //in the background thread
+       BungeniNoaFrame frame = BungeniNoaFrame.getInstance();
+       DocumentComposition dc = null;
+        try {
+           dc = frame.loadDocumentInPanel(templatePath, true);
+        } catch (OfficeApplicationException e) {
+            log.error("Error while opening document from editorTabbedPanel" , e);
+        } catch (NOAException e) {
+            log.error("Error while opening document from editorTabbedPanel" , e);
+        } catch (DocumentException e) {
+            log.error("Error while opening document from editorTabbedPanel" , e);
+        }
     }
 
     public synchronized void loadDocumentInPanel() {
@@ -656,12 +674,22 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
                 bActive = true;
             }
             String fullPathToFile = openFile.getAbsolutePath();
-            //we calculate the screen dimension in advance and pass it to the open document agent
-            //as the awt toolkit executes in the EDT while the swingworker thread is an independent thread,
-            //and thus it is unsafe to make awt call from the swing worker thread.
-            Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-            OpenDocumentAgent openDocAgent = new OpenDocumentAgent(fullPathToFile, screenSize, bActive, false);
-            openDocAgent.execute();
+            //we dont use the OpenDocumentAgent anymore -- as we are using noa,
+            //OOo document needs to be opened in the event dispatch thread, not 
+            //in the background thread
+            //OpenDocumentAgent openDocAgent = new OpenDocumentAgent(fullPathToFile, bActive, false);
+            //openDocAgent.execute();
+            BungeniNoaFrame frame = BungeniNoaFrame.getInstance();
+            DocumentComposition dc = null;
+            try {
+               dc = frame.loadDocumentInPanel(fullPathToFile, false);
+            } catch (OfficeApplicationException e) {
+                log.error("Error while opening document from editorTabbedPanel" , e);
+            } catch (NOAException e) {
+                log.error("Error while opening document from editorTabbedPanel" , e);
+            } catch (DocumentException e) {
+                log.error("Error while opening document from editorTabbedPanel" , e);
+            }
         }
 
     }
@@ -715,48 +743,44 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
      * The functionality to make the OOo document the active document is executed in the EDT,
      * the event dispatch thread.
      */
-    class OpenDocumentAgent extends SwingWorker<XComponent, Void> {
+    @Deprecated
+    class OpenDocumentAgent extends SwingWorker<DocumentComposition, Void> {
 
         String documentToOpen = "";
         boolean makeActiveDocument = false;
-        Dimension screenDimension = null;
         boolean isTemplate = false;
 
-        public OpenDocumentAgent(String documentPath, Dimension screenSize, boolean makeActive, boolean fromTemplate) {
+        public OpenDocumentAgent(String documentPath, boolean makeActive, boolean fromTemplate) {
             documentToOpen = documentPath;
             makeActiveDocument = makeActive;
-            screenDimension = screenSize;
             isTemplate = fromTemplate;
         }
 
         @Override
-        protected XComponent doInBackground() {
+        protected DocumentComposition doInBackground() {
             XComponent xComp = null;
-            if (isTemplate) {
-                xComp = OOComponentHelper.newDocument(documentToOpen);
-            } else {
-                try {
-                    xComp = OOComponentHelper.openExistingDocument(documentToOpen);
-                } catch (IOException ex) {
-                    log.error("Error opening document in Ooo " + ex.getMessage(), ex);
-                } catch (IllegalArgumentException ex) {
-                    log.error("Error opening document in Ooo " + ex.getMessage(), ex);
-                } catch (Exception ex) {
-                    log.error("Error opening document in Ooo " + ex.getMessage(), ex);
-                }
+            BungeniNoaFrame frame = BungeniNoaFrame.getInstance();
+            DocumentComposition dc = null;
+            try {
+               dc = frame.loadDocumentInPanel(documentToOpen, isTemplate);
+            } catch (OfficeApplicationException e) {
+                log.error("Error while opening document from editorTabbedPanel" , e);
+            } catch (NOAException e) {
+                log.error("Error while opening document from editorTabbedPanel" , e);
+            } catch (DocumentException e) {
+                log.error("Error while opening document from editorTabbedPanel" , e);
             }
-            if (xComp != null) {
-                OOComponentHelper.positionOOoWindow(xComp, screenDimension);
-            }
-            return xComp;
+         
+            return dc;
         }
 
         @Override
-        protected void done() {
+        protected void done(){
+             cboListDocuments.setEnabled(false);
             try {
-                cboListDocuments.setEnabled(false);
-                XComponent xComp = get();
-                if (xComp != null) {
+                DocumentComposition dc = get();
+                if (dc != null) {
+                    /**
                     XTextDocument doc = ooQueryInterface.XTextDocument(xComp);
                     String strTitle = OOComponentHelper.getFrameTitle(doc);
                     componentHandleContainer chc = new componentHandleContainer(strTitle, xComp);
@@ -774,19 +798,22 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
                         } else {
                             bringEditorWindowToFront();
                         }
+                    } else {
+                        log.error("DocumentCompp")
                     }
                     String currentDocType = BungeniEditorPropertiesHelper.getCurrentDocType();
                     launchMetadataSetter(xComp);
+                     */
                 }
             } catch (InterruptedException ex) {
-                log.error("openDocumentAgent : done: " + ex.getMessage());
+                log.error("error while getting DocumentComposition object in done()", ex);
             } catch (ExecutionException ex) {
-                log.error("openDocumentAgent : done: " + ex.getMessage());
-            } finally {
-                cboListDocuments.setEnabled(true);
-                
-        }
-        }
+                log.error("error while getting DocumentComposition object in done()", ex);
+            }
+
+             cboListDocuments.setEnabled(true);
+       }
+      
     }
 
     private void launchMetadataSetter(XComponent xComp) {

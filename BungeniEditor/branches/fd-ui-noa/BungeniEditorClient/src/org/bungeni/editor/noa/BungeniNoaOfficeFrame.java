@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2011 undesa
+ *  Copyright (C) 2011 Africa i-Parliaments Action Plan
  * 
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -39,14 +39,13 @@ public class BungeniNoaOfficeFrame {
      * Assumption here is that the native instance has already been attached
      * to a container panel. 
      */
-    public BungeniNoaOfficeFrame(){
+    public BungeniNoaOfficeFrame(BungeniNoaNativeView nativeView){
         try {
             IDesktopService idesk = BungeniNoaApp.getInstance().getOfficeApp().getDesktopService();
 
-            officeFrame = idesk.constructNewOfficeFrame(BungeniNoaNativeView.getInstance().
-                         getNativeView());
+            officeFrame = idesk.constructNewOfficeFrame(nativeView.getNativeView());
         } catch (Throwable ex) {
-            log.error("Error while getting NoaOfficeFrame");
+            log.error("Error while getting NoaOfficeFrame", ex);
         }
     }
 

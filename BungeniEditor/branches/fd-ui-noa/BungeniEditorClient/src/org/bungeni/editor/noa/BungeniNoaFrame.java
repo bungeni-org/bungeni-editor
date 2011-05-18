@@ -275,13 +275,16 @@ public class BungeniNoaFrame extends BungeniFrame {
         DocumentComposition dc = null;
         try {
             //get a handle to the native view & attach it to the NOA Panel
-            BungeniNoaNativeView nativeView = BungeniNoaNativeView.getInstance();
+            BungeniNoaNativeView nativeView = new BungeniNoaNativeView();
             //create noa panel
+            //AH-18-05-2011 - Warning, creating the Noa panel here doesnt seem to work
+            //it needs to be createad, attached and initialized before attaching it to the
+            //noaofficeframe
             //XXXXX BungeniNoaPanel noaPanel = new BungeniNoaPanel();
             //attach the native view to that paenl
             nativeView.attachContainerToNativeView(noaPanel.getPanel());
             //now we create a OOo Frame and attach that to the native view
-            BungeniNoaOfficeFrame oooFrame = new BungeniNoaOfficeFrame();
+            BungeniNoaOfficeFrame oooFrame = new BungeniNoaOfficeFrame(nativeView);
             //finally validate the NOA panel
             noaPanel.getPanel().validate();
             //this is an empty OpenOffice XFrame -- it will be used to load a document
