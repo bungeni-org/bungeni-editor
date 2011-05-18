@@ -234,6 +234,29 @@ public class CommonFileFunctions {
           return fileURL.toExternalForm();
   }
 
+  /**
+   * Returns a file name from a path, boolean flag allows returning with or
+   * without extension
+   * @param pathToFile
+   * @param withExt
+   * @return
+   */
+  public static String getFileNameFromPath(String pathToFile, boolean withExt) {
+      File f = new File(pathToFile);
+      String fileName = f.getName();
+      if (withExt == true) {
+          return fileName;
+      } else {
+          int index = fileName.lastIndexOf(".");
+          if (index > 0 ) {
+              if (index <= fileName.length() - 2) {
+                  return fileName.substring(0, index);
+              }
+              return fileName;
+          }
+          return fileName;
+      }
+  }
 }
 
 

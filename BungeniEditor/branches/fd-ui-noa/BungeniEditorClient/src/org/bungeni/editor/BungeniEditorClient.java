@@ -43,7 +43,7 @@ public class BungeniEditorClient {
     public static BungeniEditorClientCmdOptions cmdOptions = null;
     private static org.apache.log4j.Logger log =
             org.apache.log4j.Logger.getLogger(BungeniEditorClient.class.getName());
-    private static JFrame frame;
+    private static JFrame frame = null;
     private static editorApplicationController panel;
  
     /** Creates a new instance of BungeniEditorClient */
@@ -113,7 +113,8 @@ public class BungeniEditorClient {
         initUI();
 
         // Instantiate the controlling class.
-        frame = new JFrame(__WINDOW_TITLE__);
+        if (frame == null)
+            frame = new JFrame(__WINDOW_TITLE__);
 
         ImageIcon iconApp = CommonTreeFunctions.loadIcon("bungeni-icon.png");
 

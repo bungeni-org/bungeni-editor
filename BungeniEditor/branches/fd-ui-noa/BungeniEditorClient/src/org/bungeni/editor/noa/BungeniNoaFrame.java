@@ -10,7 +10,6 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 
-import ag.ion.bion.officelayer.desktop.IFrame;
 import ag.ion.bion.officelayer.document.DocumentDescriptor;
 import ag.ion.bion.officelayer.document.IDocument;
 import ag.ion.bion.officelayer.text.ITextDocument;
@@ -23,6 +22,7 @@ import net.miginfocom.swing.MigLayout;
 import org.bungeni.editor.dialogs.editorTabbedPanel;
 import org.bungeni.editor.noa.ext.BungeniLocalOfficeApplication;
 import org.bungeni.extutils.BungeniFrame;
+import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonTreeFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 
@@ -229,8 +229,17 @@ public class BungeniNoaFrame extends BungeniFrame {
      * @throws DocumentException
      */
     public DocumentComposition loadDocumentInPanel(String pathToDocumentOrTemplate, boolean isTemplate) throws OfficeApplicationException, NOAException, DocumentException {
+
+        /**
+         * AH-18-05-2011
+         * For some reason we need to attach the NoaPanel i.e. the holder of the IFrame
+         * to the tab and make it visible before creating the IFrame, otherwise, IFrame
+         * attachment fails
+         * This means we have to update the tab title after attaching the document
+         */
         BungeniNoaPanel noapanel = new BungeniNoaPanel();
-        noaTabbedPane.getTabbedPane().addTab("openOffice",noapanel.getPanel());
+        String fileNameForTab = CommonFileFunctions.getFileNameFromPath(pathToDocumentOrTemplate, false);
+        noaTabbedPane.getTabbedPane().addTab(fileNameForTab, noapanel.getPanel());
         noapanel.getPanel().setVisible(true);
         //if the Office XFrame does not exist, construct it
         DocumentComposition dc =  constructOOoFrame(noapanel);
@@ -251,7 +260,6 @@ public class BungeniNoaFrame extends BungeniFrame {
         //set the loaded document into the document composition object
         dc.setDocument(loadedDocument);
         BungeniNoaTabbedPane.getInstance().getTabbedPane().validate();
-       
         return dc;
     }
 
@@ -291,6 +299,7 @@ public class BungeniNoaFrame extends BungeniFrame {
      *  -- openoffice frame
      *  -- noa panel
      *  -- noa native view
+     * This class is a holder for all these related objects for  text document
      */
     public class DocumentComposition {
         private BungeniNoaOfficeFrame frame;
