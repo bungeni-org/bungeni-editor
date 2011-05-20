@@ -319,10 +319,16 @@ public class BungeniNoaFrame extends BungeniFrame {
          */
         public DocumentComposition(BungeniNoaOfficeFrame frame, BungeniNoaNativeView nativeView,
                 BungeniNoaPanel panel, ITextDocument doc ) {
-            this.frame = frame;
-            this.nativeView = nativeView;
-            this.panel = panel;
-            this.document = doc;
+            this.setFrame(frame);
+            this.setNativeView(nativeView);
+            this.setPanel(panel);
+            this.setDocument(doc);
+        }
+
+        @Override
+        public String toString(){
+            if (document == null) return "Unkown Document";
+            return OOComponentHelper.getFrameTitle(document.getXTextDocument());
         }
 
         /**
@@ -335,7 +341,7 @@ public class BungeniNoaFrame extends BungeniFrame {
         /**
          * @param frame the frame to set
          */
-        public void setFrame(BungeniNoaOfficeFrame frame) {
+        public final void setFrame(BungeniNoaOfficeFrame frame) {
             this.frame = frame;
         }
 
@@ -349,7 +355,7 @@ public class BungeniNoaFrame extends BungeniFrame {
         /**
          * @param nativeView the nativeView to set
          */
-        public void setNativeView(BungeniNoaNativeView nativeView) {
+        public final void setNativeView(BungeniNoaNativeView nativeView) {
             this.nativeView = nativeView;
         }
 
@@ -363,7 +369,7 @@ public class BungeniNoaFrame extends BungeniFrame {
         /**
          * @param panel the panel to set
          */
-        public void setPanel(BungeniNoaPanel panel) {
+        public final void setPanel(BungeniNoaPanel panel) {
             this.panel = panel;
         }
 
@@ -377,12 +383,13 @@ public class BungeniNoaFrame extends BungeniFrame {
         /**
          * @param document the document to set
          */
-        public void setDocument(ITextDocument document) {
+        public final void setDocument(ITextDocument document) {
             this.document = document;
         }
+    }
 
-
-
+    public List<DocumentComposition> getOfficeDocuments(){
+        return this.officeDocuments;
     }
     
 }

@@ -3,51 +3,23 @@ package org.bungeni.editor.dialogs;
 import ag.ion.bion.officelayer.application.OfficeApplicationException;
 import ag.ion.bion.officelayer.document.DocumentException;
 import ag.ion.noa.NOAException;
-import com.sun.star.beans.XPropertySet;
-import com.sun.star.container.XEnumeration;
-import com.sun.star.container.XEnumerationAccess;
-import com.sun.star.document.XDocumentInfo;
-import com.sun.star.document.XDocumentInfoSupplier;
-import com.sun.star.document.XEventBroadcaster;
-import com.sun.star.frame.XFrame;
-import com.sun.star.frame.XModel;
-import com.sun.star.frame.XStorable;
-import com.sun.star.io.IOException;
-import com.sun.star.lang.IllegalArgumentException;
 import com.sun.star.lang.XComponent;
-import com.sun.star.lang.XServiceInfo;
-import com.sun.star.text.XTextDocument;
-import com.sun.star.uno.AnyConverter;
-import com.sun.star.uno.Exception;
-import com.sun.star.uno.Type;
-import com.sun.star.uno.UnoRuntime;
 import com.sun.star.uno.XComponentContext;
-import com.sun.star.util.DateTime;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
-import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
-import javax.swing.Timer;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.db.QueryResults;
@@ -58,7 +30,6 @@ import org.bungeni.editor.panels.factory.TabbedPanelFactory;
 import org.bungeni.ooo.BungenioOoHelper;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooDocNotes;
-import org.bungeni.ooo.ooQueryInterface;
 import org.bungeni.extutils.MessageBox;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.editor.actions.EditorActionFactory;
@@ -73,7 +44,6 @@ import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
 import org.bungeni.editor.toolbar.target.BungeniToolbarTargetProcessor;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.bungeni.extutils.BungeniFrame;
-import org.bungeni.extutils.BungeniRuntimeProperties;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonStringFunctions;
 import org.bungeni.extutils.FrameLauncher;
@@ -99,11 +69,11 @@ public class editorTabbedPanel extends javax.swing.JPanel {
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(editorTabbedPanel.class.getName());
     private String ROOT_SECTION = BungeniEditorPropertiesHelper.getDocumentRoot();
     private String currentSelectedSectionName = "";
-    private Timer componentsTrackingTimer;
-    private changeStructureItem selectedChangeStructureItem;
+
     private boolean mouseOver_TreeDocStructureTree = false;
     private boolean program_refresh_documents = false;
-    private TreeMap<String, editorTabbedPanel.componentHandleContainer> editorMap;
+    //AH-20-05-2011
+    //private TreeMap<String, editorTabbedPanel.componentHandleContainer> editorMap;
     private String activeDocument;
     private ArrayList<ITabbedPanel> m_tabbedPanelMap = new ArrayList<ITabbedPanel>();
     public static int coordX,  coordY;
@@ -144,7 +114,6 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         initMain(impComponent, pFrame);
         initComponents();
         initProviders();
-        initTimers();
         log.debug("calling initOpenDOcuments");
         initOpenDocuments();
 
@@ -165,7 +134,10 @@ public class editorTabbedPanel extends javax.swing.JPanel {
 
         this.ComponentContext = BungenioOoHelper.getInstance().getComponentContext();
 
-        editorMap = new TreeMap<String, componentHandleContainer>();
+        /***
+         * AH-20-05-2011
+         * editorMap = new TreeMap<String, componentHandleContainer>();
+         */
         ooDocument = new OOComponentHelper(impComponent, ComponentContext);
 
         this.parentFrame = parentFrame;
@@ -246,9 +218,9 @@ public class editorTabbedPanel extends javax.swing.JPanel {
      */
     private void initListDocuments() {
         log.debug("initListDocuments: init");
-        //String[] listDocuments = getCurrentlyOpenDocuments().keySet().toArray(new String[getCurrentlyOpenDocuments().keySet().size()]);
-        ArrayList<componentHandleContainer> listDocuments = this.getDocumentsComboModel();
-        this.cboListDocuments.setModel(new DefaultComboBoxModel(listDocuments.toArray()));
+        List<DocumentComposition> officeDocuments = BungeniNoaFrame.getInstance().getOfficeDocuments();
+        this.cboListDocuments.setModel(new DefaultComboBoxModel(officeDocuments.toArray()));
+              
     }
 
     /**
@@ -299,6 +271,9 @@ public class editorTabbedPanel extends javax.swing.JPanel {
     }
 
     private void initSelectionInOpenDocuments() {
+        //AH-20-05-2011
+        //REWORK TODO
+        /***
         componentHandleContainer currentDoc = new componentHandleContainer(ooDocument.getDocumentTitle(), ooDocument.getComponent());
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboListDocuments.getModel();
         for (int i = 0; i < model.getSize(); i++) {
@@ -307,7 +282,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
                 model.setSelectedItem(foundchc);
                 break;
             }
-        }
+        }***/
     }
 
     private void initListDocumentsListener() {
@@ -346,6 +321,9 @@ public class editorTabbedPanel extends javax.swing.JPanel {
     }
 
     public void bringEditorWindowToFront() {
+        //AH-20-05-2011
+        //REWORK TO-DO
+        /**
         if (ooDocument.isXComponentValid()) {
             XFrame xDocFrame = ooDocument.getDocumentModel().getCurrentController().getFrame();
             Object docFrameWindow = xDocFrame.getContainerWindow();
@@ -360,7 +338,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
                 log.debug("Bring selected window to the front");
                 ooQueryInterface.XTopWindow(xDocFrame.getContainerWindow()).toFront();
             }
-        }
+        } **/
     }
 
     /**
@@ -368,6 +346,9 @@ public class editorTabbedPanel extends javax.swing.JPanel {
      * @param currentlySelectedDoc currently selected document in switched
      * @param same
      */
+    //AH-20-05-2011
+    //TODO REWORK
+    /**
     public void updateMain(componentHandleContainer currentlySelectedDoc, boolean same) {
         if (same) {
             if (self().program_refresh_documents == true) {
@@ -389,16 +370,15 @@ public class editorTabbedPanel extends javax.swing.JPanel {
             // removed call to collapsiblepane function
             //retrieve the list of dynamic panels from the the dynamicPanelMap and update their component handles
             //updateCollapsiblePanels();
-            /*** updateFloatingPanels(); ***/
+         
             updateTabbedPanes();
 
-            /**** commented *** refreshTableDocMetadataModel();****/
             if (self().program_refresh_documents == false) {
                 bringEditorWindowToFront();
             }
 
         }
-    }
+    } **/
 
     /*
      *this is invoked on window closing, by the JFrame that contains the panel
@@ -406,19 +386,6 @@ public class editorTabbedPanel extends javax.swing.JPanel {
     public void cleanup() {
         for (ITabbedPanel panel : m_tabbedPanelMap) {
             panel.cleanup();
-        }
-
-
-        //shutdown timers
-        //  docStructureTimer.stop();
-        // sectionNameTimer.stop();
-        componentsTrackingTimer.stop();
-        //cleanup component listners
-        Iterator keyIterator = editorMap.keySet().iterator();
-        while (keyIterator.hasNext()) {
-            String key = (String) keyIterator.next();
-            componentHandleContainer compHandle = editorMap.get(key);
-            compHandle.removeListener();
         }
     }
     private static int WIDTH_OOo_SCROLLBAR = 25;
@@ -487,9 +454,6 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         return this;
     }
 
-    public TreeMap<String, editorTabbedPanel.componentHandleContainer> getCurrentlyOpenDocuments() {
-        return this.editorMap;
-    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -841,185 +805,14 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
     }
     private static boolean structureInitialized = false;
 
-    private void initTimers() {
-        try {
-            //component handle tracker timer
-
-            Action componentsTrackingRunner = new AbstractAction() {
-
-                public void actionPerformed(ActionEvent e) {
-                    componentHandlesTracker();
-                    try {
-                        updateListDocuments();
-                    } catch (MalformedURLException ex) {
-                        log.error("updateListDocuments  : " + ex.getMessage());
-                    } catch (URISyntaxException ex) {
-                        log.error("updateListDocuments  : " + ex.getMessage());
-                    }
-                }
-            };
-            componentsTrackingTimer = new Timer(2500, componentsTrackingRunner);
-            componentsTrackingTimer.start();
-
-        } catch (RuntimeException e) {
-            log.error(e.getMessage());
-        }
-    }
-
-    private ArrayList<componentHandleContainer> getDocumentsComboModel() {
-
-        ArrayList<componentHandleContainer> listDocuments = new ArrayList<componentHandleContainer>();
-        for (String docKey : getCurrentlyOpenDocuments().keySet()) {
-            componentHandleContainer compHandle = getCurrentlyOpenDocuments().get(docKey);
-            listDocuments.add(compHandle);
-        }
-
-        return listDocuments;
-    }
-
-    private boolean existsInComboModel(String compKey) {
-        boolean bFound = false;
-        DefaultComboBoxModel model = (DefaultComboBoxModel) cboListDocuments.getModel();
-        for (int i = 0; i < model.getSize(); i++) {
-            componentHandleContainer foundCHC = (componentHandleContainer) model.getElementAt(i);
-            if (foundCHC.componentKey().equals(compKey)) {
-                bFound = true;
-            }
-        }
-        return bFound;
-    }
     private static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/dialogs/Bundle");
-
-    private void updateListDocuments() throws MalformedURLException, URISyntaxException {
-        //new refreshed list of component handles
-      
-            ArrayList<componentHandleContainer> componentHandles = getDocumentsComboModel();
-            //capture currentlySelected item
-            componentHandleContainer selectedItem = (componentHandleContainer) cboListDocuments.getModel().getSelectedItem();
-            //add newly opened documents to model
-            DefaultComboBoxModel model = (DefaultComboBoxModel) cboListDocuments.getModel();
-            for (String compKey : getCurrentlyOpenDocuments().keySet()) {
-                if (!existsInComboModel(compKey)) {
-                    model.addElement(getCurrentlyOpenDocuments().get(compKey));
-                }
-            }
-            //build an array of disposed component handles i.e. documents which have been closed.
-            ArrayList<componentHandleContainer> handleContainer = new ArrayList<componentHandleContainer>(0);
-            //remove closed documents from model
-            for (int i = 0; i < model.getSize(); i++) {
-                componentHandleContainer compMatch = (componentHandleContainer) model.getElementAt(i);
-                try {
-                    //test if disposed - if disposed this raises an exception
-                    String compMatchURL = compMatch.getDocURL();
-                    //check if model component handle exists in newly generate component map
-                    //if it doesnt we delete the componenth handle from them model
-                    if (!getCurrentlyOpenDocuments().containsKey(compMatch.componentKey())) {
-                        handleContainer.add(compMatch);
-                    }
-                } catch (com.sun.star.lang.DisposedException ex) {
-                    //if disposed exception was raised.. the document has been disposed
-                    //so add it for deletion
-                    handleContainer.add(compMatch);
-                }
-            }
-
-            //remove all the handles marked for deletion from the combo box model.
-            for (componentHandleContainer chcHandle : handleContainer) {
-                model.removeElement(chcHandle);
-            }
-            //set selected item
-            //first check if there is a saved document
-            if (BungeniRuntimeProperties.propertyExists("SAVED_FILE")) {
-                //set the URI fo the saved document
-                String savedDocumentURL = BungeniRuntimeProperties.getProperty("SAVED_FILE");
-                URL urlDoc = new URL(savedDocumentURL);
-                String savedDocumentURI = urlDoc.toString();
-                //see if it matches any of the currently open documents
-                DefaultComboBoxModel freshModel = (DefaultComboBoxModel) cboListDocuments.getModel();
-                for (int i = 0; i < freshModel.getSize(); i++) {
-                    componentHandleContainer chc = (componentHandleContainer) freshModel.getElementAt(i);
-                    String chcDocUrl = chc.getDocURL();
-                    if (chcDocUrl != null) {
-                        //check if the saved document url equals the url of one of the currently open documents
-                        //if it does set the combo index to that document.
-                        URL docUrl = new URL(chcDocUrl);
-                        if (docUrl.toString().equals(savedDocumentURI)) {
-                            //since this code runs in a timer thread .. it executes continuously
-                            //but since we are removing "saved_file" from the static property map,
-                            //this should never get executed
-
-                            //temporarily disable combo action listeners
-                            //  ActionListener[] actionListeners = cboListDocuments.getActionListeners();
-                            //  for (ActionListener aListener : actionListeners) {
-                            //    cboListDocuments.removeActionListener(aListener);
-                            //  }
-                            //set the combo index
-                            cboListDocuments.setSelectedIndex(i);
-
-                            //restore action listeners
-                            //for (ActionListener addListener : actionListeners) {
-                            //    cboListDocuments.addActionListener(addListener);
-                            // }
-                            //remove the saved_file property
-                            BungeniRuntimeProperties.removeProperty("SAVED_FILE");
-                            break;
-                        }
-                    }
-                }
-            }
-
-
-        
-    }
 
     public void setProgrammaticRefreshOfDocumentListFlag(boolean bState) {
         this.program_refresh_documents = bState;
     }
 
-    private void componentHandlesTracker() {
-        log.debug("componentHandlesTracker: begin ");
-        //array list caches keys to be removed
-        ArrayList<String> keysToRemove = new ArrayList<String>();
-        //find the components that have been disposed
-        //and capture them in an array
-        log.debug("componentHandlesTracker: finding disposed documents ");
+ 
 
-        log.debug("componentHandlesTracker: capturing selected item ");
-
-        //now remove the disposed components from the map
-
-        log.debug("componentHandlesTracker: removing disposed components ");
-
-
-        //some documents may have been opened in the meanwhile... we look for them and add them
-        log.debug("componentHandlesTracker: refreshing document open keyset map ");
-
-        //initOpenDocumentsList();
-
-    //now update the combo box...
-
-    //this.program_refresh_documents = false;
-    }
-
-    class changeStructureItem {
-
-        String itemText;
-        String itemIndex;
-
-        changeStructureItem(String itemIndex, String itemText) {
-            this.itemText = itemText;
-            this.itemIndex = itemIndex;
-        }
-
-        public String getIndex() {
-            return itemIndex;
-        }
-
-        @Override
-        public String toString() {
-            return itemText;
-        }
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBringToFront;
     private javax.swing.ButtonGroup btnGrpBodyMetadataTarget;
@@ -1040,6 +833,10 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
      *This is the class contained in the map of all open documents
      *Adds an eventListener()
      */
+    /****
+     * AH-20-05-2011 - removed !!!!
+     */
+    /****
     public static class componentHandleContainer {
 
         private String aName;
@@ -1152,46 +949,22 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
             }
 
             public void notifyEvent(com.sun.star.document.EventObject eventObject) {
-                /*
-                if (eventObject.EventName.equals("OnFocus")) {
-                log.error("xComponentListner : the document window OnFocus()" + getName());
-                //getName() for this document compare it with the current documetn in the editorTabbedPanel lis
-                //if it isnt equal notify the user with a message box that the
-                Object selected = cboListDocuments.getSelectedItem();
-                String selectedDocument = "";
-                if (selected != null) {
-                selectedDocument = (String) selected;
-                if (selectedDocument.trim().equals(getName().trim())) {
-                /// commented below to prevent swing thread-sync bug
-                // parentFrame.setAlwaysOnTop(true);
-                //  parentFrame.setAlwaysOnTop(false);
-                //   parentFrame.toFront();
-                //  parentFrame.setAlwaysOnTop(true);
-
-                } else {
-                ///// commented below to prevent thread synchronization bug
-                //parentFrame.setAlwaysOnTop(true);
-                // parentFrame.setAlwaysOnTop(false);
-                // parentFrame.toFront();
-                // parentFrame.setAlwaysOnTop(true);
-
-                //MessageBox.OK(self(), "The current window is not the one being edited using the Bungeni Editor, please select this document :" +  getName() + " from the Editor Selector to be able to edit it!");
-                }
-                } else {
-                log.error("xComponentListner :  selected document object is null"  );
-                }
-                }*/
+     
             }
         }
     }
-
+    ***/
+    
     class cboListDocumentsActionListener implements ActionListener {
 
+        //AH-20-05-2011
+        /**
         componentHandleContainer oldItem;
-
+        **/
         public void actionPerformed(ActionEvent e) {
             try {
                 JComboBox cb = (JComboBox) e.getSource();
+                /***
                 componentHandleContainer newItem = (componentHandleContainer) cb.getSelectedItem();
                 boolean same = false;
                 if (oldItem != null) {
@@ -1200,7 +973,7 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
                 oldItem = newItem;
                 if ("comboBoxChanged".equals(e.getActionCommand())) {
                     updateMain((componentHandleContainer) newItem, same);
-                }
+                } ***/
             } catch (RuntimeException ex) {
                 log.error("cboListDocuments.actionPerformed = " + ex.getMessage());
                 log.error("cboListDocuments.actionPerformed = " + CommonExceptionUtils.getStackTrace(ex));
