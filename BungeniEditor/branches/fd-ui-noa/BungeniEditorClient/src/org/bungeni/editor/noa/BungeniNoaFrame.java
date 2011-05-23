@@ -3,17 +3,24 @@ package org.bungeni.editor.noa;
 import ag.ion.bion.officelayer.application.OfficeApplicationException;
 import ag.ion.bion.officelayer.document.DocumentException;
 import ag.ion.noa.NOAException;
+import ca.odell.glazedlists.event.ListEventListener;
+import ca.odell.glazedlists.event.ListEventPublisher;
+import ca.odell.glazedlists.util.concurrent.ReadWriteLock;
 import java.awt.Dimension;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.ListIterator;
 
 import javax.swing.JFrame;
 
 import ag.ion.bion.officelayer.document.DocumentDescriptor;
 import ag.ion.bion.officelayer.document.IDocument;
 import ag.ion.bion.officelayer.text.ITextDocument;
-import java.util.ArrayList;
+import ca.odell.glazedlists.BasicEventList;
+import ca.odell.glazedlists.EventList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -42,7 +49,12 @@ public class BungeniNoaFrame extends BungeniFrame {
 
     private BungeniLocalOfficeApplication officeApplication = null;
 
-    private List<DocumentComposition> officeDocuments = new ArrayList<DocumentComposition>(0);
+    /**
+     * We use the glazed list library here for declaring the officeDocuments as a EventList.
+     * The EventList provides Events aware combo box model which received notifications on event list
+     * changes and updates lists dynamically
+     */
+    private EventList<DocumentComposition> officeDocuments = new BasicEventList<DocumentComposition>();
 
     /**
      * The structure of this Frame is as follows :
@@ -259,6 +271,8 @@ public class BungeniNoaFrame extends BungeniFrame {
         String tabTitle = OOComponentHelper.getFrameTitle(loadedDocument.getXTextDocument());
         //set the loaded document into the document composition object
         dc.setDocument(loadedDocument);
+        //add it to the oficedocument list
+        addOfficeDocument(dc);
         BungeniNoaTabbedPane.getInstance().getTabbedPane().validate();
         return dc;
     }
@@ -388,8 +402,12 @@ public class BungeniNoaFrame extends BungeniFrame {
         }
     }
 
-    public List<DocumentComposition> getOfficeDocuments(){
+    public final EventList<DocumentComposition> getOfficeDocuments(){
         return this.officeDocuments;
+    }
+
+    public void addOfficeDocument(DocumentComposition dc) {
+        this.officeDocuments.add(dc);
     }
     
 }

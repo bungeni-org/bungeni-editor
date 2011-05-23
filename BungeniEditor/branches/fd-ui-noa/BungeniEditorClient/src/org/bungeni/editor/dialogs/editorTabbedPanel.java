@@ -3,6 +3,8 @@ package org.bungeni.editor.dialogs;
 import ag.ion.bion.officelayer.application.OfficeApplicationException;
 import ag.ion.bion.officelayer.document.DocumentException;
 import ag.ion.noa.NOAException;
+import ca.odell.glazedlists.swing.EventComboBoxModel;
+import ca.odell.glazedlists.swing.EventListModel;
 import com.sun.star.lang.XComponent;
 import com.sun.star.uno.XComponentContext;
 import java.awt.Component;
@@ -211,60 +213,24 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         return this.ooDocument;
     }
 
+
     /*
+     * AH-23-05-11 -- document selector combo
+     * The document selector combo box uses the EventComboBoxModel.
+     * using this model we simply update the underlying list and the model
+     * is synced to the list dynamically.
      *
-     *at this point the table model for the metadata table has already been set,
-     *we are checking the metadata of the table
      */
     private void initListDocuments() {
         log.debug("initListDocuments: init");
-        List<DocumentComposition> officeDocuments = BungeniNoaFrame.getInstance().getOfficeDocuments();
-        this.cboListDocuments.setModel(new DefaultComboBoxModel(officeDocuments.toArray()));
-              
+        EventComboBoxModel<DocumentComposition> listdocsModel = 
+                new EventComboBoxModel<DocumentComposition>(
+                BungeniNoaFrame.getInstance().getOfficeDocuments());
+        this.cboListDocuments.setModel(listdocsModel);
     }
 
-    /**
-    private void initOpenDocumentsList() {
-        try {
-            log.debug("initOpenDocumentsList: getting components");
-            XEnumerationAccess enumComponentsAccess = BungenioOoHelper.getDesktop().getComponents();
-            XEnumeration enumComponents = enumComponentsAccess.createEnumeration();
-            log.debug("initOpenDocumentsList: enumerating components");
-            int i = 0;
-            editorMap.clear(); //reset the map before adding things to it.
-            while (enumComponents.hasMoreElements()) {
-                Object nextElem = enumComponents.nextElement();
-                log.debug("initOpenDocumentsList: getting model interface");
-                XModel docModel = ooQueryInterface.XModel(nextElem);
-
-                if (docModel != null) { //supports XModel interface
-                    log.debug("initOpenDocumentsList: docModel != null");
-                    XServiceInfo serviceInfo = ooQueryInterface.XServiceInfo(nextElem);
-                    if (serviceInfo.supportsService("com.sun.star.text.TextDocument")) {
-                        log.debug("initOpenDocumentsList: supports TextDocument " + (++i));
-                        XTextDocument xDoc = (XTextDocument) UnoRuntime.queryInterface(XTextDocument.class, nextElem);
-                        String strTitle = OOComponentHelper.getFrameTitle(xDoc);
-                        XComponent xComponent = (XComponent) UnoRuntime.queryInterface(XComponent.class, nextElem);
-                        componentHandleContainer compContainer = new componentHandleContainer(strTitle, xComponent);
-                        if (!editorMap.containsKey(compContainer.componentKey())) {
-                            compContainer.setEventBroadcastListener();
-                            editorMap.put(compContainer.componentKey(), compContainer);
-                        }
-                    }
-                }
-            }
-        } catch (Exception ex) {
-            log.error("InitOpenDocumentsList error :" + ex.getMessage());
-            log.error("InitOpenDocumentsList stacktrace : " + CommonExceptionUtils.getStackTrace(ex));
-        }
-    }
-     ***/
     private void initOpenDocuments() {
         log.debug("initOpenDocuments: calling");
-        //commented here for listener synchronization issues, as the combox action
-        //listener depends on the tree data model being set.
-        // cboListDocuments.addActionListener(new cboListDocumentsActionListener());
-       // initOpenDocumentsList();
         initListDocuments();
         initListDocumentsListener();
         initSelectionInOpenDocuments();
