@@ -929,7 +929,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         XComponent xopenedDocument = dc.getDocument().getXComponent();
 
         editorTabbedPanel panel = editorTabbedPanel.getInstance();
-        panel.init(xopenedDocument, frame);
+        panel.init(dc);
         frame.getBasePanel().add(panel, "shrink 0");
         frame.validate();
         frame.setVisible(true);
