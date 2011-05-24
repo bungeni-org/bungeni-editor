@@ -20,6 +20,8 @@ package org.bungeni.editor.noa;
 
 import ag.ion.bion.officelayer.desktop.IDesktopService;
 import ag.ion.bion.officelayer.desktop.IFrame;
+import ag.ion.noa.NOAException;
+import ag.ion.noa.frame.ILayoutManager;
 
 /**
  * Class that does OpenOffice frame creation.
@@ -44,11 +46,25 @@ public class BungeniNoaOfficeFrame {
             IDesktopService idesk = BungeniNoaApp.getInstance().getOfficeApp().getDesktopService();
 
             officeFrame = idesk.constructNewOfficeFrame(nativeView.getNativeView());
+
+           // initFrameBehavior();
+
         } catch (Throwable ex) {
             log.error("Error while getting NoaOfficeFrame", ex);
         }
     }
 
+    /**
+     * Do all the initializations for IOfficeFrame behaviors, look and feel here
+     */
+    protected final void initFrameBehavior() {
+        try {
+            //hide the menu bar
+            officeFrame.getLayoutManager().hideElement(ILayoutManager.URL_TOOLBAR_STANDARDBAR);
+        } catch (NOAException ex) {
+            log.error("Error while adding custom initialization to the Frame via the layout manager", ex);
+        }
+    }
 
     public IFrame getFrame(){
         return this.officeFrame;

@@ -54,20 +54,17 @@
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                  <Component id="lblCurrentMode" alignment="0" max="32767" attributes="1"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="btnBringToFront" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnOpenDocument" min="-2" pref="56" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnNewDocument" min="-2" pref="55" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnSaveDocument" min="-2" pref="52" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
+              <Component id="lblCurrentMode" min="-2" max="-2" attributes="1"/>
           </Group>
           <Component id="jTabsContainer" alignment="0" min="-2" pref="267" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnOpenDocument" min="-2" pref="56" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnNewDocument" min="-2" pref="55" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnSaveDocument" min="-2" pref="52" max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -78,7 +75,6 @@
               <Component id="cboListDocuments" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnBringToFront" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnNewDocument" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnSaveDocument" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnOpenDocument" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -126,24 +122,6 @@
           <ResourceString bundle="org/bungeni/editor/dialogs/Bundle.properties" key="editorTabbedPanel.lblCurrentlyOpenDocuments.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnBringToFront">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="DejaVu Sans" size="9" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/bungeni/editor/dialogs/Bundle.properties" key="editorTabbedPanel.btnBringToFront.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-        </Property>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-            <LineBorder/>
-          </Border>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBringToFrontActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnOpenDocument">
       <Properties>

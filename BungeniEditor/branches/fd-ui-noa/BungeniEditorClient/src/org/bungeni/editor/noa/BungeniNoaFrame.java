@@ -400,6 +400,14 @@ public class BungeniNoaFrame extends BungeniFrame {
         public final void setDocument(ITextDocument document) {
             this.document = document;
         }
+
+        public boolean equalsByNoaPanel(JPanel comparePanel) {
+            if (this.panel.getPanel().equals(comparePanel)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     public final EventList<DocumentComposition> getOfficeDocuments(){

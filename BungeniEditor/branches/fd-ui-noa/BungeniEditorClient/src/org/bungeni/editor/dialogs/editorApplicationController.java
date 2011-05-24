@@ -153,7 +153,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         initWorkspaceFolderModels(dir);
         initPanels(dir);
         //initWebDav();
-        initDataReader();
+        //initDataReader();
         initLaunchLabels();
     }
 
@@ -937,17 +937,6 @@ public class editorApplicationController extends javax.swing.JPanel {
         frame.setExtendedState(frame.getExtendedState()|JFrame.MAXIMIZED_BOTH);
        }
 
-    /*** AH-07-04-11
-    private void initoOoAndLaunchFrame(String templatePath, boolean isTemplate) {
-        openofficeObject = new org.bungeni.ooo.BungenioOoHelper(m_xContext);
-        openofficeObject.initoOo();
-
-        String templateURL = BungenioOoHelper.convertPathToURL(templatePath);
-        XComponent xComponent = null;
-        log.debug("template URL= " + templateURL);
-        initFrame(xComponent);
-    }
-    ***/
 
     private void initMeta(XComponent xComp) {
         LaunchDebateMetadataSetter(xComp);
@@ -987,47 +976,6 @@ public class editorApplicationController extends javax.swing.JPanel {
         frm.setAlwaysOnTop(true);
     }
 
-    /** 10-04-11
-     *
-
-    class RunOpenOffice implements Runnable {
-
-        XComponent returnComponent = null;
-        boolean isTemplate = false;
-        BungenioOoHelper helper;
-        String urlToFile;
-
-        public RunOpenOffice(BungenioOoHelper obj, String openURL, boolean bState) {
-            isTemplate = bState;
-            helper = obj;
-            urlToFile = openURL;
-        }
-
-        public void run() {
-            try {
-                if (isTemplate) {
-                    returnComponent = helper.newDocument(urlToFile);
-                } else {
-                    returnComponent = helper.openDocument(urlToFile);
-                }
-            } catch (Exception ex) {
-                log.error("RunOpenOffice: run : " + ex.getMessage());
-            }
-        }
-    }
-
-     */
-    
-    public void initDataReader() {
-        /**
-        BungeniDataReader rds = new BungeniDataReader();
-        Vector<String[]> vMpData = new Vector<String[]>();
-        vMpData = rds.read("mps.data");
-        System.out.println("size of mp.data = "+ vMpData.size());
-
-         *
-         */
-    }
 
     private void replaceTextinLabel(JLabel lbl, String newText) {
         String lblText = lbl.getText();
@@ -1185,7 +1133,6 @@ public class editorApplicationController extends javax.swing.JPanel {
         }
 
         public void windowClosing(WindowEvent e) {
-            //System.out.println("windowClosing....");
             editorTabbedPanel.getInstance().cleanup();
         }
 
@@ -1196,7 +1143,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         }
 
         public void windowDeiconified(WindowEvent e) {
-            editorTabbedPanel.getInstance().bringEditorWindowToFront();
+            
         }
 
         public void windowActivated(WindowEvent e) {
