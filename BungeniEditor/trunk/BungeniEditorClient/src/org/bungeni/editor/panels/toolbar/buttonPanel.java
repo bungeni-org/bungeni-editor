@@ -27,19 +27,8 @@ public class buttonPanel extends javax.swing.JPanel {
      */
     public buttonPanel(String text, String tooltipText, ActionListener btnListener, BungeniToolbarActionElement aElement) {
         this();
-        /**
-         *
-        this.btnAction = new JButton() {
-            @Override
-            public JToolTip createToolTip(){
-                MultiLineToolTip tip = new MultiLineToolTip();
-                tip.setComponent(this);
-                return tip;
-            }
-        };
-         */
         setButtonText(text);
-        setButtonTooltip(tooltipText.trim().replaceAll("  ", ""));
+        setButtonTooltip(tooltipText);
         this.btnAction.setHorizontalAlignment(SwingConstants.LEADING);
         setButtonActionListener(btnListener);
         setActionElement(aElement);
@@ -58,8 +47,8 @@ public class buttonPanel extends javax.swing.JPanel {
     }
 
    private void setButtonTooltip(String text){
-        this.btnAction.setToolTipText(text);
-    }
+       this.btnAction.setToolTipText(text);
+   }
 
    private void setButtonActionListener(ActionListener btnListener) {
         this.btnAction.addActionListener(btnListener);

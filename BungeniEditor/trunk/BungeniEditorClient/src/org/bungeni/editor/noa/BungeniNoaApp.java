@@ -22,9 +22,11 @@ import ag.ion.bion.officelayer.application.ILazyApplicationInfo;
 import ag.ion.bion.officelayer.application.IOfficeApplication;
 import ag.ion.bion.officelayer.application.OfficeApplicationException;
 import ag.ion.bion.officelayer.internal.application.ApplicationAssistant;
+import java.io.File;
 import java.util.HashMap;
 import org.bungeni.editor.noa.ext.BungeniLocalOfficeApplication;
 import org.bungeni.editor.noa.ext.BungeniOfficeApplicationRuntime;
+import org.bungeni.extutils.JavaPlatformArch;
 
 /**
  * Class for interfacing with NOA IOfficeApplication
@@ -58,7 +60,7 @@ public class BungeniNoaApp {
     private BungeniNoaApp()  {
         try {
             //get native view lib
-            IApplicationAssistant applicationAssistant = new ApplicationAssistant(System.getProperty("user.dir") + "\\lib\\noa-64");
+            IApplicationAssistant applicationAssistant = new ApplicationAssistant(BungeniNoaNativeView.getNativeViewPath());
             ILazyApplicationInfo[] appInfos = applicationAssistant.getLocalApplications();
             if (appInfos.length < 1) {
                 log.error("Couldnt find OpenOffice.org, bailing out !!!");

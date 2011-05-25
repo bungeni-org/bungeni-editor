@@ -30,12 +30,11 @@ import org.bungeni.extutils.JavaPlatformArch;
  * Prepares a NOA native view
  * Provides API to map a awt Container to a NativeView
  * Loads the correct NativeView DLL or SO file depending on the platform
- * architecture
+ * architecture.
+ * A native view is attached to a JPanel container.
  * @author Ashok
  */
 public class BungeniNoaNativeView {
-
-    private static BungeniNoaNativeView noaNativeView = null;
 
     private NativeView nativeView = null;
     private Container parentContainer = null;
@@ -43,23 +42,21 @@ public class BungeniNoaNativeView {
     /**
      * Create the nativeView using the NOA C runtime libraries
      */
-    private BungeniNoaNativeView() {
+    public BungeniNoaNativeView() {
         //32 bit dlls / so files are in lib/noa32
         //64 bit dlls / so files are in lib/noa64
+        
+        nativeView = new NativeView(getNativeViewPath());
+    }
+
+    public static String getNativeViewPath(){
         int javaPlatform = JavaPlatformArch.platform();
         String nativeViewPath = System.getProperty("user.dir") +
                 File.separator + "lib" +
                 File.separator + "noa" + javaPlatform;
-        nativeView = new NativeView(nativeViewPath);
+        return nativeViewPath;
     }
-
-    public static BungeniNoaNativeView getInstance(){
-        if (null == noaNativeView) {
-            noaNativeView = new BungeniNoaNativeView();
-        }
-        return noaNativeView;
-    }
-
+    
     public NativeView getNativeView(){
         return this.nativeView;
     }

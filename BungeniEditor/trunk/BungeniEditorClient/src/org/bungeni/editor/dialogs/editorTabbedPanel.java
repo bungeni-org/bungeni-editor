@@ -1,59 +1,43 @@
 package org.bungeni.editor.dialogs;
 
+import ag.ion.bion.officelayer.application.OfficeApplicationException;
+import ag.ion.bion.officelayer.document.DocumentException;
+import ag.ion.noa.NOAException;
+import ca.odell.glazedlists.swing.EventComboBoxModel;
 import com.sun.star.beans.XPropertySet;
-import com.sun.star.container.XEnumeration;
-import com.sun.star.container.XEnumerationAccess;
-import com.sun.star.document.XDocumentInfo;
-import com.sun.star.document.XDocumentInfoSupplier;
-import com.sun.star.document.XEventBroadcaster;
+import com.sun.star.frame.XController;
 import com.sun.star.frame.XFrame;
-import com.sun.star.frame.XModel;
-import com.sun.star.frame.XStorable;
-import com.sun.star.io.IOException;
-import com.sun.star.lang.IllegalArgumentException;
+import com.sun.star.frame.XLayoutManager;
 import com.sun.star.lang.XComponent;
-import com.sun.star.lang.XServiceInfo;
-import com.sun.star.text.XTextDocument;
-import com.sun.star.uno.AnyConverter;
-import com.sun.star.uno.Exception;
-import com.sun.star.uno.Type;
 import com.sun.star.uno.UnoRuntime;
-import com.sun.star.uno.XComponentContext;
-import com.sun.star.util.DateTime;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.ResourceBundle;
-import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.SwingWorker;
-import javax.swing.Timer;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
+import org.bungeni.editor.BungeniOOoLayout;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.panels.impl.ITabbedPanel;
 import org.bungeni.editor.panels.factory.TabbedPanelFactory;
 import org.bungeni.ooo.BungenioOoHelper;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooDocNotes;
-import org.bungeni.ooo.ooQueryInterface;
 import org.bungeni.extutils.MessageBox;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.editor.actions.EditorActionFactory;
@@ -61,111 +45,90 @@ import org.bungeni.editor.actions.IEditorActionEvent;
 import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.editor.metadata.BaseEditorDocMetaModel;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
+import org.bungeni.editor.noa.BungeniNoaFrame;
+import org.bungeni.editor.noa.BungeniNoaFrame.DocumentComposition;
+import org.bungeni.editor.noa.BungeniNoaPanel;
+import org.bungeni.editor.noa.BungeniNoaTabbedPane;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
 import org.bungeni.editor.toolbar.target.BungeniToolbarTargetProcessor;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.bungeni.extutils.BungeniFrame;
-import org.bungeni.extutils.BungeniRuntimeProperties;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonStringFunctions;
 import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.ooo.ooDocMetadata;
 
 /**
- *
+ * This is a single class since there is only 1 tabbed panel allowed in the system
  * @author  Ashok Hariharan
  */
 public class editorTabbedPanel extends javax.swing.JPanel {
 
-    /**
-     * XComponent object, handle to current openoffice document instance
-     */
-    private XComponent Component;
-    private XComponentContext ComponentContext;
-    private BungenioOoHelper ooHelper;
-    private OOComponentHelper ooDocument;
-    private ooDocNotes m_ooNotes;
-    private JFrame parentFrame;
+    private static editorTabbedPanel thisPanel = null;
+
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(editorTabbedPanel.class.getName());
+  
+    private OOComponentHelper ooDocument;
+  
     private String ROOT_SECTION = BungeniEditorPropertiesHelper.getDocumentRoot();
     private String currentSelectedSectionName = "";
-    private Timer componentsTrackingTimer;
-    private changeStructureItem selectedChangeStructureItem;
-    private boolean mouseOver_TreeDocStructureTree = false;
-    private boolean program_refresh_documents = false;
-    private TreeMap<String, editorTabbedPanel.componentHandleContainer> editorMap;
-    private String activeDocument;
-    private ArrayList<ITabbedPanel> m_tabbedPanelMap = new ArrayList<ITabbedPanel>();
-    public static int coordX,  coordY;
 
-    /** Creates new form SwingTabbedJPanel */
-    public editorTabbedPanel() {
-        initComponents();
+    private boolean program_refresh_documents = false;
+
+    private EventComboBoxModel<DocumentComposition> listdocsModel = null;
+
+    private ArrayList<ITabbedPanel> m_tabbedPanelMap = new ArrayList<ITabbedPanel>();
+ 
+    /**
+     *
+     */
+    private editorTabbedPanel() {
+        
     }
 
     /**
-     * Constructor for main Tabbed panel interface
+     * Does an instance exist ?
+     * @return
      */
-    public editorTabbedPanel(XComponent impComponent, BungenioOoHelper helperObj, JFrame parentFrame) {
-        log.debug("constructor:editortabbedpanel");
-        this.Component = impComponent;
-        if (impComponent == null) {
-            log.debug("constructor:editortabbedpanel impComponent was null");
-        }
-        this.ooHelper = helperObj;
-        if (helperObj == null) {
-            log.debug("constructor:editortabbedpanel helperObj was null");
-        }
-        this.ComponentContext = BungenioOoHelper.getComponentContext();
-        editorMap = new TreeMap<String, componentHandleContainer>();
-        ooDocument = new OOComponentHelper(impComponent, ComponentContext);
-        this.parentFrame = parentFrame;
-        this.activeDocument = BungeniEditorProperties.getEditorProperty("activeDocumentMode");
-        init();
-
+    public static boolean isInstanceNull(){
+        return (null == thisPanel);
     }
 
-    /* we need three options,
-     *one that launches with a blank document
-     *the other that allows the user to edit a document
-     *the last that launches just the editor panel and attaches it self to existing instances of oOo
+    /**
+     * Returns a singleton instance of editorTabbedPanel
+     * The Panel is not initialized yet - you still need to call init()
+     * @return
      */
-    /*this one prompts the user to select a currently open document */
-    public editorTabbedPanel(BungenioOoHelper helperObj, JFrame parentFrame) {
-
-        // this.Component = impComponent;
-        //  this.ComponentContext = impComponentContext;
-        this.ooHelper = helperObj;
-        editorMap = new TreeMap<String, componentHandleContainer>();
-        //prompt the user to select a document
-        //ooDocument = new OOComponentHelper(impComponent, impComponentContext);
-        this.parentFrame = parentFrame;
-
-        init();
+    public static editorTabbedPanel getInstance(){
+        if (null == thisPanel) {
+            thisPanel = new editorTabbedPanel();
+        }
+        return thisPanel;
     }
 
-    private void init() {
+    /**
+     *
+     * @param impComponent
+     * @param pFrame
+     */
+    public void init(DocumentComposition dc) {
+        initMain(dc.getDocument().getXComponent());
         initComponents();
         initProviders();
-        /*
-        SwingUtilities.invokeLater(new Runnable() {
-
-            public void run() {
-                initFloatingPane();
-            }
-        });
-        */
-        initTimers();
         log.debug("calling initOpenDOcuments");
         initOpenDocuments();
-
-        /***** control moved to other dialog...
-        updateListDocuments();
-         *****/
         initTabbedPanes();
         initModeLabel();
+        initOOoLayout();
+        initExternalListeners();
     }
+
+    private void initMain(XComponent impComponent) {
+        log.debug("constructor:editortabbedpanel");
+        this.ooDocument = new OOComponentHelper(impComponent,  BungenioOoHelper.getInstance().getComponentContext());
+    }
+
 
     private void initProviders() {
         org.bungeni.editor.providers.DocumentSectionProvider.initialize(this.ooDocument);
@@ -181,7 +144,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         for (ITabbedPanel panel : m_tabbedPanelMap) {
             try {
                   panel.setOOComponentHandle(ooDocument);
-                  panel.setParentHandles(parentFrame, this);
+                  panel.setParentHandles(parentFrame(), this);
                   panel.initialize();
                   this.jTabsContainer.add(panel.getPanelTitle(), panel.getObjectHandle());
             } catch (java.lang.Exception ex) {
@@ -191,40 +154,58 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         log.debug("InitTabbedPanes: finished loading");
     }
 
+
+    /***
+     * This function is used to install listeners on components external to
+     * the editorTabbedPanel. 
+     */
+    private void initExternalListeners(){
+        //Add a change listener on the BungeniNoaTabbedPane
+        //we listen for the change event and select an appropriate
+        //document int the
+        BungeniNoaTabbedPane.getInstance().getTabbedPane().
+                addChangeListener(new ChangeListener(){
+
+                    public void stateChanged(ChangeEvent e) {
+                        //get the newly selected panel in the tab
+                        Component c = BungeniNoaTabbedPane.getInstance().
+                                getTabbedPane().getSelectedComponent();
+                        JPanel panel = (JPanel) c;
+                        DocumentComposition dcSelected = (DocumentComposition) cboListDocuments.getSelectedItem();
+                        //if the selected panel is the same as the main panel return
+                        if (dcSelected.equalsByNoaPanel(panel)) return;
+                        int currentIndex = 0;
+                        //otherwise iterate through the listed documents in the cboListDocuments
+                        //combobox
+                        for (int i = 0; i < listdocsModel.getSize(); i++) {
+                            currentIndex = i;
+                            DocumentComposition dc =
+                                    (DocumentComposition) listdocsModel.getElementAt(i);
+                            if (dc.equalsByNoaPanel(panel)) {
+                                listdocsModel.setSelectedItem(dc);
+                                //this is the document to select
+                                break;
+                            }
+                        }
+
+                    }
+
+        });
+
+    }
+
+    private void initOOoLayout(){
+        BungeniOOoLayout.getInstance().applyLayout(ooDocument);
+    }
+
     private void updateTabbedPanes() {
         for (ITabbedPanel panel : m_tabbedPanelMap) {
             panel.setOOComponentHandle(ooDocument);
             panel.refreshPanel();
         }
     }
-    //   private HashMap<String, IEditorPluginAll> loadedPluginsMap = new HashMap<String, IEditorPluginAll>();
-    /**
-     * Loads the external plugins specified in the EXTERNAL_PLUGINS table.
-     */
-    /*
-    private void initExternalPlugins(){
-    ExternalPluginsLoader extLoader = new ExternalPluginsLoader();
-    ArrayList<ExternalPlugin> listExtPlugins = extLoader.getExternalPlugins();
-    for (ExternalPlugin ep : listExtPlugins ) {
-    if (ep.isEnabled) {
-    ExternalPluginsFinder epf = new ExternalPluginsFinder(ep.JarFile, ep.Loader);
-    //added this check to make sure the plugin load is attempted only if it was found
-    if (epf.isPluginFound()) {
-    IEditorPluginAll iepAll = epf.getPluginInstance();
-    iepAll.setOOComponentHelper(ooDocument);
-    iepAll.setInstallDirectory(DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH());
-    iepAll.setParentFrame(parentFrame);
-    loadedPluginsMap.put(ep.Name, iepAll);
-    }
-    }
-    }
-    }*/
-  
-    /**
-     * Used to display section metadata in the tabbed panel
-     */
-  
-  
+
+
     protected void setOODocumentObject(OOComponentHelper ooDoc) {
         this.ooDocument = ooDoc;
     }
@@ -233,74 +214,40 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         return this.ooDocument;
     }
 
+
     /*
+     * AH-23-05-11 -- document selector combo
+     * The document selector combo box uses the EventComboBoxModel.
+     * using this model we simply update the underlying list and the model
+     * is synced to the list dynamically.
      *
-     *at this point the table model for the metadata table has already been set,
-     *we are checking the metadata of the table
      */
     private void initListDocuments() {
         log.debug("initListDocuments: init");
-        //String[] listDocuments = getCurrentlyOpenDocuments().keySet().toArray(new String[getCurrentlyOpenDocuments().keySet().size()]);
-        ArrayList<componentHandleContainer> listDocuments = this.getDocumentsComboModel();
-        this.cboListDocuments.setModel(new DefaultComboBoxModel(listDocuments.toArray()));
-    }
-
-    private void initOpenDocumentsList() {
-        try {
-            log.debug("initOpenDocumentsList: getting components");
-            XEnumerationAccess enumComponentsAccess = BungenioOoHelper.getDesktop().getComponents();
-            XEnumeration enumComponents = enumComponentsAccess.createEnumeration();
-            log.debug("initOpenDocumentsList: enumerating components");
-            int i = 0;
-            editorMap.clear(); //reset the map before adding things to it.
-            while (enumComponents.hasMoreElements()) {
-                Object nextElem = enumComponents.nextElement();
-                log.debug("initOpenDocumentsList: getting model interface");
-                XModel docModel = ooQueryInterface.XModel(nextElem);
-
-                if (docModel != null) { //supports XModel interface
-                    log.debug("initOpenDocumentsList: docModel != null");
-                    XServiceInfo serviceInfo = ooQueryInterface.XServiceInfo(nextElem);
-                    if (serviceInfo.supportsService("com.sun.star.text.TextDocument")) {
-                        log.debug("initOpenDocumentsList: supports TextDocument " + (++i));
-                        XTextDocument xDoc = (XTextDocument) UnoRuntime.queryInterface(XTextDocument.class, nextElem);
-                        String strTitle = OOComponentHelper.getFrameTitle(xDoc);
-                        XComponent xComponent = (XComponent) UnoRuntime.queryInterface(XComponent.class, nextElem);
-                        componentHandleContainer compContainer = new componentHandleContainer(strTitle, xComponent);
-                        if (!editorMap.containsKey(compContainer.componentKey())) {
-                            compContainer.setEventBroadcastListener();
-                            editorMap.put(compContainer.componentKey(), compContainer);
-                        }
-                    }
-                }
-            }
-        } catch (Exception ex) {
-            log.error("InitOpenDocumentsList error :" + ex.getMessage());
-            log.error("InitOpenDocumentsList stacktrace : " + CommonExceptionUtils.getStackTrace(ex));
-        }
+        listdocsModel = 
+                new EventComboBoxModel<DocumentComposition>(
+                BungeniNoaFrame.getInstance().getOfficeDocuments());
+        this.cboListDocuments.setModel(listdocsModel);
     }
 
     private void initOpenDocuments() {
         log.debug("initOpenDocuments: calling");
-        //commented here for listener synchronization issues, as the combox action
-        //listener depends on the tree data model being set.
-        // cboListDocuments.addActionListener(new cboListDocumentsActionListener());
-        initOpenDocumentsList();
         initListDocuments();
-        initListDocumentsListener();
         initSelectionInOpenDocuments();
+        //we attach the listener after selecting the document
+        initListDocumentsListener();
     }
 
+    /***
+     *Initialize the selectio in the list of open documents
+     */
     private void initSelectionInOpenDocuments() {
-        componentHandleContainer currentDoc = new componentHandleContainer(ooDocument.getDocumentTitle(), ooDocument.getComponent());
-        DefaultComboBoxModel model = (DefaultComboBoxModel) cboListDocuments.getModel();
-        for (int i = 0; i < model.getSize(); i++) {
-            componentHandleContainer foundchc = (componentHandleContainer) model.getElementAt(i);
-            if (foundchc.componentKey().equals(currentDoc.componentKey())) {
-                model.setSelectedItem(foundchc);
-                break;
-            }
-        }
+        //AH-20-05-2011
+        /**
+         * Initially there is only document open so select the first item in the list
+         */
+         
+        listdocsModel.setSelectedItem(listdocsModel.getElementAt(0));
     }
 
     private void initListDocumentsListener() {
@@ -314,84 +261,19 @@ public class editorTabbedPanel extends javax.swing.JPanel {
     }
 
     /**
-     * Depreacted function - as combobox tab switching has been removed.
-     */
-    private void initSwitchTabs() {
-        /*
-        int iTabs = jTabsContainer.getTabCount();
-        String[] tabs = new String[iTabs];
-        for (int i=0; i < iTabs; i++) {
-        tabs[i] = jTabsContainer.getTitleAt(i);
-        }
-        this.cboSwitchTabs.setModel(new DefaultComboBoxModel(tabs));
-        cboSwitchTabs.addActionListener(new ActionListener(){
-        public void actionPerformed(ActionEvent arg0) {
-        int iSelect = cboSwitchTabs.getSelectedIndex();
-        jTabsContainer.setSelectedIndex(iSelect);
-        }
-        });
-         */
-    }
-
-    public void setOOoHelper(BungenioOoHelper helper) {
-        this.ooHelper = helper;
-        initOpenDocuments();
-    }
-
-    public void bringEditorWindowToFront() {
-        if (ooDocument.isXComponentValid()) {
-            XFrame xDocFrame = ooDocument.getDocumentModel().getCurrentController().getFrame();
-            Object docFrameWindow = xDocFrame.getContainerWindow();
-            if (docFrameWindow == null) {
-                return;
-            }
-
-            Object queryInterface = ooQueryInterface.XTopWindow(docFrameWindow);
-            if (queryInterface == null) {
-                return;
-            } else {
-                log.debug("Bring selected window to the front");
-                ooQueryInterface.XTopWindow(xDocFrame.getContainerWindow()).toFront();
-            }
-        }
-    }
-
-    /**
      * Static function invoked by JPanel containing document switcher.
      * @param currentlySelectedDoc currently selected document in switched
      * @param same
      */
-    public void updateMain(componentHandleContainer currentlySelectedDoc, boolean same) {
-        if (same) {
-            if (self().program_refresh_documents == true) {
-                return;
-            } else {
-                bringEditorWindowToFront();
-            }
-        } else {
-            if (currentlySelectedDoc == null) {
-                log.debug("XComponent is invalid");
-            }
-            // ooDocument.detachListener();
-            log.debug("updateMain : setting new OODocument handle");
-            setOODocumentObject(new OOComponentHelper(currentlySelectedDoc.getComponent(), ComponentContext));
-            updateProviders();
-            //initFields();
-            //initializeValues();
+    public void updateMain(DocumentComposition dc, boolean same) {
 
-            // removed call to collapsiblepane function
-            //retrieve the list of dynamic panels from the the dynamicPanelMap and update their component handles
-            //updateCollapsiblePanels();
-            /*** updateFloatingPanels(); ***/
-            updateTabbedPanes();
-
-            /**** commented *** refreshTableDocMetadataModel();****/
-            if (self().program_refresh_documents == false) {
-                bringEditorWindowToFront();
-            }
-
-        }
-    }
+        setOODocumentObject(new
+                OOComponentHelper(dc.getDocument().getXComponent(),
+                        BungenioOoHelper.getInstance().getComponentContext()));
+        initOOoLayout();
+        updateProviders();
+        updateTabbedPanes();
+    } 
 
     /*
      *this is invoked on window closing, by the JFrame that contains the panel
@@ -400,77 +282,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         for (ITabbedPanel panel : m_tabbedPanelMap) {
             panel.cleanup();
         }
-
-
-        //shutdown timers
-        //  docStructureTimer.stop();
-        // sectionNameTimer.stop();
-        componentsTrackingTimer.stop();
-        //cleanup component listners
-        Iterator keyIterator = editorMap.keySet().iterator();
-        while (keyIterator.hasNext()) {
-            String key = (String) keyIterator.next();
-            componentHandleContainer compHandle = editorMap.get(key);
-            compHandle.removeListener();
-        }
     }
-    private static int WIDTH_OOo_SCROLLBAR = 25;
-    // added for Issue 246, http://code.google.com/p/bungeni-portal/issues/details?id=246
-
-    /*
-    @SuppressWarnings("empty-statement")
-    private void initFloatingPane() {
-        //load the map here
-        BungeniFrame floatingFrame = new BungeniFrame();
-        IFloatingPanel floatingPanel = FloatingPanelFactory.getPanelClass("toolbarUIPanel");
-
-        floatingPanel.setOOComponentHandle(ooDocument);
-        floatingPanel.setParentWindowHandle(floatingFrame);
-        floatingPanel.initUI();
-        floatingFrame.setTitle(FloatingPanelFactory.panelDescription);
-        floatingPanelMap.put("toolbarUIPanel", floatingPanel);
-        //panel.setOOoHelper(this.openofficeObject);
-        floatingFrame.add(floatingPanel.getObjectHandle());
-        //frame.setSize(243, 650);
-        floatingFrame.setSize(Integer.parseInt(FloatingPanelFactory.panelWidth), Integer.parseInt(FloatingPanelFactory.panelHeight));
-        // floatingFrame.setResizable(false);
-        floatingFrame.removeMinMaxClose();
-        floatingFrame.setAlwaysOnTop(true);
-        floatingFrame.pack();
-        floatingFrame.setVisible(true);
-
-        floatingFrame.setResizable(false);
-
-        //position frame
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension windowSize = floatingFrame.getSize();
-        log.debug("screen size = " + screenSize);
-        log.debug("window size = " + windowSize);
-
-        int windowX = screenSize.width - floatingFrame.getWidth() - WIDTH_OOo_SCROLLBAR;
-        //int windowY = (screenSize.height - floatingFrame.getHeight())/2;
-        int windowY = editorApplicationController.getFrameWindowDimension().y;
-        log.debug("initFloatingPane : Window Y =  " + windowY);
-
-        //   floatingFrame.setLocation(windowX, editorTabbedPanel.coordY + 50);  // Don't use "f." inside constructor.
-        floatingFrame.setLocation(windowX, parentFrame.getLocation().y);
-        floatingFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
-
-    }
-
-    private void updateFloatingPanels() {
-        if (!floatingPanelMap.isEmpty()) {
-            Iterator<String> panelNames = floatingPanelMap.keySet().iterator();
-            while (panelNames.hasNext()) {
-
-                IFloatingPanel panelObj = floatingPanelMap.get(panelNames.next());
-                panelObj.setOOComponentHandle(ooDocument);
-                panelObj.updateEvent();
-            }
-        }
-    }
-    */
     
     private editorTabbedPanel self() {
         return this;
@@ -480,9 +292,6 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         return this;
     }
 
-    public TreeMap<String, editorTabbedPanel.componentHandleContainer> getCurrentlyOpenDocuments() {
-        return this.editorMap;
-    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -500,7 +309,6 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         jTabsContainer = new javax.swing.JTabbedPane();
         cboListDocuments = new javax.swing.JComboBox();
         lblCurrentlyOpenDocuments = new javax.swing.JLabel();
-        btnBringToFront = new javax.swing.JButton();
         btnOpenDocument = new javax.swing.JButton();
         lblCurrentMode = new javax.swing.JLabel();
         btnNewDocument = new javax.swing.JButton();
@@ -510,7 +318,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
 
         jScrollPane3.setViewportView(jTree2);
 
-        setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        setFont(new java.awt.Font("Tahoma", 0, 10));
 
         jTabsContainer.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         jTabsContainer.setFont(new java.awt.Font("Tahoma", 0, 10));
@@ -522,16 +330,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/dialogs/Bundle"); // NOI18N
         lblCurrentlyOpenDocuments.setText(bundle.getString("editorTabbedPanel.lblCurrentlyOpenDocuments.text")); // NOI18N
 
-        btnBringToFront.setFont(new java.awt.Font("DejaVu Sans", 0, 9));
-        btnBringToFront.setText(bundle.getString("editorTabbedPanel.btnBringToFront.text")); // NOI18N
-        btnBringToFront.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btnBringToFront.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBringToFrontActionPerformed(evt);
-            }
-        });
-
-        btnOpenDocument.setFont(new java.awt.Font("DejaVu Sans", 0, 9));
+        btnOpenDocument.setFont(new java.awt.Font("DejaVu Sans", 0, 9)); // NOI18N
         btnOpenDocument.setText(bundle.getString("editorTabbedPanel.btnOpenDocument.text")); // NOI18N
         btnOpenDocument.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnOpenDocument.setIconTextGap(2);
@@ -544,7 +343,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         lblCurrentMode.setForeground(java.awt.Color.red);
         lblCurrentMode.setText(bundle.getString("editorTabbedPanel.lblCurrentMode.text")); // NOI18N
 
-        btnNewDocument.setFont(new java.awt.Font("DejaVu Sans", 0, 9));
+        btnNewDocument.setFont(new java.awt.Font("DejaVu Sans", 0, 9)); // NOI18N
         btnNewDocument.setText(bundle.getString("editorTabbedPanel.btnNewDocument.text")); // NOI18N
         btnNewDocument.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnNewDocument.addActionListener(new java.awt.event.ActionListener() {
@@ -572,17 +371,15 @@ public class editorTabbedPanel extends javax.swing.JPanel {
                 .add(cboListDocuments, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 235, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, lblCurrentMode, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                        .add(btnBringToFront)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(btnOpenDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 56, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(btnNewDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(btnSaveDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 52, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                .add(lblCurrentMode))
             .add(jTabsContainer, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 267, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(btnOpenDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 56, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(btnNewDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(btnSaveDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 52, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -592,7 +389,6 @@ public class editorTabbedPanel extends javax.swing.JPanel {
                 .add(cboListDocuments, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(btnBringToFront)
                     .add(btnNewDocument)
                     .add(btnSaveDocument)
                     .add(btnOpenDocument))
@@ -602,11 +398,6 @@ public class editorTabbedPanel extends javax.swing.JPanel {
                 .add(jTabsContainer, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-private void btnBringToFrontActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBringToFrontActionPerformed
-// TODO add your handling code here:
-    this.bringEditorWindowToFront();
-}//GEN-LAST:event_btnBringToFrontActionPerformed
 
 private void btnOpenDocumentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenDocumentActionPerformed
 // TODO add your handling code here:
@@ -634,34 +425,66 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
 
     }
 
+    private JFrame parentFrame(){
+        return BungeniNoaFrame.getInstance();
+    }
+
     public void newDocumentInPanel() {
         String templatePath = BungeniEditorProperties.getEditorProperty(BungeniEditorPropertiesHelper.getCurrentDocType() + "_template");
-        Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         boolean bActive = false;
-        int nConfirm = MessageBox.Confirm(parentFrame, bundle.getString("make_new_active"), bundle.getString("change_active"));
+        int nConfirm = MessageBox.Confirm(parentFrame(), 
+                bundle.getString("make_new_active"),
+                bundle.getString("change_active"));
         if (JOptionPane.YES_OPTION == nConfirm) {
             bActive = true;
         }
-        OpenDocumentAgent openDocAgent = new OpenDocumentAgent(templatePath, screenSize, bActive, true);
-        openDocAgent.execute();
+       //we dont use the OpenDocumentAgent anymore -- as we are using noa,
+       //OOo document needs to be opened in the event dispatch thread, not
+       //in the background thread
+       BungeniNoaFrame frame = BungeniNoaFrame.getInstance();
+       DocumentComposition dc = null;
+        try {
+           dc = frame.loadDocumentInPanel(templatePath, true);
+        } catch (OfficeApplicationException e) {
+            log.error("Error while opening document from editorTabbedPanel" , e);
+        } catch (NOAException e) {
+            log.error("Error while opening document from editorTabbedPanel" , e);
+        } catch (DocumentException e) {
+            log.error("Error while opening document from editorTabbedPanel" , e);
+        }
     }
 
     public synchronized void loadDocumentInPanel() {
         String basePath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + "workspace" + File.separator + "files";
-        File openFile = CommonFileFunctions.getFileFromChooser(basePath, new org.bungeni.utils.fcfilter.ODTFileFilter(), JFileChooser.FILES_ONLY, parentFrame);
+        File openFile = CommonFileFunctions.getFileFromChooser(basePath,
+                new org.bungeni.utils.fcfilter.ODTFileFilter(),
+                JFileChooser.FILES_ONLY,
+                parentFrame());
         if (openFile != null) {
             boolean bActive = false;
-            int nConfirm = MessageBox.Confirm(parentFrame, bundle.getString("make_active"), bundle.getString("change_active"));
+            int nConfirm = MessageBox.Confirm(parentFrame(),
+                    bundle.getString("make_active"),
+                    bundle.getString("change_active"));
             if (JOptionPane.YES_OPTION == nConfirm) {
                 bActive = true;
             }
             String fullPathToFile = openFile.getAbsolutePath();
-            //we calculate the screen dimension in advance and pass it to the open document agent
-            //as the awt toolkit executes in the EDT while the swingworker thread is an independent thread,
-            //and thus it is unsafe to make awt call from the swing worker thread.
-            Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-            OpenDocumentAgent openDocAgent = new OpenDocumentAgent(fullPathToFile, screenSize, bActive, false);
-            openDocAgent.execute();
+            //we dont use the OpenDocumentAgent anymore -- as we are using noa,
+            //OOo document needs to be opened in the event dispatch thread, not 
+            //in the background thread
+            //OpenDocumentAgent openDocAgent = new OpenDocumentAgent(fullPathToFile, bActive, false);
+            //openDocAgent.execute();
+            BungeniNoaFrame frame = BungeniNoaFrame.getInstance();
+            DocumentComposition dc = null;
+            try {
+               dc = frame.loadDocumentInPanel(fullPathToFile, false);
+            } catch (OfficeApplicationException e) {
+                log.error("Error while opening document from editorTabbedPanel" , e);
+            } catch (NOAException e) {
+                log.error("Error while opening document from editorTabbedPanel" , e);
+            } catch (DocumentException e) {
+                log.error("Error while opening document from editorTabbedPanel" , e);
+            }
         }
 
     }
@@ -699,7 +522,7 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
                 subActionObj.setSelectorDialogMode(SelectorDialogModes.TEXT_EDIT);
                 IEditorActionEvent event = EditorActionFactory.getEventClass(subActionObj);
                 if (event != null) {
-                    event.doCommand(ooDocument, subActionObj, parentFrame);
+                    event.doCommand(ooDocument, subActionObj, parentFrame());
                 } else {
                     log.info("launchSectionMetadataEditor : no IEditorActionEvent object was created for " + subActionObj.sub_action_name());
                 }
@@ -708,89 +531,10 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
         }
     }
 
-    /**
-     * Opens an OOo document in the swingworker thread.
-     * The agent opens the document and positions
-     * an option to make the document the currently edited document (active document)
-     * The functionality to make the OOo document the active document is executed in the EDT,
-     * the event dispatch thread.
-     */
-    class OpenDocumentAgent extends SwingWorker<XComponent, Void> {
-
-        String documentToOpen = "";
-        boolean makeActiveDocument = false;
-        Dimension screenDimension = null;
-        boolean isTemplate = false;
-
-        public OpenDocumentAgent(String documentPath, Dimension screenSize, boolean makeActive, boolean fromTemplate) {
-            documentToOpen = documentPath;
-            makeActiveDocument = makeActive;
-            screenDimension = screenSize;
-            isTemplate = fromTemplate;
-        }
-
-        @Override
-        protected XComponent doInBackground() {
-            XComponent xComp = null;
-            if (isTemplate) {
-                xComp = OOComponentHelper.newDocument(documentToOpen);
-            } else {
-                try {
-                    xComp = OOComponentHelper.openExistingDocument(documentToOpen);
-                } catch (IOException ex) {
-                    log.error("Error opening document in Ooo " + ex.getMessage(), ex);
-                } catch (IllegalArgumentException ex) {
-                    log.error("Error opening document in Ooo " + ex.getMessage(), ex);
-                } catch (Exception ex) {
-                    log.error("Error opening document in Ooo " + ex.getMessage(), ex);
-                }
-            }
-            if (xComp != null) {
-                OOComponentHelper.positionOOoWindow(xComp, screenDimension);
-            }
-            return xComp;
-        }
-
-        @Override
-        protected void done() {
-            try {
-                cboListDocuments.setEnabled(false);
-                XComponent xComp = get();
-                if (xComp != null) {
-                    XTextDocument doc = ooQueryInterface.XTextDocument(xComp);
-                    String strTitle = OOComponentHelper.getFrameTitle(doc);
-                    componentHandleContainer chc = new componentHandleContainer(strTitle, xComp);
-                    synchronized (editorMap) {
-                        if (!editorMap.containsKey(chc.componentKey())) {
-                            chc.setEventBroadcastListener();
-                            editorMap.put(chc.componentKey(), chc);
-                        }
-                        DefaultComboBoxModel model = (DefaultComboBoxModel) cboListDocuments.getModel();
-                        if (!existsInComboModel(chc.componentKey())) {
-                            model.addElement(editorMap.get(chc.componentKey()));
-                        }
-                        if (makeActiveDocument) {
-                            model.setSelectedItem(chc);
-                        } else {
-                            bringEditorWindowToFront();
-                        }
-                    }
-                    String currentDocType = BungeniEditorPropertiesHelper.getCurrentDocType();
-                    launchMetadataSetter(xComp);
-                }
-            } catch (InterruptedException ex) {
-                log.error("openDocumentAgent : done: " + ex.getMessage());
-            } catch (ExecutionException ex) {
-                log.error("openDocumentAgent : done: " + ex.getMessage());
-            } finally {
-                cboListDocuments.setEnabled(true);
-                
-        }
-        }
-    }
 
     private void launchMetadataSetter(XComponent xComp) {
-        OOComponentHelper oohc = new OOComponentHelper(xComp, ComponentContext);
+        OOComponentHelper oohc = new OOComponentHelper(xComp, 
+                BungenioOoHelper.getInstance().getComponentContext());
         //check if metadat variable is set
         ooDocMetadata metaObj = new ooDocMetadata(oohc);
         String sMetaSetProp = metaObj.GetProperty(BaseEditorDocMetaModel.__METADATA_SET_FLAG__);
@@ -814,187 +558,15 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
     }
     private static boolean structureInitialized = false;
 
-    private void initTimers() {
-        try {
-            //component handle tracker timer
-
-            Action componentsTrackingRunner = new AbstractAction() {
-
-                public void actionPerformed(ActionEvent e) {
-                    componentHandlesTracker();
-                    try {
-                        updateListDocuments();
-                    } catch (MalformedURLException ex) {
-                        log.error("updateListDocuments  : " + ex.getMessage());
-                    } catch (URISyntaxException ex) {
-                        log.error("updateListDocuments  : " + ex.getMessage());
-                    }
-                }
-            };
-            componentsTrackingTimer = new Timer(2500, componentsTrackingRunner);
-            componentsTrackingTimer.start();
-
-        } catch (RuntimeException e) {
-            log.error(e.getMessage());
-        }
-    }
-
-    private ArrayList<componentHandleContainer> getDocumentsComboModel() {
-
-        ArrayList<componentHandleContainer> listDocuments = new ArrayList<componentHandleContainer>();
-        for (String docKey : getCurrentlyOpenDocuments().keySet()) {
-            componentHandleContainer compHandle = getCurrentlyOpenDocuments().get(docKey);
-            listDocuments.add(compHandle);
-        }
-
-        return listDocuments;
-    }
-
-    private boolean existsInComboModel(String compKey) {
-        boolean bFound = false;
-        DefaultComboBoxModel model = (DefaultComboBoxModel) cboListDocuments.getModel();
-        for (int i = 0; i < model.getSize(); i++) {
-            componentHandleContainer foundCHC = (componentHandleContainer) model.getElementAt(i);
-            if (foundCHC.componentKey().equals(compKey)) {
-                bFound = true;
-            }
-        }
-        return bFound;
-    }
     private static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/dialogs/Bundle");
-
-    private void updateListDocuments() throws MalformedURLException, URISyntaxException {
-        //new refreshed list of component handles
-      
-            ArrayList<componentHandleContainer> componentHandles = getDocumentsComboModel();
-            //capture currentlySelected item
-            componentHandleContainer selectedItem = (componentHandleContainer) cboListDocuments.getModel().getSelectedItem();
-            //add newly opened documents to model
-            DefaultComboBoxModel model = (DefaultComboBoxModel) cboListDocuments.getModel();
-            for (String compKey : getCurrentlyOpenDocuments().keySet()) {
-                if (!existsInComboModel(compKey)) {
-                    model.addElement(getCurrentlyOpenDocuments().get(compKey));
-                }
-            }
-            //build an array of disposed component handles i.e. documents which have been closed.
-            ArrayList<componentHandleContainer> handleContainer = new ArrayList<componentHandleContainer>(0);
-            //remove closed documents from model
-            for (int i = 0; i < model.getSize(); i++) {
-                componentHandleContainer compMatch = (componentHandleContainer) model.getElementAt(i);
-                try {
-                    //test if disposed - if disposed this raises an exception
-                    String compMatchURL = compMatch.getDocURL();
-                    //check if model component handle exists in newly generate component map
-                    //if it doesnt we delete the componenth handle from them model
-                    if (!getCurrentlyOpenDocuments().containsKey(compMatch.componentKey())) {
-                        handleContainer.add(compMatch);
-                    }
-                } catch (com.sun.star.lang.DisposedException ex) {
-                    //if disposed exception was raised.. the document has been disposed
-                    //so add it for deletion
-                    handleContainer.add(compMatch);
-                }
-            }
-
-            //remove all the handles marked for deletion from the combo box model.
-            for (componentHandleContainer chcHandle : handleContainer) {
-                model.removeElement(chcHandle);
-            }
-            //set selected item
-            //first check if there is a saved document
-            if (BungeniRuntimeProperties.propertyExists("SAVED_FILE")) {
-                //set the URI fo the saved document
-                String savedDocumentURL = BungeniRuntimeProperties.getProperty("SAVED_FILE");
-                URL urlDoc = new URL(savedDocumentURL);
-                String savedDocumentURI = urlDoc.toString();
-                //see if it matches any of the currently open documents
-                DefaultComboBoxModel freshModel = (DefaultComboBoxModel) cboListDocuments.getModel();
-                for (int i = 0; i < freshModel.getSize(); i++) {
-                    componentHandleContainer chc = (componentHandleContainer) freshModel.getElementAt(i);
-                    String chcDocUrl = chc.getDocURL();
-                    if (chcDocUrl != null) {
-                        //check if the saved document url equals the url of one of the currently open documents
-                        //if it does set the combo index to that document.
-                        URL docUrl = new URL(chcDocUrl);
-                        if (docUrl.toString().equals(savedDocumentURI)) {
-                            //since this code runs in a timer thread .. it executes continuously
-                            //but since we are removing "saved_file" from the static property map,
-                            //this should never get executed
-
-                            //temporarily disable combo action listeners
-                            //  ActionListener[] actionListeners = cboListDocuments.getActionListeners();
-                            //  for (ActionListener aListener : actionListeners) {
-                            //    cboListDocuments.removeActionListener(aListener);
-                            //  }
-                            //set the combo index
-                            cboListDocuments.setSelectedIndex(i);
-
-                            //restore action listeners
-                            //for (ActionListener addListener : actionListeners) {
-                            //    cboListDocuments.addActionListener(addListener);
-                            // }
-                            //remove the saved_file property
-                            BungeniRuntimeProperties.removeProperty("SAVED_FILE");
-                            break;
-                        }
-                    }
-                }
-            }
-
-
-        
-    }
 
     public void setProgrammaticRefreshOfDocumentListFlag(boolean bState) {
         this.program_refresh_documents = bState;
     }
 
-    private void componentHandlesTracker() {
-        log.debug("componentHandlesTracker: begin ");
-        //array list caches keys to be removed
-        ArrayList<String> keysToRemove = new ArrayList<String>();
-        //find the components that have been disposed
-        //and capture them in an array
-        log.debug("componentHandlesTracker: finding disposed documents ");
+ 
 
-        log.debug("componentHandlesTracker: capturing selected item ");
-
-        //now remove the disposed components from the map
-
-        log.debug("componentHandlesTracker: removing disposed components ");
-
-
-        //some documents may have been opened in the meanwhile... we look for them and add them
-        log.debug("componentHandlesTracker: refreshing document open keyset map ");
-
-        initOpenDocumentsList();
-
-    //now update the combo box...
-
-    //this.program_refresh_documents = false;
-    }
-
-    class changeStructureItem {
-
-        String itemText;
-        String itemIndex;
-
-        changeStructureItem(String itemIndex, String itemText) {
-            this.itemText = itemText;
-            this.itemIndex = itemIndex;
-        }
-
-        public String getIndex() {
-            return itemIndex;
-        }
-
-        @Override
-        public String toString() {
-            return itemText;
-        }
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBringToFront;
     private javax.swing.ButtonGroup btnGrpBodyMetadataTarget;
     private javax.swing.JButton btnNewDocument;
     private javax.swing.JButton btnOpenDocument;
@@ -1009,162 +581,28 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JLabel lblCurrentlyOpenDocuments;
     // End of variables declaration//GEN-END:variables
 
-    /*
-     *This is the class contained in the map of all open documents
-     *Adds an eventListener()
-     */
-    public static class componentHandleContainer {
-
-        private String aName;
-        private XComponent aComponent;
-        private boolean componentDisposed = false;
-        private xComponentListener compListener = new xComponentListener();
-        private String componentKey = "";
-
-        public componentHandleContainer(String name, XComponent xComponent) {
-            log.debug("componentHandleContainer: in constructor()");
-            aName = name;
-            aComponent = xComponent;
-            log.debug("componentHandleContainer: to string = " + aComponent.toString());
-            aComponent.addEventListener(compListener);
-            componentKey = generateComponentKey();
-        //add the event broadcaster to the same listener
-        }
-
-        public String getDocURL() {
-            XStorable xStore = ooQueryInterface.XStorable(aComponent);
-            if (xStore.hasLocation()) {
-                return xStore.getLocation();
-            } else {
-                return null;
-            }
-        }
-
-        public void setEventBroadcastListener() {
-            XEventBroadcaster xEventBroadcaster = (com.sun.star.document.XEventBroadcaster) UnoRuntime.queryInterface(com.sun.star.document.XEventBroadcaster.class, aComponent);
-            xEventBroadcaster.addEventListener(compListener);
-        }
-
-        public XComponent getComponent() {
-            return aComponent;
-        }
-
-        @Override
-        public String toString() {
-            return getName();
-        }
-
-        public String componentKey() {
-            return componentKey;
-        }
-
-        private String generateComponentKey() {
-            String ckey = generateComponentKey(getName(), this.aComponent);
-            return ckey;
-        }
-
-        public static String generateComponentKey(String iName, XComponent component) {
-            String compKey = "";
-            try {
-                XTextDocument xTextDoc = (XTextDocument) UnoRuntime.queryInterface(XTextDocument.class, component);
-                XDocumentInfoSupplier xdisInfoProvider = (XDocumentInfoSupplier) UnoRuntime.queryInterface(XDocumentInfoSupplier.class, xTextDoc);
-                XDocumentInfo xDocInfo = xdisInfoProvider.getDocumentInfo();
-                XPropertySet xDocProperties = ooQueryInterface.XPropertySet(xDocInfo);
-                DateTime docCreationDate = (DateTime) AnyConverter.toObject(new Type(DateTime.class), xDocProperties.getPropertyValue("CreationDate"));
-                Object objTemplateDate = xDocProperties.getPropertyValue("TemplateDate");
-                Type foundType = AnyConverter.getType(objTemplateDate);
-                log.debug("generateComponentkey template foundtype = " + foundType.getTypeName());
-                Type reqdType = new Type(DateTime.class);
-                if (foundType.getTypeName().equals(reqdType.getTypeName())) {
-                    DateTime docTemplateDate = (DateTime) AnyConverter.toObject(new Type(DateTime.class), xDocProperties.getPropertyValue("TemplateDate"));
-                    compKey = iName + UnoDateTimeToStr(docCreationDate) + UnoDateTimeToStr(docTemplateDate);
-                } else {
-                    compKey = iName + UnoDateTimeToStr(docCreationDate);
-                }
-            } catch (Exception ex) {
-                log.error("generateComponentKey : " + ex.getMessage());
-                log.error("generateComponentKey : " + CommonExceptionUtils.getStackTrace(ex));
-            } finally {
-                
-            }
-            return compKey;
-        }
-
-        private static String UnoDateTimeToStr(DateTime dt) {
-            String returnDate = "";
-            if (dt != null) {
-                returnDate = Short.toString(dt.Year);
-                returnDate += Short.toString(dt.Month);
-                returnDate += Short.toString(dt.Day);
-                returnDate += Short.toString(dt.Hours);
-                returnDate += Short.toString(dt.Minutes);
-                returnDate += Short.toString(dt.Seconds);
-                returnDate += Short.toString(dt.HundredthSeconds);
-            }
-            return returnDate;
-        }
-
-        public String getName() {
-            return aName;
-        }
-
-        public boolean isComponentDisposed() {
-            return componentDisposed;
-        }
-
-        public void removeListener() {
-            aComponent.removeEventListener(compListener);
-        }
-
-        class xComponentListener implements com.sun.star.document.XEventListener {
-
-            public void disposing(com.sun.star.lang.EventObject eventObject) {
-                //document window is closing
-                log.debug("xComponentListner : the document window is closing" + getName());
-                componentDisposed = true;
-            }
-
-            public void notifyEvent(com.sun.star.document.EventObject eventObject) {
-                /*
-                if (eventObject.EventName.equals("OnFocus")) {
-                log.error("xComponentListner : the document window OnFocus()" + getName());
-                //getName() for this document compare it with the current documetn in the editorTabbedPanel lis
-                //if it isnt equal notify the user with a message box that the
-                Object selected = cboListDocuments.getSelectedItem();
-                String selectedDocument = "";
-                if (selected != null) {
-                selectedDocument = (String) selected;
-                if (selectedDocument.trim().equals(getName().trim())) {
-                /// commented below to prevent swing thread-sync bug
-                // parentFrame.setAlwaysOnTop(true);
-                //  parentFrame.setAlwaysOnTop(false);
-                //   parentFrame.toFront();
-                //  parentFrame.setAlwaysOnTop(true);
-
-                } else {
-                ///// commented below to prevent thread synchronization bug
-                //parentFrame.setAlwaysOnTop(true);
-                // parentFrame.setAlwaysOnTop(false);
-                // parentFrame.toFront();
-                // parentFrame.setAlwaysOnTop(true);
-
-                //MessageBox.OK(self(), "The current window is not the one being edited using the Bungeni Editor, please select this document :" +  getName() + " from the Editor Selector to be able to edit it!");
-                }
-                } else {
-                log.error("xComponentListner :  selected document object is null"  );
-                }
-                }*/
-            }
-        }
-    }
-
+    
     class cboListDocumentsActionListener implements ActionListener {
 
+        //AH-20-05-2011
+        /**
         componentHandleContainer oldItem;
-
+        **/
         public void actionPerformed(ActionEvent e) {
             try {
                 JComboBox cb = (JComboBox) e.getSource();
+                DocumentComposition dc = (DocumentComposition) cb.getSelectedItem();
+                updateMain(dc, false);
+                //switch tabs here
+                JTabbedPane pane = BungeniNoaTabbedPane.getInstance().getTabbedPane();
+                //we check if the tab has already been switched -- if it has not
+                //been switched, we switched.
+                //the tab may have already been switched if the user had manually
+                //selected the tab. (see initExternalListeners()for the listener to
+                //the tabbed pane
+                if (!pane.getSelectedComponent().equals(dc.getPanel().getPanel()))
+                    pane.setSelectedComponent(dc.getPanel().getPanel());
+                /***
                 componentHandleContainer newItem = (componentHandleContainer) cb.getSelectedItem();
                 boolean same = false;
                 if (oldItem != null) {
@@ -1173,7 +611,7 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
                 oldItem = newItem;
                 if ("comboBoxChanged".equals(e.getActionCommand())) {
                     updateMain((componentHandleContainer) newItem, same);
-                }
+                } ***/
             } catch (RuntimeException ex) {
                 log.error("cboListDocuments.actionPerformed = " + ex.getMessage());
                 log.error("cboListDocuments.actionPerformed = " + CommonExceptionUtils.getStackTrace(ex));

@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!--
 Action configuration for debate-records
-HTML is allowed in tooltip texts
+
+HTML is allowed in tooltip texts :
+<a>, <b>, <i>, <br />, <center>, <ul>, <li>, <u>
+
+NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
+
 -->
 <toolbar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:noNamespaceSchemaLocation="../../src/xsd/toolbar.xsd"
+ xsi:noNamespaceSchemaLocation="../../../src/xsd/toolbar.xsd"
  doctype="debaterecord">
     <root visible="true">
         <actionGroup name="tabFavourites" 
@@ -373,6 +378,18 @@ HTML is allowed in tooltip texts
                         Select an Image and mark it as the preface logo
                     </tooltip>
                 </subaction>
+                <subaction name="Masthead.selection.date"
+                    tooltip="Markup Official Date"
+                    mode="TEXT_SELECTED_INSERT"
+                    target="toolbarSubAction.makeDebateMastheadSection.markup_official_date"
+                    visible="true" 
+                    condition="cursorInSection:preface :and: 
+                                 textSelected:true">
+                    <title xml:lang="eng">---- date</title>
+                    <tooltip xml:lang="eng">
+                        Markup the official date
+                    </tooltip>
+                </subaction>
             </blockAction>
 
             <blockAction name="Papers" 
@@ -442,8 +459,10 @@ HTML is allowed in tooltip texts
                                 cursorInSection:tbldocs[0-9]*">
                     <title xml:lang="eng">---- -- select/markup link</title>
                     <tooltip xml:lang="eng">
-                        Mark selection as hyperlink to an existing tabled\n
-                        document 
+                        <html>
+                        Mark selection as hyperlink to an existing tabled<br />
+                        document
+                        </html>
                     </tooltip>
                 </action>
                 <action name="Papers.selectSingleData" 
@@ -645,9 +664,11 @@ HTML is allowed in tooltip texts
                                 cursorInSection:debaterecord">
                     <title xml:lang="eng">questions section</title>
                     <tooltip xml:lang="eng">
-                        A group of many questions; this group of Questions \n
-                        are classifed on "Type"; this selector will prompt \n
+                        <html>
+                        A group of many questions; this group of Questions <br />
+                        are classifed on "Type"; this selector will prompt <br />
                         you for the "kind" of grouping.
+                        </html>
                     </tooltip>
                 </action>
                 <action name="Questions.heading0" 
@@ -670,10 +691,12 @@ HTML is allowed in tooltip texts
                                 cursorInSection:questions[0-9]*">
                     <title xml:lang="eng">import question</title>
                     <tooltip xml:lang="eng">
-                        A individual question is composed of a spoken question, \n
-                        speeches and one or more answers. This action will prompt \n
-                        you to select a question from a dialog screen and apply the \n
+                        <html>
+                        A individual question is composed of a spoken question, <br />
+                        speeches and one or more answers. This action will prompt <br />
+                        you to select a question from a dialog screen and apply the <br />
                         chosen question's metadata on the selection.
+                        </html>
                     </tooltip>
                 </action>
                 <action name="Questions.new" 
@@ -686,10 +709,12 @@ HTML is allowed in tooltip texts
                         add question
                     </title>
                     <tooltip xml:lang="eng">
-                        A individual question is composed of a spoken question, <br/>
-                        speeches and one or more answers. This action will prompt <br/>
-                        you to enter the metadata for the question; and then apply <br/>
+                        <html>
+                        A individual question is composed of a spoken question, <br />
+                        speeches and one or more answers. This action will prompt <br />
+                        you to enter the metadata for the question; and then apply <br />
                         the entered metadata on the selection.
+                        </html>
                      </tooltip>
                 </action>
                  <!-- markup text as question no. -->
@@ -735,8 +760,10 @@ HTML is allowed in tooltip texts
                                 !sectionHasChild:sque[0-9]*">
                     <title xml:lang="eng">spoken question</title>
                     <tooltip xml:lang="eng">
-                        A spoken question is the point where a member asks \n
+                        <html>
+                        A spoken question is the point where a member asks <br />
                         a question during the debate
+                        </html>
                     </tooltip>
                 </action>
 
@@ -749,9 +776,11 @@ HTML is allowed in tooltip texts
                     cursorInSection:sque[0-9]*">
                     <title xml:lang="eng">-- body</title>
                     <tooltip xml:lang="eng">
-                        <p>This is the body of the question. Usually the part of 
-                        the spoken text that comes after the name of the person 
-                        asking the question</p>
+                        <html>
+                        This is the body of the question. Usually the part of <br />
+                        the spoken text that comes after the name of the person <br />
+                        asking the question
+                        </html>
                     </tooltip>
                 </action>
                 

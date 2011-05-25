@@ -23,4 +23,4 @@ commons-lang http://bungeni-editor.googlecode.com/svn/external_imports/trunk/lib
 commons-codec http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/commons-codec
 noa http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/noa
 miglayout http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/miglayout
-
+glazedlists http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/glazedlists

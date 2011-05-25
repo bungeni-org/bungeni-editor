@@ -1,20 +1,15 @@
 package org.bungeni.editor.dialogs;
 
-import com.sun.star.awt.XWindow;
-import com.sun.star.comp.helper.Bootstrap;
-import com.sun.star.comp.helper.BootstrapException;
-import com.sun.star.frame.XModel;
+import ag.ion.bion.officelayer.application.OfficeApplicationException;
+import ag.ion.bion.officelayer.document.DocumentException;
+import ag.ion.noa.NOAException;
 import com.sun.star.lang.XComponent;
 
-import com.sun.star.uno.XComponentContext;
-import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
@@ -41,16 +36,18 @@ import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
+import org.bungeni.editor.noa.BungeniNoaApp;
 import org.bungeni.editor.SplashPage;
 import org.bungeni.editor.locales.BungeniEditorLocale;
 import org.bungeni.editor.locales.BungeniEditorLocalesFactory;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
+import org.bungeni.editor.noa.BungeniNoaFrame;
+import org.bungeni.editor.noa.BungeniNoaFrame.DocumentComposition;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.ooo.BungenioOoHelper;
 import org.bungeni.ooo.OOComponentHelper;
-import org.bungeni.ooo.ooQueryInterface;
 import org.bungeni.extutils.BungeniFrame;
 import org.bungeni.extutils.BungeniRuntimeProperties;
 import org.bungeni.extutils.CommonFileFunctions;
@@ -66,33 +63,34 @@ import org.bungeni.utils.WorkspaceFolderTableModel;
  */
 public class editorApplicationController extends javax.swing.JPanel {
 
-    private XComponentContext m_xContext;
+
     private java.util.Properties m_propSettings;
     private Installation m_installObject;
     private static String __WINDOW_TITLE__ = "Bungeni Editor Client ";
     private JFrame parentFrame;
-
     //path to settings.properties
-    private String m_iniFilePath;
-    private String m_settings_WorkspacePath;
-    private String m_settings_ServerIP;
-    private String m_settings_ServerPort;
-    private String m_settings_ServerPath;
-    private String m_settings_ServerUser;
-    private String m_settings_ServerPassword;
+    private String m_iniFilePath = "";
+    private String m_settings_WorkspacePath = "";
+    private String m_settings_ServerIP = "";
+    private String m_settings_ServerPort = "";
+    private String m_settings_ServerPath = "";
+    private String m_settings_ServerUser = "";
+    private String m_settings_ServerPassword = "";
+
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(editorApplicationController.class.getName());
-    private String m_FullWorkspacePath;
-    private String m_FullTemplatesPath;
-    private String m_currentTemplate;
-    private String m_currentSelectedWorkspaceFile;
-    private String m_settings_CurrentTemplate;
-    private String m_currentMode;
+    private String m_FullWorkspacePath = "";
+    private String m_FullTemplatesPath = "";
+    private String m_currentTemplate = "";
+    private String m_currentSelectedWorkspaceFile = "";
+    private String m_settings_CurrentTemplate = "";
+    private String m_currentMode = "";
     private static String normalizedTemplatePath = "";
-    private org.bungeni.editor.dialogs.editorTabbedPanel panel = null;
-    private String m_FullFilesPath;
-    private org.bungeni.ooo.BungenioOoHelper openofficeObject = null;
+
+    private String m_FullFilesPath = "";
     private documentType[] m_documentTypes = null;
+
     private static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/dialogs/Bundle");
+
     /**
      * Constructor for editorApplicationController Class
      */
@@ -107,15 +105,21 @@ public class editorApplicationController extends javax.swing.JPanel {
     public editorApplicationController(JFrame pFrame) {
         log.debug("in constructor");
         log.debug("launch locale language = " + Locale.getDefault().getLanguage());
-        try {
-            m_xContext = Bootstrap.bootstrap();
-        } catch (BootstrapException ex) {
-            log.error("editorApplicationController bootstrap : " + ex.getMessage());
-        }
-        m_FullWorkspacePath = "";
-        m_FullTemplatesPath = "";
-        m_currentSelectedWorkspaceFile = "";
-        m_iniFilePath = "";
+    
+            try {
+                BungeniNoaApp noaAppInstance = BungeniNoaApp.getInstance();
+                if (noaAppInstance != null) {
+                    BungenioOoHelper helperObj = org.bungeni.ooo.BungenioOoHelper.getInstance();
+                    if (helperObj.getComponentContext() == null ) {
+                         helperObj.init(noaAppInstance.
+                                getOfficeApp().
+                                getOfficeConnection().
+                                getXComponentContext());
+                    }
+                }
+            } catch (Throwable ex) {
+                log.error("Error while initializing NOA" , ex);
+            }
         m_propSettings = new java.util.Properties();
         initComponents();
         this.parentFrame = pFrame;
@@ -129,9 +133,10 @@ public class editorApplicationController extends javax.swing.JPanel {
 
     }
 
-    public void cleanup(){
-       if  (panel != null)
-        panel.cleanup();
+    public void cleanup() {
+        if (editorTabbedPanel.getInstance() != null) {
+            editorTabbedPanel.getInstance().cleanup();
+        }
     }
 
     public void init() {
@@ -148,7 +153,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         initWorkspaceFolderModels(dir);
         initPanels(dir);
         //initWebDav();
-        initDataReader();
+        //initDataReader();
         initLaunchLabels();
     }
 
@@ -160,9 +165,9 @@ public class editorApplicationController extends javax.swing.JPanel {
             String versionInfo = (String) props.get("version");
             replaceTextinLabel(lblApplnTitle, versionInfo);
         } catch (IOException ex) {
-           log.error("unable to load version info :" , ex);
+            log.error("unable to load version info :", ex);
         }
-        
+
     }
 
     class ODTFileFilter extends FileFilter {
@@ -261,13 +266,11 @@ public class editorApplicationController extends javax.swing.JPanel {
             }
         });
 
-        lblCurrentTemplate.setFont(new java.awt.Font("Tahoma", 0, 11));
         lblCurrentTemplate.setText(bundle.getString("editorApplicationController.lblCurrentTemplate.text")); // NOI18N
 
         cboDocumentTypes.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         cboDocumentTypes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        lblDocumentTypes.setFont(new java.awt.Font("Tahoma", 0, 11));
         lblDocumentTypes.setText(bundle.getString("editorApplicationController.lblDocumentTypes.text")); // NOI18N
 
         btnOpenExisting.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
@@ -396,7 +399,7 @@ public class editorApplicationController extends javax.swing.JPanel {
                     .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 88, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(btnSetCurrentTemplate)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         editorAppTabbedPane.addTab(bundle.getString("editorApplicationController.tabTemplates.TabConstraints.tabTitle"), tabTemplates); // NOI18N
@@ -609,7 +612,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         );
         tabAboutLayout.setVerticalGroup(
             tabAboutLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 155, Short.MAX_VALUE)
+            .add(0, 167, Short.MAX_VALUE)
         );
 
         editorAppTabbedPane.addTab(bundle.getString("editorApplicationController.tabAbout.TabConstraints.tabTitle"), tabAbout); // NOI18N
@@ -617,10 +620,10 @@ public class editorApplicationController extends javax.swing.JPanel {
         lblApplnTitle.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         lblApplnTitle.setText(bundle.getString("editorApplicationController.lblApplnTitle.text")); // NOI18N
 
-        cboLocale.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        cboLocale.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         cboLocale.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        lblLocale.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        lblLocale.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         lblLocale.setText(bundle.getString("editorApplicationController.lblLocale.text")); // NOI18N
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
@@ -630,11 +633,11 @@ public class editorApplicationController extends javax.swing.JPanel {
             .add(layout.createSequentialGroup()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(lblApplnTitle, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 368, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(editorAppTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 532, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(layout.createSequentialGroup()
                         .add(lblLocale, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(cboLocale, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 199, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(cboLocale, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 199, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(editorAppTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 532, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -646,7 +649,8 @@ public class editorApplicationController extends javax.swing.JPanel {
                     .add(lblLocale)
                     .add(cboLocale, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 21, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(editorAppTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 195, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(editorAppTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 207, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -657,7 +661,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         SwingUtilities.invokeLater(new Runnable() {
 
             public void run() {
-                initoOoAndLaunchFrame(m_currentSelectedWorkspaceFile, false);
+                launchDocumentInFrame(m_currentSelectedWorkspaceFile, false);
             }
         });
 
@@ -703,20 +707,21 @@ public class editorApplicationController extends javax.swing.JPanel {
             txtWorkspacePath.setText(file.getName());
         } else {
             //log.info("Open command cancelled by user.\n");
-            }
+        }
 
     }//GEN-LAST:event_btnBrowseWorkspacePathActionPerformed
 
-   /**
-    * Sets the default locale in the locale selection combobox
-    */
-   private void initLocales(){
-       DefaultComboBoxModel cboModel = new DefaultComboBoxModel(BungeniEditorLocalesFactory.getAvailableLocales());
-       this.cboLocale.setModel(cboModel);
-       //get the current default locale which was set at startup in the class BungeniEditorClient
-       BungeniEditorLocale defLocale = new BungeniEditorLocale(Locale.getDefault());
-       cboLocale.setSelectedItem(defLocale);
-       cboLocale.addActionListener( new ActionListener(){
+    /**
+     * Sets the default locale in the locale selection combobox
+     */
+    private void initLocales() {
+        DefaultComboBoxModel cboModel = new DefaultComboBoxModel(BungeniEditorLocalesFactory.getAvailableLocales());
+        this.cboLocale.setModel(cboModel);
+        //get the current default locale which was set at startup in the class BungeniEditorClient
+        BungeniEditorLocale defLocale = new BungeniEditorLocale(Locale.getDefault());
+        cboLocale.setSelectedItem(defLocale);
+        cboLocale.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent ae) {
                 try {
                     updateLocaleIni();
@@ -726,22 +731,21 @@ public class editorApplicationController extends javax.swing.JPanel {
                     log.error("while updating editor.ini", ex);
                 }
             }
-       });
+        });
 
-   }
+    }
 
-
-   private void updateLocaleIni() throws FileNotFoundException, IOException {
-       log.info("Updating locale ini");
-       Properties pEditorIni = new Properties();
-       pEditorIni.load(new FileInputStream(BungeniRuntimeProperties.getProperty("EDITOR_INI")));
-       Object[] objects = cboLocale.getSelectedObjects();
-       BungeniEditorLocale selectedLocale = (BungeniEditorLocale) objects[0];
-       pEditorIni.setProperty("lang", selectedLocale.getLocale().getLanguage());
-       pEditorIni.setProperty("region", selectedLocale.getLocale().getCountry());
-       pEditorIni.store(new FileOutputStream(BungeniRuntimeProperties.getProperty("EDITOR_INI")), "Updating locale in editor.ini");
-       MessageBox.OK(this.parentFrame, bundle.getString("change_locale"));
-   }
+    private void updateLocaleIni() throws FileNotFoundException, IOException {
+        log.info("Updating locale ini");
+        Properties pEditorIni = new Properties();
+        pEditorIni.load(new FileInputStream(BungeniRuntimeProperties.getProperty("EDITOR_INI")));
+        Object[] objects = cboLocale.getSelectedObjects();
+        BungeniEditorLocale selectedLocale = (BungeniEditorLocale) objects[0];
+        pEditorIni.setProperty("lang", selectedLocale.getLocale().getLanguage());
+        pEditorIni.setProperty("region", selectedLocale.getLocale().getCountry());
+        pEditorIni.store(new FileOutputStream(BungeniRuntimeProperties.getProperty("EDITOR_INI")), "Updating locale in editor.ini");
+        MessageBox.OK(this.parentFrame, bundle.getString("change_locale"));
+    }
 
     class documentType extends Object {
 
@@ -860,13 +864,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         }
     }
 
-    private void initWebDav() {
-
-        initWebdavTableModel();
-    }
-
-    private void initWebdavTableModel() {
-    }
+   
 
     private void initProperties(java.io.File currentFolder) {
         try {
@@ -896,71 +894,13 @@ public class editorApplicationController extends javax.swing.JPanel {
 
         } catch (IOException ex) {
             //log.error(ex.getMessage(), ex);
-            }
+        }
 
     }
     public static int OPENOFFICE_HEIGHT_OFFSET = 60;
     public static int WIDTH_OOo_SCROLLBAR = 25;
-    private void initFrame(XComponent component) {
-        BungeniFrame frame = new BungeniFrame(bundle.getString("editorTabbedPanel.panel.Title"));
-        //set the dimensions for the frame;
-        frame.setSize(270, 655);
-        //frame position information
-        //position frame
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension windowSize = frame.getSize();
-        log.debug("screen size = " + screenSize);
-        log.debug("window size = " + windowSize);
 
-        int windowX = screenSize.width - frame.getWidth() - WIDTH_OOo_SCROLLBAR;
-        int windowY = editorApplicationController.getFrameWindowDimension().y;
-        WINDOW_X = windowX;
-        WINDOW_Y = windowY;
-
-        XModel xModel = ooQueryInterface.XModel(component);
-        XWindow xCompWindow = xModel.getCurrentController().getFrame().getComponentWindow();
-        XWindow xContWindow = xModel.getCurrentController().getFrame().getContainerWindow();
-        com.sun.star.awt.Rectangle rSize = xCompWindow.getPosSize();
-        com.sun.star.awt.Rectangle rContSize = xContWindow.getPosSize();
-        int coordX = rSize.X + rContSize.X;
-        int coordY = rContSize.Y + rSize.Y + 40;
-
-        editorTabbedPanel.coordX = windowX;
-        editorTabbedPanel.coordY = coordY;
-
-        panel = new org.bungeni.editor.dialogs.editorTabbedPanel(component, this.openofficeObject, frame);
-        //panel.setOOoHelper(this.openofficeObject);
-        // frame.removeMinMaxClose();
-
-        frame.add(panel);
-        WindowListener tabbedPanelListener = new WindowAdapter() {
-
-            @Override
-            public void windowClosing(WindowEvent e) {
-                WindowEvent we = new WindowEvent(parentFrame, WindowEvent.WINDOW_CLOSING);
-                parentFrame.dispatchEvent(we);
-            }
-
-            @Override
-            public void windowDeiconified(WindowEvent e) {
-                panel.bringEditorWindowToFront();
-            }
-
-            @Override
-            public void windowIconified(WindowEvent e) {
-                System.out.println("panel minimized....");
-            }
-        };
-        frame.addWindowListener(tabbedPanelListener);
-        //frame.setSize(243, 650);
-        frame.setResizable(false);
-        frame.setAlwaysOnTop(true);
-        frame.setVisible(true);
-        //prevent closing of main editor panel
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        frame.setLocation(editorTabbedPanel.coordX, editorTabbedPanel.coordY);
-    //frame.setLocation(windowX, windowY );  // Don't use "f." inside constructor.
-    }
+ 
     private static int WINDOW_X = 0;
     private static int WINDOW_Y = 0;
 
@@ -968,60 +908,42 @@ public class editorApplicationController extends javax.swing.JPanel {
         return new Point(WINDOW_X, WINDOW_Y);
     }
 
-    private void initoOoAndLaunchFrame(String templatePath, boolean isTemplate) {
-        openofficeObject = new org.bungeni.ooo.BungenioOoHelper(m_xContext);
-        openofficeObject.initoOo();
+    private void launchDocumentInFrame(String templatePath, boolean isTemplate) {
 
         String templateURL = BungenioOoHelper.convertPathToURL(templatePath);
-        XComponent xComponent;
+       
         log.debug("template URL= " + templateURL);
-        if (isTemplate) {
-            xComponent = openofficeObject.newDocument(templateURL);
-            initMeta(xComponent);
-        } else {
-            xComponent = openofficeObject.openDocument(templateURL);
+
+        BungeniNoaFrame frame = BungeniNoaFrame.getInstance();
+        frame.setTitle(bundle.getString("editorTabbedPanel.panel.Title"));
+        DocumentComposition dc = null;
+        try {
+            dc = frame.loadDocumentInPanel(templatePath, isTemplate);
+        } catch (OfficeApplicationException ex) {
+            log.error("Error while loading document !!!", ex);
+        } catch (NOAException ex) {
+            log.error("Error while loading document !!!", ex);
+        } catch (DocumentException ex) {
+            log.error("Error while loading document !!!", ex);
         }
-        initFrame(xComponent);
-    // testFrame(xComponent);
-    }
+        XComponent xopenedDocument = dc.getDocument().getXComponent();
 
-    public void testFrame(XComponent xComp) {
-        BungeniFrame frame = new BungeniFrame("BungeniEditor Control Panel @@@");
-        //set the dimensions for the frame;
-        frame.setSize(270, 400);
-        //frame position information
-        //position frame
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension windowSize = frame.getSize();
-        log.debug("screen size = " + screenSize);
-        log.debug("window size = " + windowSize);
-
-        int windowX = 5; //Math.max(0, (screenSize.width  - windowSize.width));
-        int windowY = Math.max(0, (screenSize.height - windowSize.height) / 2) + OPENOFFICE_HEIGHT_OFFSET;
-        WINDOW_X = windowX;
-        WINDOW_Y = windowY;
-        XModel xModel = ooQueryInterface.XModel(xComp);
-        XWindow xCompWindow = xModel.getCurrentController().getFrame().getComponentWindow();
-        XWindow xContWindow = xModel.getCurrentController().getFrame().getContainerWindow();
-        com.sun.star.awt.Rectangle rSize = xCompWindow.getPosSize();
-        com.sun.star.awt.Rectangle rContSize = xContWindow.getPosSize();
-
-        frame.setLocation(rSize.X + rContSize.X, rSize.Y + rContSize.Y + 40);
-
-        frame.setResizable(false);
-        frame.setAlwaysOnTop(true);
-        //s frame.pack();
+        editorTabbedPanel panel = editorTabbedPanel.getInstance();
+        panel.init(dc);
+        frame.getBasePanel().add(panel, "shrink 0");
+        frame.validate();
         frame.setVisible(true);
-        //prevent closing of main editor panel
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    }
+        frame.setSize(800, 600);
+        frame.setExtendedState(frame.getExtendedState()|JFrame.MAXIMIZED_BOTH);
+       }
+
 
     private void initMeta(XComponent xComp) {
         LaunchDebateMetadataSetter(xComp);
     }
 
     private void LaunchDebateMetadataSetter(XComponent xComp) {
-        OOComponentHelper oohc = new OOComponentHelper(xComp, this.m_xContext);
+        OOComponentHelper oohc = new OOComponentHelper(xComp, BungenioOoHelper.getInstance().getComponentContext());
 
         if (oohc.propertyExists("__BungeniDocMeta")) {
             String docMetaValue = "";
@@ -1054,42 +976,6 @@ public class editorApplicationController extends javax.swing.JPanel {
         frm.setAlwaysOnTop(true);
     }
 
-    class RunOpenOffice implements Runnable {
-
-        XComponent returnComponent = null;
-        boolean isTemplate = false;
-        BungenioOoHelper helper;
-        String urlToFile;
-
-        public RunOpenOffice(BungenioOoHelper obj, String openURL, boolean bState) {
-            isTemplate = bState;
-            helper = obj;
-            urlToFile = openURL;
-        }
-
-        public void run() {
-            try {
-                if (isTemplate) {
-                    returnComponent = helper.newDocument(urlToFile);
-                } else {
-                    returnComponent = helper.openDocument(urlToFile);
-                }
-            } catch (Exception ex) {
-                log.error("RunOpenOffice: run : " + ex.getMessage());
-            }
-        }
-    }
-
-    public void initDataReader() {
-        /**
-        BungeniDataReader rds = new BungeniDataReader();
-        Vector<String[]> vMpData = new Vector<String[]>();
-        vMpData = rds.read("mps.data");
-        System.out.println("size of mp.data = "+ vMpData.size());
-
-         *
-         */
-    }
 
     private void replaceTextinLabel(JLabel lbl, String newText) {
         String lblText = lbl.getText();
@@ -1104,15 +990,17 @@ public class editorApplicationController extends javax.swing.JPanel {
         replaceTextinLabel(lblCurrentActiveMode, desc);
         replaceTextinLabel(lblOpenCurrentDoc, desc);
         replaceTextinLabel(lblCreateNewDoc, desc);
-    // replaceTextinLabel(lblLaunchAndAccquire, desc);
+        // replaceTextinLabel(lblLaunchAndAccquire, desc);
 
     }
 
+    
     private boolean launchDocumentType(documentType thisDocType, String launchMode) {
+
         //if it is a new document ....
         if (launchMode.equals("new")) {
             //check if the editor panel is open -- this will be non-null in all cases except for the first initial launch
-            if (panel == null) {
+            if (editorTabbedPanel.isInstanceNull() ) {
                 //open the document and init the frame
                 String templateURL = "";
                 log.debug("Current Template file :" + m_FullTemplatesPath + File.separatorChar + m_settings_CurrentTemplate);
@@ -1120,34 +1008,36 @@ public class editorApplicationController extends javax.swing.JPanel {
                 SwingUtilities.invokeLater(new Runnable() {
 
                     public void run() {
-                        initoOoAndLaunchFrame(templatePathNormalized, true);
+                        launchDocumentInFrame(templatePathNormalized, true);
                     }
                 });
             } else {
                 //open the document in the current panel
-                panel.newDocumentInPanel();
+                editorTabbedPanel.getInstance().newDocumentInPanel();
             }
             return true;
-        } else { //edit
-            if (panel == null) {
+        }
+
+      if (launchMode.equals("edit")){ //edit
+            if (editorTabbedPanel.isInstanceNull()) {
                 String basePath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + "workspace" + File.separator + "files";
                 File openFile = CommonFileFunctions.getFileFromChooser(basePath, new org.bungeni.utils.fcfilter.ODTFileFilter(), JFileChooser.FILES_ONLY, null);
                 if (openFile != null) {
                     String fullPathToFile = openFile.getAbsolutePath();
-                    initoOoAndLaunchFrame(fullPathToFile, false);
+                    launchDocumentInFrame(fullPathToFile, false);
                     return true;
                 } else {
                     return false;
                 }
             } else {
                 //open the document in the current panel
-                panel.loadDocumentInPanel();
+                editorTabbedPanel.getInstance().loadDocumentInPanel();
                 return true;
             }
         }
-
+      return false;
     }
-
+   
     public void launchDocumentType(String docType, String launchMode) {
         documentType thisDocType = null;
         for (int i = 0; i < cboDocumentTypes.getModel().getSize(); i++) {
@@ -1167,45 +1057,31 @@ public class editorApplicationController extends javax.swing.JPanel {
 
     }
 
-private void launchFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_launchFrameActionPerformed
-    //use template defined in m_settings_CurrentTemplate
-    //m_FullTemplatesPath
-    //m_settings_CurrentTemplate = "hansard.ott";
-    createNewDocument.setEnabled(false);
-    documentType selectedDocType = (documentType) cboDocumentTypes.getSelectedItem();
-    launchDocumentType(selectedDocType, "new");
-    
-    createNewDocument.setEnabled(true);
-    hideWindow(false);
+    private void launchFrameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_launchFrameActionPerformed
+        //use template defined in m_settings_CurrentTemplate
+        //m_FullTemplatesPath
+        //m_settings_CurrentTemplate = "hansard.ott";
+        createNewDocument.setEnabled(false);
+        documentType selectedDocType = (documentType) cboDocumentTypes.getSelectedItem();
+        launchDocumentType(selectedDocType, "new");
 
-}//GEN-LAST:event_launchFrameActionPerformed
+        createNewDocument.setEnabled(true);
+        hideWindow(false);
 
-private void btnOpenExistingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenExistingActionPerformed
+    }//GEN-LAST:event_launchFrameActionPerformed
+
+    private void btnOpenExistingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenExistingActionPerformed
 // TODO add your handling code here:
-    this.btnOpenExisting.setEnabled(false);
-    documentType selectedDocType = (documentType) cboDocumentTypes.getSelectedItem();
-    if (launchDocumentType(selectedDocType, "edit")) {
-        this.hideWindow(false);
-    }
-
-    this.btnOpenExisting.setEnabled(true);
-    
-}//GEN-LAST:event_btnOpenExistingActionPerformed
-
-    private void importDocument(String documentPath) {
-
-        if (openofficeObject == null) {
-            openofficeObject = new org.bungeni.ooo.BungenioOoHelper(m_xContext);
-            openofficeObject.initoOo();
+        this.btnOpenExisting.setEnabled(false);
+        documentType selectedDocType = (documentType) cboDocumentTypes.getSelectedItem();
+        if (launchDocumentType(selectedDocType, "edit")) {
+            this.hideWindow(false);
         }
 
-        String templateURL = BungenioOoHelper.convertPathToURL(documentPath);
-        XComponent xComponent;
-        log.debug("import URL= " + templateURL);
-        xComponent = openofficeObject.openDocument(templateURL);
-    //    initFrame(xComponent);
-    // testFrame(xComponent);
-    }
+        this.btnOpenExisting.setEnabled(true);
+
+    }//GEN-LAST:event_btnOpenExistingActionPerformed
+
     SplashPage page = new SplashPage(5000);
 
     private void hideWindow(boolean bState) {
@@ -1230,8 +1106,8 @@ private void btnOpenExistingActionPerformed(java.awt.event.ActionEvent evt) {//G
             strTemplateName = (String) tblTemplatesList.getValueAt(tblTemplatesList.getSelectedRow(), 0);
             m_settings_CurrentTemplate = strTemplateName;
             lblSelectedTemplate.setText("Active Template: " + strTemplateName);
-        //  output.append("ROW SELECTION EVENT. ");
-        //  outputSelection();
+            //  output.append("ROW SELECTION EVENT. ");
+            //  outputSelection();
         }
     }
 
@@ -1246,8 +1122,8 @@ private void btnOpenExistingActionPerformed(java.awt.event.ActionEvent evt) {//G
                 return;
             }
             System.out.println("selected : " + event.getLastIndex());
-        //  output.append("ROW SELECTION EVENT. ");
-        //  outputSelection();
+            //  output.append("ROW SELECTION EVENT. ");
+            //  outputSelection();
         }
     }
 
@@ -1257,8 +1133,7 @@ private void btnOpenExistingActionPerformed(java.awt.event.ActionEvent evt) {//G
         }
 
         public void windowClosing(WindowEvent e) {
-            //System.out.println("windowClosing....");
-            panel.cleanup();
+            editorTabbedPanel.getInstance().cleanup();
         }
 
         public void windowClosed(WindowEvent e) {
@@ -1268,7 +1143,7 @@ private void btnOpenExistingActionPerformed(java.awt.event.ActionEvent evt) {//G
         }
 
         public void windowDeiconified(WindowEvent e) {
-            panel.bringEditorWindowToFront();
+            
         }
 
         public void windowActivated(WindowEvent e) {

@@ -8,8 +8,6 @@ import org.bungeni.editor.interfaces.ui.ILookAndFeel;
 import org.bungeni.editor.ui.LookAndFeelFactory;
 import org.bungeni.extutils.CommonTreeFunctions;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
-import org.bungeni.plugins.IEditorPlugin;
-import org.bungeni.plugins.IEditorPluginEventDispatcher;
 import org.bungeni.utils.Installation;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -45,18 +43,9 @@ public class BungeniEditorClient {
     public static BungeniEditorClientCmdOptions cmdOptions = null;
     private static org.apache.log4j.Logger log =
             org.apache.log4j.Logger.getLogger(BungeniEditorClient.class.getName());
-    private static IEditorPluginEventDispatcher evtDispatcher = new IEditorPluginEventDispatcher() {
-
-        public void dispatchEvent(String arg0, Object[] arg1) {
-            String dispatchSectionName = (String) arg1[0];
-
-            System.out.println(dispatchSectionName);
-        }
-    };
-    private static JFrame frame;
+    private static JFrame frame = null;
     private static editorApplicationController panel;
-    private static IEditorPlugin pluginObject;
-
+ 
     /** Creates a new instance of BungeniEditorClient */
     public BungeniEditorClient() {
     }
@@ -124,7 +113,8 @@ public class BungeniEditorClient {
         initUI();
 
         // Instantiate the controlling class.
-        frame = new JFrame(__WINDOW_TITLE__);
+        if (frame == null)
+            frame = new JFrame(__WINDOW_TITLE__);
 
         ImageIcon iconApp = CommonTreeFunctions.loadIcon("bungeni-icon.png");
 
@@ -253,4 +243,5 @@ public class BungeniEditorClient {
             e.printStackTrace();
         }
     }
+
 }

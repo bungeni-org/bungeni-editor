@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2011 undesa
+ *  Copyright (C) 2011 Africa i-Parliaments Action Plan
  * 
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -18,45 +18,52 @@
 
 package org.bungeni.editor.noa;
 
+import ag.ion.bion.officelayer.desktop.IDesktopService;
 import ag.ion.bion.officelayer.desktop.IFrame;
+import ag.ion.noa.NOAException;
+import ag.ion.noa.frame.ILayoutManager;
 
 /**
- * Singleton class to factor out OpenOffice frame creation.
+ * Class that does OpenOffice frame creation.
  * Note that this is different from BungeniNoaFrame -- which is a JFrame derived class.
  * This is a container for an OpenOffice XFrame document window
- * Assumption here currently is we will have only 1 office Frame
- * Until we understand how NOA handles multiple frames ?
+ * 1 XFrame window for 1 OOo document
  * @author Ashok
  */
 public class BungeniNoaOfficeFrame {
 
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BungeniNoaOfficeFrame.class.getName());
 
-    private static BungeniNoaOfficeFrame thisFrame = null;
-
+   
     private IFrame officeFrame = null;
 
     /**
      * Assumption here is that the native instance has already been attached
      * to a container panel. 
      */
-    private BungeniNoaOfficeFrame(){
+    public BungeniNoaOfficeFrame(BungeniNoaNativeView nativeView){
         try {
-            officeFrame =
-                  BungeniNoaApp.getInstance().getOfficeApp().
-                    getDesktopService().
-                      constructNewOfficeFrame(BungeniNoaNativeView.getInstance().
-                         getNativeView());
+            IDesktopService idesk = BungeniNoaApp.getInstance().getOfficeApp().getDesktopService();
+
+            officeFrame = idesk.constructNewOfficeFrame(nativeView.getNativeView());
+
+           // initFrameBehavior();
+
         } catch (Throwable ex) {
-            log.error("Error while getting NoaOfficeFrame");
+            log.error("Error while getting NoaOfficeFrame", ex);
         }
     }
 
-    public static BungeniNoaOfficeFrame getInstance(){
-        if (thisFrame == null) {
-            thisFrame = new BungeniNoaOfficeFrame();
+    /**
+     * Do all the initializations for IOfficeFrame behaviors, look and feel here
+     */
+    protected final void initFrameBehavior() {
+        try {
+            //hide the menu bar
+            officeFrame.getLayoutManager().hideElement(ILayoutManager.URL_TOOLBAR_STANDARDBAR);
+        } catch (NOAException ex) {
+            log.error("Error while adding custom initialization to the Frame via the layout manager", ex);
         }
-        return thisFrame;
     }
 
     public IFrame getFrame(){

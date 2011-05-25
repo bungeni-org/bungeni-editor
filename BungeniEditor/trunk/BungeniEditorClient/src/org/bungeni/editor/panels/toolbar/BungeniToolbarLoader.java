@@ -10,6 +10,7 @@ import javax.swing.JTabbedPane;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.jdom.Element;
 import org.jdom.Namespace;
+import org.jdom.output.XMLOutputter;
 
 /**
  * Reads the toolbar XML - translates the <blockAction> as tabs and <action> and <subaction> as buttons
@@ -22,7 +23,7 @@ public class BungeniToolbarLoader {
     private BungeniToolbarParser toolbarParser = null;
     private ActionListener actionListener = null;
     private String iso3Language = "";
-
+    private XMLOutputter xmlOutputter = new XMLOutputter();
     /**
      * Creates a BungeniToolbarLoader
      * The action listener for the buttons is passed as parameter
@@ -93,14 +94,24 @@ public class BungeniToolbarLoader {
                    }
                }
                log.error("language was not specified for :" + sError + " returning title anyway");
-               return title.getText();
+               return outputElementContentAsRawXMLorString(title);
            }
            if (foundLang.equals(langCode)) {
-               return title.getText();
+             return outputElementContentAsRawXMLorString(title);
            }
         }
        return "UNDEFINED";
     }
+
+    private String outputElementContentAsRawXMLorString(Element forElement) {
+        Element childHtml = forElement.getChild("html");
+        if (childHtml == null) {
+            return forElement.getTextNormalize();
+        } else {
+            return this.xmlOutputter.outputString(childHtml);
+        }
+    }
+
     /**
      * Load the tabs from the toolbar xml config
      * @param thisPane - the JTabbedPane object which acts as the container for the ations

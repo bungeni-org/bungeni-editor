@@ -102,6 +102,8 @@ public class BungeniToolbarParser {
         try {
             StringReader stringReader = new StringReader(getToolbarXMLFile(TOOLBAR_XML_FILE));
             document = saxBuilder.build(stringReader);
+            
+
         } catch (JDOMException ex) {
             log.error("buildToolbar : " + ex.getMessage());
         } catch (IOException ex) {

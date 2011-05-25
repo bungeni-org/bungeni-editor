@@ -7,6 +7,7 @@
         <xs:element ref="root"/>
       </xs:sequence>
       <xs:attribute name="doctype" use="required" type="xs:NCName"/>
+      <xs:attribute ref="xsi:noNamespaceSchemaLocation" use="required"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="root">
@@ -20,7 +21,7 @@
   <xs:element name="actionGroup">
     <xs:complexType>
       <xs:sequence>
-        <xs:element maxOccurs="unbounded" ref="title"/>
+        <xs:element ref="title"/>
         <xs:element maxOccurs="unbounded" ref="blockAction"/>
       </xs:sequence>
       <xs:attribute name="name" use="required" type="xs:NCName"/>
@@ -48,8 +49,8 @@
   <xs:element name="action">
     <xs:complexType>
       <xs:sequence>
-        <xs:element maxOccurs="unbounded" ref="title"/>
-        <xs:element maxOccurs="unbounded" ref="tooltip"/>
+        <xs:element ref="title"/>
+        <xs:element ref="tooltip"/>
       </xs:sequence>
       <xs:attribute name="condition" use="required" type="xs:anyURI"/>
       <xs:attribute name="mode" use="required" type="xs:NCName"/>
@@ -61,8 +62,8 @@
   <xs:element name="subaction">
     <xs:complexType>
       <xs:sequence>
-        <xs:element maxOccurs="unbounded" ref="title"/>
-        <xs:element maxOccurs="unbounded" ref="tooltip"/>
+        <xs:element ref="title"/>
+        <xs:element ref="tooltip"/>
       </xs:sequence>
       <xs:attribute name="condition" use="required" type="xs:anyURI"/>
       <xs:attribute name="mode" use="required" type="xs:NCName"/>
@@ -79,7 +80,20 @@
   </xs:element>
   <xs:element name="tooltip">
     <xs:complexType mixed="true">
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="html"/>
+      </xs:sequence>
       <xs:attribute ref="xml:lang" use="required"/>
     </xs:complexType>
+  </xs:element>
+  <xs:element name="html">
+    <xs:complexType mixed="true">
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="br"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="br">
+    <xs:complexType/>
   </xs:element>
 </xs:schema>
