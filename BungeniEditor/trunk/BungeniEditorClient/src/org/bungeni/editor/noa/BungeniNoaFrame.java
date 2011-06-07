@@ -3,25 +3,17 @@ package org.bungeni.editor.noa;
 import ag.ion.bion.officelayer.application.OfficeApplicationException;
 import ag.ion.bion.officelayer.document.DocumentException;
 import ag.ion.noa.NOAException;
-import ca.odell.glazedlists.event.ListEventListener;
-import ca.odell.glazedlists.event.ListEventPublisher;
-import ca.odell.glazedlists.util.concurrent.ReadWriteLock;
 import java.awt.Dimension;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.ListIterator;
 
 import javax.swing.JFrame;
 
 import ag.ion.bion.officelayer.document.DocumentDescriptor;
-import ag.ion.bion.officelayer.document.IDocument;
 import ag.ion.bion.officelayer.text.ITextDocument;
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
-import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -158,7 +150,7 @@ public class BungeniNoaFrame extends BungeniFrame {
                       /**
                        * Clean up the main tabbed panel
                        */
-
+                      System.out.println("Cleaning up panels");
                       if (!editorTabbedPanel.isInstanceNull()) {
                           editorTabbedPanel.getInstance().cleanup();
                       }
@@ -167,7 +159,9 @@ public class BungeniNoaFrame extends BungeniFrame {
                        * Clean up the openoffice handles 
                        */
 
+                      System.out.println("Cleaning up openoffice handles");
                       try {
+                          System.out.println("Closing component handles");
                           //iterate through the document composition list and close every document
                           for (DocumentComposition document : officeDocuments) {
                               //XXXX-TODO-XXX check if document has been saved, warn etc.
@@ -178,6 +172,7 @@ public class BungeniNoaFrame extends BungeniFrame {
                               officeDocuments.remove(document);
                           }
                           //then shutdown OOo completely
+                          System.out.println("Closing OpenOffice completely");
                           if (officeApplication != null) {
                                 officeApplication.deactivate();
                                 officeApplication.dispose();
@@ -190,7 +185,7 @@ public class BungeniNoaFrame extends BungeniFrame {
                       /**
                        * Dispose the main JFrame
                        */
-
+                      System.out.println("Dispose and exit window");
                       dispose();
 
                       /**
@@ -260,14 +255,12 @@ public class BungeniNoaFrame extends BungeniFrame {
         ITextDocument loadedDocument = null;
         if (isTemplate) {
             ddObject = BungeniNoaDocumentDescriptor.forTemplate(pathToDocumentOrTemplate);
-            loadedDocument = (ITextDocument) officeApplication.getDocumentService().
-                    loadDocument(dc.getFrame().getFrame(),pathToDocumentOrTemplate, ddObject);
         } else {
             ddObject = BungeniNoaDocumentDescriptor.forDocument(pathToDocumentOrTemplate);
-            loadedDocument = (ITextDocument) officeApplication.getDocumentService().
+        }
+        loadedDocument = (ITextDocument) officeApplication.getDocumentService().
                     loadDocument(dc.getFrame().getFrame(), pathToDocumentOrTemplate, ddObject);
 
-        }
         String tabTitle = OOComponentHelper.getFrameTitle(loadedDocument.getXTextDocument());
         //set the loaded document into the document composition object
         dc.setDocument(loadedDocument);

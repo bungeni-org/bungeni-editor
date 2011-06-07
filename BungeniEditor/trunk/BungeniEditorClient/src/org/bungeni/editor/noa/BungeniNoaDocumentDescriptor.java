@@ -27,20 +27,22 @@ import org.bungeni.ooo.BungenioOoHelper;
  */
 public class BungeniNoaDocumentDescriptor {
 
-    public static DocumentDescriptor forTemplate(String templatePath){
-        String templateURL =  BungenioOoHelper.convertPathToURL(templatePath);
+    private static DocumentDescriptor common(String inputPath){
+        String inputURL = BungenioOoHelper.convertPathToURL(inputPath);
         DocumentDescriptor ddc = new DocumentDescriptor();
         ddc.setMacroExecutionMode(com.sun.star.document.MacroExecMode.ALWAYS_EXECUTE);
+        ddc.setURL(inputURL);
+        return ddc;
+    }
+
+    public static DocumentDescriptor forTemplate(String templatePath){
+        DocumentDescriptor ddc = common(templatePath);
         ddc.setAsTemplate(true);
-        ddc.setURL(templateURL);
         return ddc;
     }
 
     public static DocumentDescriptor forDocument(String docPath) {
-        String docURL =  BungenioOoHelper.convertPathToURL(docPath);
-        DocumentDescriptor ddc = new DocumentDescriptor();
-        ddc.setMacroExecutionMode(com.sun.star.document.MacroExecMode.ALWAYS_EXECUTE);
-        ddc.setURL(docURL);
+        DocumentDescriptor ddc = common(docPath);
         return ddc;
     }
 
