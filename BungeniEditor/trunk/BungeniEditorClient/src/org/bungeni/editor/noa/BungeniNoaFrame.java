@@ -261,7 +261,7 @@ public class BungeniNoaFrame extends BungeniFrame {
         if (isTemplate) {
             ddObject = BungeniNoaDocumentDescriptor.forTemplate(pathToDocumentOrTemplate);
             loadedDocument = (ITextDocument) officeApplication.getDocumentService().
-                    constructNewDocument(dc.getFrame().getFrame(),IDocument.WRITER, ddObject);
+                    loadDocument(dc.getFrame().getFrame(),pathToDocumentOrTemplate, ddObject);
         } else {
             ddObject = BungeniNoaDocumentDescriptor.forDocument(pathToDocumentOrTemplate);
             loadedDocument = (ITextDocument) officeApplication.getDocumentService().

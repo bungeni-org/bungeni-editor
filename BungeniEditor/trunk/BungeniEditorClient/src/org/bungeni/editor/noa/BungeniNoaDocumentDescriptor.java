@@ -19,6 +19,7 @@
 package org.bungeni.editor.noa;
 
 import ag.ion.bion.officelayer.document.DocumentDescriptor;
+import org.bungeni.ooo.BungenioOoHelper;
 
 /**
  * Class with static methods to return the appropriate document descriptor for NOA
@@ -27,17 +28,19 @@ import ag.ion.bion.officelayer.document.DocumentDescriptor;
 public class BungeniNoaDocumentDescriptor {
 
     public static DocumentDescriptor forTemplate(String templatePath){
+        String templateURL =  BungenioOoHelper.convertPathToURL(templatePath);
         DocumentDescriptor ddc = new DocumentDescriptor();
         ddc.setMacroExecutionMode(com.sun.star.document.MacroExecMode.ALWAYS_EXECUTE);
         ddc.setAsTemplate(true);
-        ddc.setURL(templatePath);
+        ddc.setURL(templateURL);
         return ddc;
     }
 
     public static DocumentDescriptor forDocument(String docPath) {
+        String docURL =  BungenioOoHelper.convertPathToURL(docPath);
         DocumentDescriptor ddc = new DocumentDescriptor();
         ddc.setMacroExecutionMode(com.sun.star.document.MacroExecMode.ALWAYS_EXECUTE);
-        ddc.setURL(docPath);
+        ddc.setURL(docURL);
         return ddc;
     }
 
