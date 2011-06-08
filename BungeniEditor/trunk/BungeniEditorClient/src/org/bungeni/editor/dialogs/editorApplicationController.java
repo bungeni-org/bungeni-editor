@@ -1006,16 +1006,16 @@ public class editorApplicationController extends javax.swing.JPanel {
                 log.debug("Current Template file :" + m_FullTemplatesPath + File.separatorChar + m_settings_CurrentTemplate);
                 final String templatePathNormalized = thisDocType.templatePathNormalized();
                 SwingUtilities.invokeLater(new Runnable() {
-
                     public void run() {
                         launchDocumentInFrame(templatePathNormalized, true);
                     }
                 });
+                return true;
             } else {
                 //open the document in the current panel
                 editorTabbedPanel.getInstance().newDocumentInPanel();
+                return true;
             }
-            return true;
         }
 
       if (launchMode.equals("edit")){ //edit
@@ -1023,8 +1023,12 @@ public class editorApplicationController extends javax.swing.JPanel {
                 String basePath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + "workspace" + File.separator + "files";
                 File openFile = CommonFileFunctions.getFileFromChooser(basePath, new org.bungeni.utils.fcfilter.ODTFileFilter(), JFileChooser.FILES_ONLY, null);
                 if (openFile != null) {
-                    String fullPathToFile = openFile.getAbsolutePath();
-                    launchDocumentInFrame(fullPathToFile, false);
+                    final String fullPathToFile = openFile.getAbsolutePath();
+                    SwingUtilities.invokeLater(new Runnable(){
+                        public void run(){
+                            launchDocumentInFrame(fullPathToFile, false);
+                        }
+                    });
                     return true;
                 } else {
                     return false;
@@ -1077,9 +1081,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         if (launchDocumentType(selectedDocType, "edit")) {
             this.hideWindow(false);
         }
-
         this.btnOpenExisting.setEnabled(true);
-
     }//GEN-LAST:event_btnOpenExistingActionPerformed
 
     SplashPage page = new SplashPage(5000);
