@@ -316,7 +316,7 @@ public class BungeniNoaFrame extends BungeniFrame {
         private BungeniNoaNativeView nativeView;
         private BungeniNoaPanel panel;
         private ITextDocument document;
-
+     
         /**
          *Create a DocumentComposition object
          * @param frame
@@ -334,7 +334,7 @@ public class BungeniNoaFrame extends BungeniFrame {
 
         @Override
         public String toString(){
-            if (document == null) return "Unkown Document";
+            if (document == null) return "Unknown Document";
             return OOComponentHelper.getFrameTitle(document.getXTextDocument());
         }
 

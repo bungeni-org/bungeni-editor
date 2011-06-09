@@ -4,12 +4,7 @@ import ag.ion.bion.officelayer.application.OfficeApplicationException;
 import ag.ion.bion.officelayer.document.DocumentException;
 import ag.ion.noa.NOAException;
 import ca.odell.glazedlists.swing.EventComboBoxModel;
-import com.sun.star.beans.XPropertySet;
-import com.sun.star.frame.XController;
-import com.sun.star.frame.XFrame;
-import com.sun.star.frame.XLayoutManager;
 import com.sun.star.lang.XComponent;
-import com.sun.star.uno.UnoRuntime;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,14 +12,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-import java.util.concurrent.ExecutionException;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.SwingWorker;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.bungeni.db.BungeniClientDB;
@@ -37,7 +30,6 @@ import org.bungeni.editor.panels.impl.ITabbedPanel;
 import org.bungeni.editor.panels.factory.TabbedPanelFactory;
 import org.bungeni.ooo.BungenioOoHelper;
 import org.bungeni.ooo.OOComponentHelper;
-import org.bungeni.ooo.ooDocNotes;
 import org.bungeni.extutils.MessageBox;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.editor.actions.EditorActionFactory;
@@ -47,7 +39,6 @@ import org.bungeni.editor.metadata.BaseEditorDocMetaModel;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
 import org.bungeni.editor.noa.BungeniNoaFrame;
 import org.bungeni.editor.noa.BungeniNoaFrame.DocumentComposition;
-import org.bungeni.editor.noa.BungeniNoaPanel;
 import org.bungeni.editor.noa.BungeniNoaTabbedPane;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
@@ -431,20 +422,24 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
 
     public void newDocumentInPanel() {
         String templatePath = BungeniEditorProperties.getEditorProperty(BungeniEditorPropertiesHelper.getCurrentDocType() + "_template");
-        boolean bActive = false;
+        /*boolean bActive = false;
         int nConfirm = MessageBox.Confirm(parentFrame(), 
                 bundle.getString("make_new_active"),
                 bundle.getString("change_active"));
         if (JOptionPane.YES_OPTION == nConfirm) {
             bActive = true;
-        }
-       //we dont use the OpenDocumentAgent anymore -- as we are using noa,
+        }*/
+       //we dont use the OpenDocumentAgent anymore -- as we are using noa, which
+       //integrates openoffice window into the native view -- 
        //OOo document needs to be opened in the event dispatch thread, not
        //in the background thread
+       //perhaps we run just constructOOOframe in the swingworker ?
        BungeniNoaFrame frame = BungeniNoaFrame.getInstance();
        DocumentComposition dc = null;
         try {
            dc = frame.loadDocumentInPanel(templatePath, true);
+           BungeniNoaTabbedPane.getInstance().setActiveTab(dc.getPanel().getPanel());
+           this.launchMetadataSetter(dc);
         } catch (OfficeApplicationException e) {
             log.error("Error while opening document from editorTabbedPanel" , e);
         } catch (NOAException e) {
@@ -532,10 +527,10 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
     }
 
 
-    private void launchMetadataSetter(XComponent xComp) {
-        OOComponentHelper oohc = new OOComponentHelper(xComp, 
-                BungenioOoHelper.getInstance().getComponentContext());
+    private void launchMetadataSetter(DocumentComposition dc) {
         //check if metadat variable is set
+        OOComponentHelper oohc = new OOComponentHelper(dc.getDocument().getXComponent(),
+                            BungenioOoHelper.getInstance().getComponentContext());
         ooDocMetadata metaObj = new ooDocMetadata(oohc);
         String sMetaSetProp = metaObj.GetProperty(BaseEditorDocMetaModel.__METADATA_SET_FLAG__);
         //if empty or null ... prompt the metadata
@@ -556,6 +551,7 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
         frm.setAlwaysOnTop(true);
         FrameLauncher.CenterFrame(frm);
     }
+    
     private static boolean structureInitialized = false;
 
     private static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/dialogs/Bundle");
@@ -600,18 +596,11 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
                 //the tab may have already been switched if the user had manually
                 //selected the tab. (see initExternalListeners()for the listener to
                 //the tabbed pane
-                if (!pane.getSelectedComponent().equals(dc.getPanel().getPanel()))
+
+                if (!pane.getSelectedComponent().equals(dc.getPanel().getPanel())) {
                     pane.setSelectedComponent(dc.getPanel().getPanel());
-                /***
-                componentHandleContainer newItem = (componentHandleContainer) cb.getSelectedItem();
-                boolean same = false;
-                if (oldItem != null) {
-                    same = newItem.componentKey().equals(oldItem.componentKey());
                 }
-                oldItem = newItem;
-                if ("comboBoxChanged".equals(e.getActionCommand())) {
-                    updateMain((componentHandleContainer) newItem, same);
-                } ***/
+                        
             } catch (RuntimeException ex) {
                 log.error("cboListDocuments.actionPerformed = " + ex.getMessage());
                 log.error("cboListDocuments.actionPerformed = " + CommonExceptionUtils.getStackTrace(ex));

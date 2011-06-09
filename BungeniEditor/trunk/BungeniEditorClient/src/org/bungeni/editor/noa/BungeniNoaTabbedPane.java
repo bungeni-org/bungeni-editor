@@ -18,6 +18,7 @@
 
 package org.bungeni.editor.noa;
 
+import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 /**
@@ -44,5 +45,18 @@ public class BungeniNoaTabbedPane {
 
     public JTabbedPane getTabbedPane(){
         return tabbedPane;
+    }
+
+    public boolean setActiveTab(JPanel panel){
+        if (!this.tabbedPane.getSelectedComponent().equals(panel)) {
+            this.tabbedPane.setSelectedComponent(panel);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void updateTitleForActiveTab(){
+        
     }
 }

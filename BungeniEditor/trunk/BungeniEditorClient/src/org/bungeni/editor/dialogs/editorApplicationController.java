@@ -935,12 +935,11 @@ public class editorApplicationController extends javax.swing.JPanel {
         frame.setVisible(true);
         frame.setSize(800, 600);
         frame.setExtendedState(frame.getExtendedState()|JFrame.MAXIMIZED_BOTH);
+        LaunchDebateMetadataSetter(xopenedDocument);
+        //launch the metadata setter here
+       
+
        }
-
-
-    private void initMeta(XComponent xComp) {
-        LaunchDebateMetadataSetter(xComp);
-    }
 
     private void LaunchDebateMetadataSetter(XComponent xComp) {
         OOComponentHelper oohc = new OOComponentHelper(xComp, BungenioOoHelper.getInstance().getComponentContext());

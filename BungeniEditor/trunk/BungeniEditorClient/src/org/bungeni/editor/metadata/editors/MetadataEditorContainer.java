@@ -1,8 +1,3 @@
-/*
- * MetadataEditorContainer.java
- *
- * Created on November 4, 2008, 1:43 PM
- */
 
 package org.bungeni.editor.metadata.editors;
 
@@ -36,6 +31,7 @@ import org.bungeni.utils.BungeniFileSavePathFormat;
 import org.bungeni.extutils.MessageBox;
 import org.bungeni.editor.metadata.EditorDocMetadataDialogFactory;
 import org.bungeni.editor.metadata.IEditorDocMetadataDialog;
+import org.bungeni.editor.noa.BungeniNoaTabbedPane;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.extutils.BungeniFrame;
 import org.bungeni.extutils.BungeniRuntimeProperties;
@@ -337,17 +333,19 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
             log.error("saveDocumentToDisk : " + ex.getMessage());
             log.error("saveDocumentToDisk :" + CommonExceptionUtils.getStackTrace(ex));
             bState = false;
-        } finally {
-        
+        }
         if (bState) {
             this.txtMsgArea.setText(EDIT_MESSAGE);
             BungeniRuntimeProperties.setProperty("SAVED_FILE", savedFile);
-            //MessageBox.OK(parentFrame, "Document was Saved!");
-            return true;
+           /// Update the title of the tab in the noatabbedpane
+           String newFrameTitle = OOComponentHelper.getFrameTitle(ooDocument.getTextDocument());
+           int nSelected = BungeniNoaTabbedPane.getInstance().getTabbedPane().getSelectedIndex();
+           BungeniNoaTabbedPane.getInstance().getTabbedPane().setTitleAt(nSelected, newFrameTitle);
+           /// Update - End
+           return true;
         } else {
             MessageBox.OK(parentFrame, bundle.getString("doc_not_saved"));
             return false;
-        }
         }
 }
     private static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle");
