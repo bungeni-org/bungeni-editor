@@ -5,6 +5,9 @@
  */
 package org.bungeni.editor.panels.loadable;
 
+import ag.ion.bion.officelayer.application.OfficeApplicationException;
+import ag.ion.bion.officelayer.document.DocumentException;
+import ag.ion.noa.NOAException;
 import com.sun.star.lang.IllegalArgumentException;
 import com.sun.star.uno.Exception;
 import java.util.logging.Level;
@@ -31,6 +34,7 @@ import javax.swing.Timer;
 import javax.xml.parsers.ParserConfigurationException;
 import org.apache.log4j.Logger;
 import org.bungeni.db.DefaultInstanceFactory;
+import org.bungeni.editor.noa.BungeniNoaFrame;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
@@ -77,7 +81,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         initTransformerClient();
         initTimers();
         initButtons();
-       }
+    }
 
     /**
      * Start the timer
@@ -142,10 +146,10 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             String transformerWorkingDir = BungeniEditorProperties.getEditorProperty("transformerWorkingDir");
             transformerWorkingDir = CommonFileFunctions.convertRelativePathToFullPath(transformerWorkingDir) + File.separator;
             commands.add(transformerWorkingDir);
-            String runString = javaBinary + " -jar " + "\""+  transformerJar + "\""+ " " + "\""+ transformerWorkingDir + "\"";
+            String runString = javaBinary + " -jar " + "\"" + transformerJar + "\"" + " " + "\"" + transformerWorkingDir + "\"";
             System.out.println("Starting transformation server : " + runString);
             log.info("Starting transformation server : " + runString);
-            
+
             //now run the command
             boolean output = CommonShellFunctions.runCommand(commands, transformerWorkingDir, true);
             this.transformerServerRunning = true;
@@ -168,13 +172,13 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         @Override
         public Boolean doInBackground() {
             Boolean bState = false;
-                if (transformerClient != null) {
-                    if (transformerClient.isServerRunning()) {
-                        bState = true;
-                    } else {
-                        bState = false;
-                    }
+            if (transformerClient != null) {
+                if (transformerClient.isServerRunning()) {
+                    bState = true;
+                } else {
+                    bState = false;
                 }
+            }
             return bState;
         }
 
@@ -213,7 +217,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
 
         public void actionPerformed(ActionEvent e) {
             (new transformerServerStateRunner()).execute();
-        //   processActionStatesForSelectedTab();
+            //   processActionStatesForSelectedTab();
         }
     }
 
@@ -224,7 +228,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
     }
 
     private void initExportDestCombo() {
-        exportDestination[] destinations = BungeniTransformationTargets.getExportDestinations().values().toArray(new exportDestination[ BungeniTransformationTargets.getExportDestinations().size()]);
+        exportDestination[] destinations = BungeniTransformationTargets.getExportDestinations().values().toArray(new exportDestination[BungeniTransformationTargets.getExportDestinations().size()]);
         DefaultComboBoxModel model = new DefaultComboBoxModel(destinations);
     }
 
@@ -308,38 +312,39 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
 
             protected String doInBackground() throws Exception {
                 //check if server is running .. if running stop it
-                String  retValue = convertToPlain();
+                String retValue = convertToPlain();
+                log.info("......................................doInBackground()");
                 return retValue;
             }
 
             @Override
             public void done() {
-                 String retValue = "";
+                String retValue = "";
                 try {
                     sourceButton.setEnabled(true);
                     parentFrame.setCursor(Cursor.getDefaultCursor());
                     retValue = get();
                     if (retValue != null) {
                         if (retValue.equals("save_the_document")) {
-                                        MessageBox.OK(parentFrame, bundle.getString("Please_save_the_document"), bundle.getString("Save_the_document"), JOptionPane.ERROR_MESSAGE);
+                            MessageBox.OK(parentFrame, bundle.getString("Please_save_the_document"), bundle.getString("Save_the_document"), JOptionPane.ERROR_MESSAGE);
                         } else {
-                        String outputFilePath = (String) retValue;
-                        File fFile = CommonFileFunctions.convertUrlToFile(outputFilePath);
-                        int nRet = MessageBox.Confirm(parentFrame, bundle.getString("Yes_to_open_No_to_close"), bundle.getString("Document_Successfully_Converted!"));
-                        if (nRet == JOptionPane.YES_OPTION) {
+                            String outputFilePath = (String) retValue;
+                            File fFile = CommonFileFunctions.convertUrlToFile(outputFilePath);
+                            int nRet = MessageBox.Confirm(parentFrame, bundle.getString("Yes_to_open_No_to_close"), bundle.getString("Document_Successfully_Converted!"));
+                            if (nRet == JOptionPane.YES_OPTION) {
                                 try {
-                                    OOComponentHelper.openExistingDocument(fFile.getAbsolutePath());
-                                } catch (com.sun.star.io.IOException ex) {
-                                    log.error("Error opening document in OOo.org " + ex.getMessage(), ex);
-                                } catch (IllegalArgumentException ex) {
-                                    log.error("Error opening document in OOo.org " + ex.getMessage(), ex);
-                                } catch (Exception ex) {
+                                    BungeniNoaFrame.getInstance().loadDocumentInPanel(outputFilePath, false);
+                                } catch (OfficeApplicationException ex) {
+                                    java.util.logging.Logger.getLogger(transformXMLPanel.class.getName()).log(Level.SEVERE, null, ex);
+                                } catch (NOAException ex) {
+                                    java.util.logging.Logger.getLogger(transformXMLPanel.class.getName()).log(Level.SEVERE, null, ex);
+                                } catch (DocumentException ex) {
                                     java.util.logging.Logger.getLogger(transformXMLPanel.class.getName()).log(Level.SEVERE, null, ex);
                                 }
-                        }
+                            }
                         }
                     }
-              } catch (InterruptedException ex) {
+                } catch (InterruptedException ex) {
                     log.error("done(),", ex);
                 } catch (ExecutionException ex) {
                     log.error("done(),", ex);
@@ -350,8 +355,8 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         public synchronized void actionPerformed(ActionEvent e) {
             //check if document has been saved
             if (ooDocument.documentRequiresSaving()) {
-                 MessageBox.OK(parentFrame, bundle.getString("Please_save_the_document"), bundle.getString("Save_the_document"), JOptionPane.ERROR_MESSAGE);
-                 return;
+                MessageBox.OK(parentFrame, bundle.getString("Please_save_the_document"), bundle.getString("Save_the_document"), JOptionPane.ERROR_MESSAGE);
+                return;
             }
             //get the button originating the event
             final JButton sourceButton = (JButton) e.getSource();
@@ -367,7 +372,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
     /**
      * Export to Other formats
      */
-      class exportToOtherFormats implements ActionListener {
+    class exportToOtherFormats implements ActionListener {
 
         /**
          * Run the button action in a swingworker thread, so the UI disabling happens immediately
@@ -375,7 +380,8 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         class buttonActionRunner extends SwingWorker<String, Object> {
 
             JButton sourceButton;
-            BungeniTransformationTarget tTarget ;
+            BungeniTransformationTarget tTarget;
+
             public buttonActionRunner(JButton origButton) {
                 this.sourceButton = origButton;
                 tTarget = (BungeniTransformationTarget) cboTransformFrom.getSelectedItem();
@@ -383,21 +389,21 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
 
             protected String doInBackground() throws Exception {
                 //check if server is running .. if running stop it
-                String  retValue = exportToSelectedFormat(tTarget);
+                String retValue = exportToSelectedFormat(tTarget);
                 return retValue;
             }
 
             @Override
             public void done() {
-                 String retValue = "";
+                String retValue = "";
                 try {
                     sourceButton.setEnabled(true);
                     parentFrame.setCursor(Cursor.getDefaultCursor());
                     retValue = get();
                     if (retValue != null) {
-                       MessageBox.OK(parentFrame, bundle.getString(retValue));
+                        MessageBox.OK(parentFrame, bundle.getString(retValue));
                     }
-              } catch (InterruptedException ex) {
+                } catch (InterruptedException ex) {
                     log.error("done(),", ex);
                 } catch (ExecutionException ex) {
                     log.error("done(),", ex);
@@ -408,8 +414,8 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         public synchronized void actionPerformed(ActionEvent e) {
             //check if document has been saved
             if (ooDocument.documentRequiresSaving()) {
-                 MessageBox.OK(parentFrame, bundle.getString("Please_save_the_document"), bundle.getString("Save_the_document"), JOptionPane.ERROR_MESSAGE);
-                 return;
+                MessageBox.OK(parentFrame, bundle.getString("Please_save_the_document"), bundle.getString("Save_the_document"), JOptionPane.ERROR_MESSAGE);
+                return;
             }
             //get the button originating the event
             final JButton sourceButton = (JButton) e.getSource();
@@ -452,7 +458,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             Object retValue = rulesValidator.callMethod("exec", argExec);
             if (retValue != null) {
                 String outputFilePath = (String) retValue;
-            // MessageBox.OK(parentFrame, "A plain document was generated, it can be found at : \n" + outputFilePath, "Plain Document generation", JOptionPane.INFORMATION_MESSAGE);
+                // MessageBox.OK(parentFrame, "A plain document was generated, it can be found at : \n" + outputFilePath, "Plain Document generation", JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
             MessageBox.OK(parentFrame, bundle.getString("Please_save_the_document"), bundle.getString("Save_the_document"), JOptionPane.ERROR_MESSAGE);
@@ -474,8 +480,6 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         return bState;
     }
 
-
-
     private JMenuItem setupMenuItem(String key, String title, ActionListener listener) {
         JMenuItem item = new JMenuItem(title);
         item.setActionCommand(key);
@@ -490,18 +494,18 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             if (e.getActionCommand().equals("ANXML")) {
                 File fXml = CommonANUtils.getComponentFromFile(ooDocument.getDocumentURL(), "xml");
                 if (fXml.exists()) {
-                  if (fXml.length() != 0 ) {
-                      try {
-                        BungeniXmlViewer.launchXmlViewer("Xml Viewer", fXml);
-                        return;
-                    } catch (ParserConfigurationException ex) {
-                        log.error("viewXmlDoc ", ex);
-                        MessageBox.OK(parentFrame, bundle.getString("xml_not_wellformed"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
-                        return;
+                    if (fXml.length() != 0) {
+                        try {
+                            BungeniXmlViewer.launchXmlViewer("Xml Viewer", fXml);
+                            return;
+                        } catch (ParserConfigurationException ex) {
+                            log.error("viewXmlDoc ", ex);
+                            MessageBox.OK(parentFrame, bundle.getString("xml_not_wellformed"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
                     }
-                  }
                 }
-                 MessageBox.OK(parentFrame, bundle.getString("xml_does_not_exist"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
+                MessageBox.OK(parentFrame, bundle.getString("xml_does_not_exist"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (e.getActionCommand().equals("METALEX")) {
@@ -510,15 +514,15 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
                 String sFileMlx = sFilePrefix + ((sFileExt.length() > 0) ? "." + sFileExt : "");
                 File fMlx = CommonFileFunctions.convertUrlToFile(sFileMlx);
                 if (fMlx.exists()) {
-                    if (fMlx.length() != 0 ) {
-                    try {
-                        BungeniXmlViewer.launchXmlViewer("Xml Viewer", fMlx);
-                        return;
-                    } catch (ParserConfigurationException ex) {
-                        log.error("viewXmlDoc ", ex);
-                        MessageBox.OK(parentFrame, bundle.getString("xml_not_wellformed"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
+                    if (fMlx.length() != 0) {
+                        try {
+                            BungeniXmlViewer.launchXmlViewer("Xml Viewer", fMlx);
+                            return;
+                        } catch (ParserConfigurationException ex) {
+                            log.error("viewXmlDoc ", ex);
+                            MessageBox.OK(parentFrame, bundle.getString("xml_not_wellformed"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
                     }
                 }
                 MessageBox.OK(parentFrame, bundle.getString("xml_does_not_exist"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
@@ -554,8 +558,8 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         }
     }
 
-    private String exportToSelectedFormat( BungeniTransformationTarget transform) {
-        
+    private String exportToSelectedFormat(BungeniTransformationTarget transform) {
+
         IBungeniDocTransform iTransform = BungeniTransformationTargetFactory.getTransformClass(transform);
 
         String exportPath = BungeniEditorProperties.getEditorProperty("defaultExportPath");
@@ -576,7 +580,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         } else {
             return new String("Document_export_failed");
         }
-        
+
     }
 
     private String convertToPlain() {
@@ -596,7 +600,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             convertToPlain.callMethod("setParams", argSetParams);
             Object[] argExec = {};
             Object retValue = convertToPlain.callMethod("exec", argExec);
-            return (String)retValue;
+            return (String) retValue;
         } else {
             return new String("save_the_document");
         }
@@ -827,17 +831,16 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         this.initTransfromTargetCombo();
         this.initExportDestCombo();
         String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
-    // if (docType.equalsIgnoreCase("debaterecord")) {
-    //     this.checkboxMakePlain.setVisible(true);
-    // } else
-    //     this.checkboxMakePlain.setVisible(false);
+        // if (docType.equalsIgnoreCase("debaterecord")) {
+        //     this.checkboxMakePlain.setVisible(true);
+        // } else
+        //     this.checkboxMakePlain.setVisible(false);
     }
 
     @Override
-    public void cleanup(){
-            this.transformerClient.stopServer();
+    public void cleanup() {
+        this.transformerClient.stopServer();
     }
-
 
     public void refreshPanel() {
     }
