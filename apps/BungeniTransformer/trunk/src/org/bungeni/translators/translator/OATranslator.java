@@ -179,8 +179,6 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             FileUtility.getInstance().copyFile(metalexFile, Outputs.getInstance().File("metalex.xml"));
             // **DEBUG**
 
-
-            // FileUtility.getInstance().copyFile(metalexFile, new File("/Users/ashok/out.txt"));
             translatedFiles.put("metalex", metalexFile);
 
             /** Convert the metalex to AN xml using the pipeline **/
@@ -306,11 +304,6 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
 
             // applies the map steps to the StreamSource of the ODF document
             iteratedDocument = OAReplaceStepsResolver.resolve(iteratedDocument, configuration);
-
-            // **DEBUG**
-            // java.io.File ftmp = org.bungeni.translators.utility.streams.StreamSourceUtility.getInstance().writeToFile(iteratedDocument);
-            // FileUtility.getInstance().copyFile(ftmp, new java.io.File("/home/undesa/input_out.xml"));
-            // **DEBUG** 
 
             // apply the OUTPUT XSLT to the StreamSource
             StreamSource resultStream = OAOutputStepsResolver.resolve(iteratedDocument, configuration);

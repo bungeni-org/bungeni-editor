@@ -156,9 +156,6 @@ public class ODFUtility {
         // Write the DOM document to the file
         xformer.transform(source, result);
 
-        //AH-02-03-11 **(DEBUG)** 
-        FileUtility.getInstance().copyFile(returnFile, new File("/home/undesa/out.txt"));
-
         // return the file
         return returnFile;
     }
