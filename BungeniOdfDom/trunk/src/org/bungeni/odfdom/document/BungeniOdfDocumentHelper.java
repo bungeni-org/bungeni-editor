@@ -1,7 +1,6 @@
 package org.bungeni.odfdom.document;
 
 //~--- non-JDK imports --------------------------------------------------------
-
 import org.apache.log4j.Logger;
 
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper;
@@ -29,6 +28,8 @@ import java.net.URISyntaxException;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedInputStream;
 import org.odftoolkit.odfdom.dom.element.style.StyleMasterPageElement;
+import org.odftoolkit.odfdom.dom.element.style.StyleSectionPropertiesElement;
+import org.odftoolkit.odfdom.dom.element.style.StyleTextPropertiesElement;
 import org.odftoolkit.odfdom.incubator.doc.style.OdfStylePageLayout;
 
 /**
@@ -40,12 +41,13 @@ import org.odftoolkit.odfdom.incubator.doc.style.OdfStylePageLayout;
  * @author Ashok Hariharan
  */
 public class BungeniOdfDocumentHelper {
-    private static org.apache.log4j.Logger log                =
-        Logger.getLogger(BungeniOdfDocumentHelper.class.getName());
-    private BungeniOdfTrackedChangesHelper s_changesHelper    = null;
-    private BungeniOdfPropertiesHelper     s_propertiesHelper = null;
-    private BungeniOdfSectionHelper        s_sectionHelper    = null;
-    private OdfDocument                    odfDocument;
+
+    private static org.apache.log4j.Logger log =
+            Logger.getLogger(BungeniOdfDocumentHelper.class.getName());
+    private BungeniOdfTrackedChangesHelper s_changesHelper = null;
+    private BungeniOdfPropertiesHelper s_propertiesHelper = null;
+    private BungeniOdfSectionHelper s_sectionHelper = null;
+    private OdfDocument odfDocument;
 
     /**
      * <p>This API initializes the object using a File handle to a ODF document.
@@ -82,7 +84,7 @@ public class BungeniOdfDocumentHelper {
         String sPath = "";
 
         try {
-            URI  fURI = new URI(odfDocument.getBaseURI());
+            URI fURI = new URI(odfDocument.getBaseURI());
             File fDoc = new File(fURI);
 
             sPath = fDoc.getPath();
@@ -137,9 +139,9 @@ public class BungeniOdfDocumentHelper {
         OdfStylePageLayout standardLayout = null;
 
         try {
-            OdfOfficeMasterStyles mastersStyles  = this.odfDocument.getOfficeMasterStyles();
-            StyleMasterPageElement    standardPage   = mastersStyles.getMasterPage("Standard");
-            String                pageLayoutName = standardPage.getStylePageLayoutNameAttribute();
+            OdfOfficeMasterStyles mastersStyles = this.odfDocument.getOfficeMasterStyles();
+            StyleMasterPageElement standardPage = mastersStyles.getMasterPage("Standard");
+            String pageLayoutName = standardPage.getStylePageLayoutNameAttribute();
 
             standardLayout = odfDocument.getStylesDom().getAutomaticStyles().getPageLayout(pageLayoutName);
         } catch (Exception ex) {
@@ -156,19 +158,46 @@ public class BungeniOdfDocumentHelper {
     public void removeBackgroundImage() {
         try {
 
+            log.info("getting background images");
             // get a list of background image elelemtnes
             NodeList bgImageNodes = odfDocument.getStylesDom().getElementsByTagName("style:background-image");
 
             for (int i = 0; i < bgImageNodes.getLength(); i++) {
-                StyleBackgroundImageElement bgImage    = (StyleBackgroundImageElement) bgImageNodes.item(i);
-                Node                    parentNode = bgImage.getParentNode();
+                StyleBackgroundImageElement bgImage = (StyleBackgroundImageElement) bgImageNodes.item(i);
+                Node parentNode = bgImage.getParentNode();
 
                 if (parentNode != null) {
                     if (parentNode.getNodeName().equals("style:page-layout-properties")) {
                         bgImage.setXlinkHrefAttribute("");
+                        log.info("removing image" + i);
                     }
                 }
             }
+        } catch (Exception ex) {
+            log.error("annulBackgroundImage : ", ex);
+        }
+    }
+
+    /**
+     * <p>Removes the background color for the page if it has one</p>
+     *
+     */
+    public void removeBackgroundColor() {
+        try {
+
+            log.info("removing background color");
+            // get a list of background image elelemtnes
+            NodeList textNodes = odfDocument.getStylesDom().getElementsByTagName("style:text-properties");
+            NodeList contentNodes = odfDocument.getContentDom().getElementsByTagName("style:section-properties");
+            log.info("text nodes:" + textNodes.getLength());
+            log.info("content nodes:" + contentNodes.getLength());
+            for (int i = 0; i < textNodes.getLength(); i++) {
+                ((StyleTextPropertiesElement) textNodes.item(i)).setFoBackgroundColorAttribute("#FFFFFF");
+            }
+            for (int i = 0; i < contentNodes.getLength(); i++) {
+                ((StyleSectionPropertiesElement) contentNodes.item(i)).setFoBackgroundColorAttribute("#FFFFFF");
+            }
+
         } catch (Exception ex) {
             log.error("annulBackgroundImage : ", ex);
         }
@@ -181,9 +210,9 @@ public class BungeniOdfDocumentHelper {
     public long getChecksum() {
         long crc = 0;
         try {
-            FileInputStream     fs    = new FileInputStream(getDocumentPath());
-            CheckedInputStream  check = new CheckedInputStream(fs, new CRC32());
-            BufferedInputStream in    = new BufferedInputStream(check);
+            FileInputStream fs = new FileInputStream(getDocumentPath());
+            CheckedInputStream check = new CheckedInputStream(fs, new CRC32());
+            BufferedInputStream in = new BufferedInputStream(check);
             while (in.read() != -1) {
                 // Read file in completely
             }
