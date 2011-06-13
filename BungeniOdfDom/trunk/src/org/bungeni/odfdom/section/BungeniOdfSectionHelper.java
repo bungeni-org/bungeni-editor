@@ -1,7 +1,6 @@
 package org.bungeni.odfdom.section;
 
 //~--- non-JDK imports --------------------------------------------------------
-
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 
 import org.odftoolkit.odfdom.doc.OdfDocument;
@@ -24,10 +23,12 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import org.odftoolkit.odfdom.dom.element.style.StyleBackgroundImageElement;
+import org.odftoolkit.odfdom.dom.element.style.StyleSectionPropertiesElement;
 import org.odftoolkit.odfdom.dom.element.text.TextSectionElement;
 import org.odftoolkit.odfdom.incubator.doc.office.OdfOfficeAutomaticStyles;
 import org.odftoolkit.odfdom.incubator.doc.style.OdfStyle;
 import org.odftoolkit.odfdom.pkg.OdfFileDom;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
 /**
@@ -35,19 +36,20 @@ import org.w3c.dom.Element;
  * @author Ashok Hariharan
  */
 public class BungeniOdfSectionHelper {
-    public static final  String                  ATTRIBUTE_NS_PREFIX         = "anx:";
-    public static final String                  BODY_NODE                   = "body";
-    public static final String                  FILTER_BUNGENI_SECTION_META = "Bungeni";
-    public static final String                  FILTER_SECTION_TYPE         = ATTRIBUTE_NS_PREFIX + "BungeniSectionType";
-    public static final String                  FILTER_SECTION_ID         = ATTRIBUTE_NS_PREFIX + "BungeniSectionID";
-    public static final String                  SECTION_ELEMENT             = "text:section";
-    public static final String                  SECTION_ELEMENT_NAME_ATTR   = "text:name";
-    public static final String                  STYLE_SECTION_PROPS         = "style:section-properties";
-    private static org.apache.log4j.Logger log                         =
-        org.apache.log4j.Logger.getLogger(BungeniOdfSectionHelper.class.getName());
+
+    public static final String ATTRIBUTE_NS_PREFIX = "anx:";
+    public static final String BODY_NODE = "body";
+    public static final String FILTER_BUNGENI_SECTION_META = "Bungeni";
+    public static final String FILTER_SECTION_TYPE = ATTRIBUTE_NS_PREFIX + "BungeniSectionType";
+    public static final String FILTER_SECTION_ID = ATTRIBUTE_NS_PREFIX + "BungeniSectionID";
+    public static final String SECTION_ELEMENT = "text:section";
+    public static final String SECTION_ELEMENT_NAME_ATTR = "text:name";
+    public static final String STYLE_SECTION_PROPS = "style:section-properties";
+    private static org.apache.log4j.Logger log =
+            org.apache.log4j.Logger.getLogger(BungeniOdfSectionHelper.class.getName());
     private OdfDocument odfDocument = null;
     private BungeniOdfDocumentHelper m_bodfDoc = null;
-    private XPath       xPath       = null;
+    private XPath xPath = null;
 
     /**
      * Returns a section helper object from an ODF document
@@ -76,7 +78,6 @@ public class BungeniOdfSectionHelper {
             log.error("Error while getting xpath handle");
         }
     }
-
 
     /**
      * Provides access to the ODFDOM odf document
@@ -107,7 +108,7 @@ public class BungeniOdfSectionHelper {
         }
 
         return foundChildren;
-        
+
     }
 
     /**
@@ -132,6 +133,7 @@ public class BungeniOdfSectionHelper {
         return foundChildren;
 
     }
+
     /**
      * Returns the Section Type for the document this is a custom property in the anx: namespace ,
      * anx:BungeniSectionType
@@ -142,7 +144,6 @@ public class BungeniOdfSectionHelper {
         NamedNodeMap metaAttrs = getSectionMetadataAttributes(nsection);
         return getFilterNamedItem(nsection, metaAttrs, FILTER_SECTION_TYPE);
     }
-
 
     /**
      * Returns the Section Id for the document this is a custom property in the anx: namespace,
@@ -155,8 +156,6 @@ public class BungeniOdfSectionHelper {
         return getFilterNamedItem(nsection, metaAttrs, FILTER_SECTION_ID);
     }
 
-    
-
     public String getFilterNamedItem(TextSectionElement nsection, NamedNodeMap nattr, String filterItem) {
         Node nitem = nattr.getNamedItem(filterItem);
         if (nitem != null) {
@@ -167,11 +166,11 @@ public class BungeniOdfSectionHelper {
     }
 
     public ArrayList<Node> getBungeniMetadataAttributes(TextSectionElement nsection) {
-        ArrayList<Node> nodeLists   = new ArrayList<Node>(0);
-        NamedNodeMap    metaAttribs = getSectionMetadataAttributes(nsection);
+        ArrayList<Node> nodeLists = new ArrayList<Node>(0);
+        NamedNodeMap metaAttribs = getSectionMetadataAttributes(nsection);
 
         for (int i = 0; i < metaAttribs.getLength(); i++) {
-            Node   foundNode     = metaAttribs.item(i);
+            Node foundNode = metaAttribs.item(i);
             String metaLocalname = foundNode.getNodeName();
 
             if (metaLocalname.startsWith(FILTER_BUNGENI_SECTION_META)) {
@@ -182,10 +181,9 @@ public class BungeniOdfSectionHelper {
         return nodeLists;
     }
 
-
     public OdfStyle getSectionStyle(TextSectionElement oSection) {
-        OdfOfficeAutomaticStyles osb      = oSection.getAutomaticStyles();
-        OdfStyle           secStyle = osb.getStyle(oSection.getStyleName(), OdfStyleFamily.Section);
+        OdfOfficeAutomaticStyles osb = oSection.getAutomaticStyles();
+        OdfStyle secStyle = osb.getStyle(oSection.getStyleName(), OdfStyleFamily.Section);
 
         return secStyle;
     }
@@ -199,10 +197,10 @@ public class BungeniOdfSectionHelper {
         boolean bState = false;
 
         try {
-            OdfOfficeAutomaticStyles   autoStyles = oSection.getAutomaticStyles();
-            OdfStyle             secStyle   = autoStyles.getStyle(oSection.getStyleName(), OdfStyleFamily.Section);
-            Element sprops     = getSectionStyleProperties(secStyle);
-            NodeList             nl         = sprops.getElementsByTagName("style:background-image");
+            OdfOfficeAutomaticStyles autoStyles = oSection.getAutomaticStyles();
+            OdfStyle secStyle = autoStyles.getStyle(oSection.getStyleName(), OdfStyleFamily.Section);
+            Element sprops = getSectionStyleProperties(secStyle);
+            NodeList nl = sprops.getElementsByTagName("style:background-image");
 
             if (nl.getLength() > 0) {
                 StyleBackgroundImageElement img = (StyleBackgroundImageElement) nl.item(0);
@@ -222,41 +220,63 @@ public class BungeniOdfSectionHelper {
         }
     }
 
+    /**
+     * Removes the background color for a section
+     * @param oSection
+     * @return
+     */
+    public boolean removeSectionBackgroundColor(TextSectionElement oSection) {
+        boolean bState = false;
+        try {
+            OdfOfficeAutomaticStyles autoStyles = oSection.getAutomaticStyles();
+            OdfStyle secStyle = autoStyles.getStyle(oSection.getStyleName(), OdfStyleFamily.Section);
+            StyleSectionPropertiesElement sprops = (StyleSectionPropertiesElement) getSectionStyleProperties(secStyle);
+            Attr nl = sprops.getAttributeNode("fo:background-color");
+            if (nl != null) {
+                nl.setValue("transparent");
+                bState = true;
+            }
+        } catch (Exception ex) {
+            log.error("removeSectionBackgroundColor : " + ex.getMessage());
+        } finally {
+            return bState;
+        }
+    }
+
     /*
      * Retrieves the style:section-properties for a section
      *
- <style:style style:name="Sect1" style:family="section">
-            <style:section-properties fo:background-color="transparent" style:editable="false">
-                <style:columns fo:column-count="1" fo:column-gap="0in"/>
-                <style:background-image xlink:href="Pictures/100000000000009500000095F10913D8.jpg"
-                    xlink:type="simple" xlink:actuate="onLoad"/>
-            </style:section-properties>
-        </style:style>
+    <style:style style:name="Sect1" style:family="section">
+    <style:section-properties fo:background-color="transparent" style:editable="false">
+    <style:columns fo:column-count="1" fo:column-gap="0in"/>
+    <style:background-image xlink:href="Pictures/100000000000009500000095F10913D8.jpg"
+    xlink:type="simple" xlink:actuate="onLoad"/>
+    </style:section-properties>
+    </style:style>
      *
      */
     public Element getSectionStyleProperties(OdfStyle secStyle) {
-        Node props     = null;
-        NodeList             nsectList = secStyle.getChildNodes();
+        Node props = null;
+        NodeList nsectList = secStyle.getChildNodes();
 
         for (int i = 0; i < nsectList.getLength(); i++) {
             Node nmatch = nsectList.item(i);
 
             if (nmatch.getNodeName().equals(STYLE_SECTION_PROPS)) {
-                props =  nmatch;
+                props = nmatch;
             }
         }
 
-        return (Element)props;
+        return (Element) props;
         /**
          * returns this :
          * <style:section-properties fo:background-color="transparent" style:editable="false">
-                <style:columns fo:column-count="1" fo:column-gap="0in"/>
-                <style:background-image xlink:href="Pictures/100000000000009500000095F10913D8.jpg"
-                    xlink:type="simple" xlink:actuate="onLoad"/>
-            </style:section-properties>
+        <style:columns fo:column-count="1" fo:column-gap="0in"/>
+        <style:background-image xlink:href="Pictures/100000000000009500000095F10913D8.jpg"
+        xlink:type="simple" xlink:actuate="onLoad"/>
+        </style:section-properties>
          */
     }
-
 
     /**
      * Returns the metadata attributes for a section as  NamedNodeMap
@@ -267,8 +287,8 @@ public class BungeniOdfSectionHelper {
         OdfStyle sectStyle = getSectionStyle(nSection);
 
         if (sectStyle != null) {
-            Element sprops       = getSectionStyleProperties(sectStyle);
-            NamedNodeMap         sectionProps = sprops.getAttributes();
+            Element sprops = getSectionStyleProperties(sectStyle);
+            NamedNodeMap sectionProps = sprops.getAttributes();
 
             return sectionProps;
         } else {
@@ -298,7 +318,7 @@ public class BungeniOdfSectionHelper {
      * @param aSection
      * @return
      */
-    public Integer getDocumentSectionNumber (String sectionType, TextSectionElement aSection) {
+    public Integer getDocumentSectionNumber(String sectionType, TextSectionElement aSection) {
         Integer foundIndex = 0;
         NodeList secList = this.getDocumentSections();
         for (int i = 0; i < secList.getLength(); i++) {
@@ -334,9 +354,9 @@ public class BungeniOdfSectionHelper {
             oSection = (TextSectionElement) xPath.evaluate("//text:section[@text:name='" + sectionName + "']", docDom,
                     XPathConstants.NODE);
         } catch (Exception ex) {
-            System.out.println(ex.getMessage())
-;      ex.printStackTrace();  }
-        finally {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        } finally {
             return oSection;
         }
     }
@@ -377,12 +397,12 @@ public class BungeniOdfSectionHelper {
 
                 if (sectionStyleName != null) {
                     if (sectionStyleName.length() > 0) {
-                        OdfStyle             sectStyle = getSectionStyle(nsection);
-                        Element sProps    = getSectionStyleProperties(sectStyle);
+                        OdfStyle sectStyle = getSectionStyle(nsection);
+                        Element sProps = getSectionStyleProperties(sectStyle);
 
                         if (sProps.hasAttributes()) {
                             NamedNodeMap sectionProps = sProps.getAttributes();
-                            Node         nfoundNode   = sectionProps.getNamedItem(FILTER_SECTION_TYPE);
+                            Node nfoundNode = sectionProps.getNamedItem(FILTER_SECTION_TYPE);
 
                             if (nfoundNode != null) {
                                 if (nfoundNode.getNodeValue().equals(BODY_NODE)) {
@@ -400,8 +420,8 @@ public class BungeniOdfSectionHelper {
 
     public static void main(String[] args) {
         try {
-            OdfDocument              odoc   =
-                OdfDocument.loadDocument(new File("/home/undesa/Desktop/debate_file_02.odt"));
+            OdfDocument odoc =
+                    OdfDocument.loadDocument(new File("/home/undesa/Desktop/debate_file_02.odt"));
             BungeniOdfDocumentHelper helper = new BungeniOdfDocumentHelper(odoc);
 
             helper.removeBackgroundImage();

@@ -1,6 +1,7 @@
 package org.bungeni.odfdom.document;
 
 //~--- non-JDK imports --------------------------------------------------------
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 
 import org.bungeni.odfdom.document.changes.BungeniOdfTrackedChangesHelper;
@@ -28,8 +29,10 @@ import java.net.URISyntaxException;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedInputStream;
 import org.odftoolkit.odfdom.dom.element.style.StyleMasterPageElement;
+import org.odftoolkit.odfdom.dom.element.style.StylePageLayoutPropertiesElement;
 import org.odftoolkit.odfdom.dom.element.style.StyleSectionPropertiesElement;
 import org.odftoolkit.odfdom.dom.element.style.StyleTextPropertiesElement;
+import org.odftoolkit.odfdom.dom.element.text.TextSectionElement;
 import org.odftoolkit.odfdom.incubator.doc.style.OdfStylePageLayout;
 
 /**
@@ -174,7 +177,7 @@ public class BungeniOdfDocumentHelper {
                 }
             }
         } catch (Exception ex) {
-            log.error("annulBackgroundImage : ", ex);
+            log.error("removeBackgroundImage : " + ex);
         }
     }
 
@@ -184,25 +187,65 @@ public class BungeniOdfDocumentHelper {
      */
     public void removeBackgroundColor() {
         try {
-
-            log.info("removing background color");
-            // get a list of background image elelemtnes
-            NodeList textNodes = odfDocument.getStylesDom().getElementsByTagName("style:text-properties");
-            NodeList contentNodes = odfDocument.getContentDom().getElementsByTagName("style:section-properties");
-            log.info("text nodes:" + textNodes.getLength());
-            log.info("content nodes:" + contentNodes.getLength());
-            for (int i = 0; i < textNodes.getLength(); i++) {
-                ((StyleTextPropertiesElement) textNodes.item(i)).setFoBackgroundColorAttribute("#FFFFFF");
+            NodeList nl = getStandardPageLayout().getElementsByTagName("style:page-layout-properties");
+            for (int i = 0; i < nl.getLength(); i++) {
+                ((StylePageLayoutPropertiesElement) nl.item(i)).setFoBackgroundColorAttribute("transparent");
             }
-            for (int i = 0; i < contentNodes.getLength(); i++) {
-                ((StyleSectionPropertiesElement) contentNodes.item(i)).setFoBackgroundColorAttribute("#FFFFFF");
-            }
-
         } catch (Exception ex) {
-            log.error("annulBackgroundImage : ", ex);
+            log.error("removeBackgroundColor : " + ex);
         }
     }
 
+    /**
+     * <p>Returns all text sections in the page</p>
+     * @return
+     */
+    public NodeList getTextSections() {
+        NodeList nl = null;
+        try {
+            nl = odfDocument.getContentDom().getElementsByTagName("text:section");
+        } catch (Exception ex) {
+            log.error("getTextSections", ex);
+        }
+        return nl;
+    }
+
+    /**
+     * <p>Removes all section background color for the page</p>
+     *
+     */
+    public void removeAllSectionBackgroundColor() {
+        try {
+            log.info("removing all section background color");
+            NodeList nl = getTextSections();
+            if (nl != null) {
+                for (int i = 0; i < nl.getLength(); i++) {
+                    getSectionHelper().removeSectionBackgroundColor((TextSectionElement) nl.item(i));
+                }
+            }
+
+        } catch (Exception ex) {
+            log.error("removeAllSectionBackgroundColor : ", ex);
+        }
+    }
+    /**
+     * <p>Removes all section background images for the page</p>
+     *
+     */
+    public void removeAllSectionBackgroundImages() {
+        try {
+            log.info("removing all section background images");
+            NodeList nl = getTextSections();
+            if (nl != null) {
+                for (int i = 0; i < nl.getLength(); i++) {
+                    getSectionHelper().removeSectionBackgroundImage((TextSectionElement) nl.item(i));
+                }
+            }
+
+        } catch (Exception ex) {
+            log.error("removeAllSectionBackgroundImages : ", ex);
+        }
+    }
     /**
      * Returns the checksum of the odf document
      * @return
