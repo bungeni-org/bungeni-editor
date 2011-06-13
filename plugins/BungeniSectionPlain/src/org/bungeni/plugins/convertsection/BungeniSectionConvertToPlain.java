@@ -14,7 +14,7 @@ import org.bungeni.odfdom.utils.BungeniOdfFileCopy;
 
 import org.bungeni.plugins.IEditorPlugin;
 import org.odftoolkit.odfdom.doc.OdfDocument;
-import org.odftoolkit.odfdom.doc.text.OdfTextSection;
+import org.odftoolkit.odfdom.dom.element.text.TextSectionElement;
 import org.odftoolkit.odfdom.dom.style.props.OdfSectionProperties;
 
 /**
@@ -56,13 +56,21 @@ public class BungeniSectionConvertToPlain  implements IEditorPlugin {
       private boolean makePlainDocument(OdfDocument odfDoc, File fileCopy) {
         boolean bState = false;
         try {
-            //First remove page background image
+            System.out.println("makePlainDocument");
+            
             BungeniOdfDocumentHelper docHelper = new BungeniOdfDocumentHelper(odfDoc);
+            //Remove page background image
             docHelper.removeBackgroundImage();
-            //Remove section background images
+            //Remove page background color
+            docHelper.removeBackgroundColor();
+            //Remove all section background color
+            docHelper.removeAllSectionBackgroundColor();
+            //Remove all section background images
+            docHelper.removeAllSectionBackgroundImages();
+            
             BungeniOdfSectionHelper odfDomHelper = new BungeniOdfSectionHelper(odfDoc);
             odfDomHelper.iterateSections(new IBungeniOdfSectionIterator(){
-              public boolean nextSection(BungeniOdfSectionHelper helper, OdfTextSection arg0) {
+              public boolean nextSection(BungeniOdfSectionHelper helper, TextSectionElement arg0) {
                    helper.removeSectionBackgroundImage(arg0);
                    arg0.setProperty(OdfSectionProperties.MarginLeft, "0.0in" );
                     return true;
@@ -112,7 +120,7 @@ public class BungeniSectionConvertToPlain  implements IEditorPlugin {
         public static void main(String[] args) {
             BungeniSectionConvertToPlain p = new BungeniSectionConvertToPlain();
             HashMap mp = new HashMap();
-            mp.put("OdfFileURL", "file:/home/undesa/Projects/Bungeni/BungeniEditor/trunk/BungeniEditorClient/dist/workspace/files/ke/debaterecord/2009-5-26/eng/ke_debaterecord_2009-5-26_eng.odt");
+            mp.put("OdfFileURL", "file:/"+System.getProperty("user.dir")+"/doc.odt");
             p.setParams(mp);
             p.exec();
         }
