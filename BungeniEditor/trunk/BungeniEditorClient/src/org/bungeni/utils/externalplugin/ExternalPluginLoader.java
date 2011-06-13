@@ -149,7 +149,7 @@ public class ExternalPluginLoader {
                 aPlugin = externalPluginCache.get(pluginName);
             }
         } catch (Exception ex) {
-          log.error("loadPlugin : " + ex.getMessage());
+          log.error("loadPlugin error : " + ex.getMessage());
         } finally {
             return aPlugin;
         }
