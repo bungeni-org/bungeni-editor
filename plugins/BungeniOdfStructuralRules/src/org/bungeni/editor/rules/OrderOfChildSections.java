@@ -6,7 +6,7 @@ import java.util.HashMap;
 import org.bungeni.editor.rulesimpl.BaseStructuralRule;
 import org.bungeni.editor.rulesimpl.StructuralError;
 import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
-import org.odftoolkit.odfdom.doc.text.OdfTextSection;
+import org.odftoolkit.odfdom.dom.element.text.TextSectionElement;
 
 /**
  * For an input section this class determines if the child sections are in the correct order.
@@ -17,7 +17,7 @@ import org.odftoolkit.odfdom.doc.text.OdfTextSection;
  */
 public class OrderOfChildSections extends BaseStructuralRule {
      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(OrderOfChildSections.class.getName());
-     OdfTextSection xThisSection = null;
+     TextSectionElement xThisSection = null;
     BungeniOdfSectionHelper odfSectionHelper = null;
     String thisSectionName = "";
     String thisSectionType = "";
@@ -73,9 +73,9 @@ public class OrderOfChildSections extends BaseStructuralRule {
        //get the child sections
       boolean bCheckPre = false, bCheckFol = false;
       try {
-          ArrayList<OdfTextSection> listofSections = odfSectionHelper.getChildSections(xThisSection);
+          ArrayList<TextSectionElement> listofSections = odfSectionHelper.getChildSections(xThisSection);
            for (int i = 0; i < listofSections.size(); i++) {
-               OdfTextSection odfSection = listofSections.get(i);
+               TextSectionElement odfSection = listofSections.get(i);
                String childSectionType =  this.odfSectionHelper.getSectionType(odfSection);
                String childSectionName = odfSection.getTextNameAttribute();
                //for the current child section - get the actual preceeding section type
@@ -132,7 +132,7 @@ public class OrderOfChildSections extends BaseStructuralRule {
        return false;
    }
 
-   private checkState checkPreceeding(String childSectionType, int currentIdx , ArrayList<OdfTextSection> listofChildren) {
+   private checkState checkPreceeding(String childSectionType, int currentIdx , ArrayList<TextSectionElement> listofChildren) {
        checkState cs = new checkState();
        if (checkPrecedingException(childSectionType) == true ) {
            return cs;
@@ -159,7 +159,7 @@ public class OrderOfChildSections extends BaseStructuralRule {
        if (allowedPreceedingTypes.contains(actualPreceedingType))
            return cs;
        else {
-           OdfTextSection failSection = listofChildren.get(currentIdx -1);
+           TextSectionElement failSection = listofChildren.get(currentIdx -1);
            cs.checkState = false;
            cs.failedSectionName = failSection.getTextNameAttribute();
            cs.failedSectionType = actualPreceedingType;
@@ -177,7 +177,7 @@ public class OrderOfChildSections extends BaseStructuralRule {
        }
    }
 
-   private checkState checkFollowing(String childSectionType, int currentIdx , ArrayList<OdfTextSection> listofChildren) {
+   private checkState checkFollowing(String childSectionType, int currentIdx , ArrayList<TextSectionElement> listofChildren) {
         checkState cs = new checkState();
   //get the allowed preceeding types from the rule
        if (checkFollowingException(childSectionType) == true ) {
@@ -202,7 +202,7 @@ public class OrderOfChildSections extends BaseStructuralRule {
        if (allowedFollowingTypes.contains(actualFollowingType))
            return cs;
        else {
-            OdfTextSection otextSection = listofChildren.get(currentIdx+1);
+            TextSectionElement otextSection = listofChildren.get(currentIdx+1);
             cs.checkState = false;
             cs.failedSectionType = actualFollowingType;
             cs.failedSectionName = otextSection.getTextNameAttribute();

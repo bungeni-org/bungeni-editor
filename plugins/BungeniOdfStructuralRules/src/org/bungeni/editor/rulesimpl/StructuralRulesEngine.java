@@ -8,7 +8,7 @@ import org.bungeni.odfdom.section.IBungeniOdfSectionIterator;
 import org.dom4j.Element;
 
 import org.odftoolkit.odfdom.doc.OdfDocument;
-import org.odftoolkit.odfdom.doc.text.OdfTextSection;
+import org.odftoolkit.odfdom.dom.element.text.TextSectionElement;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -83,8 +83,6 @@ public class StructuralRulesEngine {
     }
 
     public boolean processRulesForDocument(OdfDocument ooDocument) {
-        System.out.println("processing rules for :" + ooDocument.getDocumentPackagePath());
-
         BungeniOdfSectionHelper sectionhelper = new BungeniOdfSectionHelper(ooDocument);
 
         sectionhelper.iterateSections(new IterativeRulesForSections());
@@ -148,7 +146,7 @@ public class StructuralRulesEngine {
     }
 
     class IterativeRulesForSections implements IBungeniOdfSectionIterator {
-        public boolean nextSection(BungeniOdfSectionHelper helper, OdfTextSection nSection) {
+        public boolean nextSection(BungeniOdfSectionHelper helper, TextSectionElement nSection) {
             try {
                 System.out.println("iterating rules for section : " + nSection.getTextNameAttribute());
                 System.out.println("rules to apply = " + rulesToApply.size());

@@ -5,7 +5,7 @@ import org.bungeni.editor.rulesimpl.BaseStructuralRule;
 import org.bungeni.editor.rulesimpl.StructuralError;
 import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
 import org.dom4j.Element;
-import org.odftoolkit.odfdom.doc.text.OdfTextSection;
+import org.odftoolkit.odfdom.dom.element.text.TextSectionElement;
 
 /**
  * Checks a section for allowed child sections.
@@ -14,7 +14,7 @@ import org.odftoolkit.odfdom.doc.text.OdfTextSection;
  * @author Ashok Hariharan
  */
 public class AllowedChildSections extends BaseStructuralRule{
-    OdfTextSection xThisSection = null;
+    TextSectionElement xThisSection = null;
     BungeniOdfSectionHelper odfSectionHelper = null;
     String thisSectionName = "";
     String thisSectionType = "";
@@ -72,8 +72,8 @@ public class AllowedChildSections extends BaseStructuralRule{
         ///get all child sections
         boolean bState = true;
         try {
-            ArrayList<OdfTextSection> listofSections = odfSectionHelper.getChildSections(xThisSection);
-            for (OdfTextSection odfSection : listofSections) {
+            ArrayList<TextSectionElement> listofSections = odfSectionHelper.getChildSections(xThisSection);
+            for (TextSectionElement odfSection : listofSections) {
                 String childSectionType = odfSectionHelper.getSectionType(odfSection);
                 String childSectionName = odfSection.getTextNameAttribute();
                 if (!isSectionTypeAllowed(childSectionType)) {

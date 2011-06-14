@@ -1,0 +1,11 @@
+DEBUG [org.bungeni.plugins.structuralvalidator.BungeniStructuralValidator] setting inputparams
+DEBUG [org.bungeni.plugins.structuralvalidator.BungeniStructuralValidator] calling exec2()
+DEBUG [org.bungeni.plugins.structuralvalidator.BungeniStructuralValidator] before loading document
+DEBUG [org.bungeni.plugins.structuralvalidator.BungeniStructuralValidator] after loading document
+ERROR [org.bungeni.editor.rulesimpl.StructuralRulesParser] getAllowedSectionTypesForType : body has a reference to allowed section-type : QuestionAnswer which does not exist
+ERROR [org.bungeni.editor.rulesimpl.StructuralRulesParser] getAllowedSectionTypesForType : body has a reference to allowed section-type : NoticeOfMotion which does not exist
+ERROR [org.bungeni.editor.rulesimpl.StructuralRulesParser] getAllowedSectionTypesForType : Observation has a reference to allowed section-type : None which does not exist
+ERROR [org.bungeni.editor.rulesimpl.StructuralRulesParser] getAllowedSectionTypesForType : Observation has a reference to allowed section-type : None which does not exist
+ERROR [org.bungeni.editor.rulesimpl.StructuralRulesParser] getAllowedSectionTypesForType : Observation has a reference to allowed section-type : None which does not exist
+ERROR [org.bungeni.editor.rulesimpl.StructuralRulesParser] getAllowedSectionTypesForType : Conclusion has a reference to allowed section-type : None which does not exist
+DEBUG [org.bungeni.plugins.structuralvalidator.BungeniStructuralValidator] processing rules for document
