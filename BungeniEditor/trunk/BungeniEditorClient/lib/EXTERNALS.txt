@@ -24,3 +24,4 @@ commons-codec http://bungeni-editor.googlecode.com/svn/external_imports/trunk/li
 noa http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/noa
 miglayout http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/miglayout
 glazedlists http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/glazedlists
+bungenitransformer http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/transformer
