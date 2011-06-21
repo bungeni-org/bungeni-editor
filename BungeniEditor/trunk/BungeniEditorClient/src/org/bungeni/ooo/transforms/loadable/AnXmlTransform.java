@@ -10,7 +10,6 @@ import org.bungeni.extutils.MessageBox;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.transforms.impl.BungeniDocTransform;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
-import org.bungeni.restlet.client.TransformerClient;
 
 import org.jdom.Document;
 import org.jdom.Element;
@@ -30,6 +29,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import org.bungeni.plugins.translator.OdtTranslate;
 
 /**
  *
@@ -44,12 +45,10 @@ public class AnXmlTransform extends BungeniDocTransform {
     private String                         TRANSFORM_OUTPUT      =
         "/TransformerResponse/transformResult/output[@name='OUT_XML_TYPE']";
     private SAXBuilder                     outputBuilder;
-    TransformerClient                      transformerClient;
 
     /** Creates a new instance of HTMLTransform */
     public AnXmlTransform() {
         super();
-        transformerClient = new TransformerClient();
     }
 
     private boolean writeOutputFile(File outputTrans) {
@@ -103,7 +102,9 @@ public class AnXmlTransform extends BungeniDocTransform {
                 String ext          = fullFileName.substring(fullFileName.lastIndexOf(".") + 1, fullFileName.length());
                 String pref         = fullFileName.substring(0, fullFileName.lastIndexOf("."));
 
-                EXPORT_OUTPUT_FILE = fopenDocumentFile.getParentFile().getPath() + File.separator + pref + ".xml";
+                final String outputDirectory = fopenDocumentFile.getParentFile().getPath() + File.separator;
+                
+                EXPORT_OUTPUT_FILE = outputDirectory + pref + ".xml";
 
                 // get temporary output file
                 OutputFile            outANxmlFile   = new OutputFile(EXPORT_OUTPUT_FILE, "xml");
@@ -114,18 +115,44 @@ public class AnXmlTransform extends BungeniDocTransform {
                 outputFiles.add(outMetalexFile);
 
                 // File fMetalexout = new File(outFile.getFullFileName());
-                File ftmpOutput = new File(outANxmlFile.getFullFile().getParent() + File.separator
-                                           + TRANSFORM_OUTPUT_FILE);
-                String pathPrefix = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + "transformer"
-                                    + File.separator;
+                
+                String translatorRootFolder = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH()
+                                            + File.separator + "transformer"
+                                            + File.separator;
 
-                // call the transformer server
-                callTransform(fopenDocumentFile.getPath(), ftmpOutput.getPath());
+                OdtTranslate testObject = new OdtTranslate();
+
+                HashMap paramMap = new HashMap();
+		
+                String currentDirectory = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH();
+
+		String currentDocType = BungeniEditorPropertiesHelper.getCurrentDocType();
+
+		paramMap.put("OdfFileURL", fopenDocumentFile.getPath());
+		paramMap.put("OutputFilePath", outANxmlFile.getFullFile().getPath());
+		paramMap.put("OutputMetalexFilePath", outMetalexFile.getFullFile().getPath());
+		paramMap.put("TranslatorRootFolder", translatorRootFolder);
+		paramMap.put("TranslatorConfigFile", "configfiles/configs/TranslatorConfig_debaterecord.xml");
+		paramMap.put("TranslatorPipeline","metalex2akn/minixslt/debaterecord/pipeline.xsl" );
+		paramMap.put("CurrentDocType", currentDocType);
+		paramMap.put("CallerPanel", null);
+		paramMap.put("PluginMode", "odt2akn");
+
+                File foutput  = new File((String) paramMap.get("OutputFilePath"));
+		if (foutput.exists()) {
+			foutput.delete();
+		}
+		testObject.setParams(paramMap);
+		String sErrors = testObject.exec();
+		System.out.println("Translation Errors = \n\n" + sErrors);
+                bState = true;
+                /**
+                File fnewout =  new File((String) paramMap.get("OutputFilePath"));
 
                 if (ftmpOutput.exists()) {
                     processOutputFile(ftmpOutput, outputFiles);
                     bState = true;
-                }
+                }**/
             } else {
                 MessageBox.OK("Please save the document before trying to transform it!");
                 bState = false;
@@ -138,37 +165,6 @@ public class AnXmlTransform extends BungeniDocTransform {
         return bState;
     }
 
-    /**
-     * API that calls the REST server ... this is run in a context class loader
-     * @param inputDocPath
-     * @param tmpoutputFile
-     */
-    private void callTransform(String inputDocPath, String tmpoutputFile) {
-        final ClassLoader savedClassLoader = Thread.currentThread().getContextClassLoader();
-        FileOutputStream  fostream         = null;
-
-        try {
-            Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-
-            if (transformerClient.isServerRunning()) {
-                transformerClient.postParams(BungeniEditorPropertiesHelper.getCurrentDocType(), "odt2akn");
-                fostream = new FileOutputStream(new File(tmpoutputFile));
-                transformerClient.postFile(inputDocPath, fostream);
-            }
-        } catch (Exception ex) {
-            log.error("callTransform ", ex);
-        } finally {
-            Thread.currentThread().setContextClassLoader(savedClassLoader);
-
-            try {
-                if (fostream != null) {
-                    fostream.close();
-                }
-            } catch (IOException ex) {
-                log.error("callTransform : ", ex);
-            }
-        }
-    }
 
     private String getErrors(Document xmlDoc) {
         String foundErrors = "";
