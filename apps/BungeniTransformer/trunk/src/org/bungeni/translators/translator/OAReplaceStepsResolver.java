@@ -16,6 +16,7 @@ import java.io.IOException;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.TreeMap;
 
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
@@ -43,7 +44,7 @@ public final class OAReplaceStepsResolver {
             throws XPathExpressionException, TransformerException, IOException {
 
         // get the replacement step from the configuration
-        HashMap<Integer, OAReplaceStep> replaceSteps = aConfiguration.getReplaceSteps();
+        TreeMap<Integer, OAReplaceStep> replaceSteps = aConfiguration.getReplaceSteps();
 
         // create an iterator on the hash map
         Iterator<OAReplaceStep> replaceIterator = replaceSteps.values().iterator();

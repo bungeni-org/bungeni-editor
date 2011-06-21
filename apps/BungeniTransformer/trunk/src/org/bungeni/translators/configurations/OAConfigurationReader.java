@@ -18,14 +18,20 @@ import org.xml.sax.SAXException;
 import java.io.IOException;
 
 import java.util.HashMap;
+import java.util.TreeMap;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 
 /**
- * This is the reader of the configuration.
- * It supplies several methods to retrieve the Steps of a configuration
+ * This class reades the TranslatorConfig_xxxx.xml files for each content type
+ *
+ * The way it works is :
+ *
+ * (incoming doc) => input steps applied => (stream out) => replace steps =>
+ *       (stream out) => output steps applied 
+ *
  */
 public class OAConfigurationReader implements ConfigurationReader {
 
@@ -53,10 +59,10 @@ public class OAConfigurationReader implements ConfigurationReader {
      * @return the HashMap containing all the Steps of the configuration
      * @throws XPathExpressionException
      */
-    public HashMap<Integer, OAXSLTStep> getInputSteps() throws XPathExpressionException {
+    public TreeMap<Integer, OAXSLTStep> getInputSteps() throws XPathExpressionException {
 
-        // the HashMap to return
-        HashMap<Integer, OAXSLTStep> resultMap = new HashMap<Integer, OAXSLTStep>();
+        // the TreeMap to return
+        TreeMap<Integer, OAXSLTStep> resultMap = new TreeMap<Integer, OAXSLTStep>();
 
         // retreive the XPath resolver instance
         XPathResolver xresolver = XPathResolver.getInstance();
@@ -89,10 +95,10 @@ public class OAConfigurationReader implements ConfigurationReader {
      * @return the HashMap containing all the Steps of the configuration
      * @throws XPathExpressionException
      */
-    public HashMap<Integer, OAXSLTStep> getOutputSteps() throws XPathExpressionException {
+    public TreeMap<Integer, OAXSLTStep> getOutputSteps() throws XPathExpressionException {
 
         // the HashMap to return
-        HashMap<Integer, OAXSLTStep> resultMap = new HashMap<Integer, OAXSLTStep>();
+        TreeMap<Integer, OAXSLTStep> resultMap = new TreeMap<Integer, OAXSLTStep>();
 
         // retreive the XPath resolver instance
         XPathResolver xresolver = XPathResolver.getInstance();
@@ -124,10 +130,10 @@ public class OAConfigurationReader implements ConfigurationReader {
      * @return the HashMap containing all the ReplaceSteps of the configuration
      * @throws XPathExpressionException
      */
-    public HashMap<Integer, OAReplaceStep> getReplaceSteps() throws XPathExpressionException {
+    public TreeMap<Integer, OAReplaceStep> getReplaceSteps() throws XPathExpressionException {
 
         // the HashMap to return
-        HashMap<Integer, OAReplaceStep> resultMap = new HashMap<Integer, OAReplaceStep>();
+        TreeMap<Integer, OAReplaceStep> resultMap = new TreeMap<Integer, OAReplaceStep>();
 
         // retrieve the XPath resolver instance
         XPathResolver xresolver = XPathResolver.getInstance();

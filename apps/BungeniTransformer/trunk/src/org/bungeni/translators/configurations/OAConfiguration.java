@@ -14,7 +14,7 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 
-import java.util.HashMap;
+import java.util.TreeMap;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
@@ -49,10 +49,10 @@ public class OAConfiguration implements Configuration {
      * @return the HashMap containing all the Steps of the configuration
      * @throws XPathExpressionException
      */
-    public HashMap<Integer, OAXSLTStep> getInputSteps() throws XPathExpressionException {
+    public TreeMap<Integer, OAXSLTStep> getInputSteps() throws XPathExpressionException {
 
         // ask the reader to get the steps of the configuration
-        HashMap<Integer, OAXSLTStep> resultSteps = this.reader.getInputSteps();
+        TreeMap<Integer, OAXSLTStep> resultSteps = this.reader.getInputSteps();
 
         // return the gotten steps
         return resultSteps;
@@ -64,10 +64,10 @@ public class OAConfiguration implements Configuration {
      * @return the HashMap containing all the Steps of the configuration
      * @throws XPathExpressionException
      */
-    public HashMap<Integer, OAXSLTStep> getOutputSteps() throws XPathExpressionException {
+    public TreeMap<Integer, OAXSLTStep> getOutputSteps() throws XPathExpressionException {
 
         // ask the reader to get the steps of the configuration
-        HashMap<Integer, OAXSLTStep> resultSteps = this.reader.getOutputSteps();
+        TreeMap<Integer, OAXSLTStep> resultSteps = this.reader.getOutputSteps();
 
         // return the gotten steps
         return resultSteps;
@@ -79,10 +79,10 @@ public class OAConfiguration implements Configuration {
      * @return the HashMap containing all the Replace Steps of the configuration
      * @throws XPathExpressionException
      */
-    public HashMap<Integer, OAReplaceStep> getReplaceSteps() throws XPathExpressionException {
+    public TreeMap<Integer, OAReplaceStep> getReplaceSteps() throws XPathExpressionException {
 
         // ask the reader to get the replace steps of the configuration
-        HashMap<Integer, OAReplaceStep> resultSteps = this.reader.getReplaceSteps();
+        TreeMap<Integer, OAReplaceStep> resultSteps = this.reader.getReplaceSteps();
 
         // return the gotten steps
         return resultSteps;

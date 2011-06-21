@@ -7,7 +7,7 @@ import org.bungeni.translators.configurations.steps.OAXSLTStep;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.util.HashMap;
+import java.util.TreeMap;
 
 import javax.xml.xpath.XPathExpressionException;
 
@@ -23,7 +23,7 @@ public interface ConfigurationReader {
      * @return the HashMap containing all the Steps of the configuration
      * @throws XPathExpressionException
      */
-    public HashMap<Integer, OAXSLTStep> getInputSteps() throws XPathExpressionException;
+    public TreeMap<Integer, OAXSLTStep> getInputSteps() throws XPathExpressionException;
 
     /**
      * Used to get an HashMap containing all the OUTPUT XSLT Steps of the configuration with their position
@@ -31,12 +31,12 @@ public interface ConfigurationReader {
      * @return the HashMap containing all the Steps of the configuration
      * @throws XPathExpressionException
      */
-    public HashMap<Integer, OAXSLTStep> getOutputSteps() throws XPathExpressionException;
+    public TreeMap<Integer, OAXSLTStep> getOutputSteps() throws XPathExpressionException;
 
     /**
      * Used to get an HashMap containing all the ReplaceStep of the configuration
      * @return the HashMap containing all the ReplaceSteps of the configuration
      * @throws XPathExpressionException
      */
-    public HashMap<Integer, OAReplaceStep> getReplaceSteps() throws XPathExpressionException;
+    public TreeMap<Integer, OAReplaceStep> getReplaceSteps() throws XPathExpressionException;
 }

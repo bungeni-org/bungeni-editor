@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config name="JudgementCommon">
+
+    <!-- This steps are performed BEFORE the above regex replacement -->
+    <input>
+        <xslt step="1" name="appendBungeniNS" href="odt2metalex/common/add_bungeni_ns.xsl"/>
+        <!-- Add RDF ns -->
+        <xslt step="2" name="appendRDFNS" href="odt2metalex/common/add_rdf_ns.xsl"/>
+        <!-- Extract the styles -->
+        <xslt step="3" name="mergeStyles" href="odt2metalex/common/merge_styles.xsl"/>
+        <!-- Transform the document to the META Language -->
+        <xslt step="4" name="ODFToMetaLanguage"
+            href="odt2metalex/judgement/odf_to_meta_language.xsl"/>
+    </input>
+
     <replacements>
         <!-- Normalise the produced ODF ref elements -->
         <replacement step="1" name="replacerefmarkstart"
@@ -14,29 +27,18 @@
         <!-- Delete the empty lines -->
         <replacement step="5" name="replaceemptyline" pattern="\n" replacement=""/>
     </replacements>
-    <stylesheets>
-        <!-- This steps are performed BEFORE the above regex replacement -->
-        <input>
-            <xslt step="1" name="appendBungeniNS" href="odt2metalex/common/add_bungeni_ns.xsl"/>
-            <!-- Add RDF ns -->
-            <xslt step="2" name="appendRDFNS" href="odt2metalex/common/add_rdf_ns.xsl"/>
-            <!-- Extract the styles -->
-            <xslt step="3" name="mergeStyles" href="odt2metalex/common/merge_styles.xsl"/>
-            <!-- Transform the document to the META Language -->
-            <xslt step="4" name="ODFToMetaLanguage"
-                href="odt2metalex/judgement/odf_to_meta_language.xsl"/>
-        </input>
-        <!-- This steps are performed AFTER the above regex replacement -->
-        <output>
-            <!-- Normalise the produced META document -->
-            <xslt step="1" name="MetaLanguageNormalisation"
-                href="odt2metalex/common/meta_language_normalization.xsl"/>
-            <!-- Add the Metalex namespace -->
-            <xslt step="2" name="MetaLanguageAddNamespaceMetalex"
-                href="odt2metalex/common/meta_language_add_mlx_ns.xsl"/>
-            <!-- Add the Bungeni namespace -->
-            <xslt step="3" name="MetaLanguageAddNamespaceBungeni"
-                href="odt2metalex/common/meta_language_add_bungeni_ns.xsl"/>
-        </output>
-    </stylesheets>
+
+    <!-- This steps are performed AFTER the above regex replacement -->
+    <output>
+        <!-- Normalise the produced META document -->
+        <xslt step="1" name="MetaLanguageNormalisation"
+            href="odt2metalex/common/meta_language_normalization.xsl"/>
+        <!-- Add the Metalex namespace -->
+        <xslt step="2" name="MetaLanguageAddNamespaceMetalex"
+            href="odt2metalex/common/meta_language_add_mlx_ns.xsl"/>
+        <!-- Add the Bungeni namespace -->
+        <xslt step="3" name="MetaLanguageAddNamespaceBungeni"
+            href="odt2metalex/common/meta_language_add_bungeni_ns.xsl"/>
+    </output>
+
 </config>

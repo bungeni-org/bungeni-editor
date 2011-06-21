@@ -75,6 +75,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
 
         // create the Properties object
         Properties properties           = new Properties();
+        //this is the TranslatorConfig_<type>.xml file
         String     pathToPropertiesFile = GlobalConfigurations.getApplicationPathPrefix()
                                           + GlobalConfigurations.getConfigurationFilePath();
 

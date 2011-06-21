@@ -15,6 +15,7 @@ import java.io.UnsupportedEncodingException;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.TreeMap;
 
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
@@ -43,7 +44,7 @@ public final class OAOutputStepsResolver {
             throws XPathExpressionException, TransformerException, UnsupportedEncodingException, FileNotFoundException {
 
         // get the steps from the configuration
-        HashMap<Integer, OAXSLTStep> stepsMap = aConfiguration.getOutputSteps();
+        TreeMap<Integer, OAXSLTStep> stepsMap = aConfiguration.getOutputSteps();
 
         // create an iterator on the hash map
         Iterator<OAXSLTStep> mapIterator = stepsMap.values().iterator();
