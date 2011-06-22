@@ -87,4 +87,12 @@ public class OAConfiguration implements Configuration {
         // return the gotten steps
         return resultSteps;
     }
+
+    public TreeMap<Integer, OAXSLTStep> getPostXmlSteps() throws XPathExpressionException {
+
+        TreeMap<Integer, OAXSLTStep> postxmlSteps = this.reader.getPostXmlSteps();
+
+        return postxmlSteps;
+
+    }
 }

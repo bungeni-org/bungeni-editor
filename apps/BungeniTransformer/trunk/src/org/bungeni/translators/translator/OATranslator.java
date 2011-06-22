@@ -2,6 +2,8 @@ package org.bungeni.translators.translator;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import org.bungeni.translators.exceptions.DocumentNotFoundException;
 import org.bungeni.translators.exceptions.TranslationFailedException;
 import org.bungeni.translators.exceptions.TranslationToMetalexFailedException;
@@ -41,6 +43,21 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPathExpressionException;
 import org.bungeni.translators.utility.runtime.Outputs;
 
+/***
+
+1 Odf is merged
+
+2 Metalex translation
+    1) get metalex config from TranslatorConfig_xxx.xml
+    2) process the odt xml stream by applying input, replacement and output steps
+    3) finally output the metalex xml
+
+3 Build translation xslt
+
+4 apply translation xslt on metalex output
+
+ * @author undesa
+ */
 public class OATranslator implements org.bungeni.translators.interfaces.Translator {
 
     /* The instance of this Translator */
@@ -163,63 +180,71 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
 
         try {
 
-            // get the document stream obtained after the merge of all the ODF XML contained in the given ODF pack
-            ODFUtility odfUtil       = ODFUtility.getInstance();
-            File       mergedOdfFile = odfUtil.mergeODF(aDocumentPath);
+            /***
+             * Merge all the xml documents in the ODF package into 1 XML document.
+             */
+            StreamSource ODFDocument = this.mergeODFXML(aDocumentPath);
 
-            // /// ---ASHOK--- //////
-            //FileUtility.getInstance().copyFile(mergedOdfFile, new File("./test4235406.xml"));
-            // /// ---ASHOK--- //////
+            /***
+             * Get the translator configuration
+             */
+            OAConfiguration configuration  = this.getTranslatorConfiguration(this.metalexConfigPath);
 
-            StreamSource ODFDocument = FileUtility.getInstance().FileAsStreamSource(mergedOdfFile);
+            /***
+             * Translate to Metalex
+             */
 
-            // translate the document to METALEX
-            File metalexFile = translateToMetalex(ODFDocument, this.metalexConfigPath);
+            StreamSource inputStepsProcessedDoc = this.applyInputSteps(ODFDocument, configuration);
 
-            // **DEBUG**
-            FileUtility.getInstance().copyFile(metalexFile, Outputs.getInstance().File("metalex.xml"));
-            // **DEBUG**
+            StreamSource replaceStepsProcessedDoc = this.applyReplaceSteps(inputStepsProcessedDoc, configuration);
 
-            translatedFiles.put("metalex", metalexFile);
+            StreamSource outputStepsProcessedDoc = this.applyOutputSteps(replaceStepsProcessedDoc, configuration);
 
-            /** Convert the metalex to AN xml using the pipeline **/
-            // create the XSLT that transforms the metalex
-            //AH-08-03-11 -- an optimization has been be done here ;
-            //we dont need to buildXSLT every time - the pipelined
-            //XSLT can be cached and run and regenerated only when required
-            File xslt = null;
-            if (this.cachePipelineXSLT) {
-                File outputXSLT = Outputs.getInstance().File("xslt_pipeline.xsl");
-                if (outputXSLT.exists()) {
-                    xslt = outputXSLT;
-                } else {
-                    xslt = this.buildXSLT(aPipelinePath);
-                    /** **DEBUG** */
-                    FileUtility.getInstance().copyFile(xslt, Outputs.getInstance().File("xslt_pipeline.xsl"));
-                    /** **DEBUG** */
-                }
-            }
-            
+            MetalexOutput metalexOutput = this.writeMetalexOutput(outputStepsProcessedDoc);
+
+
+            /**
+            File metalextmpFile = translateToMetalex(ODFDocument, configuration);
+            File metalexFile = FileUtility.getInstance().copyFile(metalextmpFile,
+                    Outputs.getInstance().File("metalex.xml"));
             // Stream for metalex file
             StreamSource ssMetalex = FileUtility.getInstance().FileAsStreamSource(metalexFile);
+            
+             */
+            
+            translatedFiles.put("metalex", metalexOutput.metalexFile);
 
-            // streamsource to xslt that transforms the metalex
+            /***
+             * Build the XSLT pipeline
+             */
+            File xslt = this.getXSLTPipeline(aPipelinePath);
+
+            /**
+             * Transform the Metalex using the built XSLT
+             */
+
+            StreamSource anXmlStream = this.translateToAkomantoso(xslt, metalexOutput.metalexStream);
+
+            /*
             StreamSource    ssXslt          = FileUtility.getInstance().FileAsStreamSource(xslt);
             XSLTTransformer xsltTransformer = XSLTTransformer.getInstance();
-
-            // apply the XSLT to the document
             StreamSource result = xsltTransformer.transform(ssMetalex, ssXslt);
+            */
+            /***
+             * Finally call the Add namespace XSLT
+             */
+            
+            StreamSource anXmlFinalStream = this.applyPostXmlSteps(anXmlStream,
+                                                        configuration);
 
-            // stream the AN xslt file
-            StreamSource ssAnXsltpath =
-                FileUtility.getInstance().FileAsStreamSource(this.akomantosoAddNamespaceXSLTPath);
+            //StreamSource ssAnXsltpath =
+            //    FileUtility.getInstance().FileAsStreamSource(this.akomantosoAddNamespaceXSLTPath);
+            //StreamSource resultWithNamespace = xsltTransformer.transform(result, ssAnXsltpath);
 
-            // apply to the result the XSLT that insert the namespace
-            StreamSource resultWithNamespace = xsltTransformer.transform(result, ssAnXsltpath);
-
-            // create the file that will be returned in case the validation do not fail
-            File fileToReturn = StreamSourceUtility.getInstance().writeToFile(resultWithNamespace);
-
+            /**
+             * Final Output
+             */
+            File fileToReturn = StreamSourceUtility.getInstance().writeToFile(anXmlFinalStream);
             translatedFiles.put("anxml", fileToReturn);
 
             // validate the produced document
@@ -281,6 +306,96 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         return translatedFiles;
     }
 
+    public StreamSource mergeODFXML(String aDocumentPath) throws TransformerFactoryConfigurationError, Exception {
+            ODFUtility odfUtil       = ODFUtility.getInstance();
+            File       mergedOdfFile = odfUtil.mergeODF(aDocumentPath);
+            StreamSource ODFDocument = FileUtility.getInstance().FileAsStreamSource(mergedOdfFile);
+            return ODFDocument;
+    }
+
+    private OAConfiguration getTranslatorConfiguration(String aConfigurationPath) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException{
+            // get the File of the configuration
+            Document configurationDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(
+                                            FileUtility.getInstance().FileAsInputSource(aConfigurationPath));
+
+            // create the configuration
+            OAConfiguration configuration = new OAConfiguration(configurationDoc);
+            return configuration;
+    }
+
+    private File getXSLTPipeline(String aPipelinePath) throws XPathExpressionException, SAXException, IOException, ParserConfigurationException, TransformerFactoryConfigurationError, TransformerException{
+            File xslt = null;
+            if (this.cachePipelineXSLT) {
+                File outputXSLT = Outputs.getInstance().File("xslt_pipeline.xsl");
+                if (outputXSLT.exists()) {
+                    xslt = outputXSLT;
+                } else {
+                    xslt = this.buildXSLT(aPipelinePath);
+                    FileUtility.getInstance().copyFile(xslt, Outputs.getInstance().File("xslt_pipeline.xsl"));
+                }
+            }
+            return xslt;
+    }
+
+
+    public StreamSource applyInputSteps(StreamSource ODFDocument, OAConfiguration configuration)
+            throws TransformerFactoryConfigurationError, Exception {
+           // applies the input steps to the StreamSource of the ODF document
+            StreamSource iteratedDocument = OAInputStepsResolver.resolve(ODFDocument, configuration);
+            return iteratedDocument;
+    }
+
+    public StreamSource applyReplaceSteps(StreamSource ODFDocument, OAConfiguration configuration)
+                 throws TransformerFactoryConfigurationError, Exception {
+            // applies the map steps to the StreamSource of the ODF document
+            StreamSource iteratedDocument = OAReplaceStepsResolver.resolve(ODFDocument, configuration);
+            return iteratedDocument;
+    }
+
+    public StreamSource applyOutputSteps(StreamSource ODFDocument, OAConfiguration configuration)
+                 throws TransformerFactoryConfigurationError, Exception {
+         // apply the OUTPUT XSLT to the StreamSource
+         StreamSource resultStream = OAOutputStepsResolver.resolve(ODFDocument, configuration);
+         return resultStream;
+    }
+
+    public StreamSource applyPostXmlSteps(StreamSource anXmlStream, OAConfiguration configuration)
+             throws TransformerFactoryConfigurationError, Exception {
+         // apply the OUTPUT XSLT to the StreamSource
+         StreamSource resultStream = OAPostXmlStepsResolver.resolve(anXmlStream, configuration);
+         return resultStream;
+    }
+
+    class MetalexOutput {
+        StreamSource metalexStream;
+        File metalexFile;
+
+        public MetalexOutput(StreamSource ss, File mf) {
+            this.metalexStream = ss;
+            this.metalexFile = mf;
+        }
+    }
+
+
+    private MetalexOutput writeMetalexOutput(StreamSource metalexDocument) throws TransformerException, IOException {
+            File metalextmpFile = StreamSourceUtility.getInstance().writeToFile(metalexDocument);
+            File metalexFile = FileUtility.getInstance().copyFile(metalextmpFile,
+                    Outputs.getInstance().File("metalex.xml"));
+            // Stream for metalex file
+            StreamSource ssMetalex =
+                    FileUtility.getInstance().FileAsStreamSource(metalexFile);
+            return new MetalexOutput(ssMetalex, metalexFile);
+    }
+
+    public StreamSource translateToAkomantoso(File xsltFile, StreamSource metalexStream)
+            throws FileNotFoundException, TransformerException, UnsupportedEncodingException{
+            StreamSource    ssXslt  = FileUtility.getInstance().FileAsStreamSource(xsltFile);
+            XSLTTransformer xsltTransformer = XSLTTransformer.getInstance();
+            StreamSource result = xsltTransformer.transform(metalexStream, ssXslt);
+            return result;
+    }
+
+
     /**
      * Translate an ODF stream source to the METALEX format
      * @param ODFDocument the ODFStreamSource to translate
@@ -289,17 +404,9 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
      * @throws TransformerFactoryConfigurationError
      * @throws Exception
      */
-     public File translateToMetalex(StreamSource ODFDocument, String aConfigurationPath)
+     public File translateToMetalex(StreamSource ODFDocument, OAConfiguration configuration)
             throws TransformerFactoryConfigurationError, Exception {
         try {
-
-            // get the File of the configuration
-            Document configurationDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(
-                                            FileUtility.getInstance().FileAsInputSource(aConfigurationPath));
-
-            // create the configuration
-            OAConfiguration configuration = new OAConfiguration(configurationDoc);
-
             // applies the input steps to the StreamSource of the ODF document
             StreamSource iteratedDocument = OAInputStepsResolver.resolve(ODFDocument, configuration);
 
@@ -312,8 +419,8 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             // write the source to a File
             File resultFile = StreamSourceUtility.getInstance().writeToFile(resultStream);
 
-            // return the Source of the new document
             return resultFile;
+
         } catch (Exception e) {
 
             // get the message to print

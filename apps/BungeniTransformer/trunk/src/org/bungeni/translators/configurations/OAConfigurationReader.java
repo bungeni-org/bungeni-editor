@@ -60,33 +60,7 @@ public class OAConfigurationReader implements ConfigurationReader {
      * @throws XPathExpressionException
      */
     public TreeMap<Integer, OAXSLTStep> getInputSteps() throws XPathExpressionException {
-
-        // the TreeMap to return
-        TreeMap<Integer, OAXSLTStep> resultMap = new TreeMap<Integer, OAXSLTStep>();
-
-        // retreive the XPath resolver instance
-        XPathResolver xresolver = XPathResolver.getInstance();
-
-        // get the step with the given nama in this configuration
-        NodeList stepNodes = (NodeList) xresolver.evaluate(this.configXML, "//input/xslt", XPathConstants.NODESET);
-
-        // get all the steps and creates a Step object for each one of them
-        for (int i = 0; i < stepNodes.getLength(); i++) {
-
-            // get the step node
-            Node stepNode = stepNodes.item(i);
-
-            // create the Step
-            OAXSLTStep resultStep = new OAXSLTStep(stepNode.getAttributes().getNamedItem("name").getNodeValue(),
-                                        stepNode.getAttributes().getNamedItem("href").getNodeValue(),
-                                        Integer.parseInt(stepNode.getAttributes().getNamedItem("step").getNodeValue()));
-
-            // add the node to the hash map set its key as its position (step attribute)
-            resultMap.put(Integer.parseInt(stepNode.getAttributes().getNamedItem("step").getNodeValue()), resultStep);
-        }
-
-        // return the hash map containing all the Steps
-        return resultMap;
+        return this.getXSLTSteps("//input/xslt");
     }
 
     /**
@@ -96,33 +70,7 @@ public class OAConfigurationReader implements ConfigurationReader {
      * @throws XPathExpressionException
      */
     public TreeMap<Integer, OAXSLTStep> getOutputSteps() throws XPathExpressionException {
-
-        // the HashMap to return
-        TreeMap<Integer, OAXSLTStep> resultMap = new TreeMap<Integer, OAXSLTStep>();
-
-        // retreive the XPath resolver instance
-        XPathResolver xresolver = XPathResolver.getInstance();
-
-        // get the step with the given nama in this configuration
-        NodeList stepNodes = (NodeList) xresolver.evaluate(this.configXML, "//output/xslt", XPathConstants.NODESET);
-
-        // get all the steps and creates a Step object for each one of them
-        for (int i = 0; i < stepNodes.getLength(); i++) {
-
-            // get the step node
-            Node stepNode = stepNodes.item(i);
-
-            // create the Step
-            OAXSLTStep resultStep = new OAXSLTStep(stepNode.getAttributes().getNamedItem("name").getNodeValue(),
-                                        stepNode.getAttributes().getNamedItem("href").getNodeValue(),
-                                        Integer.parseInt(stepNode.getAttributes().getNamedItem("step").getNodeValue()));
-
-            // add the node to the hash map set its key as its position (step attribute)
-            resultMap.put(Integer.parseInt(stepNode.getAttributes().getNamedItem("step").getNodeValue()), resultStep);
-        }
-
-        // return the hash map containing all the Steps
-        return resultMap;
+        return this.getXSLTSteps("//output/xslt");
     }
 
     /**
@@ -172,4 +120,48 @@ public class OAConfigurationReader implements ConfigurationReader {
         // return the hash map containing all the Steps
         return resultMap;
     }
+
+    /**
+     * Used to get an HashMap containing all the Steps of the configuration with their position
+     * as key
+     * @return the HashMap containing all the Steps of the configuration
+     * @throws XPathExpressionException
+     */
+    public TreeMap<Integer, OAXSLTStep> getPostXmlSteps() throws XPathExpressionException {
+        return getXSLTSteps("//postxml/xslt");
+
+    }
+
+
+   private TreeMap<Integer, OAXSLTStep> getXSLTSteps(String forXpath) throws XPathExpressionException {
+           // the TreeMap to return
+        TreeMap<Integer, OAXSLTStep> resultMap = new TreeMap<Integer, OAXSLTStep>();
+
+        // retreive the XPath resolver instance
+        XPathResolver xresolver = XPathResolver.getInstance();
+
+        // get the step with the given nama in this configuration
+        NodeList stepNodes = (NodeList) xresolver.evaluate(this.configXML, forXpath, XPathConstants.NODESET);
+
+        // get all the steps and creates a Step object for each one of them
+        for (int i = 0; i < stepNodes.getLength(); i++) {
+
+            // get the step node
+            Node stepNode = stepNodes.item(i);
+
+            // create the Step
+            OAXSLTStep resultStep = new OAXSLTStep(stepNode.getAttributes().getNamedItem("name").getNodeValue(),
+                                        stepNode.getAttributes().getNamedItem("href").getNodeValue(),
+                                        Integer.parseInt(stepNode.getAttributes().getNamedItem("step").getNodeValue()));
+
+            // add the node to the hash map set its key as its position (step attribute)
+            resultMap.put(Integer.parseInt(stepNode.getAttributes().getNamedItem("step").getNodeValue()), resultStep);
+        }
+
+        // return the hash map containing all the Steps
+        return resultMap;
+
+   }
+
+
 }

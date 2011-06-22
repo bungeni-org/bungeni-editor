@@ -7,7 +7,8 @@ import java.util.logging.Logger;
 import org.bungeni.translators.globalconfigurations.GlobalConfigurations;
 
 /**
- *
+ * This class is used to create a runtime directory - intermediate outputs
+ * and cached files are stored here
  * @author Ashok Hariharan
  */
 public class Outputs {
