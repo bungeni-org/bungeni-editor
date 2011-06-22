@@ -1,0 +1,1 @@
+registry http://bungeni-editor.googlecode.com/svn/BungeniEditor/trunk/BungeniEditorClient/runtime_required/registry
