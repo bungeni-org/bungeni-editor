@@ -3,4 +3,5 @@ hibernate http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/h
 restlet http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/restlet
 dom4j http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/dom4j
 commons-collections http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/commons-collections
-
+commons-logging http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/commons-logging
+xstream http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/xstream
