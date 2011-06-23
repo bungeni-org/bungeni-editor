@@ -110,10 +110,6 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         this.akomantosoSchemaPath = GlobalConfigurations.getApplicationPathPrefix()
                                     + properties.getProperty("akomantosoSchemaPath");
 
-        // get the path of the XSLT that add the namespace to AKOMA NTOSO produced files
-        this.akomantosoAddNamespaceXSLTPath = GlobalConfigurations.getApplicationPathPrefix()
-                + properties.getProperty("akomantosoAddNamespaceXSLTPath");
-
         // create the resource bundle
         this.resourceBundle = ResourceBundle.getBundle(properties.getProperty("resourceBundlePath"));
 
@@ -189,28 +185,40 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
              * Get the translator configuration
              */
             OAConfiguration configuration  = this.getTranslatorConfiguration(this.metalexConfigPath);
+            MetalexOutput metalexOutput = null;
 
-            /***
-             * Translate to Metalex
-             */
+            //we use a nested exception handler here to specifically catch intermediary
+            //exceptions
 
-            StreamSource inputStepsProcessedDoc = this.applyInputSteps(ODFDocument, configuration);
+            try {
+                /**
+                 * Apply input steps
+                 */
+                StreamSource inputStepsProcessedDoc = this.applyInputSteps(ODFDocument, configuration);
 
-            StreamSource replaceStepsProcessedDoc = this.applyReplaceSteps(inputStepsProcessedDoc, configuration);
+                /**
+                 * Apply the replace steps
+                 */
+                StreamSource replaceStepsProcessedDoc = this.applyReplaceSteps(inputStepsProcessedDoc, configuration);
 
-            StreamSource outputStepsProcessedDoc = this.applyOutputSteps(replaceStepsProcessedDoc, configuration);
+                /**
+                 * Finally apply the output steps
+                 */
+                StreamSource outputStepsProcessedDoc = this.applyOutputSteps(replaceStepsProcessedDoc, configuration);
 
-            MetalexOutput metalexOutput = this.writeMetalexOutput(outputStepsProcessedDoc);
-
-
-            /**
-            File metalextmpFile = translateToMetalex(ODFDocument, configuration);
-            File metalexFile = FileUtility.getInstance().copyFile(metalextmpFile,
-                    Outputs.getInstance().File("metalex.xml"));
-            // Stream for metalex file
-            StreamSource ssMetalex = FileUtility.getInstance().FileAsStreamSource(metalexFile);
-            
-             */
+                /**
+                 * At the end of the output steps we should have a metalex document, write it out
+                 */
+                metalexOutput = this.writeMetalexOutput(outputStepsProcessedDoc);
+             } catch (Exception e) {
+                    // get the message to print
+                    String message = resourceBundle.getString("TRANSLATION_TO_METALEX_FAILED_TEXT");
+                    System.out.println(message);
+                    // print the message and the exception into the logger
+                    logger.fatal((new TranslationToMetalexFailedException(message)).getStackTrace());
+                    // RETURN null
+                    return null;
+                }
             
             translatedFiles.put("metalex", metalexOutput.metalexFile);
 
@@ -225,21 +233,12 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
 
             StreamSource anXmlStream = this.translateToAkomantoso(xslt, metalexOutput.metalexStream);
 
-            /*
-            StreamSource    ssXslt          = FileUtility.getInstance().FileAsStreamSource(xslt);
-            XSLTTransformer xsltTransformer = XSLTTransformer.getInstance();
-            StreamSource result = xsltTransformer.transform(ssMetalex, ssXslt);
-            */
             /***
              * Finally call the Add namespace XSLT
              */
             
             StreamSource anXmlFinalStream = this.applyPostXmlSteps(anXmlStream,
                                                         configuration);
-
-            //StreamSource ssAnXsltpath =
-            //    FileUtility.getInstance().FileAsStreamSource(this.akomantosoAddNamespaceXSLTPath);
-            //StreamSource resultWithNamespace = xsltTransformer.transform(result, ssAnXsltpath);
 
             /**
              * Final Output
@@ -341,28 +340,32 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
     public StreamSource applyInputSteps(StreamSource ODFDocument, OAConfiguration configuration)
             throws TransformerFactoryConfigurationError, Exception {
            // applies the input steps to the StreamSource of the ODF document
-            StreamSource iteratedDocument = OAInputStepsResolver.resolve(ODFDocument, configuration);
+            StreamSource iteratedDocument = OAXSLTStepsResolver.resolve(ODFDocument,
+                                                    configuration.getInputSteps());
             return iteratedDocument;
     }
 
     public StreamSource applyReplaceSteps(StreamSource ODFDocument, OAConfiguration configuration)
                  throws TransformerFactoryConfigurationError, Exception {
             // applies the map steps to the StreamSource of the ODF document
-            StreamSource iteratedDocument = OAReplaceStepsResolver.resolve(ODFDocument, configuration);
+            StreamSource iteratedDocument = OAReplaceStepsResolver.resolve(ODFDocument,
+                                                    configuration);
             return iteratedDocument;
     }
 
     public StreamSource applyOutputSteps(StreamSource ODFDocument, OAConfiguration configuration)
                  throws TransformerFactoryConfigurationError, Exception {
          // apply the OUTPUT XSLT to the StreamSource
-         StreamSource resultStream = OAOutputStepsResolver.resolve(ODFDocument, configuration);
+         StreamSource resultStream = OAXSLTStepsResolver.resolve(ODFDocument,
+                                                    configuration.getOutputSteps());
          return resultStream;
     }
 
     public StreamSource applyPostXmlSteps(StreamSource anXmlStream, OAConfiguration configuration)
              throws TransformerFactoryConfigurationError, Exception {
          // apply the OUTPUT XSLT to the StreamSource
-         StreamSource resultStream = OAPostXmlStepsResolver.resolve(anXmlStream, configuration);
+         StreamSource resultStream = OAXSLTStepsResolver.resolve(anXmlStream,
+                                                    configuration.getPostXmlSteps());
          return resultStream;
     }
 
@@ -404,6 +407,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
      * @throws TransformerFactoryConfigurationError
      * @throws Exception
      */
+    /**
      public File translateToMetalex(StreamSource ODFDocument, OAConfiguration configuration)
             throws TransformerFactoryConfigurationError, Exception {
         try {
@@ -435,6 +439,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             return null;
         }
     }
+    */
 
     /**
      * Create and return an XSLT builded upon the instructions of the given pipeline.

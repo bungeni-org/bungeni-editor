@@ -43,11 +43,8 @@ public  class OAXSLTStepsResolver {
      * @throws TransformerException
      * @throws UnsupportedEncodingException
      */
-    public static StreamSource resolve(StreamSource anODFDocument, OAConfiguration aConfiguration)
+    public static StreamSource resolve(StreamSource anODFDocument, TreeMap<Integer,OAXSLTStep> stepsMap)
             throws XPathExpressionException, TransformerException, UnsupportedEncodingException {
-
-        // get the steps from the configuration
-        TreeMap<Integer, OAXSLTStep> stepsMap = aConfiguration.getInputSteps();
 
         // create an iterator on the hash map
         Iterator<OAXSLTStep> mapIterator = stepsMap.values().iterator();

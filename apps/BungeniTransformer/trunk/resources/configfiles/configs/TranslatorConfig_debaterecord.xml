@@ -5,8 +5,6 @@
         <entry key="metalexConfigPath">odt2metalex/debaterecord/config.xml</entry>
         <!-- AN schema path -->
         <entry key="akomantosoSchemaPath">configfiles/schema/akomantoso10.xsd</entry>
-        <!-- add AN xslt -->
-        <entry key="akomantosoAddNamespaceXSLTPath">metalex2akn/defaultvalues/debaterecord/add_an_ns.xsl</entry>
         <!-- default pipeline to use -->
         <entry key="defaultPipeline">metalex2akn/minixslt/debaterecord/pipeline.xsl</entry>
         <!-- resource bundle -->

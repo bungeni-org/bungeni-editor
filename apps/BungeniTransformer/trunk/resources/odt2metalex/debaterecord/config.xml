@@ -41,8 +41,7 @@
     </output>
     
     <postxml>
-        <xslt step="1" name="AddNamespaceAkomaNtoso" href="metalex2akn/common/add_akn_ns.xsl" />
-        <xslt step="2" name="RemoveEmptyContainers" href="metalex2akn/common/remove_empty_containers.xsl" />
+        <xslt step="1" name="AddNamespaceAkomaNtoso" href="odt2metalex/common/add_an_ns.xsl" />
     </postxml>
     
 </config>
