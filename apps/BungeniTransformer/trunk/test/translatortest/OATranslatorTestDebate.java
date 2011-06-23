@@ -66,7 +66,7 @@ public class OATranslatorTestDebate
 	public final void testTranslate() throws Exception 
 	{
 		//perform a translation
-		HashMap<String, File> translatedFiles = myTranslator.translate("resources/ke_debaterecord_2009-10-14_eng.odt",GlobalConfigurations.getApplicationPathPrefix() + "odt2akn/minixslt/debaterecord/pipeline.xsl");
+		HashMap<String, File> translatedFiles = myTranslator.translate("resources/ke_debaterecord_2009-10-14_eng.odt");
 		//File translation = myTranslator.translate("resources/debaterecord_ken_eng_2008_12_17_main.odt", GlobalConfigurations.getApplicationPathPrefix() + "odttoakn/minixslt/debaterecord/pipeline.xsl");
 		System.out.println("OUTPUTTING ERRORS = \n\n" + myTranslator.getValidationErrors());
 		

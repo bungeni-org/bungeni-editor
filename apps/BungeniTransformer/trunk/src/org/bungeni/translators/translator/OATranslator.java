@@ -33,6 +33,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InvalidPropertiesFormatException;
+import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
@@ -41,6 +42,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPathExpressionException;
+import org.bungeni.translators.configurations.steps.OAPipelineStep;
 import org.bungeni.translators.utility.runtime.Outputs;
 
 /***
@@ -68,18 +70,19 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         org.apache.log4j.Logger.getLogger(OATranslator.class.getName());
 
     /* The path of the AKOMA NTOSO schema */
-    private String akomantosoAddNamespaceXSLTPath;
+    //private String akomantosoAddNamespaceXSLTPath;
 
     /* The path of the AKOMA NTOSO schema */
-    private String akomantosoSchemaPath;
+    //private String akomantosoSchemaPath;
 
     /* The configuration for the metalex translation */
-    private String metalexConfigPath;
+    private String translatorConfigPath;
 
     /* The resource bundle for the messages */
     private ResourceBundle resourceBundle;
 
-    private String defaultPipelinePath ;
+    //AH-23-06-2010 moved to translator_config
+    //private String defaultPipelinePath ;
 
     private Boolean cachePipelineXSLT = false;
 
@@ -103,18 +106,18 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         properties.loadFromXML(propertiesInputStream);
 
         // get the metalex configuration path
-        this.metalexConfigPath = GlobalConfigurations.getApplicationPathPrefix()
-                                 + properties.getProperty("metalexConfigPath");
+        this.translatorConfigPath = GlobalConfigurations.getApplicationPathPrefix()
+                                 + properties.getProperty("translatorConfigPath");
 
         // get the path of the AKOMA NTOSO schema
-        this.akomantosoSchemaPath = GlobalConfigurations.getApplicationPathPrefix()
-                                    + properties.getProperty("akomantosoSchemaPath");
+        //this.akomantosoSchemaPath = GlobalConfigurations.getApplicationPathPrefix()
+        //                            + properties.getProperty("akomantosoSchemaPath");
 
         // create the resource bundle
         this.resourceBundle = ResourceBundle.getBundle(properties.getProperty("resourceBundlePath"));
 
-        
-        this.defaultPipelinePath = GlobalConfigurations.getApplicationPathPrefix() + properties.getProperty("defaultPipeline");
+        //AH-23-06-2010 - Moved to translator_config 
+        //this.defaultPipelinePath = GlobalConfigurations.getApplicationPathPrefix() + properties.getProperty("defaultPipeline");
 
         // check if pipeline xslt needs to be cached
         this.cachePipelineXSLT = Boolean.parseBoolean(properties.getProperty("cachePipelineXSLT"));
@@ -149,19 +152,6 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
     public Object clone() throws CloneNotSupportedException {
         throw new CloneNotSupportedException();
     }
-
-     /**
-     * Transforms the document at the given path using the default pipeline
-      * specified in translator config.
-     * @param aDocumentPath the path of the document to translate
-     * @return a hashmap containing handles to both the AN xml and the Metalex file ("anxml", "metalex")
-     * @throws Exception
-     * @throws TransformerFactoryConfigurationError
-     */
-    public HashMap<String,File> translate(String aDocumentPath) throws TransformerFactoryConfigurationError, Exception {
-        return translate(aDocumentPath, this.defaultPipelinePath);
-    }
-
     /**
      * Transforms the document at the given path using the pipeline at the given path
      * @param aDocumentPath the path of the document to translate
@@ -170,7 +160,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
      * @throws Exception
      * @throws TransformerFactoryConfigurationError
      */
-    public HashMap<String, File> translate(String aDocumentPath, String aPipelinePath)
+    public HashMap<String, File> translate(String aDocumentPath)
             throws TransformerFactoryConfigurationError, Exception {
         HashMap<String, File> translatedFiles = new HashMap<String, File>();
 
@@ -184,7 +174,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             /***
              * Get the translator configuration
              */
-            OAConfiguration configuration  = this.getTranslatorConfiguration(this.metalexConfigPath);
+            OAConfiguration configuration  = this.getTranslatorConfiguration(this.translatorConfigPath);
             MetalexOutput metalexOutput = null;
 
             //we use a nested exception handler here to specifically catch intermediary
@@ -225,13 +215,22 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             /***
              * Build the XSLT pipeline
              */
-            File xslt = this.getXSLTPipeline(aPipelinePath);
+            List<File> xsltPipes = this.buildXSLTPipeline(configuration);
+
+            //AH-23-06-2010
+            //File xslt = this.getXSLTPipeline(aPipelinePath);
 
             /**
              * Transform the Metalex using the built XSLT
              */
+            StreamSource inputXmlStream = metalexOutput.metalexStream;
+            for (File xslt : xsltPipes) {
+                inputXmlStream = this.translateToAkomantoso(xslt, inputXmlStream);
+             }
+            StreamSource anXmlStream = inputXmlStream;
 
-            StreamSource anXmlStream = this.translateToAkomantoso(xslt, metalexOutput.metalexStream);
+            //AH-23-06-2010
+            //StreamSource anXmlStream = this.translateToAkomantoso(xslt, metalexOutput.metalexStream);
 
             /***
              * Finally call the Add namespace XSLT
@@ -305,13 +304,29 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         return translatedFiles;
     }
 
-    public StreamSource mergeODFXML(String aDocumentPath) throws TransformerFactoryConfigurationError, Exception {
+    /***
+     * Combines the ODF content.xml, meta.xml, styles.xml into one XML stream
+     * @param aDocumentPath
+     * @return
+     * @throws TransformerFactoryConfigurationError
+     * @throws Exception
+     */
+    private StreamSource mergeODFXML(String aDocumentPath) throws TransformerFactoryConfigurationError, Exception {
             ODFUtility odfUtil       = ODFUtility.getInstance();
             File       mergedOdfFile = odfUtil.mergeODF(aDocumentPath);
             StreamSource ODFDocument = FileUtility.getInstance().FileAsStreamSource(mergedOdfFile);
             return ODFDocument;
     }
 
+    /**
+     * Provides access to the TranslatorConfig
+     * @param aConfigurationPath
+     * @return
+     * @throws ParserConfigurationException
+     * @throws SAXException
+     * @throws IOException
+     * @throws XPathExpressionException
+     */
     private OAConfiguration getTranslatorConfiguration(String aConfigurationPath) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException{
             // get the File of the configuration
             Document configurationDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(
@@ -322,6 +337,46 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             return configuration;
     }
 
+
+     private List<File> buildXSLTPipeline(OAConfiguration configuration) throws XPathExpressionException, SAXException, IOException, ParserConfigurationException, TransformerFactoryConfigurationError, TransformerException{
+            List<File> pipelines = new ArrayList<File>(0);
+            List<OAPipelineStep> pipelineSteps  = configuration.getXsltPipeline();
+            for (OAPipelineStep oAPipelineStep : pipelineSteps) {
+                String pipeName = oAPipelineStep.getPipelineName();
+                String pipeHref = oAPipelineStep.getPipelineHref();
+                File xsltPipe = getXSLTPipeline(pipeName, pipeHref);
+                pipelines.add(xsltPipe);
+            }
+            return pipelines;
+     }
+
+    private File getXSLTPipeline(String pipeName, String aPipelinePath) throws XPathExpressionException, SAXException, IOException, ParserConfigurationException, TransformerFactoryConfigurationError, TransformerException{
+            File xslt = null;
+            String fullPipeName = pipeName + "_xslt_pipeline.xsl";
+            if (this.cachePipelineXSLT) {
+                File outputXSLT = Outputs.getInstance().File(fullPipeName);
+                if (outputXSLT.exists()) {
+                    xslt = outputXSLT;
+                } else {
+                    xslt = this.buildXSLT(aPipelinePath);
+                    FileUtility.getInstance().copyFile(xslt, Outputs.getInstance().File(fullPipeName));
+                }
+            }
+            return xslt;
+    }
+
+    /**
+     * Builds the XSLT pipeline - once built , returns the cached copy
+     * @param aPipelinePath
+     * @return
+     * @throws XPathExpressionException
+     * @throws SAXException
+     * @throws IOException
+     * @throws ParserConfigurationException
+     * @throws TransformerFactoryConfigurationError
+     * @throws TransformerException
+     */
+     /**
     private File getXSLTPipeline(String aPipelinePath) throws XPathExpressionException, SAXException, IOException, ParserConfigurationException, TransformerFactoryConfigurationError, TransformerException{
             File xslt = null;
             if (this.cachePipelineXSLT) {
@@ -335,8 +390,16 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             }
             return xslt;
     }
+   **/
 
-
+    /***
+     * Applys the input steps in the TranslatorConfig on the merged ODF
+     * @param ODFDocument
+     * @param configuration
+     * @return
+     * @throws TransformerFactoryConfigurationError
+     * @throws Exception
+     */
     public StreamSource applyInputSteps(StreamSource ODFDocument, OAConfiguration configuration)
             throws TransformerFactoryConfigurationError, Exception {
            // applies the input steps to the StreamSource of the ODF document
@@ -345,6 +408,15 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             return iteratedDocument;
     }
 
+    /***
+     * Applies the replacement steps in the TranslatorConfig on the output of
+     * the input steps
+     * @param ODFDocument
+     * @param configuration
+     * @return
+     * @throws TransformerFactoryConfigurationError
+     * @throws Exception
+     */
     public StreamSource applyReplaceSteps(StreamSource ODFDocument, OAConfiguration configuration)
                  throws TransformerFactoryConfigurationError, Exception {
             // applies the map steps to the StreamSource of the ODF document
@@ -353,6 +425,15 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             return iteratedDocument;
     }
 
+    /***
+     * Appies the output steps in the TranslatorConfig on the output of the
+     * replacement steps
+     * @param ODFDocument
+     * @param configuration
+     * @return
+     * @throws TransformerFactoryConfigurationError
+     * @throws Exception
+     */
     public StreamSource applyOutputSteps(StreamSource ODFDocument, OAConfiguration configuration)
                  throws TransformerFactoryConfigurationError, Exception {
          // apply the OUTPUT XSLT to the StreamSource
@@ -361,6 +442,15 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
          return resultStream;
     }
 
+
+    /***
+     * 
+     * @param anXmlStream
+     * @param configuration
+     * @return
+     * @throws TransformerFactoryConfigurationError
+     * @throws Exception
+     */
     public StreamSource applyPostXmlSteps(StreamSource anXmlStream, OAConfiguration configuration)
              throws TransformerFactoryConfigurationError, Exception {
          // apply the OUTPUT XSLT to the StreamSource
@@ -398,48 +488,6 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             return result;
     }
 
-
-    /**
-     * Translate an ODF stream source to the METALEX format
-     * @param ODFDocument the ODFStreamSource to translate
-     * @param aConfigurationPath the path of the configuration file used for the translation
-     * @return a File containing the document into the METALEX format
-     * @throws TransformerFactoryConfigurationError
-     * @throws Exception
-     */
-    /**
-     public File translateToMetalex(StreamSource ODFDocument, OAConfiguration configuration)
-            throws TransformerFactoryConfigurationError, Exception {
-        try {
-            // applies the input steps to the StreamSource of the ODF document
-            StreamSource iteratedDocument = OAInputStepsResolver.resolve(ODFDocument, configuration);
-
-            // applies the map steps to the StreamSource of the ODF document
-            iteratedDocument = OAReplaceStepsResolver.resolve(iteratedDocument, configuration);
-
-            // apply the OUTPUT XSLT to the StreamSource
-            StreamSource resultStream = OAOutputStepsResolver.resolve(iteratedDocument, configuration);
-
-            // write the source to a File
-            File resultFile = StreamSourceUtility.getInstance().writeToFile(resultStream);
-
-            return resultFile;
-
-        } catch (Exception e) {
-
-            // get the message to print
-            String message = resourceBundle.getString("TRANSLATION_TO_METALEX_FAILED_TEXT");
-
-            System.out.println(message);
-
-            // print the message and the exception into the logger
-            logger.fatal((new TranslationToMetalexFailedException(message)).getStackTrace());
-
-            // RETURN null
-            return null;
-        }
-    }
-    */
 
     /**
      * Create and return an XSLT builded upon the instructions of the given pipeline.

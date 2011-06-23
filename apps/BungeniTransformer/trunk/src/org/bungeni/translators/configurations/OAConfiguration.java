@@ -13,11 +13,12 @@ import org.xml.sax.SAXException;
 //~--- JDK imports ------------------------------------------------------------
 
 import java.io.IOException;
-
+import java.util.List;
 import java.util.TreeMap;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
+import org.bungeni.translators.configurations.steps.OAPipelineStep;
 
 /**
  * This is the configuration object.
@@ -95,4 +96,15 @@ public class OAConfiguration implements Configuration {
         return postxmlSteps;
 
     }
+
+    public List<OAPipelineStep> getXsltPipeline() throws XPathExpressionException {
+        List<OAPipelineStep> pipelineSteps  = this.reader.getPipelineXML();
+        return pipelineSteps;
+    }
+
+    public String getSchema() throws XPathExpressionException {
+        String schema =  this.reader.getSchema();
+        return schema;
+    }
+
 }

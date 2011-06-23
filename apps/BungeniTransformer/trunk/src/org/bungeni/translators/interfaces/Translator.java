@@ -35,7 +35,7 @@ public interface Translator {
      * @throws XPathExpressionException
      * @throws Exception
      */
-    public HashMap<String, File> translate(String aDocumentPath, String aPipelinePath)
+    public HashMap<String, File> translate(String aDocumentPath)
             throws XPathExpressionException, SAXException, IOException, ParserConfigurationException,
                    TransformerFactoryConfigurationError, TransformerException, Exception;
 

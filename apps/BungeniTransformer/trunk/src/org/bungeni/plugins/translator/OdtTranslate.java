@@ -79,7 +79,7 @@ public class OdtTranslate implements IEditorPlugin {
 
             String fullPathToPipeline = GlobalConfigurations.getApplicationPathPrefix() + this.translatorPipeline;
 
-            filesMap = myTranslator.translate(this.odfFileUrl, fullPathToPipeline);
+            filesMap = myTranslator.translate(this.odfFileUrl);
             System.out.println("no exceptions occured : writing outputs");
 
             /*

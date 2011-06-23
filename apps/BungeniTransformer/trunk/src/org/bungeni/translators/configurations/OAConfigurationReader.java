@@ -16,13 +16,17 @@ import org.xml.sax.SAXException;
 //~--- JDK imports ------------------------------------------------------------
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.TreeMap;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
+import org.bungeni.translators.configurations.steps.OAPipelineStep;
+import org.w3c.dom.Attr;
 
 /**
  * This class reades the TranslatorConfig_xxxx.xml files for each content type
@@ -132,6 +136,31 @@ public class OAConfigurationReader implements ConfigurationReader {
 
     }
 
+
+    public List<OAPipelineStep> getPipelineXML() throws XPathExpressionException {
+
+        List<OAPipelineStep> pipelineSteps = new ArrayList<OAPipelineStep>(0);
+
+        XPathResolver xresolver = XPathResolver.getInstance();
+
+        // get the step with the given nama in this configuration
+        NodeList stepNodes = (NodeList) xresolver.evaluate(this.configXML, "//pipetoxml" , XPathConstants.NODESET);
+        for (int i=0; i < stepNodes.getLength(); i++ ) {
+            Node stepNode = stepNodes.item(i);
+            OAPipelineStep pipelineStep = new OAPipelineStep(stepNode.getAttributes().getNamedItem("name").getNodeValue(),
+                                                            stepNode.getAttributes().getNamedItem("href").getNodeValue());
+            pipelineSteps.add(pipelineStep);
+        }
+        return pipelineSteps;
+    }
+
+    public String getSchema() throws XPathExpressionException{
+        XPathResolver xresolver = XPathResolver.getInstance();
+        // get the step with the given nama in this configuration
+        String schemaHref = (String) xresolver.evaluate(this.configXML, "//schema/@href" , XPathConstants.STRING);
+
+        return schemaHref;
+    }
 
    private TreeMap<Integer, OAXSLTStep> getXSLTSteps(String forXpath) throws XPathExpressionException {
            // the TreeMap to return

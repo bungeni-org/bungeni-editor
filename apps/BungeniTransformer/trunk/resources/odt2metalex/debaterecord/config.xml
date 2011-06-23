@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config name="DebateRecordCommon">
+
+    <!-- Specfies the schema for the xml document being created -->
+    <schema href="configfiles/schema/akomantoso10.xsd" />
+
     <!-- This steps are performed BEFORE the below regex replacement -->
     <input>
         <xslt step="1" name="appendBungeniNS" href="odt2metalex/common/add_bungeni_ns.xsl"/>
@@ -39,7 +43,14 @@
         <xslt step="3" name="MetaLanguageAddNamespaceBungeni"
             href="odt2metalex/common/meta_language_add_bungeni_ns.xsl"/>
     </output>
+
+    <!-- Output is piped to 1 or more named pipelines they are
+    called in declared order -->
     
+    <pipetoxml name="AnDebate"
+               href="metalex2akn/minixslt/debaterecord/pipeline.xsl"  />
+
+    <!-- Called after translate -->
     <postxml>
         <xslt step="1" name="AddNamespaceAkomaNtoso" href="odt2metalex/common/add_an_ns.xsl" />
     </postxml>

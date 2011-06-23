@@ -28,6 +28,10 @@ import javax.xml.xpath.XPathExpressionException;
 /**
  * This is the AKN->HTML translator object.
  * It defines the translate method that is used to translate a AKN document into HTML
+
+!!! WARNING : THIS CLASS IS BROKEN -- IN NEED OF UPDATED !!!
+
+
  */
 public class AHTranslator implements Translator {
 
@@ -112,5 +116,9 @@ public class AHTranslator implements Translator {
 
         // return the file
         return resultFile;
+    }
+
+    public HashMap<String, File> translate(String aDocumentPath) throws XPathExpressionException, SAXException, IOException, ParserConfigurationException, TransformerFactoryConfigurationError, TransformerException, Exception {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
