@@ -3,8 +3,6 @@
 <properties>
 	<!-- BILL -->
 	<entry key="translatorConfigPath">odt2metalex/bill/config.xml</entry>
-	<entry key="akomantosoSchemaPath">metalex2akn/schema/akomantoso10.xsd</entry>
-	<entry key="akomantosoAddNamespaceXSLTPath">metalex2akn/defaultvalues/bill/metalex2aknAddNamespace.xsl</entry>
 	<entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
         <entry key="cachePipelineXSLT">true</entry>
 </properties>

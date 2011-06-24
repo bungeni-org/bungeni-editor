@@ -2,9 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<!-- judgement -->
-	<entry key="metalexConfigPath">odt2metalex/judgement/config.xml</entry>
-	<entry key="akomantosoSchemaPath">metalex2akn/schema/akomantoso10.xsd</entry>
-	<entry key="akomantosoAddNamespaceXSLTPath">metalex2akn/defaultvalues/judgement/metalex2aknAddNamespace.xsl</entry>
+	<entry key="translatorConfigPath">odt2metalex/judgement/config.xml</entry>
 	<entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
         <entry key="cachePipelineXSLT">true</entry>
 </properties>

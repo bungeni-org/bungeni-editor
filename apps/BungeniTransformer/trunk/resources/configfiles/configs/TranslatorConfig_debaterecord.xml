@@ -3,15 +3,6 @@
 <properties>
         <!-- translator config path -->
         <entry key="translatorConfigPath">odt2metalex/debaterecord/config.xml</entry>
-        <!-- ALL THE BELOW COMMENTED ENTRIES HAVE BEEN DEPRECATED AND MOVED INTO odt2metalex.debaterecord.config.xml -->
-        <!-- AN schema path -->
-        <!--
-        <entry key="akomantosoSchemaPath">configfiles/schema/akomantoso10.xsd</entry>
-        -->
-        <!-- default pipeline to use -->
-        <!--
-        <entry key="defaultPipeline">metalex2akn/minixslt/debaterecord/pipeline.xsl</entry>
-        -->
         <!-- resource bundle -->
         <entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
         <!-- parameter to specify cached pipeline property -->
