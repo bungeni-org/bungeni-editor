@@ -2,7 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<!-- BILL -->
-	<entry key="translatorConfigPath">odt2metalex/bill/config.xml</entry>
+	<entry key="translatorConfigPath">configfiles/configs/bill/config_bill.xml</entry>
 	<entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
         <entry key="cachePipelineXSLT">true</entry>
 </properties>

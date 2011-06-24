@@ -2,7 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
         <!-- translator config path -->
-        <entry key="translatorConfigPath">odt2metalex/debaterecord/config.xml</entry>
+        <entry key="translatorConfigPath">configfiles/configs/config_debaterecord.xml</entry>
         <!-- resource bundle -->
         <entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
         <!-- parameter to specify cached pipeline property -->
