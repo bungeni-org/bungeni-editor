@@ -81,18 +81,16 @@
                 <fileset dir="resources/configfiles" >
                 </fileset>
         </copy>
-        <copy todir="${dist.dir}/metalex2akn">
-                <fileset dir="resources/metalex2akn" >
+
+        <copy todir="${dist.dir}/pipeline_xslt">
+                <fileset dir="resources/pipeline_xslt" >
                 </fileset>
         </copy>
-        <copy todir="${dist.dir}/odt2metalex">
-                <fileset dir="resources/odt2metalex" >
+
+        <copy todir="${dist.dir}/localisation">
+                <fileset dir="resources/localisation" >
                 </fileset>
         </copy>
-       <!--
-       <copy todir="${dist.dir}">
-           <fileset file="resources/transformer.ini" />
-        </copy>
-        -->
+
     </target>
 </project>
