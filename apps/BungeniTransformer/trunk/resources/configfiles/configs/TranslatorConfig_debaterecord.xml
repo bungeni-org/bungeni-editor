@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-        <!-- metalex config path -->
+        <!-- translator config path -->
         <entry key="translatorConfigPath">odt2metalex/debaterecord/config.xml</entry>
         <!-- ALL THE BELOW COMMENTED ENTRIES HAVE BEEN DEPRECATED AND MOVED INTO odt2metalex.debaterecord.config.xml -->
         <!-- AN schema path -->
