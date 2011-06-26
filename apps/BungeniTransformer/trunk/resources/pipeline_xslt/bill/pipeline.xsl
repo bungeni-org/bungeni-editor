@@ -144,7 +144,7 @@
 	</xsl:template>
 
 	<xsl:template match="*[@name='list']">
-		<xslt step="25" name="list" href="pipeline_xslt/bill/list.xsl" />
+		<xslt step="25" name="list" href="pipeline_xslt/common/list.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
@@ -174,37 +174,37 @@
 	</xsl:template>
 
 	<xsl:template match="*[@name='FRBRWork']">
-		<xslt step="31" name="FRBRWork" href="pipeline_xslt/bill/FRBRWork.xsl" />
+		<xslt name="FRBRWork" href="pipeline_xslt/common/frbrwork.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='FRBRExpression']">
-		<xslt step="32" name="FRBRExpression" href="pipeline_xslt/bill/FRBRExpression.xsl" />
+		<xslt name="FRBRExpression" href="pipeline_xslt/common/frbrexpression.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='FRBRManifestation']">
-		<xslt step="33" name="FRBRManifestation" href="pipeline_xslt/bill/FRBRManifestation.xsl" />
+		<xslt name="FRBRManifestation" href="pipeline_xslt/common/frbrmanifestation.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='this']">
-		<xslt step="34" name="this" href="pipeline_xslt/bill/this.xsl" />
+		<xslt name="this" href="pipeline_xslt/common/this.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='uri']">
-		<xslt step="35" name="uri" href="pipeline_xslt/bill/uri.xsl" />
+		<xslt name="uri" href="pipeline_xslt/common/uri.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='date']">
-		<xslt step="36" name="date" href="pipeline_xslt/bill/date.xsl" />
+		<xslt name="date" href="pipeline_xslt/common/date.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='author']">
-		<xslt step="37" name="author" href="pipeline_xslt/bill/author.xsl" />
+		<xslt name="author" href="pipeline_xslt/common/frbrauthor.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
@@ -214,22 +214,22 @@
 	</xsl:template>
 
 	<xsl:template match="*[@name='publication']">
-		<xslt step="39" name="publication" href="pipeline_xslt/bill/publication.xsl" />
+		<xslt name="publication" href="pipeline_xslt/common/publication.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='references']">
-		<xslt step="40" name="references" href="pipeline_xslt/bill/references.xsl" />
+		<xslt name="references" href="pipeline_xslt/common/references.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='TLCOrganization']">
-		<xslt step="41" name="TLCOrganization" href="pipeline_xslt/bill/TLCOrganization.xsl" />
+		<xslt name="TLCOrganization" href="pipeline_xslt/common/tlcorganization.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='TLCPerson']">
-		<xslt step="42" name="TLCPerson" href="pipeline_xslt/bill/TLCPerson.xsl" />
+		<xslt name="TLCPerson" href="pipeline_xslt/common/tlcperson.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 

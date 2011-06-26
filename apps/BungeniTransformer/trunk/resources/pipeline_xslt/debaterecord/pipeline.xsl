@@ -142,7 +142,7 @@
 
 
     <xsl:template match="*[@name='Person']">
-        <xslt name="Person" href="pipeline_xslt/debaterecord/person.xsl"/>
+        <xslt name="Person" href="pipeline_xslt/common/person.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
@@ -232,7 +232,7 @@
     </xsl:template>
 
     <xsl:template match="*[@name='uri']">
-        <xslt name="uri" href="pipeline_xslt/debaterecord/uri.xsl"/>
+        <xslt name="uri" href="pipeline_xslt/common/uri.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
@@ -253,12 +253,12 @@
     </xsl:template>
 
     <xsl:template match="*[@name='publication']">
-        <xslt name="publication" href="pipeline_xslt/debaterecord/publication.xsl"/>
+        <xslt name="publication" href="pipeline_xslt/common/publication.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='references']">
-        <xslt name="references" href="pipeline_xslt/debaterecord/references.xsl"/>
+        <xslt name="references" href="pipeline_xslt/common/references.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
