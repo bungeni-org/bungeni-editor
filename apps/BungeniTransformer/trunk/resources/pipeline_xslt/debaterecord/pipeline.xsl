@@ -207,7 +207,7 @@
     </xsl:template>
 
     <xsl:template match="*[@name='identification']">
-        <xslt name="identification" href="pipeline_xslt/debaterecord/identification.xsl"/>
+        <xslt name="identification" href="pipeline_xslt/common/identification.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
@@ -248,7 +248,7 @@
 
     <xsl:template match="*[@name='publication_mcontainer']">
         <xslt name="publication_mcontainer"
-            href="pipeline_xslt/debaterecord/publication_mcontainer.xsl"/>
+            href="pipeline_xslt/common/publication_mcontainer.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 

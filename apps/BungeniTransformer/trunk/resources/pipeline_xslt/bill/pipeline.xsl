@@ -24,152 +24,152 @@
 	</xsl:template>
 
 	<xsl:template match="*[@name='body']">
-		<xslt step="1" name="body" href="pipeline_xslt/bill/body.xsl" />
+		<xslt name="body" href="pipeline_xslt/bill/body.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='Preface']">
-		<xslt step="2" name="Preface" href="pipeline_xslt/bill/MastHead.xsl" />
+		<xslt name="Preface" href="pipeline_xslt/bill/masthead.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='Preamble']">
-		<xslt step="3" name="Preamble" href="pipeline_xslt/bill/Preamble.xsl" />
+		<xslt name="Preamble" href="pipeline_xslt/bill/preamble.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='Part']">
-		<xslt step="4" name="Part" href="pipeline_xslt/bill/Part.xsl" />
+		<xslt name="Part" href="pipeline_xslt/bill/part.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='Chapter']">
-		<xslt step="5" name="Chapter" href="pipeline_xslt/bill/Chapter.xsl" />
+		<xslt name="Chapter" href="pipeline_xslt/bill/chapter.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='SubChapter']">
-		<xslt step="6" name="SubChapter" href="pipeline_xslt/bill/SubChapter.xsl" />
+		<xslt name="SubChapter" href="pipeline_xslt/bill/subchapter.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='Section']">
-		<xslt step="7" name="Section" href="pipeline_xslt/bill/Section.xsl" />
+		<xslt name="Section" href="pipeline_xslt/bill/section.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='Paragraph']">
-		<xslt step="8" name="Paragraph" href="pipeline_xslt/bill/Paragraph.xsl" />
+		<xslt name="Paragraph" href="pipeline_xslt/bill/paragraph.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='Title']">
-		<xslt step="9" name="Title" href="pipeline_xslt/bill/Title.xsl" />
+		<xslt step="9" name="Title" href="pipeline_xslt/bill/title.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='Book']">
-		<xslt step="10" name="Book" href="pipeline_xslt/bill/Book.xsl" />
+		<xslt name="Book" href="pipeline_xslt/bill/book.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='Tome']">
-		<xslt step="11" name="Tome" href="pipeline_xslt/bill/Tome.xsl" />
+		<xslt name="Tome" href="pipeline_xslt/bill/tome.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='Article']">
-		<xslt step="12" name="Article" href="pipeline_xslt/bill/Article.xsl" />
+		<xslt name="Article" href="pipeline_xslt/bill/article.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='Clause']">
-		<xslt step="13" name="Clause" href="pipeline_xslt/bill/Clause.xsl" />
+		<xslt name="Clause" href="pipeline_xslt/bill/clause.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='SubSection']">
-		<xslt step="14" name="SubSection" href="pipeline_xslt/bill/SubSection.xsl" />
+		<xslt name="SubSection" href="pipeline_xslt/bill/subsection.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='SubPart']">
-		<xslt step="15" name="SubPart" href="pipeline_xslt/bill/SubPart.xsl" />
+		<xslt name="SubPart" href="pipeline_xslt/bill/subpart.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='SubParagraph']">
-		<xslt step="16" name="SubParagraph" href="pipeline_xslt/bill/SubParagraph.xsl" />
+		<xslt name="SubParagraph" href="pipeline_xslt/bill/subparagraph.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='SubTitle']">
-		<xslt step="17" name="SubTitle" href="pipeline_xslt/bill/SubTitle.xsl" />
+		<xslt name="SubTitle" href="pipeline_xslt/bill/subtitle.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='SubClause']">
-		<xslt step="18" name="SubClause" href="pipeline_xslt/bill/SubClause.xsl" />
+		<xslt name="SubClause" href="pipeline_xslt/bill/subclause.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='Conclusion']">
-		<xslt step="19" name="Conclusion" href="pipeline_xslt/bill/Conclusion.xsl" />
+		<xslt name="Conclusion" href="pipeline_xslt/bill/conclusion.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='span']">
-		<xslt step="20" name="span" href="pipeline_xslt/bill/span.xsl" />
+		<xslt name="span" href="pipeline_xslt/bill/span.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='p']">
-		<xslt step="21" name="p" href="pipeline_xslt/bill/p.xsl" />
+		<xslt name="p" href="pipeline_xslt/bill/p.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='ref']">
-		<xslt step="22" name="ref" href="pipeline_xslt/bill/ref.xsl" />
+		<xslt name="ref" href="pipeline_xslt/bill/ref.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='heading']">
-		<xslt step="23" name="heading" href="pipeline_xslt/bill/heading.xsl" />
+		<xslt name="heading" href="pipeline_xslt/bill/heading.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='subheading']">
-		<xslt step="24" name="subheading" href="pipeline_xslt/bill/subheading.xsl" />
+		<xslt name="subheading" href="pipeline_xslt/bill/subheading.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='list']">
-		<xslt step="25" name="list" href="pipeline_xslt/common/list.xsl" />
+		<xslt name="list" href="pipeline_xslt/common/list.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='item']">
-		<xslt step="26" name="item" href="pipeline_xslt/bill/item.xsl" />
+		<xslt name="item" href="pipeline_xslt/bill/item.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='a']">
-		<xslt step="27" name="a" href="pipeline_xslt/bill/a.xsl" />
+		<xslt name="a" href="pipeline_xslt/bill/a.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='content']">
-		<xslt step="28" name="content" href="pipeline_xslt/bill/content.xsl" />
+		<xslt name="content" href="pipeline_xslt/bill/content.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='meta']">
-		<xslt step="29" name="meta" href="pipeline_xslt/bill/meta.xsl" />
+		<xslt name="meta" href="pipeline_xslt/common/meta.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='identification']">
-		<xslt step="30" name="identification" href="pipeline_xslt/bill/identification.xsl" />
+		<xslt name="identification" href="pipeline_xslt/common/identification.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
@@ -209,7 +209,7 @@
 	</xsl:template>
 
 	<xsl:template match="*[@name='publication_mcontainer']">
-		<xslt step="38" name="publication_mcontainer" href="pipeline_xslt/bill/publication_mcontainer.xsl" />
+		<xslt name="publication_mcontainer" href="pipeline_xslt/common/publication_mcontainer.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
