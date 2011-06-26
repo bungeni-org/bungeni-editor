@@ -48,7 +48,7 @@
     </xsl:template>
 
     <xsl:template match="*[@name='Preface']">
-        <xslt name="Preface" href="pipeline_xslt/debaterecord/preface.xsl"/>
+        <xslt name="Preface" href="pipeline_xslt/common/preface.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
@@ -187,7 +187,7 @@
     </xsl:template>
 
     <xsl:template match="*[@name='list']">
-        <xslt name="list" href="pipeline_xslt/debaterecord/list.xsl"/>
+        <xslt name="list" href="pipeline_xslt/common/list.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
@@ -202,7 +202,7 @@
     </xsl:template>
 
     <xsl:template match="*[@name='meta']">
-        <xslt name="meta" href="pipeline_xslt/debaterecord/meta.xsl"/>
+        <xslt name="meta" href="pipeline_xslt/common/meta.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
@@ -212,22 +212,22 @@
     </xsl:template>
 
     <xsl:template match="*[@name='FRBRWork']">
-        <xslt name="FRBRWork" href="pipeline_xslt/debaterecord/frbrwork.xsl"/>
+        <xslt name="FRBRWork" href="pipeline_xslt/common/frbrwork.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='FRBRExpression']">
-        <xslt name="FRBRExpression" href="pipeline_xslt/debaterecord/frbrexpression.xsl"/>
+        <xslt name="FRBRExpression" href="pipeline_xslt/common/frbrexpression.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='FRBRManifestation']">
-        <xslt name="FRBRManifestation" href="pipeline_xslt/debaterecord/frbrmanifestation.xsl"/>
+        <xslt name="FRBRManifestation" href="pipeline_xslt/common/frbrmanifestation.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='this']">
-        <xslt name="this" href="pipeline_xslt/debaterecord/this.xsl"/>
+        <xslt name="this" href="pipeline_xslt/common/this.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
@@ -237,12 +237,12 @@
     </xsl:template>
 
     <xsl:template match="*[@name='date']">
-        <xslt name="date" href="pipeline_xslt/debaterecord/date.xsl"/>
+        <xslt name="date" href="pipeline_xslt/common/date.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='author']">
-        <xslt name="author" href="pipeline_xslt/debaterecord/frbrauthor.xsl"/>
+        <xslt name="author" href="pipeline_xslt/common/frbrauthor.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
@@ -263,27 +263,27 @@
     </xsl:template>
 
     <xsl:template match="*[@name='TLCOrganization']">
-        <xslt name="TLCOrganization" href="pipeline_xslt/debaterecord/tlcorganization.xsl"/>
+        <xslt name="TLCOrganization" href="pipeline_xslt/common/tlcorganization.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='TLCPerson']">
-        <xslt name="TLCPerson" href="pipeline_xslt/debaterecord/tlcperson.xsl"/>
+        <xslt name="TLCPerson" href="pipeline_xslt/common/tlcperson.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='TLCEvent']">
-        <xslt name="TLCEvent" href="pipeline_xslt/debaterecord/tlcevent.xsl"/>
+        <xslt name="TLCEvent" href="pipeline_xslt/common/tlcevent.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='TLCRole']">
-        <xslt name="TLCRole" href="pipeline_xslt/debaterecord/tlcrole.xsl"/>
+        <xslt name="TLCRole" href="pipeline_xslt/common/tlcrole.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='TLCReference']">
-        <xslt name="TLCReference" href="pipeline_xslt/debaterecord/tlcreference.xsl"/>
+        <xslt name="TLCReference" href="pipeline_xslt/common/tlcreference.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
