@@ -74,12 +74,14 @@
          </copy>
      </target>
      <target name="-post-jar" >
-	<copy todir="${dist.dir}/transformer">
+
+        <!--
+        <copy todir="${dist.dir}/transformer">
 		<fileset dir="${dist.dir}/transformer/jar" >
 			<include name="**/transformer.ini" />		
 		</fileset>
 	</copy>
-        
+        -->
         <!-- copy required NOA binaries -->
 
         <copy todir="${dist.dir}/lib/noa32">
