@@ -162,7 +162,7 @@
     </xsl:template>
 
     <xsl:template match="*[@name='span']">
-        <xslt name="span" href="pipeline_xslt/debaterecord/span.xsl"/>
+        <xslt name="span" href="pipeline_xslt/common/span.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
