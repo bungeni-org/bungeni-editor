@@ -18,192 +18,175 @@
     </xsl:template> 
 
 	<xsl:template match="*[@name='root']">
-		<xslt step="0" name="root" href="pipeline_xslt/judgement/root.xsl" />
+		<xslt name="root" href="pipeline_xslt/judgement/root.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='body']">
-		<xslt step="1" name="body" href="pipeline_xslt/judgement/body.xsl" />
+		<xslt name="body" href="pipeline_xslt/judgement/body.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='Header']">
-		<xslt step="2" name="Header" href="pipeline_xslt/judgement/Header.xsl" />
+		<xslt name="Header" href="pipeline_xslt/judgement/header.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 	
 	<xsl:template match="*[@name='Introduction']">
-		<xslt step="3" name="Introduction" href="pipeline_xslt/judgement/introduction.xsl" />
+		<xslt name="Introduction" href="pipeline_xslt/judgement/introduction.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 	
 	<xsl:template match="*[@name='Background']">
-		<xslt step="4" name="Background" href="pipeline_xslt/judgement/background.xsl" />
+		<xslt name="Background" href="pipeline_xslt/judgement/background.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 	
 	<xsl:template match="*[@name='Motivation']">
-		<xslt step="5" name="Motivation" href="pipeline_xslt/judgement/motivation.xsl" />
+		<xslt name="Motivation" href="pipeline_xslt/judgement/motivation.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 	
 	<xsl:template match="*[@name='Decision']">
-		<xslt step="6" name="Decision" href="pipeline_xslt/judgement/decision.xsl" />
+		<xslt name="Decision" href="pipeline_xslt/judgement/decision.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 	
 	
 	<xsl:template match="*[@name='Conclusion']">
-		<xslt step="7" name="Conclusion" href="pipeline_xslt/judgement/Conclusion.xsl" />
+		<xslt name="Conclusion" href="pipeline_xslt/common/conclusion.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 	
 		
 	<xsl:template match="*[@name='Omissis']">
-		<xslt step="8" name="Omissis" href="pipeline_xslt/judgement/omissis.xsl" />
+		<xslt name="Omissis" href="pipeline_xslt/judgement/omissis.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 	
-	<!--
 
-	<xsl:template match="*[@name='Observation']">
-		<xslt step="3" name="Observation" href="pipeline_xslt/judgement/Observation.xsl" />
-		<xsl:apply-templates />
-	</xsl:template>
-
-	<xsl:template match="*[@name='Person']">
-		<xslt step="20" name="Person" href="pipeline_xslt/judgement/Person.xsl" />
-		<xsl:apply-templates />
-	</xsl:template>
-   
-
-	<xsl:template match="*[@name='Conclusion']">
-		<xslt step="23" name="Conclusion" href="pipeline_xslt/judgement/Conclusion.xsl" />
-		<xsl:apply-templates />
-	</xsl:template>
-   -->
 	<xsl:template match="*[@name='span']">
-		<xslt step="24" name="span" href="pipeline_xslt/judgement/span.xsl" />
+		<xslt name="span" href="pipeline_xslt/common/span.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='p']">
-		<xslt step="25" name="p" href="pipeline_xslt/judgement/p.xsl" />
+		<xslt name="p" href="pipeline_xslt/common/p.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='ref']">
-		<xslt step="26" name="ref" href="pipeline_xslt/judgement/ref.xsl" />
+		<xslt name="ref" href="pipeline_xslt/judgement/ref.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='heading']">
-		<xslt step="27" name="heading" href="pipeline_xslt/judgement/heading.xsl" />
+		<xslt name="heading" href="pipeline_xslt/common/heading.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='subheading']">
-		<xslt step="28" name="subheading" href="pipeline_xslt/judgement/subheading.xsl" />
+		<xslt name="subheading" href="pipeline_xslt/common/subheading.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='list']">
-		<xslt step="29" name="list" href="pipeline_xslt/judgement/list.xsl" />
+		<xslt name="list" href="pipeline_xslt/common/list.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='item']">
-		<xslt step="30" name="item" href="pipeline_xslt/judgement/item.xsl" />
+		<xslt name="item" href="pipeline_xslt/common/item.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='a']">
-		<xslt step="31" name="a" href="pipeline_xslt/judgement/a.xsl" />
+		<xslt name="a" href="pipeline_xslt/common/a.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
  
 	<xsl:template match="*[@name='meta']">
-		<xslt step="32" name="meta" href="pipeline_xslt/judgement/meta.xsl" />
+		<xslt name="meta" href="pipeline_xslt/common/meta.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='identification']">
-		<xslt step="33" name="identification" href="pipeline_xslt/judgement/identification.xsl" />
+		<xslt name="identification" href="pipeline_xslt/common/identification.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='FRBRWork']">
-		<xslt step="34" name="FRBRWork" href="pipeline_xslt/judgement/FRBRWork.xsl" />
+		<xslt name="FRBRWork" href="pipeline_xslt/common/frbrwork.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='FRBRExpression']">
-		<xslt step="35" name="FRBRExpression" href="pipeline_xslt/judgement/FRBRExpression.xsl" />
+		<xslt name="FRBRExpression" href="pipeline_xslt/common/frbrexpression.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='FRBRManifestation']">
-		<xslt step="36" name="FRBRManifestation" href="pipeline_xslt/judgement/FRBRManifestation.xsl" />
+		<xslt name="FRBRManifestation" href="pipeline_xslt/common/frbrmanifestation.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='this']">
-		<xslt step="37" name="this" href="pipeline_xslt/judgement/this.xsl" />
+		<xslt name="this" href="pipeline_xslt/common/this.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='uri']">
-		<xslt step="38" name="uri" href="pipeline_xslt/judgement/uri.xsl" />
+		<xslt name="uri" href="pipeline_xslt/common/uri.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='date']">
-		<xslt step="39" name="date" href="pipeline_xslt/judgement/date.xsl" />
+		<xslt name="date" href="pipeline_xslt/common/date.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='author']">
-		<xslt step="40" name="author" href="pipeline_xslt/judgement/author.xsl" />
+		<xslt name="author" href="pipeline_xslt/common/frbrauthor.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='publication_mcontainer']">
-		<xslt step="41" name="publication_mcontainer" href="pipeline_xslt/judgement/publication_mcontainer.xsl" />
+		<xslt name="publication_mcontainer" href="pipeline_xslt/common/publication_mcontainer.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='publication']">
-		<xslt step="42" name="publication" href="pipeline_xslt/judgement/publication.xsl" />
+		<xslt name="publication" href="pipeline_xslt/common/publication.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='references']">
-		<xslt step="43" name="references" href="pipeline_xslt/judgement/references.xsl" />
+		<xslt name="references" href="pipeline_xslt/common/references.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='TLCOrganization']">
-		<xslt step="44" name="TLCOrganization" href="pipeline_xslt/judgement/TLCOrganization.xsl" />
+		<xslt name="TLCOrganization" href="pipeline_xslt/common/tlcorganization.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='TLCPerson']">
-		<xslt step="45" name="TLCPerson" href="pipeline_xslt/judgement/TLCPerson.xsl" />
+		<xslt name="TLCPerson" href="pipeline_xslt/common/tlcperson.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 	
 	<xsl:template match="*[@name='TLCEvent']">
-		<xslt step="46" name="TLCEvent" href="pipeline_xslt/judgement/TLCEvent.xsl" />
+		<xslt name="TLCEvent" href="pipeline_xslt/common/tlcevent.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 	
 	<xsl:template match="*[@name='TLCRole']">
-		<xslt step="47" name="TLCRole" href="pipeline_xslt/judgement/TLCRole.xsl" />
+		<xslt name="TLCRole" href="pipeline_xslt/common/tlcrole.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 	
     <xsl:template match="*[@name='TLCConcept']">
-		<xslt step="48" name="TLCConcept" href="pipeline_xslt/judgement/TLCConcept.xsl" />
+		<xslt name="TLCConcept" href="pipeline_xslt/common/tlcconcept.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 	

@@ -9,14 +9,17 @@
         </stylesheets>
     </xsl:template>
 
-    
-	<xsl:template match="*">
+    <xsl:template match="*">
         <xsl:apply-templates />
     </xsl:template>
 
     <xsl:template match="text()">
        <xsl:value-of select="normalize-space(.)" />
     </xsl:template> 
+
+    <xsl:template match="bungeni:*">
+      <!--We dont want to output the bungeni namespace metadata -->
+    </xsl:template>
 
 	<xsl:template match="*[@name='root']">
 		<xslt step="0" name="root" href="pipeline_xslt/bill/root.xsl" />
@@ -114,17 +117,17 @@
 	</xsl:template>
 
 	<xsl:template match="*[@name='Conclusion']">
-		<xslt name="Conclusion" href="pipeline_xslt/bill/conclusion.xsl" />
+		<xslt name="Conclusion" href="pipeline_xslt/common/conclusion.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='span']">
-		<xslt name="span" href="pipeline_xslt/bill/span.xsl" />
+		<xslt name="span" href="pipeline_xslt/common/span.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='p']">
-		<xslt name="p" href="pipeline_xslt/bill/p.xsl" />
+		<xslt name="p" href="pipeline_xslt/common/p.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
@@ -134,12 +137,12 @@
 	</xsl:template>
 
 	<xsl:template match="*[@name='heading']">
-		<xslt name="heading" href="pipeline_xslt/bill/heading.xsl" />
+		<xslt name="heading" href="pipeline_xslt/common/heading.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='subheading']">
-		<xslt name="subheading" href="pipeline_xslt/bill/subheading.xsl" />
+		<xslt name="subheading" href="pipeline_xslt/common/subheading.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
@@ -149,12 +152,12 @@
 	</xsl:template>
 
 	<xsl:template match="*[@name='item']">
-		<xslt name="item" href="pipeline_xslt/bill/item.xsl" />
+		<xslt name="item" href="pipeline_xslt/common/item.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="*[@name='a']">
-		<xslt name="a" href="pipeline_xslt/bill/a.xsl" />
+		<xslt name="a" href="pipeline_xslt/common/a.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 

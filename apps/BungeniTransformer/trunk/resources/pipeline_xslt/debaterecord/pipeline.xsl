@@ -53,7 +53,7 @@
     </xsl:template>
 
     <xsl:template match="*[@name='Observation']">
-        <xslt name="Observation" href="pipeline_xslt/debaterecord/observation.xsl"/>
+        <xslt name="Observation" href="pipeline_xslt/common/observation.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
@@ -157,7 +157,7 @@
     </xsl:template>
 
     <xsl:template match="*[@name='Conclusion']">
-        <xslt name="Conclusion" href="pipeline_xslt/debaterecord/conclusion.xsl"/>
+        <xslt name="Conclusion" href="pipeline_xslt/common/conclusion.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
@@ -192,7 +192,7 @@
     </xsl:template>
 
     <xsl:template match="*[@name='item']">
-        <xslt name="item" href="pipeline_xslt/debaterecord/item.xsl"/>
+        <xslt name="item" href="pipeline_xslt/common/item.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
