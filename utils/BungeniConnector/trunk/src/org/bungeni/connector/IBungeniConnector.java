@@ -23,5 +23,6 @@ public interface IBungeniConnector {
     public List<Motion> getMotions();
     public List<Question> getQuestions();
     public List<MetadataInfo> getMetadataInfo();
+    public void closeConnector();
 
 }

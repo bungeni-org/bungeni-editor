@@ -11,6 +11,7 @@ import org.bungeni.connector.element.MetadataInfo;
 import org.bungeni.connector.element.Motion;
 import org.bungeni.connector.element.Member;
 import org.bungeni.connector.element.Question;
+import org.bungeni.connector.server.DataSourceServer;
 
 /**
  *
@@ -65,7 +66,8 @@ public class ClientTest {
                 System.out.println(questions.get(i).getTitle() + " " + questions.get(i).getText());
             }
         }
-        b.stopServer();
+        b.closeConnector();
+        DataSourceServer.getInstance().stopServer();
 
     }
 }

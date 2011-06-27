@@ -51,6 +51,7 @@ public class DataSourceServer extends Application {
     public static final String URI = "uri";
     public static final String DB = "db";
     IBungeniConnector bungeniConnector = null;
+    private static final String PROPERTIES_FILE = System.getProperty("user.dir") + System.getProperty("file.separator") + "settings" + System.getProperty("file.separator") + "bungeni-connector.properties";
 
     public DataSourceServer() {
         loadProperties();
@@ -68,7 +69,7 @@ public class DataSourceServer extends Application {
         FileInputStream in = null;
         try {
             Properties properties = new Properties();
-            in = new FileInputStream("bungeni-connector.properties");
+            in = new FileInputStream(PROPERTIES_FILE);
             properties.load(in);
             try {
                 serverPort = Integer.valueOf(properties.getProperty("bungeni-connector-server-port"));
@@ -97,6 +98,8 @@ public class DataSourceServer extends Application {
             loaded = true;
             logger.info("Properties loaded");
         } catch (FileNotFoundException ex) {
+            logger.error(ex);
+        } catch (IOException ex) {
             logger.error(ex);
         } finally {
             try {
@@ -140,6 +143,7 @@ public class DataSourceServer extends Application {
     }
 
     public boolean stopServer() {
+        bungeniConnector.closeConnector();
         boolean stopped = false;
         try {
             if (serverComponent != null) {

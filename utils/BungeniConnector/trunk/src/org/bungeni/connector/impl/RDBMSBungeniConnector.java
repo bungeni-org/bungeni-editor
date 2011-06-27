@@ -286,4 +286,9 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
     public void setQuestionsQuery(String questionsQuery) {
         this.questionsQuery = questionsQuery;
     }
+
+    public void closeConnector() {
+        close();
+        logger.error("Connector Closed");
+    }
 }

@@ -32,7 +32,7 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String metadataInfoTypeAlias = "type";
     private String metadataInfoNameAlias = "name";
     private String metadataInfoValueAlias = "value";
-    private String metadataInfoSourceURI = "file://D:/PROJECTS/JSE/UNDESA/BungeniConnector/datasource/xml/metadata.xml";
+    private String metadataInfoSourceURI = "file://"+System.getProperty("user.dir")+"/datasource/xml/metadata.xml";
     private String membersPackageAlias = "members";
     private String memberAlias = "member";
     private String memberIdAlias = "id";
@@ -40,7 +40,7 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String memberFirstNameAlias = "first";
     private String memberLastNameAlias = "last";
     private String memberRoleAlias = "role";
-    private String memberSourceURI = "file://D:/PROJECTS/JSE/UNDESA/BungeniConnector/datasource/xml/members.xml";
+    private String memberSourceURI = "file://"+System.getProperty("user.dir")+"/datasource/xml/members.xml";
     private String billsPackageAlias = "bills";
     private String billAlias = "bill";
     private String billIdAlias = "id";
@@ -48,7 +48,7 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String billNameAlias = "name";
     private String billOntologyAlias = "ontology";
     private String billCountryAlias = "country";
-    private String billsSourceURI = "file://D:/PROJECTS/JSE/UNDESA/BungeniConnector/datasource/xml/bills.xml";
+    private String billsSourceURI = "file://"+System.getProperty("user.dir")+"/datasource/xml/bills.xml";
     private String motionsPackageAlias = "motions";
     private String motionAlias = "motion";
     private String motionIdAlias = "id";
@@ -57,7 +57,7 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String motionTitleAlias = "title";
     private String motionByAlias = "by";
     private String motionTextAlias = "text";
-    private String motionsSourceURI = "file://D:/PROJECTS/JSE/UNDESA/BungeniConnector/datasource/xml/motions.xml";
+    private String motionsSourceURI = "file://"+System.getProperty("user.dir")+"/datasource/xml/motions.xml";
     private String questionsPackageAlias = "questions";
     private String questionAlias = "question";
     private String questionIdAlias = "id";
@@ -65,7 +65,7 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String questionFromAlias = "from";
     private String questionToAlias = "to";
     private String questionTextAlias = "text";
-    private String questionsSourceURI = "file://D:/PROJECTS/JSE/UNDESA/BungeniConnector/datasource/xml/questions.xml";
+    private String questionsSourceURI = "file://"+System.getProperty("user.dir")+"/datasource/xml/questions.xml";
 
     public XMLBungeniConnector() {
     }
@@ -513,5 +513,9 @@ public class XMLBungeniConnector implements IBungeniConnector {
 
     public void setQuestionsSourceURI(String questionsSourceURI) {
         this.questionsSourceURI = questionsSourceURI;
+    }
+
+    public void closeConnector() {
+        logger.info("Connector Closed");
     }
 }

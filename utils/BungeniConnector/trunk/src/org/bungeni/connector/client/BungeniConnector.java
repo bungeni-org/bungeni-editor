@@ -28,12 +28,11 @@ public class BungeniConnector implements IBungeniConnector {
     private String motionsSource = "http://localhost:8899/current/motions";
     private String questionsSource = "http://localhost:8899/current/questions";
     private String billsSource = "http://localhost:8899/current/bills";
-    private String stopSource = "http://localhost:8899/stop_server";
     private String packageAlias = "package";
     private String SERVER_UNREACHABLE = " did not respond";
     private static Logger logger = Logger.getLogger(BungeniConnector.class.getName());
 
-    private List getList(String source,String packageAlias, String alias, Class aliasClass) {
+    private List getList(String source, String packageAlias, String alias, Class aliasClass) {
         ClientResource resource = new ClientResource(source);
         try {
             XStream xStream = new XStream(new DomDriver());
@@ -47,46 +46,30 @@ public class BungeniConnector implements IBungeniConnector {
 
         } catch (Exception ex) {
             logger.error(source + SERVER_UNREACHABLE, ex);
+        } finally {
+            resource.release();
         }
         return null;
     }
 
     public List<Member> getMembers() {
-        return getList(getMembersSource(),Member.PACKAGE_ALIAS, Member.CLASS_ALIAS, Member.class);
+        return getList(getMembersSource(), Member.PACKAGE_ALIAS, Member.CLASS_ALIAS, Member.class);
     }
 
     public List<Bill> getBills() {
-        return getList(getBillsSource(),Bill.PACKAGE_ALIAS, Bill.CLASS_ALIAS, Bill.class);
+        return getList(getBillsSource(), Bill.PACKAGE_ALIAS, Bill.CLASS_ALIAS, Bill.class);
     }
 
     public List<Motion> getMotions() {
-        return getList(getMotionsSource(),Motion.PACKAGE_ALIAS, Motion.CLASS_ALIAS, Motion.class);
+        return getList(getMotionsSource(), Motion.PACKAGE_ALIAS, Motion.CLASS_ALIAS, Motion.class);
     }
 
     public List<Question> getQuestions() {
-        return getList(getQuestionsSource(),Question.PACKAGE_ALIAS, Question.CLASS_ALIAS, Question.class);
+        return getList(getQuestionsSource(), Question.PACKAGE_ALIAS, Question.CLASS_ALIAS, Question.class);
     }
 
     public List<MetadataInfo> getMetadataInfo() {
-        return getList(getMetadataInfoSource(),MetadataInfo.PACKAGE_ALIAS, MetadataInfo.CLASS_ALIAS, MetadataInfo.class);
-    }
-
-    public void stopServer() {
-        ClientResource resource = new ClientResource(stopSource);
-        try {
-            Status status = resource.getStatus();
-            if (Status.SUCCESS_OK.equals(status)) {
-                logger.info("Server stopped");
-            } else {
-                if (status != null) {
-                    logger.error(status.getDescription());
-                } else {
-                    logger.error(stopSource + SERVER_UNREACHABLE);
-                }
-            }
-        } catch (Exception ex) {
-            logger.error(stopSource + SERVER_UNREACHABLE, ex);
-        }
+        return getList(getMetadataInfoSource(), MetadataInfo.PACKAGE_ALIAS, MetadataInfo.CLASS_ALIAS, MetadataInfo.class);
     }
 
     public String getBillsSource() {
@@ -145,11 +128,7 @@ public class BungeniConnector implements IBungeniConnector {
         this.questionsSource = questionsSource;
     }
 
-    public String getStopSource() {
-        return stopSource;
-    }
-
-    public void setStopSource(String stopSource) {
-        this.stopSource = stopSource;
+    public void closeConnector() {
+        logger.info("Client Connection Closed");
     }
 }
