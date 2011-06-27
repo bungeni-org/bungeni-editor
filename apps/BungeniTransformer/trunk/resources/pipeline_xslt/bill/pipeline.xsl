@@ -32,7 +32,7 @@
 	</xsl:template>
 
 	<xsl:template match="*[@name='Preface']">
-		<xslt name="Preface" href="pipeline_xslt/bill/masthead.xsl" />
+		<xslt name="Preface" href="pipeline_xslt/common/preface.xsl" />
 		<xsl:apply-templates />
 	</xsl:template>
 

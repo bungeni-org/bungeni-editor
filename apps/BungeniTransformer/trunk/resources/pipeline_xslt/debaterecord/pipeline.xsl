@@ -177,12 +177,12 @@
     </xsl:template>
 
     <xsl:template match="*[@name='heading']">
-        <xslt name="heading" href="pipeline_xslt/debaterecord/heading.xsl"/>
+        <xslt name="heading" href="pipeline_xslt/common/heading.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*[@name='subheading']">
-        <xslt name="subheading" href="pipeline_xslt/debaterecord/subheading.xsl"/>
+        <xslt name="subheading" href="pipeline_xslt/common/subheading.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
@@ -197,7 +197,7 @@
     </xsl:template>
 
     <xsl:template match="*[@name='a']">
-        <xslt name="a" href="pipeline_xslt/debaterecord/a.xsl"/>
+        <xslt name="a" href="pipeline_xslt/common/a.xsl"/>
         <xsl:apply-templates/>
     </xsl:template>
 
