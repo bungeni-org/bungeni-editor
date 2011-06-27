@@ -21,7 +21,7 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="txtParliamentSitting" alignment="0" pref="198" max="32767" attributes="1"/>
                   <Component id="txtParliamentSession" alignment="0" pref="198" max="32767" attributes="1"/>
-                  <Component id="BungeniParliamentID" alignment="0" pref="198" max="32767" attributes="1"/>
+                  <Component id="txtParliamentID" alignment="0" pref="198" max="32767" attributes="1"/>
                   <Component id="lblParliamentID" alignment="0" min="-2" max="-2" attributes="1"/>
                   <Component id="lblParliamentSession" alignment="0" min="-2" max="-2" attributes="1"/>
                   <Component id="lblParliamentSitting" alignment="0" min="-2" max="-2" attributes="1"/>
@@ -36,7 +36,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="lblParliamentID" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-              <Component id="BungeniParliamentID" min="-2" max="-2" attributes="0"/>
+              <Component id="txtParliamentID" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="lblParliamentSession" min="-2" pref="13" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -51,7 +51,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JTextField" name="BungeniParliamentID">
+    <Component class="javax.swing.JTextField" name="txtParliamentID">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="DejaVu Sans" size="10" style="0"/>

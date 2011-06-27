@@ -18,6 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
+import org.bungeni.connector.server.DataSourceServer;
 import org.bungeni.editor.dialogs.editorTabbedPanel;
 import org.bungeni.editor.noa.ext.BungeniLocalOfficeApplication;
 import org.bungeni.extutils.BungeniFrame;
@@ -36,18 +37,15 @@ import org.bungeni.ooo.OOComponentHelper;
 public class BungeniNoaFrame extends BungeniFrame {
 
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BungeniNoaFrame.class.getName());
-    
     private static BungeniNoaFrame thisBungeniNoaFrame = null;
-
     private BungeniLocalOfficeApplication officeApplication = null;
-
+    private DataSourceServer dss = null;
     /**
      * We use the glazed list library here for declaring the officeDocuments as a EventList.
      * The EventList provides Events aware combo box model which received notifications on event list
      * changes and updates lists dynamically
      */
     private EventList<DocumentComposition> officeDocuments = new BasicEventList<DocumentComposition>();
-
     /**
      * The structure of this Frame is as follows :
      *
@@ -64,8 +62,6 @@ public class BungeniNoaFrame extends BungeniFrame {
      *                           |
      *                           |---- editorTabbedPanel (contains the action panel)
      */
-
-
     /**
      * This is the panel that contains the NOA Panel and the tabbed panel
      */
@@ -73,16 +69,15 @@ public class BungeniNoaFrame extends BungeniFrame {
     /**
      * This is the JPanel with the embdedded OpenOffice 
      */
-    private  BungeniNoaTabbedPane noaTabbedPane = null;
+    private BungeniNoaTabbedPane noaTabbedPane = null;
 
-    public static BungeniNoaFrame getInstance(){
+    public static BungeniNoaFrame getInstance() {
         if (null == thisBungeniNoaFrame) {
             thisBungeniNoaFrame = new BungeniNoaFrame();
         }
         return thisBungeniNoaFrame;
     }
 
-    
     private BungeniNoaFrame() {
         super();
         init();
@@ -106,7 +101,6 @@ public class BungeniNoaFrame extends BungeniFrame {
         setIconImage(iconApp.getImage());
 
     }
-
 
     public JPanel getBasePanel() {
         if (this.basePanel == null) {
@@ -137,76 +131,77 @@ public class BungeniNoaFrame extends BungeniFrame {
 
             @Override
             public void windowClosing(WindowEvent windowEvent) {
-                  JFrame aFrame = (JFrame) windowEvent.getSource();
-                  int confirm = JOptionPane.showOptionDialog(aFrame, "Really Exit? This will close all Editor panels",
+                JFrame aFrame = (JFrame) windowEvent.getSource();
+                int confirm = JOptionPane.showOptionDialog(aFrame, "Really Exit? This will close all Editor panels",
                         "Exit Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                         null, null);
-                  if (confirm == JOptionPane.YES_OPTION) {
-                      /**
-                       * We probably need to check if all the OOo documents have been saved
-                       */
-                        // to do 
+                if (confirm == JOptionPane.YES_OPTION) {
+                    /**
+                     * We probably need to check if all the OOo documents have been saved
+                     */
+                    // to do
+                    /**
+                     * Clean up the main tabbed panel
+                     */
+                    System.out.println("Cleaning up panels");
+                    if (!editorTabbedPanel.isInstanceNull()) {
+                        editorTabbedPanel.getInstance().cleanup();
+                    }
 
-                      /**
-                       * Clean up the main tabbed panel
-                       */
-                      System.out.println("Cleaning up panels");
-                      if (!editorTabbedPanel.isInstanceNull()) {
-                          editorTabbedPanel.getInstance().cleanup();
-                      }
-
-                      /***
-                       * Clean up the openoffice handles 
-                       */
-
-                      System.out.println("Cleaning up openoffice handles");
-                      try {
-                          System.out.println("Closing component handles");
-                          //iterate through the document composition list and close every document
-                          for (DocumentComposition document : officeDocuments) {
-                              //XXXX-TODO-XXX check if document has been saved, warn etc.
-                              if (document.getDocument() != null) {
-                                 document.getDocument().close();
-                                }
-                              document.setDocument(null);
-                              officeDocuments.remove(document);
-                          }
-                          //then shutdown OOo completely
-                          System.out.println("Closing OpenOffice completely");
-                          if (officeApplication != null) {
-                                officeApplication.deactivate();
-                                officeApplication.dispose();
-                                BungeniNoaApp.getInstance().setOfficeApp(null);
+                    /***
+                     * Clean up the openoffice handles
+                     */
+                    System.out.println("Cleaning up openoffice handles");
+                    try {
+                        System.out.println("Closing component handles");
+                        //iterate through the document composition list and close every document
+                        for (DocumentComposition document : officeDocuments) {
+                            //XXXX-TODO-XXX check if document has been saved, warn etc.
+                            if (document.getDocument() != null) {
+                                document.getDocument().close();
                             }
-                        } catch (Throwable ex) {
-                            log.error("Error while closing window", ex);
+                            document.setDocument(null);
+                            officeDocuments.remove(document);
                         }
+                        //then shutdown OOo completely
+                        System.out.println("Closing OpenOffice completely");
+                        if (officeApplication != null) {
+                            officeApplication.deactivate();
+                            officeApplication.dispose();
+                            BungeniNoaApp.getInstance().setOfficeApp(null);
+                        }
+                    } catch (Throwable ex) {
+                        log.error("Error while closing window", ex);
+                    }
+                    System.out.println("Stopping Bungenic Connector Data Server");
+                    dss.stopServer();
 
-                      /**
-                       * Dispose the main JFrame
-                       */
-                      System.out.println("Dispose and exit window");
-                      dispose();
+                    /**
+                     * Dispose the main JFrame
+                     */
+                    System.out.println("Dispose and exit window");
+                    dispose();
 
-                      /**
-                       *Finally exit the system
-                       */
-
-                      System.exit(0);
-                      }
+                    /**
+                     *Finally exit the system
+                     */
+                    System.exit(0);
+                }
             }
         });
+        //Starting BungeniConnector server
+        dss = DataSourceServer.getInstance();
+        dss.startServer();
 
     }
 
-    
     /**
      * Sets up the root panel and adds the NOA panel to it
      * We use the MigLayout here (see http://www.miglayout.org ), since it supports
      * dynamic resizing - and specifying fixed panels 
      *
      */
-    private void setupRootPanelAndAddNoaPanel(){
+    private void setupRootPanelAndAddNoaPanel() {
         //flowx = flow the layout on the x axis
         //column config = first panel - grow and fill on both axes
         //                second panel - use local preference
@@ -223,8 +218,6 @@ public class BungeniNoaFrame extends BungeniFrame {
         //noaTabbedPane.getTabbedPane().addTab("openOffice",
         //        BungeniNoaPanel.getInstance().getPanel());
     }
-
-   
 
     /***
      * This loads a document or a document template in the BungeniNoaFrame
@@ -249,7 +242,7 @@ public class BungeniNoaFrame extends BungeniFrame {
         noaTabbedPane.getTabbedPane().addTab(fileNameForTab, noapanel.getPanel());
         noapanel.getPanel().setVisible(true);
         //if the Office XFrame does not exist, construct it
-        DocumentComposition dc =  constructOOoFrame(noapanel);
+        DocumentComposition dc = constructOOoFrame(noapanel);
         //now load the document - if its a template, create a new instance from 
         DocumentDescriptor ddObject = null;
         ITextDocument loadedDocument = null;
@@ -259,7 +252,7 @@ public class BungeniNoaFrame extends BungeniFrame {
             ddObject = BungeniNoaDocumentDescriptor.forDocument(pathToDocumentOrTemplate);
         }
         loadedDocument = (ITextDocument) officeApplication.getDocumentService().
-                    loadDocument(dc.getFrame().getFrame(), pathToDocumentOrTemplate, ddObject);
+                loadDocument(dc.getFrame().getFrame(), pathToDocumentOrTemplate, ddObject);
 
         String tabTitle = OOComponentHelper.getFrameTitle(loadedDocument.getXTextDocument());
         //set the loaded document into the document composition object
@@ -270,8 +263,6 @@ public class BungeniNoaFrame extends BungeniFrame {
         return dc;
     }
 
-
-    
     /**
      * Creates a OpenOffice XFrame , the document is loaded in a XFrame
      * A native view is attached to an XFrame
@@ -303,7 +294,6 @@ public class BungeniNoaFrame extends BungeniFrame {
         return dc;
     }
 
-
     /**
      * A document in Bungeni Editor is displayed using the 3 components :
      *  -- openoffice frame
@@ -312,11 +302,12 @@ public class BungeniNoaFrame extends BungeniFrame {
      * This class is a holder for all these related objects for  text document
      */
     public class DocumentComposition {
+
         private BungeniNoaOfficeFrame frame;
         private BungeniNoaNativeView nativeView;
         private BungeniNoaPanel panel;
         private ITextDocument document;
-     
+
         /**
          *Create a DocumentComposition object
          * @param frame
@@ -325,7 +316,7 @@ public class BungeniNoaFrame extends BungeniFrame {
          * @param doc
          */
         public DocumentComposition(BungeniNoaOfficeFrame frame, BungeniNoaNativeView nativeView,
-                BungeniNoaPanel panel, ITextDocument doc ) {
+                BungeniNoaPanel panel, ITextDocument doc) {
             this.setFrame(frame);
             this.setNativeView(nativeView);
             this.setPanel(panel);
@@ -333,8 +324,10 @@ public class BungeniNoaFrame extends BungeniFrame {
         }
 
         @Override
-        public String toString(){
-            if (document == null) return "Unknown Document";
+        public String toString() {
+            if (document == null) {
+                return "Unknown Document";
+            }
             return OOComponentHelper.getFrameTitle(document.getXTextDocument());
         }
 
@@ -403,13 +396,12 @@ public class BungeniNoaFrame extends BungeniFrame {
         }
     }
 
-    public final EventList<DocumentComposition> getOfficeDocuments(){
+    public final EventList<DocumentComposition> getOfficeDocuments() {
         return this.officeDocuments;
     }
 
     public void addOfficeDocument(DocumentComposition dc) {
         this.officeDocuments.add(dc);
     }
-    
 }
 

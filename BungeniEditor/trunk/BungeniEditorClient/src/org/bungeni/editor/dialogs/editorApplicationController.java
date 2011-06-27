@@ -935,13 +935,13 @@ public class editorApplicationController extends javax.swing.JPanel {
         frame.setVisible(true);
         frame.setSize(800, 600);
         frame.setExtendedState(frame.getExtendedState()|JFrame.MAXIMIZED_BOTH);
-        LaunchDebateMetadataSetter(xopenedDocument);
+        LaunchDebateMetadataSetter(xopenedDocument, isTemplate);
         //launch the metadata setter here
        
 
        }
 
-    private void LaunchDebateMetadataSetter(XComponent xComp) {
+    private void LaunchDebateMetadataSetter(XComponent xComp, boolean isTemplate) {
         OOComponentHelper oohc = new OOComponentHelper(xComp, BungenioOoHelper.getInstance().getComponentContext());
 
         if (oohc.propertyExists("__BungeniDocMeta")) {
@@ -964,7 +964,8 @@ public class editorApplicationController extends javax.swing.JPanel {
         /*   IEditorDocMetadataDialog metaDlg = EditorDocMetadataDialogFactory.getInstance(BungeniEditorPropertiesHelper.getCurrentDocType());
         metaDlg.initVariables(oohc, frm, SelectorDialogModes.TEXT_EDIT);
         metaDlg.initialize();*/
-        MetadataEditorContainer meta = new MetadataEditorContainer(oohc, frm, SelectorDialogModes.TEXT_EDIT);
+        MetadataEditorContainer meta = new MetadataEditorContainer(oohc, frm, 
+                isTemplate ? SelectorDialogModes.TEXT_INSERTION : SelectorDialogModes.TEXT_EDIT );
         meta.initialize();
         //DebateRecordMetadata meta = new DebateRecordMetadata(oohc, frm, SelectorDialogModes.TEXT_EDIT);
         frm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

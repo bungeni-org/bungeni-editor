@@ -3,13 +3,15 @@
  *
  * Created on November 4, 2008, 1:43 PM
  */
-
 package org.bungeni.editor.metadata.editors;
 
 import java.awt.Component;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeMap;
+import org.bungeni.connector.client.BungeniConnector;
+import org.bungeni.connector.element.MetadataInfo;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.utils.BungeniFileSavePathFormat;
@@ -24,76 +26,87 @@ public class ParliamentMetadata extends BaseEditorDocMetadataDialog {
 
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ParliamentMetadata.class.getName());
     ParliamentMetadataModel docMetaModel = new ParliamentMetadataModel();
-     
 
-    
-    public ParliamentMetadata(){
+    public ParliamentMetadata() {
         super();
         initComponents();
     }
-    
+
     @Override
     public void initialize() {
         super.initialize();
+        loadParliamentInfo();
         this.docMetaModel.setup();
         initControls();
-           if (theMode == SelectorDialogModes.TEXT_EDIT) {
-            try {
-                //retrieve metadata... and set in controls....
-                docMetaModel.loadModel(ooDocument);
-  
-               String sParlId = docMetaModel.getItem("BungeniParliamentID");
-                String sParlSitting = docMetaModel.getItem("BungeniParliamentSitting");
-                String sParlSession = docMetaModel.getItem("BungeniParliamentSession");
-                if (!CommonStringFunctions.emptyOrNull(sParlId))
-                    this.BungeniParliamentID.setText(sParlId);
-                if (!CommonStringFunctions.emptyOrNull(sParlSession))
-                    this.txtParliamentSession.setText(sParlSession);
-                if (!CommonStringFunctions.emptyOrNull(sParlSitting))
-                    this.txtParliamentSitting.setText(sParlSitting);
-                
-            } catch (Exception ex) {
-                log.error("initalize()  =  "  + ex.getMessage());
+        if (theMode == SelectorDialogModes.TEXT_INSERTION) {
+        } else if (theMode == SelectorDialogModes.TEXT_EDIT) {
+            docMetaModel.loadModel(ooDocument);
+        }
+        try {
+            String sParlId = docMetaModel.getItem("BungeniParliamentID");
+            String sParlSitting = docMetaModel.getItem("BungeniParliamentSitting");
+            String sParlSession = docMetaModel.getItem("BungeniParliamentSession");
+            if (!CommonStringFunctions.emptyOrNull(sParlId)) {
+                this.txtParliamentID.setText(sParlId);
             }
-         
+            if (!CommonStringFunctions.emptyOrNull(sParlSession)) {
+                this.txtParliamentSession.setText(sParlSession);
+            }
+            if (!CommonStringFunctions.emptyOrNull(sParlSitting)) {
+                this.txtParliamentSitting.setText(sParlSitting);
+            }
+
+        } catch (Exception ex) {
+            log.error("initalize()  =  " + ex.getMessage());
         }
     }
 
     public Component getPanelComponent() {
         return this;
     }
-        
-    
-    private void initControls(){
- 
+
+    private void initControls() {
     }
-    
-    
-    
-public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
-    boolean bState = false;
-    try {
-        String sParliamentID = this.BungeniParliamentID.getText();
-        String sParliamentSitting = this.txtParliamentSitting.getText();
-        String sParliamentSession = this.txtParliamentSession.getText();
-       
-   // docMetaModel.updateItem("BungeniParliamentID")
-    docMetaModel.updateItem("BungeniParliamentID", sParliamentID);
-    docMetaModel.updateItem("BungeniParliamentSitting", sParliamentSitting);
-    docMetaModel.updateItem("BungeniParliamentSession", sParliamentSession);
-   //  spf.setSaveComponent("FileName", spf.getFileName());
-    docMetaModel.saveModel(ooDocument);
-    bState = true;
-    } catch (Exception ex) {
-        log.error("applySelectedMetadata : " + ex.getMessage());
-        bState = false;
-    } finally {
-        return bState;
+
+    private void loadParliamentInfo() {
+        BungeniConnector client = new BungeniConnector();
+        List<MetadataInfo> metadata = client.getMetadataInfo();
+        if (metadata != null) {
+            for (int i = 0; i < metadata.size(); i++) {
+                if (metadata.get(i).getName().equalsIgnoreCase("ParliamentID")) {
+                    docMetaModel.setBungeniParliamentID(metadata.get(i).getValue());
+                } else if (metadata.get(i).getName().equalsIgnoreCase("ParliamentSession")) {
+                    docMetaModel.setBungeniParliamentSession(metadata.get(i).getValue());
+                } else if (metadata.get(i).getName().equalsIgnoreCase("ParliamentSitting")) {
+                    docMetaModel.setBungeniParliamentSitting(metadata.get(i).getValue());
+                }
+                System.out.println(metadata.get(i).getName() + " " + metadata.get(i).getType() + " " + metadata.get(i).getValue());
+            }
+        }
+        client.closeConnector();
     }
-}    
 
+    public boolean applySelectedMetadata(BungeniFileSavePathFormat spf) {
+        boolean bState = false;
+        try {
+            String sParliamentID = this.txtParliamentID.getText();
+            String sParliamentSitting = this.txtParliamentSitting.getText();
+            String sParliamentSession = this.txtParliamentSession.getText();
 
-
+            // docMetaModel.updateItem("BungeniParliamentID")
+            docMetaModel.updateItem("BungeniParliamentID", sParliamentID);
+            docMetaModel.updateItem("BungeniParliamentSitting", sParliamentSitting);
+            docMetaModel.updateItem("BungeniParliamentSession", sParliamentSession);
+            //  spf.setSaveComponent("FileName", spf.getFileName());
+            docMetaModel.saveModel(ooDocument);
+            bState = true;
+        } catch (Exception ex) {
+            log.error("applySelectedMetadata : " + ex.getMessage());
+            bState = false;
+        } finally {
+            return bState;
+        }
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -104,15 +117,15 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        BungeniParliamentID = new javax.swing.JTextField();
+        txtParliamentID = new javax.swing.JTextField();
         lblParliamentID = new javax.swing.JLabel();
         txtParliamentSession = new javax.swing.JTextField();
         lblParliamentSession = new javax.swing.JLabel();
         txtParliamentSitting = new javax.swing.JTextField();
         lblParliamentSitting = new javax.swing.JLabel();
 
-        BungeniParliamentID.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        BungeniParliamentID.setName("fld.BungeniParliamentID"); // NOI18N
+        txtParliamentID.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        txtParliamentID.setName("fld.BungeniParliamentID"); // NOI18N
 
         lblParliamentID.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle"); // NOI18N
@@ -142,7 +155,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtParliamentSitting, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
                     .addComponent(txtParliamentSession, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
-                    .addComponent(BungeniParliamentID, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                    .addComponent(txtParliamentID, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
                     .addComponent(lblParliamentID, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblParliamentSession, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblParliamentSitting, javax.swing.GroupLayout.Alignment.LEADING))
@@ -154,7 +167,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
                 .addContainerGap()
                 .addComponent(lblParliamentID)
                 .addGap(2, 2, 2)
-                .addComponent(BungeniParliamentID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtParliamentID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblParliamentSession, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -166,40 +179,32 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
                 .addContainerGap(52, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField BungeniParliamentID;
     private javax.swing.JLabel lblParliamentID;
     private javax.swing.JLabel lblParliamentSession;
     private javax.swing.JLabel lblParliamentSitting;
+    private javax.swing.JTextField txtParliamentID;
     private javax.swing.JTextField txtParliamentSession;
     private javax.swing.JTextField txtParliamentSitting;
     // End of variables declaration//GEN-END:variables
 
-
-
     @Override
     public Dimension getFrameSize() {
-        int DIM_X = 347 ; int DIM_Y = 294 ;
+        int DIM_X = 347;
+        int DIM_Y = 294;
         return new Dimension(DIM_X, DIM_Y + 10);
     }
 
-
     @Override
-     public ArrayList<String> validateSelectedMetadata(BungeniFileSavePathFormat spf) {
-         addFieldsToValidate (new TreeMap<String,Component>(){
+    public ArrayList<String> validateSelectedMetadata(BungeniFileSavePathFormat spf) {
+        addFieldsToValidate(new TreeMap<String, Component>() {
+
             {
-                put(lblParliamentID.getText().replace("*",""), BungeniParliamentID);
-                put(lblParliamentSitting.getText().replace("*",""), txtParliamentSitting);
-                put(lblParliamentSession.getText().replace("*",""), txtParliamentSession);
+                put(lblParliamentID.getText().replace("*", ""), txtParliamentID);
+                put(lblParliamentSitting.getText().replace("*", ""), txtParliamentSitting);
+                put(lblParliamentSession.getText().replace("*", ""), txtParliamentSession);
             }
-            });
+        });
         return super.validateSelectedMetadata(spf);
-     }
-
-
-   
-
-
+    }
 }
