@@ -126,7 +126,7 @@ public class BungeniNoaFrame extends BungeniFrame {
         //an exit handler and exit cleanly
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setVisible(true);
-
+        
         addWindowListener(new WindowAdapter() {
 
             @Override
