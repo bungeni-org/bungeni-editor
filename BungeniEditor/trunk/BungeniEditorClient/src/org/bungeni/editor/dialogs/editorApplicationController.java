@@ -935,13 +935,18 @@ public class editorApplicationController extends javax.swing.JPanel {
         frame.setVisible(true);
         frame.setSize(800, 600);
         frame.setExtendedState(frame.getExtendedState()|JFrame.MAXIMIZED_BOTH);
-        LaunchDebateMetadataSetter(xopenedDocument, isTemplate);
+        LaunchMetadataSetter(xopenedDocument, isTemplate);
         //launch the metadata setter here
        
 
        }
 
-    private void LaunchDebateMetadataSetter(XComponent xComp, boolean isTemplate) {
+    /**
+     * Launches the initial metadata setter screen for a document
+     * @param xComp
+     * @param isTemplate
+     */
+    private void LaunchMetadataSetter(XComponent xComp, boolean isTemplate) {
         OOComponentHelper oohc = new OOComponentHelper(xComp, BungenioOoHelper.getInstance().getComponentContext());
 
         if (oohc.propertyExists("__BungeniDocMeta")) {
@@ -961,13 +966,16 @@ public class editorApplicationController extends javax.swing.JPanel {
         String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
 
         BungeniFrame frm = new BungeniFrame(docType + " Metadata");
-        /*   IEditorDocMetadataDialog metaDlg = EditorDocMetadataDialogFactory.getInstance(BungeniEditorPropertiesHelper.getCurrentDocType());
-        metaDlg.initVariables(oohc, frm, SelectorDialogModes.TEXT_EDIT);
-        metaDlg.initialize();*/
-        MetadataEditorContainer meta = new MetadataEditorContainer(oohc, frm, 
+
+        /**
+         * If it is a template we launch it in insertion mode,
+         * else we launch it in edit mode -- i.e. the document already exists
+         */
+        MetadataEditorContainer meta = new MetadataEditorContainer(oohc,
+                frm,
                 isTemplate ? SelectorDialogModes.TEXT_INSERTION : SelectorDialogModes.TEXT_EDIT );
+
         meta.initialize();
-        //DebateRecordMetadata meta = new DebateRecordMetadata(oohc, frm, SelectorDialogModes.TEXT_EDIT);
         frm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frm.setSize(meta.getFrameSize());
         frm.add(meta.getPanelComponent());
