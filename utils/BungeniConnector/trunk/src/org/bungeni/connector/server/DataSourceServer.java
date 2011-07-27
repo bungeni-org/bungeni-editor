@@ -51,10 +51,9 @@ public class DataSourceServer extends Application {
     public static final String URI = "uri";
     public static final String DB = "db";
     IBungeniConnector bungeniConnector = null;
-    private static final String PROPERTIES_FILE = System.getProperty("user.dir") + System.getProperty("file.separator") + "settings" + System.getProperty("file.separator") + "bungeni-connector.properties";
+    public static final String PROPERTIES_FILE = System.getProperty("user.dir") + System.getProperty("file.separator") + "settings" + System.getProperty("file.separator") + "bungeni-connector.properties";
 
     public DataSourceServer() {
-        loadProperties();
     }
 
     public static DataSourceServer getInstance() {
@@ -64,12 +63,12 @@ public class DataSourceServer extends Application {
         return INSTANCE;
     }
 
-    private boolean loadProperties() {
+    public boolean loadProperties(String propertiesFile) {
         boolean loaded = false;
         FileInputStream in = null;
         try {
             Properties properties = new Properties();
-            in = new FileInputStream(PROPERTIES_FILE);
+            in = new FileInputStream(propertiesFile);
             properties.load(in);
             try {
                 serverPort = Integer.valueOf(properties.getProperty("bungeni-connector-server-port"));
