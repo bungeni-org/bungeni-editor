@@ -14,6 +14,7 @@ public class ServerTest {
 
     public static void main(String[] args) {
         DataSourceServer trans = DataSourceServer.getInstance();
+        trans.loadProperties(DataSourceServer.PROPERTIES_FILE);
         trans.startServer();
 
     }
