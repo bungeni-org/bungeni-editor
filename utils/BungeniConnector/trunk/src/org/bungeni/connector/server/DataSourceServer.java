@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package org.bungeni.connector.server;
 
 import java.io.FileInputStream;
@@ -51,6 +48,7 @@ public class DataSourceServer extends Application {
     public static final String URI = "uri";
     public static final String DB = "db";
     IBungeniConnector bungeniConnector = null;
+    //THIS IS TO BE USED ONLY FOR TESTING
     public static final String PROPERTIES_FILE = System.getProperty("user.dir") + System.getProperty("file.separator") + "settings" + System.getProperty("file.separator") + "bungeni-connector.properties";
 
     public DataSourceServer() {
@@ -63,13 +61,16 @@ public class DataSourceServer extends Application {
         return INSTANCE;
     }
 
-    public boolean loadProperties(String propertiesFile) {
+    /**
+     * Loads the properties for starting the data source server.
+     * Expects a loaded Properties object 
+     * @param properties
+     * @return
+     */
+    public boolean loadProperties(Properties properties) {
         boolean loaded = false;
         FileInputStream in = null;
         try {
-            Properties properties = new Properties();
-            in = new FileInputStream(propertiesFile);
-            properties.load(in);
             try {
                 serverPort = Integer.valueOf(properties.getProperty("bungeni-connector-server-port"));
             } catch (Exception ex) {
@@ -108,6 +109,25 @@ public class DataSourceServer extends Application {
             }
             return loaded;
         }
+    }
+
+    /**
+     * Loads a properties file. The file is loaded from a path.
+     * @param propertiesFile
+     * @return
+     */
+    public boolean loadProperties(String propertiesFile) {
+        boolean loaded = false;
+        Properties properties = new Properties();
+        FileInputStream in = null;
+        try {
+            in = new FileInputStream(propertiesFile);
+            properties.load(in);
+            loaded = this.loadProperties(properties);
+        } catch (IOException ex) {
+            logger.error("unable to find properties file :" + propertiesFile, ex);
+        } 
+        return loaded;
     }
 
     public void setServerPort(int nPort) {
