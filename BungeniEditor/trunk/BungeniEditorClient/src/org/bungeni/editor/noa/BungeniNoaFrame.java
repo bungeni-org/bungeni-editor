@@ -7,6 +7,9 @@ import java.awt.Dimension;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 
@@ -14,11 +17,13 @@ import ag.ion.bion.officelayer.document.DocumentDescriptor;
 import ag.ion.bion.officelayer.text.ITextDocument;
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
+import java.util.Properties;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import org.bungeni.connector.server.DataSourceServer;
+import org.bungeni.ds.DataSourceFactory;
 import org.bungeni.editor.dialogs.editorTabbedPanel;
 import org.bungeni.editor.noa.ext.BungeniLocalOfficeApplication;
 import org.bungeni.extutils.BungeniFrame;
@@ -126,7 +131,10 @@ public class BungeniNoaFrame extends BungeniFrame {
         //an exit handler and exit cleanly
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setVisible(true);
-        
+
+        //Starting BungeniConnector server
+        startDataSourceServer();
+
         addWindowListener(new WindowAdapter() {
 
             @Override
@@ -189,10 +197,18 @@ public class BungeniNoaFrame extends BungeniFrame {
                 }
             }
         });
-        //Starting BungeniConnector server
-        dss = DataSourceServer.getInstance();
-        dss.startServer();
 
+    }
+
+    public void startDataSourceServer(){
+        try {
+            dss = DataSourceServer.getInstance();
+            Properties dsProps = DataSourceFactory.getDataSourceProperties();
+            dss.loadProperties(dsProps);
+            dss.startServer();
+        } catch (IOException ex) {
+            log.error("Error while starting up datasource server", ex);
+        }
     }
 
     /**
