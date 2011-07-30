@@ -1,9 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.bungeni.connector.impl;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -22,7 +19,7 @@ import org.bungeni.connector.element.Question;
 public class RDBMSBungeniConnector implements IBungeniConnector {
 
     private java.sql.Connection dbConnection = null;
-    private String dbUrl = "jdbc:h2:datasource/db/registry.db";
+    private String dbUrl = "jdbc:h2:%user_dir%/datasource/db/registry.db";
     private String dbUsername = "sa";
     private String dbPassword = "";
     private String dbDriver = "org.h2.Driver";
@@ -32,6 +29,10 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
     private String motionsQuery = "SELECT MOTION_ID,MOTION_URI,MOTION_TITLE,MOTION_NAME,MOTION_BY,MOTION_TEXT FROM PUBLIC.MOTIONS;";
     private String questionsQuery = "SELECT ID,QUESTION_TITLE,QUESTION_FROM,QUESTION_TO,QUESTION_TEXT FROM PUBLIC.QUESTIONS;";
     private static Logger logger = Logger.getLogger(RDBMSBungeniConnector.class.getName());
+
+    public RDBMSBungeniConnector(){
+        
+    }
 
     public List<Member> getMembers() {
         List<Member> items = new java.util.ArrayList<Member>();
@@ -211,6 +212,8 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
         return dbConnection;
     }
 
+
+
     public void setDbConnection(Connection dbConnection) {
         this.dbConnection = dbConnection;
     }
@@ -223,8 +226,15 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
         this.dbDriver = dbDriver;
     }
 
+    /**
+     * This is a TOTAL HACK -- this needs to be fixed to read the setting from the properties fiel
+     * @return
+     */
     public String getDbUrl() {
-        return dbUrl;
+        String sURL  = this.dbUrl.replace("/", File.separator);
+        sURL = sURL.replace("%user_dir%", System.getProperty("user.dir"));
+        logger.info("getDbUrl = " + sURL);
+        return sURL;
     }
 
     public void setDbUrl(String dbUrl) {

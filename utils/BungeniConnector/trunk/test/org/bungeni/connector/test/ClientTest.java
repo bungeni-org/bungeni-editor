@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.bungeni.connector.test;
 
 import java.util.List;
@@ -20,6 +16,8 @@ import org.bungeni.connector.server.DataSourceServer;
 public class ClientTest {
 
     public static void main(String args[]) {
+        //start server
+        DataSourceServer.getInstance().startServer();
         BungeniConnector b = new BungeniConnector();
         List<MetadataInfo> metadata = b.getMetadataInfo();
 

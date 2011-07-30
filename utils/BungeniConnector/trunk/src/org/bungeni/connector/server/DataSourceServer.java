@@ -69,47 +69,35 @@ public class DataSourceServer extends Application {
      */
     public boolean loadProperties(Properties properties) {
         boolean loaded = false;
-        FileInputStream in = null;
-        try {
             try {
-                serverPort = Integer.valueOf(properties.getProperty("bungeni-connector-server-port"));
+                setServerPort(Integer.valueOf(properties.getProperty("server-port")));
             } catch (Exception ex) {
                 logger.error("Invalid server-port", ex);
             }
             try {
-                source = properties.getProperty("bungeni-connector-data-source-type");
-                if (source == null || !(source.equalsIgnoreCase(URI) || source.equalsIgnoreCase(DB))) {
+                this.source = properties.getProperty("data-source-type");
+                if (this.source == null || !(this.source.equalsIgnoreCase(URI) || this.source.equalsIgnoreCase(DB))) {
                     throw new Exception("Invalid bungeni-connector-data-source-type");
                 }
             } catch (Exception ex) {
                 logger.error(ex);
             }
-            if (source.equalsIgnoreCase(URI)) {
-                membersURI = properties.getProperty("bungeni-connector-uri-members");
-                motionsURI = properties.getProperty("bungeni-connector-uri-motions");
-                questionsURI = properties.getProperty("bungeni-connector-uri-questions");
-                billsURI = properties.getProperty("bungeni-connector-uri-bills");
-                metadataInfoURI = properties.getProperty("bungeni-connector-uri-metadata-info");
-                bungeniConnector = new XMLBungeniConnector();
+            if (this.source.equalsIgnoreCase(URI)) {
+                this.membersURI = properties.getProperty("uri-members");
+                this.motionsURI = properties.getProperty("uri-motions");
+                this.questionsURI = properties.getProperty("uri-questions");
+                this.billsURI = properties.getProperty("uri-bills");
+                this.metadataInfoURI = properties.getProperty("uri-metadata-info");
+                this.bungeniConnector = new XMLBungeniConnector();
             } else {
-                bungeniConnector = new RDBMSBungeniConnector();
+                this.bungeniConnector = new RDBMSBungeniConnector();
             }
-            in.close();
+
             loaded = true;
             logger.info("Properties loaded");
-        } catch (FileNotFoundException ex) {
-            logger.error(ex);
-        } catch (IOException ex) {
-            logger.error(ex);
-        } finally {
-            try {
-                in.close();
-            } catch (IOException ex) {
-                logger.error(ex);
-            }
             return loaded;
         }
-    }
+    
 
     /**
      * Loads a properties file. The file is loaded from a path.
@@ -162,7 +150,8 @@ public class DataSourceServer extends Application {
     }
 
     public boolean stopServer() {
-        bungeniConnector.closeConnector();
+        if (bungeniConnector != null)
+             bungeniConnector.closeConnector();
         boolean stopped = false;
         try {
             if (serverComponent != null) {
@@ -197,6 +186,7 @@ public class DataSourceServer extends Application {
     public String getSource() {
         return source;
     }
+    
 
     public String getBillsURI() {
         return billsURI;
@@ -217,4 +207,5 @@ public class DataSourceServer extends Application {
     public String getQuestionsURI() {
         return questionsURI;
     }
+
 }
