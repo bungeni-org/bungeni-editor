@@ -108,7 +108,7 @@ public class OOComponentHelper {
      *   The exposed API to the application is the same, but the internal representation and namespaces
      *   for the metadata change because of this flag.
      */
-    public static Boolean USE_OLD_STYLE_METADATA = true;
+    public static Boolean USE_OLD_STYLE_METADATA = false;
 
     private static long                    MARGIN_MEASURE_BASE = 254;
     private static org.apache.log4j.Logger log                 =
