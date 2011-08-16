@@ -21,8 +21,10 @@ opencsv http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/ope
 uml http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/uml
 commons-lang http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/commons-lang
 commons-codec http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/commons-codec
+commons-io  http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/commons-io
 noa http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/noa
 miglayout http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/miglayout
 glazedlists http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/glazedlists
 bungenitransformer http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/transformer
 bungeniconnector http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeniconnector
+bootstrapconnector  http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bootstrapconnector
