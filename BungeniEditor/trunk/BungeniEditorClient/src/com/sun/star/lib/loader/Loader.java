@@ -77,6 +77,9 @@ import java.util.Vector;
  */
 public final class Loader {
 
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Loader.class.getName());
+
+
     private static ClassLoader m_Loader = null;
 
     /**
@@ -293,10 +296,10 @@ public final class Loader {
             //Conver the hashset to an array
             URL[] urls = new URL[hsJars.size()];
             hsJars.toArray( urls );
-            System.out.println("OUTPUTTING CUSTOM CLASSLOADER URLS");
+            log.info("Custom classloader loaded jar urls will follow ...");
             for (URL url : urls) {
                try {
-                System.out.println(url.toExternalForm());
+                log.info("jar: " + url.toExternalForm());
                 } catch (Exception ex) {
                     System.out.println("ERROR WHILE OUTPUTTING URI");
                 }

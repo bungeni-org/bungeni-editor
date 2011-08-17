@@ -22,11 +22,10 @@ import ag.ion.bion.officelayer.application.ILazyApplicationInfo;
 import ag.ion.bion.officelayer.application.IOfficeApplication;
 import ag.ion.bion.officelayer.application.OfficeApplicationException;
 import ag.ion.bion.officelayer.internal.application.ApplicationAssistant;
-import java.io.File;
 import java.util.HashMap;
 import org.bungeni.editor.noa.ext.BungeniLocalOfficeApplication;
 import org.bungeni.editor.noa.ext.BungeniOfficeApplicationRuntime;
-import org.bungeni.extutils.JavaPlatformArch;
+import org.bungeni.extutils.BungeniRuntimeProperties;
 
 /**
  * Class for interfacing with NOA IOfficeApplication
@@ -46,6 +45,14 @@ public class BungeniNoaApp {
     public static BungeniNoaApp getInstance()  {
         if (noaApp == null) {
             noaApp = new BungeniNoaApp();
+        }
+        //Setting the metadata property here should be safe since openoffice UNO has been
+        //initialized now
+        String metadataFormat = BungeniRuntimeProperties.getProperty("METADATA_FORMAT");
+        if (metadataFormat.equals("RDF")) {
+            org.bungeni.ooo.OOComponentHelper.USE_OLD_STYLE_METADATA  = false;
+        } else {
+            org.bungeni.ooo.OOComponentHelper.USE_OLD_STYLE_METADATA  = true;
         }
         return noaApp;
     }
@@ -68,7 +75,6 @@ public class BungeniNoaApp {
                 System.exit(199);
             }
             this.officeConfiguration = new HashMap();
-            System.out.println(appInfos[0].getHome());
             this.officeConfiguration.put(IOfficeApplication.APPLICATION_HOME_KEY, appInfos[0].getHome());
             this.officeConfiguration.put(IOfficeApplication.APPLICATION_TYPE_KEY, IOfficeApplication.LOCAL_APPLICATION);
             this.officeApplication = (BungeniLocalOfficeApplication) BungeniOfficeApplicationRuntime.getBungeniApplication(this.officeConfiguration);

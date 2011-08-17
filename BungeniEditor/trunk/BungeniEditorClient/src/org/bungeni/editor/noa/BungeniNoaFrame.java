@@ -7,9 +7,6 @@ import java.awt.Dimension;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 
@@ -17,6 +14,7 @@ import ag.ion.bion.officelayer.document.DocumentDescriptor;
 import ag.ion.bion.officelayer.text.ITextDocument;
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
+import java.io.IOException;
 import java.util.Properties;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -44,6 +42,7 @@ public class BungeniNoaFrame extends BungeniFrame {
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BungeniNoaFrame.class.getName());
     private static BungeniNoaFrame thisBungeniNoaFrame = null;
     private BungeniLocalOfficeApplication officeApplication = null;
+    
     private DataSourceServer dss = null;
     /**
      * We use the glazed list library here for declaring the officeDocuments as a EventList.
@@ -133,8 +132,9 @@ public class BungeniNoaFrame extends BungeniFrame {
         setVisible(true);
 
         //Starting BungeniConnector server
+        /**
         startDataSourceServer();
-
+        **/
         addWindowListener(new WindowAdapter() {
 
             @Override
@@ -182,8 +182,9 @@ public class BungeniNoaFrame extends BungeniFrame {
                         log.error("Error while closing window", ex);
                     }
                     System.out.println("Stopping Bungenic Connector Data Server");
+                    /****
                     dss.stopServer();
-
+                   ***/
                     /**
                      * Dispose the main JFrame
                      */
@@ -200,6 +201,7 @@ public class BungeniNoaFrame extends BungeniFrame {
 
     }
 
+    /**** ASHOK
     public void startDataSourceServer(){
         try {
             dss = DataSourceServer.getInstance();
@@ -210,7 +212,7 @@ public class BungeniNoaFrame extends BungeniFrame {
             log.error("Error while starting up datasource server", ex);
         }
     }
-
+    ***/
     /**
      * Sets up the root panel and adds the NOA panel to it
      * We use the MigLayout here (see http://www.miglayout.org ), since it supports

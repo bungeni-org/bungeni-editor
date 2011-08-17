@@ -30,6 +30,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
+import org.bungeni.editor.noa.BungeniNoaApp;
 import org.bungeni.extutils.BungeniRuntimeProperties;
 
 /**
@@ -48,6 +49,11 @@ public class BungeniEditorClient {
  
     /** Creates a new instance of BungeniEditorClient */
     public BungeniEditorClient() {
+    }
+
+    private static void initOOo(){
+        //just calling getINstance() on BungeniNoaApp to initialize the OpenOffice libraries.
+        BungeniNoaApp.getInstance();
     }
 
     /**
@@ -85,12 +91,14 @@ public class BungeniEditorClient {
                 log.info("editor.ini has missing key for lang or region - ignoring ini setting - using commandline");
             }
             //getting metadata property
+            //Refering to OOComponentHelper here yeilds a class not found exception here
+            //because UNO isnt fully initialized yet
             if (pini.containsKey("metadata_format")) {
                 String metaFormat = pini.getProperty("metadata_format");
                 if (metaFormat.trim().equals("rdf")) {
-                    org.bungeni.ooo.OOComponentHelper.USE_OLD_STYLE_METADATA = false;
+                    BungeniRuntimeProperties.setProperty("METADATA_FORMAT", "RDF");
                 } else {
-                    org.bungeni.ooo.OOComponentHelper.USE_OLD_STYLE_METADATA = true;
+                    BungeniRuntimeProperties.setProperty("METADATA_FORMAT", "OLD_STYLE");
                 }
             } else {
                 log.info("editor.ini metadata_format not set using rdf metadata");
@@ -230,6 +238,7 @@ public class BungeniEditorClient {
                     try {
                         // set the default language and locale
                         setIniProperties();
+                        initOOo();
                     } catch (FileNotFoundException ex) {
                         log.error("editor.ini not found", ex);
                     } catch (IOException ex) {
