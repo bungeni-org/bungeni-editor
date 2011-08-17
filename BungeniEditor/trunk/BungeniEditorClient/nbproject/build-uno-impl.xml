@@ -69,13 +69,22 @@
     </target>
     
     <!-- build manifest for simple bootstrap -->
+   
     <target name="-build-manifest" depends="-check-application-class" unless="application.class.exists">
+       <!-- the below is to generate a normal jar with -->
+       <!--
+        <manifest file="${build.dir}/MANIFEST.MF" mode="update">
+            <attribute name="Main-Class" value="${main.class}"/>
+         </manifest>
+        -->
+       <!-- this generates a UNO jar -->
         <manifest file="${build.dir}/MANIFEST.MF" mode="update">
             <attribute name="Main-Class" value="com.sun.star.lib.loader.Loader"/>
             <section name="com/sun/star/lib/loader/Loader.class">
                 <attribute name="Application-Class" value="${uno.main.class}"/>
             </section>
         </manifest>
+       
     </target>
     <target name="-check-application-class">
         <condition property="application.class.exists">
