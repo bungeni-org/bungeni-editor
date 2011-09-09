@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?><akomaNtoso xmlns="http://www.akomantoso.org/1.0">
+   <judgement>
+      <meta>
+         <identification source="#bungeni">
+            <FRBRWork>
+               <this value="/ke/judgement/2010-5-22"/>
+               <uri value=""/>
+               <date date="2010-05-22" name="workDate"/>
+               <author href="#user.Ashok"/>
+            </FRBRWork>
+            <FRBRExpression>
+               <this value="/ke/judgement/2010-5-22/eng"/>
+               <uri value="/eng@"/>
+               <date date="2010-05-19" name="expDate"/>
+               <author href="#user.Ashok"/>
+            </FRBRExpression>
+            <FRBRManifestation>
+               <this value="/ke/judgement/2010-5-22/eng.xml"/>
+               <uri value="/eng@.akn"/>
+               <date date="2010-05-19" name="manDate"/>
+               <author href="#user.Ashok"/>
+            </FRBRManifestation>
+         </identification>
+         <publication date="2010-05-25" name="judgement" showAs=""/>
+         <references source="#bungeni">
+            <TLCConcept id="judgementNo" href="/ontology/concept/judgement/Judgement/653/07" showAs="653/07"/>
+            <TLCPerson id="user.Ashok" href="user.Ashok" showAs="Author"/>
+            <TLCPerson id="kepartyagency4way" href="ke.party.agency.4way" showAs="FOURWAY HAULAGE SA (PTY) LTD"/>
+            <TLCRole id="appelant" href="/ontology/judgement/role/appelant" showAs="appelant"/>
+            <TLCPerson id="kepartyagencysaroads" href="ke.party.agency.saroads" showAs="SA NATIONAL ROADS AGENCY LTD"/>
+            <TLCRole id="respondent" href="/ontology/judgement/role/respondent" showAs="respondent"/>
+            <TLCPerson id="kenpersonBasiyaKhalwale19800412" href="ken.person.Basiya.Khalwale.1980-04-12" showAs="Khalwale"/>
+            <TLCPerson id="kenpersonJosaphKhamisi19800414" href="ken.person.Josaph.Khamisi.1980-04-14" showAs="Khamisi"/>
+            <TLCPerson id="kenpersonLyolaKhamasi19800413" href="ken.person.Lyola.Khamasi.1980-04-13" showAs="Khamasi"/>
+            <TLCPerson id="kenpersonNohanaKhalif19441010" href="ken.person.Nohana.Khalif.1944-10-10" showAs="Khalif"/>
+         </references>
+      </meta>
+      <header>
+         <heading>THE SUPREME COURT OF APPEAL REPUBLIC OF SOUTH AFRICA</heading>
+         <p>Case number:<caseNumber>653/07</caseNumber>, Judgement No :<docNumber id="judgement-no-d9e85" refersTo="#judgementNo">98/2008</docNumber>
+         </p>
+         <heading>In the matter between</heading>
+         <heading>FOURWAY HAULAGE SA (PTY) LTD - APPELLANT</heading>
+         <heading>and</heading>
+         <heading>SA NATIONAL ROADS AGENCY LTD - RESPONDENT</heading>
+         <heading/>
+         <p>Neutral citation:</p>
+         <p>
+            <party id="d9e115" refersTo="#kepartyagency4way" as="#appelant">Fourway Haulage</party>v<party id="d9e118" refersTo="#kepartyagencysaroads" as="#respondent">SA National Roads Agency</party>(653/07)</p>
+         <p>
+            <neutralCitation>[2008] ZASCA 134</neutralCitation>
+         </p>
+         <p>(<ref href="5272"/>)</p>
+         <p>CORAM:<judge id="d9e146" refersTo="#kenpersonBasiyaKhalwale19800412">SCOTT</judge>,<judge id="d9e149" refersTo="#kenpersonJosaphKhamisi19800414">FARLAM</judge>,<judge id="d9e152" refersTo="#kenpersonLyolaKhamasi19800413">BRAND</judge>,<judge id="d9e155" refersTo="#kenpersonNohanaKhalif19441010">LEWIS</judge>
+         </p>
+         <p>HEARD:<ref href="HearingDate"/>
+         </p>
+         <p>DELIVERED:26 November 2008</p>
+      </header>
+      <judgementBody>
+         <introduction>
+            <heading>CORRECTED:</heading>
+            <subheading>SUMMARY: Delict–pure economic loss–meaning of–policy considerations relevant in determining wrongfulness–remoteness of damage–application of flexible test</subheading>
+            <p>ORDER: On appeal from: High Court, Pretoria (Rabie J sitting as court of first instance)</p>
+            <p>The appeal is dismissed with costs</p>
+            <p>JUDGMENT: BRAND(Scott,Farlam,Lewis, Jafta concurring)</p>
+         </introduction>
+         <background>
+            <heading>
+               <ref href="1"/>The appellant ('Fourway') is a long distance haulier. The respondent ('the Agency') owes its existence to the South African National Roads Agency Limited and National Roads Act 7 of 1998 ('the Act'). The dispute between them originates from an accident which occurred in the early evening of 26 September 2003 on the N1 national road between Polokwane and Mokopane in the Limpopo province. The two vehicles involved were an articulated truck and a light delivery van. The articulated truck was driven at the time by an employee of Fourway who was acting in the course and scope of his employment.</heading>
+            <heading/>
+            <heading>
+               <ref href="2"/>The articulated truck was on its way from an asbestos mine in Zimbabwe to Durban harbour carrying about 34 tonnes of chrysolite asbestos, destined for export. As a result of the collision, the truck overturned and spilled its cargo onto practically the entire surface of a portion of the national road and its surroundings. Because of the hazardous nature of asbestos powder, the spillage required an extensive cleaning-up and decontamination operation.</heading>
+            <heading/>
+         </background>
+         <motivation>
+            <heading>
+               <ref href="3"/>To facilitate the cleaning-up and decontamination process, the traffic authorities closed the section of the national road involved and diverted the traffic in both directions onto an alternative road. This lasted for about 24 hours. The section of the national road which was closed forms part of a toll road. The alternative route was not subject to toll. As a result of the closure, two toll plazas – as defined in the Act – could not collect toll fees. Based on these facts, the agency as the entity authorised by s 27 of the Act to levy and collect toll fees on toll roads, instituted an action in delict against Fourway for the damages it allegedly suffered in the form of loss of toll revenue in an amount of R105 996.67.</heading>
+            <heading/>
+            <heading>
+               <ref href="4"/>At the commencement of the trial, the parties asked the court a quo (Rabie J) to order a separation of issues. In terms of the separation order, the issues relating to the liability of Fourway were to be decided first, while the quantum of the Agency's alleged damages stood over for later determination. The preliminary issues were decided in favour of the agency. Hence the court declared Fourway liable for such damages as the Agency may prove in respect of the lost revenue it would have collected at the two toll plazas involved, but for the closure of the road. It also ordered Fourway to pay the costs of the preliminary proceedings. Fourway's appeal against that judgment is with the leave of the court a quo.</heading>
+            <heading/>
+            <heading>
+               <ref href="5"/>Part of the controversy on appeal was brought about by a shift in the focus of the defence advanced by Fourway and the resulting mutation of the issues involved. A convenient starting point for an account of the mutation is the opening address by counsel for the Agency, as plaintiff, at the beginning of the trial. With reference to the pleadings, counsel at that stage defined the issues between the parties as follows:(a)Whether or not the respondent had the necessary authority to collect toll fees on that portion of the toll road which was closed as a result of the collision.(b)Whether the collision occurred as a result of the negligence of the driver employed by Fourway.(c)Whether the occurrence of the collision necessitated the decontamination operation and the closure of the road.</heading>
+            <heading>
+               <ref href="6"/>Counsel for Fourway did not react to this definition of the issues. During the trial, Fourway formally conceded the issue referred to in(a)and the evidence led by the parties therefore dealt exclusively with the issues in(b)and(c). But in argument at the end of the trial, Fourway's counsel, for the first time, raised two further contentions. First he submitted that the Agency's claim was for the recovery of pure economic loss which required the existence of a legal duty on the part of Fourway and that the Agency had failed to plead or establish the existence of such a legal duty. Secondly he submitted that the Agency had failed to establish the requirement of legal causation with reference to the loss which formed the basis of its claim.</heading>
+            <heading/>
+            <heading>
+               <ref href="7"/>As we know from the result, the court a quo dismissed all defences relied on by Fourway, including those originally raised under what I categorised as(b)and(c), as well as the two new ones advanced for the first time in argument at the end of the trial. As to(b)and(c)the court found on the evidence presented that the negligence of Fourway's employee was the cause of the collision which necessitated both the decontamination process and the closure of the road. With regard to the defence based on the concept of pure economic loss, the court essentially held that the damage suffered by the agency did not amount to pure economic loss and that the question regarding the existence of a legal duty therefore did not arise. Finally the court held that the damages claimed could not be classified as too remote and that the requirement of legal causation had thus been satisfied.</heading>
+            <omissis>
+               <span>(...)</span>
+            </omissis>
+            <heading>
+               <ref href="8"/>For these reasons the appeal is dismissed with costs, including the costs of two counsel.</heading>
+         </motivation>
+         <heading/>
+      </judgementBody>
+      <conclusions id="concl1">
+         <p>F D J BRAND</p>
+         <p>JUDGE OF APPEAL</p>
+         <p>APPEARANCES:</p>
+         <p>FOR APPELLANT: J H DREYER SC</p>
+         <p>J A DU PLESSIS</p>
+         <p>INSTRUCTED BY: MACGREGOR STANFORD KRUGER INC, PRETORIACORRESPONDENTS: E G COOPER ATTORNEYS, BLOEMFONTEIN</p>
+         <p>FOR RESPONDENT: A C FERREIRA SC</p>
+         <p>I ELLIS</p>
+         <p>INSTRUCTED BY: FRIEDLAND HART INC, PRETORIA</p>
+         <p>CORRESPONDENTS: ISRAEL SACKSTEIN MATSEPES INC, BLOEMFONTEIN</p>
+      </conclusions>
+   </judgement>
+</akomaNtoso>

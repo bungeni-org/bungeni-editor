@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="defaultValuesPath">resources/akntohtml/defaultvalues/map.xml</entry>
+<entry key="emptyMiniXSLTPath">resources/akntohtml/defaultvalues/empty_mini_xslt.xsl</entry>
+<entry key="emptyPipelinePath">resources/akntohtml/defaultvalues/empty_pipeline.xsl</entry>
+</properties>
