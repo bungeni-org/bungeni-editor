@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.bungeni.connector.IBungeniConnector;
 import org.bungeni.connector.element.Bill;
+import org.bungeni.connector.element.Document;
 import org.bungeni.connector.element.MetadataInfo;
 import org.bungeni.connector.element.Motion;
 import org.bungeni.connector.element.Member;
@@ -28,6 +29,7 @@ public class BungeniConnector implements IBungeniConnector {
     private String motionsSource = "http://localhost:8899/current/motions";
     private String questionsSource = "http://localhost:8899/current/questions";
     private String billsSource = "http://localhost:8899/current/bills";
+    private String documentsSource = "http://localhost:8899/current/documents";
     private String packageAlias = "package";
     private String SERVER_UNREACHABLE = " did not respond";
     private static Logger logger = Logger.getLogger(BungeniConnector.class.getName());
@@ -72,6 +74,9 @@ public class BungeniConnector implements IBungeniConnector {
         return getList(getMetadataInfoSource(), MetadataInfo.PACKAGE_ALIAS, MetadataInfo.CLASS_ALIAS, MetadataInfo.class);
     }
 
+    public List<Document> getDocuments() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     public String getBillsSource() {
         return billsSource;
     }
@@ -126,6 +131,14 @@ public class BungeniConnector implements IBungeniConnector {
 
     public void setQuestionsSource(String questionsSource) {
         this.questionsSource = questionsSource;
+    }
+
+    public String getDocumentsSource() {
+        return documentsSource;
+    }
+
+    public void setDocumentsSource(String documentsSource) {
+        this.documentsSource = documentsSource;
     }
 
     public void closeConnector() {

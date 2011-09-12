@@ -7,6 +7,7 @@ package org.bungeni.connector;
 
 import java.util.List;
 import org.bungeni.connector.element.Bill;
+import org.bungeni.connector.element.Document;
 import org.bungeni.connector.element.MetadataInfo;
 import org.bungeni.connector.element.Motion;
 import org.bungeni.connector.element.Member;
@@ -23,6 +24,7 @@ public interface IBungeniConnector {
     public List<Motion> getMotions();
     public List<Question> getQuestions();
     public List<MetadataInfo> getMetadataInfo();
+    public List<Document> getDocuments();
     public void closeConnector();
 
 }

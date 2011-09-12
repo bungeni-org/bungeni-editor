@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.bungeni.connector.IBungeniConnector;
 import org.bungeni.connector.element.Bill;
+import org.bungeni.connector.element.Document;
 import org.bungeni.connector.element.MetadataInfo;
 import org.bungeni.connector.element.Motion;
 import org.bungeni.connector.element.Member;
@@ -66,7 +67,15 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String questionToAlias = "to";
     private String questionTextAlias = "text";
     private String questionsSourceURI = "file://"+System.getProperty("user.dir")+"/datasource/xml/questions.xml";
-
+    private String documentsPackageAlias = "documents";
+    private String documentAlias = "document";
+    private String documentIdAlias = "id";
+    private String documentTitleAlias = "title";
+    private String documentDateAlias = "date";
+    private String documentSourceAlias = "source";
+    private String documentUriAlias = "uri";
+    private String documentSittingAlias = "sitting";
+    private String documentsSourceURI = "file://"+System.getProperty("user.dir")+"/datasource/xml/documents.xml";
     public XMLBungeniConnector() {
     }
 
@@ -190,7 +199,28 @@ public class XMLBungeniConnector implements IBungeniConnector {
         }
         return null;
     }
-
+    public List<Document> getDocuments() {
+        ClientResource resource = new ClientResource(getMetadataInfoSourceURI());
+        try {
+            XStream xStream = new XStream(new DomDriver());
+            xStream.alias(this.getDocumentsPackageAlias(), List.class);
+            xStream.alias(this.getDocumentAlias(), Document.class);
+            xStream.aliasField(this.getDocumentIdAlias(), Document.class, "id");
+            xStream.aliasField(this.getDocumentTitleAlias(), Document.class, "title");
+            xStream.aliasField(this.getDocumentDateAlias(), Document.class, "date");
+            xStream.aliasField(this.getDocumentSourceAlias(), Document.class, "source");
+            xStream.aliasField(this.getDocumentUriAlias(), Document.class, "uri");
+            xStream.aliasField(this.getDocumentSittingAlias(), Document.class, "sitting");
+            String xml = resource.get().getText();
+            if (xml != null) {
+                resource.release();
+                return (List) xStream.fromXML(xml);
+            }
+        } catch (Exception ex) {
+            logger.error(getMetadataInfoSourceURI(), ex);
+        }
+        return null;
+    }
     public void stopServer() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -513,6 +543,78 @@ public class XMLBungeniConnector implements IBungeniConnector {
 
     public void setQuestionsSourceURI(String questionsSourceURI) {
         this.questionsSourceURI = questionsSourceURI;
+    }
+
+    public String getDocumentAlias() {
+        return documentAlias;
+    }
+
+    public void setDocumentAlias(String documentAlias) {
+        this.documentAlias = documentAlias;
+    }
+
+    public String getDocumentDateAlias() {
+        return documentDateAlias;
+    }
+
+    public void setDocumentDateAlias(String documentDateAlias) {
+        this.documentDateAlias = documentDateAlias;
+    }
+
+    public String getDocumentIdAlias() {
+        return documentIdAlias;
+    }
+
+    public void setDocumentIdAlias(String documentIdAlias) {
+        this.documentIdAlias = documentIdAlias;
+    }
+
+    public String getDocumentSittingAlias() {
+        return documentSittingAlias;
+    }
+
+    public void setDocumentSittingAlias(String documentSittingAlias) {
+        this.documentSittingAlias = documentSittingAlias;
+    }
+
+    public String getDocumentSourceAlias() {
+        return documentSourceAlias;
+    }
+
+    public void setDocumentSourceAlias(String documentSourceAlias) {
+        this.documentSourceAlias = documentSourceAlias;
+    }
+
+    public String getDocumentTitleAlias() {
+        return documentTitleAlias;
+    }
+
+    public void setDocumentTitleAlias(String documentTitleAlias) {
+        this.documentTitleAlias = documentTitleAlias;
+    }
+
+    public String getDocumentUriAlias() {
+        return documentUriAlias;
+    }
+
+    public void setDocumentUriAlias(String documentUriAlias) {
+        this.documentUriAlias = documentUriAlias;
+    }
+
+    public String getDocumentsPackageAlias() {
+        return documentsPackageAlias;
+    }
+
+    public void setDocumentsPackageAlias(String documentsPackageAlias) {
+        this.documentsPackageAlias = documentsPackageAlias;
+    }
+
+    public String getDocumentsSourceURI() {
+        return documentsSourceURI;
+    }
+
+    public void setDocumentsSourceURI(String documentsSourceURI) {
+        this.documentsSourceURI = documentsSourceURI;
     }
 
     public void closeConnector() {

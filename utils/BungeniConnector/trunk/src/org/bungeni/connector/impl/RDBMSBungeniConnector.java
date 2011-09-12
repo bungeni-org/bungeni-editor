@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.bungeni.connector.IBungeniConnector;
 import org.bungeni.connector.element.Bill;
+import org.bungeni.connector.element.Document;
 import org.bungeni.connector.element.MetadataInfo;
 import org.bungeni.connector.element.Motion;
 import org.bungeni.connector.element.Member;
@@ -28,10 +29,10 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
     private String metadataInfoQuery = "SELECT KEY_ID,KEY_TYPE,KEY_NAME,KEY_VALUE FROM PUBLIC.METADATA_INFO;";
     private String motionsQuery = "SELECT MOTION_ID,MOTION_URI,MOTION_TITLE,MOTION_NAME,MOTION_BY,MOTION_TEXT FROM PUBLIC.MOTIONS;";
     private String questionsQuery = "SELECT ID,QUESTION_TITLE,QUESTION_FROM,QUESTION_TO,QUESTION_TEXT FROM PUBLIC.QUESTIONS;";
+    private String documentsQuery = "SELECT ID,DOCUMENT_TITLE,DOCUMENT_DATE,DOCUMENT_SOURCE,DOCUMENT_URI,SITTING_ID FROM PUBLIC.TABLED_DOCUMENTS;";
     private static Logger logger = Logger.getLogger(RDBMSBungeniConnector.class.getName());
 
-    public RDBMSBungeniConnector(){
-        
+    public RDBMSBungeniConnector() {
     }
 
     public List<Member> getMembers() {
@@ -174,6 +175,35 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
         return items;
     }
 
+    public List<Document> getDocuments() {
+        List<Document> items = new java.util.ArrayList<Document>();
+        if (getDbConnection() != null) {
+            try {
+                java.sql.Statement statement = getDbConnection().createStatement();
+                java.sql.ResultSet resultSet = statement.executeQuery(getDocumentsQuery());
+                while (resultSet.next()) {
+                    Document item = new Document();
+                    item.setId(resultSet.getString(1));
+                    item.setTitle(resultSet.getString(2));
+                    item.setDate(resultSet.getString(3));
+                    item.setSource(resultSet.getString(4));
+                    item.setUri(resultSet.getString(5));
+                    item.setSitting(resultSet.getString(6));
+                    items.add(item);
+                }
+                statement.close();
+                resultSet.close();
+                statement = null;
+                resultSet = null;
+            } catch (SQLException ex) {
+                logger.error(ex);
+            }
+        } else {
+            logger.error("DB Connection Error");
+        }
+        return items;
+    }
+
     public void close() {
         if (getDbConnection() != null) {
             try {
@@ -212,8 +242,6 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
         return dbConnection;
     }
 
-
-
     public void setDbConnection(Connection dbConnection) {
         this.dbConnection = dbConnection;
     }
@@ -231,7 +259,7 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
      * @return
      */
     public String getDbUrl() {
-        String sURL  = this.dbUrl.replace("/", File.separator);
+        String sURL = this.dbUrl.replace("/", File.separator);
         sURL = sURL.replace("%user_dir%", System.getProperty("user.dir"));
         logger.info("getDbUrl = " + sURL);
         return sURL;
@@ -295,6 +323,14 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
 
     public void setQuestionsQuery(String questionsQuery) {
         this.questionsQuery = questionsQuery;
+    }
+
+    public String getDocumentsQuery() {
+        return documentsQuery;
+    }
+
+    public void setDocumentsQuery(String documentsQuery) {
+        this.documentsQuery = documentsQuery;
     }
 
     public void closeConnector() {
