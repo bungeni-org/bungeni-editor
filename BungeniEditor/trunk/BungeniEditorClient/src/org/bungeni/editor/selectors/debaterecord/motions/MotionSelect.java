@@ -1,4 +1,3 @@
-
 package org.bungeni.editor.selectors.debaterecord.motions;
 
 import com.sun.star.text.XTextSection;
@@ -7,9 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+import org.bungeni.connector.client.BungeniConnector;
+import org.bungeni.connector.element.Motion;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.BungeniRegistryFactory;
 import org.bungeni.db.QueryResults;
@@ -26,12 +28,11 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 public class MotionSelect extends BaseMetadataPanel {
 
     public static final String __PANEL_NAME__ = "MotionSelect";
-
     registryQueryDialog rqs;
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(MotionSelect.class.getName());
-   // HashMap<String, String> selectionData = new HashMap<String,String>();
-  ArrayList<ObjectMotion> motions = new ArrayList<ObjectMotion>(0);
-       
+    // HashMap<String, String> selectionData = new HashMap<String,String>();
+    ArrayList<ObjectMotion> motions = new ArrayList<ObjectMotion>(0);
+
     /** Creates new form QuestionSelect */
     public MotionSelect() {
         super();
@@ -45,26 +46,27 @@ public class MotionSelect extends BaseMetadataPanel {
 
         public void actionPerformed(ActionEvent arg0) {
             try {
-            if (cboSelectMotion.getSelectedIndex() != -1) {
-               ObjectMotion selectedMotion = (ObjectMotion)cboSelectMotion.getModel().getSelectedItem();
-               
-               HashMap<String,String> selData = new HashMap<String,String>();
-               selData.put("MOTION_ID", selectedMotion.motionId);
-               selData.put("MOTION_NAME", selectedMotion.motionName);
-               selData.put("MOTION_URI", selectedMotion.motionUri);
-               selData.put("MOTION_TEXT", selectedMotion.motionText);
-               selData.put("MOTION_TITLE", selectedMotion.motionTitle);
+                if (cboSelectMotion.getSelectedIndex() != -1) {
+                    ObjectMotion selectedMotion = (ObjectMotion) cboSelectMotion.getModel().getSelectedItem();
 
-                (getContainerPanel()).selectionData = selData;
-                if ( (getContainerPanel()).selectionData.size() > 0 ) 
-                    (getContainerPanel()).updateAllPanels();
+                    HashMap<String, String> selData = new HashMap<String, String>();
+                    selData.put("MOTION_ID", selectedMotion.motionId);
+                    selData.put("MOTION_NAME", selectedMotion.motionName);
+                    selData.put("MOTION_URI", selectedMotion.motionUri);
+                    selData.put("MOTION_TEXT", selectedMotion.motionText);
+                    selData.put("MOTION_TITLE", selectedMotion.motionTitle);
+
+                    (getContainerPanel()).selectionData = selData;
+                    if ((getContainerPanel()).selectionData.size() > 0) {
+                        (getContainerPanel()).updateAllPanels();
+                    }
+                }
+            } catch (Exception ex) {
+                log.error("MotionSelector:actionPerformed : " + ex.getMessage());
             }
-        } catch (Exception ex) {
-            log.error("MotionSelector:actionPerformed : " + ex.getMessage());
-        }
         }
     }
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -132,22 +134,22 @@ public class MotionSelect extends BaseMetadataPanel {
 
 private void btnSelectQuestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectQuestionActionPerformed
 // TODO add your handling code here:
-    
-        rqs = new registryQueryDialog("Select A Motion", "Select MOTION_ID, MOTION_TITLE, MOTION_NAME, MOTION_TEXT, MOTION_URI from motions", getParentFrame());
-        rqs.show();
-        log.debug("Moved on before closing child dialog");
-       // HashMap<String,String> selectionData = ((Main)getContainerPanel()).selectionData;
-        (getContainerPanel()).selectionData = rqs.getData();
-        if ( (getContainerPanel()).selectionData.size() > 0 ) {
-            HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();  
-            BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
-        
-            Set keyset =  (getContainerPanel()).selectionData.keySet();
-            log.debug("selected keyset size = " + keyset.size());
-            (getContainerPanel()).updateAllPanels();
-        } else {
-            log.debug("selected keyset empty");
-        }
+
+    rqs = new registryQueryDialog("Select A Motion", "Select MOTION_ID, MOTION_TITLE, MOTION_NAME, MOTION_TEXT, MOTION_URI from motions", getParentFrame());
+    rqs.show();
+    log.debug("Moved on before closing child dialog");
+    // HashMap<String,String> selectionData = ((Main)getContainerPanel()).selectionData;
+    (getContainerPanel()).selectionData = rqs.getData();
+    if ((getContainerPanel()).selectionData.size() > 0) {
+        HashMap<String, String> registryMap = BungeniRegistryFactory.fullConnectionString();
+        BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
+
+        Set keyset = (getContainerPanel()).selectionData.keySet();
+        log.debug("selected keyset size = " + keyset.size());
+        (getContainerPanel()).updateAllPanels();
+    } else {
+        log.debug("selected keyset empty");
+    }
 }//GEN-LAST:event_btnSelectQuestionActionPerformed
 
 private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -157,50 +159,61 @@ private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     (getContainerPanel()).enableAllChildPanels(true);
 
 }//GEN-LAST:event_btnAddActionPerformed
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnSelectQuestion;
     private javax.swing.JComboBox cboSelectMotion;
     // End of variables declaration//GEN-END:variables
 
-    private void initComboSelect(){
-            motions = getMotionObjects("");
-            this.cboSelectMotion.setModel(new DefaultComboBoxModel(motions.toArray()));
-            AutoCompleteDecorator.decorate(cboSelectMotion);
+    private void initComboSelect() {
+        motions = getMotionObjects("");
+        this.cboSelectMotion.setModel(new DefaultComboBoxModel(motions.toArray()));
+        AutoCompleteDecorator.decorate(cboSelectMotion);
     }
 
-    public ArrayList<ObjectMotion> getMotionObjects (String byMotion) {
-            ArrayList<ObjectMotion> listofMotions  = new ArrayList<ObjectMotion>(0);
-            HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();  
-            BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
-            dbInstance.Connect();
-            String sQuery = "";
-            if (byMotion.length() == 0)
-                sQuery = "Select MOTION_ID, MOTION_TITLE, MOTION_NAME, MOTION_TEXT, MOTION_URI from motions order by motion_name";
-            else
-                sQuery = "Select MOTION_ID, MOTION_TITLE, MOTION_NAME, MOTION_TEXT, MOTION_URI from motions where MOTION_ID = '" + byMotion +"'";
-            
-            
-            QueryResults qr = dbInstance.QueryResults("Select MOTION_ID, MOTION_TITLE, MOTION_NAME, MOTION_TEXT, MOTION_URI from motions order by motion_name");
-            dbInstance.EndConnect();
-            String motionId, motionTitle, motionName, motionText, motionURI;
-            if (qr.hasResults()) {
-                Vector<Vector<String>> theResults = qr.theResults();
-                for (Vector<String> row : theResults) {
-                     motionId = qr.getField(row, "MOTION_ID");
-                     motionTitle = qr.getField(row, "MOTION_TITLE");
-                     motionName = qr.getField(row, "MOTION_NAME");
-                     motionText = qr.getField(row, "MOTION_TITLE");
-                     motionURI = qr.getField(row, "MOTION_URI");
-                    ObjectMotion m = new ObjectMotion(motionId, motionTitle, motionName, motionText, motionURI);
-                    listofMotions.add(m);
-                }
-            }
-            return listofMotions;
+    public ArrayList<ObjectMotion> getMotionObjects(String byMotion) {
+        ArrayList<ObjectMotion> listofMotions = new ArrayList<ObjectMotion>(0);
+
+        BungeniConnector client = new BungeniConnector();
+        List<Motion> motionsList = client.getMotions();
+
+        for (int i = 0; i < motionsList.size(); i++) {
+            Motion motion = motionsList.get(i);
+            ObjectMotion m = new ObjectMotion(motion.getId(), motion.getTitle(), motion.getName(), motion.getText(), motion.getUri());
+            listofMotions.add(m);
+        }
+
+        return listofMotions;
+
+//            HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();
+//            BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
+//            dbInstance.Connect();
+//            String sQuery = "";
+//            if (byMotion.length() == 0)
+//                sQuery = "Select MOTION_ID, MOTION_TITLE, MOTION_NAME, MOTION_TEXT, MOTION_URI from motions order by motion_name";
+//            else
+//                sQuery = "Select MOTION_ID, MOTION_TITLE, MOTION_NAME, MOTION_TEXT, MOTION_URI from motions where MOTION_ID = '" + byMotion +"'";
+//
+//
+//            QueryResults qr = dbInstance.QueryResults("Select MOTION_ID, MOTION_TITLE, MOTION_NAME, MOTION_TEXT, MOTION_URI from motions order by motion_name");
+//            dbInstance.EndConnect();
+//            String motionId, motionTitle, motionName, motionText, motionURI;
+//            if (qr.hasResults()) {
+//                Vector<Vector<String>> theResults = qr.theResults();
+//                for (Vector<String> row : theResults) {
+//                     motionId = qr.getField(row, "MOTION_ID");
+//                     motionTitle = qr.getField(row, "MOTION_TITLE");
+//                     motionName = qr.getField(row, "MOTION_NAME");
+//                     motionText = qr.getField(row, "MOTION_TITLE");
+//                     motionURI = qr.getField(row, "MOTION_URI");
+//                    ObjectMotion m = new ObjectMotion(motionId, motionTitle, motionName, motionText, motionURI);
+//                    listofMotions.add(m);
+//                }
+//            }
+
+
     }
-    
+
     public String getPanelName() {
         return "Title";
     }
@@ -208,7 +221,6 @@ private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     public Component getPanelComponent() {
         return this;
     }
-
 
     @Override
     public boolean doCancel() {
@@ -227,11 +239,11 @@ private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 
     @Override
     public boolean processFullEdit() {
-         Object selItem = this.cboSelectMotion.getSelectedItem();
+        Object selItem = this.cboSelectMotion.getSelectedItem();
         if (selItem != null) {
             if (selItem.getClass().getName().equals(ObjectMotion.class.getName())) {
                 ObjectMotion selMotion = (ObjectMotion) selItem;
-                HashMap<String,String> sectionmeta = new HashMap<String,String>();
+                HashMap<String, String> sectionmeta = new HashMap<String, String>();
                 sectionmeta.put("BungeniMotionNo", selMotion.motionId);
                 OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
                 ooDoc.setSectionMetadataAttributes(getContainerPanel().getEditSectionName(), sectionmeta);
@@ -284,7 +296,7 @@ private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     public boolean processSelectInsert() {
         String motionId = (getContainerPanel()).selectionData.get("MOTION_ID");
         OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
-        HashMap<String,String> sectionMeta = new HashMap<String,String>();
+        HashMap<String, String> sectionMeta = new HashMap<String, String>();
         String newSectionName = (getContainerPanel()).mainSectionName;
         sectionMeta.put("BungeniMotionNo", motionId);
         ooDoc.setSectionMetadataAttributes(newSectionName, sectionMeta);
@@ -293,7 +305,7 @@ private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 
     @Override
     public boolean postSelectInsert() {
-       return true;
+        return true;
     }
 
     @Override
@@ -315,8 +327,8 @@ private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     public boolean validateFullEdit() {
         return true;
     }
-    
-        @Override
+
+    @Override
     protected void initFieldsSelectedEdit() {
         return;
     }
@@ -334,38 +346,38 @@ private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 
     @Override
     protected void initFieldsEdit() {
-          try {
-        OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
-        DefaultComboBoxModel model = (DefaultComboBoxModel)this.cboSelectMotion.getModel();
-        HashMap<String,String> sectionMeta = new HashMap<String,String>();
-        XTextSection currentSection  = ooDoc.currentSection();
-         if (currentSection != null ) {
-             sectionMeta=  ooDoc.getSectionMetadataAttributes(currentSection);
-             if (sectionMeta.containsKey("BungeniMotionNo")) {
-                 String motionNo =     sectionMeta.get("BungeniMotionNo");
-                 //ArrayList<ObjectMotion> vQuestion = getMotionObjects(motionNo);
-                // ObjectMotion oq = vQuestion.get(0);
-                 int nIndex = findMotion(motionNo);
-                 if (nIndex  != -1) {
-                   this.cboSelectMotion.setSelectedIndex(nIndex);
-                   this.cboSelectMotion.setPopupVisible(true);
-                   this.cboSelectMotion.showPopup();
-                  // updateQuestionSelection(oq);
-                 }
-                // this.cboQuestionSelect.setSelectedItem(oq);
-             }
-         }
+        try {
+            OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
+            DefaultComboBoxModel model = (DefaultComboBoxModel) this.cboSelectMotion.getModel();
+            HashMap<String, String> sectionMeta = new HashMap<String, String>();
+            XTextSection currentSection = ooDoc.currentSection();
+            if (currentSection != null) {
+                sectionMeta = ooDoc.getSectionMetadataAttributes(currentSection);
+                if (sectionMeta.containsKey("BungeniMotionNo")) {
+                    String motionNo = sectionMeta.get("BungeniMotionNo");
+                    //ArrayList<ObjectMotion> vQuestion = getMotionObjects(motionNo);
+                    // ObjectMotion oq = vQuestion.get(0);
+                    int nIndex = findMotion(motionNo);
+                    if (nIndex != -1) {
+                        this.cboSelectMotion.setSelectedIndex(nIndex);
+                        this.cboSelectMotion.setPopupVisible(true);
+                        this.cboSelectMotion.showPopup();
+                        // updateQuestionSelection(oq);
+                    }
+                    // this.cboQuestionSelect.setSelectedItem(oq);
+                }
+            }
         } catch (NullPointerException ex) {
             log.error("initFieldsEdit : " + ex.getMessage());
             log.error("initFieldsEdit : " + CommonExceptionUtils.getStackTrace(ex));
         } finally {
-            return; 
+            return;
         }
 
     }
-    
-       private int findMotion (String motionId) {
-           int i = 0;
+
+    private int findMotion(String motionId) {
+        int i = 0;
         for (ObjectMotion c : motions) {
             if (c.motionId.equals(motionId)) {
                 return i;

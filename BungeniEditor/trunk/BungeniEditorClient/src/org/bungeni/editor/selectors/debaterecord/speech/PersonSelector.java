@@ -1,4 +1,3 @@
-
 package org.bungeni.editor.selectors.debaterecord.speech;
 
 import com.sun.star.text.XTextSection;
@@ -7,8 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+import org.bungeni.connector.client.BungeniConnector;
+import org.bungeni.connector.element.Member;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.BungeniRegistryFactory;
 import org.bungeni.db.QueryResults;
@@ -22,106 +24,118 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  *
  * @author  undesa
  */
-public class PersonSelector extends  BaseMetadataPanel {
-     registryQueryDialog rqs = null;
-     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(PersonSelector.class.getName());
- //    HashMap<String, String> selectionData = new HashMap<String,String>();
-     private ArrayList<ObjectPerson> arrPersons = new ArrayList<ObjectPerson>(0);
+public class PersonSelector extends BaseMetadataPanel {
+
+    registryQueryDialog rqs = null;
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(PersonSelector.class.getName());
+    //    HashMap<String, String> selectionData = new HashMap<String,String>();
+    private ArrayList<ObjectPerson> arrPersons = new ArrayList<ObjectPerson>(0);
+
     /** Creates new form PersonSelector */
     public PersonSelector() {
         super();
         initComponents();
 
     }
-    
+
     @Override
-    public void commonInitFields(){
+    public void commonInitFields() {
         initComboSelect();
         //this.cboPersonSelect.addActionListener(new PersonSelect());
-      
+
         this.btn_SpeechBy.setVisible(false);
     }
-    
+
     private ArrayList<ObjectPerson> getPersonObjects(String bypersonId) {
-            ArrayList<ObjectPerson> personObjects = new ArrayList<ObjectPerson>(0);
-            HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();  
-            BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
-            dbInstance.Connect();
-            String query = "";
-            if (bypersonId.length() == 0) {
-                query = "Select ID, FIRST_NAME, LAST_NAME, URI, ROLE from persons order by last_name, first_name";
-            } else {
-                query = "Select ID, FIRST_NAME, LAST_NAME, URI, ROLE from persons where ID='"+ bypersonId + "' order by last_name, first_name";
-            }
-            QueryResults qr = dbInstance.QueryResults(query);
-            dbInstance.EndConnect();
-            String personId, personFirstName, personLastName, personURI, personRole;
-            if (qr.hasResults()) {
-                Vector<Vector<String>> theResults = qr.theResults();
-                for (Vector<String> row : theResults) {
-                     personId = qr.getField(row, "ID");
-                     personFirstName = qr.getField(row, "FIRST_NAME");
-                     personLastName = qr.getField(row, "LAST_NAME");
-                     personURI = qr.getField(row, "URI");
-                     personRole = qr.getField(row, "ROLE");
-                     ObjectPerson m = new ObjectPerson(personId, personFirstName, personLastName, personURI, personRole);
-                     personObjects.add(m);
-                }
-            }
+        ArrayList<ObjectPerson> personObjects = new ArrayList<ObjectPerson>(0);
+
+        BungeniConnector client = new BungeniConnector();
+        List<Member> personList = client.getMembers();
+
+        for (int i = 0; i < personList.size(); i++) {
+            Member member = personList.get(i);
+            ObjectPerson m = new ObjectPerson(String.valueOf(member.getId()), member.getFirst(), member.getLast(), member.getUri(), member.getRole());
+            personObjects.add(m);
+        }
         return personObjects;
-    }
-    
-     private void initComboSelect(){
-         
-         //ArrayList<ObjectPerson> personObjects = new ArrayList<ObjectPerson>(0);
-         /*
-            Vector<ObjectPerson> personObjects = new Vector<ObjectPerson>();
-           HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();  
-            BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
-            dbInstance.Connect();
-            QueryResults qr = dbInstance.QueryResults("Select ID, FIRST_NAME, LAST_NAME, URI, ROLE from persons order by last_name, first_name");
-            dbInstance.EndConnect();
-            String personId, personFirstName, personLastName, personURI, personRole;
-            if (qr.hasResults()) {
-                Vector<Vector<String>> theResults = qr.theResults();
-                for (Vector<String> row : theResults) {
-                     personId = qr.getField(row, "ID");
-                     personFirstName = qr.getField(row, "FIRST_NAME");
-                     personLastName = qr.getField(row, "LAST_NAME");
-                     personURI = qr.getField(row, "URI");
-                     personRole = qr.getField(row, "ROLE");
-                     ObjectPerson m = new ObjectPerson(personId, personFirstName, personLastName, personURI, personRole);
-                     personObjects.add(m);
-                }
-            }
-          * */
-           this.arrPersons = getPersonObjects("");
-           this.cboPersonSelect.addActionListener(new PersonSelect());
-            this.cboPersonSelect.setModel(new DefaultComboBoxModel(arrPersons.toArray()));
-            AutoCompleteDecorator.decorate(cboPersonSelect);
+//            HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();
+//            BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
+//            dbInstance.Connect();
+//            String query = "";
+//            if (bypersonId.length() == 0) {
+//                query = "Select ID, FIRST_NAME, LAST_NAME, URI, ROLE from persons order by last_name, first_name";
+//            } else {
+//                query = "Select ID, FIRST_NAME, LAST_NAME, URI, ROLE from persons where ID='"+ bypersonId + "' order by last_name, first_name";
+//            }
+//            QueryResults qr = dbInstance.QueryResults(query);
+//            dbInstance.EndConnect();
+//            String personId, personFirstName, personLastName, personURI, personRole;
+//            if (qr.hasResults()) {
+//                Vector<Vector<String>> theResults = qr.theResults();
+//                for (Vector<String> row : theResults) {
+//                     personId = qr.getField(row, "ID");
+//                     personFirstName = qr.getField(row, "FIRST_NAME");
+//                     personLastName = qr.getField(row, "LAST_NAME");
+//                     personURI = qr.getField(row, "URI");
+//                     personRole = qr.getField(row, "ROLE");
+//                     ObjectPerson m = new ObjectPerson(personId, personFirstName, personLastName, personURI, personRole);
+//                     personObjects.add(m);
+//                }
+//            }
     }
 
-     class PersonSelect implements ActionListener {
+    private void initComboSelect() {
+
+        //ArrayList<ObjectPerson> personObjects = new ArrayList<ObjectPerson>(0);
+         /*
+        Vector<ObjectPerson> personObjects = new Vector<ObjectPerson>();
+        HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();
+        BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
+        dbInstance.Connect();
+        QueryResults qr = dbInstance.QueryResults("Select ID, FIRST_NAME, LAST_NAME, URI, ROLE from persons order by last_name, first_name");
+        dbInstance.EndConnect();
+        String personId, personFirstName, personLastName, personURI, personRole;
+        if (qr.hasResults()) {
+        Vector<Vector<String>> theResults = qr.theResults();
+        for (Vector<String> row : theResults) {
+        personId = qr.getField(row, "ID");
+        personFirstName = qr.getField(row, "FIRST_NAME");
+        personLastName = qr.getField(row, "LAST_NAME");
+        personURI = qr.getField(row, "URI");
+        personRole = qr.getField(row, "ROLE");
+        ObjectPerson m = new ObjectPerson(personId, personFirstName, personLastName, personURI, personRole);
+        personObjects.add(m);
+        }
+        }
+         * */
+        this.arrPersons = getPersonObjects("");
+        this.cboPersonSelect.addActionListener(new PersonSelect());
+        this.cboPersonSelect.setModel(new DefaultComboBoxModel(arrPersons.toArray()));
+        AutoCompleteDecorator.decorate(cboPersonSelect);
+    }
+
+    class PersonSelect implements ActionListener {
+
         public void actionPerformed(ActionEvent arg0) {
             try {
-            if (cboPersonSelect.getSelectedIndex() != -1) {
-               ObjectPerson selectedPerson = (ObjectPerson)cboPersonSelect.getModel().getSelectedItem();
+                if (cboPersonSelect.getSelectedIndex() != -1) {
+                    ObjectPerson selectedPerson = (ObjectPerson) cboPersonSelect.getModel().getSelectedItem();
 
-               HashMap<String,String> selData = new HashMap<String,String>();
-               selData.put("ID", selectedPerson.personId);
-               selData.put("FIRST_NAME", selectedPerson.firstName);
-               selData.put("LAST_NAME", selectedPerson.lastName);
-               selData.put("URI", selectedPerson.personURI);
-               selData.put("ROLE", selectedPerson.personRole);
-                (getContainerPanel()).selectionData = selData;
-                if ( (getContainerPanel()).selectionData.size() > 0 ) 
-                    (getContainerPanel()).updateAllPanels();
-            }
+                    HashMap<String, String> selData = new HashMap<String, String>();
+                    selData.put("ID", selectedPerson.personId);
+                    selData.put("FIRST_NAME", selectedPerson.firstName);
+                    selData.put("LAST_NAME", selectedPerson.lastName);
+                    selData.put("URI", selectedPerson.personURI);
+                    selData.put("ROLE", selectedPerson.personRole);
+                    (getContainerPanel()).selectionData = selData;
+                    if ((getContainerPanel()).selectionData.size() > 0) {
+                        (getContainerPanel()).updateAllPanels();
+                    }
+                }
             } catch (Exception ex) {
                 log.error("PersonSelect:actionPerformed : " + ex.getMessage());
             }
         }
-        
     }
 
     /** This method is called from within the constructor to
@@ -180,27 +194,26 @@ public class PersonSelector extends  BaseMetadataPanel {
 
 private void btn_SpeechByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SpeechByActionPerformed
 // TODO add your handling code here:
-        rqs = new registryQueryDialog("Select A Person", "Select ID, FIRST_NAME, LAST_NAME, URI from persons", getParentFrame());
-        rqs.show();
-        log.debug("Moved on before closing child dialog");
-        (getContainerPanel()).selectionData = rqs.getData();
-        if ((getContainerPanel()).selectionData.size() > 0 ) {
-           // txt_SpeechBy.setText(selectionData.get("FIRST_NAME") + " " + selectionData.get("LAST_NAME"));
-           // txt_URIofPerson.setText(selectionData.get("URI"));
-            getContainerPanel().updateAllPanels();
-        } else {
-            log.debug("selected keyset empty");
-        }
+    rqs = new registryQueryDialog("Select A Person", "Select ID, FIRST_NAME, LAST_NAME, URI from persons", getParentFrame());
+    rqs.show();
+    log.debug("Moved on before closing child dialog");
+    (getContainerPanel()).selectionData = rqs.getData();
+    if ((getContainerPanel()).selectionData.size() > 0) {
+        // txt_SpeechBy.setText(selectionData.get("FIRST_NAME") + " " + selectionData.get("LAST_NAME"));
+        // txt_URIofPerson.setText(selectionData.get("URI"));
+        getContainerPanel().updateAllPanels();
+    } else {
+        log.debug("selected keyset empty");
+    }
 }//GEN-LAST:event_btn_SpeechByActionPerformed
 
-      public String getPanelName() {
+    public String getPanelName() {
         return getName();
     }
 
     public Component getPanelComponent() {
         return this;
     }
-
 
     @Override
     public boolean doCancel() {
@@ -219,11 +232,11 @@ private void btn_SpeechByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 
     @Override
     public boolean processFullEdit() {
-         Object selItem = this.cboPersonSelect.getSelectedItem();
+        Object selItem = this.cboPersonSelect.getSelectedItem();
         if (selItem != null) {
             if (selItem.getClass().getName().equals(ObjectPerson.class.getName())) {
                 ObjectPerson selPerson = (ObjectPerson) selItem;
-                HashMap<String,String> sectionmeta = new HashMap<String,String>();
+                HashMap<String, String> sectionmeta = new HashMap<String, String>();
                 sectionmeta.put("BungeniPersonID", selPerson.personId);
                 sectionmeta.put("BungeniPersonRole", selPerson.personRole);
                 OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
@@ -231,7 +244,7 @@ private void btn_SpeechByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             }
         }
         return true;
-      
+
     }
 
     @Override
@@ -277,9 +290,9 @@ private void btn_SpeechByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     @Override
     public boolean processSelectInsert() {
         String personId = (getContainerPanel()).selectionData.get("ID");
-        String personRole =  (getContainerPanel()).selectionData.get("ROLE");
+        String personRole = (getContainerPanel()).selectionData.get("ROLE");
         OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
-        HashMap<String,String> sectionMeta = new HashMap<String,String>();
+        HashMap<String, String> sectionMeta = new HashMap<String, String>();
         String newSectionName = (getContainerPanel()).mainSectionName;
         sectionMeta.put("BungeniPersonID", personId);
         sectionMeta.put("BungeniPersonRole", personId);
@@ -289,7 +302,7 @@ private void btn_SpeechByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 
     @Override
     public boolean postSelectInsert() {
-       return true;
+        return true;
     }
 
     @Override
@@ -311,8 +324,6 @@ private void btn_SpeechByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     public boolean validateFullEdit() {
         return true;
     }
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_SpeechBy;
     private javax.swing.JComboBox cboPersonSelect;
@@ -336,38 +347,39 @@ private void btn_SpeechByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 
     @Override
     protected void initFieldsEdit() {
-          //get the combo model and select the found question
+        //get the combo model and select the found question
         try {
-        OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
-        DefaultComboBoxModel model = (DefaultComboBoxModel)this.cboPersonSelect.getModel();
-        HashMap<String,String> sectionMeta = new HashMap<String,String>();
-        XTextSection currentSection  = ooDoc.currentSection();
-         if (currentSection != null ) {
-             sectionMeta=  ooDoc.getSectionMetadataAttributes(currentSection);
-             if (sectionMeta.containsKey("BungeniPersonID")) {
-                 String personId =     sectionMeta.get("BungeniPersonID");
-                 ArrayList<ObjectPerson> pPerson = getPersonObjects(personId);
-                 ObjectPerson oq = pPerson.get(0);
-                 int nIndex = findPerson(oq.personId);
-                 if (nIndex  != -1) {
-                   this.cboPersonSelect.setSelectedIndex(nIndex);
-                   //this.cboQuestionSelect.setPopupVisible(true);
-                   this.cboPersonSelect.showPopup();
-                  // updateQuestionSelection(oq);
-                 }
-                // this.cboQuestionSelect.setSelectedItem(oq);
-             }
-         }
+            OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
+            DefaultComboBoxModel model = (DefaultComboBoxModel) this.cboPersonSelect.getModel();
+            HashMap<String, String> sectionMeta = new HashMap<String, String>();
+            XTextSection currentSection = ooDoc.currentSection();
+            if (currentSection != null) {
+                sectionMeta = ooDoc.getSectionMetadataAttributes(currentSection);
+                if (sectionMeta.containsKey("BungeniPersonID")) {
+                    String personId = sectionMeta.get("BungeniPersonID");
+                    ArrayList<ObjectPerson> pPerson = getPersonObjects(personId);
+                    ObjectPerson oq = pPerson.get(0);
+                    int nIndex = findPerson(oq.personId);
+                    if (nIndex != -1) {
+                        this.cboPersonSelect.setSelectedIndex(nIndex);
+                        //this.cboQuestionSelect.setPopupVisible(true);
+                        this.cboPersonSelect.showPopup();
+                        // updateQuestionSelection(oq);
+                    }
+                    // this.cboQuestionSelect.setSelectedItem(oq);
+                }
+            }
         } catch (NullPointerException ex) {
             log.error("initFieldsEdit : " + ex.getMessage());
             log.error("initFieldsEdit : " + CommonExceptionUtils.getStackTrace(ex));
         } finally {
-            return; 
+            return;
         }
-        
+
     }
-     private int findPerson (String personId) {
-           int i = 0;
+
+    private int findPerson(String personId) {
+        int i = 0;
         for (ObjectPerson c : arrPersons) {
             if (c.personId.equals(personId)) {
                 return i;

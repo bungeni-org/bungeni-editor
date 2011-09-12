@@ -5,9 +5,12 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+import org.bungeni.connector.client.BungeniConnector;
+import org.bungeni.connector.element.Question;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.BungeniRegistryFactory;
 import org.bungeni.db.QueryResults;
@@ -22,82 +25,91 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * @author  Ashok Hariharan
  */
 public class QuestionSelect extends BaseMetadataPanel {
- 
+
     registryQueryDialog rqs;
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(QuestionSelect.class.getName());
-   // HashMap<String, String> selectionData = new HashMap<String,String>();
+    // HashMap<String, String> selectionData = new HashMap<String,String>();
+
     /** Creates new form QuestionSelect */
     public QuestionSelect() {
         super();
         initComponents();
-     //   initComboSelect();
+        //   initComboSelect();
         this.btnSelectQuestion.setVisible(false);
     }
 
-    
     @Override
-    public void commonInitFields(){
+    public void commonInitFields() {
         initComboSelect();
     }
-    
+
     private Vector<ObjectQuestion> getQuestionObjects(String byQuestionNo) {
-        
-           Vector<ObjectQuestion> questionObjects = new Vector<ObjectQuestion>();
-           HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();  
-           
-           String qQuery = "";
-           if (byQuestionNo.length() == 0 )
-             qQuery = "Select ID, QUESTION_TITLE, QUESTION_FROM, QUESTION_TO, QUESTION_TEXT  from questions order by question_title " ;
-           else
-             qQuery = "Select ID, QUESTION_TITLE, QUESTION_FROM, QUESTION_TO, QUESTION_TEXT  from questions Where ID = '"+ byQuestionNo+ "' order by question_title " ;
-               
-           BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
-            dbInstance.Connect();
-            QueryResults qr = dbInstance.QueryResults(qQuery);
-            dbInstance.EndConnect();
-            String questionId, questionTitle, questionFrom, questionTo, questionText ;
-            if (qr.hasResults()) {
-                Vector<Vector<String>> theResults = qr.theResults();
-                for (Vector<String> row : theResults) {
-                     questionId = qr.getField(row, "ID");
-                     questionTitle = qr.getField(row, "QUESTION_TITLE");
-                     questionFrom = qr.getField(row, "QUESTION_FROM");
-                     questionTo = qr.getField(row, "QUESTION_TO");
-                     questionText = qr.getField(row, "QUESTION_TEXT");
-                    ObjectQuestion m = new ObjectQuestion(questionId, questionTitle, questionFrom, questionTo, questionText);
-                    questionObjects.add(m);
-                }
-            }
+
+        Vector<ObjectQuestion> questionObjects = new Vector<ObjectQuestion>();
+        BungeniConnector client = new BungeniConnector();
+        List<Question> questionsList = client.getQuestions();
+
+        for (int i = 0; i < questionsList.size(); i++) {
+            Question question = questionsList.get(i);
+            ObjectQuestion m = new ObjectQuestion(String.valueOf(question.getId()), question.getTitle(), question.getFrom(), question.getTo(), question.getText());
+            questionObjects.add(m);
+        }
         return questionObjects;
-    } 
-    
-        private void initComboSelect(){
-            Vector<ObjectQuestion> questionObjects = new Vector<ObjectQuestion>();
-            questionObjects = getQuestionObjects("");
-            this.cboQuestionSelect.addActionListener(new QuestionSelector());
-            this.cboQuestionSelect.setModel(new DefaultComboBoxModel(questionObjects));
-            AutoCompleteDecorator.decorate(cboQuestionSelect);
+
+//           HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();
+//
+//           String qQuery = "";
+//           if (byQuestionNo.length() == 0 )
+//             qQuery = "Select ID, QUESTION_TITLE, QUESTION_FROM, QUESTION_TO, QUESTION_TEXT  from questions order by question_title " ;
+//           else
+//             qQuery = "Select ID, QUESTION_TITLE, QUESTION_FROM, QUESTION_TO, QUESTION_TEXT  from questions Where ID = '"+ byQuestionNo+ "' order by question_title " ;
+//
+//           BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
+//            dbInstance.Connect();
+//            QueryResults qr = dbInstance.QueryResults(qQuery);
+//            dbInstance.EndConnect();
+//            String questionId, questionTitle, questionFrom, questionTo, questionText ;
+//            if (qr.hasResults()) {
+//                Vector<Vector<String>> theResults = qr.theResults();
+//                for (Vector<String> row : theResults) {
+//                     questionId = qr.getField(row, "ID");
+//                     questionTitle = qr.getField(row, "QUESTION_TITLE");
+//                     questionFrom = qr.getField(row, "QUESTION_FROM");
+//                     questionTo = qr.getField(row, "QUESTION_TO");
+//                     questionText = qr.getField(row, "QUESTION_TEXT");
+//                    ObjectQuestion m = new ObjectQuestion(questionId, questionTitle, questionFrom, questionTo, questionText);
+//                    questionObjects.add(m);
+//                }
+//            }
+//        return questionObjects;
     }
 
-        class QuestionSelector implements ActionListener {
+    private void initComboSelect() {
+        Vector<ObjectQuestion> questionObjects = new Vector<ObjectQuestion>();
+        questionObjects = getQuestionObjects("");
+        this.cboQuestionSelect.addActionListener(new QuestionSelector());
+        this.cboQuestionSelect.setModel(new DefaultComboBoxModel(questionObjects));
+        AutoCompleteDecorator.decorate(cboQuestionSelect);
+    }
 
-            public void actionPerformed(ActionEvent arg0) {
-                try {
-                    
+    class QuestionSelector implements ActionListener {
+
+        public void actionPerformed(ActionEvent arg0) {
+            try {
+
                 if (cboQuestionSelect.getSelectedIndex() != -1) {
-                   ObjectQuestion selectedQuestion = (ObjectQuestion)cboQuestionSelect.getSelectedItem();
-                   updateQuestionSelection(selectedQuestion); 
-             
+                    ObjectQuestion selectedQuestion = (ObjectQuestion) cboQuestionSelect.getSelectedItem();
+                    updateQuestionSelection(selectedQuestion);
+
                 } else {
                     log.error("QuestionSelect:actionperformed : for -1 index");
                 }
-        } catch (Exception ex) {
-            log.error("QuestionSelector:actionPerformed : " + ex.getMessage());
+            } catch (Exception ex) {
+                log.error("QuestionSelector:actionPerformed : " + ex.getMessage());
+            }
         }
     }
 
-        }
-        
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -150,26 +162,24 @@ public class QuestionSelect extends BaseMetadataPanel {
 
 private void btnSelectQuestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectQuestionActionPerformed
 // TODO add your handling code here:
-    
-        rqs = new registryQueryDialog("Select A Question", "Select ID, QUESTION_TITLE, QUESTION_FROM, QUESTION_TO, QUESTION_TEXT from questions", getParentFrame());
-        rqs.show();
-        log.debug("Moved on before closing child dialog");
-       // HashMap<String,String> selectionData = ((Main)getContainerPanel()).selectionData;
-        (getContainerPanel()).selectionData = rqs.getData();
-        if ( (getContainerPanel()).selectionData.size() > 0 ) {
-            HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();  
-            BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
-        
-            Set keyset =  (getContainerPanel()).selectionData.keySet();
-            log.debug("selected keyset size = " + keyset.size());
-            //resolve person name URI to registry entry
-            (getContainerPanel()).updateAllPanels();
-        } else {
-            log.debug("selected keyset empty");
-        }
+
+    rqs = new registryQueryDialog("Select A Question", "Select ID, QUESTION_TITLE, QUESTION_FROM, QUESTION_TO, QUESTION_TEXT from questions", getParentFrame());
+    rqs.show();
+    log.debug("Moved on before closing child dialog");
+    // HashMap<String,String> selectionData = ((Main)getContainerPanel()).selectionData;
+    (getContainerPanel()).selectionData = rqs.getData();
+    if ((getContainerPanel()).selectionData.size() > 0) {
+        HashMap<String, String> registryMap = BungeniRegistryFactory.fullConnectionString();
+        BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
+
+        Set keyset = (getContainerPanel()).selectionData.keySet();
+        log.debug("selected keyset size = " + keyset.size());
+        //resolve person name URI to registry entry
+        (getContainerPanel()).updateAllPanels();
+    } else {
+        log.debug("selected keyset empty");
+    }
 }//GEN-LAST:event_btnSelectQuestionActionPerformed
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSelectQuestion;
     private javax.swing.JComboBox cboQuestionSelect;
@@ -182,7 +192,6 @@ private void btnSelectQuestionActionPerformed(java.awt.event.ActionEvent evt) {/
     public Component getPanelComponent() {
         return this;
     }
-
 
     @Override
     public boolean doCancel() {
@@ -205,7 +214,7 @@ private void btnSelectQuestionActionPerformed(java.awt.event.ActionEvent evt) {/
         if (selItem != null) {
             if (selItem.getClass().getName().equals(ObjectQuestion.class.getName())) {
                 ObjectQuestion selQuestion = (ObjectQuestion) selItem;
-                HashMap<String,String> sectionmeta = new HashMap<String,String>();
+                HashMap<String, String> sectionmeta = new HashMap<String, String>();
                 sectionmeta.put("BungeniQuestionNo", selQuestion.questionId);
                 OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
                 ooDoc.setSectionMetadataAttributes(getContainerPanel().getEditSectionName(), sectionmeta);
@@ -258,7 +267,7 @@ private void btnSelectQuestionActionPerformed(java.awt.event.ActionEvent evt) {/
     public boolean processSelectInsert() {
         String questionId = (getContainerPanel()).selectionData.get("ID");
         OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
-        HashMap<String,String> sectionMeta = new HashMap<String,String>();
+        HashMap<String, String> sectionMeta = new HashMap<String, String>();
         String newSectionName = (getContainerPanel()).mainSectionName;
         sectionMeta.put("BungeniQuestionNo", questionId);
         ooDoc.setSectionMetadataAttributes(newSectionName, sectionMeta);
@@ -267,7 +276,7 @@ private void btnSelectQuestionActionPerformed(java.awt.event.ActionEvent evt) {/
 
     @Override
     public boolean postSelectInsert() {
-       return true;
+        return true;
     }
 
     @Override
@@ -289,8 +298,8 @@ private void btnSelectQuestionActionPerformed(java.awt.event.ActionEvent evt) {/
     public boolean validateFullEdit() {
         return true;
     }
-    
-        @Override
+
+    @Override
     protected void initFieldsSelectedEdit() {
         return;
     }
@@ -305,58 +314,55 @@ private void btnSelectQuestionActionPerformed(java.awt.event.ActionEvent evt) {/
         return;
     }
 
-  
-        
-   
     @Override
     protected void initFieldsEdit() {
         //get the combo model and select the found question
         try {
-        OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
-        DefaultComboBoxModel model = (DefaultComboBoxModel)this.cboQuestionSelect.getModel();
-        HashMap<String,String> sectionMeta = new HashMap<String,String>();
-        XTextSection currentSection  = ooDoc.currentSection();
-         if (currentSection != null ) {
-             sectionMeta=  ooDoc.getSectionMetadataAttributes(currentSection);
-             if (sectionMeta.containsKey("BungeniQuestionNo")) {
-                 String questionNo =     sectionMeta.get("BungeniQuestionNo");
-                 Vector<ObjectQuestion> vQuestion = getQuestionObjects(questionNo);
-                 ObjectQuestion oq = vQuestion.elementAt(0);
-                 int nIndex = findItem(oq);
-                 if (nIndex  != -1) {
-                   this.cboQuestionSelect.setSelectedIndex(nIndex);
-                   //this.cboQuestionSelect.setPopupVisible(true);
-                   this.cboQuestionSelect.showPopup();
-                  // updateQuestionSelection(oq);
-                 }
-                // this.cboQuestionSelect.setSelectedItem(oq);
-             }
-         }
+            OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
+            DefaultComboBoxModel model = (DefaultComboBoxModel) this.cboQuestionSelect.getModel();
+            HashMap<String, String> sectionMeta = new HashMap<String, String>();
+            XTextSection currentSection = ooDoc.currentSection();
+            if (currentSection != null) {
+                sectionMeta = ooDoc.getSectionMetadataAttributes(currentSection);
+                if (sectionMeta.containsKey("BungeniQuestionNo")) {
+                    String questionNo = sectionMeta.get("BungeniQuestionNo");
+                    Vector<ObjectQuestion> vQuestion = getQuestionObjects(questionNo);
+                    ObjectQuestion oq = vQuestion.elementAt(0);
+                    int nIndex = findItem(oq);
+                    if (nIndex != -1) {
+                        this.cboQuestionSelect.setSelectedIndex(nIndex);
+                        //this.cboQuestionSelect.setPopupVisible(true);
+                        this.cboQuestionSelect.showPopup();
+                        // updateQuestionSelection(oq);
+                    }
+                    // this.cboQuestionSelect.setSelectedItem(oq);
+                }
+            }
         } catch (NullPointerException ex) {
             log.error("initFieldsEdit : " + ex.getMessage());
             log.error("initFieldsEdit : " + CommonExceptionUtils.getStackTrace(ex));
         } finally {
-            return; 
+            return;
         }
     }
 
-
     private void updateQuestionSelection(ObjectQuestion selectedQuestion) {
-        
-                   HashMap<String,String> selData = new HashMap<String,String>();
-                   selData.put("ID", selectedQuestion.questionId);
-                   selData.put("QUESTION_TITLE", selectedQuestion.questionTitle);
-                   selData.put("QUESTION_FROM", selectedQuestion.questionFrom);
-                   selData.put("QUESTION_TO", selectedQuestion.questionTo);
-                   selData.put("QUESTION_TEXT", selectedQuestion.questionText);
 
-                    (getContainerPanel()).selectionData = selData;
-                    if ( (getContainerPanel()).selectionData.size() > 0 ) 
-                        (getContainerPanel()).updateAllPanels();
+        HashMap<String, String> selData = new HashMap<String, String>();
+        selData.put("ID", selectedQuestion.questionId);
+        selData.put("QUESTION_TITLE", selectedQuestion.questionTitle);
+        selData.put("QUESTION_FROM", selectedQuestion.questionFrom);
+        selData.put("QUESTION_TO", selectedQuestion.questionTo);
+        selData.put("QUESTION_TEXT", selectedQuestion.questionText);
+
+        (getContainerPanel()).selectionData = selData;
+        if ((getContainerPanel()).selectionData.size() > 0) {
+            (getContainerPanel()).updateAllPanels();
+        }
     }
-    
+
     private int findItem(ObjectQuestion oq) {
-        for (int i=0 ;  i < cboQuestionSelect.getItemCount(); i++ ) {
+        for (int i = 0; i < cboQuestionSelect.getItemCount(); i++) {
             ObjectQuestion oQuestion = (ObjectQuestion) cboQuestionSelect.getItemAt(i);
             if (oQuestion.compare(oq)) {
                 return i;
@@ -364,6 +370,4 @@ private void btnSelectQuestionActionPerformed(java.awt.event.ActionEvent evt) {/
         }
         return -1;
     }
-    
-
 }

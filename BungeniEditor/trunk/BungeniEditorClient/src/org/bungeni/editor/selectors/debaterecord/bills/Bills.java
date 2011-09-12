@@ -1,5 +1,3 @@
-
-
 package org.bungeni.editor.selectors.debaterecord.bills;
 
 import com.sun.star.text.XTextSection;
@@ -9,12 +7,15 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.Vector;
 import javax.swing.AbstractButton;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import org.bungeni.connector.client.BungeniConnector;
+import org.bungeni.connector.element.Bill;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.BungeniRegistryFactory;
 import org.bungeni.db.QueryResults;
@@ -29,7 +30,8 @@ import org.bungeni.ooo.OOComponentHelper;
  * @author  Ashok Hariharan
  */
 public class Bills extends BaseMetadataPanel {
-  private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Bills.class.getName());
+
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Bills.class.getName());
 
     /** Creates new form TabledDocuments */
     public Bills() {
@@ -39,11 +41,11 @@ public class Bills extends BaseMetadataPanel {
     }
     private static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/committees/Bundle");
 
-
     class BillsModel extends DefaultTableModel {
+
         private boolean cellsEditable = false;
 
-        public BillsModel(){
+        public BillsModel() {
             super();
         }
 
@@ -57,31 +59,51 @@ public class Bills extends BaseMetadataPanel {
         }
     }
 
-    protected String getTableQuery(){
+    protected String getTableQuery() {
         String countryIso = BungeniEditorProperties.getEditorProperty("parliament.CountryCode");
         String sQuery = RegistryQueryFactory.Q_FETCH_BILLS(countryIso);
         return sQuery;
     }
 
-    private void initTable(){
-        HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();
-            BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
-            dbInstance.Connect();
-            QueryResults qr = dbInstance.QueryResults(getTableQuery());
-            dbInstance.EndConnect();
-            if (qr != null ) {
-                if (qr.hasResults()) {
-                    Vector<Vector<String>> resultRows = new Vector<Vector<String>>();
-                    resultRows = qr.theResults();
-                    BillsModel mdl = new BillsModel() ;
-                    mdl.setDataVector(resultRows, qr.getColumnsAsVector());
-                    tbl_Bills.setModel(mdl);
-                     ((BillsModel)this.tbl_Bills.getModel()).setModelEditable(false);
-                     enableButtons(false);
-                    }
+    private void initTable() {
+        BungeniConnector client = new BungeniConnector();
+        List<Bill> bills = client.getBills();
+        if (!bills.isEmpty()) {
+            BillsModel mdl = new BillsModel();
+            mdl.addColumn("BILL_NAME");
+            mdl.addColumn("BILL_URI");
+            mdl.addColumn("BILL_ONTOLOGY");
+            mdl.setRowCount(bills.size());
+            for (int i = 0; i < bills.size(); i++) {
+                Bill bill = bills.get(i);
+                mdl.setValueAt(bill.getName(), i, 0);
+                mdl.setValueAt(bill.getUri(), i, 1);
+                mdl.setValueAt(bill.getOntology(), i, 2);
             }
-            tbl_Bills.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-     }
+            tbl_Bills.setModel(mdl);
+            ((BillsModel) this.tbl_Bills.getModel()).setModelEditable(false);
+            enableButtons(false);
+        }
+        tbl_Bills.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+//        HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();
+//            BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
+//            dbInstance.Connect();
+//            QueryResults qr = dbInstance.QueryResults(getTableQuery());
+//            dbInstance.EndConnect();
+//            if (qr != null ) {
+//                if (qr.hasResults()) {
+//                    Vector<Vector<String>> resultRows = new Vector<Vector<String>>();
+//                    resultRows = qr.theResults();
+//                    BillsModel mdl = new BillsModel() ;
+//                    mdl.setDataVector(resultRows, qr.getColumnsAsVector());
+//                    tbl_Bills.setModel(mdl);
+//                     ((BillsModel)this.tbl_Bills.getModel()).setModelEditable(false);
+//                     enableButtons(false);
+//                    }
+//            }
+//            tbl_Bills.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }
 
     private void enableButtons(boolean b) {
         Enumeration<AbstractButton> buttons = this.grpEditButtons.getElements();
@@ -91,7 +113,6 @@ public class Bills extends BaseMetadataPanel {
         }
     }
 
-        
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -150,9 +171,6 @@ public class Bills extends BaseMetadataPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     protected javax.swing.ButtonGroup grpEditButtons;
     private javax.swing.JLabel lbl_SelectCommittee;
@@ -168,30 +186,29 @@ public class Bills extends BaseMetadataPanel {
         return this;
     }
 
-      public HashMap<String,ArrayList<String>> getTableSelection() {
+    public HashMap<String, ArrayList<String>> getTableSelection() {
 
-         int[] selectedRows = tbl_Bills.getSelectedRows();
-         ArrayList<String> billNames = new ArrayList<String>();
-         ArrayList<String> billUris = new ArrayList<String>();
-         ArrayList<String> billOntology = new ArrayList<String>();
+        int[] selectedRows = tbl_Bills.getSelectedRows();
+        ArrayList<String> billNames = new ArrayList<String>();
+        ArrayList<String> billUris = new ArrayList<String>();
+        ArrayList<String> billOntology = new ArrayList<String>();
 
-             for (int i=0; i < selectedRows.length; i++) {
-                 String docTitle = (String)tbl_Bills.getModel().getValueAt(i, 0 );
-                 String docURI = (String) tbl_Bills.getModel().getValueAt(i, 1);
-                 String docOntology = (String) tbl_Bills.getModel().getValueAt(i, 2);
-                 billNames.add(docTitle);
-                 billUris.add(docURI);
-                 billOntology.add(docOntology);
-             }
-        HashMap<String,ArrayList<String>> tblData = new HashMap<String,ArrayList<String>>();
+        for (int i = 0; i < selectedRows.length; i++) {
+            String docTitle = (String) tbl_Bills.getModel().getValueAt(i, 0);
+            String docURI = (String) tbl_Bills.getModel().getValueAt(i, 1);
+            String docOntology = (String) tbl_Bills.getModel().getValueAt(i, 2);
+            billNames.add(docTitle);
+            billUris.add(docURI);
+            billOntology.add(docOntology);
+        }
+        HashMap<String, ArrayList<String>> tblData = new HashMap<String, ArrayList<String>>();
         tblData.put("document_titles", billNames);
         tblData.put("document_uris", billUris);
         tblData.put("document_ontologies", billOntology);
         return tblData;
-    
-      }
-        
-        
+
+    }
+
     @Override
     public boolean preFullEdit() {
         return true;
@@ -237,14 +254,11 @@ public class Bills extends BaseMetadataPanel {
         return true;
     }
 
-   
-   
-    
     @Override
     public boolean preSelectInsert() {
-        HashMap<String,ArrayList<String>> tblData = new HashMap<String,ArrayList<String>>();
-        
-        
+        HashMap<String, ArrayList<String>> tblData = new HashMap<String, ArrayList<String>>();
+
+
         return true;
     }
 
@@ -274,21 +288,21 @@ public class Bills extends BaseMetadataPanel {
         if (this.tbl_Bills.getSelectedRowCount() == 0) {
             addErrorMessage(this.tbl_Bills, bundle.getString("no_row_selected"));
             bState = false;
-        }  else {
+        } else {
             //validate selected rows for empty data
             int[] nRows = this.tbl_Bills.getSelectedRows();
             int nCols = this.tbl_Bills.getColumnCount();
 
             for (int i = 0; i < nRows.length; i++) {
                 for (int j = 0; j < nCols; j++) {
-                   String sValue = (String) this.tbl_Bills.getValueAt(nRows[i], j);
-                   if (sValue.trim().length() == 0) {
-                       Object[] values = {Integer.toString(nRows[i]+1), Integer.toString(j+1)};
-                       String formattedMsg = MessageFormat.format(bundle.getString("tableValidationError"),
-                               values);
-                       this.addErrorMessage(this.tbl_Bills, formattedMsg);
-                       bState = false;
-                   }
+                    String sValue = (String) this.tbl_Bills.getValueAt(nRows[i], j);
+                    if (sValue.trim().length() == 0) {
+                        Object[] values = {Integer.toString(nRows[i] + 1), Integer.toString(j + 1)};
+                        String formattedMsg = MessageFormat.format(bundle.getString("tableValidationError"),
+                                values);
+                        this.addErrorMessage(this.tbl_Bills, formattedMsg);
+                        bState = false;
+                    }
                 }
             }
         }
@@ -296,21 +310,19 @@ public class Bills extends BaseMetadataPanel {
     }
 
     class objBill {
-        String billName ;
+
+        String billName;
         String billUri;
         String billOntology;
 
         objBill() {
-            
         }
     }
-
     private static final String BUNGENI_BILL_META = "BungeniBill.";
     private static final String BUNGENI_BILL_REF_SEPARATOR = ":";
     private static final String BUNGENI_BILL_REF_PREFIX = "sBillRef";
 
-    
-    private void markupCommittee(){
+    private void markupCommittee() {
         //check if selected committee exists in section meta
         //if it does make reference to it
         //if it does not added meta for committe and then make reference
@@ -324,8 +336,8 @@ public class Bills extends BaseMetadataPanel {
         OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
 
         XTextSection xCurrentSection = ooDoc.currentSection();
-        HashMap<String,String> sectionMeta = ooDoc.getSectionMetadataAttributes(xCurrentSection);
-        String sMetaValue = aBill.billName + ";" + aBill.billUri + ";" +  aBill.billOntology;
+        HashMap<String, String> sectionMeta = ooDoc.getSectionMetadataAttributes(xCurrentSection);
+        String sMetaValue = aBill.billName + ";" + aBill.billUri + ";" + aBill.billOntology;
         //String sMetaReference = BUNGENI_COMMITTEE_META + CommonStringFunctions.convertUriForAttrUsage(aCommittee.committeeUri.trim());
         //check if section meta exists
         if (sectionMeta.containsValue(sMetaValue)) {
@@ -341,7 +353,7 @@ public class Bills extends BaseMetadataPanel {
                 }
             }
             String refString = generateReferenceToCommittee(ooDoc, foundKey);
-            addBillReference(ooDoc, refString );
+            addBillReference(ooDoc, refString);
         } else {
             //we append to section meta
             //the key is : bungenicommittee-comitte/uri , value = committee name;
@@ -353,18 +365,18 @@ public class Bills extends BaseMetadataPanel {
             ooDoc.setSectionMetadataAttributes(xCurrentSection, sectionMeta);
             //now we add the reference
             String refString = generateReferenceToCommittee(ooDoc, BUNGENI_BILL_META + i);
-            addBillReference(ooDoc, refString );
+            addBillReference(ooDoc, refString);
 
         }
 
     }
 
-    private String generateReferenceToCommittee (OOComponentHelper ooDoc, String billMetaRef) {
+    private String generateReferenceToCommittee(OOComponentHelper ooDoc, String billMetaRef) {
         //name of refernce mark
         String sRefMark = BUNGENI_BILL_REF_PREFIX + BUNGENI_BILL_REF_SEPARATOR + CommonStringFunctions.makeReferenceFriendlyString(billMetaRef, ".");
         int i = 1;
-        String newRefNo  = sRefMark + ";#" +i;
-        while (ooDoc.referenceExists(newRefNo) ) {
+        String newRefNo = sRefMark + ";#" + i;
+        while (ooDoc.referenceExists(newRefNo)) {
             newRefNo = sRefMark + ";#" + (++i);
         }
         return newRefNo;
@@ -394,6 +406,7 @@ public class Bills extends BaseMetadataPanel {
     public boolean doReset() {
         return true;
     }
+
     @Override
     protected void initFieldsSelectedEdit() {
         return;
@@ -401,7 +414,7 @@ public class Bills extends BaseMetadataPanel {
 
     @Override
     protected void initFieldsSelectedInsert() {
-      //  BungeniClientDB dbnew = new BungeniClientDB();
+        //  BungeniClientDB dbnew = new BungeniClientDB();
         return;
     }
 
