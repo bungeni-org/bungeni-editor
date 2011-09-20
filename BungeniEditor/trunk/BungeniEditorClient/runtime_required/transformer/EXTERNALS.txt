@@ -1,3 +1,4 @@
 configfiles http://bungeni-editor.googlecode.com/svn/apps/BungeniTransformer/trunk/resources/configfiles
 pipeline_xslt http://bungeni-editor.googlecode.com/svn/apps/BungeniTransformer/trunk/resources/pipeline_xslt
 localisation http://bungeni-editor.googlecode.com/svn/apps/BungeniTransformer/trunk/resources/localisation
+akntohtml http://bungeni-editor.googlecode.com/svn/apps/BungeniTransformer/trunk/resources/akntohtml
