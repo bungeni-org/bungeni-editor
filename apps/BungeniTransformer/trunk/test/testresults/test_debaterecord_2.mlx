@@ -1,115 +1,41 @@
-<?xml version="1.0" encoding="UTF-8"?><root xmlns="http://www.metalex.org/1.0" name="root" id="d3e1">
+<?xml version="1.0" encoding="UTF-8"?><root xmlns="http://www.metalex.org/1.0" xmlns:bungeni="http://editor.bungeni.org/1.0/anx/" name="root" id="d7e1" transformation="http://docs.oasis-open.org/office/1.2/xslt/odf2rdf.xsl">
    <container id="debaterecord" class="Sect1" name="body">
       <mcontainer name="meta">      
-         <mcontainer name="identification" id="identification_d3e259" source="#bungeni">         
-            <mcontainer name="FRBRWork" id="FRBRWork_d3e259">            
-               <meta name="this" id="FRBRWork_this_d3e259" value="/ke/debaterecord/2010-5-13"/>            
-               <meta name="uri" id="FRBRWork_uri_d3e259" value=""/>            
-               <meta name="date" id="FRBRWork_date_d3e259" contentName="workDate" date="2010-05-13"/>            
-               <meta name="author" id="FRBRWork_author_d3e259" href="#user.Ashok"/>         
+         <mcontainer name="identification" id="identification_d7e52" source="#bungeni">         
+            <mcontainer name="FRBRWork" id="FRBRWork_d7e52">            
+               <meta name="this" id="FRBRWork_this_d7e52" value="\ke\debaterecord\2011-6-9"/>            
+               <meta name="uri" id="FRBRWork_uri_d7e52" value=""/>            
+               <meta name="date" id="FRBRWork_date_d7e52" contentName="workDate" date="2011-06-09"/>            
+               <meta name="author" id="FRBRWork_author_d7e52" href="#user.Ashok"/>         
             </mcontainer>         
-            <mcontainer name="FRBRExpression" id="FRBRExpression_d3e259">            
-               <meta name="this" id="FRBRExpression_this_d3e259" value="/ke/debaterecord/2010-5-13/eng"/>            
-               <meta name="uri" id="FRBRExpression_uri_d3e259" value="/eng@"/>            
-               <meta name="date" id="FRBRExpression_date_d3e259" contentName="expDate" date="2010-05-13"/>            
-               <meta name="author" id="FRBRExpression_author_d3e259" href="#user.Ashok"/>         
+            <mcontainer name="FRBRExpression" id="FRBRExpression_d7e52">            
+               <meta name="this" id="FRBRExpression_this_d7e52" value="\ke\debaterecord\2011-6-9\en"/>            
+               <meta name="uri" id="FRBRExpression_uri_d7e52" value="/en@"/>            
+               <meta name="date" id="FRBRExpression_date_d7e52" contentName="expDate" date="2011-06-09"/>            
+               <meta name="author" id="FRBRExpression_author_d7e52" href="#user.Ashok"/>         
             </mcontainer>         
-            <mcontainer name="FRBRManifestation" id="FRBRManifestation_d3e259">            
-               <meta name="this" id="FRBRManifestation_this_d3e259" value="/ke/debaterecord/2010-5-13/eng.xml"/>            
-               <meta name="uri" id="FRBRManifestation_uri_d3e259" value="/eng@.akn"/>            
-               <meta name="date" id="FRBRManifestation_date_d3e259" contentName="manDate" date="2010-05-13"/>            
-               <meta name="author" id="FRBRManifestation_author_d3e259" href="#user.Ashok"/>         
+            <mcontainer name="FRBRManifestation" id="FRBRManifestation_d7e52">            
+               <meta name="this" id="FRBRManifestation_this_d7e52" value="\ke\debaterecord\2011-6-9\en.xml"/>            
+               <meta name="uri" id="FRBRManifestation_uri_d7e52" value="/en@.akn"/>            
+               <meta name="date" id="FRBRManifestation_date_d7e52" contentName="manDate" date="2011-06-09"/>            
+               <meta name="author" id="FRBRManifestation_author_d7e52" href="#user.Ashok"/>         
             </mcontainer>      
          </mcontainer>      
-         <mcontainer name="publication_mcontainer" id="publication_containerd3e259">         
-            <meta id="publication_d3e259" name="publication" contentName="debaterecord" date="2010-05-28"/>      
+         <mcontainer name="publication_mcontainer" id="publication_containerd7e52">         
+            <meta id="publication_d7e52" name="publication" contentName="debate" date="2011-06-09"/>      
          </mcontainer>      
-         <mcontainer id="references_d3e259" name="references" source="#bungeni">         
-            <meta id="Parliament" name="TLCOrganization" href="parl-01" showAs="Parliament"/>         
+         <mcontainer id="references_d7e52" name="references" source="#bungeni">         
+            <meta id="Parliament" name="TLCOrganization" href="2" showAs="Parliament"/>         
             <meta name="TLCPerson" id="user.Ashok" href="user.Ashok" showAs="Author"/>                           
-            <meta name="TLCPerson" id="455" href="ken.person.John.Abdalla.1950-02-06" showAs="John Abdalla"/>         
-            <meta name="TLCPerson" id="147" href="ken.person.William.Ntimama.1922-02-11" showAs="William Ntimama"/>         
-            <meta name="TLCPerson" id="187" href="ken.person.Naomi.Shaban.1928-04-24" showAs="Naomi Shaban"/>         
-            <meta name="TLCPerson" id="559" href="ken.person.Gideun.Musiku.1951-10-21" showAs="Gideun Musiku"/>         
-            <meta name="TLCRole" id="Speaker" href="/ontology/roles/ke/speaker" showAs="Speaker"/>         
-            <meta name="TLCRole" id="MemberOfParliament" href="/ontology/roles/ke/member" showAs="Member of Parliament"/>                  
-            <meta name="TLCRole" id="Minister" href="/ontology/roles/ke/minister" showAs="Minister"/>      
          </mcontainer>   
       </mcontainer>
-      <container __BungeniMetaEditable="false" id="preface" class="Sect2" name="Preface">         
-         <block name="p" id="d3e7" class="P1">NATIONAL ASSEMBLY</block>                  
-         <block name="p" id="d3e12" class="P2">OFFICIAL REPORT</block>                  
-         <block name="p" id="d3e17" class="P3">Wednesday, 20th March, 1991</block>         
-         <block name="p" id="d3e21" class="P3">The House met at thirty minutes past Two o’ clock.</block>      
-      </container>
-      <container id="comment1" class="Sect3" name="Observation">         
-         <block name="p" id="d3e27" class="observation">[Mr Speaker in the Chair]</block>      
-      </container>
-      <container id="comment2" class="Sect3" name="Observation">         
-         <block name="p" id="d3e35" class="observation">PRAYERS</block>      
-      </container>
-      <hcontainer __BungeniMetaEditable="false" id="papers1" class="Sect4" name="PapersLaid">         
-         <htitle id="d3e44" name="heading" class="5f">PAPERS LAID</htitle>         
-         <htitle id="d3e47" name="subheading" class="5f">The following Papers were laid on the Table:</htitle>         
-         <container __BungeniMetaEditable="false" id="tbldocs1" class="Sect5" name="PapersLaidList">            
-            <block name="p" id="d3e52" class="Standard">               
-               <inline name="a" id="d3e54" href="/ken/person/hon.khamasi/doc-20040704">Kenya Accountants and Secretaries National Examinations Board Report and Accounts for the year ended 30th June, 1986.</inline>            
-            </block>            
-            <block name="p" id="d3e58" class="Standard">                           </block>            
-            <block name="p" id="d3e63" class="Standard">               
-               <inline name="a" id="d3e65" href="/ken/person/hon.khamasi/doc-20040704">Kenya Accountants and Secretaries National Examinations Board Report and Accounts for the year ended 30th June, 1987.</inline>            
-            </block>            
-            <block name="p" id="d3e69" class="Standard">                           </block>            
-            <block name="p" id="d3e74" class="Standard">               
-               <inline name="a" id="d3e76" href="/ken/person/hon.khamasi/doc-20040704">Kenya Reinsurance Corporation—Annual Report and Accounts for the year ended 31st December, 1985.</inline>            
-            </block>            
-            <block name="p" id="d3e81" class="Standard">                           </block>            
-            <block name="p" id="d3e86" class="Standard">               
-               <inline name="a" id="d3e88" href="/ken/person/hon.khamasi/doc-20040704">Kenya Reinsurance Corporation—Annual Report and Accounts for the year ended 31st December, 1986.</inline>            
-            </block>                     
-         </container>         
-         <container __BungeniMetaEditable="false" id="comment3" class="Sect6" name="Observation">            
-            <block name="p" id="d3e97" class="observation">(By the Assistant Minister for Finance (Mr. Keah) on behalf of the Minister for Finance)</block>         
-         </container>      
-      </hcontainer>
-      <hcontainer __BungeniMetaEditable="false" id="comnctn1" class="Sect7" name="Communication">         
-         <htitle id="d3e106" name="heading" class="5f">COMMUNICATION FROM THE CHAIR</htitle>                  
-         <container BungeniPersonID="455" BungeniPersonRole="455" BungeniSpeechAs="Speaker" BungeniSpeechAsDesc="Speaker" BungeniSpeechAsURI="/ontology/roles/ke/speaker" BungeniSpeechBy="John Abdalla" BungeniSpeechByURI="ken.person.John.Abdalla.1950-02-06" __BungeniMetaEditable="true" __BungeniMetaEditor="toolbarSubAction.makeDebateSpeechBlockSection.section_creation" id="speech1" class="Sect8" name="Speech">            
-            <block name="p" id="d3e113" class="Standard">               
-               <inline name="ref" class="BungeniSpeechBy" href="JohnAbdalla9535" id="d5e115">THE SPEAKER</inline>            
-            </block>            
-            <block name="p" id="d3e120" class="Standard">Honourable members, I welcome you. However, I note that the number is smaller than yesterday’s. I know there is a committee, which is busy in the Eastern part of Uganda, but others should be here. I do not know what is happening, even to the Front Bench. I do not know whether they have a meeting, but I have not been informed. Anyway, I welcome you.</block>                        
-            <block name="p" id="d3e125" class="Standard">I will be adjusting the Order Paper to allow a statement from hon. Baba Diri and an informal question from hon. Banyenzaki. I would also like to take this opportunity to point out that there is something which we as Parliament should take note of and find a solution to. The problem is the road carnage. There are very many deaths on our roads. I think something should be done to curb this because there was an accident in Mabira and another one on Masaka road. I think something has to be done. There must be something wrong. I am not supposed to participate in the debate, but I also own a constituency and I am a citizen who takes advantage of my seat here to point out what is going on. Something should be done.</block>         
-         </container>      
-      </hcontainer>
-      <container BungeniPersonID="147" BungeniPersonRole="147" BungeniSpeechAs="MemberOfParliament" BungeniSpeechAsDesc="Member of Parliament" BungeniSpeechAsURI="/ontology/roles/ke/member" BungeniSpeechBy="William Ntimama" BungeniSpeechByURI="ken.person.William.Ntimama.1922-02-11" __BungeniMetaEditable="true" __BungeniMetaEditor="toolbarSubAction.makeDebateSpeechBlockSection.section_creation" id="speech2" class="Sect9" name="Speech">         
-         <block name="p" id="d3e134" class="Standard">            
-            <milestone name="eol" id="d3e136"/>            
-            <inline name="ref" class="BungeniSpeechBy" href="WilliamNtimama2755" id="d5e137">MR WILLIAM NSUBUGA</inline>         
-         </block>         
-         <block name="p" id="d3e143" class="Standard">Thank you, Mr Speaker. One of the issues why the attendance is poor is that in most cases we begin plenary very late, yet you always adjourn this House to 2.00 p.m. Members are always here at 2.00 p.m. but we begin towards 3.00 p.m., so there is need to keep time.</block>      
-      </container>
-      <hcontainer __BungeniMetaEditable="false" id="porder1" class="Sect10" name="PointOfOrder">         
-         <htitle id="d3e154" name="heading" class="5f">POINT OF ORDER</htitle>                  
-         <container BungeniPersonID="187" BungeniPersonRole="187" BungeniSpeechAs="MemberOfParliament" BungeniSpeechAsDesc="Member of Parliament" BungeniSpeechAsURI="/ontology/roles/ke/member" BungeniSpeechBy="Naomi Shaban" BungeniSpeechByURI="ken.person.Naomi.Shaban.1928-04-24" __BungeniMetaEditable="true" __BungeniMetaEditor="toolbarSubAction.makeDebateSpeechBlockSection.section_creation" id="speech3" class="Sect11" name="Speech">            
-            <block name="p" id="d3e161" class="Standard">               
-               <inline name="ref" class="BungeniSpeechBy" href="NaomiShaban6530" id="d5e161">The Member for Malava (Mr. Shitanda):</inline>            
-            </block>            
-            <block name="p" id="d3e170" class="Standard">Mr. Speaker, Sir, I stand to ask for a Ministerial Statement from the Minister for Local Government regarding his decision to ban matatus from accessing the Central Business District (CBD). This decision has left very many commuters inconvenienced, with some of them having to walk five kilometres to their places of work.</block>            
-            <block name="p" id="d3e173" class="Standard">Imagine a situation whereby a commuter from Eastlands is dropped at the City Stadium and his place of work is at Community! This commuter will walk a distance of almost five kilometres to reach his place of work. I would like to know from the Minister what he will do to ensure that his decision does not inconvenience commuters and whether that decision will, indeed, decongest the CBD. Why was his decision selective in the sense that there are some public service vehicles which have been allowed to access the CBD? I would wish him to explain his decision to this House.</block>         
-         </container>                  
-         <container BungeniPersonID="559" BungeniPersonRole="559" BungeniSpeechAs="Minister" BungeniSpeechAsDesc="Minister" BungeniSpeechAsURI="/ontology/roles/ke/minister" BungeniSpeechBy="Gideun Musiku" BungeniSpeechByURI="ken.person.Gideun.Musiku.1951-10-21" __BungeniMetaEditable="true" __BungeniMetaEditor="toolbarSubAction.makeDebateSpeechBlockSection.section_creation" id="speech4" class="Sect12" name="Speech">            
-            <block name="p" id="d3e186" class="Standard">               
-               <inline name="ref" class="BungeniSpeechBy" href="GideunMusiku8670" id="d5e178">The Vice-President and Minister for Home Affairs (Mr. Musyoka):</inline>            
-            </block>            
-            <block name="p" id="d3e193" class="Standard">Mr. Speaker, Sir, I undertake to communicate that concern by the hon. Member to the Minister for Local Government.</block>         
-         </container>      
-      </hcontainer>
-      <container BungeniHouseClosingTime="18:30" __BungeniMetaEditable="false" id="concl1" class="Sect13" name="Conclusion">         
-         <block name="p" id="d3e205" class="Heading_20_2">ADJOURNMENT</block>         
-         <block name="p" id="d3e208" class="Standard">The Temporary Deputy Speaker (Mr. Kabingu-Muregi): It is now time for the interruption of business. The House is, therefore, adjourned until tomorrow, Wednesday, 11th May, at 9.00 a.m.</block>         
-         <block name="p" id="d3e211" class="Standard">The House rose at<inline name="ref" class="BungeniHouseClosingTime" href="7942" id="d5e199">thirty minutespast Six o’clock.</inline>         
-         </block>                        
+      <container id="preface" class="Sect2" name="Preface">         
+         <bungeni:bungenimeta>#id869374501            
+            <bungeni:BungeniSectionID>L+3dgIu0TO6dtHTmzrdWZw</bungeni:BungeniSectionID>            
+            <bungeni:BungeniSectionType>Preface</bungeni:BungeniSectionType>            
+            <bungeni:hiddenBungeniMetaEditable>false</bungeni:hiddenBungeniMetaEditable>         
+         </bungeni:bungenimeta>         
+         <block name="p" id="d7e30" class="Standard">The preface</block>      
       </container>
    </container>
 </root>

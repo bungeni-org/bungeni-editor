@@ -3,107 +3,33 @@
       <meta>
          <identification source="#bungeni">
             <FRBRWork>
-               <FRBRthis value="/ke/debaterecord/2010-5-13"/>
+               <FRBRthis value="\ke\debaterecord\2011-6-9"/>
                <FRBRuri value=""/>
-               <FRBRdate date="2010-05-13" name="workDate"/>
+               <FRBRdate date="2011-06-09" name="workDate"/>
                <FRBRauthor href="#user.Ashok"/>
             </FRBRWork>
             <FRBRExpression>
-               <FRBRthis value="/ke/debaterecord/2010-5-13/eng"/>
-               <FRBRuri value="/eng@"/>
-               <FRBRdate date="2010-05-13" name="expDate"/>
+               <FRBRthis value="\ke\debaterecord\2011-6-9\en"/>
+               <FRBRuri value="/en@"/>
+               <FRBRdate date="2011-06-09" name="expDate"/>
                <FRBRauthor href="#user.Ashok"/>
             </FRBRExpression>
             <FRBRManifestation>
-               <FRBRthis value="/ke/debaterecord/2010-5-13/eng.xml"/>
-               <FRBRuri value="/eng@.akn"/>
-               <FRBRdate date="2010-05-13" name="manDate"/>
+               <FRBRthis value="\ke\debaterecord\2011-6-9\en.xml"/>
+               <FRBRuri value="/en@.akn"/>
+               <FRBRdate date="2011-06-09" name="manDate"/>
                <FRBRauthor href="#user.Ashok"/>
             </FRBRManifestation>
          </identification>
-         <publication date="2010-05-28" name="debaterecord" showAs=""/>
+         <publication date="2011-06-09" name="debate" showAs=""/>
          <references source="#bungeni">
-            <TLCOrganization id="Parliament" href="parl-01" showAs="Parliament"/>
+            <TLCOrganization id="Parliament" href="2" showAs="Parliament"/>
             <TLCPerson id="puser.Ashok" href="user.Ashok" showAs="Author"/>
-            <TLCPerson id="p455" href="ken.person.John.Abdalla.1950-02-06" showAs="John Abdalla"/>
-            <TLCPerson id="p147" href="ken.person.William.Ntimama.1922-02-11" showAs="William Ntimama"/>
-            <TLCPerson id="p187" href="ken.person.Naomi.Shaban.1928-04-24" showAs="Naomi Shaban"/>
-            <TLCPerson id="p559" href="ken.person.Gideun.Musiku.1951-10-21" showAs="Gideun Musiku"/>
-            <TLCRole id="Speaker" href="/ontology/roles/ke/speaker" showAs="Speaker"/>
-            <TLCRole id="MemberOfParliament" href="/ontology/roles/ke/member" showAs="Member of Parliament"/>
-            <TLCRole id="Minister" href="/ontology/roles/ke/minister" showAs="Minister"/>
          </references>
       </meta>
       <preface>
-         <p>NATIONAL ASSEMBLY</p>
-         <p>OFFICIAL REPORT</p>
-         <p>Wednesday, 20th March, 1991</p>
-         <p>The House met at thirty minutes past Two o’ clock.</p>
+         <p>The preface</p>
       </preface>
-      <debate>
-         <subdivision id="d9e86" name="SceneSubdivision">
-            <scene>
-               <span>[Mr Speaker in the Chair]</span>
-            </scene>
-         </subdivision>
-         <subdivision id="d9e92" name="SceneSubdivision">
-            <scene>
-               <span>PRAYERS</span>
-            </scene>
-         </subdivision>
-         <papers id="papers1">
-            <heading>PAPERS LAID</heading>
-            <subheading>The following Papers were laid on the Table:</subheading>
-            <other id="tbldocs1">
-               <p>
-                  <a id="d3e54" href="/ken/person/hon.khamasi/doc-20040704">Kenya Accountants and Secretaries National Examinations Board Report and Accounts for the year ended 30th June, 1986.</a>
-               </p>
-               <p/>
-               <p>
-                  <a id="d3e65" href="/ken/person/hon.khamasi/doc-20040704">Kenya Accountants and Secretaries National Examinations Board Report and Accounts for the year ended 30th June, 1987.</a>
-               </p>
-               <p/>
-               <p>
-                  <a id="d3e76" href="/ken/person/hon.khamasi/doc-20040704">Kenya Reinsurance Corporation—Annual Report and Accounts for the year ended 31st December, 1985.</a>
-               </p>
-               <p/>
-               <p>
-                  <a id="d3e88" href="/ken/person/hon.khamasi/doc-20040704">Kenya Reinsurance Corporation—Annual Report and Accounts for the year ended 31st December, 1986.</a>
-               </p>
-            </other>
-            <scene>
-               <span>(By the Assistant Minister for Finance (Mr. Keah) on behalf of the Minister for Finance)</span>
-            </scene>
-         </papers>
-         <communication id="comnctn1">
-            <heading>COMMUNICATION FROM THE CHAIR</heading>
-            <speech id="speech1" by="#p455" as="Speaker">
-               <from>THE SPEAKER</from>
-               <p>Honourable members, I welcome you. However, I note that the number is smaller than yesterday’s. I know there is a committee, which is busy in the Eastern part of Uganda, but others should be here. I do not know what is happening, even to the Front Bench. I do not know whether they have a meeting, but I have not been informed. Anyway, I welcome you.</p>
-               <p>I will be adjusting the Order Paper to allow a statement from hon. Baba Diri and an informal question from hon. Banyenzaki. I would also like to take this opportunity to point out that there is something which we as Parliament should take note of and find a solution to. The problem is the road carnage. There are very many deaths on our roads. I think something should be done to curb this because there was an accident in Mabira and another one on Masaka road. I think something has to be done. There must be something wrong. I am not supposed to participate in the debate, but I also own a constituency and I am a citizen who takes advantage of my seat here to point out what is going on. Something should be done.</p>
-            </speech>
-         </communication>
-         <speech id="speech2" by="#p147" as="MemberOfParliament">
-            <from>MR WILLIAM NSUBUGA</from>
-            <p>Thank you, Mr Speaker. One of the issues why the attendance is poor is that in most cases we begin plenary very late, yet you always adjourn this House to 2.00 p.m. Members are always here at 2.00 p.m. but we begin towards 3.00 p.m., so there is need to keep time.</p>
-         </speech>
-         <pointOfOrder id="porder1">
-            <heading>POINT OF ORDER</heading>
-            <speech id="speech3" by="#p187" as="MemberOfParliament">
-               <from>The Member for Malava (Mr. Shitanda):</from>
-               <p>Mr. Speaker, Sir, I stand to ask for a Ministerial Statement from the Minister for Local Government regarding his decision to ban matatus from accessing the Central Business District (CBD). This decision has left very many commuters inconvenienced, with some of them having to walk five kilometres to their places of work.</p>
-               <p>Imagine a situation whereby a commuter from Eastlands is dropped at the City Stadium and his place of work is at Community! This commuter will walk a distance of almost five kilometres to reach his place of work. I would like to know from the Minister what he will do to ensure that his decision does not inconvenience commuters and whether that decision will, indeed, decongest the CBD. Why was his decision selective in the sense that there are some public service vehicles which have been allowed to access the CBD? I would wish him to explain his decision to this House.</p>
-            </speech>
-            <speech id="speech4" by="#p559" as="Minister">
-               <from>The Vice-President and Minister for Home Affairs (Mr. Musyoka):</from>
-               <p>Mr. Speaker, Sir, I undertake to communicate that concern by the hon. Member to the Minister for Local Government.</p>
-            </speech>
-         </pointOfOrder>
-      </debate>
-      <conclusions id="concl1">
-         <p>ADJOURNMENT</p>
-         <p>The Temporary Deputy Speaker (Mr. Kabingu-Muregi): It is now time for the interruption of business. The House is, therefore, adjourned until tomorrow, Wednesday, 11th May, at 9.00 a.m.</p>
-         <p>The House rose atthirty minutespast Six o’clock.</p>
-      </conclusions>
+      <debate/>
    </debateRecord>
 </akomaNtoso>

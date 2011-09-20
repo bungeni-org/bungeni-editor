@@ -22,12 +22,12 @@ public class OdtTranslateTest {
 		paramMap = new HashMap();
 		currentDirectory = System.getProperty("user.dir");
 		currentDocType = "debaterecord";
-		paramMap.put("OdfFileURL", currentDirectory + "/test/testdocs/test_debaterecord_2.odt");
-		paramMap.put("OutputFilePath", currentDirectory + "/test/testresults/plugintest_debaterecord.xml");
-		paramMap.put("OutputMetalexFilePath", currentDirectory + "/test/testresults/plugintest_debaterecord.mlx");
+		paramMap.put("OdfFileURL", currentDirectory + "/test/testdocs/ke_debaterecord_2011-9-23_en.odt");
+		paramMap.put("OutputFilePath", currentDirectory + "/test/testresults/plugintest_debaterecord1.xml");
+		paramMap.put("OutputMetalexFilePath", currentDirectory + "/test/testresults/plugintest_debaterecord1.mlx");
 		paramMap.put("TranslatorRootFolder", currentDirectory + "/resources/");
 		paramMap.put("TranslatorConfigFile", "configfiles/configs/TranslatorConfig_debaterecord.xml");
-		paramMap.put("TranslatorPipeline","metalex2akn/minixslt/debaterecord/pipeline.xsl" );
+		//paramMap.put("TranslatorPipeline","metalex2akn/minixslt/debaterecord/pipeline.xsl" );
 		paramMap.put("CurrentDocType", currentDocType);
 		paramMap.put("CallerPanel", null);
 		paramMap.put("PluginMode", "odt2akn");

@@ -15,7 +15,6 @@ import java.util.Iterator;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
@@ -29,7 +28,10 @@ public class XSLTTransformer implements XSLTTransformerInterface {
     private static XSLTTransformer instance = null;
 
     // the transformer factory of the XSLTtransformer
-    private TransformerFactory transformerFactory;
+    //!+TRANSFORMER_INIT(AH, 2011-09-20) We always use the Saxon transformer ,
+    //switch to direct initialization of saxon rather than via the JAXP route,
+    //which does some odd things with dynamic class loading.
+    private TransformerFactoryImpl transformerFactory;
 
     /**
      * Private constructor used to create the XSLTTransformer instance
@@ -37,20 +39,23 @@ public class XSLTTransformer implements XSLTTransformerInterface {
     private XSLTTransformer() {
 
         // set the compilator to use SAXON
-        System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
+        //!+TRANSFORMER_INIT(AH, 2011-09-20)-- Turned off becasue of direct initialization
+        //of Saxon 
+        //System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
 
         // create an instance of TransformerFactory
-        this.transformerFactory = TransformerFactory.newInstance();
-
+        //!+TRANSFORMER_INIT(AH, 2011-09-20) -- init saxon directly
+        this.transformerFactory = new net.sf.saxon.TransformerFactoryImpl();
         // get the configuration of the transoformer factory
-        Configuration transformerFactoryConfiguration =
-            ((TransformerFactoryImpl) this.transformerFactory).getConfiguration();
+        //!+TRANSFORMER_INIT(AH, 2011-09-20) -- init saxon directly
+        Configuration transformerFactoryConfiguration =  this.transformerFactory.getConfiguration();
 
         // set the line numbering true to the configuration
         transformerFactoryConfiguration.setLineNumbering(true);
 
         // set the new configuration of the transformer factory
-        ((TransformerFactoryImpl) this.transformerFactory).setConfiguration(transformerFactoryConfiguration);
+        //!+TRANSFORMER_INIT(AH, 2011-09-20)
+        this.transformerFactory.setConfiguration(transformerFactoryConfiguration);
     }
 
     /**
@@ -86,7 +91,6 @@ public class XSLTTransformer implements XSLTTransformerInterface {
 
         // create the writer for the transformation
         StringWriter resultString = new StringWriter();
-
         // perform the transformation
         trans.transform(aDocumentSource, new StreamResult(resultString));
 
