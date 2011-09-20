@@ -1,21 +1,18 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.bungeni.uri;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.HashMap;
+import java.util.regex.Matcher;
 
 /**
- *
- * @author undesa
+ * Base class for building URIs based on input components
+ * @author Ashok
  */
 public abstract class URIBase {
   private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(URIBase.class.getName());
 
+    public final static String URI_SEPARATOR = "/";
     /**
      * URI components
      */
@@ -57,7 +54,7 @@ public abstract class URIBase {
      public void parse(){
          //set output uri
          try {
-         String sURIorder = new String(this.uriOrderString);
+         String sURIorder = this.uriOrderString;
          log.info("parse: original uri order string : " + uriOrderString);
          java.util.Iterator<String> uriKeys = uriComponents.keySet().iterator();
          while (uriKeys.hasNext()) {
@@ -84,6 +81,10 @@ public abstract class URIBase {
      
      public String get(){
         return this.outputUriOrderString;
+     }
+
+     public static String separator(){
+         return Matcher.quoteReplacement(URIBase.URI_SEPARATOR);
      }
      
      

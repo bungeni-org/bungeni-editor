@@ -1,12 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.bungeni.uri;
-
-import java.io.File;
-import java.util.regex.Matcher;
 
 /**
  * Extends the URIBase class overrides the get() API of URIBase
@@ -21,18 +13,15 @@ public class BungeniURI extends URIBase {
      
     @Override
      public final String get(){
-         log.debug("BungeniURI.get() : " + ((outputUriOrderString == null)? new String("") : outputUriOrderString));
-         //quoteReplacement is required since File separators on windows use the \ character, which 
-         //gets interpreted as a regex character while doing a replaceAll ... 
-         //this problem will not manifest on *nix platforms as they use the "/" character as the
-         //file separator
-         String separatorCharacter = Matcher.quoteReplacement(File.separator);
-         return this.outputUriOrderString.replaceAll("~", separatorCharacter);
+         log.debug("BungeniURI.get() : " + ((outputUriOrderString == null)? "" : outputUriOrderString));
+         //!+FILE_SEPARATOR_USAGE(AH,2011-09-20) Removed use of File.separator since URIs always
+         //use the same separator
+         return this.outputUriOrderString.replaceAll("~", URIBase.separator());
      }
 
     //test quote replacement
      public static void main(String[] args) {
           String s = "~ken~judgement~2009-4-23~eng";
-          System.out.println(s.replaceAll("~", Matcher.quoteReplacement("\\")));
+          System.out.println(s.replaceAll("~", URIBase.separator()));
      }
 }

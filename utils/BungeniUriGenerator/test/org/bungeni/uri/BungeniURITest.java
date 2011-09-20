@@ -51,6 +51,7 @@ public class BungeniURITest {
         System.out.println("get");
         String expResult = "ken/eng/main";
         String result = myUri.get();
+        System.out.println(result);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
     }
