@@ -6,11 +6,12 @@
 
 === Current Release === 
 
-[http://bungeni-editor.googlecode.com/files/install-1.1.1978.jar Bungeni Editor v1.1.1978 - requires OpenOffice.org 3.3.0] - Aug 17 2011 - Uses the integrated UI with openoffice.org. The editor and openoffice behave as one window. Due to gtk integration issues - this is a windows only release. Other improvements : fixes and improvements to translator engine ; a connector api for integrating data-sources has been introduced in this release (though not enabled)
+[http://bungeni-editor.googlecode.com/files/install-1.1.1995.jar Bungeni Editor v1.1.1995- requires OpenOffice.org 3.3.0] - Sep 20 2011 - Fix to Transformer engine integration. The previous release had a crash situation during certain transformations.
 
 
 === Older Releases === 
 
+[http://bungeni-editor.googlecode.com/files/install-1.1.1978.jar Bungeni Editor v1.1.1978 - requires OpenOffice.org 3.3.0] - Aug 17 2011 - Uses the integrated UI with openoffice.org. The editor and openoffice behave as one window. Due to gtk integration issues - this is a windows only release. Other improvements : fixes and improvements to translator engine ; a connector api for integrating data-sources has been introduced in this release (though not enabled)
 
 [http://bungeni-editor.googlecode.com/files/install-1.0.1729.jar Bungeni Editor v1.0.1729 - requires OpenOffice.org 3.3.0] - Fixes to language and country selection in metadata dialogs. 9 Feb 2011. See [http://code.google.com/p/bungeni-editor/source/detail?r=1729 r1729]
 
