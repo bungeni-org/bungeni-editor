@@ -131,10 +131,8 @@ public class BungeniNoaFrame extends BungeniFrame {
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setVisible(true);
 
-        //Starting BungeniConnector server
-        /**
+        //!+BUNGENI_CONNECTOR(AH,2011-09-20) Starting BungeniConnector server
         startDataSourceServer();
-        **/
         addWindowListener(new WindowAdapter() {
 
             @Override
@@ -182,9 +180,13 @@ public class BungeniNoaFrame extends BungeniFrame {
                         log.error("Error while closing window", ex);
                     }
                     System.out.println("Stopping Bungenic Connector Data Server");
-                    /****
-                    dss.stopServer();
-                   ***/
+                    //!+BUNGENI_CONNECTOR(AH, 2011-09-20) stopping bungeni connector 
+                    if (dss != null ) {
+                        log.info("Stopping connector server");
+                        dss.stopServer();
+                    } else {
+                        log.info("Connector server was null");
+                    }
                     /**
                      * Dispose the main JFrame
                      */
@@ -201,7 +203,7 @@ public class BungeniNoaFrame extends BungeniFrame {
 
     }
 
-    /**** ASHOK
+
     public void startDataSourceServer(){
         try {
             dss = DataSourceServer.getInstance();
@@ -212,7 +214,6 @@ public class BungeniNoaFrame extends BungeniFrame {
             log.error("Error while starting up datasource server", ex);
         }
     }
-    ***/
     /**
      * Sets up the root panel and adds the NOA panel to it
      * We use the MigLayout here (see http://www.miglayout.org ), since it supports

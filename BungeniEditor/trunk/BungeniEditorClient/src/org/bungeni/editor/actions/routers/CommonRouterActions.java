@@ -320,7 +320,7 @@ public class CommonRouterActions {
 
                 // f.setVisible(true);
             } catch (Exception ex) {
-                log.error("displaySelectorFrameRunner exception :" + ex.getMessage());
+                log.error("displaySelectorFrameRunner exception :" + ex.getMessage(), ex);
             }
         }
     }

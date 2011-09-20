@@ -30,6 +30,7 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import org.bungeni.editor.BungeniEditorClient;
 import org.bungeni.plugins.translator.OdtTranslate;
 
 /**
@@ -84,6 +85,10 @@ public class AnXmlTransform extends BungeniDocTransform {
         }
     }
 
+    private String toOSPath(String path) {
+        return path.replace("/", File.separator);
+    }
+
     public boolean transform(OOComponentHelper ooDocument) {
         boolean bState = false;
 
@@ -132,8 +137,10 @@ public class AnXmlTransform extends BungeniDocTransform {
 		paramMap.put("OutputFilePath", outANxmlFile.getFullFile().getPath());
 		paramMap.put("OutputMetalexFilePath", outMetalexFile.getFullFile().getPath());
 		paramMap.put("TranslatorRootFolder", translatorRootFolder);
-		paramMap.put("TranslatorConfigFile", "configfiles/configs/TranslatorConfig_debaterecord.xml");
-		paramMap.put("TranslatorPipeline","metalex2akn/minixslt/debaterecord/pipeline.xsl" );
+                //!+PIPELINE_SETTING (AH, 2011-09-20) Setting the pipeline manually is no longer required
+                // This needs to be removed.
+		paramMap.put("TranslatorConfigFile", this.toOSPath("configfiles/configs/TranslatorConfig_debaterecord.xml"));
+		paramMap.put("TranslatorPipeline", this.toOSPath("metalex2akn/minixslt/debaterecord/pipeline.xsl") );
 		paramMap.put("CurrentDocType", currentDocType);
 		paramMap.put("CallerPanel", null);
 		paramMap.put("PluginMode", "odt2akn");
@@ -143,8 +150,18 @@ public class AnXmlTransform extends BungeniDocTransform {
 			foutput.delete();
 		}
 		testObject.setParams(paramMap);
-		String sErrors = testObject.exec();
-		System.out.println("Translation Errors = \n\n" + sErrors);
+                //!+TRANSFORMER_INIT(AH, 2011-09-20) --
+                // We set the context class loader for the current thread to the main 
+                // class used by the editor -- otherwise Saxon attempts to use its own context
+                // class-loader to initializae and discover itself which leads to exceptions because
+                // there are 2 instances of Saxon loaded into memory, by setting the class loader
+                // here Saxon uses the same class loader as the bungeni editor.
+                ClassLoader tmp = Thread.currentThread().getContextClassLoader();
+                Thread.currentThread().setContextClassLoader(BungeniEditorClient.class.getClassLoader());
+                String sErrors = testObject.exec();
+                 //!+TRANSFORMER_INIT(AH, 2011-09-20) -- See above
+                Thread.currentThread().setContextClassLoader(tmp);
+            	System.out.println("Translation Errors = \n\n" + sErrors);
                 bState = true;
                 /**
                 File fnewout =  new File((String) paramMap.get("OutputFilePath"));
