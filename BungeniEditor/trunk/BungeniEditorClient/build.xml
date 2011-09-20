@@ -92,6 +92,12 @@
         </copy>
 
         <delete file="${dist.dir}/transformer/EXTERNALS.txt" />
+
+        <delete includeemptydirs="true">
+            <fileset dir="${dist.dir}" includes=".svn" defaultexcludes="false" />
+            <fileset dir="${dist.dir}" includes="**/.svn" defaultexcludes="false" />
+        </delete>
+
         <copy file="src/editor.ini" todir="${dist.dir}" />
      </target>
    <target name="umldocs" depends="jar" description="generates javadoc and also UML Diagram">
