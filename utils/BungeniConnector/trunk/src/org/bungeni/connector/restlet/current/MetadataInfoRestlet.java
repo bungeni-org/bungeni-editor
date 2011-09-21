@@ -1,17 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.bungeni.connector.restlet.current;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import java.util.List;
 import org.bungeni.connector.IBungeniConnector;
-import org.bungeni.connector.impl.RDBMSBungeniConnector;
-import org.bungeni.connector.impl.XMLBungeniConnector;
 import org.bungeni.connector.element.MetadataInfo;
-import org.bungeni.connector.server.DataSourceServer;
 import org.restlet.Request;
 import org.restlet.Response;
 import org.restlet.Restlet;

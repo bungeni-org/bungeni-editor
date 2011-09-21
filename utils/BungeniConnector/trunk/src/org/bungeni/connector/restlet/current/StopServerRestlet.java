@@ -1,15 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.bungeni.connector.restlet.current;
 
 import org.bungeni.connector.server.DataSourceServer;
 import org.restlet.Request;
 import org.restlet.Response;
 import org.restlet.Restlet;
-import org.restlet.data.MediaType;
-import org.restlet.data.Method;
 import org.restlet.data.Status;
 
 /**

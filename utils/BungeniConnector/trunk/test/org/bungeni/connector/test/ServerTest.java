@@ -4,6 +4,7 @@
  */
 package org.bungeni.connector.test;
 
+import java.io.File;
 import org.bungeni.connector.server.DataSourceServer;
 
 /**
@@ -12,11 +13,12 @@ import org.bungeni.connector.server.DataSourceServer;
  */
 public class ServerTest {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         DataSourceServer trans = DataSourceServer.getInstance();
-        trans.loadProperties(DataSourceServer.PROPERTIES_FILE);
+        trans.loadProperties(System.getProperty("user.dir")+ File.separator + "bungeni-connector.properties");
         System.out.println("Starting server");
         trans.startServer();
+        Thread.sleep(1000);
         System.out.println("Stopping Server");
         trans.stopServer();
 

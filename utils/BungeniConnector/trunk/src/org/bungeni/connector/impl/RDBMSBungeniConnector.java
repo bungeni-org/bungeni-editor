@@ -3,8 +3,10 @@ package org.bungeni.connector.impl;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.bungeni.connector.ConnectorProperties;
 import org.bungeni.connector.IBungeniConnector;
 import org.bungeni.connector.element.Bill;
 import org.bungeni.connector.element.Document;
@@ -19,21 +21,58 @@ import org.bungeni.connector.element.Question;
  */
 public class RDBMSBungeniConnector implements IBungeniConnector {
 
+    /**
+     * Implementation specific members
+     */
     private java.sql.Connection dbConnection = null;
-    private String dbUrl = "jdbc:h2:%user_dir%/datasource/db/registry.db";
-    private String dbUsername = "sa";
-    private String dbPassword = "";
-    private String dbDriver = "org.h2.Driver";
+
+    //!+CODE_REVIEW(ah,sep-2011) Factored out hardcoded parameters for driver, url , password etc
+    private String dbUrl;
+    private String dbUsername;
+    private String dbPassword;
+    private String dbDriver;
+
     private String membersQuery = "SELECT ID,FIRST_NAME,LAST_NAME,URI,ROLE FROM PUBLIC.PERSONS ";
     private String billsQuery = "SELECT ID,BILL_NAME,BILL_URI,BILL_ONTOLOGY,COUNTRY FROM PUBLIC.BILLS";
     private String metadataInfoQuery = "SELECT KEY_ID,KEY_TYPE,KEY_NAME,KEY_VALUE FROM PUBLIC.METADATA_INFO;";
     private String motionsQuery = "SELECT MOTION_ID,MOTION_URI,MOTION_TITLE,MOTION_NAME,MOTION_BY,MOTION_TEXT FROM PUBLIC.MOTIONS;";
     private String questionsQuery = "SELECT ID,QUESTION_TITLE,QUESTION_FROM,QUESTION_TO,QUESTION_TEXT FROM PUBLIC.QUESTIONS;";
     private String documentsQuery = "SELECT ID,DOCUMENT_TITLE,DOCUMENT_DATE,DOCUMENT_SOURCE,DOCUMENT_URI,SITTING_ID FROM PUBLIC.TABLED_DOCUMENTS;";
+
     private static Logger logger = Logger.getLogger(RDBMSBungeniConnector.class.getName());
+
+    private ConnectorProperties m_props = null;
 
     public RDBMSBungeniConnector() {
     }
+
+    /**
+     * All the public APIs start below, these are all implemented by the
+     * IBungeniConnector interface
+     */
+
+    /**
+     * !+CODE_REVIEW(ah,sep-2011) See review comment above, the connection
+     * parameters are setup below
+     * @param props
+     */
+    public void init(ConnectorProperties props) {
+        this.m_props = props;
+        /**
+        db-connection-string=jdbc:h2:{0}/settings/datasource/db/registry.db
+        db-user=sa
+        db-password=
+        db-driver=org.h2.Driver
+         **/
+        this.dbDriver = m_props.getProperties().getProperty("db-driver");
+        this.dbUsername = m_props.getProperties().getProperty("db-user");
+        this.dbPassword = m_props.getProperties().getProperty("db-password");
+        MessageFormat mfConnString = new MessageFormat(props.getProperties().
+                getProperty("db-connection-string"));
+        Object[] userDir = {System.getProperty("user.dir")};
+        this.dbUrl = mfConnString.format(userDir);
+    }
+
 
     public List<Member> getMembers() {
         List<Member> items = new java.util.ArrayList<Member>();
@@ -204,7 +243,17 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
         return items;
     }
 
-    public void close() {
+   public void closeConnector() {
+        close();
+        logger.error("Connector Closed");
+    }
+
+
+
+    /**
+     * All the Private APIs start below
+     */
+    private void close() {
         if (getDbConnection() != null) {
             try {
                 getDbConnection().close();
@@ -224,7 +273,7 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
         return closed;
     }
 
-    public Connection getDbConnection() {
+    private Connection getDbConnection() {
         if (dbConnection == null || dbConnectionClosed()) {
             try {
                 Class.forName(getDbDriver()).newInstance();
@@ -242,99 +291,59 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
         return dbConnection;
     }
 
-    public void setDbConnection(Connection dbConnection) {
+    private void setDbConnection(Connection dbConnection) {
         this.dbConnection = dbConnection;
     }
 
-    public String getDbDriver() {
+    private String getDbDriver() {
         return dbDriver;
     }
 
-    public void setDbDriver(String dbDriver) {
+    private void setDbDriver(String dbDriver) {
         this.dbDriver = dbDriver;
     }
 
-    /**
-     * This is a TOTAL HACK -- this needs to be fixed to read the setting from the properties fiel
-     * @return
-     */
-    public String getDbUrl() {
+    private String getDbUrl() {
         String sURL = this.dbUrl.replace("/", File.separator);
         sURL = sURL.replace("%user_dir%", System.getProperty("user.dir"));
         logger.info("getDbUrl = " + sURL);
         return sURL;
     }
 
-    public void setDbUrl(String dbUrl) {
-        this.dbUrl = dbUrl;
-    }
 
     public String getDbPassword() {
         return dbPassword;
     }
 
-    public void setDbPassword(String dbPassword) {
-        this.dbPassword = dbPassword;
-    }
 
     public String getDbUsername() {
         return dbUsername;
     }
 
-    public void setDbUsername(String dbUsername) {
-        this.dbUsername = dbUsername;
-    }
 
-    public String getMembersQuery() {
+    private String getMembersQuery() {
         return membersQuery;
     }
 
-    public void setMembersQuery(String memberQuery) {
-        this.membersQuery = memberQuery;
-    }
-
-    public String getBillsQuery() {
+    private String getBillsQuery() {
         return billsQuery;
     }
 
-    public void setBillsQuery(String billQuery) {
-        this.billsQuery = billQuery;
-    }
-
-    public String getMetadataInfoQuery() {
+    private String getMetadataInfoQuery() {
         return metadataInfoQuery;
     }
 
-    public void setMetadataInfoQuery(String metadataInfoQuery) {
-        this.metadataInfoQuery = metadataInfoQuery;
-    }
-
-    public String getMotionsQuery() {
+    private String getMotionsQuery() {
         return motionsQuery;
     }
 
-    public void setMotionsQuery(String motionsQuery) {
-        this.motionsQuery = motionsQuery;
-    }
-
-    public String getQuestionsQuery() {
+    private String getQuestionsQuery() {
         return questionsQuery;
     }
 
-    public void setQuestionsQuery(String questionsQuery) {
-        this.questionsQuery = questionsQuery;
-    }
 
-    public String getDocumentsQuery() {
+    private String getDocumentsQuery() {
         return documentsQuery;
     }
 
-    public void setDocumentsQuery(String documentsQuery) {
-        this.documentsQuery = documentsQuery;
-    }
-
-    public void closeConnector() {
-        close();
-        logger.error("Connector Closed");
-    }
 }

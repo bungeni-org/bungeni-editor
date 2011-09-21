@@ -1,13 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.bungeni.connector.client;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import java.util.List;
+import java.util.Properties;
 import org.apache.log4j.Logger;
+import org.bungeni.connector.ConnectorProperties;
 import org.bungeni.connector.IBungeniConnector;
 import org.bungeni.connector.element.Bill;
 import org.bungeni.connector.element.Document;
@@ -15,24 +13,55 @@ import org.bungeni.connector.element.MetadataInfo;
 import org.bungeni.connector.element.Motion;
 import org.bungeni.connector.element.Member;
 import org.bungeni.connector.element.Question;
-import org.restlet.data.Status;
 import org.restlet.resource.ClientResource;
 
 /**
- *
+ * This is the client for accessing the REST DataSourceServer
+ * The way to use the BungeniConnector client is :
+ *  BungeniConnector bc = new BungeniConnector();
+ *  bc.init(new ConnectorProperties(StringPathToConnectorPropertiesFile);
  * @author Dave
  */
 public class BungeniConnector implements IBungeniConnector {
 
-    private String metadataInfoSource = "http://localhost:8899/current/metadata";
-    private String membersSource = "http://localhost:8899/current/members";
-    private String motionsSource = "http://localhost:8899/current/motions";
-    private String questionsSource = "http://localhost:8899/current/questions";
-    private String billsSource = "http://localhost:8899/current/bills";
-    private String documentsSource = "http://localhost:8899/current/documents";
+    //!+CODE_REVIEW(ah, sep-2011) Why hardcode source URLs when we have all the required info
+    //in the connector-properties file ? The client and server interface on the same host.
+    private String metadataInfoSource = "/metadata";
+    private String membersSource = "/members";
+    private String motionsSource = "/motions";
+    private String questionsSource = "/questions";
+    private String billsSource = "/bills";
+    private String documentsSource = "/documents";
     private String packageAlias = "package";
+
+    //!+CODE_REVIEW(ah, sep-2011)See code review comment above
+    private String SERVER_HOST = "localhost";
+    private String SERVER_PORT = "80";
+    private String SERVER_PROTOCOL = "http://";
+    private String SERVER_VIRT_DIR = "current";
+
     private String SERVER_UNREACHABLE = " did not respond";
     private static Logger logger = Logger.getLogger(BungeniConnector.class.getName());
+
+    /**
+     * The way to use the BungeniConnector client is :
+     *  BungeniConnector bc = new BungeniConnector();
+     *  bc.init(new ConnectorProperties(StringPathToConnectorPropertiesFile);
+     *
+     * @param connProps
+     */
+    public void init(ConnectorProperties connProps) {
+         Properties props = connProps.getProperties();
+         this.SERVER_HOST = props.getProperty("server-port");
+         this.SERVER_PORT = props.getProperty("server-host");
+         this.SERVER_VIRT_DIR = "current";
+         this.SERVER_PROTOCOL = "http://";
+    }
+
+    private String getVirtDirURL(){
+        return this.SERVER_PROTOCOL + this.SERVER_HOST + ":" + this.SERVER_PORT
+                + "/" + this.SERVER_VIRT_DIR ;
+    }
 
     private List getList(String source, String packageAlias, String alias, Class aliasClass) {
         ClientResource resource = new ClientResource(source);
@@ -77,71 +106,43 @@ public class BungeniConnector implements IBungeniConnector {
     public List<Document> getDocuments() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    public String getBillsSource() {
-        return billsSource;
+
+    //!+CODE_REVIEW (the class implements the IBungeniConnector interface, it shouldnt
+    //have public members other than provided by the interface - all the below have been
+    //made private
+
+    private String getBillsSource() {
+        return getVirtDirURL() + billsSource;
     }
 
-    public void setBillsSource(String billsSource) {
-        this.billsSource = billsSource;
+
+    private String getMembersSource() {
+        return getVirtDirURL() + membersSource;
     }
 
-    public static Logger getLogger() {
-        return logger;
+    private String getMetadataInfoSource() {
+        return getVirtDirURL() + metadataInfoSource;
     }
 
-    public static void setLogger(Logger logger) {
-        BungeniConnector.logger = logger;
+
+    private String getMotionsSource() {
+        return getVirtDirURL() + motionsSource;
     }
 
-    public String getMembersSource() {
-        return membersSource;
-    }
-
-    public void setMembersSource(String membersSource) {
-        this.membersSource = membersSource;
-    }
-
-    public String getMetadataInfoSource() {
-        return metadataInfoSource;
-    }
-
-    public void setMetadataInfoSource(String metadataInfoSource) {
-        this.metadataInfoSource = metadataInfoSource;
-    }
-
-    public String getMotionsSource() {
-        return motionsSource;
-    }
-
-    public void setMotionsSource(String motionsSource) {
-        this.motionsSource = motionsSource;
-    }
-
-    public String getPackageAlias() {
+    private String getPackageAlias() {
         return packageAlias;
     }
 
-    public void setPackageAlias(String packageAlias) {
-        this.packageAlias = packageAlias;
+    private String getQuestionsSource() {
+        return getVirtDirURL() + questionsSource;
     }
 
-    public String getQuestionsSource() {
-        return questionsSource;
-    }
-
-    public void setQuestionsSource(String questionsSource) {
-        this.questionsSource = questionsSource;
-    }
-
-    public String getDocumentsSource() {
-        return documentsSource;
-    }
-
-    public void setDocumentsSource(String documentsSource) {
-        this.documentsSource = documentsSource;
+    private String getDocumentsSource() {
+        return getVirtDirURL() + documentsSource;
     }
 
     public void closeConnector() {
         logger.info("Client Connection Closed");
     }
+
 }

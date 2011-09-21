@@ -1,13 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.bungeni.connector.impl;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.bungeni.connector.ConnectorProperties;
 import org.bungeni.connector.IBungeniConnector;
 import org.bungeni.connector.element.Bill;
 import org.bungeni.connector.element.Document;
@@ -24,6 +21,9 @@ import org.restlet.resource.ClientResource;
  */
 public class XMLBungeniConnector implements IBungeniConnector {
 
+    //!+CODE_REVIEW(ah, sep-2011) -- the URI variables below hard code the info.
+    //the same info can be generated out of the connector properties
+    //see RDBMSConnector for an example 
     static final String PACKAGE_ALIAS = "package";
     static final String SERVER_UNREACHABLE = " did not respond";
     private static Logger logger = Logger.getLogger(XMLBungeniConnector.class.getName());
@@ -619,5 +619,9 @@ public class XMLBungeniConnector implements IBungeniConnector {
 
     public void closeConnector() {
         logger.info("Connector Closed");
+    }
+
+    public void init(ConnectorProperties props) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

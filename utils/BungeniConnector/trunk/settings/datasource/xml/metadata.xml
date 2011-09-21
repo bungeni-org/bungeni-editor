@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata><metadatainfo>
+  <id>1</id>
+  <type>STRING</type>
+  <name>NAME</name>
+  <value>14TH PARLIAMENT</value>
+</metadatainfo>
+<metadatainfo>
+  <id>2</id>
+  <type>DATE</type>
+  <name>CREATION_DATE</name>
+  <value>2011-06-22</value>
+</metadatainfo>
+<metadatainfo>
+  <id>3</id>
+  <type>STRING</type>
+  <name>CREATION_SESSION</name>
+  <value>MAY-SEP</value>
+</metadatainfo>
+<metadatainfo>
+  <id>4</id>
+  <type>STRING</type>
+  <name>CREATION_SITTING</name>
+  <value>2011-06-21</value>
+</metadatainfo>
+
+</metadata>

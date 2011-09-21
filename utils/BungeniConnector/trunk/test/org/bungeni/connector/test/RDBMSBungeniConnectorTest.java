@@ -1,8 +1,11 @@
 
 package org.bungeni.connector.test;
 
+import java.io.File;
 import org.bungeni.connector.impl.*;
 import java.util.List;
+import org.bungeni.connector.ConnectorProperties;
+import org.bungeni.connector.IBungeniConnector;
 import org.bungeni.connector.element.Bill;
 import org.bungeni.connector.element.Motion;
 import org.bungeni.connector.element.Member;
@@ -15,7 +18,11 @@ import org.bungeni.connector.element.Question;
 public class RDBMSBungeniConnectorTest {
 
     public static void main(String args[]) {
-        RDBMSBungeniConnector connector = new RDBMSBungeniConnector();
+        IBungeniConnector connector = new RDBMSBungeniConnector();
+        connector.init(new ConnectorProperties(System.getProperty("user.dir")+ 
+                File.separator+"settings" + File.separator +
+                "bungeni-connector.properties")
+                );
         List<Member> members = connector.getMembers();
         if (members != null) {
             System.out.println(":::::::::::::::MEMBERS:::::::::::::::::::");
@@ -48,7 +55,7 @@ public class RDBMSBungeniConnectorTest {
                 System.out.println(questions.get(i).getTitle() + " " + questions.get(i).getText());
             }
         }
-        connector.close();
+        connector.closeConnector();
 
     }
 }
