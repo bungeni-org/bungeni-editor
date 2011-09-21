@@ -257,7 +257,7 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         log.debug("saveDocumentToDisk: defaultSavePath : " + defaultSavePath);
 
         //get the absolute path
-        String exportPath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + defaultSavePath + m_spf.getExpressionPath() ; 
+        String exportPath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + defaultSavePath + m_spf.getExpressionFilePath() ;
         
         log.debug("saveDocumentToDisk : exportPath = " + exportPath);
         //get the full path to the file

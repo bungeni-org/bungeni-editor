@@ -1,23 +1,23 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.bungeni.utils;
 
+import java.io.File;
 import org.bungeni.uri.BungeniManifestationName;
 import org.bungeni.uri.BungeniURI;
 
 /**
- *
- * @author undesa
+ * Returns a file saving path out of a URI
+ * @author Ashok
  */
 public class BungeniFileSavePathFormat {
     
     BungeniURI workURI;
     BungeniURI expURI;
     BungeniManifestationName fileNameFormat;
-      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BungeniFileSavePathFormat.class.getName());
+
+    private static org.apache.log4j.Logger log =
+      org.apache.log4j.Logger.getLogger(
+                BungeniFileSavePathFormat.class.getName()
+                );
   
     public BungeniFileSavePathFormat(String wURI, String eURI, String fnFormat){
         workURI = new BungeniURI(wURI);
@@ -25,13 +25,19 @@ public class BungeniFileSavePathFormat {
         fileNameFormat = new BungeniManifestationName(fnFormat);
     }
 
+    /**
+     * API to set the URI components , the URI components are then used to generate
+     * the URI by calling parseComponents()
+     * @param compName
+     * @param compValue
+     */
     public void setSaveComponent(String compName, String compValue) {
         try {
             setURIFormatComponent(workURI, compName, compValue );
             setURIFormatComponent(expURI, compName, compValue );
             setURIFormatComponent(fileNameFormat, compName, compValue );
         } catch (ArrayIndexOutOfBoundsException ex) {
-            log.debug("setSaveComponent missing compName : " + compName);
+            log.error("setSaveComponent missing compName : " + compName, ex);
         }
     }
     
@@ -44,18 +50,50 @@ public class BungeniFileSavePathFormat {
             log.debug("parseComponents: parsing filename format");
             this.fileNameFormat.parse();
         } catch (Exception ex) {
-            log.error("parseComponents : " + ex.getMessage());
+            log.error("parseComponents : " + ex.getMessage(), ex);
         }
     }
-    
-    public String getExpressionPath(){
+
+    /**
+     * Returns the generated URI
+     * @return
+     */
+    public String getExpressionURI(){
         return this.expURI.get();
     }
 
-    public String getWorkPath(){
+    private String _getFilePath(BungeniURI aURI) {
+        return aURI.get().replace(BungeniURI.separator(), File.separator);
+    }
+
+    /**
+     * Returns the generated file path of the expression
+     * @return
+     */
+    public String getExpressionFilePath(){
+        return _getFilePath(this.expURI);
+    }
+
+    /**
+     * Returns the generated work URI
+     * @return
+     */
+    public String getWorkURI(){
         return this.workURI.get();
     }
-    
+
+    /**
+     * Returns the generated file path of the work URI
+     * @return
+     */
+    public String getWorkFilePath(){
+        return _getFilePath(this.expURI);
+    }
+
+    /**
+     * Returns the name of the manifestation
+     * @return
+     */
     public String getManifestationName(){
         return this.fileNameFormat.get();
     }
@@ -81,74 +119,5 @@ public class BungeniFileSavePathFormat {
            log.debug("setURIFormatComponent (BungeniManifestationName) " + ex.getMessage()); 
         }
     }
-    
-    
-    /*
-    private ArrayList<String> savePathFormatOrder = new ArrayList<String>();
-    private HashMap<String,String> savePathComponents = new HashMap<String,String>(){
-        {
-            put("CountryCode", "");
-            put("LanguageCode", "");
-            put("Year","");
-            put("DocumentType", "");
-            put("Month", "");
-            put("Day", "");
-            put("Identifier", "");
-            put("PartName", "");
-            put("FileName", "");
-        }
-    };
-    
-    public BungeniFileSavePathFormat() {
-        //get save path format
-        //Save Path format is stored in the 'defaultSaveFormat' general editor property.
-        String saveFormat = BungeniEditorProperties.getEditorProperty("defaultSaveFormat");
-        String[] arrSaveFormat = saveFormat.split("[.]");
-        for (String formatComponent : arrSaveFormat) {
-            savePathFormatOrder.add(formatComponent);
-        }
-    }
-    
-    public void setSaveComponent(String comp, String value) {
-        if (savePathComponents.containsKey(comp)) {
-            savePathComponents.put(comp, value);
-        }
-    }
-    
-    public void setSaveComponent(String comp, int value) {
-        Integer iValue = value;
-        if (savePathComponents.containsKey(comp)) {
-            savePathComponents.put(comp, iValue.toString());
-        }
-    }
-    
-    
-    
-    public HashMap<String,String> getSaveComponents(){
-        return savePathComponents;
-    }
-    
-    public String getSavePath() {
-        String fullSavePath = "";
-        for (int i=0; i < this.savePathFormatOrder.size(); i++) {
-            String saveComp = savePathFormatOrder.get(i);
-            if (!saveComp.equals("FileName"))
-                fullSavePath = fullSavePath + savePathComponents.get(saveComp) + File.separator;
-        }
-        return fullSavePath;
-    }
-    
-
-    public String getFileName(){
-        String fullFilename = "";
-        for (int i=0; i < this.savePathFormatOrder.size(); i++) {
-            String saveComp = savePathFormatOrder.get(i);
-            if (!saveComp.equals("FileName"))
-                fullFilename = fullFilename + savePathComponents.get(saveComp) + "_";
-        }
-        if (fullFilename.endsWith("_")) {
-            fullFilename = fullFilename.substring(0, fullFilename.length() - 1 );
-        }
-        return fullFilename+".odt";
-    } */
+   
 }

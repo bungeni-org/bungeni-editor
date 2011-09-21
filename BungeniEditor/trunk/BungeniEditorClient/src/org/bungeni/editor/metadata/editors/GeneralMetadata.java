@@ -209,9 +209,9 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
            //  spf.setSaveComponent("FileName", spf.getFileName());
         spf.parseComponents();
 
-        docMetaModel.updateItem("BungeniWorkURI", spf.getWorkPath());
-        docMetaModel.updateItem("BungeniExpURI", spf.getExpressionPath());
-        docMetaModel.updateItem("BungeniManURI", spf.getExpressionPath() + ".xml");
+        docMetaModel.updateItem("BungeniWorkURI", spf.getWorkURI());
+        docMetaModel.updateItem("BungeniExpURI", spf.getExpressionURI());
+        docMetaModel.updateItem("BungeniManURI", spf.getExpressionURI() + ".xml");
 
         //docMetaModel.updateItem("__BungeniDocMeta", "true");
         docMetaModel.saveModel(ooDocument);
