@@ -69,12 +69,6 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
      private static org.apache.log4j.Logger logger              =
         org.apache.log4j.Logger.getLogger(OATranslator.class.getName());
 
-    /* The path of the AKOMA NTOSO schema */
-    //private String akomantosoAddNamespaceXSLTPath;
-
-    /* The path of the AKOMA NTOSO schema */
-    //private String akomantosoSchemaPath;
-
     /* The configuration for the metalex translation */
     private String translatorConfigPath;
 
@@ -122,6 +116,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         // check if pipeline xslt needs to be cached
         this.cachePipelineXSLT = Boolean.parseBoolean(properties.getProperty("cachePipelineXSLT"));
 
+        logger.info("OATRANSLATOR ; translatorConfigPath :" + this.translatorConfigPath + " ;resourceBundle :" + this.resourceBundle + " ;cachePipelineXSLT : " + this.cachePipelineXSLT);
     }
 
     /**
@@ -201,6 +196,8 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
                  */
                 metalexOutput = this.writeMetalexOutput(outputStepsProcessedDoc);
              } catch (Exception e) {
+                    //(DEBUG_USEFUL)+ This is a useful catch-all point to put a break point if the
+                    // translation is failing !!!
                     // get the message to print
                     String message = resourceBundle.getString("TRANSLATION_TO_METALEX_FAILED_TEXT");
                     System.out.println(message);

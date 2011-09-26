@@ -71,25 +71,14 @@ public class OdtTranslate implements IEditorPlugin {
 
         // final ClassLoader savedClassLoader = Thread.currentThread().getContextClassLoader();
         try {
-            System.out.println("getting translator instance");
-
+            log.info("XXX-TRANSLATOR-XXX getting translator instance");
+            //CLASSLOADER_CONTEXT+(2011-09-20,AH) - this is done in the caller, not during the execution instance
+            //since Saxon seems to make use of Thread getContextClassloader() to dynamically determine classes
             // Thread.currentThread().setContextClassLoader(OdtTranslate.class.getClassLoader());
             myTranslator = OATranslator.getInstance();
-            System.out.println("calling translate");
-
-            String fullPathToPipeline = GlobalConfigurations.getApplicationPathPrefix() + this.translatorPipeline;
-
+            log.info("XXX-TRANSLATOR-XXX  calling translate");
             filesMap = myTranslator.translate(this.odfFileUrl);
-            System.out.println("no exceptions occured : writing outputs");
-
-            /*
-             * FileUtility futils = FileUtility.getInstance();
-             * File foutputAnxml = new File(this.outputFilePath);
-             * File foutputMetalex = new File(this.outputMetalexFilePath);
-             * futils.copyFile(filesMap.get("anxml"), foutputAnxml);
-             * futils.copyFile(filesMap.get("metalex"), foutputMetalex);
-             * retvalue = myTranslator.getValidationErrors();
-             */
+            log.info("no exceptions occured : writing outputs");
         } catch (Exception e) {
             log.error("exec()", e);
             bExceptionOccured = true;
@@ -142,7 +131,9 @@ public class OdtTranslate implements IEditorPlugin {
             this.outputMetalexFilePath = (String) this.editorParams.get("OutputMetalexFilePath");
             this.translatorRootFolder  = (String) this.editorParams.get("TranslatorRootFolder");
             this.translatorConfigFile  = (String) this.editorParams.get("TranslatorConfigFile");
-            this.translatorPipeline    = (String) this.editorParams.get("TranslatorPipeline");
+            //(PIPELINE_SETTING, 2011-09-20)+ pipeline setting is deprecated as it is queried from the
+            //configuration file
+            //this.translatorPipeline    = (String) this.editorParams.get("TranslatorPipeline");
             this.currentDocType        = (String) this.editorParams.get("CurrentDocType");
             this.pluginMode            = (String) this.editorParams.get("PluginMode");
 
@@ -182,11 +173,9 @@ public class OdtTranslate implements IEditorPlugin {
 
     /** * Application code */
     private void appInit() {
-
         // Do application initialization here
         // setting application prefixes etc..
         GlobalConfigurations.setApplicationPathPrefix(this.translatorRootFolder);
-
         GlobalConfigurations.setConfigurationFilePath(this.translatorConfigFile);
     }
 

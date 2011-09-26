@@ -23,7 +23,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.bungeni.translators.utility.files.FileUtility;
 
 
 /**
@@ -127,6 +126,9 @@ public class ODFUtility {
         Node metaNodes = odfMeta.getElementsByTagName("office:document-meta").item(0);
 
         //AH-02-03-11 get rdf metadata
+        NodeList nl = odfRdfMeta.getElementsByTagName("rdf:RDF");
+        log.info("XXXXX rdf node list =  XXXXX " + nl.getLength());
+
         Node rdfNodes = odfRdfMeta.getElementsByTagName("rdf:RDF").item(0);
 
         // appends the style nodes to the content.xml document

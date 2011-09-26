@@ -10,7 +10,7 @@ package translatortest;
 public class TestRDFMeta extends OATranslatorTestDebateBase {
 	public TestRDFMeta(){
 		super();
-		setInputDocument("test/testdocs/test_rdfmeta.odt");
+		setInputDocument("test/testdocs/ke_debaterecord_2011-9-23_en.odt");
 		setOutputDocument("test/testresults/test_rdfmeta.xml");
 		setOutputMetalex("test/testresults/test_rdfmeta.mlx");
 		setComparisonDocument("test/testdocs/test_rdfmeta_out.xml");
