@@ -164,7 +164,8 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             /***
              * Merge all the xml documents in the ODF package into 1 XML document.
              */
-            StreamSource ODFDocument = this.mergeODFXML(aDocumentPath);
+
+            StreamSource ODFDocument = new GenericXMLSource().getSource(aDocumentPath);
 
             /***
              * Get the translator configuration
