@@ -58,6 +58,19 @@ public class OAConfigurationReader implements ConfigurationReader {
     }
 
     /**
+     * Checks if the input steps exist in the translator configuration
+     * @return
+     * @throws XPathExpressionException
+     */
+    public boolean hasInputSteps() throws XPathExpressionException{
+        XPathResolver xresolver = XPathResolver.getInstance();
+        // get the step with the given nama in this configuration
+        NodeList inputNodes = (NodeList) xresolver.evaluate(this.configXML, "//input", XPathConstants.NODESET);
+        return inputNodes.getLength() > 0 ? true : false;
+
+    }
+
+    /**
      * Used to get an HashMap containing all the Steps of the configuration with their position
      * as key
      * @return the HashMap containing all the Steps of the configuration
@@ -68,6 +81,19 @@ public class OAConfigurationReader implements ConfigurationReader {
     }
 
     /**
+     * Checks if output steps exist in the translator configuration
+     * @return
+     * @throws XPathExpressionException
+     */
+    public boolean hasOutputSteps() throws XPathExpressionException{
+        XPathResolver xresolver = XPathResolver.getInstance();
+        // get the step with the given nama in this configuration
+        NodeList outputNodes = (NodeList) xresolver.evaluate(this.configXML, "//output", XPathConstants.NODESET);
+        return outputNodes.getLength() > 0 ? true : false;
+
+    }
+
+    /**
      * Used to get an HashMap containing all the OUTPUT XSLT Steps of the configuration with their position
      * as key. The output step are applied to the document after the resolution of its names according to the map
      * @return the HashMap containing all the Steps of the configuration
@@ -75,6 +101,19 @@ public class OAConfigurationReader implements ConfigurationReader {
      */
     public TreeMap<Integer, OAXSLTStep> getOutputSteps() throws XPathExpressionException {
         return this.getXSLTSteps("//output/xslt");
+    }
+
+    /**
+     * Checks if replace steps exist in the translator configuration
+     * @return
+     * @throws XPathExpressionException
+     */
+    public boolean hasReplaceSteps() throws XPathExpressionException{
+        XPathResolver xresolver = XPathResolver.getInstance();
+        // get the step with the given nama in this configuration
+        NodeList replaceNodes = (NodeList) xresolver.evaluate(this.configXML, "//replacement", XPathConstants.NODESET);
+        return replaceNodes.getLength() > 0 ? true : false;
+
     }
 
     /**
@@ -125,6 +164,21 @@ public class OAConfigurationReader implements ConfigurationReader {
         return resultMap;
     }
 
+
+    /**
+     * Checks if postxml steps exist in the translator configuration
+     * @return
+     * @throws XPathExpressionException
+     */
+    public boolean hasPostXmlSteps() throws XPathExpressionException{
+        XPathResolver xresolver = XPathResolver.getInstance();
+        // get the step with the given nama in this configuration
+        NodeList postxmlNodes = (NodeList) xresolver.evaluate(this.configXML, "//postxml", XPathConstants.NODESET);
+        return postxmlNodes.getLength() > 0 ? true : false;
+
+    }
+
+
     /**
      * Used to get an HashMap containing all the Steps of the configuration with their position
      * as key
@@ -136,6 +190,18 @@ public class OAConfigurationReader implements ConfigurationReader {
 
     }
 
+    /**
+     * Checks if pipeline is defined in the translator configuration
+     * @return
+     * @throws XPathExpressionException
+     */
+    public boolean hasPipelineXML() throws XPathExpressionException{
+        XPathResolver xresolver = XPathResolver.getInstance();
+        // get the step with the given nama in this configuration
+        NodeList pipexmlNodes = (NodeList) xresolver.evaluate(this.configXML, "//pipetoxml", XPathConstants.NODESET);
+        return pipexmlNodes.getLength() > 0 ? true : false;
+
+    }
 
     public List<OAPipelineStep> getPipelineXML() throws XPathExpressionException {
 
@@ -153,6 +219,20 @@ public class OAConfigurationReader implements ConfigurationReader {
         }
         return pipelineSteps;
     }
+
+    /**
+     * Checks if a schema is defined in the translator configuration
+     * @return
+     * @throws XPathExpressionException
+     */
+    public boolean hasSchema() throws XPathExpressionException{
+        XPathResolver xresolver = XPathResolver.getInstance();
+        // get the step with the given nama in this configuration
+        NodeList schemaNodes = (NodeList) xresolver.evaluate(this.configXML, "//schema", XPathConstants.NODESET);
+        return schemaNodes.getLength() > 0 ? true : false;
+
+    }
+
 
     public String getSchema() throws XPathExpressionException{
         XPathResolver xresolver = XPathResolver.getInstance();

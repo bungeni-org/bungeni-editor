@@ -44,6 +44,11 @@ public class OAConfiguration implements Configuration {
         this.reader = new OAConfigurationReader(aConfigXML);
     }
 
+    public boolean hasInputSteps() throws XPathExpressionException{
+        return this.reader.hasInputSteps();
+    }
+
+
     /**
      * Used to get an HashMap containing all the INPUT XSLT Steps of the configuration with their position
      * as key. The input step are applied to the document before the resolution of its names according to the map
@@ -58,6 +63,11 @@ public class OAConfiguration implements Configuration {
         // return the gotten steps
         return resultSteps;
     }
+
+    public boolean hasOutputSteps() throws XPathExpressionException{
+        return this.reader.hasOutputSteps();
+    }
+
 
     /**
      * Used to get an HashMap containing all the OUTPUT XSLT Steps of the configuration with their position
@@ -74,6 +84,11 @@ public class OAConfiguration implements Configuration {
         return resultSteps;
     }
 
+    public boolean hasReplaceSteps() throws XPathExpressionException{
+        return this.reader.hasReplaceSteps();
+    }
+
+
     /**
      * Used to get an HashMap containing all the Replace Steps of the configuration with their position
      * as key
@@ -89,6 +104,10 @@ public class OAConfiguration implements Configuration {
         return resultSteps;
     }
 
+    public boolean hasPostXmlSteps() throws XPathExpressionException{
+        return this.reader.hasPostXmlSteps();
+    }
+
     public TreeMap<Integer, OAXSLTStep> getPostXmlSteps() throws XPathExpressionException {
 
         TreeMap<Integer, OAXSLTStep> postxmlSteps = this.reader.getPostXmlSteps();
@@ -97,10 +116,19 @@ public class OAConfiguration implements Configuration {
 
     }
 
+    public boolean hasPipelineXML() throws XPathExpressionException{
+        return this.reader.hasPipelineXML();
+    }
+
     public List<OAPipelineStep> getXsltPipeline() throws XPathExpressionException {
         List<OAPipelineStep> pipelineSteps  = this.reader.getPipelineXML();
         return pipelineSteps;
     }
+
+    public boolean hasSchema() throws XPathExpressionException{
+        return this.reader.hasSchema();
+    }
+
 
     public String getSchema() throws XPathExpressionException {
         String schema =  this.reader.getSchema();

@@ -80,6 +80,10 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
 
     private Boolean cachePipelineXSLT = false;
 
+    //The source type is by default ODF
+    //!+XML_SOURCE_TYPE(ah, 27-09-2011) 
+    private XMLSourceFactory.XMLSourceType sourceType = XMLSourceFactory.XMLSourceType.ODF;
+
     /**
      * Private constructor used to create the Translator instance
      * @throws IOException
@@ -147,6 +151,32 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
     public Object clone() throws CloneNotSupportedException {
         throw new CloneNotSupportedException();
     }
+
+    /**
+     * Verify the configuration --
+     *
+     *   input,output and pipeline steps are mandatory
+     * @param configuration
+     * @return
+     */
+    public boolean verifyConfiguration(OAConfiguration configuration) throws XPathExpressionException {
+        /**
+         *
+         */
+        if (configuration.hasInputSteps()) {
+            logger.info("verifyConfiguration : hasInputSteps : check OK ");
+            if (configuration.hasOutputSteps()) {
+                logger.info("verifyConfiguration : hasOutputSteps : check OK ");
+                if (configuration.hasPipelineXML()) {
+                    logger.info("verifyConfiguration : hasPipelineXML : check OK ");
+                    return true;
+                } else
+                    logger.info("verifyConfiguration : hasPipelineXML : check FAIL ");
+            } else
+                logger.info("verifyConfiguration : hasOutputSteps : check FAIL ");
+        }
+        return false;
+    }
     /**
      * Transforms the document at the given path using the pipeline at the given path
      * @param aDocumentPath the path of the document to translate
@@ -161,17 +191,39 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
 
         try {
 
+            
             /***
-             * Merge all the xml documents in the ODF package into 1 XML document.
+             * First detect the input source type
+             */
+            if (aDocumentPath.endsWith(".odt")) {
+                this.sourceType = XMLSourceFactory.XMLSourceType.ODF;
+            } else {
+                //if it does not end with odt set the source type to XML
+                this.sourceType = XMLSourceFactory.XMLSourceType.XML;
+            }
+
+            /**
+             * Get the source instance
+             */
+            IXMLSource sourceInstance = this.sourceType.getObjectInstance();
+
+
+            /***
+             * Get the appropriate input source stream
              */
 
-            StreamSource ODFDocument = new GenericXMLSource().getSource(aDocumentPath);
+            StreamSource ODFDocument = sourceInstance.getSource(aDocumentPath);
 
             /***
              * Get the translator configuration
              */
             OAConfiguration configuration  = this.getTranslatorConfiguration(this.translatorConfigPath);
             MetalexOutput metalexOutput = null;
+
+            if (!this.verifyConfiguration(configuration)) {
+                throw new TranslationFailedException( 
+                        resourceBundle.getString("TRANSLATION_CONFIGURATION_FAIL"));
+            }
 
             //we use a nested exception handler here to specifically catch intermediary
             //exceptions
@@ -180,18 +232,20 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
                 /**
                  * Apply input steps
                  */
+
                 StreamSource inputStepsProcessedDoc = this.applyInputSteps(ODFDocument, configuration);
 
-                /**
-                 * Apply the replace steps
-                 */
-                StreamSource replaceStepsProcessedDoc = this.applyReplaceSteps(inputStepsProcessedDoc, configuration);
-
+                StreamSource replaceStepsProcessedDoc = inputStepsProcessedDoc;
+                if (configuration.hasReplaceSteps()) {
+                    /**
+                     * Apply the replace steps
+                     */
+                  replaceStepsProcessedDoc = this.applyReplaceSteps(inputStepsProcessedDoc, configuration);
+                }
                 /**
                  * Finally apply the output steps
                  */
                 StreamSource outputStepsProcessedDoc = this.applyOutputSteps(replaceStepsProcessedDoc, configuration);
-
                 /**
                  * At the end of the output steps we should have a metalex document, write it out
                  */
@@ -230,13 +284,14 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             //AH-23-06-2010
             //StreamSource anXmlStream = this.translateToAkomantoso(xslt, metalexOutput.metalexStream);
 
-            /***
-             * Finally call the Add namespace XSLT
-             */
-            
-            StreamSource anXmlFinalStream = this.applyPostXmlSteps(anXmlStream,
-                                                        configuration);
-
+            StreamSource anXmlFinalStream = anXmlStream;
+            if (configuration.hasPostXmlSteps()) {
+                /***
+                 * Finally call the Add namespace XSLT
+                 */
+                anXmlFinalStream = this.applyPostXmlSteps(anXmlStream,
+                                                            configuration);
+            }
             /**
              * Final Output
              */
@@ -302,19 +357,6 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         return translatedFiles;
     }
 
-    /***
-     * Combines the ODF content.xml, meta.xml, styles.xml into one XML stream
-     * @param aDocumentPath
-     * @return
-     * @throws TransformerFactoryConfigurationError
-     * @throws Exception
-     */
-    private StreamSource mergeODFXML(String aDocumentPath) throws TransformerFactoryConfigurationError, Exception {
-            ODFUtility odfUtil       = ODFUtility.getInstance();
-            File       mergedOdfFile = odfUtil.mergeODF(aDocumentPath);
-            StreamSource ODFDocument = FileUtility.getInstance().FileAsStreamSource(mergedOdfFile);
-            return ODFDocument;
-    }
 
     /**
      * Provides access to the TranslatorConfig
