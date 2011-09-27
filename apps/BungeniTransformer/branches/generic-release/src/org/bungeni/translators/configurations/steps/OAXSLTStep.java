@@ -1,7 +1,6 @@
 package org.bungeni.translators.configurations.steps;
 
 //~--- non-JDK imports --------------------------------------------------------
-
 import org.bungeni.translators.interfaces.XSLTStep;
 
 /**
@@ -12,10 +11,8 @@ public class OAXSLTStep implements XSLTStep {
 
     // the href of the step
     private String URI;
-
     // the name of the step
     private String name;
-
     // the position of the step
     private Integer position;
 

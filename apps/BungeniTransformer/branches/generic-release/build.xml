@@ -73,10 +73,7 @@
     -->
 
       <target name="-post-jar" >
-        <copy todir="${dist.dir}/akntohtml">
-                <fileset dir="resources/akntohtml" >
-                </fileset>
-        </copy>
+
         <copy todir="${dist.dir}/configfiles">
                 <fileset dir="resources/configfiles" >
                 </fileset>

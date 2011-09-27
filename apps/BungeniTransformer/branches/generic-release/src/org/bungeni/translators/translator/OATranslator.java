@@ -14,7 +14,6 @@ import org.bungeni.translators.configurations.OAConfiguration;
 import org.bungeni.translators.utility.dom.DOMUtility;
 import org.bungeni.translators.utility.exceptionmanager.ValidationError;
 import org.bungeni.translators.utility.files.FileUtility;
-import org.bungeni.translators.utility.odf.ODFUtility;
 import org.bungeni.translators.utility.schemavalidator.SchemaValidator;
 import org.bungeni.translators.utility.streams.StreamSourceUtility;
 import org.bungeni.translators.utility.xslttransformer.XSLTTransformer;
@@ -153,31 +152,6 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
     }
 
     /**
-     * Verify the configuration --
-     *
-     *   input,output and pipeline steps are mandatory
-     * @param configuration
-     * @return
-     */
-    public boolean verifyConfiguration(OAConfiguration configuration) throws XPathExpressionException {
-        /**
-         *
-         */
-        if (configuration.hasInputSteps()) {
-            logger.info("verifyConfiguration : hasInputSteps : check OK ");
-            if (configuration.hasOutputSteps()) {
-                logger.info("verifyConfiguration : hasOutputSteps : check OK ");
-                if (configuration.hasPipelineXML()) {
-                    logger.info("verifyConfiguration : hasPipelineXML : check OK ");
-                    return true;
-                } else
-                    logger.info("verifyConfiguration : hasPipelineXML : check FAIL ");
-            } else
-                logger.info("verifyConfiguration : hasOutputSteps : check FAIL ");
-        }
-        return false;
-    }
-    /**
      * Transforms the document at the given path using the pipeline at the given path
      * @param aDocumentPath the path of the document to translate
      * @param aPipelinePath the path of the pipeline to use for the translation
@@ -220,7 +194,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             OAConfiguration configuration  = this.getTranslatorConfiguration(this.translatorConfigPath);
             MetalexOutput metalexOutput = null;
 
-            if (!this.verifyConfiguration(configuration)) {
+            if (!configuration.verify()) {
                 throw new TranslationFailedException( 
                         resourceBundle.getString("TRANSLATION_CONFIGURATION_FAIL"));
             }

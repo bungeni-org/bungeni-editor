@@ -1,7 +1,6 @@
 package org.bungeni.translators.configurations.steps;
 
 //~--- non-JDK imports --------------------------------------------------------
-
 import org.bungeni.translators.interfaces.MapStep;
 
 /**
@@ -12,10 +11,8 @@ public class OAMapStep implements MapStep {
 
     // the bungeniSectionType attribute of the step
     private String stepBungeniSectionType;
-
     // the id of the step
     private Integer stepId;
-
     // the result attribute of the step
     private String stepResult;
 

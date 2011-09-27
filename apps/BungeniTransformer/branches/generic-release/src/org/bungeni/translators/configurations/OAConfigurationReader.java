@@ -1,7 +1,6 @@
 package org.bungeni.translators.configurations;
 
 //~--- non-JDK imports --------------------------------------------------------
-
 import org.bungeni.translators.interfaces.ConfigurationReader;
 import org.bungeni.translators.configurations.steps.OAReplaceStep;
 import org.bungeni.translators.configurations.steps.OAXSLTStep;
@@ -26,7 +25,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import org.bungeni.translators.configurations.steps.OAPipelineStep;
-import org.w3c.dom.Attr;
 
 /**
  * This class reades the TranslatorConfig_xxxx.xml files for each content type
@@ -62,7 +60,7 @@ public class OAConfigurationReader implements ConfigurationReader {
      * @return
      * @throws XPathExpressionException
      */
-    public boolean hasInputSteps() throws XPathExpressionException{
+    public boolean hasInputSteps() throws XPathExpressionException {
         XPathResolver xresolver = XPathResolver.getInstance();
         // get the step with the given nama in this configuration
         NodeList inputNodes = (NodeList) xresolver.evaluate(this.configXML, "//input", XPathConstants.NODESET);
@@ -85,7 +83,7 @@ public class OAConfigurationReader implements ConfigurationReader {
      * @return
      * @throws XPathExpressionException
      */
-    public boolean hasOutputSteps() throws XPathExpressionException{
+    public boolean hasOutputSteps() throws XPathExpressionException {
         XPathResolver xresolver = XPathResolver.getInstance();
         // get the step with the given nama in this configuration
         NodeList outputNodes = (NodeList) xresolver.evaluate(this.configXML, "//output", XPathConstants.NODESET);
@@ -108,7 +106,7 @@ public class OAConfigurationReader implements ConfigurationReader {
      * @return
      * @throws XPathExpressionException
      */
-    public boolean hasReplaceSteps() throws XPathExpressionException{
+    public boolean hasReplaceSteps() throws XPathExpressionException {
         XPathResolver xresolver = XPathResolver.getInstance();
         // get the step with the given nama in this configuration
         NodeList replaceNodes = (NodeList) xresolver.evaluate(this.configXML, "//replacement", XPathConstants.NODESET);
@@ -145,15 +143,13 @@ public class OAConfigurationReader implements ConfigurationReader {
             // if pattern attribute is not empty get the pattern from the attribute
             if (stepNode.getAttributes().getNamedItem("pattern") != null) {
                 resultStep = new OAReplaceStep(stepNode.getAttributes().getNamedItem("name").getNodeValue(),
-                                               stepNode.getAttributes().getNamedItem("replacement").getNodeValue(),
-                                               stepNode.getAttributes().getNamedItem("pattern").getNodeValue());
-            }
-
-            // otherwise get the value from the textValue of the node
+                        stepNode.getAttributes().getNamedItem("replacement").getNodeValue(),
+                        stepNode.getAttributes().getNamedItem("pattern").getNodeValue());
+            } // otherwise get the value from the textValue of the node
             else {
                 resultStep = new OAReplaceStep(stepNode.getAttributes().getNamedItem("name").getNodeValue(),
-                                               stepNode.getAttributes().getNamedItem("replacement").getNodeValue(),
-                                               stepNode.getFirstChild().getNodeValue());
+                        stepNode.getAttributes().getNamedItem("replacement").getNodeValue(),
+                        stepNode.getFirstChild().getNodeValue());
             }
 
             // add the node to the hash map set its key as its position (step attribute)
@@ -164,20 +160,18 @@ public class OAConfigurationReader implements ConfigurationReader {
         return resultMap;
     }
 
-
     /**
      * Checks if postxml steps exist in the translator configuration
      * @return
      * @throws XPathExpressionException
      */
-    public boolean hasPostXmlSteps() throws XPathExpressionException{
+    public boolean hasPostXmlSteps() throws XPathExpressionException {
         XPathResolver xresolver = XPathResolver.getInstance();
         // get the step with the given nama in this configuration
         NodeList postxmlNodes = (NodeList) xresolver.evaluate(this.configXML, "//postxml", XPathConstants.NODESET);
         return postxmlNodes.getLength() > 0 ? true : false;
 
     }
-
 
     /**
      * Used to get an HashMap containing all the Steps of the configuration with their position
@@ -195,7 +189,7 @@ public class OAConfigurationReader implements ConfigurationReader {
      * @return
      * @throws XPathExpressionException
      */
-    public boolean hasPipelineXML() throws XPathExpressionException{
+    public boolean hasPipelineXML() throws XPathExpressionException {
         XPathResolver xresolver = XPathResolver.getInstance();
         // get the step with the given nama in this configuration
         NodeList pipexmlNodes = (NodeList) xresolver.evaluate(this.configXML, "//pipetoxml", XPathConstants.NODESET);
@@ -210,11 +204,11 @@ public class OAConfigurationReader implements ConfigurationReader {
         XPathResolver xresolver = XPathResolver.getInstance();
 
         // get the step with the given nama in this configuration
-        NodeList stepNodes = (NodeList) xresolver.evaluate(this.configXML, "//pipetoxml" , XPathConstants.NODESET);
-        for (int i=0; i < stepNodes.getLength(); i++ ) {
+        NodeList stepNodes = (NodeList) xresolver.evaluate(this.configXML, "//pipetoxml", XPathConstants.NODESET);
+        for (int i = 0; i < stepNodes.getLength(); i++) {
             Node stepNode = stepNodes.item(i);
             OAPipelineStep pipelineStep = new OAPipelineStep(stepNode.getAttributes().getNamedItem("name").getNodeValue(),
-                                                            stepNode.getAttributes().getNamedItem("href").getNodeValue());
+                    stepNode.getAttributes().getNamedItem("href").getNodeValue());
             pipelineSteps.add(pipelineStep);
         }
         return pipelineSteps;
@@ -225,7 +219,7 @@ public class OAConfigurationReader implements ConfigurationReader {
      * @return
      * @throws XPathExpressionException
      */
-    public boolean hasSchema() throws XPathExpressionException{
+    public boolean hasSchema() throws XPathExpressionException {
         XPathResolver xresolver = XPathResolver.getInstance();
         // get the step with the given nama in this configuration
         NodeList schemaNodes = (NodeList) xresolver.evaluate(this.configXML, "//schema", XPathConstants.NODESET);
@@ -233,17 +227,16 @@ public class OAConfigurationReader implements ConfigurationReader {
 
     }
 
-
-    public String getSchema() throws XPathExpressionException{
+    public String getSchema() throws XPathExpressionException {
         XPathResolver xresolver = XPathResolver.getInstance();
         // get the step with the given nama in this configuration
-        String schemaHref = (String) xresolver.evaluate(this.configXML, "//schema/@href" , XPathConstants.STRING);
+        String schemaHref = (String) xresolver.evaluate(this.configXML, "//schema/@href", XPathConstants.STRING);
 
         return schemaHref;
     }
 
-   private TreeMap<Integer, OAXSLTStep> getXSLTSteps(String forXpath) throws XPathExpressionException {
-           // the TreeMap to return
+    private TreeMap<Integer, OAXSLTStep> getXSLTSteps(String forXpath) throws XPathExpressionException {
+        // the TreeMap to return
         TreeMap<Integer, OAXSLTStep> resultMap = new TreeMap<Integer, OAXSLTStep>();
 
         // retreive the XPath resolver instance
@@ -260,8 +253,8 @@ public class OAConfigurationReader implements ConfigurationReader {
 
             // create the Step
             OAXSLTStep resultStep = new OAXSLTStep(stepNode.getAttributes().getNamedItem("name").getNodeValue(),
-                                        stepNode.getAttributes().getNamedItem("href").getNodeValue(),
-                                        Integer.parseInt(stepNode.getAttributes().getNamedItem("step").getNodeValue()));
+                    stepNode.getAttributes().getNamedItem("href").getNodeValue(),
+                    Integer.parseInt(stepNode.getAttributes().getNamedItem("step").getNodeValue()));
 
             // add the node to the hash map set its key as its position (step attribute)
             resultMap.put(Integer.parseInt(stepNode.getAttributes().getNamedItem("step").getNodeValue()), resultStep);
@@ -270,7 +263,5 @@ public class OAConfigurationReader implements ConfigurationReader {
         // return the hash map containing all the Steps
         return resultMap;
 
-   }
-
-
+    }
 }

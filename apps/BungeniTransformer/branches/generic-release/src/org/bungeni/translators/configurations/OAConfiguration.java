@@ -1,7 +1,6 @@
 package org.bungeni.translators.configurations;
 
 //~--- non-JDK imports --------------------------------------------------------
-
 import org.bungeni.translators.interfaces.Configuration;
 import org.bungeni.translators.configurations.steps.OAReplaceStep;
 import org.bungeni.translators.configurations.steps.OAXSLTStep;
@@ -29,6 +28,9 @@ public class OAConfiguration implements Configuration {
     // the configuration reader
     private OAConfigurationReader reader;
 
+     private static org.apache.log4j.Logger log  =
+        org.apache.log4j.Logger.getLogger(OAConfiguration.class.getName());
+     
     /**
      * Create the new configuration based on a given Configuration XML file
      * @param aConfigXML the XML Document in witch the configuration is written
@@ -44,10 +46,9 @@ public class OAConfiguration implements Configuration {
         this.reader = new OAConfigurationReader(aConfigXML);
     }
 
-    public boolean hasInputSteps() throws XPathExpressionException{
+    public boolean hasInputSteps() throws XPathExpressionException {
         return this.reader.hasInputSteps();
     }
-
 
     /**
      * Used to get an HashMap containing all the INPUT XSLT Steps of the configuration with their position
@@ -64,10 +65,9 @@ public class OAConfiguration implements Configuration {
         return resultSteps;
     }
 
-    public boolean hasOutputSteps() throws XPathExpressionException{
+    public boolean hasOutputSteps() throws XPathExpressionException {
         return this.reader.hasOutputSteps();
     }
-
 
     /**
      * Used to get an HashMap containing all the OUTPUT XSLT Steps of the configuration with their position
@@ -84,10 +84,9 @@ public class OAConfiguration implements Configuration {
         return resultSteps;
     }
 
-    public boolean hasReplaceSteps() throws XPathExpressionException{
+    public boolean hasReplaceSteps() throws XPathExpressionException {
         return this.reader.hasReplaceSteps();
     }
-
 
     /**
      * Used to get an HashMap containing all the Replace Steps of the configuration with their position
@@ -104,7 +103,7 @@ public class OAConfiguration implements Configuration {
         return resultSteps;
     }
 
-    public boolean hasPostXmlSteps() throws XPathExpressionException{
+    public boolean hasPostXmlSteps() throws XPathExpressionException {
         return this.reader.hasPostXmlSteps();
     }
 
@@ -116,23 +115,47 @@ public class OAConfiguration implements Configuration {
 
     }
 
-    public boolean hasPipelineXML() throws XPathExpressionException{
+    public boolean hasPipelineXML() throws XPathExpressionException {
         return this.reader.hasPipelineXML();
     }
 
     public List<OAPipelineStep> getXsltPipeline() throws XPathExpressionException {
-        List<OAPipelineStep> pipelineSteps  = this.reader.getPipelineXML();
+        List<OAPipelineStep> pipelineSteps = this.reader.getPipelineXML();
         return pipelineSteps;
     }
 
-    public boolean hasSchema() throws XPathExpressionException{
+    public boolean hasSchema() throws XPathExpressionException {
         return this.reader.hasSchema();
     }
 
-
     public String getSchema() throws XPathExpressionException {
-        String schema =  this.reader.getSchema();
+        String schema = this.reader.getSchema();
         return schema;
     }
 
+        /**
+     * Verify the configuration --
+     *
+     *   input,output and pipeline steps are mandatory
+     * @param configuration
+     * @return
+     */
+    public boolean verify() throws XPathExpressionException {
+        /**
+         *
+         */
+        if (this.hasInputSteps()) {
+            log.info("verifyConfiguration : hasInputSteps : check OK ");
+            if (this.hasOutputSteps()) {
+                log.info("verifyConfiguration : hasOutputSteps : check OK ");
+                if (this.hasPipelineXML()) {
+                    log.info("verifyConfiguration : hasPipelineXML : check OK ");
+                    return true;
+                } else
+                    log.info("verifyConfiguration : hasPipelineXML : check FAIL ");
+            } else
+                log.info("verifyConfiguration : hasOutputSteps : check FAIL ");
+        }
+        return false;
+    }
 }
