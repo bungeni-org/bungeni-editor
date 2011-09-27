@@ -58,7 +58,7 @@ import org.bungeni.translators.utility.runtime.Outputs;
 
 4 apply translation xslt on metalex output
 
- * @author undesa
+ * @author Ashok Hariharan
  */
 public class OATranslator implements org.bungeni.translators.interfaces.Translator {
 
@@ -389,22 +389,6 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             }
             return pipelines;
      }
-
-    private File getXSLTPipeline(String pipeName, String aPipelinePath) throws XPathExpressionException, SAXException, IOException, ParserConfigurationException, TransformerFactoryConfigurationError, TransformerException{
-            File xslt = null;
-            String fullPipeName = pipeName + "_xslt_pipeline.xsl";
-            if (this.cachePipelineXSLT) {
-                File outputXSLT = Outputs.getInstance().File(fullPipeName);
-                if (outputXSLT.exists()) {
-                    xslt = outputXSLT;
-                } else {
-                    xslt = this.buildXSLT(aPipelinePath);
-                    FileUtility.getInstance().copyFile(xslt, Outputs.getInstance().File(fullPipeName));
-                }
-            }
-            return xslt;
-    }
-
     /**
      * Builds the XSLT pipeline - once built , returns the cached copy
      * @param aPipelinePath
@@ -416,21 +400,33 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
      * @throws TransformerFactoryConfigurationError
      * @throws TransformerException
      */
-     /**
-    private File getXSLTPipeline(String aPipelinePath) throws XPathExpressionException, SAXException, IOException, ParserConfigurationException, TransformerFactoryConfigurationError, TransformerException{
-            File xslt = null;
-            if (this.cachePipelineXSLT) {
-                File outputXSLT = Outputs.getInstance().File("xslt_pipeline.xsl");
-                if (outputXSLT.exists()) {
-                    xslt = outputXSLT;
-                } else {
-                    xslt = this.buildXSLT(aPipelinePath);
-                    FileUtility.getInstance().copyFile(xslt, Outputs.getInstance().File("xslt_pipeline.xsl"));
-                }
-            }
-            return xslt;
+    private File getXSLTPipeline(String pipeName, String aPipelinePath) throws
+            XPathExpressionException,
+            SAXException, IOException,
+            ParserConfigurationException,
+            TransformerFactoryConfigurationError,
+            TransformerException{
+        /**
+         * We cache the XSLT pipeline after building it
+         */
+        File xslt = null;
+        String fullPipeName = pipeName + "_xslt_pipeline.xsl";
+        File outputXSLT = Outputs.getInstance().File(fullPipeName);
+        /**
+         * Check if the cache parameter is enabled
+         */
+        if (this.cachePipelineXSLT && outputXSLT.exists()) {
+            /*
+             * Use the cached XSLT if it exists
+             */
+            xslt = outputXSLT;
+        } else {
+            //otherwise build the pipeline and return it
+            xslt = this.buildXSLT(aPipelinePath);
+            FileUtility.getInstance().copyFile(xslt, Outputs.getInstance().File(fullPipeName));
+        }
+        return xslt;
     }
-   **/
 
     /***
      * Applys the input steps in the TranslatorConfig on the merged ODF
