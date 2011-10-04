@@ -2,6 +2,8 @@ package org.bungeni.connector.impl;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+import java.io.File;
+import java.net.MalformedURLException;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.bungeni.connector.ConnectorProperties;
@@ -21,62 +23,124 @@ import org.restlet.resource.ClientResource;
  */
 public class XMLBungeniConnector implements IBungeniConnector {
 
+    private static final String RELATIVE_ROOT_FOR_URI = System.getProperty("user.dir") + java.io.File.separator;
     //!+CODE_REVIEW(ah, sep-2011) -- the URI variables below hard code the info.
     //the same info can be generated out of the connector properties
     //see RDBMSConnector for an example 
-    static final String PACKAGE_ALIAS = "package";
     static final String SERVER_UNREACHABLE = " did not respond";
     private static Logger logger = Logger.getLogger(XMLBungeniConnector.class.getName());
-    private String metadataInfoPackageAlias = "metadata";
-    private String metadataInfoAlias = "metadatainfo";
-    private String metadataInfoIdAlias = "id";
-    private String metadataInfoTypeAlias = "type";
-    private String metadataInfoNameAlias = "name";
-    private String metadataInfoValueAlias = "value";
-    private String metadataInfoSourceURI = "file://"+System.getProperty("user.dir")+"/datasource/xml/metadata.xml";
-    private String membersPackageAlias = "members";
-    private String memberAlias = "member";
-    private String memberIdAlias = "id";
-    private String memberUriAlias = "uri";
-    private String memberFirstNameAlias = "first";
-    private String memberLastNameAlias = "last";
-    private String memberRoleAlias = "role";
-    private String memberSourceURI = "file://"+System.getProperty("user.dir")+"/datasource/xml/members.xml";
-    private String billsPackageAlias = "bills";
-    private String billAlias = "bill";
-    private String billIdAlias = "id";
-    private String billUriAlias = "uri";
-    private String billNameAlias = "name";
-    private String billOntologyAlias = "ontology";
-    private String billCountryAlias = "country";
-    private String billsSourceURI = "file://"+System.getProperty("user.dir")+"/datasource/xml/bills.xml";
-    private String motionsPackageAlias = "motions";
-    private String motionAlias = "motion";
-    private String motionIdAlias = "id";
-    private String motionUriAlias = "uri";
-    private String motionNameAlias = "name";
-    private String motionTitleAlias = "title";
-    private String motionByAlias = "by";
-    private String motionTextAlias = "text";
-    private String motionsSourceURI = "file://"+System.getProperty("user.dir")+"/datasource/xml/motions.xml";
-    private String questionsPackageAlias = "questions";
-    private String questionAlias = "question";
-    private String questionIdAlias = "id";
-    private String questionTitleAlias = "title";
-    private String questionFromAlias = "from";
-    private String questionToAlias = "to";
-    private String questionTextAlias = "text";
-    private String questionsSourceURI = "file://"+System.getProperty("user.dir")+"/datasource/xml/questions.xml";
-    private String documentsPackageAlias = "documents";
-    private String documentAlias = "document";
-    private String documentIdAlias = "id";
-    private String documentTitleAlias = "title";
-    private String documentDateAlias = "date";
-    private String documentSourceAlias = "source";
-    private String documentUriAlias = "uri";
-    private String documentSittingAlias = "sitting";
-    private String documentsSourceURI = "file://"+System.getProperty("user.dir")+"/datasource/xml/documents.xml";
+    private String metadataInfoPackageAlias = null;
+    private String metadataInfoAlias = null;
+    private String metadataInfoIdAlias = null;
+    private String metadataInfoTypeAlias = null;
+    private String metadataInfoNameAlias = null;
+    private String metadataInfoValueAlias = null;
+    private String metadataInfoSourceURI = null;
+    private String membersPackageAlias = null;
+    private String memberAlias = null;
+    private String memberIdAlias = null;
+    private String memberUriAlias = null;
+    private String memberFirstNameAlias = null;
+    private String memberLastNameAlias = null;
+    private String memberRoleAlias = null;
+    private String memberSourceURI = null;
+    private String billsPackageAlias = null;
+    private String billAlias = null;
+    private String billIdAlias = null;
+    private String billUriAlias = null;
+    private String billNameAlias = null;
+    private String billOntologyAlias = null;
+    private String billCountryAlias = null;
+    private String billsSourceURI = null;
+    private String motionsPackageAlias = null;
+    private String motionAlias = null;
+    private String motionIdAlias = null;
+    private String motionUriAlias = null;
+    private String motionNameAlias = null;
+    private String motionTitleAlias = null;
+    private String motionByAlias = null;
+    private String motionTextAlias = null;
+    private String motionsSourceURI = null;
+    private String questionsPackageAlias = null;
+    private String questionAlias = null;
+    private String questionIdAlias = null;
+    private String questionTitleAlias = null;
+    private String questionFromAlias = null;
+    private String questionToAlias = null;
+    private String questionTextAlias = null;
+    private String questionsSourceURI = null;
+    private String documentsPackageAlias = null;
+    private String documentAlias = null;
+    private String documentIdAlias = null;
+    private String documentTitleAlias = null;
+    private String documentDateAlias = null;
+    private String documentSourceAlias = null;
+    private String documentUriAlias = null;
+    private String documentSittingAlias = null;
+    private String documentsSourceURI = null;
+
     public XMLBungeniConnector() {
+    }
+
+    public void init(ConnectorProperties props) {
+        /**
+         * Generating URI variables from connector properties
+         */
+        this.metadataInfoSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-metadata-info"));
+        this.metadataInfoPackageAlias = props.getProperties().getProperty("xml-metadata-info-package-alias");
+        this.metadataInfoAlias = props.getProperties().getProperty("xml-metadata-info-alias", "");
+        this.metadataInfoIdAlias = props.getProperties().getProperty("xml-metadata-info-id-alias");
+        this.metadataInfoTypeAlias = props.getProperties().getProperty("xml-metadata-info-type-alias");
+        this.metadataInfoNameAlias = props.getProperties().getProperty("xml-metadata-info-name-alias");
+        this.metadataInfoValueAlias = props.getProperties().getProperty("xml-metadata-info-value-alias");
+
+        this.billsSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-bills"));
+        this.billsPackageAlias = props.getProperties().getProperty("xml-bills-package-alias");
+        this.billAlias = props.getProperties().getProperty("xml-bill-alias");
+        this.billIdAlias = props.getProperties().getProperty("xml-bill-id-alias");
+        this.billUriAlias = props.getProperties().getProperty("xml-bill-uri-alias");
+        this.billNameAlias = props.getProperties().getProperty("xml-bill-name-alias");
+        this.billOntologyAlias = props.getProperties().getProperty("xml-bill-ontology-alias");
+        this.billCountryAlias = props.getProperties().getProperty("xml-bill-country-alias");
+
+        this.motionsSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-motions"));
+        this.motionsPackageAlias = props.getProperties().getProperty("xml-motions-package-alias");
+        this.motionAlias = props.getProperties().getProperty("xml-motion-alias");
+        this.motionIdAlias = props.getProperties().getProperty("xml-motion-id-alias");
+        this.motionUriAlias = props.getProperties().getProperty("xml-motion-uri-alias");
+        this.motionNameAlias = props.getProperties().getProperty("xml-motion-name-alias");
+        this.motionTitleAlias = props.getProperties().getProperty("xml-motion-title-alias");
+        this.motionByAlias = props.getProperties().getProperty("xml-motion-by-alias");
+        this.motionTextAlias = props.getProperties().getProperty("xml-motion-text-alias");
+
+        this.memberSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-members"));
+        this.membersPackageAlias = props.getProperties().getProperty("xml-members-package-alias");
+        this.memberAlias = props.getProperties().getProperty("xml-member-alias");
+        this.memberIdAlias = props.getProperties().getProperty("xml-member-id-alias");
+        this.memberUriAlias = props.getProperties().getProperty("xml-member-uri-alias");
+        this.memberFirstNameAlias = props.getProperties().getProperty("xml-member-first-name-alias");
+        this.memberLastNameAlias = props.getProperties().getProperty("xml-member-last-name-alias");
+        this.memberRoleAlias = props.getProperties().getProperty("xml-member-role-alias");
+
+        this.questionsSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-questions"));
+        this.questionsPackageAlias = props.getProperties().getProperty("xml-questions-package-alias");
+        this.questionAlias = props.getProperties().getProperty("xml-question-alias");
+        this.questionIdAlias = props.getProperties().getProperty("xml-question-id-alias");
+        this.questionTitleAlias = props.getProperties().getProperty("xml-question-title-alias");
+        this.questionFromAlias = props.getProperties().getProperty("xml-question-from-alias");
+        this.questionToAlias = props.getProperties().getProperty("xml-question-to-alias");
+        this.questionTextAlias = props.getProperties().getProperty("xml-question-text-alias");
+
+        this.documentsSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-documents"));
+        this.documentsPackageAlias = props.getProperties().getProperty("xml-documents-package-alias=");
+        this.documentAlias = props.getProperties().getProperty("xml-document-alias");
+        this.documentIdAlias = props.getProperties().getProperty("xml-document-id-alias");
+        this.documentTitleAlias = props.getProperties().getProperty("xml-document-title-alias");
+        this.documentDateAlias = props.getProperties().getProperty("xml-document-date-alias");
+        this.documentSourceAlias = props.getProperties().getProperty("xml-document-source-alias");
+        this.documentUriAlias = props.getProperties().getProperty("xml-document-uri-alias");
+        this.documentSittingAlias = props.getProperties().getProperty("xml-document-sitting-alias");
+
     }
 
     public List<Member> getMembers() {
@@ -106,7 +170,7 @@ public class XMLBungeniConnector implements IBungeniConnector {
             }
         } catch (Exception ex) {
             logger.error(getMemberSourceURI() + SERVER_UNREACHABLE, ex);
-        }finally{
+        } finally {
             resource.release();
         }
         return null;
@@ -199,6 +263,7 @@ public class XMLBungeniConnector implements IBungeniConnector {
         }
         return null;
     }
+
     public List<Document> getDocuments() {
         ClientResource resource = new ClientResource(getMetadataInfoSourceURI());
         try {
@@ -221,407 +286,225 @@ public class XMLBungeniConnector implements IBungeniConnector {
         }
         return null;
     }
+
     public void stopServer() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public String getMemberSourceURI() {
-        return memberSourceURI;
-    }
-
-    public void setMemberSourceURI(String memberSourceURI) {
-        this.memberSourceURI = memberSourceURI;
-    }
-
-    public String getMemberAlias() {
-        return memberAlias;
-    }
-
-    public void setMemberAlias(String memberAlias) {
-        this.memberAlias = memberAlias;
-    }
-
-    public String getMemberFirstNameAlias() {
-        return memberFirstNameAlias;
-    }
-
-    public void setMemberFirstNameAlias(String memberFirstNameAlias) {
-        this.memberFirstNameAlias = memberFirstNameAlias;
-    }
-
-    public String getMemberIdAlias() {
-        return memberIdAlias;
-    }
-
-    public void setMemberIdAlias(String memberIdAlias) {
-        this.memberIdAlias = memberIdAlias;
-    }
-
-    public String getMemberLastNameAlias() {
-        return memberLastNameAlias;
-    }
-
-    public void setMemberLastNameAlias(String memberLastNameAlias) {
-        this.memberLastNameAlias = memberLastNameAlias;
-    }
-
-    public String getMemberRoleAlias() {
-        return memberRoleAlias;
-    }
-
-    public void setMemberRoleAlias(String memberRoleAlias) {
-        this.memberRoleAlias = memberRoleAlias;
-    }
-
-    public String getMemberUriAlias() {
-        return memberUriAlias;
-    }
-
-    public void setMemberUriAlias(String memberUriAlias) {
-        this.memberUriAlias = memberUriAlias;
-    }
-
-    public String getMembersPackageAlias() {
-        return membersPackageAlias;
-    }
-
-    public void setMembersPackageAlias(String membersPackageAlias) {
-        this.membersPackageAlias = membersPackageAlias;
-    }
-
-    public String getBillAlias() {
+    private String getBillAlias() {
         return billAlias;
     }
 
-    public void setBillAlias(String billAlias) {
-        this.billAlias = billAlias;
-    }
-
-    public String getBillCountryAlias() {
+    private String getBillCountryAlias() {
         return billCountryAlias;
     }
 
-    public void setBillCountryAlias(String billCountryAlias) {
-        this.billCountryAlias = billCountryAlias;
-    }
-
-    public String getBillIdAlias() {
+    private String getBillIdAlias() {
         return billIdAlias;
     }
 
-    public void setBillIdAlias(String billIdAlias) {
-        this.billIdAlias = billIdAlias;
-    }
-
-    public String getBillNameAlias() {
+    private String getBillNameAlias() {
         return billNameAlias;
     }
 
-    public void setBillNameAlias(String billNameAlias) {
-        this.billNameAlias = billNameAlias;
-    }
-
-    public String getBillOntologyAlias() {
+    private String getBillOntologyAlias() {
         return billOntologyAlias;
     }
 
-    public void setBillOntologyAlias(String billOntologyAlias) {
-        this.billOntologyAlias = billOntologyAlias;
-    }
-
-    public String getBillUriAlias() {
+    private String getBillUriAlias() {
         return billUriAlias;
     }
 
-    public void setBillUriAlias(String billUriAlias) {
-        this.billUriAlias = billUriAlias;
-    }
-
-    public String getBillsPackageAlias() {
+    private String getBillsPackageAlias() {
         return billsPackageAlias;
     }
 
-    public void setBillsPackageAlias(String billsPackageAlias) {
-        this.billsPackageAlias = billsPackageAlias;
-    }
-
-    public String getBillsSourceURI() {
+    private String getBillsSourceURI() {
         return billsSourceURI;
     }
 
-    public void setBillsSourceURI(String billsSourceURI) {
-        this.billsSourceURI = billsSourceURI;
-    }
-
-    public String getMetadataInfoAlias() {
-        return metadataInfoAlias;
-    }
-
-    public void setMetadataInfoAlias(String metadataInfoAlias) {
-        this.metadataInfoAlias = metadataInfoAlias;
-    }
-
-    public String getMetadataInfoIdAlias() {
-        return metadataInfoIdAlias;
-    }
-
-    public void setMetadataInfoIdAlias(String metadataInfoIdAlias) {
-        this.metadataInfoIdAlias = metadataInfoIdAlias;
-    }
-
-    public String getMetadataInfoNameAlias() {
-        return metadataInfoNameAlias;
-    }
-
-    public void setMetadataInfoNameAlias(String metadataInfoNameAlias) {
-        this.metadataInfoNameAlias = metadataInfoNameAlias;
-    }
-
-    public String getMetadataInfoPackageAlias() {
-        return metadataInfoPackageAlias;
-    }
-
-    public void setMetadataInfoPackageAlias(String metadataInfoPackageAlias) {
-        this.metadataInfoPackageAlias = metadataInfoPackageAlias;
-    }
-
-    public String getMetadataInfoSourceURI() {
-        return metadataInfoSourceURI;
-    }
-
-    public void setMetadataInfoSourceURI(String metadataInfoSourceURI) {
-        this.metadataInfoSourceURI = metadataInfoSourceURI;
-    }
-
-    public String getMetadataInfoTypeAlias() {
-        return metadataInfoTypeAlias;
-    }
-
-    public void setMetadataInfoTypeAlias(String metadataInfoTypeAlias) {
-        this.metadataInfoTypeAlias = metadataInfoTypeAlias;
-    }
-
-    public String getMetadataInfoValueAlias() {
-        return metadataInfoValueAlias;
-    }
-
-    public void setMetadataInfoValueAlias(String metadataInfoValueAlias) {
-        this.metadataInfoValueAlias = metadataInfoValueAlias;
-    }
-
-    public String getMotionAlias() {
-        return motionAlias;
-    }
-
-    public void setMotionAlias(String motionAlias) {
-        this.motionAlias = motionAlias;
-    }
-
-    public String getMotionByAlias() {
-        return motionByAlias;
-    }
-
-    public void setMotionByAlias(String motionByAlias) {
-        this.motionByAlias = motionByAlias;
-    }
-
-    public String getMotionIdAlias() {
-        return motionIdAlias;
-    }
-
-    public void setMotionIdAlias(String motionIdAlias) {
-        this.motionIdAlias = motionIdAlias;
-    }
-
-    public String getMotionNameAlias() {
-        return motionNameAlias;
-    }
-
-    public void setMotionNameAlias(String motionNameAlias) {
-        this.motionNameAlias = motionNameAlias;
-    }
-
-    public String getMotionTextAlias() {
-        return motionTextAlias;
-    }
-
-    public void setMotionTextAlias(String motionTextAlias) {
-        this.motionTextAlias = motionTextAlias;
-    }
-
-    public String getMotionTitleAlias() {
-        return motionTitleAlias;
-    }
-
-    public void setMotionTitleAlias(String motionTitleAlias) {
-        this.motionTitleAlias = motionTitleAlias;
-    }
-
-    public String getMotionUriAlias() {
-        return motionUriAlias;
-    }
-
-    public void setMotionUriAlias(String motionUriAlias) {
-        this.motionUriAlias = motionUriAlias;
-    }
-
-    public String getMotionsPackageAlias() {
-        return motionsPackageAlias;
-    }
-
-    public void setMotionsPackageAlias(String motionsPackageAlias) {
-        this.motionsPackageAlias = motionsPackageAlias;
-    }
-
-    public String getMotionsSourceURI() {
-        return motionsSourceURI;
-    }
-
-    public void setMotionsSourceURI(String motionsSourceURI) {
-        this.motionsSourceURI = motionsSourceURI;
-    }
-
-    public String getQuestionAlias() {
-        return questionAlias;
-    }
-
-    public void setQuestionAlias(String questionAlias) {
-        this.questionAlias = questionAlias;
-    }
-
-    public String getQuestionFromAlias() {
-        return questionFromAlias;
-    }
-
-    public void setQuestionFromAlias(String questionFromAlias) {
-        this.questionFromAlias = questionFromAlias;
-    }
-
-    public String getQuestionIdAlias() {
-        return questionIdAlias;
-    }
-
-    public void setQuestionIdAlias(String questionIdAlias) {
-        this.questionIdAlias = questionIdAlias;
-    }
-
-    public String getQuestionTextAlias() {
-        return questionTextAlias;
-    }
-
-    public void setQuestionTextAlias(String questionTextAlias) {
-        this.questionTextAlias = questionTextAlias;
-    }
-
-    public String getQuestionTitleAlias() {
-        return questionTitleAlias;
-    }
-
-    public void setQuestionTitleAlias(String questionTitleAlias) {
-        this.questionTitleAlias = questionTitleAlias;
-    }
-
-    public String getQuestionToAlias() {
-        return questionToAlias;
-    }
-
-    public void setQuestionToAlias(String questionToAlias) {
-        this.questionToAlias = questionToAlias;
-    }
-
-    public String getQuestionsPackageAlias() {
-        return questionsPackageAlias;
-    }
-
-    public void setQuestionsPackageAlias(String questionsPackageAlias) {
-        this.questionsPackageAlias = questionsPackageAlias;
-    }
-
-    public String getQuestionsSourceURI() {
-        return questionsSourceURI;
-    }
-
-    public void setQuestionsSourceURI(String questionsSourceURI) {
-        this.questionsSourceURI = questionsSourceURI;
-    }
-
-    public String getDocumentAlias() {
+    private String getDocumentAlias() {
         return documentAlias;
     }
 
-    public void setDocumentAlias(String documentAlias) {
-        this.documentAlias = documentAlias;
-    }
-
-    public String getDocumentDateAlias() {
+    private String getDocumentDateAlias() {
         return documentDateAlias;
     }
 
-    public void setDocumentDateAlias(String documentDateAlias) {
-        this.documentDateAlias = documentDateAlias;
-    }
-
-    public String getDocumentIdAlias() {
+    private String getDocumentIdAlias() {
         return documentIdAlias;
     }
 
-    public void setDocumentIdAlias(String documentIdAlias) {
-        this.documentIdAlias = documentIdAlias;
-    }
-
-    public String getDocumentSittingAlias() {
+    private String getDocumentSittingAlias() {
         return documentSittingAlias;
     }
 
-    public void setDocumentSittingAlias(String documentSittingAlias) {
-        this.documentSittingAlias = documentSittingAlias;
-    }
-
-    public String getDocumentSourceAlias() {
+    private String getDocumentSourceAlias() {
         return documentSourceAlias;
     }
 
-    public void setDocumentSourceAlias(String documentSourceAlias) {
-        this.documentSourceAlias = documentSourceAlias;
-    }
-
-    public String getDocumentTitleAlias() {
+    private String getDocumentTitleAlias() {
         return documentTitleAlias;
     }
 
-    public void setDocumentTitleAlias(String documentTitleAlias) {
-        this.documentTitleAlias = documentTitleAlias;
-    }
-
-    public String getDocumentUriAlias() {
+    private String getDocumentUriAlias() {
         return documentUriAlias;
     }
 
-    public void setDocumentUriAlias(String documentUriAlias) {
-        this.documentUriAlias = documentUriAlias;
-    }
-
-    public String getDocumentsPackageAlias() {
+    private String getDocumentsPackageAlias() {
         return documentsPackageAlias;
     }
 
-    public void setDocumentsPackageAlias(String documentsPackageAlias) {
-        this.documentsPackageAlias = documentsPackageAlias;
-    }
-
-    public String getDocumentsSourceURI() {
+    private String getDocumentsSourceURI() {
         return documentsSourceURI;
     }
 
-    public void setDocumentsSourceURI(String documentsSourceURI) {
-        this.documentsSourceURI = documentsSourceURI;
+    private String getMemberAlias() {
+        return memberAlias;
+    }
+
+    private String getMemberFirstNameAlias() {
+        return memberFirstNameAlias;
+    }
+
+    private String getMemberIdAlias() {
+        return memberIdAlias;
+    }
+
+    private String getMemberLastNameAlias() {
+        return memberLastNameAlias;
+    }
+
+    private String getMemberRoleAlias() {
+        return memberRoleAlias;
+    }
+
+    private String getMemberSourceURI() {
+        return memberSourceURI;
+    }
+
+    private String getMemberUriAlias() {
+        return memberUriAlias;
+    }
+
+    private String getMembersPackageAlias() {
+        return membersPackageAlias;
+    }
+
+    private String getMetadataInfoAlias() {
+        return metadataInfoAlias;
+    }
+
+    private String getMetadataInfoIdAlias() {
+        return metadataInfoIdAlias;
+    }
+
+    private String getMetadataInfoNameAlias() {
+        return metadataInfoNameAlias;
+    }
+
+    private String getMetadataInfoPackageAlias() {
+        return metadataInfoPackageAlias;
+    }
+
+    private String getMetadataInfoSourceURI() {
+        return metadataInfoSourceURI;
+    }
+
+    private String getMetadataInfoTypeAlias() {
+        return metadataInfoTypeAlias;
+    }
+
+    private String getMetadataInfoValueAlias() {
+        return metadataInfoValueAlias;
+    }
+
+    private String getMotionAlias() {
+        return motionAlias;
+    }
+
+    private String getMotionByAlias() {
+        return motionByAlias;
+    }
+
+    private String getMotionIdAlias() {
+        return motionIdAlias;
+    }
+
+    private String getMotionNameAlias() {
+        return motionNameAlias;
+    }
+
+    private String getMotionTextAlias() {
+        return motionTextAlias;
+    }
+
+    private String getMotionTitleAlias() {
+        return motionTitleAlias;
+    }
+
+    private String getMotionUriAlias() {
+        return motionUriAlias;
+    }
+
+    private String getMotionsPackageAlias() {
+        return motionsPackageAlias;
+    }
+
+    private String getMotionsSourceURI() {
+        return motionsSourceURI;
+    }
+
+    private String getQuestionAlias() {
+        return questionAlias;
+    }
+
+    private String getQuestionFromAlias() {
+        return questionFromAlias;
+    }
+
+    private String getQuestionIdAlias() {
+        return questionIdAlias;
+    }
+
+    private String getQuestionTextAlias() {
+        return questionTextAlias;
+    }
+
+    private String getQuestionTitleAlias() {
+        return questionTitleAlias;
+    }
+
+    private String getQuestionToAlias() {
+        return questionToAlias;
+    }
+
+    private String getQuestionsPackageAlias() {
+        return questionsPackageAlias;
+    }
+
+    private String getQuestionsSourceURI() {
+        return questionsSourceURI;
     }
 
     public void closeConnector() {
         logger.info("Connector Closed");
     }
 
-    public void init(ConnectorProperties props) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    /**
+     * Converts a relative URI to an absolute URL
+     * @param relativeURI
+     * @return
+     */
+    private String getAbsoluteURL(String relativeURI) {
+        String sURL = "";
+        try {
+            String relativePath = relativeURI.replace("/", File.separator);
+            File furi = new File(RELATIVE_ROOT_FOR_URI + relativePath);
+            sURL = furi.toURI().toURL().toExternalForm();
+        } catch (MalformedURLException ex) {
+            logger.error("Error while generating URL to externalForm", ex);
+        }
+        return sURL;
     }
 }

@@ -34,7 +34,6 @@ public class BungeniConnector implements IBungeniConnector {
     private String documentsSource = "/documents";
     private String packageAlias = "package";
 
-    //!+CODE_REVIEW(ah, sep-2011)See code review comment above
     private String SERVER_HOST = "localhost";
     private String SERVER_PORT = "80";
     private String SERVER_PROTOCOL = "http://";
@@ -56,6 +55,7 @@ public class BungeniConnector implements IBungeniConnector {
          this.SERVER_PORT = props.getProperty("server-host");
          this.SERVER_VIRT_DIR = "current";
          this.SERVER_PROTOCOL = "http://";
+
     }
 
     private String getVirtDirURL(){
@@ -106,10 +106,6 @@ public class BungeniConnector implements IBungeniConnector {
     public List<Document> getDocuments() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
-    //!+CODE_REVIEW (the class implements the IBungeniConnector interface, it shouldnt
-    //have public members other than provided by the interface - all the below have been
-    //made private
 
     private String getBillsSource() {
         return getVirtDirURL() + billsSource;

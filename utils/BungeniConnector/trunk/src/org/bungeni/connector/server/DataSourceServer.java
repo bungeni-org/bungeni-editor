@@ -1,4 +1,3 @@
-
 package org.bungeni.connector.server;
 
 import java.io.File;
@@ -36,7 +35,6 @@ public class DataSourceServer extends Application {
     private String questionsRoute = "/current/questions";
     private String billsRoute = "/current/bills";
     private String metadataInfoRoute = "/current/metadata";
-
     //!+CODE_REVIEW WHy are these URI variables here ? they are related to the
     //XMLConnector implemenetation they should not be here !
     private String membersURI = null;
@@ -44,7 +42,6 @@ public class DataSourceServer extends Application {
     private String questionsURI = null;
     private String billsURI = null;
     private String metadataInfoURI = null;
-
     private Component serverComponent = null;
     private int serverPort = 8899;
     private static Logger logger = Logger.getLogger(BungeniConnector.class.getName());
@@ -62,17 +59,17 @@ public class DataSourceServer extends Application {
     //the data source type mapping must be factroed into external configuration
     //Changed name of URI data source to XML
     public enum DataSourceType {
+
         XML("org.bungeni.connector.impl.XMLBungeniConnector"),
         DB("org.bungeni.connector.impl.RDBMSBungeniConnector");
         //SOMETHING_ELSE("org.implementing.class.forConnector")
-
         private final String connectorClass;
 
         DataSourceType(String connectorClass) {
             this.connectorClass = connectorClass;
         }
 
-        public IBungeniConnector getDataSourceConnector(){
+        public IBungeniConnector getDataSourceConnector() {
             IBungeniConnector iInstance = null;
             try {
                 Class clsConnector = Class.forName(this.connectorClass);
@@ -88,23 +85,35 @@ public class DataSourceServer extends Application {
         }
 
         @Override
-        public String toString(){
+        public String toString() {
             return "DataSourceType :  " + name();
         }
     }
-
-    
     IBungeniConnector bungeniConnector = null;
-    
     private static final String RELATIVE_ROOT_FOR_URI = System.getProperty("user.dir") + java.io.File.separator;
 
     public DataSourceServer() {
         logger.info("DataSourceServer() constructor");
     }
 
+    public IBungeniConnector getDataSourceConnector(String connectorClass) {
+        IBungeniConnector iInstance = null;
+        try {
+            Class clsConnector = Class.forName(connectorClass);
+            iInstance = (IBungeniConnector) clsConnector.newInstance();
+        } catch (InstantiationException ex) {
+            logger.error("getDataSourceConnector : error", ex);
+        } catch (IllegalAccessException ex) {
+            logger.error("getDataSourceConnector : error", ex);
+        } catch (ClassNotFoundException ex) {
+            logger.error("getDataSourceConnector : error", ex);
+        }
+        return iInstance;
+    }
+
     /**
      * After getting a DataSourceServer instance you will have to set it up
-     * by specifying its configuration via loadProperties()
+     * by specifying its configuration via init()
      * @return
      */
     public static DataSourceServer getInstance() {
@@ -120,8 +129,8 @@ public class DataSourceServer extends Application {
      * @return
      */
     public void loadProperties(String propertiesFile) {
-        this.connectorProps  = new ConnectorProperties(propertiesFile);
-        this.loadProperties(this.connectorProps.getProperties());
+        this.connectorProps = new ConnectorProperties(propertiesFile);
+        this.init(this.connectorProps.getProperties());
     }
 
     /**
@@ -134,60 +143,39 @@ public class DataSourceServer extends Application {
         try {
             String relativePath = relativeURI.replace("/", File.separator);
             File furi = new File(RELATIVE_ROOT_FOR_URI + relativePath);
-            sURL =  furi.toURI().toURL().toExternalForm();
+            sURL = furi.toURI().toURL().toExternalForm();
         } catch (MalformedURLException ex) {
             logger.error("Error while generating URL to externalForm", ex);
         }
         return sURL;
     }
 
-
     /**
-     * Loads the properties for starting the data source server.
+     * Initializes the data source server after loading properties for startup.
      * Expects a loaded Properties object 
      * @param properties
      * @return
      */
-     boolean loadProperties(Properties properties) {
+    boolean init(Properties properties) {
         boolean loaded = false;
-            try {
-                setServerPort(Integer.valueOf(properties.getProperty("server-port")));
-            } catch (Exception ex) {
-                logger.error("Invalid server-port", ex);
+        try {
+            setServerPort(Integer.valueOf(properties.getProperty("server-port")));
+        } catch (Exception ex) {
+            logger.error("Invalid server-port", ex);
+        }
+        String dataSourceClass = null;
+        try {
+            dataSourceClass = properties.getProperty("data-source-class");
+            bungeniConnector = getDataSourceConnector(dataSourceClass);
+            if (bungeniConnector == null) {
+                throw new Exception("Invalid DataSource class: " + dataSourceClass);
             }
-            try {
-                String source = properties.getProperty("data-source-type");
-                if (source == null || !(source.equals(DataSourceType.DB.name()) || source.equals(DataSourceType.XML.name()))) {
-                    throw new Exception("Invalid bungeni-connector-data-source-type");
-                } else {
-                    this.sourceType = DataSourceType.valueOf(source);
-                }
-            } catch (Exception ex) {
-                logger.error("Error while determining datasource type ! ", ex);
-            }
-            if ( this.sourceType  == DataSourceType.XML) {
-                //!+CODE_REVIEW (ah,sep-2011) WHy is this being done here ?
-                //these parameters are required by the XML connector
-                //!+XML_DATASOURCE(ah,sep-2011) XML urls are relative uris these
-                //are converted to absolute URLs
-                this.membersURI = getAbsoluteURL(properties.getProperty("uri-members"));
-                this.motionsURI = getAbsoluteURL(properties.getProperty("uri-motions"));
-                this.questionsURI = getAbsoluteURL(properties.getProperty("uri-questions"));
-                this.billsURI = getAbsoluteURL(properties.getProperty("uri-bills"));
-                this.metadataInfoURI = getAbsoluteURL(properties.getProperty("uri-metadata-info"));
-                //!+DATASOURCE_TYPE(ah, sep-2011) initialize using the enumerator
-                //Factory API
-                //!+CODE_REVIEW(ah, sep-2011) switch to using the Factory API
-                //rather than the explicit object
-                this.bungeniConnector = this.sourceType.getDataSourceConnector();
-                this.bungeniConnector.init(this.connectorProps);
-            } else {
-                this.bungeniConnector = this.sourceType.getDataSourceConnector();
-                this.bungeniConnector.init(this.connectorProps);
-            }
+            bungeniConnector.init(this.connectorProps);
             loaded = true;
-            logger.info("Properties loaded");
-            return loaded;
+        } catch (Exception ex) {
+            logger.error("Error while determining datasource class ! ", ex);
+        }
+        return loaded;
     }
 
     public void setServerPort(int nPort) {
@@ -195,17 +183,15 @@ public class DataSourceServer extends Application {
     }
 
     public boolean startServer() {
-        //!+CODE_REVIEW_DATASOURCESERVER(ah,sep-2011) Why have DataSourceServer object here,
-        //we are already in a DataSourceServer object!
-        //DataSourceServer ts = null;
         boolean bstate = false;
+        if(bungeniConnector==null){
+            logger.error("Server cannot be started. Invalid connector state");
+            return false;
+        }
         try {
             if (serverComponent == null) {
                 serverComponent = new Component();
                 serverComponent.getServers().add(Protocol.HTTP, serverPort);
-                //!+CODE_REVIEW_DATASOURCESERVER(ah,sep-2011) Why have DataSourceServer object here,
-                //we are already in a DataSourceServer object!
-                //ts = new DataSourceServer();
                 serverComponent.getDefaultHost().attach(this);
                 serverComponent.getClients().add(Protocol.HTTP);
                 serverComponent.getClients().add(Protocol.HTTPS);
@@ -218,18 +204,19 @@ public class DataSourceServer extends Application {
                     logger.info("DataSourceServer is already running on port " + serverPort);
                 }
             }
-           bstate = true;
+            bstate = true;
         } catch (Exception ex) {
             bstate = false;
-            logger.error("Error starting DataSourceServer" , ex);
+            logger.error("Error starting DataSourceServer", ex);
             ex.printStackTrace(System.out);
         }
         return bstate;
     }
 
     public boolean stopServer() {
-        if (bungeniConnector != null)
-             bungeniConnector.closeConnector();
+        if (bungeniConnector != null) {
+            bungeniConnector.closeConnector();
+        }
         boolean stopped = false;
         try {
             if (serverComponent != null) {
@@ -264,7 +251,6 @@ public class DataSourceServer extends Application {
     public DataSourceType getSource() {
         return this.sourceType;
     }
-    
 
     public String getBillsURI() {
         return billsURI;
@@ -285,5 +271,4 @@ public class DataSourceServer extends Application {
     public String getQuestionsURI() {
         return questionsURI;
     }
-
 }
