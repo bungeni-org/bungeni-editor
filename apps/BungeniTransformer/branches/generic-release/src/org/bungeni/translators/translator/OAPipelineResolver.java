@@ -22,7 +22,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import org.apache.log4j.Logger;
-import org.w3c.dom.Comment;
 
 public final class OAPipelineResolver implements org.bungeni.translators.interfaces.PipelineResolver {
 
@@ -69,7 +68,7 @@ public final class OAPipelineResolver implements org.bungeni.translators.interfa
             throws SAXException, IOException, ParserConfigurationException, XPathExpressionException {
         log.debug("resolving pipeline path = " + aPipelinePath);
         // open the XSLT file into a DOM document
-        Document pipeline = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(
+        Document pipeline = OADocumentBuilderFactory.getInstance().getDBF().newDocumentBuilder().parse(
                 FileUtility.getInstance().FileAsInputSource(aPipelinePath));    // new File(aPipelinePath));
 
         // get all the <xslt> elements in the pipeline
@@ -96,7 +95,7 @@ public final class OAPipelineResolver implements org.bungeni.translators.interfa
             if (XSLTFile.exists()) {
                 log.debug("\t processing element :: " + elementName + " , " + xsltURI);
                 // open the pointed XSLT as a DOM document
-                Document XSLTDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(
+                Document XSLTDoc = OADocumentBuilderFactory.getInstance().getDBF().newDocumentBuilder().parse(
                         FileUtility.getInstance().FileAsInputSource(XSLTFile));
 
                 // get the content of the template of the XSLT

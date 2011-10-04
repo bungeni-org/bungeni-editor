@@ -4,6 +4,8 @@ package org.bungeni.translators.translator;
 
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bungeni.translators.exceptions.DocumentNotFoundException;
 import org.bungeni.translators.exceptions.TranslationFailedException;
 import org.bungeni.translators.exceptions.TranslationToMetalexFailedException;
@@ -65,11 +67,13 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
     private static OATranslator instance = null;
 
     /* This is the logger */
-     private static org.apache.log4j.Logger logger              =
+     private static org.apache.log4j.Logger log              =
         org.apache.log4j.Logger.getLogger(OATranslator.class.getName());
 
-    /* The configuration for the metalex translation */
-    private String translatorConfigPath;
+     /**
+      * The actual Translation configuration object
+      */
+    private OAConfiguration translatorConfiguration; 
 
     /* The resource bundle for the messages */
     private ResourceBundle resourceBundle;
@@ -88,27 +92,47 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
      * @throws IOException
      * @throws InvalidPropertiesFormatException
      */
-    private OATranslator() throws InvalidPropertiesFormatException, IOException, TranslationFailedException {
+    private OATranslator() throws InvalidPropertiesFormatException, IOException, TranslationFailedException, XPathExpressionException {
+
+        //!+TRANSLATOR_PROPERTIES(ah, oct-2011) Translator properties were moved into the main configuration
+        //file -- translators are now configured via a single configurationfile
+        //use OAConfiguration.getProperties() to get the propeties object of the translation
 
         // create the Properties object
         Properties properties           = new Properties();
-        //this is the TranslatorConfig_<type>.xml file
-        String     pathToPropertiesFile = GlobalConfigurations.getApplicationPathPrefix()
+        //this is the config_<type>.xml file
+        String     pathToConfigurationFile = GlobalConfigurations.getApplicationPathPrefix()
                                           + GlobalConfigurations.getConfigurationFilePath();
+        //
+        // get the translator configuration file
+        //
+        try {
+            this.translatorConfiguration = this.getTranslatorConfiguration(pathToConfigurationFile);
+        } catch (ParserConfigurationException ex) {
+            log.error("Error while getting transltor configuration", ex);
+        } catch (SAXException ex) {
+            log.error("Error while getting transltor configuration", ex);
+        } catch (XPathExpressionException ex) {
+            log.error("Error while getting transltor configuration", ex);
+        }
 
-        // read the properties file
-        InputStream propertiesInputStream = new FileInputStream(pathToPropertiesFile);
+        //
+        // verify the translator configurtion file
+        //
 
-        // load the properties
-        properties.loadFromXML(propertiesInputStream);
+        if (!this.translatorConfiguration.verify()) {
+                throw new TranslationFailedException(
+                        resourceBundle.getString("TRANSLATION_CONFIGURATION_FAIL"));
+            }
 
-        // get the metalex configuration path
-        this.translatorConfigPath = GlobalConfigurations.getApplicationPathPrefix()
-                                 + properties.getProperty("translatorConfigPath");
+        //
+        // get the translation properties
+        //
+        properties = this.translatorConfiguration.getProperties();
 
-        // get the path of the AKOMA NTOSO schema
-        //this.akomantosoSchemaPath = GlobalConfigurations.getApplicationPathPrefix()
-        //                            + properties.getProperty("akomantosoSchemaPath");
+        if (properties == null ) {
+            throw new InvalidPropertiesFormatException("Invalid format for translator configuration properties");
+        }
 
         // create the resource bundle
         this.resourceBundle = ResourceBundle.getBundle(properties.getProperty("resourceBundlePath"));
@@ -119,7 +143,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         // check if pipeline xslt needs to be cached
         this.cachePipelineXSLT = Boolean.parseBoolean(properties.getProperty("cachePipelineXSLT"));
 
-        logger.info("OATRANSLATOR ; translatorConfigPath :" + this.translatorConfigPath + " ;resourceBundle :" + this.resourceBundle + " ;cachePipelineXSLT : " + this.cachePipelineXSLT);
+        log.info("OATRANSLATOR ; translatorConfigPath :" + pathToConfigurationFile + " ;resourceBundle :" + this.resourceBundle + " ;cachePipelineXSLT : " + this.cachePipelineXSLT);
     }
 
     /**
@@ -135,7 +159,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             try {
                 instance = new OATranslator();
             } catch (Exception e) {
-                logger.error("getInstance", e);
+                log.error("getInstance", e);
             }
         }
 
@@ -153,6 +177,9 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
 
     /**
      * Transforms the document at the given path using the pipeline at the given path
+     *
+     * Translation type is autom
+     *
      * @param aDocumentPath the path of the document to translate
      * @param aPipelinePath the path of the pipeline to use for the translation
      * @return a hashmap containing handles to both the AN xml and the Metalex file ("anxml", "metalex")
@@ -167,6 +194,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
 
             
             /***
+             * Automatic Translation type detection
              * First detect the input source type
              */
             if (aDocumentPath.endsWith(".odt")) {
@@ -191,13 +219,8 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             /***
              * Get the translator configuration
              */
-            OAConfiguration configuration  = this.getTranslatorConfiguration(this.translatorConfigPath);
             MetalexOutput metalexOutput = null;
 
-            if (!configuration.verify()) {
-                throw new TranslationFailedException( 
-                        resourceBundle.getString("TRANSLATION_CONFIGURATION_FAIL"));
-            }
 
             //we use a nested exception handler here to specifically catch intermediary
             //exceptions
@@ -207,19 +230,22 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
                  * Apply input steps
                  */
 
-                StreamSource inputStepsProcessedDoc = this.applyInputSteps(ODFDocument, configuration);
+                StreamSource inputStepsProcessedDoc = this.applyInputSteps(ODFDocument,
+                        this.translatorConfiguration);
 
                 StreamSource replaceStepsProcessedDoc = inputStepsProcessedDoc;
-                if (configuration.hasReplaceSteps()) {
+                if (this.translatorConfiguration.hasReplaceSteps()) {
                     /**
                      * Apply the replace steps
                      */
-                  replaceStepsProcessedDoc = this.applyReplaceSteps(inputStepsProcessedDoc, configuration);
+                  replaceStepsProcessedDoc = this.applyReplaceSteps(inputStepsProcessedDoc,
+                          this.translatorConfiguration);
                 }
                 /**
                  * Finally apply the output steps
                  */
-                StreamSource outputStepsProcessedDoc = this.applyOutputSteps(replaceStepsProcessedDoc, configuration);
+                StreamSource outputStepsProcessedDoc = this.applyOutputSteps(replaceStepsProcessedDoc,
+                        this.translatorConfiguration);
                 /**
                  * At the end of the output steps we should have a metalex document, write it out
                  */
@@ -231,7 +257,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
                     String message = resourceBundle.getString("TRANSLATION_TO_METALEX_FAILED_TEXT");
                     System.out.println(message);
                     // print the message and the exception into the logger
-                    logger.fatal((new TranslationToMetalexFailedException(message)).getStackTrace());
+                    log.fatal((new TranslationToMetalexFailedException(message)).getStackTrace());
                     // RETURN null
                     return null;
                 }
@@ -241,7 +267,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             /***
              * Build the XSLT pipeline
              */
-            List<File> xsltPipes = this.buildXSLTPipeline(configuration);
+            List<File> xsltPipes = this.buildXSLTPipeline(this.translatorConfiguration);
 
             //AH-23-06-2010
             //File xslt = this.getXSLTPipeline(aPipelinePath);
@@ -259,12 +285,12 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             //StreamSource anXmlStream = this.translateToAkomantoso(xslt, metalexOutput.metalexStream);
 
             StreamSource anXmlFinalStream = anXmlStream;
-            if (configuration.hasPostXmlSteps()) {
+            if (this.translatorConfiguration.hasPostXmlSteps()) {
                 /***
                  * Finally call the Add namespace XSLT
                  */
                 anXmlFinalStream = this.applyPostXmlSteps(anXmlStream,
-                                                            configuration);
+                                                            this.translatorConfiguration);
             }
             /**
              * Final Output
@@ -286,7 +312,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             System.out.println(message);
 
             // print the message and the exception into the logger
-            logger.fatal((new TranslationFailedException(message)).getStackTrace());
+            log.fatal((new TranslationFailedException(message)).getStackTrace());
 
             // RETURN null
             return null;
@@ -298,7 +324,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             System.out.println(message);
 
             // print the message and the exception into the logger
-            logger.fatal((new ValidationFailedException(message)).getStackTrace());
+            log.fatal((new ValidationFailedException(message)).getStackTrace());
 
             // RETURN null
             return null;
@@ -310,7 +336,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             System.out.println(message);
 
             // print the message and the exception into the logger
-            logger.fatal((new ValidationFailedException(message)).getStackTrace());
+            log.fatal((new ValidationFailedException(message)).getStackTrace());
 
             // RETURN null
             return null;
@@ -322,7 +348,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             System.out.println(e.getMessage());
 
             // print the message and the exception into the logger
-            logger.fatal((new DocumentNotFoundException(message)).getStackTrace());
+            log.fatal((new DocumentNotFoundException(message)).getStackTrace());
 
             // RETURN null
             return null;
@@ -343,7 +369,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
      */
     private OAConfiguration getTranslatorConfiguration(String aConfigurationPath) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException{
             // get the File of the configuration
-            Document configurationDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(
+            Document configurationDoc = OADocumentBuilderFactory.getInstance().getDBF().newDocumentBuilder().parse(
                                             FileUtility.getInstance().FileAsInputSource(aConfigurationPath));
 
             // create the configuration
@@ -531,7 +557,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             System.out.println(message);
 
             // print the message and the exception into the logger
-            logger.fatal((new XSLTBuildingException(message)).getStackTrace());
+            log.fatal((new XSLTBuildingException(message)).getStackTrace());
 
             // RETURN null
             return null;

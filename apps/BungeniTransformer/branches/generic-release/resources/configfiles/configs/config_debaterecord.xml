@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config name="DebateRecordCommon">
+    <!-- 
+        General Properties for the translator 
+        -->
+    <properties>
+            <!-- resource bundle -->
+            <entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
+            <!-- parameter to specify cached pipeline property -->
+            <entry key="cachePipelineXSLT">true</entry>
+    </properties>
+
 
     <!-- Specfies the schema for the xml document being created -->
     <schema href="configfiles/schema/akomantoso10.xsd" />

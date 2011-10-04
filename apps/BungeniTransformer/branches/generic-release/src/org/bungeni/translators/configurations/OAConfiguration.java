@@ -1,6 +1,10 @@
 package org.bungeni.translators.configurations;
 
 //~--- non-JDK imports --------------------------------------------------------
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
 import org.bungeni.translators.interfaces.Configuration;
 import org.bungeni.translators.configurations.steps.OAReplaceStep;
 import org.bungeni.translators.configurations.steps.OAXSLTStep;
@@ -13,6 +17,7 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 import java.util.TreeMap;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -45,6 +50,27 @@ public class OAConfiguration implements Configuration {
         // create the reader
         this.reader = new OAConfigurationReader(aConfigXML);
     }
+
+    public boolean hasProperties() throws XPathExpressionException{
+        return this.reader.hasProperties();
+    }
+
+    public Properties getProperties() {
+        Properties props = null;
+        try {
+            props =  this.reader.getProperties();
+        } catch (XPathExpressionException ex) {
+           log.error("Error while getting translation properties", ex);
+        } catch (TransformerConfigurationException ex) {
+           log.error("Error while getting translation properties", ex);
+        } catch (TransformerException ex) {
+           log.error("Error while getting translation properties", ex);
+        } catch (IOException ex) {
+           log.error("Error while getting translation properties", ex);
+        }
+        return props;
+    }
+
 
     public boolean hasInputSteps() throws XPathExpressionException {
         return this.reader.hasInputSteps();
@@ -144,18 +170,22 @@ public class OAConfiguration implements Configuration {
         /**
          *
          */
-        if (this.hasInputSteps()) {
-            log.info("verifyConfiguration : hasInputSteps : check OK ");
-            if (this.hasOutputSteps()) {
-                log.info("verifyConfiguration : hasOutputSteps : check OK ");
-                if (this.hasPipelineXML()) {
-                    log.info("verifyConfiguration : hasPipelineXML : check OK ");
-                    return true;
+        if (this.hasProperties()) {
+            log.info("verifyConfiguration : hasProperties : check OK ");
+            if (this.hasInputSteps()) {
+                log.info("verifyConfiguration : hasInputSteps : check OK ");
+                if (this.hasOutputSteps()) {
+                    log.info("verifyConfiguration : hasOutputSteps : check OK ");
+                    if (this.hasPipelineXML()) {
+                        log.info("verifyConfiguration : hasPipelineXML : check OK ");
+                        return true;
+                    } else
+                        log.info("verifyConfiguration : hasPipelineXML : check FAIL ");
                 } else
-                    log.info("verifyConfiguration : hasPipelineXML : check FAIL ");
-            } else
-                log.info("verifyConfiguration : hasOutputSteps : check FAIL ");
-        }
+                    log.info("verifyConfiguration : hasOutputSteps : check FAIL ");
+            }
+        } else
+            log.info("verifyConfiguration : hasProperties : check FAIL ");
         return false;
     }
 }

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config name="BillCommon">
+    <properties>
+	<!-- BILL -->
+	<entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
+        <entry key="cachePipelineXSLT">true</entry>
+    </properties>
+
         <!-- Specfies the schema for the xml document being created -->
         <schema href="configfiles/schema/akomantoso10.xsd" />
 

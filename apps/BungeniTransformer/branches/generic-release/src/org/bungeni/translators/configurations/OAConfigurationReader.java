@@ -1,6 +1,10 @@
 package org.bungeni.translators.configurations;
 
 //~--- non-JDK imports --------------------------------------------------------
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
 import org.bungeni.translators.interfaces.ConfigurationReader;
 import org.bungeni.translators.configurations.steps.OAReplaceStep;
 import org.bungeni.translators.configurations.steps.OAXSLTStep;
@@ -15,13 +19,19 @@ import org.xml.sax.SAXException;
 //~--- JDK imports ------------------------------------------------------------
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Properties;
 import java.util.TreeMap;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import org.bungeni.translators.configurations.steps.OAPipelineStep;
@@ -55,6 +65,31 @@ public class OAConfigurationReader implements ConfigurationReader {
         this.configXML = aConfigXML;
     }
 
+    public boolean hasProperties() throws XPathExpressionException{
+        XPathResolver xresolver = XPathResolver.getInstance();
+        // get the step with the given nama in this configuration
+        NodeList propNodes = (NodeList) xresolver.evaluate(this.configXML, "//properties", XPathConstants.NODESET);
+        return propNodes.getLength() > 0 ? true : false;
+    }
+
+    public Properties getProperties() throws XPathExpressionException,
+            TransformerConfigurationException, TransformerException, IOException {
+        XPathResolver xresolver = XPathResolver.getInstance();
+        // get the step with the given nama in this configuration
+        Node propertiesNode = (Node) xresolver.evaluate(this.configXML,
+                "//properties", XPathConstants.NODE);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        Source xmlSource = new DOMSource(propertiesNode);
+        Result outputTarget = new StreamResult(outputStream);
+        TransformerFactory.newInstance().newTransformer().transform(xmlSource, outputTarget);
+        InputStream propertiesInputStream = new ByteArrayInputStream(outputStream.toByteArray());
+        Properties props = new Properties();
+        props.loadFromXML(propertiesInputStream);
+        return props;
+    }
+
+
+
     /**
      * Checks if the input steps exist in the translator configuration
      * @return
@@ -64,6 +99,7 @@ public class OAConfigurationReader implements ConfigurationReader {
         XPathResolver xresolver = XPathResolver.getInstance();
         // get the step with the given nama in this configuration
         NodeList inputNodes = (NodeList) xresolver.evaluate(this.configXML, "//input", XPathConstants.NODESET);
+
         return inputNodes.getLength() > 0 ? true : false;
 
     }
@@ -250,7 +286,7 @@ public class OAConfigurationReader implements ConfigurationReader {
 
             // get the step node
             Node stepNode = stepNodes.item(i);
-
+         
             // create the Step
             OAXSLTStep resultStep = new OAXSLTStep(stepNode.getAttributes().getNamedItem("name").getNodeValue(),
                     stepNode.getAttributes().getNamedItem("href").getNodeValue(),
