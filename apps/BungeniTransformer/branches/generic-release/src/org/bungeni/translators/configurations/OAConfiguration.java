@@ -1,8 +1,6 @@
 package org.bungeni.translators.configurations;
 
 //~--- non-JDK imports --------------------------------------------------------
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import org.bungeni.translators.interfaces.Configuration;
@@ -30,12 +28,20 @@ import org.bungeni.translators.configurations.steps.OAPipelineStep;
  */
 public class OAConfiguration implements Configuration {
 
+    private static OAConfiguration thisInstance = null;
     // the configuration reader
     private OAConfigurationReader reader;
 
+    private Properties configProperties;
+
      private static org.apache.log4j.Logger log  =
         org.apache.log4j.Logger.getLogger(OAConfiguration.class.getName());
-     
+
+    private OAConfiguration() {
+        reader = null;
+    }
+
+
     /**
      * Create the new configuration based on a given Configuration XML file
      * @param aConfigXML the XML Document in witch the configuration is written
@@ -44,31 +50,43 @@ public class OAConfiguration implements Configuration {
      * @throws SAXException
      * @throws XPathExpressionException
      */
-    public OAConfiguration(Document aConfigXML)
+    public void setConfiguration(Document aConfigXML)
             throws XPathExpressionException, SAXException, IOException, ParserConfigurationException {
 
         // create the reader
         this.reader = new OAConfigurationReader(aConfigXML);
     }
 
+    public static OAConfiguration getInstance() {
+        if (thisInstance == null) {
+            thisInstance = new OAConfiguration();
+        }
+        return thisInstance;
+    }
+
     public boolean hasProperties() throws XPathExpressionException{
         return this.reader.hasProperties();
     }
 
+    /**
+     * Gets the properites of the configuration as Java properties object
+     * @return
+     */
     public Properties getProperties() {
-        Properties props = null;
-        try {
-            props =  this.reader.getProperties();
-        } catch (XPathExpressionException ex) {
-           log.error("Error while getting translation properties", ex);
-        } catch (TransformerConfigurationException ex) {
-           log.error("Error while getting translation properties", ex);
-        } catch (TransformerException ex) {
-           log.error("Error while getting translation properties", ex);
-        } catch (IOException ex) {
-           log.error("Error while getting translation properties", ex);
-        }
-        return props;
+       if (configProperties == null) {
+            try {
+                configProperties =  this.reader.getProperties();
+            } catch (XPathExpressionException ex) {
+               log.error("Error while getting translation properties", ex);
+            } catch (TransformerConfigurationException ex) {
+               log.error("Error while getting translation properties", ex);
+            } catch (TransformerException ex) {
+               log.error("Error while getting translation properties", ex);
+            } catch (IOException ex) {
+               log.error("Error while getting translation properties", ex);
+            }
+       }
+       return configProperties;
     }
 
 

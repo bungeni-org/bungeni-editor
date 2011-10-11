@@ -20,6 +20,7 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -27,8 +28,10 @@ import java.util.Properties;
 import java.util.TreeMap;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -72,19 +75,34 @@ public class OAConfigurationReader implements ConfigurationReader {
         return propNodes.getLength() > 0 ? true : false;
     }
 
+    /**
+     * Extracts the global configuration properties as properties object
+     * @return
+     * @throws XPathExpressionException
+     * @throws TransformerConfigurationException
+     * @throws TransformerException
+     * @throws IOException
+     */
     public Properties getProperties() throws XPathExpressionException,
             TransformerConfigurationException, TransformerException, IOException {
         XPathResolver xresolver = XPathResolver.getInstance();
-        // get the step with the given nama in this configuration
+        // get the properties node in teh configuration
         Node propertiesNode = (Node) xresolver.evaluate(this.configXML,
                 "//properties", XPathConstants.NODE);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         Source xmlSource = new DOMSource(propertiesNode);
-        Result outputTarget = new StreamResult(outputStream);
-        TransformerFactory.newInstance().newTransformer().transform(xmlSource, outputTarget);
-        InputStream propertiesInputStream = new ByteArrayInputStream(outputStream.toByteArray());
+        // convert the properties node to a string
+        StringWriter sw = new StringWriter();
+        Transformer tconfig = TransformerFactory.newInstance().newTransformer();
+        tconfig.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+        tconfig.transform(xmlSource, new StreamResult(sw));
+        //we need to append the properties DOCTYPE dtd for this to work
+        byte[] bytes =
+                ("<!DOCTYPE properties SYSTEM \"http://java.sun.com/dtd/properties.dtd\">" +
+                sw.toString()).getBytes("UTF8");
+        ByteArrayInputStream propBytes = new ByteArrayInputStream(bytes);
         Properties props = new Properties();
-        props.loadFromXML(propertiesInputStream);
+        props.loadFromXML(propBytes);
         return props;
     }
 

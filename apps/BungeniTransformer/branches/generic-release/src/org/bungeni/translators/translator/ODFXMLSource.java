@@ -1,14 +1,13 @@
 package org.bungeni.translators.translator;
 
 import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.stream.StreamSource;
 import org.bungeni.translators.utility.files.FileUtility;
 import org.bungeni.translators.utility.odf.ODFUtility;
 
 /**
+ * Provides the ODF document as an IXMLSource source
  *
  * @author Ashok
  */

@@ -4,8 +4,6 @@ package org.bungeni.translators.translator;
 
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.bungeni.translators.exceptions.DocumentNotFoundException;
 import org.bungeni.translators.exceptions.TranslationFailedException;
 import org.bungeni.translators.exceptions.TranslationToMetalexFailedException;
@@ -27,9 +25,7 @@ import org.xml.sax.SAXException;
 //~--- JDK imports ------------------------------------------------------------
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +34,6 @@ import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamSource;
@@ -69,11 +64,6 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
     /* This is the logger */
      private static org.apache.log4j.Logger log              =
         org.apache.log4j.Logger.getLogger(OATranslator.class.getName());
-
-     /**
-      * The actual Translation configuration object
-      */
-    private OAConfiguration translatorConfiguration; 
 
     /* The resource bundle for the messages */
     private ResourceBundle resourceBundle;
@@ -107,7 +97,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         // get the translator configuration file
         //
         try {
-            this.translatorConfiguration = this.getTranslatorConfiguration(pathToConfigurationFile);
+            setupTranslatorConfiguration(pathToConfigurationFile);
         } catch (ParserConfigurationException ex) {
             log.error("Error while getting transltor configuration", ex);
         } catch (SAXException ex) {
@@ -120,7 +110,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         // verify the translator configurtion file
         //
 
-        if (!this.translatorConfiguration.verify()) {
+        if (!OAConfiguration.getInstance().verify()) {
                 throw new TranslationFailedException(
                         resourceBundle.getString("TRANSLATION_CONFIGURATION_FAIL"));
             }
@@ -128,7 +118,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         //
         // get the translation properties
         //
-        properties = this.translatorConfiguration.getProperties();
+        properties = OAConfiguration.getInstance().getProperties();
 
         if (properties == null ) {
             throw new InvalidPropertiesFormatException("Invalid format for translator configuration properties");
@@ -230,22 +220,19 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
                  * Apply input steps
                  */
 
-                StreamSource inputStepsProcessedDoc = this.applyInputSteps(ODFDocument,
-                        this.translatorConfiguration);
+                StreamSource inputStepsProcessedDoc = this.applyInputSteps(ODFDocument);
 
                 StreamSource replaceStepsProcessedDoc = inputStepsProcessedDoc;
-                if (this.translatorConfiguration.hasReplaceSteps()) {
+                if (OAConfiguration.getInstance().hasReplaceSteps()) {
                     /**
                      * Apply the replace steps
                      */
-                  replaceStepsProcessedDoc = this.applyReplaceSteps(inputStepsProcessedDoc,
-                          this.translatorConfiguration);
+                  replaceStepsProcessedDoc = this.applyReplaceSteps(inputStepsProcessedDoc);
                 }
                 /**
                  * Finally apply the output steps
                  */
-                StreamSource outputStepsProcessedDoc = this.applyOutputSteps(replaceStepsProcessedDoc,
-                        this.translatorConfiguration);
+                StreamSource outputStepsProcessedDoc = this.applyOutputSteps(replaceStepsProcessedDoc);
                 /**
                  * At the end of the output steps we should have a metalex document, write it out
                  */
@@ -267,7 +254,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             /***
              * Build the XSLT pipeline
              */
-            List<File> xsltPipes = this.buildXSLTPipeline(this.translatorConfiguration);
+            List<File> xsltPipes = this.buildXSLTPipeline();
 
             //AH-23-06-2010
             //File xslt = this.getXSLTPipeline(aPipelinePath);
@@ -285,12 +272,11 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             //StreamSource anXmlStream = this.translateToAkomantoso(xslt, metalexOutput.metalexStream);
 
             StreamSource anXmlFinalStream = anXmlStream;
-            if (this.translatorConfiguration.hasPostXmlSteps()) {
+            if (OAConfiguration.getInstance().hasPostXmlSteps()) {
                 /***
                  * Finally call the Add namespace XSLT
                  */
-                anXmlFinalStream = this.applyPostXmlSteps(anXmlStream,
-                                                            this.translatorConfiguration);
+                anXmlFinalStream = this.applyPostXmlSteps(anXmlStream);
             }
             /**
              * Final Output
@@ -367,20 +353,20 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
      * @throws IOException
      * @throws XPathExpressionException
      */
-    private OAConfiguration getTranslatorConfiguration(String aConfigurationPath) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException{
+    private void setupTranslatorConfiguration(String aConfigurationPath) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException{
             // get the File of the configuration
             Document configurationDoc = OADocumentBuilderFactory.getInstance().getDBF().newDocumentBuilder().parse(
                                             FileUtility.getInstance().FileAsInputSource(aConfigurationPath));
 
             // create the configuration
-            OAConfiguration configuration = new OAConfiguration(configurationDoc);
-            return configuration;
+            OAConfiguration configuration = OAConfiguration.getInstance();
+            configuration.setConfiguration(configurationDoc);
     }
 
 
-     private List<File> buildXSLTPipeline(OAConfiguration configuration) throws XPathExpressionException, SAXException, IOException, ParserConfigurationException, TransformerFactoryConfigurationError, TransformerException{
+     private List<File> buildXSLTPipeline() throws XPathExpressionException, SAXException, IOException, ParserConfigurationException, TransformerFactoryConfigurationError, TransformerException{
             List<File> pipelines = new ArrayList<File>(0);
-            List<OAPipelineStep> pipelineSteps  = configuration.getXsltPipeline();
+            List<OAPipelineStep> pipelineSteps  = OAConfiguration.getInstance().getXsltPipeline();
             for (OAPipelineStep oAPipelineStep : pipelineSteps) {
                 String pipeName = oAPipelineStep.getPipelineName();
                 String pipeHref = oAPipelineStep.getPipelineHref();
@@ -436,11 +422,11 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
      * @throws TransformerFactoryConfigurationError
      * @throws Exception
      */
-    public StreamSource applyInputSteps(StreamSource ODFDocument, OAConfiguration configuration)
+    public StreamSource applyInputSteps(StreamSource ODFDocument)
             throws TransformerFactoryConfigurationError, Exception {
            // applies the input steps to the StreamSource of the ODF document
             StreamSource iteratedDocument = OAXSLTStepsResolver.resolve(ODFDocument,
-                                                    configuration.getInputSteps());
+                                                    OAConfiguration.getInstance().getInputSteps());
             return iteratedDocument;
     }
 
@@ -453,11 +439,11 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
      * @throws TransformerFactoryConfigurationError
      * @throws Exception
      */
-    public StreamSource applyReplaceSteps(StreamSource ODFDocument, OAConfiguration configuration)
+    public StreamSource applyReplaceSteps(StreamSource ODFDocument)
                  throws TransformerFactoryConfigurationError, Exception {
             // applies the map steps to the StreamSource of the ODF document
             StreamSource iteratedDocument = OAReplaceStepsResolver.resolve(ODFDocument,
-                                                    configuration);
+                                                    OAConfiguration.getInstance());
             return iteratedDocument;
     }
 
@@ -470,11 +456,12 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
      * @throws TransformerFactoryConfigurationError
      * @throws Exception
      */
-    public StreamSource applyOutputSteps(StreamSource ODFDocument, OAConfiguration configuration)
+    public StreamSource applyOutputSteps(StreamSource ODFDocument)
                  throws TransformerFactoryConfigurationError, Exception {
          // apply the OUTPUT XSLT to the StreamSource
          StreamSource resultStream = OAXSLTStepsResolver.resolve(ODFDocument,
-                                                    configuration.getOutputSteps());
+                                        OAConfiguration.getInstance().getOutputSteps()
+                                        );
          return resultStream;
     }
 
@@ -487,11 +474,12 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
      * @throws TransformerFactoryConfigurationError
      * @throws Exception
      */
-    public StreamSource applyPostXmlSteps(StreamSource anXmlStream, OAConfiguration configuration)
+    public StreamSource applyPostXmlSteps(StreamSource anXmlStream)
              throws TransformerFactoryConfigurationError, Exception {
          // apply the OUTPUT XSLT to the StreamSource
          StreamSource resultStream = OAXSLTStepsResolver.resolve(anXmlStream,
-                                                    configuration.getPostXmlSteps());
+                                        OAConfiguration.getInstance().getPostXmlSteps()
+                                        );
          return resultStream;
     }
 

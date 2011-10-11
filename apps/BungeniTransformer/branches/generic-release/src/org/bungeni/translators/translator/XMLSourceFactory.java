@@ -10,8 +10,8 @@ public class XMLSourceFactory {
 
     public enum XMLSourceType {
 
-        XML("org.bungeni.translators.translator.XMLSourceFactory"),
-        ODF("org.bungeni.translators.translator.ODFXMLSourceFactory");
+        XML("org.bungeni.translators.translator.GenericXMLSource"),
+        ODF("org.bungeni.translators.translator.ODFXMLSource");
         private String className;
 
         XMLSourceType(String className) {
