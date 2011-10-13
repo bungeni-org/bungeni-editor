@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : config_bungenixml.xml
+    Created on : 13 October 2011, 12:22
+    Author     : anthony
+    Description:
+        This is the translation pipeline for Bungeni output documents
+-->
+
+<?xml version="1.0" encoding="UTF-8"?>
+<config name="BungeniXML">
+    <properties>
+	<entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
+        <entry key="cachePipelineXSLT">true</entry>
+    </properties>
+
+        <!-- Specfies the schema for the xml document being created -->
+        <schema href="configfiles/schema/akomantoso10.xsd" />
+
+        <!-- This steps are performed BEFORE the above regex replacement -->
+        <input>
+            <xslt step="1" name="appendBungeniNS" href="pipeline_xslt/common/add_bungeniportal_ns.xsl"/>
+        </input>
+
+       <pipetoxml name="BungeniXML"
+               href="pipeline_xslt/bungeniportal/pipeline.xsl"  />
+
+    <!-- Called after translate -->
+    <postxml>
+        <xslt step="1" name="AddNamespaceAkomaNtoso" href="pipeline_xslt/common/add_an_ns.xsl" />
+    </postxml>
+
+</config>

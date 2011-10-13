@@ -180,27 +180,20 @@ public class OAConfiguration implements Configuration {
         /**
      * Verify the configuration --
      *
-     *   input,output and pipeline steps are mandatory
+     *   input and pipeline steps are mandatory
      * @param configuration
      * @return
      */
     public boolean verify() throws XPathExpressionException {
-        /**
-         *
-         */
         if (this.hasProperties()) {
             log.info("verifyConfiguration : hasProperties : check OK ");
             if (this.hasInputSteps()) {
                 log.info("verifyConfiguration : hasInputSteps : check OK ");
-                if (this.hasOutputSteps()) {
-                    log.info("verifyConfiguration : hasOutputSteps : check OK ");
-                    if (this.hasPipelineXML()) {
-                        log.info("verifyConfiguration : hasPipelineXML : check OK ");
-                        return true;
-                    } else
-                        log.info("verifyConfiguration : hasPipelineXML : check FAIL ");
+                if (this.hasPipelineXML()) {
+                    log.info("verifyConfiguration : hasPipelineXML : check OK ");
+                    return true;
                 } else
-                    log.info("verifyConfiguration : hasOutputSteps : check FAIL ");
+                    log.info("verifyConfiguration : hasPipelineXML : check FAIL ");
             }
         } else
             log.info("verifyConfiguration : hasProperties : check FAIL ");

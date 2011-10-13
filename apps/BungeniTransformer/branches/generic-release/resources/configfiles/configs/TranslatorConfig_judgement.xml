@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-<properties>
-	<!-- judgement -->
-	<entry key="translatorConfigPath">configfiles/configs/config_judgement.xml</entry>
-	<entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
-        <entry key="cachePipelineXSLT">true</entry>
-</properties>

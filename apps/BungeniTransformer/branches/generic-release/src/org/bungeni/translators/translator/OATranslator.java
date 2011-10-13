@@ -74,7 +74,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
     private Boolean cachePipelineXSLT = false;
 
     //The source type is by default ODF
-    //!+XML_SOURCE_TYPE(ah, 27-09-2011) 
+    //!+XML_SOURCE_TYPE(ah, 27-09-2011)
     private XMLSourceFactory.XMLSourceType sourceType = XMLSourceFactory.XMLSourceType.ODF;
 
     /**
@@ -127,7 +127,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         // create the resource bundle
         this.resourceBundle = ResourceBundle.getBundle(properties.getProperty("resourceBundlePath"));
 
-        //AH-23-06-2010 - Moved to translator_config 
+        //AH-23-06-2010 - Moved to translator_config
         //this.defaultPipelinePath = GlobalConfigurations.getApplicationPathPrefix() + properties.getProperty("defaultPipeline");
 
         // check if pipeline xslt needs to be cached
@@ -182,15 +182,19 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
 
         try {
 
-            
+
             /***
              * Automatic Translation type detection
              * First detect the input source type
              */
             if (aDocumentPath.endsWith(".odt")) {
                 this.sourceType = XMLSourceFactory.XMLSourceType.ODF;
-            } else {
+            } else if (aDocumentPath.endsWith(".xml")) {
                 //if it does not end with odt set the source type to XML
+                this.sourceType = XMLSourceFactory.XMLSourceType.BUNGENI_XML;
+            } else {
+                //!+FIX_THIS_LATER(ah, oct-2011) Type identification needs to be
+                //smarter and fixed eventually
                 this.sourceType = XMLSourceFactory.XMLSourceType.XML;
             }
 
@@ -204,12 +208,12 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
              * Get the appropriate input source stream
              */
 
-            StreamSource ODFDocument = sourceInstance.getSource(aDocumentPath);
+            StreamSource xmlDocument = sourceInstance.getSource(aDocumentPath);
 
             /***
              * Get the translator configuration
              */
-            MetalexOutput metalexOutput = null;
+            OutputXML outputXML = null;
 
 
             //we use a nested exception handler here to specifically catch intermediary
@@ -220,7 +224,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
                  * Apply input steps
                  */
 
-                StreamSource inputStepsProcessedDoc = this.applyInputSteps(ODFDocument);
+                StreamSource inputStepsProcessedDoc = this.applyInputSteps(xmlDocument);
 
                 StreamSource replaceStepsProcessedDoc = inputStepsProcessedDoc;
                 if (OAConfiguration.getInstance().hasReplaceSteps()) {
@@ -232,11 +236,14 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
                 /**
                  * Finally apply the output steps
                  */
-                StreamSource outputStepsProcessedDoc = this.applyOutputSteps(replaceStepsProcessedDoc);
+                StreamSource outputStepsProcessedDoc = replaceStepsProcessedDoc;
+                if (OAConfiguration.getInstance().hasOutputSteps()) {
+                   outputStepsProcessedDoc = this.applyOutputSteps(replaceStepsProcessedDoc);
+                }
                 /**
                  * At the end of the output steps we should have a metalex document, write it out
                  */
-                metalexOutput = this.writeMetalexOutput(outputStepsProcessedDoc);
+                outputXML = this.writeOutputXML(outputStepsProcessedDoc);
              } catch (Exception e) {
                     //(DEBUG_USEFUL)+ This is a useful catch-all point to put a break point if the
                     // translation is failing !!!
@@ -248,8 +255,8 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
                     // RETURN null
                     return null;
                 }
-            
-            translatedFiles.put("metalex", metalexOutput.metalexFile);
+            //!+FIX_THIS_LATER -- see other note on metalex.xml
+            translatedFiles.put("metalex", outputXML.outputxmlFile);
 
             /***
              * Build the XSLT pipeline
@@ -262,7 +269,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             /**
              * Transform the Metalex using the built XSLT
              */
-            StreamSource inputXmlStream = metalexOutput.metalexStream;
+            StreamSource inputXmlStream = outputXML.outputxmlStream;
             for (File xslt : xsltPipes) {
                 inputXmlStream = this.translateToAkomantoso(xslt, inputXmlStream);
              }
@@ -467,7 +474,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
 
 
     /***
-     * 
+     *
      * @param anXmlStream
      * @param configuration
      * @return
@@ -483,25 +490,28 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
          return resultStream;
     }
 
-    class MetalexOutput {
-        StreamSource metalexStream;
-        File metalexFile;
+    class OutputXML {
+        StreamSource outputxmlStream;
+        File outputxmlFile;
 
-        public MetalexOutput(StreamSource ss, File mf) {
-            this.metalexStream = ss;
-            this.metalexFile = mf;
+        public OutputXML(StreamSource ss, File mf) {
+            this.outputxmlStream = ss;
+            this.outputxmlFile = mf;
         }
     }
 
 
-    private MetalexOutput writeMetalexOutput(StreamSource metalexDocument) throws TransformerException, IOException {
+    private OutputXML writeOutputXML(StreamSource metalexDocument) throws TransformerException, IOException {
             File metalextmpFile = StreamSourceUtility.getInstance().writeToFile(metalexDocument);
+            //!+FIX_THIS_LATER(ah,oct-2011) the cached intermediate outputfile has been
+            //left as metalex.xml so it doesnt break the editor which expects that intermediate
+            //output -- fix editor and then change this appropriately
             File metalexFile = FileUtility.getInstance().copyFile(metalextmpFile,
                     Outputs.getInstance().File("metalex.xml"));
             // Stream for metalex file
             StreamSource ssMetalex =
                     FileUtility.getInstance().FileAsStreamSource(metalexFile);
-            return new MetalexOutput(ssMetalex, metalexFile);
+            return new OutputXML(ssMetalex, metalexFile);
     }
 
     public StreamSource translateToAkomantoso(File xsltFile, StreamSource metalexStream)
