@@ -9,8 +9,8 @@
 -->
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:bp="http://portal.bungeni.org/1.0/"
-    version="2.0">
+    xmlns:bu="http://portal.bungeni.org/1.0/" xmlns:bp="http://www.bungeni.org/pipeline/1.0"
+    xmlns="http://www.akomantoso.org/2.0" version="2.0">
 
     <xsl:output indent="yes" method="xml" encoding="UTF-8"/>
 
@@ -25,15 +25,84 @@
                     <xsl:value-of select="."/>
                 </xsl:attribute>
             </xsl:for-each>
-            <xsl:apply-templates />
+            <xsl:apply-templates/>
         </xsl:element>
     </xsl:template>
 
-    <xsl:template match="bp:contenttype">
+    <xsl:template match="bu:contenttype" bp:name="root">
+        <xsl:variable name="contenttypename"><xsl:value-of select="./bu:field[@name='type']" /></xsl:variable>
+        <xsl:variable name="contenturidate"><xsl:value-of select="./bu:field[@name='start_date']" /></xsl:variable>
         <akomaNtoso>
-            <name><xsl:value-of select="@name" /></name>
+            <doc>
+                <xsl:attribute name="name"><xsl:value-of select="$contenttypename" /></xsl:attribute>
+                <meta>
+                    <identification source="#bungeni">
+                        <xsl:call-template name="frbrwork">
+                            <xsl:with-param name="contenttypename" select="$contenttypename" />
+                            <xsl:with-param name="contenturidate" select="$contenturidate" />                            
+                        </xsl:call-template>
+                        <!--
+                        <FRBRExpession>indentification.xsl</FRBRExpession>
+                        <FRBRManifestation>indentification.xsl</FRBRManifestation>
+                        <FRBRItem>indentification.xsl</FRBRItem>
+                        -->
+                    </identification>
+                </meta>
+            </doc>
         </akomaNtoso>
     </xsl:template>
+
+    <xsl:template name="frbrwork" bp:name="root">
+        <xsl:param name="contenttypename" />
+        <xsl:param name="contenturidate" />
+        
+        <FRBRWork>
+          <xsl:call-template name="frbrauthor" />
+            <xsl:call-template name="frbrdate" >
+                <xsl:with-param name="contenturidate" select="$contenturidate" />
+            </xsl:call-template>
+            <xsl:call-template name="frbruri" >
+                <xsl:with-param name="contenttypename"  select="$contenttypename"/>
+                <xsl:with-param name="contenturidate"  select="$contenturidate"/>
+            </xsl:call-template>
+            <xsl:call-template name="frbrthis" >
+                <xsl:with-param name="contenttypename"  select="$contenttypename"/>
+            </xsl:call-template>
+        </FRBRWork>
+    </xsl:template>
+
+    <xsl:template name="frbrthis" bp:name="root">
+        <xsl:param name="contenttypename" />
+        <xsl:param name="contenturidate" />
+        
+        <FRBRthis>
+            <xsl:attribute name="value" select="concat('/ken/',$contenttypename,'/',$contenturidate)" />
+        </FRBRthis> 
+     </xsl:template>
+    
+    <xsl:template name="frbruri" bp:name="root">
+        <xsl:param name="contenttypename" />
+        <xsl:param name="contenturidate" />
+        
+        <FRBRuri>
+            <xsl:attribute name="value" select="concat('/ken/',$contenttypename,'/',$contenturidate,'/main')" />
+        </FRBRuri> 
+    </xsl:template>
+    
+    <xsl:template name="frbrdate" bp:name="root">
+        <xsl:param name="contenturidate" />
+        
+        <FRBRdate>
+            <xsl:attribute name="date" select="$contenturidate" />
+            <xsl:attribute name="name"><xsl:text>#startdate</xsl:text></xsl:attribute>
+        </FRBRdate> 
+    </xsl:template>
+
+    <xsl:template name="frbrauthor" bp:name="root">
+        <FRBRauthor href="#Author">
+        </FRBRauthor> 
+    </xsl:template>
+    
 
     <xsl:template match="text()">
         <xsl:value-of select="normalize-space(.)"/>

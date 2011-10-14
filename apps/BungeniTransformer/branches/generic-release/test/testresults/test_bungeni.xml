@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><akomaNtoso xmlns="http://www.akomantoso.org/1.0">
+   <doc name="government">
+      <meta>
+         <identification source="#bungeni">
+            <FRBRWork>
+               <FRBRauthor href="#Author"/>
+               <FRBRdate date="2011-02-18" name="#startdate"/>
+               <FRBRuri value="/ken/government/2011-02-18/main"/>
+               <FRBRthis value="/ken/government/"/>
+            </FRBRWork>
+         </identification>
+      </meta>
+   </doc>
+</akomaNtoso>

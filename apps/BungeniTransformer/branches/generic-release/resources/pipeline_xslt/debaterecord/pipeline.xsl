@@ -3,7 +3,7 @@
     xmlns:ml="http://www.metalex.org/1.0" 
     xmlns:bungeni="http://editor.bungeni.org/1.0/anx/"
     xmlns:bp="http://www.bungeni.org/pipeline/1.0"
-    exclude-result-prefixes="bp"
+    exclude-result-prefixes="bp" 
     version="2.0">
     <xsl:output indent="yes" method="xml"/>
 

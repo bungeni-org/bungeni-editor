@@ -7,16 +7,14 @@
     Description:
         This is the translation pipeline for Bungeni output documents
 -->
-
-<?xml version="1.0" encoding="UTF-8"?>
 <config name="BungeniXML">
     <properties>
 	<entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
-        <entry key="cachePipelineXSLT">true</entry>
+        <entry key="cachePipelineXSLT">false</entry>
     </properties>
 
         <!-- Specfies the schema for the xml document being created -->
-        <schema href="configfiles/schema/akomantoso10.xsd" />
+        <schema href="configfiles/schema/akomantoso20.xsd" />
 
         <!-- This steps are performed BEFORE the above regex replacement -->
         <input>
