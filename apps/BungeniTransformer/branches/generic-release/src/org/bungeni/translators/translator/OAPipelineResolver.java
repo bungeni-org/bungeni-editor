@@ -70,25 +70,27 @@ public final class OAPipelineResolver implements org.bungeni.translators.interfa
         // open the XSLT file into a DOM document
         Document pipeline = OADocumentBuilderFactory.getInstance().getDBF().newDocumentBuilder().parse(
                 FileUtility.getInstance().FileAsInputSource(aPipelinePath));    // new File(aPipelinePath));
+        //This is the <xsl:stylesheet > element 
+        Element stylesheetElement = pipeline.getDocumentElement();
 
         // get all the <xslt> elements in the pipeline
-        NodeList xsltElements = (NodeList) XPathResolver.getInstance().evaluate(pipeline, "//xslt",
+        //get all the <bp:template> elements in the pipeline 
+        NodeList xsltElements = (NodeList) XPathResolver.getInstance().evaluate(pipeline, "//bp:template",
                 XPathConstants.NODESET);
 
         System.out.println("XXXX node list size : " + xsltElements.getLength());
         // for each XSLT element get the URI, retrieve the pointed XSLT and replace the content of the template into the pipeline
         for (int i = 0; i < xsltElements.getLength(); i++) {
             // get the <xslt> node
-            Node xsltNode = xsltElements.item(i);
+            Node bpTemplateNode = xsltElements.item(i);
 
             // get the URI attribute of the XSLT node
-            String xsltURI = xsltNode.getAttributes().getNamedItem("href").getNodeValue();
+            String xsltURI = bpTemplateNode.getAttributes().getNamedItem("href").getNodeValue();
 
             System.out.println("XXXX node  : " + xsltURI + " i = " + i);
 
             // get the name of the element
-            String elementName = (String) XPathResolver.getInstance().evaluate(pipeline,
-                    "//xslt[@href='" + xsltURI + "']/@name", XPathConstants.STRING);
+            String elementName = bpTemplateNode.getAttributes().getNamedItem("name").getNodeValue();
 
             // get the XSLT file
             File XSLTFile = new File(GlobalConfigurations.getApplicationPathPrefix() + xsltURI);
@@ -99,26 +101,34 @@ public final class OAPipelineResolver implements org.bungeni.translators.interfa
                         FileUtility.getInstance().FileAsInputSource(XSLTFile));
 
                 // get the content of the template of the XSLT
-                Node templateContent = (Node) XPathResolver.getInstance().evaluate(XSLTDoc,
-                        "//*:template[@match=\"*[@name='" + elementName + "']\"]/*",
+                //!+PIPELINE_FORMAT_CHANGE(ah,oct-2011) Find the XSLT template matchign the bp:name attribute 
+                Node templateContentNode  = (Node)XPathResolver.getInstance().evaluate(XSLTDoc,
+                        "//*:template[@bp:name='" + elementName + "']",
                         XPathConstants.NODE);
-                // get the parent template of the xslt node
-                Node parentTemplate = (Node) XPathResolver.getInstance().evaluate(pipeline,
-                        "//xslt[@href='" + xsltURI + "']/ancestor::*:template", XPathConstants.NODE);
 
-                // remove the apply templates node
-                if ((Node) XPathResolver.getInstance().evaluate(pipeline,
-                        "//*:template[@match=\"*[@name='" + elementName + "']\"]/*:apply-templates",
-                        XPathConstants.NODE) != null) {
-
-                    // remove the apply templates node
-                    parentTemplate.removeChild((Node) XPathResolver.getInstance().evaluate(pipeline,
-                            "//*:template[@match=\"*[@name='" + elementName + "']\"]/*:apply-templates",
-                            XPathConstants.NODE));
-                }
-
-                // appends the node to the pipeline
-                xsltNode.getParentNode().replaceChild(pipeline.adoptNode(templateContent.cloneNode(true)), xsltNode);
+                //+PIPELINE_FORMAT_CHANGE
+                //+FIX_THIS_LATER  -- we should be able to support multi node bp:name matching easily
+                // presently only one xsl:template matching bp:name is supported. The code below needs
+                //to be tested to support multi ndoe matching
+                /****
+                Node runningReplacementNode = null;
+                for (int nNode=0 ; nNode < templateContentNodes.getLength() ; nNode++ ) {
+                    Node replacementNode = pipeline.adoptNode(templateContentNodes.item(nNode)).cloneNode(true);
+                    if (nNode == 0 ) {
+                        stylesheetElement.replaceChild(
+                                replacementNode,
+                                bpTemplateNode);
+                        runningReplacementNode = replacementNode;
+                    } else {
+                        Node nextNode = runningReplacementNode.getNextSibling();
+                        if (nextNode == null) {
+                            stylesheetElement.appendChild(replacementNode);
+                        } else {
+                            stylesheetElement.insertBefore(replacementNode, nextNode);
+                        }
+                    }
+                } **/
+               stylesheetElement.replaceChild(pipeline.adoptNode(templateContentNode.cloneNode(true)), bpTemplateNode);
 
                 // destroy XSLT File
                 XSLTFile = null;
@@ -133,7 +143,8 @@ public final class OAPipelineResolver implements org.bungeni.translators.interfa
         }
 
         // get the root element of the pipeline
-        Node oldRoot = (Node) XPathResolver.getInstance().evaluate(pipeline, "//*:template[@match='/']/stylesheets",
+        //!+PIPELINE_FORMAT_CHANGE(ah,oct-2011) Use bp:stylesheets instead of ns-less stylesheets
+        Node oldRoot = (Node) XPathResolver.getInstance().evaluate(pipeline, "//*:template[@match='/']/bp:stylesheets",
                 XPathConstants.NODE);
 
         // get the old root parent node

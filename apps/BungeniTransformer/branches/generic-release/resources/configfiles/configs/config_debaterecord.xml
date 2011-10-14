@@ -7,7 +7,7 @@
             <!-- resource bundle -->
             <entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
             <!-- parameter to specify cached pipeline property -->
-            <entry key="cachePipelineXSLT">true</entry>
+            <entry key="cachePipelineXSLT">false</entry>
     </properties>
 
 
