@@ -154,7 +154,11 @@ public final class OAPipelineResolver implements org.bungeni.translators.interfa
                 "//*:template[@match='/']/bp:stylesheets",
                 XPathConstants.NODE
                 );
-
+        if (oldRoot == null) {
+            log.error("The root template in the pipeline must have a bp:stylesheets container");
+            throw new
+               XPathExpressionException("The root template in the pipeline must have a bp:stylesheets container");
+        }
         // get the old root parent node
         Node oldRootParent = oldRoot.getParentNode();
 
