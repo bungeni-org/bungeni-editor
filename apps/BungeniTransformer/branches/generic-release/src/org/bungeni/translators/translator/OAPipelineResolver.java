@@ -94,21 +94,33 @@ public final class OAPipelineResolver implements org.bungeni.translators.interfa
                         getDBF().newDocumentBuilder().parse(
                         FileUtility.getInstance().FileAsInputSource(XSLTFile));
                 // get the content of the template of the XSLT
-                //!+PIPELINE_FORMAT_CHANGE(ah,oct-2011) Find the XSLT template matchign the bp:name attribute 
-                Node templateContentNode  = (Node)XPathResolver.getInstance().
+                //!+PIPELINE_FORMAT_CHANGE(ah,oct-2011) Find the XSLT template matchign the bp:name attribute
+                //multiple template matches are supported -- see comment below
+                NodeList templateContentNodes  = (NodeList)XPathResolver.getInstance().
                      evaluate(
                       XSLTDoc,
                       "//*:template[@bp:name='" + elementName + "']",
-                      XPathConstants.NODE
+                      XPathConstants.NODESET
                      );
-                //+PIPELINE_FORMAT_CHANGE
-                //+FIX_THIS_LATER  -- we should be able to support multi node bp:name matching easily
-                // presently only one xsl:template matching bp:name is supported. The code below needs
-                //to be tested to support multi ndoe matching
-                /**
+                //+PIPELINE_FORMAT_CHANGE(ah,oct-2011)
+                //Multiple template nodes for a pipe in the pipeline are supported,
+                //they just need to have the same bp:name attribute value and must be in the 
+                //same pipe file
+                // e.g.
+                //  <xs:template match="zelement" bp:name="zelement-pipe" >
+                //     <!-- do something -->
+                //     <xs:call-template name="local-template-only-relevant-here" />
+                //  </xsl:template>
+                //
+                //  <xsl:template name="local-template-only-relevant-here" bp:name="zelement-pipe">
+                //  </xsl:template>
+                //
+                //
                 Node runningReplacementNode = null;
                 for (int nNode=0 ; nNode < templateContentNodes.getLength() ; nNode++ ) {
-                    Node replacementNode = pipeline.adoptNode(templateContentNodes.item(nNode)).cloneNode(true);
+                    //this loops through the individual matched xsl:templates which have the
+                    //bp:name attribute and injects them into pipeline.xsl
+                    Node replacementNode = pipeline.adoptNode(templateContentNodes.item(nNode).cloneNode(true));
                     if (nNode == 0 ) {
                         stylesheetElement.replaceChild(
                                 replacementNode,
@@ -122,8 +134,8 @@ public final class OAPipelineResolver implements org.bungeni.translators.interfa
                             stylesheetElement.insertBefore(replacementNode, nextNode);
                         }
                     }
-                } **/
-               stylesheetElement.replaceChild(pipeline.adoptNode(templateContentNode.cloneNode(true)), bpTemplateNode);
+                } 
+               //stylesheetElement.replaceChild(pipeline.adoptNode(templateContentNode.cloneNode(true)), bpTemplateNode);
                 // destroy XSLT File
                 XSLTFile = null;
                 // destroy XSLT document
