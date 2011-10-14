@@ -11,7 +11,7 @@
 
     <xsl:include href="../common/identity_template.xsl"/>
 
-    <xsl:template match="*[@name='ActionEvent']">
+    <xsl:template match="*[@name='ActionEvent']" bp:name="ActionEvent">
         <subdivision>
             <xsl:if test="@id">
                 <xsl:attribute name="id">

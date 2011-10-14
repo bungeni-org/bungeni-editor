@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet 
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-    xmlns:bungeni="http://editor.bungeni.org/1.0/anx" 
-    version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+                xmlns:bungeni="http://editor.bungeni.org/1.0/anx"
+                xmlns:bp="http://www.bungeni.org/pipeline/1.0"
+                exclude-result-prefixes="bp"
+                version="2.0">
     <xsl:output indent="yes" method="xml" encoding="UTF-8"/>
 
     <xsl:template match="/">
@@ -11,7 +12,7 @@
 
     <xsl:include href="../common/identity_template.xsl"/>
 
-    <xsl:template match="*[@name='Speech']">
+    <xsl:template match="*[@name='Speech']" bp:name="Speech">
         <speech>
             <xsl:if test="@id">
                 <xsl:attribute name="id">

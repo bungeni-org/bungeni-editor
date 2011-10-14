@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+                xmlns:bp="http://www.bungeni.org/pipeline/1.0"
+                exclude-result-prefixes="bp"
                 version="2.0">
     <xsl:output indent="yes" method="xml" encoding="UTF-8"/>
 
@@ -18,17 +20,17 @@
         </xsl:element>
     </xsl:template>
 
-    <xsl:template match="*[@name='TLCEvent']">
+    <xsl:template match="*[@name='TLCEvent']" bp:name="TLCEvent">
          <TLCEvent>
         	<xsl:if test="@id">
-				<xsl:attribute name="id"><xsl:value-of select="@id" /></xsl:attribute>
-			</xsl:if>
-			<xsl:if test="@href">
-				<xsl:attribute name="href"><xsl:value-of select="@href" /></xsl:attribute>
-			</xsl:if>
-			<xsl:if test="@showAs">
-				<xsl:attribute name="showAs"><xsl:value-of select="@showAs" /></xsl:attribute>
-			</xsl:if>
+                    <xsl:attribute name="id"><xsl:value-of select="@id" /></xsl:attribute>
+                </xsl:if>
+                <xsl:if test="@href">
+                        <xsl:attribute name="href"><xsl:value-of select="@href" /></xsl:attribute>
+                </xsl:if>
+                <xsl:if test="@showAs">
+                        <xsl:attribute name="showAs"><xsl:value-of select="@showAs" /></xsl:attribute>
+                </xsl:if>
 
             <xsl:apply-templates />
         </TLCEvent>

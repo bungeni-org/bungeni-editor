@@ -50,7 +50,7 @@
     
     <bp:template name="Preface" href="pipeline_xslt/common/preface.xsl"/>
 
-    <!--
+    
     <bp:template name="Observation" href="pipeline_xslt/common/observation.xsl"/>
     
     <bp:template name="PapersLaid" href="pipeline_xslt/debaterecord/tableddocuments.xsl"/>
@@ -76,9 +76,7 @@
     
     <bp:template name="Petitions" href="pipeline_xslt/debaterecord/petitions.xsl"/>
     
-    
     <bp:template name="PetitionsList" href="pipeline_xslt/debaterecord/petitionslist.xsl"/>
-    
     
     <bp:template name="PMotionsContainer" href="pipeline_xslt/debaterecord/pmotionscontainer.xsl"/>
     
@@ -87,7 +85,6 @@
     <bp:template name="NoticeOfMotion" href="pipeline_xslt/debaterecord/noticeofmotion.xsl"/>
     
     <bp:template name="ProceduralMotion" href="pipeline_xslt/debaterecord/proceduralmotion.xsl"/>
-    
     
     <bp:template name="Person" href="pipeline_xslt/common/person.xsl"/>
     
@@ -148,264 +145,6 @@
     
     <bp:template name="TLCReference" href="pipeline_xslt/common/tlcreference.xsl"/>
     
-    -->
-    
-
-  <!--
-    <xsl:template match="*[@name='root']">
-        <xslt name="root" href="pipeline_xslt/debaterecord/root.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='body']">
-        <xslt name="body" href="pipeline_xslt/debaterecord/debate_body.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='Preface']">
-        <xslt name="Preface" href="pipeline_xslt/common/preface.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='Observation']">
-        <xslt name="Observation" href="pipeline_xslt/common/observation.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='PapersLaid']">
-        <xslt name="PapersLaid" href="pipeline_xslt/debaterecord/tableddocuments.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='PapersLaidList']">
-        <xslt name="PapersLaidList" href="pipeline_xslt/debaterecord/tableddocumentslist.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='GroupActivity']">
-        <xslt name="GroupActivity" href="pipeline_xslt/debaterecord/groupactivity.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='Speech']">
-        <xslt name="Speech" href="pipeline_xslt/debaterecord/speech.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='QuestionsContainer']">
-        <xslt name="QuestionsContainer" href="pipeline_xslt/debaterecord/questionscontainer.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='QuestionAnswer']">
-        <xslt name="QuestionAnswer" href="pipeline_xslt/debaterecord/questionanswer.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='Question']">
-        <xslt name="Question" href="pipeline_xslt/debaterecord/question.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='PointOfOrder']">
-        <xslt name="PointOfOrder" href="pipeline_xslt/debaterecord/pointoforder.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='PersonalStatement']">
-        <xslt name="PersonalStatement" href="pipeline_xslt/debaterecord/personalstatement.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='MinisterialStatement']">
-        <xslt name="MinisterialStatement"
-            href="pipeline_xslt/debaterecord/ministerialstatement.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='Petitions']">
-        <xslt name="Petitions" href="pipeline_xslt/debaterecord/petitions.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-
-    <xsl:template match="*[@name='PetitionsList']">
-        <xslt name="PetitionsList" href="pipeline_xslt/debaterecord/petitionslist.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-
-    <xsl:template match="*[@name='PMotionsContainer']">
-        <xslt name="PMotionsContainer" href="pipeline_xslt/debaterecord/pmotionscontainer.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='NMotionsContainer']">
-        <xslt name="NMotionsContainer" href="pipeline_xslt/debaterecord/nmotionscontainer.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-    
-    <xsl:template match="*[@name='NoticeOfMotion']">
-        <xslt name="NoticeOfMotion" href="pipeline_xslt/debaterecord/noticeofmotion.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='ProceduralMotion']">
-        <xslt name="ProceduralMotion" href="pipeline_xslt/debaterecord/proceduralmotion.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-
-    <xsl:template match="*[@name='Person']">
-        <xslt name="Person" href="pipeline_xslt/common/person.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='ActionEvent']">
-        <xslt name="ActionEvent" href="pipeline_xslt/debaterecord/actionevent.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='Communication']">
-        <xslt name="Communication" href="pipeline_xslt/debaterecord/communication.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='Conclusion']">
-        <xslt name="Conclusion" href="pipeline_xslt/common/conclusion.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='span']">
-        <xslt name="span" href="pipeline_xslt/common/span.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='p']">
-        <xslt name="p" href="pipeline_xslt/debaterecord/p.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='ref']">
-        <xslt name="ref" href="pipeline_xslt/debaterecord/ref.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='heading']">
-        <xslt name="heading" href="pipeline_xslt/common/heading.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='subheading']">
-        <xslt name="subheading" href="pipeline_xslt/common/subheading.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='list']">
-        <xslt name="list" href="pipeline_xslt/common/list.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='item']">
-        <xslt name="item" href="pipeline_xslt/common/item.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='a']">
-        <xslt name="a" href="pipeline_xslt/common/a.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='meta']">
-        <xslt name="meta" href="pipeline_xslt/common/meta.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='identification']">
-        <xslt name="identification" href="pipeline_xslt/common/identification.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='FRBRWork']">
-        <xslt name="FRBRWork" href="pipeline_xslt/common/frbrwork.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='FRBRExpression']">
-        <xslt name="FRBRExpression" href="pipeline_xslt/common/frbrexpression.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='FRBRManifestation']">
-        <xslt name="FRBRManifestation" href="pipeline_xslt/common/frbrmanifestation.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='this']">
-        <xslt name="this" href="pipeline_xslt/common/this.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='uri']">
-        <xslt name="uri" href="pipeline_xslt/common/uri.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='date']">
-        <xslt name="date" href="pipeline_xslt/common/date.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='author']">
-        <xslt name="author" href="pipeline_xslt/common/frbrauthor.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='publication_mcontainer']">
-        <xslt name="publication_mcontainer"
-            href="pipeline_xslt/common/publication_mcontainer.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='publication']">
-        <xslt name="publication" href="pipeline_xslt/common/publication.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='references']">
-        <xslt name="references" href="pipeline_xslt/common/references.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='TLCOrganization']">
-        <xslt name="TLCOrganization" href="pipeline_xslt/common/tlcorganization.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='TLCPerson']">
-        <xslt name="TLCPerson" href="pipeline_xslt/common/tlcperson.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='TLCEvent']">
-        <xslt name="TLCEvent" href="pipeline_xslt/common/tlcevent.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='TLCRole']">
-        <xslt name="TLCRole" href="pipeline_xslt/common/tlcrole.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-    <xsl:template match="*[@name='TLCReference']">
-        <xslt name="TLCReference" href="pipeline_xslt/common/tlcreference.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-
-
-    -->
-
-
     <!--
 
     PIPELINE TEMPLATES END 

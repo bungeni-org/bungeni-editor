@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-                version="2.0">
+                xmlns:bp="http://www.bungeni.org/pipeline/1.0"
+                exclude-result-prefixes="bp"
+                version="2.0"> 
     <xsl:output indent="yes" method="xml" encoding="UTF-8"/>
 
     <xsl:template match="/">
@@ -18,7 +20,7 @@
         </xsl:element>
     </xsl:template>
 
-    <xsl:template match="*[@name='Person']">
+    <xsl:template match="*[@name='Person']" bp:name="Person">
         <!-- is this ever used ? the 'from' element is rendered
         from the 'ref' template, this isnt used anymore
         <from>
