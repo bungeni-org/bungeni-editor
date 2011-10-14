@@ -413,6 +413,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
              * Use the cached XSLT if it exists
              */
             xslt = outputXSLT;
+            log.info("!!!!!!!! USING CACHED TEMPLATE !!!!!!!");
         } else {
             //otherwise build the pipeline and return it
             xslt = this.buildXSLT(aPipelinePath);
