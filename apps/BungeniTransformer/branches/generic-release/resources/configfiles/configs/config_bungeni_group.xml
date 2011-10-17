@@ -19,11 +19,11 @@
 
         <!-- This steps are performed BEFORE the above regex replacement -->
         <input>
-            <xslt step="1" name="appendBungeniNS" href="pipeline_xslt/common/add_bungeniportal_ns.xsl"/>
+            <xslt step="1" name="appendBungeniNS" href="pipeline_xslt/bungeni/common/add_bungeniportal_ns.xsl"/>
         </input>
 
        <pipetoxml name="BungeniXML"
-               href="pipeline_xslt/bungeniportal/pipeline.xsl"  />
+               href="pipeline_xslt/bungeni/group/pipeline.xsl"  />
 
     <!-- Called after translate -->
     <postxml>
