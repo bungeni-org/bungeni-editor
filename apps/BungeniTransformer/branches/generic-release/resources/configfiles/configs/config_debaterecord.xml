@@ -8,7 +8,7 @@
             <entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
             <!-- parameter to specify cached pipeline property -->
             <entry key="cachePipelineXSLT">false</entry>
-             <entry key="inputXmlSource">org.bungeni.translators.translator.ODFXMLSource</entry>
+             <entry key="inputXmlSource">ODF</entry>
     </properties>
 
 

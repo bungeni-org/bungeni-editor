@@ -4,7 +4,7 @@
 	<!-- BILL -->
 	<entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
         <entry key="cachePipelineXSLT">true</entry>
-         <entry key="inputXmlSource">org.bungeni.translators.translator.ODFXMLSource</entry>
+         <entry key="inputXmlSource">ODF</entry>
     </properties>
 
         <!-- Specfies the schema for the xml document being created -->

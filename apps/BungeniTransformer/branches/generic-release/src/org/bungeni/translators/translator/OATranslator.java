@@ -39,6 +39,7 @@ import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPathExpressionException;
 import org.bungeni.translators.configurations.steps.OAPipelineStep;
+import org.bungeni.translators.translator.XMLSourceFactory.XMLSourceType;
 import org.bungeni.translators.utility.runtime.Outputs;
 
 /***
@@ -133,6 +134,10 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         // check if pipeline xslt needs to be cached
         this.cachePipelineXSLT = Boolean.parseBoolean(properties.getProperty("cachePipelineXSLT"));
 
+        String strSourceType = properties.getProperty("inputXmlSource");
+
+        this.sourceType = XMLSourceType.valueOf(strSourceType);
+
         log.info("OATRANSLATOR ; translatorConfigPath :" + pathToConfigurationFile + " ;resourceBundle :" + this.resourceBundle + " ;cachePipelineXSLT : " + this.cachePipelineXSLT);
     }
 
@@ -182,21 +187,10 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
 
         try {
 
-
-            /***
-             * Automatic Translation type detection
-             * First detect the input source type
+            /**
+             * Source type is detected from configuration during object setup, not
+             * done here anymore
              */
-            if (aDocumentPath.endsWith(".odt")) {
-                this.sourceType = XMLSourceFactory.XMLSourceType.ODF;
-            } else if (aDocumentPath.endsWith(".xml")) {
-                //if it does not end with odt set the source type to XML
-                this.sourceType = XMLSourceFactory.XMLSourceType.BUNGENI_XML;
-            } else {
-                //!+FIX_THIS_LATER(ah, oct-2011) Type identification needs to be
-                //smarter and fixed eventually
-                this.sourceType = XMLSourceFactory.XMLSourceType.XML;
-            }
 
             /**
              * Get the source instance
