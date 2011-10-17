@@ -33,28 +33,11 @@
     PIPELINE TEMPLATES FOLLOW
 
     -->
-    
-    <bp:template name="root" href="pipeline_xslt/bungeniportal/contenttype.xsl"/>
+    <bp:template name="root" href="pipeline_xslt/bungeni/group/root.xsl"/>
 
+    <bp:template name="meta" href="pipeline_xslt/bungeni/group/meta.xsl"/>
 
-    <!--
-    <bp:template name="FRBRWork" href="pipeline_xslt/bungeniportal/frbrwork.xsl"/>
-     -->
-    <!--
-    <bp:template name="contenttype" href="pipeline_xslt/bungeniportal/contenttype.xsl"/>
-
-    <xsl:template match="bp:contenttype">
-        <xslt name="bp:contenttype" href="pipeline_xslt/bungeniportal/contenttype.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-    -->
-    
-    <!--
-    <xsl:template match="bp:contenttype">
-        <xslt name="bp:contenttype" href="pipeline_xslt/bungeniportal/attachments.xsl"/>
-        <xsl:apply-templates/>
-    </xsl:template>
-    -->
+    <bp:template name="content" href="pipeline_xslt/bungeni/group/content.xsl"/>
 
     <!--
 

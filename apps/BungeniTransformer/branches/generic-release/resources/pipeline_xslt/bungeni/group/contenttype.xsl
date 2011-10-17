@@ -41,6 +41,16 @@
                             <xsl:with-param name="contenttypename" select="$contenttypename" />
                             <xsl:with-param name="contenturidate" select="$contenturidate" />                            
                         </xsl:call-template>
+                        
+                        <xsl:call-template name="frbrexpression">
+                            <xsl:with-param name="contenttypename" select="$contenttypename" />
+                            <xsl:with-param name="contenturidate" select="$contenturidate" />                            
+                        </xsl:call-template>    
+                        
+                        <xsl:call-template name="frbrmanifestation">
+                            <xsl:with-param name="contenttypename" select="$contenttypename" />
+                            <xsl:with-param name="contenturidate" select="$contenturidate" />
+                        </xsl:call-template>
                         <!--
                         <FRBRExpession>indentification.xsl</FRBRExpession>
                         <FRBRManifestation>indentification.xsl</FRBRManifestation>
@@ -68,8 +78,46 @@
             <xsl:call-template name="frbrthis" >
                 <xsl:with-param name="contenttypename"  select="$contenttypename"/>
             </xsl:call-template>
-        </FRBRWork>
+        </FRBRWork>      
     </xsl:template>
+    
+    <xsl:template name="frbrexpression" bp:name="root">
+        <xsl:param name="contenttypename" />
+        <xsl:param name="contenturidate" />
+        
+        <FRBRExpression>
+            <xsl:call-template name="frbrauthor" />
+            <xsl:call-template name="frbrdate" >
+                <xsl:with-param name="contenturidate" select="$contenturidate" />
+            </xsl:call-template>
+            <xsl:call-template name="frbruri" >
+                <xsl:with-param name="contenttypename"  select="$contenttypename"/>
+                <xsl:with-param name="contenturidate"  select="$contenturidate"/>
+            </xsl:call-template>
+            <xsl:call-template name="frbrthis" >
+                <xsl:with-param name="contenttypename"  select="$contenttypename"/>
+            </xsl:call-template>
+        </FRBRExpression>      
+    </xsl:template>    
+    
+    <xsl:template name="frbrmanifestation" bp:name="root">
+        <xsl:param name="contenttypename" />
+        <xsl:param name="contenturidate" />
+        
+        <FRBRManifestation>
+            <xsl:call-template name="frbrauthor" />
+            <xsl:call-template name="frbrdate" >
+                <xsl:with-param name="contenturidate" select="$contenturidate" />
+            </xsl:call-template>
+            <xsl:call-template name="frbruri" >
+                <xsl:with-param name="contenttypename"  select="$contenttypename"/>
+                <xsl:with-param name="contenturidate"  select="$contenturidate"/>
+            </xsl:call-template>
+            <xsl:call-template name="frbrthis" >
+                <xsl:with-param name="contenttypename"  select="$contenttypename"/>
+            </xsl:call-template>
+        </FRBRManifestation>      
+    </xsl:template>       
 
     <xsl:template name="frbrthis" bp:name="root">
         <xsl:param name="contenttypename" />
@@ -102,11 +150,9 @@
         <FRBRauthor href="#Author">
         </FRBRauthor> 
     </xsl:template>
-    
 
     <xsl:template match="text()">
         <xsl:value-of select="normalize-space(.)"/>
     </xsl:template>
-
 
 </xsl:stylesheet>

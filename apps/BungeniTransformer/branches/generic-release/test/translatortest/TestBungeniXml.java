@@ -10,7 +10,7 @@ package translatortest;
 public class TestBungeniXml extends OATranslatorTestBungeniXmlBase {
 	public TestBungeniXml(){
 		super();
-		setInputDocument("test/testdocs/obj-3.xml");
+		setInputDocument("test/testdocs/grp-parl.xml");
 		setOutputDocument("test/testresults/test_bungeni.xml");
 		setOutputMetalex("test/testresults/test_bungeni.mlx");
 		setComparisonDocument("test/testdocs/test_rdfmeta_out.xml");

@@ -17,8 +17,7 @@ public class OATranslatorTestBungeniXmlBase extends OATranslatorTestBase {
 
 	public OATranslatorTestBungeniXmlBase() {
 		super();
-		setConfigFilePath("configfiles/configs/config_bungeniportal.xml");
-		//setPipeline("metalex2akn/minixslt/debaterecord/pipeline.xsl");
+		setConfigFilePath("configfiles/configs/config_bungeni_group.xml");
 	}
 }
 

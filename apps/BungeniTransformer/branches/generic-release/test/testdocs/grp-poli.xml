@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<contenttype name="group">
+    <field name="status">active</field>
+    <agenda_items/>
+    <members/>
+    <field name="short_name">PG</field>
+    <field name="group_principal_id">group.political-group.64</field>
+    <field name="description">description of the political group description of the political group
+        description of the political group description of the political group description of the
+        political group description of the political group description of the political group
+        description of the political group &lt;em&gt;description of the political group description
+        of the political group description of the political group description of the political group
+        description of the political group description of the political group description of the
+        political group description of the political group&lt;/em&gt;:
+        &lt;ul&gt;&lt;li&gt;&lt;strong&gt;description&lt;/strong&gt; of the political group
+        description of the political group description of the political group
+        &lt;/li&gt;&lt;li&gt;description of the political group description of the political group
+        &lt;strong&gt;description&lt;/strong&gt; of the political group description of the political
+        group description of the political group &lt;/li&gt;&lt;li&gt;description of the political
+        group &lt;strong&gt;description&lt;/strong&gt; of the political group
+        &lt;/li&gt;&lt;/ul&gt;description of the political group description of the political group
+        description of the political group description of the political group description of the
+        political group description of the political group description of the political group
+        description of the political group &lt;span style="color: #ff0000;"&gt;description of the
+        political group&lt;/span&gt;.</field>
+    <group_assignments/>
+    <field name="start_date">2011-02-23</field>
+    <parent_group>
+        <field name="status">active</field>
+        <field name="parliament_id">2</field>
+        <field name="description">edited - description description &lt;span style="color: rgb(191,
+            0, 95);"&gt;description &lt;/span&gt;description description description description
+            description description description description description description political
+            &lt;strong&gt;group description description&lt;/strong&gt; description description
+            description description description description description description description
+            description description description description description &lt;span
+            style="background-color: rgb(255, 128, 128);"&gt;description description&lt;/span&gt;
+            description description description description description description description
+            description description description description description description description
+            description description description description description description description
+            description description description</field>
+        <field name="short_name">XIV-PARL</field>
+        <field name="group_principal_id">group.parliament.2</field>
+        <field name="election_date">2011-02-01</field>
+        <field name="status_date">2011-10-14 21:42:24.651699</field>
+        <field name="language">en</field>
+        <field name="full_name">Bungeni Parliament</field>
+        <field name="group_id">2</field>
+        <field name="type">parliament</field>
+        <field name="start_date">2011-02-15</field>
+    </parent_group>
+    <field name="language">en</field>
+    <field name="parent_group_id">2</field>
+    <field name="party_id">64</field>
+    <field name="full_name">Political Group P1_06</field>
+    <permissions>
+        <permission>
+            <field name="role">bungeni.PartyMember</field>
+            <field name="user">group.political-group.64</field>
+            <field name="permission">Allow</field>
+        </permission>
+        <permission>
+            <field name="role">bungeni.Owner</field>
+            <field name="user">admin</field>
+            <field name="permission">Allow</field>
+        </permission>
+    </permissions>
+    <field name="group_id">64</field>
+    <field name="type">political-group</field>
+    <field name="status_date">2011-10-15 20:17:39.338689</field>
+    <contained_groups/>
+    <group_addresses/>
+</contenttype>

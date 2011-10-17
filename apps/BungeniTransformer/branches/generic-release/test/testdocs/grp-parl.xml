@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<contenttype name="group">
+    <field name="committee_type_id">2</field>
+    <field name="proportional_representation">True</field>
+    <field name="parent_group_id">2</field>
+    <field name="full_name">Committee P1_06</field>
+    <field name="committee_id">63</field>
+    <field name="min_num_members">6</field>
+    <field name="group_principal_id">group.committee.63</field>
+    <field name="num_researchers">4</field>
+    <field name="type">committee</field>
+    <field name="start_date">2011-02-23</field>
+    <contained_groups/>
+    <group_addresses/>
+    <field name="status">active</field>
+    <field name="description">committee description committee description &lt;span style="color:
+        rgb(191, 0, 95);"&gt;committee description committee &lt;/span&gt;description committee
+        description committee description committee description committee description committee
+        description committee description committee description committee description committee
+        description political &lt;strong&gt;group description committee description&lt;/strong&gt;
+        committee description committee description committee description committee description
+        committee description committee description committee description committee description
+        committee description committee description committee description committee description
+        committee description committee description committee &lt;span style="background-color:
+        rgb(255, 128, 128);"&gt;description committee description committee&lt;/span&gt; description
+        committee description committee description committee description committee description
+        committee description committee description committee description committee description
+        committee description committee description committee description committee description
+        committee description committee description committee description committee description
+        committee description committee description committee description committee description
+        committee description committee description committee description</field>
+    <field name="short_name">Com</field>
+    <field name="status_date">2011-10-15 20:15:01.510823</field>
+    <members/>
+    <committee_type>
+        <field name="life_span">parliament</field>
+        <field name="committee_type_status_id">1</field>
+        <field name="committee_type_id">2</field>
+        <field name="committee_type">Departmental</field>
+        <field name="language">en</field>
+    </committee_type>
+    <permissions>
+        <permission>
+            <field name="role">bungeni.CommitteeMember</field>
+            <field name="user">group.committee.63</field>
+            <field name="permission">Allow</field>
+        </permission>
+        <permission>
+            <field name="role">bungeni.Owner</field>
+            <field name="user">admin</field>
+            <field name="permission">Allow</field>
+        </permission>
+    </permissions>
+    <agenda_items/>
+    <field name="num_members">12</field>
+    <field name="quorum">5</field>
+    <field name="language">en</field>
+    <group_assignments/>
+    <parent_group>
+        <field name="status">active</field>
+        <field name="parliament_id">2</field>
+        <field name="description">edited - description description &lt;span style="color: rgb(191,
+            0, 95);"&gt;description &lt;/span&gt;description description description description
+            description description description description description description political
+            &lt;strong&gt;group description description&lt;/strong&gt; description description
+            description description description description description description description
+            description description description description description &lt;span
+            style="background-color: rgb(255, 128, 128);"&gt;description description&lt;/span&gt;
+            description description description description description description description
+            description description description description description description description
+            description description description description description description description
+            description description description</field>
+        <field name="short_name">XIV-PARL</field>
+        <field name="group_principal_id">group.parliament.2</field>
+        <field name="election_date">2011-02-01</field>
+        <field name="status_date">2011-10-14 21:42:24.651699</field>
+        <field name="language">en</field>
+        <field name="full_name">Bungeni Parliament</field>
+        <field name="group_id">2</field>
+        <field name="type">parliament</field>
+        <field name="start_date">2011-02-15</field>
+    </parent_group>
+    <field name="num_clerks">2</field>
+    <field name="group_id">63</field>
+</contenttype>
+
