@@ -11,6 +11,7 @@
     <properties>
 	<entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
         <entry key="cachePipelineXSLT">false</entry>
+        <entry key="inputXmlSource">org.bungeni.translators.translator.BungeniXMLSource</entry>
     </properties>
 
         <!-- Specfies the schema for the xml document being created -->

@@ -2,9 +2,9 @@
 <config name="JudgementCommon">
     <properties>
 	<!-- judgement -->
-	<entry key="translatorConfigPath">configfiles/configs/config_judgement.xml</entry>
 	<entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
         <entry key="cachePipelineXSLT">true</entry>
+         <entry key="inputXmlSource">org.bungeni.translators.translator.ODFXMLSource</entry>
     </properties>
 
     <!-- Specfies the schema for the xml document being created -->
