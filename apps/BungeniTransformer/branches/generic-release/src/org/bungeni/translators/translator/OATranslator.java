@@ -501,12 +501,12 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             //!+FIX_THIS_LATER(ah,oct-2011) the cached intermediate outputfile has been
             //left as metalex.xml so it doesnt break the editor which expects that intermediate
             //output -- fix editor and then change this appropriately
-            File metalexFile = FileUtility.getInstance().copyFile(metalextmpFile,
-                    Outputs.getInstance().File("metalex.xml"));
+            //File metalexFile = FileUtility.getInstance().copyFile(metalextmpFile,
+            //        Outputs.getInstance().File("metalex.xml"));
             // Stream for metalex file
             StreamSource ssMetalex =
-                    FileUtility.getInstance().FileAsStreamSource(metalexFile);
-            return new OutputXML(ssMetalex, metalexFile);
+                    FileUtility.getInstance().FileAsStreamSource(metalextmpFile);
+            return new OutputXML(ssMetalex, metalextmpFile);
     }
 
     public StreamSource translateToAkomantoso(File xsltFile, StreamSource metalexStream)

@@ -129,8 +129,11 @@ public final class OAPipelineResolver implements org.bungeni.translators.interfa
                     } else {
                         Node nextNode = runningReplacementNode.getNextSibling();
                         if (nextNode == null) {
+                            replacementNode.appendChild(pipeline.createTextNode("\n\n"));
                             stylesheetElement.appendChild(replacementNode);
+
                         } else {
+                            replacementNode.appendChild(pipeline.createTextNode("\n\n"));
                             stylesheetElement.insertBefore(replacementNode, nextNode);
                         }
                     }
