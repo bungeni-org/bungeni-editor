@@ -168,9 +168,7 @@
         <bp:proprietary source="#parliament">
             <!-- this is bungeni implementation specific xml, used only for rendering logic not output -->
             <xsl:copy-of select="./bu:permissions" />
-            
-            <bp:contained_groups />
-            
+            <xsl:copy-opf select="./bu:contained_groups" />
             <!-- for ui.xml rules -->
             <bp:rules>
                 <bp:field name="start_date" refersTo="#start-date"></bp:field>

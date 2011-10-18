@@ -34,35 +34,14 @@
         <akomaNtoso>
             <doc name="./bu:meta/bu:field[@name='type']">
                 <xsl:apply-templates select="./bu:meta" /> 
-                <xsl:call-template name="preface">
-                    
-                </xsl:call-template>
+                <xsl:call-template name="preface" />
                 <xsl:apply-templates select="./bu:content" />
             </doc>
         </akomaNtoso>
     </xsl:template>
     
-    <xsl:template name="preface" bp:name="root">
-        <xsl:variable name="parl_status"><xsl:value-of select="./bu:meta/bu:field[@name='status']" /></xsl:variable>
-        <preface>
-            <block name="preface">
-                <docDate refersTo="#election-date" >
-                    <xsl:attribute name="date"><xsl:value-of select="./bu:content/bu:field[@name='status_date']" /></xsl:attribute>
-                </docDate>
-                
-                <!-- for active parliaments, dissoltion date may not be there -->
-                <xsl:if test="$parl_status ne 'active'">
-                    <docDate date="2011-10-13" refersTo="#dissolution-date"/>                    
-                </xsl:if>
-                
-                <docDate refersTo="#status-date">
-                    <xsl:attribute name="date"><xsl:value-of select="./bu:content/bu:field[@name='status_date']" /></xsl:attribute>
-                </docDate>
-                <docTitle refersTo="#short-name"><xsl:value-of select="//bu:field[@name='short_name']" /></docTitle>
-                <docTitle refersTo="#full-name"><xsl:value-of select="//bu:field[@name='full_name']" /></docTitle>
-            </block>
-        </preface>
-    </xsl:template>    
+    <!-- Placeholder for called templates, these will not be imported into the pipeline -->
+    <xsl:include href="preface.xsl" />
     
     <xsl:template match="text()">
         <xsl:value-of select="normalize-space(.)"/>

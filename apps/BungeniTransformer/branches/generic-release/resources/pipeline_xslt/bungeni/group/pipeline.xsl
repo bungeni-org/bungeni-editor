@@ -35,6 +35,8 @@
     -->
     <bp:template name="root" href="pipeline_xslt/bungeni/group/root.xsl"/>
 
+    <bp:template name="preface" href="pipeline_xslt/bungeni/group/preface.xsl"/>
+
     <bp:template name="meta" href="pipeline_xslt/bungeni/group/meta.xsl"/>
 
     <bp:template name="content" href="pipeline_xslt/bungeni/group/content.xsl"/>
