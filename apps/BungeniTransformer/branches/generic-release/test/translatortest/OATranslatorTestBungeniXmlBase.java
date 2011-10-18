@@ -17,7 +17,7 @@ public class OATranslatorTestBungeniXmlBase extends OATranslatorTestBase {
 
 	public OATranslatorTestBungeniXmlBase() {
 		super();
-		setConfigFilePath("configfiles/configs/config_bungeni_group.xml");
+		//setConfigFilePath("configfiles/configs/config_bungeni_question.xml");
 	}
 }
 
