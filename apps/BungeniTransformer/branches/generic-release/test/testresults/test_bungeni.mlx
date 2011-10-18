@@ -1,13 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><bu:contenttype xmlns:bu="http://portal.bungeni.org/1.0/" name="group"><bu:field name="status">active</bu:field><bu:agenda_items/><bu:members/><bu:field name="short_name">Goverment</bu:field><bu:field name="group_principal_id">group.government.3</bu:field><bu:field name="description">description &lt;span style="color: rgb(191, 0, 95);"&gt;description &lt;/span&gt;description description description description description description description
-
-description description description political &lt;strong&gt;group description description&lt;/strong&gt; description description description description description 
-
-description description description description description description &lt;span style="background-color: rgb(255, 128, 128);"&gt;description description&lt;/span&gt; description description description description description description description 
-
-description description description description</bu:field><bu:group_assignments/><bu:field name="start_date">2011-02-18</bu:field><bu:parent_group><bu:field name="status">active</bu:field><bu:field name="parliament_id">2</bu:field><bu:field name="description">edited - description description &lt;span style="color: rgb(191, 0, 95);"&gt;description &lt;/span&gt;description description description description description description description
-
-description description description political &lt;strong&gt;group description description&lt;/strong&gt; description description description description description 
-
-description description description description description description description description description &lt;span style="background-color: rgb(255, 128, 128);"&gt;description description&lt;/span&gt; description description description description description description description 
-
-description description description description description description description description description description description description description description description description description</bu:field><bu:field name="short_name">XIV-PARL</bu:field><bu:field name="group_principal_id">group.parliament.2</bu:field><bu:field name="election_date">2011-02-01</bu:field><bu:field name="status_date">2011-10-12 23:48:28.328669</bu:field><bu:field name="language">en</bu:field><bu:field name="full_name">Bungeni Parliament</bu:field><bu:field name="group_id">2</bu:field><bu:field name="type">parliament</bu:field><bu:field name="start_date">2011-02-15</bu:field></bu:parent_group><bu:field name="language">en</bu:field><bu:field name="parent_group_id">2</bu:field><bu:field name="full_name">G1</bu:field><bu:field name="group_id">3</bu:field><bu:field name="type">government</bu:field><bu:field name="status_date">2011-10-12 23:49:31.613361</bu:field><bu:contained_groups/><bu:group_addresses/></bu:contenttype>
+<?xml version="1.0" encoding="UTF-8"?><bu:group xmlns:bu="http://portal.bungeni.org/1.0/"><bu:meta><bu:field name="status">active</bu:field><bu:field name="parliament_id">2</bu:field><bu:field name="group_principal_id">group.parliament.2</bu:field><bu:field name="start_date">2011-02-15</bu:field><bu:field name="language">en</bu:field><bu:field name="group_id">2</bu:field><bu:field name="type">parliament</bu:field><bu:field name="status_date">2011-10-12 23:48:28.328669</bu:field><bu:contained_groups/></bu:meta><bu:content><bu:field name="short_name">XIV-PARL</bu:field><bu:field name="election_date">2011-02-01</bu:field><bu:field name="description">description description &lt;span style="color: rgb(191, 0,
+        95);"&gt;description &lt;/span&gt;description description description description
+        description description description description description description political
+        &lt;strong&gt;group description description&lt;/strong&gt; description description
+        description description description description description description description
+        description description description description description &lt;span
+        style="background-color: rgb(255, 128, 128);"&gt;description description&lt;/span&gt;
+        description description description description description description description
+        description description description description description description description
+        description description description description description description description
+        description description description</bu:field><bu:field name="full_name">Bungeni Parliament</bu:field><bu:field name="status_date">2011-10-12 23:48:28.328669</bu:field><bu:group_addresses/></bu:content></bu:group>

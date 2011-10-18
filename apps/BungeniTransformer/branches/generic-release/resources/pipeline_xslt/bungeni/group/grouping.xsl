@@ -22,8 +22,10 @@
                                              @name='parliament_id' or
                                              @name='group_principal_id' or
                                              @name='language' or 
+                                             @name='type' or 
                                              @name='group_id' or
-                                             @name='status_date' or
+                                             @name='status_date' or 
+                                             @name='start_date' or 
                                              @name='party_id' or
                                              @name='parent_group_id' or
                                              @name='committee_id' or
@@ -31,22 +33,20 @@
                                              @name='min_num_members' or
                                              @name='proportional_presenatation' or
                                              @name='num_researchers' ]" />
-                
-                <xsl:copy-of select="parent_group/field[ @name='type']" />
 
-                <xsl:copy-of select="permissions |
-                                     contained_groups" />
+                <xsl:copy-of select="permissions | contained_groups" />
             </meta>
             <content>
                 <xsl:copy-of select="field[ @name='quorum' or
-                                            @name='num_members' ] |
+                                            @name='num_members' or 
+                                            @name='short_name' or
+                                            @name='full_name' or 
+                                            @name='description' or 
+                                            @name='election_date' or 
+                                            @name='dissolution_date' or 
+                                            @name='results_date' or 
+                                            @name= 'status_date' ] |
                                             group_addresses" />  
-                
-                <xsl:copy-of select="parent_group/field[ @name='description' or
-                                                         @name='election_date' or
-                                                         @name='status_date' or
-                                                         @name='short_name' or
-                                                         @name='full_name' ]" />
             </content>
         </group>
     </xsl:template>

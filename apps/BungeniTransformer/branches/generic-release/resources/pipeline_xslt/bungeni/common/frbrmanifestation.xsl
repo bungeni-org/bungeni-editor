@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-    Document   : frbrwork.xsl
-    Created on : 14 October 2011, 16:16
+    Document   : frbrmanifestation.xsl
+    Created on : 18 October 2011, 11:44
     Author     : anthony
     Description:
         Purpose of transformation follows.
@@ -30,15 +30,25 @@
         </xsl:element>
     </xsl:template>
     
-    <xsl:template match="bu:contenttype" bp:name="FRBRWork">
-        <FRBRWork>
-            <FRBRthis value="/ken/government/{bu:field[@name='start_date']}/{position()}>/main"/>
-            <FRBRuri value="/ken/government/{bu:field[@name='start_date']}/{position()}>/main"/>
-            <FRBRdate date="{bu:field[@name='start_date']}" name="#Par"/>
-            <FRBRauthor href="#Author"/>
-        </FRBRWork>
+    <xsl:template name="frbrmanifestation" bp:name="frbrmanifestation">
+        <xsl:param name="contenttypename" />
+        <xsl:param name="contenturidate" />
+
+        <FRBRManifestation>
+            <xsl:call-template name="frbrauthor" />
+            <xsl:call-template name="frbrdate" >
+                <xsl:with-param name="contenturidate" select="$contenturidate" />
+            </xsl:call-template>
+            <xsl:call-template name="frbruri" >
+                <xsl:with-param name="contenttypename"  select="$contenttypename"/>
+                <xsl:with-param name="contenturidate"  select="$contenturidate"/>
+            </xsl:call-template>
+            <xsl:call-template name="frbrthis" >
+                <xsl:with-param name="contenttypename"  select="$contenttypename"/>
+            </xsl:call-template>
+        </FRBRManifestation>
     </xsl:template>
-    
+
     <xsl:template match="text()">
         <xsl:value-of select="normalize-space(.)"/>
     </xsl:template> 

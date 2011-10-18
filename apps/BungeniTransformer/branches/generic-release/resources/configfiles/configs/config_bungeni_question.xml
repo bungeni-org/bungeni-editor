@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : config_bungeni_question.xml
+    Created on : 17 October 2011, 17:46
+    Author     : anthony
+    Description:
+        This is the translation pipeline for Bungeni output documents
+-->
+<config name="BungeniXML">
+    <properties>
+	<entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
+        <entry key="cachePipelineXSLT">false</entry>
+        <entry key="inputXmlSource">BUNGENI_XML</entry>
+    </properties>
+
+        <!-- Specfies the schema for the xml document being created -->
+        <schema href="configfiles/schema/akomantoso20.xsd" />
+
+        <!-- This steps are performed BEFORE the above regex replacement -->
+        <input>
+
+            <xslt step="1" name="appendBungeniGrouping" href="pipeline_xslt/bungeni/parliamentaryitem/question/grouping.xsl"/>
+
+            <xslt step="2" name="appendBungeniNS" href="pipeline_xslt/bungeni/common/add_bungeniportal_ns.xsl"/>
+        </input>
+
+       <pipetoxml name="BungeniXML"
+               href="pipeline_xslt/bungeni/parliamentaryitem/question/pipeline.xsl"  />
+
+    <!-- Called after translate -->
+    <postxml>
+        <xslt step="1" name="AddNamespaceAkomaNtoso" href="pipeline_xslt/common/add_an_ns.xsl" />
+    </postxml>
+
+</config>

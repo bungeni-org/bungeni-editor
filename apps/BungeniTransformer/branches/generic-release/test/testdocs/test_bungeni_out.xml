@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><akomaNtoso xmlns="http://www.akomantoso.org/1.0">
+   <doc name="parliament">
+      <meta>
+         <identification source="#bungeni">
+            <FRBRWork>
+               <FRBRauthor href="#Author"/>
+               <FRBRdate date="" name="#startdate"/>
+               <FRBRuri value="/ke/parliament//main"/>
+               <FRBRthis value="/ke/parliament/"/>
+            </FRBRWork>
+            <FRBRExpression>
+               <FRBRauthor href="#Author"/>
+               <FRBRdate date="" name="#startdate"/>
+               <FRBRuri value="/ke/parliament//main"/>
+               <FRBRthis value="/ke/parliament/"/>
+               <FRBRlanguage language="en"/>
+            </FRBRExpression>
+            <FRBRManifestation>
+               <FRBRauthor href="#Author"/>
+               <FRBRdate date="" name="#startdate"/>
+               <FRBRuri value="/ke/parliament//main"/>
+               <FRBRthis value="/ke/parliament/"/>
+            </FRBRManifestation>
+         </identification>
+         <workflow source="#parliament">
+            <step href="#ElectionDate" id="ed" date="2011-02-01"/>
+            <step href="#DissolutionDate" id="dd" date=""/>
+         </workflow>
+         <references source="#parliament">
+            <TLCConcept href="/ontology/object/group" id="object-type" showAs="Bungeni Parliament"/>
+            <TLCConcept href="/ontology/parliament" id="type" showAs="parliament"/>
+            <TLCConcept href="status.active" id="status" showAs="active"/>
+            <TLCConcept href="/ontology/concept/shortname" id="short-name" showAs="XIV-PARL"/>
+            <TLCConcept href="/ontology/concept/fullname" id="full-name" showAs="Bungeni Parliament"/>
+            <TLCObject href="/ontology/parliament/ke/2" id="group-principal-id" showAs="group.parliament.2"/>
+            <TLCOrganization href="/ontology/parliament/ke" id="parliament" showAs="Parliament of Kenya"/>
+            <TLCConcept href="/ontology/event/StartDate" id="start-date" showAs="2011-10-15 20:15:01.510823"/>
+            <TLCConcept href="/ontology/event/EndDate" id="end-date" showAs="End Date"/>
+            <TLCConcept href="/ontology/event/StatusDate" id="status-date" showAs="2011-10-15 20:15:01.510823"/>
+            <TLCConcept href="#start-date" id="election-date" showAs="Election Date"/>
+            <TLCConcept href="#end-date" id="dissolution-date" showAs="Dissolution Date"/>
+         </references>
+         <bp:proprietary xmlns:bp="http://www.akomantoso.org/1.0" source="#parliament">
+            <bu:permissions xmlns:bu="http://www.akomantoso.org/1.0">
+               <bu:permission>
+                  <bu:field name="role">bungeni.CommitteeMember</bu:field>
+                  <bu:field name="user">group.committee.63</bu:field>
+                  <bu:field name="permission">Allow</bu:field>
+               </bu:permission>
+               <bu:permission>
+                  <bu:field name="role">bungeni.Owner</bu:field>
+                  <bu:field name="user">admin</bu:field>
+                  <bu:field name="permission">Allow</bu:field>
+               </bu:permission>
+            </bu:permissions>
+            <bu:contained_groups xmlns:bu="http://www.akomantoso.org/1.0"/>
+            <bp:rules>
+               <bp:field name="start_date" refersTo="#start-date"/>
+               <bp:field name="status_date" refersTo="#status-date"/>
+               <bp:field name="short_name" refersTo="#short-name"/>
+               <bp:field name="full_name" refersTo="#full-name"/>
+            </bp:rules>
+         </bp:proprietary>
+      </meta>
+      <preface>
+         <block name="preface">
+            <docDate refersTo="#election-date" date="2011-10-14 21:42:24.651699"/>
+            <docDate refersTo="#status-date" date="2011-10-14 21:42:24.651699"/>
+            <docTitle refersTo="#short-name">XIV-PARL</docTitle>
+            <docTitle refersTo="#full-name">Bungeni Parliament</docTitle>
+         </block>
+      </preface>
+      <mainContent>
+         <block name="description">edited - description description &lt;span style="color: rgb(191, 0, 95);"&gt;description &lt;/span&gt;description description description description description description description description description description political &lt;strong&gt;group description description&lt;/strong&gt; description description description description description description description description description description description description description description &lt;span style="background-color: rgb(255, 128, 128);"&gt;description description&lt;/span&gt; description description description description description description description description description description description description description description description description description description description description description description description description</block>
+      </mainContent>
+   </doc>
+</akomaNtoso>

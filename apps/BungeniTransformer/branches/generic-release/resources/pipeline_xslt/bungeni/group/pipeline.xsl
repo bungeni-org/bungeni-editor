@@ -39,6 +39,12 @@
 
     <bp:template name="meta" href="pipeline_xslt/bungeni/group/meta.xsl"/>
 
+    <bp:template name="frbrwork" href="pipeline_xslt/bungeni/common/frbrwork.xsl"/>
+    
+    <bp:template name="frbrmanifestation" href="pipeline_xslt/bungeni/common/frbrmanifestation.xsl"/>
+    
+    <bp:template name="frbrexpression" href="pipeline_xslt/bungeni/common/frbrexpression.xsl"/>
+
     <bp:template name="content" href="pipeline_xslt/bungeni/group/content.xsl"/>
 
     <!--
