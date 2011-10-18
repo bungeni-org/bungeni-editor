@@ -13,7 +13,7 @@ public class TestBungeniXml extends OATranslatorTestBungeniXmlBase {
 		setInputDocument("test/testdocs/grp-parl.xml");
 		setOutputDocument("test/testresults/test_bungeni.xml");
 		setOutputMetalex("test/testresults/test_bungeni.mlx");
-		setComparisonDocument("test/testdocs/test_rdfmeta_out.xml");
+		setComparisonDocument("test/testdocs/test_bugneni_out.xml");
 	}
 	
 }
