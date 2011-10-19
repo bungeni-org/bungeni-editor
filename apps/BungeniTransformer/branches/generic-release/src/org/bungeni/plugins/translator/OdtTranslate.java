@@ -75,7 +75,9 @@ public class OdtTranslate implements IEditorPlugin {
             // Thread.currentThread().setContextClassLoader(OdtTranslate.class.getClassLoader());
             myTranslator = OATranslator.getInstance();
             log.info("XXX-TRANSLATOR-XXX  calling translate");
-            filesMap = myTranslator.translate(this.odfFileUrl);
+            //!+FIX_THIS_LATER -- THIS CHANGE BREAKS THE EDITOR IMPLEMENTATION -- 2nd parameter needs to 
+            //be a translator config file path
+            filesMap = myTranslator.translate(this.odfFileUrl, "");
             log.info("no exceptions occured : writing outputs");
         } catch (Exception e) {
             log.error("exec()", e);
@@ -174,7 +176,8 @@ public class OdtTranslate implements IEditorPlugin {
         // Do application initialization here
         // setting application prefixes etc..
         GlobalConfigurations.setApplicationPathPrefix(this.translatorRootFolder);
-        GlobalConfigurations.setConfigurationFilePath(this.translatorConfigFile);
+        //!+FIX_THIS_LATER
+        //GlobalConfigurations.setConfigurationFilePath(this.translatorConfigFile);
     }
 
     private String getOutputFileName() {

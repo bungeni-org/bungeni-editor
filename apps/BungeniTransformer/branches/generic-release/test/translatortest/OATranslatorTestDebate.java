@@ -35,7 +35,7 @@ public class OATranslatorTestDebate
 		//GlobalConfigurations.setApplicationPathPrefix("/Users/lucacervone/Documents/AKNTranslatorData/resources/");
 		GlobalConfigurations.setApplicationPathPrefix("resources/");
 		//GlobalConfigurations.setConfigurationFilePath("configfiles/metalex2akn/TranslatorConfig_debaterecord.xml");
-		GlobalConfigurations.setConfigurationFilePath("configfiles/configs/TranslatorConfig_debaterecord.xml");
+		//GlobalConfigurations.setConfigurationFilePath("configfiles/configs/TranslatorConfig_debaterecord.xml");
 
 		//get the instance of the translator
 		myTranslator = OATranslator.getInstance();
@@ -65,8 +65,9 @@ public class OATranslatorTestDebate
 	@Test
 	public final void testTranslate() throws Exception 
 	{
-		//perform a translation
-		HashMap<String, File> translatedFiles = myTranslator.translate("resources/ke_debaterecord_2009-10-14_eng.odt");
+                //!+FIX_THIS_LATER
+            //perform a translation
+		HashMap<String, File> translatedFiles = myTranslator.translate("resources/ke_debaterecord_2009-10-14_eng.odt", "");
 		//File translation = myTranslator.translate("resources/debaterecord_ken_eng_2008_12_17_main.odt", GlobalConfigurations.getApplicationPathPrefix() + "odttoakn/minixslt/debaterecord/pipeline.xsl");
 		System.out.println("OUTPUTTING ERRORS = \n\n" + myTranslator.getValidationErrors());
 		

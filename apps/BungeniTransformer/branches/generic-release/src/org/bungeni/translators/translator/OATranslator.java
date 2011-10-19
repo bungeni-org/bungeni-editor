@@ -89,16 +89,41 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         //file -- translators are now configured via a single configurationfile
         //use OAConfiguration.getProperties() to get the propeties object of the translation
 
+    }
+
+    /**
+     * Get the current instance of the Translator
+     * @return the translator instance
+     */
+    public static synchronized OATranslator getInstance() {
+
+        // if the instance is null create a new instance
+        if (instance == null) {
+
+            // create the instance
+            try {
+                instance = new OATranslator();
+            } catch (Exception e) {
+                log.error("getInstance", e);
+            }
+        }
+
+        // otherwise return the instance
+        return instance;
+    }
+
+    private void setupConfiguration(String configurationFilePath) throws IOException, XPathExpressionException, TranslationFailedException {
         // create the Properties object
         Properties properties           = new Properties();
+        //!+FIX_THIS_LATER (ah, oct-2011) The pipeline caching logic will also need
+        // to take into account different input pipelines !!!
         //this is the config_<type>.xml file
-        String     pathToConfigurationFile = GlobalConfigurations.getApplicationPathPrefix()
-                                          + GlobalConfigurations.getConfigurationFilePath();
+        String translatorConfigurationPath = GlobalConfigurations.getApplicationPathPrefix()   + configurationFilePath;
         //
         // get the translator configuration file
         //
         try {
-            setupTranslatorConfiguration(pathToConfigurationFile);
+            setupTranslatorConfiguration(translatorConfigurationPath);
         } catch (ParserConfigurationException ex) {
             log.error("Error while getting transltor configuration", ex);
         } catch (SAXException ex) {
@@ -128,9 +153,6 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         // create the resource bundle
         this.resourceBundle = ResourceBundle.getBundle(properties.getProperty("resourceBundlePath"));
 
-        //AH-23-06-2010 - Moved to translator_config
-        //this.defaultPipelinePath = GlobalConfigurations.getApplicationPathPrefix() + properties.getProperty("defaultPipeline");
-
         // check if pipeline xslt needs to be cached
         this.cachePipelineXSLT = Boolean.parseBoolean(properties.getProperty("cachePipelineXSLT"));
 
@@ -138,30 +160,9 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
 
         this.sourceType = XMLSourceType.valueOf(strSourceType);
 
-        log.info("OATRANSLATOR ; translatorConfigPath :" + pathToConfigurationFile + " ;resourceBundle :" + this.resourceBundle + " ;cachePipelineXSLT : " + this.cachePipelineXSLT);
+        log.info("OATRANSLATOR ; translatorConfigPath :" + translatorConfigurationPath + " ;resourceBundle :" + this.resourceBundle + " ;cachePipelineXSLT : " + this.cachePipelineXSLT);
+
     }
-
-    /**
-     * Get the current instance of the Translator
-     * @return the translator instance
-     */
-    public static synchronized OATranslator getInstance() {
-
-        // if the instance is null create a new instance
-        if (instance == null) {
-
-            // create the instance
-            try {
-                instance = new OATranslator();
-            } catch (Exception e) {
-                log.error("getInstance", e);
-            }
-        }
-
-        // otherwise return the instance
-        return instance;
-    }
-
     /**
      * Prevent cloning of singleton instance
      */
@@ -181,11 +182,17 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
      * @throws Exception
      * @throws TransformerFactoryConfigurationError
      */
-    public HashMap<String, File> translate(String aDocumentPath)
+    public HashMap<String, File> translate(String aDocumentPath, String configFilePath)
             throws TransformerFactoryConfigurationError, Exception {
         HashMap<String, File> translatedFiles = new HashMap<String, File>();
 
         try {
+
+            /***
+             * !+FIX_THIS_LATER -- the translator configuration is loaded
+             * here instead of in the constructor.
+             */
+            this.setupConfiguration(configFilePath);
 
             /**
              * Source type is detected from configuration during object setup, not
@@ -358,7 +365,6 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             // get the File of the configuration
             Document configurationDoc = OADocumentBuilderFactory.getInstance().getDBF().newDocumentBuilder().parse(
                                             FileUtility.getInstance().FileAsInputSource(aConfigurationPath));
-
             // create the configuration
             OAConfiguration configuration = OAConfiguration.getInstance();
             configuration.setConfiguration(configurationDoc);

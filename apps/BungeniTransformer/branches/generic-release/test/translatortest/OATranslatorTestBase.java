@@ -49,7 +49,7 @@ public class OATranslatorTestBase
 		//set the application path prefix
 		GlobalConfigurations.setApplicationPathPrefix("resources/");
 		//GlobalConfigurations.setConfigurationFilePath("configfiles/odttoakn/TranslatorConfig_debaterecord.xml");
-		GlobalConfigurations.setConfigurationFilePath(this.getConfigFilePath());
+		//GlobalConfigurations.setConfigurationFilePath(this.getConfigFilePath());
 		//get the instance of the translator
 		myTranslator = OATranslator.getInstance();
 	}
@@ -81,7 +81,7 @@ public class OATranslatorTestBase
 		//perform a translation
                 File f = new File(this.getInputDocument());
                 System.out.println("FULL PATH  for Test Document = " + f.getAbsolutePath());
-		HashMap<String, File> translatedFiles = myTranslator.translate(this.getInputDocument());
+		HashMap<String, File> translatedFiles = myTranslator.translate(this.getInputDocument(), this.getConfigFilePath());
 		//File translation = myTranslator.translate("resources/debaterecord_ken_eng_2008_12_17_main.odt", GlobalConfigurations.getApplicationPathPrefix() + "odttoakn/minixslt/debaterecord/pipeline.xsl");
 		System.out.println("OUTPUTTING ERRORS = \n\n" + myTranslator.getValidationErrors());
 		

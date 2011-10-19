@@ -72,7 +72,7 @@ public final class OAPipelineResolver implements org.bungeni.translators.interfa
                 FileUtility.getInstance().FileAsInputSource(aPipelinePath));    // new File(aPipelinePath));
         //This is the <xsl:stylesheet > element 
         Element stylesheetElement = pipeline.getDocumentElement();
-        //get all the <bp:template> elements in the pipeline 
+        //get all the <bp:template> elements in the pipeline
         NodeList bpTemplateElements = (NodeList) XPathResolver.getInstance().evaluate(pipeline, "//bp:template",
                 XPathConstants.NODESET);
         log.debug("bp:template nodes found : " + bpTemplateElements.getLength());
