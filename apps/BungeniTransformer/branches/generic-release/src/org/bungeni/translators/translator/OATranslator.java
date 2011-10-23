@@ -117,7 +117,9 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         Properties properties           = new Properties();
         //!+FIX_THIS_LATER (ah, oct-2011) The pipeline caching logic will also need
         // to take into account different input pipelines !!!
-        //this is the config_<type>.xml file
+        //this is the config_<type>.xml
+        //FIXED -- nothing to change here -- the default cache checking behavior is fine, its
+        //checked on the specific pipeline i.e. if the output xslt exists
         String translatorConfigurationPath = GlobalConfigurations.getApplicationPathPrefix()   + configurationFilePath;
         //
         // get the translator configuration file
@@ -191,6 +193,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             /***
              * !+FIX_THIS_LATER -- the translator configuration is loaded
              * here instead of in the constructor.
+             * TO BE FIXED in the EDITOR
              */
             this.setupConfiguration(configFilePath);
 
@@ -510,6 +513,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             //File metalexFile = FileUtility.getInstance().copyFile(metalextmpFile,
             //        Outputs.getInstance().File("metalex.xml"));
             // Stream for metalex file
+            //FIXED - this has been changed to the dynamic input parameter
             StreamSource ssMetalex =
                     FileUtility.getInstance().FileAsStreamSource(metalextmpFile);
             return new OutputXML(ssMetalex, metalextmpFile);
