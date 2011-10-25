@@ -30,9 +30,9 @@
         </xsl:element>
     </xsl:template>
     
-    <xsl:template match="bu:meta" bp:name="meta">
+    <xsl:template match="bu:group" bp:name="meta">
         <xsl:variable name="parenttype"><xsl:value-of select="local-name(parent::node())"></xsl:value-of></xsl:variable>
-        <xsl:variable name="contenttypename"><xsl:value-of select="./bu:field[@name='type']" /></xsl:variable>
+        <xsl:variable name="contenttypename"><xsl:value-of select="./bu:type" /></xsl:variable>
         <xsl:variable name="contenturidate"><xsl:value-of select="./bu:field[@name='start_date']" /></xsl:variable>
         <xsl:variable name="contenturilang"><xsl:value-of select="./bu:field[@name='language']" /></xsl:variable>
         <xsl:variable name="contenttypename"><xsl:value-of select="./bu:field[@name='type']" /></xsl:variable>
@@ -40,7 +40,7 @@
         <xsl:variable name="parl_id"><xsl:value-of select="./bu:field[@name='parliament_id']" /></xsl:variable>
         <xsl:variable name="election_date"><xsl:value-of select="//bu:field[@name='election_date']" /></xsl:variable>
         <xsl:variable name="dissolution_date"><xsl:value-of select="./bu:field[@name='dissolution_date']" /></xsl:variable>
-        <xsl:variable name="results_date"><xsl:value-of select="./bu:field[@name='status_date']" /></xsl:variable>
+        <xsl:variable name="results_date"><xsl:value-of select="./bu:statusDate" /></xsl:variable>
         <xsl:attribute name="name"><xsl:value-of select="$contenttypename" /></xsl:attribute>
         <meta>
             <identification source="#bungeni">
@@ -60,6 +60,8 @@
                     <xsl:with-param name="contenturidate" select="$contenturidate" />
                 </xsl:call-template>
             </identification>
+            
+            <xsl:call-template name="bungeni" />
            
             <xsl:call-template name="workflow">
                 <xsl:with-param name="election_date" select="$election_date" />
@@ -85,6 +87,10 @@
     <xsl:include href="../common/frbrexpression.xsl"/>    
     
     <xsl:include href="../common/frbrmanifestation.xsl"/>
+    
+    <xsl:template name="bungeni" match="bu:bungeni" bp:name="meta">
+        <xsl:copy-of select="status | language | permissions" />
+    </xsl:template>    
 
     <xsl:template name="workflow" bp:name="meta">
         <xsl:param name="election_date"></xsl:param>

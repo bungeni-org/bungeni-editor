@@ -30,10 +30,10 @@
         </xsl:element>
     </xsl:template>
     
-    <xsl:template match="bu:content" bp:name="content">
+    <xsl:template match="bu:description" bp:name="content">
         <mainContent>
             <block name="description">
-                <xsl:value-of select="./bu:field[@name='description']" />                
+                <xsl:value-of select="." />                
             </block>
         </mainContent>
     </xsl:template>

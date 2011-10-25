@@ -30,12 +30,12 @@
         </xsl:element>
     </xsl:template>
     
-    <xsl:template match="bu:group" bp:name="root">
+    <xsl:template match="bu:ontology" bp:name="root">
         <akomaNtoso>
-            <doc name="./bu:meta/bu:field[@name='type']">
-                <xsl:apply-templates select="./bu:meta" /> 
+            <doc>
+                <xsl:attribute name="name" select="bu:group/@type" />
+                <xsl:apply-templates select="*" /> 
                 <xsl:call-template name="preface" />
-                <xsl:apply-templates select="./bu:content" />
             </doc>
         </akomaNtoso>
     </xsl:template>
