@@ -189,11 +189,12 @@ public class OAConfiguration implements Configuration {
             log.info("verifyConfiguration : hasProperties : check OK ");
             if (this.hasInputSteps()) {
                 log.info("verifyConfiguration : hasInputSteps : check OK ");
-                if (this.hasPipelineXML()) {
-                    log.info("verifyConfiguration : hasPipelineXML : check OK ");
-                    return true;
-                } else
-                    log.info("verifyConfiguration : hasPipelineXML : check FAIL ");
+                //if (this.hasPipelineXML()) {
+                //    log.info("verifyConfiguration : hasPipelineXML : check OK ");
+                //    return true;
+                //} else
+                //    log.info("verifyConfiguration : hasPipelineXML : check FAIL ");
+                return true;
             }
         } else
             log.info("verifyConfiguration : hasProperties : check FAIL ");

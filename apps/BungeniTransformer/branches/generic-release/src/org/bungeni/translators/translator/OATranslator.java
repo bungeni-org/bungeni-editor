@@ -262,22 +262,28 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             //!+FIX_THIS_LATER -- see other note on metalex.xml
             translatedFiles.put("metalex", outputXML.outputxmlFile);
 
-            /***
-             * Build the XSLT pipeline
-             */
-            List<File> xsltPipes = this.buildXSLTPipeline();
+            //!+PIPELINE (ah, oct-2011) -- the pipeline is non-mandatory now
+            StreamSource anXmlStream  = null;
+            if (OAConfiguration.getInstance().hasPipelineXML()) {
+                /***
+                 * Build the XSLT pipeline
+                 */
+                List<File> xsltPipes = this.buildXSLTPipeline();
 
-            //AH-23-06-2010
-            //File xslt = this.getXSLTPipeline(aPipelinePath);
+                //AH-23-06-2010
+                //File xslt = this.getXSLTPipeline(aPipelinePath);
 
-            /**
-             * Transform the Metalex using the built XSLT
-             */
-            StreamSource inputXmlStream = outputXML.outputxmlStream;
-            for (File xslt : xsltPipes) {
-                inputXmlStream = this.translateToAkomantoso(xslt, inputXmlStream);
-             }
-            StreamSource anXmlStream = inputXmlStream;
+                /**
+                 * Transform the Metalex using the built XSLT
+                 */
+                StreamSource inputXmlStream = outputXML.outputxmlStream;
+                for (File xslt : xsltPipes) {
+                    inputXmlStream = this.translateToAkomantoso(xslt, inputXmlStream);
+                 }
+                anXmlStream = inputXmlStream;
+            } else {
+                anXmlStream = outputXML.outputxmlStream;
+            }
 
             //AH-23-06-2010
             //StreamSource anXmlStream = this.translateToAkomantoso(xslt, metalexOutput.metalexStream);
@@ -292,6 +298,8 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             /**
              * Final Output
              */
+            //!+PIPELINE (ah, oct-2011) -- if there is no pipeline and no output steps then the 2 outputs
+            //will be exactly the same
             File fileToReturn = StreamSourceUtility.getInstance().writeToFile(anXmlFinalStream);
             translatedFiles.put("anxml", fileToReturn);
 
