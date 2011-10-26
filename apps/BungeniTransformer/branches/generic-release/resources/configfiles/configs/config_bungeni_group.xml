@@ -27,12 +27,14 @@
             <xslt step="3" name="appendBungeniNS" href="pipeline_xslt/bungeni/common/add_bungeniportal_ns.xsl"/>
         </input>
 
+   <!--
        <pipetoxml name="BungeniXML"
                href="pipeline_xslt/bungeni/group/pipeline.xsl"  />
-
+-->
     <!-- Called after translate -->
-    <postxml>
+  <!--
+  <postxml>
         <xslt step="1" name="AddNamespaceAkomaNtoso" href="pipeline_xslt/common/add_an_ns.xsl" />
     </postxml>
-
+  -->
 </config>
