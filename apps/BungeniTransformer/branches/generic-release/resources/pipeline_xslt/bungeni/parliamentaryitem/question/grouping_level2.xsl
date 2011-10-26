@@ -84,4 +84,17 @@
         <statusDate type="xs:dateTime"><xsl:value-of select="concat($arrStatusDate[1],'T',$arrStatusDate[2])" /></statusDate>
     </xsl:template>
     
+    <xsl:template match="ministry">
+        <xsl:variable name="parliament-href" select="/ontology/bungeni/parliament/@href" />
+        <xsl:variable name="group_principal_id" select="field[@name='group_principal_id']" />
+        <group 
+            href="{concat($parliament-href,'/', $group_principal_id)}" 
+            isA="TLCOrganization" 
+            showAs="{field[@name='short_name']}">
+          
+        </group>
+            
+        
+    </xsl:template>
+    
 </xsl:stylesheet>

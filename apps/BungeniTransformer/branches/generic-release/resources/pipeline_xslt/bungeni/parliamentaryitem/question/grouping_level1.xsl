@@ -14,7 +14,8 @@
     <!-- these are input parameters to the transformation -->
     
     <xsl:variable name="country-code" select="string('ke')" />
-    <xsl:variable name="for-parliament" select="string('/ke/parliament/2011-03-02')" />
+    <xsl:variable name="parliament-election-date" select="string('2011-03-02')" />
+    <xsl:variable name="for-parliament" select="concat('/ke/parliament/', $parliament-election-date)" />
     
     <xsl:template match="/">
         <xsl:apply-templates />
@@ -29,7 +30,7 @@
             </document>
             <bungeni>
                <country><xsl:value-of select="$country-code" /></country>
-                <parliament href="{$for-parliament}" />
+                <parliament href="{$for-parliament}" isA="TLCOrganization" date="$parliament-election-date" />
             </bungeni>
             
             <!-- e.g. <question> or <motion> -->
@@ -64,9 +65,7 @@
                                  attached_files |
                                  itemsignatories" />
          
-            <group>
-                <xsl:copy-of select="ministry" />
-            </group>
+            <xsl:copy-of select="ministry" />
             
            </ontology>
     </xsl:template>
