@@ -46,6 +46,7 @@
                     @name='question_number' or
                     @name='question_id'
                     ]" />    
+                <xsl:copy-of select="owner" />
             </xsl:element>
 
             <legislativeItem isA="TLCConcept">
@@ -60,7 +61,8 @@
             </legislativeItem>
             
             <xsl:copy-of select="permissions | 
-                                 attached_files" />
+                                 attached_files |
+                                 itemsignatories" />
          
             <group>
                 <xsl:copy-of select="ministry" />

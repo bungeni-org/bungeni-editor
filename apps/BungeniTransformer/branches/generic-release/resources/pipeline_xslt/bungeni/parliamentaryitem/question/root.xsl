@@ -30,7 +30,7 @@
         </xsl:element>
     </xsl:template>
     
-    <xsl:template match="bu:legislativeitem" bp:name="root">
+    <xsl:template match="bu:ontology" bp:name="root">
         <akomaNtoso>
             <doc name="./bu:meta/bu:field[@name='type']">
                 <xsl:apply-templates select="./bu:meta" /> 
