@@ -15,13 +15,28 @@
         <xsl:apply-templates />
     </xsl:template>
     
+    
+    
+    <xsl:variable name="country-code" select="string('ke')" />
+    <xsl:variable name="parliament-election-date" select="string('2011-03-02')" />
+    <xsl:variable name="for-parliament" select="concat('/ke/parliament/', $parliament-election-date)" />
+    
     <xsl:template match="contenttype">
         <xsl:variable name="group_principal_id" select="./field[@name='group_principal_id']" />
         <xsl:variable name="group_id" select="./field[@name='group_id']" />
-        <ontology type="group">
+        <xsl:variable name="content-type" select="@name" />
+        <ontology type="{$content-type}">
             <group>
-                <xsl:attribute name="type" select="./field[@name='type']" />
-                <xsl:attribute name="id" select="./field[@name='group_id']" />
+                
+                <xsl:variable name="group-type" select="field[@name='type']" />
+                
+                <xsl:attribute name="type" select="$group-type" />
+                
+                <xsl:attribute name="uri" 
+                    select="concat($for-parliament, '/', 
+                    $content-type, '/',
+                    $group_id)" />
+                
                 <xsl:copy-of select="field[ @name='group_id' or 
                                             @name='parent_group_id' or 
                                             @name='min_num_members' or 

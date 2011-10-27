@@ -33,7 +33,7 @@
                 <parliament href="{$for-parliament}" isA="TLCOrganization" date="{$parliament-election-date}" />
             </bungeni>
             
-            <!-- e.g. <question> or <motion> -->
+            <!-- e.g. <question> or <motion> or <tableddocument> or <bill> -->
             <xsl:element name="{$content-type}">
                 
                 <!-- this is available only after a certain stage of the workflow -->
@@ -55,8 +55,60 @@
                 <xsl:copy-of select="field[
                     @name='question_number' or
                     @name='question_id'
-                    ]" />    
+                    ]" />  
+                
+                <!-- for <motion> or <bill> -->
                 <xsl:copy-of select="owner" />
+                
+                <!-- for <bill> -->
+                <xsl:copy-of select="field[
+                                            @name='receive_notification' or 
+                                            @name='bill_id' or 
+                                            @name='bill_type_id' or
+                                            @name='timestamp' or 
+                                            @name='registry_number']" />
+               <ministry>
+                   <xsl:variable name="ministry_id" select="field[@name='ministry_id']" />
+                   <xsl:attribute name="href" select="concat($for-parliament, '/group/', $ministry_id)" />
+                   
+               </ministry> 
+               
+                
+                <!-- for <bill> and <tableddocument> and <user> -->
+                <xsl:copy-of select="item_assignments | events" />
+                <xsl:copy-of select="field[
+                                            @name='owner_id' or 
+                                            @name='parliamentary_item_id' or 
+                                            @name='receive_notification' ]" />                
+                
+                <!-- for <tableddocument> -->
+                <xsl:copy-of select="field[
+                                            @name='tabled_document_id' or 
+                                            @name='tabled_document_number' ]" />                
+                
+                <!-- for <user> -->
+                <xsl:copy-of select="field[
+                                            @name='first_name' or 
+                                            @name='last_name' or 
+                                            @name='user_id' or 
+                                            @name='description' or 
+                                            @name='language' or 
+                                            @name='gender' or 
+                                            @name='active_p' or 
+                                            @name='date_of_birth' or 
+                                            @name='titles' or 
+                                            @name='birth_country' or 
+                                            @name='national_id' or 
+                                            @name='login' or 
+                                            @name='password' or 
+                                            @name='salt' or 
+                                            @name='email' or 
+                                            @name='birth_nationality' or 
+                                            @name='current_nationality' or 
+                                            @name='tabled_document_number' ] |
+                                            subscriptions | 
+                                            user_addresses " />     
+                
             </xsl:element>
 
             <legislativeItem isA="TLCConcept">
@@ -68,11 +120,16 @@
                                      changes |
                                      versions" />
                 
+                <!-- for <motion> & <bill> -->
+                <xsl:copy-of select="field[@name='publication_date']" />                
+                
             </legislativeItem>
             
             <xsl:copy-of select="permissions | 
-                                 attached_files |
-                                 itemsignatories" />
+                                 attached_files" />
+            
+            <!-- for <motion> & <bill> -->
+            <xsl:copy-of select="itemsignatories" />
          
             <xsl:copy-of select="ministry" />
             
