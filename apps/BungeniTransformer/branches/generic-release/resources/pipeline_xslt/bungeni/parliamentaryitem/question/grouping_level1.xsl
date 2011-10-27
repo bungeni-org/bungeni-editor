@@ -30,7 +30,7 @@
             </document>
             <bungeni>
                <country><xsl:value-of select="$country-code" /></country>
-                <parliament href="{$for-parliament}" isA="TLCOrganization" date="$parliament-election-date" />
+                <parliament href="{$for-parliament}" isA="TLCOrganization" date="{$parliament-election-date}" />
             </bungeni>
             
             <!-- e.g. <question> or <motion> -->
