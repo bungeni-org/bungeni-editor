@@ -15,9 +15,29 @@
         <xsl:apply-templates />
     </xsl:template>
     
+    <xsl:variable name="country-code" select="string('ke')" />
+    <xsl:variable name="parliament-election-date" select="string('2011-03-02')" />
+    <xsl:variable name="for-parliament" select="concat('/ke/parliament/', $parliament-election-date)" />
+    
     <xsl:template match="contenttype">
-        <ontology type="user">
-            <user type="user">
+        <xsl:variable name="content-type" select="@name" />
+        
+        <ontology type="userdata">
+            <metadata>
+                <xsl:attribute name="type">
+                    <xsl:value-of select="$content-type" />
+                </xsl:attribute>
+            </metadata>
+            <bungeni>
+                <country><xsl:value-of select="$country-code" /></country>
+                <parliament href="{$for-parliament}" isA="TLCOrganization" date="{$parliament-election-date}" />
+            </bungeni>            
+            <user isA="TLCPerson" >
+                <xsl:variable name="item_number" select="field[@name='user_id']"></xsl:variable>
+                <xsl:attribute name="uri" 
+                    select="concat($for-parliament, '/', 
+                    $content-type, '/', 
+                    $item_number)" />
                 <xsl:copy-of select="field[
                                         @name='first_name' or 
                                         @name='last_name' or 

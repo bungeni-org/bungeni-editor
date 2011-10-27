@@ -35,8 +35,17 @@
             
             <!-- e.g. <question> or <motion> -->
             <xsl:element name="{$content-type}">
+                
+                <!-- this is available only after a certain stage of the workflow -->
+                <xsl:variable name="item_number" select="field[@name='registry_number']" />
+                
                 <xsl:attribute name="isA" select="string('TLCObject')" />
-                <xsl:attribute name="uri" select="field[@name='uri']" />
+                
+                <xsl:attribute name="uri" 
+                    select="concat($for-parliament, '/', 
+                        $content-type, '/', 
+                        $item_number)" />
+                
                 <xsl:copy-of select="field[
                     @name='status' or 
                     @name='short_name' or 
