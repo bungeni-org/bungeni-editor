@@ -23,8 +23,12 @@
             <xslt step="1" name="groupingLevel1" href="pipeline_xslt/bungeni/parliamentaryitem/question/grouping_level1.xsl"/>
             
             <xslt step="2" name="groupingLevel2" href="pipeline_xslt/bungeni/parliamentaryitem/question/grouping_level2.xsl"/>
-
+            
             <xslt step="3" name="appendBungeniNS" href="pipeline_xslt/bungeni/common/add_bungeniportal_ns.xsl"/>
+
+            <xslt step="4" name="unEscapeBungeniXML" href="pipeline_xslt/bungeni/common/add_unescape.xsl"/>
+            
+            
         </input>
 
         <!--
