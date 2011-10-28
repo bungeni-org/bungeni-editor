@@ -84,6 +84,7 @@
         <statusDate type="xs:dateTime"><xsl:value-of select="concat($arrStatusDate[1],'T',$arrStatusDate[2])" /></statusDate>
     </xsl:template>
     
+    <!--!+MINISTRY_MATCH (ah, oct-2011) removing this for now  
     <xsl:template match="ministry">
         <xsl:variable name="parliament-href" select="/ontology/bungeni/parliament/@href" />
         <xsl:variable name="group_principal_id" select="field[@name='group_principal_id']" />
@@ -96,5 +97,6 @@
             
         
     </xsl:template>
+    -->
     
 </xsl:stylesheet>
