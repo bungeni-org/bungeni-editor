@@ -41,18 +41,7 @@
         </status>
     </xsl:template>    
     
-    <xsl:template match="field[@name='question_number']">
-        <itemNumber>
-            <xsl:value-of select="." />
-        </itemNumber>
-    </xsl:template>    
-    
-    <xsl:template match="field[@name='question_id']">
-        <itemId>
-            <xsl:value-of select="." />
-        </itemId>
-    </xsl:template>    
-    
+   
     <xsl:template match="field[@name='registry_number']">
         <registryNumber>
             <xsl:value-of select="." />
@@ -83,7 +72,31 @@
         <xsl:variable name="arrStatusDate" select="tokenize($status_date,'\s+')" />
         <statusDate type="xs:dateTime"><xsl:value-of select="concat($arrStatusDate[1],'T',$arrStatusDate[2])" /></statusDate>
     </xsl:template>
+  
+    <xsl:template match="field[@name='body_text']">
+        <body>
+            <xsl:value-of select="." />
+        </body>
+    </xsl:template>
+  
+  
+    <!-- Only for question -->
+  
+    <xsl:template match="field[@name='question_number']">
+        <itemNumber>
+            <xsl:value-of select="." />
+        </itemNumber>
+    </xsl:template>    
     
+    <xsl:template match="field[@name='question_id']">
+        <itemId>
+            <xsl:value-of select="." />
+        </itemId>
+    </xsl:template>    
+    
+    
+    
+  
     <!--!+MINISTRY_MATCH (ah, oct-2011) removing this for now  
     <xsl:template match="ministry">
         <xsl:variable name="parliament-href" select="/ontology/bungeni/parliament/@href" />

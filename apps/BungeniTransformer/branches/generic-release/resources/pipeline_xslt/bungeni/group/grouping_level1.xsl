@@ -22,23 +22,20 @@
     <xsl:variable name="for-parliament" select="concat('/ke/parliament/', $parliament-election-date)" />
     
     <xsl:template match="contenttype">
-        <xsl:variable name="group_principal_id" select="./field[@name='group_principal_id']" />
-        <xsl:variable name="group_id" select="./field[@name='group_id']" />
+        <xsl:variable name="group_principal_id" select="field[@name='group_principal_id']" />
+        <xsl:variable name="group_id" select="field[@name='group_id']" />
         <xsl:variable name="content-type" select="@name" />
+        <xsl:variable name="group-type" select="field[@name='type']" />
         <ontology type="{$content-type}">
             <group>
-                
-                <xsl:variable name="group-type" select="field[@name='type']" />
-                
                 <xsl:attribute name="type" select="$group-type" />
-                
                 <xsl:attribute name="uri" 
                     select="concat($for-parliament, '/', 
                     $content-type, '/',
                     $group_id)" />
+                <xsl:attribute name="id" select="$group_id" />
                 
-                <xsl:copy-of select="field[ @name='group_id' or 
-                                            @name='parent_group_id' or 
+                <xsl:copy-of select="field[ @name='parent_group_id' or 
                                             @name='min_num_members' or 
                                             @name='num_researchers' or 
                                             @name='num_members' or 
@@ -56,10 +53,9 @@
                 <xsl:copy-of select="contained_groups" />
             </bungeni> 
             
-            <xsl:element name="{./field[@name='type']}">
+            <xsl:element name="{$group-type}">
                 <xsl:attribute name="isA">TLCOrganization</xsl:attribute>
-                <xsl:attribute name="id">parl</xsl:attribute>
-                <xsl:attribute name="type" select="$group_id" />
+                <xsl:attribute name="refersTo" select="concat('#', $group_id)" />
                 <xsl:copy-of select="field[  
                     @name='short_name' or
                     @name='full_name' or
