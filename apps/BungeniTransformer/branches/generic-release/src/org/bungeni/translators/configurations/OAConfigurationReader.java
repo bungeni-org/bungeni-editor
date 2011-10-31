@@ -38,6 +38,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import org.bungeni.translators.configurations.steps.OAPipelineStep;
+import org.bungeni.translators.configurations.steps.OAProcessStep;
 
 /**
  * This class reades the TranslatorConfig_xxxx.xml files for each content type
@@ -289,6 +290,21 @@ public class OAConfigurationReader implements ConfigurationReader {
         return schemaHref;
     }
 
+
+    public List<OAProcessStep> getProcessGroup(String processGroupId) throws XPathExpressionException {
+
+        List<OAProcessStep> processList = new ArrayList<OAProcessStep>(0);
+
+        XPathResolver xresolver = XPathResolver.getInstance();
+        NodeList nl = (NodeList) xresolver.evaluate(this.configXML, "//processgroup[@id='" + processGroupId + "']/process", XPathConstants.NODESET);
+        for (int i=0 ; i < nl.getLength() ; i++ ) {
+            System.out.println(nl.item(i).getNodeName());
+            processList.add(new OAProcessStep(nl.item(i).getAttributes()));
+        }
+        
+        return processList;
+    }
+
     private TreeMap<Integer, OAXSLTStep> getXSLTSteps(String forXpath) throws XPathExpressionException {
         // the TreeMap to return
         TreeMap<Integer, OAXSLTStep> resultMap = new TreeMap<Integer, OAXSLTStep>();
@@ -306,9 +322,7 @@ public class OAConfigurationReader implements ConfigurationReader {
             Node stepNode = stepNodes.item(i);
          
             // create the Step
-            OAXSLTStep resultStep = new OAXSLTStep(stepNode.getAttributes().getNamedItem("name").getNodeValue(),
-                    stepNode.getAttributes().getNamedItem("href").getNodeValue(),
-                    Integer.parseInt(stepNode.getAttributes().getNamedItem("step").getNodeValue()));
+            OAXSLTStep resultStep = new OAXSLTStep(stepNode.getAttributes());
 
             // add the node to the hash map set its key as its position (step attribute)
             resultMap.put(Integer.parseInt(stepNode.getAttributes().getNamedItem("step").getNodeValue()), resultStep);

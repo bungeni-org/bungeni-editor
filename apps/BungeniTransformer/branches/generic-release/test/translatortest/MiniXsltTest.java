@@ -12,7 +12,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
 
 import org.bungeni.translators.utility.files.FileUtility;
-import org.bungeni.translators.utility.xslttransformer.XSLTTransformer;
+import org.bungeni.translators.utility.transformer.XSLTTransformer;
 
 public class MiniXsltTest {
 	public static void main (String[] args) {

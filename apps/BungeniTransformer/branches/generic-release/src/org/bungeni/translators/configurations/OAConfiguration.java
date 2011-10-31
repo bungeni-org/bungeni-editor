@@ -21,6 +21,7 @@ import java.util.TreeMap;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import org.bungeni.translators.configurations.steps.OAPipelineStep;
+import org.bungeni.translators.configurations.steps.OAProcessStep;
 
 /**
  * This is the configuration object.
@@ -175,6 +176,11 @@ public class OAConfiguration implements Configuration {
     public String getSchema() throws XPathExpressionException {
         String schema = this.reader.getSchema();
         return schema;
+    }
+
+
+    public List<OAProcessStep> getProcessGroup(String id) throws XPathExpressionException {
+        return this.reader.getProcessGroup(id);
     }
 
         /**

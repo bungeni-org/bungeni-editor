@@ -24,11 +24,15 @@
             
             <xslt step="2" name="groupingLevel2" href="pipeline_xslt/bungeni/parliamentaryitem/question/grouping_level2.xsl"/>
             
-            <xslt step="3" name="appendBungeniNS" href="pipeline_xslt/bungeni/common/add_bungeniportal_ns.xsl"/>
+            <xslt step="3"
+                name="appendBungeniNS"
+                href="pipeline_xslt/bungeni/common/add_bungeniportal_ns.xsl"
+                preproc="#proc-parliamentary-item"
+               />
 
+           <!--
             <xslt step="4" name="unEscapeBungeniXML" href="pipeline_xslt/bungeni/common/add_unescape.xsl"/>
-            
-            
+            -->
         </input>
 
         <!--
@@ -41,4 +45,17 @@
         <xslt step="1" name="AddNamespaceAkomaNtoso" href="pipeline_xslt/common/add_an_ns.xsl" />
     </postxml>
     -->
+
+     <processgroup id="proc-parliamentary-item">
+         <process name="unescapehtml"
+            description="bill body"
+            param="//ontology/bill/body" />
+         <process name="unescapehtml"
+            description="question body"
+            param="//ontology/question/body" />
+         <process name="unescapehtml"
+            description="versions body"
+            param="//ontology/legislativeItem/versions/version/body" />
+     </processgroup>
+     
 </config>

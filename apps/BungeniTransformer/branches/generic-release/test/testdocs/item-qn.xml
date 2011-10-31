@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <contenttype name="question">
-    <field name="body_text">edit-MP-CLERK-BUSINESS question text &lt;strong&gt; question text
+    <field name="body_text">&lt;div&gt;edit-MP-CLERK-BUSINESS question text &lt;strong&gt; question text
         &lt;/strong&gt; question text question text question text &lt;em&gt; question text question
         text question text question text question text question text question text question text
         question text question text question text question text question text question text question

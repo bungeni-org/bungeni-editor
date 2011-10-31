@@ -16,7 +16,7 @@ import org.bungeni.translators.utility.exceptionmanager.ValidationError;
 import org.bungeni.translators.utility.files.FileUtility;
 import org.bungeni.translators.utility.schemavalidator.SchemaValidator;
 import org.bungeni.translators.utility.streams.StreamSourceUtility;
-import org.bungeni.translators.utility.xslttransformer.XSLTTransformer;
+import org.bungeni.translators.utility.transformer.XSLTTransformer;
 
 import org.w3c.dom.Document;
 
@@ -244,6 +244,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
                 if (OAConfiguration.getInstance().hasOutputSteps()) {
                    outputStepsProcessedDoc = this.applyOutputSteps(replaceStepsProcessedDoc);
                 }
+
                 /**
                  * At the end of the output steps we should have a metalex document, write it out
                  */
@@ -255,7 +256,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
                     String message = resourceBundle.getString("TRANSLATION_TO_METALEX_FAILED_TEXT");
                     System.out.println(message);
                     // print the message and the exception into the logger
-                    log.fatal((new TranslationToMetalexFailedException(message)).getStackTrace());
+                    log.fatal((new TranslationToMetalexFailedException(message)), e);
                     // RETURN null
                     return null;
                 }
