@@ -24,7 +24,11 @@
             
             <xslt step="2" name="groupingLevel2" href="pipeline_xslt/bungeni/user/grouping_level2.xsl"/>
 
-            <xslt step="3" name="appendBungeniNS" href="pipeline_xslt/bungeni/common/add_bungeniportal_ns.xsl"/>
+            <xslt step="3"
+                name="appendBungeniNS"
+                href="pipeline_xslt/bungeni/common/add_bungeniportal_ns.xsl"
+                postproc="#proc-member-item"
+            />
         </input>
        <!--
        <pipetoxml name="BungeniXML"
@@ -37,5 +41,9 @@
         <xslt step="1" name="AddNamespaceAkomaNtoso" href="pipeline_xslt/common/add_an_ns.xsl" />
     </postxml>
     -->
-
+    <processgroup id="proc-member-item">
+        <process name="unescapehtml"
+            description="member description"
+            param="//bu:ontology/bu:user/bu:description" />
+    </processgroup>
 </config>
