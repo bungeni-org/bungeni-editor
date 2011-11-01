@@ -39,6 +39,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import org.bungeni.translators.configurations.steps.OAPipelineStep;
 import org.bungeni.translators.configurations.steps.OAProcessStep;
+import org.bungeni.translators.utility.transformer.GenericTransformer;
 
 /**
  * This class reades the TranslatorConfig_xxxx.xml files for each content type
@@ -94,7 +95,9 @@ public class OAConfigurationReader implements ConfigurationReader {
         Source xmlSource = new DOMSource(propertiesNode);
         // convert the properties node to a string
         StringWriter sw = new StringWriter();
-        Transformer tconfig = TransformerFactory.newInstance().newTransformer();
+        //we use a new transformer for the configuration instead of the cached one to ensure
+        //sepeation of configuration from data
+        Transformer tconfig = GenericTransformer.getInstance().getTransformerFactory().newTransformer();
         tconfig.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
         tconfig.transform(xmlSource, new StreamResult(sw));
         //we need to append the properties DOCTYPE dtd for this to work

@@ -16,6 +16,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+import org.bungeni.translators.utility.transformer.GenericTransformer;
 import org.w3c.dom.Document;
 
 /**
@@ -31,13 +32,10 @@ public class StreamSourceUtility {
     private static org.apache.log4j.Logger log              =
         org.apache.log4j.Logger.getLogger(StreamSourceUtility.class.getName());
 
-
-    private Transformer internalTransformer = null;
     /**
      * Private constructor used to create the StreamSourceUtility instance
      */
-    private StreamSourceUtility() throws TransformerConfigurationException {
-        internalTransformer = TransformerFactory.newInstance().newTransformer();
+    private StreamSourceUtility(){
     }
 
     /**
@@ -48,12 +46,8 @@ public class StreamSourceUtility {
 
         // if the instance is null create a new instance
         if (instance == null) {
-            try {
                 // create the instance
                 instance = new StreamSourceUtility();
-            } catch (TransformerConfigurationException ex) {
-                log.error("Error while instantiating StreamSourceUtility - possibly while setting up transformer" , ex);
-            }
         }
 
         // otherwise return the instance
@@ -76,7 +70,7 @@ public class StreamSourceUtility {
         StringWriter resultString = new StringWriter();
 
         // perform the transformation
-        internalTransformer.transform(aStreamSource, new StreamResult(resultString));
+        GenericTransformer.getInstance().getTransformer().transform(aStreamSource, new StreamResult(resultString));
 
         // copy the obtained string into the string to iterate
         resultStringDocument = resultString.toString();
@@ -114,10 +108,16 @@ public class StreamSourceUtility {
     }
 
 
+    /**
+     * Write a StreamSource to DOM
+     * @param aStreamSource
+     * @return
+     * @throws TransformerException
+     */
     public Document writeToDOM(StreamSource aStreamSource) throws TransformerException {
          // create an instance of TransformerFactory
         DOMResult aDOMResult = new DOMResult();
-        internalTransformer.transform(aStreamSource, aDOMResult);
+        GenericTransformer.getInstance().getTransformer().transform(aStreamSource, aDOMResult);
         Document document = (Document) aDOMResult.getNode();
         return document;
     }

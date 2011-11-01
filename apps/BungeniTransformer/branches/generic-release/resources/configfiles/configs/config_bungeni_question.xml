@@ -27,10 +27,10 @@
             <xslt step="3"
                 name="appendBungeniNS"
                 href="pipeline_xslt/bungeni/common/add_bungeniportal_ns.xsl"
-                preproc="#proc-parliamentary-item"
+                postproc="#proc-parliamentary-item"
                />
 
-           <!--
+           <!--!+UNESCAPE(ah, nov-2011),moved to processgroup action 
             <xslt step="4" name="unEscapeBungeniXML" href="pipeline_xslt/bungeni/common/add_unescape.xsl"/>
             -->
         </input>
@@ -46,16 +46,27 @@
     </postxml>
     -->
 
+    <!--
+    You can have as many process groups as you want, just they must have IDs which are
+    unique in the document
+
+    the process name must be 'unescapehtml'
+    the param must be an xpath to a node containing content to unescape, the node
+    specified in the xpath is assumed to tbe the parent node containing the escaped
+    content.
+
+    -->
+
      <processgroup id="proc-parliamentary-item">
          <process name="unescapehtml"
             description="bill body"
-            param="//ontology/bill/body" />
+            param="//bu:ontology/bu:bill/bu:body" />
          <process name="unescapehtml"
             description="question body"
-            param="//ontology/question/body" />
+            param="//bu:ontology/bu:question/bu:body" />
          <process name="unescapehtml"
             description="versions body"
-            param="//ontology/legislativeItem/versions/version/body" />
+            param="//bu:ontology/bu:legislativeItem/bu:versions/bu:version/bu:body" />
      </processgroup>
      
 </config>

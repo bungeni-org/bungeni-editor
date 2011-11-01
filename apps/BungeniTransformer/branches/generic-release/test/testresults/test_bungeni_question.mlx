@@ -5,20 +5,20 @@
       <bu:parliament date="2011-03-02" href="/ke/parliament/2011-03-02" isA="TLCOrganization"/>
    </bu:bungeni>
    <bu:question isA="TLCObject" uri="/ke/parliament/2011-03-02/question/1">
-      <bu:body><bu:div>
- <bu:div>
+      <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">
+ <div xmlns="">
   edit-MP-CLERK-BUSINESS question text 
-  <bu:strong> question text </bu:strong> question text question text question text 
-  <bu:em> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text</bu:em> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text 
-  <bu:ul>
-   <bu:li> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text <bu:span style="text-decoration: underline;"> question text</bu:span> question text</bu:li>
-   <bu:li> question text question text question text question text </bu:li>
-   <bu:li> question text question text <bu:span style="background-color: rgb(0, 255, 128);"> question text question text question text </bu:span> question text </bu:li>
-  </bu:ul> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text 
-  <bu:span style="color: rgb(255, 0, 0);"> question text question</bu:span> text question text question text question text question text question text question text question text question text question text question text question text question text 
-  <bu:span style="color: rgb(255, 0, 0);"> question text</bu:span> question text question text
- </bu:div>
-</bu:div></bu:body>
+  <strong> question text </strong> question text question text question text 
+  <em> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text</em> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text 
+  <ul>
+   <li> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text <span style="text-decoration: underline;"> question text</span> question text</li>
+   <li> question text question text question text question text </li>
+   <li> question text question text <span style="background-color: rgb(0, 255, 128);"> question text question text question text </span> question text </li>
+  </ul> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text 
+  <span style="color: rgb(255, 0, 0);"> question text question</span> text question text question text question text question text question text question text question text question text question text question text question text question text 
+  <span style="color: rgb(255, 0, 0);"> question text</span> question text question text
+ </div>
+</div></bu:body>
       <bu:shortName>Oral Question P1_993 (made available for scheduling)</bu:shortName>
       <bu:status>admissible</bu:status>
       <bu:itemNumber>1</bu:itemNumber>
@@ -368,18 +368,18 @@
             <bu:shortName>Oral Question P1_993 (made available for scheduling)</bu:shortName>
             <bu:field name="language">en</bu:field>
             <bu:field name="parliament_id">2</bu:field>
-            <bu:body><bu:div>
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">
  edit-MP-CLERK-BUSINESS question text 
- <bu:strong> question text </bu:strong> question text question text question text 
- <bu:em> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text</bu:em> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text 
- <bu:ul>
-  <bu:li> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text <bu:span style="text-decoration: underline;"> question text</bu:span> question text</bu:li>
-  <bu:li> question text question text question text question text </bu:li>
-  <bu:li> question text question text <bu:span style="background-color:                 rgb(0, 255, 128);"> question text question text question text </bu:span> question text </bu:li>
- </bu:ul> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text 
- <bu:span style="color: rgb(255, 0, 0);"> question text question</bu:span> text question text question text question text question text question text question text question text question text question text question text question text question text 
- <bu:span style="color: rgb(255, 0, 0);"> question text</bu:span> question text question text
-</bu:div></bu:body>
+ <strong xmlns=""> question text </strong> question text question text question text 
+ <em xmlns=""> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text</em> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text 
+ <ul xmlns="">
+  <li> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text <span style="text-decoration: underline;"> question text</span> question text</li>
+  <li> question text question text question text question text </li>
+  <li> question text question text <span style="background-color:                 rgb(0, 255, 128);"> question text question text question text </span> question text </li>
+ </ul> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text 
+ <span xmlns="" style="color: rgb(255, 0, 0);"> question text question</span> text question text question text question text question text question text question text question text question text question text question text question text question text 
+ <span xmlns="" style="color: rgb(255, 0, 0);"> question text</span> question text question text
+</div></bu:body>
             <bu:field name="change_id">18</bu:field>
             <bu:statusDate type="xs:dateTime">2011-10-13T00:11:15.311363</bu:statusDate>
             <bu:field name="manual">False</bu:field>
@@ -400,18 +400,18 @@
             <bu:shortName>Oral Question P1_993 (made available for scheduling)</bu:shortName>
             <bu:field name="language">en</bu:field>
             <bu:field name="parliament_id">2</bu:field>
-            <bu:body><bu:div>
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">
  edit-MP-CLERK question text 
- <bu:strong> question text </bu:strong> question text question text question text 
- <bu:em> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text</bu:em> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text 
- <bu:ul>
-  <bu:li> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text <bu:span style="text-decoration: underline;"> question text</bu:span> question text</bu:li>
-  <bu:li> question text question text question text question text </bu:li>
-  <bu:li> question text question text <bu:span style="background-color:                 rgb(0, 255, 128);"> question text question text question text </bu:span> question text </bu:li>
- </bu:ul> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text 
- <bu:span style="color: rgb(255, 0, 0);"> question text question</bu:span> text question text question text question text question text question text question text question text question text question text question text question text question text 
- <bu:span style="color: rgb(255, 0, 0);"> question text</bu:span> question text question text
-</bu:div></bu:body>
+ <strong xmlns=""> question text </strong> question text question text question text 
+ <em xmlns=""> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text</em> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text 
+ <ul xmlns="">
+  <li> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text <span style="text-decoration: underline;"> question text</span> question text</li>
+  <li> question text question text question text question text </li>
+  <li> question text question text <span style="background-color:                 rgb(0, 255, 128);"> question text question text question text </span> question text </li>
+ </ul> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text 
+ <span xmlns="" style="color: rgb(255, 0, 0);"> question text question</span> text question text question text question text question text question text question text question text question text question text question text question text question text 
+ <span xmlns="" style="color: rgb(255, 0, 0);"> question text</span> question text question text
+</div></bu:body>
             <bu:field name="change_id">14</bu:field>
             <bu:statusDate type="xs:dateTime">2011-10-13T00:10:17.707732</bu:statusDate>
             <bu:field name="manual">False</bu:field>
@@ -432,18 +432,18 @@
             <bu:shortName>Oral Question P1_993 (made available for scheduling)</bu:shortName>
             <bu:field name="language">en</bu:field>
             <bu:field name="parliament_id">2</bu:field>
-            <bu:body><bu:div>
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">
  edit-MP question text 
- <bu:strong> question text </bu:strong> question text question text question text 
- <bu:em> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text</bu:em> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text 
- <bu:ul>
-  <bu:li> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text <bu:span style="text-decoration: underline;"> question text</bu:span> question text</bu:li>
-  <bu:li> question text question text question text question text </bu:li>
-  <bu:li> question text question text <bu:span style="background-color:                 rgb(0, 255, 128);"> question text question text question text </bu:span> question text </bu:li>
- </bu:ul> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text 
- <bu:span style="color: rgb(255, 0, 0);"> question text question</bu:span> text question text question text question text question text question text question text question text question text question text question text question text question text 
- <bu:span style="color: rgb(255, 0, 0);"> question text</bu:span> question text question text
-</bu:div></bu:body>
+ <strong xmlns=""> question text </strong> question text question text question text 
+ <em xmlns=""> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text</em> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text 
+ <ul xmlns="">
+  <li> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text <span style="text-decoration: underline;"> question text</span> question text</li>
+  <li> question text question text question text question text </li>
+  <li> question text question text <span style="background-color:                 rgb(0, 255, 128);"> question text question text question text </span> question text </li>
+ </ul> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text 
+ <span xmlns="" style="color: rgb(255, 0, 0);"> question text question</span> text question text question text question text question text question text question text question text question text question text question text question text question text 
+ <span xmlns="" style="color: rgb(255, 0, 0);"> question text</span> question text question text
+</div></bu:body>
             <bu:field name="change_id">9</bu:field>
             <bu:statusDate type="xs:dateTime">2011-10-13T00:09:59.279875</bu:statusDate>
             <bu:field name="manual">False</bu:field>
@@ -464,18 +464,18 @@
             <bu:shortName>Oral Question P1_993 (made available for scheduling)</bu:shortName>
             <bu:field name="language">en</bu:field>
             <bu:field name="parliament_id">2</bu:field>
-            <bu:body><bu:div>
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">
  edit-MP question text 
- <bu:strong> question text </bu:strong> question text question text question text 
- <bu:em> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text</bu:em> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text 
- <bu:ul>
-  <bu:li> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text <bu:span style="text-decoration: underline;"> question text</bu:span> question text</bu:li>
-  <bu:li> question text question text question text question text </bu:li>
-  <bu:li> question text question text <bu:span style="background-color:                 rgb(0, 255, 128);"> question text question text question text </bu:span> question text </bu:li>
- </bu:ul> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text 
- <bu:span style="color: rgb(255, 0, 0);"> question text question</bu:span> text question text question text question text question text question text question text question text question text question text question text question text question text 
- <bu:span style="color: rgb(255, 0, 0);"> question text</bu:span> question text question text
-</bu:div></bu:body>
+ <strong xmlns=""> question text </strong> question text question text question text 
+ <em xmlns=""> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text</em> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text 
+ <ul xmlns="">
+  <li> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text <span style="text-decoration: underline;"> question text</span> question text</li>
+  <li> question text question text question text question text </li>
+  <li> question text question text <span style="background-color:                 rgb(0, 255, 128);"> question text question text question text </span> question text </li>
+ </ul> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text 
+ <span xmlns="" style="color: rgb(255, 0, 0);"> question text question</span> text question text question text question text question text question text question text question text question text question text question text question text question text 
+ <span xmlns="" style="color: rgb(255, 0, 0);"> question text</span> question text question text
+</div></bu:body>
             <bu:field name="change_id">6</bu:field>
             <bu:statusDate type="xs:dateTime">2011-10-13T00:09:21.198436</bu:statusDate>
             <bu:field name="manual">False</bu:field>

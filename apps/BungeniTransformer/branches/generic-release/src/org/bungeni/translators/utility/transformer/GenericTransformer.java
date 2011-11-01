@@ -1,12 +1,13 @@
 package org.bungeni.translators.utility.transformer;
 
-import com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
 
 /**
- *
+ * This class always loads the default transformer factory as saxon.
+ * We dont do the specific initialization for XSLT transformation so for default
+ * dom node transformation this is the recommended cached transformer
  * @author Ashok
  */
 public class GenericTransformer {
@@ -18,11 +19,11 @@ public class GenericTransformer {
     private Transformer transformer = null;
 
     private GenericTransformer() throws TransformerConfigurationException{
-        transformerFactory =TransformerFactory.newInstance("com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl",
-                this.getClass().getClassLoader());
-
+        /**
+         * We explicity use Saxon 
+         */
+        transformerFactory =new net.sf.saxon.TransformerFactoryImpl();
         transformer =  transformerFactory.newTransformer();
-       // transformer = l.newTransformer();
     }
 
     public static GenericTransformer getInstance() throws TransformerConfigurationException {
