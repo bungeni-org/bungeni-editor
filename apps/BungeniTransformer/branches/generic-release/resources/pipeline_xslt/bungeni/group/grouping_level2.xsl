@@ -162,5 +162,16 @@
         <xsl:variable name="arrStatusDate" select="tokenize($status_date,'\s+')" />
         <statusDate type="xs:dateTime"><xsl:value-of select="concat($arrStatusDate[1],'T',$arrStatusDate[2])" /></statusDate>
     </xsl:template>
+    
+    <xsl:template match="field[@name='timestamp' or 
+        @name='date_active' or 
+        @name='date_audit']">
+        <xsl:element name="{local-name()}" >
+            <xsl:variable name="status_date" select="." />
+            <xsl:variable name="arrStatusDate" select="tokenize($status_date,'\s+')" />
+            <xsl:attribute name="name" select="@name" />      
+            <xsl:value-of select="concat($arrStatusDate[1],'T',$arrStatusDate[2])" />
+        </xsl:element>
+    </xsl:template>     
 
 </xsl:stylesheet>
