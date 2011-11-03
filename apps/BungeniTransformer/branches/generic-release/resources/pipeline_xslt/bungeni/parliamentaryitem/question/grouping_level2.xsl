@@ -99,7 +99,9 @@
         </itemNumber>
     </xsl:template>    
     
-    <xsl:template match="field[@name='question_id']">
+    <xsl:template match="field[
+                                @name='question_id' or 
+                                @name='bill_id']">
         <itemId>
             <xsl:value-of select="." />
         </itemId>

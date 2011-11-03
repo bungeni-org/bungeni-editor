@@ -46,20 +46,6 @@
                         $content-type, '/', 
                         $item_number)" />
                 
-                <xsl:copy-of select="field[
-                    @name='status' or 
-                    @name='short_name' or 
-                    @name='full_name' or 
-                    @name='body_text'
-                    ]" />
-                <xsl:copy-of select="field[
-                    @name='question_number' or
-                    @name='question_id'
-                    ]" />  
-                
-                <!-- for <motion> or <bill> -->
-                <xsl:copy-of select="owner" />
-                
                 <!-- for <bill> -->
                 <xsl:copy-of select="field[
                                             @name='receive_notification' or 
@@ -76,10 +62,7 @@
                 
                 <!-- for <bill> and <tableddocument> and <user> -->
                 <xsl:copy-of select="item_assignments | events" />
-                <xsl:copy-of select="field[
-                                            @name='owner_id' or 
-                                            @name='parliamentary_item_id' or 
-                                            @name='receive_notification' ]" />                
+                <xsl:copy-of select="field[@name='receive_notification' ]" />                
                 
                 <!-- for <tableddocument> -->
                 <xsl:copy-of select="field[
@@ -92,7 +75,6 @@
                                             @name='last_name' or 
                                             @name='user_id' or 
                                             @name='description' or 
-                                            @name='language' or 
                                             @name='gender' or 
                                             @name='active_p' or 
                                             @name='date_of_birth' or 
@@ -120,8 +102,24 @@
                                      changes |
                                      versions" />
                 
+                <xsl:copy-of select="field[
+                    @name='status' or 
+                    @name='short_name' or 
+                    @name='full_name' or 
+                    @name='body_text' or 
+                    @name='language' 
+                    ]" />
+                <xsl:copy-of select="field[
+                    @name='question_number' or
+                    @name='question_id' or 
+                    @name='owner_id' or 
+                    @name='parliamentary_item_id']" />                  
+                
                 <!-- for <motion> & <bill> -->
-                <xsl:copy-of select="field[@name='publication_date']" />                
+                <xsl:copy-of select="field[@name='publication_date']" />  
+                
+                <!-- for <motion> or <bill> -->
+                <xsl:copy-of select="owner" />                
                 
             </legislativeItem>
             
