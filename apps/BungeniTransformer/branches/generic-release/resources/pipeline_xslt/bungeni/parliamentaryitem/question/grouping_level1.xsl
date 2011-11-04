@@ -35,33 +35,25 @@
             
             <!-- e.g. <question> or <motion> or <tableddocument> or <bill> -->
             <xsl:element name="{$content-type}">
-                
-                <!-- this is available only after a certain stage of the workflow -->
-                <xsl:variable name="item_number" select="field[@name='registry_number']" />
-                
                 <xsl:attribute name="isA" select="string('TLCObject')" />
                 
-                <xsl:attribute name="uri" 
-                    select="concat($for-parliament, '/', 
-                        $content-type, '/', 
-                        $item_number)" />
+                <xsl:copy-of select="question_type | response_type" />
                 
                 <!-- for <bill> -->
                 <xsl:copy-of select="field[
                                             @name='receive_notification' or 
                                             @name='bill_id' or 
                                             @name='bill_type_id' or
-                                            @name='timestamp' or 
-                                            @name='registry_number']" />
+                                            @name='timestamp']" />
                <ministry>
                    <xsl:variable name="ministry_id" select="field[@name='ministry_id']" />
                    <xsl:attribute name="href" select="concat($for-parliament, '/group/', $ministry_id)" />
-                   
+                   <xsl:copy-of select="field[@name='ministry_submit_date']"></xsl:copy-of>
                </ministry> 
                
                 
                 <!-- for <bill> and <tableddocument> and <user> -->
-                <xsl:copy-of select="item_assignments | events" />
+                <xsl:copy-of select="item_assignments" />
                 <xsl:copy-of select="field[@name='receive_notification' ]" />                
                 
                 <!-- for <tableddocument> -->
@@ -94,12 +86,21 @@
             </xsl:element>
 
             <legislativeItem isA="TLCConcept">
+                
+                <!-- this is available only after a certain stage of the workflow -->
+                <xsl:variable name="item_number" select="field[@name='registry_number']" />
+                
+                <xsl:attribute name="uri" 
+                    select="concat($for-parliament, '/', 
+                    $content-type, '/', 
+                    $item_number)" />
+                
                 <xsl:copy-of select="field[
                                      @name='status_date' or 
                                      @name='registry_number' or 
                                      @name='parliamentary_item_id'
                                      ] | 
-                                     changes |
+                                     changes | events |
                                      versions" />
                 
                 <xsl:copy-of select="field[

@@ -59,11 +59,17 @@
 
      <processgroup id="proc-parliamentary-item">
          <process name="unescapehtml"
-            description="bill body"
-            param="//bu:ontology/bu:bill/bu:body" />
-         <process name="unescapehtml"
             description="question body"
-            param="//bu:ontology/bu:question/bu:body" />
+            param="//bu:ontology/bu:legislativeItem/bu:body" />
+         <process name="unescapehtml"
+             description="owner description text"
+             param="//bu:ontology/bu:legislativeItem/bu:description" />  
+         <process name="unescapehtml"
+             description="owner description text"
+             param="//bu:ontology/bu:legislativeItem/bu:owner/bu:field[@name='description']" />         
+         <process name="unescapehtml"
+             description="owner description text"
+             param="//bu:ontology/bu:ministry/bu:field[@name='description']" />          
          <process name="unescapehtml"
             description="versions body"
             param="//bu:ontology/bu:legislativeItem/bu:versions/bu:version/bu:body" />
