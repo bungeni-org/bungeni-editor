@@ -83,13 +83,7 @@
             <xsl:value-of select="concat($arrStatusDate[1],'T',$arrStatusDate[2])" />
         </xsl:element>
     </xsl:template>    
-  
-    <xsl:template match="field[@name='body_text']">
-        <body>
-            <xsl:value-of select="." />
-        </body>
-    </xsl:template>
-  
+
   
     <!-- Only for question -->
   
