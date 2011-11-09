@@ -41,7 +41,7 @@
         </status>
     </xsl:template>    
     
-   
+    
     <xsl:template match="field[@name='registry_number']">
         <registryNumber>
             <xsl:value-of select="." />
@@ -67,6 +67,10 @@
         </fullName>
     </xsl:template>    
     
+    <xsl:template match="field[@name='language']">
+        <language><xsl:value-of select="." /></language>
+    </xsl:template>
+    
     <xsl:template match="field[@name='status_date']">
         <xsl:variable name="status_date" select="." />
         <xsl:variable name="arrStatusDate" select="tokenize($status_date,'\s+')" />
@@ -74,8 +78,8 @@
     </xsl:template>
     
     <xsl:template match="field[@name='timestamp' or 
-                               @name='date_active' or 
-                               @name='date_audit']">
+        @name='date_active' or 
+        @name='date_audit']">
         <xsl:element name="{local-name()}" >
             <xsl:variable name="status_date" select="." />
             <xsl:variable name="arrStatusDate" select="tokenize($status_date,'\s+')" />
@@ -83,10 +87,10 @@
             <xsl:value-of select="concat($arrStatusDate[1],'T',$arrStatusDate[2])" />
         </xsl:element>
     </xsl:template>    
-
-  
+    
+    
     <!-- Only for question -->
-  
+    
     <xsl:template match="field[@name='question_number']">
         <itemNumber>
             <xsl:value-of select="." />
@@ -94,26 +98,45 @@
     </xsl:template>    
     
     <xsl:template match="field[
-                                @name='question_id' or 
-                                @name='bill_id']">
+        @name='question_id' or 
+        @name='bill_id']">
         <itemId>
             <xsl:value-of select="." />
         </itemId>
     </xsl:template>
-  
+    
+    <xsl:template match="permissions">
+        <permisssions>
+            <xsl:apply-templates />
+        </permisssions>
+    </xsl:template>
+    
+    <xsl:template match="permission">
+        <permission 
+            setting="{field[@name='setting']}" 
+            name="{field[@name='permission']}"  
+            role="{field[@name='role']}" />
+    </xsl:template>
+    
+    <xsl:template match="itemsignatories">
+        <signatories>
+            <xsl:apply-templates />
+        </signatories>
+    </xsl:template>
+    
     <!--!+MINISTRY_MATCH (ah, oct-2011) removing this for now  
-    <xsl:template match="ministry">
+        <xsl:template match="ministry">
         <xsl:variable name="parliament-href" select="/ontology/bungeni/parliament/@href" />
         <xsl:variable name="group_principal_id" select="field[@name='group_principal_id']" />
         <group 
-            href="{concat($parliament-href,'/', $group_principal_id)}" 
-            isA="TLCOrganization" 
-            showAs="{field[@name='short_name']}">
-          
-        </group>
-            
+        href="{concat($parliament-href,'/', $group_principal_id)}" 
+        isA="TLCOrganization" 
+        showAs="{field[@name='short_name']}">
         
-    </xsl:template>
+        </group>
+        
+        
+        </xsl:template>
     -->
     
 </xsl:stylesheet>
