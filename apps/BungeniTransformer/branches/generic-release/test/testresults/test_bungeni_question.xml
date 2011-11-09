@@ -4,84 +4,24 @@
       <bu:country>ke</bu:country>
       <bu:parliament date="2011-03-02" href="/ke/parliament/2011-03-02" isA="TLCOrganization"/>
    </bu:bungeni>
-   <bu:question isA="TLCObject" uri="/ke/parliament/2011-03-02/question/1">
-      <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">
- <div xmlns="">
-  edit-MP-CLERK-BUSINESS question text 
-  <strong> question text </strong> question text question text question text 
-  <em> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text</em> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text 
-  <ul>
-   <li> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text <span style="text-decoration: underline;"> question text</span> question text</li>
-   <li> question text question text question text question text </li>
-   <li> question text question text <span style="background-color: rgb(0, 255, 128);"> question text question text question text </span> question text </li>
-  </ul> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text 
-  <span style="color: rgb(255, 0, 0);"> question text question</span> text question text question text question text question text question text question text question text question text question text question text question text question text 
-  <span style="color: rgb(255, 0, 0);"> question text</span> question text question text
- </div>
-</div></bu:body>
-      <bu:shortName>Oral Question P1_993 (made available for scheduling)</bu:shortName>
-      <bu:status>admissible</bu:status>
-      <bu:itemNumber>1</bu:itemNumber>
-      <bu:itemId>6</bu:itemId>
-      <bu:owner>
-        <bu:field name="first_name">member</bu:field>
-        <bu:field name="last_name">P1_993</bu:field>
-        <bu:field name="user_id">7</bu:field>
-        <bu:field name="description">edited &lt;div style="text-align: justify;"&gt;biographical notes
-            biographical notes &lt;strong&gt;biographical notes&lt;/strong&gt; biographical notes
-            biographical notes biographical notes biographical notes biographical notes biographical
-            notes biographical notes biographical notes biographical notes biographical notes
-            biographical notes biographical notes biographical notes biographical notes biographical
-            notes biographical notes biographical notes" &lt;/div&gt;&lt;ol style="text-align:
-            justify;"&gt;&lt;li&gt;&lt;em&gt;biographical notes biographical notes biographical
-            notes&lt;/em&gt;&lt;/li&gt;&lt;li&gt;&lt;em&gt;biographical notes biographical notes
-            biographical notes biographical notes biographical notes
-            &lt;/em&gt;&lt;/li&gt;&lt;li&gt;&lt;em&gt;biographical
-            notes&lt;/em&gt;&lt;/li&gt;&lt;li&gt;&lt;em&gt;biographical notes biographical notes
-            &lt;/em&gt;&lt;/li&gt;&lt;li&gt;&lt;em&gt;biographical notes biographical notes
-            biographical notes biographical notes biographical notes biographical notes biographical
-            notes biographical notes biographical notes biographical notes biographical notes
-            biographical notes&lt;/em&gt;&lt;/li&gt;&lt;/ol&gt;&lt;div style="text-align:
-            justify;"&gt;&lt;span style="text-decoration: underline;"&gt;biographical notes
-            biographical notes biographical notes biographical notes biographical notes biographical
-            notes biographical notes biographical notes biographical notes biographical notes
-            biographical notes biographical notes biographical notes &lt;/span&gt; biographical
-            notes biographical notes biographical notes biographical notes biographical notes
-            biographical notes biographical notes biographical notes biographical notes biographical
-            notes biographical notes biographical notes biographical notes biographical notes
-            biographical notes biographical notes biographical notes biographical notes biographical
-            notes biographical notes biographical notes biographical notes biographical notes
-            biographical notes biographical notes biographical notes biographical notes biographical
-            notes biographical notes biographical notes biographical notes biographical notes
-            biographical notes biographical notes &lt;span style="color: rgb(255, 0,
-            0);"&gt;biographical notes biographical notes biographical notes biographical notes
-            biographical notes biographical notes biographical notes biographical notes biographical
-            notes biographical notes biographical notes biographical notes biographical
-            notes&lt;/span&gt; biographical notes biographical notes biographical notes biographical
-            notes biographical notes biographical notes biographical notes biographical notes
-            biographical notes biographical notes biographical notes biographical notes biographical
-            notes biographical notes biographical notes biographical notes biographical notes
-            biographical notes &lt;/div&gt;</bu:field>
+   <bu:question isA="TLCObject">
+      <bu:response_type>
+        <bu:field name="response_type_id">1</bu:field>
+        <bu:field name="response_type_name">Oral</bu:field>
         <bu:field name="language">en</bu:field>
-        <bu:field name="birth_nationality">KE</bu:field>
-        <bu:field name="gender">F</bu:field>
-        <bu:field name="active_p">A</bu:field>
-        <bu:field name="date_of_birth">1900-02-02</bu:field>
-        <bu:field name="titles">Mrs</bu:field>
-        <bu:field name="birth_country">KE</bu:field>
-        <bu:field name="national_id">1234567890</bu:field>
-        <bu:field name="receive_notification">True</bu:field>
-        <bu:field name="login">member.P1_993</bu:field>
-        <bu:field name="password">c20dec3c1ece1fe5871c4ea874780060</bu:field>
-        <bu:field name="salt">mLYCBxWtjcaK</bu:field>
-        <bu:field name="email">user@bungeni.org</bu:field>
-        <bu:field name="current_nationality">KE</bu:field>
-      </bu:owner>
+      </bu:response_type>
+      <bu:question_type>
+        <bu:field name="question_type_name">Ordinary</bu:field>
+        <bu:field name="question_type_id">1</bu:field>
+        <bu:field name="language">en</bu:field>
+      </bu:question_type>
       <bu:field name="receive_notification">False</bu:field>
-      <bu:field name="timestamp">2011-10-13 00:11:48.254793</bu:field>
-      <bu:registryNumber>1</bu:registryNumber>
+      <bu:field name="timestamp">2011-10-13T00:11:48.254793</bu:field>
       <bu:ministry href="/ke/parliament/2011-03-02/group/13"/>
       <bu:item_assignments/>
+      <bu:field name="receive_notification">False</bu:field>
+   </bu:question>
+   <bu:legislativeItem isA="TLCConcept" uri="/ke/parliament/2011-03-02/question/1">
       <bu:events>
         <bu:event>
             <bu:status>internal</bu:status>
@@ -103,7 +43,7 @@
                 the clerk text of the event added by the clerk text of the event added by the clerk
                 text of the event added by the clerk text of the event added by the clerk text of
                 the event added by the clerk</bu:body>
-            <bu:field name="timestamp">2011-10-13 00:10:52.523414</bu:field>
+            <bu:field name="timestamp">2011-10-13T00:10:52.523414</bu:field>
             <bu:statusDate type="xs:dateTime">2011-10-13T00:10:48.536796</bu:statusDate>
             <bu:legislativeItemId>7</bu:legislativeItemId>
             <bu:field name="event_item_id">7</bu:field>
@@ -133,7 +73,7 @@
                 the clerk text of the event added by the clerk text of the event added by the clerk
                 text of the event added by the clerk text of the event added by the clerk text of
                 the event added by the clerk</bu:body>
-            <bu:field name="timestamp">2011-10-13 00:11:00.557687</bu:field>
+            <bu:field name="timestamp">2011-10-13T00:11:00.557687</bu:field>
             <bu:statusDate type="xs:dateTime">2011-10-13T00:11:00.257909</bu:statusDate>
             <bu:legislativeItemId>8</bu:legislativeItemId>
             <bu:field name="event_item_id">8</bu:field>
@@ -165,7 +105,7 @@
                 business text of the event added by the business text of the event added by the
                 business text of the event added by the business text of the event added by the
                 business</bu:body>
-            <bu:field name="timestamp">2011-10-13 00:11:39.454378</bu:field>
+            <bu:field name="timestamp">2011-10-13T00:11:39.454378</bu:field>
             <bu:statusDate type="xs:dateTime">2011-10-13T00:11:39.175072</bu:statusDate>
             <bu:legislativeItemId>9</bu:legislativeItemId>
             <bu:field name="event_item_id">9</bu:field>
@@ -176,20 +116,14 @@
             <bu:field name="owner_id">6</bu:field>
         </bu:event>
       </bu:events>
-      <bu:field name="receive_notification">False</bu:field>
-      <bu:field name="owner_id">7</bu:field>
-      <bu:legislativeItemId>6</bu:legislativeItemId>
-      <bu:field name="language">en</bu:field>
-   </bu:question>
-   <bu:legislativeItem isA="TLCConcept">
       <bu:statusDate type="xs:dateTime">2011-10-13T00:11:15.311363</bu:statusDate>
       <bu:changes>
         <bu:change>
             <bu:field name="user_id">7</bu:field>
             <bu:field name="description"/>
             <bu:field name="change_id">1</bu:field>
-            <bu:field name="date_active">2011-10-13 00:09:21.124186</bu:field>
-            <bu:field name="date_audit">2011-10-13 00:09:21.124186</bu:field>
+            <bu:field name="date_active">2011-10-13T00:09:21.124186</bu:field>
+            <bu:field name="date_audit">2011-10-13T00:09:21.124186</bu:field>
             <bu:field name="action">added</bu:field>
             <bu:field name="content_id">6</bu:field>
         </bu:change>
@@ -197,8 +131,8 @@
             <bu:field name="user_id">7</bu:field>
             <bu:field name="description">Draft</bu:field>
             <bu:field name="change_id">2</bu:field>
-            <bu:field name="date_active">2011-10-13 00:09:21.206850</bu:field>
-            <bu:field name="date_audit">2011-10-13 00:09:21.206850</bu:field>
+            <bu:field name="date_active">2011-10-13T00:09:21.206850</bu:field>
+            <bu:field name="date_audit">2011-10-13T00:09:21.206850</bu:field>
             <bu:field name="action">workflow</bu:field>
             <bu:field name="content_id">6</bu:field>
             <bu:field name="notes">{'comment': '', 'source': None, 'destination': 'draft',
@@ -208,8 +142,8 @@
             <bu:field name="user_id">7</bu:field>
             <bu:field name="description"/>
             <bu:field name="change_id">3</bu:field>
-            <bu:field name="date_active">2011-10-13 00:09:21.222122</bu:field>
-            <bu:field name="date_audit">2011-10-13 00:09:21.222122</bu:field>
+            <bu:field name="date_active">2011-10-13T00:09:21.222122</bu:field>
+            <bu:field name="date_audit">2011-10-13T00:09:21.222122</bu:field>
             <bu:field name="action">modified</bu:field>
             <bu:field name="content_id">6</bu:field>
         </bu:change>
@@ -218,8 +152,8 @@
             <bu:field name="description">File attachment by MP (publish internal) demo attachment.pdf
                 edited</bu:field>
             <bu:field name="change_id">4</bu:field>
-            <bu:field name="date_active">2011-10-13 00:09:43.559077</bu:field>
-            <bu:field name="date_audit">2011-10-13 00:09:43.559077</bu:field>
+            <bu:field name="date_active">2011-10-13T00:09:43.559077</bu:field>
+            <bu:field name="date_audit">2011-10-13T00:09:43.559077</bu:field>
             <bu:field name="action">attachment</bu:field>
             <bu:field name="content_id">6</bu:field>
         </bu:change>
@@ -227,8 +161,8 @@
             <bu:field name="user_id">7</bu:field>
             <bu:field name="description"/>
             <bu:field name="change_id">5</bu:field>
-            <bu:field name="date_active">2011-10-13 00:09:53.147707</bu:field>
-            <bu:field name="date_audit">2011-10-13 00:09:53.147707</bu:field>
+            <bu:field name="date_active">2011-10-13T00:09:53.147707</bu:field>
+            <bu:field name="date_audit">2011-10-13T00:09:53.147707</bu:field>
             <bu:field name="action">modified</bu:field>
             <bu:field name="content_id">6</bu:field>
         </bu:change>
@@ -236,8 +170,8 @@
             <bu:field name="user_id">7</bu:field>
             <bu:field name="description">New version on workflow transition to: submitted</bu:field>
             <bu:field name="change_id">6</bu:field>
-            <bu:field name="date_active">2011-10-13 00:09:59.138810</bu:field>
-            <bu:field name="date_audit">2011-10-13 00:09:59.138810</bu:field>
+            <bu:field name="date_active">2011-10-13T00:09:59.138810</bu:field>
+            <bu:field name="date_audit">2011-10-13T00:09:59.138810</bu:field>
             <bu:field name="action">new-version</bu:field>
             <bu:field name="content_id">6</bu:field>
             <bu:field name="notes">{'version_id': 1}</bu:field>
@@ -246,8 +180,8 @@
             <bu:field name="user_id">7</bu:field>
             <bu:field name="description">Submitted to clerk</bu:field>
             <bu:field name="change_id">7</bu:field>
-            <bu:field name="date_active">2011-10-13 00:09:59.298703</bu:field>
-            <bu:field name="date_audit">2011-10-13 00:09:59.298703</bu:field>
+            <bu:field name="date_active">2011-10-13T00:09:59.298703</bu:field>
+            <bu:field name="date_audit">2011-10-13T00:09:59.298703</bu:field>
             <bu:field name="action">workflow</bu:field>
             <bu:field name="content_id">6</bu:field>
             <bu:field name="notes">{'comment': '', 'source': 'draft', 'destination': 'submitted',
@@ -257,8 +191,8 @@
             <bu:field name="user_id">7</bu:field>
             <bu:field name="description"/>
             <bu:field name="change_id">8</bu:field>
-            <bu:field name="date_active">2011-10-13 00:09:59.312939</bu:field>
-            <bu:field name="date_audit">2011-10-13 00:09:59.312939</bu:field>
+            <bu:field name="date_active">2011-10-13T00:09:59.312939</bu:field>
+            <bu:field name="date_audit">2011-10-13T00:09:59.312939</bu:field>
             <bu:field name="action">modified</bu:field>
             <bu:field name="content_id">6</bu:field>
         </bu:change>
@@ -266,8 +200,8 @@
             <bu:field name="user_id">5</bu:field>
             <bu:field name="description">New version on workflow transition to: received</bu:field>
             <bu:field name="change_id">9</bu:field>
-            <bu:field name="date_active">2011-10-13 00:10:17.611840</bu:field>
-            <bu:field name="date_audit">2011-10-13 00:10:17.611840</bu:field>
+            <bu:field name="date_active">2011-10-13T00:10:17.611840</bu:field>
+            <bu:field name="date_audit">2011-10-13T00:10:17.611840</bu:field>
             <bu:field name="action">new-version</bu:field>
             <bu:field name="content_id">6</bu:field>
             <bu:field name="notes">{'version_id': 2}</bu:field>
@@ -276,8 +210,8 @@
             <bu:field name="user_id">5</bu:field>
             <bu:field name="description">Received by clerk</bu:field>
             <bu:field name="change_id">10</bu:field>
-            <bu:field name="date_active">2011-10-13 00:10:17.734457</bu:field>
-            <bu:field name="date_audit">2011-10-13 00:10:17.734457</bu:field>
+            <bu:field name="date_active">2011-10-13T00:10:17.734457</bu:field>
+            <bu:field name="date_audit">2011-10-13T00:10:17.734457</bu:field>
             <bu:field name="action">workflow</bu:field>
             <bu:field name="content_id">6</bu:field>
             <bu:field name="notes">{'comment': '', 'source': 'submitted', 'destination': 'received',
@@ -287,8 +221,8 @@
             <bu:field name="user_id">5</bu:field>
             <bu:field name="description"/>
             <bu:field name="change_id">11</bu:field>
-            <bu:field name="date_active">2011-10-13 00:10:17.757633</bu:field>
-            <bu:field name="date_audit">2011-10-13 00:10:17.757633</bu:field>
+            <bu:field name="date_active">2011-10-13T00:10:17.757633</bu:field>
+            <bu:field name="date_audit">2011-10-13T00:10:17.757633</bu:field>
             <bu:field name="action">modified</bu:field>
             <bu:field name="content_id">6</bu:field>
         </bu:change>
@@ -297,8 +231,8 @@
             <bu:field name="description">File attachment by Clerk (publish internally) demo
                 attachment.pdf edited</bu:field>
             <bu:field name="change_id">12</bu:field>
-            <bu:field name="date_active">2011-10-13 00:10:40.886578</bu:field>
-            <bu:field name="date_audit">2011-10-13 00:10:40.886578</bu:field>
+            <bu:field name="date_active">2011-10-13T00:10:40.886578</bu:field>
+            <bu:field name="date_audit">2011-10-13T00:10:40.886578</bu:field>
             <bu:field name="action">attachment</bu:field>
             <bu:field name="content_id">6</bu:field>
         </bu:change>
@@ -306,8 +240,8 @@
             <bu:field name="user_id">5</bu:field>
             <bu:field name="description"/>
             <bu:field name="change_id">13</bu:field>
-            <bu:field name="date_active">2011-10-13 00:11:09.000631</bu:field>
-            <bu:field name="date_audit">2011-10-13 00:11:09.000631</bu:field>
+            <bu:field name="date_active">2011-10-13T00:11:09.000631</bu:field>
+            <bu:field name="date_audit">2011-10-13T00:11:09.000631</bu:field>
             <bu:field name="action">modified</bu:field>
             <bu:field name="content_id">6</bu:field>
         </bu:change>
@@ -315,8 +249,8 @@
             <bu:field name="user_id">5</bu:field>
             <bu:field name="description">New version on workflow transition to: completed</bu:field>
             <bu:field name="change_id">14</bu:field>
-            <bu:field name="date_active">2011-10-13 00:11:15.166243</bu:field>
-            <bu:field name="date_audit">2011-10-13 00:11:15.166243</bu:field>
+            <bu:field name="date_active">2011-10-13T00:11:15.166243</bu:field>
+            <bu:field name="date_audit">2011-10-13T00:11:15.166243</bu:field>
             <bu:field name="action">new-version</bu:field>
             <bu:field name="content_id">6</bu:field>
             <bu:field name="notes">{'version_id': 3}</bu:field>
@@ -325,8 +259,8 @@
             <bu:field name="user_id">5</bu:field>
             <bu:field name="description">Submitted to the Speaker</bu:field>
             <bu:field name="change_id">15</bu:field>
-            <bu:field name="date_active">2011-10-13 00:11:15.331925</bu:field>
-            <bu:field name="date_audit">2011-10-13 00:11:15.331925</bu:field>
+            <bu:field name="date_active">2011-10-13T00:11:15.331925</bu:field>
+            <bu:field name="date_audit">2011-10-13T00:11:15.331925</bu:field>
             <bu:field name="action">workflow</bu:field>
             <bu:field name="content_id">6</bu:field>
             <bu:field name="notes">{'comment': '', 'source': 'received', 'destination': 'completed',
@@ -336,8 +270,8 @@
             <bu:field name="user_id">5</bu:field>
             <bu:field name="description"/>
             <bu:field name="change_id">16</bu:field>
-            <bu:field name="date_active">2011-10-13 00:11:15.366307</bu:field>
-            <bu:field name="date_audit">2011-10-13 00:11:15.366307</bu:field>
+            <bu:field name="date_active">2011-10-13T00:11:15.366307</bu:field>
+            <bu:field name="date_audit">2011-10-13T00:11:15.366307</bu:field>
             <bu:field name="action">modified</bu:field>
             <bu:field name="content_id">6</bu:field>
         </bu:change>
@@ -345,8 +279,8 @@
             <bu:field name="user_id">6</bu:field>
             <bu:field name="description"/>
             <bu:field name="change_id">17</bu:field>
-            <bu:field name="date_active">2011-10-13 00:11:48.282551</bu:field>
-            <bu:field name="date_audit">2011-10-13 00:11:48.282551</bu:field>
+            <bu:field name="date_active">2011-10-13T00:11:48.282551</bu:field>
+            <bu:field name="date_audit">2011-10-13T00:11:48.282551</bu:field>
             <bu:field name="action">modified</bu:field>
             <bu:field name="content_id">6</bu:field>
         </bu:change>
@@ -354,8 +288,8 @@
             <bu:field name="user_id">6</bu:field>
             <bu:field name="description">New version on workflow transition to: admissible</bu:field>
             <bu:field name="change_id">18</bu:field>
-            <bu:field name="date_active">2011-10-13 00:11:53.793335</bu:field>
-            <bu:field name="date_audit">2011-10-13 00:11:53.793335</bu:field>
+            <bu:field name="date_active">2011-10-13T00:11:53.793335</bu:field>
+            <bu:field name="date_audit">2011-10-13T00:11:53.793335</bu:field>
             <bu:field name="action">new-version</bu:field>
             <bu:field name="content_id">6</bu:field>
             <bu:field name="notes">{'version_id': 4}</bu:field>
@@ -387,7 +321,7 @@
             <bu:field name="version_id">4</bu:field>
             <bu:field name="response_type_id">1</bu:field>
             <bu:field name="ministry_id">13</bu:field>
-            <bu:field name="timestamp">2011-10-13 00:11:48.254793</bu:field>
+            <bu:field name="timestamp">2011-10-13T00:11:48.254793</bu:field>
             <bu:field name="type">question</bu:field>
             <bu:field name="content_id">6</bu:field>
             <bu:registryNumber>1</bu:registryNumber>
@@ -419,7 +353,7 @@
             <bu:field name="version_id">3</bu:field>
             <bu:field name="response_type_id">1</bu:field>
             <bu:field name="ministry_id">13</bu:field>
-            <bu:field name="timestamp">2011-10-13 00:11:08.982791</bu:field>
+            <bu:field name="timestamp">2011-10-13T00:11:08.982791</bu:field>
             <bu:field name="type">question</bu:field>
             <bu:field name="content_id">6</bu:field>
             <bu:registryNumber>1</bu:registryNumber>
@@ -451,7 +385,7 @@
             <bu:field name="version_id">2</bu:field>
             <bu:field name="response_type_id">1</bu:field>
             <bu:field name="ministry_id">13</bu:field>
-            <bu:field name="timestamp">2011-10-13 00:09:59.303804</bu:field>
+            <bu:field name="timestamp">2011-10-13T00:09:59.303804</bu:field>
             <bu:field name="type">question</bu:field>
             <bu:field name="content_id">6</bu:field>
             <bu:registryNumber>1</bu:registryNumber>
@@ -482,7 +416,7 @@
             <bu:field name="version_id">1</bu:field>
             <bu:field name="response_type_id">1</bu:field>
             <bu:field name="ministry_id">13</bu:field>
-            <bu:field name="timestamp">2011-10-13 00:09:53.139096</bu:field>
+            <bu:field name="timestamp">2011-10-13T00:09:53.139096</bu:field>
             <bu:field name="content_id">6</bu:field>
             <bu:field name="type">question</bu:field>
             <bu:field name="question_type_id">1</bu:field>
@@ -491,6 +425,64 @@
       </bu:versions>
       <bu:legislativeItemId>6</bu:legislativeItemId>
       <bu:registryNumber>1</bu:registryNumber>
+      <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">
+ <div xmlns="">
+  edit-MP-CLERK-BUSINESS question text 
+  <strong> question text </strong> question text question text question text 
+  <em> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text</em> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text 
+  <ul>
+   <li> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text <span style="text-decoration: underline;"> question text</span> question text</li>
+   <li> question text question text question text question text </li>
+   <li> question text question text <span style="background-color: rgb(0, 255, 128);"> question text question text question text </span> question text </li>
+  </ul> question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text question text 
+  <span style="color: rgb(255, 0, 0);"> question text question</span> text question text question text question text question text question text question text question text question text question text question text question text question text 
+  <span style="color: rgb(255, 0, 0);"> question text</span> question text question text
+ </div>
+</div></bu:body>
+      <bu:shortName>Oral Question P1_993 (made available for scheduling)</bu:shortName>
+      <bu:status>admissible</bu:status>
+      <bu:field name="language">en</bu:field>
+      <bu:field name="owner_id">7</bu:field>
+      <bu:itemNumber>1</bu:itemNumber>
+      <bu:legislativeItemId>6</bu:legislativeItemId>
+      <bu:itemId>6</bu:itemId>
+      <bu:owner>
+        <bu:field name="first_name">member</bu:field>
+        <bu:field name="last_name">P1_993</bu:field>
+        <bu:field name="user_id">7</bu:field>
+        <bu:field name="description"><div xmlns="http://www.w3.org/1999/xhtml/">
+ edited 
+ <div xmlns="" style="text-align: justify;">
+  biographical notes biographical notes 
+  <strong>biographical notes</strong> biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes" 
+ </div>
+ <ol xmlns="" style="text-align:             justify;">
+  <li><em>biographical notes biographical notes biographical notes</em></li>
+  <li><em>biographical notes biographical notes biographical notes biographical notes biographical notes </em></li>
+  <li><em>biographical notes</em></li>
+  <li><em>biographical notes biographical notes </em></li>
+  <li><em>biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes</em></li>
+ </ol>
+ <div xmlns="" style="text-align:             justify;">
+  <span style="text-decoration: underline;">biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes </span> biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes 
+  <span style="color: rgb(255, 0,             0);">biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes</span> biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes 
+ </div>
+</div></bu:field>
+        <bu:field name="language">en</bu:field>
+        <bu:field name="birth_nationality">KE</bu:field>
+        <bu:field name="gender">F</bu:field>
+        <bu:field name="active_p">A</bu:field>
+        <bu:field name="date_of_birth">1900-02-02</bu:field>
+        <bu:field name="titles">Mrs</bu:field>
+        <bu:field name="birth_country">KE</bu:field>
+        <bu:field name="national_id">1234567890</bu:field>
+        <bu:field name="receive_notification">True</bu:field>
+        <bu:field name="login">member.P1_993</bu:field>
+        <bu:field name="password">c20dec3c1ece1fe5871c4ea874780060</bu:field>
+        <bu:field name="salt">mLYCBxWtjcaK</bu:field>
+        <bu:field name="email">user@bungeni.org</bu:field>
+        <bu:field name="current_nationality">KE</bu:field>
+      </bu:owner>
    </bu:legislativeItem>
    <bu:attached_files>
         <bu:attached_file>
@@ -564,14 +556,13 @@
    <bu:itemsignatories/>
    <bu:ministry>
         <bu:status>active</bu:status>
-        <bu:field name="description">ministry description &lt;strong&gt;ministry
-            description&lt;/strong&gt; ministry description &lt;em&gt;ministry
-            description&lt;/em&gt; ministry description &lt;strong&gt;ministry
-            description&lt;/strong&gt; ministry description ministry description ministry
-            description ministry description ministry description ministry description ministry
-            description ministry description ministry description ministry description ministry
-            description ministry description &lt;span style="color: rgb(255, 0, 0);"&gt;ministry
-            description&lt;/span&gt; ministry description ministry description</bu:field>
+        <bu:field name="description"><div xmlns="http://www.w3.org/1999/xhtml/">
+ ministry description 
+ <strong xmlns="">ministry description</strong> ministry description 
+ <em xmlns="">ministry description</em> ministry description 
+ <strong xmlns="">ministry description</strong> ministry description ministry description ministry description ministry description ministry description ministry description ministry description ministry description ministry description ministry description ministry description ministry description 
+ <span xmlns="" style="color: rgb(255, 0, 0);">ministry description</span> ministry description ministry description
+</div></bu:field>
         <bu:shortName>Min</bu:shortName>
         <bu:field name="group_principal_id">group.ministry.13</bu:field>
         <bu:statusDate type="xs:dateTime">2011-10-13T00:01:31.162068</bu:statusDate>
