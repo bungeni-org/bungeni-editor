@@ -99,15 +99,14 @@
                 
                 <!-- this is available only after a certain stage of the workflow -->
                 <xsl:variable name="item_number">
-                   
                         <xsl:choose>
                             <!--+FIX_THIS is event_item_id the stable identifier for events ? -->
-                            <xsl:when test="field[@name='event_item_id']">
-                                <xsl:value-of select="field[@name='event_item_id']" />
+                            <xsl:when test="field[@name='event_item_id']" >
+                               <xsl:value-of select="field[@name='event_item_id']" />
                             </xsl:when>
                             
                             <xsl:otherwise>
-                                <xs:value-of select="field[@name='registry_number']" />
+                                <xsl:value-of select="field[@name='registry_number']" />
                             </xsl:otherwise>
                         </xsl:choose>
                  
