@@ -41,10 +41,9 @@
                 
                 <!-- for <bill> -->
                 <xsl:copy-of select="field[
-                                            @name='receive_notification' or 
                                             @name='bill_id' or 
-                                            @name='bill_type_id' or
-                                            @name='timestamp']" />
+                                            @name='bill_type_id'
+                                            ]" />
                <ministry>
                    <xsl:variable name="ministry_id" select="field[@name='ministry_id']" />
                    <xsl:attribute name="href" select="concat($for-parliament, '/group/', $ministry_id)" />
@@ -54,12 +53,12 @@
                 
                 <!-- for <bill> and <tableddocument> and <user> -->
                 <xsl:copy-of select="item_assignments" />
-                <xsl:copy-of select="field[@name='receive_notification' ]" />                
                 
                 <!-- for <tableddocument> -->
                 <xsl:copy-of select="field[
-                                            @name='tabled_document_id' or 
-                                            @name='tabled_document_number' ]" />                
+                                        @name='tabled_document_id' or 
+                                        @name='tabled_document_number' 
+                                       ]" />                
                 
                 <!-- for <user> -->
                 <xsl:copy-of select="field[
@@ -79,9 +78,10 @@
                                             @name='email' or 
                                             @name='birth_nationality' or 
                                             @name='current_nationality' or 
-                                            @name='tabled_document_number' ] |
-                                            subscriptions | 
-                                            user_addresses " />     
+                                            @name='tabled_document_number' 
+                                            ] |
+                                       subscriptions | 
+                                       user_addresses " />     
                 
             </xsl:element>
 
