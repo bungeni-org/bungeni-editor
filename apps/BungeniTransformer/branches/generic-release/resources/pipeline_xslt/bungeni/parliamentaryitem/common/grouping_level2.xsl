@@ -167,16 +167,16 @@
     </xsl:template>
     
     <xsl:template match="events">
-        <events>
-            <xsl:apply-templates />
-        </events>
+        <wfevents>
+            <xsl:apply-templates mode="parent_is_events" />
+        </wfevents>
     </xsl:template>
     
-    <xsl:template match="event">
+    <xsl:template match="event" mode="parent_is_events">
         <xsl:variable name="event-identifier" select="field[@name='event_item_id']" />
         <xsl:variable name="event-date" select="field[@name='event_date']" />
         <xsl:variable name="event-lang" select="field[@name='language']" />
-        <event 
+        <wfevent 
             href="{concat($for-parliament,'/event/',$event-identifier, '/', $event-lang)}" 
             showAs="{field[@name='short_name']}" 
             date="{xbf:parse-date($event-date)}" 

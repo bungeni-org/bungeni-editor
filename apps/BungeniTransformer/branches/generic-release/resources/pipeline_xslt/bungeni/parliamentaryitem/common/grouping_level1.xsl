@@ -123,9 +123,11 @@
                                      @name='registry_number' or 
                                      @name='parliamentary_item_id'
                                      ] | 
-                                     changes | 
+                                     changes |
                                      events |
                                      versions" />
+                
+ 
                 
                 <xsl:copy-of select="field[
                     @name='status' or 
