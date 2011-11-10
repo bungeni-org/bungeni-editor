@@ -25,6 +25,17 @@
         <xsl:sequence select="concat($arrInputDate[1],'T',$arrInputDate[2])" />
     </xsl:function>
     
+    
+    <xsl:function name="xbf:parse-date-nomicrotime">
+        <xsl:param name="input-date"/>
+        <xsl:variable name="arrInputDate" select="tokenize($input-date,'\s+')" />
+        <xsl:variable name="arrInputTime" select="substring-before(string($arrInputDate[2]), '.')" />
+        <xsl:sequence select="concat($arrInputDate[1],'T',$arrInputTime)" />
+    </xsl:function>
+    
+    
+    
+    
     <xsl:template match="/">
         <xsl:apply-templates/>
     </xsl:template>
@@ -93,9 +104,10 @@
         </statusDate>
     </xsl:template>
     
-    <xsl:template match="field[@name='timestamp' or 
+    <xsl:template match="field[
         @name='date_active' or 
-        @name='date_audit']">
+        @name='date_audit'
+        ]">
         <xsl:element name="{local-name()}" >
             <xsl:attribute name="name" select="@name" />      
             
@@ -123,6 +135,20 @@
         <itemId>
             <xsl:value-of select="." />
         </itemId>
+    </xsl:template>
+    
+    <xsl:template match="field[@name='doc_type']">
+        <xsl:variable name="parent-type" select="//legislativeItem/field[@name='type']" />
+        <xsl:variable name="value" select="." />
+        <xsl:element name="type">
+            <xsl:attribute 
+                name="href" 
+                select="concat('/ontology/',$country-code, '/', $parent-type, '/', $value)"
+                />
+             <xsl:attribute 
+                 name="showAs" 
+                 select="$value" />
+        </xsl:element>    
     </xsl:template>
     
     <xsl:template match="permissions">
@@ -166,6 +192,10 @@
         -->
     </xsl:template>
     
+    <xsl:template match="field[@name='publication_date']">
+        <publicationDate type="xs:date"><xsl:value-of select="." /></publicationDate>
+    </xsl:template>
+    
     <xsl:template match="events">
         <wfevents>
             <xsl:apply-templates mode="parent_is_events" />
@@ -178,11 +208,36 @@
         <xsl:variable name="event-lang" select="field[@name='language']" />
         <wfevent 
             href="{concat($for-parliament,'/event/',$event-identifier, '/', $event-lang)}" 
+            isA="TLCEvent"
             showAs="{field[@name='short_name']}" 
             date="{xbf:parse-date($event-date)}" 
         />
     </xsl:template>
     
+    <xsl:template match="versions">
+        <versions>
+            <xsl:apply-templates />
+        </versions>
+    </xsl:template>
+    
+    <xsl:template match="version">
+        <xsl:variable name="doc-uri" select="//legislativeItem/@uri" />
+        <xsl:variable name="status-date" select="field[@name='status_date']" />
+        <xsl:variable name="version-status-date" select="xbf:parse-date-nomicrotime($status-date)" />
+
+        <version isA="TLCConcept" 
+            uri="{concat($doc-uri, '@', $version-status-date)}" 
+            id="ver-{data(field[@name='version_id'])}"
+            user-generated="{lower-case(data(field[@name='manual']))}"
+            >
+
+            <xsl:apply-templates />
+        
+        </version>
+   
+    </xsl:template>
+    
+
     
     <xsl:template name="user_render">
         <xsl:param name="typeOf" select="string('unknown')" />
@@ -195,7 +250,20 @@
         </xsl:element>
     </xsl:template>
     
-    
+
+    <!--+FIX_THIS content_id, ministry_id is suppresed for versions -->
+    <xsl:template match="field[
+        @name='parliament_id' or 
+        @name='type' or 
+        @name='content_id' or
+        @name='timestamp' or 
+        @name='ministry_id' or
+        @name='version_id' 
+        ]">
+        
+        <!-- dont emit -->
+        
+    </xsl:template>
     
     <xsl:template match="field[@name='owner_id'] | field[@name='receive_notification']">
         <!-- Dont emit owner id -->

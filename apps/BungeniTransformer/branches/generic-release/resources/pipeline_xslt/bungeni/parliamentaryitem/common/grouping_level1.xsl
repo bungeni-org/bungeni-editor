@@ -40,12 +40,15 @@
             <xsl:element name="{$content-type}">
                 <xsl:attribute name="isA" select="string('TLCConcept')" />
                 
-                <xsl:copy-of select="question_type | response_type" />
+                <xsl:copy-of select="field[
+                        @name='question_type' or 
+                        @name='response_type']" />
                 
                 <!-- for <bill> -->
                 <xsl:copy-of select="field[
                                             @name='bill_id' or 
-                                            @name='bill_type_id'
+                                            @name='bill_type_id' or 
+                                            @name='doc_type' 
                                             ]" />
                 <xsl:if test="field[@name='ministry_id']">
                   <!-- render only if ministry or other group ,rendered as generic group reference -->
@@ -140,7 +143,8 @@
                 <xsl:copy-of select="field[
                     @name='question_number' or
                     @name='question_id' or 
-                    @name='owner_id'
+                    @name='owner_id' or
+                    @name='type'
                     ]" />                  
                 
                 <!-- for <motion> & <bill> -->
