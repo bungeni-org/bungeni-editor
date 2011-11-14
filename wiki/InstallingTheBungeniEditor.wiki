@@ -5,7 +5,7 @@
 <wiki:toc max_depth="3" />
 
 == Introduction ==
-These installation instructions were tested on Ubuntu 8.04 / Windows XP and the same should apply for subsequent OS releases.
+These installation instructions were tested on ~~Ubuntu 8.04~~ / Windows XP and the same should apply for subsequent OS releases.  Currently, the Editor works only on windows due to a bug in the Gnome 2 windowing implementation. 
 
 == Installing using the IzPack installer == 
 
@@ -14,6 +14,8 @@ These installation instructions were tested on Ubuntu 8.04 / Windows XP and the 
  * run the izpack installer provided on the downloads page.
 
 == Quick Install Steps for Ubuntu == 
+
+*UPDATE 14-Nov-2011 - EDITOR WILL NOT INSTALL ON UBUNTU GNOME, please try it on KUBUNTU see [https://issues.apache.org/ooo/show_bug.cgi?id=97007 https://issues.apache.org/ooo/show_bug.cgi?id=97007]*
 
 *NOTE* : Bungeni Editor is not compatible with OpenOffice installation packaged with Ubuntu since it is a different distirbution of OpenOffice called 'LibreOffice'.  Bungeni Editor is only compatible with the OpenOffice.org distribution on the the [http://www.openoffice.org OpenOffice.org webiste]
 
