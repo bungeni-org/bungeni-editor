@@ -20,23 +20,31 @@
         <!-- This steps are performed BEFORE the above regex replacement -->
         <input>
 
-            <xslt step="1" name="groupingLevel1" href="pipeline_xslt/bungeni/group/grouping_level1.xsl"/>
+            <xslt   step="1" 
+                    name="groupingLevel1" 
+                    href="pipeline_xslt/bungeni/group/grouping_level1.xsl"/>
             
-            <xslt step="2" name="groupingLevel2" href="pipeline_xslt/bungeni/group/grouping_level2.xsl"/>               
+            <xslt   step="2" 
+                    name="groupingLevel2" 
+                    href="pipeline_xslt/bungeni/group/grouping_level2.xsl"/>               
 
-            <xslt step="3" name="appendBungeniNS" href="pipeline_xslt/bungeni/common/add_bungeniportal_ns.xsl"/>
+            <xslt   step="3" 
+                    name="appendBungeniNS" 
+                    href="pipeline_xslt/bungeni/common/add_bungeniportal_ns.xsl" 
+                    postproc="proc-group-item"/>
             
-            <xslt step="4" name="unEscapeBungeniXML" href="pipeline_xslt/bungeni/common/add_unescape.xsl"/>
         </input>
 
-   <!--
-       <pipetoxml name="BungeniXML"
-               href="pipeline_xslt/bungeni/group/pipeline.xsl"  />
--->
-    <!-- Called after translate -->
-  <!--
-  <postxml>
-        <xslt step="1" name="AddNamespaceAkomaNtoso" href="pipeline_xslt/common/add_an_ns.xsl" />
-    </postxml>
-  -->
+    <processgroup id="proc-group-item">
+        
+        <process name="unescapehtml"
+            description="item body"
+            param="//bu:ontology/bu:legislature/bu:body" />
+        
+        <process name="unescapehtml"
+            description="owner description text"
+            param="//bu:ontology/bu:legislature/bu:parentGroup/bu:description" />
+        
+    </processgroup>
+    
 </config>

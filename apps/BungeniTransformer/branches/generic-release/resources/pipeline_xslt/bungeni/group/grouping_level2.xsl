@@ -40,6 +40,12 @@
         </groupId>
     </xsl:template>    
     
+    <xsl:template match="field[@name='parliament_id']">
+        <parliamentId>
+            <xsl:value-of select="." />
+        </parliamentId>
+    </xsl:template>      
+    
     <xsl:template match="field[@name='parent_group_id']">
         <parentGroupId>
             <xsl:value-of select="." />
@@ -59,13 +65,11 @@
     </xsl:template>    
     
     <xsl:template match="field[@name='start_date']">
-        <xsl:variable name="start_date" select="." />
-        <xsl:variable name="arrStartDate" select="tokenize($start_date,'\s+')" />
-        <startDate type="xs:dateTime"><xsl:value-of select="concat($arrStartDate[1],'T',$arrStartDate[2])" /></startDate>
+        <startDate type="xs:date"><xsl:value-of select="." /></startDate>
     </xsl:template>
     
     <xsl:template match="field[@name='election_date']">
-        <electionDate>
+        <electionDate type="xs:date">
             <xsl:value-of select="." />
         </electionDate>
     </xsl:template>
@@ -155,7 +159,11 @@
         <description>
             <xsl:value-of select="." />
         </description>
-    </xsl:template>    
+    </xsl:template>     
+    
+    <xsl:template match="field[@name='language']">
+        <language><xsl:value-of select="." /></language>
+    </xsl:template>   
 
     <xsl:template match="field[@name='status_date']">
         <xsl:variable name="status_date" select="." />

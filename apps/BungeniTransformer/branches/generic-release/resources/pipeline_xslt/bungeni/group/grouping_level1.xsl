@@ -14,9 +14,7 @@
     <xsl:template match="/">
         <xsl:apply-templates />
     </xsl:template>
-    
-    
-    
+     
     <xsl:variable name="country-code" select="string('ke')" />
     <xsl:variable name="parliament-election-date" select="string('2011-03-02')" />
     <xsl:variable name="for-parliament" select="concat('/ke/parliament/', $parliament-election-date)" />
@@ -44,8 +42,10 @@
                                             @name='election_date' ] | group_addresses"></xsl:copy-of>
             </group>
             <bungeni>
-                <status><xsl:value-of select="./field[@name='status']" /></status>
-                <language><xsl:value-of select="./field[@name='language']" /></language>
+                <xsl:copy-of select="field[  
+                    @name='language' or
+                    @name='status' ]" 
+                />                    
                 <xsl:copy-of select="permissions" />
                 <principalGroup>
                     <xsl:attribute name="href" select="concat('#', $group_principal_id)" />
@@ -56,26 +56,21 @@
             <xsl:element name="{$group-type}">
                 <xsl:attribute name="isA">TLCOrganization</xsl:attribute>
                 <xsl:attribute name="refersTo" select="concat('#', $group_id)" />
-                <xsl:copy-of select="field[  
-                    @name='short_name' or
-                    @name='full_name' or
-                    @name='description' ]" 
-                />
             </xsl:element>
             
             <legislature>
                 <xsl:copy-of select="field[  
                     @name='short_name' or
-                    @name='parliament_id' or
-                    @name='group_principal_id' or
-                    @name='language' or 
+                    @name='full_name' or 
+                    @name='description' or 
+                    @name='parliament_id' or 
                     @name='type' or 
                     @name='election_date' or 
                     @name='dissolution_date' or 
                     @name='results_date' or 
                     @name='proportional_presentation' or 
-                    @name='status_date' ] | agenda_items" 
-                />            
+                    @name='status_date' ] | agenda_items | parent_group" 
+                />             
             </legislature>
             <membership>
                 <xsl:copy-of select="committee_type | members"></xsl:copy-of>
