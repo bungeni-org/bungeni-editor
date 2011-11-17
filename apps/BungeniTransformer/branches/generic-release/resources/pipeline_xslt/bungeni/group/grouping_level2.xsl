@@ -52,6 +52,12 @@
         </parentGroupId>
     </xsl:template>
     
+    <xsl:template match="parent_group">
+        <parentGroup>
+            <xsl:apply-templates />
+        </parentGroup>
+    </xsl:template>
+    
     <xsl:template match="field[@name='min_num_members']">
         <minNumMembers>
             <xsl:value-of select="." />
