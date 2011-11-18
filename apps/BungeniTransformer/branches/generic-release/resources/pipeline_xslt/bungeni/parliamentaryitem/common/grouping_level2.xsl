@@ -160,9 +160,9 @@
     </xsl:template>
     
     <xsl:template match="permissions">
-        <permisssions>
+        <permissions>
             <xsl:apply-templates />
-        </permisssions>
+        </permissions>
     </xsl:template>
     
     <xsl:template match="permission">
