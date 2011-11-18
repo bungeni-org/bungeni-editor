@@ -123,7 +123,12 @@
     
     <!-- Only for question -->
     
-    <xsl:template match="field[@name='question_number']">
+    <xsl:template match="field[
+        @name='question_number' or
+        @name='motion_number' or
+        @name='bill_number' or
+        @name='tabled_document_number'
+        ]">
         <itemNumber>
             <xsl:value-of select="." />
         </itemNumber>
@@ -131,7 +136,10 @@
     
     <xsl:template match="field[
         @name='question_id' or 
-        @name='bill_id']">
+        @name='bill_id' or 
+        @name='motion_id' or 
+        @name='tabled_document_id'
+        ]">
         <itemId>
             <xsl:value-of select="." />
         </itemId>

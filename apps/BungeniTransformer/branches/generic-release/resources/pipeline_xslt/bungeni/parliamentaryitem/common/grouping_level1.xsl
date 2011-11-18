@@ -21,6 +21,8 @@
         <xsl:apply-templates />
     </xsl:template>
 
+
+
     <xsl:template match="contenttype">
         <xsl:variable name="content-type" select="field[@name='type']" />
         <xsl:variable name="language" select="field[@name='language']" />
@@ -43,13 +45,8 @@
                 <xsl:copy-of select="field[
                         @name='question_type' or 
                         @name='response_type']" />
+       
                 
-                <!-- for <bill> -->
-                <xsl:copy-of select="field[
-                                            @name='bill_id' or 
-                                            @name='bill_type_id' or 
-                                            @name='doc_type' 
-                                            ]" />
                 <xsl:if test="field[@name='ministry_id']">
                   <!-- render only if ministry or other group ,rendered as generic group reference -->
                   <group>
@@ -67,11 +64,7 @@
                     <xsl:copy-of select="item_assignments" />
                 </xsl:if>
                 
-                <!-- for <tableddocument> -->
-                <xsl:copy-of select="field[
-                                        @name='tabled_document_id' or 
-                                        @name='tabled_document_number' 
-                                       ]" />                
+                
                 
                 <!-- for <user> -->
                 <xsl:copy-of select="field[
@@ -90,8 +83,7 @@
                                             @name='salt' or 
                                             @name='email' or 
                                             @name='birth_nationality' or 
-                                            @name='current_nationality' or 
-                                            @name='tabled_document_number' 
+                                            @name='current_nationality' 
                                             ] |
                                        subscriptions | 
                                        user_addresses " />     
@@ -128,7 +120,8 @@
                                      ] | 
                                      changes |
                                      events |
-                                     versions" />
+                                     versions |
+                                     owner" />
                 
  
                 
@@ -137,23 +130,48 @@
                     @name='short_name' or 
                     @name='full_name' or 
                     @name='body_text' or 
-                    @name='language' 
+                    @name='language'  or 
+                    @name='owner_id' or
+                    @name='type'
                     ]" />
+                
+                <!-- NUMBER AND IDENTIFIERS -->
                 
                 <xsl:copy-of select="field[
                     @name='question_number' or
-                    @name='question_id' or 
-                    @name='owner_id' or
-                    @name='type'
+                    @name='question_id'
                     ]" />                  
                 
-                <!-- for <motion> & <bill> -->
-                <xsl:copy-of select="field[@name='publication_date']" />  
+                <!-- for <tableddocument> -->
+                <xsl:copy-of select="field[
+                    @name='tabled_document_id' or 
+                    @name='tabled_document_number' 
+                    ]" /> 
                 
-                <!-- for <motion> or <bill> -->
-                <xsl:copy-of select="owner" />                
+                
+                <!-- for <bill> -->
+                <xsl:copy-of select="field[
+                    @name='bill_id' or 
+                    @name='bill_type_id' or 
+                    @name='bill_number'
+                    ]" />
+                
+                <!-- for <motion> -->
+                <xsl:copy-of select="field[
+                    @name='motion_id' or 
+                    @name='motion_number'
+                    ]" />
+                
+                <!-- for <motion> & <bill> -->
+                <xsl:copy-of select="field[
+                    @name='publication_date' or
+                    @name='doc_type' 
+                    ]" />  
+                 
                 
             </legislativeItem>
+            
+            <!-- End of Legislative Item -->
             
             <xsl:copy-of select="permissions | 
                                  attached_files" />
