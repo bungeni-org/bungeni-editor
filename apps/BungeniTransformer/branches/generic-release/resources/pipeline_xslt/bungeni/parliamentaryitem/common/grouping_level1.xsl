@@ -168,13 +168,15 @@
                     @name='doc_type' 
                     ]" />  
                  
+                <!-- PERMISSIONS -->
+                <xsl:copy-of select="permissions" />
+                
                 
             </legislativeItem>
             
             <!-- End of Legislative Item -->
             
-            <xsl:copy-of select="permissions | 
-                                 attached_files" />
+            <xsl:copy-of select="attached_files" />
             
             <!-- for <motion> & <bill> -->
             <xsl:copy-of select="itemsignatories" />
