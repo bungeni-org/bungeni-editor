@@ -3,13 +3,10 @@ package org.bungeni.connector.server;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.Properties;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.bungeni.connector.ConnectorProperties;
 import org.bungeni.connector.IBungeniConnector;
 import org.bungeni.connector.client.BungeniConnector;
-import org.bungeni.connector.impl.RDBMSBungeniConnector;
-import org.bungeni.connector.impl.XMLBungeniConnector;
 import org.bungeni.connector.restlet.current.APIRestlet;
 import org.bungeni.connector.restlet.current.BillsRestlet;
 import org.bungeni.connector.restlet.current.MembersRestlet;
@@ -96,20 +93,7 @@ public class DataSourceServer extends Application {
         logger.info("DataSourceServer() constructor");
     }
 
-    public IBungeniConnector getDataSourceConnector(String connectorClass) {
-        IBungeniConnector iInstance = null;
-        try {
-            Class clsConnector = Class.forName(connectorClass);
-            iInstance = (IBungeniConnector) clsConnector.newInstance();
-        } catch (InstantiationException ex) {
-            logger.error("getDataSourceConnector : error", ex);
-        } catch (IllegalAccessException ex) {
-            logger.error("getDataSourceConnector : error", ex);
-        } catch (ClassNotFoundException ex) {
-            logger.error("getDataSourceConnector : error", ex);
-        }
-        return iInstance;
-    }
+  
 
     /**
      * After getting a DataSourceServer instance you will have to set it up
@@ -163,12 +147,16 @@ public class DataSourceServer extends Application {
         } catch (Exception ex) {
             logger.error("Invalid server-port", ex);
         }
-        String dataSourceClass = null;
+        // !+DATA_SOURCE_CLASS (ah, nov-2011) -- REMOVED
+        //There was no check here for the Appropriate data source type
+        //adding it for data source type
+        String sDataSourceType = properties.getProperty("data-source-type");
+        this.sourceType = DataSourceType.valueOf(sDataSourceType);
+        
         try {
-            dataSourceClass = properties.getProperty("data-source-class");
-            bungeniConnector = getDataSourceConnector(dataSourceClass);
+            bungeniConnector = this.sourceType.getDataSourceConnector();
             if (bungeniConnector == null) {
-                throw new Exception("Invalid DataSource class: " + dataSourceClass);
+                throw new Exception("Invalid DataSource Type, faile initialization: " + sDataSourceType);
             }
             bungeniConnector.init(this.connectorProps);
             loaded = true;
@@ -270,5 +258,11 @@ public class DataSourceServer extends Application {
 
     public String getQuestionsURI() {
         return questionsURI;
+    }
+
+    public static void main(String[] args) {
+        DataSourceServer ds = DataSourceServer.getInstance();
+        ds.loadProperties("settings/bungeni-connector.properties");
+        ds.startServer();
     }
 }

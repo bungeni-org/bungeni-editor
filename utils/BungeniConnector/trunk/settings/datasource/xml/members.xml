@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<members><member>
+<members type="FROM XML DATA SOURCE">
+    <member>
         
             <id>50</id>
-            <uri>ken.person.Charlas.Keter.1944-10-09</uri>
+            <uri>ken.person.Charlas.Keter.1944-10-09--FROM XML</uri>
         
         <first>Charlas</first>
         <last>Keter</last>
