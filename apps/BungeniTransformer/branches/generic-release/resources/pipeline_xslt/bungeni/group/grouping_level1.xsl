@@ -10,6 +10,11 @@
             <xd:p></xd:p>
         </xd:desc>
     </xd:doc>
+
+    <!-- these are input parameters to the transformation a-->
+    <xsl:param name="country-code" value="ke" />
+    <xsl:param name="parliament-election-date" value="1970-01-01" />
+    <xsl:param name="for-parliament" value="ke/parliament/1970-01-01"  />
     
     <xsl:template match="/">
         <xsl:apply-templates />

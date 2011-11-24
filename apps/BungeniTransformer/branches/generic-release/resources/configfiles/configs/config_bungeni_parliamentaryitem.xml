@@ -20,6 +20,15 @@
         <!-- This steps are performed BEFORE the above regex replacement -->
         <input>
 
+            <!-- INPUT PARAMETERS are passed ONLY into Step 1, it is upto step to decide
+            what it wants to do with input parameters, since they can be carried over,
+            by serializing them into the document being pipelined -->
+            <parameters>
+                <parameter name="country-code" />
+                <parameter name="parliament-election-date" />
+                <parameter name="for-parliament" />
+            </parameters>
+
             <xslt step="1"
                 name="groupingLevel1-common"
                 href="pipeline_xslt/bungeni/parliamentaryitem/common/grouping_level1.xsl"/>

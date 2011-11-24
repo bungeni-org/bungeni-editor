@@ -6,7 +6,6 @@ package org.bungeni.translators.translator;
  */
 //~--- non-JDK imports --------------------------------------------------------
 import java.io.IOException;
-import java.util.logging.Level;
 import org.bungeni.translators.globalconfigurations.GlobalConfigurations;
 import org.bungeni.translators.configurations.steps.OAXSLTStep;
 import org.bungeni.translators.utility.files.FileUtility;
@@ -16,11 +15,11 @@ import org.bungeni.translators.utility.transformer.XSLTTransformer;
 
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.TreeMap;
-import javax.xml.parsers.DocumentBuilder;
 
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
@@ -40,6 +39,20 @@ import org.xml.sax.SAXException;
 public class OAXSLTStepsResolver {
 
     private static org.apache.log4j.Logger log = Logger.getLogger(OAXSLTStepsResolver.class.getName());
+    private HashMap<String,String> pipelineInputParams ;
+
+    private static OAXSLTStepsResolver thisInstance = null;
+
+    private OAXSLTStepsResolver() {
+        this.pipelineInputParams = new HashMap<String,String>();
+    }
+
+    public static OAXSLTStepsResolver getInstance() {
+        if (OAXSLTStepsResolver.thisInstance == null) {
+            OAXSLTStepsResolver.thisInstance = new OAXSLTStepsResolver();
+        }
+        return OAXSLTStepsResolver.thisInstance;
+    }
 
     /**
      * Return the StreamSource obtained after all the INPUT XSLT steps of the given
@@ -52,7 +65,9 @@ public class OAXSLTStepsResolver {
      * @throws TransformerException
      * @throws UnsupportedEncodingException
      */
-    public static StreamSource resolve(StreamSource anODFDocument, TreeMap<Integer, OAXSLTStep> stepsMap)
+    public StreamSource resolve(StreamSource anODFDocument,
+            TreeMap<Integer,
+            OAXSLTStep> stepsMap)
             throws XPathExpressionException, TransformerException, UnsupportedEncodingException {
 
         // create an iterator on the hash map
@@ -60,7 +75,7 @@ public class OAXSLTStepsResolver {
 
         // copy the document to translate
         StreamSource iteratedDocument = anODFDocument;
-
+        int stepCounter = 0;
         // while the Iterator has steps apply the transformation
         while (mapIterator.hasNext()) {
 
@@ -91,10 +106,25 @@ public class OAXSLTStepsResolver {
             }
 
             if (xsltStream != null) {
-
-                // start the transformation
-                iteratedDocument = XSLTTransformer.getInstance().transform(iteratedDocument, xsltStream);
                 log.debug("executing input step = " + nextStep.getName() + ", " + nextStep.getHref());
+                //check if first step, check if input parameters
+                if (0 == stepCounter) {
+                    if (this.pipelineInputParams.size() > 0 ) {
+                        try {
+                            log.error("entring tranform with param zone : " + this.pipelineInputParams);
+                            //get input parameters and call transformWithParam
+                            iteratedDocument = XSLTTransformer.getInstance().transformWithParam(iteratedDocument, xsltStream, null);
+
+                        } catch (Exception ex) {
+                            
+                        } finally {
+                            this.pipelineInputParams.clear();
+                        }
+                    }
+                } else {
+                    // start the transformation
+                    iteratedDocument = XSLTTransformer.getInstance().transform(iteratedDocument, xsltStream);
+                }
             }
 
             if (nextStep.hasPostProc()) {
@@ -108,14 +138,23 @@ public class OAXSLTStepsResolver {
                     log.error("Error while applying post Processor ", ex);
                 }
             }
-
+            stepCounter++;
         }
 
         // return the StreamSource of the transformed document
         return iteratedDocument;
     }
 
-    private static StreamSource applyProcessorByRef(StreamSource iteratedDocument, String preProc)
+    public StreamSource resolve(StreamSource anODFDocument,
+            HashMap<String, String> paramsMap,
+            TreeMap<Integer,
+            OAXSLTStep> stepsMap)
+            throws XPathExpressionException, TransformerException, UnsupportedEncodingException {
+        this.pipelineInputParams = paramsMap;
+        return this.resolve(anODFDocument, stepsMap);
+    }
+
+    private StreamSource applyProcessorByRef(StreamSource iteratedDocument, String preProc)
             throws XPathExpressionException, TransformerException, SAXException, IOException {
         String sIdAttrValue = preProc.replace("#", "").trim();
         List<OAProcessStep> processSteps = OAConfiguration.getInstance().getProcessGroup(sIdAttrValue);

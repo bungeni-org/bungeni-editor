@@ -69,8 +69,12 @@ public class OAConfiguration implements Configuration {
         return this.reader.hasProperties();
     }
 
+    public boolean hasParameters() throws XPathExpressionException {
+        return this.reader.hasParameters();
+    }
+
     /**
-     * Gets the properites of the configuration as Java properties object
+     * Gets the properties of the configuration as Java properties object
      * @return
      */
     public Properties getProperties() {

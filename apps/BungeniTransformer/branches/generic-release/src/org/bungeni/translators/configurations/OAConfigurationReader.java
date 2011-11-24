@@ -40,6 +40,7 @@ import javax.xml.xpath.XPathExpressionException;
 import org.bungeni.translators.configurations.steps.OAPipelineStep;
 import org.bungeni.translators.configurations.steps.OAProcessStep;
 import org.bungeni.translators.utility.transformer.GenericTransformer;
+import org.w3c.dom.Element;
 
 /**
  * This class reades the TranslatorConfig_xxxx.xml files for each content type
@@ -111,6 +112,33 @@ public class OAConfigurationReader implements ConfigurationReader {
     }
 
 
+    public boolean hasParameters() throws XPathExpressionException {
+        XPathResolver xresolver = XPathResolver.getInstance();
+        // get the parameters in this configuration
+        NodeList inputNodes = (NodeList) xresolver.evaluate(this.configXML, "//parameters/parameter", XPathConstants.NODESET);
+
+        return inputNodes.getLength() > 0 ? true : false;
+    }
+
+    /**
+     * This API retrieves the input parameter NAMES for an input or output steps
+     * @param forStep
+     * @return
+     */
+    public TreeMap<String,String> getParameters(String forStep) throws XPathExpressionException {
+        TreeMap<String,String> map = new TreeMap<String,String>();
+        XPathResolver xresolver = XPathResolver.getInstance();
+        NodeList paramNodes = (NodeList) xresolver.evaluate(this.configXML, "//"+forStep+"/parameters/parameter" , XPathConstants.NODESET);
+        for (int i = 0; i < paramNodes.getLength(); i++) {
+            Element paramNode = (Element) paramNodes.item(i);
+            String paramName = paramNode.getAttribute("name");
+            if (paramNode.hasAttribute("value")) {
+                map.put(paramName, paramNode.getAttribute("value"));
+            } else
+                map.put(paramName, "");
+        }
+        return map;
+    }
 
     /**
      * Checks if the input steps exist in the translator configuration

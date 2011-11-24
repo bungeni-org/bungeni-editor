@@ -77,6 +77,8 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
     //The source type is by default ODF
     //!+XML_SOURCE_TYPE(ah, 27-09-2011)
     private XMLSourceFactory.XMLSourceType sourceType = XMLSourceFactory.XMLSourceType.ODF;
+    //!+INPUT_PARAMETERS (ah, nov-2011) added to support input parameters to the translator
+    private HashMap<String, String> pipelineInputParameters;
 
     /**
      * Private constructor used to create the Translator instance
@@ -88,7 +90,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         //!+TRANSLATOR_PROPERTIES(ah, oct-2011) Translator properties were moved into the main configuration
         //file -- translators are now configured via a single configurationfile
         //use OAConfiguration.getProperties() to get the propeties object of the translation
-
+        this.pipelineInputParameters = new HashMap<String,String>();
     }
 
     /**
@@ -173,6 +175,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         throw new CloneNotSupportedException();
     }
 
+
     /**
      * Transforms the document at the given path using the pipeline at the given path
      *
@@ -180,11 +183,16 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
      *
      * @param aDocumentPath the path of the document to translate
      * @param aPipelinePath the path of the pipeline to use for the translation
+     * @param inputParameters HashMap/ Dictionary of input parameters for the translator. These
+     * need to be declared in the config of the pipeline in both input steps.
      * @return a hashmap containing handles to both the AN xml and the Metalex file ("anxml", "metalex")
      * @throws Exception
      * @throws TransformerFactoryConfigurationError
      */
-    public HashMap<String, File> translate(String aDocumentPath, String configFilePath)
+    public HashMap<String, File> translate(
+            String aDocumentPath,
+            String configFilePath
+            )
             throws TransformerFactoryConfigurationError, Exception {
         HashMap<String, File> translatedFiles = new HashMap<String, File>();
 
@@ -364,6 +372,16 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
     }
 
 
+   public HashMap<String, File> translate(
+            String aDocumentPath,
+            String configFilePath,
+            HashMap inputParameters
+            )
+            throws TransformerFactoryConfigurationError, Exception {
+            this.pipelineInputParameters = inputParameters;
+            return this.translate(aDocumentPath, configFilePath, inputParameters);
+            
+    }
     /**
      * Provides access to the TranslatorConfig
      * @param aConfigurationPath
@@ -445,7 +463,8 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
     public StreamSource applyInputSteps(StreamSource ODFDocument)
             throws TransformerFactoryConfigurationError, Exception {
            // applies the input steps to the StreamSource of the ODF document
-            StreamSource iteratedDocument = OAXSLTStepsResolver.resolve(ODFDocument,
+            StreamSource iteratedDocument = OAXSLTStepsResolver.getInstance().resolve(ODFDocument,
+                                                    this.pipelineInputParameters,
                                                     OAConfiguration.getInstance().getInputSteps());
             return iteratedDocument;
     }
@@ -479,7 +498,8 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
     public StreamSource applyOutputSteps(StreamSource ODFDocument)
                  throws TransformerFactoryConfigurationError, Exception {
          // apply the OUTPUT XSLT to the StreamSource
-         StreamSource resultStream = OAXSLTStepsResolver.resolve(ODFDocument,
+        //!+FIX_THIS output steps dont process parameters -
+         StreamSource resultStream = OAXSLTStepsResolver.getInstance().resolve(ODFDocument,
                                         OAConfiguration.getInstance().getOutputSteps()
                                         );
          return resultStream;
@@ -497,7 +517,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
     public StreamSource applyPostXmlSteps(StreamSource anXmlStream)
              throws TransformerFactoryConfigurationError, Exception {
          // apply the OUTPUT XSLT to the StreamSource
-         StreamSource resultStream = OAXSLTStepsResolver.resolve(anXmlStream,
+         StreamSource resultStream = OAXSLTStepsResolver.getInstance().resolve(anXmlStream,
                                         OAConfiguration.getInstance().getPostXmlSteps()
                                         );
          return resultStream;
