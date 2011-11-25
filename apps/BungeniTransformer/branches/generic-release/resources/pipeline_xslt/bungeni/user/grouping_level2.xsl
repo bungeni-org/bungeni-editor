@@ -13,6 +13,11 @@
 
     <xsl:output indent="yes" method="xml" encoding="UTF-8"/>
 
+    <!-- These values are set in first input which is grouping_Level1 -->        
+    <xsl:variable name="country-code" select="data(/ontology/bungeni/country)" />
+    <xsl:variable name="parliament-election-date" select="data(/ontology/bungeni/parliament/@date)" />
+    <xsl:variable name="for-parliament" select="data(/ontology/bungeni/parliament/@href)" />
+
     <xsl:template match="/">
         <xsl:apply-templates/>
     </xsl:template>

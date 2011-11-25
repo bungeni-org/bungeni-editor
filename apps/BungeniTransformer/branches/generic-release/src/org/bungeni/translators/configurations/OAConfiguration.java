@@ -14,6 +14,7 @@ import org.xml.sax.SAXException;
 //~--- JDK imports ------------------------------------------------------------
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import java.util.TreeMap;
@@ -69,8 +70,12 @@ public class OAConfiguration implements Configuration {
         return this.reader.hasProperties();
     }
 
-    public boolean hasParameters() throws XPathExpressionException {
-        return this.reader.hasParameters();
+    public boolean hasParameters(String forStep) throws XPathExpressionException {
+        return this.reader.hasParameters(forStep);
+    }
+
+    public HashMap<String,String> getParameters(String forStep) throws XPathExpressionException {
+        return this.reader.getParameters(forStep);
     }
 
     /**

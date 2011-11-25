@@ -12,18 +12,14 @@
     </xd:doc>
 
     <!-- these are input parameters to the transformation a-->
-    <xsl:param name="country-code" value="ke" />
-    <xsl:param name="parliament-election-date" value="1970-01-01" />
-    <xsl:param name="for-parliament" value="ke/parliament/1970-01-01"  />
+    <xsl:param name="country-code"  />
+    <xsl:param name="parliament-election-date"  />
+    <xsl:param name="for-parliament" />
     
     <xsl:template match="/">
         <xsl:apply-templates />
     </xsl:template>
-    
-    <xsl:variable name="country-code" select="string('ke')" />
-    <xsl:variable name="parliament-election-date" select="string('2011-03-02')" />
-    <xsl:variable name="for-parliament" select="concat('/ke/parliament/', $parliament-election-date)" />
-    
+
     <xsl:template match="contenttype">
         <xsl:variable name="content-type" select="@name" />
         

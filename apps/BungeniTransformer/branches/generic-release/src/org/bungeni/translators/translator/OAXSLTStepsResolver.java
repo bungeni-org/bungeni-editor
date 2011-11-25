@@ -106,18 +106,19 @@ public class OAXSLTStepsResolver {
             }
 
             if (xsltStream != null) {
-                log.debug("executing input step = " + nextStep.getName() + ", " + nextStep.getHref());
+                //log.debug("executing input step = Step " + nextStep.getPosition() +"," + nextStep.getName() + ", " + nextStep.getHref());
+
                 //check if first step, check if input parameters
                 if (0 == stepCounter) {
                     if (this.pipelineInputParams.size() > 0 ) {
                         try {
-                            log.error("entring tranform with param zone : " + this.pipelineInputParams);
                             //get input parameters and call transformWithParam
-                            iteratedDocument = XSLTTransformer.getInstance().transformWithParam(iteratedDocument, xsltStream, null);
+                            iteratedDocument = XSLTTransformer.getInstance().transformWithParam(iteratedDocument, xsltStream, this.pipelineInputParams);
 
                         } catch (Exception ex) {
-                            
+                            log.error("Error while transformWithParam", ex);
                         } finally {
+                            System.out.println("Clearing pipeline param");
                             this.pipelineInputParams.clear();
                         }
                     }
@@ -145,10 +146,11 @@ public class OAXSLTStepsResolver {
         return iteratedDocument;
     }
 
-    public StreamSource resolve(StreamSource anODFDocument,
+    public StreamSource resolve(
+            StreamSource anODFDocument,
             HashMap<String, String> paramsMap,
-            TreeMap<Integer,
-            OAXSLTStep> stepsMap)
+            TreeMap<Integer,OAXSLTStep> stepsMap
+            )
             throws XPathExpressionException, TransformerException, UnsupportedEncodingException {
         this.pipelineInputParams = paramsMap;
         return this.resolve(anODFDocument, stepsMap);

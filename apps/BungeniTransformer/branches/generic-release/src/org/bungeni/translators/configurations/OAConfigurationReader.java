@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import java.util.List;
 import java.util.Properties;
@@ -112,10 +113,11 @@ public class OAConfigurationReader implements ConfigurationReader {
     }
 
 
-    public boolean hasParameters() throws XPathExpressionException {
+    public boolean hasParameters(String forStep) throws XPathExpressionException {
         XPathResolver xresolver = XPathResolver.getInstance();
         // get the parameters in this configuration
-        NodeList inputNodes = (NodeList) xresolver.evaluate(this.configXML, "//parameters/parameter", XPathConstants.NODESET);
+        NodeList inputNodes = (NodeList) xresolver.evaluate(this.configXML,
+                "//" + forStep + "/parameters/parameter", XPathConstants.NODESET);
 
         return inputNodes.getLength() > 0 ? true : false;
     }
@@ -125,8 +127,8 @@ public class OAConfigurationReader implements ConfigurationReader {
      * @param forStep
      * @return
      */
-    public TreeMap<String,String> getParameters(String forStep) throws XPathExpressionException {
-        TreeMap<String,String> map = new TreeMap<String,String>();
+    public HashMap<String,String> getParameters(String forStep) throws XPathExpressionException {
+        HashMap<String,String> map = new HashMap<String,String>();
         XPathResolver xresolver = XPathResolver.getInstance();
         NodeList paramNodes = (NodeList) xresolver.evaluate(this.configXML, "//"+forStep+"/parameters/parameter" , XPathConstants.NODESET);
         for (int i = 0; i < paramNodes.getLength(); i++) {

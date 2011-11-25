@@ -13,11 +13,19 @@
     </xd:doc>
     
     <xsl:output indent="yes" method="xml" encoding="UTF-8"/>
-    
-    <xsl:variable name="country-code" select="string('ke')" />
-    <xsl:variable name="parliament-election-date" select="string('2011-03-02')" />
-    <xsl:variable name="for-parliament" select="concat('/ke/parliament/', $parliament-election-date)" />
-    
+    <!--    
+        <bungeni>
+        <country><xsl:value-of select="$country-code" /></country>
+        <parliament href="{$for-parliament}" 
+        isA="TLCOrganization" 
+        date="{$parliament-election-date}" />
+        </bungeni>
+        -->
+        
+    <!-- These values are set in first input which is grouping_Level1 -->        
+    <xsl:variable name="country-code" select="data(/ontology/bungeni/country)" />
+    <xsl:variable name="parliament-election-date" select="data(/ontology/bungeni/parliament/@date)" />
+    <xsl:variable name="for-parliament" select="data(/ontology/bungeni/parliament/@href)" />
     
     <xsl:function name="xbf:parse-date">
         <xsl:param name="input-date"/>
@@ -32,9 +40,6 @@
         <xsl:variable name="arrInputTime" select="substring-before(string($arrInputDate[2]), '.')" />
         <xsl:sequence select="concat($arrInputDate[1],'T',$arrInputTime)" />
     </xsl:function>
-    
-    
-    
     
     <xsl:template match="/">
         <xsl:apply-templates/>

@@ -109,7 +109,7 @@ public class XSLTTransformer implements XSLTTransformerInterface {
      * @throws TransformerException
      */
     public StreamSource transformWithParam(StreamSource aDocumentSource, StreamSource anXSLTSource,
-            HashMap<String, Object> aParamSet)
+            HashMap aParamSet)
             throws TransformerException {
 
         // create a new transformer

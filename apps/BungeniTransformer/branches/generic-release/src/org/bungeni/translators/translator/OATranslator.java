@@ -379,7 +379,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             )
             throws TransformerFactoryConfigurationError, Exception {
             this.pipelineInputParameters = inputParameters;
-            return this.translate(aDocumentPath, configFilePath, inputParameters);
+            return this.translate(aDocumentPath, configFilePath);
             
     }
     /**
@@ -463,10 +463,49 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
     public StreamSource applyInputSteps(StreamSource ODFDocument)
             throws TransformerFactoryConfigurationError, Exception {
            // applies the input steps to the StreamSource of the ODF document
+            HashMap<String,String> resolvedParameterMap = this.resolveParameterMap("input");
             StreamSource iteratedDocument = OAXSLTStepsResolver.getInstance().resolve(ODFDocument,
-                                                    this.pipelineInputParameters,
+                                                    resolvedParameterMap,
                                                     OAConfiguration.getInstance().getInputSteps());
             return iteratedDocument;
+    }
+
+    private HashMap<String,String> resolveParameterMap(String forStep) throws XPathExpressionException {
+        //We merge the input parameter map with the parameters specified in Configuration
+        HashMap<String,String> resolvedMap = new HashMap<String,String>();
+
+        //first get the parameters from Config
+        HashMap<String,String> configParameters = OAConfiguration.getInstance().getParameters(forStep);
+
+        //Validate the pipeline parameters - we cannot input parameters which are
+        //not declared in the config
+
+        //Now iterate through the input parameter map and identify parameters to merge
+
+        for (String key : this.pipelineInputParameters.keySet()){
+            //if the input parameter exists in configuration
+            if (configParameters.containsKey(key)) {
+               resolvedMap.put(key,this.pipelineInputParameters.get(key));
+            } else {
+                log.warn("WARNING !!!!: an undeclared paramter: "+ key +"  was passed as an input parameter "
+                        + "This parameter will be ignored until declared in the configuraiton xml ");
+            }
+         }
+
+        //Now iterate through the config parameters and identify missing ones to default
+        for (String key : configParameters.keySet()) {
+            if (!resolvedMap.containsKey(key)) {
+                String defaultConfigValue = configParameters.get(key).trim();
+                if (defaultConfigValue.isEmpty()) {
+                    log.warn("WARNING !!!!: One of the default parameters : " + key + " has a empty default value in configuration ");
+                }
+                resolvedMap.put(key, defaultConfigValue);
+
+            }
+        }
+
+        return resolvedMap;
+
     }
 
     /***

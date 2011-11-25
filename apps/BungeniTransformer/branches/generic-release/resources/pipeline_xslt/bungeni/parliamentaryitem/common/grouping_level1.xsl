@@ -12,9 +12,9 @@
     </xd:doc>
     
     <!-- these are input parameters to the transformation a-->
-    <xsl:param name="country-code" value="ke" />
-    <xsl:param name="parliament-election-date" value="1970-01-01" />
-    <xsl:param name="for-parliament" value="ke/parliament/1970-01-01"  />
+    <xsl:param name="country-code"  />
+    <xsl:param name="parliament-election-date"  />
+    <xsl:param name="for-parliament" />
     
     <!--
     <xsl:variable name="country-code" select="string('ke')" />
@@ -24,8 +24,6 @@
     <xsl:template match="/">
         <xsl:apply-templates />
     </xsl:template>
-
-
 
     <xsl:template match="contenttype">
         <xsl:variable name="content-type" select="field[@name='type']" />
