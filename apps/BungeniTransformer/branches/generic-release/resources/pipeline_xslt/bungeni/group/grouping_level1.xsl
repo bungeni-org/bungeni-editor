@@ -35,7 +35,7 @@
                 <xsl:attribute name="uri" 
                     select="concat(
                      '/ontology/',
-                     $content-type,'/'
+                     $content-type,'/',
                      $country-code, '/',
                      $content-type, '/',
                      $group-type,'/',
