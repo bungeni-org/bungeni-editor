@@ -108,12 +108,16 @@
                         </xsl:choose>
                  
                  </xsl:variable>
-                
+
+                <!-- !+URI_GENERATOR,!+FIX_THIS(ah,nov-2011) this logic needs to be eventually
+                factored out -->
                 <xsl:attribute name="uri" 
-                    select="concat($for-parliament, '/', 
-                    $content-type, '/', 
-                    $item_number, '/', 
-                    $language)" />
+                    select="concat(
+                        '/', $country-code,'/', 
+                        $content-type,'/', 
+                        $item_number,'/', 
+                        $language
+                    )" />
                 
                 <xsl:copy-of select="field[
                                      @name='status_date' or 

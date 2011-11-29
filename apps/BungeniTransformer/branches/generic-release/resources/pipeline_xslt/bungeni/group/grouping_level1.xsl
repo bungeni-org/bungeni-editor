@@ -29,10 +29,19 @@
         <ontology type="{$content-type}">
             <group>
                 <xsl:attribute name="type" select="$group-type" />
+
+                <!-- !+URI_GENERATOR,!+FIX_THIS(ah,nov-2011) use ontology uri
+                for group since its non-document entity -->
                 <xsl:attribute name="uri" 
-                    select="concat($for-parliament, '/', 
-                    $content-type, '/',
-                    $group_id)" />
+                    select="concat(
+                     '/ontology/',
+                     $content-type,'/'
+                     $country-code, '/',
+                     $content-type, '/',
+                     $group-type,'/',
+                     $group_id
+                     )" />
+
                 <xsl:attribute name="id" select="$group_id" />
                 
                 <xsl:copy-of select="field[ @name='parent_group_id' or 
