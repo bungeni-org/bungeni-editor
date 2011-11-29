@@ -78,6 +78,9 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
     //!+XML_SOURCE_TYPE(ah, 27-09-2011)
     private XMLSourceFactory.XMLSourceType sourceType = XMLSourceFactory.XMLSourceType.ODF;
     //!+INPUT_PARAMETERS (ah, nov-2011) added to support input parameters to the translator
+    /**
+     * This is the input parameter passed from the caller to the pipeline
+     */
     private HashMap<String, String> pipelineInputParameters;
 
     /**
@@ -372,6 +375,16 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
     }
 
 
+   /**
+    * Alternate way of calling translate() with input XSLT parameters,
+    * pass all the input parameters in the HashMap
+    * @param aDocumentPath
+    * @param configFilePath
+    * @param inputParameters
+    * @return
+    * @throws TransformerFactoryConfigurationError
+    * @throws Exception
+    */
    public HashMap<String, File> translate(
             String aDocumentPath,
             String configFilePath,

@@ -34,7 +34,9 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 /**
- * Used to resolve the XSLT INPUT STEPS of a configuration file
+ *This class resplves the step pattern in the configuration files.
+ * The step pattern is used to process, input, output and postxml steps
+ *
  */
 public class OAXSLTStepsResolver {
 
@@ -110,9 +112,12 @@ public class OAXSLTStepsResolver {
 
                 //check if first step, check if input parameters
                 if (0 == stepCounter) {
+
                     if (this.pipelineInputParams.size() > 0 ) {
                         try {
                             //get input parameters and call transformWithParam
+                            //usually we call transform() but since we want to call with a parameter,
+                            //we use transformWithParam()
                             iteratedDocument = XSLTTransformer.getInstance().transformWithParam(iteratedDocument, xsltStream, this.pipelineInputParams);
 
                         } catch (Exception ex) {
@@ -146,6 +151,17 @@ public class OAXSLTStepsResolver {
         return iteratedDocument;
     }
 
+    /**
+     * Alternate resolve() method, allows calling resolve() with input XSLT
+     * parameters
+     * @param anODFDocument
+     * @param paramsMap
+     * @param stepsMap
+     * @return
+     * @throws XPathExpressionException
+     * @throws TransformerException
+     * @throws UnsupportedEncodingException
+     */
     public StreamSource resolve(
             StreamSource anODFDocument,
             HashMap<String, String> paramsMap,

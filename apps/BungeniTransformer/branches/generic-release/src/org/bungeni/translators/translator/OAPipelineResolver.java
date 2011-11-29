@@ -17,7 +17,6 @@ import org.xml.sax.SAXException;
 import java.io.File;
 import java.io.IOException;
 
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
