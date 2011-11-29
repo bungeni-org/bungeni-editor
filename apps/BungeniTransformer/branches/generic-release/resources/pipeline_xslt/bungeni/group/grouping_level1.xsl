@@ -37,7 +37,6 @@
                      '/ontology/',
                      $content-type,'/',
                      $country-code, '/',
-                     $content-type, '/',
                      $group-type,'/',
                      $group_id
                      )" />
