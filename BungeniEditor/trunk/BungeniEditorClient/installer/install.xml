@@ -17,7 +17,7 @@
     -->
     <info>
         <appname>BungeniEditor installation</appname>
-        <appversion>1.0.1671</appversion>
+        <appversion>1.1.1978</appversion>
 	<appsubpath>BungeniEditor-$APP_VER</appsubpath>
         <authors>
             <author name="UNDESA" email="undesa@parliaments.info"/>

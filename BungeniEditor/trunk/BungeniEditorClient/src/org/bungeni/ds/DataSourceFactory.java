@@ -40,7 +40,7 @@ public class DataSourceFactory {
             Properties dsProps = null;
             String strUserDirPath = System.getProperty("user.dir");
             log.info("getDataSourceProperties (user.dir) : " + strUserDirPath );
-            String dsPropsFile = strUserDirPath + File.separator + "settings" + File.separator + "datasource.properties";
+            String dsPropsFile = strUserDirPath + File.separator + "settings" + File.separator + "bungeniconnector.properties";
             File fPropsFile = new File(dsPropsFile);
             if (fPropsFile.exists()) {
                     FileInputStream fPropsStream = null ;

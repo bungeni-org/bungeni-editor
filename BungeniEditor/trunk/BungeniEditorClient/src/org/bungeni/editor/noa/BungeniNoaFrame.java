@@ -58,7 +58,7 @@ public class BungeniNoaFrame extends BungeniFrame {
      *       |---{content-pane}--|
      *                           basePanel (JPanel)
      *                           |
-     *                           |---- BungeniNoaTabbedPanel
+     *                           |---- BungeniNoaTabbedPane
      *                           |       +
      *                           |       +-----tab BungeniNoaPanel (contains Openoffice Window)
      *                           |       +
