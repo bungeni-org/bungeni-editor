@@ -1,6 +1,8 @@
 #summary Table of contents for the bungeni editor wiki
 #labels Featured
 
+= WARNING - THIS INFORMATION IS OUT OF DATE = 
+
  * Installation & Setup 
    * [InstallingTheBungeniEditor Installing Bungeni Editor]
    * [InstallingTtfFontsInOpenOffice Installing TTF fonts in OpenOffice]
