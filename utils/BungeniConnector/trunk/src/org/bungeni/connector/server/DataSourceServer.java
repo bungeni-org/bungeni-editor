@@ -117,6 +117,20 @@ public class DataSourceServer extends Application {
         this.init(this.connectorProps.getProperties());
     }
 
+
+    /**
+     * Loads a properties file. The file is loaded from a path.
+     * @param Properties object
+     * @return
+     */
+    public void loadProperties(Properties properties) {
+        this.connectorProps = new ConnectorProperties(properties);
+        this.init(this.connectorProps.getProperties());
+    }
+
+
+
+
     /**
      * Converts a relative URI to an absolute URL
      * @param relativeURI

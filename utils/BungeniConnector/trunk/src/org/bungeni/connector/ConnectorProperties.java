@@ -20,6 +20,10 @@ public class ConnectorProperties {
         connectorProperties =  this.loadProperties(fileProperties);
     }
 
+    public ConnectorProperties(Properties props) {
+        connectorProperties = props;
+    }
+
     public Properties getProperties(){
         return this.connectorProperties;
     }
