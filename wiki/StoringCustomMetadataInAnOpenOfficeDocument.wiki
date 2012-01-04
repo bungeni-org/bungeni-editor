@@ -1,6 +1,9 @@
 #labels BungeniEditorClient
 # Storing Custom Metadata contextually within an OpenOffice Document
 
+
+= WARNING THIS PAGE IS OUT OF DATE =
+
 OpenOffice 2.4 provides various mechanisms for storing metadata within a document. 
 
 ==Document Level Metadata==
