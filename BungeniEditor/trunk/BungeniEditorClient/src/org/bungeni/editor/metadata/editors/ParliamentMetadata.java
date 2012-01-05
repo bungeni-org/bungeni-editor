@@ -7,15 +7,19 @@ package org.bungeni.editor.metadata.editors;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.element.MetadataInfo;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.utils.BungeniFileSavePathFormat;
 import org.bungeni.editor.metadata.ParliamentMetadataModel;
+import org.bungeni.extutils.CommonConnectorFunctions;
 import org.bungeni.extutils.CommonStringFunctions;
 
 /**
@@ -37,7 +41,6 @@ public class ParliamentMetadata extends BaseEditorDocMetadataDialog {
         super.initialize();
         loadParliamentInfo();
         this.docMetaModel.setup();
-        initControls();
         if (theMode == SelectorDialogModes.TEXT_INSERTION) {
         } else if (theMode == SelectorDialogModes.TEXT_EDIT) {
             docMetaModel.loadModel(ooDocument);
@@ -65,25 +68,31 @@ public class ParliamentMetadata extends BaseEditorDocMetadataDialog {
         return this;
     }
 
-    private void initControls() {
-    }
 
+    /**
+     * Loads the metadata information about the parliament
+     */
     private void loadParliamentInfo() {
-        BungeniConnector client = new BungeniConnector();
-        List<MetadataInfo> metadata = client.getMetadataInfo();
-        if (metadata != null) {
-            for (int i = 0; i < metadata.size(); i++) {
-                if (metadata.get(i).getName().equalsIgnoreCase("ParliamentID")) {
-                    docMetaModel.setBungeniParliamentID(metadata.get(i).getValue());
-                } else if (metadata.get(i).getName().equalsIgnoreCase("ParliamentSession")) {
-                    docMetaModel.setBungeniParliamentSession(metadata.get(i).getValue());
-                } else if (metadata.get(i).getName().equalsIgnoreCase("ParliamentSitting")) {
-                    docMetaModel.setBungeniParliamentSitting(metadata.get(i).getValue());
+        BungeniConnector client = null ;
+        try {
+            client = CommonConnectorFunctions.getDSClient();
+            List<MetadataInfo> metadata = client.getMetadataInfo();
+            if (metadata != null) {
+                for (int i = 0; i < metadata.size(); i++) {
+                    if (metadata.get(i).getName().equalsIgnoreCase("ParliamentID")) {
+                        docMetaModel.setBungeniParliamentID(metadata.get(i).getValue());
+                    } else if (metadata.get(i).getName().equalsIgnoreCase("ParliamentSession")) {
+                        docMetaModel.setBungeniParliamentSession(metadata.get(i).getValue());
+                    } else if (metadata.get(i).getName().equalsIgnoreCase("ParliamentSitting")) {
+                        docMetaModel.setBungeniParliamentSitting(metadata.get(i).getValue());
+                    }
+                    System.out.println(metadata.get(i).getName() + " " + metadata.get(i).getType() + " " + metadata.get(i).getValue());
                 }
-                System.out.println(metadata.get(i).getName() + " " + metadata.get(i).getType() + " " + metadata.get(i).getValue());
             }
+            client.closeConnector();
+        } catch (IOException ex) {
+            log.error("THe connector client could not be initialized" , ex);
         }
-        client.closeConnector();
     }
 
     public boolean applySelectedMetadata(BungeniFileSavePathFormat spf) {
