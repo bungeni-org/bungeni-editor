@@ -128,6 +128,10 @@ public class DataSourceServer extends Application {
         this.init(this.connectorProps.getProperties());
     }
 
+    public void loadProperties(ConnectorProperties cp) {
+        this.connectorProps = cp;
+        this.init(this.connectorProps.getProperties());
+    }
 
 
 

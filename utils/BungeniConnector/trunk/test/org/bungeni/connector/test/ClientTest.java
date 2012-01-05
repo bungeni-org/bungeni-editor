@@ -1,6 +1,8 @@
 package org.bungeni.connector.test;
 
+import java.io.File;
 import java.util.List;
+import org.bungeni.connector.ConnectorProperties;
 import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.element.Bill;
 import org.bungeni.connector.element.MetadataInfo;
@@ -17,8 +19,12 @@ public class ClientTest {
 
     public static void main(String args[]) {
         //start server
+        ConnectorProperties cp = new ConnectorProperties(System.getProperty("user.dir")+ File.separator + "settings" + File.separator + "bungeni-connector.properties");
+        DataSourceServer.getInstance().loadProperties(cp);
         DataSourceServer.getInstance().startServer();
+
         BungeniConnector b = new BungeniConnector();
+         b.init(cp);
         List<MetadataInfo> metadata = b.getMetadataInfo();
 
         if (metadata != null) {

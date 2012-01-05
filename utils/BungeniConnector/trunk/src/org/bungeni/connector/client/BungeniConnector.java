@@ -51,8 +51,8 @@ public class BungeniConnector implements IBungeniConnector {
      */
     public void init(ConnectorProperties connProps) {
          Properties props = connProps.getProperties();
-         this.SERVER_HOST = props.getProperty("server-port");
-         this.SERVER_PORT = props.getProperty("server-host");
+         this.SERVER_HOST = props.getProperty("server-host");
+         this.SERVER_PORT = props.getProperty("server-port");
          this.SERVER_VIRT_DIR = "current";
          this.SERVER_PROTOCOL = "http://";
 
