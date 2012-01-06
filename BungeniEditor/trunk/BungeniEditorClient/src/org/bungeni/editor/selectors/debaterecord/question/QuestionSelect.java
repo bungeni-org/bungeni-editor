@@ -4,6 +4,7 @@ import com.sun.star.text.XTextSection;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -16,6 +17,7 @@ import org.bungeni.db.BungeniRegistryFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.registryQueryDialog;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
+import org.bungeni.extutils.CommonConnectorFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
@@ -46,14 +48,31 @@ public class QuestionSelect extends BaseMetadataPanel {
     private Vector<ObjectQuestion> getQuestionObjects(String byQuestionNo) {
 
         Vector<ObjectQuestion> questionObjects = new Vector<ObjectQuestion>();
-        BungeniConnector client = new BungeniConnector();
-        List<Question> questionsList = client.getQuestions();
 
-        for (int i = 0; i < questionsList.size(); i++) {
-            Question question = questionsList.get(i);
-            ObjectQuestion m = new ObjectQuestion(String.valueOf(question.getId()), question.getTitle(), question.getFrom(), question.getTo(), question.getText());
-            questionObjects.add(m);
+
+        // !+BUNGENI_CONNECTOR(reagan,06-01-2012)
+        // Changed the Initialization of the BungeniConnector Object
+        // to ensure that metadata is accessed using the REST API
+        // rather than directly from the datasource
+        BungeniConnector client = null;
+
+        try {
+            client = CommonConnectorFunctions.getDSClient();
+
+           List<Question> questionsList = client.getQuestions();
+
+            for (int i = 0; i < questionsList.size(); i++) {
+                Question question = questionsList.get(i);
+                ObjectQuestion m = new ObjectQuestion(String.valueOf(question.getId()), question.getTitle(), question.getFrom(), question.getTo(), question.getText());
+                questionObjects.add(m);
+            }
+
+
+        } catch (IOException ex) {
+            log.error("Error initializing the BungeniConnectorClient " + ex) ;
         }
+
+        
         return questionObjects;
 
 //           HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();

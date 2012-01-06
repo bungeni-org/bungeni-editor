@@ -4,6 +4,7 @@ import com.sun.star.text.XTextSection;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,7 @@ import org.bungeni.db.BungeniRegistryFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.registryQueryDialog;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
+import org.bungeni.extutils.CommonConnectorFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
@@ -174,14 +176,25 @@ private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     public ArrayList<ObjectMotion> getMotionObjects(String byMotion) {
         ArrayList<ObjectMotion> listofMotions = new ArrayList<ObjectMotion>(0);
 
-        BungeniConnector client = new BungeniConnector();
-        List<Motion> motionsList = client.getMotions();
+        // !+BUNGENI_CONNECTOR(reagan,06-01-2012)
+        // Changed the Initialization of the BungeniConnector Object
+        // to ensure that metadata is accessed using the REST API
+        // rather than directly from the datasource
+        BungeniConnector client = null;
+        try {
+            client = CommonConnectorFunctions.getDSClient();
 
-        for (int i = 0; i < motionsList.size(); i++) {
-            Motion motion = motionsList.get(i);
-            ObjectMotion m = new ObjectMotion(motion.getId(), motion.getTitle(), motion.getName(), motion.getText(), motion.getUri());
-            listofMotions.add(m);
-        }
+            List<Motion> motionsList = client.getMotions();
+
+            for (int i = 0; i < motionsList.size(); i++) {
+                Motion motion = motionsList.get(i);
+                ObjectMotion m = new ObjectMotion(motion.getId(), motion.getTitle(), motion.getName(), motion.getText(), motion.getUri());
+                listofMotions.add(m);
+            }
+            
+        } catch (IOException ex) {
+            log.error("Error initializing the BungeniConnectorClient " + ex) ;
+        }        
 
         return listofMotions;
 

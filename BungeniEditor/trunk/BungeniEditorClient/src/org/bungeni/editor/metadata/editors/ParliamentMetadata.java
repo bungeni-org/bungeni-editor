@@ -72,6 +72,11 @@ public class ParliamentMetadata extends BaseEditorDocMetadataDialog {
     /**
      * Loads the metadata information about the parliament
      */
+    
+    // !+BUNGENI_CONNECTOR(reagan,06-01-2012)
+    // Changed the Initialization of the BungeniConnector Object
+    // to ensure that metadata is accessed using the REST API
+    // rather than directly from the datasource
     private void loadParliamentInfo() {
         BungeniConnector client = null ;
         try {

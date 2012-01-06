@@ -3,6 +3,7 @@ package org.bungeni.editor.selectors.debaterecord.bills;
 import com.sun.star.text.XTextSection;
 import com.sun.star.text.XTextViewCursor;
 import java.awt.Component;
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -10,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractButton;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
@@ -18,6 +21,7 @@ import org.bungeni.connector.element.Bill;
 import org.bungeni.db.RegistryQueryFactory;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.extutils.BungeniEditorProperties;
+import org.bungeni.extutils.CommonConnectorFunctions;
 import org.bungeni.extutils.CommonStringFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 
@@ -62,25 +66,38 @@ public class Bills extends BaseMetadataPanel {
     }
 
     private void initTable() {
-        BungeniConnector client = new BungeniConnector();
-        List<Bill> bills = client.getBills();
-        if (!bills.isEmpty()) {
-            BillsModel mdl = new BillsModel();
-            mdl.addColumn("BILL_NAME");
-            mdl.addColumn("BILL_URI");
-            mdl.addColumn("BILL_ONTOLOGY");
-            mdl.setRowCount(bills.size());
-            for (int i = 0; i < bills.size(); i++) {
-                Bill bill = bills.get(i);
-                mdl.setValueAt(bill.getName(), i, 0);
-                mdl.setValueAt(bill.getUri(), i, 1);
-                mdl.setValueAt(bill.getOntology(), i, 2);
+
+        // !+BUNGENI_CONNECTOR(reagan,06-01-2012)
+        // Changed the Initialization of the BungeniConnector Object
+        // to ensure that metadata is accessed using the REST API
+        // rather than directly from the datasource
+        BungeniConnector client = null;
+        try {
+            client = CommonConnectorFunctions.getDSClient();
+
+            List<Bill> bills = client.getBills();
+            if (!bills.isEmpty()) {
+                BillsModel mdl = new BillsModel();
+                mdl.addColumn("BILL_NAME");
+                mdl.addColumn("BILL_URI");
+                mdl.addColumn("BILL_ONTOLOGY");
+                mdl.setRowCount(bills.size());
+                for (int i = 0; i < bills.size(); i++) {
+                    Bill bill = bills.get(i);
+                    mdl.setValueAt(bill.getName(), i, 0);
+                    mdl.setValueAt(bill.getUri(), i, 1);
+                    mdl.setValueAt(bill.getOntology(), i, 2);
+                }
+                tbl_Bills.setModel(mdl);
+                ((BillsModel) this.tbl_Bills.getModel()).setModelEditable(false);
+                enableButtons(false);
             }
-            tbl_Bills.setModel(mdl);
-            ((BillsModel) this.tbl_Bills.getModel()).setModelEditable(false);
-            enableButtons(false);
+            tbl_Bills.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        } catch (IOException ex) {
+            log.error("Error initializing the BungeniConnectorClient " + ex) ;
         }
-        tbl_Bills.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
 
 //        HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();
 //            BungeniClientDB dbInstance = new BungeniClientDB(registryMap);

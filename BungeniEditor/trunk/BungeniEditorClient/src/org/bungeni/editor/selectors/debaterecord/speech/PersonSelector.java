@@ -4,6 +4,7 @@ import com.sun.star.text.XTextSection;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +17,7 @@ import org.bungeni.db.BungeniRegistryFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.registryQueryDialog;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
+import org.bungeni.extutils.CommonConnectorFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
@@ -49,15 +51,30 @@ public class PersonSelector extends BaseMetadataPanel {
     private ArrayList<ObjectPerson> getPersonObjects(String bypersonId) {
         ArrayList<ObjectPerson> personObjects = new ArrayList<ObjectPerson>(0);
 
-        BungeniConnector client = new BungeniConnector();
-        List<Member> personList = client.getMembers();
+        // !+BUNGENI_CONNECTOR(reagan,06-01-2012)
+        // Changed the Initialization of the BungeniConnector Object
+        // to ensure that metadata is accessed using the REST API
+        // rather than directly from the datasource
+        BungeniConnector client = null;
+        
+        try {
+            client = CommonConnectorFunctions.getDSClient();
 
-        for (int i = 0; i < personList.size(); i++) {
-            Member member = personList.get(i);
-            ObjectPerson m = new ObjectPerson(String.valueOf(member.getId()), member.getFirst(), member.getLast(), member.getUri(), member.getRole());
-            personObjects.add(m);
+            List<Member> personList = client.getMembers();
+
+            for (int i = 0; i < personList.size(); i++) {
+                Member member = personList.get(i);
+                ObjectPerson m = new ObjectPerson(String.valueOf(member.getId()), member.getFirst(), member.getLast(), member.getUri(), member.getRole());
+                personObjects.add(m);
+            }
+
+
+        } catch (IOException ex) {
+            log.error("Error initializing the BungeniConnectorClient " + ex) ;
         }
+        
         return personObjects;
+        
 //            HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();
 //            BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
 //            dbInstance.Connect();
