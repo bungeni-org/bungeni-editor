@@ -30,6 +30,7 @@ public class DocumentSectionsContainer {
     }
     
     public static DocumentSection getDocumentSectionByType(String type ) {
+        System.out.println("Document Section By Type : " + type) ;
         if (getDocumentSectionsContainer().containsKey(type)) {
             return getDocumentSectionsContainer().get(type);
         } else

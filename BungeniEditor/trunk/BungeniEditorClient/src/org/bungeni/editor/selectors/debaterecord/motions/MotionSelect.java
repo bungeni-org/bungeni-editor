@@ -307,6 +307,7 @@ private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 
     @Override
     public boolean processSelectInsert() {
+        log.error("Inserting the selected motion information into db");
         String motionId = (getContainerPanel()).selectionData.get("MOTION_ID");
         OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
         HashMap<String, String> sectionMeta = new HashMap<String, String>();

@@ -1,6 +1,7 @@
 package org.bungeni.editor;
 
 //~--- non-JDK imports --------------------------------------------------------
+import java.awt.Toolkit;
 import org.apache.log4j.BasicConfigurator;
 
 import org.bungeni.editor.dialogs.editorApplicationController;
@@ -20,6 +21,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 
 import java.util.Locale;
 import java.util.Properties;
@@ -30,6 +32,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
+import org.apache.log4j.PropertyConfigurator;
 import org.bungeni.editor.noa.BungeniNoaApp;
 import org.bungeni.extutils.BungeniRuntimeProperties;
 
@@ -252,5 +255,4 @@ public class BungeniEditorClient {
             e.printStackTrace();
         }
     }
-
 }

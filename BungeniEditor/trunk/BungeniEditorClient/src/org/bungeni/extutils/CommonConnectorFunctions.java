@@ -39,7 +39,10 @@ public class CommonConnectorFunctions {
          return dss;
     }
     
-    
+    // !+BUNGENI_CONNECTOR(Ashok ,05-01-2012)
+    // This method changes the way classes acting as BungeniConnector
+    // clients initialise themselves to ensure that they load
+    //  the properties using the REST API rather than directly
     public static BungeniConnector getDSClient() throws IOException{
         BungeniConnector client = new BungeniConnector();
         client.init(new ConnectorProperties(DataSourceFactory.getDataSourceProperties()));

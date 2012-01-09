@@ -26,6 +26,8 @@ public class routerMotionSelectMotion extends defaultRouter {
     
     @Override
     public BungeniValidatorState route_TextSelectedInsert(toolbarAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+       log.info("Action class Name : " + action.getClass().getName() +  " sub action class : " + subAction.getClass().getName() +
+               " pFrame : " + pFrame.getName()) ;
        BungeniValidatorState stateObj = CommonRouterActions.displaySelectorDialog(action, subAction, pFrame, ooDocument);
       return new BungeniValidatorState(true, new BungeniMsg("SUCCESS")); 
     }
