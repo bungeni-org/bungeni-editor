@@ -169,13 +169,20 @@ public class toolbarAction {
         }
     }
 
+    /**
+     *
+     * @param theFather
+     * @param childActions
+     */
+    /**
+     * !+UNUSED_CLASS(ah, jan-2012)
     public static void makeLinktoChildren(toolbarAction theFather, toolbarAction[] childActions) {
         for (toolbarAction childAction : childActions) {
             theFather.containedActions.addElement(childAction);
             childAction.parent = theFather;
         }
     }
-
+    **/
     @Override
     public String toString() {
         return this.action_display_text;

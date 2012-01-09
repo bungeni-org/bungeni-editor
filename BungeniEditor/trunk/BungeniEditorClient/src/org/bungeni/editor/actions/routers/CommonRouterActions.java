@@ -63,6 +63,17 @@ public class CommonRouterActions {
         }
     }
 
+    /******
+     * WARNING _ NOT USED PRESENTLY
+     * !+UNUSED_CLASS(ah, jan-2012) - This class is not being used - commented out
+     * for further cleanup and review
+     * @param action
+     * @param subAction
+     * @param parentFrame
+     * @param ooDocument
+     * @return
+     */
+    /***
     public static BungeniValidatorState displaySubActionModalDialog(toolbarAction action, toolbarSubAction subAction,
             JFrame parentFrame, OOComponentHelper ooDocument) {
         BungeniValidatorState returnState = null;
@@ -80,7 +91,8 @@ public class CommonRouterActions {
             return returnState;
         }
     }
-
+   **/
+    
     public static BungeniValidatorState displaySelectorDialog(toolbarAction action, toolbarSubAction subAction,
             JFrame parentFrame, OOComponentHelper ooDocument) {
         BungeniValidatorState returnState = null;
@@ -233,6 +245,15 @@ public class CommonRouterActions {
         return metaMap;
     }
 
+    // !+ ADDED COMMENTS
+    /**
+     * This method accepts a toolbarObject, the name of the newly created
+     * section and the ooDocument instance and uses this to
+     * create the new section type and set its name
+     * @param pAction - selected action on the sidepane
+     * @param newSectionName - name for the new section
+     * @param ooDocument - instance of the oooDocument
+     */
     public static void setSectionProperties(toolbarSubAction pAction, String newSectionName,
             OOComponentHelper ooDocument) {
         String                  sectionType  = pAction.section_type();
@@ -301,6 +322,10 @@ public class CommonRouterActions {
                 if (mainDialogClass.length() > 0) {
                     containerPanel = BaseMetadataContainerPanel.getContainerPanelObject(mainDialogClass);
                 }
+                else
+                {
+                    log.error("Error initializing the containerPanel!" ) ;
+                }
 
                 // also calls setupPanels()
                 containerPanel.initVariables(ooDocument, parentFrame, action, subAction,
@@ -326,6 +351,10 @@ public class CommonRouterActions {
     }
 
 
+    /***
+     * !+UNUSED_CLASS(ah, jan-2012) - This class is not being used - commented out
+     * for further cleanup and review
+     *
     static class displaySubActionDialogRunner extends SwingRunner {
         public displaySubActionDialogRunner(toolbarAction a, toolbarSubAction sa, JFrame pf, OOComponentHelper ooDoc) {
             super(a, sa, pf, ooDoc);
@@ -370,7 +399,7 @@ public class CommonRouterActions {
             }
         }
     }
-
+   **/
 
     static class displaySubActionFrameRunner extends SwingRunner {
         boolean b_alwaysOnTop = false;

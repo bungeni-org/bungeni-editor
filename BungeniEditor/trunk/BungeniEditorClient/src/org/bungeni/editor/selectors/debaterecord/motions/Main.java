@@ -129,6 +129,10 @@ public class Main extends BaseMetadataContainerPanel {
 
             return theSubAction.section_naming_convention() + iStart;
         } else {
+            log.error("ERROR: Section type is possibly not defined for this subaction : "
+                    + theSubAction.parent_action_name()
+                    + " - "
+                    + theSubAction.sub_action_name());
             return theSubAction.section_naming_convention();
         }
     }

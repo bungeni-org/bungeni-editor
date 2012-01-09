@@ -544,7 +544,14 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
     }
 
 
-
+    // !+ ADDED COMMENTS TO METHOD
+    /**
+     * This method determines the panel to display based on the
+     * panelClass arg passed. This panel is to be attached to the main
+     * JDialog BaseMetadataContainerPanel
+     * @param panelClass - panel to be attached to BaseMetadataContainerPanel
+     * @return
+     */
     public static IMetadataContainerPanel getContainerPanelObject(String panelClass) {
         IMetadataContainerPanel panel = null;
         try {
@@ -641,6 +648,14 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
         }
     }
 
+    // !+ ADDED COMMENTS TO CODE +++
+    /**
+     * This method determines the active panels that have to be attached to
+     * the main JDialog
+     * @param docType
+     * @param actionName
+     * @param profileName
+     */
     private void accquirePanels(String docType, String actionName, String profileName){
            BungeniClientDB db        = BungeniClientDB.defaultConnect();
            QueryResults qr = db.ConnectAndQuery(SettingsQueryFactory.Q_FETCH_SELECTOR_DIALOGS(docType,
