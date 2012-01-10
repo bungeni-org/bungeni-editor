@@ -47,6 +47,9 @@ public class toolbarSubAction {
         this.sub_action_state    = (String) safeGet(actionDesc, action_mapping, "SUB_ACTION_STATE");
         this.parent_action_name  = (String) safeGet(actionDesc, action_mapping, "PARENT_ACTION_NAME");
         this.action_display_text = (String) safeGetString(actionDesc, action_mapping, "ACTION_DISPLAY_TEXT");
+
+        // !+ACTION_RECONF (rm, jan 2012) - Setting the action_class var to a
+        // value at declaration, rather than obtained from db at run time
         this.action_class        = (String) safeGetString(actionDesc, action_mapping, "ACTION_CLASS");
         this.validator_class     = (String) safeGetString(actionDesc, action_mapping, "VALIDATOR_CLASS");
         this.router_class        = (String) safeGetString(actionDesc, action_mapping, "ROUTER_CLASS");
