@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE library PUBLIC "-//NetBeans//DTD Library Declaration 1.0//EN" "http://www.netbeans.org/dtds/library-declaration-1_0.dtd">
+<library version="1.0">
+	<name>bungeni.saxon</name>
+	<type>j2se</type>
+	<volume>
+		<type>classpath</type>
+		<resource>jar:file:lib_path/external_libs/saxon/saxon9.jar!/</resource>
+		<resource>jar:file:lib_path/external_libs/saxon/saxon9-jdom.jar!/</resource>
+		<resource>jar:file:lib_path/external_libs/saxon/saxon9-xom.jar!/</resource>
+		<resource>jar:file:lib_path/external_libs/saxon/saxon9-xpath.jar!/</resource>
+		<resource>jar:file:lib_path/external_libs/saxon/saxon9-xom.jar!/</resource>
+		<resource>jar:file:lib_path/external_libs/saxon/saxon9-xqj.jar!/</resource>
+		<resource>jar:file:lib_path/external_libs/saxon/saxon9-s9api.jar!/</resource>
+		<resource>jar:file:lib_path/external_libs/saxon/saxon9-sql.jar!/</resource>
+		<resource>jar:file:lib_path/external_libs/saxon/saxon9-dom4j.jar!/</resource>
+	</volume>
+	<volume>
+		<type>src</type>
+	</volume>
+	<volume>
+		<type>javadoc</type>
+	</volume>
+</library>
