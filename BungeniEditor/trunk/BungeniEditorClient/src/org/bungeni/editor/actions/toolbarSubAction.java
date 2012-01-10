@@ -22,7 +22,11 @@ public class toolbarSubAction {
     private SelectorDialogModes            theMode  = null;
     private String                         action_class;
     private String                         action_display_text;
-    private String                         action_type;
+
+    // !+ACTION_RECONF (rm, jan 2012) - deprecating var since corresponding
+    // field in db is deprecated
+    //private String                         action_type;
+    
     private String                         action_value;
     
     private String                         dialog_class;
@@ -53,7 +57,10 @@ public class toolbarSubAction {
         //this.sub_action_order    = (String) safeGet(actionDesc, action_mapping, "SUB_ACTION_ORDER");
         
         this.doc_type            = (String) safeGet(actionDesc, action_mapping, "DOC_TYPE");
-        this.action_type         = (String) safeGet(actionDesc, action_mapping, "ACTION_TYPE");
+
+        // !+ACTION_CONFIG (rm,jan 2012) - deprecating statement since the field that
+        // the variable maps to in the db is deprecated
+        // this.action_type         = (String) safeGet(actionDesc, action_mapping, "ACTION_TYPE");
 
         // !+ACTION_RECONF (rm, jan 2012) - deprecating statement since the field
         // it maps to in the db is dropped
@@ -171,10 +178,14 @@ public class toolbarSubAction {
     }
     **/
 
+    // !+ACTION_RECONF (rm, jan 2012) - deprecating method since field
+    // ACTION_TYPE in ACTION_SETTINGS is dropped
+    /**
     public String action_type() {
         return action_type;
     }
-
+    **/
+    
     public String action_display_text() {
         return action_display_text;
     }
