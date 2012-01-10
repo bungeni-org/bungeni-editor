@@ -30,7 +30,10 @@ public class toolbarSubAction {
     private String                         parent_action_name;
     private String                         router_class;
     private String                         sub_action_name;
-    private String                         sub_action_order;
+
+    // !+ACTION_RECONF (rm, jan 2012) - deprecating variable since the
+    // field it maps to in the SUB_ACTIONS_SETTINGS table is dropped
+    // private String                         sub_action_order;
 
     // !+ACTION_RECONF (rm, jan 2012) - deprecating variable since the
     // field it maps to in the SUB_ACTIONS_SETTINGS table is dropped
@@ -44,7 +47,11 @@ public class toolbarSubAction {
     /** Creates a new instance of toolbarSubAction */
     public toolbarSubAction(Vector<String> actionDesc, HashMap action_mapping) {
         this.sub_action_name     = (String) safeGet(actionDesc, action_mapping, "SUB_ACTION_NAME");
-        this.sub_action_order    = (String) safeGet(actionDesc, action_mapping, "SUB_ACTION_ORDER");
+
+        // !+ACTION_CONFIG (rm,jan 2012) - deprecating statement since the field that
+        // the variable maps to in the db is deprecated
+        //this.sub_action_order    = (String) safeGet(actionDesc, action_mapping, "SUB_ACTION_ORDER");
+        
         this.doc_type            = (String) safeGet(actionDesc, action_mapping, "DOC_TYPE");
         this.action_type         = (String) safeGet(actionDesc, action_mapping, "ACTION_TYPE");
 
@@ -148,10 +155,14 @@ public class toolbarSubAction {
         return action_class;
     }
 
+    // !+ACTION_RECONF (rm, jan 2012) - deprecating method since the
+    // field sub_action_ORDER in DB is dropped
+    /**
     public String sub_action_order() {
         return sub_action_order;
     }
-
+    **/
+    
     // !+ACTION_RECONF (rm, jan 2012) - deprecating method since field
     // SUB_ACTION_STATE is unused
     /**
