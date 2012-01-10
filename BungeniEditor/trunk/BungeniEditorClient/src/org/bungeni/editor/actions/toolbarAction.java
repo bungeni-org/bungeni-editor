@@ -91,12 +91,16 @@ public class toolbarAction {
             // !+ACTION_RECONF(ah, jan-2012) - deprecating action_order as it is not used
             //action_order     = (String) safeGet(actionDesc, action_mapping, "ACTION_ORDER");
 
-            action_class     = (String) safeGet(actionDesc, action_mapping, "ACTION_CLASS");
+            // !+ACTION_RECONF (rm, jan 2012) - Setting the action_class var to a
+            // value at declaration, rather than obtained from db at run time
+            // action_class     = (String) safeGet(actionDesc, action_mapping, "ACTION_CLASS");
+            action_class = "org.bungeni.editor.actions.EditorActionHandler" ;
+            
             doc_type         = (String) safeGet(actionDesc, action_mapping, "DOC_TYPE");
             action_type      = (String) safeGet(actionDesc, action_mapping, "ACTION_TYPE");
 
             // action_parent = (String) safeGet(actionDesc, action_mapping, "ACTION_PARENT");
-           // action_icon             = (String) safeGet(actionDesc, action_mapping, "ACTION_ICON");
+            // action_icon             = (String) safeGet(actionDesc, action_mapping, "ACTION_ICON");
             action_display_text     = (String) safeGet(actionDesc, action_mapping, "ACTION_DISPLAY_TEXT");
             //AH-10-03-11
             /**
