@@ -25,9 +25,12 @@ public class SettingsQueryFactory {
         return query;
     }
     **/
+
+    // !+ACTION_RECONF (rm, jan 2012) - dropped the field act.action_order from
+    // SQL statement, action_order field was dropped from ACTION_SETTINGS table
     private static String Common_ToolbarAction_Selection() {
         String query =
-            "" + "SELECT distinct act.doc_type, act.action_name, act.action_order, "
+            "" + "SELECT distinct act.doc_type, act.action_name, "
             + "act.action_state, act.action_section_type, act.action_class, act.action_type,  "
             + "act.action_display_text,  act.action_dialog_class, act.action_edit_dlg_allowed ";
 

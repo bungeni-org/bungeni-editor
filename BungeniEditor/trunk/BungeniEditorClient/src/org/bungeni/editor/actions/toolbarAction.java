@@ -35,7 +35,9 @@ public class toolbarAction {
     private String        action_naming_convention;
     private String        action_numbering_convention;
      **/
-    private String        action_order;
+    // !+ACTION_RECONF(ah, jan-2012) - deprecating action_order as it is not used
+    //private String        action_order;
+
     //AH-10-03-11
     /**
     private String        action_section_type;
@@ -85,7 +87,10 @@ public class toolbarAction {
             containedActions = new Vector<toolbarAction>();
             parent           = null;
             action_name      = (String) safeGet(actionDesc, action_mapping, "ACTION_NAME");
-            action_order     = (String) safeGet(actionDesc, action_mapping, "ACTION_ORDER");
+
+            // !+ACTION_RECONF(ah, jan-2012) - deprecating action_order as it is not used
+            //action_order     = (String) safeGet(actionDesc, action_mapping, "ACTION_ORDER");
+
             action_class     = (String) safeGet(actionDesc, action_mapping, "ACTION_CLASS");
             doc_type         = (String) safeGet(actionDesc, action_mapping, "DOC_TYPE");
             action_type      = (String) safeGet(actionDesc, action_mapping, "ACTION_TYPE");
@@ -152,11 +157,14 @@ public class toolbarAction {
         return this.action_section_type;
     }
     **/
-    
+
+    // !+ACTION_RECONF(ah, jan-2012)
+    /*
     public int action_order() {
         return Integer.parseInt(this.action_order);
     }
-
+    */
+    
     public int action_edit_dlg_allowed() {
         return Integer.parseInt(this.action_edit_dlg_allowed);
     }
