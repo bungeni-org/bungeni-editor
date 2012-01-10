@@ -31,7 +31,10 @@ public class toolbarSubAction {
     private String                         router_class;
     private String                         sub_action_name;
     private String                         sub_action_order;
-    private String                         sub_action_state;
+
+    // !+ACTION_RECONF (rm, jan 2012) - deprecating variable since the
+    // field it maps to in the SUB_ACTIONS_SETTINGS table is dropped
+    // private String                         sub_action_state;
     private String                         sub_section_type;
    
     private String                         validator_class;
@@ -44,7 +47,11 @@ public class toolbarSubAction {
         this.sub_action_order    = (String) safeGet(actionDesc, action_mapping, "SUB_ACTION_ORDER");
         this.doc_type            = (String) safeGet(actionDesc, action_mapping, "DOC_TYPE");
         this.action_type         = (String) safeGet(actionDesc, action_mapping, "ACTION_TYPE");
-        this.sub_action_state    = (String) safeGet(actionDesc, action_mapping, "SUB_ACTION_STATE");
+
+        // !+ACTION_RECONF (rm, jan 2012) - deprecating statement since the field
+        // it maps to in the db is dropped
+        //this.sub_action_state    = (String) safeGet(actionDesc, action_mapping, "SUB_ACTION_STATE");
+        
         this.parent_action_name  = (String) safeGet(actionDesc, action_mapping, "PARENT_ACTION_NAME");
         this.action_display_text = (String) safeGetString(actionDesc, action_mapping, "ACTION_DISPLAY_TEXT");
 
@@ -145,9 +152,13 @@ public class toolbarSubAction {
         return sub_action_order;
     }
 
+    // !+ACTION_RECONF (rm, jan 2012) - deprecating method since field
+    // SUB_ACTION_STATE is unused
+    /**
     public String sub_action_state() {
         return sub_action_state;
     }
+    **/
 
     public String action_type() {
         return action_type;

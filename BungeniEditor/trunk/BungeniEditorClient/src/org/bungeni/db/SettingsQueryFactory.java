@@ -102,6 +102,9 @@ public class SettingsQueryFactory {
     }
 
 
+    // !+ACTION_RECONF (rm, jan 2012) - removed the sub_action_state from the
+    // SQL statement since field is dropped from db...deprecating methods
+    /**
     public static String Q_FETCH_ALL_SELECTION_ACTIONS(String docType) {
         String query =
             "select doc_type, parent_action_name, sub_action_name, sub_action_order, sub_action_state, action_type, "
@@ -121,8 +124,8 @@ public class SettingsQueryFactory {
             + "order by sub_action_order";
 
         return query;
-    }
-
+    }    
+    
     public static String Q_FETCH_CHILDREN_SELECTION_ACTIONS(String docType, String parentAction) {
         String query =
             "select doc_type, parent_action_name, sub_action_name, sub_action_order, sub_action_state, action_type, "
@@ -133,14 +136,17 @@ public class SettingsQueryFactory {
 
         return query;
     }
+    **/
 
+    // !+ACTION_RECONF (rm, jan 2012) - removed sub_action_state from list of vars in
+    // the SQL statement since the field has been dropped from the database schema
     public static String Q_FETCH_SUB_ACTIONS(String docType, String parentAction, String subActionName) {
         String query =
-            "select doc_type, parent_action_name, sub_action_name, sub_action_order, sub_action_state, action_type, "
+            "select doc_type, parent_action_name, sub_action_name, sub_action_order, action_type, "
             + "action_display_text,  action_class, validator_class, router_class, dialog_class, command_chain, section_type"
             + " from sub_action_settings "
             + " where doc_type = '" + docType + "' and parent_action_name = '" + parentAction
-            + "'  and sub_action_name ='" + subActionName + "' " + " and sub_action_state = 1"
+            + "'  and sub_action_name ='" + subActionName + "' " 
             + " order by sub_action_order";
 
         return query;
