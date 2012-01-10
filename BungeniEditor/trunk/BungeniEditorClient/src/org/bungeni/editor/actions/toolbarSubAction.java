@@ -71,13 +71,13 @@ public class toolbarSubAction {
 
         // !+ACTION_RECONF (rm, jan 2012) - Setting the action_class var to a
         // value at declaration, rather than obtained from db at run time
-        //this.action_class        = (String) safeGetString(actionDesc, action_mapping, "ACTION_CLASS");
+        // this.action_class        = (String) safeGetString(actionDesc, action_mapping, "ACTION_CLASS");
         this.action_class = "org.bungeni.editor.actions.EditorSelectionActionHandler" ;
 
         // !+ACTION_RECONF (rm, jan 2012) - Setting the validator class to a
         // value at declaration, rather than obtained from the db at run time
-        // this.validator_class     = (String) safeGetString(actionDesc, action_mapping, "VALIDATOR_CLASS");
-        this.validator_class     = "org.bungeni.editor.actions.validators.defaultValidator";
+        this.validator_class     = (String) safeGetString(actionDesc, action_mapping, "VALIDATOR_CLASS");
+        //this.validator_class     = "org.bungeni.editor.actions.validators.defaultValidator";
 
         this.router_class        = (String) safeGetString(actionDesc, action_mapping, "ROUTER_CLASS");
         this.dialog_class        = (String) safeGetString(actionDesc, action_mapping, "DIALOG_CLASS");

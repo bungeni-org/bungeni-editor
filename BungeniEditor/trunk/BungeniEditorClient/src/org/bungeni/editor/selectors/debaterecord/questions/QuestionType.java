@@ -307,7 +307,7 @@ public class QuestionType extends BaseMetadataPanel {
                 
                 Node foundNode = null;
                 try {
-                    foundNode = (Node) xpathInstance.evaluate("./showAs[@lang='" + iso3Language + "']", contextNode, XPathConstants.NODE);
+                    foundNode = (Node) xpathInstance.evaluate("./showAs[@xml:lang='" + iso3Language + "']", contextNode, XPathConstants.NODE);
                 } catch (XPathExpressionException ex) {
                     log.error("Node for language : " + iso3Language + " not found", ex);
                 }

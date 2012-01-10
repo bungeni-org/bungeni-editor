@@ -544,7 +544,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     visible="true"
                     condition="textSelected:true :and: 
                                 cursorInSection:noticeofmotion[0-9]*">
-                    <title xml:lang="eng">---- -- subheading</title>
+                    <title xml:lang="eng">------ subheading</title>
                     <tooltip xml:lang="eng">
                         Personal Statement 
                     </tooltip>
