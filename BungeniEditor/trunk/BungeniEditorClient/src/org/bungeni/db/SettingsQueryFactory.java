@@ -26,23 +26,44 @@ public class SettingsQueryFactory {
     }
     **/
 
-    // !+ACTION_RECONF (rm, jan 2012) - dropped the field act.action_order from
-    // SQL statement, action_order field was dropped from ACTION_SETTINGS table
+    // !+ACTION_RECONF (rm, jan 2012) - dropped the fields act.action_order,
+    //  act.action_edit_dlg_allowed from SQL statement,
+    // action_order field was dropped from ACTION_SETTINGS table
+
+    // !+ACTION_RECONF (rm, jan 2012) - also changing the following fields
+    // to use the new action_settings2 table
+    //
+    //  action_section_type -> section_type
+    //  action_dialog_class -> dialog_class
+
     private static String Common_ToolbarAction_Selection() {
-        String query =
-            "" + "SELECT distinct act.doc_type, act.action_name, "
+        /**
+        String query = "SELECT distinct act.doc_type, act.action_name, "
             + " act.action_section_type, act.action_type,  "
-            + "act.action_display_text,  act.action_dialog_class, act.action_edit_dlg_allowed ";
+            + "act.action_display_text,  act.action_dialog_class ";
+        **/
+        
+        String query = "SELECT distinct act.doc_type, act.action_name, "
+            + " act.section_type, act.action_type,  "
+            + "act.action_display_text,  act.dialog_class ";
+       
 
         return query;
     }
 
  
-    
+    // !+ACTION_RECONF (rm, jan 2012) - revising the SQL queries to use a
+    // consolidated table for both the actions and subactions
     public static String Q_FETCH_ACTION_BY_NAME(String docType, String byActionName) {
-        String query = Common_ToolbarAction_Selection() + " from action_settings act " + "where act.doc_type='"
-                       + docType + "' and act.action_name = '" + byActionName + "'";
 
+        /**
+        String query = Common_ToolbarAction_Selection() + " from action_settings act " + "where act.doc_type='"
+                       + docType + "' and act.action_name = '" + byActionName + "' ";
+        **/
+        String query = Common_ToolbarAction_Selection() + " from action_settings2 act " + "where act.doc_type='"
+                       + docType + "' and act.action_name = '" + byActionName + "' ";
+        
+        
         return query;
     }
 
@@ -151,7 +172,12 @@ public class SettingsQueryFactory {
         return query;
     }
 
+    // !+ACTION_RECONF (rm, jan 2012) - changing the following field names
+    // so that they use the new settings table
+    //
+    // action_dialog_class -> dialog_class    
     public static String Q_FETCH_SELECTOR_DIALOGS (String docType, String actionName, String profileName){
+        /**
         String  query = "select selector_dialog from selector_dialogs " +
                             "where parent_dialog in ( " +
                                 "select action_dialog_class from action_settings  " +
@@ -159,6 +185,17 @@ public class SettingsQueryFactory {
                                 " and doc_type='" + docType + "'" +
                                 " ) " +
                                 "and profiles like '%" + profileName + "%'";
+        **/
+        
+        String  query = "select selector_dialog from selector_dialogs " +
+                            "where parent_dialog in ( " +
+                                "select dialog_class from action_settings2  " +
+                                "where action_name='"+ actionName +"'" +
+                                " and doc_type='" + docType + "'" +
+                                " and actionOrSubaction = 1 " +
+                                " ) " +
+                                "and profiles like '%" + profileName + "%'";        
+        
         return query;
     }
 /*

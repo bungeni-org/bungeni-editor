@@ -15,6 +15,11 @@ import org.bungeni.editor.document.DocumentSectionsContainer;
  *
  * @author Administrator
  */
+
+// !+ACTION_RECONF (rm, jan 2012) - note that toolbarAction class is being
+// consolidated into this class. A number of variables and methods
+// will be added
+
 public class toolbarSubAction {
     private static org.apache.log4j.Logger log      =
         org.apache.log4j.Logger.getLogger(toolbarSubAction.class.getName());

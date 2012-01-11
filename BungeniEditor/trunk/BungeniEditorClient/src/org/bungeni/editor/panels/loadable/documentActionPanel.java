@@ -294,11 +294,14 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
         return bAction;
     }
 
-    /***** API for conditionally enabling / disabling command buttons *****/
+    /*****
+     This Class implements the action listener which gets executed
+     * when you click a button on the action toolbar
+     *****/
     class BungeniToolbarCommandListener implements ActionListener {
 
         /**
-         * Run the button action in a swingworker thread, so the UI disabling happens immediately
+         * Run the button action in a swingworker thread in the background
          */
         class buttonActionRunner extends SwingWorker<Boolean, Object> {
           JButton sourceButton ;

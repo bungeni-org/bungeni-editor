@@ -15,6 +15,10 @@ import java.util.Vector;
  *
  * @author Ashok Hariharan
  */
+
+// !+ACTION_RECONF (rm, jan 2012) - this class is being folded into
+// toolbaSubAction
+
 public class toolbarAction {
     public static String                   ACTION_TYPE_MARKUP  = "markup";
     public static String                   ACTION_TYPE_SECTION = "section";
@@ -22,10 +26,15 @@ public class toolbarAction {
     private static org.apache.log4j.Logger log                 =
         org.apache.log4j.Logger.getLogger(toolbarAction.class.getName());
     private SelectorDialogModes            theMode             = null;
-    private String                         action_class;
+
+     // !+ACTION_CONFIG (rm, jan 2012) - added this variable with detined class
+    // handling events
+    private String                         action_class = "org.bungeni.editor.actions.EditorActionHandler" ;
     private String                         action_dialog_class;
     private String                         action_display_text;
-    private String                         action_edit_dlg_allowed;
+
+    // !+ACTION_RECONF (rm, jan 2012) - variable deprecated since it is unused
+    //private String                         action_edit_dlg_allowed;
 
     // private String action_parent;
    // private String        action_icon;
@@ -56,6 +65,9 @@ public class toolbarAction {
     /*
      * Used only for defining the root action
      */
+    // !+ACTION_RECONF (rm, jan 2012) - this constructor is currently unused
+    // it is deprecated
+    /**
     public toolbarAction(String action) {
         if (action.equals("rootAction")) {
             parent              = null;
@@ -78,7 +90,8 @@ public class toolbarAction {
             action_display_text = "Selection Actions";
         }
     }
-
+    **/
+    
     /** Creates a new instance of toolbarActionSettings */
     public toolbarAction(Vector<String> actionDesc, HashMap action_mapping) {
         log.debug("in toolbarAction constructor");
@@ -93,8 +106,7 @@ public class toolbarAction {
 
             // !+ACTION_RECONF (rm, jan 2012) - Setting the action_class var to a
             // value at declaration, rather than obtained from db at run time
-            // action_class     = (String) safeGet(actionDesc, action_mapping, "ACTION_CLASS");
-            action_class = "org.bungeni.editor.actions.EditorActionHandler" ;
+            // action_class     = (String) safeGet(actionDesc, action_mapping, "ACTION_CLASS");            
             
             doc_type         = (String) safeGet(actionDesc, action_mapping, "DOC_TYPE");
             action_type      = (String) safeGet(actionDesc, action_mapping, "ACTION_TYPE");
@@ -106,8 +118,15 @@ public class toolbarAction {
             /**
             action_section_type     = (String) safeGet(actionDesc, action_mapping, "ACTION_SECTION_TYPE");
             **/
-            action_edit_dlg_allowed = (String) safeGet(actionDesc, action_mapping, "ACTION_EDIT_DLG_ALLOWED");
-            action_dialog_class     = (String) safeGet(actionDesc, action_mapping, "ACTION_DIALOG_CLASS");
+
+            // !+ACTION_RECONF (rm, jan 2012) - variable initialization deprecated since the
+            // variable action_edit_dlg_allowed is unused
+            //action_edit_dlg_allowed = (String) safeGet(actionDesc, action_mapping, "ACTION_EDIT_DLG_ALLOWED");
+
+            // !+ACTION_RECONF (rm, jan 2012) - changing statement to reflect the new schema for
+            //  the table ACTION_SETTINGS2 that hosts both ACTION_SETTINGS and SUB_ACTION_SETTINGS
+            // action_dialog_class     = (String) safeGet(actionDesc, action_mapping, "ACTION_DIALOG_CLASS");
+            action_dialog_class     = (String) safeGet(actionDesc, action_mapping, "DIALOG_CLASS");
 
             // the below are deprecated fields - and no longer part of the action_settings table
             // this info is fetched instead from the document_section_types tbale
@@ -168,11 +187,16 @@ public class toolbarAction {
         return Integer.parseInt(this.action_order);
     }
     */
-    
+
+    // !+ACTION_RECONF (rm, jan 2012) - this method is currently
+    // unused. Deprecated as this class is collapsed into
+    // toolbarSubAction
+    /**
     public int action_edit_dlg_allowed() {
         return Integer.parseInt(this.action_edit_dlg_allowed);
     }
-
+    **/
+    
     public String action_dialog_class() {
         if (action_dialog_class == null) {
             return "";
@@ -213,22 +237,29 @@ public class toolbarAction {
         return parent;
     }
 
+    // !+ACTION_RECONF (rm, jan 2012) - these methods is unused, deprecated
+    // as this class is collapsed into toolbarSubAction
+    /**
     public int getContainedActionsCount() {
         return containedActions.size();
     }
-
+    
+    
     public toolbarAction getContainedActionAt(int i) {
         return containedActions.elementAt(i);
     }
 
+
     public int getIndexOfContainedAction(toolbarAction childAction) {
         return containedActions.indexOf(childAction);
     }
-
+    
+    
     public String getSelectedSectionToActUpon() {
         return this.selectedSection;
     }
-
+    
+    
     public String getSelectedSectionActionCommand() {
         return this.selectedSectionActionCommand;
     }
@@ -236,17 +267,18 @@ public class toolbarAction {
     public void setSelectedActionToActUpon(String sect) {
         this.selectedSection = sect;
     }
-
+        
     public void setSelectedSectionActionCommand(String cmd) {
         this.selectedSectionActionCommand = cmd;
-    }
+    }    
 
     public void brains() {
         System.out.println("action_name = " + action_name);
 
         // System.out.println("action_parent = " + action_parent);
     }
-
+    **/
+    
     private Object safeGet(Vector<String> actions, HashMap map, String key) {
         Object o = null;
 
