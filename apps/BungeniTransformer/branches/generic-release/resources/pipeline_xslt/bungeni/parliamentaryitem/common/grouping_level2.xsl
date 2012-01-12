@@ -69,6 +69,12 @@
         </status>
     </xsl:template>    
     
+    <xsl:template match="field[@name='description']">
+        <description>
+            <xsl:value-of select="." />
+        </description>
+    </xsl:template>     
+    
     
     <xsl:template match="field[@name='registry_number']">
         <registryNumber>
@@ -80,8 +86,19 @@
         <legislativeItemId>
             <xsl:value-of select="." />
         </legislativeItemId>
+    </xsl:template> 
+    
+    <xsl:template match="field[@name='change_id']">
+        <changeId>
+            <xsl:value-of select="." />
+        </changeId>
     </xsl:template>    
     
+    <xsl:template match="field[@name='manual']">
+        <manual>
+            <xsl:value-of select="." />
+        </manual>
+    </xsl:template>     
     
     <xsl:template match="field[@name='short_name']">
         <shortName>

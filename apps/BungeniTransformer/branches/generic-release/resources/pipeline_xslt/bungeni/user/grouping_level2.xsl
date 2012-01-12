@@ -42,12 +42,36 @@
             </xsl:choose>
         </status>
     </xsl:template>
+    
+    <xsl:template match="field[@name='first_name']">
+        <firstName>
+            <xsl:value-of select="." />
+        </firstName>
+    </xsl:template>   
+    
+    <xsl:template match="field[@name='last_name']">
+        <lastName>
+            <xsl:value-of select="." />
+        </lastName>
+    </xsl:template>  
+    
+    <xsl:template match="field[@name='user_id']">
+        <userId>
+            <xsl:value-of select="." />
+        </userId>
+    </xsl:template>    
 
     <xsl:template match="field[@name='description']">
         <description>
             <xsl:value-of select="." />
         </description>
     </xsl:template>
+    
+    <xsl:template match="field[@name='language']">
+        <language>
+            <xsl:value-of select="." />
+        </language>
+    </xsl:template>    
 
     <xsl:template match="field[@name='gender']">
         <xsl:variable name="field_gender" select="." />
@@ -59,6 +83,66 @@
             </xsl:choose>
         </gender>
     </xsl:template>
+    
+    <xsl:template match="field[@name='date_of_birth']">
+        <dateOfBirth>
+            <xsl:value-of select="." />
+        </dateOfBirth>
+    </xsl:template>   
+    
+    <xsl:template match="field[@name='titles']">
+        <titles>
+            <xsl:value-of select="." />
+        </titles>
+    </xsl:template>  
+    
+    <xsl:template match="field[@name='birth_country']">
+        <birthCountry>
+            <xsl:value-of select="." />
+        </birthCountry>
+    </xsl:template>
+    
+    <xsl:template match="field[@name='national_id']">
+        <nationalId>
+            <xsl:value-of select="." />
+        </nationalId>
+    </xsl:template>   
+    
+    <xsl:template match="field[@name='login']">
+        <login>
+            <xsl:value-of select="." />
+        </login>
+    </xsl:template>    
+    
+    <xsl:template match="field[@name='password']">
+        <password>
+            <xsl:value-of select="." />
+        </password>
+    </xsl:template> 
+    
+    <xsl:template match="field[@name='salt']">
+        <salt>
+            <xsl:value-of select="." />
+        </salt>
+    </xsl:template>    
+    
+    <xsl:template match="field[@name='email']">
+        <email>
+            <xsl:value-of select="." />
+        </email>
+    </xsl:template>  
+    
+    <xsl:template match="field[@name='birth_nationality']">
+        <birthNationality>
+            <xsl:value-of select="." />
+        </birthNationality>
+    </xsl:template>    
+    
+    <xsl:template match="field[@name='current_nationality']">
+        <currentNationality>
+            <xsl:value-of select="." />
+        </currentNationality>
+    </xsl:template>      
 
     <xsl:template match="field[@name='timestamp' or 
         @name='date_active' or 
