@@ -178,7 +178,7 @@ public class SettingsQueryFactory {
     //
     // action_dialog_class -> dialog_class    
     public static String Q_FETCH_SELECTOR_DIALOGS (String docType, String actionName, String profileName){
-        
+        /**
         String  query = "select selector_dialog from selector_dialogs " +
                             "where parent_dialog in ( " +
                                 "select action_dialog_class from action_settings  " +
@@ -186,17 +186,16 @@ public class SettingsQueryFactory {
                                 " and doc_type='" + docType + "'" +
                                 " ) " +
                                 "and profiles like '%" + profileName + "%'";
+        **/
         
-        /**
         String  query = "select selector_dialog from selector_dialogs " +
                             "where parent_dialog in ( " +
-                                "select dialog_class from action_settings2  " +
+                                "select action_dialog_class from action_settings2  " +
                                 "where action_name='"+ actionName +"'" +
-                                " and doc_type='" + docType + "'" +
-                                " and actionOrSubaction = 1 " +
+                                " and doc_type='" + docType + "'" +                                
                                 " ) " +
                                 "and profiles like '%" + profileName + "%'";        
-        **/
+        
         return query;
     }
 /*
