@@ -125,8 +125,8 @@ public class toolbarAction {
 
             // !+ACTION_RECONF (rm, jan 2012) - changing statement to reflect the new schema for
             //  the table ACTION_SETTINGS2 that hosts both ACTION_SETTINGS and SUB_ACTION_SETTINGS
-            // action_dialog_class     = (String) safeGet(actionDesc, action_mapping, "ACTION_DIALOG_CLASS");
-            action_dialog_class     = (String) safeGet(actionDesc, action_mapping, "DIALOG_CLASS");
+             action_dialog_class     = (String) safeGet(actionDesc, action_mapping, "ACTION_DIALOG_CLASS");
+            //action_dialog_class     = (String) safeGet(actionDesc, action_mapping, "DIALOG_CLASS");
 
             // the below are deprecated fields - and no longer part of the action_settings table
             // this info is fetched instead from the document_section_types tbale

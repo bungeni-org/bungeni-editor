@@ -287,8 +287,12 @@ public abstract class BaseMetadataPanel extends JPanel implements IMetadataPanel
         return validateFields();
     }
 
+    // !+ACTION_RECONF (rm, jan 2012) - refactored code to determine the
+    // value of the SelectorDialogModes returned using debugger
     protected boolean validateFields() {
-        switch (getDialogMode()) {
+        SelectorDialogModes s = getDialogMode();
+        log.info("In ValidatorFields [s] : " + s.toString());
+        switch (s) {
         case TEXT_SELECTED_EDIT :
             return validateSelectedEdit();
 

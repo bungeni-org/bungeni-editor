@@ -14,6 +14,7 @@ import java.util.Vector;
 import java.util.concurrent.ExecutionException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.IQueryResultsIterator;
@@ -271,7 +272,7 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
     private void initListeners() {
         //instead of calling doApplies() we use an action listener which splites
         //the apply into a background thread and error return on the swing thread
-        btnApply.addActionListener(new applyActionListener());
+       btnApply.addActionListener(new applyActionListener());
 
         btnCancel.addActionListener(new ActionListener() {
 
@@ -302,6 +303,8 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
      */
     class applyActionListener implements ActionListener {
 
+        // !+ ACTION_RECONF (rm, jan 2012) - added comments here
+        // this method applies a given state t
         /**
          * Run the button action in a swingworker thread, so the UI disabling happens immediately
          */
@@ -315,12 +318,8 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
 
             protected ApplyState doInBackground() throws Exception {
                     //first call preMainApply
-                    boolean bReturnMain = preMainApply();
-                   if (!bReturnMain) {
-                       //break from the swingworker if preApply failed
-                       ApplyState retState = ApplyState.preApplyFailed;
-                       return retState;
-                     }
+                    boolean bReturnMain = false;
+
                     //now submit the individual panels
                     boolean bValidate = true;
                     for (panelInfo valPanels : getActivePanels()) {
@@ -328,6 +327,7 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
                         boolean bState = valPanels.getPanelObject().doValidate();
                         if (!bState) {
                             bValidate = false;
+                            log.error("bState indicates that some validations failed");
                         }
                     }
                    //if some validations failed, break from the swingworker thread
@@ -336,6 +336,19 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
                         log.error("doApplies : some Validations failed");
                         return  ApplyState.validationFailed;
                     }
+
+
+                    // !+CHANGING OPERATION SEQUENCE (rm, jan 2012)
+                    // moved this code to here to ensure that the highlighting
+                    // of the section is only done if user has added the motion
+                    // details
+                    bReturnMain = preMainApply();
+                    if (!bReturnMain) {
+                       //break from the swingworker if preApply failed
+                       ApplyState retState = ApplyState.preApplyFailed;
+                       return retState;
+                     }
+
                    //now apply the individual forms
                    for (panelInfo ppPanels : getActivePanels()) {
                         boolean bState = ppPanels.getPanelObject().doApply();
@@ -399,7 +412,7 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
             sourceButton.setEnabled(false);
             //set the wait cursor
             parentFrame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-            //call the swingworker thread for the button event
+            //call the swingworker thread for the button event            
             (new buttonActionRunner(sourceButton)).execute();
         }
     }
@@ -412,7 +425,10 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
         //check for current range selection,
         //if it has changed since launch, return an error.
         if (!this.compareCursorRange(ooDocument.getSelectionRangeIndex(0))) {
-             this.addErrorMessage(this,  this, "The selection of text on the document was moved after the launch of the metadata entry dialog.\n Please close the dialog and re-do the action to be able to proceed");
+             this.addErrorMessage(this,  this, "The selection of text on the "
+                     + "document was moved after the launch of the metadata "
+                     + "entry dialog.\n Please close the dialog and re-do the "
+                     + "action to be able to proceed");
             return false;
         }
 
