@@ -72,6 +72,10 @@ public class EditorSelectionActionHandler implements IEditorActionEvent {
         }
     }
 
+    // !+ACTION_RECONF (rm, jan 2012) - kindly note that the table sub_action_settings is
+    // deprecated. it's fields and those of ACTION_SETTINGS have been combined into
+    // ACTION_SETTINGS2
+
     /**
      * The action routing architecture allows adding pre-validation check before routing the action.
      * Pre-validation checks can be added per action-subAction combination and allow runtime aborting of user generated actions.
