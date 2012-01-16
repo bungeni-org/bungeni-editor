@@ -220,18 +220,18 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <subaction name="QuestionProposed" 
                     visible="true"
                     condition="textSelected:true :and: 
-                                !cursorInSection:actionevt[0-9]*"
+                                !cursorInSection:actionevt[0-9]* :and: cursorInSection:questions[0-9]*"
                     mode="TEXT_SELECTED_INSERT"
                     target="toolbarSubAction.makeActionEvent.section_creation:QuestionProposed">
                     <title xml:lang="eng">question proposed</title>
                     <tooltip xml:lang="eng">
-                        Mark event : Question Proosed 
+                        Mark event : Question Proposed
                     </tooltip>
                 </subaction>
                 <subaction name="QuestionAccepted" 
                     visible="true"
                     condition="textSelected:true :and: 
-                                !cursorInSection:actionevt[0-9]*"
+                                !cursorInSection:actionevt[0-9]* :and: cursorInSection:questions[0-9]*"
                     mode="TEXT_SELECTED_INSERT"
                     target="toolbarSubAction.makeActionEvent.section_creation:QuestionAccepted">
                     <title xml:lang="eng">question accepted</title>
@@ -242,7 +242,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <subaction name="QuestionWithdrawn" 
                     visible="true"
                     condition="textSelected:true :and: 
-                                !cursorInSection:actionevt[0-9]*"
+                                !cursorInSection:actionevt[0-9]* :and: cursorInSection:questions[0-9]*"
                     mode="TEXT_SELECTED_INSERT"
                     target="toolbarSubAction.makeActionEvent.section_creation:QuestionWithdrawn">
                     <title xml:lang="eng">question withdrawn</title>
@@ -253,7 +253,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <subaction name="QuestionDeferred" 
                     visible="true"
                     condition="textSelected:true :and: 
-                                !cursorInSection:actionevt[0-9]*"
+                                !cursorInSection:actionevt[0-9]* :and: cursorInSection:questions[0-9]*"
                     mode="TEXT_SELECTED_INSERT"
                     target="toolbarSubAction.makeActionEvent.section_creation:QuestionDeferred">
                     <title xml:lang="eng">question deferred</title>
@@ -264,7 +264,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <subaction name="DebateInterruption" 
                     visible="true"
                     condition="textSelected:true :and: 
-                                !cursorInSection:actionevt[0-9]*"
+                                !cursorInSection:actionevt[0-9]* :and: cursorInSection:noticesmotion[0-9]*"
                     mode="TEXT_SELECTED_INSERT"
                     target="toolbarSubAction.makeActionEvent.section_creation:DebateInterruption">
                     <title xml:lang="eng">debate interruption</title>
@@ -275,7 +275,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <subaction name="DebateResumption" 
                     visible="true"
                     condition="textSelected:true :and: 
-                                !cursorInSection:actionevt[0-9]*"
+                                !cursorInSection:actionevt[0-9]* :and: cursorInSection:noticesmotion[0-9]*"
                     mode="TEXT_SELECTED_INSERT"
                     target="toolbarSubAction.makeActionEvent.section_creation:DebateResumption">
                     <title xml:lang="eng">debate resumption</title>
