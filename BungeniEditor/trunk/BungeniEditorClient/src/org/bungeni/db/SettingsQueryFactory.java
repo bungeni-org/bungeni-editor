@@ -162,14 +162,27 @@ public class SettingsQueryFactory {
 
     // !+ACTION_RECONF (rm, jan 2012) - removed sub_action_state, sub_action_order, action_class, command_chain from list of vars in
     // the SQL statement since the field has been dropped from the database schema
+    //
+    // !+ACTION_RECONF (rm, jan 2012) - changing the table from sub_action_settings to
+    // action_setttings2, column names change
     public static String Q_FETCH_SUB_ACTIONS(String docType, String parentAction, String subActionName) {
+        /**
         String query =
             "select doc_type, parent_action_name, sub_action_name, "
-            + "action_display_text,  validator_class, router_class, dialog_class, section_type"
+            + "action_display_text, validator_class, router_class, dialog_class, section_type"
             + " from sub_action_settings "
             + " where doc_type = '" + docType + "' and parent_action_name = '" + parentAction
             + "'  and sub_action_name ='" + subActionName + "' " ;
-
+        **/
+        
+        String query =
+            "select doc_type, parent_action_name, action_name, "
+            + "action_display_text,  action_validator_class, action_router_name, "
+            + "action_dialog_class, action_section_type"
+            + " from action_settings2 "
+            + " where doc_type = '" + docType + "' and parent_action_name = '" + parentAction
+            + "'  and action_name ='" + subActionName + "' " ;
+            
         return query;
     }
 

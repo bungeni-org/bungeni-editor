@@ -55,7 +55,12 @@ public class toolbarSubAction {
 
     /** Creates a new instance of toolbarSubAction */
     public toolbarSubAction(Vector<String> actionDesc, HashMap action_mapping) {
-        this.sub_action_name     = (String) safeGet(actionDesc, action_mapping, "SUB_ACTION_NAME");
+
+        // !+ACTION_RECONF (rm, jan 2012) - changing the names of the fields
+        // used for accessing SUB_ACTION_SETTINGS table to use the fields in the
+        // ACTION_SETTINGS2 table
+        //this.sub_action_name     = (String) safeGet(actionDesc, action_mapping, "SUB_ACTION_NAME");
+        this.sub_action_name     = (String) safeGet(actionDesc, action_mapping, "ACTION_NAME");
 
         // !+ACTION_CONFIG (rm,jan 2012) - deprecating statement since the field that
         // the variable maps to in the db is deprecated
@@ -72,6 +77,8 @@ public class toolbarSubAction {
         //this.sub_action_state    = (String) safeGet(actionDesc, action_mapping, "SUB_ACTION_STATE");
         
         this.parent_action_name  = (String) safeGet(actionDesc, action_mapping, "PARENT_ACTION_NAME");
+        //this.parent_action_name  = (String) safeGet(actionDesc, action_mapping, "ACTION_NAME");
+
         this.action_display_text = (String) safeGetString(actionDesc, action_mapping, "ACTION_DISPLAY_TEXT");
 
         // !+ACTION_RECONF (rm, jan 2012) - Setting the action_class var to a
@@ -81,12 +88,18 @@ public class toolbarSubAction {
 
         // !+ACTION_RECONF (rm, jan 2012) - Setting the validator class to a
         // value at declaration, rather than obtained from the db at run time
-        this.validator_class     = (String) safeGetString(actionDesc, action_mapping, "VALIDATOR_CLASS");
+        //this.validator_class     = (String) safeGetString(actionDesc, action_mapping, "VALIDATOR_CLASS");
+        this.validator_class     = (String) safeGetString(actionDesc, action_mapping, "ACTION_VALIDATOR_CLASS");
         //this.validator_class     = "org.bungeni.editor.actions.validators.defaultValidator";
 
-        this.router_class        = (String) safeGetString(actionDesc, action_mapping, "ROUTER_CLASS");
-        this.dialog_class        = (String) safeGetString(actionDesc, action_mapping, "DIALOG_CLASS");
-        this.sub_section_type    = (String) safeGetString(actionDesc, action_mapping, "SECTION_TYPE");
+        //this.router_class        = (String) safeGetString(actionDesc, action_mapping, "ROUTER_CLASS");
+        this.router_class        = (String) safeGetString(actionDesc, action_mapping, "ACTION_ROUTER_NAME");
+
+        //this.dialog_class        = (String) safeGetString(actionDesc, action_mapping, "DIALOG_CLASS");
+        this.dialog_class        = (String) safeGetString(actionDesc, action_mapping, "ACTION_DIALOG_CLASS");
+
+        //this.sub_section_type    = (String) safeGetString(actionDesc, action_mapping, "SECTION_TYPE");
+        this.sub_section_type    = (String) safeGetString(actionDesc, action_mapping, "ACTION_SECTION_TYPE");
 
         if (this.sub_section_type.length() > 0 ) {
             DocumentSection associatedSection = DocumentSectionsContainer.getDocumentSectionByType(this.sub_section_type);
