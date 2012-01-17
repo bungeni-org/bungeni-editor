@@ -9,6 +9,7 @@ import org.bungeni.connector.IBungeniConnector;
 import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.restlet.current.APIRestlet;
 import org.bungeni.connector.restlet.current.BillsRestlet;
+import org.bungeni.connector.restlet.current.DocumentsRestlet;
 import org.bungeni.connector.restlet.current.MembersRestlet;
 import org.bungeni.connector.restlet.current.MetadataInfoRestlet;
 import org.bungeni.connector.restlet.current.MotionsRestlet;
@@ -32,6 +33,7 @@ public class DataSourceServer extends Application {
     private String questionsRoute = "/current/questions";
     private String billsRoute = "/current/bills";
     private String metadataInfoRoute = "/current/metadata";
+    private String documentsRoute = "/current/documents";
     //!+CODE_REVIEW WHy are these URI variables here ? they are related to the
     //XMLConnector implemenetation they should not be here !
     private String membersURI = null;
@@ -39,6 +41,7 @@ public class DataSourceServer extends Application {
     private String questionsURI = null;
     private String billsURI = null;
     private String metadataInfoURI = null;
+    private String documentsURI = null ;
     private Component serverComponent = null;
     private int serverPort = 8899;
     private static Logger logger = Logger.getLogger(BungeniConnector.class.getName());
@@ -249,6 +252,7 @@ public class DataSourceServer extends Application {
         router.attach(membersRoute, new MembersRestlet(bungeniConnector));
         router.attach(motionsRoute, new MotionsRestlet(bungeniConnector));
         router.attach(questionsRoute, new QuestionsRestlet(bungeniConnector));
+        router.attach(documentsRoute, new DocumentsRestlet(bungeniConnector));
         router.attach(STOP_SERVER_ROUTE, StopServerRestlet.getInstance());
         router.attach("/", APIRestlet.getInstance());
         return router;
@@ -276,6 +280,10 @@ public class DataSourceServer extends Application {
 
     public String getQuestionsURI() {
         return questionsURI;
+    }
+
+    public String getDocumentsURI(){
+            return documentsURI ;
     }
 
     public static void main(String[] args) {

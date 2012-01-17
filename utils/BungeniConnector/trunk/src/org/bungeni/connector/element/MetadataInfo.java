@@ -47,5 +47,4 @@ public class MetadataInfo{
     public void setType(String type) {
         this.type = type;
     }
-
 }

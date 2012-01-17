@@ -100,12 +100,14 @@ public class BungeniConnector implements IBungeniConnector {
     }
 
     public List<MetadataInfo> getMetadataInfo() {
+        System.out.println("Document source : "  + getMetadataInfoSource());
         return getList(getMetadataInfoSource(), MetadataInfo.PACKAGE_ALIAS, MetadataInfo.CLASS_ALIAS, MetadataInfo.class);
     }
 
     // this method is useful in serializing the data from the documents table
     // and populating the Import documents JTable displayed to the user
     public List<Document> getDocuments() {
+        System.out.println("Document source : "  + getDocumentsSource());
         return getList(getDocumentsSource(), Document.PACKAGE_ALIAS, Document.CLASS_ALIAS, Document.class);
     }
 

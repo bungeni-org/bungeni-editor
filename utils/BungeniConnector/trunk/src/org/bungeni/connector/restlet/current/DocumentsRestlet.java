@@ -32,7 +32,7 @@ public class DocumentsRestlet extends Restlet {
         try {
 
             if (request.getMethod().equals(Method.GET)) {
-                List<Bill> items = bungeniConnector.getBills();
+                List<Document> items = bungeniConnector.getDocuments();
                 response.setStatus(Status.SUCCESS_OK);
                 XStream xStream = new XStream(new DomDriver());
                 xStream.alias(Document.CLASS_ALIAS, Document.class);

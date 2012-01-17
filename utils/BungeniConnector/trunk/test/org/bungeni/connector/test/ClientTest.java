@@ -5,6 +5,7 @@ import java.util.List;
 import org.bungeni.connector.ConnectorProperties;
 import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.element.Bill;
+import org.bungeni.connector.element.Document;
 import org.bungeni.connector.element.MetadataInfo;
 import org.bungeni.connector.element.Motion;
 import org.bungeni.connector.element.Member;
@@ -19,12 +20,12 @@ public class ClientTest {
 
     public static void main(String args[]) {
         //start server
-        ConnectorProperties cp = new ConnectorProperties(System.getProperty("user.dir")+ File.separator + "settings" + File.separator + "bungeni-connector.properties");
+        ConnectorProperties cp = new ConnectorProperties(System.getProperty("user.dir")+ File.separator + "settings" + File.separator + "bungeni-connector.properties");        
         DataSourceServer.getInstance().loadProperties(cp);
         DataSourceServer.getInstance().startServer();
 
         BungeniConnector b = new BungeniConnector();
-         b.init(cp);
+        b.init(cp);
         List<MetadataInfo> metadata = b.getMetadataInfo();
 
         if (metadata != null) {
@@ -70,6 +71,20 @@ public class ClientTest {
                 System.out.println(questions.get(i).getTitle() + " " + questions.get(i).getText());
             }
         }
+
+        List<Document> documents = b.getDocuments();
+
+        if (documents == null) {
+            System.out.println("Error : Documents missing");
+        }
+        else
+        {
+            System.out.println(":::::::::::::::DOCUMENTS:::::::::::::::::::");
+            for (int i = 0; i < documents.size(); i++) {
+                System.out.println(documents.get(i).getTitle() + " " + documents.get(i).getUri());
+            }
+        }
+
         b.closeConnector();
         DataSourceServer.getInstance().stopServer();
 

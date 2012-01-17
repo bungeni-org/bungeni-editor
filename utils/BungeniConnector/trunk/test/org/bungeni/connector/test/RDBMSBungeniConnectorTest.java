@@ -7,6 +7,7 @@ import java.util.List;
 import org.bungeni.connector.ConnectorProperties;
 import org.bungeni.connector.IBungeniConnector;
 import org.bungeni.connector.element.Bill;
+import org.bungeni.connector.element.Document;
 import org.bungeni.connector.element.Motion;
 import org.bungeni.connector.element.Member;
 import org.bungeni.connector.element.Question;
@@ -53,6 +54,19 @@ public class RDBMSBungeniConnectorTest {
             System.out.println(":::::::::::::::QUESTIONS:::::::::::::::::::");
             for (int i = 0; i < questions.size(); i++) {
                 System.out.println(questions.get(i).getTitle() + " " + questions.get(i).getText());
+            }
+        }
+
+        List<Document> documents = connector.getDocuments();
+
+        if (documents == null) {
+            System.out.println("Error : Documents missing");
+        }
+        else
+        {
+            System.out.println(":::::::::::::::DOCUMENTS:::::::::::::::::::");
+            for (int i = 0; i < documents.size(); i++) {
+                System.out.println(documents.get(i).getTitle() + " " + documents.get(i).getUri());
             }
         }
         connector.closeConnector();

@@ -267,7 +267,7 @@ public class XMLBungeniConnector implements IBungeniConnector {
     }
 
     public List<Document> getDocuments() {
-        ClientResource resource = new ClientResource(getMetadataInfoSourceURI());
+        ClientResource resource = new ClientResource(getDocumentsSourceURI());
         try {
             XStream xStream = new XStream(new DomDriver());
             xStream.alias(this.getDocumentsPackageAlias(), List.class);
@@ -284,7 +284,7 @@ public class XMLBungeniConnector implements IBungeniConnector {
                 return (List) xStream.fromXML(xml);
             }
         } catch (Exception ex) {
-            logger.error(getMetadataInfoSourceURI(), ex);
+            logger.error(getDocumentsSourceURI(), ex);
         }
         return null;
     }
