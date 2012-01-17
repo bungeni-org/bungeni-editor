@@ -7,19 +7,28 @@
 package org.bungeni.editor.selectors.debaterecord.question;
 
 import java.awt.Component;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
+import org.bungeni.connector.client.BungeniConnector;
+import org.bungeni.connector.element.Motion;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.BungeniRegistryFactory;
 import org.bungeni.db.GeneralQueryFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
+import org.bungeni.extutils.CommonConnectorFunctions;
 import org.bungeni.ooo.OOComponentHelper;
+import org.bungeni.connector.element.Member ;
 
 /**
  *
  * @author  undesa
  */
 public class QuestionerNameAndURI extends BaseMetadataPanel {
+
+    // create variable for logging
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(QuestionerNameAndURI.class.getName());
 
     /** Creates new form QuestionerName */
     public QuestionerNameAndURI() {
@@ -216,9 +225,57 @@ public String getPanelName() {
         this.txtPersonURI.setText(this.getSectionMetadataValue("BungeniQuestionByURI"));
         return;
     }
-    
-       @Override
+
+    // !+ BUNGENI_CONNECTOR (rm, jan 17-2012) - editing this method to ensure
+    // that it uses the Bungeni Connector REST API rather than trying to connect
+    // to registry db
+    //
+    // this method obtains the last name, first name and URI for a currently
+    // in focus person in a dialog
+   @Override
     public boolean doUpdateEvent(){
+
+       // retrieve the URI for the perosn asking the question
+       String questionFrom = (getContainerPanel()).selectionData.get("QUESTION_FROM");
+
+       BungeniConnector client = null;
+        try {
+            // initialize the data store client
+            client = CommonConnectorFunctions.getDSClient();
+
+            // get the member info from the motions table
+            // using the client
+            List<Member> membersList = client.getMembers();
+
+            // for each of the motions, check if the URI is the one
+            // one we are looking for and if it is, then get the first name,
+            // last name and URI and set these in the text fields
+            for (int i = 0; i < membersList.size(); i++) {
+                Member member = membersList.get(i);
+
+                if ( member.getUri().equals( questionFrom.trim() ))
+                {
+                    // get the full name for the member
+                    String fullName = member.getFirst() + " "
+                        + member.getLast() ;
+
+                    // add the first name, last name & URI to the
+                    // "Person Name" in the "Add Motions" dialog
+                    this.txtPersonName.setText(fullName);
+                    this.txtPersonURI.setText(questionFrom);
+
+                    // no need to continue looping
+                    break;
+                }
+            }
+
+        } catch (IOException ex) {
+            log.error("Error initializing the BungeniConnectorClient " + ex) ;
+        }
+       
+        // !+ BUNGENI_CONNECTOR (rm, 17 jan 2012) - this code does not use the
+        // BungeniConnector and has been deprecated
+        /**
         HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();  
         BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
         HashMap<String,String> selectionData = (getContainerPanel()).selectionData;
@@ -241,6 +298,8 @@ public String getPanelName() {
 
         this.txtPersonName.setText(fullName);
         this.txtPersonURI.setText(questionFrom);
+        **/
+       
         return true;
     }
 }
