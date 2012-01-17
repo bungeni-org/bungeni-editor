@@ -132,7 +132,7 @@ public class XMLBungeniConnector implements IBungeniConnector {
         this.questionTextAlias = props.getProperties().getProperty("xml-question-text-alias");
 
         this.documentsSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-documents"));
-        this.documentsPackageAlias = props.getProperties().getProperty("xml-documents-package-alias=");
+        this.documentsPackageAlias = props.getProperties().getProperty("xml-documents-package-alias");
         this.documentAlias = props.getProperties().getProperty("xml-document-alias");
         this.documentIdAlias = props.getProperties().getProperty("xml-document-id-alias");
         this.documentTitleAlias = props.getProperties().getProperty("xml-document-title-alias");
@@ -247,6 +247,8 @@ public class XMLBungeniConnector implements IBungeniConnector {
         ClientResource resource = new ClientResource(getMetadataInfoSourceURI());
         try {
             XStream xStream = new XStream(new DomDriver());
+            xStream.setClassLoader(getClass().getClassLoader());
+            
             xStream.alias(this.getMetadataInfoPackageAlias(), List.class);
             xStream.alias(this.getMetadataInfoAlias(), MetadataInfo.class);
             xStream.aliasField(this.getMetadataInfoIdAlias(), MetadataInfo.class, "id");
@@ -259,7 +261,7 @@ public class XMLBungeniConnector implements IBungeniConnector {
                 return (List) xStream.fromXML(xml);
             }
         } catch (Exception ex) {
-            logger.error(getMetadataInfoSourceURI(), ex);
+            logger.error("Error : " + getMetadataInfoSourceURI(), ex);
         }
         return null;
     }
