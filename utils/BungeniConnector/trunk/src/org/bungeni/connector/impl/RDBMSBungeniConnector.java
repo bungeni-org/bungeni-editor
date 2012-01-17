@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.bungeni.connector.ConnectorProperties;
 import org.bungeni.connector.IBungeniConnector;
 import org.bungeni.connector.element.Bill;
+import org.bungeni.connector.element.Committee;
 import org.bungeni.connector.element.Document;
 import org.bungeni.connector.element.MetadataInfo;
 import org.bungeni.connector.element.Motion;
@@ -38,6 +39,7 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
     private String motionsQuery = "SELECT MOTION_ID,MOTION_URI,MOTION_TITLE,MOTION_NAME,MOTION_BY,MOTION_TEXT FROM PUBLIC.MOTIONS;";
     private String questionsQuery = "SELECT ID,QUESTION_TITLE,QUESTION_FROM,QUESTION_TO,QUESTION_TEXT FROM PUBLIC.QUESTIONS;";
     private String documentsQuery = "SELECT ID,DOCUMENT_TITLE,DOCUMENT_DATE,DOCUMENT_SOURCE,DOCUMENT_URI,SITTING_ID FROM PUBLIC.TABLED_DOCUMENTS;";
+    private String committeeQuery = "SELECT ID, COMMITTEE_NAME, COMMITTEE_URI, COUNTRY FROM PUBLIC.COMMITTEES" ;
 
     private static Logger logger = Logger.getLogger(RDBMSBungeniConnector.class.getName());
 
@@ -214,6 +216,38 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
         return items;
     }
 
+    // !+ BUNGENI CONNECTOR (rm, 2012) - added this method to enable the
+    // retrieval of the committees into a table which the user then selects the
+    // committee for which a particular bill is for
+    public List<Committee> getCommittees() {
+
+        List<Committee> committees = new java.util.ArrayList<Committee>();
+        if (getDbConnection() != null) {
+            try {
+                java.sql.Statement statement = getDbConnection().createStatement();
+                java.sql.ResultSet resultSet = statement.executeQuery(getCommitteesQuery());
+                while (resultSet.next()) {
+                    Committee committee = new Committee();
+                    committee.setId(resultSet.getString(1));
+                    committee.setName(resultSet.getString(2));
+                    committee.setURI(resultSet.getString(3));
+                    committee.setCountry(resultSet.getString(3));
+
+                    committees.add(committee);
+                }
+                statement.close();
+                resultSet.close();
+                statement = null;
+                resultSet = null;
+            } catch (SQLException ex) {
+                logger.error(ex);
+            }
+        } else {
+            logger.error("DB Connection Error");
+        }
+        return committees;
+    }
+
     public List<Document> getDocuments() {
         List<Document> items = new java.util.ArrayList<Document>();
         if (getDbConnection() != null) {
@@ -344,6 +378,10 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
 
     private String getDocumentsQuery() {
         return documentsQuery;
+    }
+
+    private String getCommitteesQuery() {
+        return committeeQuery ;
     }
 
 }

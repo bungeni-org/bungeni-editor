@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.bungeni.connector.ConnectorProperties;
 import org.bungeni.connector.IBungeniConnector;
 import org.bungeni.connector.element.Bill;
+import org.bungeni.connector.element.Committee;
 import org.bungeni.connector.element.Document;
 import org.bungeni.connector.element.MetadataInfo;
 import org.bungeni.connector.element.Motion;
@@ -36,6 +37,7 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String metadataInfoNameAlias = null;
     private String metadataInfoValueAlias = null;
     private String metadataInfoSourceURI = null;
+
     private String membersPackageAlias = null;
     private String memberAlias = null;
     private String memberIdAlias = null;
@@ -44,6 +46,7 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String memberLastNameAlias = null;
     private String memberRoleAlias = null;
     private String memberSourceURI = null;
+
     private String billsPackageAlias = null;
     private String billAlias = null;
     private String billIdAlias = null;
@@ -52,6 +55,7 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String billOntologyAlias = null;
     private String billCountryAlias = null;
     private String billsSourceURI = null;
+
     private String motionsPackageAlias = null;
     private String motionAlias = null;
     private String motionIdAlias = null;
@@ -61,6 +65,7 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String motionByAlias = null;
     private String motionTextAlias = null;
     private String motionsSourceURI = null;
+
     private String questionsPackageAlias = null;
     private String questionAlias = null;
     private String questionIdAlias = null;
@@ -69,6 +74,7 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String questionToAlias = null;
     private String questionTextAlias = null;
     private String questionsSourceURI = null;
+
     private String documentsPackageAlias = null;
     private String documentAlias = null;
     private String documentIdAlias = null;
@@ -79,6 +85,14 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String documentSittingAlias = null;
     private String documentsSourceURI = null;
 
+    private String committeesSourceURI = null ;
+    private String committeesPackageAlias = null;
+    private String committeetAlias = null ;
+    private String committeeIdAlias = null ;
+    private String committeeNameAlias = null ;
+    private String committeeUriAlias = null ;
+    private String committeeCountryAlias = null ;
+    
     public XMLBungeniConnector() {
     }
 
@@ -140,6 +154,14 @@ public class XMLBungeniConnector implements IBungeniConnector {
         this.documentSourceAlias = props.getProperties().getProperty("xml-document-source-alias");
         this.documentUriAlias = props.getProperties().getProperty("xml-document-uri-alias");
         this.documentSittingAlias = props.getProperties().getProperty("xml-document-sitting-alias");
+        
+        this.committeesSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-committees"));
+        this.committeesPackageAlias = props.getProperties().getProperty("xml-committees-package-alias");
+        this.committeetAlias = props.getProperties().getProperty("xml-committee-alias");
+        this.committeeIdAlias = props.getProperties().getProperty("xml-committee-id-alias");
+        this.committeeNameAlias = props.getProperties().getProperty("xml-committee-name-alias");
+        this.committeeUriAlias = props.getProperties().getProperty("xml-committee-uri-alias");
+        this.committeeCountryAlias = props.getProperties().getProperty("xml-committee-country-alias");
 
     }
 
@@ -266,7 +288,10 @@ public class XMLBungeniConnector implements IBungeniConnector {
         return null;
     }
 
-    public List<Document> getDocuments() {
+    // !+ BUNGENI CONNECTOR ADDED FUNCTIONALITY (rm, jan 2012) - added functionality into
+    // class, this method retrieves the committes data from Committees.xml
+    public List<Document> getDocuments()
+    {
         ClientResource resource = new ClientResource(getDocumentsSourceURI());
         try {
             XStream xStream = new XStream(new DomDriver());
@@ -285,6 +310,27 @@ public class XMLBungeniConnector implements IBungeniConnector {
             }
         } catch (Exception ex) {
             logger.error(getDocumentsSourceURI(), ex);
+        }
+        return null;
+    }
+    public List<Committee> getCommittees() {
+        ClientResource resource = new ClientResource(getCommitteesSourceURI());
+        try {
+            XStream xStream = new XStream(new DomDriver());
+            xStream.alias(this.getCommitteesPackageAlias(), List.class);
+            xStream.alias(this.getCommitteeAlias(), Committee.class);
+            xStream.aliasField(this.getCommitteeIdAlias(), Committee.class, "id");
+            xStream.aliasField(this.getCommitteeNameAlias(), Committee.class, "name");
+            xStream.aliasField(this.getCommitteeUriAlias(), Committee.class, "uri");
+            xStream.aliasField(this.getCommitteeCountryAlias(), Committee.class, "country");
+            
+            String xml = resource.get().getText();
+            if (xml != null) {
+                resource.release();
+                return (List) xStream.fromXML(xml);
+            }
+        } catch (Exception ex) {
+            logger.error(getCommitteesSourceURI(), ex);
         }
         return null;
     }
@@ -319,6 +365,18 @@ public class XMLBungeniConnector implements IBungeniConnector {
 
     private String getBillsPackageAlias() {
         return billsPackageAlias;
+    }
+
+    private String getCommitteesPackageAlias(){
+        return committeesPackageAlias ;
+    }
+
+    private String getCommitteeNameAlias(){
+        return committeeNameAlias ;
+    }
+
+    public String getCommitteeCountryAlias(){
+        return committeeCountryAlias ;
     }
 
     private String getBillsSourceURI() {
@@ -357,8 +415,24 @@ public class XMLBungeniConnector implements IBungeniConnector {
         return documentsPackageAlias;
     }
 
+    private String getCommitteeAlias(){
+        return committeetAlias ;
+    }
+
+    private String getCommitteeIdAlias(){
+        return committeeIdAlias ;
+    }
+
+    private String getCommitteeUriAlias(){
+        return committeeUriAlias ;
+    }
+
     private String getDocumentsSourceURI() {
         return documentsSourceURI;
+    }
+
+    private String getCommitteesSourceURI(){
+        return committeesSourceURI ;
     }
 
     private String getMemberAlias() {

@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.bungeni.connector.ConnectorProperties;
 import org.bungeni.connector.IBungeniConnector;
 import org.bungeni.connector.element.Bill;
+import org.bungeni.connector.element.Committee;
 import org.bungeni.connector.element.Document;
 import org.bungeni.connector.element.MetadataInfo;
 import org.bungeni.connector.element.Motion;
@@ -32,6 +33,7 @@ public class BungeniConnector implements IBungeniConnector {
     private String questionsSource = "/questions";
     private String billsSource = "/bills";
     private String documentsSource = "/documents";
+    private String committeeSource = "/committee";
     private String packageAlias = "package";
 
     private String SERVER_HOST = "localhost";
@@ -100,10 +102,11 @@ public class BungeniConnector implements IBungeniConnector {
     }
 
     public List<MetadataInfo> getMetadataInfo() {
-        System.out.println("Document source : "  + getMetadataInfoSource());
+        System.out.println("Metadata source : "  + getMetadataInfoSource());
         return getList(getMetadataInfoSource(), MetadataInfo.PACKAGE_ALIAS, MetadataInfo.CLASS_ALIAS, MetadataInfo.class);
     }
 
+    // !+ ADDED FUNCTIONALITY TO BUNGENI CONNECTOR (rm, jan 2012)
     // this method is useful in serializing the data from the documents table
     // and populating the Import documents JTable displayed to the user
     public List<Document> getDocuments() {
@@ -111,6 +114,13 @@ public class BungeniConnector implements IBungeniConnector {
         return getList(getDocumentsSource(), Document.PACKAGE_ALIAS, Document.CLASS_ALIAS, Document.class);
     }
 
+    // !+ ADDED FUNCTIONALITY TO BUNGENI CONNECTOR (rm, jan 2012)
+    // this method is useful towards serializing the data from the committees table
+    public List<Committee> getCommittees(){
+        System.out.println("Committee source : " + getCommitteeSource());
+        return getList(getCommitteeSource(), Committee.PACKAGE_ALIAS, Committee.CLASS_ALIAS, Committee.class);
+    }
+    
     private String getBillsSource() {
         return getVirtDirURL() + billsSource;
     }
@@ -139,6 +149,10 @@ public class BungeniConnector implements IBungeniConnector {
 
     private String getDocumentsSource() {
         return getVirtDirURL() + documentsSource;
+    }
+
+    private String getCommitteeSource() {
+        return getVirtDirURL() +  committeeSource ;
     }
 
     public void closeConnector() {
