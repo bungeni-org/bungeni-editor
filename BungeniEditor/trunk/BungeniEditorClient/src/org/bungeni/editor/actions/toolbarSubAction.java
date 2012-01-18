@@ -53,6 +53,11 @@ public class toolbarSubAction {
     private String                         section_naming_convention;
     private String                         section_numbering_convention;
 
+    //~-----------------------------------------------------------------------
+    // !+ACTION_RECONF (rm, jan 2012) - these variables are added from toolBarAction
+    private String        action_type;
+    //~------------------------------------------------------------------------
+    
     /** Creates a new instance of toolbarSubAction */
     public toolbarSubAction(Vector<String> actionDesc, HashMap action_mapping) {
 
@@ -238,7 +243,7 @@ public class toolbarSubAction {
         return this.section_naming_convention;
     }
 
-    public String section_numbering_convention(){
+        public String section_numbering_convention(){
         return this.section_numbering_convention;
     }
 /*
@@ -269,4 +274,22 @@ public class toolbarSubAction {
     public SelectorDialogModes getSelectorDialogMode() {
         return theMode;
     }
+
+    //~------------------------------------------------------------------------
+    // !+ACTION_RECONF (rm, jan 2012) - these methods were added from toolbar action
+    public String action_type(){
+        return this.action_type;
+    }
+
+    // !+ACTION_RECONF (rm, jan 2012) - action_name variable has
+    // been changed to sub_action_name
+    public boolean isTopLevelAction(){
+        if (sub_action_name().equals("editor_root") || sub_action_name().equals("parent")
+                || sub_action_name().equals("selection_root")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    //~-------------------------------------------------------------------------
 }

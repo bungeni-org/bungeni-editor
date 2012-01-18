@@ -20,9 +20,13 @@ import java.util.Vector;
 // toolbaSubAction
 
 public class toolbarAction {
+    // !+ACTION_RECONF (rm, jan 2012) - these variables are unused and are commented
+    /**
     public static String                   ACTION_TYPE_MARKUP  = "markup";
     public static String                   ACTION_TYPE_SECTION = "section";
     private static String                  ROOT_ACTION_DISPLAY = "Editing Actions";
+    **/
+    
     private static org.apache.log4j.Logger log                 =
         org.apache.log4j.Logger.getLogger(toolbarAction.class.getName());
     private SelectorDialogModes            theMode             = null;
@@ -52,16 +56,31 @@ public class toolbarAction {
     private String        action_section_type;
     **/
     private String        action_type;
+
+    //!+ACTION_RECONF (rm, jan 2012) - this action is unused, deprecating it
+    /**
     Vector<toolbarAction> containedActions;
+    **/
+    
     private String        doc_type;
+
+    // !+ACTION_RECONF (rm, jan 2012) - this var is unused, deprecating it
+    /**
     toolbarAction         parent;
-
+    **/
+    
     /** **act upon what ? *** */
+    // !+ACTION_RECONF (rm, jan 2012) - this var is unused, deprecated
+    /**
     private String selectedSection;
-
+    **/
+    
     /** ** and do what action ?*** */
+    // !+ACTION_RECONF (rm, jan 2012) - this var is unused, deprecated
+    /**
     private String selectedSectionActionCommand;
-
+    **/
+    
     /*
      * Used only for defining the root action
      */
@@ -97,8 +116,16 @@ public class toolbarAction {
         log.debug("in toolbarAction constructor");
 
         try {
+            // !+ACTION_RECONF (rm, jan 2012) - this variable is unused, deprecated
+            /**
             containedActions = new Vector<toolbarAction>();
+            **/
+
+            // !+ACTION_RECONF (rm, jan 2012) - var is unused, deprecated
+            /**
             parent           = null;
+            **/
+            
             action_name      = (String) safeGet(actionDesc, action_mapping, "ACTION_NAME");
 
             // !+ACTION_RECONF(ah, jan-2012) - deprecating action_order as it is not used
@@ -170,7 +197,7 @@ public class toolbarAction {
     }
     **/
     
-    public String action_type() {
+        public String action_type() {
         return this.action_type;
     }
 
@@ -233,11 +260,14 @@ public class toolbarAction {
         }
     }
 
+    // !+ACTION_RECONF (rm, jan 2012) - this method is unused, deprecated
+    /**
     public toolbarAction getParent() {
         return parent;
     }
+    **/
 
-    // !+ACTION_RECONF (rm, jan 2012) - these methods is unused, deprecated
+    // !+ACTION_RECONF (rm, jan 2012) - these methods are unused, deprecated
     // as this class is collapsed into toolbarSubAction
     /**
     public int getContainedActionsCount() {
