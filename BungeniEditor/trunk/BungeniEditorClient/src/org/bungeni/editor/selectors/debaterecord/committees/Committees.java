@@ -5,22 +5,28 @@ package org.bungeni.editor.selectors.debaterecord.committees;
 import com.sun.star.text.XTextSection;
 import com.sun.star.text.XTextViewCursor;
 import java.awt.Component;
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.Vector;
 import javax.swing.AbstractButton;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import org.bungeni.connector.client.BungeniConnector;
+import org.bungeni.connector.element.Committee;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.BungeniRegistryFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.RegistryQueryFactory;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.extutils.BungeniEditorProperties;
+import org.bungeni.extutils.CommonConnectorFunctions;
 import org.bungeni.extutils.CommonStringFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.OOComponentHelper;
@@ -63,7 +69,66 @@ public class Committees extends BaseMetadataPanel {
         return RegistryQueryFactory.Q_FETCH_COMMITTEES(countryCode);
     }
 
+    // !+BUNGENI_CONNECTOR (rm, 17-jan 2012) - this method obtains the committes
+    // which are then displayed on a JTable for a user to select the
+    // relevant committee
+    //
+    // it however tries to directly access the COMMITTEE table but is being
+    // edited to use the BungeniConnector to access the table instead
     private void initTable(){
+        // create the columns vector
+        String [] columns = {"Id", "Name", "URI", "Country"} ;
+        Vector <String> columnNames = new Vector<String>(Arrays.asList(columns));
+
+        // initialise the Bungeni Connector client
+        BungeniConnector client = null;
+        try {
+            // initialize the data store client
+            client = CommonConnectorFunctions.getDSClient();
+
+            // get the committees information
+            List<Committee> committeesList = client.getCommittees();
+
+            // get all the committee names and details for all
+            // of these
+            // declare variable to store result
+            Vector<Vector<String>> resultRows = new Vector<Vector<String>>();
+
+            for (int i = 0; i < committeesList.size(); i++) {
+                
+                Committee committee = committeesList.get(i);
+
+                // create variable to store current value
+                Vector <String> currRes = new Vector<String>();
+
+                // add the results for each of the fields
+                // to the currRes
+                currRes.add(committee.getId());
+                currRes.add(committee.getName());
+                currRes.add(committee.getURI());
+                currRes.add(committee.getCountry());
+
+                // add the curr vector to result
+                resultRows.add(currRes);
+            }
+
+            // create a table model
+           CommitteesModel mdl = new CommitteesModel() ;
+           mdl.setDataVector(resultRows, columnNames);
+
+            // Add table model to table
+            tbl_Committees.setModel(mdl);
+            ((CommitteesModel)this.tbl_Committees.getModel()).setModelEditable(false);
+            enableButtons(false);
+
+             // set the selection mode
+             tbl_Committees.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        } catch (IOException ex) {
+            log.error("Error initializing the BungeniConnectorClient " + ex) ;
+        }
+
+        /**
         HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();
             BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
             dbInstance.Connect();
@@ -81,6 +146,7 @@ public class Committees extends BaseMetadataPanel {
                     }
             }
             tbl_Committees.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+         **/
      }
 
     private void enableButtons(boolean b) {

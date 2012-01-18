@@ -22,19 +22,24 @@ import com.sun.star.text.XTextCursor;
 import com.sun.star.text.XTextRange;
 import java.awt.Component;
 import java.awt.event.ItemEvent;
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Vector;
 import javax.swing.AbstractButton;
 import javax.swing.table.DefaultTableModel;
+import org.bungeni.connector.client.BungeniConnector;
+import org.bungeni.connector.element.Document;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.BungeniRegistryFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
+import org.bungeni.extutils.CommonConnectorFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
 
@@ -75,7 +80,60 @@ public class TabledDocuments extends BaseMetadataPanel {
         return new String("select document_title, document_uri, document_date from tabled_documents");
     }
 
+    // !+BUNGENI CONNECTOR (rm, 17 jan 2012) - edited this method to ensure that
+    // it picks table date from the TABLED_DOCUMENTS via the BungeniConnector
+    // as directly trying to acces the table is deprecated
     protected void initTable(){
+        // create the columns vector
+        String [] columns = {"Id", "Title", "Date", "Source", "URI", "Sitting ID"} ;
+        Vector <String> columnNames = new Vector<String>(Arrays.asList(columns));
+
+        // initialise the Bungeni Client
+        BungeniConnector client = null;
+        try {
+            // initialize the data store client
+            client = CommonConnectorFunctions.getDSClient();
+
+            // get the list of all the tabled documents
+            List<Document> documentsList = client.getDocuments();
+
+            // fill the vector<vector> object with the results of the
+            // query for the list of tabled documents
+            // var to store thefinal res
+            Vector<Vector<String>> resultRows = new Vector<Vector<String>>();
+
+            for (int i = 0; i < documentsList.size(); i++) {
+                Document doc = documentsList.get(i);
+
+                Vector <String> currRes = new Vector<String>();
+
+                // add the current document properties
+                // to the vector
+                currRes.add(doc.getId());
+                currRes.add(doc.getTitle());
+                currRes.add(doc.getDate());
+                currRes.add(doc.getSource());
+                currRes.add(doc.getUri());
+                currRes.add(doc.getSitting());
+
+                // add the curr vector to result
+                resultRows.add(currRes);
+            }
+
+            // create a table model 
+            TabledDocumentsModel mdl = new TabledDocumentsModel() ;
+            mdl.setDataVector(resultRows, columnNames);
+
+            // Add table model to table
+            tbl_tabledDocs.setModel(mdl);
+            ((TabledDocumentsModel)this.tbl_tabledDocs.getModel()).setModelEditable(false);
+            enableButtons(false);
+
+        } catch (IOException ex) {
+            log.error("Error initializing the BungeniConnectorClient " + ex) ;
+        }
+
+        /**
         HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();
             BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
             dbInstance.Connect();
@@ -92,6 +150,7 @@ public class TabledDocuments extends BaseMetadataPanel {
                      enableButtons(false);
                     }
             }
+         **/
      }
 
     private void enableButtons(boolean b) {
