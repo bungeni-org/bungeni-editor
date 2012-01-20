@@ -31,9 +31,12 @@ public class routerCreateRoot extends defaultRouter {
     public routerCreateRoot() {
         super();
     }
-    
+
+    // !+ACTION_RECONF (rm, jan 2012) - removed toolbarAction as var, class
+    // toolbarAction is deprecated
     @Override
-    public BungeniValidatorState route_TextSelectedInsert(toolbarAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+    // public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+    public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
           BungeniValidatorState bvs =  new BungeniValidatorState(false, new BungeniMsg("FAILURE")); 
         try {
             String newSectionName = subAction.action_value();

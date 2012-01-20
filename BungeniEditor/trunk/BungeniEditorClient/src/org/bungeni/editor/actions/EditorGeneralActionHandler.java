@@ -15,6 +15,13 @@ import org.bungeni.ooo.OOComponentHelper;
  *
  * @author Administrator
  */
+//##################################
+//         CLASS NOT USED!         #
+// !+ACTION_RECONF (rm, jan 2012   #
+//replacing toolbarAction instances#
+//with toolbarSubAction instances  #
+//##################################
+
 public class EditorGeneralActionHandler implements IEditorActionEvent {
    private static org.apache.log4j.Logger log = Logger.getLogger(EditorGeneralActionHandler.class.getName());
    private OOComponentHelper ooDocument;
@@ -27,8 +34,11 @@ public class EditorGeneralActionHandler implements IEditorActionEvent {
         dbSettings = new BungeniClientDB (DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
     }
 
+    // toolbarSubAction is deprecated
+    /**
     public void doCommand(OOComponentHelper ooDocument, toolbarAction action, JFrame parentFrame) {
     }
+    **/
 
     public void doCommand(OOComponentHelper ooDocument, toolbarSubAction action, JFrame parentFrame) {
     }

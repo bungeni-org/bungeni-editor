@@ -24,8 +24,12 @@ public class routerCreateQuestionToReference extends defaultRouter {
     
     final String _referencePrefix_ = "BungeniQuestionTo";
     final String _referenceNameSeparator_ = ":";
+
+    // !+ACTION_RECONF (rm, jan 2012) - removed toolbarAction as var, class
+    // toolbarAction is deprecated
     @Override
-    public BungeniValidatorState route_TextSelectedInsert(toolbarAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+    // public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+    public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
            
         String currentSection =  ooDocument.currentSectionName();
         HashMap<String,String> sectionMeta = ooDocument.getSectionMetadataAttributes(currentSection);
@@ -40,7 +44,10 @@ public class routerCreateQuestionToReference extends defaultRouter {
         subAction.setActionValue(newRefNo);
         //chain the routerCreateReference to this.. 
         routerCreateReference rcf = new routerCreateReference();
-        BungeniValidatorState bvState = rcf.route_TextSelectedInsert(action, subAction, pFrame, ooDocument);
+
+        // BungeniValidatorState bvState = rcf.route_TextSelectedInsert(action, subAction, pFrame, ooDocument);
+        BungeniValidatorState bvState = rcf.route_TextSelectedInsert(subAction, pFrame, ooDocument);
+        
         return bvState; 
     }
 }

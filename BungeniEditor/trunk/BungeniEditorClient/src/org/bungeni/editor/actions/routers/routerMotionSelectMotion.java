@@ -5,6 +5,8 @@
 
 package org.bungeni.editor.actions.routers;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.error.BungeniMsg;
@@ -25,10 +27,16 @@ public class routerMotionSelectMotion extends defaultRouter {
   
     
     @Override
-    public BungeniValidatorState route_TextSelectedInsert(toolbarAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
-       log.info("Action class Name : " + action.getClass().getName() +  " sub action class : " + subAction.getClass().getName() +
-               " pFrame : " + pFrame.getName()) ;
-       BungeniValidatorState stateObj = CommonRouterActions.displaySelectorDialog(action, subAction, pFrame, ooDocument);
+    // public BungeniValidatorState route_TextSelectedInsert(
+    //        toolbarSubAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+    public BungeniValidatorState route_TextSelectedInsert(
+            toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+        
+     // BungeniValidatorState stateObj = CommonRouterActions.displaySelectorDialog(
+             // action, subAction, pFrame, ooDocument);
+     BungeniValidatorState stateObj = CommonRouterActions.displaySelectorDialog(
+             subAction, pFrame, ooDocument);
+        
       return new BungeniValidatorState(true, new BungeniMsg("SUCCESS")); 
     }
       
@@ -41,8 +49,11 @@ public class routerMotionSelectMotion extends defaultRouter {
      * @return
      */
     @Override
-    public BungeniValidatorState route_FullEdit(toolbarAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
-       BungeniValidatorState stateObj = CommonRouterActions.displaySelectorDialog(action, subAction, pFrame, ooDocument);
+    // public BungeniValidatorState route_FullEdit(toolbarSubAction action,  toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+    public BungeniValidatorState route_FullEdit(toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+      // BungeniValidatorState stateObj = CommonRouterActions.displaySelectorDialog(action, subAction, pFrame, ooDocument);
+      BungeniValidatorState stateObj = CommonRouterActions.displaySelectorDialog(subAction, pFrame, ooDocument);
+        
       return new BungeniValidatorState(true, new BungeniMsg("SUCCESS")); 
     }
     

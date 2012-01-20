@@ -22,6 +22,8 @@ import org.bungeni.ooo.OOComponentHelper;
  *
  * @author Administrator
  */
+// !+ ACTION_ReCONF (rm, jan 2012) - toolbarAction has been deprecated,
+// all functionality now within subActionToolbar
 public class defaultValidator implements IBungeniActionValidator {
    protected BungeniClientDB dbSettings;
  
@@ -30,6 +32,7 @@ public class defaultValidator implements IBungeniActionValidator {
           dbSettings = new BungeniClientDB (DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
     }
 
+    /**
     public BungeniValidatorState check(toolbarAction action, toolbarSubAction subAction, OOComponentHelper ooDocument){
         switch(subAction.getSelectorDialogMode()) {
             case TEXT_INSERTION:
@@ -64,6 +67,43 @@ public class defaultValidator implements IBungeniActionValidator {
 
     public BungeniValidatorState check_FullEdit(toolbarAction action, toolbarSubAction subAction, OOComponentHelper ooDocument) {
             return new BungeniValidatorState(true, new BungeniMsg("SUCCESS")); 
+    }
+    **/
+
+    public BungeniValidatorState check(toolbarSubAction subAction, OOComponentHelper ooDocument){
+        switch(subAction.getSelectorDialogMode()) {
+            case TEXT_INSERTION:
+                return check_FullInsert(subAction, ooDocument);
+            case DOCUMENT_LEVEL_ACTION:
+                return check_DocumentLevelAction(subAction, ooDocument);
+            case TEXT_EDIT:
+                return check_FullEdit(subAction, ooDocument);
+            case TEXT_SELECTED_EDIT:
+                return check_TextSelectedEdit(subAction, ooDocument);
+            case TEXT_SELECTED_INSERT:
+                return check_TextSelectedInsert(subAction, ooDocument);
+            default:
+                return new BungeniValidatorState(false, new BungeniMsg("DIALOG_MODE_MISSING"));
+        }
+    }
+    public BungeniValidatorState check_DocumentLevelAction(toolbarSubAction subAction, OOComponentHelper ooDocument) {
+           return new BungeniValidatorState(true, new BungeniMsg("SUCCESS"));
+    }
+
+    public BungeniValidatorState check_TextSelectedInsert(toolbarSubAction subAction, OOComponentHelper ooDocument) {
+        return new BungeniValidatorState(true, new BungeniMsg("SUCCESS"));
+    }
+
+    public BungeniValidatorState check_TextSelectedEdit(toolbarSubAction subAction, OOComponentHelper ooDocument) {
+            return new BungeniValidatorState(true, new BungeniMsg("SUCCESS"));
+    }
+
+    public BungeniValidatorState check_FullInsert(toolbarSubAction subAction, OOComponentHelper ooDocument) {
+            return new BungeniValidatorState(true, new BungeniMsg("SUCCESS"));
+    }
+
+    public BungeniValidatorState check_FullEdit(toolbarSubAction subAction, OOComponentHelper ooDocument) {
+            return new BungeniValidatorState(true, new BungeniMsg("SUCCESS"));
     }
 
  }

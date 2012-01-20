@@ -1,5 +1,7 @@
 package org.bungeni.editor.actions.routers;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.error.BungeniMsg;
@@ -18,13 +20,15 @@ public class routerDebateRecordSelectQuestionsType extends defaultRouter {
   }
   
     @Override
-    public BungeniValidatorState route_TextSelectedInsert(toolbarAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
-       BungeniValidatorState stateObj = CommonRouterActions.displaySelectorDialog(action, subAction, pFrame, ooDocument);
+    public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+        
+      BungeniValidatorState stateObj = CommonRouterActions.displaySelectorDialog(subAction, pFrame, ooDocument);
+        
       return new BungeniValidatorState(true, new BungeniMsg("SUCCESS")); 
     }
 
     /**
-     * Overriden function to router TEXT_EDIT events from the editor client to the the word processor
+     * Overidden function to router TEXT_EDIT events from the editor client to the the word processor
      * @param action
      * @param subAction
      * @param pFrame
@@ -32,8 +36,10 @@ public class routerDebateRecordSelectQuestionsType extends defaultRouter {
      * @return
      */
     @Override
-    public BungeniValidatorState route_FullEdit(toolbarAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
-       BungeniValidatorState stateObj = CommonRouterActions.displaySelectorDialog(action, subAction, pFrame, ooDocument);
+    public BungeniValidatorState route_FullEdit(toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+       
+      BungeniValidatorState stateObj = CommonRouterActions.displaySelectorDialog(subAction, pFrame, ooDocument);
+       
       return new BungeniValidatorState(true, new BungeniMsg("SUCCESS")); 
     }
     

@@ -32,7 +32,7 @@ public class routerCreateSideNote_panel extends javax.swing.JPanel implements IR
     JFrame parentFrame;
     Window containerFrame;
     OOComponentHelper ooDocument;
-    toolbarAction theAction;
+    toolbarSubAction theAction;
     toolbarSubAction theSubAction;
     SelectorDialogModes dialogMode;
     
@@ -160,10 +160,10 @@ private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JTextArea txtSideNote;
     // End of variables declaration//GEN-END:variables
 
-    public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarAction aAction, toolbarSubAction aSubAction, SelectorDialogModes dlgMode) {
+    public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarSubAction aAction, toolbarSubAction aSubAction, SelectorDialogModes dlgMode) {
        parentFrame = parentFrm;
        ooDocument = ooDoc;
-       theAction = aAction;
+     //  theAction = aAction;
        theSubAction = aSubAction;
        dialogMode = dlgMode;
     }

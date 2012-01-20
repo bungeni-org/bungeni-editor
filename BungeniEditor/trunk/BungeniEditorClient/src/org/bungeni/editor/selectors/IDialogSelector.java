@@ -23,9 +23,14 @@ public interface IDialogSelector {
     public void setDialogMode(SelectorDialogModes mode );
     public SelectorDialogModes getDialogMode();
     public void setOOComponentHelper(OOComponentHelper ooComp);
-    public void setToolbarAction(toolbarAction action);
+
+    // !+ ACTION_RECONF (rm, jan 2012) - toolbarAction is deprecated
+    // public void setToolbarAction(toolbarAction action);
+    public void setToolbarAction(toolbarSubAction action);
+
     public void setParentDialog(JDialog dlg);
     public void setToolbarSubAction(toolbarSubAction subAction);
-    public void initObject(OOComponentHelper ooDoc, JDialog dlg,  toolbarAction act, toolbarSubAction subAct );
+    //public void initObject(OOComponentHelper ooDoc, JDialog dlg,  toolbarSubAction act, toolbarSubAction subAct );
+    public void initObject(OOComponentHelper ooDoc, JDialog dlg, toolbarSubAction subAct );
     public JPanel getPanel();
 }

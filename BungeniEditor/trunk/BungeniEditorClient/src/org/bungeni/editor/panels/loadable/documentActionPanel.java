@@ -79,11 +79,15 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
         return event;
     }
 
+    // !+ACTION_RECONF (rm, jan 2012) - toolbarAction has been deprecated and all
+    // functionality moved to toolbarSubAction
+    /**
     public IEditorActionEvent getEventClass(toolbarAction action) {
         IEditorActionEvent event = EditorActionFactory.getEventClass(action);
         return event;
     }
-
+    **/
+    
     public void setParentWindowHandle(JFrame c) {
         this.parentFrame = c;
     }
@@ -338,33 +342,40 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
         public void executeToolbarAction(BungeniToolbarActionElement actionElement) {
             BungeniToolbarTargetProcessor targetObj = new BungeniToolbarTargetProcessor(actionElement.getTarget());
             SelectorDialogModes selectedMode = actionElement.getMode();
-            toolbarAction tbAction = null;
+            // toolbarAction tbAction = null;
             toolbarSubAction tbSubAction = null;
             switch (targetObj.target_type) {
+                /**
                 case ACTION:
                     tbAction = processInsertion(targetObj);
                     tbAction.setSelectorDialogMode(selectedMode);
                     processAction(tbAction);
                     break;
+                 **/
                 case SUB_ACTION:
                     tbSubAction = processSelection(targetObj);
                     tbSubAction.setSelectorDialogMode(selectedMode);
-                    processSubAction(tbSubAction);
+                    // processSubAction(tbSubAction);
+                    processAction(tbSubAction);
                     break;
             }
 
         }
 
       
-
+        // !+ACTION_RECONF (rm, jan 2012) - toolbarAction is deprecated
+        /**
         private void processSubAction(toolbarSubAction action) {
             log.debug("processSubAction:" + action.sub_action_name());
             IEditorActionEvent event = getEventClass(action);
             event.doCommand(getOODocument(), action, parentFrame);
         }
+        **/
 
-        private void processAction(toolbarAction action) {
-            log.debug("processAction:" + action.action_name());
+        // private void processAction(toolbarAction action) {
+        private void processAction(toolbarSubAction action) {
+            // log.debug("processAction:" + action.action_name());
+            log.debug("processAction:" + action.sub_action_name());
             if (action.isTopLevelAction()) {
                 log.info("toolbar: processAction: not processing topLevelAction type");
                 return;
@@ -400,7 +411,7 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
             }
         }
 
-        private toolbarAction processInsertion(BungeniToolbarTargetProcessor targetAction) {
+        private toolbarSubAction processInsertion(BungeniToolbarTargetProcessor targetAction) {
             // BungeniToolbarTargetProcessor targetObject = new BungeniToolbarTargetProcessor()
             String documentType = BungeniEditorProperties.getEditorProperty("activeDocumentMode");
 
@@ -414,7 +425,7 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
                 return null;
             }
             if (qr.hasResults()) {
-                return new toolbarAction(qr.theResults().elementAt(0), qr.columnNameMap());
+                return new toolbarSubAction(qr.theResults().elementAt(0), qr.columnNameMap());
             } else {
                 log.info("toolbar: processInsertion: the metadata has been setup incorrectly for action :" + targetAction.actionName);
                 return null;

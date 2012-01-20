@@ -2,6 +2,8 @@ package org.bungeni.editor.actions.routers;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.error.BungeniMsg;
@@ -21,11 +23,16 @@ public class routerCreateScaledSection extends defaultRouter {
         super();
     }
 
+    // !+ACTION_RECONF (rm, jan 2012) - action => parent of subAction
     @Override
-    public BungeniValidatorState route_TextSelectedInsert(toolbarAction action, toolbarSubAction subAction,
+    public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction subAction,
             javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
-        CommonRouterActions.displaySubActionDialog(action, subAction, pFrame, ooDocument, true);
-
+    // public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction action, toolbarSubAction subAction,
+    //        javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+        
+        //  CommonRouterActions.displaySubActionDialog(action, subAction, pFrame, ooDocument, true);
+        CommonRouterActions.displaySubActionDialog(subAction, pFrame, ooDocument, true);
+        
         return new BungeniValidatorState(true, new BungeniMsg("SUCCESS"));
     }
 }

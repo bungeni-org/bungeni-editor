@@ -33,16 +33,22 @@ public class routerMarkAsAction extends defaultRouter {
     String __ACTION_EVENT_SECTION_TYPE__ = "ActionEvent";
     String __ACTION_EVENT_ATTR_NAME__ = "BungeniActionEvent";
     HashMap<String,String> actionEventMetadata = new HashMap<String,String>();
-    
+
+    // !+ACTION_RECONF (rm, jan 2012) - removed toolbarAction as var, class
+    // toolbarAction is deprecated
     @Override
-    public BungeniValidatorState route_TextSelectedInsert(toolbarAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame,OOComponentHelper ooDocument) {
+    // public BungeniValidatorState route_TextSelectedInsert(toolbarAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame,OOComponentHelper ooDocument) {
+    public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction subAction, javax.swing.JFrame pFrame,OOComponentHelper ooDocument) {
         BungeniValidatorState bvsRet = new BungeniValidatorState(true, new BungeniMsg("FAILURE"));
         try {
         String actionEventName = subAction.action_value();
         String sectionType = __ACTION_EVENT_SECTION_TYPE__;
         routerCreateSection rcs = new routerCreateSection();
         //create the new section
-        BungeniValidatorState bvs = rcs.route_TextSelectedInsert(action, subAction, pFrame, ooDocument);
+        
+        BungeniValidatorState bvs = rcs.route_TextSelectedInsert(subAction, pFrame, ooDocument);
+        // BungeniValidatorState bvs = rcs.route_TextSelectedInsert(action, subAction, pFrame, ooDocument);
+
         if (bvs.state) {
             //rcs.nameOfNewSection;
             XTextSection newSection = ooDocument.getSection(rcs.nameOfNewSection);

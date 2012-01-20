@@ -96,11 +96,14 @@ public class documentStructurePanel extends BaseClassForITabbedPanel {
         return event;
     }
 
+    // !+ACTION_RECONF (rm, jan 2012) - toolbarAction is deprecated
+    /**
     public IEditorActionEvent getEventClass(toolbarAction action) {
         IEditorActionEvent event = EditorActionFactory.getEventClass(action);
         return event;
     }
-
+    **/
+    
     public void setParentWindowHandle(JFrame c) {
         this.parentFrame = c;
     }

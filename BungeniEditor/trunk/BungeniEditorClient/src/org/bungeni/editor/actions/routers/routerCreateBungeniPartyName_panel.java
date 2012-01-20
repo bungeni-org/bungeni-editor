@@ -38,7 +38,11 @@ public class routerCreateBungeniPartyName_panel extends routerCreateTabularMetad
         //substitute the subAction value with the documentRefstring as we are chaining to another router action to set the refereced
         theSubAction.setActionValue(documentRefString);
         routerCreateReference rcf = new routerCreateReference();
-        BungeniValidatorState bvState = rcf.route_TextSelectedInsert(theAction, theSubAction, parentFrame, ooDocument);
+
+        // !+ACTION_RECONF (rm, jan 2012) - removed the action var, toolbarAction
+        // is deprecated
+        BungeniValidatorState bvState = rcf.route_TextSelectedInsert(theSubAction, parentFrame, ooDocument);
+        // BungeniValidatorState bvState = rcf.route_TextSelectedInsert(theSubAction, parentFrame, ooDocument);
         containerFrame.dispose();
     }
 

@@ -15,9 +15,12 @@ import java.util.Vector;
  *
  * @author Ashok Hariharan
  */
-
+//###################################
+//          WARNING                 #
+// this class is deprecated         #
+//###################################
 // !+ACTION_RECONF (rm, jan 2012) - this class is being folded into
-// toolbaSubAction
+// toolbarSubAction
 
 public class toolbarAction {
     // !+ACTION_RECONF (rm, jan 2012) - these variables are unused and are commented
@@ -31,9 +34,11 @@ public class toolbarAction {
         org.apache.log4j.Logger.getLogger(toolbarAction.class.getName());
     private SelectorDialogModes            theMode             = null;
 
-     // !+ACTION_CONFIG (rm, jan 2012) - added this variable with detined class
+    // !+ACTION_CONFIG (rm, jan 2012) - added this variable with detined class
     // handling events
-    private String                         action_class = "org.bungeni.editor.actions.EditorActionHandler" ;
+    // changed the action class
+    // private String                         action_class = "org.bungeni.editor.actions.EditorActionHandler" ;
+    private String                         action_class = "org.bungeni.editor.actions.EditorSelectionActionHandler" ;
     private String                         action_dialog_class;
     private String                         action_display_text;
 

@@ -16,7 +16,6 @@ import com.sun.star.text.XTextRange;
 import com.sun.star.text.XTextSection;
 import com.sun.star.uno.Any;
 import java.util.HashMap;
-import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.editor.document.DocumentSection;
 import org.bungeni.editor.document.DocumentSectionsContainer;
@@ -41,9 +40,10 @@ public class routerCreateCompositeSection extends defaultRouter {
    routerCreateCompositeSection(){
        super();
    }
-   
+
+   // !+ACTION_RECONF (rm, jan 2012) - removing toolbarAction, toolbarAction class is deprecated
     @Override
-    public BungeniValidatorState route_TextSelectedInsert(toolbarAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+    public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
         //get the UUID for the  new numbered heading 
         sectionUUID = BungeniUUID.getStringUUID();
           //get the section properties for the numbered container type
@@ -56,7 +56,10 @@ public class routerCreateCompositeSection extends defaultRouter {
             //now create the main container section for the boundary
 //            DocumentSection boundarySection = DocumentSectionsContainer.getDocumentSectionByType(action.action_section_type());
  //           String boundarySectionName = newSectionNameForType(boundarySection);
-            if (action_createBoundarySection(ooDocument, action, subAction, foundSelection)) {
+
+            // !+ACTION_RECONF (rm, jan 2012) - removing var action<toolbarAction>, deprecated class toolbarAction
+            // if (action_createBoundarySection(ooDocument, action, subAction, foundSelection)) {
+            if (action_createBoundarySection(ooDocument, subAction, foundSelection)) {
                 log.debug("routerCreateCompositeSection: marking numbered heading");
                 if (routerCreateNumberedHeading.action_markSelectionAsNumbered(ooDocument, numberedSection, headingSectionName, applyHeadingStyle, sectionUUID)) {
                     //now create the numbered heading section
@@ -96,8 +99,9 @@ public class routerCreateCompositeSection extends defaultRouter {
          return newSectionName;
     }
      
-    
-    private boolean action_createBoundarySection(OOComponentHelper ooDocument, toolbarAction action, toolbarSubAction subAction, selectionProperties foundSelection){
+    // !+ACTION_RECONF (rm, jan 2012) - deprecating toolbarAction as var, class toolbarAction is deprecated
+    // private boolean action_createBoundarySection(OOComponentHelper ooDocument, toolbarAction action, toolbarSubAction subAction, selectionProperties foundSelection){
+    private boolean action_createBoundarySection(OOComponentHelper ooDocument, toolbarSubAction subAction, selectionProperties foundSelection){
         boolean bState = false;
         try {
 

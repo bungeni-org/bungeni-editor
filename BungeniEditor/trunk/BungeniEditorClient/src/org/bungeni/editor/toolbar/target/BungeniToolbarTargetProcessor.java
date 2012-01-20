@@ -21,10 +21,15 @@ public class BungeniToolbarTargetProcessor {
       //get action type
        if (this.strTarget[0].equals("generalAction"))
               target_type = TARGET.GENERAL_ACTION;
+      // !+ACTION_RECONF (rm, jan 2012) - toolbarAction class has been deprecated,
+      // all functionality has been moved to toolbarSubAction
+      /**
        else
        if (this.strTarget[0].equals("toolbarAction")) {
               target_type = TARGET.ACTION;
-       } else 
+       }
+       **/
+       else
        if (this.strTarget[0].equals("toolbarSubAction")) {
               target_type = TARGET.SUB_ACTION;
        } else {

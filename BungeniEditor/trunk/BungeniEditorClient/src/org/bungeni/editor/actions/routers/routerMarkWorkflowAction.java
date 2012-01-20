@@ -5,6 +5,8 @@
 
 package org.bungeni.editor.actions.routers;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.error.BungeniMsg;
@@ -23,9 +25,13 @@ public class routerMarkWorkflowAction extends defaultRouter {
         super();
     }
 
- @Override
-    public BungeniValidatorState route_TextSelectedInsert(toolbarAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
-       CommonRouterActions.displaySubActionDialog(action, subAction, pFrame, ooDocument, true);
+    // !+ACTION_RECONF (rm, jan 2012) - removed toolbarAction as var, class
+    // toolbarAction is deprecated
+    @Override
+    public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+        
+        CommonRouterActions.displaySubActionDialog(subAction, pFrame, ooDocument, true);
+        
        return new BungeniValidatorState(true, new BungeniMsg("SUCCESS")); 
     }
 

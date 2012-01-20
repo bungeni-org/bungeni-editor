@@ -24,13 +24,18 @@ public class routerCreateObservation extends defaultRouter {
         super();
         
     }
-    
+
+    // !+ACTION_RECONF (rm, jan 2012) - removed toolbarAction as var, class
+    // toolbarAction is deprecated
     @Override
-    public BungeniValidatorState route_TextSelectedInsert(toolbarAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+    //public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+    public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
      String newSectionName = "";
      routerApplyStyle ras = new routerApplyStyle();
      subAction.setActionValue("observation");
-     ras.route_TextSelectedInsert(action, subAction, pFrame, ooDocument);
+
+     //ras.route_TextSelectedInsert(action, subAction, pFrame, ooDocument);
+     ras.route_TextSelectedInsert(subAction, pFrame, ooDocument);
      
      newSectionName = CommonRouterActions.get_newSectionNameForAction(subAction, ooDocument);
          if (newSectionName.length() == 0 ) {

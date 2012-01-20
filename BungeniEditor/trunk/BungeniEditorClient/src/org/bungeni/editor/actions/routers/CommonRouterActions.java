@@ -45,12 +45,25 @@ public class CommonRouterActions {
     /** Creates a new instance of CommonRouterActions */
     public CommonRouterActions() {}
 
-    public static BungeniValidatorState displaySubActionDialog(toolbarAction action, toolbarSubAction subAction,
-            JFrame parentFrame, OOComponentHelper ooDocument, boolean alwaysOnTop) {
+        // public static BungeniValidatorState displaySubActionDialog(toolbarSubAction action, toolbarSubAction subAction,
+        //       JFrame parentFrame, OOComponentHelper ooDocument, boolean alwaysOnTop) {
+        public static BungeniValidatorState displaySubActionDialog(toolbarSubAction subAction,
+           JFrame parentFrame, OOComponentHelper ooDocument, boolean alwaysOnTop)  {
+
+        // get the parentAction from the sub action instance
+       // String pAction = subAction.parent_action_name();
+       // Class parentActionClass = Class.forName(pAction);
+
+        // !+ACTION_RECONF (rm, jan 2012) create instance of parent action from
+        // sub_parent_action using introspection
+       // toolbarSubAction parentAction = (toolbarSubAction) parentActionClass.newInstance();
+        
         BungeniValidatorState returnState = null;
 
         try {
-            displaySubActionFrameRunner dsfRunner = new displaySubActionFrameRunner(action, subAction, parentFrame,
+            // displaySubActionFrameRunner dsfRunner = new displaySubActionFrameRunner(action, subAction, parentFrame,
+            //                                            ooDocument, alwaysOnTop);
+            displaySubActionFrameRunner dsfRunner = new displaySubActionFrameRunner(subAction, parentFrame,
                                                         ooDocument, alwaysOnTop);
 
             javax.swing.SwingUtilities.invokeLater(dsfRunner);
@@ -93,12 +106,24 @@ public class CommonRouterActions {
     }
    **/
     
-    public static BungeniValidatorState displaySelectorDialog(toolbarAction action, toolbarSubAction subAction,
+    // public static BungeniValidatorState displaySelectorDialog(toolbarSubAction action, toolbarSubAction subAction,
+       //      JFrame parentFrame, OOComponentHelper ooDocument) {
+    public static BungeniValidatorState displaySelectorDialog(toolbarSubAction subAction,
             JFrame parentFrame, OOComponentHelper ooDocument) {
         BungeniValidatorState returnState = null;
 
+        // get the parentAction from the sub action instance
+        //String pAction = subAction.parent_action_name();
+        //Class parentActionClass = Class.forName(pAction);
+
+        // !+ACTION_RECONF (rm, jan 2012) create instance of parent action from
+        // sub_parent_action using introspection
+        //toolbarSubAction action = (toolbarSubAction) parentActionClass.newInstance();
+
         try {
-            displaySelectorFrameRunner dsfRunner = new displaySelectorFrameRunner(action, subAction, parentFrame,
+            // displaySelectorFrameRunner dsfRunner = new displaySelectorFrameRunner(action, subAction, parentFrame,
+            //                                            ooDocument);
+            displaySelectorFrameRunner dsfRunner = new displaySelectorFrameRunner(subAction, parentFrame,
                                                        ooDocument);
 
             javax.swing.SwingUtilities.invokeLater(dsfRunner);
@@ -111,9 +136,19 @@ public class CommonRouterActions {
         }
     }
 
-    public static BungeniValidatorState displayFilteredDialog(toolbarAction action, toolbarSubAction subAction,
+    // public static BungeniValidatorState displayFilteredDialog(toolbarSubAction action, toolbarSubAction subAction,
+    //         OOComponentHelper ooDocument) {
+    public static BungeniValidatorState displayFilteredDialog(toolbarSubAction subAction,
             OOComponentHelper ooDocument) {
         BungeniValidatorState returnState = null;
+
+        // get the parentAction from the sub action instance
+        //String pAction = subAction.parent_action_name();
+        //Class parentActionClass = Class.forName(pAction);
+
+        // !+ACTION_RECONF (rm, jan 2012) create instance of parent action from
+        // sub_parent_action using introspection
+        //toolbarSubAction action = (toolbarSubAction) parentActionClass.newInstance();
 
         try {
             log.debug("displayFilteredDialog: subAction name = " + subAction.sub_action_name());
@@ -129,7 +164,8 @@ public class CommonRouterActions {
             // initDebaterecord.setPreferredSize(new Dimension(420, 300));
             IDialogSelector panel = DialogSelectorFactory.getDialogClass(subAction.dialog_class());
 
-            panel.initObject(ooDocument, dlg, action, subAction);
+            // panel.initObject(ooDocument, dlg,  action, subAction);
+            panel.initObject(ooDocument, dlg,  subAction);
 
             // panel.setDialogMode(SelectorDialogModes.TEXT_INSERTION);
             // panel.setBackground(new Color(255, 255, 153));
@@ -288,15 +324,16 @@ public class CommonRouterActions {
     }
 
     static abstract class SwingRunner implements Runnable {
-        toolbarAction     action;
+        toolbarSubAction     action;
         OOComponentHelper ooDocument;
         JFrame            parentFrame;
         toolbarSubAction  subAction;
 
         public SwingRunner() {}
 
-        public SwingRunner(toolbarAction a, toolbarSubAction sa, JFrame pf, OOComponentHelper ooDoc) {
-            action      = a;
+        // public SwingRunner(toolbarSubAction pa, toolbarSubAction sa, JFrame pf, OOComponentHelper ooDoc) {
+        public SwingRunner( toolbarSubAction sa, JFrame pf, OOComponentHelper ooDoc) {
+            // action      = pa;
             subAction   = sa;
             parentFrame = pf;
             ooDocument  = ooDoc;
@@ -307,14 +344,17 @@ public class CommonRouterActions {
 
 
     static class displaySelectorFrameRunner extends SwingRunner {
-        public displaySelectorFrameRunner(toolbarAction a, toolbarSubAction sa, JFrame pf, OOComponentHelper ooDoc) {
-            super(a, sa, pf, ooDoc);
+        // public displaySelectorFrameRunner(toolbarSubAction a, toolbarSubAction sa, JFrame pf, OOComponentHelper ooDoc) {
+        public displaySelectorFrameRunner(toolbarSubAction sa, JFrame pf, OOComponentHelper ooDoc) {
+            // super(a, sa, pf, ooDoc);
+            super( sa, pf, ooDoc);
         }
 
         @Override
         public void run() {
             try {
-                String mainDialogClass = action.action_dialog_class();
+                //String mainDialogClass = action.action_dialog_class();
+                String mainDialogClass = action.dialog_class();
 
                 // sString subActionDialogClass = subAction.dialog_class();
                 IMetadataContainerPanel containerPanel = null;
@@ -404,9 +444,12 @@ public class CommonRouterActions {
     static class displaySubActionFrameRunner extends SwingRunner {
         boolean b_alwaysOnTop = false;
 
-        public displaySubActionFrameRunner(toolbarAction a, toolbarSubAction sa, JFrame pf, OOComponentHelper ooDoc,
+        // public displaySubActionFrameRunner(toolbarSubAction a, toolbarSubAction sa, JFrame pf, OOComponentHelper ooDoc,
+         //                                  boolean alwaysOnTop) {
+         public displaySubActionFrameRunner(toolbarSubAction sa, JFrame pf, OOComponentHelper ooDoc,
                                            boolean alwaysOnTop) {
-            super(a, sa, pf, ooDoc);
+            // super(a, sa, pf, ooDoc);
+            super(sa, pf, ooDoc);
             b_alwaysOnTop = alwaysOnTop;
         }
 

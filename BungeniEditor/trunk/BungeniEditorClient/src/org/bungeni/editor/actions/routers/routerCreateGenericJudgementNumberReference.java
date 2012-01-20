@@ -18,8 +18,12 @@ public class routerCreateGenericJudgementNumberReference extends defaultRouter {
     
     final String _referencePrefix_ = "numRef";
     final String _referenceNameSeparator_ = ":";
+
+    // !+ACTION_RECONF (rm, jan 2012) - removed toolbarAction as var, class
+    // toolbarAction is deprecated
     @Override
-    public BungeniValidatorState route_TextSelectedInsert(toolbarAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+    //public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+    public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
         int i = 1;
         String newRefNo  = _referencePrefix_ + _referenceNameSeparator_ + i;
         while (ooDocument.getReferenceMarks().hasByName(newRefNo) ) {
@@ -29,7 +33,11 @@ public class routerCreateGenericJudgementNumberReference extends defaultRouter {
         subAction.setActionValue(newRefNo);
         //chain the routerCreateReference to this..
         routerCreateReference rcf = new routerCreateReference();
-        BungeniValidatorState bvState = rcf.route_TextSelectedInsert(action, subAction, pFrame, ooDocument);
+
+        // !+ACTION_RECONF (rm, jan 2012) - removed the variable toolbarAction as var,
+        // class toolbarAction is deprecated
+        BungeniValidatorState bvState = rcf.route_TextSelectedInsert(subAction, pFrame, ooDocument);
+        // BungeniValidatorState bvState = rcf.route_TextSelectedInsert(subAction, pFrame, ooDocument);
         return bvState;
     }
 }

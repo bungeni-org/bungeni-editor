@@ -31,7 +31,11 @@ public class EditorSelectionActionHandler implements IEditorActionEvent {
     private static org.apache.log4j.Logger log         = Logger.getLogger(EditorSelectionActionHandler.class.getName());
     private ErrorMessages                  errorMsgObj = new ErrorMessages();
     private BungeniClientDB                dbSettings;
-    private toolbarAction                  m_parentAction;
+
+    // != ACTIoN_RECONF (rm, jan 2012) - toolbarAction has been deprecated
+    // private toolbarAction                  m_parentAction;
+    private toolbarSubAction                  m_parentAction;
+
     private toolbarSubAction               m_subAction;
     private OOComponentHelper              ooDocument;
     private JFrame                         parentFrame;
@@ -42,8 +46,11 @@ public class EditorSelectionActionHandler implements IEditorActionEvent {
                                          DefaultInstanceFactory.DEFAULT_DB());
     }
 
-    public void doCommand(OOComponentHelper ooDocument, toolbarAction action, JFrame c) {}
+   // public void doCommand(OOComponentHelper ooDocument, toolbarAction action, JFrame c) {}
 
+    // !+ADDED_COMMENTS
+    // this method executes the required action when a toolbar button
+    // is selected
     public void doCommand(OOComponentHelper ooDocument, toolbarSubAction action, JFrame c) {
 
         // the modes available are either text_select_insert or edit
@@ -72,7 +79,7 @@ public class EditorSelectionActionHandler implements IEditorActionEvent {
         }
     }
 
-    // !+ACTION_RECONF (rm, jan 2012) - kindly note that the table sub_action_settings is
+    // !+ACTION_RECONF (rm, jan 2012) - table sub_action_settings is
     // deprecated. it's fields and those of ACTION_SETTINGS have been combined into
     // ACTION_SETTINGS2
 
@@ -92,7 +99,13 @@ public class EditorSelectionActionHandler implements IEditorActionEvent {
 
         validatorObject = org.bungeni.editor.actions.validators.validatorFactory.getValidatorClass(m_subAction);
 
+        // !+ACTION_RECONF (rm, jan 2012) - toolbarAction has been deprecated, all functionality moved to
+        // subActionToolbar
+        /**
         BungeniValidatorState validState = validatorObject.check(this.m_parentAction, this.m_subAction,
+                                               this.ooDocument);
+        **/
+        BungeniValidatorState validState = validatorObject.check(this.m_subAction,
                                                this.ooDocument);
 
         return validState;
@@ -109,7 +122,10 @@ public class EditorSelectionActionHandler implements IEditorActionEvent {
 
         routerObject = routerFactory.getRouterClass(m_subAction);
 
-        BungeniValidatorState validState = routerObject.route(m_parentAction, m_subAction, parentFrame, ooDocument);
+        // !+ACTION_RECONF (rm, jan 2012) - editing line to deprecate use of
+        // toolbarAction
+        // BungeniValidatorState validState = routerObject.route(m_parentAction, m_subAction, parentFrame, ooDocument);
+        BungeniValidatorState validState = routerObject.route(m_subAction, parentFrame, ooDocument);
 
         return validState;
     }
@@ -118,9 +134,12 @@ public class EditorSelectionActionHandler implements IEditorActionEvent {
      * returns the parent toolbarAction object for a toolbarSubAction object
      * @return toolbarAction object or null if the parent cannot be deterimined
      */
-    private toolbarAction get_parentAction() {
+    // !+ACTION_RECONF (rm, jan 2012) - toolbarAction is deprecated
+    //private toolbarAction get_parentAction() {
+    private toolbarSubAction get_parentAction() {
         Vector<Vector<String>> resultRows = new Vector<Vector<String>>();
-        toolbarAction          action     = null;
+        toolbarSubAction          action     = null;
+        // toolbarAction          action     = null;
 
         try {
             String currentDocumentType = BungeniEditorProperties.getEditorProperty("activeDocumentMode");
@@ -147,7 +166,8 @@ public class EditorSelectionActionHandler implements IEditorActionEvent {
                 Vector<java.lang.String> tableRow = new Vector<java.lang.String>();
 
                 tableRow = resultRows.elementAt(0);
-                action   = new toolbarAction(tableRow, columns);
+                // action   = new toolbarAction(tableRow, columns);
+                action   = new toolbarSubAction(tableRow, columns);
             }
         } catch (Exception ex) {
             log.error("getParentSection: " + ex.getMessage());

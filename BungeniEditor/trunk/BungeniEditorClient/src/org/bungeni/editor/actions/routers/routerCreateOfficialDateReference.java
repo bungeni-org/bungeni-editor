@@ -16,9 +16,12 @@ public class routerCreateOfficialDateReference extends defaultRouter {
     public routerCreateOfficialDateReference(){
         super();
     }
-  
+
+    // !+ACTION_RECONF (rm, jan 2012) - removed toolbarAction as var, class
+    // toolbarAction is deprecated
     @Override
-    public BungeniValidatorState route_TextSelectedInsert(toolbarAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+    // public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+    public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
         HashMap<String,String> fromMap = new HashMap<String,String>(){
             {
                 put("DateRef","BungeniOfficialDate");

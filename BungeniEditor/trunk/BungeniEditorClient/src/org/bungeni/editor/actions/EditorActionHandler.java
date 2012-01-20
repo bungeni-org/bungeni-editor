@@ -17,6 +17,15 @@ import org.bungeni.extutils.MessageBox;
  *  Note : Some Handlers disable on AH-10-03-11
  * @author Ashok Hariharan
  */
+//#############################################
+//      !+ACTION_RECONF (rm, jan 20121)       #
+//              WARNING!                      #
+// THIS CLASS HAS BEEN DEPRECATED, ALL UNIQUE #
+// METHODS WITHIN IT HAVE BEEN IMPLEMENTED IN #
+// EDITORSELECTIONACTIONHANDLER.JAVA          #
+//#############################################
+
+
 public class EditorActionHandler implements IEditorActionEvent {
      private static org.apache.log4j.Logger log = Logger.getLogger(EditorActionHandler.class.getName());
      private OOComponentHelper ooDocument;

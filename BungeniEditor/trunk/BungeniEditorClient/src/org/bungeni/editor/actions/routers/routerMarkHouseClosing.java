@@ -35,9 +35,12 @@ public class routerMarkHouseClosing extends defaultRouter {
     String __ACTION_EVENT_ATTR_NAME__ = "BungeniActionEvent";
     String __REF_HOUSE_CLOSING_TIME__ = "BungeniHouseClosingTime";
     HashMap<String,String> actionEventMetadata = new HashMap<String,String>();
-    
+
+    // !+ACTION_RECONF (rm, jan 2012) - removed toolbarAction as var, class
+    // toolbarAction is deprecated
     @Override
-    public BungeniValidatorState route_TextSelectedInsert(toolbarAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame,OOComponentHelper ooDocument) {
+    public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction subAction, javax.swing.JFrame pFrame,OOComponentHelper ooDocument) {
+    // public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction subAction, javax.swing.JFrame pFrame,OOComponentHelper ooDocument) {
         BungeniValidatorState bvsRet = new BungeniValidatorState(true, new BungeniMsg("FAILURE"));
         try {
             //get current section 
@@ -50,12 +53,13 @@ public class routerMarkHouseClosing extends defaultRouter {
                     String sRefname = CommonDocumentUtilFunctions.getUniqueReferenceName(__REF_HOUSE_CLOSING_TIME__+":", ooDocument);
                     routerCreateReference rcf = new routerCreateReference();
                     subAction.setActionValue(sRefname);
-                    BungeniValidatorState bvs = rcf.route_TextSelectedInsert(action, subAction, pFrame, ooDocument);
+                    // BungeniValidatorState bvs = rcf.route_TextSelectedInsert(action, subAction, pFrame, ooDocument);
+                    BungeniValidatorState bvs = rcf.route_TextSelectedInsert(subAction, pFrame, ooDocument);
                     bvsRet = bvs;
                     
                 } else {
                     //popup dialog to select house rising time and set section metadata... 
-                    BungeniValidatorState stateObj = CommonRouterActions.displaySelectorDialog(action, subAction, pFrame, ooDocument);
+                    BungeniValidatorState stateObj = CommonRouterActions.displaySelectorDialog(subAction, pFrame, ooDocument);
                    // return new BungeniValidatorState(true, new BungeniMsg("SUCCESS")); 
                     bvsRet = stateObj;
                 }

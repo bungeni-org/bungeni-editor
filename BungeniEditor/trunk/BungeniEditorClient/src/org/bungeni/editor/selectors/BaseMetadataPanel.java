@@ -67,7 +67,7 @@ public abstract class BaseMetadataPanel extends JPanel implements IMetadataPanel
 
     private void createContext() {
         formContext = new BungeniFormContext();
-        getFormContext().setTheAction(getTheAction());
+        // getFormContext().setTheAction(getTheAction());
         getFormContext().setTheSubAction(getTheSubAction());
         getFormContext().setOoDocument(getOoDocument());
         getFormContext().setPreInsertMap(getThePreInsertMap());
@@ -136,9 +136,11 @@ public abstract class BaseMetadataPanel extends JPanel implements IMetadataPanel
         return getContainerPanel().getParentFrame();
     }
 
+    /**
     public toolbarAction getTheAction() {
         return getContainerPanel().getTheAction();
     }
+    **/
 
     public toolbarSubAction getTheSubAction() {
         return getContainerPanel().getTheSubAction();

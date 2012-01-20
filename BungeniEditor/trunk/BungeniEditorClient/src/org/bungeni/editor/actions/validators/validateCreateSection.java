@@ -27,9 +27,8 @@ public class validateCreateSection extends defaultValidator {
         super();
     }
 
-   
-
-    public BungeniValidatorState check_TextSelectedInsert(toolbarAction action, toolbarSubAction subAction, OOComponentHelper ooDocument) {
+    // !+ACTION_RECONF (rm, jan 2012) - removed toolbarAction as argument
+    public BungeniValidatorState check_TextSelectedInsert(toolbarSubAction subAction, OOComponentHelper ooDocument) {
         boolean bstate;
         //1st tier, root container check
         bstate= check_rootContainerExists(ooDocument);
@@ -40,14 +39,14 @@ public class validateCreateSection extends defaultValidator {
         //2nd tier validation ...check up the hierarchy
         //check if there is a current section, and if the section can be created in the current section
         String currentSectionname = ooDocument.currentSectionName();
-        bstate = check_containment(action, subAction, ooDocument, currentSectionname);
+        bstate = check_containment(subAction, ooDocument, currentSectionname);
         if (!bstate) {
             //if containment check fails return fals and fail
             return new BungeniValidatorState(false, new BungeniMsg("INVALID_SECTION_CONTAINER"));
         }
         //3rd tier validation
         //check if section already exists (only for single type section)
-        bstate = check_actionSectionExists(action, subAction, ooDocument);
+        bstate = check_actionSectionExists( subAction, ooDocument);
         if (bstate) {
             //check if action section exists... 
             //if it already exists, fail
@@ -67,8 +66,9 @@ public class validateCreateSection extends defaultValidator {
             return false;
         }
     }
-    
-    private boolean check_containment(toolbarAction action, toolbarSubAction subAction, OOComponentHelper ooDocument, String currentSectionname){
+
+    // !+ACTION_RECONF (rm, jan 2012) - removed toolbarAction as an arg
+    private boolean check_containment(toolbarSubAction subAction, OOComponentHelper ooDocument, String currentSectionname){
          boolean bstate = false;
          if (currentSectionname.equals(CommonPropertyFunctions.getDocumentRootSection())) {
                 //current section is the root section
@@ -142,8 +142,9 @@ public class validateCreateSection extends defaultValidator {
             return bstate;
         }
     } */
-    
-    private boolean check_actionSectionExists(toolbarAction action, toolbarSubAction subAction, OOComponentHelper ooDocument) {
+
+    // !+ACTION_RECONF (rm, jan 2012)- removed toolbarAction as argument
+    private boolean check_actionSectionExists(toolbarSubAction subAction, OOComponentHelper ooDocument) {
         if (subAction.section_numbering_convention().equals("single")) {
             if (ooDocument.hasSection(subAction.section_naming_convention())) {
                 return true;

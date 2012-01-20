@@ -23,14 +23,14 @@ public abstract class BaseRouterSelectorPanel extends JPanel implements IRouterS
     JFrame parentFrame;
     Window containerFrame;
     toolbarSubAction theSubAction;
-    toolbarAction theAction;
+    toolbarSubAction theAction;
     SelectorDialogModes theMode;
     
     public BaseRouterSelectorPanel(){
         //nothing to do
     }
     
-    public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarAction aAction, toolbarSubAction aSubAction, SelectorDialogModes dlgMode) {
+    public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarSubAction aAction, toolbarSubAction aSubAction, SelectorDialogModes dlgMode) {
         ooDocument = ooDoc;
         parentFrame = parentFrm;
         theAction = aAction;

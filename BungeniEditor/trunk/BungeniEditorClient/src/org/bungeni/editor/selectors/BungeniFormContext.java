@@ -25,8 +25,9 @@ import org.bungeni.ooo.ooDocMetadataFieldSet;
 public class BungeniFormContext  implements IBungeniFormContext{
     private static org.apache.log4j.Logger log = Logger.getLogger(BungeniFormContext.class.getName());
    
-    
-    private toolbarAction theAction;
+    // !+ACTION_RECONF (rm, jan 2012) - toolbarAction has been deprecated and all functionality
+    // moved to subActionToolbar
+    // private toolbarAction theAction;
     private toolbarSubAction theSubAction;
     private OOComponentHelper ooDocument;
     private IBungeniForm bungeniForm;
@@ -41,25 +42,29 @@ public class BungeniFormContext  implements IBungeniFormContext{
     public BungeniFormContext(){
         
     }
-    
-    public BungeniFormContext(OOComponentHelper ooDoc, 
-            toolbarAction ta, toolbarSubAction tsa, HashMap<String,Object> pim) {
+
+    // !+ACTION_RECONF  9Rm, jan 2012) - toolbarAction has been deprecated,
+    // functionality moved to subActionToolbar
+    // public BungeniFormContext(OOComponentHelper ooDoc,
+    //        toolbarAction ta, toolbarSubAction tsa, HashMap<String,Object> pim) {
+    public BungeniFormContext(OOComponentHelper ooDoc,
+             toolbarSubAction tsa, HashMap<String,Object> pim) {
         this.setOoDocument(ooDoc);
         this.setTheSubAction(tsa);
-        this.setTheAction(ta);
+       //  this.setTheAction(ta);
         this.setPreInsertMap(pim);
     }
-    
+
+    // !+ACTION_RECONF (rm, jan 2012) - toolbarAction class has been deprecated
+    /**
     public toolbarAction getTheAction() {
         return theAction;
     }
 
-
-    
-    
     public void setTheAction(toolbarAction theAction) {
         this.theAction = theAction;
     }
+    **/
 
     public toolbarSubAction getTheSubAction() {
         return theSubAction;

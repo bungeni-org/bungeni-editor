@@ -30,7 +30,7 @@ public abstract class routerCreateTabularMetadataReference_panel extends javax.s
     JFrame parentFrame;
     Window containerFrame;
     OOComponentHelper ooDocument;
-    toolbarAction theAction;
+    toolbarSubAction theAction;
     toolbarSubAction theSubAction;
     SelectorDialogModes dialogMode;
     TabularMetadataModel selectedRowModel ;
@@ -155,7 +155,8 @@ private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JTable tblRefMetadata;
     // End of variables declaration//GEN-END:variables
 
-    public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarAction aAction, toolbarSubAction aSubAction, SelectorDialogModes dlgMode) {
+    // !+ACTION_RECONF (rm, jan 2012) - aAction is parent to aSubAction
+    public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarSubAction aAction, toolbarSubAction aSubAction, SelectorDialogModes dlgMode) {
        parentFrame = parentFrm;
        ooDocument = ooDoc;
        theAction = aAction;

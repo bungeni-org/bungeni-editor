@@ -22,8 +22,10 @@ public interface IGenericSelectorPanel extends IGenericPanel {
     * @param aSubAction
     * @param dlgMode
     */
-   
-   public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarAction aAction, toolbarSubAction aSubAction, SelectorDialogModes dlgMode) ;
+   // !+ACTION_RECONF (rm, jan 2012)
+   // aAction => parentAction of aSubAction
+
+   public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarSubAction aAction, toolbarSubAction aSubAction, SelectorDialogModes dlgMode) ;
    /**
     * initialize() is always invoked after initVariables();
     */

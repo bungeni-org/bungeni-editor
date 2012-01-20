@@ -41,8 +41,12 @@ public class routerCreateReference extends defaultRouter {
            log.error("insertReferenceMark :" + ex.getMessage()); 
        }
    }
- @Override
-    public BungeniValidatorState route_TextSelectedInsert(toolbarAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+
+    // !+ ACTION_RECONF (rm, jan 2012) - removed toolbarAction as var, class
+    // toolbarAction is deprecated
+    @Override
+    // public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+    public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
       XTextViewCursor xCursor = ooDocument.getViewCursor();
       //subAction value has the reference name
       this.insertRefMark(ooDocument, xCursor, subAction.action_value());

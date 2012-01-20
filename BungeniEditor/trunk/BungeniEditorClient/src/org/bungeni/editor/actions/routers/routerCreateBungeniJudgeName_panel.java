@@ -36,7 +36,11 @@ public class routerCreateBungeniJudgeName_panel extends routerCreateTabularMetad
         }
         theSubAction.setActionValue(documentRefString);
         routerCreateReference rcf = new routerCreateReference();
-        BungeniValidatorState bvState = rcf.route_TextSelectedInsert(theAction, theSubAction, parentFrame, ooDocument);
+
+        // !+ACTION_RECONF (rm, jan 2012) - removed the action var, toolbarAction
+        // is deprecated
+        BungeniValidatorState bvState = rcf.route_TextSelectedInsert(theSubAction, parentFrame, ooDocument);
+        // BungeniValidatorState bvState = rcf.route_TextSelectedInsert(theSubAction, parentFrame, ooDocument);
         containerFrame.dispose();
     }
 

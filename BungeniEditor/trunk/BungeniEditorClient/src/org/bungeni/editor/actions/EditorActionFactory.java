@@ -7,7 +7,7 @@ import java.util.ArrayList;
  *
  * @author Administrator
  */
-public class EditorActionFactory extends Object {
+public class EditorActionFactory  {
       private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(EditorActionFactory.class.getName());
   
     /** Creates a new instance of EditorActionFactory */
@@ -26,7 +26,9 @@ public class EditorActionFactory extends Object {
              return eventHandler;
         }
     }
-    
+
+    // !+ACTION_RECONF (rm, jan 2012) - toolbarAction has been deprecated
+    /**
     public static IEditorActionEvent getEventClass(toolbarAction action) {
       IEditorActionEvent eventHandler = null;
        try {
@@ -40,9 +42,9 @@ public class EditorActionFactory extends Object {
              return eventHandler;
         }
     }
+    **/
     
-    
-       public static IEditorActionEvent getEventClass(ArrayList<String> action) {
+    public static IEditorActionEvent getEventClass(ArrayList<String> action) {
       IEditorActionEvent eventHandler = null;
        try {
              //log.debug("getEventClass: creating event class"+ action.action_class());

@@ -54,7 +54,7 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
      * this is the container JFrame
      */
     protected Window containerFrame;
-    protected toolbarAction theAction = null;
+    protected toolbarSubAction theAction = null;
     protected toolbarSubAction theSubAction = null;
     protected SelectorDialogModes dialogMode;
     protected SectionMetadataEditor sectionMetadataEditor = null;
@@ -130,9 +130,9 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
 
     private String getMetadataEditorString() {
         if (theSubAction != null) {
-            return "toolbarSubAction." + theAction.action_name() + "." + theSubAction.sub_action_name();
+            return "toolbarSubAction." + theSubAction.sub_action_name() + "." + theSubAction.sub_action_name();
         } else {
-            return "toolbarAction." + theAction.action_name();
+            return "toolbarAction." + theSubAction.sub_action_name();
         }
     }
 
@@ -195,7 +195,7 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
      * @param aSubAction
      * @param dlgMode
      */
-    public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarAction aAction, toolbarSubAction aSubAction, SelectorDialogModes dlgMode) {
+    public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarSubAction aAction, toolbarSubAction aSubAction, SelectorDialogModes dlgMode) {
         this.ooDocument = ooDoc;
         this.parentFrame = parentFrm;
         this.theAction = aAction;
@@ -547,10 +547,12 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
         return parentFrame;
     }
 
-    public toolbarAction getTheAction() {
+    /**
+    public toolbarSubAction getTheAction() {
         return theAction;
     }
-
+    **/
+    
     public toolbarSubAction getTheSubAction() {
         return theSubAction;
     }
@@ -646,7 +648,11 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
         //load the active panels for the current profile
         String currentActiveProfile = BungeniEditorPropertiesHelper.getActiveProfile();
         String sDocType = BungeniEditorPropertiesHelper.getCurrentDocType();
-        String sAction = this.theAction.action_name();
+
+        // get the parent action
+        // String sAction = this.theAction.sub_action_name();
+        String sAction = this.theSubAction.parent_action_name();
+         
         String sSubAction = this.theSubAction.sub_action_name();
         accquirePanels(sDocType, sAction, currentActiveProfile);
     }

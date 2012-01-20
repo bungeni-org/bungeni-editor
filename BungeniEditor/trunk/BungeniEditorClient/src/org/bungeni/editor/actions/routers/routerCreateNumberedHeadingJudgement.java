@@ -32,8 +32,11 @@ public class routerCreateNumberedHeadingJudgement extends defaultRouter {
      * This router action marks a heading as a numbered heading and write protects it after applying the associated style
      * apply_numbered_heading:style_name
      */
+    // !+ACTION_RECONF (rm, jan 2012) - removed toolbarAction as var, class
+    // toolbarAction is deprecated
     @Override
-    public BungeniValidatorState route_TextSelectedInsert(toolbarAction action, toolbarSubAction subAction,
+    //public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction action, toolbarSubAction subAction,
+    public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction subAction,
             javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
             //first get heading span
             String styleName = subAction.action_value();
@@ -54,8 +57,9 @@ public class routerCreateNumberedHeadingJudgement extends defaultRouter {
             routerCreateReference rcf = new routerCreateReference();
             //update the action value with the reference name
             subAction.setActionValue(newRefNo);
-            rcf.route_TextSelectedInsert(action, subAction, pFrame, ooDocument);
-            
+
+            //rcf.route_TextSelectedInsert(action, subAction, pFrame, ooDocument);
+            rcf.route_TextSelectedInsert(subAction, pFrame, ooDocument);
 
         return new BungeniValidatorState(true, new BungeniMsg("SUCCESS"));
     }

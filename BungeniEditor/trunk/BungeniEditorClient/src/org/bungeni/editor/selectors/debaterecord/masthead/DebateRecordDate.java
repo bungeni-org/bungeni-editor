@@ -367,7 +367,8 @@ public class DebateRecordDate extends BaseMetadataPanel {
        
   public String getNewSectionName() {
         String newSectionName ="";
-        if (getTheAction().action_type().equals("section")) {
+        // if (getTheAction().action_type().equals("section")) {
+        if (getTheSubAction().action_type().equals("section")) {
             if (getTheSubAction().section_numbering_convention().equals("single")) {
                 return getTheSubAction().section_naming_convention();
             } else {

@@ -30,15 +30,20 @@ public class routerCreateUniqueReference extends defaultRouter {
         super();
     }
     
-
- @Override
-    public BungeniValidatorState route_TextSelectedInsert(toolbarAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+    // !+ACTION_RECONF (rm, jan 2012) - removed toolbarAction as var, class
+    // toolbarAction is deprecated
+    @Override
+    // public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+    public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
         BungeniValidatorState bRet = new BungeniValidatorState(true, new BungeniMsg("FAILURE"));
         try {
         String uniqueReferenceName = CommonDocumentUtilFunctions.getUniqueReferenceName(subAction.action_value()+ ":", ooDocument);
         routerCreateReference rcf = new routerCreateReference();
         subAction.setActionValue(uniqueReferenceName);
-        BungeniValidatorState bvs = rcf.route_TextSelectedInsert(action, subAction, pFrame, ooDocument);
+        
+        BungeniValidatorState bvs = rcf.route_TextSelectedInsert(subAction, pFrame, ooDocument);
+        // BungeniValidatorState bvs = rcf.route_TextSelectedInsert(action, subAction, pFrame, ooDocument);
+
         bRet = bvs;
         } catch (Exception ex) {
             log.error("routerCreateUniqueReference : route_TextSelectedInsert : " + ex.getMessage());

@@ -28,7 +28,8 @@ public class routerMarkWorkflowAction_panel extends JPanel implements IRouterSel
     JFrame parentFrame;
     Window containerFrame;
     OOComponentHelper ooDocument;
-    toolbarAction theAction;
+    //toolbarAction theAction;
+    toolbarSubAction theAction;
     toolbarSubAction theSubAction;
     SelectorDialogModes dialogMode;
     
@@ -187,7 +188,8 @@ public void makeAndInsertReference(String actionType, Date actionDate){
         //substitute the subAction value with the documentRefstring as we are chaining to another router action to set the refereced
         theSubAction.setActionValue(documentRefString);
         routerCreateReference rcf = new routerCreateReference();
-        BungeniValidatorState bvState = rcf.route_TextSelectedInsert(theAction, theSubAction, parentFrame, ooDocument);
+        // BungeniValidatorState bvState = rcf.route_TextSelectedInsert(theAction, theSubAction, parentFrame, ooDocument);
+        BungeniValidatorState bvState = rcf.route_TextSelectedInsert(theSubAction, parentFrame, ooDocument);
 }
 
 private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -216,7 +218,7 @@ private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JLabel lblActionType;
     // End of variables declaration//GEN-END:variables
 
-    public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarAction aAction, toolbarSubAction aSubAction, SelectorDialogModes dlgMode) {
+    public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarSubAction aAction, toolbarSubAction aSubAction, SelectorDialogModes dlgMode) {
         this.ooDocument = ooDoc;
         this.parentFrame = parentFrm;
         this.theAction = aAction;

@@ -21,9 +21,10 @@ public class routerApplyStyle extends defaultRouter {
         super();
         
     }
-    
+
+    //!+ACTION_RECONF (rm, jan 2012) - removing toolbarAction var, deprecated
     @Override
-    public BungeniValidatorState route_TextSelectedInsert(toolbarAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame,OOComponentHelper ooDocument) {
+    public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction subAction, javax.swing.JFrame pFrame,OOComponentHelper ooDocument) {
       String styleName = subAction.action_value();
       boolean bState = ooDocument.setSelectedTextParaStyle(styleName);
       if (bState)
