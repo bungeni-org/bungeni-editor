@@ -392,4 +392,17 @@ public class SettingsQueryFactory {
        return query ;
     }
 
+    // !+ACTION_RECONF (rm, jan 2012) - added this method to determine the
+    // router class from the newly created ROUTER_CONFIGS table since the
+    // router_name rather than the router_class is now being stored in the
+    // ACTION_SETTINGS2 table
+    public static String Q_FETCH_ROUTER_CLASS(String router_name)
+    {
+        String query = "SELECT ROUTER_CLASS FROM ROUTER_CONFIGS "
+                + "where ROUTER_NAME ='"
+                + router_name
+                + "'";
+        
+        return query ;
+    }
 }
