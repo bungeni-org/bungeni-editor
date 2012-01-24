@@ -405,4 +405,12 @@ public class SettingsQueryFactory {
         
         return query ;
     }
+
+    public static String Q_FETCH_ROUTER(String routerName) {
+
+       String query = "  SELECT ROUTER_NAME, ROUTER_CLASS, ROUTER_DIALOG "
+               + "FROM ROUTER_CONFIGS WhERE routER_NAME ='"
+               + routerName + "'" ;
+               return query;
+    }
 }

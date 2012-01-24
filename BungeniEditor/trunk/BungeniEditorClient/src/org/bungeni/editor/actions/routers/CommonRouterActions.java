@@ -324,7 +324,6 @@ public class CommonRouterActions {
     }
 
     static abstract class SwingRunner implements Runnable {
-        toolbarSubAction     action;
         OOComponentHelper ooDocument;
         JFrame            parentFrame;
         toolbarSubAction  subAction;
@@ -353,8 +352,8 @@ public class CommonRouterActions {
         @Override
         public void run() {
             try {
-                //String mainDialogClass = action.action_dialog_class();
-                String mainDialogClass = action.dialog_class();
+                //!+(ACTION_RECONF, ah-23-01-2012) 
+                String mainDialogClass = this.subAction.dialog_class();
 
                 // sString subActionDialogClass = subAction.dialog_class();
                 IMetadataContainerPanel containerPanel = null;
@@ -368,13 +367,13 @@ public class CommonRouterActions {
                 }
 
                 // also calls setupPanels()
-                containerPanel.initVariables(ooDocument, parentFrame, action, subAction,
+                containerPanel.initVariables(ooDocument, parentFrame, subAction,
                                              subAction.getSelectorDialogMode());
                 containerPanel.initialize();
 
                 // Main m = new Main();
                 // m.initVariables(ooDoc, parentFrm, aAction, aSubAction, dlgMode);
-                javax.swing.JFrame f = new javax.swing.JFrame(action.action_display_text());
+                javax.swing.JFrame f = new javax.swing.JFrame(subAction.action_display_text());
 
                 containerPanel.setContainerFrame(f);
                 f.add(containerPanel.getPanelComponent());
@@ -466,13 +465,13 @@ public class CommonRouterActions {
                 }
 
                 // also calls setupPanels()
-                containerPanel.initVariables(ooDocument, parentFrame, action, subAction,
+                containerPanel.initVariables(ooDocument, parentFrame, subAction,
                                              subAction.getSelectorDialogMode());
                 containerPanel.initialize();
 
                 // Main m = new Main();
                 // m.initVariables(ooDoc, parentFrm, aAction, aSubAction, dlgMode);
-                javax.swing.JFrame f = new javax.swing.JFrame(action.action_display_text());
+                javax.swing.JFrame f = new javax.swing.JFrame(subAction.action_display_text());
 
                 containerPanel.setContainerFrame(f);
                 f.add(containerPanel.getPanelComponent());

@@ -20,6 +20,7 @@ package org.bungeni.editor.actions;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.extutils.CommonFileFunctions;
@@ -39,6 +40,14 @@ public class ActionsReader {
 
     private SAXBuilder saxBuilder ;
 
+    private HashMap<String,Document> cachedActions = new HashMap<String,Document>();
+
+    /**
+    private Document routerDocument = null;
+    **/
+    
+    private Document selectorDialogsDocument = null;
+
     private ActionsReader() {
         saxBuilder = new SAXBuilder("org.apache.xerces.parsers.SAXParser",
                         false);
@@ -52,34 +61,43 @@ public class ActionsReader {
         return thisInstance ;
     }
 
-    public Element getDocumentAction(String docType) throws JDOMException, IOException {
-        String docActionsFolder = BungeniEditorProperties.get("documentActionsFolderRoot");
-        String docActionsFile = CommonFileFunctions.convertRelativePathToFullPath(docActionsFolder) + File.separator + BungeniEditorPropertiesHelper.getCurrentDocType() + ".xml";
-        Document doc = saxBuilder.build(new File(docActionsFile));
-        XPath xPath = XPath.newInstance("//actions[@for='" + docType + "']");
-        return (Element) xPath.selectSingleNode(doc);
+    public Element getDocumentActionByName(String actionName) throws JDOMException, IOException {
+       String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
+       if (!this.cachedActions.containsKey(docType)) {
+            String docActionsFolder = BungeniEditorProperties.get("documentActionsFolderRoot");
+            String docActionsFile = CommonFileFunctions.convertRelativePathToFullPath(docActionsFolder) + File.separator + docType + ".xml";
+            this.cachedActions.put(docType, saxBuilder.build(new File(docActionsFile)));
+        }
+        XPath xPath = XPath.newInstance("//actions[@for='" + docType + "']/action[@name='"+actionName+"']");
+        return (Element) xPath.selectSingleNode(this.cachedActions.get(docType));
+
     }
 
 
-    public  Element getRouter(String routerName) throws JDOMException, IOException {
-        XPath xPath = XPath.newInstance("//route[@name='"+ routerName+ "']");
-        Element foundNode = (Element) xPath.selectSingleNode(getRouters());
-        return foundNode;
+    public  Element getRouter(String actionName) throws JDOMException, IOException {
+        Element actionElement = getDocumentActionByName(actionName);
+        Element actionRouter = actionElement.getChild("router");
+        return actionRouter;
     }
 
+     /**
     public Document getRouters() throws JDOMException, IOException {
-        String actionsFolder = BungeniEditorProperties.get("actionsFolderRoot");
-        String routerFile = CommonFileFunctions.convertRelativePathToFullPath(actionsFolder) + File.separator + "routers.xml";
-        Document doc = saxBuilder.build(new File(routerFile));
-        return doc;
-        
+        if (this.routerDocument == null) {
+            String actionsFolder = BungeniEditorProperties.get("actionsFolderRoot");
+            String routerFile = CommonFileFunctions.convertRelativePathToFullPath(actionsFolder) + File.separator + "routers.xml";
+            this.routerDocument  = saxBuilder.build(new File(routerFile));
+        }
+        return this.routerDocument;
     }
+    **/
 
     public Document getSelectorDialogs() throws JDOMException, IOException {
-        String actionsFolder = BungeniEditorProperties.get("actionsFolderRoot");
-        String dialogFile = CommonFileFunctions.convertRelativePathToFullPath(actionsFolder) + File.separator + "selector_dialogs.xml";
-        Document doc = saxBuilder.build(new File(dialogFile));
-        return doc;
+        if (this.selectorDialogsDocument == null) {
+            String actionsFolder = BungeniEditorProperties.get("actionsFolderRoot");
+            String dialogFile = CommonFileFunctions.convertRelativePathToFullPath(actionsFolder) + File.separator + "selector_dialogs.xml";
+            this.selectorDialogsDocument = saxBuilder.build(new File(dialogFile));
+        }
+        return this.selectorDialogsDocument;
     }
 
     public Element getSelectorDialog (String parentDialog) throws JDOMException, IOException {

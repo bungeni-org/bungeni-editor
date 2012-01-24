@@ -9,9 +9,12 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -25,6 +28,7 @@ import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.editor.BungeniOOoLayout;
+import org.bungeni.editor.actions.ActionsReader;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.panels.impl.ITabbedPanel;
 import org.bungeni.editor.panels.factory.TabbedPanelFactory;
@@ -49,6 +53,8 @@ import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonStringFunctions;
 import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.ooo.ooDocMetadata;
+import org.jdom.Element;
+import org.jdom.JDOMException;
 
 /**
  * This is a single class since there is only 1 tabbed panel allowed in the system
@@ -496,33 +502,29 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
             String metaEditorString = currentSec.get(SectionMetadataEditor.MetaEditor);
             BungeniToolbarTargetProcessor btp = new BungeniToolbarTargetProcessor(metaEditorString);
             String documentType = BungeniEditorPropertiesHelper.getCurrentDocType();
-            //create the subAction object out of the settings metadata
-            BungeniClientDB instance = new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
-            instance.Connect();
-            String actionQuery = SettingsQueryFactory.Q_FETCH_SUB_ACTIONS(documentType, btp.actionName, btp.subActionName);
-            //   log.info("processSelection: "+ actionQuery);
-            QueryResults qr = instance.QueryResults(actionQuery);
-            instance.EndConnect();
-            if (qr == null) {
-                log.info("launchSectionMetadataEditor : queryResults :" + actionQuery + " were null, metadata incorrectly setup");
-                return;
-            }
-            if (qr.hasResults()) {
-                //this should return only a single toolbarSubAction
-                //create the subAction object here
-                toolbarSubAction subActionObj = new toolbarSubAction(qr.theResults().elementAt(0), qr.columnNameMap());
-                if (!CommonStringFunctions.emptyOrNull(btp.actionValue)) {
-                    subActionObj.setActionValue(btp.actionValue);
-                }
-                subActionObj.setSelectorDialogMode(SelectorDialogModes.TEXT_EDIT);
-                IEditorActionEvent event = EditorActionFactory.getEventClass(subActionObj);
-                if (event != null) {
-                    event.doCommand(ooDocument, subActionObj, parentFrame());
+            Element subActionElement = null;
+            try {
+                //create the subAction object out of the settings metadata
+                subActionElement = ActionsReader.getInstance().getDocumentActionByName(btp.getSubActionName());
+       
+                if (subActionElement != null) {
+                    toolbarSubAction subActionObj = new toolbarSubAction(subActionElement);
+                    if (!CommonStringFunctions.emptyOrNull(btp.getActionValue())) {
+                        subActionObj.setActionValue(btp.getActionValue());
+                    }
+                    subActionObj.setSelectorDialogMode(SelectorDialogModes.TEXT_EDIT);
+                    IEditorActionEvent event = EditorActionFactory.getEventClass(subActionObj);
+                    if (event != null) {
+                        event.doCommand(ooDocument, subActionObj, parentFrame());
+                    } else {
+                        log.error("launchSectionMetadataEditor : no IEditorActionEvent object was created for " + subActionObj.sub_action_name());
+                    }
                 } else {
-                    log.info("launchSectionMetadataEditor : no IEditorActionEvent object was created for " + subActionObj.sub_action_name());
+                    log.error("subActionElement was null ! ");
                 }
-            }
-
+            } catch (Exception ex) {
+               log.error("unable to initialize subAction or failed while setting up toolbarSubAction " , ex);
+            } 
         }
     }
 

@@ -1,19 +1,5 @@
-/*
- * routerFactory.java
- *
- * Created on March 10, 2008, 5:40 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 package org.bungeni.editor.actions.routers;
 
-import java.util.Vector;
-import org.bungeni.db.BungeniClientDB;
-import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.db.QueryResults;
-import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.editor.actions.toolbarSubAction;
 
 /**
@@ -29,6 +15,9 @@ public class routerFactory {
 
     // !+ACTION_RECONF (rm, jan 2012)- this method obtains the name for the 
     // router_class
+       // !+ACTION_RECONF (ah, 24-01-2012) -
+    // The the router class is available directly on the toolbarSubAction object !
+    /*
     private static String getRouterClassName(String router_class_name) {
 
         String routerClassName = null  ;
@@ -47,7 +36,7 @@ public class routerFactory {
             return  res.elementAt(0);
         }
         return routerClassName ;
-    }
+    } */
     
     /** Creates a new instance of routerFactory */
     public routerFactory() {
@@ -62,7 +51,7 @@ public class routerFactory {
 
              // get the router class from the ROUTER_CONFIGS table
              // and use for instantiation
-             String routerClassName = getRouterClassName(subAction.router_class());
+             String routerClassName = subAction.router_class();
 
              if(null == routerClassName)
              {

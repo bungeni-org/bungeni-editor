@@ -12,7 +12,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.error.BungeniValidatorState;
@@ -29,7 +28,6 @@ public class routerMarkWorkflowAction_panel extends JPanel implements IRouterSel
     Window containerFrame;
     OOComponentHelper ooDocument;
     //toolbarAction theAction;
-    toolbarSubAction theAction;
     toolbarSubAction theSubAction;
     SelectorDialogModes dialogMode;
     
@@ -218,10 +216,9 @@ private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JLabel lblActionType;
     // End of variables declaration//GEN-END:variables
 
-    public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarSubAction aAction, toolbarSubAction aSubAction, SelectorDialogModes dlgMode) {
+    public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarSubAction aSubAction, SelectorDialogModes dlgMode) {
         this.ooDocument = ooDoc;
         this.parentFrame = parentFrm;
-        this.theAction = aAction;
         this.theSubAction = aSubAction;
         this.dialogMode = dlgMode;
     }

@@ -12,9 +12,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPopupMenu;
@@ -27,6 +30,7 @@ import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
+import org.bungeni.editor.actions.ActionsReader;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.editor.actions.EditorActionFactory;
 import org.bungeni.editor.actions.IEditorActionEvent;
@@ -41,7 +45,10 @@ import org.bungeni.editor.panels.toolbar.scrollPanel;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.editor.toolbar.target.BungeniToolbarTargetProcessor;
 import org.bungeni.editor.toolbar.conditions.BungeniToolbarConditionProcessor;
+import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.ooo.OOComponentHelper;
+import org.jdom.Element;
+import org.jdom.JDOMException;
 
 /**
  * This is the floating panel implementation for the Editor's action bar
@@ -101,7 +108,7 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
         this.initDB();
         this.initToolbarTabs();
         this.initMouseListener();
-        this.initUIAttributes();
+        //this.initUIAttributes();
     }
 
     
@@ -386,73 +393,38 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
 
     
 
-      
+       private toolbarSubAction __processTarget(BungeniToolbarTargetProcessor targetObj) {
+            String documentType = BungeniEditorPropertiesHelper.getCurrentDocType();
+            //instance.Connect();
+             Element subActionElement = null;
+             toolbarSubAction subActionObj = null;
+            try {
+                    subActionElement = ActionsReader.getInstance().getDocumentActionByName(targetObj.getSubActionName());
+
+                if (subActionElement != null) {
+                    subActionObj = new toolbarSubAction(subActionElement);
+                    subActionObj.setActionValue(targetObj.getActionValue());
+                } else {
+                    log.error("subActionElement was null !");
+                }
+             } catch (Exception ex) {
+                log.error("Unable to create subActionElement or toolbarSubAction !", ex);
+            }
+             return subActionObj;
+       }
 
         private toolbarSubAction processSelection(BungeniToolbarTargetProcessor targetObj) {
-
-            String documentType = BungeniEditorProperties.getEditorProperty("activeDocumentMode");
-            instance.Connect();
-            String actionQuery = SettingsQueryFactory.Q_FETCH_SUB_ACTIONS(documentType, targetObj.actionName, targetObj.subActionName);
-            log.info("processSelection: " + actionQuery);
-            QueryResults qr = instance.QueryResults(actionQuery);
-            instance.EndConnect();
-            if (qr == null) {
-                log.info("processSelection : queryResults :" + actionQuery + " were null, metadata incorrectly setup");
-                return null;
-            }
-            if (qr.hasResults()) {
-                //this should return only a single toolbarSubAction
-                toolbarSubAction subActionObj = new toolbarSubAction(qr.theResults().elementAt(0), qr.columnNameMap());
-                subActionObj.setActionValue(targetObj.actionValue);
-                return subActionObj;
-            } else {
-                log.info("processSelection : queryResults :" + actionQuery + " were null, metadata incorrectly setup");
-                return null;
-            }
+            return this.__processTarget(targetObj);
         }
 
         private toolbarSubAction processInsertion(BungeniToolbarTargetProcessor targetAction) {
-            // BungeniToolbarTargetProcessor targetObject = new BungeniToolbarTargetProcessor()
-            String documentType = BungeniEditorProperties.getEditorProperty("activeDocumentMode");
-
-
-            instance.Connect();
-            String actionQuery = SettingsQueryFactory.Q_FETCH_ACTION_BY_NAME(documentType, targetAction.actionName);
-            QueryResults qr = instance.QueryResults(SettingsQueryFactory.Q_FETCH_ACTION_BY_NAME(documentType, targetAction.actionName));
-            instance.EndConnect();
-            if (qr == null) {
-                log.info("toolbar: processInsertion: the metadata has been setup incorrectly for action :" + targetAction.actionName);
-                return null;
-            }
-            if (qr.hasResults()) {
-                return new toolbarSubAction(qr.theResults().elementAt(0), qr.columnNameMap());
-            } else {
-                log.info("toolbar: processInsertion: the metadata has been setup incorrectly for action :" + targetAction.actionName);
-                return null;
-            }
+            return this.__processTarget(targetAction);
         }
 
 
     }
 
-    private void initUIAttributes() {
-        //set scroolbar widths
-        /**** fix this
-        Dimension dimScrollbarVer = new Dimension(10,0);
-        Color bgColor = new Color(0xffffe5);
-        this.scrollToolbarTree.getVerticalScrollBar().setPreferredSize(dimScrollbarVer);
-        this.scrollTreeView.getVerticalScrollBar().setPreferredSize(dimScrollbarVer);
-        this.scrollToolbarTree.getVerticalScrollBar().setBackground(bgColor);
-        this.scrollTreeView.getVerticalScrollBar().setBackground(bgColor);
-
-
-        Dimension dimScrollbarHor = new Dimension(0,10);
-        this.scrollToolbarTree.getHorizontalScrollBar().setPreferredSize(dimScrollbarHor);
-        this.scrollTreeView.getHorizontalScrollBar().setPreferredSize(dimScrollbarHor);
-        this.scrollToolbarTree.getHorizontalScrollBar().setBackground(bgColor);
-        this.scrollTreeView.getHorizontalScrollBar().setBackground(bgColor);
-         */
-    }
+    
     JPopupMenu sectionStructureMenu;
     private static HashMap<String, String> POPUP_ACTIONS = new HashMap<String, String>() {
 

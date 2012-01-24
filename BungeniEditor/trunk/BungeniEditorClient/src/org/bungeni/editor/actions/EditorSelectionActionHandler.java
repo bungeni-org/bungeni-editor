@@ -34,7 +34,9 @@ public class EditorSelectionActionHandler implements IEditorActionEvent {
 
     // != ACTIoN_RECONF (rm, jan 2012) - toolbarAction has been deprecated
     // private toolbarAction                  m_parentAction;
-    private toolbarSubAction                  m_parentAction;
+   // !+ACTION_RECONF(ah, 24-01-2012) -- deprecated along with get_parentaction() method,
+   //possibly not required !
+    //  private toolbarSubAction                  m_parentAction;
 
     private toolbarSubAction               m_subAction;
     private OOComponentHelper              ooDocument;
@@ -57,9 +59,11 @@ public class EditorSelectionActionHandler implements IEditorActionEvent {
         this.ooDocument     = ooDocument;
         this.parentFrame    = c;
         this.m_subAction    = action;
+        // !+ACTION_RECONF(ah, 24-01-2012) -- deprecated along with get_parentaction() method,
+        /*
         this.m_parentAction = get_parentAction();
         this.m_parentAction.setSelectorDialogMode(action.getSelectorDialogMode());
-
+        */
         int nValid = -1;
 
         // BungeniMessage theMessage ;
@@ -136,7 +140,10 @@ public class EditorSelectionActionHandler implements IEditorActionEvent {
      */
     // !+ACTION_RECONF (rm, jan 2012) - toolbarAction is deprecated
     //private toolbarAction get_parentAction() {
+    /*
     private toolbarSubAction get_parentAction() {
+
+        
         Vector<Vector<String>> resultRows = new Vector<Vector<String>>();
         toolbarSubAction          action     = null;
         // toolbarAction          action     = null;
@@ -174,7 +181,7 @@ public class EditorSelectionActionHandler implements IEditorActionEvent {
         } finally {
             return action;
         }
-    }
+    }*/
 
     public void doCommand(OOComponentHelper ooDocument, ArrayList<String> action, JFrame parentFrame) {}
 }

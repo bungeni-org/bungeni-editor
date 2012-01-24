@@ -54,7 +54,6 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
      * this is the container JFrame
      */
     protected Window containerFrame;
-    protected toolbarSubAction theAction = null;
     protected toolbarSubAction theSubAction = null;
     protected SelectorDialogModes dialogMode;
     protected SectionMetadataEditor sectionMetadataEditor = null;
@@ -195,10 +194,9 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
      * @param aSubAction
      * @param dlgMode
      */
-    public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarSubAction aAction, toolbarSubAction aSubAction, SelectorDialogModes dlgMode) {
+    public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarSubAction aSubAction, SelectorDialogModes dlgMode) {
         this.ooDocument = ooDoc;
         this.parentFrame = parentFrm;
-        this.theAction = aAction;
         this.theSubAction = aSubAction;
         this.dialogMode = dlgMode;
         setupPanels();

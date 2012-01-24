@@ -2,14 +2,15 @@ package org.bungeni.editor.actions;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.io.IOException;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.util.HashMap;
-import java.util.Vector;
 import org.bungeni.editor.document.DocumentSection;
 import org.bungeni.editor.document.DocumentSectionsContainer;
+import org.jdom.Element;
+import org.jdom.JDOMException;
 
 /**
  *
@@ -33,12 +34,10 @@ public class toolbarSubAction {
     //private String                         action_type;
     
     private String                         action_value;
-    
-    private String                         dialog_class;
+
     private String                         doc_type;
     private String                         parent_action_name;
-    private String                         router_class;
-    private String                         sub_action_name;
+    private String                         actionName;
 
     // !+ACTION_RECONF (rm, jan 2012) - deprecating variable since the
     // field it maps to in the SUB_ACTIONS_SETTINGS table is dropped
@@ -48,7 +47,7 @@ public class toolbarSubAction {
     // field it maps to in the SUB_ACTIONS_SETTINGS table is dropped
     // private String                         sub_action_state;
     private String                         sub_section_type;
-   
+    private DocumentSection                textSection ;
     private String                         validator_class;
     private String                         section_naming_convention;
     private String                         section_numbering_convention;
@@ -57,8 +56,101 @@ public class toolbarSubAction {
     // !+ACTION_RECONF (rm, jan 2012) - these variables are added from toolBarAction
     private String        action_type;
     //~------------------------------------------------------------------------
+
+
+    private actionRouter                   router;
+
+    /**
+    <router name="debaterecord.markup_motion_title.makeProcMotionBlockSection"
+    class="org.bungeni.editor.actions.routers.routerApplyStyle"
+    dialog= "org.bungeni.editor.selectors.debaterecord.motions.MotionSelect"
+    />
+     **/
+    public class actionRouter {
     
+        private String name ;
+        private String router_class;
+        private String dialog_class;
+
+        public actionRouter(String actionName ) throws JDOMException, IOException, Exception {
+            Element routerElement = ActionsReader.getInstance().getRouter(actionName);
+            if (routerElement != null) {
+                    name = routerElement.getAttributeValue("name");
+                    router_class = routerElement.getAttributeValue("class");
+                    dialog_class = routerElement.getAttributeValue("dialog");
+            } else
+                throw new Exception("Router Element not created, getRouter returned null !");
+        }
+
+        public String getName() {
+            return this.name;
+        }
+        public String getRouterClass() {
+            return this.router_class;
+        }
+        public String getDialogClass() {
+            return this.dialog_class;
+        }
+    }
+
+
+    public toolbarSubAction (Element actionElement) throws JDOMException, IOException, Exception {
+
+        this.actionName     = actionElement.getAttributeValue("name");
+
+        // !+ACTION_CONFIG (rm,jan 2012) - deprecating statement since the field that
+        // the variable maps to in the db is deprecated
+        //this.sub_action_order    = (String) safeGet(actionDesc, action_mapping, "SUB_ACTION_ORDER");
+
+        this.doc_type            =  actionElement.getParentElement().getAttributeValue("for");
+
+        this.action_type = actionElement.getAttributeValue("type");
+
+        this.parent_action_name  = actionElement.getAttributeValue("parent");
+
+        this.action_display_text = actionElement.getChild("title").getValue();
+
+        // !+ACTION_RECONF (rm, jan 2012) - Setting the action_class var to a
+        // value at declaration, rather than obtained from db at run time
+        // this.action_class        = (String) safeGetString(actionDesc, action_mapping, "ACTION_CLASS");
+        this.action_class = "org.bungeni.editor.actions.EditorSelectionActionHandler" ;
+
+        // !+ACTION_RECONF (rm, jan 2012) - Setting the validator class to a
+        // value at declaration, rather than obtained from the db at run time
+        //this.validator_class     = (String) safeGetString(actionDesc, action_mapping, "VALIDATOR_CLASS");
+        this.validator_class     = actionElement.getAttributeValue("validator");
+        //this.validator_class     = "org.bungeni.editor.actions.validators.defaultValidator";
+
+        //this.router_class        = (String) safeGetString(actionDesc, action_mapping, "ROUTER_CLASS");
+
+        //this.dialog_class        = (String) safeGetString(actionDesc, action_mapping, "DIALOG_CLASS");
+        this.router = new actionRouter(this.actionName);
+        //this.sub_section_type    = (String) safeGetString(actionDesc, action_mapping, "SECTION_TYPE");
+        this.sub_section_type    = actionElement.getAttributeValue("sectiontype");
+
+        if (this.sub_section_type.length() > 0 ) {
+            DocumentSection associatedSection = DocumentSectionsContainer.getDocumentSectionByType(this.sub_section_type);
+            if (associatedSection != null ) {
+                this.textSection = associatedSection;
+                this.section_naming_convention = associatedSection.getSectionNamePrefix();    
+                this.section_numbering_convention = associatedSection.getSectionNumberingStyle();    
+             } else {
+                this.section_naming_convention = "" ;
+                this.section_numbering_convention = "" ;
+             }
+        } else {
+              this.section_naming_convention = "" ;
+              this.section_numbering_convention = "" ;
+        }
+        
+    }
+
     /** Creates a new instance of toolbarSubAction */
+    /** !+ACTION_RECONF(ah-23-01-2012) Deprecated the original constructor, switching to use
+     * JDOM ELEMENT constructor
+     * @param actionDesc
+     * @param action_mapping
+    
     public toolbarSubAction(Vector<String> actionDesc, HashMap action_mapping) {
 
         // !+ACTION_RECONF (rm, jan 2012) - changing the names of the fields
@@ -98,10 +190,11 @@ public class toolbarSubAction {
         //this.validator_class     = "org.bungeni.editor.actions.validators.defaultValidator";
 
         //this.router_class        = (String) safeGetString(actionDesc, action_mapping, "ROUTER_CLASS");
-        this.router_class        = (String) safeGetString(actionDesc, action_mapping, "ACTION_ROUTER_NAME");
+        this.action_router_name        = (String) safeGetString(actionDesc, action_mapping, "ACTION_ROUTER_NAME");
 
         //this.dialog_class        = (String) safeGetString(actionDesc, action_mapping, "DIALOG_CLASS");
-        this.dialog_class        = (String) safeGetString(actionDesc, action_mapping, "ACTION_DIALOG_CLASS");
+
+        this.dialog_class        =   getDialogClass(this.action_router_name);
 
         //this.sub_section_type    = (String) safeGetString(actionDesc, action_mapping, "SECTION_TYPE");
         this.sub_section_type    = (String) safeGetString(actionDesc, action_mapping, "ACTION_SECTION_TYPE");
@@ -119,23 +212,21 @@ public class toolbarSubAction {
               this.section_naming_convention = "" ;
               this.section_numbering_convention = "" ;
         }
-        /*
-        String sProfiles = (String) safeGetString(actionDesc, action_mapping, "PROFILES");
-
-        this.profiles = sProfiles.split(",");
-
-        for (int i = 0; i < profiles.length; i++) {
-            profiles[i] = profiles[i].trim();
-        }*/
 
        // buildCommandChain((String) safeGet(actionDesc, action_mapping, "COMMAND_CHAIN"));
     }
+    **/
 
+    
     @Override
     public String toString() {
         return this.action_display_text();
     }
 
+    /**
+     *
+     * !+ACTION_RECONF(ah, jan-2012) deprecated becase of switch to xml based action configurations
+     *
     private String safeGetString(Vector<String> actions, HashMap map, String key) {
         Object o = null;
 
@@ -170,7 +261,7 @@ public class toolbarSubAction {
             return null;
         }
     }
-
+    **/
    
 
     public String doc_type() {
@@ -182,7 +273,7 @@ public class toolbarSubAction {
     }
 
     public String sub_action_name() {
-        return sub_action_name;
+        return actionName;
     }
 
     public String action_class() {
@@ -197,21 +288,12 @@ public class toolbarSubAction {
     }
     **/
     
-    // !+ACTION_RECONF (rm, jan 2012) - deprecating method since field
-    // SUB_ACTION_STATE is unused
-    /**
-    public String sub_action_state() {
-        return sub_action_state;
-    }
-    **/
 
     // !+ACTION_RECONF (rm, jan 2012) - deprecating method since field
-    // ACTION_TYPE in ACTION_SETTINGS is dropped
-    /**
+ 
     public String action_type() {
         return action_type;
     }
-    **/
     
     public String action_display_text() {
         return action_display_text;
@@ -223,13 +305,6 @@ public class toolbarSubAction {
         return this.validator_class;
     }
 
-    public String router_class() {
-        return this.router_class;
-    }
-
-    public String dialog_class() {
-        return this.dialog_class;
-    }
 
     public String action_value() {
         return this.action_value;
@@ -243,8 +318,16 @@ public class toolbarSubAction {
         return this.section_naming_convention;
     }
 
-        public String section_numbering_convention(){
+   public String section_numbering_convention(){
         return this.section_numbering_convention;
+    }
+
+    public String dialog_class() {
+        return this.router.getDialogClass();
+    }
+
+    public String router_class() {
+        return this.router.getRouterClass();
     }
 /*
     public String[] profiles() {
@@ -275,11 +358,7 @@ public class toolbarSubAction {
         return theMode;
     }
 
-    //~------------------------------------------------------------------------
-    // !+ACTION_RECONF (rm, jan 2012) - these methods were added from toolbar action
-    public String action_type(){
-        return this.action_type;
-    }
+
 
     // !+ACTION_RECONF (rm, jan 2012) - action_name variable has
     // been changed to sub_action_name
@@ -292,4 +371,6 @@ public class toolbarSubAction {
         }
     }
     //~-------------------------------------------------------------------------
+
+
 }
