@@ -74,7 +74,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </subaction>
                 <action name="Speech.create" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateSpeechBlockSection.section_creation"
+                    target="create_speech"
                     visible="true" 
                     condition="textSelected:true :and: 
                                 !cursorInSection:speech[0-9]*">

@@ -179,7 +179,7 @@
 />
 <router name="debaterecord.section_creation.makeDebateSpeechBlockSection"
     class="org.bungeni.editor.actions.routers.routerDebateRecordSelectSpeech"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog= "org.bungeni.editor.selectors.debaterecord.speech.Main"
 />
 <router name="debaterecord.speech_as.makeDebateSpeechBlockSection"
     class="org.bungeni.editor.actions.routers.routerCreateSpeechAsReference"
