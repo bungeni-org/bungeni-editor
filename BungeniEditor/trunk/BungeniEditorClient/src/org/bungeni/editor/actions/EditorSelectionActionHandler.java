@@ -126,7 +126,7 @@ public class EditorSelectionActionHandler implements IEditorActionEvent {
 
         routerObject = routerFactory.getRouterClass(m_subAction);
 
-        // !+ACTION_RECONF (rm, jan 2012) - editing line to deprecate use of
+            // !+ACTION_RECONF (rm, jan 2012) - editing line to deprecate use of
         // toolbarAction
         // BungeniValidatorState validState = routerObject.route(m_parentAction, m_subAction, parentFrame, ooDocument);
         BungeniValidatorState validState = routerObject.route(m_subAction, parentFrame, ooDocument);
