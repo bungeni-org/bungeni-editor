@@ -63,7 +63,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <subaction name="Heading.MinStatement" 
                     tooltip="Heading for ministerial statement"
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeCommunicationAction.apply_style:heading_mstatement"
+                    target="markup_communication_heading:heading_mstatement"
                     visible="true"
                     condition="cursorInSection:mstatemnt[0-9]* :and: 
                                 textSelected:true">
@@ -86,7 +86,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
 
                  <action name="Speech.listitem"
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateSpeechBlockSection.char_style:an-list-item"
+                    target="make_speech_block_section"
                     visible="true"
                     condition="textSelected:true :and:
                                 cursorInSection:speech[0-9]*,spbody[0-9]*">
@@ -98,7 +98,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
 
                 <action name="Speech.SpeechBy" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateSpeechBlockSection.speech_by" 
+                    target="speech_by" 
                     visible="true"
                     condition="textSelected:true :and:
                                 cursorInSection:speech[0-9]*">
@@ -110,7 +110,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
   
                 <action name="Speech.SpeechBody" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateSpeechBlockSection.speech_body" 
+                    target="make_speech_block_section"
                     visible="true"
                     condition="textSelected:true :and:
                                cursorInSection:speech[0-9]* :and:
@@ -123,7 +123,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <!-- markup a list item number in a speech, these action target names need to rationalized -->
                 <action name="Speech.body.item_number"
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateQuestionBlockSection.markup_question_no"
+                    target="markup_question_no"
                     visible="true"
                     condition="textSelected:true :and: 
                     cursorInSection:spbody[0-9]*">
@@ -141,7 +141,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <title xml:lang="eng">communication</title>
                 <subaction name="Communication.fromTheChair" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeCommunicationAction.section_creation"
+                    target="create_communication_section"
                     visible="true" 
                     condition="cursorInSection:debaterecord :and: 
                               textSelected:true">
@@ -152,7 +152,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </subaction>
                 <subaction name="Heading.Communication.fromTheChair" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeCommunicationAction.apply_style:heading_comchair"
+                    target="markup_communication_heading:heading_comchair"
                     visible="true" 
                     condition="cursorInSection:comnctn[0-9]* :and: 
                                 textSelected:true">
@@ -163,7 +163,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </subaction>
                 <subaction name="Communication.pointOfOrder" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makePointOfOrder.section_creation" 
+                    target="create_point_of_order"
                     visible="true"
                     condition="cursorInSection:debaterecord :and: 
                                 textSelected:true">
@@ -174,7 +174,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </subaction>
                 <subaction name="Heading.Communication.pointOfOrder" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makePointOfOrder.apply_style:heading_pointoforder"
+                    target="create_point_of_order_heading:heading_pointoforder"
                     visible="true" 
                     condition="cursorInSection:porder[0-9]* :and: 
                                 textSelected:true">
@@ -193,7 +193,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     visible="true"
                     condition="sectionNotExists:debaterecord :and: textSelected:true"
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateMastheadSection.create_root_section:debaterecord">
+                    target="create_mast_head_section:debaterecord">
                     <title xml:lang="eng">create root section</title>
                     <tooltip xml:lang="eng">
                         Add root section to the Document
@@ -202,7 +202,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
 
                 <action name="Observation.create" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeObservationAction.section_creation" 
+                    target="create_observation_section"
                     visible="true"
                     condition="textSelected:true">
                     <title xml:lang="eng">observation</title>
@@ -222,7 +222,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and: 
                                 !cursorInSection:actionevt[0-9]* :and: cursorInSection:questions[0-9]*"
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeActionEvent.section_creation:QuestionProposed">
+                    target="make_action_event:QuestionProposed">
                     <title xml:lang="eng">question proposed</title>
                     <tooltip xml:lang="eng">
                         Mark event : Question Proposed
@@ -233,7 +233,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and: 
                                 !cursorInSection:actionevt[0-9]* :and: cursorInSection:questions[0-9]*"
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeActionEvent.section_creation:QuestionAccepted">
+                    target="makeActionEvent:QuestionAccepted">
                     <title xml:lang="eng">question accepted</title>
                     <tooltip xml:lang="eng">
                         Mark event : Question Accepted
@@ -244,7 +244,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and: 
                                 !cursorInSection:actionevt[0-9]* :and: cursorInSection:questions[0-9]*"
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeActionEvent.section_creation:QuestionWithdrawn">
+                    target="makeActionEvent:QuestionWithdrawn">
                     <title xml:lang="eng">question withdrawn</title>
                     <tooltip xml:lang="eng">
                         Mark event : Question Withdrawn
@@ -255,7 +255,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and: 
                                 !cursorInSection:actionevt[0-9]* :and: cursorInSection:questions[0-9]*"
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeActionEvent.section_creation:QuestionDeferred">
+                    target="makeActionEvent:QuestionDeferred">
                     <title xml:lang="eng">question deferred</title>
                     <tooltip xml:lang="eng">
                         Mark event : Question Deferred
@@ -266,7 +266,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and: 
                                 !cursorInSection:actionevt[0-9]* :and: cursorInSection:noticesmotion[0-9]*"
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeActionEvent.section_creation:DebateInterruption">
+                    target="makeActionEvent:DebateInterruption">
                     <title xml:lang="eng">debate interruption</title>
                     <tooltip xml:lang="eng">
                         Mark event : Debate Interruption
@@ -277,7 +277,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and: 
                                 !cursorInSection:actionevt[0-9]* :and: cursorInSection:noticesmotion[0-9]*"
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeActionEvent.section_creation:DebateResumption">
+                    target="makeActionEvent:DebateResumption">
                     <title xml:lang="eng">debate resumption</title>
                     <tooltip xml:lang="eng">
                         Mark event : Debate Resumption
@@ -288,7 +288,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and: 
                                 !cursorInSection:actionevt[0-9]*"
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeActionEvent.section_creation:BillFirstReading">
+                    target="makeActionEvent:BillFirstReading">
                     <title xml:lang="eng">bill 1st reading</title>
                     <tooltip xml:lang="eng">
                         Mark Event : Bill 1st Reading
@@ -299,7 +299,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and: 
                                 !cursorInSection:actionevt[0-9]*"
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeActionEvent.section_creation:BillSecondReading">
+                    target="makeActionEvent:BillSecondReading">
                     <title xml:lang="eng">bill 2nd reading</title>
                     <tooltip xml:lang="eng">
                         Mark Event : Bill 2nd Reading
@@ -310,7 +310,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and: 
                                 !cursorInSection:actionevt[0-9]*"
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeActionEvent.section_creation:BillThirdReading">
+                    target="makeActionEvent:BillThirdReading">
                     <title xml:lang="eng">bill 3nd reading</title>
                     <tooltip xml:lang="eng">
                         Mark Event : Bill 3rd Reading
@@ -335,7 +335,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <subaction name="Masthead.selection"
                     tooltip="Select some text to mark it up as a Part" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateMastheadSection.section_creation"
+                    target="create_debate_mast_head_section"
                     visible="true"
                     condition="cursorInSection:debaterecord :and: 
                                 textSelected:true :and: 
@@ -347,7 +347,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </subaction>
                 <subaction name="Masthead.heading" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateMastheadSection.markup_preface_heading:heading_preface"
+                    target="markup_preface_heading:heading_preface"
                     visible="true" 
                     condition="cursorInSection:preface :and: 
                                 textSelected:true">
@@ -358,7 +358,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </subaction>
                 <subaction name="Masthead.subheading" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateMastheadSection.markup_preface_heading:subheading_preface"
+                    target="markup_preface_heading:subheading_preface"
                     visible="true" 
                     condition="cursorInSection:preface :and: 
                                 textSelected:true">
@@ -370,7 +370,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <subaction name="Masthead.selection.logo"
                     tooltip="Select some text to mark it up as a preface logo"
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateMastheadSection.markup_logo:main_logo"
+                    target="markup_logo:main_logo"
                     visible="true" 
                     condition="imageSelectedIsNot:main_logo">
                     <title xml:lang="eng">---- logo</title>
@@ -381,7 +381,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <subaction name="Masthead.selection.date"
                     tooltip="Markup Official Date"
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateMastheadSection.markup_official_date"
+                    target="markup_official_date"
                     visible="true" 
                     condition="cursorInSection:preface :and: 
                                  textSelected:true">
@@ -399,7 +399,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <title xml:lang="eng">papers laid</title>
                 <action name="Papers.new" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makePapersLaidBlockSection.section_creation"
+                    target="create_papers_laid_block"
                     visible="true" 
                     condition="textSelected:true :and: 
                                 cursorInSection:debaterecord">
@@ -410,7 +410,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </action>
                 <action name="Papers.heading" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makePapersLaidBlockSection.markup_papers_heading:heading_papers"
+                    target="markup_papers_heading:heading_papers"
                     visible="true" 
                     condition="textSelected:true :and: 
                                 cursorInSection:papers[0-9]*">
@@ -421,7 +421,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </action>
                 <action name="Papers.subheading" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makePapersLaidBlockSection.markup_papers_heading:subheading_papers"
+                    target="markup_papers_heading:subheading_papers"
                     visible="true" 
                     condition="textSelected:true :and: 
                                 cursorInSection:papers[0-9]*">
@@ -432,7 +432,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </action>
                 <action name="Papers.doclist" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makePapersLaidListSection.section_creation"
+                    target="make_papers_laid_list_section"
                     visible="true" 
                     condition="textSelected:true :and: 
                                 cursorInSection:papers[0-9]*">
@@ -443,7 +443,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </action>
                 <action name="Papers.select" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makePapersLaidBlockSection.select_documents"
+                    target="select_tabled_documents"
                     visible="true" 
                     condition="cursorInSection:tbldocs[0-9]*">
                     <title xml:lang="eng">---- -- import listing</title>
@@ -453,7 +453,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </action>
                 <action name="Papers.selectSingle" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makePapersLaidMarkupSingle.markup_doc_link"
+                    target="markup_doc_link"
                     visible="true" 
                     condition="textSelected:true :and: 
                                 cursorInSection:tbldocs[0-9]*">
@@ -467,7 +467,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </action>
                 <action name="Papers.selectSingleData" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makePapersLaidDataEntry.markup_doc_link" 
+                    target="markup_doc_link" 
                     visible="true"
                     condition="textSelected:true :and: 
                                 cursorInSection:tbldocs[0-9]*">
@@ -485,7 +485,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <title xml:lang="eng">notices of motions</title>
                 <action name="MotionsGroup.new" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateMotionGroupSection.section_creation"
+                    target="create_motion_group"
                     visible="true" 
                     condition="textSelected:true :and: 
                                 cursorInSection:debaterecord">
@@ -496,7 +496,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </action>
                 <action name="AllMotions.heading" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateMotionBlockSection.markup_motion_title:heading_noticesofmotion"
+                    target="markup_motion_title:heading_noticesofmotion"
                     visible="true"
                     condition="textSelected:true :and: 
                                 cursorInSection:noticesmotion[0-9]*">
@@ -507,7 +507,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </action>
                 <action name="Motions.new" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateMotionBlockSection.section_creation"
+                    target="create_debate_block_section"
                     visible="true"
                     condition="textSelected:true :and: 
                                 cursorInSection:noticesmotion[0-9]*">
@@ -518,7 +518,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </action>
                 <action name="Motions.new" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateMotionBlockSectionEdit.section_creation"
+                    target="create_debate_motion_block"
                     visible="true"
                     condition="textSelected:true :and: 
                                 cursorInSection:noticesmotion[0-9]*">
@@ -529,7 +529,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </action>
                 <action name="Motions.heading" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateMotionBlockSection.markup_motion_title:heading_motion"
+                    target="markup_motion_title:heading_motion"
                     visible="true"
                     condition="textSelected:true :and: 
                                 cursorInSection:noticeofmotion[0-9]*">
@@ -540,7 +540,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </action>
                 <action name="Motions.subheading" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateMotionBlockSection.markup_motion_title:subheading_motion"
+                    target="markup_motion_title:subheading_motion"
                     visible="true"
                     condition="textSelected:true :and: 
                                 cursorInSection:noticeofmotion[0-9]*">
@@ -552,7 +552,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <!---org.bungeni.editor.selectors.debaterecord.committees.Main == missing -->
                 <action name="Motions.markCommittee" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeSelectCommittee.markup_committee" 
+                    target="markup_committee" 
                     visible="true"
                     condition="textSelected:true :and: 
                                 cursorInSection:noticeofmotion[0-9]*">
@@ -564,7 +564,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <!-- org.bungeni.editor.selectors.debaterecord.bills.Main == missing -->
                 <action name="Motions.markBill" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeSelectBill.markup_bill" 
+                    target="markup_bill" 
                     visible="true"
                     condition="textSelected:true :and: 
                                 cursorInSection:noticeofmotion[0-9]*">
@@ -583,7 +583,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <title xml:lang="eng">procedural motions</title>
                 <action name="MotionsGroup.new" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeProcMotionGroupSection.section_creation"
+                    target="make_proc_section"
                     visible="true" 
                     condition="textSelected:true :and: cursorInSection:debaterecord">
                     <title xml:lang="eng">motions section</title>
@@ -593,7 +593,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </action>
                 <action name="AllMotions.heading" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeProcMotionBlockSection.markup_motion_title:heading_procmotions"
+                    target="markup_motion_title:heading_procmotions"
                     visible="true"
                     condition="textSelected:true :and: 
                                 cursorInSection:procmotions[0-9]*">
@@ -604,7 +604,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </action>
                 <action name="Motions.new" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeProcMotionBlockSection.section_creation"
+                    target="make_procedural_motion_section"
                     visible="true"
                     condition="textSelected:true :and: 
                                 cursorInSection:procmotions[0-9]*">
@@ -615,7 +615,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </action>
                 <action name="Motions.heading" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeProcMotionBlockSection.markup_motion_title:heading_motion"
+                    target="markup_motion_title:heading_motion"
                     visible="true"
                     condition="textSelected:true :and: 
                                 cursorInSection:procmotion[0-9]*">
@@ -626,7 +626,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </action>
                 <action name="Motions.subheading" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeProcMotionBlockSection.markup_motion_title:subheading_motion"
+                    target="markup_motion_title:subheading_motion"
                     visible="true"
                     condition="textSelected:true :and: 
                                 cursorInSection:procmotion[0-9]*">
@@ -645,7 +645,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <!-- create a narrative -->
                 <action name="Question.narrative"
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeObservationAction.narrative"
+                    target="make_narrative_section"
                     visible="true"
                     condition="textSelected:true :and:
                                 !cursorInSection:debaterecord :and:
@@ -658,7 +658,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <!--creates a question container -->
                 <action name="QuestionsGroup.new" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateQuestionGroupSection.section_creation"
+                    target="make_debate_question_group_section"
                     visible="true" 
                     condition="textSelected:true :and: 
                                 cursorInSection:debaterecord">
@@ -673,7 +673,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </action>
                 <action name="Questions.heading0" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateQuestionBlockSection.apply_questiontext_style:heading_allquestions"
+                    target="apply_questiontext_style:heading_allquestions"
                     visible="true"
                     condition="textSelected:true :and: 
                                 cursorInSection:questions[0-9]*.">
@@ -685,7 +685,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <!-- pops up a selector dialog for a questions - creates a questionanswer container -->
                 <action name="Questions.new" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateQuestionBlockSection.section_creation"
+                    target="make_debate_section_question"
                     visible="true"
                     condition="textSelected:true :and: 
                                 cursorInSection:questions[0-9]*">
@@ -701,7 +701,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </action>
                 <action name="Questions.new" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateQuestionBlockSectionEdit.section_creation"
+                    target="create_question_section"
                     visible="true"
                     condition="textSelected:true :and: 
                                 cursorInSection:questions[0-9]*">
@@ -720,7 +720,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                  <!-- markup text as question no. -->
                 <action name="Questions.question_number"
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateQuestionBlockSection.markup_question_no"
+                    target="markup_question_no"
                     visible="true"
                     condition="textSelected:true :and: 
                                 cursorInSection:qa[0-9]*">
@@ -731,7 +731,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </action>
                 <action name="Questions.heading1" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateQuestionBlockSection.apply_questiontext_style:heading_question"
+                    target="apply_questiontext_style:heading_question"
                     visible="true" 
                     condition="textSelected:true :and: 
                                 cursorInSection:qa[0-9]*.">
@@ -742,7 +742,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </action>
                 <action name="Questions.subheading" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateQuestionBlockSection.apply_questiontext_style:subheading_question"
+                    target="apply_questiontext_style:subheading_question"
                     visible="true" 
                     condition="textSelected:true :and: 
                                 cursorInSection:qa[0-9]*.">
@@ -753,7 +753,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </action>
                 <action name="QuestionsSection.Q.new" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateQuestionSection.section_creation"
+                    target="make_debate_section_section"
                     visible="true"
                     condition="textSelected:true :and: 
                                 cursorInSection:qa[0-9]* :and: 
@@ -770,7 +770,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <!-- markup question bodyy-->
                 <action name="Questions.body.markup" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateQuestionBlockSection.question_body"
+                    target="make_question_body_section"
                     visible="true" 
                     condition="textSelected:true :and: 
                     cursorInSection:sque[0-9]*">
@@ -788,7 +788,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <!-- markup question by-->
                 <action name="Questions.by.markup" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateQuestionBlockSection.markup_question_by"
+                    target="markup_question_by"
                     visible="true" 
                     condition="textSelected:true :and: 
                                 cursorInSection:quebody[0-9]*">
@@ -800,7 +800,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 
                 <action name="Questions.spoken_question.item_number"
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateQuestionBlockSection.markup_question_no"
+                    target="markup_question_no"
                     visible="true"
                     condition="textSelected:true :and: 
                     cursorInSection:quebody[0-9]*">
@@ -812,7 +812,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
 
                 <action name="Question.listitem"
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeDebateSpeechBlockSection.char_style:an-list-item"
+                    target="make_speech_block_section:an-list-item"
                     visible="true"
                     condition="textSelected:true :and:
                                 cursorInSection:quebody[0-9]*,sque[0-9]*,qa[0-9]*">
@@ -842,7 +842,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <title xml:lang="eng">adjournment</title>
                 <action name="Conclusion.create" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeConclusionSection.section_creation" 
+                    target="make_adjournment_section"
                     visible="true"
                     condition="cursorInSection:debaterecord :and: 
                                 textSelected:true">
@@ -851,7 +851,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </action>
                 <action name="Conclusion.markHouseClosing" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeConclusionSection.mark_house_closing"
+                    target="mark_house_closing"
                     visible="true" 
                     condition="cursorInSection:concl[0-9]* :and: 
                                 textSelected:true">

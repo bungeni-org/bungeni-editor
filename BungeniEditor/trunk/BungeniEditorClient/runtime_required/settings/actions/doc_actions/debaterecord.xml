@@ -190,7 +190,7 @@
         router="debaterecord.apply_questiontext_style.makeDebateQuestionBlockSection" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">mark the selected text with a style</title>
     </action>
-    <action name="make_point_of_order_section"  type="" parent="makePointOfOrder"
+    <action name="create_point_of_order_heading"  type="" parent="makePointOfOrder"
         router="debaterecord.apply_style.makePointOfOrder" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">Create Porde heading</title>
         <router class="org.bungeni.editor.actions.routers.routerApplyStyle"
@@ -249,7 +249,7 @@
     <action name="create_ministerial_statement"  type="" parent="makeMinisterialStatement"
         router="debaterecord.section_creation.makeMinisterialStatement" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">Create a Ministerial Statement</title>
-        <router class=" org.bungeni.editor.actions.routers.routerCreateSection"
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
             dialog=""
         />
     </action>
@@ -402,7 +402,7 @@
             dialog="org.bungeni.editor.selectors.InitBillPreface"
         />
     </action>
-    <action name="make_debate_mast_head_section"  type="" parent="makeDebateMastheadSection"
+    <action name="create_debate_mast_head_section"  type="" parent="makeDebateMastheadSection"
         router="debaterecord.section_creation.makeDebateMastheadSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create masthead section</title>
     </action>
@@ -420,7 +420,7 @@
             dialog="org.bungeni.editor.selectors.debaterecord.conclusion.HouseClosingTime"
         />
     </action>
-    <action name="make_cocnclusion_section"  type="" parent="makeConclusionSection"
+    <action name="make_adjournment_section"  type="" parent="makeConclusionSection"
         router="debaterecord.section_creation.makeConclusionSection" sectiontype="Conclusion" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create a conclusion section</title>
         <router class="org.bungeni.editor.actions.routers.routerMarkHouseClosing"
@@ -515,7 +515,7 @@
             dialog="org.bungeni.editor.selectors.debaterecord.question.QuestionSelect"
         />
     </action>
-    <action name="make_observation_section"  type="" parent="makeObservationAction"
+    <action name="create_observation_section"  type="" parent="makeObservationAction"
         router="debaterecord.section_creation.makeObservationAction" sectiontype="Observation" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create an observation section</title>
         <router class="org.bungeni.editor.actions.routers.routerCreateObservation"
@@ -557,7 +557,7 @@
             dialog=""
         />
     </action>
-    <action name="make_debate_block_section"  type="" parent="makeDebateMotionBlockSection"
+    <action name="create_debate_block_section"  type="" parent="makeDebateMotionBlockSection"
         router="debaterecord.section_creation.makeDebateMotionBlockSection" sectiontype="NoticeOfMotion" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create a motion section</title>
         <router class="org.bungeni.editor.actions.routers.routerMotionSelectMotion"
@@ -571,7 +571,7 @@
             dialog="org.bungeni.editor.selectors.debaterecord.motions.MotionSelect"
         />
     </action>
-    <action name="section_creation"  type="" parent="makeDebateMotionBlockSectionEdit"
+    <action name="create_debate_motion_block"  type="" parent="makeDebateMotionBlockSectionEdit"
         router="debaterecord.section_creation.makeDebateMotionBlockSectionEdit" sectiontype="NoticeOfMotion" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create a motion sectipn</title>
         <router class="org.bungeni.editor.actions.routers.routerMotionSelectMotion"
