@@ -3,483 +3,483 @@
 <routers>
     <router name="debaterecord.markup_motion_title.makeProcMotionBlockSection"
     class="org.bungeni.editor.actions.routers.routerApplyStyle"
-    dialog= "org.bungeni.editor.selectors.debaterecord.motions.MotionSelect"
+    dialog="org.bungeni.editor.selectors.debaterecord.motions.MotionSelect"
 />
 <router name="debaterecord.section_creation.makePointOfOrder"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= " "
+    dialog=" "
 />
 <router name="debaterecord.markup_heading.general_action"
     class=" org.bungeni.editor.actions.routers.routerApplyStyle"
-    dialog= ""
+    dialog=""
 />
 <router name="debaterecord.markup_question_no.makeDebateQuestionBlockSection"
     class="org.bungeni.editor.actions.routers.routerCreateQuestionReference"
-    dialog= "org.bungeni.editor.selectors.debaterecord.question.QuestionSelect"
+    dialog="org.bungeni.editor.selectors.debaterecord.question.QuestionSelect"
 />
 <router name="debaterecord.markup_question_by.makeDebateQuestionBlockSection"
     class="org.bungeni.editor.actions.routers.routerCreateQuestionByReference"
-    dialog= "org.bungeni.editor.selectors.debaterecord.question.QuestionSelect"
+    dialog="org.bungeni.editor.selectors.debaterecord.question.QuestionSelect"
 />
 <router name="debaterecord.markup_question_to.makeDebateQuestionBlockSection"
     class="org.bungeni.editor.actions.routers.routerCreateQuestionToReference"
-    dialog= "org.bungeni.editor.selectors.debaterecord.question.QuestionSelect"
+    dialog="org.bungeni.editor.selectors.debaterecord.question.QuestionSelect"
 />
 <router name="debaterecord.apply_questiontext_style.makeDebateQuestionBlockSection"
     class="org.bungeni.editor.actions.routers.routerApplyStyle"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="debaterecord.apply_style.makePointOfOrder"
     class="org.bungeni.editor.actions.routers.routerApplyStyle"
-    dialog= ""
+    dialog=""
 />
 <router name="debaterecord.mark_as_action.makeAdjournmentAction"
     class="org.bungeni.editor.actions.routers.routerMarkAsAction"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="debaterecord.mark_as_action.makeNoticeOfMotionAction"
     class="org.bungeni.editor.actions.routers.routerMarkAsAction"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="debaterecord.mark.makeMetadataReference"
     class="org.bungeni.editor.actions.routers.routerCreateUniqueReference"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="bill.create_sidenote.makeBillGeneralAction"
     class="org.bungeni.editor.actions.routers.routerCreateSidenote"
-    dialog= "org.bungeni.editor.actions.routers.routerCreateSideNote_panel"
+    dialog="org.bungeni.editor.actions.routers.routerCreateSideNote_panel"
 />
 <router name="debaterecord.markup_motion_title.makeDebateMotionBlockSection"
     class="org.bungeni.editor.actions.routers.routerApplyStyle"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="judgement.mark.makeMetadataReference"
     class="org.bungeni.editor.actions.routers.routerCreateUniqueReference"
-    dialog= ""
+    dialog=""
 />
 <router name="debaterecord.markup_doc_link.makePapersLaidMarkupSingle"
     class="org.bungeni.editor.actions.routers.routerTabledDocuments"
-    dialog= ""
+    dialog=""
 />
 <router name="debaterecord.create_root_section.general_action"
     class="org.bungeni.editor.actions.routers.routerCreateRoot"
-    dialog= ""
+    dialog=""
 />
 <router name="debaterecord.markup_doc_link.makePapersLaidDataEntry"
     class="org.bungeni.editor.actions.routers.routerTabledDocuments"
-    dialog= ""
+    dialog=""
 />
 <router name="debaterecord.section_creation.makeMinisterialStatement"
     class=" org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= ""
+    dialog=""
 />
 <router name="debaterecord.section_creation.makeActionEvent"
     class="org.bungeni.editor.actions.routers.routerCreateEvent"
-    dialog= " "
+    dialog=" "
 />
 <router name="debaterecord.markup_committee.makeSelectCommittee"
     class="org.bungeni.editor.actions.routers.routerSelectCommittee"
-    dialog= "org.bungeni.editor.selectors.debaterecord.committees.Committees"
+    dialog="org.bungeni.editor.selectors.debaterecord.committees.Committees"
 />
 <router name="debaterecord.markup_bill.makeSelectBill"
     class=" org.bungeni.editor.actions.routers.routerSelectBill"
-    dialog= "org.bungeni.editor.selectors.debaterecord.bills.Bills"
+    dialog="org.bungeni.editor.selectors.debaterecord.bills.Bills"
 />
 <router name="debaterecord.section_creation.makePersonalStatement"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= ""
+    dialog=""
 />
 <router name="debaterecord.section_creation.makePapersLaidListSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= ""
+    dialog=""
 />
 <router name="debaterecord.section_creation.makeDebateQuestionSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= "org.bungeni.editor.selectors.debaterecord.question.QuestionSelect"
+    dialog="org.bungeni.editor.selectors.debaterecord.question.QuestionSelect"
 />
 <router name="debaterecord.apply_style.makePaperSection"
     class="org.bungeni.editor.actions.routers.routerApplyStyle"
-    dialog= "org.bungeni.editor.selectors.InitPapers"
+    dialog="org.bungeni.editor.selectors.InitPapers"
 />
 <router name="debaterecord.import_tabled_documents.makePaperSection"
     class="org.bungeni.editor.actions.routers.routerTabledDocuments"
-    dialog= "org.bungeni.editor.selectors.InitPapers"
+    dialog="org.bungeni.editor.selectors.InitPapers"
 />
 <router name="debaterecord.section_creation.makePaperSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= "org.bungeni.editor.selectors.InitPapers"
+    dialog="org.bungeni.editor.selectors.InitPapers"
 />
 <router name="debaterecord.section_creation.makeQASection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= "org.bungeni.editor.selectors.InitQASection"
+    dialog="org.bungeni.editor.selectors.InitQASection"
 />
 <router name="debaterecord.section_creation.makeQuestionBlockSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= "org.bungeni.editor.selectors.InitQuestionBlock"
+    dialog="org.bungeni.editor.selectors.InitQuestionBlock"
 />
 <router name="debaterecord.debatedate_entry.makePrayerSection"
     class="org.bungeni.editor.actions.routers.routerDebateDateEntry"
-    dialog= "org.bungeni.editor.selectors.InitDebateRecord"
+    dialog="org.bungeni.editor.selectors.InitDebateRecord"
 />
 <router name="debaterecord.debatetime_entry.makePrayerSection"
     class="org.bungeni.editor.actions.routers.routerDebateTimeEntry"
-    dialog= "org.bungeni.editor.selectors.InitDebateRecord"
+    dialog="org.bungeni.editor.selectors.InitDebateRecord"
 />
 <router name="debaterecord.markup_logo.makePrayerSection"
     class="org.bungeni.editor.actions.routers.routerMarkupLogo"
-    dialog= "org.bungeni.editor.selectors.InitDebateRecord"
+    dialog="org.bungeni.editor.selectors.InitDebateRecord"
 />
 <router name="debaterecord.section_creation.makePrayerSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= "org.bungeni.editor.selectors.InitDebateRecord"
+    dialog="org.bungeni.editor.selectors.InitDebateRecord"
 />
 <router name="debaterecord.char_style.makeDebateMastheadSection"
     class="org.bungeni.editor.actions.routers.routerApplyCharStyle"
-    dialog= ""
+    dialog=""
 />
 <router name="debaterecord.create_root_section.makeDebateMastheadSection"
     class="org.bungeni.editor.actions.routers.routerCreateRoot"
-    dialog= ""
+    dialog=""
 />
 <router name="debaterecord.debatedate.makeDebateMastheadSection"
     class="org.bungeni.editor.actions.routers.routerDebateRecordDateEntry"
-    dialog= "org.bungeni.editor.selectors.debaterecord.masthead.DebateRecordDate"
+    dialog="org.bungeni.editor.selectors.debaterecord.masthead.DebateRecordDate"
 />
 <router name="debaterecord.debatetime.makeDebateMastheadSection"
     class="org.bungeni.editor.actions.routers.routerDebateRecordTimeEntry"
-    dialog= "org.bungeni.editor.selectors.debaterecord.masthead.DebateRecordTime"
+    dialog="org.bungeni.editor.selectors.debaterecord.masthead.DebateRecordTime"
 />
 <router name="debaterecord.markup_logo.makeDebateMastheadSection"
     class="org.bungeni.editor.actions.routers.routerMarkupLogo"
-    dialog= "org.bungeni.editor.selectors.debaterecord.masthead.DebateRecordLogo"
+    dialog="org.bungeni.editor.selectors.debaterecord.masthead.DebateRecordLogo"
 />
 <router name="debaterecord.markup_preface_heading.makeDebateMastheadSection"
     class="org.bungeni.editor.actions.routers.routerApplyStyle"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="debaterecord.section_creation.makeDebateMastheadSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="debaterecord.section_creation.makeGroupActivityAction"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="debaterecord.mark_house_closing.makeConclusionSection"
     class="org.bungeni.editor.actions.routers.routerMarkHouseClosing"
-    dialog= "org.bungeni.editor.selectors.debaterecord.conclusion.HouseClosingTime"
+    dialog="org.bungeni.editor.selectors.debaterecord.conclusion.HouseClosingTime"
 />
 <router name="debaterecord.section_creation.makeConclusionSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="debaterecord.lock.makeDebateSpeechBlockSection"
     class="org.bungeni.editor.actions.routers.routerCreateHeadingLock"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="debaterecord.section_creation.makeDebateSpeechBlockSection"
     class="org.bungeni.editor.actions.routers.routerDebateRecordSelectSpeech"
-    dialog= "org.bungeni.editor.selectors.debaterecord.speech.Main"
+    dialog="org.bungeni.editor.selectors.debaterecord.speech.Main"
 />
 <router name="debaterecord.speech_as.makeDebateSpeechBlockSection"
     class="org.bungeni.editor.actions.routers.routerCreateSpeechAsReference"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="debaterecord.speech_by.makeDebateSpeechBlockSection"
     class="org.bungeni.editor.actions.routers.routerCreateSpeechByReference"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="debaterecord.unlockHead.makeDebateSpeechBlockSection"
     class="org.bungeni.editor.actions.routers.routerCreateHeadingUnlock"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="debaterecord.section_creation.makeDebateMotionGroupSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="debaterecord.markup_papers_heading.makePapersLaidBlockSection"
     class="org.bungeni.editor.actions.routers.routerApplyStyle"
-    dialog= ""
+    dialog=""
 />
 <router name="debaterecord.section_creation.makePapersLaidBlockSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= ""
+    dialog=""
 />
 <router name="debaterecord.select_documents.makePapersLaidBlockSection"
     class="org.bungeni.editor.actions.routers.routerTabledDocuments"
-    dialog= "org.bungeni.editor.selectors.debaterecord.tableddocuments.TabledDocuments"
+    dialog="org.bungeni.editor.selectors.debaterecord.tableddocuments.TabledDocuments"
 />
 <router name="debaterecord.apply_style.makeCommunicationAction"
     class=" org.bungeni.editor.actions.routers.routerApplyStyle"
-    dialog= ""
+    dialog=""
 />
 <router name="debaterecord.section_creation.makeCommunicationAction"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="debaterecord.section_creation.makeProcMotionGroupSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= "org.bungeni.editor.selectors.debaterecord.motions.MotionSelect"
+    dialog="org.bungeni.editor.selectors.debaterecord.motions.MotionSelect"
 />
 <router name="bill.apply_numbered_heading.makeBillClauseSection"
     class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="bill.section_creation.makeBillClauseSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="bill.apply_numbered_heading.makeBillSubChapterSection"
     class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="bill.composite_section_creation.makeBillSubChapterSection"
     class="org.bungeni.editor.actions.routers.routerCreateCompositeSection"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="bill.section_creation.makeBillSubChapterSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="bill.apply_numbered_heading.makeBillArticleSection"
     class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="bill.section_creation.makeBillArticleSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="bill.apply_numbered_heading.makeBillSectionSection"
     class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="bill.composite_section_creation.makeBillSectionSection"
     class="org.bungeni.editor.actions.routers.routerCreateCompositeSection"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="bill.section_creation.makeBillSectionSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="bill.apply_style.makeBillPrefaceSection"
     class="org.bungeni.editor.actions.routers.routerApplyStyle"
-    dialog= ""
+    dialog=""
 />
 <router name="bill.char_style.makeBillPrefaceSection"
     class="org.bungeni.editor.actions.routers.routerApplyCharStyle"
-    dialog= ""
+    dialog=""
 />
 <router name="bill.section_creation.makeBillPrefaceSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="bill.apply_numbered_heading.makeBillSubParaSection"
     class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="bill.section_creation.makeBillSubParaSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="bill.apply_numbered_heading.makeBillSubSectionSection"
     class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="bill.composite_section_creation.makeBillSubSectionSection"
     class="org.bungeni.editor.actions.routers.routerCreateCompositeSection"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="bill.section_creation.makeBillSubSectionSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="bill.apply_numbered_heading.makeBillChapterSection"
     class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="bill.composite_section_creation.makeBillChapterSection"
     class="org.bungeni.editor.actions.routers.routerCreateCompositeSection"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="bill.section_creation.makeBillChapterSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="bill.apply_numbered_heading.makeBillPartSection"
     class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="bill.section_creation.makeBillPartSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="bill.apply_numbered_heading.makeBillParaSection"
     class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="bill.section_creation.makeBillParaSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="judgement.section_creation.makeOmissisSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= ""
+    dialog=""
 />
 <router name="judgement.make_decision_heading.makeDecision"
     class="org.bungeni.editor.actions.routers.routerApplyStyle"
-    dialog= ""
+    dialog=""
 />
 <router name="judgement.scale_section.makeDecision"
     class="org.bungeni.editor.actions.routers.routerCreateScaledSection"
-    dialog= "org.bungeni.editor.actions.routers.routerCreateScaledSection_panel"
+    dialog="org.bungeni.editor.actions.routers.routerCreateScaledSection_panel"
 />
 <router name="judgement.section_creation.makeDecision"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= ""
+    dialog=""
 />
 <router name="judgement.make_background_heading.makeBackground"
     class="org.bungeni.editor.actions.routers.routerApplyStyle"
-    dialog= ""
+    dialog=""
 />
 <router name="judgement.scale_section.makeBackground"
     class="org.bungeni.editor.actions.routers.routerCreateScaledSection"
-    dialog= "org.bungeni.editor.actions.routers.routerCreateScaledSection_panel"
+    dialog="org.bungeni.editor.actions.routers.routerCreateScaledSection_panel"
 />
 <router name="judgement.section_creation.makeBackground"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= ""
+    dialog=""
 />
 <router name="judgement.section_creation.makeConclusion"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= ""
+    dialog=""
 />
 <router name="judgement.make_motivation_heading.makeMotivation"
     class="org.bungeni.editor.actions.routers.routerApplyStyle"
-    dialog= ""
+    dialog=""
 />
 <router name="judgement.make_motivation_num.makeMotivation"
     class="org.bungeni.editor.actions.routers.routerCreateGenericJudgementNumberReference"
-    dialog= ""
+    dialog=""
 />
 <router name="judgement.make_motivation_numheading.makeMotivation"
     class="org.bungeni.editor.actions.routers.routerCreateNumberedHeadingJudgement"
-    dialog= ""
+    dialog=""
 />
 <router name="judgement.make_motivation_subheading.makeMotivation"
     class="org.bungeni.editor.actions.routers.routerApplyStyle"
-    dialog= ""
+    dialog=""
 />
 <router name="judgement.scale_section.makeMotivation"
     class="org.bungeni.editor.actions.routers.routerCreateScaledSection"
-    dialog= "org.bungeni.editor.actions.routers.routerCreateScaledSection_panel"
+    dialog="org.bungeni.editor.actions.routers.routerCreateScaledSection_panel"
 />
 <router name="judgement.section_creation.makeMotivation"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= ""
+    dialog=""
 />
 <router name="judgement.make_judgement_title.makeJudgementHeader"
     class="org.bungeni.editor.actions.routers.routerApplyStyle"
-    dialog= ""
+    dialog=""
 />
 <router name="judgement.scale_section.makeJudgementHeader"
     class="org.bungeni.editor.actions.routers.routerCreateScaledSection"
-    dialog= "org.bungeni.editor.actions.routers.routerCreateScaledSection_panel"
+    dialog="org.bungeni.editor.actions.routers.routerCreateScaledSection_panel"
 />
 <router name="judgement.section_creation.makeJudgementHeader"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= ""
+    dialog=""
 />
 <router name="judgement.tabular_judge_reference.makeJudgementHeader"
     class="org.bungeni.editor.actions.routers.routerCreateTabularMetadataReference"
-    dialog= "org.bungeni.editor.actions.routers.routerCreateBungeniJudgeName_panel"
+    dialog="org.bungeni.editor.actions.routers.routerCreateBungeniJudgeName_panel"
 />
 <router name="judgement.tabular_party_reference.makeJudgementHeader"
     class="org.bungeni.editor.actions.routers.routerCreateTabularMetadataReference"
-    dialog= "org.bungeni.editor.actions.routers.routerCreateBungeniPartyName_panel"
+    dialog="org.bungeni.editor.actions.routers.routerCreateBungeniPartyName_panel"
 />
 <router name="judgement.workflow_action.makeJudgementHeader"
     class="org.bungeni.editor.actions.routers.routerMarkWorkflowAction"
-    dialog= "org.bungeni.editor.actions.routers.routerMarkWorkflowAction_panel"
+    dialog="org.bungeni.editor.actions.routers.routerMarkWorkflowAction_panel"
 />
 <router name="judgement.make_introduction_heading.makeIntroduction"
     class="org.bungeni.editor.actions.routers.routerApplyStyle"
-    dialog= ""
+    dialog=""
 />
 <router name="judgement.scale_section.makeIntroduction"
     class="org.bungeni.editor.actions.routers.routerCreateScaledSection"
-    dialog= "org.bungeni.editor.actions.routers.routerCreateScaledSection_panel"
+    dialog="org.bungeni.editor.actions.routers.routerCreateScaledSection_panel"
 />
 <router name="judgement.section_creation.makeIntroduction"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= ""
+    dialog=""
 />
 <router name="debaterecord.speech_body.makeDebateSpeechBlockSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= "org.bungeni.editor.selectors.InitBillPreface"
+    dialog="org.bungeni.editor.selectors.InitBillPreface"
 />
 <router name="debaterecord.section_creation.makeDebateQuestionBlockSection"
     class="org.bungeni.editor.actions.routers.routerDebateRecordSelectQuestion"
-    dialog= "org.bungeni.editor.selectors.debaterecord.question.QuestionSelect"
+    dialog="org.bungeni.editor.selectors.debaterecord.question.QuestionSelect"
 />
 <router name="debaterecord.section_creation.makeObservationAction"
     class="org.bungeni.editor.actions.routers.routerCreateObservation"
-    dialog= ""
+    dialog=""
 />
 <router name="debaterecord.narrative.makeObservationAction"
     class="org.bungeni.editor.actions.routers.routerCreateNarrative"
-    dialog= ""
+    dialog=""
 />
 <router name="debaterecord.question_body.makeDebateQuestionBlockSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= ""
+    dialog=""
 />
 <router name="debaterecord.char_style.makeDebateSpeechBlockSection"
     class="org.bungeni.editor.actions.routers.routerApplyCharStyle"
-    dialog= ""
+    dialog=""
 />
 <router name="debaterecord.section_creation.makeDebateQuestionGroupSection"
     class="org.bungeni.editor.actions.routers.routerDebateRecordSelectQuestionsType"
-    dialog= "org.bungeni.editor.selectors.debaterecord.questions.QuestionType"
+    dialog="org.bungeni.editor.selectors.debaterecord.questions.QuestionType"
 />
 <router name="debaterecord.markup_official_date.makeDebateMastheadSection"
     class="org.bungeni.editor.actions.routers.routerCreateOfficialDateReference"
-    dialog= ""
+    dialog=""
 />
 <router name="bill.section_creation.makeBillLongTitleSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= ""
+    dialog=""
 />
 <router name="bill.section_creation.makeBillShortTitleSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= ""
+    dialog=""
 />
 <router name="bill.section_creation.makeBillSubClauseSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= ""
+    dialog=""
 />
 <router name="bill.apply_numbered_heading.makeBillSubClauseSection"
     class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
-    dialog= ""
+    dialog=""
 />
 <router name="bill.composite_section_creation.makeBillSubClauseSection"
     class="org.bungeni.editor.actions.routers.routerCreateCompositeSection"
-    dialog= ""
+    dialog=""
 />
 <router name="debaterecord.section_creation.makeDebateMotionBlockSection"
     class="org.bungeni.editor.actions.routers.routerMotionSelectMotion"
-    dialog= "org.bungeni.editor.selectors.debaterecord.motions.MotionSelect"
+    dialog="org.bungeni.editor.selectors.debaterecord.motions.MotionSelect"
 />
 <router name="debaterecord.section_creation.makeProcMotionBlockSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog= "org.bungeni.editor.selectors.debaterecord.motions.MotionSelect"
+    dialog="org.bungeni.editor.selectors.debaterecord.motions.MotionSelect"
 />
 <router name="debaterecord.section_creation.makeDebateMotionBlockSectionEdit"
     class="org.bungeni.editor.actions.routers.routerMotionSelectMotion"
-    dialog= " "
+    dialog=" "
 />
 <router name="debaterecord.section_creation.makeDebateQuestionBlockSectionEdit"
     class="org.bungeni.editor.actions.routers.routerDebateRecordSelectQuestion"
-    dialog= " "
+    dialog=" "
 />
 
 </routers>

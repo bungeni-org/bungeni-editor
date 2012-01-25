@@ -23,732 +23,345 @@
         <title xml:lang="eng">Markup as Notice</title>
     </action>
     -->
-<action name="makeNoticeDetailsMarkup" type="markup" parent="" router="" sectiontype="" validator="" >
-    <title xml:lang="eng">Markup as Notice Details</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeNoticeOfMotionMarkup" type="markup" parent="" router="" sectiontype="" validator="" >
-    <title xml:lang="eng">Markup as Notice-of-Motion</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeBillGeneralAction" type="section" parent="" router="" sectiontype="" validator="" >
-    <title xml:lang="eng">General Action</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeSelectCommittee" type="markup" parent="" router="" sectiontype="" validator="" >
-    <title xml:lang="eng">Markup Committee</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeSelectBill" type="markup" parent="" router="" sectiontype="" validator="" >
-    <title xml:lang="eng">Markup Bill</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeProcMotionBlockSection" type="section" parent="" router="" sectiontype="ProceduralMotion" validator="" >
-    <title xml:lang="eng">Markup as Procedural Motion</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeBillSectionSection" type="section" parent="" router="" sectiontype="Section" validator="" >
-    <title xml:lang="eng">dummy</title>
-    <router class="" dialog="" />
-</action>
-<action name="makePrayerMarkup" type="markup" parent="" router="" sectiontype="Preface" validator="" >
-    <title xml:lang="eng">Markup as Prayer</title>
-    <router class="" dialog="" />
-</action>
-<action name="general_action" type="section" parent="" router="" sectiontype="None" validator="" >
-    <title xml:lang="eng">place holder for general action</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeSpeechBlockSection" type="section" parent="" router="" sectiontype="Speech" validator="" >
-    <title xml:lang="eng">Speech Section</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeQuestionBlockSection" type="section" parent="" router="" sectiontype="QuestionContainer" validator="" >
-    <title xml:lang="eng">Create a numbered Question Section</title>
-    <router class="" dialog="" />
-</action>
-<action name="makePaperSection" type="section" parent="" router="" sectiontype="Paper" validator="" >
-    <title xml:lang="eng">Create a Paper Section</title>
-    <router class="" dialog="" />
-</action>
-<action name="makePrayerSection" type="section" parent="" router="" sectiontype="Preface" validator="" >
-    <title xml:lang="eng">Create a Preface</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeQASection" type="section" parent="" router="" sectiontype="QAContainer" validator="" >
-    <title xml:lang="eng">Create a Question-Answer section</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeProcMotionGroupSection" type="section" parent="" router="" sectiontype="PMotionsContainer" validator="" >
-    <title xml:lang="eng">Create a Procedural Motions Container </title>
-    <router class="" dialog="" />
-</action>
-<action name="makeDebateMotionBlockSectionEdit" type="section" parent="" router="" sectiontype="NoticeOfMotion" validator="" >
-    <title xml:lang="eng">Create Motion Section</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeBillPrefaceSection" type="section" parent="" router="" sectiontype="Preface" validator="" >
-    <title xml:lang="eng">dummy</title>
-    <router class="" dialog="" />
-</action>
-<action name="makePointOfOrder" type="section" parent="" router="" sectiontype="PointOfOrder" validator="" >
-    <title xml:lang="eng">Create a point of order</title>
-    <router class="" dialog="" />
-</action>
-<action name="makePapersLaidDataEntry" type="section" parent="" router="" sectiontype="PapersLaidList" validator="" >
-    <title xml:lang="eng">Markup a Document Link</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeBillArticleSection" type="section" parent="" router="" sectiontype="Article" validator="" >
-    <title xml:lang="eng">dummy</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeBillClauseSection" type="section" parent="" router="" sectiontype="Clause" validator="" >
-    <title xml:lang="eng">dummy</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeBillPartSection" type="section" parent="" router="" sectiontype="Part" validator="" >
-    <title xml:lang="eng">dummy</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeDebateQuestionBlockSectionEdit" type="section" parent="" router="" sectiontype="QuestionAnswer" validator="" >
-    <title xml:lang="eng">Create a Question</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeBillChapterSection" type="section" parent="" router="" sectiontype="Chapter" validator="" >
-    <title xml:lang="eng">dummy</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeBillSubChapterSection" type="section" parent="" router="" sectiontype="SubChapter" validator="" >
-    <title xml:lang="eng">dummy</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeBillParaSection" type="section" parent="" router="" sectiontype="Paragraph" validator="" >
-    <title xml:lang="eng">dummy</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeBillSubParaSection" type="section" parent="" router="" sectiontype="SubParagraph" validator="" >
-    <title xml:lang="eng">dummy</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeBillSubSectionSection" type="section" parent="" router="" sectiontype="SubSection" validator="" >
-    <title xml:lang="eng">dummy</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeDebateMastheadSection" type="section" parent="" router="" sectiontype="Preface" validator="" >
-    <title xml:lang="eng">Metadata for the Preface</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeDebateQuestionSection" type="section" parent="" router="" sectiontype="Question" validator="" >
-    <title xml:lang="eng">marks up the actual question text</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeDebateQuestionBlockSection" type="section" parent="" router="" sectiontype="QuestionAnswer" validator="" >
-    <title xml:lang="eng">contains a question and related speeches</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeMinisterialStatement" type="section" parent="" router="" sectiontype="MinisterialStatement" validator="" >
-    <title xml:lang="eng">Ministerial Statement</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeDebateSpeechBlockSection" type="section" parent="" router="" sectiontype="Speech" validator="" >
-    <title xml:lang="eng">creates a speech</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeObservationAction" type="section" parent="" router="" sectiontype="Observation" validator="" >
-    <title xml:lang="eng">creates an observation</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeGroupActivityAction" type="section" parent="" router="" sectiontype="GroupActivity" validator="" >
-    <title xml:lang="eng">creates a communication</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeCommunicationAction" type="section" parent="" router="" sectiontype="Communication" validator="" >
-    <title xml:lang="eng">creates a communication</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeActionEvent" type="section" parent="" router="" sectiontype="ActionEvent" validator="" >
-    <title xml:lang="eng"></title>
-    <router class="" dialog="" />
-</action>
-<action name="makeAdjournmentAction" type="section" parent="" router="" sectiontype="ActionEvent" validator="" >
-    <title xml:lang="eng">creates an adjournment section</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeConclusionSection" type="section" parent="" router="" sectiontype="Conclusion" validator="" >
-    <title xml:lang="eng">Conclusion Actions</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeNoticeOfMotionAction" type="section" parent="" router="" sectiontype="ActionEvent" validator="" >
-    <title xml:lang="eng">creates a notice of motion</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeOmissisSection" type="section" parent="" router="" sectiontype="Omissis" validator="" >
-    <title xml:lang="eng">Omissis</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeDebateMotionGroupSection" type="section" parent="" router="" sectiontype="NMotionsContainer" validator="" >
-    <title xml:lang="eng">Create a Notices of Motion container</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeDebateMotionBlockSection" type="section" parent="" router="" sectiontype="NoticeOfMotion" validator="" >
-    <title xml:lang="eng">Create a Notice of Motion Section</title>
-    <router class="" dialog="" />
-</action>
-<action name="makePersonalStatement" type="section" parent="" router="" sectiontype="PersonalStatement" validator="" >
-    <title xml:lang="eng"></title>
-    <router class="" dialog="" />
-</action>
-<action name="makePapersLaidBlockSection" type="section" parent="" router="" sectiontype="PapersLaid" validator="" >
-    <title xml:lang="eng">Import Tabled Documents</title>
-    <router class="" dialog="" />
-</action>
-<action name="makePapersLaidListSection" type="section" parent="" router="" sectiontype="PapersLaidList" validator="" >
-    <title xml:lang="eng">Import Tabled Documents</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeJudgementHeader" type="section" parent="" router="" sectiontype="Header" validator="" >
-    <title xml:lang="eng"></title>
-    <router class="" dialog="" />
-</action>
-<action name="makeMetadataReference" type="section" parent="" router="" sectiontype="ActionEvent" validator="" >
-    <title xml:lang="eng">placeholder for metadata markup</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeMetadataReference" type="section" parent="" router="" sectiontype="ActionEvent" validator="" >
-    <title xml:lang="eng">placeholder for metadata markup</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeIntroduction" type="section" parent="" router="" sectiontype="Introduction" validator="" >
-    <title xml:lang="eng"> </title>
-    <router class="" dialog="" />
-</action>
-<action name="makeBackground" type="section" parent="" router="" sectiontype="Background" validator="" >
-    <title xml:lang="eng"></title>
-    <router class="" dialog="" />
-</action>
-<action name="makeMotivation" type="section" parent="" router="" sectiontype="Motivation" validator="" >
-    <title xml:lang="eng"></title>
-    <router class="" dialog="" />
-</action>
-<action name="makeDecision" type="section" parent="" router="" sectiontype="Decision" validator="" >
-    <title xml:lang="eng"></title>
-    <router class="" dialog="" />
-</action>
-<action name="makeConclusion" type="section" parent="" router="" sectiontype="Conclusion" validator="" >
-    <title xml:lang="eng"></title>
-    <router class="" dialog="" />
-</action>
-<action name="makePapersLaidMarkupSingle" type="section" parent="" router="" sectiontype="PapersLaidList" validator="" >
-    <title xml:lang="eng">Selectsingle tabled document</title>
-    <router class="" dialog="" />
-</action>
-<action name="makePetitionsMarkupSingle" type="section" parent="" router="" sectiontype="PetitionsList" validator="" >
-    <title xml:lang="eng">Markup single petition</title>
-    <router class="" dialog="" />
-</action>
-<action name="makePetitionsBlockSection" type="section" parent="" router="" sectiontype="Petitions" validator="" >
-    <title xml:lang="eng">Petitions</title>
-    <router class="" dialog="" />
-</action>
-<action name="makePetitionsListSection" type="section" parent="" router="" sectiontype="PetitionsList" validator="" >
-    <title xml:lang="eng">Petitions</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeDebateQuestionGroupSection" type="section" parent="" router="" sectiontype="QuestionsContainer" validator="" >
-    <title xml:lang="eng">creates  a question group</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeBillShortTitleSection" type="section" parent="" router="" sectiontype="ShortTitle" validator="" >
-    <title xml:lang="eng">dummy</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeBillLongTitleSection" type="section" parent="" router="" sectiontype="LongTitle" validator="" >
-    <title xml:lang="eng">dummy</title>
-    <router class="" dialog="" />
-</action>
-<action name="makeBillSubClauseSection" type="section" parent="" router="" sectiontype="SubClause" validator="" >
-    <title xml:lang="eng">dummy</title>
-    <router class="" dialog="" />
-</action>
-<action name="markup_motion_title" type="" parent="makeProcMotionBlockSection" router="debaterecord.markup_motion_title.makeProcMotionBlockSection" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create proc motion title</title>
-    <router class="org.bungeni.editor.actions.routers.routerApplyStyle" dialog="org.bungeni.editor.selectors.debaterecord.motions.MotionSelect" />
-</action>
-<action name="section_creation" type="" parent="makePointOfOrder" router="debaterecord.section_creation.makePointOfOrder" sectiontype="PointOfOrder" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">Create Point of Order</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog=" " />
-</action>
-<action name="markup_heading" type="" parent="general_action" router="debaterecord.markup_heading.general_action" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">Create a Named Heading</title>
-    <router class=" org.bungeni.editor.actions.routers.routerApplyStyle" dialog="" />
-</action>
-<action name="markup_question_no" type="" parent="makeDebateQuestionBlockSection" router="debaterecord.markup_question_no.makeDebateQuestionBlockSection" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">mark a block of text as a question reference</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateQuestionReference" dialog="org.bungeni.editor.selectors.debaterecord.question.QuestionSelect" />
-</action>
-<action name="markup_question_by" type="" parent="makeDebateQuestionBlockSection" router="debaterecord.markup_question_by.makeDebateQuestionBlockSection" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">mark a block of text as a question by reference</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateQuestionByReference" dialog="org.bungeni.editor.selectors.debaterecord.question.QuestionSelect" />
-</action>
-<action name="markup_question_to" type="" parent="makeDebateQuestionBlockSection" router="debaterecord.markup_question_to.makeDebateQuestionBlockSection" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">mark a block of text as a question to reference</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateQuestionToReference" dialog="org.bungeni.editor.selectors.debaterecord.question.QuestionSelect" />
-</action>
-<action name="apply_questiontext_style" type="" parent="makeDebateQuestionBlockSection" router="debaterecord.apply_questiontext_style.makeDebateQuestionBlockSection" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">mark the selected text with a style</title>
-    <router class="org.bungeni.editor.actions.routers.routerApplyStyle" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="apply_style" type="" parent="makePointOfOrder" router="debaterecord.apply_style.makePointOfOrder" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">Create Porde heading</title>
-    <router class="org.bungeni.editor.actions.routers.routerApplyStyle" dialog="" />
-</action>
-<action name="mark_as_action" type="" parent="makeAdjournmentAction" router="debaterecord.mark_as_action.makeAdjournmentAction" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">crearte an action event</title>
-    <router class="org.bungeni.editor.actions.routers.routerMarkAsAction" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="mark_as_action" type="" parent="makeNoticeOfMotionAction" router="debaterecord.mark_as_action.makeNoticeOfMotionAction" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create an action event</title>
-    <router class="org.bungeni.editor.actions.routers.routerMarkAsAction" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="mark" type="" parent="makeMetadataReference" router="debaterecord.mark.makeMetadataReference" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create a document metadata reference</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateUniqueReference" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="create_sidenote" type="" parent="makeBillGeneralAction" router="bill.create_sidenote.makeBillGeneralAction" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create sidenote</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSidenote" dialog="org.bungeni.editor.actions.routers.routerCreateSideNote_panel" />
-</action>
-<action name="markup_motion_title" type="" parent="makeDebateMotionBlockSection" router="debaterecord.markup_motion_title.makeDebateMotionBlockSection" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create a motion title</title>
-    <router class="org.bungeni.editor.actions.routers.routerApplyStyle" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="mark" type="" parent="makeMetadataReference" router="judgement.mark.makeMetadataReference" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create a document metadata reference</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateUniqueReference" dialog="" />
-</action>
-<action name="markup_doc_link" type="" parent="makePapersLaidMarkupSingle" router="debaterecord.markup_doc_link.makePapersLaidMarkupSingle" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">Markup a single tabled document</title>
-    <router class="org.bungeni.editor.actions.routers.routerTabledDocuments" dialog="" />
-</action>
-<action name="create_root_section" type="" parent="general_action" router="debaterecord.create_root_section.general_action" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create root section</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateRoot" dialog="" />
-</action>
-<action name="markup_doc_link" type="" parent="makePapersLaidDataEntry" router="debaterecord.markup_doc_link.makePapersLaidDataEntry" sectiontype="" validator=" org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">Markup document link</title>
-    <router class="org.bungeni.editor.actions.routers.routerTabledDocuments" dialog="" />
-</action>
-<action name="section_creation" type="" parent="makeMinisterialStatement" router="debaterecord.section_creation.makeMinisterialStatement" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">Create a Ministerial Statement</title>
-    <router class=" org.bungeni.editor.actions.routers.routerCreateSection" dialog="" />
-</action>
-<action name="section_creation" type="" parent="makeActionEvent" router="debaterecord.section_creation.makeActionEvent" sectiontype="ActionEvent" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">Create Action Event</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateEvent" dialog=" " />
-</action>
-<action name="markup_committee" type="" parent="makeSelectCommittee" router="debaterecord.markup_committee.makeSelectCommittee" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">associate committe with section</title>
-    <router class="org.bungeni.editor.actions.routers.routerSelectCommittee" dialog="org.bungeni.editor.selectors.debaterecord.committees.Committees" />
-</action>
-<action name="markup_bill" type="" parent="makeSelectBill" router="debaterecord.markup_bill.makeSelectBill" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">associate bill with a section</title>
-    <router class=" org.bungeni.editor.actions.routers.routerSelectBill" dialog="org.bungeni.editor.selectors.debaterecord.bills.Bills" />
-</action>
-<action name="section_creation" type="" parent="makePersonalStatement" router="debaterecord.section_creation.makePersonalStatement" sectiontype="PersonalStatement" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">Create a Personal Statement section</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="" />
-</action>
-<action name="section_creation" type="" parent="makePapersLaidListSection" router="debaterecord.section_creation.makePapersLaidListSection" sectiontype="PapersLaidList" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create papers list section</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="" />
-</action>
-<action name="section_creation" type="" parent="makeDebateQuestionSection" router="debaterecord.section_creation.makeDebateQuestionSection" sectiontype="Question" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng"></title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="org.bungeni.editor.selectors.debaterecord.question.QuestionSelect" />
-</action>
-<action name="apply_style" type="" parent="makePaperSection" router="debaterecord.apply_style.makePaperSection" sectiontype="Paper" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">Apply papers style</title>
-    <router class="org.bungeni.editor.actions.routers.routerApplyStyle" dialog="org.bungeni.editor.selectors.InitPapers" />
-</action>
-<action name="import_tabled_documents" type="" parent="makePaperSection" router="debaterecord.import_tabled_documents.makePaperSection" sectiontype="Paper" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">Import tabled documents</title>
-    <router class="org.bungeni.editor.actions.routers.routerTabledDocuments" dialog="org.bungeni.editor.selectors.InitPapers" />
-</action>
-<action name="section_creation" type="" parent="makePaperSection" router="debaterecord.section_creation.makePaperSection" sectiontype="Paper" validator="org.bungeni.editor.actions.validators.validateCreateSection" >
-    <title xml:lang="eng">Create empty Paper Section</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="org.bungeni.editor.selectors.InitPapers" />
-</action>
-<action name="section_creation" type="" parent="makeQASection" router="debaterecord.section_creation.makeQASection" sectiontype="QAContainer" validator="org.bungeni.editor.actions.validators.validateCreateSection" >
-    <title xml:lang="eng">Create QA Section</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="org.bungeni.editor.selectors.InitQASection" />
-</action>
-<action name="section_creation" type="" parent="makeQuestionBlockSection" router="debaterecord.section_creation.makeQuestionBlockSection" sectiontype="QuestionContainer" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">Create Question Block</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="org.bungeni.editor.selectors.InitQuestionBlock" />
-</action>
-<action name="debatedate_entry" type="" parent="makePrayerSection" router="debaterecord.debatedate_entry.makePrayerSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">Markup debate date</title>
-    <router class="org.bungeni.editor.actions.routers.routerDebateDateEntry" dialog="org.bungeni.editor.selectors.InitDebateRecord" />
-</action>
-<action name="debatetime_entry" type="" parent="makePrayerSection" router="debaterecord.debatetime_entry.makePrayerSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">Markup debate time</title>
-    <router class="org.bungeni.editor.actions.routers.routerDebateTimeEntry" dialog="org.bungeni.editor.selectors.InitDebateRecord" />
-</action>
-<action name="markup_logo" type="" parent="makePrayerSection" router="debaterecord.markup_logo.makePrayerSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">Apply logo</title>
-    <router class="org.bungeni.editor.actions.routers.routerMarkupLogo" dialog="org.bungeni.editor.selectors.InitDebateRecord" />
-</action>
-<action name="section_creation" type="" parent="makePrayerSection" router="debaterecord.section_creation.makePrayerSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.validateCreateSection" >
-    <title xml:lang="eng">Create emtpy masthead</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="org.bungeni.editor.selectors.InitDebateRecord" />
-</action>
-<action name="char_style" type="" parent="makeDebateMastheadSection" router="debaterecord.char_style.makeDebateMastheadSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerApplyCharStyle" dialog="" />
-</action>
-<action name="create_root_section" type="" parent="makeDebateMastheadSection" router="debaterecord.create_root_section.makeDebateMastheadSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">createroot section</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateRoot" dialog="" />
-</action>
-<action name="debatedate" type="" parent="makeDebateMastheadSection" router="debaterecord.debatedate.makeDebateMastheadSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerDebateRecordDateEntry" dialog="org.bungeni.editor.selectors.debaterecord.masthead.DebateRecordDate" />
-</action>
-<action name="debatetime" type="" parent="makeDebateMastheadSection" router="debaterecord.debatetime.makeDebateMastheadSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerDebateRecordTimeEntry" dialog="org.bungeni.editor.selectors.debaterecord.masthead.DebateRecordTime" />
-</action>
-<action name="markup_logo" type="" parent="makeDebateMastheadSection" router="debaterecord.markup_logo.makeDebateMastheadSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerMarkupLogo" dialog="org.bungeni.editor.selectors.debaterecord.masthead.DebateRecordLogo" />
-</action>
-<action name="markup_preface_heading" type="" parent="makeDebateMastheadSection" router="debaterecord.markup_preface_heading.makeDebateMastheadSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create a papers heading</title>
-    <router class="org.bungeni.editor.actions.routers.routerApplyStyle" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="section_creation" type="" parent="makeDebateMastheadSection" router="debaterecord.section_creation.makeDebateMastheadSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create masthead section</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="section_creation" type="" parent="makeGroupActivityAction" router="debaterecord.section_creation.makeGroupActivityAction" sectiontype="GroupActivity" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create a group activity section</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="mark_house_closing" type="" parent="makeConclusionSection" router="debaterecord.mark_house_closing.makeConclusionSection" sectiontype="Conclusion" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create a house closing time reference</title>
-    <router class="org.bungeni.editor.actions.routers.routerMarkHouseClosing" dialog="org.bungeni.editor.selectors.debaterecord.conclusion.HouseClosingTime" />
-</action>
-<action name="section_creation" type="" parent="makeConclusionSection" router="debaterecord.section_creation.makeConclusionSection" sectiontype="Conclusion" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create a conclusion section</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="lock" type="" parent="makeDebateSpeechBlockSection" router="debaterecord.lock.makeDebateSpeechBlockSection" sectiontype="Speech" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">lock heading</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateHeadingLock" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="create_speech" type="" parent="makeDebateSpeechBlockSection" router="debaterecord.section_creation.makeDebateSpeechBlockSection" sectiontype="Speech" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create a speech section</title>
-    <router class="org.bungeni.editor.actions.routers.routerDebateRecordSelectSpeech" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="speech_as" type="" parent="makeDebateSpeechBlockSection" router="debaterecord.speech_as.makeDebateSpeechBlockSection" sectiontype="Speech" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create speech as reference</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSpeechAsReference" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="speech_by" type="" parent="makeDebateSpeechBlockSection" router="debaterecord.speech_by.makeDebateSpeechBlockSection" sectiontype="Speech" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create speech to reference</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSpeechByReference" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="unlockHead" type="" parent="makeDebateSpeechBlockSection" router="debaterecord.unlockHead.makeDebateSpeechBlockSection" sectiontype="Speech" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">unlock heading </title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateHeadingUnlock" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="section_creation" type="" parent="makeDebateMotionGroupSection" router="debaterecord.section_creation.makeDebateMotionGroupSection" sectiontype="NMotionsContainer" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create motion container </title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="markup_papers_heading" type="" parent="makePapersLaidBlockSection" router="debaterecord.markup_papers_heading.makePapersLaidBlockSection" sectiontype="PapersLaid" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create a papers heading</title>
-    <router class="org.bungeni.editor.actions.routers.routerApplyStyle" dialog="" />
-</action>
-<action name="section_creation" type="" parent="makePapersLaidBlockSection" router="debaterecord.section_creation.makePapersLaidBlockSection" sectiontype="PapersLaid" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create a papers laid container</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="" />
-</action>
-<action name="select_documents" type="" parent="makePapersLaidBlockSection" router="debaterecord.select_documents.makePapersLaidBlockSection" sectiontype="PapersLaid" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">select documents</title>
-    <router class="org.bungeni.editor.actions.routers.routerTabledDocuments" dialog="org.bungeni.editor.selectors.debaterecord.tableddocuments.TabledDocuments" />
-</action>
-<action name="apply_style" type="" parent="makeCommunicationAction" router="debaterecord.apply_style.makeCommunicationAction" sectiontype="Communication" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">Apply Style</title>
-    <router class=" org.bungeni.editor.actions.routers.routerApplyStyle" dialog="" />
-</action>
-<action name="section_creation" type="" parent="makeCommunicationAction" router="debaterecord.section_creation.makeCommunicationAction" sectiontype="Communication" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create a communication section</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="section_creation" type="" parent="makeProcMotionGroupSection" router="debaterecord.section_creation.makeProcMotionGroupSection" sectiontype="PMotionsContainer" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create container for procedural motions</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="org.bungeni.editor.selectors.debaterecord.motions.MotionSelect" />
-</action>
-<action name="apply_numbered_heading" type="" parent="makeBillClauseSection" router="bill.apply_numbered_heading.makeBillClauseSection" sectiontype="Clause" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="section_creation" type="" parent="makeBillClauseSection" router="bill.section_creation.makeBillClauseSection" sectiontype="Clause" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="apply_numbered_heading" type="" parent="makeBillSubChapterSection" router="bill.apply_numbered_heading.makeBillSubChapterSection" sectiontype="SubChapter" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dum</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="composite_section_creation" type="" parent="makeBillSubChapterSection" router="bill.composite_section_creation.makeBillSubChapterSection" sectiontype="SubChapter" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateCompositeSection" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="section_creation" type="" parent="makeBillSubChapterSection" router="bill.section_creation.makeBillSubChapterSection" sectiontype="SubChapter" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="apply_numbered_heading" type="" parent="makeBillArticleSection" router="bill.apply_numbered_heading.makeBillArticleSection" sectiontype="Article" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="section_creation" type="" parent="makeBillArticleSection" router="bill.section_creation.makeBillArticleSection" sectiontype="Article" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="apply_numbered_heading" type="" parent="makeBillSectionSection" router="bill.apply_numbered_heading.makeBillSectionSection" sectiontype="Section" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="composite_section_creation" type="" parent="makeBillSectionSection" router="bill.composite_section_creation.makeBillSectionSection" sectiontype="Section" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateCompositeSection" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="section_creation" type="" parent="makeBillSectionSection" router="bill.section_creation.makeBillSectionSection" sectiontype="Section" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="apply_style" type="" parent="makeBillPrefaceSection" router="bill.apply_style.makeBillPrefaceSection" sectiontype="Preface" validator=" org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerApplyStyle" dialog="" />
-</action>
-<action name="char_style" type="" parent="makeBillPrefaceSection" router="bill.char_style.makeBillPrefaceSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerApplyCharStyle" dialog="" />
-</action>
-<action name="section_creation" type="" parent="makeBillPrefaceSection" router="bill.section_creation.makeBillPrefaceSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="apply_numbered_heading" type="" parent="makeBillSubParaSection" router="bill.apply_numbered_heading.makeBillSubParaSection" sectiontype="SubParagraph" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="section_creation" type="" parent="makeBillSubParaSection" router="bill.section_creation.makeBillSubParaSection" sectiontype="SubParagraph" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="apply_numbered_heading" type="" parent="makeBillSubSectionSection" router="bill.apply_numbered_heading.makeBillSubSectionSection" sectiontype="SubSection" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="composite_section_creation" type="" parent="makeBillSubSectionSection" router="bill.composite_section_creation.makeBillSubSectionSection" sectiontype="SubSection" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateCompositeSection" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="section_creation" type="" parent="makeBillSubSectionSection" router="bill.section_creation.makeBillSubSectionSection" sectiontype="SubSection" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="apply_numbered_heading" type="" parent="makeBillChapterSection" router="bill.apply_numbered_heading.makeBillChapterSection" sectiontype="Chapter" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="composite_section_creation" type="" parent="makeBillChapterSection" router="bill.composite_section_creation.makeBillChapterSection" sectiontype="Chapter" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateCompositeSection" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="section_creation" type="" parent="makeBillChapterSection" router="bill.section_creation.makeBillChapterSection" sectiontype="Chapter" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="apply_numbered_heading" type="" parent="makeBillPartSection" router="bill.apply_numbered_heading.makeBillPartSection" sectiontype="Part" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="section_creation" type="" parent="makeBillPartSection" router="bill.section_creation.makeBillPartSection" sectiontype="Part" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="apply_numbered_heading" type="" parent="makeBillParaSection" router="bill.apply_numbered_heading.makeBillParaSection" sectiontype="Paragraph" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="section_creation" type="" parent="makeBillParaSection" router="bill.section_creation.makeBillParaSection" sectiontype="Paragraph" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="section_creation" type="" parent="makeOmissisSection" router="judgement.section_creation.makeOmissisSection" sectiontype="Omissis" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create omissis section</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="" />
-</action>
-<action name="make_decision_heading" type="" parent="makeDecision" router="judgement.make_decision_heading.makeDecision" sectiontype="Decision" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create decision heading</title>
-    <router class="org.bungeni.editor.actions.routers.routerApplyStyle" dialog="" />
-</action>
-<action name="scale_section" type="" parent="makeDecision" router="judgement.scale_section.makeDecision" sectiontype="Decision" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create a scaled section</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateScaledSection" dialog="org.bungeni.editor.actions.routers.routerCreateScaledSection_panel" />
-</action>
-<action name="section_creation" type="" parent="makeDecision" router="judgement.section_creation.makeDecision" sectiontype="Decision" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create judgement header section</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="" />
-</action>
-<action name="make_background_heading" type="" parent="makeBackground" router="judgement.make_background_heading.makeBackground" sectiontype="Background" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create background heding</title>
-    <router class="org.bungeni.editor.actions.routers.routerApplyStyle" dialog="" />
-</action>
-<action name="scale_section" type="" parent="makeBackground" router="judgement.scale_section.makeBackground" sectiontype="Background" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create a scaled section</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateScaledSection" dialog="org.bungeni.editor.actions.routers.routerCreateScaledSection_panel" />
-</action>
-<action name="section_creation" type="" parent="makeBackground" router="judgement.section_creation.makeBackground" sectiontype="Background" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create judgement header section</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="" />
-</action>
-<action name="section_creation" type="" parent="makeConclusion" router="judgement.section_creation.makeConclusion" sectiontype="Conclusion" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create judgement header section</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="" />
-</action>
-<action name="make_motivation_heading" type="" parent="makeMotivation" router="judgement.make_motivation_heading.makeMotivation" sectiontype="Motivation" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create motivation heading</title>
-    <router class="org.bungeni.editor.actions.routers.routerApplyStyle" dialog="" />
-</action>
-<action name="make_motivation_num" type="" parent="makeMotivation" router="judgement.make_motivation_num.makeMotivation" sectiontype="Motivation" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create num reference</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateGenericJudgementNumberReference" dialog="" />
-</action>
-<action name="make_motivation_numheading" type="" parent="makeMotivation" router="judgement.make_motivation_numheading.makeMotivation" sectiontype="Motivation" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create numbered heading</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeadingJudgement" dialog="" />
-</action>
-<action name="make_motivation_subheading" type="" parent="makeMotivation" router="judgement.make_motivation_subheading.makeMotivation" sectiontype="Motivation" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">crete motivation subheading</title>
-    <router class="org.bungeni.editor.actions.routers.routerApplyStyle" dialog="" />
-</action>
-<action name="scale_section" type="" parent="makeMotivation" router="judgement.scale_section.makeMotivation" sectiontype="Motivation" validator=" org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create a scaled section</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateScaledSection" dialog="org.bungeni.editor.actions.routers.routerCreateScaledSection_panel" />
-</action>
-<action name="section_creation" type="" parent="makeMotivation" router="judgement.section_creation.makeMotivation" sectiontype="Motivation" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create judgement header section</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="" />
-</action>
-<action name="make_judgement_title" type="" parent="makeJudgementHeader" router="judgement.make_judgement_title.makeJudgementHeader" sectiontype="Header" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create judgement title</title>
-    <router class="org.bungeni.editor.actions.routers.routerApplyStyle" dialog="" />
-</action>
-<action name="scale_section" type="" parent="makeJudgementHeader" router="judgement.scale_section.makeJudgementHeader" sectiontype="Header" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create a scaled section</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateScaledSection" dialog="org.bungeni.editor.actions.routers.routerCreateScaledSection_panel" />
-</action>
-<action name="section_creation" type="" parent="makeJudgementHeader" router="judgement.section_creation.makeJudgementHeader" sectiontype="Header" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create judgement header section</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="" />
-</action>
-<action name="tabular_judge_reference" type="" parent="makeJudgementHeader" router="judgement.tabular_judge_reference.makeJudgementHeader" sectiontype="Header" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create a tabular reference</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateTabularMetadataReference" dialog="org.bungeni.editor.actions.routers.routerCreateBungeniJudgeName_panel" />
-</action>
-<action name="tabular_party_reference" type="" parent="makeJudgementHeader" router="judgement.tabular_party_reference.makeJudgementHeader" sectiontype="Header" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create tabular party reference</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateTabularMetadataReference" dialog="org.bungeni.editor.actions.routers.routerCreateBungeniPartyName_panel" />
-</action>
-<action name="workflow_action" type="" parent="makeJudgementHeader" router="judgement.workflow_action.makeJudgementHeader" sectiontype="Header" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create a workflow action</title>
-    <router class="org.bungeni.editor.actions.routers.routerMarkWorkflowAction" dialog="org.bungeni.editor.actions.routers.routerMarkWorkflowAction_panel" />
-</action>
-<action name="make_introduction_heading" type="" parent="makeIntroduction" router="judgement.make_introduction_heading.makeIntroduction" sectiontype="Introduction" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create introduction heading</title>
-    <router class="org.bungeni.editor.actions.routers.routerApplyStyle" dialog="" />
-</action>
-<action name="scale_section" type="" parent="makeIntroduction" router="judgement.scale_section.makeIntroduction" sectiontype="Introduction" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create a scaled section</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateScaledSection" dialog="org.bungeni.editor.actions.routers.routerCreateScaledSection_panel" />
-</action>
-<action name="section_creation" type="" parent="makeIntroduction" router="judgement.section_creation.makeIntroduction" sectiontype="Introduction" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create a communication section</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="" />
-</action>
-<action name="speech_body" type="" parent="makeDebateSpeechBlockSection" router="debaterecord.speech_body.makeDebateSpeechBlockSection" sectiontype="SpeechBody" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create speech body</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="org.bungeni.editor.selectors.InitBillPreface" />
-</action>
-<action name="section_creation" type="" parent="makeDebateQuestionBlockSection" router="debaterecord.section_creation.makeDebateQuestionBlockSection" sectiontype="QuestionAnswer" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">creates a section for the question block</title>
-    <router class="org.bungeni.editor.actions.routers.routerDebateRecordSelectQuestion" dialog="org.bungeni.editor.selectors.debaterecord.question.QuestionSelect" />
-</action>
-<action name="section_creation" type="" parent="makeObservationAction" router="debaterecord.section_creation.makeObservationAction" sectiontype="Observation" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create an observation section</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateObservation" dialog="" />
-</action>
-<action name="narrative" type="" parent="makeObservationAction" router="debaterecord.narrative.makeObservationAction" sectiontype="Narrative" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create a narrative</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateNarrative" dialog="" />
-</action>
-<action name="question_body" type="" parent="makeDebateQuestionBlockSection" router="debaterecord.question_body.makeDebateQuestionBlockSection" sectiontype="QuestionBody" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create a question body</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="" />
-</action>
-<action name="char_style" type="" parent="makeDebateSpeechBlockSection" router="debaterecord.char_style.makeDebateSpeechBlockSection" sectiontype="Speech" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">mark list item</title>
-    <router class="org.bungeni.editor.actions.routers.routerApplyCharStyle" dialog="" />
-</action>
-<action name="section_creation" type="" parent="makeDebateQuestionGroupSection" router="debaterecord.section_creation.makeDebateQuestionGroupSection" sectiontype="QuestionsContainer" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng"> </title>
-    <router class="org.bungeni.editor.actions.routers.routerDebateRecordSelectQuestionsType" dialog="org.bungeni.editor.selectors.debaterecord.questions.QuestionType" />
-</action>
-<action name="markup_official_date" type="" parent="makeDebateMastheadSection" router="debaterecord.markup_official_date.makeDebateMastheadSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng"></title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateOfficialDateReference" dialog="" />
-</action>
-<action name="section_creation" type="" parent="makeBillLongTitleSection" router="bill.section_creation.makeBillLongTitleSection" sectiontype="LongTitle" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="" />
-</action>
-<action name="section_creation" type="" parent="makeBillShortTitleSection" router="bill.section_creation.makeBillShortTitleSection" sectiontype="ShortTitle" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="" />
-</action>
-<action name="section_creation" type="" parent="makeBillSubClauseSection" router="bill.section_creation.makeBillSubClauseSection" sectiontype="SubClause" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="" />
-</action>
-<action name="apply_numbered_heading" type="" parent="makeBillSubClauseSection" router="bill.apply_numbered_heading.makeBillSubClauseSection" sectiontype="SubClause" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading" dialog="" />
-</action>
-<action name="composite_section_creation" type="" parent="makeBillSubClauseSection" router="bill.composite_section_creation.makeBillSubClauseSection" sectiontype="SubClause" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">dummy</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateCompositeSection" dialog="" />
-</action>
-<action name="section_creation" type="" parent="makeDebateMotionBlockSection" router="debaterecord.section_creation.makeDebateMotionBlockSection" sectiontype="NoticeOfMotion" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create a motion section</title>
-    <router class="org.bungeni.editor.actions.routers.routerMotionSelectMotion" dialog="org.bungeni.editor.selectors.debaterecord.motions.MotionSelect" />
-</action>
-<action name="section_creation" type="" parent="makeProcMotionBlockSection" router="debaterecord.section_creation.makeProcMotionBlockSection" sectiontype="NoticeOfMotion" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create procedural motion</title>
-    <router class="org.bungeni.editor.actions.routers.routerCreateSection" dialog="org.bungeni.editor.selectors.debaterecord.motions.MotionSelect" />
-</action>
-<action name="section_creation" type="" parent="makeDebateMotionBlockSectionEdit" router="debaterecord.section_creation.makeDebateMotionBlockSectionEdit" sectiontype="NoticeOfMotion" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create a motion sectipn</title>
-    <router class="org.bungeni.editor.actions.routers.routerMotionSelectMotion" dialog=" " />
-</action>
-<action name="section_creation" type="" parent="makeDebateQuestionBlockSectionEdit" router="debaterecord.section_creation.makeDebateQuestionBlockSectionEdit" sectiontype="QuestionAnswer" validator="org.bungeni.editor.actions.validators.defaultValidator" >
-    <title xml:lang="eng">create a question section</title>
-    <router class="org.bungeni.editor.actions.routers.routerDebateRecordSelectQuestion" dialog=" " />
-</action>
+    <action name="makeNoticeDetailsMarkup"  type="markup" parent="" router="" sectiontype="" validator="">
+        <title xml:lang="eng">Markup as Notice Details</title>
+    </action>
+    <action name="makeNoticeOfMotionMarkup"  type="markup" parent="" router="" sectiontype="" validator="">
+        <title xml:lang="eng">Markup as Notice-of-Motion</title>
+    </action>
+    <action name="makeSelectCommittee"  type="markup" parent="" router="" sectiontype="" validator="">
+        <title xml:lang="eng">Markup Committee</title>
+    </action>
+    <action name="makeSelectBill"  type="markup" parent="" router="" sectiontype="" validator="">
+        <title xml:lang="eng">Markup Bill</title>
+    </action>
+    <action name="makeProcMotionBlockSection"  type="section" parent="" router="" sectiontype="ProceduralMotion" validator="">
+        <title xml:lang="eng">Markup as Procedural Motion</title>
+    </action>
+    <action name="makePrayerMarkup"  type="markup" parent="" router="" sectiontype="Preface" validator="">
+        <title xml:lang="eng">Markup as Prayer</title>
+    </action>
+    <action name="general_action"  type="section" parent="" router="" sectiontype="None" validator="">
+        <title xml:lang="eng">place holder for general action</title>
+    </action>
+    <action name="makeSpeechBlockSection"  type="section" parent="" router="" sectiontype="Speech" validator="">
+        <title xml:lang="eng">Speech Section</title>
+    </action>
+    <action name="makeQuestionBlockSection"  type="section" parent="" router="" sectiontype="QuestionContainer" validator="">
+        <title xml:lang="eng">Create a numbered Question Section</title>
+    </action>
+    <action name="makePaperSection"  type="section" parent="" router="" sectiontype="Paper" validator="">
+        <title xml:lang="eng">Create a Paper Section</title>
+    </action>
+    <action name="makePrayerSection"  type="section" parent="" router="" sectiontype="Preface" validator="">
+        <title xml:lang="eng">Create a Preface</title>
+    </action>
+    <action name="makeQASection"  type="section" parent="" router="" sectiontype="QAContainer" validator="">
+        <title xml:lang="eng">Create a Question-Answer section</title>
+    </action>
+    <action name="makeProcMotionGroupSection"  type="section" parent="" router="" sectiontype="PMotionsContainer" validator="">
+        <title xml:lang="eng">Create a Procedural Motions Container </title>
+    </action>
+    <action name="makeDebateMotionBlockSectionEdit"  type="section" parent="" router="" sectiontype="NoticeOfMotion" validator="">
+        <title xml:lang="eng">Create Motion Section</title>
+    </action>
+    <action name="makePointOfOrder"  type="section" parent="" router="" sectiontype="PointOfOrder" validator="">
+        <title xml:lang="eng">Create a point of order</title>
+    </action>
+    <action name="makePapersLaidDataEntry"  type="section" parent="" router="" sectiontype="PapersLaidList" validator="">
+        <title xml:lang="eng">Markup a Document Link</title>
+    </action>
+    <action name="makeDebateQuestionBlockSectionEdit"  type="section" parent="" router="" sectiontype="QuestionAnswer" validator="">
+        <title xml:lang="eng">Create a Question</title>
+    </action>
+    <action name="makeDebateMastheadSection"  type="section" parent="" router="" sectiontype="Preface" validator="">
+        <title xml:lang="eng">Metadata for the Preface</title>
+    </action>
+    <action name="makeDebateQuestionSection"  type="section" parent="" router="" sectiontype="Question" validator="">
+        <title xml:lang="eng">marks up the actual question text</title>
+    </action>
+    <action name="makeDebateQuestionBlockSection"  type="section" parent="" router="" sectiontype="QuestionAnswer" validator="">
+        <title xml:lang="eng">contains a question and related speeches</title>
+    </action>
+    <action name="makeMinisterialStatement"  type="section" parent="" router="" sectiontype="MinisterialStatement" validator="">
+        <title xml:lang="eng">Ministerial Statement</title>
+    </action>
+    <action name="makeDebateSpeechBlockSection"  type="section" parent="" router="" sectiontype="Speech" validator="">
+        <title xml:lang="eng">creates a speech</title>
+    </action>
+    <action name="makeObservationAction"  type="section" parent="" router="" sectiontype="Observation" validator="">
+        <title xml:lang="eng">creates an observation</title>
+    </action>
+    <action name="makeGroupActivityAction"  type="section" parent="" router="" sectiontype="GroupActivity" validator="">
+        <title xml:lang="eng">creates a communication</title>
+    </action>
+    <action name="makeCommunicationAction"  type="section" parent="" router="" sectiontype="Communication" validator="">
+        <title xml:lang="eng">creates a communication</title>
+    </action>
+    <action name="makeActionEvent"  type="section" parent="" router="" sectiontype="ActionEvent" validator="">
+        <title xml:lang="eng"></title>
+    </action>
+    <action name="makeAdjournmentAction"  type="section" parent="" router="" sectiontype="ActionEvent" validator="">
+        <title xml:lang="eng">creates an adjournment section</title>
+    </action>
+    <action name="makeConclusionSection"  type="section" parent="" router="" sectiontype="Conclusion" validator="">
+        <title xml:lang="eng">Conclusion Actions</title>
+    </action>
+    <action name="makeNoticeOfMotionAction"  type="section" parent="" router="" sectiontype="ActionEvent" validator="">
+        <title xml:lang="eng">creates a notice of motion</title>
+    </action>
+    <action name="makeDebateMotionGroupSection"  type="section" parent="" router="" sectiontype="NMotionsContainer" validator="">
+        <title xml:lang="eng">Create a Notices of Motion container</title>
+    </action>
+    <action name="makeDebateMotionBlockSection"  type="section" parent="" router="" sectiontype="NoticeOfMotion" validator="">
+        <title xml:lang="eng">Create a Notice of Motion Section</title>
+    </action>
+    <action name="makePersonalStatement"  type="section" parent="" router="" sectiontype="PersonalStatement" validator="">
+        <title xml:lang="eng"></title>
+    </action>
+    <action name="makePapersLaidBlockSection"  type="section" parent="" router="" sectiontype="PapersLaid" validator="">
+        <title xml:lang="eng">Import Tabled Documents</title>
+    </action>
+    <action name="makePapersLaidListSection"  type="section" parent="" router="" sectiontype="PapersLaidList" validator="">
+        <title xml:lang="eng">Import Tabled Documents</title>
+    </action>
+    <action name="makeMetadataReference"  type="section" parent="" router="" sectiontype="ActionEvent" validator="">
+        <title xml:lang="eng">placeholder for metadata markup</title>
+    </action>
+    <action name="makePapersLaidMarkupSingle"  type="section" parent="" router="" sectiontype="PapersLaidList" validator="">
+        <title xml:lang="eng">Selectsingle tabled document</title>
+    </action>
+    <action name="makePetitionsMarkupSingle"  type="section" parent="" router="" sectiontype="PetitionsList" validator="">
+        <title xml:lang="eng">Markup single petition</title>
+    </action>
+    <action name="makePetitionsBlockSection"  type="section" parent="" router="" sectiontype="Petitions" validator="">
+        <title xml:lang="eng">Petitions</title>
+    </action>
+    <action name="makePetitionsListSection"  type="section" parent="" router="" sectiontype="PetitionsList" validator="">
+        <title xml:lang="eng">Petitions</title>
+    </action>
+    <action name="makeDebateQuestionGroupSection"  type="section" parent="" router="" sectiontype="QuestionsContainer" validator="">
+        <title xml:lang="eng">creates  a question group</title>
+    </action>
+    <action name="markup_motion_title"  type="" parent="makeProcMotionBlockSection" router="debaterecord.markup_motion_title.makeProcMotionBlockSection" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create proc motion title</title>
+    </action>
+    <action name="section_creation"  type="" parent="makePointOfOrder" router="debaterecord.section_creation.makePointOfOrder" sectiontype="PointOfOrder" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">Create Point of Order</title>
+    </action>
+    <action name="markup_heading"  type="" parent="general_action" router="debaterecord.markup_heading.general_action" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">Create a Named Heading</title>
+    </action>
+    <action name="markup_question_no"  type="" parent="makeDebateQuestionBlockSection" router="debaterecord.markup_question_no.makeDebateQuestionBlockSection" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">mark a block of text as a question reference</title>
+    </action>
+    <action name="markup_question_by"  type="" parent="makeDebateQuestionBlockSection" router="debaterecord.markup_question_by.makeDebateQuestionBlockSection" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">mark a block of text as a question by reference</title>
+    </action>
+    <action name="markup_question_to"  type="" parent="makeDebateQuestionBlockSection" router="debaterecord.markup_question_to.makeDebateQuestionBlockSection" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">mark a block of text as a question to reference</title>
+    </action>
+    <action name="apply_questiontext_style"  type="" parent="makeDebateQuestionBlockSection" router="debaterecord.apply_questiontext_style.makeDebateQuestionBlockSection" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">mark the selected text with a style</title>
+    </action>
+    <action name="apply_style"  type="" parent="makePointOfOrder" router="debaterecord.apply_style.makePointOfOrder" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">Create Porde heading</title>
+    </action>
+    <action name="mark_as_action"  type="" parent="makeAdjournmentAction" router="debaterecord.mark_as_action.makeAdjournmentAction" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">crearte an action event</title>
+    </action>
+    <action name="mark_as_action"  type="" parent="makeNoticeOfMotionAction" router="debaterecord.mark_as_action.makeNoticeOfMotionAction" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create an action event</title>
+    </action>
+    <action name="mark"  type="" parent="makeMetadataReference" router="debaterecord.mark.makeMetadataReference" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create a document metadata reference</title>
+    </action>
+    <action name="markup_motion_title"  type="" parent="makeDebateMotionBlockSection" router="debaterecord.markup_motion_title.makeDebateMotionBlockSection" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create a motion title</title>
+    </action>
+    <action name="markup_doc_link"  type="" parent="makePapersLaidMarkupSingle" router="debaterecord.markup_doc_link.makePapersLaidMarkupSingle" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">Markup a single tabled document</title>
+    </action>
+    <action name="create_root_section"  type="" parent="general_action" router="debaterecord.create_root_section.general_action" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create root section</title>
+    </action>
+    <action name="markup_doc_link"  type="" parent="makePapersLaidDataEntry" router="debaterecord.markup_doc_link.makePapersLaidDataEntry" sectiontype="" validator=" org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">Markup document link</title>
+    </action>
+    <action name="section_creation"  type="" parent="makeMinisterialStatement" router="debaterecord.section_creation.makeMinisterialStatement" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">Create a Ministerial Statement</title>
+    </action>
+    <action name="section_creation"  type="" parent="makeActionEvent" router="debaterecord.section_creation.makeActionEvent" sectiontype="ActionEvent" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">Create Action Event</title>
+    </action>
+    <action name="markup_committee"  type="" parent="makeSelectCommittee" router="debaterecord.markup_committee.makeSelectCommittee" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">associate committe with section</title>
+    </action>
+    <action name="markup_bill"  type="" parent="makeSelectBill" router="debaterecord.markup_bill.makeSelectBill" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">associate bill with a section</title>
+    </action>
+    <action name="section_creation"  type="" parent="makePersonalStatement" router="debaterecord.section_creation.makePersonalStatement" sectiontype="PersonalStatement" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">Create a Personal Statement section</title>
+    </action>
+    <action name="section_creation"  type="" parent="makePapersLaidListSection" router="debaterecord.section_creation.makePapersLaidListSection" sectiontype="PapersLaidList" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create papers list section</title>
+    </action>
+    <action name="section_creation"  type="" parent="makeDebateQuestionSection" router="debaterecord.section_creation.makeDebateQuestionSection" sectiontype="Question" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng"></title>
+    </action>
+    <action name="apply_style"  type="" parent="makePaperSection" router="debaterecord.apply_style.makePaperSection" sectiontype="Paper" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">Apply papers style</title>
+    </action>
+    <action name="import_tabled_documents"  type="" parent="makePaperSection" router="debaterecord.import_tabled_documents.makePaperSection" sectiontype="Paper" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">Import tabled documents</title>
+    </action>
+    <action name="section_creation"  type="" parent="makePaperSection" router="debaterecord.section_creation.makePaperSection" sectiontype="Paper" validator="org.bungeni.editor.actions.validators.validateCreateSection">
+        <title xml:lang="eng">Create empty Paper Section</title>
+    </action>
+    <action name="section_creation"  type="" parent="makeQASection" router="debaterecord.section_creation.makeQASection" sectiontype="QAContainer" validator="org.bungeni.editor.actions.validators.validateCreateSection">
+        <title xml:lang="eng">Create QA Section</title>
+    </action>
+    <action name="section_creation"  type="" parent="makeQuestionBlockSection" router="debaterecord.section_creation.makeQuestionBlockSection" sectiontype="QuestionContainer" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">Create Question Block</title>
+    </action>
+    <action name="debatedate_entry"  type="" parent="makePrayerSection" router="debaterecord.debatedate_entry.makePrayerSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">Markup debate date</title>
+    </action>
+    <action name="debatetime_entry"  type="" parent="makePrayerSection" router="debaterecord.debatetime_entry.makePrayerSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">Markup debate time</title>
+    </action>
+    <action name="markup_logo"  type="" parent="makePrayerSection" router="debaterecord.markup_logo.makePrayerSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">Apply logo</title>
+    </action>
+    <action name="section_creation"  type="" parent="makePrayerSection" router="debaterecord.section_creation.makePrayerSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.validateCreateSection">
+        <title xml:lang="eng">Create emtpy masthead</title>
+    </action>
+    <action name="char_style"  type="" parent="makeDebateMastheadSection" router="debaterecord.char_style.makeDebateMastheadSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">dummy</title>
+    </action>
+    <action name="create_root_section"  type="" parent="makeDebateMastheadSection" router="debaterecord.create_root_section.makeDebateMastheadSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">createroot section</title>
+    </action>
+    <action name="debatedate"  type="" parent="makeDebateMastheadSection" router="debaterecord.debatedate.makeDebateMastheadSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">dummy</title>
+    </action>
+    <action name="debatetime"  type="" parent="makeDebateMastheadSection" router="debaterecord.debatetime.makeDebateMastheadSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">dummy</title>
+    </action>
+    <action name="markup_logo"  type="" parent="makeDebateMastheadSection" router="debaterecord.markup_logo.makeDebateMastheadSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">dummy</title>
+    </action>
+    <action name="markup_preface_heading"  type="" parent="makeDebateMastheadSection" router="debaterecord.markup_preface_heading.makeDebateMastheadSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create a papers heading</title>
+    </action>
+    <action name="section_creation"  type="" parent="makeDebateMastheadSection" router="debaterecord.section_creation.makeDebateMastheadSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create masthead section</title>
+    </action>
+    <action name="section_creation"  type="" parent="makeGroupActivityAction" router="debaterecord.section_creation.makeGroupActivityAction" sectiontype="GroupActivity" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create a group activity section</title>
+    </action>
+    <action name="mark_house_closing"  type="" parent="makeConclusionSection" router="debaterecord.mark_house_closing.makeConclusionSection" sectiontype="Conclusion" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create a house closing time reference</title>
+    </action>
+    <action name="section_creation"  type="" parent="makeConclusionSection" router="debaterecord.section_creation.makeConclusionSection" sectiontype="Conclusion" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create a conclusion section</title>
+    </action>
+    <action name="lock"  type="" parent="makeDebateSpeechBlockSection" router="debaterecord.lock.makeDebateSpeechBlockSection" sectiontype="Speech" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">lock heading</title>
+    </action>
+    <action name="create_speech"  type="" parent="makeDebateSpeechBlockSection" router="debaterecord.section_creation.makeDebateSpeechBlockSection" sectiontype="Speech" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create a speech section</title>
+        <router class="org.bungeni.editor.actions.routers.routerDebateRecordSelectSpeech"
+                 dialog="org.bungeni.editor.selectors.debaterecord.speech.Main"
+            />
+    </action>
+    <action name="speech_as"  type="" parent="makeDebateSpeechBlockSection" router="debaterecord.speech_as.makeDebateSpeechBlockSection" sectiontype="Speech" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create speech as reference</title>
+        <router class="org.bungeni.editor.actions.routers.routerCreateSpeechAsReference"
+            dialog=""
+        />
+    </action>
+    <action name="speech_by"  type="" parent="makeDebateSpeechBlockSection" router="debaterecord.speech_by.makeDebateSpeechBlockSection" sectiontype="Speech" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create speech to reference</title>
+        <router class="org.bungeni.editor.actions.routers.routerCreateSpeechByReference"
+            dialog=""
+            />
+    </action>
+    <!--
+    <action name="unlockHead"  type="" parent="makeDebateSpeechBlockSection" router="debaterecord.unlockHead.makeDebateSpeechBlockSection" sectiontype="Speech" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">unlock heading </title>
+    </action>
+    -->
+    <action name="create_motion_group"  type="" parent="makeDebateMotionGroupSection" router="debaterecord.section_creation.makeDebateMotionGroupSection" sectiontype="NMotionsContainer" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create motion container </title>
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+                dialog=""
+         />
+    </action>
+    <action name="markup_papers_heading"  type="" parent="makePapersLaidBlockSection" router="debaterecord.markup_papers_heading.makePapersLaidBlockSection" sectiontype="PapersLaid" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create a papers heading</title>
+        <router class="org.bungeni.editor.actions.routers.routerApplyStyle"
+            dialog= ""
+            />
+    </action>
+    <action name="create_papers_laid_block"  type="" parent="makePapersLaidBlockSection" router="debaterecord.section_creation.makePapersLaidBlockSection" sectiontype="PapersLaid" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create a papers laid container</title>
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+            dialog=""
+        />
+    </action>
+    <action name="select_tabled_documents"  type="" parent="makePapersLaidBlockSection" router="debaterecord.select_documents.makePapersLaidBlockSection" sectiontype="PapersLaid" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">select documents</title>
+        <router class="org.bungeni.editor.actions.routers.routerTabledDocuments"
+             dialog="org.bungeni.editor.selectors.debaterecord.tableddocuments.TabledDocuments"
+            />
+    </action>
+    <action name="markup_communication_heading"  type="" parent="makeCommunicationAction" router="debaterecord.apply_style.makeCommunicationAction" sectiontype="Communication" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">Apply Style</title>
+        <router class=" org.bungeni.editor.actions.routers.routerApplyStyle"
+            dialog=""
+            />
+    </action>
+    <action name="create_communication_section"  type="" parent="makeCommunicationAction" router="debaterecord.section_creation.makeCommunicationAction" sectiontype="Communication" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create a communication section</title>
+    </action>
+    <action name="section_creation"  type="" parent="makeProcMotionGroupSection" router="debaterecord.section_creation.makeProcMotionGroupSection" sectiontype="PMotionsContainer" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create container for procedural motions</title>
+    </action>
+    <action name="speech_body"  type="" parent="makeDebateSpeechBlockSection" router="debaterecord.speech_body.makeDebateSpeechBlockSection" sectiontype="SpeechBody" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create speech body</title>
+    </action>
+    <action name="section_creation"  type="" parent="makeDebateQuestionBlockSection" router="debaterecord.section_creation.makeDebateQuestionBlockSection" sectiontype="QuestionAnswer" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">creates a section for the question block</title>
+    </action>
+    <action name="section_creation"  type="" parent="makeObservationAction" router="debaterecord.section_creation.makeObservationAction" sectiontype="Observation" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create an observation section</title>
+    </action>
+    <action name="narrative"  type="" parent="makeObservationAction" router="debaterecord.narrative.makeObservationAction" sectiontype="Narrative" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create a narrative</title>
+    </action>
+    <action name="question_body"  type="" parent="makeDebateQuestionBlockSection" router="debaterecord.question_body.makeDebateQuestionBlockSection" sectiontype="QuestionBody" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create a question body</title>
+    </action>
+    <action name="char_style"  type="" parent="makeDebateSpeechBlockSection" router="debaterecord.char_style.makeDebateSpeechBlockSection" sectiontype="Speech" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">mark list item</title>
+    </action>
+    <action name="section_creation"  type="" parent="makeDebateQuestionGroupSection" router="debaterecord.section_creation.makeDebateQuestionGroupSection" sectiontype="QuestionsContainer" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng"> </title>
+    </action>
+    <action name="markup_official_date"  type="" parent="makeDebateMastheadSection" router="debaterecord.markup_official_date.makeDebateMastheadSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng"></title>
+    </action>
+    <action name="section_creation"  type="" parent="makeDebateMotionBlockSection" router="debaterecord.section_creation.makeDebateMotionBlockSection" sectiontype="NoticeOfMotion" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create a motion section</title>
+    </action>
+    <action name="section_creation"  type="" parent="makeProcMotionBlockSection" router="debaterecord.section_creation.makeProcMotionBlockSection" sectiontype="NoticeOfMotion" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create procedural motion</title>
+    </action>
+    <action name="section_creation"  type="" parent="makeDebateMotionBlockSectionEdit" router="debaterecord.section_creation.makeDebateMotionBlockSectionEdit" sectiontype="NoticeOfMotion" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create a motion sectipn</title>
+    </action>
+    <action name="section_creation"  type="" parent="makeDebateQuestionBlockSectionEdit" router="debaterecord.section_creation.makeDebateQuestionBlockSectionEdit" sectiontype="QuestionAnswer" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create a question section</title>
+    </action>
 </actions>
