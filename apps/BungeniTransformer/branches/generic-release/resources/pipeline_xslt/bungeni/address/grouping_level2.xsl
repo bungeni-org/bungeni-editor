@@ -51,7 +51,20 @@
         <userId>
             <xsl:value-of select="." />
         </userId>
-    </xsl:template>   
+    </xsl:template> 
+    
+    <xsl:template match="permissions">
+        <permissions>
+            <xsl:apply-templates />
+        </permissions>
+    </xsl:template>
+    
+    <xsl:template match="permission">
+        <permission 
+            setting="{field[@name='setting']}" 
+            name="{field[@name='permission']}"  
+            role="{field[@name='role']}" />
+    </xsl:template>    
     
     <xsl:template match="field[@name='membership_id']">
         <membershipId>
@@ -239,15 +252,11 @@
     </xsl:template>      
 
     <xsl:template match="field[@name='short_name']">
-        <shortName>
-            <xsl:value-of select="." />
-        </shortName>
+        <shortName><xsl:value-of select="." /></shortName>
     </xsl:template>
 
     <xsl:template match="field[@name='full_name']">
-        <fullName>
-            <xsl:value-of select="." />
-        </fullName>
+        <fullName><xsl:value-of select="." /></fullName>
     </xsl:template>
     
     <xsl:template match="field[@name='description']">

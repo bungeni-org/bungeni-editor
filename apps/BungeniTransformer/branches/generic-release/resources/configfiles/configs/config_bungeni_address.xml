@@ -25,8 +25,8 @@
             by serializing them into the document being pipelined -->
         <parameters>
             <parameter name="country-code" value="ke" />
-            <parameter name="parliament-election-date" value="2011-12-12" />
-            <parameter name="for-parliament" value="kenya" />
+            <parameter name="parliament-election-date"/>
+            <parameter name="for-parliament"/>
         </parameters>
         
         <xslt   step="1" 

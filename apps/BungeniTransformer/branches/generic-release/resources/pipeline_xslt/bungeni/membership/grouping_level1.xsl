@@ -63,11 +63,14 @@
                 <xsl:copy-of select="contained_groups" />
             </bungeni> 
             
+            <!--    !+FIX_THIS (ao, jan 2012. Some address documents for individuals like clerk dont have 'type' field and 
+                this broke the pipeline processor
+                
             <xsl:element name="{$group-type}">
                 <xsl:attribute name="isA">TLCOrganization</xsl:attribute>
                 <xsl:attribute name="refersTo" select="concat('#', $group_id)" />
             </xsl:element>
-            
+            -->
             <legislature>
                 <xsl:copy-of select="field[  
                     @name='short_name' or

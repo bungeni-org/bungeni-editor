@@ -135,12 +135,6 @@
         <body>
             <xsl:value-of select="." />
         </body>
-    </xsl:template>    
-
-    <xsl:template match="field[@name='status']">
-        <status>
-            <xsl:value-of select="." />
-        </status>
     </xsl:template>
 
     <xsl:template match="field[@name='question_number']">
@@ -160,6 +154,19 @@
             <xsl:value-of select="." />
         </registryNumber>
     </xsl:template>
+    
+    <xsl:template match="permissions">
+        <permissions>
+            <xsl:apply-templates />
+        </permissions>
+    </xsl:template>
+    
+    <xsl:template match="permission">
+        <permission 
+            setting="{field[@name='setting']}" 
+            name="{field[@name='permission']}"  
+            role="{field[@name='role']}" />
+    </xsl:template>    
 
     <xsl:template match="field[@name='parliamentary_item_id']">
         <legislativeItemId>

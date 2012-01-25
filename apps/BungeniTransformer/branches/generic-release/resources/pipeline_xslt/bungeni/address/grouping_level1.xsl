@@ -13,8 +13,8 @@
 
     <!-- these are input parameters to the transformation a-->
     <!-- these are input parameters to the transformation a-->
-    <xsl:param name="country-code"  />
-    <xsl:param name="parliament-election-date"  />
+    <xsl:param name="country-code" />
+    <xsl:param name="parliament-election-date" />
     <xsl:param name="for-parliament" />
     
     <xsl:template match="/">
@@ -23,26 +23,52 @@
     
     <xsl:template match="contenttype">
         <xsl:variable name="address_id" select="field[@name='address_id']" />
+        <xsl:variable name="group_id" select="field[@name='group_id']" />
         <xsl:variable name="content-type" select="@name" />
-        <xsl:variable name="group-type" select="field[@name='type']" />
+        <xsl:variable name="group-type" select="item/field[@name='type']" />
         <!-- 
             !+NOTE (ao, jan-2012)
             Take country_id as opposed to $country-code as with other documents 
         -->
-        <xsl:variable name="country_id" select="field[@name='country_id']"/>
         <ontology type="{$content-type}">
             <address>
-                <xsl:attribute name="type" select="$group-type" />
+                <!-- !+NOTE (ao, jan-2012) 
+                    This generally takes the $group-type but its not being always set for address document
+                     such as those for individuals like a clerk. This is simply stop-gap measure whilst this 
+                     issue is pending. -->
+                <xsl:attribute name="type" select="$content-type" />
 
                 <!-- !+URI_GENERATOR,!+FIX_THIS(ah,nov-2011) use ontology uri
                 for group since its non-document entity -->
-                <xsl:attribute name="uri" 
+                <!-- In relation to the !+NOTE above... -->
+                <xsl:attribute name="uri">
+                    <xsl:choose>
+                        <xsl:when test="field[@name='group_id']">
+                            <xsl:value-of select="concat(
+                                         '/ontology/',
+                                         'group/',
+                                         $country-code,'/',
+                                         $group-type,'/',
+                                         $group_id
+                                         )" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="concat(
+                                         $for-parliament,'/',
+                                         'user/',
+                                         field[@name='user_id']
+                                         )">          
+                            </xsl:value-of>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:attribute>
+                <!--<xsl:attribute name="uri" 
                     select="concat(
                      '/ontology/',
                      $content-type,'/',
                      $country_id, '/',
                      $address_id
-                     )" />
+                     )" />-->
 
                 <xsl:attribute name="id" select="$address_id" />
                 
@@ -58,7 +84,7 @@
                                             @name='first_name' or
                                             @name='last_name' or 
                                             @name='short_name' or 
-                                            @name='full_name' or                                             
+                                            @name='full_name' or                                         
                                             @name='city' or 
                                             @name='country_name' or 
                                             @name='postal_address_type' or 
@@ -67,7 +93,8 @@
                                             @name='phone' or 
                                             @name='street' or 
                                             @name='fax' or 
-                                            @name='email' ]"></xsl:copy-of>
+                                            @name='email' or 
+                                            @name='country_id' ]"></xsl:copy-of>
             </address>
             <bungeni>
                 <xsl:copy-of select="field[ 
@@ -75,18 +102,24 @@
                     @name='language' or
                     @name='status' or 
                     @name='iso_name' or 
-                    @name='country_id' or 
                     @name='numcode' or 
+                    @name='full_name' or                     
                     @name='iso3' ]" 
                 />                    
                 <xsl:copy-of select="permissions" />
+                <group-type>
+                    <xsl:value-of select="$group-type"></xsl:value-of>
+                </group-type>
             </bungeni> 
             
+            <!--    !+FIX_THIS (ao, jan 2012. Some address documents for individuals like clerk dont have 'type' field and 
+                    this broke the pipeline processor
+                    
             <xsl:element name="{$group-type}">
                 <xsl:attribute name="isA">TLCOrganization</xsl:attribute>
                 <xsl:attribute name="refersTo" select="concat('#', $address_id)" />
             </xsl:element>
-            
+            -->
             <!-- i.e. not yet grouped ontologically (ao, Jan 2012) -->
             <descriptors>
                 <xsl:copy-of select="field[  

@@ -62,6 +62,35 @@
         </body>
     </xsl:template>    
     
+    <xsl:template match="field[@name='assignment_id']">
+        <assignmentId>
+            <xsl:value-of select="." />
+        </assignmentId>
+    </xsl:template>  
+    
+    <xsl:template match="field[@name='start_date']">
+        <startDate>
+            <xsl:value-of select="." />
+        </startDate>
+    </xsl:template> 
+    
+    <xsl:template match="field[@name='group_id']">
+        <groupId>
+            <xsl:value-of select="." />
+        </groupId>
+    </xsl:template>   
+    
+    <xsl:template match="field[@name='item_id']">
+        <itemId>
+            <xsl:value-of select="." />
+        </itemId>
+    </xsl:template>     
+    
+    <xsl:template match="field[@name='notes']">
+        <notes>
+            <xsl:value-of select="." />
+        </notes>
+    </xsl:template> 
     
     <xsl:template match="field[@name='status']">
         <status>
