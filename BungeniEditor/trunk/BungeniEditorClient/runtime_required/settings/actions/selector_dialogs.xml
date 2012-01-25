@@ -6,131 +6,131 @@
 -->
 
 <dialogs>
-<dialog class="org.bungeni.editor.selectors.debaterecord.bills.Main" >
-     <dialog
-        class=" org.bungeni.editor.selectors.debaterecord.bills.Bills"
-        order="0" />
-</dialog>
-<dialog class="org.bungeni.editor.selectors.debaterecord.motions.Main" >
-    <dialog  class="org.bungeni.editor.selectors.debaterecord.motions.MotionNameAndURI"
-        order="0" />
-    <dialog class="org.bungeni.editor.selectors.debaterecord.motions.MotionSelect"
-        order="0" />
-    <dialog class="org.bungeni.editor.selectors.debaterecord.motions.MotionText"
-        order="0" />
-    <dialog  class="org.bungeni.editor.selectors.debaterecord.motions.MotionTitle"
-        order="0" />
-</dialog>
+    <dialog class="org.bungeni.editor.selectors.debaterecord.bills.Main" >
+        <dialog
+            class=" org.bungeni.editor.selectors.debaterecord.bills.Bills"
+             />
+    </dialog>
+    <dialog class="org.bungeni.editor.selectors.debaterecord.motions.Main" >
+        <dialog  class="org.bungeni.editor.selectors.debaterecord.motions.MotionNameAndURI"
+             />
+        <dialog class="org.bungeni.editor.selectors.debaterecord.motions.MotionSelect"
+             />
+        <dialog class="org.bungeni.editor.selectors.debaterecord.motions.MotionText"
+             />
+        <dialog  class="org.bungeni.editor.selectors.debaterecord.motions.MotionTitle"
+             />
+    </dialog>
 
-<dialog  class="org.bungeni.editor.selectors.debaterecord.question.MainEdit" >
-    <dialog class=" org.bungeni.editor.selectors.debaterecord.question.QuestionAddressedTo"
-        order="0" />
-    <dialog class="org.bungeni.editor.selectors.debaterecord.question.QuestionNo"
-        order="0" />
-    <dialog
-        class="org.bungeni.editor.selectors.debaterecord.question.QuestionerNameAndURI"
-        order="0" />
+    <dialog  class="org.bungeni.editor.selectors.debaterecord.question.MainEdit" >
+        <dialog class=" org.bungeni.editor.selectors.debaterecord.question.QuestionAddressedTo"
+             />
+        <dialog class="org.bungeni.editor.selectors.debaterecord.question.QuestionNo"
+             />
+        <dialog
+            class="org.bungeni.editor.selectors.debaterecord.question.QuestionerNameAndURI"
+             />
 
-</dialog>
-
-<dialog
-    class="org.bungeni.editor.selectors.debaterecord.tableddocuments.MainSingleSelect" >
-    
-    <dialog
-        class="org.bungeni.editor.selectors.debaterecord.tableddocuments.SingleSelectTabledDocuments"
-        order="0" />
-
-</dialog>
-
-<dialog
-    class="org.bungeni.editor.selectors.debaterecord.questions.Main" >
-    <dialog
-        class="org.bungeni.editor.selectors.debaterecord.questions.QuestionType"
-        order="1" />
-
-</dialog>
-
-<dialog
-    class="org.bungeni.editor.selectors.debaterecord.conclusion.Main" >
-    <dialog
-        class="org.bungeni.editor.selectors.debaterecord.conclusion.HouseClosingTime"
-        order="0" />
-
-</dialog>
-
-<dialog
-    class="org.bungeni.editor.selectors.debaterecord.tableddocuments.Main" >
-    <dialog
-        class="org.bungeni.editor.selectors.debaterecord.tableddocuments.TabledDocuments"
-        order="0" />
-
-</dialog>
-
-<dialog
-    class="org.bungeni.editor.selectors.debaterecord.motions.MainEdit" >
+    </dialog>
 
     <dialog
-        class="org.bungeni.editor.selectors.debaterecord.motions.MotionNameAndURI"
-        order="0" />
+        class="org.bungeni.editor.selectors.debaterecord.tableddocuments.MainSingleSelect" >
 
-</dialog>
-<dialog
-    class="org.bungeni.editor.selectors.debaterecord.speech.Main" >
-    <dialog
-        class="org.bungeni.editor.selectors.debaterecord.speech.PersonSelector"
-        order="1" />
-    <dialog
-        class="org.bungeni.editor.selectors.debaterecord.speech.PersonURI"
-        order="3" />
-    <dialog
-        class="org.bungeni.editor.selectors.debaterecord.speech.SpeechAs"
-        order="4" />
-    <dialog
-        class="org.bungeni.editor.selectors.debaterecord.speech.SpeechBy"
-        order="2" />
-</dialog>
+        <dialog
+            class="org.bungeni.editor.selectors.debaterecord.tableddocuments.SingleSelectTabledDocuments"
+             />
 
-<dialog
-    class="org.bungeni.editor.selectors.debaterecord.tableddocuments.MainDataEntry" >
-    <dialog
-        class="org.bungeni.editor.selectors.debaterecord.tableddocuments.EnterTabledDocument"
-        order="0" />
-</dialog>
-
-<dialog
-    class="org.bungeni.editor.selectors.debaterecord.masthead.Main" >
-   <dialog
-    class="org.bungeni.editor.selectors.debaterecord.masthead.DebateRecordLogo"
-    order="0" />
-</dialog>
-
-<dialog
-    class="org.bungeni.editor.selectors.debaterecord.committees.Main" >
-    <dialog
-        class="org.bungeni.editor.selectors.debaterecord.committees.Committees"
-        order="0" />
-</dialog>
-
-<dialog
-    class="org.bungeni.editor.selectors.debaterecord.question.Main" >
+    </dialog>
 
     <dialog
-        class="org.bungeni.editor.selectors.debaterecord.question.QuestionAddressedTo"
-        order="4" />
-    <dialog
-        class="org.bungeni.editor.selectors.debaterecord.question.QuestionSelect"
-        order="1" />
-    <dialog
-        class="org.bungeni.editor.selectors.debaterecord.question.QuestionText"
-        order="5" />
-    <dialog
-        class="org.bungeni.editor.selectors.debaterecord.question.QuestionTitle"
-        order="2" />
-    <dialog
-        class="org.bungeni.editor.selectors.debaterecord.question.QuestionerNameAndURI"
-        order="3" />
+        class="org.bungeni.editor.selectors.debaterecord.questions.Main" >
+        <dialog
+            class="org.bungeni.editor.selectors.debaterecord.questions.QuestionType"
+             />
 
-</dialog>
+    </dialog>
+
+    <dialog
+        class="org.bungeni.editor.selectors.debaterecord.conclusion.Main" >
+        <dialog
+            class="org.bungeni.editor.selectors.debaterecord.conclusion.HouseClosingTime"
+             />
+
+    </dialog>
+
+    <dialog
+        class="org.bungeni.editor.selectors.debaterecord.tableddocuments.Main" >
+        <dialog
+            class="org.bungeni.editor.selectors.debaterecord.tableddocuments.TabledDocuments"
+             />
+
+    </dialog>
+
+    <dialog
+        class="org.bungeni.editor.selectors.debaterecord.motions.MainEdit" >
+
+        <dialog
+            class="org.bungeni.editor.selectors.debaterecord.motions.MotionNameAndURI"
+             />
+
+    </dialog>
+    <dialog
+        class="org.bungeni.editor.selectors.debaterecord.speech.Main" >
+        <dialog
+            class="org.bungeni.editor.selectors.debaterecord.speech.PersonSelector"
+             />
+        <dialog
+            class="org.bungeni.editor.selectors.debaterecord.speech.PersonURI"
+             />
+        <dialog
+            class="org.bungeni.editor.selectors.debaterecord.speech.SpeechAs"
+             />
+        <dialog
+            class="org.bungeni.editor.selectors.debaterecord.speech.SpeechBy"
+             />
+    </dialog>
+
+    <dialog
+        class="org.bungeni.editor.selectors.debaterecord.tableddocuments.MainDataEntry" >
+        <dialog
+            class="org.bungeni.editor.selectors.debaterecord.tableddocuments.EnterTabledDocument"
+             />
+    </dialog>
+
+    <dialog
+        class="org.bungeni.editor.selectors.debaterecord.masthead.Main" >
+        <dialog
+            class="org.bungeni.editor.selectors.debaterecord.masthead.DebateRecordLogo"
+             />
+    </dialog>
+
+    <dialog
+        class="org.bungeni.editor.selectors.debaterecord.committees.Main" >
+        <dialog
+            class="org.bungeni.editor.selectors.debaterecord.committees.Committees"
+             />
+    </dialog>
+
+    <dialog
+        class="org.bungeni.editor.selectors.debaterecord.question.Main" >
+
+        <dialog
+            class="org.bungeni.editor.selectors.debaterecord.question.QuestionAddressedTo"
+             />
+        <dialog
+            class="org.bungeni.editor.selectors.debaterecord.question.QuestionSelect"
+             />
+        <dialog
+            class="org.bungeni.editor.selectors.debaterecord.question.QuestionText"
+             />
+        <dialog
+            class="org.bungeni.editor.selectors.debaterecord.question.QuestionTitle"
+             />
+        <dialog
+            class="org.bungeni.editor.selectors.debaterecord.question.QuestionerNameAndURI"
+             />
+
+    </dialog>
 
 
 </dialogs>

@@ -415,7 +415,7 @@
 />
 <router name="debaterecord.speech_body.makeDebateSpeechBlockSection"
     class="org.bungeni.editor.actions.routers.routerCreateSection"
-    dialog="org.bungeni.editor.selectors.InitBillPreface"
+    dialog=""
 />
 <router name="debaterecord.section_creation.makeDebateQuestionBlockSection"
     class="org.bungeni.editor.actions.routers.routerDebateRecordSelectQuestion"

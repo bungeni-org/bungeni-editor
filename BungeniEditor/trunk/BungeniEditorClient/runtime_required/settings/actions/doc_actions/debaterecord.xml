@@ -155,13 +155,13 @@
     <action name="create_point_of_order"  type="" parent="makePointOfOrder" router="debaterecord.section_creation.makePointOfOrder" sectiontype="PointOfOrder" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">Create Point of Order</title>
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"
-            dialog=" "
+            dialog=""
         />
     </action>
     <action name="markup_heading"  type="" parent="general_action"
         router="debaterecord.markup_heading.general_action" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">Create a Named Heading</title>
-        <router class=" org.bungeni.editor.actions.routers.routerApplyStyle"
+        <router class="org.bungeni.editor.actions.routers.routerApplyStyle"
             dialog=""
         />
     </action>
@@ -189,6 +189,9 @@
     <action name="apply_questiontext_style"  type="" parent="makeDebateQuestionBlockSection"
         router="debaterecord.apply_questiontext_style.makeDebateQuestionBlockSection" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">mark the selected text with a style</title>
+        <router class="org.bungeni.editor.actions.routers.routerApplyStyle"
+            dialog="org.bungeni.editor.selectors.InitBillPreface"
+            />
     </action>
     <action name="create_point_of_order_heading"  type="" parent="makePointOfOrder"
         router="debaterecord.apply_style.makePointOfOrder" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
@@ -257,7 +260,7 @@
         router="debaterecord.section_creation.makeActionEvent" sectiontype="ActionEvent" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">Create Action Event</title>
         <router class="org.bungeni.editor.actions.routers.routerCreateEvent"
-            dialog=" "
+            dialog=""
         />
     </action>
     <action name="markup_committee"  type="" parent="makeSelectCommittee"
@@ -270,7 +273,7 @@
     <action name="markup_bill"  type="" parent="makeSelectBill"
         router="debaterecord.markup_bill.makeSelectBill" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">associate bill with a section</title>
-        <router class=" org.bungeni.editor.actions.routers.routerSelectBill"
+        <router class="org.bungeni.editor.actions.routers.routerSelectBill"
             dialog="org.bungeni.editor.selectors.debaterecord.bills.Bills"
         />
     </action>
@@ -402,9 +405,12 @@
             dialog="org.bungeni.editor.selectors.InitBillPreface"
         />
     </action>
-    <action name="create_debate_mast_head_section"  type="" parent="makeDebateMastheadSection"
+    <action name="create_preface"  type="" parent="makeDebateMastheadSection"
         router="debaterecord.section_creation.makeDebateMastheadSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator">
-        <title xml:lang="eng">create masthead section</title>
+        <title xml:lang="eng">create preface</title>
+        <router  class="org.bungeni.editor.actions.routers.routerCreateSection"
+             dialog="org.bungeni.editor.selectors.InitBillPreface"
+            />
     </action>
     <action name="make_group_activity_section"  type="" parent="makeGroupActivityAction"
         router="debaterecord.section_creation.makeGroupActivityAction" sectiontype="GroupActivity" validator="org.bungeni.editor.actions.validators.defaultValidator">
@@ -427,6 +433,7 @@
             dialog="org.bungeni.editor.selectors.debaterecord.conclusion.HouseClosingTime"
         />
     </action>
+    <!--
     <action name="make_speech_block_section"  type="" parent="makeDebateSpeechBlockSection"
         router="debaterecord.lock.makeDebateSpeechBlockSection" sectiontype="Speech" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">lock heading</title>
@@ -434,6 +441,7 @@
             dialog="org.bungeni.editor.selectors.InitBillPreface"
         />
     </action>
+    -->
     <action name="create_speech"  type="" parent="makeDebateSpeechBlockSection" router="debaterecord.section_creation.makeDebateSpeechBlockSection" sectiontype="Speech" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create a speech section</title>
         <router class="org.bungeni.editor.actions.routers.routerDebateRecordSelectSpeech"
@@ -451,6 +459,14 @@
         <router class="org.bungeni.editor.actions.routers.routerCreateSpeechByReference"
             dialog=""
             />
+    </action>
+
+        <action name="create_speech_body"  type="" parent="makeDebateSpeechBlockSection"
+        router="debaterecord.speech_body.makeDebateSpeechBlockSection" sectiontype="SpeechBody" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create speech body</title>
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+            dialog=""
+        />
     </action>
     <!--
     <action name="unlockHead"  type="" parent="makeDebateSpeechBlockSection" router="debaterecord.unlockHead.makeDebateSpeechBlockSection" sectiontype="Speech" validator="org.bungeni.editor.actions.validators.defaultValidator">
@@ -478,12 +494,12 @@
     <action name="select_tabled_documents"  type="" parent="makePapersLaidBlockSection" router="debaterecord.select_documents.makePapersLaidBlockSection" sectiontype="PapersLaid" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">select documents</title>
         <router class="org.bungeni.editor.actions.routers.routerTabledDocuments"
-             dialog="org.bungeni.editor.selectors.debaterecord.tableddocuments.TabledDocuments"
+             dialog="org.bungeni.editor.selectors.debaterecord.tableddocuments.Main"
             />
     </action>
     <action name="markup_communication_heading"  type="" parent="makeCommunicationAction" router="debaterecord.apply_style.makeCommunicationAction" sectiontype="Communication" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">Apply Style</title>
-        <router class=" org.bungeni.editor.actions.routers.routerApplyStyle"
+        <router class="org.bungeni.editor.actions.routers.routerApplyStyle"
             dialog=""
             />
     </action>
@@ -501,13 +517,7 @@
             dialog="org.bungeni.editor.selectors.debaterecord.motions.MotionSelect"
         />
     </action>
-    <action name="make_speech_block_section"  type="" parent="makeDebateSpeechBlockSection"
-        router="debaterecord.speech_body.makeDebateSpeechBlockSection" sectiontype="SpeechBody" validator="org.bungeni.editor.actions.validators.defaultValidator">
-        <title xml:lang="eng">create speech body</title>
-        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
-            dialog="org.bungeni.editor.selectors.InitBillPreface"
-        />
-    </action>
+
     <action name="make_debate_section_question"  type="" parent="makeDebateQuestionBlockSection"
         router="debaterecord.section_creation.makeDebateQuestionBlockSection" sectiontype="QuestionAnswer" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">creates a section for the question block</title>
@@ -547,7 +557,7 @@
         router="debaterecord.section_creation.makeDebateQuestionGroupSection" sectiontype="QuestionsContainer" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng"> </title>
         <router class="org.bungeni.editor.actions.routers.routerDebateRecordSelectQuestionsType"
-            dialog="org.bungeni.editor.selectors.debaterecord.questions.QuestionType"
+            dialog="org.bungeni.editor.selectors.debaterecord.questions.Main"
         />
     </action>
     <action name="markup_official_date"  type="" parent="makeDebateMastheadSection"
@@ -561,7 +571,7 @@
         router="debaterecord.section_creation.makeDebateMotionBlockSection" sectiontype="NoticeOfMotion" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create a motion section</title>
         <router class="org.bungeni.editor.actions.routers.routerMotionSelectMotion"
-            dialog=" "
+            dialog=""
         />
     </action>
     <action name="make_procedural_motion_section"  type="" parent="makeProcMotionBlockSection"
@@ -575,14 +585,14 @@
         router="debaterecord.section_creation.makeDebateMotionBlockSectionEdit" sectiontype="NoticeOfMotion" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create a motion sectipn</title>
         <router class="org.bungeni.editor.actions.routers.routerMotionSelectMotion"
-            dialog=" "
+            dialog=""
         />
     </action>
     <action name="create_question_section"  type="" parent="makeDebateQuestionBlockSectionEdit"
         router="debaterecord.section_creation.makeDebateQuestionBlockSectionEdit" sectiontype="QuestionAnswer" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create a question section</title>
         <router class="org.bungeni.editor.actions.routers.routerDebateRecordSelectQuestion"
-            dialog=" "
+            dialog=""
         />
     </action>
 </actions>

@@ -92,7 +92,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                                 cursorInSection:speech[0-9]*,spbody[0-9]*">
                     <title xml:lang="eng">---- list-item</title>
                     <tooltip xml:lang="eng">
-                        Identify selected text as speech author's name
+                        Identify the selected text as an item in a list
                     </tooltip>
                 </action>
 
@@ -110,7 +110,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
   
                 <action name="Speech.SpeechBody" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="make_speech_block_section"
+                    target="create_speech_body"
                     visible="true"
                     condition="textSelected:true :and:
                                cursorInSection:speech[0-9]* :and:
@@ -121,7 +121,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     </tooltip>
                 </action>
                 <!-- markup a list item number in a speech, these action target names need to rationalized -->
-                <action name="Speech.body.item_number"
+                <action name="MarkupQuestionNo"
                     mode="TEXT_SELECTED_INSERT"
                     target="markup_question_no"
                     visible="true"
@@ -335,7 +335,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <subaction name="Masthead.selection"
                     tooltip="Select some text to mark it up as a Part" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="create_debate_mast_head_section"
+                    target="create_preface"
                     visible="true"
                     condition="cursorInSection:debaterecord :and: 
                                 textSelected:true :and: 
