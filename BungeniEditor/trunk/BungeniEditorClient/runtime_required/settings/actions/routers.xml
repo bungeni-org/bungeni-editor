@@ -70,7 +70,7 @@
     dialog=""
 />
 <router name="debaterecord.section_creation.makeMinisterialStatement"
-    class=" org.bungeni.editor.actions.routers.routerCreateSection"
+    class="org.bungeni.editor.actions.routers.routerCreateSection"
     dialog=""
 />
 <router name="debaterecord.section_creation.makeActionEvent"

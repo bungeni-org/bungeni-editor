@@ -25,7 +25,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <title xml:lang="spa">Discurso</title>
                 <action name="PersonalStatement.create" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makePersonalStatement.section_creation" 
+                    target="create_personal_statement"
                     visible="true"
                     condition="textSelected:true :and:
                                 !cursorInSection:speech[0-9]* :and: 
@@ -39,7 +39,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <subaction name="Heading.PersonalStatement" 
                     tooltip="Heading for personal statement"
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeCommunicationAction.apply_style:heading_pstatement"
+                    target="markup_communication_heading:heading_pstatement"
                     visible="true"
                     condition="cursorInSection:pstatemnt[0-9]* :and: 
                                 textSelected:true">
@@ -50,7 +50,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </subaction>
                 <action name="MinStatement.create" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="toolbarSubAction.makeMinisterialStatement.section_creation"
+                    target="create_ministerial_statement"
                     visible="true"
                     condition="textSelected:true :and: 
                                 !cursorInSection:speech[0-9]* :and: 

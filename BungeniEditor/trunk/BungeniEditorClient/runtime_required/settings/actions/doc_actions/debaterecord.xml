@@ -23,6 +23,7 @@
         <title xml:lang="eng">Markup as Notice</title>
     </action>
     -->
+    <!--
     <action name="makeNoticeDetailsMarkup"  type="markup" parent="" router="" sectiontype="" validator="">
         <title xml:lang="eng">Markup as Notice Details</title>
     </action>
@@ -143,11 +144,19 @@
     <action name="makeDebateQuestionGroupSection"  type="section" parent="" router="" sectiontype="QuestionsContainer" validator="">
         <title xml:lang="eng">creates  a question group</title>
     </action>
+    -->
+
     <action name="markup_motion_title"  type="" parent="makeProcMotionBlockSection" router="debaterecord.markup_motion_title.makeProcMotionBlockSection" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create proc motion title</title>
+         <router class="org.bungeni.editor.actions.routers.routerApplyStyle"
+            dialog=""
+        />
     </action>
-    <action name="section_creation"  type="" parent="makePointOfOrder" router="debaterecord.section_creation.makePointOfOrder" sectiontype="PointOfOrder" validator="org.bungeni.editor.actions.validators.defaultValidator">
+    <action name="create_point_of_order"  type="" parent="makePointOfOrder" router="debaterecord.section_creation.makePointOfOrder" sectiontype="PointOfOrder" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">Create Point of Order</title>
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+            dialog=" "
+        />
     </action>
     <action name="markup_heading"  type="" parent="general_action"
         router="debaterecord.markup_heading.general_action" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
@@ -237,7 +246,7 @@
             dialog=""
         />
     </action>
-    <action name="make_ministerial_statement_section"  type="" parent="makeMinisterialStatement"
+    <action name="create_ministerial_statement"  type="" parent="makeMinisterialStatement"
         router="debaterecord.section_creation.makeMinisterialStatement" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">Create a Ministerial Statement</title>
         <router class=" org.bungeni.editor.actions.routers.routerCreateSection"
@@ -265,7 +274,7 @@
             dialog="org.bungeni.editor.selectors.debaterecord.bills.Bills"
         />
     </action>
-    <action name="make_personal_statement_section"  type="" parent="makePersonalStatement"
+    <action name="create_personal_statement"  type="" parent="makePersonalStatement"
         router="debaterecord.section_creation.makePersonalStatement" sectiontype="PersonalStatement" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">Create a Personal Statement section</title>
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"
