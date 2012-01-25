@@ -267,14 +267,14 @@
         router="debaterecord.markup_committee.makeSelectCommittee" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">associate committe with section</title>
         <router class="org.bungeni.editor.actions.routers.routerSelectCommittee"
-            dialog="org.bungeni.editor.selectors.debaterecord.committees.Committees"
+            dialog="org.bungeni.editor.selectors.debaterecord.committees.Main"
         />
     </action>
     <action name="markup_bill"  type="" parent="makeSelectBill"
         router="debaterecord.markup_bill.makeSelectBill" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">associate bill with a section</title>
         <router class="org.bungeni.editor.actions.routers.routerSelectBill"
-            dialog="org.bungeni.editor.selectors.debaterecord.bills.Bills"
+            dialog="org.bungeni.editor.selectors.debaterecord.bills.Main"
         />
     </action>
     <action name="create_personal_statement"  type="" parent="makePersonalStatement"
@@ -569,23 +569,23 @@
     </action>
     <action name="create_debate_block_section"  type="" parent="makeDebateMotionBlockSection"
         router="debaterecord.section_creation.makeDebateMotionBlockSection" sectiontype="NoticeOfMotion" validator="org.bungeni.editor.actions.validators.defaultValidator">
-        <title xml:lang="eng">create a motion section</title>
+        <title xml:lang="eng">Import a motion</title>
         <router class="org.bungeni.editor.actions.routers.routerMotionSelectMotion"
-            dialog=""
+            dialog="org.bungeni.editor.selectors.debaterecord.motions.Main"
         />
     </action>
     <action name="make_procedural_motion_section"  type="" parent="makeProcMotionBlockSection"
         router="debaterecord.section_creation.makeProcMotionBlockSection" sectiontype="NoticeOfMotion" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create procedural motion</title>
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"
-            dialog="org.bungeni.editor.selectors.debaterecord.motions.MotionSelect"
+            dialog="org.bungeni.editor.selectors.debaterecord.motions.Main"
         />
     </action>
     <action name="create_debate_motion_block"  type="" parent="makeDebateMotionBlockSectionEdit"
         router="debaterecord.section_creation.makeDebateMotionBlockSectionEdit" sectiontype="NoticeOfMotion" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create a motion sectipn</title>
         <router class="org.bungeni.editor.actions.routers.routerMotionSelectMotion"
-            dialog=""
+            dialog="org.bungeni.editor.selectors.debaterecord.motions.MainEdit"
         />
     </action>
     <action name="create_question_section"  type="" parent="makeDebateQuestionBlockSectionEdit"
