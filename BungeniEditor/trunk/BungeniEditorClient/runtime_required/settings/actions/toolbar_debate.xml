@@ -233,7 +233,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and: 
                                 !cursorInSection:actionevt[0-9]* :and: cursorInSection:questions[0-9]*"
                     mode="TEXT_SELECTED_INSERT"
-                    target="makeActionEvent:QuestionAccepted">
+                    target="make_action_event:QuestionAccepted">
                     <title xml:lang="eng">question accepted</title>
                     <tooltip xml:lang="eng">
                         Mark event : Question Accepted
@@ -244,7 +244,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and: 
                                 !cursorInSection:actionevt[0-9]* :and: cursorInSection:questions[0-9]*"
                     mode="TEXT_SELECTED_INSERT"
-                    target="makeActionEvent:QuestionWithdrawn">
+                    target="make_action_event:QuestionWithdrawn">
                     <title xml:lang="eng">question withdrawn</title>
                     <tooltip xml:lang="eng">
                         Mark event : Question Withdrawn
@@ -255,7 +255,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and: 
                                 !cursorInSection:actionevt[0-9]* :and: cursorInSection:questions[0-9]*"
                     mode="TEXT_SELECTED_INSERT"
-                    target="makeActionEvent:QuestionDeferred">
+                    target="make_action_event:QuestionDeferred">
                     <title xml:lang="eng">question deferred</title>
                     <tooltip xml:lang="eng">
                         Mark event : Question Deferred
@@ -266,7 +266,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and: 
                                 !cursorInSection:actionevt[0-9]* :and: cursorInSection:noticesmotion[0-9]*"
                     mode="TEXT_SELECTED_INSERT"
-                    target="makeActionEvent:DebateInterruption">
+                    target="make_action_event:DebateInterruption">
                     <title xml:lang="eng">debate interruption</title>
                     <tooltip xml:lang="eng">
                         Mark event : Debate Interruption
@@ -277,7 +277,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and: 
                                 !cursorInSection:actionevt[0-9]* :and: cursorInSection:noticesmotion[0-9]*"
                     mode="TEXT_SELECTED_INSERT"
-                    target="makeActionEvent:DebateResumption">
+                    target="make_action_event:DebateResumption">
                     <title xml:lang="eng">debate resumption</title>
                     <tooltip xml:lang="eng">
                         Mark event : Debate Resumption
@@ -288,7 +288,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and: 
                                 !cursorInSection:actionevt[0-9]*"
                     mode="TEXT_SELECTED_INSERT"
-                    target="makeActionEvent:BillFirstReading">
+                    target="make_action_event:BillFirstReading">
                     <title xml:lang="eng">bill 1st reading</title>
                     <tooltip xml:lang="eng">
                         Mark Event : Bill 1st Reading
@@ -299,7 +299,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and: 
                                 !cursorInSection:actionevt[0-9]*"
                     mode="TEXT_SELECTED_INSERT"
-                    target="makeActionEvent:BillSecondReading">
+                    target="make_action_event:BillSecondReading">
                     <title xml:lang="eng">bill 2nd reading</title>
                     <tooltip xml:lang="eng">
                         Mark Event : Bill 2nd Reading
@@ -310,7 +310,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and: 
                                 !cursorInSection:actionevt[0-9]*"
                     mode="TEXT_SELECTED_INSERT"
-                    target="makeActionEvent:BillThirdReading">
+                    target="make_action_event:BillThirdReading">
                     <title xml:lang="eng">bill 3nd reading</title>
                     <tooltip xml:lang="eng">
                         Mark Event : Bill 3rd Reading
