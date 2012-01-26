@@ -453,7 +453,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </action>
                 <action name="Papers.selectSingle" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="markup_doc_link"
+                    target="select_doc_link"
                     visible="true" 
                     condition="textSelected:true :and: 
                                 cursorInSection:tbldocs[0-9]*">
@@ -467,7 +467,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </action>
                 <action name="Papers.selectSingleData" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="markup_doc_link" 
+                    target="add_doc_link"
                     visible="true"
                     condition="textSelected:true :and: 
                                 cursorInSection:tbldocs[0-9]*">

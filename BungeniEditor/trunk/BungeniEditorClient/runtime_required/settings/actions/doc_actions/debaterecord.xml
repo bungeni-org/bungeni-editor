@@ -228,27 +228,27 @@
             dialog="org.bungeni.editor.selectors.InitBillPreface"
         />
     </action>
-    <action name="markup_doc_link"  type="" parent="makePapersLaidMarkupSingle"
+    <action name="select_doc_link"  type="" parent="makePapersLaidMarkupSingle"
         router="debaterecord.markup_doc_link.makePapersLaidMarkupSingle" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">Markup a single tabled document</title>
         <router class="org.bungeni.editor.actions.routers.routerTabledDocuments"
-            dialog=""
+            dialog="org.bungeni.editor.selectors.debaterecord.tableddocuments.MainSingleSelect"
         />
-    </action>
+     </action>
+    <action name="add_doc_link"  type="" parent="makePapersLaidDataEntry"
+        router="debaterecord.markup_doc_link.makePapersLaidDataEntry" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">Markup document link</title>
+        <router class="org.bungeni.editor.actions.routers.routerTabledDocuments"
+            dialog="org.bungeni.editor.selectors.debaterecord.tableddocuments.Main"
+        />
+    </action>    
     <action name="create_root_section"  type="" parent="general_action"
         router="debaterecord.create_root_section.general_action" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create root section</title>
         <router class="org.bungeni.editor.actions.routers.routerCreateRoot"
             dialog=""
         />
-    </action>
-    <action name="markup_doc_link"  type="" parent="makePapersLaidDataEntry"
-        router="debaterecord.markup_doc_link.makePapersLaidDataEntry" sectiontype="" validator=" org.bungeni.editor.actions.validators.defaultValidator">
-        <title xml:lang="eng">Markup document link</title>
-        <router class="org.bungeni.editor.actions.routers.routerTabledDocuments"
-            dialog=""
-        />
-    </action>
+    </action>    
     <action name="create_ministerial_statement"  type="" parent="makeMinisterialStatement"
         router="debaterecord.section_creation.makeMinisterialStatement" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">Create a Ministerial Statement</title>
