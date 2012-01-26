@@ -423,14 +423,14 @@
         router="debaterecord.mark_house_closing.makeConclusionSection" sectiontype="Conclusion" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create a house closing time reference</title>
         <router class="org.bungeni.editor.actions.routers.routerMarkHouseClosing"
-            dialog="org.bungeni.editor.selectors.debaterecord.conclusion.HouseClosingTime"
+            dialog="org.bungeni.editor.selectors.debaterecord.conclusion.Main"
         />
     </action>
     <action name="make_adjournment_section"  type="" parent="makeConclusionSection"
-        router="debaterecord.section_creation.makeConclusionSection" sectiontype="Conclusion" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        router="debaterecord.mark_as_action.makeAdjournmentAction" sectiontype="Conclusion" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create a conclusion section</title>
-        <router class="org.bungeni.editor.actions.routers.routerMarkHouseClosing"
-            dialog="org.bungeni.editor.selectors.debaterecord.conclusion.HouseClosingTime"
+        <router class="org.bungeni.editor.actions.routers.routerMarkAsAction"
+            dialog="org.bungeni.editor.selectors.InitBillPreface"
         />
     </action>
     <!--
