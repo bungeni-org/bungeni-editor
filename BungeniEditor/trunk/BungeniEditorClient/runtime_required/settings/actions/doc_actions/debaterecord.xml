@@ -522,7 +522,7 @@
         router="debaterecord.section_creation.makeDebateQuestionBlockSection" sectiontype="QuestionAnswer" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">creates a section for the question block</title>
         <router class="org.bungeni.editor.actions.routers.routerDebateRecordSelectQuestion"
-            dialog="org.bungeni.editor.selectors.debaterecord.question.QuestionSelect"
+            dialog="org.bungeni.editor.selectors.debaterecord.question.MainEdit"
         />
     </action>
     <action name="create_observation_section"  type="" parent="makeObservationAction"
@@ -592,7 +592,7 @@
         router="debaterecord.section_creation.makeDebateQuestionBlockSectionEdit" sectiontype="QuestionAnswer" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create a question section</title>
         <router class="org.bungeni.editor.actions.routers.routerDebateRecordSelectQuestion"
-            dialog=""
+            dialog="org.bungeni.editor.selectors.debaterecord.question.Main"
         />
     </action>
 </actions>
