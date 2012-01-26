@@ -9,8 +9,8 @@
 
 package org.bungeni.editor.actions.validators;
 
+import org.bungeni.editor.actions.toolbarActionDeprecated;
 import org.bungeni.editor.actions.toolbarAction;
-import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.ooo.OOComponentHelper;
 
 /**
@@ -29,10 +29,10 @@ public interface IBungeniActionValidator {
     public org.bungeni.error.BungeniValidatorState check_FullEdit(toolbarAction action, toolbarSubAction subAction, OOComponentHelper ooDocument) ;
     **/
     
-    public org.bungeni.error.BungeniValidatorState check(toolbarSubAction subAction, OOComponentHelper ooDocument);
-    public org.bungeni.error.BungeniValidatorState check_DocumentLevelAction(toolbarSubAction subAction, OOComponentHelper ooDocument) ;
-    public org.bungeni.error.BungeniValidatorState check_TextSelectedInsert(toolbarSubAction subAction, OOComponentHelper ooDocument) ;
-    public org.bungeni.error.BungeniValidatorState check_TextSelectedEdit(toolbarSubAction subAction, OOComponentHelper ooDocument) ;
-    public org.bungeni.error.BungeniValidatorState check_FullInsert(toolbarSubAction subAction, OOComponentHelper ooDocument) ;
-    public org.bungeni.error.BungeniValidatorState check_FullEdit(toolbarSubAction subAction, OOComponentHelper ooDocument) ;
+    public org.bungeni.error.BungeniValidatorState check(toolbarAction subAction, OOComponentHelper ooDocument);
+    public org.bungeni.error.BungeniValidatorState check_DocumentLevelAction(toolbarAction subAction, OOComponentHelper ooDocument) ;
+    public org.bungeni.error.BungeniValidatorState check_TextSelectedInsert(toolbarAction subAction, OOComponentHelper ooDocument) ;
+    public org.bungeni.error.BungeniValidatorState check_TextSelectedEdit(toolbarAction subAction, OOComponentHelper ooDocument) ;
+    public org.bungeni.error.BungeniValidatorState check_FullInsert(toolbarAction subAction, OOComponentHelper ooDocument) ;
+    public org.bungeni.error.BungeniValidatorState check_FullEdit(toolbarAction subAction, OOComponentHelper ooDocument) ;
 }

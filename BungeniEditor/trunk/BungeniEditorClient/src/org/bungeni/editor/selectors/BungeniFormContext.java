@@ -12,8 +12,8 @@ package org.bungeni.editor.selectors;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.apache.log4j.Logger;
+import org.bungeni.editor.actions.toolbarActionDeprecated;
 import org.bungeni.editor.actions.toolbarAction;
-import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.editor.selectors.BaseMetadataContainerPanel.ConditionSet;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooDocMetadataFieldSet;
@@ -28,7 +28,7 @@ public class BungeniFormContext  implements IBungeniFormContext{
     // !+ACTION_RECONF (rm, jan 2012) - toolbarAction has been deprecated and all functionality
     // moved to subActionToolbar
     // private toolbarAction theAction;
-    private toolbarSubAction theSubAction;
+    private toolbarAction theSubAction;
     private OOComponentHelper ooDocument;
     private IBungeniForm bungeniForm;
     private HashMap<String, ArrayList<Object>> fieldSets = new HashMap<String,ArrayList<Object>>();
@@ -48,7 +48,7 @@ public class BungeniFormContext  implements IBungeniFormContext{
     // public BungeniFormContext(OOComponentHelper ooDoc,
     //        toolbarAction ta, toolbarSubAction tsa, HashMap<String,Object> pim) {
     public BungeniFormContext(OOComponentHelper ooDoc,
-             toolbarSubAction tsa, HashMap<String,Object> pim) {
+             toolbarAction tsa, HashMap<String,Object> pim) {
         this.setOoDocument(ooDoc);
         this.setTheSubAction(tsa);
        //  this.setTheAction(ta);
@@ -66,11 +66,11 @@ public class BungeniFormContext  implements IBungeniFormContext{
     }
     **/
 
-    public toolbarSubAction getTheSubAction() {
+    public toolbarAction getTheSubAction() {
         return theSubAction;
     }
 
-    public void setTheSubAction(toolbarSubAction theSubAction) {
+    public void setTheSubAction(toolbarAction theSubAction) {
         this.theSubAction = theSubAction;
     }
 

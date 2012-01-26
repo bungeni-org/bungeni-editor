@@ -47,13 +47,19 @@ private static final String __URI_TO_TABLED_DOCUMENT__ = bundle.getString("URI_T
         lblDocDate = new javax.swing.JLabel();
         txtDocDate = new org.jdesktop.swingx.JXDatePicker();
 
-        txtDocURI.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        txtDocURI.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
-        lblDocURI.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblDocURI.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblDocURI.setText("Document URI");
 
-        lblDocDate.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblDocDate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblDocDate.setText("Document Date");
+
+        txtDocDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDocDateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -81,6 +87,10 @@ private static final String __URI_TO_TABLED_DOCUMENT__ = bundle.getString("URI_T
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtDocDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDocDateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDocDateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

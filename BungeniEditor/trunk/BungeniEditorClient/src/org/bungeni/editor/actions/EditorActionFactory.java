@@ -14,7 +14,7 @@ public class EditorActionFactory  {
     public EditorActionFactory() {
     }
 
-    public static IEditorActionEvent getEventClass(toolbarSubAction action) {
+    public static IEditorActionEvent getEventClass(toolbarAction action) {
        IEditorActionEvent eventHandler = null;
        try {
              Class eventHandlerClass;

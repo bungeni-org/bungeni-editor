@@ -16,7 +16,7 @@ import com.sun.star.text.XTextViewCursor;
 import java.awt.Component;
 import java.awt.Window;
 import javax.swing.JFrame;
-import org.bungeni.editor.actions.toolbarSubAction;
+import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
@@ -31,7 +31,7 @@ public class routerCreateSideNote_panel extends javax.swing.JPanel implements IR
     JFrame parentFrame;
     Window containerFrame;
     OOComponentHelper ooDocument;
-    toolbarSubAction theSubAction;
+    toolbarAction theSubAction;
     SelectorDialogModes dialogMode;
     
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(routerCreateSideNote_panel.class.getName());
@@ -158,7 +158,7 @@ private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JTextArea txtSideNote;
     // End of variables declaration//GEN-END:variables
 
-    public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm,  toolbarSubAction aSubAction, SelectorDialogModes dlgMode) {
+    public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm,  toolbarAction aSubAction, SelectorDialogModes dlgMode) {
        parentFrame = parentFrm;
        ooDocument = ooDoc;
      //  theAction = aAction;

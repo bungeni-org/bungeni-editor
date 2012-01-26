@@ -2,7 +2,7 @@ package org.bungeni.editor.actions.routers;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import org.bungeni.editor.actions.toolbarSubAction;
+import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.document.DocumentSection;
 import org.bungeni.editor.document.DocumentSectionsContainer;
 import org.bungeni.editor.numbering.ooo.OOoNumberingHelper;
@@ -39,7 +39,7 @@ public class routerCreateNumberedHeading extends defaultRouter {
     // toolbarAction is deprecated
     @Override
     //public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction action, toolbarSubAction subAction,
-    public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction subAction,
+    public BungeniValidatorState route_TextSelectedInsert(toolbarAction subAction,
             javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
         String sectionUUID = BungeniUUID.getStringUUID();
 

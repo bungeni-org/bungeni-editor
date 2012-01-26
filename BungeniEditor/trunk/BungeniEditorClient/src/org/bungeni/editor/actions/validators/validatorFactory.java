@@ -10,7 +10,7 @@
 package org.bungeni.editor.actions.validators;
 
 import org.bungeni.editor.actions.validators.IBungeniActionValidator;
-import org.bungeni.editor.actions.toolbarSubAction;
+import org.bungeni.editor.actions.toolbarAction;
 
 /**
  *
@@ -23,7 +23,7 @@ public class validatorFactory {
     public validatorFactory() {
     }
     
-    public static IBungeniActionValidator getValidatorClass(toolbarSubAction subAction) {
+    public static IBungeniActionValidator getValidatorClass(toolbarAction subAction) {
              IBungeniActionValidator validator = null;
        try {
              log.debug("getValidatorClass: creating event class"+ subAction.validator_class());

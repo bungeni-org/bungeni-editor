@@ -40,7 +40,7 @@ public class EditorGeneralActionHandler implements IEditorActionEvent {
     }
     **/
 
-    public void doCommand(OOComponentHelper ooDocument, toolbarSubAction action, JFrame parentFrame) {
+    public void doCommand(OOComponentHelper ooDocument, toolbarAction action, JFrame parentFrame) {
     }
 
     public void doCommand(OOComponentHelper ooDocument, ArrayList<String> action, JFrame parentFrame) {

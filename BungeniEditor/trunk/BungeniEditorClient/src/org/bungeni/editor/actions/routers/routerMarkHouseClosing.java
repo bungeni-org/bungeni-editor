@@ -8,8 +8,8 @@ package org.bungeni.editor.actions.routers;
 import com.sun.star.text.XTextRange;
 import com.sun.star.text.XTextSection;
 import java.util.HashMap;
+import org.bungeni.editor.actions.toolbarActionDeprecated;
 import org.bungeni.editor.actions.toolbarAction;
-import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.error.BungeniMsg;
 import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.ooo.OOComponentHelper;
@@ -39,7 +39,7 @@ public class routerMarkHouseClosing extends defaultRouter {
     // !+ACTION_RECONF (rm, jan 2012) - removed toolbarAction as var, class
     // toolbarAction is deprecated
     @Override
-    public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction subAction, javax.swing.JFrame pFrame,OOComponentHelper ooDocument) {
+    public BungeniValidatorState route_TextSelectedInsert(toolbarAction subAction, javax.swing.JFrame pFrame,OOComponentHelper ooDocument) {
     // public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction subAction, javax.swing.JFrame pFrame,OOComponentHelper ooDocument) {
         BungeniValidatorState bvsRet = new BungeniValidatorState(true, new BungeniMsg("FAILURE"));
         try {

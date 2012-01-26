@@ -38,7 +38,7 @@ public class EditorSelectionActionHandler implements IEditorActionEvent {
    //possibly not required !
     //  private toolbarSubAction                  m_parentAction;
 
-    private toolbarSubAction               m_subAction;
+    private toolbarAction               m_subAction;
     private OOComponentHelper              ooDocument;
     private JFrame                         parentFrame;
 
@@ -53,7 +53,7 @@ public class EditorSelectionActionHandler implements IEditorActionEvent {
     // !+ADDED_COMMENTS
     // this method executes the required action when a toolbar button
     // is selected
-    public void doCommand(OOComponentHelper ooDocument, toolbarSubAction action, JFrame c) {
+    public void doCommand(OOComponentHelper ooDocument, toolbarAction action, JFrame c) {
 
         // the modes available are either text_select_insert or edit
         this.ooDocument     = ooDocument;

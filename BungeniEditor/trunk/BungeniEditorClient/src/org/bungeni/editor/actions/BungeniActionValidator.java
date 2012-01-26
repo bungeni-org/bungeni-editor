@@ -10,7 +10,7 @@ import org.bungeni.ooo.OOComponentHelper;
 public class BungeniActionValidator {
     
     // toolbarAction tbAction;
-    toolbarSubAction tbSubAction;
+    toolbarAction tbSubAction;
     OOComponentHelper ooDocument;
     
     /** Creates a new instance of BungeniActionValidator */

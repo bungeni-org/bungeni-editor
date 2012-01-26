@@ -1,7 +1,7 @@
 
 package org.bungeni.editor.actions.routers;
 
-import org.bungeni.editor.actions.toolbarSubAction;
+import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.error.BungeniMsg;
 import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.ooo.OOComponentHelper;
@@ -17,7 +17,7 @@ public class routerDebateRecordSelectSpeech extends defaultRouter {
   }
   
     @Override
-    public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+    public BungeniValidatorState route_TextSelectedInsert(toolbarAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
         
       BungeniValidatorState stateObj = CommonRouterActions.displaySelectorDialog(subAction, pFrame, ooDocument);
         
@@ -26,7 +26,7 @@ public class routerDebateRecordSelectSpeech extends defaultRouter {
 
       
     @Override
-    public BungeniValidatorState route_FullEdit(toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+    public BungeniValidatorState route_FullEdit(toolbarAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
         
       BungeniValidatorState stateObj = CommonRouterActions.displaySelectorDialog(subAction, pFrame, ooDocument);
         

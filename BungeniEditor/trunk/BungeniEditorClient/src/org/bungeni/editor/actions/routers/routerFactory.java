@@ -1,6 +1,6 @@
 package org.bungeni.editor.actions.routers;
 
-import org.bungeni.editor.actions.toolbarSubAction;
+import org.bungeni.editor.actions.toolbarAction;
 
 /**
  * @author Administrator
@@ -44,7 +44,7 @@ public class routerFactory {
  
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(routerFactory.class.getName());
  
-    public static IBungeniActionRouter getRouterClass(toolbarSubAction subAction) {
+    public static IBungeniActionRouter getRouterClass(toolbarAction subAction) {
        IBungeniActionRouter  router = null;
        try {
              log.debug("getRouterClass: creating event class"+ subAction.router_class());

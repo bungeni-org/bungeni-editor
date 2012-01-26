@@ -38,7 +38,7 @@ import org.bungeni.extutils.MessageBox;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.editor.actions.EditorActionFactory;
 import org.bungeni.editor.actions.IEditorActionEvent;
-import org.bungeni.editor.actions.toolbarSubAction;
+import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.metadata.BaseEditorDocMetaModel;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
 import org.bungeni.editor.noa.BungeniNoaFrame;
@@ -508,7 +508,7 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
                 subActionElement = ActionsReader.getInstance().getDocumentActionByName(btp.getSubActionName());
        
                 if (subActionElement != null) {
-                    toolbarSubAction subActionObj = new toolbarSubAction(subActionElement);
+                    toolbarAction subActionObj = new toolbarAction(subActionElement);
                     if (!CommonStringFunctions.emptyOrNull(btp.getActionValue())) {
                         subActionObj.setActionValue(btp.getActionValue());
                     }

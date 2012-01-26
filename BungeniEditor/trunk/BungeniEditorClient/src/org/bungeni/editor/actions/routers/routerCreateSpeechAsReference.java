@@ -6,8 +6,8 @@
 package org.bungeni.editor.actions.routers;
 
 import java.util.HashMap;
+import org.bungeni.editor.actions.toolbarActionDeprecated;
 import org.bungeni.editor.actions.toolbarAction;
-import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.extutils.CommonDocumentUtilFunctions;
@@ -29,7 +29,7 @@ public class routerCreateSpeechAsReference extends defaultRouter {
     // toolbarAction is deprecated
     @Override
     // public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
-    public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+    public BungeniValidatorState route_TextSelectedInsert(toolbarAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
            
         String currentSection =  ooDocument.currentSectionName();
       //  HashMap<String,String> sectionMeta = ooDocument.getSectionMetadataAttributes(currentSection);

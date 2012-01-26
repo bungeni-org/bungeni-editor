@@ -2,8 +2,8 @@ package org.bungeni.editor.actions.routers;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import org.bungeni.editor.actions.toolbarActionDeprecated;
 import org.bungeni.editor.actions.toolbarAction;
-import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.editor.document.DocumentSection;
 import org.bungeni.editor.document.DocumentSectionsContainer;
 import org.bungeni.editor.selectors.BaseMetadataContainerPanel;
@@ -47,7 +47,7 @@ public class CommonRouterActions {
 
         // public static BungeniValidatorState displaySubActionDialog(toolbarSubAction action, toolbarSubAction subAction,
         //       JFrame parentFrame, OOComponentHelper ooDocument, boolean alwaysOnTop) {
-        public static BungeniValidatorState displaySubActionDialog(toolbarSubAction subAction,
+        public static BungeniValidatorState displaySubActionDialog(toolbarAction subAction,
            JFrame parentFrame, OOComponentHelper ooDocument, boolean alwaysOnTop)  {
 
         // get the parentAction from the sub action instance
@@ -108,7 +108,7 @@ public class CommonRouterActions {
     
     // public static BungeniValidatorState displaySelectorDialog(toolbarSubAction action, toolbarSubAction subAction,
        //      JFrame parentFrame, OOComponentHelper ooDocument) {
-    public static BungeniValidatorState displaySelectorDialog(toolbarSubAction subAction,
+    public static BungeniValidatorState displaySelectorDialog(toolbarAction subAction,
             JFrame parentFrame, OOComponentHelper ooDocument) {
         BungeniValidatorState returnState = null;
 
@@ -138,7 +138,7 @@ public class CommonRouterActions {
 
     // public static BungeniValidatorState displayFilteredDialog(toolbarSubAction action, toolbarSubAction subAction,
     //         OOComponentHelper ooDocument) {
-    public static BungeniValidatorState displayFilteredDialog(toolbarSubAction subAction,
+    public static BungeniValidatorState displayFilteredDialog(toolbarAction subAction,
             OOComponentHelper ooDocument) {
         BungeniValidatorState returnState = null;
 
@@ -186,7 +186,7 @@ public class CommonRouterActions {
         }
     }
 
-    public static String get_newSectionNameForAction(toolbarSubAction subAction, OOComponentHelper ooDocument) {
+    public static String get_newSectionNameForAction(toolbarAction subAction, OOComponentHelper ooDocument) {
         String newSectionName = "";
 
         if (subAction.section_numbering_convention().equals("single")) {
@@ -271,7 +271,7 @@ public class CommonRouterActions {
      * @param pAction
      * @return
      */
-    public static HashMap<String, String> get_newSectionMetadata(toolbarSubAction subAction) {
+    public static HashMap<String, String> get_newSectionMetadata(toolbarAction subAction) {
         HashMap<String, String> metaMap = new HashMap<String, String>();
 
         metaMap.put("BungeniSectionType", subAction.section_type());
@@ -290,7 +290,7 @@ public class CommonRouterActions {
      * @param newSectionName - name for the new section
      * @param ooDocument - instance of the oooDocument
      */
-    public static void setSectionProperties(toolbarSubAction pAction, String newSectionName,
+    public static void setSectionProperties(toolbarAction pAction, String newSectionName,
             OOComponentHelper ooDocument) {
         String                  sectionType  = pAction.section_type();
         DocumentSection         secObj       = DocumentSectionsContainer.getDocumentSectionByType(sectionType);
@@ -326,12 +326,12 @@ public class CommonRouterActions {
     static abstract class SwingRunner implements Runnable {
         OOComponentHelper ooDocument;
         JFrame            parentFrame;
-        toolbarSubAction  subAction;
+        toolbarAction  subAction;
 
         public SwingRunner() {}
 
         // public SwingRunner(toolbarSubAction pa, toolbarSubAction sa, JFrame pf, OOComponentHelper ooDoc) {
-        public SwingRunner( toolbarSubAction sa, JFrame pf, OOComponentHelper ooDoc) {
+        public SwingRunner( toolbarAction sa, JFrame pf, OOComponentHelper ooDoc) {
             // action      = pa;
             subAction   = sa;
             parentFrame = pf;
@@ -344,7 +344,7 @@ public class CommonRouterActions {
 
     static class displaySelectorFrameRunner extends SwingRunner {
         // public displaySelectorFrameRunner(toolbarSubAction a, toolbarSubAction sa, JFrame pf, OOComponentHelper ooDoc) {
-        public displaySelectorFrameRunner(toolbarSubAction sa, JFrame pf, OOComponentHelper ooDoc) {
+        public displaySelectorFrameRunner(toolbarAction sa, JFrame pf, OOComponentHelper ooDoc) {
             // super(a, sa, pf, ooDoc);
             super( sa, pf, ooDoc);
         }
@@ -445,7 +445,7 @@ public class CommonRouterActions {
 
         // public displaySubActionFrameRunner(toolbarSubAction a, toolbarSubAction sa, JFrame pf, OOComponentHelper ooDoc,
          //                                  boolean alwaysOnTop) {
-         public displaySubActionFrameRunner(toolbarSubAction sa, JFrame pf, OOComponentHelper ooDoc,
+         public displaySubActionFrameRunner(toolbarAction sa, JFrame pf, OOComponentHelper ooDoc,
                                            boolean alwaysOnTop) {
             // super(a, sa, pf, ooDoc);
             super(sa, pf, ooDoc);

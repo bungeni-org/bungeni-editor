@@ -9,7 +9,7 @@ import java.awt.Component;
 import java.awt.Window;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import org.bungeni.editor.actions.toolbarSubAction;
+import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.ooo.OOComponentHelper;
 
@@ -21,14 +21,14 @@ public abstract class BaseRouterSelectorPanel extends JPanel implements IRouterS
     OOComponentHelper ooDocument;
     JFrame parentFrame;
     Window containerFrame;
-    toolbarSubAction theSubAction;
+    toolbarAction theSubAction;
     SelectorDialogModes theMode;
     
     public BaseRouterSelectorPanel(){
         //nothing to do
     }
     
-    public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarSubAction aSubAction, SelectorDialogModes dlgMode) {
+    public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarAction aSubAction, SelectorDialogModes dlgMode) {
         ooDocument = ooDoc;
         parentFrame = parentFrm;
         theSubAction = aSubAction;

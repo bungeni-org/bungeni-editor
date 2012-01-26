@@ -31,8 +31,8 @@ import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.editor.actions.EditorActionFactory;
 import org.bungeni.editor.actions.IEditorActionEvent;
+import org.bungeni.editor.actions.toolbarActionDeprecated;
 import org.bungeni.editor.actions.toolbarAction;
-import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.editor.panels.toolbar.BungeniToolbarLoader;
 import org.bungeni.editor.providers.DocumentSectionAdapterDefaultTreeModel;
@@ -91,7 +91,7 @@ public class documentStructurePanel extends BaseClassForITabbedPanel {
         instance = new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
     }
 
-    public IEditorActionEvent getEventClass(toolbarSubAction subAction) {
+    public IEditorActionEvent getEventClass(toolbarAction subAction) {
         IEditorActionEvent event = EditorActionFactory.getEventClass(subAction);
         return event;
     }

@@ -4,8 +4,8 @@ package org.bungeni.editor.selectors;
 
 
 
+import org.bungeni.editor.actions.toolbarActionDeprecated;
 import org.bungeni.editor.actions.toolbarAction;
-import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.editor.selectors.BaseMetadataContainerPanel.ConditionSet;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.CommonUIFunctions;
@@ -142,7 +142,7 @@ public abstract class BaseMetadataPanel extends JPanel implements IMetadataPanel
     }
     **/
 
-    public toolbarSubAction getTheSubAction() {
+    public toolbarAction getTheSubAction() {
         return getContainerPanel().getTheSubAction();
     }
 

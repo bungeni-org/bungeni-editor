@@ -68,6 +68,9 @@
       </Properties>
     </Component>
     <Component class="org.jdesktop.swingx.JXDatePicker" name="txtDocDate">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDocDateActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -5,8 +5,8 @@ package org.bungeni.editor.selectors;
 import java.awt.Component;
 import java.awt.Window;
 import javax.swing.JFrame;
+import org.bungeni.editor.actions.toolbarActionDeprecated;
 import org.bungeni.editor.actions.toolbarAction;
-import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.ooo.OOComponentHelper;
 
 /**
@@ -25,7 +25,7 @@ public interface IGenericSelectorPanel extends IGenericPanel {
    // !+ACTION_RECONF (rm, jan 2012)
    // aAction => parentAction of aSubAction
  
-   public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarSubAction aSubAction, SelectorDialogModes dlgMode) ;
+   public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarAction aSubAction, SelectorDialogModes dlgMode) ;
    /**
     * initialize() is always invoked after initVariables();
     */

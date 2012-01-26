@@ -11,8 +11,8 @@ package org.bungeni.editor.actions.routers;
 
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
+import org.bungeni.editor.actions.toolbarActionDeprecated;
 import org.bungeni.editor.actions.toolbarAction;
-import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.error.BungeniMsg;
 import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.ooo.OOComponentHelper;
@@ -61,7 +61,7 @@ public class defaultRouter implements IBungeniActionRouter {
     }
     **/
     // public BungeniValidatorState route(toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDoc) {
-    public BungeniValidatorState route(toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDoc) {
+    public BungeniValidatorState route(toolbarAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDoc) {
       switch(subAction.getSelectorDialogMode()) {
             case TEXT_INSERTION:
                 return route_FullInsert(subAction,pFrame, ooDoc);
@@ -80,23 +80,23 @@ public class defaultRouter implements IBungeniActionRouter {
 
     // !+ACTION_RECONF (rm, jan 2012) - reimplemeting these methods to drop toolbarAction
     // as an argument
-    public BungeniValidatorState route_DocumentLevelAction(toolbarSubAction subAction, javax.swing.JFrame pFrame,  OOComponentHelper ooDocument) {
+    public BungeniValidatorState route_DocumentLevelAction(toolbarAction subAction, javax.swing.JFrame pFrame,  OOComponentHelper ooDocument) {
        return new BungeniValidatorState(true, new BungeniMsg("SUCCESS")); 
     }
 
-    public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction subAction, javax.swing.JFrame pFrame,OOComponentHelper ooDocument) {
+    public BungeniValidatorState route_TextSelectedInsert(toolbarAction subAction, javax.swing.JFrame pFrame,OOComponentHelper ooDocument) {
        return new BungeniValidatorState(true, new BungeniMsg("SUCCESS")); 
     }
 
-    public BungeniValidatorState route_TextSelectedEdit(toolbarSubAction subAction,javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+    public BungeniValidatorState route_TextSelectedEdit(toolbarAction subAction,javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
        return new BungeniValidatorState(true, new BungeniMsg("SUCCESS")); 
     }
 
-    public BungeniValidatorState route_FullInsert(toolbarSubAction subAction,javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+    public BungeniValidatorState route_FullInsert(toolbarAction subAction,javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
        return new BungeniValidatorState(true, new BungeniMsg("SUCCESS")); 
     }
 
-    public BungeniValidatorState route_FullEdit(toolbarSubAction subAction,javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+    public BungeniValidatorState route_FullEdit(toolbarAction subAction,javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
        return new BungeniValidatorState(true, new BungeniMsg("SUCCESS")); 
     }    
 }

@@ -5,7 +5,7 @@ package org.bungeni.editor.actions.routers;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
-import org.bungeni.editor.actions.toolbarSubAction;
+import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.error.BungeniMsg;
 import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
@@ -60,7 +60,7 @@ public class routerCreateEvent extends defaultRouter {
     // !+ACTION_RECONF (rm, jan 2012) - removing variable toolbarAction, class is deprecated
     @Override
     //public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction action, toolbarSubAction subAction,
-    public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction subAction,
+    public BungeniValidatorState route_TextSelectedInsert(toolbarAction subAction,
             javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
         String newSectionName = "";
 

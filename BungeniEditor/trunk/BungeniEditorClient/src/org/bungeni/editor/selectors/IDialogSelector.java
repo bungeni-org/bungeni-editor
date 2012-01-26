@@ -11,8 +11,8 @@ package org.bungeni.editor.selectors;
 
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import org.bungeni.editor.actions.toolbarActionDeprecated;
 import org.bungeni.editor.actions.toolbarAction;
-import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.ooo.OOComponentHelper;
 
 /**
@@ -26,11 +26,11 @@ public interface IDialogSelector {
 
     // !+ ACTION_RECONF (rm, jan 2012) - toolbarAction is deprecated
     // public void setToolbarAction(toolbarAction action);
-    public void setToolbarAction(toolbarSubAction action);
+    public void setToolbarAction(toolbarAction action);
 
     public void setParentDialog(JDialog dlg);
-    public void setToolbarSubAction(toolbarSubAction subAction);
+    public void setToolbarSubAction(toolbarAction subAction);
     //public void initObject(OOComponentHelper ooDoc, JDialog dlg,  toolbarSubAction act, toolbarSubAction subAct );
-    public void initObject(OOComponentHelper ooDoc, JDialog dlg, toolbarSubAction subAct );
+    public void initObject(OOComponentHelper ooDoc, JDialog dlg, toolbarAction subAct );
     public JPanel getPanel();
 }

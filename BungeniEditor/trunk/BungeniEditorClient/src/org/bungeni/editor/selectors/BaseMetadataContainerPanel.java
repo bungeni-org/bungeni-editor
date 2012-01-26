@@ -21,8 +21,8 @@ import org.bungeni.db.IQueryResultsIterator;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
+import org.bungeni.editor.actions.toolbarActionDeprecated;
 import org.bungeni.editor.actions.toolbarAction;
-import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
 import org.bungeni.extutils.BungeniUUID;
 import org.bungeni.ooo.OOComponentHelper;
@@ -54,7 +54,7 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
      * this is the container JFrame
      */
     protected Window containerFrame;
-    protected toolbarSubAction theSubAction = null;
+    protected toolbarAction theSubAction = null;
     protected SelectorDialogModes dialogMode;
     protected SectionMetadataEditor sectionMetadataEditor = null;
     protected String editSectionName = "";
@@ -194,7 +194,7 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
      * @param aSubAction
      * @param dlgMode
      */
-    public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarSubAction aSubAction, SelectorDialogModes dlgMode) {
+    public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarAction aSubAction, SelectorDialogModes dlgMode) {
         this.ooDocument = ooDoc;
         this.parentFrame = parentFrm;
         this.theSubAction = aSubAction;
@@ -551,7 +551,7 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
     }
     **/
     
-    public toolbarSubAction getTheSubAction() {
+    public toolbarAction getTheSubAction() {
         return theSubAction;
     }
 

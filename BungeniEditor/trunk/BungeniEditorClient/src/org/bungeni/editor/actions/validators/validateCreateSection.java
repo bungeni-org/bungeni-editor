@@ -28,7 +28,7 @@ public class validateCreateSection extends defaultValidator {
     }
 
     // !+ACTION_RECONF (rm, jan 2012) - removed toolbarAction as argument
-    public BungeniValidatorState check_TextSelectedInsert(toolbarSubAction subAction, OOComponentHelper ooDocument) {
+    public BungeniValidatorState check_TextSelectedInsert(toolbarAction subAction, OOComponentHelper ooDocument) {
         boolean bstate;
         //1st tier, root container check
         bstate= check_rootContainerExists(ooDocument);
@@ -68,7 +68,7 @@ public class validateCreateSection extends defaultValidator {
     }
 
     // !+ACTION_RECONF (rm, jan 2012) - removed toolbarAction as an arg
-    private boolean check_containment(toolbarSubAction subAction, OOComponentHelper ooDocument, String currentSectionname){
+    private boolean check_containment(toolbarAction subAction, OOComponentHelper ooDocument, String currentSectionname){
          boolean bstate = false;
          if (currentSectionname.equals(CommonPropertyFunctions.getDocumentRootSection())) {
                 //current section is the root section
@@ -144,7 +144,7 @@ public class validateCreateSection extends defaultValidator {
     } */
 
     // !+ACTION_RECONF (rm, jan 2012)- removed toolbarAction as argument
-    private boolean check_actionSectionExists(toolbarSubAction subAction, OOComponentHelper ooDocument) {
+    private boolean check_actionSectionExists(toolbarAction subAction, OOComponentHelper ooDocument) {
         if (subAction.section_numbering_convention().equals("single")) {
             if (ooDocument.hasSection(subAction.section_naming_convention())) {
                 return true;

@@ -7,13 +7,13 @@
             <line>93</line>
         </file>
         <file>
+            <url>src/org/bungeni/editor/panels/loadable/refmgr/externalReferences.java</url>
+            <line>382</line>
+        </file>
+        <file>
             <url>src/org/bungeni/editor/dialogs/editorTabbedPanel.java</url>
             <line>0</line>
             <line>345</line>
-        </file>
-        <file>
-            <url>src/org/bungeni/editor/panels/loadable/refmgr/externalReferences.java</url>
-            <line>382</line>
         </file>
         <file>
             <url>src/org/bungeni/ooo/OOComponentHelper.java</url>

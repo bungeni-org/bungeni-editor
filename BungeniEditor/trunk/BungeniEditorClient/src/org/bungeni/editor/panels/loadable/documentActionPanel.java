@@ -34,8 +34,8 @@ import org.bungeni.editor.actions.ActionsReader;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.editor.actions.EditorActionFactory;
 import org.bungeni.editor.actions.IEditorActionEvent;
+import org.bungeni.editor.actions.toolbarActionDeprecated;
 import org.bungeni.editor.actions.toolbarAction;
-import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.editor.panels.toolbar.BungeniToolbarActionElement;
 import org.bungeni.editor.panels.toolbar.BungeniToolbarLoader;
@@ -81,7 +81,7 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
     }
 
 
-    public IEditorActionEvent getEventClass(toolbarSubAction subAction) {
+    public IEditorActionEvent getEventClass(toolbarAction subAction) {
         IEditorActionEvent event = EditorActionFactory.getEventClass(subAction);
         return event;
     }
@@ -350,7 +350,7 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
             BungeniToolbarTargetProcessor targetObj = new BungeniToolbarTargetProcessor(actionElement.getTarget());
             SelectorDialogModes selectedMode = actionElement.getMode();
             // toolbarAction tbAction = null;
-            toolbarSubAction tbSubAction = null;
+            toolbarAction tbSubAction = null;
             switch (targetObj.target_type) {
                 /**
                 case ACTION:
@@ -380,7 +380,7 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
         **/
 
         // private void processAction(toolbarAction action) {
-        private void processAction(toolbarSubAction action) {
+        private void processAction(toolbarAction action) {
             // log.debug("processAction:" + action.action_name());
             log.debug("processAction:" + action.sub_action_name());
             if (action.isTopLevelAction()) {
@@ -393,16 +393,16 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
 
     
 
-       private toolbarSubAction __processTarget(BungeniToolbarTargetProcessor targetObj) {
+       private toolbarAction __processTarget(BungeniToolbarTargetProcessor targetObj) {
             String documentType = BungeniEditorPropertiesHelper.getCurrentDocType();
             //instance.Connect();
              Element subActionElement = null;
-             toolbarSubAction subActionObj = null;
+             toolbarAction subActionObj = null;
             try {
                     subActionElement = ActionsReader.getInstance().getDocumentActionByName(targetObj.getSubActionName());
 
                 if (subActionElement != null) {
-                    subActionObj = new toolbarSubAction(subActionElement);
+                    subActionObj = new toolbarAction(subActionElement);
                     subActionObj.setActionValue(targetObj.getActionValue());
                 } else {
                     log.error("subActionElement was null !");
@@ -413,11 +413,11 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
              return subActionObj;
        }
 
-        private toolbarSubAction processSelection(BungeniToolbarTargetProcessor targetObj) {
+        private toolbarAction processSelection(BungeniToolbarTargetProcessor targetObj) {
             return this.__processTarget(targetObj);
         }
 
-        private toolbarSubAction processInsertion(BungeniToolbarTargetProcessor targetAction) {
+        private toolbarAction processInsertion(BungeniToolbarTargetProcessor targetAction) {
             return this.__processTarget(targetAction);
         }
 

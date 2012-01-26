@@ -11,8 +11,8 @@ package org.bungeni.editor.actions.routers;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bungeni.editor.actions.toolbarActionDeprecated;
 import org.bungeni.editor.actions.toolbarAction;
-import org.bungeni.editor.actions.toolbarSubAction;
 import org.bungeni.error.BungeniMsg;
 import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.ooo.OOComponentHelper;
@@ -32,7 +32,7 @@ public class routerDebateTimeEntry extends defaultRouter {
     }
     
     @Override
-    public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+    public BungeniValidatorState route_TextSelectedInsert(toolbarAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
 
      BungeniValidatorState stateObj = CommonRouterActions.displayFilteredDialog(subAction, ooDocument);
 

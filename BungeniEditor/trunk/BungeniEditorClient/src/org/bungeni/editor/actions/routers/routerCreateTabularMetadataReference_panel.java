@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
-import org.bungeni.editor.actions.toolbarSubAction;
+import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.metadata.TabularMetadataLoader;
 import org.bungeni.editor.metadata.TabularMetadataLoader.TabularMetadataModel;
 import org.bungeni.editor.selectors.SelectorDialogModes;
@@ -29,7 +29,7 @@ public abstract class routerCreateTabularMetadataReference_panel extends javax.s
     JFrame parentFrame;
     Window containerFrame;
     OOComponentHelper ooDocument;
-    toolbarSubAction theSubAction;
+    toolbarAction theSubAction;
     SelectorDialogModes dialogMode;
     TabularMetadataModel selectedRowModel ;
       private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(routerCreateTabularMetadataReference_panel.class.getName());
@@ -154,7 +154,7 @@ private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     // End of variables declaration//GEN-END:variables
 
     // !+ACTION_RECONF (rm, jan 2012) - aAction is parent to aSubAction
-    public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarSubAction aSubAction, SelectorDialogModes dlgMode) {
+    public void initVariables(OOComponentHelper ooDoc, JFrame parentFrm, toolbarAction aSubAction, SelectorDialogModes dlgMode) {
        parentFrame = parentFrm;
        ooDocument = ooDoc;
        theSubAction = aSubAction;

@@ -16,7 +16,7 @@ import com.sun.star.text.XTextRange;
 import com.sun.star.text.XTextSection;
 import com.sun.star.uno.Any;
 import java.util.HashMap;
-import org.bungeni.editor.actions.toolbarSubAction;
+import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.document.DocumentSection;
 import org.bungeni.editor.document.DocumentSectionsContainer;
 import org.bungeni.editor.numbering.ooo.OOoNumberingHelper;
@@ -43,7 +43,7 @@ public class routerCreateCompositeSection extends defaultRouter {
 
    // !+ACTION_RECONF (rm, jan 2012) - removing toolbarAction, toolbarAction class is deprecated
     @Override
-    public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+    public BungeniValidatorState route_TextSelectedInsert(toolbarAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
         //get the UUID for the  new numbered heading 
         sectionUUID = BungeniUUID.getStringUUID();
           //get the section properties for the numbered container type
@@ -101,7 +101,7 @@ public class routerCreateCompositeSection extends defaultRouter {
      
     // !+ACTION_RECONF (rm, jan 2012) - deprecating toolbarAction as var, class toolbarAction is deprecated
     // private boolean action_createBoundarySection(OOComponentHelper ooDocument, toolbarAction action, toolbarSubAction subAction, selectionProperties foundSelection){
-    private boolean action_createBoundarySection(OOComponentHelper ooDocument, toolbarSubAction subAction, selectionProperties foundSelection){
+    private boolean action_createBoundarySection(OOComponentHelper ooDocument, toolbarAction subAction, selectionProperties foundSelection){
         boolean bState = false;
         try {
 

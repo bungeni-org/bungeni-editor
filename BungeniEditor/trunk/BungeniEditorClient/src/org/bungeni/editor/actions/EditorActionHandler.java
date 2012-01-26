@@ -33,7 +33,7 @@ public class EditorActionHandler implements IEditorActionEvent {
     public EditorActionHandler() {
     }
 
-    public void doCommand(OOComponentHelper ooDocument, toolbarAction action, JFrame parentFrame) {
+    public void doCommand(OOComponentHelper ooDocument, toolbarActionDeprecated action, JFrame parentFrame) {
         //main action handler class 
         //can be implemented by any class that implements IEditorActionEvent]
         this.ooDocument = ooDocument;
@@ -97,7 +97,7 @@ public class EditorActionHandler implements IEditorActionEvent {
     
     // -1 returns error for section already existing
     // -2 returns error for section 
-     private int checkSection(toolbarAction action ) {
+     private int checkSection(toolbarActionDeprecated action ) {
 
          /****
           * AH-10-03-11
@@ -123,7 +123,7 @@ public class EditorActionHandler implements IEditorActionEvent {
          return 0;
      }
      
-     private ArrayList<String> checkEditableSections(toolbarAction action) {
+     private ArrayList<String> checkEditableSections(toolbarActionDeprecated action) {
 
          ArrayList<String> validSections = new ArrayList<String>();
          //AH-10-03-11 
@@ -151,7 +151,7 @@ public class EditorActionHandler implements IEditorActionEvent {
          return validSections;
      }
      
-    public void doCommand(OOComponentHelper ooDocument, toolbarSubAction action, JFrame parentFrame) {
+    public void doCommand(OOComponentHelper ooDocument, toolbarAction action, JFrame parentFrame) {
     }
 
     public void doCommand(OOComponentHelper ooDocument, ArrayList<String> action, JFrame parentFrame) {
