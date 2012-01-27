@@ -8,6 +8,7 @@ import java.util.Vector;
 import org.bungeni.db.QueryResults;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.ooo.OOComponentHelper;
+import org.jdom.Element;
 
 /**
  *
@@ -35,19 +36,25 @@ public final class DocumentSection {
     public DocumentSection() {
     }
 
-    public DocumentSection(QueryResults qr, Vector<String> row) {
-        setDocumentType(qr.getField(row, "DOC_TYPE"));
-        setSectionType(qr.getField(row, "SECTION_TYPE_NAME"));
-        setSectionNamePrefix(qr.getField(row, "SECTION_NAME_PREFIX"));
-        setSectionNumberingStyle(qr.getField(row, "SECTION_NUMBERING_STYLE"));
-        setSectionBackground(qr.getField(row, "SECTION_BACKGROUND"));
-        setSectionLeftMargin(qr.getField(row, "SECTION_INDENT_LEFT"));
-        setSectionRightMargin(qr.getField(row, "SECTION_INDENT_RIGHT"));
-        setSectionVisibility(qr.getField(row, "SECTION_VISIBILITY"));
-        setNumberingScheme(qr.getField(row, "NUMBERING_SCHEME"));
-        setNumberDecorator(qr.getField(row, "NUMBER_DECORATOR"));
-        
+    public DocumentSection(Element sectionType, String documentType) {
+        setDocumentType(documentType);
+        setSectionType(sectionType.getAttributeValue("name"));
+        setSectionNamePrefix(sectionType.getAttributeValue("prefix"));
+        setSectionNumberingStyle(sectionType.getAttributeValue("numstyle"));
+        setSectionBackground(sectionType.getAttributeValue("background"));
+        setSectionLeftMargin(sectionType.getAttributeValue("indent-left"));
+        setSectionRightMargin(sectionType.getAttributeValue("indent-right"));
+        setSectionVisibility(sectionType.getAttributeValue("visibility"));
+        /**
+         * <numbering scheme="ROMAN"
+            decorator="hashPrefix" />
+         */
+        setNumberingScheme(sectionType.getChild("numbering").getAttributeValue("scheme"));
+        setNumberDecorator(sectionType.getChild("numbering").getAttributeValue("decorator"));
+
     }
+
+    
     public String getDocumentType() {
         return documentType;
     }

@@ -25,7 +25,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.editor.actions.ActionsReader;
+import org.bungeni.editor.actions.DocumentActionsReader;
 import org.bungeni.editor.actions.EditorActionFactory;
 import org.bungeni.editor.actions.IEditorActionEvent;
 import org.bungeni.editor.actions.toolbarAction;
@@ -391,7 +391,7 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
              Element subActionElement = null;
              toolbarAction subActionObj = null;
             try {
-                    subActionElement = ActionsReader.getInstance().getDocumentActionByName(targetObj.getSubActionName());
+                    subActionElement = DocumentActionsReader.getInstance().getDocumentActionByName(targetObj.getSubActionName());
 
                 if (subActionElement != null) {
                     subActionObj = new toolbarAction(subActionElement);

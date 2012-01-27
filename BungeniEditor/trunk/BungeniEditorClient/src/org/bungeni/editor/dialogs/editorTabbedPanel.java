@@ -28,7 +28,7 @@ import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.editor.BungeniOOoLayout;
-import org.bungeni.editor.actions.ActionsReader;
+import org.bungeni.editor.actions.DocumentActionsReader;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.panels.impl.ITabbedPanel;
 import org.bungeni.editor.panels.factory.TabbedPanelFactory;
@@ -505,7 +505,7 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
             Element subActionElement = null;
             try {
                 //create the subAction object out of the settings metadata
-                subActionElement = ActionsReader.getInstance().getDocumentActionByName(btp.getSubActionName());
+                subActionElement = DocumentActionsReader.getInstance().getDocumentActionByName(btp.getSubActionName());
        
                 if (subActionElement != null) {
                     toolbarAction subActionObj = new toolbarAction(subActionElement);

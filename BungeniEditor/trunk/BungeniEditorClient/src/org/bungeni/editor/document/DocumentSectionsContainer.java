@@ -1,66 +1,67 @@
-/*
- * DocumentSectionsContainer.java
- *
- * Created on May 23, 2008, 12:06 AM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 package org.bungeni.editor.document;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 import java.util.Vector;
-import org.bungeni.db.BungeniClientDB;
-import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.db.QueryResults;
-import org.bungeni.db.SettingsQueryFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.bungeni.editor.actions.SectionTypesReader;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
+import org.jdom.Element;
+import org.jdom.JDOMException;
 
 /**
  *
- * @author Administrator
+ * @author Ashok Hariharan
  */
 public class DocumentSectionsContainer {
-    
+
+    private static org.apache.log4j.Logger log =
+            org.apache.log4j.Logger.getLogger(DocumentSectionsContainer.class.getName());
     private static HashMap<String, DocumentSection> documentSections = new HashMap<String, DocumentSection>();
+
     /** Creates a new instance of DocumentSectionsContainer */
     public DocumentSectionsContainer() {
     }
-    
-    public static DocumentSection getDocumentSectionByType(String type ) {
-        System.out.println("Document Section By Type : " + type) ;
+
+    public static DocumentSection getDocumentSectionByType(String type) {
+        System.out.println("Document Section By Type : " + type);
         if (getDocumentSectionsContainer().containsKey(type)) {
             return getDocumentSectionsContainer().get(type);
-        } else
+        } else {
             return null;
+        }
     }
-    
+
     /*
      *
      *  A sectionType is unique within a document type
-     *
+     * !+CONFIG_IN_XML(ah,jan-2012) all section type configs moved to xml
      *
      */
-    public static HashMap<String,DocumentSection> getDocumentSectionsContainer(){
-       if (documentSections.size() == 0 ) { 
-        String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
-        BungeniClientDB db =  new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
-        QueryResults qr = db.ConnectAndQuery(SettingsQueryFactory.Q_FETCH_DOCUMENT_SECTION_TYPES(docType));
-      
-        if (qr.hasResults()) {
-             for (Vector<String> row :  qr.theResults()){
-                DocumentSection section = new DocumentSection( qr, row);
-                documentSections.put(section.getSectionType(), section);
-             }
-        }
+    public static HashMap<String, DocumentSection> getDocumentSectionsContainer() {
+        if (documentSections.isEmpty()) {
+            try {
+                String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
+                List<Element> arrSectionTypes = SectionTypesReader.getInstance().getSectionTypes();
+
+                for(Element elemSectionType : arrSectionTypes) {
+                    DocumentSection aSection = new DocumentSection(elemSectionType, docType);
+                    documentSections.put(aSection.getSectionType(), aSection);
+                }
+            } catch (JDOMException ex) {
+                log.error("Error while getting document section types", ex);
+            } catch (IOException ex) {
+                log.error("Error while getting document section types", ex);
+            }
         }
         return documentSections;
     }
 
     public static void main(String[] args) {
-       Set<String> Keys =  DocumentSectionsContainer.getDocumentSectionsContainer().keySet();
+        Set<String> Keys = DocumentSectionsContainer.getDocumentSectionsContainer().keySet();
         for (String key : Keys) {
             System.out.println(key);
         }

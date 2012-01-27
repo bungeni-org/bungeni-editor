@@ -21,6 +21,7 @@ import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.editor.selectors.debaterecord.question.ObjectQuestionType;
 import org.bungeni.extutils.BungeniEditorProperties;
+import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import org.w3c.dom.Document;
@@ -255,20 +256,10 @@ public class QuestionType extends BaseMetadataPanel {
 
     private String getOntologyXmlFile() {
 
-        String activeDocumentMode = BungeniEditorProperties.getEditorProperty("activeDocumentMode");
+       //  !+CONFIG_IN_XML(ah,jan-2012) 
 
-        String ontologyQuery =
-                SettingsQueryFactory.Q_FETCH_TOOLBAR_CONFIG_BYTYPE(
-                activeDocumentMode,
-                "question_ontologies");
-
-        BungeniClientDB instance = BungeniClientDB.defaultConnect();
-        QueryResults qr = instance.ConnectAndQuery(ontologyQuery);
-
-        String[] toolbarXML = qr.getSingleColumnResult("TOOLBAR_XML");
-        String ontologyXML = toolbarXML[0].replace('/', File.separatorChar);
-        ontologyXML = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + ontologyXML;
-        return ontologyXML;
+        String ontologiesFile = BungeniEditorProperties.get("ontologiesFile");
+        return CommonFileFunctions.convertRelativePathToFullPath(ontologiesFile);
     }
 
 

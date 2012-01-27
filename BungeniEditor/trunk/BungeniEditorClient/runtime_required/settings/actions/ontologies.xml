@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<toolbar>
     <ontologies>
         <ontology 
             type="question"
@@ -16,5 +15,4 @@
             href="/ontology/concept/questions.written">
             <showAs xml:lang="eng">Written Questions</showAs>
         </ontology>
-    </ontologies>    
-</toolbar>
+    </ontologies>

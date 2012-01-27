@@ -34,9 +34,9 @@ import org.jdom.xpath.XPath;
  *
  * @author Ashok
  */
-public class ActionsReader {
+public class DocumentActionsReader {
 
-    private static ActionsReader thisInstance = null;
+    private static DocumentActionsReader thisInstance = null;
 
     private SAXBuilder saxBuilder ;
 
@@ -48,15 +48,15 @@ public class ActionsReader {
     
     private Document selectorDialogsDocument = null;
 
-    private ActionsReader() {
+    private DocumentActionsReader() {
         saxBuilder = new SAXBuilder("org.apache.xerces.parsers.SAXParser",
                         false);
 
     }
 
-    public static ActionsReader getInstance() {
+    public static DocumentActionsReader getInstance() {
         if (thisInstance == null ) {
-            thisInstance = new ActionsReader();
+            thisInstance = new DocumentActionsReader();
         }
         return thisInstance ;
     }
@@ -93,7 +93,7 @@ public class ActionsReader {
 
     public Document getSelectorDialogs() throws JDOMException, IOException {
         if (this.selectorDialogsDocument == null) {
-            String actionsFolder = BungeniEditorProperties.get("actionsFolderRoot");
+            String actionsFolder = BungeniEditorProperties.get("selectorDialogsFile");
             String dialogFile = CommonFileFunctions.convertRelativePathToFullPath(actionsFolder) + File.separator + "selector_dialogs.xml";
             this.selectorDialogsDocument = saxBuilder.build(new File(dialogFile));
         }

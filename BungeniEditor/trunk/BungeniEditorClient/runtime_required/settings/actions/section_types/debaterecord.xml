@@ -1,0 +1,363 @@
+<?xml version="1.0" ?>
+<sectionTypes for="debaterecord">
+<sectionType name="ActionEvent"
+    prefix="actionevt"
+    numstyle="serial"
+    background=" url:/settings/sectiontypes/bg/sand.png"
+    indent-left="0"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="Communication"
+    prefix="comnctn"
+    numstyle="serial"
+    background="url:/settings/sectiontypes/bg/shade-5.png"
+    indent-left=".4"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="Conclusion"
+    prefix="concl"
+    numstyle="serial"
+    background="url:/settings/sectiontypes/bg/shade-4.png"
+    indent-left=".4"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="GroupActivity"
+    prefix="comment"
+    numstyle="serial"
+    background="url:/settings/sectiontypes/bg/shade-3.png"
+    indent-left="0"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="LongTitle"
+    prefix="ltitle"
+    numstyle="serial"
+    background="url:/settings/sectiontypes/bg/shade-5.png"
+    indent-left=".2"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="MetadataContainer"
+    prefix=""
+    numstyle=""
+    background=""
+    indent-left="0"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="MinisterialStatement"
+    prefix="mstatemnt"
+    numstyle="serial"
+    background="url:/settings/sectiontypes/bg/shade-4.png"
+    indent-left="0.4"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="Motion"
+    prefix="motion"
+    numstyle="serial"
+    background="url:/settings/sectiontypes/bg/shade-3.png"
+    indent-left=".5"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="MotionsContainer"
+    prefix="allmotions"
+    numstyle="serial"
+    background=" url:/settings/sectiontypes/bg/shade-3.png"
+    indent-left=".3"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="NMotionsContainer"
+    prefix="noticesmotion"
+    numstyle="serial"
+    background=" url:/settings/sectiontypes/bg/shade-3.png"
+    indent-left=".3"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="Narrative"
+    prefix="narr"
+    numstyle="serial"
+    background="url:/settings/sectiontypes/bg/shade-4.png"
+    indent-left="0"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="None"
+    prefix=""
+    numstyle=""
+    background=""
+    indent-left="0"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="NoticeOfMotion"
+    prefix="noticeofmotion"
+    numstyle="serial"
+    background="url:/settings/sectiontypes/bg/shade-4.png"
+    indent-left=".5"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="NoticeOfMotionDetails"
+    prefix="motiondtls"
+    numstyle="serial"
+    background="url:/settings/sectiontypes/bg/shade-4.png"
+    indent-left="0"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="Observation"
+    prefix="comment"
+    numstyle="serial"
+    background="url:/settings/sectiontypes/bg/shade-5.png"
+    indent-left=".8"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="Other"
+    prefix="other"
+    numstyle="serial"
+    background="url:/settings/sectiontypes/bg/sand.png"
+    indent-left=".1"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="PMotionsContainer"
+    prefix="procmotions"
+    numstyle="serial"
+    background="url:/settings/sectiontypes/bg/shade-5.png"
+    indent-left=".3"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="PapersLaid"
+    prefix="papers"
+    numstyle="serial"
+    background="url:/settings/sectiontypes/bg/shade-2.png"
+    indent-left=".4"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="PapersLaidList"
+    prefix="tbldocs"
+    numstyle="serial"
+    background="url:/settings/sectiontypes/bg/shade-2.png"
+    indent-left=".6"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="PersonalStatement"
+    prefix="pstatemnt"
+    numstyle="serial"
+    background=" url:/settings/sectiontypes/bg/shade-4.png"
+    indent-left="0.4"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="Petitions"
+    prefix="petit"
+    numstyle="serial"
+    background=" url:/settings/sectiontypes/bg/shade-4.png"
+    indent-left="0"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="PointOfOrder"
+    prefix="porder"
+    numstyle="serial"
+    background="url:/settings/sectiontypes/bg/shade-5.png"
+    indent-left=".4"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="Prayers"
+    prefix="prayer"
+    numstyle="serial"
+    background="0xf0f0f0"
+    indent-left=".5"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="Preface"
+    prefix="preface"
+    numstyle="single"
+    background="url:/settings/sectiontypes/bg/shade-1.png"
+    indent-left=".3"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="ProceduralMotion"
+    prefix="procmotion"
+    numstyle="serial"
+    background=" url:/settings/sectiontypes/bg/shade-4.png"
+    indent-left=".5"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="ProceduralMotionDetails"
+    prefix="pmotiondtls"
+    numstyle="serial"
+    background="url:/settings/sectiontypes/bg/shade-4.png"
+    indent-left="0"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="Question"
+    prefix="sque"
+    numstyle="serial"
+    background="url:/settings/sectiontypes/bg/shade-6.png"
+    indent-left=".6"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="QuestionAnswer"
+    prefix="qa"
+    numstyle="serial"
+    background="url:/settings/sectiontypes/bg/shade-7.png"
+    indent-left=".5"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="QuestionBody"
+    prefix="quebody"
+    numstyle="serial"
+    background="url:/settings/sectiontypes/bg/shade-3.png"
+    indent-left=".7"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="QuestionsContainer"
+    prefix="questions"
+    numstyle="serial"
+    background="url:/settings/sectiontypes/bg/shade-7.png"
+    indent-left=".3"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="RootSection"
+    prefix=""
+    numstyle=""
+    background=""
+    indent-left="0"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="Speech"
+    prefix="speech"
+    numstyle="serial"
+    background="url:/settings/sectiontypes/bg/shade-1.png"
+    indent-left=".6"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="SpeechBody"
+    prefix="spbody"
+    numstyle="serial"
+    background="url:/settings/sectiontypes/bg/shade-3.png"
+    indent-left=".7"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="SystemDateTimeMetadata"
+    prefix=""
+    numstyle=""
+    background=""
+    indent-left="0"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="SystemMemberMetadata"
+    prefix=""
+    numstyle=""
+    background=""
+    indent-left="0"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="body"
+    prefix="debaterecord"
+    numstyle="single"
+    background="0xffffff"
+    indent-left="0"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+</sectionTypes>

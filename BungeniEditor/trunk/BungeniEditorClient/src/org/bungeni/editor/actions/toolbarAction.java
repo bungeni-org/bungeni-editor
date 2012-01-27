@@ -73,7 +73,7 @@ public class toolbarAction {
         private String dialog_class;
 
         public actionRouter(String actionName ) throws JDOMException, IOException, Exception {
-            Element routerElement = ActionsReader.getInstance().getRouter(actionName);
+            Element routerElement = DocumentActionsReader.getInstance().getRouter(actionName);
             if (routerElement != null) {
                     name = routerElement.getAttributeValue("name");
                     router_class = routerElement.getAttributeValue("class");

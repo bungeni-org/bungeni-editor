@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<sectionTypes for="judgement">
+<sectionType name="Background"
+    prefix="bg"
+    numstyle="single"
+    background=" url:/settings/sectiontypes/bg/sand.png"
+    indent-left="0.55"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="Conclusion"
+    prefix="concl"
+    numstyle="serial"
+    background=" url:/settings/sectiontypes/bg/orange.png"
+    indent-left="0.25"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="Decision"
+    prefix="decision"
+    numstyle="single"
+    background=" url:/settings/sectiontypes/bg/orange-yellow.png"
+    indent-left="0.55"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="Header"
+    prefix="header"
+    numstyle="single"
+    background=" url:/settings/sectiontypes/bg/light-orange.png"
+    indent-left="0.25"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="Introduction"
+    prefix="intro"
+    numstyle="single"
+    background=" url:/settings/sectiontypes/bg/lighter-green.png"
+    indent-left="0.55"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="Motivation"
+    prefix="motive"
+    numstyle="single"
+    background=" url:/settings/sectiontypes/bg/light-green.png"
+    indent-left="0.55"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="Omissis"
+    prefix="omissis"
+    numstyle="serial"
+    background="url:/settings/sectiontypes/bg/sand.png"
+    indent-left="0.65"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+</sectionTypes>

@@ -1,5 +1,7 @@
 <?xml version="1.0" ?>
-
+<!--
+WARNING - THIS FILE IS DEPRECATED
+-->
 <routers>
     <router name="debaterecord.markup_motion_title.makeProcMotionBlockSection"
     class="org.bungeni.editor.actions.routers.routerApplyStyle"

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<sectionTypes for="bill">
+<sectionType name="Article"
+    prefix="article"
+    numstyle="serial"
+    background="0xf0f0f0"
+    indent-left=".3"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="NUMERIC"
+            decorator="flowerBracket" />
+ </sectionType>
+<sectionType name="Chapter"
+    prefix="chapter"
+    numstyle="serial"
+    background="0xe8ee88"
+    indent-left=".4"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="ROMAN-Upper"
+            decorator="none" />
+ </sectionType>
+<sectionType name="Clause"
+    prefix="clause"
+    numstyle="serial"
+    background="0xffdfdf"
+    indent-left=".5"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="ROMAN"
+            decorator="hashPrefix" />
+ </sectionType>
+<sectionType name="LongTitle"
+    prefix="longtitle"
+    numstyle="single"
+    background="0xffffff"
+    indent-left=".3"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="MastHead"
+    prefix="preface"
+    numstyle="single"
+    background="0xe8eef7"
+    indent-left="0"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="postDashed" />
+ </sectionType>
+<sectionType name="NumberedContainer"
+    prefix="num_"
+    numstyle="single"
+    background="0xffffe1"
+    indent-left="0"
+    indent-right="0"
+    visibility="system" >
+     <numbering scheme="none"
+            decorator="postDotted" />
+ </sectionType>
+<sectionType name="Paragraph"
+    prefix="para"
+    numstyle="serial"
+    background="0xffff00"
+    indent-left=".7"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="ALPHABETICAL-Lower"
+            decorator="parens" />
+ </sectionType>
+<sectionType name="Part"
+    prefix="part"
+    numstyle="serial"
+    background="0xffffa1"
+    indent-left=".3"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="ALPHABETICAL"
+            decorator="postDashed" />
+ </sectionType>
+<sectionType name="Preface"
+    prefix="preface"
+    numstyle="single"
+    background="0xffffff"
+    indent-left=".1"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="Section"
+    prefix="section"
+    numstyle="serial"
+    background="0xffaa00"
+    indent-left=".6"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="ALPHABETICAL-Lower"
+            decorator="parens" />
+ </sectionType>
+<sectionType name="ShortTitle"
+    prefix="shorttitle"
+    numstyle="single"
+    background="0xffffff"
+    indent-left=".2"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="SubChapter"
+    prefix="subchapter"
+    numstyle="serial"
+    background="0xffaa00"
+    indent-left=".5"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="ROMAN-Upper"
+            decorator="postDotted" />
+ </sectionType>
+<sectionType name="SubClause"
+    prefix="subclause"
+    numstyle="serial"
+    background="0xffdfdf"
+    indent-left=".8"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="ALPHABETICAL-Lower"
+            decorator="hashPrefix" />
+ </sectionType>
+<sectionType name="SubParagraph"
+    prefix="subpara"
+    numstyle="serial"
+    background="0xffff00"
+    indent-left=".8"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="ROMAN-Lower"
+            decorator="parens" />
+ </sectionType>
+<sectionType name="SubSection"
+    prefix="subsection"
+    numstyle="serial"
+    background="0x00ffff"
+    indent-left=".8"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="ROMAN-Upper"
+            decorator="square" />
+ </sectionType>
+<sectionType name="Title"
+    prefix="title"
+    numstyle="single"
+    background="0xffffff"
+    indent-left=".1"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+ </sectionTypes>
