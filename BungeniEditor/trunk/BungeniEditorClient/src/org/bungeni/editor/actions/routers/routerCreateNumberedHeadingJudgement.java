@@ -3,7 +3,6 @@ package org.bungeni.editor.actions.routers;
 //~--- non-JDK imports --------------------------------------------------------
 
 import com.sun.star.text.XParagraphCursor;
-import org.bungeni.editor.actions.toolbarActionDeprecated;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.error.BungeniMsg;
 import org.bungeni.error.BungeniValidatorState;

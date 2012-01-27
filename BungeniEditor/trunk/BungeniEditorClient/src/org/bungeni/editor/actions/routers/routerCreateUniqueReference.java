@@ -1,20 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.bungeni.editor.actions.routers;
 
-import com.sun.star.container.XNamed;
-import com.sun.star.text.XTextContent;
-import com.sun.star.text.XTextCursor;
-import com.sun.star.text.XTextViewCursor;
-import org.bungeni.editor.actions.toolbarActionDeprecated;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.error.BungeniMsg;
 import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.ooo.OOComponentHelper;
-import org.bungeni.ooo.ooQueryInterface;
 import org.bungeni.extutils.CommonDocumentUtilFunctions;
 
 /**

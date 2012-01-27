@@ -12,12 +12,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPopupMenu;
@@ -28,13 +25,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.db.QueryResults;
-import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.editor.actions.ActionsReader;
-import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.editor.actions.EditorActionFactory;
 import org.bungeni.editor.actions.IEditorActionEvent;
-import org.bungeni.editor.actions.toolbarActionDeprecated;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.editor.panels.toolbar.BungeniToolbarActionElement;
@@ -48,7 +41,6 @@ import org.bungeni.editor.toolbar.conditions.BungeniToolbarConditionProcessor;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.ooo.OOComponentHelper;
 import org.jdom.Element;
-import org.jdom.JDOMException;
 
 /**
  * This is the floating panel implementation for the Editor's action bar

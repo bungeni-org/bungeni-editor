@@ -2,7 +2,6 @@ package org.bungeni.editor.actions.routers;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import org.bungeni.editor.actions.toolbarActionDeprecated;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.document.DocumentSection;
 import org.bungeni.editor.document.DocumentSectionsContainer;

@@ -64,10 +64,6 @@ public class Committees extends BaseMetadataPanel {
         }
     }
 
-    protected String getTableQuery(){
-        String countryCode = BungeniEditorProperties.getEditorProperty("parliament.CountryCode");
-        return RegistryQueryFactory.Q_FETCH_COMMITTEES(countryCode);
-    }
 
     // !+BUNGENI_CONNECTOR (rm, 17-jan 2012) - this method obtains the committes
     // which are then displayed on a JTable for a user to select the

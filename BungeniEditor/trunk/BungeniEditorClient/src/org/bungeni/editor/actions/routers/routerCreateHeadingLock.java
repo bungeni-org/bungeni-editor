@@ -19,7 +19,6 @@ import com.sun.star.uno.AnyConverter;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.bungeni.editor.actions.toolbarActionDeprecated;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.error.BungeniMsg;
 import org.bungeni.error.BungeniValidatorState;

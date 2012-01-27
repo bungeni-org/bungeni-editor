@@ -1,8 +1,5 @@
 package org.bungeni.editor.actions.routers;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.bungeni.editor.actions.toolbarActionDeprecated;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.error.BungeniMsg;
 import org.bungeni.error.BungeniValidatorState;

@@ -1,8 +1,6 @@
 
 package org.bungeni.editor.actions.routers;
 
-import java.util.HashMap;
-import org.bungeni.editor.actions.toolbarActionDeprecated;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.ooo.OOComponentHelper;

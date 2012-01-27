@@ -12,7 +12,6 @@ package org.bungeni.editor.selectors;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.apache.log4j.Logger;
-import org.bungeni.editor.actions.toolbarActionDeprecated;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.selectors.BaseMetadataContainerPanel.ConditionSet;
 import org.bungeni.ooo.OOComponentHelper;

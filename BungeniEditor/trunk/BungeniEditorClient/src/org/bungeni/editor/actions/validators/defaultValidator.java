@@ -1,16 +1,8 @@
-/*
- * validateCreateSection.java
- *
- * Created on March 3, 2008, 8:20 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
+
 package org.bungeni.editor.actions.validators;
 
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.editor.actions.toolbarActionDeprecated;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.error.BungeniMsg;
 import org.bungeni.error.BungeniValidatorState;

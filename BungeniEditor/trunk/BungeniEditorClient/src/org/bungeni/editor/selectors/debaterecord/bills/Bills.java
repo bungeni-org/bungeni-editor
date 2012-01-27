@@ -11,14 +11,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.AbstractButton;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.element.Bill;
-import org.bungeni.db.RegistryQueryFactory;
+
 import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.CommonConnectorFunctions;
@@ -59,11 +57,6 @@ public class Bills extends BaseMetadataPanel {
         }
     }
 
-    protected String getTableQuery() {
-        String countryIso = BungeniEditorProperties.getEditorProperty("parliament.CountryCode");
-        String sQuery = RegistryQueryFactory.Q_FETCH_BILLS(countryIso);
-        return sQuery;
-    }
 
     private void initTable() {
 

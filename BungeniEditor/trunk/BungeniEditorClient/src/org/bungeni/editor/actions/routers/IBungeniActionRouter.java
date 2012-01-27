@@ -1,15 +1,6 @@
-/*
- * IBungeniActionRouter.java
- *
- * Created on March 10, 2008, 12:24 AM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 
 package org.bungeni.editor.actions.routers;
 
-import org.bungeni.editor.actions.toolbarActionDeprecated;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.ooo.OOComponentHelper;
 

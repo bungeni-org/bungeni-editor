@@ -11,7 +11,6 @@ package org.bungeni.editor.selectors;
 
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import org.bungeni.editor.actions.toolbarActionDeprecated;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.ooo.OOComponentHelper;
 

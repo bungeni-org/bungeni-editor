@@ -1,17 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.bungeni.db;
 
 import java.text.MessageFormat;
 
 
 /**
- *
- * @author undesa
+ * This class is deprecated
+ * @author Ashok Hariharan
  */
+@Deprecated
 public class RegistryQueryFactory {
     public RegistryQueryFactory() {
     }

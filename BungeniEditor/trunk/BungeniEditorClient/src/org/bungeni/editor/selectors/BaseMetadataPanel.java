@@ -4,7 +4,6 @@ package org.bungeni.editor.selectors;
 
 
 
-import org.bungeni.editor.actions.toolbarActionDeprecated;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.selectors.BaseMetadataContainerPanel.ConditionSet;
 import org.bungeni.extutils.BungeniEditorProperties;

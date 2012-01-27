@@ -21,7 +21,6 @@ import org.bungeni.db.IQueryResultsIterator;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
-import org.bungeni.editor.actions.toolbarActionDeprecated;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
 import org.bungeni.extutils.BungeniUUID;
