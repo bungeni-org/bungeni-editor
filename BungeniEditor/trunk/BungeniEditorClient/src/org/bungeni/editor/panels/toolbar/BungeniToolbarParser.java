@@ -58,8 +58,9 @@ public class BungeniToolbarParser {
         saxBuilder = new SAXBuilder("org.apache.xerces.parsers.SAXParser",validate);
 
         String toolbarActionsFolder = BungeniEditorProperties.get("toolbarActionsFolderRoot");
-        String toolbarActionsFile = CommonFileFunctions.convertRelativePathToFullPath(toolbarActionsFolder) + File.separator +
-                BungeniEditorPropertiesHelper.getCurrentDocType() + ".xml";
+        String toolbarActionsFile = CommonFileFunctions.convertRelativePathToFullPath(toolbarActionsFolder)
+                + File.separator
+                + BungeniEditorPropertiesHelper.getCurrentDocType() + ".xml";
         this.TOOLBAR_XML_FILE = toolbarActionsFile;
         /**
         String          activeDocumentMode = BungeniEditorProperties.getEditorProperty("activeDocumentMode");

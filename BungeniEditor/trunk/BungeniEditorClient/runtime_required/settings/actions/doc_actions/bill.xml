@@ -30,7 +30,7 @@
             <router class=""
                 dialog="null"
             />
-    </action>    
+    </action>
     <action name="make_bill_clause"  type="section" parent=""
             router="" sectiontype="Clause" validator="">
             <title xml:lang="eng">dummy</title>
@@ -44,7 +44,7 @@
             <router class=""
                 dialog=""
             />
-    </action>    
+    </action>
     <action name="make_bill_chapter"  type="section" parent=""
             router="" sectiontype="Chapter" validator="">
             <title xml:lang="eng">dummy</title>
@@ -111,218 +111,218 @@
     <action name="create_sidenote"  type="" parent="makeBillGeneralAction"
             router="bill.create_sidenote.makeBillGeneralAction" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">create sidenote</title>
-            <router class="bill.create_sidenote.makeBillGeneralAction"
+            <router class="org.bungeni.editor.actions.routers.routerCreateSidenote"
                 dialog="org.bungeni.editor.actions.routers.routerCreateSideNote_panel"
             />
     </action>
     <action name="apply_numbered_heading_bill_clause"  type="" parent="makeBillClauseSection"
             router="bill.apply_numbered_heading.makeBillClauseSection" sectiontype="Clause" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.apply_numbered_heading.makeBillClauseSection"
+            <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
                 dialog="org.bungeni.editor.selectors.InitBillPreface"
             />
     </action>
     <action name="make_bill_clause"  type="" parent="makeBillClauseSection"
             router="bill.section_creation.makeBillClauseSection" sectiontype="Clause" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.section_creation.makeBillClauseSection"
+            <router class="org.bungeni.editor.actions.routers.routerCreateSection"
                 dialog="org.bungeni.editor.selectors.InitBillPreface"
             />
     </action>
     <action name="apply_numbered_heading_bill_subchapter"  type="" parent="makeBillSubChapterSection"
             router="bill.apply_numbered_heading.makeBillSubChapterSection" sectiontype="SubChapter" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dum</title>
-            <router class="bill.apply_numbered_heading.makeBillSubChapterSection"
+            <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
                 dialog="org.bungeni.editor.selectors.InitBillPreface"
             />
     </action>
     <action name="make_composite_bill_sub_chapter"  type="" parent="makeBillSubChapterSection"
             router="bill.composite_section_creation.makeBillSubChapterSection" sectiontype="SubChapter" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.composite_section_creation.makeBillSubChapterSection"
+            <router class="org.bungeni.editor.actions.routers.routerCreateCompositeSection"
                 dialog="org.bungeni.editor.selectors.InitBillPreface"
             />
     </action>
     <action name="make_bill_sub_chapter"  type="" parent="makeBillSubChapterSection"
             router="bill.section_creation.makeBillSubChapterSection" sectiontype="SubChapter" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.section_creation.makeBillSubChapterSection"
+            <router class="org.bungeni.editor.actions.routers.routerCreateSection"
                 dialog="org.bungeni.editor.selectors.InitBillPreface"
             />
     </action>
     <action name="apply_numbered_heading_bill_article"  type="" parent="makeBillArticleSection"
             router="bill.apply_numbered_heading.makeBillArticleSection" sectiontype="Article" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.apply_numbered_heading.makeBillArticleSection"
+            <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
                 dialog="org.bungeni.editor.selectors.InitBillPreface"
             />
     </action>
     <action name="make_bill_article"  type="" parent="makeBillArticleSection"
             router="bill.section_creation.makeBillArticleSection" sectiontype="Article" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.section_creation.makeBillArticleSection"
+            <router class="org.bungeni.editor.actions.routers.routerCreateSection"
                 dialog="org.bungeni.editor.selectors.InitBillPreface"
             />
     </action>
     <action name="make_bill_numbered_heading"  type="" parent="makeBillSectionSection"
             router="bill.apply_numbered_heading.makeBillSectionSection" sectiontype="Section" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.apply_numbered_heading.makeBillSectionSection"
+            <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
                 dialog="org.bungeni.editor.selectors.InitBillPreface"
             />
     </action>
     <action name="make_bill_composite_section"  type="" parent="makeBillSectionSection"
             router="bill.composite_section_creation.makeBillSectionSection" sectiontype="Section" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.composite_section_creation.makeBillSectionSection"
+            <router class="org.bungeni.editor.actions.routers.routerCreateCompositeSection"
                 dialog="org.bungeni.editor.selectors.InitBillPreface"
             />
     </action>
     <action name="make_bill_section"  type="" parent="makeBillSectionSection"
             router="bill.section_creation.makeBillSectionSection" sectiontype="Section" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.section_creation.makeBillSectionSection"
+            <router class="org.bungeni.editor.actions.routers.routerCreateSection"
                 dialog="org.bungeni.editor.selectors.InitBillPreface"
             />
     </action>
     <action name="apply_style_bill_preface"  type="" parent="makeBillPrefaceSection"
             router="bill.apply_style.makeBillPrefaceSection" sectiontype="Preface" validator=" org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.apply_style.makeBillPrefaceSection"
+            <router class="org.bungeni.editor.actions.routers.routerApplyStyle"
                 dialog=""
             />
     </action>
     <action name="make_char_style_bill"  type="" parent="makeBillPrefaceSection"
             router="bill.char_style.makeBillPrefaceSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.char_style.makeBillPrefaceSection"
+            <router class="org.bungeni.editor.actions.routers.routerApplyCharStyle"
                 dialog=""
             />
     </action>
     <action name="make_bill_preface"  type="" parent="makeBillPrefaceSection"
             router="bill.section_creation.makeBillPrefaceSection" sectiontype="Preface" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.section_creation.makeBillPrefaceSection"
+            <router class="org.bungeni.editor.actions.routers.routerCreateSection"
                 dialog="org.bungeni.editor.selectors.InitBillPreface"
             />
     </action>
     <action name="apply_numbered_bill_sub_par"  type="" parent="makeBillSubParaSection"
             router="bill.apply_numbered_heading.makeBillSubParaSection" sectiontype="SubParagraph" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.apply_numbered_heading.makeBillSubParaSection"
+            <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
                 dialog="org.bungeni.editor.selectors.InitBillPreface"
             />
     </action>
     <action name="make_bill_sub_par"  type="" parent="makeBillSubParaSection"
             router="bill.section_creation.makeBillSubParaSection" sectiontype="SubParagraph" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.section_creation.makeBillSubParaSection"
+            <router class="org.bungeni.editor.actions.routers.routerCreateSection"
                 dialog="org.bungeni.editor.selectors.InitBillPreface"
             />
     </action>
     <action name="apply_numbered_heading_bill"  type="" parent="makeBillSubSectionSection"
             router="bill.apply_numbered_heading.makeBillSubSectionSection" sectiontype="SubSection" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.apply_numbered_heading.makeBillSubSectionSection"
+            <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
                 dialog="org.bungeni.editor.selectors.InitBillPreface"
             />
     </action>
     <action name="make_composite_bill_section"  type="" parent="makeBillSubSectionSection"
             router="bill.composite_section_creation.makeBillSubSectionSection" sectiontype="SubSection" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.composite_section_creation.makeBillSubSectionSection"
+            <router class="org.bungeni.editor.actions.routers.routerCreateCompositeSection"
                 dialog="org.bungeni.editor.selectors.InitBillPreface"
             />
     </action>
     <action name="make_bill_sub_section"  type="" parent="makeBillSubSectionSection"
             router="bill.section_creation.makeBillSubSectionSection" sectiontype="SubSection" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.section_creation.makeBillSubSectionSection"
+            <router class="org.bungeni.editor.actions.routers.routerCreateSection"
                 dialog="org.bungeni.editor.selectors.InitBillPreface"
             />
     </action>
     <action name="apply_numbered_heading_bill_chapter_section"  type="" parent="makeBillChapterSection"
             router="bill.apply_numbered_heading.makeBillChapterSection" sectiontype="Chapter" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.apply_numbered_heading.makeBillChapterSection"
+            <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
                 dialog="org.bungeni.editor.selectors.InitBillPreface"
             />
     </action>
     <action name="make_bill_chapter_section"  type="" parent="makeBillChapterSection"
             router="bill.composite_section_creation.makeBillChapterSection" sectiontype="Chapter" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.composite_section_creation.makeBillChapterSection"
+            <router class="org.bungeni.editor.actions.routers.routerCreateCompositeSection"
                 dialog="org.bungeni.editor.selectors.InitBillPreface"
             />
     </action>
     <action name="make_bill_chapter"  type="" parent="makeBillChapterSection"
             router="bill.section_creation.makeBillChapterSection" sectiontype="Chapter" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.section_creation.makeBillChapterSection"
+            <router class="org.bungeni.editor.actions.routers.routerCreateSection"
                 dialog="org.bungeni.editor.selectors.InitBillPreface"
             />
-    </action>    
+    </action>
     <action name="apply_numbered_heading_bill_part"  type="" parent="makeBillPartSection"
             router="bill.apply_numbered_heading.makeBillPartSection" sectiontype="Part" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.apply_numbered_heading.makeBillPartSection"
+            <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
                 dialog="org.bungeni.editor.selectors.InitBillPreface"
             />
     </action>
     <action name="make_bill_part"  type="" parent="makeBillPartSection"
             router="bill.section_creation.makeBillPartSection" sectiontype="Part" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.section_creation.makeBillPartSection"
-                dialog="org.bungeni.editor.selectors.InitBillPreface"
-            />
-    </action>    
-    <action name="apply_numbered_heading_bill_par_section"  type="" parent="makeBillParaSection"
-            router="bill.apply_numbered_heading.makeBillParaSection" sectiontype="Paragraph" validator="org.bungeni.editor.actions.validators.defaultValidator">
-            <title xml:lang="eng">dummy</title>
-            <router class="bill.apply_numbered_heading.makeBillParaSection"
+            <router class="org.bungeni.editor.actions.routers.routerCreateSection"
                 dialog="org.bungeni.editor.selectors.InitBillPreface"
             />
     </action>
-    
+    <action name="apply_numbered_heading_bill_par_section"  type="" parent="makeBillParaSection"
+            router="bill.apply_numbered_heading.makeBillParaSection" sectiontype="Paragraph" validator="org.bungeni.editor.actions.validators.defaultValidator">
+            <title xml:lang="eng">dummy</title>
+            <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
+                dialog="org.bungeni.editor.selectors.InitBillPreface"
+            />
+    </action>
+
     <action name="make_bill_paragraph"  type="" parent="makeBillParaSection"
             router="bill.section_creation.makeBillParaSection" sectiontype="Paragraph" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.section_creation.makeBillParaSection"
+            <router class="org.bungeni.editor.actions.routers.routerCreateSection"
                 dialog="org.bungeni.editor.selectors.InitBillPreface"
             />
     </action>
     <action name="make_bill_long_title"  type="" parent="makeBillLongTitleSection"
             router="bill.section_creation.makeBillLongTitleSection" sectiontype="LongTitle" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.section_creation.makeBillLongTitleSection"
+            <router class="org.bungeni.editor.actions.routers.routerCreateSection"
                 dialog=""
             />
     </action>
     <action name="markup_short_title"  type="" parent="makeBillShortTitleSection"
             router="bill.section_creation.makeBillShortTitleSection" sectiontype="ShortTitle" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.section_creation.makeBillShortTitleSection"
+            <router class=""
                 dialog=""
             />
     </action>
     <action name="make_bill_subclause"  type="" parent="makeBillSubClauseSection"
             router="bill.section_creation.makeBillSubClauseSection" sectiontype="SubClause" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.section_creation.makeBillSubClauseSection"
+            <router class="org.bungeni.editor.actions.routers.routerCreateSection"
                 dialog=""
             />
     </action>
     <action name="apply_numbered_heading_bill_subclause"  type="" parent="makeBillSubClauseSection"
             router="bill.apply_numbered_heading.makeBillSubClauseSection" sectiontype="SubClause" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.apply_numbered_heading.makeBillSubClauseSection"
+            <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
                 dialog=""
             />
     </action>
     <action name="make_bill_subclause_composite_section_creation"  type="" parent="makeBillSubClauseSection"
             router="bill.composite_section_creation.makeBillSubClauseSection" sectiontype="SubClause" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
-            <router class="bill.composite_section_creation.makeBillSubClauseSection"
+            <router class="org.bungeni.editor.actions.routers.routerCreateCompositeSection"
                 dialog=""
             />
     </action>

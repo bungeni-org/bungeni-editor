@@ -1,6 +1,8 @@
 package org.bungeni.editor.actions.routers;
 
+import org.bungeni.editor.actions.DocumentActionsReader;
 import org.bungeni.editor.actions.toolbarAction;
+import org.jdom.Element;
 
 /**
  * @author Administrator
@@ -44,23 +46,37 @@ public class routerFactory {
  
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(routerFactory.class.getName());
  
-    public static IBungeniActionRouter getRouterClass(toolbarAction subAction) {
+    public static IBungeniActionRouter getRouterClass(toolbarAction currAction) {
        IBungeniActionRouter  router = null;
        try {
-             log.debug("getRouterClass: creating event class"+ subAction.router_class());
+             log.debug("getRouterClass: creating event class"+ currAction.router_class());
 
              // get the router class from the ROUTER_CONFIGS table
              // and use for instantiation
-             String routerClassName = subAction.router_class();
+             // !+ACTION_RECONF (rm, jan 2012) - get the action name rather than
+             // the action_class and use this to query for the router class
+             // String routerClassName = currAction.router_class();
+             String actionClassName = currAction.sub_action_name();
 
-             if(null == routerClassName)
+             if(null == actionClassName)
              {
                  return null ;
              }
 
+             // !+ACTION_RECONF (rm, jan 2012) - once the router_name is
+             // obtained, then a query has to be made to router_configs.xml
+             // to determine the router_class
+             // note that the var returned above from subAction.router_class()
+             // is the router_name rather than the router_class
              // use introspection to create the router class
+             Element rName = DocumentActionsReader.getInstance().getRouter(actionClassName);
+
+             // get the routerName from the xml tag for the routerName
+             String rClassName = rName.getAttributeValue("class") ;
+
+             // use introspection to create new instance of the router class
              Class routerClass;
-             routerClass= Class.forName(routerClassName);
+             routerClass= Class.forName(rClassName);
              router = (IBungeniActionRouter) routerClass.newInstance();
              
        } catch (NullPointerException ex) {
