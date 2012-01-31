@@ -1,6 +1,8 @@
 package org.bungeni.odfdom.section;
 
 //~--- non-JDK imports --------------------------------------------------------
+
+import java.util.Iterator;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 
 import org.odftoolkit.odfdom.doc.OdfDocument;
@@ -18,16 +20,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.namespace.NamespaceContext;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
+import org.odftoolkit.odfdom.dom.OdfSchemaDocument.OdfXMLFile;
 import org.odftoolkit.odfdom.dom.element.style.StyleBackgroundImageElement;
 import org.odftoolkit.odfdom.dom.element.style.StyleSectionPropertiesElement;
 import org.odftoolkit.odfdom.dom.element.text.TextSectionElement;
 import org.odftoolkit.odfdom.incubator.doc.office.OdfOfficeAutomaticStyles;
 import org.odftoolkit.odfdom.incubator.doc.style.OdfStyle;
 import org.odftoolkit.odfdom.pkg.OdfFileDom;
+import org.odftoolkit.odfdom.pkg.OdfNamespace;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
@@ -141,8 +146,7 @@ public class BungeniOdfSectionHelper {
      * @return
      */
     public String getSectionType(TextSectionElement nsection) {
-        NamedNodeMap metaAttrs = getSectionMetadataAttributes(nsection);
-        return getFilterNamedItem(nsection, metaAttrs, FILTER_SECTION_TYPE);
+        return this.getSectionMetadataValue(nsection, "BungeniSectionType");
     }
 
     /**
@@ -152,8 +156,7 @@ public class BungeniOdfSectionHelper {
      * @return
      */
     public String getSectionID(TextSectionElement nsection) {
-        NamedNodeMap metaAttrs = getSectionMetadataAttributes(nsection);
-        return getFilterNamedItem(nsection, metaAttrs, FILTER_SECTION_ID);
+          return this.getSectionMetadataValue(nsection, "BungeniSectionID");
     }
 
     public String getFilterNamedItem(TextSectionElement nsection, NamedNodeMap nattr, String filterItem) {
@@ -167,17 +170,11 @@ public class BungeniOdfSectionHelper {
 
     public ArrayList<Node> getBungeniMetadataAttributes(TextSectionElement nsection) {
         ArrayList<Node> nodeLists = new ArrayList<Node>(0);
-        NamedNodeMap metaAttribs = getSectionMetadataAttributes(nsection);
-
-        for (int i = 0; i < metaAttribs.getLength(); i++) {
-            Node foundNode = metaAttribs.item(i);
-            String metaLocalname = foundNode.getNodeName();
-
-            if (metaLocalname.startsWith(FILTER_BUNGENI_SECTION_META)) {
-                nodeLists.add(foundNode);
-            }
+        NodeList listofMetadataNodes = this.getSectionMetadataAttributes(nsection);
+        for (int i = 0; i < listofMetadataNodes.getLength(); i++) {
+            Node foundNode = listofMetadataNodes.item(i);
+            nodeLists.add(foundNode);
         }
-
         return nodeLists;
     }
 
@@ -278,23 +275,150 @@ public class BungeniOdfSectionHelper {
          */
     }
 
-    /**
+
+
+public static class BungeniODFNsContext {
+
+   private static BungeniODFNsContext instance = null;
+   public static final String RDF_NS_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
+   public static final String ANX_NS_URI = "http://editor.bungeni.org/1.0/anx/";
+   public static final String ANX_NS_PREF = "anx";
+
+
+   private NamespaceContext ctx = null;
+
+    public static BungeniODFNsContext getInstance() {
+        if (null == instance) {
+            instance = new BungeniODFNsContext();
+        }
+        return instance;
+    }
+
+    public NamespaceContext getContext() {
+        return ctx;
+    }
+
+    private BungeniODFNsContext() {
+        ctx = new NamespaceContext() {
+
+                @Override
+                public String getNamespaceURI(String prefix) {
+                    String uri = "";
+                    if (prefix.equals("rdf")) {
+                        uri = RDF_NS_URI;
+                    } else if (prefix.equals(ANX_NS_PREF)) {
+                        uri = ANX_NS_URI;
+                    } else if (prefix.startsWith("ns")) {
+                        uri = ANX_NS_URI;
+                    } else {
+                        return null;
+                    }
+                    return uri;
+                }
+
+                @Override
+                public String getPrefix(String namespaceURI) {
+                     return null;
+                }
+
+                @Override
+                public Iterator getPrefixes(String namespaceURI) {
+                    return null;
+                }
+
+        };
+    }
+
+
+}
+
+   public OdfFileDom getRDFDOM(){
+       OdfFileDom fileDom = null;
+       try {
+            //the RDF Dom is located in meta/meta.rdf , we are hard coding this
+            //presently , but the dynamic discovery of this needs to be implmenebted
+            // !+FIX_THIS (implement dynamic discovery, ah, jan-2012)
+            fileDom = this.getOdfDocument().getFileDom("meta/meta.rdf");
+            // we need to do the below for the XPath to recognize the anx: namespace
+            fileDom.setNamespace(BungeniODFNsContext.ANX_NS_PREF, BungeniODFNsContext.ANX_NS_URI);
+        } catch (Exception ex) {
+            log.error("Error while getting RDF metadata DOM");
+        }
+        return fileDom;
+   }
+
+   public XPath getRDFMetadataXPath(OdfFileDom fileDom) {
+       XPath xfilePath = fileDom.getXPath();
+       xfilePath.setNamespaceContext(fileDom);
+       return xfilePath;
+   }
+
+   /**
      * Returns the metadata attributes for a section as  NamedNodeMap
      * @param nSection a TextSectionElement handle for a section
-     * @return NamedNodeMap
+     * @return NodeList
      */
-    public NamedNodeMap getSectionMetadataAttributes(TextSectionElement nSection) {
-        OdfStyle sectStyle = getSectionStyle(nSection);
+   public NodeList getSectionMetadataAttributes(TextSectionElement nSection)  {
 
-        if (sectStyle != null) {
-            Element sprops = getSectionStyleProperties(sectStyle);
-            NamedNodeMap sectionProps = sprops.getAttributes();
+       //get the ID of the section for which we want to get the metadata
+       String  xmlId = nSection.getXmlIdAttribute();
 
-            return sectionProps;
-        } else {
-            return null;
+       //get the rdf metadata hive from the rdf file in the ODF package
+
+       OdfFileDom fileDom = this.getRDFDOM();
+
+       //set the namespace context on the RDF metadom
+       XPath xrdfPath = fileDom.getXPath();
+       xrdfPath.setNamespaceContext(fileDom);
+
+       //now query for the section metadata
+       String xPression = "//rdf:Description[@rdf:about='../content.xml#"+ 
+                        xmlId +
+                     "']/node()[not(self::text())]" ;
+       NodeList rdfMetadataNodes = null;
+        try {
+
+            rdfMetadataNodes = (NodeList) xrdfPath.evaluate(xPression, fileDom, XPathConstants.NODESET);
+
+           
+
+        } catch (XPathExpressionException ex) {
+            log.error("XPath Error while accesing section metadata", ex);
         }
+        return rdfMetadataNodes;
     }
+
+
+    public String getSectionMetadataValue(TextSectionElement nSection, String key)  {
+
+       String metadataValue = "";
+
+       //get the ID of the section for which we want to get the metadata
+       String  xmlId = nSection.getXmlIdAttribute();
+
+       //get the rdf metadata hive from the rdf file in the ODF package
+
+       OdfFileDom fileDom = this.getRDFDOM();
+
+       XPath xrdfPath = this.getRDFMetadataXPath(fileDom);
+
+       String xPression = "//rdf:Description[@rdf:about='../content.xml#"+
+                                            xmlId +
+                                            "']/*[local-name()='"+ key + "']"   ;
+       Node rdfMetadataNode = null;
+       NodeList rdfMetadataNodes = null;
+        try {
+            rdfMetadataNode = (Node) xrdfPath.evaluate(xPression, fileDom, XPathConstants.NODE);
+
+            metadataValue = rdfMetadataNode.getTextContent();
+
+        } catch (XPathExpressionException ex) {
+            log.error("XPath Error while accesing section metadata", ex);
+        }
+        return metadataValue;
+    }
+
+
 
     /**
      * Retuns a node list of ALL the document sections
@@ -311,6 +435,9 @@ public class BungeniOdfSectionHelper {
             return lst;
         }
     }
+
+
+
 
     /**
      * Gets the section type offset of the section
@@ -354,12 +481,13 @@ public class BungeniOdfSectionHelper {
             oSection = (TextSectionElement) xPath.evaluate("//text:section[@text:name='" + sectionName + "']", docDom,
                     XPathConstants.NODE);
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            ex.printStackTrace();
+            log.error("Unable to get section !" , ex);
         } finally {
             return oSection;
         }
     }
+
+   
 
     public void iterateSections(IBungeniOdfSectionObjectIterator sectionIterator) {
         NodeList nlist = getDocumentSections();

@@ -16,6 +16,7 @@ import static org.junit.Assert.*;
 import org.odftoolkit.odfdom.doc.OdfDocument;
 import org.odftoolkit.odfdom.dom.element.text.TextSectionElement;
 import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
@@ -40,9 +41,10 @@ public class BungeniOdfSectionHelperTest {
     @Before
     public void setUp() {
         try {
-            this.oDoc = OdfDocument.loadDocument(new File("testdocs/section-test.odt"));
+            this.oDoc = OdfDocument.loadDocument(new File("testdocs/section_test_new.odt"));
             this.docHelper = new BungeniOdfDocumentHelper (oDoc);
             this.secHelper = docHelper.getSectionHelper();
+
         } catch (Exception ex) {
             Logger.getLogger(BungeniOdfSectionHelperTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -59,7 +61,7 @@ public class BungeniOdfSectionHelperTest {
     /**
      * Test of getSection method, of class BungeniOdfSectionHelper.
      */
-    @Test
+   @Test
     public void testGetSection() {
         System.out.println("getSection");
         TextSectionElement result = secHelper.getSection("preface");
@@ -87,6 +89,7 @@ public class BungeniOdfSectionHelperTest {
     public void testGetSectionType_TextSectionElement() {
         System.out.println("getSectionType");
         TextSectionElement nSection = secHelper.getSection("qa1");
+        // String result = secHelper.getSectionType(nSection);
         String result = secHelper.getSectionType(nSection);
         System.out.println(result);
         assertEquals("QuestionAnswer", result);
@@ -99,7 +102,7 @@ public class BungeniOdfSectionHelperTest {
     /**
      * Test of removeSectionBackgroundImage method, of class BungeniOdfSectionHelper.
      */
-    @Test
+   @Test
     public void testRemoveSectionBackgroundImage() {
       String foutname = UUID.randomUUID().toString() + ".odt";
       File fout = new File("testdocs/"+ foutname);
@@ -120,26 +123,32 @@ public class BungeniOdfSectionHelperTest {
     }
 
 
-
     /**
      * Test of getSectionMetadataAttributes method, of class BungeniOdfSectionHelper.
      */
-    @Test
+   @Test
     public void testGetSectionMetadataAttributes() {
         System.out.println("getSectionMetadataAttributes");
         TextSectionElement nSection = null;
         BungeniOdfSectionHelper instance = null;
         String expResult = "QuestionAnswer";
         nSection = secHelper.getSection("qa1");
-        NamedNodeMap result = secHelper.getSectionMetadataAttributes(nSection);
-        String sType = secHelper.getFilterNamedItem(nSection, result, BungeniOdfSectionHelper.FILTER_SECTION_TYPE);
+        NodeList nl = secHelper.getSectionMetadataAttributes(nSection);
+        String sType = "";
+        for (int i = 0; i < nl.getLength(); i++) {
+            Node aNode = nl.item(i);
+            if (aNode.getLocalName().equals("BungeniSectionType")) {
+                sType = aNode.getTextContent();
+                break;
+            }
+        }
         assertEquals(expResult, sType);
     }
 
     /**
      * Test of getDocumentSections method, of class BungeniOdfSectionHelper.
      */
-    @Test
+  @Test
     public void testGetDocumentSections() {
         System.out.println("getDocumentSections");
          int expCount = 4;
