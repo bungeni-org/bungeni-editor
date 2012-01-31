@@ -135,7 +135,11 @@ BungeniOdfDocumentHelper               revertTestHelper = null;
         assertEquals(changes.get("dcCreator"), "Ashok Hariharan");
         assertEquals(changes.get("changeType"), "deletion");
         assertEquals(changes.get("changeText"), "Triffids");
-        assertEquals(changes.get("dcDate"), "Tue, Feb 9, 2010, 12:38:00 PM");
+
+        // !+ (rm, jan 2012) - changed the output for the desired change datae
+        // date stored in timestamp format
+        // assertEquals(changes.get("dcDate"), "Tue, Feb 9, 2010, 12:38:00 PM");
+        assertEquals(changes.get("dcDate"), "2010-02-09T12:38:00");
 
         BungeniOdfTrackedChangesHelper.StructuredChangeType stype2 =
             docHelper.getChangesHelper().getStructuredChangeType(result.get(1));
@@ -148,7 +152,7 @@ BungeniOdfDocumentHelper               revertTestHelper = null;
         assertEquals(changes2.get("dcCreator"), "Ashok Hariharan");
         assertEquals(changes2.get("changeType"), "insertion");
         assertEquals(changes2.get("changeText"), "Nightingales");
-        assertEquals(changes2.get("dcDate"), "Tue, Feb 9, 2010, 12:38:00 PM");
+        assertEquals(changes2.get("dcDate"), "2010-02-09T12:38:00");
     }
  
     

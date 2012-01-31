@@ -936,6 +936,7 @@ public class BungeniOdfTrackedChangesHelper {
      * @param elemDeletion the text:deletion element
      * @return String content of all the deleted nodes
      */
+    // !+ (rm, jan 2012) - removed the additional appended text, test now passes!
     public String getDeletedText(Node elemDeletion) {
         StringBuffer sbfDeletedText = new StringBuffer("");
         NodeList     matchedNodes   = getDeletedNodes(elemDeletion);
@@ -943,7 +944,8 @@ public class BungeniOdfTrackedChangesHelper {
         for (int i = 0; i < matchedNodes.getLength(); i++) {
             Node foundNode = matchedNodes.item(i);
 
-            sbfDeletedText.append(foundNode.getTextContent() + "\n");
+            // sbfDeletedText.append(foundNode.getTextContent() + "\n");
+            sbfDeletedText.append(foundNode.getTextContent());
         }
 
         return sbfDeletedText.toString();
@@ -956,6 +958,7 @@ public class BungeniOdfTrackedChangesHelper {
      * @param changeId
      * @return
      */
+    // !+ (rm, jan 2012) - removed the additional appended text, test now passes!
     public String getInsertedText(String changeId) {
         StringBuffer sbInsText    = new StringBuffer();
         NodeList     matchedNodes = getInsertedNodes(changeId);
@@ -963,7 +966,8 @@ public class BungeniOdfTrackedChangesHelper {
         for (int i = 0; i < matchedNodes.getLength(); i++) {
             Node foundNode = matchedNodes.item(i);
 
-            sbInsText.append(foundNode.getTextContent() + "\n");
+            // sbInsText.append(foundNode.getTextContent() + "\n");
+            sbInsText.append(foundNode.getTextContent());
         }
 
         return sbInsText.toString();
