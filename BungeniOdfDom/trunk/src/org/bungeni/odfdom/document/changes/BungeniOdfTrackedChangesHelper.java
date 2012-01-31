@@ -958,7 +958,8 @@ public class BungeniOdfTrackedChangesHelper {
      * @param changeId
      * @return
      */
-    // !+ (rm, jan 2012) - removed the additional appended text, test now passes!
+    // !+FIX_THIS (rm, jan 2012) - removed the additional appended text, test now passes!
+    // why was there a \n being appended at the end -- remove, observer, check
     public String getInsertedText(String changeId) {
         StringBuffer sbInsText    = new StringBuffer();
         NodeList     matchedNodes = getInsertedNodes(changeId);
