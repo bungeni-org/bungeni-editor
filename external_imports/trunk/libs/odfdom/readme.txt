@@ -1,1 +1,1 @@
-ODFDOM 0.8.7
+ODFDOM 0.8.8
