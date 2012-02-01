@@ -20,6 +20,7 @@ package org.bungeni.editor.actions;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
@@ -94,7 +95,8 @@ public class DocumentActionsReader {
     public Document getSelectorDialogs() throws JDOMException, IOException {
         if (this.selectorDialogsDocument == null) {
             String actionsFolder = BungeniEditorProperties.get("selectorDialogsFile");
-            String dialogFile = CommonFileFunctions.convertRelativePathToFullPath(actionsFolder) + File.separator + "selector_dialogs.xml";
+            String dialogFile = CommonFileFunctions.convertRelativePathToFullPath(actionsFolder) + File.separator  
+                    +"settings" + File.separator + "actions" + File.separator + "selector_dialogs.xml";
             this.selectorDialogsDocument = saxBuilder.build(new File(dialogFile));
         }
         return this.selectorDialogsDocument;
@@ -102,8 +104,18 @@ public class DocumentActionsReader {
 
     public Element getSelectorDialog (String parentDialog) throws JDOMException, IOException {
         XPath xPath = XPath.newInstance("//dialog[@class='"+ parentDialog + "']");
-        Element dialogNode = (Element) xPath.selectSingleNode(getSelectorDialogs());
+        Element dialogNode =  (Element) xPath.selectSingleNode(getSelectorDialogs());
+
         return dialogNode;
+    }
+
+    // (rm, jan 2012) - this method obtains the child 
+    // dialogs of the main dialog
+    public ArrayList getChildDialogs(String parentDialog) throws JDOMException, IOException {
+        XPath xPath = XPath.newInstance("//dialog[@class='"+ parentDialog + "']/dialog");
+        ArrayList selectorDialogs = (ArrayList) xPath.selectNodes(getSelectorDialogs());
+
+        return selectorDialogs ;
     }
 
 

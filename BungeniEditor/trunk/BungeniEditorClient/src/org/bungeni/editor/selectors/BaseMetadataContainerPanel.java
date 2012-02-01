@@ -4,14 +4,19 @@ package org.bungeni.editor.selectors;
 import com.sun.star.lang.IllegalArgumentException;
 import com.sun.star.text.XTextRange;
 import com.sun.star.text.XTextRangeCompare;
+import com.thoughtworks.xstream.io.xml.DocumentReader;
 import java.awt.Cursor;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -20,12 +25,15 @@ import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.IQueryResultsIterator;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
+import org.bungeni.editor.actions.DocumentActionsReader;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
 import org.bungeni.extutils.BungeniUUID;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
+import org.jdom.Element;
+import org.jdom.JDOMException;
 
 /**
  * This class is the base class for all interactive dialogs with the Editor.
@@ -641,6 +649,8 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
     }
     };*/
 
+    // (rm, feb 2012) - the panels are obtained from an xml file rather than
+    // from the db,arg for accquirePanels uses action name
     protected void setupPanels(){
         //load the active panels for the current profile
         String currentActiveProfile = BungeniEditorPropertiesHelper.getActiveProfile();
@@ -651,7 +661,8 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
         String sAction = this.theSubAction.parent_action_name();
          
         String sSubAction = this.theSubAction.sub_action_name();
-        accquirePanels(sDocType, sAction, currentActiveProfile);
+        // accquirePanels(sDocType, sAction, currentActiveProfile);
+        accquirePanels(sDocType, sSubAction, currentActiveProfile);
     }
 
     class iteratePanels implements IQueryResultsIterator {
@@ -676,6 +687,39 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
      * @param profileName
      */
     private void accquirePanels(String docType, String actionName, String profileName){
+        try {
+            // get the action
+            Element action = DocumentActionsReader.getInstance().getDocumentActionByName(actionName);
+
+            // get the router child element(not attribute)
+            String parentDialog = action.getChild("router").getAttributeValue("dialog");
+          
+            if (null!= parentDialog)
+            {
+                // get the panels for the dialog
+                // from the selector panels
+                ArrayList sPanels = DocumentActionsReader.getInstance()
+                        .getChildDialogs(parentDialog);
+                
+                // iterate through the element getting the child panels
+                for(int i = 0 ; i <sPanels.size() ; i++){
+                    // get the class for the panel
+                    Element sPanel = (Element) sPanels.get(i);
+                    String dialogClassName = sPanel.getAttributeValue("class") ;
+                    this.m_activePanels.add(new panelInfo(BungeniUUID.getStringUUID(),
+                            sPanel.getAttributeValue("class")));
+                }
+            }
+
+        } catch (JDOMException ex) {
+            log.error("Error obtaining the panels for dialog : " +ex);
+        } catch (IOException ex) {
+            log.error("Error obtaining the panels for dialog : " +ex);
+        }
+        
+       
+        //
+        /**
            BungeniClientDB db        = BungeniClientDB.defaultConnect();
            QueryResults qr = db.ConnectAndQuery(SettingsQueryFactory.Q_FETCH_SELECTOR_DIALOGS(docType,
                                                                         actionName,
@@ -683,9 +727,12 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
            iteratePanels panelsIterate = new iteratePanels();
            qr.resultsIterator(panelsIterate);
            ArrayList<String> ppanels = panelsIterate.getSelectorDialogs();
+
+           //
            for (String sPanel : ppanels) {
                 this.m_activePanels.add(new panelInfo(BungeniUUID.getStringUUID(), sPanel));
             }
+         **/
     }
 
     public void postPanelSetup() {
