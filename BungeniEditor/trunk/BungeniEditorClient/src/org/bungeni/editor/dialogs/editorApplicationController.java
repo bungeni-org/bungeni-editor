@@ -930,7 +930,12 @@ public class editorApplicationController extends javax.swing.JPanel {
 
         editorTabbedPanel panel = editorTabbedPanel.getInstance();
         panel.init(dc);
-        frame.getBasePanel().add(panel, "shrink 0");
+
+        // (rm, feb 2012) -let the tabbed pane grow to fill all its
+        // available space minus the max size of the noaPanel
+        // which is all the available space minus the preferred size
+        // of the tabbedPane
+        frame.getBasePanel().add(panel, "grow");
         frame.validate();
         frame.setVisible(true);
         frame.setSize(800, 600);

@@ -18,6 +18,7 @@
 
 package org.bungeni.editor.noa;
 
+import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -33,6 +34,7 @@ public class BungeniNoaTabbedPane {
 
     private BungeniNoaTabbedPane(){
         tabbedPane = new JTabbedPane();
+        tabbedPane.setPreferredSize(new Dimension(300,0)) ;
         tabbedPane.setTabLayoutPolicy(JTabbedPane.HORIZONTAL);
     }
 

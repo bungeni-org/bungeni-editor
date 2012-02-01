@@ -124,7 +124,7 @@ public class BungeniNoaFrame extends BungeniFrame {
         this.getContentPane().add(getBasePanel());
         //this needs to be calculated ?
         setResizable(true);
-        setSize(800, 600);
+         // setSize(800, 600);
         pack();
         //We set it to do_nothing_on_close since we want to add
         //an exit handler and exit cleanly
@@ -225,14 +225,18 @@ public class BungeniNoaFrame extends BungeniFrame {
         //column config = first panel - grow and fill on both axes
         //                second panel - use local preference
         //now row config
-        MigLayout ml = new MigLayout("flowx", "[0:0,grow,fill][pref!]", "");
+        // MigLayout ml = new MigLayout("flowx", "[0:0,grow,fill][pref!]", "");
+        // (rm. feb 2012) -let the noaPanel fill all available space (minus the preferred
+        // size for the JtabbedPane) and the Jtabbed Pane grow within its desired dimensions
+        MigLayout ml = new MigLayout("flowx", "[max][grow]", "[grow]");
         getBasePanel().setLayout(ml);
         //add the NOA panel to the content pane of the frame
         //the NOA panel is a singleton -- this is the panel that contains
         //the openoffice window
         this.noaTabbedPane = BungeniNoaTabbedPane.getInstance();
         //add the noa panel with a grow on y axis directive
-        getBasePanel().add(noaTabbedPane.getTabbedPane(), "growy");
+        // (rm, feb 2012) - let the noaPanel grow to fill all available space
+        getBasePanel().add(noaTabbedPane.getTabbedPane(), "grow");
         //AH-13-05-11 comment the below for now
         //noaTabbedPane.getTabbedPane().addTab("openOffice",
         //        BungeniNoaPanel.getInstance().getPanel());
