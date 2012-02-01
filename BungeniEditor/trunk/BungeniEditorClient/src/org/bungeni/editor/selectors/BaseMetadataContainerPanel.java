@@ -281,6 +281,8 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
 
         btnCancel.addActionListener(new ActionListener() {
 
+            // (rm, feb 2012)- actionListener not attached to
+            // any JButton
             public void actionPerformed(ActionEvent arg0) {
                 containerFrame.dispose();
             }
@@ -396,6 +398,7 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
                              break;
                         default:
                             sourceButton.setEnabled(false);
+                            containerFrame.dispose();
                             break;
                     }
                 } catch (InterruptedException ex) {
