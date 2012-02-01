@@ -401,6 +401,7 @@ public static class BungeniODFNsContext {
        OdfFileDom fileDom = this.getRDFDOM();
 
        XPath xrdfPath = this.getRDFMetadataXPath(fileDom);
+       xrdfPath.setNamespaceContext(fileDom);
 
        String xPression = "//rdf:Description[@rdf:about='../content.xml#"+
                                             xmlId +
