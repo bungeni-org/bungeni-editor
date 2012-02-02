@@ -12,30 +12,6 @@ public class RegistryQueryFactory {
     public RegistryQueryFactory() {
     }
 
-    public static String Q_FETCH_COMMITTEES( String countryCode){
-        Object[] params = { countryCode };
-
-        return MessageFormat.format(
-                       "Select COMMITTEE_NAME, COMMITTEE_URI " +
-                       " From COMMITTEES Where COUNTRY=''{0}''" ,
-                       params
-                        )
-           ;
-
-
-    }
-
-
-    public static String Q_FETCH_BILLS(String countryCode){
-        Object[] params = { countryCode };
-        String s =    MessageFormat.format( "Select BILL_NAME, BILL_URI, BILL_ONTOLOGY " +
-                    " From BILLS Where COUNTRY=''{0}''" ,
-                    params
-                    );
-        return s
-                    ;
-    }
-
     public static String Q_FETCH_JUDGEMENT_PARTIES(String judgementId) {
       
         String query = new String("" +
