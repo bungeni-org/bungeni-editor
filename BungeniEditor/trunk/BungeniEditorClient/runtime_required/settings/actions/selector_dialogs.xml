@@ -8,7 +8,7 @@
 <dialogs>
     <dialog class="org.bungeni.editor.selectors.debaterecord.bills.Main" >
         <dialog
-            class=" org.bungeni.editor.selectors.debaterecord.bills.Bills"
+            class="org.bungeni.editor.selectors.debaterecord.bills.Bills"
              />
     </dialog>
     <dialog class="org.bungeni.editor.selectors.debaterecord.motions.Main" >
@@ -23,7 +23,7 @@
     </dialog>
 
     <dialog  class="org.bungeni.editor.selectors.debaterecord.question.MainEdit" >
-        <dialog class=" org.bungeni.editor.selectors.debaterecord.question.QuestionAddressedTo"
+        <dialog class="org.bungeni.editor.selectors.debaterecord.question.QuestionAddressedTo"
              />
         <dialog class="org.bungeni.editor.selectors.debaterecord.question.QuestionNo"
              />

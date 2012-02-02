@@ -55,6 +55,17 @@ public class ExternalPlugin {
 
     /**
      * Calls the plugin method via reflections
+     * (rm, feb 2012) - ADDED COMMENTS
+     * callMethod() calls one of 2 methods to determine the validation action being
+     * carried out. These methods, determined via reflection are setParams() and exec()
+     * setParams() takes a HashMap arg of the arguments ODF document that is being verified
+     * and the rules to be checked against the document while exec() runs the rules on
+     * the documents
+     *
+     * passing a non_HashMap arg to setParams() was causing a JOptionPane to be
+     * displayed in BungeniEditor showing the "An exception occurred while the
+     * Structural Rules checker was running"
+     * 
      * @param methodname
      * @param arguments
      * @return
@@ -69,16 +80,19 @@ public class ExternalPlugin {
                 log.error("callMethod : method : " + methodname + "  does not exist in the method map");
             }
         } catch (IllegalAccessException ex) {
-            log.error("callMethod : " + ex.getMessage());
+            log.error("callMethod - Illegal Access Exception : " + ex.getMessage());
         } catch (IllegalArgumentException ex) {
-            log.error("callMethod : " + ex.getMessage());
+            log.error("callMethod - Illegal Argument Exception : " + ex.getMessage());
         } catch (InvocationTargetException ex) {
-            log.error("callMethod : " + ex.getMessage());
+            log.error("callMethod InvocationTargetException : " + ex.getMessage());
         } finally {
             return returnValue;
         }
     }
 
+    //!+ (rm, feb 2012) - ADDED COMMENTS
+    // This method instanciates either setParams() or exec() that runs the document
+    // rules against the selected document
     public boolean instantiatePlugin(){
         boolean bState = false;
         try {
