@@ -77,7 +77,7 @@ public class OdtTranslate implements IEditorPlugin {
             log.info("XXX-TRANSLATOR-XXX  calling translate");
             //!+FIX_THIS_LATER -- THIS CHANGE BREAKS THE EDITOR IMPLEMENTATION -- 2nd parameter needs to 
             //be a translator config file path
-            filesMap = myTranslator.translate(this.odfFileUrl, "");
+            filesMap = myTranslator.translate(this.odfFileUrl, this.translatorConfigFile);
             log.info("no exceptions occured : writing outputs");
         } catch (Exception e) {
             log.error("exec()", e);
