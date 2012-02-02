@@ -89,6 +89,7 @@ public class OrderOfChildSections extends BaseStructuralRule {
                                 childSectionName,
                                 getName(), INVALID_PRECEEDING_POSITION,
                                 precState.failedSectionType, precState.failedSectionName);
+                    log.error("preceding error addded :" + returnError);
                     errorLog.add(returnError);
                }
                checkState follState = checkFollowing(childSectionType, i, listofSections);
@@ -99,6 +100,7 @@ public class OrderOfChildSections extends BaseStructuralRule {
                                 thisSectionName,
                                 childSectionName,
                                 getName(), INVALID_FOLLOWING_POSITION, follState.failedSectionType, follState.failedSectionName);
+                    log.error("preceding error addded :" + returnError);
                     errorLog.add(returnError);
                }
            }
@@ -132,7 +134,8 @@ public class OrderOfChildSections extends BaseStructuralRule {
        return false;
    }
 
-   private checkState checkPreceeding(String childSectionType, int currentIdx , ArrayList<TextSectionElement> listofChildren) {
+   private checkState checkPreceeding(String childSectionType, int currentIdx ,
+           ArrayList<TextSectionElement> listofChildren) {
        checkState cs = new checkState();
        if (checkPrecedingException(childSectionType) == true ) {
            return cs;
@@ -195,9 +198,10 @@ public class OrderOfChildSections extends BaseStructuralRule {
            //get the following section type
            actualFollowingType = this.odfSectionHelper.getSectionType(listofChildren.get(currentIdx+1));
        }
-
+       
        if (checkFollowingException(actualFollowingType) == true)
            return cs;
+       
 
        if (allowedFollowingTypes.contains(actualFollowingType))
            return cs;

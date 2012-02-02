@@ -60,7 +60,7 @@ public class StructuralRulesEngine {
                     // set name for rule engine
                     iEngine.setName(engineName);
                 } catch (Exception ex) {
-                    System.out.println("error loading engines");
+                    log.error("error loading engines");
                     log.error("loadRulesForDocumentType , during engine instantiation of " + engineName + " : "
                               + ex.getMessage());
                 }
@@ -131,10 +131,10 @@ public class StructuralRulesEngine {
             sre.processRulesForDocument(odoc);
 
             for (StructuralError serr : sre.getErrors()) {
-                System.out.print(serr.parentSectionName);
-                System.out.print(" , " + serr.errorState);
-                System.out.print(" , " + serr.errorMessage);
-                System.out.println(" , " + serr.failRuleType);
+                log.info(serr.parentSectionName);
+                log.info(" , " + serr.errorState);
+                log.info(" , " + serr.errorMessage);
+                log.info(" , " + serr.failRuleType);
             }
 
             // iterate through the document and process the rules for every section
@@ -148,20 +148,21 @@ public class StructuralRulesEngine {
     class IterativeRulesForSections implements IBungeniOdfSectionIterator {
         public boolean nextSection(BungeniOdfSectionHelper helper, TextSectionElement nSection) {
             try {
-                System.out.println("iterating rules for section : " + nSection.getTextNameAttribute());
-                System.out.println("rules to apply = " + rulesToApply.size());
+                String sectionName = nSection.getTextNameAttribute();
+                log.info("iterating rules for section : " + sectionName);
+                log.info("rules to apply = " + rulesToApply.size());
 
                 for (IStructuralRule iStructuralRule : rulesToApply) {
                     OdfDocument oddoc = helper.getOdfDocument();
 
-                    System.out.println("iterating rules for " + iStructuralRule.getName());
+                    log.info("iterating rules for " + iStructuralRule.getName());
 
                     if (iStructuralRule.setupRule(rulesParser, helper.getOdfDocument())) {
-                        System.out.println("finished setup of rule");
+                        log.info("finished setup of rule");
                         iStructuralRule.applyRule(nSection.getTextNameAttribute());
                     }
 
-                    System.out.println("after setup of rule");
+                    log.info("after setup of rule");
 
                     StructuralError[] errors = iStructuralRule.getErrors();
 
@@ -172,7 +173,7 @@ public class StructuralRulesEngine {
                     }
                 }
             } catch (Exception ex) {
-                System.out.println("Exception : " + ex.getMessage());
+                log.error("Exception : " + ex.getMessage());
             }
 
             return true;
