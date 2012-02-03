@@ -399,7 +399,10 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         JPopupMenu menu = new JPopupMenu();
         //menu.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         viewXmlListener listener = new viewXmlListener();
-        JMenuItem menuItemXml = setupMenuItem("ANXML", "AkomaNtososo", listener);
+
+        // !+(rm, feb 2012) - MINOR FIX
+        // JMenuItem menuItemXml = setupMenuItem("ANXML", "AkomaNtososo", listener);
+        JMenuItem menuItemXml = setupMenuItem("ANXML", "AkomaNtoso", listener);
         menuItemXml.setFont(this.btnViewXmlDoc.getFont());
         JMenuItem menuItemMtlx = setupMenuItem("METALEX", "MetaLEX", listener);
         menuItemMtlx.setFont(this.btnViewXmlDoc.getFont());
