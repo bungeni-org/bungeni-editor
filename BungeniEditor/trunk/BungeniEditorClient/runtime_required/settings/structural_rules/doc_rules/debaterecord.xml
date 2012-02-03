@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <DocumentStructure type="debaterecord">
-	<sectionType name="body">
-		<!--bill allows three child section types -->
+        <!--DOC_RULES for the 'body' section type-->
+	<sectionType name="body">		
 		<allowedTypes>
 			<!-- each of these ref types must be defined as a sectionType -->
 			<ref type="sectionType" name="Preface"/>
@@ -25,29 +25,21 @@
 		<!--order of children is specified here -->
 		<orderOfChildren>
 			<order type="sectionType" name="Preface" order="0" required="yes"/>
-
 			<order type="sectionType" name="Observation" order="0" required="no"/>
-			<!--
-                        <order type="sectionType" name="Observation" order="1" required="no" />
-                        <order type="sectionType" name="Observation" order="2" required="no" />
-                        <order type="sectionType" name="Observation" order="3" required="no" />
-                         -->
 			<order type="sectionType" name="PapersLaid" order="1" required="yes"/>
-
 			<order type="sectionType" name="Communication" order="3" required="no"/>
 			<order type="sectionType" name="PointOfOrder" order="3" required="no"/>
 			<order type="sectionType" name="QuestionsContainer" order="3" required="no"/>
-
 			<order type="sectionType" name="Conclusion" order="9" required="no"/>
 		</orderOfChildren>
 	</sectionType>
-
+        <!--DOC_RULES for the 'observation' section type-->
 	<sectionType name="Observation">
 		<!-- defines an exception for this section, no preceding or following order is checked for this section -->
 		<orderException preceding="true" following="true"/>
 		<allowedTypes>
 			<!--no child sections are allowed -->
-			<ref type="sectionType" name="None"/>
+			<!--<ref type="sectionType" name="None"/>-->
 		</allowedTypes>
 		<orderOfChildren>
 			<!--children can be in any order-->
@@ -55,7 +47,7 @@
 		</orderOfChildren>
 	</sectionType>
 
-
+        <!--DOC_RULES for the 'Preface' section type-->
 	<sectionType name="Preface">
 		<allowedTypes>
 			<ref type="sectionType" name="Observation"/>
@@ -65,9 +57,9 @@
 		</orderOfChildren>
 	</sectionType>
 
+        <!--DOC_RULES for the 'papersLaid' section type-->
 	<sectionType name="PapersLaid">
-		<allowedTypes>
-			<!--no child sections are allowed -->
+		<allowedTypes>			
 			<ref type="sectionType" name="PapersLaidList"/>
 			<ref type="sectionType" name="Observation"/>
 		</allowedTypes>
@@ -77,9 +69,9 @@
 		</orderOfChildren>
 	</sectionType>
 
+        <!--DOC_RULES for the 'PapersLaidList' section type-->
 	<sectionType name="PapersLaidList">
-		<allowedTypes>
-			<!--no child sections are allowed -->
+		<allowedTypes>			
 			<ref type="sectionType" name="Observation"/>
 		</allowedTypes>
 		<orderOfChildren>
@@ -88,20 +80,9 @@
 		</orderOfChildren>
 	</sectionType>
 
-	<sectionType name="PapersLaidList">
-		<allowedTypes>
-			<!--no child sections are allowed -->
-			<ref type="sectionType" name="Observation"/>
-		</allowedTypes>
-		<orderOfChildren>
-			<!--children can be in any order-->
-			<unordered/>
-		</orderOfChildren>
-	</sectionType>
-
+        <!--DOC_RULES for the communication section type-->
 	<sectionType name="Communication">
-		<allowedTypes>
-			<!--no child sections are allowed -->
+		<allowedTypes>			
 			<ref type="sectionType" name="Speech"/>
 			<ref type="sectionType" name="Observation"/>
 		</allowedTypes>
@@ -111,9 +92,9 @@
 		</orderOfChildren>
 	</sectionType>
 
+        <!--DOC_RULES for the 'PointOfOrder' section type-->
 	<sectionType name="PointOfOrder">
-		<allowedTypes>
-			<!--no child sections are allowed -->
+		<allowedTypes>			
 			<ref type="sectionType" name="Speech"/>
 			<ref type="sectionType" name="Observation"/>
 		</allowedTypes>
@@ -123,9 +104,9 @@
 		</orderOfChildren>
 	</sectionType>
 
+        <!--DOC_RULES for the 'petitions' section type-->
 	<sectionType name="Petitions">
-		<allowedTypes>
-			<!--no child sections are allowed -->
+		<allowedTypes>			
 			<ref type="sectionType" name="Speech"/>
 			<ref type="sectionType" name="Observation"/>
 		</allowedTypes>
@@ -135,11 +116,9 @@
 		</orderOfChildren>
 	</sectionType>
 
-
-
+        <!--DOC_RULES for the 'QuestionsContainer section type-->
 	<sectionType name="QuestionsContainer">
-		<allowedTypes>
-			<!--no child sections are allowed -->
+		<allowedTypes>		
 			<ref type="sectionType" name="Question"/>
 			<ref type="sectionType" name="Observation"/>
 		</allowedTypes>
@@ -149,10 +128,9 @@
 		</orderOfChildren>
 	</sectionType>
 
-
+        <!--DOC_RULES for the 'Question' section type-->
 	<sectionType name="Question">
-		<allowedTypes>
-			<!--no child sections are allowed -->
+		<allowedTypes>			
 			<ref type="sectionType" name="Speech"/>
 			<ref type="sectionType" name="Observation"/>
 		</allowedTypes>
@@ -162,11 +140,9 @@
 		</orderOfChildren>
 	</sectionType>
 
-
-
+        <!--DOC_RULES for the 'speech' section type-->
 	<sectionType name="Speech">
-		<allowedTypes>
-			<!--no child sections are allowed -->
+		<allowedTypes>			
 			<ref type="sectionType" name="Observation"/>
 		</allowedTypes>
 		<orderOfChildren>
@@ -175,8 +151,7 @@
 		</orderOfChildren>
 	</sectionType>
 
-
-
+        <!--DOC_RULES for the 'AnySectionType' -->
 	<sectionType name="AnySectionType">
 		<allowedTypes><!--no child sections are allowed -->
 			<!--<ref type="sectionType" name="None"/> -->
@@ -186,6 +161,8 @@
 			<unordered/>
 		</orderOfChildren>
 	</sectionType>
+
+        <!--DOC_RULES for the 'conclusion' section type-->
 	<sectionType name="Conclusion">
 		<allowedTypes>
 			<ref type="sectionType" name="None"/>
@@ -195,9 +172,9 @@
 		</orderOfChildren>
 	</sectionType>
 
+        <!--DOC_RULES for the 'PMotionsContainer' section type-->
 	<sectionType name="PMotionsContainer">
-		<allowedTypes>
-			<!--no child sections are allowed -->
+		<allowedTypes>			
 			<ref type="sectionType" name="ProceduralMotion"/>
 			<ref type="sectionType" name="Observation"/>
 		</allowedTypes>
@@ -207,10 +184,9 @@
 		</orderOfChildren>
 	</sectionType>
 
-
+        <!--DOC_RULES for the 'Procedural motion' section type-->
 	<sectionType name="ProceduralMotion">
-		<allowedTypes>
-			<!--no child sections are allowed -->
+		<allowedTypes>			
 			<ref type="sectionType" name="Speech"/>
 			<ref type="sectionType" name="Observation"/>
 		</allowedTypes>
@@ -220,9 +196,9 @@
 		</orderOfChildren>
 	</sectionType>
 
+        <!--DOC_RULES for the 'NMotionsContainer' section type-->
 	<sectionType name="NMotionsContainer">
-		<allowedTypes>
-			<!--no child sections are allowed -->
+		<allowedTypes>			
 			<ref type="sectionType" name="None"/>
 		</allowedTypes>
 		<orderOfChildren>
@@ -231,10 +207,9 @@
 		</orderOfChildren>
 	</sectionType>
 
-
+        <!--DOC_RULES for the 'Procedural Motion' section type-->
 	<sectionType name="ProceduralMotion">
-		<allowedTypes>
-			<!--no child sections are allowed -->
+		<allowedTypes>			
 			<ref type="sectionType" name="Speech"/>
 			<ref type="sectionType" name="Observation"/>
 		</allowedTypes>
@@ -244,9 +219,9 @@
 		</orderOfChildren>
 	</sectionType>
 
+        <!--DOC_RULES for the 'ActionEvent' section type-->
 	<sectionType name="ActionEvent">
-		<allowedTypes>
-			<!--no child sections are allowed -->
+		<allowedTypes>			
 			<ref type="sectionType" name="Speech"/>
 			<ref type="sectionType" name="Observation"/>
 		</allowedTypes>
@@ -255,6 +230,5 @@
 			<unordered/>
 		</orderOfChildren>
 	</sectionType>
-
-
+        
 </DocumentStructure>
