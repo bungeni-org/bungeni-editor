@@ -22,7 +22,7 @@
              />
     </dialog>
 
-    <dialog  class="org.bungeni.editor.selectors.debaterecord.question.MainEdit" >
+    <dialog  class="org.bungeni.editor.selectors.debaterecord.question.Main" >
         <dialog class="org.bungeni.editor.selectors.debaterecord.question.QuestionAddressedTo"
              />
         <dialog class="org.bungeni.editor.selectors.debaterecord.question.QuestionNo"
@@ -112,7 +112,7 @@
     </dialog>
 
     <dialog
-        class="org.bungeni.editor.selectors.debaterecord.question.Main" >
+        class="org.bungeni.editor.selectors.debaterecord.question.MainEdit" >
 
         <dialog
             class="org.bungeni.editor.selectors.debaterecord.question.QuestionAddressedTo"

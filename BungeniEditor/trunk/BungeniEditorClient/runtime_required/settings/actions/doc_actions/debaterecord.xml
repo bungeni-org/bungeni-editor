@@ -520,7 +520,7 @@
 
     <action name="make_debate_section_question"  type="" parent="makeDebateQuestionBlockSection"
         router="debaterecord.section_creation.makeDebateQuestionBlockSection" sectiontype="QuestionAnswer" validator="org.bungeni.editor.actions.validators.defaultValidator">
-        <title xml:lang="eng">creates a section for the question block</title>
+        <title xml:lang="eng">Import Question</title>
         <router class="org.bungeni.editor.actions.routers.routerDebateRecordSelectQuestion"
             dialog="org.bungeni.editor.selectors.debaterecord.question.MainEdit"
         />
@@ -583,14 +583,14 @@
     </action>
     <action name="create_debate_motion_block"  type="" parent="makeDebateMotionBlockSectionEdit"
         router="debaterecord.section_creation.makeDebateMotionBlockSectionEdit" sectiontype="NoticeOfMotion" validator="org.bungeni.editor.actions.validators.defaultValidator">
-        <title xml:lang="eng">create a motion sectipn</title>
+        <title xml:lang="eng">Add a motion</title>
         <router class="org.bungeni.editor.actions.routers.routerMotionSelectMotion"
             dialog="org.bungeni.editor.selectors.debaterecord.motions.MainEdit"
         />
     </action>
     <action name="create_question_section"  type="" parent="makeDebateQuestionBlockSectionEdit"
         router="debaterecord.section_creation.makeDebateQuestionBlockSectionEdit" sectiontype="QuestionAnswer" validator="org.bungeni.editor.actions.validators.defaultValidator">
-        <title xml:lang="eng">create a question section</title>
+        <title xml:lang="eng">Add Question</title>
         <router class="org.bungeni.editor.actions.routers.routerDebateRecordSelectQuestion"
             dialog="org.bungeni.editor.selectors.debaterecord.question.Main"
         />

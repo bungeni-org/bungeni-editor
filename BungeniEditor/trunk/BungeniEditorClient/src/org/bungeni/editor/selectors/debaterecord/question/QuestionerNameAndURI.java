@@ -10,12 +10,12 @@ import java.awt.Component;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.SwingWorker;
 import org.bungeni.connector.client.BungeniConnector;
-import org.bungeni.connector.element.Motion;
-import org.bungeni.db.BungeniClientDB;
-import org.bungeni.db.BungeniRegistryFactory;
-import org.bungeni.db.GeneralQueryFactory;
-import org.bungeni.db.QueryResults;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.extutils.CommonConnectorFunctions;
 import org.bungeni.ooo.OOComponentHelper;
@@ -44,51 +44,108 @@ public class QuestionerNameAndURI extends BaseMetadataPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblNameOfPersonFrom = new javax.swing.JLabel();
-        txtPersonName = new javax.swing.JTextField();
         lblPersonURI = new javax.swing.JLabel();
         txtPersonURI = new javax.swing.JTextField();
-
-        lblNameOfPersonFrom.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/question/Bundle"); // NOI18N
-        lblNameOfPersonFrom.setText(bundle.getString("QuestionerNameAndURI.lblNameOfPersonFrom.text")); // NOI18N
-        lblNameOfPersonFrom.setName("lbl_person_name"); // NOI18N
-
-        txtPersonName.setName("txt_person_name"); // NOI18N
+        jComboBox1 = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         lblPersonURI.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/question/Bundle"); // NOI18N
         lblPersonURI.setText(bundle.getString("QuestionerNameAndURI.lblPersonURI.text")); // NOI18N
         lblPersonURI.setName("lbl_person_uri"); // NOI18N
 
+        txtPersonURI.setEditable(false);
         txtPersonURI.setName("txt_person_uri"); // NOI18N
+        txtPersonURI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPersonURIActionPerformed(evt);
+            }
+        });
+
+        jComboBox1.setEditable(true);
+        jComboBox1.setModel(getMembersModel());
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText(bundle.getString("QuestionerNameAndURI.jLabel1.text")); // NOI18N
+
+        jLabel2.setText(bundle.getString("QuestionerNameAndURI.jLabel2.text")); // NOI18N
+
+        jLabel3.setText(bundle.getString("QuestionerNameAndURI.loadingURI.text")); // NOI18N
+        jLabel3.setName("loadingURI"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblNameOfPersonFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(txtPersonName, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
-            .addComponent(lblPersonURI, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(txtPersonURI, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addContainerGap())
+            .addComponent(jComboBox1, 0, 264, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(lblPersonURI, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addComponent(txtPersonURI, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(254, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(lblNameOfPersonFrom)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPersonName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblPersonURI)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtPersonURI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPersonURI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel3)
+                .addGap(1, 1, 1))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // on selection of a member from the JComboBox
+        // the URI of the member should be displayed in the URI JTextField
+        //
+        String memberURI = null ;
+        
+        // get the selected MP name
+        JComboBox membersList = (JComboBox) evt.getSource() ;
+        String membersFullName = (String) membersList.getSelectedItem() ;
+
+        // get the first and last names for the selected member
+        String[] names = membersFullName.split("\\s");
+
+        // get the URI for the member
+        // and display it in the URI JTextField
+        setMemberURI(names);
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void txtPersonURIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPersonURIActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPersonURIActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel lblNameOfPersonFrom;
+    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblPersonURI;
-    private javax.swing.JTextField txtPersonName;
     private javax.swing.JTextField txtPersonURI;
     // End of variables declaration//GEN-END:variables
 public String getPanelName() {
@@ -120,7 +177,7 @@ public String getPanelName() {
          String editSectionName = getContainerPanel().getEditSectionName();
         if (editSectionName.length() > 0 ) {
             HashMap<String,String> sectionMeta = new HashMap<String,String>();
-            sectionMeta.put("BungeniQuestionBy", this.txtPersonName.getText());
+            sectionMeta.put("BungeniQuestionBy", (String) this.jComboBox1.getSelectedItem());
             sectionMeta.put("BungeniQuestionByURI", this.txtPersonURI.getText());
             getContainerPanel().getOoDocument().setSectionMetadataAttributes(editSectionName, sectionMeta);
             
@@ -173,7 +230,7 @@ public String getPanelName() {
         OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
         HashMap<String,String> sectionMeta = new HashMap<String,String>();
         String newSectionName = (getContainerPanel()).mainSectionName;
-        sectionMeta.put("BungeniQuestionBy", this.txtPersonName.getText());
+        sectionMeta.put("BungeniQuestionBy", (String) this.jComboBox1.getSelectedItem());
         sectionMeta.put("BungeniQuestionByURI", this.txtPersonURI.getText());
         ooDoc.setSectionMetadataAttributes(newSectionName, sectionMeta);        
         return true;
@@ -221,9 +278,65 @@ public String getPanelName() {
 
     @Override
     protected void initFieldsEdit() {
-        this.txtPersonName.setText(this.getSectionMetadataValue("BungeniQuestionBy"));
+        // !+ (rm, feb 2012) -  the questioner JTextField has now been replaced
+        // by a JComboBox with a list of all the selected members
+        // this.txtPersonName.setText(this.getSectionMetadataValue("BungeniQuestionBy"));
+        this.jComboBox1.setSelectedItem(this.getSectionMetadataValue("BungeniQuestionBy"));
         this.txtPersonURI.setText(this.getSectionMetadataValue("BungeniQuestionByURI"));
         return;
+    }
+
+    // !+ADDED METHOD TO OBTAIN THE LIST OF MEMBERS (rm, feb 2012)
+    // the list of members is used to populate the JComboBox
+    // with all their details
+    private String[] getMembersNames()
+    {
+        String[] members = null ;
+
+        // initialise the client
+        BungeniConnector client = null ;
+
+        try
+        {
+            client = CommonConnectorFunctions.getDSClient() ;
+
+            // get the members info
+            List<Member> membersList = client.getMembers() ;
+
+            // extract the members names and add them to the
+            // string res
+            members = new String[membersList.size()];
+            int counter = 0 ;
+
+            for(Member member : membersList)
+            {
+                members[counter] = member.getFirst() + " "
+                        + member.getLast() ;
+                counter ++ ;
+            }
+        } catch (IOException ex) {
+            log.error("Error initializing the BungeniConnectorClient " + ex) ;
+        }
+        
+        return members; 
+    }
+
+    private ComboBoxModel getMembersModel()
+    {
+        DefaultComboBoxModel mModel = null ;
+
+        // get the list of names of the members
+        String [] members = getMembersNames() ;
+
+        // set up model
+        mModel = new DefaultComboBoxModel();
+
+        for (String member : members)
+        {
+            mModel.addElement( (String) member);
+        }
+        
+        return mModel;
     }
 
     // !+ BUNGENI_CONNECTOR (rm, jan 17-2012) - editing this method to ensure
@@ -261,7 +374,8 @@ public String getPanelName() {
 
                     // add the first name, last name & URI to the
                     // "Person Name" in the "Add Motions" dialog
-                    this.txtPersonName.setText(fullName);
+                    // this.txtPersonName.setText(fullName);
+                    this.jComboBox1.setSelectedItem(fullName);
                     this.txtPersonURI.setText(questionFrom);
 
                     // no need to continue looping
@@ -301,5 +415,78 @@ public String getPanelName() {
         **/
        
         return true;
+    }
+
+   /**
+    * This method uses the names of the member to obtain the 
+    * URI for the specific member. This URI is then inserted into
+    * the txtPersonURI textfield
+    *
+    * !!!! @TODO : what if the member names are not unique !!!!
+    * 
+    * @param names : the first+" "+last name for a member
+    * @return
+    */
+    private void setMemberURI(final String[] names) {
+    
+        SwingWorker getMemberURI = new SwingWorker<String, Void>() {
+            String memberURI = null ;
+            
+            @Override
+            protected String doInBackground() throws Exception {
+                String uri = null ;
+
+                // display message
+                jLabel3.setText("fetching URI...");
+                
+                // initialise the BungeniConnector client
+                BungeniConnector client = null ;
+
+                // initialize the data store client
+                client = CommonConnectorFunctions.getDSClient();
+
+                // get the members
+                List<Member> members = client.getMembers() ;
+
+                // loop through & obtain the member whose
+                // names are as in the args
+                for( Member member : members )
+                {
+                    String firstName = names[0].trim() ;
+                    String lastName = names[1].trim() ;
+
+                    if(member.getFirst().trim().equals(firstName) &&
+                            member.getLast().trim().equals(lastName) )
+                    {
+                        // get the member's uri
+                        uri = member.getUri() ;
+                        break ;
+                    }
+                }
+
+                return uri ;
+            }
+            
+            @Override
+            public void done()
+            {
+                try {
+                    // get the member URI and add it to the
+                    // URI text field
+                    memberURI = (String) get();
+                    txtPersonURI.setText(memberURI);
+
+                    jLabel3.setText("finished");
+                    
+                } catch (InterruptedException ex) {
+                    log.error("Error obtaining member URI: " + ex);
+                } catch (ExecutionException ex) {
+                    log.error("Error obtaining member URI: " + ex);
+                }
+            }
+        };
+
+        // get the member's URI
+        getMemberURI.execute();
     }
 }

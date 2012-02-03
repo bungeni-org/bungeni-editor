@@ -7,8 +7,15 @@
 package org.bungeni.editor.selectors.debaterecord.question;
 
 import java.awt.Component;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import org.bungeni.connector.client.BungeniConnector;
+import org.bungeni.connector.element.Member;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
+import org.bungeni.extutils.CommonConnectorFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 
 /**
@@ -17,6 +24,9 @@ import org.bungeni.ooo.OOComponentHelper;
  */
 public class QuestionAddressedTo extends BaseMetadataPanel {
 
+    // create variable for logging
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(QuestionAddressedTo.class.getName());
+    
     /** Creates new form QuestionAddressedTo */
     public QuestionAddressedTo() {
         initComponents();
@@ -31,35 +41,37 @@ public class QuestionAddressedTo extends BaseMetadataPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtAddressedTo = new javax.swing.JTextField();
         lblQuestionAddressedTo = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox();
 
-        txtAddressedTo.setName("txt_question_to"); // NOI18N
-
-        lblQuestionAddressedTo.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblQuestionAddressedTo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblQuestionAddressedTo.setText("Question Addressed To :");
         lblQuestionAddressedTo.setName("lbl_question_to"); // NOI18N
+
+        jComboBox1.setEditable(true);
+        jComboBox1.setModel(getMembersModel());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblQuestionAddressedTo, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(txtAddressedTo, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+            .addComponent(jComboBox1, 0, 279, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lblQuestionAddressedTo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtAddressedTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel lblQuestionAddressedTo;
-    private javax.swing.JTextField txtAddressedTo;
     // End of variables declaration//GEN-END:variables
 
 public String getPanelName() {
@@ -91,7 +103,7 @@ public String getPanelName() {
         String editSectionName = getContainerPanel().getEditSectionName();
         if (editSectionName.length() > 0 ) {
             HashMap<String,String> sectionMeta = new HashMap<String,String>();
-            sectionMeta.put("BungeniQuestionTo", this.txtAddressedTo.getText());
+            sectionMeta.put("BungeniQuestionTo", (String) this.jComboBox1.getSelectedItem());
              getContainerPanel().getOoDocument().setSectionMetadataAttributes(editSectionName, sectionMeta);
             
         }
@@ -143,7 +155,7 @@ public String getPanelName() {
         OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
         HashMap<String,String> sectionMeta = new HashMap<String,String>();
         String newSectionName = (getContainerPanel()).mainSectionName;
-        sectionMeta.put("BungeniQuestionTo", this.txtAddressedTo.getText());
+        sectionMeta.put("BungeniQuestionTo", (String) this.jComboBox1.getSelectedItem());
         ooDoc.setSectionMetadataAttributes(newSectionName, sectionMeta);
         //ooDoc.setSectionMetadataAttributes(TOOL_TIP_TEXT_KEY, metadataMap);
         return true;
@@ -201,7 +213,7 @@ public String getPanelName() {
     @Override
     protected void initFieldsEdit() {
         //connect fields to metadata... 
-        this.txtAddressedTo.setText(getSectionMetadataValue("BungeniQuestionTo"));
+        this.jComboBox1.setSelectedItem(getSectionMetadataValue("BungeniQuestionTo"));
         return;
     }
     
@@ -210,8 +222,61 @@ public String getPanelName() {
         HashMap<String,String> selectionData = (getContainerPanel()).selectionData;   
         if (selectionData != null ) {
             if (selectionData.containsKey("QUESTION_TO"))
-            this.txtAddressedTo.setText(selectionData.get("QUESTION_TO"));
+                this.jComboBox1.setSelectedItem (selectionData.get("QUESTION_TO"));
         }
         return true;
+    }
+
+    // !+ADDED METHOD TO OBTAIN THE LIST OF MEMBERS (rm, feb 2012)
+    // the list of members is used to populate the JComboBox
+    // with all their details
+    private String[] getMembersNames()
+    {
+        String[] members = null ;
+
+        // initialise the client
+        BungeniConnector client = null ;
+
+        try
+        {
+            client = CommonConnectorFunctions.getDSClient() ;
+
+            // get the members info
+            List<Member> membersList = client.getMembers() ;
+
+            // extract the members names and add them to the
+            // string res
+            members = new String[membersList.size()];
+            int counter = 0 ;
+
+            for(Member member : membersList)
+            {
+                members[counter] = member.getFirst() + " "
+                        + member.getLast() ;
+                counter ++ ;
+            }
+        } catch (IOException ex) {
+            log.error("Error initializing the BungeniConnectorClient " + ex) ;
+        }
+
+        return members;
+    }
+
+    private ComboBoxModel getMembersModel()
+    {
+        DefaultComboBoxModel mModel = null ;
+
+        // get the list of names of the members
+        String [] members = getMembersNames() ;
+
+        // set up model
+        mModel = new DefaultComboBoxModel();
+
+        for (String member : members)
+        {
+            mModel.addElement( (String) member);
+        }
+
+        return mModel;
     }
 }

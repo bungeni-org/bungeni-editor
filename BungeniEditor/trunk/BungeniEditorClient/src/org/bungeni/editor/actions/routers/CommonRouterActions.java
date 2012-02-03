@@ -108,7 +108,7 @@ public class CommonRouterActions {
     // public static BungeniValidatorState displaySelectorDialog(toolbarSubAction action, toolbarSubAction subAction,
        //      JFrame parentFrame, OOComponentHelper ooDocument) {
     public static BungeniValidatorState displaySelectorDialog(toolbarAction subAction,
-            JFrame parentFrame, OOComponentHelper ooDocument) {
+            JFrame parentFrame, OOComponentHelper ooDocument) {        
         BungeniValidatorState returnState = null;
 
         // get the parentAction from the sub action instance

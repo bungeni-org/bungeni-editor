@@ -685,7 +685,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <!-- pops up a selector dialog for a questions - creates a questionanswer container -->
                 <action name="Questions.new" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="create_question_section"
+                    target="make_debate_section_question"
                     visible="true"
                     condition="textSelected:true :and: 
                                 cursorInSection:questions[0-9]*">
@@ -701,7 +701,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </action>
                 <action name="Questions.new" 
                     mode="TEXT_SELECTED_INSERT"
-                    target="make_debate_section_question"
+                    target="create_question_section"
                     visible="true"
                     condition="textSelected:true :and: 
                                 cursorInSection:questions[0-9]*">
