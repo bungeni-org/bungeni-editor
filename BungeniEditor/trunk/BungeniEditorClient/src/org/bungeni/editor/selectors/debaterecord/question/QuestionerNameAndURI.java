@@ -437,7 +437,7 @@ public String getPanelName() {
                 String uri = null ;
 
                 // display message
-                jLabel3.setText("fetching URI...");
+                jLabel3.setText("Fetching URI...");
                 
                 // initialise the BungeniConnector client
                 BungeniConnector client = null ;
@@ -476,7 +476,7 @@ public String getPanelName() {
                     memberURI = (String) get();
                     txtPersonURI.setText(memberURI);
 
-                    jLabel3.setText("finished");
+                    jLabel3.setText("");
                     
                 } catch (InterruptedException ex) {
                     log.error("Error obtaining member URI: " + ex);
