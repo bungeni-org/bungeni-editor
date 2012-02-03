@@ -14,11 +14,14 @@ import ag.ion.bion.officelayer.document.DocumentDescriptor;
 import ag.ion.bion.officelayer.text.ITextDocument;
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
+import java.awt.Component;
 import java.io.IOException;
 import java.util.Properties;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeListener;
 import net.miginfocom.swing.MigLayout;
 import org.bungeni.connector.server.DataSourceServer;
 import org.bungeni.ds.DataSourceFactory;
@@ -28,6 +31,8 @@ import org.bungeni.extutils.BungeniFrame;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonTreeFunctions;
 import org.bungeni.ooo.OOComponentHelper;
+import org.jvnet.substance.SubstanceLookAndFeel;
+import org.jvnet.substance.api.tabbed.TabCloseListener;
 
 /**
  * This is an extended BungeniFrame which acts as a frame for :
@@ -264,6 +269,13 @@ public class BungeniNoaFrame extends BungeniFrame {
         String fileNameForTab = CommonFileFunctions.getFileNameFromPath(pathToDocumentOrTemplate, false);
         noaTabbedPane.getTabbedPane().addTab(fileNameForTab, noapanel.getPanel());
         noapanel.getPanel().setVisible(true);
+        
+        // !+ (rm, feb 2012) - determine if the number or tabs is greater than 1 and
+        // then allow for a close button to be added to the tab
+        
+        // add close button to all the tabs
+        putCloseButtons();
+        
         //if the Office XFrame does not exist, construct it
         DocumentComposition dc = constructOOoFrame(noapanel);
         //now load the document - if its a template, create a new instance from 
@@ -286,6 +298,65 @@ public class BungeniNoaFrame extends BungeniFrame {
         return dc;
     }
 
+    /**
+     * (rm, feb 2012) - This method determines on whether or not
+     * the tabs (for noaTabbedPane) have a close button or not
+     */
+    public void putCloseButtons()
+    {
+        if (noaTabbedPane.getTabbedPane().getTabCount() > 1)
+        {
+            // !+ (rm, feb 2012) - add property to place a close button...in case
+            // of a number of documents being reviewed
+            noaTabbedPane.getTabbedPane().putClientProperty(
+                    SubstanceLookAndFeel.TABBED_PANE_CLOSE_BUTTONS_PROPERTY,
+                    Boolean.TRUE );
+        }
+        else
+        {
+            noaTabbedPane.getTabbedPane().putClientProperty(
+                        SubstanceLookAndFeel.TABBED_PANE_CLOSE_BUTTONS_PROPERTY,
+                        Boolean.FALSE );
+        }
+
+        // revalidate the tabbed panes
+        noaTabbedPane.getTabbedPane().validate();
+        noaTabbedPane.getTabbedPane().repaint();
+         
+        // check when the tabbedPane is closed 
+        // to ensure that the document is closed
+       SubstanceLookAndFeel
+        .registerTabCloseChangeListener(new TabCloseListener() {
+          public void tabClosing(JTabbedPane tabbedPane,
+              Component tabComponent) {
+            log.debug("Tab "
+                + noaTabbedPane.getTabbedPane().getTitleAt(tabbedPane
+                    .indexOfComponent(tabComponent))
+                + " closing");
+                // @TODO : place code for saving the document
+                // if ( openOfficeDoc.isDocumentOnDisk() )
+                // {
+                //      # close or prompt the user to save
+                // }
+          }
+
+          public void tabClosed(JTabbedPane tabbedPane,
+              Component tabComponent)
+          {
+              putCloseButtons();
+          }
+        });
+    }
+
+    // !+ (rm, feb 2012) - this method checks the document with the tab to
+    // be closed has been saved before closing it and whether or not the
+    // number of tabs is 1, in which case, they do not have close buttons
+    // added
+    private void vetoTabClosing(ChangeListener aThis)
+    {
+        
+    }
+    
     /**
      * Creates a OpenOffice XFrame , the document is loaded in a XFrame
      * A native view is attached to an XFrame

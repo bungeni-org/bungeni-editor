@@ -19,8 +19,12 @@
 package org.bungeni.editor.noa;
 
 import java.awt.Dimension;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import org.jvnet.substance.SubstanceLookAndFeel;
 
 /**
  *
@@ -36,8 +40,8 @@ public class BungeniNoaTabbedPane {
         tabbedPane = new JTabbedPane();
         tabbedPane.setPreferredSize(new Dimension(300,0)) ;
         tabbedPane.setTabLayoutPolicy(JTabbedPane.HORIZONTAL);
-    }
-
+    }           
+    
     public static BungeniNoaTabbedPane getInstance(){
         if (null == thisTabbedPane) {
             thisTabbedPane = new BungeniNoaTabbedPane();
