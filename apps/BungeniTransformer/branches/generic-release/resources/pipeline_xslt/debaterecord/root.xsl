@@ -3,6 +3,9 @@
                 xmlns:bp="http://www.bungeni.org/pipeline/1.0"
                 exclude-result-prefixes="bp"
                 version="2.0">
+    <!--
+    This is the root template that directs all the others
+    -->
     <xsl:output indent="yes" method="xml" encoding="UTF-8"/>
 
     <xsl:template match="/">
@@ -25,7 +28,9 @@
             <debateRecord>
                 <xsl:apply-templates select="//*[@name='meta']"/>
                 <xsl:apply-templates select="//*[@name='Preface']"/>
-                <xsl:apply-templates />
+                <!-- !+PIPELINE(ah, feb-2012), added explicit matcher for body
+                otherwise meta gets matched twice -->
+                <xsl:apply-templates select="//*[@name='body']" />
                 <xsl:apply-templates select="//*[@name='Conclusion']"/>
             </debateRecord>
         </akomaNtoso>    
