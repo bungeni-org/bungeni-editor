@@ -35,26 +35,8 @@ public class GlobalConfigurations {
         return GlobalConfigurations.applicationPathPrefix;
     }
 
-    /**
-     * Set the configuration file path to the given one
-     * @param aConfigurationFilePath the new configuration file path
-     */
-    public static void setConfigurationFilePath(String aConfigurationFilePath) {
-
-        // change the configuration file path
-        GlobalConfigurations.configurationFilePath = aConfigurationFilePath;
-    }
-
-    /**
-     * Return the configuration file path
-     * @return the configuration file path
-     */
-    public static String getConfigurationFilePath() {
-
-        // return the configuration file path
-        return GlobalConfigurations.configurationFilePath;
-    }
-
+   //!+FIX_THIS_LATER (ah, oct-2011) the API here, get and set configuration file paths
+    // have been removed !!!
     /**
      * Set the AKOMA NTOSO namespace to the given one
      * @param aNamespace the namespace of AKOMA NTOSO

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+                xmlns:bp="http://www.bungeni.org/pipeline/1.0"
+                exclude-result-prefixes="bp"
                 version="2.0">
+    <!--
+    This is the root template that directs all the others
+    -->
     <xsl:output indent="yes" method="xml" encoding="UTF-8"/>
 
     <xsl:template match="/">
@@ -18,12 +23,14 @@
         </xsl:element>
     </xsl:template>
 
-    <xsl:template match="*[@name='root']">
+    <xsl:template match="*[@name='root']" bp:name="root">
         <akomaNtoso>
             <debateRecord>
                 <xsl:apply-templates select="//*[@name='meta']"/>
                 <xsl:apply-templates select="//*[@name='Preface']"/>
-                <xsl:apply-templates />
+                <!-- !+PIPELINE(ah, feb-2012), added explicit matcher for body
+                otherwise meta gets matched twice -->
+                <xsl:apply-templates select="//*[@name='body']" />
                 <xsl:apply-templates select="//*[@name='Conclusion']"/>
             </debateRecord>
         </akomaNtoso>    

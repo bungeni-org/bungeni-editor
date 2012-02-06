@@ -25,7 +25,7 @@ public interface Translator {
     /**
      * Translate the given document according to the given pipeline
      * @param aDocumentPath the path of the document to translate
-     * @param aPipelinePath the path of the pipeline to apply to the document in order to translate it
+     * @param aConfiglinePath the path of the pipeline to apply to the document in order to translate it
      * @return a File containing the translated document
      * @throws TransformerException
      * @throws TransformerFactoryConfigurationError
@@ -35,7 +35,30 @@ public interface Translator {
      * @throws XPathExpressionException
      * @throws Exception
      */
-    public HashMap<String, File> translate(String aDocumentPath)
+    public HashMap<String, File> translate(String aDocumentPath, String configFilePath)
+            throws XPathExpressionException, SAXException, IOException, ParserConfigurationException,
+                   TransformerFactoryConfigurationError, TransformerException, Exception;
+
+        /**
+     * Translate the given document according to the given pipeline
+     * @param aDocumentPath the path of the document to translate
+     * @param aConfiglinePath the path of the pipeline to apply to the document in order to translate it
+     * @param inputParameters HashMap/ Dictionary of input parameters for the translator. These
+     * need to be declared in the config of the pipeline in both input steps.
+     * @return a File containing the translated document
+     * @throws TransformerException
+     * @throws TransformerFactoryConfigurationError
+     * @throws ParserConfigurationException
+     * @throws IOException
+     * @throws SAXException
+     * @throws XPathExpressionException
+     * @throws Exception
+     */
+    public HashMap<String, File> translate(
+            String aDocumentPath,
+            String configFilePath,
+            HashMap<String,String> inputParameters
+            )
             throws XPathExpressionException, SAXException, IOException, ParserConfigurationException,
                    TransformerFactoryConfigurationError, TransformerException, Exception;
 

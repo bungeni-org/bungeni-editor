@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><bu:ontology xmlns:bu="http://portal.bungeni.org/1.0/" type="user">
+   <bu:user type="">
+      <bu:field name="first_name">clerk</bu:field>
+      <bu:field name="last_name">P1_01</bu:field>
+      <bu:field name="user_id">5</bu:field>
+      <bu:description>&lt;div style="text-align: justify;"&gt;biographical notes biographical notes &lt;strong&gt;biographical notes&lt;/strong&gt; biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes
+
+biographical notes biographical notes biographical notes biographical notes biographical notes"
+&lt;/div&gt;&lt;ol style="text-align: justify;"&gt;&lt;li&gt;&lt;em&gt;biographical notes biographical notes biographical notes&lt;/em&gt;&lt;/li&gt;&lt;li&gt;&lt;em&gt;biographical notes biographical notes biographical notes biographical notes biographical notes 
+&lt;/em&gt;&lt;/li&gt;&lt;li&gt;&lt;em&gt;biographical notes&lt;/em&gt;&lt;/li&gt;&lt;li&gt;&lt;em&gt;biographical notes biographical notes 
+&lt;/em&gt;&lt;/li&gt;&lt;li&gt;&lt;em&gt;biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes&lt;/em&gt;&lt;/li&gt;&lt;/ol&gt;&lt;div style="text-align: justify;"&gt;&lt;span style="text-decoration: underline;"&gt;biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes &lt;/span&gt;
+
+biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes
+
+&lt;span style="color: rgb(255, 0, 0);"&gt;biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes&lt;/span&gt; biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes biographical notes &lt;/div&gt;</bu:description>
+      <bu:field name="language">en</bu:field>
+      <bu:subscriptions/>
+      <bu:field name="gender">F</bu:field>
+      <bu:field name="active_p">A</bu:field>
+      <bu:user_addresses/>
+      <bu:field name="date_of_birth">1900-02-02</bu:field>
+      <bu:field name="titles">Mrs</bu:field>
+      <bu:field name="birth_country">KE</bu:field>
+      <bu:field name="national_id">1234567890</bu:field>
+      <bu:field name="login">clerk.P1_01</bu:field>
+      <bu:field name="password">356aae9fe6bef08edf7801bc2b3ec5e0</bu:field>
+      <bu:field name="salt">NXDagdMxylZq</bu:field>
+      <bu:field name="email">user@bungeni.org</bu:field>
+      <bu:field name="birth_nationality">KE</bu:field>
+      <bu:field name="current_nationality">KE</bu:field>
+   </bu:user>
+</bu:ontology>

@@ -1,7 +1,6 @@
 package org.bungeni.translators.configurations.steps;
 
 //~--- non-JDK imports --------------------------------------------------------
-
 import org.bungeni.translators.interfaces.ReplaceStep;
 
 /**
@@ -12,10 +11,8 @@ public class OAReplaceStep implements ReplaceStep {
 
     // the name of this replace step
     private String name;
-
     // the pattern of this ReplaceStep
     private String pattern;
-
     // the replacement of this ReplaceStep
     private String replacement;
 

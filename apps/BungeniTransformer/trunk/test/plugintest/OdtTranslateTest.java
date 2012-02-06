@@ -1,11 +1,13 @@
 package plugintest;
 
+import java.io.IOException;
 import static org.junit.Assert.*;
 
 import java.io.File;
 import java.util.HashMap;
 
 import org.bungeni.plugins.translator.OdtTranslate;
+import org.bungeni.translators.utility.files.FileUtility;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,12 +24,11 @@ public class OdtTranslateTest {
 		paramMap = new HashMap();
 		currentDirectory = System.getProperty("user.dir");
 		currentDocType = "debaterecord";
-		paramMap.put("OdfFileURL", currentDirectory + "/test/testdocs/ke_debaterecord_2011-9-23_en.odt");
-		paramMap.put("OutputFilePath", currentDirectory + "/test/testresults/plugintest_debaterecord1.xml");
-		paramMap.put("OutputMetalexFilePath", currentDirectory + "/test/testresults/plugintest_debaterecord1.mlx");
+		paramMap.put("OdfFileURL", currentDirectory + "/test/testdocs/debaterecord_test.odt");
+		paramMap.put("OutputFilePath", currentDirectory + "/test/testresults/debaterecord_test_plugin_anx.xml");
+		paramMap.put("OutputMetalexFilePath", currentDirectory + "/test/testresults/debaterecord_test_plugin_mlx.xml");
 		paramMap.put("TranslatorRootFolder", currentDirectory + "/resources/");
-		paramMap.put("TranslatorConfigFile", "configfiles/configs/TranslatorConfig_debaterecord.xml");
-		//paramMap.put("TranslatorPipeline","metalex2akn/minixslt/debaterecord/pipeline.xsl" );
+		paramMap.put("TranslatorConfigFile", "configfiles/configs/config_debaterecord.xml");
 		paramMap.put("CurrentDocType", currentDocType);
 		paramMap.put("CallerPanel", null);
 		paramMap.put("PluginMode", "odt2akn");
@@ -38,7 +39,7 @@ public class OdtTranslateTest {
 	}
 
 	@Test
-	public final void testExec() {
+	public final void testExec() throws IOException {
 		File foutput  = new File((String) paramMap.get("OutputFilePath"));
 		if (foutput.exists()) {
 			foutput.delete();
@@ -47,7 +48,10 @@ public class OdtTranslateTest {
 		String sErrors = testObject.exec();
 		System.out.println("Translation Errors = \n\n" + sErrors);
 		File fnewout =  new File((String) paramMap.get("OutputFilePath"));
+                String sOutput = FileUtility.getInstance().FileToString(fnewout.getAbsolutePath()).trim();
+                String sExpected = FileUtility.getInstance().FileToString("test/testdocs/debaterecord_test_comp.xml").trim();
 		assertTrue("Ooutput file was not created", fnewout.exists() == true);
+                assertEquals("Expected output does not match generated output" , sExpected, sOutput);
 	}
 
 	@Test

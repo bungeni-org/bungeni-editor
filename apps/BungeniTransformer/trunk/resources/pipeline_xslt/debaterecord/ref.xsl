@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"  xmlns:ml="http://www.metalex.org/1.0" >
+<xsl:stylesheet version="2.0"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:ml="http://www.metalex.org/1.0"
+                xmlns:bp="http://www.bungeni.org/pipeline/1.0"
+                exclude-result-prefixes="bp">
 	<xsl:output indent="yes" method="xml" encoding="UTF-8"/>
 	
 	<xsl:template match="/">
@@ -17,7 +21,7 @@
 		</xsl:element>
 	</xsl:template>
 	
-	<xsl:template match="*[@name='ref']">
+	<xsl:template match="*[@name='ref']" bp:name="ref">
 		<xsl:if test="@href">
 			<xsl:if test="@class">
 				<xsl:choose>

@@ -23,6 +23,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import org.bungeni.translators.utility.transformer.GenericTransformer;
 
 
 /**
@@ -150,7 +151,7 @@ public class ODFUtility {
         Result result = new StreamResult(returnFile);
 
         // get the instance of the transformer
-        Transformer xformer = TransformerFactory.newInstance().newTransformer();
+        Transformer xformer = GenericTransformer.getInstance().getTransformerFactory().newTransformer();
 
         // set the UTF-8 encoding
         xformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");

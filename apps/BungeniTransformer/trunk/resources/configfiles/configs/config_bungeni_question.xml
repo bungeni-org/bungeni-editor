@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : config_bungeni_question.xml
+    Created on : 17 October 2011, 17:46
+    Author     : anthony
+    Description:
+        This is the translation pipeline for Bungeni output documents
+-->
+<config name="BungeniXML">
+    <properties>
+	<entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
+        <entry key="cachePipelineXSLT">false</entry>
+        <entry key="inputXmlSource">BUNGENI_XML</entry>
+    </properties>
+
+        <!-- Specfies the schema for the xml document being created -->
+        <schema href="configfiles/schema/akomantoso20.xsd" />
+
+        <!-- This steps are performed BEFORE the above regex replacement -->
+        <input>
+
+            <!-- INPUT PARAMETERS are passed ONLY into Step 1, it is upto step to decide
+            what it wants to do with input parameters, since they can be carried over,
+            by serializing them into the document being pipelined -->
+            <parameters>
+                <parameter name="country-code" />
+                <parameter name="parliament-election-date" />
+                <parameter name="for-parliament" />
+            </parameters>
+
+            <xslt step="1" name="groupingLevel1" href="pipeline_xslt/bungeni/parliamentaryitem/question/grouping_level1.xsl"/>
+            
+            <xslt step="2" name="groupingLevel2" href="pipeline_xslt/bungeni/parliamentaryitem/question/grouping_level2.xsl"/>
+            
+            <xslt step="3"
+                name="appendBungeniNS"
+                href="pipeline_xslt/bungeni/common/add_bungeniportal_ns.xsl"
+                postproc="#proc-parliamentary-item"
+               />
+
+           <!--!+UNESCAPE(ah, nov-2011),moved to processgroup action 
+            <xslt step="4" name="unEscapeBungeniXML" href="pipeline_xslt/bungeni/common/add_unescape.xsl"/>
+            -->
+        </input>
+
+        <!--
+       <pipetoxml name="BungeniXML"
+               href="pipeline_xslt/bungeni/parliamentaryitem/question/pipeline.xsl"  />
+                -->
+    <!-- Called after translate -->
+    <!--
+    <postxml>
+        <xslt step="1" name="AddNamespaceAkomaNtoso" href="pipeline_xslt/common/add_an_ns.xsl" />
+    </postxml>
+    -->
+
+    <!--
+    You can have as many process groups as you want, just they must have IDs which are
+    unique in the document
+
+    the process name must be 'unescapehtml'
+    the param must be an xpath to a node containing content to unescape, the node
+    specified in the xpath is assumed to tbe the parent node containing the escaped
+    content.
+
+    -->
+
+     <processgroup id="proc-parliamentary-item">
+         <process name="unescapehtml"
+            description="question body"
+            param="//bu:ontology/bu:legislativeItem/bu:body" />
+         <process name="unescapehtml"
+             description="owner description text"
+             param="//bu:ontology/bu:legislativeItem/bu:description" />  
+         <process name="unescapehtml"
+             description="owner description text"
+             param="//bu:ontology/bu:legislativeItem/bu:owner/bu:field[@name='description']" />         
+         <process name="unescapehtml"
+             description="owner description text"
+             param="//bu:ontology/bu:ministry/bu:field[@name='description']" />          
+         <process name="unescapehtml"
+            description="versions body"
+            param="//bu:ontology/bu:legislativeItem/bu:versions/bu:version/bu:body" />
+     </processgroup>
+     
+</config>

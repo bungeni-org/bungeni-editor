@@ -60,7 +60,11 @@ public class XPathResolver implements XPathResolverInterface {
     public Object evaluate(Document aDocument, String anXPath, QName aResultType) throws XPathExpressionException {
 
         // instanciate all the stuffs needed to make xpath queries on the given document
-        XPathFactory factory = XPathFactory.newInstance();
+        //!+XPATH_SAXON(ah, oct-2011) we forcibly use the saxon xpath factory instantiator, since
+        // we want to use only saxon native xpaths.
+        XPathFactory factory = net.sf.saxon.xpath.XPathFactoryImpl.newInstance();
+        //was -- XPathFactory.newInstance();
+
         XPath        xpath   = factory.newXPath();
 
         // this is needed to make queries with the namespace

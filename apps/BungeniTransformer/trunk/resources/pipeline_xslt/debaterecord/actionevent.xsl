@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:bungeni="http://editor.bungeni.org/1.0/anx/" version="2.0">
+    xmlns:bungeni="http://editor.bungeni.org/1.0/anx/" 
+    xmlns:bp="http://www.bungeni.org/pipeline/1.0"
+    version="2.0">
     <xsl:output indent="yes" method="xml" encoding="UTF-8"/>
 
     <xsl:template match="/">
@@ -9,7 +11,7 @@
 
     <xsl:include href="../common/identity_template.xsl"/>
 
-    <xsl:template match="*[@name='ActionEvent']">
+    <xsl:template match="*[@name='ActionEvent']" bp:name="ActionEvent">
         <subdivision>
             <xsl:if test="@id">
                 <xsl:attribute name="id">

@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 
 /* Non JDK imports */
 import org.apache.xerces.parsers.DOMParser;
+import org.bungeni.translators.configurations.OAConfiguration;
 import org.bungeni.translators.globalconfigurations.GlobalConfigurations;
 import org.bungeni.translators.utility.exceptionmanager.handlers.IExceptionHandler;
 import org.xml.sax.SAXParseException;
@@ -55,20 +56,13 @@ public class BaseExceptionManager implements IExceptionManager{
      * @throws InvalidPropertiesFormatException
      */
     private BaseExceptionManager() throws InvalidPropertiesFormatException, IOException {
-
-        // create the Properties object
-        Properties properties = new Properties();
-
-        // read the properties file
-        InputStream propertiesInputStream = new FileInputStream(GlobalConfigurations.getApplicationPathPrefix()
-                                                + GlobalConfigurations.getConfigurationFilePath());
-
-        // load the properties
-        properties.loadFromXML(propertiesInputStream);
         this.validationErrors = new ArrayList<ValidationError>(0);
 
-        // create the resource bundle
-        this.resourceBundle = ResourceBundle.getBundle(properties.getProperty("resourceBundlePath"));
+        // get the resource bundle
+        this.resourceBundle = ResourceBundle.getBundle(
+                OAConfiguration.getInstance().getProperties().
+                    getProperty("resourceBundlePath")
+                );
     }
 
 

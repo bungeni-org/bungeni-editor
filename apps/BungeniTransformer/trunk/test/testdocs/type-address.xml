@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<contenttype name="address">
+    <field name="status">attached</field>
+    <field name="city">Africa City</field>
+    <field name="address_id">11</field>
+    <field name="fax">44444 444</field>
+    <field name="country_id">KE</field>
+    <item>
+        <field name="status">active</field>
+        <field name="description">description of the political group description of the political
+            group description of the political group description of the political group description
+            of the political group description of the political group description of the political
+            group description of the political group &lt;em&gt;description of the political group
+            description of the political group description of the political group description of the
+            political group description of the political group description of the political group
+            description of the political group description of the political group&lt;/em&gt;:
+            &lt;ul&gt;&lt;li&gt;&lt;strong&gt;description&lt;/strong&gt; of the political group
+            description of the political group description of the political group
+            &lt;/li&gt;&lt;li&gt;description of the political group description of the political
+            group &lt;strong&gt;description&lt;/strong&gt; of the political group description of the
+            political group description of the political group &lt;/li&gt;&lt;li&gt;description of
+            the political group &lt;strong&gt;description&lt;/strong&gt; of the political group
+            &lt;/li&gt;&lt;/ul&gt;description of the political group description of the political
+            group description of the political group description of the political group description
+            of the political group description of the political group description of the political
+            group description of the political group &lt;span style="color: #ff0000;"&gt;description
+            of the political group&lt;/span&gt;.</field>
+        <field name="short_name">PG</field>
+        <field name="group_principal_id">group.political-group.35</field>
+        <field name="status_date">2012-01-23 13:35:41.466707</field>
+        <field name="language">en</field>
+        <field name="parent_group_id">2</field>
+        <field name="party_id">35</field>
+        <field name="full_name">Political Group P1_03</field>
+        <field name="group_id">35</field>
+        <field name="type">political-group</field>
+        <field name="start_date">2011-02-23</field>
+    </item>
+    <country>
+        <field name="language">en</field>
+        <field name="iso_name">KENYA</field>
+        <field name="country_id">KE</field>
+        <field name="numcode">404</field>
+        <field name="iso3">KEN</field>
+        <field name="country_name">Kenya</field>
+    </country>
+    <field name="status_date">2012-01-23 13:35:47.098197</field>
+    <field name="postal_address_type">pobox</field>
+    <field name="zipcode">100100</field>
+    <field name="logical_address_type">office</field>
+    <field name="phone">11111 111 22222 222 33333 333</field>
+    <field name="street">address</field>
+    <field name="group_id">35</field>
+    <field name="email">mail@mail.com</field>
+    <permissions>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Clerk</field>
+            <field name="permission">zope.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Speaker</field>
+            <field name="permission">zope.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.MP</field>
+            <field name="permission">zope.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Minister</field>
+            <field name="permission">zope.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Anonymous</field>
+            <field name="permission">zope.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Clerk</field>
+            <field name="permission">bungeni.groupmember.Edit</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Clerk</field>
+            <field name="permission">bungeni.groupmember.Add</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Clerk</field>
+            <field name="permission">bungeni.groupmember.Delete</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Owner</field>
+            <field name="permission">bungeni.group.Delete</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Clerk</field>
+            <field name="permission">bungeni.office.ChangeType</field>
+        </permission>
+    </permissions>
+</contenttype>

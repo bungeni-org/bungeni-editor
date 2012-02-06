@@ -78,7 +78,7 @@ public class SchemaValidatorTest {
         GlobalConfigurations.setApplicationPathPrefix("resources/");
         //this is required by the library but not really for this test since we are
         //not doing a translation
-        GlobalConfigurations.setConfigurationFilePath("configfiles/configs/TranslatorConfig_debaterecord.xml");
+        //GlobalConfigurations.setConfigurationFilePath("configfiles/configs/TranslatorConfig_debaterecord.xml");
         for (String filetovalidate : filesToValidate) {
             files.add(new File(filetovalidate));
         }

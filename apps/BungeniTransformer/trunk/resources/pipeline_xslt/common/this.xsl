@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+                xmlns:bp="http://www.bungeni.org/pipeline/1.0"
+                exclude-result-prefixes="bp"
                 version="2.0">
     <xsl:output indent="yes" method="xml" encoding="UTF-8"/>
 
@@ -18,11 +20,11 @@
         </xsl:element>
     </xsl:template>
 
-    <xsl:template match="*[@name='this']">
+    <xsl:template match="*[@name='this']" bp:name="this">
         <FRBRthis>
-			<xsl:if test="@value">
-				<xsl:attribute name="value"><xsl:value-of select="@value" /></xsl:attribute>
-			</xsl:if>
+            <xsl:if test="@value">
+                    <xsl:attribute name="value"><xsl:value-of select="@value" /></xsl:attribute>
+            </xsl:if>
 
             <xsl:apply-templates />
         </FRBRthis>

@@ -5,3 +5,5 @@ saxon http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/saxon
 ini4j http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/ini4j
 restlet http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/restlet
 bungeni http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeni
+commons-lang http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/commons-lang
+jsoup http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/jsoup

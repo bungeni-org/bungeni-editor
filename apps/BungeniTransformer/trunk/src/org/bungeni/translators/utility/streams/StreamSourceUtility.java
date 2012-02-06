@@ -8,11 +8,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 
+
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+import org.bungeni.translators.utility.transformer.GenericTransformer;
+import org.w3c.dom.Document;
 
 /**
  * This class supplies several method useful for the management of the Stream Source
@@ -23,10 +28,15 @@ public class StreamSourceUtility {
     /* The instance of this StreamSourceUtility object */
     private static StreamSourceUtility instance = null;
 
+       /* This is the logger */
+    private static org.apache.log4j.Logger log              =
+        org.apache.log4j.Logger.getLogger(StreamSourceUtility.class.getName());
+
     /**
      * Private constructor used to create the StreamSourceUtility instance
      */
-    private StreamSourceUtility() {}
+    private StreamSourceUtility(){
+    }
 
     /**
      * Get the current instance of the StreamSourceUtility class
@@ -36,9 +46,8 @@ public class StreamSourceUtility {
 
         // if the instance is null create a new instance
         if (instance == null) {
-
-            // create the instance
-            instance = new StreamSourceUtility();
+                // create the instance
+                instance = new StreamSourceUtility();
         }
 
         // otherwise return the instance
@@ -56,17 +65,12 @@ public class StreamSourceUtility {
         // get the Document String
         String resultStringDocument = new String();
 
-        // create an instance of TransformerFactory
-        TransformerFactory transFact = TransformerFactory.newInstance();
-
-        // create a new transformer
-        Transformer trans = transFact.newTransformer();
-
+   
         // create the writer for the transformation
         StringWriter resultString = new StringWriter();
 
         // perform the transformation
-        trans.transform(aStreamSource, new StreamResult(resultString));
+        GenericTransformer.getInstance().getTransformer().transform(aStreamSource, new StreamResult(resultString));
 
         // copy the obtained string into the string to iterate
         resultStringDocument = resultString.toString();
@@ -102,4 +106,20 @@ public class StreamSourceUtility {
         // return the string of the Stream Source
         return resultFile;
     }
+
+
+    /**
+     * Write a StreamSource to DOM
+     * @param aStreamSource
+     * @return
+     * @throws TransformerException
+     */
+    public Document writeToDOM(StreamSource aStreamSource) throws TransformerException {
+         // create an instance of TransformerFactory
+        DOMResult aDOMResult = new DOMResult();
+        GenericTransformer.getInstance().getTransformer().transform(aStreamSource, aDOMResult);
+        Document document = (Document) aDOMResult.getNode();
+        return document;
+    }
+
 }

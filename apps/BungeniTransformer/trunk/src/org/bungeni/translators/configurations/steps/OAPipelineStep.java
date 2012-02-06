@@ -1,4 +1,3 @@
-
 package org.bungeni.translators.configurations.steps;
 
 import org.bungeni.translators.globalconfigurations.GlobalConfigurations;
@@ -8,10 +7,10 @@ import org.bungeni.translators.globalconfigurations.GlobalConfigurations;
  * @author Ashok
  */
 public class OAPipelineStep {
-    
+
     private String pipelineName;
     private String pipelineHref;
-    
+
     public OAPipelineStep(String name, String href) {
         this.pipelineName = name;
         this.pipelineHref = href;
@@ -30,7 +29,4 @@ public class OAPipelineStep {
     public String getPipelineHref() {
         return GlobalConfigurations.getApplicationPathPrefix() + pipelineHref;
     }
-    
-    
-
 }

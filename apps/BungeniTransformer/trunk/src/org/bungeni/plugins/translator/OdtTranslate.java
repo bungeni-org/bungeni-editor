@@ -1,11 +1,9 @@
-
 /**
  *
  */
 package org.bungeni.plugins.translator;
 
 //~--- non-JDK imports --------------------------------------------------------
-
 import org.apache.log4j.Logger;
 
 import org.bungeni.plugins.IEditorPlugin;
@@ -34,22 +32,22 @@ import java.util.Set;
  *
  */
 public class OdtTranslate implements IEditorPlugin {
-    private static org.apache.log4j.Logger log                   = Logger.getLogger(OdtTranslate.class.getName());
-    private static OdtTranslate            thisTranslator        = null;
-    private javax.swing.JFrame             callerFrame           = null;
-    private Object                         callerPanel           = null;
-    private String                         currentDocType        = null;
-    private HashMap                        editorParams          = null;
-    private String                         odfFileUrl            = null;
-    private String                         outputFilePath        = null;
-    private String                         outputMetalexFilePath = null;
-    private String                         pluginMode            = null;
-    private String                         translatorConfigFile  = null;
-    private String                         translatorPipeline    = null;
-    private String                         translatorRootFolder  = null;
+
+    private static org.apache.log4j.Logger log = Logger.getLogger(OdtTranslate.class.getName());
+    private static OdtTranslate thisTranslator = null;
+    private javax.swing.JFrame callerFrame = null;
+    private Object callerPanel = null;
+    private String currentDocType = null;
+    private HashMap editorParams = null;
+    private String odfFileUrl = null;
+    private String outputFilePath = null;
+    private String outputMetalexFilePath = null;
+    private String pluginMode = null;
+    private String translatorConfigFile = null;
+    private String translatorPipeline = null;
+    private String translatorRootFolder = null;
 
     public OdtTranslate() {
-
         // for call by reflection
     }
 
@@ -62,12 +60,12 @@ public class OdtTranslate implements IEditorPlugin {
     }
 
     public String exec() {
-        FileInputStream       fis               = null;
-        FileOutputStream      fos               = null;
-        String                retvalue          = "";
-        boolean               bExceptionOccured = false;
-        HashMap<String, File> filesMap          = new HashMap<String, File>();
-        OATranslator          myTranslator      = null;
+        FileInputStream fis = null;
+        FileOutputStream fos = null;
+        String retvalue = "";
+        boolean bExceptionOccured = false;
+        HashMap<String, File> filesMap = new HashMap<String, File>();
+        OATranslator myTranslator = null;
 
         // final ClassLoader savedClassLoader = Thread.currentThread().getContextClassLoader();
         try {
@@ -77,16 +75,18 @@ public class OdtTranslate implements IEditorPlugin {
             // Thread.currentThread().setContextClassLoader(OdtTranslate.class.getClassLoader());
             myTranslator = OATranslator.getInstance();
             log.info("XXX-TRANSLATOR-XXX  calling translate");
-            filesMap = myTranslator.translate(this.odfFileUrl);
+            //!+FIX_THIS_LATER -- THIS CHANGE BREAKS THE EDITOR IMPLEMENTATION -- 2nd parameter needs to 
+            //be a translator config file path
+            filesMap = myTranslator.translate(this.odfFileUrl, this.translatorConfigFile);
             log.info("no exceptions occured : writing outputs");
         } catch (Exception e) {
             log.error("exec()", e);
             bExceptionOccured = true;
         } finally {
             if (!bExceptionOccured) {
-                FileUtility futils         = FileUtility.getInstance();
-                File        foutputAnxml   = new File(this.outputFilePath);
-                File        foutputMetalex = new File(this.outputMetalexFilePath);
+                FileUtility futils = FileUtility.getInstance();
+                File foutputAnxml = new File(this.outputFilePath);
+                File foutputMetalex = new File(this.outputMetalexFilePath);
 
                 try {
                     futils.copyFile(filesMap.get("metalex"), foutputMetalex);
@@ -125,17 +125,17 @@ public class OdtTranslate implements IEditorPlugin {
             log.debug("setting inputparams");
 
             // first recieve the input parameters for the plugin from the parameter map
-            this.editorParams          = inputParams;
-            this.odfFileUrl            = (String) this.editorParams.get("OdfFileURL");
-            this.outputFilePath        = (String) this.editorParams.get("OutputFilePath");
+            this.editorParams = inputParams;
+            this.odfFileUrl = (String) this.editorParams.get("OdfFileURL");
+            this.outputFilePath = (String) this.editorParams.get("OutputFilePath");
             this.outputMetalexFilePath = (String) this.editorParams.get("OutputMetalexFilePath");
-            this.translatorRootFolder  = (String) this.editorParams.get("TranslatorRootFolder");
-            this.translatorConfigFile  = (String) this.editorParams.get("TranslatorConfigFile");
+            this.translatorRootFolder = (String) this.editorParams.get("TranslatorRootFolder");
+            this.translatorConfigFile = (String) this.editorParams.get("TranslatorConfigFile");
             //(PIPELINE_SETTING, 2011-09-20)+ pipeline setting is deprecated as it is queried from the
             //configuration file
             //this.translatorPipeline    = (String) this.editorParams.get("TranslatorPipeline");
-            this.currentDocType        = (String) this.editorParams.get("CurrentDocType");
-            this.pluginMode            = (String) this.editorParams.get("PluginMode");
+            this.currentDocType = (String) this.editorParams.get("CurrentDocType");
+            this.pluginMode = (String) this.editorParams.get("PluginMode");
 
             if (this.editorParams.containsKey("ParentFrame")) {
                 this.callerFrame = (javax.swing.JFrame) this.editorParams.get("ParentFrame");
@@ -155,7 +155,7 @@ public class OdtTranslate implements IEditorPlugin {
     }
 
     public void updateParams(HashMap updateMap) {
-        Set      updateKeys     = updateMap.keySet();
+        Set updateKeys = updateMap.keySet();
         Iterator updKeyIterator = updateKeys.iterator();
 
         while (updKeyIterator.hasNext()) {
@@ -176,7 +176,8 @@ public class OdtTranslate implements IEditorPlugin {
         // Do application initialization here
         // setting application prefixes etc..
         GlobalConfigurations.setApplicationPathPrefix(this.translatorRootFolder);
-        GlobalConfigurations.setConfigurationFilePath(this.translatorConfigFile);
+        //!+FIX_THIS_LATER
+        //GlobalConfigurations.setConfigurationFilePath(this.translatorConfigFile);
     }
 
     private String getOutputFileName() {

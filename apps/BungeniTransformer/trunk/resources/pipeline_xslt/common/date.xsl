@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+                xmlns:bp="http://www.bungeni.org/pipeline/1.0"
+                exclude-result-prefixes="bp"
                 version="2.0">
     <xsl:output indent="yes" method="xml" encoding="UTF-8"/>
 
@@ -18,13 +20,13 @@
         </xsl:element>
     </xsl:template>
 
-    <xsl:template match="*[@name='date']">
+    <xsl:template match="*[@name='date']" bp:name="date">
         <FRBRdate>
-			<xsl:if test="@date">
-				<xsl:attribute name="date"><xsl:value-of select="@date" /></xsl:attribute>
-			</xsl:if>
-			<xsl:attribute name="name"><xsl:value-of select="@contentName" /></xsl:attribute>
-			
+            <xsl:if test="@date">
+                    <xsl:attribute name="date"><xsl:value-of select="@date" /></xsl:attribute>
+            </xsl:if>
+            <xsl:attribute name="name"><xsl:value-of select="@contentName" /></xsl:attribute>
+
             <xsl:apply-templates />
         </FRBRdate>
     </xsl:template>
