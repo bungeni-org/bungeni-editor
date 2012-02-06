@@ -448,6 +448,16 @@
                  dialog="org.bungeni.editor.selectors.debaterecord.speech.Main"
             />
     </action>
+
+    <!-- REMOVED (rm, feb 2012)
+    <action name="edit_speech"  type="" parent="" router="" sectiontype="Speech" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create a speech section</title>
+        <router class="org.bungeni.editor.actions.routers.routerDebateRecordSelectSpeech"
+                 dialog="org.bungeni.editor.selectors.debaterecord.speech.MainEdit"
+            />
+    </action>
+    -->
+
     <action name="speech_as"  type="" parent="makeDebateSpeechBlockSection" router="debaterecord.speech_as.makeDebateSpeechBlockSection" sectiontype="Speech" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create speech as reference</title>
         <router class="org.bungeni.editor.actions.routers.routerCreateSpeechAsReference"

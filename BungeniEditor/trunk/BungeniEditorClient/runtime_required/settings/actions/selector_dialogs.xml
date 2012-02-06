@@ -33,6 +33,18 @@
 
     </dialog>
 
+    <dialog  class="org.bungeni.editor.selectors.debaterecord.question.MainEdit" >
+        <dialog class="org.bungeni.editor.selectors.debaterecord.question.QuestionAddressedTo"
+             />
+        <dialog class="org.bungeni.editor.selectors.debaterecord.question.QuestionNo"
+             />
+        <dialog
+            class="org.bungeni.editor.selectors.debaterecord.question.QuestionerNameAndURI"
+             />
+
+    </dialog>
+
+
     <dialog
         class="org.bungeni.editor.selectors.debaterecord.tableddocuments.MainSingleSelect" >
 
@@ -76,6 +88,22 @@
     </dialog>
     <dialog
         class="org.bungeni.editor.selectors.debaterecord.speech.Main" >
+        <dialog
+            class="org.bungeni.editor.selectors.debaterecord.speech.PersonSelector"
+             />
+        <dialog
+            class="org.bungeni.editor.selectors.debaterecord.speech.PersonURI"
+             />
+        <dialog
+            class="org.bungeni.editor.selectors.debaterecord.speech.SpeechAs"
+             />
+        <dialog
+            class="org.bungeni.editor.selectors.debaterecord.speech.SpeechBy"
+             />
+    </dialog>
+
+    <dialog
+        class="org.bungeni.editor.selectors.debaterecord.speech.MainEdit" >
         <dialog
             class="org.bungeni.editor.selectors.debaterecord.speech.PersonSelector"
              />

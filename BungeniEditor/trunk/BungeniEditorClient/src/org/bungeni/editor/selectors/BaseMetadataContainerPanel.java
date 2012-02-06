@@ -4,7 +4,6 @@ package org.bungeni.editor.selectors;
 import com.sun.star.lang.IllegalArgumentException;
 import com.sun.star.text.XTextRange;
 import com.sun.star.text.XTextRangeCompare;
-import com.thoughtworks.xstream.io.xml.DocumentReader;
 import java.awt.Cursor;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
@@ -12,19 +11,13 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
-import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.IQueryResultsIterator;
 import org.bungeni.db.QueryResults;
-import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.editor.actions.DocumentActionsReader;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.actions.toolbarAction;
@@ -134,12 +127,14 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
         conditionSet = new ConditionSet();
     }
 
+    // !+ACTION_RECONF (rm, feb 2012( - since subActions are deprecated, commenting 
+    // unreferenced code
     private String getMetadataEditorString() {
-        if (theSubAction != null) {
-            return "toolbarSubAction." + theSubAction.sub_action_name() + "." + theSubAction.sub_action_name();
-        } else {
-            return "toolbarAction." + theSubAction.sub_action_name();
-        }
+        //if (theSubAction != null) {
+        //    return "toolbarSubAction." + theSubAction.sub_action_name() + "." + theSubAction.sub_action_name();
+        //} else {
+            return theSubAction.sub_action_name();
+        //}
     }
 
     protected void setMetadataEditableFlag(boolean bState) {

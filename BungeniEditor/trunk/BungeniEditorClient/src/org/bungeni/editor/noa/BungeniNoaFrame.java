@@ -3,6 +3,7 @@ package org.bungeni.editor.noa;
 import ag.ion.bion.officelayer.application.OfficeApplicationException;
 import ag.ion.bion.officelayer.document.DocumentException;
 import ag.ion.noa.NOAException;
+import com.sun.star.text.XTextDocument;
 import java.awt.Dimension;
 
 import java.awt.event.WindowAdapter;
@@ -329,15 +330,29 @@ public class BungeniNoaFrame extends BungeniFrame {
         .registerTabCloseChangeListener(new TabCloseListener() {
           public void tabClosing(JTabbedPane tabbedPane,
               Component tabComponent) {
-            log.debug("Tab "
-                + noaTabbedPane.getTabbedPane().getTitleAt(tabbedPane
-                    .indexOfComponent(tabComponent))
-                + " closing");
-                // @TODO : place code for saving the document
-                // if ( openOfficeDoc.isDocumentOnDisk() )
-                // {
-                //      # close or prompt the user to save
-                // }
+            int nTabClosingIndex = noaTabbedPane.getTabbedPane().indexOfComponent(tabComponent);
+            DocumentComposition dc = officeDocuments.get(nTabClosingIndex);
+            if (dc.getDocument() != null) {
+                // check if the document has been saved
+                if(dc.getDocument().isModified())
+                {
+                    int closeAndSaveDialog = JOptionPane.showConfirmDialog(null,"Do you want to "
+                            + "save this file before closing?", "Save File?", JOptionPane.YES_NO_CANCEL_OPTION);
+                    
+                    if(JOptionPane.YES_OPTION == closeAndSaveDialog)
+                    {
+                        // save the document                      
+                        dc.saveDocument(dc.getDocument());
+                    }
+                    else if (JOptionPane.CANCEL_OPTION == closeAndSaveDialog)
+                    {
+                        return  ;                        
+                    }
+                }
+                  dc.getDocument().close();
+               }
+             dc.setDocument(null);
+             officeDocuments.remove(dc);
           }
 
           public void tabClosed(JTabbedPane tabbedPane,
@@ -425,6 +440,16 @@ public class BungeniNoaFrame extends BungeniFrame {
             return OOComponentHelper.getFrameTitle(document.getXTextDocument());
         }
 
+        /**
+         * Saves a document 
+         * @param doc
+         * @return
+         */
+        public boolean saveDocument(ITextDocument doc)
+        {
+            // @TODO : (rm, feb 2012) - find API & finalise saving of document
+            return true ;
+        }
         /**
          * @return the frame
          */

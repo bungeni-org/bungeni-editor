@@ -234,6 +234,8 @@ public class QuestionType extends BaseMetadataPanel {
 
     @Override
     protected void initFieldsEdit() {
+        //get the metadata attribute for the question type from the document
+        //set it as the seleciton in the dialog
         return;
     }
 

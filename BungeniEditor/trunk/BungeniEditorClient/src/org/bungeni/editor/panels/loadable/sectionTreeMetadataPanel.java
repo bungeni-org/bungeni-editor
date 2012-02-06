@@ -8,9 +8,14 @@ package org.bungeni.editor.panels.loadable;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JTree;
@@ -22,16 +27,29 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
+import org.bungeni.editor.actions.DocumentActionsReader;
+import org.bungeni.editor.actions.EditorActionFactory;
+import org.bungeni.editor.actions.IEditorActionEvent;
+import org.bungeni.editor.actions.routers.CommonRouterActions;
+import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.dialogs.metadatapanel.SectionMetadataLoad;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.editor.providers.DocumentSectionFriendlyAdapterDefaultTreeModel;
 import org.bungeni.editor.providers.DocumentSectionFriendlyTreeModelProvider;
 import org.bungeni.editor.providers.DocumentSectionProvider;
+import org.bungeni.editor.selectors.BaseMetadataContainerPanel;
+import org.bungeni.editor.selectors.IMetadataContainerPanel;
+import org.bungeni.editor.selectors.SelectorDialogModes;
+import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
+import org.bungeni.editor.toolbar.target.BungeniToolbarTargetProcessor;
+import org.bungeni.extutils.CommonStringFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.utils.BungeniBNode;
 import org.bungeni.extutils.CommonTreeFunctions;
 import org.bungeni.utils.compare.BungeniTreeRefactorTree;
+import org.jdom.Element;
+import org.jdom.JDOMException;
 
 /**
  *
@@ -214,6 +232,11 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
                 DefaultMutableTreeNode node = (DefaultMutableTreeNode) selPath.getLastPathComponent();
                 m_selectedSection = (BungeniBNode) node.getUserObject();
                 updateTableMetadataModel(m_selectedSection.getName());
+
+                // (rm, feb 2012) -check if the selected node is
+                // an editable section
+                // SectionMetadataEditor accepts
+                enableSectionMetadataEditButton(m_selectedSection.getName());
                 return;
             }
         }
@@ -243,8 +266,9 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
         tblSectionViewMetadata = new javax.swing.JTable();
         lblSectionTreeMetadataView = new javax.swing.JLabel();
         btnRefresh = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
-        setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        setFont(new java.awt.Font("DejaVu Sans", 0, 11));
 
         lblSectionMetadata.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/panels/loadable/Bundle"); // NOI18N
@@ -278,39 +302,52 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
             }
         });
 
+        jButton1.setText(bundle.getString("sectionTreeMetadataPanel.jButton1.text")); // NOI18N
+        jButton1.setActionCommand(bundle.getString("sectionTreeMetadataPanel.jButton1.actionCommand")); // NOI18N
+        jButton1.setEnabled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
                         .add(lblSectionMetadata, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 196, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
-                        .add(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .add(lblSectionTreeMetadataView)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 28, Short.MAX_VALUE))
-                        .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE))
                     .add(layout.createSequentialGroup()
-                        .add(93, 93, 93)
-                        .add(btnRefresh, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 92, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap()
+                        .add(lblSectionTreeMetadataView)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 30, Short.MAX_VALUE))
+                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE))
                 .addContainerGap())
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(66, Short.MAX_VALUE)
+                .add(jButton1)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(btnRefresh)
+                .add(64, 64, 64))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(lblSectionTreeMetadataView)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 283, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 278, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(btnRefresh, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(btnRefresh, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 26, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(lblSectionMetadata)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -321,6 +358,180 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
 // TODO add your handling code here:
         refreshTree();
     }//GEN-LAST:event_btnRefreshActionPerformed
+
+
+    private void launchSectionMetadataEditor(String currentSectionName ) {
+        //get the section metadata
+        HashMap<String, String> currentSec = ooDocument.getSectionMetadataAttributes(currentSectionName);
+        //check if the section has a metadata editor
+        if (currentSec.containsKey(SectionMetadataEditor.MetaEditor)) {
+            //parse the metadata editor string into a subAction object
+            String metaEditorString = currentSec.get(SectionMetadataEditor.MetaEditor);
+            BungeniToolbarTargetProcessor btp = new BungeniToolbarTargetProcessor(metaEditorString);
+            String documentType = BungeniEditorPropertiesHelper.getCurrentDocType();
+            Element subActionElement = null;
+            try {
+                //create the subAction object out of the settings metadata
+                // the actionName is indicated as
+                // << toolbarAction.actionName >> (rm, feb 2012) - this is now deprecated! ActionNames are specified as
+                // <<actionName>>
+                // split the string to obtain the action name                       
+                subActionElement = DocumentActionsReader.getInstance().getDocumentActionByName(btp.getSubActionName());
+
+                if (subActionElement != null) {
+                    toolbarAction subActionObj = new toolbarAction(subActionElement);
+                    if (!CommonStringFunctions.emptyOrNull(btp.getActionValue())) {
+                        subActionObj.setActionValue(btp.getActionValue());
+                    }
+                    subActionObj.setSelectorDialogMode(SelectorDialogModes.TEXT_EDIT);
+                    IEditorActionEvent event = EditorActionFactory.getEventClass(subActionObj);
+                    if (event != null) {
+                        event.doCommand(ooDocument, subActionObj, parentFrame);
+                    } else {
+                        log.error("launchSectionMetadataEditor : no IEditorActionEvent object was created for " + subActionObj.sub_action_name());
+                    }
+                } else {
+                    log.error("subActionElement was null ! ");
+                }
+            } catch (Exception ex) {
+               log.error("unable to initialize subAction or failed while setting up toolbarSubAction " , ex);
+            }
+        }
+    }
+
+    /**
+     * The jEdit button's actionListener launches a dialog that allows
+     * a user to edit the section metadata, but only if the section is
+     * editable
+     * @param evt
+     */
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // get the action , parent frame and the document
+        Object[][] sectionMetadata;
+        HashMap<String, String>  sectionMetadataMap = new HashMap<String, String>();
+
+        String selectedSectionName = m_selectedSection.getName() ;
+
+        launchSectionMetadataEditor(selectedSectionName);
+        
+        /**
+        sectionMetadataMap = ooDocument.getSectionMetadataAttributes(selectedSectionName);
+        String sectionAction = null ;
+        
+        // get the action
+       // String sectionAction = null ;
+        if (sectionMetadataMap.size() > 0) {
+                sectionMetadata = new Object[sectionMetadataMap.size()][];
+
+                // iterate through the section meta tags to determine
+                // if metadata is editable
+                Iterator metaIterator = sectionMetadataMap.keySet().iterator();
+
+                while (metaIterator.hasNext()) {
+                    for (int i = 0; i < sectionMetadataMap.size(); i++) {
+                        String metaName = (String) metaIterator.next();
+
+                        if (metaName.equals("hiddenBungeniMetaEditor"))
+                        {
+                            sectionAction = sectionMetadataMap.get(metaName);                            
+                        }
+                    }
+            }
+
+            // get the action name
+            if( null != sectionAction )
+            {
+                String [] actionTokens = sectionAction.split("\\.") ;
+                String action = actionTokens[1];
+                try {
+                    //  get the Router object from the action tag in the relevant xml file
+                    Element sectionActionElement = DocumentActionsReader.getInstance()
+                            .getDocumentActionByName(action);
+
+                    // get the parent frame for the action class
+                    String parentFrameElement =  DocumentActionsReader.getInstance()
+                            .getRouter(action).getAttribute("dialog").getValue() ;
+
+                    // using introspection to create the frame class
+                    // Class actionPanelClass = Class.forName(parentFrameElement);
+                    // BaseMetadataContainerPanel actionPanel =
+                    //        (BaseMetadataContainerPanel) actionPanelClass.newInstance();
+                    
+                    // display the editor dialog
+                    toolbarAction actionClass =  new toolbarAction(sectionActionElement) ;
+
+                    // set the dialog mode
+                    actionClass.setSelectorDialogMode(SelectorDialogModes.TEXT_EDIT);
+
+                    // launch the dialog
+                    CommonRouterActions.displaySelectorDialog(actionClass,
+                            parentFrame, ooDocument ) ;
+
+                } catch (Exception ex) {
+                    log.error(ex) ;
+                }
+
+            }
+         
+        }
+
+        
+        // display the dialog to allow the editing of the settings for
+        // the selected section on the tree node
+     **/
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    /** 
+     * (rm, feb 2012) - This method determines whether the editSectionMetadata
+     * should be enabled. The 'Edit' Button is enabled where
+     * a section has been selected
+     *
+     * The 'Edit' Button is activated when an item in the
+     * section tree is selected or a selection made in the oOo doc
+     */
+    private boolean enableSectionMetadataEditButton(String sectionName)
+    {
+        // disable the 'Edit' JButton
+        jButton1.setEnabled(false);
+        
+        // will store all the section meta data
+        HashMap<String, String>  sectionMetadataMap = new HashMap<String, String>();
+        Object[][] sectionMetadata;
+        
+        // get the key=>value to the hashmap
+        String[] column_names = { "Metadata", "Value" };
+
+        // get the meta atts to map
+        sectionMetadataMap = ooDocument.getSectionMetadataAttributes(sectionName);
+
+        if (sectionMetadataMap.size() > 0) {
+                sectionMetadata = new Object[sectionMetadataMap.size()][column_names.length];
+                
+                // iterate through the section meta tags to determine
+                // if metadata is editable
+                Iterator metaIterator = sectionMetadataMap.keySet().iterator();
+
+                while (metaIterator.hasNext()) {
+                    for (int i = 0; i < sectionMetadataMap.size(); i++) {
+                        String metaName = (String) metaIterator.next();
+
+                        if (metaName.equals("hiddenBungeniMetaEditable"))
+                        {
+                            String sectionAtt = sectionMetadataMap.get(metaName) ;
+
+                            // check to see if the attribute has been set to
+                            // true or not
+                            if(sectionAtt.equals("true"))
+                            {
+                                jButton1.setEnabled(true);                                
+                            }
+                        }                        
+                    }
+                }
+            }
+                
+        return false ;
+    }
 
     @Override
     public void initialize() {
@@ -334,6 +545,7 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblSectionMetadata;

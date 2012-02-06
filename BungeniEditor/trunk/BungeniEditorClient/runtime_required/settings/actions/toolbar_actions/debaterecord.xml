@@ -120,6 +120,24 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                         Select and mark speech body
                     </tooltip>
                 </action>
+
+<!-- (rm, feb 2012) - removed...
+                <action name="Speech.Edit"
+                    mode="TEXT_EDIT"
+                    target="edit_speech"
+                    visible="true"
+                    condition="textSelected:true :and:
+                               cursorInSection:speech[0-9]* :and:
+                               !sectionHasChild:spbody[0-9]*">
+                    <title xml:lang="eng">EDIT</title>
+                    <tooltip xml:lang="eng">
+                        Edit ...
+                    </tooltip>
+                </action>
+-->
+
+
+
                 <!-- markup a list item number in a speech, these action target names need to rationalized -->
                 <action name="MarkupQuestionNo"
                     mode="TEXT_SELECTED_INSERT"
