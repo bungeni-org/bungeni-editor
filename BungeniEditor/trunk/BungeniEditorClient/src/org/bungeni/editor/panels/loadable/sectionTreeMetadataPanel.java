@@ -8,14 +8,11 @@ package org.bungeni.editor.panels.loadable;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JTree;
@@ -23,14 +20,12 @@ import javax.swing.Timer;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicTreeUI;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import org.bungeni.editor.actions.DocumentActionsReader;
 import org.bungeni.editor.actions.EditorActionFactory;
 import org.bungeni.editor.actions.IEditorActionEvent;
-import org.bungeni.editor.actions.routers.CommonRouterActions;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.dialogs.metadatapanel.SectionMetadataLoad;
@@ -38,8 +33,6 @@ import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.editor.providers.DocumentSectionFriendlyAdapterDefaultTreeModel;
 import org.bungeni.editor.providers.DocumentSectionFriendlyTreeModelProvider;
 import org.bungeni.editor.providers.DocumentSectionProvider;
-import org.bungeni.editor.selectors.BaseMetadataContainerPanel;
-import org.bungeni.editor.selectors.IMetadataContainerPanel;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
 import org.bungeni.editor.toolbar.target.BungeniToolbarTargetProcessor;
@@ -49,7 +42,6 @@ import org.bungeni.utils.BungeniBNode;
 import org.bungeni.extutils.CommonTreeFunctions;
 import org.bungeni.utils.compare.BungeniTreeRefactorTree;
 import org.jdom.Element;
-import org.jdom.JDOMException;
 
 /**
  *
@@ -266,7 +258,7 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
         tblSectionViewMetadata = new javax.swing.JTable();
         lblSectionTreeMetadataView = new javax.swing.JLabel();
         btnRefresh = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnMetadataEdit = new javax.swing.JButton();
 
         setFont(new java.awt.Font("DejaVu Sans", 0, 11));
 
@@ -302,12 +294,11 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
             }
         });
 
-        jButton1.setText(bundle.getString("sectionTreeMetadataPanel.jButton1.text")); // NOI18N
-        jButton1.setActionCommand(bundle.getString("sectionTreeMetadataPanel.jButton1.actionCommand")); // NOI18N
-        jButton1.setEnabled(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnMetadataEdit.setText(bundle.getString("sectionTreeMetadataPanel.btnMetadataEdit.text")); // NOI18N
+        btnMetadataEdit.setEnabled(false);
+        btnMetadataEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnMetadataEditActionPerformed(evt);
             }
         });
 
@@ -317,19 +308,19 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
                         .add(lblSectionMetadata, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 196, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(layout.createSequentialGroup()
                         .addContainerGap()
                         .add(lblSectionTreeMetadataView)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 30, Short.MAX_VALUE))
-                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 7, Short.MAX_VALUE))
+                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE))
                 .addContainerGap())
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(66, Short.MAX_VALUE)
-                .add(jButton1)
+                .addContainerGap(43, Short.MAX_VALUE)
+                .add(btnMetadataEdit)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(btnRefresh)
                 .add(64, 64, 64))
@@ -343,7 +334,7 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(btnRefresh, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 26, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(btnMetadataEdit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 26, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(lblSectionMetadata)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -405,7 +396,7 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
      * editable
      * @param evt
      */
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnMetadataEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMetadataEditActionPerformed
         // get the action , parent frame and the document
         Object[][] sectionMetadata;
         HashMap<String, String>  sectionMetadataMap = new HashMap<String, String>();
@@ -479,7 +470,7 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
         // display the dialog to allow the editing of the settings for
         // the selected section on the tree node
      **/
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnMetadataEditActionPerformed
 
     /** 
      * (rm, feb 2012) - This method determines whether the editSectionMetadata
@@ -492,7 +483,7 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
     private boolean enableSectionMetadataEditButton(String sectionName)
     {
         // disable the 'Edit' JButton
-        jButton1.setEnabled(false);
+        btnMetadataEdit.setEnabled(false);
         
         // will store all the section meta data
         HashMap<String, String>  sectionMetadataMap = new HashMap<String, String>();
@@ -523,7 +514,7 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
                             // true or not
                             if(sectionAtt.equals("true"))
                             {
-                                jButton1.setEnabled(true);                                
+                                btnMetadataEdit.setEnabled(true);
                             }
                         }                        
                     }
@@ -544,8 +535,8 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
         //nothing to do here... the timer refreshes itself....
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnMetadataEdit;
     private javax.swing.JButton btnRefresh;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblSectionMetadata;
