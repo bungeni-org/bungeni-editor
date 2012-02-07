@@ -33,6 +33,9 @@
 
     </dialog>
 
+ <!--
+   !+FIX_THIS (why does including this bork add mode for Question ? it should mess up edit
+   mode ?!
     <dialog  class="org.bungeni.editor.selectors.debaterecord.question.MainEdit" >
         <dialog class="org.bungeni.editor.selectors.debaterecord.question.QuestionAddressedTo"
              />
@@ -43,7 +46,7 @@
              />
 
     </dialog>
-
+-->
 
     <dialog
         class="org.bungeni.editor.selectors.debaterecord.tableddocuments.MainSingleSelect" >
@@ -139,6 +142,8 @@
              />
     </dialog>
 
+
+
     <dialog
         class="org.bungeni.editor.selectors.debaterecord.question.MainEdit" >
 
@@ -159,6 +164,6 @@
              />
 
     </dialog>
-
+  
 
 </dialogs>
