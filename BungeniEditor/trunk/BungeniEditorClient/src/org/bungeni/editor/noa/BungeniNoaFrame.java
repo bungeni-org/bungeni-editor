@@ -209,6 +209,9 @@ public class BungeniNoaFrame extends BungeniFrame {
             }
         });
 
+     // !+TAB_CLOSE(ah, feb-2012) add tab closer buttons and action listener
+      addCloseButtonsToDocumentTabs();
+
     }
 
 
@@ -277,8 +280,10 @@ public class BungeniNoaFrame extends BungeniFrame {
         // then allow for a close button to be added to the tab
         
         // add close button to all the tabs
-        // !+TAB_CLOSE(ah, feb-2012) do this after the load of the document in the panel - see first commment
-        // in this function
+        // !+TAB_CLOSE(ah, feb-2012) do this when the tab is initialized
+        // calling addCloseButtonsToTabs() here is *wrong* because it will get
+        // called everytime a document is loaded - we do it once on the tabbed pane
+        // thats all that is required
         //addCloseButtonsToDocumentTabs();
         
         //if the Office XFrame does not exist, construct it the openoffice document will
@@ -300,7 +305,6 @@ public class BungeniNoaFrame extends BungeniFrame {
         dc.setDocument(loadedDocument);
         //add it to the oficedocument list
         addOfficeDocument(dc);
-        addCloseButtonsToDocumentTabs();
         BungeniNoaTabbedPane.getInstance().getTabbedPane().validate();
         return dc;
     }
@@ -319,32 +323,21 @@ public class BungeniNoaFrame extends BungeniFrame {
      **/
     public void addCloseButtonsToDocumentTabs() {
 
-        //!+TAB_CLOSE(ah, feb-2012) - We dont do these complications,
+        //!+TAB_CLOSE(ah, feb-2012) -
         // all tabs have the close button, the last tab when its closed, should
         // close the editor
         
-        //if (noaTabbedPane.getTabbedPane().getTabCount() > 1)
-        //{
-            // !+ (rm, feb 2012) - add property to place a close button...in case
-            // of a number of documents being reviewed
         noaTabbedPane.getTabbedPane().putClientProperty(
                 SubstanceLookAndFeel.TABBED_PANE_CLOSE_BUTTONS_PROPERTY,
                 Boolean.TRUE );
-        //}
-        //else
-        //{
-        //    noaTabbedPane.getTabbedPane().putClientProperty(
-        //                SubstanceLookAndFeel.TABBED_PANE_CLOSE_BUTTONS_PROPERTY,
-        //                Boolean.FALSE );
-       // }
-       // !+TAB_CLOSE(ah, feb-2012) switch to vetoable tab close listener - we
+
+        // !+TAB_CLOSE(ah, feb-2012) switch to vetoable tab close listener - we
        // want to know when the tab is closing , and prompt the user if they dont
        // want to close
        SubstanceLookAndFeel
         .registerTabCloseChangeListener(new VetoableTabCloseListener() {
           public void tabClosing(JTabbedPane tabbedPane,
               Component tabComponent) {
-
                 DocumentComposition docClosing = null;
                 for(DocumentComposition dc : officeDocuments) {
                     if (dc.equalsByNoaPanel((JPanel) tabComponent)) {
@@ -364,7 +357,7 @@ public class BungeniNoaFrame extends BungeniFrame {
                  // !+TAB_CLOSE(ah, feb-2012) - substance seems to remove the tab by itself ??
                  // until that is verified by looking at substance source code, we explicitly
                  // check for the tabbed pane , if its an active tab we remove it
-                 tabbedPane.remove(tabComponent);
+                 //tabbedPane.remove(tabComponent);
                  officeDocuments.remove(docClosing);
               }
           }
