@@ -48,7 +48,9 @@ public class PersonSelector extends BaseMetadataPanel {
         this.btn_SpeechBy.setVisible(false);
     }
 
-    private ArrayList<ObjectPerson> getPersonObjects(String bypersonId) {
+    // !+ (rm, feb 2012) - removed arg...it's unused
+    // private ArrayList<ObjectPerson> getPersonObjects(String bypersonId) {
+    private ArrayList<ObjectPerson> getPersonObjects() {
         ArrayList<ObjectPerson> personObjects = new ArrayList<ObjectPerson>(0);
 
         // !+BUNGENI_CONNECTOR(reagan,06-01-2012)
@@ -125,7 +127,7 @@ public class PersonSelector extends BaseMetadataPanel {
         }
         }
          * */
-        this.arrPersons = getPersonObjects("");
+        this.arrPersons = getPersonObjects();
         this.cboPersonSelect.addActionListener(new PersonSelect());
         this.cboPersonSelect.setModel(new DefaultComboBoxModel(arrPersons.toArray()));
         AutoCompleteDecorator.decorate(cboPersonSelect);
@@ -374,9 +376,29 @@ private void btn_SpeechByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
                 sectionMeta = ooDoc.getSectionMetadataAttributes(currentSection);
                 if (sectionMeta.containsKey("BungeniPersonID")) {
                     String personId = sectionMeta.get("BungeniPersonID");
-                    ArrayList<ObjectPerson> pPerson = getPersonObjects(personId);
-                    ObjectPerson oq = pPerson.get(0);
-                    int nIndex = findPerson(oq.personId);
+                    ArrayList<ObjectPerson> pPerson = getPersonObjects();
+
+                     ObjectPerson oq = null ; // object stores the person
+                        //  with the desired ID
+                     int nIndex = -1 ; // stores the index for person in pPerson
+                     
+                    // (rm, feb 2012) - set the name from id #
+                    // ObjectPerson oq = pPerson.get(0);
+                    for (int i = 0 ; i < pPerson.size() ; i ++)
+                    {
+                        // find the index for the person where
+                        // id == pPerson.personId
+                        ObjectPerson person = pPerson.get(i) ;
+                        if ( person.personId.equals(personId))
+                        {
+                            oq = pPerson.get(i) ;
+                            nIndex = i ;
+                            break ;
+                        }
+                    }
+                    
+                     // offset of 1 since                                                                            // Jcombo has a non zero starting index
+                    // int nIndex = findPerson(oq.personId);
                     if (nIndex != -1) {
                         this.cboPersonSelect.setSelectedIndex(nIndex);
                         //this.cboQuestionSelect.setPopupVisible(true);
@@ -395,6 +417,8 @@ private void btn_SpeechByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 
     }
 
+    // !+ (rm, feb 2012) - deprecated method as it is unused
+    /**
     private int findPerson(String personId) {
         int i = 0;
         for (ObjectPerson c : arrPersons) {
@@ -405,4 +429,5 @@ private void btn_SpeechByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         }
         return -1;
     }
+    **/
 }
