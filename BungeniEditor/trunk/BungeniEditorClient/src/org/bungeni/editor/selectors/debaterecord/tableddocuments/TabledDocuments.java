@@ -209,7 +209,7 @@ public class TabledDocuments extends BaseMetadataPanel {
         btnAddRow = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
 
-        lbl_tabledDocs.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        lbl_tabledDocs.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/tableddocuments/Bundle"); // NOI18N
         lbl_tabledDocs.setText(bundle.getString("TabledDocuments.lbl_tabledDocs.text")); // NOI18N
 
@@ -278,10 +278,12 @@ public class TabledDocuments extends BaseMetadataPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollTabledDocs, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbl_tabledDocs, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                        .addComponent(scrollTabledDocs, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                        .addGap(20, 20, 20))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lbl_tabledDocs, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                        .addGap(128, 128, 128)
                         .addComponent(chkEditTable))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnClear)
@@ -291,7 +293,7 @@ public class TabledDocuments extends BaseMetadataPanel {
                         .addComponent(btnAddRow)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addGap(6, 6, 6))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
