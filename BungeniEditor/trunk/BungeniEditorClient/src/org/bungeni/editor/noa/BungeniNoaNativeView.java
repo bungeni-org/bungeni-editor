@@ -38,6 +38,7 @@ public class BungeniNoaNativeView {
 
     private NativeView nativeView = null;
     private Container parentContainer = null;
+    private ComponentAdapter resizeListener = null;
 
     /**
      * Create the nativeView using the NOA C runtime libraries
@@ -71,7 +72,7 @@ public class BungeniNoaNativeView {
         this.parentContainer = parent;
         parentContainer.add(getNativeView());
         //add a resize event handler to the parent
-        parentContainer.addComponentListener(new ComponentAdapter() {
+        this.resizeListener = new ComponentAdapter() {
 
             @Override
             public void componentResized(ComponentEvent e) {
@@ -79,10 +80,17 @@ public class BungeniNoaNativeView {
                 parentContainer.getLayout().layoutContainer(parentContainer);
             }
 
-        });
+        };
+        parentContainer.addComponentListener(this.resizeListener);
         getNativeView().setPreferredSize(new Dimension(parent.getWidth() - 5, parent.getHeight() - 5));
         parent.getLayout().layoutContainer(parent);
     }
+
+    public void closeNativeView(){
+        parentContainer.removeComponentListener(this.resizeListener);
+        parentContainer.remove(getNativeView());
+        this.nativeView = null;
+       }
 
 
 }

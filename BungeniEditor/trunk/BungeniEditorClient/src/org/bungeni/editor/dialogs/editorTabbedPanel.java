@@ -9,12 +9,9 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -23,10 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.db.QueryResults;
-import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.editor.BungeniOOoLayout;
 import org.bungeni.editor.actions.DocumentActionsReader;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
@@ -54,7 +48,6 @@ import org.bungeni.extutils.CommonStringFunctions;
 import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.ooo.ooDocMetadata;
 import org.jdom.Element;
-import org.jdom.JDOMException;
 
 /**
  * This is a single class since there is only 1 tabbed panel allowed in the system

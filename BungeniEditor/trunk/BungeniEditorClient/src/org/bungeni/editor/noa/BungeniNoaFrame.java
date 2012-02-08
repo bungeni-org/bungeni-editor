@@ -31,9 +31,11 @@ import org.bungeni.editor.noa.ext.BungeniLocalOfficeApplication;
 import org.bungeni.extutils.BungeniFrame;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonTreeFunctions;
+import org.bungeni.extutils.MessageBox;
+import org.bungeni.ooo.BungenioOoHelper;
 import org.bungeni.ooo.OOComponentHelper;
 import org.jvnet.substance.SubstanceLookAndFeel;
-import org.jvnet.substance.api.tabbed.TabCloseListener;
+import org.jvnet.substance.api.tabbed.VetoableTabCloseListener;
 
 /**
  * This is an extended BungeniFrame which acts as a frame for :
@@ -275,9 +277,12 @@ public class BungeniNoaFrame extends BungeniFrame {
         // then allow for a close button to be added to the tab
         
         // add close button to all the tabs
-        putCloseButtons();
+        // !+TAB_CLOSE(ah, feb-2012) do this after the load of the document in the panel - see first commment
+        // in this function
+        //addCloseButtonsToDocumentTabs();
         
-        //if the Office XFrame does not exist, construct it
+        //if the Office XFrame does not exist, construct it the openoffice document will
+        //be loaded into the frame
         DocumentComposition dc = constructOOoFrame(noapanel);
         //now load the document - if its a template, create a new instance from 
         DocumentDescriptor ddObject = null;
@@ -295,6 +300,7 @@ public class BungeniNoaFrame extends BungeniFrame {
         dc.setDocument(loadedDocument);
         //add it to the oficedocument list
         addOfficeDocument(dc);
+        addCloseButtonsToDocumentTabs();
         BungeniNoaTabbedPane.getInstance().getTabbedPane().validate();
         return dc;
     }
@@ -303,63 +309,125 @@ public class BungeniNoaFrame extends BungeniFrame {
      * (rm, feb 2012) - This method determines on whether or not
      * the tabs (for noaTabbedPane) have a close button or not
      */
-    public void putCloseButtons()
-    {
-        if (noaTabbedPane.getTabbedPane().getTabCount() > 1)
-        {
+    /**
+     * !+TAB_CLOSE(ah, feb-2012) - Tab closing user story is as follows
+     * When the user tries to close a tab , we have to
+     *      1 - check if the document needs saving
+     *      2 - if the document needs saving we prompt the user to 'save and close' or 'cancel close'
+     *      3 - if the user clicks save and close , we save the document, close the document, dispose it and close the tab
+     *      4 - if the user clicks cancel close, we veto the close
+     **/
+    public void addCloseButtonsToDocumentTabs() {
+
+        //!+TAB_CLOSE(ah, feb-2012) - We dont do these complications,
+        // all tabs have the close button, the last tab when its closed, should
+        // close the editor
+        
+        //if (noaTabbedPane.getTabbedPane().getTabCount() > 1)
+        //{
             // !+ (rm, feb 2012) - add property to place a close button...in case
             // of a number of documents being reviewed
-            noaTabbedPane.getTabbedPane().putClientProperty(
-                    SubstanceLookAndFeel.TABBED_PANE_CLOSE_BUTTONS_PROPERTY,
-                    Boolean.TRUE );
-        }
-        else
-        {
-            noaTabbedPane.getTabbedPane().putClientProperty(
-                        SubstanceLookAndFeel.TABBED_PANE_CLOSE_BUTTONS_PROPERTY,
-                        Boolean.FALSE );
-        }
-
-        // revalidate the tabbed panes
-        noaTabbedPane.getTabbedPane().validate();
-        noaTabbedPane.getTabbedPane().repaint();
-         
-        // check when the tabbedPane is closed 
-        // to ensure that the document is closed
+        noaTabbedPane.getTabbedPane().putClientProperty(
+                SubstanceLookAndFeel.TABBED_PANE_CLOSE_BUTTONS_PROPERTY,
+                Boolean.TRUE );
+        //}
+        //else
+        //{
+        //    noaTabbedPane.getTabbedPane().putClientProperty(
+        //                SubstanceLookAndFeel.TABBED_PANE_CLOSE_BUTTONS_PROPERTY,
+        //                Boolean.FALSE );
+       // }
+       // !+TAB_CLOSE(ah, feb-2012) switch to vetoable tab close listener - we
+       // want to know when the tab is closing , and prompt the user if they dont
+       // want to close
        SubstanceLookAndFeel
-        .registerTabCloseChangeListener(new TabCloseListener() {
+        .registerTabCloseChangeListener(new VetoableTabCloseListener() {
           public void tabClosing(JTabbedPane tabbedPane,
               Component tabComponent) {
-            int nTabClosingIndex = noaTabbedPane.getTabbedPane().indexOfComponent(tabComponent);
-            DocumentComposition dc = officeDocuments.get(nTabClosingIndex);
-            if (dc.getDocument() != null) {
-                // check if the document has been saved
-                if(dc.getDocument().isModified())
-                {
-                    int closeAndSaveDialog = JOptionPane.showConfirmDialog(null,"Do you want to "
-                            + "save this file before closing?", "Save File?", JOptionPane.YES_NO_CANCEL_OPTION);
-                    
-                    if(JOptionPane.YES_OPTION == closeAndSaveDialog)
-                    {
-                        // save the document                      
-                        dc.saveDocument(dc.getDocument());
+
+                DocumentComposition docClosing = null;
+                for(DocumentComposition dc : officeDocuments) {
+                    if (dc.equalsByNoaPanel((JPanel) tabComponent)) {
+                        docClosing = dc;
                     }
-                    else if (JOptionPane.CANCEL_OPTION == closeAndSaveDialog)
-                    {
-                        return  ;                        
-                    }
-                }
-                  dc.getDocument().close();
-               }
-             dc.setDocument(null);
-             officeDocuments.remove(dc);
+              }
+              // !+TAB_CLOSE(ah, feb-2012) - we need to check for nulls because
+              // substance may be playing mr.smartypants by closing tabs by itself,
+              // when we dont veto
+              if (docClosing != null) {
+                log.info("Closing document tab for " + docClosing.toString());
+                if (docClosing.document != null) {
+                   docClosing.document.close();
+                  }
+                 docClosing.setDocument(null);
+                 docClosing.getNativeView().closeNativeView();
+                 // !+TAB_CLOSE(ah, feb-2012) - substance seems to remove the tab by itself ??
+                 // until that is verified by looking at substance source code, we explicitly
+                 // check for the tabbed pane , if its an active tab we remove it
+                 tabbedPane.remove(tabComponent);
+                 officeDocuments.remove(docClosing);
+              }
           }
 
-          public void tabClosed(JTabbedPane tabbedPane,
-              Component tabComponent)
-          {
-              putCloseButtons();
+          public void tabClosed(JTabbedPane tabbedPane, Component tabComponent) {
+              // Nothing to do here
           }
+
+          /***
+           * This event allows us to veto tab closes
+           */
+          public boolean vetoTabClosing(JTabbedPane tabbedPane, Component tabComponent) {
+                DocumentComposition docClosing = null;
+                for(DocumentComposition dc : officeDocuments) {
+                    if (dc.equalsByNoaPanel((JPanel) tabComponent)) {
+                        // We get the DocumentComposition that needs to be closed here
+                        docClosing = dc;
+                        break;
+                    }
+                }
+                if (docClosing != null) {
+                    //check if document needs to be saved
+                    if (docClosing.document.isModified()){
+                        //yes it does
+                        //prompt with save&close,cancel-close
+                        Object[] buttonTexts = { 
+                            "Save and Close",
+                            "Cancel Close"
+                        };
+                        int nOption = MessageBox.Confirm(
+                                tabComponent,
+                                "The document has not been saved yet !",
+                                "Closing", buttonTexts,
+                                JOptionPane.YES_NO_OPTION
+                                );
+                        if (nOption == JOptionPane.YES_OPTION) {
+                            //save the document
+                            OOComponentHelper ooSave = new OOComponentHelper(
+                                    docClosing.document.getXComponent(),
+                                    BungenioOoHelper.getInstance().getComponentContext()
+                                    );
+                            ooSave.saveDocument();
+                            //now close the tab in tabClosing()
+                            return false;
+                        } else {
+                            //veto close
+                            return true;
+                        }
+                    } else {
+                        //no doc is already saved
+                        //prompt with confirmation, cancel-close
+                        int nOption = MessageBox.Confirm(tabComponent, "Close Document ?", "Closing");
+                        if (nOption == JOptionPane.YES_OPTION) {
+                            return false;
+                        } else {
+                            //veto close
+                            return true;
+                        }
+                    }
+                }
+                // veto close by default
+                return true;
+            }
         });
     }
    

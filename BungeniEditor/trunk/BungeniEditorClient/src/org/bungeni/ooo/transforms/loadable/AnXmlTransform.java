@@ -139,8 +139,8 @@ public class AnXmlTransform extends BungeniDocTransform {
 		paramMap.put("TranslatorRootFolder", translatorRootFolder);
                 //!+PIPELINE_SETTING (AH, 2011-09-20) Setting the pipeline manually is no longer required
                 // This needs to be removed.
-		paramMap.put("TranslatorConfigFile", this.toOSPath("configfiles/configs/TranslatorConfig_debaterecord.xml"));
-		paramMap.put("TranslatorPipeline", this.toOSPath("metalex2akn/minixslt/debaterecord/pipeline.xsl") );
+		paramMap.put("TranslatorConfigFile", this.toOSPath("configfiles/configs/config_debaterecord.xml"));
+		//paramMap.put("TranslatorPipeline", this.toOSPath("metalex2akn/minixslt/debaterecord/pipeline.xsl") );
 		paramMap.put("CurrentDocType", currentDocType);
 		paramMap.put("CallerPanel", null);
 		paramMap.put("PluginMode", "odt2akn");
