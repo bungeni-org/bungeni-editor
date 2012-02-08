@@ -32,7 +32,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Vector;
 import javax.swing.AbstractButton;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.element.Document;
 import org.bungeni.db.BungeniClientDB;
@@ -76,9 +78,13 @@ public class TabledDocuments extends BaseMetadataPanel {
         }
     }
 
+    // !+ (rm, feb 2012) - deprecated method - access to the database is now
+    // via the BungeniConnector
+    /**
     protected String getTableQuery(){
         return new String("select document_title, document_uri, document_date from tabled_documents");
     }
+    **/
 
     // !+BUNGENI CONNECTOR (rm, 17 jan 2012) - edited this method to ensure that
     // it picks table date from the TABLED_DOCUMENTS via the BungeniConnector
@@ -126,6 +132,14 @@ public class TabledDocuments extends BaseMetadataPanel {
 
             // Add table model to table
             tbl_tabledDocs.setModel(mdl);
+
+            // (rm, feb 2012) - adjust the width of the columns of the table
+            // to display the title of the tabled documents more predominantly
+            // dimension  the id col
+            dimensionColumn(tbl_tabledDocs, 0,30) ;
+            dimensionColumn(tbl_tabledDocs, 1, 300) ;
+            dimensionColumn(tbl_tabledDocs, 2, 120) ;
+            
             ((TabledDocumentsModel)this.tbl_tabledDocs.getModel()).setModelEditable(false);
             enableButtons(false);
 
@@ -152,6 +166,20 @@ public class TabledDocuments extends BaseMetadataPanel {
             }
          **/
      }
+
+    /**
+     * (rm, feb 2012) - This method dimensions the columns for the JTable
+     * @param b
+     */
+    private void dimensionColumn(JTable table, int columnIndex, int columnWidth)
+    {
+        TableColumn col = table.getColumnModel().getColumn(columnIndex) ;
+
+        if(null!=col)
+        {
+            col.setPreferredWidth(columnWidth);
+        }
+    }
 
     private void enableButtons(boolean b) {
         Enumeration<AbstractButton> buttons = this.grpEditButtons.getElements();

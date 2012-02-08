@@ -362,16 +362,7 @@ public class BungeniNoaFrame extends BungeniFrame {
           }
         });
     }
-
-    // !+ (rm, feb 2012) - this method checks the document with the tab to
-    // be closed has been saved before closing it and whether or not the
-    // number of tabs is 1, in which case, they do not have close buttons
-    // added
-    private void vetoTabClosing(ChangeListener aThis)
-    {
-        
-    }
-    
+   
     /**
      * Creates a OpenOffice XFrame , the document is loaded in a XFrame
      * A native view is attached to an XFrame
