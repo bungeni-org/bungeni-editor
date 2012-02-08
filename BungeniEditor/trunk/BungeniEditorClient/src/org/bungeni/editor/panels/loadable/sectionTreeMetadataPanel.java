@@ -391,7 +391,7 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
     }
 
     /**
-     * The jEdit button's actionListener launches a dialog that allows
+     * (rm,feb 2012) - The jEdit button's actionListener launches a dialog that allows
      * a user to edit the section metadata, but only if the section is
      * editable
      * @param evt
@@ -506,7 +506,8 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
                     for (int i = 0; i < sectionMetadataMap.size(); i++) {
                         String metaName = (String) metaIterator.next();
 
-                        if (metaName.equals("hiddenBungeniMetaEditable"))
+                        // rm, feb 2012 - "hiddenBungeniMetaEditable" replaced with static ref
+                        if (metaName.equals(SectionMetadataEditor.MetaEditableFlag))
                         {
                             String sectionAtt = sectionMetadataMap.get(metaName) ;
 

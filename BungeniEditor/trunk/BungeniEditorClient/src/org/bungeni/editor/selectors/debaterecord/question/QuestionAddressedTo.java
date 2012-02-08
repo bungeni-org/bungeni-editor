@@ -218,12 +218,12 @@ public String getPanelName() {
     }
     
     @Override
-    public boolean doUpdateEvent(){
-        HashMap<String,String> selectionData = (getContainerPanel()).selectionData;   
+    public boolean doUpdateEvent(){        
+        HashMap<String,String> selectionData = (getContainerPanel()).selectionData;        
         if (selectionData != null ) {
             if (selectionData.containsKey("QUESTION_TO"))
                 this.jComboBox1.setSelectedItem (selectionData.get("QUESTION_TO"));
-        }
+        }                
         return true;
     }
 

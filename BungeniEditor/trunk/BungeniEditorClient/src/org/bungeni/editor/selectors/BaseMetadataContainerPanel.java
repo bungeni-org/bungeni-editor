@@ -782,9 +782,19 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
         btnApply.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/Bundle"); // NOI18N
         btnApply.setText(bundle.getString("BaseMetadataContainerPanel.btnApply.text")); // NOI18N
+        btnApply.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApplyActionPerformed(evt);
+            }
+        });
 
         btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnCancel.setText(bundle.getString("BaseMetadataContainerPanel.btnCancel.text")); // NOI18N
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -810,6 +820,15 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
 
         getAccessibleContext().setAccessibleName("Enter Masthead");
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApplyActionPerformed
+
+    }//GEN-LAST:event_btnApplyActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApply;
     private javax.swing.JButton btnCancel;

@@ -45,7 +45,9 @@ public class QuestionSelect extends BaseMetadataPanel {
         initComboSelect();
     }
 
-    private Vector<ObjectQuestion> getQuestionObjects(String byQuestionNo) {
+    // !+ (rm, feb 2012) - removed ununsed arg in method to fix bug...
+//     private Vector<ObjectQuestion> getQuestionObjects(String byQuestionNo) {
+    private Vector<ObjectQuestion> getQuestionObjects() {
 
         Vector<ObjectQuestion> questionObjects = new Vector<ObjectQuestion>();
 
@@ -60,13 +62,12 @@ public class QuestionSelect extends BaseMetadataPanel {
             client = CommonConnectorFunctions.getDSClient();
 
            List<Question> questionsList = client.getQuestions();
-
+           
             for (int i = 0; i < questionsList.size(); i++) {
                 Question question = questionsList.get(i);
                 ObjectQuestion m = new ObjectQuestion(String.valueOf(question.getId()), question.getTitle(), question.getFrom(), question.getTo(), question.getText());
                 questionObjects.add(m);
             }
-
 
         } catch (IOException ex) {
             log.error("Error initializing the BungeniConnectorClient " + ex) ;
@@ -105,7 +106,7 @@ public class QuestionSelect extends BaseMetadataPanel {
 
     private void initComboSelect() {
         Vector<ObjectQuestion> questionObjects = new Vector<ObjectQuestion>();
-        questionObjects = getQuestionObjects("");
+        questionObjects = getQuestionObjects();
         this.cboQuestionSelect.addActionListener(new QuestionSelector());
         this.cboQuestionSelect.setModel(new DefaultComboBoxModel(questionObjects));
         AutoCompleteDecorator.decorate(cboQuestionSelect);
@@ -157,17 +158,21 @@ public class QuestionSelect extends BaseMetadataPanel {
         cboQuestionSelect.setEditable(true);
         cboQuestionSelect.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         cboQuestionSelect.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboQuestionSelect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboQuestionSelectActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnSelectQuestion)
-                    .addComponent(cboQuestionSelect, 0, 224, Short.MAX_VALUE))
+                .addContainerGap(142, Short.MAX_VALUE)
+                .addComponent(btnSelectQuestion)
                 .addContainerGap())
+            .addComponent(cboQuestionSelect, 0, 279, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,6 +204,11 @@ private void btnSelectQuestionActionPerformed(java.awt.event.ActionEvent evt) {/
         log.debug("selected keyset empty");
     }
 }//GEN-LAST:event_btnSelectQuestionActionPerformed
+
+private void cboQuestionSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboQuestionSelectActionPerformed
+    // TODO add your handling code here:
+}//GEN-LAST:event_cboQuestionSelectActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSelectQuestion;
     private javax.swing.JComboBox cboQuestionSelect;
@@ -227,6 +237,11 @@ private void btnSelectQuestionActionPerformed(java.awt.event.ActionEvent evt) {/
         return true;
     }
 
+    /**
+     * Once the user has added all details about an imported question,
+     * this method inserts the data about the selected question
+     * @return
+     */
     @Override
     public boolean processFullEdit() {
         Object selItem = this.cboQuestionSelect.getSelectedItem();
@@ -345,8 +360,8 @@ private void btnSelectQuestionActionPerformed(java.awt.event.ActionEvent evt) {/
                 sectionMeta = ooDoc.getSectionMetadataAttributes(currentSection);
                 if (sectionMeta.containsKey("BungeniQuestionNo")) {
                     String questionNo = sectionMeta.get("BungeniQuestionNo");
-                    Vector<ObjectQuestion> vQuestion = getQuestionObjects(questionNo);
-                    ObjectQuestion oq = vQuestion.elementAt(0);
+                    Vector<ObjectQuestion> vQuestion = getQuestionObjects();
+                    ObjectQuestion oq = vQuestion.elementAt(Integer.parseInt(questionNo)-1); // offset since JCombobox starts from index 1
                     int nIndex = findItem(oq);
                     if (nIndex != -1) {
                         this.cboQuestionSelect.setSelectedIndex(nIndex);
@@ -370,13 +385,13 @@ private void btnSelectQuestionActionPerformed(java.awt.event.ActionEvent evt) {/
         HashMap<String, String> selData = new HashMap<String, String>();
         selData.put("ID", selectedQuestion.questionId);
         selData.put("QUESTION_TITLE", selectedQuestion.questionTitle);
-        selData.put("QUESTION_FROM", selectedQuestion.questionFrom);
-        selData.put("QUESTION_TO", selectedQuestion.questionTo);
+        // selData.put("QUESTION_FROM", selectedQuestion.questionFrom);
+        // selData.put("QUESTION_TO", selectedQuestion.questionTo);
         selData.put("QUESTION_TEXT", selectedQuestion.questionText);
 
         (getContainerPanel()).selectionData = selData;
         if ((getContainerPanel()).selectionData.size() > 0) {
-            (getContainerPanel()).updateAllPanels();
+            getContainerPanel().updateAllPanels();
         }
     }
 
