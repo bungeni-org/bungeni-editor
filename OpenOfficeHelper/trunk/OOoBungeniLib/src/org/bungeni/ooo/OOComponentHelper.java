@@ -4,6 +4,8 @@ package org.bungeni.ooo;
 
 import com.sun.star.rdf.RepositoryException;
 import com.sun.star.uno.Exception;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -2457,6 +2459,24 @@ public class OOComponentHelper {
        XModifiable xMod = ooQueryInterface.XModifiable(this.m_xComponent);
        return xMod.isModified();
     }
+
+    /**
+     * Sets the modified state bit for a document. This is used when you 
+     * dont want to explicitly save a modified document. So you set the modified
+     * bit to false and let openoffice exit
+     * @param bState
+     * @return
+     */
+    public void setModified(boolean bState) {
+       XModifiable xMod = ooQueryInterface.XModifiable(this.m_xComponent);
+        try {
+            xMod.setModified(bState);
+        } catch (PropertyVetoException ex) {
+            log.error("Unable to set the modified bit on the document", ex);
+        }
+    }
+
+
 
     /**
      * Helper API that combines both the isModified() and isDocumentonDisk() APIs.
