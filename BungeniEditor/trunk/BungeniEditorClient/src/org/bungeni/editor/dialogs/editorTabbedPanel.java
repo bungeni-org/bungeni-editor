@@ -472,6 +472,12 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
             DocumentComposition dc = null;
             try {
                dc = frame.loadDocumentInPanel(fullPathToFile, false);
+               if (bActive){
+                   int lastTab = BungeniNoaTabbedPane.getInstance().getTabbedPane().getTabCount() - 1;
+                   if (lastTab != 0 ) {
+                        BungeniNoaTabbedPane.getInstance().getTabbedPane().setSelectedIndex(lastTab);
+                   }
+               }
             } catch (OfficeApplicationException e) {
                 log.error("Error while opening document from editorTabbedPanel" , e);
             } catch (NOAException e) {

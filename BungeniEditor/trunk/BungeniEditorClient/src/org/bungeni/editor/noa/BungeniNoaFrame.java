@@ -4,6 +4,7 @@ import ag.ion.bion.officelayer.application.OfficeApplicationException;
 import ag.ion.bion.officelayer.document.DocumentException;
 import ag.ion.noa.NOAException;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -15,10 +16,18 @@ import ag.ion.bion.officelayer.text.ITextDocument;
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 import java.awt.Component;
+import java.awt.GridLayout;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.ResourceBundle;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -53,22 +62,20 @@ public class BungeniNoaFrame extends BungeniFrame {
 
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BungeniNoaFrame.class.getName());
     private static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/noa/Bundle");
-
-
     private static BungeniNoaFrame thisBungeniNoaFrame = null;
     private BungeniLocalOfficeApplication officeApplication = null;
-
-
-
     private String LAST_DOCUMENT_OPEN_MESSAGE = bundle.getString("bungeninoaframe.last_document_open");
-
-    private DataSourceServer dss = null;
+    private DataSourceServer dss = null;    
     /**
      * We use the glazed list library here for declaring the officeDocuments as a EventList.
      * The EventList provides Events aware combo box model which received notifications on event list
      * changes and updates lists dynamically
      */
     private EventList<DocumentComposition> officeDocuments = new BasicEventList<DocumentComposition>();
+
+    // this stores the unsaved document compositions for closing before the application is closed
+    private ArrayList<DocumentComposition> unsavedDocumentCompositions = new ArrayList<DocumentComposition>();
+    
     /**
      * The structure of this Frame is as follows :
      *
@@ -143,7 +150,7 @@ public class BungeniNoaFrame extends BungeniFrame {
         this.getContentPane().add(getBasePanel());
         //this needs to be calculated ?
         setResizable(true);
-         // setSize(800, 600);
+        // setSize(800, 600);
         pack();
         //We set it to do_nothing_on_close since we want to add
         //an exit handler and exit cleanly
@@ -157,26 +164,135 @@ public class BungeniNoaFrame extends BungeniFrame {
 
             @Override
             public void windowClosing(WindowEvent windowEvent) {
-                // check if documents in tabs need to be saved
 
-                JFrame aFrame = (JFrame) windowEvent.getSource();
-                int confirm = JOptionPane.showOptionDialog(aFrame, bundle.getString("bungeninoaframe.really_exist_close_all"),
-                        bundle.getString("bungeninoaframe.exit_confirmation"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
-                        null, null);
-                if (confirm == JOptionPane.YES_OPTION) {
-                    //shutdown Editor
-                    shutdownEditor();
-                }
+                // check if documents in tabs need to be saved
+                // check if open documents need to be saved -
+                // find which documents need to be saved
+
+                // the buttons with the options to be selected
+                Object[] buttonTexts = {
+                    bundle.getString("bungeninoaframe.save_and_close"),
+                    bundle.getString("bungeninoaframe.cancel_close")
+                };
+                
+                ArrayList<DocumentComposition> unsavedDCompositions = getUnsavedDocuments();
+                if (null != unsavedDCompositions) {
+                    // prompt a dialog which has document name and corresponding check box
+                    // if 2 tabs are open :
+                    //  +---------------------------------------------------------+
+                    //  | document name [x]                                       |
+                    //  | document name [x]                                       |
+                    //  | [Save the selected documents and close] [cancel close]  |
+                    //  +---------------------------------------------------------+
+
+                    // create the panel with the checkboxes
+                    JPanel dialogPane = createSaveDialogPane(unsavedDCompositions);
+
+                    // create the JOptionPane with the dialogPane attached
+                    JFrame aFrame = (JFrame) windowEvent.getSource() ;
+                    int confirm = MessageBox.OptionsConfirm(aFrame, dialogPane,
+                            bundle.getString("bungeninoaframe.save_multiple_docs"), buttonTexts) ;
+
+                    // if 'save the selected documents' is clicked
+                    // selected documents are saved and editor is shutdown
+                    // if 'cancel close is clicked - nothing happens
+                    if ( confirm == JOptionPane.YES_OPTION)
+                    {
+                        // save the documents selected in the various checkBoxes
+                        for ( DocumentComposition dComposition : unsavedDocumentCompositions )
+                        {
+                            if (dComposition.getDocument() != null) {
+                               OOComponentHelper ooSave = new OOComponentHelper(
+                                    dComposition.getDocument().getXComponent(),
+                                    BungenioOoHelper.getInstance().getComponentContext());
+                               ooSave.saveDocument();
+                            }
+                        }
+                        shutdownEditor();
+                    }
+                }               
             }
         });
 
-     // !+TAB_CLOSE(ah, feb-2012) add tab closer buttons and action listener
-      addCloseButtonsToDocumentTabs();
+        // !+TAB_CLOSE(ah, feb-2012) add tab closer buttons and action listener
+        addCloseButtonsToDocumentTabs();
 
     }
 
+    /**
+     * This method creates a JPanel that is added to the JOptionPane
+     * which is displayed in the JOptionPane that asks the user to 
+     * save modified documents
+     */
+    private JPanel createSaveDialogPane(ArrayList<DocumentComposition> unsavedDCompositions) {
+        JPanel dialogPane = new JPanel();
+       
+        dialogPane.setLayout(new MigLayout("wrap 2"));
+                
+        // create the Jlabel for document and checkboxes for
+        // the unsaved documents and attach to JPanel
+        for (int i = 0; i < unsavedDCompositions.size(); i++) {       
+            // get the current name of the document 
+            String currDocName = unsavedDCompositions.get(i).toString() ;
 
-    public void startDataSourceServer(){
+            // get the unsavedDocName and Checkbox
+            JLabel unsavedDocName = new JLabel(currDocName) ;
+            JCheckBox docCBox = new JCheckBox(new CheckBoxAction(unsavedDCompositions.get(i)));
+
+            // add the panel to the container panel
+            dialogPane.add(docCBox) ;
+            dialogPane.add(unsavedDocName)  ;
+        }
+        return dialogPane;
+    }
+
+    /**
+     * This class notes which check box has been selected
+     * and notes the corresponding document that is to be saved
+     */
+    private class CheckBoxAction extends AbstractAction {
+
+        private DocumentComposition currDocumentComposition = null ; // stores the document composition to the
+                                  // affilited JCheckBox
+        
+        public CheckBoxAction(DocumentComposition dComposition) {
+                currDocumentComposition = dComposition ;
+        }
+        
+        public void actionPerformed(ActionEvent e) {
+            // get the selected document
+            JCheckBox selectedDoc  = (JCheckBox) e.getSource() ;
+
+            if ( selectedDoc.isSelected() && null != currDocumentComposition )
+            {
+               // add the documentComposition to the
+               // list of documents to be saved
+               unsavedDocumentCompositions.add(currDocumentComposition);
+            }
+        }
+    }
+
+    /**
+     * This method checks for unsaved documents and returns an ArrayList of
+     * unsaved DocumentCompositions
+     * @return
+     */
+    private ArrayList<DocumentComposition> getUnsavedDocuments() {
+        ArrayList<DocumentComposition> unsavedDCompositions = new ArrayList<DocumentComposition>(0);
+
+        for (DocumentComposition document : officeDocuments) {
+            if (document.getDocument() != null) {
+                // check if the document is saved and if not
+                // add it to the EventList
+                if (document.getDocument().isModified()) {
+                    unsavedDCompositions.add(document);
+                }
+            }
+        }
+        return unsavedDCompositions;
+    }
+
+    public void startDataSourceServer() {
         try {
             dss = DataSourceServer.getInstance();
             Properties dsProps = DataSourceFactory.getDataSourceProperties();
@@ -186,6 +302,7 @@ public class BungeniNoaFrame extends BungeniFrame {
             log.error("Error while starting up datasource server", ex);
         }
     }
+
     /**
      * Sets up the root panel and adds the NOA panel to it
      * We use the MigLayout here (see http://www.miglayout.org ), since it supports
@@ -214,7 +331,7 @@ public class BungeniNoaFrame extends BungeniFrame {
         //        BungeniNoaPanel.getInstance().getPanel());
     }
 
-    private void shutdownEditor(){
+    private void shutdownEditor() {
         System.out.println("Cleaning up panels");
         if (!editorTabbedPanel.isInstanceNull()) {
             editorTabbedPanel.getInstance().cleanup();
@@ -246,7 +363,7 @@ public class BungeniNoaFrame extends BungeniFrame {
         }
         System.out.println("Stopping Bungenic Connector Data Server");
         //!+BUNGENI_CONNECTOR(AH, 2011-09-20) stopping bungeni connector
-        if (dss != null ) {
+        if (dss != null) {
             log.info("Stopping connector server");
             dss.stopServer();
         } else {
@@ -263,7 +380,6 @@ public class BungeniNoaFrame extends BungeniFrame {
          */
         System.exit(0);
     }
-
 
     /***
      * This loads a document or a document template in the BungeniNoaFrame
@@ -287,17 +403,17 @@ public class BungeniNoaFrame extends BungeniFrame {
         String fileNameForTab = CommonFileFunctions.getFileNameFromPath(pathToDocumentOrTemplate, false);
         noaTabbedPane.getTabbedPane().addTab(fileNameForTab, noapanel.getPanel());
         noapanel.getPanel().setVisible(true);
-        
+
         // !+ (rm, feb 2012) - determine if the number or tabs is greater than 1 and
         // then allow for a close button to be added to the tab
-        
+
         // add close button to all the tabs
         // !+TAB_CLOSE(ah, feb-2012) do this when the tab is initialized
         // calling addCloseButtonsToTabs() here is *wrong* because it will get
         // called everytime a document is loaded - we do it once on the tabbed pane
         // thats all that is required
         //addCloseButtonsToDocumentTabs();
-        
+
         //if the Office XFrame does not exist, construct it the openoffice document will
         //be loaded into the frame
         DocumentComposition dc = constructOOoFrame(noapanel);
@@ -338,109 +454,106 @@ public class BungeniNoaFrame extends BungeniFrame {
         //!+TAB_CLOSE(ah, feb-2012) -
         // all tabs have the close button, the last tab when its closed, should
         // close the editor
-        
+
         noaTabbedPane.getTabbedPane().putClientProperty(
                 SubstanceLookAndFeel.TABBED_PANE_CLOSE_BUTTONS_PROPERTY,
-                Boolean.TRUE );
+                Boolean.TRUE);
 
         // !+TAB_CLOSE(ah, feb-2012) switch to vetoable tab close listener - we
-       // want to know when the tab is closing , and prompt the user if they dont
-       // want to close.
-       // !+WARNING , !+FIX_THIS - this is registered for ALL TABS which have the SUBSTANCE close
-       // buttons property - presently only the document tabs have it so it isnt a
-       // problem
-       SubstanceLookAndFeel
-        .registerTabCloseChangeListener(new VetoableTabCloseListener() {
+        // want to know when the tab is closing , and prompt the user if they dont
+        // want to close.
+        // !+WARNING , !+FIX_THIS - this is registered for ALL TABS which have the SUBSTANCE close
+        // buttons property - presently only the document tabs have it so it isnt a
+        // problem
+        SubstanceLookAndFeel.registerTabCloseChangeListener(new VetoableTabCloseListener() {
 
-             /**
-              * Returns the DocumentComposition object matching the tab being closed.
-              */
-              private DocumentComposition __getDocumentCompositionForTab(Component tabComponent){
-                    DocumentComposition docClosing = null;
-                    for(DocumentComposition dc : officeDocuments) {
-                        if (dc.equalsByNoaPanel((JPanel) tabComponent)) {
-                            docClosing = dc;
-                            break;
-                        }
+            /**
+             * Returns the DocumentComposition object matching the tab being closed.
+             */
+            private DocumentComposition __getDocumentCompositionForTab(Component tabComponent) {
+                DocumentComposition docClosing = null;
+                for (DocumentComposition dc : officeDocuments) {
+                    if (dc.equalsByNoaPanel((JPanel) tabComponent)) {
+                        docClosing = dc;
+                        break;
                     }
-                    return docClosing;
-              }
-
-              public void tabClosing(JTabbedPane tabbedPane,
-                  Component tabComponent) {
-                    DocumentComposition docClosing = __getDocumentCompositionForTab(tabComponent);
-                    // close the document tab
-                    closeDocumentTab(docClosing);
-              }
-
-              public void tabClosed(JTabbedPane tabbedPane, Component tabComponent) {
-                  // if the tab count is 0 - we shutdown the editor
-                   if (tabbedPane.getTabCount() == 0 ) {
-                       shutdownEditor();
-                   }
-              }
-
-              /***
-               * This event allows us to veto tab closes
-               */
-              public boolean vetoTabClosing(JTabbedPane tabbedPane, Component tabComponent) {
-                    DocumentComposition docClosing = __getDocumentCompositionForTab(tabComponent);
-                    if (docClosing != null) {
-                        //check if document needs to be saved
-                        if (docClosing.document.isModified()){
-                            //yes it does
-                            //prompt with save&close,cancel-close
-                            Object[] buttonTexts = {
-                                bundle.getString("bungeninoaframe.save_and_close"),
-                                bundle.getString("bungeninoaframe.cancel_close")
-                            };
-                            StringBuilder message = new StringBuilder(bundle.getString("bungeninoaframe.document_not_saved")) ;
-                            if (tabbedPane.getTabCount() == 1) {
-                                //this is the last tab !!
-                                message.append("\n");
-                                message.append(LAST_DOCUMENT_OPEN_MESSAGE);
-                            }
-                            int nOption = MessageBox.Confirm(
-                                    tabComponent,
-                                    message.toString(),
-                                    bundle.getString("bungeninoaframe.closing"), buttonTexts,
-                                    JOptionPane.YES_NO_OPTION
-                                    );
-                            if (nOption == JOptionPane.YES_OPTION) {
-                                //save the document
-                                OOComponentHelper ooSave = new OOComponentHelper(
-                                        docClosing.document.getXComponent(),
-                                        BungenioOoHelper.getInstance().getComponentContext()
-                                        );
-                                ooSave.saveDocument();
-                                //now close the tab in tabClosing()
-                                return false;
-                            } else {
-                                //veto close
-                                return true;
-                            }
-                        } else {
-                            //no doc is already saved
-                            //prompt with confirmation, cancel-close
-                            StringBuilder message = new StringBuilder(bundle.getString("bungeninoaframe.close_document")) ;
-                            if (tabbedPane.getTabCount() == 1) {
-                               message.append("\n");
-                               message.append(LAST_DOCUMENT_OPEN_MESSAGE);
-                            }
-
-                            int nOption = MessageBox.Confirm(tabComponent, message.toString(), bundle.getString("bungeninoaframe.closing"));
-                            if (nOption == JOptionPane.YES_OPTION) {
-                                return false;
-                            } else {
-                                //veto close
-                                return true;
-                            }
-                        }
-                    }
-                    // veto close by default
-                    return true;
                 }
-            });
+                return docClosing;
+            }
+
+            public void tabClosing(JTabbedPane tabbedPane,
+                    Component tabComponent) {
+                DocumentComposition docClosing = __getDocumentCompositionForTab(tabComponent);
+                // close the document tab
+                closeDocumentTab(docClosing);
+            }
+
+            public void tabClosed(JTabbedPane tabbedPane, Component tabComponent) {
+                // if the tab count is 0 - we shutdown the editor
+                if (tabbedPane.getTabCount() == 0) {
+                    shutdownEditor();
+                }
+            }
+
+            /***
+             * This event allows us to veto tab closes
+             */
+            public boolean vetoTabClosing(JTabbedPane tabbedPane, Component tabComponent) {
+                DocumentComposition docClosing = __getDocumentCompositionForTab(tabComponent);
+                if (docClosing != null) {
+                    //check if document needs to be saved
+                    if (docClosing.document.isModified()) {
+                        //yes it does
+                        //prompt with save&close,cancel-close
+                        Object[] buttonTexts = {
+                            bundle.getString("bungeninoaframe.save_and_close"),
+                            bundle.getString("bungeninoaframe.cancel_close")
+                        };
+                        StringBuilder message = new StringBuilder(bundle.getString("bungeninoaframe.document_not_saved"));
+                        if (tabbedPane.getTabCount() == 1) {
+                            //this is the last tab !!
+                            message.append("\n");
+                            message.append(LAST_DOCUMENT_OPEN_MESSAGE);
+                        }
+                        int nOption = MessageBox.Confirm(
+                                tabComponent,
+                                message.toString(),
+                                bundle.getString("bungeninoaframe.closing"), buttonTexts,
+                                JOptionPane.YES_NO_OPTION);
+                        if (nOption == JOptionPane.YES_OPTION) {
+                            //save the document
+                            OOComponentHelper ooSave = new OOComponentHelper(
+                                    docClosing.document.getXComponent(),
+                                    BungenioOoHelper.getInstance().getComponentContext());
+                            ooSave.saveDocument();
+                            //now close the tab in tabClosing()
+                            return false;
+                        } else {
+                            //veto close
+                            return true;
+                        }
+                    } else {
+                        //no doc is already saved
+                        //prompt with confirmation, cancel-close
+                        StringBuilder message = new StringBuilder(bundle.getString("bungeninoaframe.close_document"));
+                        if (tabbedPane.getTabCount() == 1) {
+                            message.append("\n");
+                            message.append(LAST_DOCUMENT_OPEN_MESSAGE);
+                        }
+
+                        int nOption = MessageBox.Confirm(tabComponent, message.toString(), bundle.getString("bungeninoaframe.closing"));
+                        if (nOption == JOptionPane.YES_OPTION) {
+                            return false;
+                        } else {
+                            //veto close
+                            return true;
+                        }
+                    }
+                }
+                // veto close by default
+                return true;
+            }
+        });
     }
 
     /***
@@ -465,7 +578,6 @@ public class BungeniNoaFrame extends BungeniFrame {
             officeDocuments.remove(docClosing);
         }
     }
-
 
     /**
      * Creates a OpenOffice XFrame , the document is loaded in a XFrame
@@ -535,16 +647,7 @@ public class BungeniNoaFrame extends BungeniFrame {
             return OOComponentHelper.getFrameTitle(document.getXTextDocument());
         }
 
-        /**
-         * Saves a document 
-         * @param doc
-         * @return
-         */
-        public boolean saveDocument(ITextDocument doc)
-        {
-            // @TODO : (rm, feb 2012) - find API & finalise saving of document
-            return true ;
-        }
+       
         /**
          * @return the frame
          */
@@ -618,4 +721,3 @@ public class BungeniNoaFrame extends BungeniFrame {
         this.officeDocuments.add(dc);
     }
 }
-

@@ -2,6 +2,8 @@ package org.bungeni.extutils;
 
 import java.awt.Component;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.plaf.OptionPaneUI;
 
 
 public  class MessageBox extends Object {
@@ -33,7 +35,22 @@ public  class MessageBox extends Object {
         return ret;
     }
 
+    /** 
+     * This method displays a JOptionPane with a custom Panel
+     * @param parent
+     * @param messsage
+     * @param title
+     * @param dialogPanel
+     * @return
+     */
+    public static int OptionsConfirm(Component parent, JPanel dialogPanel, String title,
+            Object [] buttonTexts) {
 
+        int ret = JOptionPane.showOptionDialog(parent, dialogPanel, title, JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, buttonTexts, buttonTexts[0]);
+
+        return ret ;
+    }
 
  
 }
