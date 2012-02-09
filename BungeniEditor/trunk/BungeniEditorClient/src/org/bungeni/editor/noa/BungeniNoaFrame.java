@@ -265,6 +265,7 @@ public class BungeniNoaFrame extends BungeniFrame {
             // get the unsavedDocName and Checkbox
             JLabel unsavedDocName = new JLabel(currDocName) ;
             JCheckBox docCBox = new JCheckBox(new CheckBoxAction(unsavedDCompositions.get(i)));
+            docCBox.setSelected(true) ; // set the JCheckBox selcted by default
 
             // add the panel to the container panel
             dialogPane.add(docCBox) ;
@@ -315,6 +316,7 @@ public class BungeniNoaFrame extends BungeniFrame {
                 // add it to the EventList
                 if (document.getDocument().isModified()) {
                     unsavedDCompositions.add(document);
+                    unsavedDocumentCompositions.add(document); // add all the modified docs by default
                 }
             }
         }
