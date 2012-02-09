@@ -3,7 +3,6 @@ package org.bungeni.editor.noa;
 import ag.ion.bion.officelayer.application.OfficeApplicationException;
 import ag.ion.bion.officelayer.document.DocumentException;
 import ag.ion.noa.NOAException;
-import com.sun.star.text.XTextDocument;
 import java.awt.Dimension;
 
 import java.awt.event.WindowAdapter;
@@ -18,11 +17,11 @@ import ca.odell.glazedlists.EventList;
 import java.awt.Component;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.event.ChangeListener;
 import net.miginfocom.swing.MigLayout;
 import org.bungeni.connector.server.DataSourceServer;
 import org.bungeni.ds.DataSourceFactory;
@@ -42,15 +41,27 @@ import org.jvnet.substance.api.tabbed.VetoableTabCloseListener;
  *  -- container NOA panel
  *  -- editorTabbedPanel
  * 16-05-2011 - Converted to a Singleton
+ *
+ * This class is important because it handles all events for closing windows
+ *   - when a document is closed
+ *   - when the editor itself is closed
+ *
  * (formerly BungeniFrameEmbedded)
  * @author ashok, fdraicchio
  */
 public class BungeniNoaFrame extends BungeniFrame {
 
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BungeniNoaFrame.class.getName());
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/noa/Bundle");
+
+
     private static BungeniNoaFrame thisBungeniNoaFrame = null;
     private BungeniLocalOfficeApplication officeApplication = null;
-    
+
+
+
+    private String LAST_DOCUMENT_OPEN_MESSAGE = bundle.getString("bungeninoaframe.last_document_open");
+
     private DataSourceServer dss = null;
     /**
      * We use the glazed list library here for declaring the officeDocuments as a EventList.
@@ -141,70 +152,20 @@ public class BungeniNoaFrame extends BungeniFrame {
 
         //!+BUNGENI_CONNECTOR(AH,2011-09-20) Starting BungeniConnector server
         startDataSourceServer();
+        // This is the listener for the main window containing the tabs
         addWindowListener(new WindowAdapter() {
 
             @Override
             public void windowClosing(WindowEvent windowEvent) {
+                // check if documents in tabs need to be saved
+
                 JFrame aFrame = (JFrame) windowEvent.getSource();
-                int confirm = JOptionPane.showOptionDialog(aFrame, "Really Exit? This will close all Editor panels",
-                        "Exit Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                int confirm = JOptionPane.showOptionDialog(aFrame, bundle.getString("bungeninoaframe.really_exist_close_all"),
+                        bundle.getString("bungeninoaframe.exit_confirmation"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                         null, null);
                 if (confirm == JOptionPane.YES_OPTION) {
-                    /**
-                     * We probably need to check if all the OOo documents have been saved
-                     */
-                    // to do
-                    /**
-                     * Clean up the main tabbed panel
-                     */
-                    System.out.println("Cleaning up panels");
-                    if (!editorTabbedPanel.isInstanceNull()) {
-                        editorTabbedPanel.getInstance().cleanup();
-                    }
-
-                    /***
-                     * Clean up the openoffice handles
-                     */
-                    System.out.println("Cleaning up openoffice handles");
-                    try {
-                        System.out.println("Closing component handles");
-                        //iterate through the document composition list and close every document
-                        for (DocumentComposition document : officeDocuments) {
-                            //XXXX-TODO-XXX check if document has been saved, warn etc.
-                            if (document.getDocument() != null) {
-                                document.getDocument().close();
-                            }
-                            document.setDocument(null);
-                            officeDocuments.remove(document);
-                        }
-                        //then shutdown OOo completely
-                        System.out.println("Closing OpenOffice completely");
-                        if (officeApplication != null) {
-                            officeApplication.deactivate();
-                            officeApplication.dispose();
-                            BungeniNoaApp.getInstance().setOfficeApp(null);
-                        }
-                    } catch (Throwable ex) {
-                        log.error("Error while closing window", ex);
-                    }
-                    System.out.println("Stopping Bungenic Connector Data Server");
-                    //!+BUNGENI_CONNECTOR(AH, 2011-09-20) stopping bungeni connector 
-                    if (dss != null ) {
-                        log.info("Stopping connector server");
-                        dss.stopServer();
-                    } else {
-                        log.info("Connector server was null");
-                    }
-                    /**
-                     * Dispose the main JFrame
-                     */
-                    System.out.println("Dispose and exit window");
-                    dispose();
-
-                    /**
-                     *Finally exit the system
-                     */
-                    System.exit(0);
+                    //shutdown Editor
+                    shutdownEditor();
                 }
             }
         });
@@ -252,6 +213,57 @@ public class BungeniNoaFrame extends BungeniFrame {
         //noaTabbedPane.getTabbedPane().addTab("openOffice",
         //        BungeniNoaPanel.getInstance().getPanel());
     }
+
+    private void shutdownEditor(){
+        System.out.println("Cleaning up panels");
+        if (!editorTabbedPanel.isInstanceNull()) {
+            editorTabbedPanel.getInstance().cleanup();
+        }
+
+        /***
+         * Clean up the openoffice handles
+         */
+        System.out.println("Cleaning up openoffice handles");
+        try {
+            System.out.println("Closing component handles");
+            //iterate through the document composition list and close every document
+            for (DocumentComposition document : officeDocuments) {
+                if (document.getDocument() != null) {
+                    document.getDocument().close();
+                }
+                document.setDocument(null);
+                officeDocuments.remove(document);
+            }
+            //then shutdown OOo completely
+            System.out.println("Closing OpenOffice completely");
+            if (officeApplication != null) {
+                officeApplication.deactivate();
+                officeApplication.dispose();
+                BungeniNoaApp.getInstance().setOfficeApp(null);
+            }
+        } catch (Throwable ex) {
+            log.error("Error while closing window", ex);
+        }
+        System.out.println("Stopping Bungenic Connector Data Server");
+        //!+BUNGENI_CONNECTOR(AH, 2011-09-20) stopping bungeni connector
+        if (dss != null ) {
+            log.info("Stopping connector server");
+            dss.stopServer();
+        } else {
+            log.info("Connector server was null");
+        }
+        /**
+         * Dispose the main JFrame
+         */
+        System.out.println("Dispose and exit window");
+        dispose();
+
+        /**
+         *Finally exit the system
+         */
+        System.exit(0);
+    }
+
 
     /***
      * This loads a document or a document template in the BungeniNoaFrame
@@ -333,97 +345,128 @@ public class BungeniNoaFrame extends BungeniFrame {
 
         // !+TAB_CLOSE(ah, feb-2012) switch to vetoable tab close listener - we
        // want to know when the tab is closing , and prompt the user if they dont
-       // want to close
+       // want to close.
+       // !+WARNING , !+FIX_THIS - this is registered for ALL TABS which have the SUBSTANCE close
+       // buttons property - presently only the document tabs have it so it isnt a
+       // problem
        SubstanceLookAndFeel
         .registerTabCloseChangeListener(new VetoableTabCloseListener() {
-          public void tabClosing(JTabbedPane tabbedPane,
-              Component tabComponent) {
-                DocumentComposition docClosing = null;
-                for(DocumentComposition dc : officeDocuments) {
-                    if (dc.equalsByNoaPanel((JPanel) tabComponent)) {
-                        docClosing = dc;
-                    }
-              }
-              // !+TAB_CLOSE(ah, feb-2012) - we need to check for nulls because
-              // substance may be playing mr.smartypants by closing tabs by itself,
-              // when we dont veto
-              if (docClosing != null) {
-                log.info("Closing document tab for " + docClosing.toString());
-                if (docClosing.document != null) {
-                   docClosing.document.close();
-                  }
-                 docClosing.setDocument(null);
-                 docClosing.getNativeView().closeNativeView();
-                 // !+TAB_CLOSE(ah, feb-2012) - substance seems to remove the tab by itself ??
-                 // until that is verified by looking at substance source code, we explicitly
-                 // check for the tabbed pane , if its an active tab we remove it
-                 //tabbedPane.remove(tabComponent);
-                 officeDocuments.remove(docClosing);
-              }
-          }
 
-          public void tabClosed(JTabbedPane tabbedPane, Component tabComponent) {
-              // Nothing to do here
-          }
-
-          /***
-           * This event allows us to veto tab closes
-           */
-          public boolean vetoTabClosing(JTabbedPane tabbedPane, Component tabComponent) {
-                DocumentComposition docClosing = null;
-                for(DocumentComposition dc : officeDocuments) {
-                    if (dc.equalsByNoaPanel((JPanel) tabComponent)) {
-                        // We get the DocumentComposition that needs to be closed here
-                        docClosing = dc;
-                        break;
+             /**
+              * Returns the DocumentComposition object matching the tab being closed.
+              */
+              private DocumentComposition __getDocumentCompositionForTab(Component tabComponent){
+                    DocumentComposition docClosing = null;
+                    for(DocumentComposition dc : officeDocuments) {
+                        if (dc.equalsByNoaPanel((JPanel) tabComponent)) {
+                            docClosing = dc;
+                            break;
+                        }
                     }
-                }
-                if (docClosing != null) {
-                    //check if document needs to be saved
-                    if (docClosing.document.isModified()){
-                        //yes it does
-                        //prompt with save&close,cancel-close
-                        Object[] buttonTexts = { 
-                            "Save and Close",
-                            "Cancel Close"
-                        };
-                        int nOption = MessageBox.Confirm(
-                                tabComponent,
-                                "The document has not been saved yet !",
-                                "Closing", buttonTexts,
-                                JOptionPane.YES_NO_OPTION
-                                );
-                        if (nOption == JOptionPane.YES_OPTION) {
-                            //save the document
-                            OOComponentHelper ooSave = new OOComponentHelper(
-                                    docClosing.document.getXComponent(),
-                                    BungenioOoHelper.getInstance().getComponentContext()
+                    return docClosing;
+              }
+
+              public void tabClosing(JTabbedPane tabbedPane,
+                  Component tabComponent) {
+                    DocumentComposition docClosing = __getDocumentCompositionForTab(tabComponent);
+                    // close the document tab
+                    closeDocumentTab(docClosing);
+              }
+
+              public void tabClosed(JTabbedPane tabbedPane, Component tabComponent) {
+                  // if the tab count is 0 - we shutdown the editor
+                   if (tabbedPane.getTabCount() == 0 ) {
+                       shutdownEditor();
+                   }
+              }
+
+              /***
+               * This event allows us to veto tab closes
+               */
+              public boolean vetoTabClosing(JTabbedPane tabbedPane, Component tabComponent) {
+                    DocumentComposition docClosing = __getDocumentCompositionForTab(tabComponent);
+                    if (docClosing != null) {
+                        //check if document needs to be saved
+                        if (docClosing.document.isModified()){
+                            //yes it does
+                            //prompt with save&close,cancel-close
+                            Object[] buttonTexts = {
+                                bundle.getString("bungeninoaframe.save_and_close"),
+                                bundle.getString("bungeninoaframe.cancel_close")
+                            };
+                            StringBuilder message = new StringBuilder(bundle.getString("bungeninoaframe.document_not_saved")) ;
+                            if (tabbedPane.getTabCount() == 1) {
+                                //this is the last tab !!
+                                message.append("\n");
+                                message.append(LAST_DOCUMENT_OPEN_MESSAGE);
+                            }
+                            int nOption = MessageBox.Confirm(
+                                    tabComponent,
+                                    message.toString(),
+                                    bundle.getString("bungeninoaframe.closing"), buttonTexts,
+                                    JOptionPane.YES_NO_OPTION
                                     );
-                            ooSave.saveDocument();
-                            //now close the tab in tabClosing()
-                            return false;
+                            if (nOption == JOptionPane.YES_OPTION) {
+                                //save the document
+                                OOComponentHelper ooSave = new OOComponentHelper(
+                                        docClosing.document.getXComponent(),
+                                        BungenioOoHelper.getInstance().getComponentContext()
+                                        );
+                                ooSave.saveDocument();
+                                //now close the tab in tabClosing()
+                                return false;
+                            } else {
+                                //veto close
+                                return true;
+                            }
                         } else {
-                            //veto close
-                            return true;
-                        }
-                    } else {
-                        //no doc is already saved
-                        //prompt with confirmation, cancel-close
-                        int nOption = MessageBox.Confirm(tabComponent, "Close Document ?", "Closing");
-                        if (nOption == JOptionPane.YES_OPTION) {
-                            return false;
-                        } else {
-                            //veto close
-                            return true;
+                            //no doc is already saved
+                            //prompt with confirmation, cancel-close
+                            StringBuilder message = new StringBuilder(bundle.getString("bungeninoaframe.close_document")) ;
+                            if (tabbedPane.getTabCount() == 1) {
+                               message.append("\n");
+                               message.append(LAST_DOCUMENT_OPEN_MESSAGE);
+                            }
+
+                            int nOption = MessageBox.Confirm(tabComponent, message.toString(), bundle.getString("bungeninoaframe.closing"));
+                            if (nOption == JOptionPane.YES_OPTION) {
+                                return false;
+                            } else {
+                                //veto close
+                                return true;
+                            }
                         }
                     }
+                    // veto close by default
+                    return true;
                 }
-                // veto close by default
-                return true;
-            }
-        });
+            });
     }
-   
+
+    /***
+     * This function encapsulates the logic of how a document in a tab is closed.
+     * It doesnt remove or close the Tab pane containing the loaded document - thats
+     * the responsibility of the caller
+     * @param docClosing
+     */
+    private void closeDocumentTab(DocumentComposition docClosing) {
+        // !+TAB_CLOSE(ah, feb-2012) - we need to check for nulls because
+        // substance may be playing mr.smartypants by closing tabs by itself,
+        // when we dont veto
+        if (docClosing != null) {
+            log.info("Closing document tab for " + docClosing.toString());
+            if (docClosing.document != null) {
+                docClosing.document.close();
+            }
+            docClosing.setDocument(null);
+            docClosing.getNativeView().closeNativeView();
+            // !+TAB_CLOSE(ah, feb-2012) - substance seems to remove the tab by itself ??
+            //tabbedPane.remove(tabComponent);
+            officeDocuments.remove(docClosing);
+        }
+    }
+
+
     /**
      * Creates a OpenOffice XFrame , the document is loaded in a XFrame
      * A native view is attached to an XFrame
