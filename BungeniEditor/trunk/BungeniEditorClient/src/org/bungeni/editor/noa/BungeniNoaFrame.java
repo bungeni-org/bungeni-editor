@@ -174,9 +174,10 @@ public class BungeniNoaFrame extends BungeniFrame {
                     bundle.getString("bungeninoaframe.save_and_close"),
                     bundle.getString("bungeninoaframe.cancel_close")
                 };
+                JFrame aFrame = (JFrame) windowEvent.getSource() ;
                 
                 ArrayList<DocumentComposition> unsavedDCompositions = getUnsavedDocuments();
-                if (null != unsavedDCompositions) {
+                if (unsavedDCompositions.size() > 0) {
                     // prompt a dialog which has document name and corresponding check box
                     // if 2 tabs are open :
                     //  +---------------------------------------------------------+
@@ -189,7 +190,7 @@ public class BungeniNoaFrame extends BungeniFrame {
                     JPanel dialogPane = createSaveDialogPane(unsavedDCompositions);
 
                     // create the JOptionPane with the dialogPane attached
-                    JFrame aFrame = (JFrame) windowEvent.getSource() ;
+                    
                     int confirm = MessageBox.OptionsConfirm(aFrame, dialogPane,
                             bundle.getString("bungeninoaframe.save_multiple_docs"), buttonTexts) ;
 
@@ -208,9 +209,35 @@ public class BungeniNoaFrame extends BungeniFrame {
                                ooSave.saveDocument();
                             }
                         }
+                        // now unset the modified bit on the other documents which we dont want to save
+                        for (DocumentComposition dDoc : officeDocuments) {
+                            if (!unsavedDocumentCompositions.contains(dDoc)) {
+                                OOComponentHelper oodoc = new OOComponentHelper(
+                                    dDoc.getDocument().getXComponent(),
+                                    BungenioOoHelper.getInstance().getComponentContext()
+                                    );
+                                oodoc.setModified(false);
+                            }
+                        }
+
                         shutdownEditor();
                     }
-                }               
+                    else
+                    {
+                        // clear the list of unsaved documents
+                        unsavedDocumentCompositions.clear();
+                    }
+                }
+                else
+                {
+                    // all documents are saved, close the editor
+                    if (JOptionPane.YES_OPTION == MessageBox.Confirm(aFrame,
+                            bundle.getString("bungeninoaframe.really_exist_close_all"),
+                            bundle.getString("bungeninoaframe.close_document")))
+                    {
+                        shutdownEditor();
+                    }
+                }
             }
         });
 
@@ -268,6 +295,8 @@ public class BungeniNoaFrame extends BungeniFrame {
                // add the documentComposition to the
                // list of documents to be saved
                unsavedDocumentCompositions.add(currDocumentComposition);
+            } else {
+               unsavedDocumentCompositions.remove(currDocumentComposition);
             }
         }
     }
@@ -711,6 +740,13 @@ public class BungeniNoaFrame extends BungeniFrame {
                 return false;
             }
         }
+
+        public boolean equals(DocumentComposition dc) {
+            if (dc.getDocument().equals(getDocument()) && dc.equalsByNoaPanel(dc.getPanel().getPanel())) {
+                return true;
+            }
+            return false;
+        }
     }
 
     public final EventList<DocumentComposition> getOfficeDocuments() {
@@ -720,4 +756,6 @@ public class BungeniNoaFrame extends BungeniFrame {
     public void addOfficeDocument(DocumentComposition dc) {
         this.officeDocuments.add(dc);
     }
+
+
 }

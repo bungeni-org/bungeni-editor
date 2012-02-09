@@ -36,7 +36,8 @@ public  class MessageBox extends Object {
     }
 
     /** 
-     * This method displays a JOptionPane with a custom Panel
+     * This method displays a JOptionPane with a custom Panel rather than the
+     * message added
      * @param parent
      * @param messsage
      * @param title
