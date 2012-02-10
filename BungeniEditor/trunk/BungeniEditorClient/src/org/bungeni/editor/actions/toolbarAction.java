@@ -36,7 +36,8 @@ public class toolbarAction {
     private String                         action_value;
 
     private String                         doc_type;
-    private String                         parent_action_name;
+    //!+DEPRECATED(ah, feb-2012)
+    //private String                         parent_action_name;
     private String                         actionName;
 
     // !+ACTION_RECONF (rm, jan 2012) - deprecating variable since the
@@ -106,7 +107,8 @@ public class toolbarAction {
 
         this.action_type = actionElement.getAttributeValue("type");
 
-        this.parent_action_name  = actionElement.getAttributeValue("parent");
+        // !+DEPRECATED(ah,feb-2012) 
+        //this.parent_action_name  = actionElement.getAttributeValue("parent");
 
         this.action_display_text = actionElement.getChild("title").getValue();
 
@@ -268,9 +270,10 @@ public class toolbarAction {
         return doc_type;
     }
 
-    public String parent_action_name() {
-        return parent_action_name;
-    }
+    // !+DEPRECATED(ah, feb-2012)
+    //public String parent_action_name() {
+    //     return parent_action_name;
+    // }
 
     public String sub_action_name() {
         return actionName;

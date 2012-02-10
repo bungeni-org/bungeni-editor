@@ -656,7 +656,7 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
 
         // get the parent action
         // String sAction = this.theAction.sub_action_name();
-        String sAction = this.theSubAction.parent_action_name();
+        //String sAction = this.theSubAction.parent_action_name();
          
         String sSubAction = this.theSubAction.sub_action_name();
         // accquirePanels(sDocType, sAction, currentActiveProfile);
