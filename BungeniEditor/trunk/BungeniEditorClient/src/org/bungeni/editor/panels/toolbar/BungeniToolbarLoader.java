@@ -2,13 +2,17 @@
 package org.bungeni.editor.panels.toolbar;
 
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.BorderFactory;
 import javax.swing.JTabbedPane;
+import org.bungeni.editor.actions.DocumentActionsReader;
 import org.bungeni.extutils.BungeniEditorProperties;
+import org.jdom.Attribute;
 import org.jdom.Element;
+import org.jdom.JDOMException;
 import org.jdom.Namespace;
 import org.jdom.output.XMLOutputter;
 
@@ -113,6 +117,24 @@ public class BungeniToolbarLoader {
     }
 
     /**
+     * Adds an action to a buttonContainerPanel
+     * @param buttonContainer
+     * @param action
+     */
+    private void addActionToPanel(buttonContainerPanel buttonContainer, Element action, Element refAction) {
+        String actionTitle = geti18nTitle(action, "title");
+        if (refAction != null) {
+            if (refAction.getChildren("title").size() > 0 ) {
+                //use title from refAction
+                actionTitle = geti18nTitle(refAction, "title");
+            }
+        }
+        String actionTooltip = geti18nTooltip(action, "tooltip");
+        BungeniToolbarActionElement elem = new BungeniToolbarActionElement(action);
+        buttonPanel panelButton = new buttonPanel(actionTitle, actionTooltip, actionListener, elem);
+        buttonContainer.add(panelButton);
+    }
+    /**
      * Load the tabs from the toolbar xml config
      * @param thisPane - the JTabbedPane object which acts as the container for the ations
      */
@@ -135,12 +157,12 @@ public class BungeniToolbarLoader {
             ArrayList<Element> tabs = toolbarParser.getTabElements(groupTab);
         //iterate through the tab elements
              for (Element tab : tabs) {
-                  //get the available actions for the tab
+                 //get the tab title
+                 String tabTitle =  geti18nTitle(tab, "title"); //i18n tab.getAttributeValue("title");
+                 //get the available actions for the tab
                   ArrayList<Element> actionElements = toolbarParser.getTabActionElements(tab);
                   //check if the tab has any actions -- we add a tab only when it has actions
                   if (actionElements.size()  > 0 ) {
-                     //get the tab title
-                     String tabTitle =  geti18nTitle(tab, "title"); //i18n tab.getAttributeValue("title");
                      //create the panel for the tab
                      scrollPanel scrollablePanel = new scrollPanel();
                      //create the button container to embed into the scrollablePanel()
@@ -148,15 +170,39 @@ public class BungeniToolbarLoader {
                      buttonContainerPanel buttonContainer = new buttonContainerPanel(actionElements.size());
                      //now add the button actions to the button container panel
                      for (Element action : actionElements) {
+                        // an action can be included in a different action group by using the ref attribute e.g.
+                        // <action ref="#speech.create" /> refers to the action called speech.create
+                        // The referenced action allows overriding the title :
+                        //  <action ref="#speech.create">
+                        //    <title xml:lang="eng">Overriden title </title>
+                        //  </action>
+
+                        Attribute refAttr = action.getAttribute("ref");
+                        if (refAttr != null) {
+                            String sRef = refAttr.getValue();
+                            String origId = sRef.replace("#", "");
+                            Element origAction = null;
+                            origAction = toolbarParser.getTabActionElementByName(origId);
+                            if (origAction != null) {
+                                this.addActionToPanel(buttonContainer, origAction, action);
+                            } else {
+                                log.error("Original action could not be added as a refernce action : " + origAction);
+                            }
+                        } else {
+                            this.addActionToPanel(buttonContainer, action, null);
+
+                        /**
                         //get the title for the button
-                        String actionTitle = geti18nTitle(action, "title"); //action.getAttributeValue("title");
-                        String actionTooltip = geti18nTooltip(action, "tooltip");
-                        BungeniToolbarActionElement elem = new BungeniToolbarActionElement(action);
-                        buttonPanel panelButton = new buttonPanel(actionTitle, actionTooltip, actionListener, elem);
-                        buttonContainer.add(panelButton);
+                            String actionTitle = geti18nTitle(action, "title"); //action.getAttributeValue("title");
+                            String actionTooltip = geti18nTooltip(action, "tooltip");
+                            BungeniToolbarActionElement elem = new BungeniToolbarActionElement(action);
+                            buttonPanel panelButton = new buttonPanel(actionTitle, actionTooltip, actionListener, elem);
+                            buttonContainer.add(panelButton); **/
+                       }
                      }
                      scrollablePanel.setScrollViewPort(buttonContainer);
-                     scrollablePanel.setBorder(javax.swing.BorderFactory.createEmptyBorder());                     grpPane.addTab(tabTitle, scrollablePanel);
+                     scrollablePanel.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+                     grpPane.addTab(tabTitle, scrollablePanel);
                   }
              }
              thisPane.addTab(grpTabTitle, grpPane);

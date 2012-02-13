@@ -2,6 +2,8 @@ package org.bungeni.editor.panels.toolbar;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.db.QueryResults;
@@ -24,6 +26,7 @@ import java.io.IOException;
 import java.io.StringReader;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.extutils.CommonFileFunctions;
 
@@ -176,5 +179,21 @@ public class BungeniToolbarParser {
             return actionElements;
         }
     }
+
+    public Element getTabActionElementByName(String sName) {
+        Element actionNode = null;
+        try {
+            StringBuilder sXpath = new StringBuilder();
+            sXpath.append("//action[@name='");
+            sXpath.append(sName);
+            sXpath.append("']");
+            actionNode = (Element) XPath.selectSingleNode(document, sXpath.toString());
+        } catch (JDOMException ex) {
+            log.error("Error while getting action Element by nanme");
+        }
+        return actionNode;
+    }
+
+
 }
 
