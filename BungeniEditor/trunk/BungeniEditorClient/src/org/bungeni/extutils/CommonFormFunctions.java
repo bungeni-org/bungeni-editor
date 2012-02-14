@@ -2,6 +2,7 @@ package org.bungeni.extutils;
 
 import java.awt.Component;
 import java.util.Date;
+import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import org.jdesktop.swingx.JXDatePicker;
@@ -25,6 +26,12 @@ public class CommonFormFunctions {
         if (field.getClass().getName().equals(JSpinner.class.getName())) {
             return validateField((JSpinner) field, fieldName);
         }
+        // !+FORM_VALIDATE(ah, 14-02-2012 ) this is required to validate combo boxes correctly
+        // the combobox instance was introduced with the bill name selector in the bill metadata
+        // form
+        if (field.getClass().getName().equals(JComboBox.class.getName())) {
+            return validateField((JComboBox) field, fieldName);
+        }
 
         return false;
     }
@@ -32,6 +39,14 @@ public class CommonFormFunctions {
     public static boolean validateField (JTextField field, String fieldName) {
         String fieldText = field.getText();
         if (fieldText.trim().length() == 0 ) {
+            return false;
+        }
+        return true;
+    }
+
+    //!+FORM_VALIDATE(ah,14-02-2012) See comment above
+    public static boolean validateField(JComboBox field, String fieldName) {
+        if ( field.getSelectedIndex() == -1 ) {
             return false;
         }
         return true;
@@ -65,6 +80,8 @@ public class CommonFormFunctions {
             return bState;
         }
    }
+
+
 
 
 }

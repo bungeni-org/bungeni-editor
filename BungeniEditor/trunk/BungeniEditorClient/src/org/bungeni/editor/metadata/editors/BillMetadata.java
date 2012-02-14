@@ -16,8 +16,6 @@ import java.util.List;
 import java.util.TreeMap;
 import java.util.Vector;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -207,7 +205,7 @@ public class BillMetadata extends BaseEditorDocMetadataDialog {
             }
         });
 
-        lblBillNo1.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        lblBillNo1.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         lblBillNo1.setText(bundle.getString("BillMetadata.lblBillNo1.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
