@@ -273,7 +273,7 @@
             router="bill.section_creation.makeBillPartSection" sectiontype="Part" validator="org.bungeni.editor.actions.validators.defaultValidator">
             <title xml:lang="eng">dummy</title>
             <router class="org.bungeni.editor.actions.routers.routerCreateSection"
-                dialog="org.bungeni.editor.selectors.InitBillPreface"
+                dialog=""
             />
     </action>
     <action name="apply_numbered_heading_bill_par_section"  type="" parent="makeBillParaSection"
@@ -300,8 +300,8 @@
     </action>
     <action name="markup_short_title"  type="" parent="makeBillShortTitleSection"
             router="bill.section_creation.makeBillShortTitleSection" sectiontype="ShortTitle" validator="org.bungeni.editor.actions.validators.defaultValidator">
-            <title xml:lang="eng">dummy</title>
-            <router class=""
+            <title xml:lang="eng">Markup Short Title</title>
+            <router class="org.bungeni.editor.actions.routers.routerCreateSection"
                 dialog=""
             />
     </action>

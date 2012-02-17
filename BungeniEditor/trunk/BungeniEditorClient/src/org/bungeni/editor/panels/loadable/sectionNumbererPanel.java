@@ -5,6 +5,9 @@
  */
 package org.bungeni.editor.panels.loadable;
 
+import ag.ion.bion.officelayer.application.OfficeApplicationException;
+import ag.ion.bion.officelayer.document.DocumentException;
+import ag.ion.noa.NOAException;
 import com.sun.star.beans.PropertyVetoException;
 import com.sun.star.beans.UnknownPropertyException;
 import com.sun.star.beans.XPropertySet;
@@ -25,23 +28,35 @@ import com.sun.star.uno.AnyConverter;
 import com.sun.star.uno.UnoRuntime;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
+import net.sf.saxon.sort.NumericComparer;
 
 import org.bungeni.editor.document.DocumentSection;
 import org.bungeni.editor.document.DocumentSectionsContainer;
+import org.bungeni.editor.noa.BungeniNoaFrame.DocumentComposition;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.editor.providers.DocumentSectionIterator;
 import org.bungeni.editor.providers.DocumentSectionProvider;
@@ -54,13 +69,30 @@ import org.bungeni.numbering.impl.NumberingSchemeFactory;
 import org.bungeni.editor.numbering.ooo.OOoNumberingHelper;
 
 import org.apache.log4j.Logger;
+import org.bungeni.connector.client.BungeniConnector;
+import org.bungeni.editor.actions.SectionTypesReader;
+import org.bungeni.editor.noa.BungeniNoaFrame;
 import org.bungeni.editor.panels.loadable.refmgr.referenceManager;
+import org.bungeni.extutils.BungeniEditorProperties;
+import org.bungeni.extutils.CommonConnectorFunctions;
+import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.ooo.ooDocMetadata;
 import org.bungeni.ooo.ooQueryInterface;
 import org.bungeni.utils.BungeniBNode;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.extutils.MessageBox;
+import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
+
+import org.bungeni.odfdom.utils.BungeniOdfFileCopy;
+import org.bungeni.ooo.BungenioOoHelper;
+import org.bungeni.ooo.OOComponentHelper;
+import org.jdom.Element;
+import org.jdom.JDOMException;
+import org.odftoolkit.odfdom.doc.OdfDocument;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 
 /**
  * This is the panel that does numbering / renumbering of bill elements
@@ -70,6 +102,21 @@ import org.bungeni.extutils.MessageBox;
  * named references needs to be rewritten and simplified using character styles.
  * @author  Ashok Hariharan
  * @rewritecandidate
+ */
+/*
+ * (rm, feb 2012) - This class is being rewritten to
+ * 1. Perform the bill renumbering offScreen and display the numbered bill in an altertaive pane
+ * 2. Utilise BungeniOdfDom to perform renumbering. This lib takes advantage of oOo 3.3 functionality
+ * such as char style styling to perform the markup of documents
+ *
+ * The algorithm to perform bill numbering is
+ * 1. A copy of the initial bill oOo document is cloned. The created file has a datetime String
+ * appended to the file name
+ * 2. The cloned doc is parsed and its sections obtained
+ * 3. If a section is marked as having numbered children, then get the descedents and add the numbering
+ * as defined in the decorators
+ * 4. Open a new tabbed pane instance and add the marked up bill
+ * 
  */
 public class sectionNumbererPanel extends BaseClassForITabbedPanel {
 
@@ -86,7 +133,7 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
     private DefaultMutableTreeNode sectionRootNode = null;
     private String[] m_validParentSections;
     private String selectedNodeName = "";
-    TreeMap<String, sectionHeadingReferenceMarks> refMarksMap = new TreeMap<String, sectionHeadingReferenceMarks>();
+    private TreeMap<String, sectionHeadingReferenceMarks> refMarksMap = new TreeMap<String, sectionHeadingReferenceMarks>();
     private ArrayList<Object> refMarksInHeadingMatched = new ArrayList<Object>(0);
     private ArrayList<Object> refMarksForHeading = new ArrayList<Object>(0);
     private HashMap<String, DocumentSection> sectionTypesForDocumentType = new HashMap<String, DocumentSection>();
@@ -95,6 +142,7 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
     private static String PARENT_PREFIX_SEPARATOR = ".";
     private ooDocMetadata documentMetadata;
     private Timer timerSectionTypes;
+    private DocumentComposition documentComposition ;
 
     /** Creates new form sectionNumbererPanel */
     public sectionNumbererPanel() {
@@ -206,6 +254,8 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
         }
     }
 
+    // (rm, feb 2012) - deprecating method, it's unused
+    /*
     private void applyNumberingScheme() {
         m_bFoundHeading = false;
         /*  if (listSectionTypes.getSelectedIndex() == -1 ) {
@@ -214,6 +264,7 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
         }
         
         String sectionType= listSectionTypes.getSelectedValue().toString();            */
+    /*
         String sectionType = "";
         ////find all sections matching that section type, and populate arraylist
         ///was called readSection()
@@ -236,9 +287,10 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
     MessageBox.OK(parentFrame, "No headings were found to apply numbering upon !");
     return;
     }
-     */
+     *//*
     }
-
+    */
+    
     private void initNumbering() {
 
         this.sectionTypeMatchedSections.clear();
@@ -279,9 +331,9 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
     this.cboNumberingScheme.setEnabled(bState);
     this.lblNumberingScheme.setEnabled(bState);
     }*/
-    private ArrayList<String> findNumberedContainers() {
+    private ArrayList<String> findNumberedContainers(OOComponentHelper ooDoc) {
          log.debug("findNumberedContainers : starting ");
-        findNumberedContainersListener findNumberedContainers = new findNumberedContainersListener();
+        findNumberedContainersListener findNumberedContainers = new findNumberedContainersListener(ooDoc);
         //AH-23-01-11 removed this call since ignoreTheseSections is now a private member
         //DocumentSectionProvider.SectionTree.ignoreTheseSections = new ArrayList<String>(0);
         //AH-02-0-11 - added extra ignorethese parameter to reset the ignore sections array for the
@@ -293,21 +345,92 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
         return findNumberedContainers.numberedContainers;
     }
 
+    // (rm, feb 2012) - refactored code to allow class to use more than just the ooDocument
+    //  declared globally for this class
     class findNumberedContainersListener implements IBungeniSectionIteratorListener {
 
         ArrayList<String> numberedContainers = new ArrayList<String>(0);
+        OOComponentHelper currOoDocument = null ;
+
+        private findNumberedContainersListener (OOComponentHelper ooDoc)    {
+            currOoDocument = ooDoc ;
+        }
 
         public boolean iteratorCallback(BungeniBNode bNode) {
             String sectionName = bNode.getName();
-            String matchingSectionType = ooDocument.getSectionType(sectionName);
+
+            // ############
+            // (rm, feb 2012) - refactoring so that the numbering type is obtained from bill.xml
+            // rather than from the section metadata since it is not stored there
+            
+            // check if the section type has a numbering schemes and add it to numberedContainers
+            if (hasNumberingScheme(sectionName, currOoDocument))
+                numberedContainers.add(sectionName);
+            
+            /**
+            String matchingSectionType = currOoDocument.getSectionType(sectionName);
             if (matchingSectionType != null) {
                 if (matchingSectionType.equals(OOoNumberingHelper.NUMBERING_SECTION_TYPE)) {
                     numberedContainers.add(sectionName);
                 }
             }
+            **/
+            // #############
             return true;
         }
     }
+
+    /**
+     * This method determines from bill.xml if the section has a numbering scheme
+     * attached to it
+     * @param sectionName
+     * @return
+     */
+    private boolean hasNumberingScheme(String sectionName, OOComponentHelper ooDoc) {
+        
+        boolean hasNumberingScheme = false ;
+        try {
+            String sectionType = null ;
+            
+            // get the section Type
+            if (sectionName.equals("bill")) {                 
+                 return false;
+            }
+
+            // get the section type 
+            sectionType = ooDoc.getSectionType(sectionName) ;
+            
+            // get all the section Types
+            List<Element> sectionTypes = SectionTypesReader.getInstance().getSectionTypes();
+
+            // loop through the section Type to find the NUMBERING SCHEME
+            // (and DECORATOR if relevant)
+            for ( Element section: sectionTypes ) {
+                String sName = section.getAttributeValue("name");
+
+                if ( sectionType.equals(sName)) {
+
+                    // determine if the section has a numbering scheme
+                    Element sectionNumbering = SectionTypesReader.getInstance().getSectionTypeNumbering(sectionType);
+                    
+                    // get the numbering scheme
+                    String numberingScheme = sectionNumbering.getAttributeValue("scheme") ;
+                    
+                    if ( !"none".equals(numberingScheme))
+                        hasNumberingScheme = true ;
+
+                    break ;
+                }
+            }
+        } catch (JDOMException ex) {
+            log.error(ex);
+        } catch (IOException ex) {
+            log.error(ex);
+        }
+       
+        return hasNumberingScheme ;
+    }
+
     /*
     private void recurseNumberedNodes(BungeniBNode theBNode, ArrayList<String> numberedContainers) {
     // BungeniBNode theBNode = (BungeniBNode) theNode.getUserObject();
@@ -330,35 +453,41 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
     } */
     private static String MARKED_FOR_RENUMBERING = "RENUMBERING...";
 
-    private void applyNumberingMarkupToNonNumberedContainers(ArrayList<String> numberedContainers) {
+    // (rm, feb 2012) - refactoring method to allow any ooDoc object to be parsed
+    private void applyNumberingMarkupToNonNumberedContainers(ArrayList<String> numberedContainers,
+            OOComponentHelper ooDoc) {
         log.debug("applyNumberingMarkupToNonNumberedContainers : starting");
         for (String containerSection : numberedContainers) {
             log.debug("applyNumberingMarkupToNonNumberedContainers : processing for : " + containerSection);
-            XTextSection numberedSection = ooDocument.getSection(containerSection);
-            if (!isSectionContainingAppliedNumber(numberedSection)) {
+            XTextSection numberedSection = ooDoc.getSection(containerSection);
+            if (!isSectionContainingAppliedNumber(numberedSection, ooDoc)) {
                 log.debug("applyNumberingMarkupToNonNumberedContainers : " + containerSection + bundle.getString("no_applied_number"));
-                ooDocument.protectSection(numberedSection, false);
-                this.markupNumberedHeading(numberedSection, MARKED_FOR_RENUMBERING);
-                ooDocument.protectSection(numberedSection, true);
+                ooDoc.protectSection(numberedSection, true);
+                // ooDoc.protectSection(numberedSection, false);
+                this.markupNumberedHeading(numberedSection, MARKED_FOR_RENUMBERING, ooDoc);
+                // ooDoc.protectSection(numberedSection, true);
+                ooDoc.protectSection(numberedSection, false);
             } else {
                 log.debug("applyNumberingMarkupToNonNumberedContainers : " + containerSection + bundle.getString("contains_applied_number"));
             }
         }
     }
 
-    private boolean isSectionContainingAppliedNumber(XTextSection numberedSection) {
+    private boolean isSectionContainingAppliedNumber(XTextSection numberedSection, OOComponentHelper ooDoc) {
         boolean bState = false;
-        HashMap<String, String> sectionMeta = ooDocument.getSectionMetadataAttributes(numberedSection);
+        HashMap<String, String> sectionMeta = ooDoc.getSectionMetadataAttributes(numberedSection);
         XNamed nameSection = ooQueryInterface.XNamed(numberedSection);
         Set<String> numberingMeta = OOoNumberingHelper.numberingMetadata.keySet();
+
+        //! (rm, feb 2012) - may not find the key....the key should be added instead
         for (String numberMetaKey : numberingMeta) {
             if (sectionMeta.containsKey(OOoNumberingHelper.numberingMetadata.get(numberMetaKey))) {
-                log.debug("isSectionContainingAppliedNumber : (" + nameSection.getName() + ") true ");
+                // log.debug("isSectionContainingAppliedNumber : (" + nameSection.getName() + ") true ");
                 bState = true;
                 break;
             }
         }
-        log.debug("isSectionContainingAppliedNumber : (" + nameSection.getName() + ") false ");
+        // log.debug("isSectionContainingAppliedNumber : (" + nameSection.getName() + ") false ");
         return bState;
     }
     ///replace later with proper factory provider class
@@ -374,7 +503,8 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
     }
     private static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/panels/loadable/Bundle");
 
-    private void reApplyNumberingOnNumberedContainers() {
+    // (rm, feb 2012) - refactoring code to allow for any ooDoc to have numbering applied on
+    private void reApplyNumberingOnNumberedContainers( OOComponentHelper ooDoc) {
         //now iterate through the numbered sections and apply 
         //       sectionRenumberingIteratorListener sril = new sectionRenumberingIteratorListener();
         //     DocumentSectionIterator sectionIterator = new DocumentSectionIterator(sril);
@@ -386,6 +516,8 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
         Iterator<String> sectionTypesIterator = this.sectionTypesForDocumentType.keySet().iterator();
         while (sectionTypesIterator.hasNext()) {
             String matchedSectionType = sectionTypesIterator.next();
+
+
             DocumentSection matchSection = this.sectionTypesForDocumentType.get(matchedSectionType);
             if (!matchSection.getNumberingScheme().equalsIgnoreCase("none")) {
                 //its a numbering scheeme section type
@@ -393,7 +525,7 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
             }
         }
         for (String sectionType : numberTheseSectionTypes) {
-            updateNumbersByType(sectionType);
+            updateNumbersByType(sectionType, ooDoc);
         }
     }
     /*
@@ -421,7 +553,7 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
     }
      */
 
-    private void updateNumbersByType(String sectionType) {
+    private void updateNumbersByType(String sectionType, OOComponentHelper ooDoc) {
         try {
             ArrayList<String> sectionsMatchingType = getSectionsMatchingType(sectionType);
             //no sections found matching type, so return
@@ -442,7 +574,7 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
             //findSectionsMatchingSectionType(sectionType);
             ///why is the above being done...when the same section is iterated over again ???
             for (String matchingSection : sectionsMatchingType) {
-                XTextSection matchedSection = ooDocument.getSection(matchingSection);
+                XTextSection matchedSection = ooDoc.getSection(matchingSection);
                 XTextSection parentofMatchedSection = matchedSection.getParentSection();
                 XNamed parentSec = ooQueryInterface.XNamed(parentofMatchedSection);
                 parentSectionName = parentSec.getName();
@@ -451,15 +583,23 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
                     this.m_selectedNumberingScheme.sequence_initIterator();
                 }
 
-                XTextSection numberedChild = ooDocument.getChildSectionByType(matchedSection, OOoNumberingHelper.NUMBERING_SECTION_TYPE);
-                if (numberedChild != null) {
+               //
+                //XTextSection numberedChild = ooDoc.getChildSectionByType(matchedSection, OOoNumberingHelper.NUMBERING_SECTION_TYPE);
+                //if (numberedChild != null) {
                     String theNumber = this.m_selectedNumberingScheme.sequence_next();
                     long lBaseIndex = this.m_selectedNumberingScheme.sequence_base_index(theNumber);
-                    ooDocument.protectSection(numberedChild, false);
-                    updateNumberInSection3(numberedChild, theNumber, numDecor, lBaseIndex);
+                    // ooDoc.protectSection(numberedChild, false);
+                    ooDoc.protectSection(matchedSection, true);
+                    // ooDoc.protectSection(numberedChild, true);
+
+                    updateNumberInSection3(ooDoc, matchedSection, theNumber, numDecor, lBaseIndex);
+                    // updateNumberInSection3(ooDoc, numberedChild, theNumber, numDecor, lBaseIndex);
+
                     ////update the field here ooDocument.getTextFields();
-                    ooDocument.protectSection(numberedChild, true);
-                }
+                    //ooDoc.protectSection(numberedChild, true);
+                    ooDoc.protectSection(matchedSection, false);
+                    // ooDoc.protectSection(numberedChild, false);
+               // }
                 prevParentSectionName = parentSectionName;
             }
         } catch (Exception ex) {
@@ -469,34 +609,36 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
 
     }
 
-    private void updateNumberInSection3(XTextSection numberedChild, String theNumber, INumberDecorator numberDecorator, long lNumBaseIndex) {
+    // (rm, feb 2012- ADDED Comments : This method actually adds the numbering to the various parts
+    private void updateNumberInSection3(OOComponentHelper ooDoc, XTextSection numberedChild, String theNumber, INumberDecorator numberDecorator, long lNumBaseIndex) {
         try {
 
-            HashMap<String, String> childMeta = ooDocument.getSectionMetadataAttributes(numberedChild);
-            String sectionUUID = childMeta.get("BungeniSectionUUID");
+            HashMap<String, String> childMeta = ooDoc.getSectionMetadataAttributes(numberedChild);
+            // String sectionUUID = childMeta.get("BungeniSectionUUID");
+            String sectionUUID = childMeta.get("BungeniSectionID");
             String thisRefMark = OOoNumberingHelper.NUMBER_REF_PREFIX + sectionUUID;
             if (numberDecorator != null) {
                 theNumber = numberDecorator.decorate(theNumber);
             }
-            XNameAccess refMarks = ooDocument.getReferenceMarks();
+            XNameAccess refMarks = ooDoc.getReferenceMarks();
             if (refMarks.hasByName(thisRefMark)) {
                 Object oRefMark = refMarks.getByName(thisRefMark);
                 XTextContent oRefContent = ooQueryInterface.XTextContent(oRefMark);
                 XTextRange refInternalRange = oRefContent.getAnchor();
                 int nReferenceMarkLength = refInternalRange.getString().length();
-                XTextCursor refCursor = ooDocument.getTextDocument().getText().createTextCursor();
+                XTextCursor refCursor = ooDoc.getTextDocument().getText().createTextCursor();
                 refCursor.gotoRange(refInternalRange.getEnd(), false);
                 refCursor.setString(theNumber);
                 refCursor.gotoRange(refInternalRange.getStart(), false);
                 refCursor.goRight((short) nReferenceMarkLength, true);
                 refCursor.setString("");
                 XTextSection numberedParent = numberedChild.getParentSection();
-                String numberedParentType = ooDocument.getSectionType(numberedParent);
+                String numberedParentType = ooDoc.getSectionType(numberedParent);
 
                 //update the OOo Metadata witht the numbering value
-                documentMetadata.setOODocument(ooDocument);
+                documentMetadata.setOODocument(ooDoc);
                 documentMetadata.AddProperty(OOoNumberingHelper.META_PREFIX_NUMBER + sectionUUID, theNumber);
-                this.updateSectionNumberingMetadata(numberedChild, numberedParentType, theNumber, lNumBaseIndex);
+                this.updateSectionNumberingMetadata(ooDoc, numberedChild, numberedParentType, theNumber, lNumBaseIndex);
             }
         } catch (NoSuchElementException ex) {
             log.error("updateNumberInSection - " + ex.getMessage());
@@ -509,6 +651,8 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
 
     }
 
+    // (rm, feb 2012) - method deprecated since it is unused
+    /**
     private void updateNumberInSection2(XTextSection numberedChild, String theNumber, INumberDecorator numberDecorator, long lNumBaseIndex) {
         try {
 
@@ -552,6 +696,7 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
             String newNumber = NUMBERED_PREFIX + theNumber + NUMBERED_SUFFIX;
             numberRange.setString(newNumber + " " + headingText);
              */
+    /*
             XTextSection numberedParent = numberedChild.getParentSection();
             String numberedParentType = ooDocument.getSectionType(numberedParent);
             this.updateSectionNumberingMetadata(numberedChild, numberedParentType, theNumber, lNumBaseIndex);
@@ -561,7 +706,10 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
         }
 
     }
+    **/
 
+    // (rm, feb 2012) - method deprecated since it is unused
+    /*
     private void updateNumberInSection(XTextSection numberedChild, String theNumber, INumberDecorator numberDecorator, long lNumBaseIndex) {
         try {
             HashMap<String, String> childMeta = ooDocument.getSectionMetadataAttributes(numberedChild);
@@ -595,7 +743,8 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
         }
 
     }
-
+    */
+    
     private ArrayList<String> getSectionsMatchingType(String sectionType) {
         //  ArrayList<String> sectionsMatchingType = new ArrayList<String>(0);
         sectionTypeIteratorListener typeIterator = new sectionTypeIteratorListener(sectionType);
@@ -689,6 +838,8 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
 
     }
 
+    // (rm, feb 2012) - deprecated as unused
+    /**
     private boolean checkIfSectionsHaveNumberingScheme() {
         for (String matchedSection : sectionTypeMatchedSections) {
             //has child heading marked for numbering
@@ -702,7 +853,8 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
         }
         return false;
     }
-
+    **/
+    
     private void getParentFromSection(XTextRange aTextRange) {
 
         String prevParent = "";
@@ -850,6 +1002,8 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
         return null;
     }
 
+    // (rm, feb 2012) - deprecating method since it is unused
+    /*
     private void IterateSectionTypesForNumberedHeadings() {
         try {
             String prevParent = "";
@@ -858,16 +1012,16 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
             //initializeNumberingSchemeGenerator((long)1, (long) sectionTypeMatchedSections.size() );
             //check if parent prefix was selected
 
-            /*iterate through the sectionTypeMatchedSections and look for heading in section*/
+            // iterate through the sectionTypeMatchedSections and look for heading in section
             Iterator<String> typedMatchSectionItr = sectionTypeMatchedSections.iterator();
             while (typedMatchSectionItr.hasNext()) {
 
                 String sectionName = typedMatchSectionItr.next();
-                /*get the XTextSection object of the matching section*/
+                // get the XTextSection object of the matching section
                 XTextSection theSection = ooDocument.getSection(sectionName);
-                /*get the parent of the matching section*/
+                // get the parent of the matching section
                 XTextSection theSectionsParent = theSection.getParentSection();
-                /*get the child numbered heading */
+                // get the child numbered heading
                 XTextSection childSection = this.getChildSectionByType(theSection);
                 if (childSection == null) {
                     this.sectionTypeMatchedSectionsMissingNumbering.add(sectionName);
@@ -880,7 +1034,7 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
                     ooDocument.protectSection(childSection, true);
                 }
 
-                /*get the anchor of the matching section*/
+                // get the anchor of the matching section
 
                 prevParent = ooQueryInterface.XNamed(theSectionsParent).getName();
             }
@@ -890,7 +1044,10 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
         }
 
     }
+     */
 
+    // ( rm, feb 2012) - deprecating method since it is unused
+    /*
     private void applyNumberToNumberContainer(XTextSection theSection, XTextSection parentSection, XTextSection childSection, String prevParent) {
         //get the name of the current parent
         String currentParent = "";
@@ -903,7 +1060,10 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
         markHeadingAndApplyNumber(theSection, parentSection, childSection, prevParent);
 
     }
+     * */     
 
+    // (rm ,feb 2012) -  deprecating method since it is unused
+    /*
     private void markHeadingAndApplyNumber(XTextSection theCurrentSection, XTextSection parentSection, XTextSection childSection, String prevParent) {
         //get the current numbering
         //restart numbering, by resetting the iterator
@@ -920,7 +1080,7 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
         }*/
         // we want insert  number + space before heading
         // and set a reference mark over the number
-
+        /*
         markupNumberedHeading(childSection, theNumber);
     /*
     HashMap<String, String> numberedHeadingMap = ooDocument.getSectionMetadataAttributes(childSection);
@@ -947,9 +1107,52 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
     sectionCursor.gotoRange(childSection.getAnchor(), true);
     insertReferenceMark(sectionCursor, sectionUUID);
     updateSectionNumberingMetadata(childSection, theNumber);
+     *//*
+    }
      */
+
+    // (rm, feb 2012) - refactoring code to allow for specified OOComponentHelper
+    private void markupNumberedHeading(XTextSection childSection, String theNumber, OOComponentHelper ooDoc) {
+        HashMap<String, String> numberedHeadingMap = ooDoc.getSectionMetadataAttributes(childSection);
+        //get parent of numbered section
+        XTextSection numberedParent = childSection.getParentSection();
+        String numberedParentType = ooDoc.getSectionType(numberedParent);
+
+        String childNumberedType = ooDoc.getSectionType(childSection) ;
+
+        //get section UUID
+        // String sectionUUID = numberedHeadingMap.get("BungeniSectionUUID");
+        String sectionUUID = numberedHeadingMap.get("BungeniSectionID");
+        //get the anchor to the numbered heading section
+        XTextRange sectionRange = childSection.getAnchor();
+        //get the text of the heading in the section
+        String headingInSection = sectionRange.getString();
+        //create a cursor to walk the heading
+        XTextCursor sectionCursor = ooDoc.getTextDocument().getText().createTextCursor();
+        //map the cursor to the heading range
+        sectionCursor.gotoRange(sectionRange, false);
+        //insert a field for the number
+        insertMarkedText(sectionCursor.getStart(), theNumber, true);
+        //insertField(sectionCursor.getStart(), OOoNumberingHelper.NUM_FIELD_PREFIX, sectionUUID, theNumber);
+        sectionCursor.goLeft((short) 0, false);
+        sectionCursor.getText().insertString(sectionCursor, " ", true);
+        sectionCursor.goLeft((short) 0, false);
+        sectionCursor.goRight((short) 1, false);
+        sectionCursor.gotoRange(sectionRange.getEnd(), true);
+        //insert a field for the heading
+       // insertMarkedText(sectionCursor, headingInSection, false);
+        //insertField(sectionCursor, OOoNumberingHelper.HEAD_FIELD_PREFIX, sectionUUID, headingInSection);
+        //finally create a reference for the complete heading
+        //  sectionCursor.gotoRange(childSection.getAnchor(), false);
+        //  sectionCursor.gotoRange(childSection.getAnchor(), true);
+        insertReferenceMarkOnNumberedHeading(childSection.getAnchor(), sectionUUID, ooDoc);
+        //insertReferenceMark(sectionCursor, sectionUUID);
+        updateSectionNumberingMetadata(ooDoc, childSection, childNumberedType, theNumber, -1);
+        // updateSectionNumberingMetadata(ooDoc, childSection, numberedParentType, theNumber, -1);
     }
 
+    // (rm,feb 2012) - deprecating method since it is unused
+    /*
     private void markupNumberedHeading(XTextSection childSection, String theNumber) {
         HashMap<String, String> numberedHeadingMap = ooDocument.getSectionMetadataAttributes(childSection);
         //get parent of numbered section
@@ -983,6 +1186,7 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
         //insertReferenceMark(sectionCursor, sectionUUID);
         updateSectionNumberingMetadata(childSection, numberedParentType, theNumber, -1);
     }
+    */
 
     private void insertMarkedText(XTextRange cursorRange, String fieldContent, boolean isNumber) {
         String numberMarkerPrefix = "<", numberMarkerSuffix = ">";
@@ -1017,9 +1221,9 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
         }
     }
 
-    private void insertReferenceMarkOnNumberedHeading(XTextRange xRange, String uuidStr) {
+    private void insertReferenceMarkOnNumberedHeading(XTextRange xRange, String uuidStr, OOComponentHelper ooDoc) {
         String headingText = xRange.getString();
-        XTextCursor refHeadCursor = ooDocument.getTextDocument().getText().createTextCursor();
+        XTextCursor refHeadCursor = ooDoc.getTextDocument().getText().createTextCursor();
         refHeadCursor.gotoRange(xRange.getStart(), true);
         refHeadCursor.goRight((short) 0, false);
         //first find boundary of number
@@ -1043,7 +1247,7 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
         refHeadCursor.goRight((short) (nStartHead - nEndNum), false);
         refHeadCursor.goRight((short) (nEndHead - (nStartHead + 1)), true);
         //create reference mark over heading boundar
-        documentMetadata.setOODocument(ooDocument);
+        documentMetadata.setOODocument(ooDoc);
         documentMetadata.AddProperty(OOoNumberingHelper.META_PREFIX_HEAD + uuidStr, refHeadCursor.getString());
         insertReferenceMark2(refHeadCursor, OOoNumberingHelper.HEADING_REF_PREFIX + uuidStr);
 
@@ -1074,10 +1278,11 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
         }
     }
 
-    private void updateSectionNumberingMetadata(XTextSection childSection, String numberedParentType, String theNumber, long lTrueNumber) {
+    private void updateSectionNumberingMetadata(OOComponentHelper ooDoc, XTextSection childSection, String numberedParentType, String theNumber, long lTrueNumber) {
         HashMap<String, String> sectionMeta = new HashMap<String, String>();
         sectionMeta.put(OOoNumberingHelper.numberingMetadata.get("APPLIED_NUMBER"), theNumber);
-        sectionMeta.put(OOoNumberingHelper.numberingMetadata.get("NUMBERING_SCHEME"), /*this.getSelectedNumberingScheme().schemeName*/ getNumberingSchemeForSectionType(numberedParentType));
+        sectionMeta.put(OOoNumberingHelper.numberingMetadata.get("NUMBERING_SCHEME"), /*this.getSelectedNumberingScheme().schemeName*/
+        getNumberingSchemeForSectionType(numberedParentType));
         sectionMeta.put(OOoNumberingHelper.numberingMetadata.get("PARENT_PREFIX_NUMBER"), "");
         String trueNumber = "";
         if (!theNumber.equals(MARKED_FOR_RENUMBERING)) {
@@ -1086,7 +1291,7 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
             trueNumber = "";
         }
         sectionMeta.put(OOoNumberingHelper.numberingMetadata.get("APPLIED_TRUE_NUMBER"), trueNumber);
-        ooDocument.setSectionMetadataAttributes(childSection, sectionMeta);
+        ooDoc.setSectionMetadataAttributes(childSection, sectionMeta);
     }
 
     private String getNumberingSchemeForSectionType(String type) {
@@ -1523,6 +1728,25 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
         applyInsertCrossReferences();
     }//GEN-LAST:event_btnInsertCrossReferenceActionPerformed
 
+    public static  File convertUrlToFile(String sUrl) {
+        File f = null;
+        URL url = null;
+        try {
+            url = new URL(sUrl);
+        } catch (MalformedURLException ex) {
+            log.error("convertUrlToFile: "+ ex.getMessage());
+            return null;
+        }
+        try {
+            f = new File(url.toURI());
+        } catch(URISyntaxException e) {
+            f = new File(url.getPath());
+        } finally {
+            return f;
+        }
+    }
+
+
     private void btnRenumberSectionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRenumberSectionsActionPerformed
 // TODO add your handling code here:
         UIManager.put("ProgressBar.selectionBackground", Color.black);
@@ -1534,8 +1758,69 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
         progressNumbering.setIndeterminate(true);
         //  progressNumbering.setStringPainted(true);
         // progressNumbering.setString("Processing...");
-        RenumberingAgent agent = new RenumberingAgent();
-        agent.execute();
+        // now renumber the client
+
+        /**
+         * (rm, feb 2012) - this section has been re-edited to take advantage of
+         * bungeniodfdom for the renumbering
+         */
+        // check if the document has been saved to file
+        if ( ooDocument.isDocumentOnDisk() && !ooDocument.isModified() ) {            
+            // get the ODF Document
+            OdfDocument odfDocument = null ;
+            try {
+                odfDocument = OdfDocument.loadDocument(convertUrlToFile(ooDocument.getDocumentURL()));
+
+                //  clone the currently open file using the document package
+                BungeniOdfFileCopy fcp = new BungeniOdfFileCopy(odfDocument.getPackage());
+
+                // copy the document with the date time as suffix
+                File origFileCopy = fcp.copyTo("_numbered", true);
+
+                // capture the name of the new file as created
+                String outputFilePath = (String) CommonFileFunctions.getFileAuthorityURL(origFileCopy);              
+              
+                // prompt the user to view the ordered bill document
+                int nRet = MessageBox.Confirm(parentFrame, bundle.getString("Yes_to_open_No_to_close"), bundle.getString("Document_Successfully_Converted!"));
+
+                if (nRet == JOptionPane.YES_OPTION) {
+                    try {
+                        // create the document composition
+                        documentComposition = BungeniNoaFrame.getInstance().loadDocumentInPanel(outputFilePath, false);
+
+                        // get the OOComponent Helper, pass it to Renmbering Agent
+                         OOComponentHelper ooDocCopied = new OOComponentHelper(
+                                    documentComposition.getDocument().getXComponent(),
+                                    BungenioOoHelper.getInstance().getComponentContext());
+
+                         // pass the document composition to the renumbering agent
+                         RenumberingAgent agent = new RenumberingAgent(ooDocCopied) ;
+                         agent.execute();
+                        
+                    } catch (OfficeApplicationException ex) {
+                        log.error(ex) ;
+                    } catch (NOAException ex) {
+                        log.error(ex);
+                    } catch (DocumentException ex) {
+                        log.error(ex) ;
+                    }
+                }
+
+            } catch (Exception ex) {
+                log.error (ex);
+            }  
+        }
+        else {
+            // ask the user to save the document first
+            MessageBox.OK(parentFrame, bundle.getString("Please_save_the_document"), bundle.getString("Save_the_document"), JOptionPane.ERROR_MESSAGE);
+
+            progressNumbering.setIndeterminate(false);
+        }       
+
+        /*
+         RenumberingAgent agent = new RenumberingAgent(ooDocCopy);
+                agent.execute();
+         */
     //  progressNumbering.setIndeterminate(false);
     //  progressNumbering.setString("Completed!");
     //  parentFrame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -1558,12 +1843,18 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
     }
 
     class RenumberingAgent extends SwingWorker<Boolean, Void> {
+
+        OOComponentHelper ooDocCopy = null ;
+        public RenumberingAgent(OOComponentHelper ooDCopy) {
+            ooDocCopy = ooDCopy ;
+        }
+
         String errorMessage = "";
         @Override
         protected Boolean doInBackground() {
             boolean bState = true;
             try {
-                bState = applyRenumberingScheme();
+                bState = applyRenumberingScheme(ooDocCopy);
             } catch (Exception ex) {
                 log.error("applyRenumberingScheme :" + ex.getMessage());
                 log.error("applyRenumberingScheme : " + CommonExceptionUtils.getStackTrace(ex));
@@ -1572,7 +1863,7 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
             }
         }
 
-        private boolean applyRenumberingScheme() {
+        private boolean applyRenumberingScheme(OOComponentHelper ooDocCopy) {
         // String sectionType=listSectionTypes.getSelectedValue().toString();
         /// findSectionsMatchingSectionType(sectionType);
         //renumber happes for all sections
@@ -1583,7 +1874,7 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
 
         //1)
         log.debug("applyRenumberingScheme : invoking findNumberedContainers");
-        ArrayList<String> numberedContainers = findNumberedContainers();
+        ArrayList<String> numberedContainers = findNumberedContainers(ooDocCopy);
         if (numberedContainers.isEmpty()) {
             this.errorMessage =  bundle.getString("no_headings_for_numbering");
             return false;
@@ -1602,11 +1893,13 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
         }*/
 
         //2) & 3)
+        //  adds the metadata to the numbered sections
         log.debug("applyRenumberingScheme : invoking applyNumberingMarkupToNonNumberedContainers");
-        applyNumberingMarkupToNonNumberedContainers(numberedContainers);
+        applyNumberingMarkupToNonNumberedContainers(numberedContainers, ooDocCopy);
         //4)
+        // actually writes the number before the section in the document
         log.debug("applyRenumberingScheme : invoking reApplyNumberingOnNumberedContainers");
-        reApplyNumberingOnNumberedContainers();
+        reApplyNumberingOnNumberedContainers(ooDocCopy);
 
         return true;
     }

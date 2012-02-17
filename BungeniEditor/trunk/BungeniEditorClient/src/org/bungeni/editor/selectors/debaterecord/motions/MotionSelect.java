@@ -84,7 +84,7 @@ public class MotionSelect extends BaseMetadataPanel {
 
         setName("Select a Question"); // NOI18N
 
-        btnSelectQuestion.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnSelectQuestion.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/motions/Bundle"); // NOI18N
         btnSelectQuestion.setText(bundle.getString("MotionSelect.btnSelectQuestion.text")); // NOI18N
         btnSelectQuestion.setActionCommand(bundle.getString("MotionSelect.btnSelectQuestion.actionCommand")); // NOI18N
@@ -99,6 +99,11 @@ public class MotionSelect extends BaseMetadataPanel {
         cboSelectMotion.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         cboSelectMotion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboSelectMotion.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        cboSelectMotion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboSelectMotionActionPerformed(evt);
+            }
+        });
 
         btnAdd.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnAdd.setText(bundle.getString("MotionSelect.btnAdd.text")); // NOI18N
@@ -161,6 +166,11 @@ private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     (getContainerPanel()).enableAllChildPanels(true);
 
 }//GEN-LAST:event_btnAddActionPerformed
+
+private void cboSelectMotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboSelectMotionActionPerformed
+    // TODO add your handling code here:
+}//GEN-LAST:event_cboSelectMotionActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnSelectQuestion;

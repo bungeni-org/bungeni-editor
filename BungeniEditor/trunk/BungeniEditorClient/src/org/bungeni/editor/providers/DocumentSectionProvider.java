@@ -291,24 +291,29 @@ public class DocumentSectionProvider {
 
                             int currentIndex = 0;
                             String parentObject = documentRoot;
+
+                            // get the root section
                             XTextSection theSection = ooQueryInterface.XTextSection(root);
-                            XTextRange range = theSection.getAnchor();
-                            XText xText = range.getText();
+                            XTextRange range = theSection.getAnchor(); // getAnchor() get the start position for theSection
+                            XText xText = range.getText(); // get the whole doc
                             XEnumerationAccess enumAccess =(XEnumerationAccess)UnoRuntime.queryInterface(XEnumerationAccess.class, xText);
                             //namesMap.put(currentIndex++, parentObject);
-                            XEnumeration enumeration = enumAccess.createEnumeration();
+                            XEnumeration enumeration = enumAccess.createEnumeration(); // create enumeration of the whole document and its sections
                              log.debug("buildTree: starting Enumeration ");
                             /*
                             start the enumeration of sections first
-                            */ 
+                            */
+                             /*
+                              * This section of code extracts and adds the sections
+                              */
                              while (enumeration.hasMoreElements()) {
-                                 Object elem = enumeration.nextElement();
-                                 XPropertySet objProps = ooQueryInterface.XPropertySet(elem);
-                                 XPropertySetInfo objPropsInfo = objProps.getPropertySetInfo();
+                                 Object elem = enumeration.nextElement(); // get an element
+                                 XPropertySet objProps = ooQueryInterface.XPropertySet(elem);  // get the section/element properties
+                                 XPropertySetInfo objPropsInfo = objProps.getPropertySetInfo(); // load the properties to a PropertiesInfo Obj
                                  /*
                                   *enumerate only TextSection objects
                                   */
-                                 if (objPropsInfo.hasPropertyByName("TextSection")) {
+                                 if (objPropsInfo.hasPropertyByName("TextSection")) { // get the textSection Name from the properties info
                                      XTextSection xConSection = (XTextSection) ((Any)objProps.getPropertyValue("TextSection")).getObject();
                                      if (xConSection != null ) {
                                          /*

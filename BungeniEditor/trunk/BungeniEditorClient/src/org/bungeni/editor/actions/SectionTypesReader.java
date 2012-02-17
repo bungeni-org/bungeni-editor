@@ -70,7 +70,23 @@ public class SectionTypesReader {
     }
 
 
+    /**
+     * (rm, feb 2012) - this method obtains the numbering tag for a section type
+     * @param sectionTypeName
+     * @return
+     */
+    public Element getSectionTypeNumbering(String sectionTypeName) throws JDOMException, IOException {
+               
+       String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
+       if (!this.cachedTypes.containsKey(docType)) {
+            String docSectionsFolder = BungeniEditorProperties.get("sectionTypesFolderRoot");
+            String docSectionsFile = CommonFileFunctions.convertRelativePathToFullPath(docSectionsFolder) + File.separator + docType + ".xml";
+            this.cachedTypes.put(docType, saxBuilder.build(new File(docSectionsFile)));
+        }
 
+        XPath xPath = XPath.newInstance("//sectionType[@name='"+ sectionTypeName +"']/numbering");
+        return (Element) xPath.selectSingleNode(this.cachedTypes.get(docType));
+    }
 
 
 }

@@ -17,10 +17,12 @@ import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.ResourceBundle;
+import java.util.Timer;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.Box;
@@ -65,7 +67,8 @@ public class BungeniNoaFrame extends BungeniFrame {
     private static BungeniNoaFrame thisBungeniNoaFrame = null;
     private BungeniLocalOfficeApplication officeApplication = null;
     private String LAST_DOCUMENT_OPEN_MESSAGE = bundle.getString("bungeninoaframe.last_document_open");
-    private DataSourceServer dss = null;    
+    private DataSourceServer dss = null;
+    private Timer paneDocTimer = null ;
     /**
      * We use the glazed list library here for declaring the officeDocuments as a EventList.
      * The EventList provides Events aware combo box model which received notifications on event list
@@ -464,10 +467,29 @@ public class BungeniNoaFrame extends BungeniFrame {
         dc.setDocument(loadedDocument);
         //add it to the oficedocument list
         addOfficeDocument(dc);
+
+        // (rm, feb 2012) - run a timer to determine if the document has been
+        // modified in which case the title of the doc at the bar is set to bold
+        // (and normal if doc is not modified)
+        //paneDocTimer = new Timer (300, new CheckDocumentModified());
         BungeniNoaTabbedPane.getInstance().getTabbedPane().validate();
         return dc;
     }
 
+
+    /**
+     * This class is responsible for changing the font type of
+     * an unsaved document to ensure that unsaved documents are easily
+     * visble
+     */
+    /**
+    class CheckDocumentModified implements  ActionListener{
+        public void actionPerformed(ActionEvent e) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+        
+    }
+     **/
     /**
      * (rm, feb 2012) - This method determines on whether or not
      * the tabs (for noaTabbedPane) have a close button or not

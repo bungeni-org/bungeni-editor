@@ -34,12 +34,4 @@ public class routerApplyCharStyle extends defaultRouter {
           return new BungeniValidatorState(true, new BungeniMsg("APPLY_STYLE_FAILURE")); 
     }
 
-    
-    
-    /**** 
-     *
-     * private APIs for this action 
-     *
-     ****/
-
 }

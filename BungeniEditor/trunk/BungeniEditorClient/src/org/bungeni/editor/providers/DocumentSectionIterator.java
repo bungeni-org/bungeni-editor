@@ -75,5 +75,5 @@ public  class DocumentSectionIterator {
         } catch (Exception ex) {
             log.error("recurseAllNodes : " + ex.getMessage());
         }
-        }   
+    }   
 }

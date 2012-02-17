@@ -451,7 +451,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
     }
 
     private String convertToPlain() {
-        boolean bState = false;
+        //boolean bState = false;
         if (ooDocument.isDocumentOnDisk()) {
             //  generatePlainDocument();
             ExternalPluginLoader ep = new ExternalPluginLoader();
@@ -464,6 +464,9 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
                     }
                 }
             };
+
+            // (rm, feb 2012) - the methods org.bungeni.utils.externalplugin.ExternalPlugin
+            // setParams() and exec() check that the document has a valid structure
             convertToPlain.callMethod("setParams", argSetParams);
             Object[] argExec = {};
             Object retValue = convertToPlain.callMethod("exec", argExec);
@@ -562,11 +565,16 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
 
         btnMakePlain.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnMakePlain.setText(bundle.getString("transformXMLPanel.btnMakePlain.text")); // NOI18N
+        btnMakePlain.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMakePlainActionPerformed(evt);
+            }
+        });
 
         btnExportToXML.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnExportToXML.setText(bundle.getString("transformXMLPanel.btnExportToXML.text")); // NOI18N
 
-        btnViewValidationErrors.setFont(new java.awt.Font("DejaVu Sans", 0, 9)); // NOI18N
+        btnViewValidationErrors.setFont(new java.awt.Font("DejaVu Sans", 0, 9));
         btnViewValidationErrors.setText(bundle.getString("transformXMLPanel.btnViewValidationErrors.text")); // NOI18N
         btnViewValidationErrors.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -656,6 +664,10 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         // TODO add your handling code here:
         viewXmlDoc(evt);
     }//GEN-LAST:event_btnViewXmlDocMousePressed
+
+    private void btnMakePlainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMakePlainActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnMakePlainActionPerformed
 
     @Override
     public void initialize() {
