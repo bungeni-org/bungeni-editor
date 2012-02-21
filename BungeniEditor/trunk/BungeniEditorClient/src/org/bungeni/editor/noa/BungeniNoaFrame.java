@@ -3,6 +3,7 @@ package org.bungeni.editor.noa;
 import ag.ion.bion.officelayer.application.OfficeApplicationException;
 import ag.ion.bion.officelayer.document.DocumentException;
 import ag.ion.noa.NOAException;
+import com.sun.star.lang.EventObject;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 
@@ -15,18 +16,19 @@ import ag.ion.bion.officelayer.document.DocumentDescriptor;
 import ag.ion.bion.officelayer.text.ITextDocument;
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
+import com.sun.star.container.XNamed;
+import com.sun.star.frame.XController;
+import com.sun.star.text.XTextSection;
+import com.sun.star.uno.UnoRuntime;
+import com.sun.star.view.XSelectionChangeListener;
+import com.sun.star.view.XSelectionSupplier;
 import java.awt.Component;
-import java.awt.GridLayout;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -44,6 +46,7 @@ import org.bungeni.extutils.CommonTreeFunctions;
 import org.bungeni.extutils.MessageBox;
 import org.bungeni.ooo.BungenioOoHelper;
 import org.bungeni.ooo.OOComponentHelper;
+import org.bungeni.ooo.ooQueryInterface;
 import org.jvnet.substance.SubstanceLookAndFeel;
 import org.jvnet.substance.api.tabbed.VetoableTabCloseListener;
 
@@ -68,17 +71,15 @@ public class BungeniNoaFrame extends BungeniFrame {
     private BungeniLocalOfficeApplication officeApplication = null;
     private String LAST_DOCUMENT_OPEN_MESSAGE = bundle.getString("bungeninoaframe.last_document_open");
     private DataSourceServer dss = null;
-    private Timer paneDocTimer = null ;
+    private Timer paneDocTimer = null;
     /**
      * We use the glazed list library here for declaring the officeDocuments as a EventList.
      * The EventList provides Events aware combo box model which received notifications on event list
      * changes and updates lists dynamically
      */
     private EventList<DocumentComposition> officeDocuments = new BasicEventList<DocumentComposition>();
-
     // this stores the unsaved document compositions for closing before the application is closed
     private ArrayList<DocumentComposition> unsavedDocumentCompositions = new ArrayList<DocumentComposition>();
-    
     /**
      * The structure of this Frame is as follows :
      *
@@ -177,8 +178,8 @@ public class BungeniNoaFrame extends BungeniFrame {
                     bundle.getString("bungeninoaframe.save_and_close"),
                     bundle.getString("bungeninoaframe.cancel_close")
                 };
-                JFrame aFrame = (JFrame) windowEvent.getSource() ;
-                
+                JFrame aFrame = (JFrame) windowEvent.getSource();
+
                 ArrayList<DocumentComposition> unsavedDCompositions = getUnsavedDocuments();
                 if (unsavedDCompositions.size() > 0) {
                     // prompt a dialog which has document name and corresponding check box
@@ -193,51 +194,43 @@ public class BungeniNoaFrame extends BungeniFrame {
                     JPanel dialogPane = createSaveDialogPane(unsavedDCompositions);
 
                     // create the JOptionPane with the dialogPane attached
-                    
+
                     int confirm = MessageBox.OptionsConfirm(aFrame, dialogPane,
-                            bundle.getString("bungeninoaframe.save_multiple_docs"), buttonTexts) ;
+                            bundle.getString("bungeninoaframe.save_multiple_docs"), buttonTexts);
 
                     // if 'save the selected documents' is clicked
                     // selected documents are saved and editor is shutdown
                     // if 'cancel close is clicked - nothing happens
-                    if ( confirm == JOptionPane.YES_OPTION)
-                    {
+                    if (confirm == JOptionPane.YES_OPTION) {
                         // save the documents selected in the various checkBoxes
-                        for ( DocumentComposition dComposition : unsavedDocumentCompositions )
-                        {
+                        for (DocumentComposition dComposition : unsavedDocumentCompositions) {
                             if (dComposition.getDocument() != null) {
-                               OOComponentHelper ooSave = new OOComponentHelper(
-                                    dComposition.getDocument().getXComponent(),
-                                    BungenioOoHelper.getInstance().getComponentContext());
-                               ooSave.saveDocument();
+                                OOComponentHelper ooSave = new OOComponentHelper(
+                                        dComposition.getDocument().getXComponent(),
+                                        BungenioOoHelper.getInstance().getComponentContext());
+                                ooSave.saveDocument();
                             }
                         }
                         // now unset the modified bit on the other documents which we dont want to save
                         for (DocumentComposition dDoc : officeDocuments) {
                             if (!unsavedDocumentCompositions.contains(dDoc)) {
                                 OOComponentHelper oodoc = new OOComponentHelper(
-                                    dDoc.getDocument().getXComponent(),
-                                    BungenioOoHelper.getInstance().getComponentContext()
-                                    );
+                                        dDoc.getDocument().getXComponent(),
+                                        BungenioOoHelper.getInstance().getComponentContext());
                                 oodoc.setModified(false);
                             }
                         }
 
                         shutdownEditor();
-                    }
-                    else
-                    {
+                    } else {
                         // clear the list of unsaved documents
                         unsavedDocumentCompositions.clear();
                     }
-                }
-                else
-                {
+                } else {
                     // all documents are saved, close the editor
                     if (JOptionPane.YES_OPTION == MessageBox.Confirm(aFrame,
                             bundle.getString("bungeninoaframe.really_exist_close_all"),
-                            bundle.getString("bungeninoaframe.close_document")))
-                    {
+                            bundle.getString("bungeninoaframe.close_document"))) {
                         shutdownEditor();
                     }
                 }
@@ -256,23 +249,23 @@ public class BungeniNoaFrame extends BungeniFrame {
      */
     private JPanel createSaveDialogPane(ArrayList<DocumentComposition> unsavedDCompositions) {
         JPanel dialogPane = new JPanel();
-       
+
         dialogPane.setLayout(new MigLayout("wrap 2"));
-                
+
         // create the Jlabel for document and checkboxes for
         // the unsaved documents and attach to JPanel
-        for (int i = 0; i < unsavedDCompositions.size(); i++) {       
+        for (int i = 0; i < unsavedDCompositions.size(); i++) {
             // get the current name of the document 
-            String currDocName = unsavedDCompositions.get(i).toString() ;
+            String currDocName = unsavedDCompositions.get(i).toString();
 
             // get the unsavedDocName and Checkbox
-            JLabel unsavedDocName = new JLabel(currDocName) ;
+            JLabel unsavedDocName = new JLabel(currDocName);
             JCheckBox docCBox = new JCheckBox(new CheckBoxAction(unsavedDCompositions.get(i)));
-            docCBox.setSelected(true) ; // set the JCheckBox selcted by default
+            docCBox.setSelected(true); // set the JCheckBox selcted by default
 
             // add the panel to the container panel
-            dialogPane.add(docCBox) ;
-            dialogPane.add(unsavedDocName)  ;
+            dialogPane.add(docCBox);
+            dialogPane.add(unsavedDocName);
         }
         return dialogPane;
     }
@@ -283,24 +276,23 @@ public class BungeniNoaFrame extends BungeniFrame {
      */
     private class CheckBoxAction extends AbstractAction {
 
-        private DocumentComposition currDocumentComposition = null ; // stores the document composition to the
-                                  // affilited JCheckBox
-        
+        private DocumentComposition currDocumentComposition = null; // stores the document composition to the
+        // affilited JCheckBox
+
         public CheckBoxAction(DocumentComposition dComposition) {
-                currDocumentComposition = dComposition ;
+            currDocumentComposition = dComposition;
         }
-        
+
         public void actionPerformed(ActionEvent e) {
             // get the selected document
-            JCheckBox selectedDoc  = (JCheckBox) e.getSource() ;
+            JCheckBox selectedDoc = (JCheckBox) e.getSource();
 
-            if ( selectedDoc.isSelected() && null != currDocumentComposition )
-            {
-               // add the documentComposition to the
-               // list of documents to be saved
-               unsavedDocumentCompositions.add(currDocumentComposition);
+            if (selectedDoc.isSelected() && null != currDocumentComposition) {
+                // add the documentComposition to the
+                // list of documents to be saved
+                unsavedDocumentCompositions.add(currDocumentComposition);
             } else {
-               unsavedDocumentCompositions.remove(currDocumentComposition);
+                unsavedDocumentCompositions.remove(currDocumentComposition);
             }
         }
     }
@@ -476,7 +468,6 @@ public class BungeniNoaFrame extends BungeniFrame {
         return dc;
     }
 
-
     /**
      * This class is responsible for changing the font type of
      * an unsaved document to ensure that unsaved documents are easily
@@ -484,10 +475,10 @@ public class BungeniNoaFrame extends BungeniFrame {
      */
     /**
     class CheckDocumentModified implements  ActionListener{
-        public void actionPerformed(ActionEvent e) {
-            throw new UnsupportedOperationException("Not supported yet.");
-        }
-        
+    public void actionPerformed(ActionEvent e) {
+    throw new UnsupportedOperationException("Not supported yet.");
+    }
+
     }
      **/
     /**
@@ -676,6 +667,7 @@ public class BungeniNoaFrame extends BungeniFrame {
         private BungeniNoaNativeView nativeView;
         private BungeniNoaPanel panel;
         private ITextDocument document;
+        protected OOComponentHelper ooComponentHelper;
 
         /**
          *Create a DocumentComposition object
@@ -686,21 +678,32 @@ public class BungeniNoaFrame extends BungeniFrame {
          */
         public DocumentComposition(BungeniNoaOfficeFrame frame, BungeniNoaNativeView nativeView,
                 BungeniNoaPanel panel, ITextDocument doc) {
-            this.setFrame(frame);
-            this.setNativeView(nativeView);
-            this.setPanel(panel);
-            this.setDocument(doc);
+            this.frame = frame;
+            this.nativeView = nativeView;
+            this.panel = panel;
+            this.document = doc;
+            if (null == doc) {
+                this.ooComponentHelper = null;
+            } else {
+                this.ooComponentHelper = new OOComponentHelper(
+                        doc.getXComponent(),
+                        BungenioOoHelper.getInstance().getComponentContext());
+                this.addSelectionListener();
+            }
         }
+        String documentTitle = "";
 
         @Override
         public String toString() {
             if (document == null) {
                 return "Unknown Document";
             }
-            return OOComponentHelper.getFrameTitle(document.getXTextDocument());
+            if (documentTitle.equals("")) {
+                documentTitle = OOComponentHelper.getFrameTitle(document.getXTextDocument());
+            }
+            return documentTitle;
         }
 
-       
         /**
          * @return the frame
          */
@@ -754,7 +757,19 @@ public class BungeniNoaFrame extends BungeniFrame {
          * @param document the document to set
          */
         public final void setDocument(ITextDocument document) {
+
+            if (document != null) {
+                this.ooComponentHelper = new OOComponentHelper(document.getXComponent(),
+                        BungenioOoHelper.getInstance().getComponentContext());
+                this.addSelectionListener();
+            }
             this.document = document;
+        }
+
+        private void addSelectionListener() {
+            XSelectionSupplier selSupplier = ooQueryInterface.XSelectionSupplier(
+                    ooComponentHelper.getTextDocument().getCurrentController());
+            selSupplier.addSelectionChangeListener(new SelectionChangeListener(ooComponentHelper));
         }
 
         public boolean equalsByNoaPanel(JPanel comparePanel) {
@@ -781,5 +796,67 @@ public class BungeniNoaFrame extends BungeniFrame {
         this.officeDocuments.add(dc);
     }
 
+    private class SelectionChangeListener implements XSelectionChangeListener {
 
+        private OOComponentHelper cachedOOHelper;
+        private String currentSection = "";
+        private String previousSection = "";
+
+        public SelectionChangeListener(OOComponentHelper ooHelper) {
+            this.cachedOOHelper = ooHelper;
+        }
+
+        public void selectionChanged(EventObject aEvent) {
+            XController aCtrl = (XController) UnoRuntime.queryInterface(
+                    XController.class,
+                    aEvent.Source);
+            if (aCtrl != null) {
+                XSelectionSupplier xSelectionSupplier = ooQueryInterface.XSelectionSupplier(aEvent.Source);
+                //!+WARNING - calling things like ooComponentHelper.getCurrentSelection()
+                // over here will CRASH the system !!
+                if (xSelectionSupplier != null) {
+                    Object selection = xSelectionSupplier.getSelection();
+                    if (selection != null) {
+                        System.out.println("This is a selection change !!!");
+                        /**
+                        XTextSection aSection = cachedOOHelper.getSectionInSelection(selection);
+                        if (aSection != null) {
+                            XNamed aSectionName = ooQueryInterface.XNamed(aSection);
+                            this.currentSection = aSectionName.getName();
+                            if (this.currentSection.equals(this.previousSection)) {
+                                System.out.println("Previous Section = Current Section "
+                                        + this.currentSection);
+                            } else {
+                                System.out.println("Previous Section ("
+                                        + this.previousSection
+                                        + ")  <> Current Section " + this.currentSection);
+                                this.previousSection = this.currentSection;
+                            }
+                        }
+                         ***/
+                    }
+
+                }
+            }
+        }
+
+    
+
+       public void disposing(EventObject aSourceObj) {
+            System.out.println("Disposing Listener!!!");
+            // stop listening for selection changes
+            XSelectionSupplier aCtrl = (XSelectionSupplier) UnoRuntime.queryInterface(
+                    XSelectionSupplier.class,
+                    aSourceObj);
+            if (aCtrl != null) {
+                aCtrl.removeSelectionChangeListener(this);
+            }
+
+            // remove as dispose listener
+            //XComponent aComp = (XComponent) UnoRuntime.queryInterface( XComponent.class, aSourceObj );
+            //if( aComp != null )
+            //    aComp.removeEventListener( this );
+
+        }
+    }
 }
