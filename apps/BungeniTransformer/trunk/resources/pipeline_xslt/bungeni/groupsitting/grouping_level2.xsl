@@ -127,10 +127,6 @@
         </numResearchers>
     </xsl:template>    
     
-    <xsl:template match="field[@name='start_date']">
-        <startDate type="xs:date"><xsl:value-of select="." /></startDate>
-    </xsl:template>
-    
     <xsl:template match="field[@name='election_date']">
         <electionDate type="xs:date">
             <xsl:value-of select="." />
@@ -330,6 +326,12 @@
         <xsl:variable name="arrStatusDate" select="tokenize($status_date,'\s+')" />
         <statusDate type="xs:dateTime"><xsl:value-of select="concat($arrStatusDate[1],'T',$arrStatusDate[2])" /></statusDate>
     </xsl:template>
+ 
+    <xsl:template match="field[@name='start_date']">
+        <xsl:variable name="start_date" select="." />
+        <xsl:variable name="arrStartDate" select="tokenize($start_date,'\s+')" />
+        <startDate type="xs:dateTime"><xsl:value-of select="concat($arrStartDate[1],'T',$arrStartDate[2])" /></startDate>
+    </xsl:template>    
     
     <xsl:template match="field[@name='end_date']">
         <xsl:variable name="end_date" select="." />

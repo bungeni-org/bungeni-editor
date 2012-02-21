@@ -39,6 +39,9 @@
                     isA="TLCOrganization" 
                     date="{$parliament-election-date}" />
                 <xsl:copy-of select="tags"/>
+                
+                <!-- for <heading> -->
+                <xsl:copy-of select="field[@name='timestamp'] | event_items" />
             </bungeni>
             
             <!-- e.g. <question> or <motion> or <tableddocument> or <bill> -->
@@ -185,7 +188,7 @@
             
             <xsl:copy-of select="attached_files" />
             
-            <!-- for <motion> & <bill> -->
+            <!-- for <motion> & <bill> & <heading> -->
             <xsl:copy-of select="itemsignatories" />
          
             <xsl:copy-of select="ministry" />

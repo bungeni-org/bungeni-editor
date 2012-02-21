@@ -48,8 +48,8 @@
                      $content-type,'/',
                      $country-code, '/',
                      $group-type,'/',
-                     normalize-space($sitting-session),'/',
-                     $group_id
+                     $group_id,'/',
+                     normalize-space($sitting-session)
                      )" />
 
                 <xsl:attribute name="id" select="$group_id" />

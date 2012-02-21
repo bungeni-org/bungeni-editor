@@ -68,6 +68,18 @@
         </assignmentId>
     </xsl:template>  
     
+    <xsl:template match="field[@name='response_type']">
+        <responseType>
+            <xsl:value-of select="." />
+        </responseType>
+    </xsl:template>
+    
+    <xsl:template match="field[@name='question_type']">
+        <questionType>
+            <xsl:value-of select="." />
+        </questionType>
+    </xsl:template>    
+    
     <xsl:template match="field[@name='start_date']">
         <startDate>
             <xsl:value-of select="." />
