@@ -2710,6 +2710,31 @@ public class OOComponentHelper {
             xWind.setPosSize(intXPos, intYPos, intWidth, intHeight, nSetpos);
     }
 
+    /**
+     * If the current selection is within a section, it returns the TextSection 
+     * object for the section. Otherwise it returns null
+     * @param selection
+     * @return
+     */
+    public XTextSection getSectionInSelection(Object selection) {
+        XTextSection cursorInSection = null;
+        XPropertySet objProps = ooQueryInterface.XPropertySet(selection);
+        XPropertySetInfo objPropsInfo = objProps.getPropertySetInfo();
+         if (objPropsInfo.hasPropertyByName("TextSection")) {
+            try {
+                XTextSection xConSection = (XTextSection) ((Any)objProps.getPropertyValue("TextSection")).getObject();
+                if (xConSection != null) {
+                    cursorInSection = xConSection;
+                }
+            } catch (UnknownPropertyException ex) {
+               log.error("getSectionInSelection :  " + ex.getMessage());
+            } catch (WrappedTargetException ex) {
+               log.error("getSectionInSelection :  " + ex.getMessage());            }
+         }
+        return cursorInSection;
+    }
+
+
     /*
      * disabled temporarily
      *
