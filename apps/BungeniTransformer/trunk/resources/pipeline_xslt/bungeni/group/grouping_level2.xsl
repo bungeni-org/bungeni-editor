@@ -37,7 +37,13 @@
         <type>
             <xsl:value-of select="." />
         </type>
-    </xsl:template>      
+    </xsl:template>     
+    
+    <xsl:template match="field[@name='tag']">
+        <tag>
+            <xsl:value-of select="." />
+        </tag>
+    </xsl:template>    
     
     <xsl:template match="field[@name='group_id']">
         <groupId>

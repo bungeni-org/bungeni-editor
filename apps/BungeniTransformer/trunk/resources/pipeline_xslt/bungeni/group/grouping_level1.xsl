@@ -52,6 +52,7 @@
                                             @name='election_date' ] | group_addresses"></xsl:copy-of>
             </group>
             <bungeni>
+                <xsl:copy-of select="tags"/>
                 <xsl:copy-of select="field[  
                     @name='language' or
                     @name='status' ]" 

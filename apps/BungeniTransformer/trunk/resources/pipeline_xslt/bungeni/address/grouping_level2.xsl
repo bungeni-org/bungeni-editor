@@ -39,6 +39,12 @@
         </type>
     </xsl:template> 
     
+    <xsl:template match="field[@name='tag']">
+        <tag>
+            <xsl:value-of select="." />
+        </tag>
+    </xsl:template>    
+    
     <xsl:template match="field[@name='address_id']">
         <addressId><xsl:value-of select="."/></addressId>
     </xsl:template>     

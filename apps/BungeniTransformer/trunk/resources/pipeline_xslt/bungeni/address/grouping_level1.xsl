@@ -97,6 +97,7 @@
                                             @name='country_id' ]"></xsl:copy-of>
             </address>
             <bungeni>
+                <xsl:copy-of select="tags"/>
                 <xsl:copy-of select="field[ 
                     @name='active_p' or 
                     @name='language' or

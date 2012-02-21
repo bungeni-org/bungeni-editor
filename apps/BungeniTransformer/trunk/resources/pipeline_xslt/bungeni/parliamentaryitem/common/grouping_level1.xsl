@@ -38,6 +38,7 @@
                 <parliament href="{$for-parliament}" 
                     isA="TLCOrganization" 
                     date="{$parliament-election-date}" />
+                <xsl:copy-of select="tags"/>
             </bungeni>
             
             <!-- e.g. <question> or <motion> or <tableddocument> or <bill> -->

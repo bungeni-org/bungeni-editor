@@ -196,6 +196,12 @@
         </itemId>
     </xsl:template>
     
+    <xsl:template match="field[@name='tag']">
+        <tag>
+            <xsl:value-of select="." />
+        </tag>
+    </xsl:template>    
+    
     <xsl:template match="field[@name='doc_type']">
         <xsl:variable name="parent-type" select="//legislativeItem/field[@name='type']" />
         <xsl:variable name="value" select="." />

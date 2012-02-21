@@ -33,23 +33,47 @@
         </xsl:element>
     </xsl:template>
     
+    <xsl:template match="field[@name='venue_id']">
+        <venueId>
+            <xsl:value-of select="." />
+        </venueId>
+    </xsl:template>       
+    
+    <xsl:template match="field[@name='meeting_type']">
+        <meetingType>
+            <xsl:value-of select="." />
+        </meetingType>
+    </xsl:template>
+    
+    <xsl:template match="field[@name='convocation_type']">
+        <convocationType>
+            <xsl:value-of select="." />
+        </convocationType>
+    </xsl:template>
+    
+    <xsl:template match="field[@name='activity_type']">
+        <activityType>
+            <xsl:value-of select="." />
+        </activityType>
+    </xsl:template>
+    
     <xsl:template match="field[@name='type']">
         <type>
             <xsl:value-of select="." />
         </type>
-    </xsl:template> 
-    
-    <xsl:template match="field[@name='tag']">
-        <tag>
-            <xsl:value-of select="." />
-        </tag>
-    </xsl:template>    
+    </xsl:template>      
     
     <xsl:template match="field[@name='user_id']">
         <userId>
             <xsl:value-of select="." />
         </userId>
     </xsl:template>   
+
+    <xsl:template match="field[@name='tag']">
+        <tag>
+            <xsl:value-of select="." />
+        </tag>
+    </xsl:template>  
     
     <xsl:template match="field[@name='membership_id']">
         <membershipId>
@@ -172,7 +196,43 @@
             setting="{field[@name='setting']}" 
             name="{field[@name='permission']}"  
             role="{field[@name='role']}" />
+    </xsl:template>  
+
+    <xsl:template match="field[@name='parliamentary_item_id']">
+        <legislativeItemId>
+            <xsl:value-of select="." />
+        </legislativeItemId>
+    </xsl:template>  
+    
+    <xsl:template match="field[@name='item_id']">
+        <itemId>
+            <xsl:value-of select="." />
+        </itemId>
     </xsl:template>    
+    
+    <xsl:template match="field[@name='active']">
+        <active>
+            <xsl:value-of select="." />
+        </active>
+    </xsl:template>   
+    
+    <xsl:template match="field[@name='schedule_id']">
+        <scheduleId>
+            <xsl:value-of select="." />
+        </scheduleId>
+    </xsl:template>
+    
+    <xsl:template match="field[@name='group_sitting_id']">
+        <groupSittingId>
+            <xsl:value-of select="." />
+        </groupSittingId>
+    </xsl:template>
+    
+    <xsl:template match="field[@name='planned_order']">
+        <plannedOrder>
+            <xsl:value-of select="." />
+        </plannedOrder>
+    </xsl:template>
 
     <xsl:template match="field[@name='parliamentary_item_id']">
         <legislativeItemId>
@@ -269,6 +329,12 @@
         <xsl:variable name="status_date" select="." />
         <xsl:variable name="arrStatusDate" select="tokenize($status_date,'\s+')" />
         <statusDate type="xs:dateTime"><xsl:value-of select="concat($arrStatusDate[1],'T',$arrStatusDate[2])" /></statusDate>
+    </xsl:template>
+    
+    <xsl:template match="field[@name='end_date']">
+        <xsl:variable name="end_date" select="." />
+        <xsl:variable name="arrEndDate" select="tokenize($end_date,'\s+')" />
+        <endDate type="xs:dateTime"><xsl:value-of select="concat($arrEndDate[1],'T',$arrEndDate[2])" /></endDate>
     </xsl:template>
     
     <xsl:template match="field[@name='timestamp' or 
