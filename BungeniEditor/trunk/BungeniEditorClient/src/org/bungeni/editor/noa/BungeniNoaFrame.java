@@ -4,11 +4,15 @@ import ag.ion.bion.officelayer.application.OfficeApplicationException;
 import ag.ion.bion.officelayer.document.DocumentException;
 import ag.ion.noa.NOAException;
 import com.sun.star.lang.EventObject;
+import com.sun.star.lang.IndexOutOfBoundsException;
+import com.sun.star.lang.WrappedTargetException;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 
@@ -16,8 +20,12 @@ import ag.ion.bion.officelayer.document.DocumentDescriptor;
 import ag.ion.bion.officelayer.text.ITextDocument;
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
+import com.sun.star.beans.XPropertySet;
+import com.sun.star.beans.XPropertySetInfo;
+import com.sun.star.container.XIndexAccess;
 import com.sun.star.container.XNamed;
 import com.sun.star.frame.XController;
+import com.sun.star.lang.XServiceInfo;
 import com.sun.star.text.XTextSection;
 import com.sun.star.uno.UnoRuntime;
 import com.sun.star.view.XSelectionChangeListener;
@@ -796,6 +804,11 @@ public class BungeniNoaFrame extends BungeniFrame {
         this.officeDocuments.add(dc);
     }
 
+    /**
+     * This is the XSelectionChange event listener for the document
+     * The idea is to use the selectionchangelistener to trigger toolbar events, which
+     * are currently invoked via a Swing timer.
+     */
     private class SelectionChangeListener implements XSelectionChangeListener {
 
         private OOComponentHelper cachedOOHelper;
@@ -815,34 +828,51 @@ public class BungeniNoaFrame extends BungeniFrame {
                 //!+WARNING - calling things like ooComponentHelper.getCurrentSelection()
                 // over here will CRASH the system !!
                 if (xSelectionSupplier != null) {
+                    // get the selectoin from the selection supplier
                     Object selection = xSelectionSupplier.getSelection();
                     if (selection != null) {
-                        System.out.println("This is a selection change !!!");
-                        /**
-                        XTextSection aSection = cachedOOHelper.getSectionInSelection(selection);
-                        if (aSection != null) {
-                            XNamed aSectionName = ooQueryInterface.XNamed(aSection);
-                            this.currentSection = aSectionName.getName();
-                            if (this.currentSection.equals(this.previousSection)) {
-                                System.out.println("Previous Section = Current Section "
-                                        + this.currentSection);
-                            } else {
-                                System.out.println("Previous Section ("
-                                        + this.previousSection
-                                        + ")  <> Current Section " + this.currentSection);
-                                this.previousSection = this.currentSection;
+                        // query the selection for ranges
+                        XServiceInfo xSelInfo = ooQueryInterface.XServiceInfo(selection);
+                        if (xSelInfo.supportsService("com.sun.star.text.TextRanges")) {
+                            try {
+                                //if there is a range we access the single selection from the range
+                                XIndexAccess xIndexAccess = ooQueryInterface.XIndexAccess(selection);
+                                Object singleSelection = xIndexAccess.getByIndex(0);
+                                // check if there is a section in the selection range
+                                XTextSection aSection = cachedOOHelper.getSectionInSelection(singleSelection);
+                                if (aSection != null) {
+                                    // if there is a section, then get its name
+                                    XNamed aSectionName = ooQueryInterface.XNamed(aSection);
+                                    this.currentSection = aSectionName.getName();
+                                    if (this.currentSection.equals(this.previousSection)) {
+                                        System.out.println("Previous Section = Current Section "
+                                                + this.currentSection);
+                                        // do somehting here
+                                    } else {
+                                        System.out.println("Previous Section ("
+                                                + this.previousSection
+                                                + ")  <> Current Section " + this.currentSection);
+                                        this.previousSection = this.currentSection;
+                                        // do something else here
+                                    }
+                                }
+                            } catch (IndexOutOfBoundsException ex) {
+                                log.error("Unable to get selection range", ex);
+                            } catch (WrappedTargetException ex) {
+                                log.error("Unable to get selection range", ex);
                             }
                         }
-                         ***/
                     }
 
                 }
             }
         }
 
-    
-
-       public void disposing(EventObject aSourceObj) {
+        /**
+         * What to do when the selection listener is disposed ? Cleanup !
+         * @param aSourceObj
+         */
+        public void disposing(EventObject aSourceObj) {
             System.out.println("Disposing Listener!!!");
             // stop listening for selection changes
             XSelectionSupplier aCtrl = (XSelectionSupplier) UnoRuntime.queryInterface(
