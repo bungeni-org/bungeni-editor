@@ -28,4 +28,4 @@ glazedlists http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs
 bungenitransformer http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/transformer
 bungeniconnector http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeniconnector
 bootstrapconnector  http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bootstrapconnector
-simpleodf http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeniodfdom/
+simpleodf http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeniodfdom
