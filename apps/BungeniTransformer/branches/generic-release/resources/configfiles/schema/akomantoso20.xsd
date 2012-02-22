@@ -9,49 +9,51 @@
 	  <xsd:annotation>
 		    <xsd:documentation>
 		 =====================================================================
-  	 Akoma Ntoso main schema
-	   supported by Africa i-Parliaments, a project sponsored by United
-	   Nations Department of Economic and Social Affairs
-	   Copyright (C) Africa i-Parliaments
+		Akoma Ntoso main schema
+		supported by Africa i-Parliaments, a project sponsored by United
+		Nations Department of Economic and Social Affairs
+		Copyright (C) Africa i-Parliaments
 
 
-     Release 15/07/2011 - Initial for Akoma Ntoso 2.0
+		Release 12/10/2011 - Akoma Ntoso 2.0
+		Complete version.
 
-     technical supervision Fabio Vitali - University of Bologna
-     legal domain supervision Monica Palmirani - University of Bologna
-        
-     The present schema uses systematically XML design patterns as
-     described in http://www.xmlpatterns.com/
-     A few of them are explicitly mentioned, when their use or approach
-     was not felt clear or natural enough. Others are just used without
-     mentions.
 
-     TERMS AND CONDITIONS
-     
-     This program is free software; you can redistribute it and/or
-     modify it under the terms of the GNU General Public License
-     as published by the Free Software Foundation; either version 2
-     of the License, or (at your option) any later version.
-     
-     This program is distributed in the hope that it will be useful,
-     but WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     GNU General Public License for more details.
-     
-     You should have received a copy of the GNU General Public License
-     along with this program; if not, write to the Free Software
-     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-		===================================================================== 
+		technical supervision Fabio Vitali - University of Bologna
+		legal domain supervision Monica Palmirani - University of Bologna
+
+		The present schema uses systematically XML design patterns as
+		described in http://www.xmlpatterns.com/
+		A few of them are explicitly mentioned, when their use or approach
+		was not felt clear or natural enough. Others are just used without
+		mentions.
+
+		TERMS AND CONDITIONS
+
+		This program is free software; you can redistribute it and/or
+		modify it under the terms of the GNU General Public License
+		as published by the Free Software Foundation; either version 2
+		of the License, or (at your option) any later version.
+
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.
+
+		You should have received a copy of the GNU General Public License
+		along with this program; if not, write to the Free Software
+		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+		=====================================================================
 		</xsd:documentation>
 	  </xsd:annotation>
 
 	  <xsd:annotation>
 		    <xsd:documentation>
 		 =====================================================================
-		
+
 		Main element groups
-		
-		===================================================================== 
+
+		=====================================================================
 		</xsd:documentation>
 	  </xsd:annotation>
 
@@ -71,9 +73,11 @@
 			      <xsd:element ref="paragraph"/>
 			      <xsd:element ref="chapter"/>
 			      <xsd:element ref="title"/>
+			      <xsd:element ref="article"/>
 			      <xsd:element ref="book"/>
 			      <xsd:element ref="tome"/>
-			      <xsd:element ref="article"/>
+			      <xsd:element ref="division"/>
+			      <xsd:element ref="list"/>
 			      <xsd:element ref="point"/>
 			      <xsd:element ref="indent"/>
 			      <xsd:element ref="alinea"/>
@@ -83,6 +87,7 @@
 			      <xsd:element ref="subchapter"/>
 			      <xsd:element ref="subtitle"/>
 			      <xsd:element ref="subclause"/>
+			      <xsd:element ref="sublist"/>
 		    </xsd:choice>
 	  </xsd:group>
 
@@ -161,7 +166,7 @@
 		    </xsd:annotation>
 
 		    <xsd:choice>
-			      <xsd:element ref="list"/>
+			      <xsd:element ref="blockList"/>
 			      <xsd:element ref="toc"/>
 			      <xsd:element ref="tblock"/>
 		    </xsd:choice>
@@ -190,7 +195,10 @@
 			      <xsd:element ref="ins"/>
 			      <xsd:element ref="del"/>
 			      <xsd:element ref="omissis"/>
+			      <xsd:element ref="extractText"/>
+			      <xsd:element ref="extractStructure"/>
 			      <xsd:element ref="placeholder"/>
+			      <xsd:element ref="fillin"/>
 		    </xsd:choice>
 	  </xsd:group>
 
@@ -284,7 +292,7 @@
 	  </xsd:group>
 
 	  <xsd:group name="ANpopup">
-		
+
 
 		    <xsd:sequence>
 			      <xsd:element ref="authorialNote"/>
@@ -335,6 +343,9 @@
 			      <xsd:element ref="b"/>
 			      <xsd:element ref="i"/>
 			      <xsd:element ref="a"/>
+			      <xsd:element ref="u"/>
+			      <xsd:element ref="sub"/>
+			      <xsd:element ref="sup"/>
 			      <xsd:element ref="span"/>
 		    </xsd:choice>
 	  </xsd:group>
@@ -554,10 +565,10 @@
 	  <xsd:annotation>
 		    <xsd:documentation>
 		 =====================================================================
-		
+
 		Attribute groups
-		
-		===================================================================== 
+
+		=====================================================================
 		</xsd:documentation>
 	  </xsd:annotation>
 
@@ -583,6 +594,18 @@
 		    </xsd:annotation>
 
 		    <xsd:attribute name="name" type="xsd:string" use="required"/>
+	  </xsd:attributeGroup>
+
+	  <xsd:attributeGroup name="number">
+		    <xsd:annotation>
+			      <xsd:documentation>
+			         <type xmlns="http://www.akomantoso.org/1.0">Attlist</type>
+            <name xmlns="http://www.akomantoso.org/1.0">number</name>
+            <comment xmlns="http://www.akomantoso.org/1.0">The attribute number is used to specify a number in the publication of the document</comment>
+				     </xsd:documentation>
+		    </xsd:annotation>
+
+		    <xsd:attribute name="number" type="xsd:integer" use="required"/>
 	  </xsd:attributeGroup>
 
 	  <xsd:attributeGroup name="source">
@@ -684,7 +707,7 @@
 	  </xsd:attributeGroup>
 
 	  <xsd:attributeGroup name="voteAtts">
-		
+
 
 		    <xsd:attribute name="by" type="xsd:anyURI" use="required"/>
 		    <xsd:attribute name="as" type="xsd:anyURI"/>
@@ -935,10 +958,10 @@
 	  <xsd:annotation>
 		    <xsd:documentation>
 		 =====================================================================
-		
+
 		Simple types (data values)
-		
-		===================================================================== 
+
+		=====================================================================
 		</xsd:documentation>
 	  </xsd:annotation>
 
@@ -1131,10 +1154,10 @@
 	  <xsd:annotation>
 		    <xsd:documentation>
 		 =====================================================================
-		
+
 		Complex types (markup structures)
-		
-		===================================================================== 
+
+		=====================================================================
 		</xsd:documentation>
 	  </xsd:annotation>
 
@@ -1414,13 +1437,13 @@
 	  <xsd:annotation>
 		    <xsd:documentation>
 		 =====================================================================
-		
+
 		Root element
 		Comment: One generic root element contains all document elements
 		Pattern: Universal Root
 		Reference: http://www.xmlpatterns.com/UniversalRootMain.shtml
-		
-		===================================================================== 
+
+		=====================================================================
 		</xsd:documentation>
 	  </xsd:annotation>
 
@@ -1520,13 +1543,13 @@
 	  <xsd:annotation>
 		    <xsd:documentation>
 		 =====================================================================
-		
+
 		Document elements
 		Comment: All document elements share just two content models
 		Pattern: Consistent Element Set
 		Reference: http://www.xmlpatterns.com/ConsistentElementSetMain.shtml
-		
-		===================================================================== 
+
+		=====================================================================
 		</xsd:documentation>
 	  </xsd:annotation>
 
@@ -1556,7 +1579,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:complexType name="openStructure">
@@ -1590,7 +1613,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="mainContent" type="maincontent">
@@ -1602,7 +1625,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:complexType name="collectionStructure">
@@ -1634,7 +1657,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="officialGazette" type="collectionStructure">
@@ -1646,7 +1669,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="documentCollection">
@@ -1676,7 +1699,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:complexType name="collectionContentType">
@@ -1697,7 +1720,7 @@
 	  </xsd:complexType>
 
 	  <xsd:element name="collectionContent" type="collectionContentType"/>
-		
+
 
 
 	  <xsd:complexType name="hierarchicalStructure">
@@ -1730,7 +1753,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="bill" type="hierarchicalStructure">
@@ -1742,7 +1765,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="body">
@@ -1783,7 +1806,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="debate" type="debateStructure">
@@ -1795,7 +1818,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="debateContent">
@@ -1836,7 +1859,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="judgementBody">
@@ -1877,7 +1900,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="amendmentBody">
@@ -1907,7 +1930,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="citations">
@@ -1928,7 +1951,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="longTitle" type="blocksopt">
@@ -1940,7 +1963,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="subdivision" type="blocksopt">
@@ -1952,7 +1975,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:complexType name="basicopt">
@@ -1980,7 +2003,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:complexType name="preambleopt">
@@ -2008,7 +2031,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:complexType name="prefaceopt">
@@ -2036,7 +2059,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="conclusions" type="basicopt">
@@ -2048,7 +2071,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="header" type="blocksopt">
@@ -2060,7 +2083,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="attachments">
@@ -2081,16 +2104,16 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:annotation>
 		    <xsd:documentation>
 		 =====================================================================
-		
+
 		Elements for hierarchical documents
-		
-		===================================================================== 
+
+		=====================================================================
 		</xsd:documentation>
 	  </xsd:annotation>
 
@@ -2103,7 +2126,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="section" type="hierarchy">
@@ -2115,7 +2138,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="part" type="hierarchy">
@@ -2127,7 +2150,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="paragraph" type="hierarchy">
@@ -2139,7 +2162,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="chapter" type="hierarchy">
@@ -2151,7 +2174,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="title" type="hierarchy">
@@ -2163,7 +2186,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="book" type="hierarchy">
@@ -2175,7 +2198,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="tome" type="hierarchy">
@@ -2187,7 +2210,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="article" type="hierarchy">
@@ -2199,7 +2222,31 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
+
+
+	  <xsd:element name="division" type="hierarchy">
+      <xsd:annotation>
+			      <xsd:documentation>
+			         <type xmlns="http://www.akomantoso.org/1.0">Element</type>
+            <name xmlns="http://www.akomantoso.org/1.0">division</name>
+            <comment xmlns="http://www.akomantoso.org/1.0">this element is a hierarchical container called "division" either explicitly or due to the local tradition</comment>
+				     </xsd:documentation>
+		    </xsd:annotation>
+   </xsd:element>
+
+
+
+	  <xsd:element name="list" type="hierarchy">
+      <xsd:annotation>
+			      <xsd:documentation>
+			         <type xmlns="http://www.akomantoso.org/1.0">Element</type>
+            <name xmlns="http://www.akomantoso.org/1.0">list</name>
+            <comment xmlns="http://www.akomantoso.org/1.0">this element is a hierarchical container called "list" either explicitly or due to the local tradition</comment>
+				     </xsd:documentation>
+		    </xsd:annotation>
+   </xsd:element>
+
 
 
 	  <xsd:element name="point" type="hierarchy">
@@ -2211,7 +2258,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="indent" type="hierarchy">
@@ -2223,7 +2270,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="alinea" type="hierarchy">
@@ -2235,7 +2282,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="subsection" type="hierarchy">
@@ -2247,7 +2294,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="subpart" type="hierarchy">
@@ -2259,7 +2306,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="subparagraph" type="hierarchy">
@@ -2271,7 +2318,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="subchapter" type="hierarchy">
@@ -2283,7 +2330,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="subtitle" type="hierarchy">
@@ -2295,7 +2342,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="subclause" type="hierarchy">
@@ -2307,7 +2354,19 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
+
+
+	  <xsd:element name="sublist" type="hierarchy">
+      <xsd:annotation>
+			      <xsd:documentation>
+			         <type xmlns="http://www.akomantoso.org/1.0">Element</type>
+            <name xmlns="http://www.akomantoso.org/1.0">sublist</name>
+            <comment xmlns="http://www.akomantoso.org/1.0">this element is a hierarchical container called "sublist" either explicitly or due to the local tradition</comment>
+				     </xsd:documentation>
+		    </xsd:annotation>
+   </xsd:element>
+
 
 
 	  <xsd:element name="transitional" type="hierarchy">
@@ -2319,7 +2378,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="content" type="blocksopt">
@@ -2331,7 +2390,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="num" type="inline">
@@ -2343,7 +2402,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="heading" type="inline">
@@ -2355,7 +2414,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="subheading" type="inline">
@@ -2367,7 +2426,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="intro" type="blocksopt">
@@ -2379,7 +2438,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="wrap" type="blocksopt">
@@ -2391,16 +2450,16 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:annotation>
 		    <xsd:documentation>
 		 =====================================================================
-		
+
 		Elements for debates documents
-		
-		===================================================================== 
+
+		=====================================================================
 		</xsd:documentation>
 	  </xsd:annotation>
 
@@ -2413,7 +2472,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="rollCall" type="althierarchy">
@@ -2425,7 +2484,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="prayers" type="althierarchy">
@@ -2437,7 +2496,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="oralStatements" type="althierarchy">
@@ -2449,7 +2508,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="writtenStatements" type="althierarchy">
@@ -2461,7 +2520,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="personalStatements" type="althierarchy">
@@ -2473,7 +2532,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="ministerialStatements" type="althierarchy">
@@ -2485,7 +2544,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="resolutions" type="althierarchy">
@@ -2497,7 +2556,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="nationalInterest" type="althierarchy">
@@ -2509,7 +2568,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="declarationOfVote" type="althierarchy">
@@ -2521,7 +2580,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="communication" type="althierarchy">
@@ -2533,7 +2592,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="petitions" type="althierarchy">
@@ -2545,7 +2604,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="papers" type="althierarchy">
@@ -2557,7 +2616,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="noticesOfMotion" type="althierarchy">
@@ -2569,7 +2628,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="questions" type="althierarchy">
@@ -2581,7 +2640,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="address" type="althierarchy">
@@ -2593,7 +2652,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="proceduralMotions" type="althierarchy">
@@ -2605,7 +2664,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="pointOfOrder" type="althierarchy">
@@ -2617,7 +2676,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="adjournment" type="althierarchy">
@@ -2629,7 +2688,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="debateSection">
@@ -2659,7 +2718,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="question" type="speechType">
@@ -2671,7 +2730,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="answer" type="speechType">
@@ -2683,7 +2742,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="other" type="blocksopt">
@@ -2695,7 +2754,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="scene" type="inline">
@@ -2707,7 +2766,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="narrative" type="inline">
@@ -2719,7 +2778,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="summary" type="inline">
@@ -2731,7 +2790,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="from" type="inline">
@@ -2743,7 +2802,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="vote">
@@ -2773,7 +2832,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="introduction" type="maincontent">
@@ -2785,7 +2844,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="background" type="maincontent">
@@ -2797,7 +2856,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="motivation" type="maincontent">
@@ -2809,7 +2868,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="decision" type="maincontent">
@@ -2821,7 +2880,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="affectedDocument">
@@ -2869,7 +2928,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="amendmentHeading" type="blocksopt">
@@ -2881,7 +2940,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="amendmentContent" type="blocksopt">
@@ -2893,7 +2952,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="amendmentReference" type="blocksopt">
@@ -2905,7 +2964,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="amendmentJustification" type="blocksopt">
@@ -2917,26 +2976,26 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:annotation>
 		    <xsd:documentation>
 		 =====================================================================
-		
+
 		AN block elements
 		Comment: the only AN-specific block are the table of content (TOC),
 		a structure containing toc items related to the various subparts of the
 		main document, the list item and the titled block
-		
-		===================================================================== 
+
+		=====================================================================
 		</xsd:documentation>
 	  </xsd:annotation>
 
-	  <xsd:element name="list">
+	  <xsd:element name="blockList">
       <xsd:annotation>
 		       <xsd:documentation>
-		 The element item is a container belonging to a list 
+		 The element item is a container belonging to a list
 		</xsd:documentation>
 	     </xsd:annotation>
 		    <xsd:complexType>
@@ -2949,10 +3008,10 @@
 		    </xsd:complexType>
 	  </xsd:element>
 
-	
+
 
 	  <xsd:element name="item" type="itemType"/>
-		
+
 
 
 	  <xsd:element name="listIntroduction" type="inline">
@@ -2964,7 +3023,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="listConclusion" type="inline">
@@ -2976,7 +3035,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="tblock" type="itemType">
@@ -2988,7 +3047,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="toc">
@@ -3018,7 +3077,7 @@
 		    </xsd:complexType>
 	  </xsd:element>
 
-	
+
 
 	  <xsd:element name="docType" type="inline">
       <xsd:annotation>
@@ -3029,7 +3088,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="docTitle" type="inline">
@@ -3041,7 +3100,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="docNumber" type="inline">
@@ -3053,7 +3112,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="docProponent" type="inline">
@@ -3065,7 +3124,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="docDate">
@@ -3095,7 +3154,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="session" type="inline">
@@ -3107,7 +3166,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="docPurpose" type="inline">
@@ -3119,7 +3178,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="docCommittee" type="inline">
@@ -3131,7 +3190,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="docIntroducer" type="inline">
@@ -3143,7 +3202,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="docStage" type="inline">
@@ -3155,7 +3214,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="docStatus" type="inline">
@@ -3167,7 +3226,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="docJurisdiction" type="inline">
@@ -3179,7 +3238,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="docketNumber" type="inline">
@@ -3191,7 +3250,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="courtType" type="inline">
@@ -3203,7 +3262,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="neutralCitation" type="inline">
@@ -3215,7 +3274,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="party">
@@ -3301,7 +3360,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="date">
@@ -3367,7 +3426,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="concept" type="inlinereqreq">
@@ -3379,7 +3438,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="object" type="inlinereqreq">
@@ -3391,7 +3450,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="event" type="inlinereqreq">
@@ -3403,7 +3462,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="location" type="inlinereqreq">
@@ -3415,7 +3474,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="process" type="inlinereqreq">
@@ -3427,7 +3486,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="role" type="inlinereqreq">
@@ -3439,7 +3498,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="term" type="inlinereqreq">
@@ -3451,7 +3510,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="quantity">
@@ -3481,7 +3540,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="ref">
@@ -3511,7 +3570,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="rref">
@@ -3559,7 +3618,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="mmod" type="modType">
@@ -3571,7 +3630,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="rmod">
@@ -3592,16 +3651,46 @@
 		    </xsd:complexType>
 	  </xsd:element>
 
-	  <xsd:element name="quotedText" type="inline">
-      <xsd:annotation>
+	  <xsd:element name="quotedText">
+		    <xsd:annotation>
 			      <xsd:documentation>
 			         <type xmlns="http://www.akomantoso.org/1.0">Element</type>
             <name xmlns="http://www.akomantoso.org/1.0">quotedText</name>
-            <comment xmlns="http://www.akomantoso.org/1.0">the element quotedText is an inline element containing a small string that is used either as the text being replaced, or the replacement, or the positioning at which some modification should take place.</comment>
+            <comment xmlns="http://www.akomantoso.org/1.0">the element quotedText is an inline element containing a small string that is used either as the text being replaced, or the replacement, or the positioning at which some modification should take place. Use attribute for when quotedText is used in a mmod or rmod to point to the id of the corresponding ref element.</comment>
+				     </xsd:documentation>
+		    </xsd:annotation>
+
+		    <xsd:complexType mixed="true">
+			      <xsd:complexContent>
+				        <xsd:extension base="inline">
+					          <xsd:attribute name="for" type="xsd:anyURI"/>
+				        </xsd:extension>
+			      </xsd:complexContent>
+		    </xsd:complexType>
+	  </xsd:element>
+
+	  <xsd:element name="extractText" type="inline">
+      <xsd:annotation>
+			      <xsd:documentation>
+			         <type xmlns="http://www.akomantoso.org/1.0">Element</type>
+            <name xmlns="http://www.akomantoso.org/1.0">extractText</name>
+            <comment xmlns="http://www.akomantoso.org/1.0">the element extractText is an inline element containing a string used as an extract from another document</comment>
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
+
+
+	  <xsd:element name="extractStructure" type="popupStructure">
+      <xsd:annotation>
+			      <xsd:documentation>
+			         <type xmlns="http://www.akomantoso.org/1.0">Element</type>
+            <name xmlns="http://www.akomantoso.org/1.0">extractStructure</name>
+            <comment xmlns="http://www.akomantoso.org/1.0">the element extractStructure is a popup element containing a full structure used as an extract from another document or position.</comment>
+				     </xsd:documentation>
+		    </xsd:annotation>
+   </xsd:element>
+
 
 
 	  <xsd:element name="remark">
@@ -3650,7 +3739,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="del" type="inline">
@@ -3662,7 +3751,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="omissis" type="inline">
@@ -3674,7 +3763,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="placeholder">
@@ -3682,7 +3771,7 @@
 			      <xsd:documentation>
 			         <type xmlns="http://www.akomantoso.org/1.0">Element</type>
             <name xmlns="http://www.akomantoso.org/1.0">placeholder</name>
-            <comment xmlns="http://www.akomantoso.org/1.0">the element placeholder is an inline element inline element containing a formula (e.g., '30 days after the publication of this act') that can be replaced editorially with an actual value</comment>
+            <comment xmlns="http://www.akomantoso.org/1.0">the element placeholder is an inline element containing a formula (e.g., '30 days after the publication of this act') that can be replaced editorially with an actual value</comment>
 				     </xsd:documentation>
 		    </xsd:annotation>
 
@@ -3695,7 +3784,25 @@
 		    </xsd:complexType>
 	  </xsd:element>
 
-	
+	  <xsd:element name="fillin">
+		    <xsd:annotation>
+			      <xsd:documentation>
+			         <type xmlns="http://www.akomantoso.org/1.0">Element</type>
+            <name xmlns="http://www.akomantoso.org/1.0">fillin</name>
+            <comment xmlns="http://www.akomantoso.org/1.0">the element fillin is an inline element shown as a dotted line or any other typohtaphical characteristics to represent a fill-in element in a printed form, that is as ane example of an actual form. It is NOT meant to be used for form elements as in HTML, i.e. as a way to collect input from the reader and deliver to some server-side process.</comment>
+				     </xsd:documentation>
+		    </xsd:annotation>
+
+		    <xsd:complexType mixed="true">
+			      <xsd:complexContent>
+				        <xsd:extension base="inline">
+					          <xsd:attribute name="width" type="xsd:string"/>
+				        </xsd:extension>
+			      </xsd:complexContent>
+		    </xsd:complexType>
+	  </xsd:element>
+
+
 
 	  <xsd:element name="noteRef">
 		    <xsd:annotation>
@@ -3741,7 +3848,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="eop" type="eolType">
@@ -3753,24 +3860,24 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:annotation>
 		    <xsd:documentation>
 		 =====================================================================
-		
+
 		AN popup elements
 		Comment: AN-specific popup elements are connected to the
 		identification of structural elements that contain full structures
 		within a text content, but are not of textual nature.
-		
-		===================================================================== 
+
+		=====================================================================
 		</xsd:documentation>
 	  </xsd:annotation>
 
 	  <xsd:complexType name="popupStructure">
-		
+
 
 		    <xsd:choice minOccurs="1" maxOccurs="unbounded">
 			      <xsd:group ref="hierElements"/>
@@ -3778,6 +3885,7 @@
 			      <xsd:element ref="intro"/>
 			      <xsd:element ref="wrap"/>
 			      <xsd:element ref="heading"/>
+			      <xsd:element ref="subheading"/>
 			      <xsd:element ref="content"/>
 			      <xsd:element ref="num"/>
 			      <xsd:group ref="containerElements"/>
@@ -3825,7 +3933,7 @@
 	  </xsd:element>
 
 	  <xsd:element name="popup" type="popupStructure"/>
-		
+
 
 
 	  <xsd:element name="foreign" type="anyOtherType">
@@ -3837,13 +3945,13 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:annotation>
 		    <xsd:documentation>
 		 =====================================================================
-		
+
 		Generic elements
 		Comment: All elements in this schema fall under one of five
 		content models: hierarchical container, container, block, inline
@@ -3860,8 +3968,8 @@
 		Pattern: Generic Document + Role Attribute
 		Reference: http://www.xmlpatterns.com/GenericDocumentMain.shtml +
 		http://www.xmlpatterns.com/RoleAttributeMain.shtml
-		
-		===================================================================== 
+
+		=====================================================================
 		</xsd:documentation>
 	  </xsd:annotation>
 
@@ -3955,7 +4063,7 @@
 		    </xsd:complexType>
 	  </xsd:element>
 
-	
+
 
 	  <xsd:element name="div" type="blocksreq">
       <xsd:annotation>
@@ -3966,7 +4074,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="p" type="inline">
@@ -3978,7 +4086,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="span" type="inline">
@@ -3990,7 +4098,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="b" type="inline">
@@ -4002,7 +4110,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="i" type="inline">
@@ -4014,7 +4122,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="u" type="inline">
@@ -4026,7 +4134,31 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
+
+
+	  <xsd:element name="sup" type="inline">
+      <xsd:annotation>
+			      <xsd:documentation>
+			         <type xmlns="http://www.akomantoso.org/1.0">Element</type>
+            <name xmlns="http://www.akomantoso.org/1.0">sup</name>
+            <comment xmlns="http://www.akomantoso.org/1.0">The element sup is an HTML element and is used in Akoma Ntoso as in HTML, for the superscript style (an inline)</comment>
+				     </xsd:documentation>
+		    </xsd:annotation>
+   </xsd:element>
+
+
+
+	  <xsd:element name="sub" type="inline">
+      <xsd:annotation>
+			      <xsd:documentation>
+			         <type xmlns="http://www.akomantoso.org/1.0">Element</type>
+            <name xmlns="http://www.akomantoso.org/1.0">sub</name>
+            <comment xmlns="http://www.akomantoso.org/1.0">The element sub is an HTML element and is used in Akoma Ntoso as in HTML, for the subscript style (an inline)</comment>
+				     </xsd:documentation>
+		    </xsd:annotation>
+   </xsd:element>
+
 
 
 	  <xsd:element name="a">
@@ -4093,7 +4225,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="ol" type="listItems">
@@ -4105,7 +4237,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="li">
@@ -4152,7 +4284,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="tr">
@@ -4201,7 +4333,7 @@
 		    </xsd:complexType>
 	  </xsd:element>
 
-	
+
 
 	  <xsd:element name="meta">
 		    <xsd:complexType>
@@ -4277,7 +4409,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="FRBRExpression">
@@ -4309,7 +4441,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="FRBRItem" type="coreProperties">
@@ -4321,7 +4453,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="FRBRthis">
@@ -4484,7 +4616,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="publication">
@@ -4502,6 +4634,7 @@
 					          <xsd:attributeGroup ref="date"/>
 					          <xsd:attributeGroup ref="show"/>
 					          <xsd:attributeGroup ref="name"/>
+					          <xsd:attributeGroup ref="number"/>
 					          <xsd:attributeGroup ref="refers"/>
 				        </xsd:extension>
 			      </xsd:complexContent>
@@ -4775,7 +4908,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="passiveModifications" type="Amendments">
@@ -4787,7 +4920,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="textualMod">
@@ -4964,7 +5097,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="result">
@@ -4994,7 +5127,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="isAnalogTo" type="judicialArgumentType">
@@ -5006,7 +5139,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="applies" type="judicialArgumentType">
@@ -5018,7 +5151,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="extends" type="judicialArgumentType">
@@ -5030,7 +5163,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="restricts" type="judicialArgumentType">
@@ -5042,7 +5175,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="derogates" type="judicialArgumentType">
@@ -5054,7 +5187,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="contrasts" type="judicialArgumentType">
@@ -5066,7 +5199,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="overrules" type="judicialArgumentType">
@@ -5078,7 +5211,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="dissentsFrom" type="judicialArgumentType">
@@ -5090,7 +5223,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="putsInQuestion" type="judicialArgumentType">
@@ -5102,7 +5235,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="distinguishes" type="judicialArgumentType">
@@ -5114,7 +5247,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:complexType name="parliamentaryAnalysis">
@@ -5142,7 +5275,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:complexType name="parliamentaryAnalysisType">
@@ -5173,7 +5306,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="voting" type="parliamentaryAnalysisType">
@@ -5185,7 +5318,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="recount" type="parliamentaryAnalysisType">
@@ -5197,7 +5330,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:complexType name="countType">
@@ -5227,7 +5360,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="count" type="countType">
@@ -5239,7 +5372,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="otherAnalysis">
@@ -5309,7 +5442,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="destination" type="argumentType">
@@ -5321,7 +5454,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="force" type="periodType">
@@ -5333,7 +5466,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="efficacy" type="periodType">
@@ -5345,7 +5478,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="application" type="periodType">
@@ -5357,7 +5490,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="duration" type="periodType">
@@ -5369,7 +5502,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="condition">
@@ -5399,7 +5532,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="new" type="anyOtherType">
@@ -5411,7 +5544,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="domain" type="anyOtherType">
@@ -5423,13 +5556,13 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="temporalData">
       <xsd:annotation>
 		       <xsd:documentation>
-		 The element temporalGroup contains a list of time Intervals that need to be applied together to an element of the document that is associated to time information. Each temporal group can contain any number of time interval associated via the refersTo to a different time-specific concept. 
+		 The element temporalGroup contains a list of time Intervals that need to be applied together to an element of the document that is associated to time information. Each temporal group can contain any number of time interval associated via the refersTo to a different time-specific concept.
 		</xsd:documentation>
 	     </xsd:annotation>
 		    <xsd:complexType>
@@ -5440,12 +5573,12 @@
 		    </xsd:complexType>
 	  </xsd:element>
 
-	
+
 
 	  <xsd:element name="temporalGroup">
       <xsd:annotation>
 		       <xsd:documentation>
-		 The element timeInterval contains all the data needed to identify a specific time interval. It is built either with two dates or with a date and a duration (exactly two of the 'start', 'end' and 'duration' attributes can be specified). Values are of the 'start' and 'end' attributes are NOT dates, but references to event elements in the corresponding metadata section. The refers attribute is a reference to a temporal concept belonging to the Akoma Ntoso ontology and specified in the references section 
+		 The element timeInterval contains all the data needed to identify a specific time interval. It is built either with two dates or with a date and a duration (exactly two of the 'start', 'end' and 'duration' attributes can be specified). Values are of the 'start' and 'end' attributes are NOT dates, but references to event elements in the corresponding metadata section. The refers attribute is a reference to a temporal concept belonging to the Akoma Ntoso ontology and specified in the references section
 		</xsd:documentation>
 	     </xsd:annotation>
 		    <xsd:complexType>
@@ -5456,10 +5589,10 @@
 		    </xsd:complexType>
 	  </xsd:element>
 
-	
+
 
 	  <xsd:element name="timeInterval">
-		
+
 
 		    <xsd:complexType>
 			      <xsd:complexContent>
@@ -5548,7 +5681,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="passiveRef" type="referenceType">
@@ -5560,7 +5693,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="activeRef" type="referenceType">
@@ -5572,7 +5705,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="jurisprudence" type="referenceType">
@@ -5584,7 +5717,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="hasAttachment">
@@ -5632,7 +5765,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="TLCOrganization" type="referenceType">
@@ -5644,7 +5777,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="TLCConcept" type="referenceType">
@@ -5656,7 +5789,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="TLCObject" type="referenceType">
@@ -5668,7 +5801,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="TLCEvent" type="referenceType">
@@ -5680,7 +5813,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="TLCLocation" type="referenceType">
@@ -5692,7 +5825,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="TLCProcess" type="referenceType">
@@ -5704,7 +5837,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="TLCRole" type="referenceType">
@@ -5716,7 +5849,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="TLCTerm" type="referenceType">
@@ -5728,7 +5861,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="TLCReference">
@@ -5767,7 +5900,7 @@
 				     </xsd:documentation>
 		    </xsd:annotation>
    </xsd:element>
-		
+
 
 
 	  <xsd:element name="proprietary">
@@ -5806,7 +5939,7 @@
 		    </xsd:complexType>
 	  </xsd:element>
 
-	
+
 
 	  <xsd:element name="components">
 		    <xsd:complexType>
@@ -5820,10 +5953,10 @@
       <xsd:annotation>
 		       <xsd:documentation>
 		 =====================================================================
-		
+
 		End of Schema
-		
-		===================================================================== 
+
+		=====================================================================
 		</xsd:documentation>
 	     </xsd:annotation>
 		    <xsd:complexType>
@@ -5834,6 +5967,6 @@
 		    </xsd:complexType>
 	  </xsd:element>
 
-	
+
 
 </xsd:schema>
