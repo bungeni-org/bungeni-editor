@@ -8,7 +8,7 @@
     </xsl:template>
 
     <xsl:template match="*">
-        <xsl:element name="{node-name(.)}" namespace="http://www.akomantoso.org/1.0">
+        <xsl:element name="{node-name(.)}" namespace="http://www.akomantoso.org/2.0">
             <xsl:for-each select="@*">
                 <xsl:attribute name="{name(.)}">
                     <xsl:value-of select="."/>
