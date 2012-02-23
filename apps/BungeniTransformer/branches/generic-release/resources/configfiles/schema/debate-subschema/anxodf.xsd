@@ -5,8 +5,8 @@
 
     -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns="http://anx.bungeni.org/odf/1.0"
-    targetNamespace="http://anx.bungeni.org/odf/1.0">
+    xmlns="http://editor.bungeni.org/1.0/odf/"
+    targetNamespace="http://editor.bungeni.org/1.0/odf/">
 
     <xs:attribute name="sourceId" type="xs:string" />
 </xs:schema>

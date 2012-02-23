@@ -1,12 +1,12 @@
 <xsd:schema xmlns="http://www.akomantoso.org/2.0"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-   xmlns:bodf="http://anx.bungeni.org/odf/1.0"
+   xmlns:bodf="http://editor.bungeni.org/1.0/odf/"
    targetNamespace="http://www.akomantoso.org/2.0"
    elementFormDefault="qualified">
 
 
 	<xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/xml.xsd"/>
-        <xsd:import namespace="http://anx.bungeni.org/odf/1.0" schemaLocation="./anxodf.xsd"  />
+        <xsd:import namespace="http://editor.bungeni.org/1.0/odf/" schemaLocation="./anxodf.xsd"  />
 	<xsd:annotation>
 		<xsd:documentation>
 		 =====================================================================

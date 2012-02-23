@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:bp="http://www.bungeni.org/pipeline/1.0"
+                xmlns:bodf="http://editor.bungeni.org/1.0/odf/"
                 exclude-result-prefixes="bp"
                 version="2.0">
     <xsl:output indent="yes" method="xml" encoding="UTF-8"/>
@@ -22,6 +23,7 @@
 
     <xsl:template match="*[@name='Preface']" bp:name="Preface">
         <preface>
+            <xsl:attribute name="bodf:sourceId" select="@id" />
             <xsl:apply-templates />
         </preface>
     </xsl:template>
