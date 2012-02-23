@@ -105,7 +105,9 @@
                             <xsl:when test="field[@name='event_item_id']" >
                                <xsl:value-of select="field[@name='event_item_id']" />
                             </xsl:when>
-                            
+                            <!--+NOTE (ao,22 Feb 2012) <heading> types pass here too :),
+                                since they are a special case without registry_number... They
+                                end up with a broken @uri, its known. -->
                             <xsl:otherwise>
                                 <xsl:value-of select="field[@name='registry_number']" />
                             </xsl:otherwise>

@@ -12,7 +12,6 @@
     </xd:doc>
 
     <!-- these are input parameters to the transformation a-->
-    <!-- these are input parameters to the transformation a-->
     <xsl:param name="country-code"  />
     <xsl:param name="parliament-election-date"  />
     <xsl:param name="for-parliament" />
@@ -27,35 +26,22 @@
         <xsl:variable name="content-type" select="@name" />
         <xsl:variable name="group-type" select="field[@name='type']" />
         <ontology type="{$content-type}">
-            <membership>
-                <xsl:attribute name="type" select="$group-type" />
-
-                <!-- !+URI_GENERATOR,!+FIX_THIS(ah,nov-2011) use ontology uri
-                for group since its non-document entity -->
+            <membership isA="TLCPerson" >
+                <xsl:variable name="item_number" select="user/field[@name='user_id']"></xsl:variable>
                 <xsl:attribute name="uri" 
-                    select="concat(
-                     '/ontology/',
-                     $content-type,'/',
-                     $country-code, '/',
-                     $group-type,'/',
-                     $group_id
-                     )" />
-
-                <xsl:attribute name="id" select="$group_id" />
+                    select="concat($for-parliament, '/', 
+                    $content-type, '/', 
+                    $item_number)" />
                 
-                <xsl:copy-of select="field[ @name='parent_group_id' or 
-                                            @name='min_num_members' or 
-                                            @name='num_researchers' or 
-                                            @name='num_members' or 
-                                            @name='quorum' or 
-                                            @name='start_date' or 
-                                            @name='election_date' ] | group_addresses"></xsl:copy-of>
+                <xsl:copy-of select="user/child::*" /> 
+                <xsl:copy-of select="changes | member_titles"/>
             </membership>
             <bungeni>
                 <xsl:copy-of select="tags"/>
                 <xsl:copy-of select="field[  
                     @name='language' or
-                    @name='status' ]" 
+                    @name='status' or 
+                    @name='partymember' ]" 
                 />                    
                 <xsl:copy-of select="permissions" />
                 <principalGroup>
@@ -73,17 +59,19 @@
             </xsl:element>
             -->
             <legislature>
-                <xsl:copy-of select="field[  
+                <xsl:copy-of select="group/field[  
                     @name='short_name' or
                     @name='full_name' or 
                     @name='description' or 
-                    @name='parliament_id' or 
                     @name='type' or 
+                    @name='group_id' or 
+                    @name='party_id' or 
                     @name='election_date' or 
+                    @name='start_date' or 
                     @name='dissolution_date' or 
                     @name='results_date' or 
                     @name='proportional_presentation' or 
-                    @name='status_date' ] | agenda_items | parent_group" 
+                    @name='status_date' ] " 
                 />             
             </legislature> 
         </ontology>

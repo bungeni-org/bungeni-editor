@@ -47,12 +47,12 @@
     <processgroup id="proc-group-item">
         
         <process name="unescapehtml"
-            description="item body"
-            param="//bu:ontology/bu:legislature/bu:description" />
+            description="membership description text"
+            param="//bu:ontology/bu:membership/bu:description" />
         
         <process name="unescapehtml"
-            description="owner description text"
-            param="//bu:ontology/bu:legislature/bu:parentGroup/bu:description" />
+            description="group description text"
+            param="//bu:ontology/bu:legislature/bu:description" />
         
     </processgroup>
     
