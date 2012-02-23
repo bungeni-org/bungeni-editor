@@ -13,7 +13,7 @@
 
 
     <!-- Specfies the schema for the xml document being created -->
-    <schema href="configfiles/schema/akomantoso10.xsd" />
+    <schema href="configfiles/schema/akomantoso20.xsd" />
 
     <!-- This steps are performed BEFORE the below regex replacement -->
     <input>
