@@ -1,8 +1,12 @@
-<xsd:schema xmlns="http://www.akomantoso.org/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.akomantoso.org/2.0" elementFormDefault="qualified">
+<xsd:schema xmlns="http://www.akomantoso.org/2.0"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   xmlns:bodf="http://anx.bungeni.org/odf/1.0"
+   targetNamespace="http://www.akomantoso.org/2.0"
+   elementFormDefault="qualified">
 
 
 	<xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/xml.xsd"/>
-
+        <xsd:import namespace="http://anx.bungeni.org/odf/1.0" schemaLocation="./anxodf.xsd"  />
 	<xsd:annotation>
 		<xsd:documentation>
 		 =====================================================================
@@ -524,6 +528,7 @@
 
 		<xsd:attribute name="id" type="xsd:ID" use="required"/>
 		<xsd:attribute name="evolvingId" type="xsd:NMTOKEN"/>
+                <xsd:attribute ref="bodf:sourceId" />
 	</xsd:attributeGroup>
 
 	<xsd:attributeGroup name="idopt">
