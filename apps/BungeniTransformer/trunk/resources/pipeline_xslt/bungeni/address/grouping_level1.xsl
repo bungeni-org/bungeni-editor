@@ -45,7 +45,7 @@
                     <xsl:choose>
                         <xsl:when test="field[@name='group_id']">
                             <xsl:value-of select="concat(
-                                         '/ontology/',
+                                         $for-parliament,'/',
                                          'group/',
                                          $country-code,'/',
                                          $group-type,'/',

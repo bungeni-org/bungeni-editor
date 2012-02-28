@@ -314,7 +314,7 @@
    
     </xsl:template>
     
-
+    <xsl:variable name="parl_id" select="field[@name='owner_id']" />
     
     <xsl:template name="user_render">
         <xsl:param name="typeOf" select="string('unknown')" />
@@ -323,14 +323,13 @@
         <xsl:element name="{$typeOf}">
             <xsl:attribute name="isA" select="$isA" />
             <xsl:attribute name="showAs" select="$showAs" />
-            <xsl:attribute name="href" select="concat($for-parliament, '/user/', field[@name='user_id'])" />
+            <xsl:attribute name="href" select="concat($for-parliament,'/parliament/',2,'/member/', field[@name='user_id'])" />
         </xsl:element>
     </xsl:template>
     
 
     <!--+FIX_THIS content_id, ministry_id is suppresed for versions -->
     <xsl:template match="field[
-        @name='parliament_id' or 
         @name='type' or 
         @name='content_id' or
         @name='timestamp' or 
