@@ -151,6 +151,48 @@
         <fullName>
             <xsl:value-of select="." />
         </fullName>
+    </xsl:template>  
+    
+    <xsl:template match="field[@name='file_title']">
+        <fileTitle>
+            <xsl:value-of select="." />
+        </fileTitle>
+    </xsl:template>   
+    
+    <xsl:template match="field[@name='file_mimetype']">
+        <fileMimetype>
+            <xsl:value-of select="." />
+        </fileMimetype>
+    </xsl:template>   
+    
+    <xsl:template match="field[@name='file_name']">
+        <fileName>
+            <xsl:value-of select="." />
+        </fileName>
+    </xsl:template>  
+    
+    <xsl:template match="field[@name='attached_file_type']">
+        <attachedFileType>
+            <xsl:value-of select="." />
+        </attachedFileType>
+    </xsl:template>    
+    
+    <xsl:template match="field[@name='attached_file_id']">
+        <attachedFileId>
+            <xsl:value-of select="." />
+        </attachedFileId>
+    </xsl:template>  
+    
+    <xsl:template match="field[@name='saved_file']">
+        <savedFile>
+            <xsl:value-of select="." />
+        </savedFile>
+    </xsl:template>  
+    
+    <xsl:template match="field[@name='att_uuid']">
+        <attachedFileUuid>
+            <xsl:value-of select="." />
+        </attachedFileUuid>
     </xsl:template>    
     
     <xsl:template match="field[@name='language']">
