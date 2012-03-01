@@ -1779,32 +1779,31 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
 
                 // capture the name of the new file as created
                 String outputFilePath = (String) CommonFileFunctions.getFileAuthorityURL(origFileCopy);              
-              
-                // prompt the user to view the ordered bill document
-                int nRet = MessageBox.Confirm(parentFrame, bundle.getString("Yes_to_open_No_to_close"), bundle.getString("Document_Successfully_Converted!"));
 
-                if (nRet == JOptionPane.YES_OPTION) {
-                    try {
-                        // create the document composition
-                        documentComposition = BungeniNoaFrame.getInstance().loadDocumentInPanel(outputFilePath, false);
+                // pass the document to the Numbering Agent
+                NumberingAgent nAgent = new NumberingAgent(origFileCopy) ;
 
-                        // get the OOComponent Helper, pass it to Renmbering Agent
-                         OOComponentHelper ooDocCopied = new OOComponentHelper(
-                                    documentComposition.getDocument().getXComponent(),
-                                    BungenioOoHelper.getInstance().getComponentContext());
+                if (nAgent.numberDocument()) {
+                    int nRet = MessageBox.Confirm(parentFrame, bundle.getString("Yes_to_open_No_to_close")
+                            , bundle.getString("Document_Successfully_Converted!"));
 
-                         // pass the document composition to the renumbering agent
-                         RenumberingAgent agent = new RenumberingAgent(ooDocCopied) ;
-                         agent.execute();
-                        
-                    } catch (OfficeApplicationException ex) {
-                        log.error(ex) ;
-                    } catch (NOAException ex) {
-                        log.error(ex);
-                    } catch (DocumentException ex) {
-                        log.error(ex) ;
+                    if (nRet == JOptionPane.YES_OPTION) {
+                        try {
+                            // create the document composition and
+                            // display the numbered document
+                            documentComposition = BungeniNoaFrame.getInstance().loadDocumentInPanel(outputFilePath, false);
+
+                        } catch (OfficeApplicationException ex) {
+                            log.error(ex);
+                        } catch (NOAException ex) {
+                            log.error(ex);
+                        } catch (DocumentException ex) {
+                            log.error(ex);
+                        }
                     }
-                }
+                } else {
+                    MessageBox.OK(parentFrame, bundle.getString("Document_Failure_Conversion"));
+                }                         
 
             } catch (Exception ex) {
                 log.error (ex);
