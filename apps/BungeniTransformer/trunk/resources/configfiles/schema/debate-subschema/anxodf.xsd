@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    This is the custom XML namespace for pointing to a source ODF attribute from Akoma Ntoso
+
+    -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://editor.bungeni.org/1.0/odf/"
+    targetNamespace="http://editor.bungeni.org/1.0/odf/">
+
+    <xs:attribute name="sourceId" type="xs:string" />
+</xs:schema>
