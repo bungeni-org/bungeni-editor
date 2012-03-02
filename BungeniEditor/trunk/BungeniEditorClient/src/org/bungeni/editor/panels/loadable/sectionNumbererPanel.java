@@ -1780,10 +1780,21 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
                 // capture the name of the new file as created
                 String outputFilePath = (String) CommonFileFunctions.getFileAuthorityURL(origFileCopy);              
 
-                // pass the document to the Numbering Agent
-                NumberingAgent nAgent = new NumberingAgent(origFileCopy) ;
+                // determine if the document has been numbered
+                ooDocMetadata docM = new ooDocMetadata(ooDocument);
+                boolean documentHadBeenNumbered = (docM.GetProperty("isBungeniBillNumbered").equals("true")) ?
+                    true : false ;
 
+                // pass the document to the Numbering Agent
+                NumberingAgent nAgent = new NumberingAgent(origFileCopy, documentHadBeenNumbered) ;                
+                
                 if (nAgent.numberDocument()) {
+
+                    // indicate the document has now been numbered
+                    docM.SetProperty("isBungeniBillNumbered", "true") ;
+                    ooDocument.saveDocument();
+
+                    // request user to view the numbered document
                     int nRet = MessageBox.Confirm(parentFrame, bundle.getString("Yes_to_open_No_to_close")
                             , bundle.getString("Document_Successfully_Converted!"));
 

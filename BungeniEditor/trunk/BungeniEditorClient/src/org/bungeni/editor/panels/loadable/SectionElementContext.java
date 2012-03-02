@@ -25,10 +25,12 @@ package org.bungeni.editor.panels.loadable;
  */
 public class SectionElementContext {
 
-    private String textSectionElementName ;
-    private String textSectionType ;
-    private String textSectionParentName ;
-    private int textSectionCounter ;
+    private String textSectionElementName = "" ;
+    private String textSectionType = ""  ;
+    private String textSectionParentName = "" ;
+    private int textSectionCounter  ;
+    private String numberingString = ""  ; // stores the numbering string for the value
+                        // e.g in '(1) Part' the numbering string is (1)
 
     public SectionElementContext(String tSectionName, String tSectionType, String tSectionParent,
             int tSectionNo) {
@@ -54,7 +56,11 @@ public class SectionElementContext {
         return textSectionType ;
     }
 
-    public void sectionName(String nSectionName) {
+   public String getNumberingString () {
+       return numberingString ;
+   }
+   
+   public void sectionName(String nSectionName) {
         textSectionElementName = nSectionName ;
     }
 
@@ -66,7 +72,11 @@ public class SectionElementContext {
         textSectionCounter = nSectionCounter ;
     }
 
-    private void setSectionType (String sectionType) {
+    public void setSectionType (String sectionType) {
         textSectionType =  sectionType ;
+    }
+
+    public void setNumberingString( String nString) {
+        numberingString = nString ;
     }
 }

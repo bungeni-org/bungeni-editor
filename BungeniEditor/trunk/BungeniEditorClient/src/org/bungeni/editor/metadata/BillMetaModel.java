@@ -11,7 +11,10 @@ import org.bungeni.ooo.ooDocMetadata;
 public class BillMetaModel extends BaseEditorDocMetaModel {
 
     public static final String[] GROUPED_METADATA = { };
-    public static final String[] THIS_METAMODEL   = { "BungeniBillNo", "BungeniBillName", "BungeniDateOfAssent", "BungeniDateOfCommencement" };
+
+    // (rm, march 2012) - added meta item to store the numbered status of a document
+    public static final String[] THIS_METAMODEL   = { "BungeniBillNo", "BungeniBillName", "BungeniDateOfAssent", "BungeniDateOfCommencement"
+        , "isBungeniBillNumbered"};
 
     public BillMetaModel(){
         super();

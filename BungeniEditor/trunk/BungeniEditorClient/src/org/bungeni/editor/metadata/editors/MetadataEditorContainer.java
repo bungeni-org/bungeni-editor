@@ -402,9 +402,14 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         metadataTabContainer = new javax.swing.JTabbedPane();
         btnNavigate = new javax.swing.JButton();
 
-        btnSave.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnSave.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle"); // NOI18N
         btnSave.setText(bundle.getString("MetadataEditorContainer.btnSave.text")); // NOI18N
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnCancel.setText(bundle.getString("MetadataEditorContainer.btnCancel.text")); // NOI18N
@@ -424,7 +429,7 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         txtMsgArea.setBorder(null);
         jScrollPane1.setViewportView(txtMsgArea);
 
-        btnNavigate.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnNavigate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnNavigate.setText(bundle.getString("MetadataEditorContainer.btnNavigate.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -467,6 +472,10 @@ private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 // TODO add your handling code here:
     parentFrame.dispose();
 }//GEN-LAST:event_btnCancelActionPerformed
+
+private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+    // TODO add your handling code here:
+}//GEN-LAST:event_btnSaveActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

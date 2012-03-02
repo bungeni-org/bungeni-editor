@@ -26,7 +26,6 @@ import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.document.DocumentSection;
 import org.bungeni.editor.document.DocumentSectionsContainer;
-import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.numbering.impl.IGeneralNumberingScheme;
 import org.bungeni.numbering.impl.INumberDecorator;
 import org.bungeni.numbering.impl.NumberDecoratorFactory;
@@ -72,11 +71,14 @@ public final class NumberingAgent {
                             // parsed to determine if the section should have
                             // numbering applied to it
     private HashMap<String, DocumentSection> sectionTypesForDocumentType = new HashMap<String, DocumentSection>();
+    private boolean isDocumentNumbered = false ; // indicates whetheer the current bill document
+                     // has been numbered before
 
-    public NumberingAgent(String filePath) {
+    public NumberingAgent(String filePath, boolean wasDocumentNumbered) {
         try {
             odfDocument = OdfDocument.loadDocument(filePath) ;
             this.filePath = filePath ;
+            isDocumentNumbered = wasDocumentNumbered ;
 
             init() ;
 
@@ -85,11 +87,12 @@ public final class NumberingAgent {
         }
     }
 
-    public NumberingAgent (File file) {
+    public NumberingAgent (File file, boolean wasDocumentNumbered) {
         try {
             odfDocument = OdfDocument.loadDocument(file) ;
             this.filePath = file.getAbsolutePath() ;
-
+            isDocumentNumbered = wasDocumentNumbered ;
+            
             init() ;
 
         } catch (Exception ex) {
@@ -310,6 +313,15 @@ public final class NumberingAgent {
         // format the output number
         String formattedNo = formatNumber(section, sectionNumber) ;
 
+        // if the section starts with a similar numbering scheme,
+        // remove the numbering string
+        if (isDocumentNumbered) {
+
+            // remove earlier formatting
+            String [] nodeTextTokens = nodeText.split("\\s", 1) ;
+            nodeText.replace(nodeText, nodeText.substring(nodeTextTokens[0].length()));
+        }
+
         elemNode.setTextContent(formattedNo + " "
                 + nodeText) ;
 
@@ -346,6 +358,7 @@ public final class NumberingAgent {
 
         ArrayList<String> seq = inumScheme.getGeneratedSequence();
         Iterator<String> iter = seq.iterator();
+        
         while (iter.hasNext()) {
             formattedNumber = iter.next().toString() ;
         }
@@ -355,9 +368,9 @@ public final class NumberingAgent {
         INumberDecorator idecScheme = null;
         if (!numberDecoratorForType.equals("none")) {
             idecScheme = NumberDecoratorFactory.getNumberDecorator(numberDecoratorForType);
-            idecScheme.decorate(formattedNumber) ;
+            formattedNumber = idecScheme.decorate(formattedNumber) ;
         }
-                
+
         return formattedNumber ;
     }
 
@@ -367,7 +380,7 @@ public final class NumberingAgent {
      */
     public static void main(String[] args) {
         String odfDocPath = "c:/text.odt" ;
-        NumberingAgent nAgent = new NumberingAgent(odfDocPath) ;
+        NumberingAgent nAgent = new NumberingAgent(odfDocPath, false) ;
 
         if ( nAgent.numberDocument() ) {
             JOptionPane.showMessageDialog(null, "Document " + odfDocPath
