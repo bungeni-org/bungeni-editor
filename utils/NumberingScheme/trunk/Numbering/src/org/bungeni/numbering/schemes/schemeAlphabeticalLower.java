@@ -24,6 +24,7 @@ public class schemeAlphabeticalLower extends schemeAlphabetical {
         super(s, e);
     }
     
+    @Override
     public void addNumberToSequence(String number) {
          super.addNumberToSequence(number.toLowerCase());
     }

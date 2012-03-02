@@ -27,6 +27,6 @@ public class postDashedDecorator extends BaseNumberDecorator {
     }
     
     static String PREFIX = "";
-    static String SUFFIX = " -";
+    static String SUFFIX = "-";
     
 }

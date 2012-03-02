@@ -10,9 +10,6 @@ package org.bungeni.numbering.schemes;
 import junit.framework.*;
 import java.util.ArrayList;
 import java.util.Iterator;
-import org.bungeni.numbering.impl.BaseNumberingScheme;
-import org.bungeni.numbering.impl.GeneralNumberer;
-import org.bungeni.numbering.impl.IGeneralNumberingScheme;
 
 /**
  *

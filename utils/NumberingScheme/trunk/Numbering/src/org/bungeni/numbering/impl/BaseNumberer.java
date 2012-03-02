@@ -9,7 +9,7 @@
 
 package org.bungeni.numbering.impl;
 
-import net.sf.saxon.number.AbstractNumberer;
+import net.sf.saxon.expr.number.AbstractNumberer;
 
 /**
  * Abstract base class that extends AbstractNumberer

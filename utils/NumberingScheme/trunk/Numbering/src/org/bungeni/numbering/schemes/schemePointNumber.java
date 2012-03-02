@@ -41,6 +41,7 @@ public class schemePointNumber extends BaseNumberingScheme implements IGeneralNu
         super(s, e);
     }
 
+    @Override
     public void generateSequence() {
         //seed base sequence first
         super.generateSequence();

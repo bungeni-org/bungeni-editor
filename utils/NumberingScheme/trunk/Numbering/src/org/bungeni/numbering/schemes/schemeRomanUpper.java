@@ -27,6 +27,7 @@ public class schemeRomanUpper extends schemeRoman {
         super(s, e);
     }
     
+    @Override
     public void addNumberToSequence(String number) {
          super.addNumberToSequence(number.toUpperCase());
     }

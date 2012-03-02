@@ -34,6 +34,7 @@ public class schemeRoman extends BaseNumberingScheme implements IGeneralNumberin
         numberer = new GeneralNumberer();
     }
 
+    @Override
     public void generateSequence() {
         //seed base sequence first
         super.generateSequence();
@@ -41,7 +42,7 @@ public class schemeRoman extends BaseNumberingScheme implements IGeneralNumberin
         Iterator<Long> baseIterator = baseSequence.iterator();
         while (baseIterator.hasNext()) {
             Long baseNumber = baseIterator.next();
-            addNumberToSequence(numberer.toRoman(baseNumber));
+            addNumberToSequence(GeneralNumberer.toRoman(baseNumber));
         }
     }
    

@@ -11,7 +11,6 @@ package org.bungeni.numbering.schemes;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import net.sf.saxon.number.Numberer;
 import org.bungeni.numbering.impl.BaseNumberingScheme;
 import org.bungeni.numbering.impl.GeneralNumberer;
 import org.bungeni.numbering.impl.IGeneralNumberingScheme;
