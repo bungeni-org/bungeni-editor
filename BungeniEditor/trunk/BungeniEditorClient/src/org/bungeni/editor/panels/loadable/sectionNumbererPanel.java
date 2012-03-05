@@ -33,10 +33,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -45,14 +42,12 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
-import net.sf.saxon.sort.NumericComparer;
 
 import org.bungeni.editor.document.DocumentSection;
 import org.bungeni.editor.document.DocumentSectionsContainer;
@@ -69,12 +64,9 @@ import org.bungeni.numbering.impl.NumberingSchemeFactory;
 import org.bungeni.editor.numbering.ooo.OOoNumberingHelper;
 
 import org.apache.log4j.Logger;
-import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.editor.actions.SectionTypesReader;
 import org.bungeni.editor.noa.BungeniNoaFrame;
 import org.bungeni.editor.panels.loadable.refmgr.referenceManager;
-import org.bungeni.extutils.BungeniEditorProperties;
-import org.bungeni.extutils.CommonConnectorFunctions;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.ooo.ooDocMetadata;
 import org.bungeni.ooo.ooQueryInterface;
@@ -82,16 +74,12 @@ import org.bungeni.utils.BungeniBNode;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.extutils.MessageBox;
-import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
 
 import org.bungeni.odfdom.utils.BungeniOdfFileCopy;
-import org.bungeni.ooo.BungenioOoHelper;
 import org.bungeni.ooo.OOComponentHelper;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.odftoolkit.odfdom.doc.OdfDocument;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 
 /**

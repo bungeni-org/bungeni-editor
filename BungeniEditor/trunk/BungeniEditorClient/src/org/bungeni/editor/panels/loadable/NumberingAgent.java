@@ -318,8 +318,8 @@ public final class NumberingAgent {
         if (isDocumentNumbered) {
 
             // remove earlier formatting
-            String [] nodeTextTokens = nodeText.split("\\s", 1) ;
-            nodeText.replace(nodeText, nodeText.substring(nodeTextTokens[0].length()));
+            String [] nodeTextTokens = nodeText.split("\\s", 2) ;
+            nodeText = nodeTextTokens[1];
         }
 
         elemNode.setTextContent(formattedNo + " "
@@ -380,7 +380,7 @@ public final class NumberingAgent {
      */
     public static void main(String[] args) {
         String odfDocPath = "c:/text.odt" ;
-        NumberingAgent nAgent = new NumberingAgent(odfDocPath, false) ;
+        NumberingAgent nAgent = new NumberingAgent(odfDocPath, true) ;
 
         if ( nAgent.numberDocument() ) {
             JOptionPane.showMessageDialog(null, "Document " + odfDocPath
