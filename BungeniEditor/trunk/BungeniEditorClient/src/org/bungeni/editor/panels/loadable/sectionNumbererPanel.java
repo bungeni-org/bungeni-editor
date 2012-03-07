@@ -42,6 +42,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
@@ -79,8 +80,8 @@ import org.bungeni.ooo.OOComponentHelper;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.odftoolkit.odfdom.doc.OdfDocument;
-import odfnumberingagent.* ;
 import org.bungeni.editor.noa.BungeniNoaFrame;
+import org.bungeni.editor.noa.BungeniNoaTabbedPane;
 import org.bungeni.ooo.BungenioOoHelper;
 
 /**
@@ -1735,9 +1736,14 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
         }
     }
 
-
+    /**
+     * This method numbers (or renumbers) a document (bill/judgement)
+     * @param evt
+     */
     private void btnRenumberSectionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRenumberSectionsActionPerformed
-// TODO add your handling code here:
+
+        // start the progress bar to shwow progress in numbering/renumbering
+        //  a document
         UIManager.put("ProgressBar.selectionBackground", Color.black);
         UIManager.put("ProgressBar.selectionForeground", Color.white);
         UIManager.put("ProgressBar.foreground", new Color(8, 32, 128));
@@ -1747,62 +1753,89 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
         progressNumbering.setIndeterminate(true);
         //  progressNumbering.setStringPainted(true);
         // progressNumbering.setString("Processing...");
-        // now renumber the client
-
+        
         /**
-         * (rm, feb 2012) - this section has been re-edited to take advantage of
-         * bungeniodfdom for the renumbering
+         * (rm, feb 2012) - this section has been re-edited to use
+         * bungeniodfdom for the numbering & renumbering
          */
-        // check if the document has been saved to file
+
+        // first check if the document has been saved to file
         if ( ooDocument.isDocumentOnDisk() && !ooDocument.isModified() ) {            
             // get the ODF Document
             OdfDocument odfDocument = null ;
             try {
-                // determine if the document has been numbered
-                ooDocMetadata docM = new ooDocMetadata(ooDocument);
-                boolean documentHadBeenNumbered = (docM.GetProperty("isBungeniBillNumbered").equals("true")) ?
+                // determine if the document has been numbered from
+                // the document's metadata
+                final ooDocMetadata docM = new ooDocMetadata(ooDocument);
+                final boolean documentHadBeenNumbered = (docM.GetProperty("isBungeniBillNumbered").equals("true")) ?
                     true : false ;
-                
+
+                // create an OdfDocument of the initial document
                 odfDocument = OdfDocument.loadDocument(convertUrlToFile(ooDocument.getDocumentURL()));
 
-                //  clone the currently open file using the document package
+                //  clone the currently open file using the OdfDocument package
                 BungeniOdfFileCopy fcp = new BungeniOdfFileCopy(odfDocument.getPackage());                             
 
-                // copy the document with the date time as suffix
-                File origFileCopy = fcp.copyTo("_numbered", true);
+                // suffix the name of the cloned odfDocument
+                final File origFileCopy = fcp.copyTo("_numbered", true);
 
-                // release OdfDocument
+                // close initial OdfDocument file
                 odfDocument.close();
                 odfDocument = null ;   
 
-                // capture the name of the new file as created
-                String outputFilePath = (String) CommonFileFunctions.getFileAuthorityURL(origFileCopy);              
-                                
-                // pass the document to the Numbering Agent
-                NumberingAgent nAgent = new NumberingAgent(origFileCopy, documentHadBeenNumbered) ;
-                
-                // number the document
-                if ( nAgent.numberDocument() ) {
-                    
-                    // request user to view the numbered document
-                    int nRet = MessageBox.Confirm(parentFrame, bundle.getString("Yes_to_open_No_to_close")
-                            , bundle.getString("Document_Successfully_Converted!"));
+                // capture the name of the cloned file as created
+                final String outputFilePath = (String) CommonFileFunctions.getFileAuthorityURL(origFileCopy);
 
-                    if (nRet == JOptionPane.YES_OPTION) {
+                // pass the cloned document to the Numbering Agent
+                SwingWorker numberDocument = new SwingWorker() {
+
+                    @Override
+                    protected Object doInBackground() throws Exception {
+                        NumberingAgent nAgent = new NumberingAgent(origFileCopy, documentHadBeenNumbered) ;
+                        return nAgent.numberDocument() ;
+                    }
+
+                    @Override
+                    public void done() {
                         try {
-                            // create the document composition and
-                            // display the numbered document
-                            documentComposition = BungeniNoaFrame.getInstance().loadDocumentInPanel(outputFilePath, false);
+                            if (get().equals(true)) {
+                                // change the cursor
+                                parentFrame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                                
+                                // stop the JProgressBar
+                                progressNumbering.setIndeterminate(false);
 
-                            // indicate the copy document has now been numbered
-                            OOComponentHelper copiedDoc = new OOComponentHelper(
-                                    documentComposition.getDocument().getXComponent(),
-                                        BungenioOoHelper.getInstance().getComponentContext()) ;
+                                /** display the numbered document to the user for
+                                viewing **/ 
+                                // create the document composition and
+                                // display the numbered document
+                                documentComposition = BungeniNoaFrame.getInstance().loadDocumentInPanel(outputFilePath, false);
 
-                            // reassign the metadata object and indicate current doc as numbered
-                            docM = new ooDocMetadata(copiedDoc) ;
-                            docM.SetProperty("isBungeniBillNumbered", "true") ;
+                                // indicate the copy document has now been numbered
+                                OOComponentHelper copiedDoc = new OOComponentHelper(
+                                        documentComposition.getDocument().getXComponent(),
+                                        BungenioOoHelper.getInstance().getComponentContext());
 
+                                // reassign the metadata object and indicate current doc as numbered
+                                ooDocMetadata copiedDocM = new ooDocMetadata(copiedDoc);
+                                copiedDocM.SetProperty("isBungeniBillNumbered", "true");
+                                
+                                // set the pane in which the numbered document is in as the
+                                // active pane
+                                BungeniNoaTabbedPane.getInstance().setActiveTab(documentComposition.getPanel().getPanel());
+
+                            } else {
+                                // indicate to the user that there was an error nunbering the
+                                // document
+                                MessageBox.OK(parentFrame, bundle.getString("Document_Failure_Conversion"));
+                                
+                                // stop the JProgressBar
+                                progressNumbering.setIndeterminate(false);
+                            }
+                        } catch (InterruptedException ex) {
+                            log.error(ex);
+                        } catch (ExecutionException ex) {
+                            log.error(ex);
                         } catch (OfficeApplicationException ex) {
                             log.error(ex);
                         } catch (NOAException ex) {
@@ -1810,19 +1843,23 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
                         } catch (DocumentException ex) {
                             log.error(ex);
                         }
-                    }                 
-                } else {
-                    MessageBox.OK(parentFrame, bundle.getString("Document_Failure_Conversion"));
-                }                
+                    }
+                };
+
+                numberDocument.execute() ;
+                
             } catch (Exception ex) {
                 log.error (ex);
             }  
-        }
-        else {
-            // ask the user to save the document first
+        } else {
+            // ask the user to save the document first before the document is renumbered
             MessageBox.OK(parentFrame, bundle.getString("Please_save_the_document"), bundle.getString("Save_the_document"), JOptionPane.ERROR_MESSAGE);
 
+            // stop the JProgressBar
             progressNumbering.setIndeterminate(false);
+
+            // reset the cursor
+            parentFrame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         }       
 
         /*

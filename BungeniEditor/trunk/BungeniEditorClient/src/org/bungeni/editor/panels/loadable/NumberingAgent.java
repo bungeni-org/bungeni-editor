@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2012 windows
+ *  Copyright (C) 2012 UNDESA
  * 
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
+import org.bungeni.editor.BungeniEditorClient;
 import org.bungeni.editor.document.DocumentSection;
 import org.bungeni.editor.document.DocumentSectionsContainer;
 import org.bungeni.numbering.impl.IGeneralNumberingScheme;
@@ -36,44 +37,56 @@ import org.odftoolkit.odfdom.doc.OdfDocument;
 import org.odftoolkit.odfdom.dom.element.text.TextSectionElement;
 
 /**
- * This class numbers various sections of an ODF document (bill/judgement) based on the
- * decorators and numbering scheme assigned for the section. The numbering scheme for a
- * particular section is obtained from the section meta-data while the numbering scheme is obtained
- * from the bill.xml file
+ * This class numbers/renumbers the various sections of an ODF document (bill/judgement) based on the
+ * decorators and numbering scheme assigned for the section in the relevant documents type's XML
+ * file definitions. The document is numbered/renumbered based on the metadata for the document
  *
- * ***** CODE LOGIC ************
- * 1. As the bill OdfDocument is parsed through, a 'Section' of the document (Part, Section e.t.c)
- * is noted.
- * 2. The Numbering for the section is determined.
- * 3. A sentinel 'Counter' value (static) is applied to the 'Section'. This sentinel value
- * is incremented for similar sections
- * 4. The 'Section' is numbered based on the applied sentinel value
- * 5. Child 'Sections' for the current 'Section' are determined and GOTO (2)
- *
- * @author Reagan Mbitiru <reaganmbitiru@gmail.com>
+ * <ol> The ***** CODE LOGIC ***** for the class is as follows:
+ *  <li>The main 'body' element of the document is extracted as a TextSectionElement.</li>
+ *  <li>The top level children for the document are determined from the 'body' element.</li>
+ *  <li>Each of these children and formatted based on the type of section.</li>
+ *  <li>The children for each of the top level  children are recursively formatted
+ * based on their type. </li>
+ * </ol>
+ * 
+ * @author Reagan Mbitiru <reaganmbitiru@gmail.com> (march, 2012)
  */
 public final class NumberingAgent {
 
+    // stores a copy of the cloned document to be numbered/renumbered
     private OdfDocument odfDocument = null ;
-    private static Logger log = Logger.getLogger(NumberingAgent.class.getName());
-    private BungeniOdfSectionHelper sectionHelper ;
-    private String filePath ;
-    private HashMap<String,Integer> sectionGIntegers ; // stores the maximum
-                            // value for each of the sections in the document
-                            // However on entering child sections, the maximum
-                            // value for the iteration of that specific section
-                            // type is reset
-    private int sectionCounter = 0 ; // initialised...this is incremented to
-                            //  determine the number that should be applied to a section
-    private ArrayList<SectionElementContext> parsedSections ;  // stores the sections that have been
-                            // parsed to determine if the section should have
-                            // numbering applied to it
-    private HashMap<String, DocumentSection> sectionTypesForDocumentType = new HashMap<String, DocumentSection>();
-    private boolean isDocumentNumbered = false ; // indicates whetheer the current bill document
-                     // has been numbered before
 
+    // output logs
+    private static Logger log = Logger.getLogger(NumberingAgent.class.getName());
+
+    // Allows for the extraction of the various sections in the OdfDocument
+    private BungeniOdfSectionHelper sectionHelper ;
+
+    // stores the path to the document to be numbered/renumbered
+    private String filePath ;
+
+    // stores the value with which a section should be numbered with...
+    private int sectionCounter = 0 ;
+
+    // stores all the sections that have been numbered
+    private ArrayList<SectionElementContext> parsedSections ;
+
+    // flag to indicate if the document was earlier numbered or not
+    private boolean isDocumentNumbered = false ;
+
+    // stores the various document type's section names, numbering
+    // schemes and decorator types
+    private HashMap<String, DocumentSection> sectionTypesForDocumentType;
+
+    /**
+     * This constructor initializes the OdfDocument to be
+     * renumbered and whether or not the document was initially numbered.
+     * @param filePath path to the file to be numbered/renumbered
+     * @param wasDocumentNumbered status on whether the document was earlier
+     * numbered/renumbered
+     */
     public NumberingAgent(String filePath, boolean wasDocumentNumbered) {
-        try {
+        try {          
             odfDocument = OdfDocument.loadDocument(filePath) ;
             this.filePath = filePath ;
             isDocumentNumbered = wasDocumentNumbered ;
@@ -85,8 +98,16 @@ public final class NumberingAgent {
         }
     }
 
+    /**
+     * This constructor initializes the OdfDocument to be
+     * renumbered and whether or not the document was initially numbered.
+     * @param odfDoc file to be numbered/renumbered
+     * @param filePath path to the file to be numbered/renumbered
+     * @param wasDocumentNumbered status on whether the document was earlier
+     * numbered/renumbered
+     */
     public NumberingAgent(OdfDocument odfDoc, String filePath, boolean wasDocumentNumbered) {
-        try {
+        try {            
             odfDocument = odfDoc ;
             this.filePath = filePath ;
             isDocumentNumbered = wasDocumentNumbered ;
@@ -98,9 +119,15 @@ public final class NumberingAgent {
         }
     }
 
-
+    /**
+     * This constructor initializes the OdfDocument to be
+     * renumbered and whether or not the document was initially numbered.
+     * @param file file object of the file to be numbered/renumbered
+     * @param wasDocumentNumbered status on whether the document was earlier
+     * numbered/renumbered
+     */
     public NumberingAgent (File file, boolean wasDocumentNumbered) {
-        try {
+        try {            
             odfDocument = OdfDocument.loadDocument(file) ;
             this.filePath = file.getAbsolutePath() ;
             isDocumentNumbered = wasDocumentNumbered ;
@@ -112,8 +139,12 @@ public final class NumberingAgent {
         }
     }
 
-    private void init() {
-        sectionGIntegers = new HashMap<String, Integer>(0) ;
+    /**
+     * This method initializes the HashMap storing the sections that
+     * will be numbered and obtains the section types' numbering schemes and
+     * decorators
+     */
+    private void init() {             
         parsedSections = new ArrayList<SectionElementContext>(0)  ;
 
         // initialise the various section types for the document
@@ -121,66 +152,69 @@ public final class NumberingAgent {
     }
     
     /**
-     * This method initializes a swing worker thread and
-     * uses it to number the document
-     * @return returns the fileName of the saved document
+     * This method numbers/renumbers the document
+     * @return success of numbering/renumbering the document
      */
     public boolean numberDocument() {
         boolean numberingOK = true ;
 
         // get the document sections names that need to be renumbered
-        ArrayList <String> numberedContainers = applyNumberingToContainers (odfDocument) ;
+        boolean numberedContainersOK = applyNumberingToContainers (odfDocument) ;
 
-        // now save the document
-        try {
-            // save the document with the numbered changes
-            odfDocument.save(filePath);
-        } catch (Exception ex) {
-            log.error(ex);
+        if (numberedContainersOK) {            
+            try {
+                // save the document with the numbering
+                // or renumbering changes
+                odfDocument.save(filePath);
+
+            } catch (Exception ex) {
+                log.error(ex);
+            }
         }
         
         return numberingOK ;
     }
 
     /**
-     * This method searches for all the containers who section
-     * meta-data as stored in the RDF file indicates that they are to have
-     * a numbering scheme applied
-     * @param odfDoc
-     * @return
+     * This method finds the root element of the document and uses
+     * this element as the starting point to numbering/renumbering
+     * a document
+     * @param odfDoc document to be numbered
+     * @return status of the numbering
      */
-    private ArrayList<String> applyNumberingToContainers(OdfDocument odfDoc) {
-        ArrayList<String> nContainers = new ArrayList<String>(0) ; // stores the numbered containers
+    private boolean applyNumberingToContainers(OdfDocument odfDoc) {
+        boolean numberingOK = false ;
 
-        // loop through each of the document sections
-        // reviewing the metadata and finding out if the sections require numbering
-       sectionHelper = new BungeniOdfSectionHelper(odfDoc) ;
+        // create the BungeniSectionHelper object
+        sectionHelper = new BungeniOdfSectionHelper(odfDoc) ;
        
         // get the root  section
         TextSectionElement currSection = (TextSectionElement) sectionHelper.getDocumentSections().item(0);
 
-        // get the section type
+        // get the root section type
         String sectionType = sectionHelper.getSectionType(currSection) ;
 
-        // start from the root element
+        // start from the root element to number/mark the various sections
+        // of the document
         if ( sectionType.equals("body") ) {
             markSection(currSection,"",0) ; // parent section marked as ""
+            numberingOK = true ;
         }
 
-        return nContainers ;
+        return numberingOK ;
     }
 
     /**
-     * Recursive method that parses through the document sections, numbering
-     * the document. It reviews earlier sections in the document to determine the
-     * number with which to mark the document
-     * @param sections
-     * @param parentSectionName
-     * @return
+     * Recursive method that numbers/renumbers a TextSectionElement
+     * and any TextSectionElement children that the section has
+     * @param section 'root' section for the current iteration that is being numbered
+     * @param parentSectionName name of the parent section of the current section
+     * @return status of the numbering/renumbering process
      */
-    private SectionElementContext markSection (TextSectionElement section,
+    private void markSection (TextSectionElement section,
             String parentSectionName, int numberingStartIndex) {
 
+        // intialize vars
         SectionElementContext cSection = null ;
         int currSectionIndex = numberingStartIndex ;
 
@@ -197,21 +231,20 @@ public final class NumberingAgent {
                             currSectionIndex) ;
 
             // add this to the ArrayList with all the SectionElementContext
-            // objects
+            // objects that have been parsed
             parsedSections.add(newSectionElementContext) ;
 
-            // mark the current section
+            // add numbering to the current section
             if (!newSectionElementContext.getSectionType().equals("body"))
                 addNumbering(section, currSectionIndex);
 
-            // recurse for the sections children and add marking to
-            // the children as well
+            // recurse through the cildren for the current section and
+            // number them as well
             ArrayList<TextSectionElement> cSections
                     = sectionHelper.getChildSections(section) ;
 
             if ( cSections.size() > 0 ) {
-                // loop through each of the child sections
-                // marking them up as well
+                
                 int initIndex = 1 ;
 
                 for ( TextSectionElement elem : cSections ) {
@@ -219,19 +252,17 @@ public final class NumberingAgent {
                 }
             }
 
-            // increment the numbering start Index
+            // increment the numbering Index
             currSectionIndex ++ ;
         }
-
-        return cSection ;
     }
 
     /**
      * This method determines if there exists a section with a similar type
-     * already added to the ArrayList with all sections. The returned section
+     * already added to the ArrayList with all parsed sections. The returned section
      * is the one with the largest section counter value
-     * @param sectionType
-     * @return
+     * @param sectionType type of the section
+     * @return SectionElementContext for a section with a similar type
      */
     private SectionElementContext findSectionElemContextFromType(String sectionType) {
         SectionElementContext section = null ;
@@ -241,7 +272,7 @@ public final class NumberingAgent {
             if ( sectionType.equals(sectionElem.getSectionType())) {
 
                 // check if the section value is greater than the
-                // largest section value
+                // largest section value...pick this instead
                 if( sectionElem.getSectionCounter() > sectionCounterValue ) {
                     section = sectionElem ;
                 }
@@ -253,9 +284,9 @@ public final class NumberingAgent {
 
     /**
      * This method determines if there exists a section with the defined section
-     * name and if found, this is returned
-     * @param sectionType
-     * @return
+     * name parsed (numbered) and if found, the SectionElementContext for this section is returned
+     * @param sectionName name of the current section
+     * @return instance of the section, if initially numbered and added to numbered ArrayList store
      */
     private SectionElementContext findSectionElemContextFromName(String sectionName) {
         SectionElementContext section = null ;
@@ -274,9 +305,8 @@ public final class NumberingAgent {
     }
 
     /**
-     * This method actually applies the numbering to the sections in the document
-     * that need to be renumbered. It determines the decorator to use for the renumbering
-     * based on the contents of the bill.xml file
+     * This method actually applies the numbering/renumbering to a section in the document
+     * It determines and applies the numbering scheme and decorator to use on the section
      * @param numberedContainers
      * @return
      */
@@ -306,9 +336,11 @@ public final class NumberingAgent {
 
     /**
      * This method finds the first text node to a section
-     * and adds the numbering to it
-     * @param section
-     * @param decoratorType
+     * and adds the numbering to it. This method is able to number/renumber a
+     * document. In the case of renumbering a document, this method assumes that
+     * whitespace (\s) existed between the number applied earlier to the section
+     * and the rest of the text in the section
+     * @param section section to be numbered
      */
     private boolean addNumbering(TextSectionElement section, int sectionNumber) {
         
@@ -333,20 +365,21 @@ public final class NumberingAgent {
     }
 
     /**
-     * This method gets the numbering scheme for a particular
-     * section and formats the given number to the desired
-     * numbering scheme
-     * @param section
-     * @return
+     * This method uses the numbering scheme and decorators for a particular
+     * section to format a section.
+     * @param section TextSectionElement to be numbered
+     * @param sectionNumber number to be prefixed to the section
+     * @return The numbered section
      */
     private String formatNumber(TextSectionElement section, int sectionNumber) {
         String formattedNumber = null ;
         
-        // get the numbering scheme
+        // get the numbering scheme for the section type
         String numberingSchemeForType
                 = this.sectionTypesForDocumentType.get(sectionHelper.getSectionType(section))
                     .getNumberingScheme();
 
+        // get the decorator for the section type
         String numberDecoratorForType
                 = this.sectionTypesForDocumentType.get(sectionHelper.getSectionType(section))
                     .getNumberDecorator();
@@ -368,7 +401,7 @@ public final class NumberingAgent {
         }
         // END/@TODO
 
-        // decorate the number with the decorator scheme
+        // decorate the number
         INumberDecorator idecScheme = null;
         if (!numberDecoratorForType.equals("none")) {
             idecScheme = NumberDecoratorFactory.getNumberDecorator(numberDecoratorForType);

@@ -437,7 +437,7 @@ public class BungeniNoaFrame extends BungeniFrame {
         String fileNameForTab = CommonFileFunctions.getFileNameFromPath(pathToDocumentOrTemplate, false);
         noaTabbedPane.getTabbedPane().addTab(fileNameForTab, noapanel.getPanel());
         noapanel.getPanel().setVisible(true);
-
+        
         // !+ (rm, feb 2012) - determine if the number or tabs is greater than 1 and
         // then allow for a close button to be added to the tab
 
