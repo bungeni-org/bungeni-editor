@@ -65,7 +65,6 @@ import org.bungeni.editor.numbering.ooo.OOoNumberingHelper;
 
 import org.apache.log4j.Logger;
 import org.bungeni.editor.actions.SectionTypesReader;
-import org.bungeni.editor.noa.BungeniNoaFrame;
 import org.bungeni.editor.panels.loadable.refmgr.referenceManager;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.ooo.ooDocMetadata;
@@ -80,7 +79,9 @@ import org.bungeni.ooo.OOComponentHelper;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.odftoolkit.odfdom.doc.OdfDocument;
-
+import odfnumberingagent.* ;
+import org.bungeni.editor.noa.BungeniNoaFrame;
+import org.bungeni.ooo.BungenioOoHelper;
 
 /**
  * This is the panel that does numbering / renumbering of bill elements
@@ -1757,31 +1758,32 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
             // get the ODF Document
             OdfDocument odfDocument = null ;
             try {
-                odfDocument = OdfDocument.loadDocument(convertUrlToFile(ooDocument.getDocumentURL()));
-
-                //  clone the currently open file using the document package
-                BungeniOdfFileCopy fcp = new BungeniOdfFileCopy(odfDocument.getPackage());
-
-                // copy the document with the date time as suffix
-                File origFileCopy = fcp.copyTo("_numbered", true);
-
-                // capture the name of the new file as created
-                String outputFilePath = (String) CommonFileFunctions.getFileAuthorityURL(origFileCopy);              
-
                 // determine if the document has been numbered
                 ooDocMetadata docM = new ooDocMetadata(ooDocument);
                 boolean documentHadBeenNumbered = (docM.GetProperty("isBungeniBillNumbered").equals("true")) ?
                     true : false ;
-
-                // pass the document to the Numbering Agent
-                NumberingAgent nAgent = new NumberingAgent(origFileCopy, documentHadBeenNumbered) ;                
                 
-                if (nAgent.numberDocument()) {
+                odfDocument = OdfDocument.loadDocument(convertUrlToFile(ooDocument.getDocumentURL()));
 
-                    // indicate the document has now been numbered
-                    docM.SetProperty("isBungeniBillNumbered", "true") ;
-                    ooDocument.saveDocument();
+                //  clone the currently open file using the document package
+                BungeniOdfFileCopy fcp = new BungeniOdfFileCopy(odfDocument.getPackage());                             
 
+                // copy the document with the date time as suffix
+                File origFileCopy = fcp.copyTo("_numbered", true);
+
+                // release OdfDocument
+                odfDocument.close();
+                odfDocument = null ;   
+
+                // capture the name of the new file as created
+                String outputFilePath = (String) CommonFileFunctions.getFileAuthorityURL(origFileCopy);              
+                                
+                // pass the document to the Numbering Agent
+                NumberingAgent nAgent = new NumberingAgent(origFileCopy, documentHadBeenNumbered) ;
+                
+                // number the document
+                if ( nAgent.numberDocument() ) {
+                    
                     // request user to view the numbered document
                     int nRet = MessageBox.Confirm(parentFrame, bundle.getString("Yes_to_open_No_to_close")
                             , bundle.getString("Document_Successfully_Converted!"));
@@ -1792,6 +1794,15 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
                             // display the numbered document
                             documentComposition = BungeniNoaFrame.getInstance().loadDocumentInPanel(outputFilePath, false);
 
+                            // indicate the copy document has now been numbered
+                            OOComponentHelper copiedDoc = new OOComponentHelper(
+                                    documentComposition.getDocument().getXComponent(),
+                                        BungenioOoHelper.getInstance().getComponentContext()) ;
+
+                            // reassign the metadata object and indicate current doc as numbered
+                            docM = new ooDocMetadata(copiedDoc) ;
+                            docM.SetProperty("isBungeniBillNumbered", "true") ;
+
                         } catch (OfficeApplicationException ex) {
                             log.error(ex);
                         } catch (NOAException ex) {
@@ -1799,11 +1810,10 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
                         } catch (DocumentException ex) {
                             log.error(ex);
                         }
-                    }
+                    }                 
                 } else {
                     MessageBox.OK(parentFrame, bundle.getString("Document_Failure_Conversion"));
-                }                         
-
+                }                
             } catch (Exception ex) {
                 log.error (ex);
             }  

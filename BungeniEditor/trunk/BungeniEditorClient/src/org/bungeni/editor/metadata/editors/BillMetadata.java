@@ -67,6 +67,8 @@ public class BillMetadata extends BaseEditorDocMetadataDialog {
                 String sBillName = docMetaModel.getItem("BungeniBillName");
                 String sAssentDate = docMetaModel.getItem("BungeniDateOfAssent");
                 String sCommencementDate = docMetaModel.getItem("BungeniDateOfCommencement");
+                String sIsBillNumbered = docMetaModel.getItem("isBungeniBillNumbered") ;
+                
                 //official date
                 if (!CommonStringFunctions.emptyOrNull(sAssentDate)) {
                     Date assentdate = CommonDateFunctions.parseDate(sAssentDate, BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
@@ -150,9 +152,6 @@ public class BillMetadata extends BaseEditorDocMetadataDialog {
         docMetaModel.updateItem("BungeniBillName", sBillName);
         docMetaModel.updateItem("BungeniDateOfAssent", strDateOfAssent);
         docMetaModel.updateItem("BungeniDateOfCommencement", strDateOfCommencement);
-
-        // (rm, march 2012) - added item to store the numbered status of the bill document
-        docMetaModel.updateItem("isBungeniBillNumbered", IS_BUNGENI_BILL_NUMBERED_STATUS) ;
         
         docMetaModel.saveModel(ooDocument);
     bState = true;

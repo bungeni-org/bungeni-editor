@@ -34,13 +34,11 @@ import org.bungeni.numbering.impl.NumberingSchemeFactory;
 import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
 import org.odftoolkit.odfdom.doc.OdfDocument;
 import org.odftoolkit.odfdom.dom.element.text.TextSectionElement;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
  * This class numbers various sections of an ODF document (bill/judgement) based on the
  * decorators and numbering scheme assigned for the section. The numbering scheme for a
- * particular section is obtained from the section metadata while the numbering scheme is obtained
+ * particular section is obtained from the section meta-data while the numbering scheme is obtained
  * from the bill.xml file
  *
  * ***** CODE LOGIC ************
@@ -56,7 +54,7 @@ import org.w3c.dom.NodeList;
  */
 public final class NumberingAgent {
 
-    private OdfDocument odfDocument ;
+    private OdfDocument odfDocument = null ;
     private static Logger log = Logger.getLogger(NumberingAgent.class.getName());
     private BungeniOdfSectionHelper sectionHelper ;
     private String filePath ;
@@ -87,6 +85,20 @@ public final class NumberingAgent {
         }
     }
 
+    public NumberingAgent(OdfDocument odfDoc, String filePath, boolean wasDocumentNumbered) {
+        try {
+            odfDocument = odfDoc ;
+            this.filePath = filePath ;
+            isDocumentNumbered = wasDocumentNumbered ;
+
+            init() ;
+
+        } catch (Exception ex) {
+            log.error(ex);
+        }
+    }
+
+
     public NumberingAgent (File file, boolean wasDocumentNumbered) {
         try {
             odfDocument = OdfDocument.loadDocument(file) ;
@@ -107,28 +119,26 @@ public final class NumberingAgent {
         // initialise the various section types for the document
         this.sectionTypesForDocumentType = DocumentSectionsContainer.getDocumentSectionsContainer();
     }
-
+    
     /**
      * This method initializes a swing worker thread and
      * uses it to number the document
      * @return returns the fileName of the saved document
      */
     public boolean numberDocument() {
-        boolean numberingOK = false ;
+        boolean numberingOK = true ;
 
         // get the document sections names that need to be renumbered
         ArrayList <String> numberedContainers = applyNumberingToContainers (odfDocument) ;
 
         // now save the document
         try {
-            // save the document
+            // save the document with the numbered changes
             odfDocument.save(filePath);
         } catch (Exception ex) {
             log.error(ex);
         }
-        numberingOK = true ;
-
-
+        
         return numberingOK ;
     }
 
@@ -145,12 +155,9 @@ public final class NumberingAgent {
         // loop through each of the document sections
         // reviewing the metadata and finding out if the sections require numbering
        sectionHelper = new BungeniOdfSectionHelper(odfDoc) ;
-
-        // get the sections
-        NodeList docSections = sectionHelper.getDocumentSections() ;
-
+       
         // get the root  section
-        TextSectionElement currSection = (TextSectionElement) docSections.item(0) ;
+        TextSectionElement currSection = (TextSectionElement) sectionHelper.getDocumentSections().item(0);
 
         // get the section type
         String sectionType = sectionHelper.getSectionType(currSection) ;
@@ -282,10 +289,7 @@ public final class NumberingAgent {
 
             // get the section text
             TextSectionElement section = sectionHelper.getSection(containersCounter) ;
-
-            // get the section type
-            String sectionType = sectionHelper.getSectionType(section);
-
+            
             // set the section counter value and pass to addNumbering
             int currSectionNumber = sectionCounter ++ ;
 
@@ -307,8 +311,8 @@ public final class NumberingAgent {
      * @param decoratorType
      */
     private boolean addNumbering(TextSectionElement section, int sectionNumber) {
-        Node elemNode = section.getFirstChild() ;
-        String nodeText = elemNode.getTextContent() ;        
+        
+        String nodeText = section.getFirstChild().getTextContent() ;
        
         // format the output number
         String formattedNo = formatNumber(section, sectionNumber) ;
@@ -322,7 +326,7 @@ public final class NumberingAgent {
             nodeText = nodeTextTokens[1];
         }
 
-        elemNode.setTextContent(formattedNo + " "
+        section.getFirstChild().setTextContent(formattedNo + " "
                 + nodeText) ;
 
         return true ;
@@ -380,8 +384,8 @@ public final class NumberingAgent {
      */
     public static void main(String[] args) {
         String odfDocPath = "c:/text.odt" ;
-        NumberingAgent nAgent = new NumberingAgent(odfDocPath, true) ;
-
+        NumberingAgent nAgent = new NumberingAgent(odfDocPath, false) ;
+        
         if ( nAgent.numberDocument() ) {
             JOptionPane.showMessageDialog(null, "Document " + odfDocPath
                     + " was numbered OK" , "Numbering Completed" , JOptionPane.OK_OPTION);
