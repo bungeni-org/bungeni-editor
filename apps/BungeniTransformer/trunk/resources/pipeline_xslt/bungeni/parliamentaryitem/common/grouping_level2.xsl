@@ -326,7 +326,7 @@
         <xsl:variable name="event-date" select="field[@name='event_date']" />
         <xsl:variable name="event-lang" select="field[@name='language']" />
         <wfevent 
-            href="{concat($for-parliament,'/event/',$event-identifier, '/', $event-lang)}" 
+            href="{concat('/',$country-code,'/event/',$event-identifier, '/', $event-lang)}" 
             isA="TLCEvent"
             showAs="{field[@name='short_name']}" 
             date="{xbf:parse-date($event-date)}" 
