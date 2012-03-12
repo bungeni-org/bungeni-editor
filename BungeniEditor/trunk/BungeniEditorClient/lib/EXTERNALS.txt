@@ -29,3 +29,4 @@ bungenitransformer http://bungeni-editor.googlecode.com/svn/external_imports/tru
 bungeniconnector http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeniconnector
 bootstrapconnector  http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bootstrapconnector
 simpleodf http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeniodfdom
+bungeninumberingscheme http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeninumberingscheme
