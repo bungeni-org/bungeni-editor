@@ -12,7 +12,7 @@
     </properties>
 
 
-    <!-- Specfies the schema for the xml document being created -->
+    <!-- Specfies the schema for the target xml document -->
     <schema href="configfiles/schema/debate-subschema/akn-subschema-3195136.xsd" />
 
     <!-- This steps are performed BEFORE the below regex replacement -->

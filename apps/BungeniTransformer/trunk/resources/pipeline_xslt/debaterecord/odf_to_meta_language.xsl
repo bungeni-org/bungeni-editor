@@ -249,6 +249,9 @@
         <inline name="a">
             <xsl:attribute name="id" select="generate-id(.)" />
             <xsl:attribute name="href" select="tokenize(@href,':')[position()=2]" />
+            <!--
+            <xsl:attribute name="href" select="@href" />
+            -->
             <xsl:apply-templates />
         </inline>
     </xsl:template>
