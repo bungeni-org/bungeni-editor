@@ -706,10 +706,11 @@ public class BungeniNoaFrame extends BungeniFrame {
             if (document == null) {
                 return "Unknown Document";
             }
-            if (documentTitle.equals("")) {
-                documentTitle = OOComponentHelper.getFrameTitle(document.getXTextDocument());
-            }
-            return documentTitle;
+            documentTitle = OOComponentHelper.getFrameTitle(document.getXTextDocument());
+            if (documentTitle != null)
+                return documentTitle;
+            else
+                return "";
         }
 
         /**
