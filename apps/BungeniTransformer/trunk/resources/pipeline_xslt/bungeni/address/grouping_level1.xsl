@@ -25,7 +25,8 @@
         <xsl:variable name="address_id" select="field[@name='address_id']" />
         <xsl:variable name="group_id" select="field[@name='group_id']" />
         <xsl:variable name="content-type" select="@name" />
-        <xsl:variable name="group-type" select="item/field[@name='type']" />
+        <xsl:variable name="group-type" select="head/field[@name='type']" />
+        <xsl:variable name="parl-address" select="concat('/',$country-code,'/',$for-parliament,'/','address')"/>
         <!-- 
             !+NOTE (ao, jan-2012)
             Take country_id as opposed to $country-code as with other documents 
@@ -44,8 +45,7 @@
                 <xsl:attribute name="uri">
                     <xsl:choose>
                         <xsl:when test="field[@name='group_id']">
-                            <xsl:value-of select="concat(
-                                         $for-parliament,'/',
+                            <xsl:value-of select="concat($parl-address,'/',
                                          'group/',
                                          $country-code,'/',
                                          $group-type,'/',
@@ -53,8 +53,7 @@
                                          )" />
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:value-of select="concat(
-                                         $for-parliament,'/',
+                            <xsl:value-of select="concat($parl-address,'/',
                                          'user/',
                                          field[@name='user_id']
                                          )">          
@@ -94,23 +93,24 @@
                                             @name='street' or 
                                             @name='fax' or 
                                             @name='email' or 
+                                            @name='active_p' or 
+                                            @name='status' or 
                                             @name='country_id' ]"></xsl:copy-of>
+                
+                <group-type>
+                    <xsl:value-of select="$group-type"></xsl:value-of>
+                </group-type>                
+                <xsl:copy-of select="permissions" />                
             </address>
             <bungeni>
                 <xsl:copy-of select="tags"/>
                 <xsl:copy-of select="field[ 
-                    @name='active_p' or 
-                    @name='language' or
-                    @name='status' or 
+                    @name='language' or 
                     @name='iso_name' or 
                     @name='numcode' or 
                     @name='full_name' or                     
                     @name='iso3' ]" 
-                />                    
-                <xsl:copy-of select="permissions" />
-                <group-type>
-                    <xsl:value-of select="$group-type"></xsl:value-of>
-                </group-type>
+                />
             </bungeni> 
             
             <!--    !+FIX_THIS (ao, jan 2012. Some address documents for individuals like clerk dont have 'type' field and 

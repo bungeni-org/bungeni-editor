@@ -31,27 +31,30 @@
                 <xsl:variable name="group_type" select="group/field[@name='type']"></xsl:variable>
                 <xsl:variable name="groups_id" select="group/field[@name='group_id']"></xsl:variable>
                 <xsl:attribute name="uri" 
-                    select="concat($for-parliament, '/', 
+                    select="concat('/', $country-code, '/',
+                    $for-parliament, '/', 
                     $group_type,'/', 
                     $groups_id,'/',
                     'member','/',
                     $item_number)" />
                 
+                <xsl:copy-of select="field[  
+                    @name='status' or 
+                    @name='party_id' or                     
+                    @name='partymember' ]" 
+                />                 
+                <xsl:copy-of select="permissions | contained_groups" />                
                 <xsl:copy-of select="user/child::*" /> 
                 <xsl:copy-of select="changes | member_titles"/>
             </membership>
             <bungeni>
                 <xsl:copy-of select="tags"/>
                 <xsl:copy-of select="field[  
-                    @name='language' or
-                    @name='status' or 
-                    @name='partymember' ]" 
+                    @name='language' ]" 
                 />                    
-                <xsl:copy-of select="permissions" />
                 <principalGroup>
                     <xsl:attribute name="href" select="concat('#', $group_principal_id)" />
                 </principalGroup>
-                <xsl:copy-of select="contained_groups" />
             </bungeni> 
             
             <!--    !+FIX_THIS (ao, jan 2012. Some address documents for individuals like clerk dont have 'type' field and 
@@ -68,8 +71,7 @@
                     @name='full_name' or 
                     @name='description' or 
                     @name='type' or 
-                    @name='group_id' or 
-                    @name='party_id' or 
+                    @name='group_id' or  
                     @name='election_date' or 
                     @name='start_date' or 
                     @name='dissolution_date' or 

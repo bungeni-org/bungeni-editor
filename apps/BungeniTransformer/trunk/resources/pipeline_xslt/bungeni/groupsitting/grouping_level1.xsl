@@ -65,22 +65,23 @@
                                             @name='meeting_type' or 
                                             @name='convocation_type' or 
                                             @name='activity_type' or 
+                                            @name='status' or 
                                             @name='election_date' ] | 
                                             group_addresses | 
                                             item_schedule | 
                                             venue | 
                                             reports"></xsl:copy-of>
+                
+                <xsl:copy-of select="permissions | contained_groups" />                
             </groupsitting>
             <bungeni>
                 <xsl:copy-of select="field[  
-                    @name='language' or
-                    @name='status' ]" 
+                    @name='language' ]" 
                 />                    
-                <xsl:copy-of select="permissions" />
                 <principalGroup>
                     <xsl:attribute name="href" select="concat('#', $group_principal_id)" />
                 </principalGroup>
-                <xsl:copy-of select="contained_groups | tags" />
+                <xsl:copy-of select="tags" />
             </bungeni> 
             
             <!--    !+FIX_THIS (ao, jan 2012. Some address documents for individuals like clerk dont have 'type' field and 

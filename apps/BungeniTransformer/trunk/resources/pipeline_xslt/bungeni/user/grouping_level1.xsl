@@ -31,12 +31,13 @@
             </metadata>
             <bungeni>
                 <country><xsl:value-of select="$country-code" /></country>
-                <parliament href="{$for-parliament}" isA="TLCOrganization" date="{$parliament-election-date}" />
+                <parliament href="{concat('/',$country-code,'/',$for-parliament)}" isA="TLCOrganization" date="{$parliament-election-date}" />
             </bungeni>            
             <user isA="TLCPerson" >
                 <xsl:variable name="item_number" select="field[@name='user_id']"></xsl:variable>
                 <xsl:attribute name="uri" 
-                    select="concat($for-parliament, '/', 
+                    select="concat('/',$country-code,'/',
+                    $for-parliament, '/', 
                     $content-type, '/', 
                     $item_number)" />
                 <xsl:copy-of select="field[

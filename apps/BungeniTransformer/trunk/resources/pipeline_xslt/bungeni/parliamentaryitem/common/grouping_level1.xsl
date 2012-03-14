@@ -35,7 +35,7 @@
             </document>
             <bungeni>
                <country><xsl:value-of select="$country-code" /></country>
-                <parliament href="{$for-parliament}" 
+                <parliament href="{concat('/',$country-code,'/',$for-parliament)}" 
                     isA="TLCOrganization" 
                     date="{$parliament-election-date}" />
                 <xsl:copy-of select="tags"/>
@@ -58,7 +58,7 @@
                   <group>
                       <xsl:variable name="ministry_id" select="field[@name='ministry_id']" />
                       <xsl:attribute name="isA" select="string('ministry')" />
-                      <xsl:attribute name="href" select="concat($for-parliament, '/group/', $ministry_id)" />
+                      <xsl:attribute name="href" select="concat('/',$country-code,'/',$for-parliament, '/group/', $ministry_id)" />
                       <!-- !+FIX_THIS figure out what to do with this -->
                       <!-- <xsl:copy-of select="field[@name='ministry_submit_date']"></xsl:copy-of> -->
                   </group> 
@@ -183,6 +183,13 @@
                 <!-- PERMISSIONS -->
                 <xsl:copy-of select="permissions" />
                 
+                <!-- for <question> -->
+                <xsl:if test="ministry/*">
+                    <assignedTo group="ministry">
+                        <!-- copy only if the element is not empty -->
+                        <xsl:copy-of select="ministry" />
+                    </assignedTo>
+                </xsl:if>                 
                 
             </legislativeItem>
             
@@ -191,9 +198,7 @@
             <xsl:copy-of select="attached_files" />
             
             <!-- for <motion> & <bill> & <heading> -->
-            <xsl:copy-of select="itemsignatories" />
-         
-            <xsl:copy-of select="ministry" />
+            <xsl:copy-of select="itemsignatories" />        
             
            </ontology>
     </xsl:template>

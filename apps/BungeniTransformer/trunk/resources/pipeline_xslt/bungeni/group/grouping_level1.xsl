@@ -49,19 +49,20 @@
                                             @name='num_members' or 
                                             @name='quorum' or 
                                             @name='start_date' or 
+                                            @name='status' or 
                                             @name='election_date' ] | group_addresses"></xsl:copy-of>
+                
+                <xsl:copy-of select="permissions" />                
+                <xsl:copy-of select="contained_groups" />                
             </group>
             <bungeni>
                 <xsl:copy-of select="tags"/>
                 <xsl:copy-of select="field[  
-                    @name='language' or
-                    @name='status' ]" 
+                    @name='language' ]" 
                 />                    
-                <xsl:copy-of select="permissions" />
                 <principalGroup>
                     <xsl:attribute name="href" select="concat('#', $group_principal_id)" />
                 </principalGroup>
-                <xsl:copy-of select="contained_groups" />
             </bungeni> 
             
             <xsl:element name="{$group-type}">
