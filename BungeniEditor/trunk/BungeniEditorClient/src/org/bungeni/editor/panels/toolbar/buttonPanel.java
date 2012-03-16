@@ -7,6 +7,9 @@
 package org.bungeni.editor.panels.toolbar;
 
 import java.awt.event.ActionListener;
+import java.io.UnsupportedEncodingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.SwingConstants;
 
 /**
@@ -43,7 +46,14 @@ public class buttonPanel extends javax.swing.JPanel {
     }
 
     private void setButtonText(String text) {
-        this.btnAction.setText("<html>" + text + "</html>");
+        //we set the button text as utf8 text.
+        try {
+            String utf8Text = new String(text.getBytes(), "UTF8");
+            this.btnAction.setText(utf8Text);
+        } catch (UnsupportedEncodingException ex) {
+            //revert to non-utf8 text setting
+            btnAction.setText(text);
+        }
     }
 
    private void setButtonTooltip(String text){
@@ -70,8 +80,8 @@ public class buttonPanel extends javax.swing.JPanel {
         btnAction = new javax.swing.JButton();
 
         btnAction.setBackground(new java.awt.Color(143, 204, 48));
-        btnAction.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        btnAction.setText("some text");
+        btnAction.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnAction.setText("?");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

@@ -2,12 +2,6 @@ package org.bungeni.editor.panels.toolbar;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.bungeni.db.BungeniClientDB;
-import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.db.QueryResults;
-import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.extutils.BungeniEditorProperties;
 
 import org.jdom.Document;
@@ -26,7 +20,6 @@ import java.io.IOException;
 import java.io.StringReader;
 
 import java.util.ArrayList;
-import java.util.List;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.extutils.CommonFileFunctions;
 
