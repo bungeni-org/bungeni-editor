@@ -42,7 +42,8 @@
                     @name='status' or 
                     @name='party_id' or                     
                     @name='partymember' ]" 
-                />                 
+                />     
+                <referenceToUser uri="{concat('/',$country-code,'/',$for-parliament,'/user/',field[@name='user_id'])}" />
                 <xsl:copy-of select="permissions | contained_groups" />                
                 <xsl:copy-of select="user/child::*" /> 
                 <xsl:copy-of select="changes | member_titles"/>

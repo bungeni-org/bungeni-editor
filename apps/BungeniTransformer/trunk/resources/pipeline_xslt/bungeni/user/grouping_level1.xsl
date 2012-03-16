@@ -28,11 +28,7 @@
                 <xsl:attribute name="type">
                     <xsl:value-of select="$content-type" />
                 </xsl:attribute>
-            </metadata>
-            <bungeni>
-                <country><xsl:value-of select="$country-code" /></country>
-                <parliament href="{concat('/',$country-code,'/',$for-parliament)}" isA="TLCOrganization" date="{$parliament-election-date}" />
-            </bungeni>            
+            </metadata>          
             <user isA="TLCPerson" >
                 <xsl:variable name="item_number" select="field[@name='user_id']"></xsl:variable>
                 <xsl:attribute name="uri" 
@@ -61,7 +57,11 @@
                                         @name='tabled_document_number' ] |
                                         subscriptions | 
                                         user_addresses " />
-            </user>  
+            </user>
+            <bungeni>
+                <country><xsl:value-of select="$country-code" /></country>
+                <parliament href="{concat('/',$country-code,'/',$for-parliament)}" isA="TLCOrganization" date="{$parliament-election-date}" />
+            </bungeni>              
         </ontology>
     </xsl:template>
     

@@ -23,10 +23,10 @@
     
     <xsl:template match="contenttype">
         <xsl:variable name="address_id" select="field[@name='address_id']" />
-        <xsl:variable name="group_id" select="field[@name='group_id']" />
         <xsl:variable name="content-type" select="@name" />
+        <xsl:variable name="group_id" select="head/field[@name='group_id']" />        
         <xsl:variable name="group-type" select="head/field[@name='type']" />
-        <xsl:variable name="parl-address" select="concat('/',$country-code,'/',$for-parliament,'/','address')"/>
+        <xsl:variable name="parl-info" select="concat('/',$country-code,'/',$for-parliament,'/')"/>
         <!-- 
             !+NOTE (ao, jan-2012)
             Take country_id as opposed to $country-code as with other documents 
@@ -42,25 +42,33 @@
                 <!-- !+URI_GENERATOR,!+FIX_THIS(ah,nov-2011) use ontology uri
                 for group since its non-document entity -->
                 <!-- In relation to the !+NOTE above... -->
-                <xsl:attribute name="uri">
-                    <xsl:choose>
-                        <xsl:when test="field[@name='group_id']">
-                            <xsl:value-of select="concat($parl-address,'/',
-                                         'group/',
-                                         $country-code,'/',
-                                         $group-type,'/',
-                                         $group_id
-                                         )" />
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:value-of select="concat($parl-address,'/',
-                                         'user/',
-                                         field[@name='user_id']
-                                         )">          
-                            </xsl:value-of>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:attribute>
+                <xsl:attribute name="uri" 
+                    select="concat($parl-info,
+                    $content-type,'/',
+                    $address_id)" />    
+
+                <xsl:attribute name="id" select="$address_id" />                
+                
+                <assignedTo>
+                    <xsl:attribute name="uri">
+                        <xsl:choose>
+                            <xsl:when test="field[@name='group_id']">
+                                <xsl:value-of select="concat($parl-info,
+                                             'group/',
+                                             $group-type,'/',
+                                             $group_id
+                                             )" />
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="concat($parl-info,
+                                             'user/',
+                                             field[@name='user_id']
+                                             )">          
+                                </xsl:value-of>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:attribute>                    
+                </assignedTo>
                 <!--<xsl:attribute name="uri" 
                     select="concat(
                      '/ontology/',
@@ -68,8 +76,6 @@
                      $country_id, '/',
                      $address_id
                      )" />-->
-
-                <xsl:attribute name="id" select="$address_id" />
                 
                 <xsl:copy-of select="field[ @name='parent_group_id' or 
                                             @name='group_principal_id' or 

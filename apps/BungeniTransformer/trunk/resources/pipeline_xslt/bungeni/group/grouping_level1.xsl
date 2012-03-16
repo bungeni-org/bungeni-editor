@@ -33,10 +33,9 @@
                 <!-- !+URI_GENERATOR,!+FIX_THIS(ah,nov-2011) use ontology uri
                 for group since its non-document entity -->
                 <xsl:attribute name="uri" 
-                    select="concat(
-                     '/ontology/',
+                    select="concat('/',$country-code,'/',
+                     $for-parliament,'/',
                      $content-type,'/',
-                     $country-code, '/',
                      $group-type,'/',
                      $group_id
                      )" />
