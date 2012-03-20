@@ -1,5 +1,139 @@
 
 
+[filename='./org/bungeni/ooo/transforms/impl/Bundle.properties']
+
+PDF_Format=PDF (Portable Document Format)
+Export_using_FTP=Export using FTP
+Export_into_a_Bungeni_Server=Export into a Bungeni Server
+AN_Format=AN (AkomaNtoso XML Document)
+HTML_Format=HTML (Hypertext Web Document)
+Folder_on_your_computer=Folder on your computer
+MS_Word_97_Format=DOC (Microsoft Word 97)
+
+
+[filename='./org/bungeni/editor/noa/Bundle.properties']
+#  Copyright (C) 2012 windows
+# 
+#  This program is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU General Public License
+#  as published by the Free Software Foundation; either version 2
+#  of the License, or (at your option) any later version.
+# 
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+# 
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+
+bungeninoaframe.last_document_open=This is the only document open, closing this will close the Editor completely !
+bungeninoaframe.really_exist_close_all=Really Exit? This will close all Editor panels
+bungeninoaframe.exit_confirmation=Exit Confirmation
+bungeninoaframe.save_and_close=Save and Close
+bungeninoaframe.cancel_close=Cancel Close
+bungeninoaframe.document_not_saved=The document has not been saved yet !
+bungeninoaframe.closing=Closing
+bungeninoaframe.close_document=Close Document?
+bungeninoaframe.save_multiple_docs=Select documents to save. \nIf you wish to not save any of the documents and exit, uncheck all the documents.
+
+
+[filename='./org/bungeni/editor/panels/loadable/Bundle.properties']
+
+documentNotesPanel.btnNewEditorNote.text=New Note
+documentNotesPanel.txtEditorNote.toolTipText=Type in your editor notes here.
+documentNotesPanel.lblEditorNotes.text=Editor Note
+documentNotesPanel.btnSaveEditorNote.text=Save Note
+documentNotesPanel.lblArchivedNotes.text=Archived Notes
+documentMetadataPanel.btnEditMetadata.text=Edit Document Metadata
+documentMetadataPanel.lblDescDocMetadata.text=Document Metadata
+sectionTreeMetadataPanel.lblSectionMetadata.text=Section Metadata
+sectionTreeMetadataPanel.lblSectionTreeMetadataView.text=Click on a section to view its Metadata
+sectionTreeMetadataPanel.btnRefresh.text=Refresh
+sectionNumbererPanel.btnExternalReference.text=Insert External Reference
+sectionNumbererPanel.checkbxUseParentPrefix.text=Use Parent Prefix
+sectionNumbererPanel.btnInsertCrossReference.text=Insert Cross Reference
+sectionNumbererPanel.btnRenumberSections.text=Number/Renumber All Headings
+sectionNumbererPanel.btnfixBrokenReferences.text=Fix Broken Reference
+transformXMLPanel.checkChangeColumns.text=Switch to 2 columns
+transformXMLPanel.btnExport.text=Export...
+transformXMLPanel.lblTransformFrom.text=Export to Other Formats
+frameBrokenReferences.btnFixBrokenReferences.text=Insert Cross Ref
+frameBrokenReferences.taskpaneGrpFindBrokenReferences.title=Find Broken References
+frameBrokenReferences.btnClose2.text=Close
+frameBrokenReferences.btnCloseFrame.text=Browse Broken
+frameBrokenReferences.taskpaneGrpFixBrokenReferences.title=Fix Broken References
+transformXMLPanel.btnMakePlain.text=Get a Plain Document
+validateAndCheckPanel.btnValidateStructure.text=Check Structure
+validateAndCheckPanel.jLabel1.text=Validate Structural Integrity
+validateAndCheckPanel.btnViewErrorLog.text=View Error Log
+validateAndCheckPanel.chkAllowedChildren.text=Allowed Children
+validateAndCheckPanel.chkOrderOfSections.text=Order of Sections
+validateAndCheckPanel.jLabel1.text=Validate Semantic Integrity
+validateAndCheckPanel.btnValidate.text=Validate Document
+validateAndCheckPanel.btnViewValidationErrors.text=View Validation Errors
+validateAndCheckPanel.btnViewXml.text=View XML version of doc
+
+validateAndCheckPanel2.btnValidateStructure.text=Run Checks
+validateAndCheckPanel2.lblSelect.text=Validate Structural Integrity
+validateAndCheckPanel2.btnViewErrorLog.text=View Errors
+validateAndCheckPanel2.chkAllowedChildren.text=Allowed Children
+validateAndCheckPanel2.chkOrderOfSections.text=Order of Sections
+validateAndCheckPanel2.jLabel2.text=Validate Semantic Integrity
+validateAndCheckPanel2.btnValidate.text=Validate Document
+validateAndCheckPanel2.btnViewValidationErrors.text=View Validation Errors
+validateAndCheckPanel2.btnViewXml.text=View XML version of doc
+validateAndCheckPanel2.chkStructural.text=Structural Validity
+validateAndCheckPanel2.chkValidation.text=Xml Validity
+transformXMLPanel.btnViewValidationErrors.text=View Errors...
+transformXMLPanel.btnViewXmlDoc.text=View XML...
+transformXMLPanel.btnExportToXML.text=Transform to Xml
+PDF_Format=PDF (Portable Document Format)
+Document_Successfully_Converted!=Document Successfully Numbered. Do you wish to see the Numbered document?
+Document_Failure_Conversion=There was an error numbering the document. Please try again.
+Yes_to_open_No_to_close=Click Yes to open the plain document \n Click No to close this window
+Document_export_failed=Document export failed
+Document_was_successfully_Exported_to_the_workspace_folder=Document was successfully Exported to the workspace folder
+Save_the_document=Save the document
+Please_save_the_document=Please save the document before proceeding !
+The_Transformer_Server_is_running_on_port=The Transformer Server is running on port
+The_Transformer_Server_is_currently_not_running=The Transformer Server is currently not running
+Folder_on_your_computer=Folder on your computer
+Export_using_FTP=Export using FTP
+Export_into_a_Bungeni_Server=Export into a Bungeni Server
+AN_Format=AN (AkomaNtoso XML Document)
+HTML_Format=HTML (Hypertext Web Document)
+no_validation_errors=There were no validation errors !
+save_document_before_transform=The document has not been saved or transformed to XML. \n Please save the document and attempt a transformation to XML before trying to view errors
+xml_not_wellformed=The Xml File is not well formed
+xml_viewer_error=Xml Viewer Error
+xml_does_not_exist=The Xml file does not exist. \n Please try and transform the document to generate a Xml file
+save_document_before_proceeding=Please save the document before proceeding !
+save_the_document=Save the document
+problem_running_struct_checker=There was an exception while running the structural rules checker
+section_type_has_num_scheme=The section type already has a numbering scheme ! \n If you wish you to re-number the sections, please use the 'Renumbering' button
+completed=Completed !
+not_supported_yet=Not supported yet.
+contains_applied_number= contains applied number
+no_applied_number= DOES NOT contain applied number
+no_headings_for_numbering=There are no headings marked for numbering!
+validateAndCheckPanel2.chkStructural.toolTipText=Check the structural validity of the document
+validateAndCheckPanel2.chkValidation.toolTipText=Transform the document to AN-xml and check its validity
+validateAndCheckPanel2.scrollChecks.toolTipText=Select specific checks to run
+transformXMLPanel.cboTransformFrom.toolTipText=Select a file format to export the current document
+transformXMLPanel.btnExport.toolTipText=The file will be exported to the markup document's workspace folder
+documentStructurePanel.btnSectionsCollapseAll.text=Collapse
+documentStructurePanel.btnSectionsExpandAll.text=Expand
+documentStructurePanel.scrollTreeView.TabConstraints.tabTitle=Structure
+documentStructurePanel.btnRefresh.text=Refresh
+documentStructurePanel.scrollInternalTreeView.TabConstraints.tabTitle=Sections
+frameBrokenReferences.btnFixBroken.text=Fix References
+frameBrokenReferences.btnClose1.text=Close
+frameBrokenReferences.btnFindBroken.text=Find Broken
+sectionTreeMetadataPanel.btnMetadataEdit.text=Edit
+
+
 [filename='./org/bungeni/editor/actions/routers/Bundle.properties']
 
 # To change this template, choose Tools | Templates
@@ -18,59 +152,48 @@ routerMarkWorkflowAction_panel.lbActionDate.text=Action Date
 routerMarkWorkflowAction_panel.lblActionType.text=Action Type
 
 
-[filename='./org/bungeni/editor/panels/Bundle.properties']
+[filename='./org/bungeni/editor/selectors/Bundle.properties']
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
 
-holderUIPanel.btnHideToolbarTree.text=Hide Toolbar Panel
-holderUIPanel.btnRefresh.text=Refresh Tree
-holderUIPanel.btnViewDefault.text=Switch to Default View
-holderUIPanel.btnHideTreeView.text=Hide Section View Panel
+BaseMetadataContainerPanel.btnApply.text=Apply
+BaseMetadataContainerPanel.btnCancel.text=Close
 
 
-[filename='./org/bungeni/editor/panels/loadable/Bundle.properties']
+[filename='./org/bungeni/editor/selectors/debaterecord/bills/Bundle.properties']
 
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
-documentNotesPanel.btnNewEditorNote.text=New Note
-documentNotesPanel.txtEditorNote.toolTipText=Type in your editor notes here.
-documentNotesPanel.lblEditorNotes.text=Editor Note
-documentNotesPanel.btnSaveEditorNote.text=Save Note
-documentNotesPanel.lblArchivedNotes.text=Archived Notes
-documentMetadataPanel.btnEditMetadata.text=Edit Document Metadata
-documentMetadataPanel.lblDescDocMetadata.text=Document Metadata
-sectionTreeMetadataPanel.lblSectionMetadata.text=Section Metadata
-sectionTreeMetadataPanel.lblSectionTreeMetadataView.text=Click on a section to view its Metadata
-sectionTreeMetadataPanel.btnRefresh.text=Refresh
-sectionNumbererPanel.btnExternalReference.text=Insert External Reference
-sectionNumbererPanel.checkbxUseParentPrefix.text=Use Parent Prefix
-sectionNumbererPanel.btnInsertCrossReference.text=Insert Cross Reference
-sectionNumbererPanel.btnRenumberSections.text=Number/Renumber All Headings
-sectionNumbererPanel.btnfixBrokenReferences.text=Fix Broken Reference
-transformXMLPanel.lblExportTo.text=Export To:
-transformXMLPanel.btnValidateStructure.text=Validate Structure
-transformXMLPanel.checkboxMakePlain.text=Make Document Plain
-transformXMLPanel.checkChangeColumns.text=Switch to 2 columns
-transformXMLPanel.btnExport.text=Export...
-transformXMLPanel.lblTransformFrom.text=Transformation Target
+Bills.lbl_SelectCommittee.text=Select Bill
+no_row_selected = Please select a tabled document!
+tableValidationError = There is an empty value at row #{0} and column #{1}
 
-
-[filename='./org/bungeni/editor/selectors/debaterecord/conclusion/Bundle.properties']
+[filename='./org/bungeni/editor/selectors/debaterecord/question/Bundle.properties']
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
 
-HouseClosingTime.lbl_initdebate_timeofhansard.text=House Closing Time
+QuestionSelect.btnSelectQuestion.text=Select a Question...
+QuestionSelect.btnSelectQuestion.actionCommand=Select a Question
+QuestionText.lblQuestionText.text=Question Text
+QuestionTitle.lblQuestionTitle.text=Question Title
+QuestionerNameAndURI.lblPersonURI.text=URI of Person
+QuestionText.btnPaste.text=Paste Into Document
+QuestionTitle.btnPaste.text=Paste Into Document
+QuestionNo.lblQuestionNo.text=Question No
+QuestionerNameAndURI.jLabel1.text=Enter Name of the person asking Question
+QuestionerNameAndURI.jLabel2.text=
+QuestionerNameAndURI.loadingURI.text=\
 
 
-[filename='./org/bungeni/editor/selectors/debaterecord/speech/Bundle.properties']
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
-
-PersonSelector.btn_SpeechBy.text=Select a Person...
-PersonSelector.btn_SpeechBy.actionCommand=Select a Question
-PersonURI.lbl_URIofPerson.text=URI of Selected Person
-SpeechBy.lbl_SpeechBy.text=Speech By
-
+[filename='./org/bungeni/editor/selectors/debaterecord/tableddocuments/Bundle.properties']
+TabledDocuments.lbl_tabledDocs.text=Select Tabled Documents
+Title.lbl_title.text=Enter Title
+TabledDocuments.chkEditTable.text=Edit Table
+TabledDocuments.btnClear.text=Clear Table
+TabledDocuments.btnDeleteSelected.text=Deleted Selected Row
+TabledDocuments.btnAddRow.text=Add New Row
+TabledDocuments.btnReset.text=Reset
+no_row_selected = Please select a tabled document!
+tableValidationError = There is an empty value at row #{0} and column #{1}
+URI_TABLED_DOCUMENTS = URI to a tabled document
 
 [filename='./org/bungeni/editor/selectors/debaterecord/masthead/Bundle.properties']
 
@@ -81,25 +204,38 @@ DebateRecordLogo.btn_initdebate_selectlogo.text=Select Logo...
 DebateRecordDate.lbl_initdebate_hansard.text=DebateRecord Date
 
 
-[filename='./org/bungeni/editor/selectors/debaterecord/tableddocuments/Bundle.properties']
+[filename='./org/bungeni/editor/selectors/debaterecord/conclusion/Bundle.properties']
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
 
-TabledDocuments.lbl_tabledDocs.text=Select Tabled Documents
-Title.lbl_title.text=Enter Title
+HouseClosingTime.lbl_initdebate_timeofhansard.text=House Closing Time
 
 
-[filename='./org/bungeni/editor/selectors/debaterecord/question/Bundle.properties']
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
+[filename='./org/bungeni/editor/selectors/debaterecord/questions/Bundle.properties']
+#  Copyright (C) 2011 undesa
+# 
+#  This program is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU General Public License
+#  as published by the Free Software Foundation; either version 2
+#  of the License, or (at your option) any later version.
+# 
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+# 
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
-QuestionSelect.btnSelectQuestion.text=Select a Question...
-QuestionSelect.btnSelectQuestion.actionCommand=Select a Question
-QuestionText.lblQuestionText.text=Question Text
-QuestionTitle.lblQuestionTitle.text=Question Title
-QuestionerNameAndURI.lblNameOfPersonFrom.text=Edit name of Person asking Question
-QuestionerNameAndURI.lblPersonURI.text=URI of Person
+QuestionType.lblQuestionType.text=Question Type
 
+
+[filename='./org/bungeni/editor/selectors/debaterecord/committees/Bundle.properties']
+no_row_selected = Please select a tabled document!
+tableValidationError = There is an empty value at row #{0} and column #{1}
+Committees.lbl_SelectCommittee.text=Select Committee
+PanelName = Committees
 
 [filename='./org/bungeni/editor/selectors/debaterecord/motions/Bundle.properties']
 
@@ -110,6 +246,22 @@ MotionSelect.btnSelectQuestion.text=Select a Motion...
 MotionSelect.btnSelectQuestion.actionCommand=Select a Question
 MotionText.lblQuestionText.text=Motion Text
 MotionTitle.lblQuestionTitle.text=Motion Title
+MotionNameAndURI.lblPersonURI.text=Motion URI
+MotionTitle.btnPaste.text=Paste Into Document
+MotionText.btnPaste.text=Paste Into Document
+MotionSelect.btnAdd.text=Add Motion
+
+
+[filename='./org/bungeni/editor/selectors/debaterecord/speech/Bundle.properties']
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+
+PersonSelector.btn_SpeechBy.text=Select a Person...
+PersonSelector.btn_SpeechBy.actionCommand=Select a Question
+PersonURI.lbl_URIofPerson.text=URI of Selected Person
+SpeechBy.lbl_SpeechBy.text=Speech By
+SpeechAs.lbl_SpeechAs.text=Speech As
+PersonSelector.lblPersonSelect.text=Select a Person
 
 
 [filename='./org/bungeni/editor/dialogs/Bundle.properties']
@@ -123,14 +275,13 @@ editorApplicationController.btnSetCurrentTemplate.text=Set Current Template
 editorApplicationController.checkBoxConnectOnStartup.text=Connect to Server on Start Up
 editorApplicationController.btnSaveSettings.text=Save Settings
 editorApplicationController.tabServer.TabConstraints.tabTitle=Server
-editorApplicationController.btnImportNew.text=Import Existing Document..
 editorApplicationController.tabTemplates.TabConstraints.tabTitle=Templates
-editorApplicationController.lblOpenCurrentDoc.text=Launches a file selector dialog to open an existing: %s document
-editorApplicationController.lblLaunchAndAccquire.text=Launches the Editor and accquires open : %s documents
+editorTabbedPanel.panel.Title=Bungeni Editor
+editorApplicationController.lblOpenCurrentDoc.text=Open an existing marked up : %s document
 editorApplicationController.btnBackOneFolder.text=\u00AB Back one Folder Level
 editorApplicationController.lblServerIP.text=Server IP
-editorApplicationController.lblApplnTitle.text=Bungeni Editor Application 0.7
-editorApplicationController.lblDocumentTypes.text=Change Active Document mode for editor
+editorApplicationController.lblApplnTitle.text=Bungeni Editor - v%s
+editorApplicationController.lblDocumentTypes.text=Launch Document Type
 editorApplicationController.lblServerPort.text=Server Port
 editorApplicationController.tabAbout.TabConstraints.tabTitle=About
 editorApplicationController.lblCurrentActiveMode.text=CURRENT : %s
@@ -139,23 +290,29 @@ editorApplicationController.btnOpenExisting.text=Open Existing Document...
 editorApplicationController.tabSettings.TabConstraints.tabTitle=Settings
 editorApplicationController.lblCreateNewDoc.text=Composes a blank document of type : %s
 editorApplicationController.btnBrowseWorkspacePath.text=Browse..
-editorApplicationController.btnStartAndAccquire.text=Start and Accquire
 editorApplicationController.tabCurrentFile.TabConstraints.tabTitle=Quick Actions
 editorApplicationController.createNewDocument.text=Create New Document....
 editorApplicationController.lblCurrentTemplate.text=Create a new document from selected template
-editorTabbedPanel.btnEdit.text=Edit
-editorTabbedPanel.lblCurrentlyOpenDocuments.text=Currently Open Documents
-editorTabbedPanel.btnBringToFront.text=To Front
-editorTabbedPanel.btnOpenDocument.text=Open
+editorTabbedPanel.lblCurrentlyOpenDocuments.text=currently open documents
+editorTabbedPanel.btnBringToFront.text=to front
+editorTabbedPanel.btnOpenDocument.text=open
 editorTabbedPanel.lblCurrentMode.text=CURRENT MODE : %s
-editorTabbedPanel.btnNewDocument.text=New
-editorTabbedPanel.btnSaveDocument.text=Save
-editorTabbedPanel.lblSecName.text=Current Section Name :
-editorTabbedPanel.lblDisplaySectionName.text=::
+editorTabbedPanel.btnNewDocument.text=new
+editorTabbedPanel.btnSaveDocument.text=save
+make_new_active=Do you want to make the NEW document the active document ?
+make_active=Make this document the active document ?
+change_active=Change active document
+change_locale=The new locale will be active when you restart the editor application !
+#editorApplicationController00.lblApplnTitle.text=Bungeni Editor Application 0.7
+#editorApplicationController00.tabAbout.TabConstraints.tabTitle=About
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+#deleted all editorApplicationController00 prefix message strings 
+editorApplicationController.lblLocale.text=Select Locale
 
 
 [filename='./org/bungeni/editor/metadata/editors/Bundle.properties']
-Bill_Name=Bill Name
+# Bill_Name=Bill Name
 Date_of_Commencement=Date of Commencement
 Date_of_Assent=Date of Assent
 Bill_No=Bill No
@@ -166,13 +323,13 @@ GeneralMetadata.lblPublicationDate.text=Publication Date *
 GeneralMetadata.lblPublicationName.text=Publication Name *
 GeneralMetadata.lblOfficialDate.text=Official Date *
 GeneralMetadata.lblOfficialTime.text=Official Time *
-BillMetadata.lblBillName.text=Bill Name *
-BillMetadata.lblDateOfAssent.text=Date Of Assent *
+BillMetadata.lblDateOfAssent.text=Date Of Assent
 BillMetadata.lblBillNo.text=Bill No. *
-BillMetadata.lblDateOfCommencement.text=Date of Commencement *
+BillMetadata.lblDateOfCommencement.text=Date of Commencement
 Judgement_No=Judgement No.
 Select_A_Judgement_No=Select A Judgement No
 Select_A_Judge=Select A Judge
+Select_A_Party=Select a Party
 Add_Party=Add Party
 Add_Judge=Add Judge
 Select_dotdot=Select..
@@ -190,3 +347,15 @@ JudgementMetadata3.panelParties.TabConstraints.tabTitle=Parties
 MetadataEditorContainer.btnCancel.text=Cancel
 MetadataEditorContainer.btnSave.text=Save
 MetadataEditorContainer.txtMsgArea.text=This is a new document, Please select and enter required metadata to initialize the document
+MetadataEditorContainer.btnNavigate.text=Next >>
+edit_metadata_with_form=Please edit the metadata for the currently open document using the below form
+incomplete_fields=Incomplete Fields
+doc_not_saved=The Document could not be saved!
+file_exists2=A file with these attributes already exists, \n please edit the existing file or amend the attributes to save as a different file
+file_exists=A file with these attributes already exists, \n please edit the existing file or amend the attributes to save as a different file. \n Usually this means you are trying to save a document with an 'Official Date' that already exists
+msg_warning=Warning
+prompt_doc_save_new_location=The document will be saved to a new location, as the URI of the document has changed \n Click Yes to save to a new location, Click No to continue saving the document at the current location
+msg_save=Save
+btn_prev=<< Previous
+btn_next=Next >>
+BillMetadata.lblBillNo1.text=Bill Name *
