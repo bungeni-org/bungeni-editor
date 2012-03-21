@@ -34,6 +34,7 @@ import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 import org.apache.log4j.PropertyConfigurator;
 import org.bungeni.editor.noa.BungeniNoaApp;
+import org.bungeni.editor.noa.ext.BungeniLocalOfficeApplication;
 import org.bungeni.extutils.BungeniRuntimeProperties;
 
 /**
@@ -142,11 +143,26 @@ public class BungeniEditorClient {
                 int confirm = JOptionPane.showOptionDialog(frame, "Really Exit? This will close all Editor panels",
                         "Exit Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                         null, null);
-
+                //!+EXIT(AH,21-03-2012) added code to cleanup correctly on exit,
+                //this should be factored into BungeniNoaApp, something like :
+                //BungeniNoaApp.getInstance().die();
                 if (confirm == 0) {
-                    panel.cleanup();
-                    frame.dispose();
-                    System.exit(0);
+                    try {
+                        System.out.println("Closing OpenOffice completely");
+                        BungeniLocalOfficeApplication app = BungeniNoaApp.getInstance().getOfficeApp();
+                        if (app != null) {
+                            app.deactivate();
+                            app.dispose();
+                            BungeniNoaApp.getInstance().setOfficeApp(null);
+                        }
+                        panel.cleanup();
+                        frame.dispose();
+                    } catch(Exception ex){
+                        System.out.println("problem while closing app " + ex.getMessage());
+                    }
+                    finally {
+                        System.exit(0);
+                    }
                 }
             }
         };

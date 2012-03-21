@@ -2,17 +2,14 @@
 package org.bungeni.editor.panels.toolbar;
 
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.BorderFactory;
 import javax.swing.JTabbedPane;
-import org.bungeni.editor.actions.DocumentActionsReader;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.jdom.Attribute;
 import org.jdom.Element;
-import org.jdom.JDOMException;
 import org.jdom.Namespace;
 import org.jdom.output.XMLOutputter;
 

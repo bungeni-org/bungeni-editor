@@ -3,20 +3,26 @@
 <panels for="debaterecord">
     <panel name="actions" class="org.bungeni.editor.panels.loadable.documentActionPanel" state="1">
            <title xml:lang="eng">markup</title>
+           <title xml:lang="spa">sugerir</title>
     </panel>
     <panel name="allmeta" class="org.bungeni.editor.panels.loadable.MetadataPanel" state="1">
            <title xml:lang="eng">metadata</title>
+           <title xml:lang="spa">metadatos</title>
     </panel>
     <panel name="structure" class="org.bungeni.editor.panels.loadable.documentStructurePanel" state="1">
            <title xml:lang="eng">structure</title>
+           <title xml:lang="spa">estructura</title>
     </panel>
     <panel name="validate" class="org.bungeni.editor.panels.loadable.validateAndCheckPanel2" state="1">
            <title xml:lang="eng">validate</title>
+           <title xml:lang="spa">validar</title>
     </panel>
     <panel name="transform" class="org.bungeni.editor.panels.loadable.transformXMLPanel" state="1">
            <title xml:lang="eng">publish</title>
+           <title xml:lang="spa">publicar</title>
     </panel>
     <panel name="notes" class="org.bungeni.editor.panels.loadable.documentNotesPanel" state="1">
            <title xml:lang="eng">notes</title>
+           <title xml:lang="eng">notas</title>
     </panel>
 </panels>

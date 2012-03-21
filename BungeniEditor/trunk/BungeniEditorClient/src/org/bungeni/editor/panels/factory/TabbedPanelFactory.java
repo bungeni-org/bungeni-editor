@@ -1,19 +1,17 @@
 
 package org.bungeni.editor.panels.factory;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Vector;
-import org.bungeni.db.BungeniClientDB;
-import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.db.QueryResults;
-import org.bungeni.db.SettingsQueryFactory;
+import java.util.List;
 import org.bungeni.editor.panels.impl.ITabbedPanel;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
+import org.jdom.Element;
+import org.jdom.JDOMException;
 
 /**
  *
- * @author Administrator
+ * @author Ashok Hariharan
  */
 public class TabbedPanelFactory {
    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(TabbedPanelFactory.class.getName());
@@ -50,6 +48,17 @@ public class TabbedPanelFactory {
     public static ITabbedPanel getPanelByName(String docType, String panelName) {
        ITabbedPanel panel = null;
         try {
+            //
+            //<panel name="docmeta" class="org.bungeni.editor.panels.loadable.documentMetadataPanel" state="1">
+            //   <title xml:lang="eng">Document</title>
+            //</panel>
+
+            
+            Element namedPanel = PanelsReader.getInstance().getPanelByName(docType, panelName);
+            String panelClass = namedPanel.getAttributeValue("class");
+            panel = makePanel(panelClass, 0, PanelsReader.getInstance().getLocalizedTitleForPanel(namedPanel) );
+
+            /***
             BungeniClientDB instance = new BungeniClientDB (DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
             QueryResults qr = instance.ConnectAndQuery(SettingsQueryFactory.Q_FETCH_TABS_BY_NAME(docType, panelName));
             if (qr.hasResults()) {
@@ -64,6 +73,7 @@ public class TabbedPanelFactory {
                 }
 
             }
+             **/
         } catch (Exception ex) {
             log.error("getPanelByName : " + ex.getMessage());
             log.error("getPanelByName : " + CommonExceptionUtils.getStackTrace(ex));
@@ -76,6 +86,17 @@ public class TabbedPanelFactory {
             
         ArrayList<ITabbedPanel> tabbedPanels = new ArrayList<ITabbedPanel>();
         try {
+
+            List<Element> panelElements = PanelsReader.getInstance().getPanelsByDocType(docType);
+            for (Element aPanel : panelElements) {
+                 String panelClass = aPanel.getAttributeValue("class");
+                 String panelTitle = PanelsReader.getInstance().getLocalizedTitleForPanel(aPanel);
+                 ITabbedPanel panel = makePanel(panelClass, 0, panelTitle );
+                 if (null != panel) {
+                     tabbedPanels.add(panel);
+                 }
+            }
+            /**
             BungeniClientDB instance = new BungeniClientDB (DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
             QueryResults qr = instance.ConnectAndQuery(SettingsQueryFactory.Q_FETCH_TABS_BY_DOC_TYPE(docType));
      
@@ -94,9 +115,16 @@ public class TabbedPanelFactory {
                     } else
                         tabbedPanels.add(panel);
                 }
-                
+               **/
             }
-        } catch (Exception ex) {
+        catch (JDOMException ex) {
+            log.error("getPanelsByDocType : " + ex.getMessage());
+            log.error("getPanelsByDocType : " + CommonExceptionUtils.getStackTrace(ex));
+        } catch (IOException ex) {
+            log.error("getPanelsByDocType : " + ex.getMessage());
+            log.error("getPanelsByDocType : " + CommonExceptionUtils.getStackTrace(ex));
+        }
+        catch (Exception ex) {
             log.error("getPanelsByDocType : " + ex.getMessage());
             log.error("getPanelsByDocType : " + CommonExceptionUtils.getStackTrace(ex));
         } finally {

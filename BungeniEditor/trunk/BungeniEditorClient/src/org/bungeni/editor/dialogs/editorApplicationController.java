@@ -1142,33 +1142,6 @@ public class editorApplicationController extends javax.swing.JPanel {
         }
     }
 
-    class editorTabbedPanelFrameWindowListener implements WindowListener {
-
-        public void windowOpened(WindowEvent e) {
-        }
-
-        public void windowClosing(WindowEvent e) {
-            editorTabbedPanel.getInstance().cleanup();
-        }
-
-        public void windowClosed(WindowEvent e) {
-        }
-
-        public void windowIconified(WindowEvent e) {
-        }
-
-        public void windowDeiconified(WindowEvent e) {
-            
-        }
-
-        public void windowActivated(WindowEvent e) {
-            //  System.out.println("Window Was Activated!");
-        }
-
-        public void windowDeactivated(WindowEvent e) {
-            //   System.out.println("Window was De-Activated!");
-        }
-    }
 
     /**
      *  Mouse Listener Class for Server file listing
