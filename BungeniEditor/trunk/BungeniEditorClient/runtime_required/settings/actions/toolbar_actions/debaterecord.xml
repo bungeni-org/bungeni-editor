@@ -16,13 +16,14 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
             visible="true"
             uimodel="wrap">
             <title xml:lang="eng">generic</title>
+            <title xml:lang="spa">genérico</title>
             <blockAction name="Speeches"
                 target="null"
                 visible="true"
                 condition="none">
-                <title xml:lang="eng">Speech</title>
+                <title xml:lang="eng">speech</title>
                 <title xml:lang="fra">FR-Speech</title>
-                <title xml:lang="spa">Discurso</title>
+                <title xml:lang="spa">discurso</title>
                 <action name="PersonalStatement.create"
                     mode="TEXT_SELECTED_INSERT"
                     target="create_personal_statement"
@@ -31,6 +32,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                                 !cursorInSection:speech[0-9]* :and:
                                 cursorInSection:debaterecord">
                     <title xml:lang="eng">personal statement</title>
+                    <title xml:lang="spa">declaración personal</title>
+                    
                     <tooltip xml:lang="eng">
                         Personal Statement
                     </tooltip>
@@ -44,6 +47,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="cursorInSection:pstatemnt[0-9]* :and:
                                 textSelected:true">
                     <title xml:lang="eng">··→ heading</title>
+                    <title xml:lang="spa">··→ titulo</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark selected text as Heading
                     </tooltip>
@@ -56,6 +61,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                                 !cursorInSection:speech[0-9]* :and:
                                 cursorInSection:debaterecord">
                     <title xml:lang="eng">ministerial statement</title>
+                    <title xml:lang="spa">declaración ministerial</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark selected text as Ministerial Statement
                     </tooltip>
@@ -68,6 +75,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="cursorInSection:mstatemnt[0-9]* :and:
                                 textSelected:true">
                     <title xml:lang="eng">··→ heading</title>
+                    <title xml:lang="spa">··→ titulo</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark selected text as Heading
                     </tooltip>
@@ -79,6 +88,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 !cursorInSection:speech[0-9]*">
                     <title xml:lang="eng">speech section</title>
+                    <title xml:lang="spa">discurso de la sección</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark selection as a Speech
                     </tooltip>
@@ -91,6 +102,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:speech[0-9]*,spbody[0-9]*">
                     <title xml:lang="eng">··→ list-item</title>
+                    <title xml:lang="spa">··→ list-item</title>
+                     
                     <tooltip xml:lang="eng">
                         Identify the selected text as an item in a list
                     </tooltip>
@@ -103,6 +116,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:speech[0-9]*">
                     <title xml:lang="eng">··→ by</title>
+                    <title xml:lang="spa">··→ por</title>
+                    
                     <tooltip xml:lang="eng">
                         Identify selected text as speech author's name
                     </tooltip>
@@ -116,6 +131,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                                cursorInSection:speech[0-9]* :and:
                                !sectionHasChild:spbody[0-9]*">
                     <title xml:lang="eng">··→ body</title>
+                    <title xml:lang="spa">··→ cuerpo</title>
+                    
                     <tooltip xml:lang="eng">
                         Select and mark speech body
                     </tooltip>
@@ -146,6 +163,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                     cursorInSection:spbody[0-9]*">
                     <title xml:lang="eng">··→ item num</title>
+                    <title xml:lang="spa">··→ punto principale</title>
+                    
                     <tooltip xml:lang="eng">
                         Item Number
                     </tooltip>
@@ -157,6 +176,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     visible="true"
                     condition="none">
                 <title xml:lang="eng">communication</title>
+                <title xml:lang="spa">comunicación</title>
+                
                 <action name="Communication.fromTheChair"
                     mode="TEXT_SELECTED_INSERT"
                     target="create_communication_section"
@@ -164,6 +185,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="cursorInSection:debaterecord :and:
                               textSelected:true">
                     <title xml:lang="eng">communication from the chair</title>
+                    <title xml:lang="spa">comunicación del presidente</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark selection as communication from the chair
                     </tooltip>
@@ -175,6 +198,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="cursorInSection:comnctn[0-9]* :and:
                                 textSelected:true">
                     <title xml:lang="eng">··→ heading</title>
+                    <title xml:lang="spa">··→ titulo</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark selection as Heading
                     </tooltip>
@@ -186,6 +211,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="cursorInSection:debaterecord :and:
                                 textSelected:true">
                     <title xml:lang="eng">point of order</title>
+                    <title xml:lang="spa">cuestión de orden</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark selection as Point of Order
                     </tooltip>
@@ -197,6 +224,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="cursorInSection:porder[0-9]* :and:
                                 textSelected:true">
                     <title xml:lang="eng">··→ heading</title>
+                    <title xml:lang="spa">··→ titulo</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark Selection as Heading
                     </tooltip>
@@ -207,12 +236,16 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 visible="true"
                 condition="none">
                 <title xml:lang="eng">general actions</title>
+                <title xml:lang="spa">acciones generales</title>
+                
                 <action name="Root"
                     visible="true"
                     condition="sectionNotExists:debaterecord :and: textSelected:true"
                     mode="TEXT_SELECTED_INSERT"
                     target="create_mast_head_section:debaterecord">
                     <title xml:lang="eng">create root section</title>
+                    <title xml:lang="spa">crear la sección raíz</title>
+                    
                     <tooltip xml:lang="eng">
                         Add root section to the Document
                     </tooltip>
@@ -224,6 +257,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     visible="true"
                     condition="textSelected:true">
                     <title xml:lang="eng">observation</title>
+                    <title xml:lang="spa">observación</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark selection as Observation
                     </tooltip>
@@ -235,6 +270,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 visible="true"
                 condition="none">
                 <title xml:lang="eng">event actions</title>
+                <title xml:lang="spa">acciones de suceso</title>
+                
                 <action name="QuestionProposed"
                     visible="true"
                     condition="textSelected:true :and:
@@ -242,6 +279,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     mode="TEXT_SELECTED_INSERT"
                     target="make_action_event:QuestionProposed">
                     <title xml:lang="eng">question proposed</title>
+                    <title xml:lang="spa">cuestión propuesta</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark event : Question Proposed
                     </tooltip>
@@ -253,6 +292,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     mode="TEXT_SELECTED_INSERT"
                     target="make_action_event:QuestionAccepted">
                     <title xml:lang="eng">question accepted</title>
+                    <title xml:lang="spa">pregunta aceptada</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark event : Question Accepted
                     </tooltip>
@@ -264,6 +305,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     mode="TEXT_SELECTED_INSERT"
                     target="make_action_event:QuestionWithdrawn">
                     <title xml:lang="eng">question withdrawn</title>
+                    <title xml:lang="spa">cuestión de retirada</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark event : Question Withdrawn
                     </tooltip>
@@ -275,6 +318,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     mode="TEXT_SELECTED_INSERT"
                     target="make_action_event:QuestionDeferred">
                     <title xml:lang="eng">question deferred</title>
+                    <title xml:lang="spa">pregunta diferidos</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark event : Question Deferred
                     </tooltip>
@@ -286,6 +331,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     mode="TEXT_SELECTED_INSERT"
                     target="make_action_event:DebateInterruption">
                     <title xml:lang="eng">debate interruption</title>
+                    <title xml:lang="spa">debate sobre la interrupción</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark event : Debate Interruption
                     </tooltip>
@@ -297,6 +344,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     mode="TEXT_SELECTED_INSERT"
                     target="make_action_event:DebateResumption">
                     <title xml:lang="eng">debate resumption</title>
+                    <title xml:lang="spa">debate sobre la reanudación</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark event : Debate Resumption
                     </tooltip>
@@ -308,6 +357,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     mode="TEXT_SELECTED_INSERT"
                     target="make_action_event:BillFirstReading">
                     <title xml:lang="eng">bill 1st reading</title>
+                    <title xml:lang="spa">ley en primera lectura</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark Event : Bill 1st Reading
                     </tooltip>
@@ -319,6 +370,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     mode="TEXT_SELECTED_INSERT"
                     target="make_action_event:BillSecondReading">
                     <title xml:lang="eng">bill 2nd reading</title>
+                    <title xml:lang="spa">ley en  segunda lectura</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark Event : Bill 2nd Reading
                     </tooltip>
@@ -330,6 +383,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     mode="TEXT_SELECTED_INSERT"
                     target="make_action_event:BillThirdReading">
                     <title xml:lang="eng">bill 3nd reading</title>
+                    <title xml:lang="spa">ley en 3 ª lectura</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark Event : Bill 3rd Reading
                     </tooltip>
@@ -342,7 +397,9 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
             uimodel="wrap">
 
             <title xml:lang="eng">Structural</title>
-
+            <title xml:lang="spa">estructural</title>
+            
+            
             <blockAction name="Masthead.Selection"
                 
                 target="null"
@@ -350,6 +407,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 condition="none"
                 showChildren="true">
                 <title xml:lang="eng">preface</title>
+                <title xml:lang="spa">prefacio</title>
+                
                 <action name="Masthead.selection"
                     
                     mode="TEXT_SELECTED_INSERT"
@@ -359,6 +418,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                                 textSelected:true :and:
                                 sectionNotExists:preface">
                     <title xml:lang="eng">preface section</title>
+                    <title xml:lang="spa">prefacio de la sección</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark selection as Preface
                     </tooltip>
@@ -370,6 +431,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="cursorInSection:preface :and:
                                 textSelected:true">
                     <title xml:lang="eng">··→ heading</title>
+                    <title xml:lang="spa">··→ titulo</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark selection as Heading
                     </tooltip>
@@ -381,6 +444,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="cursorInSection:preface :and:
                                 textSelected:true">
                     <title xml:lang="eng">····→ sub-heading</title>
+                    <title xml:lang="spa">····→ sub-titulo</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark selection as Sub Heading
                     </tooltip>
@@ -392,6 +457,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     visible="true"
                     condition="imageSelectedIsNot:main_logo">
                     <title xml:lang="eng">··→ logo</title>
+                    <title xml:lang="spa">··→ logotipo</title>
+                    
                     <tooltip xml:lang="eng">
                         Select an Image and mark it as the preface logo
                     </tooltip>
@@ -404,6 +471,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="cursorInSection:preface :and:
                                  textSelected:true">
                     <title xml:lang="eng">··→ date</title>
+                    <title xml:lang="spa">··→ fecha</title>
+                    
                     <tooltip xml:lang="eng">
                         Markup the official date
                     </tooltip>
@@ -415,6 +484,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 visible="true"
                 condition="none">
                 <title xml:lang="eng">papers laid</title>
+                <title xml:lang="spa">documentos depositados</title>
+                
                 <action name="Papers.new"
                     mode="TEXT_SELECTED_INSERT"
                     target="create_papers_laid_block"
@@ -422,6 +493,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:debaterecord">
                     <title xml:lang="eng">papers laid section</title>
+                    <title xml:lang="spa">documentos depositados sección</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark selection to identify papers laid during the debate
                     </tooltip>
@@ -433,6 +506,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:papers[0-9]*">
                     <title xml:lang="eng">··→ heading</title>
+                    <title xml:lang="spa">··→ titulo</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark selection as Heading
                     </tooltip>
@@ -444,6 +519,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:papers[0-9]*">
                     <title xml:lang="eng">····→ sub-heading</title>
+                    <title xml:lang="spa">····→ sub-titulo</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark selection as Sub Heading
                     </tooltip>
@@ -455,6 +532,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:papers[0-9]*">
                     <title xml:lang="eng">··→ documents sub-section</title>
+                    <title xml:lang="spa">··→ documentos sub-sección</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark selection as a list of presented documents
                     </tooltip>
@@ -465,6 +544,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     visible="true"
                     condition="cursorInSection:tbldocs[0-9]*">
                     <title xml:lang="eng">····→ import listing</title>
+                    <title xml:lang="spa">····→ lista de importación</title>
+                    
                     <tooltip xml:lang="eng">
                         Import listing from a DB
                     </tooltip>
@@ -476,6 +557,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:tbldocs[0-9]*">
                     <title xml:lang="eng">····→ select/markup link</title>
+                    <title xml:lang="spa">····→ select/marcar enlaces</title>
+                    
                     <tooltip xml:lang="eng">
                         <html>
                         Mark selection as hyperlink to an existing tabled<br />
@@ -490,6 +573,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:tbldocs[0-9]*">
                     <title xml:lang="eng">····→ add/markup link</title>
+                    <title xml:lang="spa">····→ añadir/marcar enlaces</title>
+                    
                     <tooltip xml:lang="eng">
                         Add hyperlink to document
                     </tooltip>
@@ -501,6 +586,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 visible="true"
                 condition="none">
                 <title xml:lang="eng">notices of motions</title>
+                <title xml:lang="spa">las notificaciones de mociones</title>
+                
                 <action name="notices-of-motion.new"
                     mode="TEXT_SELECTED_INSERT"
                     target="create_motion_group"
@@ -508,6 +595,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:debaterecord">
                     <title xml:lang="eng">motions section</title>
+                    <title xml:lang="spa">mociones de la sección</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark selection as a motion
                     </tooltip>
@@ -519,6 +608,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:noticesmotion[0-9]*">
                     <title xml:lang="eng">··→ heading</title>
+                    <title xml:lang="spa">··→ titulo</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark selection as a heading
                     </tooltip>
@@ -530,6 +621,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:noticesmotion[0-9]*">
                     <title xml:lang="eng">import motion</title>
+                    <title xml:lang="spa">importación de mociones</title>
+                    
                     <tooltip xml:lang="eng">
                         Import Motion from DB
                     </tooltip>
@@ -542,6 +635,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:noticeofmotion[0-9]*">
                     <title xml:lang="eng">··→ heading</title>
+                    <title xml:lang="spa">··→ titulo</title>
+                    
                     <tooltip xml:lang="eng">
                         Personal Statement
                     </tooltip>
@@ -554,6 +649,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:noticeofmotion[0-9]*">
                     <title xml:lang="eng">····→ subheading</title>
+                    <title xml:lang="spa">····→ subtitulo</title>
+                    
                     <tooltip xml:lang="eng">
                         Personal Statement
                     </tooltip>
@@ -566,6 +663,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:noticeofmotion[0-9]*">
                     <title xml:lang="eng">mark committee</title>
+                    <title xml:lang="spa">marcar comité</title>
+                    
                     <tooltip xml:lang="eng">
                         Personal Statement
                     </tooltip>
@@ -578,6 +677,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:noticeofmotion[0-9]*">
                     <title xml:lang="eng">mark bill</title>
+                    <title xml:lang="spa">marcar de proyecto de ley</title>
+                    
                     <tooltip xml:lang="eng">
                         Personal Statement
                     </tooltip>
@@ -590,12 +691,16 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 visible="true"
                 condition="none">
                 <title xml:lang="eng">procedural motions</title>
+                <title xml:lang="spa">las mociones de procedimiento</title>
+                
                 <action name="proc-motions.new"
                     mode="TEXT_SELECTED_INSERT"
                     target="make_proc_section"
                     visible="true"
                     condition="textSelected:true :and: cursorInSection:debaterecord">
                     <title xml:lang="eng">motions section</title>
+                    <title xml:lang="spa">movimientos de la sección</title>
+                    
                     <tooltip xml:lang="eng">
                         Personal Statement
                     </tooltip>
@@ -607,6 +712,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:procmotions[0-9]*">
                     <title xml:lang="eng">··→ heading</title>
+                    <title xml:lang="spa">··→ titulo</title>
+                    
                     <tooltip xml:lang="eng">
                         Personal Statement
                     </tooltip>
@@ -618,6 +725,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:procmotions[0-9]*">
                     <title xml:lang="eng">markup motion</title>
+                    <title xml:lang="spa">marcado de movimiento</title>
+                    
                     <tooltip xml:lang="eng">
                         Personal Statement
                     </tooltip>
@@ -629,6 +738,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:procmotion[0-9]*">
                     <title xml:lang="eng">··→ heading</title>
+                    <title xml:lang="spa">··→ titulo</title>
+                    
                     <tooltip xml:lang="eng">
                         Personal Statement
                     </tooltip>
@@ -640,6 +751,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:procmotion[0-9]*">
                     <title xml:lang="eng">····→ subheading</title>
+                    <title xml:lang="spa">····→ subtitulo</title>
+                    
                     <tooltip xml:lang="eng">
                         Personal Statement
                     </tooltip>
@@ -651,6 +764,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 target="null"
                 visible="true" condition="none">
                 <title xml:lang="eng">questions</title>
+                <title xml:lang="spa">preguntas</title>
+                
                 <!-- create a narrative -->
                 <action name="Question.narrative"
                     mode="TEXT_SELECTED_INSERT"
@@ -660,6 +775,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                                 !cursorInSection:debaterecord :and:
                                 !cursorInSection:narr[0-9]*">
                     <title xml:lang="eng">narrative</title>
+                    <title xml:lang="spa">narrativa</title>
+                    
                     <tooltip xml:lang="eng">
                         Mark selection as a Narrative
                     </tooltip>
@@ -672,6 +789,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:debaterecord">
                     <title xml:lang="eng">questions section</title>
+                    <title xml:lang="spa">sección de preguntas</title>
+                    
                     <tooltip xml:lang="eng">
                         <html>
                         A group of many questions; this group of Questions <br />
@@ -687,6 +806,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:questions[0-9]*.">
                     <title xml:lang="eng">··→ heading</title>
+                    <title xml:lang="spa">··→ titulo</title>
+                    
                     <tooltip xml:lang="eng">
                         a heading for a group of Questions
                     </tooltip>
@@ -699,6 +820,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:questions[0-9]*">
                     <title xml:lang="eng">import question</title>
+                    <title xml:lang="spa">importación pregunta</title>
+                    
                     <tooltip xml:lang="eng">
                         <html>
                         A individual question is composed of a spoken question, <br />
@@ -717,6 +840,10 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     <title xml:lang="eng">
                         add question
                     </title>
+                    <title xml:lang="spa">
+                        add question
+                    </title>
+                    
                     <tooltip xml:lang="eng">
                         <html>
                         A individual question is composed of a spoken question, <br />
@@ -734,6 +861,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:qa[0-9]*">
                     <title xml:lang="eng">··→ number</title>
+                    <title xml:lang="spa">··→ número de</title>
+                    
                     <tooltip xml:lang="eng">
                         Identify the Question Number in the text
                     </tooltip>
@@ -745,6 +874,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:qa[0-9]*.">
                     <title xml:lang="eng">··→ heading</title>
+                    <title xml:lang="spa">··→ titulo</title>
+                    
                     <tooltip xml:lang="eng">
                         Heading for the spoken question
                     </tooltip>
@@ -756,6 +887,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:qa[0-9]*.">
                     <title xml:lang="eng">····→ sub-heading</title>
+                    <title xml:lang="spa">····→ sub-titulo</title>
+                    
                     <tooltip xml:lang="eng">
                         Sub-Heading for the spoken question
                     </tooltip>
@@ -768,6 +901,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                                 cursorInSection:qa[0-9]* :and:
                                 !sectionHasChild:sque[0-9]*">
                     <title xml:lang="eng">spoken question</title>
+                    <title xml:lang="spa">pregunta oral</title>
+                    
                     <tooltip xml:lang="eng">
                         <html>
                         A spoken question is the point where a member asks <br />
@@ -784,6 +919,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                     cursorInSection:sque[0-9]*">
                     <title xml:lang="eng">··→ body</title>
+                    <title xml:lang="spa">··→ cuerpo</title>
+                    
                     <tooltip xml:lang="eng">
                         <html>
                         This is the body of the question. Usually the part of <br />
@@ -802,6 +939,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:quebody[0-9]*">
                     <title xml:lang="eng">··→ by</title>
+                    <title xml:lang="spa">··→ por</title>
+                    
                     <tooltip xml:lang="eng">
                         Identify the name of the person asking the question.
                     </tooltip>
@@ -814,6 +953,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                     cursorInSection:quebody[0-9]*">
                     <title xml:lang="eng">··→ item num</title>
+                    <title xml:lang="spa">··→ punto principale</title>
                     <tooltip xml:lang="eng">
                         Item Number
                     </tooltip>
@@ -826,6 +966,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="textSelected:true :and:
                                 cursorInSection:quebody[0-9]*,sque[0-9]*,qa[0-9]*">
                     <title xml:lang="eng">··→ list-item</title>
+                    <title xml:lang="spa">··→ list-item</title>
                     <tooltip xml:lang="eng">
                         Identify selected text as speech author's name
                     </tooltip>
@@ -849,6 +990,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 visible="true"
                 condition="none">
                 <title xml:lang="eng">adjournment</title>
+                <title xml:lang="spa">suspensión</title>
+                
                 <action name="Conclusion.create"
                     mode="TEXT_SELECTED_INSERT"
                     target="make_adjournment_section"
@@ -856,6 +999,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="cursorInSection:debaterecord :and:
                                 textSelected:true">
                     <title xml:lang="eng">adjournment section</title>
+                    <title xml:lang="spa">suspensión section</title>
+                    
                     <tooltip xml:lang="eng">Personal Statement </tooltip>
                 </action>
                 <action name="Conclusion.markHouseClosing"
@@ -865,6 +1010,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                     condition="cursorInSection:concl[0-9]* :and:
                                 textSelected:true">
                     <title xml:lang="eng">··→ house adjournment time</title>
+                    <title xml:lang="spa">··→ house suspensión time</title>
+                    
                     <tooltip xml:lang="eng">Personal Statement </tooltip>
                 </action>
             </blockAction>
