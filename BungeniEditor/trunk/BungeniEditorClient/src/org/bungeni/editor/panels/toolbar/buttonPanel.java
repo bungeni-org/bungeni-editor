@@ -46,14 +46,7 @@ public class buttonPanel extends javax.swing.JPanel {
     }
 
     private void setButtonText(String text) {
-        //we set the button text as utf8 text.
-        try {
-            String utf8Text = new String(text.getBytes(), "UTF8");
-            this.btnAction.setText(utf8Text);
-        } catch (UnsupportedEncodingException ex) {
-            //revert to non-utf8 text setting
             btnAction.setText(text);
-        }
     }
 
    private void setButtonTooltip(String text){

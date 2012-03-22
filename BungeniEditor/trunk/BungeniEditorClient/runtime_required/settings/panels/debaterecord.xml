@@ -23,6 +23,6 @@
     </panel>
     <panel name="notes" class="org.bungeni.editor.panels.loadable.documentNotesPanel" state="1">
            <title xml:lang="eng">notes</title>
-           <title xml:lang="eng">notas</title>
+           <title xml:lang="spa">notas</title>
     </panel>
 </panels>

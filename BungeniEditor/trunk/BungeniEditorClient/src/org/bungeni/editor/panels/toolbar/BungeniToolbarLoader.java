@@ -2,6 +2,7 @@
 package org.bungeni.editor.panels.toolbar;
 
 import java.awt.event.ActionListener;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -41,6 +42,19 @@ public class BungeniToolbarLoader {
 
     }
 
+    //!+UTF8_TODO_FIX(ah,22-03-2012) We shouldnt have to do this per string
+    // TO DO - fix the way the source XML is read, we need to use an InputSource
+    // and set the encoding to UTF8 at the point of reading the xml file.
+    private String utf8String(String text){
+        String returnText = "";
+        try {
+            returnText = new String(text.getBytes(), "UTF8");
+        } catch (UnsupportedEncodingException ex) {
+            returnText = text;
+        }
+        return returnText;
+    }
+
 
     /**
      * Retrieves the localized title for toolbar actions.
@@ -63,7 +77,7 @@ public class BungeniToolbarLoader {
         if (foundTitle.equals("UNDEFINED")) {
             foundTitle = _findi18nTitle(childTitles, langCodeDefault );
         }
-        return foundTitle;
+        return utf8String(foundTitle);
     }
 
 
@@ -76,7 +90,7 @@ public class BungeniToolbarLoader {
         if (foundTooltip.equals("UNDEFINED")) {
             foundTooltip = _findi18nTitle(childTooltips, langCodeDefault );
         }
-        return foundTooltip;
+        return utf8String(foundTooltip);
     }
 
 

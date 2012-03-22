@@ -2,8 +2,11 @@ package org.bungeni.extutils;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jdom.Element;
 import org.jdom.Namespace;
 import org.jdom.input.SAXBuilder;
@@ -49,6 +52,16 @@ public class CommonXmlUtils {
         return iso3Language;
     }
 
+    private static String utf8String(String text){
+        String returnText = "";
+        try {
+            returnText = new String(text.getBytes(), "UTF8");
+        } catch (UnsupportedEncodingException ex) {
+            returnText = text;
+        }
+        return returnText;
+    }
+
     public static String getLocalizedChildElement(Element anElement, String localizedChild) {
         List<Element> childTitles = anElement.getChildren(localizedChild);
         //get the default
@@ -57,7 +70,7 @@ public class CommonXmlUtils {
         if (foundTitle.equals("UNDEFINED")) {
             foundTitle = _findi18nTitle(childTitles, langCodeDefault );
         }
-        return foundTitle;
+        return utf8String(foundTitle);
     }
 
      private static String _findi18nTitle(List<Element> childTitles, String langCode) {
