@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : config_bungeni_heading.xml
+    Created on : 22 March 2012, 18:08
+    Author     : anthony
+    Description:
+    This is the translation pipeline for Bungeni output documents of type="heading"
+-->
+<config name="BungeniXML">
+    <properties>
+        <entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
+        <entry key="cachePipelineXSLT">false</entry>
+        <entry key="inputXmlSource">BUNGENI_XML</entry>
+    </properties>
+    
+    <!-- Specfies the schema for the xml document being created -->
+    <schema href="configfiles/schema/akomantoso20.xsd" />
+    
+    <!-- This steps are performed BEFORE the above regex replacement -->
+    <input>
+        
+        <!-- INPUT PARAMETERS are passed ONLY into Step 1, it is upto step to decide
+            what it wants to do with input parameters, since they can be carried over,
+            by serializing them into the document being pipelined -->
+        <parameters>
+            <parameter name="country-code" value="ke" />
+            <parameter name="parliament-election-date"/>
+            <parameter name="for-parliament"/>
+        </parameters>
+        
+        <xslt   step="1" 
+            name="groupingLevel1" 
+            href="pipeline_xslt/bungeni/heading/grouping_level1.xsl"/>
+        
+        <xslt   step="2" 
+            name="groupingLevel2" 
+            href="pipeline_xslt/bungeni/heading/grouping_level2.xsl"/>               
+        
+        <xslt   step="3" 
+            name="appendBungeniNS" 
+            href="pipeline_xslt/bungeni/common/add_bungeniportal_ns.xsl"/>
+        
+    </input>
+    
+</config>
