@@ -2,15 +2,23 @@ package org.bungeni.extutils;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.jdom.Document;
 import org.jdom.Element;
+import org.jdom.JDOMException;
 import org.jdom.Namespace;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
+import org.xml.sax.InputSource;
 
 /**
  *
@@ -41,6 +49,27 @@ public class CommonXmlUtils {
 
         return validatingSaxBuilder;
     }
+
+    /**
+     * Always loads a file as UTF-8
+     * @param relativePathToFile
+     * @return
+     * @throws FileNotFoundException
+     * @throws UnsupportedEncodingException
+     * @throws JDOMException
+     * @throws IOException
+     */
+    public static Document loadFile(String relativePathToFile) throws FileNotFoundException, UnsupportedEncodingException, JDOMException, IOException {
+        String sFullPath = CommonFileFunctions.convertRelativePathToFullPath(relativePathToFile);
+        File file = new File(sFullPath);
+        InputStream inputStream= new FileInputStream(file);
+        Reader reader = new InputStreamReader(inputStream,"UTF-8");
+        InputSource is = new InputSource(reader);
+        is.setEncoding("UTF-8");
+        Document doc = getNonValidatingSaxBuilder().build(is);
+        return doc;
+    }
+
 
     public static String getIso3Language(){
         if (iso3Language == null) {
