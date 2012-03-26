@@ -2,6 +2,7 @@ package org.bungeni.editor.actions;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import org.bungeni.editor.config.DocumentActionsReader;
 import java.io.IOException;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 

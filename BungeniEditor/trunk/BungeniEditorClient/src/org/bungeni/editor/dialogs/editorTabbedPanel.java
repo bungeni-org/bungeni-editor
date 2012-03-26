@@ -22,7 +22,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.editor.BungeniOOoLayout;
-import org.bungeni.editor.actions.DocumentActionsReader;
+import org.bungeni.editor.config.DocumentActionsReader;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.panels.impl.ITabbedPanel;
 import org.bungeni.editor.panels.factory.TabbedPanelFactory;

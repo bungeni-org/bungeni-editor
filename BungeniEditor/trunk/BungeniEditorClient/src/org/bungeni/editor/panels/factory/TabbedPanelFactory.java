@@ -1,6 +1,7 @@
 
 package org.bungeni.editor.panels.factory;
 
+import org.bungeni.editor.config.PanelsReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

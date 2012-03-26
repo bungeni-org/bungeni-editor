@@ -21,16 +21,19 @@ package org.bungeni.editor.metadata;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import org.bungeni.db.BungeniClientDB;
-import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.db.QueryResults;
-import org.bungeni.db.SettingsQueryFactory;
+import org.apache.log4j.Logger;
+import org.bungeni.editor.config.CountryCodesReader;
+import org.jdom.Element;
+import org.jdom.JDOMException;
 
 /**
  * Returns the set of available country codes in the system
  * @author Ashok Hariharan
  */
 public  class CountryCodesFactory {
+
+    private static final Logger log = Logger.getLogger(CountryCodesFactory.class.getName());
+
 
      /**
      * This the internal array of available locales
@@ -57,6 +60,28 @@ public  class CountryCodesFactory {
     }
 
     private static void fetchAvailableCountryCodes(){
+         List<CountryCode> list_countries = new ArrayList<CountryCode>(0);
+         List<Element> countryCodes = null;
+        try {
+            countryCodes = CountryCodesReader.getInstance().getCountryCodeElements();
+        } catch (JDOMException ex) {
+            log.error("Error loading countries", ex);
+        }
+        if (countryCodes != null) {
+            for (Element countryCode : countryCodes) {
+                /**
+                 *  <ISO_3166-1_Entry>
+                    <ISO_3166-1_Country_name>AFGHANISTAN</ISO_3166-1_Country_name>
+                    <ISO_3166-1_Alpha-2_Code_element>AF</ISO_3166-1_Alpha-2_Code_element>
+                    </ISO_3166-1_Entry>
+                  **/
+                  String countryName= countryCode.getChildTextNormalize("ISO_3166-1_Country_name");
+                  String alpha2Code = countryCode.getChildTextNormalize("ISO_3166-1_Alpha-2_Code_element");
+                  list_countries.add(new CountryCode(alpha2Code, countryName));
+            }
+        }
+
+        /**
           BungeniClientDB db =  new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
           db.Connect();
           QueryResults qr = db.QueryResults(SettingsQueryFactory.Q_FETCH_COUNTRY_CODES());
@@ -70,6 +95,7 @@ public  class CountryCodesFactory {
                   list_countries.add(aCountry);
               }
           }
+         **/
           //if some locales were retrieved ... replace the cache of available locales with the
           //retrieved one
           if (!list_countries.isEmpty()) {

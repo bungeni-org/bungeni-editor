@@ -65,7 +65,7 @@ import org.bungeni.numbering.impl.NumberingSchemeFactory;
 import org.bungeni.editor.numbering.ooo.OOoNumberingHelper;
 
 import org.apache.log4j.Logger;
-import org.bungeni.editor.actions.SectionTypesReader;
+import org.bungeni.editor.config.SectionTypesReader;
 import org.bungeni.editor.panels.loadable.refmgr.referenceManager;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.ooo.ooDocMetadata;

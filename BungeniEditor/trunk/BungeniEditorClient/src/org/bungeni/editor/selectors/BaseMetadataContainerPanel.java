@@ -18,7 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingWorker;
 import org.bungeni.db.IQueryResultsIterator;
 import org.bungeni.db.QueryResults;
-import org.bungeni.editor.actions.DocumentActionsReader;
+import org.bungeni.editor.config.DocumentActionsReader;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
