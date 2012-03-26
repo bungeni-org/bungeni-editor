@@ -13,6 +13,7 @@
 
     <!-- these are input parameters to the transformation a-->
     <xsl:param name="country-code"  />
+    <xsl:param name="parliament-id" />
     <xsl:param name="parliament-election-date"  />
     <xsl:param name="for-parliament" />
     
@@ -59,6 +60,7 @@
                                         user_addresses " />
             </user>
             <bungeni>
+                <xsl:attribute name="id" select="$parliament-id"/>
                 <country><xsl:value-of select="$country-code" /></country>
                 <parliament href="{concat('/',$country-code,'/',$for-parliament)}" isA="TLCOrganization" date="{$parliament-election-date}" />
             </bungeni>              

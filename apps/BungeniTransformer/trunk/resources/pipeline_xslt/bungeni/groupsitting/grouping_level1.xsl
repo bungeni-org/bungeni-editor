@@ -15,6 +15,7 @@
     <!-- these are input parameters to the transformation a-->
     <!-- these are input parameters to the transformation a-->
     <xsl:param name="country-code"  />
+    <xsl:param name="parliament-id" />
     <xsl:param name="parliament-election-date"  />
     <xsl:param name="for-parliament" />
     
@@ -75,6 +76,7 @@
                 <xsl:copy-of select="permissions | contained_groups" />                
             </groupsitting>
             <bungeni>
+                <xsl:attribute name="id" select="$parliament-id"/>
                 <xsl:copy-of select="field[  
                     @name='language' ]" 
                 />                    

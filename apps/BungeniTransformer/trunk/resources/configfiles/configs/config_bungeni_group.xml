@@ -25,6 +25,7 @@
             by serializing them into the document being pipelined -->
             <parameters>
                 <parameter name="country-code" value="ke" />
+                <parameter name="parliament-id"/>
                 <parameter name="parliament-election-date" />
                 <parameter name="for-parliament" />
             </parameters>

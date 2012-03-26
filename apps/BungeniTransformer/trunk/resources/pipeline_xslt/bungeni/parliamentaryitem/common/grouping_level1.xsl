@@ -13,6 +13,7 @@
     
     <!-- these are input parameters to the transformation a-->
     <xsl:param name="country-code"  />
+    <xsl:param name="parliament-id" />
     <xsl:param name="parliament-election-date"  />
     <xsl:param name="for-parliament" />
     
@@ -34,7 +35,8 @@
                
             </document>
             <bungeni>
-               <country><xsl:value-of select="$country-code" /></country>
+                <xsl:attribute name="id" select="$parliament-id"/>
+                <country><xsl:value-of select="$country-code" /></country>
                 <parliament href="{concat('/',$country-code,'/',$for-parliament)}" 
                     isA="TLCOrganization" 
                     date="{$parliament-election-date}" />
@@ -102,8 +104,8 @@
                 <xsl:variable name="item_number">
                         <xsl:choose>
                             <!--+FIX_THIS is event_item_id the stable identifier for events ? -->
-                            <xsl:when test="field[@name='event_item_id']" >
-                               <xsl:value-of select="field[@name='event_item_id']" />
+                            <xsl:when test="field[@name='doc_id']" >
+                               <xsl:value-of select="field[@name='doc_id']" />
                             </xsl:when>
                             <!--+NOTE (ao,22 Feb 2012) <heading> types pass here too :),
                                 since they are a special case without registry_number... They
@@ -142,6 +144,7 @@
                     @name='short_name' or 
                     @name='full_name' or 
                     @name='body_text' or 
+                    @name='body' or 
                     @name='language'  or 
                     @name='owner_id' or
                     @name='type'
@@ -179,6 +182,15 @@
                     @name='publication_date' or
                     @name='doc_type' 
                     ]" />  
+                
+                <!-- for <event> -->
+                <xsl:copy-of select="field[
+                    @name='doc_type' or 
+                    @name='short_title' or 
+                    @name='doc_id' or 
+                    @name='acronym' or 
+                    @name='long_title'
+                    ]" />                
                  
                 <!-- PERMISSIONS -->
                 <xsl:copy-of select="permissions" />

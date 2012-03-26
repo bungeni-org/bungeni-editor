@@ -13,6 +13,7 @@
 
     <!-- these are input parameters to the transformation a-->
     <xsl:param name="country-code"  />
+    <xsl:param name="parliament-id"/>
     <xsl:param name="parliament-election-date"  />
     <xsl:param name="for-parliament" />
     
@@ -25,16 +26,34 @@
         <xsl:variable name="group_id" select="field[@name='group_id']" />
         <xsl:variable name="content-type" select="@name" />
         <xsl:variable name="group-type" select="field[@name='type']" />
+        <xsl:variable name="parliament_w_id" select="concat(substring-before($for-parliament,'/'),'/',$parliament-id)"/>
         <ontology type="{$content-type}">
             <membership isA="TLCPerson" >
                 <xsl:variable name="item_number" select="user/field[@name='user_id']"></xsl:variable>
                 <xsl:variable name="group_type" select="group/field[@name='type']"></xsl:variable>
                 <xsl:variable name="groups_id" select="group/field[@name='group_id']"></xsl:variable>
-                <xsl:attribute name="uri" 
+                <!--xsl:attribute name="uri" 
                     select="concat('/', $country-code, '/',
                     $for-parliament, '/', 
                     $group_type,'/', 
                     $groups_id,'/',
+                    'member','/',
+                    $item_number)" /-->   
+                
+                <!-- !+NOTES (ao, 26 Mar 2012)
+                     This is temporary - Group membership URI should be built with the group and not 
+                     by parliament as enforced now. Proposed URI scheme should have secondary URIs to a resource 
+                     embedded to a document. e.g. 
+                     MP's URI... 
+                        /ke/parliament/2011-02-01/parliament/2/member/20 
+                     MP's other URIs to group memberships... 
+                        /ke/parliament/2011-02-01/political-group/45/member/20
+                        /ke/parliament/2011-02-01/office/16/member/20 
+                -->
+                <xsl:attribute name="uri" 
+                    select="concat('/', $country-code, '/',
+                    $for-parliament, '/', 
+                    $parliament_w_id,'/', 
                     'member','/',
                     $item_number)" />
                 
@@ -49,6 +68,7 @@
                 <xsl:copy-of select="changes | member_titles"/>
             </membership>
             <bungeni>
+                <xsl:attribute name="id" select="$parliament-id"/>
                 <xsl:copy-of select="tags"/>
                 <xsl:copy-of select="field[  
                     @name='language' ]" 

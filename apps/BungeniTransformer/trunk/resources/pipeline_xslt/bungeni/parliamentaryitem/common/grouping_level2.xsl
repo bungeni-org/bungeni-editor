@@ -26,6 +26,7 @@
     <xsl:variable name="country-code" select="data(/ontology/bungeni/country)" />
     <xsl:variable name="parliament-election-date" select="data(/ontology/bungeni/parliament/@date)" />
     <xsl:variable name="for-parliament" select="data(/ontology/bungeni/parliament/@href)" />
+    <xsl:variable name="parliament-id" select="data(/ontology/bungeni/@id)" />
     
     <xsl:function name="xbf:parse-date">
         <xsl:param name="input-date"/>
@@ -56,7 +57,7 @@
         </xsl:element>
     </xsl:template>
     
-    <xsl:template match="field[@name='body_text']">
+    <xsl:template match="field[@name='body_text' or @name='body']">
         <body>
             <xsl:value-of select="." />
         </body>
@@ -67,6 +68,18 @@
             <xsl:value-of select="." />
         </assignmentId>
     </xsl:template>  
+    
+    <xsl:template match="field[@name='user_id']">
+        <userId>
+            <xsl:value-of select="." />
+        </userId>
+    </xsl:template>  
+    
+    <xsl:template match="field[@name='action']">
+        <action>
+            <xsl:value-of select="." />
+        </action>
+    </xsl:template>
     
     <xsl:template match="field[@name='response_type']">
         <responseType>
@@ -199,6 +212,12 @@
         <language><xsl:value-of select="." /></language>
     </xsl:template>
     
+    <xsl:template match="field[@name='uri']">
+        <uri>
+            <xsl:value-of select="." />
+        </uri>
+    </xsl:template>     
+    
     <xsl:template match="field[@name='status_date']">
         <xsl:variable name="status_date" select="." />
         <!--
@@ -289,6 +308,80 @@
         </signatories>
     </xsl:template>
     
+    <!-- Only for events -->
+    
+    <xsl:template match="field[@name='short_title']">
+        <shortTitle>
+            <xsl:value-of select="." />
+        </shortTitle>
+    </xsl:template>  
+    
+    <xsl:template match="field[@name='long_title']">
+        <longTitle>
+            <xsl:value-of select="." />
+        </longTitle>
+    </xsl:template>       
+    
+    <xsl:template match="field[@name='doc_id']">
+        <docId>
+            <xsl:value-of select="." />
+        </docId>
+    </xsl:template> 
+    
+    <xsl:template match="field[@name='acronym']">
+        <acronym>
+            <xsl:value-of select="." />
+        </acronym>
+    </xsl:template>    
+    
+    <xsl:template match="field[@name='audit_date_active']">
+        <auditDateActive>
+            <xsl:value-of select="." />
+        </auditDateActive>
+    </xsl:template> 
+    
+    <xsl:template match="field[@name='doc_type']">
+        <docType>
+            <xsl:value-of select="." />
+        </docType>
+    </xsl:template>   
+    
+    <xsl:template match="field[@name='audit_action']">
+        <audtiAction>
+            <xsl:value-of select="." />
+        </audtiAction>
+    </xsl:template>  
+
+    <xsl:template match="field[@name='audit_date']">
+        <auditDate>
+            <xsl:value-of select="." />
+        </auditDate>
+    </xsl:template>   
+    
+    <xsl:template match="field[@name='audit_id']">
+        <auditId>
+            <xsl:value-of select="." />
+        </auditId>
+    </xsl:template>   
+    
+    <xsl:template match="field[@name='head_id']">
+        <headId>
+            <xsl:value-of select="." />
+        </headId>
+    </xsl:template>    
+    
+    <xsl:template match="field[@name='audit_head_id']">
+        <auditHeadId>
+            <xsl:value-of select="." />
+        </auditHeadId>
+    </xsl:template>    
+    
+    <xsl:template match="field[@name='audit_user_id']">
+        <auditUserId>
+            <xsl:value-of select="." />
+        </auditUserId>
+    </xsl:template>  
+    
     <xsl:template match="itemsignatorie">
         <xsl:call-template name="user_render">
             <xsl:with-param name="typeOf" select="string('signatory')" />
@@ -322,13 +415,13 @@
     </xsl:template>
     
     <xsl:template match="event" mode="parent_is_events">
-        <xsl:variable name="event-identifier" select="field[@name='event_item_id']" />
-        <xsl:variable name="event-date" select="field[@name='event_date']" />
+        <xsl:variable name="event-identifier" select="field[@name='doc_id']" />
+        <xsl:variable name="event-date" select="field[@name='status_date']" />
         <xsl:variable name="event-lang" select="field[@name='language']" />
         <wfevent 
             href="{concat('/',$country-code,'/event/',$event-identifier, '/', $event-lang)}" 
             isA="TLCEvent"
-            showAs="{field[@name='short_name']}" 
+            showAs="{field[@name='short_title']}" 
             date="{xbf:parse-date($event-date)}" 
         />
     </xsl:template>
