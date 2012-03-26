@@ -20,13 +20,19 @@ package org.bungeni.editor.config;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
+import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonXmlUtils;
+import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
+import org.jdom.output.Format;
+import org.jdom.output.XMLOutputter;
 import org.jdom.xpath.XPath;
 
 /**
@@ -51,11 +57,16 @@ public class SystemParameterReader {
         
     }
 
-    public SystemParameterReader getInstance(){
+    public static SystemParameterReader getInstance(){
         if (null == thisInstance) {
             thisInstance = new SystemParameterReader();
         }
         return thisInstance;
+    }
+
+    private Element getPropertyElement(String key) throws JDOMException{
+            Element propElement = (Element) getXPath().selectSingleNode(this.systemParametersDocument, "//props/prop[@name='" + key + "']");
+            return propElement;
     }
 
     public String getParameter(String key) {
@@ -63,7 +74,7 @@ public class SystemParameterReader {
         if (getDocument() != null) {
                 Element propElement = null;
                 try {
-                    propElement = (Element) getXPath().selectSingleNode(this.systemParametersDocument, "//props/prop[@name='" + key + "']");
+                    propElement =  getPropertyElement(key);
                 } catch (JDOMException ex) {
                     log.error("Dom error getting property", ex);
                 }
@@ -76,6 +87,34 @@ public class SystemParameterReader {
                 log.error("system parameters document is null");
         }
         return propValue;
+    }
+
+    public void setParameter(String key, String value){
+        if (null != getDocument()) {
+            try {
+                Element propElement = getPropertyElement(key);
+                Attribute attr = propElement.getAttribute("value");
+                attr.setValue(value);
+            } catch (JDOMException ex) {
+                log.error("Error getting parameter for setting", ex);
+            }
+        } else {
+            log.error("Unable to get doument handle");
+        }
+    }
+
+    public void save() throws IOException{
+        XMLOutputter xmlout = new XMLOutputter();
+        xmlout.setFormat(Format.getRawFormat());
+        FileWriter fw=new FileWriter(CommonFileFunctions.convertRelativePathToFullPath(SystemParameterReader.RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE));
+        xmlout.output(getDocument(), fw);
+        fw.flush();
+        fw.close();
+    }
+
+    public void reload() {
+        this.systemParametersDocument = null;
+        this.xpathInstance = null;
     }
 
     private XPath getXPath() throws JDOMException {

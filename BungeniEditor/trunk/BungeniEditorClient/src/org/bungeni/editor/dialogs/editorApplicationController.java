@@ -767,6 +767,7 @@ public class editorApplicationController extends javax.swing.JPanel {
 
     private void initDocumentTypesModel() {
         documentType[] dtArr = null;
+
         BungeniClientDB instance = new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
         String query = SettingsQueryFactory.Q_FETCH_ALL_ACTIVE_DOCUMENT_TYPES();
         instance.Connect();
@@ -786,7 +787,7 @@ public class editorApplicationController extends javax.swing.JPanel {
                 i++;
             }
         }
-
+        
         if (dtArr != null) {
             this.m_documentTypes = dtArr;
             this.cboDocumentTypes.setModel(new DefaultComboBoxModel(m_documentTypes));
@@ -1068,6 +1069,7 @@ public class editorApplicationController extends javax.swing.JPanel {
             //TODO throw exception
             return;
         }
+        //!+TEMP_DISABLE
         BungeniEditorProperties.setEditorProperty("activeDocumentMode", thisDocType.docType);
         launchDocumentType(thisDocType, launchMode);
 

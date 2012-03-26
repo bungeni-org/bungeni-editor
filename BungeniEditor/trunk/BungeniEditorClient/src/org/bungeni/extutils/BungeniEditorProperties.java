@@ -1,12 +1,10 @@
 package org.bungeni.extutils;
 
+import java.io.IOException;
 import java.util.HashMap;
-import java.util.Vector;
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
-import org.bungeni.db.BungeniClientDB;
-import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.db.QueryResults;
-import org.bungeni.db.SettingsQueryFactory;
+import org.bungeni.editor.config.SystemParameterReader;
 
 /**
  * Allows getting and setting of editor properties from the settings db's
@@ -24,17 +22,25 @@ public class BungeniEditorProperties {
 
     private static int PROPERTY_NAME_COLUMN=0;
     private static int PROPERTY_VALUE_COLUMN=1;
-    
-    public static void setEditorProperty(String propertyName, String propertyValue ) {
+
+    public static void setEditorProperty(String propertyName, String propertyValue) {
+        SystemParameterReader.getInstance().setParameter(propertyName, propertyValue);
+        try {
+            SystemParameterReader.getInstance().save();
+        } catch (IOException ex) {
+            log.error("Error while saving", ex);
+        }
+    }
+        /**
+    //public static void setEditorProperty(String propertyName, String propertyValue )
         BungeniClientDB instance = new BungeniClientDB (DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
        instance.Connect();
         int nRow = instance.Update(SettingsQueryFactory.Q_SET_EDITOR_PROPERTY(propertyName, propertyValue));
         instance.EndConnect();
         if (nRow > 0 ) {
-            //update was successful
             propertiesMap.put(propertyName, propertyValue);
-        }
-    }
+        } **/
+    //}
     
     public static void setPropertyInMap(String propName, String propValue) {
         propertiesMap.put(propName, propValue);
@@ -49,6 +55,20 @@ public class BungeniEditorProperties {
         return getEditorProperty(propertyName);
     }
 
+
+    public static String getEditorProperty(String propertyName) {
+        String propertyValue = "";
+        if (propertiesMap.containsKey(propertyName)){
+            return propertiesMap.get(propertyName);
+        } else {
+            propertyValue = SystemParameterReader.getInstance().getParameter(propertyName);
+            propertyValue =  propertyValue == null ? "" : propertyValue ;
+            propertiesMap.put(propertyName, propertyValue);
+        }
+        return propertyValue;
+    }
+
+    /**
     public static String getEditorProperty(String propertyName) {
         String propertyValue = "";
             if (propertiesMap.containsKey(propertyName) ) {
@@ -84,5 +104,5 @@ public class BungeniEditorProperties {
             }
             return propertyValue;
     }
-    
+    **/
 }

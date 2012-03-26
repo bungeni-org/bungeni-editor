@@ -36,12 +36,13 @@ public class SettingsQueryFactory {
         return query;
     }
 
+    /**
     public static String Q_FETCH_EDITOR_PROPERTY(String propertyName) {
         String query =  "Select property_name, property_value from general_editor_properties " + "where property_name='" + propertyName + "' ";
 
         return query;
     }
-
+    **/
    
 
     public static String Q_FETCH_CONDITIONAL_OPERATORS() {
@@ -78,12 +79,15 @@ public class SettingsQueryFactory {
         return query;
     }
 
+    /**
     public static String Q_SET_EDITOR_PROPERTY(String propertyName, String propertyValue) {
         String query = "update general_editor_properties set property_value ='" + propertyValue
                        + "' where property_name ='" + propertyName + "'";
 
         return query;
-    }
+    }**/
+
+    /**
 
     public static String Q_FETCH_TABS_BY_NAME(String docType, String name) {
         String query = "SELECT panel_class, panel_title, panel_load_order FROM EDITOR_PANELS "
@@ -100,7 +104,7 @@ public class SettingsQueryFactory {
 
         return query;
     }
-
+**/
     public static String Q_FETCH_NUMBER_DECORATORS() {
         String query = "select decorator_name, decorator_desc, decorator_class from " + "number_decorators";
 

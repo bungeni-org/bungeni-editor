@@ -124,12 +124,13 @@ public class AnXmlTransform extends BungeniDocTransform {
                 String translatorRootFolder = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH()
                                             + File.separator + "transformer"
                                             + File.separator;
-
+                System.out.println("TRANSLATE ROOT=" + translatorRootFolder);
                 OdtTranslate testObject = new OdtTranslate();
 
                 HashMap paramMap = new HashMap();
 		
                 String currentDirectory = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH();
+                System.out.println("CURRENT DIR=" + currentDirectory);
 
 		String currentDocType = BungeniEditorPropertiesHelper.getCurrentDocType();
 
