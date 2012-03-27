@@ -198,6 +198,20 @@
             <xsl:attribute name="name" select="@name" />      
             <xsl:value-of select="concat($arrStatusDate[1],'T',$arrStatusDate[2])" />
         </xsl:element>
-    </xsl:template>     
+    </xsl:template>
+
+    
+    <xsl:template match="permissions">
+        <permissions>
+            <xsl:apply-templates />
+        </permissions>
+    </xsl:template>
+
+    <xsl:template match="permission">
+        <permission
+            setting="{field[@name='setting']}"
+            name="{field[@name='permission']}"
+            role="{field[@name='role']}" />
+    </xsl:template>
 
 </xsl:stylesheet>
