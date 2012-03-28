@@ -24,7 +24,7 @@
     <xsl:template match="contenttype">
         <xsl:variable name="content-type" select="@name" />
         
-        <ontology type="userdata">
+        <ontology type="user" isA="TLCPerson">
             <metadata>
                 <xsl:attribute name="type">
                     <xsl:value-of select="$content-type" />

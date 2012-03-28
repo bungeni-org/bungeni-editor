@@ -12,10 +12,10 @@
     </xd:doc>
 
     <!-- these are input parameters to the transformation a-->
-    <!-- these are input parameters to the transformation a-->
     <xsl:param name="country-code"  />
     <xsl:param name="parliament-id"/>
     <xsl:param name="parliament-election-date"  />
+    <!-- this is just the prefix 'parliament' usually -->
     <xsl:param name="for-parliament" />
     
     <xsl:template match="/">
@@ -27,23 +27,43 @@
         <xsl:variable name="group_id" select="field[@name='group_id']" />
         <xsl:variable name="content-type" select="@name" />
         <xsl:variable name="group-type" select="field[@name='type']" />
-        <ontology type="{$content-type}">
-            <group>
+        <xsl:variable name="full-group-identifier" select="concat(
+            'group.',$for-parliament,'-',$parliament-election-date,'-',$parliament-id, '.',$group-type,'.',$group_id
+            )" />
+        
+        <ontology type="{$content-type}" isA="TLCConcept">
+            <group isA="TLCConcept">
+                <!-- !+URI_REWORK (ah, mar-2012) 
+                    ideally this should be a element describing the sub-type, but for
+                    readability we set it as an attribute -->
                 <xsl:attribute name="type" select="$group-type" />
-
+                
                 <!-- !+URI_GENERATOR,!+FIX_THIS(ah,nov-2011) use ontology uri
                 for group since its non-document entity -->
-                <xsl:attribute name="uri" 
+                <!--
+                <xsl:attribute name="uri"
                     select="concat('/',$country-code,'/',
                      $for-parliament,'/',
                      $content-type,'/',
                      $group-type,'/',
                      $group_id
                      )" />
-
-                <xsl:attribute name="id" select="$group_id" />
+                -->
+                <!-- !+URI_REWORK(ah, mar-2012) ...follow up to the FIX_THIS above, the URIs,
+                    are being reworked to be fully AN compatible !!!WARNING!!! this will
+                    break XML ui for the moment -->
+                <xsl:attribute name="uri" 
+                    select="concat('/ontology/',$group-type ,'/',$full-group-identifier)" 
+                />
+ 
+                                
+                    
+                <xsl:attribute name="id" select="$full-group-identifier" />
                 
                 <xsl:copy-of select="field[ @name='parent_group_id' or 
+                                            @name='short_name' or
+                                            @name='full_name' or 
+                                            @name='description' or 
                                             @name='min_num_members' or 
                                             @name='num_researchers' or 
                                             @name='num_members' or 
@@ -52,11 +72,12 @@
                                             @name='status' or 
                                             @name='election_date' ] | group_addresses"></xsl:copy-of>
                 
-                <xsl:copy-of select="permissions" />                
+                         
                 <xsl:copy-of select="contained_groups" />                
             </group>
-            <bungeni>
-                <xsl:attribute name="id" select="$parliament-id"/>
+            <bungeni isA="TLCObject">
+                <xsl:copy-of select="permissions" />       
+                <!-- <xsl:attribute name="id" select="$parliament-id"/> -->
                 <xsl:copy-of select="tags"/>
                 <xsl:copy-of select="field[  
                     @name='language' ]" 
@@ -67,15 +88,12 @@
             </bungeni> 
             
             <xsl:element name="{$group-type}">
-                <xsl:attribute name="isA">TLCOrganization</xsl:attribute>
+                <xsl:attribute name="isA">TLCConcept</xsl:attribute>
                 <xsl:attribute name="refersTo" select="concat('#', $group_id)" />
             </xsl:element>
             
             <legislature>
                 <xsl:copy-of select="field[  
-                    @name='short_name' or
-                    @name='full_name' or 
-                    @name='description' or 
                     @name='parliament_id' or 
                     @name='type' or 
                     @name='election_date' or 

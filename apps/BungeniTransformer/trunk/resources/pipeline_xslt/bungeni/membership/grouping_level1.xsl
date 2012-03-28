@@ -27,8 +27,8 @@
         <xsl:variable name="content-type" select="@name" />
         <xsl:variable name="group-type" select="field[@name='type']" />
         <xsl:variable name="parliament_w_id" select="concat(substring-before($for-parliament,'/'),'/',$parliament-id)"/>
-        <ontology type="{$content-type}">
-            <membership isA="TLCPerson" >
+        <ontology type="{$content-type}" isA="TLCPerson">
+            <membership >
                 <xsl:variable name="item_number" select="user/field[@name='user_id']"></xsl:variable>
                 <xsl:variable name="group_type" select="group/field[@name='type']"></xsl:variable>
                 <xsl:variable name="groups_id" select="group/field[@name='group_id']"></xsl:variable>

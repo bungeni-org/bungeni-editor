@@ -29,12 +29,12 @@
     <xsl:template match="contenttype">
         <xsl:variable name="content-type" select="field[@name='type']" />
         <xsl:variable name="language" select="field[@name='language']" />
-        <ontology type="document">
+        <ontology type="document" isA="TLCObject">
             <document>
                 <xsl:attribute name="type" select="$content-type" />
                
             </document>
-            <bungeni>
+            <bungeni isA="TLCObject">
                 <xsl:attribute name="id" select="$parliament-id"/>
                 <country><xsl:value-of select="$country-code" /></country>
                 <parliament href="{concat('/',$country-code,'/',$for-parliament)}" 
@@ -57,7 +57,9 @@
                 
                 <xsl:if test="field[@name='ministry_id']">
                   <!-- render only if ministry or other group ,rendered as generic group reference -->
-                  <group>
+                   <!--!+URI_REWORK(ah, mar-2012) the group is a reference here and not the group definition
+                       so we say that explictly via a isA qualifier -->
+                  <group isA="TLCReference">
                       <xsl:variable name="ministry_id" select="field[@name='ministry_id']" />
                       <xsl:attribute name="isA" select="string('ministry')" />
                       <xsl:attribute name="href" select="concat('/',$country-code,'/',$for-parliament, '/group/', $ministry_id)" />
