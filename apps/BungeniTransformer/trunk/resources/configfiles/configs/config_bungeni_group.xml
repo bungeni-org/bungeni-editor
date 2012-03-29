@@ -49,7 +49,7 @@
         
         <process name="unescapehtml"
             description="item body"
-            param="//bu:ontology/bu:legislature/bu:description" />
+            param="//bu:ontology/bu:group/bu:description" />
         
         <process name="unescapehtml"
             description="owner description text"
