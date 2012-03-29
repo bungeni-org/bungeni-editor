@@ -216,7 +216,7 @@
         <uri>
             <xsl:value-of select="." />
         </uri>
-    </xsl:template>     
+    </xsl:template>       
     
     <xsl:template match="field[@name='status_date']">
         <xsl:variable name="status_date" select="." />
@@ -335,16 +335,18 @@
     </xsl:template>    
     
     <xsl:template match="field[@name='audit_date_active']">
-        <auditDateActive>
-            <xsl:value-of select="." />
+        <xsl:variable name="audit_date_active" select="." />
+        <auditDateActive type="xs:dateTime">
+            <xsl:value-of select="xbf:parse-date($audit_date_active)" />
         </auditDateActive>
-    </xsl:template> 
+    </xsl:template>
     
-    <xsl:template match="field[@name='doc_type']">
+    <!-- Causes Ambiguity witj a similar template on line 278 above... -->
+    <!-- xsl:template match="field[@name='doc_type']">
         <docType>
             <xsl:value-of select="." />
         </docType>
-    </xsl:template>   
+    </xsl:template -->   
     
     <xsl:template match="field[@name='audit_action']">
         <audtiAction>
@@ -353,8 +355,9 @@
     </xsl:template>  
 
     <xsl:template match="field[@name='audit_date']">
-        <auditDate>
-            <xsl:value-of select="." />
+        <xsl:variable name="audit_date" select="." />
+        <auditDate type="xs:dateTime">
+            <xsl:value-of select="xbf:parse-date($audit_date)" />
         </auditDate>
     </xsl:template>   
     
@@ -458,14 +461,19 @@
         <xsl:element name="{$typeOf}">
             <xsl:attribute name="isA" select="$isA" />
             <xsl:attribute name="showAs" select="$showAs" />
-            <xsl:attribute name="href" select="concat($for-parliament,'/parliament/',2,'/member/', field[@name='user_id'])" />
+            <xsl:attribute name="href" select="concat($for-parliament,'/',2,'/member/', field[@name='user_id'])" />
         </xsl:element>
     </xsl:template>
     
+    <!-- for <event>s -->
+    <xsl:template match="//head/field[@name='type']">
+        <eventOf>
+            <xsl:value-of select="." />
+        </eventOf>
+    </xsl:template>
 
     <!--+FIX_THIS content_id, ministry_id is suppresed for versions -->
     <xsl:template match="field[
-        @name='type' or 
         @name='content_id' or
         @name='timestamp' or 
         @name='ministry_id' or

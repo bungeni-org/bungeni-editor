@@ -74,6 +74,30 @@
         </userId>
     </xsl:template> 
     
+    <xsl:template match="field[@name='parliament_id']">
+        <parliamentId>
+            <xsl:value-of select="." />
+        </parliamentId>
+    </xsl:template>     
+    
+    <xsl:template match="field[@name='group_principal_id']">
+        <groupPrincipalId>
+            <xsl:value-of select="." />
+        </groupPrincipalId>
+    </xsl:template>
+    
+    <xsl:template match="field[@name='parent_group_id']">
+        <parentGroupId>
+            <xsl:value-of select="." />
+        </parentGroupId>
+    </xsl:template>  
+    
+    <xsl:template match="field[@name='identifier']">
+        <identifier>
+            <xsl:value-of select="." />
+        </identifier>
+    </xsl:template>     
+    
     <xsl:template match="field[@name='group_id']">
         <groupId>
             <xsl:value-of select="." />
@@ -96,7 +120,13 @@
         <language>
             <xsl:value-of select="." />
         </language>
-    </xsl:template>    
+    </xsl:template>   
+    
+    <xsl:template match="field[@name='acronym']">
+        <acronym>
+            <xsl:value-of select="." />
+        </acronym>
+    </xsl:template>     
     
     <xsl:template match="field[@name='gender']">
         <xsl:variable name="field_gender" select="." />
@@ -195,6 +225,10 @@
     
     <xsl:template match="field[@name='start_date']">
         <startDate type="xs:date"><xsl:value-of select="." /></startDate>
+    </xsl:template>    
+    
+    <xsl:template match="field[@name='election_date']">
+        <electionDate type="xs:date"><xsl:value-of select="." /></electionDate>
     </xsl:template>    
     
     <xsl:template match="field[@name='status_date']">

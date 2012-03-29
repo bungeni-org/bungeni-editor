@@ -139,7 +139,9 @@
                                      versions |
                                      owner" />
                 
- 
+                
+                <!-- for <event> -->
+                <xsl:copy-of select="head" />    
                 
                 <xsl:copy-of select="field[
                     @name='status' or 
@@ -163,8 +165,7 @@
                 <xsl:copy-of select="field[
                     @name='tabled_document_id' or 
                     @name='tabled_document_number' 
-                    ]" /> 
-                
+                    ]" />    
                 
                 <!-- for <bill> -->
                 <xsl:copy-of select="field[

@@ -26,7 +26,6 @@
         <xsl:variable name="group_id" select="field[@name='group_id']" />
         <xsl:variable name="content-type" select="@name" />
         <xsl:variable name="group-type" select="field[@name='type']" />
-        <xsl:variable name="parliament_w_id" select="concat(substring-before($for-parliament,'/'),'/',$parliament-id)"/>
         <ontology type="{$content-type}" isA="TLCPerson">
             <membership >
                 <xsl:variable name="item_number" select="user/field[@name='user_id']"></xsl:variable>
@@ -53,7 +52,7 @@
                 <xsl:attribute name="uri" 
                     select="concat('/', $country-code, '/',
                     $for-parliament, '/', 
-                    $parliament_w_id,'/', 
+                    $parliament-id, '/',                     
                     'member','/',
                     $item_number)" />
                 
@@ -66,6 +65,7 @@
                 <xsl:copy-of select="permissions | contained_groups" />                
                 <xsl:copy-of select="user/child::*" /> 
                 <xsl:copy-of select="changes | member_titles"/>
+                <xsl:copy-of select="group" />
             </membership>
             <bungeni>
                 <xsl:attribute name="id" select="$parliament-id"/>
