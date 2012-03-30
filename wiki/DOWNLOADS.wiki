@@ -7,9 +7,10 @@
 === Current Release === 
 
 [http://bungeni-editor.googlecode.com/files/install-1.1.2292.jar Bungeni Editor v1.1.2292 - requires OpenOffice.org 3.3.0]- Mar 30 2012
- * This release has a preliminary support for the Spanish language
+ * This interim release has some support for the Spanish language
  * Improved support for Locales and i18n
  * Configuration migration to XML from Settings db is ongoing
+ * Akoma Ntoso 2.0 support - PENDING - a followup release in APRIL will provide a major upgrade for the XML transformation with support for back-tracing errors from Akoma Ntoso to the source ODF document
   
 
 
