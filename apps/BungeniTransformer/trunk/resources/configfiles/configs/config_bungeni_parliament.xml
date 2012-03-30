@@ -33,11 +33,11 @@
         
         <xslt   step="1" 
             name="groupingLevel1" 
-            href="pipeline_xslt/bungeni/parliament/grouping_level1.xsl"/>
+            href="pipeline_xslt/bungeni/group/grouping_level1.xsl"/>
         
         <xslt   step="2" 
             name="groupingLevel2" 
-            href="pipeline_xslt/bungeni/parliament/grouping_level2.xsl"/>               
+            href="pipeline_xslt/bungeni/group/grouping_level2.xsl"/>               
         
         <xslt   step="3" 
             name="appendBungeniNS" 

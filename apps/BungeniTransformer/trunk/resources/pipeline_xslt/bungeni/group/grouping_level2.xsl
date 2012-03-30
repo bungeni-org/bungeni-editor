@@ -213,5 +213,22 @@
             name="{field[@name='permission']}"
             role="{field[@name='role']}" />
     </xsl:template>
+    
+    <!-- add node() test to check if the element has children, suppress empty container nodes -->
+    <xsl:template match="group_addresses">
+        <xsl:if test="node()">
+            <xsl:copy>
+                <xsl:apply-templates />
+            </xsl:copy>
+        </xsl:if>
+    </xsl:template>
 
+    <xsl:template match="contained_groups">
+        <xsl:if test="node()">
+            <xsl:copy>
+                <xsl:apply-templates />
+            </xsl:copy>
+        </xsl:if>
+    </xsl:template>
+    
 </xsl:stylesheet>

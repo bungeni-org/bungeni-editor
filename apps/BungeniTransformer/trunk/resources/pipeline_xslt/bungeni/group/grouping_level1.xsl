@@ -31,7 +31,7 @@
             'group.',$for-parliament,'-',$parliament-election-date,'-',$parliament-id, '.',$group-type,'.',$group_id
             )" />
         
-        <ontology type="{$content-type}" isA="TLCConcept">
+        <ontology type="{$content-type}">
             <group isA="TLCConcept">
                 <!-- !+URI_REWORK (ah, mar-2012) 
                     ideally this should be a element describing the sub-type, but for
@@ -70,10 +70,8 @@
                                             @name='quorum' or 
                                             @name='start_date' or 
                                             @name='status' or 
-                                            @name='election_date' ] | group_addresses"></xsl:copy-of>
+                                            @name='election_date' ] | group_addresses | contained_groups"></xsl:copy-of>
                 
-                         
-                <xsl:copy-of select="contained_groups" />                
             </group>
             <bungeni isA="TLCObject">
                 <xsl:copy-of select="permissions" />       
@@ -83,14 +81,16 @@
                     @name='language' ]" 
                 />                    
                 <principalGroup>
-                    <xsl:attribute name="href" select="concat('#', $group_principal_id)" />
+                    <xsl:attribute name="href" select="concat('#',  $full-group-identifier)" />
                 </principalGroup>
             </bungeni> 
             
+            <!--
             <xsl:element name="{$group-type}">
                 <xsl:attribute name="isA">TLCConcept</xsl:attribute>
-                <xsl:attribute name="refersTo" select="concat('#', $group_id)" />
+                <xsl:attribute name="refersTo" select="concat('#', $full-group-identifier)" />
             </xsl:element>
+            -->
             
             <legislature>
                 <xsl:copy-of select="field[  
