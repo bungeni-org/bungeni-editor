@@ -14,6 +14,8 @@ import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
+import org.bungeni.editor.config.TransformTargetsReader;
+import org.jdom.Element;
 
 /**
  *
@@ -41,6 +43,20 @@ public class BungeniTransformationTargetFactory {
     public static BungeniTransformationTarget getTransformationTarget(String targetName) {
         BungeniTransformationTarget btTarget = null;
         try {
+              Element elemTarget =  TransformTargetsReader.getInstance().getTransformTarget(targetName);
+              /**
+               *     <transformTarget name="ODT"
+               *     desc="OpenDocument File"
+               *     extension="odt"
+               *     class="org.bungeni.ooo.transforms.loadable.ODTSaveTransform" />
+               */
+              btTarget = new BungeniTransformationTarget(
+                        elemTarget.getAttributeValue("name"),
+                        elemTarget.getAttributeValue("desc"),
+                        elemTarget.getAttributeValue("extension"),
+                        elemTarget.getAttributeValue("class")
+                    );
+            /***
              BungeniClientDB db =  new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
              db.Connect();
              QueryResults qr = db.QueryResults(SettingsQueryFactory.Q_FETCH_TRANSFORM_TARGETS(targetName));
@@ -56,7 +72,8 @@ public class BungeniTransformationTargetFactory {
                        btTarget = new BungeniTransformationTarget(targetName, targetDesc, targetExt, targetClass);
                        break;
                    }
-                }
+                } **/
+
         } catch (Exception ex) {
             log.error("getTransformationTarget : " +ex.getMessage());
         }  finally {

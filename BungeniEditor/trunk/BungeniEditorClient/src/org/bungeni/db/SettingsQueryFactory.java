@@ -45,12 +45,13 @@ public class SettingsQueryFactory {
     **/
    
 
+    /***
     public static String Q_FETCH_CONDITIONAL_OPERATORS() {
         String query = "SELECT condition_name, condition_syntax, condition_class FROM CONDITIONAL_OPERATORS";
 
         return query;
     }
-
+    ***/
     public static String Q_FETCH_CONDITION_CLASS_BY_NAME(String conditionName, String doctype) {
         String query = "Select condition_class from toolbar_conditions \n" + "where condition_name = '" + conditionName
                        + "' and doctype = '" + doctype + "'";
@@ -105,12 +106,15 @@ public class SettingsQueryFactory {
         return query;
     }
 **/
+
+    /***
     public static String Q_FETCH_NUMBER_DECORATORS() {
         String query = "select decorator_name, decorator_desc, decorator_class from " + "number_decorators";
 
         return query;
     }
-
+    ***/
+    
     public static String Q_FETCH_TRANSFORM_CONFIG(String docType) {
         String query = "select DOC_TYPE, CONFIG_NAME, CONFIG_FILE from TRANSFORM_CONFIGURATIONS where "
                        + "DOC_TYPE = '" + docType + "' ";
@@ -125,6 +129,7 @@ public class SettingsQueryFactory {
         return query;
     }
 
+    /**
     public static String Q_FETCH_TRANSFORM_TARGETS(String targetName) {
         String query =
             "SELECT target_name, target_desc, target_ext, target_class FROM TRANSFORM_TARGETS where target_name='"
@@ -132,7 +137,8 @@ public class SettingsQueryFactory {
 
         return query;
     }
-
+    **/
+    
     public static String Q_FETCH_EXTERNAL_PLUGINS() {
         String query =
             "SELECT plugin_name, plugin_loader, plugin_desc, plugin_enabled, plugin_jar FROM EXTERNAL_PLUGINS ";
@@ -155,11 +161,13 @@ public class SettingsQueryFactory {
         return query;
     }
 
+    /***
     public static String Q_FETCH_LOCALES() {
         String query = "SELECT LANG_CODE_2, COUNTRY_CODE FROM LOCALES ";
         return query;
     }
-
+    **/
+    
     /**
     public static String Q_FETCH_COUNTRY_CODES(){
         String query = "SELECT COUNTRY_CODE, COUNTRY_NAME FROM COUNTRY_CODES";

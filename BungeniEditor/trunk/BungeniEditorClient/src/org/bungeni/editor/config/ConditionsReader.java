@@ -34,62 +34,52 @@ import org.jdom.xpath.XPath;
  *
  * @author Ashok
  */
-public class LanguageCodesReader {
-    private static Logger log = Logger.getLogger(LanguageCodesReader.class.getName());
+public class ConditionsReader {
+    private static Logger log = Logger.getLogger(ConditionsReader.class.getName());
 
-    public final static String SETTINGS_FOLDER = "settings" + File.separator + "locales";
-    public final static String LANGUAGE_CODES_FILE = "languages_a2.xml";
-    public final static String RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE = SETTINGS_FOLDER + File.separator + LANGUAGE_CODES_FILE;
+    public final static String SETTINGS_FOLDER = "settings" + File.separator + "actions";
+    public final static String CONDITION_OPERATORS_FILE = "conditions.xml";
+    public final static String RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE = SETTINGS_FOLDER + File.separator + CONDITION_OPERATORS_FILE;
 
-    private static LanguageCodesReader thisInstance = null;
+    private static ConditionsReader thisInstance = null;
 
-    private Document languageCodesDocument = null;
+    private Document conditionOperatorsDocument = null;
 
     private XPath xpathInstance = null;
 
-    private LanguageCodesReader(){
+    private ConditionsReader(){
 
     }
 
-    public static LanguageCodesReader getInstance(){
+    public static ConditionsReader getInstance(){
         if (null == thisInstance) {
-            thisInstance = new LanguageCodesReader();
+            thisInstance = new ConditionsReader();
         }
         return thisInstance;
     }
 
-    public List<Element> getLanguageCodeElements() throws JDOMException{
+    public List<Element> getConditions() throws JDOMException{
       if (null != getDocument()) {
-           List<Element> langCodeElements =  getXPath().selectNodes(getDocument(),"//language");
-           return langCodeElements;
+           List<Element> localeElements =  getXPath().selectNodes(getDocument(),"//condition");
+           return localeElements;
       } else {
-          log.error("Lang code file could not be loaded !");
+          log.error("Conditions operator file could not be loaded !");
           return null;
       }
     }
 
-    public String getLanguageName(Element language, String deflang){
-        String sLangName = "UNKNOWN";
-        try {
-          Element elemLangName =   (Element) getXPath().selectSingleNode(language, "./name[@lang='" + deflang + "']");
-          sLangName = elemLangName.getTextNormalize();
-        } catch (JDOMException ex) {
-            log.error("Error getting language name ", ex);
-        }
-        return sLangName;
-    }
 
     private XPath getXPath() throws JDOMException {
         if (this.xpathInstance == null) {
-            this.xpathInstance = XPath.newInstance("//language");
+            this.xpathInstance = XPath.newInstance("//condition");
         }
         return this.xpathInstance;
     }
 
     private Document getDocument() {
-       if (this.languageCodesDocument == null) {
+       if (this.conditionOperatorsDocument == null) {
             try {
-                this.languageCodesDocument = CommonXmlUtils.loadFile(RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE);
+                this.conditionOperatorsDocument = CommonXmlUtils.loadFile(RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE);
             } catch (FileNotFoundException ex) {
                 log.error("file not found", ex);
             } catch (UnsupportedEncodingException ex) {
@@ -100,7 +90,7 @@ public class LanguageCodesReader {
                 log.error("io error", ex);
             }
         }
-       return this.languageCodesDocument;
+       return this.conditionOperatorsDocument;
     }
 
 }

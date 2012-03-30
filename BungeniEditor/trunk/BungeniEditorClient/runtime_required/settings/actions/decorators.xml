@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators>
+    <decorator name="flowerBracket"
+        desc="Flower Bracket ( {1}, {2}...)"
+        class="org.bungeni.numbering.decorators.flowerBracketDecorator" />
+    <decorator name="hashPrefix"
+        desc="Hash Prefix (#1, #2, ...)"
+        class="org.bungeni.numbering.decorators.hashPrefixDecorator" />
+    <decorator name="postDashed"
+        desc="Dash Suffix (1 - , 2 - , 3 - ..)"
+        class="org.bungeni.numbering.decorators.postDashedDecorator" />
+    <decorator name="postDotted"
+        desc="Dot Suffix (1. , 2., 3. ...)"
+        class="org.bungeni.numbering.decorators.postDottedDecorator" />
+    <decorator name="parens"
+        desc="Parens ( (1), (2), (3)....)"
+        class="org.bungeni.numbering.decorators.parensDecorator" />
+    <decorator name="square"
+        desc="Square ( [1],[2],[3]... )"
+        class="org.bungeni.numbering.decorators.squareDecorator" /> 
+</decorators>

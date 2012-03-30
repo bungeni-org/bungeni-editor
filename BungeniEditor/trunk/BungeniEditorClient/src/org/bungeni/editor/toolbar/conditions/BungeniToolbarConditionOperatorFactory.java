@@ -10,18 +10,19 @@
 package org.bungeni.editor.toolbar.conditions;
 
 import java.util.HashMap;
-import java.util.Vector;
-import org.bungeni.db.BungeniClientDB;
-import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.db.QueryResults;
-import org.bungeni.db.SettingsQueryFactory;
+import java.util.List;
+import org.apache.log4j.Logger;
+
+import org.bungeni.editor.config.ConditionsReader;
+import org.jdom.Element;
+import org.jdom.JDOMException;
 
 /**
  *
  * @author Administrator
  */
 public class BungeniToolbarConditionOperatorFactory {
-    
+     private static Logger log = Logger.getLogger(BungeniToolbarConditionOperatorFactory.class.getName());
     /** Creates a new instance of BungeniToolbarConditionOperatorFactory */
     public BungeniToolbarConditionOperatorFactory() {
     }
@@ -29,6 +30,27 @@ public class BungeniToolbarConditionOperatorFactory {
     
     public static HashMap<String, BungeniToolbarConditionOperator> getObjects(){
         if (conditionOperatorMap.isEmpty()) {
+            HashMap<String,BungeniToolbarConditionOperator> toolMap = new HashMap<String,BungeniToolbarConditionOperator>();
+            List<Element> conditions = null;
+            try {
+              conditions = ConditionsReader.getInstance().getConditions();
+            } catch (JDOMException ex) {
+               log.error("Error jdomexception while getting conditions ", ex);
+            }
+            if (null != conditions){
+                for (Element elemCondition : conditions) {
+                   String name = elemCondition.getAttributeValue("name");
+                   toolMap.put(
+                           name,
+                           new BungeniToolbarConditionOperator(
+                                name,
+                                elemCondition.getAttributeValue("syntax"),
+                                elemCondition.getAttributeValue("class")
+                            )
+                           );
+                }
+            }
+            /***
             HashMap<String,BungeniToolbarConditionOperator> toolMap = new HashMap<String,BungeniToolbarConditionOperator>();
             BungeniClientDB db =  new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
             db.Connect();
@@ -43,7 +65,7 @@ public class BungeniToolbarConditionOperatorFactory {
                    toolMap.put(conditionName, new BungeniToolbarConditionOperator(conditionName, conditionSyntax, conditionClass ));
                } 
             }
-            db.EndConnect();
+            db.EndConnect(); ***/
             //cache the operator map
             conditionOperatorMap = toolMap;
             return conditionOperatorMap;

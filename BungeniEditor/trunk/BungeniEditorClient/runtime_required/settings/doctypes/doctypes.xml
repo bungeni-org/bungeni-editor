@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctypes>
+    <doctype name="judgement"
+        template="workspace/templates/judgement.ott"
+        state="1"
+        root="judgement"
+        default-part="main">
+        <title xml:lang="eng">Judgement</title>
+        <uri type="work">~CountryCode~DocumentType~Year-Month-Day</uri>
+        <uri type="expression">~CountryCode~DocumentType~Year-Month-Day~LanguageCode</uri>
+        <file-name-scheme>CountryCode~DocumentType~Year-Month-Day~LanguageCode</file-name-scheme>
+        <metadata-editor class="org.bungeni.editor.metadata.editors.JudgementMetadata3">
+            <title xml:lang="eng">Judgement Metadata</title>
+        </metadata-editor>
+    </doctype>
+    <doctype name="act"
+        template="workspace/templates/act.ott"
+        state="0"
+        root="act"
+        default-part="main">
+        <title xml:lang="eng">Act</title>
+        <uri type="work"></uri>
+        <uri type="expression"></uri>
+        <file-name-scheme></file-name-scheme>
+        <metadata-editor class=" ">
+            <title xml:lang="eng"></title>
+        </metadata-editor>
+    </doctype>
+    <doctype name="report"
+        template="workspace/templates/report.ott"
+        state="0"
+        root="report"
+        default-part="main">
+        <title xml:lang="eng">Report</title>
+        <uri type="work"></uri>
+        <uri type="expression"></uri>
+        <file-name-scheme></file-name-scheme>
+        <metadata-editor class=" ">
+            <title xml:lang="eng"></title>
+        </metadata-editor>
+    </doctype>
+    <doctype name="bill"
+        template="workspace/templates/bill.ott"
+        state="1"
+        root="bill"
+        default-part="main">
+        <title xml:lang="eng">Bill</title>
+        <uri type="work">~CountryCode~DocumentType~Year-Month-Day</uri>
+        <uri type="expression">~CountryCode~DocumentType~Year-Month-Day~LanguageCode</uri>
+        <file-name-scheme>CountryCode~DocumentType~Year-Month-Day~LanguageCode</file-name-scheme>
+        <metadata-editor class="org.bungeni.editor.metadata.editors.BillMetadata">
+            <title xml:lang="eng">Bill Metadata</title>
+        </metadata-editor>
+    </doctype>
+    <doctype name="document"
+        template="workspace/templates/defaultdoc.ott"
+        state="0"
+        root="document"
+        default-part="main">
+        <title xml:lang="eng">Document</title>
+        <uri type="work">~CountryCode~DocumentType~Year-Month-Day</uri>
+        <uri type="expression">~CountryCode~DocumentType~Year-Month-Day~LanguageCode</uri>
+        <file-name-scheme>CountryCode~DocumentType~Year-Month-Day~LanguageCode</file-name-scheme>
+        <metadata-editor class="org.bungeni.editor.metadata.editors.GeneralMetadata">
+            <title xml:lang="eng">General Metadata</title>
+        </metadata-editor>
+    </doctype>
+    <doctype name="internal"
+        template=" "
+        state="0"
+        root="internal"
+        default-part="main">
+        <title xml:lang="eng">Internal Usage</title>
+        <uri type="work"> </uri>
+        <uri type="expression"> </uri>
+        <file-name-scheme> </file-name-scheme>
+        <metadata-editor class=" ">
+            <title xml:lang="eng"> </title>
+        </metadata-editor>
+    </doctype>
+    <doctype name="debaterecord"
+        template="workspace/templates/debaterecord.ott"
+        state="1"
+        root="debaterecord"
+        default-part="main">
+        <title xml:lang="eng">Debate Record</title>
+        <uri type="work">~CountryCode~DocumentType~Year-Month-Day</uri>
+        <uri type="expression">~CountryCode~DocumentType~Year-Month-Day~LanguageCode</uri>
+        <file-name-scheme>CountryCode~DocumentType~Year-Month-Day~LanguageCode</file-name-scheme>
+        <metadata-editor class="org.bungeni.editor.metadata.editors.GeneralMetadata">
+            <title xml:lang="eng">DebateRecord Metadata</title>
+        </metadata-editor>
+    </doctype>
+</doctypes>

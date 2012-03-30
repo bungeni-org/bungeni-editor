@@ -34,62 +34,62 @@ import org.jdom.xpath.XPath;
  *
  * @author Ashok
  */
-public class LanguageCodesReader {
-    private static Logger log = Logger.getLogger(LanguageCodesReader.class.getName());
+public class TransformTargetsReader {
+    private static Logger log = Logger.getLogger(TransformTargetsReader.class.getName());
 
-    public final static String SETTINGS_FOLDER = "settings" + File.separator + "locales";
-    public final static String LANGUAGE_CODES_FILE = "languages_a2.xml";
-    public final static String RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE = SETTINGS_FOLDER + File.separator + LANGUAGE_CODES_FILE;
+    public final static String SETTINGS_FOLDER = "settings" + File.separator + "transform";
+    public final static String TRANSFORM_TARGETS_FILE = "transform_targets.xml";
+    public final static String RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE = SETTINGS_FOLDER + File.separator + TRANSFORM_TARGETS_FILE;
 
-    private static LanguageCodesReader thisInstance = null;
+    private static TransformTargetsReader thisInstance = null;
 
-    private Document languageCodesDocument = null;
+    private Document targetsDocument = null;
 
     private XPath xpathInstance = null;
 
-    private LanguageCodesReader(){
+    private TransformTargetsReader(){
 
     }
 
-    public static LanguageCodesReader getInstance(){
+    public static TransformTargetsReader getInstance(){
         if (null == thisInstance) {
-            thisInstance = new LanguageCodesReader();
+            thisInstance = new TransformTargetsReader();
         }
         return thisInstance;
     }
 
-    public List<Element> getLanguageCodeElements() throws JDOMException{
+    public List<Element> getTransformTargets() throws JDOMException{
       if (null != getDocument()) {
-           List<Element> langCodeElements =  getXPath().selectNodes(getDocument(),"//language");
-           return langCodeElements;
+           List<Element> localeElements =  getXPath().selectNodes(getDocument(),"//transformTarget");
+           return localeElements;
       } else {
-          log.error("Lang code file could not be loaded !");
+          log.error("Locale code file could not be loaded !");
           return null;
       }
     }
 
-    public String getLanguageName(Element language, String deflang){
-        String sLangName = "UNKNOWN";
-        try {
-          Element elemLangName =   (Element) getXPath().selectSingleNode(language, "./name[@lang='" + deflang + "']");
-          sLangName = elemLangName.getTextNormalize();
-        } catch (JDOMException ex) {
-            log.error("Error getting language name ", ex);
-        }
-        return sLangName;
+    public Element getTransformTarget(String targetName) throws JDOMException{
+      if (null != getDocument()) {
+           Element localeElement =  (Element) getXPath().selectSingleNode(getDocument(),"//transformTarget[@name='" + targetName + "']");
+           return localeElement;
+      } else {
+          log.error("Locale code file could not be loaded !");
+          return null;
+      }
     }
+
 
     private XPath getXPath() throws JDOMException {
         if (this.xpathInstance == null) {
-            this.xpathInstance = XPath.newInstance("//language");
+            this.xpathInstance = XPath.newInstance("//transformTarget");
         }
         return this.xpathInstance;
     }
 
     private Document getDocument() {
-       if (this.languageCodesDocument == null) {
+       if (this.targetsDocument == null) {
             try {
-                this.languageCodesDocument = CommonXmlUtils.loadFile(RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE);
+                this.targetsDocument = CommonXmlUtils.loadFile(RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE);
             } catch (FileNotFoundException ex) {
                 log.error("file not found", ex);
             } catch (UnsupportedEncodingException ex) {
@@ -100,7 +100,7 @@ public class LanguageCodesReader {
                 log.error("io error", ex);
             }
         }
-       return this.languageCodesDocument;
+       return this.targetsDocument;
     }
 
 }

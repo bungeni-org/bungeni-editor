@@ -34,62 +34,52 @@ import org.jdom.xpath.XPath;
  *
  * @author Ashok
  */
-public class LanguageCodesReader {
-    private static Logger log = Logger.getLogger(LanguageCodesReader.class.getName());
+public class LocalesReader {
+    private static Logger log = Logger.getLogger(LocalesReader.class.getName());
 
     public final static String SETTINGS_FOLDER = "settings" + File.separator + "locales";
-    public final static String LANGUAGE_CODES_FILE = "languages_a2.xml";
-    public final static String RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE = SETTINGS_FOLDER + File.separator + LANGUAGE_CODES_FILE;
+    public final static String LOCALES_FILE = "locales.xml";
+    public final static String RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE = SETTINGS_FOLDER + File.separator + LOCALES_FILE;
 
-    private static LanguageCodesReader thisInstance = null;
+    private static LocalesReader thisInstance = null;
 
-    private Document languageCodesDocument = null;
+    private Document localesDocument = null;
 
     private XPath xpathInstance = null;
 
-    private LanguageCodesReader(){
+    private LocalesReader(){
 
     }
 
-    public static LanguageCodesReader getInstance(){
+    public static LocalesReader getInstance(){
         if (null == thisInstance) {
-            thisInstance = new LanguageCodesReader();
+            thisInstance = new LocalesReader();
         }
         return thisInstance;
     }
 
-    public List<Element> getLanguageCodeElements() throws JDOMException{
+    public List<Element> getLocales() throws JDOMException{
       if (null != getDocument()) {
-           List<Element> langCodeElements =  getXPath().selectNodes(getDocument(),"//language");
-           return langCodeElements;
+           List<Element> localeElements =  getXPath().selectNodes(getDocument(),"//locale");
+           return localeElements;
       } else {
-          log.error("Lang code file could not be loaded !");
+          log.error("Locale code file could not be loaded !");
           return null;
       }
     }
 
-    public String getLanguageName(Element language, String deflang){
-        String sLangName = "UNKNOWN";
-        try {
-          Element elemLangName =   (Element) getXPath().selectSingleNode(language, "./name[@lang='" + deflang + "']");
-          sLangName = elemLangName.getTextNormalize();
-        } catch (JDOMException ex) {
-            log.error("Error getting language name ", ex);
-        }
-        return sLangName;
-    }
 
     private XPath getXPath() throws JDOMException {
         if (this.xpathInstance == null) {
-            this.xpathInstance = XPath.newInstance("//language");
+            this.xpathInstance = XPath.newInstance("//locale");
         }
         return this.xpathInstance;
     }
 
     private Document getDocument() {
-       if (this.languageCodesDocument == null) {
+       if (this.localesDocument == null) {
             try {
-                this.languageCodesDocument = CommonXmlUtils.loadFile(RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE);
+                this.localesDocument = CommonXmlUtils.loadFile(RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE);
             } catch (FileNotFoundException ex) {
                 log.error("file not found", ex);
             } catch (UnsupportedEncodingException ex) {
@@ -100,7 +90,7 @@ public class LanguageCodesReader {
                 log.error("io error", ex);
             }
         }
-       return this.languageCodesDocument;
+       return this.localesDocument;
     }
 
 }
