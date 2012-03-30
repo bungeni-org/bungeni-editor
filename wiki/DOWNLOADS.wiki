@@ -6,16 +6,21 @@
 
 === Current Release === 
 
-[http://bungeni-editor.googlecode.com/files/install-1.1.2268.jar Bungeni Editor v1.1.1995- requires OpenOffice.org 3.3.0] - Mar 16 2011 - Interim release, expect a more updated release shortly
+[http://bungeni-editor.googlecode.com/files/install-1.1.2292.jar Bungeni Editor v1.1.2292 - requires OpenOffice.org 3.3.0]- Mar 30 2012
+ * This release has a preliminary support for the Spanish language
+ * Improved support for Locales and i18n
+ * Configuration migration to XML from Settings db is ongoing
+  
+
+
+=== Older Releases === 
+
+[http://bungeni-editor.googlecode.com/files/install-1.1.2268.jar Bungeni Editor v1.1.2268- requires OpenOffice.org 3.3.0] - Mar 16 2012 - Interim release, expect a more updated release shortly
  * UI and performance improvements. 
  * Changes to configuration interface : the embedded database for configuration is being gradually deprecated - all the action configuration has been moved to a more accessible configuration xml ; configuration aspects have been simplified; 
  * Transformation engine upgrades : the transformer now uses a single point of configuration to modify and customize pipelines; 
  * Numbering / Renumbering : this has been rewritten to do off-screen renumbering. On-screen renumbering was resource intensive - and didnt scale well with large documents [NOTE: UNSTABLE - still being tested ]
  * Schema : preliminary update to AN 2.0 [NOTE: UNSTABLE - still being tested ] 
-  
-
-
-=== Older Releases === 
 
 
 [http://bungeni-editor.googlecode.com/files/install-1.1.1995.jar Bungeni Editor v1.1.1995- requires OpenOffice.org 3.3.0] - Sep 20 2011 - Fix to Transformer engine integration. The previous release had a crash situation during certain transformations.
