@@ -59,16 +59,11 @@ public class SettingsQueryFactory {
         return query;
     }
 
-    public static String Q_FETCH_ALL_DOCUMENT_TYPES() {
-        String query = "Select doc_type, description, template_path from DOCUMENT_TYPES ";
-
-        return query;
-    }
-
+    /**
     public static String Q_FETCH_ALL_ACTIVE_DOCUMENT_TYPES() {
         String query = "Select doc_type, description, template_path from DOCUMENT_TYPES where state = 1";
         return query;
-    }
+    }**/
 
 
     public static String Q_FETCH_DOCUMENT_TYPE_BY_NAME(String docType) {

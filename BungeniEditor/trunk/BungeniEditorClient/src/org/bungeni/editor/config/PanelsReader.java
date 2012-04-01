@@ -71,7 +71,7 @@ public class PanelsReader {
     }
 
     public String getLocalizedTitleForPanel(Element panel) {
-        return CommonXmlUtils.getLocalizedChildElement(panel, "title");
+        return CommonXmlUtils.getLocalizedChildElementValue(panel, "title");
     }
 
 

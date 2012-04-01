@@ -91,7 +91,7 @@ public class CommonXmlUtils {
         return returnText;
     }
 
-    public static String getLocalizedChildElement(Element anElement, String localizedChild) {
+    public static String getLocalizedChildElementValue(Element anElement, String localizedChild) {
         List<Element> childTitles = anElement.getChildren(localizedChild);
         //get the default
         String langCodeDefault = BungeniEditorProperties.getEditorProperty("locale.Language.iso639-2");

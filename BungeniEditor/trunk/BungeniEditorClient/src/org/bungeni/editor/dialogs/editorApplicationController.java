@@ -18,10 +18,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
@@ -38,6 +41,7 @@ import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.editor.noa.BungeniNoaApp;
 import org.bungeni.editor.SplashPage;
+import org.bungeni.editor.config.DocTypesReader;
 import org.bungeni.editor.locales.BungeniEditorLocale;
 import org.bungeni.editor.locales.BungeniEditorLocalesFactory;
 import org.bungeni.extutils.BungeniEditorProperties;
@@ -51,11 +55,14 @@ import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.extutils.BungeniFrame;
 import org.bungeni.extutils.BungeniRuntimeProperties;
 import org.bungeni.extutils.CommonFileFunctions;
+import org.bungeni.extutils.CommonXmlUtils;
 import org.bungeni.utils.FileTableModel;
 import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.extutils.MessageBox;
 import org.bungeni.utils.Installation;
 import org.bungeni.utils.WorkspaceFolderTableModel;
+import org.jdom.Element;
+import org.jdom.JDOMException;
 
 /**
  * Controller Class for Main Swing Openoffice UNO management application
@@ -767,7 +774,26 @@ public class editorApplicationController extends javax.swing.JPanel {
 
     private void initDocumentTypesModel() {
         documentType[] dtArr = null;
+        List<Element> doctypeList = null;
+        try {
+            doctypeList = DocTypesReader.getInstance().getActiveDocTypes();
+        } catch (JDOMException ex) {
+            log.error("Error while initializeing doctype list");
+        }
+        if (null != doctypeList ) {
+            dtArr = new documentType[doctypeList.size()];
+            int i=0;
+            for (Element doctypeElem : doctypeList) {
+                dtArr[i] = new documentType();
+                dtArr[i].docType = doctypeElem.getAttributeValue("name");
+                dtArr[i].typeDesc = CommonXmlUtils.getLocalizedChildElementValue(doctypeElem, "title");
+                dtArr[i].templatePath = doctypeElem.getAttributeValue("template");
+                BungeniEditorProperties.setPropertyInMap(dtArr[i].docType + "_template", dtArr[i].templatePathNormalized());
+                i++;
+            }
+        }
 
+        /**
         BungeniClientDB instance = new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
         String query = SettingsQueryFactory.Q_FETCH_ALL_ACTIVE_DOCUMENT_TYPES();
         instance.Connect();
@@ -787,7 +813,7 @@ public class editorApplicationController extends javax.swing.JPanel {
                 i++;
             }
         }
-        
+        **/
         if (dtArr != null) {
             this.m_documentTypes = dtArr;
             this.cboDocumentTypes.setModel(new DefaultComboBoxModel(m_documentTypes));
