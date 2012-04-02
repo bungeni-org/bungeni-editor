@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 
-import org.bungeni.editor.config.ConditionsReader;
+import org.bungeni.editor.config.ConditionOperatorsReader;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 
@@ -33,7 +33,7 @@ public class BungeniToolbarConditionOperatorFactory {
             HashMap<String,BungeniToolbarConditionOperator> toolMap = new HashMap<String,BungeniToolbarConditionOperator>();
             List<Element> conditions = null;
             try {
-              conditions = ConditionsReader.getInstance().getConditions();
+              conditions = ConditionOperatorsReader.getInstance().getConditions();
             } catch (JDOMException ex) {
                log.error("Error jdomexception while getting conditions ", ex);
             }

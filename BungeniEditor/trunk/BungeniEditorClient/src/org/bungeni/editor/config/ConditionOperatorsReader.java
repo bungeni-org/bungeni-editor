@@ -34,33 +34,33 @@ import org.jdom.xpath.XPath;
  *
  * @author Ashok
  */
-public class ConditionsReader {
-    private static Logger log = Logger.getLogger(ConditionsReader.class.getName());
+public class ConditionOperatorsReader {
+    private static Logger log = Logger.getLogger(ConditionOperatorsReader.class.getName());
 
     public final static String SETTINGS_FOLDER = "settings" + File.separator + "actions";
-    public final static String CONDITION_OPERATORS_FILE = "conditions.xml";
+    public final static String CONDITION_OPERATORS_FILE = "condition_operators.xml";
     public final static String RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE = SETTINGS_FOLDER + File.separator + CONDITION_OPERATORS_FILE;
 
-    private static ConditionsReader thisInstance = null;
+    private static ConditionOperatorsReader thisInstance = null;
 
     private Document conditionOperatorsDocument = null;
 
     private XPath xpathInstance = null;
 
-    private ConditionsReader(){
+    private ConditionOperatorsReader(){
 
     }
 
-    public static ConditionsReader getInstance(){
+    public static ConditionOperatorsReader getInstance(){
         if (null == thisInstance) {
-            thisInstance = new ConditionsReader();
+            thisInstance = new ConditionOperatorsReader();
         }
         return thisInstance;
     }
 
     public List<Element> getConditions() throws JDOMException{
       if (null != getDocument()) {
-           List<Element> localeElements =  getXPath().selectNodes(getDocument(),"//condition");
+           List<Element> localeElements =  getXPath().selectNodes(getDocument(),"//operator");
            return localeElements;
       } else {
           log.error("Conditions operator file could not be loaded !");
@@ -71,7 +71,7 @@ public class ConditionsReader {
 
     private XPath getXPath() throws JDOMException {
         if (this.xpathInstance == null) {
-            this.xpathInstance = XPath.newInstance("//condition");
+            this.xpathInstance = XPath.newInstance("//conditionOperators");
         }
         return this.xpathInstance;
     }
