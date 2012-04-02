@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -21,6 +23,7 @@ import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.db.IQueryResultsIterator;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
+import org.bungeni.editor.config.DocTypesReader;
 import org.bungeni.editor.metadata.BaseEditorDocMetaModel;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
@@ -38,6 +41,8 @@ import org.bungeni.extutils.BungeniRuntimeProperties;
 import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.ooo.ooDocMetadata;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
+import org.jdom.Element;
+import org.jdom.JDOMException;
 
 /**
  *This JPanel class is the main container for the metadata tabs for a document type.
@@ -143,25 +148,41 @@ public class MetadataEditorContainer extends JPanel {
             mTab.initialize();
         }
 
-        //get work, exp, manifestation formats :
+        Element doctypeElem = null;
+        try {
+            //get work, exp, manifestation formats :
+           doctypeElem = DocTypesReader.getInstance().getDocTypeByName(BungeniEditorPropertiesHelper.getCurrentDocType());
+        } catch (JDOMException ex) {
+           log.error("Error getting doctype config", ex);
+        }
+        if (null != doctypeElem) {
+            m_spf = new BungeniFileSavePathFormat(
+                    DocTypesReader.getInstance().getWorkUriForDocType(doctypeElem),
+                    DocTypesReader.getInstance().getExpUriForDocType(doctypeElem),
+                    DocTypesReader.getInstance().getFileNameSchemeForDocType(doctypeElem)
+                    );
+            //now load the newly created tabs
+            for (IEditorDocMetadataDialog thisTab : this.metaTabs) {
+                metadataTabContainer.add(thisTab.getPanelComponent(), thisTab.getTabTitle());
+            }
+        }
+
+        /**
         BungeniClientDB db =  new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
         db.Connect();
         QueryResults qr = db.QueryResults(SettingsQueryFactory.Q_FETCH_DOCUMENT_TYPE_BY_NAME(BungeniEditorPropertiesHelper.getCurrentDocType()));
         db.EndConnect();
         metadataModelInfoIterator modelIterator = new metadataModelInfoIterator();
         qr.resultsIterator(modelIterator );
+        **/
 
-        m_spf = new BungeniFileSavePathFormat(modelIterator.WORK_URI, modelIterator.EXP_URI, modelIterator.MANIFESTATION_FORMAT);
-        //now load the newly created tabs
-        for (IEditorDocMetadataDialog thisTab : this.metaTabs) {
-            metadataTabContainer.add(thisTab.getPanelComponent(), thisTab.getTabTitle());
-        }
     }
 
 
         /**
      * Results iterator for retrieving metadata model info
      */
+    /***
     class metadataModelInfoIterator implements IQueryResultsIterator {
 
         public String WORK_URI, EXP_URI, MANIFESTATION_FORMAT ;
@@ -173,7 +194,7 @@ public class MetadataEditorContainer extends JPanel {
                        return true;
         }
     }
-
+***/
 
     public Component getPanelComponent() {
         return this;

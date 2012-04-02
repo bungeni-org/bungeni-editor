@@ -21,11 +21,16 @@ package org.bungeni.editor.metadata;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
+import org.bungeni.editor.config.DocTypesReader;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
+import org.bungeni.extutils.CommonXmlUtils;
+import org.jdom.Element;
+import org.jdom.JDOMException;
 
 /**
  * Returns the list of availabel language codes in the system
@@ -33,6 +38,8 @@ import org.bungeni.extutils.BungeniEditorPropertiesHelper;
  * @author Ashok Hariharan
  */
 public  class DocumentPartsFactory {
+
+        private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DocumentPartsFactory.class.getName());
 
      /**
      * This the internal array of available langauges
@@ -59,23 +66,28 @@ public  class DocumentPartsFactory {
     }
 
     private static void fetchAvailableDocumentParts(){
-          BungeniClientDB db =  new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
-          db.Connect();
-          QueryResults qr = db.QueryResults(SettingsQueryFactory.Q_FETCH_DOCUMENT_PARTS(BungeniEditorPropertiesHelper.getCurrentDocType()));
-          db.EndConnect();
-          List<DocumentPart> list_parts = new ArrayList<DocumentPart>(0);
-          if (qr.hasResults()) {
-              String[] docParts = qr.getSingleColumnResult("DOC_PART");
-              String[] partNames = qr.getSingleColumnResult("PART_NAME");
-              for (int i=0; i < docParts.length ; i++ ) {
-                  DocumentPart aPart = new DocumentPart( docParts[i], partNames[i]);
-                  list_parts.add(aPart);
-              }
-          }
-          //if some locales were retrieved ... replace the cache of available locales with the
+        Element doctypeElem = null;
+        List<DocumentPart> list_docparts = new ArrayList<DocumentPart>(0);
+
+        try {
+            doctypeElem = DocTypesReader.getInstance().getDocTypeByName(BungeniEditorPropertiesHelper.getCurrentDocType());
+        } catch (JDOMException ex) {
+            log.error("Error while getting doctype element" , ex);
+        }
+        if (null != doctypeElem) {
+            List<Element> listParts =  DocTypesReader.getInstance().getPartsForDocType(doctypeElem);
+            for (Element partElem : listParts) {
+                DocumentPart dp = new DocumentPart(
+                        partElem.getAttributeValue("name"),
+                        CommonXmlUtils.getLocalizedChildElementValue(partElem, "title")
+                       );
+                list_docparts.add(dp);
+            }
+        }
+         //if some locales were retrieved ... replace the cache of available locales with the
           //retrieved one
-          if (!list_parts.isEmpty()) {
-              document_parts = list_parts;
+          if (!list_docparts.isEmpty()) {
+              document_parts = list_docparts;
           }
           //else leave the default locale in place
     }

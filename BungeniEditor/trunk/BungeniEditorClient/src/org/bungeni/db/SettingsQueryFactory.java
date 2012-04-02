@@ -66,6 +66,7 @@ public class SettingsQueryFactory {
     }**/
 
 
+    /***
     public static String Q_FETCH_DOCUMENT_TYPE_BY_NAME(String docType) {
         String query =
             "Select doc_type, description, template_path, metadata_model_editor, metadata_editor_title, work_uri, exp_uri, file_name_scheme from DOCUMENT_TYPES ";
@@ -74,7 +75,8 @@ public class SettingsQueryFactory {
 
         return query;
     }
-
+    ***/
+    
     /**
     public static String Q_SET_EDITOR_PROPERTY(String propertyName, String propertyValue) {
         String query = "update general_editor_properties set property_value ='" + propertyValue
@@ -109,13 +111,14 @@ public class SettingsQueryFactory {
         return query;
     }
     ***/
-    
+
+    /**
     public static String Q_FETCH_TRANSFORM_CONFIG(String docType) {
         String query = "select DOC_TYPE, CONFIG_NAME, CONFIG_FILE from TRANSFORM_CONFIGURATIONS where "
                        + "DOC_TYPE = '" + docType + "' ";
 
         return query;
-    }
+    }**/
 
     public static String Q_FETCH_MESSAGE_BUNDLES() {
         String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
@@ -141,13 +144,14 @@ public class SettingsQueryFactory {
         return query;
     }
 
+    /***
     public static String Q_FETCH_METADATA_MODEL_EDITORS(String docType) {
         String query = "SELECT DOC_TYPE, METADATA_MODEL_EDITOR, METADATA_EDITOR_TITLE  FROM METADATA_MODEL_EDITORS "
                        + "WHERE DOC_TYPE = '" + docType + "'  ORDER BY ORDER_OF_LOADING";
 
         return query;
     }
-
+    ***/
 
     public static String Q_FETCH_ONTOLOGY_FOR_EVENT (String docType, String eventName) {
         String query = "SELECT ONTOLOGY, EVENT_NAME, EVENT_DESC FROM" +
@@ -176,10 +180,12 @@ public class SettingsQueryFactory {
 
     }**/
 
+    /***
     public static String Q_FETCH_DOCUMENT_PARTS(String docType) {
        String query = "SELECT DOC_TYPE, DOC_PART, PART_NAME from DOCUMENT_PART "
                + " where DOC_TYPE = '" + docType + "'" ;
        return query ;
     }
+     ***/
 
 }

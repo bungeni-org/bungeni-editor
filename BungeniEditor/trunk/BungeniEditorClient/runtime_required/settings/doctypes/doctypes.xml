@@ -13,6 +13,16 @@
         <metadata-editor class="org.bungeni.editor.metadata.editors.JudgementMetadata3">
             <title xml:lang="eng">Judgement Metadata</title>
         </metadata-editor>
+        <parts>
+            <part name="main">
+                <title xml:lang="eng">Main</title>
+                <title xml:lang="spa">principal</title>
+            </part>
+            <part name="annex">
+                <title xml:lang="eng">Annex</title>
+                <title xml:lang="spa">adjuntar</title>
+            </part>
+        </parts>
     </doctype>
     <doctype name="act"
         template="workspace/templates/act.ott"
@@ -62,6 +72,16 @@
                 <title xml:lang="eng">Bill</title>
             </metadata-editor>
         </metadata-editors>
+        <parts>
+            <part name="main">
+                <title xml:lang="eng">Main</title>
+                <title xml:lang="spa">principal</title>
+            </part>
+            <part name="annex">
+                <title xml:lang="eng">Annex</title>
+                <title xml:lang="spa">adjuntar</title>
+            </part>
+        </parts>
     </doctype>
     <doctype name="document"
         template="workspace/templates/defaultdoc.ott"
@@ -108,5 +128,15 @@
                 <title xml:lang="eng">Parliament</title>
             </metadata-editor>
         </metadata-editors>
+        <parts>
+            <part name="main">
+                <title xml:lang="eng">Main</title>
+                <title xml:lang="spa">principal</title>
+            </part>
+            <part name="annex">
+                <title xml:lang="eng">Annex</title>
+                <title xml:lang="spa">adjuntar</title>
+            </part>
+        </parts>
     </doctype>
 </doctypes>

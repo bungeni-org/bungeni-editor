@@ -23,6 +23,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.bungeni.extutils.CommonXmlUtils;
 import org.jdom.Document;
@@ -76,6 +77,71 @@ public class DocTypesReader {
           log.error("Locale code file could not be loaded !");
           return null;
       }
+    }
+
+    public Element getDocTypeByName(String docType) throws JDOMException {
+        if (null != getDocument()) {
+            Element doctypeElement = (Element) getXPath().selectSingleNode(getDocument(), "//doctypes/doctype[@name='"+ docType + "']");
+            return doctypeElement;
+        } else {
+            log.error("Error getting doctype element");
+            return null;
+        }
+     }
+
+    public String getWorkUriForDocType(Element doctypeElem) {
+        Element uriWork = null;
+        String sUriWork = "";
+        try {
+           uriWork = (Element) getXPath().selectSingleNode(doctypeElem, "./uri[@type='work']");
+           if (null != uriWork) {
+                sUriWork = uriWork.getTextNormalize();
+           }
+        } catch (JDOMException ex) {
+            log.error("Error getting work uri element");
+        }
+        return sUriWork;
+    }
+
+
+    public String getExpUriForDocType(Element doctypeElem) {
+        Element uriExp = null;
+        String sUriExpr = "";
+        try {
+           uriExp = (Element) getXPath().selectSingleNode(doctypeElem, "./uri[@type='expression']");
+           if (null != uriExp) {
+                sUriExpr = uriExp.getTextNormalize();
+           }
+        } catch (JDOMException ex) {
+            log.error("Error getting work uri element");
+        }
+        return sUriExpr;
+    }
+
+    public String getFileNameSchemeForDocType(Element doctypeElem) {
+        return doctypeElem.getChildTextNormalize("file-name-scheme");
+    }
+
+    public List<Element> getMetadataModelEditorsForDocType(Element doctypeElem) {
+        Element metadataModelEditorsElem = doctypeElem.getChild("metadata-editors");
+        List<Element> listModelEditors = null;
+        if (null != metadataModelEditorsElem) {
+            listModelEditors = metadataModelEditorsElem.getChildren("metadata-editor");
+        } else {
+            log.error("Error while getting metadata-model-editors !");
+        }
+        return listModelEditors;
+    }
+
+    public List<Element> getPartsForDocType(Element doctypeElem) {
+        Element partsElem = doctypeElem.getChild("parts");
+        List<Element> listParts = null;
+        if (null != partsElem) {
+            listParts = partsElem.getChildren("part");
+        } else {
+            log.error("Error while getting <parts> !");
+        }
+        return listParts;
     }
 
     private XPath getXPath() throws JDOMException {

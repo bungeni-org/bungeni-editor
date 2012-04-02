@@ -1,70 +1,50 @@
 package org.bungeni.editor.metadata;
 
 import java.util.ArrayList;
-import java.util.Vector;
-import org.bungeni.db.BungeniClientDB;
-import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.db.IQueryResultsIterator;
-import org.bungeni.db.QueryResults;
-import org.bungeni.db.SettingsQueryFactory;
+import java.util.List;
+import org.bungeni.editor.config.DocTypesReader;
+import org.bungeni.extutils.CommonXmlUtils;
+import org.jdom.Element;
+import org.jdom.JDOMException;
 
 /**
  *
  * @author Ashok Hariharan
  */
 public class EditorDocMetadataDialogFactory {
-    
+
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(EditorDocMetadataDialogFactory.class.getName());
     public static String WORK_URI = "";
     public static String EXP_URI = "";
     public static String MANIFESTATION_FORMAT = "";
 
-
     public static ArrayList<IEditorDocMetadataDialog> getInstances(String docType) {
         ArrayList<IEditorDocMetadataDialog> dlgLists = new ArrayList<IEditorDocMetadataDialog>(0);
-    //    String workURI = "";
-   //     String expURI = "";
-   //     String fileSavePathFormat = "";
+        log.info("getInstance : getting db handle");
+        Element doctypeElem = null;
         try {
-            log.info("getInstance : getting db handle");
-             BungeniClientDB db =  new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
-             db.Connect();
-            log.info("getInstance : after connect");
-             QueryResults qr = db.QueryResults(SettingsQueryFactory.Q_FETCH_METADATA_MODEL_EDITORS(docType));
-             db.EndConnect();
-             metadataModelResultsIterator resultsIter = new metadataModelResultsIterator();
-             qr.resultsIterator(resultsIter);
-             log.info("getInstance : number of dialog lists = " + resultsIter.dlgLists.size());
-             dlgLists = resultsIter.dlgLists;
-        } catch (Exception ex) {
-            log.error("getInstances : " + ex.getMessage());
-        } finally {
-            return dlgLists;
+            doctypeElem = DocTypesReader.getInstance().getDocTypeByName(docType);
+        } catch (JDOMException ex) {
+            log.error("Errro while getting doctype by name", ex);
         }
+        if (null != doctypeElem) {
+        List<Element> metadataModelEditors = DocTypesReader.getInstance().getMetadataModelEditorsForDocType(doctypeElem);
+            if (null != metadataModelEditors) {
+                for (Element editorElem : metadataModelEditors) {
+                    String metadataModelClass = editorElem.getAttributeValue("class");
+                    String metadataModelTitle = CommonXmlUtils.getLocalizedChildElementValue(editorElem, "title");
+                    if (metadataModelClass.length() > 0) {
+                        log.info("iterateRow : creating instance for class = " + metadataModelClass);
+                        IEditorDocMetadataDialog iInstance = newInstance(metadataModelClass, metadataModelTitle);
+                        dlgLists.add(iInstance);
+                    }
+                }
+            }
+        }
+        return dlgLists;
     }
 
-
-    public static class metadataModelResultsIterator implements IQueryResultsIterator {
-        public ArrayList<IEditorDocMetadataDialog> dlgLists = new ArrayList<IEditorDocMetadataDialog>(0);
-
-        public boolean iterateRow(QueryResults mQr, Vector<String> rowData) {
-                       try {
-                       String metadataModelClass = mQr.getField(rowData, "METADATA_MODEL_EDITOR");
-                       String metadataModelTitle = mQr.getField(rowData, "METADATA_EDITOR_TITLE");
-                       if (metadataModelClass.length() > 0 ) {
-                                log.info("iterateRow : creating instance for class = " + metadataModelClass);
-                                IEditorDocMetadataDialog iInstance = newInstance(metadataModelClass, metadataModelTitle);
-                                dlgLists.add(iInstance);
-                           }
-                       } catch (Exception ex) {
-                           log.error("iterateRow : " + ex.getMessage());
-                       }
-                       return true;
-        }
-    }
-
-
-    public static IEditorDocMetadataDialog newInstance (String metaClassName, String metaTabTitle) {
+    public static IEditorDocMetadataDialog newInstance(String metaClassName, String metaTabTitle) {
         IEditorDocMetadataDialog iInstance = null;
         try {
             log.info("newInstance for class : " + metaClassName);
@@ -87,5 +67,4 @@ public class EditorDocMetadataDialogFactory {
             return iInstance;
         }
     }
-
 }
