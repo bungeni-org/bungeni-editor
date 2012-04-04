@@ -31,6 +31,7 @@ import org.apache.log4j.Logger;
  *
  * @author Administrator
  */
+@Deprecated
 public class registryQueryDialog2 {
    private static org.apache.log4j.Logger log = Logger.getLogger(registryQueryDialog2.class.getName());
 

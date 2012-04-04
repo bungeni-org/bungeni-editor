@@ -41,8 +41,7 @@ public class PersonSelector extends BaseMetadataPanel {
         initComboSelect();
         //this.cboPersonSelect.addActionListener(new PersonSelect());
 
-        this.btn_SpeechBy.setVisible(false);
-    }
+        }
 
     // !+ (rm, feb 2012) - removed arg...it's unused
     // private ArrayList<ObjectPerson> getPersonObjects(String bypersonId) {
@@ -162,26 +161,16 @@ public class PersonSelector extends BaseMetadataPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btn_SpeechBy = new javax.swing.JButton();
         cboPersonSelect = new javax.swing.JComboBox();
         lblPersonSelect = new javax.swing.JLabel();
 
         setName("Person Selector"); // NOI18N
 
-        btn_SpeechBy.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/speech/Bundle"); // NOI18N
-        btn_SpeechBy.setText(bundle.getString("PersonSelector.btn_SpeechBy.text")); // NOI18N
-        btn_SpeechBy.setActionCommand(bundle.getString("PersonSelector.btn_SpeechBy.actionCommand")); // NOI18N
-        btn_SpeechBy.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_SpeechByActionPerformed(evt);
-            }
-        });
-
         cboPersonSelect.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         cboPersonSelect.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        lblPersonSelect.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblPersonSelect.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/speech/Bundle"); // NOI18N
         lblPersonSelect.setText(bundle.getString("PersonSelector.lblPersonSelect.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -192,9 +181,6 @@ public class PersonSelector extends BaseMetadataPanel {
                 .addComponent(lblPersonSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addComponent(cboPersonSelect, 0, 267, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btn_SpeechBy))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,25 +188,9 @@ public class PersonSelector extends BaseMetadataPanel {
                 .addComponent(lblPersonSelect)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cboPersonSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_SpeechBy))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
-private void btn_SpeechByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SpeechByActionPerformed
-// TODO add your handling code here:
-    rqs = new registryQueryDialog("Select A Person", "Select ID, FIRST_NAME, LAST_NAME, URI from persons", getParentFrame());
-    rqs.show();
-    log.debug("Moved on before closing child dialog");
-    (getContainerPanel()).selectionData = rqs.getData();
-    if ((getContainerPanel()).selectionData.size() > 0) {
-        // txt_SpeechBy.setText(selectionData.get("FIRST_NAME") + " " + selectionData.get("LAST_NAME"));
-        // txt_URIofPerson.setText(selectionData.get("URI"));
-        getContainerPanel().updateAllPanels();
-    } else {
-        log.debug("selected keyset empty");
-    }
-}//GEN-LAST:event_btn_SpeechByActionPerformed
 
     public String getPanelName() {
         return getName();
@@ -340,7 +310,6 @@ private void btn_SpeechByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         return true;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_SpeechBy;
     private javax.swing.JComboBox cboPersonSelect;
     private javax.swing.JLabel lblPersonSelect;
     // End of variables declaration//GEN-END:variables
