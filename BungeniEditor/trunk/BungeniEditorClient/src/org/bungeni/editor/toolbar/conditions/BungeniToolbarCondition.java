@@ -10,11 +10,17 @@
 package org.bungeni.editor.toolbar.conditions;
 
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
+import org.bungeni.editor.config.ConditionsReader;
 import org.bungeni.extutils.BungeniEditorProperties;
+import org.bungeni.extutils.BungeniEditorPropertiesHelper;
+import org.jdom.Element;
+import org.jdom.JDOMException;
 
 /**
  *
@@ -59,19 +65,16 @@ public class BungeniToolbarCondition {
         if (conditionNameforClassMap.containsKey(conditionName)) {
             return conditionNameforClassMap.get(conditionName);
         } else {
-            BungeniClientDB db =  new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
-            db.Connect();
-            QueryResults qr = db.QueryResults(SettingsQueryFactory.Q_FETCH_CONDITION_CLASS_BY_NAME(conditionName, BungeniEditorProperties.getEditorProperty("activeDocumentMode")));
-            db.EndConnect();
-            String[] mconditionClass = null;
-            if (qr.hasResults()) {
-                mconditionClass = qr.getSingleColumnResult("CONDITION_CLASS");
-                //cache class and condition name combination
-                conditionNameforClassMap.put(conditionName, mconditionClass[0]);
-                return mconditionClass[0];
-            } else {
-                return null;
+            Element conditionElem = null;
+            try {
+                conditionElem = ConditionsReader.getInstance().getConditionByName(BungeniEditorPropertiesHelper.getCurrentDocType(), conditionName);
+            } catch (JDOMException ex) {
+                log.error("Error while loading condition !", ex);
             }
+            if (null != conditionElem) {
+                conditionNameforClassMap.put(conditionName, conditionElem.getAttributeValue("class"));
+            }
+            return conditionNameforClassMap.get(conditionName);
         }
    } 
     public BungeniToolbarCondition(String name, String value ) {
@@ -83,7 +86,7 @@ public class BungeniToolbarCondition {
         return conditionName;
     }
 
-    public void setConditionName(String conditionName) {
+    public final void setConditionName(String conditionName) {
         this.conditionName = conditionName.trim();
     }
 
@@ -91,7 +94,7 @@ public class BungeniToolbarCondition {
         return conditionValue;
     }
 
-    public void setConditionValue(String conditionValue) {
+    public final void setConditionValue(String conditionValue) {
         this.conditionValue = conditionValue.trim();
     }
 

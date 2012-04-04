@@ -2,6 +2,8 @@ package org.bungeni.editor.actions.routers;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.QueryResults;
 import org.bungeni.db.SettingsQueryFactory;
@@ -14,6 +16,10 @@ import org.bungeni.ooo.OOComponentHelper;
 //~--- JDK imports ------------------------------------------------------------
 
 import java.util.HashMap;
+import org.bungeni.editor.config.OntologiesReader;
+import org.bungeni.extutils.CommonXmlUtils;
+import org.jdom.Element;
+import org.jdom.JDOMException;
 
 /**
  *
@@ -39,21 +45,19 @@ public class routerCreateEvent extends defaultRouter {
     private HashMap<String, String> getMetadataForEvent(String eventName) {
         String                  docType      = BungeniEditorPropertiesHelper.getCurrentDocType();
         HashMap<String, String> eventMetaMap = new HashMap<String, String>();
-        BungeniClientDB         db           = BungeniClientDB.defaultConnect();
-        QueryResults            qr           =
-            db.ConnectAndQuery(SettingsQueryFactory.Q_FETCH_ONTOLOGY_FOR_EVENT(docType, eventName));
-
-        // ONTOLOGY, EVENT_NAME, EVENT_DESC
-        String[] sOntology  = qr.getSingleColumnResult("ONTOLOGY");
-        String[] sEventName = qr.getSingleColumnResult("EVENT_NAME");
-        String[] sEventDesc = qr.getSingleColumnResult("EVENT_DESC");
-
+        Element ontoElement = null;
+        try {
+            ontoElement = OntologiesReader.getInstance().getOntologyByTypeAndName(docType, eventName);
+        } catch (JDOMException ex) {
+            log.error("Erorr loading ontologies xml", ex);
+        }
+        if (ontoElement != null) {
         // add custom metadata
-        eventMetaMap.put(__EVENT_ONTOLOGY__, sOntology[0]);
-        eventMetaMap.put(__EVENT_ONTOLOGY_NAME__, sEventName[0]);
-        eventMetaMap.put("BungeniEventDesc", sEventDesc[0]);
-        eventMetaMap.put(__EVENT_NAME__,nameOfNewSection);
-
+            eventMetaMap.put(__EVENT_ONTOLOGY__, ontoElement.getAttributeValue("href"));
+            eventMetaMap.put(__EVENT_ONTOLOGY_NAME__, ontoElement.getAttributeValue("name"));
+            eventMetaMap.put("BungeniEventDesc", CommonXmlUtils.getLocalizedChildElementValue(ontoElement, "title"));
+            eventMetaMap.put(__EVENT_NAME__,nameOfNewSection);
+        }
         return eventMetaMap;
     }
 

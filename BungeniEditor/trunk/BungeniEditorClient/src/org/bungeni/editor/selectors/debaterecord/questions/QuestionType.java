@@ -1,34 +1,19 @@
 package org.bungeni.editor.selectors.debaterecord.questions;
 
 import java.awt.Component;
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Locale;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-import org.bungeni.db.BungeniClientDB;
-import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.db.QueryResults;
-import org.bungeni.db.SettingsQueryFactory;
+import org.bungeni.editor.config.OntologiesReader;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.editor.selectors.debaterecord.question.ObjectQuestionType;
-import org.bungeni.extutils.BungeniEditorProperties;
-import org.bungeni.extutils.CommonFileFunctions;
+import org.bungeni.extutils.CommonXmlUtils;
 import org.bungeni.ooo.OOComponentHelper;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
+import org.jdom.Element;
+import org.jdom.JDOMException;
 
 /**
  *
@@ -37,21 +22,10 @@ import org.xml.sax.SAXException;
 public class QuestionType extends BaseMetadataPanel {
 
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(QuestionType.class.getName());
-    DocumentBuilderFactory dbfInstance = null;
-    DocumentBuilder dbuilder = null;
-    XPath xpathInstance = null;
-
+ 
     /** Creates new form QuestionTitle */
     public QuestionType() {
-        try {
-            dbfInstance = DocumentBuilderFactory.newInstance();
-            dbfInstance.setNamespaceAware(false);
-            dbuilder = dbfInstance.newDocumentBuilder();
-            xpathInstance = XPathFactory.newInstance().newXPath();
             initComponents();
-        } catch (ParserConfigurationException ex) {
-            log.error("QuestionType initialization error ", ex);
-        }
     }
 
     /** This method is called from within the constructor to
@@ -243,40 +217,27 @@ public class QuestionType extends BaseMetadataPanel {
     public void commonInitFields() {
         try {
             initComboSelect();
-        } catch (SAXException ex) {
-            log.error("in initComboSelect " , ex);
         } catch (IOException ex) {
             log.error("in initComboSelect " , ex);
         }
     }
 
-    private void initComboSelect() throws SAXException, IOException, SAXException, SAXException, SAXException {
+    private void initComboSelect() throws IOException {
         Vector<ObjectQuestionType> questionTypeObjects = getQuestionTypeObjects();
         this.cboQuestionType.setModel(new DefaultComboBoxModel(questionTypeObjects));
         AutoCompleteDecorator.decorate(this.cboQuestionType);
     }
 
-    private String getOntologyXmlFile() {
-
-       //  !+CONFIG_IN_XML(ah,jan-2012) 
-
-        String ontologiesFile = BungeniEditorProperties.get("ontologiesFile");
-        return CommonFileFunctions.convertRelativePathToFullPath(ontologiesFile);
-    }
-
-
-    private Vector<ObjectQuestionType> getQuestionTypeObjects() throws SAXException, IOException {
+    private Vector<ObjectQuestionType> getQuestionTypeObjects() throws IOException {
         Vector<ObjectQuestionType> questionTypes = new Vector<ObjectQuestionType>();
-
-        String ontologyXML = getOntologyXmlFile();
-
-        Document ontoDoc = dbuilder.parse(new File(ontologyXML));
-        NodeList questionOntologyNodes = null;
+        List<Element> listOntoElements = null;
         try {
-            questionOntologyNodes = (NodeList) xpathInstance.evaluate("//ontology[@type='question']", ontoDoc, XPathConstants.NODESET);
-        } catch (XPathExpressionException ex) {
-            log.error("Error while evaluating ontology xpath ", ex);
+            listOntoElements = OntologiesReader.getInstance().getOntologiesByType("question");
+        } catch (JDOMException ex) {
+            log.error("Error while loading ontology" , ex);
         }
+        if (null != listOntoElements) {
+            
         /**
          *
         <ontology
@@ -286,28 +247,11 @@ public class QuestionType extends BaseMetadataPanel {
         </ontology>
          *
          */
-        if (questionOntologyNodes != null) {
-
-            for (int i = 0; i < questionOntologyNodes.getLength(); i++) {
-                
-                Element ontoElement = (Element) questionOntologyNodes.item(i);
-                String sHref = ontoElement.getAttribute("href");
-                Locale defLocale = Locale.getDefault();
-                //we capture the iso3 default language for the current locale
-                //xml config uses iso3 language representation
-                String iso3Language = defLocale.getISO3Language();
-                Node contextNode = questionOntologyNodes.item(i);
-                
-                Node foundNode = null;
-                try {
-                    foundNode = (Node) xpathInstance.evaluate("./showAs[@xml:lang='" + iso3Language + "']", contextNode, XPathConstants.NODE);
-                } catch (XPathExpressionException ex) {
-                    log.error("Node for language : " + iso3Language + " not found", ex);
-                }
-                String showAs = foundNode.getTextContent();
+            for (Element ontoElement : listOntoElements) {
+                String sHref = ontoElement.getAttributeValue("href");
+                String showAs = CommonXmlUtils.getLocalizedChildElementValue(ontoElement, "title");
                 ObjectQuestionType ost = new ObjectQuestionType(sHref, showAs);
                 questionTypes.add(ost);
-
             }
         }
         return questionTypes;

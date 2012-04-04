@@ -203,4 +203,8 @@
         description="Truncates log file on startup"
     />
     
+    <prop name="configsFolder"
+        value="settings/configs"
+        description="Config folder"
+     />
 </props>

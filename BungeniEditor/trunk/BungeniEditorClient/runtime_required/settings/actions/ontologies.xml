@@ -1,18 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <ontologies>
-        <ontology 
-            type="question"
-            href="/ontology/concept/questions.private.notice">
-            <showAs xml:lang="eng">Questions By Private Notice</showAs>
-        </ontology>
-        <ontology
-            type="question"
-            href="/ontology/concept/questions.oral">
-            <showAs xml:lang="eng">Oral Questions</showAs>
-        </ontology>
-        <ontology
-            type="question"
-            href="/ontology/concept/questions.written">
-            <showAs xml:lang="eng">Written Questions</showAs>
-        </ontology>
-    </ontologies>
+<ontologies>
+    <ontology type="question" name="questionsByPrivateNotice"
+        href="/ontology/concept/questions.private.notice">
+        <title xml:lang="eng">Questions By Private Notice</title>
+    </ontology>
+    <ontology type="question" name="questionsOral" href="/ontology/concept/questions.oral">
+        <title xml:lang="eng">Oral Questions</title>
+    </ontology>
+    <ontology type="question" name="questionsWritten" href="/ontology/concept/questions.written">
+        <title xml:lang="eng">Written Questions</title>
+    </ontology>
+    <ontology type="event" name="QuestionProposed" href="/ontology/event/question/proposed">
+        <title xml:lang="eng">Question Proposed</title>
+    </ontology>
+    <ontology type="event" name="QuestionAccepted" href="/ontology/event/question/accepted">
+        <title xml:lang="eng">Question Accepted</title>
+    </ontology>
+    <ontology type="event" name="QuestionWithdrawn" href="/ontology/event/question/withdrawn">
+        <title xml:lang="eng">Question Withdrawn</title>
+    </ontology>
+    <ontology type="event" name="QuestionDeferred" href="/ontology/event/question/deferred">
+        <title xml:lang="eng">Question Deferred</title>
+    </ontology>
+    <ontology type="event" name="DebateInterruption" href="/ontology/event/debate/interruption">
+        <title xml:lang="eng">Debate Interruption</title>
+    </ontology>
+    <ontology type="event" name="DebateResumption" href="/ontology/event/debate/resumption">
+        <title xml:lang="eng">Debate Resumption</title>
+    </ontology>
+    <ontology type="event" name="BillFirstReading" href="/ontology/event/bill/reading/1">
+        <title xml:lang="eng">First Reading</title>
+    </ontology>
+    <ontology type="event" name="BillSecondReading" href="/ontology/event/bill/reading/2">
+        <title xml:lang="eng">Second Reading</title>
+    </ontology>
+    <ontology type="event" name="BillThirdReading" href="/ontology/event/bill/reading/3">
+        <title xml:lang="eng">Third Reading</title>
+    </ontology>
+</ontologies>

@@ -52,13 +52,15 @@ public class SettingsQueryFactory {
         return query;
     }
     ***/
+
+    /**
     public static String Q_FETCH_CONDITION_CLASS_BY_NAME(String conditionName, String doctype) {
         String query = "Select condition_class from toolbar_conditions \n" + "where condition_name = '" + conditionName
                        + "' and doctype = '" + doctype + "'";
 
         return query;
     }
-
+    **/
     /**
     public static String Q_FETCH_ALL_ACTIVE_DOCUMENT_TYPES() {
         String query = "Select doc_type, description, template_path from DOCUMENT_TYPES where state = 1";
@@ -153,13 +155,15 @@ public class SettingsQueryFactory {
     }
     ***/
 
+    /**
     public static String Q_FETCH_ONTOLOGY_FOR_EVENT (String docType, String eventName) {
         String query = "SELECT ONTOLOGY, EVENT_NAME, EVENT_DESC FROM" +
                 " EVENT_ONTOLOGIES WHERE DOC_TYPE = '"+ docType + "' " +
                 "and event_name= '" +  eventName + "'";
         return query;
     }
-
+    **/
+    
     /***
     public static String Q_FETCH_LOCALES() {
         String query = "SELECT LANG_CODE_2, COUNTRY_CODE FROM LOCALES ";
