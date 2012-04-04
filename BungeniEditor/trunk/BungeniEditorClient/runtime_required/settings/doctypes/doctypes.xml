@@ -115,7 +115,7 @@
         root="debaterecord"
         default-part="main">
         <title xml:lang="eng">Debate Record</title>
-        <title xml:lang="eng">hansard</title>
+        <title xml:lang="spa">hansard</title>
         <uri type="work">~CountryCode~DocumentType~Year-Month-Day</uri>
         <uri type="expression">~CountryCode~DocumentType~Year-Month-Day~LanguageCode</uri>
         <file-name-scheme>CountryCode~DocumentType~Year-Month-Day~LanguageCode</file-name-scheme>

@@ -4,13 +4,12 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
-import org.bungeni.db.BungeniClientDB;
-import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.db.QueryResults;
-import org.bungeni.db.SettingsQueryFactory;
+import org.bungeni.editor.config.BundlesReader;
+import org.jdom.Element;
 
 /**
  *
@@ -19,8 +18,7 @@ import org.bungeni.db.SettingsQueryFactory;
 public class BungeniResourceBundleFactory {
     public static HashMap<String,ResourceBundle> messageBundles = new HashMap<String, ResourceBundle>();
     private static boolean bundlesLoaded = false;
-    private static String messageBundlesFolder  = "";
-     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BungeniResourceBundleFactory.class.getName());
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BungeniResourceBundleFactory.class.getName());
   
     /**
      * Invoke only after loadMessageBundles(), requires messageBundlesFolder variable to be set prior to call
@@ -31,7 +29,7 @@ public class BungeniResourceBundleFactory {
         public URL findResource (String name) {
                 URL urlFile = null;
             try {
-                String prefPath = messageBundlesFolder + File.separator + name;
+                String prefPath = BundlesReader.getBundlesFolder() + File.separator + name;
                 File fProps = new File(prefPath);
                 urlFile = fProps.toURI().toURL();
             } catch (MalformedURLException ex) {
@@ -57,15 +55,14 @@ public class BungeniResourceBundleFactory {
     public static void loadMessageBundles(){
         try {
           Locale activeLocale = getActiveLocale();
-          messageBundlesFolder  = loadPathToMessageBundles();
-          BungeniClientDB db =  new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
-          db.Connect();
-          QueryResults qr = db.QueryResults(SettingsQueryFactory.Q_FETCH_MESSAGE_BUNDLES());
-          String[] bundles = qr.getSingleColumnResult("BUNDLE_NAME");
-          db.EndConnect();
-          for (String bundle : bundles ) {
-              ResourceBundle rBundle = ResourceBundle.getBundle(bundle, activeLocale, new BungeniResourceBundleClassLoader());
-              messageBundles.put(bundle, rBundle);
+
+          List<Element> listBundles = BundlesReader.getInstance().getBundles();
+
+          if (null != listBundles) {
+              for (Element bundleElem : listBundles) {
+                   ResourceBundle rBundle = ResourceBundle.getBundle(bundleElem.getAttributeValue("name"), activeLocale, new BungeniResourceBundleClassLoader());
+                   messageBundles.put(bundleElem.getAttributeValue("name"), rBundle);
+              }
           }
           bundlesLoaded = true;
         }catch (Exception ex) {
@@ -73,12 +70,7 @@ public class BungeniResourceBundleFactory {
             bundlesLoaded = false;
         }
     }
-    
-    public static String loadPathToMessageBundles(){
-       String bundlePath = BungeniEditorProperties.getEditorProperty("messageBundlesPath");
-       String msgBundlesFolder = CommonFileFunctions.convertRelativePathToFullPath(bundlePath);
-       return msgBundlesFolder;
-    }
+
     
     
     public static String getString(String bundleName, String msgString) {
