@@ -9,8 +9,6 @@
 
 package org.bungeni.editor.actions.routers;
 
-import org.bungeni.db.BungeniClientDB;
-import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.error.BungeniMsg;
 import org.bungeni.error.BungeniValidatorState;
@@ -23,12 +21,12 @@ import org.bungeni.ooo.OOComponentHelper;
 // !+ACTION_RECONF (rm, jan 2012) - the interface methods implemented
 // have been reimplemeted to exclude the use of toolbarAction as an arg
 public class defaultRouter implements IBungeniActionRouter {
-    protected BungeniClientDB dbSettings;
+    //protected BungeniClientDB dbSettings;
     /**
      * default constructor, inititlizaed from the base class via super();
      */
     public defaultRouter() {
-          dbSettings = new BungeniClientDB (DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
+          //dbSettings = new BungeniClientDB (DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
     }
 
     /**

@@ -20,15 +20,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.element.Committee;
-import org.bungeni.db.BungeniClientDB;
-import org.bungeni.db.BungeniRegistryFactory;
-import org.bungeni.db.QueryResults;
-import org.bungeni.db.RegistryQueryFactory;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
-import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.CommonConnectorFunctions;
 import org.bungeni.extutils.CommonStringFunctions;
-import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.OOComponentHelper;
 
 /**

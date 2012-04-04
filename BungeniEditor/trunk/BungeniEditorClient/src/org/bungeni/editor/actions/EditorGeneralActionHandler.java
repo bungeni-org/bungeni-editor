@@ -4,8 +4,6 @@ package org.bungeni.editor.actions;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import org.apache.log4j.Logger;
-import org.bungeni.db.BungeniClientDB;
-import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.editor.actions.routers.CommonRouterActions;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.error.ErrorMessages;
@@ -26,12 +24,12 @@ public class EditorGeneralActionHandler implements IEditorActionEvent {
    private static org.apache.log4j.Logger log = Logger.getLogger(EditorGeneralActionHandler.class.getName());
    private OOComponentHelper ooDocument;
    private JFrame parentFrame;
-   private BungeniClientDB dbSettings;
+   //private BungeniClientDB dbSettings;
    private String[] generalAction;
    private ErrorMessages errorMsgObj = new ErrorMessages();
     /** Creates a new instance of EditorGeneralActionHandler */
     public EditorGeneralActionHandler() {
-        dbSettings = new BungeniClientDB (DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
+       // dbSettings = new BungeniClientDB (DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
     }
 
     // toolbarSubAction is deprecated

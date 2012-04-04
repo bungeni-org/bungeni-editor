@@ -1,8 +1,6 @@
 
 package org.bungeni.editor.actions.validators;
 
-import org.bungeni.db.BungeniClientDB;
-import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.error.BungeniMsg;
 import org.bungeni.error.BungeniValidatorState;
@@ -17,11 +15,10 @@ import org.bungeni.ooo.OOComponentHelper;
 // !+ ACTION_ReCONF (rm, jan 2012) - toolbarAction has been deprecated,
 // all functionality now within subActionToolbar
 public class defaultValidator implements IBungeniActionValidator {
-   protected BungeniClientDB dbSettings;
- 
+  
     /** Creates a new instance of validateCreateSection */
     public defaultValidator() {
-          dbSettings = new BungeniClientDB (DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
+        
     }
 
     /**

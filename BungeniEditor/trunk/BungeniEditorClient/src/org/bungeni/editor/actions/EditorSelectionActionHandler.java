@@ -4,22 +4,16 @@ package org.bungeni.editor.actions;
 
 import org.apache.log4j.Logger;
 
-import org.bungeni.db.BungeniClientDB;
 import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.db.QueryResults;
-import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.editor.actions.routers.routerFactory;
 import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.error.ErrorMessages;
-import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.MessageBox;
 import org.bungeni.ooo.OOComponentHelper;
 
 //~--- JDK imports ------------------------------------------------------------
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Vector;
 
 import javax.swing.JFrame;
 
@@ -30,7 +24,7 @@ import javax.swing.JFrame;
 public class EditorSelectionActionHandler implements IEditorActionEvent {
     private static org.apache.log4j.Logger log         = Logger.getLogger(EditorSelectionActionHandler.class.getName());
     private ErrorMessages                  errorMsgObj = new ErrorMessages();
-    private BungeniClientDB                dbSettings;
+   // private BungeniClientDB                dbSettings;
 
     // != ACTIoN_RECONF (rm, jan 2012) - toolbarAction has been deprecated
     // private toolbarAction                  m_parentAction;
@@ -44,8 +38,8 @@ public class EditorSelectionActionHandler implements IEditorActionEvent {
 
     /** Creates a new instance of EditorSelectionActionHandler */
     public EditorSelectionActionHandler() {
-        dbSettings = new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(),
-                                         DefaultInstanceFactory.DEFAULT_DB());
+       // dbSettings = new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(),
+        //                                 DefaultInstanceFactory.DEFAULT_DB());
     }
 
    // public void doCommand(OOComponentHelper ooDocument, toolbarAction action, JFrame c) {}

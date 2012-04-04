@@ -2,22 +2,16 @@ package org.bungeni.editor.metadata.editors;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.TreeMap;
 import java.util.Vector;
-import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
-import org.bungeni.db.BungeniClientDB;
-import org.bungeni.db.BungeniRegistryFactory;
-import org.bungeni.db.QueryResults;
-import org.bungeni.db.RegistryQueryFactory;
-import org.bungeni.db.registryQueryDialog2;
+//import org.bungeni.db.BungeniClientDB;
+//import org.bungeni.db.RegistryQueryFactory;
+//import org.bungeni.db.registryQueryDialog2;
 import org.bungeni.ooo.ooDocMetadataFieldSet;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
 import org.bungeni.editor.metadata.JudgementMetadataModel;
@@ -36,7 +30,7 @@ public class JudgementMetadata3 extends BaseEditorDocMetadataDialog {
 
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(JudgementMetadata3.class.getName());
     JudgementMetadataModel docMetaModel = new JudgementMetadataModel();
-    registryQueryDialog2 rqs = null;
+    ///registryQueryDialog2 rqs = null;
 
     
     public JudgementMetadata3(){
@@ -89,8 +83,8 @@ public class JudgementMetadata3 extends BaseEditorDocMetadataDialog {
     public DefaultTableModel getRegistryDataAsTableModel(String query) {
         DefaultTableModel model = null;
         try {
-        HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();  
-          BungeniClientDB dbReg = new BungeniClientDB(registryMap);
+        // HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();
+          /**BungeniClientDB dbReg = new BungeniClientDB(registryMap);
           dbReg.Connect();
           QueryResults qr = dbReg.QueryResults(query);
           dbReg.EndConnect();
@@ -105,7 +99,7 @@ public class JudgementMetadata3 extends BaseEditorDocMetadataDialog {
               Collections.addAll(vColumns, columns);
               model = new DefaultTableModel(vData, vColumns);
 
-          }
+          } */
         } catch (Exception ex) {
             log.error("getRegistryDataAsTableModel : " + ex.getMessage());
         } 
@@ -113,15 +107,16 @@ public class JudgementMetadata3 extends BaseEditorDocMetadataDialog {
     }
     
     private void fetchParties(String judgementNo) {
-        String searchQuery = RegistryQueryFactory.Q_FETCH_JUDGEMENT_PARTIES(judgementNo);
-        DefaultTableModel partyModel = getRegistryDataAsTableModel(searchQuery);
-        this.tblParties.setModel(partyModel);
+       // String searchQuery = RegistryQueryFactory.Q_FETCH_JUDGEMENT_PARTIES(judgementNo);
+       // DefaultTableModel partyModel = getRegistryDataAsTableModel(searchQuery);
+      //  this.tblParties.setModel(partyModel);
     }
 
    private void fetchJudges(String judgementNo) {
+       /**
         String searchQuery = RegistryQueryFactory.Q_FETCH_JUDGEMENT_JUDGES(judgementNo);
         DefaultTableModel partyModel = getRegistryDataAsTableModel(searchQuery);
-        this.tblJudges.setModel(partyModel);
+        this.tblJudges.setModel(partyModel); **/
        
     }
 
@@ -400,6 +395,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
 
 private void btnAddJudgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddJudgeActionPerformed
 // TODO add your handling code here:
+    /***
         rqs = new registryQueryDialog2(java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle").getString("Select_A_Judge"), "Select FIRST_NAME, LAST_NAME , URI from JUDGES order by LAST_NAME", parentFrame);
         rqs.setMultiSelect(true);
         rqs.show();
@@ -408,13 +404,14 @@ private void btnAddJudgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         Vector vColumns = new Vector(Arrays.asList(selectionColumns));
         Vector existingData = ((DefaultTableModel)this.tblJudges.getModel()).getDataVector();
         existingData.addAll(selectionData);
-        ((DefaultTableModel)this.tblJudges.getModel()).setDataVector(existingData, vColumns);
+        ((DefaultTableModel)this.tblJudges.getModel()).setDataVector(existingData, vColumns); */
        // this.tblJudges.setModel(arg0)
 }//GEN-LAST:event_btnAddJudgeActionPerformed
 
 private void btnSelectJudgementNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectJudgementNoActionPerformed
-        try {
+/***        try {
 // TODO add your handling code here:
+      
             rqs = new registryQueryDialog2(java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle").getString("Select_A_Judgement_No"), RegistryQueryFactory.Q_FETCH_JUDGEMENTS(), parentFrame);
             rqs.setMultiSelect(false);
             rqs.show();
@@ -428,15 +425,17 @@ private void btnSelectJudgementNoActionPerformed(java.awt.event.ActionEvent evt)
                 this.dt_judgement_date.setDate(sdfDateFormat.parse(judgementDate));
                 String judgementHearingDate = (String) selectVector.elementAt(3);
                 //populate all the other data
-                fetchRelatedRegistryData(judgementNo);
+                fetchRelatedRegistryData(judgementNo); 
             }
         } catch (ParseException ex) {
             log.error(ex.getMessage());
         }
-        //populate all the other data
+        //populate all the other data ***/
 }//GEN-LAST:event_btnSelectJudgementNoActionPerformed
 
+
 private void btnAddPartyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPartyActionPerformed
+       /***
         rqs = new registryQueryDialog2(java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle").getString("Select_A_Party"), "Select ID, PARTY_NAME , PARTY_TYPE from PARTIES order by PARTY_NAME", parentFrame);
         rqs.setMultiSelect(true);
         rqs.show();
@@ -445,7 +444,7 @@ private void btnAddPartyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         Vector vColumns = new Vector(Arrays.asList(selectionColumns));
         Vector existingData = ((DefaultTableModel)this.tblParties.getModel()).getDataVector();
         existingData.addAll(selectionData);
-        ((DefaultTableModel)this.tblParties.getModel()).setDataVector(existingData, vColumns);
+        ((DefaultTableModel)this.tblParties.getModel()).setDataVector(existingData, vColumns); ***/
 }//GEN-LAST:event_btnAddPartyActionPerformed
 
 

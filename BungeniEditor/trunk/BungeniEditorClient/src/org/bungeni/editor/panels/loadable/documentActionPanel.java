@@ -23,8 +23,6 @@ import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import org.bungeni.db.BungeniClientDB;
-import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.editor.config.DocumentActionsReader;
 import org.bungeni.editor.actions.EditorActionFactory;
 import org.bungeni.editor.actions.IEditorActionEvent;
@@ -49,7 +47,7 @@ import org.jdom.Element;
 public class documentActionPanel extends  BaseClassForITabbedPanel {
 
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(documentActionPanel.class.getName());
-    private BungeniClientDB instance;
+    //private BungeniClientDB instance;
     private String m_currentSelectedSectionName;
     private Timer toolbarTimer = null;
     //cache for conditions
@@ -108,7 +106,7 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
     private Color toolbarTabBgColor = null , toolbarTabSelectedBgColor = null;
 
     private void initDB(){
-        instance = new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
+        //instance = new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
     }
 
     private void initToolbarTabs() {

@@ -10,14 +10,7 @@
 package org.bungeni.editor.toolbar.conditions;
 
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.bungeni.db.BungeniClientDB;
-import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.db.QueryResults;
-import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.editor.config.ConditionsReader;
-import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.jdom.Element;
 import org.jdom.JDOMException;

@@ -11,12 +11,10 @@ package org.bungeni.editor.metadata;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Vector;
-import org.bungeni.db.BungeniClientDB;
-import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.db.QueryResults;
-import org.bungeni.db.SettingsQueryFactory;
+import java.util.List;
+import org.bungeni.editor.config.DocumentMetadataReader;
 import org.bungeni.ooo.OOComponentHelper;
+import org.jdom.Element;
 
 /**
  *
@@ -123,6 +121,15 @@ public class DocumentMetadataSupplier {
     private void initDocumentMetadataVariables () {
         try {
         //fetch only visible metadata
+        List<Element> listMetadata = DocumentMetadataReader.getInstance().getVisibleMetadatas();
+        if (null != listMetadata) {
+             metadataMap.clear();
+            for (Element metadataElem : listMetadata) {
+                   DocumentMetadata meta = convertElementToDocumentMetadata(metadataElem);
+                   this.metadataMap.put (meta.getName(), meta);
+            }
+        }
+        /**
         String query = SettingsQueryFactory.Q_FETCH_DOCUMENT_METADATA_VARIABLES("1");
        //ArrayList<DocumentMetadata> arrayMeta = new ArrayList<DocumentMetadata>();
         log.debug("getDocumentMetadataVariables :query = "+ query);
@@ -151,11 +158,24 @@ public class DocumentMetadataSupplier {
         } else {
             log.debug(" no results found!");
         }
+         ***/
         } catch (Exception ex) {
             log.error("exception in DocumentMetadataSupplier :"+ ex.getMessage());
         }
     }
-    
+
+    public static DocumentMetadata convertElementToDocumentMetadata(Element metaElem) {
+         String metaName = metaElem.getAttributeValue("name");
+         String metaDataType = metaElem.getAttributeValue("datatype");
+         String metaType =  metaElem.getAttributeValue("type");
+         String metaDisplay = org.bungeni.extutils.CommonResourceBundleHelperFunctions.getDocMetaString(metaElem.getChildTextNormalize("title"));
+         String visible = metaElem.getAttributeValue("visible");
+         String tableConfig = metaElem.getAttributeValue("tabular-config");
+         DocumentMetadata meta = new DocumentMetadata(metaName, metaType , metaDataType, metaDisplay, Integer.parseInt(visible), tableConfig);
+        return meta;
+    }
+
+/**
     public static DocumentMetadata convertVectorToDocumentMetadata(Vector<String> tableRow) {
                    String metaName = tableRow.elementAt(METADATA_NAME_COLUMN);
                    log.debug("fetching metaName = "+ metaName);
@@ -167,4 +187,5 @@ public class DocumentMetadataSupplier {
                    DocumentMetadata meta = new DocumentMetadata(metaName, metaType , metaDataType, metaDisplay, Integer.parseInt(visible), tableConfig);
                    return meta;
     }
+ ***/
 }

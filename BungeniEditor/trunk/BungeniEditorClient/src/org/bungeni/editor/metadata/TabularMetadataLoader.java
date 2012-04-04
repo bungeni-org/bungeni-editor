@@ -7,18 +7,15 @@ package org.bungeni.editor.metadata;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import org.apache.log4j.Logger;
-import org.bungeni.db.BungeniClientDB;
-import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.db.QueryResults;
-import org.bungeni.db.SettingsQueryFactory;
+import org.bungeni.editor.config.DocumentMetadataReader;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooDocMetadata;
 import org.bungeni.ooo.ooDocMetadataFieldSet;
+import org.jdom.Element;
 
 /**
  *
@@ -33,27 +30,11 @@ public class TabularMetadataLoader {
   public static DocumentMetadata fetchDocumentMetadataConfig(String metadataVariable){
         DocumentMetadata returnmeta = null;
         try {
-            String query = SettingsQueryFactory.Q_FETCH_DOCUMENT_METADATA_VARIABLE(metadataVariable);
-            log.debug("fetchDocumentMetadataConfig :query = "+ query);
-            String settingsInstance = DefaultInstanceFactory.DEFAULT_INSTANCE();
-            BungeniClientDB db = new BungeniClientDB(settingsInstance, "");
-            db.Connect();
-            HashMap<String,Vector<Vector<String>>> resultsMap = db.Query(query);
-            db.EndConnect();
-            Vector<String> tableRow = new Vector<String>();
-            QueryResults results = new QueryResults(resultsMap);
-            if (results.hasResults() ) {
-               Vector<Vector<String>> resultRows  = new Vector<Vector<String>>();
-               resultRows = results.theResults();
-               //it should always return a single row.... 
-               //so we process the first row and brea
-               log.debug("resultRows = "+ resultRows.size());
-               for (int i = 0 ; i < resultRows.size(); i++ ) {
-                       //get the results row by row into a string vector
-                       tableRow = resultRows.elementAt(i);
-                       returnmeta  = DocumentMetadataSupplier.convertVectorToDocumentMetadata(tableRow);
-                       break;
-               }
+
+            Element metadataElem = DocumentMetadataReader.getInstance().getMetadataByName(metadataVariable);
+
+            if (null != metadataElem) {
+                returnmeta = DocumentMetadataSupplier.convertElementToDocumentMetadata(metadataElem);
             }
         } catch (Exception ex) {
             log.error("fetchDocumentMetadataConfig : " + ex.getMessage());

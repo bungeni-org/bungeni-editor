@@ -9,11 +9,6 @@
 
 package org.bungeni.ooo.transforms.impl;
 
-import java.util.Vector;
-import org.bungeni.db.BungeniClientDB;
-import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.db.QueryResults;
-import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.editor.config.TransformTargetsReader;
 import org.jdom.Element;
 

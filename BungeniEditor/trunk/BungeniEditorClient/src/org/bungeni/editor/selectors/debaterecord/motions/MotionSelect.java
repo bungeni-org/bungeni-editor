@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
-import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.element.Motion;

@@ -27,8 +27,6 @@ import javax.swing.plaf.basic.BasicTreeUI;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
-import org.bungeni.db.BungeniClientDB;
-import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.editor.actions.EditorActionFactory;
 import org.bungeni.editor.actions.IEditorActionEvent;
 import org.bungeni.editor.actions.toolbarAction;
@@ -61,7 +59,7 @@ import org.bungeni.utils.compare.BungeniTreeRefactorTree;
 public class documentStructurePanel extends BaseClassForITabbedPanel {
 
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(documentStructurePanel.class.getName());
-    private BungeniClientDB instance;
+    //private BungeniClientDB instance;
     private String m_currentSelectedSectionName;
     private Timer toolbarTimer = null;
     //cache for conditions
@@ -87,7 +85,7 @@ public class documentStructurePanel extends BaseClassForITabbedPanel {
     }
 
     private void initDB(){
-        instance = new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
+       // instance = new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
     }
 
     public IEditorActionEvent getEventClass(toolbarAction subAction) {

@@ -9,13 +9,14 @@ import org.bungeni.extutils.BungeniEditorPropertiesHelper;
  *
  * @author Ashok Hariharan
  */
+@Deprecated
 public class SettingsQueryFactory {
 
     /** Creates a new instance of SettingsQueryFactory */
     public SettingsQueryFactory() {}
 
  
-
+    /**
     public static String Q_FETCH_DOCUMENT_METADATA_VARIABLES(String visibleFilter) {
         String activeDocument = BungeniEditorProperties.getEditorProperty("activeDocumentMode");
         String query          =
@@ -34,7 +35,7 @@ public class SettingsQueryFactory {
             + "' " + "and metadata_name = '" + variableName + "' " + "order by display_name asc";
 
         return query;
-    }
+    }***/
 
     /**
     public static String Q_FETCH_EDITOR_PROPERTY(String propertyName) {
@@ -122,13 +123,15 @@ public class SettingsQueryFactory {
         return query;
     }**/
 
+    /**
     public static String Q_FETCH_MESSAGE_BUNDLES() {
         String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
         String query   = "select BUNDLE_NAME from RESOURCE_MESSAGE_BUNDLES where doc_type='" + docType + "'";
 
         return query;
     }
-
+    **/
+    
     /**
     public static String Q_FETCH_TRANSFORM_TARGETS(String targetName) {
         String query =
@@ -138,14 +141,15 @@ public class SettingsQueryFactory {
         return query;
     }
     **/
-    
+
+    /**
     public static String Q_FETCH_EXTERNAL_PLUGINS() {
         String query =
             "SELECT plugin_name, plugin_loader, plugin_desc, plugin_enabled, plugin_jar FROM EXTERNAL_PLUGINS ";
 
         return query;
     }
-
+    **/
     /***
     public static String Q_FETCH_METADATA_MODEL_EDITORS(String docType) {
         String query = "SELECT DOC_TYPE, METADATA_MODEL_EDITOR, METADATA_EDITOR_TITLE  FROM METADATA_MODEL_EDITORS "

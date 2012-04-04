@@ -2,11 +2,6 @@ package org.bungeni.editor.actions.routers;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.bungeni.db.BungeniClientDB;
-import org.bungeni.db.QueryResults;
-import org.bungeni.db.SettingsQueryFactory;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.error.BungeniMsg;
 import org.bungeni.error.BungeniValidatorState;
