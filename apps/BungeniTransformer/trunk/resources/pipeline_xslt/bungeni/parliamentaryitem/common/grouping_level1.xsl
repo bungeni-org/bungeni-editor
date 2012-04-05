@@ -62,7 +62,8 @@
                   <group isA="TLCReference">
                       <xsl:variable name="ministry_id" select="field[@name='ministry_id']" />
                       <xsl:attribute name="isA" select="string('ministry')" />
-                      <xsl:attribute name="href" select="concat('/',$country-code,'/',$for-parliament, '/group/', $ministry_id)" />
+                      <xsl:variable name="full-group-identifier" select="concat('group.',$for-parliament,'-',$parliament-election-date,'-',$parliament-id, '.ministry.',$ministry_id  )" />
+                      <xsl:attribute name="href" select="concat('/ontology/ministry/',$full-group-identifier)" />
                       <!-- !+FIX_THIS figure out what to do with this -->
                       <!-- <xsl:copy-of select="field[@name='ministry_submit_date']"></xsl:copy-of> -->
                   </group> 

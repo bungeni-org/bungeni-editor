@@ -75,6 +75,12 @@
         </userId>
     </xsl:template>  
     
+    <xsl:template match="field[@name='parliament_id']">
+        <parliamentId>
+            <xsl:value-of select="."/>
+        </parliamentId>
+    </xsl:template>
+    
     <xsl:template match="field[@name='action']">
         <action>
             <xsl:value-of select="." />
@@ -228,21 +234,19 @@
         </statusDate>
     </xsl:template>
     
-    <xsl:template match="field[
-        @name='date_active' or 
-        @name='date_audit'
-        ]">
-        <xsl:element name="{local-name()}" >
-            <xsl:attribute name="name" select="@name" />      
-            
-            <xsl:variable name="status_date" select="." />
-            <xsl:value-of select="xbf:parse-date($status_date)" />
-            <!--
-            <xsl:variable name="arrStatusDate" select="tokenize($status_date,'\s+')" />
-            <xsl:value-of select="concat($arrStatusDate[1],'T',$arrStatusDate[2])" />
-            -->
-        </xsl:element>
-    </xsl:template>    
+    <xsl:template match="field[@name='date_active']">
+        <dateActive type="xs:dateTime">
+            <xsl:variable name="active_date" select="." />
+            <xsl:value-of select="xbf:parse-date($active_date)" />
+        </dateActive>
+    </xsl:template> 
+
+    <xsl:template match="field[@name='date_audit']">
+        <dateAudit type="xs:dateTime">
+            <xsl:variable name="audit_date" select="." />
+            <xsl:value-of select="xbf:parse-date($audit_date)" />
+        </dateAudit>
+    </xsl:template> 
     
     
     <!-- Only for question -->
@@ -426,7 +430,9 @@
             isA="TLCEvent"
             showAs="{field[@name='short_title']}" 
             date="{xbf:parse-date($event-date)}" 
-        />
+        >
+            <xsl:apply-templates />
+        </wfevent>
     </xsl:template>
     
     <xsl:template match="versions">
