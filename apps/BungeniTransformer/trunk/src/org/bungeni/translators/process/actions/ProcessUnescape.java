@@ -4,6 +4,8 @@ package org.bungeni.translators.process.actions;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -71,7 +73,7 @@ public class ProcessUnescape implements IProcessAction {
                         transformer.transform(new DOMSource(nchild), new StreamResult(swOutputChildren));
                     }
                     //unescape the HTML
-                    String unescapedHTML = StringEscapeUtils.unescapeHtml(swOutputChildren.toString());
+                    String unescapedHTML = unescapeHtml(swOutputChildren.toString());
                     //cleanup the HTML to correct xml, and wrap it in a XHTML namespace div
                     org.jsoup.nodes.Document jsoup = Jsoup.parse(
                            "<div xmlns=\"http://www.w3.org/1999/xhtml/\">" +
@@ -113,5 +115,21 @@ public class ProcessUnescape implements IProcessAction {
         
     }
 
+    private Pattern pentity = Pattern.compile("&[a-zA-Z]+;");
+
+    /***
+     * Recursive UN-ESCAPER ; unescape escaped entities e.g. &amp;nbsp;
+     * @param inputHtml
+     * @return
+     */
+    private String unescapeHtml(String inputHtml){
+        String sUnescaped = StringEscapeUtils.unescapeHtml(inputHtml);
+        Matcher mentity = pentity.matcher(sUnescaped);
+        for (;true == mentity.find();) {
+            sUnescaped = StringEscapeUtils.unescapeHtml(sUnescaped);
+            mentity = pentity.matcher(sUnescaped);
+        }
+        return sUnescaped;
+    }
 
 }
