@@ -3,7 +3,7 @@
 <sectionType name="ActionEvent"
     prefix="actionevt"
     numstyle="serial"
-    background=" url:/settings/sectiontypes/bg/sand.png"
+    background=" url:/settings/configs/backgrounds/sand.png"
     indent-left="0"
     indent-right="0"
     visibility="user" >
@@ -13,7 +13,7 @@
 <sectionType name="Communication"
     prefix="comnctn"
     numstyle="serial"
-    background="url:/settings/sectiontypes/bg/shade-5.png"
+    background="url:/settings/configs/backgrounds/shade-5.png"
     indent-left=".4"
     indent-right="0"
     visibility="user" >
@@ -23,7 +23,7 @@
 <sectionType name="Conclusion"
     prefix="concl"
     numstyle="serial"
-    background="url:/settings/sectiontypes/bg/shade-4.png"
+    background="url:/settings/configs/backgrounds/shade-4.png"
     indent-left=".4"
     indent-right="0"
     visibility="user" >
@@ -33,7 +33,7 @@
 <sectionType name="GroupActivity"
     prefix="comment"
     numstyle="serial"
-    background="url:/settings/sectiontypes/bg/shade-3.png"
+    background="url:/settings/configs/backgrounds/shade-3.png"
     indent-left="0"
     indent-right="0"
     visibility="user" >
@@ -43,7 +43,7 @@
 <sectionType name="LongTitle"
     prefix="ltitle"
     numstyle="serial"
-    background="url:/settings/sectiontypes/bg/shade-5.png"
+    background="url:/settings/configs/backgrounds/shade-5.png"
     indent-left=".2"
     indent-right="0"
     visibility="user" >
@@ -63,7 +63,7 @@
 <sectionType name="MinisterialStatement"
     prefix="mstatemnt"
     numstyle="serial"
-    background="url:/settings/sectiontypes/bg/shade-4.png"
+    background="url:/settings/configs/backgrounds/shade-4.png"
     indent-left="0.4"
     indent-right="0"
     visibility="user" >
@@ -73,7 +73,7 @@
 <sectionType name="Motion"
     prefix="motion"
     numstyle="serial"
-    background="url:/settings/sectiontypes/bg/shade-3.png"
+    background="url:/settings/configs/backgrounds/shade-3.png"
     indent-left=".5"
     indent-right="0"
     visibility="user" >
@@ -83,7 +83,7 @@
 <sectionType name="MotionsContainer"
     prefix="allmotions"
     numstyle="serial"
-    background=" url:/settings/sectiontypes/bg/shade-3.png"
+    background=" url:/settings/configs/backgrounds/shade-3.png"
     indent-left=".3"
     indent-right="0"
     visibility="user" >
@@ -93,7 +93,7 @@
 <sectionType name="NMotionsContainer"
     prefix="noticesmotion"
     numstyle="serial"
-    background=" url:/settings/sectiontypes/bg/shade-3.png"
+    background=" url:/settings/configs/backgrounds/shade-3.png"
     indent-left=".3"
     indent-right="0"
     visibility="user" >
@@ -103,7 +103,7 @@
 <sectionType name="Narrative"
     prefix="narr"
     numstyle="serial"
-    background="url:/settings/sectiontypes/bg/shade-4.png"
+    background="url:/settings/configs/backgrounds/shade-4.png"
     indent-left="0"
     indent-right="0"
     visibility="user" >
@@ -123,7 +123,7 @@
 <sectionType name="NoticeOfMotion"
     prefix="noticeofmotion"
     numstyle="serial"
-    background="url:/settings/sectiontypes/bg/shade-4.png"
+    background="url:/settings/configs/backgrounds/shade-4.png"
     indent-left=".5"
     indent-right="0"
     visibility="user" >
@@ -133,7 +133,7 @@
 <sectionType name="NoticeOfMotionDetails"
     prefix="motiondtls"
     numstyle="serial"
-    background="url:/settings/sectiontypes/bg/shade-4.png"
+    background="url:/settings/configs/backgrounds/shade-4.png"
     indent-left="0"
     indent-right="0"
     visibility="user" >
@@ -143,7 +143,7 @@
 <sectionType name="Observation"
     prefix="comment"
     numstyle="serial"
-    background="url:/settings/sectiontypes/bg/shade-5.png"
+    background="url:/settings/configs/backgrounds/shade-5.png"
     indent-left=".8"
     indent-right="0"
     visibility="user" >
@@ -153,7 +153,7 @@
 <sectionType name="Other"
     prefix="other"
     numstyle="serial"
-    background="url:/settings/sectiontypes/bg/sand.png"
+    background="url:/settings/configs/backgrounds/sand.png"
     indent-left=".1"
     indent-right="0"
     visibility="user" >
@@ -163,7 +163,7 @@
 <sectionType name="PMotionsContainer"
     prefix="procmotions"
     numstyle="serial"
-    background="url:/settings/sectiontypes/bg/shade-5.png"
+    background="url:/settings/configs/backgrounds/shade-5.png"
     indent-left=".3"
     indent-right="0"
     visibility="user" >
@@ -173,7 +173,7 @@
 <sectionType name="PapersLaid"
     prefix="papers"
     numstyle="serial"
-    background="url:/settings/sectiontypes/bg/shade-2.png"
+    background="url:/settings/configs/backgrounds/shade-2.png"
     indent-left=".4"
     indent-right="0"
     visibility="user" >
@@ -183,7 +183,7 @@
 <sectionType name="PapersLaidList"
     prefix="tbldocs"
     numstyle="serial"
-    background="url:/settings/sectiontypes/bg/shade-2.png"
+    background="url:/settings/configs/backgrounds/shade-2.png"
     indent-left=".6"
     indent-right="0"
     visibility="user" >
@@ -193,7 +193,7 @@
 <sectionType name="PersonalStatement"
     prefix="pstatemnt"
     numstyle="serial"
-    background=" url:/settings/sectiontypes/bg/shade-4.png"
+    background=" url:/settings/configs/backgrounds/shade-4.png"
     indent-left="0.4"
     indent-right="0"
     visibility="user" >
@@ -203,7 +203,7 @@
 <sectionType name="Petitions"
     prefix="petit"
     numstyle="serial"
-    background=" url:/settings/sectiontypes/bg/shade-4.png"
+    background=" url:/settings/configs/backgrounds/shade-4.png"
     indent-left="0"
     indent-right="0"
     visibility="user" >
@@ -213,7 +213,7 @@
 <sectionType name="PointOfOrder"
     prefix="porder"
     numstyle="serial"
-    background="url:/settings/sectiontypes/bg/shade-5.png"
+    background="url:/settings/configs/backgrounds/shade-5.png"
     indent-left=".4"
     indent-right="0"
     visibility="user" >
@@ -233,7 +233,7 @@
 <sectionType name="Preface"
     prefix="preface"
     numstyle="single"
-    background="url:/settings/sectiontypes/bg/shade-1.png"
+    background="url:/settings/configs/backgrounds/shade-1.png"
     indent-left=".3"
     indent-right="0"
     visibility="user" >
@@ -243,7 +243,7 @@
 <sectionType name="ProceduralMotion"
     prefix="procmotion"
     numstyle="serial"
-    background=" url:/settings/sectiontypes/bg/shade-4.png"
+    background=" url:/settings/configs/backgrounds/shade-4.png"
     indent-left=".5"
     indent-right="0"
     visibility="user" >
@@ -253,7 +253,7 @@
 <sectionType name="ProceduralMotionDetails"
     prefix="pmotiondtls"
     numstyle="serial"
-    background="url:/settings/sectiontypes/bg/shade-4.png"
+    background="url:/settings/configs/backgrounds/shade-4.png"
     indent-left="0"
     indent-right="0"
     visibility="user" >
@@ -263,7 +263,7 @@
 <sectionType name="Question"
     prefix="sque"
     numstyle="serial"
-    background="url:/settings/sectiontypes/bg/shade-6.png"
+    background="url:/settings/configs/backgrounds/shade-6.png"
     indent-left=".6"
     indent-right="0"
     visibility="user" >
@@ -273,7 +273,7 @@
 <sectionType name="QuestionAnswer"
     prefix="qa"
     numstyle="serial"
-    background="url:/settings/sectiontypes/bg/shade-7.png"
+    background="url:/settings/configs/backgrounds/shade-7.png"
     indent-left=".5"
     indent-right="0"
     visibility="user" >
@@ -283,7 +283,7 @@
 <sectionType name="QuestionBody"
     prefix="quebody"
     numstyle="serial"
-    background="url:/settings/sectiontypes/bg/shade-3.png"
+    background="url:/settings/configs/backgrounds/shade-3.png"
     indent-left=".7"
     indent-right="0"
     visibility="user" >
@@ -293,7 +293,7 @@
 <sectionType name="QuestionsContainer"
     prefix="questions"
     numstyle="serial"
-    background="url:/settings/sectiontypes/bg/shade-7.png"
+    background="url:/settings/configs/backgrounds/shade-7.png"
     indent-left=".3"
     indent-right="0"
     visibility="user" >
@@ -313,7 +313,7 @@
 <sectionType name="Speech"
     prefix="speech"
     numstyle="serial"
-    background="url:/settings/sectiontypes/bg/shade-1.png"
+    background="url:/settings/configs/backgrounds/shade-1.png"
     indent-left=".6"
     indent-right="0"
     visibility="user" >
@@ -323,7 +323,7 @@
 <sectionType name="SpeechBody"
     prefix="spbody"
     numstyle="serial"
-    background="url:/settings/sectiontypes/bg/shade-3.png"
+    background="url:/settings/configs/backgrounds/shade-3.png"
     indent-left=".7"
     indent-right="0"
     visibility="user" >
