@@ -25,6 +25,7 @@ import java.util.List;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.extutils.CommonFileFunctions;
+import org.bungeni.extutils.CommonXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -35,19 +36,16 @@ import org.jdom.xpath.XPath;
  *
  * @author Ashok Hariharan
  */
-public class SectionTypesReader {
+public class SectionTypesReader extends BaseConfigReader {
 
  private static SectionTypesReader thisInstance = null;
 
-    private SAXBuilder saxBuilder ;
+    private final static String SETTINGS_FOLDER = CONFIGS_FOLDER + File.separator + "section_types";
 
     private HashMap<String,Document> cachedTypes = new HashMap<String,Document>();
 
 
     private SectionTypesReader() {
-        saxBuilder = new SAXBuilder("org.apache.xerces.parsers.SAXParser",
-                        false);
-
     }
 
     public static SectionTypesReader getInstance() {
@@ -60,9 +58,9 @@ public class SectionTypesReader {
     public List getSectionTypes() throws JDOMException, IOException {
        String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
        if (!this.cachedTypes.containsKey(docType)) {
-            String docSectionsFolder = BungeniEditorProperties.get("sectionTypesFolderRoot");
-            String docSectionsFile = CommonFileFunctions.convertRelativePathToFullPath(docSectionsFolder) + File.separator + docType + ".xml";
-            this.cachedTypes.put(docType, saxBuilder.build(new File(docSectionsFile)));
+            String docSectionsFolder = SETTINGS_FOLDER;
+            String docSectionsFile = docSectionsFolder + File.separator + docType + ".xml";
+            this.cachedTypes.put(docType, CommonXmlUtils.loadFile(docSectionsFile));
         }
         XPath xPath = XPath.newInstance("//sectionTypes[@for='" + docType + "']/sectionType");
         return (List) xPath.selectNodes(this.cachedTypes.get(docType));
@@ -79,9 +77,9 @@ public class SectionTypesReader {
                
        String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
        if (!this.cachedTypes.containsKey(docType)) {
-            String docSectionsFolder = BungeniEditorProperties.get("sectionTypesFolderRoot");
-            String docSectionsFile = CommonFileFunctions.convertRelativePathToFullPath(docSectionsFolder) + File.separator + docType + ".xml";
-            this.cachedTypes.put(docType, saxBuilder.build(new File(docSectionsFile)));
+            String docSectionsFolder = SETTINGS_FOLDER;
+            String docSectionsFile = docSectionsFolder + File.separator + docType + ".xml";
+            this.cachedTypes.put(docType, CommonXmlUtils.loadFile(docSectionsFile));
         }
 
         XPath xPath = XPath.newInstance("//sectionType[@name='"+ sectionTypeName +"']/numbering");

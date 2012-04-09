@@ -34,10 +34,10 @@ import org.jdom.xpath.XPath;
  *
  * @author Ashok
  */
-public class ConditionsReader {
+public class ConditionsReader extends BaseConfigReader {
     private static Logger log = Logger.getLogger(ConditionsReader.class.getName());
 
-    public final static String SETTINGS_FOLDER = "settings" + File.separator + "actions"  + File.separator + "conditions";
+    public final static String SETTINGS_FOLDER = CONFIGS_FOLDER + File.separator + "actions"  + File.separator + "conditions";
     
     private static ConditionsReader thisInstance = null;
 

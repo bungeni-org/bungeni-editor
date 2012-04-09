@@ -23,7 +23,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.bungeni.extutils.CommonXmlUtils;
 import org.jdom.Document;
@@ -35,11 +34,11 @@ import org.jdom.xpath.XPath;
  *
  * @author Ashok
  */
-public class DocTypesReader {
+public class DocTypesReader extends BaseConfigReader {
     private static Logger log = Logger.getLogger(DocTypesReader.class.getName());
 
-    public final static String SETTINGS_FOLDER = "settings" + File.separator + "doctypes";
-    public final static String DOCTYPES_FILE = "doctypes.xml";
+    public final static String SETTINGS_FOLDER = CONFIGS_FOLDER;
+    public final static String DOCTYPES_FILE = "doc_types.xml";
     public final static String RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE = SETTINGS_FOLDER + File.separator + DOCTYPES_FILE;
 
     private static DocTypesReader thisInstance = null;

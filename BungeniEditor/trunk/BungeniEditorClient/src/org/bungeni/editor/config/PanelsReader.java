@@ -35,11 +35,13 @@ import org.jdom.xpath.XPath;
  * This class reads the Panel configuratoins from the XML config
  * @author Ashok
  */
-public class PanelsReader {
+public class PanelsReader extends BaseConfigReader {
 
     private static PanelsReader thisInstance = null;
 
     private SAXBuilder saxBuilder ;
+
+    private final static String SETTINGS_FOLDER = CONFIGS_FOLDER  + File.separator + "panels";
 
     private HashMap<String,Document> cachedPanels = new HashMap<String,Document>();
 
@@ -57,9 +59,8 @@ public class PanelsReader {
 
     private void __cachedPanels(String docType) throws JDOMException, IOException{
        if (!this.cachedPanels.containsKey(docType)){
-            String docPanelsFolder = BungeniEditorProperties.get("panelsFolderRoot");
-            String docPanelsFile = CommonFileFunctions.convertRelativePathToFullPath(docPanelsFolder) + File.separator + docType + ".xml";
-            this.cachedPanels.put(docType, saxBuilder.build(new File(docPanelsFile)));
+            String docPanelsFile = SETTINGS_FOLDER + File.separator + docType + ".xml";
+            this.cachedPanels.put(docType, CommonXmlUtils.loadFile(docPanelsFile));
        } 
     }
 

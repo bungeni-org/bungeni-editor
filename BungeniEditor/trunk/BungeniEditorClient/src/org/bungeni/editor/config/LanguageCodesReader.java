@@ -34,10 +34,10 @@ import org.jdom.xpath.XPath;
  *
  * @author Ashok
  */
-public class LanguageCodesReader {
+public class LanguageCodesReader extends BaseConfigReader {
     private static Logger log = Logger.getLogger(LanguageCodesReader.class.getName());
 
-    public final static String SETTINGS_FOLDER = "settings" + File.separator + "locales";
+    public final static String SETTINGS_FOLDER = CONFIGS_FOLDER + File.separator + "locales";
     public final static String LANGUAGE_CODES_FILE = "languages_a2.xml";
     public final static String RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE = SETTINGS_FOLDER + File.separator + LANGUAGE_CODES_FILE;
 

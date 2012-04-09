@@ -23,7 +23,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonXmlUtils;
@@ -39,11 +38,11 @@ import org.jdom.xpath.XPath;
  * Class to Read system-parameter.xml 
  * @author Ashok Hariharan
  */
-public class SystemParameterReader {
+public class SystemParameterReader extends BaseConfigReader {
 
     private static Logger log = Logger.getLogger(SystemParameterReader.class.getName());
 
-    public final static String SETTINGS_FOLDER = "settings";
+    public final static String SETTINGS_FOLDER = CONFIGS_FOLDER;
     public final static String SYSTEM_PARAMETER_FILE_NAME = "system-parameters.xml";
     public final static String RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE = SETTINGS_FOLDER + File.separator + SYSTEM_PARAMETER_FILE_NAME;
 

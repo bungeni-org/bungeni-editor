@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<bundles>
-    <bundle name="SectionMetaNames" />
-    <bundle name="SectionTypeNames" />
-    <bundle name="DocMetaNames" />
-    <bundle name="ErrorMessages" />
-</bundles>

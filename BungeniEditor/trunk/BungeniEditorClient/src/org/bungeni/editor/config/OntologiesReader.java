@@ -34,10 +34,10 @@ import org.jdom.xpath.XPath;
  *
  * @author Ashok
  */
-public class OntologiesReader {
+public class OntologiesReader extends BaseConfigReader {
     private static Logger log = Logger.getLogger(OntologiesReader.class.getName());
 
-    public final static String SETTINGS_FOLDER = "settings" + File.separator + "actions";
+    public final static String SETTINGS_FOLDER = CONFIGS_FOLDER + File.separator + "actions";
     public final static String ONTOLOGIES_FILE = "ontologies.xml";
     public final static String RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE = SETTINGS_FOLDER + File.separator + ONTOLOGIES_FILE;
 
