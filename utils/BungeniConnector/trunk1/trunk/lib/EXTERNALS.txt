@@ -1,4 +1,0 @@
-h2db http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/h2db
-restlet http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/restlet
-xstream http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/xstream
-log4j http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/apache-log4j
