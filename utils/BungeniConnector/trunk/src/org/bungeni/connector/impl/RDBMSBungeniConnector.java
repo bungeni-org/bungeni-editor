@@ -8,13 +8,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.bungeni.connector.ConnectorProperties;
 import org.bungeni.connector.IBungeniConnector;
-import org.bungeni.connector.element.Bill;
-import org.bungeni.connector.element.Committee;
-import org.bungeni.connector.element.Document;
-import org.bungeni.connector.element.MetadataInfo;
-import org.bungeni.connector.element.Motion;
-import org.bungeni.connector.element.Member;
-import org.bungeni.connector.element.Question;
+import org.bungeni.connector.element.*;
 
 /**
  *
@@ -35,6 +29,7 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
 
     private String membersQuery = "SELECT ID,FIRST_NAME,LAST_NAME,URI,ROLE FROM PUBLIC.PERSONS ";
     private String billsQuery = "SELECT ID,BILL_NAME,BILL_URI,BILL_ONTOLOGY,COUNTRY FROM PUBLIC.BILLS";
+    private String actsQuery = "SELECT ID,ACT_NAME FROM PUBLIC.ACTS";
     private String metadataInfoQuery = "SELECT KEY_ID,KEY_TYPE,KEY_NAME,KEY_VALUE FROM PUBLIC.METADATA_INFO;";
     private String motionsQuery = "SELECT MOTION_ID,MOTION_URI,MOTION_TITLE,MOTION_NAME,MOTION_BY,MOTION_TEXT FROM PUBLIC.MOTIONS;";
     private String questionsQuery = "SELECT ID,QUESTION_TITLE,QUESTION_FROM,QUESTION_TO,QUESTION_TEXT FROM PUBLIC.QUESTIONS;";
@@ -132,6 +127,32 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
         return items;
     }
 
+     public List<Act> getActs() {
+        List<Act> items = new java.util.ArrayList<Act>();
+        if (getDbConnection() != null) {
+            try {
+                java.sql.Statement statement = getDbConnection().createStatement();
+                java.sql.ResultSet resultSet = statement.executeQuery(getBillsQuery());
+                while (resultSet.next()) {
+                    Act item = new Act();
+                    item.setId(resultSet.getInt(1));
+                    item.setName(resultSet.getString(2));
+                    items.add(item);
+                }
+                statement.close();
+                resultSet.close();
+                statement = null;
+                resultSet = null;
+            } catch (SQLException ex) {
+                logger.error(ex);
+            }
+        } else {
+            logger.error("DB Connection Error");
+        }
+        return items;
+    }
+
+     
     public List<Motion> getMotions() {
         List<Motion> items = new java.util.ArrayList<Motion>();
         if (getDbConnection() != null) {
@@ -361,6 +382,10 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
 
     private String getBillsQuery() {
         return billsQuery;
+    }
+    
+     private String getActsQuery() {
+        return actsQuery;
     }
 
     private String getMetadataInfoQuery() {

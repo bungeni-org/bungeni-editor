@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<publicationTypes>
+    <publicationType>
+        <id>3</id>
+        <name>private</name>
+    </publicationType>
+   <publicationType>
+        <id>3</id>
+        <name>ordinary</name> 
+    </publicationType>
+    <publicationType>
+        <id>3</id>
+        <name>excellent</name>
+    </publicationType>
+</publicationTypes>

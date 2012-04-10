@@ -7,13 +7,7 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 import org.bungeni.connector.ConnectorProperties;
 import org.bungeni.connector.IBungeniConnector;
-import org.bungeni.connector.element.Bill;
-import org.bungeni.connector.element.Committee;
-import org.bungeni.connector.element.Document;
-import org.bungeni.connector.element.MetadataInfo;
-import org.bungeni.connector.element.Motion;
-import org.bungeni.connector.element.Member;
-import org.bungeni.connector.element.Question;
+import org.bungeni.connector.element.*;
 import org.restlet.resource.ClientResource;
 
 /**
@@ -32,6 +26,7 @@ public class BungeniConnector implements IBungeniConnector {
     private String motionsSource = "/motions";
     private String questionsSource = "/questions";
     private String billsSource = "/bills";
+    private String actsSource = "/acts";
     private String documentsSource = "/documents";
     private String committeeSource = "/committee";
     private String packageAlias = "package";
@@ -92,6 +87,10 @@ public class BungeniConnector implements IBungeniConnector {
     public List<Bill> getBills() {
         return getList(getBillsSource(), Bill.PACKAGE_ALIAS, Bill.CLASS_ALIAS, Bill.class);
     }
+    
+    public List<Act> getActs() {
+        return getList(getActsSource(), Act.PACKAGE_ALIAS, Act.CLASS_ALIAS, Act.class);
+    }
 
     public List<Motion> getMotions() {
         return getList(getMotionsSource(), Motion.PACKAGE_ALIAS, Motion.CLASS_ALIAS, Motion.class);
@@ -124,7 +123,10 @@ public class BungeniConnector implements IBungeniConnector {
     private String getBillsSource() {
         return getVirtDirURL() + billsSource;
     }
-
+    
+     private String getActsSource() {
+        return getVirtDirURL() + actsSource;
+    }
 
     private String getMembersSource() {
         return getVirtDirURL() + membersSource;

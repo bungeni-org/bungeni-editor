@@ -7,15 +7,7 @@ import org.apache.log4j.Logger;
 import org.bungeni.connector.ConnectorProperties;
 import org.bungeni.connector.IBungeniConnector;
 import org.bungeni.connector.client.BungeniConnector;
-import org.bungeni.connector.restlet.current.APIRestlet;
-import org.bungeni.connector.restlet.current.BillsRestlet;
-import org.bungeni.connector.restlet.current.CommitteesRestlet;
-import org.bungeni.connector.restlet.current.DocumentsRestlet;
-import org.bungeni.connector.restlet.current.MembersRestlet;
-import org.bungeni.connector.restlet.current.MetadataInfoRestlet;
-import org.bungeni.connector.restlet.current.MotionsRestlet;
-import org.bungeni.connector.restlet.current.QuestionsRestlet;
-import org.bungeni.connector.restlet.current.StopServerRestlet;
+import org.bungeni.connector.restlet.current.*;
 import org.restlet.Application;
 import org.restlet.Component;
 import org.restlet.Restlet;
@@ -33,6 +25,7 @@ public class DataSourceServer extends Application {
     private String motionsRoute = "/current/motions";
     private String questionsRoute = "/current/questions";
     private String billsRoute = "/current/bills";
+    private String actsRoute = "/current/acts";
     private String metadataInfoRoute = "/current/metadata";
     private String documentsRoute = "/current/documents";
     private String committeesRoute = "/current/committees";
@@ -42,6 +35,7 @@ public class DataSourceServer extends Application {
     private String motionsURI = null;
     private String questionsURI = null;
     private String billsURI = null;
+     private String actsURI = null;
     private String metadataInfoURI = null;
     private String documentsURI = null ;
     private String committeesURI = null ;
@@ -50,7 +44,7 @@ public class DataSourceServer extends Application {
     private static Logger logger = Logger.getLogger(BungeniConnector.class.getName());
     static DataSourceServer INSTANCE = null;
     private ConnectorProperties connectorProps = null;
-    private DataSourceType sourceType = DataSourceType.DB;
+    private DataSourceServer.DataSourceType sourceType = DataSourceServer.DataSourceType.DB;
 
     /**
      * Available data source types
@@ -175,7 +169,7 @@ public class DataSourceServer extends Application {
         //There was no check here for the Appropriate data source type
         //adding it for data source type
         String sDataSourceType = properties.getProperty("data-source-type");
-        this.sourceType = DataSourceType.valueOf(sDataSourceType);
+        this.sourceType = DataSourceServer.DataSourceType.valueOf(sDataSourceType);
         
         try {
             bungeniConnector = this.sourceType.getDataSourceConnector();
@@ -252,6 +246,7 @@ public class DataSourceServer extends Application {
 
         router.attach(metadataInfoRoute, new MetadataInfoRestlet(bungeniConnector));
         router.attach(billsRoute, new BillsRestlet(bungeniConnector));
+        router.attach(actsRoute, new ActsRestlet(bungeniConnector));
         router.attach(membersRoute, new MembersRestlet(bungeniConnector));
         router.attach(motionsRoute, new MotionsRestlet(bungeniConnector));
         router.attach(questionsRoute, new QuestionsRestlet(bungeniConnector));
@@ -262,12 +257,16 @@ public class DataSourceServer extends Application {
         return router;
     }
 
-    public DataSourceType getSource() {
+    public DataSourceServer.DataSourceType getSource() {
         return this.sourceType;
     }
 
     public String getBillsURI() {
         return billsURI;
+    }
+    
+     public String getActsURI() {
+        return actsURI;
     }
 
     public String getMembersURI() {

@@ -8,13 +8,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.bungeni.connector.ConnectorProperties;
 import org.bungeni.connector.IBungeniConnector;
-import org.bungeni.connector.element.Bill;
-import org.bungeni.connector.element.Committee;
-import org.bungeni.connector.element.Document;
-import org.bungeni.connector.element.MetadataInfo;
-import org.bungeni.connector.element.Motion;
-import org.bungeni.connector.element.Member;
-import org.bungeni.connector.element.Question;
+import org.bungeni.connector.element.*;
 import org.restlet.data.Status;
 import org.restlet.resource.ClientResource;
 
@@ -56,6 +50,12 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String billCountryAlias = null;
     private String billsSourceURI = null;
 
+    private String actsPackageAlias = null;
+    private String actAlias = null;
+    private String actIdAlias = null;
+    private String actNameAlias = null;
+    private String actsSourceURI = null;
+    
     private String motionsPackageAlias = null;
     private String motionAlias = null;
     private String motionIdAlias = null;
@@ -116,7 +116,13 @@ public class XMLBungeniConnector implements IBungeniConnector {
         this.billNameAlias = props.getProperties().getProperty("xml-bill-name-alias");
         this.billOntologyAlias = props.getProperties().getProperty("xml-bill-ontology-alias");
         this.billCountryAlias = props.getProperties().getProperty("xml-bill-country-alias");
-
+        
+        this.actsSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-acts"));
+        this.actsPackageAlias = props.getProperties().getProperty("xml-acts-package-alias");
+        this.actAlias = props.getProperties().getProperty("xml-act-alias");
+        this.actIdAlias = props.getProperties().getProperty("xml-act-id-alias");
+        this.actNameAlias = props.getProperties().getProperty("xml-act-name-alias");
+        
         this.motionsSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-motions"));
         this.motionsPackageAlias = props.getProperties().getProperty("xml-motions-package-alias");
         this.motionAlias = props.getProperties().getProperty("xml-motion-alias");
@@ -163,6 +169,7 @@ public class XMLBungeniConnector implements IBungeniConnector {
         this.committeeUriAlias = props.getProperties().getProperty("xml-committee-uri-alias");
         this.committeeCountryAlias = props.getProperties().getProperty("xml-committee-country-alias");
 
+     
     }
 
     public List<Member> getMembers() {
@@ -220,6 +227,29 @@ public class XMLBungeniConnector implements IBungeniConnector {
         return null;
     }
 
+    /**
+     * 
+     * @return
+     */
+    public List<Act> getActs() {
+        ClientResource resource = new ClientResource(getActsSourceURI());
+        try {
+            XStream xStream = new XStream(new DomDriver());
+            xStream.alias(this.getActsPackageAlias(), List.class);
+            xStream.alias(this.getActAlias(), Act.class);
+            xStream.aliasField(this.getActIdAlias(), Act.class, "id");
+            xStream.aliasField(this.getActNameAlias(), Act.class, "name");
+            String xml = resource.get().getText();
+            if (xml != null) {
+                resource.release();
+                return (List) xStream.fromXML(xml);
+            }
+        } catch (Exception ex) {
+            logger.error(getActsSourceURI(), ex);
+        }
+        return null;
+    }
+      
     public List<Motion> getMotions() {
         ClientResource resource = new ClientResource(getMotionsSourceURI());
         try {
@@ -313,6 +343,10 @@ public class XMLBungeniConnector implements IBungeniConnector {
         }
         return null;
     }
+    /**
+     * 
+     * @return
+     */
     public List<Committee> getCommittees() {
         ClientResource resource = new ClientResource(getCommitteesSourceURI());
         try {
@@ -382,7 +416,27 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String getBillsSourceURI() {
         return billsSourceURI;
     }
+    
+    private String getActsSourceURI() {
+        return actsSourceURI;
+    }
 
+     private String getActAlias() {
+        return actAlias;
+    }
+     
+    private String getActIdAlias() {
+        return actIdAlias;
+    }
+
+    private String getActNameAlias() {
+        return actNameAlias;
+    }
+
+    private String getActsPackageAlias() {
+        return actsPackageAlias;
+    }
+    
     private String getDocumentAlias() {
         return documentAlias;
     }
