@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 import org.bungeni.connector.ConnectorProperties;
 import org.bungeni.connector.client.BungeniConnector;
+import org.bungeni.connector.element.Act;
 import org.bungeni.connector.element.Bill;
 import org.bungeni.connector.element.Document;
 import org.bungeni.connector.element.MetadataInfo;
@@ -70,6 +71,17 @@ public class ClientTest {
             for (int i = 0; i < questions.size(); i++) {
                 System.out.println(questions.get(i).getTitle() + " " + questions.get(i).getText());
             }
+        }
+
+        List<Act> acts = b.getActs();
+
+        if (acts != null) {
+            System.out.println(":::::::::::::::ACTS:::::::::::::::::::");
+            for (int i = 0; i < acts.size(); i++) {
+                System.out.println(acts.get(i).getName() + " " + questions.get(i).getId());
+            }
+        } else {
+             System.out.println("Error : Acts missing");
         }
 
         List<Document> documents = b.getDocuments();

@@ -1,6 +1,7 @@
 package org.bungeni.connector.test;
 
 import java.util.List;
+import org.bungeni.connector.element.Act;
 import org.bungeni.connector.element.Bill;
 import org.bungeni.connector.element.MetadataInfo;
 import org.bungeni.connector.element.Motion;
@@ -41,6 +42,15 @@ public class XMLBungeniConnectorTest{
             System.out.println(":::::::::::::::QUESTIONS:::::::::::::::::::");
             for (int i = 0; i < questions.size(); i++) {
                 System.out.println(questions.get(i).getTitle() + " " + questions.get(i).getText());
+            }
+        }
+
+        List<Act> acts = connector.getActs();
+
+        if (acts != null) {
+            System.out.println(":::::::::::::::QUESTIONS:::::::::::::::::::");
+            for (int i = 0; i < acts.size(); i++) {
+                System.out.println(acts.get(i).getName() + " " + acts.get(i).getId());
             }
         }
 
