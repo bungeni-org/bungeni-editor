@@ -81,7 +81,9 @@
         </parliamentId>
     </xsl:template>
     
-    <xsl:template match="field[@name='action']">
+    <!-- !+NOTES (ao, 10-Apr-2012) audit_action is to catch date_active 
+        embedded in event type documents -->    
+    <xsl:template match="field[@name='action' or @name='audit_action']">
         <action>
             <xsl:value-of select="." />
         </action>
@@ -234,7 +236,9 @@
         </statusDate>
     </xsl:template>
     
-    <xsl:template match="field[@name='date_active']">
+    <!-- !+NOTES (ao, 10-Apr-2012) audit_date_active is to catch date_active 
+         embedded in event type documents -->
+    <xsl:template match="field[@name='date_active' or @name='audit_date_active']">
         <dateActive type="xs:dateTime">
             <xsl:variable name="active_date" select="." />
             <xsl:value-of select="xbf:parse-date($active_date)" />
@@ -338,25 +342,12 @@
         </acronym>
     </xsl:template>    
     
-    <xsl:template match="field[@name='audit_date_active']">
-        <xsl:variable name="audit_date_active" select="." />
-        <auditDateActive type="xs:dateTime">
-            <xsl:value-of select="xbf:parse-date($audit_date_active)" />
-        </auditDateActive>
-    </xsl:template>
-    
     <!-- Causes Ambiguity witj a similar template on line 278 above... -->
     <!-- xsl:template match="field[@name='doc_type']">
         <docType>
             <xsl:value-of select="." />
         </docType>
-    </xsl:template -->   
-    
-    <xsl:template match="field[@name='audit_action']">
-        <audtiAction>
-            <xsl:value-of select="." />
-        </audtiAction>
-    </xsl:template>  
+    </xsl:template -->    
 
     <xsl:template match="field[@name='audit_date']">
         <xsl:variable name="audit_date" select="." />
