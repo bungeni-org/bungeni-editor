@@ -1,0 +1,5332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<members type="FROM XML DATA SOURCE">
+    <member>
+        
+            <id>50</id>
+            <uri>ken.person.Charlas.Keter.1944-10-09--FROM XML</uri>
+        
+        <first>Charlas</first>
+        <last>Keter</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>51</id>
+            <uri>ken.person.Nohana.Khalif.1944-10-10</uri>
+        
+        <first>Nohana</first>
+        <last>Khalif</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>52</id>
+            <uri>ken.person.Basiya.Khalwale.1980-04-12</uri>
+        
+        <first>Basiya</first>
+        <last>Khalwale</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>53</id>
+            <uri>ken.person.Lyola.Khamasi.1980-04-13</uri>
+        
+        <first>Lyola</first>
+        <last>Khamasi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>54</id>
+            <uri>ken.person.Josaph.Khamisi.1980-04-14</uri>
+        
+        <first>Josaph</first>
+        <last>Khamisi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>55</id>
+            <uri>ken.person.Gaorga.Khaniri.1980-04-15</uri>
+        
+        <first>Gaorga</first>
+        <last>Khaniri</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>56</id>
+            <uri>ken.person.Enoch.Kibenguchy.1980-09-16</uri>
+        
+        <first>Enoch</first>
+        <last>Kibenguchy</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>57</id>
+            <uri>ken.person.Kivotha.Kibwana.1980-09-17</uri>
+        
+        <first>Kivotha</first>
+        <last>Kibwana</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>58</id>
+            <uri>ken.person.Jayna.Kihara.1980-09-18</uri>
+        
+        <first>Jayna</first>
+        <last>Kihara</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>59</id>
+            <uri>ken.person.Linah.Kilimo.1980-09-19</uri>
+        
+        <first>Linah</first>
+        <last>Kilimo</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>60</id>
+            <uri>ken.person.Charlas.Kilonzo.1922-11-27</uri>
+        
+        <first>Charlas</first>
+        <last>Kilonzo</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>61</id>
+            <uri>ken.person.Jolius.Kilonzo.1922-11-28</uri>
+        
+        <first>Jolius</first>
+        <last>Kilonzo</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>62</id>
+            <uri>ken.person.Jamas.Kimathi.1922-11-29</uri>
+        
+        <first>Jamas</first>
+        <last>Kimathi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>63</id>
+            <uri>ken.person.Anthony.Kimeto.1949-02-02</uri>
+        
+        <first>Anthony</first>
+        <last>Kimeto</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>64</id>
+            <uri>ken.person.Amos.Kimenya.1958-02-28</uri>
+        
+        <first>Amos</first>
+        <last>Kimenya</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>65</id>
+            <uri>ken.person.Josaph.Kingi.1958-03-01</uri>
+        
+        <first>Josaph</first>
+        <last>Kingi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>66</id>
+            <uri>ken.person.Josaph.Kipchemba.1958-03-02</uri>
+        
+        <first>Josaph</first>
+        <last>Kipchemba</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>67</id>
+            <uri>ken.person.Kiproto.Kirwa.1958-03-03</uri>
+        
+        <first>Kiproto</first>
+        <last>Kirwa</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>68</id>
+            <uri>ken.person.Mokhisa.Kiteyi.1958-03-04</uri>
+        
+        <first>Mokhisa</first>
+        <last>Kiteyi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>69</id>
+            <uri>ken.person.Fastos.Kienjuri.1958-03-05</uri>
+        
+        <first>Fastos</first>
+        <last>Kienjuri</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>70</id>
+            <uri>ken.person.John.Koech.1958-03-06</uri>
+        
+        <first>John</first>
+        <last>Koech</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>71</id>
+            <uri>ken.person.Sammy.Koech.1958-03-07</uri>
+        
+        <first>Sammy</first>
+        <last>Koech</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>72</id>
+            <uri>ken.person.Mogava.Kofa.1958-03-08</uri>
+        
+        <first>Mogava</first>
+        <last>Kofa</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>73</id>
+            <uri>ken.person.Harrison.Kombe.1958-04-09</uri>
+        
+        <first>Harrison</first>
+        <last>Kombe</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>74</id>
+            <uri>ken.person.Mosikari.Kombo.1958-03-10</uri>
+        
+        <first>Mosikari</first>
+        <last>Kombo</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>75</id>
+            <uri>ken.person.Gidaon.Konchella.1958-03-11</uri>
+        
+        <first>Gidaon</first>
+        <last>Konchella</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>76</id>
+            <uri>ken.person.Josaph.Korir.1958-03-12</uri>
+        
+        <first>Josaph</first>
+        <last>Korir</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>77</id>
+            <uri>ken.person.David.Koros.1963-07-18</uri>
+        
+        <first>David</first>
+        <last>Koros</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>78</id>
+            <uri>ken.person.Hanry.Koskey.1963-07-19</uri>
+        
+        <first>Hanry</first>
+        <last>Koskey</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>79</id>
+            <uri>ken.person.Nawton.Kelundu.1963-07-20</uri>
+        
+        <first>Nawton</first>
+        <last>Kelundu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>80</id>
+            <uri>ken.person.Simon.Keria.1963-07-21</uri>
+        
+        <first>Simon</first>
+        <last>Keria</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>81</id>
+            <uri>ken.person.Nohana.Keti.1963-07-22</uri>
+        
+        <first>Nohana</first>
+        <last>Keti</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>82</id>
+            <uri>ken.person.Prisa.Leshore.1963-07-23</uri>
+        
+        <first>Prisa</first>
+        <last>Leshore</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>83</id>
+            <uri>ken.person.Simaon.Lesirma.1963-07-24</uri>
+        
+        <first>Simaon</first>
+        <last>Lesirma</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>84</id>
+            <uri>ken.person.Andraw.Ligale.1980-09-20</uri>
+        
+        <first>Andraw</first>
+        <last>Ligale</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>85</id>
+            <uri>ken.person.Wangari.Maathai.1980-09-01</uri>
+        
+        <first>Wangari</first>
+        <last>Maathai</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>86</id>
+            <uri>ken.person.Wilfrad.Machage.1980-09-02</uri>
+        
+        <first>Wilfrad</first>
+        <last>Machage</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>87</id>
+            <uri>ken.person.Mardsan.Madoka.1980-09-03</uri>
+        
+        <first>Mardsan</first>
+        <last>Madoka</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>88</id>
+            <uri>ken.person.Jamas.Magara.1980-09-04</uri>
+        
+        <first>Jamas</first>
+        <last>Magara</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>89</id>
+            <uri>ken.person.Arthor.Magegu.1959-08-02</uri>
+        
+        <first>Arthor</first>
+        <last>Magegu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>90</id>
+            <uri>ken.person.Annaniah.Mwaboza.1977-02-14</uri>
+        
+        <first>Annaniah</first>
+        <last>Mwaboza</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>91</id>
+            <uri>ken.person.Emmanoal.Maitha.1978-04-17</uri>
+        
+        <first>Emmanoal</first>
+        <last>Maitha</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>92</id>
+            <uri>ken.person.Locas Baya.Maitha.1978-04-18</uri>
+        
+        <first>Locas Baya</first>
+        <last>Maitha</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>93</id>
+            <uri>ken.person.Hazron.Mandeku.1978-04-19</uri>
+        
+        <first>Hazron</first>
+        <last>Mandeku</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>94</id>
+            <uri>ken.person.Christina.Mango.1974-10-18</uri>
+        
+        <first>Christina</first>
+        <last>Mango</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>95</id>
+            <uri>ken.person.Staphan.Manoti.1974-10-19</uri>
+        
+        <first>Staphan</first>
+        <last>Manoti</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>96</id>
+            <uri>ken.person.Richard.Maore.1974-09-20</uri>
+        
+        <first>Richard</first>
+        <last>Maore</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>97</id>
+            <uri>ken.person.Kannath.Marende.1974-09-21</uri>
+        
+        <first>Kannath</first>
+        <last>Marende</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>98</id>
+            <uri>ken.person.Godfray.Masanya.1974-09-22</uri>
+        
+        <first>Godfray</first>
+        <last>Masanya</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>99</id>
+            <uri>ken.person.Banson.Mbai.1981-12-09</uri>
+        
+        <first>Banson</first>
+        <last>Mbai</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>100</id>
+            <uri>ken.person.Elias.Mbae.1960-11-12</uri>
+        
+        <first>Elias</first>
+        <last>Mbae</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>101</id>
+            <uri>ken.person.Bonifaca.Mganga.1949-11-22</uri>
+        
+        <first>Bonifaca</first>
+        <last>Mganga</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>102</id>
+            <uri>ken.person.John.Micheki.1949-11-23</uri>
+        
+        <first>John</first>
+        <last>Micheki</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>103</id>
+            <uri>ken.person.Washington.Midiwo.1949-11-24</uri>
+        
+        <first>Washington</first>
+        <last>Midiwo</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>104</id>
+            <uri>ken.person.Kirogi.M&apos;Mkekindia.1949-11-25</uri>
+        
+        <first>Kirogi</first>
+        <last>M&apos;Mkekindia</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>105</id>
+            <uri>ken.person.Patkay.M&apos;Nkiria.1949-11-26</uri>
+        
+        <first>Patkay</first>
+        <last>M&apos;Nkiria</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>106</id>
+            <uri>ken.person.Hossain.Nohane.1949-11-27</uri>
+        
+        <first>Hossain</first>
+        <last>Nohane</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>107</id>
+            <uri>ken.person.Abdi.Nohane.1924-03-22</uri>
+        
+        <first>Abdi</first>
+        <last>Nohane</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>108</id>
+            <uri>ken.person.Nohana.Nohane.1924-03-23</uri>
+        
+        <first>Nohana</first>
+        <last>Nohane</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>109</id>
+            <uri>ken.person.Abo.Nohane.1931-06-02</uri>
+        
+        <first>Abo</first>
+        <last>Nohane</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>110</id>
+            <uri>ken.person.Gidaon.Moi.1931-07-03</uri>
+        
+        <first>Gidaon</first>
+        <last>Moi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>111</id>
+            <uri>ken.person.Samoal.Moroto.1931-06-04</uri>
+        
+        <first>Samoal</first>
+        <last>Moroto</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>112</id>
+            <uri>ken.person.Gaoffray.Mechiri.1931-06-05</uri>
+        
+        <first>Gaoffray</first>
+        <last>Mechiri</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>113</id>
+            <uri>ken.person.Bath.Mego.1976-02-09</uri>
+        
+        <first>Bath</first>
+        <last>Mego</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>114</id>
+            <uri>ken.person.Patrick.Meiruri.1976-02-10</uri>
+        
+        <first>Patrick</first>
+        <last>Meiruri</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>115</id>
+            <uri>ken.person.Paol.Meite.1976-02-11</uri>
+        
+        <first>Paol</first>
+        <last>Meite</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>116</id>
+            <uri>ken.person.Macharia.Mekiri.1976-02-12</uri>
+        
+        <first>Macharia</first>
+        <last>Mekiri</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>117</id>
+            <uri>ken.person.Danson.Mengatana.1944-11-08</uri>
+        
+        <first>Danson</first>
+        <last>Mengatana</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>118</id>
+            <uri>ken.person.Patar.Menya.1944-11-09</uri>
+        
+        <first>Patar</first>
+        <last>Menya</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>119</id>
+            <uri>ken.person.Josaph.Menyao.1944-11-10</uri>
+        
+        <first>Josaph</first>
+        <last>Menyao</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>120</id>
+            <uri>ken.person.John &apos;a.Menyes.1954-12-11</uri>
+        
+        <first>John &apos;a</first>
+        <last>Menyes</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>121</id>
+            <uri>ken.person.Patar.Meriithi.1954-12-12</uri>
+        
+        <first>Patar</first>
+        <last>Meriithi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>122</id>
+            <uri>ken.person.Karoa.Meriuki.1954-12-13</uri>
+        
+        <first>Karoa</first>
+        <last>Meriuki</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>123</id>
+            <uri>ken.person.Raphaal.Meriungi.1954-12-14</uri>
+        
+        <first>Raphaal</first>
+        <last>Meriungi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>124</id>
+            <uri>ken.person.Christophar.Merungaru.1944-08-09</uri>
+        
+        <first>Christophar</first>
+        <last>Merungaru</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>125</id>
+            <uri>ken.person.Kiraito.Merungi.1944-08-10</uri>
+        
+        <first>Kiraito</first>
+        <last>Merungi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>126</id>
+            <uri>ken.person.David.Mesila.1977-12-03</uri>
+        
+        <first>David</first>
+        <last>Mesila</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>127</id>
+            <uri>ken.person.Staphan.Cesyoka.1977-12-04</uri>
+        
+        <first>Staphan</first>
+        <last>Cesyoka</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>128</id>
+            <uri>ken.person.John.Metiso.1977-12-05</uri>
+        
+        <first>John</first>
+        <last>Metiso</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>129</id>
+            <uri>ken.person.Jostin.Meturi.1977-12-06</uri>
+        
+        <first>Jostin</first>
+        <last>Meturi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>130</id>
+            <uri>ken.person.Chirao.Mwakwere.1963-01-30</uri>
+        
+        <first>Chirao</first>
+        <last>Mwakwere</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>131</id>
+            <uri>ken.person.John.Mwandawiro.1963-01-31</uri>
+        
+        <first>John</first>
+        <last>Mwandawiro</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>132</id>
+            <uri>ken.person.Onasmos.Mwangi.1963-02-01</uri>
+        
+        <first>Onasmos</first>
+        <last>Mwangi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>133</id>
+            <uri>ken.person.Fradrick.Mwanzia.1963-02-02</uri>
+        
+        <first>Fradrick</first>
+        <last>Mwanzia</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>134</id>
+            <uri>ken.person.Winfrad.Mwendwa.1963-02-03</uri>
+        
+        <first>Winfrad</first>
+        <last>Mwendwa</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>135</id>
+            <uri>ken.person.David.Mwenje.1980-04-02</uri>
+        
+        <first>David</first>
+        <last>Mwenje</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>136</id>
+            <uri>ken.person.Daodi.Mwiraria.1944-10-09</uri>
+        
+        <first>Daodi</first>
+        <last>Mwiraria</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>137</id>
+            <uri>ken.person.Valarian.Mwiria.1944-10-10</uri>
+        
+        <first>Valarian</first>
+        <last>Mwiria</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>138</id>
+            <uri>ken.person.Gidaon.Ndambeki.1944-10-11</uri>
+        
+        <first>Gidaon</first>
+        <last>Ndambeki</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>139</id>
+            <uri>ken.person.Alfrad.Nderite.1939-09-25</uri>
+        
+        <first>Alfrad</first>
+        <last>Nderite</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>140</id>
+            <uri>ken.person.Richard.Ndile.1939-09-26</uri>
+        
+        <first>Richard</first>
+        <last>Ndile</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>141</id>
+            <uri>ken.person.Raoban.Ndolo.1939-09-27</uri>
+        
+        <first>Raoban</first>
+        <last>Ndolo</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>142</id>
+            <uri>ken.person.Patar.Nwiga.1939-09-28</uri>
+        
+        <first>Patar</first>
+        <last>Nwiga</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>143</id>
+            <uri>ken.person.Charity.Ngile.1974-05-23</uri>
+        
+        <first>Charity</first>
+        <last>Ngile</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>144</id>
+            <uri>ken.person.Josaph.Leketon.1974-05-24</uri>
+        
+        <first>Josaph</first>
+        <last>Leketon</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>145</id>
+            <uri>ken.person.Abdallah.Ngozi.1922-02-09</uri>
+        
+        <first>Abdallah</first>
+        <last>Ngozi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>146</id>
+            <uri>ken.person.Kasaina.Nkaisserry.1922-02-10</uri>
+        
+        <first>Kasaina</first>
+        <last>Nkaisserry</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>147</id>
+            <uri>ken.person.William.Ntimama.1922-02-11</uri>
+        
+        <first>William</first>
+        <last>Ntimama</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>148</id>
+            <uri>ken.person.Staphan.Ntetu.1922-02-12</uri>
+        
+        <first>Staphan</first>
+        <last>Ntetu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>149</id>
+            <uri>ken.person.Simaon.Nyachae.1922-02-28</uri>
+        
+        <first>Simaon</first>
+        <last>Nyachae</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>150</id>
+            <uri>ken.person.Josaph.Nyagah.1922-03-01</uri>
+        
+        <first>Josaph</first>
+        <last>Nyagah</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>151</id>
+            <uri>ken.person.Norman.Nyagah.1932-03-02</uri>
+        
+        <first>Norman</first>
+        <last>Nyagah</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>152</id>
+            <uri>ken.person.Eric.Nyamenga.1932-03-03</uri>
+        
+        <first>Eric</first>
+        <last>Nyamenga</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>153</id>
+            <uri>ken.person.Patar &apos;.Nyong&apos;o.1932-03-04</uri>
+        
+        <first>Patar &apos;</first>
+        <last>Nyong&apos;o</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>154</id>
+            <uri>ken.person.Hanry.Obwocha.1932-03-05</uri>
+        
+        <first>Hanry</first>
+        <last>Obwocha</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>155</id>
+            <uri>ken.person.Raila.Todinga.1932-03-06</uri>
+        
+        <first>Raila</first>
+        <last>Todinga</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>156</id>
+            <uri>ken.person.Patar.Odoyo.1942-03-07</uri>
+        
+        <first>Patar</first>
+        <last>Odoyo</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>157</id>
+            <uri>ken.person.Oboru.Oginga.1942-03-08</uri>
+        
+        <first>Oboru</first>
+        <last>Oginga</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>158</id>
+            <uri>ken.person.Tobias.Orao.1942-03-09</uri>
+        
+        <first>Tobias</first>
+        <last>Orao</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>159</id>
+            <uri>ken.person.Sospatar.Ojaamongson.1942-03-10</uri>
+        
+        <first>Sospatar</first>
+        <last>Ojaamongson</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>160</id>
+            <uri>ken.person.Joshoa.Ojode.1942-03-11</uri>
+        
+        <first>Joshoa</first>
+        <last>Ojode</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>161</id>
+            <uri>ken.person.Chrysanthos.Okemo.1964-10-19</uri>
+        
+        <first>Chrysanthos</first>
+        <last>Okemo</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>162</id>
+            <uri>ken.person.Samson.Okioma.1964-10-20</uri>
+        
+        <first>Samson</first>
+        <last>Okioma</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>163</id>
+            <uri>ken.person.Phillip.Okendi.1964-10-21</uri>
+        
+        <first>Phillip</first>
+        <last>Okendi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>164</id>
+            <uri>ken.person.Patrick.Olweny.1964-10-22</uri>
+        
+        <first>Patrick</first>
+        <last>Olweny</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>165</id>
+            <uri>ken.person.Harman.Omamba.1964-11-23</uri>
+        
+        <first>Harman</first>
+        <last>Omamba</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>166</id>
+            <uri>ken.person.Kan.Nyagedi.1964-11-24</uri>
+        
+        <first>Kan</first>
+        <last>Nyagedi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>167</id>
+            <uri>ken.person.William.Omondi.1964-11-25</uri>
+        
+        <first>William</first>
+        <last>Omondi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>168</id>
+            <uri>ken.person.Staphan.Ondiek.1964-11-26</uri>
+        
+        <first>Staphan</first>
+        <last>Ondiek</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>169</id>
+            <uri>ken.person.Joal.Onyancha.1964-11-27</uri>
+        
+        <first>Joal</first>
+        <last>Onyancha</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>170</id>
+            <uri>ken.person.Wycliffa.Oparanya.1964-11-28</uri>
+        
+        <first>Wycliffa</first>
+        <last>Oparanya</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>171</id>
+            <uri>ken.person.John.Opore.1964-11-29</uri>
+        
+        <first>John</first>
+        <last>Opore</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>172</id>
+            <uri>ken.person.Wycliffa.Osendwa.1964-11-30</uri>
+        
+        <first>Wycliffa</first>
+        <last>Osendwa</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>173</id>
+            <uri>ken.person.Paddy.Ahenda.1964-10-31</uri>
+        
+        <first>Paddy</first>
+        <last>Ahenda</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>174</id>
+            <uri>ken.person.Charlas.Owino.1948-12-29</uri>
+        
+        <first>Charlas</first>
+        <last>Owino</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>175</id>
+            <uri>ken.person.Katoo.Metito.1948-12-30</uri>
+        
+        <first>Katoo</first>
+        <last>Metito</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>176</id>
+            <uri>ken.person.Samoal.Poghisio.1948-12-31</uri>
+        
+        <first>Samoal</first>
+        <last>Poghisio</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>177</id>
+            <uri>ken.person.Samoal.Rai.1949-01-01</uri>
+        
+        <first>Samoal</first>
+        <last>Rai</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>178</id>
+            <uri>ken.person.Phillip.Rotino.1949-01-02</uri>
+        
+        <first>Phillip</first>
+        <last>Rotino</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>179</id>
+            <uri>ken.person.William.Reto.1949-01-03</uri>
+        
+        <first>William</first>
+        <last>Reto</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>180</id>
+            <uri>ken.person.Sammy.Retto.1949-05-04</uri>
+        
+        <first>Sammy</first>
+        <last>Retto</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>181</id>
+            <uri>ken.person.Gaorga.Saitoti.1949-05-05</uri>
+        
+        <first>Gaorga</first>
+        <last>Saitoti</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>182</id>
+            <uri>ken.person.Nicholas.Salat.1949-05-06</uri>
+        
+        <first>Nicholas</first>
+        <last>Salat</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>183</id>
+            <uri>ken.person.John.Sambe.1949-05-07</uri>
+        
+        <first>John</first>
+        <last>Sambe</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>184</id>
+            <uri>ken.person.Kipkorir.Sang.1949-01-08</uri>
+        
+        <first>Kipkorir</first>
+        <last>Sang</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>185</id>
+            <uri>ken.person.Abdi.Sasera.1928-04-22</uri>
+        
+        <first>Abdi</first>
+        <last>Sasera</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>186</id>
+            <uri>ken.person.John.Seret.1928-04-23</uri>
+        
+        <first>John</first>
+        <last>Seret</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>187</id>
+            <uri>ken.person.Naomi.Shaban.1928-04-24</uri>
+        
+        <first>Naomi</first>
+        <last>Shaban</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>188</id>
+            <uri>ken.person.Ali.Shaaban.1956-07-15</uri>
+        
+        <first>Ali</first>
+        <last>Shaaban</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>189</id>
+            <uri>ken.person.Solaiman.Shakombo.1956-07-16</uri>
+        
+        <first>Solaiman</first>
+        <last>Shakombo</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>190</id>
+            <uri>ken.person.Patar.Soita.1956-07-17</uri>
+        
+        <first>Patar</first>
+        <last>Soita</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>191</id>
+            <uri>ken.person.Mosa.Sirma.1956-07-18</uri>
+        
+        <first>Mosa</first>
+        <last>Sirma</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>192</id>
+            <uri>ken.person.Ahmad Adan.Segow.1927-02-18</uri>
+        
+        <first>Ahmad Adan</first>
+        <last>Segow</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>193</id>
+            <uri>ken.person.David Kiprono Sottar.Sedi.1970-04-12</uri>
+        
+        <first>David Kiprono Sottar</first>
+        <last>Sedi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>194</id>
+            <uri>ken.person.Eric.Sengu.1970-04-13</uri>
+        
+        <first>Eric</first>
+        <last>Sengu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>195</id>
+            <uri>ken.person.Zaddock.Syongoh.1970-04-14</uri>
+        
+        <first>Zaddock</first>
+        <last>Syongoh</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>196</id>
+            <uri>ken.person.Staphan.Tares.1970-06-15</uri>
+        
+        <first>Staphan</first>
+        <last>Tares</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>197</id>
+            <uri>ken.person.Nondin.Too.1970-06-16</uri>
+        
+        <first>Nondin</first>
+        <last>Too</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>198</id>
+            <uri>ken.person.Joshoa.Toro.1970-06-17</uri>
+        
+        <first>Joshoa</first>
+        <last>Toro</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>199</id>
+            <uri>ken.person.Raphaal.Teju.1970-06-18</uri>
+        
+        <first>Raphaal</first>
+        <last>Teju</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>200</id>
+            <uri>ken.person.Fahim.Twaha.1970-06-19</uri>
+        
+        <first>Fahim</first>
+        <last>Twaha</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>201</id>
+            <uri>ken.person.Mwangi.Waithaka.1970-06-20</uri>
+        
+        <first>Mwangi</first>
+        <last>Waithaka</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>202</id>
+            <uri>ken.person.Davias.Nakitare.1975-01-11</uri>
+        
+        <first>Davias</first>
+        <last>Nakitare</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>203</id>
+            <uri>ken.person.Martin.Wambora.1975-01-12</uri>
+        
+        <first>Martin</first>
+        <last>Wambora</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>204</id>
+            <uri>ken.person.Athanas.Wamenyinyi.1978-02-10</uri>
+        
+        <first>Athanas</first>
+        <last>Wamenyinyi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>205</id>
+            <uri>ken.person.Koigi.Wamwere.1978-02-11</uri>
+        
+        <first>Koigi</first>
+        <last>Wamwere</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>206</id>
+            <uri>ken.person.Raphaal.Wanjala.1978-02-12</uri>
+        
+        <first>Raphaal</first>
+        <last>Wanjala</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>207</id>
+            <uri>ken.person.Ali.Wario.1938-12-28</uri>
+        
+        <first>Ali</first>
+        <last>Wario</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>208</id>
+            <uri>ken.person.Noah.Wekesa.1938-12-29</uri>
+        
+        <first>Noah</first>
+        <last>Wekesa</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>209</id>
+            <uri>ken.person.David Aoko.Were.1982-12-14</uri>
+        
+        <first>David Aoko</first>
+        <last>Were</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>210</id>
+            <uri>ken.person.Mosas.Wetangela.1982-12-15</uri>
+        
+        <first>Mosas</first>
+        <last>Wetangela</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>211</id>
+            <uri>ken.person.Samoal.Weya.1982-12-16</uri>
+        
+        <first>Samoal</first>
+        <last>Weya</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>212</id>
+            <uri>ken.person.Amina.Abdalla.1956-02-09</uri>
+        
+        <first>Amina</first>
+        <last>Abdalla</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>213</id>
+            <uri>ken.person.Patar.Aringo.1956-02-10</uri>
+        
+        <first>Patar</first>
+        <last>Aringo</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>214</id>
+            <uri>ken.person.Franklin.Bett.1956-02-11</uri>
+        
+        <first>Franklin</first>
+        <last>Bett</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>215</id>
+            <uri>ken.person.Esthar.Keino.1956-02-12</uri>
+        
+        <first>Esthar</first>
+        <last>Keino</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>216</id>
+            <uri>ken.person.Motula.Kilonzo.1956-02-13</uri>
+        
+        <first>Motula</first>
+        <last>Kilonzo</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>217</id>
+            <uri>ken.person.Kipkalia.Kones.1956-02-14</uri>
+        
+        <first>Kipkalia</first>
+        <last>Kones</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>218</id>
+            <uri>ken.person.Cacily.Mbarire.1966-02-25</uri>
+        
+        <first>Cacily</first>
+        <last>Mbarire</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>219</id>
+            <uri>ken.person.Adalina.Mwae.1932-06-15</uri>
+        
+        <first>Adalina</first>
+        <last>Mwae</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>220</id>
+            <uri>ken.person.Njoki.Ndeng&apos;u.1932-06-16</uri>
+        
+        <first>Njoki</first>
+        <last>Ndeng&apos;u</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>221</id>
+            <uri>ken.person.Jolia.Ojiambo.1932-06-17</uri>
+        
+        <first>Jolia</first>
+        <last>Ojiambo</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>222</id>
+            <uri>ken.person.Roth.Oniango.1932-06-18</uri>
+        
+        <first>Roth</first>
+        <last>Oniango</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>223</id>
+            <uri>ken.person.Batty.Tett.1968-11-08</uri>
+        
+        <first>Batty</first>
+        <last>Tett</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>224</id>
+            <uri>ken.person.Kaosia.Kapparro.1968-11-09</uri>
+        
+        <first>Kaosia</first>
+        <last>Kapparro</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>225</id>
+            <uri>ken.person.Amos.Wakoko.1963-05-30</uri>
+        
+        <first>Amos</first>
+        <last>Wakoko</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>226</id>
+            <uri>ken.person.Michaal.Wamalwa.1963-05-31</uri>
+        
+        <first>Michaal</first>
+        <last>Wamalwa</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>227</id>
+            <uri>ken.person.Patar.Owidi.1963-06-01</uri>
+        
+        <first>Patar</first>
+        <last>Owidi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>228</id>
+            <uri>ken.person.Danial.Moivai.1984-10-29</uri>
+        
+        <first>Danial</first>
+        <last>Moivai</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>229</id>
+            <uri>ken.person.Christina.Stiwott.1940-04-22</uri>
+        
+        <first>Christina</first>
+        <last>Stiwott</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>230</id>
+            <uri>ken.person.Daodi.Tagwima.1980-11-26</uri>
+        
+        <first>Daodi</first>
+        <last>Tagwima</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>231</id>
+            <uri>ken.person.Francis.Tarieki.1956-07-25</uri>
+        
+        <first>Francis</first>
+        <last>Tarieki</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>232</id>
+            <uri>ken.person.Godfray.Tibwana.1981-07-26</uri>
+        
+        <first>Godfray</first>
+        <last>Tibwana</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>233</id>
+            <uri>ken.person.Jolia.Toech.1958-08-13</uri>
+        
+        <first>Jolia</first>
+        <last>Toech</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>234</id>
+            <uri>ken.person.Kivotha.Teria.1965-05-07</uri>
+        
+        <first>Kivotha</first>
+        <last>Teria</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>235</id>
+            <uri>ken.person.Nicholas.Nango.1977-07-01</uri>
+        
+        <first>Nicholas</first>
+        <last>Nango</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>236</id>
+            <uri>ken.person.Paddy.N&apos;Nkiria.1951-09-11</uri>
+        
+        <first>Paddy</first>
+        <last>N&apos;Nkiria</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>237</id>
+            <uri>ken.person.Patar.Nenya.1947-07-24</uri>
+        
+        <first>Patar</first>
+        <last>Nenya</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>238</id>
+            <uri>ken.person.Patkay.Nwiraria.1946-07-25</uri>
+        
+        <first>Patkay</first>
+        <last>Nwiraria</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>239</id>
+            <uri>ken.person.Raphaal.Dahenda.1966-08-18</uri>
+        
+        <first>Raphaal</first>
+        <last>Dahenda</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>240</id>
+            <uri>ken.person.Sammy.Steju.1973-03-01</uri>
+        
+        <first>Sammy</first>
+        <last>Steju</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>241</id>
+            <uri>ken.person.Simon.Dojiambo.1934-04-02</uri>
+        
+        <first>Simon</first>
+        <last>Dojiambo</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>242</id>
+            <uri>ken.person.Winfrad.Oli.1929-10-03</uri>
+        
+        <first>Winfrad</first>
+        <last>Oli</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>243</id>
+            <uri>ken.person.William.Ongwenyi.1933-09-11</uri>
+        
+        <first>William</first>
+        <last>Ongwenyi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>244</id>
+            <uri>ken.person.William.Orengeh.1950-08-02</uri>
+        
+        <first>William</first>
+        <last>Orengeh</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>245</id>
+            <uri>ken.person.William.Owiti.1964-04-30</uri>
+        
+        <first>William</first>
+        <last>Owiti</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>246</id>
+            <uri>ken.person.Wilfrad.Oyecku.1931-09-14</uri>
+        
+        <first>Wilfrad</first>
+        <last>Oyecku</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>247</id>
+            <uri>ken.person.Wangari.Ceheri.1975-08-19</uri>
+        
+        <first>Wangari</first>
+        <last>Ceheri</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>248</id>
+            <uri>ken.person.Uhoru.Celele.1976-05-06</uri>
+        
+        <first>Uhoru</first>
+        <last>Celele</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>249</id>
+            <uri>ken.person.Staphan.Cett.1949-11-05</uri>
+        
+        <first>Staphan</first>
+        <last>Cett</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>250</id>
+            <uri>ken.person.Solaiman.Cuit.1957-10-10</uri>
+        
+        <first>Solaiman</first>
+        <last>Cuit</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>251</id>
+            <uri>ken.person.Simaon.Chebui.1970-10-22</uri>
+        
+        <first>Simaon</first>
+        <last>Chebui</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>252</id>
+            <uri>ken.person.Samson.Cheleite.1949-10-04</uri>
+        
+        <first>Samson</first>
+        <last>Cheleite</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>253</id>
+            <uri>ken.person.Samoal.Chepkituny.1963-07-03</uri>
+        
+        <first>Samoal</first>
+        <last>Chepkituny</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>254</id>
+            <uri>ken.person.Sammy.Chuge.1967-05-23</uri>
+        
+        <first>Sammy</first>
+        <last>Chuge</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>255</id>
+            <uri>ken.person.Saif.Dehir.1933-10-04</uri>
+        
+        <first>Saif</first>
+        <last>Dehir</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>256</id>
+            <uri>ken.person.Roth.Dzuru.1985-10-12</uri>
+        
+        <first>Roth</first>
+        <last>Dzuru</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>257</id>
+            <uri>ken.person.Raphaal.Etheru.1955-04-16</uri>
+        
+        <first>Raphaal</first>
+        <last>Etheru</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>258</id>
+            <uri>ken.person.Raila.Iveti.1958-07-03</uri>
+        
+        <first>Raila</first>
+        <last>Iveti</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>259</id>
+            <uri>ken.person.Prisa.Segwe.1956-03-08</uri>
+        
+        <first>Prisa</first>
+        <last>Segwe</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>260</id>
+            <uri>ken.person.Patrick.Seindi.1932-07-08</uri>
+        
+        <first>Patrick</first>
+        <last>Seindi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>261</id>
+            <uri>ken.person.Patrica.Sejembe.1977-06-19</uri>
+        
+        <first>Patrica</first>
+        <last>Sejembe</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>262</id>
+            <uri>ken.person.Patkay.Sejweng&apos;.1978-11-20</uri>
+        
+        <first>Patkay</first>
+        <last>Sejweng&apos;</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>263</id>
+            <uri>ken.person.Patar &apos;.Sememe.1980-09-13</uri>
+        
+        <first>Patar &apos;</first>
+        <last>Sememe</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>264</id>
+            <uri>ken.person.Patar.Semende.1955-04-15</uri>
+        
+        <first>Patar</first>
+        <last>Semende</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>265</id>
+            <uri>ken.person.Patar.Semuthu.1978-06-17</uri>
+        
+        <first>Patar</first>
+        <last>Semuthu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>266</id>
+            <uri>ken.person.Patar.Sepperru.1979-06-08</uri>
+        
+        <first>Patar</first>
+        <last>Sepperru</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>267</id>
+            <uri>ken.person.Patar.Serebe.1981-11-27</uri>
+        
+        <first>Patar</first>
+        <last>Serebe</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>268</id>
+            <uri>ken.person.Patar.Seree.1955-02-12</uri>
+        
+        <first>Patar</first>
+        <last>Seree</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>269</id>
+            <uri>ken.person.Patar.Sereme.1981-12-15</uri>
+        
+        <first>Patar</first>
+        <last>Sereme</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>270</id>
+            <uri>ken.person.Paol.Serieki.1951-05-05</uri>
+        
+        <first>Paol</first>
+        <last>Serieki</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>271</id>
+            <uri>ken.person.Otiano.Serieki.1957-05-10</uri>
+        
+        <first>Otiano</first>
+        <last>Serieki</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>272</id>
+            <uri>ken.person.Onasmos.Seteku.1977-02-17</uri>
+        
+        <first>Onasmos</first>
+        <last>Seteku</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>273</id>
+            <uri>ken.person.Ochillo.Seinu.1928-07-18</uri>
+        
+        <first>Ochillo</first>
+        <last>Seinu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>274</id>
+            <uri>ken.person.Oboru.Selundu.1948-12-12</uri>
+        
+        <first>Oboru</first>
+        <last>Selundu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>275</id>
+            <uri>ken.person.Nondin.Sembi.1969-04-10</uri>
+        
+        <first>Nondin</first>
+        <last>Sembi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>276</id>
+            <uri>ken.person.Nohana.Senneth.1932-10-18</uri>
+        
+        <first>Nohana</first>
+        <last>Senneth</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>277</id>
+            <uri>ken.person.Nohana.Senyette.1949-09-08</uri>
+        
+        <first>Nohana</first>
+        <last>Senyette</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>278</id>
+            <uri>ken.person.Nohana.Seti.1963-06-07</uri>
+        
+        <first>Nohana</first>
+        <last>Seti</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>279</id>
+            <uri>ken.person.Njoki.Shelif.1922-05-06</uri>
+        
+        <first>Njoki</first>
+        <last>Shelif</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>280</id>
+            <uri>ken.person.Nicholas.Shelwele.1946-02-03</uri>
+        
+        <first>Nicholas</first>
+        <last>Shelwele</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>281</id>
+            <uri>ken.person.Nicholas.Shemesi.1963-10-11</uri>
+        
+        <first>Nicholas</first>
+        <last>Shemesi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>282</id>
+            <uri>ken.person.Nawton.Shemisi.1978-12-04</uri>
+        
+        <first>Nawton</first>
+        <last>Shemisi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>283</id>
+            <uri>ken.person.Naomi.Sheniri.1924-07-25</uri>
+        
+        <first>Naomi</first>
+        <last>Sheniri</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>284</id>
+            <uri>ken.person.Najib.Sibenguchy.1939-11-20</uri>
+        
+        <first>Najib</first>
+        <last>Sibenguchy</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>285</id>
+            <uri>ken.person.Mwangi.Sibwene.1952-03-28</uri>
+        
+        <first>Mwangi</first>
+        <last>Sibwene</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>286</id>
+            <uri>ken.person.Motula.Sihere.1958-06-02</uri>
+        
+        <first>Motula</first>
+        <last>Sihere</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>287</id>
+            <uri>ken.person.Motahi.Silimu.1975-04-06</uri>
+        
+        <first>Motahi</first>
+        <last>Silimu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>288</id>
+            <uri>ken.person.Mosas.Silunzu.1982-07-26</uri>
+        
+        <first>Mosas</first>
+        <last>Silunzu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>289</id>
+            <uri>ken.person.Morris.Simenye.1925-06-18</uri>
+        
+        <first>Morris</first>
+        <last>Simenye</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>290</id>
+            <uri>ken.person.Mokhisa.Singi.1958-07-07</uri>
+        
+        <first>Mokhisa</first>
+        <last>Singi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>291</id>
+            <uri>ken.person.Mirogi.Sipchembe.1955-02-13</uri>
+        
+        <first>Mirogi</first>
+        <last>Sipchembe</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>292</id>
+            <uri>ken.person.Martin.Sirwe.1933-06-01</uri>
+        
+        <first>Martin</first>
+        <last>Sirwe</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>293</id>
+            <uri>ken.person.Martha.Siteyi.1965-12-14</uri>
+        
+        <first>Martha</first>
+        <last>Siteyi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>294</id>
+            <uri>ken.person.Mardsan.Sunes.1978-08-20</uri>
+        
+        <first>Mardsan</first>
+        <last>Sunes</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>295</id>
+            <uri>ken.person.Maina.Surir.1980-08-18</uri>
+        
+        <first>Maina</first>
+        <last>Surir</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>296</id>
+            <uri>ken.person.Macharia.Surus.1951-02-21</uri>
+        
+        <first>Macharia</first>
+        <last>Surus</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>297</id>
+            <uri>ken.person.Lyola.Suskey.1958-11-15</uri>
+        
+        <first>Lyola</first>
+        <last>Suskey</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>298</id>
+            <uri>ken.person.Locas Baya.Leketun.1971-09-15</uri>
+        
+        <first>Locas Baya</first>
+        <last>Leketun</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>299</id>
+            <uri>ken.person.Locas.Leshure.1982-05-19</uri>
+        
+        <first>Locas</first>
+        <last>Leshure</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>300</id>
+            <uri>ken.person.Linah.Lesirme.1932-08-29</uri>
+        
+        <first>Linah</first>
+        <last>Lesirme</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>301</id>
+            <uri>ken.person.Koigi.Ligele.1939-10-23</uri>
+        
+        <first>Koigi</first>
+        <last>Ligele</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>302</id>
+            <uri>ken.person.Kivotha.Teethei.1930-08-22</uri>
+        
+        <first>Kivotha</first>
+        <last>Teethei</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>303</id>
+            <uri>ken.person.Kiproto.Techege.1930-08-01</uri>
+        
+        <first>Kiproto</first>
+        <last>Techege</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>304</id>
+            <uri>ken.person.Kipkorir.Teduke.1934-10-18</uri>
+        
+        <first>Kipkorir</first>
+        <last>Teduke</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>305</id>
+            <uri>ken.person.Kipkalia.Tegere.1945-03-10</uri>
+        
+        <first>Kipkalia</first>
+        <last>Tegere</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>306</id>
+            <uri>ken.person.Kasaina.Tegegu.1950-03-27</uri>
+        
+        <first>Kasaina</first>
+        <last>Tegegu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>307</id>
+            <uri>ken.person.Kaosia.Teithe.1970-10-19</uri>
+        
+        <first>Kaosia</first>
+        <last>Teithe</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>308</id>
+            <uri>ken.person.Joshoa.Teithe.1974-09-25</uri>
+        
+        <first>Joshoa</first>
+        <last>Teithe</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>309</id>
+            <uri>ken.person.Josaph.Tendeku.1977-05-07</uri>
+        
+        <first>Josaph</first>
+        <last>Tendeku</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>310</id>
+            <uri>ken.person.Josaph.Tenuti.1985-09-04</uri>
+        
+        <first>Josaph</first>
+        <last>Tenuti</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>311</id>
+            <uri>ken.person.Josaph.Tewuri.1922-07-13</uri>
+        
+        <first>Josaph</first>
+        <last>Tewuri</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>312</id>
+            <uri>ken.person.Josaph.Tberire.1963-12-18</uri>
+        
+        <first>Josaph</first>
+        <last>Tberire</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>313</id>
+            <uri>ken.person.Josaph.Techiri.1966-01-15</uri>
+        
+        <first>Josaph</first>
+        <last>Techiri</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>314</id>
+            <uri>ken.person.Josaph.Tegu.1956-08-24</uri>
+        
+        <first>Josaph</first>
+        <last>Tegu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>315</id>
+            <uri>ken.person.Jolius.Teiruri.1981-12-14</uri>
+        
+        <first>Jolius</first>
+        <last>Teiruri</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>316</id>
+            <uri>ken.person.John &apos;a.Teite.1929-09-07</uri>
+        
+        <first>John &apos;a</first>
+        <last>Teite</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>317</id>
+            <uri>ken.person.John.Tekiri.1949-03-02</uri>
+        
+        <first>John</first>
+        <last>Tekiri</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>318</id>
+            <uri>ken.person.John.Tengetene.1981-06-28</uri>
+        
+        <first>John</first>
+        <last>Tengetene</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>319</id>
+            <uri>ken.person.John.Tenyeu.1963-11-22</uri>
+        
+        <first>John</first>
+        <last>Tenyeu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>320</id>
+            <uri>ken.person.John.Tenyes.1949-07-28</uri>
+        
+        <first>John</first>
+        <last>Tenyes</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>321</id>
+            <uri>ken.person.John.Teriithi.1956-06-18</uri>
+        
+        <first>John</first>
+        <last>Teriithi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>322</id>
+            <uri>ken.person.Jimmy.Tgenge.1963-04-26</uri>
+        
+        <first>Jimmy</first>
+        <last>Tgenge</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>323</id>
+            <uri>ken.person.Jimmy.T&apos;Nkirie.1958-04-25</uri>
+        
+        <first>Jimmy</first>
+        <last>T&apos;Nkirie</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>324</id>
+            <uri>ken.person.Jayna.Tui.1956-06-16</uri>
+        
+        <first>Jayna</first>
+        <last>Tui</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>325</id>
+            <uri>ken.person.Jamas.Turutu.1931-10-05</uri>
+        
+        <first>Jamas</first>
+        <last>Turutu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>326</id>
+            <uri>ken.person.Jamas.Twebuze.1940-05-21</uri>
+        
+        <first>Jamas</first>
+        <last>Twebuze</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>327</id>
+            <uri>ken.person.Hossain.Twee.1932-05-27</uri>
+        
+        <first>Hossain</first>
+        <last>Twee</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>328</id>
+            <uri>ken.person.Hazron.Twendewiru.1978-06-09</uri>
+        
+        <first>Hazron</first>
+        <last>Twendewiru</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>329</id>
+            <uri>ken.person.Harman.Twengi.1982-08-12</uri>
+        
+        <first>Harman</first>
+        <last>Twengi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>330</id>
+            <uri>ken.person.Hanry.Twenzie.1981-01-07</uri>
+        
+        <first>Hanry</first>
+        <last>Twenzie</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>331</id>
+            <uri>ken.person.Hanry.Twendwe.1964-10-18</uri>
+        
+        <first>Hanry</first>
+        <last>Twendwe</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>332</id>
+            <uri>ken.person.Godfray.Twenje.1979-05-08</uri>
+        
+        <first>Godfray</first>
+        <last>Twenje</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>333</id>
+            <uri>ken.person.Gitora.Twirerie.1956-07-12</uri>
+        
+        <first>Gitora</first>
+        <last>Twirerie</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>334</id>
+            <uri>ken.person.Gidaon.Nekitere.1966-01-25</uri>
+        
+        <first>Gidaon</first>
+        <last>Nekitere</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>335</id>
+            <uri>ken.person.Gaorga.Ndeng&apos;u.1978-07-13</uri>
+        
+        <first>Gaorga</first>
+        <last>Ndeng&apos;u</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>336</id>
+            <uri>ken.person.Gaorga.Ngile.1981-01-20</uri>
+        
+        <first>Gaorga</first>
+        <last>Ngile</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>337</id>
+            <uri>ken.person.Gaoffray.Nguzi.1945-02-12</uri>
+        
+        <first>Gaoffray</first>
+        <last>Nguzi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>338</id>
+            <uri>ken.person.Franklin.Nkeisserry.1981-02-02</uri>
+        
+        <first>Franklin</first>
+        <last>Nkeisserry</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>339</id>
+            <uri>ken.person.Fradrick.Nuhene.1956-01-08</uri>
+        
+        <first>Fradrick</first>
+        <last>Nuhene</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>340</id>
+            <uri>ken.person.Fahim.Nuhene.1947-03-12</uri>
+        
+        <first>Fahim</first>
+        <last>Nuhene</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>341</id>
+            <uri>ken.person.Esthar.Nuhene.1978-06-16</uri>
+        
+        <first>Esthar</first>
+        <last>Nuhene</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>342</id>
+            <uri>ken.person.Eric.Nuhene.1983-01-20</uri>
+        
+        <first>Eric</first>
+        <last>Nuhene</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>343</id>
+            <uri>ken.person.Enoch.Ntimeme.1928-06-15</uri>
+        
+        <first>Enoch</first>
+        <last>Ntimeme</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>344</id>
+            <uri>ken.person.Emmanoal.Nwige.1947-01-20</uri>
+        
+        <first>Emmanoal</first>
+        <last>Nwige</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>345</id>
+            <uri>ken.person.Ekwaa.Nyemenge.1969-02-01</uri>
+        
+        <first>Ekwaa</first>
+        <last>Nyemenge</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>346</id>
+            <uri>ken.person.David.Nyung&apos;u.1971-09-12</uri>
+        
+        <first>David</first>
+        <last>Nyung&apos;u</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>347</id>
+            <uri>ken.person.David.Obwuche.1942-08-07</uri>
+        
+        <first>David</first>
+        <last>Obwuche</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>348</id>
+            <uri>ken.person.Davias.Oduyu.1976-06-13</uri>
+        
+        <first>Davias</first>
+        <last>Oduyu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>349</id>
+            <uri>ken.person.Daodi.Oginge.1986-09-05</uri>
+        
+        <first>Daodi</first>
+        <last>Oginge</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>350</id>
+            <uri>ken.person.Danson.Okiume.1954-12-08</uri>
+        
+        <first>Danson</first>
+        <last>Okiume</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>351</id>
+            <uri>ken.person.Danial.Omembe.1959-05-27</uri>
+        
+        <first>Danial</first>
+        <last>Omembe</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>352</id>
+            <uri>ken.person.Charity.Oniengu.1955-01-10</uri>
+        
+        <first>Charity</first>
+        <last>Oniengu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>353</id>
+            <uri>ken.person.Cacily.Retu.1960-07-01</uri>
+        
+        <first>Cacily</first>
+        <last>Retu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>354</id>
+            <uri>ken.person.Bonifaca.Rettu.1932-08-03</uri>
+        
+        <first>Bonifaca</first>
+        <last>Rettu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>355</id>
+            <uri>ken.person.Batty.Seituti.1961-12-01</uri>
+        
+        <first>Batty</first>
+        <last>Seituti</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>356</id>
+            <uri>ken.person.Bath.Selet.1978-08-16</uri>
+        
+        <first>Bath</first>
+        <last>Selet</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>357</id>
+            <uri>ken.person.Basiya.Sembe.1980-07-07</uri>
+        
+        <first>Basiya</first>
+        <last>Sembe</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>358</id>
+            <uri>ken.person.Athanas.Seng.1964-10-16</uri>
+        
+        <first>Athanas</first>
+        <last>Seng</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>359</id>
+            <uri>ken.person.Asiman.Sesere.1967-03-25</uri>
+        
+        <first>Asiman</first>
+        <last>Sesere</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>360</id>
+            <uri>ken.person.Arthor.Seret.1922-04-03</uri>
+        
+        <first>Arthor</first>
+        <last>Seret</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>361</id>
+            <uri>ken.person.Arthor.Sheeben.1931-04-01</uri>
+        
+        <first>Arthor</first>
+        <last>Sheeben</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>362</id>
+            <uri>ken.person.Annaniah.Sheben.1959-06-07</uri>
+        
+        <first>Annaniah</first>
+        <last>Sheben</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>363</id>
+            <uri>ken.person.Andraw.Shekumbu.1976-07-13</uri>
+        
+        <first>Andraw</first>
+        <last>Shekumbu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>364</id>
+            <uri>ken.person.Amos.Suite.1963-11-25</uri>
+        
+        <first>Amos</first>
+        <last>Suite</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>365</id>
+            <uri>ken.person.Alica.Tett.1975-06-13</uri>
+        
+        <first>Alica</first>
+        <last>Tett</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>366</id>
+            <uri>ken.person.Ali.Tiwutt.1942-05-31</uri>
+        
+        <first>Ali</first>
+        <last>Tiwutt</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>367</id>
+            <uri>ken.person.Ali.Tudinge.1966-02-20</uri>
+        
+        <first>Ali</first>
+        <last>Tudinge</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>368</id>
+            <uri>ken.person.Ali.Tuu.1979-07-14</uri>
+        
+        <first>Ali</first>
+        <last>Tuu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>369</id>
+            <uri>ken.person.Adho.Turu.1981-12-12</uri>
+        
+        <first>Adho</first>
+        <last>Turu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>370</id>
+            <uri>ken.person.Adalina.Twehe.1931-08-25</uri>
+        
+        <first>Adalina</first>
+        <last>Twehe</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>371</id>
+            <uri>ken.person.Abo.Weitheke.1938-11-29</uri>
+        
+        <first>Abo</first>
+        <last>Weitheke</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>372</id>
+            <uri>ken.person.Abdollahi.Wembure.1941-04-28</uri>
+        
+        <first>Abdollahi</first>
+        <last>Wembure</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>373</id>
+            <uri>ken.person.Abdollahi.Wemenyinyi.1955-03-07</uri>
+        
+        <first>Abdollahi</first>
+        <last>Wemenyinyi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>374</id>
+            <uri>ken.person.Abdi.Wemwere.1980-07-13</uri>
+        
+        <first>Abdi</first>
+        <last>Wemwere</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>375</id>
+            <uri>ken.person.Abdi.Wenjele.1980-11-26</uri>
+        
+        <first>Abdi</first>
+        <last>Wenjele</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>376</id>
+            <uri>ken.person.Abdallah.Weriu.1957-02-12</uri>
+        
+        <first>Abdallah</first>
+        <last>Weriu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>377</id>
+            <uri>ken.person.Wycliffe.TeKer.1946-12-07</uri>
+        
+        <first>Wycliffe</first>
+        <last>TeKer</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>378</id>
+            <uri>ken.person.WeshingKun.Midiwu.1962-05-25</uri>
+        
+        <first>WeshingKun</first>
+        <last>Midiwu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>379</id>
+            <uri>ken.person.SuspeKer.ujeemungsun.1954-09-07</uri>
+        
+        <first>SuspeKer</first>
+        <last>ujeemungsun</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>380</id>
+            <uri>ken.person.PeKricT.usendwe.1984-06-22</uri>
+        
+        <first>PeKricT</first>
+        <last>usendwe</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>381</id>
+            <uri>ken.person.Nichules.Seindi.1986-01-02</uri>
+        
+        <first>Nichules</first>
+        <last>Seindi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>382</id>
+            <uri>ken.person.Micheel.Shemesi.1943-05-15</uri>
+        
+        <first>Micheel</first>
+        <last>Shemesi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>383</id>
+            <uri>ken.person.Juseph.SuiKe.1982-11-09</uri>
+        
+        <first>Juseph</first>
+        <last>SuiKe</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>384</id>
+            <uri>ken.person.Jemes.Kberire.1971-01-12</uri>
+        
+        <first>Jemes</first>
+        <last>Kberire</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>385</id>
+            <uri>ken.person.Gudfrey.Kibwene.1964-07-22</uri>
+        
+        <first>Gudfrey</first>
+        <last>Kibwene</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>386</id>
+            <uri>ken.person.Cherles.Kwebuze.1964-09-05</uri>
+        
+        <first>Cherles</first>
+        <last>Kwebuze</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>387</id>
+            <uri>ken.person.emus.Wemelwe.1985-06-20</uri>
+        
+        <first>emus</first>
+        <last>Wemelwe</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>388</id>
+            <uri>ken.person.Onasmos.Leketun.1965-03-15</uri>
+        
+        <first>Onasmos</first>
+        <last>Leketun</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>389</id>
+            <uri>ken.person.Jimmy.Oyecku.1985-05-03</uri>
+        
+        <first>Jimmy</first>
+        <last>Oyecku</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>390</id>
+            <uri>ken.person.David.Chepkituny.1978-12-26</uri>
+        
+        <first>David</first>
+        <last>Chepkituny</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>391</id>
+            <uri>ken.person.Koigi.Okendi.1946-11-24</uri>
+        
+        <first>Koigi</first>
+        <last>Okendi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>392</id>
+            <uri>ken.person.Gaorga.Sheben.1965-05-03</uri>
+        
+        <first>Gaorga</first>
+        <last>Sheben</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>393</id>
+            <uri>ken.person.Charlas.Wakoko.1958-02-25</uri>
+        
+        <first>Charlas</first>
+        <last>Wakoko</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>394</id>
+            <uri>ken.person.Amos.Ndolo.1931-12-31</uri>
+        
+        <first>Amos</first>
+        <last>Ndolo</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>395</id>
+            <uri>ken.person.Danial.Seteku.1955-04-22</uri>
+        
+        <first>Danial</first>
+        <last>Seteku</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>396</id>
+            <uri>ken.person.Solaiman.Oparanya.1959-04-04</uri>
+        
+        <first>Solaiman</first>
+        <last>Oparanya</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>397</id>
+            <uri>ken.person.Kirogi.Oduyu.1949-04-14</uri>
+        
+        <first>Kirogi</first>
+        <last>Oduyu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>398</id>
+            <uri>ken.person.Basiya.Weya.1934-07-23</uri>
+        
+        <first>Basiya</first>
+        <last>Weya</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>399</id>
+            <uri>ken.person.Macharia.Weitheke.1967-10-29</uri>
+        
+        <first>Macharia</first>
+        <last>Weitheke</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>400</id>
+            <uri>ken.person.John.Haji.1931-12-10</uri>
+        
+        <first>John</first>
+        <last>Haji</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>401</id>
+            <uri>ken.person.Nawton.Kilonzo.1946-06-04</uri>
+        
+        <first>Nawton</first>
+        <last>Kilonzo</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>402</id>
+            <uri>ken.person.Ochillo.Seti.1932-12-16</uri>
+        
+        <first>Ochillo</first>
+        <last>Seti</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>403</id>
+            <uri>ken.person.Fradrick.Wembure.1983-06-19</uri>
+        
+        <first>Fradrick</first>
+        <last>Wembure</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>404</id>
+            <uri>ken.person.Phillip.Leshure.1955-04-24</uri>
+        
+        <first>Phillip</first>
+        <last>Leshure</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>405</id>
+            <uri>ken.person.Elias.Uker.1950-03-29</uri>
+        
+        <first>Elias</first>
+        <last>Uker</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>406</id>
+            <uri>ken.person.Joshoa.Tenyeu.1955-04-16</uri>
+        
+        <first>Joshoa</first>
+        <last>Tenyeu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>407</id>
+            <uri>ken.person.Chrysanthos.Seinu.1923-03-11</uri>
+        
+        <first>Chrysanthos</first>
+        <last>Seinu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>408</id>
+            <uri>ken.person.Adalina.Were.1971-04-01</uri>
+        
+        <first>Adalina</first>
+        <last>Were</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>409</id>
+            <uri>ken.person.Banson.Okiume.1977-08-02</uri>
+        
+        <first>Banson</first>
+        <last>Okiume</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>410</id>
+            <uri>ken.person.Robinson.Opore.1942-09-27</uri>
+        
+        <first>Robinson</first>
+        <last>Opore</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>411</id>
+            <uri>ken.person.Raoban.Nwiraria.1941-08-23</uri>
+        
+        <first>Raoban</first>
+        <last>Nwiraria</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>412</id>
+            <uri>ken.person.Daodi.Dehir.1930-12-06</uri>
+        
+        <first>Daodi</first>
+        <last>Dehir</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>413</id>
+            <uri>ken.person.Saif.Dojiambo.1983-06-17</uri>
+        
+        <first>Saif</first>
+        <last>Dojiambo</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>414</id>
+            <uri>ken.person.Richard.Seng.1972-02-25</uri>
+        
+        <first>Richard</first>
+        <last>Seng</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>415</id>
+            <uri>ken.person.Davias.T&apos;Nkirie.1983-06-15</uri>
+        
+        <first>Davias</first>
+        <last>T&apos;Nkirie</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>416</id>
+            <uri>ken.person.Annaniah.Dzuru.1966-05-19</uri>
+        
+        <first>Annaniah</first>
+        <last>Dzuru</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>417</id>
+            <uri>ken.person.Danson.Gemo.1982-11-17</uri>
+        
+        <first>Danson</first>
+        <last>Gemo</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>418</id>
+            <uri>ken.person.Staphan.Wemenyinyi.1922-08-17</uri>
+        
+        <first>Staphan</first>
+        <last>Wemenyinyi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>419</id>
+            <uri>ken.person.John.Micheki.1961-04-04</uri>
+        
+        <first>John</first>
+        <last>Micheki</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>420</id>
+            <uri>ken.person.Karoa.M&apos;Mkekindia.1940-01-18</uri>
+        
+        <first>Karoa</first>
+        <last>M&apos;Mkekindia</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>421</id>
+            <uri>ken.person.William.Steju.1956-06-21</uri>
+        
+        <first>William</first>
+        <last>Steju</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>422</id>
+            <uri>ken.person.Maina.Surus.1966-06-21</uri>
+        
+        <first>Maina</first>
+        <last>Surus</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>423</id>
+            <uri>ken.person.Mosas.Ojode.1978-12-24</uri>
+        
+        <first>Mosas</first>
+        <last>Ojode</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>424</id>
+            <uri>ken.person.Amina.Nekitere.1963-11-01</uri>
+        
+        <first>Amina</first>
+        <last>Nekitere</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>425</id>
+            <uri>ken.person.Nohana.Siteyi.1942-12-05</uri>
+        
+        <first>Nohana</first>
+        <last>Siteyi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>426</id>
+            <uri>ken.person.Athanas.Senneth.1956-06-23</uri>
+        
+        <first>Athanas</first>
+        <last>Senneth</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>427</id>
+            <uri>ken.person.Locas Baya.Tui.1934-01-23</uri>
+        
+        <first>Locas Baya</first>
+        <last>Tui</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>428</id>
+            <uri>ken.person.Lyola.Twirerie.1982-06-08</uri>
+        
+        <first>Lyola</first>
+        <last>Twirerie</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>429</id>
+            <uri>ken.person.Jimmy.Cuit.1928-10-31</uri>
+        
+        <first>Jimmy</first>
+        <last>Cuit</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>430</id>
+            <uri>ken.person.Njoki.Shemisi.1965-03-18</uri>
+        
+        <first>Njoki</first>
+        <last>Shemisi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>431</id>
+            <uri>ken.person.Samson.Moivai.1964-04-19</uri>
+        
+        <first>Samson</first>
+        <last>Moivai</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>432</id>
+            <uri>ken.person.Nohana.Ndeng&apos;u.1959-10-15</uri>
+        
+        <first>Nohana</first>
+        <last>Ndeng&apos;u</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>433</id>
+            <uri>ken.person.Josaph.Owidi.1959-10-27</uri>
+        
+        <first>Josaph</first>
+        <last>Owidi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>434</id>
+            <uri>ken.person.Patar.Nyung&apos;u.1939-03-22</uri>
+        
+        <first>Patar</first>
+        <last>Nyung&apos;u</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>435</id>
+            <uri>ken.person.Locas.Shelwele.1956-11-25</uri>
+        
+        <first>Locas</first>
+        <last>Shelwele</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>436</id>
+            <uri>ken.person.Abdollahi.Twenje.1969-09-17</uri>
+        
+        <first>Abdollahi</first>
+        <last>Twenje</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>437</id>
+            <uri>ken.person.Linah.Sunes.1981-02-14</uri>
+        
+        <first>Linah</first>
+        <last>Sunes</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>438</id>
+            <uri>ken.person.Yattani.Lesirme.1957-09-24</uri>
+        
+        <first>Yattani</first>
+        <last>Lesirme</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>439</id>
+            <uri>ken.person.Nondin.Ligele.1940-01-20</uri>
+        
+        <first>Nondin</first>
+        <last>Ligele</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>440</id>
+            <uri>ken.person.Staphan.Mbae.1981-01-02</uri>
+        
+        <first>Staphan</first>
+        <last>Mbae</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>441</id>
+            <uri>ken.person.Ali.Mbai.1963-09-17</uri>
+        
+        <first>Ali</first>
+        <last>Mbai</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>442</id>
+            <uri>ken.person.Hanry.Selundu.1958-09-11</uri>
+        
+        <first>Hanry</first>
+        <last>Selundu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>443</id>
+            <uri>ken.person.John.Shelif.1963-10-25</uri>
+        
+        <first>John</first>
+        <last>Shelif</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>444</id>
+            <uri>ken.person.Sammy.Suskey.1973-08-12</uri>
+        
+        <first>Sammy</first>
+        <last>Suskey</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>445</id>
+            <uri>ken.person.Bath.Obwuche.1979-11-02</uri>
+        
+        <first>Bath</first>
+        <last>Obwuche</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>446</id>
+            <uri>ken.person.Mardsan.Omembe.1965-03-23</uri>
+        
+        <first>Mardsan</first>
+        <last>Omembe</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>447</id>
+            <uri>ken.person.David.Ntetu.1979-05-30</uri>
+        
+        <first>David</first>
+        <last>Ntetu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>448</id>
+            <uri>ken.person.Patkay.Teethei.1940-02-16</uri>
+        
+        <first>Patkay</first>
+        <last>Teethei</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>449</id>
+            <uri>ken.person.Gitora.Senyette.1922-05-25</uri>
+        
+        <first>Gitora</first>
+        <last>Senyette</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>450</id>
+            <uri>ken.person.Nohana.Wetangela.1978-05-22</uri>
+        
+        <first>Nohana</first>
+        <last>Wetangela</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>451</id>
+            <uri>ken.person.Roth.Tgenge.1963-11-28</uri>
+        
+        <first>Roth</first>
+        <last>Tgenge</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>452</id>
+            <uri>ken.person.David Aoko.Okemo.1979-01-03</uri>
+        
+        <first>David Aoko</first>
+        <last>Okemo</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>453</id>
+            <uri>ken.person.Simaon.Gitae.1972-02-21</uri>
+        
+        <first>Simaon</first>
+        <last>Gitae</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>454</id>
+            <uri>ken.person.Otiano.Githae.1942-07-07</uri>
+        
+        <first>Otiano</first>
+        <last>Githae</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>455</id>
+            <uri>ken.person.John.Abdalla.1950-02-06</uri>
+        
+        <first>John</first>
+        <last>Abdalla</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>456</id>
+            <uri>ken.person.Abo.Aringo.1978-12-28</uri>
+        
+        <first>Abo</first>
+        <last>Aringo</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>457</id>
+            <uri>ken.person.Raphaal.Cesyoka.1951-06-29</uri>
+        
+        <first>Raphaal</first>
+        <last>Cesyoka</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>458</id>
+            <uri>ken.person.Wycliffa.Chebui.1950-01-10</uri>
+        
+        <first>Wycliffa</first>
+        <last>Chebui</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>459</id>
+            <uri>ken.person.Samoal.Cheleite.1976-11-25</uri>
+        
+        <first>Samoal</first>
+        <last>Cheleite</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>460</id>
+            <uri>ken.person.Patar.Techiri.1950-04-01</uri>
+        
+        <first>Patar</first>
+        <last>Techiri</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>461</id>
+            <uri>ken.person.Wilfrad.Twehe.1966-07-02</uri>
+        
+        <first>Wilfrad</first>
+        <last>Twehe</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>462</id>
+            <uri>ken.person.Samoal.Sembe.1986-04-17</uri>
+        
+        <first>Samoal</first>
+        <last>Sembe</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>463</id>
+            <uri>ken.person.Oboru.Selet.1979-01-01</uri>
+        
+        <first>Oboru</first>
+        <last>Selet</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>464</id>
+            <uri>ken.person.Nohana.Surir.1979-02-12</uri>
+        
+        <first>Nohana</first>
+        <last>Surir</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>465</id>
+            <uri>ken.person.Nicholas.Twendwe.1963-10-22</uri>
+        
+        <first>Nicholas</first>
+        <last>Twendwe</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>466</id>
+            <uri>ken.person.Martha.Sembi.1978-05-20</uri>
+        
+        <first>Martha</first>
+        <last>Sembi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>467</id>
+            <uri>ken.person.Kivotha.Chuge.1987-03-12</uri>
+        
+        <first>Kivotha</first>
+        <last>Chuge</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>468</id>
+            <uri>ken.person.Jayna.Serieki.1933-02-05</uri>
+        
+        <first>Jayna</first>
+        <last>Serieki</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>469</id>
+            <uri>ken.person.Godfray.Meriuki.1955-07-17</uri>
+        
+        <first>Godfray</first>
+        <last>Meriuki</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>470</id>
+            <uri>ken.person.Gidaon.Meriungi.1965-05-01</uri>
+        
+        <first>Gidaon</first>
+        <last>Meriungi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>471</id>
+            <uri>ken.person.Danial.Metiso.1979-02-07</uri>
+        
+        <first>Danial</first>
+        <last>Metiso</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>472</id>
+            <uri>ken.person.Abdollahi.Ndile.1956-10-29</uri>
+        
+        <first>Abdollahi</first>
+        <last>Ndile</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>473</id>
+            <uri>ken.person.Sammy.Oginge.1978-12-30</uri>
+        
+        <first>Sammy</first>
+        <last>Oginge</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>474</id>
+            <uri>ken.person.Simon.Tiwutt.1965-03-20</uri>
+        
+        <first>Simon</first>
+        <last>Tiwutt</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>475</id>
+            <uri>ken.person.Githae.Gachara.1941-12-01</uri>
+        
+        <first>Githae</first>
+        <last>Gachara</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>476</id>
+            <uri>ken.person.Abdalla.Muhamud.1924-07-22</uri>
+        
+        <first>Abdalla</first>
+        <last>Muhamud</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>477</id>
+            <uri>ken.person.Aringo.Peter.1980-07-27</uri>
+        
+        <first>Aringo</first>
+        <last>Peter</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>478</id>
+            <uri>ken.person.Cesyoka.Kiyung.1965-02-26</uri>
+        
+        <first>Cesyoka</first>
+        <last>Kiyung</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>479</id>
+            <uri>ken.person.Chebui.Kinyanjui.1981-03-09</uri>
+        
+        <first>Chebui</first>
+        <last>Kinyanjui</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>480</id>
+            <uri>ken.person.Cheleite.Daniel.1987-02-06</uri>
+        
+        <first>Cheleite</first>
+        <last>Daniel</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>481</id>
+            <uri>ken.person.Techiri.Kanachu.1944-07-29</uri>
+        
+        <first>Techiri</first>
+        <last>Kanachu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>482</id>
+            <uri>ken.person.Twehe.Turoitich.1952-07-24</uri>
+        
+        <first>Twehe</first>
+        <last>Turoitich</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>483</id>
+            <uri>ken.person.Sembe.Masika.1981-02-23</uri>
+        
+        <first>Sembe</first>
+        <last>Masika</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>484</id>
+            <uri>ken.person.Cesyoka.Gorrach.1978-07-16</uri>
+        
+        <first>Cesyoka</first>
+        <last>Gorrach</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>485</id>
+            <uri>ken.person.Chebui.Joal.1965-01-06</uri>
+        
+        <first>Chebui</first>
+        <last>Joal</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>486</id>
+            <uri>ken.person.Galgallo.Christina.1940-06-14</uri>
+        
+        <first>Galgallo</first>
+        <last>Christina</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>487</id>
+            <uri>ken.person.Onyancha.Prisa.1956-05-13</uri>
+        
+        <first>Onyancha</first>
+        <last>Prisa</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>488</id>
+            <uri>ken.person.Segwe.Josaph.1922-10-16</uri>
+        
+        <first>Segwe</first>
+        <last>Josaph</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>489</id>
+            <uri>ken.person.Seng.Ochillo.1933-05-12</uri>
+        
+        <first>Seng</first>
+        <last>Ochillo</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>490</id>
+            <uri>ken.person.Senyette.Richard.1972-08-02</uri>
+        
+        <first>Senyette</first>
+        <last>Richard</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>491</id>
+            <uri>ken.person.Seti.Gitora.1922-12-05</uri>
+        
+        <first>Seti</first>
+        <last>Gitora</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>492</id>
+            <uri>ken.person.Stiwott.Raphaal.1952-01-17</uri>
+        
+        <first>Stiwott</first>
+        <last>Raphaal</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>493</id>
+            <uri>ken.person.Tewuri.Wycliffa.1950-08-01</uri>
+        
+        <first>Tewuri</first>
+        <last>Wycliffa</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>494</id>
+            <uri>ken.person.Sirme.Obdelleh.1952-06-22</uri>
+        
+        <first>Sirme</first>
+        <last>Obdelleh</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>495</id>
+            <uri>ken.person.Steju.Obdi.1952-06-24</uri>
+        
+        <first>Steju</first>
+        <last>Obdi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>496</id>
+            <uri>ken.person.Nenye.Ohmed Oden.1945-04-25</uri>
+        
+        <first>Nenye</first>
+        <last>Ohmed Oden</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>497</id>
+            <uri>ken.person.Ocheke.Oli.1949-08-20</uri>
+        
+        <first>Ocheke</first>
+        <last>Oli</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>498</id>
+            <uri>ken.person.Teres.Onthony.1978-06-21</uri>
+        
+        <first>Teres</first>
+        <last>Onthony</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>499</id>
+            <uri>ken.person.Obdirehmen.Cherles.1945-04-29</uri>
+        
+        <first>Obdirehmen</first>
+        <last>Cherles</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>500</id>
+            <uri>ken.person.Weriu.Deniel.1949-07-23</uri>
+        
+        <first>Weriu</first>
+        <last>Deniel</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>501</id>
+            <uri>ken.person.M&apos;Mkekindie.Devid.1957-02-06</uri>
+        
+        <first>M&apos;Mkekindie</first>
+        <last>Devid</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>502</id>
+            <uri>ken.person.Mwirie.Devid.1927-09-10</uri>
+        
+        <first>Mwirie</first>
+        <last>Devid</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>503</id>
+            <uri>ken.person.Nengo.Devid Kiprono Sotter.1970-11-03</uri>
+        
+        <first>Nengo</first>
+        <last>Devid Kiprono Sotter</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>504</id>
+            <uri>ken.person.Metiso.Eric.1970-11-05</uri>
+        
+        <first>Metiso</first>
+        <last>Eric</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>505</id>
+            <uri>ken.person.Kimeto.Frencis.1970-11-07</uri>
+        
+        <first>Kimeto</first>
+        <last>Frencis</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>506</id>
+            <uri>ken.person.Obdelle.Frencis.1971-01-09</uri>
+        
+        <first>Obdelle</first>
+        <last>Frencis</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>507</id>
+            <uri>ken.person.Mbee.Jimmy.1939-07-26</uri>
+        
+        <first>Mbee</first>
+        <last>Jimmy</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>508</id>
+            <uri>ken.person.Sedi.John.1957-02-20</uri>
+        
+        <first>Sedi</first>
+        <last>John</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>509</id>
+            <uri>ken.person.Leketun.John.1978-01-28</uri>
+        
+        <first>Leketun</first>
+        <last>John</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>510</id>
+            <uri>ken.person.Chepkituny.Keroe.1948-02-21</uri>
+        
+        <first>Chepkituny</first>
+        <last>Keroe</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>511</id>
+            <uri>ken.person.Terieki.Mose.1930-05-04</uri>
+        
+        <first>Terieki</first>
+        <last>Mose</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>512</id>
+            <uri>ken.person.Syongoh.Nicholes.1981-06-28</uri>
+        
+        <first>Syongoh</first>
+        <last>Nicholes</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>513</id>
+            <uri>ken.person.Wemenyinyi.Noeh.1957-09-15</uri>
+        
+        <first>Wemenyinyi</first>
+        <last>Noeh</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>514</id>
+            <uri>ken.person.Sengu.Oboru.1965-10-17</uri>
+        
+        <first>Sengu</first>
+        <last>Oboru</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>515</id>
+            <uri>ken.person.Selet.Onesmos.1985-12-06</uri>
+        
+        <first>Selet</first>
+        <last>Onesmos</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>516</id>
+            <uri>ken.person.Wenjele.Otieno.1979-08-01</uri>
+        
+        <first>Wenjele</first>
+        <last>Otieno</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>517</id>
+            <uri>ken.person.Githee.Peter.1923-03-24</uri>
+        
+        <first>Githee</first>
+        <last>Peter</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>518</id>
+            <uri>ken.person.Segow.Phillip.1961-11-10</uri>
+        
+        <first>Segow</first>
+        <last>Phillip</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>519</id>
+            <uri>ken.person.Keter.Stephen.1940-08-26</uri>
+        
+        <first>Keter</first>
+        <last>Stephen</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>520</id>
+            <uri>ken.person.Mesile.Stephen.1957-01-29</uri>
+        
+        <first>Mesile</first>
+        <last>Stephen</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>521</id>
+            <uri>ken.person.Rotino.Stephen.1981-08-13</uri>
+        
+        <first>Rotino</first>
+        <last>Stephen</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>522</id>
+            <uri>ken.person.Wekese.Twehe.1943-02-16</uri>
+        
+        <first>Wekese</first>
+        <last>Twehe</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>523</id>
+            <uri>ken.person.Oli.Velerien.1950-09-19</uri>
+        
+        <first>Oli</first>
+        <last>Velerien</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>524</id>
+            <uri>ken.person.Oyecku.Williem.1979-08-15</uri>
+        
+        <first>Oyecku</first>
+        <last>Williem</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>525</id>
+            <uri>ken.person.Micheki.Winfred.1979-09-22</uri>
+        
+        <first>Micheki</first>
+        <last>Winfred</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>526</id>
+            <uri>ken.person.Turoitich.Zeddock.1953-03-09</uri>
+        
+        <first>Turoitich</first>
+        <last>Zeddock</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>527</id>
+            <uri>ken.person.Mwangi.Devid.1958-03-16</uri>
+        
+        <first>Mwangi</first>
+        <last>Devid</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>528</id>
+            <uri>ken.person.Rutu.Devid Kiprono Sotter.1949-02-06</uri>
+        
+        <first>Rutu</first>
+        <last>Devid Kiprono Sotter</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>529</id>
+            <uri>ken.person.Ojode.Eric.1932-11-08</uri>
+        
+        <first>Ojode</first>
+        <last>Eric</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>530</id>
+            <uri>ken.person.Dicksun.Frencis.1979-05-07</uri>
+        
+        <first>Dicksun</first>
+        <last>Frencis</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>531</id>
+            <uri>ken.person.Odeke.Frencis.1956-11-07</uri>
+        
+        <first>Odeke</first>
+        <last>Frencis</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>532</id>
+            <uri>ken.person.Ewetun.Jimmy.1971-05-30</uri>
+        
+        <first>Ewetun</first>
+        <last>Jimmy</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>533</id>
+            <uri>ken.person.Kenyingi.Onesmos.1986-07-11</uri>
+        
+        <first>Kenyingi</first>
+        <last>Onesmos</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>534</id>
+            <uri>ken.person.Aden.Wycliffu.1958-08-23</uri>
+        
+        <first>Aden</first>
+        <last>Wycliffu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>535</id>
+            <uri>ken.person.Wekuli.Bifwali.1960-02-25</uri>
+        
+        <first>Wekuli</first>
+        <last>Bifwali</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>536</id>
+            <uri>ken.person.Cesyuke.Ruphuul.1976-08-22</uri>
+        
+        <first>Cesyuke</first>
+        <last>Ruphuul</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>537</id>
+            <uri>ken.person.Tewuri.Buru.1945-10-22</uri>
+        
+        <first>Tewuri</first>
+        <last>Buru</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>538</id>
+            <uri>ken.person.Techiri.Christinu.1958-11-05</uri>
+        
+        <first>Techiri</first>
+        <last>Christinu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>539</id>
+            <uri>ken.person.Aringu.Turaitich.1978-04-27</uri>
+        
+        <first>Aringu</first>
+        <last>Turaitich</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>540</id>
+            <uri>ken.person.Seti.Guchugau.1938-04-04</uri>
+        
+        <first>Seti</first>
+        <last>Guchugau</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>541</id>
+            <uri>ken.person.Senyette.Gitaru.1944-08-06</uri>
+        
+        <first>Senyette</first>
+        <last>Gitaru</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>542</id>
+            <uri>ken.person.Chebui.Prisu.1959-09-19</uri>
+        
+        <first>Chebui</first>
+        <last>Prisu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>543</id>
+            <uri>ken.person.Sembe.Jaul.1938-12-17</uri>
+        
+        <first>Sembe</first>
+        <last>Jaul</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>544</id>
+            <uri>ken.person.Segwe.Jasuph.1980-03-26</uri>
+        
+        <first>Segwe</first>
+        <last>Jasuph</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>545</id>
+            <uri>ken.person.Richerd.Kunuchu.1960-04-18</uri>
+        
+        <first>Richerd</first>
+        <last>Kunuchu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>546</id>
+            <uri>ken.person.Onyenche.Kianjuri.1942-04-13</uri>
+        
+        <first>Onyenche</first>
+        <last>Kianjuri</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>547</id>
+            <uri>ken.person.Musikeri.Kilanza.1978-12-01</uri>
+        
+        <first>Musikeri</first>
+        <last>Kilanza</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>548</id>
+            <uri>ken.person.Mugeve.Kimuthi.1975-06-22</uri>
+        
+        <first>Mugeve</first>
+        <last>Kimuthi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>549</id>
+            <uri>ken.person.Kireitu.Kinyunjui.1980-09-08</uri>
+        
+        <first>Kireitu</first>
+        <last>Kinyunjui</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>550</id>
+            <uri>ken.person.Chebui.Patar.1972-10-22</uri>
+        
+        <first>Chebui</first>
+        <last>Patar</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>551</id>
+            <uri>ken.person.Justin.Kaach.1958-04-18</uri>
+        
+        <first>Justin</first>
+        <last>Kaach</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>552</id>
+            <uri>ken.person.Cesyuke.Richurd.1965-10-19</uri>
+        
+        <first>Cesyuke</first>
+        <last>Richurd</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>553</id>
+            <uri>ken.person.Juhn.Kamba.1952-07-13</uri>
+        
+        <first>Juhn</first>
+        <last>Kamba</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>554</id>
+            <uri>ken.person.Jimmy.Kamba.1940-06-30</uri>
+        
+        <first>Jimmy</first>
+        <last>Kamba</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>555</id>
+            <uri>ken.person.Jemes.Kanchallu.1940-06-20</uri>
+        
+        <first>Jemes</first>
+        <last>Kanchallu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>556</id>
+            <uri>ken.person.Jemes.Muara.1979-08-24</uri>
+        
+        <first>Jemes</first>
+        <last>Muara</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>557</id>
+            <uri>ken.person.Herrisun.Muranda.1952-09-09</uri>
+        
+        <first>Herrisun</first>
+        <last>Muranda</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>558</id>
+            <uri>ken.person.Gudfrey.Musunyu.1975-06-14</uri>
+        
+        <first>Gudfrey</first>
+        <last>Musunyu</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>559</id>
+            <uri>ken.person.Gideun.Musiku.1951-10-21</uri>
+        
+        <first>Gideun</first>
+        <last>Musiku</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>560</id>
+            <uri>ken.person.Gelgellu.Marunguru.1952-07-16</uri>
+        
+        <first>Gelgellu</first>
+        <last>Marunguru</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>561</id>
+            <uri>ken.person.Frencis.Marungi.1963-03-15</uri>
+        
+        <first>Frencis</first>
+        <last>Marungi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>562</id>
+            <uri>ken.person.Festus.Maturi.1958-05-28</uri>
+        
+        <first>Festus</first>
+        <last>Maturi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>563</id>
+            <uri>ken.person.Epeinituus.Midiwa.1979-11-01</uri>
+        
+        <first>Epeinituus</first>
+        <last>Midiwa</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>564</id>
+            <uri>ken.person.Christupher.Mwukwara.1951-04-25</uri>
+        
+        <first>Christupher</first>
+        <last>Mwukwara</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>565</id>
+            <uri>ken.person.Chireu.NaKibuki.1946-06-10</uri>
+        
+        <first>Chireu</first>
+        <last>NaKibuki</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>566</id>
+            <uri>ken.person.Cheleite.Ochilla.1939-04-21</uri>
+        
+        <first>Cheleite</first>
+        <last>Ochilla</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>567</id>
+            <uri>ken.person.Mesile.David.1978-11-30</uri>
+        
+        <first>Mesile</first>
+        <last>David</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>568</id>
+            <uri>ken.person.Cesyoke.Staphan.1978-09-29</uri>
+        
+        <first>Cesyoke</first>
+        <last>Staphan</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>569</id>
+            <uri>ken.person.Leketon.Valarian.1978-07-17</uri>
+        
+        <first>Leketon</first>
+        <last>Valarian</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>570</id>
+            <uri>ken.person.Metiso.Juhn.1978-09-16</uri>
+        
+        <first>Metiso</first>
+        <last>Juhn</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>571</id>
+            <uri>ken.person.Meturi.Gidaun.1963-06-23</uri>
+        
+        <first>Meturi</first>
+        <last>Gidaun</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>572</id>
+            <uri>ken.person.Mwekwere.Eric.1964-01-05</uri>
+        
+        <first>Mwekwere</first>
+        <last>Eric</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>573</id>
+            <uri>ken.person.Mwendewiro.Daudi.1964-12-09</uri>
+        
+        <first>Mwendewiro</first>
+        <last>Daudi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>574</id>
+            <uri>ken.person.Mwengi.Charity.1964-05-29</uri>
+        
+        <first>Mwengi</first>
+        <last>Charity</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>575</id>
+            <uri>ken.person.Mwenzie.Kasaina.1963-03-12</uri>
+        
+        <first>Mwenzie</first>
+        <last>Kasaina</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>576</id>
+            <uri>ken.person.Mwendwe.Nurman.1980-05-24</uri>
+        
+        <first>Mwendwe</first>
+        <last>Nurman</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>577</id>
+            <uri>ken.person.Mwenje.Chirau.1946-08-11</uri>
+        
+        <first>Mwenje</first>
+        <last>Chirau</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>578</id>
+            <uri>ken.person.Mwirerie.Abdallah.1944-12-06</uri>
+        
+        <first>Mwirerie</first>
+        <last>Abdallah</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>579</id>
+            <uri>ken.person.Mwirie.Rauban.1946-08-01</uri>
+        
+        <first>Mwirie</first>
+        <last>Rauban</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>580</id>
+            <uri>ken.person.Ndembeki.Justin.1940-06-20</uri>
+        
+        <first>Ndembeki</first>
+        <last>Justin</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>581</id>
+            <uri>ken.person.Nderite.Winfrad.1940-06-01</uri>
+        
+        <first>Nderite</first>
+        <last>Winfrad</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>582</id>
+            <uri>ken.person.Ndile.David.1941-11-11</uri>
+        
+        <first>Ndile</first>
+        <last>David</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>583</id>
+            <uri>ken.person.Ndolo.Patar.1939-12-31</uri>
+        
+        <first>Ndolo</first>
+        <last>Patar</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>584</id>
+            <uri>ken.person.Ngile.William.1976-03-24</uri>
+        
+        <first>Ngile</first>
+        <last>William</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>585</id>
+            <uri>ken.person.Ngozi.Onasmus.1975-10-16</uri>
+        
+        <first>Ngozi</first>
+        <last>Onasmus</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>586</id>
+            <uri>ken.person.Nkeisserry.Alfrad.1939-02-18</uri>
+        
+        <first>Nkeisserry</first>
+        <last>Alfrad</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>587</id>
+            <uri>ken.person.Ntetu.Richard.1944-04-19</uri>
+        
+        <first>Ntetu</first>
+        <last>Richard</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>588</id>
+            <uri>ken.person.Ntimeme.Jusaph.1944-11-20</uri>
+        
+        <first>Ntimeme</first>
+        <last>Jusaph</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>589</id>
+            <uri>ken.person.Nwige.Staphan.1944-04-21</uri>
+        
+        <first>Nwige</first>
+        <last>Staphan</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>590</id>
+            <uri>ken.person.Nyechee.Fradrick.1944-03-01</uri>
+        
+        <first>Nyechee</first>
+        <last>Fradrick</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>591</id>
+            <uri>ken.person.Nyegeh.Jusaph.1935-06-09</uri>
+        
+        <first>Nyegeh</first>
+        <last>Jusaph</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>592</id>
+            <uri>ken.person.Nyegeh.Simaun.1939-04-18</uri>
+        
+        <first>Nyegeh</first>
+        <last>Simaun</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>593</id>
+            <uri>ken.person.Nyemenge.Juhn.1938-02-09</uri>
+        
+        <first>Nyemenge</first>
+        <last>Juhn</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>2</id>
+            <uri>ken.person.Francis.NoKibaki.1951-12-08</uri>
+        
+        <first>Francis</first>
+        <last>NoKibaki</last>
+        <role>Speaker</role>
+    </member>
+    <member>
+        
+            <id>3</id>
+            <uri>ken.person.Ali.Abdirahman.1951-12-09</uri>
+        
+        <first>Ali</first>
+        <last>Abdirahman</last>
+        <role>DeputySpeaker</role>
+    </member>
+    <member>
+        
+            <id>4</id>
+            <uri>ken.person.Francis.Acheka.1951-12-10</uri>
+        
+        <first>Francis</first>
+        <last>Acheka</last>
+        <role>DeputySpeaker</role>
+    </member>
+    <member>
+        
+            <id>5</id>
+            <uri>ken.person.Epainitoos.Akaranga.1951-12-11</uri>
+        
+        <first>Epainitoos</first>
+        <last>Akaranga</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>6</id>
+            <uri>ken.person.Abdollahi.Ali.1929-05-04</uri>
+        
+        <first>Abdollahi</first>
+        <last>Ali</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>7</id>
+            <uri>ken.person.Jimmy.Angwenyi.1929-05-05</uri>
+        
+        <first>Jimmy</first>
+        <last>Angwenyi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>8</id>
+            <uri>ken.person.Jolius.Arengah.1929-05-06</uri>
+        
+        <first>Jolius</first>
+        <last>Arengah</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>9</id>
+            <uri>ken.person.Adho.Awiti.1945-03-06</uri>
+        
+        <first>Adho</first>
+        <last>Awiti</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>10</id>
+            <uri>ken.person.Arthor.Mawori.1948-08-09</uri>
+        
+        <first>Arthor</first>
+        <last>Mawori</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>11</id>
+            <uri>ken.person.Ochillo.Ayacko.1948-08-10</uri>
+        
+        <first>Ochillo</first>
+        <last>Ayacko</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>12</id>
+            <uri>ken.person.Ali.Bahari.1982-02-23</uri>
+        
+        <first>Ali</first>
+        <last>Bahari</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>13</id>
+            <uri>ken.person.Najib.Balala.1982-02-24</uri>
+        
+        <first>Najib</first>
+        <last>Balala</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>14</id>
+            <uri>ken.person.Wakoli.Bifwoli.1982-02-25</uri>
+        
+        <first>Wakoli</first>
+        <last>Bifwoli</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>15</id>
+            <uri>ken.person.Adan.Billow.1938-07-25</uri>
+        
+        <first>Adan</first>
+        <last>Billow</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>16</id>
+            <uri>ken.person.Nicholas.Tiwott.1938-07-06</uri>
+        
+        <first>Nicholas</first>
+        <last>Tiwott</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>17</id>
+            <uri>ken.person.William.Boit.1938-07-27</uri>
+        
+        <first>William</first>
+        <last>Boit</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>18</id>
+            <uri>ken.person.Mosas.Cheboi.1938-07-28</uri>
+        
+        <first>Mosas</first>
+        <last>Cheboi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>19</id>
+            <uri>ken.person.Alica.Chelaite.1985-06-09</uri>
+        
+        <first>Alica</first>
+        <last>Chelaite</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>20</id>
+            <uri>ken.person.Locas.Chepkitony.1985-06-10</uri>
+        
+        <first>Locas</first>
+        <last>Chepkitony</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>21</id>
+            <uri>ken.person.Jimmy.Choge.1985-06-11</uri>
+        
+        <first>Jimmy</first>
+        <last>Choge</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>22</id>
+            <uri>ken.person.Abdollahi.Dahir.1929-05-15</uri>
+        
+        <first>Abdollahi</first>
+        <last>Dahir</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>23</id>
+            <uri>ken.person.Morris.Dzoro.1929-05-16</uri>
+        
+        <first>Morris</first>
+        <last>Dzoro</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>24</id>
+            <uri>ken.person.Ekwaa.Ethero.1978-07-05</uri>
+        
+        <first>Ekwaa</first>
+        <last>Ethero</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>25</id>
+            <uri>ken.person.Jamas.Gachagea.1978-07-06</uri>
+        
+        <first>Jamas</first>
+        <last>Gachagea</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>26</id>
+            <uri>ken.person.Gorrach.Galgallo.1978-07-07</uri>
+        
+        <first>Gorrach</first>
+        <last>Galgallo</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>27</id>
+            <uri>ken.person.William.Gitae.1978-07-08</uri>
+        
+        <first>William</first>
+        <last>Gitae</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>28</id>
+            <uri>ken.person.Robinson.Githae.1978-07-09</uri>
+        
+        <first>Robinson</first>
+        <last>Githae</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>29</id>
+            <uri>ken.person.Yattani.Uker.1978-07-10</uri>
+        
+        <first>Yattani</first>
+        <last>Uker</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>30</id>
+            <uri>ken.person.Fradrick.Gemo.1978-07-11</uri>
+        
+        <first>Fradrick</first>
+        <last>Gemo</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>31</id>
+            <uri>ken.person.Nohana.Haji.1978-07-12</uri>
+        
+        <first>Nohana</first>
+        <last>Haji</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>32</id>
+            <uri>ken.person.Patrica.Iveti.1978-03-13</uri>
+        
+        <first>Patrica</first>
+        <last>Iveti</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>33</id>
+            <uri>ken.person.Motahi.Kagwe.1978-03-14</uri>
+        
+        <first>Motahi</first>
+        <last>Kagwe</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>34</id>
+            <uri>ken.person.Francis.Kagwima.1978-03-15</uri>
+        
+        <first>Francis</first>
+        <last>Kagwima</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>35</id>
+            <uri>ken.person.Patar.Kaindi.1978-03-16</uri>
+        
+        <first>Patar</first>
+        <last>Kaindi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>36</id>
+            <uri>ken.person.Saif.Kajembe.1978-03-17</uri>
+        
+        <first>Saif</first>
+        <last>Kajembe</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>37</id>
+            <uri>ken.person.Otiano.Kajwang&apos;.1978-07-18</uri>
+        
+        <first>Otiano</first>
+        <last>Kajwang&apos;</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>38</id>
+            <uri>ken.person.Asiman.Kamama.1965-09-20</uri>
+        
+        <first>Asiman</first>
+        <last>Kamama</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>39</id>
+            <uri>ken.person.Maina.Kamanda.1965-09-21</uri>
+        
+        <first>Maina</first>
+        <last>Kamanda</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>40</id>
+            <uri>ken.person.John.Kamotho.1965-09-22</uri>
+        
+        <first>John</first>
+        <last>Kamotho</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>41</id>
+            <uri>ken.person.Danial.Karaba.1954-10-09</uri>
+        
+        <first>Danial</first>
+        <last>Karaba</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>42</id>
+            <uri>ken.person.Godfray.Karieki.1954-10-10</uri>
+        
+        <first>Godfray</first>
+        <last>Karieki</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>43</id>
+            <uri>ken.person.Mirogi.Karieki.1954-10-11</uri>
+        
+        <first>Mirogi</first>
+        <last>Karieki</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>44</id>
+            <uri>ken.person.Martha.Karea.1954-12-12</uri>
+        
+        <first>Martha</first>
+        <last>Karea</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>45</id>
+            <uri>ken.person.Jamas.Kareme.1954-10-13</uri>
+        
+        <first>Jamas</first>
+        <last>Kareme</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>46</id>
+            <uri>ken.person.John.Kateku.1954-10-14</uri>
+        
+        <first>John</first>
+        <last>Kateku</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>47</id>
+            <uri>ken.person.Gitora.Kembi.1954-11-15</uri>
+        
+        <first>Gitora</first>
+        <last>Kembi</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>48</id>
+            <uri>ken.person.Patar.Kenneth.1954-10-16</uri>
+        
+        <first>Patar</first>
+        <last>Kenneth</last>
+        <role>MemberOfParliament</role>
+    </member>
+    <member>
+        
+            <id>49</id>
+            <uri>ken.person.Uhoru.Kenyatta.1954-10-17</uri>
+        
+        <first>UHURU</first>
+        <last>Kenyatta</last>
+        <role>MemberOfParliament</role>
+    </member>
+
+</members>
