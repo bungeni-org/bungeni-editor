@@ -21,6 +21,7 @@ import org.bungeni.translators.translator.OADocumentBuilder;
 import org.bungeni.translators.utility.transformer.GenericTransformer;
 import org.bungeni.translators.utility.xpathresolver.XPathResolver;
 import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -72,15 +73,19 @@ public class ProcessUnescape implements IProcessAction {
                         // jaxp transformer
                         transformer.transform(new DOMSource(nchild), new StreamResult(swOutputChildren));
                     }
-                    //unescape the HTML
+                    //unescape the HTML - Pass 1
                     String unescapedHTML = unescapeHtml(swOutputChildren.toString());
                     //cleanup the HTML to correct xml, and wrap it in a XHTML namespace div
-                    org.jsoup.nodes.Document jsoup = Jsoup.parse(
-                           "<div xmlns=\"http://www.w3.org/1999/xhtml/\">" +
-                           unescapedHTML +
-                           "</div>"
+                    String jsoup_html = Jsoup.clean(
+                           unescapedHTML , Whitelist.relaxed()
                            );
-                    String jsoup_html = jsoup.body().html();
+                    // !+UNESCAPE(ah, 10-04-2012) - It is neccessary to run 2 passes of unescape before and after JSoup 
+                    // cleaning because Jsoup unescapes things like utf-8 non blankspace characters rendering them as 
+                    // &nbsp;
+                    jsoup_html = "<div xmlns=\"http://www.w3.org/1999/xhtml/\">" +
+                                        unescapeHtml(jsoup_html) +
+                                 "</div>";
+                    //String jsoup_html = jsoup.body().html();
                     //get the body field of the jsoup rendered html
                     Document docJsoupNode = OADocumentBuilder.getInstance().getDocumentBuilder().parse(
                            new InputSource(new StringReader(jsoup_html))
