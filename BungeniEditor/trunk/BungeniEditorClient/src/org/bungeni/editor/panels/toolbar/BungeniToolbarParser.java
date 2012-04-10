@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.StringReader;
 
 import java.util.ArrayList;
+import org.bungeni.editor.config.ToolbarActionsReader;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.extutils.CommonFileFunctions;
 
@@ -52,12 +53,7 @@ public class BungeniToolbarParser {
 
     public BungeniToolbarParser() {
         saxBuilder = new SAXBuilder("org.apache.xerces.parsers.SAXParser",validate);
-
-        String toolbarActionsFolder = BungeniEditorProperties.get("toolbarActionsFolderRoot");
-        String toolbarActionsFile = CommonFileFunctions.convertRelativePathToFullPath(toolbarActionsFolder)
-                + File.separator
-                + BungeniEditorPropertiesHelper.getCurrentDocType() + ".xml";
-        this.TOOLBAR_XML_FILE = toolbarActionsFile;
+        this.TOOLBAR_XML_FILE = ToolbarActionsReader.TOOLBAR_ACTIONS_FILE;
         /**
         String          activeDocumentMode = BungeniEditorProperties.getEditorProperty("activeDocumentMode");
         String          toolbarquery       = SettingsQueryFactory.Q_FETCH_TOOLBAR_CONFIG_FILE(activeDocumentMode);
