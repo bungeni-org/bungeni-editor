@@ -7,7 +7,7 @@
         <xd:desc>
             <xd:p><xd:b>Created on:</xd:b> Jan 24, 2012</xd:p>
             <xd:p><xd:b>Author:</xd:b> Anthony</xd:p>
-            <xd:p></xd:p>
+            <xd:p>This is a template for generating a membership document </xd:p>
         </xd:desc>
     </xd:doc>
 
@@ -26,18 +26,23 @@
         <xsl:variable name="group_id" select="field[@name='group_id']" />
         <xsl:variable name="content-type" select="@name" />
         <xsl:variable name="group-type" select="field[@name='type']" />
-        <ontology type="{$content-type}" isA="TLCPerson">
-            <membership >
+        <ontology type="{$content-type}">
+            <membership isA="TLCPerson" >
+                
+                <!-- !+URI_REWORK(ah, 11-04-2012) -->
+                
+                <xsl:variable name="full-user-identifier"
+                    select="concat($country-code, '.',
+                                    user/field[@name='last_name'], '.', 
+                                    user/field[@name='first_name'], '.', 
+                                    user/field[@name='date_of_birth'], '.', 
+                                    field[@name='user_id'])" />
+                
+                
                 <xsl:variable name="item_number" select="user/field[@name='user_id']"></xsl:variable>
                 <xsl:variable name="group_type" select="group/field[@name='type']"></xsl:variable>
                 <xsl:variable name="groups_id" select="group/field[@name='group_id']"></xsl:variable>
-                <!--xsl:attribute name="uri" 
-                    select="concat('/', $country-code, '/',
-                    $for-parliament, '/', 
-                    $group_type,'/', 
-                    $groups_id,'/',
-                    'member','/',
-                    $item_number)" /-->   
+
                 
                 <!-- !+NOTES (ao, 26 Mar 2012)
                      This is temporary - Group membership URI should be built with the group and not 
@@ -49,13 +54,26 @@
                         /ke/parliament/2011-02-01/political-group/45/member/20
                         /ke/parliament/2011-02-01/office/16/member/20 
                 -->
+                <!-- !+URI_REWORK(ah, 11-04-2012 -->
+                <xsl:attribute name="uri" 
+                    select="concat('/ontology/Person/',
+                                        $country-code, '/', 
+                                        'ParliamentMember/', 
+                                        $for-parliament, '/', 
+                                        $parliament-election-date, '/',
+                                        $full-user-identifier)" 
+                />
+                
+                
+                <!--
                 <xsl:attribute name="uri" 
                     select="concat('/', $country-code, '/',
                     $for-parliament, '/', 
                     $parliament-id, '/',                     
                     'member','/',
-                    $item_number)" />
+                    $item_number)" /> -->
                 
+       
                 <xsl:copy-of select="field[  
                     @name='status' or 
                     @name='party_id' or                     

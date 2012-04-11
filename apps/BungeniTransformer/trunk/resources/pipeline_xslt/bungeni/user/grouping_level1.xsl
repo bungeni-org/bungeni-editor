@@ -24,19 +24,30 @@
     <xsl:template match="contenttype">
         <xsl:variable name="content-type" select="@name" />
         
-        <ontology type="user" isA="TLCPerson">
+        <ontology type="user">
+            <!--
             <metadata>
                 <xsl:attribute name="type">
                     <xsl:value-of select="$content-type" />
                 </xsl:attribute>
-            </metadata>          
+                </metadata>  -->
+            
+            <xsl:variable name="full-user-identifier"
+                select="concat($country-code, '.',field[@name='last_name'], '.', field[@name='first_name'], '.', field[@name='date_of_birth'], '.', field[@name='user_id'])" />
+            
             <user isA="TLCPerson" >
                 <xsl:variable name="item_number" select="field[@name='user_id']"></xsl:variable>
+                <!--
                 <xsl:attribute name="uri" 
                     select="concat('/',$country-code,'/',
                     $for-parliament, '/', 
                     $content-type, '/', 
-                    $item_number)" />
+                    $item_number)" /> -->
+                
+                <xsl:attribute name="uri" 
+                    select="concat('/ontology/Person/',$full-user-identifier)" 
+                />
+                
                 <xsl:copy-of select="field[
                                         @name='first_name' or 
                                         @name='last_name' or 
@@ -59,11 +70,14 @@
                                         subscriptions | 
                                         user_addresses " />
             </user>
+            <!--
             <bungeni>
                 <xsl:attribute name="id" select="$parliament-id"/>
                 <country><xsl:value-of select="$country-code" /></country>
                 <parliament href="{concat('/',$country-code,'/',$for-parliament)}" isA="TLCOrganization" date="{$parliament-election-date}" />
-            </bungeni>              
+            </bungeni>  
+            
+            -->
         </ontology>
     </xsl:template>
     

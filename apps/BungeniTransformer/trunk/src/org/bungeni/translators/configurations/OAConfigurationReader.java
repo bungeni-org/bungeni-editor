@@ -19,7 +19,6 @@ import org.xml.sax.SAXException;
 //~--- JDK imports ------------------------------------------------------------
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,10 +29,8 @@ import java.util.TreeMap;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPathConstants;
@@ -127,8 +124,8 @@ public class OAConfigurationReader implements ConfigurationReader {
      * @param forStep
      * @return
      */
-    public HashMap<String,String> getParameters(String forStep) throws XPathExpressionException {
-        HashMap<String,String> map = new HashMap<String,String>();
+    public HashMap<String,Object> getParameters(String forStep) throws XPathExpressionException {
+        HashMap<String,Object> map = new HashMap<String,Object>();
         XPathResolver xresolver = XPathResolver.getInstance();
         NodeList paramNodes = (NodeList) xresolver.evaluate(this.configXML, "//"+forStep+"/parameters/parameter" , XPathConstants.NODESET);
         for (int i = 0; i < paramNodes.getLength(); i++) {

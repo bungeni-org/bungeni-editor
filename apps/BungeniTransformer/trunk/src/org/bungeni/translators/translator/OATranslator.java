@@ -476,19 +476,19 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
     public StreamSource applyInputSteps(StreamSource ODFDocument)
             throws TransformerFactoryConfigurationError, Exception {
            // applies the input steps to the StreamSource of the ODF document
-            HashMap<String,String> resolvedParameterMap = this.resolveParameterMap("input");
+            HashMap<String,Object> resolvedParameterMap = this.resolveParameterMap("input");
             StreamSource iteratedDocument = OAXSLTStepsResolver.getInstance().resolve(ODFDocument,
                                                     resolvedParameterMap,
                                                     OAConfiguration.getInstance().getInputSteps());
             return iteratedDocument;
     }
 
-    private HashMap<String,String> resolveParameterMap(String forStep) throws XPathExpressionException {
+    private HashMap<String,Object> resolveParameterMap(String forStep) throws XPathExpressionException {
         //We merge the input parameter map with the parameters specified in Configuration
-        HashMap<String,String> resolvedMap = new HashMap<String,String>();
+        HashMap<String,Object> resolvedMap = new HashMap<String,Object>();
 
         //first get the parameters from Config
-        HashMap<String,String> configParameters = OAConfiguration.getInstance().getParameters(forStep);
+        HashMap<String,Object> configParameters = OAConfiguration.getInstance().getParameters(forStep);
 
         //Validate the pipeline parameters - we cannot input parameters which are
         //not declared in the config
@@ -508,11 +508,18 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         //Now iterate through the config parameters and identify missing ones to default
         for (String key : configParameters.keySet()) {
             if (!resolvedMap.containsKey(key)) {
-                String defaultConfigValue = configParameters.get(key).trim();
-                if (defaultConfigValue.isEmpty()) {
-                    log.warn("WARNING !!!!: One of the default parameters : " + key + " has a empty default value in configuration ");
+                //config parameters support String values and XML nodes
+                Object defaultConfigValue = configParameters.get(key);
+                if (defaultConfigValue.getClass().equals(String.class)) {
+                    String defaultConfigValueString = ((String)defaultConfigValue).trim();
+                    if (defaultConfigValueString.isEmpty()) {
+                       log.warn("WARNING !!!!: One of the default parameters : " + key + " has a empty default value in configuration ");
+                    }
+                resolvedMap.put(key, defaultConfigValueString);
+                } else {
+                    //the only other type allowed is XML 
                 }
-                resolvedMap.put(key, defaultConfigValue);
+              
 
             }
         }

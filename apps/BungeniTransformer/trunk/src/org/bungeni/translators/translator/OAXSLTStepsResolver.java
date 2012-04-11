@@ -41,12 +41,12 @@ import org.xml.sax.SAXException;
 public class OAXSLTStepsResolver {
 
     private static org.apache.log4j.Logger log = Logger.getLogger(OAXSLTStepsResolver.class.getName());
-    private HashMap<String,String> pipelineInputParams ;
+    private HashMap<String,Object> pipelineInputParams ;
 
     private static OAXSLTStepsResolver thisInstance = null;
 
     private OAXSLTStepsResolver() {
-        this.pipelineInputParams = new HashMap<String,String>();
+        this.pipelineInputParams = new HashMap<String,Object>();
     }
 
     public static OAXSLTStepsResolver getInstance() {
@@ -164,7 +164,7 @@ public class OAXSLTStepsResolver {
      */
     public StreamSource resolve(
             StreamSource anODFDocument,
-            HashMap<String, String> paramsMap,
+            HashMap<String, Object> paramsMap,
             TreeMap<Integer,OAXSLTStep> stepsMap
             )
             throws XPathExpressionException, TransformerException, UnsupportedEncodingException {
