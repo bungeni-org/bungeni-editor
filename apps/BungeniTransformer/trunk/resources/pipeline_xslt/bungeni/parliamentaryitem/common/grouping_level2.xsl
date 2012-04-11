@@ -347,7 +347,19 @@
         <docType>
             <xsl:value-of select="." />
         </docType>
-    </xsl:template -->    
+        </xsl:template -->  
+    
+    <xsl:template match="field[@name='procedure']">
+        <procedure>
+            <xsl:value-of select="." />
+        </procedure>
+    </xsl:template>   
+    
+    <xsl:template match="field[@name='seq']">
+        <seq>
+            <xsl:value-of select="." />
+        </seq>
+    </xsl:template>     
 
     <xsl:template match="field[@name='audit_date']">
         <xsl:variable name="audit_date" select="." />
