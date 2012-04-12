@@ -41,4 +41,12 @@ public class GenericTransformer {
         return this.transformerFactory;
     }
 
+    /**
+     * Returns the Saxon TransformerFactoryImpl object
+     * @return
+     */
+    public net.sf.saxon.TransformerFactoryImpl getTransformerFactoryImpl(){
+       return  (net.sf.saxon.TransformerFactoryImpl) this.transformerFactory;
+    }
+
 }

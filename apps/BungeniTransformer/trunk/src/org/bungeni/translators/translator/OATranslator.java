@@ -515,9 +515,12 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
                     if (defaultConfigValueString.isEmpty()) {
                        log.warn("WARNING !!!!: One of the default parameters : " + key + " has a empty default value in configuration ");
                     }
-                resolvedMap.put(key, defaultConfigValueString);
+                    resolvedMap.put(key, defaultConfigValueString);
                 } else {
-                    //the only other type allowed is XML 
+                    //the only other type allowed is XML
+                    //!+XSLT_PARAM_XML (ah, 12-04-2012) - if its not a string class, its an xml document
+                    // wrapped in a saxon document wrapper 
+                    resolvedMap.put(key, defaultConfigValue);
                 }
               
 

@@ -125,7 +125,8 @@ public class XSLTTransformer implements XSLTTransformerInterface {
             String nextKey = parametersIterator.next();
 
             // add the parameter to the transformer
-            trans.setParameter(nextKey, (String) aParamSet.get(nextKey));
+            //!+XSLT_PARAM_XML (ah, 12-04-2012) - Remove the String cast since Object xml values are allowed
+            trans.setParameter(nextKey, aParamSet.get(nextKey));
         }
 
         // create the writer for the transformation

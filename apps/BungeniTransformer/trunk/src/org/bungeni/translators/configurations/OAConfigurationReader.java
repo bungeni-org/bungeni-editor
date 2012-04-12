@@ -37,6 +37,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import org.bungeni.translators.configurations.steps.OAPipelineStep;
 import org.bungeni.translators.configurations.steps.OAProcessStep;
+import org.bungeni.translators.utility.dom.DOMUtility;
 import org.bungeni.translators.utility.transformer.GenericTransformer;
 import org.w3c.dom.Element;
 
@@ -50,6 +51,10 @@ import org.w3c.dom.Element;
  *
  */
 public class OAConfigurationReader implements ConfigurationReader {
+
+
+    private static org.apache.log4j.Logger log  =
+        org.apache.log4j.Logger.getLogger(OAConfigurationReader.class.getName());
 
     // the XML that contains the configurations
     private Document configXML;
@@ -131,10 +136,38 @@ public class OAConfigurationReader implements ConfigurationReader {
         for (int i = 0; i < paramNodes.getLength(); i++) {
             Element paramNode = (Element) paramNodes.item(i);
             String paramName = paramNode.getAttribute("name");
+            /**
+             * !+XSLT_PARAM_XML (ah, 12-04-2012) - XML value parameter is supported.
+             *
+             * The config file now supports an XML document in the value parameter.
+             */
             if (paramNode.hasAttribute("value")) {
                 map.put(paramName, paramNode.getAttribute("value"));
-            } else
+            } else if (paramNode.hasChildNodes()) {
+                NodeList valueNodes = paramNode.getElementsByTagName("value");
+                if (valueNodes != null ) {
+                    if (valueNodes.getLength() > 0 ) {
+                        //this is the <value> node, we get its child node
+                        Node valueNode = valueNodes.item(0);
+                        net.sf.saxon.dom.DocumentWrapper dw = null;
+                        try {
+                          dw =  DOMUtility.getInstance().getSaxonDocumentWrapperForNode(valueNode);
+                        } catch (TransformerConfigurationException ex) {
+                            log.error("Error while getting Saxon Document Wrapper !", ex);
+                        }
+                        if (null == dw) {
+                           map.put(paramName, "");
+                        } else {
+                           map.put(paramName, dw);
+                        }
+                    }
+                }
+                if (!map.containsKey(paramName)) {
+                    map.put(paramName, "");
+                }
+            } else {
                 map.put(paramName, "");
+            }
         }
         return map;
     }
