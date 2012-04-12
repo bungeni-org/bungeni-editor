@@ -147,7 +147,9 @@ public class CommonXmlUtils {
         if (foundTitle.equals("UNDEFINED")) {
             foundTitle = _findi18nTitle(childTitles, langCodeDefault );
         }
-        return utf8String(foundTitle);
+        //!+UTF8_CHECK(ah, 12-04-2012) *NO* converting to UTF-8, all XML configs
+        // are read as UTF-8 and assumed to be in UTF-8
+        return foundTitle;
     }
 
      private static String _findi18nTitle(List<Element> childTitles, String langCode) {

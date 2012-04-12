@@ -2,6 +2,9 @@ package org.bungeni.editor.panels.toolbar;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.io.UnsupportedEncodingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bungeni.extutils.BungeniEditorProperties;
 
 import org.jdom.Document;
@@ -23,6 +26,7 @@ import java.util.ArrayList;
 import org.bungeni.editor.config.ToolbarActionsReader;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.extutils.CommonFileFunctions;
+import org.bungeni.extutils.CommonXmlUtils;
 
 /**
  * Reads the toolbar xml config file for the document type
@@ -30,14 +34,14 @@ import org.bungeni.extutils.CommonFileFunctions;
  * @author Ashok Hariharan
  */
 public class BungeniToolbarParser {
-    private static boolean                 validate = false;
-    private static byte[]                  xml      = new byte[] {};
+
     private static org.apache.log4j.Logger log      =
         org.apache.log4j.Logger.getLogger(BungeniToolbarParser.class.getName());
-    private static Document       document;
-    private static BufferedReader reader;
-    private static SAXBuilder     saxBuilder;
-    private static String SAX_PARSER_IMPL = "org.apache.xerces.parsers.SAXParser";
+
+    private static BungeniToolbarParser instance = null ; 
+
+    private Document       document = null;
+
     /**
      * actionGroups provide top level place holders (parent grouping of tabs)
      */
@@ -49,67 +53,40 @@ public class BungeniToolbarParser {
     private String                TOOLBAR_BLOCKS        = "/toolbar/root/actionGroup/blockAction";
     private String                TOOLBAR_BLOCK_ACTIONS = "/action";
     private String                TOOLBAR_XML_FILE      =
-        "/home/undesa/Projects/Bungeni/BungeniEditor/trunk/BungeniEditorClient/dist/settings/toolbar_debate_b.xml";
+        "JUST SOME DUMMY TEXT/toolbar_debate_b.xml";
 
-    public BungeniToolbarParser() {
-        saxBuilder = new SAXBuilder("org.apache.xerces.parsers.SAXParser",validate);
+    private BungeniToolbarParser() {
+        //saxBuilder = new SAXBuilder("org.apache.xerces.parsers.SAXParser",validate);
         this.TOOLBAR_XML_FILE = ToolbarActionsReader.TOOLBAR_ACTIONS_FILE;
-        /**
-        String          activeDocumentMode = BungeniEditorProperties.getEditorProperty("activeDocumentMode");
-        String          toolbarquery       = SettingsQueryFactory.Q_FETCH_TOOLBAR_CONFIG_FILE(activeDocumentMode);
-        BungeniClientDB instance           = new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(),
-                                                 DefaultInstanceFactory.DEFAULT_DB());
-
-        instance.Connect();
-
-        QueryResults qr = instance.QueryResults(toolbarquery);
-
-        instance.EndConnect();
-
-        String[] toolbarXml            = qr.getSingleColumnResult("TOOLBAR_XML");
-        String   xmlConfigRelativePath = toolbarXml[0];
-
-        xmlConfigRelativePath = xmlConfigRelativePath.replace('/', File.separatorChar);
-        this.TOOLBAR_XML_FILE = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator
-                                + xmlConfigRelativePath; */
-        
+        this.document = getToolbarXMLFile(TOOLBAR_XML_FILE);
     }
 
-    private String getToolbarXMLFile(String pathToXmlFile) {
-        String strResult = null;
-
-        try {
-            FileReader fr;
-
-            fr = new FileReader(pathToXmlFile);
-
-            BufferedReader xmlReader = new BufferedReader(fr);
-            String         line      = "";
-            StringBuilder  result    = new StringBuilder();
-
-            while ((line = xmlReader.readLine()) != null) {
-                result.append(line);
-            }
-
-            strResult = result.toString();
-        } catch (FileNotFoundException ex) {
-            log.error("getToolbarXMLFile: toolbar.xml not found in path : " + ex.getMessage());
-        } finally {
-            return strResult;
+    public static BungeniToolbarParser getInstance(){
+        if (null == instance) {
+            instance = new BungeniToolbarParser();
         }
+        return instance;
     }
+    
 
-    public void buildToolbar() {
+    private Document getToolbarXMLFile(String pathToXmlFile) {
+        Document doc = null;
         try {
-            StringReader stringReader = new StringReader(getToolbarXMLFile(TOOLBAR_XML_FILE));
-            document = saxBuilder.build(stringReader);
             
+          doc = CommonXmlUtils.loadFile(pathToXmlFile);
 
+        } catch (FileNotFoundException ex) {
+            log.error("Error while loading toolbar action file : " + pathToXmlFile, ex);
+        } catch (UnsupportedEncodingException ex) {
+            log.error("Error while loading toolbar action file : " + pathToXmlFile, ex);
         } catch (JDOMException ex) {
-            log.error("buildToolbar : " + ex.getMessage());
+             log.error("Error while loading toolbar action file : " + pathToXmlFile, ex);
         } catch (IOException ex) {
-            log.error("buildToolbar : " + ex.getMessage());
+            log.error("Error while loading toolbar action file : " + pathToXmlFile, ex);
         }
+
+        return doc;
+       
     }
 
     public ArrayList<Element> getTabElements() {

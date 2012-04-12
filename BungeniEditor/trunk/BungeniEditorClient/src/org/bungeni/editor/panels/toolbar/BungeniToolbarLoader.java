@@ -9,6 +9,7 @@ import java.util.Locale;
 import javax.swing.BorderFactory;
 import javax.swing.JTabbedPane;
 import org.bungeni.extutils.BungeniEditorProperties;
+import org.bungeni.extutils.CommonXmlUtils;
 import org.jdom.Attribute;
 import org.jdom.Element;
 import org.jdom.Namespace;
@@ -22,7 +23,6 @@ import org.jdom.output.XMLOutputter;
 public class BungeniToolbarLoader {
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BungeniToolbarLoader.class.getName());
 
-    private BungeniToolbarParser toolbarParser = null;
     private ActionListener actionListener = null;
     private String iso3Language = "";
     private XMLOutputter xmlOutputter = new XMLOutputter();
@@ -33,7 +33,6 @@ public class BungeniToolbarLoader {
      */
     public BungeniToolbarLoader(ActionListener toolbarActionListener) {
         //instantiate a toolbar parser
-        toolbarParser = new BungeniToolbarParser();
         actionListener = toolbarActionListener;
         Locale defLocale = Locale.getDefault();
         //we capture the iso3 default language for the current locale
@@ -42,105 +41,21 @@ public class BungeniToolbarLoader {
 
     }
 
-    //!+UTF8_TODO_FIX(ah,22-03-2012) We shouldnt have to do this per string
-    // TO DO - fix the way the source XML is read, we need to use an InputSource
-    // and set the encoding to UTF8 at the point of reading the xml file.
-    private String utf8String(String text){
-        String returnText = "";
-        try {
-            returnText = new String(text.getBytes(), "UTF8");
-        } catch (UnsupportedEncodingException ex) {
-            returnText = text;
-        }
-        return returnText;
-    }
-
-
-    /**
-     * Retrieves the localized title for toolbar actions.
-     * Localized titles are entered in a element called 'title' instead of as an attribute
-     *
-     * <subaction.... >
-     *      <title xml:lang="fra">French Action Title</title>
-     *      <title xml:lang="eng">English Action Title</title>
-     * </subaction ....>
-     * 
-     * @param anElement
-     * @param localizedAttr
-     * @return
-     */
-    private String geti18nTitle(Element anElement, String localizedAttr ) {
-        List<Element> childTitles = anElement.getChildren(localizedAttr);
-        //get the default
-        String langCodeDefault = BungeniEditorProperties.getEditorProperty("locale.Language.iso639-2");
-        String foundTitle = _findi18nTitle(childTitles, this.iso3Language);
-        if (foundTitle.equals("UNDEFINED")) {
-            foundTitle = _findi18nTitle(childTitles, langCodeDefault );
-        }
-        return utf8String(foundTitle);
-    }
-
-
-     private String geti18nTooltip(Element anElement, String localizedAttr ) {
-        System.out.println("XXXX ATTR XXXX " + anElement.getAttribute("name"));
-        List<Element> childTooltips = anElement.getChildren(localizedAttr);
-        //get the default
-        String langCodeDefault = BungeniEditorProperties.getEditorProperty("locale.Language.iso639-2");
-        String foundTooltip = _findi18nTitle(childTooltips, this.iso3Language);
-        if (foundTooltip.equals("UNDEFINED")) {
-            foundTooltip = _findi18nTitle(childTooltips, langCodeDefault );
-        }
-        return utf8String(foundTooltip);
-    }
-
-
-    private String _findi18nTitle(List<Element> childTitles, String langCode) {
-         for (Element title : childTitles) {
-           String foundLang =  title.getAttributeValue("lang", Namespace.XML_NAMESPACE);
-           //AH-25-02-11 if the xml:lang attribute is not set on title or tooltip, foundLang
-           //is set to null -- added a check to log such errors and continue processing
-           if (foundLang == null) {
-               String sError = "";
-               Element pElement = title.getParentElement();
-               if (pElement != null ) {
-                   String s = pElement.getAttributeValue("name");
-                   if (s != null) {
-                       sError = s;
-                   }
-               }
-               log.error("language was not specified for :" + sError + " returning title anyway");
-               return outputElementContentAsRawXMLorString(title);
-           }
-           if (foundLang.equals(langCode)) {
-             return outputElementContentAsRawXMLorString(title);
-           }
-        }
-       return "UNDEFINED";
-    }
-
-    private String outputElementContentAsRawXMLorString(Element forElement) {
-        Element childHtml = forElement.getChild("html");
-        if (childHtml == null) {
-            return forElement.getTextNormalize();
-        } else {
-            return this.xmlOutputter.outputString(childHtml);
-        }
-    }
-
+ 
     /**
      * Adds an action to a buttonContainerPanel
      * @param buttonContainer
      * @param action
      */
     private void addActionToPanel(buttonContainerPanel buttonContainer, Element action, Element refAction) {
-        String actionTitle = geti18nTitle(action, "title");
+        String actionTitle = CommonXmlUtils.getLocalizedChildElementValue(action, "title");
         if (refAction != null) {
             if (refAction.getChildren("title").size() > 0 ) {
                 //use title from refAction
-                actionTitle = geti18nTitle(refAction, "title");
+                actionTitle = CommonXmlUtils.getLocalizedChildElementValue(refAction, "title");
             }
         }
-        String actionTooltip = geti18nTooltip(action, "tooltip");
+        String actionTooltip = CommonXmlUtils.getLocalizedChildElementValue(action, "tooltip");
         BungeniToolbarActionElement elem = new BungeniToolbarActionElement(action);
         buttonPanel panelButton = new buttonPanel(actionTitle, actionTooltip, actionListener, elem);
         buttonContainer.add(panelButton);
@@ -151,13 +66,13 @@ public class BungeniToolbarLoader {
      */
     public void loadToolbar(JTabbedPane thisPane ) {
         //first build the toolbar - and then we processs the xml
-        toolbarParser.buildToolbar();
+       
         thisPane.setBorder(BorderFactory.createEmptyBorder());
        // ArrayList<JTabbedPane> groupTabs = new ArrayList<JTabbedPane>(0);
         //get the tab elements
-        ArrayList<Element> groupTabs = toolbarParser.getTabActionGroups();
+        ArrayList<Element> groupTabs = BungeniToolbarParser.getInstance().getTabActionGroups();
         for (Element groupTab : groupTabs) {
-            String grpTabTitle =  geti18nTitle(groupTab, "title");//i18n groupTab.getAttributeValue("title");
+            String grpTabTitle =  CommonXmlUtils.getLocalizedChildElementValue(groupTab, "title");//i18n groupTab.getAttributeValue("title");
             String grpTabUImodel = groupTab.getAttributeValue("uimodel");
             //create a new group tab
             JTabbedPane grpPane = new JTabbedPane(JTabbedPane.TOP);
@@ -165,13 +80,13 @@ public class BungeniToolbarLoader {
             grpPane.setTabLayoutPolicy(grpTabUImodel.equals("wrap")?JTabbedPane.WRAP_TAB_LAYOUT:JTabbedPane.SCROLL_TAB_LAYOUT);
             grpPane.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
             // thisPane.addTab(grpTabTitle, grpPane);
-            ArrayList<Element> tabs = toolbarParser.getTabElements(groupTab);
+            ArrayList<Element> tabs = BungeniToolbarParser.getInstance().getTabElements(groupTab);
         //iterate through the tab elements
              for (Element tab : tabs) {
                  //get the tab title
-                 String tabTitle =  geti18nTitle(tab, "title"); //i18n tab.getAttributeValue("title");
+                 String tabTitle =  CommonXmlUtils.getLocalizedChildElementValue(tab, "title"); //i18n tab.getAttributeValue("title");
                  //get the available actions for the tab
-                  ArrayList<Element> actionElements = toolbarParser.getTabActionElements(tab);
+                  ArrayList<Element> actionElements = BungeniToolbarParser.getInstance().getTabActionElements(tab);
                   //check if the tab has any actions -- we add a tab only when it has actions
                   if (actionElements.size()  > 0 ) {
                      //create the panel for the tab
@@ -193,7 +108,7 @@ public class BungeniToolbarLoader {
                             String sRef = refAttr.getValue();
                             String origId = sRef.replace("#", "");
                             Element origAction = null;
-                            origAction = toolbarParser.getTabActionElementByName(origId);
+                            origAction = BungeniToolbarParser.getInstance().getTabActionElementByName(origId);
                             if (origAction != null) {
                                 this.addActionToPanel(buttonContainer, origAction, action);
                             } else {
