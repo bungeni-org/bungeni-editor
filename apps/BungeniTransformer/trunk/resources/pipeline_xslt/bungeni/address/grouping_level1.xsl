@@ -50,26 +50,33 @@
 
                 <xsl:attribute name="id" select="$address_id" />                
                 
+                <xsl:variable name="full-user-identifier"
+                    select="concat($country-code, '.',
+                                    head/field[@name='last_name'], '.', 
+                                    head/field[@name='first_name'], '.', 
+                                    head/field[@name='date_of_birth'], '.', 
+                                    head/field[@name='user_id'])" />   
+                
+                <xsl:variable name="full-group-identifier" 
+                    select="concat('group.',$for-parliament,'-',
+                                    $parliament-election-date,'-',
+                                    $parliament-id, '.',
+                                    $group-type,'.',$group_id)" />                
+                
                 <assignedTo>
                     <xsl:attribute name="uri">
                         <xsl:choose>
                             <xsl:when test="field[@name='group_id']">
-                                <xsl:value-of select="concat($parl-info,
-                                             'group/',
-                                             $group-type,'/',
-                                             $group_id
-                                             )" />
+                                <xsl:value-of select="concat('/ontology/',$group-type ,'/',$full-group-identifier)" />
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:value-of select="concat($parl-info,
-                                             'user/',
-                                             field[@name='user_id']
-                                             )">          
+                                <xsl:value-of select="concat('/ontology/Person/',$full-user-identifier)">          
                                 </xsl:value-of>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:attribute>                    
                 </assignedTo>
+                
                 <!--<xsl:attribute name="uri" 
                     select="concat(
                      '/ontology/',

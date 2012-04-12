@@ -79,7 +79,7 @@
                     @name='party_id' or                     
                     @name='partymember' ]" 
                 />     
-                <referenceToUser uri="{concat('/',$country-code,'/',$for-parliament,'/user/',field[@name='user_id'])}" />
+                <referenceToUser uri="{concat('/ontology/Person/',$full-user-identifier)}" />
                 <xsl:copy-of select="permissions | contained_groups" />                
                 <xsl:copy-of select="user/child::*" /> 
                 <xsl:copy-of select="changes | member_titles"/>

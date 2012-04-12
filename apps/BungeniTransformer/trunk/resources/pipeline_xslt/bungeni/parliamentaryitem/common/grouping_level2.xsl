@@ -467,10 +467,22 @@
         <xsl:param name="typeOf" select="string('unknown')" />
         <xsl:variable name="showAs" select="concat(field[@name='last_name'], ', ' , field[@name='first_name'])" />
         <xsl:variable name="isA" select="string('user')" />
+        <xsl:variable name="full-user-identifier"
+            select="concat($country-code, '.',
+            field[@name='last_name'], '.', 
+            field[@name='first_name'], '.', 
+            field[@name='date_of_birth'], '.', 
+            field[@name='user_id'])" />
         <xsl:element name="{$typeOf}">
             <xsl:attribute name="isA" select="$isA" />
             <xsl:attribute name="showAs" select="$showAs" />
-            <xsl:attribute name="href" select="concat($for-parliament,'/',2,'/member/', field[@name='user_id'])" />
+            <xsl:attribute name="href" select="concat('/ontology/Person/',
+                $country-code, '/', 
+                'ParliamentMember/', 
+                $for-parliament, '/', 
+                $parliament-election-date, '/',
+                $full-user-identifier)"             
+            />
         </xsl:element>
     </xsl:template>
     

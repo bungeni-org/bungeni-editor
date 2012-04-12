@@ -37,7 +37,7 @@
             <bungeni isA="TLCObject">
                 <xsl:attribute name="id" select="$parliament-id"/>
                 <country><xsl:value-of select="$country-code" /></country>
-                <parliament href="{concat('/',$country-code,'/',$for-parliament)}" 
+                <parliament href="{$for-parliament}" 
                     isA="TLCOrganization" 
                     date="{$parliament-election-date}" />
                 <xsl:copy-of select="tags"/>
