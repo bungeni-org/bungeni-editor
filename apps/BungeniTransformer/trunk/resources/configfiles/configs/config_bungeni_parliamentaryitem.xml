@@ -28,6 +28,16 @@
                 <parameter name="parliament-id"/>
                 <parameter name="parliament-election-date" />
                 <parameter name="for-parliament" />
+                <parameter name="type-mappings">
+                    <value>
+                        <map from="question" uri-name="Question" element-name="question" />
+                        <map from="bill" uri-name="Bill"  element-name="bill" />
+                        <map from="question" uri-name="Question"  element-name="question" />
+                        <map from="motion" uri-name="Motion"  element-name="motion"  />
+                        <map from="tableddocument" uri-name="TabledDocument"  element-name="tabledDocument"  />
+                        <map from="event" uri-name="Event" element-name="event" />
+                    </value>
+                </parameter>
             </parameters>
 
             <xslt step="1"
