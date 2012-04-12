@@ -16,6 +16,8 @@
     <xsl:param name="parliament-id" />
     <xsl:param name="parliament-election-date"  />
     <xsl:param name="for-parliament" />
+    <xsl:param name="type-mappings" />
+    
     
     <!--
     <xsl:variable name="country-code" select="string('ke')" />
@@ -27,12 +29,38 @@
     </xsl:template>
 
     <xsl:template match="contenttype">
-        <xsl:variable name="content-type" select="field[@name='type']" />
+  
+        <xsl:variable name="bungeni-content-type" select="field[@name='type']" />
+        
+        <xsl:variable name="content-type-element-name">
+            <xsl:variable name="tmp-content-type" select="$type-mappings//map[@from=$bungeni-content-type]/@element-name" />
+            <xsl:choose>
+                <xsl:when test="string-length($tmp-content-type) eq 0">
+                    <xsl:value-of select="$bungeni-content-type" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="$tmp-content-type" />
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+      
+        <xsl:variable name="content-type-uri-name">
+            <xsl:variable name="tmp-content-type" select="$type-mappings//map[@from=$bungeni-content-type]/@uri-name" />
+            <xsl:choose>
+                <xsl:when test="string-length($tmp-content-type) eq 0">
+                    <xsl:value-of select="$bungeni-content-type" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="$tmp-content-type" />
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        
+      
         <xsl:variable name="language" select="field[@name='language']" />
         <ontology type="document" isA="TLCObject">
             <document>
-                <xsl:attribute name="type" select="$content-type" />
-               
+                <xsl:attribute name="type" select="$content-type-uri-name" />
             </document>
             <bungeni isA="TLCObject">
                 <xsl:attribute name="id" select="$parliament-id"/>
@@ -47,9 +75,9 @@
             </bungeni>
             
             <!-- e.g. <question> or <motion> or <tableddocument> or <bill> -->
-            <xsl:element name="{$content-type}">
+            <xsl:element name="{$content-type-element-name}">
                 <xsl:attribute name="isA" select="string('TLCConcept')" />
-                
+                <xsl:attribute name="COUNT" select="count($type-mappings/value)" />
                 <xsl:copy-of select="field[
                         @name='question_type' or 
                         @name='response_type']" />
@@ -125,7 +153,7 @@
                 <xsl:attribute name="uri" 
                     select="concat(
                         '/', $country-code,'/', 
-                        $content-type,'/', 
+                        $content-type-uri-name,'/', 
                         $item_number,'/', 
                         $language
                     )" />
