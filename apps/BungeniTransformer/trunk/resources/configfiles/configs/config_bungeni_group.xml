@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-    Document   : config_bungenixml.xml
+    Document   : config_bungeni.xml
     Created on : 13 October 2011, 12:22
     Author     : anthony
     Description:
@@ -28,6 +28,13 @@
                 <parameter name="parliament-id"/>
                 <parameter name="parliament-election-date" />
                 <parameter name="for-parliament" />
+                <parameter name="type-mappings">
+                    <value>
+                        <map from="parliament" uri-name="Legislature" element-name="legislature" />
+                        <map from="committee" uri-name="Committee"  element-name="committee" />
+                        <map from="ministry" uri-name="Ministry"  element-name="ministry" />
+                    </value>
+                </parameter>
             </parameters>
 
             <xslt   step="1" 

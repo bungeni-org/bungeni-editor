@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                exclude-result-prefixes="xs"
+                xmlns:bungeni="http://www.bungeni.org/xml/1.0"
+                exclude-result-prefixes="xs bungeni"
                 version="2.0">
     <xd:doc xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" scope="stylesheet">
         <xd:desc>
@@ -11,73 +12,54 @@
         </xd:desc>
     </xd:doc>
     
-    <!-- these are input parameters to the transformation a-->
+    
+    <!-- INPUT PARAMETERS TO TRANSFORM-->
+    
     <xsl:param name="country-code"  />
     <xsl:param name="parliament-id" />
     <xsl:param name="parliament-election-date"  />
     <xsl:param name="for-parliament" />
     <xsl:param name="type-mappings" />
     
-    
-    <!--
-    <xsl:variable name="country-code" select="string('ke')" />
-    <xsl:variable name="parliament-election-date" select="string('2011-03-02')" />
-    <xsl:variable name="for-parliament" select="concat('/ke/parliament/', $parliament-election-date)" />
-    -->
+    <!-- INCLUDE FUNCTIONS -->
+    <xsl:include href="resources/pipeline_xslt/bungeni/common/func_content_types.xsl" />
+
     <xsl:template match="/">
         <xsl:apply-templates />
     </xsl:template>
 
+    
+    <!-- Content Type matcher -->
     <xsl:template match="contenttype">
   
+        <!-- this field identifies the type of the input xml bill, question , motion etc. -->
         <xsl:variable name="bungeni-content-type" select="field[@name='type']" />
-        
-        <xsl:variable name="content-type-element-name">
-            <xsl:variable name="tmp-content-type" select="$type-mappings//map[@from=$bungeni-content-type]/@element-name" />
-            <xsl:choose>
-                <xsl:when test="string-length($tmp-content-type) eq 0">
-                    <xsl:value-of select="$bungeni-content-type" />
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="$tmp-content-type" />
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-      
-        <xsl:variable name="content-type-uri-name">
-            <xsl:variable name="tmp-content-type" select="$type-mappings//map[@from=$bungeni-content-type]/@uri-name" />
-            <xsl:choose>
-                <xsl:when test="string-length($tmp-content-type) eq 0">
-                    <xsl:value-of select="$bungeni-content-type" />
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="$tmp-content-type" />
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-        
-      
+        <!-- We map the bungeni internal content type name to a alternative name to prevent tie-in to internal representations -->
+        <!-- the type mapping specifies both the name in the URI and the Element name -->
+        <xsl:variable name="content-type-element-name" select="bungeni:get_content_type_element_name($bungeni-content-type)" />
+        <xsl:variable name="content-type-uri-name" select="bungeni:get_content_type_uri_name($bungeni-content-type)" />
         <xsl:variable name="language" select="field[@name='language']" />
-        <ontology type="document" isA="TLCObject">
-            <document>
+ 
+        <ontology type="document">
+            <document id="bungeniDocument" isA="TLCConcept">
                 <xsl:attribute name="type" select="$content-type-uri-name" />
             </document>
-            <bungeni isA="TLCObject">
-                <xsl:attribute name="id" select="$parliament-id"/>
-                <country><xsl:value-of select="$country-code" /></country>
-                <parliament href="{$for-parliament}" 
-                    isA="TLCOrganization" 
-                    date="{$parliament-election-date}" />
-                <xsl:copy-of select="tags"/>
-                
-                <!-- for <heading> -->
-                <xsl:copy-of select="field[@name='timestamp'] | event_items" />
+            <legislature isA="TLCConcept" href="{$for-parliament}">
+               <electionDate type="xs:date" select="{$parliament-election-date}"></electionDate> 
+            </legislature>
+            <bungeni id="bungeniMeta" showAs="Bungeni Specific info" isA="TLCObject">
+                <xsl:copy-of select="tags" />
             </bungeni>
-            
-            <!-- e.g. <question> or <motion> or <tableddocument> or <bill> -->
-            <xsl:element name="{$content-type-element-name}">
-                <xsl:attribute name="isA" select="string('TLCConcept')" />
-                <xsl:attribute name="COUNT" select="count($type-mappings/value)" />
+                        
+            <!-- 
+            e.g. <question> or <motion> or <tableddocument> or <bill> are Bungeni "object" concepts and not 
+            really documents so we model them as TLCObject items
+            -->
+            <xsl:element name="{$content-type-element-name}" >
+                
+                <xsl:attribute name="isA"><xsl:text>TLCObject</xsl:text></xsl:attribute>
+                
+                <document href="#bungeniDocument" />
                 <xsl:copy-of select="field[
                         @name='question_type' or 
                         @name='response_type']" />

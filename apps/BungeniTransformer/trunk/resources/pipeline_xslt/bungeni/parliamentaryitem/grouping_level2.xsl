@@ -419,23 +419,23 @@
     </xsl:template>
     
     <xsl:template match="events">
-        <wfevents>
+        <workflowEvents>
             <xsl:apply-templates mode="parent_is_events" />
-        </wfevents>
+        </workflowEvents>
     </xsl:template>
     
     <xsl:template match="event" mode="parent_is_events">
         <xsl:variable name="event-identifier" select="field[@name='doc_id']" />
         <xsl:variable name="event-date" select="field[@name='status_date']" />
         <xsl:variable name="event-lang" select="field[@name='language']" />
-        <wfevent 
+        <workflowEvent 
             href="{concat('/',$country-code,'/event/',$event-identifier, '/', $event-lang)}" 
             isA="TLCEvent"
             showAs="{field[@name='short_title']}" 
             date="{xbf:parse-date($event-date)}" 
         >
             <xsl:apply-templates />
-        </wfevent>
+        </workflowEvent>
     </xsl:template>
     
     <xsl:template match="versions">
