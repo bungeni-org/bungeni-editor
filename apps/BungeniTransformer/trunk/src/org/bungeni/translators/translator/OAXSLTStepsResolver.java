@@ -126,6 +126,8 @@ public class OAXSLTStepsResolver {
                             System.out.println("Clearing pipeline param");
                             this.pipelineInputParams.clear();
                         }
+                    } else {
+                        iteratedDocument = XSLTTransformer.getInstance().transform(iteratedDocument, xsltStream);
                     }
                 } else {
                     // start the transformation
