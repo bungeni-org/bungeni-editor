@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><akomaNtoso xmlns="http://www.akomantoso.org/1.0">
+   <debateRecord>
+      <meta>
+         <identification source="#bungeni">
+            <FRBRWork>
+               <this value="/ke/debaterecord/2009-9-15"/>
+               <uri value=""/>
+               <date date="2009-09-15" name="workDate"/>
+               <author href="#user.Ashok"/>
+            </FRBRWork>
+            <FRBRExpression>
+               <this value="/ke/debaterecord/2009-9-15/eng"/>
+               <uri value="/eng@"/>
+               <date date="2009-08-05" name="expDate"/>
+               <author href="#user.Ashok"/>
+            </FRBRExpression>
+            <FRBRManifestation>
+               <this value="/ke/debaterecord/2009-9-15/eng.xml"/>
+               <uri value="/eng@.akn"/>
+               <date date="2009-08-05" name="manDate"/>
+               <author href="#user.Ashok"/>
+            </FRBRManifestation>
+         </identification>
+         <publication date="2009-08-19" name="debatew" showAs=""/>
+         <references source="#bungeni">
+            <TLCOrganization id="Parliament" href="666" showAs="Parliament"/>
+            <TLCPerson id="user.Ashok" href="user.Ashok" showAs="Author"/>
+            <TLCPerson id="578" href="ken.person.Mwirerie.Abdallah.1944-12-06" showAs="Mwirerie Abdallah"/>
+            <TLCPerson id="537" href="ken.person.Tewuri.Buru.1945-10-22" showAs="Tewuri Buru"/>
+            <TLCPerson id="57" href="ken.person.Kivotha.Kibwana.1980-09-17" showAs="Kivotha Kibwana"/>
+            <TLCRole id="MemberOfParliament" href="/ontology/roles/ke/member" showAs="Member of Parliament"/>
+            <TLCRole id="AsstMinister" href="/ontology/roles/ke/asstminister" showAs="Assistant Minister"/>
+         </references>
+      </meta>
+      <preface>
+         <heading>This is the Preface for a document to test Speech translation</heading>
+      </preface>
+      <debate>
+         <subdivision id="pstatemnt1">
+            <heading>This is a personal Statement</heading>
+            <speech id="speech1" by="578" as="MemberOfParliament">
+               <p>
+                  <from>Mr.Abdallah</from>: I am saying blah. Blah. Errr blah.I am saying blah. Blah. Errr blah.I am saying blah. Blah. Errr blah.I am saying blah. Blah. Errr blah.</p>
+            </speech>
+            <speech id="speech2" by="537" as="AsstMinister">
+               <p>
+                  <from>Tewuri Buru</from>: I am also saying blah.Errr blah.I am saying blah. Blah. Errr blah.I am saying blah. Blah. Errr blah.I am saying blah. Blah. Errr blah.</p>
+               <p>Errr blah.I am saying blah. Blah. Errr blah.I am saying blah. Blah. Errr blah.I am saying blah. Blah. Errr blah.</p>
+            </speech>
+            <speech id="speech3" by="57" as="MemberOfParliament">
+               <p>
+                  <from>Kivutha Kibwana</from>: Bwana babu jambo bwana. Errr blah. Errr blah.I am saying blah. Blah. Errr blah.I am saying blah. Blah. Errr blah.I am saying blah. Blah. Errr blah.</p>
+            </speech>
+         </subdivision>
+      </debate>
+   </debateRecord>
+</akomaNtoso>

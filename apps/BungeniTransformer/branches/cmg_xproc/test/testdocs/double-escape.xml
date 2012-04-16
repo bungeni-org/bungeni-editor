@@ -1,0 +1,318 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<contenttype name="event">
+    <field name="status">attached</field>
+    <owner>
+        <field name="first_name">minister</field>
+        <field name="last_name">P1_02</field>
+        <field name="user_id">22</field>
+        <field name="description">EDITED - text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document &lt;br&gt; &lt;ul style="font-style: italic;"&gt; &lt;li&gt;&lt;span
+            style="font-weight: bold;"&gt;text of the document&lt;/span&gt; text of the document
+            text of the document text of the document text of the document text of the document text
+            of the document text of the document text of the document text of the document
+            &lt;/li&gt; &lt;li&gt;&lt;span style="font-weight: bold;"&gt;text of the
+            document&lt;/span&gt; text of the document text of the document text of the document
+            text of the document text of the document text of the document text of the document text
+            of the document text of the document &lt;/li&gt; &lt;li&gt;&lt;span style="font-weight:
+            bold;"&gt;text of the document&lt;/span&gt; text of the document text of the document
+            text of the document text of the document text of the document text of the document text
+            of the document text of the document text of the document text of the document text of
+            the document text of the document text of the document text of the document text of the
+            document text of the document &lt;/li&gt; &lt;li&gt;&lt;span style="font-weight:
+            bold;"&gt;text of the document&lt;/span&gt; text of the document text of the document
+            text of the document text of the document text of the document text of the document text
+            of the document text of the document text of the document text of the document text of
+            the document text of the document text of the document text of the document text of the
+            document text of the document text of the document &lt;/li&gt; &lt;/ul&gt; text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document</field>
+        <field name="language">en</field>
+        <field name="birth_nationality">KE</field>
+        <field name="gender">F</field>
+        <field name="active_p">A</field>
+        <field name="date_of_birth">1900-02-02</field>
+        <field name="titles">Mrs</field>
+        <field name="birth_country">KE</field>
+        <field name="national_id">1234567890</field>
+        <field name="receive_notification">True</field>
+        <field name="login">minister.P1_02</field>
+        <field name="password">678099d2e14cba08e4f0d7c1bad101e5</field>
+        <field name="salt">dgCNcYDikaFo</field>
+        <field name="email">minister.P1_02@bungeni.org</field>
+        <field name="current_nationality">KE</field>
+    </owner>
+    <audits>
+        <audit>
+            <field name="body">&lt;strong style="font-family: Arial, Helvetica, sans; font-size:
+                11px; line-height: 14px; text-align: justify; "&gt;Lorem
+                Ipsum&lt;/strong&gt;&lt;span style="font-family: Arial, Helvetica, sans; font-size:
+                11px; line-height: 14px; "&gt;&amp;nbsp;is simply dummy text of the printing and
+                typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
+                since the 1500s, when an unknown printer took a galley of type and scrambled it to
+                make a type specimen book. It has survived not only five centuries, but also the
+                leap into electronic typesetting, remaining essentially unchanged. It was
+                popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+                passages, and more recently with desktop publishing software like Aldus PageMaker
+                including versions of Lorem Ipsum.&lt;/span&gt;</field>
+            <field name="doc_type">government</field>
+            <field name="audit_type">event</field>
+            <field name="group_id">2</field>
+            <field name="description">fjfjfgj</field>
+            <field name="language">en</field>
+            <field name="audit_id">734</field>
+            <field name="acronym">fgjfgjgfj</field>
+            <field name="doc_id">147</field>
+            <field name="status_date">2012-04-05 14:13:34.542552</field>
+            <field name="short_title">jhjfgfgjgf</field>
+            <field name="timestamp">2012-04-05 14:13:34.542552</field>
+            <field name="head_id">98</field>
+            <field name="long_title">jfgjfjfgj</field>
+            <field name="type">event</field>
+            <field name="owner_id">22</field>
+        </audit>
+    </audits>
+    <field name="head_id">98</field>
+    <field name="type">event</field>
+    <field name="owner_id">22</field>
+    <field name="body">&lt;strong style="font-family: Arial, Helvetica, sans; font-size: 11px;
+        line-height: 14px; text-align: justify; "&gt;Lorem Ipsum&lt;/strong&gt;&lt;span
+        style="font-family: Arial, Helvetica, sans; font-size: 11px; line-height: 14px;
+        "&gt;&amp;nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+        has been the industry's standard dummy text ever since the 1500s, when an unknown printer
+        took a galley of type and scrambled it to make a type specimen book. It has survived not
+        only five centuries, but also the leap into electronic typesetting, remaining essentially
+        unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+        Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+        PageMaker including versions of Lorem Ipsum.&lt;/span&gt;</field>
+    <head>
+        <field name="status">first_reading_pending</field>
+        <field name="doc_type">government</field>
+        <field name="language">en</field>
+        <field name="short_name">Bill - cosignatory - status allow scheduling first reading
+            P1_04</field>
+        <field name="body_text">EDITED 2 - text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document &lt;br&gt; &lt;ul style="font-style: italic;"&gt; &lt;li&gt;&lt;span
+            style="font-weight: bold;"&gt;text of the document&lt;/span&gt; text of the document
+            text of the document text of the document text of the document text of the document text
+            of the document text of the document text of the document text of the document
+            &lt;/li&gt; &lt;li&gt;&lt;span style="font-weight: bold;"&gt;text of the
+            document&lt;/span&gt; text of the document text of the document text of the document
+            text of the document text of the document text of the document text of the document text
+            of the document text of the document &lt;/li&gt; &lt;li&gt;&lt;span style="font-weight:
+            bold;"&gt;text of the document&lt;/span&gt; text of the document text of the document
+            text of the document text of the document text of the document text of the document text
+            of the document text of the document text of the document text of the document text of
+            the document text of the document text of the document text of the document text of the
+            document text of the document &lt;/li&gt; &lt;li&gt;&lt;span style="font-weight:
+            bold;"&gt;text of the document&lt;/span&gt; text of the document text of the document
+            text of the document text of the document text of the document text of the document text
+            of the document text of the document text of the document text of the document text of
+            the document text of the document text of the document text of the document text of the
+            document text of the document text of the document &lt;/li&gt; &lt;/ul&gt; text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document&lt;br&gt; &lt;ul
+            style="font-style: italic;"&gt; &lt;li&gt;&lt;span style="font-weight: bold;"&gt;text of
+            the document&lt;/span&gt; text of the document text of the document text of the document
+            text of the document text of the document text of the document text of the document text
+            of the document text of the document text of the document&lt;/li&gt; &lt;li&gt;&lt;span
+            style="font-weight: bold;"&gt;text of the document&lt;/span&gt; text of the document
+            text of the document text of the document text of the document text of the document text
+            of the document text of the document text of the document text of the document text of
+            the document&lt;/li&gt; &lt;/ul&gt; text of the document text of the document text of
+            the document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document</field>
+        <field name="registry_number">68:9-bill</field>
+        <field name="status_date">2012-04-05 00:49:04.963653</field>
+        <field name="uri">/bungeni/ke/bill/2011-02-02/68:9-bill/en@/main</field>
+        <field name="parliamentary_item_id">98</field>
+        <field name="timestamp">2012-04-05 00:49:04.975499</field>
+        <field name="ministry_id">42</field>
+        <field name="type">bill</field>
+        <field name="publication_date">2011-02-02</field>
+        <field name="receive_notification">False</field>
+        <field name="parliament_id">2</field>
+        <field name="bill_id">98</field>
+        <field name="owner_id">39</field>
+    </head>
+    <field name="description">fjfjfgj</field>
+    <tags>
+        <field name="tag">public</field>
+    </tags>
+    <field name="acronym">fgjfgjgfj</field>
+    <field name="timestamp">2012-04-05 14:13:34.542552</field>
+    <field name="status_date">2012-04-05 14:13:34.542552</field>
+    <field name="long_title">jfgjfjfgj</field>
+    <permissions>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Owner</field>
+            <field name="permission">zope.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Clerk</field>
+            <field name="permission">bungeni.bill.Delete</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Clerk</field>
+            <field name="permission">bungeni.signatory.Add</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Clerk</field>
+            <field name="permission">bungeni.signatory.Delete</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Signatory</field>
+            <field name="permission">zope.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Owner</field>
+            <field name="permission">bungeni.bill.Edit</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Owner</field>
+            <field name="permission">bungeni.bill.Delete</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Owner</field>
+            <field name="permission">bungeni.signatory.Delete</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Owner</field>
+            <field name="permission">bungeni.attachment.Edit</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Owner</field>
+            <field name="permission">bungeni.attachment.Add</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Clerk</field>
+            <field name="permission">zope.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Owner</field>
+            <field name="permission">bungeni.signatory.Add</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Clerk</field>
+            <field name="permission">bungeni.bill.Edit</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Clerk</field>
+            <field name="permission">bungeni.attachment.Edit</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Clerk</field>
+            <field name="permission">bungeni.attachment.Add</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Speaker</field>
+            <field name="permission">zope.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.MP</field>
+            <field name="permission">zope.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Minister</field>
+            <field name="permission">zope.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Anonymous</field>
+            <field name="permission">zope.View</field>
+        </permission>
+    </permissions>
+    <field name="doc_type">government</field>
+    <field name="language">en</field>
+    <versions/>
+    <field name="doc_id">147</field>
+    <field name="short_title">jhjfgfgjgf</field>
+    <field name="group_id">2</field>
+    <changes>
+        <change>
+            <field name="user_id">5</field>
+            <field name="seq">1</field>
+            <field name="audit_id">734</field>
+            <field name="date_active">2012-04-05 14:13:34.684845</field>
+            <field name="date_audit">2012-04-05 14:13:34.684845</field>
+            <field name="action">add</field>
+            <field name="procedure">a</field>
+            <permissions>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Signatory</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Authenticated</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+            </permissions>
+        </change>
+    </changes>
+</contenttype>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><akomaNtoso xmlns="http://www.akomantoso.org/1.0">
+   <doc name="committee">
+      <meta>
+         <identification source="#bungeni">
+            <FRBRWork>
+               <FRBRauthor href="#Author"/>
+               <FRBRdate date="2011-02-15" name="#startdate"/>
+               <FRBRuri value="/ke/parliament/2011-02-15/main"/>
+               <FRBRthis value="/ke/parliament/"/>
+            </FRBRWork>
+            <FRBRExpression>
+               <FRBRauthor href="#Author"/>
+               <FRBRdate date="2011-02-15" name="#startdate"/>
+               <FRBRuri value="/ke/parliament/2011-02-15/main"/>
+               <FRBRthis value="/ke/parliament/"/>
+               <FRBRlanguage language="en"/>
+            </FRBRExpression>
+            <FRBRManifestation>
+               <FRBRauthor href="#Author"/>
+               <FRBRdate date="2011-02-15" name="#startdate"/>
+               <FRBRuri value="/ke/parliament/2011-02-15/main"/>
+               <FRBRthis value="/ke/parliament/"/>
+            </FRBRManifestation>
+         </identification>
+         <workflow source="#parliament">
+            <step href="#election-date" id="ed" date="2011-02-01"/>
+            <step href="#status-date" id="rd" date="2011-10-12 23:48:28.328669"/>
+         </workflow>
+         <references source="#parliament">
+            <TLCConcept id="object-type" href="/ontology/object/group" showAs="Bungeni Parliament"/>
+            <TLCConcept id="type" href="/ontology/parliament" showAs="parliament"/>
+            <TLCConcept href="status.active" id="status" showAs="active"/>
+            <TLCConcept href="/ontology/concept/shortname" id="short-name" showAs="XIV-PARL"/>
+            <TLCConcept href="/ontology/concept/fullname" id="full-name" showAs="Bungeni Parliament"/>
+            <TLCObject id="group-principal-id" href="/ontology/parliament/ke/2" showAs="group.parliament.2"/>
+            <TLCOrganization href="/ontology/parliament/ke" id="parliament" showAs="Parliament of Kenya"/>
+            <TLCConcept href="/ontology/event/StartDate" id="start-date" showAs="StartDate"/>
+            <TLCConcept href="/ontology/event/EndDate" id="end-date" showAs="EndDate"/>
+            <TLCConcept href="/ontology/event/StatusDate" id="status-date" showAs="StatusDate"/>
+            <TLCConcept href="#start-date" id="election-date" showAs="Election Date"/>
+            <TLCConcept href="#end-date" id="dissolution-date" showAs="Dissolution Date"/>
+         </references>
+         <bp:proprietary xmlns:bp="http://www.akomantoso.org/1.0" source="#parliament">
+            <bu:contained_groups xmlns:bu="http://www.akomantoso.org/1.0"/>
+            <bp:rules>
+               <bp:field name="start_date" refersTo="#start-date"/>
+               <bp:field name="status_date" refersTo="#status-date"/>
+               <bp:field name="short_name" refersTo="#short-name"/>
+               <bp:field name="full_name" refersTo="#full-name"/>
+            </bp:rules>
+         </bp:proprietary>
+      </meta>
+      <preface>
+         <block name="preface">
+            <docDate refersTo="#election-date" date="2011-10-12 23:48:28.328669"/>
+            <docDate refersTo="#status-date" date="2011-10-12 23:48:28.328669"/>
+            <docTitle refersTo="#short-name">XIV-PARL</docTitle>
+            <docTitle refersTo="#full-name">Bungeni Parliament</docTitle>
+         </block>
+      </preface>
+      <mainContent>
+         <block name="description">description description &lt;span style="color: rgb(191, 0, 95);"&gt;description &lt;/span&gt;description description description description description description description description description description political &lt;strong&gt;group description description&lt;/strong&gt; description description description description description description description description description description description description description description &lt;span style="background-color: rgb(255, 128, 128);"&gt;description description&lt;/span&gt; description description description description description description description description description description description description description description description description description description description description description description description description</block>
+      </mainContent>
+   </doc>
+</akomaNtoso>

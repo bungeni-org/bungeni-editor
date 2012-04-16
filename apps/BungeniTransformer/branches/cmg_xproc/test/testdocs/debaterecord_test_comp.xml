@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?><akomaNtoso xmlns:ml="http://www.metalex.org/1.0" xmlns:bungeni="http://editor.bungeni.org/1.0/anx/">
+   <debateRecord>
+      <meta>
+         <identification source="#bungeni">
+            <FRBRWork>
+               <FRBRthis value="/ke/debaterecord/2012-2-1"/>
+               <FRBRuri value=""/>
+               <FRBRdate date="2012-02-01" name="workDate"/>
+               <FRBRauthor href="#user.Ashok"/>
+            </FRBRWork>
+            <FRBRExpression>
+               <FRBRthis value="/ke/debaterecord/2012-2-1/en"/>
+               <FRBRuri value="/en@"/>
+               <FRBRdate date="2012-02-01" name="expDate"/>
+               <FRBRauthor href="#user.Ashok"/>
+            </FRBRExpression>
+            <FRBRManifestation>
+               <FRBRthis value="/ke/debaterecord/2012-2-1/en.xml"/>
+               <FRBRuri value="/en@.akn"/>
+               <FRBRdate date="2012-02-01" name="manDate"/>
+               <FRBRauthor href="#user.Ashok"/>
+            </FRBRManifestation>
+         </identification>
+         <publication date="2012-02-01" name="debaterecord" showAs=""/>
+         <references source="#bungeni">
+            <TLCOrganization id="Parliament" href="1" showAs="Parliament"/>
+            <TLCPerson id="puser.Ashok" href="user.Ashok" showAs="Author"/>
+            <TLCPerson id="puser.Ashok" href="user.Ashok" showAs="Editor"/>
+            <TLCPerson id="puser.Ashok" href="user.Ashok" showAs="Publisher"/>
+            <TLCPerson id="p54" href="ken.person.Josaph.Khamisi.1980-04-14" showAs="Josaph Khamisi"/>
+            <TLCPerson id="p53" href="ken.person.Lyola.Khamasi.1980-04-13" showAs="Lyola Khamasi"/>
+            <TLCPerson id="p54" href="ken.person.Josaph.Khamisi.1980-04-14" showAs="Josaph Khamisi"/>
+            <TLCRole id="MemberOfParliament" href="/ontology/roles/ke/member" showAs="Member of Parliament"/>
+            <TLCRole id="MemberOfParliament" href="/ontology/roles/ke/member" showAs="Member of Parliament"/>
+            <TLCRole id="Speaker" href="/ontology/roles/ke/speaker" showAs="Speaker"/>
+         </references>
+      </meta>
+      <preface>
+         <heading>NATIONAL ASSEMBLY</heading>
+         <p/>
+         <subheading>OFFICIAL REPORT</subheading>
+         <p/>
+         <p>Wednesday, 20th March, 1991</p>
+         <p/>
+         <scene>
+            <span>The House met at thirty minutes past Two o'clock.</span>
+            <span>[Mr Speaker in the Chair]</span>
+         </scene>
+         <p/>
+      </preface>
+      <debate>
+         <subdivision id="d11e141" name="SceneSubdivision">
+            <scene>
+               <span/>
+               <span>(By the Assistant Minister for Finance (Mr. Keah) on behalf of the Minister for Finance)</span>
+            </scene>
+         </subdivision>
+         <p/>
+         <p/>
+         <papers id="papers1">
+            <heading>PAPERSLAID</heading>
+            <p/>
+            <subheading>The following Papers were laid on the Table:</subheading>
+            <other id="tbldocs1">
+               <p>
+                  <a id="d5e115" href="Annual Report and Accounts of Jomo Kenyatta University College of Agriculture and Technology for the year ended 30th June, 1990 and the Certificate thereon by the Auditor-General (Corporations)&#xA;        ">Kenya Accountants and Secretaries National Examinations Board Report and Accounts for the year ended 30th June, 1986.</a>
+               </p>
+               <p>
+                  <a id="d5e121" href="Audit Report and Accounts of Higher Education Loans Fund for the year ended 30th June, 1983 and the Certificate thereon by the Auditor-General (Corporations)&#xA;        ">Kenya Accountants and Secretaries National Examinations Board Report and Accounts for the year ended 30th June, 1987.</a>
+               </p>
+               <p>
+                  <a id="d5e127" href="Finance Report and Accounts of Higher Education Loans Fund for the year ended 30th June, 1983 and the Certificate thereon by the Auditor-General (Corporations)&#xA;        ">Kenya Reinsurance Corporation Annual Report and Accounts for the year ended 31st December, 1985.</a>
+               </p>
+               <p>
+                  <a id="d5e133" href="The Report of the Commonwealth Parliamentary Association (CPA) Kenya branch delegation to the 35th CPA (Africa Region) conference held in Lobamba, Swaziland from 7th August, 2004 to 15th August, 2004.&#xA;        ">Kenya Reinsurance Corporation Annual Report and Accounts for the year ended 31st December, 1986.</a>
+               </p>
+               <p/>
+            </other>
+         </papers>
+         <p/>
+         <communication id="comnctn1">
+            <heading>COMMUNICATION FROM THE CHAIR</heading>
+            <p/>
+            <speech id="speech1" by="#p54" as="MemberOfParliament">
+               <p>The Speaker:</p>
+               <p>Honourable members, I welcome you. However, I note that the number is smaller than yesterday's. I know there is a committee, which is busy in the Eastern part of Uganda, but others should be here. I do not know what is happening, even to the Front Bench. I do not know whether they have a meeting, but I have not been informed. Anyway, I welcome you.</p>
+               <p/>
+               <p>I will be adjusting the Order Paper to allow a statement from hon. Baba Diri and an informal question from hon. Banyenzaki. I would also like to take this opportunity to point out that there is something which we as Parliament should take note of and find a solution to. The problem is the road carnage. There are very many deaths on our roads. I think something should be done to curb this because there was an accident in Mabira and another one on Masaka road. I think something has to be done. There must be something wrong. I am not supposed to participate in the debate, but I also own a constituency and I am a citizen who takes advantage of my seat here to point out what is going on. Something should be done.</p>
+            </speech>
+            <speech id="speech2" by="#p53" as="MemberOfParliament">
+               <p/>
+               <p>Mr Abdallah:</p>
+               <p>Thank you, Mr Speaker. One of the issues why the attendance is poor is that in most cases we begin plenary very late, yet you always adjourn this House to 2.00 p.m. Members are always here at 2.00 p.m. but we begin towards 3.00 p.m., so there is need to keep time.</p>
+               <p/>
+            </speech>
+            <speech id="speech3" by="#p54" as="Speaker">
+               <p>THE SPEAKER:</p>
+               <p/>
+               <p>That has no merit, I must say. You mean they went away because we did not start at 2.00 p.m.? When I am in my chambers I watch the attendance here.</p>
+            </speech>
+            <p/>
+         </communication>
+         <p/>
+         <p/>
+         <p/>
+         <p/>
+         <p/>
+         <p/>
+         <p/>
+         <p/>
+         <p/>
+      </debate>
+      <meta>
+         <identification source="#bungeni">
+            <FRBRWork>
+               <FRBRthis value="/ke/debaterecord/2012-2-1"/>
+               <FRBRuri value=""/>
+               <FRBRdate date="2012-02-01" name="workDate"/>
+               <FRBRauthor href="#user.Ashok"/>
+            </FRBRWork>
+            <FRBRExpression>
+               <FRBRthis value="/ke/debaterecord/2012-2-1/en"/>
+               <FRBRuri value="/en@"/>
+               <FRBRdate date="2012-02-01" name="expDate"/>
+               <FRBRauthor href="#user.Ashok"/>
+            </FRBRExpression>
+            <FRBRManifestation>
+               <FRBRthis value="/ke/debaterecord/2012-2-1/en.xml"/>
+               <FRBRuri value="/en@.akn"/>
+               <FRBRdate date="2012-02-01" name="manDate"/>
+               <FRBRauthor href="#user.Ashok"/>
+            </FRBRManifestation>
+         </identification>
+         <publication date="2012-02-01" name="debaterecord" showAs=""/>
+         <references source="#bungeni">
+            <TLCOrganization id="Parliament" href="1" showAs="Parliament"/>
+            <TLCPerson id="puser.Ashok" href="user.Ashok" showAs="Author"/>
+            <TLCPerson id="puser.Ashok" href="user.Ashok" showAs="Editor"/>
+            <TLCPerson id="puser.Ashok" href="user.Ashok" showAs="Publisher"/>
+            <TLCPerson id="p54" href="ken.person.Josaph.Khamisi.1980-04-14" showAs="Josaph Khamisi"/>
+            <TLCPerson id="p53" href="ken.person.Lyola.Khamasi.1980-04-13" showAs="Lyola Khamasi"/>
+            <TLCPerson id="p54" href="ken.person.Josaph.Khamisi.1980-04-14" showAs="Josaph Khamisi"/>
+            <TLCRole id="MemberOfParliament" href="/ontology/roles/ke/member" showAs="Member of Parliament"/>
+            <TLCRole id="MemberOfParliament" href="/ontology/roles/ke/member" showAs="Member of Parliament"/>
+            <TLCRole id="Speaker" href="/ontology/roles/ke/speaker" showAs="Speaker"/>
+         </references>
+      </meta>
+      <conclusions id="concl1">
+         <p>ADJOURNMENT</p>
+         <p/>
+         <p>The Temporary Deputy Speaker (Mr. Kabingu-Muregi):</p>
+         <p>It is now time for the interruption of business. The House is, therefore, adjourned until tomorrow, Wednesday, 11th May, at 9.00 a.m.</p>
+         <p>The House rose at thirty minutes past Six o'clock.</p>
+         <p/>
+      </conclusions>
+   </debateRecord>
+</akomaNtoso>

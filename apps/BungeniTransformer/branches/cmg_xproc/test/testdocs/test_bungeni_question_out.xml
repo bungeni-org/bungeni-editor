@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?><bu:ontology xmlns:bu="http://portal.bungeni.org/1.0/" type="document">
+   <bu:document type="question"/>
+   <bu:bungeni>
+      <bu:country>ke</bu:country>
+      <bu:parliament href="/ke/parliament/2011-03-02"/>
+   </bu:bungeni>
+   <bu:question isA="TLCObject" uri="/bungeni/ke/question/2011-10-14/1/en@/main">
+      <bu:body>edit-MP-CLERK-BUSINESS question text &lt;strong&gt; question text
+        &lt;/strong&gt; question text question text question text &lt;em&gt; question text question
+        text question text question text question text question text question text question text
+        question text question text question text question text question text question text question
+        text question text&lt;/em&gt; question text question text question text question text
+        question text question text question text question text question text question text question
+        text question text question text question text question text &lt;ul&gt;&lt;li&gt; question
+        text question text question text question text question text question text question text
+        question text question text question text question text question text question text question
+        text question text &lt;span style="text-decoration: underline;"&gt; question
+        text&lt;/span&gt; question text&lt;/li&gt;&lt;li&gt; question text question text question
+        text question text &lt;/li&gt;&lt;li&gt; question text question text &lt;span
+        style="background-color: rgb(0, 255, 128);"&gt; question text question text question text
+        &lt;/span&gt; question text &lt;/li&gt;&lt;/ul&gt; question text question text question text
+        question text question text question text question text question text question text question
+        text question text question text question text question text question text question text
+        &lt;span style="color: rgb(255, 0, 0);"&gt; question text question&lt;/span&gt; text
+        question text question text question text question text question text question text question
+        text question text question text question text question text question text &lt;span
+        style="color: rgb(255, 0, 0);"&gt; question text&lt;/span&gt; question text question
+        text</bu:body>
+      <bu:shortName>Oral Question P1_01 (made available for scheduling)</bu:shortName>
+      <bu:status>admissible</bu:status>
+      <bu:itemNumber>1</bu:itemNumber>
+      <bu:itemId>6</bu:itemId>
+   </bu:question>
+   <bu:legislativeItem isA="TLCConcept">
+      <bu:statusDate type="xs:dateTime">2011-10-14T22:25:43.087579</bu:statusDate>
+      <bu:changes>
+        <bu:change>
+            <bu:field name="user_id">7</bu:field>
+            <bu:field name="description"/>
+            <bu:field name="change_id">1</bu:field>
+            <bu:field name="date_active">2011-10-14 22:12:33.524755</bu:field>
+            <bu:field name="date_audit">2011-10-14 22:12:33.524755</bu:field>
+            <bu:field name="action">added</bu:field>
+            <bu:field name="content_id">6</bu:field>
+        </bu:change>
+        <bu:change>
+            <bu:field name="user_id">7</bu:field>
+            <bu:field name="description">Draft</bu:field>
+            <bu:field name="change_id">2</bu:field>
+            <bu:field name="date_active">2011-10-14 22:12:33.620040</bu:field>
+            <bu:field name="date_audit">2011-10-14 22:12:33.620040</bu:field>
+            <bu:field name="action">workflow</bu:field>
+            <bu:field name="content_id">6</bu:field>
+            <bu:field name="notes">{'comment': '', 'source': None, 'destination': 'draft',
+                'transition': '-draft'}</bu:field>
+        </bu:change>
+        <bu:change>
+            <bu:field name="user_id">7</bu:field>
+            <bu:field name="description"/>
+            <bu:field name="change_id">3</bu:field>
+            <bu:field name="date_active">2011-10-14 22:12:33.637418</bu:field>
+            <bu:field name="date_audit">2011-10-14 22:12:33.637418</bu:field>
+            <bu:field name="action">modified</bu:field>
+            <bu:field name="content_id">6</bu:field>
+        </bu:change>
+        <bu:change>
+            <bu:field name="user_id">7</bu:field>
+            <bu:field name="description">File attachment by MP (publish internal) demo attachment.pdf
+                edited</bu:field>
+            <bu:field name="change_id">4</bu:field>
+            <bu:field name="date_active">2011-10-14 22:13:02.251429</bu:field>
+            <bu:field name="date_audit">2011-10-14 22:13:02.251429</bu:field>
+            <bu:field name="action">attachment</bu:field>
+            <bu:field name="content_id">6</bu:field>
+        </bu:change>
+        <bu:change>
+            <bu:field name="user_id">7</bu:field>
+            <bu:field name="description"/>
+            <bu:field name="change_id">5</bu:field>
+            <bu:field name="date_active">2011-10-14 22:13:15.063691</bu:field>
+            <bu:field name="date_audit">2011-10-14 22:13:15.063691</bu:field>
+            <bu:field name="action">modified</bu:field>
+            <bu:field name="content_id">6</bu:field>
+        </bu:change>
+        <bu:change>
+            <bu:field name="user_id">7</bu:field>
+            <bu:field name="description">New version on workflow transition to: submitted</bu:field>
+            <bu:field name="change_id">6</bu:field>
+            <bu:field name="date_active">2011-10-14 22:13:22.780899</bu:field>
+            <bu:field name="date_audit">2011-10-14 22:13:22.780899</bu:field>
+            <bu:field name="action">new-version</bu:field>
+            <bu:field name="content_id">6</bu:field>
+            <bu:field name="notes">{'version_id': 1}</bu:field>
+        </bu:change>
+        <bu:change>
+            <bu:field name="user_id">7</bu:field>
+            <bu:field name="description">Submitted to clerk</bu:field>
+            <bu:field name="change_id">7</bu:field>
+            <bu:field name="date_active">2011-10-14 22:13:22.967949</bu:field>
+            <bu:field name="date_audit">2011-10-14 22:13:22.967949</bu:field>
+            <bu:field name="action">workflow</bu:field>
+            <bu:field name="content_id">6</bu:field>
+            <bu:field name="notes">{'comment': '', 'source': 'draft', 'destination': 'submitted',
+                'transition': 'draft-submitted'}</bu:field>
+        </bu:change>
+        <bu:change>
+            <bu:field name="user_id">7</bu:field>
+            <bu:field name="description"/>
+            <bu:field name="change_id">8</bu:field>
+            <bu:field name="date_active">2011-10-14 22:13:23.019391</bu:field>
+            <bu:field name="date_audit">2011-10-14 22:13:23.019391</bu:field>
+            <bu:field name="action">modified</bu:field>
+            <bu:field name="content_id">6</bu:field>
+        </bu:change>
+        <bu:change>
+            <bu:field name="user_id">5</bu:field>
+            <bu:field name="description">New version on workflow transition to: received</bu:field>
+            <bu:field name="change_id">9</bu:field>
+            <bu:field name="date_active">2011-10-14 22:24:52.690906</bu:field>
+            <bu:field name="date_audit">2011-10-14 22:24:52.690906</bu:field>
+            <bu:field name="action">new-version</bu:field>
+            <bu:field name="content_id">6</bu:field>
+            <bu:field name="notes">{'version_id': 2}</bu:field>
+        </bu:change>
+        <bu:change>
+            <bu:field name="user_id">5</bu:field>
+            <bu:field name="description">Received by clerk</bu:field>
+            <bu:field name="change_id">10</bu:field>
+            <bu:field name="date_active">2011-10-14 22:24:53.115730</bu:field>
+            <bu:field name="date_audit">2011-10-14 22:24:53.115730</bu:field>
+            <bu:field name="action">workflow</bu:field>
+            <bu:field name="content_id">6</bu:field>
+            <bu:field name="notes">{'comment': '', 'source': 'submitted', 'destination': 'received',
+                'transition': 'submitted-received'}</bu:field>
+        </bu:change>
+        <bu:change>
+            <bu:field name="user_id">5</bu:field>
+            <bu:field name="description"/>
+            <bu:field name="change_id">11</bu:field>
+            <bu:field name="date_active">2011-10-14 22:24:53.135569</bu:field>
+            <bu:field name="date_audit">2011-10-14 22:24:53.135569</bu:field>
+            <bu:field name="action">modified</bu:field>
+            <bu:field name="content_id">6</bu:field>
+        </bu:change>
+        <bu:change>
+            <bu:field name="user_id">5</bu:field>
+            <bu:field name="description">File attachment by Clerk (publish internally) demo
+                attachment.pdf edited</bu:field>
+            <bu:field name="change_id">12</bu:field>
+            <bu:field name="date_active">2011-10-14 22:25:24.522721</bu:field>
+            <bu:field name="date_audit">2011-10-14 22:25:24.522721</bu:field>
+            <bu:field name="action">attachment</bu:field>
+            <bu:field name="content_id">6</bu:field>
+        </bu:change>
+        <bu:change>
+            <bu:field name="user_id">5</bu:field>
+            <bu:field name="description"/>
+            <bu:field name="change_id">13</bu:field>
+            <bu:field name="date_active">2011-10-14 22:25:35.180526</bu:field>
+            <bu:field name="date_audit">2011-10-14 22:25:35.180526</bu:field>
+            <bu:field name="action">modified</bu:field>
+            <bu:field name="content_id">6</bu:field>
+        </bu:change>
+        <bu:change>
+            <bu:field name="user_id">5</bu:field>
+            <bu:field name="description">New version on workflow transition to: completed</bu:field>
+            <bu:field name="change_id">14</bu:field>
+            <bu:field name="date_active">2011-10-14 22:25:42.861587</bu:field>
+            <bu:field name="date_audit">2011-10-14 22:25:42.861587</bu:field>
+            <bu:field name="action">new-version</bu:field>
+            <bu:field name="content_id">6</bu:field>
+            <bu:field name="notes">{'version_id': 3}</bu:field>
+        </bu:change>
+        <bu:change>
+            <bu:field name="user_id">5</bu:field>
+            <bu:field name="description">Submitted to the Speaker</bu:field>
+            <bu:field name="change_id">15</bu:field>
+            <bu:field name="date_active">2011-10-14 22:25:43.106880</bu:field>
+            <bu:field name="date_audit">2011-10-14 22:25:43.106880</bu:field>
+            <bu:field name="action">workflow</bu:field>
+            <bu:field name="content_id">6</bu:field>
+            <bu:field name="notes">{'comment': '', 'source': 'received', 'destination': 'completed',
+                'transition': 'received-completed'}</bu:field>
+        </bu:change>
+        <bu:change>
+            <bu:field name="user_id">5</bu:field>
+            <bu:field name="description"/>
+            <bu:field name="change_id">16</bu:field>
+            <bu:field name="date_active">2011-10-14 22:25:43.128625</bu:field>
+            <bu:field name="date_audit">2011-10-14 22:25:43.128625</bu:field>
+            <bu:field name="action">modified</bu:field>
+            <bu:field name="content_id">6</bu:field>
+        </bu:change>
+        <bu:change>
+            <bu:field name="user_id">6</bu:field>
+            <bu:field name="description"/>
+            <bu:field name="change_id">17</bu:field>
+            <bu:field name="date_active">2011-10-14 22:26:15.887829</bu:field>
+            <bu:field name="date_audit">2011-10-14 22:26:15.887829</bu:field>
+            <bu:field name="action">modified</bu:field>
+            <bu:field name="content_id">6</bu:field>
+        </bu:change>
+        <bu:change>
+            <bu:field name="user_id">6</bu:field>
+            <bu:field name="description">New version on workflow transition to: admissible</bu:field>
+            <bu:field name="change_id">18</bu:field>
+            <bu:field name="date_active">2011-10-14 22:26:23.821369</bu:field>
+            <bu:field name="date_audit">2011-10-14 22:26:23.821369</bu:field>
+            <bu:field name="action">new-version</bu:field>
+            <bu:field name="content_id">6</bu:field>
+            <bu:field name="notes">{'version_id': 4}</bu:field>
+        </bu:change>
+      </bu:changes>
+      <bu:versions>
+        <bu:version>
+            <bu:status>admissible</bu:status>
+            <bu:field name="receive_notification">False</bu:field>
+            <bu:shortName>Oral Question P1_01 (made available for scheduling)</bu:shortName>
+            <bu:field name="language">en</bu:field>
+            <bu:field name="parliament_id">2</bu:field>
+            <bu:body>edit-MP-CLERK-BUSINESS question text &lt;strong&gt; question
+                text &lt;/strong&gt; question text question text question text &lt;em&gt; question
+                text question text question text question text question text question text question
+                text question text question text question text question text question text question
+                text question text question text question text&lt;/em&gt; question text question
+                text question text question text question text question text question text question
+                text question text question text question text question text question text question
+                text question text &lt;ul&gt;&lt;li&gt; question text question text question text
+                question text question text question text question text question text question text
+                question text question text question text question text question text question text
+                &lt;span style="text-decoration: underline;"&gt; question text&lt;/span&gt; question
+                text&lt;/li&gt;&lt;li&gt; question text question text question text question text
+                &lt;/li&gt;&lt;li&gt; question text question text &lt;span style="background-color:
+                rgb(0, 255, 128);"&gt; question text question text question text &lt;/span&gt;
+                question text &lt;/li&gt;&lt;/ul&gt; question text question text question text
+                question text question text question text question text question text question text
+                question text question text question text question text question text question text
+                question text &lt;span style="color: rgb(255, 0, 0);"&gt; question text
+                question&lt;/span&gt; text question text question text question text question text
+                question text question text question text question text question text question text
+                question text question text &lt;span style="color: rgb(255, 0, 0);"&gt; question
+                text&lt;/span&gt; question text question text</bu:body>
+            <bu:field name="change_id">18</bu:field>
+            <bu:statusDate type="xs:dateTime">2011-10-14T22:25:43.087579</bu:statusDate>
+            <bu:field name="manual">False</bu:field>
+            <bu:field name="uri">/bungeni/ke/question/2011-10-14/1/en@/main</bu:field>
+            <bu:field name="version_id">4</bu:field>
+            <bu:field name="response_type_id">1</bu:field>
+            <bu:field name="ministry_id">13</bu:field>
+            <bu:field name="timestamp">2011-10-14 22:26:15.868484</bu:field>
+            <bu:field name="type">question</bu:field>
+            <bu:field name="content_id">6</bu:field>
+            <bu:registryNumber>1</bu:registryNumber>
+            <bu:field name="question_type_id">1</bu:field>
+            <bu:field name="owner_id">7</bu:field>
+        </bu:version>
+        <bu:version>
+            <bu:status>completed</bu:status>
+            <bu:field name="receive_notification">False</bu:field>
+            <bu:shortName>Oral Question P1_01 (made available for scheduling)</bu:shortName>
+            <bu:field name="language">en</bu:field>
+            <bu:field name="parliament_id">2</bu:field>
+            <bu:body>edit-MP-CLERK question text &lt;strong&gt; question text
+                &lt;/strong&gt; question text question text question text &lt;em&gt; question text
+                question text question text question text question text question text question text
+                question text question text question text question text question text question text
+                question text question text question text&lt;/em&gt; question text question text
+                question text question text question text question text question text question text
+                question text question text question text question text question text question text
+                question text &lt;ul&gt;&lt;li&gt; question text question text question text
+                question text question text question text question text question text question text
+                question text question text question text question text question text question text
+                &lt;span style="text-decoration: underline;"&gt; question text&lt;/span&gt; question
+                text&lt;/li&gt;&lt;li&gt; question text question text question text question text
+                &lt;/li&gt;&lt;li&gt; question text question text &lt;span style="background-color:
+                rgb(0, 255, 128);"&gt; question text question text question text &lt;/span&gt;
+                question text &lt;/li&gt;&lt;/ul&gt; question text question text question text
+                question text question text question text question text question text question text
+                question text question text question text question text question text question text
+                question text &lt;span style="color: rgb(255, 0, 0);"&gt; question text
+                question&lt;/span&gt; text question text question text question text question text
+                question text question text question text question text question text question text
+                question text question text &lt;span style="color: rgb(255, 0, 0);"&gt; question
+                text&lt;/span&gt; question text question text</bu:body>
+            <bu:field name="change_id">14</bu:field>
+            <bu:statusDate type="xs:dateTime">2011-10-14T22:24:53.099915</bu:statusDate>
+            <bu:field name="manual">False</bu:field>
+            <bu:field name="uri">/bungeni/ke/question/2011-10-14/1/en@/main</bu:field>
+            <bu:field name="version_id">3</bu:field>
+            <bu:field name="response_type_id">1</bu:field>
+            <bu:field name="ministry_id">13</bu:field>
+            <bu:field name="timestamp">2011-10-14 22:25:35.148563</bu:field>
+            <bu:field name="type">question</bu:field>
+            <bu:field name="content_id">6</bu:field>
+            <bu:registryNumber>1</bu:registryNumber>
+            <bu:field name="question_type_id">1</bu:field>
+            <bu:field name="owner_id">7</bu:field>
+        </bu:version>
+        <bu:version>
+            <bu:status>received</bu:status>
+            <bu:field name="receive_notification">False</bu:field>
+            <bu:shortName>Oral Question P1_01 (made available for scheduling)</bu:shortName>
+            <bu:field name="language">en</bu:field>
+            <bu:field name="parliament_id">2</bu:field>
+            <bu:body>edit-MP question text &lt;strong&gt; question text
+                &lt;/strong&gt; question text question text question text &lt;em&gt; question text
+                question text question text question text question text question text question text
+                question text question text question text question text question text question text
+                question text question text question text&lt;/em&gt; question text question text
+                question text question text question text question text question text question text
+                question text question text question text question text question text question text
+                question text &lt;ul&gt;&lt;li&gt; question text question text question text
+                question text question text question text question text question text question text
+                question text question text question text question text question text question text
+                &lt;span style="text-decoration: underline;"&gt; question text&lt;/span&gt; question
+                text&lt;/li&gt;&lt;li&gt; question text question text question text question text
+                &lt;/li&gt;&lt;li&gt; question text question text &lt;span style="background-color:
+                rgb(0, 255, 128);"&gt; question text question text question text &lt;/span&gt;
+                question text &lt;/li&gt;&lt;/ul&gt; question text question text question text
+                question text question text question text question text question text question text
+                question text question text question text question text question text question text
+                question text &lt;span style="color: rgb(255, 0, 0);"&gt; question text
+                question&lt;/span&gt; text question text question text question text question text
+                question text question text question text question text question text question text
+                question text question text &lt;span style="color: rgb(255, 0, 0);"&gt; question
+                text&lt;/span&gt; question text question text</bu:body>
+            <bu:field name="change_id">9</bu:field>
+            <bu:statusDate type="xs:dateTime">2011-10-14T22:13:22.947799</bu:statusDate>
+            <bu:field name="manual">False</bu:field>
+            <bu:field name="uri">/bungeni/ke/question/2011-10-14/1/en@/main</bu:field>
+            <bu:field name="version_id">2</bu:field>
+            <bu:field name="response_type_id">1</bu:field>
+            <bu:field name="ministry_id">13</bu:field>
+            <bu:field name="timestamp">2011-10-14 22:13:22.983639</bu:field>
+            <bu:field name="type">question</bu:field>
+            <bu:field name="content_id">6</bu:field>
+            <bu:registryNumber>1</bu:registryNumber>
+            <bu:field name="question_type_id">1</bu:field>
+            <bu:field name="owner_id">7</bu:field>
+        </bu:version>
+        <bu:version>
+            <bu:status>submitted</bu:status>
+            <bu:field name="receive_notification">False</bu:field>
+            <bu:shortName>Oral Question P1_01 (made available for scheduling)</bu:shortName>
+            <bu:field name="language">en</bu:field>
+            <bu:field name="parliament_id">2</bu:field>
+            <bu:body>edit-MP question text &lt;strong&gt; question text
+                &lt;/strong&gt; question text question text question text &lt;em&gt; question text
+                question text question text question text question text question text question text
+                question text question text question text question text question text question text
+                question text question text question text&lt;/em&gt; question text question text
+                question text question text question text question text question text question text
+                question text question text question text question text question text question text
+                question text &lt;ul&gt;&lt;li&gt; question text question text question text
+                question text question text question text question text question text question text
+                question text question text question text question text question text question text
+                &lt;span style="text-decoration: underline;"&gt; question text&lt;/span&gt; question
+                text&lt;/li&gt;&lt;li&gt; question text question text question text question text
+                &lt;/li&gt;&lt;li&gt; question text question text &lt;span style="background-color:
+                rgb(0, 255, 128);"&gt; question text question text question text &lt;/span&gt;
+                question text &lt;/li&gt;&lt;/ul&gt; question text question text question text
+                question text question text question text question text question text question text
+                question text question text question text question text question text question text
+                question text &lt;span style="color: rgb(255, 0, 0);"&gt; question text
+                question&lt;/span&gt; text question text question text question text question text
+                question text question text question text question text question text question text
+                question text question text &lt;span style="color: rgb(255, 0, 0);"&gt; question
+                text&lt;/span&gt; question text question text</bu:body>
+            <bu:field name="change_id">6</bu:field>
+            <bu:statusDate type="xs:dateTime">2011-10-14T22:12:33.612614</bu:statusDate>
+            <bu:field name="manual">False</bu:field>
+            <bu:field name="version_id">1</bu:field>
+            <bu:field name="response_type_id">1</bu:field>
+            <bu:field name="ministry_id">13</bu:field>
+            <bu:field name="timestamp">2011-10-14 22:13:15.037898</bu:field>
+            <bu:field name="content_id">6</bu:field>
+            <bu:field name="type">question</bu:field>
+            <bu:field name="question_type_id">1</bu:field>
+            <bu:field name="owner_id">7</bu:field>
+        </bu:version>
+      </bu:versions>
+      <bu:legislativeItemId>6</bu:legislativeItemId>
+      <bu:registryNumber>1</bu:registryNumber>
+   </bu:legislativeItem>
+   <bu:attached_files>
+        <bu:attached_file>
+            <bu:status>attached</bu:status>
+            <bu:field name="file_title">attachment by House Business</bu:field>
+            <bu:field name="file_mimetype">application/pdf</bu:field>
+            <bu:field name="language">en</bu:field>
+            <bu:field name="file_name">demo attachment.pdf</bu:field>
+            <bu:statusDate type="xs:dateTime">2011-10-14T22:26:01.553426</bu:statusDate>
+            <bu:field name="attached_file_id">5</bu:field>
+            <bu:field name="attached_file_type_id">3</bu:field>
+            <bu:field name="item_id">6</bu:field>
+        </bu:attached_file>
+        <bu:attached_file>
+            <bu:status>internal</bu:status>
+            <bu:field name="file_title">attachment by Clerk (publish internally)</bu:field>
+            <bu:field name="file_mimetype">application/pdf</bu:field>
+            <bu:field name="language">en</bu:field>
+            <bu:field name="file_name">demo attachment.pdf</bu:field>
+            <bu:statusDate type="xs:dateTime">2011-10-14T22:25:24.468460</bu:statusDate>
+            <bu:field name="attached_file_id">4</bu:field>
+            <bu:field name="attached_file_type_id">3</bu:field>
+            <bu:field name="item_id">6</bu:field>
+        </bu:attached_file>
+        <bu:attached_file>
+            <bu:status>attached</bu:status>
+            <bu:field name="file_title">attachment by Clerk</bu:field>
+            <bu:field name="file_mimetype">application/pdf</bu:field>
+            <bu:field name="language">en</bu:field>
+            <bu:field name="file_name">demo attachment.pdf</bu:field>
+            <bu:statusDate type="xs:dateTime">2011-10-14T22:25:08.263930</bu:statusDate>
+            <bu:field name="attached_file_id">3</bu:field>
+            <bu:field name="attached_file_type_id">3</bu:field>
+            <bu:field name="item_id">6</bu:field>
+        </bu:attached_file>
+        <bu:attached_file>
+            <bu:status>internal</bu:status>
+            <bu:field name="file_title">attachment by MP (publish internal)</bu:field>
+            <bu:field name="file_mimetype">application/pdf</bu:field>
+            <bu:field name="language">en</bu:field>
+            <bu:field name="file_name">demo attachment.pdf</bu:field>
+            <bu:statusDate type="xs:dateTime">2011-10-14T22:13:02.216739</bu:statusDate>
+            <bu:field name="attached_file_id">2</bu:field>
+            <bu:field name="attached_file_type_id">3</bu:field>
+            <bu:field name="item_id">6</bu:field>
+        </bu:attached_file>
+        <bu:attached_file>
+            <bu:status>attached</bu:status>
+            <bu:field name="file_title">attachment by MP</bu:field>
+            <bu:field name="file_mimetype">application/pdf</bu:field>
+            <bu:field name="language">en</bu:field>
+            <bu:field name="file_name">demo attachment.pdf</bu:field>
+            <bu:statusDate type="xs:dateTime">2011-10-14T22:12:44.210103</bu:statusDate>
+            <bu:field name="attached_file_id">1</bu:field>
+            <bu:field name="attached_file_type_id">3</bu:field>
+            <bu:field name="item_id">6</bu:field>
+        </bu:attached_file>
+    </bu:attached_files>
+   <bu:permissions>
+        <bu:permission>
+            <bu:field name="role">bungeni.Minister</bu:field>
+            <bu:field name="user">group.ministry.13</bu:field>
+            <bu:field name="permission">Allow</bu:field>
+        </bu:permission>
+        <bu:permission>
+            <bu:field name="role">bungeni.Owner</bu:field>
+            <bu:field name="user">member.P1_01</bu:field>
+            <bu:field name="permission">Allow</bu:field>
+        </bu:permission>
+    </bu:permissions>
+   <bu:group>
+      <bu:ministry>
+        <bu:status>active</bu:status>
+        <bu:field name="description">ministry description &lt;strong&gt;ministry
+            description&lt;/strong&gt; ministry description &lt;em&gt;ministry
+            description&lt;/em&gt; ministry description &lt;strong&gt;ministry
+            description&lt;/strong&gt; ministry description ministry description ministry
+            description ministry description ministry description ministry description ministry
+            description ministry description ministry description ministry description ministry
+            description ministry description &lt;span style="color: rgb(255, 0, 0);"&gt;ministry
+            description&lt;/span&gt; ministry description ministry description</bu:field>
+        <bu:shortName>Min</bu:shortName>
+        <bu:field name="group_principal_id">group.ministry.13</bu:field>
+        <bu:statusDate type="xs:dateTime">2011-10-14T22:02:13.226198</bu:statusDate>
+        <bu:field name="language">en</bu:field>
+        <bu:field name="parent_group_id">3</bu:field>
+        <bu:fullName>Ministry P1_01</bu:fullName>
+        <bu:field name="group_id">13</bu:field>
+        <bu:field name="type">ministry</bu:field>
+        <bu:field name="start_date">2011-02-18</bu:field>
+      </bu:ministry>
+   </bu:group>
+</bu:ontology>

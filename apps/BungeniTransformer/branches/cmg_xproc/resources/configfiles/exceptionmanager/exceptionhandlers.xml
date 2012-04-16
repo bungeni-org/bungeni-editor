@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : exceptionHandlers.xml
+    Created on : October 27, 2010, 5:58 PM
+    Author     : murithi
+    Description:
+        This XML Configuration file maps exception messages from SAX parser
+        to handler classes - these are invoked for exception recording purposes.
+        Matching is performed using regular expressions matched agaist the
+
+-->
+
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties version="1.0">
+    <entry key="org.bungeni.translators.utility.exceptionmanager.handlers.MissingAttribute">(.*)Attribute '(.*)' must appear on element '(.*)'.</entry>
+    <entry key="org.bungeni.translators.utility.exceptionmanager.handlers.IncompleteElement">(.*)The content of element '(.*)' is not complete(.*)</entry>
+    <entry key="org.bungeni.translators.utility.exceptionmanager.handlers.InvalidContent">.*Invalid content was found starting with element '(.*)'. One of '(.*)' is expected.</entry>
+    <entry key="org.bungeni.translators.utility.exceptionmanager.handlers.InvalidAttribute">.*Attribute '(.*)' is not allowed to appear in element '(.*)'.*</entry>
+    <entry key="org.bungeni.translators.utility.exceptionmanager.handlers.InvalidAttributeValue">.*The value .* of attribute '(.*)' on element '(.*)' is not valid with respect to its type.*</entry>
+    <entry key="org.bungeni.translators.utility.exceptionmanager.handlers.DefaultHandler">(.*)</entry>
+</properties>

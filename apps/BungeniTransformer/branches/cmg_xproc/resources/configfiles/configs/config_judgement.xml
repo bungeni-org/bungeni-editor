@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config name="JudgementCommon">
+    <properties>
+	<!-- judgement -->
+	<entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
+        <entry key="cachePipelineXSLT">true</entry>
+         <entry key="inputXmlSource">ODF</entry>
+    </properties>
+
+    <!-- Specfies the schema for the xml document being created -->
+    <schema href="configfiles/schema/akomantoso10.xsd" />
+
+    <!-- This steps are performed BEFORE the above regex replacement -->
+    <input>
+        <xslt step="1" name="appendBungeniNS" href="pipeline_xslt/common/add_bungeni_ns.xsl"/>
+        <!-- Add RDF ns -->
+        <xslt step="2" name="appendRDFNS" href="pipeline_xslt/common/add_rdf_ns.xsl"/>
+        <!-- Extract the styles -->
+        <xslt step="3" name="mergeStyles" href="pipeline_xslt/common/merge_styles.xsl"/>
+        <!-- Transform the document to the META Language -->
+        <xslt step="4" name="ODFToMetaLanguage"
+            href="pipeline_xslt/judgement/odf_to_meta_language.xsl"/>
+    </input>
+
+    <replacements>
+        <!-- Normalise the produced ODF ref elements -->
+        <replacement step="1" name="replacerefmarkstart"
+            pattern="&lt;text:reference-mark-start([^\/]+)/&gt;" replacement="&lt;ref$1&gt;"/>
+        <replacement step="2" name="replacerefmarkend"
+            pattern="&lt;text:reference-mark-end([^\/]+)/&gt;" replacement="&lt;/ref&gt;"/>
+        <!-- Normalise the produced ODF bookmark elements -->
+        <replacement step="3" name="bookmarkstart" pattern="&lt;text:bookmark-start([^\/]+)/&gt;"
+            replacement="&lt;ref$1&gt;"/>
+        <replacement step="4" name="bookmarkend" pattern="&lt;text:bookmark-end([^\/]+)/&gt;"
+            replacement="&lt;/ref&gt;"/>
+        <!-- Delete the empty lines -->
+        <replacement step="5" name="replaceemptyline" pattern="\n" replacement=""/>
+    </replacements>
+
+    <!-- This steps are performed AFTER the above regex replacement -->
+    <output>
+        <!-- Normalise the produced META document -->
+        <xslt step="1" name="MetaLanguageNormalisation"
+            href="pipeline_xslt/common/meta_language_normalization.xsl"/>
+        <!-- Add the Metalex namespace -->
+        <xslt step="2" name="MetaLanguageAddNamespaceMetalex"
+            href="pipeline_xslt/common/meta_language_add_mlx_ns.xsl"/>
+        <!-- Add the Bungeni namespace -->
+        <xslt step="3" name="MetaLanguageAddNamespaceBungeni"
+            href="pipeline_xslt/common/meta_language_add_bungeni_ns.xsl"/>
+    </output>
+
+    <!-- Output is piped to 1 or more named pipelines they are
+    called in declared order -->
+
+    <pipetoxml name="AnJudgement"
+               href="pipeline_xslt/judgement/pipeline.xsl"  />
+
+    <!-- Called after translate -->
+    <postxml>
+        <xslt step="1" name="AddNamespaceAkomaNtoso" href="pipeline_xslt/common/add_an_ns.xsl" />
+    </postxml>
+
+
+</config>

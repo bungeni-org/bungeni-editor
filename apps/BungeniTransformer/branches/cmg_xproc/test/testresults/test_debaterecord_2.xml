@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><akomaNtoso xmlns="http://www.akomantoso.org/1.0">
+   <debateRecord>
+      <meta>
+         <identification source="#bungeni">
+            <FRBRWork>
+               <FRBRthis value="\ke\debaterecord\2011-6-9"/>
+               <FRBRuri value=""/>
+               <FRBRdate date="2011-06-09" name="workDate"/>
+               <FRBRauthor href="#user.Ashok"/>
+            </FRBRWork>
+            <FRBRExpression>
+               <FRBRthis value="\ke\debaterecord\2011-6-9\en"/>
+               <FRBRuri value="/en@"/>
+               <FRBRdate date="2011-06-09" name="expDate"/>
+               <FRBRauthor href="#user.Ashok"/>
+            </FRBRExpression>
+            <FRBRManifestation>
+               <FRBRthis value="\ke\debaterecord\2011-6-9\en.xml"/>
+               <FRBRuri value="/en@.akn"/>
+               <FRBRdate date="2011-06-09" name="manDate"/>
+               <FRBRauthor href="#user.Ashok"/>
+            </FRBRManifestation>
+         </identification>
+         <publication date="2011-06-09" name="debate" showAs=""/>
+         <references source="#bungeni">
+            <TLCOrganization id="Parliament" href="2" showAs="Parliament"/>
+            <TLCPerson id="puser.Ashok" href="user.Ashok" showAs="Author"/>
+         </references>
+      </meta>
+      <preface>
+         <p>The preface</p>
+      </preface>
+      <debate/>
+   </debateRecord>
+</akomaNtoso>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><root xmlns="http://www.metalex.org/1.0" xmlns:bungeni="http://editor.bungeni.org/1.0/anx/" name="root" id="d7e1" transformation="http://docs.oasis-open.org/office/1.2/xslt/odf2rdf.xsl">
+   <container id="debaterecord" class="Sect1" name="body">
+      <mcontainer name="meta">      
+         <mcontainer name="identification" id="identification_d7e52" source="#bungeni">         
+            <mcontainer name="FRBRWork" id="FRBRWork_d7e52">            
+               <meta name="this" id="FRBRWork_this_d7e52" value="\ke\debaterecord\2011-6-9"/>            
+               <meta name="uri" id="FRBRWork_uri_d7e52" value=""/>            
+               <meta name="date" id="FRBRWork_date_d7e52" contentName="workDate" date="2011-06-09"/>            
+               <meta name="author" id="FRBRWork_author_d7e52" href="#user.Ashok"/>         
+            </mcontainer>         
+            <mcontainer name="FRBRExpression" id="FRBRExpression_d7e52">            
+               <meta name="this" id="FRBRExpression_this_d7e52" value="\ke\debaterecord\2011-6-9\en"/>            
+               <meta name="uri" id="FRBRExpression_uri_d7e52" value="/en@"/>            
+               <meta name="date" id="FRBRExpression_date_d7e52" contentName="expDate" date="2011-06-09"/>            
+               <meta name="author" id="FRBRExpression_author_d7e52" href="#user.Ashok"/>         
+            </mcontainer>         
+            <mcontainer name="FRBRManifestation" id="FRBRManifestation_d7e52">            
+               <meta name="this" id="FRBRManifestation_this_d7e52" value="\ke\debaterecord\2011-6-9\en.xml"/>            
+               <meta name="uri" id="FRBRManifestation_uri_d7e52" value="/en@.akn"/>            
+               <meta name="date" id="FRBRManifestation_date_d7e52" contentName="manDate" date="2011-06-09"/>            
+               <meta name="author" id="FRBRManifestation_author_d7e52" href="#user.Ashok"/>         
+            </mcontainer>      
+         </mcontainer>      
+         <mcontainer name="publication_mcontainer" id="publication_containerd7e52">         
+            <meta id="publication_d7e52" name="publication" contentName="debate" date="2011-06-09"/>      
+         </mcontainer>      
+         <mcontainer id="references_d7e52" name="references" source="#bungeni">         
+            <meta id="Parliament" name="TLCOrganization" href="2" showAs="Parliament"/>         
+            <meta name="TLCPerson" id="user.Ashok" href="user.Ashok" showAs="Author"/>                           
+         </mcontainer>   
+      </mcontainer>
+      <container id="preface" class="Sect2" name="Preface">         
+         <bungeni:bungenimeta>#id869374501            
+            <bungeni:BungeniSectionID>L+3dgIu0TO6dtHTmzrdWZw</bungeni:BungeniSectionID>            
+            <bungeni:BungeniSectionType>Preface</bungeni:BungeniSectionType>            
+            <bungeni:hiddenBungeniMetaEditable>false</bungeni:hiddenBungeniMetaEditable>         
+         </bungeni:bungenimeta>         
+         <block name="p" id="d7e30" class="Standard">The preface</block>      
+      </container>
+   </container>
+</root>

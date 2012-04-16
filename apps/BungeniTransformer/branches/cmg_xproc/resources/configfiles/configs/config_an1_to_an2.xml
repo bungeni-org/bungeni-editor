@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : config_bungeni_parliament.xml
+    Created on : 29 March 2012, 14:14
+    Author     : anthony
+    Description:
+    This is the translation pipeline for Bungeni output document of type="parliament", which
+    contains information that pertains to the current parliament
+-->
+<config name="BungeniXML">
+    <properties>
+        <entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
+        <entry key="cachePipelineXSLT">false</entry>
+        <entry key="inputXmlSource">XML</entry>
+    </properties>
+    
+    <!-- Specfies the schema for the xml document being created -->
+    <schema href="configfiles/schema/akomantoso20.xsd" />
+    
+    <!-- This steps are performed BEFORE the above regex replacement -->
+    <input>
+        
+        <xslt   step="1" 
+            name="convert_to_an20" 
+            href="pipeline_xslt/an1_to_an2/migrate_an20.xsl"/>
+
+        <xslt   step="2" 
+            name="convert_to_an20" 
+            href="pipeline_xslt/an1_to_an2/merger_xhtml_ns.xsl"/>
+        
+        <xslt   step="3" 
+            name="convert_to_an20" 
+            href="pipeline_xslt/an1_to_an2/cleanup.xsl"/>
+        
+        <xslt   step="4" 
+            name="convert_to_an20" 
+            href="pipeline_xslt/an1_to_an2/final.xsl"/>
+            
+    </input>
+    
+</config>

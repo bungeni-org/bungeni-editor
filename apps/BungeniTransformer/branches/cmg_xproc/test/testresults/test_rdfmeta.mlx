@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?><root xmlns="http://www.metalex.org/1.0" xmlns:bungeni="http://editor.bungeni.org/1.0/anx/" name="root" id="d7e1" transformation="http://docs.oasis-open.org/office/1.2/xslt/odf2rdf.xsl">
+   <container id="debaterecord" class="Sect1" name="body">
+      <mcontainer name="meta">      
+         <mcontainer name="identification" id="identification_d7e446" source="#bungeni">         
+            <mcontainer name="FRBRWork" id="FRBRWork_d7e446">            
+               <meta name="this" id="FRBRWork_this_d7e446" value="\ke\debaterecord\2011-9-23"/>            
+               <meta name="uri" id="FRBRWork_uri_d7e446" value=""/>            
+               <meta name="date" id="FRBRWork_date_d7e446" contentName="workDate" date="2011-09-23"/>            
+               <meta name="author" id="FRBRWork_author_d7e446" href="#user.Ashok"/>         
+            </mcontainer>         
+            <mcontainer name="FRBRExpression" id="FRBRExpression_d7e446">            
+               <meta name="this" id="FRBRExpression_this_d7e446" value="\ke\debaterecord\2011-9-23\en"/>            
+               <meta name="uri" id="FRBRExpression_uri_d7e446" value="/en@"/>            
+               <meta name="date" id="FRBRExpression_date_d7e446" contentName="expDate" date="2011-09-19"/>            
+               <meta name="author" id="FRBRExpression_author_d7e446" href="#user.Ashok"/>         
+            </mcontainer>         
+            <mcontainer name="FRBRManifestation" id="FRBRManifestation_d7e446">            
+               <meta name="this" id="FRBRManifestation_this_d7e446" value="\ke\debaterecord\2011-9-23\en.xml"/>            
+               <meta name="uri" id="FRBRManifestation_uri_d7e446" value="/en@.akn"/>            
+               <meta name="date" id="FRBRManifestation_date_d7e446" contentName="manDate" date="2011-09-19"/>            
+               <meta name="author" id="FRBRManifestation_author_d7e446" href="#user.Ashok"/>         
+            </mcontainer>      
+         </mcontainer>      
+         <mcontainer name="publication_mcontainer" id="publication_containerd7e446">         
+            <meta id="publication_d7e446" name="publication" contentName="debaterecord" date="2011-09-23"/>      
+         </mcontainer>      
+         <mcontainer id="references_d7e446" name="references" source="#bungeni">         
+            <meta id="Parliament" name="TLCOrganization" href="1" showAs="Parliament"/>         
+            <meta name="TLCPerson" id="user.Ashok" href="user.Ashok" showAs="Author"/>                           
+         </mcontainer>   
+      </mcontainer>
+      <hcontainer id="preface" class="Sect2" name="Preface">         
+         <bungeni:bungenimeta>#id1194021351            
+            <bungeni:BungeniSectionID>xOyUOkCjRXWXCCX0bLJT1g</bungeni:BungeniSectionID>            
+            <bungeni:BungeniSectionType>Preface</bungeni:BungeniSectionType>            
+            <bungeni:hiddenBungeniMetaEditable>false</bungeni:hiddenBungeniMetaEditable>         
+         </bungeni:bungenimeta>         
+         <htitle id="d7e28" name="heading" class="5f">NATIONAL ASSEMBLY</htitle>                  
+         <htitle id="d7e33" name="subheading" class="5f">OFFICIAL REPORT</htitle>                  
+         <container id="d9e39" name="fixing_hcontainer">
+            <block name="p" id="d7e39" class="Standard">            
+               <text:meta xmlns:text="http://www.metalex.org/1.0" id="id1654349063">Wednesday, 20th March, 1991</text:meta>         
+            </block>
+         </container>                  
+         <container id="comment2" class="Sect5" name="Observation">            
+            <bungeni:bungenimeta>#id1267627946               
+               <bungeni:BungeniSectionID>BfLnBZQ3RM+BfT2evWn9KQ</bungeni:BungeniSectionID>               
+               <bungeni:BungeniSectionType>Observation</bungeni:BungeniSectionType>               
+               <bungeni:hiddenBungeniMetaEditable>false</bungeni:hiddenBungeniMetaEditable>            
+            </bungeni:bungenimeta>            
+            <block name="p" id="d7e61" class="observation">The House met at thirty minutes past Two o'clock.</block>            
+            <block name="p" id="d7e64" class="observation">[Mr Speaker in the Chair]</block>         
+         </container>               
+      </hcontainer>
+      <hcontainer id="papers1" class="Sect3" name="PapersLaid">         
+         <bungeni:bungenimeta>#id1514514067            
+            <bungeni:BungeniSectionID>BSjMvok2ScWShxx5xW2yZw</bungeni:BungeniSectionID>            
+            <bungeni:BungeniSectionType>PapersLaid</bungeni:BungeniSectionType>            
+            <bungeni:hiddenBungeniMetaEditable>false</bungeni:hiddenBungeniMetaEditable>         
+         </bungeni:bungenimeta>         
+         <htitle id="d7e87" name="heading" class="5f">PAPERSLAID</htitle>                  
+         <htitle id="d7e94" name="subheading" class="5f">The following Papers were laid on the Table:</htitle>         
+         <container id="tbldocs1" class="Sect4" name="PapersLaidList">            
+            <bungeni:bungenimeta>#id1446298002               
+               <bungeni:BungeniSectionID>3PizgpFwQMCcKvx8YqcVRg</bungeni:BungeniSectionID>               
+               <bungeni:BungeniSectionType>PapersLaidList</bungeni:BungeniSectionType>               
+               <bungeni:hiddenBungeniMetaEditable>false</bungeni:hiddenBungeniMetaEditable>            
+            </bungeni:bungenimeta>            
+            <block name="p" id="d7e111" class="Standard">               
+               <inline name="a" id="d7e113" href="/ken/person/hon.khamasi/doc-20040704">The Report of the Commonwealth Parliamentary Association (CPA) Kenya branch delegation to the 35th CPA (Africa Region) conference held in Lobamba, Swaziland from 7th August, 2004 to 15th August, 2004.</inline>            
+            </block>            
+            <block name="p" id="d7e117" class="Standard">               
+               <inline name="a" id="d7e119" href="/ken/docs/ministry/agricultuer/doc000001">Annual Report and Accounts of Jomo Kenyatta University College of Agriculture and Technology for the year ended 30th June, 1990 and the Certificate thereon by the Auditor-General (Corporations)</inline>            
+            </block>            
+            <block name="p" id="d7e123" class="Standard">               
+               <inline name="a" id="d7e125" href="/ken/docs/ministry/education/doc000002">Audit Report and Accounts of Higher Education Loans Fund for the year ended 30th June, 1983 and the Certificate thereon by the Auditor-General (Corporations)</inline>(<inline name="a" id="d7e128" href="/ken/docs/ministry/finance/doc000231">Finance Report and Accounts of Higher Education Loans Fund for the year ended 30th June, 1983 and the Certificate thereon by the Auditor-General (Corporations)</inline>            
+            </block>            
+            <container id="comment1" class="Sect5" name="Observation">               
+               <bungeni:bungenimeta>#id1179058855                  
+                  <bungeni:BungeniSectionID>Egrp07GpTminf8iVXmmJmA</bungeni:BungeniSectionID>                  
+                  <bungeni:BungeniSectionType>Observation</bungeni:BungeniSectionType>                  
+                  <bungeni:hiddenBungeniMetaEditable>false</bungeni:hiddenBungeniMetaEditable>               
+               </bungeni:bungenimeta>               
+               <block name="p" id="d7e146" class="observation">By the Assistant Minister for Finance (Mr. Keah) on behalf of the Minister for Finance)</block>            
+            </container>         
+         </container>               
+      </hcontainer>
+      <block name="p" id="d7e155" class="Standard">COMMUNICATION FROM THE CHAIR</block>
+      <block name="p" id="d7e161" class="Standard">The Speaker:</block>
+      <block name="p" id="d7e164" class="Standard">Honourable members, I welcome you. However, I note that the number is smaller than yesterday's. I know there is a committee, which is busy in the Eastern part of Uganda, but others should be here. I do not know what is happening, even to the Front Bench. I do not know whether they have a meeting, but I have not been informed. Anyway, I welcome you.</block>
+      <block name="p" id="d7e169" class="Standard">I will be adjusting the Order Paper to allow a statement from hon. Baba Diri and an informal question from hon. Banyenzaki. I would also like to take this opportunity to point out that there is something which we as Parliament should take note of and find a solution to. The problem is the road carnage. There are very many deaths on our roads. I think something should be done to curb this because there was an accident in Mabira and another one on Masaka road. I think something has to be done. There must be something wrong. I am not supposed to participate in the debate, but I also own a constituency and I am a citizen who takes advantage of my seat here to point out what is going on. Something should be done.</block>
+      <block name="p" id="d7e175" class="Standard">Mr william nsubuga:</block>
+      <block name="p" id="d7e178" class="Standard">Thank you, Mr Speaker. One of the issues why the attendance is poor is that in most cases we begin plenary very late, yet you always adjourn this House to 2.00 p.m. Members are always here at 2.00 p.m. but we begin towards 3.00 p.m., so there is need to keep time.</block>
+      <block name="p" id="d7e183" class="Standard">THE SPEAKER:</block>
+      <block name="p" id="d7e188" class="Standard">That has no merit, I must say. You mean they went away because we did not start at 2.00 p.m.? When I am in my chambers I watch the attendance here.</block>
+      <block name="p" id="d7e198" class="Standard">POINT OF ORDER</block>
+      <block name="p" id="d7e203" class="Standard">Banning of Matatus from AccessingNairobi CBD</block>
+      <block name="p" id="d7e211" class="P1">The Member for Malava (Mr. Shitanda):</block>
+      <block name="p" id="d7e214" class="P1">Mr. Speaker, Sir, I stand to ask for a Ministerial Statement from the Minister for Local Government regarding his decision to ban matatus from accessing the Central Business District (CBD). This decision has left very many commuters inconvenienced, with some of them having to walk five kilometres to their places of work.</block>
+      <block name="p" id="d7e217" class="Standard">Imagine a situation whereby a commuter from Eastlands is dropped at the City Stadium and his place of work is at Community! This commuter will walk a distance of almost five kilometres to reach his place of work. I would like to know from the Minister what he will do to ensure that his decision does not inconvenience commuters and whether that decision will, indeed, decongest the CBD. Why was his decision selective in the sense that there are some public service vehicles which have been allowed to access the CBD? I would wish him to explain his decision to this House.</block>
+      <block name="p" id="d7e222" class="P1">The Vice-President and Minister for Home Affairs (Mr. Musyoka):</block>
+      <block name="p" id="d7e225" class="P1">Mr. Speaker, Sir, I undertake to communicate that concern by the hon. Member to the Minister for Local Government.</block>
+      <block name="p" id="d7e231" class="Standard">(Mr. Keter stood up in his place)</block>
+      <block name="p" id="d7e236" class="P1">Mr. Speaker:</block>
+      <block name="p" id="d7e239" class="Standard">         
+         <inline name="span" id="d7e241" class="T1">Mr. Keter, although you did indicate to me yesterday afternoon that you would seek a Ministerial Statement, you did not come to my office as agreed, to tell me the gist of the Ministerial Statement. So, you cannot ask for it now!</inline>Next Order!</block>
+      <block name="p" id="d7e248" class="Standard">NOTICE OF MOTION</block>
+      <block name="p" id="d7e253" class="Standard">Release of Game Reserve Land for Public Use</block>
+      <block name="p" id="d7e258" class="Standard">Mr. Galgallo:</block>
+      <block name="p" id="d7e261" class="Standard">Mr. Speaker, Sir, I beg to give notice of the following Motion:</block>
+      <block name="p" id="d7e265" class="Standard">That, in view of the continuing rise of the population against the non-increasing land surface and since there have been simultaneous increase in the acreages and number of Game Reserves; this House urges the Government to review the entire structure of wildlife sanctuaries vis-a-vis the population demand for more land and degazette those reserves that are non-viable with a view to releazing more land for public use.</block>
+      <block name="p" id="d7e270" class="Standard">PROCEDURAL MOTIONS</block>
+      <block name="p" id="d7e275" class="Standard">Limitation of Debate: Presidential Address</block>
+      <block name="p" id="d7e281" class="Standard">The Minister for Energy (Mr. N. Biwott):</block>
+      <block name="p" id="d7e284" class="Standard">Mr. Speaker, Sir, I beg to move the following Procedural Motion:</block>
+      <block name="p" id="d7e287" class="Standard">That the debate on the Motion of Presidential Address be limited to a maximum of seven days, with not more than ten minutes for each Member speaking excluding the Mover in moving and replying who shall be limited to twenty minutes in either case.</block>
+      <block name="p" id="d7e290" class="Standard">Mr. Speaker, Sir, this is a routine Procedural Motion which we have adopted in all the Sessions in the past and it has served us well. This is the only way we can get some order for ensuring that every hon. Member gets an opportunity to contribute on this important Presidential Address.</block>
+      <block name="p" id="d7e293" class="Standard">With these few remarks, Mr. Speaker, Sir, I would like to commend this Procedural Motion to the hon. Members and I beg to move.</block>
+      <block name="p" id="d7e299" class="Standard">The Minister for Regional Development (Mr. Midika):</block>
+      <block name="p" id="d7e302" class="Standard">Mr. Speaker, Sir, I stand to second this Motion. Mr. Speaker, Sir, since this is a Procedural Motion, perhaps we should not dwell on it very much when we have other very important issues coming on. Therefore, I want to take the shortest possible time possible to second the Motion.</block>
+      <block name="p" id="d7e307" class="Standard">(Question proposed)</block>
+      <block name="p" id="d7e310" class="Standard">(Question put and agreed to)</block>
+      <block name="p" id="d7e316" class="Standard">ORAL ANSWERS TO QUESTIONS</block>
+      <block name="p" id="d7e319" class="Standard">No. 332</block>
+      <block name="p" id="d7e322" class="Standard">Bitumenization of Arabia Airstrip</block>
+      <block name="p" id="d7e327" class="Standard">Mr. Aden asked the Minister for Transport and Communication -</block>
+      <block name="p" id="d7e330" class="Standard">(a)why the Ministry has abandoned the work of bituminizing the Arabia Airstrip after having done the project half-way in 1978; and</block>
+      <block name="p" id="d7e334" class="Standard">(b)when this work will be completed.</block>
+      <block name="p" id="d7e339" class="Standard">The Assistant Minister for Transport and Communications (Dr. Momanyi):</block>
+      <block name="p" id="d7e342" class="Standard">Mr. Speaker, Sir, I beg to reply.</block>
+      <block name="p" id="d7e345" class="Standard">(a) The Arabia Airstrip is of gravel surface, and that is how it was intended to be. At no time has any bitumen work ever been undertaken in 1978 and stopped, as the question implies. The airstrip was last graded in June, 1988.</block>
+      <block name="p" id="d7e348" class="Standard">(b) According to the Ministry's current Development Plan there is no provision to bituminize Arabia Airstrip.</block>
+      <block name="p" id="d7e354" class="Standard">Mr. Aden:</block>
+      <block name="p" id="d7e357" class="Standard">Arising from the reply given by the Assistant Minister, is he denying the fact that the Mandera District Development Committee (D.D.C.) recommended bituminization of this particular airstrip way back in 1977? What did the Ministry do about that recommendation of the D.D.C.?</block>
+      <block name="p" id="d7e362" class="Standard">Dr. Momanyi:</block>
+      <block name="p" id="d7e365" class="Standard">Mr. Speaker, Sir, it is not always that the Minisry goes by the recommendations of the D.D.C. This is because to build an airstrip, you must look at various things. I want to inform the House now that there is no sufficient volume of traffic for the Arabia Airstrip. Already, in Mandera District, we have bituminized airstrips at El Wak, El Rhamu and Mandera.</block>
+      <block name="p" id="d7e371" class="Standard">Mr. Aden:</block>
+      <block name="p" id="d7e374" class="Standard">Mr. Speaker, Sir, I am amazed by the reply given by the Assistant Minister. It is the people who live in the area who know what the airstrip is like. Now the basis of development is the recommendation of the D.D.C. Now that the Assistant Minister says that they abide by the recommendations of the D.D.C., does he imply that his Ministry is better placed to know about the place than the inhabitants of Arabia?</block>
+      <block name="p" id="d7e379" class="Standard">Dr. Momanyi:</block>
+      <block name="p" id="d7e382" class="Standard">Mr. Speaker, Sir, I said it is not always that the Ministry goes by the recommendations of the D.D.C. Hon. Aden should have understood that. However, let me now give the statistical figures which come form the Directorate of Civil Aviation (D.C.A.).</block>
+      <block name="p" id="d7e386" class="Standard">(...)</block>
+      <block name="p" id="d7e391" class="Standard">Mr. Aden:</block>
+      <block name="p" id="d7e394" class="Standard">Thank you, Mr. Speaker, Sir. I do not know how the Assistant Minister wants an airstrip that is unfinished to be used by an aircraft. Is he aware that various officials who fly out of Nairobi, and who want to visit particular projects in that division, land at Mandera Airstrip, which is 35 miles away and then drive by road because there is no serviceable landing airstrip?</block>
+      <block name="p" id="d7e399" class="Standard">Dr. Momanyi:</block>
+      <block name="p" id="d7e403" class="Standard">Mr. Speaker, Sir, the airstrip has been maintained regularly. It was last graded in 1988. I would like to inform the hon. Member that gravel surface, if it has a strong foundation and is well-maintained, can be used by aircraft of a certain weight.</block>
+      <block name="p" id="d7e406" class="Standard">Mr. Speaker: Next question.</block>
+      <block name="p" id="d7e413" class="Standard">ADJOURNMENT</block>
+      <block name="p" id="d7e419" class="Standard">The Temporary Deputy Speaker (Mr. Kabingu-Muregi):</block>
+      <block name="p" id="d7e422" class="Standard">It is now time for the interruption of business. The House is, therefore, adjourned until tomorrow, Wednesday, 11th May, at 9.00 a.m.</block>
+      <block name="p" id="d7e425" class="Standard">The House rose at thirty minutes past Six o'clock.</block>
+   </container>
+</root>
