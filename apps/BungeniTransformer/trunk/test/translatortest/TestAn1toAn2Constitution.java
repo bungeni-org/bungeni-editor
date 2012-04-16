@@ -14,7 +14,7 @@ public class TestAn1toAn2Constitution extends OATranslatorTestBungeniXmlBase {
 		setInputDocument("test/testdocs/constitution_final.xml");
 		setOutputDocument("test/testresults/out_constitution_final.xml");
 		setOutputMetalex("test/testresults/out_constitution_final.mlx");
-		setComparisonDocument("test/testdocs/test_bungeni_out.xml");
+		setComparisonDocument("test/testdocs/comp_out_constitution_final.xml");
 	}
 	
 }
