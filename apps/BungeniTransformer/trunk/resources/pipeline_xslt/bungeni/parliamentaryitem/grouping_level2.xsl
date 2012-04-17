@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:xbf="http://bungeni.org/xslt/functions"
+    xmlns:bdates="http://www.bungeni.org/xml/dates/1.0"
     exclude-result-prefixes="xs"
     version="2.0">
+    <xsl:import href="resources/pipeline_xslt/bungeni/common/func_dates.xsl" />
+    
     <xd:doc xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" scope="stylesheet">
         <xd:desc>
             <xd:p><xd:b>Created on:</xd:b> Oct 17, 2011</xd:p>
@@ -28,20 +30,6 @@
     <xsl:variable name="for-parliament" select="data(/ontology/bungeni/parliament/@href)" />
     <xsl:variable name="parliament-id" select="data(/ontology/bungeni/@id)" />
     
-    <xsl:function name="xbf:parse-date">
-        <xsl:param name="input-date"/>
-        <xsl:variable name="arrInputDate" select="tokenize($input-date,'\s+')" />
-        <xsl:sequence select="concat($arrInputDate[1],'T',$arrInputDate[2])" />
-    </xsl:function>
-    
-    
-    <xsl:function name="xbf:parse-date-nomicrotime">
-        <xsl:param name="input-date"/>
-        <xsl:variable name="arrInputDate" select="tokenize($input-date,'\s+')" />
-        <xsl:variable name="arrInputTime" select="substring-before(string($arrInputDate[2]), '.')" />
-        <xsl:sequence select="concat($arrInputDate[1],'T',$arrInputTime)" />
-    </xsl:function>
-    
     <xsl:template match="/">
         <xsl:apply-templates/>
     </xsl:template>
@@ -63,14 +51,15 @@
         </body>
     </xsl:template>    
     
+    <!--
     <xsl:template match="field[@name='assignment_id']">
         <assignmentId>
             <xsl:value-of select="." />
         </assignmentId>
-    </xsl:template>  
+    </xsl:template>  -->
     
     <xsl:template match="field[@name='user_id']">
-        <userId>
+        <userId type="xs:string">
             <xsl:value-of select="." />
         </userId>
     </xsl:template>  
@@ -89,16 +78,18 @@
         </action>
     </xsl:template>
     
-    <xsl:template match="field[@name='response_type']">
-        <responseType>
-            <xsl:value-of select="." />
+    <xsl:template match="_vp_response_type">
+        <responseType isA="TLCTerm">
+            <value type="xs:string">
+                <xsl:value-of select="field[@name='value']" />
+            </value>
         </responseType>
     </xsl:template>
     
-    <xsl:template match="field[@name='question_type']">
-        <questionType>
-            <xsl:value-of select="." />
-        </questionType>
+    <xsl:template match="field[@name='doc_type']">
+        <docType isA="TLCTerm">
+            <value type="xs:string"><xsl:value-of select="." /></value>
+        </docType>
     </xsl:template>    
     
     <xsl:template match="field[@name='start_date']">
@@ -126,20 +117,21 @@
     </xsl:template> 
     
     <xsl:template match="field[@name='status']">
-        <status>
-            <xsl:value-of select="." />
+        <status isA="TLCTerm">
+            <value type="xs:string"><xsl:value-of select="." /></value>
         </status>
     </xsl:template>    
     
+    <!--
     <xsl:template match="field[@name='description']">
         <description>
             <xsl:value-of select="." />
         </description>
     </xsl:template>     
-    
+    --> 
     
     <xsl:template match="field[@name='registry_number']">
-        <registryNumber>
+        <registryNumber type="xs:string">
             <xsl:value-of select="." />
         </registryNumber>
     </xsl:template>    
@@ -162,13 +154,13 @@
         </manual>
     </xsl:template>     
     
-    <xsl:template match="field[@name='short_name']">
+    <xsl:template match="field[@name='short_title']">
         <shortName>
             <xsl:value-of select="." />
         </shortName>
     </xsl:template>    
     
-    <xsl:template match="field[@name='full_name']">
+    <xsl:template match="field[@name='full_title']">
         <fullName>
             <xsl:value-of select="." />
         </fullName>
@@ -217,7 +209,9 @@
     </xsl:template>    
     
     <xsl:template match="field[@name='language']">
-        <language><xsl:value-of select="." /></language>
+        <!-- !+RENDERED NOW as xml:lang on the legislativeItem
+         <language type="xs"><xsl:value-of select="." /></language>
+        -->
     </xsl:template>
     
     <xsl:template match="field[@name='uri']">
@@ -232,7 +226,7 @@
         <xsl:variable name="arrStatusDate" select="tokenize($status_date,'\s+')" />
         -->
         <statusDate type="xs:dateTime">
-            <xsl:value-of select="xbf:parse-date($status_date)" />
+            <xsl:value-of select="bdates:parse-date($status_date)" />
         </statusDate>
     </xsl:template>
     
@@ -241,14 +235,14 @@
     <xsl:template match="field[@name='date_active' or @name='audit_date_active']">
         <dateActive type="xs:dateTime">
             <xsl:variable name="active_date" select="." />
-            <xsl:value-of select="xbf:parse-date($active_date)" />
+            <xsl:value-of select="bdates:parse-date($active_date)" />
         </dateActive>
     </xsl:template> 
 
     <xsl:template match="field[@name='date_audit']">
         <dateAudit type="xs:dateTime">
             <xsl:variable name="audit_date" select="." />
-            <xsl:value-of select="xbf:parse-date($audit_date)" />
+            <xsl:value-of select="bdates:parse-date($audit_date)" />
         </dateAudit>
     </xsl:template> 
     
@@ -355,16 +349,11 @@
         </procedure>
     </xsl:template>   
     
-    <xsl:template match="field[@name='seq']">
-        <seq>
-            <xsl:value-of select="." />
-        </seq>
-    </xsl:template>     
 
-    <xsl:template match="field[@name='audit_date']">
+    <xsl:template match="field[@name='date_audit']">
         <xsl:variable name="audit_date" select="." />
         <auditDate type="xs:dateTime">
-            <xsl:value-of select="xbf:parse-date($audit_date)" />
+            <xsl:value-of select="bdates:parse-date($audit_date)" />
         </auditDate>
     </xsl:template>   
     
@@ -418,13 +407,13 @@
         <publicationDate type="xs:date"><xsl:value-of select="." /></publicationDate>
     </xsl:template>
     
-    <xsl:template match="events">
+    <xsl:template match="sa_events">
         <workflowEvents>
             <xsl:apply-templates mode="parent_is_events" />
         </workflowEvents>
     </xsl:template>
     
-    <xsl:template match="event" mode="parent_is_events">
+    <xsl:template match="sa_event" mode="parent_is_events">
         <xsl:variable name="event-identifier" select="field[@name='doc_id']" />
         <xsl:variable name="event-date" select="field[@name='status_date']" />
         <xsl:variable name="event-lang" select="field[@name='language']" />
@@ -432,7 +421,7 @@
             href="{concat('/',$country-code,'/event/',$event-identifier, '/', $event-lang)}" 
             isA="TLCEvent"
             showAs="{field[@name='short_title']}" 
-            date="{xbf:parse-date($event-date)}" 
+            date="{bdates:parse-date($event-date)}" 
         >
             <xsl:apply-templates />
         </workflowEvent>
@@ -446,20 +435,37 @@
     
     <xsl:template match="version">
         <xsl:variable name="doc-uri" select="//legislativeItem/@uri" />
-        <xsl:variable name="status-date" select="field[@name='status_date']" />
-        <xsl:variable name="version-status-date" select="xbf:parse-date-nomicrotime($status-date)" />
+        <xsl:variable name="version-status-date" select="field[@name='date_active']" />
 
-        <version isA="TLCConcept" 
+        <version isA="TLCObject" 
             uri="{concat($doc-uri, '@', $version-status-date)}" 
             id="ver-{data(field[@name='version_id'])}"
-            user-generated="{lower-case(data(field[@name='manual']))}"
             >
-
             <xsl:apply-templates />
-        
         </version>
    
     </xsl:template>
+    
+    <xsl:template match="field[@name='date_active']">
+        <activeDate type="xs:dateTime"><xsl:value-of select="." /></activeDate>
+    </xsl:template>
+    
+    
+    <xsl:template match="field[@name='date_audit']">
+        <auditDate type="xs:dateTime"><xsl:value-of select="." /></auditDate>
+    </xsl:template>
+    
+    <xsl:template match="field[@name='seq']">
+        <sequence type="xs:integer"><xsl:value-of select="." /></sequence>    
+    </xsl:template>
+    
+    <xsl:template match="field[@name='procedure']">
+        <procedureType isA="TLCTerm">
+            <value type="xs:string"><xsl:value-of select="." /></value>
+        </procedureType>
+    </xsl:template>
+    
+    
     
     <xsl:variable name="parl_id" select="field[@name='owner_id']" />
     
