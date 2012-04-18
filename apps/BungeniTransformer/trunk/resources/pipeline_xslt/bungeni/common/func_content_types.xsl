@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-    xmlns:bctype="http://www.bungeni.org/xml/contenttypes/1.0"
+    xmlns:bctypes="http://www.bungeni.org/xml/contenttypes/1.0"
     exclude-result-prefixes="xs" version="2.0">
     <xd:doc xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" scope="stylesheet">
         <xd:desc>
@@ -15,7 +15,7 @@
     <!--
         Gets the Element name for a type mapping 
         -->
-    <xsl:function name="bctype:get_content_type_element_name">
+    <xsl:function name="bctypes:get_content_type_element_name">
         <xsl:param name="bungeni-content-type"/>
         <xsl:param name="type-mappings"/>
         
@@ -29,7 +29,7 @@
     <!--
         Gets the URI name for a type mapping
         -->
-    <xsl:function name="bctype:get_content_type_uri_name">
+    <xsl:function name="bctypes:get_content_type_uri_name">
         <xsl:param name="bungeni-content-type"/>
         <xsl:param name="type-mappings"/>
         
@@ -42,7 +42,7 @@
     <!--
         Generates the group identifier
         -->
-    <xsl:function name="bctype:generate-group-identifier">
+    <xsl:function name="bctypes:generate-group-identifier">
         <xsl:param name="group-uri-name" />
         <xsl:param name="for-parliament" />
         <xsl:param name="parliament-election-date" />
@@ -56,7 +56,7 @@
     <!--
         Generates the group uri
         -->
-    <xsl:function name="bctype:generate-group-uri">
+    <xsl:function name="bctypes:generate-group-uri">
         <xsl:param name="group-uri-name" />
         <xsl:param name="full-group-identifier" />
         <xsl:sequence select="concat(

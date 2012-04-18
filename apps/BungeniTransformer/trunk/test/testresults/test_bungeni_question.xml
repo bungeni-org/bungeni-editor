@@ -1,0 +1,1171 @@
+<?xml version="1.0" encoding="UTF-8"?><bu:ontology xmlns:bu="http://portal.bungeni.org/1.0/" for="document">
+   <bu:document id="bungeniDocument" isA="TLCConcept" uri="/ke/Question/8/en" xml:lang="en">
+      <bu:docType isA="TLCTerm">
+         <bu:value type="Question"/>
+      </bu:docType>
+      <bu:changes>
+        <bu:change>
+            <bu:userId type="xs:string">6</bu:userId>
+            <bu:sequence type="xs:integer">3</bu:sequence>
+            <bu:auditId type="xs:integer">78</bu:auditId>
+            <bu:activeDate type="xs:dateTime">2012-04-14T21:11:03.704930</bu:activeDate>
+            <bu:auditDate type="xs:dateTime">2012-04-14T21:11:03.704930</bu:auditDate>
+            <bu:auditAction isA="TLCEvent">
+               <bu:value type="xs:string">modify</bu:value>
+            </bu:auditAction>
+            <bu:procedureType isA="TLCTerm">
+               <bu:value type="xs:string">a</bu:value>
+            </bu:procedureType>
+            <bu:permissions>
+                <bu:permission name="zope.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Signatory" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.response.Edit" role="bungeni.Signatory" setting="Deny"/>
+                <bu:permission name="bungeni.response.Edit" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Signatory" setting="Allow"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="zope.View" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Speaker" setting="Allow"/>
+            </bu:permissions>
+        </bu:change>
+        <bu:change>
+            <bu:userId type="xs:string">5</bu:userId>
+            <bu:sequence type="xs:integer">4</bu:sequence>
+            <bu:auditId type="xs:integer">70</bu:auditId>
+            <bu:activeDate type="xs:dateTime">2012-04-14T21:10:30.657084</bu:activeDate>
+            <bu:auditDate type="xs:dateTime">2012-04-14T21:10:30.657084</bu:auditDate>
+            <bu:auditAction isA="TLCEvent">
+               <bu:value type="xs:string">workflow</bu:value>
+            </bu:auditAction>
+            <bu:procedureType isA="TLCTerm">
+               <bu:value type="xs:string">a</bu:value>
+            </bu:procedureType>
+            <bu:permissions>
+                <bu:permission name="zope.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Signatory" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.response.Edit" role="bungeni.Signatory" setting="Deny"/>
+                <bu:permission name="bungeni.response.Edit" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Signatory" setting="Allow"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="zope.View" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Speaker" setting="Allow"/>
+            </bu:permissions>
+        </bu:change>
+        <bu:change>
+            <bu:userId type="xs:string">5</bu:userId>
+            <bu:sequence type="xs:integer">2</bu:sequence>
+            <bu:auditId type="xs:integer">69</bu:auditId>
+            <bu:activeDate type="xs:dateTime">2012-04-14T21:10:30.623952</bu:activeDate>
+            <bu:auditDate type="xs:dateTime">2012-04-14T21:10:30.623952</bu:auditDate>
+            <bu:auditAction isA="TLCEvent">
+               <bu:value type="xs:string">version</bu:value>
+            </bu:auditAction>
+            <bu:procedureType isA="TLCTerm">
+               <bu:value type="xs:string">m</bu:value>
+            </bu:procedureType>
+            <bu:permissions>
+                <bu:permission name="zope.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Signatory" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.response.Edit" role="bungeni.Signatory" setting="Deny"/>
+                <bu:permission name="bungeni.response.Edit" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Signatory" setting="Allow"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="zope.View" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Speaker" setting="Allow"/>
+            </bu:permissions>
+        </bu:change>
+        <bu:change>
+            <bu:userId type="xs:string">5</bu:userId>
+            <bu:sequence type="xs:integer">2</bu:sequence>
+            <bu:auditId type="xs:integer">64</bu:auditId>
+            <bu:activeDate type="xs:dateTime">2012-04-14T21:10:25.538403</bu:activeDate>
+            <bu:auditDate type="xs:dateTime">2012-04-14T21:10:25.538403</bu:auditDate>
+            <bu:auditAction isA="TLCEvent">
+               <bu:value type="xs:string">modify</bu:value>
+            </bu:auditAction>
+            <bu:procedureType isA="TLCTerm">
+               <bu:value type="xs:string">a</bu:value>
+            </bu:procedureType>
+            <bu:permissions>
+                <bu:permission name="zope.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Signatory" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.response.Edit" role="bungeni.Signatory" setting="Deny"/>
+                <bu:permission name="bungeni.response.Edit" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Signatory" setting="Allow"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="zope.View" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Clerk" setting="Allow"/>
+            </bu:permissions>
+        </bu:change>
+        <bu:change>
+            <bu:userId type="xs:string">5</bu:userId>
+            <bu:sequence type="xs:integer">3</bu:sequence>
+            <bu:auditId type="xs:integer">50</bu:auditId>
+            <bu:activeDate type="xs:dateTime">2012-04-14T21:09:18.431042</bu:activeDate>
+            <bu:auditDate type="xs:dateTime">2012-04-14T21:09:18.431042</bu:auditDate>
+            <bu:auditAction isA="TLCEvent">
+               <bu:value type="xs:string">workflow</bu:value>
+            </bu:auditAction>
+            <bu:procedureType isA="TLCTerm">
+               <bu:value type="xs:string">a</bu:value>
+            </bu:procedureType>
+            <bu:permissions>
+                <bu:permission name="zope.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Signatory" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.response.Edit" role="bungeni.Signatory" setting="Deny"/>
+                <bu:permission name="bungeni.response.Edit" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Signatory" setting="Allow"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="zope.View" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Clerk" setting="Allow"/>
+            </bu:permissions>
+        </bu:change>
+        <bu:change>
+            <bu:userId type="xs:string">7</bu:userId>
+            <bu:sequence type="xs:integer">2</bu:sequence>
+            <bu:auditId type="xs:integer">49</bu:auditId>
+            <bu:activeDate type="xs:dateTime">2012-04-14T21:09:05.587826</bu:activeDate>
+            <bu:auditDate type="xs:dateTime">2012-04-14T21:09:05.587826</bu:auditDate>
+            <bu:auditAction isA="TLCEvent">
+               <bu:value type="xs:string">workflow</bu:value>
+            </bu:auditAction>
+            <bu:procedureType isA="TLCTerm">
+               <bu:value type="xs:string">a</bu:value>
+            </bu:procedureType>
+            <bu:permissions>
+                <bu:permission name="zope.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Signatory" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.response.Edit" role="bungeni.Signatory" setting="Deny"/>
+                <bu:permission name="bungeni.response.Edit" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Signatory" setting="Allow"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="zope.View" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Owner" setting="Deny"/>
+            </bu:permissions>
+        </bu:change>
+        <bu:change>
+            <bu:userId type="xs:string">7</bu:userId>
+            <bu:sequence type="xs:integer">1</bu:sequence>
+            <bu:auditId type="xs:integer">48</bu:auditId>
+            <bu:activeDate type="xs:dateTime">2012-04-14T21:09:05.551186</bu:activeDate>
+            <bu:auditDate type="xs:dateTime">2012-04-14T21:09:05.551186</bu:auditDate>
+            <bu:auditAction isA="TLCEvent">
+               <bu:value type="xs:string">version</bu:value>
+            </bu:auditAction>
+            <bu:procedureType isA="TLCTerm">
+               <bu:value type="xs:string">m</bu:value>
+            </bu:procedureType>
+            <bu:permissions>
+                <bu:permission name="zope.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Signatory" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.response.Edit" role="bungeni.Signatory" setting="Deny"/>
+                <bu:permission name="bungeni.response.Edit" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Signatory" setting="Allow"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="zope.View" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Owner" setting="Deny"/>
+            </bu:permissions>
+        </bu:change>
+        <bu:change>
+            <bu:userId type="xs:string">7</bu:userId>
+            <bu:sequence type="xs:integer">1</bu:sequence>
+            <bu:auditId type="xs:integer">47</bu:auditId>
+            <bu:activeDate type="xs:dateTime">2012-04-14T21:09:00.730152</bu:activeDate>
+            <bu:auditDate type="xs:dateTime">2012-04-14T21:09:00.730152</bu:auditDate>
+            <bu:auditAction isA="TLCEvent">
+               <bu:value type="xs:string">modify</bu:value>
+            </bu:auditAction>
+            <bu:procedureType isA="TLCTerm">
+               <bu:value type="xs:string">a</bu:value>
+            </bu:procedureType>
+            <bu:permissions>
+                <bu:permission name="zope.View" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Signatory" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Signatory" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.response.Edit" role="bungeni.Signatory" setting="Deny"/>
+                <bu:permission name="bungeni.response.Edit" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="zope.View" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Clerk" setting="Deny"/>
+            </bu:permissions>
+        </bu:change>
+        <bu:change>
+            <bu:userId type="xs:string">7</bu:userId>
+            <bu:sequence type="xs:integer">1</bu:sequence>
+            <bu:auditId type="xs:integer">46</bu:auditId>
+            <bu:activeDate type="xs:dateTime">2012-04-14T21:08:53.696847</bu:activeDate>
+            <bu:auditDate type="xs:dateTime">2012-04-14T21:08:53.696847</bu:auditDate>
+            <bu:auditAction isA="TLCEvent">
+               <bu:value type="xs:string">workflow</bu:value>
+            </bu:auditAction>
+            <bu:procedureType isA="TLCTerm">
+               <bu:value type="xs:string">a</bu:value>
+            </bu:procedureType>
+            <bu:permissions>
+                <bu:permission name="zope.View" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Signatory" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Signatory" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.response.Edit" role="bungeni.Signatory" setting="Deny"/>
+                <bu:permission name="bungeni.response.Edit" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="zope.View" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Clerk" setting="Deny"/>
+            </bu:permissions>
+        </bu:change>
+        <bu:change>
+            <bu:userId type="xs:string">7</bu:userId>
+            <bu:sequence type="xs:integer">1</bu:sequence>
+            <bu:auditId type="xs:integer">45</bu:auditId>
+            <bu:activeDate type="xs:dateTime">2012-04-14T21:08:53.600781</bu:activeDate>
+            <bu:auditDate type="xs:dateTime">2012-04-14T21:08:53.600781</bu:auditDate>
+            <bu:auditAction isA="TLCEvent">
+               <bu:value type="xs:string">add</bu:value>
+            </bu:auditAction>
+            <bu:procedureType isA="TLCTerm">
+               <bu:value type="xs:string">a</bu:value>
+            </bu:procedureType>
+            <bu:permissions>
+                <bu:permission name="zope.View" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="zope.View" role="bungeni.Signatory" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Authenticated" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Anonymous" setting="Deny"/>
+            </bu:permissions>
+        </bu:change>
+      </bu:changes>
+      <bu:owner isA="TLCPerson">
+         <bu:person href="/ontology/Person/.P1_01.member.1900-02-02T.7" showAs="P1_01 ,member"/>
+         <bu:role type="TLCConcept">
+            <bu:value type="xs:string">ParliamentMember</bu:value>
+         </bu:role>
+      </bu:owner>
+      <bu:audits>
+        <bu:audit>
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">EDITED MP CLERK SPEAKER - text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document 
+<br xmlns=""/> 
+<ul xmlns=""> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+</ul></div></bu:body>
+            <bu:docType isA="TLCTerm">
+               <bu:value type="xs:string">ordinary</bu:value>
+            </bu:docType>
+            <bu:auditFor isA="TLCTerm">
+               <bu:value type="xs:string">question</bu:value>
+            </bu:auditFor>
+            
+            <bu:parliamentId type="xs:string">2</bu:parliamentId>
+            <bu:auditId type="xs:integer">81</bu:auditId>
+            <bu:docId key="true" type="xs:integer">8</bu:docId>
+            <bu:statusDate type="xs:dateTime">2012-04-14T21:10:30.635721</bu:statusDate>
+            <bu:uri>/bungeni/ke/question/2012-04-14/6:6-question/en@/main</bu:uri>
+            <bu:shortTitle type="xs:string">Oral Question status made available for scheduling
+                P1_01</bu:shortTitle>
+            <bu:status isA="TLCTerm">
+               <bu:value type="xs:string">admissible</bu:value>
+            </bu:status>
+            <bu:registryNumber type="xs:string">6:6-question</bu:registryNumber>
+            
+            <bu:groupId type="xs:integer">13</bu:groupId>
+            <bu:type isA="TLCTerm">
+               <bu:value type="xs:string">question</bu:value>
+            </bu:type>
+            
+        </bu:audit>
+        <bu:audit>
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">EDITED MP CLERK SPEAKER - text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document 
+<br xmlns=""/> 
+<ul xmlns=""> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+</ul></div></bu:body>
+            <bu:docType isA="TLCTerm">
+               <bu:value type="xs:string">ordinary</bu:value>
+            </bu:docType>
+            <bu:auditFor isA="TLCTerm">
+               <bu:value type="xs:string">question</bu:value>
+            </bu:auditFor>
+            
+            <bu:parliamentId type="xs:string">2</bu:parliamentId>
+            <bu:auditId type="xs:integer">78</bu:auditId>
+            <bu:docId key="true" type="xs:integer">8</bu:docId>
+            <bu:statusDate type="xs:dateTime">2012-04-14T21:10:30.635721</bu:statusDate>
+            <bu:uri>/bungeni/ke/question/2012-04-14/6:6-question/en@/main</bu:uri>
+            <bu:shortTitle type="xs:string">Oral Question status made available for scheduling
+                P1_01</bu:shortTitle>
+            <bu:status isA="TLCTerm">
+               <bu:value type="xs:string">completed</bu:value>
+            </bu:status>
+            <bu:registryNumber type="xs:string">6:6-question</bu:registryNumber>
+            
+            <bu:groupId type="xs:integer">13</bu:groupId>
+            <bu:type isA="TLCTerm">
+               <bu:value type="xs:string">question</bu:value>
+            </bu:type>
+            
+        </bu:audit>
+        <bu:audit>
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">EDITED MP CLERK - text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document 
+<br xmlns=""/> 
+<ul xmlns=""> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+</ul></div></bu:body>
+            <bu:docType isA="TLCTerm">
+               <bu:value type="xs:string">ordinary</bu:value>
+            </bu:docType>
+            <bu:auditFor isA="TLCTerm">
+               <bu:value type="xs:string">question</bu:value>
+            </bu:auditFor>
+            
+            <bu:parliamentId type="xs:string">2</bu:parliamentId>
+            <bu:auditId type="xs:integer">70</bu:auditId>
+            <bu:docId key="true" type="xs:integer">8</bu:docId>
+            <bu:statusDate type="xs:dateTime">2012-04-14T21:10:30.635721</bu:statusDate>
+            <bu:uri>/bungeni/ke/question/2012-04-14/6:6-question/en@/main</bu:uri>
+            <bu:shortTitle type="xs:string">Oral Question status made available for scheduling
+                P1_01</bu:shortTitle>
+            <bu:status isA="TLCTerm">
+               <bu:value type="xs:string">completed</bu:value>
+            </bu:status>
+            <bu:registryNumber type="xs:string">6:6-question</bu:registryNumber>
+            
+            <bu:groupId type="xs:integer">13</bu:groupId>
+            <bu:type isA="TLCTerm">
+               <bu:value type="xs:string">question</bu:value>
+            </bu:type>
+            
+        </bu:audit>
+        <bu:audit>
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">EDITED MP CLERK - text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document 
+<br xmlns=""/> 
+<ul xmlns=""> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+</ul></div></bu:body>
+            <bu:docType isA="TLCTerm">
+               <bu:value type="xs:string">ordinary</bu:value>
+            </bu:docType>
+            <bu:auditFor isA="TLCTerm">
+               <bu:value type="xs:string">question</bu:value>
+            </bu:auditFor>
+            
+            <bu:parliamentId type="xs:string">2</bu:parliamentId>
+            <bu:auditId type="xs:integer">69</bu:auditId>
+            <bu:docId key="true" type="xs:integer">8</bu:docId>
+            <bu:statusDate type="xs:dateTime">2012-04-14T21:09:18.353789</bu:statusDate>
+            <bu:uri>/bungeni/ke/question/2012-04-14/6:6-question/en@/main</bu:uri>
+            <bu:shortTitle type="xs:string">Oral Question status made available for scheduling
+                P1_01</bu:shortTitle>
+            <bu:status isA="TLCTerm">
+               <bu:value type="xs:string">completed</bu:value>
+            </bu:status>
+            <bu:registryNumber type="xs:string">6:6-question</bu:registryNumber>
+            
+            <bu:groupId type="xs:integer">13</bu:groupId>
+            <bu:type isA="TLCTerm">
+               <bu:value type="xs:string">question</bu:value>
+            </bu:type>
+            
+        </bu:audit>
+        <bu:audit>
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">EDITED MP CLERK - text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document 
+<br xmlns=""/> 
+<ul xmlns=""> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+</ul></div></bu:body>
+            <bu:docType isA="TLCTerm">
+               <bu:value type="xs:string">ordinary</bu:value>
+            </bu:docType>
+            <bu:auditFor isA="TLCTerm">
+               <bu:value type="xs:string">question</bu:value>
+            </bu:auditFor>
+            
+            <bu:parliamentId type="xs:string">2</bu:parliamentId>
+            <bu:auditId type="xs:integer">64</bu:auditId>
+            <bu:docId key="true" type="xs:integer">8</bu:docId>
+            <bu:statusDate type="xs:dateTime">2012-04-14T21:09:18.353789</bu:statusDate>
+            <bu:uri>/bungeni/ke/question/2012-04-14/6:6-question/en@/main</bu:uri>
+            <bu:shortTitle type="xs:string">Oral Question status made available for scheduling
+                P1_01</bu:shortTitle>
+            <bu:status isA="TLCTerm">
+               <bu:value type="xs:string">received</bu:value>
+            </bu:status>
+            <bu:registryNumber type="xs:string">6:6-question</bu:registryNumber>
+            
+            <bu:groupId type="xs:integer">13</bu:groupId>
+            <bu:type isA="TLCTerm">
+               <bu:value type="xs:string">question</bu:value>
+            </bu:type>
+            
+        </bu:audit>
+        <bu:audit>
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">EDITED MP - text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document 
+<br xmlns=""/> 
+<ul xmlns=""> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+</ul></div></bu:body>
+            <bu:docType isA="TLCTerm">
+               <bu:value type="xs:string">ordinary</bu:value>
+            </bu:docType>
+            <bu:auditFor isA="TLCTerm">
+               <bu:value type="xs:string">question</bu:value>
+            </bu:auditFor>
+            
+            <bu:parliamentId type="xs:string">2</bu:parliamentId>
+            <bu:auditId type="xs:integer">50</bu:auditId>
+            <bu:docId key="true" type="xs:integer">8</bu:docId>
+            <bu:statusDate type="xs:dateTime">2012-04-14T21:09:18.353789</bu:statusDate>
+            <bu:shortTitle type="xs:string">Oral Question status made available for scheduling
+                P1_01</bu:shortTitle>
+            <bu:status isA="TLCTerm">
+               <bu:value type="xs:string">received</bu:value>
+            </bu:status>
+            <bu:registryNumber type="xs:string">6:6-question</bu:registryNumber>
+            
+            <bu:groupId type="xs:integer">13</bu:groupId>
+            <bu:type isA="TLCTerm">
+               <bu:value type="xs:string">question</bu:value>
+            </bu:type>
+            
+        </bu:audit>
+        <bu:audit>
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">EDITED MP - text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document 
+<br xmlns=""/> 
+<ul xmlns=""> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+</ul></div></bu:body>
+            <bu:docType isA="TLCTerm">
+               <bu:value type="xs:string">ordinary</bu:value>
+            </bu:docType>
+            <bu:auditFor isA="TLCTerm">
+               <bu:value type="xs:string">question</bu:value>
+            </bu:auditFor>
+            
+            <bu:parliamentId type="xs:string">2</bu:parliamentId>
+            <bu:auditId type="xs:integer">49</bu:auditId>
+            <bu:docId key="true" type="xs:integer">8</bu:docId>
+            <bu:statusDate type="xs:dateTime">2012-04-14T21:09:05.570507</bu:statusDate>
+            <bu:shortTitle type="xs:string">Oral Question status made available for scheduling
+                P1_01</bu:shortTitle>
+            <bu:status isA="TLCTerm">
+               <bu:value type="xs:string">submitted</bu:value>
+            </bu:status>
+            
+            <bu:groupId type="xs:integer">13</bu:groupId>
+            <bu:type isA="TLCTerm">
+               <bu:value type="xs:string">question</bu:value>
+            </bu:type>
+            
+        </bu:audit>
+        <bu:audit>
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">EDITED MP - text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document 
+<br xmlns=""/> 
+<ul xmlns=""> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+</ul></div></bu:body>
+            <bu:docType isA="TLCTerm">
+               <bu:value type="xs:string">ordinary</bu:value>
+            </bu:docType>
+            <bu:auditFor isA="TLCTerm">
+               <bu:value type="xs:string">question</bu:value>
+            </bu:auditFor>
+            
+            <bu:parliamentId type="xs:string">2</bu:parliamentId>
+            <bu:auditId type="xs:integer">48</bu:auditId>
+            <bu:docId key="true" type="xs:integer">8</bu:docId>
+            <bu:statusDate type="xs:dateTime">2012-04-14T21:08:53.684125</bu:statusDate>
+            <bu:shortTitle type="xs:string">Oral Question status made available for scheduling
+                P1_01</bu:shortTitle>
+            <bu:status isA="TLCTerm">
+               <bu:value type="xs:string">submitted</bu:value>
+            </bu:status>
+            
+            <bu:groupId type="xs:integer">13</bu:groupId>
+            <bu:type isA="TLCTerm">
+               <bu:value type="xs:string">question</bu:value>
+            </bu:type>
+            
+        </bu:audit>
+        <bu:audit>
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">EDITED MP - text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document 
+<br xmlns=""/> 
+<ul xmlns=""> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+</ul></div></bu:body>
+            <bu:docType isA="TLCTerm">
+               <bu:value type="xs:string">ordinary</bu:value>
+            </bu:docType>
+            <bu:auditFor isA="TLCTerm">
+               <bu:value type="xs:string">question</bu:value>
+            </bu:auditFor>
+            
+            <bu:parliamentId type="xs:string">2</bu:parliamentId>
+            <bu:auditId type="xs:integer">47</bu:auditId>
+            <bu:docId key="true" type="xs:integer">8</bu:docId>
+            <bu:statusDate type="xs:dateTime">2012-04-14T21:08:53.684125</bu:statusDate>
+            <bu:shortTitle type="xs:string">Oral Question status made available for scheduling
+                P1_01</bu:shortTitle>
+            <bu:status isA="TLCTerm">
+               <bu:value type="xs:string">draft</bu:value>
+            </bu:status>
+            
+            <bu:groupId type="xs:integer">13</bu:groupId>
+            <bu:type isA="TLCTerm">
+               <bu:value type="xs:string">question</bu:value>
+            </bu:type>
+            
+        </bu:audit>
+        <bu:audit>
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document 
+<br xmlns=""/> 
+<ul xmlns=""> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+</ul></div></bu:body>
+            <bu:docType isA="TLCTerm">
+               <bu:value type="xs:string">ordinary</bu:value>
+            </bu:docType>
+            <bu:auditFor isA="TLCTerm">
+               <bu:value type="xs:string">question</bu:value>
+            </bu:auditFor>
+            
+            <bu:parliamentId type="xs:string">2</bu:parliamentId>
+            <bu:auditId type="xs:integer">46</bu:auditId>
+            <bu:docId key="true" type="xs:integer">8</bu:docId>
+            <bu:statusDate type="xs:dateTime">2012-04-14T21:08:53.684125</bu:statusDate>
+            <bu:shortTitle type="xs:string">Oral Question status made available for scheduling
+                P1_01</bu:shortTitle>
+            <bu:status isA="TLCTerm">
+               <bu:value type="xs:string">draft</bu:value>
+            </bu:status>
+            
+            <bu:groupId type="xs:integer">13</bu:groupId>
+            <bu:type isA="TLCTerm">
+               <bu:value type="xs:string">question</bu:value>
+            </bu:type>
+            
+        </bu:audit>
+        <bu:audit>
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document 
+<br xmlns=""/> 
+<ul xmlns=""> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+</ul></div></bu:body>
+            <bu:docType isA="TLCTerm">
+               <bu:value type="xs:string">ordinary</bu:value>
+            </bu:docType>
+            <bu:auditFor isA="TLCTerm">
+               <bu:value type="xs:string">question</bu:value>
+            </bu:auditFor>
+            
+            <bu:parliamentId type="xs:string">2</bu:parliamentId>
+            <bu:auditId type="xs:integer">45</bu:auditId>
+            <bu:docId key="true" type="xs:integer">8</bu:docId>
+            <bu:statusDate type="xs:dateTime">2012-04-14T21:08:53.283241</bu:statusDate>
+            <bu:shortTitle type="xs:string">Oral Question status made available for scheduling
+                P1_01</bu:shortTitle>
+            
+            <bu:groupId type="xs:integer">13</bu:groupId>
+            <bu:type isA="TLCTerm">
+               <bu:value type="xs:string">question</bu:value>
+            </bu:type>
+            
+        </bu:audit>
+      </bu:audits>
+      <bu:workflowEvents>
+        <bu:workflowEvent href="//event/9/en" isA="TLCEvent" showAs="Event added by the Clerk (published internally)">
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">EDITED text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk
+<br xmlns=""/>
+<br xmlns=""/>text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk</div></bu:body>
+            <bu:docType isA="TLCTerm">
+               <bu:value type="xs:string">member</bu:value>
+            </bu:docType>
+            <bu:groupId type="xs:integer">13</bu:groupId>
+            <bu:description><div xmlns="http://www.w3.org/1999/xhtml/">this is the description of an event</div></bu:description>
+            
+            <bu:acronym isA="TLCTerm">
+               <bu:value type="xs:string">event-ACRO</bu:value>
+            </bu:acronym>
+            <bu:docId key="true" type="xs:integer">9</bu:docId>
+            <bu:statusDate type="xs:dateTime">2012-04-14T21:10:00</bu:statusDate>
+            <bu:shortTitle type="xs:string">Event added by the Clerk (published internally)</bu:shortTitle>
+            
+            <bu:status isA="TLCTerm">
+               <bu:value type="xs:string">internal</bu:value>
+            </bu:status>
+            <bu:headId>8</bu:headId>
+            <bu:longTitle type="xs:string">summary of event - summary of event - summary of event -
+                summary of event - summary of event - summary of event -</bu:longTitle>
+            <bu:type isA="TLCTerm">
+               <bu:value type="xs:string">event</bu:value>
+            </bu:type>
+            
+        </bu:workflowEvent>
+        <bu:workflowEvent href="//event/10/en" isA="TLCEvent" showAs="Event added by the Clerk">
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">EDITED text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk
+<br xmlns=""/>
+<br xmlns=""/>text of the event added by the clerk text of the event added by the clerk text of the event added by the clerk</div></bu:body>
+            <bu:docType isA="TLCTerm">
+               <bu:value type="xs:string">member</bu:value>
+            </bu:docType>
+            <bu:groupId type="xs:integer">13</bu:groupId>
+            <bu:description><div xmlns="http://www.w3.org/1999/xhtml/">this is the description of an event</div></bu:description>
+            
+            <bu:acronym isA="TLCTerm">
+               <bu:value type="xs:string">event-ACRO</bu:value>
+            </bu:acronym>
+            <bu:docId key="true" type="xs:integer">10</bu:docId>
+            <bu:statusDate type="xs:dateTime">2012-04-14T21:09:47.108010</bu:statusDate>
+            <bu:shortTitle type="xs:string">Event added by the Clerk</bu:shortTitle>
+            
+            <bu:status isA="TLCTerm">
+               <bu:value type="xs:string">attached</bu:value>
+            </bu:status>
+            <bu:headId>8</bu:headId>
+            <bu:longTitle type="xs:string">summary of event - summary of event - summary of event -
+                summary of event - summary of event - summary of event -</bu:longTitle>
+            <bu:type isA="TLCTerm">
+               <bu:value type="xs:string">event</bu:value>
+            </bu:type>
+            
+        </bu:workflowEvent>
+        <bu:workflowEvent href="//event/11/en" isA="TLCEvent" showAs="Event added by the House Business">
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business text of the event added by the business\n\ntext of the event added by the business text of the event added by the business text of the event added by the business</div></bu:body>
+            <bu:docType isA="TLCTerm">
+               <bu:value type="xs:string">government</bu:value>
+            </bu:docType>
+            <bu:groupId type="xs:integer">13</bu:groupId>
+            <bu:description><div xmlns="http://www.w3.org/1999/xhtml/">this is the description of an event</div></bu:description>
+            
+            <bu:acronym isA="TLCTerm">
+               <bu:value type="xs:string">event-ACRO-BUSSNESS</bu:value>
+            </bu:acronym>
+            <bu:docId key="true" type="xs:integer">11</bu:docId>
+            <bu:statusDate type="xs:dateTime">2012-04-14T21:10:47.785956</bu:statusDate>
+            <bu:shortTitle type="xs:string">Event added by the House Business</bu:shortTitle>
+            
+            <bu:status isA="TLCTerm">
+               <bu:value type="xs:string">attached</bu:value>
+            </bu:status>
+            <bu:headId>8</bu:headId>
+            <bu:longTitle type="xs:string">summary of event - summary of event - summary of event -
+                summary of event - summary of event - summary of event -</bu:longTitle>
+            <bu:type isA="TLCTerm">
+               <bu:value type="xs:string">event</bu:value>
+            </bu:type>
+            
+        </bu:workflowEvent>
+      </bu:workflowEvents>
+      <bu:statusDate type="xs:dateTime">2012-04-14T21:10:30.635721</bu:statusDate>
+      <bu:docId key="true" type="xs:integer">8</bu:docId>
+      <bu:versions>
+        <bu:version id="ver-3" isA="TLCObject" uri="@2012-04-14T21:11:09.670365">
+            <bu:userId type="xs:string">6</bu:userId>
+            <bu:sequence type="xs:integer">3</bu:sequence>
+            <bu:auditId type="xs:integer">81</bu:auditId>
+            <bu:activeDate type="xs:dateTime">2012-04-14T21:11:09.670365</bu:activeDate>
+            <bu:auditDate type="xs:dateTime">2012-04-14T21:11:09.670365</bu:auditDate>
+            <bu:auditAction isA="TLCEvent">
+               <bu:value type="xs:string">version</bu:value>
+            </bu:auditAction>
+            <bu:procedureType isA="TLCTerm">
+               <bu:value type="xs:string">m</bu:value>
+            </bu:procedureType>
+        </bu:version>
+        <bu:version id="ver-2" isA="TLCObject" uri="@2012-04-14T21:10:30.623952">
+            <bu:userId type="xs:string">5</bu:userId>
+            <bu:sequence type="xs:integer">2</bu:sequence>
+            <bu:auditId type="xs:integer">69</bu:auditId>
+            <bu:activeDate type="xs:dateTime">2012-04-14T21:10:30.623952</bu:activeDate>
+            <bu:auditDate type="xs:dateTime">2012-04-14T21:10:30.623952</bu:auditDate>
+            <bu:auditAction isA="TLCEvent">
+               <bu:value type="xs:string">version</bu:value>
+            </bu:auditAction>
+            <bu:procedureType isA="TLCTerm">
+               <bu:value type="xs:string">m</bu:value>
+            </bu:procedureType>
+        </bu:version>
+        <bu:version id="ver-1" isA="TLCObject" uri="@2012-04-14T21:09:05.551186">
+            <bu:userId type="xs:string">7</bu:userId>
+            <bu:sequence type="xs:integer">1</bu:sequence>
+            <bu:auditId type="xs:integer">48</bu:auditId>
+            <bu:activeDate type="xs:dateTime">2012-04-14T21:09:05.551186</bu:activeDate>
+            <bu:auditDate type="xs:dateTime">2012-04-14T21:09:05.551186</bu:auditDate>
+            <bu:auditAction isA="TLCEvent">
+               <bu:value type="xs:string">version</bu:value>
+            </bu:auditAction>
+            <bu:procedureType isA="TLCTerm">
+               <bu:value type="xs:string">m</bu:value>
+            </bu:procedureType>
+        </bu:version>
+      </bu:versions>
+      <bu:registryNumber type="xs:string">6:6-question</bu:registryNumber>
+      <bu:status isA="TLCTerm">
+         <bu:value type="xs:string">admissible</bu:value>
+      </bu:status>
+      <bu:type isA="TLCTerm">
+         <bu:value type="xs:string">question</bu:value>
+      </bu:type>
+      <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">EDITED MP CLERK SPEAKER - text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document 
+<br xmlns=""/> 
+<ul xmlns=""> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document </li> 
+</ul></div></bu:body>
+      <bu:shortTitle type="xs:string">Oral Question status made available for scheduling P1_01</bu:shortTitle>
+      <bu:field name="type_number">3</bu:field>
+      <bu:docType isA="TLCTerm">
+         <bu:value type="xs:string">ordinary</bu:value>
+      </bu:docType>
+      <bu:docId key="true" type="xs:integer">8</bu:docId>
+      <bu:shortTitle type="xs:string">Oral Question status made available for scheduling P1_01</bu:shortTitle>
+      <bu:permissions>
+        <bu:permission name="bungeni.question.Edit" role="bungeni.Speaker" setting="Deny"/>
+        <bu:permission name="bungeni.question.Delete" role="bungeni.Speaker" setting="Deny"/>
+        <bu:permission name="bungeni.attachment.Edit" role="bungeni.Speaker" setting="Deny"/>
+        <bu:permission name="bungeni.attachment.Add" role="bungeni.Speaker" setting="Deny"/>
+        <bu:permission name="bungeni.response.View" role="bungeni.Clerk" setting="Deny"/>
+        <bu:permission name="bungeni.response.View" role="bungeni.Speaker" setting="Deny"/>
+        <bu:permission name="bungeni.response.View" role="bungeni.Owner" setting="Deny"/>
+        <bu:permission name="bungeni.response.View" role="bungeni.Signatory" setting="Deny"/>
+        <bu:permission name="bungeni.response.View" role="bungeni.MP" setting="Deny"/>
+        <bu:permission name="bungeni.response.View" role="bungeni.Minister" setting="Deny"/>
+        <bu:permission name="bungeni.response.View" role="bungeni.Anonymous" setting="Deny"/>
+        <bu:permission name="bungeni.response.Edit" role="bungeni.Signatory" setting="Deny"/>
+        <bu:permission name="bungeni.response.Edit" role="bungeni.Minister" setting="Deny"/>
+        <bu:permission name="bungeni.question.Edit" role="bungeni.Clerk" setting="Deny"/>
+        <bu:permission name="bungeni.question.Delete" role="bungeni.Clerk" setting="Deny"/>
+        <bu:permission name="bungeni.attachment.Edit" role="bungeni.Clerk" setting="Deny"/>
+        <bu:permission name="bungeni.attachment.Add" role="bungeni.Clerk" setting="Deny"/>
+        <bu:permission name="bungeni.signatory.Add" role="bungeni.Clerk" setting="Deny"/>
+        <bu:permission name="bungeni.signatory.Delete" role="bungeni.Clerk" setting="Deny"/>
+        <bu:permission name="bungeni.question.Edit" role="bungeni.Owner" setting="Deny"/>
+        <bu:permission name="bungeni.question.Delete" role="bungeni.Owner" setting="Deny"/>
+        <bu:permission name="bungeni.attachment.Edit" role="bungeni.Owner" setting="Deny"/>
+        <bu:permission name="bungeni.attachment.Add" role="bungeni.Owner" setting="Deny"/>
+        <bu:permission name="bungeni.signatory.Delete" role="bungeni.Owner" setting="Deny"/>
+        <bu:permission name="zope.View" role="bungeni.Clerk" setting="Allow"/>
+        <bu:permission name="zope.View" role="bungeni.Speaker" setting="Allow"/>
+        <bu:permission name="bungeni.signatory.Add" role="bungeni.Owner" setting="Deny"/>
+        <bu:permission name="zope.View" role="bungeni.Owner" setting="Allow"/>
+        <bu:permission name="zope.View" role="bungeni.Signatory" setting="Allow"/>
+        <bu:permission name="zope.View" role="bungeni.MP" setting="Allow"/>
+        <bu:permission name="zope.View" role="bungeni.Minister" setting="Allow"/>
+        <bu:permission name="zope.View" role="bungeni.Anonymous" setting="Allow"/>
+      </bu:permissions>
+   </bu:document>
+   <bu:legislature href="" isA="TLCConcept">
+      <bu:electionDate select="" type="xs:date"/>
+      <bu:country isA="TLCLocation">
+         <bu:value type="xs:string">ke</bu:value>
+      </bu:country>
+   </bu:legislature>
+   <bu:bungeni id="bungeniMeta" isA="TLCObject" showAs="Bungeni Specific info">
+      <bu:tags>
+        <bu:tag isA="TLCTerm">
+            <bu:value type="xs:string">public</bu:value>
+         </bu:tag>
+        <bu:tag isA="TLCTerm">
+            <bu:value type="xs:string">approved</bu:value>
+         </bu:tag>
+        <bu:tag isA="TLCTerm">
+            <bu:value type="xs:string">oral</bu:value>
+         </bu:tag>
+        <bu:tag isA="TLCTerm">
+            <bu:value type="xs:string">written</bu:value>
+         </bu:tag>
+      </bu:tags>
+   </bu:bungeni>
+   <bu:question isA="TLCObject">
+      <bu:document href="#bungeniDocument"/>
+      <bu:responseType isA="TLCTerm">
+         <bu:value type="xs:string">oral</bu:value>
+      </bu:responseType>
+      <bu:docType isA="TLCTerm">
+         <bu:value type="xs:string">ordinary</bu:value>
+      </bu:docType>
+      <bu:group href="/ontology/Ministry/Ministry.--.group.13" isA="TLCReference"/>
+   </bu:question>
+   <bu:legislativeItem isA="TLCConcept"/>
+   <bu:attachments>
+        <bu:attachment>
+            <bu:mimetype isA="TLCTerm">
+            <bu:value type="xs:string">application/pdf</bu:value>
+         </bu:mimetype>
+            <bu:status isA="TLCTerm">
+            <bu:value type="xs:string">attached</bu:value>
+         </bu:status>
+            <bu:field name="attachment_id">3</bu:field>
+            <bu:description><div xmlns="http://www.w3.org/1999/xhtml/">text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</div></bu:description>
+            
+            <bu:title type="xs:string">attachment added to event</bu:title>
+            <bu:headId>8</bu:headId>
+            <bu:statusDate type="xs:dateTime">2012-04-14T21:10:41.264388</bu:statusDate>
+            <bu:savedFile type="xs:string">tmpRMXJ8S</bu:savedFile>
+            <bu:audits>
+                <bu:audit>
+                    <bu:mimetype isA="TLCTerm">
+                  <bu:value type="xs:string">application/pdf</bu:value>
+               </bu:mimetype>
+                    <bu:status isA="TLCTerm">
+                  <bu:value type="xs:string">attached</bu:value>
+               </bu:status>
+                    <bu:auditFor isA="TLCTerm">
+                  <bu:value type="xs:string">attachment</bu:value>
+               </bu:auditFor>
+                    <bu:field name="attachment_id">3</bu:field>
+                    <bu:description><div xmlns="http://www.w3.org/1999/xhtml/">text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</div></bu:description>
+                    
+                    <bu:title type="xs:string">attachment added to event</bu:title>
+                    <bu:headId>8</bu:headId>
+                    <bu:statusDate type="xs:dateTime">2012-04-14T21:10:41.264388</bu:statusDate>
+                    <bu:auditId type="xs:integer">79</bu:auditId>
+                    <bu:type isA="TLCTerm">
+                  <bu:value type="xs:string">annex</bu:value>
+               </bu:type>
+                    <bu:name type="xs:string">demo-attachment.pdf</bu:name>
+                </bu:audit>
+                <bu:audit>
+                    <bu:mimetype isA="TLCTerm">
+                  <bu:value type="xs:string">application/pdf</bu:value>
+               </bu:mimetype>
+                    <bu:status isA="TLCTerm">
+                  <bu:value type="xs:string">attached</bu:value>
+               </bu:status>
+                    <bu:auditFor isA="TLCTerm">
+                  <bu:value type="xs:string">attachment</bu:value>
+               </bu:auditFor>
+                    <bu:field name="attachment_id">3</bu:field>
+                    <bu:description><div xmlns="http://www.w3.org/1999/xhtml/">text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</div></bu:description>
+                    
+                    <bu:title type="xs:string">attachment added to event</bu:title>
+                    <bu:headId>8</bu:headId>
+                    <bu:statusDate type="xs:dateTime">2012-04-14T21:10:41.264388</bu:statusDate>
+                    <bu:auditId type="xs:integer">72</bu:auditId>
+                    <bu:type isA="TLCTerm">
+                  <bu:value type="xs:string">annex</bu:value>
+               </bu:type>
+                    <bu:name type="xs:string">demo-attachment.pdf</bu:name>
+                </bu:audit>
+                <bu:audit>
+                    <bu:mimetype isA="TLCTerm">
+                  <bu:value type="xs:string">application/pdf</bu:value>
+               </bu:mimetype>
+                    <bu:auditFor isA="TLCTerm">
+                  <bu:value type="xs:string">attachment</bu:value>
+               </bu:auditFor>
+                    <bu:field name="attachment_id">3</bu:field>
+                    <bu:description><div xmlns="http://www.w3.org/1999/xhtml/">text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</div></bu:description>
+                    
+                    <bu:title type="xs:string">attachment added to event</bu:title>
+                    <bu:headId>8</bu:headId>
+                    <bu:statusDate type="xs:dateTime">2012-04-14T21:10:41.014074</bu:statusDate>
+                    <bu:auditId type="xs:integer">71</bu:auditId>
+                    <bu:type isA="TLCTerm">
+                  <bu:value type="xs:string">annex</bu:value>
+               </bu:type>
+                    <bu:name type="xs:string">demo-attachment.pdf</bu:name>
+                </bu:audit>
+            </bu:audits>
+            <bu:permissions>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Signatory" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="bungeni.response.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.response.Edit" role="bungeni.Signatory" setting="Deny"/>
+                <bu:permission name="bungeni.response.Edit" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.question.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.question.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="zope.View" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="zope.View" role="bungeni.Signatory" setting="Allow"/>
+                <bu:permission name="zope.View" role="bungeni.MP" setting="Allow"/>
+                <bu:permission name="zope.View" role="bungeni.Minister" setting="Allow"/>
+                <bu:permission name="zope.View" role="bungeni.Anonymous" setting="Allow"/>
+            </bu:permissions>
+            <bu:type isA="TLCTerm">
+            <bu:value type="xs:string">annex</bu:value>
+         </bu:type>
+            <bu:name type="xs:string">demo-attachment.pdf</bu:name>
+        </bu:attachment>
+    </bu:attachments>
+   <bu:custom>
+      <bu:value>
+                        <bu:map element-name="question" from="question" uri-name="Question"/>
+                        <bu:map element-name="bill" from="bill" uri-name="Bill"/>
+                        <bu:map element-name="motion" from="motion" uri-name="Motion"/>
+                        <bu:map element-name="tabledDocument" from="tableddocument" uri-name="TabledDocument"/>
+                        <bu:map element-name="event" from="event" uri-name="Event"/>
+                        <bu:map element-name="ministry" from="ministry" uri-name="Ministry"/>
+                        <bu:map element-name="person" from="user" uri-name="Person"/>
+                        <bu:map element-name="parliamentmember" from="member_of_parliament" uri-name="ParliamentMember"/>
+                    </bu:value>
+   </bu:custom>
+</bu:ontology>

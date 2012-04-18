@@ -36,19 +36,25 @@
                         <map from="tableddocument" uri-name="TabledDocument"  element-name="tabledDocument"  />
                         <map from="event" uri-name="Event" element-name="event" />
                         <map from="ministry" uri-name="Ministry"  element-name="ministry" />
+                        <map from="user" uri-name="Person" element-name="person" />
+                        <map from="member_of_parliament" uri-name="ParliamentMember" element-name="parliamentmember" />
                     </value>
                 </parameter>
             </parameters>
 
             <xslt step="1"
                 name="groupingLevel1-common"
-                href="pipeline_xslt/bungeni/parliamentaryitem/grouping_level1.xsl"/>
+                href="pipeline_xslt/bungeni/parliamentaryitem/1_grouping.xsl"/>
             
             <xslt step="2"
                 name="groupingLevel2-common"
-                href="pipeline_xslt/bungeni/parliamentaryitem/grouping_level2.xsl"/>
-            
+                href="pipeline_xslt/bungeni/parliamentaryitem/2_ontology.xsl"/>
+            <!--
             <xslt step="3"
+                name="groupingLevel3-common"
+                href="pipeline_xslt/bungeni/parliamentaryitem/3_urigenerate.xsl"/>
+            -->
+            <xslt step="4"
                 name="appendBungeniNS"
                 href="pipeline_xslt/bungeni/common/add_bungeniportal_ns.xsl"
                 postproc="#proc-parliamentary-item"
