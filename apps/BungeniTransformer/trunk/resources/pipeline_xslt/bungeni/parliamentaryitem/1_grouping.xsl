@@ -78,7 +78,7 @@
                     $language
                     )" />
                 <docType isA="TLCTerm">
-                    <value type="xs:string"> <xsl:attribute name="type" select="$content-type-uri-name" /></value>
+                    <value type="xs:string"><xsl:value-of select="$content-type-uri-name" /></value>
                 </docType>
                
                 
@@ -169,6 +169,7 @@
                 
             </document>
             <legislature isA="TLCConcept" href="{$for-parliament}">
+               <parliamentId key="true" type="xs:integer" select="{$parliament-id}" />
                <electionDate type="xs:date" select="{$parliament-election-date}"></electionDate> 
                 <country isA="TLCLocation">
                     <value type="xs:string"><xsl:value-of select="$country-code" /></value>
@@ -177,6 +178,7 @@
             <bungeni id="bungeniMeta" showAs="Bungeni Specific info" isA="TLCObject">
                 <xsl:copy-of select="tags" />
                 <xsl:copy-of select="field[@name='timestamp']" />
+                <permissions href="#documentPermissions" />
             </bungeni>
                         
             <!-- 

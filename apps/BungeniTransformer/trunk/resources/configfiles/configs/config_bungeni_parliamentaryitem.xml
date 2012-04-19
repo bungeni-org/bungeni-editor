@@ -49,11 +49,11 @@
             <xslt step="2"
                 name="groupingLevel2-common"
                 href="pipeline_xslt/bungeni/parliamentaryitem/2_ontology.xsl"/>
-            <!--
+            
             <xslt step="3"
                 name="groupingLevel3-common"
-                href="pipeline_xslt/bungeni/parliamentaryitem/3_urigenerate.xsl"/>
-            -->
+                href="pipeline_xslt/bungeni/parliamentaryitem/3_idgenerate.xsl"/>
+            
             <xslt step="4"
                 name="appendBungeniNS"
                 href="pipeline_xslt/bungeni/common/add_bungeniportal_ns.xsl"
