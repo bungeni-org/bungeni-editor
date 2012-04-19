@@ -133,7 +133,12 @@
         </status>
     </xsl:template>    
     
-    
+    <xsl:template match="field[@name='timestamp']">
+        <xsl:variable name="timestampDate" select="bdates:parse-date(data(.))" />
+       <timestampDate type="xs:dateTime">
+           <xsl:value-of select="$timestampDate" />         
+        </timestampDate>
+    </xsl:template>
 
     
     
@@ -580,7 +585,6 @@
     <!--+FIX_THIS content_id, ministry_id is suppresed for versions -->
     <xsl:template match="field[
         @name='content_id' or
-        @name='timestamp' or 
         @name='ministry_id' or
         @name='version_id' 
         ]">
