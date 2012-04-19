@@ -178,7 +178,7 @@
             <bungeni id="bungeniMeta" showAs="Bungeni Specific info" isA="TLCObject">
                 <xsl:copy-of select="tags" />
                 <xsl:copy-of select="field[@name='timestamp']" />
-                <permissions href="#documentPermissions" />
+                <withPermissions href="#documentPermissions" />
             </bungeni>
                         
             <!-- 
@@ -268,9 +268,6 @@
                 
             </xsl:element>
 
-            <legislativeItem isA="TLCConcept" >
-                <!-- This has become <document> -->
-            </legislativeItem>
             
             <!-- End of Legislative Item -->
             
