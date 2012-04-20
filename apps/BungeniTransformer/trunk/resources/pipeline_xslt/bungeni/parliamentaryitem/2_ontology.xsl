@@ -98,7 +98,9 @@
         <attachmentId key="true" type="xs:integer"><xsl:value-of select="." /></attachmentId>
     </xsl:template>
     
-    <xsl:template match="field[@name='type_number']" />
+    <xsl:template match="field[@name='type_number']" >
+        <progressiveNumber type="xs:integer"><xsl:value-of select="." /></progressiveNumber>
+    </xsl:template>
         
     
     

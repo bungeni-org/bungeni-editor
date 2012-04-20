@@ -12,6 +12,23 @@
     </xd:doc>
     
     
+    
+    <xsl:function name="bctypes:get_doc_uri">
+        <xsl:param name="country" />
+        <xsl:param name="uri-type" />
+        <xsl:param name="uri-date" />
+        <xsl:param name="doc-no" />
+        <xsl:param name="lang" />
+        <xsl:sequence 
+            select="concat('/',
+            $country, '/',  
+            $uri-type, '/',
+            $uri-date,'/',
+            $doc-no, '/',
+            $lang
+            )" />
+    </xsl:function>
+    
     <!--
         Gets the Element name for a type mapping 
         -->

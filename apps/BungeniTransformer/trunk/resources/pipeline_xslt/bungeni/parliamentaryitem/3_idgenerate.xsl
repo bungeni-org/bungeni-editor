@@ -6,36 +6,73 @@
     xmlns:bctypes="http://www.bungeni.org/xml/contenttypes/1.0"
     exclude-result-prefixes="xs"
     version="2.0">
-
-    
+    <xsl:import href="resources/pipeline_xslt/bungeni/common/func_dates.xsl" />
+    <xsl:import href="resources/pipeline_xslt/bungeni/common/func_content_types.xsl" />
     
     <xd:doc xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" scope="stylesheet">
         <xd:desc>
             <xd:p><xd:b>Created on:</xd:b> Oct 17, 2011</xd:p>
-            <xd:p><xd:b>Author:</xd:b> anthony</xd:p>
+            <xd:p><xd:b>Author:</xd:b> Ashok</xd:p>
             <xd:p></xd:p>
         </xd:desc>
     </xd:doc>
     
     <xsl:output indent="yes" method="xml" encoding="UTF-8"/>
-        
+    
     <!-- These values are set in first input which is grouping_Level1 -->        
 
     <xsl:variable name="uri-type" select="data(/ontology/document/docType/value)" />
+    <xsl:variable name="lang" select="data(/ontology/document/@xml:lang)" />
     <xsl:variable name="country" select="string(data(/ontology/legislature/country/value))" />
     <xsl:variable name="add-change" select="/ontology/document/changes/change[auditAction/value[.='add']]" />
     <xsl:variable name="active-date" select="data($add-change/activeDate)" />
+    <xsl:variable name="uri-active-date" select="bdates:yyyymmdd-hhmmss-date($active-date)" />
     <xsl:variable name="parliament-id" select="data(/ontology/legislature/parliamentId)" />
-    <xsl:variable name="registry-number" select="data(/ontology/document/registryNumber)" />
-    <xsl:variable name="doc-uri"
-        select="concat('/',
-        $country, '/',  
-        $uri-type, '/',
-        'legislature.', $parliament-id,'/',
-        $active-date,'/',
-        $registry-number
-        )" />
+    <xsl:variable name="uri-generator-type">
+        <xsl:choose>
+            <xsl:when test="/ontology/document/progressiveNumber">
+                <xsl:text>PROGRESSIVE</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>INTERNAL</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
 
+    <xsl:variable name="registry-number" select="data(/ontology/document/registryNumber)" />
+    <!--
+    <xsl:variable name="progressive-number" select="data(/ontology/document/progressiveNumber)" />
+    <xsl:variable name="internal-number" select="data(/ontology/document/docId)" />
+    -->
+
+    <xsl:variable name="doc-uri">
+        <xsl:choose>
+            <xsl:when test="$uri-generator-type eq 'PROGRESSIVE'">
+                <xsl:variable name="progressive-number" select="data(/ontology/document/progressiveNumber)" />
+                <xsl:sequence 
+                    select="bctypes:get_doc_uri(
+                    $country, 
+                    $uri-type, 
+                    $uri-active-date, 
+                    $progressive-number,
+                    $lang
+                    )">
+                </xsl:sequence>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="doc-number" select="data(/ontology/document/docId)" />
+                <xsl:sequence  
+                    select="bctypes:get_doc_uri(
+                    $country,
+                    $uri-type,
+                    $uri-active-date,
+                    $doc-number,
+                    $lang
+                    )">
+                </xsl:sequence>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
     
     <xsl:template match="@*|*|processing-instruction()|comment()">
         <xsl:copy>
@@ -45,8 +82,18 @@
     
     
     
-    <xsl:template match="@uri[parent::document]">
-        <xsl:attribute name="uri"><xsl:value-of select="$doc-uri" /></xsl:attribute>
+    <xsl:template match="document">
+        <xsl:copy>
+            <xsl:choose>
+                <xsl:when test="$uri-generator-type eq 'PROGRESSIVE'">
+                    <xsl:attribute name="uri" select="$doc-uri" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:attribute name="internal-uri" select="$doc-uri" />
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:apply-templates select="*|@*|text()|processing-instruction()|comment()"/>
+        </xsl:copy>
     </xsl:template>
     
     <xsl:template match="permissions[parent::change]">

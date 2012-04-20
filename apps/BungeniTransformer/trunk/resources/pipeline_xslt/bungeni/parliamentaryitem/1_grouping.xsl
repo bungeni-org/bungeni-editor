@@ -51,32 +51,31 @@
             Test for and calculate the item_number for the item
             this is available only after a certain stage of the workflow 
             -->
+            <!--
             <xsl:variable name="item_number">
                 <xsl:choose>
-                    <!--+FIX_THIS is event_item_id the stable identifier for events ? -->
+                 
                     <xsl:when test="field[@name='doc_id']" >
                         <xsl:value-of select="field[@name='doc_id']" />
                     </xsl:when>
-                    <!--+NOTE (ao,22 Feb 2012) <heading> types pass here too :),
-                        since they are a special case without registry_number... They
-                        end up with a broken @uri, its known. -->
                     <xsl:otherwise>
                         <xsl:value-of select="field[@name='registry_number']" />
                     </xsl:otherwise>
                 </xsl:choose>
                 
-            </xsl:variable>
+            </xsl:variable> -->
             <document id="bungeniDocument" isA="TLCConcept">
                 <xsl:attribute name="xml:lang">
                     <xsl:value-of select="field[@name='language']" />
                 </xsl:attribute>
+                <!--
                 <xsl:attribute name="uri" 
                     select="concat(
                     '/', $country-code,'/', 
                     $content-type-uri-name,'/', 
                     $item_number,'/', 
                     $language
-                    )" />
+                    )" /> -->
                 <docType isA="TLCTerm">
                     <value type="xs:string"><xsl:value-of select="$content-type-uri-name" /></value>
                 </docType>
@@ -150,8 +149,7 @@
                 <!-- for <event> -->
                 <xsl:copy-of select="field[
                     @name='doc_type' or 
-                    @name='short_title' or 
-                    @name='doc_id' or 
+                    @name='short_title' or
                     @name='acronym' or 
                     @name='long_title'
                     ]" />                

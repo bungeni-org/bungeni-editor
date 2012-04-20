@@ -17,6 +17,20 @@
         <xsl:sequence select="concat($arrInputDate[1],'T',$arrInputDate[2])" />
     </xsl:function>
     
+    <xsl:function name="bdates:yyyymmdd-date">
+        <xsl:param name="input-date">
+            <!-- this date must be a valid xsd:date or xsd:dateTime -->
+        </xsl:param>
+        <xsl:sequence select="format-dateTime($input-date, '[Y0001]-[M01]-[D01]')" />
+    </xsl:function>
+    
+    <xsl:function name="bdates:yyyymmdd-hhmmss-date">
+        <xsl:param name="input-date">
+            <!-- this date must be a valid xsd:date or xsd:dateTime -->
+        </xsl:param>
+        <xsl:sequence select="format-dateTime($input-date, '[Y0001]-[M01]-[D01]T[H01]-[m01]-[s01]')" />
+    </xsl:function>
+    
     
     <xsl:function name="bdates:parse-date-nomicrotime">
         <xsl:param name="input-date"/>
