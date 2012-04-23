@@ -461,6 +461,14 @@
         </audits>
     </xsl:template>
     
+    <xsl:template match="head">
+       <eventOf isA="TLCObject">
+            <refersTo href="!+FIX_THIS_PUT_SOURCE_URI_HERE" />
+            <xsl:apply-templates />
+       </eventOf>    
+    </xsl:template>
+    
+    
     
     <!-- !+END_(AUDIT) -->
     <!--
@@ -577,11 +585,7 @@
     </xsl:template> -->
     
     <!-- for <event>s -->
-    <xsl:template match="//head/field[@name='type']">
-        <eventOf>
-            <xsl:value-of select="." />
-        </eventOf>
-    </xsl:template>
+
 
     <!--+FIX_THIS content_id, ministry_id is suppresed for versions -->
     <xsl:template match="field[

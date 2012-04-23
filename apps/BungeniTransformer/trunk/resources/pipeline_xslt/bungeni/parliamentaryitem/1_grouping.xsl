@@ -101,9 +101,8 @@
                 
                 
                 <!-- for <event> -->
-                <!--
+                
                     <xsl:copy-of select="head" />    
-                -->
                 
                 <xsl:copy-of select="field[
                     @name='status' or 
