@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bu:ontology xmlns:bu="http://portal.bungeni.org/1.0/" for="document">
+   <bu:document id="bungeniDocument" isA="TLCConcept" uri="/ke/Event/2012-04-20T15-04-49/275/en"
+      xml:lang="en">
+      <bu:docType isA="TLCTerm">
+         <bu:value type="xs:string">Event</bu:value>
+      </bu:docType>
+      <bu:owner isA="TLCPerson">
+         <bu:person href="/ontology/Person/ke.P1_04.clerk.1900-02-02.37" showAs="P1_04 ,clerk"/>
+         <bu:role type="TLCConcept">
+            <bu:value type="xs:string">ParliamentMember</bu:value>
+         </bu:role>
+      </bu:owner>
+      <bu:audits id="documentAudits">
+         <bu:audit id="document-audit-2494">
+            <bu:body>
+               <div xmlns="http://www.w3.org/1999/xhtml/">text of the event added by the clerk text
+                  of the event added by the clerk text of the event added by the clerk text of the
+                  event added by the clerk text of the event added by the clerk text of the event
+                  added by the clerk text of the event added by the clerk text of the event added by
+                  the clerk text of the event added by the clerk text of the event added by the
+                  clerk text of the event added by the clerk text of the event added by the clerk
+                  text of the event added by the clerk text of the event added by the clerk text of
+                  the event added by the clerk text of the event added by the clerk text of the
+                  event added by the clerk text of the event added by the clerk text of the event
+                  added by the clerk text of the event added by the clerk text of the event added by
+                  the clerk text of the event added by the clerk text of the event added by the
+                  clerk text of the event added by the clerk text of the event added by the clerk
+                  text of the event added by the clerk text of the event added by the clerk text of
+                  the event added by the clerk text of the event added by the clerk text of the
+                  event added by the clerk text of the event added by the clerk <br xmlns=""/>
+                  <br xmlns=""/>text of the event added by the clerk text of the event added by the
+                  clerk text of the event added by the clerk</div>
+            </bu:body>
+            <bu:docSubType isA="TLCTerm">
+               <bu:value type="xs:string">member</bu:value>
+            </bu:docSubType>
+            <bu:auditFor isA="TLCTerm">
+               <bu:value type="xs:string">event</bu:value>
+            </bu:auditFor>
+            <bu:groupId type="xs:integer">42</bu:groupId>
+            <bu:description>
+               <div xmlns="http://www.w3.org/1999/xhtml/">this is the description of an event</div>
+            </bu:description>
+            <bu:auditId type="xs:integer">2494</bu:auditId>
+            <bu:acronym isA="TLCTerm">
+               <bu:value type="xs:string">event-ACRO</bu:value>
+            </bu:acronym>
+            <bu:docId key="true" type="xs:integer">275</bu:docId>
+            <bu:statusDate type="xs:dateTime">2012-04-20T15:04:49.420113</bu:statusDate>
+            <bu:shortTitle type="xs:string">Event added by the Clerk (published
+               internally)</bu:shortTitle>
+            <bu:timestampDate type="xs:dateTime">2012-04-20T15:04:49.420113</bu:timestampDate>
+            <bu:headId type="xs:integer">274</bu:headId>
+            <bu:longTitle type="xs:string">summary of event - summary of event - summary of event -
+               summary of event - summary of event - summary of event -</bu:longTitle>
+            <bu:type isA="TLCTerm">
+               <bu:value type="xs:string">event</bu:value>
+            </bu:type>
+         </bu:audit>
+      </bu:audits>
+      <bu:workflowEvents id="documentEvents"/>
+      <bu:statusDate type="xs:dateTime">2012-04-20T15:04:49.420113</bu:statusDate>
+      <bu:versions id="documentVersions"/>
+      <bu:changes id="documentChanges">
+         <bu:change id="document-change-2494">
+            <bu:refersToAudit href="#document-audit-2494"/>
+            <bu:userId type="xs:integer">37</bu:userId>
+            <bu:sequence type="xs:integer">1</bu:sequence>
+            <bu:auditId type="xs:integer">2494</bu:auditId>
+            <bu:activeDate type="xs:dateTime">2012-04-20T15:04:49.753340</bu:activeDate>
+            <bu:auditDate type="xs:dateTime">2012-04-20T15:04:49.753340</bu:auditDate>
+            <bu:auditAction isA="TLCEvent">
+               <bu:value type="xs:string">add</bu:value>
+            </bu:auditAction>
+            <bu:procedureType isA="TLCTerm">
+               <bu:value type="xs:string">a</bu:value>
+            </bu:procedureType>
+            <bu:permissions id="change-permissions-2494">
+               <bu:permission name="zope.View" role="bungeni.Clerk" setting="Deny"/>
+               <bu:permission name="zope.View" role="bungeni.Speaker" setting="Deny"/>
+               <bu:permission name="zope.View" role="bungeni.Owner" setting="Allow"/>
+               <bu:permission name="zope.View" role="bungeni.Signatory" setting="Deny"/>
+               <bu:permission name="zope.View" role="bungeni.MP" setting="Deny"/>
+               <bu:permission name="zope.View" role="bungeni.Minister" setting="Deny"/>
+               <bu:permission name="zope.View" role="bungeni.Authenticated" setting="Deny"/>
+               <bu:permission name="zope.View" role="bungeni.Anonymous" setting="Deny"/>
+            </bu:permissions>
+         </bu:change>
+      </bu:changes>
+      <bu:docId key="true" type="xs:integer">275</bu:docId>
+      <bu:eventOf isA="TLCObject">
+         <bu:refersTo href="!+FIX_THIS_PUT_SOURCE_URI_HERE"/>
+         <bu:body>
+            <div xmlns="http://www.w3.org/1999/xhtml/">EDITED MP CLERK - text of the document text
+               of the document text of the document text of the document text of the document text
+               of the document text of the document text of the document text of the document text
+               of the document text of the document text of the document text of the document text
+               of the document text of the document text of the document text of the document text
+               of the document text of the document <br xmlns=""/>
+               <ul xmlns="">
+                  <li>text of the document text of the document text of the document text of the
+                     document text of the document text of the document text of the document text of
+                     the document text of the document text of the document </li>
+                  <li>text of the document text of the document text of the document text of the
+                     document text of the document text of the document text of the document text of
+                     the document text of the document text of the document </li>
+                  <li>text of the document text of the document text of the document text of the
+                     document text of the document text of the document text of the document text of
+                     the document text of the document text of the document text of the document
+                     text of the document text of the document text of the document text of the
+                     document text of the document text of the document </li>
+                  <li>text of the document text of the document text of the document text of the
+                     document text of the document text of the document text of the document text of
+                     the document text of the document text of the document text of the document
+                     text of the document text of the document text of the document text of the
+                     document text of the document text of the document text of the document </li>
+               </ul> text of the document text of the document text of the document text of the
+               document text of the document text of the document text of the document text of the
+               document text of the document text of the document text of the document text of the
+               document <br xmlns=""/>
+               <ul xmlns="">
+                  <li>text of the document text of the document text of the document text of the
+                     document text of the document text of the document text of the document text of
+                     the document text of the document text of the document text of the
+                     document</li>
+                  <li>text of the document text of the document text of the document text of the
+                     document text of the document text of the document text of the document text of
+                     the document text of the document text of the document text of the
+                     document</li>
+               </ul> text of the document text of the document text of the document text of the
+               document text of the document text of the document text of the document text of the
+               document text of the document text of the document text of the document text of the
+               document text of the document text of the document text of the document text of the
+               document text of the document text of the document text of the document text of the
+               document text of the document text of the document text of the document text of the
+               document</div>
+         </bu:body>
+         <bu:docSubType isA="TLCTerm">
+            <bu:value type="xs:string">member</bu:value>
+         </bu:docSubType>
+         <bu:parliamentId type="xs:integer">2</bu:parliamentId>
+         <bu:docId key="true" type="xs:integer">274</bu:docId>
+         <bu:statusDate type="xs:dateTime">2012-04-20T15:04:30.977230</bu:statusDate>
+         <bu:shortTitle type="xs:string">Bill - cosignatory - status allow scheduling first reading
+            P1_04</bu:shortTitle>
+         <bu:status isA="TLCTerm">
+            <bu:value type="xs:string">received</bu:value>
+         </bu:status>
+         <bu:registryNumber type="xs:string">95:12-bill</bu:registryNumber>
+         <bu:timestampDate type="xs:dateTime">2012-04-20T15:04:35.979921</bu:timestampDate>
+         <bu:groupId type="xs:integer">42</bu:groupId>
+         <bu:type isA="TLCTerm">
+            <bu:value type="xs:string">bill</bu:value>
+         </bu:type>
+      </bu:eventOf>
+      <bu:status isA="TLCTerm">
+         <bu:value type="xs:string">attached</bu:value>
+      </bu:status>
+      <bu:type isA="TLCTerm">
+         <bu:value type="xs:string">event</bu:value>
+      </bu:type>
+      <bu:body>
+         <div xmlns="http://www.w3.org/1999/xhtml/">text of the event added by the clerk text of the
+            event added by the clerk text of the event added by the clerk text of the event added by
+            the clerk text of the event added by the clerk text of the event added by the clerk text
+            of the event added by the clerk text of the event added by the clerk text of the event
+            added by the clerk text of the event added by the clerk text of the event added by the
+            clerk text of the event added by the clerk text of the event added by the clerk text of
+            the event added by the clerk text of the event added by the clerk text of the event
+            added by the clerk text of the event added by the clerk text of the event added by the
+            clerk text of the event added by the clerk text of the event added by the clerk text of
+            the event added by the clerk text of the event added by the clerk text of the event
+            added by the clerk text of the event added by the clerk text of the event added by the
+            clerk text of the event added by the clerk text of the event added by the clerk text of
+            the event added by the clerk text of the event added by the clerk text of the event
+            added by the clerk text of the event added by the clerk <br xmlns=""/>
+            <br xmlns=""/>text of the event added by the clerk text of the event added by the clerk
+            text of the event added by the clerk</div>
+      </bu:body>
+      <bu:shortTitle type="xs:string">Event added by the Clerk (published
+         internally)</bu:shortTitle>
+      <bu:acronym isA="TLCTerm">
+         <bu:value type="xs:string">event-ACRO</bu:value>
+      </bu:acronym>
+      <bu:longTitle type="xs:string">summary of event - summary of event - summary of event -
+         summary of event - summary of event - summary of event -</bu:longTitle>
+      <bu:docSubType isA="TLCTerm">
+         <bu:value type="xs:string">member</bu:value>
+      </bu:docSubType>
+      <bu:shortTitle type="xs:string">Event added by the Clerk (published
+         internally)</bu:shortTitle>
+      <bu:permissions id="documentPermissions">
+         <bu:permission name="zope.View" role="bungeni.Speaker" setting="Deny"/>
+         <bu:permission name="zope.View" role="bungeni.MP" setting="Deny"/>
+         <bu:permission name="zope.View" role="bungeni.Minister" setting="Deny"/>
+         <bu:permission name="zope.View" role="bungeni.Owner" setting="Allow"/>
+         <bu:permission name="bungeni.bill.Delete" role="bungeni.Clerk" setting="Deny"/>
+         <bu:permission name="bungeni.signatory.Add" role="bungeni.Clerk" setting="Deny"/>
+         <bu:permission name="bungeni.signatory.Delete" role="bungeni.Clerk" setting="Deny"/>
+         <bu:permission name="zope.View" role="bungeni.Signatory" setting="Allow"/>
+         <bu:permission name="bungeni.bill.Edit" role="bungeni.Owner" setting="Deny"/>
+         <bu:permission name="bungeni.bill.Delete" role="bungeni.Owner" setting="Deny"/>
+         <bu:permission name="bungeni.signatory.Delete" role="bungeni.Owner" setting="Deny"/>
+         <bu:permission name="bungeni.attachment.Edit" role="bungeni.Owner" setting="Deny"/>
+         <bu:permission name="bungeni.attachment.Add" role="bungeni.Owner" setting="Deny"/>
+         <bu:permission name="zope.View" role="bungeni.Clerk" setting="Allow"/>
+         <bu:permission name="zope.View" role="bungeni.Anonymous" setting="Allow"/>
+         <bu:permission name="bungeni.signatory.Add" role="bungeni.Owner" setting="Deny"/>
+         <bu:permission name="bungeni.bill.Edit" role="bungeni.Clerk" setting="Allow"/>
+         <bu:permission name="bungeni.attachment.Edit" role="bungeni.Clerk" setting="Allow"/>
+         <bu:permission name="bungeni.attachment.Add" role="bungeni.Clerk" setting="Allow"/>
+      </bu:permissions>
+   </bu:document>
+   <bu:legislature href="" isA="TLCConcept">
+      <bu:parliamentId key="true" select="" type="xs:integer"/>
+      <bu:electionDate select="" type="xs:date"/>
+      <bu:country isA="TLCLocation">
+         <bu:value type="xs:string">ke</bu:value>
+      </bu:country>
+   </bu:legislature>
+   <bu:bungeni id="bungeniMeta" isA="TLCObject" showAs="Bungeni Specific info">
+      <bu:tags>
+         <bu:tag isA="TLCTerm">
+            <bu:value type="xs:string">public</bu:value>
+         </bu:tag>
+      </bu:tags>
+      <bu:timestampDate type="xs:dateTime">2012-04-20T15:04:49.420113</bu:timestampDate>
+      <bu:withPermissions href="#documentPermissions"/>
+   </bu:bungeni>
+   <bu:event isA="TLCObject">
+      <bu:document href="#bungeniDocument" uri="/ke/Event/2012-04-20T15-04-49/275/en"/>
+      <bu:docSubType isA="TLCTerm">
+         <bu:value type="xs:string">member</bu:value>
+      </bu:docSubType>
+      <bu:group href="/ontology/Ministry/Ministry.--.group.42" isA="TLCReference"/>
+   </bu:event>
+   <bu:custom>
+      <bu:value>
+         <bu:map element-name="question" from="question" uri-name="Question"/>
+         <bu:map element-name="bill" from="bill" uri-name="Bill"/>
+         <bu:map element-name="motion" from="motion" uri-name="Motion"/>
+         <bu:map element-name="tabledDocument" from="tableddocument" uri-name="TabledDocument"/>
+         <bu:map element-name="event" from="event" uri-name="Event"/>
+         <bu:map element-name="agendaItem" from="agenda_item" uri-name="AgendaItem"/>
+         <bu:map element-name="ministry" from="ministry" uri-name="Ministry"/>
+         <bu:map element-name="person" from="user" uri-name="Person"/>
+         <bu:map element-name="parliamentmember" from="member_of_parliament"
+            uri-name="ParliamentMember"/>
+      </bu:value>
+   </bu:custom>
+</bu:ontology>
