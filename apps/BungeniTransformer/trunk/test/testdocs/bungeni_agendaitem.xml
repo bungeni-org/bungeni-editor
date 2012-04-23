@@ -1,0 +1,1885 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<contenttype name="agendaitem">
+    <field name="status">admissible</field>
+    <owner>
+        <field name="first_name">member</field>
+        <field name="last_name">P1_01</field>
+        <field name="user_id">7</field>
+        <field name="description">EDITED - text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document &lt;br&gt; &lt;ul style="font-style: italic;"&gt; &lt;li&gt;&lt;span
+            style="font-weight: bold;"&gt;text of the document&lt;/span&gt; text of the document
+            text of the document text of the document text of the document text of the document text
+            of the document text of the document text of the document text of the document
+            &lt;/li&gt; &lt;li&gt;&lt;span style="font-weight: bold;"&gt;text of the
+            document&lt;/span&gt; text of the document text of the document text of the document
+            text of the document text of the document text of the document text of the document text
+            of the document text of the document &lt;/li&gt; &lt;li&gt;&lt;span style="font-weight:
+            bold;"&gt;text of the document&lt;/span&gt; text of the document text of the document
+            text of the document text of the document text of the document text of the document text
+            of the document text of the document text of the document text of the document text of
+            the document text of the document text of the document text of the document text of the
+            document text of the document &lt;/li&gt; &lt;li&gt;&lt;span style="font-weight:
+            bold;"&gt;text of the document&lt;/span&gt; text of the document text of the document
+            text of the document text of the document text of the document text of the document text
+            of the document text of the document text of the document text of the document text of
+            the document text of the document text of the document text of the document text of the
+            document text of the document text of the document &lt;/li&gt; &lt;/ul&gt; text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document</field>
+        <field name="language">en</field>
+        <field name="birth_nationality">KE</field>
+        <field name="gender">F</field>
+        <field name="active_p">A</field>
+        <field name="date_of_birth">1900-02-02</field>
+        <field name="titles">Mrs</field>
+        <field name="birth_country">KE</field>
+        <field name="national_id">1234567890</field>
+        <field name="receive_notification">True</field>
+        <field name="login">member.P1_01</field>
+        <field name="password">6734dff7f55b985f2155469443e8cbac</field>
+        <field name="salt">iyoZKkUmAEdR</field>
+        <field name="email">member.P1_01@bungeni.org</field>
+        <field name="current_nationality">KE</field>
+    </owner>
+    <audits>
+        <audit>
+            <field name="body">EDITED CLERK SPEAKER - text of the document text of the document text
+                of the document text of the document text of the document text of the document text
+                of the document text of the document text of the document text of the document text
+                of the document text of the document&lt;br&gt; &lt;ul style="font-style:
+                italic;"&gt; &lt;li&gt;&lt;span style="font-weight: bold;"&gt;text of the
+                document&lt;/span&gt; text of the document text of the document text of the document
+                text of the document text of the document text of the document text of the document
+                text of the document text of the document text of the document&lt;/li&gt;
+                &lt;li&gt;&lt;span style="font-weight: bold;"&gt;text of the document&lt;/span&gt;
+                text of the document text of the document text of the document text of the document
+                text of the document text of the document text of the document text of the document
+                text of the document text of the document&lt;/li&gt; &lt;/ul&gt; text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document</field>
+            <field name="doc_type">member</field>
+            <field name="audit_type">agenda_item</field>
+            <field name="group_id">14</field>
+            <field name="language">en</field>
+            <field name="parliament_id">2</field>
+            <field name="audit_id">664</field>
+            <field name="doc_id">75</field>
+            <field name="status_date">2012-04-20 10:14:58.086956</field>
+            <field name="short_title">Agenda Item Committee as Clerk status make available for
+                scheduling P1_01</field>
+            <field name="status">admissible</field>
+            <field name="timestamp">2012-04-20 10:15:02.889019</field>
+            <field name="long_title">long title - long title long title - long title long title -
+                long title long title - long title </field>
+            <field name="type">agenda_item</field>
+            <field name="owner_id">7</field>
+        </audit>
+        <audit>
+            <field name="body">EDITED CLERK SPEAKER - text of the document text of the document text
+                of the document text of the document text of the document text of the document text
+                of the document text of the document text of the document text of the document text
+                of the document text of the document&lt;br&gt; &lt;ul style="font-style:
+                italic;"&gt; &lt;li&gt;&lt;span style="font-weight: bold;"&gt;text of the
+                document&lt;/span&gt; text of the document text of the document text of the document
+                text of the document text of the document text of the document text of the document
+                text of the document text of the document text of the document&lt;/li&gt;
+                &lt;li&gt;&lt;span style="font-weight: bold;"&gt;text of the document&lt;/span&gt;
+                text of the document text of the document text of the document text of the document
+                text of the document text of the document text of the document text of the document
+                text of the document text of the document&lt;/li&gt; &lt;/ul&gt; text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document</field>
+            <field name="doc_type">member</field>
+            <field name="audit_type">agenda_item</field>
+            <field name="group_id">14</field>
+            <field name="language">en</field>
+            <field name="parliament_id">2</field>
+            <field name="audit_id">663</field>
+            <field name="doc_id">75</field>
+            <field name="status_date">2012-04-20 10:14:58.086956</field>
+            <field name="short_title">Agenda Item Committee as Clerk status make available for
+                scheduling P1_01</field>
+            <field name="status">completed</field>
+            <field name="timestamp">2012-04-20 10:15:02.889019</field>
+            <field name="long_title">long title - long title long title - long title long title -
+                long title long title - long title </field>
+            <field name="type">agenda_item</field>
+            <field name="owner_id">7</field>
+        </audit>
+        <audit>
+            <field name="body">EDITED CLERK - text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document&lt;br&gt; &lt;ul style="font-style: italic;"&gt;
+                &lt;li&gt;&lt;span style="font-weight: bold;"&gt;text of the document&lt;/span&gt;
+                text of the document text of the document text of the document text of the document
+                text of the document text of the document text of the document text of the document
+                text of the document text of the document&lt;/li&gt; &lt;li&gt;&lt;span
+                style="font-weight: bold;"&gt;text of the document&lt;/span&gt; text of the document
+                text of the document text of the document text of the document text of the document
+                text of the document text of the document text of the document text of the document
+                text of the document&lt;/li&gt; &lt;/ul&gt; text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document</field>
+            <field name="doc_type">member</field>
+            <field name="audit_type">agenda_item</field>
+            <field name="group_id">14</field>
+            <field name="language">en</field>
+            <field name="parliament_id">2</field>
+            <field name="audit_id">662</field>
+            <field name="doc_id">75</field>
+            <field name="status_date">2012-04-20 10:14:58.086956</field>
+            <field name="short_title">Agenda Item Committee as Clerk status make available for
+                scheduling P1_01</field>
+            <field name="status">completed</field>
+            <field name="timestamp">2012-04-20 10:14:55.601452</field>
+            <field name="long_title">long title - long title long title - long title long title -
+                long title long title - long title </field>
+            <field name="type">agenda_item</field>
+            <field name="owner_id">7</field>
+        </audit>
+        <audit>
+            <field name="body">EDITED CLERK - text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document&lt;br&gt; &lt;ul style="font-style: italic;"&gt;
+                &lt;li&gt;&lt;span style="font-weight: bold;"&gt;text of the document&lt;/span&gt;
+                text of the document text of the document text of the document text of the document
+                text of the document text of the document text of the document text of the document
+                text of the document text of the document&lt;/li&gt; &lt;li&gt;&lt;span
+                style="font-weight: bold;"&gt;text of the document&lt;/span&gt; text of the document
+                text of the document text of the document text of the document text of the document
+                text of the document text of the document text of the document text of the document
+                text of the document&lt;/li&gt; &lt;/ul&gt; text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document</field>
+            <field name="doc_type">member</field>
+            <field name="audit_type">agenda_item</field>
+            <field name="group_id">14</field>
+            <field name="language">en</field>
+            <field name="parliament_id">2</field>
+            <field name="audit_id">661</field>
+            <field name="doc_id">75</field>
+            <field name="status_date">2012-04-20 10:14:52.988750</field>
+            <field name="short_title">Agenda Item Committee as Clerk status make available for
+                scheduling P1_01</field>
+            <field name="status">completed</field>
+            <field name="timestamp">2012-04-20 10:14:55.601452</field>
+            <field name="long_title">long title - long title long title - long title long title -
+                long title long title - long title </field>
+            <field name="type">agenda_item</field>
+            <field name="owner_id">7</field>
+        </audit>
+        <audit>
+            <field name="body">EDITED CLERK - text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document&lt;br&gt; &lt;ul style="font-style: italic;"&gt;
+                &lt;li&gt;&lt;span style="font-weight: bold;"&gt;text of the document&lt;/span&gt;
+                text of the document text of the document text of the document text of the document
+                text of the document text of the document text of the document text of the document
+                text of the document text of the document&lt;/li&gt; &lt;li&gt;&lt;span
+                style="font-weight: bold;"&gt;text of the document&lt;/span&gt; text of the document
+                text of the document text of the document text of the document text of the document
+                text of the document text of the document text of the document text of the document
+                text of the document&lt;/li&gt; &lt;/ul&gt; text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document</field>
+            <field name="doc_type">member</field>
+            <field name="audit_type">agenda_item</field>
+            <field name="group_id">14</field>
+            <field name="language">en</field>
+            <field name="parliament_id">2</field>
+            <field name="audit_id">660</field>
+            <field name="doc_id">75</field>
+            <field name="status_date">2012-04-20 10:14:52.988750</field>
+            <field name="short_title">Agenda Item Committee as Clerk status make available for
+                scheduling P1_01</field>
+            <field name="status">received</field>
+            <field name="timestamp">2012-04-20 10:14:55.601452</field>
+            <field name="long_title">long title - long title long title - long title long title -
+                long title long title - long title </field>
+            <field name="type">agenda_item</field>
+            <field name="owner_id">7</field>
+        </audit>
+        <audit>
+            <field name="body">text of the document text of the document text of the document text
+                of the document text of the document text of the document text of the document text
+                of the document text of the document text of the document text of the document text
+                of the document&lt;br&gt; &lt;ul style="font-style: italic;"&gt; &lt;li&gt;&lt;span
+                style="font-weight: bold;"&gt;text of the document&lt;/span&gt; text of the document
+                text of the document text of the document text of the document text of the document
+                text of the document text of the document text of the document text of the document
+                text of the document&lt;/li&gt; &lt;li&gt;&lt;span style="font-weight:
+                bold;"&gt;text of the document&lt;/span&gt; text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document&lt;/li&gt; &lt;/ul&gt; text of the document text of the document text of
+                the document text of the document text of the document text of the document text of
+                the document text of the document text of the document text of the document text of
+                the document text of the document text of the document text of the document text of
+                the document text of the document text of the document text of the document text of
+                the document text of the document text of the document text of the document text of
+                the document text of the document</field>
+            <field name="doc_type">member</field>
+            <field name="audit_type">agenda_item</field>
+            <field name="group_id">14</field>
+            <field name="language">en</field>
+            <field name="parliament_id">2</field>
+            <field name="audit_id">659</field>
+            <field name="doc_id">75</field>
+            <field name="status_date">2012-04-20 10:14:52.988750</field>
+            <field name="short_title">Agenda Item Committee as Clerk status make available for
+                scheduling P1_01</field>
+            <field name="status">received</field>
+            <field name="timestamp">2012-04-20 10:14:51.317865</field>
+            <field name="long_title">long title - long title long title - long title long title -
+                long title long title - long title </field>
+            <field name="type">agenda_item</field>
+            <field name="owner_id">7</field>
+        </audit>
+        <audit>
+            <field name="body">text of the document text of the document text of the document text
+                of the document text of the document text of the document text of the document text
+                of the document text of the document text of the document text of the document text
+                of the document&lt;br&gt; &lt;ul style="font-style: italic;"&gt; &lt;li&gt;&lt;span
+                style="font-weight: bold;"&gt;text of the document&lt;/span&gt; text of the document
+                text of the document text of the document text of the document text of the document
+                text of the document text of the document text of the document text of the document
+                text of the document&lt;/li&gt; &lt;li&gt;&lt;span style="font-weight:
+                bold;"&gt;text of the document&lt;/span&gt; text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document&lt;/li&gt; &lt;/ul&gt; text of the document text of the document text of
+                the document text of the document text of the document text of the document text of
+                the document text of the document text of the document text of the document text of
+                the document text of the document text of the document text of the document text of
+                the document text of the document text of the document text of the document text of
+                the document text of the document text of the document text of the document text of
+                the document text of the document</field>
+            <field name="doc_type">member</field>
+            <field name="audit_type">agenda_item</field>
+            <field name="group_id">14</field>
+            <field name="language">en</field>
+            <field name="parliament_id">2</field>
+            <field name="audit_id">658</field>
+            <field name="doc_id">75</field>
+            <field name="status_date">2012-04-20 10:14:51.300010</field>
+            <field name="short_title">Agenda Item Committee as Clerk status make available for
+                scheduling P1_01</field>
+            <field name="status">submitted</field>
+            <field name="timestamp">2012-04-20 10:14:49.669544</field>
+            <field name="long_title">long title - long title long title - long title long title -
+                long title long title - long title </field>
+            <field name="type">agenda_item</field>
+            <field name="owner_id">7</field>
+        </audit>
+        <audit>
+            <field name="body">text of the document text of the document text of the document text
+                of the document text of the document text of the document text of the document text
+                of the document text of the document text of the document text of the document text
+                of the document&lt;br&gt; &lt;ul style="font-style: italic;"&gt; &lt;li&gt;&lt;span
+                style="font-weight: bold;"&gt;text of the document&lt;/span&gt; text of the document
+                text of the document text of the document text of the document text of the document
+                text of the document text of the document text of the document text of the document
+                text of the document&lt;/li&gt; &lt;li&gt;&lt;span style="font-weight:
+                bold;"&gt;text of the document&lt;/span&gt; text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document&lt;/li&gt; &lt;/ul&gt; text of the document text of the document text of
+                the document text of the document text of the document text of the document text of
+                the document text of the document text of the document text of the document text of
+                the document text of the document text of the document text of the document text of
+                the document text of the document text of the document text of the document text of
+                the document text of the document text of the document text of the document text of
+                the document text of the document</field>
+            <field name="doc_type">member</field>
+            <field name="audit_type">agenda_item</field>
+            <field name="group_id">14</field>
+            <field name="language">en</field>
+            <field name="parliament_id">2</field>
+            <field name="audit_id">657</field>
+            <field name="doc_id">75</field>
+            <field name="status_date">2012-04-20 10:14:49.653818</field>
+            <field name="short_title">Agenda Item Committee as Clerk status make available for
+                scheduling P1_01</field>
+            <field name="status">submitted</field>
+            <field name="timestamp">2012-04-20 10:14:49.669544</field>
+            <field name="long_title">long title - long title long title - long title long title -
+                long title long title - long title </field>
+            <field name="type">agenda_item</field>
+            <field name="owner_id">7</field>
+        </audit>
+        <audit>
+            <field name="body">text of the document text of the document text of the document text
+                of the document text of the document text of the document text of the document text
+                of the document text of the document text of the document text of the document text
+                of the document&lt;br&gt; &lt;ul style="font-style: italic;"&gt; &lt;li&gt;&lt;span
+                style="font-weight: bold;"&gt;text of the document&lt;/span&gt; text of the document
+                text of the document text of the document text of the document text of the document
+                text of the document text of the document text of the document text of the document
+                text of the document&lt;/li&gt; &lt;li&gt;&lt;span style="font-weight:
+                bold;"&gt;text of the document&lt;/span&gt; text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document&lt;/li&gt; &lt;/ul&gt; text of the document text of the document text of
+                the document text of the document text of the document text of the document text of
+                the document text of the document text of the document text of the document text of
+                the document text of the document text of the document text of the document text of
+                the document text of the document text of the document text of the document text of
+                the document text of the document text of the document text of the document text of
+                the document text of the document</field>
+            <field name="doc_type">member</field>
+            <field name="audit_type">agenda_item</field>
+            <field name="group_id">14</field>
+            <field name="language">en</field>
+            <field name="audit_id">656</field>
+            <field name="doc_id">75</field>
+            <field name="status_date">2012-04-20 10:14:49.653818</field>
+            <field name="short_title">Agenda Item Committee as Clerk status make available for
+                scheduling P1_01</field>
+            <field name="status">working_draft</field>
+            <field name="timestamp">2012-04-20 10:14:49.502284</field>
+            <field name="long_title">long title - long title long title - long title long title -
+                long title long title - long title </field>
+            <field name="type">agenda_item</field>
+            <field name="owner_id">7</field>
+        </audit>
+        <audit>
+            <field name="body">text of the document text of the document text of the document text
+                of the document text of the document text of the document text of the document text
+                of the document text of the document text of the document text of the document text
+                of the document&lt;br&gt; &lt;ul style="font-style: italic;"&gt; &lt;li&gt;&lt;span
+                style="font-weight: bold;"&gt;text of the document&lt;/span&gt; text of the document
+                text of the document text of the document text of the document text of the document
+                text of the document text of the document text of the document text of the document
+                text of the document&lt;/li&gt; &lt;li&gt;&lt;span style="font-weight:
+                bold;"&gt;text of the document&lt;/span&gt; text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document text of the document text of the document text of the document text of the
+                document&lt;/li&gt; &lt;/ul&gt; text of the document text of the document text of
+                the document text of the document text of the document text of the document text of
+                the document text of the document text of the document text of the document text of
+                the document text of the document text of the document text of the document text of
+                the document text of the document text of the document text of the document text of
+                the document text of the document text of the document text of the document text of
+                the document text of the document</field>
+            <field name="doc_type">member</field>
+            <field name="audit_type">agenda_item</field>
+            <field name="group_id">14</field>
+            <field name="language">en</field>
+            <field name="audit_id">655</field>
+            <field name="doc_id">75</field>
+            <field name="status_date">2012-04-20 10:14:49.502284</field>
+            <field name="short_title">Agenda Item Committee as Clerk status make available for
+                scheduling P1_01</field>
+            <field name="timestamp">2012-04-20 10:14:49.502284</field>
+            <field name="long_title">long title - long title long title - long title long title -
+                long title long title - long title </field>
+            <field name="type">agenda_item</field>
+            <field name="owner_id">7</field>
+        </audit>
+    </audits>
+    <group>
+        <field name="status">active</field>
+        <field name="language">en</field>
+        <field name="num_members">12</field>
+        <field name="quorum">5</field>
+        <field name="description">EDITED - text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document &lt;br&gt; &lt;ul style="font-style: italic;"&gt; &lt;li&gt;&lt;span
+            style="font-weight: bold;"&gt;text of the document&lt;/span&gt; text of the document
+            text of the document text of the document text of the document text of the document text
+            of the document text of the document text of the document text of the document
+            &lt;/li&gt; &lt;li&gt;&lt;span style="font-weight: bold;"&gt;text of the
+            document&lt;/span&gt; text of the document text of the document text of the document
+            text of the document text of the document text of the document text of the document text
+            of the document text of the document &lt;/li&gt; &lt;li&gt;&lt;span style="font-weight:
+            bold;"&gt;text of the document&lt;/span&gt; text of the document text of the document
+            text of the document text of the document text of the document text of the document text
+            of the document text of the document text of the document text of the document text of
+            the document text of the document text of the document text of the document text of the
+            document text of the document &lt;/li&gt; &lt;li&gt;&lt;span style="font-weight:
+            bold;"&gt;text of the document&lt;/span&gt; text of the document text of the document
+            text of the document text of the document text of the document text of the document text
+            of the document text of the document text of the document text of the document text of
+            the document text of the document text of the document text of the document text of the
+            document text of the document text of the document &lt;/li&gt; &lt;/ul&gt; text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document</field>
+        <field name="short_name">Com_01</field>
+        <field name="min_num_members">6</field>
+        <field name="acronym">PC_01</field>
+        <field name="status_date">2012-04-20 00:28:43.228326</field>
+        <field name="proportional_representation">True</field>
+        <field name="num_researchers">4</field>
+        <field name="sub_type">departmental</field>
+        <field name="group_principal_id">group.committee.14</field>
+        <field name="parent_group_id">2</field>
+        <field name="group_continuity">permanent</field>
+        <field name="full_name">Parliamentary Committee P1_01</field>
+        <field name="group_id">14</field>
+        <field name="type">committee</field>
+        <field name="start_date">2011-02-23</field>
+        <field name="num_clerks">2</field>
+        <field name="committee_id">14</field>
+    </group>
+    <item_signatories/>
+    <sa_events/>
+    <field name="type">agenda_item</field>
+    <field name="owner_id">7</field>
+    <field name="body">EDITED CLERK SPEAKER - text of the document text of the document text of the
+        document text of the document text of the document text of the document text of the document
+        text of the document text of the document text of the document text of the document text of
+        the document&lt;br&gt; &lt;ul style="font-style: italic;"&gt; &lt;li&gt;&lt;span
+        style="font-weight: bold;"&gt;text of the document&lt;/span&gt; text of the document text of
+        the document text of the document text of the document text of the document text of the
+        document text of the document text of the document text of the document text of the
+        document&lt;/li&gt; &lt;li&gt;&lt;span style="font-weight: bold;"&gt;text of the
+        document&lt;/span&gt; text of the document text of the document text of the document text of
+        the document text of the document text of the document text of the document text of the
+        document text of the document text of the document&lt;/li&gt; &lt;/ul&gt; text of the
+        document text of the document text of the document text of the document text of the document
+        text of the document text of the document text of the document text of the document text of
+        the document text of the document text of the document text of the document text of the
+        document text of the document text of the document text of the document text of the document
+        text of the document text of the document text of the document text of the document text of
+        the document text of the document</field>
+    <field name="parliament_id">2</field>
+    <tags>
+        <field name="tag">public</field>
+        <field name="tag">approved</field>
+    </tags>
+    <field name="timestamp">2012-04-20 10:15:02.889019</field>
+    <field name="status_date">2012-04-20 10:14:58.086956</field>
+    <field name="long_title">long title - long title long title - long title long title - long title
+        long title - long title </field>
+    <permissions>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.MP</field>
+            <field name="permission">zope.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Minister</field>
+            <field name="permission">zope.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Speaker</field>
+            <field name="permission">bungeni.agendaitem.Edit</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Speaker</field>
+            <field name="permission">bungeni.agendaitem.Delete</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Speaker</field>
+            <field name="permission">bungeni.attachment.Edit</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Speaker</field>
+            <field name="permission">bungeni.attachment.Add</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Speaker</field>
+            <field name="permission">bungeni.signatory.Add</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.MP</field>
+            <field name="permission">bungeni.signatory.Add</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Minister</field>
+            <field name="permission">bungeni.signatory.Add</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Anonymous</field>
+            <field name="permission">bungeni.signatory.Add</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Owner</field>
+            <field name="permission">zope.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Clerk</field>
+            <field name="permission">bungeni.agendaitem.Edit</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Clerk</field>
+            <field name="permission">bungeni.agendaitem.Delete</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Clerk</field>
+            <field name="permission">bungeni.attachment.Edit</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Clerk</field>
+            <field name="permission">bungeni.attachment.Add</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Clerk</field>
+            <field name="permission">bungeni.signatory.Add</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Clerk</field>
+            <field name="permission">bungeni.signatory.Delete</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Signatory</field>
+            <field name="permission">zope.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Owner</field>
+            <field name="permission">bungeni.agendaitem.Edit</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Owner</field>
+            <field name="permission">bungeni.agendaitem.Delete</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Owner</field>
+            <field name="permission">bungeni.attachment.Edit</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Owner</field>
+            <field name="permission">bungeni.attachment.Add</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Owner</field>
+            <field name="permission">bungeni.signatory.Delete</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Clerk</field>
+            <field name="permission">zope.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Speaker</field>
+            <field name="permission">zope.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Owner</field>
+            <field name="permission">bungeni.signatory.Add</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Anonymous</field>
+            <field name="permission">zope.View</field>
+        </permission>
+    </permissions>
+    <field name="doc_type">member</field>
+    <field name="language">en</field>
+    <versions>
+        <version>
+            <field name="user_id">6</field>
+            <field name="seq">3</field>
+            <field name="audit_id">664</field>
+            <field name="date_active">2012-04-20 10:15:05.338627</field>
+            <field name="date_audit">2012-04-20 10:15:05.338627</field>
+            <field name="action">version</field>
+            <field name="procedure">m</field>
+        </version>
+        <version>
+            <field name="user_id">5</field>
+            <field name="seq">2</field>
+            <field name="audit_id">661</field>
+            <field name="date_active">2012-04-20 10:14:58.076851</field>
+            <field name="date_audit">2012-04-20 10:14:58.076851</field>
+            <field name="action">version</field>
+            <field name="procedure">m</field>
+        </version>
+        <version>
+            <field name="user_id">5</field>
+            <field name="seq">1</field>
+            <field name="audit_id">657</field>
+            <field name="date_active">2012-04-20 10:14:51.280995</field>
+            <field name="date_audit">2012-04-20 10:14:51.280995</field>
+            <field name="action">version</field>
+            <field name="procedure">m</field>
+        </version>
+    </versions>
+    <field name="doc_id">75</field>
+    <field name="short_title">Agenda Item Committee as Clerk status make available for scheduling
+        P1_01</field>
+    <field name="group_id">14</field>
+    <changes>
+        <change>
+            <field name="user_id">6</field>
+            <field name="seq">2</field>
+            <field name="audit_id">663</field>
+            <field name="date_active">2012-04-20 10:15:02.926070</field>
+            <field name="date_audit">2012-04-20 10:15:02.926070</field>
+            <field name="action">modify</field>
+            <field name="procedure">a</field>
+            <permissions>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.agendaitem.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.agendaitem.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.signatory.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Signatory</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.agendaitem.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.agendaitem.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.attachment.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.attachment.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.signatory.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.agendaitem.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.attachment.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.attachment.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.agendaitem.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.attachment.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.attachment.Add</field>
+                </permission>
+            </permissions>
+        </change>
+        <change>
+            <field name="user_id">5</field>
+            <field name="seq">4</field>
+            <field name="audit_id">662</field>
+            <field name="date_active">2012-04-20 10:14:58.104238</field>
+            <field name="date_audit">2012-04-20 10:14:58.104238</field>
+            <field name="action">workflow</field>
+            <field name="procedure">a</field>
+            <permissions>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.agendaitem.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.agendaitem.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.signatory.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Signatory</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.agendaitem.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.agendaitem.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.attachment.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.attachment.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.signatory.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.agendaitem.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.attachment.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.attachment.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.agendaitem.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.attachment.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.attachment.Add</field>
+                </permission>
+            </permissions>
+        </change>
+        <change>
+            <field name="user_id">5</field>
+            <field name="seq">2</field>
+            <field name="audit_id">661</field>
+            <field name="date_active">2012-04-20 10:14:58.076851</field>
+            <field name="date_audit">2012-04-20 10:14:58.076851</field>
+            <field name="action">version</field>
+            <field name="procedure">m</field>
+            <permissions>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.agendaitem.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.agendaitem.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.signatory.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Signatory</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.agendaitem.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.agendaitem.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.attachment.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.attachment.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.signatory.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.agendaitem.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.attachment.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.attachment.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.agendaitem.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.attachment.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.attachment.Add</field>
+                </permission>
+            </permissions>
+        </change>
+        <change>
+            <field name="user_id">5</field>
+            <field name="seq">1</field>
+            <field name="audit_id">660</field>
+            <field name="date_active">2012-04-20 10:14:55.629758</field>
+            <field name="date_audit">2012-04-20 10:14:55.629758</field>
+            <field name="action">modify</field>
+            <field name="procedure">a</field>
+            <permissions>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.agendaitem.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.agendaitem.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.attachment.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.attachment.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.agendaitem.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.signatory.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Signatory</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.agendaitem.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.agendaitem.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.attachment.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.attachment.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.signatory.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.agendaitem.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.attachment.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.attachment.Add</field>
+                </permission>
+            </permissions>
+        </change>
+        <change>
+            <field name="user_id">5</field>
+            <field name="seq">3</field>
+            <field name="audit_id">659</field>
+            <field name="date_active">2012-04-20 10:14:52.997165</field>
+            <field name="date_audit">2012-04-20 10:14:52.997165</field>
+            <field name="action">workflow</field>
+            <field name="procedure">a</field>
+            <permissions>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.agendaitem.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.agendaitem.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.attachment.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.attachment.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.agendaitem.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.signatory.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Signatory</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.agendaitem.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.agendaitem.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.attachment.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.attachment.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.signatory.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.agendaitem.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.attachment.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.attachment.Add</field>
+                </permission>
+            </permissions>
+        </change>
+        <change>
+            <field name="user_id">5</field>
+            <field name="seq">2</field>
+            <field name="audit_id">658</field>
+            <field name="date_active">2012-04-20 10:14:51.309655</field>
+            <field name="date_audit">2012-04-20 10:14:51.309655</field>
+            <field name="action">workflow</field>
+            <field name="procedure">a</field>
+            <permissions>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.agendaitem.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.agendaitem.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.attachment.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.attachment.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.agendaitem.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.agendaitem.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.attachment.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.attachment.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.signatory.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Signatory</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.agendaitem.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.agendaitem.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.attachment.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.attachment.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.signatory.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+            </permissions>
+        </change>
+        <change>
+            <field name="user_id">5</field>
+            <field name="seq">1</field>
+            <field name="audit_id">657</field>
+            <field name="date_active">2012-04-20 10:14:51.280995</field>
+            <field name="date_audit">2012-04-20 10:14:51.280995</field>
+            <field name="action">version</field>
+            <field name="procedure">m</field>
+            <permissions>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.agendaitem.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.agendaitem.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.attachment.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.attachment.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.agendaitem.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.agendaitem.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.attachment.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.attachment.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.signatory.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Signatory</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.agendaitem.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.agendaitem.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.attachment.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.attachment.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.signatory.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+            </permissions>
+        </change>
+        <change>
+            <field name="user_id">5</field>
+            <field name="seq">1</field>
+            <field name="audit_id">656</field>
+            <field name="date_active">2012-04-20 10:14:49.662888</field>
+            <field name="date_audit">2012-04-20 10:14:49.662888</field>
+            <field name="action">workflow</field>
+            <field name="procedure">a</field>
+            <permissions>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.agendaitem.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.agendaitem.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.attachment.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.attachment.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.signatory.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Signatory</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.agendaitem.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.agendaitem.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.agendaitem.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.agendaitem.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.attachment.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.attachment.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.attachment.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.attachment.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">bungeni.signatory.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.signatory.Delete</field>
+                </permission>
+            </permissions>
+        </change>
+        <change>
+            <field name="user_id">5</field>
+            <field name="seq">1</field>
+            <field name="audit_id">655</field>
+            <field name="date_active">2012-04-20 10:14:49.589925</field>
+            <field name="date_audit">2012-04-20 10:14:49.589925</field>
+            <field name="action">add</field>
+            <field name="procedure">a</field>
+            <permissions>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Signatory</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Authenticated</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+            </permissions>
+        </change>
+    </changes>
+</contenttype>
