@@ -31,7 +31,7 @@
         -->
         
     <!-- These values are set in first input which is grouping_Level1 -->        
-    <xsl:variable name="country-code" select="data(/ontology/bungeni/country)" />
+    <xsl:variable name="country-code" select="data(/ontology/legislature/country)" />
     <xsl:variable name="parliament-election-date" select="data(/ontology/bungeni/parliament/@date)" />
     <xsl:variable name="for-parliament" select="data(/ontology/bungeni/parliament/@href)" />
     <xsl:variable name="parliament-id" select="data(/ontology/bungeni/@id)" />
@@ -481,14 +481,13 @@
         <xsl:variable name="first-name" select="data(field[@name='first_name'])" />
         <xsl:variable name="last-name" select="data(field[@name='last_name'])" />
         <xsl:variable name="user-id" select="data(field[@name='user_id'])" />
-        <xsl:variable name="date-of-birth" select="bdates:parse-date(data(field[@name='date_of_birth']))" />
-        
+        <xsl:variable name="yyyy-mm-dd-dob" select="bdates:parse-datepart-only(data(field[@name='date_of_birth']))" />
         <xsl:variable name="user-identifier" select="busers:get_user_identifer(
                     $country-code, 
                     $last-name, 
                     $first-name, 
                     $user-id, 
-                    $date-of-birth
+                    $yyyy-mm-dd-dob
                     )" 
         />
         <xsl:variable name="user-uri" select="busers:get_user_uri($country-code, $user-identifier)" />
@@ -540,10 +539,10 @@
     
     
     <xsl:template match="sa_event" mode="parent_is_events">
-        <xsl:variable name="event-identifier" select="field[@name='doc_id']" />
-        <xsl:variable name="event-lang" select="field[@name='language']" />
+        <!-- these URIs will be rewritten in idgenerate.xsl -->
+        <!--@            href="{concat('/',$country-code,'/event/',$event-identifier, '/', $event-lang)}" 
+            -->
         <workflowEvent 
-            href="{concat('/',$country-code,'/event/',$event-identifier, '/', $event-lang)}" 
             isA="TLCEvent"
             showAs="{field[@name='short_title']}" 
         >

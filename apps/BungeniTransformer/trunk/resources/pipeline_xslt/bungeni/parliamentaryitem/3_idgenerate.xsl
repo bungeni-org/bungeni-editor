@@ -28,11 +28,24 @@
     <xsl:variable name="active-date" select="data($add-change/activeDate)" />
     <xsl:variable name="uri-active-date" select="bdates:yyyymmdd-hhmmss-date($active-date)" />
     <xsl:variable name="parliament-id" select="data(/ontology/legislature/parliamentId)" />
+    <!-- the below parameter describes how the URI is to be generated -->
+
     <xsl:variable name="uri-generator-type">
         <xsl:choose>
+            <!-- generate @uri use progressive number -->
+            
             <xsl:when test="/ontology/document/progressiveNumber">
                 <xsl:text>PROGRESSIVE</xsl:text>
             </xsl:when>
+            <!-- agendaitem is progressive internal -->
+            <!-- generate @uri use doc_id -->
+            <xsl:when test="$uri-type eq 'AgendaItem'">
+                <xsl:text>PROGRESSIVE-INTERNAL</xsl:text>
+            </xsl:when>
+            <xsl:when test="$uri-type eq 'Event'">
+                <xsl:text>PROGRESSIVE-INTERNAL</xsl:text>
+            </xsl:when>
+            <!-- generate @internal-uri dont generate @uri -->
             <xsl:otherwise>
                 <xsl:text>INTERNAL</xsl:text>
             </xsl:otherwise>
@@ -55,6 +68,18 @@
                     $uri-type, 
                     $uri-active-date, 
                     $progressive-number,
+                    $lang
+                    )">
+                </xsl:sequence>
+            </xsl:when>
+            <xsl:when test="$uri-generator-type eq 'PROGRESSIVE-INTERNAL'">
+                <xsl:variable name="doc-number" select="data(/ontology/document/docId)" />
+                <xsl:sequence  
+                    select="bctypes:get_doc_uri(
+                    $country,
+                    $uri-type,
+                    $uri-active-date,
+                    $doc-number,
                     $lang
                     )">
                 </xsl:sequence>
@@ -85,9 +110,12 @@
     <xsl:template match="document">
         <xsl:copy>
             <xsl:choose>
-                <xsl:when test="$uri-generator-type eq 'PROGRESSIVE'">
+                <xsl:when test="$uri-generator-type eq 'PROGRESSIVE' or $uri-generator-type eq 'PROGRESSIVE-INTERNAL'">
                     <xsl:attribute name="uri" select="$doc-uri" />
-                </xsl:when>
+                </xsl:when> <!--
+                <xsl:when test="$uri-generator-type eq 'PROGRESSIVE-INTERNAL'">
+                    <xsl:attribute name="uri" select="$doc-uri" />
+                </xsl:when>     -->           
                 <xsl:otherwise>
                     <xsl:attribute name="internal-uri" select="$doc-uri" />
                 </xsl:otherwise>
@@ -95,6 +123,7 @@
             <xsl:apply-templates select="*|@*|text()|processing-instruction()|comment()"/>
         </xsl:copy>
     </xsl:template>
+    
     
     <xsl:template match="permissions[parent::change]">
         <xsl:variable name="parent-change-sequence-id"><xsl:value-of select="parent::change/auditId" /></xsl:variable> 
@@ -158,8 +187,27 @@
     </xsl:template>
     
     
+   <!-- The content of the workflow event is duplicated here the href points to the full 
+       document -->
+   <xsl:template match="workflowEvent">
+       <xsl:copy>
+           <xsl:attribute name="href">
+               <xsl:variable name="event-docid" select="data(docId)" />
+               <xsl:variable name="event-type" select="data(type/value)" />
+               <xsl:variable name="type-mappings" select="/custom/value" />
+               <xsl:variable name="event-uri-name" 
+                   select="bctypes:get_content_type_uri_name($event-type, $type-mappings)" 
+               />
+               <xsl:value-of select="concat($doc-uri, '/', 'Event','.', $event-docid)"></xsl:value-of>
+           </xsl:attribute>
+           <xsl:apply-templates />
+       </xsl:copy>
+   </xsl:template>
+    
+    <!--
+    
    <xsl:template match="custom" />
     
-    
+    -->
     
 </xsl:stylesheet>
