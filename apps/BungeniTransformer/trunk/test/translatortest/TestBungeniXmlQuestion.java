@@ -9,7 +9,7 @@ package translatortest;
  *
  * @author anthony
  */
-public class TestBungeniXmlQuestion extends OATranslatorTestBungeniXmlBase {
+    public class TestBungeniXmlQuestion extends OATranslatorTestBungeniXmlBase {
 	public TestBungeniXmlQuestion(){
 		super();
                 //TransformerFactoryImpl l = new TransformerFactoryImpl();

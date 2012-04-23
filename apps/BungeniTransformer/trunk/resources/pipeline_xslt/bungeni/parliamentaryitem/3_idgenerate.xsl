@@ -204,10 +204,9 @@
        </xsl:copy>
    </xsl:template>
     
-    <!--
+    
     
    <xsl:template match="custom" />
     
-    -->
     
 </xsl:stylesheet>

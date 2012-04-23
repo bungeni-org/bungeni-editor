@@ -1,0 +1,827 @@
+<?xml version="1.0" encoding="UTF-8"?><bu:ontology xmlns:bu="http://portal.bungeni.org/1.0/" for="document">
+   <bu:document id="bungeniDocument" isA="TLCConcept" uri="/ke/AgendaItem/2012-04-20T10-14-49/75/en" xml:lang="en">
+      <bu:docType isA="TLCTerm">
+         <bu:value type="xs:string">AgendaItem</bu:value>
+      </bu:docType>
+      <bu:owner isA="TLCPerson">
+         <bu:person href="/ontology/Person/ke.P1_01.member.1900-02-02.7" showAs="P1_01 ,member"/>
+         <bu:role type="TLCConcept">
+            <bu:value type="xs:string">ParliamentMember</bu:value>
+         </bu:role>
+      </bu:owner>
+      <bu:audits id="documentAudits">
+        <bu:audit id="document-audit-664">
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">EDITED CLERK SPEAKER - text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document
+<br xmlns=""/> 
+<ul xmlns=""> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</li> 
+</ul> text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</div></bu:body>
+            <bu:docSubType isA="TLCTerm">
+               <bu:value type="xs:string">member</bu:value>
+            </bu:docSubType>
+            <bu:auditFor isA="TLCTerm">
+               <bu:value type="xs:string">agenda_item</bu:value>
+            </bu:auditFor>
+            <bu:groupId type="xs:integer">14</bu:groupId>
+            
+            <bu:parliamentId type="xs:integer">2</bu:parliamentId>
+            <bu:auditId type="xs:integer">664</bu:auditId>
+            <bu:docId key="true" type="xs:integer">75</bu:docId>
+            <bu:statusDate type="xs:dateTime">2012-04-20T10:14:58.086956</bu:statusDate>
+            <bu:shortTitle type="xs:string">Agenda Item Committee as Clerk status make available for
+                scheduling P1_01</bu:shortTitle>
+            <bu:status isA="TLCTerm">
+               <bu:value type="xs:string">admissible</bu:value>
+            </bu:status>
+            <bu:timestampDate type="xs:dateTime">2012-04-20T10:15:02.889019</bu:timestampDate>
+            <bu:longTitle type="xs:string">long title - long title long title - long title long title -
+                long title long title - long title </bu:longTitle>
+            <bu:type isA="TLCTerm">
+               <bu:value type="xs:string">agenda_item</bu:value>
+            </bu:type>
+            
+        </bu:audit>
+        <bu:audit id="document-audit-663">
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">EDITED CLERK SPEAKER - text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document
+<br xmlns=""/> 
+<ul xmlns=""> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</li> 
+</ul> text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</div></bu:body>
+            <bu:docSubType isA="TLCTerm">
+               <bu:value type="xs:string">member</bu:value>
+            </bu:docSubType>
+            <bu:auditFor isA="TLCTerm">
+               <bu:value type="xs:string">agenda_item</bu:value>
+            </bu:auditFor>
+            <bu:groupId type="xs:integer">14</bu:groupId>
+            
+            <bu:parliamentId type="xs:integer">2</bu:parliamentId>
+            <bu:auditId type="xs:integer">663</bu:auditId>
+            <bu:docId key="true" type="xs:integer">75</bu:docId>
+            <bu:statusDate type="xs:dateTime">2012-04-20T10:14:58.086956</bu:statusDate>
+            <bu:shortTitle type="xs:string">Agenda Item Committee as Clerk status make available for
+                scheduling P1_01</bu:shortTitle>
+            <bu:status isA="TLCTerm">
+               <bu:value type="xs:string">completed</bu:value>
+            </bu:status>
+            <bu:timestampDate type="xs:dateTime">2012-04-20T10:15:02.889019</bu:timestampDate>
+            <bu:longTitle type="xs:string">long title - long title long title - long title long title -
+                long title long title - long title </bu:longTitle>
+            <bu:type isA="TLCTerm">
+               <bu:value type="xs:string">agenda_item</bu:value>
+            </bu:type>
+            
+        </bu:audit>
+        <bu:audit id="document-audit-662">
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">EDITED CLERK - text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document
+<br xmlns=""/> 
+<ul xmlns=""> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</li> 
+</ul> text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</div></bu:body>
+            <bu:docSubType isA="TLCTerm">
+               <bu:value type="xs:string">member</bu:value>
+            </bu:docSubType>
+            <bu:auditFor isA="TLCTerm">
+               <bu:value type="xs:string">agenda_item</bu:value>
+            </bu:auditFor>
+            <bu:groupId type="xs:integer">14</bu:groupId>
+            
+            <bu:parliamentId type="xs:integer">2</bu:parliamentId>
+            <bu:auditId type="xs:integer">662</bu:auditId>
+            <bu:docId key="true" type="xs:integer">75</bu:docId>
+            <bu:statusDate type="xs:dateTime">2012-04-20T10:14:58.086956</bu:statusDate>
+            <bu:shortTitle type="xs:string">Agenda Item Committee as Clerk status make available for
+                scheduling P1_01</bu:shortTitle>
+            <bu:status isA="TLCTerm">
+               <bu:value type="xs:string">completed</bu:value>
+            </bu:status>
+            <bu:timestampDate type="xs:dateTime">2012-04-20T10:14:55.601452</bu:timestampDate>
+            <bu:longTitle type="xs:string">long title - long title long title - long title long title -
+                long title long title - long title </bu:longTitle>
+            <bu:type isA="TLCTerm">
+               <bu:value type="xs:string">agenda_item</bu:value>
+            </bu:type>
+            
+        </bu:audit>
+        <bu:audit id="document-audit-661">
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">EDITED CLERK - text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document
+<br xmlns=""/> 
+<ul xmlns=""> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</li> 
+</ul> text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</div></bu:body>
+            <bu:docSubType isA="TLCTerm">
+               <bu:value type="xs:string">member</bu:value>
+            </bu:docSubType>
+            <bu:auditFor isA="TLCTerm">
+               <bu:value type="xs:string">agenda_item</bu:value>
+            </bu:auditFor>
+            <bu:groupId type="xs:integer">14</bu:groupId>
+            
+            <bu:parliamentId type="xs:integer">2</bu:parliamentId>
+            <bu:auditId type="xs:integer">661</bu:auditId>
+            <bu:docId key="true" type="xs:integer">75</bu:docId>
+            <bu:statusDate type="xs:dateTime">2012-04-20T10:14:52.988750</bu:statusDate>
+            <bu:shortTitle type="xs:string">Agenda Item Committee as Clerk status make available for
+                scheduling P1_01</bu:shortTitle>
+            <bu:status isA="TLCTerm">
+               <bu:value type="xs:string">completed</bu:value>
+            </bu:status>
+            <bu:timestampDate type="xs:dateTime">2012-04-20T10:14:55.601452</bu:timestampDate>
+            <bu:longTitle type="xs:string">long title - long title long title - long title long title -
+                long title long title - long title </bu:longTitle>
+            <bu:type isA="TLCTerm">
+               <bu:value type="xs:string">agenda_item</bu:value>
+            </bu:type>
+            
+        </bu:audit>
+        <bu:audit id="document-audit-660">
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">EDITED CLERK - text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document
+<br xmlns=""/> 
+<ul xmlns=""> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</li> 
+</ul> text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</div></bu:body>
+            <bu:docSubType isA="TLCTerm">
+               <bu:value type="xs:string">member</bu:value>
+            </bu:docSubType>
+            <bu:auditFor isA="TLCTerm">
+               <bu:value type="xs:string">agenda_item</bu:value>
+            </bu:auditFor>
+            <bu:groupId type="xs:integer">14</bu:groupId>
+            
+            <bu:parliamentId type="xs:integer">2</bu:parliamentId>
+            <bu:auditId type="xs:integer">660</bu:auditId>
+            <bu:docId key="true" type="xs:integer">75</bu:docId>
+            <bu:statusDate type="xs:dateTime">2012-04-20T10:14:52.988750</bu:statusDate>
+            <bu:shortTitle type="xs:string">Agenda Item Committee as Clerk status make available for
+                scheduling P1_01</bu:shortTitle>
+            <bu:status isA="TLCTerm">
+               <bu:value type="xs:string">received</bu:value>
+            </bu:status>
+            <bu:timestampDate type="xs:dateTime">2012-04-20T10:14:55.601452</bu:timestampDate>
+            <bu:longTitle type="xs:string">long title - long title long title - long title long title -
+                long title long title - long title </bu:longTitle>
+            <bu:type isA="TLCTerm">
+               <bu:value type="xs:string">agenda_item</bu:value>
+            </bu:type>
+            
+        </bu:audit>
+        <bu:audit id="document-audit-659">
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document
+<br xmlns=""/> 
+<ul xmlns=""> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</li> 
+</ul> text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</div></bu:body>
+            <bu:docSubType isA="TLCTerm">
+               <bu:value type="xs:string">member</bu:value>
+            </bu:docSubType>
+            <bu:auditFor isA="TLCTerm">
+               <bu:value type="xs:string">agenda_item</bu:value>
+            </bu:auditFor>
+            <bu:groupId type="xs:integer">14</bu:groupId>
+            
+            <bu:parliamentId type="xs:integer">2</bu:parliamentId>
+            <bu:auditId type="xs:integer">659</bu:auditId>
+            <bu:docId key="true" type="xs:integer">75</bu:docId>
+            <bu:statusDate type="xs:dateTime">2012-04-20T10:14:52.988750</bu:statusDate>
+            <bu:shortTitle type="xs:string">Agenda Item Committee as Clerk status make available for
+                scheduling P1_01</bu:shortTitle>
+            <bu:status isA="TLCTerm">
+               <bu:value type="xs:string">received</bu:value>
+            </bu:status>
+            <bu:timestampDate type="xs:dateTime">2012-04-20T10:14:51.317865</bu:timestampDate>
+            <bu:longTitle type="xs:string">long title - long title long title - long title long title -
+                long title long title - long title </bu:longTitle>
+            <bu:type isA="TLCTerm">
+               <bu:value type="xs:string">agenda_item</bu:value>
+            </bu:type>
+            
+        </bu:audit>
+        <bu:audit id="document-audit-658">
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document
+<br xmlns=""/> 
+<ul xmlns=""> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</li> 
+</ul> text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</div></bu:body>
+            <bu:docSubType isA="TLCTerm">
+               <bu:value type="xs:string">member</bu:value>
+            </bu:docSubType>
+            <bu:auditFor isA="TLCTerm">
+               <bu:value type="xs:string">agenda_item</bu:value>
+            </bu:auditFor>
+            <bu:groupId type="xs:integer">14</bu:groupId>
+            
+            <bu:parliamentId type="xs:integer">2</bu:parliamentId>
+            <bu:auditId type="xs:integer">658</bu:auditId>
+            <bu:docId key="true" type="xs:integer">75</bu:docId>
+            <bu:statusDate type="xs:dateTime">2012-04-20T10:14:51.300010</bu:statusDate>
+            <bu:shortTitle type="xs:string">Agenda Item Committee as Clerk status make available for
+                scheduling P1_01</bu:shortTitle>
+            <bu:status isA="TLCTerm">
+               <bu:value type="xs:string">submitted</bu:value>
+            </bu:status>
+            <bu:timestampDate type="xs:dateTime">2012-04-20T10:14:49.669544</bu:timestampDate>
+            <bu:longTitle type="xs:string">long title - long title long title - long title long title -
+                long title long title - long title </bu:longTitle>
+            <bu:type isA="TLCTerm">
+               <bu:value type="xs:string">agenda_item</bu:value>
+            </bu:type>
+            
+        </bu:audit>
+        <bu:audit id="document-audit-657">
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document
+<br xmlns=""/> 
+<ul xmlns=""> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</li> 
+</ul> text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</div></bu:body>
+            <bu:docSubType isA="TLCTerm">
+               <bu:value type="xs:string">member</bu:value>
+            </bu:docSubType>
+            <bu:auditFor isA="TLCTerm">
+               <bu:value type="xs:string">agenda_item</bu:value>
+            </bu:auditFor>
+            <bu:groupId type="xs:integer">14</bu:groupId>
+            
+            <bu:parliamentId type="xs:integer">2</bu:parliamentId>
+            <bu:auditId type="xs:integer">657</bu:auditId>
+            <bu:docId key="true" type="xs:integer">75</bu:docId>
+            <bu:statusDate type="xs:dateTime">2012-04-20T10:14:49.653818</bu:statusDate>
+            <bu:shortTitle type="xs:string">Agenda Item Committee as Clerk status make available for
+                scheduling P1_01</bu:shortTitle>
+            <bu:status isA="TLCTerm">
+               <bu:value type="xs:string">submitted</bu:value>
+            </bu:status>
+            <bu:timestampDate type="xs:dateTime">2012-04-20T10:14:49.669544</bu:timestampDate>
+            <bu:longTitle type="xs:string">long title - long title long title - long title long title -
+                long title long title - long title </bu:longTitle>
+            <bu:type isA="TLCTerm">
+               <bu:value type="xs:string">agenda_item</bu:value>
+            </bu:type>
+            
+        </bu:audit>
+        <bu:audit id="document-audit-656">
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document
+<br xmlns=""/> 
+<ul xmlns=""> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</li> 
+</ul> text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</div></bu:body>
+            <bu:docSubType isA="TLCTerm">
+               <bu:value type="xs:string">member</bu:value>
+            </bu:docSubType>
+            <bu:auditFor isA="TLCTerm">
+               <bu:value type="xs:string">agenda_item</bu:value>
+            </bu:auditFor>
+            <bu:groupId type="xs:integer">14</bu:groupId>
+            
+            <bu:auditId type="xs:integer">656</bu:auditId>
+            <bu:docId key="true" type="xs:integer">75</bu:docId>
+            <bu:statusDate type="xs:dateTime">2012-04-20T10:14:49.653818</bu:statusDate>
+            <bu:shortTitle type="xs:string">Agenda Item Committee as Clerk status make available for
+                scheduling P1_01</bu:shortTitle>
+            <bu:status isA="TLCTerm">
+               <bu:value type="xs:string">working_draft</bu:value>
+            </bu:status>
+            <bu:timestampDate type="xs:dateTime">2012-04-20T10:14:49.502284</bu:timestampDate>
+            <bu:longTitle type="xs:string">long title - long title long title - long title long title -
+                long title long title - long title </bu:longTitle>
+            <bu:type isA="TLCTerm">
+               <bu:value type="xs:string">agenda_item</bu:value>
+            </bu:type>
+            
+        </bu:audit>
+        <bu:audit id="document-audit-655">
+            <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document
+<br xmlns=""/> 
+<ul xmlns=""> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</li> 
+</ul> text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</div></bu:body>
+            <bu:docSubType isA="TLCTerm">
+               <bu:value type="xs:string">member</bu:value>
+            </bu:docSubType>
+            <bu:auditFor isA="TLCTerm">
+               <bu:value type="xs:string">agenda_item</bu:value>
+            </bu:auditFor>
+            <bu:groupId type="xs:integer">14</bu:groupId>
+            
+            <bu:auditId type="xs:integer">655</bu:auditId>
+            <bu:docId key="true" type="xs:integer">75</bu:docId>
+            <bu:statusDate type="xs:dateTime">2012-04-20T10:14:49.502284</bu:statusDate>
+            <bu:shortTitle type="xs:string">Agenda Item Committee as Clerk status make available for
+                scheduling P1_01</bu:shortTitle>
+            <bu:timestampDate type="xs:dateTime">2012-04-20T10:14:49.502284</bu:timestampDate>
+            <bu:longTitle type="xs:string">long title - long title long title - long title long title -
+                long title long title - long title </bu:longTitle>
+            <bu:type isA="TLCTerm">
+               <bu:value type="xs:string">agenda_item</bu:value>
+            </bu:type>
+            
+        </bu:audit>
+      </bu:audits>
+      <bu:workflowEvents id="documentEvents"/>
+      <bu:statusDate type="xs:dateTime">2012-04-20T10:14:58.086956</bu:statusDate>
+      <bu:versions id="documentVersions">
+        <bu:version id="document-version-664" uri="/ke/AgendaItem/2012-04-20T10-14-49/75/en@2012-04-20T10:15:05.338627">
+            <bu:refersToAudit href="#document-audit-664"/>
+            <bu:refersToChange href="#document-change-664"/>
+            <bu:userId type="xs:integer">6</bu:userId>
+            <bu:sequence type="xs:integer">3</bu:sequence>
+            <bu:auditId type="xs:integer">664</bu:auditId>
+            <bu:activeDate type="xs:dateTime">2012-04-20T10:15:05.338627</bu:activeDate>
+            <bu:auditDate type="xs:dateTime">2012-04-20T10:15:05.338627</bu:auditDate>
+            <bu:auditAction isA="TLCEvent">
+               <bu:value type="xs:string">version</bu:value>
+            </bu:auditAction>
+            <bu:procedureType isA="TLCTerm">
+               <bu:value type="xs:string">m</bu:value>
+            </bu:procedureType>
+        </bu:version>
+        <bu:version id="document-version-661" uri="/ke/AgendaItem/2012-04-20T10-14-49/75/en@2012-04-20T10:14:58.076851">
+            <bu:refersToAudit href="#document-audit-661"/>
+            <bu:refersToChange href="#document-change-661"/>
+            <bu:userId type="xs:integer">5</bu:userId>
+            <bu:sequence type="xs:integer">2</bu:sequence>
+            <bu:auditId type="xs:integer">661</bu:auditId>
+            <bu:activeDate type="xs:dateTime">2012-04-20T10:14:58.076851</bu:activeDate>
+            <bu:auditDate type="xs:dateTime">2012-04-20T10:14:58.076851</bu:auditDate>
+            <bu:auditAction isA="TLCEvent">
+               <bu:value type="xs:string">version</bu:value>
+            </bu:auditAction>
+            <bu:procedureType isA="TLCTerm">
+               <bu:value type="xs:string">m</bu:value>
+            </bu:procedureType>
+        </bu:version>
+        <bu:version id="document-version-657" uri="/ke/AgendaItem/2012-04-20T10-14-49/75/en@2012-04-20T10:14:51.280995">
+            <bu:refersToAudit href="#document-audit-657"/>
+            <bu:refersToChange href="#document-change-657"/>
+            <bu:userId type="xs:integer">5</bu:userId>
+            <bu:sequence type="xs:integer">1</bu:sequence>
+            <bu:auditId type="xs:integer">657</bu:auditId>
+            <bu:activeDate type="xs:dateTime">2012-04-20T10:14:51.280995</bu:activeDate>
+            <bu:auditDate type="xs:dateTime">2012-04-20T10:14:51.280995</bu:auditDate>
+            <bu:auditAction isA="TLCEvent">
+               <bu:value type="xs:string">version</bu:value>
+            </bu:auditAction>
+            <bu:procedureType isA="TLCTerm">
+               <bu:value type="xs:string">m</bu:value>
+            </bu:procedureType>
+        </bu:version>
+      </bu:versions>
+      <bu:docId key="true" type="xs:integer">75</bu:docId>
+      <bu:changes id="documentChanges">
+        <bu:change id="document-change-663">
+            <bu:refersToAudit href="#document-audit-663"/>
+            <bu:userId type="xs:integer">6</bu:userId>
+            <bu:sequence type="xs:integer">2</bu:sequence>
+            <bu:auditId type="xs:integer">663</bu:auditId>
+            <bu:activeDate type="xs:dateTime">2012-04-20T10:15:02.926070</bu:activeDate>
+            <bu:auditDate type="xs:dateTime">2012-04-20T10:15:02.926070</bu:auditDate>
+            <bu:auditAction isA="TLCEvent">
+               <bu:value type="xs:string">modify</bu:value>
+            </bu:auditAction>
+            <bu:procedureType isA="TLCTerm">
+               <bu:value type="xs:string">a</bu:value>
+            </bu:procedureType>
+            <bu:permissions id="change-permissions-663">
+                <bu:permission name="zope.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Signatory" setting="Allow"/>
+                <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="zope.View" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Clerk" setting="Deny"/>
+            </bu:permissions>
+        </bu:change>
+        <bu:change id="document-change-662">
+            <bu:refersToAudit href="#document-audit-662"/>
+            <bu:userId type="xs:integer">5</bu:userId>
+            <bu:sequence type="xs:integer">4</bu:sequence>
+            <bu:auditId type="xs:integer">662</bu:auditId>
+            <bu:activeDate type="xs:dateTime">2012-04-20T10:14:58.104238</bu:activeDate>
+            <bu:auditDate type="xs:dateTime">2012-04-20T10:14:58.104238</bu:auditDate>
+            <bu:auditAction isA="TLCEvent">
+               <bu:value type="xs:string">workflow</bu:value>
+            </bu:auditAction>
+            <bu:procedureType isA="TLCTerm">
+               <bu:value type="xs:string">a</bu:value>
+            </bu:procedureType>
+            <bu:permissions id="change-permissions-662">
+                <bu:permission name="zope.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Signatory" setting="Allow"/>
+                <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="zope.View" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Clerk" setting="Deny"/>
+            </bu:permissions>
+        </bu:change>
+        <bu:change id="document-change-661">
+            <bu:refersToAudit href="#document-audit-661"/>
+            <bu:userId type="xs:integer">5</bu:userId>
+            <bu:sequence type="xs:integer">2</bu:sequence>
+            <bu:auditId type="xs:integer">661</bu:auditId>
+            <bu:activeDate type="xs:dateTime">2012-04-20T10:14:58.076851</bu:activeDate>
+            <bu:auditDate type="xs:dateTime">2012-04-20T10:14:58.076851</bu:auditDate>
+            <bu:auditAction isA="TLCEvent">
+               <bu:value type="xs:string">version</bu:value>
+            </bu:auditAction>
+            <bu:procedureType isA="TLCTerm">
+               <bu:value type="xs:string">m</bu:value>
+            </bu:procedureType>
+            <bu:permissions id="change-permissions-661">
+                <bu:permission name="zope.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Signatory" setting="Allow"/>
+                <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="zope.View" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Clerk" setting="Deny"/>
+            </bu:permissions>
+        </bu:change>
+        <bu:change id="document-change-660">
+            <bu:refersToAudit href="#document-audit-660"/>
+            <bu:userId type="xs:integer">5</bu:userId>
+            <bu:sequence type="xs:integer">1</bu:sequence>
+            <bu:auditId type="xs:integer">660</bu:auditId>
+            <bu:activeDate type="xs:dateTime">2012-04-20T10:14:55.629758</bu:activeDate>
+            <bu:auditDate type="xs:dateTime">2012-04-20T10:14:55.629758</bu:auditDate>
+            <bu:auditAction isA="TLCEvent">
+               <bu:value type="xs:string">modify</bu:value>
+            </bu:auditAction>
+            <bu:procedureType isA="TLCTerm">
+               <bu:value type="xs:string">a</bu:value>
+            </bu:procedureType>
+            <bu:permissions id="change-permissions-660">
+                <bu:permission name="zope.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Signatory" setting="Allow"/>
+                <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="zope.View" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Clerk" setting="Allow"/>
+            </bu:permissions>
+        </bu:change>
+        <bu:change id="document-change-659">
+            <bu:refersToAudit href="#document-audit-659"/>
+            <bu:userId type="xs:integer">5</bu:userId>
+            <bu:sequence type="xs:integer">3</bu:sequence>
+            <bu:auditId type="xs:integer">659</bu:auditId>
+            <bu:activeDate type="xs:dateTime">2012-04-20T10:14:52.997165</bu:activeDate>
+            <bu:auditDate type="xs:dateTime">2012-04-20T10:14:52.997165</bu:auditDate>
+            <bu:auditAction isA="TLCEvent">
+               <bu:value type="xs:string">workflow</bu:value>
+            </bu:auditAction>
+            <bu:procedureType isA="TLCTerm">
+               <bu:value type="xs:string">a</bu:value>
+            </bu:procedureType>
+            <bu:permissions id="change-permissions-659">
+                <bu:permission name="zope.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Signatory" setting="Allow"/>
+                <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="zope.View" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Clerk" setting="Allow"/>
+            </bu:permissions>
+        </bu:change>
+        <bu:change id="document-change-658">
+            <bu:refersToAudit href="#document-audit-658"/>
+            <bu:userId type="xs:integer">5</bu:userId>
+            <bu:sequence type="xs:integer">2</bu:sequence>
+            <bu:auditId type="xs:integer">658</bu:auditId>
+            <bu:activeDate type="xs:dateTime">2012-04-20T10:14:51.309655</bu:activeDate>
+            <bu:auditDate type="xs:dateTime">2012-04-20T10:14:51.309655</bu:auditDate>
+            <bu:auditAction isA="TLCEvent">
+               <bu:value type="xs:string">workflow</bu:value>
+            </bu:auditAction>
+            <bu:procedureType isA="TLCTerm">
+               <bu:value type="xs:string">a</bu:value>
+            </bu:procedureType>
+            <bu:permissions id="change-permissions-658">
+                <bu:permission name="zope.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Signatory" setting="Allow"/>
+                <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="zope.View" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Owner" setting="Deny"/>
+            </bu:permissions>
+        </bu:change>
+        <bu:change id="document-change-657">
+            <bu:refersToAudit href="#document-audit-657"/>
+            <bu:userId type="xs:integer">5</bu:userId>
+            <bu:sequence type="xs:integer">1</bu:sequence>
+            <bu:auditId type="xs:integer">657</bu:auditId>
+            <bu:activeDate type="xs:dateTime">2012-04-20T10:14:51.280995</bu:activeDate>
+            <bu:auditDate type="xs:dateTime">2012-04-20T10:14:51.280995</bu:auditDate>
+            <bu:auditAction isA="TLCEvent">
+               <bu:value type="xs:string">version</bu:value>
+            </bu:auditAction>
+            <bu:procedureType isA="TLCTerm">
+               <bu:value type="xs:string">m</bu:value>
+            </bu:procedureType>
+            <bu:permissions id="change-permissions-657">
+                <bu:permission name="zope.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Signatory" setting="Allow"/>
+                <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="zope.View" role="bungeni.Speaker" setting="Allow"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Owner" setting="Deny"/>
+            </bu:permissions>
+        </bu:change>
+        <bu:change id="document-change-656">
+            <bu:refersToAudit href="#document-audit-656"/>
+            <bu:userId type="xs:integer">5</bu:userId>
+            <bu:sequence type="xs:integer">1</bu:sequence>
+            <bu:auditId type="xs:integer">656</bu:auditId>
+            <bu:activeDate type="xs:dateTime">2012-04-20T10:14:49.662888</bu:activeDate>
+            <bu:auditDate type="xs:dateTime">2012-04-20T10:14:49.662888</bu:auditDate>
+            <bu:auditAction isA="TLCEvent">
+               <bu:value type="xs:string">workflow</bu:value>
+            </bu:auditAction>
+            <bu:procedureType isA="TLCTerm">
+               <bu:value type="xs:string">a</bu:value>
+            </bu:procedureType>
+            <bu:permissions id="change-permissions-656">
+                <bu:permission name="zope.View" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Clerk" setting="Allow"/>
+                <bu:permission name="zope.View" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Signatory" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Edit" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.attachment.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Owner" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Add" role="bungeni.Anonymous" setting="Deny"/>
+                <bu:permission name="bungeni.signatory.Delete" role="bungeni.Owner" setting="Deny"/>
+            </bu:permissions>
+        </bu:change>
+        <bu:change id="document-change-655">
+            <bu:refersToAudit href="#document-audit-655"/>
+            <bu:userId type="xs:integer">5</bu:userId>
+            <bu:sequence type="xs:integer">1</bu:sequence>
+            <bu:auditId type="xs:integer">655</bu:auditId>
+            <bu:activeDate type="xs:dateTime">2012-04-20T10:14:49.589925</bu:activeDate>
+            <bu:auditDate type="xs:dateTime">2012-04-20T10:14:49.589925</bu:auditDate>
+            <bu:auditAction isA="TLCEvent">
+               <bu:value type="xs:string">add</bu:value>
+            </bu:auditAction>
+            <bu:procedureType isA="TLCTerm">
+               <bu:value type="xs:string">a</bu:value>
+            </bu:procedureType>
+            <bu:permissions id="change-permissions-655">
+                <bu:permission name="zope.View" role="bungeni.Clerk" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Speaker" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Owner" setting="Allow"/>
+                <bu:permission name="zope.View" role="bungeni.Signatory" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.MP" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Minister" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Authenticated" setting="Deny"/>
+                <bu:permission name="zope.View" role="bungeni.Anonymous" setting="Deny"/>
+            </bu:permissions>
+        </bu:change>
+      </bu:changes>
+      <bu:status isA="TLCTerm">
+         <bu:value type="xs:string">admissible</bu:value>
+      </bu:status>
+      <bu:type isA="TLCTerm">
+         <bu:value type="xs:string">agenda_item</bu:value>
+      </bu:type>
+      <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">EDITED CLERK SPEAKER - text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document
+<br xmlns=""/> 
+<ul xmlns=""> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</li> 
+ <li>text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</li> 
+</ul> text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document</div></bu:body>
+      <bu:shortTitle type="xs:string">Agenda Item Committee as Clerk status make available for scheduling
+        P1_01</bu:shortTitle>
+      <bu:longTitle type="xs:string">long title - long title long title - long title long title - long title
+        long title - long title </bu:longTitle>
+      <bu:docSubType isA="TLCTerm">
+         <bu:value type="xs:string">member</bu:value>
+      </bu:docSubType>
+      <bu:shortTitle type="xs:string">Agenda Item Committee as Clerk status make available for scheduling
+        P1_01</bu:shortTitle>
+      <bu:permissions id="documentPermissions">
+        <bu:permission name="zope.View" role="bungeni.MP" setting="Deny"/>
+        <bu:permission name="zope.View" role="bungeni.Minister" setting="Deny"/>
+        <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Speaker" setting="Deny"/>
+        <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Speaker" setting="Deny"/>
+        <bu:permission name="bungeni.attachment.Edit" role="bungeni.Speaker" setting="Deny"/>
+        <bu:permission name="bungeni.attachment.Add" role="bungeni.Speaker" setting="Deny"/>
+        <bu:permission name="bungeni.signatory.Add" role="bungeni.Speaker" setting="Deny"/>
+        <bu:permission name="bungeni.signatory.Add" role="bungeni.MP" setting="Deny"/>
+        <bu:permission name="bungeni.signatory.Add" role="bungeni.Minister" setting="Deny"/>
+        <bu:permission name="bungeni.signatory.Add" role="bungeni.Anonymous" setting="Deny"/>
+        <bu:permission name="zope.View" role="bungeni.Owner" setting="Allow"/>
+        <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Clerk" setting="Deny"/>
+        <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Clerk" setting="Deny"/>
+        <bu:permission name="bungeni.attachment.Edit" role="bungeni.Clerk" setting="Deny"/>
+        <bu:permission name="bungeni.attachment.Add" role="bungeni.Clerk" setting="Deny"/>
+        <bu:permission name="bungeni.signatory.Add" role="bungeni.Clerk" setting="Deny"/>
+        <bu:permission name="bungeni.signatory.Delete" role="bungeni.Clerk" setting="Deny"/>
+        <bu:permission name="zope.View" role="bungeni.Signatory" setting="Allow"/>
+        <bu:permission name="bungeni.agendaitem.Edit" role="bungeni.Owner" setting="Deny"/>
+        <bu:permission name="bungeni.agendaitem.Delete" role="bungeni.Owner" setting="Deny"/>
+        <bu:permission name="bungeni.attachment.Edit" role="bungeni.Owner" setting="Deny"/>
+        <bu:permission name="bungeni.attachment.Add" role="bungeni.Owner" setting="Deny"/>
+        <bu:permission name="bungeni.signatory.Delete" role="bungeni.Owner" setting="Deny"/>
+        <bu:permission name="zope.View" role="bungeni.Clerk" setting="Allow"/>
+        <bu:permission name="zope.View" role="bungeni.Speaker" setting="Allow"/>
+        <bu:permission name="bungeni.signatory.Add" role="bungeni.Owner" setting="Deny"/>
+        <bu:permission name="zope.View" role="bungeni.Anonymous" setting="Allow"/>
+      </bu:permissions>
+   </bu:document>
+   <bu:legislature href="" isA="TLCConcept">
+      <bu:parliamentId key="true" select="" type="xs:integer"/>
+      <bu:electionDate select="" type="xs:date"/>
+      <bu:country isA="TLCLocation">
+         <bu:value type="xs:string">ke</bu:value>
+      </bu:country>
+   </bu:legislature>
+   <bu:bungeni id="bungeniMeta" isA="TLCObject" showAs="Bungeni Specific info">
+      <bu:tags>
+        <bu:tag isA="TLCTerm">
+            <bu:value type="xs:string">public</bu:value>
+         </bu:tag>
+        <bu:tag isA="TLCTerm">
+            <bu:value type="xs:string">approved</bu:value>
+         </bu:tag>
+      </bu:tags>
+      <bu:timestampDate type="xs:dateTime">2012-04-20T10:15:02.889019</bu:timestampDate>
+      <bu:withPermissions href="#documentPermissions"/>
+   </bu:bungeni>
+   <bu:agendaItem isA="TLCObject">
+      <bu:document href="#bungeniDocument" uri="/ke/AgendaItem/2012-04-20T10-14-49/75/en"/>
+      <bu:docSubType isA="TLCTerm">
+         <bu:value type="xs:string">member</bu:value>
+      </bu:docSubType>
+      <bu:group href="/ontology/committee/committee.--.group.14" isA="TLCReference"/>
+   </bu:agendaItem>
+   
+</bu:ontology>

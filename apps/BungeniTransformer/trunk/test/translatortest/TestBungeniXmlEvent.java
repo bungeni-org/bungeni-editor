@@ -17,7 +17,7 @@ public class TestBungeniXmlEvent extends OATranslatorTestBungeniXmlBase {
 		setInputDocument("test/testdocs/bungeni_event.xml");
 		setOutputDocument("test/testresults/test_bungeni_event.xml");
 		setOutputMetalex("test/testresults/test_bungeni_event.mlx");
-		setComparisonDocument("test/testdocs/test_bungeni_question_out.xml");
+		setComparisonDocument("test/testresults/test_bungeni_event_out.xml");
 	}
 
 }

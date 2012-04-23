@@ -17,7 +17,7 @@ public class TestBungeniXmlAgendaItem extends OATranslatorTestBungeniXmlBase {
 		setInputDocument("test/testdocs/bungeni_agendaitem.xml");
 		setOutputDocument("test/testresults/test_bungeni_agendaitem.xml");
 		setOutputMetalex("test/testresults/test_bungeni_agendaitem.mlx");
-		setComparisonDocument("test/testdocs/test_bungeni_question_out.xml");
+		setComparisonDocument("test/testresults/test_bungeni_agendaitem_out.xml");
 	}
 
 }
