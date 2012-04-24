@@ -5,6 +5,7 @@
                 exclude-result-prefixes="xs bctype"
                 version="2.0">
     
+    <!-- INCLUDE FUNCTIONS -->
     <xsl:import href="resources/pipeline_xslt/bungeni/common/func_content_types.xsl" />
     
     <xd:doc xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" scope="stylesheet">
@@ -15,7 +16,6 @@
         </xd:desc>
     </xd:doc>
     
-    
     <!-- INPUT PARAMETERS TO TRANSFORM-->
     
     <xsl:param name="country-code"  />
@@ -23,15 +23,11 @@
     <xsl:param name="parliament-election-date"  />
     <xsl:param name="for-parliament" />
     <xsl:param name="type-mappings" />
-    
-    <!-- INCLUDE FUNCTIONS -->
-
 
     <xsl:template match="/">
         <xsl:apply-templates />
     </xsl:template>
 
-    
     <!-- Content Type matcher -->
     <xsl:template match="contenttype">
   

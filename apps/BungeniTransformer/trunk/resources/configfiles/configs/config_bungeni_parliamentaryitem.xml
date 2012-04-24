@@ -83,15 +83,7 @@
 
          <process name="unescapehtml"
              description="unescape all description texts"
-             param="//bu:ontology//bu:description" />  
-
-         <process name="unescapehtml"
-             description="owner description text"
-             param="//bu:ontology/bu:legislativeItem/bu:owner/bu:field[@name='description']" />      
-
-         <process name="unescapehtml"
-            description="versions body"
-            param="//bu:ontology/bu:legislativeItem/bu:versions/bu:version/bu:body" />
+             param="//bu:ontology//bu:description" /> 
 
     </processgroup>
      

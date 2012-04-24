@@ -28,16 +28,25 @@
                 <parameter name="parliament-id"/>
                 <parameter name="parliament-election-date" />
                 <parameter name="for-parliament" />
+                <parameter name="type-mappings">
+                    <value>
+                        <map from="user" uri-name="User" element-name="user" />
+                    </value>
+                </parameter>                
             </parameters>
 
-            <xslt step="1" name="groupingLevel1" href="pipeline_xslt/bungeni/user/grouping_level1.xsl"/>
+            <xslt step="1" 
+                name="groupingLevel1" 
+                href="pipeline_xslt/bungeni/user/1_grouping.xsl"/>
             
-            <xslt step="2" name="groupingLevel2" href="pipeline_xslt/bungeni/user/grouping_level2.xsl"/>
+            <xslt step="2" 
+                name="groupingLevel2" 
+                href="pipeline_xslt/bungeni/user/2_grouping.xsl"/>
 
             <xslt step="3"
                 name="appendBungeniNS"
                 href="pipeline_xslt/bungeni/common/add_bungeniportal_ns.xsl"
-                postproc="#proc-member-item"
+                postproc="#proc-user-item"
             />
         </input>
        <!--
@@ -51,9 +60,9 @@
         <xslt step="1" name="AddNamespaceAkomaNtoso" href="pipeline_xslt/common/add_an_ns.xsl" />
     </postxml>
     -->
-    <processgroup id="proc-member-item">
+    <processgroup id="proc-user-item">
         <process name="unescapehtml"
             description="member description"
-            param="//bu:ontology/bu:user/bu:description" />
+            param="//bu:ontology//bu:description" />
     </processgroup>
 </config>

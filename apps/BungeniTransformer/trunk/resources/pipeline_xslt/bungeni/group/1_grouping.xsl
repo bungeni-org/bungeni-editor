@@ -40,19 +40,26 @@
         
         <xsl:variable name="group_principal_id" select="field[@name='group_principal_id']" />
         <xsl:variable name="group_id" select="field[@name='group_id']" />
-        <xsl:variable name="language" select="field[@name='language']" />
         
         <xsl:variable name="full-group-identifier" select="concat(
             $content-type-uri-name, '.',$for-parliament,'-',$parliament-election-date,'-',$parliament-id, '.','group','.',$group_id
             )" />
         
         <!-- ROOT OF THE DOCUMENT -->
-        <ontology type="group">
+        <ontology for="group">
             <group id="bungeniGroup" isA="TLCConcept">
                 <!-- !+URI_REWORK (ah, mar-2012) 
                     ideally this should be a element describing the sub-type, but for
                     readability we set it as an attribute -->
-                <xsl:attribute name="type" select="$content-type-uri-name" />               
+                <!-- !+URI_REWORK (ah, 24-Apr-2012)
+                    Applied element docType, attribute type not necessary anymore 
+                -->
+                <!--
+                <xsl:attribute name="type" select="$content-type-uri-name" />    
+                -->
+                <xsl:attribute name="xml:lang">
+                    <xsl:value-of select="field[@name='language']" />
+                </xsl:attribute>                
                 
                 <!-- !+URI_GENERATOR,!+FIX_THIS(ah,nov-2011) use ontology uri
                     for group since its non-document entity -->
