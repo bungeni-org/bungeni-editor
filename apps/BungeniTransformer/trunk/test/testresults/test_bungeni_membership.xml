@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bu:ontology xmlns:bu="http://portal.bungeni.org/1.0/" for="membership">
+   <bu:membership id="bungeniMembership" isA="TLCPerson"
+      uri="/ontology/Person/ke/ParliamentMember///ke.P1_02.clerk.1900-02-02.19" xml:lang="en">
+      <bu:docType isA="TLCTerm">
+         <bu:value type="xs:string">Membership</bu:value>
+      </bu:docType>
+      <bu:status isA="TLCTerm">
+         <bu:value type="xs:string">attached</bu:value>
+      </bu:status>
+      <bu:referenceToUser uri="/ontology/Person/ke.P1_02.clerk.1900-02-02.19"/>
+      <bu:firstName type="xs:string">clerk</bu:firstName>
+      <bu:lastName type="xs:string">P1_02</bu:lastName>
+      <bu:userId type="xs:integer">19</bu:userId>
+      <bu:description>
+         <div xmlns="http://www.w3.org/1999/xhtml/">EDITED - text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document <br xmlns=""/>
+            <ul xmlns="">
+               <li>text of the document text of the document text of the document text of the
+                  document text of the document text of the document text of the document text of
+                  the document text of the document text of the document </li>
+               <li>text of the document text of the document text of the document text of the
+                  document text of the document text of the document text of the document text of
+                  the document text of the document text of the document </li>
+               <li>text of the document text of the document text of the document text of the
+                  document text of the document text of the document text of the document text of
+                  the document text of the document text of the document text of the document text
+                  of the document text of the document text of the document text of the document
+                  text of the document text of the document </li>
+               <li>text of the document text of the document text of the document text of the
+                  document text of the document text of the document text of the document text of
+                  the document text of the document text of the document text of the document text
+                  of the document text of the document text of the document text of the document
+                  text of the document text of the document text of the document </li>
+            </ul> text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document</div>
+      </bu:description>
+      <bu:birthNationality type="xs:string">KE</bu:birthNationality>
+      <bu:gender type="xs:string">female</bu:gender>
+      <bu:status type="xs:string">active</bu:status>
+      <bu:dateOfBirth type="xs:date">1900-02-02</bu:dateOfBirth>
+      <bu:titles type="xs:string">Mrs</bu:titles>
+      <bu:birthCountry type="xs:string">KE</bu:birthCountry>
+      <bu:nationalId type="xs:string">1234567890</bu:nationalId>
+      <bu:receiveNotification type="xs:boolean">True</bu:receiveNotification>
+      <bu:login type="xs:string">clerk.P1_02</bu:login>
+      <bu:password type="xs:string">7a907ba1e082011a3e193fcdd038e81b</bu:password>
+      <bu:salt type="xs:string">dGIXgQxntANM</bu:salt>
+      <bu:email type="xs:string">clerk.P1_02@bungeni.org</bu:email>
+      <bu:currentNationality type="xs:string">KE</bu:currentNationality>
+      <bu:member_titles/>
+      <bu:changes/>
+      <bu:group>
+         <bu:status isA="TLCTerm">
+            <bu:value type="xs:string">active</bu:value>
+         </bu:status>
+
+         <bu:shortName type="xs:string">CO</bu:shortName>
+         <bu:groupPrincipalId isA="TLCReference">
+            <bu:value type="xs:string">group.office.13</bu:value>
+         </bu:groupPrincipalId>
+         <bu:statusDate type="xs:dateTime">2012-04-21T21:50:20.987238</bu:statusDate>
+         <bu:officeRole isA="TLCRole">
+            <bu:value type="xs:string">bungeni.Clerk</bu:value>
+         </bu:officeRole>
+         <bu:officeId type="xs:integer">13</bu:officeId>
+         <bu:fullName type="xs:string">Clerk's Office</bu:fullName>
+         <bu:groupId type="xs:integer">13</bu:groupId>
+         <bu:type isA="TLCTerm">
+            <bu:value type="xs:string">office</bu:value>
+         </bu:type>
+         <bu:startDate type="xs:dateTime">2011-02-24T</bu:startDate>
+      </bu:group>
+      <bu:permissions id="membershipPermissions">
+         <bu:permission name="bungeni.delegation.Edit" role="bungeni.Owner" setting="Allow"/>
+         <bu:permission name="bungeni.delegation.Add" role="bungeni.Owner" setting="Allow"/>
+         <bu:permission name="bungeni.user.Edit" role="bungeni.Authenticated" setting="Allow"/>
+         <bu:permission name="bungeni.address.Add" role="bungeni.Authenticated" setting="Allow"/>
+         <bu:permission name="bungeni.address.Edit" role="bungeni.Authenticated" setting="Allow"/>
+         <bu:permission name="bungeni.address.Delete" role="bungeni.Authenticated" setting="Allow"/>
+      </bu:permissions>
+   </bu:membership>
+   <bu:legislature href="" isA="TLCConcept">
+      <bu:electionDate select="" type="xs:date"/>
+      <bu:shortName type="xs:string">CO</bu:shortName>
+      <bu:statusDate type="xs:dateTime">2012-04-21T21:50:20.987238</bu:statusDate>
+      <bu:fullName type="xs:string">Clerk's Office</bu:fullName>
+      <bu:groupId type="xs:integer">13</bu:groupId>
+      <bu:type isA="TLCTerm">
+         <bu:value type="xs:string">office</bu:value>
+      </bu:type>
+      <bu:startDate type="xs:dateTime">2011-02-24T</bu:startDate>
+   </bu:legislature>
+   <bu:bungeni id="" isA="TLCObject" showAs="Bungeni Specific info"/>
+</bu:ontology>

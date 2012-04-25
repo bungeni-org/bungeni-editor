@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bu:ontology xmlns:bu="http://portal.bungeni.org/1.0/" for="groupsitting">
+    <bu:groupsitting id="2" isA="TLCConcept" type="parliament"
+        uri="/ontology/Groupsitting/ke/parliament/2/2012-02-22T09:15:00;2012-02-22T11:35:00"
+        xml:lang="en">
+        <bu:docType isA="TLCTerm">
+            <bu:value type="xs:string">Groupsitting</bu:value>
+        </bu:docType>
+        <bu:status isA="TLCTerm">
+            <bu:value type="xs:string">published_agenda</bu:value>
+        </bu:status>
+        <bu:itemSchedule>
+            <bu:itemSchedule>
+                <bu:itemId type="xs:integer">1</bu:itemId>
+                <bu:active type="xs:boolean">True</bu:active>
+                <bu:scheduleId type="xs:integer">1</bu:scheduleId>
+                <bu:groupSittingId type="xs:integer">2</bu:groupSittingId>
+                <bu:plannedOrder type="xs:integer">1</bu:plannedOrder>
+            </bu:itemSchedule>
+            <bu:itemSchedule>
+                <bu:itemId type="xs:integer">2</bu:itemId>
+                <bu:active type="xs:boolean">True</bu:active>
+                <bu:scheduleId type="xs:integer">2</bu:scheduleId>
+                <bu:groupSittingId type="xs:integer">2</bu:groupSittingId>
+                <bu:plannedOrder type="xs:integer">2</bu:plannedOrder>
+            </bu:itemSchedule>
+            <bu:itemSchedule>
+                <bu:itemId type="xs:integer">6</bu:itemId>
+                <bu:active type="xs:boolean">True</bu:active>
+                <bu:scheduleId type="xs:integer">3</bu:scheduleId>
+                <bu:groupSittingId type="xs:integer">2</bu:groupSittingId>
+                <bu:plannedOrder type="xs:integer">3</bu:plannedOrder>
+            </bu:itemSchedule>
+            <bu:itemSchedule>
+                <bu:itemId type="xs:integer">88</bu:itemId>
+                <bu:active type="xs:boolean">True</bu:active>
+                <bu:scheduleId type="xs:integer">4</bu:scheduleId>
+                <bu:groupSittingId type="xs:integer">2</bu:groupSittingId>
+                <bu:plannedOrder type="xs:integer">4</bu:plannedOrder>
+            </bu:itemSchedule>
+            <bu:itemSchedule>
+                <bu:itemId type="xs:integer">22</bu:itemId>
+                <bu:active type="xs:boolean">True</bu:active>
+                <bu:scheduleId type="xs:integer">5</bu:scheduleId>
+                <bu:groupSittingId type="xs:integer">2</bu:groupSittingId>
+                <bu:plannedOrder type="xs:integer">5</bu:plannedOrder>
+            </bu:itemSchedule>
+            <bu:itemSchedule>
+                <bu:itemId type="xs:integer">26</bu:itemId>
+                <bu:active type="xs:boolean">True</bu:active>
+                <bu:scheduleId type="xs:integer">6</bu:scheduleId>
+                <bu:groupSittingId type="xs:integer">2</bu:groupSittingId>
+                <bu:plannedOrder type="xs:integer">6</bu:plannedOrder>
+            </bu:itemSchedule>
+        </bu:itemSchedule>
+        <bu:venueId type="xs:integer">1</bu:venueId>
+        <bu:endDate type="xs:dateTime">2012-02-22T11:35:00</bu:endDate>
+        <bu:venue>
+            <bu:venueId type="xs:integer">1</bu:venueId>
+
+            <bu:shortName type="xs:string">Plenary</bu:shortName>
+        </bu:venue>
+        <bu:meetingType isA="TLCPlace">
+            <bu:value type="xs:string">Plenary</bu:value>
+        </bu:meetingType>
+        <bu:reports/>
+        <bu:convocationType isA="TLCTerm">
+            <bu:value type="xs:string">Ordinary</bu:value>
+        </bu:convocationType>
+        <bu:startDate type="xs:dateTime">2012-02-22T09:15:00</bu:startDate>
+        <bu:activityType isA="TLCProcess">
+            <bu:value type="xs:string">Morning Sitting</bu:value>
+        </bu:activityType>
+        <bu:permissions id="groupsittingPermissions">
+            <bu:permission name="bungeni.sittingschedule.itemdiscussion.View" role="bungeni.Clerk"
+                setting="Allow"/>
+            <bu:permission name="bungeni.sittingschedule.itemdiscussion.View" role="bungeni.Owner"
+                setting="Deny"/>
+            <bu:permission name="bungeni.sittingschedule.itemdiscussion.View"
+                role="bungeni.Signatory" setting="Deny"/>
+            <bu:permission name="bungeni.sittingschedule.itemdiscussion.View" role="bungeni.MP"
+                setting="Deny"/>
+            <bu:permission name="bungeni.sittingschedule.itemdiscussion.View"
+                role="bungeni.Minister" setting="Deny"/>
+            <bu:permission name="bungeni.sittingschedule.itemdiscussion.View"
+                role="bungeni.Anonymous" setting="Deny"/>
+            <bu:permission name="bungeni.sittingschedule.itemdiscussion.Edit" role="bungeni.Clerk"
+                setting="Deny"/>
+            <bu:permission name="bungeni.sittingschedule.item.Add" role="bungeni.Clerk"
+                setting="Allow"/>
+            <bu:permission name="bungeni.sittingschedule.item.Delete" role="bungeni.Clerk"
+                setting="Allow"/>
+            <bu:permission name="bungeni.sittingschedule.itemdiscussion.View" role="bungeni.Speaker"
+                setting="Allow"/>
+            <bu:permission name="zope.View" role="bungeni.Speaker" setting="Allow"/>
+            <bu:permission name="zope.View" role="bungeni.Owner" setting="Allow"/>
+            <bu:permission name="zope.View" role="bungeni.Signatory" setting="Allow"/>
+            <bu:permission name="zope.View" role="bungeni.MP" setting="Allow"/>
+            <bu:permission name="zope.View" role="bungeni.Minister" setting="Allow"/>
+            <bu:permission name="zope.View" role="bungeni.Anonymous" setting="Allow"/>
+            <bu:permission name="bungeni.sittingschedule.View" role="bungeni.Speaker"
+                setting="Allow"/>
+            <bu:permission name="bungeni.sittingschedule.View" role="bungeni.Owner" setting="Allow"/>
+            <bu:permission name="bungeni.sittingschedule.View" role="bungeni.Signatory"
+                setting="Allow"/>
+            <bu:permission name="bungeni.sittingschedule.View" role="bungeni.MP" setting="Allow"/>
+            <bu:permission name="bungeni.sittingschedule.View" role="bungeni.Minister"
+                setting="Allow"/>
+            <bu:permission name="bungeni.sittingschedule.View" role="bungeni.Anonymous"
+                setting="Allow"/>
+            <bu:permission name="bungeni.sitting.Edit" role="bungeni.Clerk" setting="Deny"/>
+            <bu:permission name="bungeni.sitting.Delete" role="bungeni.Clerk" setting="Deny"/>
+            <bu:permission name="bungeni.sittingschedule.Edit" role="bungeni.Clerk" setting="Deny"/>
+        </bu:permissions>
+    </bu:groupsitting>
+    <bu:legislature href="" isA="TLCConcept">
+        <bu:electionDate select="" type="xs:date"/>
+        <bu:group>
+            <bu:status isA="TLCTerm">
+                <bu:value type="xs:string">active</bu:value>
+            </bu:status>
+            <bu:parliamentId type="xs:integer">2</bu:parliamentId>
+            <bu:description>
+                <div xmlns="http://www.w3.org/1999/xhtml/">edited - description description
+                    description description description description description description
+                    description description description description description political <strong
+                        xmlns="">group description description</strong> description description
+                    description description description description description description
+                    description description description description description description
+                    description description description description description description
+                    description description description description description description
+                    description description description description description description
+                    description description description description description description
+                    description description</div>
+            </bu:description>
+            <bu:shortName type="xs:string">XIV-PARL</bu:shortName>
+            <bu:groupPrincipalId isA="TLCReference">
+                <bu:value type="xs:string">group.parliament.2</bu:value>
+            </bu:groupPrincipalId>
+            <bu:electionDate type="xs:date">2011-02-01</bu:electionDate>
+            <bu:statusDate type="xs:dateTime">2012-02-09T22:04:18.545121</bu:statusDate>
+
+            <bu:fullName type="xs:string">Bungeni Parliament</bu:fullName>
+            <bu:groupId type="xs:integer">2</bu:groupId>
+            <bu:type isA="TLCTerm">
+                <bu:value type="xs:string">parliament</bu:value>
+            </bu:type>
+            <bu:startDate type="xs:dateTime">2011-02-15T</bu:startDate>
+        </bu:group>
+        <bu:shortName type="xs:string">Sitting A</bu:shortName>
+        <bu:statusDate type="xs:dateTime">2012-02-20T13:49:23.513051</bu:statusDate>
+    </bu:legislature>
+    <bu:bungeni id="" isA="TLCObject" showAs="Bungeni Specific info">
+        <bu:tags>
+            <bu:tag isA="TLCTerm">
+                <bu:value type="xs:string">public</bu:value>
+            </bu:tag>
+            <bu:tag isA="TLCTerm">
+                <bu:value type="xs:string">published</bu:value>
+            </bu:tag>
+            <bu:tag isA="TLCTerm">
+                <bu:value type="xs:string">workspace</bu:value>
+            </bu:tag>
+        </bu:tags>
+    </bu:bungeni>
+</bu:ontology>

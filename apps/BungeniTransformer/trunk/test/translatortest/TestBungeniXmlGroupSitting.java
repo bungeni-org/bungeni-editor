@@ -9,13 +9,13 @@ package translatortest;
  *
  * @author anthony
  */
-public class TestBungeniXmlAddress extends OATranslatorTestBungeniXmlBase {
-	public TestBungeniXmlAddress(){
+public class TestBungeniXmlGroupSitting extends OATranslatorTestBungeniXmlBase {
+	public TestBungeniXmlGroupSitting(){
 		super();
                 //TransformerFactoryImpl l = new TransformerFactoryImpl();
-                setConfigFilePath("configfiles/configs/config_bungeni_address.xml");
-		setInputDocument("test/testdocs/type-address.xml");
-		setOutputDocument("test/testresults/test_bungeni_address.xml");
+                setConfigFilePath("configfiles/configs/config_bungeni_groupsitting.xml");
+		setInputDocument("test/testdocs/type-sitting.xml");
+		setOutputDocument("test/testresults/test_bungeni_sitting.xml");
 		setOutputMetalex("test/testresults/test_bungeni_question.mlx");
 		setComparisonDocument("test/testdocs/test_bungeni_question_out.xml");
 	}

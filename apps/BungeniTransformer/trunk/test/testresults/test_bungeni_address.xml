@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bu:ontology xmlns:bu="http://portal.bungeni.org/1.0/" for="address">
+   <bu:address id="11" isA="TLCConcept" type="address" uri="/ontology/Address//ke//address/11"
+      xml:lang="">
+      <bu:assignedTo isA="TLCReference" uri="/ontology//group.--.."/>
+      <bu:status isA="TLCTerm">
+         <bu:value type="xs:string">attached</bu:value>
+      </bu:status>
+      <bu:city type="xs:string">Africa City</bu:city>
+      <bu:fax type="xs:string">44444 444</bu:fax>
+      <bu:countryId type="TLCTerm">
+         <bu:value type="xs:string">KE</bu:value>
+      </bu:countryId>
+      <bu:statusDate type="xs:dateTime">2012-01-23T13:35:47.098197</bu:statusDate>
+      <bu:postalAddressType type="xs:string">pobox</bu:postalAddressType>
+      <bu:zipCode type="xs:integer">100100</bu:zipCode>
+      <bu:logicalAddressType type="xs:string">office</bu:logicalAddressType>
+      <bu:phone type="xs:string">11111 111 22222 222 33333 333</bu:phone>
+      <bu:street type="xs:string">address</bu:street>
+      <bu:email type="xs:string">mail@mail.com</bu:email>
+      <bu:group-type/>
+      <bu:permissions id="addressPermissions">
+         <bu:permission name="zope.View" role="bungeni.Clerk" setting="Allow"/>
+         <bu:permission name="zope.View" role="bungeni.Speaker" setting="Allow"/>
+         <bu:permission name="zope.View" role="bungeni.MP" setting="Allow"/>
+         <bu:permission name="zope.View" role="bungeni.Minister" setting="Allow"/>
+         <bu:permission name="zope.View" role="bungeni.Anonymous" setting="Allow"/>
+         <bu:permission name="bungeni.groupmember.Edit" role="bungeni.Clerk" setting="Allow"/>
+         <bu:permission name="bungeni.groupmember.Add" role="bungeni.Clerk" setting="Allow"/>
+         <bu:permission name="bungeni.groupmember.Delete" role="bungeni.Clerk" setting="Allow"/>
+         <bu:permission name="bungeni.group.Delete" role="bungeni.Owner" setting="Deny"/>
+         <bu:permission name="bungeni.office.ChangeType" role="bungeni.Clerk" setting="Deny"/>
+      </bu:permissions>
+   </bu:address>
+   <bu:legislature href="" isA="TLCConcept"/>
+   <bu:bungeni id="bungeniMeta" isA="TLCObject" showAs="Bungeni Specific info">
+      <bu:withPermissions href="#addressPermissions"/>
+   </bu:bungeni>
+</bu:ontology>
