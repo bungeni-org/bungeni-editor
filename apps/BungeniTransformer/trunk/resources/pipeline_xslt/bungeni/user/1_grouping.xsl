@@ -39,7 +39,7 @@
         
         
         <!-- ROOT ELEMENT OF DOCUMENT -->
-        <ontology type="user">
+        <ontology for="user">
             
             <xsl:variable name="full-user-identifier"
                 select="concat($country-code, '.',field[@name='last_name'], '.', field[@name='first_name'], '.', field[@name='date_of_birth'], '.', field[@name='user_id'])" />

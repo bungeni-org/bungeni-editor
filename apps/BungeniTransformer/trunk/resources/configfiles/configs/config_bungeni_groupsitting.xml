@@ -56,6 +56,10 @@
             description="item body"
             param="//bu:ontology//bu:description" />
         
+        <process name="unescapehtml"
+            description="item notes"
+            param="//bu:ontology//bu:notes" />        
+        
     </processgroup>
     
 </config>

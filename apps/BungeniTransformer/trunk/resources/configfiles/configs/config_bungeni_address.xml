@@ -28,15 +28,20 @@
             <parameter name="parliament-id"/>
             <parameter name="parliament-election-date"/>
             <parameter name="for-parliament"/>
+            <parameter name="type-mappings">
+                <value>
+                    <map from="address" uri-name="Address" element-name="address" />
+                </value>
+            </parameter>            
         </parameters>
         
         <xslt   step="1" 
             name="groupingLevel1" 
-            href="pipeline_xslt/bungeni/address/grouping_level1.xsl"/>
+            href="pipeline_xslt/bungeni/address/1_grouping.xsl"/>
         
         <xslt   step="2" 
             name="groupingLevel2" 
-            href="pipeline_xslt/bungeni/address/grouping_level2.xsl"/>               
+            href="pipeline_xslt/bungeni/address/2_grouping.xsl"/>               
         
         <xslt   step="3" 
             name="appendBungeniNS" 
@@ -49,7 +54,11 @@
         
         <process name="unescapehtml"
             description="item description"
-            param="//bu:ontology/bu:descriptors/bu:description" />
+            param="//bu:ontology//bu:description" />
+        
+        <process name="unescapehtml"
+            description="item notes"
+            param="//bu:ontology//bu:notes" />        
         
     </processgroup>
     

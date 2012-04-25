@@ -28,15 +28,20 @@
             <parameter name="parliament-id"/>
             <parameter name="parliament-election-date" />
             <parameter name="for-parliament" />
+            <parameter name="type-mappings">
+                <value>
+                    <map from="membership" uri-name="Membership"  element-name="membership" />
+                </value>
+            </parameter>            
         </parameters>
         
         <xslt   step="1" 
             name="groupingLevel1" 
-            href="pipeline_xslt/bungeni/membership/grouping_level1.xsl"/>
+            href="pipeline_xslt/bungeni/membership/1_grouping.xsl"/>
         
         <xslt   step="2" 
             name="groupingLevel2" 
-            href="pipeline_xslt/bungeni/membership/grouping_level2.xsl"/>               
+            href="pipeline_xslt/bungeni/membership/2_grouping.xsl"/>               
         
         <xslt   step="3" 
             name="appendBungeniNS" 

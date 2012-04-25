@@ -238,7 +238,7 @@
     
     
     <xsl:template match="permissions">
-        <permissions id="documentPermissions">
+        <permissions id="groupPermissions">
             <xsl:apply-templates />
         </permissions>
     </xsl:template>

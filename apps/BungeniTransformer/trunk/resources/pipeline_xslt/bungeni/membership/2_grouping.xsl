@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:bdates="http://www.bungeni.org/xml/dates/1.0"
+    xmlns:busers="http://www.bungeni.org/xml/users/1.0"
+    xmlns:bctypes="http://www.bungeni.org/xml/contenttypes/1.0"    
     exclude-result-prefixes="xs"
     version="2.0">
+    
+    <xsl:import href="resources/pipeline_xslt/bungeni/common/func_dates.xsl" />
+    <xsl:import href="resources/pipeline_xslt/bungeni/common/func_users.xsl" />
+    <xsl:import href="resources/pipeline_xslt/bungeni/common/func_content_types.xsl" />    
+    
     <xd:doc xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" scope="stylesheet">
         <xd:desc>
             <xd:p><xd:b>Created on:</xd:b> Oct 26, 2011</xd:p>
@@ -35,7 +43,7 @@
     </xsl:template>
     
     <xsl:template match="field[@name='active_p']">
-        <status>
+        <status type="xs:string">
             <xsl:variable name="field_active" select="." />
             <xsl:choose >
                 <xsl:when test="$field_active eq 'A'">active</xsl:when>
@@ -45,67 +53,71 @@
     </xsl:template>
     
     <xsl:template match="field[@name='first_name']">
-        <firstName>
+        <firstName type="xs:string">
             <xsl:value-of select="." />
         </firstName>
     </xsl:template>   
     
     <xsl:template match="field[@name='last_name']">
-        <lastName>
+        <lastName type="xs:string">
             <xsl:value-of select="." />
         </lastName>
     </xsl:template>  
     
     <xsl:template match="field[@name='short_name']">
-        <shortName>
+        <shortName type="xs:string">
             <xsl:value-of select="." />
         </shortName>
     </xsl:template>     
     
     <xsl:template match="field[@name='full_name']">
-        <fullName>
+        <fullName type="xs:string">
             <xsl:value-of select="." />
         </fullName>
     </xsl:template>     
     
     <xsl:template match="field[@name='user_id']">
-        <userId>
+        <userId type="xs:integer">
             <xsl:value-of select="." />
         </userId>
-    </xsl:template> 
+    </xsl:template>  
     
     <xsl:template match="field[@name='parliament_id']">
-        <parliamentId>
+        <parliamentId type="xs:integer">
             <xsl:value-of select="." />
         </parliamentId>
-    </xsl:template>     
+    </xsl:template>      
     
     <xsl:template match="field[@name='group_principal_id']">
-        <groupPrincipalId>
-            <xsl:value-of select="." />
+        <groupPrincipalId isA="TLCReference">
+            <value type="xs:string">
+                <xsl:value-of select="." />                
+            </value>
         </groupPrincipalId>
     </xsl:template>
     
     <xsl:template match="field[@name='parent_group_id']">
-        <parentGroupId>
+        <parentGroupId type="xs:integer">
             <xsl:value-of select="." />
         </parentGroupId>
     </xsl:template>  
     
     <xsl:template match="field[@name='identifier']">
-        <identifier>
-            <xsl:value-of select="." />
+        <identifier isA="TLCTerm">
+            <value type="xs:string">
+                <xsl:value-of select="." />                
+            </value>
         </identifier>
     </xsl:template>     
     
     <xsl:template match="field[@name='group_id']">
-        <groupId>
+        <groupId type="xs:integer">
             <xsl:value-of select="." />
         </groupId>
     </xsl:template> 
     
     <xsl:template match="field[@name='party_id']">
-        <partyId>
+        <partyId type="xs:integer">
             <xsl:value-of select="." />
         </partyId>
     </xsl:template>    
@@ -117,20 +129,22 @@
     </xsl:template>
     
     <xsl:template match="field[@name='language']">
-        <language>
-            <xsl:value-of select="." />
-        </language>
+        <!-- !+RENDERED NOW as xml:lang on the legislativeItem
+            <language type="xs"><xsl:value-of select="." /></language>
+        -->
     </xsl:template>   
     
     <xsl:template match="field[@name='acronym']">
-        <acronym>
-            <xsl:value-of select="." />
+        <acronym isA="TLCTerm">
+            <value type="xs:string">
+                <xsl:value-of select="." />
+            </value>
         </acronym>
     </xsl:template>     
     
     <xsl:template match="field[@name='gender']">
         <xsl:variable name="field_gender" select="." />
-        <gender>
+        <gender type="xs:string">
             <xsl:choose >
                 <xsl:when test="$field_gender eq 'M'">male</xsl:when>
                 <xsl:when test="$field_gender eq 'F'">female</xsl:when>
@@ -140,105 +154,123 @@
     </xsl:template>
     
     <xsl:template match="field[@name='date_of_birth']">
-        <dateOfBirth>
+        <dateOfBirth type="xs:date">
             <xsl:value-of select="." />
         </dateOfBirth>
     </xsl:template>   
     
     <xsl:template match="field[@name='titles']">
-        <titles>
+        <titles type="xs:string">
             <xsl:value-of select="." />
         </titles>
     </xsl:template>  
     
     <xsl:template match="field[@name='birth_country']">
-        <birthCountry>
+        <birthCountry type="xs:string">
             <xsl:value-of select="." />
         </birthCountry>
     </xsl:template>
     
     <xsl:template match="field[@name='national_id']">
-        <nationalId>
+        <nationalId type="xs:string">
             <xsl:value-of select="." />
         </nationalId>
     </xsl:template>   
     
     <xsl:template match="field[@name='login']">
-        <login>
+        <login type="xs:string">
             <xsl:value-of select="." />
         </login>
     </xsl:template>    
     
     <xsl:template match="field[@name='password']">
-        <password>
+        <password type="xs:string">
             <xsl:value-of select="." />
         </password>
     </xsl:template> 
     
     <xsl:template match="field[@name='salt']">
-        <salt>
+        <salt type="xs:string">
             <xsl:value-of select="." />
         </salt>
     </xsl:template>    
     
     <xsl:template match="field[@name='email']">
-        <email>
+        <email type="xs:string">
             <xsl:value-of select="." />
         </email>
     </xsl:template> 
     
     <xsl:template match="field[@name='type']">
-        <type>
-            <xsl:value-of select="." />
+        <type isA="TLCTerm">
+            <value type="xs:string">
+                <xsl:value-of select="." />                
+            </value>
         </type>
     </xsl:template>     
     
     <xsl:template match="field[@name='birth_nationality']">
-        <birthNationality>
+        <birthNationality type="xs:string">
             <xsl:value-of select="." />
         </birthNationality>
     </xsl:template>    
     
     <xsl:template match="field[@name='current_nationality']">
-        <currentNationality>
+        <currentNationality type="xs:string">
             <xsl:value-of select="." />
         </currentNationality>
     </xsl:template> 
     
-    <xsl:template match="field[@name='partymember']">
-        <partyMember>
-            <xsl:value-of select="."/>
-        </partyMember>
-    </xsl:template>
-    
     <xsl:template match="field[@name='receive_notification']">
-        <receiveNotification>
+        <receiveNotification type="xs:boolean">
             <xsl:value-of select="."/>
         </receiveNotification>
     </xsl:template>
     
     <xsl:template match="field[@name='status']">
-        <status>
-            <xsl:value-of select="."/>
+        <status isA="TLCTerm">
+            <value type="xs:string">
+                <xsl:value-of select="." />
+            </value>
         </status>
     </xsl:template>    
     
+    <xsl:template match="field[@name='office_role']">
+        <officeRole isA="TLCRole">
+            <value type="xs:string">
+                <xsl:value-of select="." />                
+            </value>
+        </officeRole>
+    </xsl:template>
+    
+    <xsl:template match="field[@name='office_id']">
+        <officeId type="xs:integer">
+            <xsl:value-of select="." />
+        </officeId>
+    </xsl:template>    
+    
     <xsl:template match="field[@name='start_date']">
-        <startDate type="xs:date"><xsl:value-of select="." /></startDate>
+        <xsl:variable name="start_date" select="." />
+        <startDate type="xs:dateTime">
+            <xsl:value-of select="bdates:parse-date($start_date)" />
+        </startDate>
     </xsl:template>    
     
     <xsl:template match="field[@name='election_date']">
-        <electionDate type="xs:date"><xsl:value-of select="." /></electionDate>
+        <electionDate type="xs:date">
+            <xsl:value-of select="." />
+        </electionDate>
     </xsl:template>    
     
     <xsl:template match="field[@name='status_date']">
         <xsl:variable name="status_date" select="." />
-        <xsl:variable name="arrStatusDate" select="tokenize($status_date,'\s+')" />
-        <statusDate type="xs:dateTime"><xsl:value-of select="concat($arrStatusDate[1],'T',$arrStatusDate[2])" /></statusDate>
+        <statusDate type="xs:dateTime">
+            <xsl:value-of select="bdates:parse-date($status_date)" />
+        </statusDate>
     </xsl:template>    
     
     <xsl:template match="permissions">
-        <permissions>
+        <permissions id="membershipPermissions">
             <xsl:apply-templates />
         </permissions>
     </xsl:template>
@@ -254,10 +286,10 @@
         @name='date_active' or 
         @name='date_audit']">
         <xsl:element name="{local-name()}" >
-            <xsl:variable name="status_date" select="." />
-            <xsl:variable name="arrStatusDate" select="tokenize($status_date,'\s+')" />
-            <xsl:attribute name="name" select="@name" />      
-            <xsl:value-of select="concat($arrStatusDate[1],'T',$arrStatusDate[2])" />
+            <xsl:variable name="misc_dates" select="." />
+            <xsl:attribute name="name" select="@name" /> 
+            <xsl:attribute name="type">xs:dateTime</xsl:attribute>
+            <xsl:value-of select="bdates:parse-date($misc_dates)" />
         </xsl:element>
     </xsl:template> 
     

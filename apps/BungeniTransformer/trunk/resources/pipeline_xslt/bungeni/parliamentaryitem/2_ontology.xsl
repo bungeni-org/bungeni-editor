@@ -6,12 +6,11 @@
     xmlns:bctypes="http://www.bungeni.org/xml/contenttypes/1.0"
     exclude-result-prefixes="xs"
     version="2.0">
+    
     <xsl:import href="resources/pipeline_xslt/bungeni/common/func_dates.xsl" />
     <xsl:import href="resources/pipeline_xslt/bungeni/common/func_users.xsl" />
     <xsl:import href="resources/pipeline_xslt/bungeni/common/func_content_types.xsl" />
-    
-    
-    
+     
     <xd:doc xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" scope="stylesheet">
         <xd:desc>
             <xd:p><xd:b>Created on:</xd:b> Oct 17, 2011</xd:p>
@@ -95,15 +94,15 @@
     </xsl:template>    
     
     <xsl:template match="field[@name='attachment_id']">
-        <attachmentId key="true" type="xs:integer"><xsl:value-of select="." /></attachmentId>
+        <attachmentId key="true" type="xs:integer">
+            <xsl:value-of select="." />
+        </attachmentId>
     </xsl:template>
     
     <xsl:template match="field[@name='type_number']" >
         <progressiveNumber type="xs:integer"><xsl:value-of select="." /></progressiveNumber>
     </xsl:template>
         
-    
-    
     <xsl:template match="field[@name='start_date']">
         <startDate type="xs:dateTime">
             <xsl:variable name="start_date" select="." />

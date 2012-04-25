@@ -43,7 +43,6 @@
         <xsl:variable name="group-element-name" select="bctype:get_content_type_element_name($bungeni-groupsitting-type, $type-mappings)" />
         <xsl:variable name="content-type-uri-name" select="bctype:get_content_type_uri_name($bungeni-groupsitting-type, $type-mappings)" />        
         
-        <xsl:variable name="group_principal_id" select="field[@name='group_principal_id']" />
         <xsl:variable name="group_id" select="field[@name='group_id']" />
         <xsl:variable name="sitting-session" select="concat(xbf:parse-date(field[@name='start_date']),';',xbf:parse-date(field[@name='end_date']))" />
         
@@ -61,7 +60,7 @@
                 <xsl:attribute name="uri" 
                     select="concat(
                     '/ontology/',
-                    $bungeni-groupsitting-type,'/',
+                    $content-type-uri-name,'/',
                     $country-code, '/',
                     $group-type,'/',
                     $group_id,'/',
@@ -94,14 +93,23 @@
                 
                 <xsl:copy-of select="permissions | contained_groups" />                
             </groupsitting>
+            <legislature isA="TLCConcept" href="{$for-parliament}">
+                <electionDate type="xs:date" select="{$parliament-election-date}"></electionDate>
+                <xsl:copy-of select="field[  
+                    @name='short_name' or 
+                    @name='description' or 
+                    @name='parliament_id' or 
+                    @name='type' or 
+                    @name='dissolution_date' or 
+                    @name='results_date' or 
+                    @name='status_date' ] | agenda_items | parent_group | group" 
+                />             
+            </legislature>             
             <bungeni id="bungeniMeta" showAs="Bungeni Specific info" isA="TLCObject">
                 <xsl:attribute name="id" select="$parliament-id"/>
                 <xsl:copy-of select="field[  
                     @name='language' ]" 
-                />                    
-                <principalGroup>
-                    <xsl:attribute name="href" select="concat('#', $group_principal_id)" />
-                </principalGroup>
+                />
                 <xsl:copy-of select="tags" />
             </bungeni> 
             
@@ -113,17 +121,6 @@
                 <xsl:attribute name="refersTo" select="concat('#', $group_id)" />
                 </xsl:element>
             -->
-            <legislature>
-                <xsl:copy-of select="field[  
-                    @name='short_name' or 
-                    @name='description' or 
-                    @name='parliament_id' or 
-                    @name='type' or 
-                    @name='dissolution_date' or 
-                    @name='results_date' or 
-                    @name='status_date' ] | agenda_items | parent_group | group" 
-                />             
-            </legislature> 
         </ontology>
     </xsl:template>
     
