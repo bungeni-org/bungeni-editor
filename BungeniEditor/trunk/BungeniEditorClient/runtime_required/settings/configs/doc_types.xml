@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <doctypes>
+ 
     <doctype name="judgement"
         template="workspace/templates/judgement.ott"
         state="1"
@@ -7,12 +8,25 @@
         default-part="main">
         <title xml:lang="eng">Judgement</title>
         <title xml:lang="spa">dictamen</title>
+        <title xml:lang="ara">حكم</title>
         <uri type="work">~CountryCode~DocumentType~Year-Month-Day</uri>
         <uri type="expression">~CountryCode~DocumentType~Year-Month-Day~LanguageCode</uri>
         <file-name-scheme>CountryCode~DocumentType~Year-Month-Day~LanguageCode</file-name-scheme>
-        <metadata-editor class="org.bungeni.editor.metadata.editors.JudgementMetadata3">
-            <title xml:lang="eng">Judgement Metadata</title>
-        </metadata-editor>
+        <metadata-editors>
+           
+           <title xml:lang="eng">Judgement Metadata</title>
+           <title xml:lang="ara">المعلومات الواصفة للحكم</title>
+             <metadata-editor class="org.bungeni.editor.metadata.editors.GeneralMetadata" >
+             <title xml:lang="eng">General</title>
+             <title xml:lang="ara">معلومات عامة</title>
+            </metadata-editor>
+           
+           
+           <metadata-editor class="org.bungeni.editor.metadata.editors.JudgemenMetadataExtra">
+             <title xml:lang="eng">Judgement</title>
+             <title xml:lang="ara">الحكم القضائي</title>
+            </metadata-editor>
+        </metadata-editors>
         <parts>
             <part name="main">
                 <title xml:lang="eng">Main</title>
@@ -24,6 +38,7 @@
             </part>
         </parts>
     </doctype>
+    
     <doctype name="act"
         template="workspace/templates/act.ott"
         state="0"
