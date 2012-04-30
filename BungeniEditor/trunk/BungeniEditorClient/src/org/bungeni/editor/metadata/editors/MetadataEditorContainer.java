@@ -8,6 +8,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.swing.AbstractAction;
 import javax.swing.JFrame;
@@ -28,10 +29,8 @@ import org.bungeni.extutils.MessageBox;
 import org.bungeni.editor.metadata.EditorDocMetadataDialogFactory;
 import org.bungeni.editor.metadata.IEditorDocMetadataDialog;
 import org.bungeni.editor.noa.BungeniNoaTabbedPane;
+import org.bungeni.extutils.*;
 import org.bungeni.ooo.OOComponentHelper;
-import org.bungeni.extutils.BungeniFrame;
-import org.bungeni.extutils.BungeniRuntimeProperties;
-import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.ooo.ooDocMetadata;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.jdom.Element;
@@ -129,6 +128,8 @@ public class MetadataEditorContainer extends JPanel {
      * Retrieves the applicable URI types for this document type
      */
     public void initialize() {
+         if(Locale.getDefault().getLanguage().equals("ar") && Locale.getDefault().getCountry().equals("PS") )
+            CommonEditorFunctions.compOrientation(this);
         //get the available tabs for this document type
         log.info("calling initialize .....");
         String currentDocType = BungeniEditorPropertiesHelper.getCurrentDocType();
