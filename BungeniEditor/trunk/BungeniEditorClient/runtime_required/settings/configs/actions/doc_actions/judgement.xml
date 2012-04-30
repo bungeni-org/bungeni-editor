@@ -3,39 +3,94 @@
     <action name="makeOmissisSection"  type="section" parent="" router="" sectiontype="Omissis" validator="">
         <title xml:lang="eng">Omissis</title>
     </action>
-    <action name="makeJudgementHeader"  type="section" parent="" router="" sectiontype="Header" validator="">
+    
+    
+    <action name="makeJudgementHeader"  
+            type="section" parent="" 
+            router="" 
+            sectiontype="Header" 
+            validator="">
         <title xml:lang="eng"></title>
     </action>
-    <action name="makeMetadataReference"  type="section" parent="" router="" sectiontype="ActionEvent" validator="">
+    
+    
+    
+    
+    <action name="makeMetadataReference"
+            type="section" 
+            parent="" 
+            router="" 
+            sectiontype="ActionEvent" 
+            validator="">
         <title xml:lang="eng">placeholder for metadata markup</title>
     </action>
-    <action name="makeIntroduction"  type="section" parent="" router="" sectiontype="Introduction" validator="">
+    
+    
+    
+    
+    
+    
+    
+    <!--<action name="makeIntroduction"  type="section" parent="" router="" sectiontype="Introduction" validator="">
         <title xml:lang="eng"> </title>
-    </action>
-    <action name="makeBackground"  type="section" parent="" router="" sectiontype="Background" validator="">
+    </action>-->
+    <!--<action name="makeBackground"  type="section" parent="" router="" sectiontype="Background" validator="">
         <title xml:lang="eng"></title>
-    </action>
-    <action name="makeMotivation"  type="section" parent="" router="" sectiontype="Motivation" validator="">
+    </action>-->
+   <!-- <action name="makeMotivation"  type="section" parent="" router="" sectiontype="Motivation" validator="">
         <title xml:lang="eng"></title>
-    </action>
-    <action name="makeDecision"  type="section" parent="" router="" sectiontype="Decision" validator="">
+    </action>-->
+    <!--<action name="makeDecision"  type="section" parent="" router="" sectiontype="Decision" validator="">
         <title xml:lang="eng"></title>
-    </action>
-    <action name="makeConclusion"  type="section" parent="" router="" sectiontype="Conclusion" validator="">
+        
+        
+    </action>-->
+    
+    
+   
+    
+    
+    <!--<action name="makeConclusion"  type="section" parent="" router="" sectiontype="Conclusion" validator="">
         <title xml:lang="eng"></title>
-    </action>
-    <action name="mark"  type="" parent="makeMetadataReference" router="judgement.mark.makeMetadataReference" sectiontype="" validator="org.bungeni.editor.actions.validators.defaultValidator">
+    </action>-->
+    
+    
+    <action name="mark"  
+            type="" 
+            parent="makeMetadataReference" 
+            router="judgement.mark.makeMetadataReference" 
+            sectiontype="" 
+            validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create a document metadata reference</title>
     </action>
+    
+    
     <action name="section_creation"  type="" parent="makeOmissisSection" router="judgement.section_creation.makeOmissisSection" sectiontype="Omissis" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create omissis section</title>
     </action>
-    <action name="make_decision_heading"  type="" parent="makeDecision" router="judgement.make_decision_heading.makeDecision" sectiontype="Decision" validator="org.bungeni.editor.actions.validators.defaultValidator">
-        <title xml:lang="eng">create decision heading</title>
-    </action>
+    
+        
+    
     <action name="scale_section"  type="" parent="makeDecision" router="judgement.scale_section.makeDecision" sectiontype="Decision" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create a scaled section</title>
     </action>
+    
+    <action name="make_decision_heading"  type="" parent="makeDecision" router="judgement.make_decision_heading.makeDecision" sectiontype="Decision" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create decision heading</title>
+        
+     </action>   
+     <action name="makeDecision"
+            type="" 
+            parent="Judgement_Body" 
+            router="judgement.make_decision_heading.makeDecision" 
+            sectiontype="Decision" 
+            validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create judgement header section</title>
+         <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+                dialog=""
+            />
+    </action>
+    
     <action name="section_creation"  type="" parent="makeDecision" router="judgement.section_creation.makeDecision" sectiontype="Decision" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create judgement header section</title>
     </action>
@@ -45,42 +100,283 @@
     <action name="scale_section"  type="" parent="makeBackground" router="judgement.scale_section.makeBackground" sectiontype="Background" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create a scaled section</title>
     </action>
-    <action name="section_creation"  type="" parent="makeBackground" router="judgement.section_creation.makeBackground" sectiontype="Background" validator="org.bungeni.editor.actions.validators.defaultValidator">
+    
+    <action name="makeBackground"
+            type="" 
+            parent="Judgement_Body" 
+            router="judgement.section_creation.makeBackground" 
+            sectiontype="Background" 
+            validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create judgement header section</title>
+         <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+                dialog=""
+            />
     </action>
-    <action name="section_creation"  type="" parent="makeConclusion" router="judgement.section_creation.makeConclusion" sectiontype="Conclusion" validator="org.bungeni.editor.actions.validators.defaultValidator">
+    
+    
+     
+    
+    
+    
+    <action name="makeConclusion"
+            type="" 
+            parent="Judgement_Body" 
+            router="judgement.section_creation.makeConclusion" 
+            sectiontype="Conclusion" 
+            validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create judgement header section</title>
+         <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+                dialog=""
+            />
     </action>
+    
+    
     <action name="make_motivation_heading"  type="" parent="makeMotivation" router="judgement.make_motivation_heading.makeMotivation" sectiontype="Motivation" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create motivation heading</title>
     </action>
-    <action name="make_motivation_num"  type="" parent="makeMotivation" router="judgement.make_motivation_num.makeMotivation" sectiontype="Motivation" validator="org.bungeni.editor.actions.validators.defaultValidator">
+    
+    <action name="make_motivation_num"
+            type="" 
+            parent="make_motivation_numheading"
+            router="judgement.make_motivation_num.makeMotivation" 
+            sectiontype="MotListItem" 
+            validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create num reference</title>
+         <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+                dialog=""
+            />
     </action>
-    <action name="make_motivation_numheading"  type="" parent="makeMotivation" router="judgement.make_motivation_numheading.makeMotivation" sectiontype="Motivation" validator="org.bungeni.editor.actions.validators.defaultValidator">
+    
+    
+    <action name="make_Background_num"
+            type="" 
+            parent="make_Background_numheading"
+            router="judgement.make_motivation_num.makeMotivation" 
+            sectiontype="BackgListItem" 
+            validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create num reference</title>
+         <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+                dialog=""
+            />
+    </action>
+    
+    
+    <action name="make_Decision_num"
+            type="" 
+            parent="make_Decision_numheading"
+            router="judgement.make_motivation_num.makeMotivation" 
+            sectiontype="DecgListItem" 
+            validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create num reference</title>
+         <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+                dialog=""
+            />
+    </action>
+    
+    
+    
+    
+    <action name="make_Background_numheading"  
+            type="" 
+            parent="Judgement_Body" 
+            router="judgement.section_creation.makeMotivation" 
+            sectiontype="BackgList" 
+            validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create judgement header section</title>
+          <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+                dialog=""
+            />
+    </action>
+    
+    
+     <action name="make_Decision_numheading"  
+            type="" 
+            parent="Judgement_Body" 
+            router="judgement.section_creation.makeMotivation" 
+            sectiontype="DeciList" 
+            validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create judgement header section</title>
+          <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+                dialog=""
+            />
+    </action>
+    
+   
+    
+    
+    <action name="make_Introduction_numheading"  
+            type="" 
+            parent="Judgement_Body" 
+            router="judgement.section_creation.makeMotivation" 
+            sectiontype="IntroList" 
+            validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create judgement header section</title>
+          <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+                dialog=""
+            />
+    </action>
+   
+    <action name="make_Introduction_num"
+            type="" 
+            parent="make_Introduction_numheading"
+            router="judgement.make_motivation_num.makeMotivation" 
+            sectiontype="IntroListItem" 
+            validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create num reference</title>
+         <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+                dialog=""
+            />
+    </action>
+   <!-- <action name="make_motivation_numheading"  
+            type="" 
+            parent="makeMotivation" 
+            router="judgement.make_motivation_numheading.makeMotivation" 
+            sectiontype="BlockList" 
+            validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create numbered heading</title>
+        <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
+                dialog=""
+            />
+    </action> -->
+    
+    <action name="make_motivation_numheading"  
+            type="" 
+            parent="Judgement_Body" 
+            router="judgement.section_creation.makeMotivation" 
+            sectiontype="MotList" 
+            validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create judgement header section</title>
+          <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+                dialog=""
+            />
     </action>
+    
+    
     <action name="make_motivation_subheading"  type="" parent="makeMotivation" router="judgement.make_motivation_subheading.makeMotivation" sectiontype="Motivation" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">crete motivation subheading</title>
     </action>
     <action name="scale_section"  type="" parent="makeMotivation" router="judgement.scale_section.makeMotivation" sectiontype="Motivation" validator=" org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create a scaled section</title>
     </action>
-    <action name="section_creation"  type="" parent="makeMotivation" router="judgement.section_creation.makeMotivation" sectiontype="Motivation" validator="org.bungeni.editor.actions.validators.defaultValidator">
+    
+    <action name="makeMotivation"  
+            type="" 
+            parent="Judgement_Body" 
+            router="judgement.section_creation.makeMotivation" 
+            sectiontype="Motivation" 
+            validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create judgement header section</title>
+         <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+                dialog=""
+            />
     </action>
+    
+    
+    
+    
+    
+    
+    
+    
     <action name="make_judgement_title"  type="" parent="makeJudgementHeader" router="judgement.make_judgement_title.makeJudgementHeader" sectiontype="Header" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create judgement title</title>
     </action>
     <action name="scale_section"  type="" parent="makeJudgementHeader" router="judgement.scale_section.makeJudgementHeader" sectiontype="Header" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create a scaled section</title>
     </action>
-    <action name="section_creation"  type="" parent="makeJudgementHeader" router="judgement.section_creation.makeJudgementHeader" sectiontype="Header" validator="org.bungeni.editor.actions.validators.defaultValidator">
-        <title xml:lang="eng">create judgement header section</title>
+    
+    
+    
+    <action name="Judgement_Body"  
+            type="" parent="makeJudgementHeader" 
+            router="judgement.section_creation.makeJudgementHeader" 
+            sectiontype="JudgementBody" 
+            validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">dummy</title>
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+                dialog=""
+            />
     </action>
-    <action name="tabular_judge_reference"  type="" parent="makeJudgementHeader" router="judgement.tabular_judge_reference.makeJudgementHeader" sectiontype="Header" validator="org.bungeni.editor.actions.validators.defaultValidator">
+    
+    <action name="make_Judgement_Header"  
+            type="" parent="makeJudgementHeader" 
+            router="judgement.section_creation.makeJudgementHeader" 
+            sectiontype="Header" 
+            validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">dummy</title>
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+                dialog=""
+            />
+    </action>
+    
+    
+    
+    
+    <action name="make_Judgement_Header"  
+            type="" parent="makeJudgementHeader" 
+            router="judgement.section_creation.makeJudgementHeader" 
+            sectiontype="Header" 
+            validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">dummy</title>
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+                dialog=""
+            />
+    </action>
+    
+    
+    <action name="heading_judgementNo"  
+            type="" parent="" 
+            router="judgement.section_creation.makeJudgementHeader" 
+            sectiontype="JudgementNo" 
+            validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">dummy</title>
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+                dialog=""
+            />
+    </action>
+    
+    <action name="heading_CaseNo"  
+            type="" parent="makeJudgementHeader" 
+            router="judgement.section_creation.makeJudgementHeader" 
+            sectiontype="CaseNo" 
+            validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">dummy</title>
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+                dialog=""
+            />
+    </action>
+    
+    
+    
+    
+    
+    
+    
+    <action name="tabular_judge_reference"  type="" parent="makeDebateSpeechBlockSection" router="debaterecord.section_creation.makeDebateSpeechBlockSection" sectiontype="Speech" validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create a speech section</title>
+        <router class="org.bungeni.editor.actions.routers.routerJudgRecordSelectJudg"
+                 dialog="org.bungeni.editor.selectors.judgement.speech.Main"
+            />
+    </action>
+    
+    
+        
+    
+   <!-- 
+    <action name="tabular_judge_reference"
+            type="" 
+            parent="makeJudgementHeader" 
+            router="judgement.tabular_judge_reference.makeJudgementHeader" 
+            sectiontype="Header" 
+            validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create a tabular reference</title>
+         <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+                dialog="org.bungeni.editor.actions.routers.routerCreateBungeniJudgeName_panel"
+            />
     </action>
+    
+    -->
+     
     <action name="tabular_party_reference"  type="" parent="makeJudgementHeader" router="judgement.tabular_party_reference.makeJudgementHeader" sectiontype="Header" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create tabular party reference</title>
     </action>
@@ -93,8 +389,17 @@
     <action name="scale_section"  type="" parent="makeIntroduction" router="judgement.scale_section.makeIntroduction" sectiontype="Introduction" validator="org.bungeni.editor.actions.validators.defaultValidator">
         <title xml:lang="eng">create a scaled section</title>
     </action>
-    <action name="section_creation"  type="" parent="makeIntroduction" router="judgement.section_creation.makeIntroduction" sectiontype="Introduction" validator="org.bungeni.editor.actions.validators.defaultValidator">
-        <title xml:lang="eng">create a communication section</title>
+       
+    <action name="makeIntroduction"
+            type="" 
+            parent="" 
+            router="judgement.section_creation.makeIntroduction" 
+            sectiontype="Introduction" 
+            validator="org.bungeni.editor.actions.validators.defaultValidator">
+        <title xml:lang="eng">create Introduction header section</title>
+         <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+                dialog=""
+            />
     </action>
 
 </actions>
