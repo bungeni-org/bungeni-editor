@@ -34,6 +34,7 @@ import org.bungeni.editor.metadata.LanguageCode;
 import org.bungeni.editor.metadata.CountryCode;
 import org.bungeni.editor.metadata.DocumentPart;
 import org.bungeni.editor.metadata.GeneralMetadataModel;
+import org.bungeni.extutils.CommonEditorFunctions;
 import org.bungeni.extutils.CommonStringFunctions;
 
 /**
@@ -50,6 +51,8 @@ public class GeneralMetadata extends BaseEditorDocMetadataDialog {
     public GeneralMetadata(){
         super();
         initComponents();
+        if(Locale.getDefault().getLanguage().equals("ar") && Locale.getDefault().getCountry().equals("PS") )
+            CommonEditorFunctions.compOrientation(this);
     }
     
     @Override
