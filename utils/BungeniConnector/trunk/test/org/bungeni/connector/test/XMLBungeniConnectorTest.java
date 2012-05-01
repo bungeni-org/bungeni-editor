@@ -1,11 +1,7 @@
 package org.bungeni.connector.test;
 
 import java.util.List;
-import org.bungeni.connector.element.Act;
-import org.bungeni.connector.element.Bill;
-import org.bungeni.connector.element.MetadataInfo;
-import org.bungeni.connector.element.Motion;
-import org.bungeni.connector.element.Question;
+import org.bungeni.connector.element.*;
 import org.bungeni.connector.impl.XMLBungeniConnector;
 
 /**
@@ -20,11 +16,28 @@ public class XMLBungeniConnectorTest{
 
     public static void main(String args[]) {
         XMLBungeniConnector connector = new XMLBungeniConnector();
+
+        List<Act> acts = connector.getActs();
+
+        if (acts != null) {
+            System.out.println(":::::::::::::::ACTS:::::::::::::::::::");
+            for (int i = 0; i < acts.size(); i++) {
+                System.out.println(" id:  " + acts.get(i).getId());
+                for(Name objName: (List<Name>)acts.get(i).getNames()){
+                    System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
+                }
+            }
+        }
+
+        
         List<Bill> bills = connector.getBills();
         if (bills != null) {
             System.out.println(":::::::::::::::BILLS:::::::::::::::::::");
             for (int i = 0; i < bills.size(); i++) {
-                System.out.println(bills.get(i).getUri() + " " + bills.get(i).getName());
+                System.out.println(" id:  " + bills.get(i).getId());
+                for(Name objName: (List<Name>)bills.get(i).getNames()){
+                    System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
+                }
             }
         }
         List<Motion> motions = connector.getMotions();
@@ -44,13 +57,17 @@ public class XMLBungeniConnectorTest{
                 System.out.println(questions.get(i).getTitle() + " " + questions.get(i).getText());
             }
         }
+        
+        
+        List<SourceType> SourceTypes = connector.getSourceTypes();
 
-        List<Act> acts = connector.getActs();
-
-        if (acts != null) {
-            System.out.println(":::::::::::::::QUESTIONS:::::::::::::::::::");
-            for (int i = 0; i < acts.size(); i++) {
-                System.out.println(acts.get(i).getName() + " " + acts.get(i).getId());
+        if (SourceTypes != null) {
+            System.out.println(":::::::::::::::SourceTypes:::::::::::::::::::");
+            for (int i = 0; i < SourceTypes.size(); i++) {
+                System.out.println(" id:  " + SourceTypes.get(i).getId());
+                for(Name objName: (List<Name>)SourceTypes.get(i).getNames()){
+                    System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
+                }
             }
         }
 

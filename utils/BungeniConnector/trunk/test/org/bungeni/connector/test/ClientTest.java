@@ -1,17 +1,16 @@
 package org.bungeni.connector.test;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.List;
 import org.bungeni.connector.ConnectorProperties;
 import org.bungeni.connector.client.BungeniConnector;
-import org.bungeni.connector.element.Act;
-import org.bungeni.connector.element.Bill;
-import org.bungeni.connector.element.Document;
-import org.bungeni.connector.element.MetadataInfo;
-import org.bungeni.connector.element.Motion;
-import org.bungeni.connector.element.Member;
-import org.bungeni.connector.element.Question;
+import org.bungeni.connector.element.*;
 import org.bungeni.connector.server.DataSourceServer;
+import org.jdom.Element;
 
 /**
  *
@@ -27,6 +26,21 @@ public class ClientTest {
 
         BungeniConnector b = new BungeniConnector();
         b.init(cp);
+        
+         List<Act> acts = b.getActs();
+
+        if (acts != null) {
+            System.out.println(":::::::::::::::ACTS:::::::::::::::::::");
+            for (int i = 0; i < acts.size(); i++) {
+                System.out.println(" id:  " + acts.get(i).getId());
+                for(Name objName: (List<Name>)acts.get(i).getNames()){
+                    System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
+                }
+            }
+        } else {
+             System.out.println("Error : Acts missing");
+        }
+        
         List<MetadataInfo> metadata = b.getMetadataInfo();
 
         if (metadata != null) {
@@ -50,7 +64,10 @@ public class ClientTest {
         if (bills != null) {
             System.out.println(":::::::::::::::BILLS:::::::::::::::::::");
             for (int i = 0; i < bills.size(); i++) {
-                System.out.println(bills.get(i).getUri() + " " + bills.get(i).getName());
+                System.out.println(" id:  " + bills.get(i).getId());
+                for(Name objName: (List<Name>)bills.get(i).getNames()){
+                    System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
+                }
             }
         }
 
@@ -73,17 +90,23 @@ public class ClientTest {
             }
         }
 
-        List<Act> acts = b.getActs();
+        
+     
 
-        if (acts != null) {
-            System.out.println(":::::::::::::::ACTS:::::::::::::::::::");
-            for (int i = 0; i < acts.size(); i++) {
-                System.out.println(acts.get(i).getName() + " " + questions.get(i).getId());
+         List<SourceType> SourceTypes = b.getSourceTypes();
+
+        if (SourceTypes != null) {
+            System.out.println(":::::::::::::::SourceTypes:::::::::::::::::::");
+            for (int i = 0; i < SourceTypes.size(); i++) {
+                System.out.println(" id:  " + SourceTypes.get(i).getId());
+                for(Name objName: (List<Name>)SourceTypes.get(i).getNames()){
+                    System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
+                }
             }
         } else {
-             System.out.println("Error : Acts missing");
+             System.out.println("Error : SourceTypes missing");
         }
-
+        
         List<Document> documents = b.getDocuments();
 
         if (documents == null) {

@@ -30,6 +30,7 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
     private String membersQuery = "SELECT ID,FIRST_NAME,LAST_NAME,URI,ROLE FROM PUBLIC.PERSONS ";
     private String billsQuery = "SELECT ID,BILL_NAME,BILL_URI,BILL_ONTOLOGY,COUNTRY FROM PUBLIC.BILLS";
     private String actsQuery = "SELECT ID,ACT_NAME FROM PUBLIC.ACTS";
+    private String sourceTypesQuery = "SELECT ID,SourceType_NAME FROM PUBLIC.SOURCETYPES";
     private String metadataInfoQuery = "SELECT KEY_ID,KEY_TYPE,KEY_NAME,KEY_VALUE FROM PUBLIC.METADATA_INFO;";
     private String motionsQuery = "SELECT MOTION_ID,MOTION_URI,MOTION_TITLE,MOTION_NAME,MOTION_BY,MOTION_TEXT FROM PUBLIC.MOTIONS;";
     private String questionsQuery = "SELECT ID,QUESTION_TITLE,QUESTION_FROM,QUESTION_TO,QUESTION_TEXT FROM PUBLIC.QUESTIONS;";
@@ -108,7 +109,7 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
                 while (resultSet.next()) {
                     Bill item = new Bill();
                     item.setId(resultSet.getInt(1));
-                    item.setName(resultSet.getString(2));
+                    item.addName(new Name(resultSet.getString(2)));
                     item.setUri(resultSet.getString(3));
                     item.setOntology(resultSet.getString(4));
                     item.setCountry(resultSet.getString(5));
@@ -134,9 +135,10 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
                 java.sql.Statement statement = getDbConnection().createStatement();
                 java.sql.ResultSet resultSet = statement.executeQuery(getBillsQuery());
                 while (resultSet.next()) {
+                   
                     Act item = new Act();
                     item.setId(resultSet.getInt(1));
-                    item.setName(resultSet.getString(2));
+                    item.addName(new Name(resultSet.getString(2)));
                     items.add(item);
                 }
                 statement.close();
@@ -152,7 +154,31 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
         return items;
     }
 
-     
+      public List<SourceType> getSourceTypes() {
+        List<SourceType> items = new java.util.ArrayList<SourceType>();
+        if (getDbConnection() != null) {
+            try {
+                java.sql.Statement statement = getDbConnection().createStatement();
+                java.sql.ResultSet resultSet = statement.executeQuery(getSourceTypesQuery());
+                while (resultSet.next()) {
+                    SourceType item = new SourceType();
+                    item.setId(resultSet.getInt(1));
+                    item.addName(new Name(resultSet.getString(2)));
+                    items.add(item);
+                }
+                statement.close();
+                resultSet.close();
+                statement = null;
+                resultSet = null;
+            } catch (SQLException ex) {
+                logger.error(ex);
+            }
+        } else {
+            logger.error("DB Connection Error");
+        }
+        return items;
+    }
+
     public List<Motion> getMotions() {
         List<Motion> items = new java.util.ArrayList<Motion>();
         if (getDbConnection() != null) {
@@ -250,7 +276,7 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
                 while (resultSet.next()) {
                     Committee committee = new Committee();
                     committee.setId(resultSet.getString(1));
-                    committee.setName(resultSet.getString(2));
+                    committee.addName(new Name(resultSet.getString(2)));
                     committee.setURI(resultSet.getString(3));
                     committee.setCountry(resultSet.getString(3));
 
@@ -384,8 +410,12 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
         return billsQuery;
     }
     
-     private String getActsQuery() {
+    private String getActsQuery() {
         return actsQuery;
+    }
+     
+    private String getSourceTypesQuery() {
+        return sourceTypesQuery;
     }
 
     private String getMetadataInfoQuery() {

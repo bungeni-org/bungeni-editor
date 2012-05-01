@@ -1,5 +1,8 @@
 package org.bungeni.connector.element;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * This class is used to serialise the data from the
@@ -12,7 +15,7 @@ package org.bungeni.connector.element;
 public class Committee{
 
     private String id;
-    private String name;
+    private List name = new ArrayList();
     private String uri;
     private String country;
 
@@ -21,19 +24,19 @@ public class Committee{
     public Committee() {
     }
 
-    public Committee(String id, String name, String uri, String country) {
+    public Committee(String id, Name name, String uri, String country) {
         this.id = id;
-        this.name = name;
+        this.name.add(name);
         this.uri = uri;
         this.country = country;
     }
 
-    public String getName() {
+    public List getNames() {
         return name;
     }
 
-    public void setName(String from) {
-        this.name = name;
+    public void addName(Name name) {
+        this.name.add(name);
     }
 
     public String getId() {
@@ -58,5 +61,16 @@ public class Committee{
 
     public void setCountry(String country) {
         this.country = country;
+    }
+    
+    public String getNameByLang(String lang) {
+         String value=null;
+         for(Name objName : (List<Name>)name){
+             if(objName.getLang().equalsIgnoreCase(lang)){
+                 value = objName.getValue();
+                 break;
+             }
+         }
+            return value;
     }
 }

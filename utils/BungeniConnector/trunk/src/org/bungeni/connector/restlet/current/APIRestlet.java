@@ -23,14 +23,14 @@ public class APIRestlet extends Restlet {
      * BillsRestletHolder is loaded on the first execution of Singleton.getInstance()
      * or the first access to SingletonHolder.INSTANCE, not before.
      */
-    private static class BillsRestletHolder {
+    private static class ActsRestletHolder {
 
         public static final APIRestlet INSTANCE = new APIRestlet();
     }
 
     public static APIRestlet getInstance() {
 
-        return BillsRestletHolder.INSTANCE;
+        return ActsRestletHolder.INSTANCE;
     }
 
     @Override

@@ -26,6 +26,7 @@ public class DataSourceServer extends Application {
     private String questionsRoute = "/current/questions";
     private String billsRoute = "/current/bills";
     private String actsRoute = "/current/acts";
+    private String sourceTypesRoute = "/current/sourceTypes";
     private String metadataInfoRoute = "/current/metadata";
     private String documentsRoute = "/current/documents";
     private String committeesRoute = "/current/committees";
@@ -35,7 +36,8 @@ public class DataSourceServer extends Application {
     private String motionsURI = null;
     private String questionsURI = null;
     private String billsURI = null;
-     private String actsURI = null;
+    private String actsURI = null;
+    private String sourceTypesURI = null;
     private String metadataInfoURI = null;
     private String documentsURI = null ;
     private String committeesURI = null ;
@@ -247,6 +249,7 @@ public class DataSourceServer extends Application {
         router.attach(metadataInfoRoute, new MetadataInfoRestlet(bungeniConnector));
         router.attach(billsRoute, new BillsRestlet(bungeniConnector));
         router.attach(actsRoute, new ActsRestlet(bungeniConnector));
+        router.attach(sourceTypesRoute, new SourceTypesRestlet(bungeniConnector));
         router.attach(membersRoute, new MembersRestlet(bungeniConnector));
         router.attach(motionsRoute, new MotionsRestlet(bungeniConnector));
         router.attach(questionsRoute, new QuestionsRestlet(bungeniConnector));
@@ -265,10 +268,14 @@ public class DataSourceServer extends Application {
         return billsURI;
     }
     
-     public String getActsURI() {
+    public String getActsURI() {
         return actsURI;
     }
 
+     public String getSourceTypesURI() {
+        return sourceTypesURI;
+    }
+     
     public String getMembersURI() {
         return membersURI;
     }

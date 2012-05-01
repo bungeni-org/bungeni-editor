@@ -1,6 +1,9 @@
 
 package org.bungeni.connector.element;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Dave
@@ -8,18 +11,19 @@ package org.bungeni.connector.element;
 public class Bill {
 
     private Integer id;
-    private String name;
+    private List name = new ArrayList();
     private String uri;
     private String ontology;
     private String country;
     public static final String PACKAGE_ALIAS = "bills";
     public static final String CLASS_ALIAS = "bill";
+    
     public Bill() {
     }
 
-    public Bill(Integer id, String name, String uri, String ontology, String country) {
+    public Bill(Integer id, Name name, String uri, String ontology, String country) {
         this.id = id;
-        this.name = name;
+        this.name.add(name);
         this.uri = uri;
         this.ontology = ontology;
         this.country = country;
@@ -41,12 +45,12 @@ public class Bill {
         this.id = id;
     }
 
-    public String getName() {
+    public List getNames() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void addName(Name name) {
+        this.name.add(name);
     }
 
     public String getOntology() {
@@ -63,5 +67,16 @@ public class Bill {
 
     public void setUri(String uri) {
         this.uri = uri;
+    }
+    
+    public String getNameByLang(String lang) {
+         String value=null;
+         for(Name objName : (List<Name>)name){
+             if(objName.getLang().equalsIgnoreCase(lang)){
+                 value = objName.getValue();
+                 break;
+             }
+         }
+            return value;
     }
 }

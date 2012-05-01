@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sourceTypes>
+    <sourceType>
+        <id>1</id>
+        <name lang="en">Private</name>
+        <name lang="ar">خاص</name>
+    </sourceType>
+   <sourceType>
+        <id>2</id>
+        <name lang="en">Normal</name>
+        <name lang="ar">عادي</name>
+    </sourceType>
+    <sourceType>
+        <id>3</id>
+        <name lang="en">Excellent</name>
+        <name lang="ar">ممتاز</name>
+    </sourceType>
+</sourceTypes>

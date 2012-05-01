@@ -6,11 +6,7 @@ import org.bungeni.connector.impl.*;
 import java.util.List;
 import org.bungeni.connector.ConnectorProperties;
 import org.bungeni.connector.IBungeniConnector;
-import org.bungeni.connector.element.Bill;
-import org.bungeni.connector.element.Document;
-import org.bungeni.connector.element.Motion;
-import org.bungeni.connector.element.Member;
-import org.bungeni.connector.element.Question;
+import org.bungeni.connector.element.*;
 
 /**
  *
@@ -35,7 +31,10 @@ public class RDBMSBungeniConnectorTest {
         if (bills != null) {
             System.out.println(":::::::::::::::BILLS:::::::::::::::::::");
             for (int i = 0; i < bills.size(); i++) {
-                System.out.println(bills.get(i).getUri() + " " + bills.get(i).getName());
+                System.out.println(" id:  " + bills.get(i).getId());
+                for(Name objName: (List<Name>)bills.get(i).getNames()){
+                    System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
+                }
             }
         }
 

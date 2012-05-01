@@ -2,6 +2,7 @@ package org.bungeni.connector;
 
 import java.util.List;
 import org.bungeni.connector.element.*;
+import org.jdom.Element;
 
 /**
  *
@@ -29,10 +30,12 @@ public interface IBungeniConnector {
     public List<Member> getMembers();
     public List<Bill> getBills();
     public List<Act> getActs();
+    public List<SourceType> getSourceTypes();
     public List<Motion> getMotions();
     public List<Question> getQuestions();
     public List<MetadataInfo> getMetadataInfo();
     public List<Document> getDocuments();
     public List<Committee> getCommittees();
+
 
 }

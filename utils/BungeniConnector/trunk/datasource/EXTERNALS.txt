@@ -1,2 +1,0 @@
-db http://bungeni-editor.googlecode.com/svn/utils/BungeniConnector/trunk/settings/datasource/db
-xml http://bungeni-editor.googlecode.com/svn/utils/BungeniConnector/trunk/settings/datasource/xml

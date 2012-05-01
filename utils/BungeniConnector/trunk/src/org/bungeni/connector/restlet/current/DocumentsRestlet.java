@@ -4,7 +4,6 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import java.util.List;
 import org.bungeni.connector.IBungeniConnector;
-import org.bungeni.connector.element.Bill;
 import org.bungeni.connector.element.Document;
 import org.restlet.Request;
 import org.restlet.Response;

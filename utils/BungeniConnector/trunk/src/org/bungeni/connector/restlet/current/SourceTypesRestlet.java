@@ -5,9 +5,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import java.util.List;
 import org.bungeni.connector.IBungeniConnector;
-import org.bungeni.connector.element.Act;
-import org.bungeni.connector.element.Name;
-import org.bungeni.connector.element.NameConverter;
+import org.bungeni.connector.element.SourceType;
 import org.restlet.Request;
 import org.restlet.Response;
 import org.restlet.Restlet;
@@ -19,13 +17,13 @@ import org.restlet.data.Status;
  *
  * @author Dave
  */
-public class ActsRestlet extends Restlet {
+public class SourceTypesRestlet extends Restlet {
 
-    static final String HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "\n<"+Act.PACKAGE_ALIAS+">";
-    static final String FOOTER = "\n</"+Act.PACKAGE_ALIAS+">";
+    static final String HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "\n<"+SourceType.PACKAGE_ALIAS+">";
+    static final String FOOTER = "\n</"+SourceType.PACKAGE_ALIAS+">";
     IBungeniConnector bungeniConnector = null;
 
-    public ActsRestlet(IBungeniConnector bungeniConnector) {
+    public SourceTypesRestlet(IBungeniConnector bungeniConnector) {
         this.bungeniConnector = bungeniConnector;
     }
 
@@ -33,19 +31,15 @@ public class ActsRestlet extends Restlet {
     public void handle(Request request, Response response) {
         try {
             if (request.getMethod().equals(Method.GET)) {
-                List<Act> items = bungeniConnector.getActs();
+                List<SourceType> items = bungeniConnector.getSourceTypes();
                 response.setStatus(Status.SUCCESS_OK);
-
                 XStream xStream = new XStream(new DomDriver());
-                xStream.alias(Act.PACKAGE_ALIAS, List.class);
-                xStream.alias(Act.CLASS_ALIAS, Act.class);
-            
+                xStream.alias(SourceType.CLASS_ALIAS, SourceType.class);
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < items.size(); i++) {
                     builder.append(xStream.toXML(items.get(i))).append("\n");
                 }
                 String xml = builder.toString();
-       
                 if (!xml.isEmpty()) {
                     response.setEntity(HEADER + xml + FOOTER, MediaType.TEXT_XML);
                 } else {

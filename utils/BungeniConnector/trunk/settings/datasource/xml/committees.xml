@@ -2,25 +2,25 @@
 <committees>
     <committee>
         <id>1</id>
-        <name>Finance Committee</name>
+        <name lang="en">Finance Committee</name>
         <uri>/ontology/Organization/ke/CommitteeFinance</uri>
         <country>KE</country>
     </committee>
     <committee>
         <id>2</id>
-        <name>Planning Committee</name>
+        <name lang="en">Planning Committee</name>
         <uri>/ontology/Organization/ke/CommitteePlanning</uri>
         <country>KE</country>
     </committee>
     <committee>
         <id>3</id>
-        <name>Technical Committee</name>
+        <name lang="en">Technical Committee</name>
         <uri>/ontology/Organization/ke/CommitteeTechnical</uri>
         <country>KE</country>
     </committee>
     <committee>
         <id>4</id>
-        <name>Information Tech. Committee</name>
+        <name lang="en">Information Tech. Committee</name>
         <uri>/ontology/Organization/ke/CommitteeTechnology</uri>
         <country>KE</country>
     </committee>

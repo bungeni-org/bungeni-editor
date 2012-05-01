@@ -56,6 +56,12 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String actNameAlias = null;
     private String actsSourceURI = null;
     
+    private String sourceTypesPackageAlias = null;
+    private String sourceTypeAlias = null;
+    private String sourceTypeIdAlias = null;
+    private String sourceTypeNameAlias = null;
+    private String sourceTypesSourceURI = null;
+    
     private String motionsPackageAlias = null;
     private String motionAlias = null;
     private String motionIdAlias = null;
@@ -122,6 +128,12 @@ public class XMLBungeniConnector implements IBungeniConnector {
         this.actAlias = props.getProperties().getProperty("xml-act-alias");
         this.actIdAlias = props.getProperties().getProperty("xml-act-id-alias");
         this.actNameAlias = props.getProperties().getProperty("xml-act-name-alias");
+        
+        this.sourceTypesSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-sourceTypes"));
+        this.sourceTypesPackageAlias = props.getProperties().getProperty("xml-sourceTypes-package-alias");
+        this.sourceTypeAlias = props.getProperties().getProperty("xml-sourceType-alias");
+        this.sourceTypeIdAlias = props.getProperties().getProperty("xml-sourceType-id-alias");
+        this.sourceTypeNameAlias = props.getProperties().getProperty("xml-sourceType-name-alias");
         
         this.motionsSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-motions"));
         this.motionsPackageAlias = props.getProperties().getProperty("xml-motions-package-alias");
@@ -208,7 +220,7 @@ public class XMLBungeniConnector implements IBungeniConnector {
     public List<Bill> getBills() {
         ClientResource resource = new ClientResource(getBillsSourceURI());
         try {
-            XStream xStream = new XStream(new DomDriver());
+            XStream xStream = new XStream(new DomDriver());        
             xStream.alias(this.getBillsPackageAlias(), List.class);
             xStream.alias(this.getBillAlias(), Bill.class);
             xStream.aliasField(this.getBillIdAlias(), Bill.class, "id");
@@ -216,6 +228,12 @@ public class XMLBungeniConnector implements IBungeniConnector {
             xStream.aliasField(this.getBillNameAlias(), Bill.class, "name");
             xStream.aliasField(this.getBillOntologyAlias(), Bill.class, "ontology");
             xStream.aliasField(this.getBillCountryAlias(), Bill.class, "country");
+            
+            xStream.alias(Name.CLASS_ALIAS, Name.class);
+            xStream.addImplicitCollection(Bill.class, Name.CLASS_ALIAS, Name.CLASS_ALIAS, Name.class);
+            xStream.useAttributeFor(Name.class, "lang");
+            xStream.registerConverter(new NameConverter());
+            
             String xml = resource.get().getText();
             if (xml != null) {
                 resource.release();
@@ -234,11 +252,17 @@ public class XMLBungeniConnector implements IBungeniConnector {
     public List<Act> getActs() {
         ClientResource resource = new ClientResource(getActsSourceURI());
         try {
-            XStream xStream = new XStream(new DomDriver());
+            XStream xStream = new XStream(new DomDriver());        
             xStream.alias(this.getActsPackageAlias(), List.class);
             xStream.alias(this.getActAlias(), Act.class);
             xStream.aliasField(this.getActIdAlias(), Act.class, "id");
             xStream.aliasField(this.getActNameAlias(), Act.class, "name");
+            
+            xStream.alias(Name.CLASS_ALIAS, Name.class);
+            xStream.addImplicitCollection(Act.class, Name.CLASS_ALIAS, Name.CLASS_ALIAS, Name.class);
+            xStream.useAttributeFor(Name.class, "lang");
+            xStream.registerConverter(new NameConverter());
+            
             String xml = resource.get().getText();
             if (xml != null) {
                 resource.release();
@@ -246,6 +270,31 @@ public class XMLBungeniConnector implements IBungeniConnector {
             }
         } catch (Exception ex) {
             logger.error(getActsSourceURI(), ex);
+        }
+        return null;
+    }
+      
+      public List<SourceType> getSourceTypes() {
+        ClientResource resource = new ClientResource(getSourceTypesSourceURI());
+        try {
+            XStream xStream = new XStream(new DomDriver());        
+            xStream.alias(this.getSourceTypesPackageAlias(), List.class);
+            xStream.alias(this.getSourceTypeAlias(), SourceType.class);
+            xStream.aliasField(this.getSourceTypeIdAlias(), SourceType.class, "id");
+            xStream.aliasField(this.getSourceTypeNameAlias(), SourceType.class, "name");
+            
+            xStream.alias(Name.CLASS_ALIAS, Name.class);
+            xStream.addImplicitCollection(SourceType.class, Name.CLASS_ALIAS, Name.CLASS_ALIAS, Name.class);
+            xStream.useAttributeFor(Name.class, "lang");
+            xStream.registerConverter(new NameConverter());
+            
+            String xml = resource.get().getText();
+            if (xml != null) {
+                resource.release();
+                return (List) xStream.fromXML(xml);
+            }
+        } catch (Exception ex) {
+            logger.error(getSourceTypesSourceURI(), ex);
         }
         return null;
     }
@@ -350,13 +399,18 @@ public class XMLBungeniConnector implements IBungeniConnector {
     public List<Committee> getCommittees() {
         ClientResource resource = new ClientResource(getCommitteesSourceURI());
         try {
-            XStream xStream = new XStream(new DomDriver());
+            XStream xStream = new XStream(new DomDriver());        
             xStream.alias(this.getCommitteesPackageAlias(), List.class);
             xStream.alias(this.getCommitteeAlias(), Committee.class);
             xStream.aliasField(this.getCommitteeIdAlias(), Committee.class, "id");
             xStream.aliasField(this.getCommitteeNameAlias(), Committee.class, "name");
             xStream.aliasField(this.getCommitteeUriAlias(), Committee.class, "uri");
             xStream.aliasField(this.getCommitteeCountryAlias(), Committee.class, "country");
+            
+            xStream.alias(Name.CLASS_ALIAS, Name.class);
+            xStream.addImplicitCollection(Committee.class, Name.CLASS_ALIAS, Name.CLASS_ALIAS, Name.class);
+            xStream.useAttributeFor(Name.class, "lang");
+            xStream.registerConverter(new NameConverter());
             
             String xml = resource.get().getText();
             if (xml != null) {
@@ -432,9 +486,29 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String getActNameAlias() {
         return actNameAlias;
     }
-
+    
     private String getActsPackageAlias() {
         return actsPackageAlias;
+    }
+    
+     private String getSourceTypesSourceURI() {
+        return sourceTypesSourceURI;
+    }
+
+     private String getSourceTypeAlias() {
+        return sourceTypeAlias;
+    }
+     
+    private String getSourceTypeIdAlias() {
+        return sourceTypeIdAlias;
+    }
+
+    private String getSourceTypeNameAlias() {
+        return sourceTypeNameAlias;
+    }
+
+    private String getSourceTypesPackageAlias() {
+        return sourceTypesPackageAlias;
     }
     
     private String getDocumentAlias() {

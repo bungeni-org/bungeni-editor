@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<acts><act>
-  <id>1</id>
-  <name>Finance act</name>
-  <!--
-  <uri>/ke/act/2008-02-03/12</uri>
-  <ontology>/ontology/Expression/ke.act.2008-02-03.12</ontology>
-  <country>KE</country> -->
-</act>
-<act>
-  <id>2</id>
-  <name>Treasury act</name>
-  <!--
-  <uri>/ke/act/2008-01-11/10</uri>
-  <ontology>/ontology/Expression/ke.act.2008-01-11.10</ontology>
-  <country>KE</country> -->
-</act>
+<acts>
+  <act>
+        <id>1</id>
+        <name lang="en"> Executive </name>
+        <name lang="ar"> تنفيذي </name>
+  </act>
+  <act>
+        <id>2</id>
+        <name lang="en"> Main </name>
+        <name lang="ar"> رئيسي </name>
+  </act>
+  <act>
+        <id>3</id>
+        <name lang="en"> Interpretative </name>
+        <name lang="ar"> تفسيري </name>
+  </act>
 
+  <act>
+        <id>4</id>
+        <name lang="en"> Regulatory </name>
+        <name lang="ar"> تنظيمي </name>
+  </act>
 </acts>
