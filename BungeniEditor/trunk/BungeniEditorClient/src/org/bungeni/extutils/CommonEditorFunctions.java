@@ -5,13 +5,13 @@
 
 package org.bungeni.extutils;
 
-import java.awt.Component;
-import java.awt.ComponentOrientation;
-import java.awt.Container;
-
 import java.io.File;
 import org.apache.log4j.Logger;
 import org.bungeni.db.DefaultInstanceFactory;
+import java.awt.Component;
+import java.awt.ComponentOrientation;
+import java.awt.Container;
+import java.util.Locale;
 
 /**
  *
@@ -32,11 +32,11 @@ public class CommonEditorFunctions {
         return runtimeRoot + File.separator + appendPath ;
     }
     
-         public static void compOrientation(Component comp)  
+     public static void compOrientation(Component comp)  
      {  
             if(comp instanceof Component)  
             {  
-                 comp.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT); 
+                  comp.applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
             }  
             if(comp instanceof Container)  
             {  
@@ -47,5 +47,5 @@ public class CommonEditorFunctions {
                 }  
             }  
      }  
-
+     
 }
