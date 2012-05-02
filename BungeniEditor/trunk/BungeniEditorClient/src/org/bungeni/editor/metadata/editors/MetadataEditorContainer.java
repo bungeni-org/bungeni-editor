@@ -63,6 +63,7 @@ public class MetadataEditorContainer extends JPanel {
     public MetadataEditorContainer(){
         super();
         initComponents();
+        CommonEditorFunctions.compOrientation(this);
     }
     
     public MetadataEditorContainer(OOComponentHelper ooDoc, JFrame parentFrm, SelectorDialogModes dlg){
@@ -71,6 +72,10 @@ public class MetadataEditorContainer extends JPanel {
 
         ooDocument = ooDoc;
         parentFrame = parentFrm;
+        
+        CommonEditorFunctions.compOrientation(parentFrm);
+        CommonEditorFunctions.compOrientation(this);
+        
         dlgMode = dlg;
         if (dlgMode.equals(SelectorDialogModes.TEXT_EDIT)) {
             txtMsgArea.setText(EDIT_MESSAGE);
@@ -266,83 +271,83 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         //2 if file is not saved - save normally - check if there is a file existing in the path and warn if exists
         try {
         //this is the relative base path where hte files are stored
-        log.debug("saveDocumentToDisk: begin");
-        String defaultSavePath = BungeniEditorProperties.getEditorProperty("defaultSavePath");
-        defaultSavePath = defaultSavePath.replace('/', File.separatorChar);
-        log.debug("saveDocumentToDisk: defaultSavePath : " + defaultSavePath);
+            log.debug("saveDocumentToDisk: begin");
+            String defaultSavePath = BungeniEditorProperties.getEditorProperty("defaultSavePath");
+            defaultSavePath = defaultSavePath.replace('/', File.separatorChar);
+            log.debug("saveDocumentToDisk: defaultSavePath : " + defaultSavePath);
 
-        //get the absolute path
-        String exportPath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + defaultSavePath + m_spf.getExpressionFilePath() ;
-        
-        log.debug("saveDocumentToDisk : exportPath = " + exportPath);
-        //get the full path to the file
-        String fileFullPath = "";
-        fileFullPath = exportPath + File.separator + spf.getManifestationName() + ".odt";
-       // MessageBox.OK(fileFullPath);
-        log.debug("saveDocumentToDisk : fileFullPath = " + fileFullPath);
-        
-        File fFile = new File(fileFullPath);
-        savedFile = fFile.toURI().toString();
-        HashMap<String,Object> saveParams = new HashMap<String,Object>();
-        
-        //1
-        if (ooDocument.isDocumentOnDisk()) {
-            log.debug("saveDocumentToDisk : file is on disk");
-            //document already exists... we just need to save it
-            //check generated URL 
-            URL genURL = fFile.toURI().toURL();
-            //get current open url
-            URL curURL = new URL(ooDocument.getDocumentURL());
-            if (curURL.toString().equals(genURL.toString())) {
-                //the generated and current urls are euals... we can simply sav
-                //storeToURL
-                 saveParams.put(STORE_TO_URL, fFile.toURI().toString());
+            //get the absolute path
+            String exportPath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + defaultSavePath + m_spf.getExpressionFilePath() ;
 
+            log.debug("saveDocumentToDisk : exportPath = " + exportPath);
+            //get the full path to the file
+            String fileFullPath = "";
+            fileFullPath = exportPath + File.separator + spf.getManifestationName() + ".odt";
+        // MessageBox.OK(fileFullPath);
+            log.debug("saveDocumentToDisk : fileFullPath = " + fileFullPath);
+
+            File fFile = new File(fileFullPath);
+            savedFile = fFile.toURI().toString();
+            HashMap<String,Object> saveParams = new HashMap<String,Object>();
+
+            //1
+            if (ooDocument.isDocumentOnDisk()) {
+                log.debug("saveDocumentToDisk : file is on disk");
+                //document already exists... we just need to save it
+                //check generated URL 
+                URL genURL = fFile.toURI().toURL();
+                //get current open url
+                URL curURL = new URL(ooDocument.getDocumentURL());
+                if (curURL.toString().equals(genURL.toString())) {
+                    //the generated and current urls are euals... we can simply sav
+                    //storeToURL
+                    saveParams.put(STORE_TO_URL, fFile.toURI().toString());
+
+                } else {
+                    int nConfirm = MessageBox.Confirm(parentFrame, bundle.getString("prompt_doc_save_new_location"), bundle.getString("msg_warning"));
+                    if (nConfirm == JOptionPane.YES_OPTION) {
+                    //storeAsURL to new path
+                    if (fFile.exists()) {
+                            //error message and abort
+                            MessageBox.OK(parentFrame, bundle.getString("file_exists"));
+                            bState = false;
+                            return false;
+                    } else {    
+                        File fDir = new File(exportPath);
+                        if (!fDir.exists()) {
+                            //if path does not exist, create it
+                            fDir.mkdirs();
+                        }
+                        saveParams.put(STORE_AS_URL, genURL.toURI().toString());
+                    }
+                    } else {
+                        saveParams.put(STORE_TO_URL, curURL.toURI().toString());
+                        //storeTOURL to old path
+                    }
+                }
             } else {
-                int nConfirm = MessageBox.Confirm(parentFrame, bundle.getString("prompt_doc_save_new_location"), bundle.getString("msg_warning"));
-                if (nConfirm == JOptionPane.YES_OPTION) {
-                 //storeAsURL to new path
-                  if (fFile.exists()) {
-                        //error message and abort
-                        MessageBox.OK(parentFrame, bundle.getString("file_exists"));
-                        bState = false;
-                        return false;
-                  } else {    
+                //check if there is an existing file at the generated path
+                log.debug("saveDocumentToDisk : file is NOT on disk");
+
+                if (fFile.exists()) {
+                    //error message and abort
+                    MessageBox.OK(parentFrame, bundle.getString("file_exists2"));
+                    bState = false;
+                    return false;
+                } else {
+                    //save to new path
                     File fDir = new File(exportPath);
                     if (!fDir.exists()) {
                         //if path does not exist, create it
                         fDir.mkdirs();
-                    }
-                    saveParams.put(STORE_AS_URL, genURL.toURI().toString());
-                  }
-                } else {
-                    saveParams.put(STORE_TO_URL, curURL.toURI().toString());
-                    //storeTOURL to old path
+                        }
+                        saveParams.put(STORE_AS_URL, fFile.toURI().toString());
                 }
-             }
-        } else {
-            //check if there is an existing file at the generated path
-            log.debug("saveDocumentToDisk : file is NOT on disk");
-
-            if (fFile.exists()) {
-                //error message and abort
-                MessageBox.OK(parentFrame, bundle.getString("file_exists2"));
-                bState = false;
-                return false;
-            } else {
-                //save to new path
-                 File fDir = new File(exportPath);
-                if (!fDir.exists()) {
-                    //if path does not exist, create it
-                    fDir.mkdirs();
-                    }
-                    saveParams.put(STORE_AS_URL, fFile.toURI().toString());
             }
-        }
-        
-        IBungeniDocTransform idocTrans = BungeniTransformationTargetFactory.getDocTransform("ODT");
-        idocTrans.setParams(saveParams);
-        bState= idocTrans.transform(ooDocument);
+
+            IBungeniDocTransform idocTrans = BungeniTransformationTargetFactory.getDocTransform("ODT");
+            idocTrans.setParams(saveParams);
+            bState= idocTrans.transform(ooDocument);
        
         } catch (Exception ex) {
             log.error("saveDocumentToDisk : " + ex.getMessage());
@@ -417,7 +422,9 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         metadataTabContainer = new javax.swing.JTabbedPane();
         btnNavigate = new javax.swing.JButton();
 
-        btnSave.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        btnSave.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle"); // NOI18N
         btnSave.setText(bundle.getString("MetadataEditorContainer.btnSave.text")); // NOI18N
         btnSave.addActionListener(new java.awt.event.ActionListener() {
@@ -426,7 +433,7 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
             }
         });
 
-        btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnCancel.setText(bundle.getString("MetadataEditorContainer.btnCancel.text")); // NOI18N
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -444,7 +451,7 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         txtMsgArea.setBorder(null);
         jScrollPane1.setViewportView(txtMsgArea);
 
-        btnNavigate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnNavigate.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnNavigate.setText(bundle.getString("MetadataEditorContainer.btnNavigate.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -452,20 +459,20 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(metadataTabContainer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(metadataTabContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
                         .addComponent(btnNavigate, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(78, 78, 78))))
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -473,8 +480,8 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(metadataTabContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(metadataTabContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
                     .addComponent(btnSave)
@@ -505,7 +512,7 @@ private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
   
  
     public Dimension getFrameSize() {
-        return new Dimension(420, 432 + 15);
+        return new Dimension(470, 550);
     }
 
     /**
@@ -516,7 +523,7 @@ private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
      */
     public static JFrame launchMetadataEditor(OOComponentHelper oohc, SelectorDialogModes dlgMode){
         String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
-        BungeniFrame frm = new BungeniFrame(docType + " Metadata");
+        BungeniFrame frm = new BungeniFrame("frameTitle");
         MetadataEditorContainer meta = new MetadataEditorContainer(oohc, frm, dlgMode);
         meta.initialize();
         frm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
