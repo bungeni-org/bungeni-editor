@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -41,11 +42,8 @@ import org.bungeni.editor.noa.BungeniNoaTabbedPane;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
 import org.bungeni.editor.toolbar.target.BungeniToolbarTargetProcessor;
+import org.bungeni.extutils.*;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
-import org.bungeni.extutils.BungeniFrame;
-import org.bungeni.extutils.CommonFileFunctions;
-import org.bungeni.extutils.CommonStringFunctions;
-import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.ooo.ooDocMetadata;
 import org.jdom.Element;
 
@@ -105,6 +103,8 @@ public class editorTabbedPanel extends javax.swing.JPanel {
     public void init(DocumentComposition dc) {
         initMain(dc.getDocument().getXComponent());
         initComponents();
+        CommonEditorFunctions.compOrientation(this);
+       
         initProviders();
         log.debug("calling initOpenDOcuments");
         initOpenDocuments();
@@ -542,7 +542,7 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
             }
         }
         String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
-        BungeniFrame frm = new BungeniFrame(docType + " Metadata");
+        BungeniFrame frm = new BungeniFrame(bundle.getString("frameTitle"));
         MetadataEditorContainer meta = new MetadataEditorContainer(oohc, frm, SelectorDialogModes.TEXT_INSERTION);
         meta.initialize();
         frm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
