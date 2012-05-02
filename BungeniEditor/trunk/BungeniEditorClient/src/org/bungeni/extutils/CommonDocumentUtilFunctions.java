@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.bungeni.extutils;
 
 import com.sun.star.text.XRelativeTextContentInsert;
@@ -20,7 +15,7 @@ import org.bungeni.ooo.ooQueryInterface;
 
 /**
  *
- * @author undesa
+ * @author Ashok Hariharan
  */
 public class CommonDocumentUtilFunctions {
 

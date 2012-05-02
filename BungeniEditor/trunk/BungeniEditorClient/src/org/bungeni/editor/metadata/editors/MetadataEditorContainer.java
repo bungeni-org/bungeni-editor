@@ -133,8 +133,8 @@ public class MetadataEditorContainer extends JPanel {
      * Retrieves the applicable URI types for this document type
      */
     public void initialize() {
-         if(Locale.getDefault().getLanguage().equals("ar") && Locale.getDefault().getCountry().equals("PS") )
-            CommonEditorFunctions.compOrientation(this);
+        // if(Locale.getDefault().getLanguage().equals("ar") && Locale.getDefault().getCountry().equals("PS") )
+        //    CommonEditorFunctions.compOrientation(this);
         //get the available tabs for this document type
         log.info("calling initialize .....");
         String currentDocType = BungeniEditorPropertiesHelper.getCurrentDocType();
@@ -166,6 +166,7 @@ public class MetadataEditorContainer extends JPanel {
             }
         }
 
+        CommonEditorFunctions.compOrientation(this);
         /**
         BungeniClientDB db =  new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
         db.Connect();

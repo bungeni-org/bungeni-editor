@@ -34,6 +34,9 @@ import org.jdom.xpath.XPath;
  *
  * @author bzuadmin
  */
+//!+FIX_THIS(ah,01-05-2012) This should be done using BungeniConnector and not using
+//config reader.
+@Deprecated
 public class DatasourceReader extends BaseConfigReader {
     
     private static Logger log = Logger.getLogger(DocTypesReader.class.getName());

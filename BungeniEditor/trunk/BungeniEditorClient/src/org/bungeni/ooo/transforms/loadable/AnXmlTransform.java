@@ -141,7 +141,11 @@ public class AnXmlTransform extends BungeniDocTransform {
                 //!+PIPELINE_SETTING (AH, 2011-09-20) Setting the pipeline manually is no longer required
                 // This needs to be removed.
 		//paramMap.put("TranslatorConfigFile", this.toOSPath("configfiles/configs/config_debaterecord.xml"));
-                paramMap.put("TranslatorConfigFile", this.toOSPath("configfiles/configs/config_judgement.xml"));
+
+                //!+UGLY_FIX !+FIX_THIS (ah, 01-05-2012)generate the pipeline name based on the doctype, but this is really ugly
+                //only a short term hack - to be fixed correctly with <pipeline> parameter in doctypes.xml
+                // it was hard-coded earlier which is even worse...
+                paramMap.put("TranslatorConfigFile", this.toOSPath("configfiles/configs/config_" + currentDocType + ".xml"));
 		//paramMap.put("TranslatorPipeline", this.toOSPath("metalex2akn/minixslt/debaterecord/pipeline.xsl") );
 		paramMap.put("CurrentDocType", currentDocType);
 		paramMap.put("CallerPanel", null);

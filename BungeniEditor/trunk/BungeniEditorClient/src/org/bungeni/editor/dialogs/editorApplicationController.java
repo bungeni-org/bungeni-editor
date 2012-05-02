@@ -42,7 +42,14 @@ import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
 import org.bungeni.editor.noa.BungeniNoaFrame;
 import org.bungeni.editor.noa.BungeniNoaFrame.DocumentComposition;
 import org.bungeni.editor.selectors.SelectorDialogModes;
-import org.bungeni.extutils.*;
+import org.bungeni.extutils.BungeniFrame;
+import org.bungeni.extutils.BungeniRuntimeProperties;
+import org.bungeni.extutils.CommonEditorFunctions;
+import org.bungeni.extutils.CommonFileFunctions;
+import org.bungeni.extutils.CommonXmlUtils;
+import org.bungeni.extutils.FrameLauncher;
+import org.bungeni.extutils.MessageBox;
+
 import org.bungeni.ooo.BungenioOoHelper;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.utils.FileTableModel;
@@ -149,9 +156,10 @@ public class editorApplicationController extends javax.swing.JPanel {
         //initWebDav();
         //initDataReader();
         initLaunchLabels();
-         
-        if(Locale.getDefault().getLanguage().equals("ar") && Locale.getDefault().getCountry().equals("PS") )
-            CommonEditorFunctions.compOrientation(this);
+
+        CommonEditorFunctions.compOrientation(this);
+        //if(Locale.getDefault().getLanguage().equals("ar") && Locale.getDefault().getCountry().equals("PS") )
+        //    CommonEditorFunctions.compOrientation(this);
     }
 
     private void initLaunchLabels() {

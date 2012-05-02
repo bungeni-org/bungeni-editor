@@ -7,4 +7,6 @@
     <locale lang="it" country="IT" />
     <locale lang="es" country="ES" />
     <locale lang="pt" country="PT" />
+    <locale lang="ar" country="KE" />
+    <locale lang="ar" country="PS" />
 </locales>

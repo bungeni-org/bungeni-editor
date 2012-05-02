@@ -56,8 +56,8 @@ public class JudgemenMetadataExtra extends BaseEditorDocMetadataDialog {
     public JudgemenMetadataExtra(){
         super();
         initComponents();
-        if(Locale.getDefault().getLanguage().equals("ar") && Locale.getDefault().getCountry().equals("PS") )
-           CommonEditorFunctions.compOrientation(this);
+        //if(Locale.getDefault().getLanguage().equals("ar") && Locale.getDefault().getCountry().equals("PS") )
+        //   CommonEditorFunctions.compOrientation(this);
     }
     
     @Override

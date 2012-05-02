@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.bungeni.extutils;
 
 import java.io.File;
@@ -15,7 +10,6 @@ import java.util.Locale;
 
 /**
  *
- * @author Ashok Hariharan
  */
 public class CommonEditorFunctions {
 
@@ -31,10 +25,23 @@ public class CommonEditorFunctions {
         log.info("getPathRelativetoRoot for (" + thisPath + ") is " + runtimeRoot + File.separator + appendPath );
         return runtimeRoot + File.separator + appendPath ;
     }
-    
+
+    /**
+     * Changes the Orientation of the components depending on the Locale
+     *
+     * @param comp Component handle
+     */
      public static void compOrientation(Component comp)  
-     {  
-        ((Container)comp).applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
-     }  
+     {
+       //!+ORIENTATION(ah, 03-05-2012) - original version by smr.ayesh was appling orientation
+       //as Container, added a fallback if it isnt a container, to use the regular Component class
+       //apply orientation api
+       if (comp instanceof Container) {
+            ((Container)comp).applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
+       } else {
+            comp.applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
+       }
+
+     }
      
 }
