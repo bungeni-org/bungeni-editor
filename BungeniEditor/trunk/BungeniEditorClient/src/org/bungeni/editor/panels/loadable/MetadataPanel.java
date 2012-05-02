@@ -1,10 +1,12 @@
 package org.bungeni.editor.panels.loadable;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.editor.panels.impl.ITabbedPanel;
 import org.bungeni.editor.panels.factory.TabbedPanelFactory;
+import org.bungeni.extutils.CommonEditorFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 
 /**
@@ -19,6 +21,8 @@ public class MetadataPanel extends BaseClassForITabbedPanel {
     /** Creates new form MetadataPanel */
     public MetadataPanel() {
         initComponents();
+        CommonEditorFunctions.compOrientation(this);
+        
     }
 
     /**
