@@ -15,6 +15,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPopupMenu;
@@ -37,6 +38,7 @@ import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.editor.toolbar.target.BungeniToolbarTargetProcessor;
 import org.bungeni.editor.toolbar.conditions.BungeniToolbarConditionProcessor;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
+import org.bungeni.extutils.CommonEditorFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 import org.jdom.Element;
 
@@ -56,6 +58,7 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
     /** Creates new form holderUIPanel */
     public documentActionPanel() {
         initComponents();
+        CommonEditorFunctions.compOrientation(this);
     }
 
 
