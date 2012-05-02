@@ -61,7 +61,9 @@ public class BungeniEditorClient {
     private static void initOOo(){
         //just calling getINstance() on BungeniNoaApp to initialize the OpenOffice libraries.
         BungeniNoaApp.getInstance();
-        bundle = ResourceBundle.getBundle("org/bungeni/editor/noa/Bundle_"+ Locale.getDefault());
+        //!+RESOURCE_BUNDLE(ah,03-05-2012) This is not required, the locale is dynamically discovered by
+        //the Java resource bundle API
+        //bundle = ResourceBundle.getBundle("org/bungeni/editor/noa/Bundle_"+ Locale.getDefault());
     }
 
     /**

@@ -29,7 +29,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingWorker;
-import javax.swing.Timer;
 import javax.xml.parsers.ParserConfigurationException;
 import org.apache.log4j.Logger;
 import org.bungeni.db.DefaultInstanceFactory;
@@ -85,7 +84,9 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
     /**
      * handle to resource bundle
      */
-    private static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/panels/loadable/Bundle_" + Locale.getDefault());
+    //!+RESOURCE_BUNDLE(ah,03-05-2012)
+    //See http://groups.google.com/group/bungeni-editor/browse_thread/thread/859c1b838637e78f
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/panels/loadable/Bundle");
 
 
     private void initTransfromTargetCombo() {

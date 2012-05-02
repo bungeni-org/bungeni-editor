@@ -29,15 +29,19 @@ public class TabbedPanelFactory {
             newPanel = (ITabbedPanel)panelClass.newInstance();
             newPanel.setPanelLoadOrder(loadOrder);
             newPanel.setPanelTitle(panelTitle);
-        } catch (ClassNotFoundException ex) {
+        } catch(Exception ex) {
+            log.error("makePanel : " + ex.getMessage());
+        }
+        /**
+        (ClassNotFoundException ex) {
             log.error("makePanel : " + ex.getMessage());
         } catch (InstantiationException ex) {
             log.error("makePanel : " + ex.getMessage());
         } catch (IllegalAccessException ex) {
             log.error("makePanel : " + ex.getMessage());
-        } finally {
-            return newPanel;
-        }
+        } **/
+       return newPanel;
+        
     }
 
     /**
