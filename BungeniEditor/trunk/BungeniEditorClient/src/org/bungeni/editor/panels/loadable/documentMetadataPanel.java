@@ -5,14 +5,17 @@
  */
 package org.bungeni.editor.panels.loadable;
 
+import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Locale;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 import org.bungeni.editor.metadata.DocumentMetadataTableModel;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.editor.selectors.SelectorDialogModes;
+import org.bungeni.extutils.CommonEditorFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 
 /**
@@ -28,11 +31,15 @@ public class documentMetadataPanel extends BaseClassForITabbedPanel {
     /** Creates new form documentMetadataPanel */
     public documentMetadataPanel() {
         initComponents();
+        CommonEditorFunctions.compOrientation(this);
     }
 
     public documentMetadataPanel(OOComponentHelper ooDocument, JFrame parentFrame) {
         this.parentFrame = parentFrame;
         this.ooDocument = ooDocument;
+        CommonEditorFunctions.compOrientation(this);
+        CommonEditorFunctions.compOrientation(parentFrame);
+         
         init();
     }
 
@@ -45,7 +52,7 @@ public class documentMetadataPanel extends BaseClassForITabbedPanel {
     private void initTableDocumentMetadata() {
         docMetadataTableModel = new DocumentMetadataTableModel(ooDocument);
         this.tableDocumentMetadata.setModel(docMetadataTableModel);
-    }
+       }
 
     private void initTimer() {
         docMetadataTimer = new Timer(4000, new ActionListener() {
