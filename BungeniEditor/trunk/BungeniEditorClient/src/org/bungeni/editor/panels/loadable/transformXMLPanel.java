@@ -19,6 +19,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import javax.swing.DefaultComboBoxModel;
@@ -72,6 +73,8 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
     public transformXMLPanel() {
         initComponents();
         initButtons();
+        CommonEditorFunctions.compOrientation(this);
+         
     }
 
     private void initButtons() {
@@ -82,7 +85,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
     /**
      * handle to resource bundle
      */
-    private static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/panels/loadable/Bundle");
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/panels/loadable/Bundle_" + Locale.getDefault());
 
 
     private void initTransfromTargetCombo() {
@@ -357,6 +360,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         public void actionPerformed(ActionEvent e) {
             if (e.getActionCommand().equals("ANXML")) {
                 File fXml = CommonANUtils.getComponentFromFile(ooDocument.getDocumentURL(), "xml");
+                
                 if (fXml.exists()) {
                     if (fXml.length() != 0) {
                         try {
