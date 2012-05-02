@@ -25,6 +25,7 @@ import java.net.URL;
 
 import java.util.Locale;
 import java.util.Properties;
+import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
@@ -45,6 +46,8 @@ public class BungeniEditorClient {
 
     // private static XComponentContext m_xContext;
     private static String __WINDOW_TITLE__ = "BungeniEditor Launcher";
+    private static ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/noa/Bundle");
+    
     public static BungeniEditorClientCmdOptions cmdOptions = null;
     private static org.apache.log4j.Logger log =
             org.apache.log4j.Logger.getLogger(BungeniEditorClient.class.getName());
@@ -58,6 +61,7 @@ public class BungeniEditorClient {
     private static void initOOo(){
         //just calling getINstance() on BungeniNoaApp to initialize the OpenOffice libraries.
         BungeniNoaApp.getInstance();
+        bundle = ResourceBundle.getBundle("org/bungeni/editor/noa/Bundle_"+ Locale.getDefault());
     }
 
     /**
