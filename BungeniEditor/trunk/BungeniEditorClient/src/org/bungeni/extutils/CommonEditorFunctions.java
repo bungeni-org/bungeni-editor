@@ -34,18 +34,7 @@ public class CommonEditorFunctions {
     
      public static void compOrientation(Component comp)  
      {  
-            if(comp instanceof Component)  
-            {  
-                  comp.applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
-            }  
-            if(comp instanceof Container)  
-            {  
-                Component[] comps = ((Container)comp).getComponents();  
-                for(int x = 0, y = comps.length; x < y; x++)  
-                {  
-                    compOrientation(comps[x]);  
-                }  
-            }  
+        ((Container)comp).applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
      }  
      
 }
