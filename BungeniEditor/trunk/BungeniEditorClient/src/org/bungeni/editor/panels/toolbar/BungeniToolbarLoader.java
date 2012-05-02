@@ -1,4 +1,3 @@
-
 package org.bungeni.editor.panels.toolbar;
 
 import java.awt.event.ActionListener;
@@ -9,6 +8,7 @@ import java.util.Locale;
 import javax.swing.BorderFactory;
 import javax.swing.JTabbedPane;
 import org.bungeni.extutils.BungeniEditorProperties;
+import org.bungeni.extutils.CommonEditorFunctions;
 import org.bungeni.extutils.CommonXmlUtils;
 import org.jdom.Attribute;
 import org.jdom.Element;
@@ -132,6 +132,7 @@ public class BungeniToolbarLoader {
                   }
              }
              thisPane.addTab(grpTabTitle, grpPane);
+             CommonEditorFunctions.compOrientation(thisPane);
         }
     }
 
