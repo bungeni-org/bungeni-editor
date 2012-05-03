@@ -145,6 +145,7 @@ public class BungeniNoaFrame extends BungeniFrame {
         if (this.basePanel == null) {
             this.basePanel = new JPanel();
         }
+        CommonEditorFunctions.compOrientation(basePanel);
         return this.basePanel;
     }
 
