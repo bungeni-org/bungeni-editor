@@ -22,6 +22,7 @@ public class BungeniFrame extends JFrame {
       
         public BungeniFrame(){
             super();
+            CommonEditorFunctions.compOrientation(this);
             setIconForFrame();
         }
         
@@ -71,12 +72,14 @@ public class BungeniFrame extends JFrame {
          * @param dSize - size of the JFrame
          */
         public void launch(JPanel panel, Dimension dSize){
+           CommonEditorFunctions.compOrientation(this);
            this.setDefaultCloseOperation(BUNGENIFRAME_CLOSE_STYLE);
            this.add(panel);
            this.setSize(dSize);
            this.setResizable(BUNGENIFRAME_RESIZABLE);
            this.setAlwaysOnTop(BUNGENIFRAME_ALWAYS_ON_TOP);
            this.setVisible(true);
+           
         }
 
 }
