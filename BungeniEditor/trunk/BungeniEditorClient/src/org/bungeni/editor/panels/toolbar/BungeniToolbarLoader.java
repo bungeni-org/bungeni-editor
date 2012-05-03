@@ -80,6 +80,10 @@ public class BungeniToolbarLoader {
             grpPane.setTabLayoutPolicy(grpTabUImodel.equals("wrap")?JTabbedPane.WRAP_TAB_LAYOUT:JTabbedPane.SCROLL_TAB_LAYOUT);
             grpPane.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
             // thisPane.addTab(grpTabTitle, grpPane);
+                         if(Locale.getDefault().getLanguage().equals("ar")){
+                     CommonEditorFunctions.compOrientation(thisPane);
+             }
+
             ArrayList<Element> tabs = BungeniToolbarParser.getInstance().getTabElements(groupTab);
         //iterate through the tab elements
              for (Element tab : tabs) {
