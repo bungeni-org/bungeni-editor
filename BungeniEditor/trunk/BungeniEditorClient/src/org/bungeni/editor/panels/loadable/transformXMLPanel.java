@@ -84,8 +84,6 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
     /**
      * handle to resource bundle
      */
-    //!+RESOURCE_BUNDLE(ah,03-05-2012)
-    //See http://groups.google.com/group/bungeni-editor/browse_thread/thread/859c1b838637e78f
     private static final ResourceBundle bundle = ResourceBundle.getBundle("org/bungeni/editor/panels/loadable/Bundle");
 
 
