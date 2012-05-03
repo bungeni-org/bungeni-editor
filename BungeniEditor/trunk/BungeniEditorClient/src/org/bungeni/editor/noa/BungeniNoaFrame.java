@@ -48,10 +48,7 @@ import org.bungeni.connector.server.DataSourceServer;
 import org.bungeni.ds.DataSourceFactory;
 import org.bungeni.editor.dialogs.editorTabbedPanel;
 import org.bungeni.editor.noa.ext.BungeniLocalOfficeApplication;
-import org.bungeni.extutils.BungeniFrame;
-import org.bungeni.extutils.CommonFileFunctions;
-import org.bungeni.extutils.CommonTreeFunctions;
-import org.bungeni.extutils.MessageBox;
+import org.bungeni.extutils.*;
 import org.bungeni.ooo.BungenioOoHelper;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
@@ -187,7 +184,8 @@ public class BungeniNoaFrame extends BungeniFrame {
                     bundle.getString("bungeninoaframe.cancel_close")
                 };
                 JFrame aFrame = (JFrame) windowEvent.getSource();
-
+                CommonEditorFunctions.compOrientation(aFrame);
+       
                 ArrayList<DocumentComposition> unsavedDCompositions = getUnsavedDocuments();
                 if (unsavedDCompositions.size() > 0) {
                     // prompt a dialog which has document name and corresponding check box
