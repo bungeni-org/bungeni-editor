@@ -86,7 +86,13 @@
         <parliamentId type="xs:integer">
             <xsl:value-of select="." />
         </parliamentId>
-    </xsl:template>      
+    </xsl:template>     
+    
+    <xsl:template match="field[@name='committee_id']">
+        <committeeId type="xs:integer">
+            <xsl:value-of select="." />
+        </committeeId>
+    </xsl:template>     
     
     <xsl:template match="field[@name='group_principal_id']">
         <groupPrincipalId isA="TLCReference">
@@ -250,9 +256,8 @@
     </xsl:template>    
     
     <xsl:template match="field[@name='start_date']">
-        <xsl:variable name="start_date" select="." />
-        <startDate type="xs:dateTime">
-            <xsl:value-of select="bdates:parse-date($start_date)" />
+        <startDate type="xs:date">
+            <xsl:value-of select="." />
         </startDate>
     </xsl:template>    
     
@@ -267,6 +272,54 @@
         <statusDate type="xs:dateTime">
             <xsl:value-of select="bdates:parse-date($status_date)" />
         </statusDate>
+    </xsl:template>  
+    
+    <xsl:template match="field[@name='num_members']">
+        <numMembers type="xs:integer">
+            <xsl:value-of select="." />
+        </numMembers>
+    </xsl:template>   
+    
+    <xsl:template match="field[@name='min_num_members']">
+        <minNumMembers type="xs:integer">
+            <xsl:value-of select="." />
+        </minNumMembers>
+    </xsl:template>  
+    
+    <xsl:template match="field[@name='num_researchers']">
+        <numResearchers type="xs:integer">
+            <xsl:value-of select="." />
+        </numResearchers>
+    </xsl:template>    
+    
+    <xsl:template match="field[@name='num_clerks']">
+        <numClerks type="xs:integer">
+            <xsl:value-of select="." />
+        </numClerks>
+    </xsl:template>           
+    
+    <xsl:template match="field[@name='sub_type']">
+        <subType type="xs:string">
+            <xsl:value-of select="." />
+        </subType>
+    </xsl:template>  
+    
+    <xsl:template match="field[@name='group_continuity']">
+        <groupContinuity type="xs:string">
+            <xsl:value-of select="." />
+        </groupContinuity>
+    </xsl:template>     
+    
+    <xsl:template match="field[@name='proportional_representation']">
+        <proportionalRepresentation type="xs:boolean">
+            <xsl:value-of select="." />
+        </proportionalRepresentation>
+    </xsl:template>     
+
+    <xsl:template match="field[@name='quorum']">
+        <quorum type="xs:integer">
+            <xsl:value-of select="." />
+        </quorum>
     </xsl:template>    
     
     <xsl:template match="permissions">
