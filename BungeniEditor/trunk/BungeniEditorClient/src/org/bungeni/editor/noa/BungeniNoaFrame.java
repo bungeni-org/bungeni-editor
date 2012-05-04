@@ -140,8 +140,8 @@ public class BungeniNoaFrame extends BungeniFrame {
     public JPanel getBasePanel() {
         if (this.basePanel == null) {
             this.basePanel = new JPanel();
+            CommonUIFunctions.compOrientation(basePanel);
         }
-        CommonUIFunctions.compOrientation(basePanel);
         return this.basePanel;
     }
 
@@ -156,13 +156,14 @@ public class BungeniNoaFrame extends BungeniFrame {
         this.getContentPane().add(getBasePanel());
         //this needs to be calculated ?
         setResizable(true);
+        //call the parent frame to setup the frame initialization
+        initFrame();
         // setSize(800, 600);
         pack();
         //We set it to do_nothing_on_close since we want to add
         //an exit handler and exit cleanly
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setVisible(true);
-
         //!+BUNGENI_CONNECTOR(AH,2011-09-20) Starting BungeniConnector server
         startDataSourceServer();
         // This is the listener for the main window containing the tabs
@@ -181,7 +182,7 @@ public class BungeniNoaFrame extends BungeniFrame {
                     bundle.getString("bungeninoaframe.cancel_close")
                 };
                 JFrame aFrame = (JFrame) windowEvent.getSource();
-                CommonUIFunctions.compOrientation(aFrame);
+                //CommonUIFunctions.compOrientation(aFrame);
        
                 ArrayList<DocumentComposition> unsavedDCompositions = getUnsavedDocuments();
                 if (unsavedDCompositions.size() > 0) {

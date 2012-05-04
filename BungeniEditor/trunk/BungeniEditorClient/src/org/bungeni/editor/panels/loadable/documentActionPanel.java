@@ -3,9 +3,7 @@ package org.bungeni.editor.panels.loadable;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -15,7 +13,6 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPopupMenu;
@@ -58,7 +55,6 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
     /** Creates new form holderUIPanel */
     public documentActionPanel() {
         initComponents();
-        CommonUIFunctions.compOrientation(this);
     }
 
 
@@ -98,9 +94,11 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
     @Override
     public void initialize() {
         super.initialize();
+        CommonUIFunctions.compOrientation(this);
         this.initDB();
         this.initToolbarTabs();
         this.initMouseListener();
+
         //this.initUIAttributes();
     }
 
@@ -500,20 +498,4 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
     private javax.swing.JTabbedPane toolbarTabs;
     // End of variables declaration//GEN-END:variables
 
-    public static void main(String[] args) {
-        javax.swing.JFrame floatingFrame = new javax.swing.JFrame();
-        documentActionPanel floatingPanel = new documentActionPanel();
-        floatingFrame.add(floatingPanel);
-        floatingFrame.setSize(221, 551);
-        floatingFrame.setAlwaysOnTop(true);
-        floatingFrame.setVisible(true);
-        //position frame
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension windowSize = floatingFrame.getSize();
-
-        int windowX = screenSize.width - floatingFrame.getWidth() - 2;
-        int windowY = (screenSize.height - floatingFrame.getHeight()) / 2;
-        floatingFrame.setLocation(windowX, windowY);  // Don't use "f." inside constructor.
-        floatingFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    }
 }

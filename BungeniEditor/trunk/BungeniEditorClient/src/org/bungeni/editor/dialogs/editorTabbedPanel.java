@@ -543,6 +543,7 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
         }
         String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
         BungeniFrame frm = new BungeniFrame(bundle.getString("frameTitle"));
+        frm.initFrame();
         MetadataEditorContainer meta = new MetadataEditorContainer(oohc, frm, SelectorDialogModes.TEXT_INSERTION);
         meta.initialize();
         frm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

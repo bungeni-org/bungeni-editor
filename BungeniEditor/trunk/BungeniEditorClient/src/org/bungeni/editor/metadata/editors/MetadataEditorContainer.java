@@ -59,7 +59,6 @@ public class MetadataEditorContainer extends JPanel {
     public MetadataEditorContainer(){
         super();
         initComponents();
-        CommonUIFunctions.compOrientation(this);
     }
     
     public MetadataEditorContainer(OOComponentHelper ooDoc, JFrame parentFrm, SelectorDialogModes dlg){
@@ -69,8 +68,6 @@ public class MetadataEditorContainer extends JPanel {
         ooDocument = ooDoc;
         parentFrame = parentFrm;
         
-        CommonUIFunctions.compOrientation(parentFrm);
-        CommonUIFunctions.compOrientation(this);
         
         dlgMode = dlg;
         if (dlgMode.equals(SelectorDialogModes.TEXT_EDIT)) {
@@ -132,6 +129,7 @@ public class MetadataEditorContainer extends JPanel {
         // if(Locale.getDefault().getLanguage().equals("ar") && Locale.getDefault().getCountry().equals("PS") )
         //    CommonEditorFunctions.compOrientation(this);
         //get the available tabs for this document type
+        //CommonUIFunctions.compOrientation(this);
         log.info("calling initialize .....");
         String currentDocType = BungeniEditorPropertiesHelper.getCurrentDocType();
         log.info("initialize : current doc type = " + currentDocType);
@@ -512,6 +510,7 @@ private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     public static JFrame launchMetadataEditor(OOComponentHelper oohc, SelectorDialogModes dlgMode){
         String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
         BungeniFrame frm = new BungeniFrame("frameTitle");
+        frm.initFrame();
         MetadataEditorContainer meta = new MetadataEditorContainer(oohc, frm, dlgMode);
         meta.initialize();
         frm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

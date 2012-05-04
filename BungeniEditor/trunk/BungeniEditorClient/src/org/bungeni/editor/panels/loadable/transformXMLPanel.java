@@ -72,8 +72,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
     public transformXMLPanel() {
         initComponents();
         initButtons();
-        CommonUIFunctions.compOrientation(this);
-         
+        //CommonUIFunctions.compOrientation(this);
     }
 
     private void initButtons() {
@@ -675,6 +674,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
     @Override
     public void initialize() {
         super.initialize();
+        CommonUIFunctions.compOrientation(this);
         this.initTransfromTargetCombo();
         this.initExportDestCombo();
         String docType = BungeniEditorPropertiesHelper.getCurrentDocType();

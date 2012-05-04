@@ -128,8 +128,8 @@ public class BungeniToolbarLoader {
                   }
              }
              thisPane.addTab(grpTabTitle, grpPane);
-             CommonUIFunctions.compOrientation(thisPane);
         }
+    CommonUIFunctions.compOrientation(thisPane);
     }
 
 }

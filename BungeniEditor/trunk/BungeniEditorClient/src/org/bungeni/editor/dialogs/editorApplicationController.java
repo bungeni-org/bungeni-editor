@@ -997,7 +997,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
 
         BungeniFrame frm = new BungeniFrame(docType + " Metadata");
-
+        frm.initFrame();
         /**
          * If it is a template we launch it in insertion mode,
          * else we launch it in edit mode -- i.e. the document already exists

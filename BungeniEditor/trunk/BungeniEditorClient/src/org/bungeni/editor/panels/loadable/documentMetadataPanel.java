@@ -29,7 +29,7 @@ public class documentMetadataPanel extends BaseClassForITabbedPanel {
     /** Creates new form documentMetadataPanel */
     public documentMetadataPanel() {
         initComponents();
-        CommonUIFunctions.compOrientation(this);
+        //CommonUIFunctions.compOrientation(this);
     }
 
     public documentMetadataPanel(OOComponentHelper ooDocument, JFrame parentFrame) {
@@ -38,8 +38,8 @@ public class documentMetadataPanel extends BaseClassForITabbedPanel {
         //!+FIX_THIS (ah, 04-05-2012) the construction may not be the best place to access
         //the same object ('this') since the object itself is not created completely
         //perhaps in init() in the base class
-        CommonUIFunctions.compOrientation(this);
-        CommonUIFunctions.compOrientation(parentFrame);
+        //CommonUIFunctions.compOrientation(this);
+        //CommonUIFunctions.compOrientation(parentFrame);
          
         init();
     }
@@ -156,6 +156,7 @@ public class documentMetadataPanel extends BaseClassForITabbedPanel {
     @Override
     public void initialize() {
         super.initialize();
+        CommonUIFunctions.compOrientation(this);
         initTableDocumentMetadata();
         initTimer();
     }

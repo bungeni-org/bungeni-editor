@@ -22,13 +22,19 @@ public class BungeniFrame extends JFrame {
       
         public BungeniFrame(){
             super();
-            CommonUIFunctions.compOrientation(this);
             setIconForFrame();
         }
         
         public BungeniFrame(String titleStr) {
             super(titleStr);
             setIconForFrame();
+        }
+
+        /**
+         * This must be called after construction
+         */
+        public void initFrame(){
+            CommonUIFunctions.compOrientation(this);
         }
 
         public BungeniFrame(String titleStr, Dimension frmSize) {
@@ -72,14 +78,12 @@ public class BungeniFrame extends JFrame {
          * @param dSize - size of the JFrame
          */
         public void launch(JPanel panel, Dimension dSize){
-           CommonUIFunctions.compOrientation(this);
            this.setDefaultCloseOperation(BUNGENIFRAME_CLOSE_STYLE);
            this.add(panel);
            this.setSize(dSize);
            this.setResizable(BUNGENIFRAME_RESIZABLE);
            this.setAlwaysOnTop(BUNGENIFRAME_ALWAYS_ON_TOP);
            this.setVisible(true);
-           
         }
 
 }
