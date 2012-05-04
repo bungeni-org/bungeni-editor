@@ -19,7 +19,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import javax.swing.DefaultComboBoxModel;
@@ -41,6 +40,7 @@ import org.bungeni.extutils.CommonANUtils;
 import org.bungeni.extutils.CommonDocumentUtilFunctions;
 import org.bungeni.extutils.CommonEditorFunctions;
 import org.bungeni.extutils.CommonFileFunctions;
+import org.bungeni.extutils.CommonUIFunctions;
 import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTarget;
@@ -72,7 +72,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
     public transformXMLPanel() {
         initComponents();
         initButtons();
-        CommonEditorFunctions.compOrientation(this);
+        CommonUIFunctions.compOrientation(this);
          
     }
 
@@ -446,9 +446,9 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         boolean bState = iTransform.transform(ooDocument);
 
         if (bState) {
-            return new String("Document_was_successfully_Exported_to_the_workspace_folder");
+            return "Document_was_successfully_Exported_to_the_workspace_folder";
         } else {
-            return new String("Document_export_failed");
+            return "Document_export_failed";
         }
 
     }
@@ -475,7 +475,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             Object retValue = convertToPlain.callMethod("exec", argExec);
             return (String) retValue;
         } else {
-            return new String("save_the_document");
+            return "save_the_document";
         }
     }
 

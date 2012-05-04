@@ -8,7 +8,6 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.swing.AbstractAction;
 import javax.swing.JFrame;
@@ -19,13 +18,10 @@ import javax.swing.event.ChangeListener;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.editor.config.DocTypesReader;
 import org.bungeni.editor.metadata.BaseEditorDocMetaModel;
-import org.bungeni.extutils.BungeniEditorProperties;
-import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTargetFactory;
 import org.bungeni.ooo.transforms.impl.IBungeniDocTransform;
 import org.bungeni.utils.BungeniFileSavePathFormat;
-import org.bungeni.extutils.MessageBox;
 import org.bungeni.editor.metadata.EditorDocMetadataDialogFactory;
 import org.bungeni.editor.metadata.IEditorDocMetadataDialog;
 import org.bungeni.editor.noa.BungeniNoaTabbedPane;
@@ -63,7 +59,7 @@ public class MetadataEditorContainer extends JPanel {
     public MetadataEditorContainer(){
         super();
         initComponents();
-        CommonEditorFunctions.compOrientation(this);
+        CommonUIFunctions.compOrientation(this);
     }
     
     public MetadataEditorContainer(OOComponentHelper ooDoc, JFrame parentFrm, SelectorDialogModes dlg){
@@ -73,8 +69,8 @@ public class MetadataEditorContainer extends JPanel {
         ooDocument = ooDoc;
         parentFrame = parentFrm;
         
-        CommonEditorFunctions.compOrientation(parentFrm);
-        CommonEditorFunctions.compOrientation(this);
+        CommonUIFunctions.compOrientation(parentFrm);
+        CommonUIFunctions.compOrientation(this);
         
         dlgMode = dlg;
         if (dlgMode.equals(SelectorDialogModes.TEXT_EDIT)) {
@@ -166,16 +162,7 @@ public class MetadataEditorContainer extends JPanel {
             }
         }
 
-        CommonEditorFunctions.compOrientation(this);
-        /**
-        BungeniClientDB db =  new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
-        db.Connect();
-        QueryResults qr = db.QueryResults(SettingsQueryFactory.Q_FETCH_DOCUMENT_TYPE_BY_NAME(BungeniEditorPropertiesHelper.getCurrentDocType()));
-        db.EndConnect();
-        metadataModelInfoIterator modelIterator = new metadataModelInfoIterator();
-        qr.resultsIterator(modelIterator );
-        **/
-
+        CommonUIFunctions.compOrientation(this);
     }
 
 

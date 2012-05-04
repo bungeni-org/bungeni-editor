@@ -11,8 +11,6 @@ import java.awt.event.ActionEvent;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 
@@ -20,8 +18,6 @@ import ag.ion.bion.officelayer.document.DocumentDescriptor;
 import ag.ion.bion.officelayer.text.ITextDocument;
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
-import com.sun.star.beans.XPropertySet;
-import com.sun.star.beans.XPropertySetInfo;
 import com.sun.star.container.XIndexAccess;
 import com.sun.star.container.XNamed;
 import com.sun.star.frame.XController;
@@ -145,7 +141,7 @@ public class BungeniNoaFrame extends BungeniFrame {
         if (this.basePanel == null) {
             this.basePanel = new JPanel();
         }
-        CommonEditorFunctions.compOrientation(basePanel);
+        CommonUIFunctions.compOrientation(basePanel);
         return this.basePanel;
     }
 
@@ -185,7 +181,7 @@ public class BungeniNoaFrame extends BungeniFrame {
                     bundle.getString("bungeninoaframe.cancel_close")
                 };
                 JFrame aFrame = (JFrame) windowEvent.getSource();
-                CommonEditorFunctions.compOrientation(aFrame);
+                CommonUIFunctions.compOrientation(aFrame);
        
                 ArrayList<DocumentComposition> unsavedDCompositions = getUnsavedDocuments();
                 if (unsavedDCompositions.size() > 0) {

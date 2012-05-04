@@ -5,17 +5,22 @@ package org.bungeni.extutils;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.ComponentOrientation;
 import java.awt.Container;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 
 /**
  *
+ * All UI Related common functions
+ *
  * @author Ashok Hariharan
  */
 public class CommonUIFunctions {
+
     public static void setPanelBackground(JPanel panel) {
         String genBackColor = BungeniEditorProperties.getEditorProperty("genericPanelBackColor");
 
@@ -75,4 +80,26 @@ public class CommonUIFunctions {
 
         return null;
     }
+
+
+
+    /**
+     * Changes the Orientation of the components depending on the Locale
+     *
+     * @param comp Component handle
+     */
+     public static void compOrientation(Component comp)
+     {
+       //!+ORIENTATION(ah, 03-05-2012) - original version by smr.ayesh was appling orientation
+       //as Container, added a fallback if it isnt a container, to use the regular Component class
+       //apply orientation api
+       //!+ORIENTATION(ah, 04-05-2012) - moved to CommonUIFunctions 
+       if (comp instanceof Container) {
+            ((Container)comp).applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
+       } else {
+            comp.applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
+       }
+
+     }
+
 }

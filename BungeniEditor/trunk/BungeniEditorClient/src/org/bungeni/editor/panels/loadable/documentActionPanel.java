@@ -38,7 +38,7 @@ import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.editor.toolbar.target.BungeniToolbarTargetProcessor;
 import org.bungeni.editor.toolbar.conditions.BungeniToolbarConditionProcessor;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
-import org.bungeni.extutils.CommonEditorFunctions;
+import org.bungeni.extutils.CommonUIFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 import org.jdom.Element;
 
@@ -58,7 +58,7 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
     /** Creates new form holderUIPanel */
     public documentActionPanel() {
         initComponents();
-        CommonEditorFunctions.compOrientation(this);
+        CommonUIFunctions.compOrientation(this);
     }
 
 

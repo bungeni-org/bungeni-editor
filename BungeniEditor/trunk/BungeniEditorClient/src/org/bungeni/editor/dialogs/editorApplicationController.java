@@ -46,6 +46,7 @@ import org.bungeni.extutils.BungeniFrame;
 import org.bungeni.extutils.BungeniRuntimeProperties;
 import org.bungeni.extutils.CommonEditorFunctions;
 import org.bungeni.extutils.CommonFileFunctions;
+import org.bungeni.extutils.CommonUIFunctions;
 import org.bungeni.extutils.CommonXmlUtils;
 import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.extutils.MessageBox;
@@ -157,7 +158,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         //initDataReader();
         initLaunchLabels();
 
-        CommonEditorFunctions.compOrientation(this);
+        CommonUIFunctions.compOrientation(this);
         //if(Locale.getDefault().getLanguage().equals("ar") && Locale.getDefault().getCountry().equals("PS") )
         //    CommonEditorFunctions.compOrientation(this);
     }

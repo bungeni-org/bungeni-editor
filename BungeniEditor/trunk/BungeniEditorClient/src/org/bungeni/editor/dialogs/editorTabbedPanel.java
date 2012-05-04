@@ -103,7 +103,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
     public void init(DocumentComposition dc) {
         initMain(dc.getDocument().getXComponent());
         initComponents();
-        CommonEditorFunctions.compOrientation(this);
+        CommonUIFunctions.compOrientation(this);
        
         initProviders();
         log.debug("calling initOpenDOcuments");
