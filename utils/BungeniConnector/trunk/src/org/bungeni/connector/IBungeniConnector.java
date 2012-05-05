@@ -29,6 +29,7 @@ public interface IBungeniConnector {
      */
     public List<Member> getMembers();
     public List<Bill> getBills();
+    public List<JudgementDomain> getJudgementDomains();
     public List<Act> getActs();
     public List<SourceType> getSourceTypes();
     public List<Motion> getMotions();
@@ -37,5 +38,6 @@ public interface IBungeniConnector {
     public List<Document> getDocuments();
     public List<Committee> getCommittees();
 
+  
 
 }
