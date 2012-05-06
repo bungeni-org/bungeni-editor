@@ -10,10 +10,13 @@
          doctype="judgement">
     <root visible="true">
         <actionGroup name="tabFavourites" visible="true" uimodel="wrap">
-            <title xml:lang="eng">Favourites</title>         
+            <title xml:lang="eng">Favourites</title>  
+            <title xml:lang="ara">المفضلة</title> 
+            
     
          <blockAction name="Preface" target="null" visible="true" condition="none">
-                <!--<title xml:lang="eng">Header</title>-->
+                <title xml:lang="eng">Header</title>
+                <title xml:lang="ara">عام</title>
                 
     	    
      	          <subaction name="Root" 
@@ -22,6 +25,7 @@
                              mode="TEXT_SELECTED_INSERT" 
                              target="Judgement_Body">
                              <title xml:lang="eng">Judgement Body</title>
+                             <title xml:lang="ara">محتوى الحكم</title>
                    </subaction>
 	          <subaction name="Masthead.selection" 
                              
@@ -30,7 +34,8 @@
                              target="make_Judgement_Header" 
                              visible="true" 
                              condition="cursorInSection:judgement :and: textSelected:true  :and: cursorInSection:judgement">
-                             <title xml:lang="eng">Judgement Header</title>    
+                             <title xml:lang="eng">Judgement Header</title>
+                             <title xml:lang="ara">دباجة الحكم</title> 
                    </subaction>
                    
                    
@@ -44,7 +49,8 @@
                              target="heading_judgementNo" 
                              visible="true" 
                              condition="cursorInSection:header :and: textSelected:true">
-                             <title xml:lang="eng">Judgement No</title>     
+                             <title xml:lang="eng">Judgement No</title>  
+                             <title xml:lang="ara">رقم الحكم</title> 
                   </subaction>
                   
                   
@@ -60,11 +66,12 @@
                              target="toolbarSubAction.makeJudgementHeader.make_judgement_title:heading_judgementtitle" 
                              visible="true" 
                              condition="cursorInSection:header :and: textSelected:true">
-                             <title xml:lang="eng">Judgement Title</title>     
+                             <title xml:lang="eng">Judgement Title</title> 
+                             <title xml:lang="ara">عنوان الحكم</title>
                                  
                   </subaction>
  		 <!-- heading -->
-	          <subaction name="Masthead.selection.judgementHeading" 
+	          <!--<subaction name="Masthead.selection.judgementHeading" 
                             
                              tooltip="Mark text as Judgement Heading" 
                              mode="TEXT_SELECTED_INSERT" 
@@ -72,8 +79,8 @@
                              visible="true" 
                              condition="cursorInSection:header :and: textSelected:true">
                              <title xml:lang="eng">Judgement Heading</title>      
-                  </subaction>
- 	          <subaction name="Masthead.selection.neutralCitation" 
+                  </subaction> -->
+ 	          <!--<subaction name="Masthead.selection.neutralCitation" 
                             
                              tooltip="Mark Neutral Citation" 
                              mode="TEXT_SELECTED_INSERT" 
@@ -81,10 +88,10 @@
                              visible="true" 
                              condition="cursorInSection:header :and: textSelected:true">
                              <title xml:lang="eng">Neutral Citation</title>    
-                 </subaction>
+                 </subaction>-->
                  
  		<!-- see neutral citation above -->
-                  <subaction name="Masthead.selection.caseNo" 
+                  <!-- <subaction name="Masthead.selection.caseNo" 
                             
                              tooltip="Select some text to mark it up as a Case No" 
                              mode="TEXT_SELECTED_INSERT" 
@@ -92,7 +99,7 @@
                              visible="true" 
                              condition="cursorInSection:header :and: textSelected:true">
                               <title xml:lang="eng">Case No</title>      
-                  </subaction>
+                  </subaction>-->
                   
                   <subaction name="Masthead.selection.judgementDate" 
                             
@@ -101,6 +108,7 @@
                              target="toolbarSubAction.makeMetadataReference.mark:mBungeniJudgementDate" 
                              visible="true" condition="cursorInSection:header :and: textSelected:true">
                              <title xml:lang="eng">Judgement Date</title> 
+                             <title xml:lang="ara">تاريخ الفصل</title> 
                   </subaction>
                   
                   <subaction name="Masthead.selection.judges" 
@@ -110,7 +118,8 @@
                              target="tabular_judge_reference" 
                              visible="true" 
                              condition="cursorInSection:header :and: textSelected:true">
-                              <title xml:lang="eng">Judges</title>     
+                              <title xml:lang="eng">Judges</title> 
+                               <title xml:lang="ara">القضاة</title>
                    </subaction>
                   
                   
@@ -123,7 +132,8 @@
                              target="toolbarSubAction.makeJudgementHeader.tabular_party_reference:BungeniPartyName" 
                              visible="true" 
                              condition="cursorInSection:header :and: textSelected:true">
-                              <title xml:lang="eng">parties</title>      
+                              <title xml:lang="eng">parties</title>
+                              <title xml:lang="ara">الأطراف</title> 
                              </subaction>
                   <subaction name="Masthead.selection.hearingDate" 
                              title="Hearing Date" 
@@ -132,12 +142,14 @@
                              target="toolbarSubAction.makeJudgementHeader.workflow_action:HearingDate" 
                              visible="true" 
                              condition="cursorInSection:header :and: textSelected:true">
-                             <title xml:lang="eng">Hearing Date</title>      
+                             <title xml:lang="eng">Hearing Date</title>
+                             <title xml:lang="ara">تاريخ الإستماع</title> 
                   </subaction>
 	  </blockAction>
     	   
            <blockAction name="Introduction.selection" target="null" visible="true" condition="none">
-                <title xml:lang="eng">Introduction</title> 
+                <title xml:lang="eng">Introduction</title>
+                <title xml:lang="ara">المقدمة</title> 
             
             
      	          <subaction name="Introduction.create" 
@@ -146,7 +158,8 @@
                              condition="sectionNotExists:intro* :and: textSelected:true  :and: cursorInSection:judgementBody" 
                              mode="TEXT_SELECTED_INSERT" 
                              target="makeIntroduction">
-                             <title xml:lang="eng">Create</title>     
+                             <title xml:lang="eng">Create</title> 
+                              <title xml:lang="ara">إنشاء مقدمة</title>
                   </subaction>
                   
                   
@@ -157,7 +170,8 @@
                           target="toolbarSubAction.makeIntroduction.make_introduction_heading:heading_introduction" 
                           visible="true" 
                           condition="textSelected:true :and: cursorInSection:intro[0-9]*" >
-                          <title xml:lang="eng">Heading</title>        
+                          <title xml:lang="eng">Heading</title>
+                          <title xml:lang="ara">العنوان</title> 
                    </action>
                    
                    
@@ -167,7 +181,8 @@
                           mode="TEXT_SELECTED_INSERT" 
                           target="make_Introduction_numheading" 
                           condition="textSelected:true :and: cursorInSection:intro[0-9]*" >
-                          <title xml:lang="eng">Mark Numbered Heading</title>      
+                          <title xml:lang="eng">Mark Numbered Heading</title> 
+                          <title xml:lang="ara">ترقيم المقدمة</title> 
                   </action>
                  
                  <action name="Introduction.num"
@@ -176,7 +191,8 @@
                           mode="TEXT_SELECTED_INSERT" 
                           target="make_Introduction_num" 
                           condition="textSelected:true :and: cursorInSection:int-lis[0-9]*" >
-                            <title xml:lang="eng">Mark Number</title>    
+                            <title xml:lang="eng">Mark Number</title> 
+                            <title xml:lang="ara">ترقيم فرعي</title>
                   </action>	
                  
                  
@@ -186,28 +202,30 @@
                           target="toolbarSubAction.makeIntroduction.make_introduction_heading:subheading_introduction" 
                           visible="true" 
                           condition="textSelected:true :and: cursorInSection:intro[0-9]*">
-                           <title xml:lang="eng">SubHeading</title>    
+                           <title xml:lang="eng">SubHeading</title>
+                           <title xml:lang="ara">عنوان فرعي</title>  
                           </action>
-	           <subaction name="Introduction.omissis" 
+	           <!--<subaction name="Introduction.omissis" 
                               title="Mark as Omissis" 
                               visible="true" 
                               condition="cursorInSection:intro[0-9]* :and: textSelected:true" 
                               mode="TEXT_SELECTED_INSERT" 
                               target="toolbarSubAction.makeOmissisSection.section_creation">
                                <title xml:lang="eng">Mark as Omissis</title>        
-                   </subaction>	
+                   </subaction>	-->
             </blockAction>
 	   
            <blockAction name="Introduction.selection" target="null" visible="true" condition="none">
                 <title xml:lang="eng">Background</title> 
-          
+                <title xml:lang="ara">وقائع</title>
      	          <subaction name="Background.create" 
                              title="Create" 
                              visible="true" 
                              condition="sectionNotExists:bg* :and: textSelected:true  :and: cursorInSection:judgementBody" 
                              mode="TEXT_SELECTED_INSERT" 
                              target="makeBackground">
-                              <title xml:lang="eng">Create</title>    
+                              <title xml:lang="eng">Create</title> 
+                              <title xml:lang="ara">إنشاء</title> 
                  </subaction>
                    
 		  <action name="Background.heading" 
@@ -216,7 +234,8 @@
                           target="toolbarSubAction.makeBackground.make_background_heading:heading_background" 
                           visible="true" 
                           condition="textSelected:true :and: cursorInSection:bg[0-9]*" >
-                          <title xml:lang="eng">Heading</title>     
+                          <title xml:lang="eng">Heading</title>
+                           <title xml:lang="ara">العنوان</title> 
                    </action>
                    
                    
@@ -226,7 +245,8 @@
                           mode="TEXT_SELECTED_INSERT" 
                           target="make_Background_numheading" 
                           condition="textSelected:true :and: cursorInSection:background[0-9]*" >
-                          <title xml:lang="eng">Mark Numbered Heading</title>      
+                          <title xml:lang="eng">Mark Numbered Heading</title> 
+                           <title xml:lang="ara">ترقيم الوقائع </title> 
                   </action>
                  
                  
@@ -236,7 +256,8 @@
                           mode="TEXT_SELECTED_INSERT" 
                           target="make_Background_num" 
                           condition="textSelected:true :and: cursorInSection:bac-lis[0-9]*" >
-                            <title xml:lang="eng">Mark Number</title>    
+                            <title xml:lang="eng">Mark Number</title> 
+                             <title xml:lang="ara">ترقيم فرعي</title>
                   </action>	 
                  
                   
@@ -246,20 +267,22 @@
                           target="toolbarSubAction.makeBackground.make_background_heading:subheading_background" 
                           visible="true" 
                           condition="textSelected:true :and: cursorInSection:bg[0-9]*" >
-                           <title xml:lang="eng">SubHeading</title>     
+                           <title xml:lang="eng">SubHeading</title> 
+                            <title xml:lang="ara">عنوان فرعي</title>  
                    </action>
-	           <subaction name="Background.omissis" 
+	           <!--<subaction name="Background.omissis" 
                               title="Mark as Omissis" 
                               visible="true" 
                               condition="cursorInSection:bg[0-9]* :and: textSelected:true" 
                               mode="TEXT_SELECTED_INSERT" 
                               target="toolbarSubAction.makeOmissisSection.section_creation">
                              <title xml:lang="eng">Mark as Omissis</title>        
-                   </subaction>	
+                   </subaction>	-->
 	  </blockAction>
     	    
             <blockAction name="Motivation.selection" target="null" visible="true" condition="none">
                 <title xml:lang="eng">Motivation</title> 
+                <title xml:lang="ara">المسببات</title> 
             
             
            
@@ -269,7 +292,8 @@
                              condition="sectionNotExists:motive* :and: textSelected:true  :and: cursorInSection:judgementBody" 
                              mode="TEXT_SELECTED_INSERT" 
                              target="makeMotivation">
-                             <title xml:lang="eng">Create</title>     
+                             <title xml:lang="eng">Create</title>
+                             <title xml:lang="ara">إنشاء</title> 
                    </subaction>
                    
                    
@@ -282,7 +306,8 @@
                           target="toolbarSubAction.makeMotivation.make_motivation_heading:heading_motivation" 
                           visible="true" 
                           condition="textSelected:true :and: cursorInSection:motive[0-9]*" >
-                           <title xml:lang="eng">Heading</title>     
+                           <title xml:lang="eng">Heading</title> 
+                           <title xml:lang="ara">العنوان</title> 
                   </action>
                   
 		  <action name="Motivation.numheading"
@@ -291,7 +316,8 @@
                           mode="TEXT_SELECTED_INSERT" 
                           target="make_motivation_numheading" 
                           condition="textSelected:true :and: cursorInSection:motive[0-9]*" >
-                          <title xml:lang="eng">Mark Numbered Heading</title>    
+                          <title xml:lang="eng">Mark Numbered Heading</title>
+                          <title xml:lang="ara">ترقيم المسببات</title>  
                   </action>	   
 		  <action name="Motivation.num"
                           title="Mark Number" 
@@ -299,7 +325,8 @@
                           mode="TEXT_SELECTED_INSERT" 
                           target="make_motivation_num" 
                           condition="textSelected:true :and: cursorInSection:mot-lis[0-9]*" >
-                            <title xml:lang="eng">Mark Number</title>    
+                            <title xml:lang="eng">Mark Number</title>
+                            <title xml:lang="ara">ترقيم فرعي</title>
                   </action>	   
  		 <action name="Motivation.subheading"
                          title="SubHeading" 
@@ -307,21 +334,23 @@
                          target="toolbarSubAction.makeMotivation.make_motivation_heading:subheading_motivation" 
                          visible="true" 
                          condition="textSelected:true :and: cursorInSection:motive[0-9]*" >
-                           <title xml:lang="eng">SubHeading</title>       
+                           <title xml:lang="eng">SubHeading</title> 
+                            <title xml:lang="ara">عنوان فرعي</title>  
                   </action>
                   
-	           <subaction name="Motivation.omissis"
+	          <!-- <subaction name="Motivation.omissis"
                               title="Mark as Omissis" 
                               visible="true" 
                               condition="cursorInSection:motive[0-9]* :and: textSelected:true" 
                               mode="TEXT_SELECTED_INSERT" 
                               target="toolbarSubAction.makeOmissisSection.section_creation">
                               <title xml:lang="eng">Mark as Omissis</title>    
-                    </subaction>	
+                    </subaction>-->	
 	 </blockAction>
          
          <blockAction name="Decision.selection" target="null" visible="true" condition="none">
-                <title xml:lang="eng">Decision</title> 
+                <title xml:lang="eng">Decision</title>
+                 <title xml:lang="ara">القرار</title> 
     	   
      	          <subaction name="Decision.create"
                              title="Create"
@@ -329,7 +358,8 @@
                              condition="sectionNotExists:decis* :and: textSelected:true :and: cursorInSection:judgementBody" 
                              mode="TEXT_SELECTED_INSERT" 
                              target="makeDecision">
-                              <title xml:lang="eng">Create</title>   
+                              <title xml:lang="eng">Create</title> 
+                              <title xml:lang="ara">إنشاء</title> 
                   </subaction>
 		  
                   <action name="Decision.heading" 
@@ -337,7 +367,8 @@
                           mode="TEXT_SELECTED_INSERT" 
                           target="toolbarSubAction.makeDecision.make_decision_heading:heading_decision" 
                           visible="true" condition="textSelected:true :and: cursorInSection:decis[0-9]*" >
-                          <title xml:lang="eng">Heading</title>      
+                          <title xml:lang="eng">Heading</title> 
+                          <title xml:lang="ara">العنوان</title> 
                   </action>
                   
                   
@@ -347,7 +378,8 @@
                           mode="TEXT_SELECTED_INSERT" 
                           target="make_Decision_numheading" 
                           condition="textSelected:true :and: cursorInSection:decision[0-9]*" >
-                      <title xml:lang="eng">Mark Numbered Heading</title>         
+                      <title xml:lang="eng">Mark Numbered Heading</title>
+                      <title xml:lang="ara">ترقيم القرار</title>
                   </action>
                   
                   
@@ -357,7 +389,8 @@
                           mode="TEXT_SELECTED_INSERT" 
                           target="make_Decision_num" 
                           condition="textSelected:true :and: cursorInSection:dec-lis[0-9]*" >
-                            <title xml:lang="eng">Mark Number</title>    
+                            <title xml:lang="eng">Mark Number</title>
+                             <title xml:lang="ara">ترقيم فرعي</title>
                   </action>	   
                   
                   
@@ -368,20 +401,22 @@
                           target="toolbarSubAction.makeDecision.make_decision_heading:subheading_decision" 
                           visible="true" 
                           condition="textSelected:true :and: cursorInSection:decis[0-9]*" >
-                          <title xml:lang="eng">SubHeading</title>    
+                          <title xml:lang="eng">SubHeading</title> 
+                          <title xml:lang="ara">عنوان فرعي</title> 
                    </action>
-	           <subaction name="Decision.omissis"
+	           <!--<subaction name="Decision.omissis"
                               title="Mark as Omissis" 
                               visible="true" 
                               condition="cursorInSection:decis[0-9]* :and: textSelected:true" 
                               mode="TEXT_SELECTED_INSERT" 
                               target="toolbarSubAction.makeOmissisSection.section_creation">
                               <title xml:lang="eng">Mark as Omissis</title>  
-                   </subaction>	
+                   </subaction>	-->
  	    </blockAction>
             
     	    <blockAction name="Conclusion.selection" target="null" visible="true" condition="none">
-                <title xml:lang="eng">Conclusion</title> 
+                <title xml:lang="eng">Conclusion</title>
+                <title xml:lang="ara">الخاتمة</title>
            
 	      
               
@@ -392,20 +427,23 @@
                          condition="sectionNotExists:concl* :and: textSelected:true :and: cursorInSection:judgement" 
                          mode="TEXT_SELECTED_INSERT" 
                          target="makeConclusion">
-                         <title xml:lang="eng">New</title>    
+                         <title xml:lang="eng">New</title>
+                         <title xml:lang="ara">جديد</title>
                </subaction>	
-	      <subaction name="Conclusion.omissis" 
+	     <!-- <subaction name="Conclusion.omissis" 
                          title="Mark as Omissis" 
                          visible="true" 
                          condition="cursorInSection:concl[0-9]* :and: textSelected:true" 
                          mode="TEXT_SELECTED_INSERT" 
                          target="toolbarSubAction.makeOmissisSection.section_creation">
                          <title xml:lang="eng">Mark as Omissis</title>    
-              </subaction>	
+              </subaction>-->	
 	    </blockAction>
 	</actionGroup> 
 	<actionGroup name="LongSections" visible="true" uimodel="scroll">
-            <title xml:lang="eng">Other Actions</title>    
+            <title xml:lang="eng">Other Actions</title>
+            <title xml:lang="ara"> اشياء اخرى</title>  
+<!--
            <blockAction name="scale.selection" target="null" visible="true" condition="none">
                 <title xml:lang="eng">Long Sections</title> 
        
@@ -424,6 +462,7 @@
                           visible="true" 
                           condition="sectionNotExists:bg[0-9]* :and: cursorInSection:judgement" >
                                <title xml:lang="eng">Background</title> 
+                               <title xml:lang="ara">الوقائع</title>
                               
                   </action>
  		  <action name="Motivation.scale_section"
@@ -431,7 +470,8 @@
                           mode="TEXT_SELECTED_INSERT" 
                           target="toolbarSubAction.makeMotivation.scale_section" 
                           visible="true" condition="sectionNotExists:motive[0-9]* :and: cursorInSection:judgement">
-                               <title xml:lang="eng">Motivation</title> 
+                               <title xml:lang="eng">Motivation</title>
+                               <title xml:lang="ara">المسببات</title>
                               
                   </action>
  		  <action name="Decision.scale_section" 
@@ -444,6 +484,8 @@
                            
                           </action>
 		</blockAction>
+                
+                -->
 	</actionGroup> 
     </root>
 </toolbar>
