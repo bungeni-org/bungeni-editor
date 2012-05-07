@@ -97,8 +97,7 @@
                 
                 
                 <!-- for <event> -->
-                
-                    <xsl:copy-of select="head" />    
+                <xsl:copy-of select="head" />    
                 
                 <xsl:copy-of select="field[
                     @name='status' or 
@@ -144,7 +143,6 @@
                 <!-- for <event> -->
                 <xsl:copy-of select="field[
                     @name='doc_type' or 
-                    @name='short_title' or
                     @name='acronym' or 
                     @name='long_title'
                     ]" />                

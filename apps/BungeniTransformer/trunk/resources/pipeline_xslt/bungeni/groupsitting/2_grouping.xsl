@@ -56,6 +56,14 @@
         </meetingType>
     </xsl:template>
     
+    <xsl:template match="field[@name='item_type']">
+        <itemType isA="TLCTerm">
+            <value type="xs:string">
+                <xsl:value-of select="." />                
+            </value>
+        </itemType>
+    </xsl:template>    
+    
     <xsl:template match="field[@name='convocation_type']">
         <convocationType isA="TLCTerm">
             <value type="xs:string">

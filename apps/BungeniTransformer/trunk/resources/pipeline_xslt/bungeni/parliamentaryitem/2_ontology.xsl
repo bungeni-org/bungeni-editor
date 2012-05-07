@@ -222,13 +222,11 @@
         </savedFile>
     </xsl:template>  
     
-    <!--
     <xsl:template match="field[@name='att_uuid']">
-        <attachedFileUuid>
+        <fileUuid type="xs:string">
             <xsl:value-of select="." />
-        </attachedFileUuid>
-    </xsl:template>    
-    -->
+        </fileUuid>
+    </xsl:template>
     
     <xsl:template match="field[@name='language']">
         <!-- !+RENDERED NOW as xml:lang on the legislativeItem
@@ -327,6 +325,12 @@
         </xsl:if>
     </xsl:template>
     
+    <xsl:template match="item_signatorie">
+        <signatory isA="TLCReference">
+            <xsl:apply-templates />
+        </signatory>
+    </xsl:template>     
+    
     <!-- Only for events -->
     
     
@@ -335,6 +339,12 @@
             <xsl:value-of select="." />
         </docId>
     </xsl:template> 
+    
+    <xsl:template match="field[@name='signatory_id']">
+        <signatoryId type="xs:integer" key="true">
+            <xsl:value-of select="." />
+        </signatoryId>
+    </xsl:template>     
     
     <xsl:template match="field[@name='acronym']">
         <acronym isA="TLCTerm">
