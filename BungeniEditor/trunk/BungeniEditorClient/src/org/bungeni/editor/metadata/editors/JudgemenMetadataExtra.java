@@ -17,11 +17,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.SwingWorker;
 import org.bungeni.connector.client.BungeniConnector;
-import org.bungeni.connector.element.Bill;
-//import org.bungeni.connector.element.Judgement;
-
-
-import org.bungeni.connector.element.MetadataInfo;
+import org.bungeni.connector.element.*;
 import org.bungeni.db.registryQueryDialog2;
 import org.bungeni.editor.config.DatasourceReader;
 import org.bungeni.extutils.BungeniEditorProperties;
@@ -76,12 +72,25 @@ public class JudgemenMetadataExtra extends BaseEditorDocMetadataDialog {
             String sDomain = docMetaModel.getItem("BungeniDomain");
             String sCourtType = docMetaModel.getItem("BungeniCourtType");
             String sIssuedOn = docMetaModel.getItem("BungeniIssuedOn");
+            String sRegionName = docMetaModel.getItem("BungeniRegionName");
+            String sLitigationType = docMetaModel.getItem("BungeniLitigationType");
            // String sLitigationType = docMetaModel.getItem("BungeniLitigationType");
           
            
             if (!CommonStringFunctions.emptyOrNull(sCaseNo)) {
                 this.txtCaseNumber.setText(sCaseNo);
             }
+            
+            if (!CommonStringFunctions.emptyOrNull(sRegionName)) {
+                this.regionNameCombobox.addItem(sRegionName);
+            }
+            
+             if (!CommonStringFunctions.emptyOrNull(sLitigationType)) {
+                this.litigationTybeCombobox.addItem(sLitigationType);
+            }
+            
+            
+            
             
             if (!CommonStringFunctions.emptyOrNull(sDomain)) {
                  this.domain.addItem(sDomain);
@@ -127,6 +136,18 @@ public class JudgemenMetadataExtra extends BaseEditorDocMetadataDialog {
                     if (metadata.get(i).getName().equalsIgnoreCase("BungeniCaseNo")) {
                         docMetaModel.setBungeniCaseNo(metadata.get(i).getValue());
                     }
+                    
+                    if (metadata.get(i).getName().equalsIgnoreCase("BungeniRegionName")) {
+                        docMetaModel.setBungeniRegionName(metadata.get(i).getValue());
+                    }
+                    
+                    if (metadata.get(i).getName().equalsIgnoreCase("BungeniLitigationType")) {
+                        docMetaModel.setBungeniLitigationType(metadata.get(i).getValue());
+                    }
+                    
+                    
+                    
+                    
                     if (metadata.get(i).getName().equalsIgnoreCase("BungeniDomain")) {
                         docMetaModel.setBungeniDomain(metadata.get(i).getValue());
                     }
@@ -172,31 +193,35 @@ public class JudgemenMetadataExtra extends BaseEditorDocMetadataDialog {
     
     private ComboBoxModel setCourtsNamesModel()
     {
-        DefaultComboBoxModel courtsNamesModel = null ;
-        String [] courtsNames = null ; // stores all the bill Names
-       
+        DefaultComboBoxModel judgementCourtsNamesModel = null ;
+        String [] judgementCourtsNames = null ; // stores all the bill Names
+        
+        // initialise the Bungeni Connector Client
+         BungeniConnector client = null ;
         try {
+            // initialize the data store client
+            client = CommonConnectorFunctions.getDSClient();
+
             // get the bills from the registry H2 db
-            List<Element> courtsList = DatasourceReader.getInstance().getDatasourceElements("judgementCourt", "court" );
-                courtsNames = new String[courtsList.size()];
-
-                // loop through extracting the acts
-                for (int i = 0 ; i < courtsList.size() ; i ++)
-                {
-                    // get the current act & extract the act Name
-                    Element currCourt = courtsList.get(i) ;
-                    courtsNames[i] = CommonXmlUtils.getLocalizedChildElementValue(currCourt, "name");
-                }
-
+            List<JudgementCourt> judgementCourtsList = client.getJudgementCourts() ;
+            judgementCourtsNames = new String[judgementCourtsList.size()] ;
+            
+            // loop through extracting the bills
+            for (int i = 0 ; i < judgementCourtsList.size() ; i ++)
+            {
+                // get the current bill & extract the bill Name
+                JudgementCourt currJudgementCourt = judgementCourtsList.get(i) ;
+                judgementCourtsNames[i] = currJudgementCourt.getNameByLang(Locale.getDefault().getLanguage());
+            }
 
             // create the default bills Names model
-            courtsNamesModel = new DefaultComboBoxModel(courtsNames) ;
+            judgementCourtsNamesModel = new DefaultComboBoxModel(judgementCourtsNames) ;
             
         } catch (IOException ex) {
             log.error(ex) ;
         }
 
-         return courtsNamesModel ;
+         return judgementCourtsNamesModel ;
     }
     
     
@@ -221,37 +246,118 @@ public class JudgemenMetadataExtra extends BaseEditorDocMetadataDialog {
      
      private ComboBoxModel setDomainNamesModel()
     {
-        DefaultComboBoxModel domainsNamesModel = null ;
-        String [] domainsNames = null ; // stores all the bill Names
-       
+        DefaultComboBoxModel judgementDomainsNamesModel = null ;
+        String [] judgementDomainsNames = null ; // stores all the bill Names
+        
+        // initialise the Bungeni Connector Client
+         BungeniConnector client = null ;
         try {
+            // initialize the data store client
+            client = CommonConnectorFunctions.getDSClient();
+
             // get the bills from the registry H2 db
-            List<Element> domainsList = DatasourceReader.getInstance().getDatasourceElements("judgementDomain", "domain" );
-                domainsNames = new String[domainsList.size()];
-
-                // loop through extracting the acts
-                for (int i = 0 ; i < domainsList.size() ; i ++)
-                {
-                    // get the current act & extract the act Name
-                    Element currDomain = domainsList.get(i) ;
-                    domainsNames[i] = CommonXmlUtils.getLocalizedChildElementValue(currDomain, "name");
-                }
-
+            List<JudgementDomain> judgementDomainsList = client.getJudgementDomains() ;
+            judgementDomainsNames = new String[judgementDomainsList.size()] ;
+            
+            // loop through extracting the bills
+            for (int i = 0 ; i < judgementDomainsList.size() ; i ++)
+            {
+                // get the current bill & extract the bill Name
+                JudgementDomain currJudgementDomain = judgementDomainsList.get(i) ;
+                judgementDomainsNames[i] = currJudgementDomain.getNameByLang(Locale.getDefault().getLanguage());
+            }
 
             // create the default bills Names model
-            domainsNamesModel = new DefaultComboBoxModel(domainsNames) ;
+            judgementDomainsNamesModel = new DefaultComboBoxModel(judgementDomainsNames) ;
             
         } catch (IOException ex) {
             log.error(ex) ;
         }
 
-         return domainsNamesModel ;
+         return judgementDomainsNamesModel ;
     }
+     
+     
+      private ComboBoxModel  setLitigationNamesModel()
+    {
+        DefaultComboBoxModel judgementLitigationTypesNamesModel = null ;
+        String [] judgementLitigationTypesNames = null ; // stores all the bill Names
+        
+        // initialise the Bungeni Connector Client
+         BungeniConnector client = null ;
+        try {
+            // initialize the data store client
+            client = CommonConnectorFunctions.getDSClient();
+
+            // get the bills from the registry H2 db
+            List<JudgementLitigationType> judgementLitigationTypesList = client.getJudgementLitigationTypes() ;
+            judgementLitigationTypesNames = new String[judgementLitigationTypesList.size()] ;
+            
+            // loop through extracting the bills
+            for (int i = 0 ; i < judgementLitigationTypesList.size() ; i ++)
+            {
+                // get the current bill & extract the bill Name
+                JudgementLitigationType currJudgementLitigationType = judgementLitigationTypesList.get(i) ;
+                judgementLitigationTypesNames[i] = currJudgementLitigationType.getNameByLang(Locale.getDefault().getLanguage());
+            }
+
+            // create the default bills Names model
+            judgementLitigationTypesNamesModel = new DefaultComboBoxModel(judgementLitigationTypesNames) ;
+            
+        } catch (IOException ex) {
+            log.error(ex) ;
+        }
+
+         return judgementLitigationTypesNamesModel ;
+    }
+      
+      
+      
+      
+    private ComboBoxModel  settRegionNamesModel()
+    {
+        DefaultComboBoxModel judgementRegionsNamesModel = null ;
+        String [] judgementRegionsNames = null ; // stores all the bill Names
+        
+        // initialise the Bungeni Connector Client
+         BungeniConnector client = null ;
+        try {
+            // initialize the data store client
+            client = CommonConnectorFunctions.getDSClient();
+
+            // get the bills from the registry H2 db
+            List<JudgementRegion> judgementRegionsList = client.getJudgementRegions() ;
+            judgementRegionsNames = new String[judgementRegionsList.size()] ;
+            
+            // loop through extracting the bills
+            for (int i = 0 ; i < judgementRegionsList.size() ; i ++)
+            {
+                // get the current bill & extract the bill Name
+                JudgementRegion currJudgementRegion = judgementRegionsList.get(i) ;
+                judgementRegionsNames[i] = currJudgementRegion.getNameByLang(Locale.getDefault().getLanguage());
+            }
+
+            // create the default bills Names model
+            judgementRegionsNamesModel = new DefaultComboBoxModel(judgementRegionsNames) ;
+            
+        } catch (IOException ex) {
+            log.error(ex) ;
+        }
+
+         return judgementRegionsNamesModel ;
+    }  
+     
+     
+    
 
     public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
     boolean bState = false;
     try {
     String sCaseNo = this.txtCaseNumber.getText();
+    String sRegionName = (String) this.regionNameCombobox.getSelectedItem();
+    String sLitigationType = (String) this.litigationTybeCombobox.getSelectedItem();
+    
+    
     String sDomain  = (String) this.domain.getSelectedItem();
     String scourtType = (String) this.courtNameCombobox.getSelectedItem();
     
@@ -273,6 +379,11 @@ public class JudgemenMetadataExtra extends BaseEditorDocMetadataDialog {
       // final String strDateOfCommencement = dformatter.format(this.dt_dateofcommencement.getDate());
        // docMetaModel.updateItem("BungeniParliamentID")
         docMetaModel.updateItem("BungeniCaseNo", sCaseNo);
+        docMetaModel.updateItem("BungeniRegionName", sRegionName);
+        docMetaModel.updateItem("BungeniLitigationType", sLitigationType);
+        
+        
+        
         docMetaModel.updateItem("BungeniDomain", sDomain);
         docMetaModel.updateItem("BungeniCourtType", scourtType);
         docMetaModel.updateItem("BungeniIssuedOn", sIssuedOn);
@@ -307,6 +418,10 @@ public class JudgemenMetadataExtra extends BaseEditorDocMetadataDialog {
         lblCourtType = new javax.swing.JLabel();
         lblCaseNo = new javax.swing.JLabel();
         lblIssuedOn = new javax.swing.JLabel();
+        litigationTybeCombobox = new javax.swing.JComboBox();
+        regionNameCombobox = new javax.swing.JComboBox();
+        lblLitigationType = new javax.swing.JLabel();
+        lblRegion = new javax.swing.JLabel();
 
         txtCaseNumber.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         txtCaseNumber.addActionListener(new java.awt.event.ActionListener() {
@@ -335,6 +450,14 @@ public class JudgemenMetadataExtra extends BaseEditorDocMetadataDialog {
 
         lblIssuedOn.setText(bundle.getString("JudgemenMetadataExtra.lblIssuedOn.text")); // NOI18N
 
+        litigationTybeCombobox.setModel(setLitigationNamesModel());
+
+        regionNameCombobox.setModel(settRegionNamesModel());
+
+        lblLitigationType.setText(bundle.getString("JudgemenMetadataExtra.lblLitigationType.text")); // NOI18N
+
+        lblRegion.setText(bundle.getString("JudgemenMetadataExtra.lblRegion.text")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -342,43 +465,55 @@ public class JudgemenMetadataExtra extends BaseEditorDocMetadataDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dt_issuedOn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dt_issuedOn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblCourtType)
-                                    .addComponent(courtNameCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblIssuedOn)
                             .addComponent(txtCaseNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCaseNo)
+                            .addComponent(lblCaseNo))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblLitigationType)
+                            .addComponent(lblCourtType)
+                            .addComponent(litigationTybeCombobox, 0, 123, Short.MAX_VALUE)
+                            .addComponent(courtNameCombobox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblRegion)
                             .addComponent(lblDomainNo)
-                            .addComponent(domain, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblIssuedOn))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(domain, 0, 108, Short.MAX_VALUE)
+                            .addComponent(regionNameCombobox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(36, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(lblCourtType)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCourtType)
+                    .addComponent(lblDomainNo))
                 .addGap(9, 9, 9)
-                .addComponent(courtNameCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addComponent(lblDomainNo)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(courtNameCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(domain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(domain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblCaseNo)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblLitigationType)
+                    .addComponent(lblRegion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(litigationTybeCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(regionNameCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(lblCaseNo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtCaseNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblIssuedOn)
-                .addGap(4, 4, 4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(dt_issuedOn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -413,7 +548,7 @@ public class JudgemenMetadataExtra extends BaseEditorDocMetadataDialog {
                     // search for the billNo
                     for (Bill bill : billsList)
                     {
-                        if (selectedBill.equals(bill.getName())) {
+                        if (selectedBill.equals(bill.getNameByLang(Locale.getDefault().getLanguage()))) {
                             billNo = bill.getId().toString() ;
                             return billNo ;
                         }
@@ -453,6 +588,10 @@ public class JudgemenMetadataExtra extends BaseEditorDocMetadataDialog {
     private javax.swing.JLabel lblCourtType;
     private javax.swing.JLabel lblDomainNo;
     private javax.swing.JLabel lblIssuedOn;
+    private javax.swing.JLabel lblLitigationType;
+    private javax.swing.JLabel lblRegion;
+    private javax.swing.JComboBox litigationTybeCombobox;
+    private javax.swing.JComboBox regionNameCombobox;
     private javax.swing.JTextField txtCaseNumber;
     // End of variables declaration//GEN-END:variables
 

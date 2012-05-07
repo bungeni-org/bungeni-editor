@@ -15,17 +15,22 @@ public class JudgementMetadataModel extends BaseEditorDocMetaModel {
     public static final String[] GROUPED_METADATA = {  };
     
     private String BungeniCaseNo = "";
+    private String BungeniRegionName = "";
+    private String BungeniLitigationType = "";
+    
+    
     private String BungeniDomain = "";
     private String BungeniCourtType = "";
     private String BungeniIssuedOn = "";
     
     
-    private String BungeniLitigationType = "";
+   
     
    
     
     public static final String[] THIS_METAMODEL   = {  
         "BungeniCaseNo",
+        "BungeniRegionName",
         "BungeniDomain",
         "BungeniCourtType",
         "BungeniIssuedOn",
@@ -40,10 +45,10 @@ public class JudgementMetadataModel extends BaseEditorDocMetaModel {
     public void setup() {
         super.setup();
          this.docMeta.put("BungeniCaseNo", BungeniCaseNo);
+         this.docMeta.put("BungeniRegionName", BungeniCaseNo);
          this.docMeta.put("BungeniDomain", BungeniDomain);
          this.docMeta.put("BungeniCourtType", BungeniCourtType);
          this.docMeta.put("BungeniIssuedOn", BungeniIssuedOn);
-         
          this.docMeta.put("BungeniLitigationType", BungeniDomain);
          
         for (String sMeta : THIS_METAMODEL) {
@@ -69,6 +74,17 @@ public class JudgementMetadataModel extends BaseEditorDocMetaModel {
     public void setBungeniCaseNo(String BungeniCaseNo) {
         this.BungeniCaseNo = BungeniCaseNo;
     }
+    
+    public String getBungeniRegionName() {
+        return BungeniRegionName;
+    }
+
+    public void setBungeniRegionName(String BungeniCaseNo) {
+        this.BungeniRegionName = BungeniCaseNo;
+    }
+    
+    
+    
     
      public String getBungeniDomain() {
         return BungeniDomain;
