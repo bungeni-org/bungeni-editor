@@ -10,12 +10,9 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.TreeMap;
-import java.util.Vector;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
+import javax.lang.model.element.Name;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -123,7 +120,7 @@ public class BillMetadata extends BaseEditorDocMetadataDialog {
             {
                 // get the current bill & extract the bill Name
                 Bill currBill = billsList.get(i) ;
-                billsNames[i] = currBill.getName() ;
+                billsNames[i] = currBill.getNameByLang(Locale.getDefault().getLanguage());
             }
 
             // create the default bills Names model
@@ -283,12 +280,11 @@ public class BillMetadata extends BaseEditorDocMetadataDialog {
                     // search for the billNo
                     for (Bill bill : billsList)
                     {
-                        if (selectedBill.equals(bill.getName())) {
+                        if (selectedBill.equals(bill)) {
                             billNo = bill.getId().toString() ;
                             return billNo ;
                         }
                     }
-
                     return billNo ;
                 }
 
