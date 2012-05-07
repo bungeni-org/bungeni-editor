@@ -7,14 +7,7 @@ import com.sun.star.text.XTextViewCursor;
 import java.awt.Component;
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
-import java.util.Vector;
+import java.util.*;
 import javax.swing.AbstractButton;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
@@ -94,7 +87,7 @@ public class Committees extends BaseMetadataPanel {
                 // add the results for each of the fields
                 // to the currRes
                 currRes.add(committee.getId());
-                currRes.add(committee.getName());
+                currRes.add(committee.getNameByLang(Locale.getDefault().getLanguage()));
                 currRes.add(committee.getURI());
                 currRes.add(committee.getCountry());
 
