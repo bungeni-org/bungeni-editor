@@ -5,12 +5,7 @@ import com.sun.star.text.XTextViewCursor;
 import java.awt.Component;
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 import javax.swing.AbstractButton;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
@@ -77,7 +72,7 @@ public class Bills extends BaseMetadataPanel {
                 mdl.setRowCount(bills.size());
                 for (int i = 0; i < bills.size(); i++) {
                     Bill bill = bills.get(i);
-                    mdl.setValueAt(bill.getName(), i, 0);
+                    mdl.setValueAt(bill.getNameByLang(Locale.getDefault().getLanguage()), i, 0);
                     mdl.setValueAt(bill.getUri(), i, 1);
                     mdl.setValueAt(bill.getOntology(), i, 2);
                 }
