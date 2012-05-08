@@ -47,17 +47,25 @@
             Take country_id as opposed to $country-code as with other documents 
         -->
         <ontology for="address">
-            <address id="bungeniAddress" isA="TLCConcept" >
+            <address isA="TLCConcept" >
                 <xsl:attribute name="xml:lang">
-                    <xsl:value-of select="field[@name='language']" />
-                </xsl:attribute>                
+                    <xsl:value-of select="country/field[@name='language']" />
+                </xsl:attribute>            
                 <!-- !+NOTE (ao, jan-2012) 
                     This generally takes the $group-type but its not being always set for address document
                      such as those for individuals like a clerk. This is simply stop-gap measure whilst this 
-                     issue is pending. -->
-                <xsl:attribute name="type" select="$content-type" />                
+                     issue is pending. -->            
 
-                <xsl:attribute name="id" select="$address_id" />                
+                <xsl:attribute name="id">
+                    <xsl:choose>
+                        <xsl:when test="field[@name='group_id']">
+                            <xsl:text>bungeniGroupAddress</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>bungeniPersonAddress</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:attribute>                
                 
                 <xsl:variable name="full-user-identifier"
                     select="concat($country-code, '.',
@@ -65,12 +73,12 @@
                                     head/field[@name='first_name'], '.', 
                                     head/field[@name='date_of_birth'], '.', 
                                     head/field[@name='user_id'])" />   
-                
+                        
                 <xsl:variable name="full-group-identifier" 
-                    select="concat('group.',$for-parliament,'-',
+                    select="concat( bctype:get_content_type_uri_name($group-type, $type-mappings), '.',$for-parliament,'-',
                                     $parliament-election-date,'-',
-                                    $parliament-id, '.',
-                                    $group-type,'.',$group_id)" />   
+                                    $parliament-id, '.','group',
+                                    '.',$group_id)" /> 
                 
                 <!-- !+URI_GENERATOR,!+FIX_THIS(ah,nov-2011) use ontology uri
                 for group since its non-document entity -->
@@ -83,7 +91,7 @@
                     <xsl:attribute name="uri">
                         <xsl:choose>
                             <xsl:when test="field[@name='group_id']">
-                                <xsl:value-of select="concat('/ontology/',$group-type ,'/',$full-group-identifier)" />
+                                <xsl:value-of select="concat('/ontology/',bctype:get_content_type_uri_name($group-type, $type-mappings) ,'/',$full-group-identifier)" />
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:value-of select="concat('/ontology/Person/',$full-user-identifier)">          
@@ -135,9 +143,11 @@
                                             @name='iso3' or                                          
                                             @name='country_id' ]"></xsl:copy-of>
                 
-                <group-type>
-                    <xsl:value-of select="$group-type"></xsl:value-of>
-                </group-type>                
+                <groupType isA="TLCTerm">
+                    <value type="xs:string">
+                        <xsl:value-of select="bctype:get_content_type_uri_name($group-type, $type-mappings)"></xsl:value-of>                        
+                    </value>
+                </groupType>                        
                 <xsl:copy-of select="permissions" />                
             </address>
             <!--    !+FIX_THIS (ao, jan 2012. Some address documents for individuals like clerk dont have 'type' field and 

@@ -200,7 +200,7 @@
     <xsl:template match="field[@name='type']">
         <type isA="TLCTerm">
             <value type="xs:string">
-            <xsl:value-of select="." />
+                <xsl:value-of select="bctypes:get_content_type_element_name(., $type-mappings)" />
             </value>
         </type>
     </xsl:template>    
@@ -209,7 +209,7 @@
     <xsl:template match="field[@name='audit_type']">
         <auditFor isA="TLCTerm">
             <value type="xs:string">
-                <xsl:value-of select="." />
+                <xsl:value-of select="bctypes:get_content_type_element_name(., $type-mappings)" />
             </value>
         </auditFor>
     </xsl:template>    
