@@ -8,20 +8,20 @@ import java.util.List;
  *
  * @author Dave
  */
-public class Bill {
+public class JudgementDomain {
 
     private Integer id;
     private List name = new ArrayList();
     private String uri;
     private String ontology;
     private String country;
-    public static final String PACKAGE_ALIAS = "bills";
-    public static final String CLASS_ALIAS = "bill";
+    public static final String PACKAGE_ALIAS = "judgementDomains";
+    public static final String CLASS_ALIAS = "judgementDomain";
     
-    public Bill() {
+    public JudgementDomain() {
     }
 
-    public Bill(Integer id, Name name, String uri, String ontology, String country) {
+    public JudgementDomain(Integer id, Name name, String uri, String ontology, String country) {
         this.id = id;
         this.name.add(name);
         this.uri = uri;
@@ -77,9 +77,6 @@ public class Bill {
                  break;
              }
          }
-            if(value == null){
-                value = ((Name)name.get(0)).getValue();
-            }
             return value;
     }
 }

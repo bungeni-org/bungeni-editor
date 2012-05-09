@@ -27,6 +27,78 @@ public class ClientTest {
         BungeniConnector b = new BungeniConnector();
         b.init(cp);
         
+        
+   List<Bill> bills = b.getBills();
+
+        if (bills != null) {
+            System.out.println(":::::::::::::::BILLS:::::::::::::::::::");
+            for (int i = 0; i < bills.size(); i++) {
+                System.out.println(" id:  " + bills.get(i).getId());
+                for(Name objName: (List<Name>)bills.get(i).getNames()){
+                    System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
+                }
+            }
+        }
+      
+            
+     
+     List<JudgementRegion> judgementRegions = b.getJudgementRegions();
+
+        if (judgementRegions != null) {
+            System.out.println(":::::::::::::::judgement Regions:::::::::::::::::::");
+            for (int i = 0; i < judgementRegions.size(); i++) {
+                System.out.println(" id:  " + judgementRegions.get(i).getId());
+                for(Name objName: (List<Name>)judgementRegions.get(i).getNames()){
+                    System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
+                }
+            }
+        }          
+                
+            
+            
+         
+      List<JudgementLitigationType> judgementLitigationTypes = b.getJudgementLitigationTypes();
+
+        if (judgementLitigationTypes != null) {
+            System.out.println(":::::::::::::::judgement LitigationType:::::::::::::::::::");
+            for (int i = 0; i < judgementLitigationTypes.size(); i++) {
+                System.out.println(" id:  " + judgementLitigationTypes.get(i).getId());
+                for(Name objName: (List<Name>)judgementLitigationTypes.get(i).getNames()){
+                    System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
+                }
+            }
+        }          
+         
+                
+       List<JudgementCourt> judgementCourts = b.getJudgementCourts();
+
+        if (judgementCourts != null) {
+            System.out.println(":::::::::::::::judgement Court:::::::::::::::::::");
+            for (int i = 0; i < judgementCourts.size(); i++) {
+                System.out.println(" id:  " + judgementCourts.get(i).getId());
+                for(Name objName: (List<Name>)judgementCourts.get(i).getNames()){
+                    System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
+                }
+            }
+        }          
+                
+                
+        
+        List<JudgementDomain> judgementDomains = b.getJudgementDomains();
+
+        if (judgementDomains != null) {
+            System.out.println(":::::::::::::::judgementDomain:::::::::::::::::::");
+            for (int i = 0; i < judgementDomains.size(); i++) {
+                System.out.println(" id:  " + judgementDomains.get(i).getId());
+                for(Name objName: (List<Name>)judgementDomains.get(i).getNames()){
+                    System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
+                }
+            }
+        } 
+        
+        
+        
+        
          List<Act> acts = b.getActs();
 
         if (acts != null) {
@@ -56,18 +128,6 @@ public class ClientTest {
             System.out.println(":::::::::::::::MEMBERS:::::::::::::::::::");
             for (int i = 0; i < members.size(); i++) {
                 System.out.println(members.get(i).getFirst() + " " + members.get(i).getLast());
-            }
-        }
-
-        List<Bill> bills = b.getBills();
-
-        if (bills != null) {
-            System.out.println(":::::::::::::::BILLS:::::::::::::::::::");
-            for (int i = 0; i < bills.size(); i++) {
-                System.out.println(" id:  " + bills.get(i).getId());
-                for(Name objName: (List<Name>)bills.get(i).getNames()){
-                    System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
-                }
             }
         }
 

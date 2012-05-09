@@ -4141,3 +4141,1446 @@ DataSourceServer() constructor
 Client Connection Closed
 Connector Closed
 DataSourceServer stopped
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getActs(XMLBungeniConnector.java:258)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:20)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getBills(XMLBungeniConnector.java:226)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:33)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getMotions(XMLBungeniConnector.java:308)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:43)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getQuestions(XMLBungeniConnector.java:331)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:52)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getSourceTypes(XMLBungeniConnector.java:283)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:62)
+Error : null
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getMetadataInfo(XMLBungeniConnector.java:355)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:74)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getActs(XMLBungeniConnector.java:258)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:20)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getBills(XMLBungeniConnector.java:226)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:33)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getMotions(XMLBungeniConnector.java:308)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:43)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getQuestions(XMLBungeniConnector.java:331)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:52)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getSourceTypes(XMLBungeniConnector.java:283)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:62)
+Error : null
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getMetadataInfo(XMLBungeniConnector.java:355)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:74)
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+Client Connection Closed
+Connector Closed
+DataSourceServer stopped
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+http://localhost:44899/current/judgmentDomains did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:85)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementDomains(BungeniConnector.java:110)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:30)
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+http://localhost:44899/current/judgmentDomains did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:85)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementDomains(BungeniConnector.java:110)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:30)
+DataSourceServer() constructor
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+file:/C:/Users/bzuadmin/Desktop/BungeniConnector/trunk/settings/datasource/xml/judgementDomains.xml
+com.thoughtworks.xstream.mapper.CannotResolveClassException: judgmentDomains : judgmentDomains
+	at com.thoughtworks.xstream.mapper.DefaultMapper.realClass(DefaultMapper.java:68)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.DynamicProxyMapper.realClass(DynamicProxyMapper.java:71)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.PackageAliasingMapper.realClass(PackageAliasingMapper.java:88)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.ClassAliasingMapper.realClass(ClassAliasingMapper.java:86)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.ArrayMapper.realClass(ArrayMapper.java:96)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.CachingMapper.realClass(CachingMapper.java:52)
+	at com.thoughtworks.xstream.core.util.HierarchicalStreams.readClassType(HierarchicalStreams.java:29)
+	at com.thoughtworks.xstream.core.TreeUnmarshaller.start(TreeUnmarshaller.java:136)
+	at com.thoughtworks.xstream.core.AbstractTreeMarshallingStrategy.unmarshal(AbstractTreeMarshallingStrategy.java:33)
+	at com.thoughtworks.xstream.XStream.unmarshal(XStream.java:923)
+	at com.thoughtworks.xstream.XStream.unmarshal(XStream.java:909)
+	at com.thoughtworks.xstream.XStream.fromXML(XStream.java:853)
+	at com.thoughtworks.xstream.XStream.fromXML(XStream.java:845)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getJudgementDomains(XMLBungeniConnector.java:288)
+	at org.bungeni.connector.restlet.current.JudgementDomainsRestlet.handle(JudgementDomainsRestlet.java:34)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Router.doHandle(Router.java:497)
+	at org.restlet.routing.Router.handle(Router.java:737)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.engine.application.StatusFilter.doHandle(StatusFilter.java:151)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.engine.ChainHelper.handle(ChainHelper.java:111)
+	at org.restlet.engine.application.ApplicationHelper.handle(ApplicationHelper.java:72)
+	at org.restlet.Application.handle(Application.java:388)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Router.doHandle(Router.java:497)
+	at org.restlet.routing.Router.handle(Router.java:737)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Router.doHandle(Router.java:497)
+	at org.restlet.routing.Router.handle(Router.java:737)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.engine.application.StatusFilter.doHandle(StatusFilter.java:151)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.engine.ChainHelper.handle(ChainHelper.java:111)
+	at org.restlet.Component.handle(Component.java:387)
+	at org.restlet.Server.handle(Server.java:488)
+	at org.restlet.engine.http.connector.BaseServerHelper.handle(BaseServerHelper.java:158)
+	at org.restlet.engine.http.connector.BaseServerHelper.handleInbound(BaseServerHelper.java:167)
+	at org.restlet.engine.http.connector.BaseHelper.handleNextInbound(BaseHelper.java:418)
+	at org.restlet.engine.http.connector.Connection.readMessages(Connection.java:695)
+	at org.restlet.engine.http.connector.Controller$2.run(Controller.java:95)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+file:/C:/Users/bzuadmin/Desktop/BungeniConnector/trunk/settings/datasource/xml/judgementDomains.xml
+com.thoughtworks.xstream.mapper.CannotResolveClassException: judgmentDomains : judgmentDomains
+	at com.thoughtworks.xstream.mapper.DefaultMapper.realClass(DefaultMapper.java:68)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.DynamicProxyMapper.realClass(DynamicProxyMapper.java:71)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.PackageAliasingMapper.realClass(PackageAliasingMapper.java:88)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.ClassAliasingMapper.realClass(ClassAliasingMapper.java:86)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.ArrayMapper.realClass(ArrayMapper.java:96)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.CachingMapper.realClass(CachingMapper.java:52)
+	at com.thoughtworks.xstream.core.util.HierarchicalStreams.readClassType(HierarchicalStreams.java:29)
+	at com.thoughtworks.xstream.core.TreeUnmarshaller.start(TreeUnmarshaller.java:136)
+	at com.thoughtworks.xstream.core.AbstractTreeMarshallingStrategy.unmarshal(AbstractTreeMarshallingStrategy.java:33)
+	at com.thoughtworks.xstream.XStream.unmarshal(XStream.java:923)
+	at com.thoughtworks.xstream.XStream.unmarshal(XStream.java:909)
+	at com.thoughtworks.xstream.XStream.fromXML(XStream.java:853)
+	at com.thoughtworks.xstream.XStream.fromXML(XStream.java:845)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getJudgementDomains(XMLBungeniConnector.java:288)
+	at org.bungeni.connector.restlet.current.JudgementDomainsRestlet.handle(JudgementDomainsRestlet.java:34)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Router.doHandle(Router.java:497)
+	at org.restlet.routing.Router.handle(Router.java:737)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.engine.application.StatusFilter.doHandle(StatusFilter.java:151)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.engine.ChainHelper.handle(ChainHelper.java:111)
+	at org.restlet.engine.application.ApplicationHelper.handle(ApplicationHelper.java:72)
+	at org.restlet.Application.handle(Application.java:388)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Router.doHandle(Router.java:497)
+	at org.restlet.routing.Router.handle(Router.java:737)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Router.doHandle(Router.java:497)
+	at org.restlet.routing.Router.handle(Router.java:737)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.engine.application.StatusFilter.doHandle(StatusFilter.java:151)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.engine.ChainHelper.handle(ChainHelper.java:111)
+	at org.restlet.Component.handle(Component.java:387)
+	at org.restlet.Server.handle(Server.java:488)
+	at org.restlet.engine.http.connector.BaseServerHelper.handle(BaseServerHelper.java:158)
+	at org.restlet.engine.http.connector.BaseServerHelper.handleInbound(BaseServerHelper.java:167)
+	at org.restlet.engine.http.connector.BaseHelper.handleNextInbound(BaseHelper.java:418)
+	at org.restlet.engine.http.connector.Connection.readMessages(Connection.java:695)
+	at org.restlet.engine.http.connector.Controller$2.run(Controller.java:95)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+file:/C:/Users/bzuadmin/Desktop/BungeniConnector/trunk/settings/datasource/xml/judgementDomains.xml
+com.thoughtworks.xstream.mapper.CannotResolveClassException: judgmentDomains : judgmentDomains
+	at com.thoughtworks.xstream.mapper.DefaultMapper.realClass(DefaultMapper.java:68)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.DynamicProxyMapper.realClass(DynamicProxyMapper.java:71)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.PackageAliasingMapper.realClass(PackageAliasingMapper.java:88)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.ClassAliasingMapper.realClass(ClassAliasingMapper.java:86)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.ArrayMapper.realClass(ArrayMapper.java:96)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.CachingMapper.realClass(CachingMapper.java:52)
+	at com.thoughtworks.xstream.core.util.HierarchicalStreams.readClassType(HierarchicalStreams.java:29)
+	at com.thoughtworks.xstream.core.TreeUnmarshaller.start(TreeUnmarshaller.java:136)
+	at com.thoughtworks.xstream.core.AbstractTreeMarshallingStrategy.unmarshal(AbstractTreeMarshallingStrategy.java:33)
+	at com.thoughtworks.xstream.XStream.unmarshal(XStream.java:923)
+	at com.thoughtworks.xstream.XStream.unmarshal(XStream.java:909)
+	at com.thoughtworks.xstream.XStream.fromXML(XStream.java:853)
+	at com.thoughtworks.xstream.XStream.fromXML(XStream.java:845)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getJudgementDomains(XMLBungeniConnector.java:288)
+	at org.bungeni.connector.restlet.current.JudgementDomainsRestlet.handle(JudgementDomainsRestlet.java:34)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Router.doHandle(Router.java:497)
+	at org.restlet.routing.Router.handle(Router.java:737)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.engine.application.StatusFilter.doHandle(StatusFilter.java:151)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.engine.ChainHelper.handle(ChainHelper.java:111)
+	at org.restlet.engine.application.ApplicationHelper.handle(ApplicationHelper.java:72)
+	at org.restlet.Application.handle(Application.java:388)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Router.doHandle(Router.java:497)
+	at org.restlet.routing.Router.handle(Router.java:737)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Router.doHandle(Router.java:497)
+	at org.restlet.routing.Router.handle(Router.java:737)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.engine.application.StatusFilter.doHandle(StatusFilter.java:151)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.engine.ChainHelper.handle(ChainHelper.java:111)
+	at org.restlet.Component.handle(Component.java:387)
+	at org.restlet.Server.handle(Server.java:488)
+	at org.restlet.engine.http.connector.BaseServerHelper.handle(BaseServerHelper.java:158)
+	at org.restlet.engine.http.connector.BaseServerHelper.handleInbound(BaseServerHelper.java:167)
+	at org.restlet.engine.http.connector.BaseHelper.handleNextInbound(BaseHelper.java:418)
+	at org.restlet.engine.http.connector.Connection.readMessages(Connection.java:695)
+	at org.restlet.engine.http.connector.Controller$2.run(Controller.java:95)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+file:/C:/Users/bzuadmin/Desktop/BungeniConnector/trunk/settings/datasource/xml/judgementDomains.xml
+com.thoughtworks.xstream.mapper.CannotResolveClassException: judgmentDomains : judgmentDomains
+	at com.thoughtworks.xstream.mapper.DefaultMapper.realClass(DefaultMapper.java:68)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.DynamicProxyMapper.realClass(DynamicProxyMapper.java:71)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.PackageAliasingMapper.realClass(PackageAliasingMapper.java:88)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.ClassAliasingMapper.realClass(ClassAliasingMapper.java:86)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.ArrayMapper.realClass(ArrayMapper.java:96)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.CachingMapper.realClass(CachingMapper.java:52)
+	at com.thoughtworks.xstream.core.util.HierarchicalStreams.readClassType(HierarchicalStreams.java:29)
+	at com.thoughtworks.xstream.core.TreeUnmarshaller.start(TreeUnmarshaller.java:136)
+	at com.thoughtworks.xstream.core.AbstractTreeMarshallingStrategy.unmarshal(AbstractTreeMarshallingStrategy.java:33)
+	at com.thoughtworks.xstream.XStream.unmarshal(XStream.java:923)
+	at com.thoughtworks.xstream.XStream.unmarshal(XStream.java:909)
+	at com.thoughtworks.xstream.XStream.fromXML(XStream.java:853)
+	at com.thoughtworks.xstream.XStream.fromXML(XStream.java:845)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getJudgementDomains(XMLBungeniConnector.java:288)
+	at org.bungeni.connector.restlet.current.JudgementDomainsRestlet.handle(JudgementDomainsRestlet.java:34)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Router.doHandle(Router.java:497)
+	at org.restlet.routing.Router.handle(Router.java:737)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.engine.application.StatusFilter.doHandle(StatusFilter.java:151)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.engine.ChainHelper.handle(ChainHelper.java:111)
+	at org.restlet.engine.application.ApplicationHelper.handle(ApplicationHelper.java:72)
+	at org.restlet.Application.handle(Application.java:388)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Router.doHandle(Router.java:497)
+	at org.restlet.routing.Router.handle(Router.java:737)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Router.doHandle(Router.java:497)
+	at org.restlet.routing.Router.handle(Router.java:737)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.engine.application.StatusFilter.doHandle(StatusFilter.java:151)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.engine.ChainHelper.handle(ChainHelper.java:111)
+	at org.restlet.Component.handle(Component.java:387)
+	at org.restlet.Server.handle(Server.java:488)
+	at org.restlet.engine.http.connector.BaseServerHelper.handle(BaseServerHelper.java:158)
+	at org.restlet.engine.http.connector.BaseServerHelper.handleInbound(BaseServerHelper.java:167)
+	at org.restlet.engine.http.connector.BaseHelper.handleNextInbound(BaseHelper.java:418)
+	at org.restlet.engine.http.connector.Connection.readMessages(Connection.java:695)
+	at org.restlet.engine.http.connector.Controller$2.run(Controller.java:95)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+file:/C:/Users/bzuadmin/Desktop/BungeniConnector/trunk/settings/datasource/xml/judgementDomains.xml
+com.thoughtworks.xstream.mapper.CannotResolveClassException: judgmentDomains : judgmentDomains
+	at com.thoughtworks.xstream.mapper.DefaultMapper.realClass(DefaultMapper.java:68)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.DynamicProxyMapper.realClass(DynamicProxyMapper.java:71)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.PackageAliasingMapper.realClass(PackageAliasingMapper.java:88)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.ClassAliasingMapper.realClass(ClassAliasingMapper.java:86)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.ArrayMapper.realClass(ArrayMapper.java:96)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+	at com.thoughtworks.xstream.mapper.CachingMapper.realClass(CachingMapper.java:52)
+	at com.thoughtworks.xstream.core.util.HierarchicalStreams.readClassType(HierarchicalStreams.java:29)
+	at com.thoughtworks.xstream.core.TreeUnmarshaller.start(TreeUnmarshaller.java:136)
+	at com.thoughtworks.xstream.core.AbstractTreeMarshallingStrategy.unmarshal(AbstractTreeMarshallingStrategy.java:33)
+	at com.thoughtworks.xstream.XStream.unmarshal(XStream.java:923)
+	at com.thoughtworks.xstream.XStream.unmarshal(XStream.java:909)
+	at com.thoughtworks.xstream.XStream.fromXML(XStream.java:853)
+	at com.thoughtworks.xstream.XStream.fromXML(XStream.java:845)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getJudgementDomains(XMLBungeniConnector.java:288)
+	at org.bungeni.connector.restlet.current.JudgementDomainsRestlet.handle(JudgementDomainsRestlet.java:34)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Router.doHandle(Router.java:497)
+	at org.restlet.routing.Router.handle(Router.java:737)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.engine.application.StatusFilter.doHandle(StatusFilter.java:151)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.engine.ChainHelper.handle(ChainHelper.java:111)
+	at org.restlet.engine.application.ApplicationHelper.handle(ApplicationHelper.java:72)
+	at org.restlet.Application.handle(Application.java:388)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Router.doHandle(Router.java:497)
+	at org.restlet.routing.Router.handle(Router.java:737)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Router.doHandle(Router.java:497)
+	at org.restlet.routing.Router.handle(Router.java:737)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.engine.application.StatusFilter.doHandle(StatusFilter.java:151)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.routing.Filter.doHandle(Filter.java:156)
+	at org.restlet.routing.Filter.handle(Filter.java:203)
+	at org.restlet.engine.ChainHelper.handle(ChainHelper.java:111)
+	at org.restlet.Component.handle(Component.java:387)
+	at org.restlet.Server.handle(Server.java:488)
+	at org.restlet.engine.http.connector.BaseServerHelper.handle(BaseServerHelper.java:158)
+	at org.restlet.engine.http.connector.BaseServerHelper.handleInbound(BaseServerHelper.java:167)
+	at org.restlet.engine.http.connector.BaseHelper.handleNextInbound(BaseHelper.java:418)
+	at org.restlet.engine.http.connector.Connection.readMessages(Connection.java:695)
+	at org.restlet.engine.http.connector.Controller$2.run(Controller.java:95)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+http://localhost:44899/current/judgmentDomains did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:85)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementDomains(BungeniConnector.java:110)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:30)
+DataSourceServer() constructor
+loadProperties: loading datasourceserver properties file from settings/bungeni-connector.properties
+DataSourceServer() constructor
+loadProperties: loading datasourceserver properties file from settings/bungeni-connector.properties
+DataSourceServer() constructor
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+http://localhost:44899/current/judgementRegions did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementRegions(BungeniConnector.java:123)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:45)
+http://localhost:44899/current/judgementLitigationTypes did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementLitigationTypes(BungeniConnector.java:129)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:60)
+http://localhost:44899/current/judgementCourts did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementCourts(BungeniConnector.java:135)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:73)
+Client Connection Closed
+Connector Closed
+DataSourceServer stopped
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+http://localhost:44899/current/judgementRegions did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementRegions(BungeniConnector.java:123)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:45)
+http://localhost:44899/current/judgementLitigationTypes did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementLitigationTypes(BungeniConnector.java:129)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:60)
+http://localhost:44899/current/judgementCourts did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementCourts(BungeniConnector.java:135)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:73)
+Client Connection Closed
+Connector Closed
+DataSourceServer stopped
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+http://localhost:44899/current/judgementRegions did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementRegions(BungeniConnector.java:123)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:45)
+http://localhost:44899/current/judgementLitigationTypes did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementLitigationTypes(BungeniConnector.java:129)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:60)
+http://localhost:44899/current/judgementCourts did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementCourts(BungeniConnector.java:135)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:73)
+Client Connection Closed
+Connector Closed
+DataSourceServer stopped
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+http://localhost:44899/current/judgementRegions did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementRegions(BungeniConnector.java:123)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:45)
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+http://localhost:44899/current/judgementRegions did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementRegions(BungeniConnector.java:123)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:45)
+http://localhost:44899/current/judgementLitigationTypes did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementLitigationTypes(BungeniConnector.java:129)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:60)
+http://localhost:44899/current/judgementCourts did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementCourts(BungeniConnector.java:135)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:73)
+Client Connection Closed
+Connector Closed
+DataSourceServer stopped
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+http://localhost:44899/current/judgementRegions did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementRegions(BungeniConnector.java:123)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:44)
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+DataSourceServer() constructor
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getActs(XMLBungeniConnector.java:476)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:20)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getBills(XMLBungeniConnector.java:319)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:33)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getMotions(XMLBungeniConnector.java:526)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:43)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getQuestions(XMLBungeniConnector.java:549)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:52)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getSourceTypes(XMLBungeniConnector.java:501)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:62)
+Error : null
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getMetadataInfo(XMLBungeniConnector.java:573)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:74)
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+http://localhost:44899/current/judgementRegions did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementRegions(BungeniConnector.java:123)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:44)
+http://localhost:44899/current/judgementLitigationTypes did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementLitigationTypes(BungeniConnector.java:129)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:59)
+http://localhost:44899/current/judgementCourts did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementCourts(BungeniConnector.java:135)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:72)
+Client Connection Closed
+Connector Closed
+DataSourceServer stopped
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getActs(XMLBungeniConnector.java:476)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:20)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getBills(XMLBungeniConnector.java:319)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:33)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getMotions(XMLBungeniConnector.java:526)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:43)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getQuestions(XMLBungeniConnector.java:549)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:52)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getSourceTypes(XMLBungeniConnector.java:501)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:62)
+Error : null
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getMetadataInfo(XMLBungeniConnector.java:573)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:74)
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+http://localhost:44899/current/judgementRegions did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementRegions(BungeniConnector.java:123)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:44)
+http://localhost:44899/current/judgementLitigationTypes did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementLitigationTypes(BungeniConnector.java:129)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:59)
+http://localhost:44899/current/judgementCourts did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementCourts(BungeniConnector.java:135)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:72)
+Client Connection Closed
+Connector Closed
+DataSourceServer stopped
+DataSourceServer() constructor
+loadProperties: loading datasourceserver properties file from settings/bungeni-connector.properties
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+http://localhost:44899/current/judgementRegions did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementRegions(BungeniConnector.java:123)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:44)
+http://localhost:44899/current/judgementLitigationTypes did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementLitigationTypes(BungeniConnector.java:129)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:59)
+http://localhost:44899/current/judgementCourts did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementCourts(BungeniConnector.java:135)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:72)
+Client Connection Closed
+Connector Closed
+DataSourceServer stopped
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getActs(XMLBungeniConnector.java:476)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:20)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getBills(XMLBungeniConnector.java:319)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:33)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getMotions(XMLBungeniConnector.java:526)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:43)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getQuestions(XMLBungeniConnector.java:549)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:52)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getSourceTypes(XMLBungeniConnector.java:501)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:62)
+Error : null
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getMetadataInfo(XMLBungeniConnector.java:573)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:74)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getActs(XMLBungeniConnector.java:476)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:20)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getBills(XMLBungeniConnector.java:319)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:33)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getMotions(XMLBungeniConnector.java:526)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:43)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getQuestions(XMLBungeniConnector.java:549)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:52)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getSourceTypes(XMLBungeniConnector.java:501)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:62)
+Error : null
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getMetadataInfo(XMLBungeniConnector.java:573)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:74)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getActs(XMLBungeniConnector.java:476)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:20)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getBills(XMLBungeniConnector.java:319)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:33)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getMotions(XMLBungeniConnector.java:526)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:43)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getQuestions(XMLBungeniConnector.java:549)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:52)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getSourceTypes(XMLBungeniConnector.java:501)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:62)
+Error : null
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getMetadataInfo(XMLBungeniConnector.java:573)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:74)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getActs(XMLBungeniConnector.java:476)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:20)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getJudgementRegions(XMLBungeniConnector.java:378)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:33)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getJudgementLitigationTypes(XMLBungeniConnector.java:410)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:45)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getJudgementCourts(XMLBungeniConnector.java:442)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:58)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getJudgementDomains(XMLBungeniConnector.java:348)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:72)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getBills(XMLBungeniConnector.java:319)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:84)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getMotions(XMLBungeniConnector.java:526)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:94)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getQuestions(XMLBungeniConnector.java:549)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:103)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getSourceTypes(XMLBungeniConnector.java:501)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:113)
+Error : null
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getMetadataInfo(XMLBungeniConnector.java:573)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:125)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getActs(XMLBungeniConnector.java:476)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:20)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getJudgementRegions(XMLBungeniConnector.java:378)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:33)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getActs(XMLBungeniConnector.java:476)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:20)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getActs(XMLBungeniConnector.java:476)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:20)
+
+java.lang.NullPointerException
+	at org.bungeni.connector.impl.XMLBungeniConnector.getJudgementRegions(XMLBungeniConnector.java:389)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:33)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getActs(XMLBungeniConnector.java:476)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:20)
+
+java.lang.NullPointerException
+	at org.bungeni.connector.impl.XMLBungeniConnector.getJudgementRegions(XMLBungeniConnector.java:389)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:33)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getActs(XMLBungeniConnector.java:476)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:20)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getJudgementRegions(XMLBungeniConnector.java:380)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:33)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getActs(XMLBungeniConnector.java:476)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:20)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getJudgementRegions(XMLBungeniConnector.java:378)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:33)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getJudgementLitigationTypes(XMLBungeniConnector.java:410)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:45)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getJudgementCourts(XMLBungeniConnector.java:442)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:58)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getJudgementDomains(XMLBungeniConnector.java:348)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:72)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getBills(XMLBungeniConnector.java:319)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:84)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getMotions(XMLBungeniConnector.java:526)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:94)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getQuestions(XMLBungeniConnector.java:549)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:103)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getSourceTypes(XMLBungeniConnector.java:501)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:113)
+Error : null
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getMetadataInfo(XMLBungeniConnector.java:573)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:125)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getActs(XMLBungeniConnector.java:476)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:20)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getActs(XMLBungeniConnector.java:470)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:20)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getActs(XMLBungeniConnector.java:461)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:20)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getJudgementRegions(XMLBungeniConnector.java:363)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:33)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getJudgementLitigationTypes(XMLBungeniConnector.java:395)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:45)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getJudgementCourts(XMLBungeniConnector.java:427)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:58)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getJudgementDomains(XMLBungeniConnector.java:333)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:72)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getBills(XMLBungeniConnector.java:304)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:84)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getMotions(XMLBungeniConnector.java:511)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:94)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getQuestions(XMLBungeniConnector.java:534)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:103)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getSourceTypes(XMLBungeniConnector.java:486)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:113)
+Error : null
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getMetadataInfo(XMLBungeniConnector.java:558)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:125)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getActs(XMLBungeniConnector.java:461)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:20)
+
+java.lang.NullPointerException
+	at com.thoughtworks.xstream.core.util.FastField.hashCode(FastField.java:46)
+	at java.util.HashMap.put(HashMap.java:372)
+	at com.thoughtworks.xstream.mapper.FieldAliasingMapper.addFieldAlias(FieldAliasingMapper.java:47)
+	at com.thoughtworks.xstream.XStream.aliasField(XStream.java:1004)
+	at org.bungeni.connector.impl.XMLBungeniConnector.getJudgementRegions(XMLBungeniConnector.java:363)
+	at org.bungeni.connector.test.XMLBungeniConnectorTest.main(XMLBungeniConnectorTest.java:33)
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+http://localhost:44899/current/judgementRegions did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementRegions(BungeniConnector.java:123)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:44)
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+http://localhost:44899/current/judgementRegions did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementRegions(BungeniConnector.java:123)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:44)
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+http://localhost:44899/current/judgementRegions did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementRegions(BungeniConnector.java:123)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:44)
+http://localhost:44899/current/judgementLitigationTypes did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementLitigationTypes(BungeniConnector.java:129)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:59)
+http://localhost:44899/current/judgementCourts did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementCourts(BungeniConnector.java:135)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:72)
+Client Connection Closed
+Connector Closed
+DataSourceServer stopped
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+http://localhost:44899/current/judgementRegions did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementRegions(BungeniConnector.java:123)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:44)
+http://localhost:44899/current/judgementLitigationTypes did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementLitigationTypes(BungeniConnector.java:129)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:59)
+http://localhost:44899/current/judgementCourts did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementCourts(BungeniConnector.java:135)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:72)
+Client Connection Closed
+Connector Closed
+DataSourceServer stopped
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+http://localhost:44899/current/judgementRegions did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementRegions(BungeniConnector.java:123)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:44)
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+http://localhost:44899/current/judgementRegions did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:93)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementRegions(BungeniConnector.java:123)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:44)
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+http://localhost:44899/current/judgementCourts did not respond
+Not Found (404) - Not Found
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:858)
+	at org.restlet.resource.ClientResource.handle(ClientResource.java:763)
+	at org.restlet.resource.ClientResource.get(ClientResource.java:496)
+	at org.bungeni.connector.client.BungeniConnector.getList(BungeniConnector.java:86)
+	at org.bungeni.connector.client.BungeniConnector.getJudgementCourts(BungeniConnector.java:115)
+	at org.bungeni.connector.test.ClientTest.main(ClientTest.java:42)
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+Client Connection Closed
+Connector Closed
+DataSourceServer stopped
+loadProperties: loading datasourceserver properties file from C:\Users\bzuadmin\Desktop\BungeniConnector\trunk\settings\bungeni-connector.properties
+DataSourceServer() constructor
+Client Connection Closed
+Connector Closed
+DataSourceServer stopped

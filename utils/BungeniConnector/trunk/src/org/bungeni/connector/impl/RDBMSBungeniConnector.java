@@ -29,6 +29,13 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
 
     private String membersQuery = "SELECT ID,FIRST_NAME,LAST_NAME,URI,ROLE FROM PUBLIC.PERSONS ";
     private String billsQuery = "SELECT ID,BILL_NAME,BILL_URI,BILL_ONTOLOGY,COUNTRY FROM PUBLIC.BILLS";
+    private String judgementDomainsQuery = "SELECT ID,BILL_NAME,BILL_URI,BILL_ONTOLOGY,COUNTRY FROM PUBLIC.BILLS";
+    private String judgementRegionsQuery = "SELECT ID,BILL_NAME,BILL_URI,BILL_ONTOLOGY,COUNTRY FROM PUBLIC.BILLS";
+    
+    private String judgementLitigationTypesQuery = "SELECT ID,BILL_NAME,BILL_URI,BILL_ONTOLOGY,COUNTRY FROM PUBLIC.BILLS";
+    
+    private String judgementCourtsQuery = "SELECT ID,BILL_NAME,BILL_URI,BILL_ONTOLOGY,COUNTRY FROM PUBLIC.BILLS";
+    
     private String actsQuery = "SELECT ID,ACT_NAME FROM PUBLIC.ACTS";
     private String sourceTypesQuery = "SELECT ID,SourceType_NAME FROM PUBLIC.SOURCETYPES";
     private String metadataInfoQuery = "SELECT KEY_ID,KEY_TYPE,KEY_NAME,KEY_VALUE FROM PUBLIC.METADATA_INFO;";
@@ -127,6 +134,131 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
         }
         return items;
     }
+    
+    
+    public List<JudgementDomain> getJudgementDomains() {
+        List<JudgementDomain> items = new java.util.ArrayList<JudgementDomain>();
+        if (getDbConnection() != null) {
+            try {
+                java.sql.Statement statement = getDbConnection().createStatement();
+                java.sql.ResultSet resultSet = statement.executeQuery(getJudgementDomainsQuery());
+                while (resultSet.next()) {
+                    JudgementDomain item = new JudgementDomain();
+                    item.setId(resultSet.getInt(1));
+                    item.addName(new Name(resultSet.getString(2)));
+                    item.setUri(resultSet.getString(3));
+                    item.setOntology(resultSet.getString(4));
+                    item.setCountry(resultSet.getString(5));
+                    items.add(item);
+                }
+                statement.close();
+                resultSet.close();
+                statement = null;
+                resultSet = null;
+            } catch (SQLException ex) {
+                logger.error(ex);
+            }
+        } else {
+            logger.error("DB Connection Error");
+        }
+        return items;
+    }
+    
+    
+    
+    public List<JudgementRegion> getJudgementRegions() {
+        List<JudgementRegion> items = new java.util.ArrayList<JudgementRegion>();
+        if (getDbConnection() != null) {
+            try {
+                java.sql.Statement statement = getDbConnection().createStatement();
+                java.sql.ResultSet resultSet = statement.executeQuery(getJudgementRegionsQuery());
+                while (resultSet.next()) {
+                    JudgementRegion item = new JudgementRegion();
+                    item.setId(resultSet.getInt(1));
+                    item.addName(new Name(resultSet.getString(2)));
+                    item.setUri(resultSet.getString(3));
+                    item.setOntology(resultSet.getString(4));
+                    item.setCountry(resultSet.getString(5));
+                    items.add(item);
+                }
+                statement.close();
+                resultSet.close();
+                statement = null;
+                resultSet = null;
+            } catch (SQLException ex) {
+                logger.error(ex);
+            }
+        } else {
+            logger.error("DB Connection Error");
+        }
+        return items;
+    }
+    
+    
+    
+    
+    
+    
+    public List<JudgementLitigationType> getJudgementLitigationTypes() {
+        List<JudgementLitigationType> items = new java.util.ArrayList<JudgementLitigationType>();
+        if (getDbConnection() != null) {
+            try {
+                java.sql.Statement statement = getDbConnection().createStatement();
+                java.sql.ResultSet resultSet = statement.executeQuery(getJudgementLitigationTypesQuery());
+                while (resultSet.next()) {
+                    JudgementLitigationType item = new JudgementLitigationType();
+                    item.setId(resultSet.getInt(1));
+                    item.addName(new Name(resultSet.getString(2)));
+                    item.setUri(resultSet.getString(3));
+                    item.setOntology(resultSet.getString(4));
+                    item.setCountry(resultSet.getString(5));
+                    items.add(item);
+                }
+                statement.close();
+                resultSet.close();
+                statement = null;
+                resultSet = null;
+            } catch (SQLException ex) {
+                logger.error(ex);
+            }
+        } else {
+            logger.error("DB Connection Error");
+        }
+        return items;
+    }
+    
+    
+    
+    
+    public List<JudgementCourt> getJudgementCourts() {
+        List<JudgementCourt> items = new java.util.ArrayList<JudgementCourt>();
+        if (getDbConnection() != null) {
+            try {
+                java.sql.Statement statement = getDbConnection().createStatement();
+                java.sql.ResultSet resultSet = statement.executeQuery(getJudgementCourtsQuery());
+                while (resultSet.next()) {
+                    JudgementCourt item = new JudgementCourt();
+                    item.setId(resultSet.getInt(1));
+                    item.addName(new Name(resultSet.getString(2)));
+                    item.setUri(resultSet.getString(3));
+                    item.setOntology(resultSet.getString(4));
+                    item.setCountry(resultSet.getString(5));
+                    items.add(item);
+                }
+                statement.close();
+                resultSet.close();
+                statement = null;
+                resultSet = null;
+            } catch (SQLException ex) {
+                logger.error(ex);
+            }
+        } else {
+            logger.error("DB Connection Error");
+        }
+        return items;
+    }
+    
+    
 
      public List<Act> getActs() {
         List<Act> items = new java.util.ArrayList<Act>();
@@ -409,6 +541,28 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
     private String getBillsQuery() {
         return billsQuery;
     }
+    
+    private String getJudgementDomainsQuery() {
+        return judgementDomainsQuery;
+    }
+    
+    private String getJudgementRegionsQuery() {
+        return judgementRegionsQuery;
+    }
+    
+    
+    
+     private String getJudgementLitigationTypesQuery() {
+        return judgementLitigationTypesQuery;
+    }
+   
+    
+    
+     private String getJudgementCourtsQuery() {
+        return judgementCourtsQuery;
+    }
+    
+    
     
     private String getActsQuery() {
         return actsQuery;

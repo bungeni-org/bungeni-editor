@@ -49,6 +49,51 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String billOntologyAlias = null;
     private String billCountryAlias = null;
     private String billsSourceURI = null;
+    
+    private String judgementDomainsPackageAlias = null;
+    private String judgementDomainAlias = null;
+    private String judgementDomainIdAlias = null;
+    private String judgementDomainUriAlias = null;
+    private String judgementDomainNameAlias = null;
+    private String judgementDomainOntologyAlias = null;
+    private String judgementDomainCountryAlias = null;
+    private String judgementDomainsSourceURI = null;
+    
+    
+    private String judgementRegionsPackageAlias = null;
+    private String judgementRegionAlias = null;
+    private String judgementRegionIdAlias = null;
+    private String judgementRegionUriAlias = null;
+    private String judgementRegionNameAlias = null;
+    private String judgementRegionOntologyAlias = null;
+    private String judgementRegionCountryAlias = null;
+    private String judgementRegionsSourceURI = null;
+    
+    
+    
+    
+    
+    private String judgementLitigationTypesPackageAlias = null;
+    private String judgementLitigationTypeAlias = null;
+    private String judgementLitigationTypeIdAlias = null;
+    private String judgementLitigationTypeUriAlias = null;
+    private String judgementLitigationTypeNameAlias = null;
+    private String judgementLitigationTypeOntologyAlias = null;
+    private String judgementLitigationTypeCountryAlias = null;
+    private String judgementLitigationTypesSourceURI = null;
+    
+    
+    
+    private String judgementCourtsPackageAlias = null;
+    private String judgementCourtAlias = null;
+    private String judgementCourtIdAlias = null;
+    private String judgementCourtUriAlias = null;
+    private String judgementCourtNameAlias = null;
+    private String judgementCourtOntologyAlias = null;
+    private String judgementCourtCountryAlias = null;
+    private String judgementCourtsSourceURI = null;
+    
+    
 
     private String actsPackageAlias = null;
     private String actAlias = null;
@@ -122,6 +167,54 @@ public class XMLBungeniConnector implements IBungeniConnector {
         this.billNameAlias = props.getProperties().getProperty("xml-bill-name-alias");
         this.billOntologyAlias = props.getProperties().getProperty("xml-bill-ontology-alias");
         this.billCountryAlias = props.getProperties().getProperty("xml-bill-country-alias");
+        
+        
+        this.judgementDomainsSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-judgementDomains"));
+        this.judgementDomainsPackageAlias = props.getProperties().getProperty("xml-judgementDomains-package-alias");
+        this.judgementDomainAlias = props.getProperties().getProperty("xml-judgementDomain-alias");
+        this.judgementDomainIdAlias = props.getProperties().getProperty("xml-judgementDomain-id-alias");
+        this.judgementDomainUriAlias = props.getProperties().getProperty("xml-judgementDomain-uri-alias");
+        this.judgementDomainNameAlias = props.getProperties().getProperty("xml-judgementDomain-name-alias");
+        this.judgementDomainOntologyAlias = props.getProperties().getProperty("xml-judgementDomain-ontology-alias");
+        this.judgementDomainCountryAlias = props.getProperties().getProperty("xml-judgementDomain-country-alias");
+        
+        
+        
+        this.judgementRegionsSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-judgementRegions"));
+        this.judgementRegionsPackageAlias = props.getProperties().getProperty("xml-judgementRegions-package-alias");
+        this.judgementRegionAlias = props.getProperties().getProperty("xml-judgementRegion-alias");
+        this.judgementRegionIdAlias = props.getProperties().getProperty("xml-judgementRegion-id-alias");
+        this.judgementRegionUriAlias = props.getProperties().getProperty("xml-judgementRegion-uri-alias");
+        this.judgementRegionNameAlias = props.getProperties().getProperty("xml-judgementRegion-name-alias");
+        this.judgementRegionOntologyAlias = props.getProperties().getProperty("xml-judgementRegion-ontology-alias");
+        this.judgementRegionCountryAlias = props.getProperties().getProperty("xml-judgementRegion-country-alias");
+        
+        
+        
+        
+        this.judgementLitigationTypesSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-judgementLitigationTypes"));
+        this.judgementLitigationTypesPackageAlias = props.getProperties().getProperty("xml-judgementLitigationTypes-package-alias");
+        this.judgementLitigationTypeAlias = props.getProperties().getProperty("xml-judgementLitigationType-alias");
+        this.judgementLitigationTypeIdAlias = props.getProperties().getProperty("xml-judgementLitigationType-id-alias");
+        this.judgementLitigationTypeUriAlias = props.getProperties().getProperty("xml-judgementLitigationType-uri-alias");
+        this.judgementLitigationTypeNameAlias = props.getProperties().getProperty("xml-judgementLitigationType-name-alias");
+        this.judgementLitigationTypeOntologyAlias = props.getProperties().getProperty("xml-judgementLitigationType-ontology-alias");
+        this.judgementLitigationTypeCountryAlias = props.getProperties().getProperty("xml-judgementLitigationType-country-alias");
+        
+        
+        
+        this.judgementCourtsSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-judgementCourts"));
+        this.judgementCourtsPackageAlias = props.getProperties().getProperty("xml-judgementCourts-package-alias");
+        this.judgementCourtAlias = props.getProperties().getProperty("xml-judgementCourt-alias");
+        this.judgementCourtIdAlias = props.getProperties().getProperty("xml-judgementCourt-id-alias");
+        this.judgementCourtUriAlias = props.getProperties().getProperty("xml-judgementCourt-uri-alias");
+        this.judgementCourtNameAlias = props.getProperties().getProperty("xml-judgementCourt-name-alias");
+        this.judgementCourtOntologyAlias = props.getProperties().getProperty("xml-judgementCourt-ontology-alias");
+        this.judgementCourtCountryAlias = props.getProperties().getProperty("xml-judgementCourt-country-alias");
+        
+        
+        
+        
         
         this.actsSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-acts"));
         this.actsPackageAlias = props.getProperties().getProperty("xml-acts-package-alias");
@@ -244,7 +337,132 @@ public class XMLBungeniConnector implements IBungeniConnector {
         }
         return null;
     }
+    
+    
+     public List<JudgementDomain> getJudgementDomains() {
+        ClientResource resource = new ClientResource(getJudgementDomainsSourceURI());
+        try {
+            XStream xStream = new XStream(new DomDriver());        
+            xStream.alias(this.getJudgementDomainsPackageAlias(), List.class);
+            xStream.alias(this.getJudgementDomainAlias(), JudgementDomain.class);
+            xStream.aliasField(this.getJudgementDomainIdAlias(), JudgementDomain.class, "id");
+            xStream.aliasField(this.getJudgementDomainUriAlias(), JudgementDomain.class, "uri");
+            xStream.aliasField(this.getJudgementDomainNameAlias(), JudgementDomain.class, "name");
+            xStream.aliasField(this.getJudgementDomainOntologyAlias(), JudgementDomain.class, "ontology");
+            xStream.aliasField(this.getJudgementDomainCountryAlias(), JudgementDomain.class, "country");
+            
+            xStream.alias(Name.CLASS_ALIAS, Name.class);
+            xStream.addImplicitCollection(JudgementDomain.class, Name.CLASS_ALIAS, Name.CLASS_ALIAS, Name.class);
+            xStream.useAttributeFor(Name.class, "lang");
+            xStream.registerConverter(new NameConverter());
+            
+            String xml = resource.get().getText();
+            if (xml != null) {
+                resource.release();
+                return (List) xStream.fromXML(xml);
+            }
+        } catch (Exception ex) {
+            logger.error(getJudgementDomainsSourceURI(), ex);
+        }
+        return null;
+    }
+     
+     
+     
+      public List<JudgementRegion> getJudgementRegions() {
+        ClientResource resource = new ClientResource(getJudgementRegionsSourceURI());
+        try {
+            XStream xStream = new XStream(new DomDriver());        
+            xStream.alias(this.getJudgementRegionsPackageAlias(), List.class);
+            xStream.alias(this.getJudgementRegionAlias(), JudgementRegion.class);
+            xStream.aliasField(this.getJudgementRegionIdAlias(), JudgementRegion.class, "id");
+            xStream.aliasField(this.getJudgementRegionUriAlias(), JudgementRegion.class, "uri");
+            xStream.aliasField(this.getJudgementRegionNameAlias(), JudgementRegion.class, "name");
+            xStream.aliasField(this.getJudgementRegionOntologyAlias(), JudgementRegion.class, "ontology");
+            xStream.aliasField(this.getJudgementRegionCountryAlias(), JudgementRegion.class, "country");
+            
+            xStream.alias(Name.CLASS_ALIAS, Name.class);
+            xStream.addImplicitCollection(JudgementRegion.class, Name.CLASS_ALIAS, Name.CLASS_ALIAS, Name.class);
+            xStream.useAttributeFor(Name.class, "lang");
+            xStream.registerConverter(new NameConverter());
+            
+            String xml = resource.get().getText();
+            if (xml != null) {
+                resource.release();
+                return (List) xStream.fromXML(xml);
+            }
+        } catch (Exception ex) {
+            logger.error(getJudgementRegionsSourceURI(), ex);
+        }
+        return null;
+    }
+     
+    
+     
+     
+     
+     public List<JudgementLitigationType> getJudgementLitigationTypes() {
+        ClientResource resource = new ClientResource(getJudgementLitigationTypesSourceURI());
+        try {
+            XStream xStream = new XStream(new DomDriver());        
+            xStream.alias(this.getJudgementLitigationTypesPackageAlias(), List.class);
+            xStream.alias(this.getJudgementLitigationTypeAlias(), JudgementLitigationType.class);
+            xStream.aliasField(this.getJudgementLitigationTypeIdAlias(), JudgementLitigationType.class, "id");
+            xStream.aliasField(this.getJudgementLitigationTypeUriAlias(), JudgementLitigationType.class, "uri");
+            xStream.aliasField(this.getJudgementLitigationTypeNameAlias(), JudgementLitigationType.class, "name");
+            xStream.aliasField(this.getJudgementLitigationTypeOntologyAlias(), JudgementLitigationType.class, "ontology");
+            xStream.aliasField(this.getJudgementLitigationTypeCountryAlias(), JudgementLitigationType.class, "country");
+            
+            xStream.alias(Name.CLASS_ALIAS, Name.class);
+            xStream.addImplicitCollection(JudgementLitigationType.class, Name.CLASS_ALIAS, Name.CLASS_ALIAS, Name.class);
+            xStream.useAttributeFor(Name.class, "lang");
+            xStream.registerConverter(new NameConverter());
+            
+            String xml = resource.get().getText();
+            if (xml != null) {
+                resource.release();
+                return (List) xStream.fromXML(xml);
+            }
+        } catch (Exception ex) {
+            logger.error(getJudgementLitigationTypesSourceURI(), ex);
+        }
+        return null;
+    }
+     
+     
+     
+     
+     
+     public List<JudgementCourt> getJudgementCourts() {
+        ClientResource resource = new ClientResource(getJudgementCourtsSourceURI());
+        try {
+            XStream xStream = new XStream(new DomDriver());        
+            xStream.alias(this.getJudgementCourtsPackageAlias(), List.class);
+            xStream.alias(this.getJudgementCourtAlias(), JudgementCourt.class);
+            xStream.aliasField(this.getJudgementCourtIdAlias(), JudgementCourt.class, "id");
+            xStream.aliasField(this.getJudgementCourtUriAlias(), JudgementCourt.class, "uri");
+            xStream.aliasField(this.getJudgementCourtNameAlias(), JudgementCourt.class, "name");
+            xStream.aliasField(this.getJudgementCourtOntologyAlias(), JudgementCourt.class, "ontology");
+            xStream.aliasField(this.getJudgementCourtCountryAlias(), JudgementCourt.class, "country");
+            
+            xStream.alias(Name.CLASS_ALIAS, Name.class);
+            xStream.addImplicitCollection(JudgementCourt.class, Name.CLASS_ALIAS, Name.CLASS_ALIAS, Name.class);
+            xStream.useAttributeFor(Name.class, "lang");
+            xStream.registerConverter(new NameConverter());
+            
+            String xml = resource.get().getText();
+            if (xml != null) {
+                resource.release();
+                return (List) xStream.fromXML(xml);
+            }
+        } catch (Exception ex) {
+            logger.error(getJudgementCourtsSourceURI(), ex);
+        }
+        return null;
+    }
 
+    
+    
     /**
      * 
      * @return
@@ -454,6 +672,144 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String getBillsPackageAlias() {
         return billsPackageAlias;
     }
+    
+    
+    
+    
+    
+    
+    
+     private String getJudgementDomainAlias() {
+        return judgementDomainAlias;
+    }
+
+    private String getJudgementDomainCountryAlias() {
+        return judgementDomainCountryAlias;
+    }
+
+    private String getJudgementDomainIdAlias() {
+        return judgementDomainIdAlias;
+    }
+
+    private String getJudgementDomainNameAlias() {
+        return judgementDomainNameAlias;
+    }
+
+    private String getJudgementDomainOntologyAlias() {
+        return judgementDomainOntologyAlias;
+    }
+
+    private String getJudgementDomainUriAlias() {
+        return judgementDomainUriAlias;
+    }
+
+    private String getJudgementDomainsPackageAlias() {
+        return judgementDomainsPackageAlias;
+    }
+    
+    
+    
+    
+    private String getJudgementRegionAlias() {
+        return judgementRegionAlias;
+    }
+
+    private String getJudgementRegionCountryAlias() {
+        return judgementRegionCountryAlias;
+    }
+
+    private String getJudgementRegionIdAlias() {
+        return judgementRegionIdAlias;
+    }
+
+    private String getJudgementRegionNameAlias() {
+        return judgementRegionNameAlias;
+    }
+
+    private String getJudgementRegionOntologyAlias() {
+        return judgementRegionOntologyAlias;
+    }
+
+    private String getJudgementRegionUriAlias() {
+        return judgementRegionUriAlias;
+    }
+
+    private String getJudgementRegionsPackageAlias() {
+        return judgementRegionsPackageAlias;
+    }
+    
+    
+    
+    
+    
+    
+      private String getJudgementLitigationTypeAlias() {
+        return judgementLitigationTypeAlias;
+    }
+
+    private String getJudgementLitigationTypeCountryAlias() {
+        return judgementLitigationTypeCountryAlias;
+    }
+
+    private String getJudgementLitigationTypeIdAlias() {
+        return judgementLitigationTypeIdAlias;
+    }
+
+    private String getJudgementLitigationTypeNameAlias() {
+        return judgementLitigationTypeNameAlias;
+    }
+
+    private String getJudgementLitigationTypeOntologyAlias() {
+        return judgementLitigationTypeOntologyAlias;
+    }
+
+    private String getJudgementLitigationTypeUriAlias() {
+        return judgementLitigationTypeUriAlias;
+    }
+
+    private String getJudgementLitigationTypesPackageAlias() {
+        return judgementLitigationTypesPackageAlias;
+    }
+    
+    
+    
+  
+    
+    
+     private String getJudgementCourtAlias() {
+        return judgementCourtAlias;
+    }
+
+    private String getJudgementCourtCountryAlias() {
+        return judgementCourtCountryAlias;
+    }
+
+    private String getJudgementCourtIdAlias() {
+        return judgementCourtIdAlias;
+    }
+
+    private String getJudgementCourtNameAlias() {
+        return judgementCourtNameAlias;
+    }
+
+    private String getJudgementCourtOntologyAlias() {
+        return judgementCourtOntologyAlias;
+    }
+
+    private String getJudgementCourtUriAlias() {
+        return judgementCourtUriAlias;
+    }
+
+    private String getJudgementCourtsPackageAlias() {
+        return judgementCourtsPackageAlias;
+    }
+    
+    
+    
+    
+    
+    
+    
 
     private String getCommitteesPackageAlias(){
         return committeesPackageAlias ;
@@ -470,6 +826,28 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String getBillsSourceURI() {
         return billsSourceURI;
     }
+    
+    private String getJudgementDomainsSourceURI() {
+        return judgementDomainsSourceURI;
+    }
+    
+     private String getJudgementRegionsSourceURI() {
+        return judgementRegionsSourceURI;
+    }
+    
+    
+    
+    private String getJudgementLitigationTypesSourceURI() {
+        return judgementLitigationTypesSourceURI;
+    }
+    
+    
+    
+    private String getJudgementCourtsSourceURI() {
+        return judgementCourtsSourceURI;
+    }
+    
+    
     
     private String getActsSourceURI() {
         return actsSourceURI;

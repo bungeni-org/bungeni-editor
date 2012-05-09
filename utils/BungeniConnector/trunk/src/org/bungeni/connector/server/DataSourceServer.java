@@ -25,6 +25,14 @@ public class DataSourceServer extends Application {
     private String motionsRoute = "/current/motions";
     private String questionsRoute = "/current/questions";
     private String billsRoute = "/current/bills";
+    private String judgementDomainsRoute = "/current/judgementDomains";
+    private String judgementRegionsRoute = "/current/judgementRegions";
+    
+    private String judgementLitigationTypesRoute = "/current/judgementLitigationTypes";
+    
+    
+    private String judgementCourtsRoute = "/current/judgementCourts";
+    
     private String actsRoute = "/current/acts";
     private String sourceTypesRoute = "/current/sourceTypes";
     private String metadataInfoRoute = "/current/metadata";
@@ -36,6 +44,14 @@ public class DataSourceServer extends Application {
     private String motionsURI = null;
     private String questionsURI = null;
     private String billsURI = null;
+    private String judgementDomainsURI = null;
+    private String judgementRegionsURI = null;
+    
+    private String judgementLitigationTypesURI = null;
+    
+    private String judgementCourtsURI = null;
+    
+    
     private String actsURI = null;
     private String sourceTypesURI = null;
     private String metadataInfoURI = null;
@@ -248,6 +264,16 @@ public class DataSourceServer extends Application {
 
         router.attach(metadataInfoRoute, new MetadataInfoRestlet(bungeniConnector));
         router.attach(billsRoute, new BillsRestlet(bungeniConnector));
+        router.attach(judgementDomainsRoute, new JudgementDomainsRestlet(bungeniConnector));
+       
+        router.attach(judgementRegionsRoute, new JudgementRegionsRestlet(bungeniConnector));
+        
+        router.attach(judgementLitigationTypesRoute, new JudgementLitigationTypesRestlet(bungeniConnector));
+        
+        router.attach(judgementCourtsRoute, new JudgementCourtsRestlet(bungeniConnector));
+        
+        
+        
         router.attach(actsRoute, new ActsRestlet(bungeniConnector));
         router.attach(sourceTypesRoute, new SourceTypesRestlet(bungeniConnector));
         router.attach(membersRoute, new MembersRestlet(bungeniConnector));
@@ -267,6 +293,29 @@ public class DataSourceServer extends Application {
     public String getBillsURI() {
         return billsURI;
     }
+    
+    public String getJudgementDomainsURI() {
+        return judgementDomainsURI;
+    }
+    
+     public String getJudgementRegionsURI() {
+        return judgementRegionsURI;
+    }
+    
+    
+    
+    public String getJudgementLitigationTypesURI() {
+        return judgementLitigationTypesURI;
+    }
+    
+    
+    
+    
+    public String getJudgementCourtsURI() {
+        return judgementCourtsURI;
+    }
+    
+    
     
     public String getActsURI() {
         return actsURI;

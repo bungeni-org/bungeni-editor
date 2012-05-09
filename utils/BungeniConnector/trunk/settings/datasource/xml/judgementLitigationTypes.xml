@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<judgementLitigationTypes>
+ <judgementLitigationType>
+  <id>1</id>
+  <name lang="ar"> دعوى</name>
+  <name lang="en"> Case </name>
+  <uri>/ke/bill/2008-02-03/12</uri>
+  <ontology>/ontology/Expression/ke.bill.2008-02-03.12</ontology>
+  <country>KE</country>
+</judgementLitigationType>
+<judgementLitigationType>
+  <id>2</id>
+  <name lang="ar">طلب</name>
+  <name lang="en">Request</name>
+  <uri>/ke/bill/2008-01-11/10</uri>
+  <ontology>/ontology/Expression/ke.bill.2008-01-11.10</ontology>
+  <country>KE</country>
+</judgementLitigationType>
+
+<judgementLitigationType>
+  <id>3</id>
+  <name lang="ar">إعتراض</name>
+  <name lang="en">Objection</name>
+  <uri>/ke/bill/2008-01-11/10</uri>
+  <ontology>/ontology/Expression/ke.bill.2008-01-11.10</ontology>
+  <country>KE</country>
+</judgementLitigationType>
+
+
+
+
+
+
+</judgementLitigationTypes>

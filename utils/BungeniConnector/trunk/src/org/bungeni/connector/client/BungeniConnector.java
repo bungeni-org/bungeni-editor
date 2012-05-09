@@ -34,6 +34,15 @@ public class BungeniConnector implements IBungeniConnector {
     private String motionsSource = "/motions";
     private String questionsSource = "/questions";
     private String billsSource = "/bills";
+   
+    private String judgementDomainsSource = "/judgementDomains";
+    private String judgementRegionsSource = "/judgementRegions";
+    
+    private String judgementLitigationTypesSource = "/judgementLitigationTypes";
+    
+    private String judgementCourtsSource = "/judgementCourts";
+    
+            
     private String actsSource = "/acts";
     private String sourceTypesSource = "/sourceTypes";
     private String documentsSource = "/documents";
@@ -105,6 +114,29 @@ public class BungeniConnector implements IBungeniConnector {
         return getList(getBillsSource(), Bill.PACKAGE_ALIAS, Bill.CLASS_ALIAS, Bill.class);
     }
     
+    public List<JudgementDomain> getJudgementDomains() {
+        return getList(getJudgementDomainsSource(), JudgementDomain.PACKAGE_ALIAS, JudgementDomain.CLASS_ALIAS, JudgementDomain.class);
+    }
+    
+    
+    public List<JudgementRegion> getJudgementRegions() {
+        return getList(getJudgementRegionsSource(), JudgementRegion.PACKAGE_ALIAS, JudgementRegion.CLASS_ALIAS, JudgementRegion.class);
+    }
+    
+    
+    
+    public List<JudgementLitigationType> getJudgementLitigationTypes() {
+        return getList(getJudgementLitigationTypesSource(), JudgementLitigationType.PACKAGE_ALIAS, JudgementLitigationType.CLASS_ALIAS, JudgementLitigationType.class);
+    }
+    
+    
+    
+     public List<JudgementCourt> getJudgementCourts() {
+        return getList(getJudgementCourtsSource(), JudgementCourt.PACKAGE_ALIAS, JudgementCourt.CLASS_ALIAS, JudgementCourt.class);
+    }
+    
+    
+    
     public List<Act> getActs() {
         return getList(getActsSource(), Act.PACKAGE_ALIAS, Act.CLASS_ALIAS, Act.class);
     }
@@ -144,6 +176,30 @@ public class BungeniConnector implements IBungeniConnector {
     private String getBillsSource() {
         return getVirtDirURL() + billsSource;
     }
+    
+    private String getJudgementDomainsSource() {
+        return getVirtDirURL() + judgementDomainsSource;
+    }
+    
+    
+    private String getJudgementRegionsSource() {
+        return getVirtDirURL() + judgementRegionsSource;
+    }
+    
+    
+    
+    private String getJudgementLitigationTypesSource() {
+        return getVirtDirURL() + judgementLitigationTypesSource;
+    }
+    
+    
+    
+    
+    private String getJudgementCourtsSource() {
+        return getVirtDirURL() + judgementCourtsSource;
+    }
+    
+    
     
     private String getActsSource() {
         return getVirtDirURL() + actsSource;

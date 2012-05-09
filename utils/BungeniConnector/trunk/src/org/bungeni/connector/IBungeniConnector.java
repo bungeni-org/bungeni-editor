@@ -30,14 +30,15 @@ public interface IBungeniConnector {
     public List<Member> getMembers();
     public List<Bill> getBills();
     public List<JudgementDomain> getJudgementDomains();
+    public List<JudgementCourt> getJudgementCourts(); 
+     public List<JudgementRegion> getJudgementRegions();
+    public List<JudgementLitigationType> getJudgementLitigationTypes();
     public List<Act> getActs();
     public List<SourceType> getSourceTypes();
     public List<Motion> getMotions();
-    public List<Question> getQuestions();
+    public List<Question> getQuestions();  
     public List<MetadataInfo> getMetadataInfo();
     public List<Document> getDocuments();
     public List<Committee> getCommittees();
-
-  
 
 }
