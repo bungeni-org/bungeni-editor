@@ -29,30 +29,6 @@ public class XMLBungeniConnectorTest{
             }
         }
 
-                
-       List<JudgementCourt> judgementCourts = connector.getJudgementCourts();
-
-        if (judgementCourts != null) {
-            System.out.println(":::::::::::::::judgement Court:::::::::::::::::::");
-            for (int i = 0; i < judgementCourts.size(); i++) {
-                System.out.println(" id:  " + judgementCourts.get(i).getId());
-                for(Name objName: (List<Name>)judgementCourts.get(i).getNames()){
-                    System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
-                }
-            }
-        }
-        
-        List<JudgementDomain> judgementDomains = connector.getJudgementDomains();
-
-        if (judgementDomains != null) {
-            System.out.println(":::::::::::::::judgementDomain:::::::::::::::::::");
-            for (int i = 0; i < judgementDomains.size(); i++) {
-                System.out.println(" id:  " + judgementDomains.get(i).getId());
-                for(Name objName: (List<Name>)judgementDomains.get(i).getNames()){
-                    System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
-                }
-            }
-        } 
         
         List<Bill> bills = connector.getBills();
         if (bills != null) {
