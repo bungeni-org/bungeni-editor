@@ -1,8 +1,20 @@
 package org.bungeni.connector;
 
 import java.util.List;
-import org.bungeni.connector.element.*;
-import org.jdom.Element;
+// always explicit import rather than .* for better readability
+import org.bungeni.connector.element.Act;
+import org.bungeni.connector.element.Bill;
+import org.bungeni.connector.element.Committee;
+import org.bungeni.connector.element.Document;
+import org.bungeni.connector.element.JudgementCourt;
+import org.bungeni.connector.element.JudgementDomain;
+import org.bungeni.connector.element.JudgementLitigationType;
+import org.bungeni.connector.element.JudgementRegion;
+import org.bungeni.connector.element.Member;
+import org.bungeni.connector.element.MetadataInfo;
+import org.bungeni.connector.element.Motion;
+import org.bungeni.connector.element.Question;
+import org.bungeni.connector.element.SourceType;
 
 /**
  *

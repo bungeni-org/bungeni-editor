@@ -2,21 +2,27 @@ package org.bungeni.connector.client;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
-import java.io.*;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.bungeni.connector.ConnectorProperties;
 import org.bungeni.connector.IBungeniConnector;
-import org.bungeni.connector.element.*;
-import org.bungeni.connector.impl.XMLBungeniConnector;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.input.SAXBuilder;
-import org.jdom.xpath.XPath;
+// always explicit import rather than .* for better readability
+import org.bungeni.connector.element.Act;
+import org.bungeni.connector.element.Bill;
+import org.bungeni.connector.element.Committee;
+import org.bungeni.connector.element.Document;
+import org.bungeni.connector.element.JudgementCourt;
+import org.bungeni.connector.element.JudgementDomain;
+import org.bungeni.connector.element.JudgementLitigationType;
+import org.bungeni.connector.element.JudgementRegion;
+import org.bungeni.connector.element.Member;
+import org.bungeni.connector.element.MetadataInfo;
+import org.bungeni.connector.element.Motion;
+import org.bungeni.connector.element.Question;
+import org.bungeni.connector.element.SourceType;
+
 import org.restlet.resource.ClientResource;
-import org.xml.sax.InputSource;
 
 /**
  * This is the client for accessing the REST DataSourceServer

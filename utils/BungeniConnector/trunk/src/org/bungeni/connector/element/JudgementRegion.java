@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  *
- * @author Dave
+ * @author  Ameen Taha
  */
 public class JudgementRegion {
 

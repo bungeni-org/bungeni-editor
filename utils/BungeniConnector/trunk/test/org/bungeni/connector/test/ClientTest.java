@@ -1,16 +1,11 @@
 package org.bungeni.connector.test;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.List;
 import org.bungeni.connector.ConnectorProperties;
 import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.element.*;
 import org.bungeni.connector.server.DataSourceServer;
-import org.jdom.Element;
 
 /**
  *
