@@ -188,11 +188,17 @@
         </body>
     </xsl:template>
     
-    <xsl:template match="item_schedule">
+    <xsl:template match="item_schedule[parent::item_schedule]">
         <itemSchedule>
             <xsl:apply-templates />
         </itemSchedule>
     </xsl:template>    
+    
+    <xsl:template match="item_schedule[child::item_schedule]">
+        <itemSchedules>
+            <xsl:apply-templates />
+        </itemSchedules>
+    </xsl:template>
     
     <xsl:template match="permissions">
         <permissions id="groupsittingPermissions">
