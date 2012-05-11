@@ -126,6 +126,9 @@ public final class Loader {
     private Loader() {}
 
     /**
+     *
+     * ENTRY POINT FOR BUNGENI EDITOR
+     *
      * The main method instantiates a customized class loader with the
      * UNO jar files added to the search path and loads the application class,
      * which is specified in the Main-Class attribute of the
@@ -202,7 +205,7 @@ public final class Loader {
         if ( className != null ) {
             ClassLoader cl = getCustomLoader();
             Class c = cl.loadClass( className );
-            Method m = c.getMethod( "main", new Class[] { String[].class } );
+            Method m = c.getMethod( "indirect_main", new Class[] { String[].class } );
             m.invoke( null, new Object[] { args } );
         }
     }

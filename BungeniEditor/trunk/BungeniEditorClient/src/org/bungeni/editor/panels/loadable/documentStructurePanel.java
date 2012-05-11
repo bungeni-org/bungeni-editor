@@ -643,20 +643,4 @@ private void btnSectionsCollapseAllActionPerformed(java.awt.event.ActionEvent ev
     private javax.swing.JTabbedPane tabSectionView;
     // End of variables declaration//GEN-END:variables
 
-    public static void main(String[] args) {
-        javax.swing.JFrame floatingFrame = new javax.swing.JFrame();
-        documentStructurePanel floatingPanel = new documentStructurePanel();
-        floatingFrame.add(floatingPanel);
-        floatingFrame.setSize(221, 551);
-        floatingFrame.setAlwaysOnTop(true);
-        floatingFrame.setVisible(true);
-        //position frame
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension windowSize = floatingFrame.getSize();
-
-        int windowX = screenSize.width - floatingFrame.getWidth() - 2;
-        int windowY = (screenSize.height - floatingFrame.getHeight()) / 2;
-        floatingFrame.setLocation(windowX, windowY);  // Don't use "f." inside constructor.
-        floatingFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    }
-}
+ }

@@ -29,14 +29,7 @@ public class Main extends BaseMetadataContainerPanel {
         super();
     }
 
-    public static void main(String[] args) {
-        Main   m = new Main();
-        JFrame f = new JFrame("MastHead title");
 
-        f.add(m);
-        f.pack();
-        f.setVisible(true);
-    }
 
 
 

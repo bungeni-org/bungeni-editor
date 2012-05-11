@@ -50,13 +50,7 @@ public class Main extends BaseMetadataContainerPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
-    public static void main(String[] args){
-        Main m = new Main();
-        JFrame f = new JFrame("Select Judges");
-        f.add(m);
-        f.pack();
-        f.setVisible(true);
-    }
+  
 
     /*
     @Override

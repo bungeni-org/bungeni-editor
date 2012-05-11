@@ -64,11 +64,6 @@ public class FileFind {
         return urls.toArray(new URL[urls.size()]);
     }
 
-    public static void main (String[] args) {
-        String[] files = {"ridl.jar", "unoil.jar"};
-        URL[] url = FileFind.findFiles("C:\\Program Files\\OpenOffice.org 3\\", files);
-        System.out.println(url[0].toExternalForm());
-          System.out.println(url[1].toExternalForm());
-    }
+ 
 
 }

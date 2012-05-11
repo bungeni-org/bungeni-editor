@@ -248,7 +248,11 @@ public class BungeniEditorClient {
         }
     }
 
-    public static void main(String[] args) {
+    /**
+     * This is called by the Loader class and never invoked directly
+     * @param args
+     */
+    public static void indirect_main(String[] args) {
         try {
 
             // parse the command line options
@@ -268,7 +272,7 @@ public class BungeniEditorClient {
                         log.error("editor.ini not found", ex);
                     } catch (IOException ex) {
                         log.error("editor.ini not found", ex);
-                    }
+}
                     // show the UI
                     createAndShowGUI();
                 }

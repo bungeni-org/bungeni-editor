@@ -199,27 +199,6 @@ public final class BungeniBTree {
                 return newChild;
         }
 
-       public static void main(String[] args){
-            BungeniBTree aTree= new BungeniBTree();
-            aTree.addRootNode("root");
-            BungeniBNode nRoot = aTree.getTree().get(1) ;
-            add(nRoot, "child1");
-            add(nRoot, "child2");
-            
-            BungeniBTree aTree2= new BungeniBTree();
-            aTree2.addRootNode("root");
-            BungeniBNode nRoot2 = aTree2.getTree().get(1) ;
-           // add(nRoot2, "child1");
-            add(nRoot2, "child1.1");
-            add(nRoot2, "child4");
-           // add(nRoot2, "child2");
-            add(nRoot2, "child3");
-            
-            
-            System.out.println(aTree.toString());
-            
-            System.out.println(aTree2.toString());
-    }
        
 
     }

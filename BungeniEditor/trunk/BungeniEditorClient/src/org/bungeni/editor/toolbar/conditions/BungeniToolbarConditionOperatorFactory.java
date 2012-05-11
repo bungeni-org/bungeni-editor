@@ -76,23 +76,5 @@ public class BungeniToolbarConditionOperatorFactory {
             
     }       
    
-   public static void main(String[] args) {
-       HashMap<String, BungeniToolbarConditionOperator> map = getObjects();
-       java.util.Set<String> ops = map.keySet();
-       for (String s : ops) {
-          BungeniToolbarConditionOperator m =  map.get(s);
-          System.out.println(m.toString());
-       }
-       String fullConditionValue = "sectionNotExists:root";
-        java.util.Iterator<String> keys = map.keySet().iterator();
-        while (keys.hasNext()) {
-            String key = keys.next();
-            BungeniToolbarConditionOperator condition = map.get(key);
-            if (fullConditionValue.indexOf(condition.getCondition()) != -1) {
-                System.out.println("matched condition ");
-                //individualConditions = fullConditionValue.split(condition.getCondition());
-                return;
-            }
-        } 
-   }
+ 
 }

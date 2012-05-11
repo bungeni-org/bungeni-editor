@@ -165,18 +165,7 @@ public class ExternalPluginParser {
 
 
 
-    public static void main(String[] args) {
-        ExternalPluginParser pp = new ExternalPluginParser();
-
-        pp.parsePluginFile(
-            "/home/undesa/Projects/Bungeni/BungeniEditor/trunk/BungeniEditorClient/dist/plugins/plugin_converttoplain.xml");
-        System.out.println("plugin base = " + pp.getPluginBase());
-        System.out.println("plugin name = " + pp.getPluginName());
-        System.out.println("plugin main = " + pp.getPluginMainJar());
-        System.out.println("plugin reqd = " + pp.getPluginReqdJar());
-        System.out.println("plugin main class = " + pp.getPluginMainClass());
-
-    }
+   
 }
 
 

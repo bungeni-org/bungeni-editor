@@ -38,17 +38,7 @@ public class Main extends BaseMetadataContainerPanel {
         this.enableAllChildPanels(false);
     }
 
-    public static void main(String[] args) {
-        Main m = new Main();
-
-        m.initialize();
-
-        JFrame f = new JFrame("MastHead title");
-
-        f.add(m);
-        f.pack();
-        f.setVisible(true);
-    }
+  
 
     @Override
     public Component getPanelComponent() {

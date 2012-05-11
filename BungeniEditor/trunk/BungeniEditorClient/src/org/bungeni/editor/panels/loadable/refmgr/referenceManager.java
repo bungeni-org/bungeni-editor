@@ -146,15 +146,7 @@ public class referenceManager extends BaseLaunchablePanel {
     private org.jdesktop.swingx.JXTaskPaneContainer taskPane;
     // End of variables declaration//GEN-END:variables
    
-    public static void main (String[] args) {
-            JFrame f  = new JFrame("Hello");
-            f.add(new referenceManager());
-                f.setAlwaysOnTop(true);
-                f.setSize(new Dimension(498, 440));
-               f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-               f.setVisible(true);
-         
-    }
+  
 
     @Override
     public Component getObjectHandle() {

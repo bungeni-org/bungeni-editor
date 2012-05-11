@@ -57,10 +57,5 @@ public class DocumentSectionsContainer {
         return documentSections;
     }
 
-    public static void main(String[] args) {
-        Set<String> Keys = DocumentSectionsContainer.getDocumentSectionsContainer().keySet();
-        for (String key : Keys) {
-            System.out.println(key);
-        }
-    }
+
 }

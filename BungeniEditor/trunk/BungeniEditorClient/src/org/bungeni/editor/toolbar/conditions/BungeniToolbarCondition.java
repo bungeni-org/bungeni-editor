@@ -103,9 +103,5 @@ public class BungeniToolbarCondition {
         this.conditionClass = conditionClass.trim();
     }
     
-    public static void main(String[] args) {
-        BungeniToolbarCondition cond = new BungeniToolbarCondition("! sectionNotExists:root");
-        System.out.println(cond.getConditionName());
-        System.out.println(cond.hasNegationCondition());
-    }
+ 
 }

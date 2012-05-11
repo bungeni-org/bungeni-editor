@@ -473,20 +473,6 @@ public class frameBrokenReferences2 extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                frameBrokenReferences2 f = new frameBrokenReferences2();
-                f.setSize(new Dimension(498, 380));
-                f.setVisible(true);
-            }
-        });
-    }
-
     public void setOOComponentHelper(OOComponentHelper ooDoc) {
         this.ooDocument = ooDoc;
     }

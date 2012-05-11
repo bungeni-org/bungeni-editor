@@ -71,19 +71,5 @@ public class ReferencesSyntax {
         return outputString;
     }
 
-    
-    public static void main (String[] args){
-        
-        ReferencesSyntax synt = new ReferencesSyntax("<artPrefix><artType><artSuffix><refPrefix><refPlaceHolder><refSuffix>");
-        ArrayList<ReferencesSyntax.QuerySyntax> qs = new ArrayList<ReferencesSyntax.QuerySyntax>(0);
-        qs.add(ReferencesSyntax.newQS("articleTypePrefix", "before article "));
-        qs.add(ReferencesSyntax.newQS("articleTypeSuffix", "after article "));
-        qs.add(ReferencesSyntax.newQS("referencePrefix", "before ref "));
-        qs.add(ReferencesSyntax.newQS("referenceSuffix", "after ref "));
-        String out = synt.getSyntax(QuerySyntax.toArray(qs));
-        System.out.println(out);
-    }
-    
-    
-
+ 
 }

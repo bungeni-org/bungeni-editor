@@ -153,35 +153,5 @@ public final class Launcher {
         }
     }
 
-    /**
-     * Invoke the main application entry point
-     * @param args
-     */
-    public static void main(String[] args) {
-        String className = "org.bungeni.editor.BungeniEditorClient";
-        Class clazz = Launcher.class;
-        ClassLoader loader = clazz.getClassLoader();
-        if ( className != null ) {
-            try {
-                ClassLoader cl = getEditorClassLoader();
-                Class c = cl.loadClass(className);
-                Method m = c.getMethod("main", new Class[]{String[].class});
-                m.invoke(null, new Object[]{args});
-            } catch (IllegalAccessException ex) {
-               System.out.println("Launcher.main : " + ex.getMessage());
-            } catch (IllegalArgumentException ex) {
-               System.out.println("Launcher.main : " + ex.getMessage());
-            } catch (InvocationTargetException ex) {
-               System.out.println("Launcher.main : " + ex.getMessage());
-            } catch (NoSuchMethodException ex) {
-               System.out.println("Launcher.main : " + ex.getMessage());
-            } catch (SecurityException ex) {
-               System.out.println("Launcher.main : " + ex.getMessage());
-            } catch (ClassNotFoundException ex) {
-               System.out.println("Launcher.main : " + ex.getMessage());
-            }
-        }
-    }
-
    
 }

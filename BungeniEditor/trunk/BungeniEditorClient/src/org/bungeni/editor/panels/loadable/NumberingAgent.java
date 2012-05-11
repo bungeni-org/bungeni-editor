@@ -415,7 +415,7 @@ public final class NumberingAgent {
      * Test the code
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void not_main(String[] args) {
         String odfDocPath = "c:/text.odt" ;
         NumberingAgent nAgent = new NumberingAgent(odfDocPath, false) ;
         

@@ -41,7 +41,5 @@ public class JavaPlatformArch {
         return 32;
     }
 
-    public static void main(String[] args) {
-        System.out.println(JavaPlatformArch.platform());
-    }
+
 }

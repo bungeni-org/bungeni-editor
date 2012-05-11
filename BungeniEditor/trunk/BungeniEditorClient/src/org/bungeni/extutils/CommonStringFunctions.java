@@ -37,8 +37,4 @@ public class CommonStringFunctions {
         return false;
     }
 
-    public static void main (String[] args) {
-        String s = "/uri/ken/str.name";
-        System.out.println(CommonStringFunctions.makeReferenceFriendlyString(s, "."));
-    }
 }

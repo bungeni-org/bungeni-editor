@@ -70,12 +70,4 @@ public class BungeniEditorLocale implements Comparable{
     }
 
 
-    public static void main(String[] args) {
-        BungeniEditorLocale ll = new BungeniEditorLocale("en", "US");
-        BungeniEditorLocale ll2 = new BungeniEditorLocale("en", "KE");
-        BungeniEditorLocale ll3 = new BungeniEditorLocale("en", "US");
-        System.out.println(ll.equals(ll2));
-        System.out.println(ll.equals(ll3));
-
-    }
 }

@@ -9,27 +9,19 @@ package org.bungeni.editor.metadata.editors;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.io.File;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
-import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
 import org.bungeni.editor.selectors.SelectorDialogModes;
-import org.bungeni.ooo.transforms.impl.BungeniTransformationTargetFactory;
-import org.bungeni.ooo.transforms.impl.IBungeniDocTransform;
 import org.bungeni.utils.BungeniFileSavePathFormat;
-import org.bungeni.extutils.MessageBox;
 import org.bungeni.editor.metadata.LanguageCode;
 import org.bungeni.editor.metadata.CountryCode;
 import org.bungeni.editor.metadata.DebateRecordMetaModel;
@@ -668,14 +660,7 @@ private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JTextField txtPublicationName;
     // End of variables declaration//GEN-END:variables
 
-    public static void main (String[] args) {
-      //  DebateRecordMetadata metaPanel = new DebateRecordMetadata();
-       // JFrame f = new JFrame("DebateRecord metadata");
-      //  f.setSize(new Dimension(234, 286));
-      //  f.add(metaPanel);
-     //   f.setVisible(true);
-     //   f.setAlwaysOnTop(true);
-    }
+ 
 
     @Override
     public Dimension getFrameSize() {

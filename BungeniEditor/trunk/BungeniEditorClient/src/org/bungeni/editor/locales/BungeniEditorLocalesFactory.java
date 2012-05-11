@@ -100,9 +100,4 @@ public class BungeniEditorLocalesFactory {
           //else leave the default locale in place 
     }
 
-    public static void main(String[] args) {
-        for (BungeniEditorLocale l : getAvailableLocales()) {
-            System.out.println(l);
-        }
-    }
 }

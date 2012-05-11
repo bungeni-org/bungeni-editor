@@ -835,6 +835,5 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
     private org.jdesktop.swingx.JXTaskPane paneMain;
     // End of variables declaration//GEN-END:variables
 
-    public static void main(String[] args) {
-    }
+  
 }

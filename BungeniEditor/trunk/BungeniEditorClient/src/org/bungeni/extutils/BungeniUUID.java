@@ -1,11 +1,3 @@
-/*
- * BungeniUUID.java
- *
- * Created on October 1, 2007, 5:59 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 
 package org.bungeni.extutils;
 
@@ -60,9 +52,5 @@ public class BungeniUUID {
 
         return buffer;
     }
-
-     public static void main(String[] args) {
-        System.out.println(getShortUUID());
-     }
 
 }

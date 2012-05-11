@@ -102,11 +102,4 @@ public class BungeniToolbarTargetProcessor {
     public String getActionValue() {
         return this.actionValue;
     }
-
-    public static void main(String[] args) {
-        BungeniToolbarTargetProcessor ttp = new BungeniToolbarTargetProcessor("toolbarSubAction.makePrayerSection.make_logo:test");
-        System.out.println("action value = " + ttp.actionValue);
-        System.out.println("sub action name  = " + ttp.subActionName);
-        
-    }
 }
