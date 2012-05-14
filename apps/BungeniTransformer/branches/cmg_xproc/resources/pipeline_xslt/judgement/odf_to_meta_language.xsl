@@ -28,9 +28,13 @@
                 xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0"
                 xmlns:rpt="http://openoffice.org/2005/report"
                 xmlns:anx="http://anx.akomantoso.org/1.0"
-                exclude-result-prefixes="xsl xsd xsi text office style table draw fo xlink dc meta number svg chart dr3d math form script ooo ooow oooc dom xforms of rdfa rpt field"
+                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+                xmlns:bungeni="http://editor.bungeni.org/1.0/anx/"
+                exclude-result-prefixes="xsl xsd xsi text office style table draw fo xlink dc meta number svg chart dr3d math form script ooo ooow oooc dom xforms rdfa of rdf anx"
 				version="2.0">
     <xsl:output indent="yes" method="xml" />
+    
+    <xsl:key name="bySectionType" match="bungeni:bungenimeta" use="bungeni:BungeniSectionType" />
     
     <xsl:template match="/">
         <xsl:apply-templates />
@@ -92,28 +96,88 @@
                 <meta id="publication_{generate-id()}" name="publication" contentName="{//meta:user-defined[@name='BungeniPublicationName']}" date="{//meta:user-defined[@name='BungeniPublicationDate']}"/>
             </mcontainer>
             <mcontainer id="references_{generate-id()}" name="references" source="#bungeni">
-                <!-- <meta id="Parliament" name="TLCOrganization" href="{//meta:user-defined[@name='BungeniParliamentID']}"  showAs="Parliament" /> -->
-                <meta name="TLCConcept" id="judgementNo" href="/ontology/concept/judgement/Judgement/{//meta:user-defined[@name='BungeniJudgementNo']}" showAs="{//meta:user-defined[@name='BungeniJudgementNo']}" />
+                <meta id="Parliament" name="TLCOrganization" href="{//meta:user-defined[@name='BungeniParliamentID']}"  showAs="Parliament" />
                 <meta name="TLCPerson" id="{//meta:user-defined[@name='BungeniWorkAuthor']}" href="{//meta:user-defined[@name='BungeniWorkAuthorURI']}" showAs="Author"/>
-                <meta name="TLCPerson" id="{//meta:user-defined[@name='BungeniExpAuthor']}" href="{//meta:user-defined[@name='BungeniExpAuthorURI']}" showAs="Author"/>
-                <meta name="TLCPerson" id="{//meta:user-defined[@name='BungeniManAuthor']}" href="{//meta:user-defined[@name='BungeniManAuthorURI']}" showAs="Author"/>
+                <meta name="TLCPerson" id="{//meta:user-defined[@name='BungeniExpAuthor']}" href="{//meta:user-defined[@name='BungeniExpAuthorURI']}" showAs="Editor"/>
+                <meta name="TLCPerson" id="{//meta:user-defined[@name='BungeniManAuthor']}" href="{//meta:user-defined[@name='BungeniManAuthorURI']}" showAs="Publisher"/>
                 
-                <xsl:for-each select="//meta:user-defined[starts-with(@name, 'BungeniPartyName')]">
-                  	<xsl:variable name="strHref"><xsl:value-of select="." /></xsl:variable>
-				    <xsl:variable name="tokenizedHref" select="tokenize($strHref,'~')"/>
-					<meta name="TLCPerson"  id="{$tokenizedHref[1]}" href="{$tokenizedHref[2]}" showAs="{$tokenizedHref[3]}" inrole="{$tokenizedHref[4]}" /> 
-                	<meta name="TLCRole"  id="{$tokenizedHref[4]}" href="/ontology/judgement/role/{$tokenizedHref[4]}" showAs="{$tokenizedHref[4]}" /> 
+               
+                <xsl:comment> TLCPerson </xsl:comment>
+                
+                <xsl:for-each select="key('bySectionType', 'Speech')">
+                    <xsl:element name="meta">
+                        <xsl:attribute name="name">TLCPerson</xsl:attribute>
+                        <xsl:attribute name="id">
+                            <xsl:value-of select="./bungeni:BungeniPersonID"></xsl:value-of>
+                        </xsl:attribute>
+                        <xsl:attribute name="href">
+                            <xsl:value-of select="./bungeni:BungeniSpeechByURI"></xsl:value-of>
+                        </xsl:attribute>
+                        <xsl:attribute name="showAs">
+                            <xsl:value-of select="./bungeni:BungeniSpeechBy"></xsl:value-of>
+                         </xsl:attribute>
+                    </xsl:element>
+                </xsl:for-each>
+               
+           
+           
+           
+                <xsl:comment> TLCEvent </xsl:comment>
+                
+                <xsl:for-each select="key('bySectionType', 'ActionEvent')">
+                    
+                    <xsl:element name="meta">
+                        <xsl:attribute name="name">TLCEvent</xsl:attribute>
+                        <xsl:attribute name="id">
+                            <xsl:value-of select="./bungeni:BungeniEventName"></xsl:value-of>
+                        </xsl:attribute>
+                        <xsl:attribute name="href">
+                            <xsl:value-of select="./bungeni:BungeniOntology"></xsl:value-of>
+                        </xsl:attribute>
+                        <xsl:attribute name="showAs">
+                            <xsl:value-of select="./bungeni:BungeniOntologyName"></xsl:value-of>
+                        </xsl:attribute>
+                    </xsl:element>
+                </xsl:for-each>
+
+             
+
+                <xsl:comment>  TLCRole  </xsl:comment>
+               
+                
+                <xsl:for-each select="key('bySectionType', 'Speech')">
+                    
+                    <xsl:element name="meta">
+                        <xsl:attribute name="name">TLCRole</xsl:attribute>
+                        <xsl:attribute name="id">
+                            <xsl:value-of select="./bungeni:BungeniSpeechAs"></xsl:value-of>
+                        </xsl:attribute>
+                        <xsl:attribute name="href">
+                            <xsl:value-of select="./bungeni:BungeniSpeechAsURI"></xsl:value-of>
+                        </xsl:attribute>
+                        <xsl:attribute name="showAs">
+                            <xsl:value-of select="./bungeni:BungeniSpeechAsDesc"></xsl:value-of>
+                        </xsl:attribute>
+                    </xsl:element>
+                </xsl:for-each>
+                
+                <!-- adding support for bill references -->
+                <!-- first we filter the nodes for the ones that have the attribute starting with bungeni bill 
+                    then we filter the attribute nodes for the ones starting with bungeni bill -->
+                <xsl:for-each select="//*[attribute::node()[starts-with(name() ,'BungeniBill')]]/attribute::node()[starts-with(name(), 'BungeniBill')]" > 
+                    <xsl:variable name="BillSectionMeta"><xsl:value-of select="." /></xsl:variable>
+                    <xsl:variable name="tokenizedBillSectionMeta" select="tokenize($BillSectionMeta,';')" />
+                    <xsl:variable name="BillShowAs" select="$tokenizedBillSectionMeta[1]" />
+                    <xsl:variable name="BillUri" select="$tokenizedBillSectionMeta[2]" /> 
+                    <xsl:variable name="BillOntology" select="$tokenizedBillSectionMeta[3]" /> 
+                    <xsl:element name="meta">
+                        <xsl:attribute name="name">TLCReference</xsl:attribute>
+                        <xsl:attribute name="href"><xsl:value-of select="$BillOntology" /> </xsl:attribute>
+                        <xsl:attribute name="showAs"><xsl:value-of select="$BillShowAs" /> </xsl:attribute>
+                        <xsl:attribute name="id"><xsl:value-of select="translate($BillUri, '/', '')" /> </xsl:attribute>
+                     </xsl:element>
                 </xsl:for-each> 
-                <xsl:for-each select="//meta:user-defined[starts-with(@name, 'BungeniJudgeName')]">
-                  	<xsl:variable name="strHref"><xsl:value-of select="." /></xsl:variable>
-				    <xsl:variable name="tokenizedHref" select="tokenize($strHref,'~')"/>
-					<meta name="TLCPerson"  id="{$tokenizedHref[1]}"   href="{$tokenizedHref[4]}" showAs="{$tokenizedHref[3]}" /> 
-                </xsl:for-each> 
-                <!--
-                <xsl:for-each select="//*[@BungeniSectionType='ActionEvent']">
-                    <meta name="TLCEvent" id="{@BungeniEventName}" href="{@BungeniOntology}" showAs="{@BungeniOntologyName}"/> 
-                </xsl:for-each> 
-                -->
+              
             </mcontainer>
         </mcontainer> 
     </xsl:template>
@@ -134,8 +198,9 @@
 		     	<xsl:value-of select="@style-name"/>
 		    </xsl:attribute>
 		    <xsl:attribute name="name">
-		     	<xsl:value-of select="@BungeniSectionType"/>
+		     	<xsl:value-of select="./bungeni:bungenimeta/bungeni:BungeniSectionType"/>
 		    </xsl:attribute>
+                        <!-- outputting comment -->
 			<xsl:apply-templates />
         </container>
     </xsl:template>

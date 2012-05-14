@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package translatortest;
 
@@ -9,7 +5,7 @@ package translatortest;
  *
  * @author anthony
  */
-public class TestBungeniXmlQuestion extends OATranslatorTestBungeniXmlBase {
+    public class TestBungeniXmlQuestion extends OATranslatorTestBungeniXmlBase {
 	public TestBungeniXmlQuestion(){
 		super();
                 //TransformerFactoryImpl l = new TransformerFactoryImpl();

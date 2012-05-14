@@ -1,0 +1,689 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<contenttype name="groupsitting">
+    <field name="status">published_agenda</field>
+    <permissions>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Clerk</field>
+            <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Owner</field>
+            <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Signatory</field>
+            <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.MP</field>
+            <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Minister</field>
+            <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Anonymous</field>
+            <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Clerk</field>
+            <field name="permission">bungeni.sittingschedule.itemdiscussion.Edit</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Clerk</field>
+            <field name="permission">bungeni.sittingschedule.item.Add</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Clerk</field>
+            <field name="permission">bungeni.sittingschedule.item.Delete</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Speaker</field>
+            <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Speaker</field>
+            <field name="permission">zope.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Owner</field>
+            <field name="permission">zope.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Signatory</field>
+            <field name="permission">zope.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.MP</field>
+            <field name="permission">zope.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Minister</field>
+            <field name="permission">zope.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Anonymous</field>
+            <field name="permission">zope.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Speaker</field>
+            <field name="permission">bungeni.sittingschedule.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Owner</field>
+            <field name="permission">bungeni.sittingschedule.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Signatory</field>
+            <field name="permission">bungeni.sittingschedule.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.MP</field>
+            <field name="permission">bungeni.sittingschedule.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Minister</field>
+            <field name="permission">bungeni.sittingschedule.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Anonymous</field>
+            <field name="permission">bungeni.sittingschedule.View</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Clerk</field>
+            <field name="permission">bungeni.sitting.Edit</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Clerk</field>
+            <field name="permission">bungeni.sitting.Delete</field>
+        </permission>
+        <permission>
+            <field name="setting">Deny</field>
+            <field name="role">bungeni.Clerk</field>
+            <field name="permission">bungeni.sittingschedule.Edit</field>
+        </permission>
+    </permissions>
+    <item_schedule>
+        <item_schedule>
+            <field name="item_id">1</field>
+            <field name="active">True</field>
+            <field name="schedule_id">1</field>
+            <field name="group_sitting_id">2</field>
+            <field name="planned_order">1</field>
+        </item_schedule>
+        <item_schedule>
+            <field name="item_id">2</field>
+            <field name="active">True</field>
+            <field name="schedule_id">2</field>
+            <field name="group_sitting_id">2</field>
+            <field name="planned_order">2</field>
+        </item_schedule>
+        <item_schedule>
+            <field name="item_id">6</field>
+            <field name="active">True</field>
+            <field name="schedule_id">3</field>
+            <field name="group_sitting_id">2</field>
+            <field name="planned_order">3</field>
+        </item_schedule>
+        <item_schedule>
+            <field name="item_id">88</field>
+            <field name="active">True</field>
+            <field name="schedule_id">4</field>
+            <field name="group_sitting_id">2</field>
+            <field name="planned_order">4</field>
+        </item_schedule>
+        <item_schedule>
+            <field name="item_id">22</field>
+            <field name="active">True</field>
+            <field name="schedule_id">5</field>
+            <field name="group_sitting_id">2</field>
+            <field name="planned_order">5</field>
+        </item_schedule>
+        <item_schedule>
+            <field name="item_id">26</field>
+            <field name="active">True</field>
+            <field name="schedule_id">6</field>
+            <field name="group_sitting_id">2</field>
+            <field name="planned_order">6</field>
+        </item_schedule>
+    </item_schedule>
+    <field name="venue_id">1</field>
+    <group>
+        <field name="status">active</field>
+        <field name="parliament_id">2</field>
+        <field name="description">edited - description description &lt;span style="color: rgb(191,
+            0, 95);"&gt;description &lt;/span&gt;description description description description
+            description description description description description description political
+            &lt;strong&gt;group description description&lt;/strong&gt; description description
+            description description description description description description description
+            description description description description description &lt;span
+            style="background-color: rgb(255, 128, 128);"&gt;description description&lt;/span&gt;
+            description description description description description description description
+            description description description description description description description
+            description description description description description description description
+            description description description</field>
+        <field name="short_name">XIV-PARL</field>
+        <field name="group_principal_id">group.parliament.2</field>
+        <field name="election_date">2011-02-01</field>
+        <field name="status_date">2012-02-09 22:04:18.545121</field>
+        <field name="language">en</field>
+        <field name="full_name">Bungeni Parliament</field>
+        <field name="group_id">2</field>
+        <field name="type">parliament</field>
+        <field name="start_date">2011-02-15</field>
+    </group>
+    <field name="short_name">Sitting A</field>
+    <field name="end_date">2012-02-22 11:35:00</field>
+    <tags>
+        <field name="tag">public</field>
+        <field name="tag">published</field>
+        <field name="tag">workspace</field>
+    </tags>
+    <field name="status_date">2012-02-20 13:49:23.513051</field>
+    <venue>
+        <field name="venue_id">1</field>
+        <field name="language">en</field>
+        <field name="short_name">Plenary</field>
+    </venue>
+    <field name="meeting_type">Plenary</field>
+    <reports/>
+    <field name="language">en</field>
+    <field name="group_sitting_id">2</field>
+    <field name="convocation_type">Ordinary</field>
+    <field name="group_id">2</field>
+    <changes>
+        <change>
+            <field name="status">draft_agenda</field>
+            <field name="user_id">5</field>
+            <field name="description">Draft Agenda</field>
+            <field name="change_id">6</field>
+            <field name="date_active">2012-02-20 13:49:23.527182</field>
+            <field name="date_audit">2012-02-20 13:49:23.527182</field>
+            <field name="action">workflow</field>
+            <field name="content_id">2</field>
+            <field name="notes">{'comment': '', 'source': 'sitting', 'destination': 'draft_agenda',
+                'transition': 'sitting-draft_agenda'}</field>
+            <permissions>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.sitting.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.sitting.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Signatory</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.sittingschedule.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Signatory</field>
+                    <field name="permission">bungeni.sittingschedule.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">bungeni.sittingschedule.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">bungeni.sittingschedule.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">bungeni.sittingschedule.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Signatory</field>
+                    <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.sittingschedule.itemdiscussion.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.sittingschedule.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.sittingschedule.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.sittingschedule.item.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.sittingschedule.item.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+                </permission>
+            </permissions>
+        </change>
+        <change>
+            <field name="status">sitting</field>
+            <field name="user_id">5</field>
+            <field name="description"/>
+            <field name="change_id">5</field>
+            <field name="date_active">2012-02-20 13:49:13.497477</field>
+            <field name="date_audit">2012-02-20 13:49:13.497477</field>
+            <field name="action">modify</field>
+            <field name="content_id">2</field>
+            <permissions>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.sitting.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.sitting.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Signatory</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.sittingschedule.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.sittingschedule.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Signatory</field>
+                    <field name="permission">bungeni.sittingschedule.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">bungeni.sittingschedule.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">bungeni.sittingschedule.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">bungeni.sittingschedule.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.sittingschedule.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.sittingschedule.item.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.sittingschedule.item.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Signatory</field>
+                    <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.sittingschedule.itemdiscussion.Edit</field>
+                </permission>
+            </permissions>
+        </change>
+        <change>
+            <field name="status">sitting</field>
+            <field name="user_id">5</field>
+            <field name="description">Sitting</field>
+            <field name="change_id">4</field>
+            <field name="date_active">2012-02-20 13:49:09.488693</field>
+            <field name="date_audit">2012-02-20 13:49:09.488693</field>
+            <field name="action">workflow</field>
+            <field name="content_id">2</field>
+            <field name="notes">{'comment': '', 'source': None, 'destination': 'sitting',
+                'transition': '-sitting'}</field>
+            <permissions>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.sitting.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.sitting.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Signatory</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.sittingschedule.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.sittingschedule.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Signatory</field>
+                    <field name="permission">bungeni.sittingschedule.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">bungeni.sittingschedule.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">bungeni.sittingschedule.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">bungeni.sittingschedule.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.sittingschedule.Edit</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.sittingschedule.item.Add</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.sittingschedule.item.Delete</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Signatory</field>
+                    <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">bungeni.sittingschedule.itemdiscussion.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">bungeni.sittingschedule.itemdiscussion.Edit</field>
+                </permission>
+            </permissions>
+        </change>
+        <change>
+            <field name="user_id">5</field>
+            <field name="description"/>
+            <field name="change_id">3</field>
+            <field name="date_active">2012-02-20 13:49:09.475782</field>
+            <field name="date_audit">2012-02-20 13:49:09.475782</field>
+            <field name="action">add</field>
+            <field name="content_id">2</field>
+            <permissions>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Clerk</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Speaker</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Allow</field>
+                    <field name="role">bungeni.Owner</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Signatory</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.MP</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Minister</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Authenticated</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+                <permission>
+                    <field name="setting">Deny</field>
+                    <field name="role">bungeni.Anonymous</field>
+                    <field name="permission">zope.View</field>
+                </permission>
+            </permissions>
+        </change>
+    </changes>
+    <field name="start_date">2012-02-22 09:15:00</field>
+    <field name="activity_type">Morning Sitting</field>
+</contenttype>

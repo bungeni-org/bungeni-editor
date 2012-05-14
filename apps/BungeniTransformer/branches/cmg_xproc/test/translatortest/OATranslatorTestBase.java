@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.util.HashMap;
 import org.apache.log4j.BasicConfigurator;
 
@@ -15,6 +16,8 @@ import org.junit.Test;
 import org.bungeni.translators.globalconfigurations.GlobalConfigurations;
 import org.bungeni.translators.translator.OATranslator;
 import org.bungeni.translators.utility.files.FileUtility;
+import org.custommonkey.xmlunit.Diff;
+import org.custommonkey.xmlunit.XMLUnit;
 
 
 /**
@@ -95,11 +98,22 @@ public class OATranslatorTestBase
 		FileUtility.getInstance().copyFile(fis, outFile);
 		FileUtility.getInstance().copyFile(fisMlx, outMlx);
 		//compare the generated output with the expected outut
-		String sOut = FileUtility.getInstance().FileToString(this.getOutputDocument()).trim();
-		String sExp = FileUtility.getInstance().FileToString(this.getComparisonDocument()).trim();
-		assertEquals("Generated file did not match expected output " , sExp, sOut);
+                boolean b = diffXml(getOutputDocument(), getComparisonDocument());
+		//String sOut = FileUtility.getInstance().FileToString(this.getOutputDocument()).trim();
+		//String sExp = FileUtility.getInstance().FileToString(this.getComparisonDocument()).trim();
+		assertEquals("Generated file did not match expected output " , true, b);
 		
 	}
+
+        private boolean diffXml(String sourceFile, String compFile) throws Exception{
+            XMLUnit.setIgnoreAttributeOrder(true);
+            XMLUnit.setIgnoreComments(true);
+            XMLUnit.setIgnoreDiffBetweenTextAndCDATA(true);
+            XMLUnit.setIgnoreWhitespace(true);
+            Diff d = new Diff(new FileReader(sourceFile), new FileReader(compFile));
+            return d.identical();
+        }
+
 
     /**
      * @return the m_configFilePath

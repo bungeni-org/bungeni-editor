@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-                version="2.0">
+                xmlns:bp="http://www.bungeni.org/pipeline/1.0"
+                xmlns:bodf="http://editor.bungeni.org/1.0/odf/"
+                exclude-result-prefixes="bp"
+                version="2.0"> 
     <xsl:output indent="yes" method="xml" encoding="UTF-8"/>
 
     <xsl:template match="/">
@@ -18,9 +21,14 @@
         </xsl:element>
     </xsl:template>
 
-    <xsl:template match="*[@name='Header']">
+    <xsl:template match="*[@name='Header']" bp:name="Header">
         <header>
- 			<xsl:apply-templates />
+           <!-- <xsl:if test="@id">
+                    <xsl:attribute name="id"  select="@id" />
+                    <xsl:attribute name="bodf:sourceId" select="@id" />
+            </xsl:if>-->
+
+            <xsl:apply-templates />
         </header>
     </xsl:template>
     
@@ -29,3 +37,4 @@
     </xsl:template> 
 
 </xsl:stylesheet>
+

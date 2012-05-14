@@ -28,28 +28,37 @@
             <parameter name="parliament-id"/>
             <parameter name="parliament-election-date" />
             <parameter name="for-parliament" />
+            <parameter name="type-mappings">
+                <value>
+                    <map from="groupsitting" uri-name="Groupsitting" element-name="groupsitting" />
+                </value>
+            </parameter>            
         </parameters>
         
         <xslt   step="1" 
             name="groupingLevel1" 
-            href="pipeline_xslt/bungeni/groupsitting/grouping_level1.xsl"/>
+            href="pipeline_xslt/bungeni/groupsitting/1_grouping.xsl"/>
         
         <xslt   step="2" 
             name="groupingLevel2" 
-            href="pipeline_xslt/bungeni/groupsitting/grouping_level2.xsl"/>               
+            href="pipeline_xslt/bungeni/groupsitting/2_grouping.xsl"/>               
         
         <xslt   step="3" 
             name="appendBungeniNS" 
             href="pipeline_xslt/bungeni/common/add_bungeniportal_ns.xsl" 
-            postproc="proc-group-item"/>
+            postproc="proc-groupsitting-item"/>
         
     </input>
     
-    <processgroup id="proc-group-item">
+    <processgroup id="proc-groupsitting-item">
         
         <process name="unescapehtml"
             description="item body"
-            param="//bu:ontology/bu:legislature/bu:group/bu:description" />
+            param="//bu:ontology//bu:description" />
+        
+        <process name="unescapehtml"
+            description="item notes"
+            param="//bu:ontology//bu:notes" />        
         
     </processgroup>
     

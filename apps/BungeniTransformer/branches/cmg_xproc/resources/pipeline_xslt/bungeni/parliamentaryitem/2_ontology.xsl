@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:xbf="http://bungeni.org/xslt/functions"
+    xmlns:bdates="http://www.bungeni.org/xml/dates/1.0"
+    xmlns:busers="http://www.bungeni.org/xml/users/1.0"
+    xmlns:bctypes="http://www.bungeni.org/xml/contenttypes/1.0"
     exclude-result-prefixes="xs"
     version="2.0">
+    
+    <xsl:import href="resources/pipeline_xslt/bungeni/common/func_dates.xsl" />
+    <xsl:import href="resources/pipeline_xslt/bungeni/common/func_users.xsl" />
+    <xsl:import href="resources/pipeline_xslt/bungeni/common/func_content_types.xsl" />
+     
     <xd:doc xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" scope="stylesheet">
         <xd:desc>
             <xd:p><xd:b>Created on:</xd:b> Oct 17, 2011</xd:p>
@@ -23,24 +30,11 @@
         -->
         
     <!-- These values are set in first input which is grouping_Level1 -->        
-    <xsl:variable name="country-code" select="data(/ontology/bungeni/country)" />
+    <xsl:variable name="country-code" select="data(/ontology/legislature/country)" />
     <xsl:variable name="parliament-election-date" select="data(/ontology/bungeni/parliament/@date)" />
     <xsl:variable name="for-parliament" select="data(/ontology/bungeni/parliament/@href)" />
     <xsl:variable name="parliament-id" select="data(/ontology/bungeni/@id)" />
-    
-    <xsl:function name="xbf:parse-date">
-        <xsl:param name="input-date"/>
-        <xsl:variable name="arrInputDate" select="tokenize($input-date,'\s+')" />
-        <xsl:sequence select="concat($arrInputDate[1],'T',$arrInputDate[2])" />
-    </xsl:function>
-    
-    
-    <xsl:function name="xbf:parse-date-nomicrotime">
-        <xsl:param name="input-date"/>
-        <xsl:variable name="arrInputDate" select="tokenize($input-date,'\s+')" />
-        <xsl:variable name="arrInputTime" select="substring-before(string($arrInputDate[2]), '.')" />
-        <xsl:sequence select="concat($arrInputDate[1],'T',$arrInputTime)" />
-    </xsl:function>
+    <xsl:variable name="type-mappings" select="//custom/value" />
     
     <xsl:template match="/">
         <xsl:apply-templates/>
@@ -58,100 +52,111 @@
     </xsl:template>
     
     <xsl:template match="field[@name='body_text' or @name='body']">
-        <body>
+         <body >
             <xsl:value-of select="." />
         </body>
     </xsl:template>    
     
+    <!--
     <xsl:template match="field[@name='assignment_id']">
         <assignmentId>
             <xsl:value-of select="." />
         </assignmentId>
-    </xsl:template>  
+    </xsl:template>  -->
     
     <xsl:template match="field[@name='user_id']">
-        <userId>
+        <userId type="xs:integer">
             <xsl:value-of select="." />
         </userId>
     </xsl:template>  
     
     <xsl:template match="field[@name='parliament_id']">
-        <parliamentId>
+        <parliamentId type="xs:integer">
             <xsl:value-of select="."/>
         </parliamentId>
     </xsl:template>
     
     <!-- !+NOTES (ao, 10-Apr-2012) audit_action is to catch date_active 
         embedded in event type documents -->    
-    <xsl:template match="field[@name='action' or @name='audit_action']">
-        <action>
-            <xsl:value-of select="." />
-        </action>
-    </xsl:template>
-    
-    <xsl:template match="field[@name='response_type']">
-        <responseType>
-            <xsl:value-of select="." />
+
+    <xsl:template match="_vp_response_type">
+        <responseType isA="TLCTerm">
+            <value type="xs:string">
+                <xsl:value-of select="field[@name='value']" />
+            </value>
         </responseType>
     </xsl:template>
     
-    <xsl:template match="field[@name='question_type']">
-        <questionType>
-            <xsl:value-of select="." />
-        </questionType>
+    <xsl:template match="field[@name='doc_type']">
+        <docSubType isA="TLCTerm">
+            <value type="xs:string"><xsl:value-of select="." /></value>
+        </docSubType>
     </xsl:template>    
     
-    <xsl:template match="field[@name='start_date']">
-        <startDate>
+    <xsl:template match="field[@name='attachment_id']">
+        <attachmentId key="true" type="xs:integer">
             <xsl:value-of select="." />
+        </attachmentId>
+    </xsl:template>
+    
+    <xsl:template match="field[@name='type_number']" >
+        <progressiveNumber type="xs:integer"><xsl:value-of select="." /></progressiveNumber>
+    </xsl:template>
+        
+    <xsl:template match="field[@name='start_date']">
+        <startDate type="xs:dateTime">
+            <xsl:variable name="start_date" select="." />
+            <xsl:value-of select="bdates:parse-date($start_date)" />
         </startDate>
     </xsl:template> 
     
     <xsl:template match="field[@name='group_id']">
-        <groupId>
+        <groupId type="xs:integer">
             <xsl:value-of select="." />
         </groupId>
     </xsl:template>   
     
     <xsl:template match="field[@name='item_id']">
-        <itemId>
+        <itemId type="xs:integer">
             <xsl:value-of select="." />
         </itemId>
     </xsl:template>     
     
     <xsl:template match="field[@name='notes']">
-        <notes>
+        <notes type="xs:string">
             <xsl:value-of select="." />
         </notes>
     </xsl:template> 
     
     <xsl:template match="field[@name='status']">
-        <status>
-            <xsl:value-of select="." />
+        <status isA="TLCTerm">
+            <value type="xs:string"><xsl:value-of select="." /></value>
         </status>
     </xsl:template>    
     
-    <xsl:template match="field[@name='description']">
-        <description>
-            <xsl:value-of select="." />
-        </description>
-    </xsl:template>     
+    <xsl:template match="field[@name='timestamp']">
+        <xsl:variable name="timestampDate" select="bdates:parse-date(data(.))" />
+       <timestampDate type="xs:dateTime">
+           <xsl:value-of select="$timestampDate" />         
+        </timestampDate>
+    </xsl:template>
+
     
     
     <xsl:template match="field[@name='registry_number']">
-        <registryNumber>
+        <registryNumber type="xs:string">
             <xsl:value-of select="." />
         </registryNumber>
     </xsl:template>    
-    
+    <!--
     <xsl:template match="field[@name='parliamentary_item_id']">
         <legislativeItemId>
             <xsl:value-of select="." />
         </legislativeItemId>
-    </xsl:template> 
+    </xsl:template> -->
     
     <xsl:template match="field[@name='change_id']">
-        <changeId>
+        <changeId type="xs:string">
             <xsl:value-of select="." />
         </changeId>
     </xsl:template>    
@@ -162,62 +167,71 @@
         </manual>
     </xsl:template>     
     
-    <xsl:template match="field[@name='short_name']">
-        <shortName>
+    <xsl:template match="field[@name='short_title']">
+        <shortTitle type="xs:string">
             <xsl:value-of select="." />
-        </shortName>
-    </xsl:template>    
-    
-    <xsl:template match="field[@name='full_name']">
-        <fullName>
-            <xsl:value-of select="." />
-        </fullName>
+        </shortTitle>
     </xsl:template>  
     
-    <xsl:template match="field[@name='file_title']">
-        <fileTitle>
+    <xsl:template match="field[@name='long_title']">
+        <longTitle type="xs:string">
             <xsl:value-of select="." />
-        </fileTitle>
+        </longTitle>
+    </xsl:template>       
+    
+    <xsl:template match="field[@name='title']">
+        <title type="xs:string">
+            <xsl:value-of select="." />
+        </title>
     </xsl:template>   
     
-    <xsl:template match="field[@name='file_mimetype']">
-        <fileMimetype>
-            <xsl:value-of select="." />
-        </fileMimetype>
+    <xsl:template match="field[@name='mimetype']">
+        <mimetype isA="TLCTerm">
+            <value type="xs:string"><xsl:value-of select="." /></value>
+        </mimetype>
     </xsl:template>   
     
-    <xsl:template match="field[@name='file_name']">
-        <fileName>
+    <xsl:template match="field[@name='name']">
+        <name type="xs:string">
             <xsl:value-of select="." />
-        </fileName>
+        </name>
     </xsl:template>  
     
-    <xsl:template match="field[@name='attached_file_type']">
-        <attachedFileType>
-            <xsl:value-of select="." />
-        </attachedFileType>
+    <xsl:template match="field[@name='type']">
+        <type isA="TLCTerm">
+            <value type="xs:string">
+                <xsl:value-of select="bctypes:get_content_type_element_name(., $type-mappings)" />
+            </value>
+        </type>
     </xsl:template>    
     
-    <xsl:template match="field[@name='attached_file_id']">
-        <attachedFileId>
-            <xsl:value-of select="." />
-        </attachedFileId>
-    </xsl:template>  
+    
+    <xsl:template match="field[@name='audit_type']">
+        <auditFor isA="TLCTerm">
+            <value type="xs:string">
+                <xsl:value-of select="bctypes:get_content_type_element_name(., $type-mappings)" />
+            </value>
+        </auditFor>
+    </xsl:template>    
+    
+    
     
     <xsl:template match="field[@name='saved_file']">
-        <savedFile>
+        <savedFile type="xs:string">
             <xsl:value-of select="." />
         </savedFile>
     </xsl:template>  
     
     <xsl:template match="field[@name='att_uuid']">
-        <attachedFileUuid>
+        <fileUuid type="xs:string">
             <xsl:value-of select="." />
-        </attachedFileUuid>
-    </xsl:template>    
+        </fileUuid>
+    </xsl:template>
     
     <xsl:template match="field[@name='language']">
-        <language><xsl:value-of select="." /></language>
+        <!-- !+RENDERED NOW as xml:lang on the legislativeItem
+         <language type="xs"><xsl:value-of select="." /></language>
+        -->
     </xsl:template>
     
     <xsl:template match="field[@name='uri']">
@@ -232,26 +246,10 @@
         <xsl:variable name="arrStatusDate" select="tokenize($status_date,'\s+')" />
         -->
         <statusDate type="xs:dateTime">
-            <xsl:value-of select="xbf:parse-date($status_date)" />
+            <xsl:value-of select="bdates:parse-date($status_date)" />
         </statusDate>
     </xsl:template>
-    
-    <!-- !+NOTES (ao, 10-Apr-2012) audit_date_active is to catch date_active 
-         embedded in event type documents -->
-    <xsl:template match="field[@name='date_active' or @name='audit_date_active']">
-        <dateActive type="xs:dateTime">
-            <xsl:variable name="active_date" select="." />
-            <xsl:value-of select="xbf:parse-date($active_date)" />
-        </dateActive>
-    </xsl:template> 
 
-    <xsl:template match="field[@name='date_audit']">
-        <dateAudit type="xs:dateTime">
-            <xsl:variable name="audit_date" select="." />
-            <xsl:value-of select="xbf:parse-date($audit_date)" />
-        </dateAudit>
-    </xsl:template> 
-    
     
     <!-- Only for question -->
     
@@ -278,11 +276,14 @@
     </xsl:template>
     
     <xsl:template match="field[@name='tag']">
-        <tag>
+        <tag isA="TLCTerm">
+            <value type="xs:string">
             <xsl:value-of select="." />
+            </value>    
         </tag>
     </xsl:template>    
     
+    <!--
     <xsl:template match="field[@name='doc_type']">
         <xsl:variable name="parent-type" select="//legislativeItem/field[@name='type']" />
         <xsl:variable name="value" select="." />
@@ -295,7 +296,7 @@
                  name="showAs" 
                  select="$value" />
         </xsl:element>    
-    </xsl:template>
+    </xsl:template> -->
     
     <xsl:template match="permissions">
         <permissions>
@@ -303,6 +304,12 @@
         </permissions>
     </xsl:template>
     
+    <xsl:template match="permissions[parent::document]">
+        <permissions id="documentPermissions">
+            <xsl:apply-templates />
+        </permissions>
+    </xsl:template>
+
     <xsl:template match="permission">
         <permission 
             setting="{field[@name='setting']}" 
@@ -310,35 +317,38 @@
             role="{field[@name='role']}" />
     </xsl:template>
     
-    <xsl:template match="itemsignatories">
+    <xsl:template match="item_signatories">
+        <xsl:if test="child::*">
         <signatories>
             <xsl:apply-templates />
         </signatories>
+        </xsl:if>
     </xsl:template>
+    
+    <xsl:template match="item_signatorie">
+        <signatory isA="TLCReference">
+            <xsl:apply-templates />
+        </signatory>
+    </xsl:template>     
     
     <!-- Only for events -->
     
-    <xsl:template match="field[@name='short_title']">
-        <shortTitle>
-            <xsl:value-of select="." />
-        </shortTitle>
-    </xsl:template>  
-    
-    <xsl:template match="field[@name='long_title']">
-        <longTitle>
-            <xsl:value-of select="." />
-        </longTitle>
-    </xsl:template>       
     
     <xsl:template match="field[@name='doc_id']">
-        <docId>
+        <docId type="xs:integer" key="true">
             <xsl:value-of select="." />
         </docId>
     </xsl:template> 
     
-    <xsl:template match="field[@name='acronym']">
-        <acronym>
+    <xsl:template match="field[@name='signatory_id']">
+        <signatoryId type="xs:integer" key="true">
             <xsl:value-of select="." />
+        </signatoryId>
+    </xsl:template>     
+    
+    <xsl:template match="field[@name='acronym']">
+        <acronym isA="TLCTerm">
+            <value type="xs:string"><xsl:value-of select="." /></value>
         </acronym>
     </xsl:template>    
     
@@ -349,42 +359,84 @@
         </docType>
         </xsl:template -->  
     
-    <xsl:template match="field[@name='procedure']">
-        <procedure>
-            <xsl:value-of select="." />
-        </procedure>
-    </xsl:template>   
     
-    <xsl:template match="field[@name='seq']">
-        <seq>
-            <xsl:value-of select="." />
-        </seq>
-    </xsl:template>     
+    <!-- !+BEGIN(AUDIT) AUDIT, CHANGE AND VERSION TEMPLATES -->
+    
+    
+    <xsl:template match="versions">
+        <versions>
+            <xsl:apply-templates />
+        </versions>
+    </xsl:template>
+  
+    <xsl:template match="versions[parent::document]">
+        <versions id="documentVersions">
+            <xsl:apply-templates />
+        </versions>
+    </xsl:template>
+    
+    
+    <xsl:template match="version">
+        <!--
+        <xsl:variable name="doc-uri" select="//legislativeItem/@uri" />
+        <xsl:variable name="active-date" select="field[@name='date_active']" />
+        <xsl:variable name="version-status-date" select="bdates:parse-date($active-date)" />
+        -->
+        <version isA="TLCObject">
+            <xsl:apply-templates />
+        </version>
+        
+    </xsl:template>
+    
 
-    <xsl:template match="field[@name='audit_date']">
-        <xsl:variable name="audit_date" select="." />
+    <xsl:template match="field[@name='seq']">
+        <sequence type="xs:integer"><xsl:value-of select="." /></sequence>    
+    </xsl:template>
+    
+    <xsl:template match="field[@name='date_active']">
+        <activeDate type="xs:dateTime">
+            <xsl:variable name="active_date" select="." />
+            <xsl:value-of select="bdates:parse-date($active_date)" />
+        </activeDate>
+    </xsl:template> 
+    
+    <xsl:template match="field[@name='date_audit']">
         <auditDate type="xs:dateTime">
-            <xsl:value-of select="xbf:parse-date($audit_date)" />
+            <xsl:variable name="audit_date" select="." />
+            <xsl:value-of select="bdates:parse-date($audit_date)" />
         </auditDate>
-    </xsl:template>   
+    </xsl:template> 
+    
+    <xsl:template match="field[@name='action']">
+        <auditAction isA="TLCEvent">
+            <value type="xs:string">
+            <xsl:value-of select="." />
+            </value>
+        </auditAction>
+    </xsl:template>
+    
     
     <xsl:template match="field[@name='audit_id']">
-        <auditId>
+        <auditId type="xs:integer">
             <xsl:value-of select="." />
         </auditId>
     </xsl:template>   
     
     <xsl:template match="field[@name='head_id']">
-        <headId>
+        <headId type="xs:integer">
             <xsl:value-of select="." />
         </headId>
     </xsl:template>    
     
+    
+    
+    <!--
     <xsl:template match="field[@name='audit_head_id']">
-        <auditHeadId>
+        <auditHeadId type="xs:integer">
             <xsl:value-of select="." />
         </auditHeadId>
     </xsl:template>    
+    -->
     
     <xsl:template match="field[@name='audit_user_id']">
         <auditUserId>
@@ -392,21 +444,86 @@
         </auditUserId>
     </xsl:template>  
     
+    
+    <xsl:template match="field[@name='description']">
+        <description>
+            <xsl:value-of select="." />
+        </description>
+    </xsl:template>     
+    
+    <xsl:template match="field[@name='procedure']">
+        <procedureType isA="TLCTerm">
+            <value type="xs:string"><xsl:value-of select="." /></value>
+        </procedureType>
+    </xsl:template>
+    
+    
+    <xsl:template match="changes[parent::document]">
+        <changes id="documentChanges">
+            <xsl:apply-templates />
+        </changes>
+    </xsl:template>
+    
+    <xsl:template match="audits[parent::document]">
+        <audits id="documentAudits">
+            <xsl:apply-templates />
+        </audits>
+    </xsl:template>
+    
+    <xsl:template match="head">
+       <eventOf isA="TLCObject">
+            <refersTo href="!+FIX_THIS_PUT_SOURCE_URI_HERE" />
+            <xsl:apply-templates />
+       </eventOf>    
+    </xsl:template>
+    
+    
+    
+    <!-- !+END_(AUDIT) -->
+    <!--
     <xsl:template match="itemsignatorie">
         <xsl:call-template name="user_render">
             <xsl:with-param name="typeOf" select="string('signatory')" />
-        </xsl:call-template>
+        </xsl:call-template> -->
         <!--
         <xsl:variable name="showAs" select="concat(field[@name='last_name'], ', ' , field[@name='first_name'])" />
         <xsl:variable name="isA" select="string('user')" />
         <signatory isA="{$isA}" href="{concat($for-parliament, '/user/', field[@name='user_id'])}" showAs="{$showAs}" />
         -->
-     </xsl:template>
+    <!-- </xsl:template> -->
+    
+    
     
     <xsl:template match="owner">
+        <xsl:variable name="first-name" select="data(field[@name='first_name'])" />
+        <xsl:variable name="last-name" select="data(field[@name='last_name'])" />
+        <xsl:variable name="user-id" select="data(field[@name='user_id'])" />
+        <xsl:variable name="yyyy-mm-dd-dob" select="bdates:parse-datepart-only(data(field[@name='date_of_birth']))" />
+        <xsl:variable name="user-identifier" select="busers:get_user_identifer(
+                    $country-code, 
+                    $last-name, 
+                    $first-name, 
+                    $user-id, 
+                    $yyyy-mm-dd-dob
+                    )" 
+        />
+        <xsl:variable name="user-uri" select="busers:get_user_uri($country-code, $user-identifier)" />
+   
+        <owner isA="TLCPerson">
+            <person href="{$user-uri}" showAs="{concat($last-name, ' ,', $first-name)}" />
+            <role type="TLCConcept">
+                <value type="xs:string">
+                    <xsl:value-of select="bctypes:get_content_type_uri_name(
+                        'member_of_parliament',
+                        $type-mappings
+                        )"></xsl:value-of>
+                </value>
+            </role>
+        </owner>
+        <!--
         <xsl:call-template name="user_render">
             <xsl:with-param name="typeOf" select="string('owner')" />
-        </xsl:call-template>
+        </xsl:call-template> -->
         <!--
         <xsl:variable name="showAs" select="concat(field[@name='last_name'], ', ' , field[@name='first_name'])" />
         <xsl:variable name="isA" select="string('user')" />
@@ -418,55 +535,45 @@
         <publicationDate type="xs:date"><xsl:value-of select="." /></publicationDate>
     </xsl:template>
     
-    <xsl:template match="events">
+    
+    <!-- !+BEGIN(WORKFLOW) -->
+    
+    <xsl:template match="sa_events">
         <workflowEvents>
             <xsl:apply-templates mode="parent_is_events" />
         </workflowEvents>
     </xsl:template>
     
-    <xsl:template match="event" mode="parent_is_events">
-        <xsl:variable name="event-identifier" select="field[@name='doc_id']" />
-        <xsl:variable name="event-date" select="field[@name='status_date']" />
-        <xsl:variable name="event-lang" select="field[@name='language']" />
+    
+    
+    <xsl:template match="sa_events[parent::document]">
+        <workflowEvents id="documentEvents">
+            <xsl:apply-templates mode="parent_is_events" />
+        </workflowEvents>
+    </xsl:template>
+    
+    
+    
+    
+    <xsl:template match="sa_event" mode="parent_is_events">
+        <!-- these URIs will be rewritten in idgenerate.xsl -->
+        <!--@            href="{concat('/',$country-code,'/event/',$event-identifier, '/', $event-lang)}" 
+            -->
         <workflowEvent 
-            href="{concat('/',$country-code,'/event/',$event-identifier, '/', $event-lang)}" 
             isA="TLCEvent"
             showAs="{field[@name='short_title']}" 
-            date="{xbf:parse-date($event-date)}" 
         >
             <xsl:apply-templates />
         </workflowEvent>
     </xsl:template>
-    
-    <xsl:template match="versions">
-        <versions>
-            <xsl:apply-templates />
-        </versions>
-    </xsl:template>
-    
-    <xsl:template match="version">
-        <xsl:variable name="doc-uri" select="//legislativeItem/@uri" />
-        <xsl:variable name="status-date" select="field[@name='status_date']" />
-        <xsl:variable name="version-status-date" select="xbf:parse-date-nomicrotime($status-date)" />
 
-        <version isA="TLCConcept" 
-            uri="{concat($doc-uri, '@', $version-status-date)}" 
-            id="ver-{data(field[@name='version_id'])}"
-            user-generated="{lower-case(data(field[@name='manual']))}"
-            >
-
-            <xsl:apply-templates />
-        
-        </version>
-   
-    </xsl:template>
+    <!-- !+END(WORKFLOW) -->
     
-    <xsl:variable name="parl_id" select="field[@name='owner_id']" />
-    
+    <!--
     <xsl:template name="user_render">
         <xsl:param name="typeOf" select="string('unknown')" />
         <xsl:variable name="showAs" select="concat(field[@name='last_name'], ', ' , field[@name='first_name'])" />
-        <xsl:variable name="isA" select="string('user')" />
+        <xsl:variable name="isA" select="string('TLCPerson')" />
         <xsl:variable name="full-user-identifier"
             select="concat($country-code, '.',
             field[@name='last_name'], '.', 
@@ -483,20 +590,15 @@
                 $parliament-election-date, '/',
                 $full-user-identifier)"             
             />
-        </xsl:element>
-    </xsl:template>
+        </xsl:element> 
+    </xsl:template> -->
     
     <!-- for <event>s -->
-    <xsl:template match="//head/field[@name='type']">
-        <eventOf>
-            <xsl:value-of select="." />
-        </eventOf>
-    </xsl:template>
+
 
     <!--+FIX_THIS content_id, ministry_id is suppresed for versions -->
     <xsl:template match="field[
         @name='content_id' or
-        @name='timestamp' or 
         @name='ministry_id' or
         @name='version_id' 
         ]">
@@ -508,6 +610,11 @@
     <xsl:template match="field[@name='owner_id'] | field[@name='receive_notification']">
         <!-- Dont emit owner id -->
     </xsl:template>
+    
+    <!--
+    <xsl:template match="custom">
+      <xsl:copy-of select="$type-mappings"></xsl:copy-of>
+    </xsl:template> -->
     
     <!--!+MINISTRY_MATCH (ah, oct-2011) removing this for now  
         <xsl:template match="ministry">

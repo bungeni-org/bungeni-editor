@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><akomaNtoso xmlns="http://www.akomantoso.org/1.0">
+<?xml version="1.0" encoding="UTF-8"?><akomaNtoso xmlns="http://www.akomantoso.org/2.0" xmlns:bodf="http://editor.bungeni.org/1.0/odf/">
    <debateRecord>
       <meta>
          <identification source="#bungeni">
@@ -27,7 +27,7 @@
             <TLCPerson id="puser.Ashok" href="user.Ashok" showAs="Author"/>
          </references>
       </meta>
-      <preface>
+      <preface bodf:sourceId="preface">
          <heading>NATIONAL ASSEMBLY</heading>
          <subheading>OFFICIAL REPORT</subheading>
          <p>Wednesday, 20th March, 1991</p>
@@ -36,11 +36,11 @@
             <span>[Mr Speaker in the Chair]</span>
          </scene>
       </preface>
-      <debate>
-         <papers id="papers1">
+      <debate bodf:sourceId="debaterecord">
+         <papers id="papers1" bodf:sourceId="papers1">
             <heading>PAPERSLAID</heading>
             <subheading>The following Papers were laid on the Table:</subheading>
-            <other id="tbldocs1">
+            <other id="tbldocs1" bodf:sourceId="tbldocs1">
                <p>
                   <a id="d7e113" href="/ken/person/hon.khamasi/doc-20040704">The Report of the Commonwealth Parliamentary Association (CPA) Kenya branch delegation to the 35th CPA (Africa Region) conference held in Lobamba, Swaziland from 7th August, 2004 to 15th August, 2004.</a>
                </p>

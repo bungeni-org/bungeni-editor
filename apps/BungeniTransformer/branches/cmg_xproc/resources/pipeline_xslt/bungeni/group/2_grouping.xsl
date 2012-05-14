@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:bdates="http://www.bungeni.org/xml/dates/1.0"
+    xmlns:bctypes="http://www.bungeni.org/xml/contenttypes/1.0"
     exclude-result-prefixes="xs"
     version="2.0">
+    
+    <xsl:import href="resources/pipeline_xslt/bungeni/common/func_dates.xsl" />
+    <xsl:import href="resources/pipeline_xslt/bungeni/common/func_content_types.xsl" />
+    
     <xd:doc xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" scope="stylesheet">
         <xd:desc>
             <xd:p><xd:b>Created on:</xd:b> Oct 17, 2011</xd:p>
@@ -10,7 +16,7 @@
             <xd:p></xd:p>
         </xd:desc>
     </xd:doc>
-
+    
     <xsl:output indent="yes" method="xml" encoding="UTF-8"/>
     
     <!-- These values are set in first input which is grouping_Level1 -->        
@@ -18,11 +24,11 @@
     <xsl:variable name="parliament-election-date" select="data(/ontology/bungeni/parliament/@date)" />
     <xsl:variable name="for-parliament" select="data(/ontology/bungeni/parliament/@href)" />  
     <xsl:variable name="parliament-id" select="data(/ontology/bungeni/@id)" />
-
+    
     <xsl:template match="/">
         <xsl:apply-templates/>
     </xsl:template>
-
+    
     <xsl:template match="*">
         <xsl:element name="{node-name(.)}">
             <xsl:for-each select="@*">
@@ -32,36 +38,52 @@
             </xsl:for-each>
             <xsl:apply-templates />
         </xsl:element>
-    </xsl:template>
+    </xsl:template>  
     
     <xsl:template match="field[@name='type']">
-        <type>
-            <xsl:value-of select="." />
-        </type>
+        <type isA="TLCTerm">
+            <value type="xs:string">
+                <xsl:value-of select="." />
+            </value>
+        </type>    
     </xsl:template>     
     
     <xsl:template match="field[@name='tag']">
-        <tag>
-            <xsl:value-of select="." />
+        <tag isA="TLCTerm">
+            <value type="xs:string">
+                <xsl:value-of select="." />
+            </value>
         </tag>
     </xsl:template>    
     
     <xsl:template match="field[@name='group_id']">
-        <groupId>
+        <groupId type="xs:integer">
             <xsl:value-of select="." />
         </groupId>
     </xsl:template>    
     
     <xsl:template match="field[@name='parliament_id']">
-        <parliamentId>
+        <parliamentId type="xs:integer">
             <xsl:value-of select="." />
         </parliamentId>
     </xsl:template>      
     
     <xsl:template match="field[@name='parent_group_id']">
-        <parentGroupId>
+        <parentGroupId type="xs:integer">
             <xsl:value-of select="." />
         </parentGroupId>
+    </xsl:template>
+    
+    <xsl:template match="field[@name='group_principal_id']">
+        <partyId type="xs:string">
+            <xsl:value-of select="."/>
+        </partyId>
+    </xsl:template>    
+    
+    <xsl:template match="field[@name='party_id']">
+        <partyId type="xs:integer">
+            <xsl:value-of select="."/>
+        </partyId>
     </xsl:template>
     
     <xsl:template match="parent_group">
@@ -93,61 +115,69 @@
     </xsl:template>
     
     <xsl:template match="field[@name='dissolution_date']">
-        <dissolutionDate>
+        <dissolutionDate type="xs:date">
             <xsl:value-of select="." />
         </dissolutionDate>
     </xsl:template>  
     
     <xsl:template match="field[@name='dissolution_date']">
-        <resultsDate>
+        <resultsDate type="xs:date">
             <xsl:value-of select="." />
         </resultsDate>
     </xsl:template>     
     
     <xsl:template match="field[@name='num_members']">
-        <numMembers>
+        <numMembers type="xs:integer">
             <xsl:value-of select="." />
         </numMembers>
     </xsl:template>    
     
+    <xsl:template match="field[@name='acronym']">
+        <acronym isA="TLCTerm">
+            <value type="xs:string"><xsl:value-of select="." /></value>
+        </acronym>
+    </xsl:template>      
+    
     <xsl:template match="field[@name='quorum']">
-        <quorum>
+        <quorum type="xs:integer">
             <xsl:value-of select="." />
         </quorum>
     </xsl:template>
-
+    
     <xsl:template match="field[@name='body_text']">
         <body>
             <xsl:value-of select="." />
         </body>
     </xsl:template>    
-
+    
     <xsl:template match="field[@name='status']">
-        <status>
-            <xsl:value-of select="." />
+        <status isA="TLCTerm">
+            <value type="xs:string">
+                <xsl:value-of select="." />
+            </value>
         </status>
     </xsl:template>
-
+    
     <xsl:template match="field[@name='question_number']">
-        <itemNumber>
+        <itemNumber type="xs:integer">
             <xsl:value-of select="." />
         </itemNumber>
     </xsl:template>
-
+    
     <xsl:template match="field[@name='question_id']">
         <itemId>
             <xsl:value-of select="." />
         </itemId>
     </xsl:template>
-
+    
     <xsl:template match="field[@name='registry_number']">
-        <registryNumber>
+        <registryNumber type="xs:string">
             <xsl:value-of select="." />
         </registryNumber>
     </xsl:template>
-
+    
     <xsl:template match="field[@name='parliamentary_item_id']">
-        <legislativeItemId>
+        <legislativeItemId type="xs:integer">
             <xsl:value-of select="." />
         </legislativeItemId>
     </xsl:template>
@@ -155,20 +185,23 @@
     <xsl:template match="field[@name='country_code']">
         <country>
             <xsl:attribute name="code">
-                <xsl:value-of><xsl:text>KE</xsl:text></xsl:value-of>
+                <xsl:value-of select="$country-code"/>
             </xsl:attribute>
+            <!-- !+FIX_THIS (ao, 24-Apr-2012) Is country name
+                available set correct, else remove it altogether 
+            -->
             <xsl:text>Kenya</xsl:text>
         </country>
     </xsl:template>
-
+    
     <xsl:template match="field[@name='short_name']">
         <shortName>
             <xsl:value-of select="." />
         </shortName>
     </xsl:template>
-
+    
     <xsl:template match="field[@name='full_name']">
-        <fullName>
+        <fullName type="xs:string">
             <xsl:value-of select="." />
         </fullName>
     </xsl:template>
@@ -180,13 +213,16 @@
     </xsl:template>     
     
     <xsl:template match="field[@name='language']">
-        <language><xsl:value-of select="." /></language>
+        <!-- !+RENDERED NOW as xml:lang on the legislativeItem
+            <language type="xs"><xsl:value-of select="." /></language>
+        -->
     </xsl:template>   
-
+    
     <xsl:template match="field[@name='status_date']">
         <xsl:variable name="status_date" select="." />
-        <xsl:variable name="arrStatusDate" select="tokenize($status_date,'\s+')" />
-        <statusDate type="xs:dateTime"><xsl:value-of select="concat($arrStatusDate[1],'T',$arrStatusDate[2])" /></statusDate>
+        <statusDate type="xs:dateTime">
+            <xsl:value-of select="bdates:parse-date($status_date)" />
+        </statusDate>
     </xsl:template>
     
     <xsl:template match="field[@name='timestamp' or 
@@ -199,14 +235,14 @@
             <xsl:value-of select="concat($arrStatusDate[1],'T',$arrStatusDate[2])" />
         </xsl:element>
     </xsl:template>
-
+    
     
     <xsl:template match="permissions">
-        <permissions>
+        <permissions id="groupPermissions">
             <xsl:apply-templates />
         </permissions>
     </xsl:template>
-
+    
     <xsl:template match="permission">
         <permission
             setting="{field[@name='setting']}"
@@ -222,7 +258,7 @@
             </xsl:copy>
         </xsl:if>
     </xsl:template>
-
+    
     <xsl:template match="contained_groups">
         <xsl:if test="node()">
             <xsl:copy>

@@ -53,14 +53,18 @@
         <!-- Add the Bungeni namespace -->
         <xslt step="3" name="MetaLanguageAddNamespaceBungeni"
             href="pipeline_xslt/common/meta_language_add_bungeni_ns.xsl"/>
+        
+        <xslt step="4" name="FullDebateConvert"
+            href="pipeline_xslt/debaterecord/ANdebate_pipeline.xsl" />
+
     </output>
 
     <!-- Output is piped to 1 or more named pipelines they are
     called in declared order -->
-    
+    <!--
     <pipetoxml name="AnDebate"
                href="pipeline_xslt/debaterecord/pipeline.xsl"  />
-
+               -->
     <!-- Called after translate -->
     <postxml>
         <xslt step="1" name="AddNamespaceAkomaNtoso" href="pipeline_xslt/common/add_an_ns.xsl" />

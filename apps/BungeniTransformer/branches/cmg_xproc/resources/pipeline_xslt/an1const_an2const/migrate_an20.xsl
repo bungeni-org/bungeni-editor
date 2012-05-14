@@ -39,33 +39,6 @@
         </xsl:copy>
     </xsl:template>
 
-    <xsl:template match="content[parent::section]">
-    
-        <xsl:variable name="parentid" select="parent::section/@id" />
-        <xsl:variable name="parentidhref" select="concat('#',$parentid)" />
-        
-        <xsl:choose>
-         <xsl:when test="//outOfLine[@href eq $parentidhref]">
-             <content>
-                 <xsl:element name="p">
-                     <xsl:element name="authorialNote">
-                         <xsl:attribute name="id" select="generate-id()" />
-                         <xsl:attribute name="placement"><xsl:text>side</xsl:text></xsl:attribute>
-                         <xsl:copy-of select="//outOfLine[@href eq $parentidhref]/child::*"></xsl:copy-of>
-                     </xsl:element>
-                 </xsl:element>
-                 <xsl:copy-of select="foreign" />
-             </content>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:copy>
-                <xsl:apply-templates select="@* | node()" />
-            </xsl:copy>     
-         </xsl:otherwise>
-     </xsl:choose>   
-    </xsl:template>
-    
-    <xsl:template match="outOfLines">
-    </xsl:template>
+  
 
 </xsl:stylesheet>

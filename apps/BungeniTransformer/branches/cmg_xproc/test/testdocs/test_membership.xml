@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<contenttype name="membership">
+    <field name="status">attached</field>
+    <member_titles/>
+    <field name="user_id">19</field>
+    <field name="language">en</field>
+    <changes/>
+    <field name="status_date">2012-04-21 23:15:40.438465</field>
+    <field name="membership_id">13</field>
+    <user>
+        <field name="first_name">clerk</field>
+        <field name="last_name">P1_02</field>
+        <field name="user_id">19</field>
+        <field name="description">EDITED - text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document &lt;br&gt; &lt;ul style="font-style: italic;"&gt; &lt;li&gt;&lt;span
+            style="font-weight: bold;"&gt;text of the document&lt;/span&gt; text of the document
+            text of the document text of the document text of the document text of the document text
+            of the document text of the document text of the document text of the document
+            &lt;/li&gt; &lt;li&gt;&lt;span style="font-weight: bold;"&gt;text of the
+            document&lt;/span&gt; text of the document text of the document text of the document
+            text of the document text of the document text of the document text of the document text
+            of the document text of the document &lt;/li&gt; &lt;li&gt;&lt;span style="font-weight:
+            bold;"&gt;text of the document&lt;/span&gt; text of the document text of the document
+            text of the document text of the document text of the document text of the document text
+            of the document text of the document text of the document text of the document text of
+            the document text of the document text of the document text of the document text of the
+            document text of the document &lt;/li&gt; &lt;li&gt;&lt;span style="font-weight:
+            bold;"&gt;text of the document&lt;/span&gt; text of the document text of the document
+            text of the document text of the document text of the document text of the document text
+            of the document text of the document text of the document text of the document text of
+            the document text of the document text of the document text of the document text of the
+            document text of the document text of the document &lt;/li&gt; &lt;/ul&gt; text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document text of the
+            document text of the document text of the document text of the document</field>
+        <field name="language">en</field>
+        <field name="birth_nationality">KE</field>
+        <field name="gender">F</field>
+        <field name="active_p">A</field>
+        <field name="date_of_birth">1900-02-02</field>
+        <field name="titles">Mrs</field>
+        <field name="birth_country">KE</field>
+        <field name="national_id">1234567890</field>
+        <field name="receive_notification">True</field>
+        <field name="login">clerk.P1_02</field>
+        <field name="password">7a907ba1e082011a3e193fcdd038e81b</field>
+        <field name="salt">dGIXgQxntANM</field>
+        <field name="email">clerk.P1_02@bungeni.org</field>
+        <field name="current_nationality">KE</field>
+    </user>
+    <field name="active_p">True</field>
+    <group>
+        <field name="status">active</field>
+        <field name="language">en</field>
+        <field name="short_name">CO</field>
+        <field name="group_principal_id">group.office.13</field>
+        <field name="status_date">2012-04-21 21:50:20.987238</field>
+        <field name="office_role">bungeni.Clerk</field>
+        <field name="office_id">13</field>
+        <field name="full_name">Clerk's Office</field>
+        <field name="group_id">13</field>
+        <field name="type">office</field>
+        <field name="start_date">2011-02-24</field>
+    </group>
+    <field name="group_id">13</field>
+    <field name="membership_type">office_member</field>
+    <field name="start_date">2011-02-24</field>
+    <permissions>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Owner</field>
+            <field name="permission">bungeni.delegation.Edit</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Owner</field>
+            <field name="permission">bungeni.delegation.Add</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Authenticated</field>
+            <field name="permission">bungeni.user.Edit</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Authenticated</field>
+            <field name="permission">bungeni.address.Add</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Authenticated</field>
+            <field name="permission">bungeni.address.Edit</field>
+        </permission>
+        <permission>
+            <field name="setting">Allow</field>
+            <field name="role">bungeni.Authenticated</field>
+            <field name="permission">bungeni.address.Delete</field>
+        </permission>
+    </permissions>
+</contenttype>

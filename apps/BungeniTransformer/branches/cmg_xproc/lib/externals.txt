@@ -7,3 +7,4 @@ restlet http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/res
 bungeni http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeni
 commons-lang http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/commons-lang
 jsoup http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/jsoup
+xmlunit http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/xmlunit
