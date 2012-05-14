@@ -982,7 +982,6 @@
       <bu:docSubType isA="TLCTerm">
          <bu:value type="xs:string">ordinary</bu:value>
       </bu:docSubType>
-      <bu:shortTitle type="xs:string">Oral Question status made available for scheduling P1_01</bu:shortTitle>
       <bu:permissions id="documentPermissions">
         <bu:permission name="bungeni.question.Edit" role="bungeni.Speaker" setting="Deny"/>
         <bu:permission name="bungeni.question.Delete" role="bungeni.Speaker" setting="Deny"/>

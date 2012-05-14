@@ -21,7 +21,7 @@
                <bu:value type="xs:string">member</bu:value>
             </bu:docSubType>
             <bu:auditFor isA="TLCTerm">
-               <bu:value type="xs:string">agenda_item</bu:value>
+               <bu:value type="xs:string">agendaItem</bu:value>
             </bu:auditFor>
             <bu:groupId type="xs:integer">14</bu:groupId>
             
@@ -38,7 +38,7 @@
             <bu:longTitle type="xs:string">long title - long title long title - long title long title -
                 long title long title - long title </bu:longTitle>
             <bu:type isA="TLCTerm">
-               <bu:value type="xs:string">agenda_item</bu:value>
+               <bu:value type="xs:string">agendaItem</bu:value>
             </bu:type>
             
         </bu:audit>
@@ -53,7 +53,7 @@
                <bu:value type="xs:string">member</bu:value>
             </bu:docSubType>
             <bu:auditFor isA="TLCTerm">
-               <bu:value type="xs:string">agenda_item</bu:value>
+               <bu:value type="xs:string">agendaItem</bu:value>
             </bu:auditFor>
             <bu:groupId type="xs:integer">14</bu:groupId>
             
@@ -70,7 +70,7 @@
             <bu:longTitle type="xs:string">long title - long title long title - long title long title -
                 long title long title - long title </bu:longTitle>
             <bu:type isA="TLCTerm">
-               <bu:value type="xs:string">agenda_item</bu:value>
+               <bu:value type="xs:string">agendaItem</bu:value>
             </bu:type>
             
         </bu:audit>
@@ -85,7 +85,7 @@
                <bu:value type="xs:string">member</bu:value>
             </bu:docSubType>
             <bu:auditFor isA="TLCTerm">
-               <bu:value type="xs:string">agenda_item</bu:value>
+               <bu:value type="xs:string">agendaItem</bu:value>
             </bu:auditFor>
             <bu:groupId type="xs:integer">14</bu:groupId>
             
@@ -102,7 +102,7 @@
             <bu:longTitle type="xs:string">long title - long title long title - long title long title -
                 long title long title - long title </bu:longTitle>
             <bu:type isA="TLCTerm">
-               <bu:value type="xs:string">agenda_item</bu:value>
+               <bu:value type="xs:string">agendaItem</bu:value>
             </bu:type>
             
         </bu:audit>
@@ -117,7 +117,7 @@
                <bu:value type="xs:string">member</bu:value>
             </bu:docSubType>
             <bu:auditFor isA="TLCTerm">
-               <bu:value type="xs:string">agenda_item</bu:value>
+               <bu:value type="xs:string">agendaItem</bu:value>
             </bu:auditFor>
             <bu:groupId type="xs:integer">14</bu:groupId>
             
@@ -134,7 +134,7 @@
             <bu:longTitle type="xs:string">long title - long title long title - long title long title -
                 long title long title - long title </bu:longTitle>
             <bu:type isA="TLCTerm">
-               <bu:value type="xs:string">agenda_item</bu:value>
+               <bu:value type="xs:string">agendaItem</bu:value>
             </bu:type>
             
         </bu:audit>
@@ -149,7 +149,7 @@
                <bu:value type="xs:string">member</bu:value>
             </bu:docSubType>
             <bu:auditFor isA="TLCTerm">
-               <bu:value type="xs:string">agenda_item</bu:value>
+               <bu:value type="xs:string">agendaItem</bu:value>
             </bu:auditFor>
             <bu:groupId type="xs:integer">14</bu:groupId>
             
@@ -166,7 +166,7 @@
             <bu:longTitle type="xs:string">long title - long title long title - long title long title -
                 long title long title - long title </bu:longTitle>
             <bu:type isA="TLCTerm">
-               <bu:value type="xs:string">agenda_item</bu:value>
+               <bu:value type="xs:string">agendaItem</bu:value>
             </bu:type>
             
         </bu:audit>
@@ -181,7 +181,7 @@
                <bu:value type="xs:string">member</bu:value>
             </bu:docSubType>
             <bu:auditFor isA="TLCTerm">
-               <bu:value type="xs:string">agenda_item</bu:value>
+               <bu:value type="xs:string">agendaItem</bu:value>
             </bu:auditFor>
             <bu:groupId type="xs:integer">14</bu:groupId>
             
@@ -198,7 +198,7 @@
             <bu:longTitle type="xs:string">long title - long title long title - long title long title -
                 long title long title - long title </bu:longTitle>
             <bu:type isA="TLCTerm">
-               <bu:value type="xs:string">agenda_item</bu:value>
+               <bu:value type="xs:string">agendaItem</bu:value>
             </bu:type>
             
         </bu:audit>
@@ -213,7 +213,7 @@
                <bu:value type="xs:string">member</bu:value>
             </bu:docSubType>
             <bu:auditFor isA="TLCTerm">
-               <bu:value type="xs:string">agenda_item</bu:value>
+               <bu:value type="xs:string">agendaItem</bu:value>
             </bu:auditFor>
             <bu:groupId type="xs:integer">14</bu:groupId>
             
@@ -230,7 +230,7 @@
             <bu:longTitle type="xs:string">long title - long title long title - long title long title -
                 long title long title - long title </bu:longTitle>
             <bu:type isA="TLCTerm">
-               <bu:value type="xs:string">agenda_item</bu:value>
+               <bu:value type="xs:string">agendaItem</bu:value>
             </bu:type>
             
         </bu:audit>
@@ -245,7 +245,7 @@
                <bu:value type="xs:string">member</bu:value>
             </bu:docSubType>
             <bu:auditFor isA="TLCTerm">
-               <bu:value type="xs:string">agenda_item</bu:value>
+               <bu:value type="xs:string">agendaItem</bu:value>
             </bu:auditFor>
             <bu:groupId type="xs:integer">14</bu:groupId>
             
@@ -262,7 +262,7 @@
             <bu:longTitle type="xs:string">long title - long title long title - long title long title -
                 long title long title - long title </bu:longTitle>
             <bu:type isA="TLCTerm">
-               <bu:value type="xs:string">agenda_item</bu:value>
+               <bu:value type="xs:string">agendaItem</bu:value>
             </bu:type>
             
         </bu:audit>
@@ -277,7 +277,7 @@
                <bu:value type="xs:string">member</bu:value>
             </bu:docSubType>
             <bu:auditFor isA="TLCTerm">
-               <bu:value type="xs:string">agenda_item</bu:value>
+               <bu:value type="xs:string">agendaItem</bu:value>
             </bu:auditFor>
             <bu:groupId type="xs:integer">14</bu:groupId>
             
@@ -293,7 +293,7 @@
             <bu:longTitle type="xs:string">long title - long title long title - long title long title -
                 long title long title - long title </bu:longTitle>
             <bu:type isA="TLCTerm">
-               <bu:value type="xs:string">agenda_item</bu:value>
+               <bu:value type="xs:string">agendaItem</bu:value>
             </bu:type>
             
         </bu:audit>
@@ -308,7 +308,7 @@
                <bu:value type="xs:string">member</bu:value>
             </bu:docSubType>
             <bu:auditFor isA="TLCTerm">
-               <bu:value type="xs:string">agenda_item</bu:value>
+               <bu:value type="xs:string">agendaItem</bu:value>
             </bu:auditFor>
             <bu:groupId type="xs:integer">14</bu:groupId>
             
@@ -321,7 +321,7 @@
             <bu:longTitle type="xs:string">long title - long title long title - long title long title -
                 long title long title - long title </bu:longTitle>
             <bu:type isA="TLCTerm">
-               <bu:value type="xs:string">agenda_item</bu:value>
+               <bu:value type="xs:string">agendaItem</bu:value>
             </bu:type>
             
         </bu:audit>
@@ -750,7 +750,7 @@
          <bu:value type="xs:string">admissible</bu:value>
       </bu:status>
       <bu:type isA="TLCTerm">
-         <bu:value type="xs:string">agenda_item</bu:value>
+         <bu:value type="xs:string">agendaItem</bu:value>
       </bu:type>
       <bu:body><div xmlns="http://www.w3.org/1999/xhtml/">EDITED CLERK SPEAKER - text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document text of the document
 <br xmlns=""/> 
@@ -765,8 +765,6 @@
       <bu:docSubType isA="TLCTerm">
          <bu:value type="xs:string">member</bu:value>
       </bu:docSubType>
-      <bu:shortTitle type="xs:string">Agenda Item Committee as Clerk status make available for scheduling
-        P1_01</bu:shortTitle>
       <bu:permissions id="documentPermissions">
         <bu:permission name="zope.View" role="bungeni.MP" setting="Deny"/>
         <bu:permission name="zope.View" role="bungeni.Minister" setting="Deny"/>
