@@ -205,6 +205,15 @@
         </container>
     </xsl:template>
 
+    <xsl:template match="text:meta">
+        <inline>
+            <xsl:attribute name="name">
+                <xsl:value-of select="./bungeni:bungenimeta/bungeni:InlineType" />
+            </xsl:attribute>
+            <xsl:apply-templates />
+        </inline>
+    </xsl:template>
+
     <xsl:template match="text:list">
         <container name="list">
             <xsl:attribute name="class" select="@style-name" />

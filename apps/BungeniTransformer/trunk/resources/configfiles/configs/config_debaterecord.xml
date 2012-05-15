@@ -19,12 +19,13 @@
     <input>
         <xslt step="1" name="appendBungeniNS" href="pipeline_xslt/common/add_bungeni_ns.xsl"/>
         <!-- Add RDF ns -->
-        <xslt step="2" name="appendRDFNS" href="pipeline_xslt/common/add_rdf_ns.xsl"/>
+
+         <xslt step="2" name="appendRDFNS" href="pipeline_xslt/common/add_rdf_ns.xsl"/> 
         <!-- Extract the styles -->
-        <xslt step="3" name="mergeStyles" href="pipeline_xslt/common/merge_styles.xsl"/>
+        <xslt step="3" name="mergeStyles" href="pipeline_xslt/common/merge_styles.xsl"/> 
         <!-- Transform the document to the META Language -->
         <xslt step="4" name="ODFToMetaLanguage"
-            href="pipeline_xslt/debaterecord/odf_to_meta_language.xsl"/>
+            href="pipeline_xslt/debaterecord/odf_to_meta_language.xsl"/>  
     </input>
     
     <replacements>
@@ -41,7 +42,7 @@
         <!-- Delete the empty lines -->
         <replacement step="5" name="replaceemptyline" pattern="\n" replacement=""/>
     </replacements>
-
+  
     <!-- This steps are performed AFTER the above regex replacement -->
     <output>
         <!-- Normalise the produced META document -->
@@ -66,8 +67,10 @@
                href="pipeline_xslt/debaterecord/pipeline.xsl"  />
                -->
     <!-- Called after translate -->
+    
     <postxml>
-        <xslt step="1" name="AddNamespaceAkomaNtoso" href="pipeline_xslt/common/add_an_ns.xsl" />
+        <xslt step="1" name="Cleanup" href="pipeline_xslt/common/cleanup.xsl" />
+        <xslt step="2" name="AddNamespaceAkomaNtoso" href="pipeline_xslt/common/add_an_ns.xsl" />
     </postxml>
     
 </config>

@@ -49,7 +49,7 @@
 	-->
 
     <!-- match only carriers of metadata text:section | text:charstyle -->
-    <xsl:template match="text:section">
+    <xsl:template match="text:section | text:meta">
         <xsl:element name="{node-name(.)}" >
             <!-- ***DOC*** 
                 only for elements which hav an id attribute 
@@ -134,8 +134,20 @@
             
             -->
 
+           <xsl:choose>
+            <xsl:when test="name(.) eq 'text:meta'">
+                <content>
+                    <xsl:apply-templates />
+                </content>
+            </xsl:when>
 
-            <xsl:apply-templates/>
+            <xsl:otherwise>
+                <xsl:apply-templates />
+            </xsl:otherwise>
+           </xsl:choose>
+
+          
+
         </xsl:element>
 
     </xsl:template>
@@ -167,8 +179,10 @@
     <xsl:template match="text:sequence-decls"> </xsl:template>
 
 
+    <!--
     <xsl:template match="text()">
         <xsl:value-of select="normalize-space(.)"/>
     </xsl:template>
-
+    -->
+    
 </xsl:stylesheet>

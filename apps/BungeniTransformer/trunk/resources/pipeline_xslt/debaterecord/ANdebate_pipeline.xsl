@@ -138,13 +138,19 @@
             </xsl:if>
             <xsl:if test="./bungeni:bungenimeta/bungeni:BungeniSpeechAs">
                 <xsl:attribute name="as">
+                     <xsl:text>#</xsl:text>
                     <xsl:value-of select="./bungeni:bungenimeta/bungeni:BungeniSpeechAs"/>
                 </xsl:attribute>
             </xsl:if>
             <xsl:apply-templates/>
         </speech>
     </xsl:template>
-    
+
+
+    <xsl:template match="*[@name='from']">
+        <from><xsl:apply-templates /></from>
+    </xsl:template>
+
     <xsl:template bp:name="QuestionsContainer" match="*[@name='QuestionsContainer']">
         <subdivision>
 			<xsl:if test="@id">
