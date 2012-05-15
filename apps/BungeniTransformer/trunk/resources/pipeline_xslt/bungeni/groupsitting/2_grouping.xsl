@@ -92,7 +92,13 @@
         <userId type="xs:integer">
             <xsl:value-of select="." />
         </userId>
-    </xsl:template>   
+    </xsl:template> 
+    
+    <xsl:template match="field[@name='sitting_id']">
+        <sittingId type="xs:integer">
+            <xsl:value-of select="." />
+        </sittingId>
+    </xsl:template>     
 
     <xsl:template match="field[@name='tag']">
         <tag isA="TLCTerm">

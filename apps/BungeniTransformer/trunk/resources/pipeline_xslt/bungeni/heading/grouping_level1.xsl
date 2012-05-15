@@ -32,7 +32,19 @@
             !+NOTE (ao, jan-2012)
             Take country_id as opposed to $country-code as with other documents 
         -->
-        <ontology type="{$content-type}">
+        <ontology for="{$content-type}">
+            <heading isA="TLCConcept" xml:lang="{field[@name='language']}">
+                <xsl:attribute name="uri" 
+                    select="concat('/ontology/Heading/',$country-code,'/',
+                    $for-parliament, '/', 
+                    $content-type, '/', 
+                    $heading_id)" />
+                <xsl:copy-of select="field[
+                    @name='heading_id' or 
+                    @name='status' or 
+                    @name='text' ] " />
+                <xsl:copy-of select="permissions" /> 
+            </heading>            
             <metadata>
                 <xsl:attribute name="type">
                     <xsl:value-of select="$content-type" />
@@ -46,18 +58,6 @@
                     @name='language' ]" 
                 />                
             </bungeni>             
-            <heading >
-                <xsl:attribute name="uri" 
-                    select="concat('/',$country-code,'/',
-                    $for-parliament, '/', 
-                    $content-type, '/', 
-                    $heading_id)" />
-                <xsl:copy-of select="field[
-                    @name='heading_id' or 
-                    @name='status' or 
-                    @name='text' ] " />
-                <xsl:copy-of select="permissions" /> 
-            </heading>
         </ontology>
     </xsl:template>
     
