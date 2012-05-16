@@ -49,9 +49,15 @@ public final class DocumentSection {
          * <numbering scheme="ROMAN"
             decorator="hashPrefix" />
          */
-        setNumberingScheme(sectionType.getChild("numbering").getAttributeValue("scheme"));
-        setNumberDecorator(sectionType.getChild("numbering").getAttributeValue("decorator"));
-
+        Element elemNumbering = sectionType.getChild("numbering");
+        if (elemNumbering != null) {
+             setNumberingScheme(elemNumbering.getAttributeValue("scheme"));
+             setNumberDecorator(elemNumbering.getAttributeValue("decorator"));
+        } else {
+             setNumberingScheme("none");
+             setNumberDecorator("none");
+        }
+  
     }
 
     

@@ -7,8 +7,7 @@
     indent-left="0"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="Communication"
     prefix="comnctn"
@@ -17,8 +16,7 @@
     indent-left=".4"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="Conclusion"
     prefix="concl"
@@ -27,8 +25,7 @@
     indent-left=".4"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="GroupActivity"
     prefix="comment"
@@ -37,8 +34,7 @@
     indent-left="0"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="LongTitle"
     prefix="ltitle"
@@ -47,8 +43,7 @@
     indent-left=".2"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="MetadataContainer"
     prefix=""
@@ -57,8 +52,7 @@
     indent-left="0"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="MinisterialStatement"
     prefix="mstatemnt"
@@ -67,8 +61,7 @@
     indent-left="0.4"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="Motion"
     prefix="motion"
@@ -77,8 +70,7 @@
     indent-left=".5"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="MotionsContainer"
     prefix="allmotions"
@@ -87,8 +79,7 @@
     indent-left=".3"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="NMotionsContainer"
     prefix="noticesmotion"
@@ -97,8 +88,7 @@
     indent-left=".3"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="Narrative"
     prefix="narr"
@@ -107,8 +97,7 @@
     indent-left="0"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="None"
     prefix=""
@@ -117,8 +106,7 @@
     indent-left="0"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="NoticeOfMotion"
     prefix="noticeofmotion"
@@ -127,8 +115,7 @@
     indent-left=".5"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="NoticeOfMotionDetails"
     prefix="motiondtls"
@@ -137,8 +124,7 @@
     indent-left="0"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="Observation"
     prefix="comment"
@@ -147,8 +133,7 @@
     indent-left=".8"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="Other"
     prefix="other"
@@ -157,8 +142,7 @@
     indent-left=".1"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="PMotionsContainer"
     prefix="procmotions"
@@ -167,8 +151,7 @@
     indent-left=".3"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="PapersLaid"
     prefix="papers"
@@ -177,8 +160,7 @@
     indent-left=".4"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="PapersLaidList"
     prefix="tbldocs"
@@ -187,8 +169,7 @@
     indent-left=".6"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="PersonalStatement"
     prefix="pstatemnt"
@@ -197,8 +178,7 @@
     indent-left="0.4"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="Petitions"
     prefix="petit"
@@ -207,8 +187,7 @@
     indent-left="0"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="PointOfOrder"
     prefix="porder"
@@ -217,8 +196,7 @@
     indent-left=".4"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="Prayers"
     prefix="prayer"
@@ -227,8 +205,7 @@
     indent-left=".5"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="Preface"
     prefix="preface"
@@ -237,8 +214,7 @@
     indent-left=".3"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="ProceduralMotion"
     prefix="procmotion"
@@ -247,8 +223,7 @@
     indent-left=".5"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="ProceduralMotionDetails"
     prefix="pmotiondtls"
@@ -257,8 +232,7 @@
     indent-left="0"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="Question"
     prefix="sque"
@@ -267,8 +241,7 @@
     indent-left=".6"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="QuestionAnswer"
     prefix="qa"
@@ -277,8 +250,7 @@
     indent-left=".5"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="QuestionBody"
     prefix="quebody"
@@ -287,8 +259,7 @@
     indent-left=".7"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="QuestionsContainer"
     prefix="questions"
@@ -297,8 +268,7 @@
     indent-left=".3"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="RootSection"
     prefix=""
@@ -307,8 +277,7 @@
     indent-left="0"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="Speech"
     prefix="speech"
@@ -317,8 +286,7 @@
     indent-left=".6"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="SpeechBody"
     prefix="spbody"
@@ -327,8 +295,7 @@
     indent-left=".7"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="SystemDateTimeMetadata"
     prefix=""
@@ -337,8 +304,7 @@
     indent-left="0"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="SystemMemberMetadata"
     prefix=""
@@ -347,8 +313,7 @@
     indent-left="0"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="body"
     prefix="debaterecord"
@@ -357,7 +322,6 @@
     indent-left="0"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 </sectionTypes>

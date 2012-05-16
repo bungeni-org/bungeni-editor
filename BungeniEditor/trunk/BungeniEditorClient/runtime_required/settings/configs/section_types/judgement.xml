@@ -7,8 +7,7 @@
     indent-left="0.55"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="Conclusion"
     prefix="concl"
@@ -17,8 +16,7 @@
     indent-left="0.25"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="Decision"
     prefix="decision"
@@ -27,8 +25,7 @@
     indent-left="0.55"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 
 
@@ -40,8 +37,7 @@
     indent-left="0.25"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 
 <sectionType name="Header"
@@ -51,8 +47,7 @@
     indent-left="0.25"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
  
  
@@ -63,8 +58,7 @@
     indent-left="0"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
  
  <sectionType name="CaseNo"
@@ -74,8 +68,7 @@
     indent-left="0"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
  
  
@@ -89,8 +82,7 @@
     indent-left="0.55"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
 <sectionType name="Motivation"
     prefix="motive"
@@ -99,8 +91,7 @@
     indent-left="0.55"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
  
  
@@ -209,8 +200,7 @@
     indent-left="0.65"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+     
  </sectionType>
  
  
