@@ -345,51 +345,8 @@ public class DebateRecordDate extends BaseMetadataPanel {
      
   }
 
-      /*
-   public String getParentSection(){
-      String parentSection = "";
-      BungeniClientDB dbSettings = new BungeniClientDB(DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
-      dbSettings.Connect();
-      QueryResults qr = dbSettings.QueryResults(SettingsQueryFactory.Q_CHECK_IF_ACTION_HAS_PARENT(getTheAction().action_naming_convention()));
-      dbSettings.EndConnect();
-      String[] results = qr.getSingleColumnResult("THE_COUNT");
-      if (results[0].equals("0")) {
-          //get the main root as the partn
-          parentSection = CommonPropertyFunctions.getDocumentRootSection();
-        } else {
-          //this needs to be patched to deal with non root parents..
-          parentSection = CommonPropertyFunctions.getDocumentRootSection();
-        }
-     return parentSection;
-    }
-    */
+     
  
        
-  public String getNewSectionName() {
-        String newSectionName ="";
-        // if (getTheAction().action_type().equals("section")) {
-        if (getTheSubAction().action_type().equals("section")) {
-            if (getTheSubAction().section_numbering_convention().equals("single")) {
-                return getTheSubAction().section_naming_convention();
-            } else {
-                String sectionPrefix = getTheSubAction().section_naming_convention();
-                log.debug("getNewSectionName: sectionPrefix = "+ sectionPrefix);
-                for (int i=1; ; i++) {
-                    newSectionName = sectionPrefix+i;
-                    if (getOoDocument() == null ) {
-                        //System.out.println("ooDocument is null in new section name");
-                    }
-                    if (getOoDocument().hasSection(newSectionName))
-                        continue;
-                    else
-                        break;
-                }
-            }
-            return newSectionName;
-        } else {
-            log.debug("getNewSectionName: the action type is not a section.");
-            return null;
-        }
-    }
 
 }

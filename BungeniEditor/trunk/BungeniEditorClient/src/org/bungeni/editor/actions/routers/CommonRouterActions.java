@@ -372,7 +372,7 @@ public class CommonRouterActions {
 
                 // Main m = new Main();
                 // m.initVariables(ooDoc, parentFrm, aAction, aSubAction, dlgMode);
-                javax.swing.JFrame f = new javax.swing.JFrame(subAction.action_display_text());
+                javax.swing.JFrame f = new javax.swing.JFrame(subAction.toString());
 
                 containerPanel.setContainerFrame(f);
                 f.add(containerPanel.getPanelComponent());
@@ -470,7 +470,7 @@ public class CommonRouterActions {
 
                 // Main m = new Main();
                 // m.initVariables(ooDoc, parentFrm, aAction, aSubAction, dlgMode);
-                javax.swing.JFrame f = new javax.swing.JFrame(subAction.action_display_text());
+                javax.swing.JFrame f = new javax.swing.JFrame(subAction.toString());
 
                 containerPanel.setContainerFrame(f);
                 f.add(containerPanel.getPanelComponent());

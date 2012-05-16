@@ -311,33 +311,6 @@ private void btn_initdebate_selectlogoActionPerformed(java.awt.event.ActionEvent
     }*/
   
  
-       
-  public String getNewSectionName() {
-        String newSectionName ="";
-        // if (getTheAction().action_type().equals("section")) {
-        if (getTheSubAction().action_type().equals("section")) {
-            if (getTheSubAction().section_numbering_convention().equals("single")) {
-                return getTheSubAction().section_naming_convention();
-            } else {
-                String sectionPrefix = getTheSubAction().section_naming_convention();
-                log.debug("getNewSectionName: sectionPrefix = "+ sectionPrefix);
-                for (int i=1; ; i++) {
-                    newSectionName = sectionPrefix+i;
-                    if (getOoDocument() == null ) {
-                        //System.out.println("ooDocument is null in new section name");
-                    }
-                    if (getOoDocument().hasSection(newSectionName))
-                        continue;
-                    else
-                        break;
-                }
-            }
-            return newSectionName;
-        } else {
-            log.debug("getNewSectionName: the action type is not a section.");
-            return null;
-        }
-    }
       
       
 }

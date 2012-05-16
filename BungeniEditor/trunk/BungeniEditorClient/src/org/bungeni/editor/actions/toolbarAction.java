@@ -28,7 +28,8 @@ public class toolbarAction {
   //  private String[]                       profiles = null;
     private SelectorDialogModes            theMode  = null;
     private String                         action_class;
-    private String                         action_display_text;
+
+    private static final String DEFAULT_VALIDATOR = "org.bungeni.editor.actions.validators.defaultValidator";
 
     // !+ACTION_RECONF (rm, jan 2012) - deprecating var since corresponding
     // field in db is deprecated
@@ -56,7 +57,7 @@ public class toolbarAction {
 
     //~-----------------------------------------------------------------------
     // !+ACTION_RECONF (rm, jan 2012) - these variables are added from toolBarAction
-    private String        action_type;
+  
     //~------------------------------------------------------------------------
 
 
@@ -106,22 +107,19 @@ public class toolbarAction {
 
         this.doc_type            =  actionElement.getParentElement().getAttributeValue("for");
 
-        this.action_type = actionElement.getAttributeValue("type");
-        if (this.action_type == null ) action_type = "";
         // !+DEPRECATED(ah,feb-2012) 
         //this.parent_action_name  = actionElement.getAttributeValue("parent");
-
-        this.action_display_text = actionElement.getChild("title").getValue();
-
+      
         // !+ACTION_RECONF (rm, jan 2012) - Setting the action_class var to a
         // value at declaration, rather than obtained from db at run time
         // this.action_class        = (String) safeGetString(actionDesc, action_mapping, "ACTION_CLASS");
         this.action_class = "org.bungeni.editor.actions.EditorSelectionActionHandler" ;
 
-        // !+ACTION_RECONF (rm, jan 2012) - Setting the validator class to a
-        // value at declaration, rather than obtained from the db at run time
-        //this.validator_class     = (String) safeGetString(actionDesc, action_mapping, "VALIDATOR_CLASS");
+        //if a validator is specified in the action, use it otherwise use the default
         this.validator_class     = actionElement.getAttributeValue("validator");
+        if (this.validator_class == null) {
+            this.validator_class = DEFAULT_VALIDATOR;
+        }
         //this.validator_class     = "org.bungeni.editor.actions.validators.defaultValidator";
 
         //this.router_class        = (String) safeGetString(actionDesc, action_mapping, "ROUTER_CLASS");
@@ -131,8 +129,7 @@ public class toolbarAction {
         //this.sub_section_type    = (String) safeGetString(actionDesc, action_mapping, "SECTION_TYPE");
 
         this.sub_section_type    = actionElement.getAttributeValue("sectiontype");
-
-        //if attribute was not set at all 
+        //sectiontype is non-mandatory
         if (this.sub_section_type == null ) {
             this.sub_section_type = "";
         }
@@ -229,7 +226,7 @@ public class toolbarAction {
     
     @Override
     public String toString() {
-        return this.action_display_text();
+        return this.actionName;
     }
 
     /**
@@ -299,15 +296,6 @@ public class toolbarAction {
     **/
     
 
-    // !+ACTION_RECONF (rm, jan 2012) - deprecating method since field
- 
-    public String action_type() {
-        return action_type;
-    }
-    
-    public String action_display_text() {
-        return action_display_text;
-    }
 
 
 
