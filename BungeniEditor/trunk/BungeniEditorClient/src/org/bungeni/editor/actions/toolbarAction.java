@@ -107,7 +107,7 @@ public class toolbarAction {
         this.doc_type            =  actionElement.getParentElement().getAttributeValue("for");
 
         this.action_type = actionElement.getAttributeValue("type");
-
+        if (this.action_type == null ) action_type = "";
         // !+DEPRECATED(ah,feb-2012) 
         //this.parent_action_name  = actionElement.getAttributeValue("parent");
 
@@ -129,8 +129,14 @@ public class toolbarAction {
         //this.dialog_class        = (String) safeGetString(actionDesc, action_mapping, "DIALOG_CLASS");
         this.router = new actionRouter(this.actionName);
         //this.sub_section_type    = (String) safeGetString(actionDesc, action_mapping, "SECTION_TYPE");
+
         this.sub_section_type    = actionElement.getAttributeValue("sectiontype");
 
+        //if attribute was not set at all 
+        if (this.sub_section_type == null ) {
+            this.sub_section_type = "";
+        }
+        
         if (this.sub_section_type.length() > 0 ) {
             DocumentSection associatedSection = DocumentSectionsContainer.getDocumentSectionByType(this.sub_section_type);
             if (associatedSection != null ) {
