@@ -41,16 +41,31 @@
     
     <doctype name="act"
         template="workspace/templates/act.ott"
-        state="0"
+        state="1"
         root="act"
         default-part="main">
         <title xml:lang="eng">Act</title>
-        <uri type="work"></uri>
-        <uri type="expression"></uri>
-        <file-name-scheme></file-name-scheme>
-        <metadata-editor class=" ">
-            <title xml:lang="eng"></title>
-        </metadata-editor>
+        <title xml:lang="ara">تشريع</title>
+        <uri type="work">~CountryCode~DocumentType~Year-Month-Day</uri>
+        <uri type="expression">~CountryCode~DocumentType~Year-Month-Day~LanguageCode</uri>
+        <file-name-scheme>CountryCode~DocumentType~Year-Month-Day~LanguageCode</file-name-scheme>
+         <metadata-editors>
+            <title xml:lang="eng">Act Metadata</title>
+            <metadata-editor class="org.bungeni.editor.metadata.editors.GeneralMetadata" >
+                <title xml:lang="eng">General</title>
+                <title xml:lang="ara">معلومات المصدر</title>
+            </metadata-editor>
+            <metadata-editor class="org.bungeni.editor.metadata.editors.ActMetadata" >
+                <title xml:lang="eng">Act</title>
+                 <title xml:lang="ara">معلومات التشريع</title>
+            </metadata-editor>
+        </metadata-editors>
+         <parts>
+            <part name="main">
+                <title xml:lang="eng">Main</title>
+                <title xml:lang="spa">principal</title>
+            </part>
+        </parts>
     </doctype>
     <doctype name="report"
         template="workspace/templates/report.ott"
