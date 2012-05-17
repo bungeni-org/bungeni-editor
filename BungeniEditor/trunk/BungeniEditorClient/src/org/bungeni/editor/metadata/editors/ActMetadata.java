@@ -322,7 +322,7 @@ public class ActMetadata extends BaseEditorDocMetadataDialog {
         dt_effective_date.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
         lblSourceSide.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblSourceSide.setText(bundle.getString("GeneralMetadata.lblSourceSide.text")); // NOI18N
+        lblSourceSide.setText(bundle.getString("ActMetadata.lblSourceSide.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
