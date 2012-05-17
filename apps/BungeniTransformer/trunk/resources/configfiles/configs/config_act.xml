@@ -55,7 +55,7 @@
         <xslt step="3" name="MetaLanguageAddNamespaceBungeni"
             href="pipeline_xslt/common/meta_language_add_bungeni_ns.xsl"/>
         
-        <xslt step="4" name="FullActConvert"
+        <xslt step="4" name="FullDebateConvert"
             href="pipeline_xslt/act/ANact_pipeline.xsl" />
 
     </output>
