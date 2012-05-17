@@ -27,6 +27,7 @@ public class BungeniEditorProperties {
         SystemParameterReader.getInstance().setParameter(propertyName, propertyValue);
         try {
             SystemParameterReader.getInstance().save();
+            setPropertyInMap(propertyName, propertyValue);
         } catch (IOException ex) {
             log.error("Error while saving", ex);
         }
