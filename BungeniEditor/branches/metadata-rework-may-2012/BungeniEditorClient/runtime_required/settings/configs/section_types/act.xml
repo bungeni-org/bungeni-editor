@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sectionTypes for="act">
+ 
+<sectionType name="Clause"
+    prefix="clause"
+    numstyle="serial"
+    background="0xffdfdf"
+    indent-right=".5"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ROMAN"
+            decorator="hashPrefix" />
+ </sectionType>
+<sectionType name="LongTitle"
+    prefix="longtitle"
+    numstyle="single"
+    background="0xff0000"
+    indent-right=".3"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+ <sectionType name="Speech"
+    prefix="speech"
+    numstyle="serial"
+    background="url:/settings/configs/backgrounds/shade-1.png"
+    indent-left=".6"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="MastHead"
+    prefix="preface"
+    numstyle="single"
+    background="0xe8eef7"
+    indent-right="0"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="postDashed" />
+ </sectionType>
+<sectionType name="NumberedContainer"
+    prefix="num_"
+    numstyle="single"
+    background="0xffffe1"
+    indent-right="0"
+    indent-left="0"
+    visibility="system" >
+     <numbering scheme="none"
+            decorator="postDotted" />
+ </sectionType>
+<sectionType name="Paragraph"
+    prefix="para"
+    numstyle="serial"
+    background="0xffff00"
+    indent-right=".7"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ALPHABETICAL-Lower"
+            decorator="parens" />
+ </sectionType>
+
+ <sectionType name="Person"
+    prefix="Person"
+    numstyle="single"
+    background="0x5c6121"
+    indent-right=".3"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+
+ <sectionType name="Preamble"
+    prefix="preamble"
+    numstyle="single"
+    background="0x99CC99"
+    indent-right=".1"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+
+ <sectionType name="Preface"
+    prefix="preface"
+    numstyle="single"
+    background="0x9999CC"
+    indent-left="0.4"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+ 
+<!-- <sectionType name="docTitle"
+    prefix="title"
+    numstyle="single"
+    background="0xcccccc"
+    indent-right=".1"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>-->
+ 
+ <sectionType name="ref"
+    prefix="ref"
+    numstyle="serial"
+    background="0x0040ee"
+    indent-right=".1"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+ 
+ <sectionType name="docDate"
+    prefix="date"
+    numstyle="single"
+    background="0x0000ee"
+    indent-right=".1"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+ <sectionType name="docType"
+    prefix="type"
+    numstyle="single"
+    background="0xe80066"
+    indent-right=".1"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ROMAN-Upper"
+            decorator="none" />
+ </sectionType>
+ <sectionType name="docNumber"
+    prefix="number"
+    numstyle="single"
+    background="0xe80066"
+    indent-right=".1"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ROMAN-Upper"
+            decorator="none" />
+ </sectionType>
+ 
+
+<sectionType name="ShortTitle"
+    prefix="shorttitle"
+    numstyle="single"
+    background="0xffffff"
+    indent-right=".2"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="SubChapter"
+    prefix="subchapter"
+    numstyle="serial"
+    background="0xffaa00"
+    indent-right=".5"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ROMAN-Upper"
+            decorator="postDotted" />
+ </sectionType>
+<sectionType name="SubClause"
+    prefix="subclause"
+    numstyle="serial"
+    background="0xffdfdf"
+    indent-right=".8"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ALPHABETICAL-Lower"
+            decorator="hashPrefix" />
+ </sectionType>
+<sectionType name="SubParagraph"
+    prefix="subpara"
+    numstyle="serial"
+    background="0xffff00"
+    indent-right=".8"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ROMAN-Lower"
+            decorator="parens" />
+ </sectionType>
+<sectionType name="SubSection"
+    prefix="subsection"
+    numstyle="serial"
+    background="0x00ffff"
+    indent-right=".8"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ROMAN-Upper"
+            decorator="square" />
+ </sectionType>
+<sectionType name="Title"
+    prefix="title"
+    numstyle="single"
+    background="0xffffff"
+    indent-right=".1"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+
+ <sectionType name="Body"
+    prefix="body"
+    numstyle="serial"
+    background="0xe8ee88"
+    indent-right=".4"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="Book"
+    prefix="book"
+    numstyle="serial"
+    background="0xf0f0f0"
+    indent-right=".3"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="NUMERIC"
+            decorator="flowerBracket" />
+ </sectionType>
+ <sectionType name="Part"
+    prefix="part"
+    numstyle="serial"
+    background="0xffffa1"
+    indent-right=".3"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ALPHABETICAL"
+            decorator="postDashed" />
+ </sectionType>
+ 
+<sectionType name="Chapter"
+    prefix="chapter"
+    numstyle="serial"
+    background="0xe8ee88"
+    indent-right=".4"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ROMAN-Upper"
+            decorator="none" />
+ </sectionType>
+  
+  <sectionType name="Section"
+    prefix="section"
+    numstyle="serial"
+    background="0xffaa00"
+    indent-right=".6"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ALPHABETICAL-Lower"
+            decorator="parens" />
+ </sectionType>
+ <sectionType name="Article"
+    prefix="article"
+    numstyle="serial"
+    background="0xf0f0f0"
+    indent-right=".3"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="NUMERIC"
+            decorator="flowerBracket" />
+ </sectionType>
+ 
+ <sectionType name="num"
+    prefix="num"
+    numstyle="serial"
+    background="0xf0f0f0"
+    indent-right=".3"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="NUMERIC"
+            decorator="flowerBracket" />
+ </sectionType>
+ 
+ <sectionType name="heading"
+    prefix="heading"
+    numstyle="serial"
+    background="0xf0f0f0"
+    indent-right=".3"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="NUMERIC"
+            decorator="flowerBracket" />
+ </sectionType>
+ 
+  <sectionType name="title"
+    prefix="ArticleTitle"
+    numstyle="serial"
+    background="0xf0f0f0"
+    indent-right=".3"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="NUMERIC"
+            decorator="flowerBracket" />
+ </sectionType>
+ 
+ <sectionType name="content"
+    prefix="content"
+    numstyle="serial"
+    background="0xf0f0f0"
+    indent-right=".3"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="NUMERIC"
+            decorator="flowerBracket" />
+ </sectionType>
+ 
+ <sectionType name="Conclusions"
+    prefix="conclusions"
+    numstyle="serial"
+    background="0xe80088"
+    indent-right=".4"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ROMAN-Upper"
+            decorator="none" />
+ </sectionType>
+
+ 
+ 
+ 
+ 
+ 
+ 
+
+ <sectionType name="list"
+    prefix="list"
+    numstyle="serial"
+    background="0xe80066"
+    indent-right=".4"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ROMAN-Upper"
+            decorator="none" />
+ </sectionType>
+
+
+<sectionType name="toc"
+    prefix="toc"
+    numstyle="serial"
+    background="0xe8ff66"
+    indent-right=".4"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ROMAN-Upper"
+            decorator="none" />
+ </sectionType>
+
+
+
+
+ </sectionTypes>

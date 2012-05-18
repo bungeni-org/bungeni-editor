@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : editorDocRules.xml
+    Created on : March 23, 2009, 11:59 AM
+    Author     : undesa
+    Description:
+        Purpose of the document follows.
+-->
+<DocumentStructure type="bill">
+	<sectionType name="bill"><!--bill allows three child section types -->
+		<allowedTypes>
+			<ref type="sectionType" name="Clause"/>
+			<ref type="sectionType" name="Preface"/>
+			<ref type="sectionType" name="Conclusion"/>
+		</allowedTypes><!--order of children is specified here -->
+		<orderOfChildren>
+			<order type="sectionType" name="Clause" order="1" required="yes" />
+			<order type="sectionType" name="Preface" order="0" required="yes" />
+			<order type="sectionType" name="Conclusion" order="2" required="no" />
+		</orderOfChildren>
+	</sectionType>
+	<sectionType name="Preface">
+		<allowedTypes><!--no child sections are allowed -->
+			<ref type="sectionType" name="None"/>
+		</allowedTypes>
+		<orderOfChildren><!--children can be in any order-->
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+	<sectionType name="Clause">
+		<allowedTypes>
+			<ref type="sectionType" name="Part"/>
+		</allowedTypes>
+		<orderOfChildren>
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+	<sectionType name="Conclusion">
+		<allowedTypes>
+			<ref type="sectionType" name="None"/>
+		</allowedTypes>
+		<orderOfChildren>
+			<unordered/>
+		</orderOfChildren>
+	</sectionType>
+</DocumentStructure>

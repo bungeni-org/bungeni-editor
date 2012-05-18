@@ -1,0 +1,1 @@
+java -Dlog4j.ignoreTCL -jar %1

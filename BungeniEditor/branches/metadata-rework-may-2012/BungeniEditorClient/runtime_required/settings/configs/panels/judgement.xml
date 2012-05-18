@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<panels for="judgement">
+<panel name="actions" class="org.bungeni.editor.panels.loadable.documentActionPanel" state="1">
+       <title xml:lang="eng">markup</title>
+       <title xml:lang="ara">التقطيع</title>
+</panel>
+<panel name="allmeta" class="org.bungeni.editor.panels.loadable.MetadataPanel" state="1">
+       <title xml:lang="eng">metadata</title>
+        <title xml:lang="ara">واصفات البيانات</title>
+</panel>
+<panel name="structure" class="org.bungeni.editor.panels.loadable.documentStructurePanel" state="1">
+       <title xml:lang="eng">structure</title>
+       <title xml:lang="ara">الهيكلية</title>
+</panel>
+<panel name="validate" class="org.bungeni.editor.panels.loadable.validateAndCheckPanel2" state="0">
+       <title xml:lang="eng">validate</title>
+        <title xml:lang="ara">التحقق من صحة المعلومات</title>
+       
+</panel>
+<panel name="publish" class="org.bungeni.editor.panels.loadable.transformXMLPanel" state="1">
+       <title xml:lang="eng">publish</title>
+        <title xml:lang="ara">النشر</title>
+</panel>
+<panel name="" class="org.bungeni.editor.panels.loadable.documentNotesPanel" state="1">
+       <title xml:lang="eng">notes</title>
+        <title xml:lang="ara">ملاحظات</title>
+</panel>
+</panels>
