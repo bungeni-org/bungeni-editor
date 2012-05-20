@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 import javax.swing.BorderFactory;
 import javax.swing.JTabbedPane;
+import org.bungeni.extutils.CommonResourceBundleHelperFunctions;
 import org.bungeni.extutils.CommonUIFunctions;
-import org.bungeni.extutils.CommonXmlUtils;
 import org.jdom.Attribute;
 import org.jdom.Element;
 import org.jdom.output.XMLOutputter;
@@ -37,6 +37,25 @@ public class BungeniToolbarLoader {
 
     }
 
+    private String getTitle(Element action) {
+        String sTitle = action.getAttributeValue("title");
+        if (sTitle != null) {
+           return CommonResourceBundleHelperFunctions.getToolbarString(sTitle);
+        } else  {
+            log.error("Title was set to null in toolbar action !");
+            return "";
+        }
+    }
+    
+    private String getTooltip(Element action) {
+        String sTitle = action.getAttributeValue("tooltip");
+        if (sTitle != null) {
+           return CommonResourceBundleHelperFunctions.getToolbarString(sTitle);
+        } else  {
+            log.error("Tooltip was set to null in toolbar action !");
+            return "";
+        }
+    }
  
     /**
      * Adds an action to a buttonContainerPanel
@@ -44,14 +63,8 @@ public class BungeniToolbarLoader {
      * @param action
      */
     private void addActionToPanel(buttonContainerPanel buttonContainer, Element action, Element refAction) {
-        String actionTitle = CommonXmlUtils.getLocalizedChildElementValue(action, "title");
-        if (refAction != null) {
-            if (refAction.getChildren("title").size() > 0 ) {
-                //use title from refAction
-                actionTitle = CommonXmlUtils.getLocalizedChildElementValue(refAction, "title");
-            }
-        }
-        String actionTooltip = CommonXmlUtils.getLocalizedChildElementValue(action, "tooltip");
+        String actionTitle = getTitle(action);
+        String actionTooltip = getTooltip(action);
         BungeniToolbarActionElement elem = new BungeniToolbarActionElement(action);
         buttonPanel panelButton = new buttonPanel(actionTitle, actionTooltip, actionListener, elem);
         buttonContainer.add(panelButton);
@@ -68,7 +81,7 @@ public class BungeniToolbarLoader {
         //get the tab elements
         ArrayList<Element> groupTabs = BungeniToolbarParser.getInstance().getTabActionGroups();
         for (Element groupTab : groupTabs) {
-            String grpTabTitle =  CommonXmlUtils.getLocalizedChildElementValue(groupTab, "title");//i18n groupTab.getAttributeValue("title");
+            String grpTabTitle =  getTitle(groupTab);//i18n groupTab.getAttributeValue("title");
             String grpTabUImodel = groupTab.getAttributeValue("uimodel");
             //create a new group tab
             JTabbedPane grpPane = new JTabbedPane(JTabbedPane.TOP);
@@ -80,7 +93,7 @@ public class BungeniToolbarLoader {
         //iterate through the tab elements
              for (Element tab : tabs) {
                  //get the tab title
-                 String tabTitle =  CommonXmlUtils.getLocalizedChildElementValue(tab, "title"); //i18n tab.getAttributeValue("title");
+                 String tabTitle =  getTitle(tab); //i18n tab.getAttributeValue("title");
                  //get the available actions for the tab
                   ArrayList<Element> actionElements = BungeniToolbarParser.getInstance().getTabActionElements(tab);
                   //check if the tab has any actions -- we add a tab only when it has actions

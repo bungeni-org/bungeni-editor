@@ -1,13 +1,21 @@
 package org.bungeni.extutils;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
+import java.util.Collections;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.MissingResourceException;
+import java.util.Properties;
 import java.util.ResourceBundle;
+import java.util.Set;
 import org.bungeni.editor.config.BundlesReader;
 import org.jdom.Element;
 
@@ -20,35 +28,17 @@ public class BungeniResourceBundleFactory {
     private static boolean bundlesLoaded = false;
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BungeniResourceBundleFactory.class.getName());
   
-    /**
-     * Invoke only after loadMessageBundles(), requires messageBundlesFolder variable to be set prior to call
-     * 
-     */
-    public static class BungeniResourceBundleClassLoader extends ClassLoader {
-        @Override
-        public URL findResource (String name) {
-                URL urlFile = null;
-            try {
-                String prefPath = BundlesReader.getBundlesFolder() + File.separator + name;
-                File fProps = new File(prefPath);
-                urlFile = fProps.toURI().toURL();
-            } catch (MalformedURLException ex) {
-                log.error("findResource : " + ex.getMessage());
-            } finally {
-                return urlFile;
-            }
-                
-        }
-        
-    }
+  
     public static Locale getActiveLocale() {
         String langC = BungeniEditorProperties.getEditorProperty("locale.Language.iso639-1");
         String countryC = BungeniEditorProperties.getEditorProperty("locale.Country.iso3166-1-a2");
         Locale lc = new Locale(langC, countryC);
         return lc;
     }
-    
+
     /**
+     *
+     *
      * Loads the message bundles for the section type names and document metanames and error messages.
      * The other bundles are loaded by the individual dialog classes
      */
@@ -60,8 +50,14 @@ public class BungeniResourceBundleFactory {
 
           if (null != listBundles) {
               for (Element bundleElem : listBundles) {
-                   ResourceBundle rBundle = ResourceBundle.getBundle(bundleElem.getAttributeValue("name"), activeLocale, new BungeniResourceBundleClassLoader());
-                   messageBundles.put(bundleElem.getAttributeValue("name"), rBundle);
+                   String sFormat = bundleElem.getAttributeValue("format");
+                   ResourceBundle rBundle = null;
+                   if (sFormat.equals("xml")) {
+                       rBundle = ResourceBundle.getBundle(bundleElem.getAttributeValue("name"), activeLocale, BungeniResourceBundleClassLoader.getInstance(),  new XMLResourceBundleControl());
+                   } else {
+                       rBundle = ResourceBundle.getBundle(bundleElem.getAttributeValue("name"), activeLocale, BungeniResourceBundleClassLoader.getInstance());
+                  }
+                  messageBundles.put(bundleElem.getAttributeValue("name"), rBundle);
               }
           }
           bundlesLoaded = true;

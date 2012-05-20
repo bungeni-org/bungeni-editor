@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>ara</comment>
+<entry key="OTHER_ACTIONS">اشياء اخرى</entry>
+<entry key="INTRODUCTION">المقدمة</entry>
+<entry key="JUDGEMENT_BODY">محتوى الحكم</entry>
+<entry key="DECISION">القرار</entry>
+<entry key="ARTICLE">مادة</entry>
+<entry key="HEARING_DATE">تاريخ الإستماع</entry>
+<entry key="JUDGES">القضاة</entry>
+<entry key="HEADING">العنوان</entry>
+<entry key="REF">رابط مرجعي</entry>
+<entry key="PREFACE">العنوان</entry>
+<entry key="CHAPTER">باب</entry>
+<entry key="JUDGEMENT_HEADER">دباجة الحكم</entry>
+<entry key="BOOK">كتاب</entry>
+<entry key="MOTIVATION">المسببات</entry>
+<entry key="JUDGEMENT_NO">رقم الحكم</entry>
+<entry key="NUM">رقم المادة</entry>
+<entry key="FAVOURITES">المفضلة</entry>
+<entry key="BACKGROUND">وقائع</entry>
+<entry key="JUDGEMENT_DATE">تاريخ الفصل</entry>
+<entry key="NEW">جديد</entry>
+<entry key="MARK_NUMBERED_HEADING">ترقيم القرار</entry>
+<entry key="CREATE_FROM_SELECTION_ACT">إنشاء العنوان من النص المظلل</entry>
+<entry key="PART">جزء</entry>
+<entry key="HEADER">عام</entry>
+<entry key="PREAMBLE">الديباجة</entry>
+<entry key="TITLE">عنوان المادة</entry>
+<entry key="CONTENT">المحتوى</entry>
+<entry key="MARK_NUMBER">ترقيم فرعي</entry>
+<entry key="GENERIC">بشكل عام</entry>
+<entry key="JUDGEMENT_TITLE">عنوان الحكم</entry>
+<entry key="CREATE_FROM_SELECTION">إنشاء الخاتمة من النص المظلل</entry>
+<entry key="CREATE">إنشاء</entry>
+<entry key="DOCTITLE">العنوان المختصر</entry>
+<entry key="BODY">المحتوى</entry>
+<entry key="CONCLUSION">الخاتمة</entry>
+<entry key="DOCDATE">سنة التشريع</entry>
+<entry key="SUBHEADING">عنوان فرعي</entry>
+<entry key="DOCNUMBER">رقم التشريع</entry>
+<entry key="SECTION">فصل</entry>
+<entry key="PARTIES">الأطراف</entry>
+<entry key="DOCTYPE">نوع التشريع</entry>
+<entry key="DESCRIPTOR">وصف المادة</entry>
+<entry key="CONCLUSIONS">الخاتمة</entry>
+</properties>

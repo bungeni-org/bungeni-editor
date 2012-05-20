@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>spa</comment>
+<entry key="IMPORT_QUESTION">importación pregunta</entry>
+<entry key="LOGO">··→ logotipo</entry>
+<entry key="COMMUNICATION_FROM_THE_CHAIR">comunicación del presidente</entry>
+<entry key="IMPORT_LISTING">····→ lista de importación</entry>
+<entry key="PERSONAL_STATEMENT">declaración personal</entry>
+<entry key="PAPERS_LAID">documentos depositados</entry>
+<entry key="BILL_1ST_READING">ley en primera lectura</entry>
+<entry key="PAPERS_LAID_SECTION">documentos depositados sección</entry>
+<entry key="BILL_3ND_READING">ley en 3 ª lectura</entry>
+<entry key="ADD_MARKUP_LINK">····→ añadir/marcar enlaces</entry>
+<entry key="ADD_QUESTION">add question</entry>
+<entry key="OBSERVATION">observación</entry>
+<entry key="POINT_OF_ORDER">cuestión de orden</entry>
+<entry key="LIST-ITEM">··→ list-item</entry>
+<entry key="HEADING">··→ titulo</entry>
+<entry key="DATE">··→ fecha</entry>
+<entry key="PREFACE">prefacio</entry>
+<entry key="IMPORT_MOTION">importación de mociones</entry>
+<entry key="NARRATIVE">narrativa</entry>
+<entry key="DOCUMENTS_SUB-SECTION">··→ documentos sub-sección</entry>
+<entry key="MOTIONS_SECTION">movimientos de la sección</entry>
+<entry key="QUESTION_DEFERRED">pregunta diferidos</entry>
+<entry key="MINISTERIAL_STATEMENT">declaración ministerial</entry>
+<entry key="NOTICES_OF_MOTIONS">las notificaciones de mociones</entry>
+<entry key="QUESTION_ACCEPTED">pregunta aceptada</entry>
+<entry key="EVENT_ACTIONS">acciones de suceso</entry>
+<entry key="DEBATE_INTERRUPTION">debate sobre la interrupción</entry>
+<entry key="BY">··→ por</entry>
+<entry key="MARK_COMMITTEE">marcar comité</entry>
+<entry key="SPOKEN_QUESTION">pregunta oral</entry>
+<entry key="QUESTION_PROPOSED">cuestión propuesta</entry>
+<entry key="NUMBER">··→ número de</entry>
+<entry key="DEBATE_RESUMPTION">debate sobre la reanudación</entry>
+<entry key="STRUCTURAL">estructural</entry>
+<entry key="MARKUP_MOTION">marcado de movimiento</entry>
+<entry key="SPEECH">discurso</entry>
+<entry key="QUESTIONS">preguntas</entry>
+<entry key="BILL_2ND_READING">ley en segunda lectura</entry>
+<entry key="ADJOURNMENT">suspensión</entry>
+<entry key="GENERIC">genérico</entry>
+<entry key="SUB-HEADING">····→ sub-titulo</entry>
+<entry key="QUESTION_WITHDRAWN">cuestión de retirada</entry>
+<entry key="BODY">··→ cuerpo</entry>
+<entry key="HOUSE_ADJOURNMENT_TIME">··→ house suspensión time</entry>
+<entry key="MARK_BILL">marcar de proyecto de ley</entry>
+<entry key="SELECT_MARKUP_LINK">····→ select/marcar enlaces</entry>
+<entry key="COMMUNICATION">comunicación</entry>
+<entry key="SPEECH_SECTION">discurso de la sección</entry>
+<entry key="PREFACE_SECTION">prefacio de la sección</entry>
+<entry key="ITEM_NUM">··→ punto principale</entry>
+<entry key="QUESTIONS_SECTION">sección de preguntas</entry>
+<entry key="SUBHEADING">····→ subtitulo</entry>
+<entry key="PROCEDURAL_MOTIONS">las mociones de procedimiento</entry>
+<entry key="CREATE_ROOT_SECTION">crear la sección raíz</entry>
+<entry key="ADJOURNMENT_SECTION">suspensión section</entry>
+<entry key="GENERAL_ACTIONS">acciones generales</entry>
+</properties>

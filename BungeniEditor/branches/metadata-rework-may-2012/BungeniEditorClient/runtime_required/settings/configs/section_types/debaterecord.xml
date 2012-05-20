@@ -286,7 +286,24 @@
     indent-left=".6"
     indent-right="0"
     visibility="user" >
-     
+     <metadatas>
+         <metadata name="BungeniSpeechBy" />
+         <metadata name="BungeniSpeechByURI" />
+         <metadata name="BungeniSpeechAs" />
+         <metadata name="BungeniSpeechAsDesc" />
+         <metadata name="BungeniSpeechAsURI" />
+         <metadata name="BungeniPersonId" />
+         <metadata name="BungeniPersonRole" />
+     </metadatas>
+     <output>
+         <meta>
+             <TLCPerson id="$BungeniPersonID" href="$BungeniSpeechByURI" showAs="$BungeniSpeechBy" />
+             <TLCRole id="$BungeniSpeechAs" href="$BungeniSpeechAsURI" showAs="$BungeniSpeechAsDesc" />
+         </meta>
+         <content>
+            <speech by="#$BungeniPersonID" as="#$BungeniSpeechAs" /> 
+         </content>
+     </output>
  </sectionType>
 <sectionType name="SpeechBody"
     prefix="spbody"
