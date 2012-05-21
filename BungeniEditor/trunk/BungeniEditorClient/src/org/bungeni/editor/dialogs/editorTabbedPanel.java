@@ -417,13 +417,6 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
 
     public void newDocumentInPanel() {
         String templatePath = BungeniEditorProperties.getEditorProperty(BungeniEditorPropertiesHelper.getCurrentDocType() + "_template");
-        /*boolean bActive = false;
-        int nConfirm = MessageBox.Confirm(parentFrame(), 
-                bundle.getString("make_new_active"),
-                bundle.getString("change_active"));
-        if (JOptionPane.YES_OPTION == nConfirm) {
-            bActive = true;
-        }*/
        //we dont use the OpenDocumentAgent anymore -- as we are using noa, which
        //integrates openoffice window into the native view -- 
        //OOo document needs to be opened in the event dispatch thread, not

@@ -1,77 +1,32 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" encoding="UTF-8"?><!--
     Document   : toolbar_judgement.xml
     Created on : February 17 2008
     Author     : Ashok Hariharan
     Description:
         Editor Action set for Judgement
 -->
-<toolbar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         doctype="judgement">
-    <root visible="true">
-        <actionGroup name="tabFavourites" visible="true" uimodel="wrap">
-            <title xml:lang="eng">Favourites</title>  
-            <title xml:lang="ara">المفضلة</title> 
-            
-    
-         <blockAction name="Preface" target="null" visible="true" condition="none">
-                <title xml:lang="eng">Header</title>
-                <title xml:lang="ara">عام</title>
-                
-    	    
-     	          <subaction name="Root" 
-                             visible="true" 
-                             condition="cursorInSection:judgement :and: textSelected:true  :and: cursorInSection:judgement"
-                             mode="TEXT_SELECTED_INSERT" 
-                             target="Judgement_Body">
-                             <title xml:lang="eng">Judgement Body</title>
-                             <title xml:lang="ara">محتوى الحكم</title>
-                   </subaction>
-	          <subaction name="Masthead.selection" 
-                             
-                             tooltip="Select some text to mark it up as a Header" 
-                             mode="TEXT_SELECTED_INSERT" 
-                             target="make_Judgement_Header" 
-                             visible="true" 
-                             condition="cursorInSection:judgement :and: textSelected:true  :and: cursorInSection:judgement">
-                             <title xml:lang="eng">Judgement Header</title>
-                             <title xml:lang="ara">دباجة الحكم</title> 
-                   </subaction>
-                   
-                   
-                   
-                   
-                   
-	          <subaction name="Masthead.selection.judgementNo" 
-                            
-                             tooltip="Select some text to mark it up as a Judgement No" 
-                             mode="TEXT_SELECTED_INSERT" 
-                             target="heading_judgementNo" 
-                             visible="true" 
-                             condition="cursorInSection:header :and: textSelected:true">
-                             <title xml:lang="eng">Judgement No</title>  
-                             <title xml:lang="ara">رقم الحكم</title> 
-                  </subaction>
-                  
-                  
-                  
-                  
-                  
-                  
-                
-	          <subaction name="Masthead.selection.judgementTitle" 
-                            
-                             tooltip="Mark text as Judgement Title" 
-                             mode="TEXT_SELECTED_INSERT" 
-                             target="toolbarSubAction.makeJudgementHeader.make_judgement_title:heading_judgementtitle" 
-                             visible="true" 
-                             condition="cursorInSection:header :and: textSelected:true">
-                             <title xml:lang="eng">Judgement Title</title> 
-                             <title xml:lang="ara">عنوان الحكم</title>
-                                 
-                  </subaction>
- 		 <!-- heading -->
-	          <!--<subaction name="Masthead.selection.judgementHeading" 
+<toolbar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" doctype="judgement">
+  <root visible="true">
+    <actionGroup name="tabFavourites" visible="true" uimodel="wrap" title="FAVOURITES">
+      <blockAction name="Preface" target="null" visible="true" condition="none" title="HEADER">
+        <subaction name="Root" visible="true"
+          condition="cursorInSection:judgement :and: textSelected:true  :and: cursorInSection:judgement"
+          mode="TEXT_SELECTED_INSERT" target="Judgement_Body" title="JUDGEMENT_BODY"> </subaction>
+        <subaction name="Masthead.selection" tooltip="Select some text to mark it up as a Header"
+          mode="TEXT_SELECTED_INSERT" target="make_Judgement_Header" visible="true"
+          condition="cursorInSection:judgement :and: textSelected:true  :and: cursorInSection:judgement"
+          title="JUDGEMENT_HEADER"> </subaction>
+        <subaction name="Masthead.selection.judgementNo"
+          tooltip="Select some text to mark it up as a Judgement No" mode="TEXT_SELECTED_INSERT"
+          target="heading_judgementNo" visible="true"
+          condition="cursorInSection:header :and: textSelected:true" title="JUDGEMENT_NO"> </subaction>
+        <subaction name="Masthead.selection.judgementTitle" tooltip="Mark text as Judgement Title"
+          mode="TEXT_SELECTED_INSERT"
+          target="toolbarSubAction.makeJudgementHeader.make_judgement_title:heading_judgementtitle"
+          visible="true" condition="cursorInSection:header :and: textSelected:true"
+          title="JUDGEMENT_TITLE"> </subaction>
+        <!-- heading -->
+        <!--<subaction name="Masthead.selection.judgementHeading" 
                             
                              tooltip="Mark text as Judgement Heading" 
                              mode="TEXT_SELECTED_INSERT" 
@@ -80,7 +35,7 @@
                              condition="cursorInSection:header :and: textSelected:true">
                              <title xml:lang="eng">Judgement Heading</title>      
                   </subaction> -->
- 	          <!--<subaction name="Masthead.selection.neutralCitation" 
+        <!--<subaction name="Masthead.selection.neutralCitation" 
                             
                              tooltip="Mark Neutral Citation" 
                              mode="TEXT_SELECTED_INSERT" 
@@ -89,9 +44,8 @@
                              condition="cursorInSection:header :and: textSelected:true">
                              <title xml:lang="eng">Neutral Citation</title>    
                  </subaction>-->
-                 
- 		<!-- see neutral citation above -->
-                  <!-- <subaction name="Masthead.selection.caseNo" 
+        <!-- see neutral citation above -->
+        <!-- <subaction name="Masthead.selection.caseNo" 
                             
                              tooltip="Select some text to mark it up as a Case No" 
                              mode="TEXT_SELECTED_INSERT" 
@@ -100,112 +54,41 @@
                              condition="cursorInSection:header :and: textSelected:true">
                               <title xml:lang="eng">Case No</title>      
                   </subaction>-->
-                  
-                  <subaction name="Masthead.selection.judgementDate" 
-                            
-                             tooltip="Select some text to mark it up as a Judgement Date" 
-                             mode="TEXT_SELECTED_INSERT" 
-                             target="toolbarSubAction.makeMetadataReference.mark:mBungeniJudgementDate" 
-                             visible="true" condition="cursorInSection:header :and: textSelected:true">
-                             <title xml:lang="eng">Judgement Date</title> 
-                             <title xml:lang="ara">تاريخ الفصل</title> 
-                  </subaction>
-                  
-                  <subaction name="Masthead.selection.judges" 
-                            
-                             tooltip="Select some text to mark it up as a Judge Name" 
-                             mode="TEXT_SELECTED_INSERT" 
-                             target="tabular_judge_reference" 
-                             visible="true" 
-                             condition="cursorInSection:header :and: textSelected:true">
-                              <title xml:lang="eng">Judges</title> 
-                               <title xml:lang="ara">القضاة</title>
-                   </subaction>
-                  
-                  
-                 
-                   
-                  <subaction name="Masthead.selection.parties" 
-                             
-                             tooltip="Select some text to mark it up as a Judge Name" 
-                             mode="TEXT_SELECTED_INSERT" 
-                             target="toolbarSubAction.makeJudgementHeader.tabular_party_reference:BungeniPartyName" 
-                             visible="true" 
-                             condition="cursorInSection:header :and: textSelected:true">
-                              <title xml:lang="eng">parties</title>
-                              <title xml:lang="ara">الأطراف</title> 
-                             </subaction>
-                  <subaction name="Masthead.selection.hearingDate" 
-                             title="Hearing Date" 
-                             tooltip="Select some text to mark it up as a Judge Name" 
-                             mode="TEXT_SELECTED_INSERT" 
-                             target="toolbarSubAction.makeJudgementHeader.workflow_action:HearingDate" 
-                             visible="true" 
-                             condition="cursorInSection:header :and: textSelected:true">
-                             <title xml:lang="eng">Hearing Date</title>
-                             <title xml:lang="ara">تاريخ الإستماع</title> 
-                  </subaction>
-	  </blockAction>
-    	   
-           <blockAction name="Introduction.selection" target="null" visible="true" condition="none">
-                <title xml:lang="eng">Introduction</title>
-                <title xml:lang="ara">المقدمة</title> 
-            
-            
-     	          <subaction name="Introduction.create" 
-                             title="Create" 
-                             visible="true" 
-                             condition="sectionNotExists:intro* :and: textSelected:true  :and: cursorInSection:judgementBody" 
-                             mode="TEXT_SELECTED_INSERT" 
-                             target="makeIntroduction">
-                             <title xml:lang="eng">Create</title> 
-                              <title xml:lang="ara">إنشاء مقدمة</title>
-                  </subaction>
-                  
-                  
-		  
-                  <action name="Introduction.heading" 
-                          title="Heading" 
-                          mode="TEXT_SELECTED_INSERT" 
-                          target="toolbarSubAction.makeIntroduction.make_introduction_heading:heading_introduction" 
-                          visible="true" 
-                          condition="textSelected:true :and: cursorInSection:intro[0-9]*" >
-                          <title xml:lang="eng">Heading</title>
-                          <title xml:lang="ara">العنوان</title> 
-                   </action>
-                   
-                   
-                   <action name="Introduction.numheading" 
-                          title="Mark Numbered Heading" 
-                          visible="true"  
-                          mode="TEXT_SELECTED_INSERT" 
-                          target="make_Introduction_numheading" 
-                          condition="textSelected:true :and: cursorInSection:intro[0-9]*" >
-                          <title xml:lang="eng">Mark Numbered Heading</title> 
-                          <title xml:lang="ara">ترقيم المقدمة</title> 
-                  </action>
-                 
-                 <action name="Introduction.num"
-                          title="Mark Number" 
-                          visible="true"  
-                          mode="TEXT_SELECTED_INSERT" 
-                          target="make_Introduction_num" 
-                          condition="textSelected:true :and: cursorInSection:int-lis[0-9]*" >
-                            <title xml:lang="eng">Mark Number</title> 
-                            <title xml:lang="ara">ترقيم فرعي</title>
-                  </action>	
-                 
-                 
- 		  <action name="Introduction.subheading" 
-                          title="SubHeading" 
-                          mode="TEXT_SELECTED_INSERT" 
-                          target="toolbarSubAction.makeIntroduction.make_introduction_heading:subheading_introduction" 
-                          visible="true" 
-                          condition="textSelected:true :and: cursorInSection:intro[0-9]*">
-                           <title xml:lang="eng">SubHeading</title>
-                           <title xml:lang="ara">عنوان فرعي</title>  
-                          </action>
-	           <!--<subaction name="Introduction.omissis" 
+        <subaction name="Masthead.selection.judgementDate"
+          tooltip="Select some text to mark it up as a Judgement Date" mode="TEXT_SELECTED_INSERT"
+          target="toolbarSubAction.makeMetadataReference.mark:mBungeniJudgementDate" visible="true"
+          condition="cursorInSection:header :and: textSelected:true" title="JUDGEMENT_DATE"> </subaction>
+        <subaction name="Masthead.selection.judges"
+          tooltip="Select some text to mark it up as a Judge Name" mode="TEXT_SELECTED_INSERT"
+          target="tabular_judge_reference" visible="true"
+          condition="cursorInSection:header :and: textSelected:true" title="JUDGES"> </subaction>
+        <subaction name="Masthead.selection.parties"
+          tooltip="Select some text to mark it up as a Judge Name" mode="TEXT_SELECTED_INSERT"
+          target="toolbarSubAction.makeJudgementHeader.tabular_party_reference:BungeniPartyName"
+          visible="true" condition="cursorInSection:header :and: textSelected:true" title="PARTIES"> </subaction>
+        <subaction name="Masthead.selection.hearingDate" title="HEARING_DATE"
+          tooltip="Select some text to mark it up as a Judge Name" mode="TEXT_SELECTED_INSERT"
+          target="toolbarSubAction.makeJudgementHeader.workflow_action:HearingDate" visible="true"
+          condition="cursorInSection:header :and: textSelected:true"> </subaction>
+      </blockAction>
+      <blockAction name="Introduction.selection" target="null" visible="true" condition="none"
+        title="INTRODUCTION">
+        <subaction name="Introduction.create" title="CREATE" visible="true"
+          condition="sectionNotExists:intro* :and: textSelected:true  :and: cursorInSection:judgementBody"
+          mode="TEXT_SELECTED_INSERT" target="makeIntroduction"> </subaction>
+        <action name="Introduction.heading" title="HEADING" mode="TEXT_SELECTED_INSERT"
+          target="toolbarSubAction.makeIntroduction.make_introduction_heading:heading_introduction"
+          visible="true" condition="textSelected:true :and: cursorInSection:intro[0-9]*"> </action>
+        <action name="Introduction.numheading" title="MARK_NUMBERED_HEADING" visible="true"
+          mode="TEXT_SELECTED_INSERT" target="make_Introduction_numheading"
+          condition="textSelected:true :and: cursorInSection:intro[0-9]*"> </action>
+        <action name="Introduction.num" title="MARK_NUMBER" visible="true"
+          mode="TEXT_SELECTED_INSERT" target="make_Introduction_num"
+          condition="textSelected:true :and: cursorInSection:int-lis[0-9]*"> </action>
+        <action name="Introduction.subheading" title="SUBHEADING" mode="TEXT_SELECTED_INSERT"
+          target="toolbarSubAction.makeIntroduction.make_introduction_heading:subheading_introduction"
+          visible="true" condition="textSelected:true :and: cursorInSection:intro[0-9]*"> </action>
+        <!--<subaction name="Introduction.omissis" 
                               title="Mark as Omissis" 
                               visible="true" 
                               condition="cursorInSection:intro[0-9]* :and: textSelected:true" 
@@ -213,64 +96,25 @@
                               target="toolbarSubAction.makeOmissisSection.section_creation">
                                <title xml:lang="eng">Mark as Omissis</title>        
                    </subaction>	-->
-            </blockAction>
-	   
-           <blockAction name="Introduction.selection" target="null" visible="true" condition="none">
-                <title xml:lang="eng">Background</title> 
-                <title xml:lang="ara">وقائع</title>
-     	          <subaction name="Background.create" 
-                             title="Create" 
-                             visible="true" 
-                             condition="sectionNotExists:bg* :and: textSelected:true  :and: cursorInSection:judgementBody" 
-                             mode="TEXT_SELECTED_INSERT" 
-                             target="makeBackground">
-                              <title xml:lang="eng">Create</title> 
-                              <title xml:lang="ara">إنشاء</title> 
-                 </subaction>
-                   
-		  <action name="Background.heading" 
-                          title="Heading" 
-                          mode="TEXT_SELECTED_INSERT" 
-                          target="toolbarSubAction.makeBackground.make_background_heading:heading_background" 
-                          visible="true" 
-                          condition="textSelected:true :and: cursorInSection:bg[0-9]*" >
-                          <title xml:lang="eng">Heading</title>
-                           <title xml:lang="ara">العنوان</title> 
-                   </action>
-                   
-                   
-		  <action name="Background.numheading" 
-                          title="Mark Numbered Heading" 
-                          visible="true"  
-                          mode="TEXT_SELECTED_INSERT" 
-                          target="make_Background_numheading" 
-                          condition="textSelected:true :and: cursorInSection:background[0-9]*" >
-                          <title xml:lang="eng">Mark Numbered Heading</title> 
-                           <title xml:lang="ara">ترقيم الوقائع </title> 
-                  </action>
-                 
-                 
-                  <action name="Background.num"
-                          title="Mark Number" 
-                          visible="true"  
-                          mode="TEXT_SELECTED_INSERT" 
-                          target="make_Background_num" 
-                          condition="textSelected:true :and: cursorInSection:bac-lis[0-9]*" >
-                            <title xml:lang="eng">Mark Number</title> 
-                             <title xml:lang="ara">ترقيم فرعي</title>
-                  </action>	 
-                 
-                  
-		  <action name="Background.subheading" 
-                          title="SubHeading" 
-                          mode="TEXT_SELECTED_INSERT" 
-                          target="toolbarSubAction.makeBackground.make_background_heading:subheading_background" 
-                          visible="true" 
-                          condition="textSelected:true :and: cursorInSection:bg[0-9]*" >
-                           <title xml:lang="eng">SubHeading</title> 
-                            <title xml:lang="ara">عنوان فرعي</title>  
-                   </action>
-	           <!--<subaction name="Background.omissis" 
+      </blockAction>
+      <blockAction name="Introduction.selection" target="null" visible="true" condition="none"
+        title="BACKGROUND">
+        <subaction name="Background.create" title="CREATE" visible="true"
+          condition="sectionNotExists:bg* :and: textSelected:true  :and: cursorInSection:judgementBody"
+          mode="TEXT_SELECTED_INSERT" target="makeBackground"> </subaction>
+        <action name="Background.heading" title="HEADING" mode="TEXT_SELECTED_INSERT"
+          target="toolbarSubAction.makeBackground.make_background_heading:heading_background"
+          visible="true" condition="textSelected:true :and: cursorInSection:bg[0-9]*"> </action>
+        <action name="Background.numheading" title="MARK_NUMBERED_HEADING" visible="true"
+          mode="TEXT_SELECTED_INSERT" target="make_Background_numheading"
+          condition="textSelected:true :and: cursorInSection:background[0-9]*"> </action>
+        <action name="Background.num" title="MARK_NUMBER" visible="true" mode="TEXT_SELECTED_INSERT"
+          target="make_Background_num"
+          condition="textSelected:true :and: cursorInSection:bac-lis[0-9]*"> </action>
+        <action name="Background.subheading" title="SUBHEADING" mode="TEXT_SELECTED_INSERT"
+          target="toolbarSubAction.makeBackground.make_background_heading:subheading_background"
+          visible="true" condition="textSelected:true :and: cursorInSection:bg[0-9]*"> </action>
+        <!--<subaction name="Background.omissis" 
                               title="Mark as Omissis" 
                               visible="true" 
                               condition="cursorInSection:bg[0-9]* :and: textSelected:true" 
@@ -278,133 +122,51 @@
                               target="toolbarSubAction.makeOmissisSection.section_creation">
                              <title xml:lang="eng">Mark as Omissis</title>        
                    </subaction>	-->
-	  </blockAction>
-    	    
-            <blockAction name="Motivation.selection" target="null" visible="true" condition="none">
-                <title xml:lang="eng">Motivation</title> 
-                <title xml:lang="ara">المسببات</title> 
-            
-            
-           
-     	          <subaction name="Motivation.create" 
-                             title="Create" 
-                             visible="true" 
-                             condition="sectionNotExists:motive* :and: textSelected:true  :and: cursorInSection:judgementBody" 
-                             mode="TEXT_SELECTED_INSERT" 
-                             target="makeMotivation">
-                             <title xml:lang="eng">Create</title>
-                             <title xml:lang="ara">إنشاء</title> 
-                   </subaction>
-                   
-                   
-                   
-                   
-                   
-		  <action name="Motivation.heading" 
-                          title="Heading" 
-                          mode="TEXT_SELECTED_INSERT" 
-                          target="toolbarSubAction.makeMotivation.make_motivation_heading:heading_motivation" 
-                          visible="true" 
-                          condition="textSelected:true :and: cursorInSection:motive[0-9]*" >
-                           <title xml:lang="eng">Heading</title> 
-                           <title xml:lang="ara">العنوان</title> 
-                  </action>
-                  
-		  <action name="Motivation.numheading"
-                          title="Mark Numbered Heading" 
-                          visible="true"  
-                          mode="TEXT_SELECTED_INSERT" 
-                          target="make_motivation_numheading" 
-                          condition="textSelected:true :and: cursorInSection:motive[0-9]*" >
-                          <title xml:lang="eng">Mark Numbered Heading</title>
-                          <title xml:lang="ara">ترقيم المسببات</title>  
-                  </action>	   
-		  <action name="Motivation.num"
-                          title="Mark Number" 
-                          visible="true"  
-                          mode="TEXT_SELECTED_INSERT" 
-                          target="make_motivation_num" 
-                          condition="textSelected:true :and: cursorInSection:mot-lis[0-9]*" >
-                            <title xml:lang="eng">Mark Number</title>
-                            <title xml:lang="ara">ترقيم فرعي</title>
-                  </action>	   
- 		 <action name="Motivation.subheading"
-                         title="SubHeading" 
-                         mode="TEXT_SELECTED_INSERT" 
-                         target="toolbarSubAction.makeMotivation.make_motivation_heading:subheading_motivation" 
-                         visible="true" 
-                         condition="textSelected:true :and: cursorInSection:motive[0-9]*" >
-                           <title xml:lang="eng">SubHeading</title> 
-                            <title xml:lang="ara">عنوان فرعي</title>  
-                  </action>
-                  
-	          <!-- <subaction name="Motivation.omissis"
+      </blockAction>
+      <blockAction name="Motivation.selection" target="null" visible="true" condition="none"
+        title="MOTIVATION">
+        <subaction name="Motivation.create" title="CREATE" visible="true"
+          condition="sectionNotExists:motive* :and: textSelected:true  :and: cursorInSection:judgementBody"
+          mode="TEXT_SELECTED_INSERT" target="makeMotivation"> </subaction>
+        <action name="Motivation.heading" title="HEADING" mode="TEXT_SELECTED_INSERT"
+          target="toolbarSubAction.makeMotivation.make_motivation_heading:heading_motivation"
+          visible="true" condition="textSelected:true :and: cursorInSection:motive[0-9]*"> </action>
+        <action name="Motivation.numheading" title="MARK_NUMBERED_HEADING" visible="true"
+          mode="TEXT_SELECTED_INSERT" target="make_motivation_numheading"
+          condition="textSelected:true :and: cursorInSection:motive[0-9]*"> </action>
+        <action name="Motivation.num" title="MARK_NUMBER" visible="true" mode="TEXT_SELECTED_INSERT"
+          target="make_motivation_num"
+          condition="textSelected:true :and: cursorInSection:mot-lis[0-9]*"> </action>
+        <action name="Motivation.subheading" title="SUBHEADING" mode="TEXT_SELECTED_INSERT"
+          target="toolbarSubAction.makeMotivation.make_motivation_heading:subheading_motivation"
+          visible="true" condition="textSelected:true :and: cursorInSection:motive[0-9]*"> </action>
+        <!-- <subaction name="Motivation.omissis"
                               title="Mark as Omissis" 
                               visible="true" 
                               condition="cursorInSection:motive[0-9]* :and: textSelected:true" 
                               mode="TEXT_SELECTED_INSERT" 
                               target="toolbarSubAction.makeOmissisSection.section_creation">
                               <title xml:lang="eng">Mark as Omissis</title>    
-                    </subaction>-->	
-	 </blockAction>
-         
-         <blockAction name="Decision.selection" target="null" visible="true" condition="none">
-                <title xml:lang="eng">Decision</title>
-                 <title xml:lang="ara">القرار</title> 
-    	   
-     	          <subaction name="Decision.create"
-                             title="Create"
-                             visible="true" 
-                             condition="sectionNotExists:decis* :and: textSelected:true :and: cursorInSection:judgementBody" 
-                             mode="TEXT_SELECTED_INSERT" 
-                             target="makeDecision">
-                              <title xml:lang="eng">Create</title> 
-                              <title xml:lang="ara">إنشاء</title> 
-                  </subaction>
-		  
-                  <action name="Decision.heading" 
-                          title="Heading" 
-                          mode="TEXT_SELECTED_INSERT" 
-                          target="toolbarSubAction.makeDecision.make_decision_heading:heading_decision" 
-                          visible="true" condition="textSelected:true :and: cursorInSection:decis[0-9]*" >
-                          <title xml:lang="eng">Heading</title> 
-                          <title xml:lang="ara">العنوان</title> 
-                  </action>
-                  
-                  
-		  <action name="Decision.numheading" 
-                          title="Mark Numbered Heading" 
-                          visible="true"  
-                          mode="TEXT_SELECTED_INSERT" 
-                          target="make_Decision_numheading" 
-                          condition="textSelected:true :and: cursorInSection:decision[0-9]*" >
-                      <title xml:lang="eng">Mark Numbered Heading</title>
-                      <title xml:lang="ara">ترقيم القرار</title>
-                  </action>
-                  
-                  
-                   <action name="Decision.num"
-                          title="Mark Number" 
-                          visible="true"  
-                          mode="TEXT_SELECTED_INSERT" 
-                          target="make_Decision_num" 
-                          condition="textSelected:true :and: cursorInSection:dec-lis[0-9]*" >
-                            <title xml:lang="eng">Mark Number</title>
-                             <title xml:lang="ara">ترقيم فرعي</title>
-                  </action>	   
-                  
-                  
-                  
- 		  <action name="Decision.subheading" 
-                          title="SubHeading" 
-                          mode="TEXT_SELECTED_INSERT" 
-                          target="toolbarSubAction.makeDecision.make_decision_heading:subheading_decision" 
-                          visible="true" 
-                          condition="textSelected:true :and: cursorInSection:decis[0-9]*" >
-                          <title xml:lang="eng">SubHeading</title> 
-                          <title xml:lang="ara">عنوان فرعي</title> 
-                   </action>
-	           <!--<subaction name="Decision.omissis"
+                    </subaction>-->
+      </blockAction>
+      <blockAction name="Decision.selection" target="null" visible="true" condition="none"
+        title="DECISION">
+        <subaction name="Decision.create" title="CREATE" visible="true"
+          condition="sectionNotExists:decis* :and: textSelected:true :and: cursorInSection:judgementBody"
+          mode="TEXT_SELECTED_INSERT" target="makeDecision"> </subaction>
+        <action name="Decision.heading" title="HEADING" mode="TEXT_SELECTED_INSERT"
+          target="toolbarSubAction.makeDecision.make_decision_heading:heading_decision"
+          visible="true" condition="textSelected:true :and: cursorInSection:decis[0-9]*"> </action>
+        <action name="Decision.numheading" title="MARK_NUMBERED_HEADING" visible="true"
+          mode="TEXT_SELECTED_INSERT" target="make_Decision_numheading"
+          condition="textSelected:true :and: cursorInSection:decision[0-9]*"> </action>
+        <action name="Decision.num" title="MARK_NUMBER" visible="true" mode="TEXT_SELECTED_INSERT"
+          target="make_Decision_num"
+          condition="textSelected:true :and: cursorInSection:dec-lis[0-9]*"> </action>
+        <action name="Decision.subheading" title="SUBHEADING" mode="TEXT_SELECTED_INSERT"
+          target="toolbarSubAction.makeDecision.make_decision_heading:subheading_decision"
+          visible="true" condition="textSelected:true :and: cursorInSection:decis[0-9]*"> </action>
+        <!--<subaction name="Decision.omissis"
                               title="Mark as Omissis" 
                               visible="true" 
                               condition="cursorInSection:decis[0-9]* :and: textSelected:true" 
@@ -412,38 +174,24 @@
                               target="toolbarSubAction.makeOmissisSection.section_creation">
                               <title xml:lang="eng">Mark as Omissis</title>  
                    </subaction>	-->
- 	    </blockAction>
-            
-    	    <blockAction name="Conclusion.selection" target="null" visible="true" condition="none">
-                <title xml:lang="eng">Conclusion</title>
-                <title xml:lang="ara">الخاتمة</title>
-           
-	      
-              
-              
-              <subaction name="Conclusion.create" 
-                         title="New" 
-                         visible="true" 
-                         condition="sectionNotExists:concl* :and: textSelected:true :and: cursorInSection:judgement" 
-                         mode="TEXT_SELECTED_INSERT" 
-                         target="makeConclusion">
-                         <title xml:lang="eng">New</title>
-                         <title xml:lang="ara">جديد</title>
-               </subaction>	
-	     <!-- <subaction name="Conclusion.omissis" 
+      </blockAction>
+      <blockAction name="Conclusion.selection" target="null" visible="true" condition="none"
+        title="CONCLUSION">
+        <subaction name="Conclusion.create" title="NEW" visible="true"
+          condition="sectionNotExists:concl* :and: textSelected:true :and: cursorInSection:judgement"
+          mode="TEXT_SELECTED_INSERT" target="makeConclusion"> </subaction>
+        <!-- <subaction name="Conclusion.omissis" 
                          title="Mark as Omissis" 
                          visible="true" 
                          condition="cursorInSection:concl[0-9]* :and: textSelected:true" 
                          mode="TEXT_SELECTED_INSERT" 
                          target="toolbarSubAction.makeOmissisSection.section_creation">
                          <title xml:lang="eng">Mark as Omissis</title>    
-              </subaction>-->	
-	    </blockAction>
-	</actionGroup> 
-	<actionGroup name="LongSections" visible="true" uimodel="scroll">
-            <title xml:lang="eng">Other Actions</title>
-            <title xml:lang="ara"> اشياء اخرى</title>  
-<!--
+              </subaction>-->
+      </blockAction>
+    </actionGroup>
+    <actionGroup name="LongSections" visible="true" uimodel="scroll" title="OTHER_ACTIONS">
+      <!--
            <blockAction name="scale.selection" target="null" visible="true" condition="none">
                 <title xml:lang="eng">Long Sections</title> 
        
@@ -486,6 +234,6 @@
 		</blockAction>
                 
                 -->
-	</actionGroup> 
-    </root>
+    </actionGroup>
+  </root>
 </toolbar>

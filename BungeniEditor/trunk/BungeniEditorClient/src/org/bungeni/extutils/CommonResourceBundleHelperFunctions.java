@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package org.bungeni.extutils;
 
@@ -12,8 +8,8 @@ package org.bungeni.extutils;
 public  class CommonResourceBundleHelperFunctions {
     
     public static String getSectionMetaString(String name) {
-        if (name == null ) return new String("");
-        if (name.length() == 0) return new String("");
+        if (name == null ) return "";
+        if (name.length() == 0) return "";
         return BungeniResourceBundleFactory.getString("SectionMetaNames", name);
     }
     
@@ -27,6 +23,10 @@ public  class CommonResourceBundleHelperFunctions {
     
     public static String getErrorMsgString(String name) {
         return BungeniResourceBundleFactory.getString("ErrorMessages", name);
+    }
+
+    public static String getToolbarString(String name) {
+        return BungeniResourceBundleFactory.getString("toolbar", name);
     }
 
 }

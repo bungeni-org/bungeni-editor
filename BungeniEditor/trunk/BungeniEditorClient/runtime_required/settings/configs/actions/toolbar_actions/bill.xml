@@ -1,302 +1,171 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
 Action configuration for bill document type
 -->
-<toolbar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         doctype="bill">
-    <root visible="true">
-        <actionGroup name="tabFavourites" visible="true" uimodel="wrap">
-            <title xml:lang="eng">Favourites</title>
-            <blockAction name="Title" target="null" visible="true" condition="none">
-                <title xml:lang="eng">Title</title>
-                <subaction name="ShortTitle.selection"
-                           
-                           mode="TEXT_SELECTED_INSERT"
-                           target="markup_short_title"
-                           visible="true"
-                           condition="cursorInSection:bill :and: sectionNotExists:shorttitle :and: textSelected:true">
-                    <title xml:lang="eng">Markup Short Title</title>
-                    <tooltip xml:lang="eng">Select and markup text as short title</tooltip>
-                </subaction>
-                <subaction name="LongTitle.selection"
-                           
-                           mode="TEXT_SELECTED_INSERT"
-                           target="make_bill_long_title"
-                           visible="true"
-                           condition="cursorInSection:bill :and: sectionNotExists:longtitle :and: textSelected:true">
-                    <title xml:lang="eng">Markup Long Title</title>
-                    <tooltip xml:lang="eng">Select and markup text as long title</tooltip>
-                </subaction>
-            </blockAction>
-            <blockAction name="Part" target="null" visible="true" condition="none">
-                <title xml:lang="eng">Part</title>
-                <subaction name="Part.selection" 
-                           mode="TEXT_SELECTED_INSERT"
-                           target="make_bill_part" visible="true"
-                           condition="cursorInSection:bill :and: textSelected:true">
-                    <title xml:lang="eng">Create from Selection</title>
-                </subaction>
-                <subaction name="Part.selection.title"
-                           
-                           mode="TEXT_SELECTED_INSERT"
-                           target="apply_numbered_heading_bill_part:heading_part"
-                           visible="true"
-                           condition="cursorInSection:part([0-9]*) :and: textSelected:true :and: !sectionHasChildType:NumberedContainer">
-                    <title xml:lang="eng">Markup Heading</title>
-                </subaction>
-                <subaction name="Part.sidenote" 
-                           mode="TEXT_SELECTED_INSERT"
-                           target="create_sidenote" visible="true"
-                           condition="cursorInSection:part([0-9]*)">
-                    <title xml:lang="eng">Add Sidenote</title>
-                </subaction>
-            </blockAction>
+<toolbar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" doctype="bill">
+  <root visible="true">
+    <actionGroup name="tabFavourites" visible="true" uimodel="wrap" title="FAVOURITES">
 
-            <blockAction name="Chapter" target="null" visible="true" condition="none">
-                <title xml:lang="eng">Chapter</title>
-                <subaction name="Chapter.selection"
-                           
-                           target="make_bill_chapter" visible="true"
-                           condition="cursorInSection:part([0-9]*) :and: textSelected:true">
-                    <title xml:lang="eng">Create from Selection</title>
-                </subaction>
-                <subaction name="Chapter.selection.title"
-                           
-                           mode="TEXT_SELECTED_INSERT"
-                           target="apply_numbered_heading_bill_chapter_section:heading_chapter"
-                           visible="true"
-                           condition="cursorInSection:chapter([0-9]*) :and: textSelected:true :and: !sectionHasChildType:NumberedContainer">
-                    <title xml:lang="eng">Markup Heading</title>
-                </subaction>
-                <subaction name="Chapter.composite"
-                           
-                           mode="TEXT_SELECTED_INSERT"
-                           target="make_bill_chapter_section:heading_chapter"
-                           visible="true" condition="cursorInSection:part([0-9]*) :and: textSelected:true">
-                    <title xml:lang="eng">Markup Chapter and Heading</title>
-                </subaction>
-                <subaction name="Chapter.sidenote" 
-                           mode="TEXT_SELECTED_INSERT"
-                           target="create_sidenote" visible="true"
-                           condition="cursorInSection:chapter([0-9]*)">
-                    <title xml:lang="eng">Add Sidenote</title>
-                </subaction>
-            </blockAction>
-            <blockAction name="SubChapter" target="null" visible="true" condition="none">
-                <title xml:lang="eng">Sub-Chapter</title>
-                <subaction name="SubChapter.selection"
-                           
-                           mode="TEXT_SELECTED_INSERT"
-                           target="make_bill_sub_chapter"
-                           visible="true"
-                           condition="cursorInSection:chapter([0-9]*) :and: textSelected:true">
-                    <title xml:lang="eng">Create from Selection</title>
-                </subaction>
-                <subaction name="SubChapter.selection.title"
-                           
-                           mode="TEXT_SELECTED_INSERT"
-                           target="make_bill_long_title:heading_subchapter"
-                           visible="true"
-                           condition="cursorInSection:subchapter([0-9]*) :and: textSelected:true :and: !sectionHasChildType:NumberedContainer">
-                    <title xml:lang="eng">Markup Heading</title>
-                </subaction>
-                <subaction name="SubChapter.composite"
-                           
-                           mode="TEXT_SELECTED_INSERT"
-                           target="make_composite_bill_sub_chapter:heading_subchapter"
-                           visible="true"
-                           condition="cursorInSection:chapter([0-9]*) :and: textSelected:true">
-                    <title xml:lang="eng">Markup Heading and Sub-Chapter</title>
-                </subaction>
-                <subaction name="SubChapter.sidenote" 
-                           mode="TEXT_SELECTED_INSERT"
-                           target="create_sidenote" visible="true"
-                           condition="cursorInSection:subchapter([0-9]*)">
-                    <title xml:lang="eng">Add Sidenote</title>
-                </subaction>
-            </blockAction>
+      <blockAction name="Title" target="null" visible="true" condition="none" title="TITLE">
 
-            <blockAction name="Section" target="null" visible="true" condition="none">
-                <title xml:lang="eng">Section</title>
-                <subaction name="Section.selection"
-                           
-                           mode="TEXT_SELECTED_INSERT"
-                           target="make_bill_section" visible="true"
-                           condition="cursorInSection:(subchapter|part)([0-9]*) :and: textSelected:true">
-                    <title xml:lang="eng">Create from Selection</title>
-                </subaction>
-                <subaction name="Section.selection.title"
-                           
-                           mode="TEXT_SELECTED_INSERT"
-                           target="make_bill_numbered_heading:heading_section"
-                           visible="true"
-                           condition="cursorInSection:section([0-9]*) :and: textSelected:true :and: !sectionHasChildType:NumberedContainer">
-                    <title xml:lang="eng">Markup Heading</title>
-                </subaction>
-                <subaction name="Section.composite"
-                           
-                           mode="TEXT_SELECTED_INSERT"
-                           target="make_bill_composite_section:heading_section"
-                           visible="true"
-                           condition="cursorInSection:(subchapter|part)([0-9]*) :and: textSelected:true">
-                    <title xml:lang="eng">Markup Section and Heading</title>
-                </subaction>
-                <subaction name="Section.sidenote" 
-                           mode="TEXT_SELECTED_INSERT"
-                           target="create_sidenote" visible="true"
-                           condition="cursorInSection:section([0-9]*)">
-                    <title xml:lang="eng">Add Sidenote</title>
-                </subaction>
-            </blockAction>
-            <blockAction name="Sub-Section" target="null" visible="true" condition="none">
-                <title xml:lang="eng">Sub Section</title>
-                <subaction name="SubSection.selection"
-                           
-                           mode="TEXT_SELECTED_INSERT"
-                           target="make_bill_sub_section"
-                           visible="true"
-                           condition="cursorInSection:section([0-9]*) :and: textSelected:true">
-                    <title xml:lang="eng">Create from Selection</title>
-                </subaction>
-                <subaction name="SubSection.selection.title"
-                           
-                           mode="TEXT_SELECTED_INSERT"
-                           target="apply_numbered_heading_bill:heading_subsection"
-                           visible="true"
-                           condition="cursorInSection:subsection([0-9]*) :and: textSelected:true :and: !sectionHasChildType:NumberedContainer">
-                    <title xml:lang="eng">Markup Heading</title>
-                </subaction>
-                <subaction name="SubSection.composite"
-                           
-                           mode="TEXT_SELECTED_INSERT"
-                           target="make_composite_bill_section:heading_subsection"
-                           visible="true"
-                           condition="cursorInSection:section([0-9]*) :and: textSelected:true">
-                    <title xml:lang="eng">Markup Sub-Section and Heading</title>
-                </subaction>
-                <subaction name="SubSection.sidenote" 
-                           mode="TEXT_SELECTED_INSERT"
-                           target="create_sidenote" visible="true"
-                           condition="cursorInSection:subsection([0-9]*)">
-                    <title xml:lang="eng">Add Sidenote</title>
-                </subaction>
-            </blockAction>
-            <blockAction name="Paragraph" target="null" visible="true" condition="none">
-                <title xml:lang="eng">Paragraph</title>
-                <subaction name="Paragraph.selection"
-                           
-                           mode="TEXT_SELECTED_INSERT"
-                           target="make_bill_paragraph" visible="true"
-                           condition="cursorInSection:section([0-9]*) :and: textSelected:true">
-                    <title xml:lang="eng">Create from Selection</title>
-                </subaction>
-                <subaction name="Paragraph.selection.title"
-                           
-                           mode="TEXT_SELECTED_INSERT"
-                           target="apply_numbered_heading_bill_par_section:heading_para"
-                           visible="true" condition="cursorInSection:para([0-9]*) :and: textSelected:true">
-                    <title xml:lang="eng">Markup Heading</title>
-                </subaction>
-                <subaction name="Paragraph.sidenote" 
-                           mode="TEXT_SELECTED_INSERT"
-                           target="create_sidenote" visible="true"
-                           condition="cursorInSection:para([0-9]*)">
-                    <title xml:lang="eng">Add Sidenote</title>
-                </subaction>
-            </blockAction>
-            <blockAction name="Sub-Paragraph" target="null" visible="true" condition="none">
-                <title xml:lang="eng">Sub Paragraph</title>
-                <subaction name="SubParagraph.selection"
-                           
-                           mode="TEXT_SELECTED_INSERT"
-                           target="make_bill_sub_par" visible="true"
-                           condition="cursorInSection:para([0-9]*) :and: textSelected:true">
-                    <title xml:lang="eng">Create from Selection</title>
-                </subaction>
-                <subaction name="SubParagraph.selection.title"
-                           
-                           mode="TEXT_SELECTED_INSERT"
-                           target="apply_numbered_bill_sub_par:heading_subpara"
-                           visible="true"
-                           condition="cursorInSection:subpara([0-9]*) :and: textSelected:true">
-                    <title xml:lang="eng">Markup Heading</title>
-                </subaction>
-                <subaction name="SubParagraph.sidenote" 
-                           mode="TEXT_SELECTED_INSERT"
-                           target="create_sidenote" visible="true"
-                           condition="cursorInSection:subpara([0-9]*)">
-                    <title xml:lang="eng">Add Sidenote</title>
-                </subaction>
-            </blockAction>
-            <blockAction name="Clause" target="null" visible="true" condition="none">
-                <title xml:lang="eng">Clause</title>
-                <subaction name="Clause.selection"
-                           
-                           mode="TEXT_SELECTED_INSERT"
-                           target="make_bill_clause" visible="true"
-                           condition="cursorInSection:bill :and: textSelected:true">
-                    <title xml:lang="eng">Create from Selection</title>
-                </subaction>
-                <subaction name="Clause.selection.title"
-                           
-                           mode="TEXT_SELECTED_INSERT"
-                           target="apply_numbered_heading_bill_clause:heading_clause"
-                           visible="true"
-                           condition="cursorInSection:bill :and: textSelected:true :and: !sectionHasChildType:NumberedContainer">
-                    <title xml:lang="eng">Markup Heading</title>
-                </subaction>
+        <subaction name="ShortTitle.selection" mode="TEXT_SELECTED_INSERT"
+          target="markup_short_title" visible="true"
+          condition="cursorInSection:bill :and: sectionNotExists:shorttitle :and: textSelected:true"
+          title="MARKUP_SHORT_TITLE" tooltip="SELECT_AND_MARKUP_TEXT_AS_SHO"> </subaction>
+        <subaction name="LongTitle.selection" mode="TEXT_SELECTED_INSERT"
+          target="make_bill_long_title" visible="true"
+          condition="cursorInSection:bill :and: sectionNotExists:longtitle :and: textSelected:true"
+          title="MARKUP_LONG_TITLE" tooltip="SELECT_AND_MARKUP_TEXT_AS_LON"> </subaction>
+      </blockAction>
+      <blockAction name="Part" target="null" visible="true" condition="none" title="PART">
 
-                <!-- does not have target! -->
-                <subaction name="Clause.composite"
-                           
-                           mode="TEXT_SELECTED_INSERT"
-                           target="toolbarSubAction.makeBillClauseSection.composite_section_creation:heading_clause"
-                           visible="true"
-                           condition="cursorInSection:bill :and: textSelected:true">
-                    <title xml:lang="eng">Markup Clause and Heading</title>
-                </subaction>
-                <!--END does not have target-->
-                
-                <subaction name="Clause.sidenote" 
-                           mode="TEXT_SELECTED_INSERT"
-                           target="create_sidenote" visible="true"
-                           condition="cursorInSection:bill">
-                    <title xml:lang="eng">Add Sidenote</title>
-                </subaction>
-            </blockAction>
-            <blockAction name="Sub-Clause" target="null" visible="true" condition="none">
-                <title xml:lang="eng">Sub Clause</title>
-                <subaction name="SubClause.selection"
-                           
-                           mode="TEXT_SELECTED_INSERT"
-                           target="make_bill_subclause"
-                           visible="true"
-                           condition="cursorInSection:clause([0-9]*) :and: textSelected:true">
-                    <title xml:lang="eng">Create from Selection</title>
-                </subaction>
-                <subaction name="SubClause.selection.title"
-                           
-                           mode="TEXT_SELECTED_INSERT"
-                           target="apply_numbered_heading_bill_subclause:heading_subclause"
-                           visible="true"
-                           condition="cursorInSection:clause([0-9]*) :and: textSelected:true :and: !sectionHasChildType:NumberedContainer">
-                    <title xml:lang="eng">Markup Heading</title>
-                </subaction>
-                <subaction name="SubClause.composite"
-                           
-                           mode="TEXT_SELECTED_INSERT"
-                           target="make_bill_subclause_composite_section_creation:heading_subclause"
-                           visible="true"
-                           condition="cursorInSection:clause([0-9]*) :and: textSelected:true">
-                    <title xml:lang="eng">Markup Heading and Sub-Clause</title>
-                </subaction>
-                <subaction name="SubClause.sidenote" 
-                           mode="TEXT_SELECTED_INSERT"
-                           target="create_sidenote" visible="true"
-                           condition="cursorInSection:clause([0-9]*)">
-                    <title xml:lang="eng">Add Sidenote</title>
-                </subaction>
-            </blockAction>
-        </actionGroup>
-    </root>
+        <subaction name="Part.selection" mode="TEXT_SELECTED_INSERT" target="make_bill_part"
+          visible="true" condition="cursorInSection:bill :and: textSelected:true"
+          title="CREATE_FROM_SELECTION"> </subaction>
+        <subaction name="Part.selection.title" mode="TEXT_SELECTED_INSERT"
+          target="apply_numbered_heading_bill_part:heading_part" visible="true"
+          condition="cursorInSection:part([0-9]*) :and: textSelected:true :and: !sectionHasChildType:NumberedContainer"
+          title="MARKUP_HEADING"> </subaction>
+        <subaction name="Part.sidenote" mode="TEXT_SELECTED_INSERT" target="create_sidenote"
+          visible="true" condition="cursorInSection:part([0-9]*)" title="ADD_SIDENOTE"> </subaction>
+      </blockAction>
+      <blockAction name="Chapter" target="null" visible="true" condition="none" title="CHAPTER">
+
+        <subaction name="Chapter.selection" target="make_bill_chapter" visible="true"
+          condition="cursorInSection:part([0-9]*) :and: textSelected:true"
+          title="CREATE_FROM_SELECTION"> </subaction>
+        <subaction name="Chapter.selection.title" mode="TEXT_SELECTED_INSERT"
+          target="apply_numbered_heading_bill_chapter_section:heading_chapter" visible="true"
+          condition="cursorInSection:chapter([0-9]*) :and: textSelected:true :and: !sectionHasChildType:NumberedContainer"
+          title="MARKUP_HEADING"> </subaction>
+        <subaction name="Chapter.composite" mode="TEXT_SELECTED_INSERT"
+          target="make_bill_chapter_section:heading_chapter" visible="true"
+          condition="cursorInSection:part([0-9]*) :and: textSelected:true"
+          title="MARKUP_CHAPTER_AND_HEADING"> </subaction>
+        <subaction name="Chapter.sidenote" mode="TEXT_SELECTED_INSERT" target="create_sidenote"
+          visible="true" condition="cursorInSection:chapter([0-9]*)" title="ADD_SIDENOTE"
+        > </subaction>
+      </blockAction>
+      <blockAction name="SubChapter" target="null" visible="true" condition="none"
+        title="SUB-CHAPTER">
+
+        <subaction name="SubChapter.selection" mode="TEXT_SELECTED_INSERT"
+          target="make_bill_sub_chapter" visible="true"
+          condition="cursorInSection:chapter([0-9]*) :and: textSelected:true"
+          title="CREATE_FROM_SELECTION"> </subaction>
+        <subaction name="SubChapter.selection.title" mode="TEXT_SELECTED_INSERT"
+          target="make_bill_long_title:heading_subchapter" visible="true"
+          condition="cursorInSection:subchapter([0-9]*) :and: textSelected:true :and: !sectionHasChildType:NumberedContainer"
+          title="MARKUP_HEADING"> </subaction>
+        <subaction name="SubChapter.composite" mode="TEXT_SELECTED_INSERT"
+          target="make_composite_bill_sub_chapter:heading_subchapter" visible="true"
+          condition="cursorInSection:chapter([0-9]*) :and: textSelected:true"
+          title="MARKUP_HEADING_AND_SUB-CHAPTER"> </subaction>
+        <subaction name="SubChapter.sidenote" mode="TEXT_SELECTED_INSERT" target="create_sidenote"
+          visible="true" condition="cursorInSection:subchapter([0-9]*)" title="ADD_SIDENOTE"
+        > </subaction>
+      </blockAction>
+      <blockAction name="Section" target="null" visible="true" condition="none" title="SECTION">
+
+        <subaction name="Section.selection" mode="TEXT_SELECTED_INSERT" target="make_bill_section"
+          visible="true"
+          condition="cursorInSection:(subchapter|part)([0-9]*) :and: textSelected:true"
+          title="CREATE_FROM_SELECTION"> </subaction>
+        <subaction name="Section.selection.title" mode="TEXT_SELECTED_INSERT"
+          target="make_bill_numbered_heading:heading_section" visible="true"
+          condition="cursorInSection:section([0-9]*) :and: textSelected:true :and: !sectionHasChildType:NumberedContainer"
+          title="MARKUP_HEADING"> </subaction>
+        <subaction name="Section.composite" mode="TEXT_SELECTED_INSERT"
+          target="make_bill_composite_section:heading_section" visible="true"
+          condition="cursorInSection:(subchapter|part)([0-9]*) :and: textSelected:true"
+          title="MARKUP_SECTION_AND_HEADING"> </subaction>
+        <subaction name="Section.sidenote" mode="TEXT_SELECTED_INSERT" target="create_sidenote"
+          visible="true" condition="cursorInSection:section([0-9]*)" title="ADD_SIDENOTE"
+        > </subaction>
+      </blockAction>
+      <blockAction name="Sub-Section" target="null" visible="true" condition="none"
+        title="SUB_SECTION">
+
+        <subaction name="SubSection.selection" mode="TEXT_SELECTED_INSERT"
+          target="make_bill_sub_section" visible="true"
+          condition="cursorInSection:section([0-9]*) :and: textSelected:true"
+          title="CREATE_FROM_SELECTION"> </subaction>
+        <subaction name="SubSection.selection.title" mode="TEXT_SELECTED_INSERT"
+          target="apply_numbered_heading_bill:heading_subsection" visible="true"
+          condition="cursorInSection:subsection([0-9]*) :and: textSelected:true :and: !sectionHasChildType:NumberedContainer"
+          title="MARKUP_HEADING"> </subaction>
+        <subaction name="SubSection.composite" mode="TEXT_SELECTED_INSERT"
+          target="make_composite_bill_section:heading_subsection" visible="true"
+          condition="cursorInSection:section([0-9]*) :and: textSelected:true"
+          title="MARKUP_SUB-SECTION_AND_HEADING"> </subaction>
+        <subaction name="SubSection.sidenote" mode="TEXT_SELECTED_INSERT" target="create_sidenote"
+          visible="true" condition="cursorInSection:subsection([0-9]*)" title="ADD_SIDENOTE"
+        > </subaction>
+      </blockAction>
+      <blockAction name="Paragraph" target="null" visible="true" condition="none" title="PARAGRAPH">
+
+        <subaction name="Paragraph.selection" mode="TEXT_SELECTED_INSERT"
+          target="make_bill_paragraph" visible="true"
+          condition="cursorInSection:section([0-9]*) :and: textSelected:true"
+          title="CREATE_FROM_SELECTION"> </subaction>
+        <subaction name="Paragraph.selection.title" mode="TEXT_SELECTED_INSERT"
+          target="apply_numbered_heading_bill_par_section:heading_para" visible="true"
+          condition="cursorInSection:para([0-9]*) :and: textSelected:true" title="MARKUP_HEADING"> </subaction>
+        <subaction name="Paragraph.sidenote" mode="TEXT_SELECTED_INSERT" target="create_sidenote"
+          visible="true" condition="cursorInSection:para([0-9]*)" title="ADD_SIDENOTE"> </subaction>
+      </blockAction>
+      <blockAction name="Sub-Paragraph" target="null" visible="true" condition="none"
+        title="SUB_PARAGRAPH">
+
+        <subaction name="SubParagraph.selection" mode="TEXT_SELECTED_INSERT"
+          target="make_bill_sub_par" visible="true"
+          condition="cursorInSection:para([0-9]*) :and: textSelected:true"
+          title="CREATE_FROM_SELECTION"> </subaction>
+        <subaction name="SubParagraph.selection.title" mode="TEXT_SELECTED_INSERT"
+          target="apply_numbered_bill_sub_par:heading_subpara" visible="true"
+          condition="cursorInSection:subpara([0-9]*) :and: textSelected:true" title="MARKUP_HEADING"> </subaction>
+        <subaction name="SubParagraph.sidenote" mode="TEXT_SELECTED_INSERT" target="create_sidenote"
+          visible="true" condition="cursorInSection:subpara([0-9]*)" title="ADD_SIDENOTE"
+        > </subaction>
+      </blockAction>
+      <blockAction name="Clause" target="null" visible="true" condition="none" title="CLAUSE">
+
+        <subaction name="Clause.selection" mode="TEXT_SELECTED_INSERT" target="make_bill_clause"
+          visible="true" condition="cursorInSection:bill :and: textSelected:true"
+          title="CREATE_FROM_SELECTION"> </subaction>
+        <subaction name="Clause.selection.title" mode="TEXT_SELECTED_INSERT"
+          target="apply_numbered_heading_bill_clause:heading_clause" visible="true"
+          condition="cursorInSection:bill :and: textSelected:true :and: !sectionHasChildType:NumberedContainer"
+          title="MARKUP_HEADING"> </subaction>
+        <!-- does not have target! -->
+        <subaction name="Clause.composite" mode="TEXT_SELECTED_INSERT"
+          target="toolbarSubAction.makeBillClauseSection.composite_section_creation:heading_clause"
+          visible="true" condition="cursorInSection:bill :and: textSelected:true"
+          title="MARKUP_CLAUSE_AND_HEADING"> </subaction>
+        <!--END does not have target-->
+        <subaction name="Clause.sidenote" mode="TEXT_SELECTED_INSERT" target="create_sidenote"
+          visible="true" condition="cursorInSection:bill" title="ADD_SIDENOTE"> </subaction>
+      </blockAction>
+      <blockAction name="Sub-Clause" target="null" visible="true" condition="none"
+        title="SUB_CLAUSE">
+
+        <subaction name="SubClause.selection" mode="TEXT_SELECTED_INSERT"
+          target="make_bill_subclause" visible="true"
+          condition="cursorInSection:clause([0-9]*) :and: textSelected:true"
+          title="CREATE_FROM_SELECTION"> </subaction>
+        <subaction name="SubClause.selection.title" mode="TEXT_SELECTED_INSERT"
+          target="apply_numbered_heading_bill_subclause:heading_subclause" visible="true"
+          condition="cursorInSection:clause([0-9]*) :and: textSelected:true :and: !sectionHasChildType:NumberedContainer"
+          title="MARKUP_HEADING"> </subaction>
+        <subaction name="SubClause.composite" mode="TEXT_SELECTED_INSERT"
+          target="make_bill_subclause_composite_section_creation:heading_subclause" visible="true"
+          condition="cursorInSection:clause([0-9]*) :and: textSelected:true"
+          title="MARKUP_HEADING_AND_SUB-CLAUSE"> </subaction>
+        <subaction name="SubClause.sidenote" mode="TEXT_SELECTED_INSERT" target="create_sidenote"
+          visible="true" condition="cursorInSection:clause([0-9]*)" title="ADD_SIDENOTE"
+        > </subaction>
+      </blockAction>
+    </actionGroup>
+  </root>
 </toolbar>
