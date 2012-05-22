@@ -253,11 +253,9 @@
             />
     </action>
     
-      <action name="make_preamble_ref"  type="" parent="makePreambleRefSection"
-            router="act.section_creation.makePreambleRefSection" sectiontype="ref" validator="org.bungeni.editor.actions.validators.defaultValidator">
-            <title xml:lang="eng">dummy</title>
-            <router class="org.bungeni.editor.actions.routers.routerCreateReference"
-                dialog="org.bungeni.editor.selectors.InitPreambleRef"
+      <action name="make_ref" sectiontype="Ref">
+            <router class="org.bungeni.editor.actions.routers.routerActSelectRef"
+                dialog="org.bungeni.editor.selectors.debaterecord.ref.Main"
             />
     </action>
 
