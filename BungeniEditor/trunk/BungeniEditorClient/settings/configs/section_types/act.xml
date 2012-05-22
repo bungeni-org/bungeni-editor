@@ -97,7 +97,7 @@
             decorator="none" />
  </sectionType>
  
- <sectionType name="ref"
+ <sectionType name="Ref"
     prefix="ref"
     numstyle="serial"
     background="0x0040ee"
