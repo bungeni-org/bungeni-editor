@@ -39,6 +39,7 @@
             <act>
                 <xsl:apply-templates select="//*[@name='meta']"/>
                 <xsl:apply-templates select="//*[@name='Preface']"/>
+                <xsl:apply-templates select="//*[@name='Preamble']"/>
                 <!-- !+PIPELINE(ah, feb-2012), added explicit matcher for body
                 otherwise meta gets matched twice -->
                 <xsl:apply-templates select="//*[@name='body']"/>
@@ -47,428 +48,6 @@
         </akomaNtoso>    
     </xsl:template>
     
-    <xsl:template bp:name="body" match="*[@name='body']">
-        <body>
-            <xsl:if test="@id">
-                    <xsl:attribute name="bodf:sourceId" select="@id"/>
-            </xsl:if>
-            <xsl:for-each select="*[@name='Observation']">
-                <subdivision id="{generate-id(.)}" name="SceneSubdivision">
-                        <xsl:apply-templates select="."/>
-                </subdivision>
-            </xsl:for-each>
-             <xsl:apply-templates select="*[@name != 'Preface' and @name != 'Conclusion' and @name != 'Observation' and @name != 'meta']"/>
-        </body>
-    </xsl:template>
-    
-    
-    
-    <xsl:template bp:name="Preface" match="*[@name='Preface']">
-        <preface>
-            <xsl:attribute name="bodf:sourceId" select="@id"/>
-            <xsl:apply-templates/>
-        </preface>
-    </xsl:template>
-
-    
-    <xsl:template bp:name="Observation" match="*[@name='Observation']">
-        <scene>
-            <xsl:for-each select="*:block">
-                <span>
-                    <xsl:apply-templates/>
-                </span>
-            </xsl:for-each>
-            <xsl:apply-templates select="*[name(.) != 'block']"/>
-        </scene>
-    </xsl:template>
-    
-    <xsl:template bp:name="PapersLaid" match="*[@name='PapersLaid']">
-        <papers>
-            <xsl:if test="@id">
-                    <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
-                    <xsl:attribute name="bodf:sourceId" select="@id"/>
-            </xsl:if>
-            <xsl:apply-templates/>
-        </papers>
-    </xsl:template>
-    
-    <xsl:template bp:name="PapersLaidList" match="*[@name='PapersLaidList']">
-        <other>
-            <xsl:if test="@id">
-                    <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
-                     <xsl:attribute name="bodf:sourceId" select="@id"/>
-            </xsl:if>
-            <xsl:apply-templates/>
-        </other>
-    </xsl:template>
-    
-    <xsl:template bp:name="GroupActivity" match="*[@name='GroupActivity']">
-        <subdivision>
-                <xsl:if test="@id">
-                        <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
-                        <xsl:attribute name="bodf:sourceId" select="@id"/>
-                </xsl:if>
-                <xsl:if test="@name">
-                        <xsl:attribute name="name"><xsl:value-of select="@name"/></xsl:attribute>
-                </xsl:if>
-            <other>
-                <xsl:apply-templates/>
-            </other>
-        </subdivision>
-    </xsl:template>
-    
-    <xsl:template bp:name="Speech" match="*[@name='Speech']">
-        <speech>
-            <xsl:if test="@id">
-                <xsl:attribute name="id">
-                    <xsl:value-of select="@id"/>
-                </xsl:attribute>
-                <xsl:attribute name="bodf:sourceId" select="@id"/>
-            </xsl:if>
-            <xsl:if test="./bungeni:bungenimeta/bungeni:BungeniSpeechBy">
-                <xsl:attribute name="by">
-                    <xsl:text>#p</xsl:text>
-                    <xsl:value-of select="./bungeni:bungenimeta/bungeni:BungeniPersonID"/>
-                </xsl:attribute>
-            </xsl:if>
-            <xsl:if test="./bungeni:bungenimeta/bungeni:BungeniSpeechTo">
-                <xsl:attribute name="to">
-                    <xsl:value-of select="./bungeni:bungenimeta/bungeni:BungeniSpeechTo"/>
-                </xsl:attribute>
-            </xsl:if>
-            <xsl:if test="./bungeni:bungenimeta/bungeni:BungeniSpeechAs">
-                <xsl:attribute name="as">
-                     <xsl:text>#</xsl:text>
-                    <xsl:value-of select="./bungeni:bungenimeta/bungeni:BungeniSpeechAs"/>
-                </xsl:attribute>
-            </xsl:if>
-            <xsl:apply-templates/>
-        </speech>
-    </xsl:template>
-
-
-    <xsl:template match="*[@name='from']">
-        <from><xsl:apply-templates /></from>
-    </xsl:template>
-
-    <xsl:template bp:name="QuestionsContainer" match="*[@name='QuestionsContainer']">
-        <subdivision>
-			<xsl:if test="@id">
-				<xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
-                                <xsl:attribute name="bodf:sourceId" select="@id"/>
-			</xsl:if>
-			<xsl:if test="@name">
-				<xsl:attribute name="name"><xsl:value-of select="@name"/></xsl:attribute>
-			</xsl:if>
-
-            <xsl:apply-templates/>
-        </subdivision>
-    </xsl:template>
-    
-    <xsl:template bp:name="QuestionAnswer" match="*[@name='QuestionAnswer']">
-        <questions>
-            <xsl:if test="@id">
-                    <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
-                     <xsl:attribute name="bodf:sourceId" select="@id"/>
-            </xsl:if>
-
-            <xsl:apply-templates/>
-        </questions>
-    </xsl:template>
-    
-    <xsl:template bp:name="Question" match="*[@name='Question']">
-        <question>
-			<xsl:if test="@id">
-				<xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
-                                <xsl:attribute name="bodf:sourceId" select="@id"/>
-			</xsl:if>
-
-            <xsl:apply-templates/>
-        </question>
-    </xsl:template>
-    
-    <xsl:template bp:name="PointOfOrder" match="*[@name='PointOfOrder']">
-        <pointOfOrder>
-            <xsl:if test="@id">
-                    <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
-                    <xsl:attribute name="bodf:sourceId" select="@id"/>
-            </xsl:if>
-
-            <xsl:apply-templates/>
-        </pointOfOrder>
-    </xsl:template>
-    
-    <xsl:template bp:name="PersonalStatement" match="*[@name='PersonalStatement']">
-        <subdivision>
-            <xsl:if test="@id">
-                    <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
-                    <xsl:attribute name="bodf:sourceId" select="@id"/>
-            </xsl:if>
-            <!--<xsl:if test="@name">
-                    <xsl:attribute name="name"><xsl:value-of select="@name" /></xsl:attribute>
-            </xsl:if> -->
-
-            <xsl:apply-templates/>
-        </subdivision>
-    </xsl:template>
-    
-    <xsl:template bp:name="MinisterialStatement" match="*[@name='MinisterialStatement']">
-        <subdivision>
-            <xsl:if test="@id">
-                    <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
-                    <xsl:attribute name="bodf:sourceId" select="@id"/>
-            </xsl:if>
-            <!--<xsl:if test="@name">
-                    <xsl:attribute name="name"><xsl:value-of select="@name" /></xsl:attribute>
-            </xsl:if> -->
-
-            <xsl:apply-templates/>
-        </subdivision>
-    </xsl:template>
-    
-    <xsl:template bp:name="Petitions" match="*[@name='Petitions']">
-        <petitions>
-            <xsl:if test="@id">
-                    <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
-                    <xsl:attribute name="bodf:sourceId" select="@id"/>
-            </xsl:if>
-
-            <xsl:apply-templates/>
-        </petitions>
-    </xsl:template>
-    
-    <xsl:template bp:name="PetitionsList" match="*[@name='PetitionsList']">
-        <other>
-            <xsl:if test="@id">
-                    <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
-                    <xsl:attribute name="bodf:sourceId" select="@id"/>
-            </xsl:if>
-
-            <xsl:apply-templates/>
-        </other>
-    </xsl:template>
-    
-    <xsl:template bp:name="PMotionsContainer" match="*[@name='PMotionsContainer']">
-        <proceduralMotions>
-            <xsl:if test="@id">
-                    <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
-                    <xsl:attribute name="bodf:sourceId" select="@id"/>
-            </xsl:if>
-
-            <xsl:apply-templates/>
-        </proceduralMotions>
-    </xsl:template>
-    
-    <xsl:template bp:name="NMotionsContainer" match="*[@name='NMotionsContainer']">
-        <noticesOfMotion>
-            <xsl:if test="@id">
-                    <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
-                    <xsl:attribute name="bodf:sourceId" select="@id"/>
-            </xsl:if>
-
-            <xsl:apply-templates/>
-        </noticesOfMotion>
-    </xsl:template>
-    
-    <xsl:template bp:name="NoticeOfMotion" match="*[@name='NoticeOfMotion']">
-        <subdivision>
-            <xsl:if test="@id">
-                    <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
-                    <xsl:attribute name="bodf:sourceId" select="@id"/>
-            </xsl:if>
-            <!--<xsl:if test="@name">
-                    <xsl:attribute name="name"><xsl:value-of select="@name" /></xsl:attribute>
-            </xsl:if> -->
-
-            <xsl:apply-templates/>
-        </subdivision>
-    </xsl:template>
-    
-    <xsl:template bp:name="ProceduralMotion" match="*[@name='ProceduralMotion']">
-        <subdivision>
-            <xsl:if test="@id">
-                    <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
-                    <xsl:attribute name="bodf:sourceId" select="@id"/>
-            </xsl:if>
-            <!--<xsl:if test="@name">
-                    <xsl:attribute name="name"><xsl:value-of select="@name" /></xsl:attribute>
-            </xsl:if> -->
-
-            <xsl:apply-templates/>
-        </subdivision>
-    </xsl:template>
-    
-    <xsl:template bp:name="Person" match="*[@name='Person']">
-        <!-- is this ever used ? the 'from' element is rendered
-        from the 'ref' template, this isnt used anymore
-        <from>
-           <xsl:apply-templates />
-        </from> -->
-        <xsl:apply-templates/>
-    </xsl:template>
-    
-    <xsl:template bp:name="ActionEvent" match="*[@name='ActionEvent']">
-        <subdivision>
-            <xsl:if test="@id">
-                <xsl:attribute name="id">
-                    <xsl:value-of select="@id"/>
-                </xsl:attribute>
-                <xsl:attribute name="bodf:sourceId" select="@id"/>
-            </xsl:if>
-            <xsl:if test="@name">
-                <xsl:attribute name="name">
-                    <xsl:value-of select="./bungeni:bungenimeta/bungeni:BungeniOntologyName"/>
-                </xsl:attribute>
-            </xsl:if>
-            <xsl:apply-templates/>
-        </subdivision>
-    </xsl:template>
-    
-    <xsl:template bp:name="Communication" match="*[@name='Communication']">
-        <communication>
-            <xsl:if test="@id">
-                    <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
-                    <xsl:attribute name="bodf:sourceId" select="@id"/>
-            </xsl:if>
-
-            <xsl:apply-templates/>
-        </communication>
-    </xsl:template>
-    
-    <xsl:template bp:name="Conclusion" match="*[@name='Conclusion']">
-        <conclusions>
-            <xsl:if test="@id">
-                    <xsl:attribute name="id" select="@id"/>
-                    <xsl:attribute name="bodf:sourceId" select="@id"/>
-            </xsl:if>
-
-            <xsl:apply-templates/>
-        </conclusions>
-    </xsl:template>
-    
-    <xsl:template bp:name="span" match="*[@name='span']">
-        <span>
-            <xsl:apply-templates/>
-        </span>
-    </xsl:template>
-    
-    <xsl:template bp:name="p" match="*[@name='p']">
-        <!-- when the descendant is a ref within a paragraph, its usually a <from>,
-        if its a from we dont decoreate the template with a paragraph 'p' element -->
-        <xsl:choose>
-            <xsl:when test="descendant::*[@name='ref' and @class='BungeniSpeechBy']">
-                <xsl:apply-templates/>    
-            </xsl:when>
-            <xsl:otherwise>
-                <p>
-                    <xsl:apply-templates/>
-                </p>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    
-    <xsl:template bp:name="ref" match="*[@name='ref']">
-		<xsl:if test="@href">
-			<xsl:if test="@class">
-				<xsl:choose>
-					<!--check if speechBy attribute exists then generate a 'from' -->
-					<xsl:when test="@class='BungeniSpeechBy'">
-						<from>
-							<xsl:value-of select="."/>
-						</from>
-					</xsl:when>
-					<!--sBillRef : section Bill Ref -->
-					<xsl:when test="@class='sBillRef'">
-						<entity xsl:exclude-result-prefixes="#all">
-							<!-- eg. BungeniBill.1;#1 -->
-							<xsl:variable name="strHref"><xsl:value-of select="@href"/></xsl:variable>
-							<xsl:variable name="tokenizedHref" select="tokenize($strHref,';')"/>
-							<!-- "BungeniBill.1" -->
-							<xsl:variable name="refersToBillSectionMeta" select="$tokenizedHref[1]"/>
-							<!-- now do a select of the bill meta from the section meta , -->
-							<!-- BillSectionMeta will have Finance Bill;/ke/bill/2008-02-03/12;/ontology/Expression/ke.bill.2008-02-03.12 now -->
-							<xsl:variable name="BillSectionMeta" select="ancestor::ml:container/attribute::node()[name() = $refersToBillSectionMeta][1]"/> 
-							<!-- Now tokenize the section metadata -->
-							<xsl:variable name="tokenizedBillSectionMeta" select="tokenize($BillSectionMeta,';')"/>
-							<xsl:variable name="BillUri" select="$tokenizedBillSectionMeta[2]"/> 
-							<xsl:variable name="BillOntology" select="$tokenizedBillSectionMeta[3]"/> 
-							<xsl:attribute name="id">
-								<xsl:value-of select="generate-id(node())"/>
-							</xsl:attribute>
-							<xsl:attribute name="refersTo">
-								 <xsl:text>#</xsl:text>
-								 <xsl:value-of select="translate($BillUri, '/', '')"/>
-							</xsl:attribute>
-							<ref>
-							  	<xsl:attribute name="href">
-							  		<xsl:value-of select="$BillUri"/>
-							  	</xsl:attribute>
-							    <xsl:value-of select="."/>
-							</ref>
-						</entity>
-					</xsl:when>
-                                        <!-- just output the text contained by house closing time
-                                            the markup needs to be fixed to set more information about house closing -->
-                                        <xsl:when test="@class='BungeniHouseClosingTime'">
-							<xsl:value-of select="."/>
-					</xsl:when>
-				<!-- otherwise generate normal reference -->
-					<xsl:otherwise>
-					     <ref>
-					       <xsl:attribute name="href"><xsl:value-of select="@href"/></xsl:attribute>
-					     </ref>
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:if>
-		</xsl:if>
-		<!-- <xsl:apply-templates/> -->
-	</xsl:template>
-    
-    <xsl:template bp:name="heading" match="*[@name='heading']">
-        <heading>
-            <xsl:apply-templates/>
-        </heading>
-    </xsl:template>
-    
-    <xsl:template bp:name="subheading" match="*[@name='subheading']">
-        <subheading>
-            <xsl:apply-templates/>
-        </subheading>
-    </xsl:template>
-    
-    <xsl:template bp:name="list" match="*[@name='list']">
-        <list>
-            <xsl:if test="@id">
-                    <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
-            </xsl:if>
-
-            <xsl:apply-templates/>
-        </list>
-    </xsl:template>
-    
-    <xsl:template bp:name="item" match="*[@name='item']">
-        <item>
-            <xsl:if test="@id">
-                    <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
-                    <xsl:attribute name="bodf:sourceId" select="@id"/>
-            </xsl:if>
-
-            <xsl:apply-templates/>
-        </item>
-    </xsl:template>
-    
-    <xsl:template bp:name="a" match="*[@name='a']">
-        <a>
-            <xsl:if test="@id">
-                    <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
-            </xsl:if>
-            <xsl:if test="@href">
-                    <xsl:attribute name="href"><xsl:value-of select="@href"/></xsl:attribute>
-            </xsl:if>
-
-            <xsl:apply-templates/>
-        </a>
-    </xsl:template>
     
     <xsl:template bp:name="meta" match="*[@name='meta']">
         <meta>
@@ -656,6 +235,356 @@
             <xsl:apply-templates/>
         </TLCReference>
     </xsl:template>
+    
+    <xsl:template bp:name="body" match="*[@name='body']">
+        <body>
+            <xsl:if test="@id">
+                    <xsl:attribute name="bodf:sourceId" select="@id"/>
+            </xsl:if>
+            
+             <xsl:apply-templates select="*[@name != 'Preface' and @name != 'Preamble' and @name != 'Conclusion' and @name != 'meta']"/>
+        </body>
+    </xsl:template>
+    
+    <xsl:template bp:name="Preface" match="*[@name='Preface']">
+        <preface>
+            <xsl:attribute name="bodf:sourceId" select="@id"/>
+            <xsl:apply-templates/>
+        </preface>
+    </xsl:template>
+    
+    <xsl:template match="*[@name='docTitle']" bp:name="docTitle">
+        <docTitle>
+            <xsl:if test="@id">
+                    <xsl:attribute name="id"><xsl:value-of select="@id" /></xsl:attribute>
+            </xsl:if>
+            <xsl:apply-templates />
+        </docTitle>
+    </xsl:template>
+    
+     <xsl:template match="*[@name='docNumber']" bp:name="docNumber">
+        <docNumber>
+            <xsl:if test="@id">
+                    <xsl:attribute name="id"><xsl:value-of select="@id" /></xsl:attribute>
+            </xsl:if>
+            <xsl:apply-templates />
+        </docNumber>
+    </xsl:template>
+    
+    <xsl:template match="*[@name='docDate']" bp:name="docDate">
+        <docDate>
+            <xsl:if test="@id">
+                    <xsl:attribute name="id"><xsl:value-of select="@id" /></xsl:attribute>
+            </xsl:if>
+            <xsl:apply-templates />
+        </docDate>
+    </xsl:template>
+    
+     <xsl:template match="*[@name='docType']" bp:name="docType">
+        <docType>
+            <xsl:if test="@id">
+                    <xsl:attribute name="id"><xsl:value-of select="@id" /></xsl:attribute>
+            </xsl:if>
+            <xsl:apply-templates />
+        </docType>
+    </xsl:template>
+    
+     <xsl:template bp:name="Preamble" match="*[@name='Preamble']">
+        <preamble>
+            <xsl:attribute name="bodf:sourceId" select="@id"/>
+            <xsl:apply-templates/>
+        </preamble>
+    </xsl:template>
+    
+     <xsl:template match="*[@name='Book']" bp:name="Book">
+        <book>
+            <xsl:if test="@id">
+                    <xsl:attribute name="id"><xsl:value-of select="@id" /></xsl:attribute>
+            </xsl:if>
+            <xsl:apply-templates />
+        </book>
+    </xsl:template>
+    
+    <xsl:template match="*[@name='Part']" bp:name="Part">
+        <part>
+            <xsl:if test="@id">
+                    <xsl:attribute name="id"><xsl:value-of select="@id" /></xsl:attribute>
+            </xsl:if>
+            <xsl:apply-templates />
+        </part>
+    </xsl:template>
+    
+    <xsl:template match="*[@name='Chapter']" bp:name="Chapter">
+        <chapter>
+			<xsl:if test="@id">
+				<xsl:attribute name="id"><xsl:value-of select="@id" /></xsl:attribute>
+			</xsl:if>
+
+            <xsl:apply-templates />
+        </chapter>
+    </xsl:template>
+    
+     <xsl:template match="*[@name='Section']" bp:name="Section">
+        <section>
+			<xsl:if test="@id">
+				<xsl:attribute name="id"><xsl:value-of select="@id" /></xsl:attribute>
+			</xsl:if>
+
+            <xsl:apply-templates />
+        </section>
+    </xsl:template>
+    
+    <xsl:template match="*[@name='Article']"  bp:name="Article">
+        <article>
+            <xsl:if test="@id">
+                    <xsl:attribute name="id"><xsl:value-of select="@id" /></xsl:attribute>
+            </xsl:if>
+            <xsl:apply-templates />
+        </article>
+    </xsl:template>
+    
+    <xsl:template match="*[@name='num']" bp:name="num">
+        <num>
+            <xsl:apply-templates />
+        </num>
+    </xsl:template>
+    
+    <xsl:template match="*[@name='heading']" bp:name="heading">
+        <heading>
+            <xsl:apply-templates />
+        </heading>
+    </xsl:template>
+    
+     <xsl:template match="*[@name='subHeading']" bp:name="subHeading">
+        <subheading>
+            <xsl:apply-templates />
+        </subheading>
+    </xsl:template>
+    
+     <xsl:template match="*[@name='content']" bp:name="content">
+        <content>
+            <xsl:apply-templates />
+        </content>
+    </xsl:template>
+   
+    <xsl:template match="*[@name='Ref']">
+        <ref><xsl:if test="@id">
+                <xsl:attribute name="id">
+                    <xsl:value-of select="@id"/>
+                </xsl:attribute>
+                
+            </xsl:if>
+            <xsl:if test="./bungeni:bungenimeta/bungeni:BungeniRefURI">
+                <xsl:attribute name="href">
+                    <xsl:value-of select="./bungeni:bungenimeta/bungeni:BungeniRefURI"/>
+                </xsl:attribute>
+            </xsl:if>
+           
+            <xsl:apply-templates/>
+        </ref>
+    </xsl:template>
+
+    <xsl:template bp:name="PersonalStatement" match="*[@name='PersonalStatement']">
+        <subdivision>
+            <xsl:if test="@id">
+                    <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+                    <xsl:attribute name="bodf:sourceId" select="@id"/>
+            </xsl:if>
+            <!--<xsl:if test="@name">
+                    <xsl:attribute name="name"><xsl:value-of select="@name" /></xsl:attribute>
+            </xsl:if> -->
+
+            <xsl:apply-templates/>
+        </subdivision>
+    </xsl:template>
+    
+    <xsl:template bp:name="MinisterialStatement" match="*[@name='MinisterialStatement']">
+        <subdivision>
+            <xsl:if test="@id">
+                    <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+                    <xsl:attribute name="bodf:sourceId" select="@id"/>
+            </xsl:if>
+            <!--<xsl:if test="@name">
+                    <xsl:attribute name="name"><xsl:value-of select="@name" /></xsl:attribute>
+            </xsl:if> -->
+
+            <xsl:apply-templates/>
+        </subdivision>
+    </xsl:template>
+   
+    
+    <xsl:template bp:name="Person" match="*[@name='Person']">
+        <!-- is this ever used ? the 'from' element is rendered
+        from the 'ref' template, this isnt used anymore
+        <from>
+           <xsl:apply-templates />
+        </from> -->
+        <xsl:apply-templates/>
+    </xsl:template>
+    
+    <xsl:template bp:name="ActionEvent" match="*[@name='ActionEvent']">
+        <subdivision>
+            <xsl:if test="@id">
+                <xsl:attribute name="id">
+                    <xsl:value-of select="@id"/>
+                </xsl:attribute>
+                <xsl:attribute name="bodf:sourceId" select="@id"/>
+            </xsl:if>
+            <xsl:if test="@name">
+                <xsl:attribute name="name">
+                    <xsl:value-of select="./bungeni:bungenimeta/bungeni:BungeniOntologyName"/>
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:apply-templates/>
+        </subdivision>
+    </xsl:template>
+    
+    <xsl:template bp:name="Communication" match="*[@name='Communication']">
+        <communication>
+            <xsl:if test="@id">
+                    <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+                    <xsl:attribute name="bodf:sourceId" select="@id"/>
+            </xsl:if>
+
+            <xsl:apply-templates/>
+        </communication>
+    </xsl:template>
+    
+    <xsl:template bp:name="Conclusion" match="*[@name='Conclusion']">
+        <conclusions>
+            <xsl:if test="@id">
+                    <xsl:attribute name="id" select="@id"/>
+                    <xsl:attribute name="bodf:sourceId" select="@id"/>
+            </xsl:if>
+
+            <xsl:apply-templates/>
+        </conclusions>
+    </xsl:template>
+    
+    <xsl:template bp:name="span" match="*[@name='span']">
+        <span>
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+    
+    <xsl:template bp:name="p" match="*[@name='p']">
+        <!-- when the descendant is a ref within a paragraph, its usually a <from>,
+        if its a from we dont decoreate the template with a paragraph 'p' element -->
+        <xsl:choose>
+            <xsl:when test="descendant::*[@name='ref' and @class='BungeniSpeechBy']">
+                <xsl:apply-templates/>    
+            </xsl:when>
+            <xsl:otherwise>
+                <p>
+                    <xsl:apply-templates/>
+                </p>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    <xsl:template bp:name="ref" match="*[@name='ref']">
+		<xsl:if test="@href">
+			<xsl:if test="@class">
+				<xsl:choose>
+					<!--check if speechBy attribute exists then generate a 'from' -->
+					<xsl:when test="@class='BungeniSpeechBy'">
+						<from>
+							<xsl:value-of select="."/>
+						</from>
+					</xsl:when>
+					<!--sBillRef : section Bill Ref -->
+					<xsl:when test="@class='sBillRef'">
+						<entity xsl:exclude-result-prefixes="#all">
+							<!-- eg. BungeniBill.1;#1 -->
+							<xsl:variable name="strHref"><xsl:value-of select="@href"/></xsl:variable>
+							<xsl:variable name="tokenizedHref" select="tokenize($strHref,';')"/>
+							<!-- "BungeniBill.1" -->
+							<xsl:variable name="refersToBillSectionMeta" select="$tokenizedHref[1]"/>
+							<!-- now do a select of the bill meta from the section meta , -->
+							<!-- BillSectionMeta will have Finance Bill;/ke/bill/2008-02-03/12;/ontology/Expression/ke.bill.2008-02-03.12 now -->
+							<xsl:variable name="BillSectionMeta" select="ancestor::ml:container/attribute::node()[name() = $refersToBillSectionMeta][1]"/> 
+							<!-- Now tokenize the section metadata -->
+							<xsl:variable name="tokenizedBillSectionMeta" select="tokenize($BillSectionMeta,';')"/>
+							<xsl:variable name="BillUri" select="$tokenizedBillSectionMeta[2]"/> 
+							<xsl:variable name="BillOntology" select="$tokenizedBillSectionMeta[3]"/> 
+							<xsl:attribute name="id">
+								<xsl:value-of select="generate-id(node())"/>
+							</xsl:attribute>
+							<xsl:attribute name="refersTo">
+								 <xsl:text>#</xsl:text>
+								 <xsl:value-of select="translate($BillUri, '/', '')"/>
+							</xsl:attribute>
+							<ref>
+							  	<xsl:attribute name="href">
+							  		<xsl:value-of select="$BillUri"/>
+							  	</xsl:attribute>
+							    <xsl:value-of select="."/>
+							</ref>
+						</entity>
+					</xsl:when>
+                                        <!-- just output the text contained by house closing time
+                                            the markup needs to be fixed to set more information about house closing -->
+                                        <xsl:when test="@class='BungeniHouseClosingTime'">
+							<xsl:value-of select="."/>
+					</xsl:when>
+				<!-- otherwise generate normal reference -->
+					<xsl:otherwise>
+					     <ref>
+					       <xsl:attribute name="href"><xsl:value-of select="@href"/></xsl:attribute>
+					     </ref>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:if>
+		</xsl:if>
+		<!-- <xsl:apply-templates/> -->
+	</xsl:template>
+    
+    <xsl:template bp:name="heading" match="*[@name='heading']">
+        <heading>
+            <xsl:apply-templates/>
+        </heading>
+    </xsl:template>
+    
+    <xsl:template bp:name="subheading" match="*[@name='subheading']">
+        <subheading>
+            <xsl:apply-templates/>
+        </subheading>
+    </xsl:template>
+    
+    <xsl:template bp:name="list" match="*[@name='list']">
+        <list>
+            <xsl:if test="@id">
+                    <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+            </xsl:if>
+
+            <xsl:apply-templates/>
+        </list>
+    </xsl:template>
+    
+    <xsl:template bp:name="item" match="*[@name='item']">
+        <item>
+            <xsl:if test="@id">
+                    <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+                    <xsl:attribute name="bodf:sourceId" select="@id"/>
+            </xsl:if>
+
+            <xsl:apply-templates/>
+        </item>
+    </xsl:template>
+    
+    <xsl:template bp:name="a" match="*[@name='a']">
+        <a>
+            <xsl:if test="@id">
+                    <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+            </xsl:if>
+            <xsl:if test="@href">
+                    <xsl:attribute name="href"><xsl:value-of select="@href"/></xsl:attribute>
+            </xsl:if>
+
+            <xsl:apply-templates/>
+        </a>
+    </xsl:template>
+    
     
     <!--
 
