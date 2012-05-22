@@ -360,39 +360,22 @@
             <xsl:apply-templates />
         </content>
     </xsl:template>
-    
-    <xsl:template bp:name="Speech" match="*[@name='Speech']">
-        <speech>
-            <xsl:if test="@id">
+   
+    <xsl:template match="*[@name='Ref']">
+        <ref><xsl:if test="@id">
                 <xsl:attribute name="id">
                     <xsl:value-of select="@id"/>
                 </xsl:attribute>
-                <xsl:attribute name="bodf:sourceId" select="@id"/>
+                
             </xsl:if>
-            <xsl:if test="./bungeni:bungenimeta/bungeni:BungeniSpeechBy">
-                <xsl:attribute name="by">
-                    <xsl:text>#p</xsl:text>
-                    <xsl:value-of select="./bungeni:bungenimeta/bungeni:BungeniPersonID"/>
+            <xsl:if test="./bungeni:bungenimeta/bungeni:BungeniRefURI">
+                <xsl:attribute name="href">
+                    <xsl:value-of select="./bungeni:bungenimeta/bungeni:BungeniRefURI"/>
                 </xsl:attribute>
             </xsl:if>
-            <xsl:if test="./bungeni:bungenimeta/bungeni:BungeniSpeechTo">
-                <xsl:attribute name="to">
-                    <xsl:value-of select="./bungeni:bungenimeta/bungeni:BungeniSpeechTo"/>
-                </xsl:attribute>
-            </xsl:if>
-            <xsl:if test="./bungeni:bungenimeta/bungeni:BungeniSpeechAs">
-                <xsl:attribute name="as">
-                     <xsl:text>#</xsl:text>
-                    <xsl:value-of select="./bungeni:bungenimeta/bungeni:BungeniSpeechAs"/>
-                </xsl:attribute>
-            </xsl:if>
+           
             <xsl:apply-templates/>
-        </speech>
-    </xsl:template>
-
-
-    <xsl:template match="*[@name='from']">
-        <from><xsl:apply-templates /></from>
+        </ref>
     </xsl:template>
 
     <xsl:template bp:name="PersonalStatement" match="*[@name='PersonalStatement']">
