@@ -165,6 +165,23 @@
                     </xsl:element>
                 </xsl:for-each>
                 
+                <xsl:comment>  TLCReference  </xsl:comment>
+              
+                <xsl:for-each select="key('bySectionType', 'Ref')">
+                    
+                    <xsl:element name="meta">
+                        <xsl:attribute name="name">TLCReference</xsl:attribute>
+                        <xsl:attribute name="id">
+                            <xsl:value-of select="@id"></xsl:value-of>
+                        </xsl:attribute>
+                        <xsl:attribute name="href">
+                            <xsl:value-of select="./bungeni:BungeniRefURI"></xsl:value-of>
+                        </xsl:attribute>
+                        <xsl:attribute name="showAs"> <xsl:value-of>Destination</xsl:value-of>
+                        </xsl:attribute>
+                    </xsl:element>
+                </xsl:for-each>
+                
                 <!-- adding support for bill references -->
                 <!-- first we filter the nodes for the ones that have the attribute starting with bungeni bill 
                     then we filter the attribute nodes for the ones starting with bungeni bill -->
