@@ -89,6 +89,15 @@
              />
 
     </dialog>
+
+    <dialog
+        class="org.bungeni.editor.selectors.debaterecord.ref.Main" >
+        <dialog
+            class="org.bungeni.editor.selectors.debaterecord.ref.RefURI"
+             />
+
+    </dialog>
+
     <dialog
         class="org.bungeni.editor.selectors.debaterecord.speech.Main" >
         <dialog
@@ -164,6 +173,6 @@
              />
 
     </dialog>
-  
+
 
 </dialogs>

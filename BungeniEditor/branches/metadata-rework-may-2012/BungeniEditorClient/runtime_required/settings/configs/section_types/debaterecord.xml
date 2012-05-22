@@ -308,7 +308,7 @@
 <sectionType name="SpeechBody"
     prefix="spbody"
     numstyle="serial"
-    background="url:/settings/configs/backgrounds/shade-3.png"
+    background="0xffffff"
     indent-left=".7"
     indent-right="0"
     visibility="user" >

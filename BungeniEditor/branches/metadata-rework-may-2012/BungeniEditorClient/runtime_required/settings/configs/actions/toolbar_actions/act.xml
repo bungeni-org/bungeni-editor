@@ -19,12 +19,6 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
           condition="cursorInSection:act :and: textSelected:true :and: sectionNotExists:preface"
           title="CREATE_FROM_SELECTION_ACT">
          </action>
-        <action name="speech.create" mode="TEXT_SELECTED_INSERT" target="create_speech"
-          visible="true"
-          condition="textSelected:true :and:                                 
-              !cursorInSection:speech[0-9]*"
-          title="SPEECH_SECTION" tooltip="MARK_SELECTION_AS_A_SPEECH">
-           
         </action>
         <action name="Preface.selection.docTitle"
           tooltip="Select some text to mark it up as a Preface docTitle" mode="TEXT_SELECTED_INSERT"
@@ -59,7 +53,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
           title="CREATE_FROM_SELECTION">
          </action>
         <action name="Preamble.selection.ref" tooltip="Select some text to mark it up as a ref"
-          mode="TEXT_SELECTED_INSERT" target="make_preamble_ref" visible="true"
+          mode="TEXT_SELECTED_INSERT" target="make_ref" visible="true"
           condition="cursorInSection:preamble :and: textSelected:true" title="REF">
          </action>
       </blockAction>

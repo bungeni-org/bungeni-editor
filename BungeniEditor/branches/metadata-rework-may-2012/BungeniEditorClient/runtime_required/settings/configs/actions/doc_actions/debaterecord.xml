@@ -289,4 +289,10 @@
             dialog="org.bungeni.editor.selectors.debaterecord.question.Main"/>
     </action>
 
+    <action name="make_ref">
+            <router class="org.bungeni.editor.actions.routers.routerActSelectRef"
+                dialog="org.bungeni.editor.selectors.debaterecord.ref.Main"
+            />
+    </action>
+
 </actions>
