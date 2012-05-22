@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.6" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
@@ -22,7 +22,7 @@
           <Component id="txt_RefURI" pref="241" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
               <Component id="lbl_RefURI" min="-2" pref="111" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="130" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

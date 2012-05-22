@@ -2,6 +2,7 @@
 package org.bungeni.editor.selectors.debaterecord.ref;
 
 import java.awt.Component;
+import java.lang.String;
 import java.util.HashMap;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.extutils.CommonUIFunctions;
@@ -93,13 +94,7 @@ public class RefURI extends  BaseMetadataPanel {
 
     @Override
     public boolean processFullEdit() {
-          OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
-        HashMap<String,String> sectionMeta = new HashMap<String,String>();
-        String editSection = (getContainerPanel()).getEditSectionName();
-        sectionMeta.put("BungeniRefURI", this.txt_RefURI.getText());
-        //sectionMeta.put("BungeniQuestionByURI", this.txtPersonURI.getText());
-        ooDoc.setSectionMetadataAttributes(editSection, sectionMeta);      
-        
+        //!+FIX_THIS(ah, may-2012) The edit mode metadata processing needs to be fixed.
         return true;
     }
 
@@ -145,21 +140,20 @@ public class RefURI extends  BaseMetadataPanel {
 
     @Override
     public boolean processSelectInsert() {
-        OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
-        HashMap<String,String> sectionMeta = new HashMap<String,String>();
-        String newSectionName = (getContainerPanel()).mainSectionName;
-        sectionMeta.put("BungeniRefURI", this.txt_RefURI.getText());
-        //sectionMeta.put("BungeniQuestionByURI", this.txtPersonURI.getText());
-        ooDoc.setSectionMetadataAttributes(newSectionName, sectionMeta);      
-        
+          OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
+          final String strHref = this.txt_RefURI.getText();
+          HashMap<String,String> inlineMap = new HashMap<String,String>(){
+                {
+                    put("InlineType", "Ref");
+                    put("BungeniRefURI", strHref );
+                }
+          };
+          ooDoc.setSelectedTextAttributes(inlineMap);
         return true;
     }
 
     @Override
     public boolean doUpdateEvent(){
-        HashMap<String,String> selectionData = (getContainerPanel()).selectionData;
-        if (selectionData.containsKey("FIRST_NAME"))
-            this.txt_RefURI.setText(selectionData.get("FIRST_NAME") + " " + selectionData.get("LAST_NAME"));
         return true;
     }
     @Override
@@ -209,7 +203,8 @@ public class RefURI extends  BaseMetadataPanel {
 
     @Override
     protected void initFieldsEdit() {
-        this.txt_RefURI.setText(getSectionMetadataValue("BungeniRefURI"));
+        //!+FIX_THIS (ah, may-2012) Fix this for inline metadata editing
+        //this.txt_RefURI.setText(getSectionMetadataValue("BungeniRefURI"));
         return;
     }
 }

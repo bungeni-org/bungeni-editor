@@ -42,59 +42,13 @@ public class Main extends BaseMetadataContainerPanel {
     @Override
     public boolean preApplySelectedInsert() {
 
-        // create the section if it doesnt exist over here...
-        makeMetaEditable();
-
-        String newSection = getActionSectionName();
-
-        if (!ooDocument.hasSection(newSection)) {
-
-            // creat ethe new section
-            XTextViewCursor xCursor         = ooDocument.getViewCursor();
-            XText           xText           = xCursor.getText();
-            XTextContent    xSectionContent = ooDocument.createTextSection(newSection, SECTION_COLUMNS);
-
-            try {
-                xText.insertTextContent(xCursor, xSectionContent, true);
-            } catch (com.sun.star.lang.IllegalArgumentException ex) {
-                log.error("IllegalArgumentException, preMainApply : " + ex.getMessage());
-            }
-
-            mainSectionName = newSection;
-
-            // get section poperties
-            XTextSection xSection = ooDocument.getSection(newSection);
-
-            CommonRouterActions.setSectionProperties(theSubAction, newSection, ooDocument);
-            ooDocument.setSectionMetadataAttributes(xSection, CommonRouterActions.get_newSectionMetadata(theSubAction));
-        }
-
         return true;
-    }
-
-    @SuppressWarnings("empty-statement")
-    public String getActionSectionName() {
-
-        // get the action naming convention
-        String numberingConvention = theSubAction.section_numbering_convention();
-
-        if (numberingConvention.equals("none") || numberingConvention.equals("single")) {
-            return theSubAction.section_naming_convention();
-        } else if (numberingConvention.equals("serial")) {
-
-            // get highest section name possible
-            int iStart = 1;
-
-            for (; ooDocument.hasSection(theSubAction.section_naming_convention() + iStart); iStart++);
-
-            return theSubAction.section_naming_convention() + iStart;
-        } else {
-            return theSubAction.section_naming_convention();
-        }
     }
 
     @Override
     public boolean postApplySelectedInsert() {
+        //!+FIX_THIS(ah,may-2012) - FIX this for edit mode inline metadata markup
+        /**
         if (sectionMetadataEditor != null) {
             if (sectionMetadataEditor.bMetadataEditable) {
                 if (mainSectionName.length() > 0) {
@@ -106,7 +60,7 @@ public class Main extends BaseMetadataContainerPanel {
                 }
             }
         }
-
+        **/
         return true;
     }
 }

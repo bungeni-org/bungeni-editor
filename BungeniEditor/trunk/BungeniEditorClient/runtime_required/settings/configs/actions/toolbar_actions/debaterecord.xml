@@ -44,6 +44,10 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
           visible="true"
           condition="textSelected:true :and: cursorInSection:speech[0-9]* :and: !sectionHasChild:spbody[0-9]*"
           title="BODY" tooltip="SELECT_AND_MARK_SPEECH_BODY"> </action>
+        <action name="Speech.REF" mode="TEXT_SELECTED_INSERT" target="make_ref"
+          visible="true"
+          condition="textSelected:true :and: cursorInSection:spbody[0-9]*"
+          title="REF" tooltip="SELECT_AND_MARK_SPEECH_BODY"> </action>
         <!-- (rm, feb 2012) - removed...
                 <action name="Speech.Edit"
                     mode="TEXT_EDIT"
