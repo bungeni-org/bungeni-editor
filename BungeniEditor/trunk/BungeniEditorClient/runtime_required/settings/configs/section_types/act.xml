@@ -1,176 +1,355 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<sectionTypes for="act">
 
-<!--
-Action configuration for acts
+<sectionType name="Clause"
+    prefix="clause"
+    numstyle="serial"
+    background="0xffdfdf"
+    indent-right=".5"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ROMAN"
+            decorator="hashPrefix" />
+ </sectionType>
+<sectionType name="LongTitle"
+    prefix="longtitle"
+    numstyle="single"
+    background="0xff0000"
+    indent-right=".3"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
 
-HTML is allowed in tooltip texts :
-<a>, <b>, <i>, <br />, <center>, <ul>, <li>, <u>
+<sectionType name="MastHead"
+    prefix="preface"
+    numstyle="single"
+    background="0xe8eef7"
+    indent-right="0"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="postDashed" />
+ </sectionType>
+<sectionType name="NumberedContainer"
+    prefix="num_"
+    numstyle="single"
+    background="0xffffe1"
+    indent-right="0"
+    indent-left="0"
+    visibility="system" >
+     <numbering scheme="none"
+            decorator="postDotted" />
+ </sectionType>
+<sectionType name="Paragraph"
+    prefix="para"
+    numstyle="serial"
+    background="0xffff00"
+    indent-right=".7"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ALPHABETICAL-Lower"
+            decorator="parens" />
+ </sectionType>
 
-NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
+ <sectionType name="Person"
+    prefix="Person"
+    numstyle="single"
+    background="0x5c6121"
+    indent-right=".3"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
 
--->
-<toolbar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="../../../src/xsd/toolbar.xsd" doctype="act">
-  <root visible="true">
-    <actionGroup name="ActFav" visible="true" uimodel="wrap" title="GENERIC">
-       <blockAction name="Preface" target="null" visible="true" condition="none" title="PREFACE">
-         <action name="Preface.selection" tooltip="Select some text to mark it up as a Preface"
-          mode="TEXT_SELECTED_INSERT" target="make_act_preface" visible="true"
-          condition="cursorInSection:act :and: textSelected:true :and: sectionNotExists:preface"
-          title="CREATE_FROM_SELECTION_ACT">
-         </action>
-        </action>
-        <action name="Preface.selection.docTitle"
-          tooltip="Select some text to mark it up as a Preface docTitle" mode="TEXT_SELECTED_INSERT"
-          target="make_preface_docTitle" visible="true"
-          condition="cursorInSection:preface :and: textSelected:true :and: sectionNotExists:docTitle"
-          title="DOCTITLE">
-         </action>
-        <action name="Preface.selection.docDate"
-          tooltip="Select some text to mark it up as a Preface docDate" mode="TEXT_SELECTED_INSERT"
-          target="make_preface_docDate" visible="true"
-          condition="cursorInSection:preface :and: textSelected:true :and: sectionNotExists:docDate"
-          title="DOCDATE">
-         </action>
-        <action name="Preface.selection.docNumber"
-          tooltip="Select some text to mark it up as a Preface docNumber"
-          mode="TEXT_SELECTED_INSERT" target="make_preface_docNumber" visible="true"
-          condition="cursorInSection:preface :and: textSelected:true :and: sectionNotExists:docNumber"
-          title="DOCNUMBER">
-         </action>
-        <action name="Preface.selection.docType"
-          tooltip="Select some text to mark it up as a Preface docType" mode="TEXT_SELECTED_INSERT"
-          target="make_preface_docType" visible="true"
-          condition="cursorInSection:preface :and: textSelected:true :and: sectionNotExists:docType"
-          title="DOCTYPE">
-         </action>
-      </blockAction>
-      <!--             Preamble -->
-      <blockAction name="Preamble" target="null" visible="true" condition="none" title="PREAMBLE">
-         <action name="Preamble.selection" tooltip="Select some text to mark it up as a Preface"
-          mode="TEXT_SELECTED_INSERT" target="make_act_preamble" visible="true"
-          condition="cursorInSection:act :and: textSelected:true :and: sectionNotExists:preamble"
-          title="CREATE_FROM_SELECTION">
-         </action>
-        <action name="Preamble.selection.ref" tooltip="Select some text to mark it up as a ref"
-          mode="TEXT_SELECTED_INSERT" target="make_ref" visible="true"
-          condition="cursorInSection:preamble :and: textSelected:true" title="REF">
-         </action>
-      </blockAction>
-      <!--               body -->
-      <blockAction name="Body" target="null" visible="true" condition="none" title="BODY">
-         <action name="Body.selection" tooltip="Select some text to mark it up as a body"
-          mode="TEXT_SELECTED_INSERT" target="make_act_body" visible="true"
-          condition="cursorInSection:act :and: textSelected:true :and: sectionNotExists:body"
-          title="CREATE_FROM_SELECTION">
-         </action>
-      </blockAction>
-      <!--            Book -->
-      <blockAction name="Book" target="null" visible="true" condition="none" title="BOOK">
-         <action name="Book.selection" tooltip="Select some text to mark it up as a Book"
-          mode="TEXT_SELECTED_INSERT" target="make_act_book" visible="true"
-          condition="cursorInSection:body([0-9]*) :and: textSelected:true"
-          title="CREATE_FROM_SELECTION">
-         </action>
-        <action name="Book.selection" tooltip="Select some text to mark it up as a Book num"
-          mode="TEXT_SELECTED_INSERT" target="make_act_num" visible="true"
-          condition="cursorInSection:book([0-9]*) :and: textSelected:true" title="NUM">
-         </action>
-        <action name="Book.selection" tooltip="Select some text to mark it up as a Book heading"
-          mode="TEXT_SELECTED_INSERT" target="make_act_heading" visible="true"
-          condition="cursorInSection:book([0-9]*) :and: textSelected:true" title="HEADING">
-         </action>
-      </blockAction>
-      <!--              Part -->
-      <blockAction name="Part" target="null" visible="true" condition="none" title="PART">
-         <action name="Part.selection" tooltip="Select some text to mark it up as a Part"
-          mode="TEXT_SELECTED_INSERT" target="make_act_part" visible="true"
-          condition="cursorInSection:body([0-9]*) :or: cursorInSection:book([0-9]*) :and: textSelected:true"
-          title="CREATE_FROM_SELECTION">
-         </action>
-        <action name="Part.selection" tooltip="Select some text to mark it up as a Part num"
-          mode="TEXT_SELECTED_INSERT" target="make_act_num" visible="true"
-          condition="cursorInSection:part([0-9]*) :and: textSelected:true" title="NUM">
-         </action>
-        <action name="Part.selection" tooltip="Select some text to mark it up as a Part heading"
-          mode="TEXT_SELECTED_INSERT" target="make_act_heading" visible="true"
-          condition="cursorInSection:part([0-9]*) :and: textSelected:true" title="HEADING">
-         </action>
-      </blockAction>
-      <!--               Chapter -->
-      <blockAction name="Chapter" target="null" visible="true" condition="none" title="CHAPTER">
-         <action name="Chapter.selection" tooltip="Select some text to mark it up as a Chapter"
-          mode="TEXT_SELECTED_INSERT" target="make_act_chapter" visible="true"
-          condition="cursorInSection:body([0-9]*) :or: cursorInSection:book([0-9]*) :or: cursorInSection:part([0-9]*)  :and: textSelected:true"
-          title="CREATE_FROM_SELECTION">
-         </action>
-        <action name="Chapter.selection" tooltip="Select some text to mark it up as a Chapter num"
-          mode="TEXT_SELECTED_INSERT" target="make_act_num" visible="true"
-          condition="cursorInSection:chapter([0-9]*) :and: textSelected:true" title="NUM">
-         </action>
-        <action name="Chapter.selection"
-          tooltip="Select some text to mark it up as a Chapter heading" mode="TEXT_SELECTED_INSERT"
-          target="make_act_heading" visible="true"
-          condition="cursorInSection:chapter([0-9]*) :and: textSelected:true" title="HEADING">
-         </action>
-      </blockAction>
-      <!--               Section -->
-      <blockAction name="Section" target="null" visible="true" condition="none" title="SECTION">
-         <action name="Section.selection" tooltip="Select some text to mark it up as a section"
-          mode="TEXT_SELECTED_INSERT" target="make_act_section" visible="true"
-          condition="cursorInSection:body([0-9]*) :or: cursorInSection:book([0-9]*) :or: cursorInSection:part([0-9]*) :or: cursorInSection:chapter([0-9]*) :and: textSelected:true"
-          title="CREATE_FROM_SELECTION">
-         </action>
-        <action name="Section.selection" tooltip="Select some text to mark it up as a Session num"
-          mode="TEXT_SELECTED_INSERT" target="make_act_num" visible="true"
-          condition="cursorInSection:section([0-9]*) :and: textSelected:true" title="NUM">
-         </action>
-        <action name="Section.selection"
-          tooltip="Select some text to mark it up as a Session heading" mode="TEXT_SELECTED_INSERT"
-          target="make_act_heading" visible="true"
-          condition="cursorInSection:section([0-9]*) :and: textSelected:true" title="HEADING">
-         </action>
-      </blockAction>
-      <!--              Article -->
-      <blockAction name="Article" target="null" visible="true" condition="none" title="ARTICLE">
-         <action name="Article.selection" tooltip="Select some text to mark it up as an Article"
-          mode="TEXT_SELECTED_INSERT" target="make_act_article" visible="true"
-          condition="cursorInSection:body([0-9]*) :or: cursorInSection:book([0-9]*) :or: cursorInSection:part([0-9]*) :or: cursorInSection:chapter([0-9]*) :or: cursorInSection:section([0-9]*) :and: textSelected:true"
-          title="CREATE_FROM_SELECTION">
-         </action>
-        <action name="Article.selection" tooltip="Select some text to mark it up as an Article num"
-          mode="TEXT_SELECTED_INSERT" target="make_act_num" visible="true"
-          condition="cursorInSection:article([0-9]*) :and: textSelected:true :and: sectionNotExists:num"
-          title="NUM">
-         </action>
-        <action name="Article.selection"
-          tooltip="Select some text to mark it up as an Article heading" mode="TEXT_SELECTED_INSERT"
-          target="make_act_heading" visible="true"
-          condition="cursorInSection:article([0-9]*) :and: textSelected:true :and: sectionNotExists:heading"
-          title="DESCRIPTOR">
-         </action>
-        <action name="Article.selection"
-          tooltip="Select some text to mark it up as an Article title" mode="TEXT_SELECTED_INSERT"
-          target="make_act_title" visible="true"
-          condition="cursorInSection:article([0-9]*) :and: textSelected:true :and: sectionNotExists:title"
-          title="TITLE">
-         </action>
-        <action name="Article.selection"
-          tooltip="Select some text to mark it up as an Article content" mode="TEXT_SELECTED_INSERT"
-          target="make_act_content" visible="true"
-          condition="cursorInSection:article([0-9]*) :and: textSelected:true :and: sectionNotExists:content"
-          title="CONTENT">
-         </action>
-      </blockAction>
-      <!--              Conclusions -->
-      <blockAction name="Conclusions" target="null" visible="true" condition="none"
-        title="CONCLUSIONS">
-         <action name="Conclusions.selection" tooltip="Select some text to mark it up as Conclusions"
-          mode="TEXT_SELECTED_INSERT" target="make_act_conclusions" visible="true"
-          condition="cursorInSection:act :and: textSelected:true :and: sectionNotExists:Conclusions"
-          title="CREATE_FROM_SELECTION">
-         </action>
-      </blockAction>
-    </actionGroup>
-  </root>
-</toolbar>
+ <sectionType name="Preamble"
+    prefix="preamble"
+    numstyle="single"
+    background="0x99CC99"
+    indent-right=".1"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+
+ <sectionType name="Preface"
+    prefix="preface"
+    numstyle="single"
+    background="0x9999CC"
+    indent-left="0.4"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+
+ <sectionType name="docTitle"
+    prefix="title"
+    numstyle="single"
+    background="0xcccccc"
+    indent-right=".1"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+
+ <sectionType name="Ref"
+    prefix="ref"
+    numstyle="serial"
+    background="0x0040ee"
+    indent-right=".1"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+
+ <sectionType name="docDate"
+    prefix="date"
+    numstyle="single"
+    background="0x0000ee"
+    indent-right=".1"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+ <sectionType name="docType"
+    prefix="type"
+    numstyle="single"
+    background="0xe80066"
+    indent-right=".1"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ROMAN-Upper"
+            decorator="none" />
+ </sectionType>
+ <sectionType name="docNumber"
+    prefix="number"
+    numstyle="single"
+    background="0xe80066"
+    indent-right=".1"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ROMAN-Upper"
+            decorator="none" />
+ </sectionType>
+
+
+<sectionType name="ShortTitle"
+    prefix="shorttitle"
+    numstyle="single"
+    background="0xffffff"
+    indent-right=".2"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="SubChapter"
+    prefix="subchapter"
+    numstyle="serial"
+    background="0xffaa00"
+    indent-right=".5"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ROMAN-Upper"
+            decorator="postDotted" />
+ </sectionType>
+<sectionType name="SubClause"
+    prefix="subclause"
+    numstyle="serial"
+    background="0xffdfdf"
+    indent-right=".8"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ALPHABETICAL-Lower"
+            decorator="hashPrefix" />
+ </sectionType>
+<sectionType name="SubParagraph"
+    prefix="subpara"
+    numstyle="serial"
+    background="0xffff00"
+    indent-right=".8"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ROMAN-Lower"
+            decorator="parens" />
+ </sectionType>
+<sectionType name="SubSection"
+    prefix="subsection"
+    numstyle="serial"
+    background="0x00ffff"
+    indent-right=".8"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ROMAN-Upper"
+            decorator="square" />
+ </sectionType>
+<sectionType name="Title"
+    prefix="title"
+    numstyle="single"
+    background="0xffffff"
+    indent-right=".1"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+
+ <sectionType name="Body"
+    prefix="body"
+    numstyle="serial"
+    background="0xe8ee88"
+    indent-right=".4"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="none"
+            decorator="none" />
+ </sectionType>
+<sectionType name="Book"
+    prefix="book"
+    numstyle="serial"
+    background="0xf0f0f0"
+    indent-right=".3"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="NUMERIC"
+            decorator="flowerBracket" />
+ </sectionType>
+ <sectionType name="Part"
+    prefix="part"
+    numstyle="serial"
+    background="0xffffa1"
+    indent-right=".3"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ALPHABETICAL"
+            decorator="postDashed" />
+ </sectionType>
+
+<sectionType name="Chapter"
+    prefix="chapter"
+    numstyle="serial"
+    background="0xe8ee88"
+    indent-right=".4"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ROMAN-Upper"
+            decorator="none" />
+ </sectionType>
+
+  <sectionType name="Section"
+    prefix="section"
+    numstyle="serial"
+    background="0xffaa00"
+    indent-right=".6"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ALPHABETICAL-Lower"
+            decorator="parens" />
+ </sectionType>
+ <sectionType name="Article"
+    prefix="article"
+    numstyle="serial"
+    background="0xf0f0f0"
+    indent-right=".3"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="NUMERIC"
+            decorator="flowerBracket" />
+ </sectionType>
+
+ <sectionType name="num"
+    prefix="num"
+    numstyle="serial"
+    background="0xf0f0f0"
+    indent-right=".3"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="NUMERIC"
+            decorator="flowerBracket" />
+ </sectionType>
+
+ <sectionType name="heading"
+    prefix="heading"
+    numstyle="serial"
+    background="0xf0f0f0"
+    indent-right=".3"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="NUMERIC"
+            decorator="flowerBracket" />
+ </sectionType>
+
+  <sectionType name="title"
+    prefix="ArticleTitle"
+    numstyle="serial"
+    background="0xf0f0f0"
+    indent-right=".3"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="NUMERIC"
+            decorator="flowerBracket" />
+ </sectionType>
+
+ <sectionType name="content"
+    prefix="content"
+    numstyle="serial"
+    background="0xf0f0f0"
+    indent-right=".3"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="NUMERIC"
+            decorator="flowerBracket" />
+ </sectionType>
+
+ <sectionType name="Conclusion"
+    prefix="conclusions"
+    numstyle="serial"
+    background="0xe80088"
+    indent-right=".4"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ROMAN-Upper"
+            decorator="none" />
+ </sectionType>
+
+
+
+
+
+
+
+
+ <sectionType name="list"
+    prefix="list"
+    numstyle="serial"
+    background="0xe80066"
+    indent-right=".4"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ROMAN-Upper"
+            decorator="none" />
+ </sectionType>
+
+
+<sectionType name="toc"
+    prefix="toc"
+    numstyle="serial"
+    background="0xe8ff66"
+    indent-right=".4"
+    indent-left="0"
+    visibility="user" >
+     <numbering scheme="ROMAN-Upper"
+            decorator="none" />
+ </sectionType>
+
+
+
+
+ </sectionTypes>
