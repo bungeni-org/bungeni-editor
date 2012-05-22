@@ -87,7 +87,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 <action name="Preamble.selection.ref"
                            tooltip="Select some text to mark it up as a ref"
                            mode="TEXT_SELECTED_INSERT"
-                           target="make_preamble_ref"
+                           target="make_ref"
                            visible="true"
                             condition="cursorInSection:preamble :and: textSelected:true">
                     <title xml:lang="eng">ref</title> 
