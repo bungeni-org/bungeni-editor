@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sectionTypes for="act">
- 
+
 <sectionType name="Clause"
     prefix="clause"
     numstyle="serial"
@@ -21,16 +21,7 @@
      <numbering scheme="none"
             decorator="none" />
  </sectionType>
- <sectionType name="Speech"
-    prefix="speech"
-    numstyle="serial"
-    background="url:/settings/configs/backgrounds/shade-1.png"
-    indent-left=".6"
-    indent-right="0"
-    visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
- </sectionType>
+
 <sectionType name="MastHead"
     prefix="preface"
     numstyle="single"
@@ -94,8 +85,8 @@
      <numbering scheme="none"
             decorator="none" />
  </sectionType>
- 
-<!-- <sectionType name="docTitle"
+
+ <sectionType name="docTitle"
     prefix="title"
     numstyle="single"
     background="0xcccccc"
@@ -104,9 +95,9 @@
     visibility="user" >
      <numbering scheme="none"
             decorator="none" />
- </sectionType>-->
- 
- <sectionType name="ref"
+ </sectionType>
+
+ <sectionType name="Ref"
     prefix="ref"
     numstyle="serial"
     background="0x0040ee"
@@ -116,7 +107,7 @@
      <numbering scheme="none"
             decorator="none" />
  </sectionType>
- 
+
  <sectionType name="docDate"
     prefix="date"
     numstyle="single"
@@ -147,7 +138,7 @@
      <numbering scheme="ROMAN-Upper"
             decorator="none" />
  </sectionType>
- 
+
 
 <sectionType name="ShortTitle"
     prefix="shorttitle"
@@ -240,7 +231,7 @@
      <numbering scheme="ALPHABETICAL"
             decorator="postDashed" />
  </sectionType>
- 
+
 <sectionType name="Chapter"
     prefix="chapter"
     numstyle="serial"
@@ -251,7 +242,7 @@
      <numbering scheme="ROMAN-Upper"
             decorator="none" />
  </sectionType>
-  
+
   <sectionType name="Section"
     prefix="section"
     numstyle="serial"
@@ -272,7 +263,7 @@
      <numbering scheme="NUMERIC"
             decorator="flowerBracket" />
  </sectionType>
- 
+
  <sectionType name="num"
     prefix="num"
     numstyle="serial"
@@ -283,7 +274,7 @@
      <numbering scheme="NUMERIC"
             decorator="flowerBracket" />
  </sectionType>
- 
+
  <sectionType name="heading"
     prefix="heading"
     numstyle="serial"
@@ -294,7 +285,7 @@
      <numbering scheme="NUMERIC"
             decorator="flowerBracket" />
  </sectionType>
- 
+
   <sectionType name="title"
     prefix="ArticleTitle"
     numstyle="serial"
@@ -305,7 +296,7 @@
      <numbering scheme="NUMERIC"
             decorator="flowerBracket" />
  </sectionType>
- 
+
  <sectionType name="content"
     prefix="content"
     numstyle="serial"
@@ -316,8 +307,8 @@
      <numbering scheme="NUMERIC"
             decorator="flowerBracket" />
  </sectionType>
- 
- <sectionType name="Conclusions"
+
+ <sectionType name="Conclusion"
     prefix="conclusions"
     numstyle="serial"
     background="0xe80088"
@@ -328,12 +319,12 @@
             decorator="none" />
  </sectionType>
 
- 
- 
- 
- 
- 
- 
+
+
+
+
+
+
 
  <sectionType name="list"
     prefix="list"
