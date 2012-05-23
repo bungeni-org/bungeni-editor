@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><akomaNtoso xmlns="http://www.akomantoso.org/2.0" xmlns:bodf="http://editor.bungeni.org/1.0/odf/">
+   <debateRecord>
+      <meta>
+         <identification source="#bungeni">
+            <FRBRWork>
+               <FRBRthis value="/PS/act/2012-9-19"/>
+               <FRBRuri value=""/>
+               <FRBRdate date="2012-09-19" name="workDate"/>
+               <FRBRauthor href="#user.Ashok"/>
+            </FRBRWork>
+            <FRBRExpression>
+               <FRBRthis value="/PS/act/2012-9-19/ar"/>
+               <FRBRuri value="/ar@"/>
+               <FRBRdate date="" name="expDate"/>
+               <FRBRauthor href="#user.Ashok"/>
+            </FRBRExpression>
+            <FRBRManifestation>
+               <FRBRthis value="/PS/act/2012-9-19/ar.xml"/>
+               <FRBRuri value="/ar@.akn"/>
+               <FRBRdate date="" name="manDate"/>
+               <FRBRauthor href="#user.Ashok"/>
+            </FRBRManifestation>
+         </identification>
+         <publication date="2012-09-19" name="34" showAs=""/>
+         <references source="#bungeni">
+            <TLCOrganization id="Parliament" href="" showAs="Parliament"/>
+            <TLCPerson id="puser.Ashok" href="user.Ashok" showAs="Author"/>
+         </references>
+      </meta>
+      <preface bodf:sourceId="preface">
+         <p>قرار وزير المالية رقم (1) لسنة 2012م</p>
+      </preface>
+      <debate bodf:sourceId="act">
+         <p>بعد الإطلاع على<ref id="ref-2" href="3434342">قانون الجريدة الرسمية</ref>رقم (29) لسنة 1949 وتعديلاته لا سيما المادتين (7) و (10) منه،</p>
+         <p>وبناء على مقتضيات المصلحة العامة،</p>
+         <p>وبموجب الصلاحيات المخولة لنا،</p>
+         <p>قررنا ما يلي:-</p>
+         <p>مادة (1)</p>
+         <p>بدل الاشتراك بالجريدة الرسمية</p>
+         <p>1.يجوز لأي كان أن يشترك بالجريدة الرسمية بعد د??ع بدل الاشتراك سل??اً و??قاً للآتي:</p>
+         <p>أ. بدل الاشتراك السنوي مبلغ (200) شيكل.</p>
+         <p>ب. بدل الاشتراك نص?? السنوي مبلغ (120) شيكل</p>
+         <p>2.يحدد ثمن العدد الواحد على النحو الآتي:</p>
+         <p>أ. العدد المكون من ص??حات لا تتجاوز (159 ص??حة) بمبلغ (20) شيكل.</p>
+         <p>ب. العدد المكون من ص??حات ما بين (160 – 200 ص??حة) بمبلغ (30) شيكل.</p>
+         <p>ج. العدد المكون من ص??حات ما بين (200 – 300 ص??حة) بمبلغ (40) شيكل.</p>
+         <p>د. ما زاد عن ذلك بمبلغ (50) شيكل.</p>
+      </debate>
+      <conclusions id="conclusions1" bodf:sourceId="conclusions1">
+         <p>صدر ??ي مدينة رام الله بتاريخ: 10/1/2012 ميلادية</p>
+         <p>الموا??ق: 16/ ص??ر/ 1433 هجرية</p>
+         <p>سلام ??ياض</p>
+         <p>وزير المالية</p>
+      </conclusions>
+   </debateRecord>
+</akomaNtoso>
