@@ -1,0 +1,154 @@
+<?xml version="1.0" ?>
+<actions for="bill">
+
+    <action name="create_sidenote">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateSidenote"
+            dialog="org.bungeni.editor.actions.routers.routerCreateSideNote_panel"/>
+    </action>
+    
+    <action name="apply_numbered_heading_bill_clause" sectiontype="Clause">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
+            dialog="org.bungeni.editor.selectors.InitBillPreface"/>
+    </action>
+    <action name="make_bill_clause" sectiontype="Clause">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+            dialog="org.bungeni.editor.selectors.InitBillPreface"/>
+    </action>
+    <action name="apply_numbered_heading_bill_subchapter" sectiontype="SubChapter">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
+            dialog="org.bungeni.editor.selectors.InitBillPreface"/>
+    </action>
+    <action name="make_composite_bill_sub_chapter" sectiontype="SubChapter">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateCompositeSection"
+            dialog="org.bungeni.editor.selectors.InitBillPreface"/>
+    </action>
+    <action name="make_bill_sub_chapter" sectiontype="SubChapter">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+            dialog="org.bungeni.editor.selectors.InitBillPreface"/>
+    </action>
+    <action name="apply_numbered_heading_bill_article" sectiontype="Article">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
+            dialog="org.bungeni.editor.selectors.InitBillPreface"/>
+    </action>
+    <action name="make_bill_article" sectiontype="Article">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+            dialog="org.bungeni.editor.selectors.InitBillPreface"/>
+    </action>
+    <action name="make_bill_numbered_heading" sectiontype="Section">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
+            dialog="org.bungeni.editor.selectors.InitBillPreface"/>
+    </action>
+    <action name="make_bill_composite_section" sectiontype="Section">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateCompositeSection"
+            dialog="org.bungeni.editor.selectors.InitBillPreface"/>
+    </action>
+    <action name="make_bill_section" sectiontype="Section">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+            dialog="org.bungeni.editor.selectors.InitBillPreface"/>
+    </action>
+    <action name="apply_style_bill_preface" sectiontype="Preface"
+        validator=" org.bungeni.editor.actions.validators.defaultValidator">
+
+        <router class="org.bungeni.editor.actions.routers.routerApplyStyle"/>
+    </action>
+    <action name="make_char_style_bill" sectiontype="Preface">
+
+        <router class="org.bungeni.editor.actions.routers.routerApplyCharStyle"/>
+    </action>
+    <action name="make_bill_preface" sectiontype="Preface">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+            dialog="org.bungeni.editor.selectors.InitBillPreface"/>
+    </action>
+    <action name="apply_numbered_bill_sub_par" sectiontype="SubParagraph">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
+            dialog="org.bungeni.editor.selectors.InitBillPreface"/>
+    </action>
+    <action name="make_bill_sub_par" sectiontype="SubParagraph">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+            dialog="org.bungeni.editor.selectors.InitBillPreface"/>
+    </action>
+    <action name="apply_numbered_heading_bill" sectiontype="SubSection">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
+            dialog="org.bungeni.editor.selectors.InitBillPreface"/>
+    </action>
+    <action name="make_composite_bill_section" sectiontype="SubSection">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateCompositeSection"
+            dialog="org.bungeni.editor.selectors.InitBillPreface"/>
+    </action>
+    <action name="make_bill_sub_section" sectiontype="SubSection">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+            dialog="org.bungeni.editor.selectors.InitBillPreface"/>
+    </action>
+    <action name="apply_numbered_heading_bill_chapter_section" sectiontype="Chapter">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
+            dialog="org.bungeni.editor.selectors.InitBillPreface"/>
+    </action>
+    <action name="make_bill_chapter_section" sectiontype="Chapter">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateCompositeSection"
+            dialog="org.bungeni.editor.selectors.InitBillPreface"/>
+    </action>
+    <action name="make_bill_chapter" sectiontype="Chapter">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+            dialog="org.bungeni.editor.selectors.InitBillPreface"/>
+    </action>
+    <action name="apply_numbered_heading_bill_part" sectiontype="Part">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
+            dialog="org.bungeni.editor.selectors.InitBillPreface"/>
+    </action>
+    <action name="make_bill_part" sectiontype="Part">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
+    </action>
+    <action name="apply_numbered_heading_bill_par_section" sectiontype="Paragraph">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"
+            dialog="org.bungeni.editor.selectors.InitBillPreface"/>
+    </action>
+
+    <action name="make_bill_paragraph" sectiontype="Paragraph">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+            dialog="org.bungeni.editor.selectors.InitBillPreface"/>
+    </action>
+    <action name="make_bill_long_title" sectiontype="LongTitle">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
+    </action>
+    <action name="markup_short_title" sectiontype="ShortTitle">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
+    </action>
+    <action name="make_bill_subclause" sectiontype="SubClause">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
+    </action>
+    <action name="apply_numbered_heading_bill_subclause" sectiontype="SubClause">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateNumberedHeading"/>
+    </action>
+    <action name="make_bill_subclause_composite_section_creation" sectiontype="SubClause">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateCompositeSection"/>
+    </action>
+</actions>

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<sectionTypes for="judgement">
+<sectionType name="Background"
+    prefix="background"
+    numstyle="single"
+    background=" url:/settings/sectiontypes/bg/sand.png"
+    indent-left="0.55"
+    indent-right="0"
+    visibility="user" >
+     
+ </sectionType>
+<sectionType name="Conclusion"
+    prefix="concl"
+    numstyle="serial"
+    background=" url:/settings/sectiontypes/bg/orange.png"
+    indent-left="0.25"
+    indent-right="0"
+    visibility="user" >
+     
+ </sectionType>
+<sectionType name="Decision"
+    prefix="decision"
+    numstyle="single"
+    background=" url:/settings/sectiontypes/bg/orange-yellow.png"
+    indent-left="0.55"
+    indent-right="0"
+    visibility="user" >
+     
+ </sectionType>
+
+
+
+<sectionType name="JudgementBody"
+    prefix="judgementBody"
+    numstyle="single"
+    background=" url:/settings/sectiontypes/bg/light-orange.png"
+    indent-left="0.25"
+    indent-right="0"
+    visibility="user" >
+     
+ </sectionType>
+
+<sectionType name="Header"
+    prefix="header"
+    numstyle="single"
+    background=" url:/settings/sectiontypes/bg/light-orange.png"
+    indent-left="0.25"
+    indent-right="0"
+    visibility="user" >
+     
+ </sectionType>
+ 
+ 
+ <sectionType name="JudgementNo"
+    prefix="judgementNo"
+    numstyle="single"
+    background="0xe8ee88"
+    indent-left="0"
+    indent-right="0"
+    visibility="user" >
+     
+ </sectionType>
+ 
+ <sectionType name="CaseNo"
+    prefix="caseNo"
+    numstyle="single"
+    background="0xe8ee88"
+    indent-left="0"
+    indent-right="0"
+    visibility="user" >
+     
+ </sectionType>
+ 
+ 
+ 
+ 
+ 
+<sectionType name="Introduction"
+    prefix="intro"
+    numstyle="single"
+    background=" url:/settings/sectiontypes/bg/lighter-green.png"
+    indent-left="0.55"
+    indent-right="0"
+    visibility="user" >
+     
+ </sectionType>
+<sectionType name="Motivation"
+    prefix="motive"
+    numstyle="single"
+    background=" url:/settings/sectiontypes/bg/light-green.png"
+    indent-left="0.55"
+    indent-right="0"
+    visibility="user" >
+     
+ </sectionType>
+ 
+ 
+  <sectionType name="MotList"
+    prefix="mot-lis"
+    numstyle="serial"
+    background="0xe80066"
+    indent-left=".4"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="ROMAN-Upper"
+            decorator="none" />
+ </sectionType>
+ 
+ 
+ <sectionType name="BackgList"
+    prefix="bac-lis"
+    numstyle="serial"
+    background="0xe80066"
+    indent-left=".4"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="ROMAN-Upper"
+            decorator="none" />
+ </sectionType>
+
+ <sectionType name="IntroList"
+    prefix="int-lis"
+    numstyle="serial"
+    background="0xe80066"
+    indent-left=".4"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="ROMAN-Upper"
+            decorator="none" />
+ </sectionType>
+ 
+ 
+ <sectionType name="DeciList"
+    prefix="dec-lis"
+    numstyle="serial"
+    background="0xe80066"
+    indent-left=".4"
+    indent-right="0"
+    visibility="user" >
+     <numbering scheme="ROMAN-Upper"
+            decorator="none" />
+ </sectionType>
+ 
+ 
+ 
+ 
+ <sectionType name="DecgListItem"
+    prefix="ite"
+    numstyle="serial"
+    background="0xe80066"
+    indent-left=".4"
+    indent-right="0"
+    visibility="user" >
+      <numbering scheme="ROMAN-Upper"
+            decorator="square" />
+ </sectionType>
+ 
+ <sectionType name="IntroListItem"
+    prefix="ite"
+    numstyle="serial"
+    background="0xe80066"
+    indent-left=".4"
+    indent-right="0"
+    visibility="user" >
+      <numbering scheme="ROMAN-Upper"
+            decorator="square" />
+ </sectionType>
+ 
+ 
+ <sectionType name="MotListItem"
+    prefix="ite"
+    numstyle="serial"
+    background="0xe80066"
+    indent-left=".4"
+    indent-right="0"
+    visibility="user" >
+      <numbering scheme="ROMAN-Upper"
+            decorator="square" />
+ </sectionType>
+ 
+ <sectionType name="BackgListItem"
+    prefix="ite"
+    numstyle="serial"
+    background="0xe800ff"
+    indent-left=".4"
+    indent-right="0"
+    visibility="user" >
+       <numbering scheme="ROMAN-Upper"
+            decorator="square" />
+ </sectionType>
+ 
+ 
+ 
+ 
+ 
+<sectionType name="Omissis"
+    prefix="omissis"
+    numstyle="serial"
+    background="url:/settings/sectiontypes/bg/sand.png"
+    indent-left="0.65"
+    indent-right="0"
+    visibility="user" >
+     
+ </sectionType>
+ 
+ 
+ 
+ 
+ 
+</sectionTypes>

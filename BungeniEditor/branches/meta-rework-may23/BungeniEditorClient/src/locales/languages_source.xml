@@ -1,0 +1,1946 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- imported from :
+    http://www.loc.gov/standards/iso639-2/ISO-639-2_utf-8.txt
+    -->
+<languages>
+    <language alpha3="aar" alpha2="aa">
+        <name_en>Afar</name_en>
+        <name_fr>afar</name_fr>
+    </language>
+    <language alpha3="abk" alpha2="ab">
+        <name_en>Abkhazian</name_en>
+        <name_fr>abkhaze</name_fr>
+    </language>
+    <language alpha3="ace" alpha2="">
+        <name_en>Achinese</name_en>
+        <name_fr>aceh</name_fr>
+    </language>
+    <language alpha3="ach" alpha2="">
+        <name_en>Acoli</name_en>
+        <name_fr>acoli</name_fr>
+    </language>
+    <language alpha3="ada" alpha2="">
+        <name_en>Adangme</name_en>
+        <name_fr>adangme</name_fr>
+    </language>
+    <language alpha3="ady" alpha2="">
+        <name_en>Adyghe; Adygei</name_en>
+        <name_fr>adyghé</name_fr>
+    </language>
+    <language alpha3="afa" alpha2="">
+        <name_en>Afro-Asiatic languages</name_en>
+        <name_fr>afro-asiatiques, langues</name_fr>
+    </language>
+    <language alpha3="afh" alpha2="">
+        <name_en>Afrihili</name_en>
+        <name_fr>afrihili</name_fr>
+    </language>
+    <language alpha3="afr" alpha2="af">
+        <name_en>Afrikaans</name_en>
+        <name_fr>afrikaans</name_fr>
+    </language>
+    <language alpha3="ain" alpha2="">
+        <name_en>Ainu</name_en>
+        <name_fr>aïnou</name_fr>
+    </language>
+    <language alpha3="aka" alpha2="ak">
+        <name_en>Akan</name_en>
+        <name_fr>akan</name_fr>
+    </language>
+    <language alpha3="akk" alpha2="">
+        <name_en>Akkadian</name_en>
+        <name_fr>akkadien</name_fr>
+    </language>
+    <language alpha3="alb" alpha2="sq">
+        <name_en>Albanian</name_en>
+        <name_fr>albanais</name_fr>
+    </language>
+    <language alpha3="ale" alpha2="">
+        <name_en>Aleut</name_en>
+        <name_fr>aléoute</name_fr>
+    </language>
+    <language alpha3="alg" alpha2="">
+        <name_en>Algonquian languages</name_en>
+        <name_fr>algonquines, langues</name_fr>
+    </language>
+    <language alpha3="alt" alpha2="">
+        <name_en>Southern Altai</name_en>
+        <name_fr>altai du Sud</name_fr>
+    </language>
+    <language alpha3="amh" alpha2="am">
+        <name_en>Amharic</name_en>
+        <name_fr>amharique</name_fr>
+    </language>
+    <language alpha3="ang" alpha2="">
+        <name_en>English, Old (ca.450-1100)</name_en>
+        <name_fr>anglo-saxon (ca.450-1100)</name_fr>
+    </language>
+    <language alpha3="anp" alpha2="">
+        <name_en>Angika</name_en>
+        <name_fr>angika</name_fr>
+    </language>
+    <language alpha3="apa" alpha2="">
+        <name_en>Apache languages</name_en>
+        <name_fr>apaches, langues</name_fr>
+    </language>
+    <language alpha3="ara" alpha2="ar">
+        <name_en>Arabic</name_en>
+        <name_fr>arabe</name_fr>
+    </language>
+    <language alpha3="arc" alpha2="">
+        <name_en>Official Aramaic (700-300 BCE); Imperial Aramaic (700-300 BCE)</name_en>
+        <name_fr>araméen d'empire (700-300 BCE)</name_fr>
+    </language>
+    <language alpha3="arg" alpha2="an">
+        <name_en>Aragonese</name_en>
+        <name_fr>aragonais</name_fr>
+    </language>
+    <language alpha3="arm" alpha2="hy">
+        <name_en>Armenian</name_en>
+        <name_fr>arménien</name_fr>
+    </language>
+    <language alpha3="arn" alpha2="">
+        <name_en>Mapudungun; Mapuche</name_en>
+        <name_fr>mapudungun; mapuche; mapuce</name_fr>
+    </language>
+    <language alpha3="arp" alpha2="">
+        <name_en>Arapaho</name_en>
+        <name_fr>arapaho</name_fr>
+    </language>
+    <language alpha3="art" alpha2="">
+        <name_en>Artificial languages</name_en>
+        <name_fr>artificielles, langues</name_fr>
+    </language>
+    <language alpha3="arw" alpha2="">
+        <name_en>Arawak</name_en>
+        <name_fr>arawak</name_fr>
+    </language>
+    <language alpha3="asm" alpha2="as">
+        <name_en>Assamese</name_en>
+        <name_fr>assamais</name_fr>
+    </language>
+    <language alpha3="ast" alpha2="">
+        <name_en>Asturian; Bable; Leonese; Asturleonese</name_en>
+        <name_fr>asturien; bable; léonais; asturoléonais</name_fr>
+    </language>
+    <language alpha3="ath" alpha2="">
+        <name_en>Athapascan languages</name_en>
+        <name_fr>athapascanes, langues</name_fr>
+    </language>
+    <language alpha3="aus" alpha2="">
+        <name_en>Australian languages</name_en>
+        <name_fr>australiennes, langues</name_fr>
+    </language>
+    <language alpha3="ava" alpha2="av">
+        <name_en>Avaric</name_en>
+        <name_fr>avar</name_fr>
+    </language>
+    <language alpha3="ave" alpha2="ae">
+        <name_en>Avestan</name_en>
+        <name_fr>avestique</name_fr>
+    </language>
+    <language alpha3="awa" alpha2="">
+        <name_en>Awadhi</name_en>
+        <name_fr>awadhi</name_fr>
+    </language>
+    <language alpha3="aym" alpha2="ay">
+        <name_en>Aymara</name_en>
+        <name_fr>aymara</name_fr>
+    </language>
+    <language alpha3="aze" alpha2="az">
+        <name_en>Azerbaijani</name_en>
+        <name_fr>azéri</name_fr>
+    </language>
+    <language alpha3="bad" alpha2="">
+        <name_en>Banda languages</name_en>
+        <name_fr>banda, langues</name_fr>
+    </language>
+    <language alpha3="bai" alpha2="">
+        <name_en>Bamileke languages</name_en>
+        <name_fr>bamiléké, langues</name_fr>
+    </language>
+    <language alpha3="bak" alpha2="ba">
+        <name_en>Bashkir</name_en>
+        <name_fr>bachkir</name_fr>
+    </language>
+    <language alpha3="bal" alpha2="">
+        <name_en>Baluchi</name_en>
+        <name_fr>baloutchi</name_fr>
+    </language>
+    <language alpha3="bam" alpha2="bm">
+        <name_en>Bambara</name_en>
+        <name_fr>bambara</name_fr>
+    </language>
+    <language alpha3="ban" alpha2="">
+        <name_en>Balinese</name_en>
+        <name_fr>balinais</name_fr>
+    </language>
+    <language alpha3="baq" alpha2="eu">
+        <name_en>Basque</name_en>
+        <name_fr>basque</name_fr>
+    </language>
+    <language alpha3="bas" alpha2="">
+        <name_en>Basa</name_en>
+        <name_fr>basa</name_fr>
+    </language>
+    <language alpha3="bat" alpha2="">
+        <name_en>Baltic languages</name_en>
+        <name_fr>baltes, langues</name_fr>
+    </language>
+    <language alpha3="bej" alpha2="">
+        <name_en>Beja; Bedawiyet</name_en>
+        <name_fr>bedja</name_fr>
+    </language>
+    <language alpha3="bel" alpha2="be">
+        <name_en>Belarusian</name_en>
+        <name_fr>biélorusse</name_fr>
+    </language>
+    <language alpha3="bem" alpha2="">
+        <name_en>Bemba</name_en>
+        <name_fr>bemba</name_fr>
+    </language>
+    <language alpha3="ben" alpha2="bn">
+        <name_en>Bengali</name_en>
+        <name_fr>bengali</name_fr>
+    </language>
+    <language alpha3="ber" alpha2="">
+        <name_en>Berber languages</name_en>
+        <name_fr>berbères, langues</name_fr>
+    </language>
+    <language alpha3="bho" alpha2="">
+        <name_en>Bhojpuri</name_en>
+        <name_fr>bhojpuri</name_fr>
+    </language>
+    <language alpha3="bih" alpha2="bh">
+        <name_en>Bihari languages</name_en>
+        <name_fr>langues biharis</name_fr>
+    </language>
+    <language alpha3="bik" alpha2="">
+        <name_en>Bikol</name_en>
+        <name_fr>bikol</name_fr>
+    </language>
+    <language alpha3="bin" alpha2="">
+        <name_en>Bini; Edo</name_en>
+        <name_fr>bini; edo</name_fr>
+    </language>
+    <language alpha3="bis" alpha2="bi">
+        <name_en>Bislama</name_en>
+        <name_fr>bichlamar</name_fr>
+    </language>
+    <language alpha3="bla" alpha2="">
+        <name_en>Siksika</name_en>
+        <name_fr>blackfoot</name_fr>
+    </language>
+    <language alpha3="bnt" alpha2="">
+        <name_en>Bantu (Other)</name_en>
+        <name_fr>bantoues, autres langues</name_fr>
+    </language>
+    <language alpha3="bos" alpha2="bs">
+        <name_en>Bosnian</name_en>
+        <name_fr>bosniaque</name_fr>
+    </language>
+    <language alpha3="bra" alpha2="">
+        <name_en>Braj</name_en>
+        <name_fr>braj</name_fr>
+    </language>
+    <language alpha3="bre" alpha2="br">
+        <name_en>Breton</name_en>
+        <name_fr>breton</name_fr>
+    </language>
+    <language alpha3="btk" alpha2="">
+        <name_en>Batak languages</name_en>
+        <name_fr>batak, langues</name_fr>
+    </language>
+    <language alpha3="bua" alpha2="">
+        <name_en>Buriat</name_en>
+        <name_fr>bouriate</name_fr>
+    </language>
+    <language alpha3="bug" alpha2="">
+        <name_en>Buginese</name_en>
+        <name_fr>bugi</name_fr>
+    </language>
+    <language alpha3="bul" alpha2="bg">
+        <name_en>Bulgarian</name_en>
+        <name_fr>bulgare</name_fr>
+    </language>
+    <language alpha3="bur" alpha2="my">
+        <name_en>Burmese</name_en>
+        <name_fr>birman</name_fr>
+    </language>
+    <language alpha3="byn" alpha2="">
+        <name_en>Blin; Bilin</name_en>
+        <name_fr>blin; bilen</name_fr>
+    </language>
+    <language alpha3="cad" alpha2="">
+        <name_en>Caddo</name_en>
+        <name_fr>caddo</name_fr>
+    </language>
+    <language alpha3="cai" alpha2="">
+        <name_en>Central American Indian languages</name_en>
+        <name_fr>amérindiennes de L'Amérique centrale, langues</name_fr>
+    </language>
+    <language alpha3="car" alpha2="">
+        <name_en>Galibi Carib</name_en>
+        <name_fr>karib; galibi; carib</name_fr>
+    </language>
+    <language alpha3="cat" alpha2="ca">
+        <name_en>Catalan; Valencian</name_en>
+        <name_fr>catalan; valencien</name_fr>
+    </language>
+    <language alpha3="cau" alpha2="">
+        <name_en>Caucasian languages</name_en>
+        <name_fr>caucasiennes, langues</name_fr>
+    </language>
+    <language alpha3="ceb" alpha2="">
+        <name_en>Cebuano</name_en>
+        <name_fr>cebuano</name_fr>
+    </language>
+    <language alpha3="cel" alpha2="">
+        <name_en>Celtic languages</name_en>
+        <name_fr>celtiques, langues; celtes, langues</name_fr>
+    </language>
+    <language alpha3="cha" alpha2="ch">
+        <name_en>Chamorro</name_en>
+        <name_fr>chamorro</name_fr>
+    </language>
+    <language alpha3="chb" alpha2="">
+        <name_en>Chibcha</name_en>
+        <name_fr>chibcha</name_fr>
+    </language>
+    <language alpha3="che" alpha2="ce">
+        <name_en>Chechen</name_en>
+        <name_fr>tchétchène</name_fr>
+    </language>
+    <language alpha3="chg" alpha2="">
+        <name_en>Chagatai</name_en>
+        <name_fr>djaghataï</name_fr>
+    </language>
+    <language alpha3="chi" alpha2="zh">
+        <name_en>Chinese</name_en>
+        <name_fr>chinois</name_fr>
+    </language>
+    <language alpha3="chk" alpha2="">
+        <name_en>Chuukese</name_en>
+        <name_fr>chuuk</name_fr>
+    </language>
+    <language alpha3="chm" alpha2="">
+        <name_en>Mari</name_en>
+        <name_fr>mari</name_fr>
+    </language>
+    <language alpha3="chn" alpha2="">
+        <name_en>Chinook jargon</name_en>
+        <name_fr>chinook, jargon</name_fr>
+    </language>
+    <language alpha3="cho" alpha2="">
+        <name_en>Choctaw</name_en>
+        <name_fr>choctaw</name_fr>
+    </language>
+    <language alpha3="chp" alpha2="">
+        <name_en>Chipewyan; Dene Suline</name_en>
+        <name_fr>chipewyan</name_fr>
+    </language>
+    <language alpha3="chr" alpha2="">
+        <name_en>Cherokee</name_en>
+        <name_fr>cherokee</name_fr>
+    </language>
+    <language alpha3="chu" alpha2="cu">
+        <name_en>Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic</name_en>
+        <name_fr>slavon d'église; vieux slave; slavon liturgique; vieux bulgare</name_fr>
+    </language>
+    <language alpha3="chv" alpha2="cv">
+        <name_en>Chuvash</name_en>
+        <name_fr>tchouvache</name_fr>
+    </language>
+    <language alpha3="chy" alpha2="">
+        <name_en>Cheyenne</name_en>
+        <name_fr>cheyenne</name_fr>
+    </language>
+    <language alpha3="cmc" alpha2="">
+        <name_en>Chamic languages</name_en>
+        <name_fr>chames, langues</name_fr>
+    </language>
+    <language alpha3="cop" alpha2="">
+        <name_en>Coptic</name_en>
+        <name_fr>copte</name_fr>
+    </language>
+    <language alpha3="cor" alpha2="kw">
+        <name_en>Cornish</name_en>
+        <name_fr>cornique</name_fr>
+    </language>
+    <language alpha3="cos" alpha2="co">
+        <name_en>Corsican</name_en>
+        <name_fr>corse</name_fr>
+    </language>
+    <language alpha3="cpe" alpha2="">
+        <name_en>Creoles and pidgins, English based</name_en>
+        <name_fr>créoles et pidgins basés sur l'anglais</name_fr>
+    </language>
+    <language alpha3="cpf" alpha2="">
+        <name_en>Creoles and pidgins, French-based </name_en>
+        <name_fr>créoles et pidgins basés sur le français</name_fr>
+    </language>
+    <language alpha3="cpp" alpha2="">
+        <name_en>Creoles and pidgins, Portuguese-based </name_en>
+        <name_fr>créoles et pidgins basés sur le portugais</name_fr>
+    </language>
+    <language alpha3="cre" alpha2="cr">
+        <name_en>Cree</name_en>
+        <name_fr>cree</name_fr>
+    </language>
+    <language alpha3="crh" alpha2="">
+        <name_en>Crimean Tatar; Crimean Turkish</name_en>
+        <name_fr>tatar de Crimé</name_fr>
+    </language>
+    <language alpha3="crp" alpha2="">
+        <name_en>Creoles and pidgins </name_en>
+        <name_fr>créoles et pidgins</name_fr>
+    </language>
+    <language alpha3="csb" alpha2="">
+        <name_en>Kashubian</name_en>
+        <name_fr>kachoube</name_fr>
+    </language>
+    <language alpha3="cus" alpha2="">
+        <name_en>Cushitic languages</name_en>
+        <name_fr>couchitiques, langues</name_fr>
+    </language>
+    <language alpha3="cze" alpha2="cs">
+        <name_en>Czech</name_en>
+        <name_fr>tchèque</name_fr>
+    </language>
+    <language alpha3="dak" alpha2="">
+        <name_en>Dakota</name_en>
+        <name_fr>dakota</name_fr>
+    </language>
+    <language alpha3="dan" alpha2="da">
+        <name_en>Danish</name_en>
+        <name_fr>danois</name_fr>
+    </language>
+    <language alpha3="dar" alpha2="">
+        <name_en>Dargwa</name_en>
+        <name_fr>dargwa</name_fr>
+    </language>
+    <language alpha3="day" alpha2="">
+        <name_en>Land Dayak languages</name_en>
+        <name_fr>dayak, langues</name_fr>
+    </language>
+    <language alpha3="del" alpha2="">
+        <name_en>Delaware</name_en>
+        <name_fr>delaware</name_fr>
+    </language>
+    <language alpha3="den" alpha2="">
+        <name_en>Slave (Athapascan)</name_en>
+        <name_fr>esclave (athapascan)</name_fr>
+    </language>
+    <language alpha3="dgr" alpha2="">
+        <name_en>Dogrib</name_en>
+        <name_fr>dogrib</name_fr>
+    </language>
+    <language alpha3="din" alpha2="">
+        <name_en>Dinka</name_en>
+        <name_fr>dinka</name_fr>
+    </language>
+    <language alpha3="div" alpha2="dv">
+        <name_en>Divehi; Dhivehi; Maldivian</name_en>
+        <name_fr>maldivien</name_fr>
+    </language>
+    <language alpha3="doi" alpha2="">
+        <name_en>Dogri</name_en>
+        <name_fr>dogri</name_fr>
+    </language>
+    <language alpha3="dra" alpha2="">
+        <name_en>Dravidian languages</name_en>
+        <name_fr>dravidiennes, langues</name_fr>
+    </language>
+    <language alpha3="dsb" alpha2="">
+        <name_en>Lower Sorbian</name_en>
+        <name_fr>bas-sorabe</name_fr>
+    </language>
+    <language alpha3="dua" alpha2="">
+        <name_en>Duala</name_en>
+        <name_fr>douala</name_fr>
+    </language>
+    <language alpha3="dum" alpha2="">
+        <name_en>Dutch, Middle (ca.1050-1350)</name_en>
+        <name_fr>néerlandais moyen (ca. 1050-1350)</name_fr>
+    </language>
+    <language alpha3="dut" alpha2="nl">
+        <name_en>Dutch; Flemish</name_en>
+        <name_fr>néerlandais; flamand</name_fr>
+    </language>
+    <language alpha3="dyu" alpha2="">
+        <name_en>Dyula</name_en>
+        <name_fr>dioula</name_fr>
+    </language>
+    <language alpha3="dzo" alpha2="dz">
+        <name_en>Dzongkha</name_en>
+        <name_fr>dzongkha</name_fr>
+    </language>
+    <language alpha3="efi" alpha2="">
+        <name_en>Efik</name_en>
+        <name_fr>efik</name_fr>
+    </language>
+    <language alpha3="egy" alpha2="">
+        <name_en>Egyptian (Ancient)</name_en>
+        <name_fr>égyptien</name_fr>
+    </language>
+    <language alpha3="eka" alpha2="">
+        <name_en>Ekajuk</name_en>
+        <name_fr>ekajuk</name_fr>
+    </language>
+    <language alpha3="elx" alpha2="">
+        <name_en>Elamite</name_en>
+        <name_fr>élamite</name_fr>
+    </language>
+    <language alpha3="eng" alpha2="en">
+        <name_en>English</name_en>
+        <name_fr>anglais</name_fr>
+    </language>
+    <language alpha3="enm" alpha2="">
+        <name_en>English, Middle (1100-1500)</name_en>
+        <name_fr>anglais moyen (1100-1500)</name_fr>
+    </language>
+    <language alpha3="epo" alpha2="eo">
+        <name_en>Esperanto</name_en>
+        <name_fr>espéranto</name_fr>
+    </language>
+    <language alpha3="est" alpha2="et">
+        <name_en>Estonian</name_en>
+        <name_fr>estonien</name_fr>
+    </language>
+    <language alpha3="ewe" alpha2="ee">
+        <name_en>Ewe</name_en>
+        <name_fr>éwé</name_fr>
+    </language>
+    <language alpha3="ewo" alpha2="">
+        <name_en>Ewondo</name_en>
+        <name_fr>éwondo</name_fr>
+    </language>
+    <language alpha3="fan" alpha2="">
+        <name_en>Fang</name_en>
+        <name_fr>fang</name_fr>
+    </language>
+    <language alpha3="fao" alpha2="fo">
+        <name_en>Faroese</name_en>
+        <name_fr>féroïen</name_fr>
+    </language>
+    <language alpha3="fat" alpha2="">
+        <name_en>Fanti</name_en>
+        <name_fr>fanti</name_fr>
+    </language>
+    <language alpha3="fij" alpha2="fj">
+        <name_en>Fijian</name_en>
+        <name_fr>fidjien</name_fr>
+    </language>
+    <language alpha3="fil" alpha2="">
+        <name_en>Filipino; Pilipino</name_en>
+        <name_fr>filipino; pilipino</name_fr>
+    </language>
+    <language alpha3="fin" alpha2="fi">
+        <name_en>Finnish</name_en>
+        <name_fr>finnois</name_fr>
+    </language>
+    <language alpha3="fiu" alpha2="">
+        <name_en>Finno-Ugrian languages</name_en>
+        <name_fr>finno-ougriennes, langues</name_fr>
+    </language>
+    <language alpha3="fon" alpha2="">
+        <name_en>Fon</name_en>
+        <name_fr>fon</name_fr>
+    </language>
+    <language alpha3="fre" alpha2="fr">
+        <name_en>French</name_en>
+        <name_fr>français</name_fr>
+    </language>
+    <language alpha3="frm" alpha2="">
+        <name_en>French, Middle (ca.1400-1600)</name_en>
+        <name_fr>français moyen (1400-1600)</name_fr>
+    </language>
+    <language alpha3="fro" alpha2="">
+        <name_en>French, Old (842-ca.1400)</name_en>
+        <name_fr>français ancien (842-ca.1400)</name_fr>
+    </language>
+    <language alpha3="frr" alpha2="">
+        <name_en>Northern Frisian</name_en>
+        <name_fr>frison septentrional</name_fr>
+    </language>
+    <language alpha3="frs" alpha2="">
+        <name_en>Eastern Frisian</name_en>
+        <name_fr>frison oriental</name_fr>
+    </language>
+    <language alpha3="fry" alpha2="fy">
+        <name_en>Western Frisian</name_en>
+        <name_fr>frison occidental</name_fr>
+    </language>
+    <language alpha3="ful" alpha2="ff">
+        <name_en>Fulah</name_en>
+        <name_fr>peul</name_fr>
+    </language>
+    <language alpha3="fur" alpha2="">
+        <name_en>Friulian</name_en>
+        <name_fr>frioulan</name_fr>
+    </language>
+    <language alpha3="gaa" alpha2="">
+        <name_en>Ga</name_en>
+        <name_fr>ga</name_fr>
+    </language>
+    <language alpha3="gay" alpha2="">
+        <name_en>Gayo</name_en>
+        <name_fr>gayo</name_fr>
+    </language>
+    <language alpha3="gba" alpha2="">
+        <name_en>Gbaya</name_en>
+        <name_fr>gbaya</name_fr>
+    </language>
+    <language alpha3="gem" alpha2="">
+        <name_en>Germanic languages</name_en>
+        <name_fr>germaniques, langues</name_fr>
+    </language>
+    <language alpha3="geo" alpha2="ka">
+        <name_en>Georgian</name_en>
+        <name_fr>géorgien</name_fr>
+    </language>
+    <language alpha3="ger" alpha2="de">
+        <name_en>German</name_en>
+        <name_fr>allemand</name_fr>
+    </language>
+    <language alpha3="gez" alpha2="">
+        <name_en>Geez</name_en>
+        <name_fr>guèze</name_fr>
+    </language>
+    <language alpha3="gil" alpha2="">
+        <name_en>Gilbertese</name_en>
+        <name_fr>kiribati</name_fr>
+    </language>
+    <language alpha3="gla" alpha2="gd">
+        <name_en>Gaelic; Scottish Gaelic</name_en>
+        <name_fr>gaélique; gaélique écossais</name_fr>
+    </language>
+    <language alpha3="gle" alpha2="ga">
+        <name_en>Irish</name_en>
+        <name_fr>irlandais</name_fr>
+    </language>
+    <language alpha3="glg" alpha2="gl">
+        <name_en>Galician</name_en>
+        <name_fr>galicien</name_fr>
+    </language>
+    <language alpha3="glv" alpha2="gv">
+        <name_en>Manx</name_en>
+        <name_fr>manx; mannois</name_fr>
+    </language>
+    <language alpha3="gmh" alpha2="">
+        <name_en>German, Middle High (ca.1050-1500)</name_en>
+        <name_fr>allemand, moyen haut (ca. 1050-1500)</name_fr>
+    </language>
+    <language alpha3="goh" alpha2="">
+        <name_en>German, Old High (ca.750-1050)</name_en>
+        <name_fr>allemand, vieux haut (ca. 750-1050)</name_fr>
+    </language>
+    <language alpha3="gon" alpha2="">
+        <name_en>Gondi</name_en>
+        <name_fr>gond</name_fr>
+    </language>
+    <language alpha3="gor" alpha2="">
+        <name_en>Gorontalo</name_en>
+        <name_fr>gorontalo</name_fr>
+    </language>
+    <language alpha3="got" alpha2="">
+        <name_en>Gothic</name_en>
+        <name_fr>gothique</name_fr>
+    </language>
+    <language alpha3="grb" alpha2="">
+        <name_en>Grebo</name_en>
+        <name_fr>grebo</name_fr>
+    </language>
+    <language alpha3="grc" alpha2="">
+        <name_en>Greek, Ancient (to 1453)</name_en>
+        <name_fr>grec ancien (jusqu'à 1453)</name_fr>
+    </language>
+    <language alpha3="gre" alpha2="el">
+        <name_en>Greek, Modern (1453-)</name_en>
+        <name_fr>grec moderne (après 1453)</name_fr>
+    </language>
+    <language alpha3="grn" alpha2="gn">
+        <name_en>Guarani</name_en>
+        <name_fr>guarani</name_fr>
+    </language>
+    <language alpha3="gsw" alpha2="">
+        <name_en>Swiss German; Alemannic; Alsatian</name_en>
+        <name_fr>suisse alémanique; alémanique; alsacien</name_fr>
+    </language>
+    <language alpha3="guj" alpha2="gu">
+        <name_en>Gujarati</name_en>
+        <name_fr>goudjrati</name_fr>
+    </language>
+    <language alpha3="gwi" alpha2="">
+        <name_en>Gwich'in</name_en>
+        <name_fr>gwich'in</name_fr>
+    </language>
+    <language alpha3="hai" alpha2="">
+        <name_en>Haida</name_en>
+        <name_fr>haida</name_fr>
+    </language>
+    <language alpha3="hat" alpha2="ht">
+        <name_en>Haitian; Haitian Creole</name_en>
+        <name_fr>haïtien; créole haïtien</name_fr>
+    </language>
+    <language alpha3="hau" alpha2="ha">
+        <name_en>Hausa</name_en>
+        <name_fr>haoussa</name_fr>
+    </language>
+    <language alpha3="haw" alpha2="">
+        <name_en>Hawaiian</name_en>
+        <name_fr>hawaïen</name_fr>
+    </language>
+    <language alpha3="heb" alpha2="he">
+        <name_en>Hebrew</name_en>
+        <name_fr>hébreu</name_fr>
+    </language>
+    <language alpha3="her" alpha2="hz">
+        <name_en>Herero</name_en>
+        <name_fr>herero</name_fr>
+    </language>
+    <language alpha3="hil" alpha2="">
+        <name_en>Hiligaynon</name_en>
+        <name_fr>hiligaynon</name_fr>
+    </language>
+    <language alpha3="him" alpha2="">
+        <name_en>Himachali languages; Western Pahari languages</name_en>
+        <name_fr>langues himachalis; langues paharis occidentales</name_fr>
+    </language>
+    <language alpha3="hin" alpha2="hi">
+        <name_en>Hindi</name_en>
+        <name_fr>hindi</name_fr>
+    </language>
+    <language alpha3="hit" alpha2="">
+        <name_en>Hittite</name_en>
+        <name_fr>hittite</name_fr>
+    </language>
+    <language alpha3="hmn" alpha2="">
+        <name_en>Hmong; Mong</name_en>
+        <name_fr>hmong</name_fr>
+    </language>
+    <language alpha3="hmo" alpha2="ho">
+        <name_en>Hiri Motu</name_en>
+        <name_fr>hiri motu</name_fr>
+    </language>
+    <language alpha3="hrv" alpha2="hr">
+        <name_en>Croatian</name_en>
+        <name_fr>croate</name_fr>
+    </language>
+    <language alpha3="hsb" alpha2="">
+        <name_en>Upper Sorbian</name_en>
+        <name_fr>haut-sorabe</name_fr>
+    </language>
+    <language alpha3="hun" alpha2="hu">
+        <name_en>Hungarian</name_en>
+        <name_fr>hongrois</name_fr>
+    </language>
+    <language alpha3="hup" alpha2="">
+        <name_en>Hupa</name_en>
+        <name_fr>hupa</name_fr>
+    </language>
+    <language alpha3="iba" alpha2="">
+        <name_en>Iban</name_en>
+        <name_fr>iban</name_fr>
+    </language>
+    <language alpha3="ibo" alpha2="ig">
+        <name_en>Igbo</name_en>
+        <name_fr>igbo</name_fr>
+    </language>
+    <language alpha3="ice" alpha2="is">
+        <name_en>Icelandic</name_en>
+        <name_fr>islandais</name_fr>
+    </language>
+    <language alpha3="ido" alpha2="io">
+        <name_en>Ido</name_en>
+        <name_fr>ido</name_fr>
+    </language>
+    <language alpha3="iii" alpha2="ii">
+        <name_en>Sichuan Yi; Nuosu</name_en>
+        <name_fr>yi de Sichuan</name_fr>
+    </language>
+    <language alpha3="ijo" alpha2="">
+        <name_en>Ijo languages</name_en>
+        <name_fr>ijo, langues</name_fr>
+    </language>
+    <language alpha3="iku" alpha2="iu">
+        <name_en>Inuktitut</name_en>
+        <name_fr>inuktitut</name_fr>
+    </language>
+    <language alpha3="ile" alpha2="ie">
+        <name_en>Interlingue; Occidental</name_en>
+        <name_fr>interlingue</name_fr>
+    </language>
+    <language alpha3="ilo" alpha2="">
+        <name_en>Iloko</name_en>
+        <name_fr>ilocano</name_fr>
+    </language>
+    <language alpha3="ina" alpha2="ia">
+        <name_en>Interlingua (International Auxiliary Language Association)</name_en>
+        <name_fr>interlingua (langue auxiliaire internationale)</name_fr>
+    </language>
+    <language alpha3="inc" alpha2="">
+        <name_en>Indic languages</name_en>
+        <name_fr>indo-aryennes, langues</name_fr>
+    </language>
+    <language alpha3="ind" alpha2="id">
+        <name_en>Indonesian</name_en>
+        <name_fr>indonésien</name_fr>
+    </language>
+    <language alpha3="ine" alpha2="">
+        <name_en>Indo-European languages</name_en>
+        <name_fr>indo-européennes, langues</name_fr>
+    </language>
+    <language alpha3="inh" alpha2="">
+        <name_en>Ingush</name_en>
+        <name_fr>ingouche</name_fr>
+    </language>
+    <language alpha3="ipk" alpha2="ik">
+        <name_en>Inupiaq</name_en>
+        <name_fr>inupiaq</name_fr>
+    </language>
+    <language alpha3="ira" alpha2="">
+        <name_en>Iranian languages</name_en>
+        <name_fr>iraniennes, langues</name_fr>
+    </language>
+    <language alpha3="iro" alpha2="">
+        <name_en>Iroquoian languages</name_en>
+        <name_fr>iroquoises, langues</name_fr>
+    </language>
+    <language alpha3="ita" alpha2="it">
+        <name_en>Italian</name_en>
+        <name_fr>italien</name_fr>
+    </language>
+    <language alpha3="jav" alpha2="jv">
+        <name_en>Javanese</name_en>
+        <name_fr>javanais</name_fr>
+    </language>
+    <language alpha3="jbo" alpha2="">
+        <name_en>Lojban</name_en>
+        <name_fr>lojban</name_fr>
+    </language>
+    <language alpha3="jpn" alpha2="ja">
+        <name_en>Japanese</name_en>
+        <name_fr>japonais</name_fr>
+    </language>
+    <language alpha3="jpr" alpha2="">
+        <name_en>Judeo-Persian</name_en>
+        <name_fr>judéo-persan</name_fr>
+    </language>
+    <language alpha3="jrb" alpha2="">
+        <name_en>Judeo-Arabic</name_en>
+        <name_fr>judéo-arabe</name_fr>
+    </language>
+    <language alpha3="kaa" alpha2="">
+        <name_en>Kara-Kalpak</name_en>
+        <name_fr>karakalpak</name_fr>
+    </language>
+    <language alpha3="kab" alpha2="">
+        <name_en>Kabyle</name_en>
+        <name_fr>kabyle</name_fr>
+    </language>
+    <language alpha3="kac" alpha2="">
+        <name_en>Kachin; Jingpho</name_en>
+        <name_fr>kachin; jingpho</name_fr>
+    </language>
+    <language alpha3="kal" alpha2="kl">
+        <name_en>Kalaallisut; Greenlandic</name_en>
+        <name_fr>groenlandais</name_fr>
+    </language>
+    <language alpha3="kam" alpha2="">
+        <name_en>Kamba</name_en>
+        <name_fr>kamba</name_fr>
+    </language>
+    <language alpha3="kan" alpha2="kn">
+        <name_en>Kannada</name_en>
+        <name_fr>kannada</name_fr>
+    </language>
+    <language alpha3="kar" alpha2="">
+        <name_en>Karen languages</name_en>
+        <name_fr>karen, langues</name_fr>
+    </language>
+    <language alpha3="kas" alpha2="ks">
+        <name_en>Kashmiri</name_en>
+        <name_fr>kashmiri</name_fr>
+    </language>
+    <language alpha3="kau" alpha2="kr">
+        <name_en>Kanuri</name_en>
+        <name_fr>kanouri</name_fr>
+    </language>
+    <language alpha3="kaw" alpha2="">
+        <name_en>Kawi</name_en>
+        <name_fr>kawi</name_fr>
+    </language>
+    <language alpha3="kaz" alpha2="kk">
+        <name_en>Kazakh</name_en>
+        <name_fr>kazakh</name_fr>
+    </language>
+    <language alpha3="kbd" alpha2="">
+        <name_en>Kabardian</name_en>
+        <name_fr>kabardien</name_fr>
+    </language>
+    <language alpha3="kha" alpha2="">
+        <name_en>Khasi</name_en>
+        <name_fr>khasi</name_fr>
+    </language>
+    <language alpha3="khi" alpha2="">
+        <name_en>Khoisan languages</name_en>
+        <name_fr>khoïsan, langues</name_fr>
+    </language>
+    <language alpha3="khm" alpha2="km">
+        <name_en>Central Khmer</name_en>
+        <name_fr>khmer central</name_fr>
+    </language>
+    <language alpha3="kho" alpha2="">
+        <name_en>Khotanese; Sakan</name_en>
+        <name_fr>khotanais; sakan</name_fr>
+    </language>
+    <language alpha3="kik" alpha2="ki">
+        <name_en>Kikuyu; Gikuyu</name_en>
+        <name_fr>kikuyu</name_fr>
+    </language>
+    <language alpha3="kin" alpha2="rw">
+        <name_en>Kinyarwanda</name_en>
+        <name_fr>rwanda</name_fr>
+    </language>
+    <language alpha3="kir" alpha2="ky">
+        <name_en>Kirghiz; Kyrgyz</name_en>
+        <name_fr>kirghiz</name_fr>
+    </language>
+    <language alpha3="kmb" alpha2="">
+        <name_en>Kimbundu</name_en>
+        <name_fr>kimbundu</name_fr>
+    </language>
+    <language alpha3="kok" alpha2="">
+        <name_en>Konkani</name_en>
+        <name_fr>konkani</name_fr>
+    </language>
+    <language alpha3="kom" alpha2="kv">
+        <name_en>Komi</name_en>
+        <name_fr>kom</name_fr>
+    </language>
+    <language alpha3="kon" alpha2="kg">
+        <name_en>Kongo</name_en>
+        <name_fr>kongo</name_fr>
+    </language>
+    <language alpha3="kor" alpha2="ko">
+        <name_en>Korean</name_en>
+        <name_fr>coréen</name_fr>
+    </language>
+    <language alpha3="kos" alpha2="">
+        <name_en>Kosraean</name_en>
+        <name_fr>kosrae</name_fr>
+    </language>
+    <language alpha3="kpe" alpha2="">
+        <name_en>Kpelle</name_en>
+        <name_fr>kpellé</name_fr>
+    </language>
+    <language alpha3="krc" alpha2="">
+        <name_en>Karachay-Balkar</name_en>
+        <name_fr>karatchai balkar</name_fr>
+    </language>
+    <language alpha3="krl" alpha2="">
+        <name_en>Karelian</name_en>
+        <name_fr>carélien</name_fr>
+    </language>
+    <language alpha3="kro" alpha2="">
+        <name_en>Kru languages</name_en>
+        <name_fr>krou, langues</name_fr>
+    </language>
+    <language alpha3="kru" alpha2="">
+        <name_en>Kurukh</name_en>
+        <name_fr>kurukh</name_fr>
+    </language>
+    <language alpha3="kua" alpha2="kj">
+        <name_en>Kuanyama; Kwanyama</name_en>
+        <name_fr>kuanyama; kwanyama</name_fr>
+    </language>
+    <language alpha3="kum" alpha2="">
+        <name_en>Kumyk</name_en>
+        <name_fr>koumyk</name_fr>
+    </language>
+    <language alpha3="kur" alpha2="ku">
+        <name_en>Kurdish</name_en>
+        <name_fr>kurde</name_fr>
+    </language>
+    <language alpha3="kut" alpha2="">
+        <name_en>Kutenai</name_en>
+        <name_fr>kutenai</name_fr>
+    </language>
+    <language alpha3="lad" alpha2="">
+        <name_en>Ladino</name_en>
+        <name_fr>judéo-espagnol</name_fr>
+    </language>
+    <language alpha3="lah" alpha2="">
+        <name_en>Lahnda</name_en>
+        <name_fr>lahnda</name_fr>
+    </language>
+    <language alpha3="lam" alpha2="">
+        <name_en>Lamba</name_en>
+        <name_fr>lamba</name_fr>
+    </language>
+    <language alpha3="lao" alpha2="lo">
+        <name_en>Lao</name_en>
+        <name_fr>lao</name_fr>
+    </language>
+    <language alpha3="lat" alpha2="la">
+        <name_en>Latin</name_en>
+        <name_fr>latin</name_fr>
+    </language>
+    <language alpha3="lav" alpha2="lv">
+        <name_en>Latvian</name_en>
+        <name_fr>letton</name_fr>
+    </language>
+    <language alpha3="lez" alpha2="">
+        <name_en>Lezghian</name_en>
+        <name_fr>lezghien</name_fr>
+    </language>
+    <language alpha3="lim" alpha2="li">
+        <name_en>Limburgan; Limburger; Limburgish</name_en>
+        <name_fr>limbourgeois</name_fr>
+    </language>
+    <language alpha3="lin" alpha2="ln">
+        <name_en>Lingala</name_en>
+        <name_fr>lingala</name_fr>
+    </language>
+    <language alpha3="lit" alpha2="lt">
+        <name_en>Lithuanian</name_en>
+        <name_fr>lituanien</name_fr>
+    </language>
+    <language alpha3="lol" alpha2="">
+        <name_en>Mongo</name_en>
+        <name_fr>mongo</name_fr>
+    </language>
+    <language alpha3="loz" alpha2="">
+        <name_en>Lozi</name_en>
+        <name_fr>lozi</name_fr>
+    </language>
+    <language alpha3="ltz" alpha2="lb">
+        <name_en>Luxembourgish; Letzeburgesch</name_en>
+        <name_fr>luxembourgeois</name_fr>
+    </language>
+    <language alpha3="lua" alpha2="">
+        <name_en>Luba-Lulua</name_en>
+        <name_fr>luba-lulua</name_fr>
+    </language>
+    <language alpha3="lub" alpha2="lu">
+        <name_en>Luba-Katanga</name_en>
+        <name_fr>luba-katanga</name_fr>
+    </language>
+    <language alpha3="lug" alpha2="lg">
+        <name_en>Ganda</name_en>
+        <name_fr>ganda</name_fr>
+    </language>
+    <language alpha3="lui" alpha2="">
+        <name_en>Luiseno</name_en>
+        <name_fr>luiseno</name_fr>
+    </language>
+    <language alpha3="lun" alpha2="">
+        <name_en>Lunda</name_en>
+        <name_fr>lunda</name_fr>
+    </language>
+    <language alpha3="luo" alpha2="">
+        <name_en>Luo (Kenya and Tanzania)</name_en>
+        <name_fr>luo (Kenya et Tanzanie)</name_fr>
+    </language>
+    <language alpha3="lus" alpha2="">
+        <name_en>Lushai</name_en>
+        <name_fr>lushai</name_fr>
+    </language>
+    <language alpha3="mac" alpha2="mk">
+        <name_en>Macedonian</name_en>
+        <name_fr>macédonien</name_fr>
+    </language>
+    <language alpha3="mad" alpha2="">
+        <name_en>Madurese</name_en>
+        <name_fr>madourais</name_fr>
+    </language>
+    <language alpha3="mag" alpha2="">
+        <name_en>Magahi</name_en>
+        <name_fr>magahi</name_fr>
+    </language>
+    <language alpha3="mah" alpha2="mh">
+        <name_en>Marshallese</name_en>
+        <name_fr>marshall</name_fr>
+    </language>
+    <language alpha3="mai" alpha2="">
+        <name_en>Maithili</name_en>
+        <name_fr>maithili</name_fr>
+    </language>
+    <language alpha3="mak" alpha2="">
+        <name_en>Makasar</name_en>
+        <name_fr>makassar</name_fr>
+    </language>
+    <language alpha3="mal" alpha2="ml">
+        <name_en>Malayalam</name_en>
+        <name_fr>malayalam</name_fr>
+    </language>
+    <language alpha3="man" alpha2="">
+        <name_en>Mandingo</name_en>
+        <name_fr>mandingue</name_fr>
+    </language>
+    <language alpha3="mao" alpha2="mi">
+        <name_en>Maori</name_en>
+        <name_fr>maori</name_fr>
+    </language>
+    <language alpha3="map" alpha2="">
+        <name_en>Austronesian languages</name_en>
+        <name_fr>austronésiennes, langues</name_fr>
+    </language>
+    <language alpha3="mar" alpha2="mr">
+        <name_en>Marathi</name_en>
+        <name_fr>marathe</name_fr>
+    </language>
+    <language alpha3="mas" alpha2="">
+        <name_en>Masai</name_en>
+        <name_fr>massaï</name_fr>
+    </language>
+    <language alpha3="may" alpha2="ms">
+        <name_en>Malay</name_en>
+        <name_fr>malais</name_fr>
+    </language>
+    <language alpha3="mdf" alpha2="">
+        <name_en>Moksha</name_en>
+        <name_fr>moksa</name_fr>
+    </language>
+    <language alpha3="mdr" alpha2="">
+        <name_en>Mandar</name_en>
+        <name_fr>mandar</name_fr>
+    </language>
+    <language alpha3="men" alpha2="">
+        <name_en>Mende</name_en>
+        <name_fr>mendé</name_fr>
+    </language>
+    <language alpha3="mga" alpha2="">
+        <name_en>Irish, Middle (900-1200)</name_en>
+        <name_fr>irlandais moyen (900-1200)</name_fr>
+    </language>
+    <language alpha3="mic" alpha2="">
+        <name_en>Mi'kmaq; Micmac</name_en>
+        <name_fr>mi'kmaq; micmac</name_fr>
+    </language>
+    <language alpha3="min" alpha2="">
+        <name_en>Minangkabau</name_en>
+        <name_fr>minangkabau</name_fr>
+    </language>
+    <language alpha3="mis" alpha2="">
+        <name_en>Uncoded languages</name_en>
+        <name_fr>langues non codées</name_fr>
+    </language>
+    <language alpha3="mkh" alpha2="">
+        <name_en>Mon-Khmer languages</name_en>
+        <name_fr>môn-khmer, langues</name_fr>
+    </language>
+    <language alpha3="mlg" alpha2="mg">
+        <name_en>Malagasy</name_en>
+        <name_fr>malgache</name_fr>
+    </language>
+    <language alpha3="mlt" alpha2="mt">
+        <name_en>Maltese</name_en>
+        <name_fr>maltais</name_fr>
+    </language>
+    <language alpha3="mnc" alpha2="">
+        <name_en>Manchu</name_en>
+        <name_fr>mandchou</name_fr>
+    </language>
+    <language alpha3="mni" alpha2="">
+        <name_en>Manipuri</name_en>
+        <name_fr>manipuri</name_fr>
+    </language>
+    <language alpha3="mno" alpha2="">
+        <name_en>Manobo languages</name_en>
+        <name_fr>manobo, langues</name_fr>
+    </language>
+    <language alpha3="moh" alpha2="">
+        <name_en>Mohawk</name_en>
+        <name_fr>mohawk</name_fr>
+    </language>
+    <language alpha3="mon" alpha2="mn">
+        <name_en>Mongolian</name_en>
+        <name_fr>mongol</name_fr>
+    </language>
+    <language alpha3="mos" alpha2="">
+        <name_en>Mossi</name_en>
+        <name_fr>moré</name_fr>
+    </language>
+    <language alpha3="mul" alpha2="">
+        <name_en>Multiple languages</name_en>
+        <name_fr>multilingue</name_fr>
+    </language>
+    <language alpha3="mun" alpha2="">
+        <name_en>Munda languages</name_en>
+        <name_fr>mounda, langues</name_fr>
+    </language>
+    <language alpha3="mus" alpha2="">
+        <name_en>Creek</name_en>
+        <name_fr>muskogee</name_fr>
+    </language>
+    <language alpha3="mwl" alpha2="">
+        <name_en>Mirandese</name_en>
+        <name_fr>mirandais</name_fr>
+    </language>
+    <language alpha3="mwr" alpha2="">
+        <name_en>Marwari</name_en>
+        <name_fr>marvari</name_fr>
+    </language>
+    <language alpha3="myn" alpha2="">
+        <name_en>Mayan languages</name_en>
+        <name_fr>maya, langues</name_fr>
+    </language>
+    <language alpha3="myv" alpha2="">
+        <name_en>Erzya</name_en>
+        <name_fr>erza</name_fr>
+    </language>
+    <language alpha3="nah" alpha2="">
+        <name_en>Nahuatl languages</name_en>
+        <name_fr>nahuatl, langues</name_fr>
+    </language>
+    <language alpha3="nai" alpha2="">
+        <name_en>North American Indian languages</name_en>
+        <name_fr>nord-amérindiennes, langues</name_fr>
+    </language>
+    <language alpha3="nap" alpha2="">
+        <name_en>Neapolitan</name_en>
+        <name_fr>napolitain</name_fr>
+    </language>
+    <language alpha3="nau" alpha2="na">
+        <name_en>Nauru</name_en>
+        <name_fr>nauruan</name_fr>
+    </language>
+    <language alpha3="nav" alpha2="nv">
+        <name_en>Navajo; Navaho</name_en>
+        <name_fr>navaho</name_fr>
+    </language>
+    <language alpha3="nbl" alpha2="nr">
+        <name_en>Ndebele, South; South Ndebele</name_en>
+        <name_fr>ndébélé du Sud</name_fr>
+    </language>
+    <language alpha3="nde" alpha2="nd">
+        <name_en>Ndebele, North; North Ndebele</name_en>
+        <name_fr>ndébélé du Nord</name_fr>
+    </language>
+    <language alpha3="ndo" alpha2="ng">
+        <name_en>Ndonga</name_en>
+        <name_fr>ndonga</name_fr>
+    </language>
+    <language alpha3="nds" alpha2="">
+        <name_en>Low German; Low Saxon; German, Low; Saxon, Low</name_en>
+        <name_fr>bas allemand; bas saxon; allemand, bas; saxon, bas</name_fr>
+    </language>
+    <language alpha3="nep" alpha2="ne">
+        <name_en>Nepali</name_en>
+        <name_fr>népalais</name_fr>
+    </language>
+    <language alpha3="new" alpha2="">
+        <name_en>Nepal Bhasa; Newari</name_en>
+        <name_fr>nepal bhasa; newari</name_fr>
+    </language>
+    <language alpha3="nia" alpha2="">
+        <name_en>Nias</name_en>
+        <name_fr>nias</name_fr>
+    </language>
+    <language alpha3="nic" alpha2="">
+        <name_en>Niger-Kordofanian languages</name_en>
+        <name_fr>nigéro-kordofaniennes, langues</name_fr>
+    </language>
+    <language alpha3="niu" alpha2="">
+        <name_en>Niuean</name_en>
+        <name_fr>niué</name_fr>
+    </language>
+    <language alpha3="nno" alpha2="nn">
+        <name_en>Norwegian Nynorsk; Nynorsk, Norwegian</name_en>
+        <name_fr>norvégien nynorsk; nynorsk, norvégien</name_fr>
+    </language>
+    <language alpha3="nob" alpha2="nb">
+        <name_en>Bokmål, Norwegian; Norwegian Bokmål</name_en>
+        <name_fr>norvégien bokmål</name_fr>
+    </language>
+    <language alpha3="nog" alpha2="">
+        <name_en>Nogai</name_en>
+        <name_fr>nogaï; nogay</name_fr>
+    </language>
+    <language alpha3="non" alpha2="">
+        <name_en>Norse, Old</name_en>
+        <name_fr>norrois, vieux</name_fr>
+    </language>
+    <language alpha3="nor" alpha2="no">
+        <name_en>Norwegian</name_en>
+        <name_fr>norvégien</name_fr>
+    </language>
+    <language alpha3="nqo" alpha2="">
+        <name_en>N'Ko</name_en>
+        <name_fr>n'ko</name_fr>
+    </language>
+    <language alpha3="nso" alpha2="">
+        <name_en>Pedi; Sepedi; Northern Sotho</name_en>
+        <name_fr>pedi; sepedi; sotho du Nord</name_fr>
+    </language>
+    <language alpha3="nub" alpha2="">
+        <name_en>Nubian languages</name_en>
+        <name_fr>nubiennes, langues</name_fr>
+    </language>
+    <language alpha3="nwc" alpha2="">
+        <name_en>Classical Newari; Old Newari; Classical Nepal Bhasa</name_en>
+        <name_fr>newari classique</name_fr>
+    </language>
+    <language alpha3="nya" alpha2="ny">
+        <name_en>Chichewa; Chewa; Nyanja</name_en>
+        <name_fr>chichewa; chewa; nyanja</name_fr>
+    </language>
+    <language alpha3="nym" alpha2="">
+        <name_en>Nyamwezi</name_en>
+        <name_fr>nyamwezi</name_fr>
+    </language>
+    <language alpha3="nyn" alpha2="">
+        <name_en>Nyankole</name_en>
+        <name_fr>nyankolé</name_fr>
+    </language>
+    <language alpha3="nyo" alpha2="">
+        <name_en>Nyoro</name_en>
+        <name_fr>nyoro</name_fr>
+    </language>
+    <language alpha3="nzi" alpha2="">
+        <name_en>Nzima</name_en>
+        <name_fr>nzema</name_fr>
+    </language>
+    <language alpha3="oci" alpha2="oc">
+        <name_en>Occitan (post 1500); Provençal</name_en>
+        <name_fr>occitan (après 1500); provençal</name_fr>
+    </language>
+    <language alpha3="oji" alpha2="oj">
+        <name_en>Ojibwa</name_en>
+        <name_fr>ojibwa</name_fr>
+    </language>
+    <language alpha3="ori" alpha2="or">
+        <name_en>Oriya</name_en>
+        <name_fr>oriya</name_fr>
+    </language>
+    <language alpha3="orm" alpha2="om">
+        <name_en>Oromo</name_en>
+        <name_fr>galla</name_fr>
+    </language>
+    <language alpha3="osa" alpha2="">
+        <name_en>Osage</name_en>
+        <name_fr>osage</name_fr>
+    </language>
+    <language alpha3="oss" alpha2="os">
+        <name_en>Ossetian; Ossetic</name_en>
+        <name_fr>ossète</name_fr>
+    </language>
+    <language alpha3="ota" alpha2="">
+        <name_en>Turkish, Ottoman (1500-1928)</name_en>
+        <name_fr>turc ottoman (1500-1928)</name_fr>
+    </language>
+    <language alpha3="oto" alpha2="">
+        <name_en>Otomian languages</name_en>
+        <name_fr>otomi, langues</name_fr>
+    </language>
+    <language alpha3="paa" alpha2="">
+        <name_en>Papuan languages</name_en>
+        <name_fr>papoues, langues</name_fr>
+    </language>
+    <language alpha3="pag" alpha2="">
+        <name_en>Pangasinan</name_en>
+        <name_fr>pangasinan</name_fr>
+    </language>
+    <language alpha3="pal" alpha2="">
+        <name_en>Pahlavi</name_en>
+        <name_fr>pahlavi</name_fr>
+    </language>
+    <language alpha3="pam" alpha2="">
+        <name_en>Pampanga; Kapampangan</name_en>
+        <name_fr>pampangan</name_fr>
+    </language>
+    <language alpha3="pan" alpha2="pa">
+        <name_en>Panjabi; Punjabi</name_en>
+        <name_fr>pendjabi</name_fr>
+    </language>
+    <language alpha3="pap" alpha2="">
+        <name_en>Papiamento</name_en>
+        <name_fr>papiamento</name_fr>
+    </language>
+    <language alpha3="pau" alpha2="">
+        <name_en>Palauan</name_en>
+        <name_fr>palau</name_fr>
+    </language>
+    <language alpha3="peo" alpha2="">
+        <name_en>Persian, Old (ca.600-400 B.C.)</name_en>
+        <name_fr>perse, vieux (ca. 600-400 av. J.-C.)</name_fr>
+    </language>
+    <language alpha3="per" alpha2="fa">
+        <name_en>Persian</name_en>
+        <name_fr>persan</name_fr>
+    </language>
+    <language alpha3="phi" alpha2="">
+        <name_en>Philippine languages</name_en>
+        <name_fr>philippines, langues</name_fr>
+    </language>
+    <language alpha3="phn" alpha2="">
+        <name_en>Phoenician</name_en>
+        <name_fr>phénicien</name_fr>
+    </language>
+    <language alpha3="pli" alpha2="pi">
+        <name_en>Pali</name_en>
+        <name_fr>pali</name_fr>
+    </language>
+    <language alpha3="pol" alpha2="pl">
+        <name_en>Polish</name_en>
+        <name_fr>polonais</name_fr>
+    </language>
+    <language alpha3="pon" alpha2="">
+        <name_en>Pohnpeian</name_en>
+        <name_fr>pohnpei</name_fr>
+    </language>
+    <language alpha3="por" alpha2="pt">
+        <name_en>Portuguese</name_en>
+        <name_fr>portugais</name_fr>
+    </language>
+    <language alpha3="pra" alpha2="">
+        <name_en>Prakrit languages</name_en>
+        <name_fr>prâkrit, langues</name_fr>
+    </language>
+    <language alpha3="pro" alpha2="">
+        <name_en>Provençal, Old (to 1500)</name_en>
+        <name_fr>provençal ancien (jusqu'à 1500)</name_fr>
+    </language>
+    <language alpha3="pus" alpha2="ps">
+        <name_en>Pushto; Pashto</name_en>
+        <name_fr>pachto</name_fr>
+    </language>
+    <language alpha3="qaa-qtz" alpha2="">
+        <name_en>Reserved for local use</name_en>
+        <name_fr>réservée à l'usage local</name_fr>
+    </language>
+    <language alpha3="que" alpha2="qu">
+        <name_en>Quechua</name_en>
+        <name_fr>quechua</name_fr>
+    </language>
+    <language alpha3="raj" alpha2="">
+        <name_en>Rajasthani</name_en>
+        <name_fr>rajasthani</name_fr>
+    </language>
+    <language alpha3="rap" alpha2="">
+        <name_en>Rapanui</name_en>
+        <name_fr>rapanui</name_fr>
+    </language>
+    <language alpha3="rar" alpha2="">
+        <name_en>Rarotongan; Cook Islands Maori</name_en>
+        <name_fr>rarotonga; maori des îles Cook</name_fr>
+    </language>
+    <language alpha3="roa" alpha2="">
+        <name_en>Romance languages</name_en>
+        <name_fr>romanes, langues</name_fr>
+    </language>
+    <language alpha3="roh" alpha2="rm">
+        <name_en>Romansh</name_en>
+        <name_fr>romanche</name_fr>
+    </language>
+    <language alpha3="rom" alpha2="">
+        <name_en>Romany</name_en>
+        <name_fr>tsigane</name_fr>
+    </language>
+    <language alpha3="rum" alpha2="ro">
+        <name_en>Romanian; Moldavian; Moldovan</name_en>
+        <name_fr>roumain; moldave</name_fr>
+    </language>
+    <language alpha3="run" alpha2="rn">
+        <name_en>Rundi</name_en>
+        <name_fr>rundi</name_fr>
+    </language>
+    <language alpha3="rup" alpha2="">
+        <name_en>Aromanian; Arumanian; Macedo-Romanian</name_en>
+        <name_fr>aroumain; macédo-roumain</name_fr>
+    </language>
+    <language alpha3="rus" alpha2="ru">
+        <name_en>Russian</name_en>
+        <name_fr>russe</name_fr>
+    </language>
+    <language alpha3="sad" alpha2="">
+        <name_en>Sandawe</name_en>
+        <name_fr>sandawe</name_fr>
+    </language>
+    <language alpha3="sag" alpha2="sg">
+        <name_en>Sango</name_en>
+        <name_fr>sango</name_fr>
+    </language>
+    <language alpha3="sah" alpha2="">
+        <name_en>Yakut</name_en>
+        <name_fr>iakoute</name_fr>
+    </language>
+    <language alpha3="sai" alpha2="">
+        <name_en>South American Indian (Other)</name_en>
+        <name_fr>indiennes d'Amérique du Sud, autres langues</name_fr>
+    </language>
+    <language alpha3="sal" alpha2="">
+        <name_en>Salishan languages</name_en>
+        <name_fr>salishennes, langues</name_fr>
+    </language>
+    <language alpha3="sam" alpha2="">
+        <name_en>Samaritan Aramaic</name_en>
+        <name_fr>samaritain</name_fr>
+    </language>
+    <language alpha3="san" alpha2="sa">
+        <name_en>Sanskrit</name_en>
+        <name_fr>sanskrit</name_fr>
+    </language>
+    <language alpha3="sas" alpha2="">
+        <name_en>Sasak</name_en>
+        <name_fr>sasak</name_fr>
+    </language>
+    <language alpha3="sat" alpha2="">
+        <name_en>Santali</name_en>
+        <name_fr>santal</name_fr>
+    </language>
+    <language alpha3="scn" alpha2="">
+        <name_en>Sicilian</name_en>
+        <name_fr>sicilien</name_fr>
+    </language>
+    <language alpha3="sco" alpha2="">
+        <name_en>Scots</name_en>
+        <name_fr>écossais</name_fr>
+    </language>
+    <language alpha3="sel" alpha2="">
+        <name_en>Selkup</name_en>
+        <name_fr>selkoupe</name_fr>
+    </language>
+    <language alpha3="sem" alpha2="">
+        <name_en>Semitic languages</name_en>
+        <name_fr>sémitiques, langues</name_fr>
+    </language>
+    <language alpha3="sga" alpha2="">
+        <name_en>Irish, Old (to 900)</name_en>
+        <name_fr>irlandais ancien (jusqu'à 900)</name_fr>
+    </language>
+    <language alpha3="sgn" alpha2="">
+        <name_en>Sign Languages</name_en>
+        <name_fr>langues des signes</name_fr>
+    </language>
+    <language alpha3="shn" alpha2="">
+        <name_en>Shan</name_en>
+        <name_fr>chan</name_fr>
+    </language>
+    <language alpha3="sid" alpha2="">
+        <name_en>Sidamo</name_en>
+        <name_fr>sidamo</name_fr>
+    </language>
+    <language alpha3="sin" alpha2="si">
+        <name_en>Sinhala; Sinhalese</name_en>
+        <name_fr>singhalais</name_fr>
+    </language>
+    <language alpha3="sio" alpha2="">
+        <name_en>Siouan languages</name_en>
+        <name_fr>sioux, langues</name_fr>
+    </language>
+    <language alpha3="sit" alpha2="">
+        <name_en>Sino-Tibetan languages</name_en>
+        <name_fr>sino-tibétaines, langues</name_fr>
+    </language>
+    <language alpha3="sla" alpha2="">
+        <name_en>Slavic languages</name_en>
+        <name_fr>slaves, langues</name_fr>
+    </language>
+    <language alpha3="slo" alpha2="sk">
+        <name_en>Slovak</name_en>
+        <name_fr>slovaque</name_fr>
+    </language>
+    <language alpha3="slv" alpha2="sl">
+        <name_en>Slovenian</name_en>
+        <name_fr>slovène</name_fr>
+    </language>
+    <language alpha3="sma" alpha2="">
+        <name_en>Southern Sami</name_en>
+        <name_fr>sami du Sud</name_fr>
+    </language>
+    <language alpha3="sme" alpha2="se">
+        <name_en>Northern Sami</name_en>
+        <name_fr>sami du Nord</name_fr>
+    </language>
+    <language alpha3="smi" alpha2="">
+        <name_en>Sami languages</name_en>
+        <name_fr>sames, langues</name_fr>
+    </language>
+    <language alpha3="smj" alpha2="">
+        <name_en>Lule Sami</name_en>
+        <name_fr>sami de Lule</name_fr>
+    </language>
+    <language alpha3="smn" alpha2="">
+        <name_en>Inari Sami</name_en>
+        <name_fr>sami d'Inari</name_fr>
+    </language>
+    <language alpha3="smo" alpha2="sm">
+        <name_en>Samoan</name_en>
+        <name_fr>samoan</name_fr>
+    </language>
+    <language alpha3="sms" alpha2="">
+        <name_en>Skolt Sami</name_en>
+        <name_fr>sami skolt</name_fr>
+    </language>
+    <language alpha3="sna" alpha2="sn">
+        <name_en>Shona</name_en>
+        <name_fr>shona</name_fr>
+    </language>
+    <language alpha3="snd" alpha2="sd">
+        <name_en>Sindhi</name_en>
+        <name_fr>sindhi</name_fr>
+    </language>
+    <language alpha3="snk" alpha2="">
+        <name_en>Soninke</name_en>
+        <name_fr>soninké</name_fr>
+    </language>
+    <language alpha3="sog" alpha2="">
+        <name_en>Sogdian</name_en>
+        <name_fr>sogdien</name_fr>
+    </language>
+    <language alpha3="som" alpha2="so">
+        <name_en>Somali</name_en>
+        <name_fr>somali</name_fr>
+    </language>
+    <language alpha3="son" alpha2="">
+        <name_en>Songhai languages</name_en>
+        <name_fr>songhai, langues</name_fr>
+    </language>
+    <language alpha3="sot" alpha2="st">
+        <name_en>Sotho, Southern</name_en>
+        <name_fr>sotho du Sud</name_fr>
+    </language>
+    <language alpha3="spa" alpha2="es">
+        <name_en>Spanish; Castilian</name_en>
+        <name_fr>espagnol; castillan</name_fr>
+    </language>
+    <language alpha3="srd" alpha2="sc">
+        <name_en>Sardinian</name_en>
+        <name_fr>sarde</name_fr>
+    </language>
+    <language alpha3="srn" alpha2="">
+        <name_en>Sranan Tongo</name_en>
+        <name_fr>sranan tongo</name_fr>
+    </language>
+    <language alpha3="srp" alpha2="sr">
+        <name_en>Serbian</name_en>
+        <name_fr>serbe</name_fr>
+    </language>
+    <language alpha3="srr" alpha2="">
+        <name_en>Serer</name_en>
+        <name_fr>sérère</name_fr>
+    </language>
+    <language alpha3="ssa" alpha2="">
+        <name_en>Nilo-Saharan languages</name_en>
+        <name_fr>nilo-sahariennes, langues</name_fr>
+    </language>
+    <language alpha3="ssw" alpha2="ss">
+        <name_en>Swati</name_en>
+        <name_fr>swati</name_fr>
+    </language>
+    <language alpha3="suk" alpha2="">
+        <name_en>Sukuma</name_en>
+        <name_fr>sukuma</name_fr>
+    </language>
+    <language alpha3="sun" alpha2="su">
+        <name_en>Sundanese</name_en>
+        <name_fr>soundanais</name_fr>
+    </language>
+    <language alpha3="sus" alpha2="">
+        <name_en>Susu</name_en>
+        <name_fr>soussou</name_fr>
+    </language>
+    <language alpha3="sux" alpha2="">
+        <name_en>Sumerian</name_en>
+        <name_fr>sumérien</name_fr>
+    </language>
+    <language alpha3="swa" alpha2="sw">
+        <name_en>Swahili</name_en>
+        <name_fr>swahili</name_fr>
+    </language>
+    <language alpha3="swe" alpha2="sv">
+        <name_en>Swedish</name_en>
+        <name_fr>suédois</name_fr>
+    </language>
+    <language alpha3="syc" alpha2="">
+        <name_en>Classical Syriac</name_en>
+        <name_fr>syriaque classique</name_fr>
+    </language>
+    <language alpha3="syr" alpha2="">
+        <name_en>Syriac</name_en>
+        <name_fr>syriaque</name_fr>
+    </language>
+    <language alpha3="tah" alpha2="ty">
+        <name_en>Tahitian</name_en>
+        <name_fr>tahitien</name_fr>
+    </language>
+    <language alpha3="tai" alpha2="">
+        <name_en>Tai languages</name_en>
+        <name_fr>tai, langues</name_fr>
+    </language>
+    <language alpha3="tam" alpha2="ta">
+        <name_en>Tamil</name_en>
+        <name_fr>tamoul</name_fr>
+    </language>
+    <language alpha3="tat" alpha2="tt">
+        <name_en>Tatar</name_en>
+        <name_fr>tatar</name_fr>
+    </language>
+    <language alpha3="tel" alpha2="te">
+        <name_en>Telugu</name_en>
+        <name_fr>télougou</name_fr>
+    </language>
+    <language alpha3="tem" alpha2="">
+        <name_en>Timne</name_en>
+        <name_fr>temne</name_fr>
+    </language>
+    <language alpha3="ter" alpha2="">
+        <name_en>Tereno</name_en>
+        <name_fr>tereno</name_fr>
+    </language>
+    <language alpha3="tet" alpha2="">
+        <name_en>Tetum</name_en>
+        <name_fr>tetum</name_fr>
+    </language>
+    <language alpha3="tgk" alpha2="tg">
+        <name_en>Tajik</name_en>
+        <name_fr>tadjik</name_fr>
+    </language>
+    <language alpha3="tgl" alpha2="tl">
+        <name_en>Tagalog</name_en>
+        <name_fr>tagalog</name_fr>
+    </language>
+    <language alpha3="tha" alpha2="th">
+        <name_en>Thai</name_en>
+        <name_fr>thaï</name_fr>
+    </language>
+    <language alpha3="tib" alpha2="bo">
+        <name_en>Tibetan</name_en>
+        <name_fr>tibétain</name_fr>
+    </language>
+    <language alpha3="tig" alpha2="">
+        <name_en>Tigre</name_en>
+        <name_fr>tigré</name_fr>
+    </language>
+    <language alpha3="tir" alpha2="ti">
+        <name_en>Tigrinya</name_en>
+        <name_fr>tigrigna</name_fr>
+    </language>
+    <language alpha3="tiv" alpha2="">
+        <name_en>Tiv</name_en>
+        <name_fr>tiv</name_fr>
+    </language>
+    <language alpha3="tkl" alpha2="">
+        <name_en>Tokelau</name_en>
+        <name_fr>tokelau</name_fr>
+    </language>
+    <language alpha3="tlh" alpha2="">
+        <name_en>Klingon; tlhIngan-Hol</name_en>
+        <name_fr>klingon</name_fr>
+    </language>
+    <language alpha3="tli" alpha2="">
+        <name_en>Tlingit</name_en>
+        <name_fr>tlingit</name_fr>
+    </language>
+    <language alpha3="tmh" alpha2="">
+        <name_en>Tamashek</name_en>
+        <name_fr>tamacheq</name_fr>
+    </language>
+    <language alpha3="tog" alpha2="">
+        <name_en>Tonga (Nyasa)</name_en>
+        <name_fr>tonga (Nyasa)</name_fr>
+    </language>
+    <language alpha3="ton" alpha2="to">
+        <name_en>Tonga (Tonga Islands)</name_en>
+        <name_fr>tongan (Îles Tonga)</name_fr>
+    </language>
+    <language alpha3="tpi" alpha2="">
+        <name_en>Tok Pisin</name_en>
+        <name_fr>tok pisin</name_fr>
+    </language>
+    <language alpha3="tsi" alpha2="">
+        <name_en>Tsimshian</name_en>
+        <name_fr>tsimshian</name_fr>
+    </language>
+    <language alpha3="tsn" alpha2="tn">
+        <name_en>Tswana</name_en>
+        <name_fr>tswana</name_fr>
+    </language>
+    <language alpha3="tso" alpha2="ts">
+        <name_en>Tsonga</name_en>
+        <name_fr>tsonga</name_fr>
+    </language>
+    <language alpha3="tuk" alpha2="tk">
+        <name_en>Turkmen</name_en>
+        <name_fr>turkmène</name_fr>
+    </language>
+    <language alpha3="tum" alpha2="">
+        <name_en>Tumbuka</name_en>
+        <name_fr>tumbuka</name_fr>
+    </language>
+    <language alpha3="tup" alpha2="">
+        <name_en>Tupi languages</name_en>
+        <name_fr>tupi, langues</name_fr>
+    </language>
+    <language alpha3="tur" alpha2="tr">
+        <name_en>Turkish</name_en>
+        <name_fr>turc</name_fr>
+    </language>
+    <language alpha3="tut" alpha2="">
+        <name_en>Altaic languages</name_en>
+        <name_fr>altaïques, langues</name_fr>
+    </language>
+    <language alpha3="tvl" alpha2="">
+        <name_en>Tuvalu</name_en>
+        <name_fr>tuvalu</name_fr>
+    </language>
+    <language alpha3="twi" alpha2="tw">
+        <name_en>Twi</name_en>
+        <name_fr>twi</name_fr>
+    </language>
+    <language alpha3="tyv" alpha2="">
+        <name_en>Tuvinian</name_en>
+        <name_fr>touva</name_fr>
+    </language>
+    <language alpha3="udm" alpha2="">
+        <name_en>Udmurt</name_en>
+        <name_fr>oudmourte</name_fr>
+    </language>
+    <language alpha3="uga" alpha2="">
+        <name_en>Ugaritic</name_en>
+        <name_fr>ougaritique</name_fr>
+    </language>
+    <language alpha3="uig" alpha2="ug">
+        <name_en>Uighur; Uyghur</name_en>
+        <name_fr>ouïgour</name_fr>
+    </language>
+    <language alpha3="ukr" alpha2="uk">
+        <name_en>Ukrainian</name_en>
+        <name_fr>ukrainien</name_fr>
+    </language>
+    <language alpha3="umb" alpha2="">
+        <name_en>Umbundu</name_en>
+        <name_fr>umbundu</name_fr>
+    </language>
+    <language alpha3="und" alpha2="">
+        <name_en>Undetermined</name_en>
+        <name_fr>indéterminée</name_fr>
+    </language>
+    <language alpha3="urd" alpha2="ur">
+        <name_en>Urdu</name_en>
+        <name_fr>ourdou</name_fr>
+    </language>
+    <language alpha3="uzb" alpha2="uz">
+        <name_en>Uzbek</name_en>
+        <name_fr>ouszbek</name_fr>
+    </language>
+    <language alpha3="vai" alpha2="">
+        <name_en>Vai</name_en>
+        <name_fr>vaï</name_fr>
+    </language>
+    <language alpha3="ven" alpha2="ve">
+        <name_en>Venda</name_en>
+        <name_fr>venda</name_fr>
+    </language>
+    <language alpha3="vie" alpha2="vi">
+        <name_en>Vietnamese</name_en>
+        <name_fr>vietnamien</name_fr>
+    </language>
+    <language alpha3="vol" alpha2="vo">
+        <name_en>Volapük</name_en>
+        <name_fr>volapük</name_fr>
+    </language>
+    <language alpha3="vot" alpha2="">
+        <name_en>Votic</name_en>
+        <name_fr>vote</name_fr>
+    </language>
+    <language alpha3="wak" alpha2="">
+        <name_en>Wakashan languages</name_en>
+        <name_fr>wakashanes, langues</name_fr>
+    </language>
+    <language alpha3="wal" alpha2="">
+        <name_en>Walamo</name_en>
+        <name_fr>walamo</name_fr>
+    </language>
+    <language alpha3="war" alpha2="">
+        <name_en>Waray</name_en>
+        <name_fr>waray</name_fr>
+    </language>
+    <language alpha3="was" alpha2="">
+        <name_en>Washo</name_en>
+        <name_fr>washo</name_fr>
+    </language>
+    <language alpha3="wel" alpha2="cy">
+        <name_en>Welsh</name_en>
+        <name_fr>gallois</name_fr>
+    </language>
+    <language alpha3="wen" alpha2="">
+        <name_en>Sorbian languages</name_en>
+        <name_fr>sorabes, langues</name_fr>
+    </language>
+    <language alpha3="wln" alpha2="wa">
+        <name_en>Walloon</name_en>
+        <name_fr>wallon</name_fr>
+    </language>
+    <language alpha3="wol" alpha2="wo">
+        <name_en>Wolof</name_en>
+        <name_fr>wolof</name_fr>
+    </language>
+    <language alpha3="xal" alpha2="">
+        <name_en>Kalmyk; Oirat</name_en>
+        <name_fr>kalmouk; oïrat</name_fr>
+    </language>
+    <language alpha3="xho" alpha2="xh">
+        <name_en>Xhosa</name_en>
+        <name_fr>xhosa</name_fr>
+    </language>
+    <language alpha3="yao" alpha2="">
+        <name_en>Yao</name_en>
+        <name_fr>yao</name_fr>
+    </language>
+    <language alpha3="yap" alpha2="">
+        <name_en>Yapese</name_en>
+        <name_fr>yapois</name_fr>
+    </language>
+    <language alpha3="yid" alpha2="yi">
+        <name_en>Yiddish</name_en>
+        <name_fr>yiddish</name_fr>
+    </language>
+    <language alpha3="yor" alpha2="yo">
+        <name_en>Yoruba</name_en>
+        <name_fr>yoruba</name_fr>
+    </language>
+    <language alpha3="ypk" alpha2="">
+        <name_en>Yupik languages</name_en>
+        <name_fr>yupik, langues</name_fr>
+    </language>
+    <language alpha3="zap" alpha2="">
+        <name_en>Zapotec</name_en>
+        <name_fr>zapotèque</name_fr>
+    </language>
+    <language alpha3="zbl" alpha2="">
+        <name_en>Blissymbols; Blissymbolics; Bliss</name_en>
+        <name_fr>symboles Bliss; Bliss</name_fr>
+    </language>
+    <language alpha3="zen" alpha2="">
+        <name_en>Zenaga</name_en>
+        <name_fr>zenaga</name_fr>
+    </language>
+    <language alpha3="zha" alpha2="za">
+        <name_en>Zhuang; Chuang</name_en>
+        <name_fr>zhuang; chuang</name_fr>
+    </language>
+    <language alpha3="znd" alpha2="">
+        <name_en>Zande languages</name_en>
+        <name_fr>zandé, langues</name_fr>
+    </language>
+    <language alpha3="zul" alpha2="zu">
+        <name_en>Zulu</name_en>
+        <name_fr>zoulou</name_fr>
+    </language>
+    <language alpha3="zun" alpha2="">
+        <name_en>Zuni</name_en>
+        <name_fr>zuni</name_fr>
+    </language>
+    <language alpha3="zxx" alpha2="">
+        <name_en>No linguistic content; Not applicable</name_en>
+        <name_fr>pas de contenu linguistique; non applicable</name_fr>
+    </language>
+    <language alpha3="zza" alpha2="">
+        <name_en>Zaza; Dimili; Dimli; Kirdki; Kirmanjki; Zazaki</name_en>
+        <name_fr>zaza; dimili; dimli; kirdki; kirmanjki; zazaki</name_fr>
+    </language>
+</languages>

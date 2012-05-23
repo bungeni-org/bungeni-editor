@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadatas for="debaterecord">
+    <metadata name="BungeniDocType"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+        <title>Document Type</title>
+    </metadata>
+    <metadata name="BungeniLanguageCode"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+        <title>Language ID</title>
+    </metadata>
+    <metadata name="BungeniCountryCode"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+        <title>Country Code</title>
+    </metadata>
+    <metadata name="BungeniParliamentID"
+        type="document"
+        datatype="string"
+        visible="0"
+        namespace="bungeni">
+        <title>Parliament ID</title>
+    </metadata>
+    <metadata name="BungeniDocAuthor"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+        <title>Author</title>
+    </metadata>
+    <metadata name="BungeniOfficialDate"
+        type="document"
+        datatype="datetime"
+        visible="1"
+        namespace="bungeni">
+        <title>Official Date</title>
+    </metadata>
+    <metadata name="BungeniOfficialTime"
+        type="document"
+        datatype="datetime"
+        visible="1"
+        namespace="bungeni">
+        <title>Official Time</title>
+    </metadata>
+    <metadata name="BungeniParliamentSession"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+        <title>Parliament Session</title>
+    </metadata>
+    <metadata name="BungeniParliamentSitting"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+        <title>Parliament Sitting</title>
+    </metadata>
+    <metadata name="BungeniWorkDate"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+        <title>Work Date</title>
+    </metadata>
+    <metadata name="BungeniDocPart"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+        <title>Document Part</title>
+    </metadata>
+    <metadata name="BungeniPublicationDate"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+        <title>Publication Date</title>
+    </metadata>
+    <metadata name="BungeniExpDate"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+        <title>Expression Date</title>
+    </metadata>
+    <metadata name="BungeniManDate"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+        <title>Expression Date</title>
+    </metadata>
+    <metadata name="BungeniPublicationName"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+        <title>Publication Name</title>
+    </metadata>
+</metadatas>

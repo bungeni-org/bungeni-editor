@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?><akomaNtoso xmlns="http://www.akomantoso.org/1.0">
+   <debateRecord>
+      <meta>
+         <identification source="#bungeni">
+            <FRBRWork>
+               <FRBRthis value="\ke\debaterecord\2011-7-13"/>
+               <FRBRuri value=""/>
+               <FRBRdate date="2011-07-13" name="workDate"/>
+               <FRBRauthor href="#user.Ashok"/>
+            </FRBRWork>
+            <FRBRExpression>
+               <FRBRthis value="\ke\debaterecord\2011-7-13\en"/>
+               <FRBRuri value="/en@"/>
+               <FRBRdate date="2011-07-31" name="expDate"/>
+               <FRBRauthor href="#user.Ashok"/>
+            </FRBRExpression>
+            <FRBRManifestation>
+               <FRBRthis value="\ke\debaterecord\2011-7-13\en.xml"/>
+               <FRBRuri value="/en@.akn"/>
+               <FRBRdate date="2011-07-31" name="manDate"/>
+               <FRBRauthor href="#user.Ashok"/>
+            </FRBRManifestation>
+         </identification>
+         <publication date="2011-07-13" name="debaterecord" showAs=""/>
+         <references source="#bungeni">
+            <TLCOrganization id="Parliament" href="1" showAs="Parliament"/>
+            <TLCPerson id="puser.Ashok" href="user.Ashok" showAs="Author"/>
+            <TLCPerson id="p3" href="ken.person.Ali.Abdirahman.1951-12-09" showAs="Ali Abdirahman"/>
+            <TLCPerson id="p340" href="ken.person.Fahim.Nuhene.1947-03-12" showAs="Fahim Nuhene"/>
+            <TLCRole id="Speaker" href="/ontology/roles/ke/speaker" showAs="Speaker"/>
+            <TLCRole id="MemberOfParliament" href="/ontology/roles/ke/member" showAs="Member of Parliament"/>
+         </references>
+      </meta>
+      <preface>
+         <heading>NATIONAL ASSEMBLY</heading>
+         <subheading>OFFICIAL REPORT</subheading>
+         <p>Wednesday, 13th July,2011</p>
+         <scene>
+            <span>The House met at thirty minutes past Two o'clock.</span>
+            <span>[Mr Speaker in the Chair]</span>
+         </scene>
+      </preface>
+      <debate>
+         <papers id="papers1">
+            <heading>PAPERSLAID</heading>
+            <subheading>The following Papers were laid on the Table:</subheading>
+            <other id="tbldocs1">
+               <p>
+                  <a id="d43e109" href="/ken/person/hon.khamasi/doc-20040704">The Report of the Commonwealth Parliamentary Association (CPA) Kenya branch delegation to the 35th CPA (Africa Region) conference held in Lobamba, Swaziland from 7th August, 2004 to 15th August, 2004.</a>
+               </p>
+               <p>
+                  <a id="d43e117" href="/ken/docs/ministry/agricultuer/doc000001">Annual Report and Accounts of Jomo Kenyatta University College of Agriculture and Technology for the year ended 30th June, 1990 and the Certificate thereon by the Auditor-General (Corporations)</a>
+               </p>
+               <p>
+                  <a id="d43e126" href="/ken/docs/ministry/education/doc000002">Audit Report and Accounts of Higher Education Loans Fund for the year ended 30th June, 1983 and the Certificate thereon by the Auditor-General (Corporations)</a>
+               </p>
+               <p/>
+               <p>
+                  <a id="d43e137" href="/ken/docs/ministry/finance/doc000231">Finance Report and Accounts of Higher Education Loans Fund for the year ended 30th June, 1983 and the Certificate thereon by the Auditor-General (Corporations)</a>
+               </p>
+            </other>
+            <scene>
+               <span>(By the Assistant Minister for Finance (Mr. Keah) on behalf of the Minister for Finance)</span>
+            </scene>
+         </papers>
+         <communication id="comnctn1">
+            <heading>COMMUNICATION FROM THE CHAIR</heading>
+            <speech id="speech1" by="#p3" as="Speaker">
+               <p>The Speaker:</p>
+               <p>Honourable members, I welcome you. However, I note that the number is smaller than yesterday's. I know there is a committee, which is busy in the Eastern part of Uganda, but others should be here. I do not know what is happening, even to the Front Bench. I do not know whether they have a meeting, but I have not been informed. Anyway, I welcome you.</p>
+               <p>I will be adjusting the Order Paper to allow a statement from hon. Baba Diri and an informal question from hon. Banyenzaki. I would also like to take this opportunity to point out that there is something which we as Parliament should take note of and find a solution to. The problem is the road carnage. There are very many deaths on our roads. I think something should be done to curb this because there was an accident in Mabira and another one on Masaka road. I think something has to be done. There must be something wrong. I am not supposed to participate in the debate, but I also own a constituency and I am a citizen who takes advantage of my seat here to point out what is going on. Something should be done.</p>
+            </speech>
+            <speech id="speech2" by="#p340" as="MemberOfParliament">
+               <p>Mr Nuhene:</p>
+               <p>Thank you, Mr Speaker. One of the issues why the attendance is poor is that in most cases we begin plenary very late, yet you always adjourn this House to 2.00 p.m. Members are always here at 2.00 p.m. but we begin towards 3.00 p.m., so there is need to keep time.</p>
+            </speech>
+            <speech id="speech3" by="#p3" as="MemberOfParliament">
+               <p>THE SPEAKER:</p>
+               <p>That has no merit, I must say. You mean they went away because we did not start at 2.00 p.m.? When I am in my chambers I watch the attendance here.</p>
+            </speech>
+         </communication>
+         <p>POINT OF ORDER</p>
+         <p>Banning of Matatus from AccessingNairobi CBD</p>
+         <p>The Member for Malava (Mr. Shitanda):</p>
+         <p>Mr. Speaker, Sir, I stand to ask for a Ministerial Statement from the Minister for Local Government regarding his decision to ban matatus from accessing the Central Business District (CBD). This decision has left very many commuters inconvenienced, with some of them having to walk five kilometres to their places of work.</p>
+         <p>Imagine a situation whereby a commuter from Eastlands is dropped at the City Stadium and his place of work is at Community! This commuter will walk a distance of almost five kilometres to reach his place of work. I would like to know from the Minister what he will do to ensure that his decision does not inconvenience commuters and whether that decision will, indeed, decongest the CBD. Why was his decision selective in the sense that there are some public service vehicles which have been allowed to access the CBD? I would wish him to explain his decision to this House.</p>
+         <p>The Vice-President and Minister for Home Affairs (Mr. Musyoka):</p>
+         <p>Mr. Speaker, Sir, I undertake to communicate that concern by the hon. Member to the Minister for Local Government.</p>
+         <p>(Mr. Keter stood up in his place)</p>
+         <p>Mr. Speaker:</p>
+         <p>
+            <span>Mr. Keter, although you did indicate to me yesterday afternoon that you would seek a Ministerial Statement, you did not come to my office as agreed, to tell me the gist of the Ministerial Statement. So, you cannot ask for it now!</span>Next Order!</p>
+         <p>NOTICE OF MOTION</p>
+         <p>Release of Game Reserve Land for Public Use</p>
+         <p>Mr. Galgallo:</p>
+         <p>Mr. Speaker, Sir, I beg to give notice of the following Motion:</p>
+         <p>That, in view of the continuing rise of the population against the non-increasing land surface and since there have been simultaneous increase in the acreages and number of Game Reserves; this House urges the Government to review the entire structure of wildlife sanctuaries vis-a-vis the population demand for more land and degazette those reserves that are non-viable with a view to releazing more land for public use.</p>
+         <p>PROCEDURAL MOTIONS</p>
+         <p>Limitation of Debate: Presidential Address</p>
+         <p>The Minister for Energy (Mr. N. Biwott):</p>
+         <p>Mr. Speaker, Sir, I beg to move the following Procedural Motion:</p>
+         <p>That the debate on the Motion of Presidential Address be limited to a maximum of seven days, with not more than ten minutes for each Member speaking excluding the Mover in moving and replying who shall be limited to twenty minutes in either case.</p>
+         <p>Mr. Speaker, Sir, this is a routine Procedural Motion which we have adopted in all the Sessions in the past and it has served us well. This is the only way we can get some order for ensuring that every hon. Member gets an opportunity to contribute on this important Presidential Address.</p>
+         <p>With these few remarks, Mr. Speaker, Sir, I would like to commend this Procedural Motion to the hon. Members and I beg to move.</p>
+         <p>The Minister for Regional Development (Mr. Midika):</p>
+         <p>Mr. Speaker, Sir, I stand to second this Motion. Mr. Speaker, Sir, since this is a Procedural Motion, perhaps we should not dwell on it very much when we have other very important issues coming on. Therefore, I want to take the shortest possible time possible to second the Motion.</p>
+         <p>(Question proposed)</p>
+         <p>(Question put and agreed to)</p>
+         <p>ORAL ANSWERS TO QUESTIONS</p>
+         <p>No. 332</p>
+         <p>Bitumenization of Arabia Airstrip</p>
+         <p>Mr. Aden asked the Minister for Transport and Communication -</p>
+         <p>(a)why the Ministry has abandoned the work of bituminizing the Arabia Airstrip after having done the project half-way in 1978; and</p>
+         <p>(b)when this work will be completed.</p>
+         <p>The Assistant Minister for Transport and Communications (Dr. Momanyi):</p>
+         <p>Mr. Speaker, Sir, I beg to reply.</p>
+         <p>(a) The Arabia Airstrip is of gravel surface, and that is how it was intended to be. At no time has any bitumen work ever been undertaken in 1978 and stopped, as the question implies. The airstrip was last graded in June, 1988.</p>
+         <p>(b) According to the Ministry's current Development Plan there is no provision to bituminize Arabia Airstrip.</p>
+         <p>Mr. Aden:</p>
+         <p>Arising from the reply given by the Assistant Minister, is he denying the fact that the Mandera District Development Committee (D.D.C.) recommended bituminization of this particular airstrip way back in 1977? What did the Ministry do about that recommendation of the D.D.C.?</p>
+         <p>Dr. Momanyi:</p>
+         <p>Mr. Speaker, Sir, it is not always that the Minisry goes by the recommendations of the D.D.C. This is because to build an airstrip, you must look at various things. I want to inform the House now that there is no sufficient volume of traffic for the Arabia Airstrip. Already, in Mandera District, we have bituminized airstrips at El Wak, El Rhamu and Mandera.</p>
+         <p>Mr. Aden:</p>
+         <p>Mr. Speaker, Sir, I am amazed by the reply given by the Assistant Minister. It is the people who live in the area who know what the airstrip is like. Now the basis of development is the recommendation of the D.D.C. Now that the Assistant Minister says that they abide by the recommendations of the D.D.C., does he imply that his Ministry is better placed to know about the place than the inhabitants of Arabia?</p>
+         <p>Dr. Momanyi:</p>
+         <p>Mr. Speaker, Sir, I said it is not always that the Ministry goes by the recommendations of the D.D.C. Hon. Aden should have understood that. However, let me now give the statistical figures which come form the Directorate of Civil Aviation (D.C.A.).</p>
+         <p>(...)</p>
+         <p>Mr. Aden:</p>
+         <p>Thank you, Mr. Speaker, Sir. I do not know how the Assistant Minister wants an airstrip that is unfinished to be used by an aircraft. Is he aware that various officials who fly out of Nairobi, and who want to visit particular projects in that division, land at Mandera Airstrip, which is 35 miles away and then drive by road because there is no serviceable landing airstrip?</p>
+         <p>Dr. Momanyi:</p>
+         <p>Mr. Speaker, Sir, the airstrip has been maintained regularly. It was last graded in 1988. I would like to inform the hon. Member that gravel surface, if it has a strong foundation and is well-maintained, can be used by aircraft of a certain weight.</p>
+         <p>Mr. Speaker: Next question.</p>
+         <p>ADJOURNMENT</p>
+         <p>The Temporary Deputy Speaker (Mr. Kabingu-Muregi):</p>
+         <p>It is now time for the interruption of business. The House is, therefore, adjourned until tomorrow, Wednesday, 11th May, at 9.00 a.m.</p>
+         <p>The House rose at thirty minutes past Six o'clock.</p>
+      </debate>
+   </debateRecord>
+</akomaNtoso>

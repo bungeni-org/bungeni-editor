@@ -1,0 +1,28 @@
+package org.bungeni.editor.actions.routers;
+
+import org.bungeni.editor.actions.toolbarAction;
+import org.bungeni.error.BungeniMsg;
+import org.bungeni.error.BungeniValidatorState;
+import org.bungeni.ooo.OOComponentHelper;
+
+/**
+ *
+ * @author undesa
+ */
+public class routerDebateRecordDateEntry extends defaultRouter {
+  private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(routerDebateRecordDateEntry.class.getName());
+ 
+  public routerDebateRecordDateEntry(){
+      super();
+  }
+      
+    @Override
+    // public BungeniValidatorState route_TextSelectedInsert(toolbarSubAction action, toolbarSubAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+    public BungeniValidatorState route_TextSelectedInsert(toolbarAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+        
+      BungeniValidatorState stateObj = CommonRouterActions.displaySelectorDialog(subAction, pFrame, ooDocument);
+
+      return new BungeniValidatorState(true, new BungeniMsg("SUCCESS")); 
+    }
+
+}
