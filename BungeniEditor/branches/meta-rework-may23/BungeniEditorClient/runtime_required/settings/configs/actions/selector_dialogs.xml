@@ -91,9 +91,9 @@
     </dialog>
 
     <dialog
-        class="org.bungeni.editor.selectors.debaterecord.ref.Main" >
+        class="org.bungeni.editor.selectors.general.ref.Main" >
         <dialog
-            class="org.bungeni.editor.selectors.debaterecord.ref.RefURI"
+            class="org.bungeni.editor.selectors.general.ref.RefURI"
              />
 
     </dialog>

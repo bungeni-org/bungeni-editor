@@ -62,6 +62,7 @@ public class toolbarAction {
 
 
     private actionRouter                   router;
+    private String inline_type;
 
     /**
     <router name="debaterecord.markup_motion_title.makeProcMotionBlockSection"
@@ -129,6 +130,7 @@ public class toolbarAction {
         //this.sub_section_type    = (String) safeGetString(actionDesc, action_mapping, "SECTION_TYPE");
 
         this.sub_section_type    = actionElement.getAttributeValue("sectiontype");
+       
         //sectiontype is non-mandatory
         if (this.sub_section_type == null ) {
             this.sub_section_type = "";
@@ -148,80 +150,15 @@ public class toolbarAction {
               this.section_naming_convention = "" ;
               this.section_numbering_convention = "" ;
         }
-        
-    }
 
-    /** Creates a new instance of toolbarSubAction */
-    /** !+ACTION_RECONF(ah-23-01-2012) Deprecated the original constructor, switching to use
-     * JDOM ELEMENT constructor
-     * @param actionDesc
-     * @param action_mapping
-    
-    public toolbarSubAction(Vector<String> actionDesc, HashMap action_mapping) {
-
-        // !+ACTION_RECONF (rm, jan 2012) - changing the names of the fields
-        // used for accessing SUB_ACTION_SETTINGS table to use the fields in the
-        // ACTION_SETTINGS2 table
-        //this.sub_action_name     = (String) safeGet(actionDesc, action_mapping, "SUB_ACTION_NAME");
-        this.sub_action_name     = (String) safeGet(actionDesc, action_mapping, "ACTION_NAME");
-
-        // !+ACTION_CONFIG (rm,jan 2012) - deprecating statement since the field that
-        // the variable maps to in the db is deprecated
-        //this.sub_action_order    = (String) safeGet(actionDesc, action_mapping, "SUB_ACTION_ORDER");
-        
-        this.doc_type            = (String) safeGet(actionDesc, action_mapping, "DOC_TYPE");
-
-        // !+ACTION_CONFIG (rm,jan 2012) - deprecating statement since the field that
-        // the variable maps to in the db is deprecated
-        // this.action_type         = (String) safeGet(actionDesc, action_mapping, "ACTION_TYPE");
-
-        // !+ACTION_RECONF (rm, jan 2012) - deprecating statement since the field
-        // it maps to in the db is dropped
-        //this.sub_action_state    = (String) safeGet(actionDesc, action_mapping, "SUB_ACTION_STATE");
-        
-        this.parent_action_name  = (String) safeGet(actionDesc, action_mapping, "PARENT_ACTION_NAME");
-        //this.parent_action_name  = (String) safeGet(actionDesc, action_mapping, "ACTION_NAME");
-
-        this.action_display_text = (String) safeGetString(actionDesc, action_mapping, "ACTION_DISPLAY_TEXT");
-
-        // !+ACTION_RECONF (rm, jan 2012) - Setting the action_class var to a
-        // value at declaration, rather than obtained from db at run time
-        // this.action_class        = (String) safeGetString(actionDesc, action_mapping, "ACTION_CLASS");
-        this.action_class = "org.bungeni.editor.actions.EditorSelectionActionHandler" ;
-
-        // !+ACTION_RECONF (rm, jan 2012) - Setting the validator class to a
-        // value at declaration, rather than obtained from the db at run time
-        //this.validator_class     = (String) safeGetString(actionDesc, action_mapping, "VALIDATOR_CLASS");
-        this.validator_class     = (String) safeGetString(actionDesc, action_mapping, "ACTION_VALIDATOR_CLASS");
-        //this.validator_class     = "org.bungeni.editor.actions.validators.defaultValidator";
-
-        //this.router_class        = (String) safeGetString(actionDesc, action_mapping, "ROUTER_CLASS");
-        this.action_router_name        = (String) safeGetString(actionDesc, action_mapping, "ACTION_ROUTER_NAME");
-
-        //this.dialog_class        = (String) safeGetString(actionDesc, action_mapping, "DIALOG_CLASS");
-
-        this.dialog_class        =   getDialogClass(this.action_router_name);
-
-        //this.sub_section_type    = (String) safeGetString(actionDesc, action_mapping, "SECTION_TYPE");
-        this.sub_section_type    = (String) safeGetString(actionDesc, action_mapping, "ACTION_SECTION_TYPE");
-
-        if (this.sub_section_type.length() > 0 ) {
-            DocumentSection associatedSection = DocumentSectionsContainer.getDocumentSectionByType(this.sub_section_type);
-            if (associatedSection != null ) {
-                this.section_naming_convention = associatedSection.getSectionNamePrefix();    // (String) safeGet(actionDesc, action_mapping, "ACTION_NAMING_CONVENTION");
-                this.section_numbering_convention = associatedSection.getSectionNumberingStyle();    // (String) safeGet(actionDesc, action_mapping, "ACTION_NUMBERING_CONVENTION");
-             } else {
-                this.section_naming_convention = "" ;    
-                this.section_numbering_convention = "" ;
-             }
-        } else {
-              this.section_naming_convention = "" ;
-              this.section_numbering_convention = "" ;
+        this.inline_type = actionElement.getAttributeValue("inlinetype");
+        if (this.inline_type == null) {
+            this.inline_type = "";
         }
 
-       // buildCommandChain((String) safeGet(actionDesc, action_mapping, "COMMAND_CHAIN"));
+
+
     }
-    **/
 
     
     @Override
@@ -229,55 +166,11 @@ public class toolbarAction {
         return this.actionName;
     }
 
-    /**
-     *
-     * !+ACTION_RECONF(ah, jan-2012) deprecated becase of switch to xml based action configurations
-     *
-    private String safeGetString(Vector<String> actions, HashMap map, String key) {
-        Object o = null;
-
-        o = safeGet(actions, map, key);
-
-        if (o == null) {
-            return null;
-        } else {
-            return ((String) o).trim();
-        }
-    }
-
-    private Object safeGet(Vector<String> actions, HashMap map, String key) {
-        Object o = null;
-
-        if (map.containsKey(key)) {
-            log.debug("safeGet: key matched - " + key);
-
-            Integer column = (Integer) map.get(key);
-
-            log.debug("safeGet: column matched - " + column);
-            o = actions.elementAt(column - 1);
-
-            if (o == null) {
-                log.debug("Key was found but vector reqturned null : " + key);
-            }
-
-            return o;
-        } else {
-            log.debug("Key : " + key + " was not found");
-
-            return null;
-        }
-    }
-    **/
-   
 
     public String doc_type() {
         return doc_type;
     }
 
-    // !+DEPRECATED(ah, feb-2012)
-    //public String parent_action_name() {
-    //     return parent_action_name;
-    // }
 
     public String sub_action_name() {
         return actionName;
@@ -286,17 +179,6 @@ public class toolbarAction {
     public String action_class() {
         return action_class;
     }
-
-    // !+ACTION_RECONF (rm, jan 2012) - deprecating method since the
-    // field sub_action_ORDER in DB is dropped
-    /**
-    public String sub_action_order() {
-        return sub_action_order;
-    }
-    **/
-    
-
-
 
 
     public String validator_class() {
@@ -310,6 +192,10 @@ public class toolbarAction {
 
     public String section_type(){
         return this.sub_section_type;
+    }
+
+    public String inline_type(){
+        return this.inline_type;
     }
 
     public String section_naming_convention(){
@@ -327,22 +213,6 @@ public class toolbarAction {
     public String router_class() {
         return this.router.getRouterClass();
     }
-/*
-    public String[] profiles() {
-        return this.profiles;
-    }
-
-    public boolean hasProfile(String pProfile) {
-        for (int i = 0; i < profiles.length; i++) {
-            if (pProfile.equals(profiles[i])) {
-                return true;
-            }
-        }
-
-        return false;
-    }*/
-
-
 
     public void setActionValue(String value) {
         this.action_value = value;

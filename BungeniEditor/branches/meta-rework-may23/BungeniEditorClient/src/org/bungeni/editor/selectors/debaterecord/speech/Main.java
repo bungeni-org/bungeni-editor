@@ -15,7 +15,6 @@ import com.sun.star.text.XTextViewCursor;
 import java.awt.Component;
 
 
-import javax.swing.JFrame;
 
 /**
  *
@@ -28,9 +27,6 @@ public class Main extends BaseMetadataContainerPanel {
     public Main() {
         super();
     }
-
-
-
 
 
     @Override

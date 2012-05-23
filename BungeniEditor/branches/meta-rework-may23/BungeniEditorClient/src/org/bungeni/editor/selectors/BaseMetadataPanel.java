@@ -5,7 +5,6 @@ package org.bungeni.editor.selectors;
 
 
 import org.bungeni.editor.actions.toolbarAction;
-import org.bungeni.editor.selectors.BaseMetadataContainerPanel.ConditionSet;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.CommonUIFunctions;
 import org.bungeni.ooo.OOComponentHelper;
@@ -70,7 +69,6 @@ public abstract class BaseMetadataPanel extends JPanel implements IMetadataPanel
         getFormContext().setTheSubAction(getTheSubAction());
         getFormContext().setOoDocument(getOoDocument());
         getFormContext().setPreInsertMap(getThePreInsertMap());
-        getFormContext().setConditionSet(getConditionSet());
     }
 
     public void commonInitFields() {}
@@ -149,9 +147,6 @@ public abstract class BaseMetadataPanel extends JPanel implements IMetadataPanel
         return getContainerPanel().getDialogMode();
     }
 
-    public ConditionSet getConditionSet() {
-        return getContainerPanel().getConditionSet();
-    }
 
     public void addErrorMessage(java.awt.Component p, String msg) {
         getContainerPanel().addErrorMessage(this, p, msg);
@@ -352,7 +347,7 @@ public abstract class BaseMetadataPanel extends JPanel implements IMetadataPanel
         }
 
         // return blank if not found
-        return new String("");
+        return "";
     }
 
     protected boolean pasteTextIntoDocument(String text) {

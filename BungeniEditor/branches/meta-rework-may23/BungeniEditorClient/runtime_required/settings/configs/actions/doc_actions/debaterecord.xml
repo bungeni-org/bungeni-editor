@@ -291,7 +291,7 @@
 
     <action name="make_ref">
             <router class="org.bungeni.editor.actions.routers.routerActSelectRef"
-                dialog="org.bungeni.editor.selectors.debaterecord.ref.Main"
+                dialog="org.bungeni.editor.selectors.general.ref.Main"
             />
     </action>
 

@@ -1,4 +1,4 @@
-package org.bungeni.editor.selectors.debaterecord.ref;
+package org.bungeni.editor.selectors.general.ref;
 
 //~--- non-JDK imports --------------------------------------------------------
 

@@ -5,7 +5,6 @@
  */
 
 package org.bungeni.editor.metadata.editors;
-import org.jdom.Element;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.io.IOException;
@@ -18,9 +17,6 @@ import javax.swing.JComboBox;
 import javax.swing.SwingWorker;
 import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.element.*;
-import org.bungeni.db.registryQueryDialog2;
-import org.bungeni.editor.config.DatasourceReader;
-import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
 import org.bungeni.editor.metadata.JudgementMetadataModel;
 import org.bungeni.editor.selectors.SelectorDialogModes;
@@ -38,7 +34,7 @@ public class JudgemenMetadataExtra extends BaseEditorDocMetadataDialog {
     
      private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(JudgemenMetadataExtra.class.getName());
     JudgementMetadataModel docMetaModel = new JudgementMetadataModel();
-    registryQueryDialog2 rqs = null;
+   
     
      // private Vector<Vector<String>> resultRows = null ; // stores all the bills as
                             // obtained from the H2 database

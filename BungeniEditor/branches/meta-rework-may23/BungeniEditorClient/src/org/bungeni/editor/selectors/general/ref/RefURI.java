@@ -1,5 +1,5 @@
 
-package org.bungeni.editor.selectors.debaterecord.ref;
+package org.bungeni.editor.selectors.general.ref;
 
 import java.awt.Component;
 import java.lang.String;
@@ -35,11 +35,11 @@ public class RefURI extends  BaseMetadataPanel {
 
         setName("Speech By"); // NOI18N
 
-        lbl_RefURI.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/ref/Bundle"); // NOI18N
+        lbl_RefURI.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/general/ref/Bundle"); // NOI18N
         lbl_RefURI.setText(bundle.getString("RefURI.lbl_RefURI.text")); // NOI18N
 
-        txt_RefURI.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        txt_RefURI.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -48,7 +48,7 @@ public class RefURI extends  BaseMetadataPanel {
             .addComponent(txt_RefURI, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lbl_RefURI, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 130, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

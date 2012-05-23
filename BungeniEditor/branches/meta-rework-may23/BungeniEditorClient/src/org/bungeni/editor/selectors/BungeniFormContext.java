@@ -1,11 +1,4 @@
-/*
- * BungeniFormContext.java
- *
- * Created on December 20, 2007, 12:29 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
+
 
 package org.bungeni.editor.selectors;
 
@@ -13,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.actions.toolbarAction;
-import org.bungeni.editor.selectors.BaseMetadataContainerPanel.ConditionSet;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooDocMetadataFieldSet;
 
@@ -36,8 +28,7 @@ public class BungeniFormContext  implements IBungeniFormContext{
     //private ArrayList<ooDocFieldSet> fieldSets = new ArrayList<ooDocFieldSet>(0);
     private ArrayList<ooDocMetadataFieldSet> metadataFieldSets = new ArrayList<ooDocMetadataFieldSet>(0);
     private HashMap<String,Object> preInsertMap = new HashMap<String, Object>();
-    private ConditionSet conditionSet ;
-    /** Creates a new instance of BungeniFormContext */
+   /** Creates a new instance of BungeniFormContext */
     public BungeniFormContext(){
         
     }
@@ -89,13 +80,7 @@ public class BungeniFormContext  implements IBungeniFormContext{
         this.bungeniForm = frm;
     }
 
-    public void setConditionSet(ConditionSet set){
-        this.conditionSet = set;
-    }
-    
-    public ConditionSet getConditionSet(){
-        return conditionSet;
-    }
+
     public void addFieldSet(String fieldKey) {
         if (fieldSets.containsKey(fieldKey)) {
             return;

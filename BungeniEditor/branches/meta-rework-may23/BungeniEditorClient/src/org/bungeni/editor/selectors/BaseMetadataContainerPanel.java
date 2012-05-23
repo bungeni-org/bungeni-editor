@@ -63,50 +63,6 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
 
     protected XTextRange capturedCursorRange = null;
 
-    public class ConditionSet {
-
-        HashMap<String, String> conditionSet = new HashMap<String, String>();
-
-        public ConditionSet() {
-        }
-
-        public HashMap<String, String> getConditionSet() {
-            return this.conditionSet;
-        }
-
-        public boolean conditionalsExist() {
-            if (this.conditionSet.size() > 0) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        public void addConditionSet(String conditionName, String conditionValue) {
-            if (!conditionSet.containsKey(conditionName)) {
-                this.conditionSet.put(conditionName, conditionValue);
-            }
-        }
-
-        public void setConditionSetValue(String conditionName, String conditionValue) {
-            if (this.conditionSet.containsKey(conditionName)) {
-                conditionSet.put(conditionName, conditionValue);
-            }
-        }
-
-        public String getConditionValue(String condName) {
-            if (conditionSet.containsKey(condName)) {
-                return conditionSet.get(condName);
-            } else {
-                return null;
-            }
-        }
-    }
-    private ConditionSet conditionSet = null;
-
-    public ConditionSet getConditionSet() {
-        return conditionSet;
-    }
     /**
      * error messages
      */
@@ -124,7 +80,6 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
         //this.setBackground(java.awt.Color.decode(popupDlgBackColor));
 
         initListeners();
-        conditionSet = new ConditionSet();
     }
 
     // !+ACTION_RECONF (rm, feb 2012( - since subActions are deprecated, commenting 
@@ -661,19 +616,6 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
         String sSubAction = this.theSubAction.sub_action_name();
         // accquirePanels(sDocType, sAction, currentActiveProfile);
         accquirePanels(sDocType, sSubAction, currentActiveProfile);
-    }
-
-    class iteratePanels implements IQueryResultsIterator {
-        ArrayList<String> selectorDialogClass = new ArrayList<String>(0);
-
-        public boolean iterateRow(QueryResults mQR, Vector<String> rowData) {
-            selectorDialogClass.add(mQR.getField(rowData, "SELECTOR_DIALOG"));
-            return true;
-        }
-
-        public ArrayList<String> getSelectorDialogs(){
-            return selectorDialogClass;
-        }
     }
 
     // !+ ADDED COMMENTS TO CODE +++

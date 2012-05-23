@@ -11,7 +11,6 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.element.Member;
-import org.bungeni.db.registryQueryDialog;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.extutils.CommonConnectorFunctions;
 import org.bungeni.ooo.OOComponentHelper;
@@ -24,7 +23,6 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  */
 public class PersonSelector extends BaseMetadataPanel {
 
-    registryQueryDialog rqs = null;
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(PersonSelector.class.getName());
     //    HashMap<String, String> selectionData = new HashMap<String,String>();
     private ArrayList<ObjectPerson> arrPersons = new ArrayList<ObjectPerson>(0);
@@ -39,8 +37,6 @@ public class PersonSelector extends BaseMetadataPanel {
     @Override
     public void commonInitFields() {
         initComboSelect();
-        //this.cboPersonSelect.addActionListener(new PersonSelect());
-
         }
 
     // !+ (rm, feb 2012) - removed arg...it's unused
@@ -72,56 +68,10 @@ public class PersonSelector extends BaseMetadataPanel {
         
         return personObjects;
         
-//            HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();
-//            BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
-//            dbInstance.Connect();
-//            String query = "";
-//            if (bypersonId.length() == 0) {
-//                query = "Select ID, FIRST_NAME, LAST_NAME, URI, ROLE from persons order by last_name, first_name";
-//            } else {
-//                query = "Select ID, FIRST_NAME, LAST_NAME, URI, ROLE from persons where ID='"+ bypersonId + "' order by last_name, first_name";
-//            }
-//            QueryResults qr = dbInstance.QueryResults(query);
-//            dbInstance.EndConnect();
-//            String personId, personFirstName, personLastName, personURI, personRole;
-//            if (qr.hasResults()) {
-//                Vector<Vector<String>> theResults = qr.theResults();
-//                for (Vector<String> row : theResults) {
-//                     personId = qr.getField(row, "ID");
-//                     personFirstName = qr.getField(row, "FIRST_NAME");
-//                     personLastName = qr.getField(row, "LAST_NAME");
-//                     personURI = qr.getField(row, "URI");
-//                     personRole = qr.getField(row, "ROLE");
-//                     ObjectPerson m = new ObjectPerson(personId, personFirstName, personLastName, personURI, personRole);
-//                     personObjects.add(m);
-//                }
-//            }
     }
 
     private void initComboSelect() {
 
-        //ArrayList<ObjectPerson> personObjects = new ArrayList<ObjectPerson>(0);
-         /*
-        Vector<ObjectPerson> personObjects = new Vector<ObjectPerson>();
-        HashMap<String,String> registryMap = BungeniRegistryFactory.fullConnectionString();
-        BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
-        dbInstance.Connect();
-        QueryResults qr = dbInstance.QueryResults("Select ID, FIRST_NAME, LAST_NAME, URI, ROLE from persons order by last_name, first_name");
-        dbInstance.EndConnect();
-        String personId, personFirstName, personLastName, personURI, personRole;
-        if (qr.hasResults()) {
-        Vector<Vector<String>> theResults = qr.theResults();
-        for (Vector<String> row : theResults) {
-        personId = qr.getField(row, "ID");
-        personFirstName = qr.getField(row, "FIRST_NAME");
-        personLastName = qr.getField(row, "LAST_NAME");
-        personURI = qr.getField(row, "URI");
-        personRole = qr.getField(row, "ROLE");
-        ObjectPerson m = new ObjectPerson(personId, personFirstName, personLastName, personURI, personRole);
-        personObjects.add(m);
-        }
-        }
-         * */
         this.arrPersons = getPersonObjects();
         this.cboPersonSelect.addActionListener(new PersonSelect());
         this.cboPersonSelect.setModel(new DefaultComboBoxModel(arrPersons.toArray()));
