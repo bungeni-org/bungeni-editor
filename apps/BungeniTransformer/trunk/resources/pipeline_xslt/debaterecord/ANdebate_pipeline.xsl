@@ -150,6 +150,14 @@
     <xsl:template match="*[@name='from']">
         <from><xsl:apply-templates /></from>
     </xsl:template>
+    
+    <xsl:template match="*[@name='Ref']">
+        <ref>
+            <xsl:attribute name="id"><xsl:text>ref-</xsl:text><xsl:number value="position()" /></xsl:attribute>
+            <xsl:attribute name="href"><xsl:value-of select="./bungeni:bungenimeta/bungeni:BungeniRefURI" /></xsl:attribute>
+            <xsl:apply-templates />
+        </ref>
+    </xsl:template>
 
     <xsl:template bp:name="QuestionsContainer" match="*[@name='QuestionsContainer']">
         <subdivision>
