@@ -1,4 +1,3 @@
-h2db http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/h2db
 bungeni http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeni
 bungeniooolib http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeniooolib
 bungenieditor-panelsimpl http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungenieditor-panelsimpl

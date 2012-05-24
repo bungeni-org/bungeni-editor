@@ -4,8 +4,6 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Vector;
-import org.bungeni.db.QueryResults;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 import org.jdom.Element;

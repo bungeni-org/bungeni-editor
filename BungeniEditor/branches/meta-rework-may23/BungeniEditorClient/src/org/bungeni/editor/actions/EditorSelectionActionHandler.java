@@ -4,7 +4,6 @@ package org.bungeni.editor.actions;
 
 import org.apache.log4j.Logger;
 
-import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.editor.actions.routers.routerFactory;
 import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.error.ErrorMessages;

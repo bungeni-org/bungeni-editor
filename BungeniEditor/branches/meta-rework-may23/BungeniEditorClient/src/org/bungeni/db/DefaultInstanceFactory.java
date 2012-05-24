@@ -30,12 +30,7 @@ public class DefaultInstanceFactory {
         return defaultInstance;
   
     }
-    
-    public static String DEFAULT_DB() {
-        return new String("settings.db");
-    }
-    
-    
+
     public static String DEFAULT_INSTALLATION_PATH() {
         Installation install = new Installation();
         String installDirectory = install.getAbsoluteInstallDir();
