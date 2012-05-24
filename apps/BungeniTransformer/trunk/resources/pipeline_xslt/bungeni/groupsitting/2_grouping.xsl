@@ -26,6 +26,7 @@
     <xsl:variable name="parliament-election-date" select="data(/ontology/bungeni/parliament/@date)" />
     <xsl:variable name="for-parliament" select="data(/ontology/bungeni/parliament/@href)" />  
     <xsl:variable name="parliament-id" select="data(/ontology/bungeni/@id)" />
+    <xsl:variable name="type-mappings" select="//custom/value" />
 
     <xsl:template match="/">
         <xsl:apply-templates/>
@@ -59,7 +60,7 @@
     <xsl:template match="field[@name='item_type']">
         <itemType isA="TLCTerm">
             <value type="xs:string">
-                <xsl:value-of select="." />                
+                <xsl:value-of select="bctypes:get_content_type_uri_name(., $type-mappings)" />                
             </value>
         </itemType>
     </xsl:template>    

@@ -121,6 +121,9 @@
                 <xsl:attribute name="refersTo" select="concat('#', $group_id)" />
                 </xsl:element>
             -->
+            <custom>
+                <xsl:copy-of select="$type-mappings" />
+            </custom>            
         </ontology>
     </xsl:template>
     
