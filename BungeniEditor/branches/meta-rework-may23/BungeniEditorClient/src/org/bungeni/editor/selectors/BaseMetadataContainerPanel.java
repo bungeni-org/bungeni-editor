@@ -18,6 +18,7 @@ import javax.swing.SwingWorker;
 import org.bungeni.editor.config.DocumentActionsReader;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.actions.toolbarAction;
+import org.bungeni.editor.config.SectionTypesReader;
 import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
 import org.bungeni.extutils.BungeniUUID;
 import org.bungeni.ooo.OOComponentHelper;
@@ -558,15 +559,7 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
     }
 
     public abstract java.awt.Component getPanelComponent();
-  //  protected ArrayList<panelInfo> m_allPanels = new ArrayList<panelInfo>(0);
-    /*
-    {
-    {
-    add(new panelInfo("Title","org.bungeni.editor.selectors.debaterecord.masthead.Title"));
-    add(new panelInfo("TabledDocuments", "org.bungeni.editor.selectors.debaterecord.masthead.TabledDocuments"));
-    }
-    };
-     */
+
     protected ArrayList<panelInfo> m_activePanels = new ArrayList<panelInfo>();
 
     protected class panelField {
@@ -590,14 +583,6 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
     }
 
     protected HashMap<panelField, Boolean> fieldStates = new HashMap<panelField, Boolean>();
-
-    /*
-    {
-    {
-    add(new panelInfo("Title","org.bungeni.editor.selectors.debaterecord.masthead.Title"));
-    add(new panelInfo("TabledDocuments", "org.bungeni.editor.selectors.debaterecord.masthead.TabledDocuments"));
-    }
-    };*/
 
     // (rm, feb 2012) - the panels are obtained from an xml file rather than
     // from the db,arg for accquirePanels uses action name
@@ -653,23 +638,6 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
         } catch (IOException ex) {
             log.error("Error obtaining the panels for dialog : " +ex);
         }
-        
-       
-        //
-        /**
-           BungeniClientDB db        = BungeniClientDB.defaultConnect();
-           QueryResults qr = db.ConnectAndQuery(SettingsQueryFactory.Q_FETCH_SELECTOR_DIALOGS(docType,
-                                                                        actionName,
-                                                                        profileName));
-           iteratePanels panelsIterate = new iteratePanels();
-           qr.resultsIterator(panelsIterate);
-           ArrayList<String> ppanels = panelsIterate.getSelectorDialogs();
-
-           //
-           for (String sPanel : ppanels) {
-                this.m_activePanels.add(new panelInfo(BungeniUUID.getStringUUID(), sPanel));
-            }
-         **/
     }
 
     public void postPanelSetup() {
@@ -691,18 +659,12 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
         setBorder(null);
         paneMain.setBorder(null);
         paneMain.setBackground(BungeniEditorPropertiesHelper.getDialogBackColor());
-        //JXTaskPaneGroup mainTPgroup = new JXTaskPaneGroup();
-        //mainTPgroup.setsetTitle(this.theAction.action_display_text() + " ::");
-        //mainTPgroup.getgetContentPane().setBackground(BungeniEditorPropertiesHelper.getDialogBackColor());
-        //mainTPgroup.setBackground(BungeniEditorPropertiesHelper.getDialogBackColor());
         for (panelInfo panelInf : getActivePanels()) {
             IMetadataPanel panel = panelInf.getPanelObject();
             panel.initVariables(this);
             paneMain.add(panel.getPanelComponent());
         }
         paneMain.setCollapsed(false);
-        //paneMain.add(mainTPgroup);
-    //   paneMain.add(tpgTD);
     }
 
     /** This method is called from within the constructor to
