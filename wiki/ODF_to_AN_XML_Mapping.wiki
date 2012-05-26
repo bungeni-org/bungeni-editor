@@ -4,6 +4,8 @@
 
 = Introduction =
 
+*WARNING: THE CONTENTS OF THIS PAGE ARE OUT OF DATE, METADATA MAPPING IS SWITCHING OVER TO AN AUTO MAPPING MECHANISM*
+
 This page describes how metadata is represented in Bungeni Editor ODF documents and how that is mapped to Akoma Ntoso 
 
 Bungeni Editor uses a couple of different mechanisms to record metadata in a ODF document.
