@@ -31,6 +31,7 @@
 <entry key="CREATE_PART_FROM_SELECTION">إنشاء الجزء من النص المظلل</entry>
 <entry key="CREATE_CHAPTER_FROM_SELECTION">إنشاء الباب من النص المظلل</entry>
 <entry key="CREATE_SECTION_FROM_SELECTION">إنشاء الفصل من النص المظلل</entry>
+<entry key="CREATE_ARTICLE_FROM_SELECTION">إنشاء المادة من النص المظلل</entry>
 <entry key="CREATE_CONCLUSION_FROM_SELECTION">إنشاء الخاتمة من النص المظلل</entry>
 <entry key="PART">جزء</entry>
 <entry key="HEADER">عام</entry>
