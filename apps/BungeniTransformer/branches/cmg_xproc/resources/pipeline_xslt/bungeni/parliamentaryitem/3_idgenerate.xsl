@@ -6,8 +6,8 @@
     xmlns:bctypes="http://www.bungeni.org/xml/contenttypes/1.0"
     exclude-result-prefixes="xs"
     version="2.0">
-    <xsl:import href="resources/pipeline_xslt/bungeni/common/func_dates.xsl" />
-    <xsl:import href="resources/pipeline_xslt/bungeni/common/func_content_types.xsl" />
+    <xsl:import href="D:/BungeniProject/ProjectCode/cmg_xproc/resources/pipeline_xslt/bungeni/common/func_dates.xsl" />
+    <xsl:import href="D:/BungeniProject/ProjectCode/cmg_xproc/resources/pipeline_xslt/bungeni/common/func_content_types.xsl" />
     
     <xd:doc xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" scope="stylesheet">
         <xd:desc>

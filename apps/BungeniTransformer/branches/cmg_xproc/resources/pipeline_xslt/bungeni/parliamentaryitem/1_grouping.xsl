@@ -6,7 +6,7 @@
                 version="2.0">
     
     <!-- INCLUDE FUNCTIONS -->
-    <xsl:import href="resources/pipeline_xslt/bungeni/common/func_content_types.xsl" />
+    <xsl:import href="D:/BungeniProject/ProjectCode/cmg_xproc/resources/pipeline_xslt/bungeni/common/func_content_types.xsl" />
     
     <xd:doc xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" scope="stylesheet">
         <xd:desc>
