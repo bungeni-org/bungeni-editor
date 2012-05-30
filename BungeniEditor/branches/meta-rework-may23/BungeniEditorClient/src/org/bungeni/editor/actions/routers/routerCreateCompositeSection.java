@@ -107,7 +107,7 @@ public class routerCreateCompositeSection extends defaultRouter {
 
         //get properties for new section to create
         //the boundarySection object contains the template for the new section to be created
-        DocumentSection newBoundingSection = DocumentSectionsContainer.getDocumentSectionByType(subAction.section_type());
+        DocumentSection newBoundingSection = DocumentSectionsContainer.getDocumentSectionByType(subAction.getSectionType());
         //get the name for the new section
         String newBoundingSectionName = this.newSectionNameForType(ooDocument, newBoundingSection);
         if (newBoundingSectionName.length() > 0 ) {

@@ -49,7 +49,6 @@ public class toolbarAction {
     // !+ACTION_RECONF (rm, jan 2012) - deprecating variable since the
     // field it maps to in the SUB_ACTIONS_SETTINGS table is dropped
     // private String                         sub_action_state;
-    private String                         sub_section_type;
     private DocumentSection                textSection ;
     private String                         validator_class;
     private String                         section_naming_convention;
@@ -62,7 +61,6 @@ public class toolbarAction {
 
 
     private actionRouter                   router;
-    private String inline_type;
 
     /**
     <router name="debaterecord.markup_motion_title.makeProcMotionBlockSection"
@@ -97,23 +95,27 @@ public class toolbarAction {
         }
     }
 
+    public enum actionSourceOrigin {
+        sectionType,
+        inlineType,
+        notSetType,
+        invalidType
+    };
+
+    actionSourceOrigin actionSource;
+
+    String actionSourceType;
+    
+    String actionSourceValue ;
+
 
     public toolbarAction (Element actionElement) throws JDOMException, IOException, Exception {
 
         this.actionName     = actionElement.getAttributeValue("name");
 
-        // !+ACTION_CONFIG (rm,jan 2012) - deprecating statement since the field that
-        // the variable maps to in the db is deprecated
-        //this.sub_action_order    = (String) safeGet(actionDesc, action_mapping, "SUB_ACTION_ORDER");
 
         this.doc_type            =  actionElement.getParentElement().getAttributeValue("for");
 
-        // !+DEPRECATED(ah,feb-2012) 
-        //this.parent_action_name  = actionElement.getAttributeValue("parent");
-      
-        // !+ACTION_RECONF (rm, jan 2012) - Setting the action_class var to a
-        // value at declaration, rather than obtained from db at run time
-        // this.action_class        = (String) safeGetString(actionDesc, action_mapping, "ACTION_CLASS");
         this.action_class = "org.bungeni.editor.actions.EditorSelectionActionHandler" ;
 
         //if a validator is specified in the action, use it otherwise use the default
@@ -121,23 +123,40 @@ public class toolbarAction {
         if (this.validator_class == null) {
             this.validator_class = DEFAULT_VALIDATOR;
         }
-        //this.validator_class     = "org.bungeni.editor.actions.validators.defaultValidator";
-
-        //this.router_class        = (String) safeGetString(actionDesc, action_mapping, "ROUTER_CLASS");
-
-        //this.dialog_class        = (String) safeGetString(actionDesc, action_mapping, "DIALOG_CLASS");
         this.router = new actionRouter(this.actionName);
-        //this.sub_section_type    = (String) safeGetString(actionDesc, action_mapping, "SECTION_TYPE");
+    
+        this.actionSourceType = actionElement.getAttributeValue("source");
+        if (this.actionSourceType == null ) {
+            this.actionSourceType = "";
+            this.actionSource = actionSourceOrigin.notSetType;
+        } else {
 
-        this.sub_section_type    = actionElement.getAttributeValue("sectiontype");
-       
-        //sectiontype is non-mandatory
-        if (this.sub_section_type == null ) {
-            this.sub_section_type = "";
+            this.actionSourceType = this.actionSourceType.trim();
+            this.actionSource = actionSourceOrigin.valueOf(this.actionSourceType);
+            if (this.actionSource != null) {
+                  String metadataValue = actionElement.getAttributeValue("metadata");
+                  if (metadataValue != null)
+                      this.actionSourceValue = metadataValue.trim();
+                  else
+                      this.actionSourceValue = "";
+                  if (actionSourceValue.length() > 0 ) {
+                    if (this.actionSource.equals(actionSourceOrigin.sectionType)) {
+                        this.setupSectionType(this.actionSourceValue);
+                    } else if (this.actionSource.equals(actionSourceOrigin.inlineType)) {
+                        log.debug("This is an inline type - no special setup for now");
+                    }
+                      
+                  }
+            } else {
+                this.actionSource = actionSourceOrigin.invalidType;
+            }
         }
-        
-        if (this.sub_section_type.length() > 0 ) {
-            DocumentSection associatedSection = DocumentSectionsContainer.getDocumentSectionByType(this.sub_section_type);
+    }
+
+
+    private void setupSectionType(String sub_section_type) {
+          if (sub_section_type.length() > 0 ) {
+            DocumentSection associatedSection = DocumentSectionsContainer.getDocumentSectionByType(sub_section_type);
             if (associatedSection != null ) {
                 this.textSection = associatedSection;
                 this.section_naming_convention = associatedSection.getSectionNamePrefix();    
@@ -150,17 +169,9 @@ public class toolbarAction {
               this.section_naming_convention = "" ;
               this.section_numbering_convention = "" ;
         }
-
-        this.inline_type = actionElement.getAttributeValue("inlinetype");
-        if (this.inline_type == null) {
-            this.inline_type = "";
-        }
-
-
-
     }
 
-    
+ 
     @Override
     public String toString() {
         return this.actionName;
@@ -190,13 +201,6 @@ public class toolbarAction {
         return this.action_value;
     }
 
-    public String section_type(){
-        return this.sub_section_type;
-    }
-
-    public String inline_type(){
-        return this.inline_type;
-    }
 
     public String section_naming_convention(){
         return this.section_naming_convention;
@@ -226,7 +230,23 @@ public class toolbarAction {
         return theMode;
     }
 
+    public String getSectionType(){
+        if (this.actionSource.equals(actionSourceOrigin.sectionType)) {
+            return this.actionSourceValue;
+        } else {
+            log.warn("getSectionType : There is no section Type set !");
+            return "";
+        }
+    }
 
+    public String getInlineType(){
+        if (this.actionSource.equals(actionSourceOrigin.inlineType)) {
+            return this.actionSourceValue;
+        } else {
+            log.warn("getInlineType: There is no inline type set !");
+            return "";
+        }
+    }
 
     // !+ACTION_RECONF (rm, jan 2012) - action_name variable has
     // been changed to sub_action_name

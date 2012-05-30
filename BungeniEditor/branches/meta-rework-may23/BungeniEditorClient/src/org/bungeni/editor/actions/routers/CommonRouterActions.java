@@ -228,7 +228,7 @@ public class CommonRouterActions {
     public static HashMap<String, String> get_newSectionMetadata(toolbarAction subAction) {
         HashMap<String, String> metaMap = new HashMap<String, String>();
 
-        metaMap.put("BungeniSectionType", subAction.section_type());
+        metaMap.put("BungeniSectionType", subAction.getSectionType());
         metaMap.put("BungeniSectionID", BungeniUUID.getShortUUID());
         metaMap.put(SectionMetadataEditor.MetaEditableFlag, "false");
 
@@ -246,7 +246,7 @@ public class CommonRouterActions {
      */
     public static void setSectionProperties(toolbarAction pAction, String newSectionName,
             OOComponentHelper ooDocument) {
-        String                  sectionType  = pAction.section_type();
+        String                  sectionType  = pAction.getSectionType();
         DocumentSection         secObj       = DocumentSectionsContainer.getDocumentSectionByType(sectionType);
         HashMap<String, Object> sectionProps = secObj.getSectionProperties(ooDocument);
         XTextSection            newSection   = ooDocument.getSection(newSectionName);

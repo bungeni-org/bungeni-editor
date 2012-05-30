@@ -1,51 +1,37 @@
 <?xml version="1.0" ?>
 <actions for="judgement">
 
-    <action name="makeDecision" sectiontype="Decision">
+    <action name="makeDecision" source="sectionType" metadata="Decision">
 
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
     </action>
 
-    <action name="makeBackground" sectiontype="Background">
+    <action name="makeBackground" source="sectionType" metadata="Background">
 
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
     </action>
 
-    <action name="makeConclusion" sectiontype="Conclusion">
-
-        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
-    </action>
-
-
-    <action name="make_motivation_heading" sectiontype="Motivation"> </action>
-
-    <action name="make_motivation_num" sectiontype="MotListItem">
+    <action name="makeConclusion" source="sectionType" metadata="Conclusion">
 
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
     </action>
 
 
-    <action name="make_Background_num" sectiontype="BackgListItem">
+    <action name="make_motivation_heading" source="sectionType" metadata="Motivation"> </action>
+
+    <action name="make_motivation_num" source="sectionType" metadata="MotListItem">
 
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
     </action>
 
 
-    <action name="make_Decision_num" sectiontype="DecgListItem">
+    <action name="make_Background_num" source="sectionType" metadata="BackgListItem">
 
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
     </action>
 
 
-
-
-    <action name="make_Background_numheading" sectiontype="BackgList">
-
-        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
-    </action>
-
-
-    <action name="make_Decision_numheading" sectiontype="DeciList">
+    <action name="make_Decision_num" source="sectionType" metadata="DecgListItem">
 
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
     </action>
@@ -53,66 +39,80 @@
 
 
 
-    <action name="make_Introduction_numheading" sectiontype="IntroList">
-
-        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
-    </action>
-
-    <action name="make_Introduction_num" sectiontype="IntroListItem">
+    <action name="make_Background_numheading" source="sectionType" metadata="BackgList">
 
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
     </action>
 
 
-    <action name="make_motivation_numheading" sectiontype="MotList">
+    <action name="make_Decision_numheading" source="sectionType" metadata="DeciList">
 
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
     </action>
 
 
-    <action name="scale_section" sectiontype="Motivation"
+
+
+    <action name="make_Introduction_numheading" source="sectionType" metadata="IntroList">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
+    </action>
+
+    <action name="make_Introduction_num" source="sectionType" metadata="IntroListItem">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
+    </action>
+
+
+    <action name="make_motivation_numheading" source="sectionType" metadata="MotList">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
+    </action>
+
+
+    <action name="scale_section" source="sectionType" metadata="Motivation"
         validator=" org.bungeni.editor.actions.validators.defaultValidator"> </action>
 
-    <action name="makeMotivation" sectiontype="Motivation">
+    <action name="makeMotivation" source="sectionType" metadata="Motivation">
 
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
     </action>
 
 
-    <action name="Judgement_Body" sectiontype="JudgementBody">
+    <action name="Judgement_Body" source="sectionType" metadata="JudgementBody">
 
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
     </action>
 
-    <action name="make_Judgement_Header" sectiontype="Header">
+    <action name="make_Judgement_Header" source="sectionType" metadata="Header">
 
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
     </action>
 
-    <action name="make_Judgement_Header" sectiontype="Header">
+    <action name="make_Judgement_Header" source="sectionType" metadata="Header">
 
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
     </action>
 
 
-    <action name="heading_judgementNo" sectiontype="JudgementNo">
+    <action name="heading_judgementNo" source="sectionType" metadata="JudgementNo">
 
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
     </action>
 
-    <action name="heading_CaseNo" sectiontype="CaseNo">
+    <action name="heading_CaseNo" source="sectionType" metadata="CaseNo">
 
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
     </action>
 
-    <action name="tabular_judge_reference" sectiontype="Speech">
+    <action name="tabular_judge_reference" source="sectionType" metadata="Speech">
 
         <router class="org.bungeni.editor.actions.routers.routerJudgRecordSelectJudg"
             dialog="org.bungeni.editor.selectors.judgement.speech.Main"/>
     </action>
 
 
-    <action name="makeIntroduction" sectiontype="Introduction">
+    <action name="makeIntroduction" source="sectionType" metadata="Introduction">
 
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
     </action>

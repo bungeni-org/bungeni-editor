@@ -11,7 +11,27 @@
         </xd:desc>
     </xd:doc>
 
+    <xsl:template match="sectionTypes">
+        <meta:stylesheet
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:meta="http://meta.w3.org/1999/XSL/Transform"
+           exclude-result-prefixes="xs" 
+           version="2.0"
+        >
+            <xsl:apply-templates />
+        </meta:stypesheet>
+    </xsl:template>
+
+    <xsl:template match="inlineTypes">
+        <xsl:apply-templates />
+    </xsl:template>
+
+
     <xsl:template match="sectionType">
+        <xsl:apply-templates />
+    </xsl:template>
+
+    <xsl:template match="inlineType">
         <xsl:apply-templates />
     </xsl:template>
 
@@ -52,6 +72,7 @@
                 <meta:attribute name="{local-name()}" >
                     <xsl:choose>
                         <xsl:when test="starts-with(.,'#')">
+                            <!-- possibly add a check to see if the metadata exists in the parent -->
                             <meta:text>#</meta:text>
                             <meta:value-of select="{concat('./bungeni:bungenimeta/bungeni:', substring-after(.,'#$') )}" />
                         </xsl:when>
@@ -59,7 +80,6 @@
                             <meta:value-of select="{concat('./bungeni:bungenimeta/bungeni:', substring-after(.,'$') )}" />
                         </xsl:otherwise>
                     </xsl:choose>
-
                 </meta:attribute>
             </xsl:for-each>
             <meta:apply-templates />
