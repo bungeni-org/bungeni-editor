@@ -68,26 +68,7 @@ public class Main extends BaseMetadataContainerPanel {
     }
 
     @SuppressWarnings("empty-statement")
-    public String getActionSectionName() {
-
-        // get the action naming convention
-        String numberingConvention = theSubAction.section_numbering_convention();
-
-        if (numberingConvention.equals("none") || numberingConvention.equals("single")) {
-            return theSubAction.section_naming_convention();
-        } else if (numberingConvention.equals("serial")) {
-
-            // get highest section name possible
-            int iStart = 1;
-
-            for (; ooDocument.hasSection(theSubAction.section_naming_convention() + iStart); iStart++);
-
-            return theSubAction.section_naming_convention() + iStart;
-        } else {
-            return theSubAction.section_naming_convention();
-        }
-    }
-
+  
     @Override
     public boolean postApplySelectedInsert() {
         if (sectionMetadataEditor != null) {
