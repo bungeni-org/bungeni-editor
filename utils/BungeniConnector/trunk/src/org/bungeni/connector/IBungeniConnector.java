@@ -2,19 +2,7 @@ package org.bungeni.connector;
 
 import java.util.List;
 // always explicit import rather than .* for better readability
-import org.bungeni.connector.element.Act;
-import org.bungeni.connector.element.Bill;
-import org.bungeni.connector.element.Committee;
-import org.bungeni.connector.element.Document;
-import org.bungeni.connector.element.JudgementCourt;
-import org.bungeni.connector.element.JudgementDomain;
-import org.bungeni.connector.element.JudgementLitigationType;
-import org.bungeni.connector.element.JudgementRegion;
-import org.bungeni.connector.element.Member;
-import org.bungeni.connector.element.MetadataInfo;
-import org.bungeni.connector.element.Motion;
-import org.bungeni.connector.element.Question;
-import org.bungeni.connector.element.SourceType;
+import org.bungeni.connector.element.*;
 
 /**
  *
@@ -45,12 +33,17 @@ public interface IBungeniConnector {
     public List<JudgementCourt> getJudgementCourts(); 
      public List<JudgementRegion> getJudgementRegions();
     public List<JudgementLitigationType> getJudgementLitigationTypes();
-    public List<Act> getActs();
+    public List<ActType> getActTypes();
+    public List<ActScope> getActScopes();
+    public List<ActFamily> getActFamilies();
+    public List<ActHistoricalPeriod> getActHistoricalPeriods();
     public List<SourceType> getSourceTypes();
     public List<Motion> getMotions();
     public List<Question> getQuestions();  
     public List<MetadataInfo> getMetadataInfo();
     public List<Document> getDocuments();
     public List<Committee> getCommittees();
+    public List<PublicationName> getPublicationNames();
+    public List<ActClassification> getActClassifications();
 
 }
