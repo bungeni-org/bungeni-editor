@@ -22,8 +22,57 @@ public class ClientTest {
         BungeniConnector b = new BungeniConnector();
         b.init(cp);
         
+        List<ActClassification> ActClassifications = b.getActClassifications();
+
+        if (ActClassifications != null) {
+            System.out.println("::::::::::::::: ACT CLASSIFICATIONS :::::::::::::::::::");
+            for (int i = 0; i < ActClassifications.size(); i++) {
+                System.out.println(" id:  " + ActClassifications.get(i).getId());
+                for(Name objName: (List<Name>)ActClassifications.get(i).getNames()){
+                    System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
+                }
+            }
+        }
         
-   List<Bill> bills = b.getBills();
+        List<PublicationName> PublicationNames = b.getPublicationNames();
+
+        if (PublicationNames != null) {
+            System.out.println("::::::::::::::: ACT PUBLICATION NAMES :::::::::::::::::::");
+            for (int i = 0; i < PublicationNames.size(); i++) {
+                System.out.println(" id:  " + PublicationNames.get(i).getId());
+                for(Name objName: (List<Name>)PublicationNames.get(i).getNames()){
+                    System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
+                }
+            }
+        }
+        
+        List<ActFamily> actFamilies = b.getActFamilies();
+
+        if (actFamilies != null) {
+            System.out.println("::::::::::::::: ACT FAMILIES :::::::::::::::::::");
+            for (int i = 0; i < actFamilies.size(); i++) {
+                System.out.println(" id:  " + actFamilies.get(i).getId());
+                for(Name objName: (List<Name>)actFamilies.get(i).getNames()){
+                    System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
+                }
+            }
+        }
+        
+        
+        List<ActHistoricalPeriod> actHistoricalPeriods = b.getActHistoricalPeriods();
+
+        if (actHistoricalPeriods != null) {
+            System.out.println("::::::::::::::: ACT HISTORICAL PERIODS :::::::::::::::::::");
+            for (int i = 0; i < actHistoricalPeriods.size(); i++) {
+                System.out.println(" id:  " + actHistoricalPeriods.get(i).getId());
+                for(Name objName: (List<Name>)actHistoricalPeriods.get(i).getNames()){
+                    System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
+                }
+            }
+        }
+        
+        
+        List<Bill> bills = b.getBills();
 
         if (bills != null) {
             System.out.println(":::::::::::::::BILLS:::::::::::::::::::");
@@ -50,8 +99,6 @@ public class ClientTest {
         }          
                 
             
-            
-         
       List<JudgementLitigationType> judgementLitigationTypes = b.getJudgementLitigationTypes();
 
         if (judgementLitigationTypes != null) {
@@ -91,22 +138,64 @@ public class ClientTest {
             }
         } 
         
-        
-        
-        
-         List<Act> acts = b.getActs();
+         List<ActType> actTypes = b.getActTypes();
 
-        if (acts != null) {
-            System.out.println(":::::::::::::::ACTS:::::::::::::::::::");
-            for (int i = 0; i < acts.size(); i++) {
-                System.out.println(" id:  " + acts.get(i).getId());
-                for(Name objName: (List<Name>)acts.get(i).getNames()){
+        if (actTypes != null) {
+            System.out.println(":::::::::::::::ACT TYPES:::::::::::::::::::");
+            for (int i = 0; i < actTypes.size(); i++) {
+                System.out.println(" id:  " + actTypes.get(i).getId());
+                for(Name objName: (List<Name>)actTypes.get(i).getNames()){
                     System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
                 }
             }
         } else {
-             System.out.println("Error : Acts missing");
+             System.out.println("Error : Act Types missing");
         }
+        
+         List<ActScope> actScopes = b.getActScopes();
+
+        if (actScopes != null) {
+            System.out.println(":::::::::::::::ACT Scopes:::::::::::::::::::");
+            for (int i = 0; i < actScopes.size(); i++) {
+                System.out.println(" id:  " + actScopes.get(i).getId());
+                for(Name objName: (List<Name>)actScopes.get(i).getNames()){
+                    System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
+                }
+            }
+        } else {
+             System.out.println("Error : Act Scopes missing");
+        }
+        
+        
+//         List<ActHistoricalPeriod> actHistoricalPeriods = b.getActHistoricalPeriods();
+//
+//        if (actHistoricalPeriods != null) {
+//            System.out.println(":::::::::::::::ACT Historical PeriodS:::::::::::::::::::");
+//            for (int i = 0; i < actHistoricalPeriods.size(); i++) {
+//                System.out.println(" id:  " + actHistoricalPeriods.get(i).getId());
+//                for(Name objName: (List<Name>)actHistoricalPeriods.get(i).getNames()){
+//                    System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
+//                }
+//            }
+//        } else {
+//             System.out.println("Error : Act Historical Periods missing");
+//        }
+        
+        
+//         List<ActFamily> actFamilies = b.getActFamilies();
+//
+//        if (actFamilies != null) {
+//            System.out.println(":::::::::::::::ACT FAMILIES:::::::::::::::::::");
+//            for (int i = 0; i < actFamilies.size(); i++) {
+//                System.out.println(" id:  " + actFamilies.get(i).getId());
+//                for(Name objName: (List<Name>)actFamilies.get(i).getNames()){
+//                    System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
+//                }
+//            }
+//        } else {
+//             System.out.println("Error : Act Families missing");
+//        }
+        
         
         List<MetadataInfo> metadata = b.getMetadataInfo();
 
