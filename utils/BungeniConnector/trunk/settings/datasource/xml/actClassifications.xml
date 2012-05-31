@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actClassifications>
+  <actClassification>
+        <id>1</id>
+        <name lang="en"> Family 1 </name>
+        <name lang="ar"> عائلة 1 </name>
+  </actClassification>
+
+  <actClassification>
+        <id>2</id>
+        <name lang="en"> Family 2 </name>
+        <name lang="ar"> عائلة 2 </name>
+  </actClassification>
+</actClassifications>
