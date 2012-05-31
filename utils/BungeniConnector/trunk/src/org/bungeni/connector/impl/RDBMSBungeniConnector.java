@@ -260,15 +260,15 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
     
     
 
-     public List<Act> getActs() {
-        List<Act> items = new java.util.ArrayList<Act>();
+     public List<ActType> getActs() {
+        List<ActType> items = new java.util.ArrayList<ActType>();
         if (getDbConnection() != null) {
             try {
                 java.sql.Statement statement = getDbConnection().createStatement();
                 java.sql.ResultSet resultSet = statement.executeQuery(getBillsQuery());
                 while (resultSet.next()) {
                    
-                    Act item = new Act();
+                    ActType item = new ActType();
                     item.setId(resultSet.getInt(1));
                     item.addName(new Name(resultSet.getString(2)));
                     items.add(item);
@@ -592,5 +592,30 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
     private String getCommitteesQuery() {
         return committeeQuery ;
     }
+
+    public List<ActType> getActTypes() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public List<ActScope> getActScopes() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public List<ActFamily> getActFamilies() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public List<ActHistoricalPeriod> getActHistoricalPeriods() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public List<PublicationName> getPublicationNames() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public List<ActClassification> getActClassifications() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 
 }
