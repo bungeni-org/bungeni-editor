@@ -8,20 +8,7 @@ import org.apache.log4j.Logger;
 import org.bungeni.connector.ConnectorProperties;
 import org.bungeni.connector.IBungeniConnector;
 // always explicit import rather than .* for better readability
-import org.bungeni.connector.element.Act;
-import org.bungeni.connector.element.Bill;
-import org.bungeni.connector.element.Committee;
-import org.bungeni.connector.element.Document;
-import org.bungeni.connector.element.JudgementCourt;
-import org.bungeni.connector.element.JudgementDomain;
-import org.bungeni.connector.element.JudgementLitigationType;
-import org.bungeni.connector.element.JudgementRegion;
-import org.bungeni.connector.element.Member;
-import org.bungeni.connector.element.MetadataInfo;
-import org.bungeni.connector.element.Motion;
-import org.bungeni.connector.element.Question;
-import org.bungeni.connector.element.SourceType;
-
+import org.bungeni.connector.element.*;
 import org.restlet.resource.ClientResource;
 
 /**
@@ -40,6 +27,7 @@ public class BungeniConnector implements IBungeniConnector {
     private String motionsSource = "/motions";
     private String questionsSource = "/questions";
     private String billsSource = "/bills";
+    private String actFamiliesSource = "/actFamilies";
    
     private String judgementDomainsSource = "/judgementDomains";
     private String judgementRegionsSource = "/judgementRegions";
@@ -47,12 +35,14 @@ public class BungeniConnector implements IBungeniConnector {
     private String judgementLitigationTypesSource = "/judgementLitigationTypes";
     
     private String judgementCourtsSource = "/judgementCourts";
-    
-            
-    private String actsSource = "/acts";
+    private String publicationNamesSource = "/publicationNames";
+    private String actHistoricalPeriodSource = "/actHistoricalPeriods";
+    private String actTypesSource = "/actTypes";
+    private String actScopesSource = "/actScopes";
     private String sourceTypesSource = "/sourceTypes";
     private String documentsSource = "/documents";
     private String committeeSource = "/committee";
+    private String actClassificationsSource = "/actClassifications";
     private String packageAlias = "package";
 
     private String SERVER_HOST = "localhost";
@@ -65,7 +55,7 @@ public class BungeniConnector implements IBungeniConnector {
 
     private String SERVER_UNREACHABLE = " did not respond";
     private static Logger logger = Logger.getLogger(BungeniConnector.class.getName());
-
+    
     /**
      * The way to use the BungeniConnector client is :
      *  BungeniConnector bc = new BungeniConnector();
@@ -116,6 +106,10 @@ public class BungeniConnector implements IBungeniConnector {
         return getList(getMembersSource(), Member.PACKAGE_ALIAS, Member.CLASS_ALIAS, Member.class);
     }
 
+    public List<ActFamily> getActFamilies() {
+        return getList(getActFamiliesSource(), ActFamily.PACKAGE_ALIAS, ActFamily.CLASS_ALIAS, ActFamily.class);
+    }
+     
     public List<Bill> getBills() {
         return getList(getBillsSource(), Bill.PACKAGE_ALIAS, Bill.CLASS_ALIAS, Bill.class);
     }
@@ -129,22 +123,32 @@ public class BungeniConnector implements IBungeniConnector {
         return getList(getJudgementRegionsSource(), JudgementRegion.PACKAGE_ALIAS, JudgementRegion.CLASS_ALIAS, JudgementRegion.class);
     }
     
-    
-    
     public List<JudgementLitigationType> getJudgementLitigationTypes() {
         return getList(getJudgementLitigationTypesSource(), JudgementLitigationType.PACKAGE_ALIAS, JudgementLitigationType.CLASS_ALIAS, JudgementLitigationType.class);
     }
-    
-    
     
      public List<JudgementCourt> getJudgementCourts() {
         return getList(getJudgementCourtsSource(), JudgementCourt.PACKAGE_ALIAS, JudgementCourt.CLASS_ALIAS, JudgementCourt.class);
     }
     
+    public List<ActHistoricalPeriod> getActHistoricalPeriods() {
+         return getList(getActHistoricalPeriodsSource(), ActHistoricalPeriod.PACKAGE_ALIAS, ActHistoricalPeriod.CLASS_ALIAS, ActHistoricalPeriod.class);
+    }
+      
+    public List<ActScope> getActScopes() {
+        return getList(getActScopesSource(), ActScope.PACKAGE_ALIAS, ActScope.CLASS_ALIAS, ActScope.class);
+    }
     
+    public List<PublicationName> getPublicationNames() {
+        return getList(getPublicationNamesSource(), PublicationName.PACKAGE_ALIAS, PublicationName.CLASS_ALIAS, PublicationName.class);
+    }
     
-    public List<Act> getActs() {
-        return getList(getActsSource(), Act.PACKAGE_ALIAS, Act.CLASS_ALIAS, Act.class);
+    public List<ActType> getActTypes() {
+        return getList(getActTypesSource(), ActType.PACKAGE_ALIAS, ActType.CLASS_ALIAS, ActType.class);
+    }
+    
+     public List<ActClassification> getActClassifications() {
+        return getList(getActClassificationsSource(), ActClassification.PACKAGE_ALIAS, ActClassification.CLASS_ALIAS, ActClassification.class);
     }
    
     public List<SourceType> getSourceTypes() {
@@ -179,6 +183,10 @@ public class BungeniConnector implements IBungeniConnector {
         return getList(getCommitteeSource(), Committee.PACKAGE_ALIAS, Committee.CLASS_ALIAS, Committee.class);
     }
     
+    private String getActFamiliesSource(){
+        return getVirtDirURL() + actFamiliesSource;
+    }
+    
     private String getBillsSource() {
         return getVirtDirURL() + billsSource;
     }
@@ -192,23 +200,20 @@ public class BungeniConnector implements IBungeniConnector {
         return getVirtDirURL() + judgementRegionsSource;
     }
     
-    
-    
     private String getJudgementLitigationTypesSource() {
         return getVirtDirURL() + judgementLitigationTypesSource;
     }
-    
-    
-    
-    
+   
     private String getJudgementCourtsSource() {
         return getVirtDirURL() + judgementCourtsSource;
     }
     
-    
-    
-    private String getActsSource() {
-        return getVirtDirURL() + actsSource;
+    private String getActTypesSource() {
+        return getVirtDirURL() + actTypesSource;
+    }
+     
+    private String getActScopesSource() {
+        return getVirtDirURL() + actScopesSource;
     }
      
     private String getSourceTypesSource() {
@@ -247,5 +252,19 @@ public class BungeniConnector implements IBungeniConnector {
     public void closeConnector() {
         logger.info("Client Connection Closed");
     }
+
+    private String getActHistoricalPeriodsSource() {
+        return getVirtDirURL() + actHistoricalPeriodSource;
+    }
+
+    private String getPublicationNamesSource() {
+        return getVirtDirURL() + publicationNamesSource;
+    }
+    
+    private String getActClassificationsSource() {
+        return getVirtDirURL() + actClassificationsSource;
+    }
+
+   
 
 }
