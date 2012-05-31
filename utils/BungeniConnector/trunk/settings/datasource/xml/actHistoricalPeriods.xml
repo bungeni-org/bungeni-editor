@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actHistoricalPeriods>
+  <actHistoricalPeriod>
+        <id>1</id>
+        <name lang="en"> mandate </name>
+        <name lang="ar">  الانتداب </name>
+  </actHistoricalPeriod>
+
+  <actHistoricalPeriod>
+        <id>2</id>
+        <name lang="en"> Palestinian Authority </name>
+        <name lang="ar">  السلطة الوطنية الفلسطينية </name>
+  </actHistoricalPeriod>
+</actHistoricalPeriods>
