@@ -41,7 +41,7 @@
                   <Component id="txtPageNo" min="-2" pref="162" max="-2" attributes="0"/>
                   <Component id="lblPageNo" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="113" max="32767" attributes="0"/>
+              <EmptySpace pref="138" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblPublicationArea" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="txtPublicationArea" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
@@ -56,7 +56,7 @@
                   <Component id="dt_ActRelease_date" min="-2" pref="162" max="-2" attributes="1"/>
                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                       <Component id="lblActDevelopedDate" alignment="0" max="32767" attributes="0"/>
-                      <Component id="dt_ActDeveloped_date" alignment="1" pref="162" max="-2" attributes="1"/>
+                      <Component id="dt_ActDeveloped_date" alignment="0" pref="162" max="-2" attributes="1"/>
                   </Group>
                   <Component id="lblActApprovedDate" min="-2" max="-2" attributes="0"/>
                   <Component id="lblSourceType" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -69,48 +69,8 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="lblPublicationDate" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="dt_publication_date" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblSourceType" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="cboSourceType" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblPublicationArea" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtPublicationArea" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="lblActReleaseDate" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="dt_ActRelease_date" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="lblActDevelopedDate" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="dt_ActDeveloped_date" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="lblActApprovedDate" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="26" pref="26" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                              <Component id="dt_ActApproved_date" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="lblActImplementationDate" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="dt_ActImplementation_date" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                      <Component id="lblSecondaryActPromulgatingDate" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="dt_SecondaryActPromulgating_date" min="-2" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="lblPublicationName" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -147,13 +107,46 @@
                       <Component id="lblActImplementation" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtActImplementation" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="lblSecondaryActPromulgating" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtSecondaryActPromulgating" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="lblPublicationDate" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="dt_publication_date" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblSourceType" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="cboSourceType" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblPublicationArea" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="txtPublicationArea" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="lblActReleaseDate" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="dt_ActRelease_date" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="lblActDevelopedDate" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="dt_ActDeveloped_date" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblActApprovedDate" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="dt_ActApproved_date" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <Component id="lblActImplementationDate" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                      <Component id="dt_ActImplementation_date" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="lblSecondaryActPromulgatingDate" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="dt_SecondaryActPromulgating_date" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace pref="29" max="32767" attributes="0"/>
+              <EmptySpace pref="162" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
