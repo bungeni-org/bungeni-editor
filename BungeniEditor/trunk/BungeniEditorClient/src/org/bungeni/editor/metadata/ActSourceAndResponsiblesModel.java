@@ -12,9 +12,9 @@ import org.bungeni.ooo.ooDocMetadata;
  * Extended metadata model for the act document type
  * @author bzuAdmin
  */
-public class ActGeneralMetadataModel extends BaseEditorDocMetaModel {
+public class ActSourceAndResponsiblesModel extends BaseEditorDocMetaModel {
     
-    private String BungeniLanguageCode = "";
+    
     private String BungeniPublicationName = "";
     private String BungeniPublicationArea = "";
     private String BungeniPublicationDate = "";
@@ -22,9 +22,10 @@ public class ActGeneralMetadataModel extends BaseEditorDocMetaModel {
     private String BungeniSourceSide = "";
     private String BungeniSourceType = "";
     private String BungeniSourceNo = "";
+    private String BungeniPageNo = "";
     
     public static final String[] THIS_METAMODEL = {
-        "BungeniLanguageCode",
+        
         "BungeniEffectiveDate",
         "BungeniPublicationName",
         "BungeniPublicationDate",
@@ -32,17 +33,17 @@ public class ActGeneralMetadataModel extends BaseEditorDocMetaModel {
         "BungeniSourceName",
         "BungeniSourceSide",
         "BungeniSourceType",
-        "BungeniSourceNo"
+        "BungeniSourceNo",
+        "BungeniPageNo"
     };
     
-    public ActGeneralMetadataModel(){
+    public ActSourceAndResponsiblesModel(){
         super();
     }
     
     @Override
     public void setup(){
         super.setup();
-        this.docMeta.put("BungeniLanguageCode", BungeniLanguageCode);
         this.docMeta.put("BungeniPublicationArea", BungeniPublicationArea);
         this.docMeta.put("BungeniPublicationName", BungeniPublicationName);
         this.docMeta.put("BungeniPublicationDate", BungeniPublicationDate);
@@ -50,18 +51,9 @@ public class ActGeneralMetadataModel extends BaseEditorDocMetaModel {
         this.docMeta.put("BungeniSourceSide", BungeniSourceSide);
         this.docMeta.put("BungeniSourceType", BungeniSourceType);
         this.docMeta.put("BungeniSourceNo", BungeniSourceNo);
+        this.docMeta.put("BungeniPageNo", BungeniPageNo);
     }
 
-    
-    public String getBungeniLanguageCode() {
-        return BungeniLanguageCode;
-    }
-
-    public void setBungeniLanguageCode(String BungeniLanguageCode) {
-        this.BungeniLanguageCode = BungeniLanguageCode;
-    }
-
-    
     public String getBungeniPublicationArea() {
         return BungeniPublicationArea;
     }
@@ -119,9 +111,17 @@ public class ActGeneralMetadataModel extends BaseEditorDocMetaModel {
         return BungeniSourceNo;
     }
     
+    public void setBungeniPageNo(String BungeniPageNo) {
+        this.BungeniPageNo = BungeniPageNo;
+    }
+   
+      public String getBungeniPageNo() {
+        return BungeniPageNo;
+    }
+    
     public void setBungeniSourceNo(String BungeniSourceNo) {
         this.BungeniSourceNo = BungeniSourceNo;
     }
-   
+    
 
 }
