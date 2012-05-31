@@ -70,9 +70,6 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String judgementRegionsSourceURI = null;
     
     
-    
-    
-    
     private String judgementLitigationTypesPackageAlias = null;
     private String judgementLitigationTypeAlias = null;
     private String judgementLitigationTypeIdAlias = null;
@@ -81,7 +78,6 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String judgementLitigationTypeOntologyAlias = null;
     private String judgementLitigationTypeCountryAlias = null;
     private String judgementLitigationTypesSourceURI = null;
-    
     
     
     private String judgementCourtsPackageAlias = null;
@@ -93,13 +89,42 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String judgementCourtCountryAlias = null;
     private String judgementCourtsSourceURI = null;
     
+    private String actFamiliesPackageAlias = null;
+    private String actFamilyAlias = null;
+    private String actFamilyIdAlias = null;
+    private String actFamilyNameAlias = null;
+    private String actFamiliesSourceURI = null;
+    
+    private String publicationNamesPackageAlias = null;
+    private String publicationNameAlias = null;
+    private String publicationNameIdAlias = null;
+    private String publicationNameNameAlias = null;
+    private String publicationNamesSourceURI = null;
+    
+    private String actClassificationsPackageAlias = null;
+    private String actClassificationAlias = null;
+    private String actClassificationIdAlias = null;
+    private String actClassificationNameAlias = null;
+    private String actClassificationsSourceURI = null;
+    
+    private String actHistoricalPeriodsPackageAlias = null;
+    private String actHistoricalPeriodAlias = null;
+    private String actHistoricalPeriodIdAlias = null;
+    private String actHistoricalPeriodNameAlias = null;
+    private String actHistoricalPeriodsSourceURI = null;
     
 
-    private String actsPackageAlias = null;
-    private String actAlias = null;
-    private String actIdAlias = null;
-    private String actNameAlias = null;
-    private String actsSourceURI = null;
+    private String actTypesPackageAlias = null;
+    private String actTypeAlias = null;
+    private String actTypeIdAlias = null;
+    private String actTypeNameAlias = null;
+    private String actTypesSourceURI = null;
+    
+    private String actScopesPackageAlias = null;
+    private String actScopeAlias = null;
+    private String actScopeIdAlias = null;
+    private String actScopeNameAlias = null;
+    private String actScopesSourceURI = null;
     
     private String sourceTypesPackageAlias = null;
     private String sourceTypeAlias = null;
@@ -178,8 +203,6 @@ public class XMLBungeniConnector implements IBungeniConnector {
         this.judgementDomainOntologyAlias = props.getProperties().getProperty("xml-judgementDomain-ontology-alias");
         this.judgementDomainCountryAlias = props.getProperties().getProperty("xml-judgementDomain-country-alias");
         
-        
-        
         this.judgementRegionsSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-judgementRegions"));
         this.judgementRegionsPackageAlias = props.getProperties().getProperty("xml-judgementRegions-package-alias");
         this.judgementRegionAlias = props.getProperties().getProperty("xml-judgementRegion-alias");
@@ -189,9 +212,6 @@ public class XMLBungeniConnector implements IBungeniConnector {
         this.judgementRegionOntologyAlias = props.getProperties().getProperty("xml-judgementRegion-ontology-alias");
         this.judgementRegionCountryAlias = props.getProperties().getProperty("xml-judgementRegion-country-alias");
         
-        
-        
-        
         this.judgementLitigationTypesSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-judgementLitigationTypes"));
         this.judgementLitigationTypesPackageAlias = props.getProperties().getProperty("xml-judgementLitigationTypes-package-alias");
         this.judgementLitigationTypeAlias = props.getProperties().getProperty("xml-judgementLitigationType-alias");
@@ -200,8 +220,6 @@ public class XMLBungeniConnector implements IBungeniConnector {
         this.judgementLitigationTypeNameAlias = props.getProperties().getProperty("xml-judgementLitigationType-name-alias");
         this.judgementLitigationTypeOntologyAlias = props.getProperties().getProperty("xml-judgementLitigationType-ontology-alias");
         this.judgementLitigationTypeCountryAlias = props.getProperties().getProperty("xml-judgementLitigationType-country-alias");
-        
-        
         
         this.judgementCourtsSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-judgementCourts"));
         this.judgementCourtsPackageAlias = props.getProperties().getProperty("xml-judgementCourts-package-alias");
@@ -213,14 +231,35 @@ public class XMLBungeniConnector implements IBungeniConnector {
         this.judgementCourtCountryAlias = props.getProperties().getProperty("xml-judgementCourt-country-alias");
         
         
+        this.publicationNamesSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-publicationNames"));
+        this.publicationNamesPackageAlias = props.getProperties().getProperty("xml-publicationNames-package-alias");
+        this.publicationNameAlias = props.getProperties().getProperty("xml-publicationName-alias");
+        this.publicationNameIdAlias = props.getProperties().getProperty("xml-publicationName-id-alias");
+        this.publicationNameNameAlias = props.getProperties().getProperty("xml-publicationName-name-alias");
+    
+        this.actFamiliesSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-actFamilies"));
+        this.actFamiliesPackageAlias = props.getProperties().getProperty("xml-actFamilies-package-alias");
+        this.actFamilyAlias = props.getProperties().getProperty("xml-actFamily-alias");
+        this.actFamilyIdAlias = props.getProperties().getProperty("xml-actFamily-id-alias");
+        this.actFamilyNameAlias = props.getProperties().getProperty("xml-actFamily-name-alias");
+    
+        this.actHistoricalPeriodsSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-actHistoricalPeriods"));
+        this.actHistoricalPeriodsPackageAlias = props.getProperties().getProperty("xml-actHistoricalPeriods-package-alias");
+        this.actHistoricalPeriodAlias = props.getProperties().getProperty("xml-actHistoricalPeriod-alias");
+        this.actHistoricalPeriodIdAlias = props.getProperties().getProperty("xml-actHistoricalPeriod-id-alias");
+        this.actHistoricalPeriodNameAlias = props.getProperties().getProperty("xml-actHistoricalPeriod-name-alias");
         
+        this.actTypesSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-actTypes"));
+        this.actTypesPackageAlias = props.getProperties().getProperty("xml-actTypes-package-alias");
+        this.actTypeAlias = props.getProperties().getProperty("xml-actType-alias");
+        this.actTypeIdAlias = props.getProperties().getProperty("xml-actType-id-alias");
+        this.actTypeNameAlias = props.getProperties().getProperty("xml-actType-name-alias");
         
-        
-        this.actsSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-acts"));
-        this.actsPackageAlias = props.getProperties().getProperty("xml-acts-package-alias");
-        this.actAlias = props.getProperties().getProperty("xml-act-alias");
-        this.actIdAlias = props.getProperties().getProperty("xml-act-id-alias");
-        this.actNameAlias = props.getProperties().getProperty("xml-act-name-alias");
+        this.actScopesSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-actScopes"));
+        this.actScopesPackageAlias = props.getProperties().getProperty("xml-actScopes-package-alias");
+        this.actScopeAlias = props.getProperties().getProperty("xml-actScope-alias");
+        this.actScopeIdAlias = props.getProperties().getProperty("xml-actScope-id-alias");
+        this.actScopeNameAlias = props.getProperties().getProperty("xml-actScope-name-alias");
         
         this.sourceTypesSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-sourceTypes"));
         this.sourceTypesPackageAlias = props.getProperties().getProperty("xml-sourceTypes-package-alias");
@@ -274,7 +313,11 @@ public class XMLBungeniConnector implements IBungeniConnector {
         this.committeeUriAlias = props.getProperties().getProperty("xml-committee-uri-alias");
         this.committeeCountryAlias = props.getProperties().getProperty("xml-committee-country-alias");
 
-     
+        this.actClassificationsSourceURI =getAbsoluteURL(props.getProperties().getProperty("xml-actClassifications"));
+        this.actClassificationsPackageAlias = props.getProperties().getProperty("xml-actClassifications-package-alias");
+        this.actClassificationAlias = props.getProperties().getProperty("xml-actClassification-alias");
+        this.actClassificationIdAlias = props.getProperties().getProperty("xml-actClassification-id-alias");
+        this.actClassificationNameAlias = props.getProperties().getProperty("xml-actClassification-name-alias");
     }
 
     public List<Member> getMembers() {
@@ -367,8 +410,6 @@ public class XMLBungeniConnector implements IBungeniConnector {
         return null;
     }
      
-     
-     
       public List<JudgementRegion> getJudgementRegions() {
         ClientResource resource = new ClientResource(getJudgementRegionsSourceURI());
         try {
@@ -397,10 +438,6 @@ public class XMLBungeniConnector implements IBungeniConnector {
         return null;
     }
      
-    
-     
-     
-     
      public List<JudgementLitigationType> getJudgementLitigationTypes() {
         ClientResource resource = new ClientResource(getJudgementLitigationTypesSourceURI());
         try {
@@ -428,10 +465,6 @@ public class XMLBungeniConnector implements IBungeniConnector {
         }
         return null;
     }
-     
-     
-     
-     
      
      public List<JudgementCourt> getJudgementCourts() {
         ClientResource resource = new ClientResource(getJudgementCourtsSourceURI());
@@ -462,22 +495,17 @@ public class XMLBungeniConnector implements IBungeniConnector {
     }
 
     
-    
-    /**
-     * 
-     * @return
-     */
-    public List<Act> getActs() {
-        ClientResource resource = new ClientResource(getActsSourceURI());
+    public List<ActFamily> getActFamilies() {
+        ClientResource resource = new ClientResource(getActFamiliesSourceURI());
         try {
             XStream xStream = new XStream(new DomDriver());        
-            xStream.alias(this.getActsPackageAlias(), List.class);
-            xStream.alias(this.getActAlias(), Act.class);
-            xStream.aliasField(this.getActIdAlias(), Act.class, "id");
-            xStream.aliasField(this.getActNameAlias(), Act.class, "name");
+            xStream.alias(this.getActFamiliesPackageAlias(), List.class);
+            xStream.alias(this.getActFamilyAlias(), ActFamily.class);
+            xStream.aliasField(this.getActFamilyIdAlias(), ActFamily.class, "id");
+            xStream.aliasField(this.getActFamilyNameAlias(), ActFamily.class, "name");
             
             xStream.alias(Name.CLASS_ALIAS, Name.class);
-            xStream.addImplicitCollection(Act.class, Name.CLASS_ALIAS, Name.CLASS_ALIAS, Name.class);
+            xStream.addImplicitCollection(ActFamily.class, Name.CLASS_ALIAS, Name.CLASS_ALIAS, Name.class);
             xStream.useAttributeFor(Name.class, "lang");
             xStream.registerConverter(new NameConverter());
             
@@ -487,11 +515,66 @@ public class XMLBungeniConnector implements IBungeniConnector {
                 return (List) xStream.fromXML(xml);
             }
         } catch (Exception ex) {
-            logger.error(getActsSourceURI(), ex);
+            logger.error(getActFamiliesSourceURI(), ex);
         }
         return null;
     }
-      
+    
+    /**
+     * 
+     * @return
+     */
+    public List<ActType> getActTypes() {
+        ClientResource resource = new ClientResource(getActTypesSourceURI());
+        try {
+            XStream xStream = new XStream(new DomDriver());        
+            xStream.alias(this.getActTypesPackageAlias(), List.class);
+            xStream.alias(this.getActTypeAlias(), ActType.class);
+            xStream.aliasField(this.getActTypeIdAlias(), ActType.class, "id");
+            xStream.aliasField(this.getActTypeNameAlias(), ActType.class, "name");
+            
+            xStream.alias(Name.CLASS_ALIAS, Name.class);
+            xStream.addImplicitCollection(ActType.class, Name.CLASS_ALIAS, Name.CLASS_ALIAS, Name.class);
+            xStream.useAttributeFor(Name.class, "lang");
+            xStream.registerConverter(new NameConverter());
+            
+            String xml = resource.get().getText();
+            if (xml != null) {
+                resource.release();
+                return (List) xStream.fromXML(xml);
+            }
+        } catch (Exception ex) {
+            logger.error(getActTypesSourceURI(), ex);
+        }
+        return null;
+    }
+    
+     public List<ActScope> getActScopes() {
+        ClientResource resource = new ClientResource(getActScopesSourceURI());
+        try {
+            XStream xStream = new XStream(new DomDriver());        
+            xStream.alias(this.getActScopesPackageAlias(), List.class);
+            xStream.alias(this.getActScopeAlias(), ActScope.class);
+            xStream.aliasField(this.getActScopeIdAlias(), ActScope.class, "id");
+            xStream.aliasField(this.getActScopeNameAlias(), ActScope.class, "name");
+            
+            xStream.alias(Name.CLASS_ALIAS, Name.class);
+            xStream.addImplicitCollection(ActScope.class, Name.CLASS_ALIAS, Name.CLASS_ALIAS, Name.class);
+            xStream.useAttributeFor(Name.class, "lang");
+            xStream.registerConverter(new NameConverter());
+            
+            String xml = resource.get().getText();
+            if (xml != null) {
+                resource.release();
+                return (List) xStream.fromXML(xml);
+            }
+        } catch (Exception ex) {
+            logger.error(getActScopesSourceURI(), ex);
+        }
+        return null;
+    }
+       
+        
       public List<SourceType> getSourceTypes() {
         ClientResource resource = new ClientResource(getSourceTypesSourceURI());
         try {
@@ -674,11 +757,6 @@ public class XMLBungeniConnector implements IBungeniConnector {
     }
     
     
-    
-    
-    
-    
-    
      private String getJudgementDomainAlias() {
         return judgementDomainAlias;
     }
@@ -707,9 +785,6 @@ public class XMLBungeniConnector implements IBungeniConnector {
         return judgementDomainsPackageAlias;
     }
     
-    
-    
-    
     private String getJudgementRegionAlias() {
         return judgementRegionAlias;
     }
@@ -737,10 +812,6 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String getJudgementRegionsPackageAlias() {
         return judgementRegionsPackageAlias;
     }
-    
-    
-    
-    
     
     
       private String getJudgementLitigationTypeAlias() {
@@ -772,10 +843,6 @@ public class XMLBungeniConnector implements IBungeniConnector {
     }
     
     
-    
-  
-    
-    
      private String getJudgementCourtAlias() {
         return judgementCourtAlias;
     }
@@ -803,14 +870,7 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String getJudgementCourtsPackageAlias() {
         return judgementCourtsPackageAlias;
     }
-    
-    
-    
-    
-    
-    
-    
-
+   
     private String getCommitteesPackageAlias(){
         return committeesPackageAlias ;
     }
@@ -835,38 +895,72 @@ public class XMLBungeniConnector implements IBungeniConnector {
         return judgementRegionsSourceURI;
     }
     
-    
-    
     private String getJudgementLitigationTypesSourceURI() {
         return judgementLitigationTypesSourceURI;
     }
-    
-    
     
     private String getJudgementCourtsSourceURI() {
         return judgementCourtsSourceURI;
     }
     
-    
-    
-    private String getActsSourceURI() {
-        return actsSourceURI;
+    private String getActTypesSourceURI() {
+        return actTypesSourceURI;
     }
-
-     private String getActAlias() {
-        return actAlias;
+    
+    private String getActTypeAlias() {
+        return actTypeAlias;
     }
      
-    private String getActIdAlias() {
-        return actIdAlias;
+    private String getActTypeIdAlias() {
+        return actTypeIdAlias;
     }
 
-    private String getActNameAlias() {
-        return actNameAlias;
+    private String getActTypeNameAlias() {
+        return actTypeNameAlias;
     }
     
-    private String getActsPackageAlias() {
-        return actsPackageAlias;
+    private String getActTypesPackageAlias() {
+        return actTypesPackageAlias;
+    }
+    
+    private String getActScopesSourceURI() {
+        return actScopesSourceURI;
+    }
+
+     private String getActScopeAlias() {
+        return actScopeAlias;
+    }
+     
+    private String getActScopeIdAlias() {
+        return actScopeIdAlias;
+    }
+
+    private String getActScopeNameAlias() {
+        return actScopeNameAlias;
+    }
+    
+    private String getActScopesPackageAlias() {
+        return actScopesPackageAlias;
+    }
+    
+      private String getActFamiliesPackageAlias() {
+        return this.actFamiliesPackageAlias;
+    }
+
+    private String getActFamilyAlias() {
+        return this.actFamilyAlias;
+    }
+
+    private String getActFamilyIdAlias() {
+        return this.actFamilyIdAlias;
+    }
+
+    private String getActFamilyNameAlias() {
+        return this.actFamilyNameAlias;
+    }
+
+    private String getActFamiliesSourceURI() {
+        return this.actFamiliesSourceURI;
     }
     
      private String getSourceTypesSourceURI() {
@@ -1089,4 +1183,142 @@ public class XMLBungeniConnector implements IBungeniConnector {
         }
         return sURL;
     }
+
+    public List<ActHistoricalPeriod> getActHistoricalPeriods() {
+         ClientResource resource = new ClientResource(getActHistoricalPeriodsSourceURI());
+        try {
+            XStream xStream = new XStream(new DomDriver());        
+            xStream.alias(this.getActHistoricalPeriodsPackageAlias(), List.class);
+            xStream.alias(this.getActHistoricalPeriodAlias(), ActHistoricalPeriod.class);
+            xStream.aliasField(this.getActHistoricalPeriodIdAlias(), ActHistoricalPeriod.class, "id");
+            xStream.aliasField(this.getActHistoricalPeriodNameAlias(), ActHistoricalPeriod.class, "name");
+            
+            xStream.alias(Name.CLASS_ALIAS, Name.class);
+            xStream.addImplicitCollection(ActHistoricalPeriod.class, Name.CLASS_ALIAS, Name.CLASS_ALIAS, Name.class);
+            xStream.useAttributeFor(Name.class, "lang");
+            xStream.registerConverter(new NameConverter());
+            
+            String xml = resource.get().getText();
+            if (xml != null) {
+                resource.release();
+                return (List) xStream.fromXML(xml);
+            }
+        } catch (Exception ex) {
+            logger.error(getActHistoricalPeriodsSourceURI(), ex);
+        }
+        return null;
+    }
+
+    private String getActHistoricalPeriodsPackageAlias() {
+        return this.actHistoricalPeriodsPackageAlias;
+    }
+
+    private String getActHistoricalPeriodAlias() {
+        return this.actHistoricalPeriodAlias;
+    }
+
+    private String getActHistoricalPeriodIdAlias() {
+        return this.actHistoricalPeriodIdAlias;
+    }
+
+    private String getActHistoricalPeriodNameAlias() {
+        return this.actHistoricalPeriodNameAlias;
+    }
+
+    private String getActHistoricalPeriodsSourceURI() {
+        return this.actHistoricalPeriodsSourceURI;
+    }
+
+    public List<PublicationName> getPublicationNames() {
+        ClientResource resource = new ClientResource(getPublicationNamesSourceURI());
+        try {
+            XStream xStream = new XStream(new DomDriver());        
+            xStream.alias(this.getPublicationNamesPackageAlias(), List.class);
+            xStream.alias(this.getPublicationNameAlias(), PublicationName.class);
+            xStream.aliasField(this.getPublicationNameIdAlias(), PublicationName.class, "id");
+            xStream.aliasField(this.getPublicationNameNameAlias(), PublicationName.class, "name");
+            
+            xStream.alias(Name.CLASS_ALIAS, Name.class);
+            xStream.addImplicitCollection(PublicationName.class, Name.CLASS_ALIAS, Name.CLASS_ALIAS, Name.class);
+            xStream.useAttributeFor(Name.class, "lang");
+            xStream.registerConverter(new NameConverter());
+            
+            String xml = resource.get().getText();
+            if (xml != null) {
+                resource.release();
+                return (List) xStream.fromXML(xml);
+            }
+        } catch (Exception ex) {
+            logger.error(getPublicationNamesSourceURI(), ex);
+        }
+        return null;
+    }
+
+    private String getPublicationNamesPackageAlias() {
+        return this.publicationNamesPackageAlias;
+    }
+
+    private String getPublicationNameAlias() {
+        return this.publicationNameAlias;
+    }
+
+    private String getPublicationNamesSourceURI() {
+        return this.publicationNamesSourceURI;
+    }
+
+    private String getPublicationNameIdAlias() {
+        return this.publicationNameIdAlias;
+    }
+
+    private String getPublicationNameNameAlias() {
+        return this.publicationNameNameAlias;
+    }
+
+    public List<ActClassification> getActClassifications() {
+         ClientResource resource = new ClientResource(getActClassificationsSourceURI());
+        try {
+            XStream xStream = new XStream(new DomDriver());        
+            xStream.alias(this.getActClassificationsPackageAlias(), List.class);
+            xStream.alias(this.getActClassificationAlias(), ActClassification.class);
+            xStream.aliasField(this.getActClassificationIdAlias(), ActClassification.class, "id");
+            xStream.aliasField(this.getActClassificationNameAlias(), ActClassification.class, "name");
+            
+            xStream.alias(Name.CLASS_ALIAS, Name.class);
+            xStream.addImplicitCollection(ActClassification.class, Name.CLASS_ALIAS, Name.CLASS_ALIAS, Name.class);
+            xStream.useAttributeFor(Name.class, "lang");
+            xStream.registerConverter(new NameConverter());
+            
+            String xml = resource.get().getText();
+            if (xml != null) {
+                resource.release();
+                return (List) xStream.fromXML(xml);
+            }
+        } catch (Exception ex) {
+            logger.error(getActClassificationsSourceURI(), ex);
+        }
+        return null;
+    }
+
+    private String getActClassificationsPackageAlias() {
+        return this.actClassificationsPackageAlias;
+    }
+
+    private String getActClassificationAlias() {
+        return this.actClassificationAlias;
+    }
+
+    private String getActClassificationIdAlias() {
+        return this.actClassificationIdAlias;
+    }
+
+    private String getActClassificationsSourceURI() {
+        return this.actClassificationsSourceURI;
+    }
+
+    private String getActClassificationNameAlias() {
+        return this.actClassificationNameAlias;
+    }
+
+  
+
 }
