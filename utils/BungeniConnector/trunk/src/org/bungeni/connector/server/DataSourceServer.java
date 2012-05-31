@@ -29,11 +29,16 @@ public class DataSourceServer extends Application {
     private String judgementRegionsRoute = "/current/judgementRegions";
     
     private String judgementLitigationTypesRoute = "/current/judgementLitigationTypes";
-    
+    private String actClassificationsRoute = "/current/actClassifications";
+   
     
     private String judgementCourtsRoute = "/current/judgementCourts";
+    private String publicationNamesRoute = "/current/publicationNames";
+    private String actTypesRoute = "/current/actTypes";
+    private String actScopesRoute = "/current/actScopes";
+    private String actFamiliesRoute = "/current/actFamilies";
+    private String actHistoricalPeriodsRoute = "/current/actHistoricalPeriods";
     
-    private String actsRoute = "/current/acts";
     private String sourceTypesRoute = "/current/sourceTypes";
     private String metadataInfoRoute = "/current/metadata";
     private String documentsRoute = "/current/documents";
@@ -46,13 +51,18 @@ public class DataSourceServer extends Application {
     private String billsURI = null;
     private String judgementDomainsURI = null;
     private String judgementRegionsURI = null;
+   
+    private String actClassificationsURI = null;
     
     private String judgementLitigationTypesURI = null;
     
     private String judgementCourtsURI = null;
     
-    
-    private String actsURI = null;
+    private String actFamiliesURI = null;
+    private String publicationNamesURI = null;
+    private String actHistoricalPeriodsURI = null;
+    private String actTypesURI = null;
+    private String actScopesURI = null;
     private String sourceTypesURI = null;
     private String metadataInfoURI = null;
     private String documentsURI = null ;
@@ -150,8 +160,6 @@ public class DataSourceServer extends Application {
         this.connectorProps = cp;
         this.init(this.connectorProps.getProperties());
     }
-
-
 
     /**
      * Converts a relative URI to an absolute URL
@@ -271,10 +279,16 @@ public class DataSourceServer extends Application {
         router.attach(judgementLitigationTypesRoute, new JudgementLitigationTypesRestlet(bungeniConnector));
         
         router.attach(judgementCourtsRoute, new JudgementCourtsRestlet(bungeniConnector));
+         
+        router.attach(actClassificationsRoute, new ActClassificationsRestlet(bungeniConnector));
+        
+        router.attach(actTypesRoute, new ActTypesRestlet(bungeniConnector));
+        router.attach(actScopesRoute, new ActScopesRestlet(bungeniConnector));
+        router.attach(actFamiliesRoute, new ActFamiliesRestlet(bungeniConnector));
+        router.attach(actHistoricalPeriodsRoute, new ActHistoricalPeriodsRestlet(bungeniConnector));
+        router.attach(publicationNamesRoute, new PublicationNamesRestlet(bungeniConnector));
         
         
-        
-        router.attach(actsRoute, new ActsRestlet(bungeniConnector));
         router.attach(sourceTypesRoute, new SourceTypesRestlet(bungeniConnector));
         router.attach(membersRoute, new MembersRestlet(bungeniConnector));
         router.attach(motionsRoute, new MotionsRestlet(bungeniConnector));
@@ -302,23 +316,29 @@ public class DataSourceServer extends Application {
         return judgementRegionsURI;
     }
     
-    
-    
     public String getJudgementLitigationTypesURI() {
         return judgementLitigationTypesURI;
     }
-    
-    
     
     
     public String getJudgementCourtsURI() {
         return judgementCourtsURI;
     }
     
+    public String getActTypesURI() {
+        return actTypesURI;
+    }
     
     
-    public String getActsURI() {
-        return actsURI;
+    public String getActFamiliesURI() {
+        return actFamiliesURI;
+    }
+     public String getActHistoricalPeriodsURI() {
+        return actHistoricalPeriodsURI;
+    }
+    
+    public String getActScopesURI() {
+        return actScopesURI;
     }
 
      public String getSourceTypesURI() {
