@@ -51,14 +51,15 @@
         <file-name-scheme>CountryCode~DocumentType~Year-Month-Day~LanguageCode</file-name-scheme>
          <metadata-editors>
             <title xml:lang="eng">Act Metadata</title>
-            <metadata-editor class="org.bungeni.editor.metadata.editors.ActGeneralMetadata" >
-                <title xml:lang="eng">Act General</title>
-                <title xml:lang="ara">معلومات المصدر</title>
-            </metadata-editor>
-            <metadata-editor class="org.bungeni.editor.metadata.editors.ActMetadata" >
+             <metadata-editor class="org.bungeni.editor.metadata.editors.ActMainMetadata" >
                 <title xml:lang="eng">Act</title>
-                 <title xml:lang="ara">معلومات التشريع</title>
+                 <title xml:lang="ara"> معلومات التشريع الأساسية</title>
             </metadata-editor>
+            <metadata-editor class="org.bungeni.editor.metadata.editors.ActSourceAndResponsibles" >
+                <title xml:lang="eng">Act General</title>
+                <title xml:lang="ara">معلومات المصدر والجهات المسؤولة</title>
+            </metadata-editor>
+           
         </metadata-editors>
          <parts>
             <part name="main">
