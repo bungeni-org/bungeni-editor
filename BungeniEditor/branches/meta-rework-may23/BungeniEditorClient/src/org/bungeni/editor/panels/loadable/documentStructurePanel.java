@@ -2,9 +2,7 @@ package org.bungeni.editor.panels.loadable;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -31,7 +29,6 @@ import org.bungeni.editor.actions.EditorActionFactory;
 import org.bungeni.editor.actions.IEditorActionEvent;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
-import org.bungeni.editor.panels.toolbar.BungeniToolbarLoader;
 import org.bungeni.editor.providers.DocumentSectionAdapterDefaultTreeModel;
 import org.bungeni.editor.providers.DocumentSectionFriendlyAdapterDefaultTreeModel;
 import org.bungeni.editor.providers.DocumentSectionFriendlyTreeModelProvider;
@@ -119,7 +116,6 @@ public class documentStructurePanel extends BaseClassForITabbedPanel {
         this.initMouseListener();
     }
 
-    private BungeniToolbarLoader toolbarLoader = null;
     private Color toolbarTabBgColor = null , toolbarTabSelectedBgColor = null;
 
 

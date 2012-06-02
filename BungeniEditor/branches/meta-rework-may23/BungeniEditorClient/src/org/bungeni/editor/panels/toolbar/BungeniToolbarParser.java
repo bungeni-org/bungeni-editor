@@ -42,6 +42,8 @@ public class BungeniToolbarParser {
 
     private Document       document = null;
 
+
+    private String               TOOLBAR_ROOT = "/toolbar/root";
     /**
      * actionGroups provide top level place holders (parent grouping of tabs)
      */
@@ -114,10 +116,19 @@ public class BungeniToolbarParser {
              blockElements = (ArrayList<Element>) XPath.selectNodes(groupElement, "blockAction");
         } catch (JDOMException ex) {
             log.error("getTabElements : " + ex.getMessage());
-        } finally {
-            return blockElements;
         }
+        return blockElements;
+    }
 
+    public Element getToolbarRoot() {
+        Element rootNode = null;
+        try {
+            XPath rootPath = XPath.newInstance(TOOLBAR_ROOT);
+            rootNode = (Element) rootPath.selectSingleNode(document);
+        } catch (JDOMException ex) {
+            log.error("Unable to get toolbar root", ex);
+        }
+        return rootNode;
     }
 
     public ArrayList<Element> getTabActionGroups() {
@@ -128,10 +139,8 @@ public class BungeniToolbarParser {
             actionGrpElements = (ArrayList<Element>) grpPath.selectNodes(document);
         } catch (JDOMException ex) {
             log.error("getTabElements : " + ex.getMessage());
-        } finally {
+        } 
             return actionGrpElements;
-        }
-
     }
 
     public ArrayList<Element> getTabActionElements(Element tabElement) {
@@ -141,9 +150,8 @@ public class BungeniToolbarParser {
             actionElements = (ArrayList<Element>) XPath.selectNodes(tabElement, "action | subaction");
         } catch (JDOMException ex) {
             log.error("getTabActionElements : " + ex.getMessage());
-        } finally {
-            return actionElements;
         }
+        return actionElements;
     }
 
     public Element getTabActionElementByName(String sName) {

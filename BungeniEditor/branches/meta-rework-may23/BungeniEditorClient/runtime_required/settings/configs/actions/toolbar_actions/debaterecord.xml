@@ -11,7 +11,8 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
 -->
 <toolbar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="../../../src/xsd/toolbar.xsd" doctype="debaterecord">
-  <root visible="true">
+  <root visible="true" style="tabbed">
+    <!-- style = tab or collapsible , if style is collapsible uimodel attribute is ignored -->
     <actionGroup name="tabFavourites" visible="true" uimodel="wrap" title="GENERIC">
       <blockAction name="Speeches" target="null" visible="true" condition="none" title="SPEECH">
         <action name="PersonalStatement.create" mode="TEXT_SELECTED_INSERT"
