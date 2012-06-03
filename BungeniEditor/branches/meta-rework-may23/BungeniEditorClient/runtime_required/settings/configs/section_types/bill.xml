@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="windows-1252"?>
 <sectionTypes for="bill">
 
+<sectionType name="CoverPage"
+    prefix="coverpage"
+    numstyle="single"
+    background="0xfaf8cb"
+    indent-left=".1"
+    indent-right="0"
+    visibility="user" >
+
+ </sectionType>
+
 <sectionType name="Preamble"
     prefix="preamble"
     numstyle="single"
@@ -11,15 +21,16 @@
 
  </sectionType>
 
-<sectionType name="CoverPage"
-    prefix="coverpage"
+<sectionType name="Preface"
+    prefix="preface"
     numstyle="single"
-    background="0xcccccc"
-    indent-left=".1"
+    background="0xe8eef7"
+    indent-left="0"
     indent-right="0"
     visibility="user" >
 
  </sectionType>
+
 
 <sectionType name="Article"
     prefix="article"
@@ -56,15 +67,6 @@
     numstyle="single"
     background="0xffffff"
     indent-left=".3"
-    indent-right="0"
-    visibility="user" >
-     
- </sectionType>
-<sectionType name="MastHead"
-    prefix="preface"
-    numstyle="single"
-    background="0xe8eef7"
-    indent-left="0"
     indent-right="0"
     visibility="user" >
      

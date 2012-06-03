@@ -10,9 +10,16 @@
             dialog="org.bungeni.editor.selectors.general.ref.Main2"/>
     </action>
 
+    <action name="make_bill_preface" source="sectionType" metadata="Preface">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+
+    <action name="make_bill_prefamble" source="sectionType" metadata="Preamble">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+
 
     <action name="create_sidenote">
-
         <router class="org.bungeni.editor.actions.routers.routerCreateSidenote"
             dialog="org.bungeni.editor.actions.routers.routerCreateSideNote_panel"/>
     </action>
@@ -75,11 +82,6 @@
     <action name="make_char_style_bill" source="sectionType" metadata="Preface">
 
         <router class="org.bungeni.editor.actions.routers.routerApplyCharStyle"/>
-    </action>
-    <action name="make_bill_preface" source="sectionType" metadata="Preface">
-
-        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
-            dialog="org.bungeni.editor.selectors.InitBillPreface"/>
     </action>
     <action name="apply_numbered_bill_sub_par" source="sectionType" metadata="SubParagraph">
 

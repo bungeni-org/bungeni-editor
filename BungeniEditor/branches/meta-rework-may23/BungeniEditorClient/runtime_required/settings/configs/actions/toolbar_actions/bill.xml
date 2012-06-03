@@ -27,6 +27,43 @@ Action configuration for bill document type
           />  
       </blockAction>
 
+      <blockAction name="Preface" title="PREFACE">
+        <subaction name="Preface.Create"
+          mode="TEXT_SELECTED_INSERT"
+          condition="cursorInSection:bill"
+          title="CREATE_PREFACE"
+          tooltip="TOOLTIP_CREATE_PREFACE"
+          target="create_preface"
+        />
+
+        <subaction name="Paragraph.Annotation"
+          mode="TEXT_SELECTED_INSERT"
+          condition="cursorInSection:preface"
+          title="ANNOTATE_PARAGRAPH"
+          tooltip="TOOLTIP_ANNOTATE_PARAGRAPH"
+          target="annotate_paragraph"
+          />
+      </blockAction>
+
+
+      <blockAction name="Preamble" title="PREFACE">
+        <subaction name="Preamble.Create"
+          mode="TEXT_SELECTED_INSERT"
+          condition="cursorInSection:bill"
+          title="CREATE_PREAMBLE"
+          tooltip="TOOLTIP_CREATE_PREAMBLE"
+          target="create_preamble"
+        />
+
+        <subaction name="Paragraph.Annotation"
+          mode="TEXT_SELECTED_INSERT"
+          condition="cursorInSection:preamble"
+          title="ANNOTATE_PARAGRAPH"
+          tooltip="TOOLTIP_ANNOTATE_PARAGRAPH"
+          target="annotate_paragraph"
+          />
+      </blockAction>
+
       <blockAction name="Title" target="null" visible="true" condition="none" title="TITLE">
         <subaction name="ShortTitle.selection" mode="TEXT_SELECTED_INSERT"
           target="markup_short_title" visible="true"
