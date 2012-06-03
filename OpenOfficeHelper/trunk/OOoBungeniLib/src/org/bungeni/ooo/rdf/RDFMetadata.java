@@ -2,7 +2,6 @@ package org.bungeni.ooo.rdf;
 
 import com.sun.star.beans.UnknownPropertyException;
 import com.sun.star.beans.XPropertySet;
-import com.sun.star.beans.XPropertySetInfo;
 import com.sun.star.container.ElementExistException;
 import com.sun.star.container.NoSuchElementException;
 import com.sun.star.container.XEnumeration;
@@ -22,8 +21,6 @@ import com.sun.star.text.XTextRange;
 import com.sun.star.text.XTextSection;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
@@ -180,6 +177,69 @@ public class RDFMetadata {
         }
         return xGraph;
     }
+
+
+
+    /**
+     * Adds Content metadata ; checks if the subject and predicate exists ; if
+     * they do ; it deletes it and adds a new tripe; finally returns the added
+     * metadata as a statmement
+     * @param acontent - a XTextContent object, this should work for ODF paragraphs, headings and bookmarks
+     * @param sectionMetaName
+     * @param sectionMetaValue
+     * @return
+     */
+    public Statement addContentMetadata(XTextContent acontent, String contentMetaName, String contentMetaValue) {
+        Statement contentStatement = null;
+        XNamedGraph xGraph = null;
+
+        //get the document metadata graph
+        try {
+            xGraph = getDocumentMetadataGraph();
+        } catch (IllegalArgumentException ex) {
+            log.error("error getting document metadata graph", ex);
+        } catch (RepositoryException ex) {
+            log.error("error getting document metadata graph", ex);
+        }
+
+        if (xGraph != null) {
+            try {
+                //prepare the URI for the metaName
+                XURI uContentMeta = getMetaURI(contentMetaName);
+                XLiteral uSectionValue = makeEscapedLiteral(contentMetaValue);
+                //get the metadatable interface of the section
+                XMetadatable metaContent = ooQueryInterface.XMetadatable(acontent);
+
+                //first remove section metadata
+                boolean bRemoved = removeMetadataByPredicate(xGraph, metaContent, uContentMeta);
+                log.info("Removing section meta : " + contentMetaName  + " returned = " + bRemoved);
+
+                //now attempt to add the RDF statement
+                boolean bError = true;
+                try {
+                    xGraph.addStatement(metaContent, uContentMeta, uSectionValue);
+                    bError = false;
+                } catch (NoSuchElementException ex) {
+                    log.error("error while adding section metadata", ex);
+                } catch (RepositoryException ex) {
+                    log.error("error while adding section metadata", ex);
+                }
+
+                //now refetch the RDF statmeent
+                if (!bError) {
+                    //if there were no exceptions
+                    contentStatement = getMetadataByPredicate(xGraph, metaContent, uContentMeta);
+                }
+            } catch (IllegalArgumentException ex) {
+                log.error("error while getting root namespace", ex);
+            }
+        } else {
+            log.error("There is no metadata graph for this document");
+        }
+        return contentStatement;
+    }
+
+
 
 
     /**
@@ -412,6 +472,42 @@ public class RDFMetadata {
 
     }
 
+        /**
+     * Queries the Content for the metadata ; if the metadata exists, returns a
+     * statement ; otherwise returns null. This is a wrapper on getSectionMetadataByPredicate
+     * @param aSection
+     * @param sectionMetaName
+     * @return
+     */
+    public Statement getContentMetadataByName(XTextContent aContent, String contentMetaName) {
+        Statement sectionStatement = null;
+        XNamedGraph xGraph = null;
+        XEnumeration sectionEnumerator = null;
+        try {
+            xGraph = getDocumentMetadataGraph();
+        } catch (IllegalArgumentException ex) {
+            log.error("error getting document metadata graph", ex);
+        } catch (RepositoryException ex) {
+            log.error("error getting document metadata graph", ex);
+        }
+        if (xGraph != null) {
+            try {
+                //prepare the URI for the metaName
+                XURI uContentMeta = getMetaURI(contentMetaName);
+                XMetadatable sectionResource = ooQueryInterface.XMetadatable(aContent);
+
+                //enumerate the section metadata
+                sectionStatement =  getMetadataByPredicate(xGraph, sectionResource, uContentMeta);
+
+            } catch (IllegalArgumentException ex) {
+                log.error("error while getting root namespace", ex);
+            }
+        }
+        return sectionStatement;
+
+    }
+
+
     /**
      * Get range metadata by name
      * @param aRange
@@ -494,6 +590,28 @@ public class RDFMetadata {
         }
         return metaStatements;
      }
+
+          /**
+      * Get all the metadata associated with a section
+      * @param aSection
+      * @return
+      */
+     public Statement[] getContentMetadata(XTextContent aContent) {
+       XNamedGraph xGraph = null;
+       Statement[] metaStatements = {};
+       try {
+            xGraph = getDocumentMetadataGraph();
+        } catch (IllegalArgumentException ex) {
+            log.error("error getting document metadata graph", ex);
+        } catch (RepositoryException ex) {
+            log.error("error getting document metadata graph", ex);
+        }
+        if (xGraph != null) {
+           metaStatements = getMetadata(xGraph, ooQueryInterface.XMetadatable(aContent));
+        }
+        return metaStatements;
+     }
+
 
      /**
       * Get all the metadata associated with a range

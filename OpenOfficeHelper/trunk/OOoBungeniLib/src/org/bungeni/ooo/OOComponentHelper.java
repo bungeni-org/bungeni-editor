@@ -4,8 +4,6 @@ package org.bungeni.ooo;
 
 import com.sun.star.rdf.RepositoryException;
 import com.sun.star.uno.Exception;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -52,6 +50,7 @@ import com.sun.star.script.provider.XScriptProviderSupplier;
 import com.sun.star.style.XStyle;
 import com.sun.star.style.XStyleFamiliesSupplier;
 import com.sun.star.text.XBookmarksSupplier;
+import com.sun.star.text.XParagraphCursor;
 import com.sun.star.text.XReferenceMarksSupplier;
 import com.sun.star.text.XText;
 import com.sun.star.text.XTextColumns;
@@ -1218,6 +1217,62 @@ public class OOComponentHelper {
         }
 
         return edgeCursor;
+    }
+
+    /**
+     * Returns the current paragraph where the selection resides
+     * This ignores the selection range and uses the starting point of the selection cursor to indicate "current position"
+     * @return
+     */
+    public XTextContent getCurrentParagraph(){
+        XTextContent theParagraph = null;
+
+        XTextCursor rangeCursor = getViewCursor().getStart().getText().createTextCursorByRange(getViewCursor().getStart());
+        XParagraphCursor paraCursor = ooQueryInterface.XParagraphCursor(rangeCursor);
+        if (paraCursor != null) {
+            paraCursor.gotoStartOfParagraph(false);
+            paraCursor.gotoEndOfParagraph(true);
+            XEnumerationAccess enumAccess = ooQueryInterface.XEnumerationAccess(paraCursor);
+            XEnumeration anEnum = enumAccess.createEnumeration();
+            while (anEnum.hasMoreElements()) {
+                try {
+                    Object foundObject = anEnum.nextElement();
+                    XServiceInfo serviceInfo = ooQueryInterface.XServiceInfo(foundObject);
+                    if (serviceInfo.supportsService("com.sun.star.text.Paragraph")) {
+                        XTextContent paraContent = ooQueryInterface.XTextContent(foundObject);
+                        theParagraph = paraContent ; 
+                    }
+                } catch (NoSuchElementException ex) {
+                    log.error("Unable to get para", ex);
+                } catch (WrappedTargetException ex) {
+                    log.error("Unable to get para", ex);
+                }
+            }
+        }
+        return theParagraph;
+    }
+
+
+    /**
+     * Saves a Key:Value metadata map on the current active paragraph in the document.
+     * The metadat is saved as a RDF with the paragraph as the subject and the metadata
+     * key as the predicate and the value as the object
+     * @param paraAttribMap
+     */
+    public void setCurrentParagraphAttributes(HashMap<String,String> paraAttribMap) {
+        XTextContent xCurrentPara = this.getCurrentParagraph();
+        if (xCurrentPara != null) {
+            if (!paraAttribMap.isEmpty()) {
+                Set<String> keys = paraAttribMap.keySet();
+                for (String key: keys) {
+                    this.m_rdfInstance.addContentMetadata(xCurrentPara, key, (String) paraAttribMap.get(key));
+                }
+            } else {
+                log.error("metadata map is empty !");
+            }
+        } else {
+            log.error("There is no current para selected !");
+        }
     }
 
     /**
