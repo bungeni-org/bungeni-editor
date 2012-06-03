@@ -3,12 +3,31 @@
 <!--
 Action configuration for bill document type
 -->
-<toolbar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" doctype="bill">
-  <root visible="true">
+<toolbar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" doctype="bill" >
+  <root visible="true" style="tabbed">
+    
     <actionGroup name="tabFavourites" visible="true" uimodel="wrap" title="FAVOURITES">
+      
+      <blockAction name="CoverPage" title="COVER_PAGE">
+
+        <subaction name="CoverPage.Create"
+          mode="TEXT_SELECTED_INSERT"
+          condition="cursorInSection:bill"
+          title="CREATE_COVER_PAGE"
+          tooltip="TOOLTIP_CREATE_COVER_PAGE"
+          target="create_cover_page"
+        />
+
+        <subaction name="Paragraph.Annotation" 
+          mode="TEXT_SELECTED_INSERT" 
+          condition="cursorInSection:coverpage"
+          title="ANNOTATE_PARAGRAPH"
+          tooltip="TOOLTIP_ANNOTATE_PARAGRAPH"
+          target="annotate_paragraph"
+          />  
+      </blockAction>
 
       <blockAction name="Title" target="null" visible="true" condition="none" title="TITLE">
-
         <subaction name="ShortTitle.selection" mode="TEXT_SELECTED_INSERT"
           target="markup_short_title" visible="true"
           condition="cursorInSection:bill :and: sectionNotExists:shorttitle :and: textSelected:true"

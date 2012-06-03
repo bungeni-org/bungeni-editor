@@ -1,6 +1,16 @@
 <?xml version="1.0" ?>
 <actions for="bill">
 
+    <action name="create_cover_page" source="sectionType" metadata="CoverPage">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+
+    <action name="annotate_paragraph">
+        <router class="org.bungeni.editor.actions.routers.routerAnnotateParagraph"
+            dialog="org.bungeni.editor.selectors.general.ref.Main2"/>
+    </action>
+
+
     <action name="create_sidenote">
 
         <router class="org.bungeni.editor.actions.routers.routerCreateSidenote"

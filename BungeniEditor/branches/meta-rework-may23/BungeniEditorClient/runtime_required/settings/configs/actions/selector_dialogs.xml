@@ -6,12 +6,15 @@
 -->
 
 <dialogs>
-    <dialog class="org.bungeni.editor.selectors.debaterecord.bills.Main" >
+    <dialog name="billsMain"
+        class="org.bungeni.editor.selectors.debaterecord.bills.Main" >
         <dialog
             class="org.bungeni.editor.selectors.debaterecord.bills.Bills"
              />
     </dialog>
-    <dialog class="org.bungeni.editor.selectors.debaterecord.motions.Main" >
+
+    <dialog name="motionsMain"
+        class="org.bungeni.editor.selectors.debaterecord.motions.Main" >
         <dialog  class="org.bungeni.editor.selectors.debaterecord.motions.MotionNameAndURI"
              />
         <dialog class="org.bungeni.editor.selectors.debaterecord.motions.MotionSelect"
@@ -22,7 +25,8 @@
              />
     </dialog>
 
-    <dialog  class="org.bungeni.editor.selectors.debaterecord.question.Main" >
+    <dialog name="questionMain"
+        class="org.bungeni.editor.selectors.debaterecord.question.Main" >
         <dialog class="org.bungeni.editor.selectors.debaterecord.question.QuestionAddressedTo"
              />
         <dialog class="org.bungeni.editor.selectors.debaterecord.question.QuestionNo"
@@ -48,16 +52,15 @@
     </dialog>
 -->
 
-    <dialog
+    <dialog name="documentsSingleSelect"
         class="org.bungeni.editor.selectors.debaterecord.tableddocuments.MainSingleSelect" >
-
         <dialog
             class="org.bungeni.editor.selectors.debaterecord.tableddocuments.SingleSelectTabledDocuments"
              />
 
     </dialog>
 
-    <dialog
+    <dialog name="questionsMain"
         class="org.bungeni.editor.selectors.debaterecord.questions.Main" >
         <dialog
             class="org.bungeni.editor.selectors.debaterecord.questions.QuestionType"
@@ -65,7 +68,7 @@
 
     </dialog>
 
-    <dialog
+    <dialog name="conclusionMain"
         class="org.bungeni.editor.selectors.debaterecord.conclusion.Main" >
         <dialog
             class="org.bungeni.editor.selectors.debaterecord.conclusion.HouseClosingTime"
@@ -73,7 +76,7 @@
 
     </dialog>
 
-    <dialog
+    <dialog name="documentsMain"
         class="org.bungeni.editor.selectors.debaterecord.tableddocuments.Main" >
         <dialog
             class="org.bungeni.editor.selectors.debaterecord.tableddocuments.TabledDocuments"
@@ -81,7 +84,7 @@
 
     </dialog>
 
-    <dialog
+    <dialog name="motionsMainEdit"
         class="org.bungeni.editor.selectors.debaterecord.motions.MainEdit" >
 
         <dialog
@@ -90,7 +93,7 @@
 
     </dialog>
 
-    <dialog
+    <dialog name="refMain"
         class="org.bungeni.editor.selectors.general.ref.Main" >
         <dialog
             class="org.bungeni.editor.selectors.general.ref.RefURI"
@@ -98,7 +101,15 @@
 
     </dialog>
 
-    <dialog
+    <dialog name="classMain"
+        class="org.bungeni.editor.selectors.general.ref.Main2" >
+        <dialog
+            class="org.bungeni.editor.selectors.general.ref.RefClass"
+             />
+
+    </dialog>
+
+    <dialog name="speechMain"
         class="org.bungeni.editor.selectors.debaterecord.speech.Main" >
         <dialog
             class="org.bungeni.editor.selectors.debaterecord.speech.PersonSelector"
@@ -114,7 +125,7 @@
              />
     </dialog>
 
-    <dialog
+    <dialog name="speechMainEdit"
         class="org.bungeni.editor.selectors.debaterecord.speech.MainEdit" >
         <dialog
             class="org.bungeni.editor.selectors.debaterecord.speech.PersonSelector"
@@ -130,7 +141,7 @@
              />
     </dialog>
 
-    <dialog
+    <dialog name="documentsMainDataEntry"
         class="org.bungeni.editor.selectors.debaterecord.tableddocuments.MainDataEntry" >
         <dialog
             class="org.bungeni.editor.selectors.debaterecord.tableddocuments.EnterTabledDocument"

@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="windows-1252"?>
 <sectionTypes for="bill">
+
+<sectionType name="Preamble"
+    prefix="preamble"
+    numstyle="single"
+    background="0xffffff"
+    indent-left=".1"
+    indent-right="0"
+    visibility="user" >
+
+ </sectionType>
+
+<sectionType name="CoverPage"
+    prefix="coverpage"
+    numstyle="single"
+    background="0xcccccc"
+    indent-left=".1"
+    indent-right="0"
+    visibility="user" >
+
+ </sectionType>
+
 <sectionType name="Article"
     prefix="article"
     numstyle="serial"

@@ -15,11 +15,11 @@ import java.awt.Component;
  *
  * @author Ashok Hariharan
  */
-public class Main extends BaseMetadataContainerPanel {
-    private static org.apache.log4j.Logger log             = org.apache.log4j.Logger.getLogger(Main.class.getName());
+public class Main2 extends BaseMetadataContainerPanel {
+    private static org.apache.log4j.Logger log             = org.apache.log4j.Logger.getLogger(Main2.class.getName());
     private final short                    SECTION_COLUMNS = 1;
 
-    public Main() {
+    public Main2() {
         super();
     }
 
