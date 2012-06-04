@@ -46,7 +46,7 @@ Action configuration for bill document type
       </blockAction>
 
 
-      <blockAction name="Preamble" title="PREFACE">
+      <blockAction name="Preamble" title="PREAMBLE">
         <subaction name="Preamble.Create"
           mode="TEXT_SELECTED_INSERT"
           condition="cursorInSection:bill"

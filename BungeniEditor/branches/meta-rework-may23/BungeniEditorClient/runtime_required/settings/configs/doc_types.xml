@@ -95,9 +95,6 @@
             <metadata-editor class="org.bungeni.editor.metadata.editors.GeneralMetadata" >
                 <title xml:lang="eng">General</title>
             </metadata-editor>
-            <metadata-editor class="org.bungeni.editor.metadata.editors.ParliamentMetadata" >
-                <title xml:lang="eng">Parliament</title>
-            </metadata-editor>
             <metadata-editor class="org.bungeni.editor.metadata.editors.BillMetadata" >
                 <title xml:lang="eng">Bill</title>
             </metadata-editor>

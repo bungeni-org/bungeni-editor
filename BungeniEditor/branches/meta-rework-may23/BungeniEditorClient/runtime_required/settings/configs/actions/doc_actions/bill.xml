@@ -10,14 +10,13 @@
             dialog="org.bungeni.editor.selectors.general.ref.Main2"/>
     </action>
 
-    <action name="make_bill_preface" source="sectionType" metadata="Preface">
+    <action name="create_preface" source="sectionType" metadata="Preface">
         <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
     </action>
 
-    <action name="make_bill_prefamble" source="sectionType" metadata="Preamble">
+    <action name="create_preamble" source="sectionType" metadata="Preamble">
         <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
     </action>
-
 
     <action name="create_sidenote">
         <router class="org.bungeni.editor.actions.routers.routerCreateSidenote"
