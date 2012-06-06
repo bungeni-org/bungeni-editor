@@ -32,16 +32,16 @@ The following describes a configuration for the Bill sectionType 'CoverPage' wit
 
 The individual parameters are described below :
 
- * sectionType/@name - REQUIRED - the name of the sectionType this is how the system will internally the type of the section.
- * sectionType/@prefix - REQUIRED -  the internal name of the section created using the sectionType. e.g. If we create a instance of a sectionType named "CoverPage" , a section called "coverpage" will be generated in the document.
- * sectionType/@numstyle - REQUIRED -  takes either 'single' or 'serial'. 'single' - will allow only one instance of the sectionType in the document. 'serial' will creation of multiple instance which will follow a serial number naming convention : coverpage1, coverpage2...etc.
- * sectionType/@indent-left , sectionType@indent-right - OPTIONAL - this specifies the indentation of an instance of the sectionType on the document
- * sectionType/@background - OPTIONAL - defaults to white, if specified either a background image (url:/path/to/image.png) or a hex-color (0xff0000 for red ) can be specified.
- * sectionType/@visibility - OPTIONAL - defaults to 'user' - not implemented yet, for future use. 
+ * *sectionType/@name - REQUIRED* - the name of the sectionType this is how the system will internally the type of the section.
+ * *sectionType/@prefix - REQUIRED* -  the internal name of the section created using the sectionType. e.g. If we create a instance of a sectionType named "CoverPage" , a section called "coverpage" will be generated in the document.
+ * *sectionType/@numstyle - REQUIRED* -  takes either 'single' or 'serial'. 'single' - will allow only one instance of the sectionType in the document. 'serial' will creation of multiple instance which will follow a serial number naming convention : coverpage1, coverpage2...etc.
+ * *sectionType/@indent-left , sectionType@indent-right - OPTIONAL* - this specifies the indentation of an instance of the sectionType on the document
+ * *sectionType/@background - OPTIONAL* - defaults to white, if specified either a background image (url:/path/to/image.png) or a hex-color (0xff0000 for red ) can be specified.
+ * *sectionType/@visibility - OPTIONAL* - defaults to 'user' - not implemented yet, for future use. 
 
 
 = References =
 
- * [OpenOffice document sections http://wiki.services.openoffice.org/wiki/Documentation/DevGuide/Text/Text_Sections]
- * [ODF text:section http://docs.oasis-open.org/office/v1.2/os/OpenDocument-v1.2-os-part1.html#__RefHeading__1415162_253892949]
- * [ODF Toolkit Section implementation http://incubator.apache.org/odftoolkit/simple/document/javadoc/org/odftoolkit/simple/text/Section.html]
+ * [http://wiki.services.openoffice.org/wiki/Documentation/DevGuide/Text/Text_Sections OpenOffice document sections]
+ * [http://docs.oasis-open.org/office/v1.2/os/OpenDocument-v1.2-os-part1.html#__RefHeading__1415162_253892949 ODF text:section]
+ * [http://incubator.apache.org/odftoolkit/simple/document/javadoc/org/odftoolkit/simple/text/Section.html ODF Toolkit Section implementation]
