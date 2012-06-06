@@ -79,7 +79,13 @@ public class toolbarAction {
             if (routerElement != null) {
                     name = routerElement.getAttributeValue("name");
                     router_class = routerElement.getAttributeValue("class");
-                    dialog_class = routerElement.getAttributeValue("dialog");
+                    String dialogName = routerElement.getAttributeValue("dialog");
+                    if (dialogName == null) {
+                        dialog_class = null;
+                    } else {
+                        Element mainDialog = DocumentActionsReader.getInstance().getSelectorDialog(dialogName);
+                        dialog_class = mainDialog.getAttributeValue("class");
+                    }
             } else
                 throw new Exception("Router Element not created, getRouter returned null !");
         }

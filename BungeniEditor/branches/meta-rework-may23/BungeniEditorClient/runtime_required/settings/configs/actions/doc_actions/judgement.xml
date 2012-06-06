@@ -108,7 +108,7 @@
     <action name="tabular_judge_reference" source="sectionType" metadata="Speech">
 
         <router class="org.bungeni.editor.actions.routers.routerJudgRecordSelectJudg"
-            dialog="org.bungeni.editor.selectors.judgement.speech.Main"/>
+            dialog="speechMain"/>
     </action>
 
 

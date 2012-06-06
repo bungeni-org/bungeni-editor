@@ -15,17 +15,17 @@
     
     <action name="markup_question_no">
         <router class="org.bungeni.editor.actions.routers.routerCreateQuestionReference"
-            dialog="org.bungeni.editor.selectors.debaterecord.question.QuestionSelect"/>
+         />
     </action>
 
     <action name="markup_question_by">
         <router class="org.bungeni.editor.actions.routers.routerCreateQuestionByReference"
-            dialog="org.bungeni.editor.selectors.debaterecord.question.QuestionSelect"/>
+            />
     </action>
 
     <action name="markup_question_to">
         <router class="org.bungeni.editor.actions.routers.routerCreateQuestionToReference"
-            dialog="org.bungeni.editor.selectors.debaterecord.question.QuestionSelect"/>
+            />
     </action>
 
     <action name="apply_questiontext_style">
@@ -54,12 +54,12 @@
 
     <action name="select_doc_link">
         <router class="org.bungeni.editor.actions.routers.routerTabledDocuments"
-            dialog="org.bungeni.editor.selectors.debaterecord.tableddocuments.MainSingleSelect"/>
+            dialog="documentsSingleSelect"/>
     </action>
 
     <action name="add_doc_link">
         <router class="org.bungeni.editor.actions.routers.routerTabledDocuments"
-            dialog="org.bungeni.editor.selectors.debaterecord.tableddocuments.Main"/>
+            dialog="documentsMain"/>
     </action>
 
     <action name="create_root_section">
@@ -76,12 +76,12 @@
 
     <action name="markup_committee">
         <router class="org.bungeni.editor.actions.routers.routerSelectCommittee"
-            dialog="org.bungeni.editor.selectors.debaterecord.committees.Main"/>
+            dialog="committeesMain"/>
     </action>
 
     <action name="markup_bill">
         <router class="org.bungeni.editor.actions.routers.routerSelectBill"
-            dialog="org.bungeni.editor.selectors.debaterecord.bills.Main"/>
+            dialog="billsMain"/>
     </action>
 
     <action name="create_personal_statement" source="sectionType" metadata="PersonalStatement">
@@ -94,56 +94,56 @@
 
     <action name="make_debate_section_section" source="sectionType" metadata="Question">
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"
-            dialog="org.bungeni.editor.selectors.debaterecord.question.QuestionSelect"/>
+          />
     </action>
 
     <action name="apply_style" source="sectionType" metadata="Paper">
         <router class="org.bungeni.editor.actions.routers.routerApplyStyle"
-            dialog="org.bungeni.editor.selectors.InitPapers"/>
+          />
     </action>
     
     <action name="import_tabled_documents" source="sectionType" metadata="Paper">
         <router class="org.bungeni.editor.actions.routers.routerTabledDocuments"
-            dialog="org.bungeni.editor.selectors.InitPapers"/>
+          />
     </action>
 
     <action name="create_paper_section" source="sectionType" metadata="Paper"
         validator="org.bungeni.editor.actions.validators.validateCreateSection">
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"
-            dialog="org.bungeni.editor.selectors.InitPapers"/>
+          />
     </action>
     
     <action name="create_QA_section" source="sectionType" metadata="QAContainer"
         validator="org.bungeni.editor.actions.validators.validateCreateSection">
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"
-            dialog="org.bungeni.editor.selectors.InitQASection"/>
+           />
     </action>
 
     <action name="make_question_block_section" source="sectionType" metadata="QuestionContainer">
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"
-            dialog="org.bungeni.editor.selectors.InitQuestionBlock"/>
+         />
     </action>
 
     <action name="debatedate_entry" source="sectionType" metadata="Preface">
         <router class="org.bungeni.editor.actions.routers.routerDebateDateEntry"
-            dialog="org.bungeni.editor.selectors.InitDebateRecord"/>
+            />
     </action>
 
     <!-- names conflict action name & router_name -->
     <action name="debatetime_entry" source="sectionType" metadata="Preface">
         <router class="org.bungeni.editor.actions.routers.routerDebateDateEntry"
-            dialog="org.bungeni.editor.selectors.InitDebateRecord"/>
+           />
     </action>
 
     <action name="markup_logo" source="sectionType" metadata="Preface">
         <router class="org.bungeni.editor.actions.routers.routerMarkupLogo"
-            dialog="org.bungeni.editor.selectors.InitDebateRecord"/>
+           />
     </action>
 
     <action name="make_prayer_section" source="sectionType" metadata="Preface"
         validator="org.bungeni.editor.actions.validators.validateCreateSection">
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"
-            dialog="org.bungeni.editor.selectors.InitDebateRecord"/>
+          />
     </action>
 
     <action name="char_style" source="sectionType" metadata="Preface">
@@ -156,17 +156,17 @@
 
     <action name="make_debatedate_section" source="sectionType" metadata="Preface">
         <router class="org.bungeni.editor.actions.routers.routerDebateRecordDateEntry"
-            dialog="org.bungeni.editor.selectors.debaterecord.masthead.DebateRecordDate"/>
+           />
     </action>
 
     <action name="make_debatetime_section" source="sectionType" metadata="Preface">
         <router class="org.bungeni.editor.actions.routers.routerDebateRecordTimeEntry"
-            dialog="org.bungeni.editor.selectors.debaterecord.masthead.DebateRecordTime"/>
+           />
     </action>
 
     <action name="markup_logo" source="sectionType" metadata="Preface">
         <router class="org.bungeni.editor.actions.routers.routerMarkupLogo"
-            dialog="org.bungeni.editor.selectors.debaterecord.masthead.DebateRecordLogo"/>
+           />
     </action>
 
     <action name="markup_preface_heading" source="sectionType" metadata="Preface">
@@ -183,7 +183,7 @@
 
     <action name="mark_house_closing" source="sectionType" metadata="Conclusion">
         <router class="org.bungeni.editor.actions.routers.routerMarkHouseClosing"
-            dialog="org.bungeni.editor.selectors.debaterecord.conclusion.Main"/>
+            dialog="conclusionMain"/>
     </action>
 
     <action name="make_adjournment_section" source="sectionType" metadata="Conclusion">
@@ -192,7 +192,7 @@
 
     <action name="create_speech" source="sectionType" metadata="Speech">
         <router class="org.bungeni.editor.actions.routers.routerDebateRecordSelectSpeech"
-            dialog="org.bungeni.editor.selectors.debaterecord.speech.Main"/>
+            dialog="speechMain"/>
     </action>
 
     <action name="speech_as" source="sectionType" metadata="Speech">
