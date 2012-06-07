@@ -536,7 +536,7 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
         MetadataEditorContainer meta = new MetadataEditorContainer(oohc, frm, SelectorDialogModes.TEXT_INSERTION);
         meta.initialize();
         frm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frm.setSize(meta.getFrameSize());
+        frm.setSize(meta.getPreferredSize());
         frm.add(meta.getPanelComponent());
         frm.setVisible(true);
         frm.setAlwaysOnTop(true);
