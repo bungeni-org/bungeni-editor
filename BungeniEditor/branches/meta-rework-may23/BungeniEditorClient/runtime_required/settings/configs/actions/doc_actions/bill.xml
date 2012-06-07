@@ -4,9 +4,31 @@
     <action name="create_cover_page" source="sectionType" metadata="CoverPage">
         <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
     </action>
-
+    
+    <action name="create_container" source="sectionType" metadata="Container">
+        <router class="org.bungeni.editor.actions.routers.routerDialogAction" 
+            dialog="namedSectionMain"
+        />
+    </action>
+    
+    <action name="create_block" source="sectionType" metadata="Block">
+        <router class="org.bungeni.editor.actions.routers.routerDialogAction" 
+            dialog="namedSectionMain"
+        />
+    </action>
+    
+    <action name="create_recitals" source="sectionType" metadata="Recitals">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" 
+        />
+    </action>
+    
+    <action name="create_recital" source="sectionType" metadata="Recital">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" 
+        />
+    </action>
+    
     <action name="annotate_paragraph">
-        <router class="org.bungeni.editor.actions.routers.routerAnnotateParagraph"
+        <router class="org.bungeni.editor.actions.routers.routerDialogAction"
             dialog="classMain"/>
     </action>
 

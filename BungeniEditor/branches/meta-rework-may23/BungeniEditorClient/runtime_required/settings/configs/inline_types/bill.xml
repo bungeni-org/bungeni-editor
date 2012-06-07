@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inlineTypes for="bill">
+
+    <inlineType name="ref">
+        <metadatas>
+            <metadata name="BungeniRefHref" />
+        </metadatas>
+        <output>
+            <content>
+                <ref href="$BungeniRefHref" />
+            </content>
+        </output>
+    </inlineType>
+
+
+</inlineTypes>

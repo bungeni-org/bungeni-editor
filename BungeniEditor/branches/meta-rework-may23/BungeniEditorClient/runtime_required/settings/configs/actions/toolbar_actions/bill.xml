@@ -25,6 +25,16 @@ Action configuration for bill document type
           tooltip="TOOLTIP_ANNOTATE_PARAGRAPH"
           target="annotate_paragraph"
           />  
+        
+        
+        <subaction name="Container.Create" 
+          mode="TEXT_SELECTED_INSERT" 
+          condition="cursorInSection:coverpage"
+          title="MARKUP_CONTAINER"
+          tooltip="TOOLBAR_MARKUP_CONTAINER"
+          target="create_container"
+        />  
+        
       </blockAction>
 
       <blockAction name="Preface" title="PREFACE">

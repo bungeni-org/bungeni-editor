@@ -7,12 +7,13 @@ import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.ooo.OOComponentHelper;
 
 /**
- *
+ * This router class launches a dialog in edit and insert mode,
+ * It is upto the implementing dialog to decide what to do 
  * @author Ashok
  */
-public class routerAnnotateParagraph extends defaultRouter {
- private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(routerAnnotateParagraph.class.getName());
-  public routerAnnotateParagraph(){
+public class routerDialogAction extends defaultRouter {
+ private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(routerDialogAction.class.getName());
+  public routerDialogAction(){
       super();
   }
   
