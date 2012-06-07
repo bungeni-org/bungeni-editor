@@ -1008,7 +1008,7 @@ public class editorApplicationController extends javax.swing.JPanel {
 
         meta.initialize();
         frm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frm.setSize(meta.getFrameSize());
+        frm.setSize(meta.getPreferredSize());
         frm.add(meta.getPanelComponent());
         frm.setVisible(true);
         FrameLauncher.CenterFrame(frm);
