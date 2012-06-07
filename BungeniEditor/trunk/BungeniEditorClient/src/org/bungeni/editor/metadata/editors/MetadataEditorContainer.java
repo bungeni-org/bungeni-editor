@@ -75,7 +75,9 @@ public class MetadataEditorContainer extends JPanel {
         }
         
         this.btnSave.setAction(saveAction);
-        this.btnNavigate.setAction(nextAction);
+        this.btnNavigateNext.setAction(nextAction);
+        this.btnNavigatePrev.setAction(prevAction);
+        
         this.metadataTabContainer.addChangeListener(new MetaTabsChangeListener());
 
     }
@@ -111,11 +113,23 @@ public class MetadataEditorContainer extends JPanel {
     class MetaTabsChangeListener implements ChangeListener {
 
         public void stateChanged(ChangeEvent e) {
+             int nNoOfTabs = metadataTabContainer.getTabCount();
             int iIndex = metadataTabContainer.getSelectedIndex();
             if (iIndex == 0 ) {
-                btnNavigate.setAction(nextAction);
-            } else {
-                btnNavigate.setAction(prevAction);
+                btnNavigateNext.setAction(nextAction);
+                btnNavigatePrev.setEnabled(false);
+            }
+            else if (iIndex == nNoOfTabs-1)
+            {
+                  btnNavigateNext.setEnabled(false);
+                  btnNavigatePrev.setEnabled(true);
+                  btnNavigatePrev.setAction(prevAction);
+            }
+            else {
+                btnNavigateNext.setEnabled(true);
+                btnNavigatePrev.setEnabled(true);
+                btnNavigateNext.setAction(nextAction);
+                btnNavigatePrev.setAction(prevAction);
             }
         }
 
@@ -391,7 +405,6 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
     }
 
 
-
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -406,10 +419,11 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         jScrollPane1 = new javax.swing.JScrollPane();
         txtMsgArea = new javax.swing.JTextArea();
         metadataTabContainer = new javax.swing.JTabbedPane();
-        btnNavigate = new javax.swing.JButton();
+        btnNavigateNext = new javax.swing.JButton();
+        btnNavigatePrev = new javax.swing.JButton();
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setPreferredSize(new java.awt.Dimension(474, 600));
+        setPreferredSize(new java.awt.Dimension(475, 550));
 
         btnSave.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle"); // NOI18N
@@ -438,28 +452,34 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         txtMsgArea.setBorder(null);
         jScrollPane1.setViewportView(txtMsgArea);
 
-        btnNavigate.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        btnNavigate.setText(bundle.getString("MetadataEditorContainer.btnNavigate.text")); // NOI18N
+        btnNavigateNext.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnNavigateNext.setText(bundle.getString("MetadataEditorContainer.btnNavigateNext.text")); // NOI18N
+
+        btnNavigatePrev.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnNavigatePrev.setText(bundle.getString("MetadataEditorContainer.btnNavigatePrev.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(metadataTabContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addComponent(btnNavigate, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                            .addComponent(jScrollPane1))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnNavigatePrev, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnNavigateNext, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -468,11 +488,12 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(metadataTabContainer)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 492, Short.MAX_VALUE)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
                     .addComponent(btnSave)
-                    .addComponent(btnNavigate))
+                    .addComponent(btnNavigateNext)
+                    .addComponent(btnNavigatePrev))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -489,18 +510,14 @@ private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnNavigate;
+    private javax.swing.JButton btnNavigateNext;
+    private javax.swing.JButton btnNavigatePrev;
     private javax.swing.JButton btnSave;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane metadataTabContainer;
     private javax.swing.JTextArea txtMsgArea;
     // End of variables declaration//GEN-END:variables
 
-  
- 
-    public Dimension getFrameSize() {
-        return new Dimension(470, 650);
-    }
 
     /**
      * Static api to launch metadata editor for a document 
@@ -515,7 +532,7 @@ private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
         MetadataEditorContainer meta = new MetadataEditorContainer(oohc, frm, dlgMode);
         meta.initialize();
         frm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frm.setSize(meta.getFrameSize());
+        frm.setSize(meta.getPreferredSize());
         frm.add(meta.getPanelComponent());
         frm.setVisible(true);
         FrameLauncher.CenterFrame(frm);
