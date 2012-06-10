@@ -13,6 +13,8 @@ import com.sun.star.text.XTextSection;
 import com.sun.star.text.XTextViewCursor;
 
 import java.awt.Component;
+import org.bungeni.editor.actions.routers.CommonRouterActions.SectionCreationState;
+import org.bungeni.editor.actions.toolbarAction.actionSourceOrigin;
 
 
 
@@ -22,8 +24,7 @@ import java.awt.Component;
  */
 public class Main extends BaseMetadataContainerPanel {
     private static org.apache.log4j.Logger log             = org.apache.log4j.Logger.getLogger(Main.class.getName());
-    private final short                    SECTION_COLUMNS = 1;
-
+   
     public Main() {
         super();
     }
@@ -40,6 +41,12 @@ public class Main extends BaseMetadataContainerPanel {
         // create the section if it doesnt exist over here...
         makeMetaEditable();
 
+        if (theSubAction.getActionSource().equals(actionSourceOrigin.sectionType)) {
+            SectionCreationState scs =  CommonRouterActions.action_createSection(theSubAction, ooDocument);
+            this.mainSectionName = scs.sectionName;
+        }
+        //!+FIX_THIS for other types
+        /**
         String newSection = getActionSectionName();
 
         if (!ooDocument.hasSection(newSection)) {
@@ -63,7 +70,7 @@ public class Main extends BaseMetadataContainerPanel {
             CommonRouterActions.setSectionProperties(theSubAction, newSection, ooDocument);
             ooDocument.setSectionMetadataAttributes(xSection, CommonRouterActions.get_newSectionMetadata(theSubAction));
         }
-
+        ***/
         return true;
     }
 

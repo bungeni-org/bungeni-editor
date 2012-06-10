@@ -34,11 +34,20 @@ Action configuration for bill document type
           tooltip="TOOLBAR_MARKUP_CONTAINER"
           target="create_container"
         />  
-        
+
+        <subaction name="Block.Create"
+          mode="TEXT_SELECTED_INSERT"
+          condition="cursorInSection:coverpage"
+          title="MARKUP_BLOCK"
+          tooltip="TOOLBAR_MARKUP_BLOCK"
+          target="create_block"
+        />
+
       </blockAction>
 
       <blockAction name="Preface" title="PREFACE">
-        <subaction name="Preface.Create"
+
+       <subaction name="Preface.Create"
           mode="TEXT_SELECTED_INSERT"
           condition="cursorInSection:bill"
           title="CREATE_PREFACE"
@@ -53,18 +62,36 @@ Action configuration for bill document type
           tooltip="TOOLTIP_ANNOTATE_PARAGRAPH"
           target="annotate_paragraph"
           />
+        <subaction name="Container.Create"
+          mode="TEXT_SELECTED_INSERT"
+          condition="cursorInSection:preface"
+          title="MARKUP_CONTAINER"
+          tooltip="TOOLBAR_MARKUP_CONTAINER"
+          target="create_container"
+        />
+
+        <subaction name="Block.Create"
+          mode="TEXT_SELECTED_INSERT"
+          condition="cursorInSection:preface"
+          title="MARKUP_BLOCK"
+          tooltip="TOOLBAR_MARKUP_BLOCK"
+          target="create_block"
+        />
+
       </blockAction>
 
 
       <blockAction name="Preamble" title="PREAMBLE">
+          
         <subaction name="Preamble.Create"
           mode="TEXT_SELECTED_INSERT"
-          condition="cursorInSection:bill"
+          condition="cursorInSection:bill :and: textSelected:true"
           title="CREATE_PREAMBLE"
           tooltip="TOOLTIP_CREATE_PREAMBLE"
           target="create_preamble"
         />
 
+        <!-- annotate action does not require selection -->
         <subaction name="Paragraph.Annotation"
           mode="TEXT_SELECTED_INSERT"
           condition="cursorInSection:preamble"
@@ -72,6 +99,38 @@ Action configuration for bill document type
           tooltip="TOOLTIP_ANNOTATE_PARAGRAPH"
           target="annotate_paragraph"
           />
+       <subaction name="Container.Create"
+          mode="TEXT_SELECTED_INSERT"
+          condition="cursorInSection:preface :and: textSelected:true"
+          title="MARKUP_CONTAINER"
+          tooltip="TOOLBAR_MARKUP_CONTAINER"
+          target="create_container"
+        />
+
+        <subaction name="Block.Create"
+          mode="TEXT_SELECTED_INSERT"
+          condition="cursorInSection:preface :and: textSelected:true"
+          title="MARKUP_BLOCK"
+          tooltip="TOOLBAR_MARKUP_BLOCK"
+          target="create_block"
+        />
+
+     <subaction name="Recitals.Create"
+          mode="TEXT_SELECTED_INSERT"
+          condition="cursorInSection:preamble :and: textSelected:true"
+          title="MARKUP_BLOCK"
+          tooltip="TOOLBAR_MARKUP_BLOCK"
+          target="create_recitals"
+        />
+
+     <subaction name="Recital.Create"
+          mode="TEXT_SELECTED_INSERT"
+          condition="cursorInSection:recitals([0-9]*)"
+          title="MARKUP_BLOCK"
+          tooltip="TOOLBAR_MARKUP_BLOCK"
+          target="create_recitals"
+        />
+
       </blockAction>
 
       <blockAction name="Title" target="null" visible="true" condition="none" title="TITLE">

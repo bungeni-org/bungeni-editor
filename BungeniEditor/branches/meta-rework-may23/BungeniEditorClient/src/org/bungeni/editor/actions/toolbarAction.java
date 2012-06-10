@@ -15,7 +15,7 @@ import org.jdom.JDOMException;
 
 /**
  *
- * @author Administrator
+ * @author Ashok Hariharan
  */
 
 // !+ACTION_RECONF (rm, jan 2012) - note that toolbarAction class is being
@@ -29,8 +29,10 @@ public class toolbarAction {
     private SelectorDialogModes            theMode  = null;
     private String                         action_class;
 
-    private static final String DEFAULT_VALIDATOR = "org.bungeni.editor.actions.validators.defaultValidator";
-
+    private static final String DEFAULT_VALIDATOR =
+            "org.bungeni.editor.actions.validators.defaultValidator";
+    private static final String DEFAULT_SELECTOR_MAIN_DIALOG =
+            "org.bungeni.editor.selectors.general.Main";
     // !+ACTION_RECONF (rm, jan 2012) - deprecating var since corresponding
     // field in db is deprecated
     //private String                         action_type;
@@ -85,6 +87,9 @@ public class toolbarAction {
                     } else {
                         Element mainDialog = DocumentActionsReader.getInstance().getSelectorDialog(dialogName);
                         dialog_class = mainDialog.getAttributeValue("class");
+                        if (null == dialog_class) {
+                            dialog_class = toolbarAction.DEFAULT_SELECTOR_MAIN_DIALOG;
+                        }
                     }
             } else
                 throw new Exception("Router Element not created, getRouter returned null !");
@@ -234,6 +239,11 @@ public class toolbarAction {
 
     public SelectorDialogModes getSelectorDialogMode() {
         return theMode;
+    }
+
+   
+    public actionSourceOrigin getActionSource(){
+        return this.actionSource;
     }
 
     public String getSectionType(){
