@@ -46,10 +46,9 @@
         <xsl:variable name="group_id" select="field[@name='group_id']" />
         <xsl:variable name="sitting-session" select="concat(xbf:parse-date(field[@name='start_date']),';',xbf:parse-date(field[@name='end_date']))" />
         
-        <xsl:variable name="group-type" select="group/field[@name='type']" />
         <ontology for="groupsitting">
             <groupsitting id="bungeniGroupsitting" isA="TLCConcept">
-                <xsl:attribute name="type" select="$group-type" />
+                <xsl:attribute name="for" select="$group-element-name" />
                 
                 <xsl:attribute name="xml:lang">
                     <xsl:value-of select="field[@name='language']" />
@@ -62,7 +61,7 @@
                     '/ontology/',
                     $content-type-uri-name,'/',
                     $country-code, '/',
-                    $group-type,'/',
+                    $group-element-name,'/',
                     $group_id,'/',
                     normalize-space($sitting-session)
                     )" />
@@ -116,7 +115,7 @@
             <!--    !+FIX_THIS (ao, jan 2012. Some address documents for individuals like clerk dont have 'type' field and 
                 this broke the pipeline processor
                 
-                <xsl:element name="{$group-type}">
+                <xsl:element name="{$group-element-name}">
                 <xsl:attribute name="isA">TLCOrganization</xsl:attribute>
                 <xsl:attribute name="refersTo" select="concat('#', $group_id)" />
                 </xsl:element>
