@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actCategoriesBasic>
+  <actCategoryBasic>
+        <id>1</id>
+        <name lang="en"> Amendment </name>
+        <name lang="ar"> تعديل </name>
+  </actCategoryBasic>
+  <actCategoryBasic>
+        <id>2</id>
+        <name lang="en"> Original </name>
+        <name lang="ar"> أصلي </name>
+  </actCategoryBasic>
+  <actCategoryBasic>
+        <id>3</id>
+        <name lang="en"> Correction </name>
+        <name lang="ar">  تصويب </name>
+  </actCategoryBasic>
+</actCategoriesBasic>

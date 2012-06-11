@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actCategories>
+  <actCategory>
+        <id>1</id>
+        <name lang="en"> Implementing legislation </name>
+        <name lang="ar"> تشريع تنفيذي</name>
+  </actCategory>
+
+  <actCategory>
+        <id>2</id>
+        <name lang="en"> Key legislation </name>
+        <name lang="ar"> تشريع رئيسي </name>
+  </actCategory>
+  
+  <actCategory>
+        <id>3</id>
+        <name lang="en"> Declaratory decision</name>
+        <name lang="ar"> قرار تفسيري </name>
+  </actCategory>
+  
+  <actCategory>
+        <id>4</id>
+        <name lang="en"> Regulatory legislation </name>
+        <name lang="ar"> تشريع تنظيمي </name>
+  </actCategory>
+</actCategories>

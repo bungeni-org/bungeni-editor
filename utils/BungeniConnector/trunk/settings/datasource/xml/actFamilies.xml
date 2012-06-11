@@ -2,13 +2,275 @@
 <actFamilies>
   <actFamily>
         <id>1</id>
-        <name lang="en"> Family 1 </name>
-        <name lang="ar"> عائلة 1 </name>
+        <name lang="en"> Public International Law</name>
+        <name lang="ar"> القانون الدولي العام</name>
+        <subFamily lang="en"> Treaties and Agreements</subFamily>
+        <subFamily lang="ar"> المعاهدات والاتفاقيات</subFamily>
+       
   </actFamily>
 
   <actFamily>
         <id>2</id>
-        <name lang="en"> Family 2 </name>
-        <name lang="ar"> عائلة 2 </name>
+        <name lang="en"> Constitutional Law</name>
+        <name lang="ar"> عائلة القانون الدستوري </name>
+        <subFamily lang="en">Constitutions - Basic Laws and Interpreting Legislation </subFamily>
+        <subFamily lang="ar">الدساتير والقوانين الأساسية والتشريعات التفسيرية </subFamily>
+        <subFamily lang="en">Political Legislation</subFamily>
+        <subFamily lang="ar">التشريعات السياسية </subFamily>
+        <subFamily lang="en">Civil Liberties</subFamily>
+        <subFamily lang="ar"> الحريات العامة </subFamily>
+        <subFamily lang="en">Emergency Legislation</subFamily>
+        <subFamily lang="ar"> تشريعات الطوارئ </subFamily>
   </actFamily>
+  
+  
+  
+  <actFamily>
+        <id>3</id>
+        <name lang="en"> Administrative Law</name>
+        <name lang="ar">القانون الإداري </name>
+        <subFamily lang="en">Local Government </subFamily>
+        <subFamily lang="ar"> الإدارة المحلية </subFamily>
+        <subFamily lang="en">Municipal Services</subFamily>
+        <subFamily lang="ar">  خدمات البلديات</subFamily>
+        <subFamily lang="en">Planning Law and Expropriation</subFamily>
+        <subFamily lang="ar"> التخطيط والتنظيم والاستملاك </subFamily>
+        <subFamily lang="en">Civil Service</subFamily>
+        <subFamily lang="ar">  الوظيفة العامة (الخدمة المدنية)</subFamily>
+        <subFamily lang="en">Government Institutions and Administrative Agencies </subFamily>
+        <subFamily lang="ar"> أجهزة الحكومة والتشكيلات الإدارية </subFamily>
+        <subFamily lang="en">Civil Affairs</subFamily>
+        <subFamily lang="ar"> الشؤون المدنية </subFamily>
+        <subFamily lang="en">Administrative Contracts and Public Works</subFamily>
+        <subFamily lang="ar"> العقود الإدارية والتعهدات العامة </subFamily>
+  </actFamily>
+
+   <actFamily>
+    <id>4</id>
+    <name lang="en"> Services</name>
+    <name lang="ar"> الخدمات</name>
+    <subFamily lang="en">Health</subFamily>
+    <subFamily lang="ar"> الصحة </subFamily>
+    <subFamily lang="en">Transportation</subFamily>
+    <subFamily lang="ar"> المواصلات </subFamily>
+    <subFamily lang="en">Communications</subFamily>
+    <subFamily lang="ar">  الاتصالات</subFamily>
+    <subFamily lang="en">Education - Culture and Youth </subFamily>
+    <subFamily lang="ar">  التربية والتعليم والثقافة والشباب</subFamily>
+  </actFamily>
+  
+   <actFamily>
+    <id>5</id>
+    <name lang="en"> Media</name>
+    <name lang="ar">الإعلام </name>
+    <subFamily lang="en">Publications </subFamily>
+    <subFamily lang="ar"> المطبوعات</subFamily>
+  </actFamily>
+  
+   <actFamily>
+    <id>6</id>
+    <name lang="en"> TOURISM AND ARCHAEOLOGY</name>
+    <name lang="ar"> السياحة والآثار</name>
+    <subFamily lang="en"> Tourism and Archaeology </subFamily>
+    <subFamily lang="ar">  السياحة والآثار</subFamily>
+  </actFamily>
+  
+   <actFamily>
+    <id>7</id>
+    <name lang="en"> Natural Resources and Energy</name>
+    <name lang="ar"> المصادر الطبيعية والطاقة</name>
+    <subFamily lang="en"> Energy</subFamily>
+    <subFamily lang="ar"> الطاقة </subFamily>
+ <subFamily lang="en"> Natural Resources</subFamily>
+    <subFamily lang="ar"> المصادر الطبيعية </subFamily>
+ <subFamily lang="en"> Flammable Materials</subFamily>
+    <subFamily lang="ar"> المحروقات والمواد المشتعلة </subFamily>
+  </actFamily>
+  
+   <actFamily>
+    <id>8</id>
+    <name lang="en">Security Forces </name>
+    <name lang="ar">الأجهزة الأمنية </name>
+    <subFamily lang="en"> Police </subFamily>
+    <subFamily lang="ar">قوات الأمن</subFamily>
+    <subFamily lang="en">Army</subFamily>
+    <subFamily lang="ar"> الجيش </subFamily>
+  </actFamily>
+  
+   <actFamily>
+    <id>9</id>
+    <name lang="en"> Labor Law and Social Legislation</name>
+    <name lang="ar"> قانون العمل وتشريعات الشؤون الاجتماعية</name>
+    <subFamily lang="en"> Labor Law</subFamily>
+    <subFamily lang="ar">  قانون العمل</subFamily>
+    <subFamily lang="en"> Social Welfare </subFamily>
+    <subFamily lang="ar">  الشؤون الاجتماعية</subFamily>
+  </actFamily>
+  
+   <actFamily>
+    <id>10</id>
+    <name lang="en"> Associations</name>
+    <name lang="ar">الجمعيات </name>
+    <subFamily lang="en"> Associations</subFamily>
+    <subFamily lang="ar">  الجمعيات</subFamily>
+  </actFamily>
+  
+   <actFamily>
+    <id>11</id>
+    <name lang="en">Financial Law </name>
+    <name lang="ar"> القانون المالي</name>
+    <subFamily lang="en">Taxes </subFamily>
+    <subFamily lang="ar">  الضرائب</subFamily>
+    <subFamily lang="en">Banks and Currency </subFamily>
+    <subFamily lang="ar">  البنوك والعملة</subFamily>
+    <subFamily lang="en">Public Budget </subFamily>
+    <subFamily lang="ar">  الموازنة العامة </subFamily>
+ <subFamily lang="en">Customs and Duties</subFamily>
+ <subFamily lang="ar">  الجمارك والرسوم</subFamily>
+  </actFamily>
+  
+   <actFamily>
+ <id>12</id>
+ <name lang="en"> Criminal Law</name>
+ <name lang="ar"> القانون الجنائي</name>
+ <subFamily lang="en">Penalties </subFamily>
+ <subFamily lang="ar"> العقوبات </subFamily>
+ <subFamily lang="en">Public Order</subFamily>
+ <subFamily lang="ar"> النظام العام </subFamily>
+  <subFamily lang="en">Juveniles </subFamily>
+ <subFamily lang="ar"> الأحداث</subFamily>
+  <subFamily lang="en">National Security</subFamily>
+ <subFamily lang="ar">أمن الدولة </subFamily>
+  <subFamily lang="en"> Prisons</subFamily>
+ <subFamily lang="ar">  السجون</subFamily>
+  </actFamily>
+  
+   <actFamily>
+ <id>13</id>
+ <name lang="en"> Civil Law</name>
+ <name lang="ar"> القانون المدني</name>
+ <subFamily lang="en">Contract and Tort </subFamily>
+ <subFamily lang="ar"> المعاملات المدنية</subFamily>
+ <subFamily lang="en">Landlord and Tenant </subFamily>
+  <subFamily lang="ar"> المالكون والمستأجرون </subFamily>
+ </actFamily>
+ 
+  <actFamily>
+  <id>14</id>
+  <name lang="en">Environmental Law </name>
+  <name lang="ar">تشريعات البيئة </name>
+  <subFamily lang="en">Environmental Protection</subFamily>
+  <subFamily lang="ar"> المحافظة على البيئة </subFamily>
+  <subFamily lang="en"> Agriculture</subFamily>
+  <subFamily lang="ar"> الزراعة </subFamily>
+  <subFamily lang="en">Livestock </subFamily>
+  <subFamily lang="ar"> الحيوانات</subFamily>
+ </actFamily>
+ 
+  <actFamily>
+  <id>15</id>
+  <name lang="en">Professions </name>
+  <name lang="ar"> المهن</name>
+  <subFamily lang="en"> Regulation of Professions and Crafts </subFamily>
+  <subFamily lang="ar"> تنظيم المهن والحرف</subFamily>
+ <subFamily lang="en"> Legal Professions</subFamily>
+  <subFamily lang="ar"> المهن الحقوقية </subFamily>
+ <subFamily lang="en"> Medical Professions</subFamily>
+  <subFamily lang="ar"> المهن الطبية </subFamily>
+ <subFamily lang="en"> Other Professions</subFamily>
+  <subFamily lang="ar"> مهن أخرى</subFamily>
+ </actFamily>
+ 
+ <actFamily>
+ <id>16</id>
+ <name lang="en"> Immovable Property</name>
+ <name lang="ar">الأموال غير المنقولة </name>
+ <subFamily lang="en"> Lands</subFamily>
+ <subFamily lang="ar"> الأراضي </subFamily>
+ </actFamily>
+ 
+ <actFamily>
+ <id>17</id>
+ <name lang="en">Judiciary </name>
+ <name lang="ar"> القضاء</name>
+ <subFamily lang="en"> Civil procedures </subFamily>
+ <subFamily lang="ar"> أصول المحاكمات الحقوقية</subFamily>
+ <subFamily lang="en"> Criminal procedures </subFamily>
+ <subFamily lang="ar">أصول المحاكمات الجزائية </subFamily>
+ <subFamily lang="en"> Special Tribunal procedures </subFamily>
+ <subFamily lang="ar"> أصول المحاكمات أمام المحاكم الدينية و الخاصة</subFamily>
+ <subFamily lang="en">  Civil and Criminal Courts (Organisation)</subFamily>
+ <subFamily lang="ar"> المحاكم النظامية (تشكيل وتنظيم)</subFamily>
+ <subFamily lang="en"> Special Tribunals (Organisation) </subFamily>
+ <subFamily lang="ar"> المحاكم الخاصة (تشكيل وتنظيم)</subFamily>
+ <subFamily lang="en">  Arbitration and foreign judgments</subFamily>
+ <subFamily lang="ar"> التحكيم والأحكام الأجنبية</subFamily>
+ <subFamily lang="en">  Law Council</subFamily>
+ <subFamily lang="ar"> مجلس الحقوق</subFamily>
+ </actFamily>
+ 
+ <actFamily>
+ <id>18</id>
+ <name lang="en"> Commercial Law</name>
+ <name lang="ar"> القانون التجاري</name>
+ <subFamily lang="en">  Commercial Law - Registry -  Agency - Bankruptcy and Asset Protection - Policies and Checks</subFamily>
+ <subFamily lang="ar"> قانون التجارة - السجل التجاري - الوكلاء التجاريون - الإفلاس والصلح الواقي - البوالس والشيكات </subFamily>
+ <subFamily lang="en">  Chambers of Commerce and Industry</subFamily>
+ <subFamily lang="ar"> الغرف الصناعية والتجارية </subFamily>
+ <subFamily lang="en">  Trademarks</subFamily>
+ <subFamily lang="ar"> العلامات التجارية وعلامات البضائع </subFamily>
+ <subFamily lang="en">  Weights and Measures</subFamily>
+ <subFamily lang="ar"> الأوزان والمقاييس والمكاييل</subFamily>
+ <subFamily lang="en">  Patents</subFamily>
+ <subFamily lang="ar"> امتيازات الاختراعات </subFamily>
+ <subFamily lang="en"> Imports and Exports </subFamily>
+ <subFamily lang="ar"> الاستيراد والتصدير</subFamily>
+ <subFamily lang="en">  Food Supply</subFamily>
+ <subFamily lang="ar"> التموين</subFamily>
+ <subFamily lang="en">  Light and Heavy Industry</subFamily>
+ <subFamily lang="ar"> الصناعات الخفيفة والثقيلة </subFamily>
+ <subFamily lang="en">Sea Trade and Harbors</subFamily>
+ <subFamily lang="ar"> التجارة البحرية والموانئ </subFamily>
+ <subFamily lang="en">Companies </subFamily>
+ <subFamily lang="ar"> قانون الشركات</subFamily>
+ <subFamily lang="en">Investment</subFamily>
+ <subFamily lang="ar"> تشجيع الاستثمار</subFamily>
+ <subFamily lang="en"> Insurance </subFamily>
+ <subFamily lang="ar"> التأمين </subFamily>
+ <subFamily lang="en"> Intellectual Property</subFamily>
+ <subFamily lang="ar"> الملكية الفكرية </subFamily> 
+ </actFamily>
+ 
+ <actFamily>
+ <id>19</id>
+ <name lang="en">Private International Law </name>
+ <name lang="ar"> القانون الدولي الخاص</name>
+ <subFamily lang="en"> Foreign Documents - Nationality - Foreigners</subFamily>
+ <subFamily lang="ar"> الوثائق الأجنبية - الجنسية - الأجانب</subFamily>
+ </actFamily>
+ 
+ <actFamily>
+ <id>20</id>
+ <name lang="en">Israeli Military Orders </name>
+ <name lang="ar"> الأوامر العسكرية الإسرائيلية</name>
+ <subFamily lang="en"> Security</subFamily>
+ <subFamily lang="ar"> أمنية </subFamily>
+ <subFamily lang="en"> Others</subFamily>
+ <subFamily lang="ar"> أخرى </subFamily>
+ </actFamily>
+ 
+ <actFamily>
+ <id>21</id>
+ <name lang="en"> Religious Legislations</name>
+ <name lang="ar">التشريعات الدينية </name>
+ <subFamily lang="en"> </subFamily>
+ <subFamily lang="ar"> الأحوال الشخصية :منشورة في الوقائع </subFamily>
+ <subFamily lang="en"> Religious Institutions</subFamily>
+ <subFamily lang="ar"> هيئات دينية </subFamily>
+ <subFamily lang="en"> Awqaf</subFamily>
+ <subFamily lang="ar"> أوقاف ومقدسات </subFamily>
+ <subFamily lang="en"> </subFamily>
+ <subFamily lang="ar"> الأحوال الشخصية للمسيحيين:غير منشورة في الوقائع</subFamily>
+ </actFamily>
+ 
 </actFamilies>

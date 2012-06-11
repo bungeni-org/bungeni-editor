@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actOrganizations>
+  <actOrganization>
+        <id>1</id>
+        <name lang="en">  </name>
+        <name lang="ar"> رئيس السلطة الوطنية الفلسطينية </name>       
+  </actOrganization>
+
+  <actOrganization>
+        <id>2</id>
+        <name lang="en"> </name>
+        <name lang="ar"> رئيس مجلس الوزراء </name>
+  </actOrganization>
+  
+   <actOrganization>
+        <id>3</id>
+        <name lang="en"> </name>
+        <name lang="ar"> المجلس التشريعي  </name>
+  </actOrganization>
+  
+   <actOrganization>
+        <id>4</id>
+        <name lang="en"> </name>
+        <name lang="ar">  مجلس الوزراء </name>
+  </actOrganization>
+  
+   <actOrganization>
+        <id>5</id>
+        <name lang="en"> </name>
+        <name lang="ar">  الهيئة العام لتشجيع الإستثمار </name>
+  </actOrganization>
+  
+   <actOrganization>
+        <id>6</id>
+        <name lang="en"> </name>
+        <name lang="ar">  ديوان الفتوى والتشريع </name>
+  </actOrganization>
+  
+   <actOrganization>
+        <id>7</id>
+        <name lang="en"> </name>
+        <name lang="ar">  وزير المالية </name>
+  </actOrganization>
+  
+   <actOrganization>
+        <id>8</id>
+        <name lang="en"> </name>
+        <name lang="ar">  وزير الاقتصاد الوطني </name>
+  </actOrganization>
+  
+   <actOrganization>
+        <id>9</id>
+        <name lang="en"> </name>
+        <name lang="ar"> وزير العدل  </name>
+  </actOrganization>
+  
+   <actOrganization>
+        <id>10</id>
+        <name lang="en"> </name>
+        <name lang="ar"> وزير العمل  </name>
+  </actOrganization>
+  
+   <actOrganization>
+        <id>11</id>
+        <name lang="en"> </name>
+        <name lang="ar">  وزير التربية والتعليم العالي </name>
+  </actOrganization>
+  
+   <actOrganization>
+        <id>12</id>
+        <name lang="en"> </name>
+        <name lang="ar"> وزير شئون الاسرى والمحررين </name>
+  </actOrganization>
+  
+   <actOrganization>
+        <id>13</id>
+        <name lang="en"> </name>
+        <name lang="ar"> وزير النقل والمواصلات  </name>
+  </actOrganization>
+   <actOrganization>
+        <id>14</id>
+        <name lang="en"> </name>
+        <name lang="ar"> وزير الاشغال العامة والاسكان  </name>
+  </actOrganization>
+  
+   <actOrganization>
+        <id>15</id>
+        <name lang="en"> </name>
+        <name lang="ar">  وزير الصحة </name>
+  </actOrganization>
+  
+   <actOrganization>
+        <id>16</id>
+        <name lang="en"> </name>
+        <name lang="ar"> وزير الشؤون الاجتماعية  </name>
+  </actOrganization>
+   <actOrganization>
+        <id>17</id>
+        <name lang="en"> </name>
+        <name lang="ar"> وزير السياحة والآثار  </name>
+  </actOrganization>
+  
+   <actOrganization>
+        <id>18</id>
+        <name lang="en"> </name>
+        <name lang="ar"> وزير الشؤون الخارجية  </name>
+  </actOrganization>
+  
+   <actOrganization>
+        <id>19</id>
+        <name lang="en"> </name>
+        <name lang="ar"> وزير الزراعة  </name>
+  </actOrganization>
+  
+   <actOrganization>
+        <id>20</id>
+        <name lang="en"> </name>
+        <name lang="ar"> وزير الداخلية  </name>
+  </actOrganization>
+  
+   <actOrganization>
+        <id>21</id>
+        <name lang="en"> </name>
+        <name lang="ar">  وزير الحكم المحلي </name>
+  </actOrganization>
+   <actOrganization>
+        <id>22</id>
+        <name lang="en"> </name>
+        <name lang="ar"> وزير التخطيط  </name>
+  </actOrganization>
+  
+  
+  
+   <actOrganization>
+        <id>23</id>
+        <name lang="en"> </name>
+        <name lang="ar"> وزير الاتصالات وتكنولوجيا المعلومات  </name>
+  </actOrganization>
+  
+   <actOrganization>
+        <id>24</id>
+        <name lang="en"> </name>
+        <name lang="ar">  وزير الاعلام </name>
+  </actOrganization>
+  
+   <actOrganization>
+        <id>25</id>
+        <name lang="en"> </name>
+        <name lang="ar">  هيئة سوق رأس المال </name>
+  </actOrganization>
+  
+   <actOrganization>
+        <id>26</id>
+        <name lang="en"> </name>
+        <name lang="ar"> نقيب المحامين  </name>
+  </actOrganization>
+  
+   <actOrganization>
+        <id>27</id>
+        <name lang="en"> </name>
+        <name lang="ar"> مسجل العلامات التجارية  </name>
+  </actOrganization>
+  
+   <actOrganization>
+        <id>28</id>
+        <name lang="en"> </name>
+        <name lang="ar"> مجلس الطاقة الوطني </name>
+ </actOrganization>
+ 
+  <actOrganization>
+    <id>29</id>
+    <name lang="en"> </name>
+    <name lang="ar"> رئيس سلطة جودة البيئة </name>
+ </actOrganization>
+ 
+ <actOrganization>
+  <id>30</id>
+  <name lang="en"> </name>
+  <name lang="ar"> رئيس مجلس القضاء الأعلى </name>
+ </actOrganization>
+ 
+ <actOrganization>
+  <id>31</id>
+  <name lang="en"> </name>
+  <name lang="ar"> النائب العام </name>
+ </actOrganization>
+ 
+ <actOrganization>
+  <id>32</id>
+  <name lang="en"> </name>
+  <name lang="ar"> وزير الصناعة </name>
+ </actOrganization>
+ 
+ <actOrganization>
+  <id>33</id>
+  <name lang="en"> </name>
+  <name lang="ar"> وزير الثقافة </name>
+ </actOrganization>
+ 
+</actOrganizations>

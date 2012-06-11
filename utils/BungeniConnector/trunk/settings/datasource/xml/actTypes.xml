@@ -3,22 +3,22 @@
   <actType>
         <id>1</id>
         <name lang="en"> Executive </name>
-        <name lang="ar"> تنفيذي </name>
+        <name lang="ar"> دستور </name>
   </actType>
   <actType>
         <id>2</id>
         <name lang="en"> Main </name>
-        <name lang="ar"> رئيسي </name>
+        <name lang="ar"> قانون </name>
   </actType>
   <actType>
         <id>3</id>
         <name lang="en"> Interpretative </name>
-        <name lang="ar"> تفسيري </name>
+        <name lang="ar"> نظام </name>
   </actType>
 
   <actType>
         <id>4</id>
         <name lang="en"> Regulatory </name>
-        <name lang="ar"> تنظيمي </name>
+        <name lang="ar"> إعلان </name>
   </actType>
 </actTypes>
