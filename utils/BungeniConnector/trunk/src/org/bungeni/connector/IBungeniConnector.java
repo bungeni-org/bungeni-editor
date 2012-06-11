@@ -43,7 +43,9 @@ public interface IBungeniConnector {
     public List<MetadataInfo> getMetadataInfo();
     public List<Document> getDocuments();
     public List<Committee> getCommittees();
-    public List<PublicationName> getPublicationNames();
-    public List<ActClassification> getActClassifications();
+    public List<SrcName> getSrcNames();
+    public List<ActCategory> getActCategories();
+    public List<ActCategoryBasic> getActCategoriesBasic();
+    public List<ActOrganization> getActOrganizations();
 
 }

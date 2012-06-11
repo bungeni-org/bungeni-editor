@@ -35,14 +35,16 @@ public class BungeniConnector implements IBungeniConnector {
     private String judgementLitigationTypesSource = "/judgementLitigationTypes";
     
     private String judgementCourtsSource = "/judgementCourts";
-    private String publicationNamesSource = "/publicationNames";
+    private String srcNamesSource = "/srcNames";
     private String actHistoricalPeriodSource = "/actHistoricalPeriods";
     private String actTypesSource = "/actTypes";
     private String actScopesSource = "/actScopes";
     private String sourceTypesSource = "/sourceTypes";
     private String documentsSource = "/documents";
     private String committeeSource = "/committee";
-    private String actClassificationsSource = "/actClassifications";
+    private String actCategoriesSource = "/actCategories";
+    private String actCategoriesBasicSource = "/actCategoriesBasic";
+    private String actOrganizationsSource = "/actOrganizations";
     private String packageAlias = "package";
 
     private String SERVER_HOST = "localhost";
@@ -139,18 +141,22 @@ public class BungeniConnector implements IBungeniConnector {
         return getList(getActScopesSource(), ActScope.PACKAGE_ALIAS, ActScope.CLASS_ALIAS, ActScope.class);
     }
     
-    public List<PublicationName> getPublicationNames() {
-        return getList(getPublicationNamesSource(), PublicationName.PACKAGE_ALIAS, PublicationName.CLASS_ALIAS, PublicationName.class);
+    public List<SrcName> getSrcNames() {
+        return getList(getSrcNamesSource(), SrcName.PACKAGE_ALIAS, SrcName.CLASS_ALIAS, SrcName.class);
     }
     
     public List<ActType> getActTypes() {
         return getList(getActTypesSource(), ActType.PACKAGE_ALIAS, ActType.CLASS_ALIAS, ActType.class);
     }
     
-     public List<ActClassification> getActClassifications() {
-        return getList(getActClassificationsSource(), ActClassification.PACKAGE_ALIAS, ActClassification.CLASS_ALIAS, ActClassification.class);
+     public List<ActCategory> getActCategories() {
+        return getList(getActCategoriesSource(), ActCategory.PACKAGE_ALIAS, ActCategory.CLASS_ALIAS, ActCategory.class);
     }
    
+     public List<ActCategoryBasic> getActCategoriesBasic() {
+        return getList(getActCategoriesBasicSource(), ActCategoryBasic.PACKAGE_ALIAS, ActCategoryBasic.CLASS_ALIAS, ActCategoryBasic.class);
+    }
+      
     public List<SourceType> getSourceTypes() {
         return getList(getSourceTypesSource(), SourceType.PACKAGE_ALIAS, SourceType.CLASS_ALIAS, SourceType.class);
     }
@@ -183,6 +189,9 @@ public class BungeniConnector implements IBungeniConnector {
         return getList(getCommitteeSource(), Committee.PACKAGE_ALIAS, Committee.CLASS_ALIAS, Committee.class);
     }
     
+    public List<ActOrganization> getActOrganizations(){
+        return getList(getActOrganizationsSource(), ActOrganization.PACKAGE_ALIAS, ActOrganization.CLASS_ALIAS, ActOrganization.class);
+    }
     private String getActFamiliesSource(){
         return getVirtDirURL() + actFamiliesSource;
     }
@@ -257,14 +266,21 @@ public class BungeniConnector implements IBungeniConnector {
         return getVirtDirURL() + actHistoricalPeriodSource;
     }
 
-    private String getPublicationNamesSource() {
-        return getVirtDirURL() + publicationNamesSource;
+    private String getSrcNamesSource() {
+        return getVirtDirURL() + srcNamesSource;
     }
     
-    private String getActClassificationsSource() {
-        return getVirtDirURL() + actClassificationsSource;
+    private String getActCategoriesSource() {
+        return getVirtDirURL() + actCategoriesSource;
     }
 
-   
+    private String getActCategoriesBasicSource() {
+        return getVirtDirURL() + actCategoriesBasicSource;
+    }
+
+    private String getActOrganizationsSource() {
+        return getVirtDirURL() + actOrganizationsSource;
+    }
+ 
 
 }

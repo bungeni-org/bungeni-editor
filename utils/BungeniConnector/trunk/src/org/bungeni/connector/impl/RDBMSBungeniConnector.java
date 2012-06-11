@@ -609,11 +609,19 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public List<PublicationName> getPublicationNames() {
+    public List<SrcName> getSrcNames() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public List<ActClassification> getActClassifications() {
+    public List<ActCategory> getActCategories() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public List<ActCategoryBasic> getActCategoriesBasic() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public List<ActOrganization> getActOrganizations() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

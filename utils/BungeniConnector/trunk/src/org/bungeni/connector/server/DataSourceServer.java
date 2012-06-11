@@ -29,13 +29,15 @@ public class DataSourceServer extends Application {
     private String judgementRegionsRoute = "/current/judgementRegions";
     
     private String judgementLitigationTypesRoute = "/current/judgementLitigationTypes";
-    private String actClassificationsRoute = "/current/actClassifications";
+    private String actCategoriesRoute = "/current/actCategories";
+    private String actCategoriesBasicRoute = "/current/actCategoriesBasic";
    
     
     private String judgementCourtsRoute = "/current/judgementCourts";
-    private String publicationNamesRoute = "/current/publicationNames";
+    private String srcNamesRoute = "/current/srcNames";
     private String actTypesRoute = "/current/actTypes";
     private String actScopesRoute = "/current/actScopes";
+    private String actOrganizationsRoute = "/current/actOrganizations";
     private String actFamiliesRoute = "/current/actFamilies";
     private String actHistoricalPeriodsRoute = "/current/actHistoricalPeriods";
     
@@ -52,14 +54,16 @@ public class DataSourceServer extends Application {
     private String judgementDomainsURI = null;
     private String judgementRegionsURI = null;
    
-    private String actClassificationsURI = null;
+    private String actCatergoriesURI = null;
+    private String actCatergoriesBasicURI = null;
     
     private String judgementLitigationTypesURI = null;
     
     private String judgementCourtsURI = null;
     
     private String actFamiliesURI = null;
-    private String publicationNamesURI = null;
+    private String srcNamesURI = null;
+    private String actOrganizationsURI = null;
     private String actHistoricalPeriodsURI = null;
     private String actTypesURI = null;
     private String actScopesURI = null;
@@ -280,13 +284,16 @@ public class DataSourceServer extends Application {
         
         router.attach(judgementCourtsRoute, new JudgementCourtsRestlet(bungeniConnector));
          
-        router.attach(actClassificationsRoute, new ActClassificationsRestlet(bungeniConnector));
+        router.attach(actCategoriesRoute, new ActCategoriesRestlet(bungeniConnector));
+        router.attach(actCategoriesBasicRoute, new ActCategoriesBasicRestlet(bungeniConnector));
+        
+        router.attach(actOrganizationsRoute, new ActOrganizationsRestlet(bungeniConnector));
         
         router.attach(actTypesRoute, new ActTypesRestlet(bungeniConnector));
         router.attach(actScopesRoute, new ActScopesRestlet(bungeniConnector));
         router.attach(actFamiliesRoute, new ActFamiliesRestlet(bungeniConnector));
         router.attach(actHistoricalPeriodsRoute, new ActHistoricalPeriodsRestlet(bungeniConnector));
-        router.attach(publicationNamesRoute, new PublicationNamesRestlet(bungeniConnector));
+        router.attach(srcNamesRoute, new SrcNamesRestlet(bungeniConnector));
         
         
         router.attach(sourceTypesRoute, new SourceTypesRestlet(bungeniConnector));
@@ -340,7 +347,23 @@ public class DataSourceServer extends Application {
     public String getActScopesURI() {
         return actScopesURI;
     }
-
+    
+    public String getActOrganizationURI(){
+        return actOrganizationsURI;
+    }
+    
+    public String getActCategoriesURI() {
+        return actCatergoriesURI;
+    }
+    
+    public String getActCategoriesBasicURI() {
+        return actCatergoriesBasicURI;
+    }
+    
+     public String getSrcNamesURI() {
+        return srcNamesURI;
+    }
+     
      public String getSourceTypesURI() {
         return sourceTypesURI;
     }

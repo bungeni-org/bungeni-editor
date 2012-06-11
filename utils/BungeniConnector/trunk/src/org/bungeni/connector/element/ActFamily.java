@@ -16,13 +16,15 @@ public class ActFamily {
     public static final String CLASS_ALIAS = "actFamily";
     private Integer id;
     private List name = new ArrayList();
+    private List subFamily = new ArrayList();
 
     public ActFamily() {
     }
 
-    public ActFamily(Integer id, Name name) {
+    public ActFamily(Integer id, Name name, SubFamily subFamily) {
         this.id = id;
         this.name.add(name);
+        this.subFamily.add(subFamily);
     }
 
     public Integer getId() {
@@ -41,6 +43,14 @@ public class ActFamily {
             return name;
     }
     
+    public void addSubFamily(SubFamily subFamily) {
+        this.subFamily.add(subFamily);
+    }
+    
+    public List getSubFamilies() {
+            return subFamily;
+    }
+    
     public String getNameByLang(String lang) {
          String value=null;
          for(Name objName : (List<Name>)name){
@@ -51,4 +61,26 @@ public class ActFamily {
          }
             return value;
     }
+    
+    public String getSubFamilyByLang(String lang) {
+         String value=null;
+         for(SubFamily objSubFamily : (List<SubFamily>)subFamily){
+             if(objSubFamily.getLang().equalsIgnoreCase(lang)){
+                 value = objSubFamily.getValue();
+                 break;
+             }
+         }
+            return value;
+    }
+    
+     public List<SubFamily> getSubFamiliesByLang(String lang) {
+         List<SubFamily> subFamiliesList= new ArrayList<SubFamily>();
+         for(SubFamily objSubFamily : (List<SubFamily>)subFamily){
+             if(objSubFamily.getLang().equalsIgnoreCase(lang)){
+                 subFamiliesList.add(objSubFamily);
+             }
+         }
+            return subFamiliesList;
+    }
+    
 }

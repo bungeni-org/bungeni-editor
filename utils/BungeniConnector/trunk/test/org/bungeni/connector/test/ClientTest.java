@@ -22,25 +22,14 @@ public class ClientTest {
         BungeniConnector b = new BungeniConnector();
         b.init(cp);
         
-        List<ActClassification> ActClassifications = b.getActClassifications();
-
-        if (ActClassifications != null) {
-            System.out.println("::::::::::::::: ACT CLASSIFICATIONS :::::::::::::::::::");
-            for (int i = 0; i < ActClassifications.size(); i++) {
-                System.out.println(" id:  " + ActClassifications.get(i).getId());
-                for(Name objName: (List<Name>)ActClassifications.get(i).getNames()){
-                    System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
-                }
-            }
-        }
         
-        List<PublicationName> PublicationNames = b.getPublicationNames();
+       List<ActOrganization> actOrganizations = b.getActOrganizations();
 
-        if (PublicationNames != null) {
-            System.out.println("::::::::::::::: ACT PUBLICATION NAMES :::::::::::::::::::");
-            for (int i = 0; i < PublicationNames.size(); i++) {
-                System.out.println(" id:  " + PublicationNames.get(i).getId());
-                for(Name objName: (List<Name>)PublicationNames.get(i).getNames()){
+        if (actOrganizations != null) {
+            System.out.println("::::::::::::::: ACT ORGANIZATIONS :::::::::::::::::::");
+            for (int i = 0; i < actOrganizations.size(); i++) {
+                System.out.println(" id:  " + actOrganizations.get(i).getId());
+                for(Name objName: (List<Name>)actOrganizations.get(i).getNames()){
                     System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
                 }
             }
@@ -55,9 +44,47 @@ public class ClientTest {
                 for(Name objName: (List<Name>)actFamilies.get(i).getNames()){
                     System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
                 }
+                for(SubFamily objSubFamily: (List<SubFamily>)actFamilies.get(i).getSubFamilies()){
+                    System.out.println(" lang:  " + objSubFamily.getLang() + ", value: " + objSubFamily.getValue());
+                }
             }
         }
         
+        List<ActCategory> ActCategories = b.getActCategories();
+
+        if (ActCategories != null) {
+            System.out.println("::::::::::::::: ACT CATEGORIES :::::::::::::::::::");
+            for (int i = 0; i < ActCategories.size(); i++) {
+                System.out.println(" id:  " + ActCategories.get(i).getId());
+                for(Name objName: (List<Name>)ActCategories.get(i).getNames()){
+                    System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
+                }
+            }
+        }
+        
+         List<ActCategoryBasic> ActCategoriesBasic = b.getActCategoriesBasic();
+
+        if (ActCategoriesBasic != null) {
+            System.out.println("::::::::::::::: ACT CATEGORIES BASIC :::::::::::::::::::");
+            for (int i = 0; i < ActCategoriesBasic.size(); i++) {
+                System.out.println(" id:  " + ActCategoriesBasic.get(i).getId());
+                for(Name objName: (List<Name>)ActCategoriesBasic.get(i).getNames()){
+                    System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
+                }
+            }
+        }
+        
+        List<SrcName> SrcNames = b.getSrcNames();
+
+        if (SrcNames != null) {
+            System.out.println("::::::::::::::: ACT SOURCE NAMES :::::::::::::::::::");
+            for (int i = 0; i < SrcNames.size(); i++) {
+                System.out.println(" id:  " + SrcNames.get(i).getId());
+                for(Name objName: (List<Name>)SrcNames.get(i).getNames()){
+                    System.out.println(" lang:  " + objName.getLang() + ", value: " + objName.getValue());
+                }
+            }
+        }
         
         List<ActHistoricalPeriod> actHistoricalPeriods = b.getActHistoricalPeriods();
 

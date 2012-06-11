@@ -1,13 +1,14 @@
-
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package org.bungeni.connector.restlet.current;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import java.util.List;
 import org.bungeni.connector.IBungeniConnector;
-import org.bungeni.connector.element.ActType;
-import org.bungeni.connector.element.Name;
-import org.bungeni.connector.element.NameConverter;
+import org.bungeni.connector.element.ActCategoryBasic;
 import org.restlet.Request;
 import org.restlet.Response;
 import org.restlet.Restlet;
@@ -17,16 +18,14 @@ import org.restlet.data.Status;
 
 /**
  *
- * @author Dave
+ * @author bzuadmin
  */
-public class ActTypesRestlet extends Restlet {
-
-
-    static final String HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "\n<"+ActType.PACKAGE_ALIAS+">";
-    static final String FOOTER = "\n</"+ActType.PACKAGE_ALIAS+">";
+public class ActCategoriesBasicRestlet extends Restlet {
+     static final String HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "\n<"+ActCategoryBasic.PACKAGE_ALIAS+">";
+    static final String FOOTER = "\n</"+ActCategoryBasic.PACKAGE_ALIAS+">";
     IBungeniConnector bungeniConnector = null;
 
-    public ActTypesRestlet(IBungeniConnector bungeniConnector) {
+    public ActCategoriesBasicRestlet(IBungeniConnector bungeniConnector) {
         this.bungeniConnector = bungeniConnector;
     }
 
@@ -34,12 +33,12 @@ public class ActTypesRestlet extends Restlet {
     public void handle(Request request, Response response) {
         try {
             if (request.getMethod().equals(Method.GET)) {
-                List<ActType> items = bungeniConnector.getActTypes();
+                List<ActCategoryBasic> items = bungeniConnector.getActCategoriesBasic();
                 response.setStatus(Status.SUCCESS_OK);
 
                 XStream xStream = new XStream(new DomDriver());
-                xStream.alias(ActType.PACKAGE_ALIAS, List.class);
-                xStream.alias(ActType.CLASS_ALIAS, ActType.class);
+                xStream.alias(ActCategoryBasic.PACKAGE_ALIAS, List.class);
+                xStream.alias(ActCategoryBasic.CLASS_ALIAS, ActCategoryBasic.class);
             
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < items.size(); i++) {
@@ -58,4 +57,5 @@ public class ActTypesRestlet extends Restlet {
             System.out.println(ex.getMessage());
         }
     }
+    
 }

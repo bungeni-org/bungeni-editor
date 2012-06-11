@@ -5,7 +5,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import java.util.List;
 import org.bungeni.connector.IBungeniConnector;
-import org.bungeni.connector.element.ActType;
+import org.bungeni.connector.element.ActOrganization;
 import org.bungeni.connector.element.Name;
 import org.bungeni.connector.element.NameConverter;
 import org.restlet.Request;
@@ -19,14 +19,13 @@ import org.restlet.data.Status;
  *
  * @author Dave
  */
-public class ActTypesRestlet extends Restlet {
+public class ActOrganizationsRestlet extends Restlet {
 
-
-    static final String HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "\n<"+ActType.PACKAGE_ALIAS+">";
-    static final String FOOTER = "\n</"+ActType.PACKAGE_ALIAS+">";
+    static final String HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "\n<"+ActOrganization.PACKAGE_ALIAS+">";
+    static final String FOOTER = "\n</"+ActOrganization.PACKAGE_ALIAS+">";
     IBungeniConnector bungeniConnector = null;
 
-    public ActTypesRestlet(IBungeniConnector bungeniConnector) {
+    public ActOrganizationsRestlet(IBungeniConnector bungeniConnector) {
         this.bungeniConnector = bungeniConnector;
     }
 
@@ -34,12 +33,12 @@ public class ActTypesRestlet extends Restlet {
     public void handle(Request request, Response response) {
         try {
             if (request.getMethod().equals(Method.GET)) {
-                List<ActType> items = bungeniConnector.getActTypes();
+                List<ActOrganization> items = bungeniConnector.getActOrganizations();
                 response.setStatus(Status.SUCCESS_OK);
 
                 XStream xStream = new XStream(new DomDriver());
-                xStream.alias(ActType.PACKAGE_ALIAS, List.class);
-                xStream.alias(ActType.CLASS_ALIAS, ActType.class);
+                xStream.alias(ActOrganization.PACKAGE_ALIAS, List.class);
+                xStream.alias(ActOrganization.CLASS_ALIAS, ActOrganization.class);
             
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < items.size(); i++) {

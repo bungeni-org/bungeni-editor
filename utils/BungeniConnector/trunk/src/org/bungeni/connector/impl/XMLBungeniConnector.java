@@ -93,19 +93,26 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String actFamilyAlias = null;
     private String actFamilyIdAlias = null;
     private String actFamilyNameAlias = null;
+    private String actSubFamilyAlias = null;
     private String actFamiliesSourceURI = null;
     
-    private String publicationNamesPackageAlias = null;
-    private String publicationNameAlias = null;
-    private String publicationNameIdAlias = null;
-    private String publicationNameNameAlias = null;
-    private String publicationNamesSourceURI = null;
+    private String srcNamesPackageAlias = null;
+    private String srcNameAlias = null;
+    private String srcNameIdAlias = null;
+    private String srcNameNameAlias = null;
+    private String srcNamesSourceURI = null;
     
-    private String actClassificationsPackageAlias = null;
-    private String actClassificationAlias = null;
-    private String actClassificationIdAlias = null;
-    private String actClassificationNameAlias = null;
-    private String actClassificationsSourceURI = null;
+    private String actCategoriesPackageAlias = null;
+    private String actCategoryAlias = null;
+    private String actCategoryIdAlias = null;
+    private String actCategoryNameAlias = null;
+    private String actCategoriesSourceURI = null;
+    
+    private String actCategoriesBasicPackageAlias = null;
+    private String actCategoryBasicAlias = null;
+    private String actCategoryBasicIdAlias = null;
+    private String actCategoryBasicNameAlias = null;
+    private String actCategoriesBasicSourceURI = null;
     
     private String actHistoricalPeriodsPackageAlias = null;
     private String actHistoricalPeriodAlias = null;
@@ -131,6 +138,12 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String sourceTypeIdAlias = null;
     private String sourceTypeNameAlias = null;
     private String sourceTypesSourceURI = null;
+    
+    private String actOrganizationsPackageAlias = null;
+    private String actOrganizationAlias = null;
+    private String actOrganizationIdAlias = null;
+    private String actOrganizationNameAlias = null;
+    private String actOrganizationsSourceURI = null;
     
     private String motionsPackageAlias = null;
     private String motionAlias = null;
@@ -231,23 +244,30 @@ public class XMLBungeniConnector implements IBungeniConnector {
         this.judgementCourtCountryAlias = props.getProperties().getProperty("xml-judgementCourt-country-alias");
         
         
-        this.publicationNamesSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-publicationNames"));
-        this.publicationNamesPackageAlias = props.getProperties().getProperty("xml-publicationNames-package-alias");
-        this.publicationNameAlias = props.getProperties().getProperty("xml-publicationName-alias");
-        this.publicationNameIdAlias = props.getProperties().getProperty("xml-publicationName-id-alias");
-        this.publicationNameNameAlias = props.getProperties().getProperty("xml-publicationName-name-alias");
+        this.srcNamesSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-srcNames"));
+        this.srcNamesPackageAlias = props.getProperties().getProperty("xml-srcNames-package-alias");
+        this.srcNameAlias = props.getProperties().getProperty("xml-srcName-alias");
+        this.srcNameIdAlias = props.getProperties().getProperty("xml-srcName-id-alias");
+        this.srcNameNameAlias = props.getProperties().getProperty("xml-srcName-name-alias");
     
         this.actFamiliesSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-actFamilies"));
         this.actFamiliesPackageAlias = props.getProperties().getProperty("xml-actFamilies-package-alias");
         this.actFamilyAlias = props.getProperties().getProperty("xml-actFamily-alias");
         this.actFamilyIdAlias = props.getProperties().getProperty("xml-actFamily-id-alias");
         this.actFamilyNameAlias = props.getProperties().getProperty("xml-actFamily-name-alias");
-    
+        this.actSubFamilyAlias = props.getProperties().getProperty("xml-actFamily-subFamily-alias");
+        
         this.actHistoricalPeriodsSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-actHistoricalPeriods"));
         this.actHistoricalPeriodsPackageAlias = props.getProperties().getProperty("xml-actHistoricalPeriods-package-alias");
         this.actHistoricalPeriodAlias = props.getProperties().getProperty("xml-actHistoricalPeriod-alias");
         this.actHistoricalPeriodIdAlias = props.getProperties().getProperty("xml-actHistoricalPeriod-id-alias");
         this.actHistoricalPeriodNameAlias = props.getProperties().getProperty("xml-actHistoricalPeriod-name-alias");
+        
+        this.actOrganizationsSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-actOrganizations"));
+        this.actOrganizationsPackageAlias = props.getProperties().getProperty("xml-actOrganizations-package-alias");
+        this.actOrganizationAlias = props.getProperties().getProperty("xml-actOrganization-alias");
+        this.actOrganizationIdAlias = props.getProperties().getProperty("xml-actOrganization-id-alias");
+        this.actOrganizationNameAlias = props.getProperties().getProperty("xml-actOrganization-name-alias"); 
         
         this.actTypesSourceURI = getAbsoluteURL(props.getProperties().getProperty("xml-actTypes"));
         this.actTypesPackageAlias = props.getProperties().getProperty("xml-actTypes-package-alias");
@@ -313,11 +333,17 @@ public class XMLBungeniConnector implements IBungeniConnector {
         this.committeeUriAlias = props.getProperties().getProperty("xml-committee-uri-alias");
         this.committeeCountryAlias = props.getProperties().getProperty("xml-committee-country-alias");
 
-        this.actClassificationsSourceURI =getAbsoluteURL(props.getProperties().getProperty("xml-actClassifications"));
-        this.actClassificationsPackageAlias = props.getProperties().getProperty("xml-actClassifications-package-alias");
-        this.actClassificationAlias = props.getProperties().getProperty("xml-actClassification-alias");
-        this.actClassificationIdAlias = props.getProperties().getProperty("xml-actClassification-id-alias");
-        this.actClassificationNameAlias = props.getProperties().getProperty("xml-actClassification-name-alias");
+        this.actCategoriesSourceURI =getAbsoluteURL(props.getProperties().getProperty("xml-actCategories"));
+        this.actCategoriesPackageAlias = props.getProperties().getProperty("xml-actCategories-package-alias");
+        this.actCategoryAlias = props.getProperties().getProperty("xml-actCategory-alias");
+        this.actCategoryIdAlias = props.getProperties().getProperty("xml-actCategory-id-alias");
+        this.actCategoryNameAlias = props.getProperties().getProperty("xml-actCategory-name-alias");
+        
+        this.actCategoriesBasicSourceURI =getAbsoluteURL(props.getProperties().getProperty("xml-actCategoriesBasic"));
+        this.actCategoriesBasicPackageAlias = props.getProperties().getProperty("xml-actCategoriesBasic-package-alias");
+        this.actCategoryBasicAlias = props.getProperties().getProperty("xml-actCategoryBasic-alias");
+        this.actCategoryBasicIdAlias = props.getProperties().getProperty("xml-actCategoryBasic-id-alias");
+        this.actCategoryBasicNameAlias = props.getProperties().getProperty("xml-actCategoryBasic-name-alias");
     }
 
     public List<Member> getMembers() {
@@ -503,11 +529,17 @@ public class XMLBungeniConnector implements IBungeniConnector {
             xStream.alias(this.getActFamilyAlias(), ActFamily.class);
             xStream.aliasField(this.getActFamilyIdAlias(), ActFamily.class, "id");
             xStream.aliasField(this.getActFamilyNameAlias(), ActFamily.class, "name");
+            xStream.aliasField(this.getActSubFamilyAlias(), ActFamily.class, "subFamily");
             
             xStream.alias(Name.CLASS_ALIAS, Name.class);
             xStream.addImplicitCollection(ActFamily.class, Name.CLASS_ALIAS, Name.CLASS_ALIAS, Name.class);
             xStream.useAttributeFor(Name.class, "lang");
             xStream.registerConverter(new NameConverter());
+            
+            xStream.alias(SubFamily.CLASS_ALIAS, SubFamily.class);
+            xStream.addImplicitCollection(ActFamily.class, SubFamily.CLASS_ALIAS, SubFamily.CLASS_ALIAS, SubFamily.class);
+            xStream.useAttributeFor(SubFamily.class, "lang");
+            xStream.registerConverter(new SubFamilyConverter());
             
             String xml = resource.get().getText();
             if (xml != null) {
@@ -520,6 +552,32 @@ public class XMLBungeniConnector implements IBungeniConnector {
         return null;
     }
     
+      public List<ActOrganization> getActOrganizations() {
+        ClientResource resource = new ClientResource(getActOrganizationsSourceURI());
+        try {
+            XStream xStream = new XStream(new DomDriver());        
+            xStream.alias(this.getActOrganizationsPackageAlias(), List.class);
+            xStream.alias(this.getActOrganizationAlias(), ActOrganization.class);
+            xStream.aliasField(this.getActOrganizationIdAlias(), ActOrganization.class, "id");
+            xStream.aliasField(this.getActOrganizationNameAlias(), ActOrganization.class, "name");
+            
+            xStream.alias(Name.CLASS_ALIAS, Name.class);
+            xStream.addImplicitCollection(ActOrganization.class, Name.CLASS_ALIAS, Name.CLASS_ALIAS, Name.class);
+            xStream.useAttributeFor(Name.class, "lang");
+            xStream.registerConverter(new NameConverter());
+            
+            String xml = resource.get().getText();
+            if (xml != null) {
+                resource.release();
+                return (List) xStream.fromXML(xml);
+            }
+        } catch (Exception ex) {
+            logger.error(getActTypesSourceURI(), ex);
+        }
+        return null;
+    }
+      
+      
     /**
      * 
      * @return
@@ -958,6 +1016,10 @@ public class XMLBungeniConnector implements IBungeniConnector {
     private String getActFamilyNameAlias() {
         return this.actFamilyNameAlias;
     }
+    
+     private String getActSubFamilyAlias() {
+        return this.actSubFamilyAlias;
+    }
 
     private String getActFamiliesSourceURI() {
         return this.actFamiliesSourceURI;
@@ -1229,17 +1291,17 @@ public class XMLBungeniConnector implements IBungeniConnector {
         return this.actHistoricalPeriodsSourceURI;
     }
 
-    public List<PublicationName> getPublicationNames() {
-        ClientResource resource = new ClientResource(getPublicationNamesSourceURI());
+    public List<SrcName> getSrcNames() {
+        ClientResource resource = new ClientResource(getSrcNamesSourceURI());
         try {
             XStream xStream = new XStream(new DomDriver());        
-            xStream.alias(this.getPublicationNamesPackageAlias(), List.class);
-            xStream.alias(this.getPublicationNameAlias(), PublicationName.class);
-            xStream.aliasField(this.getPublicationNameIdAlias(), PublicationName.class, "id");
-            xStream.aliasField(this.getPublicationNameNameAlias(), PublicationName.class, "name");
+            xStream.alias(this.getSrcNamesPackageAlias(), List.class);
+            xStream.alias(this.getSrcNameAlias(), SrcName.class);
+            xStream.aliasField(this.getSrcNameIdAlias(), SrcName.class, "id");
+            xStream.aliasField(this.getSrcNameNameAlias(), SrcName.class, "name");
             
             xStream.alias(Name.CLASS_ALIAS, Name.class);
-            xStream.addImplicitCollection(PublicationName.class, Name.CLASS_ALIAS, Name.CLASS_ALIAS, Name.class);
+            xStream.addImplicitCollection(SrcName.class, Name.CLASS_ALIAS, Name.CLASS_ALIAS, Name.class);
             xStream.useAttributeFor(Name.class, "lang");
             xStream.registerConverter(new NameConverter());
             
@@ -1249,42 +1311,42 @@ public class XMLBungeniConnector implements IBungeniConnector {
                 return (List) xStream.fromXML(xml);
             }
         } catch (Exception ex) {
-            logger.error(getPublicationNamesSourceURI(), ex);
+            logger.error(getSrcNamesSourceURI(), ex);
         }
         return null;
     }
 
-    private String getPublicationNamesPackageAlias() {
-        return this.publicationNamesPackageAlias;
+    private String getSrcNamesPackageAlias() {
+        return this.srcNamesPackageAlias;
     }
 
-    private String getPublicationNameAlias() {
-        return this.publicationNameAlias;
+    private String getSrcNameAlias() {
+        return this.srcNameAlias;
     }
 
-    private String getPublicationNamesSourceURI() {
-        return this.publicationNamesSourceURI;
+    private String getSrcNamesSourceURI() {
+        return this.srcNamesSourceURI;
     }
 
-    private String getPublicationNameIdAlias() {
-        return this.publicationNameIdAlias;
+    private String getSrcNameIdAlias() {
+        return this.srcNameIdAlias;
     }
 
-    private String getPublicationNameNameAlias() {
-        return this.publicationNameNameAlias;
+    private String getSrcNameNameAlias() {
+        return this.srcNameNameAlias;
     }
 
-    public List<ActClassification> getActClassifications() {
-         ClientResource resource = new ClientResource(getActClassificationsSourceURI());
+    public List<ActCategory> getActCategories() {
+         ClientResource resource = new ClientResource(getActCategoriesSourceURI());
         try {
             XStream xStream = new XStream(new DomDriver());        
-            xStream.alias(this.getActClassificationsPackageAlias(), List.class);
-            xStream.alias(this.getActClassificationAlias(), ActClassification.class);
-            xStream.aliasField(this.getActClassificationIdAlias(), ActClassification.class, "id");
-            xStream.aliasField(this.getActClassificationNameAlias(), ActClassification.class, "name");
+            xStream.alias(this.getActCategoriesPackageAlias(), List.class);
+            xStream.alias(this.getActCategoryAlias(), ActCategory.class);
+            xStream.aliasField(this.getActCategoryIdAlias(), ActCategory.class, "id");
+            xStream.aliasField(this.getActCategoryNameAlias(), ActCategory.class, "name");
             
             xStream.alias(Name.CLASS_ALIAS, Name.class);
-            xStream.addImplicitCollection(ActClassification.class, Name.CLASS_ALIAS, Name.CLASS_ALIAS, Name.class);
+            xStream.addImplicitCollection(ActCategory.class, Name.CLASS_ALIAS, Name.CLASS_ALIAS, Name.class);
             xStream.useAttributeFor(Name.class, "lang");
             xStream.registerConverter(new NameConverter());
             
@@ -1294,31 +1356,93 @@ public class XMLBungeniConnector implements IBungeniConnector {
                 return (List) xStream.fromXML(xml);
             }
         } catch (Exception ex) {
-            logger.error(getActClassificationsSourceURI(), ex);
+            logger.error(getActCategoriesSourceURI(), ex);
         }
         return null;
     }
 
-    private String getActClassificationsPackageAlias() {
-        return this.actClassificationsPackageAlias;
+    private String getActCategoriesPackageAlias() {
+        return this.actCategoriesPackageAlias;
     }
 
-    private String getActClassificationAlias() {
-        return this.actClassificationAlias;
+    private String getActCategoryAlias() {
+        return this.actCategoryAlias;
     }
 
-    private String getActClassificationIdAlias() {
-        return this.actClassificationIdAlias;
+    private String getActCategoryIdAlias() {
+        return this.actCategoryIdAlias;
     }
 
-    private String getActClassificationsSourceURI() {
-        return this.actClassificationsSourceURI;
+    private String getActCategoriesSourceURI() {
+        return this.actCategoriesSourceURI;
     }
 
-    private String getActClassificationNameAlias() {
-        return this.actClassificationNameAlias;
+    private String getActCategoryNameAlias() {
+        return this.actCategoryNameAlias;
     }
 
-  
+   public List<ActCategoryBasic> getActCategoriesBasic() {
+         ClientResource resource = new ClientResource(getActCategoriesBasicSourceURI());
+        try {
+            XStream xStream = new XStream(new DomDriver());        
+            xStream.alias(this.getActCategoriesBasicPackageAlias(), List.class);
+            xStream.alias(this.getActCategoryBasicAlias(), ActCategoryBasic.class);
+            xStream.aliasField(this.getActCategoryBasicIdAlias(), ActCategoryBasic.class, "id");
+            xStream.aliasField(this.getActCategoryBasicNameAlias(), ActCategoryBasic.class, "name");
+            
+            xStream.alias(Name.CLASS_ALIAS, Name.class);
+            xStream.addImplicitCollection(ActCategoryBasic.class, Name.CLASS_ALIAS, Name.CLASS_ALIAS, Name.class);
+            xStream.useAttributeFor(Name.class, "lang");
+            xStream.registerConverter(new NameConverter());
+            
+            String xml = resource.get().getText();
+            if (xml != null) {
+                resource.release();
+                return (List) xStream.fromXML(xml);
+            }
+        } catch (Exception ex) {
+            logger.error(getActCategoriesBasicSourceURI(), ex);
+        }
+        return null;
+    }
 
+    private String getActCategoriesBasicPackageAlias() {
+        return this.actCategoriesBasicPackageAlias;
+    }
+
+    private String getActCategoryBasicAlias() {
+        return this.actCategoryBasicAlias;
+    }
+
+    private String getActCategoryBasicIdAlias() {
+        return this.actCategoryBasicIdAlias;
+    }
+
+    private String getActCategoriesBasicSourceURI() {
+        return this.actCategoriesBasicSourceURI;
+    }
+
+    private String getActCategoryBasicNameAlias() {
+        return this.actCategoryBasicNameAlias;
+    }
+
+    private String getActOrganizationsPackageAlias() {
+        return this.actOrganizationsPackageAlias;
+    }
+
+    private String getActOrganizationAlias() {
+        return this.actOrganizationAlias;
+    }
+
+    private String getActOrganizationIdAlias() {
+        return this.actOrganizationIdAlias;
+    }
+
+    private String getActOrganizationNameAlias() {
+        return this.actOrganizationNameAlias;
+    }
+    
+     private String getActOrganizationsSourceURI() {
+        return this.actOrganizationsSourceURI;
+    }
 }
