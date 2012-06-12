@@ -34,7 +34,7 @@ import org.bungeni.editor.providers.DocumentSectionFriendlyAdapterDefaultTreeMod
 import org.bungeni.editor.providers.DocumentSectionFriendlyTreeModelProvider;
 import org.bungeni.editor.providers.DocumentSectionProvider;
 import org.bungeni.editor.selectors.SelectorDialogModes;
-import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
+import org.bungeni.editor.selectors.metadata.MetadataEditor;
 import org.bungeni.editor.toolbar.target.BungeniToolbarTargetProcessor;
 import org.bungeni.extutils.CommonStringFunctions;
 import org.bungeni.ooo.OOComponentHelper;
@@ -355,9 +355,9 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
         //get the section metadata
         HashMap<String, String> currentSec = ooDocument.getSectionMetadataAttributes(currentSectionName);
         //check if the section has a metadata editor
-        if (currentSec.containsKey(SectionMetadataEditor.MetaEditor)) {
+        if (currentSec.containsKey(MetadataEditor.MetaEditor)) {
             //parse the metadata editor string into a subAction object
-            String metaEditorString = currentSec.get(SectionMetadataEditor.MetaEditor);
+            String metaEditorString = currentSec.get(MetadataEditor.MetaEditor);
             BungeniToolbarTargetProcessor btp = new BungeniToolbarTargetProcessor(metaEditorString);
             String documentType = BungeniEditorPropertiesHelper.getCurrentDocType();
             Element subActionElement = null;
@@ -507,7 +507,7 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
                         String metaName = (String) metaIterator.next();
 
                         // rm, feb 2012 - "hiddenBungeniMetaEditable" replaced with static ref
-                        if (metaName.equals(SectionMetadataEditor.MetaEditableFlag))
+                        if (metaName.equals(MetadataEditor.MetaEditableFlag))
                         {
                             String sectionAtt = sectionMetadataMap.get(metaName) ;
 

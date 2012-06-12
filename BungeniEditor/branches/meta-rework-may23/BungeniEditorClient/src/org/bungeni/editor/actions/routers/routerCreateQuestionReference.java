@@ -23,7 +23,7 @@ public class routerCreateQuestionReference extends defaultRouter {
     public BungeniValidatorState route_TextSelectedInsert(toolbarAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
         HashMap<String,String> fromMap = new HashMap<String,String>(){
             {
-                put("InlineType","num");
+                put("BungeniInlineType","num");
             }
         };
         ooDocument.setSelectedTextAttributes(fromMap);

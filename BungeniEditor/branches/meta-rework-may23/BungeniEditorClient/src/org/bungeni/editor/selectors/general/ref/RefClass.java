@@ -136,7 +136,7 @@ public class RefClass extends  BaseMetadataPanel {
           final String strClass = (String) this.cbo_refClass.getSelectedItem();
           HashMap<String,String> paragraphMetaMap = new HashMap<String,String>(){
                 {
-                    put("AnnotationType", "class");
+                    put("BungeniAnnotationType", "class");
                     put("BungeniRefClass", strClass );
                 }
           };

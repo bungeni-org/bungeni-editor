@@ -18,8 +18,7 @@ import javax.swing.SwingWorker;
 import org.bungeni.editor.config.DocumentActionsReader;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.actions.toolbarAction;
-import org.bungeni.editor.config.SectionTypesReader;
-import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
+import org.bungeni.editor.selectors.metadata.MetadataEditor;
 import org.bungeni.extutils.BungeniUUID;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
@@ -54,7 +53,7 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
     protected Window containerFrame;
     protected toolbarAction theSubAction = null;
     protected SelectorDialogModes dialogMode;
-    protected SectionMetadataEditor sectionMetadataEditor = null;
+    protected MetadataEditor sectionMetadataEditor = null;
     protected String editSectionName = "";
     public String                          mainSectionName     = "";
     public HashMap<String, String>         selectionData         = new HashMap<String, String>();
@@ -163,16 +162,43 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
     public void initialize() {
         //setupPanels();
         //moved here to fix section metadata edit bug
-        if (ooDocument.currentSection() != null) {
-            sectionMetadataEditor = new SectionMetadataEditor(getMetadataEditorString());
-            if (getDialogMode() == SelectorDialogModes.TEXT_EDIT) {
-                editSectionName = ooDocument.currentSectionName();
-            }
+
+        switch (this.theSubAction.getActionSource()){
+            case inlineType:
+                    initialize_inlineType();
+                break;
+            case sectionType:
+                    initialize_sectionType();
+                break;
+            case annotationType:
+                    initialize_annotationType();
+                break;
+            default:
+                break;
         }
+
         init();
         captureCursorRange();
     }
 
+      private void initialize_annotationType(){
+      return;
+  }
+
+
+
+  private void initialize_inlineType(){
+      return;
+  }
+
+   private void initialize_sectionType(){
+      if (ooDocument.currentSection() != null) {
+            sectionMetadataEditor = new MetadataEditor(getMetadataEditorString());
+            if (getDialogMode() == SelectorDialogModes.TEXT_EDIT) {
+                editSectionName = ooDocument.currentSectionName();
+            }
+        }
+   }
     /**
      * Records the selected cursor range on launch of the selector form
      */

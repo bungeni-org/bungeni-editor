@@ -27,7 +27,7 @@
         />
     </action>
     
-    <action name="annotate_paragraph">
+    <action name="annotate_paragraph" source="annotationType" metadata="Class" >
         <router class="org.bungeni.editor.actions.routers.routerDialogAction"
             dialog="classMain"/>
     </action>

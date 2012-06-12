@@ -144,7 +144,7 @@ public class RefURI extends  BaseMetadataPanel {
           final String strHref = this.txt_RefURI.getText();
           HashMap<String,String> inlineMap = new HashMap<String,String>(){
                 {
-                    put("InlineType", "Ref");
+                    put("BungeniInlineType", "Ref");
                     put("BungeniRefURI", strHref );
                 }
           };

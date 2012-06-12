@@ -109,6 +109,7 @@ public class toolbarAction {
     public enum actionSourceOrigin {
         sectionType,
         inlineType,
+        annotationType,
         notSetType,
         invalidType
     };
@@ -155,6 +156,8 @@ public class toolbarAction {
                         this.setupSectionType(this.actionSourceValue);
                     } else if (this.actionSource.equals(actionSourceOrigin.inlineType)) {
                         log.debug("This is an inline type - no special setup for now");
+                    } else if (this.actionSource.equals(actionSourceOrigin.annotationType)) {
+                        log.debug("This is an annotation type - no special setup for now");
                     }
                       
                   }

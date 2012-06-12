@@ -9,7 +9,7 @@ import org.bungeni.editor.selectors.BaseMetadataContainerPanel;
 import org.bungeni.editor.selectors.DialogSelectorFactory;
 import org.bungeni.editor.selectors.IDialogSelector;
 import org.bungeni.editor.selectors.IMetadataContainerPanel;
-import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
+import org.bungeni.editor.selectors.metadata.MetadataEditor;
 import org.bungeni.error.BungeniMsg;
 import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.ooo.OOComponentHelper;
@@ -230,10 +230,23 @@ public class CommonRouterActions {
 
         metaMap.put("BungeniSectionType", subAction.getSectionType());
         metaMap.put("BungeniSectionID", BungeniUUID.getShortUUID());
-        metaMap.put(SectionMetadataEditor.MetaEditableFlag, "false");
+        metaMap.put(MetadataEditor.MetaEditableFlag, "false");
 
         return metaMap;
     }
+
+    public static HashMap<String, String> get_newInlineMetadata(toolbarAction subAction) {
+        HashMap<String, String> metaMap = new HashMap<String, String>();
+
+        metaMap.put("BungeniInlineType", subAction.getInlineType());
+        metaMap.put("BungeniInlineID", BungeniUUID.getShortUUID());
+        metaMap.put(MetadataEditor.MetaEditableFlag, "false");
+
+        return metaMap;
+    }
+
+
+
 
     // !+ ADDED COMMENTS
     /**

@@ -36,7 +36,7 @@ import org.bungeni.editor.noa.BungeniNoaFrame;
 import org.bungeni.editor.noa.BungeniNoaFrame.DocumentComposition;
 import org.bungeni.editor.noa.BungeniNoaTabbedPane;
 import org.bungeni.editor.selectors.SelectorDialogModes;
-import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
+import org.bungeni.editor.selectors.metadata.MetadataEditor;
 import org.bungeni.editor.toolbar.target.BungeniToolbarTargetProcessor;
 import org.bungeni.extutils.*;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
@@ -485,9 +485,9 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
         //get the section metadata
         HashMap<String, String> currentSec = ooDocument.getSectionMetadataAttributes(ooDocument.currentSectionName());
         //check if the section has a metadata editor
-        if (currentSec.containsKey(SectionMetadataEditor.MetaEditor)) {
+        if (currentSec.containsKey(MetadataEditor.MetaEditor)) {
             //parse the metadata editor string into a subAction object
-            String metaEditorString = currentSec.get(SectionMetadataEditor.MetaEditor);
+            String metaEditorString = currentSec.get(MetadataEditor.MetaEditor);
             BungeniToolbarTargetProcessor btp = new BungeniToolbarTargetProcessor(metaEditorString);
             String documentType = BungeniEditorPropertiesHelper.getCurrentDocType();
             Element subActionElement = null;

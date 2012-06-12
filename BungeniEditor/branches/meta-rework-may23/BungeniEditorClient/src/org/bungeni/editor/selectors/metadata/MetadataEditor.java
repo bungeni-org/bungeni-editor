@@ -12,8 +12,8 @@ import org.bungeni.ooo.OOComponentHelper;
  * Used by the BaseMetadataContainerPanel to indicate section metadata editabilty
  * @author Ashok Hariharan
  */
-public class SectionMetadataEditor {
-     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(SectionMetadataEditor.class.getName());
+public class MetadataEditor {
+     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(MetadataEditor.class.getName());
    
     
      /**
@@ -36,7 +36,7 @@ public class SectionMetadataEditor {
      * @param sectionName - current section name
      * @param metadataEditor - metadata editor string (toolbarSubAction.ActionName.SubActionName)
      */
-    public SectionMetadataEditor(String metadataEditor) {
+    public MetadataEditor(String metadataEditor) {
         //editableSectionName = sectionName;
         metadataEditorString = metadataEditor;
     }
