@@ -2,44 +2,42 @@
 <actHistoricalPeriods>
     <actHistoricalPeriod>
         <id>1</id>
+        <name lang="en"> Palestinian National Authority </name>
+        <name lang="ar">  السلطة الوطنية الفلسطينية </name>
+  </actHistoricalPeriod>
+    <actHistoricalPeriod>
+        <id>2</id>
         <name lang="en"> Ottoman Rule  </name>
         <name lang="ar"> الحكم العثماني  </name>
   </actHistoricalPeriod>
     
   <actHistoricalPeriod>
-        <id>1</id>
+        <id>3</id>
         <name lang="en"> British Mandate </name>
         <name lang="ar">الانتداب البريطاني  </name>
   </actHistoricalPeriod>
 
   <actHistoricalPeriod>
-        <id>2</id>
+        <id>4</id>
         <name lang="en"> Jordanian Rule </name>
         <name lang="ar">  الحكم الأردني (الضفة الغربية) </name>
   </actHistoricalPeriod>
   
    <actHistoricalPeriod>
-        <id>2</id>
+        <id>5</id>
         <name lang="en"> Egyptian Administration </name>
         <name lang="ar"> الإدارة المصرية (قطاع غزة) </name>
   </actHistoricalPeriod>
   
    <actHistoricalPeriod>
-        <id>2</id>
+        <id>6</id>
         <name lang="en"> Israeli Occupation (Gaza Strip) </name>
         <name lang="ar"> الاحتلال الإسرائيلي (قطاع غزة) </name>
   </actHistoricalPeriod>
   
    <actHistoricalPeriod>
-        <id>2</id>
+        <id>7</id>
         <name lang="en"> Israeli Occupation (West Bank)  </name>
         <name lang="ar"> الاحتلال الإسرائيلي (الضفة الغربية)</name>
   </actHistoricalPeriod>
-  
-   <actHistoricalPeriod>
-        <id>2</id>
-        <name lang="en"> Palestinian National Authority </name>
-        <name lang="ar">  السلطة الوطنية الفلسطينية </name>
-  </actHistoricalPeriod>
-  
 </actHistoricalPeriods>

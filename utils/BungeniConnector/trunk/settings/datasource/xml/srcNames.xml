@@ -1,55 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <srcNames>
-  <srcName>
+     <srcName>
         <id>1</id>
+        <name lang="en"> Palestine Gazette (Palestinian National Authority) </name>
+        <name lang="ar"> الوقائع الفلسطينية (السلطة الوطنية الفلسطينية) </name>
+  </srcName>
+  <srcName>
+        <id>2</id>
         <name lang="en"> Palestine Gazette (British Mandate) </name>
         <name lang="ar"> الوقائع الفلسطينية (الانتداب البريطاني) </name>
   </srcName>
 
   <srcName>
-        <id>2</id>
+        <id>3</id>
         <name lang="en"> The Laws of Palestine (Drayton's Collection - British Mandate) </name>
         <name lang="ar"> قوانين فلسطين (مجموعة درايتون - الانتداب البريطاني) </name>
   </srcName>
   
   <srcName>
-        <id>2</id>
+        <id>4</id>
         <name lang="en"> Palestine Gazette (Egyptian Administration) </name>
         <name lang="ar"> الوقائع الفلسطينية (الإدارة المصرية) </name>
   </srcName>
   
   <srcName>
-        <id>2</id>
+        <id>5</id>
         <name lang="en"> Jordan Gazette (Jordanian Rule) </name>
         <name lang="ar"> الجريدة الرسمية الأردنية (الحكم الأردني) </name>
   </srcName>
   
   <srcName>
-        <id>2</id>
+        <id>6</id>
         <name lang="en"> Proclamations, Orders and Appointments (Israeli Occupation - Gaza Strip) </name>
         <name lang="ar"> المناشير والأوامر والإعلانات (الاحتلال الإسرائيلي - قطاع غزة) </name>
   </srcName>
   
   <srcName>
-        <id>2</id>
+        <id>7</id>
         <name lang="en"> Proclamations, Orders and Appointments (Israeli Occupation - West Bank) </name>
         <name lang="ar"> المناشير والأوامر والتعيينات (الاحتلال الإسرائيلي - الضفة الغربية) </name>
   </srcName>
   
   <srcName>
-        <id>2</id>
-        <name lang="en"> Palestine Gazette (Palestinian National Authority) </name>
-        <name lang="ar"> الوقائع الفلسطينية (السلطة الوطنية الفلسطينية) </name>
-  </srcName>
-  
-  <srcName>
-        <id>2</id>
+        <id>8</id>
         <name lang="en"> Jordan Gazette</name>
         <name lang="ar"> الجريدة الرسمية الاردنية </name>
   </srcName>
   
   <srcName>
-        <id>2</id>
+        <id>9</id>
         <name lang="en"> Collection of  Ottoman Laws</name>
         <name lang="ar"> مجموعة عارف رمضان (الحكم العثماني) </name>
   </srcName>

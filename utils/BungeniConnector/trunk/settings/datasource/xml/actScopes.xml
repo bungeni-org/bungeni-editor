@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actScopes>
+    
   <actScope>
         <id>1</id>
-        <name lang="en"> West Bank and Gaza </name>
-        <name lang="ar"> الضفة وغزة </name>
-  </actScope>
-
-  <actScope>
-        <id>2</id>
         <name lang="en"> West Bank </name>
-        <name lang="ar"> الضفة </name>
+        <name lang="ar"> الضفة الغربية </name>
   </actScope>
  
+ 
+  <actScope>
+        <id>2</id>
+        <name lang="en"> West Bank and Gaza </name>
+        <name lang="ar"> الضفة الغربية وغزة </name>
+  </actScope>
+
   <actScope>
         <id>3</id>
         <name lang="en"> Gaza </name>
