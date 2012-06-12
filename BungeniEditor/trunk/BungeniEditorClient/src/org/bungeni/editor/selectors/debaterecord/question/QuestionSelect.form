@@ -19,11 +19,6 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="142" max="32767" attributes="0"/>
-              <Component id="btnSelectQuestion" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
           <Component id="cboQuestionSelect" alignment="0" pref="279" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
@@ -32,30 +27,12 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
               <Component id="cboQuestionSelect" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnSelectQuestion" min="-2" pref="23" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="btnSelectQuestion">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="DejaVu Sans" size="10" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/bungeni/editor/selectors/debaterecord/question/Bundle.properties" key="QuestionSelect.btnSelectQuestion.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-        </Property>
-        <Property name="actionCommand" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/bungeni/editor/selectors/debaterecord/question/Bundle.properties" key="QuestionSelect.btnSelectQuestion.actionCommand" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-        </Property>
-        <Property name="name" type="java.lang.String" value="btn_select_question" noResource="true"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSelectQuestionActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JComboBox" name="cboQuestionSelect">
       <Properties>
         <Property name="editable" type="boolean" value="true"/>

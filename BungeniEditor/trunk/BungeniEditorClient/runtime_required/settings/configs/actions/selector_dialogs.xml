@@ -3,15 +3,26 @@
 <!--
     Document   : selector_dialogs.xml
     Created on : January 23, 2012, 5:18 PM
+    For main container dialogs not specifying the class defaults the container
+    class to org.bungeni.editor.selectors.general.Main
 -->
 
 <dialogs>
-    <dialog class="org.bungeni.editor.selectors.debaterecord.bills.Main" >
+    <dialog id="billsMain" >
         <dialog
             class="org.bungeni.editor.selectors.debaterecord.bills.Bills"
              />
     </dialog>
-    <dialog class="org.bungeni.editor.selectors.debaterecord.motions.Main" >
+
+    <dialog id="namedSectionMain" >
+        <dialog
+            class="org.bungeni.editor.selectors.debaterecord.general.NamedSection"
+             />
+    </dialog>
+
+
+    <dialog id="motionsMain"
+        class="org.bungeni.editor.selectors.debaterecord.motions.Main" >
         <dialog  class="org.bungeni.editor.selectors.debaterecord.motions.MotionNameAndURI"
              />
         <dialog class="org.bungeni.editor.selectors.debaterecord.motions.MotionSelect"
@@ -22,7 +33,8 @@
              />
     </dialog>
 
-    <dialog  class="org.bungeni.editor.selectors.debaterecord.question.Main" >
+    <dialog id="questionMain"
+        class="org.bungeni.editor.selectors.debaterecord.question.Main" >
         <dialog class="org.bungeni.editor.selectors.debaterecord.question.QuestionAddressedTo"
              />
         <dialog class="org.bungeni.editor.selectors.debaterecord.question.QuestionNo"
@@ -33,31 +45,15 @@
 
     </dialog>
 
- <!--
-   !+FIX_THIS (why does including this bork add mode for Question ? it should mess up edit
-   mode ?!
-    <dialog  class="org.bungeni.editor.selectors.debaterecord.question.MainEdit" >
-        <dialog class="org.bungeni.editor.selectors.debaterecord.question.QuestionAddressedTo"
-             />
-        <dialog class="org.bungeni.editor.selectors.debaterecord.question.QuestionNo"
-             />
-        <dialog
-            class="org.bungeni.editor.selectors.debaterecord.question.QuestionerNameAndURI"
-             />
-
-    </dialog>
--->
-
-    <dialog
+    <dialog id="documentsSingleSelect"
         class="org.bungeni.editor.selectors.debaterecord.tableddocuments.MainSingleSelect" >
-
         <dialog
             class="org.bungeni.editor.selectors.debaterecord.tableddocuments.SingleSelectTabledDocuments"
              />
 
     </dialog>
 
-    <dialog
+    <dialog id="questionsMain"
         class="org.bungeni.editor.selectors.debaterecord.questions.Main" >
         <dialog
             class="org.bungeni.editor.selectors.debaterecord.questions.QuestionType"
@@ -65,29 +61,24 @@
 
     </dialog>
 
-    <dialog
-        class="org.bungeni.editor.selectors.debaterecord.conclusion.Main" >
+    <dialog id="conclusionMain">
         <dialog
             class="org.bungeni.editor.selectors.debaterecord.conclusion.HouseClosingTime"
              />
-
     </dialog>
 
-    <dialog
+    <dialog id="documentsMain"
         class="org.bungeni.editor.selectors.debaterecord.tableddocuments.Main" >
         <dialog
             class="org.bungeni.editor.selectors.debaterecord.tableddocuments.TabledDocuments"
              />
-
     </dialog>
 
-    <dialog
+    <dialog id="motionsMainEdit"
         class="org.bungeni.editor.selectors.debaterecord.motions.MainEdit" >
-
         <dialog
             class="org.bungeni.editor.selectors.debaterecord.motions.MotionNameAndURI"
              />
-
     </dialog>
 
     <dialog
@@ -98,7 +89,14 @@
 
     </dialog>
 
-    <dialog
+    <dialog id="classMain" >
+        <dialog
+            class="org.bungeni.editor.selectors.general.ref.RefClass"
+             />
+
+    </dialog>
+
+    <dialog id="speechMain"
         class="org.bungeni.editor.selectors.debaterecord.speech.Main" >
         <dialog
             class="org.bungeni.editor.selectors.debaterecord.speech.PersonSelector"
@@ -114,7 +112,7 @@
              />
     </dialog>
 
-    <dialog
+    <dialog id="speechMainEdit"
         class="org.bungeni.editor.selectors.debaterecord.speech.MainEdit" >
         <dialog
             class="org.bungeni.editor.selectors.debaterecord.speech.PersonSelector"
@@ -130,21 +128,21 @@
              />
     </dialog>
 
-    <dialog
+    <dialog id="documentsMainDataEntry"
         class="org.bungeni.editor.selectors.debaterecord.tableddocuments.MainDataEntry" >
         <dialog
             class="org.bungeni.editor.selectors.debaterecord.tableddocuments.EnterTabledDocument"
              />
     </dialog>
 
-    <dialog
+    <dialog id="documentLogo"
         class="org.bungeni.editor.selectors.debaterecord.masthead.Main" >
         <dialog
             class="org.bungeni.editor.selectors.debaterecord.masthead.DebateRecordLogo"
              />
     </dialog>
 
-    <dialog
+    <dialog id="committeesMain"
         class="org.bungeni.editor.selectors.debaterecord.committees.Main" >
         <dialog
             class="org.bungeni.editor.selectors.debaterecord.committees.Committees"
@@ -153,7 +151,7 @@
 
 
 
-    <dialog
+    <dialog id="questionEdit"
         class="org.bungeni.editor.selectors.debaterecord.question.MainEdit" >
 
         <dialog

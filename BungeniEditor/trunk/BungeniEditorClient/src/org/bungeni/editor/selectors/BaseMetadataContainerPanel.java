@@ -11,17 +11,14 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Vector;
 import java.util.concurrent.ExecutionException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingWorker;
-import org.bungeni.db.IQueryResultsIterator;
-import org.bungeni.db.QueryResults;
 import org.bungeni.editor.config.DocumentActionsReader;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.actions.toolbarAction;
-import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
+import org.bungeni.editor.selectors.metadata.MetadataEditor;
 import org.bungeni.extutils.BungeniUUID;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
@@ -56,7 +53,7 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
     protected Window containerFrame;
     protected toolbarAction theSubAction = null;
     protected SelectorDialogModes dialogMode;
-    protected SectionMetadataEditor sectionMetadataEditor = null;
+    protected MetadataEditor sectionMetadataEditor = null;
     protected String editSectionName = "";
     public String                          mainSectionName     = "";
     public HashMap<String, String>         selectionData         = new HashMap<String, String>();
@@ -210,16 +207,43 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
     public void initialize() {
         //setupPanels();
         //moved here to fix section metadata edit bug
-        if (ooDocument.currentSection() != null) {
-            sectionMetadataEditor = new SectionMetadataEditor(getMetadataEditorString());
-            if (getDialogMode() == SelectorDialogModes.TEXT_EDIT) {
-                editSectionName = ooDocument.currentSectionName();
-            }
+
+        switch (this.theSubAction.getActionSource()){
+            case inlineType:
+                    initialize_inlineType();
+                break;
+            case sectionType:
+                    initialize_sectionType();
+                break;
+            case annotationType:
+                    initialize_annotationType();
+                break;
+            default:
+                break;
         }
+
         init();
         captureCursorRange();
     }
 
+      private void initialize_annotationType(){
+      return;
+  }
+
+
+
+  private void initialize_inlineType(){
+      return;
+  }
+
+   private void initialize_sectionType(){
+      if (ooDocument.currentSection() != null) {
+            sectionMetadataEditor = new MetadataEditor(getMetadataEditorString());
+            if (getDialogMode() == SelectorDialogModes.TEXT_EDIT) {
+                editSectionName = ooDocument.currentSectionName();
+            }
+        }
+   }
     /**
      * Records the selected cursor range on launch of the selector form
      */
@@ -606,15 +630,7 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
     }
 
     public abstract java.awt.Component getPanelComponent();
-  //  protected ArrayList<panelInfo> m_allPanels = new ArrayList<panelInfo>(0);
-    /*
-    {
-    {
-    add(new panelInfo("Title","org.bungeni.editor.selectors.debaterecord.masthead.Title"));
-    add(new panelInfo("TabledDocuments", "org.bungeni.editor.selectors.debaterecord.masthead.TabledDocuments"));
-    }
-    };
-     */
+
     protected ArrayList<panelInfo> m_activePanels = new ArrayList<panelInfo>();
 
     protected class panelField {
@@ -639,14 +655,6 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
 
     protected HashMap<panelField, Boolean> fieldStates = new HashMap<panelField, Boolean>();
 
-    /*
-    {
-    {
-    add(new panelInfo("Title","org.bungeni.editor.selectors.debaterecord.masthead.Title"));
-    add(new panelInfo("TabledDocuments", "org.bungeni.editor.selectors.debaterecord.masthead.TabledDocuments"));
-    }
-    };*/
-
     // (rm, feb 2012) - the panels are obtained from an xml file rather than
     // from the db,arg for accquirePanels uses action name
     protected void setupPanels(){
@@ -663,18 +671,6 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
         accquirePanels(sDocType, sSubAction, currentActiveProfile);
     }
 
-    class iteratePanels implements IQueryResultsIterator {
-        ArrayList<String> selectorDialogClass = new ArrayList<String>(0);
-
-        public boolean iterateRow(QueryResults mQR, Vector<String> rowData) {
-            selectorDialogClass.add(mQR.getField(rowData, "SELECTOR_DIALOG"));
-            return true;
-        }
-
-        public ArrayList<String> getSelectorDialogs(){
-            return selectorDialogClass;
-        }
-    }
 
     // !+ ADDED COMMENTS TO CODE +++
     /**
@@ -714,23 +710,6 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
         } catch (IOException ex) {
             log.error("Error obtaining the panels for dialog : " +ex);
         }
-        
-       
-        //
-        /**
-           BungeniClientDB db        = BungeniClientDB.defaultConnect();
-           QueryResults qr = db.ConnectAndQuery(SettingsQueryFactory.Q_FETCH_SELECTOR_DIALOGS(docType,
-                                                                        actionName,
-                                                                        profileName));
-           iteratePanels panelsIterate = new iteratePanels();
-           qr.resultsIterator(panelsIterate);
-           ArrayList<String> ppanels = panelsIterate.getSelectorDialogs();
-
-           //
-           for (String sPanel : ppanels) {
-                this.m_activePanels.add(new panelInfo(BungeniUUID.getStringUUID(), sPanel));
-            }
-         **/
     }
 
     public void postPanelSetup() {
@@ -752,18 +731,33 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
         setBorder(null);
         paneMain.setBorder(null);
         paneMain.setBackground(BungeniEditorPropertiesHelper.getDialogBackColor());
-        //JXTaskPaneGroup mainTPgroup = new JXTaskPaneGroup();
-        //mainTPgroup.setsetTitle(this.theAction.action_display_text() + " ::");
-        //mainTPgroup.getgetContentPane().setBackground(BungeniEditorPropertiesHelper.getDialogBackColor());
-        //mainTPgroup.setBackground(BungeniEditorPropertiesHelper.getDialogBackColor());
         for (panelInfo panelInf : getActivePanels()) {
             IMetadataPanel panel = panelInf.getPanelObject();
             panel.initVariables(this);
             paneMain.add(panel.getPanelComponent());
         }
         paneMain.setCollapsed(false);
-        //paneMain.add(mainTPgroup);
-    //   paneMain.add(tpgTD);
+    }
+
+
+   protected String getActionSectionName() {
+   
+        // get the action naming convention
+        String numberingConvention = theSubAction.section_numbering_convention();
+
+        if (numberingConvention.equals("none") || numberingConvention.equals("single")) {
+            return theSubAction.section_naming_convention();
+        } else if (numberingConvention.equals("serial")) {
+
+            // get highest section name possible
+            int iStart = 1;
+
+            for (; ooDocument.hasSection(theSubAction.section_naming_convention() + iStart); iStart++);
+
+            return theSubAction.section_naming_convention() + iStart;
+        } else {
+            return theSubAction.section_naming_convention();
+        }
     }
 
     /** This method is called from within the constructor to

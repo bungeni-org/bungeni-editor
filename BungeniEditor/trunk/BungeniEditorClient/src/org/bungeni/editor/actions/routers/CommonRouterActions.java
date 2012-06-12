@@ -9,7 +9,7 @@ import org.bungeni.editor.selectors.BaseMetadataContainerPanel;
 import org.bungeni.editor.selectors.DialogSelectorFactory;
 import org.bungeni.editor.selectors.IDialogSelector;
 import org.bungeni.editor.selectors.IMetadataContainerPanel;
-import org.bungeni.editor.selectors.metadata.SectionMetadataEditor;
+import org.bungeni.editor.selectors.metadata.MetadataEditor;
 import org.bungeni.error.BungeniMsg;
 import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.ooo.OOComponentHelper;
@@ -273,12 +273,25 @@ public class CommonRouterActions {
     public static HashMap<String, String> get_newSectionMetadata(toolbarAction subAction) {
         HashMap<String, String> metaMap = new HashMap<String, String>();
 
-        metaMap.put("BungeniSectionType", subAction.section_type());
+        metaMap.put("BungeniSectionType", subAction.getSectionType());
         metaMap.put("BungeniSectionID", BungeniUUID.getShortUUID());
-        metaMap.put(SectionMetadataEditor.MetaEditableFlag, "false");
+        metaMap.put(MetadataEditor.MetaEditableFlag, "false");
 
         return metaMap;
     }
+
+    public static HashMap<String, String> get_newInlineMetadata(toolbarAction subAction) {
+        HashMap<String, String> metaMap = new HashMap<String, String>();
+
+        metaMap.put("BungeniInlineType", subAction.getInlineType());
+        metaMap.put("BungeniInlineID", BungeniUUID.getShortUUID());
+        metaMap.put(MetadataEditor.MetaEditableFlag, "false");
+
+        return metaMap;
+    }
+
+
+
 
     // !+ ADDED COMMENTS
     /**
@@ -291,7 +304,7 @@ public class CommonRouterActions {
      */
     public static void setSectionProperties(toolbarAction pAction, String newSectionName,
             OOComponentHelper ooDocument) {
-        String                  sectionType  = pAction.section_type();
+        String                  sectionType  = pAction.getSectionType();
         DocumentSection         secObj       = DocumentSectionsContainer.getDocumentSectionByType(sectionType);
         HashMap<String, Object> sectionProps = secObj.getSectionProperties(ooDocument);
         XTextSection            newSection   = ooDocument.getSection(newSectionName);
@@ -486,6 +499,38 @@ public class CommonRouterActions {
         }
     }
 
+    public static class SectionCreationState {
+        public String sectionName;
+        public String returnState;
+        
+        public SectionCreationState(String sName, String rState) {
+            this.sectionName = sName;
+            this.returnState = rState;
+        }
+
+    }
+
+    public static SectionCreationState action_createSection(toolbarAction subAction, OOComponentHelper ooDocument){
+      String newSectionName = "";
+      HashMap<String,String> returnMap = new HashMap<String,String>();
+      newSectionName = CommonRouterActions.get_newSectionNameForAction(subAction, ooDocument);
+
+       if (newSectionName.length() == 0 ) {
+            log.error("New seciton name was empty for action "  + subAction);
+            return new SectionCreationState("", "FAILURE_CREATE_SECTION");
+       } else {
+            boolean bAction = CommonRouterActions.action_createSystemContainerFromSelection(ooDocument, newSectionName);
+            if (bAction ) {
+                //set section type metadata
+                CommonRouterActions.setSectionProperties(subAction, newSectionName, ooDocument);
+                ooDocument.setSectionMetadataAttributes(newSectionName, CommonRouterActions.get_newSectionMetadata(subAction));
+            } else {
+                log.error("routeAction_TextSelectedInsertAction_CreateSection: error while creating section ");
+                return new SectionCreationState("","FAILURE_CREATE_SECTION");
+            }
+         }
+      return new SectionCreationState(newSectionName, "SUCCESS");
+    }
        public static boolean action_createRootSection(OOComponentHelper ooDoc, String sectionName) {
         boolean bResult = false;
         try {

@@ -21,7 +21,7 @@ import java.util.Vector;
 //###################################
 // !+ACTION_RECONF (rm, jan 2012) - this class is being folded into
 // toolbarSubAction
-
+@Deprecated
 public class toolbarActionDeprecated {
     // !+ACTION_RECONF (rm, jan 2012) - these variables are unused and are commented
     /**

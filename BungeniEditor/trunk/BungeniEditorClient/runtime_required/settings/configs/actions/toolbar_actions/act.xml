@@ -12,7 +12,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
  xsi:noNamespaceSchemaLocation="../../../src/xsd/toolbar.xsd"
  doctype="act">
              
-    <root visible="true">
+    <root visible="true" style="tabbed">
          <actionGroup name="ActFav" visible="true" uimodel="wrap" title="GENERIC">
             <blockAction name="Preface" target="null" visible="true" condition="none" title="PREFACE">
                 <action name="Preface.selection" tooltip="Select some text to mark it up as a Preface"

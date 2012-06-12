@@ -22,14 +22,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
-import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
-import org.jdom.input.SAXBuilder;
 import org.jdom.xpath.XPath;
 
 /**
@@ -40,7 +37,7 @@ public class DocumentActionsReader extends BaseConfigReader {
 
     private static DocumentActionsReader thisInstance = null;
 
-    private SAXBuilder saxBuilder ;
+
 
     //private final static String SETTINGS_FOLDER = CONFIGS_FOLDER + File.separator + "actions" + File.separator  + "doc_actions";
 
@@ -57,8 +54,7 @@ public class DocumentActionsReader extends BaseConfigReader {
     private Document selectorDialogsDocument = null;
 
     private DocumentActionsReader() {
-        saxBuilder = new SAXBuilder("org.apache.xerces.parsers.SAXParser",
-                        false);
+   
 
     }
 
@@ -87,16 +83,7 @@ public class DocumentActionsReader extends BaseConfigReader {
         return actionRouter;
     }
 
-     /**
-    public Document getRouters() throws JDOMException, IOException {
-        if (this.routerDocument == null) {
-            String actionsFolder = BungeniEditorProperties.get("actionsFolderRoot");
-            String routerFile = CommonFileFunctions.convertRelativePathToFullPath(actionsFolder) + File.separator + "routers.xml";
-            this.routerDocument  = saxBuilder.build(new File(routerFile));
-        }
-        return this.routerDocument;
-    }
-    **/
+
 
     public Document getSelectorDialogs() throws JDOMException, IOException {
         if (this.selectorDialogsDocument == null) {
@@ -107,7 +94,7 @@ public class DocumentActionsReader extends BaseConfigReader {
     }
 
     public Element getSelectorDialog (String parentDialog) throws JDOMException, IOException {
-        XPath xPath = XPath.newInstance("//dialog[@class='"+ parentDialog + "']");
+        XPath xPath = XPath.newInstance("//dialog[@id='"+ parentDialog + "']");
         Element dialogNode =  (Element) xPath.selectSingleNode(getSelectorDialogs());
 
         return dialogNode;
@@ -116,11 +103,10 @@ public class DocumentActionsReader extends BaseConfigReader {
     // (rm, jan 2012) - this method obtains the child 
     // dialogs of the main dialog
     public ArrayList getChildDialogs(String parentDialog) throws JDOMException, IOException {
-        XPath xPath = XPath.newInstance("//dialog[@class='"+ parentDialog + "']/dialog");
+        XPath xPath = XPath.newInstance("//dialog[@id='"+ parentDialog + "']/dialog");
         ArrayList selectorDialogs = (ArrayList) xPath.selectNodes(getSelectorDialogs());
 
         return selectorDialogs ;
     }
-
-
+  
 }

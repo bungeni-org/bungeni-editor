@@ -94,7 +94,7 @@ public class TabbedPanelFactory {
 
             List<Element> panelElements = PanelsReader.getInstance().getPanelsByDocType(docType);
             for (Element aPanel : panelElements) {
-                 String panelClass = aPanel.getAttributeValue("class");
+                 String panelClass = aPanel.getAttributeValue("class").trim();
                  String panelTitle = PanelsReader.getInstance().getLocalizedTitleForPanel(aPanel);
                  ITabbedPanel panel = makePanel(panelClass, 0, panelTitle );
                  if (null != panel) {

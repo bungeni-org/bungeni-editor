@@ -1,157 +1,254 @@
 <?xml version="1.0" encoding="windows-1252"?>
-<sectionTypes for="bill">
-<sectionType name="Article"
-    prefix="article"
-    numstyle="serial"
-    background="0xf0f0f0"
-    indent-left=".3"
-    indent-right="0"
-    visibility="user" >
-     <numbering scheme="NUMERIC"
-            decorator="flowerBracket" />
- </sectionType>
-<sectionType name="Chapter"
-    prefix="chapter"
-    numstyle="serial"
-    background="0xe8ee88"
-    indent-left=".4"
-    indent-right="0"
-    visibility="user" >
-     <numbering scheme="ROMAN-Upper"
-            decorator="none" />
- </sectionType>
-<sectionType name="Clause"
-    prefix="clause"
-    numstyle="serial"
-    background="0xffdfdf"
-    indent-left=".5"
-    indent-right="0"
-    visibility="user" >
-     <numbering scheme="ROMAN"
-            decorator="hashPrefix" />
- </sectionType>
-<sectionType name="LongTitle"
-    prefix="longtitle"
-    numstyle="single"
-    background="0xffffff"
-    indent-left=".3"
-    indent-right="0"
-    visibility="user" >
-     
- </sectionType>
-<sectionType name="MastHead"
-    prefix="preface"
-    numstyle="single"
-    background="0xe8eef7"
-    indent-left="0"
-    indent-right="0"
-    visibility="user" >
-     
- </sectionType>
-<sectionType name="NumberedContainer"
-    prefix="num_"
-    numstyle="single"
-    background="0xffffe1"
-    indent-left="0"
-    indent-right="0"
-    visibility="system" >
-     
- </sectionType>
-<sectionType name="Paragraph"
-    prefix="para"
-    numstyle="serial"
-    background="0xffff00"
-    indent-left=".7"
-    indent-right="0"
-    visibility="user" >
-     <numbering scheme="ALPHABETICAL-Lower"
-            decorator="parens" />
- </sectionType>
-<sectionType name="Part"
-    prefix="part"
-    numstyle="serial"
-    background="0xffffa1"
-    indent-left=".3"
-    indent-right="0"
-    visibility="user" >
-     <numbering scheme="ALPHABETICAL"
-            decorator="postDashed" />
- </sectionType>
-<sectionType name="Preface"
-    prefix="preface"
-    numstyle="single"
-    background="0xffffff"
-    indent-left=".1"
-    indent-right="0"
-    visibility="user" >
-     
- </sectionType>
-<sectionType name="Section"
-    prefix="section"
-    numstyle="serial"
-    background="0xffaa00"
-    indent-left=".6"
-    indent-right="0"
-    visibility="user" >
-     <numbering scheme="ALPHABETICAL-Lower"
-            decorator="parens" />
- </sectionType>
-<sectionType name="ShortTitle"
-    prefix="shorttitle"
-    numstyle="single"
-    background="0xffffff"
-    indent-left=".2"
-    indent-right="0"
-    visibility="user" >
-     
- </sectionType>
-<sectionType name="SubChapter"
-    prefix="subchapter"
-    numstyle="serial"
-    background="0xffaa00"
-    indent-left=".5"
-    indent-right="0"
-    visibility="user" >
-     <numbering scheme="ROMAN-Upper"
-            decorator="postDotted" />
- </sectionType>
-<sectionType name="SubClause"
-    prefix="subclause"
-    numstyle="serial"
-    background="0xffdfdf"
-    indent-left=".8"
-    indent-right="0"
-    visibility="user" >
-     <numbering scheme="ALPHABETICAL-Lower"
-            decorator="hashPrefix" />
- </sectionType>
-<sectionType name="SubParagraph"
-    prefix="subpara"
-    numstyle="serial"
-    background="0xffff00"
-    indent-left=".8"
-    indent-right="0"
-    visibility="user" >
-     <numbering scheme="ROMAN-Lower"
-            decorator="parens" />
- </sectionType>
-<sectionType name="SubSection"
-    prefix="subsection"
-    numstyle="serial"
-    background="0x00ffff"
-    indent-left=".8"
-    indent-right="0"
-    visibility="user" >
-     <numbering scheme="ROMAN-Upper"
-            decorator="square" />
- </sectionType>
-<sectionType name="Title"
-    prefix="title"
-    numstyle="single"
-    background="0xffffff"
-    indent-left=".1"
-    indent-right="0"
-    visibility="user" >
-     
- </sectionType>
- </sectionTypes>
+<sectionTypes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="sectionTypes.xsd"
+ for="bill">
+
+    <sectionType name="CoverPage" 
+        prefix="coverpage" 
+        numstyle="single" 
+        >
+        <output>
+            <content>
+                <coverPage/>
+            </content>
+        </output>
+    </sectionType>
+
+    <sectionType name="Preamble" 
+        prefix="preamble" 
+        numstyle="single" 
+        >
+        <output>
+            <content>
+                <preamble/>
+            </content>
+        </output>
+    </sectionType>
+
+    <sectionType name="Preface" 
+        prefix="preface" 
+        numstyle="single" 
+         >
+        <output>
+            <content>
+                <preface/>
+            </content>
+        </output>
+    </sectionType>
+    
+    
+    <sectionType name="Recital" 
+        prefix="recital" 
+        numstyle="serial" 
+        >
+        <output>
+            <content>
+                <recital/>
+            </content>
+        </output>
+    </sectionType>
+    
+    
+    
+    
+    <sectionType name="Container" 
+        prefix="container" 
+        numstyle="serial" 
+        >
+        <metadatas>
+            <metadata name="BungeniContainerName" />
+        </metadatas>
+        <output>
+            <content>
+                <container name="$BungeniContainerName" /> 
+            </content>
+        </output>
+    </sectionType>
+    
+    
+    <sectionType name="Block" 
+        prefix="block" 
+        numstyle="serial" 
+        >
+        <metadatas>
+            <metadata name="BungeniBlockName" />
+        </metadatas>
+        <output>
+            <content>
+                <container name="$BungeniBlockName" /> 
+            </content>
+        </output>
+    </sectionType>
+    
+    
+    
+    <sectionType name="Recitals" 
+        prefix="recitals" 
+        numstyle="serial" 
+        >
+        <output>
+            <content>
+                <recitals /> 
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Recitals" 
+        prefix="recitals" 
+        numstyle="serial" 
+        >
+        <output>
+            <content>
+                <recitals /> 
+            </content>
+        </output>
+    </sectionType>
+    
+    
+    <sectionType name="Recital" 
+        prefix="recital" 
+        numstyle="serial" 
+        >
+        <output>
+            <content>
+                <recital /> 
+            </content>
+        </output>
+    </sectionType>
+    
+    
+
+    <sectionType name="Article" prefix="article" numstyle="serial" background="0xf0f0f0"
+        indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket"/>
+        <output>
+            <content>
+                <article />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Chapter" prefix="chapter" numstyle="serial" background="0xe8ee88"
+        indent-left=".4" indent-right="0" visibility="user">
+        <numbering scheme="ROMAN-Upper" decorator="none"/>
+        <output>
+            <content>
+                <chapter />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Clause" prefix="clause" numstyle="serial" background="0xffdfdf"
+        indent-left=".5" indent-right="0" visibility="user">
+        <numbering scheme="ROMAN" decorator="hashPrefix"/>
+        <output>
+            <content>
+                <clause />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="LongTitle" prefix="longtitle" numstyle="single" background="0xffffff"
+        indent-left=".3" indent-right="0" visibility="user"> 
+        <output>
+            <content>
+                <longTitle />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="NumberedContainer" prefix="num_" numstyle="single" background="0xffffe1"
+        indent-left="0" indent-right="0" visibility="system">
+        
+    </sectionType>
+
+    <sectionType name="Paragraph" prefix="para" numstyle="serial" background="0xffff00"
+        indent-left=".7" indent-right="0" visibility="user">
+        <numbering scheme="ALPHABETICAL-Lower" decorator="parens"/>
+        <output>
+            <content>
+                <paragraph />
+            </content>
+        </output>
+    </sectionType>
+
+    <sectionType name="Part" prefix="part" numstyle="serial" background="0xffffa1" indent-left=".3"
+        indent-right="0" visibility="user">
+        <numbering scheme="ALPHABETICAL" decorator="postDashed"/>
+        <output>
+            <content>
+                <part/>
+            </content>
+        </output>
+    </sectionType>
+
+    <sectionType name="Section" prefix="section" numstyle="serial" background="0xffaa00"
+        indent-left=".6" indent-right="0" visibility="user">
+        <numbering scheme="ALPHABETICAL-Lower" decorator="parens"/>
+        <output>
+            <content>
+                <section/>
+            </content>
+        </output>
+    </sectionType>
+    <sectionType name="ShortTitle" prefix="shorttitle" numstyle="single" background="0xffffff"
+        indent-left=".2" indent-right="0" visibility="user">
+        <!-- this should perhaps be an inlinetype -->
+        <output>
+            <content>
+                <shortTitle/>
+            </content>
+        </output>
+
+    </sectionType>
+    
+    <sectionType name="SubChapter" prefix="subchapter" numstyle="serial" background="0xffaa00"
+        indent-left=".5" indent-right="0" visibility="user">
+        <numbering scheme="ROMAN-Upper" decorator="postDotted"/>
+        <output>
+            <content>
+                <subchapter/>
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="SubClause" prefix="subclause" numstyle="serial" background="0xffdfdf"
+        indent-left=".8" indent-right="0" visibility="user">
+        <numbering scheme="ALPHABETICAL-Lower" decorator="hashPrefix"/>
+        <output>
+            <content>
+                <subclause/>
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="SubParagraph" prefix="subpara" numstyle="serial" background="0xffff00"
+        indent-left=".8" indent-right="0" visibility="user">
+        <numbering scheme="ROMAN-Lower" decorator="parens"/>
+        <output>
+            <content>
+                <subparagraph/>
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="SubSection" prefix="subsection" numstyle="serial" background="0x00ffff"
+        indent-left=".8" indent-right="0" visibility="user">
+        <numbering scheme="ROMAN-Upper" decorator="square"/>
+        <output>
+            <content>
+                <subsection/>
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Title" prefix="title" numstyle="single" background="0xffffff"
+        indent-left=".1" indent-right="0" visibility="user">
+        <output>
+            <content>
+                <title/>
+            </content>
+        </output>
+    </sectionType>
+    
+</sectionTypes>

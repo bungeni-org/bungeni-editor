@@ -28,6 +28,8 @@ import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.editor.panels.toolbar.BungeniToolbarActionElement;
 import org.bungeni.editor.panels.toolbar.BungeniToolbarLoader;
+import org.bungeni.editor.panels.toolbar.BungeniToolbarLoader.toolbarStyleType;
+import org.bungeni.editor.panels.toolbar.BungeniToolbarParser;
 import org.bungeni.editor.panels.toolbar.buttonContainerPanel;
 import org.bungeni.editor.panels.toolbar.buttonPanel;
 import org.bungeni.editor.panels.toolbar.scrollPanel;
@@ -37,6 +39,8 @@ import org.bungeni.editor.toolbar.conditions.BungeniToolbarConditionProcessor;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.extutils.CommonUIFunctions;
 import org.bungeni.ooo.OOComponentHelper;
+import org.japura.gui.CollapsiblePanel;
+import org.japura.gui.CollapsibleRootPanel;
 import org.jdom.Element;
 
 /**
@@ -124,12 +128,15 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
         toolbarTabs.getModel().addChangeListener(new BungeniToolbarPreTabChangeListener(toolbarTabs));
         toolbarTabs.getSelectedComponent().setBackground(toolbarTabSelectedBgColor);
         for (int i = 0; i < toolbarTabs.getTabCount(); i++) {
+            // if tabbed
+            if (this.toolbarLoader.getToolbarStyle().equals(toolbarStyleType.tabbed)) {
               JTabbedPane grpTab =   (JTabbedPane) toolbarTabs.getComponentAt(i);
                 grpTab.addChangeListener(new BungeniToolbarPostTabChangeListener(grpTab));
                 grpTab.getModel().addChangeListener(new BungeniToolbarPreTabChangeListener(grpTab));
                 if (grpTab.getSelectedIndex() != -1)
                     grpTab.getSelectedComponent().setBackground(toolbarTabSelectedBgColor);
-
+            }
+            // if collapsible
         }
         //set the structural tab as the current tab
         toolbarTabs.setSelectedIndex(0);
@@ -245,21 +252,40 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
 
     /***** API for conditionally enabling / disabling command buttons *****/
     public Component[] getButtonPanelsForSelectedTab() {
-        int nSelectedTab = toolbarTabs.getSelectedIndex();
-
-        if ((-1 != nSelectedTab) && (toolbarTabs.getTabCount() > 0)) {
-            Component couter = toolbarTabs.getSelectedComponent();
-            log.debug("group component class = " + couter.getClass().getName());
-
-            JTabbedPane groupTab = (JTabbedPane) couter;
-            int nInner = groupTab.getSelectedIndex();
-            if ((-1 != nInner) && (groupTab.getTabCount() > 0)) {
-                Component cSelected = groupTab.getSelectedComponent();
-                log.debug("selected component class = " + cSelected.getClass().getName());
-                scrollPanel panel = (scrollPanel) cSelected;
-                buttonContainerPanel buttonsPanel = panel.getViewPortPanel();
-                Component[] components = buttonsPanel.getComponents();
-                return components;
+        toolbarStyleType toolbarType = this.toolbarLoader.getToolbarStyle();
+        if (toolbarType.equals(toolbarStyleType.tabbed)) {
+            int nSelectedTab = toolbarTabs.getSelectedIndex();
+            if ((-1 != nSelectedTab) && (toolbarTabs.getTabCount() > 0)) {
+                Component couter = toolbarTabs.getSelectedComponent();
+                log.debug("group component class = " + couter.getClass().getName());
+                JTabbedPane groupTab = (JTabbedPane) couter;
+                int nInner = groupTab.getSelectedIndex();
+                if ((-1 != nInner) && (groupTab.getTabCount() > 0)) {
+                    Component cSelected = groupTab.getSelectedComponent();
+                    log.debug("selected component class = " + cSelected.getClass().getName());
+                    scrollPanel panel = (scrollPanel) cSelected;
+                    buttonContainerPanel buttonsPanel = panel.getViewPortPanel();
+                    Component[] components = buttonsPanel.getComponents();
+                    return components;
+                }
+            }
+        } else {
+            int nSelectedTab = toolbarTabs.getSelectedIndex();
+            if ((-1 != nSelectedTab) && (toolbarTabs.getTabCount() > 0)) {
+                Component couter = toolbarTabs.getSelectedComponent();
+                CollapsibleRootPanel crp = (CollapsibleRootPanel) couter;
+                List<CollapsiblePanel> panels = crp.getCollapsiblePanels();
+                for (CollapsiblePanel panel : panels) {
+                   if (panel.isVisible())
+                    if (panel.isExpanded()) {
+                        Component c = panel.getComponent(0);
+                        String s = c.getClass().getCanonicalName();
+                        System.out.println("Class NAME XXXXX : " + s);
+                        buttonContainerPanel buttonsPanel = (buttonContainerPanel) panel.getComponent(0);
+                        Component[] components = buttonsPanel.getComponents();
+                        return components;
+                    }
+                }
             }
         }
         return null;

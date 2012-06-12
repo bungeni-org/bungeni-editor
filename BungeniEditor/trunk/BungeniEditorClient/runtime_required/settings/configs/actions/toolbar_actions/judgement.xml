@@ -6,7 +6,7 @@
         Editor Action set for Judgement
 -->
 <toolbar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" doctype="judgement">
-  <root visible="true">
+  <root visible="true" style="tabbed">
     <actionGroup name="tabFavourites" visible="true" uimodel="wrap" title="FAVOURITES">
       <blockAction name="Preface" target="null" visible="true" condition="none" title="HEADER">
         <subaction name="Root" visible="true"

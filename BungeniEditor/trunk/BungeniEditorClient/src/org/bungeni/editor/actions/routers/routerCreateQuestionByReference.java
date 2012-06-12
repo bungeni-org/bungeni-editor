@@ -29,7 +29,7 @@ public class routerCreateQuestionByReference extends defaultRouter {
          */
         HashMap<String,String> fromMap = new HashMap<String,String>(){
             {
-                put("InlineType","from");
+                put("BungeniInlineType","from");
             }
         };
         ooDocument.setSelectedTextAttributes(fromMap);

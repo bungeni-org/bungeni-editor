@@ -7,9 +7,6 @@
 package org.bungeni.editor.panels.toolbar;
 
 import java.awt.event.ActionListener;
-import java.io.UnsupportedEncodingException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.SwingConstants;
 
 /**

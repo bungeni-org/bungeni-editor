@@ -4,8 +4,6 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Vector;
-import org.bungeni.db.QueryResults;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 import org.jdom.Element;
@@ -118,34 +116,42 @@ public final class DocumentSection {
 
     
     public void setSectionBackground(String sectionBackground) {
-        try {
-        if (sectionBackground.startsWith("0x")) {
-            //this is a colored section background
-           this.sectionBackground = Integer.decode(sectionBackground.trim());
-        } else if (sectionBackground.startsWith("url:")) {
-            String urlPath = sectionBackground.replaceAll("url:", "");
-            String relPath = System.getProperty("user.dir");
-            this.sectionBackground = null;
-            this.sectionBackgroundURL = relPath + urlPath;
-            this.isSectionBackgroundURL = true;
+        if (null == sectionBackground) {
+             this.sectionBackground = 0xffffff;
         } else {
-            this.sectionBackground = 0xffffff;
+            try {
+            if (sectionBackground.startsWith("0x")) {
+                //this is a colored section background
+               this.sectionBackground = Integer.decode(sectionBackground.trim());
+            } else if (sectionBackground.startsWith("url:")) {
+                String urlPath = sectionBackground.replaceAll("url:", "");
+                String relPath = System.getProperty("user.dir");
+                this.sectionBackground = null;
+                this.sectionBackgroundURL = relPath + urlPath;
+                this.isSectionBackgroundURL = true;
+            } else {
+                this.sectionBackground = 0xffffff;
+            }
+           } catch (NumberFormatException ex) {
+                this.sectionBackground = 0xffffff;
+                log.error("setSectionBackground : there was an error parsing the section background");
+          }
         }
-       } catch (NumberFormatException ex) {
-            this.sectionBackground = 0xffffff;
-            log.error("setSectionBackground : there was an error parsing the section background");
-      }
     }
 
 
 
     public void setSectionLeftMargin(String sectionLeftMargin) {
-      try {
-        this.sectionLeftMargin = Double.parseDouble(sectionLeftMargin.trim());
-       } catch (NumberFormatException ex) {
-            this.sectionLeftMargin = 0;
-            log.error("setSectionLeftMargin : error while formatting number :" + sectionLeftMargin);
-      }
+      if (null == sectionLeftMargin) {
+          this.sectionLeftMargin = 0;
+      } else {
+          try {
+            this.sectionLeftMargin = Double.parseDouble(sectionLeftMargin.trim());
+           } catch (NumberFormatException ex) {
+                this.sectionLeftMargin = 0;
+                log.error("setSectionLeftMargin : error while formatting number :" + sectionLeftMargin);
+          }
+        }
     }
     
     public void setSectionLeftMargin(double sectionLeftMargin) {
@@ -174,11 +180,15 @@ public final class DocumentSection {
     
    
     public void setSectionRightMargin(String sectionRightMargin) {
-        try {
-            this.sectionRightMargin = Double.parseDouble(sectionRightMargin.trim());
-        } catch (NumberFormatException ex) {
+        if (null == sectionRightMargin) {
             this.sectionRightMargin = 0;
-            log.error("setSectionRightMargin : error while formatting number:"+sectionRightMargin);
+        } else {
+            try {
+                this.sectionRightMargin = Double.parseDouble(sectionRightMargin.trim());
+            } catch (NumberFormatException ex) {
+                this.sectionRightMargin = 0;
+                log.error("setSectionRightMargin : error while formatting number:"+sectionRightMargin);
+            }
         }
     }
     
@@ -243,7 +253,11 @@ public final class DocumentSection {
     }
     
     public void setSectionVisibility(String visibility) {
-        this.sectionVisibility = visibility;
+        if (null == visibility) {
+            this.sectionVisibility = "user";
+        } else {
+            this.sectionVisibility = visibility;
+        }
     }
     
 

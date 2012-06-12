@@ -8,14 +8,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 import javax.swing.DefaultComboBoxModel;
 import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.element.Motion;
-import org.bungeni.db.BungeniClientDB;
-import org.bungeni.db.BungeniRegistryFactory;
-import org.bungeni.db.QueryResults;
-import org.bungeni.db.registryQueryDialog;
+
 import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.extutils.CommonConnectorFunctions;
 import org.bungeni.ooo.OOComponentHelper;
@@ -29,7 +25,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 public class MotionSelect extends BaseMetadataPanel {
 
     public static final String __PANEL_NAME__ = "MotionSelect";
-    registryQueryDialog rqs;
+
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(MotionSelect.class.getName());
     // HashMap<String, String> selectionData = new HashMap<String,String>();
     ArrayList<ObjectMotion> motions = new ArrayList<ObjectMotion>(0);
@@ -40,7 +36,6 @@ public class MotionSelect extends BaseMetadataPanel {
         initComponents();
         initComboSelect();
         this.cboSelectMotion.addActionListener(new MotionSelector());
-        this.btnSelectQuestion.setVisible(false);
     }
 
     class MotionSelector implements ActionListener {
@@ -77,22 +72,10 @@ public class MotionSelect extends BaseMetadataPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnSelectQuestion = new javax.swing.JButton();
         cboSelectMotion = new javax.swing.JComboBox();
         btnAdd = new javax.swing.JButton();
 
         setName("Select a Question"); // NOI18N
-
-        btnSelectQuestion.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/motions/Bundle"); // NOI18N
-        btnSelectQuestion.setText(bundle.getString("MotionSelect.btnSelectQuestion.text")); // NOI18N
-        btnSelectQuestion.setActionCommand(bundle.getString("MotionSelect.btnSelectQuestion.actionCommand")); // NOI18N
-        btnSelectQuestion.setName(""); // NOI18N
-        btnSelectQuestion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSelectQuestionActionPerformed(evt);
-            }
-        });
 
         cboSelectMotion.setEditable(true);
         cboSelectMotion.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
@@ -105,6 +88,7 @@ public class MotionSelect extends BaseMetadataPanel {
         });
 
         btnAdd.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/selectors/debaterecord/motions/Bundle"); // NOI18N
         btnAdd.setText(bundle.getString("MotionSelect.btnAdd.text")); // NOI18N
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,10 +103,7 @@ public class MotionSelect extends BaseMetadataPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAdd)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSelectQuestion))
+                    .addComponent(btnAdd)
                     .addComponent(cboSelectMotion, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -132,31 +113,9 @@ public class MotionSelect extends BaseMetadataPanel {
                 .addContainerGap(14, Short.MAX_VALUE)
                 .addComponent(cboSelectMotion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdd)
-                    .addComponent(btnSelectQuestion)))
+                .addComponent(btnAdd))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-private void btnSelectQuestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectQuestionActionPerformed
-// TODO add your handling code here:
-
-    rqs = new registryQueryDialog("Select A Motion", "Select MOTION_ID, MOTION_TITLE, MOTION_NAME, MOTION_TEXT, MOTION_URI from motions", getParentFrame());
-    rqs.show();
-    log.debug("Moved on before closing child dialog");
-    // HashMap<String,String> selectionData = ((Main)getContainerPanel()).selectionData;
-    (getContainerPanel()).selectionData = rqs.getData();
-    if ((getContainerPanel()).selectionData.size() > 0) {
-        HashMap<String, String> registryMap = BungeniRegistryFactory.fullConnectionString();
-        BungeniClientDB dbInstance = new BungeniClientDB(registryMap);
-
-        Set keyset = (getContainerPanel()).selectionData.keySet();
-        log.debug("selected keyset size = " + keyset.size());
-        (getContainerPanel()).updateAllPanels();
-    } else {
-        log.debug("selected keyset empty");
-    }
-}//GEN-LAST:event_btnSelectQuestionActionPerformed
 
 private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
     //make all the fields editable
@@ -172,7 +131,6 @@ private void cboSelectMotionActionPerformed(java.awt.event.ActionEvent evt) {//G
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnSelectQuestion;
     private javax.swing.JComboBox cboSelectMotion;
     // End of variables declaration//GEN-END:variables
 

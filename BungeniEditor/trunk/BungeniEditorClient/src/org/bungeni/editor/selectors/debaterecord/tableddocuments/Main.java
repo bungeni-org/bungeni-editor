@@ -1,7 +1,6 @@
 package org.bungeni.editor.selectors.debaterecord.tableddocuments;
 
 import java.awt.Component;
-import javax.swing.JFrame;
 import org.bungeni.editor.selectors.BaseMetadataContainerPanel;
 
 /**

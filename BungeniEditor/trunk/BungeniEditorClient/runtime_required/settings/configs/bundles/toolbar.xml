@@ -157,4 +157,15 @@
 <entry key="BILL_1ST_READING">bill 1st reading</entry>
 <entry key="MARK_NUMBER">Mark Number</entry>
 <entry key="MARKUP_SHORT_TITLE">Markup Short Title</entry>
+<entry key="ANNOTATE_PARAGRAPH">Annotate the Paragraph</entry>
+<entry key="TOOLTIP_ANNOTATE_PARAGRAPH">Place the cursor on the paragraph you wish to annotate, and then click this action </entry>
+<entry key="COVER_PAGE">Cover Page </entry>
+<entry key="CREATE_COVER_PAGE">Markup Cover Page </entry>
+<entry key="PREAMBLE">preamble</entry>
+<entry key="PREFACE">preface</entry>
+<entry key="CREATE_PREFACE">markup preface</entry>
+<entry key="CREATE_PREAMBLE">markup preamble</entry>
+<entry key="TOOLTIP_CREATE_PREFACE">select the preface text and click the action</entry>
+<entry key="TOOLTIP_CREATE_PREAMBLE">select the preamble text and click the action</entry>
+<entry key="CREATE_COVER_PAGE">Markup Cover Page </entry>
 </properties>
