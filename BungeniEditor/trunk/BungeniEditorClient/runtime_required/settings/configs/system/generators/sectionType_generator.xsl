@@ -7,7 +7,8 @@
         <xd:desc>
             <xd:p><xd:b>Created on:</xd:b> May 24, 2012</xd:p>
             <xd:p><xd:b>Author:</xd:b> Ashok Hariharan</xd:p>
-            <xd:p>This is a meta template generator for Transforming ODF sections into AKoma Ntoso Sections</xd:p>
+            <xd:p>This is a meta template generator for Transforming ODF sections 
+                into AKoma Ntoso Sections</xd:p>
         </xd:desc>
     </xd:doc>
 
@@ -19,7 +20,7 @@
            version="2.0"
         >
             <xsl:apply-templates />
-        </meta:stypesheet>
+        </meta:stylesheet>
     </xsl:template>
 
     <xsl:template match="inlineTypes">

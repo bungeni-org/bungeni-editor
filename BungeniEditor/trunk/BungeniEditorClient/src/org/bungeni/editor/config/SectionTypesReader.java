@@ -19,17 +19,18 @@
 package org.bungeni.editor.config;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import org.bungeni.extutils.BungeniEditorProperties;
+import org.apache.log4j.Logger;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
-import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
-import org.jdom.input.SAXBuilder;
 import org.jdom.xpath.XPath;
 
 /**
@@ -37,6 +38,8 @@ import org.jdom.xpath.XPath;
  * @author Ashok Hariharan
  */
 public class SectionTypesReader extends BaseConfigReader {
+
+       private static Logger log = Logger.getLogger(SectionTypesReader.class.getName());
 
  private static SectionTypesReader thisInstance = null;
 
@@ -57,14 +60,42 @@ public class SectionTypesReader extends BaseConfigReader {
 
     public List getSectionTypes() throws JDOMException, IOException {
        String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
+       if (null != getDocument()) {
+            XPath xPath = XPath.newInstance("//sectionTypes[@for='" + docType + "']/sectionType");
+            return (List) xPath.selectNodes(getDocument());
+       }
+       return null;
+    }
+
+    private Document getDocument()
+            throws FileNotFoundException,
+            UnsupportedEncodingException,
+            JDOMException,
+            IOException {
+
+       String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
        if (!this.cachedTypes.containsKey(docType)) {
             String docSectionsFolder = SETTINGS_FOLDER;
             String docSectionsFile = docSectionsFolder + File.separator + docType + ".xml";
             this.cachedTypes.put(docType, CommonXmlUtils.loadFile(docSectionsFile));
-        }
-        XPath xPath = XPath.newInstance("//sectionTypes[@for='" + docType + "']/sectionType");
-        return (List) xPath.selectNodes(this.cachedTypes.get(docType));
+       }
+       return this.cachedTypes.get(docType);
+    }
 
+    public List getSectionTypesClone() {
+        List listSectionTypes = new ArrayList();
+        try {
+            listSectionTypes =  getDocument().cloneContent();
+        } catch (FileNotFoundException ex) {
+            log.error("unable to getSectionTypes list", ex);
+        } catch (UnsupportedEncodingException ex) {
+            log.error("unable to getSectionTypes list", ex);
+        } catch (JDOMException ex) {
+            log.error("unable to getSectionTypes list", ex);
+        } catch (IOException ex) {
+            log.error("unable to getSectionTypes list", ex);
+        }
+        return listSectionTypes;
     }
 
 
