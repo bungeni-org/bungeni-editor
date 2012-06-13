@@ -19,7 +19,7 @@ public class ServerTest {
         System.out.println("Server Properties : " + System.getProperty("user.dir")+ File.separator + "settings" + File.separator + "bungeni-connector.properties");
         System.out.println("Starting server");
         trans.startServer();
-        Thread.sleep(1000);
+        Thread.sleep(10000);
         System.out.println("Stopping Server");
        // trans.stopServer();
 

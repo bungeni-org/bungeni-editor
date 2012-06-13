@@ -47,5 +47,4 @@ public interface IBungeniConnector {
     public List<ActCategory> getActCategories();
     public List<ActCategoryBasic> getActCategoriesBasic();
     public List<ActOrganization> getActOrganizations();
-
 }

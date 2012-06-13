@@ -260,32 +260,7 @@ public class RDBMSBungeniConnector implements IBungeniConnector {
     
     
 
-     public List<ActType> getActs() {
-        List<ActType> items = new java.util.ArrayList<ActType>();
-        if (getDbConnection() != null) {
-            try {
-                java.sql.Statement statement = getDbConnection().createStatement();
-                java.sql.ResultSet resultSet = statement.executeQuery(getBillsQuery());
-                while (resultSet.next()) {
-                   
-                    ActType item = new ActType();
-                    item.setId(resultSet.getInt(1));
-                    item.addName(new Name(resultSet.getString(2)));
-                    items.add(item);
-                }
-                statement.close();
-                resultSet.close();
-                statement = null;
-                resultSet = null;
-            } catch (SQLException ex) {
-                logger.error(ex);
-            }
-        } else {
-            logger.error("DB Connection Error");
-        }
-        return items;
-    }
-
+ 
       public List<SourceType> getSourceTypes() {
         List<SourceType> items = new java.util.ArrayList<SourceType>();
         if (getDbConnection() != null) {

@@ -1445,4 +1445,5 @@ public class XMLBungeniConnector implements IBungeniConnector {
      private String getActOrganizationsSourceURI() {
         return this.actOrganizationsSourceURI;
     }
+
 }

@@ -281,6 +281,18 @@ public class BungeniConnector implements IBungeniConnector {
     private String getActOrganizationsSource() {
         return getVirtDirURL() + actOrganizationsSource;
     }
+
+    public List<ActClassification> getActClassifications() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public List<Act> getActs() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public List<PublicationName> getPublicationNames() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
  
 
 }
