@@ -48,8 +48,8 @@
 	
 	-->
 
-    <!-- match only carriers of metadata text:section | text:charstyle -->
-    <xsl:template match="text:section | text:meta">
+    <!-- match only carriers of metadata text:section | text:p etc -->
+    <xsl:template match="text:section | text:meta | text:p">
         <xsl:element name="{node-name(.)}" >
             <!-- ***DOC*** 
                 only for elements which hav an id attribute 
