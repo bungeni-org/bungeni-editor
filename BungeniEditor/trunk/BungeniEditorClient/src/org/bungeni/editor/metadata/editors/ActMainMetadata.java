@@ -22,17 +22,28 @@ import java.awt.Dimension;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.TreeMap;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import org.bungeni.connector.client.BungeniConnector;
+import org.bungeni.connector.element.ActClassification;
+import org.bungeni.connector.element.ActFamily;
+import org.bungeni.connector.element.ActHistoricalPeriod;
+import org.bungeni.connector.element.ActScope;
+import org.bungeni.connector.element.ActType;
+import org.bungeni.connector.element.MetadataInfo;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
 import org.bungeni.editor.metadata.ActMainMetadataModel;
 import org.bungeni.editor.metadata.LanguageCode;
 import org.bungeni.editor.selectors.SelectorDialogModes;
+import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.CommonConnectorFunctions;
+import org.bungeni.extutils.CommonStringFunctions;
+import org.bungeni.extutils.CommonUIFunctions;
 import org.bungeni.utils.BungeniFileSavePathFormat;
 import org.jdom.xpath.XPath;
 /**

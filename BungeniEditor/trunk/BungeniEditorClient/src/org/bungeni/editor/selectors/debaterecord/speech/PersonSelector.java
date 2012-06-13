@@ -11,7 +11,6 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.element.Member;
-import org.bungeni.db.registryQueryDialog;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.extutils.CommonConnectorFunctions;
 import org.bungeni.ooo.OOComponentHelper;
@@ -24,7 +23,6 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  */
 public class PersonSelector extends BaseMetadataPanel {
 
-    registryQueryDialog rqs = null;
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(PersonSelector.class.getName());
     //    HashMap<String, String> selectionData = new HashMap<String,String>();
     private ArrayList<ObjectPerson> arrPersons = new ArrayList<ObjectPerson>(0);
