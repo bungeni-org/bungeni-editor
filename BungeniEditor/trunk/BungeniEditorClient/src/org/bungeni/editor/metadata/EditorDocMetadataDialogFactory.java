@@ -55,16 +55,10 @@ public class EditorDocMetadataDialogFactory {
             log.info("newInstance created instance from class");
             iInstance.setTabTitle(metaTabTitle);
             log.info("newInstance set title = " + metaTabTitle);
-        } catch (ClassNotFoundException ex) {
+        } catch (Exception ex) {
             log.error("newInstance() : " + ex.getMessage());
-        } catch (InstantiationException ex) {
-            log.error("newInstance() : " + ex.getMessage());
-        } catch (IllegalAccessException ex) {
-            log.error("newInstance() : " + ex.getMessage());
-        } catch (NullPointerException ex) {
-            log.error("newInstance() (null pointer) = " + ex.getMessage());
-        } finally {
-            return iInstance;
         }
+        return iInstance;
+        
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 bzuadmin
+ * Copyright (C) 2012 Africa i-Parliaments
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -48,7 +48,7 @@ import org.bungeni.utils.BungeniFileSavePathFormat;
 import org.jdom.xpath.XPath;
 /**
  *
- * @author bzuadmin
+ * @author Samar Ayesh
  */
 public class ActMainMetadata extends BaseEditorDocMetadataDialog {
     
@@ -125,10 +125,17 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
     }
 
      private void initControls(){
-       // String popupDlgBackColor = BungeniEditorProperties.getEditorProperty("popupDialogBackColor");
-       // this.setBackground(Color.decode(popupDlgBackColor));
-        cboLanguage.setModel(new DefaultComboBoxModel(languageCodes));
-       
+       // added an exception handler 
+        try {
+            this.cboLanguage.setModel(new DefaultComboBoxModel(languageCodes));
+            this.cboActScope.setModel(getActScopesModel());
+            this.cboActHistoricalPeriod.setModel(getActHistoricalPeriodsModel());
+            this.cboActFamily.setModel(getActFamiliesModel());
+            this.cboActClassification.setModel(getActClassificationsModel());
+            this.cboActType.setModel(getActTypesModel());
+         } catch (Exception ex) {
+             log.error("An exception was thrown ! " , ex);
+         }
         //set Default selections
         this.cboLanguage.setSelectedItem(findLanguageCode(Locale.getDefault().getLanguage()));  
     }
@@ -186,7 +193,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
     }
 
        
-       private ComboBoxModel setActTypesModel()
+       private ComboBoxModel getActTypesModel()
        {
             DefaultComboBoxModel actTypesModel = null ;
             String[] actTypes = null ; // stores all the bill Names
@@ -216,7 +223,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
             return actTypesModel ;
     }
           
-       private ComboBoxModel setActScopesModel()
+       private ComboBoxModel getActScopesModel()
        {
             DefaultComboBoxModel actScopesModel = null ;
             String[] actScopes = null ; // stores all the bill Names
@@ -246,7 +253,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
             return actScopesModel ;
     }
           
-       private ComboBoxModel setActHistoricalPeriodsModel()
+       private ComboBoxModel getActHistoricalPeriodsModel()
        {
             DefaultComboBoxModel actHistoricalPeriodsModel = null ;
             String[] actHistoricalPeriods = null ; // stores all the bill Names
@@ -276,7 +283,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
             return actHistoricalPeriodsModel ;
     }
        
-        private ComboBoxModel setActFamiliesModel()
+        private ComboBoxModel getActFamiliesModel()
        {
             DefaultComboBoxModel actFamiliesModel = null ;
             String[] actFamilies = null ; // stores all the bill Names
@@ -306,7 +313,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
             return actFamiliesModel ;
     }
        
-       private ComboBoxModel setActClassificationsModel()
+       private ComboBoxModel getActClassificationsModel()
        {
             DefaultComboBoxModel actClassificationsModel = null ;
             String[] actClassifications = null ; // stores all the bill Names
@@ -399,7 +406,6 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
 
         setPreferredSize(new java.awt.Dimension(500, 260));
 
-        cboActScope.setModel(setActScopesModel());
         cboActType.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         cboActType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -407,20 +413,19 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
             }
         });
 
-        lblActType.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblActType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle"); // NOI18N
         lblActType.setText(bundle.getString("ActMainMetadata.lblActType.text")); // NOI18N
 
-        lblEffectiveDate.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblEffectiveDate.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblEffectiveDate.setText(bundle.getString("ActMainMetadata.lblEffectiveDate.text")); // NOI18N
         lblEffectiveDate.setName("lbl.BungeniLanguageID"); // NOI18N
 
-        dt_effective_date.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        dt_effective_date.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
-        lblActScope.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblActScope.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblActScope.setText(bundle.getString("ActMainMetadata.lblActScope.text")); // NOI18N
 
-        cboActType.setModel(setActTypesModel());
         cboActScope.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         cboActScope.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -428,15 +433,14 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
             }
         });
 
-        lblActState.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblActState.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblActState.setText(bundle.getString("ActMainMetadata.lblActState.text")); // NOI18N
 
         txtActState.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
-        lblActHistoricalPeriod.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblActHistoricalPeriod.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblActHistoricalPeriod.setText(bundle.getString("ActMainMetadata.lblActHistoricalPeriod.text")); // NOI18N
 
-        cboActHistoricalPeriod.setModel(setActHistoricalPeriodsModel());
         cboActHistoricalPeriod.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         cboActHistoricalPeriod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -444,10 +448,9 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
             }
         });
 
-        lblActFamily.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblActFamily.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblActFamily.setText(bundle.getString("ActMainMetadata.lblActFamily.text")); // NOI18N
 
-        cboActFamily.setModel(setActFamiliesModel());
         cboActFamily.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         cboActFamily.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -455,18 +458,17 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
             }
         });
 
-        cboLanguage.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        cboLanguage.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         cboLanguage.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboLanguage.setMaximumSize(new java.awt.Dimension(107, 21));
         cboLanguage.setMinimumSize(new java.awt.Dimension(107, 21));
 
-        lblLanguage.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblLanguage.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblLanguage.setText(bundle.getString("ActMainMetadata.lblLanguage.text")); // NOI18N
 
-        lblActClassification.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblActClassification.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblActClassification.setText(bundle.getString("ActMainMetadata.lblActClassification.text")); // NOI18N
 
-        cboActClassification.setModel(setActClassificationsModel());
         cboActClassification.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         cboActClassification.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -485,12 +487,12 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblLanguage)
                             .addComponent(cboLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 328, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dt_effective_date, javax.swing.GroupLayout.DEFAULT_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblEffectiveDate, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())
+                        .addContainerGap(305, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblActHistoricalPeriod)
@@ -499,7 +501,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
                             .addComponent(lblActScope)
                             .addComponent(lblActType)
                             .addComponent(cboActScope, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cboActClassification, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblActClassification)
@@ -548,7 +550,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
                 .addComponent(lblEffectiveDate, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dt_effective_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

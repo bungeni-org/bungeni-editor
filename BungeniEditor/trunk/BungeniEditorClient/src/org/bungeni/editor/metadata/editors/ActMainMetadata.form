@@ -124,9 +124,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboActTypeActionPerformed"/>
       </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="cboActScope.setModel(setActScopesModel());"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="lblActType">
       <Properties>
@@ -181,9 +178,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboActScopeActionPerformed"/>
       </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="cboActType.setModel(setActTypesModel());"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="lblActState">
       <Properties>
@@ -224,9 +218,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboActHistoricalPeriodActionPerformed"/>
       </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="cboActHistoricalPeriod.setModel(setActHistoricalPeriodsModel());"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="lblActFamily">
       <Properties>
@@ -250,9 +241,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboActFamilyActionPerformed"/>
       </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="cboActFamily.setModel(setActFamiliesModel());"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JComboBox" name="cboLanguage">
       <Properties>
@@ -307,9 +295,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboActClassificationActionPerformed"/>
       </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="cboActClassification.setModel(setActClassificationsModel());"/>
-      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

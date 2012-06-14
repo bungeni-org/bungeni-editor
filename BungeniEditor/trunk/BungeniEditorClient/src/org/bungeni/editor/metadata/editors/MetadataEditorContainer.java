@@ -149,10 +149,14 @@ public class MetadataEditorContainer extends JPanel {
         log.info("initialize : current doc type = " + currentDocType);
         this.metaTabs= EditorDocMetadataDialogFactory.getInstances(currentDocType);
         for (IEditorDocMetadataDialog mTab : this.metaTabs) {
-            if (mTab == null ) log.error("initialize : returned metadata tab is null");
-            mTab.initVariables(ooDocument, parentFrame, dlgMode);
-            log.info("initialize : after calling initVariables");
-            mTab.initialize();
+            if (mTab == null ) {
+                log.error("initialize : returned metadata tab is null");
+            }
+            else {
+                mTab.initVariables(ooDocument, parentFrame, dlgMode);
+                log.info("initialize : after calling initVariables");
+                mTab.initialize();
+            }
         }
 
         Element doctypeElem = null;
