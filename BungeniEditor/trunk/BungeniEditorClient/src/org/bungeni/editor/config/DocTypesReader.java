@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.bungeni.extutils.CommonXmlUtils;
@@ -165,6 +166,22 @@ public class DocTypesReader extends BaseConfigReader {
             }
         }
        return this.localesDocument;
+    }
+
+    public List<String> getDocTypeNames(){
+        List<Element> docTypeElements = new ArrayList<Element>(0);
+        List<String> docTypeNames = new ArrayList<String>(0);
+        try {
+            docTypeElements = getActiveDocTypes();
+        } catch (JDOMException ex) {
+            log.error("Failed getting docTypes", ex);
+        }
+        for (Element docType : docTypeElements) {
+            docTypeNames.add(
+                docType.getAttributeValue("name")
+                );
+        }
+        return docTypeNames;
     }
 
 }

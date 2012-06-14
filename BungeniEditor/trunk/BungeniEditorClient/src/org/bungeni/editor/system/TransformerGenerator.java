@@ -22,7 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.config.DocTypesReader;
+import org.bungeni.editor.config.InlineTypesReader;
 import org.bungeni.editor.config.SectionTypesReader;
+import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -49,17 +51,18 @@ import org.jdom.JDOMException;
  *
  * @author Ashok Hariharan
  */
-public class TransformerGenerator {
+public final class TransformerGenerator {
 
      private static final Logger log =
              Logger.getLogger(TransformerGenerator.class.getName());
 
+     private Document thisDocument = null;
 
     /**
      * Singleton class, so a private constructor
      */
     private TransformerGenerator(){
-        
+      generateMergedConfiguration(BungeniEditorPropertiesHelper.getCurrentDocType());
     }
 
     private static TransformerGenerator thisInstance = null;
@@ -71,17 +74,30 @@ public class TransformerGenerator {
         return thisInstance;
     }
 
+    public Document getMergedDocument(){
+        return this.thisDocument;
+    }
 
+    /**
+     * Generates a merged configuration document in memory
+     * This is called during instantiation of the TransformerGenerator instance
+     * @param forDocType
+     */
     public void generateMergedConfiguration(String forDocType){
         //merge sectionType and inlineTypes configuration.
-
         //This is the root element for the temporary merged config document
         Element allConfigs = new Element("allConfigs");
         Document docAllConfigs = new Document(allConfigs);
-        
+        addSectionTypesConfig(allConfigs);
+        addInlineTypesConfig(allConfigs);
+        this.thisDocument = docAllConfigs ;
+    }
+
+
+    private void addSectionTypesConfig(Element allConfigs) {
         List<Element> sectionTypes = new ArrayList<Element>(0);
-         sectionTypes = SectionTypesReader.getInstance().getSectionTypesClone();
-         if (sectionTypes != null) {
+        sectionTypes = SectionTypesReader.getInstance().getSectionTypesClone();
+        if (sectionTypes != null) {
             try {
                 allConfigs.addContent(sectionTypes);
             } catch (Exception ex) {
@@ -90,21 +106,19 @@ public class TransformerGenerator {
         }
     }
 
-    private List<String> getDocTypeNames(){
-        List<Element> docTypeElements = new ArrayList<Element>(0);
-        List<String> docTypeNames = new ArrayList<String>(0);
-        try {
-            docTypeElements = DocTypesReader.getInstance().getActiveDocTypes();
-        } catch (JDOMException ex) {
-            log.error("Failed getting docTypes", ex);
+    private void addInlineTypesConfig(Element allConfigs) {
+        List<Element> inlineTypes = new ArrayList<Element>(0);
+        inlineTypes = InlineTypesReader.getInstance().getInlineTypesClone();
+        if (inlineTypes != null) {
+            try {
+                allConfigs.addContent(inlineTypes);
+            }catch(Exception ex) {
+                log.error("Error while importing inline Types", ex);
+            }
         }
-        for (Element docType : docTypeElements) {
-            docTypeNames.add(
-                docType.getAttributeValue("name")
-                );
-        }
-        return docTypeNames;
     }
+
+    
 
     /**
     public static void main(String[] args){
@@ -112,7 +126,4 @@ public class TransformerGenerator {
         gen.generateMergedConfiguration("debaterecord");
     }
      ***/
-
-
-
 }

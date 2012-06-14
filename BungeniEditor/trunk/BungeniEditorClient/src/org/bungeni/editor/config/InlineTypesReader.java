@@ -92,6 +92,13 @@ public class InlineTypesReader extends BaseConfigReader {
         }
     }
 
+    /**
+     * Returns a cloned list of inline content
+     * @return
+     */
+    public List getInlineTypesClone() {
+        return getDocument().cloneContent();
+    }
 
   /**
    * This gets the metadata applicable for a sectiontype
