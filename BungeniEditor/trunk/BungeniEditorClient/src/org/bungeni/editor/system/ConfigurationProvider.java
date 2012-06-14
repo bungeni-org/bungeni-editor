@@ -21,13 +21,11 @@ package org.bungeni.editor.system;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
-import org.bungeni.editor.config.DocTypesReader;
 import org.bungeni.editor.config.InlineTypesReader;
 import org.bungeni.editor.config.SectionTypesReader;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.jdom.Document;
 import org.jdom.Element;
-import org.jdom.JDOMException;
 
 /**
  * This class is the transformer generator for the Editor
@@ -51,25 +49,25 @@ import org.jdom.JDOMException;
  *
  * @author Ashok Hariharan
  */
-public final class TransformerGenerator {
+public final class ConfigurationProvider {
 
      private static final Logger log =
-             Logger.getLogger(TransformerGenerator.class.getName());
+             Logger.getLogger(ConfigurationProvider.class.getName());
 
      private Document thisDocument = null;
 
     /**
      * Singleton class, so a private constructor
      */
-    private TransformerGenerator(){
+    private ConfigurationProvider(){
       generateMergedConfiguration(BungeniEditorPropertiesHelper.getCurrentDocType());
     }
 
-    private static TransformerGenerator thisInstance = null;
+    private static ConfigurationProvider thisInstance = null;
 
-    public static TransformerGenerator getInstance(){
+    public static ConfigurationProvider getInstance(){
         if (null == thisInstance) {
-            thisInstance = new TransformerGenerator();
+            thisInstance = new ConfigurationProvider();
         }
         return thisInstance;
     }
@@ -80,7 +78,7 @@ public final class TransformerGenerator {
 
     /**
      * Generates a merged configuration document in memory
-     * This is called during instantiation of the TransformerGenerator instance
+     * This is called during instantiation of the ConfigurationProvider instance
      * @param forDocType
      */
     public void generateMergedConfiguration(String forDocType){
@@ -122,7 +120,7 @@ public final class TransformerGenerator {
 
     /**
     public static void main(String[] args){
-        TransformerGenerator gen = TransformerGenerator.getInstance();
+        ConfigurationProvider gen = ConfigurationProvider.getInstance();
         gen.generateMergedConfiguration("debaterecord");
     }
      ***/

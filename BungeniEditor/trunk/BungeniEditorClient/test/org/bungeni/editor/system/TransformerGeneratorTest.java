@@ -41,12 +41,12 @@ public class TransformerGeneratorTest extends TestCase {
     }
 
     /**
-     * Test of generateMergedConfiguration method, of class TransformerGenerator.
+     * Test of generateMergedConfiguration method, of class ConfigurationProvider.
      */
     public void testGenerateMergedConfiguration() {
         System.out.println("generateMergedConfiguration");
         String forDocType = "debaterecord";
-        TransformerGenerator instance = TransformerGenerator.getInstance();
+        ConfigurationProvider instance = ConfigurationProvider.getInstance();
         instance.generateMergedConfiguration(forDocType);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
