@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<allConfigs>
+    <sectionTypes for="debaterecord">
+        <sectionType name="ActionEvent" prefix="actionevt" numstyle="serial"
+            background=" url:/settings/configs/backgrounds/sand.png" indent-left="0"
+            indent-right="0" visibility="user"> </sectionType>
+        <sectionType name="Communication" prefix="comnctn" numstyle="serial"
+            background="url:/settings/configs/backgrounds/shade-5.png" indent-left=".4"
+            indent-right="0" visibility="user">
+            <output>
+                <content>
+                    <communication/>
+                </content>
+            </output>
+        </sectionType>
+        <sectionType name="Conclusion" prefix="concl" numstyle="serial"
+            background="url:/settings/configs/backgrounds/shade-4.png" indent-left=".4"
+            indent-right="0" visibility="user">
+            <output>
+                <content>
+                    <conclusion/>
+                </content>
+            </output>
+        </sectionType>
+        <sectionType name="GroupActivity" prefix="comment" numstyle="serial"
+            background="url:/settings/configs/backgrounds/shade-3.png" indent-left="0"
+            indent-right="0" visibility="user"> </sectionType>
+        <sectionType name="LongTitle" prefix="ltitle" numstyle="serial"
+            background="url:/settings/configs/backgrounds/shade-5.png" indent-left=".2"
+            indent-right="0" visibility="user">
+            <output>
+                <content>
+                    <longtitle/>
+                </content>
+            </output>
+        </sectionType>
+        <sectionType name="MetadataContainer" prefix="" numstyle="" background="" indent-left="0"
+            indent-right="0" visibility="user"> </sectionType>
+        <sectionType name="MinisterialStatement" prefix="mstatemnt" numstyle="serial"
+            background="url:/settings/configs/backgrounds/shade-4.png" indent-left="0.4"
+            indent-right="0" visibility="user">
+            <output>
+                <content>
+                    <ministerialStatements/>
+                </content>
+            </output>
+        </sectionType>
+        <sectionType name="Motion" prefix="motion" numstyle="serial"
+            background="url:/settings/configs/backgrounds/shade-3.png" indent-left=".5"
+            indent-right="0" visibility="user">
+            <output>
+                <content>
+                    <proceduralMotions/>
+                </content>
+            </output>
+        </sectionType>
+        <sectionType name="MotionsContainer" prefix="allmotions" numstyle="serial"
+            background=" url:/settings/configs/backgrounds/shade-3.png" indent-left=".3"
+            indent-right="0" visibility="user">
+            <output>
+                <content>
+                    <container/>
+                </content>
+            </output>
+        </sectionType>
+        <sectionType name="NMotionsContainer" prefix="noticesmotion" numstyle="serial"
+            background=" url:/settings/configs/backgrounds/shade-3.png" indent-left=".3"
+            indent-right="0" visibility="user">
+            <output>
+                <content>
+                    <container/>
+                </content>
+            </output>
+        </sectionType>
+        <sectionType name="Narrative" prefix="narr" numstyle="serial"
+            background="url:/settings/configs/backgrounds/shade-4.png" indent-left="0"
+            indent-right="0" visibility="user">
+            <output>
+                <content>
+                    <narrative/>
+                </content>
+            </output>
+        </sectionType>
+        <sectionType name="None" prefix="" numstyle="" background="" indent-left="0"
+            indent-right="0" visibility="user"> </sectionType>
+        <sectionType name="NoticeOfMotion" prefix="noticeofmotion" numstyle="serial"
+            background="url:/settings/configs/backgrounds/shade-4.png" indent-left=".5"
+            indent-right="0" visibility="user">
+            <output>
+                <content>
+                    <noticesOfMotion/>
+                </content>
+            </output>
+        </sectionType>
+        <sectionType name="NoticeOfMotionDetails" prefix="motiondtls" numstyle="serial"
+            background="url:/settings/configs/backgrounds/shade-4.png" indent-left="0"
+            indent-right="0" visibility="user"> </sectionType>
+        <sectionType name="Observation" prefix="comment" numstyle="serial"
+            background="url:/settings/configs/backgrounds/shade-5.png" indent-left=".8"
+            indent-right="0" visibility="user">
+            <output>
+                <content>
+                    <container name="observation"/>
+                </content>
+            </output>
+        </sectionType>
+        <sectionType name="Other" prefix="other" numstyle="serial"
+            background="url:/settings/configs/backgrounds/sand.png" indent-left=".1"
+            indent-right="0" visibility="user"> </sectionType>
+        <sectionType name="PMotionsContainer" prefix="procmotions" numstyle="serial"
+            background="url:/settings/configs/backgrounds/shade-5.png" indent-left=".3"
+            indent-right="0" visibility="user"> </sectionType>
+        <sectionType name="PapersLaid" prefix="papers" numstyle="serial"
+            background="url:/settings/configs/backgrounds/shade-2.png" indent-left=".4"
+            indent-right="0" visibility="user"> </sectionType>
+        <sectionType name="PapersLaidList" prefix="tbldocs" numstyle="serial"
+            background="url:/settings/configs/backgrounds/shade-2.png" indent-left=".6"
+            indent-right="0" visibility="user"> </sectionType>
+        <sectionType name="PersonalStatement" prefix="pstatemnt" numstyle="serial"
+            background=" url:/settings/configs/backgrounds/shade-4.png" indent-left="0.4"
+            indent-right="0" visibility="user"> </sectionType>
+        <sectionType name="Petitions" prefix="petit" numstyle="serial"
+            background=" url:/settings/configs/backgrounds/shade-4.png" indent-left="0"
+            indent-right="0" visibility="user"> </sectionType>
+        <sectionType name="PointOfOrder" prefix="porder" numstyle="serial"
+            background="url:/settings/configs/backgrounds/shade-5.png" indent-left=".4"
+            indent-right="0" visibility="user"> </sectionType>
+        <sectionType name="Prayers" prefix="prayer" numstyle="serial" background="0xf0f0f0"
+            indent-left=".5" indent-right="0" visibility="user"> </sectionType>
+        <sectionType name="Preface" prefix="preface" numstyle="single"
+            background="url:/settings/configs/backgrounds/shade-1.png" indent-left=".3"
+            indent-right="0" visibility="user"> </sectionType>
+        <sectionType name="ProceduralMotion" prefix="procmotion" numstyle="serial"
+            background=" url:/settings/configs/backgrounds/shade-4.png" indent-left=".5"
+            indent-right="0" visibility="user"> </sectionType>
+        <sectionType name="ProceduralMotionDetails" prefix="pmotiondtls" numstyle="serial"
+            background="url:/settings/configs/backgrounds/shade-4.png" indent-left="0"
+            indent-right="0" visibility="user"> </sectionType>
+        <sectionType name="Question" prefix="sque" numstyle="serial"
+            background="url:/settings/configs/backgrounds/shade-6.png" indent-left=".6"
+            indent-right="0" visibility="user"> </sectionType>
+        <sectionType name="QuestionAnswer" prefix="qa" numstyle="serial"
+            background="url:/settings/configs/backgrounds/shade-7.png" indent-left=".5"
+            indent-right="0" visibility="user"> </sectionType>
+        <sectionType name="QuestionBody" prefix="quebody" numstyle="serial"
+            background="url:/settings/configs/backgrounds/shade-3.png" indent-left=".7"
+            indent-right="0" visibility="user"> </sectionType>
+        <sectionType name="QuestionsContainer" prefix="questions" numstyle="serial"
+            background="url:/settings/configs/backgrounds/shade-7.png" indent-left=".3"
+            indent-right="0" visibility="user"> </sectionType>
+        <sectionType name="RootSection" prefix="" numstyle="" background="" indent-left="0"
+            indent-right="0" visibility="user"> </sectionType>
+        <sectionType name="Speech" prefix="speech" numstyle="serial"
+            background="url:/settings/configs/backgrounds/shade-1.png" indent-left=".6"
+            indent-right="0" visibility="user">
+            <metadatas>
+                <metadata name="BungeniSpeechBy"/>
+                <metadata name="BungeniSpeechByURI"/>
+                <metadata name="BungeniSpeechAs"/>
+                <metadata name="BungeniSpeechAsDesc"/>
+                <metadata name="BungeniSpeechAsURI"/>
+                <metadata name="BungeniPersonId"/>
+                <metadata name="BungeniPersonRole"/>
+            </metadatas>
+            <output>
+                <meta>
+                    <TLCPerson id="$BungeniPersonID" href="$BungeniSpeechByURI"
+                        showAs="$BungeniSpeechBy"/>
+                    <TLCRole id="$BungeniSpeechAs" href="$BungeniSpeechAsURI"
+                        showAs="$BungeniSpeechAsDesc"/>
+                </meta>
+                <content>
+                    <speech by="#$BungeniPersonID" as="#$BungeniSpeechAs"/>
+                </content>
+            </output>
+        </sectionType>
+
+        <sectionType name="SpeechBody" prefix="spbody" numstyle="serial" background="0xffffff"
+            indent-left=".7" indent-right="0" visibility="user"> </sectionType>
+        <sectionType name="SystemDateTimeMetadata" prefix="" numstyle="" background=""
+            indent-left="0" indent-right="0" visibility="user"> </sectionType>
+        <sectionType name="SystemMemberMetadata" prefix="" numstyle="" background="" indent-left="0"
+            indent-right="0" visibility="user"> </sectionType>
+        <sectionType name="body" prefix="debaterecord" numstyle="single" background="0xffffff"
+            indent-left="0" indent-right="0" visibility="user"> </sectionType>
+    </sectionTypes>
+    <inlineTypes for="debaterecord">
+        <inlineType name="from"> </inlineType>
+
+    </inlineTypes>
+</allConfigs>

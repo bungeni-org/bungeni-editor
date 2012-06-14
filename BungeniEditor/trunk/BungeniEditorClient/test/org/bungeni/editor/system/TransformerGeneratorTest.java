@@ -18,7 +18,12 @@
 
 package org.bungeni.editor.system;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import junit.framework.TestCase;
+import org.jdom.Document;
+import org.jdom.output.XMLOutputter;
 
 /**
  *
@@ -43,11 +48,17 @@ public class TransformerGeneratorTest extends TestCase {
     /**
      * Test of generateMergedConfiguration method, of class ConfigurationProvider.
      */
-    public void testGenerateMergedConfiguration() {
+    public void testGenerateMergedConfiguration() throws IOException {
         System.out.println("generateMergedConfiguration");
         String forDocType = "debaterecord";
         ConfigurationProvider instance = ConfigurationProvider.getInstance();
-        instance.generateMergedConfiguration(forDocType);
+        Document doc = instance.getMergedDocument();
+        XMLOutputter xout = new XMLOutputter();
+        File f = new File("../test/testdocs/merged_config.xml");
+        System.out.println(f.getAbsolutePath());
+        FileWriter fw = new FileWriter(new File("../test/testdocs/merged_config.xml"));
+        xout.output(doc,fw);
+        fw.close();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
