@@ -39,6 +39,38 @@ The individual parameters are described below :
  * *sectionType/@background - OPTIONAL* - defaults to white, if specified either a background image (url:/path/to/image.png) or a hex-color (0xff0000 for red ) can be specified.
  * *sectionType/@visibility - OPTIONAL* - defaults to 'user' - not implemented yet, for future use. 
 
+= Detailed Configuration Example = 
+
+{{{
+<sectionType name="Speech"
+    prefix="speech"
+    numstyle="serial"
+    background="url:/settings/configs/backgrounds/shade-1.png"
+    indent-left=".6"
+    indent-right="0"
+    visibility="user" >
+     <metadatas>
+         <metadata name="BungeniSpeechBy" />
+         <metadata name="BungeniSpeechByURI" />
+         <metadata name="BungeniSpeechAs" />
+         <metadata name="BungeniSpeechAsDesc" />
+         <metadata name="BungeniSpeechAsURI" />
+         <metadata name="BungeniPersonId" />
+         <metadata name="BungeniPersonRole" />
+     </metadatas>
+     <output>
+         <meta>
+             <TLCPerson id="$BungeniPersonID" href="$BungeniSpeechByURI" showAs="$BungeniSpeechBy" />
+             <TLCRole id="$BungeniSpeechAs" href="$BungeniSpeechAsURI" showAs="$BungeniSpeechAsDesc" />
+         </meta>
+         <content>
+            <speech by="#$BungeniPersonID" as="#$BungeniSpeechAs" /> 
+         </content>
+     </output>
+ </sectionType>
+
+}}}
+
 
 = References =
 
