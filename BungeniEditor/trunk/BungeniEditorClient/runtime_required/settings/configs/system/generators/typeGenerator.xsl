@@ -56,10 +56,6 @@
         <xsl:apply-templates />
     </xsl:template>
 
-    <xsl:template match="output" >
-        <xsl:apply-templates />
-    </xsl:template>
-
     <xsl:template match="metadatas">
         <xsl:apply-templates />
     </xsl:template>
