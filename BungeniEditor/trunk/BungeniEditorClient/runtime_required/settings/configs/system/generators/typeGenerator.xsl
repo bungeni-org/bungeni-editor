@@ -24,7 +24,8 @@
         <meta:stylesheet
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:meta="http://meta.w3.org/1999/XSL/Transform"
-           exclude-result-prefixes="xs" 
+           xmlns:bungeni="http://editor.bungeni.org/1.0/anx/"
+           xmlns:bodf="http://editor.bungeni.org/1.0/odf/"
            version="2.0"
         >
             <xsl:apply-templates />

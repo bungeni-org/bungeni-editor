@@ -7,7 +7,11 @@
     indent-left="0"
     indent-right="0"
     visibility="user" >
-     
+     <output>
+         <content>
+             <container />
+         </content>
+     </output>
  </sectionType>
 <sectionType name="Communication"
     prefix="comnctn"
@@ -33,7 +37,7 @@
             <content>
                 <conclusion />
             </content>
-                     </output>
+          </output>
  </sectionType>
 <sectionType name="GroupActivity"
     prefix="comment"
@@ -42,7 +46,11 @@
     indent-left="0"
     indent-right="0"
     visibility="user" >
-     
+           <output>
+            <content>
+                <container />
+            </content>
+          </output>
  </sectionType>
 <sectionType name="LongTitle"
     prefix="ltitle"
@@ -51,11 +59,11 @@
     indent-left=".2"
     indent-right="0"
     visibility="user" >
-                <output>
+          <output>
             <content>
                 <longtitle />
             </content>
-                </output>
+          </output>
  </sectionType>
 <sectionType name="MetadataContainer"
     prefix=""
@@ -64,7 +72,11 @@
     indent-left="0"
     indent-right="0"
     visibility="user" >
-     
+           <output>
+            <content>
+                <container />
+            </content>
+          </output>
  </sectionType>
 <sectionType name="MinisterialStatement"
     prefix="mstatemnt"
@@ -73,11 +85,11 @@
     indent-left="0.4"
     indent-right="0"
     visibility="user" >
-                <output>
+          <output>
             <content>
                 <ministerialStatements />
             </content>
-                </output>
+           </output>
  </sectionType>
 <sectionType name="Motion"
     prefix="motion"
@@ -86,11 +98,11 @@
     indent-left=".5"
     indent-right="0"
     visibility="user" >
-                <output>
+          <output>
             <content>
                 <proceduralMotions />
             </content>
-                </output>
+          </output>
  </sectionType>
 <sectionType name="MotionsContainer"
     prefix="allmotions"
@@ -99,11 +111,11 @@
     indent-left=".3"
     indent-right="0"
     visibility="user" >
-                <output>
+           <output>
             <content>
                 <container />
             </content>
-                </output>
+           </output>
  </sectionType>
 <sectionType name="NMotionsContainer"
     prefix="noticesmotion"
@@ -112,11 +124,11 @@
     indent-left=".3"
     indent-right="0"
     visibility="user" >
-                <output>
+           <output>
             <content>
                 <container />
             </content>
-                </output>
+           </output>
  </sectionType>
 <sectionType name="Narrative"
     prefix="narr"
@@ -125,11 +137,11 @@
     indent-left="0"
     indent-right="0"
     visibility="user" >
-                <output>
+           <output>
             <content>
-                <narrative />
+                <container />
             </content>
-                </output>
+           </output>
  </sectionType>
 <sectionType name="None"
     prefix=""
@@ -147,7 +159,7 @@
     indent-left=".5"
     indent-right="0"
     visibility="user" >
-                <output>
+     <output>
             <content>
                 <noticesOfMotion />
             </content>
@@ -160,7 +172,11 @@
     indent-left="0"
     indent-right="0"
     visibility="user" >
-     
+         <output>
+            <content>
+                <container />
+            </content>
+           </output>
  </sectionType>
 <sectionType name="Observation"
     prefix="comment"
@@ -169,7 +185,7 @@
     indent-left=".8"
     indent-right="0"
     visibility="user" >
-                <output>
+          <output>
             <content>
                 <container name="observation" />
             </content>
@@ -182,7 +198,11 @@
     indent-left=".1"
     indent-right="0"
     visibility="user" >
-     
+         <output>
+            <content>
+                <other />
+            </content>
+           </output>
  </sectionType>
 <sectionType name="PMotionsContainer"
     prefix="procmotions"
@@ -191,7 +211,11 @@
     indent-left=".3"
     indent-right="0"
     visibility="user" >
-     
+         <output>
+            <content>
+                <container />
+            </content>
+           </output>
  </sectionType>
 <sectionType name="PapersLaid"
     prefix="papers"
@@ -200,7 +224,11 @@
     indent-left=".4"
     indent-right="0"
     visibility="user" >
-     
+         <output>
+            <content>
+                <papersLaid />
+            </content>
+           </output>
  </sectionType>
 <sectionType name="PapersLaidList"
     prefix="tbldocs"
@@ -209,7 +237,11 @@
     indent-left=".6"
     indent-right="0"
     visibility="user" >
-     
+         <output>
+            <content>
+                <container />
+            </content>
+           </output>
  </sectionType>
 <sectionType name="PersonalStatement"
     prefix="pstatemnt"
@@ -218,7 +250,11 @@
     indent-left="0.4"
     indent-right="0"
     visibility="user" >
-     
+         <output>
+            <content>
+                <personalStatement />
+            </content>
+           </output>
  </sectionType>
 <sectionType name="Petitions"
     prefix="petit"
@@ -353,7 +389,11 @@
     indent-left=".7"
     indent-right="0"
     visibility="user" >
-     
+     <output>
+         <content>
+             <container />
+         </content>
+     </output>
  </sectionType>
 <sectionType name="SystemDateTimeMetadata"
     prefix=""
