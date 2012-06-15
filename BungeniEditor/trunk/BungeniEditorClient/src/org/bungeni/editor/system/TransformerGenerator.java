@@ -18,12 +18,23 @@
 
 package org.bungeni.editor.system;
 
-import java.util.logging.Level;
+import java.io.File;
+import java.io.FileNotFoundException;
+import javax.xml.transform.Source;
+
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+
 import org.apache.log4j.Logger;
+import org.bungeni.editor.config.SysTransformsReader;
 import org.jdom.Document;
+import org.jdom.JDOMException;
+import org.jdom.output.DOMOutputter;
 
 /**
  *
@@ -37,11 +48,11 @@ public class TransformerGenerator {
     private static TransformerGenerator instance = null;
 
     private TransformerFactory thisTransFactory = null;
-    private Transformer thisTransformer = null;
+    //private Transformer thisTransformer = null;
 
     private TransformerGenerator() throws TransformerConfigurationException{
         thisTransFactory = net.sf.saxon.TransformerFactoryImpl.newInstance();
-        thisTransformer = thisTransFactory.newTransformer();
+       // thisTransformer = thisTransFactory.newTransformer();
     }
 
     public static TransformerGenerator getInstance(){
@@ -55,11 +66,30 @@ public class TransformerGenerator {
         return instance;
     }
 
-    public Document generateTemplates() {
-        ConfigurationProvider configs = ConfigurationProvider.getInstance();
-        Document mergedConfigs = configs.getMergedDocument();
-
-        return mergedConfigs; 
+    public File typeGeneratorTemplate() throws JDOMException {
+        StreamSource xsltTypeGenerator = null;
+        File ftypeGenerator =   new File(
+                       SysTransformsReader.SYSTEM_TRANS_CACHE + File.separator +
+                       "type_transform.xsl"
+                       );
+        try {
+            ConfigurationProvider configs = ConfigurationProvider.getInstance();
+            Document mergedConfigs = configs.getMergedDocument();
+            //Conver to a w3c dom document
+            DOMOutputter dout = new DOMOutputter();
+            org.w3c.dom.Document domDoc = dout.output(mergedConfigs);
+            xsltTypeGenerator = SysTransformsReader.getInstance().getXslt("typeGenerator.xsl");
+            Transformer transformer = thisTransFactory.newTransformer(xsltTypeGenerator);
+            StreamResult outputResult = new StreamResult(
+                  ftypeGenerator
+                  );
+            transformer.transform( new DOMSource(domDoc), outputResult);
+        } catch (TransformerException ex) {
+             log.error("Transform exception !", ex);
+        } catch (FileNotFoundException ex) {
+            log.error("XSLT not found !", ex);
+        }
+        return ftypeGenerator;
     }
 
 

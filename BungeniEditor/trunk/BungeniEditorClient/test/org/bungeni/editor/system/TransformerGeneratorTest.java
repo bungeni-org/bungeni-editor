@@ -19,11 +19,7 @@
 package org.bungeni.editor.system;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import junit.framework.TestCase;
-import org.jdom.Document;
-import org.jdom.output.XMLOutputter;
 
 /**
  *
@@ -31,34 +27,19 @@ import org.jdom.output.XMLOutputter;
  */
 public class TransformerGeneratorTest extends TestCase {
     
-    public TransformerGeneratorTest(String testName) {
-        super(testName);
-    }
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
-    }
+  
 
     /**
-     * Test of generateMergedConfiguration method, of class ConfigurationProvider.
+     * Test of typeGeneratorTemplate method, of class TransformerGenerator.
      */
-    public void testGenerateMergedConfiguration() throws IOException {
-        System.out.println("generateMergedConfiguration");
-        String forDocType = "debaterecord";
-        ConfigurationProvider instance = ConfigurationProvider.getInstance();
-        Document doc = instance.getMergedDocument();
-        XMLOutputter xout = new XMLOutputter();
-        File f = new File("../test/testdocs/merged_config.xml");
-        System.out.println(f.getAbsolutePath());
-        FileWriter fw = new FileWriter(new File("../test/testdocs/merged_config.xml"));
-        xout.output(doc,fw);
-        fw.close();
+    public void testTypeGeneratorTemplate() throws Exception {
+        System.out.println("typeGeneratorTemplate");
+        TransformerGenerator instance = TransformerGenerator.getInstance();
+        ConfigurationProvider cfg = ConfigurationProvider.getInstance();
+        cfg.writeMergedConfig(new File("../test/testdocs/config_out.xml"));
+        File expResult = null;
+        File result = instance.typeGeneratorTemplate();
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

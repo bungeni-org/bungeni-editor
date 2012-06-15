@@ -18,6 +18,9 @@
 
 package org.bungeni.editor.system;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -26,6 +29,7 @@ import org.bungeni.editor.config.SectionTypesReader;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.jdom.Document;
 import org.jdom.Element;
+import org.jdom.output.XMLOutputter;
 
 /**
  * This class is the transformer generator for the Editor
@@ -91,6 +95,12 @@ public final class ConfigurationProvider {
         this.thisDocument = docAllConfigs ;
     }
 
+    public void writeMergedConfig(File f) throws IOException {
+        FileWriter fout = new FileWriter(f);
+        XMLOutputter xout = new XMLOutputter();
+        xout.output(this.getMergedDocument(), fout);
+        fout.close();
+    }
 
     private void addSectionTypesConfig(Element allConfigs) {
         List<Element> sectionTypes = new ArrayList<Element>(0);
