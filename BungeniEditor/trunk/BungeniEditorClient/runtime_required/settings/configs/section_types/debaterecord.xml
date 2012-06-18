@@ -1,5 +1,26 @@
 <?xml version="1.0" ?>
 <sectionTypes for="debaterecord">
+
+<!-- The root section is neccessary -->
+<sectionType name="root"
+    prefix="debaterecord"
+    numstyle="single"
+    visibility="user" >
+    <output>
+    <content>
+        <akomaNtoso>
+            <debate>
+                <meta />
+                <preface />
+                <body />
+                <conclusion />
+            </debate>
+        </akomaNtoso>
+    </content>
+   </output>
+ </sectionType>
+
+
 <sectionType name="ActionEvent"
     prefix="actionevt"
     numstyle="serial"
@@ -239,7 +260,7 @@
     visibility="user" >
          <output>
             <content>
-                <container />
+                <other />
             </content>
            </output>
  </sectionType>
@@ -346,15 +367,7 @@
     visibility="user" >
      
  </sectionType>
-<sectionType name="RootSection"
-    prefix=""
-    numstyle=""
-    background=""
-    indent-left="0"
-    indent-right="0"
-    visibility="user" >
-     
- </sectionType>
+
 <sectionType name="Speech"
     prefix="speech"
     numstyle="serial"
@@ -420,6 +433,10 @@
     indent-left="0"
     indent-right="0"
     visibility="user" >
-     
+     <output>
+         <content>
+             <debate />
+         </content>
+     </output>
  </sectionType>
 </sectionTypes>
