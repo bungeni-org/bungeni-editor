@@ -39,7 +39,89 @@ The individual parameters are described below :
  * *sectionType/@background - OPTIONAL* - defaults to white, if specified either a background image (url:/path/to/image.png) or a hex-color (0xff0000 for red ) can be specified.
  * *sectionType/@visibility - OPTIONAL* - defaults to 'user' - not implemented yet, for future use. 
 
-= Detailed Configuration Example = 
+= Metadata = 
+
+Section Types can be associated with metadata. 
+
+The metadata list is defined in the `metadatas` block.
+
+{{{
+<sectionType name="Speech"
+   .... >
+
+     <metadatas>
+         <metadata name="BungeniSpeechBy" />
+         <metadata name="BungeniSpeechByURI" />
+         <metadata name="BungeniSpeechAs" />
+         <metadata name="BungeniSpeechAsDesc" />
+         <metadata name="BungeniSpeechAsURI" />
+         <metadata name="BungeniPersonId" />
+         <metadata name="BungeniPersonRole" />
+     </metadatas>
+
+</sectionType>
+
+}}}
+
+The metadata names are declarative - they don't prescribe anything during
+markup but are more prescriptive from the point of view of transformation.
+
+The metadata name declares that the action using the section type as a metadata
+source will set these metadata values in the section .i.e. it is upto the action
+associated with the sectionType to set these metadata.
+
+
+= Output = 
+
+The output block describes how the section in the openoffice document will be 
+converted for XML output.
+
+The output block supports seperation of content and metadata in the transformed 
+XML. This is done by separately defining output `meta` headers and output `content`
+tags :
+
+{{{
+     <output>
+         <meta>
+             <TLCPerson id="$BungeniPersonID" href="$BungeniSpeechByURI" 
+                showAs="$BungeniSpeechBy" />
+             <TLCRole id="$BungeniSpeechAs" href="$BungeniSpeechAsURI" 
+                showAs="$BungeniSpeechAsDesc" />
+         </meta>
+         <content>
+            <speech by="#$BungeniPersonID" as="#$BungeniSpeechAs" /> 
+         </content>
+     </output>
+}}}
+
+The actual metadata is embedded into the output meta and content templates by 
+refering to them by name :
+
+`$BungeniSpeechByURI` renders the value of the BungeniSpeechByURI metadata in the
+output XML.
+
+
+= Configuration Examples = 
+
+== Example 1 ==
+
+Default configuration specifying minimal parameters and basic output template
+
+<sectionType name="Speech"
+    prefix="speech"
+    numstyle="serial"
+    >
+    <output>
+        <content>
+         <speech />
+        </content>
+    </output>
+</sectionType>
+
+
+== Example 2 == 
+
+Detailed configuration with output and metadata configuration
 
 {{{
 <sectionType name="Speech"
