@@ -20,6 +20,8 @@ package org.bungeni.editor.system;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.xml.transform.Source;
 
 import javax.xml.transform.Transformer;
@@ -66,12 +68,17 @@ public class TransformerGenerator {
         return instance;
     }
 
-    public File typeGeneratorTemplate() throws JDOMException {
+    public File typeGeneratorTemplate() throws JDOMException, IOException {
         StreamSource xsltTypeGenerator = null;
         File ftypeGenerator =   new File(
                        SysTransformsReader.SYSTEM_TRANS_CACHE + File.separator +
                        "type_transform.xsl"
                        );
+        if (!ftypeGenerator.exists()) {
+             (new File(SysTransformsReader.SYSTEM_TRANS_CACHE)).mkdirs();
+             ftypeGenerator.createNewFile();
+        }
+        log.info("Full path to xslt file : " + ftypeGenerator.getAbsolutePath());
         try {
             ConfigurationProvider configs = ConfigurationProvider.getInstance();
             Document mergedConfigs = configs.getMergedDocument();
@@ -80,13 +87,16 @@ public class TransformerGenerator {
             org.w3c.dom.Document domDoc = dout.output(mergedConfigs);
             xsltTypeGenerator = SysTransformsReader.getInstance().getXslt("typeGenerator.xsl");
             Transformer transformer = thisTransFactory.newTransformer(xsltTypeGenerator);
+            FileWriter fwTypeGen = new FileWriter(ftypeGenerator);
             StreamResult outputResult = new StreamResult(
-                  ftypeGenerator
+                  fwTypeGen
                   );
             transformer.transform( new DOMSource(domDoc), outputResult);
+            fwTypeGen.flush();
         } catch (TransformerException ex) {
              log.error("Transform exception !", ex);
         } catch (FileNotFoundException ex) {
+            log.error("Full path to xslt file : " + ftypeGenerator.getAbsolutePath());
             log.error("XSLT not found !", ex);
         }
         return ftypeGenerator;
