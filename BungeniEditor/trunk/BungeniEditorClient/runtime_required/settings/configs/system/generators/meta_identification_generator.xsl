@@ -38,8 +38,9 @@
         <xd:desc>
             <xd:p><xd:b>Created on:</xd:b> May 24, 2012</xd:p>
             <xd:p><xd:b>Author:</xd:b> Ashok Hariharan</xd:p>
-            <xd:p>This is a meta template generator for Transforming ODF sections 
-                into AKoma Ntoso Sections</xd:p>
+            <xd:p>
+                This stylesheet converts ODF to Meta Language
+            </xd:p>
         </xd:desc>
     </xd:doc>
     
@@ -56,24 +57,33 @@
     </xsl:template>
 
     <xsl:template match="office:document-content">
-        <root name="root" id="{generate-id(.)}">
+        <root name="root" >
             <xsl:apply-templates />
         </root>
     </xsl:template>
     
-    
-
-    <xsl:template match="//office:meta">
-        <bungeni:officeMetas>
+    <xsl:template match="office:meta">
+        <mcontainer name="allmeta">
             <xsl:apply-templates />
-        </bungeni:officeMetas>
+        </mcontainer>
     </xsl:template>
-
+    
     <xsl:template match="meta:user-defined">
-        <bungeni:officeMeta>
+        <meta>
             <xsl:attribute name="name"><xsl:value-of select="@meta:name" /></xsl:attribute>
             <xsl:value-of select="."></xsl:value-of>
-        </bungeni:officeMeta>
+        </meta>
     </xsl:template>
 
+
+    <!-- fix tabs and spaces -->
+
+    <xsl:template match="text:tab"></xsl:template>
+    
+    <xsl:template match="text:s"></xsl:template>
+    
+    <xsl:template match="text()">
+        <xsl:value-of select="normalize-space(.)" />
+    </xsl:template>
+    
 </xsl:stylesheet>
