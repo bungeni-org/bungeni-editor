@@ -10,10 +10,10 @@
     <content>
         <akomaNtoso>
             <debate>
-                <meta />
-                <preface />
-                <body />
-                <conclusion />
+                <meta mode="call"/>
+                <preface mode="call" />
+                <debateBody  mode="call"/>
+                <conclusions mode="call" />
             </debate>
         </akomaNtoso>
     </content>
@@ -21,7 +21,42 @@
  </sectionType>
 
 
-<sectionType name="ActionEvent"
+  <sectionType name="CoverPage" 
+        prefix="coverpage" 
+        numstyle="single" 
+        >
+        <output>
+            <content>
+                <coverPage/>
+            </content>
+        </output>
+    </sectionType>
+  
+    <sectionType name="Preface"
+        prefix="preface"
+        numstyle="single"
+        background="url:/settings/configs/backgrounds/shade-1.png"
+        indent-left=".3"
+        indent-right="0"
+        visibility="user" >
+        <output>
+            <content>
+                <preface/>
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="meta"
+        prefix="meta"
+        numstyle="single">
+        <output>
+            <content>
+                <meta />
+            </content>
+        </output>
+    </sectionType>
+
+   <sectionType name="ActionEvent"
     prefix="actionevt"
     numstyle="serial"
     background=" url:/settings/configs/backgrounds/sand.png"
@@ -33,7 +68,8 @@
              <container />
          </content>
      </output>
- </sectionType>
+</sectionType>
+    
 <sectionType name="Communication"
     prefix="comnctn"
     numstyle="serial"
@@ -47,8 +83,8 @@
             </content>
         </output>
  </sectionType>
-<sectionType name="Conclusion"
-    prefix="concl"
+<sectionType name="Conclusions"
+    prefix="concls"
     numstyle="serial"
     background="url:/settings/configs/backgrounds/shade-4.png"
     indent-left=".4"
@@ -56,7 +92,7 @@
     visibility="user" >
            <output>
             <content>
-                <conclusion />
+                <conclusions />
             </content>
           </output>
  </sectionType>
@@ -304,15 +340,7 @@
     visibility="user" >
      
  </sectionType>
-<sectionType name="Preface"
-    prefix="preface"
-    numstyle="single"
-    background="url:/settings/configs/backgrounds/shade-1.png"
-    indent-left=".3"
-    indent-right="0"
-    visibility="user" >
-     
- </sectionType>
+
 <sectionType name="ProceduralMotion"
     prefix="procmotion"
     numstyle="serial"
@@ -322,7 +350,8 @@
     visibility="user" >
      
  </sectionType>
-<sectionType name="ProceduralMotionDetails"
+
+ <sectionType name="ProceduralMotionDetails"
     prefix="pmotiondtls"
     numstyle="serial"
     background="url:/settings/configs/backgrounds/shade-4.png"

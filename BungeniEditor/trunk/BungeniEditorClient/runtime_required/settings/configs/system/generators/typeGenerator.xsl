@@ -4,6 +4,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:xmeta="http://meta.w3.org/1999/XSL/Transform"
+    xmlns:bodf="http://editor.bungeni.org/1.0/odf/" 
     exclude-result-prefixes="xs" version="2.0">
     <xd:doc xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" scope="stylesheet">
         <xd:desc>
@@ -90,11 +91,70 @@
         <xsl:apply-templates />
     </xsl:template>
 
+    <!-- Specialized root element generator and templates -->
+    <xsl:template match="*[@name='root']">
+        <!-- we use a rootCall mode here to apply special processing for 
+            root generation -->
+        <xsl:apply-templates mode="rootCall" />
+    </xsl:template>
+
+    <xsl:template match="output[parent::*[@name='root']]" mode="rootCall">
+        <!-- process the output element for the root generator -->
+        <xsl:apply-templates mode="rootCall" />
+    </xsl:template>
+    
+    
+    <xsl:template match="content[parent::*[@name='root']]" mode="rootCall">
+        <xsl:apply-templates mode="rootCall" />
+    </xsl:template>
+    
+    <xsl:template match="*[parent::content[parent::*[@name='root']]]" mode="rootCall">
+        <xsl:variable name="rootElement" select="local-name(.)" />
+        <xmeta:element name="{$rootElement}">
+            <xsl:apply-templates select="child::*" mode="rootContentCall" />
+        </xmeta:element>
+    </xsl:template>
+    
+    <xsl:template match="*" mode="rootContentCall">
+        <xsl:variable name="contentElementName" select="local-name(.)" />
+        <xsl:choose>
+            <xsl:when test="@mode eq 'call'">
+                <!-- when mode eq call , we generate a xsl:apply-templates, so there is
+                    no further nested processing -->
+                <xsl:call-template name="apply-templates-generator" >
+                    <xsl:with-param name="element-name" select="$contentElementName" />
+                </xsl:call-template>    
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- when mode is note set to call in the configuration, we generate an 
+                    element and process its children if specified -->
+                <xmeta:element name="{$contentElementName}">
+                    <xsl:apply-templates mode="rootContentCall" />                
+                </xmeta:element>            
+            </xsl:otherwise>
+        </xsl:choose>
+       </xsl:template>
+
+
+    <!-- This generates the apply-templates for the 
+        elements with the mode attribute -->
+   <xsl:template name="apply-templates-generator">
+       <xsl:param name="element-name" />
+       <xsl:variable name="configTypeForElementName"
+           select="//*[child::output/content/child::*[
+           local-name() eq $element-name
+           ]]" />
+       <xsl:variable name="configTypeName" select="data($configTypeForElementName/@name)"></xsl:variable>
+        <xmeta:apply-templates select="*[@name eq {$configTypeName}]" />
+ </xsl:template>
+
     <xsl:template match="*[parent::content]">
         <xsl:variable name="elemname"  select="local-name()"/>
-
-        
         <xmeta:element name="{$elemname}">
+            <xmeta:if test="@id">
+                    <xmeta:attribute name="bodf:sourceId" select="@id"/>
+            </xmeta:if>
+
             <xsl:for-each select="@*">
                 <!-- process attributes -->
                 <xmeta:attribute name="{local-name()}" >
