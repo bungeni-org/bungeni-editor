@@ -109,10 +109,11 @@ public class ActSource extends BaseEditorDocMetadataDialog{
                 String sSourceNo = docMetaModel.getItem("BungeniSourceNo");
                 
                 SimpleDateFormat dateFormat = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
+          
                 
                 if (!CommonStringFunctions.emptyOrNull(sSrcPublicationDate)) {
                     this.dt_publication_date.setDate(dateFormat.parse(sSrcPublicationDate));
-                    ActMainMetadata.setBungeniActEffectiveDate(dt_publication_date.getDate());
+                    ActMainMetadata.setBungeniActEffectiveDate(this.dt_publication_date.getDate());
                 }
                 if (!CommonStringFunctions.emptyOrNull(sSrcName)) {
                      this.cboSrcName.setSelectedItem(sSrcName);
