@@ -57,6 +57,19 @@ public class OAXSLTStep implements XSLTStep {
     }
 
     /**
+     * Default constructor with parameters - does not handle postprocs and preprocs
+     * Used just for initializing the Object
+     * @param name
+     * @param URI
+     * @param position
+     */
+    public OAXSLTStep(String name, String URI, Integer position) {
+        this.name = name;
+        this.URI = URI;
+        this.position = position;
+    }
+
+    /**
      * Used to get the name of the Step
      * @return the name of the Step
      */
