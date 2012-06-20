@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<config name="$config-name$">
+<config name="${configname}" for="${doctype}">
     <!-- 
         General Properties for the translator 
         -->
@@ -7,8 +7,8 @@
             <!-- resource bundle -->
             <entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
             <!-- parameter to specify cached pipeline property -->
-            <entry key="cachePipelineXSLT">$cache-pipeline$</entry>
-             <entry key="inputXmlSource">$input-xml-source$</entry>
+            <entry key="cachePipelineXSLT">${cache_pipeline}</entry>
+             <entry key="inputXmlSource">${input_xml_source}</entry>
     </properties>
 
 
@@ -17,15 +17,15 @@
 
     <!-- This steps are performed BEFORE the below regex replacement -->
     <input>
-        <xslt step="1" name="appendBungeniNS" href="$path$/pipeline_xslt/common/add_bungeni_ns.xsl"/>
+        <xslt step="1" name="appendBungeniNS" href="${trans_path}/pipeline_xslt/common/add_bungeni_ns.xsl"/>
         <!-- Add RDF ns -->
 
-         <xslt step="2" name="appendRDFNS" href="$path$/pipeline_xslt/common/add_rdf_ns.xsl"/> 
+         <xslt step="2" name="appendRDFNS" href="${trans_path}/pipeline_xslt/common/add_rdf_ns.xsl"/>
         <!-- Extract the styles -->
-        <xslt step="3" name="mergeStyles" href="$path$/pipeline_xslt/common/merge_styles.xsl"/> 
+        <xslt step="3" name="mergeStyles" href="${trans_path}/pipeline_xslt/common/merge_styles.xsl"/>
         <!-- Transform the document to the META Language -->
         <!-- custom steps follow -->
-        <!--$input-custom-steps$-->
+        ${custom-input-steps}
     </input>
     
     <replacements>
@@ -47,17 +47,17 @@
     <output>
         <!-- Normalise the produced META document -->
         <xslt step="1" name="MetaLanguageNormalisation"
-            href="$path$/pipeline_xslt/common/meta_language_normalization.xsl"/>
+            href="${trans_path}/pipeline_xslt/common/meta_language_normalization.xsl"/>
         <!-- Add the Metalex namespace -->
         <xslt step="2" name="MetaLanguageAddNamespaceMetalex"
-            href="$path$/pipeline_xslt/common/meta_language_add_mlx_ns.xsl"/>
+            href="${trans_path}/pipeline_xslt/common/meta_language_add_mlx_ns.xsl"/>
         <!-- Add the Bungeni namespace -->
         <xslt step="3" name="MetaLanguageAddNamespaceBungeni"
-            href="$path$/pipeline_xslt/common/meta_language_add_bungeni_ns.xsl"/>
+            href="${trans_path}/pipeline_xslt/common/meta_language_add_bungeni_ns.xsl"/>
         
         <!-- custom steps follow -->
         
-        <!--$custom-output-steps$-->
+        ${custom_output_steps}
     
     </output>
 
@@ -70,8 +70,8 @@
     <!-- Called after translate -->
     
     <postxml>
-        <xslt step="1" name="Cleanup" href="$path$/pipeline_xslt/common/cleanup.xsl" />
-        <xslt step="2" name="AddNamespaceAkomaNtoso" href="$path$/pipeline_xslt/common/add_an_ns.xsl" />
+        <xslt step="1" name="Cleanup" href="${trans_path}/pipeline_xslt/common/cleanup.xsl" />
+        <xslt step="2" name="AddNamespaceAkomaNtoso" href="${trans_path}/pipeline_xslt/common/add_an_ns.xsl" />
     </postxml>
     
 </config>

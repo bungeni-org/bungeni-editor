@@ -20,18 +20,10 @@ package org.bungeni.editor.config;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import javax.xml.transform.stream.StreamSource;
 import org.apache.log4j.Logger;
 import org.bungeni.extutils.CommonFileFunctions;
-import org.bungeni.extutils.CommonXmlUtils;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.JDOMException;
 import org.jdom.xpath.XPath;
 
 /**

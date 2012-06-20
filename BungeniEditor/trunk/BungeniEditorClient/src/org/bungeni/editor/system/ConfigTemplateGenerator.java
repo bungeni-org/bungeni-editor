@@ -18,31 +18,53 @@
 
 package org.bungeni.editor.system;
 
-import org.stringtemplate.v4.STGroup;
-import org.stringtemplate.v4.STGroupFile;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * Generates the pipeline configuration template
- * Uses the antlr StringTemplate library for the template generation
- * @author Ashok Hariharan
+ *
+ * @author Ashok
  */
 public class ConfigTemplateGenerator {
 
-    private ConfigTemplateGenerator(){
-        templateGroupFile = new STGroupFile("config_tmpl.xml.st");
+
+    public ConfigTemplateGenerator(){
     }
 
-    private static ConfigTemplateGenerator instance = null;
+    public void process(String configName, 
+            String docType,
+            boolean cachePipeline,
+            String prefixPath,
+            String customInputSteps,
+            String customOutputSteps
+            ) throws IOException, TemplateException {
+        BaseTransformTemplateGenerator instance = BaseTransformTemplateGenerator.getInstance();
+        Template tmpl = instance.getTemplate("config_tmpl.xml");
 
-    private STGroupFile templateGroupFile = null;
-
-    public static ConfigTemplateGenerator getInstance(){
-        if (null == instance) {
-            instance = new ConfigTemplateGenerator();
-        }
-        return instance;
+        Map objectMap = new HashMap();
+        objectMap.put("configname", configName);
+        objectMap.put("cache_pipeline", Boolean.valueOf(cachePipeline));
+        objectMap.put("trans_path", BaseTransformTemplateGenerator.CONFIG_TEMPLATES_OUTPUT);
+        objectMap.put("input_xml_source", "ODF");
+        FileWriter fwoutput = new FileWriter(BaseTransformTemplateGenerator.CONFIG_TEMPLATES_OUTPUT + 
+                File.separator +
+                "config_" +
+                docType +
+                ".xml");
+        tmpl.process(objectMap, fwoutput);
+        fwoutput.flush();
     }
 
-    
+    public static void main(String[] args) throws IOException, TemplateException{
+        ConfigTemplateGenerator cfg = new ConfigTemplateGenerator();
+        cfg.process("debatecommon", "debate", true, "/home/undesa", "custom", "custom2");
+
+    }
+ 
 
 }
