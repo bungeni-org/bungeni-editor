@@ -23,11 +23,15 @@ import freemarker.template.TemplateException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import org.bungeni.translators.configurations.steps.OAXSLTStep;
 
 /**
- *
+ * This is the Main configuration template pipeline generator
+ * It uses freemarker to generate the pipeline file for a doctype
  * @author Ashok
  */
 public class ConfigTemplateGenerator {
@@ -36,21 +40,38 @@ public class ConfigTemplateGenerator {
     public ConfigTemplateGenerator(){
     }
 
+    /**
+     * This is the main pipeline template generator
+     * @param configName
+     * @param docType
+     * @param cachePipeline
+     * @param prefixPath
+     * @param customInputSteps
+     * @param customOutputSteps
+     * @throws IOException
+     * @throws TemplateException
+     */
     public void process(String configName, 
             String docType,
             boolean cachePipeline,
-            String prefixPath,
-            String customInputSteps,
-            String customOutputSteps
+            String sysPrefixPath,
+            String customPrefixPath,
+            List<OAXSLTStep> customInputSteps,
+            List<OAXSLTStep> customOutputSteps
             ) throws IOException, TemplateException {
         BaseTransformTemplateGenerator instance = BaseTransformTemplateGenerator.getInstance();
         Template tmpl = instance.getTemplate("config_tmpl.xml");
 
-        Map objectMap = new HashMap();
+        Map<String,Object> objectMap = new HashMap<String,Object>();
         objectMap.put("configname", configName);
+        objectMap.put("doctype", docType);
         objectMap.put("cache_pipeline", Boolean.valueOf(cachePipeline));
-        objectMap.put("trans_path", BaseTransformTemplateGenerator.CONFIG_TEMPLATES_OUTPUT);
+        objectMap.put("custom_trans_path", BaseTransformTemplateGenerator.CONFIG_TEMPLATES_OUTPUT);
+        objectMap.put("sys_trans_path", BaseTransformTemplateGenerator.CONFIG_TEMPLATES_OUTPUT);
         objectMap.put("input_xml_source", "ODF");
+        objectMap.put("input_steps", customInputSteps);
+        objectMap.put("output_steps", customOutputSteps);
+
         FileWriter fwoutput = new FileWriter(BaseTransformTemplateGenerator.CONFIG_TEMPLATES_OUTPUT + 
                 File.separator +
                 "config_" +
@@ -62,9 +83,16 @@ public class ConfigTemplateGenerator {
 
     public static void main(String[] args) throws IOException, TemplateException{
         ConfigTemplateGenerator cfg = new ConfigTemplateGenerator();
-        cfg.process("debatecommon", "debate", true, "/home/undesa", "custom", "custom2");
-
+        OAXSLTStep inputStepA = new OAXSLTStep("step1", "/hello/world", 99);
+        OAXSLTStep inputStepB = new OAXSLTStep("step2", "/hello/world", 100);
+        List<OAXSLTStep> inputsteps = new ArrayList<OAXSLTStep>(0);
+        inputsteps.add(inputStepA);
+        inputsteps.add(inputStepB);
+        List<OAXSLTStep> outputsteps = new ArrayList<OAXSLTStep>(0);
+        cfg.process("debatecommon", "debate", true, "/home/undesa", "/home/undesa2", inputsteps, outputsteps);
+        
     }
- 
+
+
 
 }

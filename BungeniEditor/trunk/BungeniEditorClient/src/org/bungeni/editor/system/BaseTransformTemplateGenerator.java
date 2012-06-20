@@ -65,24 +65,5 @@ public  class BaseTransformTemplateGenerator {
         return this.templateConfig.getTemplate(templateName);
     }
 
-    public static void main(String[] args) throws IOException, TemplateException {
-        /**
-        BaseTransformTemplateGenerator bt = new BaseTransformTemplateGenerator();
-        Template tt = bt.templateConfig.getTemplate("config_tmpl.xml.ft");
-        StringWriter sw = new StringWriter();
-        Map map = new HashMap(){
-            {
-                put("path", "hello/world");
-                put("configname", "test");
-                put("cache_pipeline", "test");
-                put("input_xml_source", "test");
-                put("configname", "test");
-                put("custom_output_steps", "test");
-
-            }
-        };
-        tt.process(map, sw);
-        System.out.println(sw.toString()); **/
-    }
 
 }
