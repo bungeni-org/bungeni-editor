@@ -1,5 +1,8 @@
 #summary Describes the mapping between bungeni editor Section types and AkomaNtoso element names
 #labels bungeni-editor,Phase-Implementation,akomantoso,customization
+
+= *THIS PAGE IS OUT OF DATE - THIS IS NOT REQUIRED ANYMORE, MAPPING IS DONE VIA CONFIGURATION. See SectionTypeDefinition document !* =
+
 = For DebateRecord =
 
 || *Editor Section Type* || *Description* || * AkomaNtoso XML Element* ||
