@@ -79,8 +79,8 @@ ODT -> Akoma Ntoso
     <!-- Called after translate -->
     
     <postxml>
-        <xslt step="1" name="Cleanup" href="${sys_trans_path}/cleanup.xsl" />
-        <xslt step="2" name="AddNamespaceAkomaNtoso" href="${sys_trans_path}/add_an_ns.xsl" />
+        <xslt step="1" name="Cleanup" href="${sys_trans_path}/xsl/cleanup.xsl" />
+        <xslt step="2" name="AddNamespaceAkomaNtoso" href="${sys_trans_path}/xsl/add_an_ns.xsl" />
     </postxml>
     
 </config>
