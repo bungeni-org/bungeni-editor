@@ -18,35 +18,21 @@
 package org.bungeni.editor.metadata.editors;
 
 import java.awt.Component;
-import java.awt.ComponentOrientation;
 import java.awt.Dimension;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
-import javax.swing.SwingWorker;
-import org.bungeni.connector.ConnectorProperties;
 import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.element.*;
-import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
 import org.bungeni.editor.metadata.ActMainMetadataModel;
 import org.bungeni.editor.metadata.LanguageCode;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.extutils.*;
 import org.bungeni.utils.BungeniFileSavePathFormat;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.xpath.XPath;
 /**
  *
  * @author bzuadmin

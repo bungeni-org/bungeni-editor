@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.2" maxVersion="1.2" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
@@ -24,65 +24,56 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lblActName" min="-2" pref="138" max="-2" attributes="0"/>
+                  <Component id="jSeparator1" alignment="0" min="-2" pref="423" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblActName" min="-2" pref="138" max="-2" attributes="0"/>
-                          <Component id="jSeparator1" alignment="0" min="-2" pref="423" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cboActCategoryBasic" alignment="0" pref="220" max="-2" attributes="0"/>
-                                  <Component id="cboActPossibleFamily" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
-                                  <Component id="cboActFamily" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cboActSubFamily" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
-                                  <Component id="cboActPossibleSubFamily" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
-                                  <Component id="cboActCategory" min="-2" pref="162" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblActYear" alignment="0" min="-2" pref="138" max="-2" attributes="0"/>
-                                  <Component id="txtActYear" alignment="0" min="-2" pref="162" max="-2" attributes="1"/>
-                                  <Component id="lblActState" min="-2" pref="138" max="-2" attributes="0"/>
-                                  <Component id="txtActState" alignment="0" min="-2" pref="162" max="-2" attributes="1"/>
-                                  <Component id="cboActHistoricalPeriod" alignment="0" pref="162" max="-2" attributes="0"/>
-                                  <Component id="lblActHistoricalPeriod" min="-2" max="-2" attributes="0"/>
-                                  <Component id="dt_effective_date" alignment="0" pref="162" max="-2" attributes="0"/>
-                                  <Component id="lblEffectiveDate" alignment="0" min="-2" pref="137" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="btn30days" min="-2" pref="38" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btn90days" min="-2" pref="38" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Component id="txtActName" min="-2" pref="400" max="-2" attributes="1"/>
-                          </Group>
+                          <Component id="cboActCategoryBasic" alignment="0" pref="220" max="-2" attributes="0"/>
+                          <Component id="cboActPossibleFamily" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
+                          <Component id="cboActFamily" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="97" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblActNo" alignment="0" min="-2" pref="138" max="-2" attributes="0"/>
-                          <Component id="txtActNo" alignment="0" min="-2" pref="162" max="-2" attributes="1"/>
-                          <Component id="lblActType" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblPageNo" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtPageNo" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
-                          <Component id="lblPageCount" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="cboActType" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
-                          <Component id="cboActScope" alignment="0" pref="162" max="-2" attributes="0"/>
-                          <Component id="lblActScope" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtPageCount" min="-2" pref="162" max="-2" attributes="0"/>
-                          <Component id="lblLanguage" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="cboLanguage" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
-                          <Component id="lblActFamily" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblActCategory" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblActPossibleFamily" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="cboActSubFamily" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
+                          <Component id="cboActPossibleSubFamily" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
+                          <Component id="cboActCategory" min="-2" pref="162" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
+                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblActYear" alignment="0" min="-2" pref="138" max="-2" attributes="0"/>
+                          <Component id="txtActYear" alignment="0" min="-2" pref="162" max="-2" attributes="1"/>
+                          <Component id="lblActState" min="-2" pref="138" max="-2" attributes="0"/>
+                          <Component id="txtActState" alignment="0" min="-2" pref="162" max="-2" attributes="1"/>
+                          <Component id="cboActHistoricalPeriod" alignment="0" pref="162" max="-2" attributes="0"/>
+                          <Component id="lblActHistoricalPeriod" min="-2" max="-2" attributes="0"/>
+                          <Component id="dt_effective_date" alignment="0" pref="162" max="-2" attributes="0"/>
+                          <Component id="lblEffectiveDate" alignment="0" min="-2" pref="137" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="btn30days" min="-2" pref="38" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btn90days" min="-2" pref="38" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Component id="txtActName" min="-2" pref="400" max="-2" attributes="1"/>
+                  </Group>
+                  <Component id="lblActNo" alignment="0" min="-2" pref="138" max="-2" attributes="0"/>
+                  <Component id="txtActNo" alignment="0" min="-2" pref="162" max="-2" attributes="1"/>
+                  <Component id="lblActType" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblPageNo" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtPageNo" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
+                  <Component id="lblPageCount" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="cboActType" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
+                  <Component id="cboActScope" alignment="0" pref="162" max="-2" attributes="0"/>
+                  <Component id="lblActScope" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtPageCount" min="-2" pref="162" max="-2" attributes="0"/>
+                  <Component id="lblLanguage" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="cboLanguage" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
+                  <Component id="lblActFamily" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblActCategory" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblActPossibleFamily" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace pref="67" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

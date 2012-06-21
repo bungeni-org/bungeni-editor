@@ -222,5 +222,17 @@ public class ActMainMetadataModel extends BaseEditorDocMetaModel{
     public void setBungeniSecondaryActPromulgatingDate(String BungeniSecondaryActPromulgatingDate) {
         this.BungeniSecondaryActPromulgatingDate = BungeniSecondaryActPromulgatingDate;
     }
+
+    public void setBungeniActName(String value) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public void setBungeniActNo(String value) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public void setBungeniActYear(String value) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
     
 }
