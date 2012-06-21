@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- All System Parameters, this is extracted from General_Editor_Properties -->
 <props>
-    <prop name="actionsFolderRoot"
-        value="settings/actions"
-        description="Where all actions are defined"
-    />
     <prop name="activeDocumentMode"
         value="debaterecord"
         description="editor client is set to edit a document of this type"
@@ -37,10 +33,6 @@
         value="CountryCode.FullDate.PartName"
         description=""
     />
-    <prop name="documentActionsFolderRoot"
-        value="settings/actions/doc_actions"
-        description="Where all document actions are defined"
-    />
     <prop name="genericPanelBackColor"
         value="#FFFFCC"
         description="generic color used by panels"
@@ -48,14 +40,6 @@
     <prop name="iconPath"
         value="/gui"
         description="path to icons used by editor"
-    />
-    <prop name="localRegistry"
-        value="yes"
-        description="registry is a local database "
-    />
-    <prop name="localRegistryFolder"
-        value="registry"
-        description="path to local registry (sub folder under main installation)"
     />
     <prop name="locale.Country.iso3166-1-a2"
         value="KE"
@@ -85,14 +69,6 @@
         value="HH:mm"
         description="metadata time format"
     />
-    <prop name="ontologiesFile"
-        value="settings/actions/ontologies.xml"
-        description="default path for the different kind of questions"
-    />
-    <prop name="panelsFolderRoot"
-        value="settings/panels"
-        description="default path to find panel configurations"
-    />
     
     <prop name="parliament.CountryCode"
         value="KE"
@@ -118,22 +94,6 @@
         value="registry.db"
         description="registry db name"
     />
-    <prop name="registryJDBCdriver"
-        value="org.h2.Driver"
-        description="jdbc driver to use for registry"
-    />
-    <prop name="registryJDBCdriverPrefix"
-        value="jdbc:h2:"
-        description="prefix for registry jdbc connection string"
-    />
-    <prop name="registryPassword"
-        value=""
-        description="password to connect to registry db"
-    />
-    <prop name="registryUser"
-        value="sa"
-        description="user name to connect to registry db"
-    />
     <prop name="root:bill"
         value="bill"
         description=" "
@@ -146,10 +106,6 @@
         value="judgement"
         description="name of root section for judgement"
     />
-    <prop name="sectionTypesFolderRoot"
-        value="settings/actions/section_types"
-        description="default location showing the various section types for doc types"
-    />
     <prop name="structuralRulesRootPath"
         value="settings/structural_rules"
         description="path to structural rules root"
@@ -161,30 +117,6 @@
     <prop name="textMetadataPropertyEndMarker"
         value="}}"
         description="used to demarcate ending of inline metadata "
-    />
-    <prop name="toolbarActionsFolderRoot"
-        value="settings/actions/toolbar_actions"
-        description="default path for the actions for display in toolbar"
-    />
-    <prop name="toolbarNodeDisabledColor"
-        value="#aaaaaa"
-        description="node disabled color "
-    />
-    <prop name="toolbarNodeEnabledColor"
-        value="#0000FF"
-        description="Node enabeld color "
-    />
-    <prop name="toolbarNodeNoTargetColor"
-        value="#CC9900"
-        description="Node without target color"
-    />
-    <prop name="toolbarXmlConfig"
-        value="settings/toolbar.xml"
-        description="used to load editor toolbar"
-    />
-    <prop name="transformerJar"
-        value="transformer/jar/odttransformer.jar"
-        description=""
     />
     <prop name="transformerServerName"
         value="localhost"
@@ -202,9 +134,5 @@
         value="true"
         description="Truncates log file on startup"
     />
-    
-    <prop name="configsFolder"
-        value="settings/configs"
-        description="Config folder"
-     />
+
 </props>
