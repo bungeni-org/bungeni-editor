@@ -94,18 +94,6 @@
         value="registry.db"
         description="registry db name"
     />
-    <prop name="root:bill"
-        value="bill"
-        description=" "
-    />
-    <prop name="root:debaterecord"
-        value="debaterecord"
-        description="name of root sectionfor debaterecord"
-    />
-    <prop name="root:judgement"
-        value="judgement"
-        description="name of root section for judgement"
-    />
     <prop name="structuralRulesRootPath"
         value="settings/structural_rules"
         description="path to structural rules root"

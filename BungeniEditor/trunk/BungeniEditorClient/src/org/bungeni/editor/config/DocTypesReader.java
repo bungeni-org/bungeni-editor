@@ -32,8 +32,8 @@ import org.jdom.JDOMException;
 import org.jdom.xpath.XPath;
 
 /**
- *
- * @author Ashok
+ * Configuration access class that provides access to configuration
+ * @author Ashok Hariharan
  */
 public class DocTypesReader extends BaseConfigReader {
     private static Logger log = Logger.getLogger(DocTypesReader.class.getName());
@@ -52,6 +52,10 @@ public class DocTypesReader extends BaseConfigReader {
 
     }
 
+    /**
+     * Singleton object accessor
+     * @return
+     */
     public static DocTypesReader getInstance(){
         if (null == thisInstance) {
             thisInstance = new DocTypesReader();
@@ -59,6 +63,11 @@ public class DocTypesReader extends BaseConfigReader {
         return thisInstance;
     }
 
+    /**
+     * Returns all the doctypes in configuration as Elements
+     * @return
+     * @throws JDOMException
+     */
     public List<Element> getDocTypes() throws JDOMException{
       if (null != getDocument()) {
            List<Element> doctypeElements =  getXPath().selectNodes(getDocument(),"//doctypes/doctype");
@@ -69,6 +78,11 @@ public class DocTypesReader extends BaseConfigReader {
       }
     }
 
+    /**
+     * Returns all the active Doctype elements in configuration
+     * @return
+     * @throws JDOMException
+     */
     public List<Element> getActiveDocTypes() throws JDOMException{
       if (null != getDocument()) {
            List<Element> doctypeElements =  getXPath().selectNodes(getDocument(),"//doctypes/doctype[@state='1']");
@@ -79,6 +93,12 @@ public class DocTypesReader extends BaseConfigReader {
       }
     }
 
+    /**
+     * Returns the doctype element for a doctype name
+     * @param docType
+     * @return
+     * @throws JDOMException
+     */
     public Element getDocTypeByName(String docType) throws JDOMException {
         if (null != getDocument()) {
             Element doctypeElement = (Element) getXPath().selectSingleNode(getDocument(), "//doctypes/doctype[@name='"+ docType + "']");
@@ -88,6 +108,22 @@ public class DocTypesReader extends BaseConfigReader {
             return null;
         }
      }
+
+     /**
+      * Get root Section type for a doctype
+      * @param docType
+      * @return
+      */
+    public String getRootForDocType(String docType) {
+        String sRootSectionType = "";
+        try {
+            Element elemDocType = getDocTypeByName(docType);
+            sRootSectionType = elemDocType.getAttributeValue("root");
+        } catch (JDOMException ex) {
+            log.error("Error getting doctype element for : " + docType , ex);
+        }
+        return sRootSectionType;
+    }
 
     public String getWorkUriForDocType(Element doctypeElem) {
         Element uriWork = null;
@@ -168,6 +204,10 @@ public class DocTypesReader extends BaseConfigReader {
        return this.localesDocument;
     }
 
+   /**
+    * Returns a string list of Active doctype names
+    * @return
+    */
     public List<String> getDocTypeNames(){
         List<Element> docTypeElements = new ArrayList<Element>(0);
         List<String> docTypeNames = new ArrayList<String>(0);

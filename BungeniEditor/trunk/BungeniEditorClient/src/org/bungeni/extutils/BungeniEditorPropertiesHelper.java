@@ -4,6 +4,7 @@ package org.bungeni.extutils;
 
 import java.awt.Color;
 import java.text.SimpleDateFormat;
+import org.bungeni.editor.config.DocTypesReader;
 
 /**
  *Short hand functions to access property values
@@ -14,13 +15,20 @@ public class BungeniEditorPropertiesHelper {
     /** Creates a new instance of BungeniEditorPropertiesHelper */
     public BungeniEditorPropertiesHelper() {}
 
+    /**
+     * Returns the root section Type for a document type
+     * @return
+     */
     public static String getDocumentRoot() {
-        String activeDoc = BungeniEditorProperties.getEditorProperty("activeDocumentMode");
-        String docRoot   = BungeniEditorProperties.getEditorProperty("root:" + activeDoc.trim());
-
-        return docRoot;
+        String sDocRoot = DocTypesReader.getInstance().
+                getRootForDocType(getCurrentDocType());
+        return sDocRoot;
     }
 
+    /**
+     * Returns the name of the current doctype
+     * @return
+     */
     public static String getCurrentDocType() {
         return BungeniEditorProperties.getEditorProperty("activeDocumentMode");
     }
