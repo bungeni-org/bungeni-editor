@@ -36,7 +36,7 @@ public class TransformerGeneratorTest extends TestCase {
         System.out.println("typeGeneratorTemplate");
         TransformerGenerator instance = TransformerGenerator.getInstance();
         ConfigurationProvider cfg = ConfigurationProvider.getInstance();
-        cfg.writeMergedConfig(new File("../test/testdocs/config_out.xml"));
+        cfg.writeMergedConfig(new File("../test/testdocs/merged_config.xml"));
         File expResult = null;
         File result = instance.typeGeneratorTemplate();
         assertEquals(expResult, result);

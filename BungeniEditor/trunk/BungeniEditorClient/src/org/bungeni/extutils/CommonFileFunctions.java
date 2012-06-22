@@ -257,6 +257,14 @@ public class CommonFileFunctions {
           return fileName;
       }
   }
+
+
+  public static String getURLPath(String path) throws MalformedURLException{
+      File f = new File(path);
+      String sURLpath = f.toURI().toURL().toExternalForm();
+      return sURLpath;
+  }
+
 }
 
 

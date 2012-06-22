@@ -71,12 +71,16 @@ public class TransformerGenerator {
     public File typeGeneratorTemplate() throws JDOMException, IOException {
         StreamSource xsltTypeGenerator = null;
         File ftypeGenerator =   new File(
-                       SysTransformsReader.SYSTEM_TRANS_CACHE + File.separator +
-                       "type_transform.xsl"
-                       );
+            BaseSystemConfig.SYSTEM_CACHE + File.separator +
+            "type_transform.xsl"
+        );
         if (!ftypeGenerator.exists()) {
-             (new File(SysTransformsReader.SYSTEM_TRANS_CACHE)).mkdirs();
-             ftypeGenerator.createNewFile();
+             (
+             new File(
+             BaseSystemConfig.SYSTEM_CACHE
+              )
+          ).mkdirs();
+          ftypeGenerator.createNewFile();
         }
         log.info("Full path to xslt file : " + ftypeGenerator.getAbsolutePath());
         try {
@@ -85,7 +89,7 @@ public class TransformerGenerator {
             //Conver to a w3c dom document
             DOMOutputter dout = new DOMOutputter();
             org.w3c.dom.Document domDoc = dout.output(mergedConfigs);
-            xsltTypeGenerator = SysTransformsReader.getInstance().getXslt("typeGenerator.xsl");
+            xsltTypeGenerator = SysTransformsReader.getInstance().getXslt("type_generator.xsl");
             Transformer transformer = thisTransFactory.newTransformer(xsltTypeGenerator);
             FileWriter fwTypeGen = new FileWriter(ftypeGenerator);
             StreamResult outputResult = new StreamResult(

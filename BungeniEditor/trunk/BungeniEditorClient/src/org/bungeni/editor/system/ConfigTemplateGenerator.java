@@ -54,8 +54,6 @@ public class ConfigTemplateGenerator {
     public void process(String configName, 
             String docType,
             boolean cachePipeline,
-            String sysPrefixPath,
-            String customPrefixPath,
             List<OAXSLTStep> customInputSteps,
             List<OAXSLTStep> customOutputSteps
             ) throws IOException, TemplateException {
@@ -66,13 +64,13 @@ public class ConfigTemplateGenerator {
         objectMap.put("configname", configName);
         objectMap.put("doctype", docType);
         objectMap.put("cache_pipeline", Boolean.valueOf(cachePipeline));
-        objectMap.put("custom_trans_path", BaseTransformTemplateGenerator.CONFIG_TEMPLATES_OUTPUT);
-        objectMap.put("sys_trans_path", BaseTransformTemplateGenerator.CONFIG_TEMPLATES_OUTPUT);
+        objectMap.put("custom_trans_path", BaseSystemConfig.getHrefCache());
+        objectMap.put("sys_trans_path", BaseSystemConfig.getHrefTransformer());
         objectMap.put("input_xml_source", "ODF");
         objectMap.put("input_steps", customInputSteps);
         objectMap.put("output_steps", customOutputSteps);
 
-        FileWriter fwoutput = new FileWriter(BaseTransformTemplateGenerator.CONFIG_TEMPLATES_OUTPUT + 
+        FileWriter fwoutput = new FileWriter(BaseSystemConfig.SYSTEM_CACHE +
                 File.separator +
                 "config_" +
                 docType +
@@ -89,7 +87,7 @@ public class ConfigTemplateGenerator {
         inputsteps.add(inputStepA);
         inputsteps.add(inputStepB);
         List<OAXSLTStep> outputsteps = new ArrayList<OAXSLTStep>(0);
-        cfg.process("debatecommon", "debate", true, "/home/undesa", "/home/undesa2", inputsteps, outputsteps);
+        cfg.process("debatecommon", "debate", true,inputsteps, outputsteps);
         
     }
 

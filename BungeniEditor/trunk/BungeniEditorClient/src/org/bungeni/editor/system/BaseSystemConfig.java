@@ -19,13 +19,60 @@
 package org.bungeni.editor.system;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import org.bungeni.editor.config.BaseConfigReader;
+import org.bungeni.extutils.CommonFileFunctions;
 
 /**
  *
  * @author Ashok Hariharan
  */
 public class BaseSystemConfig {
-    public static final String BASE_SYSTEM_CONFIG =
+
+
+    /**
+     * All system related configuration is stored here --
+     *
+     * NOT Intended for human editing
+     */
+    public static final String SYSTEM_BASE =
             BaseConfigReader.CONFIGS_FOLDER + File.separator + "system";
+
+    /**
+     * This has all the system XSLT generator templates
+     * Generator templates generate other XSLT templates
+     */
+    public final static String SYSTEM_GENERATOR =
+            BaseSystemConfig.SYSTEM_BASE + File.separator +
+            "generators";
+
+    /**
+     * The Templates generated from system XSLT generator templates
+     * are cached in this folder
+     */
+    public final static String SYSTEM_CACHE =
+            BaseSystemConfig.SYSTEM_BASE + File.separator +
+            "cache";
+
+    public final static String SYSTEM_TEMPLATES =
+            BaseSystemConfig.SYSTEM_BASE + File.separator +
+            "templates";
+
+    public final static String SYSTEM_TRANSFORMER =
+            BaseSystemConfig.SYSTEM_BASE + File.separator +
+            "transformer";
+
+
+    public static String getHrefTemplates() throws MalformedURLException{
+        return CommonFileFunctions.getURLPath(SYSTEM_TEMPLATES);
+    }
+
+    public static String getHrefCache() throws MalformedURLException{
+        return CommonFileFunctions.getURLPath(SYSTEM_CACHE);
+    }
+
+    public static String getHrefTransformer() throws MalformedURLException{
+        return CommonFileFunctions.getURLPath(SYSTEM_TRANSFORMER);
+    }
+
 }

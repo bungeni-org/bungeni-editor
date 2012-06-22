@@ -23,6 +23,7 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import javax.xml.transform.stream.StreamSource;
 import org.apache.log4j.Logger;
+import org.bungeni.editor.system.BaseSystemConfig;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.jdom.xpath.XPath;
 
@@ -32,18 +33,6 @@ import org.jdom.xpath.XPath;
  */
 public class SysTransformsReader extends BaseConfigReader {
     private static Logger log = Logger.getLogger(SysTransformsReader.class.getName());
-
-    public final static String SETTINGS_FOLDER = CONFIGS_FOLDER;
-    public final static String DOCTYPES_FILE = "doc_types.xml";
-    public final static String SYSTEM_TRANS_FOLDER =
-            SETTINGS_FOLDER + File.separator +
-            "system" + File.separator +
-            "generators";
-
-    public final static String SYSTEM_TRANS_CACHE =
-            SETTINGS_FOLDER + File.separator +
-            "system" + File.separator +
-            "cache";
 
 
     /**
@@ -72,7 +61,7 @@ public class SysTransformsReader extends BaseConfigReader {
 
     public StreamSource getXslt(String xsltName ) throws FileNotFoundException {
         if (!thisXsltMap.containsKey(xsltName)){
-            String relativePathtoXSLT = SYSTEM_TRANS_FOLDER + File.separator + xsltName;
+            String relativePathtoXSLT = BaseSystemConfig.SYSTEM_GENERATOR + File.separator + xsltName;
             String sFullPath = CommonFileFunctions.convertRelativePathToFullPath(relativePathtoXSLT);
             File xsltFile = new File(sFullPath);
             if (xsltFile.exists()) {

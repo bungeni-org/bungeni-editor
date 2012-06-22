@@ -33,20 +33,17 @@ import org.apache.log4j.Logger;
 public  class BaseTransformTemplateGenerator {
     private static Logger log = Logger.getLogger(BaseTransformTemplateGenerator.class.getName());
 
-    public static final String CONFIG_TEMPLATES_PATH =
-          BaseSystemConfig.BASE_SYSTEM_CONFIG + File.separator + "templates";
-
-    public static final String CONFIG_TEMPLATES_OUTPUT =
-          BaseSystemConfig.BASE_SYSTEM_CONFIG + File.separator + "transformer";
 
     private static BaseTransformTemplateGenerator instance = null;
     protected Configuration templateConfig = null;
 
     private BaseTransformTemplateGenerator() throws IOException {
         templateConfig = new Configuration();
+        File fsystemGen = new File(BaseSystemConfig.SYSTEM_TEMPLATES);
         templateConfig.setDirectoryForTemplateLoading(
-                new File(CONFIG_TEMPLATES_PATH)
+                    fsystemGen
                 );
+        log.info("Setting freemarker template folder to :" + fsystemGen.getAbsolutePath());
     }
 
 
@@ -64,6 +61,5 @@ public  class BaseTransformTemplateGenerator {
     public Template getTemplate(String templateName) throws IOException {
         return this.templateConfig.getTemplate(templateName);
     }
-
 
 }
