@@ -262,7 +262,11 @@ public class CommonFileFunctions {
   public static String getURLPath(String path) throws MalformedURLException{
       File f = new File(path);
       String sURLpath = f.toURI().toURL().toExternalForm();
-      return sURLpath;
+      //toExternalForm adds a trailing slash for folders, so we remov it
+      if (path.endsWith(File.separator))
+        return sURLpath;
+      else
+        return sURLpath.substring(0, sURLpath.length() - 1);
   }
 
 }
