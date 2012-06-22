@@ -314,4 +314,21 @@ public class FileUtility {
 
         return sSource;
     }
+
+    public enum HREF_TYPE {
+        FILE_URL,
+        FILE_URI,
+        PATH
+    };
+
+    public HREF_TYPE getHrefType(String sHref) {
+        if (sHref.startsWith("file://")) {
+            return HREF_TYPE.FILE_URL;
+        }
+        if (sHref.startsWith("file:/")){
+            return HREF_TYPE.FILE_URI;
+        } else {
+            return HREF_TYPE.PATH;
+        }
+    }
 }
