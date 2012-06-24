@@ -26,7 +26,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.config.InlineTypesReader;
 import org.bungeni.editor.config.SectionTypesReader;
-import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.output.XMLOutputter;
@@ -64,7 +63,7 @@ public final class ConfigurationProvider {
      * Singleton class, so a private constructor
      */
     private ConfigurationProvider(){
-      generateMergedConfiguration(BungeniEditorPropertiesHelper.getCurrentDocType());
+      // generateMergedConfiguration(BungeniEditorPropertiesHelper.getCurrentDocType());
     }
 
     private static ConfigurationProvider thisInstance = null;

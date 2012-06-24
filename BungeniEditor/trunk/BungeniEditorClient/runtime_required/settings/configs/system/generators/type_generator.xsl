@@ -91,49 +91,54 @@
         <xsl:apply-templates />
     </xsl:template>
 
-    <!-- Specialized root element generator and templates -->
-    <xsl:template match="*[@name='root']">
+    <!-- this is the entry point of the root template generator -->
+    <xsl:template match="sectionType[@name='root']">
         <!-- we use a rootCall mode here to apply special processing for 
-            root generation -->
-        <xsl:apply-templates mode="rootCall" />
-    </xsl:template>
-
-    <xsl:template match="output[parent::*[@name='root']]" mode="rootCall">
-        <!-- process the output element for the root generator -->
-        <xsl:apply-templates mode="rootCall" />
+        root generation -->
+        <xsl:apply-templates select="output/content" mode="root-call"/>
     </xsl:template>
     
-    
-    <xsl:template match="content[parent::*[@name='root']]" mode="rootCall">
-        <xsl:apply-templates mode="rootCall" />
+    <!-- generate the root template matcher -->
+    <xsl:template match="content" mode="root-call">
+        <xmeta:template match="*[@name='root']">
+            <xsl:apply-templates select="child::*"  mode="root-call" />
+        </xmeta:template>
     </xsl:template>
     
-    <xsl:template match="*[parent::content[parent::*[@name='root']]]" mode="rootCall">
-        <xsl:variable name="rootElement" select="local-name(.)" />
-        <xmeta:element name="{$rootElement}">
-            <xsl:apply-templates select="child::*" mode="rootContentCall" />
-        </xmeta:element>
-    </xsl:template>
-    
-    <xsl:template match="*" mode="rootContentCall">
-        <xsl:variable name="contentElementName" select="local-name(.)" />
+    <!-- matches all the children of the root template matcher -->
+    <xsl:template match="*" mode="root-call">
         <xsl:choose>
+            <!-- check if there is a mode=call attrib, if yes,
+                then we use xsl:apply-templates -->
             <xsl:when test="@mode eq 'call'">
-                <!-- when mode eq call , we generate a xsl:apply-templates, so there is
-                    no further nested processing -->
-                <xsl:call-template name="apply-templates-generator" >
-                    <xsl:with-param name="element-name" select="$contentElementName" />
-                </xsl:call-template>    
+                <xsl:variable name="elem-name" select="local-name()" />
+                <xsl:variable name="src_meta_type" select="//*[child::output/content/*[local-name() eq  $elem-name]]" />
+                <xsl:choose>
+                    <!-- output an error element in case there is an error condition -->
+                    <!-- 1) if there is no type configuration at all for the element to be outputtted in the root -->
+                    <xsl:when test="not($src_meta_type)">
+                        <xmeta:error code="TG-0001" text="MISSING_META_TYPE_CONFIG" for="{$elem-name}" />
+                    </xsl:when>
+                    <!-- 2) if there is more than 1 type configuration using the element to be outputted in the root -->
+                    <xsl:when test="count($src_meta_type) gt 1">
+                        <xmeta:error code="TG-0002" text="DUPLICATE_META_TYPE_CONFIG" for="{$elem-name}" />
+                    </xsl:when>
+                    <!-- 3) if the error conditions are not hit, then we generate the template matcher using the type config
+                        name -->
+                    <xsl:otherwise>
+                        <xmeta:apply-templates select="//*[@name='{$src_meta_type/@name}']" />
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <!-- when mode is note set to call in the configuration, we generate an 
-                    element and process its children if specified -->
-                <xmeta:element name="{$contentElementName}">
-                    <xsl:apply-templates mode="rootContentCall" />                
-                </xmeta:element>            
+                <!-- 
+                    otherwise we just generate a regular element and process its children -->
+                <xmeta:element name="{local-name()}">
+                    <xsl:apply-templates mode="root-call" />
+                </xmeta:element>
             </xsl:otherwise>
         </xsl:choose>
-       </xsl:template>
+    </xsl:template>
 
 
     <!-- This generates the apply-templates for the 

@@ -48,15 +48,16 @@ public class ConfigTemplateGeneratorTest extends TestCase {
      */
     public void testProcess() throws Exception {
         System.out.println("process");
-        String configName = "debateCommon";
+        String configName = "debaterecordCommon";
         String docType = "debaterecord";
         boolean cachePipeline = false;
-        List<OAXSLTStep> customInputSteps = new ArrayList<OAXSLTStep>();
-        List<OAXSLTStep> customOutputSteps =new ArrayList<OAXSLTStep>();
+        List<OAXSLTStep> customInputSteps = new ArrayList<OAXSLTStep>(0);
+        List<OAXSLTStep> customOutputSteps = new ArrayList<OAXSLTStep>(0);
         ConfigTemplateGenerator instance = new ConfigTemplateGenerator();
         instance.process(configName, docType, cachePipeline, customInputSteps, customOutputSteps);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
+
 
 }

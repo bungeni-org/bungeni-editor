@@ -18,29 +18,35 @@
 
 package org.bungeni.editor.system;
 
-import java.io.File;
 import junit.framework.TestCase;
 
 /**
  *
  * @author PC
  */
-public class TransformerGeneratorTest extends TestCase {
+public class StartupConfigGeneratorTest extends TestCase {
     
-  
+    public StartupConfigGeneratorTest(String testName) {
+        super(testName);
+    }
+
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+    }
 
     /**
-     * Test of typeGeneratorTemplate method, of class TransformerGenerator.
+     * Test of startupGenerate method, of class StartupConfigGenerator.
      */
-    public void testTypeGeneratorTemplate() throws Exception {
-        System.out.println("typeGeneratorTemplate");
-        TransformerGenerator instance = TransformerGenerator.getInstance();
-        ConfigurationProvider cfg = ConfigurationProvider.getInstance();
-        cfg.generateMergedConfiguration("debaterecord");
-        cfg.writeMergedConfig(new File("../test/testdocs/merged_config.xml"));
-        File expResult = null;
-        File result = instance.typeGeneratorTemplate("debaterecord");
-        assertEquals(expResult, result);
+    public void testStartupGenerate() {
+        System.out.println("startupGenerate");
+        StartupConfigGenerator instance = StartupConfigGenerator.getInstance();
+        instance.startupGenerate();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

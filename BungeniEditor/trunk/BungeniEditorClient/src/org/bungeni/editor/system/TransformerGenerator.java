@@ -68,11 +68,11 @@ public class TransformerGenerator {
         return instance;
     }
 
-    public File typeGeneratorTemplate() throws JDOMException, IOException {
+    public File typeGeneratorTemplate(String docType) throws JDOMException, IOException {
         StreamSource xsltTypeGenerator = null;
         File ftypeGenerator =   new File(
             BaseSystemConfig.SYSTEM_CACHE + File.separator +
-            "type_transform.xsl"
+            "type_transform_" + docType  + ".xsl"
         );
         if (!ftypeGenerator.exists()) {
              (
@@ -85,6 +85,7 @@ public class TransformerGenerator {
         log.info("Full path to xslt file : " + ftypeGenerator.getAbsolutePath());
         try {
             ConfigurationProvider configs = ConfigurationProvider.getInstance();
+            configs.generateMergedConfiguration(docType);
             Document mergedConfigs = configs.getMergedDocument();
             //Conver to a w3c dom document
             DOMOutputter dout = new DOMOutputter();

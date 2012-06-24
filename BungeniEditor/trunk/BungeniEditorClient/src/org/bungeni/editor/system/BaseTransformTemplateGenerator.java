@@ -20,7 +20,6 @@ package org.bungeni.editor.system;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import freemarker.template.TemplateException;
 import java.io.File;
 import java.io.IOException;
 import org.apache.log4j.Logger;

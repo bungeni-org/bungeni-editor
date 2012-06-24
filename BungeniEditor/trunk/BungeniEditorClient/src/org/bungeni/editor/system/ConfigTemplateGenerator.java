@@ -70,6 +70,10 @@ public class ConfigTemplateGenerator {
         objectMap.put("input_steps", customInputSteps);
         objectMap.put("output_steps", customOutputSteps);
 
+        File fcache = new File(BaseSystemConfig.SYSTEM_CACHE);
+        if (!fcache.exists()){
+            fcache.mkdirs();
+        }
         FileWriter fwoutput = new FileWriter(BaseSystemConfig.SYSTEM_CACHE +
                 File.separator +
                 "config_" +
@@ -78,19 +82,5 @@ public class ConfigTemplateGenerator {
         tmpl.process(objectMap, fwoutput);
         fwoutput.flush();
     }
-
-    public static void main(String[] args) throws IOException, TemplateException{
-        ConfigTemplateGenerator cfg = new ConfigTemplateGenerator();
-        OAXSLTStep inputStepA = new OAXSLTStep("step1", "/hello/world", 99);
-        OAXSLTStep inputStepB = new OAXSLTStep("step2", "/hello/world", 100);
-        List<OAXSLTStep> inputsteps = new ArrayList<OAXSLTStep>(0);
-        inputsteps.add(inputStepA);
-        inputsteps.add(inputStepB);
-        List<OAXSLTStep> outputsteps = new ArrayList<OAXSLTStep>(0);
-        cfg.process("debatecommon", "debate", true,inputsteps, outputsteps);
-        
-    }
-
-
 
 }
