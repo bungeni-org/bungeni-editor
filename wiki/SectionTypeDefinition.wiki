@@ -43,7 +43,7 @@ The individual parameters are described below :
 
 Section Types can be associated with metadata. 
 
-The metadata list is defined in the `metadatas` block.
+The metadata list is defined in the `metadatas` block. The following is an example of metadata associated with a Speech section type.
 
 {{{
 <sectionType name="Speech"
@@ -64,7 +64,8 @@ The metadata list is defined in the `metadatas` block.
 }}}
 
 The metadata names are declarative - they don't prescribe anything during
-markup but are more prescriptive from the point of view of transformation.
+markup but are more prescriptive from the point of view of semantically describing what information is captured in a particular 
+section - and is also used during the conversion of the openoffice section to XML.
 
 The metadata name declares that the action using the section type as a metadata
 source will set these metadata values in the section .i.e. it is upto the action
@@ -75,7 +76,7 @@ associated with the sectionType to set these metadata.
 
 The output block describes how the section in the openoffice document will be 
 converted for XML output.  The default support in the packaged document types is to 
-output Akoma Ntoso XML.
+output Akoma Ntoso XML. 
 
 The output block supports seperation of content and metadata in the transformed 
 XML. This is done by separately defining output `meta` headers and output `content`
@@ -95,6 +96,28 @@ tags :
      </output>
 }}}
 
+In the above example, the `output/content` block describes how the speech section will be rendered in XML.
+The configuration describes in a verbose way the structure of the final output xml :
+
+{{{
+            <speech by="#$BungeniPersonID" as="#$BungeniSpeechAs" /> 
+}}}
+
+This description is enough to all the Editor's translation middleware to convert the typed ODT speech section to XML form, 
+which looks like this :
+
+{{{
+            <speech by="#JohnSmith" as="#Speaker" >
+	      <from>mr. John Smith</from>
+              <p>I would like to say ...blah... blah ..</p>
+            </speech> 
+}}}
+
+The corresponding header metadata for the speech is rendered from the `output/meta` description in the appropriate `<meta>` block 
+of the output XML document (Note: the `<from>` is marked up using a `BungeniInlineType` markup instead of a `BungeniSectionType` 
+markup and is rendered on that basis)
+ 
+
 The actual metadata is embedded into the output meta and content templates by 
 refering to them by name :
 
@@ -108,6 +131,7 @@ output XML.
 
 Default configuration specifying minimal parameters and basic output template
 
+{{{
 <sectionType name="Speech"
     prefix="speech"
     numstyle="serial"
@@ -118,7 +142,7 @@ Default configuration specifying minimal parameters and basic output template
         </content>
     </output>
 </sectionType>
-
+}}}
 
 == Example 2 == 
 
