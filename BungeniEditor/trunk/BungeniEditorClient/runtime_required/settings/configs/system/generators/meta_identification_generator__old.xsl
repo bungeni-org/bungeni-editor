@@ -63,8 +63,44 @@
     </xsl:template>
     
     <xsl:template match="office:meta">
-        <mcontainer name="allmeta">
-            <xsl:apply-templates />
+        <mcontainer name="meta">
+            <mcontainer name="identification">
+                <mcontainer name="general">
+                    <!--
+                    <meta name="doctype" value="{}" />
+                    <meta name="language" value="{}" />
+                    <meta name="country" value="{}" />
+                    <meta name="doctype" value="{}" />
+                    <meta name="doctype" value="{}" />
+                    <meta name="doctype" value="{}" />
+                    -->
+                </mcontainer>
+                <mcontainer name="frbrwork"> 
+                    <meta name="uri" value="{//meta:user-defined[@name='BungeniWorkURI']}" />
+                    <meta name="author" value="{//meta:user-defined[@name='BungeniWorkAuthor']}" />
+                    <meta name="date" 
+                        value="{//meta:user-defined[@name='BungeniWorkDate']}" 
+                    />
+                </mcontainer>
+                <mcontainer name="frbrexpression">
+                    <meta name="uri" value="{//meta:user-defined[@name='BungeniExpURI']}" />
+                    <meta name="author" value="{//meta:user-defined[@name='BungeniExpAuthor']}" />
+                    <meta name="date" 
+                        value="{//meta:user-defined[@name='BungeniExpDate']}" 
+                    />
+                </mcontainer>
+                <mcontainer name="frbrmanifestation">
+                    <meta name="uri" value="{//meta:user-defined[@name='BungeniManURI']}" />
+                    <meta name="author" value="{//meta:user-defined[@name='BungeniManAuthor']}" />
+                    <meta name="date" 
+                        value="{//meta:user-defined[@name='BungeniManDate']}" 
+                    />
+                </mcontainer>
+            </mcontainer>
+            <mcontainer name="publication">
+                <meta name="publication_name" 
+                    value="{//meta:user-defined[@name='BungeniPublicationName']}" />
+            </mcontainer>
         </mcontainer>
     </xsl:template>
     
