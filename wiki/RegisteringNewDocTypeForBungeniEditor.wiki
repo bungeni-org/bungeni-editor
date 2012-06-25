@@ -14,7 +14,9 @@
 
 = Introduction =
 
-The BungeniEditor supports multiple document types.  Additional document types can be added by adding configuration entries into the editor's settings database.
+The BungeniEditor supports multiple document types.  Additional document types can be added by adding configuration entries 
+into `settings/configs/doc_types.xml`.
+
 The following steps describe the config entries required to register a new document type in the editor.
 
 == Adding the DocType configuration ==
@@ -89,16 +91,20 @@ The _default-part_ attribute indicates the default part of the document
         default-part="main">
 }}}
 
+THe concept behind parts is to support segmented documents - usually documents like legislative bills are not one big document, but 
+a set of composite documents (a "package") - which can include the main document, the annexes, attachments and reports.
 
 
 == Create the template for the document type == 
 
-The templates for the different document types are stored under the workspace/templates folder.
+The templates for the different document types are stored under the workspace/templates folder.  Templates are standard OpenOffice ott templates.
 
 Create a template for the new document type (you can modify and renmae the templates for the hansard or bill). The root section of the document must be renamed to the name of the document type. e.g. the root section of the bill document type is called 'bill' ; for the debaterecord document type it is called 'debaterecord'
 
 
 == Create a Metadata Editor for the document type == 
+
+The Metadata Editor is the screen that pops up when you create new instance of a document type. This screen captures the initial metadata of the document its name, its publication date, its country, language etc. This information is used to identify the document as a whole.
 
 In typical circumstances you can use the GeneralMetadata editor class which provides a generic metadata editor UI for typically used AkomaNtoso metadata. Custom metadata editors can be written for a document type if you want to provide an editor for additional metadata variables. To do this you will have to write a JPanel UI class which extends `BaseEditorDocMetadataDialog` e.g :
 {{{
@@ -111,41 +117,71 @@ public class MyDocTypeMetadata extends BaseEditorDocMetadataDialog {
 }}}
 A generic metadata metadata model is provided by the `GeneralMetadataModel` class. You can extend the general metadata model by writing your own class either by extending GeneralMetadataModel or BaseEditorDocMetaModel.  The new class needs to be registered for the document type using the document_types.metadata_model_editor config setting (see below).
 
-The metadata editor is registered in the DOCUMENT_TYPES settings table in the METADATA_MODEL_EDITOR column. See the next section of how to set the DOCUMENT_TYPES settings.
+The metadata editor is registered in the `doc_types.xml` configuration which was described earlier, here is an example of the how the metadata editors are registered
+for a doctype.
 
-
-
-
-== Register the new Document Type ==
-
-Launch the settings editor
-
-Make an entry in the settings db's DOCUMENT_TYPES table, for e.g. if we were registering the bill document type, the following entry will be required :
-
-|| DOC_TYPE || DESCRIPTION || TEMPLATE_PATH ||METADATA_MODEL_EDITOR||
-|| debaterecord || debate record || workspace/templates/hansard.ott||org.bungeni.editor.metadata.editors.GeneralMetadata||
-|| bill || bill document || workspace/templates/bill.ott||org.bungeni.editor.metadata.editors.BillMetadata||
-
-The DOC_TYPE column records the document type identifier used by the system.
-The TEMPLATE_PATH points to the document template for the document type.
-The METADATA_MODEL_EDITOR sets the metadata model editor for the document type (in the above example, the 'debaterecord' document type is set to use the GeneralMetadata model / editor while the 'bill' document type uses a customized metadata model...
-
+{{{
+<doctype ...>
+....
+        <metadata-editors>
+            <title xml:lang="eng">Bill Metadata</title>
+            <metadata-editor class="org.bungeni.editor.metadata.editors.GeneralMetadata" >
+                <title xml:lang="eng">General</title>
+            </metadata-editor>
+            <metadata-editor class="org.bungeni.editor.metadata.editors.BillMetadata" >
+                <title xml:lang="eng">Bill</title>
+            </metadata-editor>
+        </metadata-editors>
+....
+</doctype>
+}}}
 
 
 
 == Registering Panels for the document type == 
 
-In the settings editor you also need to register available panels for the document type :
+The Editor's right hand pane has tabbed panels that allow the user to effect actions on the document. The available panels are packaged into the Editor application, but what panels are available for a doc type and in what order they are shown is done via panel configuration.
 
-There are various panels provided for editing document metadata, viewing section metadata adding editor notes to the document etc.
+panels are managed in the  `settings/configs/panels` folder - here a panel config document per doc_type is required. The name of the config panel document should be the same as the name of the doctype.
 
-The example below registers the document metadata panel and the document notes panel for the 'judgement' document type.
+{{{
+<panels for="debaterecord">
+    <panel name="actions" class="org.bungeni.editor.panels.loadable.documentActionPanel" state="1">
+           <title xml:lang="eng">markup</title>
+           <title xml:lang="spa">sugerir</title>
+           <title xml:lang="ara">التقطيع</title>
+    </panel>
+    <panel name="allmeta" class="org.bungeni.editor.panels.loadable.MetadataPanel" state="1">
+           <title xml:lang="eng">metadata</title>
+           <title xml:lang="spa">metadatos</title>
+           <title xml:lang="ara">واصفات البيانات</title>
+    </panel>
+    <panel name="structure" class="org.bungeni.editor.panels.loadable.documentStructurePanel" state="1">
+           <title xml:lang="eng">structure</title>
+           <title xml:lang="spa">estructura</title>
+           <title xml:lang="ara">الهيكلية</title>
+    </panel>
+    <panel name="validate" class="org.bungeni.editor.panels.loadable.validateAndCheckPanel2" state="1">
+           <title xml:lang="eng">validate</title>
+           <title xml:lang="spa">validar</title>
+           <title xml:lang="ara">التحقق من صحة المعلومات</title>
+    </panel>
+    <panel name="transform" class="org.bungeni.editor.panels.loadable.transformXMLPanel" state="1">
+           <title xml:lang="eng">publish</title>
+           <title xml:lang="spa">publicar</title>
+           <title xml:lang="ara">النشر</title>
+    </panel>
+    <panel name="notes" class="org.bungeni.editor.panels.loadable.documentNotesPanel" state="1">
+           <title xml:lang="eng">notes</title>
+           <title xml:lang="spa">notas</title>
+           <title xml:lang="ara">ملاحظات</title>
+    </panel>
+</panels>
 
-||DOCTYPE || PANEL_TYPE || PANEL_CLASS || PANEL_LOAD_ORDER || PANEL_TITLE || PANEL_DESC || STATE ||
-||judgement||tabbed||org.bungeni.editor.panels.loadable.documentMetadataPanel||2||Document Metadata||Document metadata||1||
-||judgement||tabbed||org.bungeni.editor.panels.loadable.documentNotesPanel||1||Document Notes||Document notes and document switcher||1||
+}}}
 
-== Enable available actions for the document type ==
+= THE BELOW IS STILL OUT OF DATE =
+== Enable available action conditions for the document type ==
 
 Available action conditions for a document type are registered in the TOOLBAR_CONDITIONS table :
 
@@ -175,17 +211,4 @@ The example below defines action sets for both the bill and the debaterecord doc
 
 The action sets in the above example are present in the 'settings' folder of the editor installation. An action set is represented in XML and uses a particular syntax.  For details about action sets / and available actions provided by the editor refer to [http://code.google.com/p/bungeni-editor/wiki/ConditionProcessorsInBungeniEditor#Currently_Available_Conditions Condition Processors in Bungeni-Editor]
 
-== Set the root section parameter for the document type == 
 
-Every document type used by the editor must have a root section. The root section has the BungeniSectionType attribute set to 'body'. The root section is identified by a GENERAL_EDITOR_PROPERTIES property which takes the form :
-
-||property name|| property value||
-||root:judgement||judgement||
-
-This identifies the root section for the judgement document type as 'judgement'
-
-
-
-
-
-<<<< TO DO >>>>> 

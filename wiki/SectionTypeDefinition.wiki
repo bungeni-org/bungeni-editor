@@ -74,7 +74,8 @@ associated with the sectionType to set these metadata.
 = Output = 
 
 The output block describes how the section in the openoffice document will be 
-converted for XML output.
+converted for XML output.  The default support in the packaged document types is to 
+output Akoma Ntoso XML.
 
 The output block supports seperation of content and metadata in the transformed 
 XML. This is done by separately defining output `meta` headers and output `content`
