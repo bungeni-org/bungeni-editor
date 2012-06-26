@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:xmeta="http://meta.w3.org/1999/XSL/Transform"
     version="2.0">
+    
+    <xsl:output indent="yes" method="xml" />
+    <xsl:namespace-alias stylesheet-prefix="xmeta" result-prefix="xsl"/>
+    
+    
     <!-- the input document for this template is the metadatas configuration file
             settings/config/metadata/<doctype>.xml -->
     <xsl:template match="metadatas">
        <!-- the below template autogenerates the odf -> meta  header for all metadata -->
+       <xmeta:template match="office:meta">
        <mcontainer name="identification">
          <mcontainer name="all">
            <xsl:apply-templates  mode="all" />
@@ -49,12 +56,6 @@
                  </xsl:with-param>
              </xsl:call-template>
              
-             <!--
-             <meta name="uri" value="{//meta:user-defined[@name='BungeniWorkURI']}" />
-             <meta name="author" value="{//meta:user-defined[@name='BungeniWorkAuthor']}" />
-             <meta name="date" 
-                 value="{//meta:user-defined[@name='BungeniWorkDate']}" 
-             />-->
          </mcontainer>
          
          <!-- the below expects some mandatory metadata to be set -->
@@ -151,7 +152,7 @@
             </xsl:call-template>
             
         </mcontainer>
-        
+       </xmeta:template>
     </xsl:template>
     
     <xsl:template match="metadata" mode="all">
@@ -159,15 +160,6 @@
             <xsl:with-param name="meta-name" select="@name" />
             <xsl:with-param name="meta-value" select="@name" />
          </xsl:call-template>
-        <!--
-       <meta name="{@name}">
-            <xsl:attribute name="value">
-                <xsl:text>{//meta:user-defined[@name='</xsl:text>
-                <xsl:value-of select="@name" />
-                <xsl:text>']}</xsl:text>
-            </xsl:attribute>
-        </meta>
-        -->
     </xsl:template>
 
    <xsl:template name="meta-outputter">
