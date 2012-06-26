@@ -35,6 +35,8 @@
     <xsl:output indent="yes" method="xml" />
     
     <xsl:key name="bySectionType" match="bungeni:bungenimeta" use="bungeni:BungeniSectionType" />
+    <xsl:key name="byInlineType" match="bungeni:bungenimeta" use="bungeni:BungeniInlineType" />
+    <xsl:key name="byAnnotationType" match="bungeni:bungenimeta" use="bungeni:BungeniAnnotationType" />
     
     <xsl:template match="/">
         <xsl:apply-templates />

@@ -12,7 +12,7 @@
     <xsl:template match="metadatas">
        <!-- the below template autogenerates the odf -> meta  header for all metadata -->
        <xmeta:template match="office:meta">
-       <mcontainer name="identification">
+        <mcontainer name="identification">
          <mcontainer name="all">
            <xsl:apply-templates  mode="all" />
          </mcontainer>

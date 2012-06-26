@@ -52,6 +52,7 @@ public class ConfigurationProviderTest extends TestCase {
         System.out.println("generateMergedConfiguration");
         String forDocType = "debaterecord";
         ConfigurationProvider instance = ConfigurationProvider.getInstance();
+        instance.generateMergedConfiguration(forDocType);
         Document doc = instance.getMergedDocument();
         XMLOutputter xout = new XMLOutputter();
         File f = new File("../test/testdocs/merged_config.xml");

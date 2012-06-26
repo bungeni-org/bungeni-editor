@@ -376,7 +376,17 @@
     indent-left=".5"
     indent-right="0"
     visibility="user" >
-     
+    <metadatas>
+        <metadata name="BungeniEventURI" />
+        <metadata name="BungeniEventName" />
+        <metadata name="BungeniSectionID" />
+    </metadatas>
+    <meta>
+        <TLCEvent id="$BungeniSectionID" href="$BungeniEventURI" showAs="$BungeniEventName" />
+    </meta>
+    <content>
+        <container/>
+    </content>
  </sectionType>
 <sectionType name="QuestionBody"
     prefix="quebody"
