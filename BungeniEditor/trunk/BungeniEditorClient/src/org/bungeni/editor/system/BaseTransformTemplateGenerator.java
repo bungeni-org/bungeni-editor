@@ -25,8 +25,8 @@ import java.io.IOException;
 import org.apache.log4j.Logger;
 
 /**
- * Generates the pipeline configuration template
- * Uses the antlr StringTemplate library for the template generation
+ * Loads XSLT generator templates out of Freemarker templates
+ * 
  * @author Ashok Hariharan
  */
 public  class BaseTransformTemplateGenerator {
