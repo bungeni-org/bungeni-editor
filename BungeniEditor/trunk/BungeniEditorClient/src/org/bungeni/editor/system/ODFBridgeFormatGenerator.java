@@ -19,10 +19,13 @@
 package org.bungeni.editor.system;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.transform.stream.StreamSource;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.config.DocumentMetadataReader;
+import org.bungeni.editor.config.SysTransformsReader;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.jdom.Document;
 
@@ -55,11 +58,11 @@ public class ODFBridgeFormatGenerator {
 
 
      public class BridgeXSLT {
-         public File XSLT ;
+         public String XSLT ;
          public File inputFile;
          public File outputFile;
 
-         public BridgeXSLT(File XSLT, File inputFile, File outputFile) {
+         public BridgeXSLT(String XSLT, File inputFile, File outputFile) {
              this.XSLT = XSLT;
              this.inputFile = inputFile;
              this.outputFile = outputFile;
@@ -80,13 +83,19 @@ public class ODFBridgeFormatGenerator {
          return instance;
      }
 
-     public void addBridgeXSLT(File XSLT, File inputFile, File outputFile) {
+     public void addBridgeXSLT(String XSLT, File inputFile, File outputFile) {
          bridgeXSLTs.add(new BridgeXSLT(XSLT, inputFile, outputFile));
      }
 
      public void process (
-            String docType,
-            List<Document> embedTemplatesList){
+            String docType
+            ) throws FileNotFoundException{
+
+         for (BridgeXSLT bxslt : bridgeXSLTs) {
+             StreamSource xsltFile = SysTransformsReader.getInstance().getXslt(bxslt.XSLT);
+
+         }
+
          return;
      }
 
@@ -102,7 +111,7 @@ public class ODFBridgeFormatGenerator {
          String sFullout = CommonFileFunctions.convertRelativePathToFullPath(soutFile);
 
          inst.addBridgeXSLT(
-                 new File(sFullXSLTpath),
+                "meta_identi_publi_generator.xsl",
                  new File(sFullConfig),
                  new File(sFullout)
                   );

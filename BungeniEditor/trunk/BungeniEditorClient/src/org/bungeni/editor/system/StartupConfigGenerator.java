@@ -25,7 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.config.DocTypesReader;
+import org.bungeni.editor.config.DocumentMetadataReader;
 import org.bungeni.translators.configurations.steps.OAXSLTStep;
+import org.jdom.Document;
 import org.jdom.JDOMException;
 
 /**
@@ -55,20 +57,35 @@ public class StartupConfigGenerator {
         List<String> doctypeNames = reader.getDocTypeNames();
         for (String doctypeName : doctypeNames) {
             try {
+                ConfigurationProvider cp = ConfigurationProvider.getInstance();
+                cp.generateMergedConfiguration(doctypeName);
+                Document mergedConfigs = cp.getMergedDocument();
                 // generate configuraiton
                 ConfigTemplateGenerator ctg = new ConfigTemplateGenerator();
                 List<OAXSLTStep> inputSteps = new ArrayList<OAXSLTStep>(0);
                 List<OAXSLTStep> outputSteps = new ArrayList<OAXSLTStep>(0);
                 ctg.process(doctypeName, doctypeName, false, inputSteps, outputSteps);
                 // generate type transformation
-                File typeGeneratorTemplate = TransformerGenerator.getInstance().typeGeneratorTemplate(doctypeName);
-            } catch (IOException ex) {
-                log.error("File error in startupGenerate.configTemplateGenerator " + doctypeName, ex);
-            } catch (TemplateException ex) {
-                log.error("freemarkrer error in startupGenerate.configTemplateGenerator " + doctypeName , ex);
-            } catch (JDOMException ex) {
-                log.error("JDOM error error in startupGenerate.configTemplateGenerator " + doctypeName , ex);
-            }
+                File typeGeneratorTemplate = TransformerGenerator.getInstance().
+                        typeGeneratorTemplate(
+                            mergedConfigs,
+                            doctypeName
+                        );
+                File typeTlcGeneratorTemplate = TransformerGenerator.getInstance().
+                        typeTlcGeneratorTemplate(
+                            mergedConfigs,
+                            doctypeName
+                        );
+                File typeMetaIdentPubliGeneratorTemplate = TransformerGenerator.getInstance().
+                        typeMetaIdentifierGenerator(
+                            DocumentMetadataReader.getInstance().getDocument(doctypeName),
+                            doctypeName
+                        );
+                        
+
+            } catch (Exception ex) {
+                log.error("Exception generating config for doctype :  " + doctypeName, ex);
+            } 
 
         }
     }

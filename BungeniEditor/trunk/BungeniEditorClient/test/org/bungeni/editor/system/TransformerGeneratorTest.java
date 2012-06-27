@@ -39,7 +39,7 @@ public class TransformerGeneratorTest extends TestCase {
         cfg.generateMergedConfiguration("debaterecord");
         cfg.writeMergedConfig(new File("../test/testdocs/merged_config.xml"));
         File expResult = null;
-        File result = instance.typeGeneratorTemplate("debaterecord");
+        File result = instance.typeGeneratorTemplate(cfg.getMergedDocument(), "debaterecord");
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

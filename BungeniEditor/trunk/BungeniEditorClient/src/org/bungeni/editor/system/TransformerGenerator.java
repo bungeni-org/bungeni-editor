@@ -22,6 +22,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -32,6 +34,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.log4j.Logger;
+import org.bungeni.editor.config.DocumentMetadataReader;
 import org.bungeni.editor.config.SysTransformsReader;
 import org.jdom.Document;
 import org.jdom.JDOMException;
@@ -67,7 +70,46 @@ public class TransformerGenerator {
         return instance;
     }
 
-    public File typeGeneratorTemplate(String docType) throws JDOMException, IOException {
+
+    public File typeTlcGeneratorTemplate(Document mergedConfigs, String docType) throws IOException {
+        StreamSource xsltTypeGenerator = null;
+        File ftypeGenerator =   new File(
+            BaseSystemConfig.SYSTEM_CACHE + File.separator +
+            "type_tlc_transform_" + docType  + ".xsl"
+        );
+        if (!ftypeGenerator.exists()) {
+             (
+             new File(
+             BaseSystemConfig.SYSTEM_CACHE
+              )
+          ).mkdirs();
+          ftypeGenerator.createNewFile();
+        }
+        log.info("Full path to xslt file : " + ftypeGenerator.getAbsolutePath());
+        try {
+            //Conver to a w3c dom document
+            DOMOutputter dout = new DOMOutputter();
+            org.w3c.dom.Document domDoc = dout.output(mergedConfigs);
+            xsltTypeGenerator = SysTransformsReader.getInstance().getXslt("type_tlc_generator.xsl");
+            Transformer transformer = thisTransFactory.newTransformer(xsltTypeGenerator);
+            FileWriter fwTypeGen = new FileWriter(ftypeGenerator);
+            StreamResult outputResult = new StreamResult(
+                  fwTypeGen
+                  );
+            transformer.transform( new DOMSource(domDoc), outputResult);
+            fwTypeGen.flush();
+        } catch (TransformerException ex) {
+             log.error("Transform exception !", ex);
+        } catch (FileNotFoundException ex) {
+            log.error("Full path to xslt file : " + ftypeGenerator.getAbsolutePath());
+            log.error("XSLT not found !", ex);
+        } catch (JDOMException ex) {
+            log.error("There was an error " , ex);
+        }
+        return ftypeGenerator;
+    }
+
+    public File typeGeneratorTemplate(Document mergedConfigs, String docType) throws JDOMException, IOException {
         StreamSource xsltTypeGenerator = null;
         File ftypeGenerator =   new File(
             BaseSystemConfig.SYSTEM_CACHE + File.separator +
@@ -83,9 +125,6 @@ public class TransformerGenerator {
         }
         log.info("Full path to xslt file : " + ftypeGenerator.getAbsolutePath());
         try {
-            ConfigurationProvider configs = ConfigurationProvider.getInstance();
-            configs.generateMergedConfiguration(docType);
-            Document mergedConfigs = configs.getMergedDocument();
             //Conver to a w3c dom document
             DOMOutputter dout = new DOMOutputter();
             org.w3c.dom.Document domDoc = dout.output(mergedConfigs);
@@ -106,6 +145,60 @@ public class TransformerGenerator {
         return ftypeGenerator;
     }
 
+public File typeMetaIdentifierGenerator(Document metadataDocument, String docType) throws JDOMException, IOException {
+        StreamSource xsltTypeGenerator = null;
+        
+        String generatorName = "type_meta_ident_publi";
+
+        File ftypeGenerator =   new File(
+            BaseSystemConfig.SYSTEM_CACHE + File.separator +
+            generatorName + "_" + docType  + ".xsl"
+        );
+        if (!ftypeGenerator.exists()) {
+             (
+             new File(
+             BaseSystemConfig.SYSTEM_CACHE
+              )
+          ).mkdirs();
+          ftypeGenerator.createNewFile();
+        }
+        log.info("Full path to xslt file : " + ftypeGenerator.getAbsolutePath());
+        try {
+            //Conver to a w3c dom document
+            DOMOutputter dout = new DOMOutputter();
+            org.w3c.dom.Document domDoc = dout.output(
+                   metadataDocument
+            );
+            xsltTypeGenerator = SysTransformsReader.getInstance().getXslt(
+                    generatorName +
+                    "_generator.xsl"
+               );
+            Transformer transformer = thisTransFactory.newTransformer(xsltTypeGenerator);
+            FileWriter fwTypeGen = new FileWriter(ftypeGenerator);
+            StreamResult outputResult = new StreamResult(
+                  fwTypeGen
+                  );
+            transformer.transform( new DOMSource(domDoc), outputResult);
+            fwTypeGen.flush();
+        } catch (TransformerException ex) {
+             log.error("Transform exception !", ex);
+        } catch (FileNotFoundException ex) {
+            log.error("Full path to xslt file : " + ftypeGenerator.getAbsolutePath());
+            log.error("XSLT not found !", ex);
+        }
+        return ftypeGenerator;
+    }
+
+
+    public List<File> typeGenerators(String docType) throws JDOMException, IOException {
+        List<File> genFiles = new ArrayList<File>(0);
+        ConfigurationProvider cp = ConfigurationProvider.getInstance();
+        cp.generateMergedConfiguration(docType);
+        Document doc = cp.getMergedDocument();
+        File f1 = typeGeneratorTemplate(doc, docType);
+        File f2 = typeTlcGeneratorTemplate(doc, docType);
+        return genFiles;
+    }
 
 
 }

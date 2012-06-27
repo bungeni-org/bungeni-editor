@@ -106,7 +106,7 @@ public class DocumentMetadataReader extends BaseConfigReader {
         return this.xpathInstance;
     }
 
-    private Document getDocument(String docType) {
+    public Document getDocument(String docType) {
        if (!this.cachedMetadatas.containsKey(docType)){
             Document doc;
             try {
