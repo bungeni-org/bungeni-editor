@@ -367,7 +367,10 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
                 // << toolbarAction.actionName >> (rm, feb 2012) - this is now deprecated! ActionNames are specified as
                 // <<actionName>>
                 // split the string to obtain the action name                       
-                subActionElement = DocumentActionsReader.getInstance().getDocumentActionByName(btp.getSubActionName());
+                subActionElement = DocumentActionsReader.getInstance().getDocumentActionByName(
+                        documentType,
+                        btp.getSubActionName()
+                        );
 
                 if (subActionElement != null) {
                     toolbarAction subActionObj = new toolbarAction(subActionElement);

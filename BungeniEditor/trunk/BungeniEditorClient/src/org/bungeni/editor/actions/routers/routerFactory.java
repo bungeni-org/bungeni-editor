@@ -2,6 +2,7 @@ package org.bungeni.editor.actions.routers;
 
 import org.bungeni.editor.config.DocumentActionsReader;
 import org.bungeni.editor.actions.toolbarAction;
+import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.jdom.Element;
 
 /**
@@ -69,7 +70,10 @@ public class routerFactory {
              // note that the var returned above from subAction.router_class()
              // is the router_name rather than the router_class
              // use introspection to create the router class
-             Element rName = DocumentActionsReader.getInstance().getRouter(actionClassName);
+             Element rName = DocumentActionsReader.getInstance().getRouter(
+                     BungeniEditorPropertiesHelper.getCurrentDocType(),
+                     actionClassName
+                     );
 
              // get the routerName from the xml tag for the routerName
              String rClassName = rName.getAttributeValue("class") ;

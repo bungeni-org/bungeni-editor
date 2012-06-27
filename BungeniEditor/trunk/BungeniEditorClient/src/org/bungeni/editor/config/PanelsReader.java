@@ -22,8 +22,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-import org.bungeni.extutils.BungeniEditorProperties;
-import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;

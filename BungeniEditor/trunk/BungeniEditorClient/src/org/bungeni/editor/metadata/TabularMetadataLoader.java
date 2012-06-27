@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.bungeni.editor.metadata;
 
 import java.util.ArrayList;
@@ -12,6 +7,7 @@ import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.config.DocumentMetadataReader;
+import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooDocMetadata;
 import org.bungeni.ooo.ooDocMetadataFieldSet;
@@ -19,7 +15,7 @@ import org.jdom.Element;
 
 /**
  *
- * @author undesa
+ * @author Ashok Hariharan
  */
 public class TabularMetadataLoader {
   
@@ -31,7 +27,11 @@ public class TabularMetadataLoader {
         DocumentMetadata returnmeta = null;
         try {
 
-            Element metadataElem = DocumentMetadataReader.getInstance().getMetadataByName(metadataVariable);
+            Element metadataElem = DocumentMetadataReader.getInstance().
+                    getMetadataByName(
+                        BungeniEditorPropertiesHelper.getCurrentDocType(),
+                        metadataVariable
+                    );
 
             if (null != metadataElem) {
                 returnmeta = DocumentMetadataSupplier.convertElementToDocumentMetadata(metadataElem);

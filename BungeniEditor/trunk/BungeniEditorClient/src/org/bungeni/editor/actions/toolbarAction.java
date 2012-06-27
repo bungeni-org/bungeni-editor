@@ -10,6 +10,7 @@ import org.bungeni.editor.selectors.SelectorDialogModes;
 
 import org.bungeni.editor.document.DocumentSection;
 import org.bungeni.editor.document.DocumentSectionsContainer;
+import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 
@@ -77,7 +78,10 @@ public class toolbarAction {
         private String dialog_class;
 
         public actionRouter(String actionName ) throws JDOMException, IOException, Exception {
-            Element routerElement = DocumentActionsReader.getInstance().getRouter(actionName);
+            Element routerElement = DocumentActionsReader.getInstance().getRouter(
+                    BungeniEditorPropertiesHelper.getCurrentDocType(),
+                    actionName
+                    );
             if (routerElement != null) {
                     name = routerElement.getAttributeValue("name");
                     router_class = routerElement.getAttributeValue("class");

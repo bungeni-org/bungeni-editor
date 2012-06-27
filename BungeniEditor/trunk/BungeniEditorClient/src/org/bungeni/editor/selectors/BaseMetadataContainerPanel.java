@@ -683,7 +683,10 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
     private void accquirePanels(String docType, String actionName, String profileName){
         try {
             // get the action
-            Element action = DocumentActionsReader.getInstance().getDocumentActionByName(actionName);
+            Element action = DocumentActionsReader.getInstance().getDocumentActionByName(
+                    docType,
+                    actionName
+                    );
 
             // get the router child element(not attribute)
             String parentDialog = action.getChild("router").getAttributeValue("dialog");

@@ -29,7 +29,6 @@ import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.editor.panels.toolbar.BungeniToolbarActionElement;
 import org.bungeni.editor.panels.toolbar.BungeniToolbarLoader;
 import org.bungeni.editor.panels.toolbar.BungeniToolbarLoader.toolbarStyleType;
-import org.bungeni.editor.panels.toolbar.BungeniToolbarParser;
 import org.bungeni.editor.panels.toolbar.buttonContainerPanel;
 import org.bungeni.editor.panels.toolbar.buttonPanel;
 import org.bungeni.editor.panels.toolbar.scrollPanel;
@@ -416,7 +415,10 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
              Element subActionElement = null;
              toolbarAction subActionObj = null;
             try {
-                    subActionElement = DocumentActionsReader.getInstance().getDocumentActionByName(targetObj.getSubActionName());
+                    subActionElement = DocumentActionsReader.getInstance().getDocumentActionByName(
+                            documentType,
+                            targetObj.getSubActionName()
+                            );
 
                 if (subActionElement != null) {
                     subActionObj = new toolbarAction(subActionElement);

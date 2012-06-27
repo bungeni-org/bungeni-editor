@@ -26,7 +26,6 @@ import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 
-import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.extutils.CommonXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -58,8 +57,7 @@ public class InlineTypesReader extends BaseConfigReader {
         return thisInstance ;
     }
 
-    private Document getDocument() {
-       String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
+    private Document getDocument(String docType) {
        if (!this.cachedTypes.containsKey(docType)) {
             try {
                 String docSectionsFolder = SETTINGS_FOLDER;
@@ -81,9 +79,8 @@ public class InlineTypesReader extends BaseConfigReader {
             return null;
     }
 
-    public List getInlineTypes() throws JDOMException, IOException {
-       String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
-       if (null != getDocument()) {
+    public List getInlineTypes(String docType) throws JDOMException, IOException {
+       if (null != getDocument(docType)) {
         XPath xPath = XPath.newInstance("//inlineTypes[@for='" + docType + "']/inlineType");
         return (List) xPath.selectNodes(this.cachedTypes.get(docType));
         } else {
@@ -96,8 +93,8 @@ public class InlineTypesReader extends BaseConfigReader {
      * Returns a cloned list of inline content
      * @return
      */
-    public List getInlineTypesClone() {
-        return getDocument().cloneContent();
+    public List getInlineTypesClone(String docType) {
+        return getDocument(docType).cloneContent();
     }
 
   /**
@@ -109,9 +106,8 @@ public class InlineTypesReader extends BaseConfigReader {
    * @throws JDOMException
    * @throws IOException
    */
-  public List getInlineTypeMetadata(String inlineTypeName) throws FileNotFoundException, UnsupportedEncodingException, JDOMException, IOException {
-       String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
-       if (null != getDocument()) {
+  public List getInlineTypeMetadata(String docType, String inlineTypeName) throws FileNotFoundException, UnsupportedEncodingException, JDOMException, IOException {
+       if (null != getDocument(docType)) {
           XPath xPath = XPath.newInstance("//inlineType[@name='"+ inlineTypeName +"']/metadatas/metadata");
           return xPath.selectNodes(this.cachedTypes.get(docType));
        } else {
@@ -126,9 +122,8 @@ public class InlineTypesReader extends BaseConfigReader {
   * @return
   * @throws JDOMException
   */
-  public Element getInlineTypeOutputTemplate(String inlineTypeName) throws JDOMException{
-       String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
-       if (null != getDocument()) {
+  public Element getInlineTypeOutputTemplate(String docType, String inlineTypeName) throws JDOMException{
+       if (null != getDocument(docType)) {
           XPath xPath = XPath.newInstance("//inlineType[@name='"+ inlineTypeName +"']/output");
           return (Element) xPath.selectSingleNode(this.cachedTypes.get(docType));
        } else {

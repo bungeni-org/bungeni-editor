@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.extutils.CommonXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -65,8 +64,7 @@ public class DocumentActionsReader extends BaseConfigReader {
         return thisInstance ;
     }
 
-    public Element getDocumentActionByName(String actionName) throws JDOMException, IOException {
-       String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
+    public Element getDocumentActionByName(String docType, String actionName) throws JDOMException, IOException {
        if (!this.cachedActions.containsKey(docType)) {
             String docActionsFile = DOC_ACTIONS_FOLDER + File.separator + docType + ".xml";
             this.cachedActions.put(docType, CommonXmlUtils.loadFile(docActionsFile));
@@ -77,8 +75,8 @@ public class DocumentActionsReader extends BaseConfigReader {
     }
 
 
-    public  Element getRouter(String actionName) throws JDOMException, IOException {
-        Element actionElement = getDocumentActionByName(actionName);
+    public  Element getRouter(String docType, String actionName) throws JDOMException, IOException {
+        Element actionElement = getDocumentActionByName(docType, actionName);
         Element actionRouter = actionElement.getChild("router");
         return actionRouter;
     }

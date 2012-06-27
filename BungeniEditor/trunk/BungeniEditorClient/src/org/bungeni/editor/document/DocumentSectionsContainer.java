@@ -3,7 +3,6 @@ package org.bungeni.editor.document;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 import org.bungeni.editor.config.SectionTypesReader;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.jdom.Element;
@@ -42,7 +41,7 @@ public class DocumentSectionsContainer {
         if (documentSections.isEmpty()) {
             try {
                 String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
-                List<Element> arrSectionTypes = SectionTypesReader.getInstance().getSectionTypes();
+                List<Element> arrSectionTypes = SectionTypesReader.getInstance().getSectionTypes(docType);
 
                 for(Element elemSectionType : arrSectionTypes) {
                     DocumentSection aSection = new DocumentSection(elemSectionType, docType);

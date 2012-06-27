@@ -82,6 +82,7 @@ import org.jdom.JDOMException;
 import org.odftoolkit.odfdom.doc.OdfDocument;
 import org.bungeni.editor.noa.BungeniNoaFrame;
 import org.bungeni.editor.noa.BungeniNoaTabbedPane;
+import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.ooo.BungenioOoHelper;
 
 /**
@@ -391,7 +392,9 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
             sectionType = ooDoc.getSectionType(sectionName) ;
             
             // get all the section Types
-            List<Element> sectionTypes = SectionTypesReader.getInstance().getSectionTypes();
+            List<Element> sectionTypes = SectionTypesReader.getInstance().getSectionTypes(
+                        BungeniEditorPropertiesHelper.getCurrentDocType()
+                    );
 
             // loop through the section Type to find the NUMBERING SCHEME
             // (and DECORATOR if relevant)
@@ -401,7 +404,10 @@ public class sectionNumbererPanel extends BaseClassForITabbedPanel {
                 if ( sectionType.equals(sName)) {
 
                     // determine if the section has a numbering scheme
-                    Element sectionNumbering = SectionTypesReader.getInstance().getSectionTypeNumbering(sectionType);
+                    Element sectionNumbering = SectionTypesReader.getInstance().getSectionTypeNumbering(
+                            BungeniEditorPropertiesHelper.getCurrentDocType(),
+                            sectionType
+                            );
                     
                     // get the numbering scheme
                     String numberingScheme = sectionNumbering.getAttributeValue("scheme") ;

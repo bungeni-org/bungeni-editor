@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
-import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.extutils.CommonXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -58,22 +57,19 @@ public class SectionTypesReader extends BaseConfigReader {
         return thisInstance ;
     }
 
-    public List getSectionTypes() throws JDOMException, IOException {
-       String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
-       if (null != getDocument()) {
+    public List getSectionTypes(String docType) throws JDOMException, IOException {
+       if (null != getDocument(docType)) {
             XPath xPath = XPath.newInstance("//sectionTypes[@for='" + docType + "']/sectionType");
-            return (List) xPath.selectNodes(getDocument());
+            return (List) xPath.selectNodes(getDocument(docType));
        }
        return null;
     }
 
-    private Document getDocument()
+    private Document getDocument(String docType)
             throws FileNotFoundException,
             UnsupportedEncodingException,
             JDOMException,
             IOException {
-
-       String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
        if (!this.cachedTypes.containsKey(docType)) {
             String docSectionsFolder = SETTINGS_FOLDER;
             String docSectionsFile = docSectionsFolder + File.separator + docType + ".xml";
@@ -82,10 +78,10 @@ public class SectionTypesReader extends BaseConfigReader {
        return this.cachedTypes.get(docType);
     }
 
-    public List getSectionTypesClone() {
+    public List getSectionTypesClone(String docType) {
         List listSectionTypes = new ArrayList();
         try {
-            listSectionTypes =  getDocument().cloneContent();
+            listSectionTypes =  getDocument(docType).cloneContent();
         } catch (FileNotFoundException ex) {
             log.error("unable to getSectionTypes list", ex);
         } catch (UnsupportedEncodingException ex) {
@@ -104,9 +100,8 @@ public class SectionTypesReader extends BaseConfigReader {
      * @param sectionTypeName
      * @return
      */
-    public Element getSectionTypeNumbering(String sectionTypeName) throws JDOMException, IOException {
+    public Element getSectionTypeNumbering(String docType, String sectionTypeName) throws JDOMException, IOException {
                
-       String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
        if (!this.cachedTypes.containsKey(docType)) {
             String docSectionsFolder = SETTINGS_FOLDER;
             String docSectionsFile = docSectionsFolder + File.separator + docType + ".xml";

@@ -13,12 +13,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import org.bungeni.editor.config.DocumentMetadataReader;
+import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.ooo.OOComponentHelper;
 import org.jdom.Element;
 
 /**
  *
- * @author Administrator
+ * @author Ashok Hariharan
  */
 public class DocumentMetadataSupplier {
     
@@ -121,7 +122,8 @@ public class DocumentMetadataSupplier {
     private void initDocumentMetadataVariables () {
         try {
         //fetch only visible metadata
-        List<Element> listMetadata = DocumentMetadataReader.getInstance().getVisibleMetadatas();
+        List<Element> listMetadata = DocumentMetadataReader.getInstance().
+                getVisibleMetadatas(BungeniEditorPropertiesHelper.getCurrentDocType());
         if (null != listMetadata) {
              metadataMap.clear();
             for (Element metadataElem : listMetadata) {

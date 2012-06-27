@@ -493,7 +493,10 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
             Element subActionElement = null;
             try {
                 //create the subAction object out of the settings metadata
-                subActionElement = DocumentActionsReader.getInstance().getDocumentActionByName(btp.getSubActionName());
+                subActionElement = DocumentActionsReader.getInstance().getDocumentActionByName(
+                        documentType,
+                        btp.getSubActionName()
+                        );
        
                 if (subActionElement != null) {
                     toolbarAction subActionObj = new toolbarAction(subActionElement);

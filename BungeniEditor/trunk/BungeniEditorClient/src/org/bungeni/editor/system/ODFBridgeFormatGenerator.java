@@ -18,8 +18,12 @@
 
 package org.bungeni.editor.system;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.bungeni.editor.config.DocumentMetadataReader;
+import org.bungeni.extutils.CommonFileFunctions;
 import org.jdom.Document;
 
 /**
@@ -50,6 +54,21 @@ public class ODFBridgeFormatGenerator {
          Logger.getLogger(ODFBridgeFormatGenerator.class.getName());
 
 
+     public class BridgeXSLT {
+         public File XSLT ;
+         public File inputFile;
+         public File outputFile;
+
+         public BridgeXSLT(File XSLT, File inputFile, File outputFile) {
+             this.XSLT = XSLT;
+             this.inputFile = inputFile;
+             this.outputFile = outputFile;
+         }
+     }
+
+     List<BridgeXSLT> bridgeXSLTs = new ArrayList<BridgeXSLT>(0);
+
+
      private ODFBridgeFormatGenerator(){}
 
      private static ODFBridgeFormatGenerator instance = null ;
@@ -61,10 +80,31 @@ public class ODFBridgeFormatGenerator {
          return instance;
      }
 
+     public void addBridgeXSLT(File XSLT, File inputFile, File outputFile) {
+         bridgeXSLTs.add(new BridgeXSLT(XSLT, inputFile, outputFile));
+     }
+
      public void process (
             String docType,
-            boolean cachePipeline,
             List<Document> embedTemplatesList){
          return;
+     }
+
+     public static void main(String[] args){
+         ODFBridgeFormatGenerator inst = ODFBridgeFormatGenerator.getInstance();
+         String xsltName =  BaseSystemConfig.SYSTEM_GENERATOR + File.separator + "meta_identi_publi_generator.xsl";
+         String sFullXSLTpath= CommonFileFunctions.convertRelativePathToFullPath(xsltName);
+
+         String configName = DocumentMetadataReader.SETTINGS_FOLDER + File.separator + "debaterecord.xml";
+         String sFullConfig = CommonFileFunctions.convertRelativePathToFullPath(configName);
+
+         String soutFile = BaseSystemConfig.SYSTEM_CACHE + File.separator + "out1.xsl";
+         String sFullout = CommonFileFunctions.convertRelativePathToFullPath(soutFile);
+
+         inst.addBridgeXSLT(
+                 new File(sFullXSLTpath),
+                 new File(sFullConfig),
+                 new File(sFullout)
+                  );
      }
 }

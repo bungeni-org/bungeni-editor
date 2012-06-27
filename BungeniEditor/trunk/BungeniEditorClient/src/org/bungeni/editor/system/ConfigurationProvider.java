@@ -89,8 +89,8 @@ public final class ConfigurationProvider {
         //This is the root element for the temporary merged config document
         Element allConfigs = new Element("allConfigs");
         Document docAllConfigs = new Document(allConfigs);
-        addSectionTypesConfig(allConfigs);
-        addInlineTypesConfig(allConfigs);
+        addSectionTypesConfig(forDocType, allConfigs);
+        addInlineTypesConfig(forDocType, allConfigs);
         this.thisDocument = docAllConfigs ;
     }
 
@@ -101,9 +101,9 @@ public final class ConfigurationProvider {
         fout.close();
     }
 
-    private void addSectionTypesConfig(Element allConfigs) {
+    private void addSectionTypesConfig(String docType, Element allConfigs) {
         List<Element> sectionTypes = new ArrayList<Element>(0);
-        sectionTypes = SectionTypesReader.getInstance().getSectionTypesClone();
+        sectionTypes = SectionTypesReader.getInstance().getSectionTypesClone(docType);
         if (sectionTypes != null) {
             try {
                 allConfigs.addContent(sectionTypes);
@@ -113,9 +113,11 @@ public final class ConfigurationProvider {
         }
     }
 
-    private void addInlineTypesConfig(Element allConfigs) {
+    private void addInlineTypesConfig(String docType, Element allConfigs) {
         List<Element> inlineTypes = new ArrayList<Element>(0);
-        inlineTypes = InlineTypesReader.getInstance().getInlineTypesClone();
+        inlineTypes = InlineTypesReader.getInstance().getInlineTypesClone(
+                docType
+                );
         if (inlineTypes != null) {
             try {
                 allConfigs.addContent(inlineTypes);
