@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2012 PC
+ *  Copyright (C) 2012 Africa i-Parliaments
  * 
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -22,7 +22,7 @@ import junit.framework.TestCase;
 
 /**
  *
- * @author PC
+ * @author Ashok
  */
 public class StartupConfigGeneratorTest extends TestCase {
     

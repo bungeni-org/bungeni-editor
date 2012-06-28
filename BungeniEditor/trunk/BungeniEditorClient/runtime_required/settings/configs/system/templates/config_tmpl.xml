@@ -30,9 +30,11 @@ ODT -> Akoma Ntoso
         <xslt step="3" name="mergeStyles" href="${sys_trans_path}/xsl/merge_styles.xsl"/>
         <!-- Transform the document to the META Language -->
         <!-- custom steps follow -->
+        <!--{UNCOMMENT_MERGE_OPEN}
         <#list input_steps as step>
         <xslt step="${step.position}" name="${step.name}" href="${custom_trans_path}/${step.href}"/>
         </#list>
+        {UNCOMMENT_MERGE_CLOSE}-->
     </input>
     
     <replacements>
@@ -64,10 +66,11 @@ ODT -> Akoma Ntoso
         
         <!-- custom steps follow -->
         
+        <!--{UNCOMMENT_MERGE_OPEN}
         <#list output_steps as step>
         <xslt step="${step.position}" name="${step.name}" href="${custom_trans_path}/${step.href}"/>
         </#list>
-        
+        {UNCOMMENT_MERGE_CLOSE}-->
     </output>
 
     <!-- Output is piped to 1 or more named pipelines they are
