@@ -73,7 +73,8 @@
                 </output>
             </sectionType>
             -->
-           <xmeta:template match="office:meta" order="2">
+            <xmeta:template match="office:meta">
+            <mcontainer name="references">
             <xsl:for-each-group 
                 select=".//output/meta" 
                 group-by="
@@ -135,8 +136,9 @@
                     </xsl:for-each>
                 </xmeta:for-each>
             </xsl:for-each-group>
-           
-           </xmeta:template>    
+            </mcontainer>
+            </xmeta:template>
+            
         </xmeta:stylesheet>
     </xsl:template>
 

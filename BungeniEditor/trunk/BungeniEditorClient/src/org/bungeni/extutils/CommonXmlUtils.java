@@ -62,6 +62,11 @@ public class CommonXmlUtils {
     public static Document loadFile(String relativePathToFile) throws FileNotFoundException, UnsupportedEncodingException, JDOMException, IOException {
         String sFullPath = CommonFileFunctions.convertRelativePathToFullPath(relativePathToFile);
         File file = new File(sFullPath);
+        Document doc = loadFile(file);
+        return doc;
+    }
+
+    public static Document loadFile(File file) throws FileNotFoundException, UnsupportedEncodingException, JDOMException, IOException {
         InputStream inputStream= new FileInputStream(file);
         Reader reader = new InputStreamReader(inputStream,"UTF-8");
         InputSource is = new InputSource(reader);
@@ -69,7 +74,6 @@ public class CommonXmlUtils {
         Document doc = getNonValidatingSaxBuilder().build(is);
         return doc;
     }
-
 
     public static String getIso3Language(){
         if (iso3Language == null) {

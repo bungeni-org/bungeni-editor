@@ -48,7 +48,8 @@
             version="2.0">
             
        <!-- the below template autogenerates the odf -> meta  header for all metadata -->
-       <xmeta:template match="office:meta" order="0">
+       <xmeta:template match="office:meta">
+        <mcontainer name="meta">
         <mcontainer name="identification">
          <mcontainer name="all">
            <xsl:apply-templates  mode="all" />
@@ -177,7 +178,6 @@
          </mcontainer>
            
        </mcontainer>
-       
         <mcontainer name="publication">
             <xsl:call-template name="meta-outputter">
                 <xsl:with-param name="meta-name">
@@ -189,11 +189,8 @@
             </xsl:call-template>
             
         </mcontainer>
-        
-        <xsl:text>${MCONTAINER_REFERENCES}</xsl:text>
-
+        </mcontainer> 
        </xmeta:template>
-         
      </xmeta:stylesheet>
     </xsl:template>
     

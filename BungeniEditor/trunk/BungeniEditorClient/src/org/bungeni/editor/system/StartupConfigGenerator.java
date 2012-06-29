@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -35,9 +36,12 @@ import org.bungeni.editor.config.DocTypesReader;
 import org.bungeni.editor.config.DocumentMetadataReader;
 import org.bungeni.extutils.CommonXmlUtils;
 import org.bungeni.translators.configurations.steps.OAXSLTStep;
+import org.jdom.Content;
 import org.jdom.Document;
+import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.output.XMLOutputter;
+import org.jdom.xpath.XPath;
 
 /**
  *
@@ -61,42 +65,103 @@ public class StartupConfigGenerator {
         return thisInstance;
     }
 
-    private void createODFMetaMasterXSLT(File baseTemplate, File templateToMerge) throws IOException, TemplateException {
+
+    
+    private void createODFMetaMasterXSLT(String docType,
+            File baseTemplate,
+            File templateToMerge
+            ) throws IOException, TemplateException, JDOMException, CloneNotSupportedException {
         /**
          * The first template is the root template,
          * the content of the following templates is merged into the root template
          * 
          */
+        Document docXSLTtoMergeInto = null;
+        try {
         //get the template XSLT
-        BaseTransformTemplateGenerator inst = BaseTransformTemplateGenerator.getInstance();
-        Template tmplXSLT = inst.getTemplate("type_meta_ident_publi_debaterecord.xsl");
+            docXSLTtoMergeInto  = CommonXmlUtils.loadFile(
+                baseTemplate
+                );
+        } catch (FileNotFoundException ex) {
+            log.error("Error while loading source template xslt " , ex);
+        } catch (UnsupportedEncodingException ex) {
+            log.error("Error while loading source template xslt " , ex);
+        } catch (JDOMException ex) {
+            log.error("Error while loading source template xslt " , ex);
+        }
 
-        HashMap<String, Object> map = new HashMap<String,Object>();
-        Document docXSLT = null;
-                try {
-            docXSLT = CommonXmlUtils.loadFile(
-                    BaseSystemConfig.SYSTEM_TEMPLATES +
-                    File.separator +
-                    "type_tlc_transform_debaterecord.xsl"
+        Document docXSLTtoMergeFrom = null;
+         try {
+            docXSLTtoMergeFrom = CommonXmlUtils.loadFile(
+                    templateToMerge
                     );
         } catch (FileNotFoundException ex) {
-            log.error("Error while loading template xslt " , ex);
+            log.error("Error while loading target template xslt " , ex);
         } catch (UnsupportedEncodingException ex) {
-            log.error("Error while loading template xslt " , ex);
+            log.error("Error while loading target template xslt " , ex);
         } catch (JDOMException ex) {
-            log.error("Error while loading template xslt " , ex);
+            log.error("Error while loading target template xslt " , ex);
         }
-        if (docXSLT != null ) {
-            
-            List childElements = docXSLT.getRootElement().
-                    getChildren();
+        if (docXSLTtoMergeFrom != null ) {
+
+            String strXpathToMergeInto =
+                    "//xsl:template[@match='office:meta']/mcontainer[@name='meta']";
+            String strXpathToMergeChildrenFrom =
+                    "//xsl:template[@match='office:meta']";
+
+            XPath xpathToMergeInto = XPath.newInstance(strXpathToMergeInto);
+            XPath xpathToMergeChildenFrom = XPath.newInstance(strXpathToMergeChildrenFrom);
+
+            boolean mergeRootElementsForDocXSLTtoMergeFrom = true;
+
+            Element elemToMergeInto = (Element) xpathToMergeInto.selectSingleNode(
+                    docXSLTtoMergeInto
+                    );
+
+            Element elemMergeChildrenFrom = (Element) xpathToMergeChildenFrom.selectSingleNode(
+                    docXSLTtoMergeFrom
+                    );
+
+            List childSourceMergeChildren = elemMergeChildrenFrom.getChildren();
+            Collection cl ;
+            for (int i = 0 ; i < childSourceMergeChildren.size(); i++ ){
+                elemToMergeInto.addContent(
+                        (Content)(
+                             (Content) childSourceMergeChildren.get(i)
+                            ).clone()
+                        );
+            }
+
+
+            if (true == mergeRootElementsForDocXSLTtoMergeFrom) {
+                String strXpathSelf = "";
+                if (strXpathToMergeChildrenFrom.startsWith("//")) {
+                    strXpathSelf = strXpathToMergeChildrenFrom.substring(2);
+                } else if (strXpathToMergeChildrenFrom.startsWith("/")) {
+                    strXpathSelf = strXpathToMergeChildrenFrom.substring(1);
+                } else {
+                    strXpathSelf = strXpathToMergeChildrenFrom;
+                }
+                XPath xpathOtherRootChildren = XPath.newInstance(
+                        "/xsl:stylesheet/*[not(self::" + strXpathSelf + ")]"
+                        );
+                List elemsOtherChildren = xpathOtherRootChildren.selectNodes(
+                        docXSLTtoMergeFrom.getRootElement()
+                        );
+
+                for (int j=0 ; j < elemsOtherChildren.size(); j++) {
+                    docXSLTtoMergeInto.getRootElement().addContent(
+                            0,
+                            (Content)
+                              ((Content)elemsOtherChildren.get(j)).clone()
+                      );
+                }
+            }
+
             XMLOutputter xout = new XMLOutputter();
-            StringWriter swout = new StringWriter();
-            xout.output(childElements, swout);
-            map.put("MCONTAINER_REFERENCES", swout.toString());
             FileWriter fw = new FileWriter (new File(BaseSystemConfig.SYSTEM_CACHE + 
-                    File.separator + "odf_meta_config_debaterecord.xsl"));
-            tmplXSLT.process(map, fw);
+                    File.separator + "odf_meta_config_" + docType + ".xsl"));
+            xout.output( docXSLTtoMergeInto, fw);
             fw.flush();
         }
     
@@ -106,11 +171,12 @@ public class StartupConfigGenerator {
         DocTypesReader reader = DocTypesReader.getInstance();
         List<String> doctypeNames = reader.getDocTypeNames();
         for (String doctypeName : doctypeNames) {
+            // process generators per type
             try {
                 ConfigurationProvider cp = ConfigurationProvider.getInstance();
                 cp.generateMergedConfiguration(doctypeName);
                 Document mergedConfigs = cp.getMergedDocument();
-                // generate configuraiton
+                // generate configuraiton pipeline
                 ConfigTemplateGenerator ctg = new ConfigTemplateGenerator();
                 List<OAXSLTStep> inputSteps = new ArrayList<OAXSLTStep>(0);
                 List<OAXSLTStep> outputSteps = new ArrayList<OAXSLTStep>(0);
@@ -121,17 +187,23 @@ public class StartupConfigGenerator {
                             mergedConfigs,
                             doctypeName
                         );
+                // generate tlc generator template
                 File typeTlcGeneratorTemplate = TransformerGenerator.getInstance().
                         typeTlcGeneratorTemplate(
                             mergedConfigs,
                             doctypeName
                         );
+                // generate identity metadata generate template
                 File typeMetaIdentPubliGeneratorTemplate = TransformerGenerator.getInstance().
                         typeMetaIdentifierGenerator(
                             DocumentMetadataReader.getInstance().getDocument(doctypeName),
                             doctypeName
                         );
-                this.createODFMetaMasterXSLT(typeMetaIdentPubliGeneratorTemplate, typeTlcGeneratorTemplate);
+                this.createODFMetaMasterXSLT(
+                        doctypeName,
+                        typeMetaIdentPubliGeneratorTemplate,
+                        typeTlcGeneratorTemplate
+                        );
 
             } catch (Exception ex) {
                 log.error("Exception generating config for doctype :  " + doctypeName, ex);
