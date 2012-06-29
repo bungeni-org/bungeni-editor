@@ -46,8 +46,38 @@
             xmlns:bungeni="http://editor.bungeni.org/1.0/anx/"
             exclude-result-prefixes="xsl xsd xsi text office style table draw fo xlink dc meta number svg chart dr3d math form script ooo ooow oooc dom xforms rdfa of rdf anx"
             version="2.0">
-            
-       <!-- the below template autogenerates the odf -> meta  header for all metadata -->
+    
+        
+     
+     
+     <xsl:comment>
+         Identity Template generator
+     </xsl:comment>
+        
+      <xmeta:template match="@*|*|processing-instruction()|comment()">
+             <!-- Identity template -->
+             <xmeta:copy>
+                 <xmeta:apply-templates select="*|@*|text()|processing-instruction()|comment()"/>
+             </xmeta:copy>
+      </xmeta:template>
+    
+    
+      <xsl:comment>
+          Root template generator
+      </xsl:comment>
+      <xmeta:template match="office:document-content">
+         <root name="root" id="{generate-id(.)}">
+             <meta:apply-templates />
+         </root>
+      </xmeta:template>
+     
+      <xsl:comment>
+          Meta Header template, Contains Executable code, 
+          the references block is dynamically embedded into the
+          template matcher below.
+      </xsl:comment>
+         
+
        <xmeta:template match="office:meta">
         <mcontainer name="meta">
         <mcontainer name="identification">
@@ -191,6 +221,173 @@
         </mcontainer>
         </mcontainer> 
        </xmeta:template>
+         
+         
+         
+        <xsl:comment>System Provided Template Matchers</xsl:comment>
+         
+        <xmeta:template match="text:section">
+             <container>
+                 <xmeta:for-each select="@*[   local-name(.)!='name' and 
+                     local-name(.)!='BungeniSectionType' and 
+                     local-name(.)!='style-name']">
+                     <xmeta:attribute name="{local-name(.)}">
+                         <xmeta:value-of select="."/>
+                     </xmeta:attribute>
+                 </xmeta:for-each>
+                 <xmeta:attribute name="id">
+                     <xmeta:value-of select="@name"/>
+                 </xmeta:attribute>
+                 <xmeta:attribute name="class">
+                     <xmeta:value-of select="@style-name"/>
+                 </xmeta:attribute>
+                 <xmeta:attribute name="name">
+                     <xmeta:value-of select="./bungeni:bungenimeta/bungeni:BungeniSectionType"/>
+                 </xmeta:attribute>
+                 <!-- outputting comment -->
+                 <xmeta:apply-templates />
+             </container>
+         </xmeta:template>
+         
+         <xmeta:template match="text:meta">
+             <inline>
+                 <xmeta:attribute name="name">
+                     <xmeta:value-of select="./bungeni:bungenimeta/bungeni:InlineType" />
+                 </xmeta:attribute>
+                 <xmeta:apply-templates />
+             </inline>
+         </xmeta:template>
+         
+         <xmeta:template match="text:list">
+             <container name="list">
+                 <xmeta:attribute name="class" select="@style-name" />
+                 <xmeta:attribute name="id" select="generate-id(.)" />
+                 <xmeta:apply-templates />
+             </container>
+         </xmeta:template>
+         
+         <xmeta:template match="text:list-header">
+             <xmeta:apply-templates />
+         </xmeta:template>
+         
+         <xmeta:template match="text:list-item">
+             <container name="item">
+                 <!--
+                 <xsl:for-each select="@*">
+                     <xsl:attribute name="{local-name(.)}">
+                         <xsl:value-of select="." />
+                     </xsl:attribute>
+                 </xsl:for-each>
+                 -->
+                 <xmeta:attribute name="id" select="generate-id(.)" />
+                 <xmeta:apply-templates />
+             </container>
+         </xmeta:template>
+         
+         <xmeta:template match="text:p">
+             <block name="p">
+                 <xmeta:attribute name="id" select="generate-id(.)" />
+                 <xmeta:attribute name="class" select="@style-name" />
+                 <xmeta:apply-templates />
+             </block>
+         </xmeta:template>
+         
+         <xmeta:template match="text:span">
+             <inline name="span">
+                 <xmeta:attribute name="id" select="generate-id(.)" />
+                 <xmeta:attribute name="class" select="@style-name" />
+                 <xmeta:apply-templates />
+             </inline>
+         </xmeta:template>
+         
+         <xmeta:template match="text:a">
+             <inline name="a">
+                 <xmeta:attribute name="id" select="generate-id(.)" />
+                 <xmeta:attribute name="href" select="tokenize(@href,':')[position()=2]" />
+                 <xmeta:apply-templates />
+             </inline>
+         </xmeta:template>
+         
+         
+         <xmeta:template match="text:p">
+             <block name="p">
+                 <xmeta:attribute name="id" select="generate-id(.)" />
+                 <xmeta:attribute name="class" select="@style-name" />
+                 <xmeta:apply-templates />
+             </block>
+         </xmeta:template>
+         
+         <xmeta:template match="text:span">
+             <inline name="span">
+                 <xmeta:attribute name="id" select="generate-id(.)" />
+                 <xmeta:attribute name="class" select="@style-name" />
+                 <xmeta:apply-templates />
+             </inline>
+         </xmeta:template>
+         
+         <xmeta:template match="text:a">
+             <inline name="a">
+                 <xmeta:attribute name="id" select="generate-id(.)" />
+                 <xmeta:attribute name="href" select="tokenize(@href,':')[position()=2]" />
+                 <!--
+                     <xsl:attribute name="href" select="@href" />
+                 -->
+                 <xmeta:apply-templates />
+             </inline>
+         </xmeta:template>
+         
+         <xmeta:template match="text:p[tokenize(@style-name,'_')[position()=1] = 'heading']">
+             <htitle>
+                 <xmeta:attribute name="id" select="generate-id(.)" />
+                 <xmeta:attribute name="name" select="tokenize(@style-name,'_')[position()=1]" />
+                 <xmeta:attribute name="class" select="tokenize(@style-name,'_')[position()=2]" />
+                 <xmeta:apply-templates />
+             </htitle>
+         </xmeta:template>
+         
+         <xmeta:template match="text:p[tokenize(@style-name,'_')[position()=1] = 'subheading']">
+             <htitle>
+                 <xmeta:attribute name="id" select="generate-id(.)" />
+                 <xmeta:attribute name="name" select="tokenize(@style-name,'_')[position()=1]" />
+                 <xmeta:attribute name="class" select="tokenize(@style-name,'_')[position()=2]" />
+                 <xmeta:apply-templates />
+             </htitle>
+         </xmeta:template>
+         
+         <xmeta:template match="text:p[tokenize(@style-name,'_')[position()=1] = 'num']">
+             <htitle>
+                 <xmeta:attribute name="id" select="generate-id(.)" />
+                 <xmeta:attribute name="name" select="tokenize(@style-name,'_')[position()=1]" />
+                 <xmeta:attribute name="class" select="tokenize(@style-name,'_')[position()=2]" />
+                 <xmeta:apply-templates />
+             </htitle>
+         </xmeta:template>
+         
+         <xmeta:template match="text:p[tokenize(@style-name,'_')[position()=1] = 'sidenote']">
+             <htitle>
+                 <xmeta:attribute name="id" select="generate-id(.)" />
+                 <xmeta:attribute name="name" select="tokenize(@style-name,'_')[position()=1]" />
+                 <xmeta:attribute name="class" select="tokenize(@style-name,'_')[position()=2]" />
+                 <xmeta:apply-templates />
+             </htitle>
+         </xmeta:template>
+         
+         <xmeta:template match="text:soft-page-break">
+             <milestone name="eol">
+                 <xmeta:attribute name="id" select="generate-id(.)" />
+                 <xmeta:apply-templates />
+             </milestone>
+         </xmeta:template>
+         
+         <xmeta:template match="text:tab"></xmeta:template>
+         
+         <xmeta:template match="text:s"></xmeta:template>
+         
+         <xmeta:template match="text()">
+             <xmeta:value-of select="normalize-space(.)" />
+         </xmeta:template>
+         
+         
      </xmeta:stylesheet>
     </xsl:template>
     
