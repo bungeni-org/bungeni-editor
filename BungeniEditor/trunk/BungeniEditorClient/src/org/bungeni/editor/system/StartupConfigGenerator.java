@@ -67,7 +67,7 @@ public class StartupConfigGenerator {
 
 
     
-    private void createODFMetaMasterXSLT(String docType,
+    private File createODFMetaMasterXSLT(String docType,
             File baseTemplate,
             File templateToMerge
             ) throws IOException, TemplateException, JDOMException, CloneNotSupportedException {
@@ -76,6 +76,8 @@ public class StartupConfigGenerator {
          * the content of the following templates is merged into the root template
          * 
          */
+        File outputFile = null;
+
         Document docXSLTtoMergeInto = null;
         try {
         //get the template XSLT
@@ -159,12 +161,14 @@ public class StartupConfigGenerator {
             }
 
             XMLOutputter xout = new XMLOutputter();
-            FileWriter fw = new FileWriter (new File(BaseSystemConfig.SYSTEM_CACHE + 
-                    File.separator + "odf_meta_config_" + docType + ".xsl"));
+            outputFile = new File(BaseSystemConfig.SYSTEM_CACHE +
+                    File.separator + "odf_meta_config_" + docType + ".xsl");
+            FileWriter fw = new FileWriter (outputFile);
             xout.output( docXSLTtoMergeInto, fw);
             fw.flush();
         }
-    
+
+        return outputFile;
     }
 
     public void startupGenerate(){
@@ -177,10 +181,6 @@ public class StartupConfigGenerator {
                 cp.generateMergedConfiguration(doctypeName);
                 Document mergedConfigs = cp.getMergedDocument();
                 // generate configuraiton pipeline
-                ConfigTemplateGenerator ctg = new ConfigTemplateGenerator();
-                List<OAXSLTStep> inputSteps = new ArrayList<OAXSLTStep>(0);
-                List<OAXSLTStep> outputSteps = new ArrayList<OAXSLTStep>(0);
-                ctg.process(doctypeName, doctypeName, false, inputSteps, outputSteps);
                 // generate type transformation
                 File typeGeneratorTemplate = TransformerGenerator.getInstance().
                         typeGeneratorTemplate(
@@ -199,11 +199,34 @@ public class StartupConfigGenerator {
                             DocumentMetadataReader.getInstance().getDocument(doctypeName),
                             doctypeName
                         );
-                this.createODFMetaMasterXSLT(
+                
+                //This is the odf to meta master template
+                File odfMetaMasterXSLT = this.createODFMetaMasterXSLT(
                         doctypeName,
                         typeMetaIdentPubliGeneratorTemplate,
                         typeTlcGeneratorTemplate
                         );
+                ConfigTemplateGenerator ctg = new ConfigTemplateGenerator();
+                List<OAXSLTStep> inputSteps = new ArrayList<OAXSLTStep>(0);
+
+                if (odfMetaMasterXSLT != null ) {
+                    OAXSLTStep metaMasterSte = new OAXSLTStep(
+                            "odf_meta_lang_master",
+                            odfMetaMasterXSLT.toURI().toURL().toExternalForm(),
+                            99
+                            );
+                    String s =  odfMetaMasterXSLT.toURI().toURL().toExternalForm();
+                    inputSteps.add(
+                        new OAXSLTStep(
+                            "odf_meta_lang_master",
+                            odfMetaMasterXSLT.toURI().toURL().toExternalForm(),
+                            99
+                            )
+                       );
+                }
+
+                List<OAXSLTStep> outputSteps = new ArrayList<OAXSLTStep>(0);
+                ctg.process(doctypeName, doctypeName, false, inputSteps, outputSteps);
 
             } catch (Exception ex) {
                 log.error("Exception generating config for doctype :  " + doctypeName, ex);

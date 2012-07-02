@@ -32,7 +32,7 @@ ODT -> Akoma Ntoso
         <!-- custom steps follow -->
         <!--{UNCOMMENT_MERGE_OPEN}
         <#list input_steps as step>
-        <xslt step="${step.position}" name="${step.name}" href="${custom_trans_path}/${step.href}"/>
+        <xslt step="${step.position}" name="${step.name}" href="${step.href}"/>
         </#list>
         {UNCOMMENT_MERGE_CLOSE}-->
     </input>
@@ -68,7 +68,7 @@ ODT -> Akoma Ntoso
         
         <!--{UNCOMMENT_MERGE_OPEN}
         <#list output_steps as step>
-        <xslt step="${step.position}" name="${step.name}" href="${custom_trans_path}/${step.href}"/>
+        <xslt step="${step.position}" name="${step.name}" href="${step.href}"/>
         </#list>
         {UNCOMMENT_MERGE_CLOSE}-->
     </output>

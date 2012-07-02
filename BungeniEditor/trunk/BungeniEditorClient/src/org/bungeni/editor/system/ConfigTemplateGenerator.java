@@ -21,11 +21,15 @@ package org.bungeni.editor.system;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.io.IOUtils;
 import org.bungeni.translators.configurations.steps.OAXSLTStep;
 
 /**
@@ -58,7 +62,6 @@ public class ConfigTemplateGenerator {
             ) throws IOException, TemplateException {
         BaseTransformTemplateGenerator instance = BaseTransformTemplateGenerator.getInstance();
         Template tmpl = instance.getTemplate("config_tmpl.xml");
-
         Map<String,Object> objectMap = new HashMap<String,Object>();
         objectMap.put("configname", configName);
         objectMap.put("doctype", docType);
@@ -73,13 +76,19 @@ public class ConfigTemplateGenerator {
         if (!fcache.exists()){
             fcache.mkdirs();
         }
-        FileWriter fwoutput = new FileWriter(BaseSystemConfig.SYSTEM_CACHE +
+        String configFileName = BaseSystemConfig.SYSTEM_CACHE +
                 File.separator +
                 "config_" +
                 docType +
-                ".xml");
+                ".xml";
+        FileWriter fwoutput = new FileWriter(configFileName);
         tmpl.process(objectMap, fwoutput);
         fwoutput.flush();
+        //remove merge tags
+        String fileContent = IOUtils.toString(new FileInputStream(configFileName), "UTF-8");
+        String replOpen = fileContent.replace("<!--{UNCOMMENT_MERGE_OPEN}", "");
+        String replClose = replOpen.replace("{UNCOMMENT_MERGE_CLOSE}-->", "");
+        IOUtils.write(replClose, new FileOutputStream(configFileName), "UTF-8");
     }
 
 }
