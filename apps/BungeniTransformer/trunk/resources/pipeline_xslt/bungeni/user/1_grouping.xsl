@@ -60,7 +60,6 @@
                     @name='last_name' or 
                     @name='user_id' or 
                     @name='description' or 
-                    @name='language' or 
                     @name='gender' or 
                     @name='active_p' or 
                     @name='date_of_birth' or 

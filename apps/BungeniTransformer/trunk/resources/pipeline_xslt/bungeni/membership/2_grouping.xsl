@@ -108,6 +108,12 @@
         </parentGroupId>
     </xsl:template>  
     
+    <xsl:template match="field[@name='region_id']">
+        <userId type="xs:integer">
+            <xsl:value-of select="." />
+        </userId>
+    </xsl:template>     
+    
     <xsl:template match="field[@name='identifier']">
         <identifier isA="TLCTerm">
             <value type="xs:string">
@@ -132,6 +138,12 @@
         <description>
             <xsl:value-of select="." />
         </description>
+    </xsl:template>
+    
+    <xsl:template match="field[@name='notes']">
+        <notes>
+            <xsl:value-of select="." />
+        </notes>
     </xsl:template>
     
     <xsl:template match="field[@name='language']">
@@ -213,7 +225,23 @@
                 <xsl:value-of select="." />                
             </value>
         </type>
+    </xsl:template>  
+    
+    <xsl:template match="field[@name='membership_type']">
+        <membershipType isA="TLCTerm">
+            <value type="xs:string">
+                <xsl:value-of select="." />                
+            </value>
+        </membershipType>
     </xsl:template>     
+    
+    <xsl:template match="field[@name='member_election_type']">
+        <memberElectionType isA="TLCTerm">
+            <value type="xs:string">
+                <xsl:value-of select="." />                
+            </value>
+        </memberElectionType>
+    </xsl:template>         
     
     <xsl:template match="field[@name='birth_nationality']">
         <birthNationality type="xs:string">
@@ -266,6 +294,12 @@
             <xsl:value-of select="." />
         </electionDate>
     </xsl:template>    
+    
+    <xsl:template match="field[@name='election_nomination_date']">
+        <electionNominationDate type="xs:date">
+            <xsl:value-of select="." />
+        </electionNominationDate>
+    </xsl:template>      
     
     <xsl:template match="field[@name='status_date']">
         <xsl:variable name="status_date" select="." />
@@ -321,6 +355,28 @@
             <xsl:value-of select="." />
         </quorum>
     </xsl:template>    
+    
+    <xsl:template match="region">
+        <region
+            name="{field[@name='region']}" 
+            id="{field[@name='region_id']}"  
+            lang="{field[@name='language']}" />
+    </xsl:template>     
+    
+    <xsl:template match="province">
+        <province
+                name="{field[@name='province']}" 
+                id="{field[@name='province_id']}"  
+                lang="{field[@name='language']}" />
+    </xsl:template>   
+    
+    <xsl:template match="constituency">
+        <constituency
+            id="{field[@name='constituency_id']}" 
+            name="{field[@name='name']}"  
+            lang="{field[@name='language']}" 
+            startDate="{field[@name='start_date']}" />
+    </xsl:template>     
     
     <xsl:template match="permissions">
         <permissions id="membershipPermissions">

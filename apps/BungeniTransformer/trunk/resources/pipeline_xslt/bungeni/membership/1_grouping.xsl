@@ -34,10 +34,10 @@
         <ontology for="membership">
             
             <!-- this return the embedded membership-title etc .-->
-            <xsl:variable name="bungeni-membership-type" select="@name" />
+            <xsl:variable name="bungeni-membership-name" select="@name" />
             <!-- we map internal group type names to configured mapped name types -->
-            <xsl:variable name="group-element-name" select="bctype:get_content_type_element_name($bungeni-membership-type, $type-mappings)" />
-            <xsl:variable name="content-type-uri-name" select="bctype:get_content_type_uri_name($bungeni-membership-type, $type-mappings)" />
+            <xsl:variable name="group-element-name" select="bctype:get_content_type_element_name($bungeni-membership-name, $type-mappings)" />
+            <xsl:variable name="content-type-uri-name" select="bctype:get_content_type_uri_name($bungeni-membership-name, $type-mappings)" />
             
             <xsl:variable name="group_principal_id" select="field[@name='group_principal_id']" />
             <xsl:variable name="group_id" select="field[@name='group_id']" />            
@@ -84,8 +84,8 @@
                 
                 <docType isA="TLCTerm">
                     <value type="xs:string"><xsl:value-of select="$content-type-uri-name" /></value>
-                </docType>                 
-              
+                </docType>      
+
                 <!--
                     <xsl:attribute name="uri" 
                     select="concat('/', $country-code, '/',
@@ -96,14 +96,24 @@
                 
                 <xsl:copy-of select="field[  
                     @name='status' or 
-                    @name='party_id' or                     
-                    @name='partymember' ]" 
+                    @name='party_id' or 
+                    @name='membership_type' or  
+                    @name='member_election_type' or 
+                    @name='partymember' or 
+                    @name='status' or 
+                    @name='election_nomination_date' or 
+                    @name='start_date' or 
+                    @name='notes' ]" 
                 />     
                 <referenceToUser uri="{concat('/ontology/Person/',$full-user-identifier)}" />
                 <xsl:copy-of select="contained_groups" />                
                 <xsl:copy-of select="user/child::*" /> 
+                <xsl:copy-of select="province" />  
+                <xsl:copy-of select="region" /> 
+                <xsl:copy-of select="constituency" /> 
                 <xsl:copy-of select="changes | member_titles"/>
                 <xsl:copy-of select="group" />
+                <xsl:copy-of select="party" />
                 
                 <!-- PERMISSIONS -->
                 <xsl:copy-of select="permissions" />                  

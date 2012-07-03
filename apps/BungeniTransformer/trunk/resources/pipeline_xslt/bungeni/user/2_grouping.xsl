@@ -77,19 +77,23 @@
     
     <xsl:template match="field[@name='gender']">
         <xsl:variable name="field_gender" select="." />
-        <gender>
+        <!--gender>
             <xsl:choose >
                 <xsl:when test="$field_gender eq 'M'">male</xsl:when>
                 <xsl:when test="$field_gender eq 'F'">female</xsl:when>
                 <xsl:otherwise>unknown</xsl:otherwise>
             </xsl:choose>
+        </gender-->
+        
+        <gender isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.gender" >
+            <xsl:value-of select="." />
         </gender>
+        
     </xsl:template>
     
     <xsl:template match="field[@name='date_of_birth']">
-        <dateOfBirth type="xs:dateTime">
-            <xsl:variable name="date_of_birth" select="." />
-            <xsl:value-of select="bdates:parse-date($date_of_birth)" />
+        <dateOfBirth type="xs:date">
+            <xsl:value-of select="." />
         </dateOfBirth>
     </xsl:template>  
     

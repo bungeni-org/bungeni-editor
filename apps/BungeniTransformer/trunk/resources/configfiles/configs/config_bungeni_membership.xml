@@ -60,6 +60,10 @@
             description="group description text"
             param="//bu:ontology/bu:legislature/bu:description" />
         
+        <process name="unescapehtml"
+            description="membership notes text"
+            param="//bu:ontology//bu:notes" />        
+        
     </processgroup>
     
 </config>
