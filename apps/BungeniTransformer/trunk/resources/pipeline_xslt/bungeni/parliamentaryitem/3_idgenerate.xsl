@@ -45,10 +45,12 @@
             <xsl:when test="$uri-type eq 'Event'">
                 <xsl:text>PROGRESSIVE-INTERNAL</xsl:text>
             </xsl:when>
+            
             <!-- generate @internal-uri dont generate @uri -->
-            <xsl:otherwise>
+            <!-- !+NOTE (ao, July 4, 2012) Removing INTERNAL from condition since it will always be generated -->
+            <!--xsl:otherwise>
                 <xsl:text>INTERNAL</xsl:text>
-            </xsl:otherwise>
+            </xsl:otherwise-->
         </xsl:choose>
     </xsl:variable>
 
@@ -84,7 +86,8 @@
                     )">
                 </xsl:sequence>
             </xsl:when>
-            <xsl:otherwise>
+            <!-- See !+NOTE above in $uri-generator-type -->
+            <!--xsl:otherwise>
                 <xsl:variable name="doc-number" select="data(/ontology/document/docId)" />
                 <xsl:sequence  
                     select="bctypes:get_doc_uri(
@@ -95,9 +98,22 @@
                     $lang
                     )">
                 </xsl:sequence>
-            </xsl:otherwise>
+            </xsl:otherwise-->
         </xsl:choose>
     </xsl:variable>
+    
+    <xsl:variable name="internal-doc-uri">
+        <xsl:variable name="doc-number" select="data(/ontology/document/docId)" />
+        <xsl:sequence  
+            select="bctypes:get_doc_uri(
+            $country,
+            $uri-type,
+            $uri-active-date,
+            $doc-number,
+            $lang
+            )">
+        </xsl:sequence>
+    </xsl:variable>    
     
     <xsl:template match="@*|*|processing-instruction()|comment()">
         <xsl:copy>
@@ -115,11 +131,13 @@
                 </xsl:when> <!--
                 <xsl:when test="$uri-generator-type eq 'PROGRESSIVE-INTERNAL'">
                     <xsl:attribute name="uri" select="$doc-uri" />
-                </xsl:when>     -->           
-                <xsl:otherwise>
+                    </xsl:when>     -->         
+                <!-- See !+NOTE above in $uri-generator-type -->
+                <!--xsl:otherwise>
                     <xsl:attribute name="internal-uri" select="$doc-uri" />
-                </xsl:otherwise>
+                </xsl:otherwise-->
             </xsl:choose>
+            <xsl:attribute name="internal-uri" select="$internal-doc-uri" />
             <xsl:apply-templates select="*|@*|text()|processing-instruction()|comment()"/>
         </xsl:copy>
     </xsl:template>
