@@ -23,7 +23,6 @@ import freemarker.template.TemplateException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
@@ -85,6 +84,10 @@ public class ConfigTemplateGenerator {
         tmpl.process(objectMap, fwoutput);
         fwoutput.flush();
         //remove merge tags
+        removeMergeTags(configFileName);
+    }
+
+    public static void removeMergeTags(String configFileName) throws IOException{
         String fileContent = IOUtils.toString(new FileInputStream(configFileName), "UTF-8");
         String replOpen = fileContent.replace("<!--{UNCOMMENT_MERGE_OPEN}", "");
         String replClose = replOpen.replace("{UNCOMMENT_MERGE_CLOSE}-->", "");

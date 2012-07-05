@@ -18,19 +18,15 @@
 
 package org.bungeni.editor.system;
 
-import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.config.DocTypesReader;
 import org.bungeni.editor.config.DocumentMetadataReader;
@@ -49,22 +45,14 @@ import org.jdom.xpath.XPath;
  */
 public class StartupConfigGenerator {
 
-   private static final Logger log =
+    private static final Logger log =
              Logger.getLogger(StartupConfigGenerator.class.getName());
 
-    private StartupConfigGenerator(){
+    ConfigGeneratorError generatorError = null;
 
+    public StartupConfigGenerator(){
+         generatorError = new ConfigGeneratorError();
     }
-
-    private static StartupConfigGenerator thisInstance = null;
-
-    public static StartupConfigGenerator getInstance(){
-        if (null == thisInstance) {
-            thisInstance = new StartupConfigGenerator();
-        }
-        return thisInstance;
-    }
-
 
     
     private File createODFMetaMasterXSLT(String docType,
@@ -85,24 +73,54 @@ public class StartupConfigGenerator {
                 baseTemplate
                 );
         } catch (FileNotFoundException ex) {
-            log.error("Error while loading source template xslt " , ex);
+            log.error(ex);
+            generatorError.add(
+                    docType,
+                    "File not found Error while adding source Template file :" + baseTemplate,
+                    ex.getMessage()
+                    );
         } catch (UnsupportedEncodingException ex) {
-            log.error("Error while loading source template xslt " , ex);
+            log.error(ex);
+            generatorError.add(
+                    docType,
+                    "Encoding error while loading source Template file :" + baseTemplate,
+                    ex.getMessage()
+                    );
         } catch (JDOMException ex) {
-            log.error("Error while loading source template xslt " , ex);
+            log.error(ex);
+            generatorError.add(
+                    docType,
+                    "DOM loading error while loading source Template file :" + baseTemplate,
+                    ex.getMessage()
+                    );
         }
 
         Document docXSLTtoMergeFrom = null;
-         try {
+        try {
             docXSLTtoMergeFrom = CommonXmlUtils.loadFile(
                     templateToMerge
                     );
         } catch (FileNotFoundException ex) {
-            log.error("Error while loading target template xslt " , ex);
+            log.error(ex);
+            generatorError.add(
+                docType,
+                "File not found error while loading XSLT template to merge file :" + templateToMerge,
+                ex.getMessage()
+                );
         } catch (UnsupportedEncodingException ex) {
-            log.error("Error while loading target template xslt " , ex);
+            log.error(ex);
+            generatorError.add(
+                docType,
+                "Encoding error while loading Template to merge file :" + templateToMerge,
+                ex.getMessage()
+                );
         } catch (JDOMException ex) {
-            log.error("Error while loading target template xslt " , ex);
+            log.error(ex);
+            generatorError.add(
+                docType,
+                "DOM while loading Template to merge file :" + templateToMerge,
+                ex.getMessage()
+                );
         }
         if (docXSLTtoMergeFrom != null ) {
 
@@ -178,24 +196,27 @@ public class StartupConfigGenerator {
             // process generators per type
             try {
                 ConfigurationProvider cp = ConfigurationProvider.getInstance();
-                cp.generateMergedConfiguration(doctypeName);
+                cp.generateMergedConfiguration(this.generatorError, doctypeName);
                 Document mergedConfigs = cp.getMergedDocument();
                 // generate configuraiton pipeline
                 // generate type transformation
                 File typeGeneratorTemplate = TransformerGenerator.getInstance().
                         typeGeneratorTemplate(
+                            this.generatorError,
                             mergedConfigs,
                             doctypeName
                         );
                 // generate tlc generator template
                 File typeTlcGeneratorTemplate = TransformerGenerator.getInstance().
                         typeTlcGeneratorTemplate(
+                            this.generatorError,
                             mergedConfigs,
                             doctypeName
                         );
                 // generate identity metadata generate template
                 File typeMetaIdentPubliGeneratorTemplate = TransformerGenerator.getInstance().
                         typeMetaIdentifierGenerator(
+                            this.generatorError,
                             DocumentMetadataReader.getInstance().getDocument(doctypeName),
                             doctypeName
                         );
@@ -208,14 +229,10 @@ public class StartupConfigGenerator {
                         );
                 ConfigTemplateGenerator ctg = new ConfigTemplateGenerator();
                 List<OAXSLTStep> inputSteps = new ArrayList<OAXSLTStep>(0);
+                List<OAXSLTStep> outputSteps = new ArrayList<OAXSLTStep>(0);
 
                 if (odfMetaMasterXSLT != null ) {
-                    OAXSLTStep metaMasterSte = new OAXSLTStep(
-                            "odf_meta_lang_master",
-                            odfMetaMasterXSLT.toURI().toURL().toExternalForm(),
-                            99
-                            );
-                    String s =  odfMetaMasterXSLT.toURI().toURL().toExternalForm();
+
                     inputSteps.add(
                         new OAXSLTStep(
                             "odf_meta_lang_master",
@@ -223,16 +240,30 @@ public class StartupConfigGenerator {
                             99
                             )
                        );
+
+                    outputSteps.add(
+                        new OAXSLTStep(
+                            "full_convert",
+                            typeGeneratorTemplate.toURI().toURL().toExternalForm(),
+                            98
+                            )
+                       );
+
                 }
 
-                List<OAXSLTStep> outputSteps = new ArrayList<OAXSLTStep>(0);
                 ctg.process(doctypeName, doctypeName, false, inputSteps, outputSteps);
 
             } catch (Exception ex) {
-                log.error("Exception generating config for doctype :  " + doctypeName, ex);
+                log.error(ex);
+                generatorError.add(
+                    doctypeName,
+                    "Error while generating configuration file ",
+                    ex.getMessage()
+                    );
             } 
 
         }
+        this.generatorError.saveFile();
     }
 
 }

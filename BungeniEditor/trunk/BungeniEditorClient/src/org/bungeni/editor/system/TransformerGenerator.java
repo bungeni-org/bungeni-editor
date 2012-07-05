@@ -81,7 +81,7 @@ public class TransformerGenerator {
         }
     }
 
-    public File typeTlcGeneratorTemplate(Document mergedConfigs, String docType) throws IOException {
+    public File typeTlcGeneratorTemplate(ConfigGeneratorError err, Document mergedConfigs, String docType) throws IOException {
         StreamSource xsltTypeGenerator = null;
         File ftypeGenerator =   new File(
             BaseSystemConfig.SYSTEM_TEMPLATES + File.separator +
@@ -112,7 +112,7 @@ public class TransformerGenerator {
         return ftypeGenerator;
     }
 
-    public File typeGeneratorTemplate(Document mergedConfigs, String docType) throws JDOMException, IOException {
+    public File typeGeneratorTemplate(ConfigGeneratorError err, Document mergedConfigs, String docType) throws JDOMException, IOException {
         StreamSource xsltTypeGenerator = null;
         File ftypeGenerator =   new File(
             BaseSystemConfig.SYSTEM_TEMPLATES + File.separator +
@@ -141,7 +141,7 @@ public class TransformerGenerator {
         return ftypeGenerator;
     }
 
-public File typeMetaIdentifierGenerator(Document metadataDocument, String docType) throws JDOMException, IOException {
+public File typeMetaIdentifierGenerator(ConfigGeneratorError err, Document metadataDocument, String docType) throws JDOMException, IOException {
         StreamSource xsltTypeGenerator = null;
         
         String generatorName = "type_meta_ident_publi";
@@ -179,13 +179,13 @@ public File typeMetaIdentifierGenerator(Document metadataDocument, String docTyp
     }
 
 
-    public List<File> typeGenerators(String docType) throws JDOMException, IOException {
+    public List<File> typeGenerators(ConfigGeneratorError err, String docType) throws JDOMException, IOException {
         List<File> genFiles = new ArrayList<File>(0);
         ConfigurationProvider cp = ConfigurationProvider.getInstance();
-        cp.generateMergedConfiguration(docType);
+        cp.generateMergedConfiguration(err, docType);
         Document doc = cp.getMergedDocument();
-        File f1 = typeGeneratorTemplate(doc, docType);
-        File f2 = typeTlcGeneratorTemplate(doc, docType);
+        File f1 = typeGeneratorTemplate(err, doc, docType);
+        File f2 = typeTlcGeneratorTemplate(err, doc, docType);
         return genFiles;
     }
 

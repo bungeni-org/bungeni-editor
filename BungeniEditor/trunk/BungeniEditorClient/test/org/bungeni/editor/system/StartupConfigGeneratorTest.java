@@ -45,7 +45,7 @@ public class StartupConfigGeneratorTest extends TestCase {
      */
     public void testStartupGenerate() {
         System.out.println("startupGenerate");
-        StartupConfigGenerator instance = StartupConfigGenerator.getInstance();
+        StartupConfigGenerator instance = new StartupConfigGenerator();
         instance.startupGenerate();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

@@ -62,6 +62,10 @@ public class BaseSystemConfig {
             BaseSystemConfig.SYSTEM_BASE + File.separator +
             "transformer";
 
+    public final static String SYSTEM_TRANSFORMER_ERROR =
+            BaseSystemConfig.SYSTEM_BASE + File.separator +
+            "errors";
+
 
     public static String getHrefTemplates() throws MalformedURLException{
         return CommonFileFunctions.getURLPath(SYSTEM_TEMPLATES);

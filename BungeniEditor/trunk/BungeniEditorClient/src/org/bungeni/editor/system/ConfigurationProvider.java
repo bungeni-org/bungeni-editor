@@ -84,13 +84,22 @@ public final class ConfigurationProvider {
      * This is called during instantiation of the ConfigurationProvider instance
      * @param forDocType
      */
-    public void generateMergedConfiguration(String forDocType){
+    public void generateMergedConfiguration(ConfigGeneratorError err, String forDocType){
         //merge sectionType and inlineTypes configuration.
         //This is the root element for the temporary merged config document
         Element allConfigs = new Element("allConfigs");
         Document docAllConfigs = new Document(allConfigs);
-        addSectionTypesConfig(forDocType, allConfigs);
-        addInlineTypesConfig(forDocType, allConfigs);
+        try {
+         addSectionTypesConfig(forDocType, allConfigs);
+        }  catch (Exception ex) {
+         log.error(ex);
+             err.add(forDocType, "Error while processing section type config", ex.getStackTrace().toString());
+        }
+        try {
+         addInlineTypesConfig(forDocType, allConfigs);
+        } catch (Exception ex) {
+             err.add(forDocType, "Error while processing inline type config", ex.getStackTrace().toString());
+        }
         this.thisDocument = docAllConfigs ;
     }
 
