@@ -75,7 +75,7 @@
                     @name='tabled_document_number' ] |
                     user_addresses " />
             </user>
-            
+            <xsl:copy-of select="image"/>
             <xsl:copy-of select="subscriptions"/>
             
             <bungeni id="bungeniMeta" showAs="Bungeni Specific info" isA="TLCObject">

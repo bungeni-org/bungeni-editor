@@ -151,6 +151,24 @@
         </currentNationality>
     </xsl:template>      
     
+    <xsl:template match="image">
+        <image isA="TLCObject">
+            <xsl:apply-templates />
+        </image>
+    </xsl:template>       
+    
+    <xsl:template match="field[@name='saved_file']">
+        <savedFile type="xs:string">
+            <xsl:value-of select="." />
+        </savedFile>
+    </xsl:template>  
+    
+    <xsl:template match="field[@name='img_uuid']">
+        <imageUuid type="xs:string">
+            <xsl:value-of select="." />
+        </imageUuid>
+    </xsl:template>
+    
     <xsl:template match="field[@name='timestamp' or 
         @name='date_active' or 
         @name='date_audit']">
