@@ -72,8 +72,8 @@
                     @name='email' or 
                     @name='birth_nationality' or 
                     @name='current_nationality' or 
-                    @name='tabled_document_number' ] |
-                    user_addresses " />
+                    @name='tabled_document_number' ] " />
+                <xsl:copy-of select="user_addresses"/>
             </user>
             <xsl:copy-of select="image"/>
             <xsl:copy-of select="subscriptions"/>
