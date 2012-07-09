@@ -101,8 +101,8 @@
                 
                 <xsl:copy-of select="field[
                     @name='status' or 
-                    @name='short_title' or 
-                    @name='full_title' or 
+                    @name='title' or 
+                    @name='long_title' or 
                     @name='body' or 
                     @name='language'  or 
                     @name='owner_id' or

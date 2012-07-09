@@ -167,23 +167,17 @@
         </manual>
     </xsl:template>     
     
-    <xsl:template match="field[@name='short_title']">
-        <shortTitle type="xs:string">
+    <xsl:template match="field[@name='title']">
+        <title type="xs:string">
             <xsl:value-of select="." />
-        </shortTitle>
+        </title>
     </xsl:template>  
     
     <xsl:template match="field[@name='long_title']">
         <longTitle type="xs:string">
             <xsl:value-of select="." />
         </longTitle>
-    </xsl:template>       
-    
-    <xsl:template match="field[@name='title']">
-        <title type="xs:string">
-            <xsl:value-of select="." />
-        </title>
-    </xsl:template>   
+    </xsl:template>  
     
     <xsl:template match="field[@name='mimetype']">
         <mimetype isA="TLCTerm">
@@ -561,7 +555,7 @@
             -->
         <workflowEvent 
             isA="TLCEvent"
-            showAs="{field[@name='short_title']}" 
+            showAs="{field[@name='title']}" 
         >
             <xsl:apply-templates />
         </workflowEvent>
