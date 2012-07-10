@@ -243,12 +243,6 @@
         </zipCode>
     </xsl:template>
     
-    <xsl:template match="field[@name='street']">
-        <street type="xs:string">
-            <xsl:value-of select="."/>
-        </street>
-    </xsl:template>    
-    
     <xsl:template match="field[@name='status_date']">
         <xsl:variable name="status_date" select="." />
         <statusDate type="xs:dateTime">
