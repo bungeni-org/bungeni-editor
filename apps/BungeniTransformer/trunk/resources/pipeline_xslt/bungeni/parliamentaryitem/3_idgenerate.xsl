@@ -186,12 +186,23 @@
         </audit>
     </xsl:template>
     
+    <xsl:variable name="uri">
+        <xsl:choose>
+            <xsl:when test="normalize-space($doc-uri) != ''">
+                <xsl:value-of select="$doc-uri"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$internal-doc-uri"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
+    
     <xsl:template match="version[parent::versions/parent::document]">
         <xsl:variable name="version-xml-id" select="data(auditId)">
         </xsl:variable>
         <xsl:copy>
             <xsl:attribute name="id" select="concat('document-version-',$version-xml-id)" />
-            <xsl:attribute name="uri" select="concat($doc-uri, '@', data(activeDate))" />
+            <xsl:attribute name="uri" select="concat($uri, '@', data(activeDate))" />
             <refersToAudit>
                 <xsl:attribute name="href"
                     select="concat('#document-audit-', $version-xml-id)" />
