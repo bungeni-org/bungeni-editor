@@ -23,6 +23,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -61,13 +62,13 @@ public class ConfigGeneratorError {
     public void add(
             String docType,
             String errorMessage,
-            String exceptionMessage
+            Exception ex
             ) {
       Element errors = docError.getRootElement();
       Element error = new Element("error");
       error.setAttribute("doctype", docType);
       error.addContent((new Element("message")).setText(errorMessage));
-      error.addContent((new Element("exception")).setText(exceptionMessage));
+      error.addContent((new Element("exception")).setText(ExceptionUtils.getStackTrace(ex)));
       errors.addContent(error);
     }
 

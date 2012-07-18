@@ -1,7 +1,6 @@
 package org.bungeni.editor;
 
 //~--- non-JDK imports --------------------------------------------------------
-import java.awt.Toolkit;
 import org.apache.log4j.BasicConfigurator;
 
 import org.bungeni.editor.dialogs.editorApplicationController;
@@ -21,7 +20,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
 
 import java.util.Locale;
 import java.util.Properties;
@@ -33,9 +31,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
-import org.apache.log4j.PropertyConfigurator;
 import org.bungeni.editor.noa.BungeniNoaApp;
 import org.bungeni.editor.noa.ext.BungeniLocalOfficeApplication;
+import org.bungeni.editor.system.StartupConfigGenerator;
 import org.bungeni.extutils.BungeniRuntimeProperties;
 
 /**
@@ -268,6 +266,9 @@ public class BungeniEditorClient {
                         // set the default language and locale
                         setIniProperties();
                         initOOo();
+                        // 
+                        StartupConfigGenerator sconfig = new StartupConfigGenerator();
+                        sconfig.startupGenerate();
                     } catch (FileNotFoundException ex) {
                         log.error("editor.ini not found", ex);
                     } catch (IOException ex) {

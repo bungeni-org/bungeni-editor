@@ -93,12 +93,14 @@ public final class ConfigurationProvider {
          addSectionTypesConfig(forDocType, allConfigs);
         }  catch (Exception ex) {
          log.error(ex);
-             err.add(forDocType, "Error while processing section type config", ex.getStackTrace().toString());
+             err.add(forDocType, "Error while processing section type config "
+                     + "while merging section Type configuration", ex);
         }
         try {
          addInlineTypesConfig(forDocType, allConfigs);
         } catch (Exception ex) {
-             err.add(forDocType, "Error while processing inline type config", ex.getStackTrace().toString());
+             err.add(forDocType, "Error while processing inline type config "
+                     + "while merging inline type configuration", ex);
         }
         this.thisDocument = docAllConfigs ;
     }
@@ -138,10 +140,4 @@ public final class ConfigurationProvider {
 
     
 
-    /**
-    public static void main(String[] args){
-        ConfigurationProvider gen = ConfigurationProvider.getInstance();
-        gen.generateMergedConfiguration("debaterecord");
-    }
-     ***/
 }

@@ -77,21 +77,21 @@ public class StartupConfigGenerator {
             generatorError.add(
                     docType,
                     "File not found Error while adding source Template file :" + baseTemplate,
-                    ex.getMessage()
+                    ex
                     );
         } catch (UnsupportedEncodingException ex) {
             log.error(ex);
             generatorError.add(
                     docType,
                     "Encoding error while loading source Template file :" + baseTemplate,
-                    ex.getMessage()
+                    ex
                     );
         } catch (JDOMException ex) {
             log.error(ex);
             generatorError.add(
                     docType,
                     "DOM loading error while loading source Template file :" + baseTemplate,
-                    ex.getMessage()
+                    ex
                     );
         }
 
@@ -105,21 +105,21 @@ public class StartupConfigGenerator {
             generatorError.add(
                 docType,
                 "File not found error while loading XSLT template to merge file :" + templateToMerge,
-                ex.getMessage()
+                ex
                 );
         } catch (UnsupportedEncodingException ex) {
             log.error(ex);
             generatorError.add(
                 docType,
                 "Encoding error while loading Template to merge file :" + templateToMerge,
-                ex.getMessage()
+                ex
                 );
         } catch (JDOMException ex) {
             log.error(ex);
             generatorError.add(
                 docType,
                 "DOM while loading Template to merge file :" + templateToMerge,
-                ex.getMessage()
+                ex
                 );
         }
         if (docXSLTtoMergeFrom != null ) {
@@ -258,7 +258,7 @@ public class StartupConfigGenerator {
                 generatorError.add(
                     doctypeName,
                     "Error while generating configuration file ",
-                    ex.getMessage()
+                    ex
                     );
             } 
 
