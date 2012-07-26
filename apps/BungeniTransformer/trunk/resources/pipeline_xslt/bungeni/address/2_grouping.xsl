@@ -215,13 +215,13 @@
     </xsl:template>      
     
     <xsl:template match="field[@name='postal_address_type']">
-        <postalAddressType type="xs:string">
+        <postalAddressType isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.postal_address_type">
             <xsl:value-of select="."/>
         </postalAddressType>
     </xsl:template>
     
     <xsl:template match="field[@name='logical_address_type']">
-        <logicalAddressType type="xs:string">
+        <logicalAddressType isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.logical_address_type">
             <xsl:value-of select="."/>
         </logicalAddressType>
     </xsl:template>      

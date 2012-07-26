@@ -160,15 +160,28 @@
         </acronym>
     </xsl:template>     
     
+    <xsl:template match="field[@name='marital_status']">
+        
+        <maritalStatus isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.marital_status">
+            <xsl:value-of select="." />
+        </maritalStatus>
+        
+    </xsl:template>    
+    
     <xsl:template match="field[@name='gender']">
-        <xsl:variable name="field_gender" select="." />
-        <gender type="xs:string">
+        <!--xsl:variable name="field_gender" select="." />
+        <gender>
             <xsl:choose >
-                <xsl:when test="$field_gender eq 'M'">male</xsl:when>
-                <xsl:when test="$field_gender eq 'F'">female</xsl:when>
-                <xsl:otherwise>unknown</xsl:otherwise>
+            <xsl:when test="$field_gender eq 'M'">male</xsl:when>
+            <xsl:when test="$field_gender eq 'F'">female</xsl:when>
+            <xsl:otherwise>unknown</xsl:otherwise>
             </xsl:choose>
+            </gender-->
+        
+        <gender isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.gender">
+            <xsl:value-of select="." />
         </gender>
+        
     </xsl:template>
     
     <xsl:template match="field[@name='date_of_birth']">
@@ -177,11 +190,17 @@
         </dateOfBirth>
     </xsl:template>   
     
-    <xsl:template match="field[@name='titles']">
-        <titles type="xs:string">
+    <xsl:template match="field[@name='title']">
+        <title type="xs:string">
             <xsl:value-of select="." />
-        </titles>
+        </title>
     </xsl:template>  
+    
+    <xsl:template match="field[@name='salutation']">
+        <salutation type="xs:string">
+            <xsl:value-of select="." />
+        </salutation>
+    </xsl:template>      
     
     <xsl:template match="field[@name='birth_country']">
         <birthCountry type="xs:string">
@@ -236,8 +255,8 @@
     </xsl:template>     
     
     <xsl:template match="field[@name='member_election_type']">
-        <memberElectionType isA="TLCTerm">
-            <value type="xs:string">
+        <memberElectionType isA="TLCObject">
+            <value isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.member_election_type">
                 <xsl:value-of select="." />                
             </value>
         </memberElectionType>

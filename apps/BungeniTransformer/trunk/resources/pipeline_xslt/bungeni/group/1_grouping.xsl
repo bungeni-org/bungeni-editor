@@ -93,6 +93,8 @@
                     @name='num_researchers' or 
                     @name='num_members' or 
                     @name='quorum' or 
+                    @name='group_continuity' or 
+                    @name='sub_type' or 
                     @name='start_date' or 
                     @name='status' or 
                     @name='election_date' ] | group_addresses | contained_groups"></xsl:copy-of>

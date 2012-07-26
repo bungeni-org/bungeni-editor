@@ -81,15 +81,22 @@
 
     <xsl:template match="_vp_response_type">
         <responseType isA="TLCTerm">
-            <value type="xs:string">
+            <value isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.response_type">
                 <xsl:value-of select="field[@name='value']" />
             </value>
         </responseType>
     </xsl:template>
     
+    <!-- question type vocabularies -->
+    <!--xsl:template match="field[parent::sa_event][@name='doc_type']">
+        <docSubType isA="TLCObject">
+            <value isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.question_type"><xsl:value-of select="." /></value>
+        </docSubType>
+    </xsl:template-->      
+    
     <xsl:template match="field[@name='doc_type']">
-        <docSubType isA="TLCTerm">
-            <value type="xs:string"><xsl:value-of select="." /></value>
+        <docSubType isA="TLCObject">
+            <value isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.event_type"><xsl:value-of select="." /></value>
         </docSubType>
     </xsl:template>    
     

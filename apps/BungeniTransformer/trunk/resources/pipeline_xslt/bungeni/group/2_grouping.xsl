@@ -267,4 +267,90 @@
         </xsl:if>
     </xsl:template>
     
+    <xsl:template match="field[@name='group_continuity']">
+        <groupContinuity isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.committee_continuity">
+            <xsl:value-of select="."/>
+        </groupContinuity>
+    </xsl:template> 
+    
+    <xsl:template match="field[@name='proportional_presentation']">
+        <proportionalPresentation type="xs:string">
+            <xsl:value-of select="."/>
+        </proportionalPresentation>
+    </xsl:template>     
+    
+    <xsl:template match="field[@name='sub_type']">
+        <subType isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.committee_type">
+            <xsl:value-of select="."/>
+        </subType>
+    </xsl:template>    
+    
+    <xsl:template match="field[@name='address_id']">
+        <addressId type="xs:integer">
+            <xsl:value-of select="."/>
+        </addressId>
+    </xsl:template>    
+
+    <xsl:template match="field[@name='country_id']">
+        <countryId type="TLCTerm">
+            <value type="xs:string">
+                <xsl:value-of select="."/>                
+            </value>
+        </countryId>
+    </xsl:template>  
+    
+    <xsl:template match="field[@name='city']">
+        <city type="xs:string">
+            <xsl:value-of select="."/>
+        </city>
+    </xsl:template> 
+    
+    <xsl:template match="field[@name='fax']">
+        <fax type="xs:string">
+            <xsl:value-of select="."/>
+        </fax>
+    </xsl:template>     
+    
+    <xsl:template match="field[@name='email']">
+        <email type="xs:string">
+            <xsl:value-of select="."/>
+        </email>
+    </xsl:template>      
+    
+    <xsl:template match="field[@name='phone']">
+        <phone type="xs:string">
+            <xsl:value-of select="."/>
+        </phone>
+    </xsl:template>      
+    
+    <xsl:template match="field[@name='street']">
+        <street type="xs:string">
+            <xsl:value-of select="."/>
+        </street>
+    </xsl:template>      
+    
+    <xsl:template match="field[@name='postal_address_type']">
+        <postalAddressType isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.postal_address_type">
+            <xsl:value-of select="."/>
+        </postalAddressType>
+    </xsl:template>
+    
+    <xsl:template match="field[@name='logical_address_type']">
+        <logicalAddressType isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.logical_address_type">
+            <xsl:value-of select="."/>
+        </logicalAddressType>
+    </xsl:template>      
+    
+    <xsl:template match="field[@name='zipcode']">
+        <zipCode type="xs:integer">
+            <xsl:value-of select="."/>
+        </zipCode>
+    </xsl:template>      
+    
+    <xsl:template match="field[@name='numcode']">
+        <numCode type="xs:integer">
+            <xsl:value-of select="." />
+        </numCode>
+    </xsl:template>    
+    
 </xsl:stylesheet>

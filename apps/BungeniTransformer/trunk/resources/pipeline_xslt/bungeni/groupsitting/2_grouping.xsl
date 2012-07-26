@@ -47,11 +47,17 @@
         <venueId type="xs:integer">
             <xsl:value-of select="." />
         </venueId>
-    </xsl:template>       
+    </xsl:template>     
+    
+    <xsl:template match="field[@name='report_id']">
+        <reportId type="xs:integer">
+            <xsl:value-of select="." />
+        </reportId>
+    </xsl:template>     
     
     <xsl:template match="field[@name='meeting_type']">
-        <meetingType isA="TLCPlace">
-            <value type="xs:string">
+        <meetingType isA="TLCObject">
+            <value isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.sittingmeetingtypes">
                 <xsl:value-of select="." />                
             </value>
         </meetingType>
@@ -66,8 +72,8 @@
     </xsl:template>    
     
     <xsl:template match="field[@name='convocation_type']">
-        <convocationType isA="TLCTerm">
-            <value type="xs:string">
+        <convocationType isA="TLCObject">
+            <value isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.sittingconvocationtypes">
                 <xsl:value-of select="." />                
             </value>
         </convocationType>
@@ -75,7 +81,7 @@
     
     <xsl:template match="field[@name='activity_type']">
         <activityType isA="TLCProcess">
-            <value type="xs:string">
+            <value isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.sittingactivitytypes">
                 <xsl:value-of select="." />                
             </value>
         </activityType>
