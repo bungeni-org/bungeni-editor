@@ -97,11 +97,17 @@
         </dateOfBirth>
     </xsl:template>  
     
-    <xsl:template match="field[@name='titles']">
-        <titles type="xs:string">
+    <xsl:template match="field[@name='title']">
+        <title type="xs:string">
             <xsl:value-of select="." />
-        </titles>
+        </title>
     </xsl:template>  
+    
+    <xsl:template match="field[@name='salutation']">
+        <salutation type="xs:string">
+            <xsl:value-of select="." />
+        </salutation>
+    </xsl:template>         
     
     <xsl:template match="field[@name='birth_country']">
         <birthCountry type="xs:string">
@@ -242,6 +248,14 @@
             <xsl:value-of select="."/>
         </zipCode>
     </xsl:template>
+    
+    <xsl:template match="field[@name='marital_status']">
+        
+        <maritalStatus isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.marital_status">
+            <xsl:value-of select="." />
+        </maritalStatus>
+        
+    </xsl:template>     
     
     <xsl:template match="field[@name='status_date']">
         <xsl:variable name="status_date" select="." />

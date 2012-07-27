@@ -61,9 +61,11 @@
                     @name='user_id' or 
                     @name='description' or 
                     @name='gender' or 
+                    @name='salutation' or 
+                    @name='marital_status' or 
                     @name='active_p' or 
                     @name='date_of_birth' or 
-                    @name='titles' or 
+                    @name='title' or 
                     @name='birth_country' or 
                     @name='national_id' or 
                     @name='login' or 
