@@ -40,6 +40,7 @@ import org.bungeni.translators.configurations.steps.OAProcessStep;
 import org.bungeni.translators.utility.dom.DOMUtility;
 import org.bungeni.translators.utility.transformer.GenericTransformer;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 
 /**
  * This class reades the TranslatorConfig_xxxx.xml files for each content type
@@ -132,7 +133,10 @@ public class OAConfigurationReader implements ConfigurationReader {
     public HashMap<String,Object> getParameters(String forStep) throws XPathExpressionException {
         HashMap<String,Object> map = new HashMap<String,Object>();
         XPathResolver xresolver = XPathResolver.getInstance();
-        NodeList paramNodes = (NodeList) xresolver.evaluate(this.configXML, "//"+forStep+"/parameters/parameter" , XPathConstants.NODESET);
+        NodeList paramNodes = (NodeList) xresolver.evaluate(
+                this.configXML,
+                "//"+forStep+"/parameters/parameter" , XPathConstants.NODESET
+        );
         for (int i = 0; i < paramNodes.getLength(); i++) {
             Element paramNode = (Element) paramNodes.item(i);
             String paramName = paramNode.getAttribute("name");
@@ -186,6 +190,54 @@ public class OAConfigurationReader implements ConfigurationReader {
 
     }
 
+    public boolean outputWrite () throws XPathExpressionException {
+        XPathResolver xresolver = XPathResolver.getInstance();
+        // get the step with the given nama in this configuration
+        Node outputNode = (Node) xresolver.evaluate(
+                this.configXML,
+                "//output",
+                XPathConstants.NODE
+                );
+        return getPipeOutputState(outputNode);
+    }
+
+   public boolean inputWrite () throws XPathExpressionException {
+        XPathResolver xresolver = XPathResolver.getInstance();
+        // get the step with the given nama in this configuration
+        Node outputNode = (Node) xresolver.evaluate(
+                this.configXML,
+                "//input",
+                XPathConstants.NODE
+                );
+        return getPipeOutputState(outputNode);
+    }
+
+      public boolean replacementsWrite () throws XPathExpressionException {
+        XPathResolver xresolver = XPathResolver.getInstance();
+        // get the step with the given nama in this configuration
+        Node outputNode = (Node) xresolver.evaluate(
+                this.configXML,
+                "//replacements",
+                XPathConstants.NODE
+                );
+        return getPipeOutputState(outputNode);
+    }
+
+    private boolean getPipeOutputState(Node pipeNode){
+         if (null != pipeNode) {
+            NamedNodeMap attrs = pipeNode.getAttributes();
+            if (attrs != null) {
+               Node outputAttr = attrs.getNamedItem("output");
+               String soutput = outputAttr.getNodeValue();
+               boolean writeOutput = Boolean.parseBoolean(soutput);
+               return writeOutput ;
+            }
+            else
+                return false;
+        } else {
+            return false;
+        }
+    }
     /**
      * Used to get an HashMap containing all the Steps of the configuration with their position
      * as key

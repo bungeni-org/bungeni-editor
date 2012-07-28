@@ -53,8 +53,8 @@ public class OAXSLTStep implements XSLTStep {
             this.preProcessState = true;
             this.preProcess = preproc.getNodeValue();
         }
-        
-    }
+
+}
 
     /**
      * Default constructor with parameters - does not handle postprocs and preprocs
@@ -122,4 +122,4 @@ public class OAXSLTStep implements XSLTStep {
     public boolean hasPostProc() {
         return this.postProcessState;
     }
-}
+ }

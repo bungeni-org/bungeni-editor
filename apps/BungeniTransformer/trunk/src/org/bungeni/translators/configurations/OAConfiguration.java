@@ -182,6 +182,19 @@ public class OAConfiguration implements Configuration {
         return this.reader.hasSchema();
     }
 
+
+    public boolean hasWriteOutputsStream() throws XPathExpressionException {
+        return this.reader.outputWrite();
+    }
+
+    public boolean hasWriteInputsStream() throws XPathExpressionException {
+        return this.reader.inputWrite();
+    }
+
+    public boolean hasWriteReplacementsStream() throws XPathExpressionException {
+        return this.reader.hasReplaceSteps();
+    }
+
     public String getSchema() throws XPathExpressionException {
         String schema = this.reader.getSchema();
         return schema;

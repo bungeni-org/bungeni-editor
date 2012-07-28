@@ -7,9 +7,7 @@ package org.bungeni.translators.translator;
 //~--- non-JDK imports --------------------------------------------------------
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
-import java.util.logging.Level;
 import org.bungeni.translators.globalconfigurations.GlobalConfigurations;
 import org.bungeni.translators.configurations.steps.OAXSLTStep;
 import org.bungeni.translators.utility.files.FileUtility;
@@ -20,7 +18,6 @@ import org.bungeni.translators.utility.transformer.XSLTTransformer;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
-import java.net.URL;
 import java.util.HashMap;
 
 import java.util.Iterator;

@@ -73,7 +73,8 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
     //private String defaultPipelinePath ;
 
     private Boolean cachePipelineXSLT = false;
-
+    private Boolean writeIntermediateOutputs = false;
+    
     //The source type is by default ODF
     //!+XML_SOURCE_TYPE(ah, 27-09-2011)
     private XMLSourceFactory.XMLSourceType sourceType = XMLSourceFactory.XMLSourceType.ODF;
@@ -163,6 +164,8 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         // check if pipeline xslt needs to be cached
         this.cachePipelineXSLT = Boolean.parseBoolean(properties.getProperty("cachePipelineXSLT"));
 
+        this.writeIntermediateOutputs = Boolean.parseBoolean(properties.getProperty("writeIntermediateOutputs"));
+
         String strSourceType = properties.getProperty("inputXmlSource");
 
         this.sourceType = XMLSourceType.valueOf(strSourceType);
@@ -177,6 +180,9 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
     public Object clone() throws CloneNotSupportedException {
         throw new CloneNotSupportedException();
     }
+
+
+
 
 
     /**
@@ -480,6 +486,10 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             StreamSource iteratedDocument = OAXSLTStepsResolver.getInstance().resolve(ODFDocument,
                                                     resolvedParameterMap,
                                                     OAConfiguration.getInstance().getInputSteps());
+            if (OAConfiguration.getInstance().hasWriteInputsStream() &&
+                    this.writeIntermediateOutputs == true) {
+                // write output to file
+            }
             return iteratedDocument;
     }
 
@@ -545,6 +555,11 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             // applies the map steps to the StreamSource of the ODF document
             StreamSource iteratedDocument = OAReplaceStepsResolver.resolve(ODFDocument,
                                                     OAConfiguration.getInstance());
+            if (OAConfiguration.getInstance().hasWriteReplacementsStream() &&
+                    this.writeIntermediateOutputs == true) {
+                // write output to file
+                
+            }
             return iteratedDocument;
     }
 
@@ -561,9 +576,13 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
                  throws TransformerFactoryConfigurationError, Exception {
          // apply the OUTPUT XSLT to the StreamSource
         //!+FIX_THIS output steps dont process parameters -
-         StreamSource resultStream = OAXSLTStepsResolver.getInstance().resolve(ODFDocument,
-                                        OAConfiguration.getInstance().getOutputSteps()
-                                        );
+         StreamSource resultStream = OAXSLTStepsResolver.getInstance().resolve(
+              ODFDocument,
+              OAConfiguration.getInstance().getOutputSteps()
+         );
+         if (OAConfiguration.getInstance().hasWriteOutputsStream() && this.writeIntermediateOutputs == true) {
+            // write output to file
+         }
          return resultStream;
     }
 

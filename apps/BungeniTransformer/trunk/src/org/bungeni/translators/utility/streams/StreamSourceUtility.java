@@ -70,7 +70,12 @@ public class StreamSourceUtility {
         StringWriter resultString = new StringWriter();
 
         // perform the transformation
-        GenericTransformer.getInstance().getTransformer().transform(aStreamSource, new StreamResult(resultString));
+        GenericTransformer.getInstance().getTransformer().transform(
+                aStreamSource,
+                new StreamResult(
+                    resultString
+                    )
+        );
 
         // copy the obtained string into the string to iterate
         resultStringDocument = resultString.toString();
