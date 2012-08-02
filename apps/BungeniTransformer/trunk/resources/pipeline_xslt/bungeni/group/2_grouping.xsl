@@ -56,11 +56,39 @@
         </tag>
     </xsl:template>    
     
+    <xsl:template match="field[@name='active_p']">
+        <status type="xs:string">
+            <xsl:variable name="field_active" select="." />
+            <xsl:choose >
+                <xsl:when test="$field_active eq 'A'">active</xsl:when>
+                <xsl:otherwise>inactive</xsl:otherwise>
+            </xsl:choose>
+        </status>
+    </xsl:template>   
+    
+    <xsl:template match="field[@name='user_id']">
+        <userId type="xs:integer">
+            <xsl:value-of select="." />
+        </userId>
+    </xsl:template>     
+    
     <xsl:template match="field[@name='group_id']">
         <groupId type="xs:integer">
             <xsl:value-of select="." />
         </groupId>
     </xsl:template>    
+    
+    <xsl:template match="field[@name='committee_id']">
+        <committeeId type="xs:integer">
+            <xsl:value-of select="." />
+        </committeeId>
+    </xsl:template>   
+
+    <xsl:template match="field[@name='membership_id']">
+        <membershipId type="xs:integer">
+            <xsl:value-of select="." />
+        </membershipId>
+    </xsl:template>  
     
     <xsl:template match="field[@name='parliament_id']">
         <parliamentId type="xs:integer">
@@ -92,6 +120,12 @@
         </parentGroup>
     </xsl:template>
     
+    <xsl:template match="field[@name='notes']">
+        <notes>
+            <xsl:value-of select="." />
+        </notes>
+    </xsl:template>    
+    
     <xsl:template match="field[@name='min_num_members']">
         <minNumMembers>
             <xsl:value-of select="." />
@@ -107,6 +141,10 @@
     <xsl:template match="field[@name='start_date']">
         <startDate type="xs:date"><xsl:value-of select="." /></startDate>
     </xsl:template>
+    
+    <xsl:template match="field[@name='end_date']">
+        <endDate type="xs:date"><xsl:value-of select="." /></endDate>
+    </xsl:template>    
     
     <xsl:template match="field[@name='election_date']">
         <electionDate type="xs:date">
@@ -250,12 +288,36 @@
             role="{field[@name='role']}" />
     </xsl:template>
     
+    <xsl:template match="versions">
+        <versions>
+            <xsl:apply-templates />
+        </versions>
+    </xsl:template>
+    
+    <xsl:template match="group_address[parent::group_addresses]">
+        <groupAddress isA="TLCObject">
+            <xsl:apply-templates />
+        </groupAddress>
+    </xsl:template>      
+    
+    <xsl:template match="members">
+        <members id="groupMembers">
+            <xsl:apply-templates />
+        </members>
+    </xsl:template>
+    
+    <xsl:template match="member[parent::members]">
+        <member isA="TLCObject">
+            <xsl:apply-templates />
+        </member>
+    </xsl:template>    
+    
     <!-- add node() test to check if the element has children, suppress empty container nodes -->
     <xsl:template match="group_addresses">
         <xsl:if test="node()">
-            <xsl:copy>
+            <groupAddresses id="groupAddresses">
                 <xsl:apply-templates />
-            </xsl:copy>
+            </groupAddresses>
         </xsl:if>
     </xsl:template>
     
@@ -352,5 +414,13 @@
             <xsl:value-of select="." />
         </numCode>
     </xsl:template>    
+    
+    <xsl:template match="field[@name='membership_type']">
+        <membershipType isA="TLCTerm">
+            <value type="xs:string">
+                <xsl:value-of select="." />                
+            </value>
+        </membershipType>
+    </xsl:template>      
     
 </xsl:stylesheet>

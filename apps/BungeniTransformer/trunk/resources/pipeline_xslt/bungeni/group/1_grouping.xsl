@@ -86,6 +86,7 @@
                 </docType>                 
                 
                 <xsl:copy-of select="field[ @name='parent_group_id' or 
+                    @name='committee_id' or 
                     @name='short_name' or
                     @name='full_name' or 
                     @name='description' or 
@@ -128,9 +129,8 @@
                 </xsl:element>
             -->
             
-            <membership>
-                <xsl:copy-of select="committee_type | members"></xsl:copy-of>
-            </membership>  
+            <xsl:copy-of select="members"></xsl:copy-of>
+            <xsl:copy-of select="committee_type"></xsl:copy-of>  
         </ontology>
     </xsl:template>
     
