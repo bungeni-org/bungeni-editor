@@ -79,7 +79,8 @@
                     'ParliamentMember/', 
                     $for-parliament, '/', 
                     $parliament-election-date, '/',
-                    $full-user-identifier)" 
+                    $full-user-identifier, '.', 
+                    field[@name='membership_type'])" 
                 />
                 
                 <docType isA="TLCTerm">
