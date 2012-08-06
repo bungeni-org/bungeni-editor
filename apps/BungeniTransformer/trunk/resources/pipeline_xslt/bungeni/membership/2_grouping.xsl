@@ -80,6 +80,24 @@
         <userId type="xs:integer">
             <xsl:value-of select="." />
         </userId>
+    </xsl:template> 
+    
+    <xsl:template match="field[@name='membership_id']">
+        <membershipId type="xs:integer">
+            <xsl:value-of select="." />
+        </membershipId>
+    </xsl:template>    
+    
+    <xsl:template match="field[@name='title_type_id']">
+        <titleTypeId type="xs:integer">
+            <xsl:value-of select="." />
+        </titleTypeId>
+    </xsl:template>  
+
+    <xsl:template match="field[@name='member_title_id']">
+        <memberTitleId type="xs:integer">
+            <xsl:value-of select="." />
+        </memberTitleId>
     </xsl:template>  
     
     <xsl:template match="field[@name='parliament_id']">
@@ -306,7 +324,13 @@
         <startDate type="xs:date">
             <xsl:value-of select="." />
         </startDate>
-    </xsl:template>    
+    </xsl:template>  
+    
+    <xsl:template match="field[@name='end_date']">
+        <endDate type="xs:date">
+            <xsl:value-of select="." />
+        </endDate>
+    </xsl:template>     
     
     <xsl:template match="field[@name='election_date']">
         <electionDate type="xs:date">
@@ -409,6 +433,18 @@
             name="{field[@name='permission']}"  
             role="{field[@name='role']}" />
     </xsl:template>    
+    
+    <xsl:template match="member_titles">
+        <memberTitles id="memberTitles">
+            <xsl:apply-templates />
+        </memberTitles>
+    </xsl:template>
+    
+    <xsl:template match="member_title[parent::member_titles]">
+        <memberTitle isA="TLCObject">
+            <xsl:apply-templates />
+        </memberTitle>
+    </xsl:template>       
     
     <xsl:template match="field[@name='timestamp' or 
         @name='date_active' or 

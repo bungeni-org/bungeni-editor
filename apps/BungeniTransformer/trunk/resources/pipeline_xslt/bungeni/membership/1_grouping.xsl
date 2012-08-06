@@ -56,6 +56,17 @@
                     user/field[@name='date_of_birth'], '.', 
                     field[@name='user_id'])" />
                 
+                <!-- 
+                    generates group-membership prefices based on membership_type
+                    e.g. committee_member       => CommitteeMember
+                         member_of_parliament   => MemberOfParliament
+                         minister               => Minister
+                -->
+                <xsl:variable name="group-member">
+                    <xsl:for-each select="tokenize(field[@name='membership_type'],'_')">
+                        <xsl:value-of select="concat(upper-case(substring(.,1,1)),substring(., 2))"/>
+                    </xsl:for-each>                    
+                </xsl:variable>
                 
                 <xsl:variable name="item_number" select="user/field[@name='user_id']"></xsl:variable>
                 <xsl:variable name="group_type" select="group/field[@name='type']"></xsl:variable>
@@ -76,11 +87,10 @@
                 <xsl:attribute name="uri" 
                     select="concat('/ontology/Person/',
                     $country-code, '/', 
-                    'ParliamentMember/', 
+                    $group-member,'/', 
                     $for-parliament, '/', 
                     $parliament-election-date, '/',
-                    $full-user-identifier, '.', 
-                    field[@name='membership_type'])" 
+                    $full-user-identifier)" 
                 />
                 
                 <docType isA="TLCTerm">
