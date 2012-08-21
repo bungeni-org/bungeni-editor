@@ -89,7 +89,7 @@ public class OdtTranslate implements IEditorPlugin {
              
 
                 try {
-                    futils.copyFile(filesMap.get("anxml"), foutputAnxml);
+                    futils.copyFile(filesMap.get("final"), foutputAnxml);
                 } catch (IOException e) {
                     log.error("exec():finally, writing outputs", e);
                 }

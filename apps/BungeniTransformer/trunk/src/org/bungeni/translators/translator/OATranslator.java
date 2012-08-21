@@ -185,7 +185,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
      * @param inputParameters HashMap/ Dictionary of input parameters for the translator. These
      * need to be declared in the config of the pipeline in both input steps.
      * @return a hashmap containing handles to all steps which have output = true set, the map key is the type of step
-     * e.g. for input steps the key is "input" for output steps the key is output. The finaal ANxml output is "anxml"
+     * e.g. for input steps the key is "input" for output steps the key is output. The finaal ANxml output is "final"
      * @throws Exception
      * @throws TransformerFactoryConfigurationError
      */
@@ -303,7 +303,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             //!+PIPELINE (ah, oct-2011) -- if there is no pipeline and no output steps then the 2 outputs
             //will be exactly the same
             OutputXML oxmlFinal = StreamSourceUtility.getInstance().writeStreamSourceToFile(anXmlFinalStream, "akoma_", ".xml");
-            translatedFiles.put("anxml", oxmlFinal.outputxmlFile);
+            translatedFiles.put("final", oxmlFinal.outputxmlFile);
 
             // validate the produced document
             //AH-8-03-11 COMMENTED OUT FOR NOW UNTIL TESTED

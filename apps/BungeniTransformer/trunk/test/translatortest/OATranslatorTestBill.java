@@ -74,7 +74,7 @@ public class OATranslatorTestBill
 		System.out.println("OUTPUTTING ERRORS = \n\n" + myTranslator.getValidationErrors());
 		
 		//input stream
-		FileInputStream fis  = new FileInputStream(translatedFiles.get("anxml"));
+		FileInputStream fis  = new FileInputStream(translatedFiles.get("final"));
 		
 		//output stream 
 		FileOutputStream fos = new FileOutputStream("resources/resultAKN_bill.xml");

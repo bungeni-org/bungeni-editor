@@ -88,8 +88,7 @@ public class OATranslatorTestBase
 		System.out.println("OUTPUTTING ERRORS = \n\n" + myTranslator.getValidationErrors());
 		
 		//input stream
-		FileInputStream fis  = new FileInputStream(translatedFiles.get("anxml"));
-		FileInputStream fisMlx = new FileInputStream(translatedFiles.get("metalex"));
+		FileInputStream fis  = new FileInputStream(translatedFiles.get("final"));
 		//output stream 
 		File outFile = new File(this.getOutputDocument());
 
