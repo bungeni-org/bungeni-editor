@@ -13,7 +13,6 @@ public class TestAn1toAn2 extends OATranslatorTestBungeniXmlBase {
                 setConfigFilePath("configfiles/configs/config_an1const_an2const.xml");
 		setInputDocument("test/testdocs/an1_act01.xml");
 		setOutputDocument("test/testresults/out_an1_act01.xml");
-		setOutputMetalex("test/testresults/out_an1_act01.mlx");
 		setComparisonDocument("test/testdocs/test_bungeni_out.xml");
 	}
 	

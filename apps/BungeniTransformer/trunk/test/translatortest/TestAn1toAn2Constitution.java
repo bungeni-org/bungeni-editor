@@ -13,7 +13,7 @@ public class TestAn1toAn2Constitution extends OATranslatorTestBungeniXmlBase {
                 setConfigFilePath("configfiles/configs/config_an1const_an2const.xml");
 		setInputDocument("test/testdocs/constitution_final.xml");
 		setOutputDocument("test/testresults/out_constitution_final.xml");
-		setOutputMetalex("test/testresults/out_constitution_final.mlx");
+	
 		setComparisonDocument("test/testdocs/comp_out_constitution_final.xml");
 	}
 	

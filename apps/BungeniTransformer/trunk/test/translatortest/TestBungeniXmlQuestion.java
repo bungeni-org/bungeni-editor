@@ -12,7 +12,7 @@ package translatortest;
                 setConfigFilePath("configfiles/configs/config_bungeni_parliamentaryitem.xml");
 		setInputDocument("test/testdocs/bungeni_question.xml");
 		setOutputDocument("test/testresults/test_bungeni_question.xml");
-		setOutputMetalex("test/testresults/test_bungeni_question.mlx");
+              
 		setComparisonDocument("test/testdocs/test_bungeni_question_out.xml");
 	}
 

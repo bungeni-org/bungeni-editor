@@ -16,7 +16,7 @@ public class TestBungeniXmlAddress extends OATranslatorTestBungeniXmlBase {
                 setConfigFilePath("configfiles/configs/config_bungeni_address.xml");
 		setInputDocument("test/testdocs/type-address.xml");
 		setOutputDocument("test/testresults/test_bungeni_address.xml");
-		setOutputMetalex("test/testresults/test_bungeni_question.mlx");
+		
 		setComparisonDocument("test/testdocs/test_bungeni_question_out.xml");
 	}
 

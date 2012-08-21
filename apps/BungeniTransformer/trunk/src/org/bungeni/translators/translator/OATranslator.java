@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import org.bungeni.translators.exceptions.DocumentNotFoundException;
 import org.bungeni.translators.exceptions.TranslationFailedException;
-import org.bungeni.translators.exceptions.TranslationToMetalexFailedException;
+import org.bungeni.translators.exceptions.TranslationStepFailedException;
 import org.bungeni.translators.exceptions.ValidationFailedException;
 import org.bungeni.translators.exceptions.XSLTBuildingException;
 import org.bungeni.translators.globalconfigurations.GlobalConfigurations;
@@ -40,20 +40,10 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPathExpressionException;
 import org.bungeni.translators.configurations.steps.OAPipelineStep;
 import org.bungeni.translators.translator.XMLSourceFactory.XMLSourceType;
+import org.bungeni.translators.utility.files.OutputXML;
 import org.bungeni.translators.utility.runtime.Outputs;
 
 /***
-
-1 Odf is merged
-
-2 Metalex translation
-    1) get metalex config from TranslatorConfig_xxx.xml
-    2) process the odt xml stream by applying input, replacement and output steps
-    3) finally output the metalex xml
-
-3 Build translation xslt
-
-4 apply translation xslt on metalex output
 
  * @author Ashok Hariharan
  */
@@ -194,7 +184,8 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
      * @param aPipelinePath the path of the pipeline to use for the translation
      * @param inputParameters HashMap/ Dictionary of input parameters for the translator. These
      * need to be declared in the config of the pipeline in both input steps.
-     * @return a hashmap containing handles to both the AN xml and the Metalex file ("anxml", "metalex")
+     * @return a hashmap containing handles to all steps which have output = true set, the map key is the type of step
+     * e.g. for input steps the key is "input" for output steps the key is output. The finaal ANxml output is "anxml"
      * @throws Exception
      * @throws TransformerFactoryConfigurationError
      */
@@ -234,8 +225,8 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             /***
              * Get the translator configuration
              */
-            OutputXML outputXML = null;
-
+           
+            StreamSource outputStepsProcessedDoc = null;
 
             //we use a nested exception handler here to specifically catch intermediary
             //exceptions
@@ -245,27 +236,30 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
                  * Apply input steps
                  */
 
-                StreamSource inputStepsProcessedDoc = this.applyInputSteps(xmlDocument);
+                StreamSource inputStepsProcessedDoc = this.applyInputSteps(translatedFiles, xmlDocument);
 
                 StreamSource replaceStepsProcessedDoc = inputStepsProcessedDoc;
+               
                 if (OAConfiguration.getInstance().hasReplaceSteps()) {
                     /**
                      * Apply the replace steps
                      */
-                  replaceStepsProcessedDoc = this.applyReplaceSteps(inputStepsProcessedDoc);
+                  replaceStepsProcessedDoc = this.applyReplaceSteps(
+                          translatedFiles,
+                          inputStepsProcessedDoc
+                          );
                 }
                 /**
                  * Finally apply the output steps
                  */
-                StreamSource outputStepsProcessedDoc = replaceStepsProcessedDoc;
+                outputStepsProcessedDoc = replaceStepsProcessedDoc;
                 if (OAConfiguration.getInstance().hasOutputSteps()) {
-                   outputStepsProcessedDoc = this.applyOutputSteps(replaceStepsProcessedDoc);
+                   outputStepsProcessedDoc = this.applyOutputSteps(
+                           translatedFiles,
+                           replaceStepsProcessedDoc
+                           );
                 }
 
-                /**
-                 * At the end of the output steps we should have a metalex document, write it out
-                 */
-                outputXML = this.writeOutputXML(outputStepsProcessedDoc);
              } catch (Exception e) {
                     //(DEBUG_USEFUL)+ This is a useful catch-all point to put a break point if the
                     // translation is failing !!!
@@ -273,13 +267,10 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
                     String message = resourceBundle.getString("TRANSLATION_TO_METALEX_FAILED_TEXT");
                     System.out.println(message);
                     // print the message and the exception into the logger
-                    log.fatal((new TranslationToMetalexFailedException(message)), e);
+                    log.fatal((new TranslationStepFailedException(message)), e);
                     // RETURN null
                     return null;
                 }
-            //!+FIX_THIS_LATER -- see other note on metalex.xml
-            translatedFiles.put("metalex", outputXML.outputxmlFile);
-
             //!+PIPELINE (ah, oct-2011) -- the pipeline is non-mandatory now
             StreamSource anXmlStream  = null;
             if (OAConfiguration.getInstance().hasPipelineXML()) {
@@ -287,24 +278,17 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
                  * Build the XSLT pipeline
                  */
                 List<File> xsltPipes = this.buildXSLTPipeline();
-
-                //AH-23-06-2010
-                //File xslt = this.getXSLTPipeline(aPipelinePath);
-
                 /**
                  * Transform the Metalex using the built XSLT
                  */
-                StreamSource inputXmlStream = outputXML.outputxmlStream;
+                StreamSource inputXmlStream = outputStepsProcessedDoc; 
                 for (File xslt : xsltPipes) {
                     inputXmlStream = this.translateToAkomantoso(xslt, inputXmlStream);
                  }
                 anXmlStream = inputXmlStream;
             } else {
-                anXmlStream = outputXML.outputxmlStream;
+                anXmlStream = outputStepsProcessedDoc; 
             }
-
-            //AH-23-06-2010
-            //StreamSource anXmlStream = this.translateToAkomantoso(xslt, metalexOutput.metalexStream);
 
             StreamSource anXmlFinalStream = anXmlStream;
             if (OAConfiguration.getInstance().hasPostXmlSteps()) {
@@ -318,8 +302,8 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
              */
             //!+PIPELINE (ah, oct-2011) -- if there is no pipeline and no output steps then the 2 outputs
             //will be exactly the same
-            File fileToReturn = StreamSourceUtility.getInstance().writeToFile(anXmlFinalStream);
-            translatedFiles.put("anxml", fileToReturn);
+            OutputXML oxmlFinal = StreamSourceUtility.getInstance().writeStreamSourceToFile(anXmlFinalStream, "akoma_", ".xml");
+            translatedFiles.put("anxml", oxmlFinal.outputxmlFile);
 
             // validate the produced document
             //AH-8-03-11 COMMENTED OUT FOR NOW UNTIL TESTED
@@ -479,16 +463,20 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
      * @throws TransformerFactoryConfigurationError
      * @throws Exception
      */
-    public StreamSource applyInputSteps(StreamSource ODFDocument)
+    public StreamSource applyInputSteps(HashMap<String, File> translatedFiles, StreamSource ODFDocument)
             throws TransformerFactoryConfigurationError, Exception {
            // applies the input steps to the StreamSource of the ODF document
             HashMap<String,Object> resolvedParameterMap = this.resolveParameterMap("input");
             StreamSource iteratedDocument = OAXSLTStepsResolver.getInstance().resolve(ODFDocument,
                                                     resolvedParameterMap,
                                                     OAConfiguration.getInstance().getInputSteps());
+
             if (OAConfiguration.getInstance().hasWriteInputsStream() &&
                     this.writeIntermediateOutputs == true) {
                 // write output to file
+                OutputXML oxmlInput = StreamSourceUtility.getInstance().writeStreamSourceToFile(iteratedDocument, "inp", ".xml");
+                translatedFiles.put("input", oxmlInput.outputxmlFile);
+                iteratedDocument = oxmlInput.outputxmlStream;
             }
             return iteratedDocument;
     }
@@ -550,15 +538,16 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
      * @throws TransformerFactoryConfigurationError
      * @throws Exception
      */
-    public StreamSource applyReplaceSteps(StreamSource ODFDocument)
+    public StreamSource applyReplaceSteps(HashMap<String, File> translatedFiles, StreamSource ODFDocument)
                  throws TransformerFactoryConfigurationError, Exception {
             // applies the map steps to the StreamSource of the ODF document
             StreamSource iteratedDocument = OAReplaceStepsResolver.resolve(ODFDocument,
                                                     OAConfiguration.getInstance());
             if (OAConfiguration.getInstance().hasWriteReplacementsStream() &&
                     this.writeIntermediateOutputs == true) {
-                // write output to file
-                
+                OutputXML oxmlRepl = StreamSourceUtility.getInstance().writeStreamSourceToFile(iteratedDocument, "repl", ".xml");
+                translatedFiles.put("replace", oxmlRepl.outputxmlFile);
+                iteratedDocument = oxmlRepl.outputxmlStream;
             }
             return iteratedDocument;
     }
@@ -572,7 +561,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
      * @throws TransformerFactoryConfigurationError
      * @throws Exception
      */
-    public StreamSource applyOutputSteps(StreamSource ODFDocument)
+    public StreamSource applyOutputSteps(HashMap<String, File> translatedFiles, StreamSource ODFDocument)
                  throws TransformerFactoryConfigurationError, Exception {
          // apply the OUTPUT XSLT to the StreamSource
         //!+FIX_THIS output steps dont process parameters -
@@ -582,6 +571,9 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
          );
          if (OAConfiguration.getInstance().hasWriteOutputsStream() && this.writeIntermediateOutputs == true) {
             // write output to file
+                OutputXML oxmlOut = StreamSourceUtility.getInstance().writeStreamSourceToFile(resultStream, "out", ".xml");
+                translatedFiles.put("output", oxmlOut.outputxmlFile);
+                resultStream = oxmlOut.outputxmlStream;
          }
          return resultStream;
     }
@@ -604,17 +596,9 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
          return resultStream;
     }
 
-    class OutputXML {
-        StreamSource outputxmlStream;
-        File outputxmlFile;
 
-        public OutputXML(StreamSource ss, File mf) {
-            this.outputxmlStream = ss;
-            this.outputxmlFile = mf;
-        }
-    }
-
-
+    //!+METALEX - Removed below API
+    /**
     private OutputXML writeOutputXML(StreamSource metalexDocument) throws TransformerException, IOException {
             File metalextmpFile = StreamSourceUtility.getInstance().writeToFile(metalexDocument);
             //!+FIX_THIS_LATER(ah,oct-2011) the cached intermediate outputfile has been
@@ -627,13 +611,13 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             StreamSource ssMetalex =
                     FileUtility.getInstance().FileAsStreamSource(metalextmpFile);
             return new OutputXML(ssMetalex, metalextmpFile);
-    }
+    }**/
 
-    public StreamSource translateToAkomantoso(File xsltFile, StreamSource metalexStream)
+    public StreamSource translateToAkomantoso(File xsltFile, StreamSource xmlStream)
             throws FileNotFoundException, TransformerException, UnsupportedEncodingException{
             StreamSource    ssXslt  = FileUtility.getInstance().FileAsStreamSource(xsltFile);
             XSLTTransformer xsltTransformer = XSLTTransformer.getInstance();
-            StreamSource result = xsltTransformer.transform(metalexStream, ssXslt);
+            StreamSource result = xsltTransformer.transform(xmlStream, ssXslt);
             return result;
     }
 

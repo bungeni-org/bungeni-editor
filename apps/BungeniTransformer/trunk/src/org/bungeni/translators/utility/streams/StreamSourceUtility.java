@@ -9,13 +9,14 @@ import java.io.IOException;
 import java.io.StringWriter;
 
 
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+import org.apache.commons.lang.RandomStringUtils;
+import org.bungeni.translators.utility.files.FileUtility;
+import org.bungeni.translators.utility.files.OutputXML;
+import org.bungeni.translators.utility.runtime.TempFileManager;
 import org.bungeni.translators.utility.transformer.GenericTransformer;
 import org.w3c.dom.Document;
 
@@ -86,8 +87,10 @@ public class StreamSourceUtility {
 
     /**
      * This method write a Stream Source to a File
-     * @param aStreamSource the Stream Source to wrote to File
-     * @return a File containing the given Stream Source
+     * The stream source cannot be used anymore
+     * @param aStreamSource the Stream Source to write to File
+     * @return a File containing the given Stream So
+     * urce
      * @throws TransformerException
      * @throws IOException
      */
@@ -95,9 +98,11 @@ public class StreamSourceUtility {
 
         // write the result stream to a string
         String resultDocumentString = this.writeToString(aStreamSource);
+       // create a file for the result
+        String randomFileName = RandomStringUtils.randomAlphanumeric(8);
 
-        // create a file for the result
-        File resultFile = File.createTempFile("result", ".xml");
+        // use TempFileManager class that handles better than deleteonExit() ; 
+        File resultFile = TempFileManager.createTempFile(randomFileName, ".xml");
 
         // write the result on the temporary file
         BufferedWriter outresult = new BufferedWriter(new FileWriter(resultFile));
@@ -105,11 +110,36 @@ public class StreamSourceUtility {
         outresult.write(resultDocumentString);
         outresult.close();
 
-        // delete the result file on exit
-        resultFile.deleteOnExit();
-
         // return the string of the Stream Source
         return resultFile;
+    }
+
+
+    /**
+     * This is a more sophisticated edition of _writeToFile_
+     * This API writes the StreamSource to file and returns a handle to the File
+     * and also a new StreamSource based on the file.
+     * The name for the temporary file can be controlled using this API
+     * @param aStreamSource
+     * @param prefix
+     * @param ext
+     * @return
+     * @throws TransformerException
+     * @throws IOException
+     */
+     public OutputXML writeStreamSourceToFile(StreamSource aStreamSource, String prefix, String ext) throws TransformerException, IOException {
+        // write the result stream to a string
+        String resultDocumentString = this.writeToString(aStreamSource);
+        File resultFile = TempFileManager.createTempFile(prefix, ext);
+        // write the result on the temporary file
+        BufferedWriter outresult = new BufferedWriter(new FileWriter(resultFile));
+        outresult.write(resultDocumentString);
+        outresult.close();
+        //Create a new StreamSource object based on the file and return the
+        // StreamSource and the File in a combined OutputXML object
+        StreamSource ss = FileUtility.getInstance().FileAsStreamSource(resultFile);
+        OutputXML xml = new OutputXML(ss, resultFile);
+        return xml;
     }
 
 

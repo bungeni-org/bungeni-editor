@@ -1,5 +1,7 @@
 package org.bungeni.translators.utility.runtime;
 
+// Copied from the Axis2 Apache project
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements. See the NOTICE file
@@ -167,7 +169,7 @@ public class TempFileManager {
 
 
     /** The prefix for the temp directory in the system temp directory */
-    private final static String TEMP_DIR_PREFIX = "axis2-tmp-";
+    private final static String TEMP_DIR_PREFIX = "bun-tmp-";
 
     /** The temp directory to generate all files in */
     private static File sTmpDir = null;

@@ -5,7 +5,7 @@ package org.bungeni.translators.exceptions;
  * is raised during a validation through a schema.
  * Specifically it is raised if an attribute was not found during the validation
  */
-public class TranslationToMetalexFailedException extends Exception {
+public class TranslationStepFailedException extends Exception {
     private static final long serialVersionUID = 1L;
 
     // get the resource bundle for the localized string
@@ -16,7 +16,7 @@ public class TranslationToMetalexFailedException extends Exception {
      * @param aMessage the error message of the exception
      * @param anElement the element in which the attribute is missing
      */
-    public TranslationToMetalexFailedException(String aMessage) {
+    public TranslationStepFailedException(String aMessage) {
 
         // build the exception text
         super(aMessage);

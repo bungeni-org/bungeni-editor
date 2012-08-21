@@ -12,7 +12,7 @@ public class TestBill extends OATranslatorTestBillBase {
 		super();
 		setInputDocument("test/testdocs/bill_test.odt");
 		setOutputDocument("test/testresults/bill_test_out_anx.xml");
-		setOutputMetalex("test/testresults/bill_test_out_mlx.xml");
+		
 		setComparisonDocument("test/testdocs/debaterecord_test_comp.xml");
 	}
 	

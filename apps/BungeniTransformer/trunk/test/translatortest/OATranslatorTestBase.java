@@ -32,7 +32,6 @@ public class OATranslatorTestBase
     private String m_configFilePath = "";
     private String m_inputDocument = "";
     private String m_outputDocument = "";
-    private String m_outputMetalex = "";
     private String m_comparisonDocument = "";
     private String m_pipeline = "";
     
@@ -93,10 +92,9 @@ public class OATranslatorTestBase
 		FileInputStream fisMlx = new FileInputStream(translatedFiles.get("metalex"));
 		//output stream 
 		File outFile = new File(this.getOutputDocument());
-		File outMlx = new File (this.getOutputMetalex());
+
 		//copy the file
 		FileUtility.getInstance().copyFile(fis, outFile);
-		FileUtility.getInstance().copyFile(fisMlx, outMlx);
 		//compare the generated output with the expected outut
                 boolean b = diffXml(getOutputDocument(), getComparisonDocument());
 		//String sOut = FileUtility.getInstance().FileToString(this.getOutputDocument()).trim();
@@ -161,14 +159,7 @@ public class OATranslatorTestBase
      * @return the m_outputMetalex
      */
     public String getOutputMetalex() {
-        return m_outputMetalex;
-    }
-
-    /**
-     * @param m_outputMetalex the m_outputMetalex to set
-     */
-    public void setOutputMetalex(String m_outputMetalex) {
-        this.m_outputMetalex = m_outputMetalex;
+        return "";
     }
 
     /**

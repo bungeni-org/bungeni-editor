@@ -15,7 +15,7 @@ public class TestBungeniXmlMembership extends OATranslatorTestBungeniXmlBase {
                 setConfigFilePath("configfiles/configs/config_bungeni_membership.xml");
 		setInputDocument("test/testdocs/test_membership.xml");
 		setOutputDocument("test/testresults/test_bungeni_membership.xml");
-		setOutputMetalex("test/testresults/test_bungeni_membership.mlx");
+		
 		setComparisonDocument("test/testdocs/test_bungeni_membership_out.xml");
 	}
 

@@ -16,7 +16,7 @@ public class TestBungeniXmlEvent extends OATranslatorTestBungeniXmlBase {
                 setConfigFilePath("configfiles/configs/config_bungeni_parliamentaryitem.xml");
 		setInputDocument("test/testdocs/bungeni_event.xml");
 		setOutputDocument("test/testresults/test_bungeni_event.xml");
-		setOutputMetalex("test/testresults/test_bungeni_event.mlx");
+		
 		setComparisonDocument("test/testresults/test_bungeni_event_out.xml");
 	}
 

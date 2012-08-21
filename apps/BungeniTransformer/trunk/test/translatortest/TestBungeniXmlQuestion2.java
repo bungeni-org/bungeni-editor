@@ -16,7 +16,7 @@ public class TestBungeniXmlQuestion2 extends OATranslatorTestBungeniXmlBase {
                 setConfigFilePath("configfiles/configs/config_bungeni_parliamentaryitem.xml");
 		setInputDocument("test/testdocs/bungeni_question2.xml");
 		setOutputDocument("test/testresults/test_bungeni_question2.xml");
-		setOutputMetalex("test/testresults/test_bungeni_question2.mlx");
+		
 		setComparisonDocument("test/testdocs/test_bungeni_question_out.xml");
 	}
 

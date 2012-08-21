@@ -41,7 +41,7 @@ public class OdtTranslate implements IEditorPlugin {
     private HashMap editorParams = null;
     private String odfFileUrl = null;
     private String outputFilePath = null;
-    private String outputMetalexFilePath = null;
+
     private String pluginMode = null;
     private String translatorConfigFile = null;
     private String translatorPipeline = null;
@@ -86,10 +86,9 @@ public class OdtTranslate implements IEditorPlugin {
             if (!bExceptionOccured) {
                 FileUtility futils = FileUtility.getInstance();
                 File foutputAnxml = new File(this.outputFilePath);
-                File foutputMetalex = new File(this.outputMetalexFilePath);
+             
 
                 try {
-                    futils.copyFile(filesMap.get("metalex"), foutputMetalex);
                     futils.copyFile(filesMap.get("anxml"), foutputAnxml);
                 } catch (IOException e) {
                     log.error("exec():finally, writing outputs", e);
@@ -128,7 +127,6 @@ public class OdtTranslate implements IEditorPlugin {
             this.editorParams = inputParams;
             this.odfFileUrl = (String) this.editorParams.get("OdfFileURL");
             this.outputFilePath = (String) this.editorParams.get("OutputFilePath");
-            this.outputMetalexFilePath = (String) this.editorParams.get("OutputMetalexFilePath");
             this.translatorRootFolder = (String) this.editorParams.get("TranslatorRootFolder");
             this.translatorConfigFile = (String) this.editorParams.get("TranslatorConfigFile");
             //(PIPELINE_SETTING, 2011-09-20)+ pipeline setting is deprecated as it is queried from the

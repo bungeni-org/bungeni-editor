@@ -12,7 +12,7 @@ public class TestRDFMeta extends OATranslatorTestDebateBase {
 		super();
 		setInputDocument("test/testdocs/ke_debaterecord_2011-9-23_en.odt");
 		setOutputDocument("test/testresults/test_rdfmeta.xml");
-		setOutputMetalex("test/testresults/test_rdfmeta.mlx");
+		
 		setComparisonDocument("test/testdocs/test_rdfmeta_out.xml");
 	}
 	

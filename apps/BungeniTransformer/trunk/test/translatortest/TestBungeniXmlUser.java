@@ -15,7 +15,7 @@ public class TestBungeniXmlUser extends OATranslatorTestBungeniXmlBase {
                 setConfigFilePath("configfiles/configs/config_bungeni_user.xml");
 		setInputDocument("test/testdocs/test-user.xml");
 		setOutputDocument("test/testresults/test_bungeni_user.xml");
-		setOutputMetalex("test/testresults/test_bungeni_user.mlx");
+		
 		setComparisonDocument("test/testdocs/test_bungeni_user_out.xml");
 	}
 
