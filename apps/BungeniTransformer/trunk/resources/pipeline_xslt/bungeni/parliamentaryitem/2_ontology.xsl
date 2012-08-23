@@ -81,7 +81,8 @@
 
     <xsl:template match="_vp_response_type">
         <responseType isA="TLCTerm">
-            <value isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.response_type">
+            <xsl:attribute name="showAs" select="@displayAs"/>
+            <value isA="TLCTerm">
                 <xsl:value-of select="field[@name='value']" />
             </value>
         </responseType>
@@ -96,7 +97,8 @@
     
     <xsl:template match="field[@name='doc_type']">
         <docSubType isA="TLCObject">
-            <value isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.event_type"><xsl:value-of select="." /></value>
+            <xsl:attribute name="showAs" select="@displayAs"/>
+            <value isA="TLCTerm"><xsl:value-of select="." /></value>
         </docSubType>
     </xsl:template>    
     
@@ -137,6 +139,7 @@
     
     <xsl:template match="field[@name='status']">
         <status isA="TLCTerm">
+            <xsl:attribute name="showAs" select="@displayAs"/>
             <value type="xs:string"><xsl:value-of select="." /></value>
         </status>
     </xsl:template>    
@@ -511,7 +514,7 @@
         <xsl:variable name="user-uri" select="busers:get_user_uri($country-code, $user-identifier)" />
    
         <owner isA="TLCPerson">
-            <person href="{$user-uri}" showAs="{concat($last-name, ' ,', $first-name)}" />
+            <person href="{$user-uri}" showAs="{concat($last-name, ', ', $first-name)}" />
             <role type="TLCConcept">
                 <value type="xs:string">
                     <xsl:value-of select="bctypes:get_content_type_uri_name(

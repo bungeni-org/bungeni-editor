@@ -57,7 +57,8 @@
     
     <xsl:template match="field[@name='meeting_type']">
         <meetingType isA="TLCObject">
-            <value isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.sittingmeetingtypes">
+            <value isA="TLCTerm">
+                <xsl:attribute name="showAs" select="@displayAs"/>
                 <xsl:value-of select="." />                
             </value>
         </meetingType>
@@ -73,7 +74,8 @@
     
     <xsl:template match="field[@name='convocation_type']">
         <convocationType isA="TLCObject">
-            <value isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.sittingconvocationtypes">
+            <value isA="TLCTerm">
+                <xsl:attribute name="showAs" select="@displayAs"/>
                 <xsl:value-of select="." />                
             </value>
         </convocationType>
@@ -81,7 +83,8 @@
     
     <xsl:template match="field[@name='activity_type']">
         <activityType isA="TLCProcess">
-            <value isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.sittingactivitytypes">
+            <value isA="TLCTerm">
+                <xsl:attribute name="showAs" select="@displayAs"/>
                 <xsl:value-of select="." />                
             </value>
         </activityType>
@@ -404,6 +407,7 @@
     
     <xsl:template match="field[@name='status']">
         <status isA="TLCTerm">
+            <xsl:attribute name="showAs" select="@displayAs"/>
             <value type="xs:string">
                 <xsl:value-of select="."/>
             </value>

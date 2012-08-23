@@ -215,13 +215,15 @@
     </xsl:template>      
     
     <xsl:template match="field[@name='postal_address_type']">
-        <postalAddressType isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.postal_address_type">
+        <postalAddressType isA="TLCTerm">
+            <xsl:attribute name="showAs" select="@displayAs"/>
             <xsl:value-of select="."/>
         </postalAddressType>
     </xsl:template>
     
     <xsl:template match="field[@name='logical_address_type']">
-        <logicalAddressType isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.logical_address_type">
+        <logicalAddressType isA="TLCTerm">
+            <xsl:attribute name="showAs" select="@displayAs"/>
             <xsl:value-of select="."/>
         </logicalAddressType>
     </xsl:template>      
@@ -362,6 +364,7 @@
     
     <xsl:template match="field[@name='status']">
         <status isA="TLCTerm">
+            <xsl:attribute name="showAs" select="@displayAs"/>
             <value type="xs:string">
                 <xsl:value-of select="."/>
             </value>

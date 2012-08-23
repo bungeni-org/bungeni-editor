@@ -85,7 +85,8 @@
             </xsl:choose>
         </gender-->
         
-        <gender isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.gender" >
+        <gender isA="TLCTerm">
+            <xsl:attribute name="showAs" select="@displayAs"/>
             <xsl:value-of select="." />
         </gender>
         
@@ -189,6 +190,7 @@
     
     <xsl:template match="field[@name='status']">
         <addressStatus type="xs:string">
+            <xsl:attribute name="showAs" select="@displayAs"/>
             <xsl:value-of select="." />
         </addressStatus>
     </xsl:template>    
@@ -215,12 +217,14 @@
 
     <xsl:template match="field[@name='postal_address_type']">
         <postalAddressType type="xs:string">
+            <xsl:attribute name="showAs" select="@displayAs"/>
             <xsl:value-of select="."/>
         </postalAddressType>
     </xsl:template>
     
     <xsl:template match="field[@name='logical_address_type']">
         <logicalAddressType type="xs:string">
+            <xsl:attribute name="showAs" select="@displayAs"/>
             <xsl:value-of select="."/>
         </logicalAddressType>
     </xsl:template>  
@@ -251,7 +255,8 @@
     
     <xsl:template match="field[@name='marital_status']">
         
-        <maritalStatus isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.marital_status">
+        <maritalStatus isA="TLCTerm">
+            <xsl:attribute name="showAs" select="@displayAs"/>
             <xsl:value-of select="." />
         </maritalStatus>
         

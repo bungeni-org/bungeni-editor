@@ -73,6 +73,7 @@
     
     <xsl:template match="field[@name='language']">
         <language>
+            <xsl:attribute name="showAs" select="@displayAs"/>
             <xsl:value-of select="." />
         </language>
     </xsl:template>    

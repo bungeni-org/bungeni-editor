@@ -32,7 +32,7 @@
     </xsl:template>
     
     <xsl:template match="*">
-        <xsl:element name="{node-name(.)}">
+        <xsl:element name="{node-name(.)}">         
             <xsl:for-each select="@*">
                 <xsl:attribute name="{name(.)}">
                     <xsl:value-of select="."/>
@@ -179,11 +179,10 @@
     </xsl:template>     
     
     <xsl:template match="field[@name='marital_status']">
-        
-        <maritalStatus isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.marital_status">
+        <maritalStatus isA="TLCTerm">
+            <xsl:attribute name="showAs" select="@displayAs"/>
             <xsl:value-of select="." />
         </maritalStatus>
-        
     </xsl:template>    
     
     <xsl:template match="field[@name='gender']">
@@ -196,11 +195,12 @@
             </xsl:choose>
             </gender-->
         
-        <gender isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.gender">
+        <gender isA="TLCTerm">
+            <xsl:attribute name="showAs" select="@displayAs"/>          
             <xsl:value-of select="." />
         </gender>
         
-    </xsl:template>
+    </xsl:template>     
     
     <xsl:template match="field[@name='date_of_birth']">
         <dateOfBirth type="xs:date">
@@ -274,7 +274,8 @@
     
     <xsl:template match="field[@name='member_election_type']">
         <memberElectionType isA="TLCObject">
-            <value isA="TLCTerm" vdex="org.bungeni.metadata.vocabularies.member_election_type">
+            <xsl:attribute name="showAs" select="@displayAs"/>
+            <value isA="TLCTerm">
                 <xsl:value-of select="." />                
             </value>
         </memberElectionType>
@@ -300,6 +301,7 @@
     
     <xsl:template match="field[@name='status']">
         <status isA="TLCTerm">
+            <xsl:attribute name="showAs" select="@displayAs"/>         
             <value type="xs:string">
                 <xsl:value-of select="." />
             </value>
@@ -308,6 +310,7 @@
     
     <xsl:template match="field[@name='office_role']">
         <officeRole isA="TLCRole">
+            <xsl:attribute name="showAs" select="@displayAs"/>
             <value type="xs:string">
                 <xsl:value-of select="." />                
             </value>
