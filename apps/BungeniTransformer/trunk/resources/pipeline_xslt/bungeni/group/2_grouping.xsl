@@ -336,10 +336,10 @@
         </groupContinuity>
     </xsl:template> 
     
-    <xsl:template match="field[@name='proportional_presentation']">
-        <proportionalPresentation type="xs:string">
+    <xsl:template match="field[@name='proportional_representation']">
+        <proportionalRepresentation type="xs:string">
             <xsl:value-of select="."/>
-        </proportionalPresentation>
+        </proportionalRepresentation>
     </xsl:template>     
     
     <xsl:template match="field[@name='sub_type']">

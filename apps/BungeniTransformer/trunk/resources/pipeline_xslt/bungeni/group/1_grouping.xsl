@@ -87,6 +87,7 @@
                 
                 <xsl:copy-of select="field[ @name='parent_group_id' or 
                     @name='committee_id' or 
+                    @name='acronym' or 
                     @name='short_name' or
                     @name='full_name' or 
                     @name='description' or 
@@ -97,6 +98,7 @@
                     @name='group_continuity' or 
                     @name='sub_type' or 
                     @name='start_date' or 
+                    @name='end_date' or 
                     @name='status' or 
                     @name='election_date' ] | group_addresses | contained_groups"></xsl:copy-of>
                 
@@ -112,7 +114,7 @@
                     @name='election_date' or 
                     @name='dissolution_date' or 
                     @name='results_date' or 
-                    @name='proportional_presentation' or 
+                    @name='proportional_representation' or 
                     @name='status_date' ] | agenda_items | parent_group" 
                 />                 
             </legislature>
