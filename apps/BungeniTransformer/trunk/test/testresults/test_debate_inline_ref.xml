@@ -32,8 +32,8 @@
          </references>
       </meta>
       <preface bodf:sourceId="preface">
-         <heading>NATIONAL ASSEMBLY</heading>
-         <subheading>OFFICIAL REPORT</subheading>
+         <p>NATIONAL ASSEMBLY</p>
+         <p>OFFICIAL REPORT</p>
          <p>Wednesday, 13th July,2011</p>
          <scene>
             <span>The House met at thirty minutes past Two o'clock.</span>
@@ -42,8 +42,8 @@
       </preface>
       <debate bodf:sourceId="debaterecord">
          <papers id="papers1" bodf:sourceId="papers1">
-            <heading>PAPERSLAID</heading>
-            <subheading>The following Papers were laid on the Table:</subheading>
+            <p>PAPERSLAID</p>
+            <p>The following Papers were laid on the Table:</p>
             <other id="tbldocs1" bodf:sourceId="tbldocs1">
                <p>
                   <a id="d7e118" href="/ken/person/hon.khamasi/doc-20040704">The Report of the Commonwealth Parliamentary Association (CPA) Kenya branch delegation to the 35th CPA (Africa Region) conference held in Lobamba, Swaziland from 7th August, 2004 to 15th August, 2004.</a>
@@ -64,7 +64,7 @@
             </scene>
          </papers>
          <communication id="comnctn1" bodf:sourceId="comnctn1">
-            <heading>COMMUNICATION FROM THE CHAIR</heading>
+            <p>COMMUNICATION FROM THE CHAIR</p>
             <speech id="speech1" bodf:sourceId="speech1" by="#p3" as="#Speaker">
                <from>The Speaker:</from>
                <p>Honourable members, I welcome you. However, I note that the number is smaller than yesterday's. I know there is a committee, which is busy in the Eastern part of Uganda, but others should be here. I do not know what is happening, even to the Front Bench. I do not know whether they have a meeting, but I have not been informed. Anyway, I welcome you.<ref id="ref-2" href="/ke/Act/Constitution/Article5">Article 5</ref>of the constitituon.</p>
