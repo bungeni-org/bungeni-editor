@@ -228,9 +228,14 @@ public class OAConfigurationReader implements ConfigurationReader {
             NamedNodeMap attrs = pipeNode.getAttributes();
             if (attrs != null) {
                Node outputAttr = attrs.getNamedItem("output");
-               String soutput = outputAttr.getNodeValue();
-               boolean writeOutput = Boolean.parseBoolean(soutput);
-               return writeOutput ;
+               //if no @output attribute set return false
+               if (outputAttr == null )
+                   return false;
+               else {
+                   String soutput = outputAttr.getNodeValue();
+                   boolean writeOutput = Boolean.parseBoolean(soutput);
+                   return writeOutput ;
+                }
             }
             else
                 return false;

@@ -154,7 +154,16 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         // check if pipeline xslt needs to be cached
         this.cachePipelineXSLT = Boolean.parseBoolean(properties.getProperty("cachePipelineXSLT"));
 
-        this.writeIntermediateOutputs = Boolean.parseBoolean(properties.getProperty("writeIntermediateOutputs"));
+        //check if writeIntermediateOutputs property is set
+        String strInterOuputs = properties.getProperty("writeIntermediateOutputs");
+        //if not set, default to false
+        if (strInterOuputs == null) {
+            // if intermediate outputs == null
+            this.writeIntermediateOutputs = false;
+        } else {
+            //use set value
+            this.writeIntermediateOutputs = Boolean.parseBoolean(strInterOuputs);
+        }
 
         String strSourceType = properties.getProperty("inputXmlSource");
 
