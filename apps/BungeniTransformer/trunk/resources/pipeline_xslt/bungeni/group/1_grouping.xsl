@@ -100,11 +100,13 @@
                     @name='start_date' or 
                     @name='end_date' or 
                     @name='status' or 
-                    @name='election_date' ] | group_addresses | contained_groups"></xsl:copy-of>
-                
-                <!-- PERMISSIONS -->
-                <xsl:copy-of select="permissions" />                
-                
+                    @name='election_date' ]"/>
+                <!-- GROUP LOGO -->
+                <xsl:copy-of select="logo_data"/>
+                                
+                <!-- ADDRESSES, SUB-GROUPS, PERMISSIONS -->
+                <xsl:copy-of select="group_addresses | contained_groups"/>                
+                <xsl:copy-of select="permissions" />                               
             </group>
             <legislature isA="TLCConcept" href="{$for-parliament}">
                 <electionDate type="xs:date" select="{$parliament-election-date}"></electionDate> 

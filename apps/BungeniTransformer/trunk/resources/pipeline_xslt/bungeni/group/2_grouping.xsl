@@ -244,6 +244,24 @@
         </fullName>
     </xsl:template>
     
+    <xsl:template match="logo_data">
+        <logoData isA="TLCObject">
+            <xsl:apply-templates />
+        </logoData>
+    </xsl:template>     
+    
+    <xsl:template match="field[@name='saved_file']">
+        <savedFile type="xs:string">
+            <xsl:value-of select="." />
+        </savedFile>
+    </xsl:template>      
+    
+    <xsl:template match="field[@name='img_uuid']">
+        <imageUuid type="xs:string">
+            <xsl:value-of select="." />
+        </imageUuid>
+    </xsl:template>    
+    
     <xsl:template match="field[@name='description']">
         <description>
             <xsl:value-of select="." />
