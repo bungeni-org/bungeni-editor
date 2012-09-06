@@ -21,6 +21,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPathExpressionException;
 import org.apache.log4j.Logger;
+import org.bungeni.translators.utility.runtime.TempFileManager;
 
 /**
  * Used to resolve the REPLACE STEPS of a configuration file
@@ -68,10 +69,7 @@ public final class OAReplaceStepsResolver {
         }
 
         // create a file for the result
-        File tempFile = File.createTempFile("temp", ".xml");
-
-        // delete the temp file on exit
-        tempFile.deleteOnExit();
+        File tempFile = TempFileManager.createTempFile("temp", ".xml");
 
         // write the result on the temporary file
         BufferedWriter out = new BufferedWriter(new FileWriter(tempFile));

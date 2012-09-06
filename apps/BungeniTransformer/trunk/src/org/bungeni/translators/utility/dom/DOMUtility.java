@@ -25,6 +25,7 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import net.sf.saxon.dom.DocumentWrapper;
+import org.bungeni.translators.utility.runtime.TempFileManager;
 import org.bungeni.translators.utility.transformer.GenericTransformer;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
@@ -78,7 +79,7 @@ public class DOMUtility {
         Source source = new DOMSource(aDOMDocument);
 
         // Prepare the output file
-        File   resultFile = File.createTempFile("result", ".xml");
+        File   resultFile = TempFileManager.createTempFile("result", ".xml");
         Result result     = new StreamResult(resultFile);
 
         // Write the DOM document to the file

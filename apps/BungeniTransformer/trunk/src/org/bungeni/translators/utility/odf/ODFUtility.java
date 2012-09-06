@@ -23,6 +23,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import org.bungeni.translators.utility.runtime.TempFileManager;
 import org.bungeni.translators.utility.transformer.GenericTransformer;
 
 
@@ -145,7 +146,7 @@ public class ODFUtility {
         Source source = new DOMSource(odfDom);
 
         // create a temp file for
-        File returnFile = File.createTempFile("temp", ".xml");
+        File returnFile = TempFileManager.createTempFile("temp", ".xml");
 
         // create the result on the temp file
         Result result = new StreamResult(returnFile);
