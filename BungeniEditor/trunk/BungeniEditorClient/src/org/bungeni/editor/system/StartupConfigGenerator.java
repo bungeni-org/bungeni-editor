@@ -40,7 +40,7 @@ import org.jdom.output.XMLOutputter;
 import org.jdom.xpath.XPath;
 
 /**
- *
+ *This class generates the startup config generation
  * @author Ashok hariharan
  */
 public class StartupConfigGenerator {
@@ -195,6 +195,7 @@ public class StartupConfigGenerator {
         for (String doctypeName : doctypeNames) {
             // process generators per type
             try {
+                //A merged configuration Document is created
                 ConfigurationProvider cp = ConfigurationProvider.getInstance();
                 cp.generateMergedConfiguration(this.generatorError, doctypeName);
                 Document mergedConfigs = cp.getMergedDocument();

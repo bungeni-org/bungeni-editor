@@ -125,6 +125,7 @@ public final class ConfigurationProvider {
     }
 
     private void addInlineTypesConfig(String docType, Element allConfigs) {
+        //!+FIX_THIS - Add handler for missing config information !
         List<Element> inlineTypes = new ArrayList<Element>(0);
         inlineTypes = InlineTypesReader.getInstance().getInlineTypesClone(
                 docType

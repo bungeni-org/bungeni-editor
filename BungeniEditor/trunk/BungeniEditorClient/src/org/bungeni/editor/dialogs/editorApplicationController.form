@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.4" maxVersion="1.4" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <AuxValues>
@@ -129,10 +129,10 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblOpenCurrentDoc" pref="33" max="32767" attributes="1"/>
+                          <Component id="lblOpenCurrentDoc" pref="38" max="32767" attributes="1"/>
                           <Component id="btnOpenExisting" alignment="0" min="-2" pref="31" max="-2" attributes="1"/>
                       </Group>
-                      <EmptySpace pref="14" max="32767" attributes="0"/>
+                      <EmptySpace pref="19" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -252,7 +252,7 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblTemplatePath" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="lblTemplatePath" alignment="0" pref="793" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jScrollPane1" min="-2" pref="422" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -281,7 +281,7 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnSetCurrentTemplate" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="33" max="32767" attributes="0"/>
+                      <EmptySpace pref="40" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -438,11 +438,11 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="lblServerIP" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtServerIp" alignment="0" max="32767" attributes="1"/>
+                                          <Component id="txtServerIp" alignment="0" pref="123" max="32767" attributes="1"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                                       <Component id="jSeparator1" min="-2" pref="11" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace pref="76" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="txtServerPort" alignment="0" min="-2" pref="107" max="-2" attributes="0"/>
                                           <Component id="lblServerPort" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -453,7 +453,7 @@
                               <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="txtServerHomeDir" max="32767" attributes="1"/>
+                              <Component id="txtServerHomeDir" pref="129" max="32767" attributes="1"/>
                               <EmptySpace min="-2" pref="388" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
@@ -461,14 +461,14 @@
                                   <Component id="lblCurrentDirectory" alignment="0" min="-2" pref="443" max="-2" attributes="0"/>
                                   <Component id="lblServerHomeDir" alignment="0" min="-2" pref="186" max="-2" attributes="1"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="74" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="208" max="-2" attributes="0"/>
                       <Component id="btnSaveSettings" min="-2" pref="145" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="174" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -622,7 +622,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="progressServerFiles" alignment="0" pref="507" max="32767" attributes="0"/>
-                          <Component id="jScrollPane3" alignment="0" pref="503" max="32767" attributes="0"/>
+                          <Component id="jScrollPane3" alignment="0" pref="507" max="32767" attributes="0"/>
                           <Component id="btnBackOneFolder" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>

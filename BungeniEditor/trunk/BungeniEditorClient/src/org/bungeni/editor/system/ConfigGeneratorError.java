@@ -19,14 +19,18 @@
 package org.bungeni.editor.system;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
+import org.bungeni.extutils.CommonXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
+import org.jdom.JDOMException;
 import org.jdom.output.XMLOutputter;
 
 /**
@@ -82,6 +86,10 @@ public class ConfigGeneratorError {
         } catch (IOException ex) {
             log.error("Error while saving errors file !", ex);
         } 
+    }
+
+    public void loadFile() throws FileNotFoundException, UnsupportedEncodingException, JDOMException, IOException{
+        this.docError = CommonXmlUtils.loadFile(CONFIG_GENERATOR_FILE);
     }
 
 }

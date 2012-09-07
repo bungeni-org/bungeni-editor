@@ -54,6 +54,9 @@ public class BaseSystemConfig {
             BaseSystemConfig.SYSTEM_BASE + File.separator +
             "cache";
 
+    /**
+     * 
+     */
     public final static String SYSTEM_TEMPLATES =
             BaseSystemConfig.SYSTEM_BASE + File.separator +
             "templates";

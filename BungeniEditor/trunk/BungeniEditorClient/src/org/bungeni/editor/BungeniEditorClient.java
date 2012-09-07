@@ -266,7 +266,7 @@ public class BungeniEditorClient {
                         // set the default language and locale
                         setIniProperties();
                         initOOo();
-                        // 
+                        // This is the startup Config generator -- we call it during initialization
                         StartupConfigGenerator sconfig = new StartupConfigGenerator();
                         sconfig.startupGenerate();
                     } catch (FileNotFoundException ex) {
