@@ -114,6 +114,7 @@
                     @name='status' or 
                     @name='election_nomination_date' or 
                     @name='start_date' or 
+                    @name='end_date' or                     
                     @name='notes' ]" 
                 />     
                 <referenceToUser uri="{concat('/ontology/Person/',$full-user-identifier)}" />
@@ -139,6 +140,7 @@
                     @name='group_id' or  
                     @name='election_date' or 
                     @name='start_date' or 
+                    @name='end_date' or 
                     @name='dissolution_date' or 
                     @name='results_date' or 
                     @name='proportional_presentation' or 
