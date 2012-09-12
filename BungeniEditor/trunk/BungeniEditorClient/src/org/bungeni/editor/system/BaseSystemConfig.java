@@ -24,16 +24,16 @@ import org.bungeni.editor.config.BaseConfigReader;
 import org.bungeni.extutils.CommonFileFunctions;
 
 /**
+ * All system related configuration is stored here --
  *
+ * NOT Intended for human editing
+ * 
  * @author Ashok Hariharan
  */
 public class BaseSystemConfig {
-
-
+   
     /**
-     * All system related configuration is stored here --
-     *
-     * NOT Intended for human editing
+     * configs/system
      */
     public static final String SYSTEM_BASE =
             BaseConfigReader.CONFIGS_FOLDER + File.separator + "system";
@@ -41,6 +41,7 @@ public class BaseSystemConfig {
     /**
      * This has all the system XSLT generator templates
      * Generator templates generate other XSLT templates
+     * configs/system/generators
      */
     public final static String SYSTEM_GENERATOR =
             BaseSystemConfig.SYSTEM_BASE + File.separator +
@@ -49,6 +50,7 @@ public class BaseSystemConfig {
     /**
      * The Templates generated from system XSLT generator templates
      * are cached in this folder
+     * configs/system/cache
      */
     public final static String SYSTEM_CACHE =
             BaseSystemConfig.SYSTEM_BASE + File.separator +

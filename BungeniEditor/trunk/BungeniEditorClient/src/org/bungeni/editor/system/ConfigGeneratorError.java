@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.bungeni.extutils.CommonXmlUtils;
@@ -50,8 +51,8 @@ public class ConfigGeneratorError {
         File ferrorDir = new File(BaseSystemConfig.SYSTEM_TRANSFORMER_ERROR);
         if (!ferrorDir.exists()) {
             ferrorDir.mkdirs();
-            initErrorFile();
         }
+        initErrorFile();
     }
 
     private void initErrorFile() {
@@ -83,9 +84,17 @@ public class ConfigGeneratorError {
             fError = new FileWriter(CONFIG_GENERATOR_FILE);
             xout.output(docError, fError);
             fError.flush();
-        } catch (IOException ex) {
+         } catch (IOException ex) {
             log.error("Error while saving errors file !", ex);
-        } 
+        } finally {
+            if (null != fError) {
+                try {
+                    fError.close();
+                } catch (IOException ex) {
+                    log.error("Error while closing file !", ex);
+                }
+            }
+        }
     }
 
     public void loadFile() throws FileNotFoundException, UnsupportedEncodingException, JDOMException, IOException{
