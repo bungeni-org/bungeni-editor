@@ -7,8 +7,6 @@ package org.bungeni.translators.translator;
 //~--- non-JDK imports --------------------------------------------------------
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import org.bungeni.translators.globalconfigurations.GlobalConfigurations;
 import org.bungeni.translators.configurations.steps.OAXSLTStep;
 import org.bungeni.translators.utility.files.FileUtility;
 import org.bungeni.translators.utility.transformer.XSLTTransformer;
@@ -17,7 +15,6 @@ import org.bungeni.translators.utility.transformer.XSLTTransformer;
 
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
-import java.net.URI;
 import java.util.HashMap;
 
 import java.util.Iterator;
@@ -32,7 +29,6 @@ import org.bungeni.translators.configurations.OAConfiguration;
 import org.bungeni.translators.configurations.steps.OAProcessStep;
 import org.bungeni.translators.process.actions.ProcessUnescape;
 import org.bungeni.translators.utility.dom.DOMUtility;
-import org.bungeni.translators.utility.files.FileUtility.HREF_TYPE;
 import org.bungeni.translators.utility.streams.StreamSourceUtility;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -89,7 +85,8 @@ public class OAXSLTStepsResolver {
             OAXSLTStep nextStep = (OAXSLTStep) mapIterator.next();
 
             // get the href from the step
-            String stepHref = GlobalConfigurations.getApplicationPathPrefix() + nextStep.getHref();
+            //!+REMOVE_DIRECT_PATH_PREFIXING(ah, 13-09-2012)
+            String stepHref = /** GlobalConfigurations.getApplicationPathPrefix() + **/ nextStep.getHref();
 
             if (nextStep.hasPreProc()) {
                 try {
@@ -108,21 +105,13 @@ public class OAXSLTStepsResolver {
             // and file URIs 
             try {
                 File fstepFile = null;
-                HREF_TYPE hrefType = FileUtility.getInstance().getHrefType(stepHref);
-                if (hrefType.equals(HREF_TYPE.FILE_URI) || hrefType.equals(HREF_TYPE.FILE_URL)) {
-                    URI uriFile;
-                    try {
-                        uriFile = new URI(stepHref);
-                        fstepFile = new File(uriFile);
-                    } catch (URISyntaxException ex) {
-                       log.error("Wrong URI syntax : " + stepHref, ex);
-                    }
-                } else {
-                   fstepFile = new File(stepHref);
-                }
+                fstepFile = FileUtility.getInstance().resolveHref(stepHref);
                 xsltStream = FileUtility.getInstance().FileAsStreamSource(fstepFile);
             } catch (FileNotFoundException e) {
-                log.error("input step xslt file : " + stepHref + " not found.", e);
+                log.error(
+                   "input step xslt file : " + stepHref + " not found.",
+                   e
+                );
             }
 
             if (xsltStream != null) {
@@ -211,4 +200,8 @@ public class OAXSLTStepsResolver {
         StreamSource outputDocument = DOMUtility.getInstance().writeToStreamSource(domDocument);
         return outputDocument;
     }
+
+
+
+
 }

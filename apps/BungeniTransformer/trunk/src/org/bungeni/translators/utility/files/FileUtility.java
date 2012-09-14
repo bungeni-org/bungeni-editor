@@ -19,10 +19,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import java.nio.channels.FileChannel;
 
 import javax.xml.transform.stream.StreamSource;
+import org.bungeni.translators.globalconfigurations.GlobalConfigurations;
 
 /**
  * This class supplies several method useful for the management of the File documents
@@ -331,4 +334,33 @@ public class FileUtility {
             return HREF_TYPE.PATH;
         }
     }
+
+/**
+ * This API resolves a HREF in a step.
+ * Both relative hrefs and absolute URIs are accepted, both are resolved to File handles
+ * @param stepHref
+ * @return
+ */
+    public File resolveHref(String stepHref) {
+      File fstepFile = null;
+      HREF_TYPE hrefType = getHrefType(stepHref);
+        if (hrefType.equals(HREF_TYPE.FILE_URI) || hrefType.equals(HREF_TYPE.FILE_URL)) {
+            URI uriFile;
+            try {
+                uriFile = new URI(stepHref);
+                fstepFile = new File(uriFile);
+            } catch (URISyntaxException ex) {
+               log.error("Wrong URI syntax : " + stepHref, ex);
+            }
+        } else {
+           fstepFile = new File(
+                   GlobalConfigurations.getApplicationPathPrefix() +
+                   stepHref
+                   );
+        }
+      return fstepFile;
+  }
+
+
+
 }

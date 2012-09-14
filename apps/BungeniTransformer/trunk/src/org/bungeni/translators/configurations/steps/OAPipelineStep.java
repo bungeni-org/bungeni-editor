@@ -27,6 +27,6 @@ public class OAPipelineStep {
      * @return the pipelineHref
      */
     public String getPipelineHref() {
-        return GlobalConfigurations.getApplicationPathPrefix() + pipelineHref;
+        return pipelineHref;
     }
 }
