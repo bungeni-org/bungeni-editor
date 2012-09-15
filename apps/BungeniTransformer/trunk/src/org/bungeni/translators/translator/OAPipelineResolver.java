@@ -1,7 +1,6 @@
 package org.bungeni.translators.translator;
 
 //~--- non-JDK imports --------------------------------------------------------
-import org.bungeni.translators.globalconfigurations.GlobalConfigurations;
 import org.bungeni.translators.utility.files.FileUtility;
 import org.bungeni.translators.utility.xpathresolver.XPathResolver;
 
