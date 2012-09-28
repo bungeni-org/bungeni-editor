@@ -24,12 +24,14 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.config.DocTypesReader;
 import org.bungeni.editor.config.DocumentMetadataReader;
+import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonXmlUtils;
 import org.bungeni.translators.configurations.steps.OAXSLTStep;
 import org.jdom.Content;
@@ -265,6 +267,24 @@ public class StartupConfigGenerator {
 
         }
         this.generatorError.saveFile();
+        checkConfigErrors();
     }
+
+
+    private boolean checkConfigErrors() {
+      URL[] urls = CommonFileFunctions.findInFiles(
+              BaseSystemConfig.SYSTEM_BASE,
+              "*.xsl",
+              "xsl:error"
+              );
+
+      if (urls.length > 0 ) {
+          return true;
+      } else {
+          return false;
+      }
+
+    }
+
 
 }

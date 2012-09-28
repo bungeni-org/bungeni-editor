@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inlineTypes for="debaterecord">
+    <inlineType name="from">
+        <output>
+            <content>
+                <from />
+            </content>
+        </output>
+    </inlineType>
+
+</inlineTypes>

@@ -38,6 +38,7 @@ import org.bungeni.editor.config.SysTransformsReader;
 import org.jdom.Document;
 import org.jdom.JDOMException;
 import org.jdom.output.DOMOutputter;
+import org.jdom.output.XMLOutputter;
 
 /**
  *

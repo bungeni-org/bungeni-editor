@@ -4,6 +4,8 @@ package org.bungeni.extutils;
 //~--- non-JDK imports --------------------------------------------------------
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bungeni.db.DefaultInstanceFactory;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -18,11 +20,17 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.TrueFileFilter;
+import org.apache.commons.io.filefilter.WildcardFileFilter;
+import org.bungeni.extutils.Grep.GrepMatch;
 
 /**
  *
@@ -268,6 +276,26 @@ public class CommonFileFunctions {
       else
         return sURLpath.substring(0, sURLpath.length() - 1);
   }
+
+
+  public static URL[] findInFiles(String inFolder, String fileWildCard, String searchFor ) {
+        List<URL> urls = new ArrayList<URL>(0);
+        Collection<File> files = FileUtils.listFiles(new File(inFolder),
+                new WildcardFileFilter(fileWildCard),
+                TrueFileFilter.INSTANCE);
+        for (File file : files) {
+            try {
+                Grep grep = new Grep(searchFor, file.getAbsolutePath());
+                GrepMatch gpMatch = grep.search();
+                if (gpMatch.matchesInFile.size() > 0) {
+                    urls.add(file.toURI().toURL());
+                }
+             } catch (IOException ex) {
+                 log.error("error while accessing file for search",  ex);
+            } 
+        }
+        return urls.toArray(new URL[urls.size()]);
+    }
 
 }
 

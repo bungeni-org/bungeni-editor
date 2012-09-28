@@ -87,7 +87,7 @@
 
     </xsl:template>
 
-    <xsl:template match="content">
+    <xsl:template match="content[parent::output]">
         <xsl:apply-templates />
     </xsl:template>
 

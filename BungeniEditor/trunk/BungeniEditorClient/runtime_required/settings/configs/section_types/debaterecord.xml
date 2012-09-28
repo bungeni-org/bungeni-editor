@@ -59,7 +59,7 @@
    <sectionType name="ActionEvent"
     prefix="actionevt"
     numstyle="serial"
-    background=" url:/settings/configs/backgrounds/sand.png"
+    background="url:/settings/configs/backgrounds/sand.png"
     indent-left="0"
     indent-right="0"
     visibility="user" >
@@ -69,6 +69,20 @@
          </content>
      </output>
 </sectionType>
+
+  <sectionType name="DebateBody"
+     prefix="debatebody"
+     numstyle="single"
+     background="url:/settings/configs/backgrounds/sand.png"
+     indent-left="0"
+     indent-right="0"
+     visibility="user">
+     <output>
+         <content>
+             <debateBody />
+         </content>
+     </output>
+  </sectionType>
     
 <sectionType name="Communication"
     prefix="comnctn"
@@ -384,9 +398,11 @@
     <meta>
         <TLCEvent id="$BungeniSectionID" href="$BungeniEventURI" showAs="$BungeniEventName" />
     </meta>
-    <content>
-        <container/>
-    </content>
+    <output>
+        <content>
+            <container/>
+        </content>
+    </output>     
  </sectionType>
 <sectionType name="QuestionBody"
     prefix="quebody"
