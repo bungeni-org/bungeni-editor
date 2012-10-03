@@ -9,6 +9,7 @@
 
 package org.bungeni.editor.toolbar.conditions.runnable;
 
+import org.bungeni.editor.config.DocTypesReader;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.toolbar.conditions.BungeniToolbarCondition;
@@ -37,7 +38,7 @@ public class sectionNotExists  extends baseRunnableCondition {
            log.debug("sectionNotExists: before activeDoc"); 
            String activeDoc =  BungeniEditorProperties.getEditorProperty("activeDocumentMode");
            log.debug("sectionNotExists: activeDocumentMode = " + activeDoc);
-           sectionToActUpon = BungeniEditorProperties.getEditorProperty("root:"+activeDoc);
+           sectionToActUpon = DocTypesReader.getInstance().getRootForDocType(activeDoc);
            log.debug("sectionNotExists: sectionToActUpon = " + sectionToActUpon);
            
         }

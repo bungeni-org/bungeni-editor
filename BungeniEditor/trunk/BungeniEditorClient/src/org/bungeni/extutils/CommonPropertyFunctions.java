@@ -9,6 +9,8 @@
 
 package org.bungeni.extutils;
 
+import org.bungeni.editor.config.DocTypesReader;
+
 /**
  *
  * @author Administrator
@@ -21,9 +23,7 @@ public class CommonPropertyFunctions {
     
     public static String getDocumentRootSection(){
         String documentMode = BungeniEditorProperties.getEditorProperty("activeDocumentMode");
-        String queryNameofRoot = "root:"+documentMode.trim();
-       // queryNameofRoot = documentMode.trim();
-        String rootName = BungeniEditorProperties.getEditorProperty(queryNameofRoot);
+        String rootName = DocTypesReader.getInstance().getRootForDocType(documentMode);
         return rootName;
     }
     

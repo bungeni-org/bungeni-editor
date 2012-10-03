@@ -318,6 +318,7 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
             conditionMap.put(conditionValue, condProc);
         }
         bAction = conditionMap.get(conditionValue).evaluate(getOODocument());
+        System.out.println("bAction : " + bAction + " value = " + conditionValue);
         return bAction;
     }
 

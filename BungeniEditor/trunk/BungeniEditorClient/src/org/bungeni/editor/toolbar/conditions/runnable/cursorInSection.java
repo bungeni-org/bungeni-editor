@@ -8,6 +8,7 @@ import com.sun.star.text.XTextRange;
 import com.sun.star.text.XTextSection;
 import com.sun.star.text.XTextViewCursor;
 import com.sun.star.uno.Any;
+import org.bungeni.editor.config.DocTypesReader;
 import org.bungeni.extutils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.toolbar.conditions.BungeniToolbarCondition;
@@ -58,8 +59,10 @@ public class cursorInSection extends baseRunnableCondition {
     private boolean check_condition(String sectionCurrent, String sectionCheck) {
         log.debug("check_condition : sectionCurrent, sectionCheck : " + sectionCurrent + ", " + sectionCheck);
         if (sectionCurrent.matches(sectionCheck)) {
+            System.out.println("true:condition_check : c:" + sectionCurrent + ", check:" + sectionCheck);
             return true;
         } else {
+            System.out.println("false:condition_check : c:" + sectionCurrent + ", check:" + sectionCheck);
             return false;
         }
     }
@@ -71,7 +74,7 @@ public class cursorInSection extends baseRunnableCondition {
             String sectionToActUpon = condition;
             if (sectionToActUpon.equals(BungeniEditorPropertiesHelper.getDocumentRoot())) {
                 String activeDoc = BungeniEditorProperties.getEditorProperty("activeDocumentMode");
-                sectionToActUpon = BungeniEditorProperties.getEditorProperty("root:" + activeDoc);
+                sectionToActUpon = DocTypesReader.getInstance().getRootForDocType(activeDoc);
             }
             XTextViewCursor viewCursor = ooDocument.getViewCursor();
             XPropertySet loXPropertySet = ooQueryInterface.XPropertySet(viewCursor);
