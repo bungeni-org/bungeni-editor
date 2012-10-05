@@ -22,6 +22,7 @@ commons-lang http://bungeni-editor.googlecode.com/svn/external_imports/trunk/lib
 commons-codec http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/commons-codec
 commons-io  http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/commons-io
 commons-http http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/commons-http
+commons-logging http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/commons-logging
 noa http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/noa
 miglayout http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/miglayout
 glazedlists http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/glazedlists
@@ -32,3 +33,4 @@ simpleodf http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/b
 bungeninumberingscheme http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeninumberingscheme
 japura http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/japura
 freemarker http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/freemarker
+jsoup http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/jsoup
