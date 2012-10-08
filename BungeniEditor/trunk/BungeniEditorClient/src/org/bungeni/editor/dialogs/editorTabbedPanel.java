@@ -299,6 +299,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         lblCurrentMode = new javax.swing.JLabel();
         btnNewDocument = new javax.swing.JButton();
         btnSaveDocument = new javax.swing.JButton();
+        cboOpenFrom = new javax.swing.JComboBox();
 
         jScrollPane2.setViewportView(jTree1);
 
@@ -329,7 +330,7 @@ public class editorTabbedPanel extends javax.swing.JPanel {
         lblCurrentMode.setForeground(java.awt.Color.red);
         lblCurrentMode.setText(bundle.getString("editorTabbedPanel.lblCurrentMode.text")); // NOI18N
 
-        btnNewDocument.setFont(new java.awt.Font("DejaVu Sans", 0, 9)); // NOI18N
+        btnNewDocument.setFont(new java.awt.Font("DejaVu Sans", 0, 9));
         btnNewDocument.setText(bundle.getString("editorTabbedPanel.btnNewDocument.text")); // NOI18N
         btnNewDocument.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnNewDocument.addActionListener(new java.awt.event.ActionListener() {
@@ -347,25 +348,28 @@ public class editorTabbedPanel extends javax.swing.JPanel {
             }
         });
 
+        cboOpenFrom.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "File System", "Bungeni", "Plone" }));
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(lblCurrentlyOpenDocuments, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 267, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(cboListDocuments, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 235, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(lblCurrentMode))
             .add(jTabsContainer, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 267, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(btnOpenDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 56, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(btnNewDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(btnSaveDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 52, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(cboListDocuments, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 235, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(lblCurrentMode)
+                    .add(layout.createSequentialGroup()
+                        .add(btnOpenDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 56, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(cboOpenFrom, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 68, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(btnNewDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(btnSaveDocument, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 52, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -375,19 +379,27 @@ public class editorTabbedPanel extends javax.swing.JPanel {
                 .add(cboListDocuments, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(btnOpenDocument)
                     .add(btnNewDocument)
                     .add(btnSaveDocument)
-                    .add(btnOpenDocument))
+                    .add(cboOpenFrom, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(lblCurrentMode)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jTabsContainer, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE))
+                .add(jTabsContainer, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 private void btnOpenDocumentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenDocumentActionPerformed
 // TODO add your handling code here:
-    loadDocumentInPanel();
+    String sSelection = (String) this.cboOpenFrom.getSelectedItem();
+    if (sSelection.equals("File System")) {
+        loadDocumentFromFileSystemInPanel();
+    } else if (sSelection.equals("Bungeni")) {
+        loadDocumentFromBungeniInPanel();
+    } else if (sSelection.equals("Plone")) {
+        loadDocumentFromPloneInPanel();
+    }
 }//GEN-LAST:event_btnOpenDocumentActionPerformed
 
 private void btnNewDocumentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewDocumentActionPerformed
@@ -437,7 +449,21 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
         }
     }
 
-    public synchronized void loadDocumentInPanel() {
+    public synchronized void loadDocumentFromBungeniInPanel(){
+        BungeniDialog dlg = new BungeniDialog(this.parentFrame() , "Select a Document", true);
+        BungeniDocumentSourceSelectDocument doc = new BungeniDocumentSourceSelectDocument(dlg);
+        doc.init();
+        dlg.getContentPane().add(doc);
+        dlg.pack();
+        FrameLauncher.CenterFrame(dlg);
+        dlg.setVisible(true);
+    }
+
+    public synchronized void loadDocumentFromPloneInPanel(){
+        
+    }
+
+    public synchronized void loadDocumentFromFileSystemInPanel() {
         String basePath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + "workspace" + File.separator + "files";
         File openFile = CommonFileFunctions.getFileFromChooser(basePath,
                 new org.bungeni.utils.fcfilter.ODTFileFilter(),
@@ -562,6 +588,7 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JButton btnOpenDocument;
     private javax.swing.JButton btnSaveDocument;
     private javax.swing.JComboBox cboListDocuments;
+    private javax.swing.JComboBox cboOpenFrom;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabsContainer;

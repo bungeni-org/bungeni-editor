@@ -1073,7 +1073,7 @@ public class editorApplicationController extends javax.swing.JPanel {
                 }
             } else {
                 //open the document in the current panel
-                editorTabbedPanel.getInstance().loadDocumentInPanel();
+                editorTabbedPanel.getInstance().loadDocumentFromFileSystemInPanel();
                 return true;
             }
         }

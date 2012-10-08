@@ -8,11 +8,13 @@ package org.bungeni.extutils;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JRootPane;
 
 /**
  *
- * @author undesa
+ * @author Ashok Hariharan
  */
 public class FrameLauncher {
 
@@ -40,8 +42,17 @@ public class FrameLauncher {
     }
     
     public static void CenterFrame (JFrame frame) {
+        Dimension screenSize = getScreenSize();
+        frame.setLocation(screenSize.width/4, screenSize.height/4);
+  }
+
+   private static Dimension getScreenSize(){
         Toolkit tk = Toolkit.getDefaultToolkit();
-        Dimension screenSize = tk.getScreenSize();
+        return tk.getScreenSize();
+   }
+
+    public static void CenterFrame (JDialog frame) {
+        Dimension screenSize = getScreenSize();
         frame.setLocation(screenSize.width/4, screenSize.height/4);
     }
 }
