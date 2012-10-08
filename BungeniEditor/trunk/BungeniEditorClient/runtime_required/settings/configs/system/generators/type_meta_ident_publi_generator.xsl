@@ -67,7 +67,7 @@
       </xsl:comment>
       <xmeta:template match="office:document-content">
          <root name="root" id="{generate-id(.)}">
-             <meta:apply-templates />
+             <xmeta:apply-templates />
          </root>
       </xmeta:template>
      
