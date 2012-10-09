@@ -12,6 +12,8 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Locale;
+import javax.xml.transform.stream.StreamSource;
+import org.bungeni.editor.system.BaseSystemConfig;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -195,6 +197,18 @@ public class CommonXmlUtils {
             return getXmlOutputter().outputString(childHtml);
         }
     }
+
+    public StreamSource getFileAsStreamSource(String xsltPath ) throws FileNotFoundException {
+        StreamSource sxslt = null;
+        String sFullPath = CommonFileFunctions.convertRelativePathToFullPath(xsltPath);
+        File xsltFile = new File(sFullPath);
+        if (xsltFile.exists()) {
+                sxslt = new StreamSource(xsltFile);
+        } else {
+                throw new FileNotFoundException("Xslt file :" + xsltPath + " not found on path : "+ sFullPath);
+        }
+        return sxslt;
+}
 
 
 }

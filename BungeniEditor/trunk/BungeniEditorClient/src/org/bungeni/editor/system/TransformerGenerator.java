@@ -35,9 +35,13 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.apache.log4j.Logger;
 import org.bungeni.editor.config.SysTransformsReader;
+import org.bungeni.extutils.CommonXmlUtils;
+import org.jdom.Content;
 import org.jdom.Document;
+import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.output.DOMOutputter;
+import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
 /**
@@ -139,6 +143,23 @@ public class TransformerGenerator {
             log.error("Full path to xslt file : " + ftypeGenerator.getAbsolutePath());
             log.error("XSLT not found !", ex);
         }
+
+        //now merge type_static_templates.xsl at the end of this template.
+
+        Document typeStaticXSL = CommonXmlUtils.loadFile(BaseSystemConfig.SYSTEM_GENERATOR +
+                File.separator + "type_static_templates.xsl");
+        Document typeCurrentXSL = CommonXmlUtils.loadFile(ftypeGenerator);
+        List children = typeStaticXSL.getRootElement().getChildren();
+        for (int i=0 ; i < children.size() ; i++ ) {
+            Element child = (Element) children.get(i);
+            Element childClone= (Element) child.clone();
+            childClone.detach();
+            typeCurrentXSL.getRootElement().addContent(childClone);
+        }
+        FileWriter fwXSLTgen = new FileWriter(ftypeGenerator);
+        XMLOutputter xout = new XMLOutputter(Format.getPrettyFormat());
+        xout.output(typeCurrentXSL, fwXSLTgen);
+        fwXSLTgen.flush();
         return ftypeGenerator;
     }
 

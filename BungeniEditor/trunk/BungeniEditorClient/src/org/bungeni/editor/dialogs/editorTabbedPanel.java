@@ -445,15 +445,15 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
         } catch (NOAException e) {
             log.error("Error while opening document from editorTabbedPanel" , e);
         } catch (DocumentException e) {
-            log.error("Error while opening document from editorTabbedPanel" , e);
+                log.error("Error while opening document from editorTabbedPanel" , e);
+            }
         }
-    }
 
-    public synchronized void loadDocumentFromBungeniInPanel(){
-        BungeniDialog dlg = new BungeniDialog(this.parentFrame() , "Select a Document", true);
-        BungeniDocumentSourceSelectDocument doc = new BungeniDocumentSourceSelectDocument(dlg);
-        doc.init();
-        dlg.getContentPane().add(doc);
+        public synchronized void loadDocumentFromBungeniInPanel(){
+            BungeniDialog dlg = new BungeniDialog(this.parentFrame() , "Select a Document", true);
+            BungeniDocumentSourceSelectDocument doc = new BungeniDocumentSourceSelectDocument(dlg);
+            doc.init();
+            dlg.getContentPane().add(doc);
         dlg.pack();
         FrameLauncher.CenterFrame(dlg);
         dlg.setVisible(true);
