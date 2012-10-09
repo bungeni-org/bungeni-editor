@@ -9,6 +9,10 @@
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
     </action>
 
+    <action name="create_debatebody" source="sectionType" metadata="DebateBody">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
+    </action>
+    
     <action name="markup_heading">
         <router class="org.bungeni.editor.actions.routers.routerApplyStyle"/>
     </action>

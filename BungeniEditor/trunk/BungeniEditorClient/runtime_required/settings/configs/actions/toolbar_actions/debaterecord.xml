@@ -163,9 +163,16 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
           condition="cursorInSection:preface :and:  textSelected:true" title="DATE"
           tooltip="MARKUP_THE_OFFICIAL_DATE"> </action>
       </blockAction>
+      <blockAction name="DEBATE_BODY_MARKUP" target="null" visible="true" condition="none"
+        showChildren="true" title="DEBATE_BODY">
+        <action name="container.debate_body" mode="TEXT_SELECTED_INSERT" target="create_debatebody"
+          visible="true"
+          condition="cursorInSection:debaterecord :and: textSelected:true"
+          title="PREFACE_SECTION" tooltip="MARK_SELECTION_AS_DEBATE_BODY"> </action>
+      </blockAction>
       <blockAction name="Papers" target="null" visible="true" condition="none" title="PAPERS_LAID">
         <action name="Papers.new" mode="TEXT_SELECTED_INSERT" target="create_papers_laid_block"
-          visible="true" condition="textSelected:true :and: cursorInSection:debaterecord"
+          visible="true" condition="textSelected:true :and: cursorInSection:debatebody"
           title="PAPERS_LAID_SECTION" tooltip="MARK_SELECTION_TO_IDENTIFY_PA"> </action>
         <action name="Papers.heading" mode="TEXT_SELECTED_INSERT"
           target="markup_papers_heading:heading_papers" visible="true"

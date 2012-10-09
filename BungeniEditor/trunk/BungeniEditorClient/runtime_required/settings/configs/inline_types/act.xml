@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inlineTypes for="act">
+    <inlineType name="span">
+        <output>
+            <content>
+                <span />
+            </content>
+        </output>
+    </inlineType>
+
+</inlineTypes>

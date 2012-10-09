@@ -13,7 +13,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Locale;
 import javax.xml.transform.stream.StreamSource;
-import org.bungeni.editor.system.BaseSystemConfig;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
