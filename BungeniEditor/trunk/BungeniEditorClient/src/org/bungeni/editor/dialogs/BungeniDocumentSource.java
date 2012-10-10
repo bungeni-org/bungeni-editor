@@ -48,7 +48,7 @@ public class BungeniDocumentSource {
     private final String serverPort;
     private final String loginPageURI;
 
-
+    private DefaultHttpClient client = null;
 
 
     private List<BungeniDocuments> bungeniDocuments =
@@ -103,7 +103,10 @@ public class BungeniDocumentSource {
     }
 
     public DefaultHttpClient login(){
-        DefaultHttpClient client = new DefaultHttpClient();
+        if (client != null) {
+            return client;
+        }
+        client = new DefaultHttpClient();
         try {
             final HttpPost post = new HttpPost(loginUrl);
             final List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);

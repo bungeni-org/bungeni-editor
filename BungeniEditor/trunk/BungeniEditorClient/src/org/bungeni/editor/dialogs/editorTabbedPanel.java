@@ -450,13 +450,18 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
         }
 
         public synchronized void loadDocumentFromBungeniInPanel(){
-            BungeniDialog dlg = new BungeniDialog(this.parentFrame() , "Select a Document", true);
-            BungeniDocumentSourceSelectDocument doc = new BungeniDocumentSourceSelectDocument(dlg);
+            BungeniDialog dlg = new BungeniDialog(
+                    this.parentFrame() ,
+                    "Select a Document",
+                    true
+                    );
+            BungeniDocumentSourceSelectDocument doc =
+                    new BungeniDocumentSourceSelectDocument(dlg);
             doc.init();
             dlg.getContentPane().add(doc);
-        dlg.pack();
-        FrameLauncher.CenterFrame(dlg);
-        dlg.setVisible(true);
+            dlg.pack();
+            FrameLauncher.CenterFrame(dlg);
+            dlg.setVisible(true);
     }
 
     public synchronized void loadDocumentFromPloneInPanel(){

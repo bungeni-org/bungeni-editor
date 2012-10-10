@@ -24,14 +24,28 @@
 
 package org.bungeni.editor.dialogs;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.concurrent.ExecutionException;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.SwingWorker;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.bungeni.editor.dialogs.BungeniDocumentSource.BungeniDocuments;
 
 /**
  *
  * @author Ashok Hariharan
  */
 public class BungeniDocumentSourceSelectDocument extends javax.swing.JPanel {
+
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BungeniDocumentSourceSelectDocument.class.getName());
+
+
 
     private BungeniDocumentSource docSource = null;
     private JDialog parentDialog = null;
@@ -53,6 +67,57 @@ public class BungeniDocumentSourceSelectDocument extends javax.swing.JPanel {
         this.cboSelectDocuments.setModel(
                 new DefaultComboBoxModel(docSource.getBungeniDocuments().toArray())
                 );
+        this.cboSelectDocuments.addActionListener(cboSelectDocuments);
+    }
+
+    class cboSelectDocumentsListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            JComboBox cbox = (JComboBox)e.getSource();
+            Object[] selections = cbox.getSelectedObjects();
+            BungeniDocuments docsource = (BungeniDocuments) selections[0];
+            openDocumentFromBungeni(docsource);
+        }
+
+    }
+
+
+    class OpenDocumentWorker extends SwingWorker<String,Object> {
+
+        BungeniDocuments bungeniDoc ;
+
+        public OpenDocumentWorker(BungeniDocuments adoc){
+            bungeniDoc = adoc;
+        }
+
+        @Override
+        protected String doInBackground() throws Exception {
+            String responseBody = "";
+            if (docSource != null ) {
+                DefaultHttpClient client = docSource.login();
+                final HttpGet geturl = new HttpGet(bungeniDoc.url);
+                ResponseHandler<String> responseHandler = new BasicResponseHandler();
+                responseBody = client.execute(geturl, responseHandler);
+            }
+            return responseBody;
+        }
+
+        @Override
+        public void done(){
+            try {
+                String sBody = get();
+            } catch (InterruptedException ex) {
+                log.error("Thread was interrupted", ex);
+            } catch (ExecutionException ex) {
+                log.error("Thread was interrupted", ex);
+            }
+
+        }
+
+    }
+
+    private void openDocumentFromBungeni(BungeniDocuments docsource) {
+
     }
 
     /** This method is called from within the constructor to
