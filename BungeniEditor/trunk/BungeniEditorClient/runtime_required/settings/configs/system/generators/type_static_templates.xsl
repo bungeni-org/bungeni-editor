@@ -162,7 +162,9 @@
             <xsl:if test="@source">
                 <xsl:attribute name="source"><xsl:value-of select="@source"/></xsl:attribute>
             </xsl:if>
-            <xsl:apply-templates/>
+            <!-- we use copyof instead of applytemplates because the children are rendered 
+                natively as akomaNtoso -->
+            <xsl:copy-of select="child::*" />
         </references>
     </xsl:template>
     

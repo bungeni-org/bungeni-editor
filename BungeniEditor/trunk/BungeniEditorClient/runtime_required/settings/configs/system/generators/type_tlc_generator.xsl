@@ -157,11 +157,13 @@
                     -->
                     <xsl:when test="starts-with(.,'#')">
                         <!-- possibly add a check to see if the metadata exists in the parent ? -->
+                        <!-- !+NODEREF_FIX(ah, 10/10/2012) made node-ref from for-each iteration to 
+                            be relative to key matcher bungeni:bungenimeta -->
                         <xmeta:text>#</xmeta:text>
-                        <xmeta:value-of select="{concat('./bungeni:bungenimeta/bungeni:', substring-after(.,'#$') )}" />
+                        <xmeta:value-of select="{concat('./bungeni:', substring-after(.,'#$') )}" />
                     </xsl:when>
                     <xsl:when test="starts-with(.,'$')">
-                        <xmeta:value-of select="{concat('./bungeni:bungenimeta/bungeni:', substring-after(.,'$') )}" />
+                        <xmeta:value-of select="{concat('./bungeni:', substring-after(.,'$') )}" />
                     </xsl:when>
                     <xsl:otherwise>
                         <xmeta:text><xsl:value-of select="." /></xmeta:text>
