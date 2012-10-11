@@ -145,14 +145,22 @@
             <xsl:apply-templates/>
         </FRBRauthor>
     </xsl:template>
-    
+
+
+    <!--
+          <mcontainer name="publication">
+            <meta name="name" value="ddeddd"/>
+            <meta name="date" value="2012-10-17"/>
+            <meta name="number" value="33"/>
+         </mcontainer>
+    -->
     <xsl:template  match="*[@name='publication']">
         <publication>
-            <xsl:if test="@date">
-                <xsl:attribute name="date"><xsl:value-of select="@date"/></xsl:attribute>
+            <xsl:if test="./*[@name='date']">
+                <xsl:attribute name="date"><xsl:value-of select="./*[@name='date']/@value"/></xsl:attribute>
             </xsl:if>
-            <xsl:attribute name="name"><xsl:value-of select="@contentName"/></xsl:attribute>
-            <xsl:attribute name="showAs"><xsl:value-of select="@showAs"/></xsl:attribute>
+            <xsl:attribute name="name"><xsl:value-of select="./*[@name='name']/@value" /></xsl:attribute>
+            <xsl:attribute name="number"><xsl:value-of select="./*[@name='number']/@value"/></xsl:attribute>
             <xsl:apply-templates/>
         </publication>
     </xsl:template>
@@ -183,7 +191,8 @@
             <xsl:apply-templates/>
         </TLCOrganization>
     </xsl:template>
-    
+
+    <!--
     <xsl:template match="*[@name='TLCPerson']">
         <TLCPerson>
             <xsl:if test="@id">
@@ -199,7 +208,7 @@
             <xsl:apply-templates/>
         </TLCPerson>
     </xsl:template>
-    
+    -->
     <xsl:template match="*[@name='TLCEvent']">
         <TLCEvent>
             <xsl:if test="@id">
@@ -215,7 +224,8 @@
             <xsl:apply-templates/>
         </TLCEvent>
     </xsl:template>
-    
+
+    <!--
     <xsl:template  match="*[@name='TLCRole']">
         <TLCRole>
             <xsl:if test="@id">
@@ -231,6 +241,7 @@
             <xsl:apply-templates/>
         </TLCRole>
     </xsl:template>
+    -->
     
     <xsl:template match="*[@name='TLCReference']">
         <TLCReference>

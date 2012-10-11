@@ -457,11 +457,12 @@
     indent-left=".7"
     indent-right="0"
     visibility="user" >
+<!--
      <output>
          <content>
              <container />
          </content>
-     </output>
+     </output> -->
  </sectionType>
 <sectionType name="SystemDateTimeMetadata"
     prefix=""

@@ -168,7 +168,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
         <action name="container.debate_body" mode="TEXT_SELECTED_INSERT" target="create_debatebody"
           visible="true"
           condition="cursorInSection:debaterecord :and: textSelected:true"
-          title="PREFACE_SECTION" tooltip="MARK_SELECTION_AS_DEBATE_BODY"> </action>
+          title="DEBATE_BODY_SECTION" tooltip="MARK_SELECTION_AS_DEBATE_BODY"> </action>
       </blockAction>
       <blockAction name="Papers" target="null" visible="true" condition="none" title="PAPERS_LAID">
         <action name="Papers.new" mode="TEXT_SELECTED_INSERT" target="create_papers_laid_block"

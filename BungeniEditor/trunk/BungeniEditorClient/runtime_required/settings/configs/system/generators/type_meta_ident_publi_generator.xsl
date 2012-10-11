@@ -208,7 +208,11 @@
          </mcontainer>
            
        </mcontainer>
+
+       <!-- intermediate publication container generator -->
+
         <mcontainer name="publication">
+            <!-- Publication name & date -->
             <xsl:call-template name="meta-outputter">
                 <xsl:with-param name="meta-name">
                     <xsl:text>name</xsl:text>
@@ -217,7 +221,16 @@
                     <xsl:text>BungeniPublicationName</xsl:text>
                 </xsl:with-param>
             </xsl:call-template>
-            
+            <xsl:call-template name="meta-outputter">
+                <xsl:with-param name="meta-name">
+                    <xsl:text>date</xsl:text>
+                </xsl:with-param>
+                <xsl:with-param name="meta-value">
+                    <xsl:text>BungeniPublicationDate</xsl:text>
+                </xsl:with-param>
+            </xsl:call-template>
+            <!-- !+FIX_THIS(ah, 10-10-2012) This needs to be set in the ODF -->
+            <meta name="number" value="33" />
         </mcontainer>
         </mcontainer> 
        </xmeta:template>
@@ -252,9 +265,12 @@
          <xmeta:template match="text:meta">
              <inline>
                  <xmeta:attribute name="name">
-                     <xmeta:value-of select="./bungeni:bungenimeta/bungeni:InlineType" />
+                     <xmeta:value-of select="./bungeni:bungenimeta/bungeni:BungeniInlineType" />
                  </xmeta:attribute>
-                 <xmeta:apply-templates />
+                 <xmeta:element name="inlineContent">
+                     <xmeta:value-of select="content" />
+                 </xmeta:element>
+                 <!-- <xmeta:apply-templates /> -->
              </inline>
          </xmeta:template>
          
