@@ -84,6 +84,20 @@
      </output>
   </sectionType>
     
+    <sectionType name="DebateSection"
+        prefix="debatesection"
+        numstyle="serial"
+        background="url:/settings/configs/backgrounds/shade-5.png"
+        indent-left=".2"
+        indent-right="0"
+        visibility="user">
+        <output>
+            <content>
+                <debateSection />
+            </content>
+        </output>
+    </sectionType>
+    
 <sectionType name="Communication"
     prefix="comnctn"
     numstyle="serial"
@@ -352,7 +366,11 @@
     indent-left=".5"
     indent-right="0"
     visibility="user" >
-     
+    <output>
+        <content>
+            <prayers />
+        </content>
+    </output>
  </sectionType>
 
 <sectionType name="ProceduralMotion"

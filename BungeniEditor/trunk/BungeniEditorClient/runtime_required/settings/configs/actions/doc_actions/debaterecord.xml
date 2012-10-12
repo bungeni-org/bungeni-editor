@@ -13,6 +13,14 @@
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
     </action>
     
+    <action name="create_debatesection" source="sectionType" metadata="DebateSection">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
+    </action>
+    
+    <action name="create_prayers" source="sectionType" metadata="Prayers">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
+    </action>
+    
     <action name="markup_heading">
         <router class="org.bungeni.editor.actions.routers.routerApplyStyle"/>
     </action>
@@ -218,7 +226,7 @@
     </action>
 
     <action name="markup_papers_heading" source="sectionType" metadata="PapersLaid">
-        <router class="org.bungeni.editor.actions.routers.routerApplyStyle" dialog=""/>
+        <router class="org.bungeni.editor.actions.routers.routerApplyStyle" />
     </action>
 
     <action name="create_papers_laid_block" source="sectionType" metadata="PapersLaid">

@@ -160,7 +160,6 @@
 <entry key="ANNOTATE_PARAGRAPH">Annotate the Paragraph</entry>
 <entry key="TOOLTIP_ANNOTATE_PARAGRAPH">Place the cursor on the paragraph you wish to annotate, and then click this action </entry>
 <entry key="COVER_PAGE">Cover Page </entry>
-<entry key="CREATE_COVER_PAGE">Markup Cover Page </entry>
 <entry key="PREAMBLE">preamble</entry>
 <entry key="PREFACE">preface</entry>
 <entry key="CREATE_PREFACE">markup preface</entry>
@@ -168,4 +167,13 @@
 <entry key="TOOLTIP_CREATE_PREFACE">select the preface text and click the action</entry>
 <entry key="TOOLTIP_CREATE_PREAMBLE">select the preamble text and click the action</entry>
 <entry key="CREATE_COVER_PAGE">Markup Cover Page </entry>
+<entry key="CREATE_DEBATE_BODY">Markup DebateBody </entry>
+<entry key="DEBATE_SECTION">debate section </entry>
+<entry key="DEBATE_CORE">core</entry>
+<entry key="DEBATE_BODY_SECTION">debate body </entry>
+<entry key="MARK_SELECTION_AS_DEBATE_BODY">Mark Selection as Debate Body </entry>
+<entry key="PREF_HEADING">Block Heading </entry>
+<entry key="PREF_SUB-HEADING">Block Sub-Heading</entry>    
+<entry key="PRAYERS">prayers</entry>    
+    
 </properties>

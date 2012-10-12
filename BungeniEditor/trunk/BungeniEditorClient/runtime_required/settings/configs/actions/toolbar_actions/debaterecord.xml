@@ -25,7 +25,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
           tooltip="MARK_SELECTED_TEXT_AS_HEADING"> </action>
         <action name="MinStatement.create" mode="TEXT_SELECTED_INSERT"
           target="create_ministerial_statement" visible="true"
-          condition="textSelected:true :and: !cursorInSection:speech[0-9]* :and: cursorInSection:debaterecord"
+          condition="textSelected:true :and: !cursorInSection:speech[0-9]* :and: cursorInSection:debatebody"
           title="MINISTERIAL_STATEMENT" tooltip="MARK_SELECTED_TEXT_AS_MINISTE"> </action>
         <action name="Heading.MinStatement" mode="TEXT_SELECTED_INSERT"
           target="markup_communication_heading:heading_mstatement" visible="true"
@@ -74,7 +74,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
         title="COMMUNICATION">
         <action name="Communication.fromTheChair" mode="TEXT_SELECTED_INSERT"
           target="create_communication_section" visible="true"
-          condition="cursorInSection:debaterecord :and: 
+          condition="cursorInSection:debatebody :and: 
                     textSelected:true"
           title="COMMUNICATION_FROM_THE_CHAIR" tooltip="MARK_SELECTION_AS_COMMUNICATI"> </action>
         <action name="Heading.Communication.fromTheChair" mode="TEXT_SELECTED_INSERT"
@@ -83,7 +83,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
           tooltip="MARK_SELECTION_AS_HEADING"> </action>
         <action name="Communication.pointOfOrder" mode="TEXT_SELECTED_INSERT"
           target="create_point_of_order" visible="true"
-          condition="cursorInSection:debaterecord :and: textSelected:true" title="POINT_OF_ORDER"
+          condition="cursorInSection:debatebody :and: textSelected:true" title="POINT_OF_ORDER"
           tooltip="MARK_SELECTION_AS_POINT_OF_OR"> </action>
         <action name="Heading.Communication.pointOfOrder" mode="TEXT_SELECTED_INSERT"
           target="create_point_of_order_heading:heading_pointoforder" visible="true"
@@ -149,11 +149,11 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
           title="PREFACE_SECTION" tooltip="MARK_SELECTION_AS_PREFACE"> </action>
         <action name="Masthead.heading" mode="TEXT_SELECTED_INSERT"
           target="markup_preface_heading:heading_preface" visible="true"
-          condition="cursorInSection:preface :and: textSelected:true" title="HEADING"
+          condition="cursorInSection:preface :and: textSelected:true" title="PREF_HEADING"
           tooltip="MARK_SELECTION_AS_HEADING"> </action>
         <action name="Masthead.subheading" mode="TEXT_SELECTED_INSERT"
           target="markup_preface_heading:subheading_preface" visible="true"
-          condition="cursorInSection:preface :and: textSelected:true" title="SUB-HEADING"
+          condition="cursorInSection:preface :and: textSelected:true" title="PREF_SUB-HEADING"
           tooltip="MARK_SELECTION_AS_SUB_HEADING"> </action>
         <action name="Masthead.selection.logo" mode="TEXT_SELECTED_INSERT"
           target="markup_logo:main_logo" visible="true" condition="imageSelectedIsNot:main_logo"
@@ -163,12 +163,25 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
           condition="cursorInSection:preface :and:  textSelected:true" title="DATE"
           tooltip="MARKUP_THE_OFFICIAL_DATE"> </action>
       </blockAction>
-      <blockAction name="DEBATE_BODY_MARKUP" target="null" visible="true" condition="none"
-        showChildren="true" title="DEBATE_BODY">
+      <blockAction name="CORE_MARKUP" target="null" visible="true" condition="none"
+        showChildren="true" title="DEBATE_CORE">
         <action name="container.debate_body" mode="TEXT_SELECTED_INSERT" target="create_debatebody"
           visible="true"
           condition="cursorInSection:debaterecord :and: textSelected:true"
           title="DEBATE_BODY_SECTION" tooltip="MARK_SELECTION_AS_DEBATE_BODY"> </action>
+        
+        <action name="container.prayers" mode="TEXT_SELECTED_INSERT" target="create_prayers"
+          visible="true"
+          condition="cursorInSection:debatebody :and: textSelected:true"
+          title="PRAYERS" tooltip="MARK_SELECTION_AS_PRAYERS"> </action>
+        
+        
+        
+        <action name="container.debate_section" mode="TEXT_SELECTED_INSERT" target="create_debatesection"
+          visible="true"
+          condition="cursorInSection:debatebody :and: textSelected:true"
+          title="DEBATE_SECTION" tooltip="MARK_SELECTION_AS_DEBATE_SECTION"> </action>
+        
       </blockAction>
       <blockAction name="Papers" target="null" visible="true" condition="none" title="PAPERS_LAID">
         <action name="Papers.new" mode="TEXT_SELECTED_INSERT" target="create_papers_laid_block"
@@ -200,7 +213,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
         title="NOTICES_OF_MOTIONS">
         <action name="notices-of-motion.new" mode="TEXT_SELECTED_INSERT"
           target="create_motion_group" visible="true"
-          condition="textSelected:true :and: cursorInSection:debaterecord" title="MOTIONS_SECTION"
+          condition="textSelected:true :and: cursorInSection:debatebody" title="MOTIONS_SECTION"
           tooltip="MARK_SELECTION_AS_A_MOTION"> </action>
         <action name="notice-of-motions.heading" mode="TEXT_SELECTED_INSERT"
           target="markup_motion_title:heading_noticesofmotion" visible="true"
@@ -230,7 +243,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
       <blockAction name="Procedural Motions" target="null" visible="true" condition="none"
         title="PROCEDURAL_MOTIONS">
         <action name="proc-motions.new" mode="TEXT_SELECTED_INSERT" target="make_proc_section"
-          visible="true" condition="textSelected:true :and: cursorInSection:debaterecord"
+          visible="true" condition="textSelected:true :and: cursorInSection:debatebody"
           title="MOTIONS_SECTION" tooltip="PERSONAL_STATEMENT"> </action>
         <action name="proc-motions.heading" mode="TEXT_SELECTED_INSERT"
           target="markup_motion_title:heading_procmotions" visible="true"
@@ -253,12 +266,12 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
         <!-- create a narrative -->
         <action name="Question.narrative" mode="TEXT_SELECTED_INSERT"
           target="make_narrative_section" visible="true"
-          condition="textSelected:true :and: !cursorInSection:debaterecord :and: !cursorInSection:narr[0-9]*"
+          condition="textSelected:true :and: !cursorInSection:debatebody :and: !cursorInSection:narr[0-9]*"
           title="NARRATIVE" tooltip="MARK_SELECTION_AS_A_NARRATIVE"> </action>
         <!--creates a question container -->
         <action name="QuestionsGroup.new" mode="TEXT_SELECTED_INSERT"
           target="make_debate_question_group_section" visible="true"
-          condition="textSelected:true :and: cursorInSection:debaterecord" title="QUESTIONS_SECTION"
+          condition="textSelected:true :and: cursorInSection:debatebody" title="QUESTIONS_SECTION"
           tooltip="A_GROUP_OF_MANY_QUESTIONS_TH"> </action>
         <action name="Questions.heading0" mode="TEXT_SELECTED_INSERT"
           target="apply_questiontext_style:heading_allquestions" visible="true"
