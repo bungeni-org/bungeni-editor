@@ -62,13 +62,13 @@ public class SysTransformsReader extends BaseConfigReader {
     public StreamSource getXslt(String xsltName ) throws FileNotFoundException {
         if (!thisXsltMap.containsKey(xsltName)){
             String relativePathtoXSLT = BaseSystemConfig.SYSTEM_GENERATOR + File.separator + xsltName;
-            String sFullPath = CommonFileFunctions.convertRelativePathToFullPath(relativePathtoXSLT);
-            File xsltFile = new File(sFullPath);
+            //String sFullPath = CommonFileFunctions.convertRelativePathToFullPath(relativePathtoXSLT);
+            File xsltFile = new File(relativePathtoXSLT);
             if (xsltFile.exists()) {
                 StreamSource sxslt = new StreamSource(xsltFile);
                 thisXsltMap.put(xsltName, sxslt);
             } else {
-                throw new FileNotFoundException("Xslt file :" + xsltName + " not found on path : "+ sFullPath);
+                throw new FileNotFoundException("Xslt file :" + xsltName + " not found on path : "+ relativePathtoXSLT);
             }
         }
         return thisXsltMap.get(xsltName);

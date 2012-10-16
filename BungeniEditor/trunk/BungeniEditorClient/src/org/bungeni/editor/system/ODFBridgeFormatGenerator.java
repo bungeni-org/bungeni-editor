@@ -100,6 +100,7 @@ public class ODFBridgeFormatGenerator {
      }
 
      public static void main(String[] args){
+         /***
          ODFBridgeFormatGenerator inst = ODFBridgeFormatGenerator.getInstance();
          String xsltName =  BaseSystemConfig.SYSTEM_GENERATOR + File.separator + "meta_identi_publi_generator.xsl";
          String sFullXSLTpath= CommonFileFunctions.convertRelativePathToFullPath(xsltName);
@@ -114,6 +115,6 @@ public class ODFBridgeFormatGenerator {
                 "meta_identi_publi_generator.xsl",
                  new File(sFullConfig),
                  new File(sFullout)
-                  );
+                  ); **/
      }
 }

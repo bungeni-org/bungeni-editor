@@ -6,20 +6,30 @@ import ag.ion.noa.NOAException;
 import ca.odell.glazedlists.swing.EventComboBoxModel;
 import com.sun.star.lang.XComponent;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.editor.BungeniOOoLayout;
 import org.bungeni.editor.config.DocumentActionsReader;
@@ -30,6 +40,8 @@ import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.editor.actions.EditorActionFactory;
 import org.bungeni.editor.actions.IEditorActionEvent;
 import org.bungeni.editor.actions.toolbarAction;
+import org.bungeni.editor.dialogs.BungeniDocumentAttListPanel.Attachment;
+import org.bungeni.editor.dialogs.BungeniDocumentSource.BungeniDocuments;
 import org.bungeni.editor.metadata.BaseEditorDocMetaModel;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
 import org.bungeni.editor.noa.BungeniNoaFrame;
@@ -42,6 +54,9 @@ import org.bungeni.extutils.*;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.bungeni.ooo.ooDocMetadata;
 import org.jdom.Element;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 /**
  * This is a single class since there is only 1 tabbed panel allowed in the system
@@ -449,6 +464,9 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
             }
         }
 
+        //!+HACK ( below is used only by loadDocumentFromBungeniInPanel()
+        private BungeniAppConnector appConnector = null;
+        
         public synchronized void loadDocumentFromBungeniInPanel(){
             BungeniDialog dlg = new BungeniDialog(
                     this.parentFrame() ,
@@ -462,6 +480,59 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
             dlg.pack();
             FrameLauncher.CenterFrame(dlg);
             dlg.setVisible(true);
+            if (doc.getSelectedDocument() != null) {
+                //open document here
+                  //set the wait cursor
+               final BungeniDocuments selectedDocument = doc.getSelectedDocument();
+               this.parentFrame().setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            //call the swingworker thread for the button event
+               SwingUtilities.invokeLater(new Runnable() {
+
+                public void run() {
+                    if (appConnector == null) {
+                        appConnector = new BungeniAppConnector(
+                                "10.0.2.2",
+                                "8081",
+                                "login",
+                                "clerk.p1_01",
+                                "member"
+                                );
+                    }
+                    DefaultHttpClient client = appConnector.login();
+                  final HttpGet geturl = new HttpGet(selectedDocument.url);
+                ResponseHandler<String> responseHandler = new BasicResponseHandler();
+                String responseBody = "";
+                    try {
+                        responseBody = client.execute(geturl, responseHandler);
+                    } catch (IOException ex) {
+                        Logger.getLogger(editorTabbedPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    //parse response Body
+                      parentFrame().setCursor(Cursor.getDefaultCursor());
+                      org.jsoup.nodes.Document doc = Jsoup.parse(responseBody);
+                      Elements elems  = doc.select("dd#fieldset-attachments a");
+                        BungeniDialog dlgatts = new BungeniDialog(
+                                parentFrame() ,
+                                "Import an Attachment",
+                                true
+                                );
+                        BungeniDocumentAttListPanel docAtts =
+                                new BungeniDocumentAttListPanel(dlgatts, elems);
+                        docAtts.init();
+                        dlgatts.getContentPane().add(docAtts);
+                        dlgatts.pack();
+                        FrameLauncher.CenterFrame(dlgatts);
+                        dlgatts.setVisible(true);
+                        if (docAtts.getSelectedAttachment() != null) {
+                            Attachment att = docAtts.getSelectedAttachment();
+                            JOptionPane.showMessageDialog(null, att);
+                        }
+
+
+                    //sourceButton.setEnabled(true);
+                }
+            });
+            }
     }
 
     public synchronized void loadDocumentFromPloneInPanel(){

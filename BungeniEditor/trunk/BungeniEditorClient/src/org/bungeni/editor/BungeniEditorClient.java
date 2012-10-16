@@ -31,6 +31,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
+import org.bungeni.editor.config.BaseConfigReader;
 import org.bungeni.editor.noa.BungeniNoaApp;
 import org.bungeni.editor.noa.ext.BungeniLocalOfficeApplication;
 import org.bungeni.editor.system.StartupConfigGenerator;
@@ -256,6 +257,7 @@ public class BungeniEditorClient {
             // parse the command line options
             cmdOptions = new BungeniEditorClientCmdOptions();
             BasicConfigurator.configure();
+            System.out.println("Editor configuration folder set to : " + BaseConfigReader.CONFIGS_FOLDER);
             cmdOptions.doMain(args);
 
             // launch the editor

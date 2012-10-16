@@ -44,7 +44,7 @@ public class SystemParameterReader extends BaseConfigReader {
 
     public final static String SETTINGS_FOLDER = CONFIGS_FOLDER;
     public final static String SYSTEM_PARAMETER_FILE_NAME = "system-parameters.xml";
-    public final static String RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE = SETTINGS_FOLDER + File.separator + SYSTEM_PARAMETER_FILE_NAME;
+    public final static String PATH_TO_SYSTEM_PARAMETERS_FILE = SETTINGS_FOLDER + File.separator + SYSTEM_PARAMETER_FILE_NAME;
 
     private static SystemParameterReader thisInstance = null;
 
@@ -105,7 +105,7 @@ public class SystemParameterReader extends BaseConfigReader {
     public void save() throws IOException{
         XMLOutputter xmlout = new XMLOutputter();
         xmlout.setFormat(Format.getRawFormat());
-        FileWriter fw=new FileWriter(CommonFileFunctions.convertRelativePathToFullPath(SystemParameterReader.RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE));
+        FileWriter fw=new FileWriter(SystemParameterReader.PATH_TO_SYSTEM_PARAMETERS_FILE);
         xmlout.output(getDocument(), fw);
         fw.flush();
         fw.close();
@@ -126,7 +126,7 @@ public class SystemParameterReader extends BaseConfigReader {
     private Document getDocument() {
        if (this.systemParametersDocument == null) {
             try {
-                this.systemParametersDocument = CommonXmlUtils.loadFile(RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE);
+                this.systemParametersDocument = CommonXmlUtils.loadFile(PATH_TO_SYSTEM_PARAMETERS_FILE);
             } catch (FileNotFoundException ex) {
                 log.error("file not found", ex);
             } catch (UnsupportedEncodingException ex) {

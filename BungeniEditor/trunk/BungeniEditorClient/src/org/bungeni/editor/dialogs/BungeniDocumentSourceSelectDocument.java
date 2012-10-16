@@ -26,10 +26,14 @@ package org.bungeni.editor.dialogs;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
@@ -48,6 +52,7 @@ public class BungeniDocumentSourceSelectDocument extends javax.swing.JPanel {
 
 
     private BungeniDocumentSource docSource = null;
+    private BungeniDocuments selectedDocument = null;
     private JDialog parentDialog = null;
     /** Creates new form BungeniDocumentSourceSelectDocument */
     public BungeniDocumentSourceSelectDocument(JDialog parent) {
@@ -67,18 +72,28 @@ public class BungeniDocumentSourceSelectDocument extends javax.swing.JPanel {
         this.cboSelectDocuments.setModel(
                 new DefaultComboBoxModel(docSource.getBungeniDocuments().toArray())
                 );
-        this.cboSelectDocuments.addActionListener(cboSelectDocuments);
+        this.btnSelectDocuments.addActionListener(new btnSelectDocumentsListener());
+        this.btnCancel.addActionListener(new btnCancelListener());
     }
 
-    class cboSelectDocumentsListener implements ActionListener {
+    class btnCancelListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            parentDialog.dispose();
+        }
+    }
+    class btnSelectDocumentsListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-            JComboBox cbox = (JComboBox)e.getSource();
-            Object[] selections = cbox.getSelectedObjects();
-            BungeniDocuments docsource = (BungeniDocuments) selections[0];
-            openDocumentFromBungeni(docsource);
+                BungeniDocuments selectedDoc = (BungeniDocuments) cboSelectDocuments.getSelectedItem();
+                selectedDocument = selectedDoc;
+                parentDialog.dispose();
+                //openDocumentFromBungeni(docsource);
         }
 
+    }
+
+    public BungeniDocuments getSelectedDocument() {
+        return this.selectedDocument;
     }
 
 
@@ -104,21 +119,29 @@ public class BungeniDocumentSourceSelectDocument extends javax.swing.JPanel {
 
         @Override
         public void done(){
+            String sBody = "";
             try {
-                String sBody = get();
+               sBody = get();
             } catch (InterruptedException ex) {
                 log.error("Thread was interrupted", ex);
             } catch (ExecutionException ex) {
                 log.error("Thread was interrupted", ex);
             }
-
+            JOptionPane.showMessageDialog(null, sBody);
         }
+    }
+
+    private void openDocumentFromBungeni(BungeniDocuments docsource) throws IOException {
+                DefaultHttpClient client = docSource.login();
+                final HttpGet geturl = new HttpGet(docsource.url);
+                ResponseHandler<String> responseHandler = new BasicResponseHandler();
+                String responseBody = client.execute(geturl, responseHandler);
+                docSource.client.getConnectionManager().shutdown();
+                docSource.client = null;
+                JOptionPane.showConfirmDialog(null, responseBody.length());
 
     }
 
-    private void openDocumentFromBungeni(BungeniDocuments docsource) {
-
-    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -129,15 +152,20 @@ public class BungeniDocumentSourceSelectDocument extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnSelectDocuments = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
         cboSelectDocuments = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+
+        btnSelectDocuments.setText("Select Document");
+
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         cboSelectDocuments.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jButton1.setText("Select Document");
-
-        jButton2.setText("Cancel");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -146,32 +174,37 @@ public class BungeniDocumentSourceSelectDocument extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(115, 115, 115)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(cboSelectDocuments, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cboSelectDocuments, 0, 362, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(btnSelectDocuments)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancel)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(cboSelectDocuments, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSelectDocuments)
+                    .addComponent(btnCancel))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnSelectDocuments;
     private javax.swing.JComboBox cboSelectDocuments;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     // End of variables declaration//GEN-END:variables
 
 }

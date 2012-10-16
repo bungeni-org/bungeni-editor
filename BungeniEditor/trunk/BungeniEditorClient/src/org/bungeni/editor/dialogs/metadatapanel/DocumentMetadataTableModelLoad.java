@@ -10,13 +10,11 @@
 package org.bungeni.editor.dialogs.metadatapanel;
 
 import com.sun.star.beans.Property;
-import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.table.AbstractTableModel;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.metadata.*;
 import org.bungeni.ooo.OOComponentHelper;
-import com.sun.star.beans.UnknownPropertyException;
 
 /**
  *

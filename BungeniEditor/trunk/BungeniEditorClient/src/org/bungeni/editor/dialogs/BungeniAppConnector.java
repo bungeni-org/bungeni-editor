@@ -34,64 +34,23 @@ import org.apache.log4j.Logger;
  *
  * @author Ashok Hariharan
  */
-public class BungeniDocumentSource {
+public class BungeniAppConnector {
 
-   private static org.apache.log4j.Logger log =
-           Logger.getLogger(BungeniDocumentSource.class.getName());
+    private static org.apache.log4j.Logger log =
+           Logger.getLogger(BungeniAppConnector.class.getName());
 
 
     private final String loginUrl ;
- 
-    private final String user ;
-    private final String password ;
-    private final String serverName;
-    private final String serverPort;
-    private final String loginPageURI;
+
+    private final String user;
+    private final String password;
+    private final String serverName ;
+    private final String serverPort ;
+    private final String loginPageURI ;
 
     public DefaultHttpClient client = null;
 
-
-    private List<BungeniDocuments> bungeniDocuments =
-            new ArrayList<BungeniDocuments>(){
-                {
-                    add(
-                     new BungeniDocuments(
-                       "Kenya Information and Communications Bill [received by clerk]",
-                       "http://10.0.2.2:8081/workspace/my-documents/inbox/bill-308/"
-                       )
-                    );
-
-                    add(
-                     new BungeniDocuments(
-                       "Bill - cosignatory - scheduling first reading p1_04 [first reading pending]",
-                       "http://10.0.2.2:8081/workspace/my-documents/inbox/bill-299/"
-                       )
-                    );
-                    add(
-                     new BungeniDocuments(
-                       "Bill as Clerk - cosignatory - status allow scheduling first reading p1_04 [first reading pending] ",
-                       "http://10.0.2.2:8081/workspace/my-documents/inbox/bill-294/"
-                      )
-                    );
-                }
-    };
-
-    class BungeniDocuments {
-        public String title = "";
-        public String url = "";
-
-        public BungeniDocuments(String title, String url ){
-            this.title = title;
-            this.url = url;
-        }
-
-        @Override
-        public String toString(){
-            return this.title;
-        }
-    }
-
-    public BungeniDocumentSource(
+   public  BungeniAppConnector(
             String serverName,
             String serverPort,
             String loginPageURI,
@@ -102,14 +61,11 @@ public class BungeniDocumentSource {
         this.serverPort = serverPort;
         this.password = password;
         this.user = user;
-        this.loginUrl = "http://" + this.serverName + ":" + this.serverPort + "/" + loginPageURI;
+        loginUrl = "http://" + this.serverName + ":" + this.serverPort + "/" + loginPageURI;
+        System.out.println("LOGIN:" + loginUrl + " user : " + this.user + " password :" +  this.password);
     }
 
-    public List<BungeniDocuments> getBungeniDocuments(){
-        return this.bungeniDocuments;
-    }
-
-    public DefaultHttpClient login(){
+       public DefaultHttpClient login(){
         if (client != null) {
             return client;
         }
@@ -127,14 +83,6 @@ public class BungeniDocumentSource {
         }
         return client;
     }
-
-    public void selectDocument(){
-        
-    }
-
-
-
-
 
 
 

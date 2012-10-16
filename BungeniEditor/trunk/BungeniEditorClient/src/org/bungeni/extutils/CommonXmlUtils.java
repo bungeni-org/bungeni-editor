@@ -61,8 +61,8 @@ public class CommonXmlUtils {
      * @throws IOException
      */
     public static Document loadFile(String relativePathToFile) throws FileNotFoundException, UnsupportedEncodingException, JDOMException, IOException {
-        String sFullPath = CommonFileFunctions.convertRelativePathToFullPath(relativePathToFile);
-        File file = new File(sFullPath);
+        //String sFullPath = CommonFileFunctions.convertRelativePathToFullPath(relativePathToFile);
+        File file = new File(relativePathToFile);
         Document doc = loadFile(file);
         return doc;
     }
