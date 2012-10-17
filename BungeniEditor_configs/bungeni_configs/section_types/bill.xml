@@ -2,18 +2,38 @@
 <sectionTypes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="sectionTypes.xsd"
  for="bill">
-
-    <sectionType name="CoverPage" 
-        prefix="coverpage" 
-        numstyle="single" 
-        >
+ 
+ <!-- root is mandatory, all mode="call" attributed calls need sectionType definitions -->
+ 
+ <sectionType name="root"
+		prefix="bill"
+		numstyle="single"
+		visibility="user" >
+		<output>
+		<content>
+			<akomaNtoso>
+				<bill>
+					<meta mode="call"/>
+					<preface mode="call" />
+					<preamble mode="call" />
+					<body  mode="call"/>
+					<conclusions mode="call" />
+				</bill>
+			</akomaNtoso>
+		</content>
+	   </output>
+	 </sectionType>
+	 
+   <sectionType name="meta"
+        prefix="meta"
+        numstyle="single">
         <output>
             <content>
-                <coverPage/>
+                <meta />
             </content>
         </output>
     </sectionType>
-
+	 
     <sectionType name="Preamble" 
         prefix="preamble" 
         numstyle="single" 
@@ -36,88 +56,35 @@
         </output>
     </sectionType>
     
-    
-    <sectionType name="Recital" 
-        prefix="recital" 
-        numstyle="serial" 
-        >
-        <output>
-            <content>
-                <recital/>
-            </content>
-        </output>
+	<sectionType name="BillBody"
+		 prefix="body"
+		 numstyle="single"
+		 background="url:/settings/configs/backgrounds/sand.png"
+		 indent-left="0"
+		 indent-right="0"
+		 visibility="user"
+		 >
+     <output>
+         <content>
+             <body />
+         </content>
+     </output>
     </sectionType>
-    
-    
-    
-    
-    <sectionType name="Container" 
-        prefix="container" 
-        numstyle="serial" 
-        >
-        <metadatas>
-            <metadata name="BungeniContainerName" />
-        </metadatas>
-        <output>
-            <content>
-                <container name="$BungeniContainerName" /> 
-            </content>
-        </output>
-    </sectionType>
-    
-    
-    <sectionType name="Block" 
-        prefix="block" 
-        numstyle="serial" 
-        >
-        <metadatas>
-            <metadata name="BungeniBlockName" />
-        </metadatas>
-        <output>
-            <content>
-                <container name="$BungeniBlockName" /> 
-            </content>
-        </output>
-    </sectionType>
-    
-    
-    
-    <sectionType name="Recitals" 
-        prefix="recitals" 
-        numstyle="serial" 
-        >
-        <output>
-            <content>
-                <recitals /> 
-            </content>
-        </output>
-    </sectionType>
-    
-    <sectionType name="Recitals" 
-        prefix="recitals" 
-        numstyle="serial" 
-        >
-        <output>
-            <content>
-                <recitals /> 
-            </content>
-        </output>
-    </sectionType>
-    
-    
-    <sectionType name="Recital" 
-        prefix="recital" 
-        numstyle="serial" 
-        >
-        <output>
-            <content>
-                <recital /> 
-            </content>
-        </output>
-    </sectionType>
-    
-    
 
+	<sectionType name="Conclusion"
+     prefix="conclusion"
+     numstyle="single"
+     background="0xffdfdf"
+     indent-left="0"
+     indent-right="0"
+     visibility="user">
+     <output>
+         <content>
+             <conclusions />
+         </content>
+     </output>
+  </sectionType>	
+	
     <sectionType name="Article" prefix="article" numstyle="serial" background="0xf0f0f0"
         indent-left=".3" indent-right="0" visibility="user">
         <numbering scheme="NUMERIC" decorator="flowerBracket"/>
@@ -157,11 +124,6 @@
         </output>
     </sectionType>
     
-    <sectionType name="NumberedContainer" prefix="num_" numstyle="single" background="0xffffe1"
-        indent-left="0" indent-right="0" visibility="system">
-        
-    </sectionType>
-
     <sectionType name="Paragraph" prefix="para" numstyle="serial" background="0xffff00"
         indent-left=".7" indent-right="0" visibility="user">
         <numbering scheme="ALPHABETICAL-Lower" decorator="parens"/>
@@ -191,6 +153,7 @@
             </content>
         </output>
     </sectionType>
+ 
     <sectionType name="ShortTitle" prefix="shorttitle" numstyle="single" background="0xffffff"
         indent-left=".2" indent-right="0" visibility="user">
         <!-- this should perhaps be an inlinetype -->
@@ -250,5 +213,7 @@
             </content>
         </output>
     </sectionType>
+	
+
     
 </sectionTypes>
