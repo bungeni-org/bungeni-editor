@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conditionOperators>
+    <operator name="and" syntax=":and:" class="org.bungeni.editor.toolbar.conditions.operators.andOperator" />
+    <operator name="or" syntax=":or:" class="org.bungeni.editor.toolbar.conditions.operators.orOperator" />
+</conditionOperators>
