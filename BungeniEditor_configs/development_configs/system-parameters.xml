@@ -5,10 +5,7 @@
         value="debaterecord"
         description="editor client is set to edit a document of this type"
     />
-    <prop name="activeProfile"
-        value="withBackend"
-        description="Current Active Profile"
-    />
+
     <prop name="attributeDateFormat"
         value="yyyy-MM-dd"
         description="Date format used in AkomaNtoso Attributes"
@@ -29,14 +26,7 @@
         value="workspace/files"
         description="default file save path"
     />
-    <prop name="defaultWorkURI"
-        value="CountryCode.FullDate.PartName"
-        description=""
-    />
-    <prop name="genericPanelBackColor"
-        value="#FFFFCC"
-        description="generic color used by panels"
-    />
+
     <prop name="iconPath"
         value="/gui"
         description="path to icons used by editor"
@@ -86,34 +76,12 @@
         value="plugins"
         description=""
     />
-    <prop name="popupDialogBackColor"
-        value="#C5DD45"
-        description="popup dialog background color"
-    />
-    <prop name="registryDB"
-        value="registry.db"
-        description="registry db name"
-    />
+  
     <prop name="structuralRulesRootPath"
         value="settings/structural_rules"
         description="path to structural rules root"
     />
-    <prop name="textMetadataPropertyBeginMarker"
-        value="{{"
-        description="used to demarcate beginning of inline metadata"
-    />
-    <prop name="textMetadataPropertyEndMarker"
-        value="}}"
-        description="used to demarcate ending of inline metadata "
-    />
-    <prop name="transformerServerName"
-        value="localhost"
-        description="Host name of transformer server"
-    />
-    <prop name="transformerServerPort"
-        value="8182"
-        description="Transformer server port"
-    />
+ 
     <prop name="transformerWorkingDir"
         value="transformer"
         description=""
