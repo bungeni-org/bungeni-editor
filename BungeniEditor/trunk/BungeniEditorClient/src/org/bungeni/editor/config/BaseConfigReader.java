@@ -24,6 +24,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.logging.Level;
 import org.apache.log4j.Logger;
+import org.bungeni.editor.config.PluggableConfigReader.PluggableConfig;
 import org.jdom.Element;
 
 import org.jdom.JDOMException;
@@ -43,10 +44,10 @@ public class BaseConfigReader {
     private static String getConfigsFolder(){
         if (null == PLUGGABLE_CONFIGS_FOLDER) {
             try {
-              Element defaultConfig = PluggableConfigReader.getInstance().getDefaultConfig();
-              String folderBase = defaultConfig.getAttributeValue("folder-base");
+              PluggableConfig cfg = PluggableConfigReader.getInstance().getDefaultConfig();
+              String folderBase = cfg.folderBase;
               if (null == folderBase) {
-                  String urlBase = defaultConfig.getAttributeValue("url");
+                  String urlBase = cfg.url;
                   //download config into settings configs folder and return that path
                   PLUGGABLE_CONFIGS_FOLDER = BASE_SETTINGS_FOLDER + File.separator + "configs"  ;
               } else {

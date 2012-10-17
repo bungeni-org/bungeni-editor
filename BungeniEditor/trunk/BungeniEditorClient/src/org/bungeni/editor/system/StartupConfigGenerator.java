@@ -54,8 +54,16 @@ public class StartupConfigGenerator {
 
     public StartupConfigGenerator(){
          generatorError = new ConfigGeneratorError();
+         init();
     }
 
+    private void init(){
+        //create cache folder if it doesnt exist
+        File fcache = new File(BaseSystemConfig.SYSTEM_CACHE);
+        if (!fcache.exists()){
+            fcache.mkdirs();
+        }
+    }
     
     private File createODFMetaMasterXSLT(String docType,
             File baseTemplate,

@@ -29,6 +29,8 @@ import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.editor.noa.BungeniNoaApp;
 import org.bungeni.editor.SplashPage;
 import org.bungeni.editor.config.DocTypesReader;
+import org.bungeni.editor.config.PluggableConfigReader;
+import org.bungeni.editor.config.PluggableConfigReader.PluggableConfig;
 import org.bungeni.editor.locales.BungeniEditorLocale;
 import org.bungeni.editor.locales.BungeniEditorLocalesFactory;
 import org.bungeni.extutils.BungeniEditorProperties;
@@ -193,8 +195,10 @@ public class editorApplicationController extends javax.swing.JPanel {
         lblApplnTitle = new javax.swing.JLabel();
         cboLocale = new javax.swing.JComboBox();
         lblLocale = new javax.swing.JLabel();
+        cboConfiguration = new org.bungeni.extutils.WideComboBox();
+        lblConfiguration = new javax.swing.JLabel();
 
-        editorAppTabbedPane.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        editorAppTabbedPane.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
 
         createNewDocument.setFont(new java.awt.Font("DejaVu Sans", 0, 11));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/dialogs/Bundle"); // NOI18N
@@ -295,30 +299,45 @@ public class editorApplicationController extends javax.swing.JPanel {
         cboLocale.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lblLocale.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        lblLocale.setLabelFor(cboLocale);
         lblLocale.setText(bundle.getString("editorApplicationController.lblLocale.text")); // NOI18N
+
+        cboConfiguration.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        cboConfiguration.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        lblConfiguration.setLabelFor(cboConfiguration);
+        lblConfiguration.setText(bundle.getString("editorApplicationController.lblConfiguration.text")); // NOI18N
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(lblApplnTitle, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 368, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(34, 34, 34))
-            .add(editorAppTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 542, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .add(layout.createSequentialGroup()
-                .add(lblLocale, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(cboLocale, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 189, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .add(lblApplnTitle, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 368, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                .add(layout.createSequentialGroup()
+                    .add(lblConfiguration, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 113, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                    .add(cboConfiguration, 0, 109, Short.MAX_VALUE)
+                    .add(18, 18, 18)
+                    .add(lblLocale, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(18, 18, 18)
+                    .add(cboLocale, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 189, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(org.jdesktop.layout.GroupLayout.LEADING, editorAppTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 542, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
+                .add(27, 27, 27)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(lblLocale)
+                    .add(lblConfiguration))
+                .add(233, 233, 233))
+            .add(layout.createSequentialGroup()
                 .add(lblApplnTitle, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(1, 1, 1)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(lblLocale)
-                    .add(cboLocale, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(cboLocale, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                    .add(cboConfiguration, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(editorAppTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 207, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -327,7 +346,15 @@ public class editorApplicationController extends javax.swing.JPanel {
 
 
     private void initConfigs(){
-       
+        List<PluggableConfig> configs =  PluggableConfigReader.getInstance().getConfigs();
+        DefaultComboBoxModel model = new DefaultComboBoxModel(configs.toArray());
+        this.cboConfiguration.setModel(model);
+        for (int i = 0; i < model.getSize(); i++) {
+               PluggableConfig cfg = (PluggableConfig) model.getElementAt(i);
+               if (cfg.configDefault ) {
+                  this.cboConfiguration.setSelectedItem(cfg);
+               }
+         }
     }
 
     /**
@@ -664,11 +691,13 @@ public class editorApplicationController extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOpenExisting;
+    private javax.swing.JComboBox cboConfiguration;
     private javax.swing.JComboBox cboDocumentTypes;
     private javax.swing.JComboBox cboLocale;
     private javax.swing.JButton createNewDocument;
     private javax.swing.JTabbedPane editorAppTabbedPane;
     private javax.swing.JLabel lblApplnTitle;
+    private javax.swing.JLabel lblConfiguration;
     private javax.swing.JLabel lblCreateNewDoc;
     private javax.swing.JLabel lblCurrentActiveMode;
     private javax.swing.JLabel lblCurrentTemplate;

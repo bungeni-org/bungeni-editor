@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.bungeni.extutils.CommonXmlUtils;
@@ -31,7 +32,7 @@ import org.jdom.JDOMException;
 import org.jdom.xpath.XPath;
 
 /**
- *
+ * Reads pluggable Configuration
  * @author Ashok Hariharan
  */
 public class PluggableConfigReader {
@@ -42,6 +43,51 @@ public class PluggableConfigReader {
     private static final String PLUGGABLE_CONFIGS_FILE = "configs.xml";
     private static PluggableConfigReader instance = null;
     private XPath xpathInstance = null;
+
+    public static List<PluggableConfig> asList(List<Element> configs){
+        List<PluggableConfig> pluggables = new ArrayList<PluggableConfig>(0);
+        for (Element element : configs) {
+            pluggables.add(new PluggableConfig(element));
+        }
+        return pluggables;
+    }
+
+    public static class PluggableConfig {
+        public String name;
+        public String title;
+        public String url;
+        public String folderBase;
+        public boolean configDefault = false;
+
+
+        public PluggableConfig(Element configElement) {
+            this.name = configElement.getAttributeValue("name");
+            this.title = configElement.getAttributeValue("title");
+            this.url = configElement.getAttributeValue("url");
+            this.folderBase = configElement.getAttributeValue("folder-base");
+
+            String sDefault = configElement.getAttributeValue("default");
+            if (sDefault == null ) {
+                this.configDefault = false;
+            } else {
+                this.configDefault = Boolean.parseBoolean(sDefault);
+            }
+        }
+
+        public PluggableConfig(String name, String title, String url, String folderBase, boolean configDefault) {
+            this.name = name;
+            this.title = title;
+            this.url = url;
+            this.folderBase = folderBase;
+            this.configDefault = configDefault;
+        }
+
+        @Override
+        public String toString() {
+            return this.name + " - " + this.title;
+        }
+
+    }
 
     private PluggableConfigReader(){
         pluggableConfigDocument = getDocument();
@@ -54,15 +100,19 @@ public class PluggableConfigReader {
         return instance;
     }
 
-   public List<Element> getConfigs(){
-       return 
-         this.pluggableConfigDocument.getRootElement().getChildren("configs");
+   public List<PluggableConfig> getConfigs(){
+       return
+         PluggableConfigReader.asList(
+             this.pluggableConfigDocument.
+                getRootElement().
+                    getChildren("config")
+         );
    }
 
-   public Element getDefaultConfig() throws JDOMException{
+   public PluggableConfig getDefaultConfig() throws JDOMException{
        XPath xpath = XPath.newInstance("//config[@default='true']");
        Element elementConfig = (Element) xpath.selectSingleNode(getDocument());
-       return elementConfig;
+       return new PluggableConfig(elementConfig);
    }
 
     private XPath getXPath() throws JDOMException {

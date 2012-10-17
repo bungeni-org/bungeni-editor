@@ -71,10 +71,10 @@ public class ConfigTemplateGenerator {
         objectMap.put("input_steps", customInputSteps);
         objectMap.put("output_steps", customOutputSteps);
 
-        File fcache = new File(BaseSystemConfig.SYSTEM_CACHE);
-        if (!fcache.exists()){
-            fcache.mkdirs();
-        }
+        //File fcache = new File(BaseSystemConfig.SYSTEM_CACHE);
+        //if (!fcache.exists()){
+        //    fcache.mkdirs();
+        //}
         String configFileName = BaseSystemConfig.SYSTEM_CACHE +
                 File.separator +
                 "config_" +
