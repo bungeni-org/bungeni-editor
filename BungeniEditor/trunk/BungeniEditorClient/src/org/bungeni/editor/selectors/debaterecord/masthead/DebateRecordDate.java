@@ -281,12 +281,6 @@ public class DebateRecordDate extends BaseMetadataPanel {
 
     @Override
     protected void initFieldsEdit() {
-        //String strPath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH();
-        //m_strLogoPath = strPath + File.separator + logoPath + File.separator + "default_logo.jpg";
-        //log.debug("InitDebateRecord:" + m_strLogoPath);
-        //dt_initdebate_timeofhansard.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.HOUR));
-        //dt_initdebate_timeofhansard.setEditor(new JSpinner.DateEditor(dt_initdebate_timeofhansard, "HH:mm"));
-        //((JSpinner.DefaultEditor)dt_initdebate_timeofhansard.getEditor()).getTextField().setEditable(false);
         dt_initdebate_hansarddate.setInputVerifier(new DateVerifier());
         
         if (getOoDocument().propertyExists("Bungeni_DebateOfficialDate")) {

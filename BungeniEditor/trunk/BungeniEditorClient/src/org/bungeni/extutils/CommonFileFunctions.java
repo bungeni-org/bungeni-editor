@@ -95,8 +95,6 @@ public class CommonFileFunctions {
     public static String convertRelativePathToFullPath(String relativePath) {
         String fullPath = "";
 
-        // logoPath = BungeniEditorProperties.getEditorProperty("logoPath");
-        // log.debug("logo path = " + logoPath);
         String strPath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH();
 
         fullPath = strPath + File.separator + relativePath.replace('/', File.separatorChar);

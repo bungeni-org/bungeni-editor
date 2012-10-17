@@ -21,15 +21,6 @@ import javax.swing.JRootPane;
  */
 public class CommonUIFunctions {
 
-    public static void setPanelBackground(JPanel panel) {
-        String genBackColor = BungeniEditorProperties.getEditorProperty("genericPanelBackColor");
-
-        if (genBackColor.trim().length() == 0) {
-            panel.setBackground(Color.LIGHT_GRAY);
-        } else {
-            panel.setBackground(Color.decode(genBackColor));
-        }
-    }
 
 
     public static ArrayList<String> findComponentsWithNames(Container container) {

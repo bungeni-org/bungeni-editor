@@ -6,11 +6,12 @@
 	title="All Types Development" 
 	url="http://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/alltypesdev.zip" 
 	folder-base="../../Editor_configs/development_configs"
-	default="true"
+
 	/>
   <config name="Bill-Bungeni" 
 	title="Bill Bungeni Integration" 
 	url="http://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/bill-bungeni.zip" 
-	folder-base=""
+	folder-base="../../Editor_configs/bungeni_configs"
+        default="true"
 	/>
 </configs>

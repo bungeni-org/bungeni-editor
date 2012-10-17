@@ -193,8 +193,8 @@ public class DebateRecordMetadata extends BaseEditorDocMetadataDialog {
  
     
     private void initControls(){
-        String popupDlgBackColor = BungeniEditorProperties.getEditorProperty("popupDialogBackColor");
-        this.setBackground(Color.decode(popupDlgBackColor));
+        //String popupDlgBackColor = BungeniEditorProperties.getEditorProperty("popupDialogBackColor");
+        //this.setBackground(Color.decode(popupDlgBackColor));
         cboCountry.setModel(new DefaultComboBoxModel(countryCodes));
         cboLanguage.setModel(new DefaultComboBoxModel(languageCodes));
         cboDocumentPart.setModel(new DefaultComboBoxModel(documentParts));

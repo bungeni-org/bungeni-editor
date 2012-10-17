@@ -48,9 +48,9 @@ public abstract class BaseMetadataPanel extends JPanel implements IMetadataPanel
     public void initVariables(BaseMetadataContainerPanel panel) {
         this.containerPanel = panel;
 
-        String popupDlgBackColor = BungeniEditorProperties.getEditorProperty("popupDialogBackColor");
+        //String popupDlgBackColor = BungeniEditorProperties.getEditorProperty("popupDialogBackColor");
 
-        this.setBackground(java.awt.Color.decode(popupDlgBackColor));
+        //this.setBackground(java.awt.Color.decode(popupDlgBackColor));
         createContext();
         initFields();
         setFieldNamesMap();

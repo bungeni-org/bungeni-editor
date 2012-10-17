@@ -659,7 +659,6 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
     // from the db,arg for accquirePanels uses action name
     protected void setupPanels(){
         //load the active panels for the current profile
-        String currentActiveProfile = BungeniEditorPropertiesHelper.getActiveProfile();
         String sDocType = BungeniEditorPropertiesHelper.getCurrentDocType();
 
         // get the parent action
@@ -668,7 +667,7 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
          
         String sSubAction = this.theSubAction.sub_action_name();
         // accquirePanels(sDocType, sAction, currentActiveProfile);
-        accquirePanels(sDocType, sSubAction, currentActiveProfile);
+        accquirePanels(sDocType, sSubAction);
     }
 
 
@@ -680,7 +679,7 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
      * @param actionName
      * @param profileName
      */
-    private void accquirePanels(String docType, String actionName, String profileName){
+    private void accquirePanels(String docType, String actionName){
         try {
             // get the action
             Element action = DocumentActionsReader.getInstance().getDocumentActionByName(
@@ -733,7 +732,7 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
         //set null borders
         setBorder(null);
         paneMain.setBorder(null);
-        paneMain.setBackground(BungeniEditorPropertiesHelper.getDialogBackColor());
+        //paneMain.setBackground(BungeniEditorPropertiesHelper.getDialogBackColor());
         for (panelInfo panelInf : getActivePanels()) {
             IMetadataPanel panel = panelInf.getPanelObject();
             panel.initVariables(this);

@@ -33,17 +33,6 @@ public class BungeniEditorPropertiesHelper {
         return BungeniEditorProperties.getEditorProperty("activeDocumentMode");
     }
 
-    public static String getActiveProfile() {
-        return BungeniEditorProperties.getEditorProperty("activeProfile");
-    }
-
-    public static Color getDialogBackColor() {
-        String popColor  = BungeniEditorProperties.getEditorProperty("popupDialogBackColor");
-        Color  backColor = Color.decode(popColor);
-
-        return backColor;
-    }
-
     private static SimpleDateFormat metadataDateFormat = null;
 
     public static SimpleDateFormat getMetadataDateFormat() {

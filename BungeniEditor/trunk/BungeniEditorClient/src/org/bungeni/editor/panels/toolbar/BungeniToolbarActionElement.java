@@ -23,7 +23,7 @@ public class BungeniToolbarActionElement {
     private String getNullableAttributeValue (String attrName) {
         Attribute attr = actionElement.getAttribute(attrName);
         if (attr == null) {
-            return new String("");
+            return "";
         } else
             return attr.getValue().trim();
     }
@@ -43,7 +43,11 @@ public class BungeniToolbarActionElement {
 
     public SelectorDialogModes getMode() {
          String smode =  getNullableAttributeValue("mode");
-         return SelectorDialogModes.valueOf(smode);
+         if (smode.equals("")) {
+             return SelectorDialogModes.TEXT_SELECTED_INSERT;
+         } else {
+            return SelectorDialogModes.valueOf(smode);
+        }
     }
 
     public String getCondition() {
