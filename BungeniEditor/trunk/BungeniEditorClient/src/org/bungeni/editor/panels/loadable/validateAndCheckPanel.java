@@ -19,13 +19,14 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import org.apache.log4j.Logger;
-import org.bungeni.extutils.BungeniEditorProperties;
-import org.bungeni.extutils.BungeniEditorPropertiesHelper;
+import org.bungeni.utils.BungeniEditorProperties;
+import org.bungeni.utils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.extutils.CommonDocumentUtilFunctions;
 import org.bungeni.extutils.CommonEditorFunctions;
 import org.bungeni.extutils.CommonXmlUtils;
 import org.bungeni.extutils.MessageBox;
+import org.bungeni.utils.CommonEditorXmlUtils;
 import org.bungeni.utils.externalplugin.ExternalPlugin;
 import org.bungeni.utils.externalplugin.ExternalPluginLoader;
 import org.jdom.Document;
@@ -106,7 +107,7 @@ public class validateAndCheckPanel extends BaseClassForITabbedPanel {
             final String currentDocType = BungeniEditorPropertiesHelper.getCurrentDocType();
             final String rulesRootFolder = CommonEditorFunctions.getPathRelativeToRoot(BungeniEditorProperties.getEditorProperty("structuralRulesRootPath"));
             freader = new FileReader(rulesRootFolder + File.separator + ENGINE_RULES_FOLDER + File.separator + currentDocType + ".xml");
-            SAXBuilder builder = CommonXmlUtils.getNonValidatingSaxBuilder();
+            SAXBuilder builder = CommonEditorXmlUtils.getNonValidatingSaxBuilder();
             Document engineDoc = builder.build(freader);
             //get available engines
             XPath engines = XPath.newInstance("/rules/engine");

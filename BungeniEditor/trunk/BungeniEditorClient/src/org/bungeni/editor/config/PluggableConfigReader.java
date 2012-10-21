@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.bungeni.extutils.CommonXmlUtils;
+import org.bungeni.utils.CommonEditorXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -125,7 +126,7 @@ public class PluggableConfigReader {
    private Document getDocument() {
        if (this.pluggableConfigDocument == null) {
             try {
-                this.pluggableConfigDocument = CommonXmlUtils.loadFile(
+                this.pluggableConfigDocument = CommonEditorXmlUtils.loadFile(
                         BaseConfigReader.BASE_SETTINGS_FOLDER + 
                         File.separator + 
                         PLUGGABLE_CONFIGS_FILE

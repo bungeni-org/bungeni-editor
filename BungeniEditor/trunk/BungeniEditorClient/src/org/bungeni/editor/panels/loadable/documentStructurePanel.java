@@ -41,6 +41,7 @@ import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.bungeni.utils.BungeniBNode;
 import org.bungeni.utils.BungeniBTree;
 import org.bungeni.extutils.CommonTreeFunctions;
+import org.bungeni.utils.CommonBungeniTreeFunctions;
 import org.bungeni.utils.compare.BungeniTreeRefactorTree;
 
 /**
@@ -264,8 +265,8 @@ public class documentStructurePanel extends BaseClassForITabbedPanel {
     private void initSectionStructureTree() {
         initPopupMenu();
         sectionStructureTree.setExpandsSelectedPaths(true);
-        ImageIcon minusIcon = CommonTreeFunctions.treeMinusIcon();
-        ImageIcon plusIcon = CommonTreeFunctions.treePlusIcon();
+        ImageIcon minusIcon = CommonBungeniTreeFunctions.treeMinusIcon();
+        ImageIcon plusIcon = CommonBungeniTreeFunctions.treePlusIcon();
         sectionStructureTree.setCellRenderer(new treeViewPrettySectionsTreeCellRenderer());
         sectionStructureTree.addMouseListener(new MouseAdapter() {
 
@@ -309,8 +310,8 @@ public class documentStructurePanel extends BaseClassForITabbedPanel {
     private void initSectionInternalStructureTree() {
         // this.sectionInternalStructureTree = new JTree();
         sectionInternalStructureTree.setExpandsSelectedPaths(true);
-        ImageIcon minusIcon = CommonTreeFunctions.treeMinusIcon();
-        ImageIcon plusIcon = CommonTreeFunctions.treePlusIcon();
+        ImageIcon minusIcon = CommonBungeniTreeFunctions.treeMinusIcon();
+        ImageIcon plusIcon = CommonBungeniTreeFunctions.treePlusIcon();
         //sectionInternalStructureTree.setCellRenderer(new treeViewPrettySectionsTreeCellRenderer());
         sectionInternalStructureTree.setCellRenderer(new treeInternalStructureSectionsTreeCellRenderer());
         sectionInternalStructureTree.addMouseListener(new MouseAdapter() {

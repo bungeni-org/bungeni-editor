@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import javax.swing.BorderFactory;
 import javax.swing.JTabbedPane;
-import org.bungeni.extutils.CommonResourceBundleHelperFunctions;
+import org.bungeni.utils.CommonResourceBundleHelperFunctions;
 import org.bungeni.extutils.CommonUIFunctions;
 import org.japura.gui.CollapsiblePanel;
 import org.japura.gui.CollapsibleRootPanel;

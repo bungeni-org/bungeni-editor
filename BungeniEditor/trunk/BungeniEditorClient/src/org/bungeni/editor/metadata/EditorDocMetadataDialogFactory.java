@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.bungeni.editor.config.DocTypesReader;
 import org.bungeni.extutils.CommonXmlUtils;
+import org.bungeni.utils.CommonEditorXmlUtils;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 
@@ -32,7 +33,7 @@ public class EditorDocMetadataDialogFactory {
             if (null != metadataModelEditors) {
                 for (Element editorElem : metadataModelEditors) {
                     String metadataModelClass = editorElem.getAttributeValue("class");
-                    String metadataModelTitle = CommonXmlUtils.getLocalizedChildElementValue(editorElem, "title");
+                    String metadataModelTitle = CommonEditorXmlUtils.getLocalizedChildElementValue(editorElem, "title");
                     if (metadataModelClass.length() > 0) {
                         log.info("iterateRow : creating instance for class = " + metadataModelClass);
                         IEditorDocMetadataDialog iInstance = newInstance(metadataModelClass, metadataModelTitle);

@@ -35,7 +35,7 @@ import org.bungeni.editor.panels.toolbar.scrollPanel;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.editor.toolbar.target.BungeniToolbarTargetProcessor;
 import org.bungeni.editor.toolbar.conditions.BungeniToolbarConditionProcessor;
-import org.bungeni.extutils.BungeniEditorPropertiesHelper;
+import org.bungeni.utils.BungeniEditorPropertiesHelper;
 import org.bungeni.extutils.CommonUIFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 import org.japura.gui.CollapsiblePanel;

@@ -27,6 +27,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import org.bungeni.extutils.CommonXmlUtils;
+import org.bungeni.utils.CommonEditorXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -62,7 +63,7 @@ public class InlineTypesReader extends BaseConfigReader {
             try {
                 String docSectionsFolder = SETTINGS_FOLDER;
                 String docSectionsFile = docSectionsFolder + File.separator + docType + ".xml";
-                this.cachedTypes.put(docType, CommonXmlUtils.loadFile(docSectionsFile));
+                this.cachedTypes.put(docType, CommonEditorXmlUtils.loadFile(docSectionsFile));
             } catch (FileNotFoundException ex) {
                 log.error("File not found", ex);
             } catch (UnsupportedEncodingException ex) {

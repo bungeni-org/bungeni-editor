@@ -11,15 +11,13 @@ import com.sun.star.container.XNamed;
 import com.sun.star.text.XTextContent;
 import com.sun.star.text.XTextCursor;
 import java.awt.Component;
-import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
-import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.extutils.BungeniEditorProperties;
+import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooDocMetadata;
@@ -302,13 +300,13 @@ public class DebateRecordDate extends BaseMetadataPanel {
         return;
     }
 
-    private String m_logoPathProperty;
-    private String m_defaultInstallationPath;
-    private String m_strLogoPath;
+    //private String m_logoPathProperty;
+    //private String m_defaultInstallationPath;
+    //private String m_strLogoPath;
     private void initCommon(){
-               m_logoPathProperty = BungeniEditorProperties.getEditorProperty("logoPath");
-               m_defaultInstallationPath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH();
-               m_strLogoPath = m_defaultInstallationPath + File.separator + m_logoPathProperty + File.separator + "default_logo.jpg";
+               //m_logoPathProperty = BungeniEditorProperties.getEditorProperty("logoPath");
+               //m_defaultInstallationPath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH();
+               //m_strLogoPath = m_defaultInstallationPath + File.separator + m_logoPathProperty + File.separator + "default_logo.jpg";
 
     }
     

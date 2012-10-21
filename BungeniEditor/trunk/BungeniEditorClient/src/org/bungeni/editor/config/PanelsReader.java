@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import org.bungeni.extutils.CommonXmlUtils;
+import org.bungeni.utils.CommonEditorXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -45,7 +46,7 @@ public class PanelsReader extends BaseConfigReader {
 
 
     private PanelsReader() {
-        saxBuilder = CommonXmlUtils.getNonValidatingSaxBuilder();
+        saxBuilder = CommonEditorXmlUtils.getNonValidatingSaxBuilder();
     }
 
     public static PanelsReader getInstance() {
@@ -58,7 +59,7 @@ public class PanelsReader extends BaseConfigReader {
     private void __cachedPanels(String docType) throws JDOMException, IOException{
        if (!this.cachedPanels.containsKey(docType)){
             String docPanelsFile = SETTINGS_FOLDER + File.separator + docType + ".xml";
-            this.cachedPanels.put(docType, CommonXmlUtils.loadFile(docPanelsFile));
+            this.cachedPanels.put(docType, CommonEditorXmlUtils.loadFile(docPanelsFile));
        } 
     }
 
@@ -70,7 +71,7 @@ public class PanelsReader extends BaseConfigReader {
     }
 
     public String getLocalizedTitleForPanel(Element panel) {
-        return CommonXmlUtils.getLocalizedChildElementValue(panel, "title");
+        return CommonEditorXmlUtils.getLocalizedChildElementValue(panel, "title");
     }
 
 

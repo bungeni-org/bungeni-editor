@@ -25,6 +25,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.bungeni.extutils.CommonXmlUtils;
+import org.bungeni.utils.CommonEditorXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -75,7 +76,7 @@ public class DatasourceReader extends BaseConfigReader {
 
     private Document getDocument() {
             try {
-            this.localesDocument = CommonXmlUtils.loadFile(DATASOURCE_FILE);
+            this.localesDocument = CommonEditorXmlUtils.loadFile(DATASOURCE_FILE);
         } catch (FileNotFoundException ex) {
             log.error("file not found", ex);
         } catch (UnsupportedEncodingException ex) {

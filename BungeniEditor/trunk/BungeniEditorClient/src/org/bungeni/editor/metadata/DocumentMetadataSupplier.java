@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import org.bungeni.editor.config.DocumentMetadataReader;
-import org.bungeni.extutils.BungeniEditorPropertiesHelper;
+import org.bungeni.utils.BungeniEditorPropertiesHelper;
 import org.bungeni.ooo.OOComponentHelper;
 import org.jdom.Element;
 
@@ -170,7 +170,7 @@ public class DocumentMetadataSupplier {
          String metaName = metaElem.getAttributeValue("name");
          String metaDataType = metaElem.getAttributeValue("datatype");
          String metaType =  metaElem.getAttributeValue("type");
-         String metaDisplay = org.bungeni.extutils.CommonResourceBundleHelperFunctions.getDocMetaString(metaElem.getChildTextNormalize("title"));
+         String metaDisplay = org.bungeni.utils.CommonResourceBundleHelperFunctions.getDocMetaString(metaElem.getChildTextNormalize("title"));
          String visible = metaElem.getAttributeValue("visible");
          String tableConfig = metaElem.getAttributeValue("tabular-config");
          DocumentMetadata meta = new DocumentMetadata(metaName, metaType , metaDataType, metaDisplay, Integer.parseInt(visible), tableConfig);

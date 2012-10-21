@@ -7,7 +7,7 @@
  * and open the template in the editor.
  */
 
-package org.bungeni.utils;
+package org.bungeni.extutils;
 
 import javax.swing.text.*;
 import java.awt.Toolkit;
@@ -38,6 +38,7 @@ public class TextSizeFilter extends DocumentFilter {
             Toolkit.getDefaultToolkit().beep();
     }
     
+    @Override
     public void replace(FilterBypass fb, int offs,
                         int length, 
                         String str, AttributeSet a)

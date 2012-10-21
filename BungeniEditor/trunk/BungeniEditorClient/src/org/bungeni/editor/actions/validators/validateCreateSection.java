@@ -10,10 +10,11 @@ package org.bungeni.editor.actions.validators;
 
 import org.apache.log4j.Logger;
 import org.bungeni.editor.actions.*;
+import org.bungeni.editor.config.DocTypesReader;
 import org.bungeni.error.BungeniMsg;
 import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.ooo.OOComponentHelper;
-import org.bungeni.extutils.CommonPropertyFunctions;
+import org.bungeni.utils.BungeniEditorProperties;
 
 /**
  *
@@ -59,7 +60,7 @@ public class validateCreateSection extends defaultValidator {
    
 
     private boolean check_rootContainerExists(OOComponentHelper ooDocument){
-        String rootSectionname = CommonPropertyFunctions.getDocumentRootSection();
+        String rootSectionname = documentRootSection();
         if (ooDocument.hasSection(rootSectionname)){
             return true;
         } else {
@@ -67,10 +68,16 @@ public class validateCreateSection extends defaultValidator {
         }
     }
 
+    private String documentRootSection(){
+      String documentMode = BungeniEditorProperties.getEditorProperty("activeDocumentMode");
+        String rootName = DocTypesReader.getInstance().getRootForDocType(documentMode);
+        return rootName;
+    }
+
     // !+ACTION_RECONF (rm, jan 2012) - removed toolbarAction as an arg
     private boolean check_containment(toolbarAction subAction, OOComponentHelper ooDocument, String currentSectionname){
          boolean bstate = false;
-         if (currentSectionname.equals(CommonPropertyFunctions.getDocumentRootSection())) {
+         if (currentSectionname.equals(documentRootSection())) {
                 //current section is the root section
                 //can the section be added inside the root section ?
                // bstate = check_containment_RootSection(action, subAction, ooDocument, currentSectionname);

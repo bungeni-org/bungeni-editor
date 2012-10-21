@@ -7,6 +7,7 @@ import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import org.bungeni.utils.CommonBungeniTreeFunctions;
 
 /**
  * Extended JFrame class that abstracts regular boiler plate code for Bungeni Frames
@@ -44,7 +45,7 @@ public class BungeniFrame extends JFrame {
         }
         
         private void setIconForFrame(){
-           ImageIcon iconApp = CommonTreeFunctions.loadIcon("bungeni-icon.png");
+           ImageIcon iconApp = CommonBungeniTreeFunctions.loadIcon("bungeni-icon.png");
            setIconImage(iconApp.getImage());
 
         }

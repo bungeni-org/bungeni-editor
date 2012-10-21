@@ -25,6 +25,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.bungeni.extutils.CommonXmlUtils;
+import org.bungeni.utils.CommonEditorXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -89,7 +90,7 @@ public class TransformTargetsReader extends BaseConfigReader {
     private Document getDocument() {
        if (this.targetsDocument == null) {
             try {
-                this.targetsDocument = CommonXmlUtils.loadFile(RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE);
+                this.targetsDocument = CommonEditorXmlUtils.loadFile(RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE);
             } catch (FileNotFoundException ex) {
                 log.error("file not found", ex);
             } catch (UnsupportedEncodingException ex) {

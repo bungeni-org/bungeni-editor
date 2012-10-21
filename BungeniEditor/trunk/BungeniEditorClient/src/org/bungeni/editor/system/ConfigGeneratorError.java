@@ -29,6 +29,7 @@ import java.util.logging.Level;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.bungeni.extutils.CommonXmlUtils;
+import org.bungeni.utils.CommonEditorXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -98,7 +99,7 @@ public class ConfigGeneratorError {
     }
 
     public void loadFile() throws FileNotFoundException, UnsupportedEncodingException, JDOMException, IOException{
-        this.docError = CommonXmlUtils.loadFile(CONFIG_GENERATOR_FILE);
+        this.docError = CommonEditorXmlUtils.loadFile(CONFIG_GENERATOR_FILE);
     }
 
 }

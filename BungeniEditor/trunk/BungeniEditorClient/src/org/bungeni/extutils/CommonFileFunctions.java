@@ -4,9 +4,6 @@ package org.bungeni.extutils;
 //~--- non-JDK imports --------------------------------------------------------
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.bungeni.db.DefaultInstanceFactory;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -92,15 +89,6 @@ public class CommonFileFunctions {
         }
     }
 
-    public static String convertRelativePathToFullPath(String relativePath) {
-        String fullPath = "";
-
-        String strPath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH();
-
-        fullPath = strPath + File.separator + relativePath.replace('/', File.separatorChar);
-
-        return fullPath;
-    }
 
     public static String getPathFromParams(ArrayList<String> params, String fileNameExt) {
         String fullPath = "";

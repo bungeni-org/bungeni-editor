@@ -2,7 +2,7 @@ package org.bungeni.editor.actions.routers;
 
 import org.bungeni.editor.config.DocumentActionsReader;
 import org.bungeni.editor.actions.toolbarAction;
-import org.bungeni.extutils.BungeniEditorPropertiesHelper;
+import org.bungeni.utils.BungeniEditorPropertiesHelper;
 import org.jdom.Element;
 
 /**

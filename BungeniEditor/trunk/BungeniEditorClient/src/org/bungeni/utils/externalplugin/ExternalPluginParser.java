@@ -3,7 +3,7 @@ package org.bungeni.utils.externalplugin;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import org.bungeni.extutils.BungeniEditorProperties;
+import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.extutils.CommonFileFunctions;
 
 import org.jdom.Attribute;

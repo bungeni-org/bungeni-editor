@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 import javax.swing.AbstractButton;
 import javax.swing.ListSelectionModel;
-import org.bungeni.extutils.BungeniEditorProperties;
+import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
 

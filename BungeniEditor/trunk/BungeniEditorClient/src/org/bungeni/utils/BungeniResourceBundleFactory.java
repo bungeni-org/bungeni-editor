@@ -1,22 +1,13 @@
-package org.bungeni.extutils;
+package org.bungeni.utils;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Collections;
-import java.util.Enumeration;
+import org.bungeni.utils.BungeniEditorProperties;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.MissingResourceException;
-import java.util.Properties;
 import java.util.ResourceBundle;
-import java.util.Set;
 import org.bungeni.editor.config.BundlesReader;
+import org.bungeni.extutils.XMLResourceBundleControl;
 import org.jdom.Element;
 
 /**

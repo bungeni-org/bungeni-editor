@@ -3,30 +3,21 @@ package org.bungeni.editor.panels.toolbar;
 //~--- non-JDK imports --------------------------------------------------------
 
 import java.io.UnsupportedEncodingException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.bungeni.extutils.BungeniEditorProperties;
 
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
-import org.jdom.input.SAXBuilder;
 import org.jdom.xpath.XPath;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.StringReader;
 
 import java.util.ArrayList;
 import org.bungeni.editor.config.ToolbarActionsReader;
-import org.bungeni.extutils.BungeniEditorPropertiesHelper;
-import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonXmlUtils;
+import org.bungeni.utils.CommonEditorXmlUtils;
 
 /**
  * Reads the toolbar xml config file for the document type
@@ -75,7 +66,7 @@ public class BungeniToolbarParser {
         Document doc = null;
         try {
             
-          doc = CommonXmlUtils.loadFile(pathToXmlFile);
+          doc = CommonEditorXmlUtils.loadFile(pathToXmlFile);
 
         } catch (FileNotFoundException ex) {
             log.error("Error while loading toolbar action file : " + pathToXmlFile, ex);

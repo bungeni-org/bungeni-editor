@@ -9,6 +9,7 @@
 
 package org.bungeni.extutils;
 
+import org.bungeni.utils.CommonResourceBundleHelperFunctions;
 import java.awt.Component;
 import java.text.MessageFormat;
 import javax.swing.JOptionPane;

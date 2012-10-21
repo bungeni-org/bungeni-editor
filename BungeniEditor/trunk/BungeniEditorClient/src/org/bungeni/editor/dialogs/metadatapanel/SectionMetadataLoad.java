@@ -4,7 +4,7 @@ package org.bungeni.editor.dialogs.metadatapanel;
 
 import org.apache.log4j.Logger;
 
-import org.bungeni.extutils.CommonResourceBundleHelperFunctions;
+import org.bungeni.utils.CommonResourceBundleHelperFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 
 //~--- JDK imports ------------------------------------------------------------

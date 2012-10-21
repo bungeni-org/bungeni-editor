@@ -5,8 +5,6 @@
 
 package org.bungeni.utils;
 
-import org.bungeni.extutils.CommonResourceBundleHelperFunctions;
-import org.bungeni.extutils.BungeniEditorPropertiesHelper;
 import com.sun.star.text.XTextSection;
 import java.util.HashMap;
 import org.bungeni.ooo.OOComponentHelper;

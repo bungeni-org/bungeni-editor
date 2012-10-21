@@ -17,7 +17,7 @@ import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooDocMetadata;
-import org.bungeni.extutils.BungeniEditorProperties;
+import org.bungeni.utils.BungeniEditorProperties;
 
 /**
  *

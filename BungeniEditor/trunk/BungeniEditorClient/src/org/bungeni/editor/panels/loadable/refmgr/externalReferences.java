@@ -1,10 +1,10 @@
-package org.bungeni.editor.panels.loadable.refmgr;//GEN-FIRST:event_btnAddURIActionPerformed
-//GEN-LAST:event_btnAddURIActionPerformed
+package org.bungeni.editor.panels.loadable.refmgr;                                          
+                                         
 //~--- non-JDK imports --------------------------------------------------------
 
 import org.bungeni.editor.numbering.ooo.OOoNumberingHelper;
 import org.bungeni.editor.panels.impl.BaseLaunchablePanel;
-import org.bungeni.extutils.BungeniEditorProperties;
+import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.extutils.BungeniUUID;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooDocMetadata;

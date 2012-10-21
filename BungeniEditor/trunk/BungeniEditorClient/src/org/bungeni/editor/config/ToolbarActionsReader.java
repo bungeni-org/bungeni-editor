@@ -19,7 +19,7 @@
 package org.bungeni.editor.config;
 
 import java.io.File;
-import org.bungeni.extutils.BungeniEditorPropertiesHelper;
+import org.bungeni.utils.BungeniEditorPropertiesHelper;
 
 /**
  *

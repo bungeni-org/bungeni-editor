@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.actions.routers.CommonRouterActions;
 import org.bungeni.editor.config.DocTypesReader;
-import org.bungeni.extutils.BungeniEditorProperties;
+import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.error.ErrorMessages;
 import org.bungeni.ooo.OOComponentHelper;
 

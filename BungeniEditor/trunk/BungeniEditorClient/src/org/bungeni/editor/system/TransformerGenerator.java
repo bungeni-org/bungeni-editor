@@ -36,7 +36,7 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.config.SysTransformsReader;
 import org.bungeni.extutils.CommonXmlUtils;
-import org.jdom.Content;
+import org.bungeni.utils.CommonEditorXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -146,9 +146,9 @@ public class TransformerGenerator {
 
         //now merge type_static_templates.xsl at the end of this template.
 
-        Document typeStaticXSL = CommonXmlUtils.loadFile(BaseSystemConfig.SYSTEM_GENERATOR +
+        Document typeStaticXSL = CommonEditorXmlUtils.loadFile(BaseSystemConfig.SYSTEM_GENERATOR +
                 File.separator + "type_static_templates.xsl");
-        Document typeCurrentXSL = CommonXmlUtils.loadFile(ftypeGenerator);
+        Document typeCurrentXSL = CommonEditorXmlUtils.loadFile(ftypeGenerator);
         List children = typeStaticXSL.getRootElement().getChildren();
         for (int i=0 ; i < children.size() ; i++ ) {
             Element child = (Element) children.get(i);

@@ -34,6 +34,7 @@ import org.bungeni.editor.config.DocumentMetadataReader;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonXmlUtils;
 import org.bungeni.translators.configurations.steps.OAXSLTStep;
+import org.bungeni.utils.CommonEditorXmlUtils;
 import org.jdom.Content;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -79,7 +80,7 @@ public class StartupConfigGenerator {
         Document docXSLTtoMergeInto = null;
         try {
         //get the template XSLT
-            docXSLTtoMergeInto  = CommonXmlUtils.loadFile(
+            docXSLTtoMergeInto  = CommonEditorXmlUtils.loadFile(
                 baseTemplate
                 );
         } catch (FileNotFoundException ex) {
@@ -107,7 +108,7 @@ public class StartupConfigGenerator {
 
         Document docXSLTtoMergeFrom = null;
         try {
-            docXSLTtoMergeFrom = CommonXmlUtils.loadFile(
+            docXSLTtoMergeFrom = CommonEditorXmlUtils.loadFile(
                     templateToMerge
                     );
         } catch (FileNotFoundException ex) {

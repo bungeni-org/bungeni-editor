@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import org.apache.log4j.Logger;
 import org.bungeni.extutils.CommonXmlUtils;
+import org.bungeni.utils.CommonEditorXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -76,7 +77,7 @@ public class ConditionsReader extends BaseConfigReader {
     private Document getDocument(String docType) {
        if (this.conditionsDocument == null) {
             try {
-                this.conditionsDocument = CommonXmlUtils.loadFile(SETTINGS_FOLDER + File.separator + docType + ".xml");
+                this.conditionsDocument = CommonEditorXmlUtils.loadFile(SETTINGS_FOLDER + File.separator + docType + ".xml");
             } catch (FileNotFoundException ex) {
                 log.error("file not found", ex);
             } catch (UnsupportedEncodingException ex) {

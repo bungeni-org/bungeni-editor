@@ -48,7 +48,9 @@ public class FileTableModel extends AbstractTableModel {
   public int getRowCount() { return filenames.length; }  // # of files in dir
 
   // Information about each column
+    @Override
   public String getColumnName(int col) { return columnNames[col]; }
+    @Override
   public Class getColumnClass(int col) { return columnClasses[col]; }
 
   // The method that must actually return the value of each cell

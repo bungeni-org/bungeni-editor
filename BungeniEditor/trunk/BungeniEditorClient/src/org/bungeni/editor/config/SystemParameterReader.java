@@ -26,6 +26,7 @@ import java.io.UnsupportedEncodingException;
 import org.apache.log4j.Logger;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonXmlUtils;
+import org.bungeni.utils.CommonEditorXmlUtils;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -126,7 +127,7 @@ public class SystemParameterReader extends BaseConfigReader {
     private Document getDocument() {
        if (this.systemParametersDocument == null) {
             try {
-                this.systemParametersDocument = CommonXmlUtils.loadFile(PATH_TO_SYSTEM_PARAMETERS_FILE);
+                this.systemParametersDocument = CommonEditorXmlUtils.loadFile(PATH_TO_SYSTEM_PARAMETERS_FILE);
             } catch (FileNotFoundException ex) {
                 log.error("file not found", ex);
             } catch (UnsupportedEncodingException ex) {

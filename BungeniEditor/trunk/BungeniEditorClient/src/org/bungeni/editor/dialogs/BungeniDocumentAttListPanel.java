@@ -26,62 +26,42 @@ package org.bungeni.editor.dialogs;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import org.bungeni.editor.dialogs.BungeniJSoupDocument.Attachment;
 import org.bungeni.extutils.BungeniDialog;
-import org.jsoup.nodes.Element;
 
-import org.jsoup.select.Elements;
 
 /**
  *
- * @author PC
+ * @author Ashok Hariharan
  */
 public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
 
     private BungeniDialog parentDialog = null;
-    private Elements attlist = null;
-    private List<Attachment> attachments = new ArrayList<Attachment>(0);
+    private BungeniJSoupDocument doc = null;
     private Attachment selectedAttachment = null;
 
-    public class Attachment {
-        public String title ;
-        public String url ;
-        public String downloadUrl;
 
-        public Attachment () {
-            title = "";
-            url = "";
-            downloadUrl = "";
-        }
-        public Attachment(String title, String url, String downloadUrl) {
-            this.title = title;
-            this.url = url;
-            this.downloadUrl = downloadUrl;
-
-        }
-
-        @Override
-        public String toString(){
-            return this.title;
-        }
+ 
+    /** Creates new form BungeniDocumentAttListPanel */
+    public BungeniDocumentAttListPanel(BungeniDialog dlg, BungeniJSoupDocument doc) {
+        this.parentDialog = dlg;
+        this.doc = doc;
+        initComponents();
     }
 
-    /** Creates new form BungeniDocumentAttListPanel */
-    public BungeniDocumentAttListPanel(BungeniDialog dlg, Elements attlist) {
-        this.parentDialog = dlg;
-        this.attlist = attlist;
-        for (int i = 0; i < this.attlist.size(); i++) {
-                Element elem = this.attlist.get(i);
-                Attachment att = new Attachment();
-                att.title = elem.text();
-                att.url = elem.attr("href");
-                att.downloadUrl = att.url + "/download";
-                attachments.add(att);
-        }
-        initComponents();
-        this.cboListAttachments.setModel (new DefaultComboBoxModel(attachments.toArray()));
+    public void init(){
+        this.infoStatus.setText(doc.getStatus());
+        this.infoTitle.setText(doc.getTitle());
+        this.txtDescription.setText(doc.getDescription());
+
+        this.cboListAttachments.setModel (
+                new DefaultComboBoxModel(doc.getAttachments().toArray())
+                );
+        this.cboTransitions.setModel (
+                new DefaultComboBoxModel(doc.getTransitions().toArray())
+                );
+
         this.btnImportAttachment.addActionListener(new ActionListener(){
 
             public void actionPerformed(ActionEvent e) {
@@ -95,8 +75,9 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
             public void actionPerformed(ActionEvent e) {
                 parentDialog.dispose();
             }
-            
+
         });
+
     }
 
     public Attachment getSelectedAttachment(){
@@ -112,12 +93,24 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnTransit = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         cboListAttachments = new javax.swing.JList();
         btnImportAttachment = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         lblDocInfo = new javax.swing.JLabel();
+        infoTitle = new javax.swing.JLabel();
+        lblTitle = new javax.swing.JLabel();
+        lblStatus = new javax.swing.JLabel();
+        infoStatus = new javax.swing.JLabel();
+        lblDesc = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtDescription = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
+        lblTransit = new javax.swing.JLabel();
+        cboTransitions = new javax.swing.JComboBox();
+
+        btnTransit.setText("Transit");
 
         cboListAttachments.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -127,64 +120,126 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(cboListAttachments);
 
         btnImportAttachment.setText("Import Attachment");
+        btnImportAttachment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportAttachmentActionPerformed(evt);
+            }
+        });
 
         btnCancel.setText("Cancel");
 
-        lblDocInfo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblDocInfo.setFont(new java.awt.Font("Tahoma", 0, 14));
         lblDocInfo.setText("Document Information");
 
-        jLabel1.setText("Kenya Information and Communications Bill  - [received by clerk]");
+        infoTitle.setText("Kenya Information and Communications Bill  - [received by clerk]");
+
+        lblTitle.setText("Title:");
+
+        lblStatus.setText("Status: ");
+
+        infoStatus.setText("Kenya Information and Communications Bill  - [received by clerk]");
+
+        lblDesc.setText("Desc:");
+
+        txtDescription.setColumns(20);
+        txtDescription.setRows(5);
+        jScrollPane2.setViewportView(txtDescription);
+
+        jLabel1.setText("Attachments");
+
+        lblTransit.setLabelFor(cboTransitions);
+        lblTransit.setText("Possible Transitions : ");
+
+        cboTransitions.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblDocInfo)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblStatus)
+                            .addComponent(lblTitle)
+                            .addComponent(lblDesc))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(infoTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(infoStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(135, 135, 135)
+                        .addGap(117, 117, 117)
                         .addComponent(btnImportAttachment)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCancel))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblDocInfo))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblTransit)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cboTransitions, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(253, 253, 253)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblDocInfo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(infoTitle)
+                    .addComponent(lblTitle))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(infoStatus)
+                    .addComponent(lblStatus))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblDesc)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTransit)
+                    .addComponent(cboTransitions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnImportAttachment)
-                    .addComponent(btnCancel))
-                .addContainerGap())
+                    .addComponent(btnCancel)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public void init(){
-        
-    }
+    private void btnImportAttachmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportAttachmentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnImportAttachmentActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnImportAttachment;
+    private javax.swing.JButton btnTransit;
     private javax.swing.JList cboListAttachments;
+    private javax.swing.JComboBox cboTransitions;
+    private javax.swing.JLabel infoStatus;
+    private javax.swing.JLabel infoTitle;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblDesc;
     private javax.swing.JLabel lblDocInfo;
+    private javax.swing.JLabel lblStatus;
+    private javax.swing.JLabel lblTitle;
+    private javax.swing.JLabel lblTransit;
+    private javax.swing.JTextArea txtDescription;
     // End of variables declaration//GEN-END:variables
 
 }

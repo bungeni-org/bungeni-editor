@@ -36,6 +36,7 @@ import org.bungeni.editor.noa.BungeniNoaApp;
 import org.bungeni.editor.noa.ext.BungeniLocalOfficeApplication;
 import org.bungeni.editor.system.StartupConfigGenerator;
 import org.bungeni.extutils.BungeniRuntimeProperties;
+import org.bungeni.utils.CommonBungeniTreeFunctions;
 
 /**
  *
@@ -133,7 +134,7 @@ public class BungeniEditorClient {
         if (frame == null)
             frame = new JFrame(__WINDOW_TITLE__);
 
-        ImageIcon iconApp = CommonTreeFunctions.loadIcon("bungeni-icon.png");
+        ImageIcon iconApp = CommonBungeniTreeFunctions.loadIcon("bungeni-icon.png");
 
         frame.setIconImage(iconApp.getImage());
         frame.setResizable(false);

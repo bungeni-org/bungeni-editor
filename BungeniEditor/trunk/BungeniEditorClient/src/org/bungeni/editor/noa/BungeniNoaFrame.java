@@ -48,6 +48,7 @@ import org.bungeni.extutils.*;
 import org.bungeni.ooo.BungenioOoHelper;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
+import org.bungeni.utils.CommonBungeniTreeFunctions;
 import org.jvnet.substance.SubstanceLookAndFeel;
 import org.jvnet.substance.api.tabbed.VetoableTabCloseListener;
 
@@ -132,7 +133,7 @@ public class BungeniNoaFrame extends BungeniFrame {
     }
 
     private void setIconForFrame() {
-        ImageIcon iconApp = CommonTreeFunctions.loadIcon("bungeni-icon.png");
+        ImageIcon iconApp = CommonBungeniTreeFunctions.loadIcon("bungeni-icon.png");
         setIconImage(iconApp.getImage());
 
     }

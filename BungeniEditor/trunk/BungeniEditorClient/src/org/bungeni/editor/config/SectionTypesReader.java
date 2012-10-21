@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2012 windows
+ *  Copyright (C) 2012 Africa i-Parliaments
  * 
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.bungeni.extutils.CommonXmlUtils;
+import org.bungeni.utils.CommonEditorXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -73,7 +74,7 @@ public class SectionTypesReader extends BaseConfigReader {
        if (!this.cachedTypes.containsKey(docType)) {
             String docSectionsFolder = SETTINGS_FOLDER;
             String docSectionsFile = docSectionsFolder + File.separator + docType + ".xml";
-            this.cachedTypes.put(docType, CommonXmlUtils.loadFile(docSectionsFile));
+            this.cachedTypes.put(docType, CommonEditorXmlUtils.loadFile(docSectionsFile));
        }
        return this.cachedTypes.get(docType);
     }
@@ -105,7 +106,7 @@ public class SectionTypesReader extends BaseConfigReader {
        if (!this.cachedTypes.containsKey(docType)) {
             String docSectionsFolder = SETTINGS_FOLDER;
             String docSectionsFile = docSectionsFolder + File.separator + docType + ".xml";
-            this.cachedTypes.put(docType, CommonXmlUtils.loadFile(docSectionsFile));
+            this.cachedTypes.put(docType, CommonEditorXmlUtils.loadFile(docSectionsFile));
         }
 
         XPath xPath = XPath.newInstance("//sectionType[@name='"+ sectionTypeName +"']/numbering");

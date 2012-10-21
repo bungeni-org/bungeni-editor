@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2011 undesa
+ *  Copyright (C) 2011 Africa i-Parliaments
  * 
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -23,13 +23,14 @@ import java.util.Collections;
 import java.util.List;
 
 import org.bungeni.editor.config.DocTypesReader;
-import org.bungeni.extutils.BungeniEditorPropertiesHelper;
+import org.bungeni.utils.BungeniEditorPropertiesHelper;
 import org.bungeni.extutils.CommonXmlUtils;
+import org.bungeni.utils.CommonEditorXmlUtils;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 
 /**
- * Returns the list of availabel language codes in the system
+ * Returns the list of available language codes in the system
  * 
  * @author Ashok Hariharan
  */
@@ -75,7 +76,7 @@ public  class DocumentPartsFactory {
             for (Element partElem : listParts) {
                 DocumentPart dp = new DocumentPart(
                         partElem.getAttributeValue("name"),
-                        CommonXmlUtils.getLocalizedChildElementValue(partElem, "title")
+                        CommonEditorXmlUtils.getLocalizedChildElementValue(partElem, "title")
                        );
                 list_docparts.add(dp);
             }

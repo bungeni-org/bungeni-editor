@@ -4,7 +4,7 @@ import java.awt.Component;
 import java.io.File;
 import javax.swing.JFileChooser;
 import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.extutils.BungeniEditorProperties;
+import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
 
 /**

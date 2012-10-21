@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.bungeni.extutils.CommonXmlUtils;
+import org.bungeni.utils.CommonEditorXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -67,7 +68,7 @@ public class DocumentActionsReader extends BaseConfigReader {
     public Element getDocumentActionByName(String docType, String actionName) throws JDOMException, IOException {
        if (!this.cachedActions.containsKey(docType)) {
             String docActionsFile = DOC_ACTIONS_FOLDER + File.separator + docType + ".xml";
-            this.cachedActions.put(docType, CommonXmlUtils.loadFile(docActionsFile));
+            this.cachedActions.put(docType, CommonEditorXmlUtils.loadFile(docActionsFile));
         }
         XPath xPath = XPath.newInstance("//actions[@for='" + docType + "']/action[@name='"+actionName+"']");
         return (Element) xPath.selectSingleNode(this.cachedActions.get(docType));
@@ -86,7 +87,7 @@ public class DocumentActionsReader extends BaseConfigReader {
     public Document getSelectorDialogs() throws JDOMException, IOException {
         if (this.selectorDialogsDocument == null) {
             String dialogFile = SELECTOR_DIALOGS_FILE;
-            this.selectorDialogsDocument = CommonXmlUtils.loadFile(dialogFile);
+            this.selectorDialogsDocument = CommonEditorXmlUtils.loadFile(dialogFile);
         }
         return this.selectorDialogsDocument;
     }

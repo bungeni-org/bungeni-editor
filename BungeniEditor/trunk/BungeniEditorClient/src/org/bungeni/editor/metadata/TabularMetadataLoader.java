@@ -7,7 +7,7 @@ import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.config.DocumentMetadataReader;
-import org.bungeni.extutils.BungeniEditorPropertiesHelper;
+import org.bungeni.utils.BungeniEditorPropertiesHelper;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooDocMetadata;
 import org.bungeni.ooo.ooDocMetadataFieldSet;

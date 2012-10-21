@@ -27,7 +27,7 @@ import org.bungeni.editor.config.DocumentActionsReader;
 import org.bungeni.editor.actions.EditorActionFactory;
 import org.bungeni.editor.actions.IEditorActionEvent;
 import org.bungeni.editor.actions.toolbarAction;
-import org.bungeni.extutils.BungeniEditorPropertiesHelper;
+import org.bungeni.utils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.dialogs.metadatapanel.SectionMetadataLoad;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.editor.providers.DocumentSectionFriendlyAdapterDefaultTreeModel;
@@ -40,6 +40,7 @@ import org.bungeni.extutils.CommonStringFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.utils.BungeniBNode;
 import org.bungeni.extutils.CommonTreeFunctions;
+import org.bungeni.utils.CommonBungeniTreeFunctions;
 import org.bungeni.utils.compare.BungeniTreeRefactorTree;
 import org.jdom.Element;
 
@@ -95,8 +96,8 @@ public class sectionTreeMetadataPanel extends BaseClassForITabbedPanel {
         treeSectionTreeMetadata.setExpandsSelectedPaths(true);
 
         TreeCellRenderer sectionTreeRender = this.treeSectionTreeMetadata.getCellRenderer();
-        ImageIcon minusIcon = CommonTreeFunctions.treeMinusIcon();
-        ImageIcon plusIcon = CommonTreeFunctions.treePlusIcon();
+        ImageIcon minusIcon = CommonBungeniTreeFunctions.treeMinusIcon();
+        ImageIcon plusIcon = CommonBungeniTreeFunctions.treePlusIcon();
         /**  sectionTreeRender.setOpenIcon(null); **/
         /**  sectionTreeRender.setClosedIcon(null); **/
         //    UIManager.put("Tree.expandedIcon", minusIcon);

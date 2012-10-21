@@ -1,5 +1,7 @@
 package org.bungeni.editor.dialogs;
 
+import org.bungeni.utils.BungeniEditorProperties;
+import org.bungeni.utils.BungeniEditorPropertiesHelper;
 import ag.ion.bion.officelayer.application.OfficeApplicationException;
 import ag.ion.bion.officelayer.document.DocumentException;
 import ag.ion.noa.NOAException;
@@ -25,7 +27,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
@@ -40,8 +41,8 @@ import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.editor.actions.EditorActionFactory;
 import org.bungeni.editor.actions.IEditorActionEvent;
 import org.bungeni.editor.actions.toolbarAction;
-import org.bungeni.editor.dialogs.BungeniDocumentAttListPanel.Attachment;
 import org.bungeni.editor.dialogs.BungeniDocumentSource.BungeniDocuments;
+import org.bungeni.editor.dialogs.BungeniJSoupDocument.Attachment;
 import org.bungeni.editor.metadata.BaseEditorDocMetaModel;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
 import org.bungeni.editor.noa.BungeniNoaFrame;
@@ -55,8 +56,6 @@ import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.bungeni.ooo.ooDocMetadata;
 import org.jdom.Element;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 
 /**
  * This is a single class since there is only 1 tabbed panel allowed in the system
@@ -468,24 +467,31 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
         private BungeniAppConnector appConnector = null;
         
         public synchronized void loadDocumentFromBungeniInPanel(){
-            BungeniDialog dlg = new BungeniDialog(
-                    this.parentFrame() ,
-                    "Select a Document",
-                    true
-                    );
-            BungeniDocumentSourceSelectDocument doc =
-                    new BungeniDocumentSourceSelectDocument(dlg);
-            doc.init();
-            dlg.getContentPane().add(doc);
-            dlg.pack();
-            FrameLauncher.CenterFrame(dlg);
-            dlg.setVisible(true);
-            if (doc.getSelectedDocument() != null) {
+           // BungeniDialog dlg = new BungeniDialog(
+           //         this.parentFrame() ,
+           //         "Select a Document",
+           //         true
+           //         );
+           // BungeniDocumentSourceSelectDocument doc =
+           //         new BungeniDocumentSourceSelectDocument(dlg);
+           // doc.init();
+           // dlg.getContentPane().add(doc);
+           // dlg.pack();
+           // FrameLauncher.CenterFrame(dlg);
+           // dlg.setVisible(true);
+            String sDocURL = (String)JOptionPane.showInputDialog(
+                    this.parentFrame(),
+                    "Enter the URL of the document to Import",
+                    "Import document from Bungeni",
+                    JOptionPane.QUESTION_MESSAGE);
+
+            //If a string was returned, say so.
+            if ((sDocURL != null) && (sDocURL.length() > 0)) {
                 //open document here
                   //set the wait cursor
-               final BungeniDocuments selectedDocument = doc.getSelectedDocument();
+               final BungeniDocumentSource.BungeniDocuments selectedDocument = new BungeniDocuments("", sDocURL);
                this.parentFrame().setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-            //call the swingworker thread for the button event
+              //call the swingworker thread for the button event
                SwingUtilities.invokeLater(new Runnable() {
 
                 public void run() {
@@ -499,9 +505,9 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
                                 );
                     }
                     DefaultHttpClient client = appConnector.login();
-                  final HttpGet geturl = new HttpGet(selectedDocument.url);
-                ResponseHandler<String> responseHandler = new BasicResponseHandler();
-                String responseBody = "";
+                    final HttpGet geturl = new HttpGet(selectedDocument.url);
+                    ResponseHandler<String> responseHandler = new BasicResponseHandler();
+                    String responseBody = "";
                     try {
                         responseBody = client.execute(geturl, responseHandler);
                     } catch (IOException ex) {
@@ -510,14 +516,14 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
                     //parse response Body
                       parentFrame().setCursor(Cursor.getDefaultCursor());
                       org.jsoup.nodes.Document doc = Jsoup.parse(responseBody);
-                      Elements elems  = doc.select("dd#fieldset-attachments a");
-                        BungeniDialog dlgatts = new BungeniDialog(
+                      BungeniJSoupDocument jdoc = new BungeniJSoupDocument(doc);
+                      BungeniDialog dlgatts = new BungeniDialog(
                                 parentFrame() ,
                                 "Import an Attachment",
                                 true
                                 );
                         BungeniDocumentAttListPanel docAtts =
-                                new BungeniDocumentAttListPanel(dlgatts, elems);
+                                new BungeniDocumentAttListPanel(dlgatts, jdoc);
                         docAtts.init();
                         dlgatts.getContentPane().add(docAtts);
                         dlgatts.pack();
@@ -532,6 +538,7 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
                     //sourceButton.setEnabled(true);
                 }
             });
+            
             }
     }
 

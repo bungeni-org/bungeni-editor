@@ -33,8 +33,8 @@ import org.bungeni.editor.config.PluggableConfigReader;
 import org.bungeni.editor.config.PluggableConfigReader.PluggableConfig;
 import org.bungeni.editor.locales.BungeniEditorLocale;
 import org.bungeni.editor.locales.BungeniEditorLocalesFactory;
-import org.bungeni.extutils.BungeniEditorProperties;
-import org.bungeni.extutils.BungeniEditorPropertiesHelper;
+import org.bungeni.utils.BungeniEditorProperties;
+import org.bungeni.utils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
 import org.bungeni.editor.noa.BungeniNoaFrame;
 import org.bungeni.editor.noa.BungeniNoaFrame.DocumentComposition;
@@ -49,6 +49,7 @@ import org.bungeni.extutils.MessageBox;
 
 import org.bungeni.ooo.BungenioOoHelper;
 import org.bungeni.ooo.OOComponentHelper;
+import org.bungeni.utils.CommonEditorXmlUtils;
 import org.bungeni.utils.Installation;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -425,7 +426,7 @@ public class editorApplicationController extends javax.swing.JPanel {
             for (Element doctypeElem : doctypeList) {
                 dtArr[i] = new documentType();
                 dtArr[i].docType = doctypeElem.getAttributeValue("name");
-                dtArr[i].typeDesc = CommonXmlUtils.getLocalizedChildElementValue(doctypeElem, "title");
+                dtArr[i].typeDesc = CommonEditorXmlUtils.getLocalizedChildElementValue(doctypeElem, "title");
                 dtArr[i].templatePath = doctypeElem.getAttributeValue("template");
                 BungeniEditorProperties.setPropertyInMap(dtArr[i].docType + "_template", dtArr[i].templatePathNormalized());
                 i++;

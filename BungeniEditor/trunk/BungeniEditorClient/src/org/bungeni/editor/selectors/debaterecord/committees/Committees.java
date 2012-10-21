@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.element.Committee;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
-import org.bungeni.extutils.CommonConnectorFunctions;
+import org.bungeni.utils.CommonConnectorFunctions;
 import org.bungeni.extutils.CommonStringFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 

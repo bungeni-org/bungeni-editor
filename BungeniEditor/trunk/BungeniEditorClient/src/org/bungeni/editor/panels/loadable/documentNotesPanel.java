@@ -28,7 +28,7 @@ import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooDocNoteStructure;
 import org.bungeni.ooo.ooDocNotes;
-import org.bungeni.utils.TextSizeFilter;
+import org.bungeni.extutils.TextSizeFilter;
 
 /**
  *

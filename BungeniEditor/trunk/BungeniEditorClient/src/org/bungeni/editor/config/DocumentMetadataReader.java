@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 import org.apache.log4j.Logger;
 import org.bungeni.extutils.CommonXmlUtils;
+import org.bungeni.utils.CommonEditorXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -110,7 +111,7 @@ public class DocumentMetadataReader extends BaseConfigReader {
        if (!this.cachedMetadatas.containsKey(docType)){
             Document doc;
             try {
-                doc = CommonXmlUtils.loadFile(SETTINGS_FOLDER + File.separator + docType + ".xml");
+                doc = CommonEditorXmlUtils.loadFile(SETTINGS_FOLDER + File.separator + docType + ".xml");
                 this.cachedMetadatas.put(docType, doc);
             } catch (FileNotFoundException ex) {
                 log.error("file not found", ex);

@@ -3,7 +3,7 @@ package org.bungeni.editor.metadata;
 //~--- non-JDK imports --------------------------------------------------------
 
 import org.bungeni.editor.selectors.SelectorDialogModes;
-import org.bungeni.extutils.BungeniEditorProperties;
+import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.extutils.CommonFormFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.utils.BungeniFileSavePathFormat;

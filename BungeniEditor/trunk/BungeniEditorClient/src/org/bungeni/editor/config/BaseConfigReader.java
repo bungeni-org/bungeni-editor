@@ -22,10 +22,8 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.config.PluggableConfigReader.PluggableConfig;
-import org.jdom.Element;
 
 import org.jdom.JDOMException;
 

@@ -1,4 +1,4 @@
-package org.bungeni.extutils;
+package org.bungeni.utils;
 
 import java.io.IOException;
 import java.util.HashMap;

@@ -3,8 +3,8 @@ package org.bungeni.ooo.transforms.loadable;
 //~--- non-JDK imports --------------------------------------------------------
 
 import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.extutils.BungeniEditorProperties;
-import org.bungeni.extutils.BungeniEditorPropertiesHelper;
+import org.bungeni.utils.BungeniEditorProperties;
+import org.bungeni.utils.BungeniEditorPropertiesHelper;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.MessageBox;
 import org.bungeni.ooo.OOComponentHelper;

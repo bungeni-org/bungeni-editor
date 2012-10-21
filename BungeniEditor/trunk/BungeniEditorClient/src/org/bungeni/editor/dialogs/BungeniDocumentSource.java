@@ -34,7 +34,7 @@ import org.apache.log4j.Logger;
  *
  * @author Ashok Hariharan
  */
-public class BungeniDocumentSource {
+public  class BungeniDocumentSource {
 
    private static org.apache.log4j.Logger log =
            Logger.getLogger(BungeniDocumentSource.class.getName());
@@ -76,7 +76,7 @@ public class BungeniDocumentSource {
                 }
     };
 
-    class BungeniDocuments {
+    public static class BungeniDocuments {
         public String title = "";
         public String url = "";
 

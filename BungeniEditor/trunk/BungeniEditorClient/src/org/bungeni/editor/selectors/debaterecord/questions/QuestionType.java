@@ -11,6 +11,7 @@ import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.editor.selectors.debaterecord.question.ObjectQuestionType;
 import org.bungeni.extutils.CommonXmlUtils;
 import org.bungeni.ooo.OOComponentHelper;
+import org.bungeni.utils.CommonEditorXmlUtils;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -249,7 +250,7 @@ public class QuestionType extends BaseMetadataPanel {
          */
             for (Element ontoElement : listOntoElements) {
                 String sHref = ontoElement.getAttributeValue("href");
-                String showAs = CommonXmlUtils.getLocalizedChildElementValue(ontoElement, "title");
+                String showAs = CommonEditorXmlUtils.getLocalizedChildElementValue(ontoElement, "title");
                 ObjectQuestionType ost = new ObjectQuestionType(sHref, showAs);
                 questionTypes.add(ost);
             }

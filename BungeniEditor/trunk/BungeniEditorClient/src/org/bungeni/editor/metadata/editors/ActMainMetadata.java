@@ -17,6 +17,8 @@
  */
 package org.bungeni.editor.metadata.editors;
 
+import org.bungeni.utils.CommonConnectorFunctions;
+import org.bungeni.utils.BungeniEditorProperties;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.io.IOException;

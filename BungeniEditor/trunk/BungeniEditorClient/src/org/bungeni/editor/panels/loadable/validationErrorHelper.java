@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.bungeni.extutils.CommonANUtils;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonXmlUtils;
+import org.bungeni.utils.CommonEditorXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -45,7 +46,7 @@ public class validationErrorHelper {
          File fErrors = CommonANUtils.getNamedComponentFromFile(sourceFileURL, "errors.xml");
             if (fErrors.exists()) {
                 if (saxBuilder == null) {
-                    saxBuilder = CommonXmlUtils.getNonValidatingSaxBuilder();
+                    saxBuilder = CommonEditorXmlUtils.getNonValidatingSaxBuilder();
                 }
                
                 try {

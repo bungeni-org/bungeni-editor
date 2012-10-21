@@ -1,5 +1,7 @@
 
-package org.bungeni.extutils;
+package org.bungeni.utils;
+
+import org.bungeni.utils.BungeniResourceBundleFactory;
 
 /**
  *

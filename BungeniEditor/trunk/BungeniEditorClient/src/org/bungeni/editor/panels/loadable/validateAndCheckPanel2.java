@@ -28,8 +28,8 @@ import javax.swing.SwingWorker;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import org.apache.log4j.Logger;
-import org.bungeni.extutils.BungeniEditorProperties;
-import org.bungeni.extutils.BungeniEditorPropertiesHelper;
+import org.bungeni.utils.BungeniEditorProperties;
+import org.bungeni.utils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.editor.panels.loadable.structuralerror.StructuralError;
 import org.bungeni.editor.panels.loadable.structuralerror.StructuralErrorSerialize;
@@ -44,6 +44,7 @@ import org.bungeni.ooo.transforms.impl.BungeniTransformationTarget;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTargetFactory;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTargets;
 import org.bungeni.ooo.transforms.impl.IBungeniDocTransform;
+import org.bungeni.utils.CommonEditorXmlUtils;
 import org.bungeni.utils.externalplugin.ExternalPlugin;
 import org.bungeni.utils.externalplugin.ExternalPluginLoader;
 import org.jdom.Document;
@@ -133,7 +134,7 @@ public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
             final String currentDocType = BungeniEditorPropertiesHelper.getCurrentDocType();
             final String rulesRootFolder = CommonEditorFunctions.getPathRelativeToRoot(BungeniEditorProperties.getEditorProperty("structuralRulesRootPath"));
             freader = new FileReader(rulesRootFolder + File.separator + ENGINE_RULES_FOLDER + File.separator + currentDocType + ".xml");
-            SAXBuilder builder = CommonXmlUtils.getNonValidatingSaxBuilder();
+            SAXBuilder builder = CommonEditorXmlUtils.getNonValidatingSaxBuilder();
             Document engineDoc = builder.build(freader);
             //get available engines
             XPath engines = XPath.newInstance("/rules/engine");
@@ -325,7 +326,7 @@ public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
         ArrayList<StructuralError> listErrors = new ArrayList<StructuralError>(0);
         //System.out.println(outError);
         try {
-            SAXBuilder builder = CommonXmlUtils.getNonValidatingSaxBuilder();
+            SAXBuilder builder = CommonEditorXmlUtils.getNonValidatingSaxBuilder();
             Document engineDoc = builder.build(sr);
             //get available engines
             XPath engines = XPath.newInstance("/structuralErrors/list");
@@ -359,7 +360,7 @@ public class validateAndCheckPanel2 extends BaseClassForITabbedPanel {
         StringReader sr = new StringReader(outError);
         //System.out.println(outError);
         try {
-            SAXBuilder builder = CommonXmlUtils.getNonValidatingSaxBuilder();
+            SAXBuilder builder = CommonEditorXmlUtils.getNonValidatingSaxBuilder();
             Document engineDoc = builder.build(sr);
             //get available engines
             XPath engines = XPath.newInstance("/structuralErrors/list");

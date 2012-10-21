@@ -25,6 +25,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.bungeni.extutils.CommonXmlUtils;
+import org.bungeni.utils.CommonEditorXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -93,7 +94,7 @@ public class BundlesReader extends BaseConfigReader {
     private Document getDocument() {
        if (this.bundlesDocument == null) {
             try {
-                this.bundlesDocument = CommonXmlUtils.loadFile(RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE);
+                this.bundlesDocument = CommonEditorXmlUtils.loadFile(RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE);
             } catch (FileNotFoundException ex) {
                 log.error("file not found", ex);
             } catch (UnsupportedEncodingException ex) {

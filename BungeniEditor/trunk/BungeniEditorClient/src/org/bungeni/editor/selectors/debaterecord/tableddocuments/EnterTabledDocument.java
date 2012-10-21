@@ -12,8 +12,8 @@ import java.awt.Component;
 import java.util.Date;
 import java.util.ResourceBundle;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
-import org.bungeni.extutils.BungeniEditorProperties;
-import org.bungeni.extutils.BungeniEditorPropertiesHelper;
+import org.bungeni.utils.BungeniEditorProperties;
+import org.bungeni.utils.BungeniEditorPropertiesHelper;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
 
