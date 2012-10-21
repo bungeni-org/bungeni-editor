@@ -57,9 +57,9 @@
     </sectionType>
     
 	<sectionType name="BillBody"
-		 prefix="body"
+		 prefix="billbody"
 		 numstyle="single"
-		 background="url:/settings/configs/backgrounds/sand.png"
+		 background="0xf0f0f0"
 		 indent-left="0"
 		 indent-right="0"
 		 visibility="user"

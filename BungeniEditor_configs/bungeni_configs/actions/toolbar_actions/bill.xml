@@ -90,7 +90,7 @@
             <blockAction title="PART">
 
                 <subaction target="make_bill_part" visible="true"
-                    condition="cursorInSection:body :and: textSelected:true"
+                    condition="cursorInSection:billbody :and: textSelected:true"
                     title="CREATE_FROM_SELECTION"> </subaction>
 
             </blockAction>

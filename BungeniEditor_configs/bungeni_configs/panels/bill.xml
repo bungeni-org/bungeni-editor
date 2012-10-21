@@ -3,6 +3,9 @@
 <panel name="actions" class=" org.bungeni.editor.panels.loadable.documentActionPanel" state="1">
        <title xml:lang="eng">markup</title>
 </panel>
+<panel name="bungeni" class=" org.bungeni.editor.panels.loadable.bungeniPanel" state="1">
+       <title xml:lang="eng">bungeni</title>
+</panel>
 <panel name="metadata" class="org.bungeni.editor.panels.loadable.MetadataPanel" state="1">
        <title xml:lang="eng">metadata</title>
 </panel>
