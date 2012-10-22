@@ -7,7 +7,7 @@
  * and open the template in the editor.
  */
 
-package org.bungeni.extutils;
+package org.bungeni.utils;
 
 import org.bungeni.utils.CommonResourceBundleHelperFunctions;
 import java.awt.Component;
