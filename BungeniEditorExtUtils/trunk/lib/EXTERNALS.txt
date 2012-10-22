@@ -1,0 +1,8 @@
+bungeniooolib http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeniooolib
+log4j http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/apache-log4j
+jdom http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/jdom
+commons-codec http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/commons-codec
+commons-io  http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/commons-io
+commons-logging http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/commons-logging
+swingx http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/swingx
+xerces http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/xerces
