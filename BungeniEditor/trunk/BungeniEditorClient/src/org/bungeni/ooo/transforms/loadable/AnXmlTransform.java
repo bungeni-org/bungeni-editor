@@ -3,7 +3,6 @@ package org.bungeni.ooo.transforms.loadable;
 //~--- non-JDK imports --------------------------------------------------------
 
 import org.bungeni.db.DefaultInstanceFactory;
-import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.utils.BungeniEditorPropertiesHelper;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.MessageBox;
@@ -32,6 +31,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import org.bungeni.editor.BungeniEditorClient;
 import org.bungeni.editor.system.BaseSystemConfig;
+import org.bungeni.extutils.CommonXmlConfigParams;
 import org.bungeni.plugins.translator.OdtTranslate;
 
 /**
@@ -237,7 +237,7 @@ public class AnXmlTransform extends BungeniDocTransform {
     private void processOutputFile(File tmpoutputFile, ArrayList<OutputFile> outFiles) {
         try {
             if (outputBuilder == null) {
-                outputBuilder = new SAXBuilder(BungeniEditorProperties.SAX_PARSER_DRIVER, false);
+                outputBuilder = new SAXBuilder(CommonXmlConfigParams.SAX_PARSER_DRIVER, false);
             }
 
             FileReader     outFilereader = new FileReader(tmpoutputFile);

@@ -2,7 +2,6 @@ package org.bungeni.utils;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.config.SystemParameterReader;
 
@@ -14,8 +13,8 @@ import org.bungeni.editor.config.SystemParameterReader;
 public class BungeniEditorProperties {
     private static HashMap<String,String> propertiesMap = new HashMap<String,String>();
     private static Logger log = Logger.getLogger(BungeniEditorProperties.class.getName());
-    public static final String ODF_URI_PREFIX = "uri:";
-    public static String SAX_PARSER_DRIVER = "org.apache.xerces.parsers.SAXParser";
+    //public static final String ODF_URI_PREFIX = "uri:";
+    //public static String SAX_PARSER_DRIVER = "org.apache.xerces.parsers.SAXParser";
     /** Creates a new instance of BungeniEditorProperties */
     public BungeniEditorProperties() {
     }
@@ -32,17 +31,7 @@ public class BungeniEditorProperties {
             log.error("Error while saving", ex);
         }
     }
-        /**
-    //public static void setEditorProperty(String propertyName, String propertyValue )
-        BungeniClientDB instance = new BungeniClientDB (DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
-       instance.Connect();
-        int nRow = instance.Update(SettingsQueryFactory.Q_SET_EDITOR_PROPERTY(propertyName, propertyValue));
-        instance.EndConnect();
-        if (nRow > 0 ) {
-            propertiesMap.put(propertyName, propertyValue);
-        } **/
-    //}
-    
+
     public static void setPropertyInMap(String propName, String propValue) {
         propertiesMap.put(propName, propValue);
     }

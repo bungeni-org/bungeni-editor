@@ -10,10 +10,9 @@ import com.sun.star.text.XTextViewCursor;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.ResourceBundle;
 import javax.swing.AbstractButton;
 import javax.swing.ListSelectionModel;
-import org.bungeni.utils.BungeniEditorProperties;
+import org.bungeni.extutils.CommonXmlConfigParams;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
 
@@ -61,7 +60,7 @@ public class SingleSelectTabledDocuments extends TabledDocuments {
                 //oCur.HyperLinkURL="http://akomantoso.org/resolver/"+ listItemURIs(i)
                 XPropertySet xCurProps = ooQueryInterface.XPropertySet(viewCursor);
                 xCursorText.insertString(viewCursor,viewCursor.getString(), true);
-                xCurProps.setPropertyValue("HyperLinkURL", BungeniEditorProperties.ODF_URI_PREFIX + tblDocURIs.get(0));
+                xCurProps.setPropertyValue("HyperLinkURL", CommonXmlConfigParams.ODF_URI_PREFIX + tblDocURIs.get(0));
                 xCurProps.setPropertyValue("HyperLinkName", bundle.getString("URI_TABLED_DOCUMENTS"));
                
                // if (!(i == tblDocTitles.size() -1 ))

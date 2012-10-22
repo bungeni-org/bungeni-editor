@@ -1,12 +1,3 @@
-/*
- * Installation.java
- * 
- * Created on Jun 4, 2007, 10:13:41 AM
- * 
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 package org.bungeni.utils;
 
 
@@ -16,8 +7,8 @@ import java.net.URL;
 import java.net.URLDecoder;
 
 /**
- *
- * @author Administrator
+ * !+EXT_CANDIDATE
+ * @author Ashok Hariharan
  */
 public class Installation {
  

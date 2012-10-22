@@ -24,8 +24,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import org.apache.log4j.Logger;
-import org.bungeni.extutils.CommonFileFunctions;
-import org.bungeni.extutils.CommonXmlUtils;
 import org.bungeni.utils.CommonEditorXmlUtils;
 import org.jdom.Attribute;
 import org.jdom.Document;

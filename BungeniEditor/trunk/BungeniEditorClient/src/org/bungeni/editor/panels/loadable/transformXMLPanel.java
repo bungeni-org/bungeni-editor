@@ -41,6 +41,7 @@ import org.bungeni.extutils.CommonDocumentUtilFunctions;
 import org.bungeni.extutils.CommonEditorFunctions;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonUIFunctions;
+import org.bungeni.extutils.CommonXmlConfigParams;
 import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTarget;
@@ -488,7 +489,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             //File fErrors = new File(fFile.getParent() + File.separator + "errors.xml");
             if (fErrors.exists()) {
                 if (saxBuilder == null) {
-                    saxBuilder = new SAXBuilder(BungeniEditorProperties.SAX_PARSER_DRIVER, false);
+                    saxBuilder = new SAXBuilder(CommonXmlConfigParams.SAX_PARSER_DRIVER, false);
                 }
                 Document xmlErrors = null;
                 try {

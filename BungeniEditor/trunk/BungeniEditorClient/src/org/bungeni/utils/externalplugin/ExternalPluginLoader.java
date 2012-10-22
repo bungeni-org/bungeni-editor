@@ -1,10 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-
 package org.bungeni.utils.externalplugin;
 
 //~--- non-JDK imports --------------------------------------------------------
@@ -22,6 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.bungeni.extutils.CommonEditorFunctions;
+import org.bungeni.extutils.CommonXmlConfigParams;
 
 /**
  * Loads external plugins from the file system
@@ -40,7 +34,7 @@ public class ExternalPluginLoader {
 
     public ExternalPluginLoader() {
         pathToPluginsRoot = CommonEditorFunctions.getPathRelativeToRoot(BungeniEditorProperties.getEditorProperty("pluginsPath"));
-        pluginBuilder     = new SAXBuilder(BungeniEditorProperties.SAX_PARSER_DRIVER);
+        pluginBuilder     = new SAXBuilder(CommonXmlConfigParams.SAX_PARSER_DRIVER);
     }
 
     /**

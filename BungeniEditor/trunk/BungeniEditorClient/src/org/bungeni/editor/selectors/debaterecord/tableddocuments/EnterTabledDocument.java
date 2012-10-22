@@ -12,6 +12,7 @@ import java.awt.Component;
 import java.util.Date;
 import java.util.ResourceBundle;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
+import org.bungeni.extutils.CommonXmlConfigParams;
 import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.utils.BungeniEditorPropertiesHelper;
 import org.bungeni.ooo.OOComponentHelper;
@@ -200,7 +201,7 @@ private static final String __URI_TO_TABLED_DOCUMENT__ = bundle.getString("URI_T
             XTextViewCursor viewCursor = ooDocument.getViewCursor();
             XText xCursorText = viewCursor.getText();
             XPropertySet xCurProps = ooQueryInterface.XPropertySet(viewCursor);
-            xCurProps.setPropertyValue("HyperLinkURL", BungeniEditorProperties.ODF_URI_PREFIX + docURI);
+            xCurProps.setPropertyValue("HyperLinkURL", CommonXmlConfigParams.ODF_URI_PREFIX + docURI);
             xCurProps.setPropertyValue("HyperLinkName",__URI_TO_TABLED_DOCUMENT__);
             //AH-17-01-11 -- the below isnt required since the text has already been selected !!
             //xCursorText.insertString(viewCursor,viewCursor.getString(), true);

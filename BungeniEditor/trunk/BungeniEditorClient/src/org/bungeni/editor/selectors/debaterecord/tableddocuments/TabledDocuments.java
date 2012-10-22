@@ -38,6 +38,7 @@ import javax.swing.table.TableColumn;
 import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.element.Document;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
+import org.bungeni.extutils.CommonXmlConfigParams;
 import org.bungeni.utils.CommonConnectorFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
@@ -467,7 +468,7 @@ public class TabledDocuments extends BaseMetadataPanel {
                 //AH-18-01-11 Fixed url not being written problem
                 XPropertySet xCurProps = ooQueryInterface.XPropertySet(startCur);
                 xCursorText.insertString(startCur, tblDocTitles.get(i), true);
-                xCurProps.setPropertyValue("HyperLinkURL", org.bungeni.utils.BungeniEditorProperties.ODF_URI_PREFIX + tblDocURIs.get(i));
+                xCurProps.setPropertyValue("HyperLinkURL", CommonXmlConfigParams.ODF_URI_PREFIX + tblDocURIs.get(i));
                 xCurProps.setPropertyValue("HyperLinkName", bundle.getString("URI_TABLED_DOCUMENTS") );
                 startCur.gotoRange(startCur.getEnd(), false);
                 startCur.goRight((short)1, false);

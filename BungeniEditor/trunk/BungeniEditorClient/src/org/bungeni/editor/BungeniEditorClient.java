@@ -6,7 +6,6 @@ import org.apache.log4j.BasicConfigurator;
 import org.bungeni.editor.dialogs.editorApplicationController;
 import org.bungeni.editor.interfaces.ui.ILookAndFeel;
 import org.bungeni.editor.ui.LookAndFeelFactory;
-import org.bungeni.extutils.CommonTreeFunctions;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.bungeni.utils.Installation;
 

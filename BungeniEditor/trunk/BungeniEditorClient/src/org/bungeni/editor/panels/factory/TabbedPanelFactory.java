@@ -32,14 +32,7 @@ public class TabbedPanelFactory {
         } catch(Exception ex) {
             log.error("makePanel : " + ex.getMessage());
         }
-        /**
-        (ClassNotFoundException ex) {
-            log.error("makePanel : " + ex.getMessage());
-        } catch (InstantiationException ex) {
-            log.error("makePanel : " + ex.getMessage());
-        } catch (IllegalAccessException ex) {
-            log.error("makePanel : " + ex.getMessage());
-        } **/
+
        return newPanel;
         
     }
@@ -63,22 +56,7 @@ public class TabbedPanelFactory {
             String panelClass = namedPanel.getAttributeValue("class");
             panel = makePanel(panelClass, 0, PanelsReader.getInstance().getLocalizedTitleForPanel(namedPanel) );
 
-            /***
-            BungeniClientDB instance = new BungeniClientDB (DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
-            QueryResults qr = instance.ConnectAndQuery(SettingsQueryFactory.Q_FETCH_TABS_BY_NAME(docType, panelName));
-            if (qr.hasResults()) {
-                Iterator<Vector<String>> resultsIterator = qr.theResultsIterator();
-                while (resultsIterator.hasNext()) {
-                    Vector<String> resultRow = resultsIterator.next();
-                    String panelClass = qr.getField(resultRow, "PANEL_CLASS");
-                    String panelTitle = qr.getField(resultRow, "PANEL_TITLE");
-                    String panelLoadOrder = qr.getField(resultRow, "PANEL_LOAD_ORDER");
-                    Integer panelLoad = Integer.parseInt(panelLoadOrder);
-                    panel = makePanel(panelClass, panelLoad, panelTitle);
-                }
-
-            }
-             **/
+           
         } catch (Exception ex) {
             log.error("getPanelByName : " + ex.getMessage());
             log.error("getPanelByName : " + CommonExceptionUtils.getStackTrace(ex));
@@ -101,26 +79,7 @@ public class TabbedPanelFactory {
                      tabbedPanels.add(panel);
                  }
             }
-            /**
-            BungeniClientDB instance = new BungeniClientDB (DefaultInstanceFactory.DEFAULT_INSTANCE(), DefaultInstanceFactory.DEFAULT_DB());
-            QueryResults qr = instance.ConnectAndQuery(SettingsQueryFactory.Q_FETCH_TABS_BY_DOC_TYPE(docType));
-     
-            
-            if (qr.hasResults()) {
-                Iterator<Vector<String>> resultsIterator = qr.theResultsIterator();
-                while (resultsIterator.hasNext()) {
-                    Vector<String> resultRow = resultsIterator.next();
-                    String panelClass = qr.getField(resultRow, "PANEL_CLASS");
-                    String panelTitle = qr.getField(resultRow, "PANEL_TITLE");
-                    String panelLoadOrder = qr.getField(resultRow, "PANEL_LOAD_ORDER");
-                    Integer panelLoad = Integer.parseInt(panelLoadOrder);
-                    ITabbedPanel panel = makePanel(panelClass, panelLoad, panelTitle);
-                    if (panel == null) {
-                        log.error("getPanelsByDocType: the panel :" + panelClass + " could not be loaded");
-                    } else
-                        tabbedPanels.add(panel);
-                }
-               **/
+    
             }
         catch (JDOMException ex) {
             log.error("getPanelsByDocType : " + ex.getMessage());

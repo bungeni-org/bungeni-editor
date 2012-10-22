@@ -17,6 +17,7 @@ import org.jdom.xpath.XPath;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import org.bungeni.extutils.CommonXmlConfigParams;
 import org.jdom.Element;
 
 /**
@@ -52,7 +53,7 @@ public class ExternalPluginParser {
     private String     pluginConfigFile     = "";
 
     public ExternalPluginParser() {
-        pluginBuilder = new SAXBuilder(BungeniEditorProperties.SAX_PARSER_DRIVER, false);
+        pluginBuilder = new SAXBuilder(CommonXmlConfigParams.SAX_PARSER_DRIVER, false);
     }
 
     public boolean parsePluginFile(String pluginConfigFile) {

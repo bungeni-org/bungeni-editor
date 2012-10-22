@@ -2,7 +2,6 @@ package org.bungeni.utils;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import org.bungeni.utils.BungeniEditorProperties;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,6 +11,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import org.bungeni.extutils.CommonXmlConfigParams;
 import org.bungeni.extutils.CommonXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -36,7 +36,7 @@ public class CommonEditorXmlUtils {
 
     public static SAXBuilder getNonValidatingSaxBuilder() {
         if (nonValidatingSaxBuilder == null) {
-            nonValidatingSaxBuilder = new SAXBuilder(BungeniEditorProperties.SAX_PARSER_DRIVER, false);
+            nonValidatingSaxBuilder = new SAXBuilder(CommonXmlConfigParams.SAX_PARSER_DRIVER, false);
         }
 
         return nonValidatingSaxBuilder;
@@ -44,7 +44,7 @@ public class CommonEditorXmlUtils {
 
     public static SAXBuilder getValidatingSaxBuilder() {
         if (validatingSaxBuilder == null) {
-            validatingSaxBuilder = new SAXBuilder(BungeniEditorProperties.SAX_PARSER_DRIVER, true);
+            validatingSaxBuilder = new SAXBuilder(CommonXmlConfigParams.SAX_PARSER_DRIVER, true);
         }
 
         return validatingSaxBuilder;

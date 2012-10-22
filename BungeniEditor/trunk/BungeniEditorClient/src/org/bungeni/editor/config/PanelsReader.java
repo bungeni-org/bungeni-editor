@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-import org.bungeni.extutils.CommonXmlUtils;
 import org.bungeni.utils.CommonEditorXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -81,5 +80,6 @@ public class PanelsReader extends BaseConfigReader {
         XPath xPath = XPath.newInstance("//panels[@for='" + docType + "']/panel");
         return xPath.selectNodes(this.cachedPanels.get(docType));
     }
+
 
 }
