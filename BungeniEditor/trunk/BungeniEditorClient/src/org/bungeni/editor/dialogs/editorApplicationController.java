@@ -39,7 +39,7 @@ import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
 import org.bungeni.editor.noa.BungeniNoaFrame;
 import org.bungeni.editor.noa.BungeniNoaFrame.DocumentComposition;
 import org.bungeni.editor.selectors.SelectorDialogModes;
-import org.bungeni.extutils.BungeniFrame;
+import org.bungeni.utils.BungeniFrame;
 import org.bungeni.extutils.BungeniRuntimeProperties;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonUIFunctions;

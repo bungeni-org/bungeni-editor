@@ -1,5 +1,6 @@
 package org.bungeni.editor.noa;
 
+import org.bungeni.utils.BungeniFrame;
 import ag.ion.bion.officelayer.application.OfficeApplicationException;
 import ag.ion.bion.officelayer.document.DocumentException;
 import ag.ion.noa.NOAException;

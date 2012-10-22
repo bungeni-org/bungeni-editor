@@ -1,5 +1,7 @@
 package org.bungeni.editor.dialogs;
 
+import org.bungeni.utils.BungeniFrame;
+import org.bungeni.utils.BungeniDialog;
 import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.utils.BungeniEditorPropertiesHelper;
 import ag.ion.bion.officelayer.application.OfficeApplicationException;

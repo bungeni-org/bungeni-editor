@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.xml.parsers.ParserConfigurationException;
 import org.apache.log4j.Logger;
-import org.bungeni.extutils.BungeniFrame;
+import org.bungeni.utils.BungeniFrame;
 import org.bungeni.extutils.FrameLauncher;
 
 /**

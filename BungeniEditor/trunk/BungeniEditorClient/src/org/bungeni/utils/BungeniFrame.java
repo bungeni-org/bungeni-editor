@@ -1,4 +1,4 @@
-package org.bungeni.extutils;
+package org.bungeni.utils;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -7,6 +7,7 @@ import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import org.bungeni.extutils.CommonUIFunctions;
 import org.bungeni.utils.CommonBungeniTreeFunctions;
 
 /**

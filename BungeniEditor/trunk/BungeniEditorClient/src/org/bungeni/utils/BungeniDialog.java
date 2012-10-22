@@ -1,9 +1,10 @@
-package org.bungeni.extutils;
+package org.bungeni.utils;
 
 import java.awt.Dimension;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import org.bungeni.extutils.CommonUIFunctions;
 import org.bungeni.utils.CommonBungeniTreeFunctions;
 
 /**

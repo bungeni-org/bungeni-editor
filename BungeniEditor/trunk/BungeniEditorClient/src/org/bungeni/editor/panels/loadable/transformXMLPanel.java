@@ -35,7 +35,7 @@ import org.bungeni.editor.noa.BungeniNoaFrame;
 import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.utils.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
-import org.bungeni.extutils.BungeniFrame;
+import org.bungeni.utils.BungeniFrame;
 import org.bungeni.extutils.CommonANUtils;
 import org.bungeni.extutils.CommonDocumentUtilFunctions;
 import org.bungeni.extutils.CommonEditorFunctions;
