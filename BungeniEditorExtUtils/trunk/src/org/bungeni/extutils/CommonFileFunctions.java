@@ -38,6 +38,24 @@ public class CommonFileFunctions {
 
     public CommonFileFunctions() {}
 
+    private static  File __editor_root_folder__ = null ;
+
+    public static File getInstallDirectory(){
+        if (BungeniRuntimeProperties.propertyExists("EDITOR_ROOT_FOLDER")) {
+            if (__editor_root_folder__ == null) {
+                    __editor_root_folder__ =  new File(BungeniRuntimeProperties.getProperty("EDITOR_ROOT_FOLDER"));
+            }
+            return __editor_root_folder__;
+        } else
+            return new File(System.getProperty("user.dir"));
+    }
+
+    public static String getAbsoluteInstallDir(){
+       File dir = getInstallDirectory();
+       String full_path = dir.getAbsolutePath();
+       return full_path;
+    }
+
     public static String getLocalDirName() {
         String localDirName;
 
