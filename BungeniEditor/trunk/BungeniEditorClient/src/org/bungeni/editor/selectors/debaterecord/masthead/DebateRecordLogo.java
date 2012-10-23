@@ -3,9 +3,9 @@ package org.bungeni.editor.selectors.debaterecord.masthead;
 import java.awt.Component;
 import java.io.File;
 import javax.swing.JFileChooser;
-import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
+import org.bungeni.extutils.CommonFileFunctions;
 
 /**
  *
@@ -74,7 +74,7 @@ private void btn_initdebate_selectlogoActionPerformed(java.awt.event.ActionEvent
         String logoPath = "";
         logoPath = BungeniEditorProperties.getEditorProperty("logoPath");
         log.debug("logo path = " + logoPath);
-        String strPath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH();
+        String strPath =CommonFileFunctions.getAbsoluteInstallDir();
         logoPath = strPath + File.separator + logoPath.replace('/', File.separatorChar);
         log.debug("logo path new = "+ logoPath);
         JFileChooser chooser = new JFileChooser();
@@ -288,7 +288,7 @@ private void btn_initdebate_selectlogoActionPerformed(java.awt.event.ActionEvent
     private String m_strLogoPath;
     private void initCommon(){
                m_logoPathProperty = BungeniEditorProperties.getEditorProperty("logoPath");
-               m_defaultInstallationPath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH();
+               m_defaultInstallationPath =CommonFileFunctions.getAbsoluteInstallDir();
                m_strLogoPath = m_defaultInstallationPath + File.separator + m_logoPathProperty + File.separator + "default_logo.jpg";
 
     }

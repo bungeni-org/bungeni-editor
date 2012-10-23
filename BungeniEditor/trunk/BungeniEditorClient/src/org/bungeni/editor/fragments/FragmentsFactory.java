@@ -10,7 +10,7 @@
 package org.bungeni.editor.fragments;
 
 import java.io.File;
-import org.bungeni.db.DefaultInstanceFactory;
+import org.bungeni.extutils.CommonFileFunctions;
 
 /**
  *
@@ -23,7 +23,7 @@ public class FragmentsFactory {
     }
     
     public static String getFragment (String fragName) {
-        String strPath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH();
+        String strPath = CommonFileFunctions.getAbsoluteInstallDir();
         strPath = strPath + File.separator + "settings" + File.separator + FRAGMENTS_FOLDER + File.separator + fragName + ".odt";
         return strPath;
     }

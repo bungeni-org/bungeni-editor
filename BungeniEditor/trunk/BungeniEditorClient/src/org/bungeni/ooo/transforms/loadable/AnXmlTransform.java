@@ -2,7 +2,6 @@ package org.bungeni.ooo.transforms.loadable;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.utils.BungeniEditorPropertiesHelper;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.MessageBox;
@@ -136,7 +135,7 @@ public class AnXmlTransform extends BungeniDocTransform {
 
                 HashMap paramMap = new HashMap();
 		
-                String currentDirectory = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH();
+                String currentDirectory = CommonFileFunctions.getAbsoluteInstallDir(); //DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH();
                 System.out.println("CURRENT DIR=" + currentDirectory);
 
 		String currentDocType = BungeniEditorPropertiesHelper.getCurrentDocType();

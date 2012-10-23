@@ -16,7 +16,7 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-package org.bungeni.editor.dialogs;
+package org.bungeni.extpanels.bungeni;
 
 import java.io.IOException;
 import java.util.ArrayList;

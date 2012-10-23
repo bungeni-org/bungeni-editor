@@ -30,7 +30,6 @@ import javax.swing.JPopupMenu;
 import javax.swing.SwingWorker;
 import javax.xml.parsers.ParserConfigurationException;
 import org.apache.log4j.Logger;
-import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.editor.noa.BungeniNoaFrame;
 import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.utils.BungeniEditorPropertiesHelper;
@@ -434,7 +433,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
 
         String exportPath = BungeniEditorProperties.getEditorProperty("defaultExportPath");
         exportPath = exportPath.replace('/', File.separatorChar);
-        exportPath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + exportPath;
+        exportPath = CommonFileFunctions.getAbsoluteInstallDir() + File.separator + exportPath;
         exportPath = exportPath + File.separatorChar + OOComponentHelper.getFrameTitle(ooDocument.getTextDocument()).trim() + "." + transform.targetExt;
         File fileExp = new File(exportPath);
         String exportPathURL = "";

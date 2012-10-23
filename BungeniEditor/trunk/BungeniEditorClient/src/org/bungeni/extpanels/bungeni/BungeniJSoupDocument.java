@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2012 PC
+ *  Copyright (C) 2012 Africa i-Parliaments
  * 
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -16,7 +16,7 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-package org.bungeni.editor.dialogs;
+package org.bungeni.extpanels.bungeni;
 
 import java.util.ArrayList;
 import java.util.List;

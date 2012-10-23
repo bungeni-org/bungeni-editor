@@ -27,7 +27,9 @@ package org.bungeni.editor.dialogs;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.DefaultComboBoxModel;
-import org.bungeni.editor.dialogs.BungeniJSoupDocument.Attachment;
+
+import org.bungeni.extpanels.bungeni.BungeniJSoupDocument;
+import org.bungeni.extpanels.bungeni.BungeniJSoupDocument.Attachment;
 import org.bungeni.utils.BungeniDialog;
 
 

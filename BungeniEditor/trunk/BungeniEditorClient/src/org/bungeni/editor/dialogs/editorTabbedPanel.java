@@ -1,5 +1,6 @@
 package org.bungeni.editor.dialogs;
 
+import org.bungeni.extpanels.bungeni.BungeniAppConnector;
 import org.bungeni.utils.BungeniFrame;
 import org.bungeni.utils.BungeniDialog;
 import org.bungeni.utils.BungeniEditorProperties;
@@ -33,7 +34,6 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.editor.BungeniOOoLayout;
 import org.bungeni.editor.config.DocumentActionsReader;
 import org.bungeni.editor.panels.impl.ITabbedPanel;
@@ -44,7 +44,7 @@ import org.bungeni.editor.actions.EditorActionFactory;
 import org.bungeni.editor.actions.IEditorActionEvent;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.dialogs.BungeniDocumentSource.BungeniDocuments;
-import org.bungeni.editor.dialogs.BungeniJSoupDocument.Attachment;
+import org.bungeni.extpanels.bungeni.BungeniJSoupDocument.Attachment;
 import org.bungeni.editor.metadata.BaseEditorDocMetaModel;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
 import org.bungeni.editor.noa.BungeniNoaFrame;
@@ -53,6 +53,7 @@ import org.bungeni.editor.noa.BungeniNoaTabbedPane;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.editor.selectors.metadata.MetadataEditor;
 import org.bungeni.editor.toolbar.target.BungeniToolbarTargetProcessor;
+import org.bungeni.extpanels.bungeni.BungeniJSoupDocument;
 import org.bungeni.extutils.*;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.bungeni.ooo.ooDocMetadata;
@@ -469,18 +470,7 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
         private BungeniAppConnector appConnector = null;
         
         public synchronized void loadDocumentFromBungeniInPanel(){
-           // BungeniDialog dlg = new BungeniDialog(
-           //         this.parentFrame() ,
-           //         "Select a Document",
-           //         true
-           //         );
-           // BungeniDocumentSourceSelectDocument doc =
-           //         new BungeniDocumentSourceSelectDocument(dlg);
-           // doc.init();
-           // dlg.getContentPane().add(doc);
-           // dlg.pack();
-           // FrameLauncher.CenterFrame(dlg);
-           // dlg.setVisible(true);
+
             String sDocURL = (String)JOptionPane.showInputDialog(
                     this.parentFrame(),
                     "Enter the URL of the document to Import",
@@ -549,7 +539,7 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
     }
 
     public synchronized void loadDocumentFromFileSystemInPanel() {
-        String basePath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + "workspace" + File.separator + "files";
+        String basePath = BungeniRuntimeProperties.getProperty("EDITOR_ROOT_FOLDER") + File.separator + "workspace" + File.separator + "files";
         File openFile = CommonFileFunctions.getFileFromChooser(basePath,
                 new org.bungeni.utils.fcfilter.ODTFileFilter(),
                 JFileChooser.FILES_ONLY,

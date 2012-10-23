@@ -5,7 +5,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import org.bungeni.extutils.CommonUIFunctions;
-import org.bungeni.utils.CommonBungeniTreeFunctions;
 
 /**
  * Extended JFrame class that abstracts regular boiler plate code for Bungeni Frames

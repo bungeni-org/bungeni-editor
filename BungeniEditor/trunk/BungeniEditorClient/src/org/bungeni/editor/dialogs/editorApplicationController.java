@@ -25,7 +25,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
-import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.editor.noa.BungeniNoaApp;
 import org.bungeni.editor.SplashPage;
 import org.bungeni.editor.config.DocTypesReader;
@@ -49,7 +48,6 @@ import org.bungeni.extutils.MessageBox;
 import org.bungeni.ooo.BungenioOoHelper;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.utils.CommonEditorXmlUtils;
-import org.bungeni.utils.Installation;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 
@@ -59,7 +57,7 @@ import org.jdom.JDOMException;
  */
 public class editorApplicationController extends javax.swing.JPanel {
 
-    private Installation m_installObject;
+    //private Installation m_installObject;
     private static String __WINDOW_TITLE__ = "Bungeni Editor Client ";
     private JFrame parentFrame;
     //path to settings.properties
@@ -112,8 +110,8 @@ public class editorApplicationController extends javax.swing.JPanel {
 
     public void init() {
         CommonFileFunctions cfsObject = new CommonFileFunctions();
-        m_installObject = new Installation();
-        File dir = Installation.getInstallDirectory(this.getClass());
+        //m_installObject = new Installation();
+        File dir = CommonFileFunctions.getInstallDirectory();
         //code to read properties file
 
         initLocales();
@@ -406,7 +404,7 @@ public class editorApplicationController extends javax.swing.JPanel {
 
         public String templatePathNormalized() {
             String normalizedPath = templatePath.replace('/', File.separatorChar);
-            normalizedPath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + normalizedPath;
+            normalizedPath = CommonFileFunctions.getAbsoluteInstallDir() + File.separator + normalizedPath;
             return normalizedPath;
         }
     }
@@ -609,7 +607,7 @@ public class editorApplicationController extends javax.swing.JPanel {
 
       if (launchMode.equals("edit")){ //edit
             if (editorTabbedPanel.isInstanceNull()) {
-                String basePath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + "workspace" + File.separator + "files";
+                String basePath = CommonFileFunctions.getAbsoluteInstallDir() + File.separator + "workspace" + File.separator + "files";
                 File openFile = CommonFileFunctions.getFileFromChooser(basePath, new org.bungeni.utils.fcfilter.ODTFileFilter(), JFileChooser.FILES_ONLY, null);
                 if (openFile != null) {
                     final String fullPathToFile = openFile.getAbsolutePath();

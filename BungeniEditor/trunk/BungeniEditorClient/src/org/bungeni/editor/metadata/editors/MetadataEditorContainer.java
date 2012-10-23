@@ -5,7 +5,6 @@ import org.bungeni.utils.BungeniFrame;
 import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.utils.BungeniEditorPropertiesHelper;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.net.URL;
@@ -18,7 +17,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import org.bungeni.db.DefaultInstanceFactory;
 import org.bungeni.editor.config.DocTypesReader;
 import org.bungeni.editor.metadata.BaseEditorDocMetaModel;
 import org.bungeni.editor.selectors.SelectorDialogModes;
@@ -284,7 +282,7 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
             log.debug("saveDocumentToDisk: defaultSavePath : " + defaultSavePath);
 
             //get the absolute path
-            String exportPath = DefaultInstanceFactory.DEFAULT_INSTALLATION_PATH() + File.separator + defaultSavePath + m_spf.getExpressionFilePath() ;
+            String exportPath = CommonFileFunctions.getAbsoluteInstallDir() + File.separator + defaultSavePath + m_spf.getExpressionFilePath() ;
 
             log.debug("saveDocumentToDisk : exportPath = " + exportPath);
             //get the full path to the file
