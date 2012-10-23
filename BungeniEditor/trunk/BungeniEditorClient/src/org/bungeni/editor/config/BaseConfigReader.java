@@ -19,11 +19,15 @@
 package org.bungeni.editor.config;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Properties;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.config.PluggableConfigReader.PluggableConfig;
+import org.bungeni.extutils.CommonFileFunctions;
 
 import org.jdom.JDOMException;
 
@@ -35,9 +39,33 @@ public class BaseConfigReader {
 
     private static final Logger log = Logger.getLogger(BaseConfigReader.class.getName());
     public static final String BASE_SETTINGS_FOLDER = "settings" ;
-    public static final String CONFIGS_FOLDER =  getConfigsFolder();
-
+    public static final String CONFIGS_FOLDER =  getConfigsFolder() ;
+    public static final String WORKSPACE_PROPS_FILE = "workspace.properties" ;
     private static String PLUGGABLE_CONFIGS_FOLDER = null;
+    private static String WORKSPACE_FOLDER = null;
+
+    private static String getSettingsFolder(){
+        return CommonFileFunctions.getAbsoluteInstallDir() + File.separator + BASE_SETTINGS_FOLDER ;
+    }
+
+    public static String getWorkspaceFolder() throws IOException{
+      if (null == WORKSPACE_FOLDER) {
+          Properties pini = new Properties();
+          String wsProps = getSettingsFolder() + File.separator + WORKSPACE_PROPS_FILE ;
+          pini.load(new FileInputStream(wsProps));
+          String workspaceFolder = pini.getProperty("workspace", "../workspace").trim();
+          WORKSPACE_FOLDER = workspaceFolder;
+          File f = new File(WORKSPACE_FOLDER);
+          if (f.exists()) {
+              if (!f.isDirectory()) {
+                  throw new java.io.IOException("Workspace path already exists and is a file !");
+              }
+          } else {
+              f.mkdirs();
+          }
+      }
+      return WORKSPACE_FOLDER;
+    }
 
     private static String getConfigsFolder(){
         if (null == PLUGGABLE_CONFIGS_FOLDER) {

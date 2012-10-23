@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
@@ -27,6 +29,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 import org.bungeni.editor.noa.BungeniNoaApp;
 import org.bungeni.editor.SplashPage;
+import org.bungeni.editor.config.BaseConfigReader;
 import org.bungeni.editor.config.DocTypesReader;
 import org.bungeni.editor.config.PluggableConfigReader;
 import org.bungeni.editor.config.PluggableConfigReader.PluggableConfig;
@@ -402,10 +405,20 @@ public class editorApplicationController extends javax.swing.JPanel {
             return typeDesc;
         }
 
+        /**
+         * Templates are always relative to the configs folder
+         * You can specify absolute paths as file:// urls 
+         * @return
+         */
         public String templatePathNormalized() {
-            String normalizedPath = templatePath.replace('/', File.separatorChar);
-            normalizedPath = CommonFileFunctions.getAbsoluteInstallDir() + File.separator + normalizedPath;
-            return normalizedPath;
+                if (templatePath.startsWith("file:/")) {
+                    return CommonFileFunctions.convertUrlToFile(templatePath).getAbsolutePath();
+                } else {
+                    //path relative to configs folder
+                    String normalizedPath = templatePath.replace('/', File.separatorChar);
+                    normalizedPath = BaseConfigReader.CONFIGS_FOLDER + File.separator + normalizedPath;
+                    return normalizedPath;
+                }
         }
     }
 
@@ -583,7 +596,7 @@ public class editorApplicationController extends javax.swing.JPanel {
     }
 
     
-    private boolean launchDocumentType(documentType thisDocType, String launchMode) {
+    private boolean launchDocumentType(documentType thisDocType, String launchMode) throws IOException {
 
         //if it is a new document ....
         if (launchMode.equals("new")) {
@@ -607,7 +620,8 @@ public class editorApplicationController extends javax.swing.JPanel {
 
       if (launchMode.equals("edit")){ //edit
             if (editorTabbedPanel.isInstanceNull()) {
-                String basePath = CommonFileFunctions.getAbsoluteInstallDir() + File.separator + "workspace" + File.separator + "files";
+                String basePath = BaseConfigReader.getWorkspaceFolder();
+                //String basePath =  BaseConfigReader.//CommonFileFunctions.getAbsoluteInstallDir() + File.separator + "workspace" + File.separator + "files";
                 File openFile = CommonFileFunctions.getFileFromChooser(basePath, new org.bungeni.utils.fcfilter.ODTFileFilter(), JFileChooser.FILES_ONLY, null);
                 if (openFile != null) {
                     final String fullPathToFile = openFile.getAbsolutePath();
@@ -629,7 +643,7 @@ public class editorApplicationController extends javax.swing.JPanel {
       return false;
     }
    
-    public void launchDocumentType(String docType, String launchMode) {
+    public void launchDocumentType(String docType, String launchMode)  {
         documentType thisDocType = null;
         for (int i = 0; i < cboDocumentTypes.getModel().getSize(); i++) {
             documentType curdocType = (documentType) cboDocumentTypes.getModel().getElementAt(i);
@@ -644,7 +658,11 @@ public class editorApplicationController extends javax.swing.JPanel {
         }
         //!+TEMP_DISABLE
         BungeniEditorProperties.setEditorProperty("activeDocumentMode", thisDocType.docType);
-        launchDocumentType(thisDocType, launchMode);
+        try {
+            launchDocumentType(thisDocType, launchMode);
+        } catch (IOException ex) {
+            log.error("Error while loading doc type, possible workspace was not found" , ex);
+        }
 
 
     }
@@ -655,7 +673,11 @@ public class editorApplicationController extends javax.swing.JPanel {
         //m_settings_CurrentTemplate = "hansard.ott";
         createNewDocument.setEnabled(false);
         documentType selectedDocType = (documentType) cboDocumentTypes.getSelectedItem();
-        launchDocumentType(selectedDocType, "new");
+        try {
+            launchDocumentType(selectedDocType, "new");
+        } catch (IOException ex) {
+            log.error("Error while launching new document, possibly workspace was not found", ex);
+        }
 
         createNewDocument.setEnabled(true);
         hideWindow(false);
@@ -666,8 +688,12 @@ public class editorApplicationController extends javax.swing.JPanel {
 // TODO add your handling code here:
         this.btnOpenExisting.setEnabled(false);
         documentType selectedDocType = (documentType) cboDocumentTypes.getSelectedItem();
-        if (launchDocumentType(selectedDocType, "edit")) {
-            this.hideWindow(false);
+        try {
+            if (launchDocumentType(selectedDocType, "edit")) {
+                this.hideWindow(false);
+            }
+        } catch (IOException ex) {
+            log.error("Error while launching doc type possibly workspace folder was not found", ex);
         }
         this.btnOpenExisting.setEnabled(true);
     }//GEN-LAST:event_btnOpenExistingActionPerformed

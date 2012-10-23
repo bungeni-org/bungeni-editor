@@ -43,6 +43,7 @@ import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.editor.actions.EditorActionFactory;
 import org.bungeni.editor.actions.IEditorActionEvent;
 import org.bungeni.editor.actions.toolbarAction;
+import org.bungeni.editor.config.BaseConfigReader;
 import org.bungeni.editor.dialogs.BungeniDocumentSource.BungeniDocuments;
 import org.bungeni.extpanels.bungeni.BungeniJSoupDocument.Attachment;
 import org.bungeni.editor.metadata.BaseEditorDocMetaModel;
@@ -539,44 +540,50 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
     }
 
     public synchronized void loadDocumentFromFileSystemInPanel() {
-        String basePath = BungeniRuntimeProperties.getProperty("EDITOR_ROOT_FOLDER") + File.separator + "workspace" + File.separator + "files";
-        File openFile = CommonFileFunctions.getFileFromChooser(basePath,
-                new org.bungeni.utils.fcfilter.ODTFileFilter(),
-                JFileChooser.FILES_ONLY,
-                parentFrame());
-        if (openFile != null) {
-            boolean bActive = false;
-            int nConfirm = MessageBox.Confirm(parentFrame(),
-                    bundle.getString("make_active"),
-                    bundle.getString("change_active"));
-            if (JOptionPane.YES_OPTION == nConfirm) {
-                bActive = true;
-            }
-            String fullPathToFile = openFile.getAbsolutePath();
-            //we dont use the OpenDocumentAgent anymore -- as we are using noa,
-            //OOo document needs to be opened in the event dispatch thread, not 
-            //in the background thread
-            //OpenDocumentAgent openDocAgent = new OpenDocumentAgent(fullPathToFile, bActive, false);
-            //openDocAgent.execute();
-            BungeniNoaFrame frame = BungeniNoaFrame.getInstance();
-            DocumentComposition dc = null;
-            try {
-               dc = frame.loadDocumentInPanel(fullPathToFile, false);
-               if (bActive){
-                   int lastTab = BungeniNoaTabbedPane.getInstance().getTabbedPane().getTabCount() - 1;
-                   if (lastTab != 0 ) {
-                        BungeniNoaTabbedPane.getInstance().getTabbedPane().setSelectedIndex(lastTab);
+        String basePath = null;
+        try {
+            basePath = BaseConfigReader.getWorkspaceFolder();
+        } catch (IOException ex) {
+            log.error("Error while getting workspace folder", ex);
+        }
+        if (null != basePath) {
+            File openFile = CommonFileFunctions.getFileFromChooser(basePath,
+                    new org.bungeni.utils.fcfilter.ODTFileFilter(),
+                    JFileChooser.FILES_ONLY,
+                    parentFrame());
+            if (openFile != null) {
+                boolean bActive = false;
+                int nConfirm = MessageBox.Confirm(parentFrame(),
+                        bundle.getString("make_active"),
+                        bundle.getString("change_active"));
+                if (JOptionPane.YES_OPTION == nConfirm) {
+                    bActive = true;
+                }
+                String fullPathToFile = openFile.getAbsolutePath();
+                //we dont use the OpenDocumentAgent anymore -- as we are using noa,
+                //OOo document needs to be opened in the event dispatch thread, not
+                //in the background thread
+                //OpenDocumentAgent openDocAgent = new OpenDocumentAgent(fullPathToFile, bActive, false);
+                //openDocAgent.execute();
+                BungeniNoaFrame frame = BungeniNoaFrame.getInstance();
+                DocumentComposition dc = null;
+                try {
+                   dc = frame.loadDocumentInPanel(fullPathToFile, false);
+                   if (bActive){
+                       int lastTab = BungeniNoaTabbedPane.getInstance().getTabbedPane().getTabCount() - 1;
+                       if (lastTab != 0 ) {
+                            BungeniNoaTabbedPane.getInstance().getTabbedPane().setSelectedIndex(lastTab);
+                       }
                    }
-               }
-            } catch (OfficeApplicationException e) {
-                log.error("Error while opening document from editorTabbedPanel" , e);
-            } catch (NOAException e) {
-                log.error("Error while opening document from editorTabbedPanel" , e);
-            } catch (DocumentException e) {
-                log.error("Error while opening document from editorTabbedPanel" , e);
+                } catch (OfficeApplicationException e) {
+                    log.error("Error while opening document from editorTabbedPanel" , e);
+                } catch (NOAException e) {
+                    log.error("Error while opening document from editorTabbedPanel" , e);
+                } catch (DocumentException e) {
+                    log.error("Error while opening document from editorTabbedPanel" , e);
+                }
             }
         }
-
     }
 
     /**

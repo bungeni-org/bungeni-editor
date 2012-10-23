@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import org.bungeni.editor.config.BaseConfigReader;
 import org.bungeni.editor.config.DocTypesReader;
 import org.bungeni.editor.metadata.BaseEditorDocMetaModel;
 import org.bungeni.editor.selectors.SelectorDialogModes;
@@ -277,12 +278,12 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         try {
         //this is the relative base path where hte files are stored
             log.debug("saveDocumentToDisk: begin");
-            String defaultSavePath = BungeniEditorProperties.getEditorProperty("defaultSavePath");
-            defaultSavePath = defaultSavePath.replace('/', File.separatorChar);
+            //String defaultSavePath = BungeniEditorProperties.getEditorProperty("defaultSavePath");
+            String defaultSavePath = BaseConfigReader.getWorkspaceFolder() ; //defaultSavePath.replace('/', File.separatorChar);
             log.debug("saveDocumentToDisk: defaultSavePath : " + defaultSavePath);
 
             //get the absolute path
-            String exportPath = CommonFileFunctions.getAbsoluteInstallDir() + File.separator + defaultSavePath + m_spf.getExpressionFilePath() ;
+            String exportPath = defaultSavePath + m_spf.getExpressionFilePath() ;
 
             log.debug("saveDocumentToDisk : exportPath = " + exportPath);
             //get the full path to the file
