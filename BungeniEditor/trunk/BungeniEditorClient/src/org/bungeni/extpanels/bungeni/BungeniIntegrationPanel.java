@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2012 PC
+ *  Copyright (C) 2012 Africa i-Parliaments
  * 
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -24,11 +24,13 @@
 
 package org.bungeni.extpanels.bungeni;
 
+import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
+
 /**
  *
- * @author PC
+ * @author Ashok Hariharan
  */
-public class BungeniIntegrationPanel extends javax.swing.JPanel {
+public class BungeniIntegrationPanel extends BaseClassForITabbedPanel {
 
     /** Creates new form BungeniIntegrationPanel */
     public BungeniIntegrationPanel() {
@@ -76,9 +78,14 @@ public class BungeniIntegrationPanel extends javax.swing.JPanel {
         tabDocInfoLayout.setHorizontalGroup(
             tabDocInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblDocTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(scrollInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(lblStatus)
-            .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(tabDocInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(tabDocInfoLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, tabDocInfoLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(scrollInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         tabDocInfoLayout.setVerticalGroup(
             tabDocInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,7 +171,10 @@ public class BungeniIntegrationPanel extends javax.swing.JPanel {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(btnTransit)))
                             .addGap(21, 21, 21)))))
-            .addComponent(scrollWorkingDocs, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(scrollWorkingDocs, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,5 +227,10 @@ public class BungeniIntegrationPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtStatus;
     private javax.swing.JTextArea txtTitle;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void refreshPanel() {
+       // do nothing
+    }
 
 }

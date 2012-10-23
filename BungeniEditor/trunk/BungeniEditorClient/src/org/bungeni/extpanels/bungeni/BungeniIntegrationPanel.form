@@ -42,7 +42,11 @@
                   </Group>
               </Group>
           </Group>
-          <Component id="scrollWorkingDocs" alignment="0" pref="242" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="10" pref="10" max="10" attributes="0"/>
+              <Component id="scrollWorkingDocs" pref="222" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -88,9 +92,17 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblDocTitle" min="-2" pref="108" max="-2" attributes="0"/>
-                  <Component id="scrollInfo" alignment="0" min="-2" pref="236" max="-2" attributes="0"/>
                   <Component id="lblStatus" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtStatus" alignment="0" min="-2" pref="236" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="txtStatus" min="-2" pref="209" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="scrollInfo" min="-2" pref="209" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
