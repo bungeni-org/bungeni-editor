@@ -12,7 +12,6 @@ import org.bungeni.ooo.OOComponentHelper;
 
 import java.util.HashMap;
 import org.bungeni.editor.config.OntologiesReader;
-import org.bungeni.extutils.CommonXmlUtils;
 import org.bungeni.utils.CommonEditorXmlUtils;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -51,7 +50,13 @@ public class routerCreateEvent extends defaultRouter {
         // add custom metadata
             eventMetaMap.put(__EVENT_ONTOLOGY__, ontoElement.getAttributeValue("href"));
             eventMetaMap.put(__EVENT_ONTOLOGY_NAME__, ontoElement.getAttributeValue("name"));
-            eventMetaMap.put("BungeniEventDesc", CommonEditorXmlUtils.getLocalizedChildElementValue(ontoElement, "title"));
+            eventMetaMap.put("BungeniEventDesc",
+                    CommonEditorXmlUtils.getLocalizedChildElementValue(
+                        BungeniEditorPropertiesHelper.getLangAlpha3Part2(),
+                        ontoElement,
+                        "title"
+                        )
+                    );
             eventMetaMap.put(__EVENT_NAME__,nameOfNewSection);
         }
         return eventMetaMap;

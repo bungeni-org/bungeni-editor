@@ -43,7 +43,6 @@ import org.bungeni.utils.BungeniFrame;
 import org.bungeni.extutils.BungeniRuntimeProperties;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonUIFunctions;
-import org.bungeni.extutils.CommonXmlUtils;
 import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.extutils.MessageBox;
 
@@ -426,7 +425,10 @@ public class editorApplicationController extends javax.swing.JPanel {
             for (Element doctypeElem : doctypeList) {
                 dtArr[i] = new documentType();
                 dtArr[i].docType = doctypeElem.getAttributeValue("name");
-                dtArr[i].typeDesc = CommonEditorXmlUtils.getLocalizedChildElementValue(doctypeElem, "title");
+                dtArr[i].typeDesc = CommonEditorXmlUtils.getLocalizedChildElementValue(
+                        BungeniEditorPropertiesHelper.getLangAlpha3Part2(),
+                        doctypeElem,
+                        "title");
                 dtArr[i].templatePath = doctypeElem.getAttributeValue("template");
                 BungeniEditorProperties.setPropertyInMap(dtArr[i].docType + "_template", dtArr[i].templatePathNormalized());
                 i++;

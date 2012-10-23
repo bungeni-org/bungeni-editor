@@ -24,7 +24,6 @@ import java.util.List;
 
 import org.bungeni.editor.config.DocTypesReader;
 import org.bungeni.utils.BungeniEditorPropertiesHelper;
-import org.bungeni.extutils.CommonXmlUtils;
 import org.bungeni.utils.CommonEditorXmlUtils;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -76,7 +75,11 @@ public  class DocumentPartsFactory {
             for (Element partElem : listParts) {
                 DocumentPart dp = new DocumentPart(
                         partElem.getAttributeValue("name"),
-                        CommonEditorXmlUtils.getLocalizedChildElementValue(partElem, "title")
+                        CommonEditorXmlUtils.getLocalizedChildElementValue(
+                            BungeniEditorPropertiesHelper.getLangAlpha3Part2(),
+                            partElem,
+                            "title"
+                            )
                        );
                 list_docparts.add(dp);
             }

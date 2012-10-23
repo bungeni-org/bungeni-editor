@@ -13,7 +13,6 @@ import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.element.Bill;
 
 import org.bungeni.editor.selectors.BaseMetadataPanel;
-import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.utils.CommonConnectorFunctions;
 import org.bungeni.extutils.CommonStringFunctions;
 import org.bungeni.ooo.OOComponentHelper;

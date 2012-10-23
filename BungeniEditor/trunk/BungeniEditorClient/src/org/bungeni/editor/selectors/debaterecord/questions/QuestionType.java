@@ -9,8 +9,8 @@ import javax.swing.DefaultComboBoxModel;
 import org.bungeni.editor.config.OntologiesReader;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.editor.selectors.debaterecord.question.ObjectQuestionType;
-import org.bungeni.extutils.CommonXmlUtils;
 import org.bungeni.ooo.OOComponentHelper;
+import org.bungeni.utils.BungeniEditorPropertiesHelper;
 import org.bungeni.utils.CommonEditorXmlUtils;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import org.jdom.Element;
@@ -250,7 +250,11 @@ public class QuestionType extends BaseMetadataPanel {
          */
             for (Element ontoElement : listOntoElements) {
                 String sHref = ontoElement.getAttributeValue("href");
-                String showAs = CommonEditorXmlUtils.getLocalizedChildElementValue(ontoElement, "title");
+                String showAs = CommonEditorXmlUtils.getLocalizedChildElementValue(
+                            BungeniEditorPropertiesHelper.getLangAlpha3Part2(),
+                            ontoElement,
+                            "title"
+                            );
                 ObjectQuestionType ost = new ObjectQuestionType(sHref, showAs);
                 questionTypes.add(ost);
             }

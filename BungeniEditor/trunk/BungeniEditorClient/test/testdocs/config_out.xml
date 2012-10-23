@@ -1,12 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<allConfigs><sectionTypes for="debaterecord">
-<sectionType name="ActionEvent" prefix="actionevt" numstyle="serial" background=" url:/settings/configs/backgrounds/sand.png" indent-left="0" indent-right="0" visibility="user">
+<allConfigs>
+    <sectionTypes for="debaterecord">
+
+<!-- The root section is neccessary -->
+<sectionType name="root" prefix="debaterecord" numstyle="single" visibility="user">
+    <output>
+    <content>
+        <akomaNtoso>
+            <debate>
+                <meta mode="call" />
+                <preface mode="call" />
+                <debateBody mode="call" />
+                <conclusions mode="call" />
+            </debate>
+        </akomaNtoso>
+    </content>
+   </output>
+ </sectionType>
+
+
+  <sectionType name="CoverPage" prefix="coverpage" numstyle="single">
+        <output>
+            <content>
+                <coverPage />
+            </content>
+        </output>
+    </sectionType>
+  
+    <sectionType name="Preface" prefix="preface" numstyle="single" background="url:/settings/configs/backgrounds/shade-1.png" indent-left=".3" indent-right="0" visibility="user">
+        <output>
+            <content>
+                <preface />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="meta" prefix="meta" numstyle="single">
+        <output>
+            <content>
+                <meta />
+            </content>
+        </output>
+    </sectionType>
+
+   <sectionType name="ActionEvent" prefix="actionevt" numstyle="serial" background=" url:/settings/configs/backgrounds/sand.png" indent-left="0" indent-right="0" visibility="user">
      <output>
          <content>
              <container />
          </content>
      </output>
- </sectionType>
+</sectionType>
+    
 <sectionType name="Communication" prefix="comnctn" numstyle="serial" background="url:/settings/configs/backgrounds/shade-5.png" indent-left=".4" indent-right="0" visibility="user">
            <output>
             <content>
@@ -14,10 +58,10 @@
             </content>
         </output>
  </sectionType>
-<sectionType name="Conclusion" prefix="concl" numstyle="serial" background="url:/settings/configs/backgrounds/shade-4.png" indent-left=".4" indent-right="0" visibility="user">
+<sectionType name="Conclusions" prefix="concls" numstyle="serial" background="url:/settings/configs/backgrounds/shade-4.png" indent-left=".4" indent-right="0" visibility="user">
            <output>
             <content>
-                <conclusion />
+                <conclusions />
             </content>
           </output>
  </sectionType>
@@ -125,7 +169,7 @@
 <sectionType name="PapersLaidList" prefix="tbldocs" numstyle="serial" background="url:/settings/configs/backgrounds/shade-2.png" indent-left=".6" indent-right="0" visibility="user">
          <output>
             <content>
-                <container />
+                <other />
             </content>
            </output>
  </sectionType>
@@ -145,20 +189,31 @@
 <sectionType name="Prayers" prefix="prayer" numstyle="serial" background="0xf0f0f0" indent-left=".5" indent-right="0" visibility="user">
      
  </sectionType>
-<sectionType name="Preface" prefix="preface" numstyle="single" background="url:/settings/configs/backgrounds/shade-1.png" indent-left=".3" indent-right="0" visibility="user">
-     
- </sectionType>
+
 <sectionType name="ProceduralMotion" prefix="procmotion" numstyle="serial" background=" url:/settings/configs/backgrounds/shade-4.png" indent-left=".5" indent-right="0" visibility="user">
      
  </sectionType>
-<sectionType name="ProceduralMotionDetails" prefix="pmotiondtls" numstyle="serial" background="url:/settings/configs/backgrounds/shade-4.png" indent-left="0" indent-right="0" visibility="user">
+
+ <sectionType name="ProceduralMotionDetails" prefix="pmotiondtls" numstyle="serial" background="url:/settings/configs/backgrounds/shade-4.png" indent-left="0" indent-right="0" visibility="user">
      
  </sectionType>
 <sectionType name="Question" prefix="sque" numstyle="serial" background="url:/settings/configs/backgrounds/shade-6.png" indent-left=".6" indent-right="0" visibility="user">
      
  </sectionType>
 <sectionType name="QuestionAnswer" prefix="qa" numstyle="serial" background="url:/settings/configs/backgrounds/shade-7.png" indent-left=".5" indent-right="0" visibility="user">
-     
+    <metadatas>
+        <metadata name="BungeniEventURI" />
+        <metadata name="BungeniEventName" />
+        <metadata name="BungeniSectionID" />
+    </metadatas>
+    <output>
+    <meta>
+        <TLCEvent id="$BungeniSectionID" href="$BungeniEventURI" showAs="$BungeniEventName" />
+    </meta>
+    <content>
+        <container/>
+    </content>
+    </output>
  </sectionType>
 <sectionType name="QuestionBody" prefix="quebody" numstyle="serial" background="url:/settings/configs/backgrounds/shade-3.png" indent-left=".7" indent-right="0" visibility="user">
      
@@ -166,9 +221,7 @@
 <sectionType name="QuestionsContainer" prefix="questions" numstyle="serial" background="url:/settings/configs/backgrounds/shade-7.png" indent-left=".3" indent-right="0" visibility="user">
      
  </sectionType>
-<sectionType name="RootSection" prefix="" numstyle="" background="" indent-left="0" indent-right="0" visibility="user">
-     
- </sectionType>
+
 <sectionType name="Speech" prefix="speech" numstyle="serial" background="url:/settings/configs/backgrounds/shade-1.png" indent-left=".6" indent-right="0" visibility="user">
      <metadatas>
          <metadata name="BungeniSpeechBy" />
@@ -204,7 +257,11 @@
      
  </sectionType>
 <sectionType name="body" prefix="debaterecord" numstyle="single" background="0xffffff" indent-left="0" indent-right="0" visibility="user">
-     
+     <output>
+         <content>
+             <debate />
+         </content>
+     </output>
  </sectionType>
 </sectionTypes><inlineTypes for="debaterecord">
     <inlineType name="from">

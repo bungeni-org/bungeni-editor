@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import org.bungeni.utils.BungeniEditorPropertiesHelper;
 import org.bungeni.utils.CommonEditorXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -70,7 +71,11 @@ public class PanelsReader extends BaseConfigReader {
     }
 
     public String getLocalizedTitleForPanel(Element panel) {
-        return CommonEditorXmlUtils.getLocalizedChildElementValue(panel, "title");
+        return CommonEditorXmlUtils.getLocalizedChildElementValue(
+                BungeniEditorPropertiesHelper.getLangAlpha3Part2(),
+                panel,
+                "title"
+                );
     }
 
 

@@ -23,7 +23,7 @@ import java.util.Properties;
 import org.bungeni.connector.ConnectorProperties;
 import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.server.DataSourceServer;
-import org.bungeni.ds.DataSourceFactory;
+import org.bungeni.extutils.CommonDataSourceFunctions;
 
 /**
  * Common library for interfacing with BungeniConnector 
@@ -33,7 +33,7 @@ public class CommonConnectorFunctions {
 
     public static DataSourceServer startDSServer() throws IOException {
          DataSourceServer dss = DataSourceServer.getInstance();
-         Properties dsProps = DataSourceFactory.getDataSourceProperties();
+         Properties dsProps = CommonDataSourceFunctions.getDataSourceProperties();
          dss.loadProperties(dsProps);
          dss.startServer();
          return dss;
@@ -45,7 +45,7 @@ public class CommonConnectorFunctions {
     //  the properties using the REST API rather than directly
     public static BungeniConnector getDSClient() throws IOException{
         BungeniConnector client = new BungeniConnector();
-        client.init(new ConnectorProperties(DataSourceFactory.getDataSourceProperties()));
+        client.init(new ConnectorProperties(CommonDataSourceFunctions.getDataSourceProperties()));
         return client;
     }
 

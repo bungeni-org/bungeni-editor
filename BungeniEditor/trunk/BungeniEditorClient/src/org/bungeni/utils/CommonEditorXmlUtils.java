@@ -11,14 +11,15 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
-import org.bungeni.extutils.CommonXmlConfigParams;
-import org.bungeni.extutils.CommonXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
 import org.xml.sax.InputSource;
+
+import org.bungeni.extutils.CommonXmlConfigParams;
+import org.bungeni.extutils.CommonXmlUtils;
 
 /**
  *
@@ -75,10 +76,16 @@ public class CommonEditorXmlUtils {
         return doc;
     }
 
-    public static String getLocalizedChildElementValue(Element anElement, String localizedChild) {
+    /**
+     * Get a i18n-ised message value for a configuration string
+     *
+     * @param langCodeDefault language code in iso639-2 format
+     * @param anElement the config element containging the nodes to be localized
+     * @param localizedChild the child element to be localized
+     * @return
+     */
+    public static String getLocalizedChildElementValue(String langCodeDefault, Element anElement, String localizedChild) {
         List<Element> childTitles = anElement.getChildren(localizedChild);
-        //get the default
-        String langCodeDefault = BungeniEditorProperties.getEditorProperty("locale.Language.iso639-2");
         String foundTitle = CommonXmlUtils._findi18nTitle(childTitles, CommonXmlUtils.getIso3Language());
         if (foundTitle.equals("UNDEFINED")) {
             foundTitle = CommonXmlUtils._findi18nTitle(childTitles, langCodeDefault );

@@ -42,7 +42,6 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import net.miginfocom.swing.MigLayout;
 import org.bungeni.connector.server.DataSourceServer;
-import org.bungeni.ds.DataSourceFactory;
 import org.bungeni.editor.dialogs.editorTabbedPanel;
 import org.bungeni.editor.noa.ext.BungeniLocalOfficeApplication;
 import org.bungeni.extutils.*;
@@ -327,7 +326,7 @@ public class BungeniNoaFrame extends BungeniFrame {
     public void startDataSourceServer() {
         try {
             dss = DataSourceServer.getInstance();
-            Properties dsProps = DataSourceFactory.getDataSourceProperties();
+            Properties dsProps = CommonDataSourceFunctions.getDataSourceProperties();
             dss.loadProperties(dsProps);
             dss.startServer();
         } catch (IOException ex) {

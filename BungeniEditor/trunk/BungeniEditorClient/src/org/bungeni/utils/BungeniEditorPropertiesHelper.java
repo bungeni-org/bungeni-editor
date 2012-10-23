@@ -41,4 +41,8 @@ public class BungeniEditorPropertiesHelper {
         }
         return metadataDateFormat;
     }
+
+    public static String getLangAlpha3Part2(){
+        return BungeniEditorProperties.getEditorProperty("locale.Language.iso639-2");
+    }
 }
