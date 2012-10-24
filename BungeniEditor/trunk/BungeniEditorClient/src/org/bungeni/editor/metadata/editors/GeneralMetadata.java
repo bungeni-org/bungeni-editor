@@ -90,7 +90,7 @@ public class GeneralMetadata extends BaseEditorDocMetadataDialog {
                 if (!CommonStringFunctions.emptyOrNull(sCountryCode))
                     this.cboCountry.setSelectedItem(findCountryCode(sCountryCode));
                 if (!CommonStringFunctions.emptyOrNull(sLanguageCode))
-                    this.cboLanguage.setSelectedItem(findLanguageCode(sLanguageCode));
+                    this.cboLanguage.setSelectedItem(findLanguageCodeAlpha2(sLanguageCode));
                 if (!CommonStringFunctions.emptyOrNull(sPartName)) 
                     this.cboDocumentPart.setSelectedItem(findDocumentPart(sPartName));
                 if (!CommonStringFunctions.emptyOrNull(sPublicationName)) {
@@ -133,7 +133,7 @@ public class GeneralMetadata extends BaseEditorDocMetadataDialog {
 
         //set Default selections
         this.cboCountry.setSelectedItem(findCountryCode(Locale.getDefault().getCountry().toLowerCase()));
-        this.cboLanguage.setSelectedItem(findLanguageCode(Locale.getDefault().getLanguage()));
+        this.cboLanguage.setSelectedItem(findLanguageCodeAlpha2(Locale.getDefault().getLanguage()));
         this.cboDocumentPart.setSelectedItem(findDocumentPart(BungeniEditorProperties.get("parliament.DefaultPart")));
        
     }
@@ -174,7 +174,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
        
         // docMetaModel.updateItem("BungeniParliamentID")
         docMetaModel.updateItem("BungeniCountryCode", selCountry.getCountryCodeLower());
-        docMetaModel.updateItem("BungeniLanguageCode", selLanguage.getLanguageCode2());
+        docMetaModel.updateItem("BungeniLanguageCode", selLanguage.getLanguageCodeAlpha3());
         docMetaModel.updateItem("BungeniOfficialDate", strDebateDate);
         docMetaModel.updateItem("BungeniWorkDate", strDebateDate);
         docMetaModel.updateItem("BungeniExpDate", strCurrentDate);
@@ -201,7 +201,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
    
         spf.setSaveComponent("DocumentType", BungeniEditorPropertiesHelper.getCurrentDocType());
         spf.setSaveComponent("CountryCode", selCountry.getCountryCodeLower());
-        spf.setSaveComponent("LanguageCode", selLanguage.getLanguageCode2());
+        spf.setSaveComponent("LanguageCode", selLanguage.getLanguageCodeAlpha3());
         Date dtHansardDate = dt_official_date.getDate();
         GregorianCalendar debateCal = new GregorianCalendar();
         debateCal.setTime(dtHansardDate);
@@ -230,11 +230,6 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
 
 private final static String STORE_TO_URL = "StoreToURL";
 private final static String STORE_AS_URL = "StoreAsURL";
-
-
-
-
-
 
     /** This method is called from within the constructor to
      * initialize the form.

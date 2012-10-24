@@ -40,7 +40,7 @@ public class LanguageCodesFactory {
 
         {
             //this is the fallback default language
-            new LanguageCode("eng", "en", "English");
+            new LanguageCode("en", "eng", "English");
         }
     };
 
@@ -72,7 +72,7 @@ public class LanguageCodesFactory {
                 String sAlpha3 = langCode.getAttributeValue("alpha3");
                 String sAlpha2 = langCode.getAttributeValue("alpha2");
                 String sName = LanguageCodesReader.getInstance().getLanguageName(langCode, "en");
-                list_langs.add(new LanguageCode(sAlpha3, sAlpha2, sName));
+                list_langs.add(new LanguageCode(sAlpha2, sAlpha3, sName));
             }
         }
         /**

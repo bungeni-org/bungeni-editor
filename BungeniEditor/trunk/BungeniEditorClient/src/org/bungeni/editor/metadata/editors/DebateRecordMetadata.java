@@ -6,7 +6,6 @@
 
 package org.bungeni.editor.metadata.editors;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.text.ParseException;
@@ -91,7 +90,7 @@ public class DebateRecordMetadata extends BaseEditorDocMetadataDialog {
                 if (!CommonStringFunctions.emptyOrNull(sCountryCode))
                     this.cboCountry.setSelectedItem(findCountryCode(sCountryCode));
                 if (!CommonStringFunctions.emptyOrNull(sLanguageCode))
-                    this.cboLanguage.setSelectedItem(findLanguageCode(sLanguageCode));
+                    this.cboLanguage.setSelectedItem(findLanguageCodeAlpha2(sLanguageCode));
                 if (!CommonStringFunctions.emptyOrNull(sPartName)) 
                     this.cboDocumentPart.setSelectedItem(findDocumentPart(sPartName));
                 if (!CommonStringFunctions.emptyOrNull(sPublicationName)) {
@@ -235,7 +234,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
     docMetaModel.updateItem("BungeniParliamentSitting", sParliamentSitting);
     docMetaModel.updateItem("BungeniParliamentSession", sParliamentSession);
     docMetaModel.updateItem("BungeniCountryCode", selCountry.getCountryCodeLower());
-    docMetaModel.updateItem("BungeniLanguageCode", selLanguage.getLanguageCode2());
+    docMetaModel.updateItem("BungeniLanguageCode", selLanguage.getLanguageCodeAlpha3());
     docMetaModel.updateItem("BungeniDebateOfficialDate", strDebateDate);
     docMetaModel.updateItem("BungeniWorkDate", strDebateDate);
     docMetaModel.updateItem("BungeniExpDate", strCurrentDate);
@@ -249,7 +248,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
     
     spf.setSaveComponent("DocumentType", BungeniEditorPropertiesHelper.getCurrentDocType());
     spf.setSaveComponent("CountryCode", selCountry.getCountryCodeLower());
-    spf.setSaveComponent("LanguageCode", selLanguage.getLanguageCode2());
+    spf.setSaveComponent("LanguageCode", selLanguage.getLanguageCodeAlpha3());
     Date dtHansardDate = dt_initdebate_hansarddate.getDate();
     GregorianCalendar debateCal = new GregorianCalendar();
     debateCal.setTime(dtHansardDate);

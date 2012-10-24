@@ -91,9 +91,9 @@ public abstract class BaseEditorDocMetadataDialog extends javax.swing.JPanel imp
         return null;
     }
 
-    protected LanguageCode findLanguageCode(String langCode) {
+    protected LanguageCode findLanguageCodeAlpha2(String langCode) {
         for (LanguageCode lc : languageCodes) {
-            if (lc.getLanguageCode2().equals(langCode)) {
+            if (lc.getLanguageCodeAlpha2().equals(langCode)) {
                 return lc;
             }
         }

@@ -89,7 +89,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
                 SimpleDateFormat dateFormat = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
                 
                 if (!CommonStringFunctions.emptyOrNull(sLanguageCode)){
-                    this.cboLanguage.setSelectedItem(findLanguageCode(sLanguageCode));
+                    this.cboLanguage.setSelectedItem(findLanguageCodeAlpha2(sLanguageCode));
                 }
                  
                 if (!CommonStringFunctions.emptyOrNull(sBungeniActType))
@@ -136,7 +136,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         cboLanguage.setModel(new DefaultComboBoxModel(languageCodes));
        
         //set Default selections
-        this.cboLanguage.setSelectedItem(findLanguageCode(Locale.getDefault().getLanguage()));  
+        this.cboLanguage.setSelectedItem(findLanguageCodeAlpha2(Locale.getDefault().getLanguage()));
     }
 
     public Component getPanelComponent() {
@@ -426,7 +426,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         String strPageNo = this.txtPageNo.getText();
         String strPageCount = this.txtPageCount.getText();
            
-        docMetaModel.updateItem("BungeniLanguageCode", selLanguage.getLanguageCode2());   
+        docMetaModel.updateItem("BungeniLanguageCode", selLanguage.getLanguageCodeAlpha3());
         docMetaModel.updateItem("BungeniActName",sBungeniActName);
         docMetaModel.updateItem("BungeniActNo",sBungeniActNo);
         docMetaModel.updateItem("BungeniActYear",sBungeniActYear);
@@ -440,7 +440,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         docMetaModel.updateItem("BungeniPageNo", strPageNo);
         docMetaModel.updateItem("BungeniPageCount", strPageCount);
             
-        spf.setSaveComponent("LanguageCode", selLanguage.getLanguageCode2());
+        spf.setSaveComponent("LanguageCode", selLanguage.getLanguageCodeAlpha3());
            
          
         docMetaModel.saveModel(ooDocument);

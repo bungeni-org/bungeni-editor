@@ -8,13 +8,13 @@ package org.bungeni.editor.metadata;
  * @author Ashok Hariharan
  */
  public class LanguageCode implements Comparable {
-        private String languageCode;
-        private String languageCode2;
+        private String languageCodeAlpha2;
+        private String languageCodeAlpha3;
         private String languageName;
         
-        public LanguageCode(String langC, String langC2, String langN) {
-            languageCode = langC;
-            languageCode2 = langC2;
+        public LanguageCode(String langAlpha2, String langAlpha3, String langN) {
+            languageCodeAlpha2 = langAlpha2;
+            languageCodeAlpha3 = langAlpha3;
             languageName = langN;
         }
         
@@ -25,14 +25,14 @@ package org.bungeni.editor.metadata;
 
   public int compareTo(Object t) {
         LanguageCode lt = (LanguageCode) t;
-        return this.getLanguageCode().compareTo(lt.getLanguageCode());
+        return this.getLanguageCodeAlpha3().compareTo(lt.getLanguageCodeAlpha3());
     }
 
     @Override
     @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     public boolean equals(Object t){
         LanguageCode lt = (LanguageCode) t;
-        if (getLanguageCode().equals(lt.getLanguageCode())) {
+        if (getLanguageCodeAlpha3().equals(lt.getLanguageCodeAlpha3())) {
             return true;
         }
         return false;
@@ -41,15 +41,8 @@ package org.bungeni.editor.metadata;
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 71 * hash + (this.languageCode != null ? this.languageCode.hashCode() : 0);
+        hash = 71 * hash + (this.languageCodeAlpha3 != null ? this.languageCodeAlpha3.hashCode() : 0);
         return hash;
-    }
-
-    /**
-     * @return the languageCode
-     */
-    public String getLanguageCode() {
-        return languageCode;
     }
 
     /**
@@ -60,7 +53,14 @@ package org.bungeni.editor.metadata;
     }
 
 
-    public String getLanguageCode2(){
-        return languageCode2;
+    public String getLanguageCodeAlpha2(){
+        return this.languageCodeAlpha2;
     }
+
+   public String getLanguageCodeAlpha3(){
+        return this.languageCodeAlpha3;
     }
+
+
+
+ }
