@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2012 windows
+ *  Copyright (C) 2012 Africa i-Parlaiments
  * 
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -53,7 +53,7 @@ public class BaseConfigReader {
           Properties pini = new Properties();
           String wsProps = getSettingsFolder() + File.separator + WORKSPACE_PROPS_FILE ;
           pini.load(new FileInputStream(wsProps));
-          String workspaceFolder = pini.getProperty("workspace", "../workspace").trim();
+          String workspaceFolder = pini.getProperty("workspace", "./workspace").trim();
           WORKSPACE_FOLDER = workspaceFolder;
           File f = new File(WORKSPACE_FOLDER);
           if (f.exists()) {

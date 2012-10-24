@@ -14,6 +14,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
@@ -27,6 +28,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
+import org.bungeni.editor.input.FSDocumentReceiver;
 import org.bungeni.editor.noa.BungeniNoaApp;
 import org.bungeni.editor.SplashPage;
 import org.bungeni.editor.config.BaseConfigReader;
@@ -620,9 +622,11 @@ public class editorApplicationController extends javax.swing.JPanel {
 
       if (launchMode.equals("edit")){ //edit
             if (editorTabbedPanel.isInstanceNull()) {
-                String basePath = BaseConfigReader.getWorkspaceFolder();
-                //String basePath =  BaseConfigReader.//CommonFileFunctions.getAbsoluteInstallDir() + File.separator + "workspace" + File.separator + "files";
-                File openFile = CommonFileFunctions.getFileFromChooser(basePath, new org.bungeni.utils.fcfilter.ODTFileFilter(), JFileChooser.FILES_ONLY, null);
+                // !+IDOCUMENTRECEIVER_IMPL(ah, 24-10-2012)
+                // TO be fixed to use the interface
+                FSDocumentReceiver fsd = new FSDocumentReceiver();
+                String basePath = fsd.receiveDocument(new HashMap(){});
+                File openFile = new File(basePath);
                 if (openFile != null) {
                     final String fullPathToFile = openFile.getAbsolutePath();
                     SwingUtilities.invokeLater(new Runnable(){

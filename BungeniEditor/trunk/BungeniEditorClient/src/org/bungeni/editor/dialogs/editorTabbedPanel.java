@@ -35,6 +35,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.bungeni.editor.BungeniOOoLayout;
+import org.bungeni.editor.input.FSDocumentReceiver;
 import org.bungeni.editor.config.DocumentActionsReader;
 import org.bungeni.editor.panels.impl.ITabbedPanel;
 import org.bungeni.editor.panels.factory.TabbedPanelFactory;
@@ -540,17 +541,18 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
     }
 
     public synchronized void loadDocumentFromFileSystemInPanel() {
-        String basePath = null;
+        // !+IDOCUMENTRECEIVER(ah, 24-10-2012) to be
+        //fixed to use the interface here 
+        FSDocumentReceiver fsreceive = new FSDocumentReceiver();
+        String basePath = fsreceive.receiveDocument(new HashMap(){});
+        /**String basePath = null;
         try {
             basePath = BaseConfigReader.getWorkspaceFolder();
         } catch (IOException ex) {
             log.error("Error while getting workspace folder", ex);
-        }
+        }**/
         if (null != basePath) {
-            File openFile = CommonFileFunctions.getFileFromChooser(basePath,
-                    new org.bungeni.utils.fcfilter.ODTFileFilter(),
-                    JFileChooser.FILES_ONLY,
-                    parentFrame());
+            File openFile = new File(basePath);
             if (openFile != null) {
                 boolean bActive = false;
                 int nConfirm = MessageBox.Confirm(parentFrame(),

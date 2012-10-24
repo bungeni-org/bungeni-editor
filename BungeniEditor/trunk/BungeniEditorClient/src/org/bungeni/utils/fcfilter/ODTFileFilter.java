@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package org.bungeni.utils.fcfilter;
 
@@ -10,7 +6,7 @@ import javax.swing.filechooser.FileFilter;
 
 /**
  *
- * @author undesa
+ * @author Ashok Hariharan
  */
   public  class ODTFileFilter extends FileFilter {
 
