@@ -256,10 +256,10 @@
         </savedFile>
     </xsl:template>      
     
-    <xsl:template match="field[@name='img_uuid']">
-        <imageUuid type="xs:string">
+    <xsl:template match="field[@name='img_hash']">
+        <imageHash type="xs:string">
             <xsl:value-of select="." />
-        </imageUuid>
+        </imageHash>
     </xsl:template>    
     
     <xsl:template match="field[@name='description']">

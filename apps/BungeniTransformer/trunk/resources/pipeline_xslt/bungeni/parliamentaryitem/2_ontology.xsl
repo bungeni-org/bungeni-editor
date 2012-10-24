@@ -231,10 +231,10 @@
         </savedFile>
     </xsl:template>  
     
-    <xsl:template match="field[@name='att_uuid']">
-        <fileUuid type="xs:string">
+    <xsl:template match="field[@name='att_hash']">
+        <fileHash type="xs:string">
             <xsl:value-of select="." />
-        </fileUuid>
+        </fileHash>
     </xsl:template>
     
     <xsl:template match="field[@name='language']">
