@@ -37,11 +37,12 @@ public class FSDocumentReceiver implements IInputDocumentReceiver {
   private static final Logger log = Logger.getLogger(FSDocumentReceiver.class.getName());
 
     public String receiveDocument(HashMap inputParams) {
-        String aDocument = "";
+        String aDocument = null;
         try {
             String basePath = BaseConfigReader.getWorkspaceFolder();
             File openFile = CommonFileFunctions.getFileFromChooser(basePath, new ODTFileFilter(), JFileChooser.FILES_ONLY, null);
-            aDocument =  openFile.getAbsolutePath();
+            if (null != openFile)
+                aDocument =  openFile.getAbsolutePath();
         } catch (IOException ex) {
            log.error("Error whil attempting to open file", ex);
         }

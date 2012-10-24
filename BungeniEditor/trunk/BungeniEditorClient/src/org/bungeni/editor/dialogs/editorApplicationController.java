@@ -626,17 +626,19 @@ public class editorApplicationController extends javax.swing.JPanel {
                 // TO be fixed to use the interface
                 FSDocumentReceiver fsd = new FSDocumentReceiver();
                 String basePath = fsd.receiveDocument(new HashMap(){});
-                File openFile = new File(basePath);
-                if (openFile != null) {
-                    final String fullPathToFile = openFile.getAbsolutePath();
-                    SwingUtilities.invokeLater(new Runnable(){
-                        public void run(){
-                            launchDocumentInFrame(fullPathToFile, false);
-                        }
-                    });
-                    return true;
-                } else {
-                    return false;
+                if (null != basePath) {
+                    File openFile = new File(basePath);
+                    if (openFile != null) {
+                        final String fullPathToFile = openFile.getAbsolutePath();
+                        SwingUtilities.invokeLater(new Runnable(){
+                            public void run(){
+                                launchDocumentInFrame(fullPathToFile, false);
+                            }
+                        });
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
             } else {
                 //open the document in the current panel

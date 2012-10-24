@@ -33,6 +33,8 @@ import org.jdom.xpath.XPath;
 /**
  * This class reads the Panel configuratoins from the XML config
  * @author Ashok
+ *
+ * !+REFACTOR_EXT_TOFIX
  */
 public class PanelsReader extends BaseConfigReader {
 
