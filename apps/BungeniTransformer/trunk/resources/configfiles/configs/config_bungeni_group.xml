@@ -30,7 +30,6 @@
                 <parameter name="for-parliament" />
                 <parameter name="type-mappings">
                     <value>
-                        <map from="parliament" uri-name="Legislature" element-name="legislature" />
                         <map from="committee" uri-name="Committee"  element-name="committee" />
                         <map from="parliament" uri-name="Parliament"  element-name="parliament" />
                         <map from="ministry" uri-name="Ministry"  element-name="ministry" />
