@@ -96,7 +96,6 @@
                 <electionDate type="xs:date" select="{$parliament-election-date}"></electionDate>
                 <xsl:copy-of select="field[  
                     @name='short_name' or 
-                    @name='description' or 
                     @name='parliament_id' or 
                     @name='type' or 
                     @name='dissolution_date' or 

@@ -268,6 +268,9 @@
             
             <custom>
                 <xsl:copy-of select="$type-mappings" />
+                <bungeni_doc_type>
+                    <xsl:value-of select="$bungeni-content-type"/>
+                </bungeni_doc_type>
             </custom>
             
            </ontology>

@@ -35,11 +35,12 @@
     <xsl:variable name="for-parliament" select="data(/ontology/bungeni/parliament/@href)" />
     <xsl:variable name="parliament-id" select="data(/ontology/bungeni/@id)" />
     <xsl:variable name="type-mappings" select="//custom/value" />
+    <xsl:variable name="bungeni-content-type" select="data(//custom/bungeni_doc_type)" />
     <xsl:variable name="content-type-uri-name" select="data(/ontology/document/docType[@isA='TLCTerm']/value)" />
     
     <!-- permission names for the type -->
-    <xsl:variable name="perm-content-type-view" select="concat('bungeni.',lower-case($content-type-uri-name),'.View')" />
-    <xsl:variable name="perm-content-type-edit" select="concat('bungeni.',lower-case($content-type-uri-name),'.View')" />
+    <xsl:variable name="perm-content-type-view" select="concat('bungeni.',$bungeni-content-type,'.View')" />
+    <xsl:variable name="perm-content-type-edit" select="concat('bungeni.',$bungeni-content-type,'.View')" />
   
     <xsl:template match="/">
         <xsl:apply-templates/>

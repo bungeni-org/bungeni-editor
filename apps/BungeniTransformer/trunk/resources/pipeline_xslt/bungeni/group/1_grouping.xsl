@@ -117,7 +117,7 @@
                     @name='dissolution_date' or 
                     @name='results_date' or 
                     @name='proportional_representation' or 
-                    @name='status_date' ] | agenda_items | parent_group" 
+                    @name='status_date' ] | agenda_items" 
                 />                 
             </legislature>
             <bungeni id="bungeniMeta" showAs="Bungeni Specific info" isA="TLCObject">

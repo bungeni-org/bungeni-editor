@@ -135,7 +135,6 @@
                 <xsl:copy-of select="group/field[  
                     @name='short_name' or
                     @name='full_name' or 
-                    @name='description' or 
                     @name='type' or 
                     @name='group_id' or  
                     @name='election_date' or 
