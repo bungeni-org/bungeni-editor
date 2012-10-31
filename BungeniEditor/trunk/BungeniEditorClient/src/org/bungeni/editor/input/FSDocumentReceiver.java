@@ -22,10 +22,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import org.apache.log4j.Logger;
 
 
 import org.bungeni.editor.config.BaseConfigReader;
+import org.bungeni.editor.config.PluggableConfigReader.PluggableConfig;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.utils.fcfilter.ODTFileFilter;
 
@@ -36,7 +38,7 @@ import org.bungeni.utils.fcfilter.ODTFileFilter;
 public class FSDocumentReceiver implements IInputDocumentReceiver {
   private static final Logger log = Logger.getLogger(FSDocumentReceiver.class.getName());
 
-    public String receiveDocument(HashMap inputParams) {
+    public String receiveDocument(JFrame parentFrame, PluggableConfig customConfig, HashMap inputParams) {
         String aDocument = null;
         try {
             String basePath = BaseConfigReader.getWorkspaceFolder();

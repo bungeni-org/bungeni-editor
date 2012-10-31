@@ -16,8 +16,6 @@ jaxen http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/jaxen
 substance http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/substance
 restlet http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/restlet
 swing-layout http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/swing-layout-ext
-jug http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/jug
-opencsv http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/opencsv
 uml http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/uml
 commons-lang http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/commons-lang
 commons-codec http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/commons-codec

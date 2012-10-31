@@ -22,15 +22,23 @@
  * Created on Oct 12, 2012, 11:23:07 AM
  */
 
-package org.bungeni.editor.dialogs;
+package org.bungeni.extpanels.bungeni;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.DefaultComboBoxModel;
+import java.io.IOException;
 
-import org.bungeni.extpanels.bungeni.BungeniJSoupDocument;
-import org.bungeni.extpanels.bungeni.BungeniJSoupDocument.Attachment;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.SwingUtilities;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.log4j.Logger;
+
+import org.bungeni.extpanels.bungeni.BungeniDocument.Attachment;
 import org.bungeni.utils.BungeniDialog;
+import org.jsoup.Jsoup;
 
 
 /**
@@ -39,16 +47,20 @@ import org.bungeni.utils.BungeniDialog;
  */
 public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
 
+      private static org.apache.log4j.Logger log = Logger.getLogger(BungeniDocumentAttListPanel.class.getName());
+
     private BungeniDialog parentDialog = null;
-    private BungeniJSoupDocument doc = null;
+    private BungeniDocument doc = null;
     private Attachment selectedAttachment = null;
+    private final DefaultHttpClient client;
 
 
  
     /** Creates new form BungeniDocumentAttListPanel */
-    public BungeniDocumentAttListPanel(BungeniDialog dlg, BungeniJSoupDocument doc) {
+    public BungeniDocumentAttListPanel(DefaultHttpClient client, BungeniDialog dlg, BungeniDocument doc) {
         this.parentDialog = dlg;
         this.doc = doc;
+        this.client = client;
         initComponents();
     }
 
@@ -153,6 +165,7 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
         lblTransit.setText("Possible Transitions : ");
 
         cboTransitions.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboTransitions.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -222,6 +235,28 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
 
     private void btnImportAttachmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportAttachmentActionPerformed
         // TODO add your handling code here:
+        //import the attachemnt here
+        SwingUtilities.invokeLater(new Runnable(){
+
+            public void run() {
+                    String sAttURL = selectedAttachment.url;
+                    HttpGet hget = new HttpGet(sAttURL);
+                    ResponseHandler<String> responseHandler = new BasicResponseHandler();
+                    String responseBody = "";
+                    try {
+                        responseBody = client.execute(hget, responseHandler);
+                    } catch (IOException ex) {
+                       log.error("Error getting response body",ex );
+                    }
+                    //parse the attachment body
+                    org.jsoup.nodes.Document doc = Jsoup.parse(responseBody);
+                    BungeniAttachment attDoc = new BungeniAttachment(sAttURL, doc);
+            }
+
+        });
+        
+    
+
     }//GEN-LAST:event_btnImportAttachmentActionPerformed
 
 

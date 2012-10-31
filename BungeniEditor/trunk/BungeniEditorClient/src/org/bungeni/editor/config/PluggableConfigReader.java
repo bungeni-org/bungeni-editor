@@ -53,33 +53,35 @@ public class PluggableConfigReader {
     }
 
     public static class PluggableConfig {
-        public String name;
-        public String title;
-        public String url;
-        public String folderBase;
-        public boolean configDefault = false;
-
+        public final  String name;
+        public final String title;
+        public final String url;
+        public final String folderBase;
+        public final String receiverClass ;
+        public final  boolean configDefault;
+        public final boolean customConfig ;
+        public final Element customConfigElement ;
 
         public PluggableConfig(Element configElement) {
             this.name = configElement.getAttributeValue("name");
             this.title = configElement.getAttributeValue("title");
             this.url = configElement.getAttributeValue("url");
             this.folderBase = configElement.getAttributeValue("folder-base");
-
+            this.receiverClass = configElement.getAttributeValue("receiver").trim();
             String sDefault = configElement.getAttributeValue("default");
+            Element customChild = configElement.getChild("custom");
+            if (null == customChild) {
+               this.customConfigElement = null;
+               this.customConfig = false;
+            } else {
+                this.customConfig = true;
+                this.customConfigElement = customChild;
+            }
             if (sDefault == null ) {
                 this.configDefault = false;
             } else {
                 this.configDefault = Boolean.parseBoolean(sDefault);
             }
-        }
-
-        public PluggableConfig(String name, String title, String url, String folderBase, boolean configDefault) {
-            this.name = name;
-            this.title = title;
-            this.url = url;
-            this.folderBase = folderBase;
-            this.configDefault = configDefault;
         }
 
         @Override

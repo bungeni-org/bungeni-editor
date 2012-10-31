@@ -19,6 +19,8 @@
 package org.bungeni.editor.input;
 
 import java.util.HashMap;
+import javax.swing.JFrame;
+import org.bungeni.editor.config.PluggableConfigReader.PluggableConfig;
 
 /**
  * This interface is used for specifying input receiver classes for the editor
@@ -29,6 +31,6 @@ import java.util.HashMap;
  */
 public interface IInputDocumentReceiver {
 
-    public String receiveDocument(HashMap inputParams);
+    public String receiveDocument(JFrame callerFrame, PluggableConfig customConfig, HashMap inputParams);
    
 }

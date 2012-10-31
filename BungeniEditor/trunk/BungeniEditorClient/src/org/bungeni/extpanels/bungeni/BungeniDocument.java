@@ -28,13 +28,15 @@ import org.jsoup.select.Elements;
  * Parses a Bungeni JSoup Document into a Document Object
  * @author Ashok Hariharan
  */
-public class BungeniJSoupDocument {
+public class BungeniDocument {
     private final Document doc;
     private String title  = "";
     private String description = "";
     private String status = "";
+    private String type = "";
     private List<Attachment> attachments = new ArrayList<Attachment>(0);
     private List<Transition> transitions = new ArrayList<Transition>(0);
+    private String url = "";
 
     public class Transition {
         public String title ;
@@ -80,7 +82,8 @@ public class BungeniJSoupDocument {
         }
     }
 
-    public BungeniJSoupDocument(Document doc) {
+    public BungeniDocument(String url, Document doc) {
+        this.url = url;
         this.doc = doc;
         init();
     }

@@ -625,7 +625,16 @@ public class editorApplicationController extends javax.swing.JPanel {
                 // !+IDOCUMENTRECEIVER_IMPL(ah, 24-10-2012)
                 // TO be fixed to use the interface
                 FSDocumentReceiver fsd = new FSDocumentReceiver();
-                String basePath = fsd.receiveDocument(new HashMap(){});
+                PluggableConfig cfgDefault = null;
+                try {
+                    cfgDefault = PluggableConfigReader.getInstance().getDefaultConfig();
+                } catch (JDOMException ex) {
+                    log.error("Error while getting default config");
+                }
+                if (null != cfgDefault) {
+                String basePath = fsd.receiveDocument(parentFrame, 
+                        cfgDefault,
+                        new HashMap(){});
                 if (null != basePath) {
                     File openFile = new File(basePath);
                     if (openFile != null) {
@@ -639,6 +648,7 @@ public class editorApplicationController extends javax.swing.JPanel {
                     } else {
                         return false;
                     }
+                 }
                 }
             } else {
                 //open the document in the current panel

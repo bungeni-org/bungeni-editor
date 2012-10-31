@@ -2,7 +2,6 @@ package org.bungeni.editor.dialogs;
 
 import org.bungeni.extpanels.bungeni.BungeniAppConnector;
 import org.bungeni.utils.BungeniFrame;
-import org.bungeni.utils.BungeniDialog;
 import org.bungeni.utils.BungeniEditorProperties;
 import org.bungeni.utils.BungeniEditorPropertiesHelper;
 import ag.ion.bion.officelayer.application.OfficeApplicationException;
@@ -11,29 +10,19 @@ import ag.ion.noa.NOAException;
 import ca.odell.glazedlists.swing.EventComboBoxModel;
 import com.sun.star.lang.XComponent;
 import java.awt.Component;
-import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.bungeni.editor.BungeniOOoLayout;
 import org.bungeni.editor.input.FSDocumentReceiver;
 import org.bungeni.editor.config.DocumentActionsReader;
@@ -44,9 +33,9 @@ import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.editor.actions.EditorActionFactory;
 import org.bungeni.editor.actions.IEditorActionEvent;
 import org.bungeni.editor.actions.toolbarAction;
-import org.bungeni.editor.config.BaseConfigReader;
-import org.bungeni.editor.dialogs.BungeniDocumentSource.BungeniDocuments;
-import org.bungeni.extpanels.bungeni.BungeniJSoupDocument.Attachment;
+import org.bungeni.editor.config.PluggableConfigReader;
+import org.bungeni.editor.config.PluggableConfigReader.PluggableConfig;
+import org.bungeni.editor.input.BungeniDocumentReceiver;
 import org.bungeni.editor.metadata.BaseEditorDocMetaModel;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
 import org.bungeni.editor.noa.BungeniNoaFrame;
@@ -55,12 +44,11 @@ import org.bungeni.editor.noa.BungeniNoaTabbedPane;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.editor.selectors.metadata.MetadataEditor;
 import org.bungeni.editor.toolbar.target.BungeniToolbarTargetProcessor;
-import org.bungeni.extpanels.bungeni.BungeniJSoupDocument;
 import org.bungeni.extutils.*;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.bungeni.ooo.ooDocMetadata;
 import org.jdom.Element;
-import org.jsoup.Jsoup;
+import org.jdom.JDOMException;
 
 /**
  * This is a single class since there is only 1 tabbed panel allowed in the system
@@ -472,7 +460,16 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
         private BungeniAppConnector appConnector = null;
         
         public synchronized void loadDocumentFromBungeniInPanel(){
+            PluggableConfig config = null;
+            try {
+                config = PluggableConfigReader.getInstance().getDefaultConfig();
+            } catch (JDOMException ex) {
+               log.error("Error while loading pluggable config");
+            }
+            BungeniDocumentReceiver fsreceive = new BungeniDocumentReceiver();
+            String basePath = fsreceive.receiveDocument(this.parentFrame(), config, new HashMap(){});
 
+            /***
             String sDocURL = (String)JOptionPane.showInputDialog(
                     this.parentFrame(),
                     "Enter the URL of the document to Import",
@@ -533,7 +530,7 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
                 }
             });
             
-            }
+            } ***/
     }
 
     public synchronized void loadDocumentFromPloneInPanel(){
@@ -542,9 +539,15 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
 
     public synchronized void loadDocumentFromFileSystemInPanel() {
         // !+IDOCUMENTRECEIVER(ah, 24-10-2012) to be
-        //fixed to use the interface here 
+        //fixed to use the interface here
+        PluggableConfig config  = null;
+        try {
+            config = PluggableConfigReader.getInstance().getDefaultConfig();
+        } catch (JDOMException ex) {
+            log.error("Error while getting pluggable config instance");
+        }
         FSDocumentReceiver fsreceive = new FSDocumentReceiver();
-        String basePath = fsreceive.receiveDocument(new HashMap(){});
+        String basePath = fsreceive.receiveDocument(this.parentFrame(), config,  new HashMap(){});
         /**String basePath = null;
         try {
             basePath = BaseConfigReader.getWorkspaceFolder();
