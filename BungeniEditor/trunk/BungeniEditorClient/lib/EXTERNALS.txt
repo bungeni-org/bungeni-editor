@@ -33,3 +33,5 @@ bungeninumberingscheme http://bungeni-editor.googlecode.com/svn/external_imports
 japura http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/japura
 freemarker http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/freemarker
 jsoup http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/jsoup
+asm http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/asm
+clapper-utils http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/clapper-utils
