@@ -7,6 +7,7 @@ import org.bungeni.ooo.OOComponentHelper;
 //~--- JDK imports ------------------------------------------------------------
 
 import java.awt.Component;
+import java.util.HashMap;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -60,4 +61,18 @@ public interface ITabbedPanel {
     public void refreshPanel();
 
     public void cleanup();
+
+    /**
+     * Set custom objects - this allows passing custom values to tabbed panels
+     * beyond the standard document and component handles
+     * @param customMap
+     */
+    public void setCustomObjectMap(HashMap customMap);
+
+    /**
+     * Get custom objects
+     * @return
+     */
+    public HashMap getCustomObjectMap();
+
 }

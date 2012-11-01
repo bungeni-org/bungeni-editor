@@ -7,6 +7,7 @@ import org.bungeni.ooo.OOComponentHelper;
 //~--- JDK imports ------------------------------------------------------------
 
 import java.awt.Component;
+import java.util.HashMap;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,6 +24,7 @@ public abstract class BaseClassForITabbedPanel extends JPanel implements ITabbed
     protected String            panelTitle;
     protected JFrame            parentFrame;
     protected JPanel            parentPanel;
+    protected HashMap           customObjectMap;
 
     /** Creates a new instance of BaseClassForITabbedPanel */
     public BaseClassForITabbedPanel() {}
@@ -85,4 +87,13 @@ public abstract class BaseClassForITabbedPanel extends JPanel implements ITabbed
     public void cleanup(){
         
     }
+
+    public void setCustomObjectMap(HashMap inputCustomObjects) {
+        this.customObjectMap = inputCustomObjects;
+    }
+
+    public HashMap getCustomObjectMap(){
+        return this.customObjectMap;
+    }
+
 }
