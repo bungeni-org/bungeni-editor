@@ -27,6 +27,7 @@ package org.bungeni.extpanels.bungeni;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.logging.Level;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.SwingUtilities;
@@ -35,9 +36,12 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.log4j.Logger;
+import org.bungeni.editor.config.BaseConfigReader;
+import org.bungeni.editor.panels.impl.IMainContainerPanel;
 
 import org.bungeni.extpanels.bungeni.BungeniDocument.Attachment;
 import org.bungeni.utils.BungeniDialog;
+import org.bungeni.utils.CommonEditorInterfaceFunctions;
 import org.jsoup.Jsoup;
 
 
@@ -251,6 +255,8 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
                     //parse the attachment body
                     org.jsoup.nodes.Document doc = Jsoup.parse(responseBody);
                     BungeniAttachment attDoc = new BungeniAttachment(sAttURL, doc);
+                    IMainContainerPanel panel = CommonEditorInterfaceFunctions.getMainPanel();
+
             }
 
         });

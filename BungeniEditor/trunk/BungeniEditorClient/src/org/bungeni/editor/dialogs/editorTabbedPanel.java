@@ -1,5 +1,6 @@
 package org.bungeni.editor.dialogs;
 
+import java.util.List;
 import org.bungeni.extpanels.bungeni.BungeniAppConnector;
 import org.bungeni.utils.BungeniFrame;
 import org.bungeni.utils.BungeniEditorProperties;
@@ -23,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
 import org.bungeni.editor.BungeniOOoLayout;
 import org.bungeni.editor.input.FSDocumentReceiver;
 import org.bungeni.editor.config.DocumentActionsReader;
@@ -41,6 +43,7 @@ import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
 import org.bungeni.editor.noa.BungeniNoaFrame;
 import org.bungeni.editor.noa.BungeniNoaFrame.DocumentComposition;
 import org.bungeni.editor.noa.BungeniNoaTabbedPane;
+import org.bungeni.editor.panels.impl.IMainContainerPanel;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.editor.selectors.metadata.MetadataEditor;
 import org.bungeni.editor.toolbar.target.BungeniToolbarTargetProcessor;
@@ -54,7 +57,7 @@ import org.jdom.JDOMException;
  * This is a single class since there is only 1 tabbed panel allowed in the system
  * @author  Ashok Hariharan
  */
-public class editorTabbedPanel extends javax.swing.JPanel {
+public class editorTabbedPanel extends javax.swing.JPanel implements IMainContainerPanel {
 
     private static editorTabbedPanel thisPanel = null;
 
@@ -716,6 +719,11 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
 
         }
     }
+
+    public List<ITabbedPanel> getTabbedPanels(){
+        return this.m_tabbedPanelMap;
+    }
+
 
     /**
     public HashMap<String, IFloatingPanel> getFloatingPanelMap() {

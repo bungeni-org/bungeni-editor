@@ -41,8 +41,10 @@ public class BaseConfigReader {
     public static final String BASE_SETTINGS_FOLDER = "settings" ;
     public static final String CONFIGS_FOLDER =  getConfigsFolder() ;
     public static final String WORKSPACE_PROPS_FILE = "workspace.properties" ;
+    public static final String SYSTEM_PROPS_FILE = "system.properties";
     private static String PLUGGABLE_CONFIGS_FOLDER = null;
     private static String WORKSPACE_FOLDER = null;
+    private static String MAIN_PANEL_IMPL = null;
 
     private static String getSettingsFolder(){
         return CommonFileFunctions.getAbsoluteInstallDir() + File.separator + BASE_SETTINGS_FOLDER ;
@@ -65,6 +67,17 @@ public class BaseConfigReader {
           }
       }
       return WORKSPACE_FOLDER;
+    }
+
+      public static String getMainPanelImpl() throws IOException{
+      if (null == MAIN_PANEL_IMPL) {
+          Properties pini = new Properties();
+          String wsProps = getSettingsFolder() + File.separator + SYSTEM_PROPS_FILE ;
+          pini.load(new FileInputStream(wsProps));
+          String mainPanelImpl = pini.getProperty("main-panel-impl").trim();
+          MAIN_PANEL_IMPL = mainPanelImpl;
+      }
+      return MAIN_PANEL_IMPL;
     }
 
     private static String getConfigsFolder(){
