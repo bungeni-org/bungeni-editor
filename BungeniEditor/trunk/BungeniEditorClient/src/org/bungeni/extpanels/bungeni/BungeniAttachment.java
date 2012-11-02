@@ -71,6 +71,76 @@ public class BungeniAttachment {
         }
   }
 
+    /**
+     * @return the doc
+     */
+    public Document getDoc() {
+        return doc;
+    }
+
+    /**
+     * @return the url
+     */
+    public String getUrl() {
+        return url;
+    }
+
+    /**
+     * @return the title
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * @return the type
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * @return the attachmentName
+     */
+    public String getAttachmentName() {
+        return attachmentName;
+    }
+
+    /**
+     * @return the downloadURL
+     */
+    public String getDownloadURL() {
+        return downloadURL;
+    }
+
+    /**
+     * @return the mimeType
+     */
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    /**
+     * @return the status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * @return the statusDate
+     */
+    public String getStatusDate() {
+        return statusDate;
+    }
+
+    /**
+     * @return the language
+     */
+    public String getLanguage() {
+        return language;
+    }
+
   
 
 

@@ -27,6 +27,7 @@ package org.bungeni.extpanels.bungeni;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.logging.Level;
 
 import javax.swing.DefaultComboBoxModel;
@@ -38,6 +39,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.config.BaseConfigReader;
 import org.bungeni.editor.panels.impl.IMainContainerPanel;
+import org.bungeni.editor.panels.impl.ITabbedPanel;
 
 import org.bungeni.extpanels.bungeni.BungeniDocument.Attachment;
 import org.bungeni.utils.BungeniDialog;
@@ -253,10 +255,17 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
                        log.error("Error getting response body",ex );
                     }
                     //parse the attachment body
-                    org.jsoup.nodes.Document doc = Jsoup.parse(responseBody);
-                    BungeniAttachment attDoc = new BungeniAttachment(sAttURL, doc);
+                    final org.jsoup.nodes.Document attsoupdoc = Jsoup.parse(responseBody);
+                    final BungeniAttachment attDoc = new BungeniAttachment(sAttURL, attsoupdoc);
+                    HashMap objMap = new HashMap(){{
+                            put("MAIN_DOC", doc);
+                            put("ATT_DOC", attDoc);
+                        }};
                     IMainContainerPanel panel = CommonEditorInterfaceFunctions.getMainPanel();
-
+                    for (ITabbedPanel ipanel : panel.getTabbedPanels()){
+                        ipanel.setCustomObjectMap(objMap);
+                    }
+                    
             }
 
         });

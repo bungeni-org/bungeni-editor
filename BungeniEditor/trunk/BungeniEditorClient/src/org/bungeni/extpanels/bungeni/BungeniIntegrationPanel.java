@@ -24,6 +24,7 @@
 
 package org.bungeni.extpanels.bungeni;
 
+import java.util.HashMap;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 
@@ -57,16 +58,17 @@ public class BungeniIntegrationPanel extends BaseClassForITabbedPanel {
         tabDocDesc = new javax.swing.JPanel();
         scrollDesc = new javax.swing.JScrollPane();
         txtDescription = new javax.swing.JTextArea();
-        lblTrasit = new javax.swing.JLabel();
         cboStatus = new javax.swing.JComboBox();
-        scrollWorkingDocs = new javax.swing.JScrollPane();
-        listWorkingDocs = new javax.swing.JList();
         lblWorkingDoc = new javax.swing.JLabel();
         btnImport = new javax.swing.JButton();
         btnExport = new javax.swing.JButton();
         btnTransit = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        lblWorkingDoc1 = new javax.swing.JLabel();
+        lblWorkingDoc2 = new javax.swing.JLabel();
 
-        tabPaneBungeniDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        tabPaneBungeniDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
         txtTitle.setColumns(20);
         txtTitle.setEditable(false);
@@ -79,7 +81,7 @@ public class BungeniIntegrationPanel extends BaseClassForITabbedPanel {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/extpanels/bungeni/Bundle"); // NOI18N
         lblDocTitle.setText(bundle.getString("BungeniIntegrationPanel.lblDocTitle.text")); // NOI18N
 
-        lblStatus.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblStatus.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblStatus.setText(bundle.getString("BungeniIntegrationPanel.lblStatus.text")); // NOI18N
 
         txtStatus.setEditable(false);
@@ -94,11 +96,11 @@ public class BungeniIntegrationPanel extends BaseClassForITabbedPanel {
                     .addComponent(lblDocTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(tabDocInfoLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(scrollInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
+                        .addComponent(scrollInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(tabDocInfoLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(tabDocInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+                            .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblStatus))))
                 .addContainerGap())
         );
@@ -107,7 +109,7 @@ public class BungeniIntegrationPanel extends BaseClassForITabbedPanel {
             .addGroup(tabDocInfoLayout.createSequentialGroup()
                 .addComponent(lblDocTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+                .addComponent(scrollInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblStatus)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -118,7 +120,7 @@ public class BungeniIntegrationPanel extends BaseClassForITabbedPanel {
         tabPaneBungeniDoc.addTab(bundle.getString("BungeniIntegrationPanel.tabDocInfo.TabConstraints.tabTitle"), tabDocInfo); // NOI18N
 
         txtDescription.setColumns(20);
-        txtDescription.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        txtDescription.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         txtDescription.setRows(5);
         scrollDesc.setViewportView(txtDescription);
 
@@ -135,24 +137,13 @@ public class BungeniIntegrationPanel extends BaseClassForITabbedPanel {
 
         tabPaneBungeniDoc.addTab(bundle.getString("BungeniIntegrationPanel.tabDocDesc.TabConstraints.tabTitle"), tabDocDesc); // NOI18N
 
-        lblTrasit.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblTrasit.setText(bundle.getString("BungeniIntegrationPanel.lblTrasit.text")); // NOI18N
-
         cboStatus.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         cboStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        listWorkingDocs.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        listWorkingDocs.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        scrollWorkingDocs.setViewportView(listWorkingDocs);
-
-        lblWorkingDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblWorkingDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblWorkingDoc.setText(bundle.getString("BungeniIntegrationPanel.lblWorkingDoc.text")); // NOI18N
 
-        btnImport.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnImport.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnImport.setText(bundle.getString("BungeniIntegrationPanel.btnImport.text")); // NOI18N
         btnImport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,7 +151,7 @@ public class BungeniIntegrationPanel extends BaseClassForITabbedPanel {
             }
         });
 
-        btnExport.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnExport.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnExport.setText(bundle.getString("BungeniIntegrationPanel.btnExport.text")); // NOI18N
         btnExport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,8 +159,22 @@ public class BungeniIntegrationPanel extends BaseClassForITabbedPanel {
             }
         });
 
-        btnTransit.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnTransit.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnTransit.setText(bundle.getString("BungeniIntegrationPanel.btnTransit.text")); // NOI18N
+
+        jTextField1.setEditable(false);
+        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jTextField1.setText(bundle.getString("BungeniIntegrationPanel.jTextField1.text")); // NOI18N
+
+        jTextField2.setEditable(false);
+        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jTextField2.setText(bundle.getString("BungeniIntegrationPanel.jTextField2.text")); // NOI18N
+
+        lblWorkingDoc1.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        lblWorkingDoc1.setText(bundle.getString("BungeniIntegrationPanel.lblWorkingDoc1.text")); // NOI18N
+
+        lblWorkingDoc2.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        lblWorkingDoc2.setText(bundle.getString("BungeniIntegrationPanel.lblWorkingDoc2.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -182,38 +187,37 @@ public class BungeniIntegrationPanel extends BaseClassForITabbedPanel {
                         .addComponent(btnImport)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnExport))
+                    .addComponent(tabPaneBungeniDoc, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(scrollWorkingDocs, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(cboStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnTransit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnTransit))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblWorkingDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblTrasit, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(tabPaneBungeniDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cboStatus, 0, 166, Short.MAX_VALUE))
+                    .addComponent(lblWorkingDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblWorkingDoc1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblWorkingDoc2, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(tabPaneBungeniDoc, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblTrasit)
+                .addComponent(tabPaneBungeniDoc)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnTransit)
                     .addComponent(cboStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblWorkingDoc)
-                .addGap(11, 11, 11)
-                .addComponent(scrollWorkingDocs, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(lblWorkingDoc1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblWorkingDoc2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(78, 78, 78)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnImport)
                     .addComponent(btnExport))
@@ -235,14 +239,15 @@ public class BungeniIntegrationPanel extends BaseClassForITabbedPanel {
     private javax.swing.JButton btnImport;
     private javax.swing.JButton btnTransit;
     private javax.swing.JComboBox cboStatus;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel lblDocTitle;
     private javax.swing.JLabel lblStatus;
-    private javax.swing.JLabel lblTrasit;
     private javax.swing.JLabel lblWorkingDoc;
-    private javax.swing.JList listWorkingDocs;
+    private javax.swing.JLabel lblWorkingDoc1;
+    private javax.swing.JLabel lblWorkingDoc2;
     private javax.swing.JScrollPane scrollDesc;
     private javax.swing.JScrollPane scrollInfo;
-    private javax.swing.JScrollPane scrollWorkingDocs;
     private javax.swing.JPanel tabDocDesc;
     private javax.swing.JPanel tabDocInfo;
     private javax.swing.JTabbedPane tabPaneBungeniDoc;
@@ -256,4 +261,24 @@ public class BungeniIntegrationPanel extends BaseClassForITabbedPanel {
        // do nothing
     }
 
+    @Override
+    public void setCustomObjectMap(HashMap map) {
+        super.setCustomObjectMap(map);
+        BungeniDocument bungeniDoc = (BungeniDocument) map.get("MAIN_DOC");
+        BungeniAttachment attDoc = (BungeniAttachment) map.get("ATT_DOC");
+        integrateBungeniDocument(bungeniDoc, attDoc);
+    }
+
+
+    private void integrateBungeniDocument(BungeniDocument doc, BungeniAttachment attDoc) {
+        this.txtDescription.setText(
+            doc.getDescription()
+            );
+        this.txtStatus.setText(
+                doc.getStatus()
+                );
+        this.txtTitle.setText(
+                doc.getTitle()
+                );
+    }
 }
