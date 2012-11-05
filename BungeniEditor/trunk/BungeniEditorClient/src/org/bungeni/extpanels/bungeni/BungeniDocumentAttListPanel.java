@@ -21,31 +21,36 @@
  *
  * Created on Oct 12, 2012, 11:23:07 AM
  */
-
 package org.bungeni.extpanels.bungeni;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.logging.Level;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.SwingUtilities;
+import org.apache.commons.lang.RandomStringUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.log4j.Logger;
-import org.bungeni.editor.config.BaseConfigReader;
 import org.bungeni.editor.panels.impl.IMainContainerPanel;
 import org.bungeni.editor.panels.impl.ITabbedPanel;
 
 import org.bungeni.extpanels.bungeni.BungeniDocument.Attachment;
+import org.bungeni.translators.utility.runtime.TempFileManager;
 import org.bungeni.utils.BungeniDialog;
 import org.bungeni.utils.CommonEditorInterfaceFunctions;
 import org.jsoup.Jsoup;
-
 
 /**
  *
@@ -53,15 +58,12 @@ import org.jsoup.Jsoup;
  */
 public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
 
-      private static org.apache.log4j.Logger log = Logger.getLogger(BungeniDocumentAttListPanel.class.getName());
-
+    private static org.apache.log4j.Logger log = Logger.getLogger(BungeniDocumentAttListPanel.class.getName());
     private BungeniDialog parentDialog = null;
     private BungeniDocument doc = null;
     private Attachment selectedAttachment = null;
     private final DefaultHttpClient client;
 
-
- 
     /** Creates new form BungeniDocumentAttListPanel */
     public BungeniDocumentAttListPanel(DefaultHttpClient client, BungeniDialog dlg, BungeniDocument doc) {
         this.parentDialog = dlg;
@@ -70,38 +72,102 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public void init(){
+    public void init() {
         this.infoStatus.setText(doc.getStatus());
         this.infoTitle.setText(doc.getTitle());
         this.txtDescription.setText(doc.getDescription());
 
-        this.cboListAttachments.setModel (
-                new DefaultComboBoxModel(doc.getAttachments().toArray())
-                );
-        this.cboTransitions.setModel (
-                new DefaultComboBoxModel(doc.getTransitions().toArray())
-                );
+        this.cboListAttachments.setModel(
+                new DefaultComboBoxModel(doc.getAttachments().toArray()));
+        this.cboTransitions.setModel(
+                new DefaultComboBoxModel(doc.getTransitions().toArray()));
 
-        this.btnImportAttachment.addActionListener(new ActionListener(){
+        this.btnImportAttachment.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 selectedAttachment = (Attachment) cboListAttachments.getSelectedValue();
                 parentDialog.dispose();
             }
-
         });
-        this.btnCancel.addActionListener(new ActionListener(){
+        this.btnCancel.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 parentDialog.dispose();
             }
-
         });
 
     }
 
-    public Attachment getSelectedAttachment(){
+    public Attachment getSelectedAttachment() {
         return this.selectedAttachment;
+    }
+
+    private void importAttachment() {
+        SwingUtilities.invokeLater(new Runnable() {
+
+            public void run() {
+                String sAttURL = selectedAttachment.url;
+                HttpGet hget = new HttpGet(sAttURL);
+                ResponseHandler<String> responseHandler = new BasicResponseHandler();
+                String responseBody = "";
+                try {
+                    responseBody = client.execute(hget, responseHandler);
+                } catch (IOException ex) {
+                    log.error("Error getting response body", ex);
+                }
+                //parse the attachment body
+                final org.jsoup.nodes.Document attsoupdoc = Jsoup.parse(responseBody);
+                final BungeniAttachment attDoc = new BungeniAttachment(sAttURL, attsoupdoc);
+                HashMap objMap = new HashMap() {
+
+                    {
+                        put("MAIN_DOC", doc);
+                        put("ATT_DOC", attDoc);
+                    }
+                };
+                IMainContainerPanel panel = CommonEditorInterfaceFunctions.getMainPanel();
+                for (ITabbedPanel ipanel : panel.getTabbedPanels()) {
+                    ipanel.setCustomObjectMap(objMap);
+                }
+                File fattFile = importAttachmentFile(doc, attDoc);
+                
+            }
+        });
+    }
+
+    private File importAttachmentFile(BungeniDocument doc, BungeniAttachment attDoc) {
+        //download the file --
+        File fdownTemp = null;
+        String binaryFileUrl = attDoc.getDownloadURL();
+        String binaryFileName = attDoc.getAttachmentName();
+        HttpGet fileGet = new HttpGet(binaryFileUrl);
+        InputStream input = null;
+        OutputStream output = null;
+        try {
+            HttpResponse downloadResponse = client.execute(fileGet);
+            byte[] buffer = new byte[1024];
+            String filenameRandom = RandomStringUtils.randomAlphanumeric(14);
+            input = downloadResponse.getEntity().getContent();
+            fdownTemp = TempFileManager.createTempFile(filenameRandom, ".odt");
+            output = new FileOutputStream(fdownTemp);
+            for (int length; (length = input.read(buffer)) > 0;) {
+                output.write(buffer, 0, length);
+            }
+        } catch (IOException ex) {
+            log.error("Error while attempting to download attachmebt");
+        } finally {
+            try {
+                if (input != null) {
+                    input.close();
+                }
+                if (output != null) {
+                    output.close();
+                }
+            } catch (IOException ex) {
+                log.error("Error while closing streams");
+            }
+            return fdownTemp;
+        }
     }
 
     /** This method is called from within the constructor to
@@ -242,39 +308,8 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
     private void btnImportAttachmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportAttachmentActionPerformed
         // TODO add your handling code here:
         //import the attachemnt here
-        SwingUtilities.invokeLater(new Runnable(){
-
-            public void run() {
-                    String sAttURL = selectedAttachment.url;
-                    HttpGet hget = new HttpGet(sAttURL);
-                    ResponseHandler<String> responseHandler = new BasicResponseHandler();
-                    String responseBody = "";
-                    try {
-                        responseBody = client.execute(hget, responseHandler);
-                    } catch (IOException ex) {
-                       log.error("Error getting response body",ex );
-                    }
-                    //parse the attachment body
-                    final org.jsoup.nodes.Document attsoupdoc = Jsoup.parse(responseBody);
-                    final BungeniAttachment attDoc = new BungeniAttachment(sAttURL, attsoupdoc);
-                    HashMap objMap = new HashMap(){{
-                            put("MAIN_DOC", doc);
-                            put("ATT_DOC", attDoc);
-                        }};
-                    IMainContainerPanel panel = CommonEditorInterfaceFunctions.getMainPanel();
-                    for (ITabbedPanel ipanel : panel.getTabbedPanels()){
-                        ipanel.setCustomObjectMap(objMap);
-                    }
-                    
-            }
-
-        });
-        
-    
-
+        importAttachment();
     }//GEN-LAST:event_btnImportAttachmentActionPerformed
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnImportAttachment;
@@ -293,5 +328,4 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblTransit;
     private javax.swing.JTextArea txtDescription;
     // End of variables declaration//GEN-END:variables
-
 }

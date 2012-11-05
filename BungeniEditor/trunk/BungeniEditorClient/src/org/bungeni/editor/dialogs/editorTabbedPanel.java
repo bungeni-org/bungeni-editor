@@ -725,6 +725,21 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
     }
 
 
+    public void loadDocumentInPanel(File finputFile) {
+          BungeniNoaFrame frame = BungeniNoaFrame.getInstance();
+          DocumentComposition dc = null;
+          String fullPathToFile = finputFile.getAbsolutePath();
+        try {
+            dc = frame.loadDocumentInPanel(fullPathToFile, false);
+        } catch (OfficeApplicationException ex) {
+           log.error("Error while loading doc : " + fullPathToFile);
+        } catch (NOAException ex) {
+             log.error("Error while loading doc : " + fullPathToFile);
+        } catch (DocumentException ex) {
+              log.error("Error while loading doc : " + fullPathToFile);
+        }
+    }
+
     /**
     public HashMap<String, IFloatingPanel> getFloatingPanelMap() {
         return this.floatingPanelMap;
