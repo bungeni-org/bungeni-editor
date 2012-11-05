@@ -18,6 +18,7 @@
 
 package org.bungeni.editor.panels.impl;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -27,5 +28,5 @@ import java.util.List;
 public interface IMainContainerPanel {
 
     public List<ITabbedPanel> getTabbedPanels();
-
+    public void loadDocumentInPanel(File f);
 }
