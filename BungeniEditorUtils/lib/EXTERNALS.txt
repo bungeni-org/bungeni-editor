@@ -1,0 +1,7 @@
+bungeniooolib http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeniooolib
+bungenieditor-panelsimpl http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungenieditor-panelsimpl
+bungenieditor-extutils http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungenieditor-extutils
+bungenieditor-configs http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungenieditor-configs
+bungenieditor-urigen http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungenieditor-urigen
+log4j http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/apache-log4j
+jdom http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/jdom
