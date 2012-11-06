@@ -29,7 +29,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.bungeni.editor.BungeniEditorClient;
-import org.bungeni.editor.system.BaseSystemConfig;
+import org.bungeni.editor.config.BaseSystemConfig;
 import org.bungeni.extutils.CommonXmlConfigParams;
 import org.bungeni.plugins.translator.OdtTranslate;
 

@@ -18,6 +18,7 @@
 
 package org.bungeni.editor.system;
 
+import org.bungeni.editor.config.BaseSystemConfig;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import java.io.File;

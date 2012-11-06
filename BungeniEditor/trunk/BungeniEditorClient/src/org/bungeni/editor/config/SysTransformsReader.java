@@ -23,7 +23,6 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import javax.xml.transform.stream.StreamSource;
 import org.apache.log4j.Logger;
-import org.bungeni.editor.system.BaseSystemConfig;
 import org.jdom.xpath.XPath;
 
 /**

@@ -16,11 +16,10 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-package org.bungeni.editor.system;
+package org.bungeni.editor.config;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import org.bungeni.editor.config.BaseConfigReader;
 import org.bungeni.extutils.CommonFileFunctions;
 
 /**

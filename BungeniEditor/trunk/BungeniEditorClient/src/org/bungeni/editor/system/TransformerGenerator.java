@@ -18,6 +18,7 @@
 
 package org.bungeni.editor.system;
 
+import org.bungeni.editor.config.BaseSystemConfig;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
