@@ -6,7 +6,7 @@ package org.bungeni.editor.selectors;
 
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.selectors.BaseMetadataContainerPanel.ConditionSet;
-import org.bungeni.utils.BungeniEditorProperties;
+import org.bungeni.editor.config.BungeniEditorProperties;
 import org.bungeni.extutils.CommonUIFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 

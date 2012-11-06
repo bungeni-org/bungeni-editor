@@ -1,11 +1,4 @@
-/*
- * WorkspaceFolderTableModel.java
- *
- * Created on July 3, 2007, 12:22 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
+
 
 package org.bungeni.utils;
 

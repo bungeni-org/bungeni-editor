@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import org.bungeni.editor.config.DocumentMetadataReader;
-import org.bungeni.utils.BungeniEditorPropertiesHelper;
+import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.bungeni.ooo.OOComponentHelper;
 import org.jdom.Element;
 

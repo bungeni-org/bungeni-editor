@@ -1,8 +1,9 @@
-package org.bungeni.utils;
+package org.bungeni.utils.ooo;
 
 import com.sun.star.text.XTextSection;
 import java.util.HashMap;
 import org.bungeni.ooo.OOComponentHelper;
+import org.bungeni.utils.BungeniBNode;
 
 /**
  *

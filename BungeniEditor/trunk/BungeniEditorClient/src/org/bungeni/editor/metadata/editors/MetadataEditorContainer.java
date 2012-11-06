@@ -2,8 +2,8 @@
 package org.bungeni.editor.metadata.editors;
 
 import org.bungeni.utils.BungeniFrame;
-import org.bungeni.utils.BungeniEditorProperties;
-import org.bungeni.utils.BungeniEditorPropertiesHelper;
+import org.bungeni.editor.config.BungeniEditorProperties;
+import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.io.File;

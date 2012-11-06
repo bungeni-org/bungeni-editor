@@ -14,7 +14,7 @@ import org.bungeni.editor.config.DocTypesReader;
 import org.bungeni.error.BungeniMsg;
 import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.ooo.OOComponentHelper;
-import org.bungeni.utils.BungeniEditorProperties;
+import org.bungeni.editor.config.BungeniEditorProperties;
 
 /**
  *

@@ -7,7 +7,7 @@
  * and open the template in the editor.
  */
 
-package org.bungeni.utils;
+package org.bungeni.utils.ooo;
 
 import com.sun.star.text.XTextRange;
 

@@ -17,7 +17,7 @@ import java.util.HashMap;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
-import org.bungeni.utils.BungeniEditorProperties;
+import org.bungeni.editor.config.BungeniEditorProperties;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooDocMetadata;

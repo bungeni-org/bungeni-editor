@@ -11,7 +11,7 @@ package org.bungeni.editor.toolbar.conditions;
 
 import java.util.HashMap;
 import org.bungeni.editor.config.ConditionsReader;
-import org.bungeni.utils.BungeniEditorPropertiesHelper;
+import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 

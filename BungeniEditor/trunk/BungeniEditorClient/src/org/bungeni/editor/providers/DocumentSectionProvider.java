@@ -28,13 +28,13 @@ import java.util.Iterator;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
 import javax.swing.SwingWorker;
-import org.bungeni.utils.BungeniEditorPropertiesHelper;
+import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.bungeni.utils.BungeniBNode;
 import org.bungeni.utils.BungeniBTree;
-import org.bungeni.utils.NodeDisplayTextSetter;
+import org.bungeni.utils.ooo.NodeDisplayTextSetter;
 
 /**
  *

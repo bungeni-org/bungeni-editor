@@ -3,11 +3,15 @@
  * and open the template in the editor.
  */
 
-package org.bungeni.utils;
+package org.bungeni.utils.ooo;
 
 import com.sun.star.text.XTextSection;
 import java.util.HashMap;
 import org.bungeni.ooo.OOComponentHelper;
+import org.bungeni.utils.BungeniBNode;
+import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
+import org.bungeni.utils.CommonResourceBundleHelperFunctions;
+import org.bungeni.utils.INodeSetterCallback;
 
 /**
  *

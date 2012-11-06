@@ -82,7 +82,7 @@ import org.jdom.JDOMException;
 import org.odftoolkit.odfdom.doc.OdfDocument;
 import org.bungeni.editor.noa.BungeniNoaFrame;
 import org.bungeni.editor.noa.BungeniNoaTabbedPane;
-import org.bungeni.utils.BungeniEditorPropertiesHelper;
+import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.bungeni.ooo.BungenioOoHelper;
 
 /**

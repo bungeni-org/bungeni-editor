@@ -10,8 +10,8 @@
 package org.bungeni.editor.toolbar.conditions.runnable;
 
 import org.bungeni.editor.config.DocTypesReader;
-import org.bungeni.utils.BungeniEditorProperties;
-import org.bungeni.utils.BungeniEditorPropertiesHelper;
+import org.bungeni.editor.config.BungeniEditorProperties;
+import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.toolbar.conditions.BungeniToolbarCondition;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.utils.CommonExceptionUtils;

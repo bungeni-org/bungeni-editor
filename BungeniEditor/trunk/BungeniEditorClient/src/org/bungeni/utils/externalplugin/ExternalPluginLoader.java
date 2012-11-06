@@ -3,7 +3,7 @@ package org.bungeni.utils.externalplugin;
 //~--- non-JDK imports --------------------------------------------------------
 
 import java.net.MalformedURLException;
-import org.bungeni.utils.BungeniEditorProperties;
+import org.bungeni.editor.config.BungeniEditorProperties;
 
 import org.jdom.input.SAXBuilder;
 

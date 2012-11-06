@@ -18,7 +18,7 @@ import javax.swing.JComboBox;
 import javax.swing.SwingWorker;
 import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.element.Bill;
-import org.bungeni.utils.BungeniEditorProperties;
+import org.bungeni.editor.config.BungeniEditorProperties;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
 import org.bungeni.editor.metadata.BillMetaModel;
 import org.bungeni.editor.selectors.SelectorDialogModes;

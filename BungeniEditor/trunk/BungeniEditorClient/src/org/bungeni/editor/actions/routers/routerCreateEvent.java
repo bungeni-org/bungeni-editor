@@ -5,7 +5,7 @@ package org.bungeni.editor.actions.routers;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.error.BungeniMsg;
 import org.bungeni.error.BungeniValidatorState;
-import org.bungeni.utils.BungeniEditorPropertiesHelper;
+import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.bungeni.ooo.OOComponentHelper;
 
 //~--- JDK imports ------------------------------------------------------------

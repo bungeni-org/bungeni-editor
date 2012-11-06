@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.HashMap;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
-import org.bungeni.utils.BungeniEditorProperties;
+import org.bungeni.editor.config.BungeniEditorProperties;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;

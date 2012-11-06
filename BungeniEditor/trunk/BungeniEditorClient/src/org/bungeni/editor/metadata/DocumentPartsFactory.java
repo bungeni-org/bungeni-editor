@@ -23,7 +23,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.bungeni.editor.config.DocTypesReader;
-import org.bungeni.utils.BungeniEditorPropertiesHelper;
+import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.bungeni.utils.CommonEditorXmlUtils;
 import org.jdom.Element;
 import org.jdom.JDOMException;

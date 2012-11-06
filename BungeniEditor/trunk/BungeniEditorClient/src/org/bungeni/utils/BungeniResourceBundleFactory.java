@@ -1,6 +1,6 @@
 package org.bungeni.utils;
 
-import org.bungeni.utils.BungeniEditorProperties;
+import org.bungeni.editor.config.BungeniEditorProperties;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;

@@ -16,7 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingWorker;
 import org.bungeni.editor.config.DocumentActionsReader;
-import org.bungeni.utils.BungeniEditorPropertiesHelper;
+import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.selectors.metadata.MetadataEditor;
 import org.bungeni.extutils.BungeniUUID;

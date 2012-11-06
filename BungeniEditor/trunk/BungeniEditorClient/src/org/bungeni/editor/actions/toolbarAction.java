@@ -10,7 +10,7 @@ import org.bungeni.editor.selectors.SelectorDialogModes;
 
 import org.bungeni.editor.document.DocumentSection;
 import org.bungeni.editor.document.DocumentSectionsContainer;
-import org.bungeni.utils.BungeniEditorPropertiesHelper;
+import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 

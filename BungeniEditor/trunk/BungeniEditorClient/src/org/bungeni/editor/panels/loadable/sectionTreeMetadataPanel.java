@@ -27,7 +27,7 @@ import org.bungeni.editor.config.DocumentActionsReader;
 import org.bungeni.editor.actions.EditorActionFactory;
 import org.bungeni.editor.actions.IEditorActionEvent;
 import org.bungeni.editor.actions.toolbarAction;
-import org.bungeni.utils.BungeniEditorPropertiesHelper;
+import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.dialogs.metadatapanel.SectionMetadataLoad;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.editor.providers.DocumentSectionFriendlyAdapterDefaultTreeModel;

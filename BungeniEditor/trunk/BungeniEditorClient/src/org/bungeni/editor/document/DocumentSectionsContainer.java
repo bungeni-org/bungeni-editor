@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import org.bungeni.editor.config.SectionTypesReader;
-import org.bungeni.utils.BungeniEditorPropertiesHelper;
+import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 

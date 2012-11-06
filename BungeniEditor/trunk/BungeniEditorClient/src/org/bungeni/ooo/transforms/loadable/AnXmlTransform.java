@@ -2,7 +2,7 @@ package org.bungeni.ooo.transforms.loadable;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import org.bungeni.utils.BungeniEditorPropertiesHelper;
+import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.MessageBox;
 import org.bungeni.ooo.OOComponentHelper;

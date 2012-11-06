@@ -18,6 +18,7 @@
 
 package org.bungeni.utils;
 
+import org.bungeni.editor.config.BungeniEditorProperties;
 import java.net.URL;
 import javax.swing.ImageIcon;
 

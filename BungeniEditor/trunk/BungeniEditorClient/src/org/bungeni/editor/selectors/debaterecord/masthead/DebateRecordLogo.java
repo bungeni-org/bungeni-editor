@@ -3,7 +3,7 @@ package org.bungeni.editor.selectors.debaterecord.masthead;
 import java.awt.Component;
 import java.io.File;
 import javax.swing.JFileChooser;
-import org.bungeni.utils.BungeniEditorProperties;
+import org.bungeni.editor.config.BungeniEditorProperties;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.extutils.CommonFileFunctions;
 

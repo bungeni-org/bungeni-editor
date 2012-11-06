@@ -1,4 +1,4 @@
-package org.bungeni.utils;
+package org.bungeni.editor.config;
 
 //~--- JDK imports ------------------------------------------------------------
 
