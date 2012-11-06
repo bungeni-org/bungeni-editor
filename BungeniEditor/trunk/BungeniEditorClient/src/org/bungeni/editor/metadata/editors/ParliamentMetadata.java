@@ -19,7 +19,7 @@ import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.utils.BungeniFileSavePathFormat;
 import org.bungeni.editor.metadata.ParliamentMetadataModel;
-import org.bungeni.utils.CommonConnectorFunctions;
+import org.bungeni.editor.connectorutils.CommonConnectorFunctions;
 import org.bungeni.extutils.CommonStringFunctions;
 
 /**

@@ -17,7 +17,7 @@
  */
 package org.bungeni.editor.metadata.editors;
 
-import org.bungeni.utils.CommonConnectorFunctions;
+import org.bungeni.editor.connectorutils.CommonConnectorFunctions;
 import org.bungeni.editor.config.BungeniEditorProperties;
 import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import java.awt.Component;

@@ -13,7 +13,7 @@ import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.element.Motion;
 
 import org.bungeni.editor.selectors.BaseMetadataPanel;
-import org.bungeni.utils.CommonConnectorFunctions;
+import org.bungeni.editor.connectorutils.CommonConnectorFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
