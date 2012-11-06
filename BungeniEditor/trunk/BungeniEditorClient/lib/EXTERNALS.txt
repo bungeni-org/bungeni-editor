@@ -4,6 +4,7 @@ bungenieditor-panelsimpl http://bungeni-editor.googlecode.com/svn/external_impor
 bungeniodfdom http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeniodfdom
 bungenistructrules http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungenistructrules
 bungenieditor-extutils http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungenieditor-extutils
+bungenieditor-configs http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungenieditor-configs
 saxon http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/saxon
 swingx http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/swingx
 xerces http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/xerces
