@@ -52,7 +52,7 @@ import org.bungeni.extutils.MessageBox;
 
 import org.bungeni.ooo.BungenioOoHelper;
 import org.bungeni.ooo.OOComponentHelper;
-import org.bungeni.utils.CommonEditorXmlUtils;
+import org.bungeni.extutils.CommonEditorXmlUtils;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 

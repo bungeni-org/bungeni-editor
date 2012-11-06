@@ -36,7 +36,7 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.config.SysTransformsReader;
 import org.bungeni.extutils.CommonXmlUtils;
-import org.bungeni.utils.CommonEditorXmlUtils;
+import org.bungeni.extutils.CommonEditorXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;

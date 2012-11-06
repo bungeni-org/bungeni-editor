@@ -44,7 +44,7 @@ import org.bungeni.ooo.transforms.impl.BungeniTransformationTarget;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTargetFactory;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTargets;
 import org.bungeni.ooo.transforms.impl.IBungeniDocTransform;
-import org.bungeni.utils.CommonEditorXmlUtils;
+import org.bungeni.extutils.CommonEditorXmlUtils;
 import org.bungeni.utils.externalplugin.ExternalPlugin;
 import org.bungeni.utils.externalplugin.ExternalPluginLoader;
 import org.jdom.Document;

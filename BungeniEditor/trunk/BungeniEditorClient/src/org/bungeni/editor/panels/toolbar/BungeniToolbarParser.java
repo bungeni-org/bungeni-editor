@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import org.bungeni.editor.config.ToolbarActionsReader;
 import org.bungeni.extutils.CommonXmlUtils;
-import org.bungeni.utils.CommonEditorXmlUtils;
+import org.bungeni.extutils.CommonEditorXmlUtils;
 
 /**
  * Reads the toolbar xml config file for the document type

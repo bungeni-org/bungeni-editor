@@ -34,7 +34,7 @@ import org.bungeni.editor.config.DocumentMetadataReader;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonXmlUtils;
 import org.bungeni.translators.configurations.steps.OAXSLTStep;
-import org.bungeni.utils.CommonEditorXmlUtils;
+import org.bungeni.extutils.CommonEditorXmlUtils;
 import org.jdom.Content;
 import org.jdom.Document;
 import org.jdom.Element;

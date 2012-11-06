@@ -12,7 +12,7 @@ import org.bungeni.ooo.OOComponentHelper;
 
 import java.util.HashMap;
 import org.bungeni.editor.config.OntologiesReader;
-import org.bungeni.utils.CommonEditorXmlUtils;
+import org.bungeni.extutils.CommonEditorXmlUtils;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 

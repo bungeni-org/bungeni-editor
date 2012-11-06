@@ -26,7 +26,7 @@ import org.bungeni.extutils.CommonDocumentUtilFunctions;
 import org.bungeni.extutils.CommonEditorFunctions;
 import org.bungeni.extutils.CommonXmlUtils;
 import org.bungeni.extutils.MessageBox;
-import org.bungeni.utils.CommonEditorXmlUtils;
+import org.bungeni.extutils.CommonEditorXmlUtils;
 import org.bungeni.utils.externalplugin.ExternalPlugin;
 import org.bungeni.utils.externalplugin.ExternalPluginLoader;
 import org.jdom.Document;
