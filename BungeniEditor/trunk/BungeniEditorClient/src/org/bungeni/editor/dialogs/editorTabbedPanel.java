@@ -14,8 +14,10 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -471,69 +473,8 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
             }
             BungeniDocumentReceiver fsreceive = new BungeniDocumentReceiver();
             String basePath = fsreceive.receiveDocument(this.parentFrame(), config, new HashMap(){});
-
-            /***
-            String sDocURL = (String)JOptionPane.showInputDialog(
-                    this.parentFrame(),
-                    "Enter the URL of the document to Import",
-                    "Import document from Bungeni",
-                    JOptionPane.QUESTION_MESSAGE);
-
-            //If a string was returned, say so.
-            if ((sDocURL != null) && (sDocURL.length() > 0)) {
-                //open document here
-                  //set the wait cursor
-               final BungeniDocumentSource.BungeniDocuments selectedDocument = new BungeniDocuments("", sDocURL);
-               this.parentFrame().setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-              //call the swingworker thread for the button event
-               SwingUtilities.invokeLater(new Runnable() {
-
-                public void run() {
-                    if (appConnector == null) {
-                        appConnector = new BungeniAppConnector(
-                                "10.0.2.2",
-                                "8081",
-                                "login",
-                                "clerk.p1_01",
-                                "member"
-                                );
-                    }
-                    DefaultHttpClient client = appConnector.login();
-                    final HttpGet geturl = new HttpGet(selectedDocument.url);
-                    ResponseHandler<String> responseHandler = new BasicResponseHandler();
-                    String responseBody = "";
-                    try {
-                        responseBody = client.execute(geturl, responseHandler);
-                    } catch (IOException ex) {
-                        Logger.getLogger(editorTabbedPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    //parse response Body
-                      parentFrame().setCursor(Cursor.getDefaultCursor());
-                      org.jsoup.nodes.Document doc = Jsoup.parse(responseBody);
-                      BungeniJSoupDocument jdoc = new BungeniJSoupDocument(doc);
-                      BungeniDialog dlgatts = new BungeniDialog(
-                                parentFrame() ,
-                                "Import an Attachment",
-                                true
-                                );
-                        BungeniDocumentAttListPanel docAtts =
-                                new BungeniDocumentAttListPanel(dlgatts, jdoc);
-                        docAtts.init();
-                        dlgatts.getContentPane().add(docAtts);
-                        dlgatts.pack();
-                        FrameLauncher.CenterFrame(dlgatts);
-                        dlgatts.setVisible(true);
-                        if (docAtts.getSelectedAttachment() != null) {
-                            Attachment att = docAtts.getSelectedAttachment();
-                            JOptionPane.showMessageDialog(null, att);
-                        }
-
-
-                    //sourceButton.setEnabled(true);
-                }
-            });
             
-            } ***/
+        
     }
 
     public synchronized void loadDocumentFromPloneInPanel(){
@@ -650,7 +591,16 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
             }
         }
         String docType = BungeniEditorPropertiesHelper.getCurrentDocType();
-        BungeniFrame frm = new BungeniFrame(bundle.getString("frameTitle"));
+        String dialogTitle = null ;
+        try {
+         dialogTitle =  bundle.getString("metadata_dialog_title");
+         Object[] args = {docType};
+         dialogTitle = MessageFormat.format(dialogTitle, args);
+        } catch(MissingResourceException ex) {
+            log.error("Missing title message string");
+            dialogTitle = "metadata";
+        }
+        BungeniFrame frm = new BungeniFrame(dialogTitle);
         frm.initFrame();
         MetadataEditorContainer meta = new MetadataEditorContainer(oohc, frm, SelectorDialogModes.TEXT_INSERTION);
         meta.initialize();
