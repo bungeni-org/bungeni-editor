@@ -461,9 +461,7 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
             }
         }
 
-        //!+HACK ( below is used only by loadDocumentFromBungeniInPanel()
-        private BungeniAppConnector appConnector = null;
-        
+      
         public synchronized void loadDocumentFromBungeniInPanel(){
             PluggableConfig config = null;
             try {
@@ -681,6 +679,10 @@ private void btnSaveDocumentActionPerformed(java.awt.event.ActionEvent evt) {//G
           String fullPathToFile = finputFile.getAbsolutePath();
         try {
             dc = frame.loadDocumentInPanel(fullPathToFile, false);
+            BungeniNoaTabbedPane.getInstance().setActiveTab(
+                    dc.getPanel().getPanel()
+                    );
+            this.launchMetadataSetter(dc);
         } catch (OfficeApplicationException ex) {
            log.error("Error while loading doc : " + fullPathToFile);
         } catch (NOAException ex) {

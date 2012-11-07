@@ -132,8 +132,6 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
                         if (attDoc != null) {
                             importAttachment(jdoc, attDoc);
                         }
-
-                        // sourceButton.setEnabled(true);
                     }
                 });
             }
