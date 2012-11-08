@@ -24,6 +24,8 @@
 
 package org.bungeni.extpanels.bungeni;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import javax.swing.DefaultComboBoxModel;
 import org.apache.log4j.Logger;
@@ -38,6 +40,7 @@ public class BungeniIntegrationPanel extends BaseClassForITabbedPanel {
     /** Creates new form BungeniIntegrationPanel */
     public BungeniIntegrationPanel() {
         initComponents();
+        init();
     }
 
     /** This method is called from within the constructor to
@@ -61,7 +64,6 @@ public class BungeniIntegrationPanel extends BaseClassForITabbedPanel {
         txtDescription = new javax.swing.JTextArea();
         cboTransit = new javax.swing.JComboBox();
         lblWorkingDoc = new javax.swing.JLabel();
-        btnImport = new javax.swing.JButton();
         btnExport = new javax.swing.JButton();
         btnTransit = new javax.swing.JButton();
         txtAttTitle = new javax.swing.JTextField();
@@ -70,12 +72,13 @@ public class BungeniIntegrationPanel extends BaseClassForITabbedPanel {
         lblWorkingDoc2 = new javax.swing.JLabel();
         lblWorkingDoc3 = new javax.swing.JLabel();
         txtAttName = new javax.swing.JTextField();
+        checkIncludeMetadata = new javax.swing.JCheckBox();
 
         tabPaneBungeniDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
 
         txtTitle.setColumns(20);
         txtTitle.setEditable(false);
-        txtTitle.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        txtTitle.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         txtTitle.setLineWrap(true);
         txtTitle.setRows(5);
         scrollInfo.setViewportView(txtTitle);
@@ -146,21 +149,8 @@ public class BungeniIntegrationPanel extends BaseClassForITabbedPanel {
         lblWorkingDoc.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         lblWorkingDoc.setText(bundle.getString("BungeniIntegrationPanel.lblWorkingDoc.text")); // NOI18N
 
-        btnImport.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        btnImport.setText(bundle.getString("BungeniIntegrationPanel.btnImport.text")); // NOI18N
-        btnImport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnImportActionPerformed(evt);
-            }
-        });
-
-        btnExport.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnExport.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnExport.setText(bundle.getString("BungeniIntegrationPanel.btnExport.text")); // NOI18N
-        btnExport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportActionPerformed(evt);
-            }
-        });
 
         btnTransit.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnTransit.setText(bundle.getString("BungeniIntegrationPanel.btnTransit.text")); // NOI18N
@@ -186,17 +176,14 @@ public class BungeniIntegrationPanel extends BaseClassForITabbedPanel {
         txtAttName.setFont(new java.awt.Font("Tahoma", 0, 10));
         txtAttName.setText(bundle.getString("BungeniIntegrationPanel.txtAttName.text")); // NOI18N
 
+        checkIncludeMetadata.setText(bundle.getString("BungeniIntegrationPanel.checkIncludeMetadata.text")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnImport)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnExport))
                     .addComponent(tabPaneBungeniDoc, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnTransit)
@@ -207,8 +194,11 @@ public class BungeniIntegrationPanel extends BaseClassForITabbedPanel {
                     .addComponent(txtAttTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtAttStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblWorkingDoc2, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAttName, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblWorkingDoc3, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblWorkingDoc3, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(checkIncludeMetadata, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtAttName, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnExport))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -233,28 +223,20 @@ public class BungeniIntegrationPanel extends BaseClassForITabbedPanel {
                 .addComponent(lblWorkingDoc3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtAttName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnImport)
-                    .addComponent(btnExport))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(checkIncludeMetadata)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnExport)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnImportActionPerformed
-
-    private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnExportActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExport;
-    private javax.swing.JButton btnImport;
     private javax.swing.JButton btnTransit;
     private javax.swing.JComboBox cboTransit;
+    private javax.swing.JCheckBox checkIncludeMetadata;
     private javax.swing.JLabel lblDocTitle;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblWorkingDoc;
@@ -277,6 +259,18 @@ public class BungeniIntegrationPanel extends BaseClassForITabbedPanel {
     @Override
     public void refreshPanel() {
        // do nothing
+    }
+
+
+    private void init(){
+
+        this.btnExport.addActionListener(new ActionListener(){
+
+            public void actionPerformed(ActionEvent e) {
+              
+            }
+
+        });
     }
 
     @Override
@@ -309,5 +303,10 @@ public class BungeniIntegrationPanel extends BaseClassForITabbedPanel {
         this.txtAttStatus.setText(
                 attDoc.getStatus()
                 );
+    }
+    
+    
+    private void uploadToBungeni(){
+      //
     }
 }

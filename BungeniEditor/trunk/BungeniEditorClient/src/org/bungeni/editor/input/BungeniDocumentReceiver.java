@@ -22,12 +22,22 @@ package org.bungeni.editor.input;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.awt.Cursor;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.HashMap;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
-
 import org.bungeni.editor.config.PluggableConfigReader.PluggableConfig;
 import org.bungeni.editor.panels.impl.IMainContainerPanel;
 import org.bungeni.editor.panels.impl.ITabbedPanel;
@@ -40,27 +50,8 @@ import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.extutils.TempFileManager;
 import org.bungeni.utils.BungeniDialog;
 import org.bungeni.utils.CommonEditorInterfaceFunctions;
-
 import org.jdom.Element;
-
 import org.jsoup.Jsoup;
-
-//~--- JDK imports ------------------------------------------------------------
-
-import java.awt.Cursor;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-import java.util.HashMap;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-import org.apache.http.HttpResponse;
 
 /**
  *

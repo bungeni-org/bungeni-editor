@@ -1,4 +1,4 @@
-<?xml version="1.1" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <AuxValues>
@@ -18,25 +18,23 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnImport" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btnExport" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="tabPaneBungeniDoc" alignment="0" pref="241" max="32767" attributes="1"/>
+                  <Component id="tabPaneBungeniDoc" alignment="0" max="32767" attributes="1"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="btnTransit" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="cboTransit" pref="166" max="32767" attributes="0"/>
+                      <Component id="cboTransit" max="32767" attributes="0"/>
                   </Group>
                   <Component id="lblWorkingDoc" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
                   <Component id="lblWorkingDoc1" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
                   <Component id="txtAttTitle" alignment="0" min="-2" pref="231" max="-2" attributes="0"/>
                   <Component id="txtAttStatus" alignment="0" min="-2" pref="231" max="-2" attributes="0"/>
                   <Component id="lblWorkingDoc2" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
-                  <Component id="txtAttName" alignment="0" min="-2" pref="231" max="-2" attributes="0"/>
                   <Component id="lblWorkingDoc3" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                      <Component id="checkIncludeMetadata" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtAttName" alignment="1" min="-2" pref="231" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="btnExport" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -65,11 +63,10 @@
               <Component id="lblWorkingDoc3" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="txtAttName" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnImport" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnExport" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="checkIncludeMetadata" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnExport" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -102,13 +99,10 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lblDocTitle" min="-2" pref="108" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="scrollInfo" min="-2" pref="216" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="scrollInfo" alignment="0" min="-2" pref="216" max="-2" attributes="0"/>
                                   <Component id="txtStatus" alignment="0" min="-2" pref="216" max="-2" attributes="0"/>
                                   <Component id="lblStatus" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -255,19 +249,6 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnImport">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="DejaVu Sans" size="10" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/bungeni/extpanels/bungeni/Bundle.properties" key="BungeniIntegrationPanel.btnImport.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnImportActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JButton" name="btnExport">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -277,9 +258,6 @@
           <ResourceString bundle="org/bungeni/extpanels/bungeni/Bundle.properties" key="BungeniIntegrationPanel.btnExport.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExportActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnTransit">
       <Properties>
@@ -351,6 +329,13 @@
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/bungeni/extpanels/bungeni/Bundle.properties" key="BungeniIntegrationPanel.txtAttName.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkIncludeMetadata">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/bungeni/extpanels/bungeni/Bundle.properties" key="BungeniIntegrationPanel.checkIncludeMetadata.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
