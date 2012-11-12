@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- All System Parameters, this is extracted from General_Editor_Properties --><props>
+
+    <prop name="activeDocumentMode" value="act" description="editor client is set to edit a document of this type" />
+  
+    <prop name="attributeDateFormat" value="yyyy-MM-dd" description="Date format used in AkomaNtoso Attributes" />
+    <prop name="defaultExportPath" value="workspace/export" description="default export path" />
+    <prop name="defaultHierarchyView" value="VIEW_PRETTY_SECTIONS" description="Other options are VIEW_SECTIONS, VIEW_PARAGRAPHS" />
+   
+    <prop name="defaultSavePath" value="workspace/files" description="default file save path" />
+	<prop name="iconPath" value="/gui" description="path to icons used by editor" />
+    <prop name="locale.Country.iso3166-1-a2" value="KE" description="This is the country code used for loading message bundles; you can use resource bundles from a different country than what is the active country of the Editor" />
+    <prop name="locale.Language.iso639-1" value="en" description="Default language code used for java locales" />
+    <prop name="locale.Language.iso639-2" value="eng" description="Default iso language mode for editor" />
+    <prop name="logoPath" value="settings/logos" description="path to logo" />
+    <prop name="messageBundlesPath" value="settings/bundles" description="message bundles path" />
+    <prop name="metadataDateFormat" value="yyyy-MM-dd" description="metadata date format" />
+    <prop name="metadataTimeFormat" value="HH:mm" description="metadata time format" />
+    
+    <prop name="parliament.DefaultPart" value="main" description="This is the default part set in the part selector for metadata; this part must exist in DOCUMENT_PARTS" />
+    <prop name="pathToLogFile" value="logs/log.txt" description="Path to Log file" />
+	
+    <prop name="pluginsPath" value="plugins" description="" />
+
+    <prop name="structuralRulesRootPath" value="settings/structural_rules" description="path to structural rules root" />
+	
+ 
+    <prop name="transformerWorkingDir" value="transformer" description="" />
+    <prop name="truncateLogOnStartup" value="true" description="Truncates log file on startup" />
+
+</props>

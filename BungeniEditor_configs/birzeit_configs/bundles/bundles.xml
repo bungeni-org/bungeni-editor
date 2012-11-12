@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bundles>
+    <bundle name="SectionMetaNames" format="prop" />
+    <bundle name="SectionTypeNames" format="prop" />
+    <bundle name="DocMetaNames" format="prop" />
+    <bundle name="ErrorMessages" format="prop" />
+    <bundle name="toolbar" format="xml" />
+</bundles>

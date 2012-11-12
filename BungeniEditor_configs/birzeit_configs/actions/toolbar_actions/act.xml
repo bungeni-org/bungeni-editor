@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Action configuration for acts
+
+HTML is allowed in tooltip texts :
+<a>, <b>, <i>, <br />, <center>, <ul>, <li>, <u>
+
+NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
+
+-->
+<toolbar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="../../../src/xsd/toolbar.xsd"
+ doctype="act">
+             
+    <root  >
+         <subactionGroup name="ActFav"   uimodel="wrap" title="GENERIC">
+            
+             <blockAction title="PREFACE">
+                <subaction tooltip="CREATE_PREFACE_FROM_SELECTION" target="make_act_preface"
+                           condition="cursorInSection:act :and: textSelected:true :and: sectionNotExists:preface"
+                           title="CREATE_PREFACE_FROM_SELECTION" >
+                </subaction>
+                
+                <subaction tooltip="LONGTITLE" target="make_preface_longTitle"
+                           condition="cursorInSection:preface :and: textSelected:true :and: sectionNotExists:longTitle"
+                           title="LONGTITLE">
+                </subaction>   
+                
+                <subaction tooltip="DOCTITLE" target="make_preface_docTitle"
+                           condition="cursorInSection:preface :and: textSelected:true :and: sectionNotExists:docTitle"
+                           title="DOCTITLE">
+                </subaction>       
+                
+                <subaction tooltip="DOCDATE" target="make_preface_docDate"   
+                           condition="cursorInSection:preface :and: textSelected:true :and: sectionNotExists:docDate"
+                           title ="DOCDATE">
+                </subaction>
+                
+                <subaction tooltip="DOCNUMBER" target="make_preface_docNumber"
+                           condition="cursorInSection:preface :and: textSelected:true :and: sectionNotExists:docNumber"
+                           title ="DOCNUMBER">
+                </subaction>
+                
+                <subaction tooltip="DOCTYPE" target="make_preface_docType"
+                           condition="cursorInSection:preface :and: textSelected:true :and: sectionNotExists:docType"
+                           title="DOCTYPE" > 
+                   
+                </subaction>
+            </blockAction>
+
+<!--             Preamble -->
+            <blockAction title="PREAMBLE">
+                <subaction tooltip="CREATE_PREAMBLE_FROM_SELECTION" target="make_act_preamble" 
+                           condition="cursorInSection:act :and: textSelected:true :and: sectionNotExists:preamble"
+                           title="CREATE_PREAMBLE_FROM_SELECTION">
+                </subaction> 
+                
+                <subaction tooltip="REF" target="make_ref"
+                           condition="cursorInSection:preamble :and: textSelected:true"
+                           title="REF">
+                </subaction>
+            </blockAction>
+
+<!--               body -->
+            <blockAction title="BODY">
+                <subaction tooltip="CREATE_BODY_FROM_SELECTION" target="make_act_body"  
+                           condition="cursorInSection:act :and: textSelected:true :and: sectionNotExists:body"
+                           title="CREATE_BODY_FROM_SELECTION">
+                </subaction>
+            </blockAction>
+
+<!--            Book -->
+            <blockAction title="BOOK">
+                <subaction tooltip="Select some text to mark it up as Books" target="make_act_books"
+                           condition="cursorInSection:body :and: textSelected:true"
+                           title="CREATE_BOOKS_FROM_SELECTION">
+                </subaction>
+                
+                <subaction tooltip="Select some text to mark it up as a Book" target="make_act_book" 
+                           condition="cursorInSection:body :or: cursorInSection:books([0-9]*) :and: textSelected:true"
+                           title="CREATE_BOOK_FROM_SELECTION">
+                </subaction>
+                  <subaction tooltip="NUM" target="make_act_num" 
+                           condition="cursorInSection:B([0-9]*) :and: textSelected:true"
+                           title="NUM">
+                </subaction>
+                 <subaction tooltip="HEADING" target="make_act_heading"
+                           condition="cursorInSection:B([0-9]*) :and: textSelected:true"
+                           title="HEADING">
+                </subaction>
+                <subaction tooltip="CONTENT" target="make_act_content"
+                           condition="cursorInSection:B([0-9]*) :and: textSelected:true"
+                           title="CONTENT">
+                </subaction>
+            </blockAction>
+            
+<!--              Part -->
+            <blockAction title="PART">
+                 <subaction tooltip="CREATE_PARTS_FROM_SELECTION" target="make_act_parts" 
+                           condition="cursorInSection:body :and: textSelected:true"
+                           title="CREATE_PARTS_FROM_SELECTION">
+                </subaction>
+                
+                <subaction tooltip="Select some text to mark it up as a Part" target="make_act_part"
+                           condition="cursorInSection:body :or: cursorInSection:B([0-9]*) :or: cursorInSection:parts([0-9]*) :and: textSelected:true"
+                           title="CREATE_PART_FROM_SELECTION">
+                </subaction>
+                  <subaction tooltip="NUM" target="make_act_num" 
+                           condition="cursorInSection:P([0-9]*) :and: textSelected:true"
+                           title="NUM">
+                </subaction>
+                <subaction tooltip="HEADING" target="make_act_heading" 
+                           condition="cursorInSection:P([0-9]*) :and: textSelected:true"
+                           title="HEADING">
+                </subaction>
+                <subaction tooltip="CONTENT" target="make_act_content"
+                           condition="cursorInSection:P([0-9]*) :and: textSelected:true"
+                           title="CONTENT">
+                </subaction>
+            </blockAction>
+           
+
+<!--               Chapter -->
+            <blockAction title="CHAPTER">
+                 <subaction tooltip="CREATE_CHAPTERS_FROM_SELECTION" target="make_act_chapters" 
+                           condition="cursorInSection:body :and: textSelected:true"
+                           title="CREATE_CHAPTERS_FROM_SELECTION">
+                </subaction>
+                
+                <subaction tooltip="CREATE_CHAPTER_FROM_SELECTION" target="make_act_chapter"
+                           condition="cursorInSection:body :or: cursorInSection:B([0-9]*) :or: cursorInSection:P([0-9]*) :or: cursorInSection:chapters([0-9]*) :and: textSelected:true"
+                           title="CREATE_CHAPTER_FROM_SELECTION">
+                </subaction>
+                  <subaction tooltip="NUM" target="make_act_num" 
+                           condition="cursorInSection:C([0-9]*) :and: textSelected:true"
+                           title="NUM">
+                </subaction>
+                 <subaction tooltip="HEADING" target="make_act_heading"
+                           condition="cursorInSection:C([0-9]*) :and: textSelected:true"
+                           title="HEADING">
+                </subaction>
+                <subaction tooltip="CONTENT" target="make_act_content" 
+                           condition="cursorInSection:C([0-9]*) :and: textSelected:true"
+                           title="CONTENT">
+                </subaction>
+            </blockAction>
+
+<!--               Section -->
+             <blockAction title="SECTION">
+                  <subaction tooltip="CREATE_SECTIONS_FROM_SELECTION"
+                           target="make_act_sections" 
+                           condition="cursorInSection:body :and: textSelected:true"
+                           title="CREATE_SECTIONS_FROM_SELECTION">
+                </subaction>
+                
+                <subaction tooltip="CREATE_SECTION_FROM_SELECTION" target="make_act_section"
+                           condition="cursorInSection:body :or: cursorInSection:B([0-9]*) :or: cursorInSection:P([0-9]*) :or: cursorInSection:C([0-9]*) :or: cursorInSection:sections([0-9]*) :and: textSelected:true"
+                           title="CREATE_SECTION_FROM_SELECTION">
+                </subaction>
+                
+                 <subaction tooltip="NUM" target="make_act_num"  
+                           condition="cursorInSection:S([0-9]*) :and: textSelected:true" 
+                           title="NUM">
+                </subaction>
+                
+                 <subaction tooltip="HEADING" target="make_act_heading" 
+                           condition="cursorInSection:S([0-9]*) :and: textSelected:true"
+                           title="HEADING">
+                </subaction>
+                <subaction tooltip="CONTENT" target="make_act_content" 
+                           condition="cursorInSection:S([0-9]*) :and: textSelected:true"
+                           title="CONTENT">
+                </subaction>
+             </blockAction>
+             
+<!--              Article -->
+            <blockAction title="ARTICLE">
+                 <subaction tooltip="CREATE_ARTICLES_FROM_SELECTION" target="make_act_articles"
+                           condition="cursorInSection:body :and: textSelected:true"
+                           title="CREATE_ARTICLES_FROM_SELECTION">
+                </subaction>
+                
+                <subaction tooltip="CREATE_ARTICLE_FROM_SELECTION" target="make_act_article"
+                           condition="cursorInSection:body :or: cursorInSection:B([0-9]*) :or: cursorInSection:P([0-9]*) :or: cursorInSection:C([0-9]*) :or: cursorInSection:S([0-9]*) :or: cursorInSection:articles([0-9]*) :and: textSelected:true"
+                           title="CREATE_ARTICLE_FROM_SELECTION">
+                </subaction>
+                
+                 <subaction tooltip="NUM" target="make_act_num"  
+                           condition="cursorInSection:A([0-9]*) :and: textSelected:true :and: sectionNotExists:num"
+                           title="NUM">
+                </subaction>
+                
+                 <subaction tooltip="TITLE" target="make_act_heading"  
+                           condition="cursorInSection:A([0-9]*) :and: textSelected:true :and: sectionNotExists:heading"
+                           title="TITLE">
+                </subaction>
+                
+                <subaction tooltip="DESCRIPTOR"
+                           target="make_act_subHeading"  
+                           condition="cursorInSection:A([0-9]*) :and: textSelected:true :and: sectionNotExists:heading"
+                           title="DESCRIPTOR">
+                </subaction>
+                
+                 <subaction tooltip="CONTENT" target="make_act_content"  
+                           condition="cursorInSection:A([0-9]*) :and: textSelected:true"
+                           title="CONTENT">
+                </subaction>
+                
+            </blockAction>
+
+<!--              Conclusions -->
+            <blockAction title="CONCLUSIONS">
+                <subaction tooltip="CREATE_CONCLUSION_FROM_SELECTION" target="make_act_conclusions"  
+                           condition="cursorInSection:act :and: textSelected:true :and: sectionNotExists:conclusions"
+                           title="CREATE_CONCLUSION_FROM_SELECTION">
+                </subaction> 
+            </blockAction>
+
+        </actionGroup>
+    </root>
+</toolbar>

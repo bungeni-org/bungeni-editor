@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctypes>
+ 
+      <doctype name="act"
+        template="templates/act.ott"
+        state="1"
+        root="act"
+        default-part="main">
+        <title xml:lang="eng">Act</title>
+        <title xml:lang="ara">تشريع</title>
+        <uri type="work">CountryCode~ActType~BungeniActReleaseDate</uri>
+        <uri type="expression">CountryCode~ActType~BungeniActReleaseDate~LanguageCode@</uri>
+        <file-name-scheme>CountryCode~DocumentType~ActType~ActY~ActNo</file-name-scheme>
+         <metadata-editors>
+            <title xml:lang="eng">Act Metadata</title>
+           <metadata-editor class="org.bungeni.editor.metadata.editors.ActSource" >
+                <title xml:lang="eng">Source metadata</title>
+                <title xml:lang="ara">معلومات المصدر</title>
+            </metadata-editor>
+           <metadata-editor class="org.bungeni.editor.metadata.editors.ActMainMetadata" >
+                <title xml:lang="eng">Act</title>
+                 <title xml:lang="ara"> معلومات التشريع الأساسية</title>
+            </metadata-editor>
+             <metadata-editor class="org.bungeni.editor.metadata.editors.ActResponsibleAuthorities" >
+                <title xml:lang="eng">Act Responsible Authorities</title>
+                <title xml:lang="ara">  الجهات المسؤولة للتشريع</title>
+            </metadata-editor>
+          
+        </metadata-editors>
+         <parts>
+            <part name="main">
+                <title xml:lang="eng">Main</title>
+                <title xml:lang="spa">principal</title>
+            </part>
+        </parts>
+    </doctype>
+	
+</doctypes>

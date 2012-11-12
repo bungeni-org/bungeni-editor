@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ontologies>
+    <ontology type="event" name="BillFirstReading" href="/ontology/event/bill/reading/1">
+        <title xml:lang="eng">First Reading</title>
+    </ontology>
+    <ontology type="event" name="BillSecondReading" href="/ontology/event/bill/reading/2">
+        <title xml:lang="eng">Second Reading</title>
+    </ontology>
+    <ontology type="event" name="BillThirdReading" href="/ontology/event/bill/reading/3">
+        <title xml:lang="eng">Third Reading</title>
+    </ontology>
+</ontologies>
