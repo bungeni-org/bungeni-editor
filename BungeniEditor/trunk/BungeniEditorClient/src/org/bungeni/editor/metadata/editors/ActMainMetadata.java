@@ -17,24 +17,39 @@
  */
 package org.bungeni.editor.metadata.editors;
 
-import org.bungeni.editor.connectorutils.CommonConnectorFunctions;
-import org.bungeni.editor.config.BungeniEditorProperties;
+
 import java.awt.Component;
+import java.awt.ComponentOrientation;
 import java.awt.Dimension;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.SwingWorker;
+import org.bungeni.connector.ConnectorProperties;
 import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.element.*;
-import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
-import org.bungeni.editor.metadata.ActMainMetadataModel;
-import org.bungeni.editor.metadata.LanguageCode;
+import org.bungeni.editor.config.BungeniEditorProperties;
+import org.bungeni.editor.connectorutils.CommonConnectorFunctions;
+import org.bungeni.editor.metadata.*;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.extutils.*;
 import org.bungeni.utils.BungeniFileSavePathFormat;
+import org.jdom.Element;
+import org.jdom.JDOMException;
+import org.jdom.xpath.XPath;
+
 /**
  *
  * @author bzuadmin
@@ -45,413 +60,426 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
     private ActMainMetadataModel docMetaModel = new ActMainMetadataModel();
     private List<ActFamily> actFamiliesList;
     
+    private ArrayList<PublicationType> PublicationTypesList = new ArrayList<PublicationType>();
+    private ArrayList<HistoricalPeriod> actHistoricalPeriodsList = new ArrayList<HistoricalPeriod>();
+
+    
     /**
      * Creates new customizer ActMainMetadata
      */
     public ActMainMetadata() {
-        super();
+         super();
         initComponents();
-        CommonUIFunctions.compOrientation(this);     
+        CommonUIFunctions.compOrientation(this);
     }
     
       
-    public static void setBungeniActEffectiveDate(Date effectiveDate){
+    public static void setBungeniActEffectiveDate(Date effectiveDate) {
         dt_effective_date.setDate(effectiveDate);
     }
-    
-   @Override
+
+    @Override
     public void initialize() {
         super.initialize();
         this.docMetaModel.setup();
         initControls();
-        loadActInfo();        
-           if (theMode == SelectorDialogModes.TEXT_EDIT) {
-                //retrieve metadata... and set in controls....
-                docMetaModel.loadModel(ooDocument);
-           }
-           
-           try{
-                String sLanguageCode = docMetaModel.getItem("BungeniLanguageCode");
-                String sBungeniActType = docMetaModel.getItem("BungeniActType");
-                String sBungeniActName = docMetaModel.getItem("BungeniActName");
-                String sBungeniActNo = docMetaModel.getItem("BungeniActNo");
-                String sBungeniActYear = docMetaModel.getItem("BungeniActYear");
-                
-                String sBungeniActScope = docMetaModel.getItem("BungeniActScope");
-                String sBungeniActState = docMetaModel.getItem("BungeniActState");
-                String sBungeniActFamily = docMetaModel.getItem("BungeniActFamily");
-                String sBungeniActHistoricalPeriod = docMetaModel.getItem("BungeniActHistoricalPeriod");
-                
-                String sEffectiveDate = docMetaModel.getItem("BungeniActEffectiveDate");    
-                String sPageNo = docMetaModel.getItem("BungeniPageNo");
-                String sPageCount = docMetaModel.getItem("BungeniPageCount");
-                
-                SimpleDateFormat dateFormat = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
-                
-                if (!CommonStringFunctions.emptyOrNull(sLanguageCode)){
-                    this.cboLanguage.setSelectedItem(findLanguageCodeAlpha2(sLanguageCode));
-                }
-                 
-                if (!CommonStringFunctions.emptyOrNull(sBungeniActType))
-                    this.cboActType.setSelectedItem(sBungeniActType);
-                
-                if (!CommonStringFunctions.emptyOrNull(sBungeniActName))
-                    this.txtActName.setText(sBungeniActName);
-                
-                if (!CommonStringFunctions.emptyOrNull(sBungeniActNo))
-                    this.txtActNo.setText(sBungeniActNo);
-                
-                if (!CommonStringFunctions.emptyOrNull(sBungeniActYear))
-                    this.txtActYear.setText(sBungeniActYear);
-                
-                if (!CommonStringFunctions.emptyOrNull(sBungeniActScope))
-                    this.cboActScope.setSelectedItem(sBungeniActScope);
-                
-                if (!CommonStringFunctions.emptyOrNull(sBungeniActHistoricalPeriod))
-                    this.cboActHistoricalPeriod.setSelectedItem(sBungeniActHistoricalPeriod);
-                
-                if (!CommonStringFunctions.emptyOrNull(sBungeniActFamily))
-                    this.cboActFamily.setSelectedItem(sBungeniActFamily);
-                
-               if (!CommonStringFunctions.emptyOrNull(sBungeniActState))
-                    this.txtActState.setText(sBungeniActState);
-               
-               if (!CommonStringFunctions.emptyOrNull(sEffectiveDate)) 
-                    setBungeniActEffectiveDate(dateFormat.parse(sEffectiveDate));
-              
-               if (!CommonStringFunctions.emptyOrNull(sPageNo))
-                    this.txtPageNo.setText(sPageNo);
-              
-               if (!CommonStringFunctions.emptyOrNull(sPageCount))
-                    this.txtPageCount.setText(sPageCount);
-                
-           }catch (Exception ex) {
+        loadActInfo();
+        if (theMode == SelectorDialogModes.TEXT_EDIT) {
+            //retrieve metadata... and set in controls....
+            docMetaModel.loadModel(ooDocument);
+        }
+
+        try {
+            String sLanguageCode = docMetaModel.getItem("BungeniLanguageCode");
+            String sBungeniActType = docMetaModel.getItem("BungeniActType");
+            String sBungeniActName = docMetaModel.getItem("BungeniActName");
+            String sBungeniActNo = docMetaModel.getItem("BungeniActNo");
+            String sBungeniActYear = docMetaModel.getItem("BungeniActYear");
+
+            String sBungeniActScope = docMetaModel.getItem("BungeniActScope");
+            String sBungeniActState = docMetaModel.getItem("BungeniActState");
+            String sBungeniActFamily = docMetaModel.getItem("BungeniActFamily");
+            String sBungeniActHistoricalPeriod = docMetaModel.getItem("BungeniActHistoricalPeriod");
+
+            String sEffectiveDate = docMetaModel.getItem("BungeniActEffectiveDate");
+            String sPageNo = docMetaModel.getItem("BungeniPageNo");
+            String sPageCount = docMetaModel.getItem("BungeniPageCount");
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
+
+            if (!CommonStringFunctions.emptyOrNull(sLanguageCode)) {
+                this.cboLanguage.setSelectedItem(findLanguageCode(sLanguageCode));
+            }
+
+            if (!CommonStringFunctions.emptyOrNull(sBungeniActType)) {
+                this.cboActType.setSelectedItem(sBungeniActType);
+            }
+
+            if (!CommonStringFunctions.emptyOrNull(sBungeniActName)) {
+                this.txtActName.setText(sBungeniActName);
+            }
+
+            if (!CommonStringFunctions.emptyOrNull(sBungeniActNo)) {
+                this.txtActNo.setText(sBungeniActNo);
+            }
+
+            if (!CommonStringFunctions.emptyOrNull(sBungeniActYear)) {
+                this.txtActYear.setText(sBungeniActYear);
+            }
+
+            if (!CommonStringFunctions.emptyOrNull(sBungeniActScope)) {
+                this.cboActScope.setSelectedItem(sBungeniActScope);
+            }
+
+            if (!CommonStringFunctions.emptyOrNull(sBungeniActHistoricalPeriod)) {
+                this.cboActHistoricalPeriod.setSelectedItem(sBungeniActHistoricalPeriod);
+            }
+
+            if (!CommonStringFunctions.emptyOrNull(sBungeniActFamily)) {
+                this.cboActFamily.setSelectedItem(sBungeniActFamily);
+            }
+
+            if (!CommonStringFunctions.emptyOrNull(sBungeniActState)) {
+                this.txtActState.setText(sBungeniActState);
+            }
+
+            if (!CommonStringFunctions.emptyOrNull(sEffectiveDate)) {
+                setBungeniActEffectiveDate(dateFormat.parse(sEffectiveDate));
+            }
+
+            if (!CommonStringFunctions.emptyOrNull(sPageNo)) {
+                this.txtPageNo.setText(sPageNo);
+            }
+
+            if (!CommonStringFunctions.emptyOrNull(sPageCount)) {
+                this.txtPageCount.setText(sPageCount);
+            }
+
+        } catch (Exception ex) {
             log.error("initalize()  =  " + ex.getMessage());
-           }
+        }
     }
 
-     private void initControls(){
-       // String popupDlgBackColor = BungeniEditorProperties.getEditorProperty("popupDialogBackColor");
-       // this.setBackground(Color.decode(popupDlgBackColor));
+    private void initControls() {
+        // String popupDlgBackColor = BungeniEditorProperties.getEditorProperty("popupDialogBackColor");
+        // this.setBackground(Color.decode(popupDlgBackColor));
         cboLanguage.setModel(new DefaultComboBoxModel(languageCodes));
-       
+
         //set Default selections
-        this.cboLanguage.setSelectedItem(findLanguageCodeAlpha2(Locale.getDefault().getLanguage()));
+        this.cboLanguage.setSelectedItem(findLanguageCode(Locale.getDefault().getLanguage()));
     }
 
     public Component getPanelComponent() {
         return this;
     }
-    
+
     private void loadActInfo() {
-            BungeniConnector client = null ;
-            try {
-                client = CommonConnectorFunctions.getDSClient();
-                List<MetadataInfo> metadata = client.getMetadataInfo();
-                if (metadata != null) {                     
-                    for (int i = 0; i < metadata.size(); i++) {
-                        if (metadata.get(i).getName().equalsIgnoreCase("BungeniActType")) {
-                            docMetaModel.setBungeniActType(metadata.get(i).getValue());
-                        } else if (metadata.get(i).getName().equalsIgnoreCase("BungeniActScope")) {
-                            docMetaModel.setBungeniActScope(metadata.get(i).getValue());
-                        } else if (metadata.get(i).getName().equalsIgnoreCase("BungeniActHistoricalPeriod")) {
-                            docMetaModel.setBungeniActHistoricalPeriod(metadata.get(i).getValue());
-                        } else if (metadata.get(i).getName().equalsIgnoreCase("BungeniActFamily")) {
-                            docMetaModel.setBungeniActFamily(metadata.get(i).getValue());
-                        } else if (metadata.get(i).getName().equalsIgnoreCase("BungeniActState")) {
-                            docMetaModel.setBungeniActState(metadata.get(i).getValue());
-                        } else if (metadata.get(i).getName().equalsIgnoreCase("BungeniActEffectiveDate")) {
-                            docMetaModel.setBungeniActEffectiveDate(metadata.get(i).getValue());
-                        } else if (metadata.get(i).getName().equalsIgnoreCase("BungeniActName")) {
-                            docMetaModel.setBungeniActName(metadata.get(i).getValue());
-                        } else if (metadata.get(i).getName().equalsIgnoreCase("BungeniActNo")) {
-                            docMetaModel.setBungeniActNo(metadata.get(i).getValue());
-                        } else if (metadata.get(i).getName().equalsIgnoreCase("BungeniActYear")) {
-                            docMetaModel.setBungeniActYear(metadata.get(i).getValue());
-                        } 
-                        System.out.println(metadata.get(i).getName() + " " + metadata.get(i).getType() + " " + metadata.get(i).getValue());
+        BungeniConnector client = null;
+        try {
+            client = CommonConnectorFunctions.getDSClient();
+            List<MetadataInfo> metadata = client.getMetadataInfo();
+            if (metadata != null) {
+                for (int i = 0; i < metadata.size(); i++) {
+                    if (metadata.get(i).getName().equalsIgnoreCase("BungeniActType")) {
+                        docMetaModel.setBungeniActType(metadata.get(i).getValue());
+                    } else if (metadata.get(i).getName().equalsIgnoreCase("BungeniActScope")) {
+                        docMetaModel.setBungeniActScope(metadata.get(i).getValue());
+                    } else if (metadata.get(i).getName().equalsIgnoreCase("BungeniLanguageCode")) {
+                        docMetaModel.setBungeniLanguageCode(metadata.get(i).getValue());
+                    } else if (metadata.get(i).getName().equalsIgnoreCase("BungeniActHistoricalPeriod")) {
+                        docMetaModel.setBungeniActHistoricalPeriod(metadata.get(i).getValue());
+                    } else if (metadata.get(i).getName().equalsIgnoreCase("BungeniActFamily")) {
+                        docMetaModel.setBungeniActFamily(metadata.get(i).getValue());
+                    } else if (metadata.get(i).getName().equalsIgnoreCase("BungeniActState")) {
+                        docMetaModel.setBungeniActState(metadata.get(i).getValue());
+                    } else if (metadata.get(i).getName().equalsIgnoreCase("BungeniActEffectiveDate")) {
+                        docMetaModel.setBungeniActEffectiveDate(metadata.get(i).getValue());
+                    } else if (metadata.get(i).getName().equalsIgnoreCase("BungeniActName")) {
+                        docMetaModel.setBungeniActName(metadata.get(i).getValue());
+                    } else if (metadata.get(i).getName().equalsIgnoreCase("BungeniActNo")) {
+                        docMetaModel.setBungeniActNo(metadata.get(i).getValue());
+                    } else if (metadata.get(i).getName().equalsIgnoreCase("BungeniActYear")) {
+                        docMetaModel.setBungeniActYear(metadata.get(i).getValue());
                     }
+                    System.out.println(metadata.get(i).getName() + " " + metadata.get(i).getType() + " " + metadata.get(i).getValue());
                 }
-                client.closeConnector();
-            }catch (IOException ex) {
-                log.error("THe connector client could not be initialized" , ex);
             }
+            client.closeConnector();
+        } catch (IOException ex) {
+            log.error("THe connector client could not be initialized", ex);
+        }
     }
 
-       
-       private ComboBoxModel setActTypesModel()
-       {
-            DefaultComboBoxModel actTypesModel = null ;
-            String[] actTypes = null ; // stores all the bill Names
-            // initialise the Bungeni Connector Client
-            BungeniConnector client = null ;
-            try {
-                // initialize the data store client
-                 client = CommonConnectorFunctions.getDSClient();
-                // get the acts from the registry H2 db
-                List<ActType> actTypesList = client.getActTypes();
-                actTypes = new String[actTypesList.size()];
-                
-                // loop through extracting the acts
-                for (int i = 0 ; i < actTypesList.size() ; i ++)
-                {
-                    // get the current act & extract the act Name
-                    ActType currActType = actTypesList.get(i);
-                    actTypes[i] = currActType.getNameByLang(Locale.getDefault().getLanguage());
-                }
-                
-                // create the default acts Names model
-                actTypesModel = new DefaultComboBoxModel(actTypes) ;
+    private ComboBoxModel setActTypesModel() {
+         DefaultComboBoxModel publicationTypesNamesModel = null;
 
-            } catch (IOException ex) {
-                log.error(ex) ;
-            }
-            return actTypesModel ;
-    }
-          
-       private ComboBoxModel setActScopesModel()
-       {
-            DefaultComboBoxModel actScopesModel = null ;
-            String[] actScopes = null ; // stores all the bill Names
-            // initialise the Bungeni Connector Client
-            BungeniConnector client = null ;
-            try {
-                // initialize the data store client
-                 client = CommonConnectorFunctions.getDSClient();
-                // get tactScopeshe acts from the registry H2 db
-                List<ActScope> actScopesList = client.getActScopes();
-                actScopes = new String[actScopesList.size()];
-                
-                // loop through extracting the acts
-                for (int i = 0 ; i < actScopesList.size() ; i ++)
-                {
-                    // get the current act & extract the act Name
-                    ActScope currActScope = actScopesList.get(i);
-                    actScopes[i] = currActScope.getNameByLang(Locale.getDefault().getLanguage());
-                }
-                
-                // create the default acts Names model
-                actScopesModel = new DefaultComboBoxModel(actScopes) ;
-
-            } catch (IOException ex) {
-                log.error(ex) ;
-            }
-            return actScopesModel ;
-    }
-          
-       private ComboBoxModel setActHistoricalPeriodsModel()
-       {
-            DefaultComboBoxModel actHistoricalPeriodsModel = null ;
-            String[] actHistoricalPeriods = null ; // stores all the bill Names
-            // initialise the Bungeni Connector Client
-            BungeniConnector client = null ;
-            try {
-                // initialize the data store client
-                 client = CommonConnectorFunctions.getDSClient();
-                // get the acts from the registry H2 db
-                List<ActHistoricalPeriod> actHistoricalPeriodsList = client.getActHistoricalPeriods();
-                actHistoricalPeriods = new String[actHistoricalPeriodsList.size()];
-                
-                // loop through extracting the acts
-                for (int i = 0 ; i < actHistoricalPeriodsList.size() ; i ++)
-                {
-                    // get the current act & extract the act Name
-                    ActHistoricalPeriod currActHistoricalPeriod = actHistoricalPeriodsList.get(i);
-                    actHistoricalPeriods[i] = currActHistoricalPeriod.getNameByLang(Locale.getDefault().getLanguage());
-                }
-                
-                // create the default acts Names model
-                actHistoricalPeriodsModel = new DefaultComboBoxModel(actHistoricalPeriods) ;
-
-            } catch (IOException ex) {
-                log.error(ex) ;
-            }
-            return actHistoricalPeriodsModel ;
-    }
-       
-       private ComboBoxModel setActFamiliesModel()
-       {
-            DefaultComboBoxModel actFamiliesModel = null ;
-            String[] actFamilies = null ; // stores all the bill Names
-            // initialise the Bungeni Connector Client
-            BungeniConnector client = null ;
-            try {
-                // initialize the data store client
-                 client = CommonConnectorFunctions.getDSClient();
-                // get the acts from the registry H2 db
-                actFamiliesList = client.getActFamilies();
-                actFamilies = new String[actFamiliesList.size()];
-                
-                // loop through extracting the acts
-                for (int i = 0 ; i < actFamiliesList.size() ; i ++)
-                {
-                    // get the current act & extract the act Name
-                    ActFamily currActFamily = actFamiliesList.get(i);
-                    actFamilies[i] = currActFamily.getNameByLang(Locale.getDefault().getLanguage());
-                }
-                
-                // create the default acts Names model
-                actFamiliesModel = new DefaultComboBoxModel(actFamilies) ;
-
-            } catch (IOException ex) {
-                log.error(ex) ;
-            }
-            return actFamiliesModel ;
-    }
-        
-       private ComboBoxModel setActSubFamiliesModel(Integer selectedActFamilyIndex)
-       {
-            DefaultComboBoxModel subFamiliesModel = null ;
-            String[] subFamilies = null ; // stores all the bill Names
-                   
-            ActFamily currActFamily =  actFamiliesList.get(selectedActFamilyIndex);
-
-            List<SubFamily> subFamiliesList = currActFamily.getSubFamiliesByLang(Locale.getDefault().getLanguage());
-            subFamilies = new String[subFamiliesList.size()];
-
-             for (int i = 0 ; i < subFamiliesList.size() ; i ++)
-                  subFamilies[i] = subFamiliesList.get(i).getValue();
-                
-             
-            // create the default families model
-            subFamiliesModel = new DefaultComboBoxModel(subFamilies);
+        try {
 
             
-            cboActSubFamily.setModel(subFamiliesModel);
-            return subFamiliesModel ;
-    }
-       
-        private ComboBoxModel setActPossibleSubFamiliesModel(Integer selectedActFamilyIndex)
-       {
-            DefaultComboBoxModel subPossibleFamiliesModel = null ;
-            String[] subPossibleFamilies = null ; // stores all the bill Names
-                   
-            ActFamily currActFamily =  actFamiliesList.get(selectedActFamilyIndex);
+            String sqlStm = "SELECT [LG_Type_ID], [LG_Type_Name], [LG_Type_Name_E], [LG_Type_Name_AN] FROM LG_Type";
+            ResultSet rs = CommonConnectorFunctions.ConnectMMSM(sqlStm);
 
-            List<SubFamily> subPossibleFamiliesList = currActFamily.getSubFamiliesByLang(Locale.getDefault().getLanguage());
-            subPossibleFamilies = new String[subPossibleFamiliesList.size()];
+            while (rs.next()) {
+                PublicationType ptObj = new PublicationType(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
+                PublicationTypesList.add(ptObj);
 
-             for (int i = 0 ; i < subPossibleFamiliesList.size() ; i ++)
-                  subPossibleFamilies[i] = subPossibleFamiliesList.get(i).getValue();
-                
-             
-            // create the default families model
-            subPossibleFamiliesModel = new DefaultComboBoxModel(subPossibleFamilies);
-
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
+        }
             
-            cboActPossibleSubFamily.setModel(subPossibleFamiliesModel);
-            return subPossibleFamiliesModel ;
-    }
-       
-        
-               
-       private ComboBoxModel setActCategoriesModel()
-       {
-            DefaultComboBoxModel actCategoriesModel = null ;
-            String[] actCategories = null ; // stores all the bill Names
-            // initialise the Bungeni Connector Client
-            BungeniConnector client = null ;
-            try {
-                // initialize the data store client
-                 client = CommonConnectorFunctions.getDSClient();
-                // get the acts from the registry H2 db
-                List<ActCategory> actCategoriesList = client.getActCategories();
-                actCategories = new String[actCategoriesList.size()];
-                
-                // loop through extracting the acts
-                for (int i = 0 ; i < actCategoriesList.size() ; i ++)
-                {
-                    // get the current act & extract the act Name
-                    ActCategory currActCategory = actCategoriesList.get(i);
-                    actCategories[i] = currActCategory.getNameByLang(Locale.getDefault().getLanguage());
-                }
-                
-                // create the default acts Names model
-                actCategoriesModel = new DefaultComboBoxModel(actCategories) ;
+        String[] publicationTypes = new String[PublicationTypesList.size()];
+        for (int i = 0; i < PublicationTypesList.size(); i++) {
+            publicationTypes[i] = PublicationTypesList.get(i).toString();
+        }
+        // create the default acts Names mode
+        publicationTypesNamesModel = new DefaultComboBoxModel(publicationTypes);
 
-            } catch (IOException ex) {
-                log.error(ex) ;
-            }
-            return actCategoriesModel ;
+        return publicationTypesNamesModel;
     }
-       
-        private ComboBoxModel setActCategoriesBasicModel()
-       {
-            DefaultComboBoxModel actCategoriesBasicModel = null ;
-            String[] actCategoriesBasic = null ; // stores all the bill Names
-            // initialise the Bungeni Connector Client
-            BungeniConnector client = null ;
-            try {
-                // initialize the data store client
-                 client = CommonConnectorFunctions.getDSClient();
-                // get the acts from the registry H2 db
-                List<ActCategoryBasic> actCategoriesBasicList = client.getActCategoriesBasic();
-                actCategoriesBasic = new String[actCategoriesBasicList.size()];
-                
-                // loop through extracting the acts
-                for (int i = 0 ; i < actCategoriesBasicList.size() ; i ++)
-                {
-                    // get the current act & extract the act Name
-                    ActCategoryBasic currActCategoryBasic = actCategoriesBasicList.get(i);
-                    actCategoriesBasic[i] = currActCategoryBasic.getNameByLang(Locale.getDefault().getLanguage());
-                }
-                
-                // create the default acts Names model
-                actCategoriesBasicModel = new DefaultComboBoxModel(actCategoriesBasic) ;
 
-            } catch (IOException ex) {
-                log.error(ex) ;
+    private ComboBoxModel setActScopesModel() {
+        DefaultComboBoxModel actScopesModel = null;
+        String[] actScopes = null; // stores all the bill Names
+        // initialise the Bungeni Connector Client
+        BungeniConnector client = null;
+        try {
+            // initialize the data store client
+            client = CommonConnectorFunctions.getDSClient();
+            // get tactScopeshe acts from the registry H2 db
+            List<ActScope> actScopesList = client.getActScopes();
+            actScopes = new String[actScopesList.size()];
+
+            // loop through extracting the acts
+            for (int i = 0; i < actScopesList.size(); i++) {
+                // get the current act & extract the act Name
+                ActScope currActScope = actScopesList.get(i);
+                actScopes[i] = currActScope.getNameByLang(Locale.getDefault().getLanguage());
             }
-            return actCategoriesBasicModel ;
+
+            // create the default acts Names model
+            actScopesModel = new DefaultComboBoxModel(actScopes);
+
+        } catch (IOException ex) {
+            log.error(ex);
+        }
+        return actScopesModel;
     }
-         
-    public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
-    boolean bState = false;
-    try {
-        
-        SimpleDateFormat dformatter = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
-        
-        LanguageCode selLanguage = (LanguageCode) this.cboLanguage.getSelectedItem();
-        String strEffectiveDate = dformatter.format(dt_effective_date.getDate());
-         
-        String sBungeniActName = this.txtActName.getText();
-        String sBungeniActNo = this.txtActNo.getText();
-        String sBungeniActYear = this.txtActYear.getText();
-        String selBungeniActType = (String)this.cboActType.getSelectedItem();
-        String selBungeniActScope = (String)this.cboActScope.getSelectedItem();
-        String selBungeniActHistoricalPeriod = (String)this.cboActHistoricalPeriod.getSelectedItem();
-        String selBungeniActFamily = (String)this.cboActFamily.getSelectedItem();
-        String selBungeniActCategory = (String)this.cboActCategory.getSelectedItem() + " - " + (String)this.cboActCategoryBasic.getSelectedItem();
-        String sBungeniActState = this.txtActState.getText();
-        String strPageNo = this.txtPageNo.getText();
-        String strPageCount = this.txtPageCount.getText();
+
+    private ComboBoxModel setActHistoricalPeriodsModel() {
+        DefaultComboBoxModel actHistoricalPeriodsModel = null;
+
+        try {
+
+            String sqlStm = "SELECT [LG_HisPer_ID], [LG_HisPer_Name], [LG_HisPer_Name_E] FROM LG_HisPer ORDER BY [LG_HisPer_Order] DESC";
+            ResultSet rs = CommonConnectorFunctions.ConnectMMSM(sqlStm);
+
+            while (rs.next()) {
+                HistoricalPeriod ptObj = new HistoricalPeriod(rs.getString(1), rs.getString(2), rs.getString(3));
+                actHistoricalPeriodsList.add(ptObj);
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+        String[] historicalPeriods = new String[actHistoricalPeriodsList.size()];
+        for (int i = 0; i < actHistoricalPeriodsList.size(); i++) {
+            historicalPeriods[i] = actHistoricalPeriodsList.get(i).toString();
+        }
+        // create the default acts Names mode
+        actHistoricalPeriodsModel = new DefaultComboBoxModel(historicalPeriods);
+
+        return actHistoricalPeriodsModel;
+    }
+
+    private ComboBoxModel setActFamiliesModel() {
+        DefaultComboBoxModel actFamiliesModel = null;
+        String[] actFamilies = null; // stores all the bill Names
+        // initialise the Bungeni Connector Client
+        BungeniConnector client = null;
+        try {
+            // initialize the data store client
+            client = CommonConnectorFunctions.getDSClient();
+            // get the acts from the registry H2 db
+            actFamiliesList = client.getActFamilies();
+            actFamilies = new String[actFamiliesList.size()];
+
+            // loop through extracting the acts
+            for (int i = 0; i < actFamiliesList.size(); i++) {
+                // get the current act & extract the act Name
+                ActFamily currActFamily = actFamiliesList.get(i);
+                actFamilies[i] = currActFamily.getNameByLang(Locale.getDefault().getLanguage());
+            }
+
+            // create the default acts Names model
+            actFamiliesModel = new DefaultComboBoxModel(actFamilies);
+
+        } catch (IOException ex) {
+            log.error(ex);
+        }
+        return actFamiliesModel;
+    }
+
+    private ComboBoxModel setActSubFamiliesModel(Integer selectedActFamilyIndex) {
+        DefaultComboBoxModel subFamiliesModel = null;
+        String[] subFamilies = null; // stores all the bill Names
+
+        ActFamily currActFamily = actFamiliesList.get(selectedActFamilyIndex);
+
+        List<SubFamily> subFamiliesList = currActFamily.getSubFamiliesByLang(Locale.getDefault().getLanguage());
+        subFamilies = new String[subFamiliesList.size()];
+
+        for (int i = 0; i < subFamiliesList.size(); i++) {
+            subFamilies[i] = subFamiliesList.get(i).getValue();
+        }
+
+
+        // create the default families model
+        subFamiliesModel = new DefaultComboBoxModel(subFamilies);
+
+
+        cboActSubFamily.setModel(subFamiliesModel);
+        return subFamiliesModel;
+    }
+
+    private ComboBoxModel setActPossibleSubFamiliesModel(Integer selectedActFamilyIndex) {
+        DefaultComboBoxModel subPossibleFamiliesModel = null;
+        String[] subPossibleFamilies = null; // stores all the bill Names
+
+        ActFamily currActFamily = actFamiliesList.get(selectedActFamilyIndex);
+
+        List<SubFamily> subPossibleFamiliesList = currActFamily.getSubFamiliesByLang(Locale.getDefault().getLanguage());
+        subPossibleFamilies = new String[subPossibleFamiliesList.size()];
+
+        for (int i = 0; i < subPossibleFamiliesList.size(); i++) {
+            subPossibleFamilies[i] = subPossibleFamiliesList.get(i).getValue();
+        }
+
+
+        // create the default families model
+        subPossibleFamiliesModel = new DefaultComboBoxModel(subPossibleFamilies);
+
+
+        cboActPossibleSubFamily.setModel(subPossibleFamiliesModel);
+        return subPossibleFamiliesModel;
+    }
+
+    private ComboBoxModel setActCategoriesModel() {
+        DefaultComboBoxModel actCategoriesModel = null;
+        String[] actCategories = null; // stores all the bill Names
+        // initialise the Bungeni Connector Client
+        BungeniConnector client = null;
+        try {
+            // initialize the data store client
+            client = CommonConnectorFunctions.getDSClient();
+            // get the acts from the registry H2 db
+            List<ActCategory> actCategoriesList = client.getActCategories();
+            actCategories = new String[actCategoriesList.size()];
+
+            // loop through extracting the acts
+            for (int i = 0; i < actCategoriesList.size(); i++) {
+                // get the current act & extract the act Name
+                ActCategory currActCategory = actCategoriesList.get(i);
+                actCategories[i] = currActCategory.getNameByLang(Locale.getDefault().getLanguage());
+            }
+
+            // create the default acts Names model
+            actCategoriesModel = new DefaultComboBoxModel(actCategories);
+
+        } catch (IOException ex) {
+            log.error(ex);
+        }
+        return actCategoriesModel;
+    }
+
+    private ComboBoxModel setActCategoriesBasicModel() {
+        DefaultComboBoxModel actCategoriesBasicModel = null;
+        String[] actCategoriesBasic = null; // stores all the bill Names
+        // initialise the Bungeni Connector Client
+        BungeniConnector client = null;
+        try {
+            // initialize the data store client
+            client = CommonConnectorFunctions.getDSClient();
+            // get the acts from the registry H2 db
+            List<ActCategoryBasic> actCategoriesBasicList = client.getActCategoriesBasic();
+            actCategoriesBasic = new String[actCategoriesBasicList.size()];
+
+            // loop through extracting the acts
+            for (int i = 0; i < actCategoriesBasicList.size(); i++) {
+                // get the current act & extract the act Name
+                ActCategoryBasic currActCategoryBasic = actCategoriesBasicList.get(i);
+                actCategoriesBasic[i] = currActCategoryBasic.getNameByLang(Locale.getDefault().getLanguage());
+            }
+
+            // create the default acts Names model
+            actCategoriesBasicModel = new DefaultComboBoxModel(actCategoriesBasic);
+
+        } catch (IOException ex) {
+            log.error(ex);
+        }
+        return actCategoriesBasicModel;
+    }
+
+    public boolean applySelectedMetadata(BungeniFileSavePathFormat spf) {
+        boolean bState = false;
+        try {
+
+            SimpleDateFormat dformatter = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
+
+            LanguageCode selLanguage = (LanguageCode) this.cboLanguage.getSelectedItem();
+            String strEffectiveDate = dformatter.format(dt_effective_date.getDate());
+
+            String sBungeniActName = this.txtActName.getText();
+            String sBungeniActNo = this.txtActNo.getText();
+            String sBungeniActYear = this.txtActYear.getText();
+            String selBungeniActType = (String) this.cboActType.getSelectedItem();
+            String selBungeniActScope = (String) this.cboActScope.getSelectedItem();
+            String selBungeniActHistoricalPeriod = (String) this.cboActHistoricalPeriod.getSelectedItem();
+            String selBungeniActFamily = (String) this.cboActFamily.getSelectedItem();
+            String selBungeniActFamilyPossible = (String) this.cboActPossibleFamily.getSelectedItem();
+
+
+            String selBungeniActCategory = (String) this.cboActCategory.getSelectedItem() + " - " + (String) this.cboActCategoryBasic.getSelectedItem();
+            String sBungeniActState = this.txtActState.getText();
+            String strPageNo = this.txtPageNo.getText();
+            String strPageCount = this.txtPageCount.getText();
+
+            docMetaModel.updateItem("BungeniLanguageCode", selLanguage.getLanguageCodeAlpha2());
+            docMetaModel.updateItem("BungeniActName", sBungeniActName);
+            docMetaModel.updateItem("BungeniActNo", sBungeniActNo);
+            docMetaModel.updateItem("BungeniActYear", sBungeniActYear);
+            docMetaModel.updateItem("BungeniActType", selBungeniActType);
+            docMetaModel.updateItem("BungeniActScope", selBungeniActScope);
+            docMetaModel.updateItem("BungeniActHistoricalPeriod", selBungeniActHistoricalPeriod);
+            docMetaModel.updateItem("BungeniActFamily", selBungeniActFamily);
+            docMetaModel.updateItem("BungeniActFamilyPossible", selBungeniActFamilyPossible);
+            docMetaModel.updateItem("BungeniActState", sBungeniActState);
+            docMetaModel.updateItem("BungeniActEffectiveDate", strEffectiveDate);
+            docMetaModel.updateItem("BungeniActCategory", selBungeniActCategory);
+            docMetaModel.updateItem("BungeniPageNo", strPageNo);
+            docMetaModel.updateItem("BungeniPageCount", strPageCount);
            
-        docMetaModel.updateItem("BungeniLanguageCode", selLanguage.getLanguageCodeAlpha3());
-        docMetaModel.updateItem("BungeniActName",sBungeniActName);
-        docMetaModel.updateItem("BungeniActNo",sBungeniActNo);
-        docMetaModel.updateItem("BungeniActYear",sBungeniActYear);
-        docMetaModel.updateItem("BungeniActType",selBungeniActType);
-        docMetaModel.updateItem("BungeniActScope",selBungeniActScope);
-        docMetaModel.updateItem("BungeniActHistoricalPeriod",selBungeniActHistoricalPeriod);
-        docMetaModel.updateItem("BungeniActFamily",selBungeniActFamily);
-        docMetaModel.updateItem("BungeniActState",sBungeniActState);
-        docMetaModel.updateItem("BungeniActEffectiveDate", strEffectiveDate);   
-        docMetaModel.updateItem("BungeniActCategory",selBungeniActCategory);
-        docMetaModel.updateItem("BungeniPageNo", strPageNo);
-        docMetaModel.updateItem("BungeniPageCount", strPageCount);
-            
-        spf.setSaveComponent("LanguageCode", selLanguage.getLanguageCodeAlpha3());
-           
-         
-        docMetaModel.saveModel(ooDocument);
-        bState = true;
-    } catch (Exception ex) {
-        log.error("applySelectedMetadata : " + ex.getMessage());
-        bState = false;
-    } finally {
-        return bState;
+           PublicationType selectedPublicationType = PublicationTypesList.get(this.cboActType.getSelectedIndex());
+
+           String strBungeniActType = selectedPublicationType.getPublicationTypeName_AN();    
+             
+            spf.setSaveComponent("ActType", strBungeniActType);
+            spf.setSaveComponent("ActY", sBungeniActYear);
+            spf.setSaveComponent("ActNo", sBungeniActNo);
+
+            spf.parseComponents();
+
+            docMetaModel.saveModel(ooDocument);
+            bState = true;
+        } catch (Exception ex) {
+            log.error("applySelectedMetadata : " + ex.getMessage());
+            bState = false;
+        } finally {
+            return bState;
+        }
     }
-}    
+
 
      /**
      * This mehod is called from within the constructor to initialize the form.
@@ -788,36 +816,38 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-     @Override
+      @Override
     public Dimension getFrameSize() {
-        int DIM_X = 450 ; int DIM_Y = 600 ;
+        int DIM_X = 450;
+        int DIM_Y = 600;
         return new Dimension(DIM_X, DIM_Y);
     }
 
-    
     @Override
-     public ArrayList<String> validateSelectedMetadata(BungeniFileSavePathFormat spf) {
-         addFieldsToValidate (new TreeMap<String,Component>(){
+    public ArrayList<String> validateSelectedMetadata(BungeniFileSavePathFormat spf) {
+        addFieldsToValidate(new TreeMap<String, Component>() {
+
             {
-                put(lblLanguage.getText().replace("*",""), cboLanguage);
-                put(lblActName.getText().replace("*",""), txtActName);
-                put(lblActNo.getText().replace("*",""), txtActNo);
-                put(lblActYear.getText().replace("*",""), txtActYear);
-                put(lblActScope.getText().replace("*",""), cboActScope);
-                put(lblActType.getText().replace("*",""), cboActType);
-                put(lblActHistoricalPeriod.getText().replace("*",""), cboActHistoricalPeriod);
-                put(lblEffectiveDate.getText().replace("*",""), dt_effective_date);
-                put(lblActFamily.getText().replace("*",""), cboActFamily);
-                put(lblActFamily.getText().replace("*",""), cboActSubFamily);
-                put(lblActPossibleFamily.getText().replace("*",""), cboActPossibleFamily);
-                put(lblActPossibleFamily.getText().replace("*",""), cboActPossibleSubFamily);
-                put(lblActCategory.getText().replace("*",""), cboActCategoryBasic);
-                put(lblActCategory.getText().replace("*",""), cboActCategory);
-                
+                put(lblLanguage.getText().replace("*", ""), cboLanguage);
+                put(lblActName.getText().replace("*", ""), txtActName);
+                put(lblActNo.getText().replace("*", ""), txtActNo);
+                put(lblActYear.getText().replace("*", ""), txtActYear);
+                put(lblActScope.getText().replace("*", ""), cboActScope);
+                put(lblActType.getText().replace("*", ""), cboActType);
+                put(lblActHistoricalPeriod.getText().replace("*", ""), cboActHistoricalPeriod);
+                put(lblEffectiveDate.getText().replace("*", ""), dt_effective_date);
+                put(lblActFamily.getText().replace("*", ""), cboActFamily);
+                put(lblActFamily.getText().replace("*", ""), cboActSubFamily);
+                put(lblActPossibleFamily.getText().replace("*", ""), cboActPossibleFamily);
+                put(lblActPossibleFamily.getText().replace("*", ""), cboActPossibleSubFamily);
+                put(lblActCategory.getText().replace("*", ""), cboActCategoryBasic);
+                put(lblActCategory.getText().replace("*", ""), cboActCategory);
+
             }
-         });
+        });
         return super.validateSelectedMetadata(spf);
-     }
+    }
+
                                                 
     private void cboActTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboActTypeActionPerformed
 
@@ -832,12 +862,12 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
     }//GEN-LAST:event_cboActHistoricalPeriodActionPerformed
 
     private void cboActFamilyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboActFamilyActionPerformed
-        JComboBox cb = (JComboBox) evt.getSource();
+                JComboBox cb = (JComboBox) evt.getSource();
 
         // get the selected item and extract id for Act
         // from vector
 //        final String selectedActFamily = (String) cb.getSelectedItem();
-        final Integer  selectedActFamilyIndex = cb.getSelectedIndex();
+        final Integer selectedActFamilyIndex = cb.getSelectedIndex();
         setActSubFamiliesModel(selectedActFamilyIndex);
     }//GEN-LAST:event_cboActFamilyActionPerformed
 
@@ -869,21 +899,17 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
 
     private void btn30daysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn30daysActionPerformed
         Date effectiveDate = dt_effective_date.getDate();
-        
         Calendar cal = Calendar.getInstance();
         cal.setTime(effectiveDate);
         cal.add(Calendar.DATE, 30);
-        
         dt_effective_date.setDate(cal.getTime());
     }//GEN-LAST:event_btn30daysActionPerformed
 
     private void btn90daysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn90daysActionPerformed
-         Date effectiveDate = dt_effective_date.getDate();
-        
+        Date effectiveDate = dt_effective_date.getDate();
         Calendar cal = Calendar.getInstance();
         cal.setTime(effectiveDate);
         cal.add(Calendar.DATE, 90);
-        
         dt_effective_date.setDate(cal.getTime());
     }//GEN-LAST:event_btn90daysActionPerformed
 
