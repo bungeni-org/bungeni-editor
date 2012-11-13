@@ -8,12 +8,10 @@ HTML is allowed in tooltip texts :
 NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
 
 -->
-<toolbar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:noNamespaceSchemaLocation="../../../src/xsd/toolbar.xsd"
- doctype="act">
-             
-    <root  >
-         <subactionGroup name="ActFav"   uimodel="wrap" title="GENERIC">
+<toolbar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" doctype="act">
+    <root visible="true" style="tabbed">
+
+         <actionGroup name="ActFav"   uimodel="wrap" title="GENERIC">
             
              <blockAction title="PREFACE">
                 <subaction tooltip="CREATE_PREFACE_FROM_SELECTION" target="make_act_preface"
