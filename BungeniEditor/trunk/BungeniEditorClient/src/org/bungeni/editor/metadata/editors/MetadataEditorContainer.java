@@ -429,9 +429,9 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         btnNavigatePrev = new javax.swing.JButton();
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setPreferredSize(new java.awt.Dimension(475, 550));
+        setPreferredSize(new java.awt.Dimension(475, 750));
 
-        btnSave.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnSave.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle"); // NOI18N
         btnSave.setText(bundle.getString("MetadataEditorContainer.btnSave.text")); // NOI18N
         btnSave.addActionListener(new java.awt.event.ActionListener() {
@@ -440,7 +440,7 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
             }
         });
 
-        btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnCancel.setText(bundle.getString("MetadataEditorContainer.btnCancel.text")); // NOI18N
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -458,7 +458,7 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         txtMsgArea.setBorder(null);
         jScrollPane1.setViewportView(txtMsgArea);
 
-        btnNavigateNext.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        btnNavigateNext.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnNavigateNext.setText(bundle.getString("MetadataEditorContainer.btnNavigateNext.text")); // NOI18N
 
         btnNavigatePrev.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
@@ -475,7 +475,7 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(metadataTabContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1))
-                        .addContainerGap(15, Short.MAX_VALUE))
+                        .addContainerGap(13, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                         .addComponent(btnNavigatePrev, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -493,7 +493,7 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(metadataTabContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
+                .addComponent(metadataTabContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
