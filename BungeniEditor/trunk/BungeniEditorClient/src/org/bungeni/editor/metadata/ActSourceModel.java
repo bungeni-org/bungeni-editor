@@ -15,18 +15,22 @@ import org.bungeni.ooo.ooDocMetadata;
 public class ActSourceModel extends BaseEditorDocMetaModel {
     
     
-    private String BungeniSrcName = "";
+    private String BungeniPublicationSrcName = "";
     private String BungeniPublicationArea = "";
-    private String BungeniSrcPublicationDate = "";
     private String BungeniSourceType = "";
     private String BungeniSourceNo = "";
-    
+    private String BungeniPublicationDate = "";
+    private String BungeniPublicationDateHijri = "";
+    private String BungeniPublicationSrcName_AN = "";
+            
     public static final String[] THIS_METAMODEL = {
-        "BungeniSrcName",
-        "BungeniSrcPublicationDate",
+        "BungeniPublicationSrcName",
         "BungeniPublicationArea",
         "BungeniSourceType",
-        "BungeniSourceNo"
+        "BungeniSourceNo",
+        "BungeniPublicationDate",
+        "BungeniPublicationDateHijri",
+        "BungeniPublicationSrcName_AN"
     };
     
     public ActSourceModel(){
@@ -36,11 +40,13 @@ public class ActSourceModel extends BaseEditorDocMetaModel {
     @Override
     public void setup(){
         super.setup();
+        this.docMeta.put("BungeniPublicationDate", BungeniPublicationDate);
+        this.docMeta.put("BungeniPublicationDateHijri", BungeniPublicationDateHijri);
+        this.docMeta.put("BungeniPublicationSrcName", BungeniPublicationSrcName);
         this.docMeta.put("BungeniPublicationArea", BungeniPublicationArea);
-        this.docMeta.put("BungeniSrcName", BungeniSrcName);
-        this.docMeta.put("BungeniSrcPublicationDate", BungeniSrcPublicationDate);
         this.docMeta.put("BungeniSourceType", BungeniSourceType);
         this.docMeta.put("BungeniSourceNo", BungeniSourceNo);
+        this.docMeta.put("BungeniPublicationSrcName_AN", BungeniPublicationSrcName_AN);
     }
 
     public String getBungeniPublicationArea() {
@@ -51,24 +57,31 @@ public class ActSourceModel extends BaseEditorDocMetaModel {
         this.BungeniPublicationArea = BungeniPublicationArea;
     }
     
-    
-    public String getBungeniSrcName() {
-        return BungeniSrcName;
+    public String getBungeniPublicationSrcName() {
+        return BungeniPublicationSrcName;
     }
 
-    public void setBungeniSrcName(String BungeniSrcName) {
-        this.BungeniSrcName = BungeniSrcName;
+    public void setBungeniPublicationSrcName(String BungeniPublicationSrcName) {
+        this.BungeniPublicationSrcName = BungeniPublicationSrcName;
     }
     
-    
-    public String getBungeniSrcPublicationDate() {
-        return BungeniSrcPublicationDate;
+     public String getBungeniPublication_date() {
+        return BungeniPublicationDate;
     }
 
-    public void setBungeniSrcPublicationDate(String BungeniSrcPublicationDate) {
-        this.BungeniSrcPublicationDate = BungeniSrcPublicationDate;
+    public void setBungeniPublication_date(String BungeniPublication_date) {
+        this.BungeniPublicationDate = BungeniPublication_date;
     }
     
+    
+    public String getBungeniPublication_dateHijri() {
+        return BungeniPublicationDateHijri;
+    }
+
+    public void setBungeniPublication_dateHijri(String BungeniPublication_dateHijri) {
+        this.BungeniPublicationDateHijri = BungeniPublication_dateHijri;
+    }
+ 
     public String getBungeniSourceType() {
         return BungeniSourceType;
     }
@@ -84,6 +97,13 @@ public class ActSourceModel extends BaseEditorDocMetaModel {
     public void setBungeniSourceNo(String BungeniSourceNo) {
         this.BungeniSourceNo = BungeniSourceNo;
     }
+            
     
+    public String getBungeniPublicationSrcName_AN() {
+        return BungeniPublicationSrcName_AN;
+    }
 
+    public void setBungeniPublicationSrcName_AN(String BungeniPublicationSrcName_AN) {
+        this.BungeniPublicationSrcName_AN = BungeniPublicationSrcName_AN;
+    }
 }

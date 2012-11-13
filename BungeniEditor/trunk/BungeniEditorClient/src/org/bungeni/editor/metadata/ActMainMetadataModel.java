@@ -27,44 +27,36 @@ public class ActMainMetadataModel extends BaseEditorDocMetaModel{
     public static final String[] GROUPED_METADATA = { };
     
     private String BungeniLanguageCode = "";
+    private String BungeniActName = "";
+    private String BungeniActNo = "";
+    private String BungeniActYear = "";
     private String BungeniActEffectiveDate = "";
     private String BungeniActType = "";
     private String BungeniActScope = "";
-    private String BungeniActRelease = "";
-    private String BungeniActReleaseDate = "";
-    private String BungeniActDeveloped = "";
-    private String BungeniActDevelopedDate = "";
-    private String BungeniActApproved = "";
-    private String BungeniActAprovedDate = "";
-    private String BungeniActImplementation = "";
-    private String BungeniSecondaryActPromulgating = "";
-    private String BungeniActImplementationDate = "";
-    private String BungeniSecondaryActPromulgatingDate = "";
+    private String BungeniActCategory = "";
     private String BungeniActState="";
     private String BungeniActFamily="";
+    private String BungeniActFamilyPossible="";
     private String BungeniActHistoricalPeriod="";
+    private String BungeniPageNo = "";
+    private String BungeniPageCount = "";
+    
     
     
     public static final String[] THIS_METAMODEL = {
         "BungeniLanguageCode",
+        "BungeniActName",
+        "BungeniActNo",
+        "BungeniActYear",
         "BungeniActType",
         "BungeniActScope",
         "BungeniActState",
         "BungeniActFamily",
+        "BungeniActFamilyPossible",
         "BungeniActEffectiveDate",
-        "BungeniActRelease",
-        "BungeniActReleaseDate",
-        "BungeniActDeveloped",
-        "BungeniActDevelopedDate",
-        "BungeniActApproved",
-        "BungeniActAprovedDate",
-        "BungeniActPromulgated",
-        "BungeniActPromulgatedDate",
-        "BungeniActImplementation",
-        "BungeniActImplementationDate",
-        "BungeniSecondaryActPromulgating",
-        "BungeniActHistoricalPeriod",
-        "BungeniSecondaryActPromulgatingDate"
+        "BungeniActCategory",
+        "BungeniPageNo",
+        "BungeniPageCount"
     };
   
     public ActMainMetadataModel(){
@@ -75,32 +67,30 @@ public class ActMainMetadataModel extends BaseEditorDocMetaModel{
     public void setup(){
        super.setup();
         this.docMeta.put("BungeniLanguageCode", BungeniLanguageCode);
+        this.docMeta.put("BungeniActName", BungeniActName);
+        this.docMeta.put("BungeniActNo", BungeniActNo);
+        this.docMeta.put("BungeniActYear", BungeniActYear);
         this.docMeta.put("BungeniActType", BungeniActType);
         this.docMeta.put("BungeniActScope", BungeniActScope);
         this.docMeta.put("BungeniActEffectiveDate", BungeniActEffectiveDate);
-        this.docMeta.put("BungeniActSourceSide", BungeniActRelease);
-        this.docMeta.put("BungeniActReleaseDate", BungeniActReleaseDate);
-        this.docMeta.put("BungeniActDeveloped", BungeniActDeveloped);
-        this.docMeta.put("BungeniActDevelopedDate", BungeniActDevelopedDate);
-        this.docMeta.put("BungeniActApproved", BungeniActApproved);
-        this.docMeta.put("BungeniActAprovedDate", BungeniActAprovedDate);
-        this.docMeta.put("BungeniActImplementation", BungeniActImplementation);
-        this.docMeta.put("BungeniActImplementationDate", BungeniActImplementationDate);
-        this.docMeta.put("BungeniSecondaryActPromulgating", BungeniSecondaryActPromulgating);
-        this.docMeta.put("BungeniSecondaryActPromulgatingDate", BungeniSecondaryActPromulgatingDate);
+        this.docMeta.put("BungeniActCategory", BungeniActCategory);
         this.docMeta.put("BungeniActState", BungeniActState);
         this.docMeta.put("BungeniActFamily", BungeniActFamily);
+        this.docMeta.put("BungeniActFamilyPossible", BungeniActFamilyPossible);
         this.docMeta.put("BungeniActHistoricalPeriod", BungeniActHistoricalPeriod);
+        this.docMeta.put("BungeniPageNo", BungeniPageNo);
+        this.docMeta.put("BungeniPageCount", BungeniPageCount);  
+        this.docMeta.put("ActType", "");
     }
 
-    @Override
-    public void saveModel(OOComponentHelper ooDocument) {
-        ooDocMetadata docM = new ooDocMetadata(ooDocument);
-
-        for (String sMeta : THIS_METAMODEL) {
-            docM.AddProperty(sMeta, docMeta.get(sMeta));
-        }
-    }
+//    @Override
+//    public void saveModel(OOComponentHelper ooDocument) {
+//        ooDocMetadata docM = new ooDocMetadata(ooDocument);
+//
+//        for (String sMeta : THIS_METAMODEL) {
+//            docM.AddProperty(sMeta, docMeta.get(sMeta));
+//        }
+//    }
     
      public String getBungeniLanguageCode() {
         return BungeniLanguageCode;
@@ -110,6 +100,27 @@ public class ActMainMetadataModel extends BaseEditorDocMetaModel{
         this.BungeniLanguageCode = BungeniLanguageCode;
     }
 
+    public String getBungeniActName(){
+        return BungeniActName;
+    }
+    public void setBungeniActName(String BungeniActName){
+        this.BungeniActName = BungeniActName;
+    }
+    
+    public String getBungeniActNo(){
+        return BungeniActNo;
+    }
+    public void setBungeniActNo(String BungeniActNo){
+        this.BungeniActNo = BungeniActNo;
+    }
+    
+     public String getBungeniActYear(){
+        return BungeniActYear;
+    }
+    public void setBungeniActYear(String BungeniActYear){
+        this.BungeniActYear = BungeniActYear;
+    }
+    
     public String getBungeniActType() {
         return BungeniActType;
     }
@@ -122,6 +133,14 @@ public class ActMainMetadataModel extends BaseEditorDocMetaModel{
     }
     public void setBungeniActFamily(String BungeniActFamily) {
         this.BungeniActFamily = BungeniActFamily;
+    }
+    
+    
+    public String getBungeniActFamilyPossible() {
+        return BungeniActFamilyPossible;
+    }
+    public void setBungeniActFamilyPossible(String BungeniActFamilyPossible) {
+        this.BungeniActFamilyPossible = BungeniActFamilyPossible;
     }
     
     public String getBungeniActHistoricalPeriod() {
@@ -153,86 +172,26 @@ public class ActMainMetadataModel extends BaseEditorDocMetaModel{
         this.BungeniActEffectiveDate = BungeniActEffectiveDate;
     }
     
-    public String getBungeniActRelease() {
-        return BungeniActRelease;
+    public String getBungeniActCategory() {
+        return BungeniActCategory;
     }
-    public void setBungeniActRelease(String BungeniActRelease) {
-        this.BungeniActRelease = BungeniActRelease;
-    }
-
-     public String getBungeniActReleaseDate() {
-        return BungeniActReleaseDate;
-    }
-    public void setBungeniActReleaseDate(String BungeniActReleaseDate) {
-        this.BungeniActReleaseDate = BungeniActReleaseDate;
-    }
-    
-    public String getBungeniActDeveloped() {
-        return BungeniActDeveloped;
-    }
-    public void setBungeniActDeveloped(String BungeniActDeveloped) {
-        this.BungeniActDeveloped = BungeniActDeveloped;
-    }
-    
-    public String getBungeniActDevelopedDate() {
-        return BungeniActDevelopedDate;
-    }
-    public void setBungeniActDevelopedDate(String BungeniActDevelopedDate) {
-        this.BungeniActDevelopedDate = BungeniActDevelopedDate;
-    }
-    
-    public String getBungeniActApproved() {
-        return BungeniActApproved;
-    }
-    public void setBungeniActApproved(String BungeniActApproved) {
-        this.BungeniActApproved = BungeniActApproved;
-    }
-    
-    public String getBungeniActAprovedDate() {
-        return BungeniActAprovedDate;
-    }
-    public void setBungeniActAprovedDate(String BungeniActAprovedDate) {
-        this.BungeniActAprovedDate = BungeniActAprovedDate;
-    }
-    
-    public String getBungeniActImplementation() {
-        return BungeniActImplementation;
-    }
-    public void setBungeniActImplementation(String BungeniActImplementation) {
-        this.BungeniActImplementation = BungeniActImplementation;
-    }
-    
-    public String getBungeniActImplementationDate() {
-        return BungeniActImplementationDate;
-    }
-    public void setBungeniActImplementationDate(String BungeniActImplementationDate) {
-        this.BungeniActImplementationDate = BungeniActImplementationDate;
-    }
-    
-    public String getBungeniSecondaryActPromulgating() {
-        return BungeniSecondaryActPromulgating;
-    }
-    public void setBungeniSecondaryActPromulgating(String BungeniSecondaryActPromulgating) {
-        this.BungeniSecondaryActPromulgating = BungeniSecondaryActPromulgating;
-    }
-    
-    public String getBungeniSecondaryActPromulgatingDate() {
-        return BungeniSecondaryActPromulgatingDate;
-    }
-    public void setBungeniSecondaryActPromulgatingDate(String BungeniSecondaryActPromulgatingDate) {
-        this.BungeniSecondaryActPromulgatingDate = BungeniSecondaryActPromulgatingDate;
+    public void setBungeniActCategory(String BungeniActCategory) {
+        this.BungeniActCategory = BungeniActCategory;
     }
 
-    public void setBungeniActName(String value) {
-        throw new UnsupportedOperationException("Not yet implemented");
+     public void setBungeniPageNo(String BungeniPageNo) {
+        this.BungeniPageNo = BungeniPageNo;
     }
-
-    public void setBungeniActNo(String value) {
-        throw new UnsupportedOperationException("Not yet implemented");
+   
+      public String getBungeniPageNo() {
+        return BungeniPageNo;
     }
-
-    public void setBungeniActYear(String value) {
-        throw new UnsupportedOperationException("Not yet implemented");
+      
+    public void setBungeniPageCount(String BungeniPageCount) {
+        this.BungeniPageCount = BungeniPageCount;
     }
-    
+   
+      public String getBungeniPageCount() {
+        return BungeniPageCount;
+    }
 }
