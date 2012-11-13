@@ -52,7 +52,6 @@ package org.bungeni.editor.metadata;
         return languageName;
     }
 
-
     public String getLanguageCodeAlpha2(){
         return this.languageCodeAlpha2;
     }
@@ -60,7 +59,5 @@ package org.bungeni.editor.metadata;
    public String getLanguageCodeAlpha3(){
         return this.languageCodeAlpha3;
     }
-
-
 
  }
