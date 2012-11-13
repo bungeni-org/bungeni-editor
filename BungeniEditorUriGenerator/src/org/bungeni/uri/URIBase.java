@@ -27,6 +27,10 @@ public abstract class URIBase {
             put("Identifier", "");
             put("PartName", "");
             put("FileName", "");
+            put("ActType", "");
+            put("ActY", "");
+            put("ActNo", "");
+            put("BungeniActReleaseDate", "");
         }
     };
     /*
