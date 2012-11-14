@@ -19,6 +19,10 @@
 package org.bungeni.editor.connectorutils;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Properties;
 import org.bungeni.connector.ConnectorProperties;
 import org.bungeni.connector.client.BungeniConnector;
@@ -47,6 +51,35 @@ public class CommonConnectorFunctions {
         BungeniConnector client = new BungeniConnector();
         client.init(new ConnectorProperties(CommonDataSourceFunctions.getDataSourceProperties()));
         return client;
+    }
+
+    public static ResultSet ConnectMMSM(String sqlStm) {
+        String connectionUrl = "jdbc:sqlserver://l-share;databaseName=Muqtafi2007;selectMethod=cursor";
+           
+        // Declare the JDBC objects.
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+            try {
+                // Establish the connection.
+                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                   
+                    con = DriverManager.getConnection(connectionUrl, "sayesh", "QWE!@#qwe");
+
+                    // Create and execute an SQL statement that returns some data.
+                    stmt = con.createStatement();
+                    rs = stmt.executeQuery(sqlStm);   
+            }
+
+        // Handle any errors that may have occurred.
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        finally {
+                return rs;
+        }
     }
 
 
