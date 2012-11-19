@@ -3,7 +3,7 @@
 <panels for="act">
     <panel name="actions" class="org.bungeni.editor.panels.loadable.documentActionPanel" state="1">
         <title xml:lang="eng">markup</title>
-        <title xml:lang="ara">العلامات للتشريع</title>
+        <title xml:lang="ara"> العلامات للتشريع </title>
     </panel>
     <panel name="allmeta" class="org.bungeni.editor.panels.loadable.MetadataPanel" state="1">
         <title xml:lang="eng">metadata</title>

@@ -108,6 +108,15 @@
              
              <xsl:call-template name="meta-outputter">
                  <xsl:with-param name="meta-name">
+                     <xsl:text>as</xsl:text>
+                 </xsl:with-param>
+                 <xsl:with-param name="meta-value">
+                     <xsl:text>BungeniWorkAuthorAs</xsl:text>
+                 </xsl:with-param>
+             </xsl:call-template>
+             
+             <xsl:call-template name="meta-outputter">
+                 <xsl:with-param name="meta-name">
                      <xsl:text>date</xsl:text>
                  </xsl:with-param>
                  <xsl:with-param name="meta-value">
@@ -146,6 +155,15 @@
                  </xsl:with-param>
              </xsl:call-template>
              
+              <xsl:call-template name="meta-outputter">
+                 <xsl:with-param name="meta-name">
+                     <xsl:text>as</xsl:text>
+                 </xsl:with-param>
+                 <xsl:with-param name="meta-value">
+                     <xsl:text>BungeniExpAuthorAs</xsl:text>
+                 </xsl:with-param>
+             </xsl:call-template>
+             
              <xsl:call-template name="meta-outputter">
                  <xsl:with-param name="meta-name">
                      <xsl:text>date</xsl:text>
@@ -154,6 +172,7 @@
                      <xsl:text>BungeniExpDate</xsl:text>
                  </xsl:with-param>
              </xsl:call-template>
+ 
  
              <xsl:call-template name="meta-outputter">
                  <xsl:with-param name="meta-name">
@@ -184,6 +203,15 @@
                  </xsl:with-param>
                  <xsl:with-param name="meta-value">
                      <xsl:text>BungeniManAuthor</xsl:text>
+                 </xsl:with-param>
+             </xsl:call-template>
+             
+             <xsl:call-template name="meta-outputter">
+                 <xsl:with-param name="meta-name">
+                     <xsl:text>as</xsl:text>
+                 </xsl:with-param>
+                 <xsl:with-param name="meta-value">
+                     <xsl:text>BungeniManAuthorAs</xsl:text>
                  </xsl:with-param>
              </xsl:call-template>
              
@@ -230,8 +258,38 @@
                 </xsl:with-param>
             </xsl:call-template>
             <!-- !+FIX_THIS(ah, 10-10-2012) This needs to be set in the ODF -->
-            <meta name="number" value="33" />
+<!--            <meta name="number" value="33" />-->
         </mcontainer>
+        
+          <mcontainer name="TLCOrganization">
+             <!--TLCOrganization id & href & showAs--> 
+            <xsl:call-template name="meta-outputter">
+                <xsl:with-param name="meta-name">
+                    <xsl:text>id</xsl:text>
+                </xsl:with-param>
+                <xsl:with-param name="meta-value">
+                    <xsl:text>BungeniWorkAuthor</xsl:text>
+                </xsl:with-param>
+            </xsl:call-template>
+            <xsl:call-template name="meta-outputter">
+                <xsl:with-param name="meta-name">
+                    <xsl:text>href</xsl:text>
+                </xsl:with-param>
+                <xsl:with-param name="meta-value">
+                    <xsl:text>BungeniWorkAuthorHref</xsl:text>
+                </xsl:with-param>
+            </xsl:call-template>
+             <xsl:call-template name="meta-outputter">
+                <xsl:with-param name="meta-name">
+                    <xsl:text>showAs</xsl:text>
+                </xsl:with-param>
+                <xsl:with-param name="meta-value">
+                    <xsl:text>BungeniWorkAuthorShowAs</xsl:text>
+                </xsl:with-param>
+            </xsl:call-template>
+         
+        </mcontainer>
+        
         </mcontainer> 
        </xmeta:template>
          

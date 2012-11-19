@@ -4,7 +4,7 @@ This is the freemarker template for the pipeline generator
 It is used to generate the config_doctype.xml used to translate the
 ODT -> Akoma Ntoso
 -->
-<config name="act" for="act">
+<config name="bill" for="bill">
     <!-- 
         General Properties for the translator 
         -->
@@ -31,7 +31,7 @@ ODT -> Akoma Ntoso
         <!-- Transform the document to the META Language -->
         <!-- custom steps follow -->
         
-        <xslt step="99" name="odf_meta_lang_master" href="file:/C:/Users/bzuadmin/Desktop/BEC/BungeniEditorClient/dist/../../BungeniEditor_configs/birzeit_configs/system/cache/odf_meta_config_act.xsl"/>
+        <xslt step="99" name="odf_meta_lang_master" href="file:/C:/Users/bzuadmin/Desktop/BEC/BungeniEditorClient/dist/../../BungeniEditor_configs/birzeit_configs/system/cache/odf_meta_config_bill.xsl"/>
         
     </input>
     
@@ -65,7 +65,7 @@ ODT -> Akoma Ntoso
         <!-- custom steps follow -->
         
         
-        <xslt step="98" name="full_convert" href="file:/C:/Users/bzuadmin/Desktop/BEC/BungeniEditorClient/dist/../../BungeniEditor_configs/birzeit_configs/system/templates/type_transform_act.xsl"/>
+        <xslt step="98" name="full_convert" href="file:/C:/Users/bzuadmin/Desktop/BEC/BungeniEditorClient/dist/../../BungeniEditor_configs/birzeit_configs/system/templates/type_transform_bill.xsl"/>
         
     </output>
 

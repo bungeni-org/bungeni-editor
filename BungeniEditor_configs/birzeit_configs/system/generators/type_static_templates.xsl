@@ -46,9 +46,8 @@
         -->
         <FRBRWork>
             <xsl:apply-templates select="./*[@name='uri']" mode="meta_gen" />
-            <xsl:apply-templates select="./*[@name='author']" mode="meta_gen" />
+            <xsl:call-template name="frbrauthor_generator" />
             <xsl:call-template name="frbrdate_generator" />
-            <xsl:call-template name="frbrcountry_generator" />
         </FRBRWork>
     </xsl:template>
     
@@ -56,10 +55,8 @@
     <xsl:template match="*[@name='frbrexpression']">
         <FRBRExpression>
             <xsl:apply-templates select="./*[@name='uri']" mode="meta_gen" />
-            <xsl:apply-templates select="./*[@name='author']" mode="meta_gen" />
+            <xsl:call-template name="frbrauthor_generator" />
             <xsl:call-template name="frbrdate_generator" />
-            <xsl:call-template name="frbrcountry_generator" />
-            <xsl:call-template name="frbrlanguage_generator" />
         </FRBRExpression>
     </xsl:template>
     
@@ -68,10 +65,8 @@
     <xsl:template match="*[@name='frbrmanifestation']">
         <FRBRManifestation>
             <xsl:apply-templates select="./*[@name='uri']" mode="meta_gen" />
-            <xsl:apply-templates select="./*[@name='author']" mode="meta_gen" />
+            <xsl:call-template name="frbrauthor_generator" />
             <xsl:call-template name="frbrdate_generator" />
-            <xsl:call-template name="frbrcountry_generator" />
-            <xsl:call-template name="frbrlanguage_generator" />
         </FRBRManifestation>
     </xsl:template>
     
@@ -81,22 +76,13 @@
         <FRBRuri value="{@value}" />
     </xsl:template>
     
-    <xsl:template match="*[@name='author']" mode="meta_gen">
-        <FRBRauthor href="#parliament" as="#author" />
+     <xsl:template name="frbrauthor_generator">
+        <FRBRauthor href="#pna" as="{./*[@name='as']/@value}" /> 
     </xsl:template>
     
     <xsl:template name="frbrdate_generator">
         <FRBRdate date="{./*[@name='date']/@value}" name="{./*[@name='date_name']/@value}" /> 
     </xsl:template>
-    
-    <xsl:template name="frbrcountry_generator">
-        <FRBRcountry value="{//*[@name='BungeniCountryCode']/@value}" />
-    </xsl:template>
-    
-    <xsl:template name="frbrlanguage_generator">
-        <FRBRlanguage value="{//*[@name='BungeniLanguageCode']/@value}" />
-    </xsl:template>
-    
     
     <xsl:template match="*[@name='frbrthis']">
         <FRBRthis>
@@ -154,7 +140,7 @@
             <meta name="number" value="33"/>
          </mcontainer>
     -->
-    <xsl:template  match="*[@name='publication']">
+<!--    <xsl:template  match="*[@name='publication']">
         <publication>
             <xsl:if test="./*[@name='date']">
                 <xsl:attribute name="date"><xsl:value-of select="./*[@name='date']/@value"/></xsl:attribute>
@@ -163,7 +149,7 @@
             <xsl:attribute name="number"><xsl:value-of select="./*[@name='number']/@value"/></xsl:attribute>
             <xsl:apply-templates/>
         </publication>
-    </xsl:template>
+    </xsl:template>-->
     
     <xsl:template  match="*[@name='references']">
         <references>
@@ -176,16 +162,29 @@
         </references>
     </xsl:template>
     
+<!--    <mcontainer name="TLCOrganization">
+            <meta name="id" value="pna"/>
+            <meta name="href" value="/ontology/organization/ps/palestinianNationalAuthority"/>
+            <meta name="showAs" value="Palestinian National Authority"/>
+    </mcontainer>-->
+    
+<!--     <mcontainer name="TLCOrganization">
+            <meta name="id" value="IoL"/>
+            <meta name="href" value="/ontology/organization/ps/IoL"/>
+            <meta name="showAs" value="Institute of Law"/>
+    </mcontainer>-->
+    
+         
     <xsl:template match="*[@name='TLCOrganization']">
         <TLCOrganization>
-            <xsl:if test="@id">
-                <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+            <xsl:if test="./*[@name='id']/@value">
+                <xsl:attribute name="id"><xsl:value-of select="./*[@name='id']/@value"/></xsl:attribute>
+           </xsl:if>
+            <xsl:if test="./*[@name='href']/@value">
+                <xsl:attribute name="href"><xsl:value-of select="./*[@name='href']/@value"/></xsl:attribute>
             </xsl:if>
-            <xsl:if test="@href">
-                <xsl:attribute name="href"><xsl:value-of select="@href"/></xsl:attribute>
-            </xsl:if>
-            <xsl:if test="@showAs">
-                <xsl:attribute name="showAs"><xsl:value-of select="@showAs"/></xsl:attribute>
+            <xsl:if test="./*[@name='showAs']/@value">
+                <xsl:attribute name="showAs"><xsl:value-of select="./*[@name='showAs']/@value"/></xsl:attribute>
             </xsl:if>
             
             <xsl:apply-templates/>

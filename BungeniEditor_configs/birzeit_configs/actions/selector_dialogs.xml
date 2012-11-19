@@ -8,9 +8,9 @@
 -->
 
 <dialogs>
-    <dialog id="billsMain" >
+    <dialog id="actsMain" >
         <dialog
-            class="org.bungeni.editor.selectors.debaterecord.bills.Bills"
+            class="org.bungeni.editor.selectors.debaterecord.acts.Acts"
              />
     </dialog>
 

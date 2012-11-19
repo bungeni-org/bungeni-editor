@@ -29,14 +29,17 @@
                 numstyle="single">
         <output>
             <content>
-                <meta />
+                <meta/>
+               
             </content>
         </output>
     </sectionType>
 	 
+   
     <sectionType name="Preface" 
                  prefix="preface" 
                  numstyle="single" 
+                 background="0xa1a1a1"
     >
         <output>
             <content>
@@ -44,10 +47,12 @@
             </content>
         </output>
     </sectionType>
-    
+
+  
     <sectionType name="Preamble" 
                  prefix="preamble" 
                  numstyle="single" 
+                 background="0xa1a1a1"
     >
         <output>
             <content>
@@ -56,10 +61,8 @@
         </output>
     </sectionType>
 
-   
-    
     <sectionType name="ActBody"
-                     prefix="actbody"
+                     prefix="body"
                      numstyle="single"
                      background="0xf0f0f0"
                      indent-left="0"
@@ -86,8 +89,7 @@
             </content>
         </output>
     </sectionType>	
-	
-        
+	      
     <sectionType name="Books" prefix="books" numstyle="serial" background="0xf0f0f0"
                       indent-left=".3" indent-right="0" visibility="user">
         <numbering scheme="NUMERIC" decorator="flowerBracket"/>
@@ -98,7 +100,7 @@
         </output>
     </sectionType>
     
-    <sectionType name="Book" prefix="book" numstyle="serial" background="0xf0f0f0"
+    <sectionType name="Book" prefix="B" numstyle="serial" background="0xf0f0f0"
                   indent-left=".3" indent-right="0" visibility="user">
         <numbering scheme="NUMERIC" decorator="flowerBracket"/>
         <output>
@@ -118,6 +120,16 @@
         </output>
     </sectionType>
     
+    <sectionType name="Part" prefix="P" numstyle="serial" background="0xf0f0f0"
+                  indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket"/>
+        <output>
+            <content>
+                <part />
+            </content>
+        </output>
+    </sectionType>
+    
     <sectionType name="Chapters" prefix="chapters" numstyle="serial" background="0xf0f0f0"
                   indent-left=".3" indent-right="0" visibility="user">
         <numbering scheme="NUMERIC" decorator="flowerBracket"/>
@@ -128,7 +140,7 @@
         </output>
     </sectionType>
     
-    <sectionType name="Chapter" prefix="chapter" numstyle="serial" background="0xe8ee88"
+    <sectionType name="Chapter" prefix="C" numstyle="serial" background="0xe8ee88"
                  indent-left=".4" indent-right="0" visibility="user">
         <numbering scheme="ROMAN-Upper" decorator="none"/>
         <output>
@@ -148,7 +160,7 @@
         </output>
     </sectionType>
     
-    <sectionType name="Section" prefix="section" numstyle="serial" background="0xf0f0f0"
+    <sectionType name="Section" prefix="S" numstyle="serial" background="0xf0f0f0"
                   indent-left=".3" indent-right="0" visibility="user">
         <numbering scheme="NUMERIC" decorator="flowerBracket"/>
         <output>
@@ -168,7 +180,7 @@
         </output>
     </sectionType>
     
-    <sectionType name="Article" prefix="article" numstyle="serial" background="0xf0f0f0"
+    <sectionType name="Article" prefix="A" numstyle="serial" background="0xf0f0f0"
                   indent-left=".3" indent-right="0" visibility="user">
         <numbering scheme="NUMERIC" decorator="flowerBracket"/>
         <output>
@@ -222,9 +234,10 @@
             </content>
         </output>
     </sectionType>
+  
     
-    
-    
+    <!--
+     
     <sectionType name="Ref" prefix="ref" numstyle="single" background="0xffffff"
                  indent-left=".1" indent-right="0" visibility="user">
         <output>
@@ -236,8 +249,6 @@
     
     
     
-    
-    <!-- ****************************************************************************************************************************** -->
     
     <sectionType name="Clause" prefix="clause" numstyle="serial" background="0xffdfdf"
                  indent-left=".5" indent-right="0" visibility="user">
@@ -260,8 +271,5 @@
         </output>
     </sectionType>
     
-    
-	
-
-    
+    -->  
 </sectionTypes>

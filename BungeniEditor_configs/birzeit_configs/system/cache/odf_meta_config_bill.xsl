@@ -9,7 +9,7 @@
    <!--
           Root template generator
       --><xsl:template match="office:document-content">
-      <root name="root" id="w5aa">
+      <root name="root" id="w9aa">
          <xsl:apply-templates />
       </root>
    </xsl:template>
@@ -21,76 +21,27 @@
       <mcontainer name="meta">
          <mcontainer name="identification">
             <mcontainer name="all">
-
-  
-               <meta name="BungeniPublicationSrcName" value="{//meta:user-defined[@name='BungeniPublicationSrcName']}" />
-   
-               <meta name="BungeniPublicationDate" value="{//meta:user-defined[@name='BungeniPublicationDate']}" />
-    
-               <meta name="BungeniPublicationDateHijri" value="{//meta:user-defined[@name='BungeniPublicationDateHijri']}" />
-    
-               <meta name="BungeniPublicationArea" value="{//meta:user-defined[@name='BungeniPublicationArea']}" />
-    
-               <meta name="BungeniSourceType" value="{//meta:user-defined[@name='BungeniSourceType']}" />
-    
-               <meta name="BungeniSourceNo" value="{//meta:user-defined[@name='BungeniSourceNo']}" />
-    
-               <meta name="BungeniPublicationSrcName_AN" value="{//meta:user-defined[@name='BungeniPublicationSrcName_AN']}" />
-    
-    
-    
-      
+               <meta name="BungeniDocType" value="{//meta:user-defined[@name='BungeniDocType']}" />
                <meta name="BungeniLanguageCode" value="{//meta:user-defined[@name='BungeniLanguageCode']}" />
-    
-               <meta name="BungeniActName" value="{//meta:user-defined[@name='BungeniActName']}" />
-    
-               <meta name="BungeniActNo" value="{//meta:user-defined[@name='BungeniActNo']}" />
-    
-               <meta name="BungeniActYear" value="{//meta:user-defined[@name='BungeniActYear']}" />
-    
-               <meta name="BungeniActType" value="{//meta:user-defined[@name='BungeniActType']}" />
-    
-               <meta name="BungeniActState" value="{//meta:user-defined[@name='BungeniActState']}" />
-    
-               <meta name="BungeniActScope" value="{//meta:user-defined[@name='BungeniActScope']}" />
-    
-               <meta name="BungeniActHistoricalPeriod" value="{//meta:user-defined[@name='BungeniActHistoricalPeriod']}" />
-    
-    
-               <meta name="BungeniPageNo" value="{//meta:user-defined[@name='BungeniPageNo']}" /> 
-     
-               <meta name="BungeniActEffectiveDate" value="{//meta:user-defined[@name='BungeniActEffectiveDate']}" />
-   
-   
-               <meta name="BungeniPageCount" value="{//meta:user-defined[@name='BungeniPageCount']}" />
-       
-               <meta name="BungeniActFamily" value="{//meta:user-defined[@name='BungeniActFamily']}" />
-    
-               <meta name="BungeniActFamilyPossible" value="{//meta:user-defined[@name='BungeniActFamilyPossible']}" />
-    
-    
-               <meta name="BungeniActCategory" value="{//meta:user-defined[@name='BungeniActCategory']}" />
-    
-   
-    
-               <meta name="BungeniActRelease" value="{//meta:user-defined[@name='BungeniActRelease']}" />
-    
-               <meta name="BungeniActReleaseDate" value="{//meta:user-defined[@name='BungeniActReleaseDate']}" />
-    
-               <meta name="BungeniActReleaseDateHijri" value="{//meta:user-defined[@name='BungeniActReleaseDateHijri']}" />
-    
-               <meta name="BungeniActDeveloped" value="{//meta:user-defined[@name='BungeniActDeveloped']}" />
-    
-               <meta name="BungeniActDevelopedDate" value="{//meta:user-defined[@name='BungeniActDevelopedDate']}" />
-    
-               <meta name="BungeniActApproved" value="{//meta:user-defined[@name='BungeniActApproved']}" />
-    
-               <meta name="BungeniActApprovedDate" value="{//meta:user-defined[@name='BungeniActApprovedDate']}" />
-    
-               <meta name="BungeniWorkAuthor" value="{//meta:user-defined[@name='BungeniWorkAuthor']}" />
-    
+               <meta name="BungeniCountryCode" value="{//meta:user-defined[@name='BungeniCountryCode']}" />
+               <meta name="BungeniBillNo" value="{//meta:user-defined[@name='BungeniBillNo']}" />
+               <meta name="BungeniParliamentID" value="{//meta:user-defined[@name='BungeniParliamentID']}" />
+               <meta name="BungeniDateOfAssent" value="{//meta:user-defined[@name='BungeniDateOfAssent']}" />
+               <meta name="BungeniDocAuthor" value="{//meta:user-defined[@name='BungeniDocAuthor']}" />
+               <meta name="BungeniBillOfficialDate" value="{//meta:user-defined[@name='BungeniBillOfficialDate']}" />
+               <meta name="BungeniDateOfCommencement" value="{//meta:user-defined[@name='BungeniDateOfCommencement']}" />
+               <meta name="BungeniBillOfficialTime" value="{//meta:user-defined[@name='BungeniBillOfficialTime']}" />
                <meta name="BungeniWorkURI" value="{//meta:user-defined[@name='BungeniWorkURI']}" />
-   
+               <meta name="BungeniExpURI" value="{//meta:user-defined[@name='BungeniExpURI']}" />
+               <meta name="BungeniParliamentSession" value="{//meta:user-defined[@name='BungeniParliamentSession']}" />
+               <meta name="BungeniParliamentSitting" value="{//meta:user-defined[@name='BungeniParliamentSitting']}" />
+               <meta name="BungeniManURI" value="{//meta:user-defined[@name='BungeniManURI']}" />
+               <meta name="BungeniWorkDate" value="{//meta:user-defined[@name='BungeniWorkDate']}" />
+               <meta name="BungeniDocPart" value="{//meta:user-defined[@name='BungeniDocPart']}" />
+               <meta name="BungeniPublicationDate" value="{//meta:user-defined[@name='BungeniPublicationDate']}" />
+               <meta name="BungeniExpDate" value="{//meta:user-defined[@name='BungeniExpDate']}" />
+               <meta name="BungeniManDate" value="{//meta:user-defined[@name='BungeniManDate']}" />
+               <meta name="BungeniPublicationName" value="{//meta:user-defined[@name='BungeniPublicationName']}" />
             </mcontainer>
             <mcontainer name="frbrwork">
                <meta name="uri" value="{//meta:user-defined[@name='BungeniWorkURI']}" />

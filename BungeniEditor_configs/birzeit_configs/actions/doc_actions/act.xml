@@ -1,15 +1,15 @@
 <?xml version="1.0" ?>
 <actions for="act">
     
-    <action name="make_act_preface" source="sectionType" metadata="Perface" >
+    <action name="make_act_preface" source="sectionType" metadata="Preface" >
         <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
     </action>
-
+    
 
     <action name="make_preface_longTitle" source="sectionType" metadata="LongTitle" >
-        <router class="org.bungeni.editor.actions.routers.RouterCreateInlineLongTitle" />
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
     </action>
-            
+            <!--
     <action name="make_preface_docTitle"  source="docTitle" metadata="DocTitle" >
         <router class="org.bungeni.editor.actions.routers.RouterCreateInlineDocTitle" />
     </action>
@@ -28,7 +28,7 @@
 
     <action name="make_preface_toc" source="sectionType" metadata="toc" >
         <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
-    </action>
+    </action>-->
 
     <action name="make_act_preamble" source="sectionType"  metadata="Preamble" >
         <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
@@ -63,7 +63,7 @@
         <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
     </action>
     
-    <action name="make_act_chapter"source="sectionType" metadata="Chapter"  >
+    <action name="make_act_chapter" source="sectionType" metadata="Chapter"  >
         <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
     </action>
     
@@ -103,8 +103,8 @@
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"  />
     </action>
 
-    <action name="make_conclusion_issueDate" source="sectionType" metadata="issueDate" >
+<!--    <action name="make_conclusion_issueDate" source="sectionType" metadata="issueDate" >
         <router class="org.bungeni.editor.actions.routers.RouterCreateInlineIssueDate"/>
-    </action>
-    
+    </action>-->
+
 </actions>

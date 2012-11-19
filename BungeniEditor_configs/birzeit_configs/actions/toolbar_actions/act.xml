@@ -11,19 +11,19 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
 <toolbar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" doctype="act">
     <root visible="true" style="tabbed">
 
-         <actionGroup name="ActFav"   uimodel="wrap" title="GENERIC">
+         <actionGroup name="ActFav" uimodel="wrap" title="GENERIC">
             
              <blockAction title="PREFACE">
                 <subaction tooltip="CREATE_PREFACE_FROM_SELECTION" target="make_act_preface"
-                           condition="cursorInSection:act :and: textSelected:true :and: sectionNotExists:preface"
+                           condition="textSelected:true"
                            title="CREATE_PREFACE_FROM_SELECTION" >
                 </subaction>
-                
+            
                 <subaction tooltip="LONGTITLE" target="make_preface_longTitle"
                            condition="cursorInSection:preface :and: textSelected:true :and: sectionNotExists:longTitle"
                            title="LONGTITLE">
                 </subaction>   
-                
+<!--                    
                 <subaction tooltip="DOCTITLE" target="make_preface_docTitle"
                            condition="cursorInSection:preface :and: textSelected:true :and: sectionNotExists:docTitle"
                            title="DOCTITLE">
@@ -43,13 +43,13 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                            condition="cursorInSection:preface :and: textSelected:true :and: sectionNotExists:docType"
                            title="DOCTYPE" > 
                    
-                </subaction>
+                </subaction> -->
             </blockAction>
 
 <!--             Preamble -->
             <blockAction title="PREAMBLE">
                 <subaction tooltip="CREATE_PREAMBLE_FROM_SELECTION" target="make_act_preamble" 
-                           condition="cursorInSection:act :and: textSelected:true :and: sectionNotExists:preamble"
+                           condition="textSelected:true"
                            title="CREATE_PREAMBLE_FROM_SELECTION">
                 </subaction> 
                 
@@ -59,7 +59,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </subaction>
             </blockAction>
 
-<!--               body -->
+               <!--body--> 
             <blockAction title="BODY">
                 <subaction tooltip="CREATE_BODY_FROM_SELECTION" target="make_act_body"  
                            condition="cursorInSection:act :and: textSelected:true :and: sectionNotExists:body"
@@ -67,7 +67,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </subaction>
             </blockAction>
 
-<!--            Book -->
+            <!--Book--> 
             <blockAction title="BOOK">
                 <subaction tooltip="Select some text to mark it up as Books" target="make_act_books"
                            condition="cursorInSection:body :and: textSelected:true"
@@ -92,7 +92,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </subaction>
             </blockAction>
             
-<!--              Part -->
+              <!--Part--> 
             <blockAction title="PART">
                  <subaction tooltip="CREATE_PARTS_FROM_SELECTION" target="make_act_parts" 
                            condition="cursorInSection:body :and: textSelected:true"
@@ -118,7 +118,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
             </blockAction>
            
 
-<!--               Chapter -->
+               <!--Chapter--> 
             <blockAction title="CHAPTER">
                  <subaction tooltip="CREATE_CHAPTERS_FROM_SELECTION" target="make_act_chapters" 
                            condition="cursorInSection:body :and: textSelected:true"
@@ -143,7 +143,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </subaction>
             </blockAction>
 
-<!--               Section -->
+               <!--Section--> 
              <blockAction title="SECTION">
                   <subaction tooltip="CREATE_SECTIONS_FROM_SELECTION"
                            target="make_act_sections" 
@@ -171,7 +171,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </subaction>
              </blockAction>
              
-<!--              Article -->
+              <!--Article--> 
             <blockAction title="ARTICLE">
                  <subaction tooltip="CREATE_ARTICLES_FROM_SELECTION" target="make_act_articles"
                            condition="cursorInSection:body :and: textSelected:true"
@@ -206,7 +206,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 
             </blockAction>
 
-<!--              Conclusions -->
+              <!--Conclusions--> 
             <blockAction title="CONCLUSIONS">
                 <subaction tooltip="CREATE_CONCLUSION_FROM_SELECTION" target="make_act_conclusions"  
                            condition="cursorInSection:act :and: textSelected:true :and: sectionNotExists:conclusions"

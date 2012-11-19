@@ -12,7 +12,7 @@
         </output>
     </inlineType>
 
-    <inlineType name="num">
+    <inlineType name="Num">
         <output>
             <content>
                 <num/>
