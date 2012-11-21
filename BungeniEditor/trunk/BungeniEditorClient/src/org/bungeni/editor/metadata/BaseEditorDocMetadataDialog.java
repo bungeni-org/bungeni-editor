@@ -100,16 +100,6 @@ public abstract class BaseEditorDocMetadataDialog extends javax.swing.JPanel imp
 
         return null;
     }
-
-     protected LanguageCode findLanguageCode(String langCode) {
-        for (LanguageCode lc : languageCodes) {
-            if (lc.getLanguageCodeAlpha2().equals(langCode)) {
-                return lc;
-            }
-        }
-
-        return null;
-    }
      
     protected DocumentPart findDocumentPart(String documentPart) {
         for (DocumentPart dp : documentParts) {
