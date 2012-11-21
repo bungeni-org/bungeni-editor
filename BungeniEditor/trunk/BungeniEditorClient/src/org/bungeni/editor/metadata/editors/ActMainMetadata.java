@@ -17,7 +17,6 @@
  */
 package org.bungeni.editor.metadata.editors;
 
-
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
@@ -55,25 +54,22 @@ import org.jdom.xpath.XPath;
  * @author bzuadmin
  */
 public class ActMainMetadata extends BaseEditorDocMetadataDialog {
-    
+
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ActMainMetadata.class.getName());
     private ActMainMetadataModel docMetaModel = new ActMainMetadataModel();
     private List<ActFamily> actFamiliesList;
-    
     private ArrayList<PublicationType> PublicationTypesList = new ArrayList<PublicationType>();
     private ArrayList<HistoricalPeriod> actHistoricalPeriodsList = new ArrayList<HistoricalPeriod>();
 
-    
     /**
      * Creates new customizer ActMainMetadata
      */
     public ActMainMetadata() {
-         super();
+        super();
         initComponents();
         CommonUIFunctions.compOrientation(this);
     }
-    
-      
+
     public static void setBungeniActEffectiveDate(Date effectiveDate) {
         dt_effective_date.setDate(effectiveDate);
     }
@@ -108,7 +104,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
             SimpleDateFormat dateFormat = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
 
             if (!CommonStringFunctions.emptyOrNull(sLanguageCode)) {
-                this.cboLanguage.setSelectedItem(findLanguageCode(sLanguageCode));
+                this.cboLanguage.setSelectedItem(findLanguageCodeAlpha2(sLanguageCode));
             }
 
             if (!CommonStringFunctions.emptyOrNull(sBungeniActType)) {
@@ -166,7 +162,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         cboLanguage.setModel(new DefaultComboBoxModel(languageCodes));
 
         //set Default selections
-        this.cboLanguage.setSelectedItem(findLanguageCode(Locale.getDefault().getLanguage()));
+        this.cboLanguage.setSelectedItem(findLanguageCodeAlpha2(Locale.getDefault().getLanguage()));
     }
 
     public Component getPanelComponent() {
@@ -211,11 +207,11 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
     }
 
     private ComboBoxModel setActTypesModel() {
-         DefaultComboBoxModel publicationTypesNamesModel = null;
+        DefaultComboBoxModel publicationTypesNamesModel = null;
 
         try {
 
-            
+
             String sqlStm = "SELECT [LG_Type_ID], [LG_Type_Name], [LG_Type_Name_E], [LG_Type_Name_AN] FROM LG_Type";
             ResultSet rs = CommonConnectorFunctions.ConnectMMSM(sqlStm);
 
@@ -227,13 +223,38 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         } catch (SQLException ex) {
             Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
+
         String[] publicationTypes = new String[PublicationTypesList.size()];
         for (int i = 0; i < PublicationTypesList.size(); i++) {
             publicationTypes[i] = PublicationTypesList.get(i).toString();
         }
         // create the default acts Names mode
         publicationTypesNamesModel = new DefaultComboBoxModel(publicationTypes);
+
+        
+//        // initialise the Bungeni Connector Client
+//        BungeniConnector client = null;
+//        String[] srcNames;
+//        try {
+//                // initialize the data store client
+//                 client = CommonConnectorFunctions.getDSClient();
+//
+//                // get the acts from the registry H2 db
+//                List<SrcName> SrcNamesList = client.getSrcNames();
+//                srcNames = new String[SrcNamesList.size()];
+//
+//                // loop through extracting the acts
+//                for (int i = 0 ; i < SrcNamesList.size() ; i ++)
+//                {
+//                    // get the current act & extract the act Name
+//                    SrcName currSrcName = SrcNamesList.get(i);
+//                    srcNames[i] = currSrcName.getNameByLang(Locale.getDefault().getLanguage());
+//                }
+//                // create the default acts Names model
+//                publicationTypesNamesModel = new DefaultComboBoxModel(srcNames) ;
+//            } catch (IOException ex) {
+//                log.error(ex) ;
+//            }
 
         return publicationTypesNamesModel;
     }
@@ -282,13 +303,37 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         } catch (SQLException ex) {
             Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
+
         String[] historicalPeriods = new String[actHistoricalPeriodsList.size()];
         for (int i = 0; i < actHistoricalPeriodsList.size(); i++) {
             historicalPeriods[i] = actHistoricalPeriodsList.get(i).toString();
         }
         // create the default acts Names mode
         actHistoricalPeriodsModel = new DefaultComboBoxModel(historicalPeriods);
+
+//         // initialise the Bungeni Connector Client
+//        BungeniConnector client = null;
+//        String[] srcNames;
+//        try {
+//                // initialize the data store client
+//                 client = CommonConnectorFunctions.getDSClient();
+//
+//                // get the acts from the registry H2 db
+//                List<SrcName> SrcNamesList = client.getSrcNames();
+//                srcNames = new String[SrcNamesList.size()];
+//
+//                // loop through extracting the acts
+//                for (int i = 0 ; i < SrcNamesList.size() ; i ++)
+//                {
+//                    // get the current act & extract the act Name
+//                    SrcName currSrcName = SrcNamesList.get(i);
+//                    srcNames[i] = currSrcName.getNameByLang(Locale.getDefault().getLanguage());
+//                }
+//                // create the default acts Names model
+//                actHistoricalPeriodsModel = new DefaultComboBoxModel(srcNames) ;
+//            } catch (IOException ex) {
+//                log.error(ex) ;
+//            }
 
         return actHistoricalPeriodsModel;
     }
@@ -459,11 +504,11 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
             docMetaModel.updateItem("BungeniActCategory", selBungeniActCategory);
             docMetaModel.updateItem("BungeniPageNo", strPageNo);
             docMetaModel.updateItem("BungeniPageCount", strPageCount);
-           
-           PublicationType selectedPublicationType = PublicationTypesList.get(this.cboActType.getSelectedIndex());
 
-           String strBungeniActType = selectedPublicationType.getPublicationTypeName_AN();    
-             
+            PublicationType selectedPublicationType = PublicationTypesList.get(this.cboActType.getSelectedIndex());
+
+            String strBungeniActType = selectedPublicationType.getPublicationTypeName_AN();
+
             spf.setSaveComponent("ActType", strBungeniActType);
             spf.setSaveComponent("ActY", sBungeniActYear);
             spf.setSaveComponent("ActNo", sBungeniActNo);
@@ -480,8 +525,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         }
     }
 
-
-     /**
+    /**
      * This mehod is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
      * regenerated by the FormEditor.
@@ -816,7 +860,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-      @Override
+    @Override
     public Dimension getFrameSize() {
         int DIM_X = 450;
         int DIM_Y = 600;
@@ -826,7 +870,6 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
     @Override
     public ArrayList<String> validateSelectedMetadata(BungeniFileSavePathFormat spf) {
         addFieldsToValidate(new TreeMap<String, Component>() {
-
             {
                 put(lblLanguage.getText().replace("*", ""), cboLanguage);
                 put(lblActName.getText().replace("*", ""), txtActName);
@@ -848,9 +891,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         return super.validateSelectedMetadata(spf);
     }
 
-                                                
     private void cboActTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboActTypeActionPerformed
-
     }//GEN-LAST:event_cboActTypeActionPerformed
 
     private void cboActScopeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboActScopeActionPerformed
@@ -862,7 +903,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
     }//GEN-LAST:event_cboActHistoricalPeriodActionPerformed
 
     private void cboActFamilyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboActFamilyActionPerformed
-                JComboBox cb = (JComboBox) evt.getSource();
+        JComboBox cb = (JComboBox) evt.getSource();
 
         // get the selected item and extract id for Act
         // from vector
@@ -876,13 +917,13 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
     }//GEN-LAST:event_cboActCategoryBasicActionPerformed
 
     private void cboActPossibleFamilyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboActPossibleFamilyActionPerformed
-         JComboBox cb = (JComboBox) evt.getSource();
+        JComboBox cb = (JComboBox) evt.getSource();
 
         // get the selected item and extract id for Act
         // from vector
-        final Integer  selectedActPossibleFamilyIndex = cb.getSelectedIndex();
+        final Integer selectedActPossibleFamilyIndex = cb.getSelectedIndex();
         setActPossibleSubFamiliesModel(selectedActPossibleFamilyIndex);
-        
+
     }//GEN-LAST:event_cboActPossibleFamilyActionPerformed
 
     private void cboActPossibleSubFamilyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboActPossibleSubFamilyActionPerformed
@@ -912,7 +953,6 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         cal.add(Calendar.DATE, 90);
         dt_effective_date.setDate(cal.getTime());
     }//GEN-LAST:event_btn90daysActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn30days;
     private javax.swing.JButton btn90days;
