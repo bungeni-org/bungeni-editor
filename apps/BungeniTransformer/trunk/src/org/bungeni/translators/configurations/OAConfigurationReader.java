@@ -3,44 +3,37 @@ package org.bungeni.translators.configurations;
 //~--- non-JDK imports --------------------------------------------------------
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import org.bungeni.translators.interfaces.ConfigurationReader;
-import org.bungeni.translators.configurations.steps.OAReplaceStep;
-import org.bungeni.translators.configurations.steps.OAXSLTStep;
-import org.bungeni.translators.utility.xpathresolver.XPathResolver;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import org.xml.sax.SAXException;
-
-//~--- JDK imports ------------------------------------------------------------
-
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import java.util.List;
 import java.util.Properties;
 import java.util.TreeMap;
-
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import org.bungeni.translators.configurations.steps.OAPipelineStep;
 import org.bungeni.translators.configurations.steps.OAProcessStep;
+import org.bungeni.translators.configurations.steps.OAReplaceStep;
+import org.bungeni.translators.configurations.steps.OAXSLTStep;
+import org.bungeni.translators.interfaces.ConfigurationReader;
 import org.bungeni.translators.utility.dom.DOMUtility;
 import org.bungeni.translators.utility.transformer.GenericTransformer;
+import org.bungeni.translators.utility.xpathresolver.XPathResolver;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  * This class reades the TranslatorConfig_xxxx.xml files for each content type
@@ -96,7 +89,6 @@ public class OAConfigurationReader implements ConfigurationReader {
         // get the properties node in teh configuration
         Node propertiesNode = (Node) xresolver.evaluate(this.configXML,
                 "//properties", XPathConstants.NODE);
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         Source xmlSource = new DOMSource(propertiesNode);
         // convert the properties node to a string
         StringWriter sw = new StringWriter();
@@ -229,16 +221,17 @@ public class OAConfigurationReader implements ConfigurationReader {
             if (attrs != null) {
                Node outputAttr = attrs.getNamedItem("output");
                //if no @output attribute set return false
-               if (outputAttr == null )
+               if (outputAttr == null ) {
                    return false;
-               else {
+               } else {
                    String soutput = outputAttr.getNodeValue();
                    boolean writeOutput = Boolean.parseBoolean(soutput);
                    return writeOutput ;
                 }
             }
-            else
+            else {
                 return false;
+            }
         } else {
             return false;
         }

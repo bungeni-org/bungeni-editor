@@ -2,46 +2,39 @@ package org.bungeni.translators.translator;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
-import org.bungeni.translators.exceptions.DocumentNotFoundException;
-import org.bungeni.translators.exceptions.TranslationFailedException;
-import org.bungeni.translators.exceptions.TranslationStepFailedException;
-import org.bungeni.translators.exceptions.ValidationFailedException;
-import org.bungeni.translators.exceptions.XSLTBuildingException;
-import org.bungeni.translators.globalconfigurations.GlobalConfigurations;
-import org.bungeni.translators.configurations.OAConfiguration;
-import org.bungeni.translators.utility.dom.DOMUtility;
-import org.bungeni.translators.utility.exceptionmanager.ValidationError;
-import org.bungeni.translators.utility.files.FileUtility;
-import org.bungeni.translators.utility.schemavalidator.SchemaValidator;
-import org.bungeni.translators.utility.streams.StreamSourceUtility;
-import org.bungeni.translators.utility.transformer.XSLTTransformer;
-
-import org.w3c.dom.Document;
-
-import org.xml.sax.SAXException;
-
-//~--- JDK imports ------------------------------------------------------------
-
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
-
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPathExpressionException;
+import org.bungeni.translators.configurations.OAConfiguration;
 import org.bungeni.translators.configurations.steps.OAPipelineStep;
+import org.bungeni.translators.exceptions.DocumentNotFoundException;
+import org.bungeni.translators.exceptions.TranslationFailedException;
+import org.bungeni.translators.exceptions.TranslationStepFailedException;
+import org.bungeni.translators.exceptions.ValidationFailedException;
+import org.bungeni.translators.exceptions.XSLTBuildingException;
+import org.bungeni.translators.globalconfigurations.GlobalConfigurations;
 import org.bungeni.translators.translator.XMLSourceFactory.XMLSourceType;
+import org.bungeni.translators.utility.dom.DOMUtility;
+import org.bungeni.translators.utility.exceptionmanager.ValidationError;
+import org.bungeni.translators.utility.files.FileUtility;
 import org.bungeni.translators.utility.files.OutputXML;
 import org.bungeni.translators.utility.runtime.Outputs;
+import org.bungeni.translators.utility.schemavalidator.SchemaValidator;
+import org.bungeni.translators.utility.streams.StreamSourceUtility;
+import org.bungeni.translators.utility.transformer.XSLTTransformer;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 /***
 
@@ -110,7 +103,6 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
 
     private void setupConfiguration(String configurationFilePath) throws IOException, XPathExpressionException, TranslationFailedException {
         // create the Properties object
-        Properties properties           = new Properties();
         //!+FIX_THIS_LATER (ah, oct-2011) The pipeline caching logic will also need
         // to take into account different input pipelines !!!
         //this is the config_<type>.xml
@@ -142,7 +134,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         //
         // get the translation properties
         //
-        properties = OAConfiguration.getInstance().getProperties();
+        Properties properties = OAConfiguration.getInstance().getProperties();
 
         if (properties == null ) {
             throw new InvalidPropertiesFormatException("Invalid format for translator configuration properties");
@@ -293,7 +285,9 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
                 StreamSource inputXmlStream = outputStepsProcessedDoc; 
                 for (File xslt : xsltPipes) {
                     inputXmlStream = this.translateToAkomantoso(xslt, inputXmlStream);
+                    
                  }
+                
                 anXmlStream = inputXmlStream;
             } else {
                 anXmlStream = outputStepsProcessedDoc; 
@@ -313,7 +307,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             //will be exactly the same
             OutputXML oxmlFinal = StreamSourceUtility.getInstance().writeStreamSourceToFile(anXmlFinalStream, "akoma_", ".xml");
             translatedFiles.put("final", oxmlFinal.outputxmlFile);
-
+            
             // validate the produced document
             //AH-8-03-11 COMMENTED OUT FOR NOW UNTIL TESTED
             //SchemaValidator.getInstance().validate(fileToReturn, aDocumentPath, this.akomantosoSchemaPath);
@@ -459,12 +453,13 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         } else {
             //otherwise build the pipeline and return it
             xslt = this.buildXSLT(aPipelinePath);
-            FileUtility.getInstance().copyFile(xslt, Outputs.getInstance().File(fullPipeName));
+            FileUtility.getInstance().copyFile(xslt, 
+                    Outputs.getInstance().File(fullPipeName));
         }
         return xslt;
     }
 
-    /***
+    /**
      * Applys the input steps in the TranslatorConfig on the merged ODF
      * @param ODFDocument
      * @param configuration

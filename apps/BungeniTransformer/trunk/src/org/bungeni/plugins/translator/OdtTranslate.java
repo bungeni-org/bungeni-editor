@@ -60,8 +60,6 @@ public class OdtTranslate implements IEditorPlugin {
     }
 
     public String exec() {
-        FileInputStream fis = null;
-        FileOutputStream fos = null;
         String retvalue = "";
         boolean bExceptionOccured = false;
         HashMap<String, File> filesMap = new HashMap<String, File>();

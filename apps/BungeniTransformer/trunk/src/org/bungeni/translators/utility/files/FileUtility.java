@@ -2,10 +2,6 @@ package org.bungeni.translators.utility.files;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import org.xml.sax.InputSource;
-
-//~--- JDK imports ------------------------------------------------------------
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -21,11 +17,10 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.nio.channels.FileChannel;
-
 import javax.xml.transform.stream.StreamSource;
 import org.bungeni.translators.globalconfigurations.GlobalConfigurations;
+import org.xml.sax.InputSource;
 
 /**
  * This class supplies several method useful for the management of the File documents
@@ -105,7 +100,7 @@ public class FileUtility {
                 } else {
 
                     // Add a carriage return (line break) to preserve the file formatting.
-                    textFromFile.append(LINE_SEPARATOR + currentLineFromFile);
+                    textFromFile.append(LINE_SEPARATOR).append(currentLineFromFile);
                 }
 
                 currentLineFromFile = bufferedReader.readLine();    // throws IOException

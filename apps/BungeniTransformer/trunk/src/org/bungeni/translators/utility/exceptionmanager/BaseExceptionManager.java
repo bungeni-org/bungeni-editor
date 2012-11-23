@@ -1,18 +1,17 @@
 package org.bungeni.translators.utility.exceptionmanager;
 
 /* JDK imports */
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.InvalidPropertiesFormatException;
-import java.util.ResourceBundle;
 import java.util.Properties;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
-
-/* Non JDK imports */
 import org.apache.xerces.parsers.DOMParser;
 import org.bungeni.translators.configurations.OAConfiguration;
 import org.bungeni.translators.globalconfigurations.GlobalConfigurations;
@@ -182,14 +181,23 @@ public class BaseExceptionManager implements IExceptionManager{
         String finalConfigurationFilePath =
                 GlobalConfigurations.getApplicationPathPrefix()+
                 this.getConfigurationFilePath();
+        InputStream configStream = null;
         try {
-            InputStream configStream =
+            configStream =
                     new FileInputStream(finalConfigurationFilePath);
             errorConfigProperties.loadFromXML(configStream);
             allPropertyNames = errorConfigProperties.propertyNames();
 
         } catch (IOException e) {
            logger.error("error while loading validation error handler configuration", e);
+        } finally {
+            if (null != configStream) {
+                try {
+                    configStream.close();
+                } catch (IOException ex1) {
+                    logger.error("config stream not open");
+                }
+            }
         }
 
         // Configuration contains keys as class names and values as regular
@@ -236,5 +244,7 @@ public class BaseExceptionManager implements IExceptionManager{
             }
         }
 
+        
+        
     }
 }

@@ -7,8 +7,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
-
-
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.stream.StreamResult;
@@ -63,10 +61,6 @@ public class StreamSourceUtility {
      */
     public String writeToString(StreamSource aStreamSource) throws TransformerException {
 
-        // get the Document String
-        String resultStringDocument = new String();
-
-   
         // create the writer for the transformation
         StringWriter resultString = new StringWriter();
 
@@ -79,7 +73,7 @@ public class StreamSourceUtility {
         );
 
         // copy the obtained string into the string to iterate
-        resultStringDocument = resultString.toString();
+        String resultStringDocument = resultString.toString();
 
         // return the string of the Stream Source
         return resultStringDocument;
