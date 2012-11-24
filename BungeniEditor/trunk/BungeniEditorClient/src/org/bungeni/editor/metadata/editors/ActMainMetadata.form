@@ -375,7 +375,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboActPossibleFamilyActionPerformed"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="cboActPossibleFamily.setModel(setActFamiliesModel());"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="cboActPossibleFamily.setModel(setActPossibleFamiliesModel());"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="lblActPossibleFamily">

@@ -57,9 +57,13 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
 
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ActMainMetadata.class.getName());
     private ActMainMetadataModel docMetaModel = new ActMainMetadataModel();
-    private List<ActFamily> actFamiliesList;
     private ArrayList<PublicationType> PublicationTypesList = new ArrayList<PublicationType>();
     private ArrayList<HistoricalPeriod> actHistoricalPeriodsList = new ArrayList<HistoricalPeriod>();
+    private ArrayList<Family> actFamiliesList = new ArrayList<Family>();
+    private ArrayList<Family> actPossibleFamiliesList = new ArrayList<Family>();
+    private ArrayList<Area> actScopeList = new ArrayList<Area>();
+    private ArrayList<Category> actCategoriesList = new ArrayList<Category>();
+    private ArrayList<Category_Basic> actCategoriesBasicList = new ArrayList<Category_Basic>();
 
     /**
      * Creates new customizer ActMainMetadata
@@ -210,8 +214,6 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         DefaultComboBoxModel publicationTypesNamesModel = null;
 
         try {
-
-
             String sqlStm = "SELECT [LG_Type_ID], [LG_Type_Name], [LG_Type_Name_E], [LG_Type_Name_AN] FROM LG_Type";
             ResultSet rs = CommonConnectorFunctions.ConnectMMSM(sqlStm);
 
@@ -231,7 +233,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         // create the default acts Names mode
         publicationTypesNamesModel = new DefaultComboBoxModel(publicationTypes);
 
-        
+
 //        // initialise the Bungeni Connector Client
 //        BungeniConnector client = null;
 //        String[] srcNames;
@@ -261,30 +263,53 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
 
     private ComboBoxModel setActScopesModel() {
         DefaultComboBoxModel actScopesModel = null;
-        String[] actScopes = null; // stores all the bill Names
-        // initialise the Bungeni Connector Client
-        BungeniConnector client = null;
+
         try {
-            // initialize the data store client
-            client = CommonConnectorFunctions.getDSClient();
-            // get tactScopeshe acts from the registry H2 db
-            List<ActScope> actScopesList = client.getActScopes();
-            actScopes = new String[actScopesList.size()];
 
-            // loop through extracting the acts
-            for (int i = 0; i < actScopesList.size(); i++) {
-                // get the current act & extract the act Name
-                ActScope currActScope = actScopesList.get(i);
-                actScopes[i] = currActScope.getNameByLang(Locale.getDefault().getLanguage());
+            String sqlStm = "SELECT [AreaID], [AreaName] FROM [LG_Area] ";
+            ResultSet rs = CommonConnectorFunctions.ConnectMMSM(sqlStm);
+
+            while (rs.next()) {
+                Area actScObj = new Area(rs.getString(1), rs.getString(2));
+                actScopeList.add(actScObj);
+
             }
-
-            // create the default acts Names model
-            actScopesModel = new DefaultComboBoxModel(actScopes);
-
-        } catch (IOException ex) {
-            log.error(ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        String[] ActAreas = new String[actScopeList.size()];
+        for (int i = 0; i < actScopeList.size(); i++) {
+            ActAreas[i] = actScopeList.get(i).getAreaName();
+        }
+        // create the default acts Names mode
+        actScopesModel = new DefaultComboBoxModel(ActAreas);
         return actScopesModel;
+//        DefaultComboBoxModel actScopesModel = null;
+//        String[] actScopes = null; // stores all the bill Names
+//        // initialise the Bungeni Connector Client
+//        BungeniConnector client = null;
+//        try {
+//            // initialize the data store client
+//            client = CommonConnectorFunctions.getDSClient();
+//            // get tactScopeshe acts from the registry H2 db
+//            List<ActScope> actScopesList = client.getActScopes();
+//            actScopes = new String[actScopesList.size()];
+//
+//            // loop through extracting the acts
+//            for (int i = 0; i < actScopesList.size(); i++) {
+//                // get the current act & extract the act Name
+//                ActScope currActScope = actScopesList.get(i);
+//                actScopes[i] = currActScope.getNameByLang(Locale.getDefault().getLanguage());
+//            }
+//
+//            // create the default acts Names model
+//            actScopesModel = new DefaultComboBoxModel(actScopes);
+//
+//        } catch (IOException ex) {
+//            log.error(ex);
+//        }
+//        return actScopesModel;
     }
 
     private ComboBoxModel setActHistoricalPeriodsModel() {
@@ -340,130 +365,271 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
 
     private ComboBoxModel setActFamiliesModel() {
         DefaultComboBoxModel actFamiliesModel = null;
-        String[] actFamilies = null; // stores all the bill Names
-        // initialise the Bungeni Connector Client
-        BungeniConnector client = null;
+
         try {
-            // initialize the data store client
-            client = CommonConnectorFunctions.getDSClient();
-            // get the acts from the registry H2 db
-            actFamiliesList = client.getActFamilies();
-            actFamilies = new String[actFamiliesList.size()];
 
-            // loop through extracting the acts
-            for (int i = 0; i < actFamiliesList.size(); i++) {
-                // get the current act & extract the act Name
-                ActFamily currActFamily = actFamiliesList.get(i);
-                actFamilies[i] = currActFamily.getNameByLang(Locale.getDefault().getLanguage());
+            String sqlStm = "SELECT [LG_Family_ID], [LG_Family_Name], [LG_Family_Name_E] FROM [LG_Family] WHERE RIGHT(LG_Family_ID, 1) = 0 AND LG_Family_ID != 0 ";
+            ResultSet rs = CommonConnectorFunctions.ConnectMMSM(sqlStm);
+
+            while (rs.next()) {
+                Family fmObj = new Family(rs.getString(1), rs.getString(2), rs.getString(3));
+                actFamiliesList.add(fmObj);
+
             }
-
-            // create the default acts Names model
-            actFamiliesModel = new DefaultComboBoxModel(actFamilies);
-
-        } catch (IOException ex) {
-            log.error(ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        String[] families = new String[actFamiliesList.size()];
+        for (int i = 0; i < actFamiliesList.size(); i++) {
+            families[i] = actFamiliesList.get(i).toString();
+        }
+        // create the default acts Names mode
+        actFamiliesModel = new DefaultComboBoxModel(families);
+
+//        String[] actFamilies = null; // stores all the bill Names
+//        // initialise the Bungeni Connector Client
+//        BungeniConnector client = null;
+//        try {
+//            // initialize the data store client
+//            client = CommonConnectorFunctions.getDSClient();
+//            // get the acts from the registry H2 db
+//            actFamiliesList = client.getActFamilies();
+//            actFamilies = new String[actFamiliesList.size()];
+//
+//            // loop through extracting the acts
+//            for (int i = 0; i < actFamiliesList.size(); i++) {
+//                // get the current act & extract the act Name
+//                ActFamily currActFamily = actFamiliesList.get(i);
+//                actFamilies[i] = currActFamily.getNameByLang(Locale.getDefault().getLanguage());
+//            }
+//
+//            // create the default acts Names model
+//            actFamiliesModel = new DefaultComboBoxModel(actFamilies);
+//
+//        } catch (IOException ex) {
+//            log.error(ex);
+//        }
         return actFamiliesModel;
     }
 
     private ComboBoxModel setActSubFamiliesModel(Integer selectedActFamilyIndex) {
         DefaultComboBoxModel subFamiliesModel = null;
-        String[] subFamilies = null; // stores all the bill Names
 
-        ActFamily currActFamily = actFamiliesList.get(selectedActFamilyIndex);
+        Family currActFamily = actFamiliesList.get(selectedActFamilyIndex);
 
-        List<SubFamily> subFamiliesList = currActFamily.getSubFamiliesByLang(Locale.getDefault().getLanguage());
-        subFamilies = new String[subFamiliesList.size()];
+        ArrayList<Family> subFamiliesList = new ArrayList<Family>();
+        try {
+            String sqlStm = "SELECT [LG_Family_ID], [LG_Family_Name], [LG_Family_Name_E] FROM [LG_Family] WHERE RIGHT(LG_Family_ID, 1) != 0 AND LEFT(LG_Family_ID, 1) = "
+                    + currActFamily.getFamilyID().charAt(0)
+                    + " AND LEN(LG_Family_ID) = " + currActFamily.getFamilyID().length();
+            ResultSet rs = CommonConnectorFunctions.ConnectMMSM(sqlStm);
 
-        for (int i = 0; i < subFamiliesList.size(); i++) {
-            subFamilies[i] = subFamiliesList.get(i).getValue();
+            while (rs.next()) {
+                Family fmObj = new Family(rs.getString(1), rs.getString(2), rs.getString(3));
+                subFamiliesList.add(fmObj);
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        String[] subFamilies = new String[subFamiliesList.size()];
+        for (int i = 0; i < subFamiliesList.size(); i++) {
+            subFamilies[i] = subFamiliesList.get(i).toString();
+        }
 
-        // create the default families model
+        // create the default sub families model
         subFamiliesModel = new DefaultComboBoxModel(subFamilies);
-
-
         cboActSubFamily.setModel(subFamiliesModel);
+
         return subFamiliesModel;
     }
 
-    private ComboBoxModel setActPossibleSubFamiliesModel(Integer selectedActFamilyIndex) {
-        DefaultComboBoxModel subPossibleFamiliesModel = null;
-        String[] subPossibleFamilies = null; // stores all the bill Names
+    private ComboBoxModel setActPossibleFamiliesModel() {
+        DefaultComboBoxModel actPossibleFamiliesModel = null;
 
-        ActFamily currActFamily = actFamiliesList.get(selectedActFamilyIndex);
+        try {
 
-        List<SubFamily> subPossibleFamiliesList = currActFamily.getSubFamiliesByLang(Locale.getDefault().getLanguage());
-        subPossibleFamilies = new String[subPossibleFamiliesList.size()];
+            String sqlStm = "SELECT [LG_Family_ID], [LG_Family_Name], [LG_Family_Name_E] FROM [LG_Family] WHERE RIGHT(LG_Family_ID, 1) = 0 AND LG_Family_ID != 0 ";
+            ResultSet rs = CommonConnectorFunctions.ConnectMMSM(sqlStm);
 
-        for (int i = 0; i < subPossibleFamiliesList.size(); i++) {
-            subPossibleFamilies[i] = subPossibleFamiliesList.get(i).getValue();
+            while (rs.next()) {
+                Family pfmObj = new Family(rs.getString(1), rs.getString(2), rs.getString(3));
+                actPossibleFamiliesList.add(pfmObj);
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        String[] possibleFamilies = new String[actPossibleFamiliesList.size()];
+        for (int i = 0; i < actFamiliesList.size(); i++) {
+            possibleFamilies[i] = actFamiliesList.get(i).toString();
+        }
+        // create the default acts Names mode
+        actPossibleFamiliesModel = new DefaultComboBoxModel(possibleFamilies);
 
-        // create the default families model
-        subPossibleFamiliesModel = new DefaultComboBoxModel(subPossibleFamilies);
+//        String[] actFamilies = null; // stores all the bill Names
+//        // initialise the Bungeni Connector Client
+//        BungeniConnector client = null;
+//        try {
+//            // initialize the data store client
+//            client = CommonConnectorFunctions.getDSClient();
+//            // get the acts from the registry H2 db
+//            actFamiliesList = client.getActFamilies();
+//            actFamilies = new String[actFamiliesList.size()];
+//
+//            // loop through extracting the acts
+//            for (int i = 0; i < actFamiliesList.size(); i++) {
+//                // get the current act & extract the act Name
+//                ActFamily currActFamily = actFamiliesList.get(i);
+//                actFamilies[i] = currActFamily.getNameByLang(Locale.getDefault().getLanguage());
+//            }
+//
+//            // create the default acts Names model
+//            actFamiliesModel = new DefaultComboBoxModel(actFamilies);
+//
+//        } catch (IOException ex) {
+//            log.error(ex);
+//        }
+        return actPossibleFamiliesModel;
+    }
 
+    private ComboBoxModel setActPossibleSubFamiliesModel(Integer selectedActPFamilyIndex) {
+        DefaultComboBoxModel subPossibleFamiliesModel = null;
 
+        Family currActPFamily = actPossibleFamiliesList.get(selectedActPFamilyIndex);
+
+        ArrayList<Family> subPFamiliesList = new ArrayList<Family>();
+        try {
+            String sqlStm = "SELECT [LG_Family_ID], [LG_Family_Name], [LG_Family_Name_E] FROM [LG_Family] WHERE RIGHT(LG_Family_ID, 1) != 0 AND LEFT(LG_Family_ID, 1) = "
+                    + currActPFamily.getFamilyID().charAt(0)
+                    + " AND LEN(LG_Family_ID) = " + currActPFamily.getFamilyID().length();;
+            ResultSet rs = CommonConnectorFunctions.ConnectMMSM(sqlStm);
+
+            while (rs.next()) {
+                Family fmObj = new Family(rs.getString(1), rs.getString(2), rs.getString(3));
+                subPFamiliesList.add(fmObj);
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        String[] subFamilies = new String[subPFamiliesList.size()];
+        for (int i = 0; i < subPFamiliesList.size(); i++) {
+            subFamilies[i] = subPFamiliesList.get(i).toString();
+        }
+
+        // create the default sub families model
+        subPossibleFamiliesModel = new DefaultComboBoxModel(subFamilies);
         cboActPossibleSubFamily.setModel(subPossibleFamiliesModel);
         return subPossibleFamiliesModel;
     }
 
     private ComboBoxModel setActCategoriesModel() {
-        DefaultComboBoxModel actCategoriesModel = null;
-        String[] actCategories = null; // stores all the bill Names
-        // initialise the Bungeni Connector Client
-        BungeniConnector client = null;
+        DefaultComboBoxModel actCategoriesBasicModel = null;
+
         try {
-            // initialize the data store client
-            client = CommonConnectorFunctions.getDSClient();
-            // get the acts from the registry H2 db
-            List<ActCategory> actCategoriesList = client.getActCategories();
-            actCategories = new String[actCategoriesList.size()];
 
-            // loop through extracting the acts
-            for (int i = 0; i < actCategoriesList.size(); i++) {
-                // get the current act & extract the act Name
-                ActCategory currActCategory = actCategoriesList.get(i);
-                actCategories[i] = currActCategory.getNameByLang(Locale.getDefault().getLanguage());
+            String sqlStm = "SELECT [LG_Category_ID], [LG_Category_Name] FROM [LG_Category] ";
+            ResultSet rs = CommonConnectorFunctions.ConnectMMSM(sqlStm);
+
+            while (rs.next()) {
+                Category catObj = new Category(rs.getString(1), rs.getString(2));
+                actCategoriesList.add(catObj);
             }
-
-            // create the default acts Names model
-            actCategoriesModel = new DefaultComboBoxModel(actCategories);
-
-        } catch (IOException ex) {
-            log.error(ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return actCategoriesModel;
+
+        String[] categories = new String[actCategoriesList.size()];
+        for (int i = 0; i < actCategoriesList.size(); i++) {
+            categories[i] = actCategoriesList.get(i).getCategoryName();
+        }
+        // create the default acts Names mode
+        actCategoriesBasicModel = new DefaultComboBoxModel(categories);
+
+        return actCategoriesBasicModel;
+
+//        DefaultComboBoxModel actCategoriesModel = null;
+//        String[] actCategories = null; // stores all the bill Names
+//        // initialise the Bungeni Connector Client
+//        BungeniConnector client = null;
+//        try {
+//            // initialize the data store client
+//            client = CommonConnectorFunctions.getDSClient();
+//            // get the acts from the registry H2 db
+//            List<ActCategory> actCategoriesList = client.getActCategories();
+//            actCategories = new String[actCategoriesList.size()];
+//
+//            // loop through extracting the acts
+//            for (int i = 0; i < actCategoriesList.size(); i++) {
+//                // get the current act & extract the act Name
+//                ActCategory currActCategory = actCategoriesList.get(i);
+//                actCategories[i] = currActCategory.getNameByLang(Locale.getDefault().getLanguage());
+//            }
+//
+//            // create the default acts Names model
+//            actCategoriesModel = new DefaultComboBoxModel(actCategories);
+//
+//        } catch (IOException ex) {
+//            log.error(ex);
+//        }
+//        return actCategoriesModel;
     }
 
     private ComboBoxModel setActCategoriesBasicModel() {
         DefaultComboBoxModel actCategoriesBasicModel = null;
-        String[] actCategoriesBasic = null; // stores all the bill Names
-        // initialise the Bungeni Connector Client
-        BungeniConnector client = null;
+
         try {
-            // initialize the data store client
-            client = CommonConnectorFunctions.getDSClient();
-            // get the acts from the registry H2 db
-            List<ActCategoryBasic> actCategoriesBasicList = client.getActCategoriesBasic();
-            actCategoriesBasic = new String[actCategoriesBasicList.size()];
 
-            // loop through extracting the acts
-            for (int i = 0; i < actCategoriesBasicList.size(); i++) {
-                // get the current act & extract the act Name
-                ActCategoryBasic currActCategoryBasic = actCategoriesBasicList.get(i);
-                actCategoriesBasic[i] = currActCategoryBasic.getNameByLang(Locale.getDefault().getLanguage());
+            String sqlStm = "SELECT [LG_Basic_ID], [LG_Basic_Name] FROM [LG_Basic] ";
+            ResultSet rs = CommonConnectorFunctions.ConnectMMSM(sqlStm);
+
+            while (rs.next()) {
+                Category_Basic catBasicObj = new Category_Basic(rs.getString(1), rs.getString(2));
+                actCategoriesBasicList.add(catBasicObj);
             }
-
-            // create the default acts Names model
-            actCategoriesBasicModel = new DefaultComboBoxModel(actCategoriesBasic);
-
-        } catch (IOException ex) {
-            log.error(ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        String[] categoriesBasic = new String[actCategoriesBasicList.size()];
+        for (int i = 0; i < actCategoriesBasicList.size(); i++) {
+            categoriesBasic[i] = actCategoriesBasicList.get(i).getCategoryBasicName();
+        }
+        // create the default acts Names mode
+        actCategoriesBasicModel = new DefaultComboBoxModel(categoriesBasic);
+
         return actCategoriesBasicModel;
+
+//        DefaultComboBoxModel actCategoriesBasicModel = null;
+//        String[] actCategoriesBasic = null; // stores all the bill Names
+//        // initialise the Bungeni Connector Client
+//        BungeniConnector client = null;
+//        try {
+//            // initialize the data store client
+//            client = CommonConnectorFunctions.getDSClient();
+//            // get the acts from the registry H2 db
+//            List<ActCategoryBasic> actCategoriesBasicList = client.getActCategoriesBasic();
+//            actCategoriesBasic = new String[actCategoriesBasicList.size()];
+//
+//            // loop through extracting the acts
+//            for (int i = 0; i < actCategoriesBasicList.size(); i++) {
+//                // get the current act & extract the act Name
+//                ActCategoryBasic currActCategoryBasic = actCategoriesBasicList.get(i);
+//                actCategoriesBasic[i] = currActCategoryBasic.getNameByLang(Locale.getDefault().getLanguage());
+//            }
+//
+//            // create the default acts Names model
+//            actCategoriesBasicModel = new DefaultComboBoxModel(actCategoriesBasic);
+//
+//        } catch (IOException ex) {
+//            log.error(ex);
+//        }
+//        return actCategoriesBasicModel;
     }
 
     public boolean applySelectedMetadata(BungeniFileSavePathFormat spf) {
@@ -645,7 +811,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
             }
         });
 
-        cboActPossibleFamily.setModel(setActFamiliesModel());
+        cboActPossibleFamily.setModel(setActPossibleFamiliesModel());
         cboActPossibleFamily.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         cboActPossibleFamily.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -732,54 +898,49 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblActName, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblActName, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboActCategoryBasic, 0, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboActPossibleFamily, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboActFamily, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cboActSubFamily, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboActPossibleSubFamily, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboActCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblActYear, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtActYear, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblActState, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtActState, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboActHistoricalPeriod, 0, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblActHistoricalPeriod)
+                            .addComponent(dt_effective_date, javax.swing.GroupLayout.DEFAULT_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblEffectiveDate, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cboActCategoryBasic, 0, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cboActPossibleFamily, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cboActFamily, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cboActSubFamily, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cboActPossibleSubFamily, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cboActCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblActYear, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtActYear, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblActState, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtActState, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cboActHistoricalPeriod, 0, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblActHistoricalPeriod)
-                                    .addComponent(dt_effective_date, javax.swing.GroupLayout.DEFAULT_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblEffectiveDate, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btn30days, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btn90days, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addComponent(txtActName, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 97, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblActNo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtActNo, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblActType)
-                            .addComponent(lblPageNo)
-                            .addComponent(txtPageNo, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblPageCount)
-                            .addComponent(cboActType, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cboActScope, 0, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblActScope)
-                            .addComponent(txtPageCount, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblLanguage)
-                            .addComponent(cboLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblActFamily)
-                            .addComponent(lblActCategory)
-                            .addComponent(lblActPossibleFamily))
-                        .addContainerGap())))
+                                .addComponent(btn30days, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn90days, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtActName, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblActNo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtActNo, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblActType)
+                    .addComponent(lblPageNo)
+                    .addComponent(txtPageNo, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPageCount)
+                    .addComponent(cboActType, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboActScope, 0, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblActScope)
+                    .addComponent(txtPageCount, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLanguage)
+                    .addComponent(cboLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblActFamily)
+                    .addComponent(lblActCategory)
+                    .addComponent(lblActPossibleFamily))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
