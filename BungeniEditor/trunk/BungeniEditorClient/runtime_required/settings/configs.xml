@@ -7,12 +7,13 @@
     url="http://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/alltypesdev.zip"
     folder-base="../../Editor_configs/development_configs"
     receiver="org.bungeni.editor.input.FSDocumentReceiver"
+	default="true"
     />
   <config name="Bill-Bungeni"
     title="Bill Bungeni Integration"
     url="http://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/bill-bungeni.zip"
     folder-base="../../Editor_configs/bungeni_configs"
-    default="true"
+    
     receiver="org.bungeni.editor.input.BungeniDocumentReceiver"
     >
     <custom>
