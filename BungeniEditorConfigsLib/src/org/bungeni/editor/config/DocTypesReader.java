@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.bungeni.extutils.CommonEditorXmlUtils;
 import org.jdom.Document;
@@ -44,7 +45,7 @@ public class DocTypesReader extends BaseConfigReader {
 
     private static DocTypesReader thisInstance = null;
 
-    private Document localesDocument = null;
+    private Document doctypesDocument = null;
 
     private XPath xpathInstance = null;
 
@@ -70,13 +71,14 @@ public class DocTypesReader extends BaseConfigReader {
      */
     public List<Element> getDocTypes() throws JDOMException{
       if (null != getDocument()) {
-           List<Element> doctypeElements =  getXPath().selectNodes(getDocument(),"//doctypes/doctype");
+           List<Element> doctypeElements =  getXPathInstance().selectNodes(getDocument(),"//doctypes/doctype");
            return doctypeElements;
       } else {
-          log.error("Locale code file could not be loaded !");
+          log.error("Doctypes code file could not be loaded !");
           return null;
       }
     }
+    
 
     /**
      * Returns all the active Doctype elements in configuration
@@ -85,7 +87,7 @@ public class DocTypesReader extends BaseConfigReader {
      */
     public List<Element> getActiveDocTypes() throws JDOMException{
       if (null != getDocument()) {
-           List<Element> doctypeElements =  getXPath().selectNodes(getDocument(),"//doctypes/doctype[@state='1']");
+           List<Element> doctypeElements =  getXPathInstance().selectNodes(getDocument(),"//doctypes/doctype[@state='1']");
            return doctypeElements;
       } else {
           log.error("Locale code file could not be loaded !");
@@ -101,7 +103,7 @@ public class DocTypesReader extends BaseConfigReader {
      */
     public Element getDocTypeByName(String docType) throws JDOMException {
         if (null != getDocument()) {
-            Element doctypeElement = (Element) getXPath().selectSingleNode(getDocument(), "//doctypes/doctype[@name='"+ docType + "']");
+            Element doctypeElement = (Element) getXPathInstance().selectSingleNode(getDocument(), "//doctypes/doctype[@name='"+ docType + "']");
             return doctypeElement;
         } else {
             log.error("Error getting doctype element");
@@ -109,6 +111,46 @@ public class DocTypesReader extends BaseConfigReader {
         }
      }
 
+    /**
+     * Gets a doctype element 
+     * @param docType
+     * @return G
+     */
+    public Element getDocTypeByNameClone(String docType) {
+        Element docTypeElem = null;
+        try {
+            docTypeElem = getDocTypeByName(docType);
+        } catch (JDOMException ex) {
+            log.error("Error while getting doctype Configuration");
+        }
+        if (docTypeElem != null){
+            return (Element)docTypeElem.clone();
+        }
+        return null;
+    }
+
+
+    /**
+     * Returns the doctypes/output element
+     * @return 
+     */
+    public Element getOutputsBlock(){
+      if (null != getDocument()) {
+            Element doctypeOutput = null;
+            try {
+                doctypeOutput = (Element) this.getXPathInstance().selectSingleNode(
+                getDocument(),
+                "//doctypes/outputs"
+                );
+            } catch (JDOMException ex) {
+                log.error("Error while accessing outputs element");
+            }
+           return doctypeOutput;
+      } else {
+          log.error("Doctypes code file could not be loaded !");
+          return null;
+      }
+    }
      /**
       * Get root Section type for a doctype
       * @param docType
@@ -129,7 +171,7 @@ public class DocTypesReader extends BaseConfigReader {
         Element uriWork = null;
         String sUriWork = "";
         try {
-           uriWork = (Element) getXPath().selectSingleNode(doctypeElem, "./uri[@type='work']");
+           uriWork = (Element) getXPathInstance().selectSingleNode(doctypeElem, "./uri[@type='work']");
            if (null != uriWork) {
                 sUriWork = uriWork.getTextNormalize();
            }
@@ -144,7 +186,7 @@ public class DocTypesReader extends BaseConfigReader {
         Element uriExp = null;
         String sUriExpr = "";
         try {
-           uriExp = (Element) getXPath().selectSingleNode(doctypeElem, "./uri[@type='expression']");
+           uriExp = (Element) getXPathInstance().selectSingleNode(doctypeElem, "./uri[@type='expression']");
            if (null != uriExp) {
                 sUriExpr = uriExp.getTextNormalize();
            }
@@ -180,7 +222,7 @@ public class DocTypesReader extends BaseConfigReader {
         return listParts;
     }
 
-    private XPath getXPath() throws JDOMException {
+    private XPath getXPathInstance() throws JDOMException {
         if (this.xpathInstance == null) {
             this.xpathInstance = XPath.newInstance("//locale");
         }
@@ -188,9 +230,9 @@ public class DocTypesReader extends BaseConfigReader {
     }
 
     private Document getDocument() {
-       if (this.localesDocument == null) {
+       if (this.doctypesDocument == null) {
             try {
-                this.localesDocument = CommonEditorXmlUtils.loadFile(RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE);
+                this.doctypesDocument = CommonEditorXmlUtils.loadFile(RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE);
             } catch (FileNotFoundException ex) {
                 log.error("file not found", ex);
             } catch (UnsupportedEncodingException ex) {
@@ -201,7 +243,7 @@ public class DocTypesReader extends BaseConfigReader {
                 log.error("io error", ex);
             }
         }
-       return this.localesDocument;
+       return this.doctypesDocument;
     }
 
    /**
