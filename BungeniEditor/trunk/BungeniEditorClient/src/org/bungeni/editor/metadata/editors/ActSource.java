@@ -65,6 +65,8 @@ public class ActSource extends BaseEditorDocMetadataDialog {
     private ArrayList<PublicationSrc> SrcNamesList = new ArrayList<PublicationSrc>();
     private final SimpleDateFormat dformatter = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
 
+     private String dbName = "Muqtafi2007";
+     
     /**
      * Creates new customizer ActSource
      */
@@ -260,7 +262,7 @@ public class ActSource extends BaseEditorDocMetadataDialog {
                                     .addComponent(dt_publication_date, javax.swing.GroupLayout.DEFAULT_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(dt_publication_dateHijri, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblPublicationDateHijri))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblPublicationArea)
                                     .addComponent(txtPublicationArea, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -458,7 +460,7 @@ public class ActSource extends BaseEditorDocMetadataDialog {
                 colLabel = "LG_Src_Name_E";
             }
             String sqlStm = "SELECT [LG_Src_ID], [" + colLabel + "], [LG_Src_Name_AN] FROM LG_Src";
-            ResultSet rs = CommonConnectorFunctions.ConnectMMSM(sqlStm);
+            ResultSet rs = CommonConnectorFunctions.ConnectMMSM(dbName, sqlStm);
 
             while (rs.next()) {
                 PublicationSrc psObj = new PublicationSrc(rs.getString(1), rs.getString(2), rs.getString(3));

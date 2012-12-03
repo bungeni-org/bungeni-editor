@@ -3,422 +3,495 @@
  *
  * Created on November 4, 2008, 1:43 PM
  */
-
 package org.bungeni.editor.metadata.editors;
+
 import org.bungeni.editor.connectorutils.CommonConnectorFunctions;
 import org.bungeni.editor.config.BungeniEditorProperties;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.SwingWorker;
 import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.element.*;
+import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
+import org.bungeni.editor.metadata.CaseType;
+import org.bungeni.editor.metadata.Category;
+import org.bungeni.editor.metadata.City;
+import org.bungeni.editor.metadata.Domains;
+import org.bungeni.editor.metadata.JudgementFamily;
 import org.bungeni.editor.metadata.JudgementMetadataModel;
+import org.bungeni.editor.metadata.LanguageCode;
+import org.bungeni.editor.metadata.PublicationType;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.extutils.*;
 import org.bungeni.utils.BungeniFileSavePathFormat;
 
 /**
  *
- * @author  undesa
+ * @author undesa
  */
 public class JudgemenMetadataExtra extends BaseEditorDocMetadataDialog {
 
-  
-  
-    
-     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(JudgemenMetadataExtra.class.getName());
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(JudgemenMetadataExtra.class.getName());
     JudgementMetadataModel docMetaModel = new JudgementMetadataModel();
-    
-     // private Vector<Vector<String>> resultRows = null ; // stores all the bills as
-                            // obtained from the H2 database
-     
-    
- //   OOComponentHelper ooDocument  = null;
- //   JFrame parentFrame = null;
- //    SelectorDialogModes dlgMode = null;
-    
-    
-    public JudgemenMetadataExtra(){
+    private SimpleDateFormat dtformatter = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
+    private String dbName = "FamilyCourtJudgments";
+    private ArrayList<CaseType> CaseTypesList = new ArrayList<CaseType>();
+    private ArrayList<Domains> DomainsList = new ArrayList<Domains>();
+    private ArrayList<JudgementFamily> JudgementFamiliesList = new ArrayList<JudgementFamily>();
+    private ArrayList<City> CitiesList = new ArrayList<City>();
+
+    public JudgemenMetadataExtra() {
         super();
         initComponents();
-        //if(Locale.getDefault().getLanguage().equals("ar") && Locale.getDefault().getCountry().equals("PS") )
-        //   CommonEditorFunctions.compOrientation(this);
+        CommonUIFunctions.compOrientation(this);
     }
-    
+
     @Override
     public void initialize() {
-        
         super.initialize();
-        loadActInfo();
         this.docMetaModel.setup();
-        //initControls();
-         if (theMode == SelectorDialogModes.TEXT_INSERTION) {
-        } else if (theMode == SelectorDialogModes.TEXT_EDIT) {
+        initControls();
+        loadActInfo();
+        if (theMode == SelectorDialogModes.TEXT_EDIT) {
+            //retrieve metadata... and set in controls....
             docMetaModel.loadModel(ooDocument);
         }
+
         try {
+
+            String sLanguageCode = docMetaModel.getItem("BungeniLanguageCode");
+            String sFamily = docMetaModel.getItem("BungeniFamily");
+            String sDomainType = docMetaModel.getItem("BungeniDomain");
+            String sCaseType = docMetaModel.getItem("BungeniCaseType");
+            String sCity = docMetaModel.getItem("BungeniCity");
             String sCaseNo = docMetaModel.getItem("BungeniCaseNo");
-            String sDomain = docMetaModel.getItem("BungeniDomain");
-            String sCourtType = docMetaModel.getItem("BungeniCourtType");
-            String sIssuedOn = docMetaModel.getItem("BungeniIssuedOn");
-            String sRegionName = docMetaModel.getItem("BungeniRegionName");
-            String sLitigationType = docMetaModel.getItem("BungeniLitigationType");
-           // String sLitigationType = docMetaModel.getItem("BungeniLitigationType");
-          
-           
+            String sDate = docMetaModel.getItem("BungeniDate");
+            String sYear = docMetaModel.getItem("BungeniYear");
+
+            if (!CommonStringFunctions.emptyOrNull(sLanguageCode)) {
+                this.cboLanguage.setSelectedItem(findLanguageCodeAlpha2(sLanguageCode));
+            }
+            if (!CommonStringFunctions.emptyOrNull(sFamily)) {
+                this.cboFamily.setSelectedItem(sFamily);
+            }
+            if (!CommonStringFunctions.emptyOrNull(sDomainType)) {
+                this.cboDomain.setSelectedItem(sDomainType);
+            }
+            if (!CommonStringFunctions.emptyOrNull(sCaseType)) {
+                this.cboCaseType.setSelectedItem(sCaseType);
+            }
+            if (!CommonStringFunctions.emptyOrNull(sCity)) {
+                this.cboCities.setSelectedItem(sCity);
+            }
             if (!CommonStringFunctions.emptyOrNull(sCaseNo)) {
                 this.txtCaseNumber.setText(sCaseNo);
             }
-            
-            if (!CommonStringFunctions.emptyOrNull(sRegionName)) {
-                this.regionNameCombobox.addItem(sRegionName);
+            if (!CommonStringFunctions.emptyOrNull(sDate)) {
+                this.dt_official_date.setDate(dtformatter.parse(sDate));
             }
-            
-             if (!CommonStringFunctions.emptyOrNull(sLitigationType)) {
-                this.litigationTybeCombobox.addItem(sLitigationType);
+            if (!CommonStringFunctions.emptyOrNull(sYear)) {
+                this.txtYear.setText(sYear);
             }
-            
-            
-            
-            
-            if (!CommonStringFunctions.emptyOrNull(sDomain)) {
-                 this.domain.addItem(sDomain);
-            }
-            
-             if (!CommonStringFunctions.emptyOrNull(sCourtType)) {
-                 this.courtNameCombobox.addItem(sCourtType);
-            }
-             
-            
-             
-              if (!CommonStringFunctions.emptyOrNull(sIssuedOn)) {
-                SimpleDateFormat formatter = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
-                this.dt_issuedOn.setDate(formatter.parse(sIssuedOn));
-             }
-            
-            
-            
-           
-           /* String sDateOfAssent = docMetaModel.getItem("BungeniDateOfAssent");
-            if (!CommonStringFunctions.emptyOrNull(sDateOfAssent)) {
-                SimpleDateFormat formatter = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
-                this.dt_dateofassent.setDate(formatter.parse(sDateOfAssent));
-             }*/
-           
-            
-            
-           
-
         } catch (Exception ex) {
             log.error("initalize()  =  " + ex.getMessage());
         }
-           
     }
-    
+
     private void loadActInfo() {
-        BungeniConnector client = null ;
+        BungeniConnector client = null;
         try {
             client = CommonConnectorFunctions.getDSClient();
             List<MetadataInfo> metadata = client.getMetadataInfo();
             if (metadata != null) {
                 for (int i = 0; i < metadata.size(); i++) {
-                    if (metadata.get(i).getName().equalsIgnoreCase("BungeniCaseNo")) {
-                        docMetaModel.setBungeniCaseNo(metadata.get(i).getValue());
+
+                    if (metadata.get(i).getName().equalsIgnoreCase("BungeniLanguageCode")) {
+                        docMetaModel.setBungeniLanguageCode(metadata.get(i).getValue());
                     }
-                    
-                    if (metadata.get(i).getName().equalsIgnoreCase("BungeniRegionName")) {
-                        docMetaModel.setBungeniRegionName(metadata.get(i).getValue());
+                    if (metadata.get(i).getName().equalsIgnoreCase("BungeniFamily")) {
+                        docMetaModel.setBungeniFamily(metadata.get(i).getValue());
                     }
-                    
-                    if (metadata.get(i).getName().equalsIgnoreCase("BungeniLitigationType")) {
-                        docMetaModel.setBungeniLitigationType(metadata.get(i).getValue());
-                    }
-                    
-                    
-                    
-                    
                     if (metadata.get(i).getName().equalsIgnoreCase("BungeniDomain")) {
                         docMetaModel.setBungeniDomain(metadata.get(i).getValue());
                     }
-                    
-                    if (metadata.get(i).getName().equalsIgnoreCase("BungeniCourtType")) {
-                        docMetaModel.setBungeniCourtType(metadata.get(i).getValue());
+                    if (metadata.get(i).getName().equalsIgnoreCase("BungeniCaseType")) {
+                        docMetaModel.setBungeniCaseType(metadata.get(i).getValue());
                     }
-                    
-                    if (metadata.get(i).getName().equalsIgnoreCase("BungeniIssuedOn")) {
-                        docMetaModel.setBungeniIssuedOn(metadata.get(i).getValue());
-                    } 
-                    
-                   
-                    
-                   /*  if (metadata.get(i).getName().equalsIgnoreCase("BungeniLitigationType")) {
-                        docMetaModel.setBungeniLitigationType(metadata.get(i).getValue());
-                    } */
-                    
+                    if (metadata.get(i).getName().equalsIgnoreCase("BungeniCity")) {
+                        docMetaModel.setBungeniCity(metadata.get(i).getValue());
+                    }
+                    if (metadata.get(i).getName().equalsIgnoreCase("BungeniCaseNo")) {
+                        docMetaModel.setBungeniCaseNo(metadata.get(i).getValue());
+                    }
+                    if (metadata.get(i).getName().equalsIgnoreCase("BungeniDate")) {
+                        docMetaModel.setBungeniDate(metadata.get(i).getValue());
+                    }
+                    if (metadata.get(i).getName().equalsIgnoreCase("BungeniYear")) {
+                        docMetaModel.setBungeniYear(metadata.get(i).getValue());
+                    }
+
                     System.out.println(metadata.get(i).getName() + " " + metadata.get(i).getType() + " " + metadata.get(i).getValue());
                 }
             }
             client.closeConnector();
         } catch (IOException ex) {
-            log.error("THe connector client could not be initialized" , ex);
+            log.error("THe connector client could not be initialized", ex);
         }
     }
-    
-    
+
     public Component getPanelComponent() {
         return this;
     }
-    
-    private void initControls(){
-    //    String popupDlgBackColor = BungeniEditorProperties.getEditorProperty("popupDialogBackColor");
-    //    this.setBackground(Color.decode(popupDlgBackColor));
+
+    private void initControls() {
+        cboLanguage.setModel(new DefaultComboBoxModel(languageCodes));
+        this.cboLanguage.setSelectedItem(findLanguageCode(Locale.getDefault().getLanguage()));
+       
     }
 
     /**
-     * (rm, feb 2012) - this method obtains the bill names
-     * and updates the billNo text field with the relevant #
+     * (rm, feb 2012) - this method obtains the bill names and updates the
+     * billNo text field with the relevant #
+     *
      * @return
      */
-    
-    private ComboBoxModel setCourtsNamesModel()
-    {
-        DefaultComboBoxModel judgementCourtsNamesModel = null ;
-        String [] judgementCourtsNames = null ; // stores all the bill Names
-        
-        // initialise the Bungeni Connector Client
-         BungeniConnector client = null ;
+    private ComboBoxModel setCaseTypesModel() {
+
+        DefaultComboBoxModel judgementCaseTypesModel = null;
+
         try {
-            // initialize the data store client
-            client = CommonConnectorFunctions.getDSClient();
+            String sqlStm = "SELECT [CJ_CaseTypes_ID], [CJ_CaseTypes_Name], [CJ_CaseTypes_Name_E] FROM [CJ_CaseTypes] WHERE [CJ_CaseTypes_Name] != '' ";
+            ResultSet rs = CommonConnectorFunctions.ConnectMMSM(dbName, sqlStm);
 
-            // get the bills from the registry H2 db
-            List<JudgementCourt> judgementCourtsList = client.getJudgementCourts() ;
-            judgementCourtsNames = new String[judgementCourtsList.size()] ;
-            
-            // loop through extracting the bills
-            for (int i = 0 ; i < judgementCourtsList.size() ; i ++)
-            {
-                // get the current bill & extract the bill Name
-                JudgementCourt currJudgementCourt = judgementCourtsList.get(i) ;
-                judgementCourtsNames[i] = currJudgementCourt.getNameByLang(Locale.getDefault().getLanguage());
+            while (rs.next()) {
+                CaseType ctObj = new CaseType(rs.getString(1), rs.getString(2), rs.getString(3));
+                CaseTypesList.add(ctObj);
+
             }
-
-            // create the default bills Names model
-            judgementCourtsNamesModel = new DefaultComboBoxModel(judgementCourtsNames) ;
-            
-        } catch (IOException ex) {
-            log.error(ex) ;
+        } catch (SQLException ex) {
+            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-         return judgementCourtsNamesModel ;
+        String[] judgementCaseTypes = new String[CaseTypesList.size()];
+        for (int i = 0; i < CaseTypesList.size(); i++) {
+            judgementCaseTypes[i] = CaseTypesList.get(i).toString();
+        }
+        // create the default acts Names mode
+        judgementCaseTypesModel = new DefaultComboBoxModel(judgementCaseTypes);
+
+//        DefaultComboBoxModel judgementCaseTypesModel = null;
+//        String[] judgementCaseTypes = null; // stores all the bill Names
+//
+//        // initialise the Bungeni Connector Client
+//        BungeniConnector client = null;
+//        try {
+//            // initialize the data store client
+//            client = CommonConnectorFunctions.getDSClient();
+//
+//            // get the bills from the registry H2 db
+//            List<JudgementCase> judgementCasesList = client.getJudgementCases();
+//            judgementCaseTypes = new String[judgementCasesList.size()];
+//
+//            // loop through extracting the bills
+//            for (int i = 0; i < judgementCasesList.size(); i++) {
+//                // get the current bill & extract the bill Name
+//                JudgementCase currJudgementCase = judgementCasesList.get(i);
+//                judgementCaseTypes[i] = currJudgementCase.getNameByLang(Locale.getDefault().getLanguage());
+//            }
+//
+//            // create the default bills Names model
+//            judgementCaseTypesModel = new DefaultComboBoxModel(judgementCaseTypes);
+//
+//        } catch (IOException ex) {
+//            log.error(ex);
+//        }
+
+        return judgementCaseTypesModel;
     }
-    
-    
-    
-    
-    /* private ComboBoxModel setDomainNamesModel_()
-    {
-        ReadAndPrintXMLFile xmlFileDomain= new ReadAndPrintXMLFile();
-        String [] Domain = null; 
-        xmlFileDomain.setFilePath("settings/datasource/xml/judgementDomain.xml");
-        xmlFileDomain.setParent("domain");
-        xmlFileDomain.setID("id");
-        xmlFileDomain.setLabel("label");
-        
-        DefaultComboBoxModel DomainNamesModel = null ;
-        Domain =xmlFileDomain.read();
-        DomainNamesModel = new DefaultComboBoxModel(Domain) ;
-        return DomainNamesModel ;
-        //System.out.println("toz : " +  Arrays.toString(courtType));
 
-    }*/
-     
-     private ComboBoxModel setDomainNamesModel()
-    {
-        DefaultComboBoxModel judgementDomainsNamesModel = null ;
-        String [] judgementDomainsNames = null ; // stores all the bill Names
-        
-        // initialise the Bungeni Connector Client
-         BungeniConnector client = null ;
+    private ComboBoxModel setDomainsModel() {
+        DefaultComboBoxModel judgementDomainsModel = null;
+
         try {
-            // initialize the data store client
-            client = CommonConnectorFunctions.getDSClient();
+            String sqlStm = "SELECT [CJ_Domains_ID], [CJ_Domains_Name], [CJ_Domains_Name_E] FROM CJ_Domains WHERE [CJ_Domains_Name] != ''";
+            ResultSet rs = CommonConnectorFunctions.ConnectMMSM(dbName, sqlStm);
 
-            // get the bills from the registry H2 db
-            List<JudgementDomain> judgementDomainsList = client.getJudgementDomains() ;
-            judgementDomainsNames = new String[judgementDomainsList.size()] ;
-            
-            // loop through extracting the bills
-            for (int i = 0 ; i < judgementDomainsList.size() ; i ++)
-            {
-                // get the current bill & extract the bill Name
-                JudgementDomain currJudgementDomain = judgementDomainsList.get(i) ;
-                judgementDomainsNames[i] = currJudgementDomain.getNameByLang(Locale.getDefault().getLanguage());
+            while (rs.next()) {
+                Domains dObj = new Domains(rs.getString(1), rs.getString(2), rs.getString(3));
+                DomainsList.add(dObj);
+
             }
-
-            // create the default bills Names model
-            judgementDomainsNamesModel = new DefaultComboBoxModel(judgementDomainsNames) ;
-            
-        } catch (IOException ex) {
-            log.error(ex) ;
+        } catch (SQLException ex) {
+            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-         return judgementDomainsNamesModel ;
+        String[] judgementDomains = new String[CaseTypesList.size()];
+        for (int i = 0; i < DomainsList.size(); i++) {
+            judgementDomains[i] = DomainsList.get(i).toString();
+        }
+        // create the default acts Names mode
+        judgementDomainsModel = new DefaultComboBoxModel(judgementDomains);
+
+        return judgementDomainsModel;
+//        DefaultComboBoxModel judgementDomainsNamesModel = null;
+//        String[] judgementDomainsNames = null; // stores all the bill Names
+//
+//        // initialise the Bungeni Connector Client
+//        BungeniConnector client = null;
+//        try {
+//            // initialize the data store client
+//            client = CommonConnectorFunctions.getDSClient();
+//
+//            // get the bills from the registry H2 db
+//            List<JudgementDomain> judgementDomainsList = client.getJudgementDomains();
+//            judgementDomainsNames = new String[judgementDomainsList.size()];
+//
+//            // loop through extracting the bills
+//            for (int i = 0; i < judgementDomainsList.size(); i++) {
+//                // get the current bill & extract the bill Name
+//                JudgementDomain currJudgementDomain = judgementDomainsList.get(i);
+//                judgementDomainsNames[i] = currJudgementDomain.getNameByLang(Locale.getDefault().getLanguage());
+//            }
+//
+//            // create the default bills Names model
+//            judgementDomainsNamesModel = new DefaultComboBoxModel(judgementDomainsNames);
+//
+//        } catch (IOException ex) {
+//            log.error(ex);
+//        }
+//
+//        return judgementDomainsNamesModel;
     }
-     
-     
-      private ComboBoxModel  setLitigationNamesModel()
-    {
-        DefaultComboBoxModel judgementLitigationTypesNamesModel = null ;
-        String [] judgementLitigationTypesNames = null ; // stores all the bill Names
-        
-        // initialise the Bungeni Connector Client
-         BungeniConnector client = null ;
+
+    private ComboBoxModel setFamiliesModel() {
+        DefaultComboBoxModel judgmentFamiliesModel = null;
+
         try {
-            // initialize the data store client
-            client = CommonConnectorFunctions.getDSClient();
+            String sqlStm = "SELECT [CJ_Family_Id], [CJ_Family_Name], [CJ_Family_Name_E] FROM [CJ_Family] WHERE [CJ_Family_Name] != '' ";
+            ResultSet rs = CommonConnectorFunctions.ConnectMMSM(dbName, sqlStm);
 
-            // get the bills from the registry H2 db
-            List<JudgementLitigationType> judgementLitigationTypesList = client.getJudgementLitigationTypes() ;
-            judgementLitigationTypesNames = new String[judgementLitigationTypesList.size()] ;
-            
-            // loop through extracting the bills
-            for (int i = 0 ; i < judgementLitigationTypesList.size() ; i ++)
-            {
-                // get the current bill & extract the bill Name
-                JudgementLitigationType currJudgementLitigationType = judgementLitigationTypesList.get(i) ;
-                judgementLitigationTypesNames[i] = currJudgementLitigationType.getNameByLang(Locale.getDefault().getLanguage());
+            while (rs.next()) {
+                JudgementFamily jfObj = new JudgementFamily(rs.getString(1), rs.getString(2), rs.getString(3));
+                JudgementFamiliesList.add(jfObj);
+
             }
-
-            // create the default bills Names model
-            judgementLitigationTypesNamesModel = new DefaultComboBoxModel(judgementLitigationTypesNames) ;
-            
-        } catch (IOException ex) {
-            log.error(ex) ;
+        } catch (SQLException ex) {
+            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-         return judgementLitigationTypesNamesModel ;
+        String[] judgementFamilies = new String[JudgementFamiliesList.size()];
+        for (int i = 0; i < JudgementFamiliesList.size(); i++) {
+            judgementFamilies[i] = JudgementFamiliesList.get(i).toString();
+        }
+        // create the default acts Names mode
+        judgmentFamiliesModel = new DefaultComboBoxModel(judgementFamilies);
+
+        return judgmentFamiliesModel;
+
+//        DefaultComboBoxModel familyNamesModel = null;
+//        String[] familyNames = null; // stores all the bill Names
+//        
+//        // initialise the Bungeni Connector Client
+//         BungeniConnector client = null ;
+//        try {
+//            // initialize the data store client
+//            client = CommonConnectorFunctions.getDSClient();
+//
+//            // get the bills from the registry H2 db
+//            List<Family> familyList = client.getFamiles();
+//            familyNames = new String[familyList.size()] ;
+//            
+//            // loop through extracting the bills
+//            for (int i = 0 ; i < familyList.size() ; i ++)
+//            {
+//                Family fam = familyList.get(i) ;
+//                familyNames[i] = fam.getNameByLang(Locale.getDefault().getLanguage());
+//               
+//            }
+//
+//            // create the default bills Names model
+//            familyNamesModel = new DefaultComboBoxModel(familyNames) ;
+//            
+//        } catch (IOException ex) {
+//            log.error(ex) ;
+//        }
+
+//        return familyNamesModel;
     }
-      
-      
-      
-      
-    private ComboBoxModel  settRegionNamesModel()
-    {
-        DefaultComboBoxModel judgementRegionsNamesModel = null ;
-        String [] judgementRegionsNames = null ; // stores all the bill Names
-        
-        // initialise the Bungeni Connector Client
-         BungeniConnector client = null ;
+
+    private ComboBoxModel setCitiesModel() {
+        DefaultComboBoxModel CitiesModel = null;
+
         try {
-            // initialize the data store client
-            client = CommonConnectorFunctions.getDSClient();
+            String sqlStm = "SELECT CJ_Cities_ID, CJ_Cities_Name, CJ_Cities_Name_E FROM CJ_Cities WHERE [CJ_Cities_Name] != '' ";
+            ResultSet rs = CommonConnectorFunctions.ConnectMMSM(dbName, sqlStm);
 
-            // get the bills from the registry H2 db
-            List<JudgementRegion> judgementRegionsList = client.getJudgementRegions() ;
-            judgementRegionsNames = new String[judgementRegionsList.size()] ;
-            
-            // loop through extracting the bills
-            for (int i = 0 ; i < judgementRegionsList.size() ; i ++)
-            {
-                // get the current bill & extract the bill Name
-                JudgementRegion currJudgementRegion = judgementRegionsList.get(i) ;
-                judgementRegionsNames[i] = currJudgementRegion.getNameByLang(Locale.getDefault().getLanguage());
+            while (rs.next()) {
+                City cityObj = new City(rs.getString(1), rs.getString(2), rs.getString(3));
+                CitiesList.add(cityObj);
+
             }
-
-            // create the default bills Names model
-            judgementRegionsNamesModel = new DefaultComboBoxModel(judgementRegionsNames) ;
-            
-        } catch (IOException ex) {
-            log.error(ex) ;
+        } catch (SQLException ex) {
+            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-         return judgementRegionsNamesModel ;
-    }  
-     
-     
-    
+        String[] cities = new String[CitiesList.size()];
+        for (int i = 0; i < CitiesList.size(); i++) {
+            cities[i] = CitiesList.get(i).toString();
+        }
 
-    public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
-    boolean bState = false;
-    try {
-    String sCaseNo = this.txtCaseNumber.getText();
-    String sRegionName = (String) this.regionNameCombobox.getSelectedItem();
-    String sLitigationType = (String) this.litigationTybeCombobox.getSelectedItem();
-    
-    
-    String sDomain  = (String) this.domain.getSelectedItem();
-    String scourtType = (String) this.courtNameCombobox.getSelectedItem();
-    
-    SimpleDateFormat dformatter = new SimpleDateFormat (BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
-    final String sIssuedOn = dformatter.format(dt_issuedOn.getDate());
-   // String sLitigationType  = (String) this.cb_litigationType.getSelectedItem(); 
-   
-      
-    //get the date of assent
-     //SimpleDateFormat dformatter = new SimpleDateFormat (BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
-     //final String sDateOfAssent = dformatter.format(dt_dateofassent.getDate());
-   
-    // (rm, feb 2012) - uses a JComboBox rather than a textfield
-     // String sBillName = this.txtBillName.getText();
-   // String sBillName = (String) this.billNameCombobox.getSelectedItem();
-    //get the assent date
-      // SimpleDateFormat dformatter = new SimpleDateFormat (BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
-      // final String strDateOfAssent = dformatter.format( this.dt_dateofassent.getDate());
-      // final String strDateOfCommencement = dformatter.format(this.dt_dateofcommencement.getDate());
-       // docMetaModel.updateItem("BungeniParliamentID")
-        docMetaModel.updateItem("BungeniCaseNo", sCaseNo);
-        docMetaModel.updateItem("BungeniRegionName", sRegionName);
-        docMetaModel.updateItem("BungeniLitigationType", sLitigationType);
-        
-        
-        
-        docMetaModel.updateItem("BungeniDomain", sDomain);
-        docMetaModel.updateItem("BungeniCourtType", scourtType);
-        docMetaModel.updateItem("BungeniIssuedOn", sIssuedOn);
-        
-        
-      //  docMetaModel.updateItem("BungeniLitigationType", sLitigationType);
-       
-        docMetaModel.saveModel(ooDocument);
-    bState = true;
-    } catch (Exception ex) {
-        log.error("applySelectedMetadata : " + ex.getMessage());
-        bState = false;
-    } finally {
-        return bState;
+        CitiesModel = new DefaultComboBoxModel(cities);
+
+        return CitiesModel;
+
+//        DefaultComboBoxModel CitiesNamesModel = null;
+//        String[] CitiesNames = null; // stores all the bill Names
+
+        // initialise the Bungeni Connector Client
+//         BungeniConnector client = null ;
+//        try {
+//            // initialize the data store client
+//            client = CommonConnectorFunctions.getDSClient();
+//
+//            // get the bills from the registry H2 db
+//            List<Cities> CitiesList = client.getCities();
+//            CitiesNames = new String[CitiesList.size()] ;
+//            
+//            // loop through extracting the bills
+//            for (int i = 0 ; i < CitiesList.size() ; i ++)
+//            {
+//                // get the current bill & extract the bill Name
+//                Cities currJudgementRegion = CitiesList.get(i) ;
+//                CitiesNames[i] = currJudgementRegion.getNameByLang(Locale.getDefault().getLanguage());
+//           //    CitiesNames[i] = currJudgementRegion.getNameByLang("en");
+//               
+//            }
+//
+//            // create the default bills Names model
+//            CitiesNamesModel = new DefaultComboBoxModel(CitiesNames) ;
+//            
+//        } catch (IOException ex) {
+//            log.error(ex) ;
+//        }
+
+//        return CitiesNamesModel;
     }
-}  
 
-    /** This method is called from within the constructor to
-     * initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
+    public boolean applySelectedMetadata(BungeniFileSavePathFormat spf) {
+        boolean bState = false;
+        try {
+            LanguageCode selLanguage = (LanguageCode) this.cboLanguage.getSelectedItem();
+            String sFamily = (String) this.cboFamily.getSelectedItem();
+            String sDomain = (String) this.cboDomain.getSelectedItem();
+            String sCaseType = (String) this.cboCaseType.getSelectedItem();
+            String sCity = (String) this.cboCities.getSelectedItem();
+            String sCaseNo = this.txtCaseNumber.getText();
+            String sDate = dtformatter.format(dt_official_date.getDate());
+            String sYear = this.txtYear.getText();
+
+            docMetaModel.updateItem("BungeniLanguageCode", selLanguage.getLanguageCodeAlpha2());
+            docMetaModel.updateItem("BungeniFamily", sFamily);
+            docMetaModel.updateItem("BungeniDomain", sDomain);
+            docMetaModel.updateItem("BungeniCaseType", sCaseType);
+            docMetaModel.updateItem("BungeniCity", sCity);
+            docMetaModel.updateItem("BungeniCaseNo", sCaseNo);
+            docMetaModel.updateItem("BungeniIssuedOn", sDate);
+            docMetaModel.updateItem("BungeniYear", sYear);
+
+            spf.setSaveComponent("DocumentType", BungeniEditorPropertiesHelper.getCurrentDocType());
+            spf.setSaveComponent("LanguageCode", Locale.getDefault().getLanguage());
+            spf.setSaveComponent("CountryCode", Locale.getDefault().getCountry());
+            
+            Date dtHansardDate = dt_official_date.getDate();
+            GregorianCalendar debateCal = new GregorianCalendar();
+            debateCal.setTime(dtHansardDate);
+            spf.setSaveComponent("Year", debateCal.get(Calendar.YEAR));
+            spf.setSaveComponent("Month", debateCal.get(Calendar.MONTH) + 1);
+            spf.setSaveComponent("Day", debateCal.get(Calendar.DAY_OF_MONTH));
+            spf.setSaveComponent("PartName", "main");
+            spf.setSaveComponent("Year", sYear);
+            spf.setSaveComponent("Num", sCaseNo);
+           
+//            spf.setSaveComponent("Domain", engDomian);
+//            spf.setSaveComponent("Case", engCaseType);
+//            spf.setSaveComponent("MainType", finalMainPart);
+            spf.parseComponents();
+
+            docMetaModel.saveModel(ooDocument);
+            bState = true;
+
+        } catch (Exception ex) {
+            log.error("applySelectedMetadata : " + ex.getMessage());
+            bState = false;
+        } finally {
+            return bState;
+        }
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtCaseNumber = new javax.swing.JTextField();
-        dt_issuedOn = new org.jdesktop.swingx.JXDatePicker();
-        courtNameCombobox = new javax.swing.JComboBox();
-        lblDomainNo = new javax.swing.JLabel();
-        domain = new javax.swing.JComboBox();
-        lblCourtType = new javax.swing.JLabel();
         lblCaseNo = new javax.swing.JLabel();
-        lblIssuedOn = new javax.swing.JLabel();
-        litigationTybeCombobox = new javax.swing.JComboBox();
-        regionNameCombobox = new javax.swing.JComboBox();
-        lblLitigationType = new javax.swing.JLabel();
-        lblRegion = new javax.swing.JLabel();
+        cboFamily = new javax.swing.JComboBox();
+        slash = new javax.swing.JLabel();
+        cboCities = new javax.swing.JComboBox();
+        cboCaseType = new javax.swing.JComboBox();
+        lblCaseType = new javax.swing.JLabel();
+        dt_official_date = new org.jdesktop.swingx.JXDatePicker();
+        txtCaseNumber = new javax.swing.JTextField();
+        cboLanguage = new javax.swing.JComboBox();
+        lblOfficialDate = new javax.swing.JLabel();
+        lblCity = new javax.swing.JLabel();
+        lblFamily = new javax.swing.JLabel();
+        lblLanguage = new javax.swing.JLabel();
+        txtYear = new javax.swing.JTextField();
+        cboDomain = new javax.swing.JComboBox();
+        lblYear = new javax.swing.JLabel();
+        lblDomain = new javax.swing.JLabel();
+
+        lblCaseNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle"); // NOI18N
+        lblCaseNo.setText(bundle.getString("JudgemenMetadataExtra.lblCaseNo.text")); // NOI18N
+
+        cboFamily.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        cboFamily.setModel(setFamiliesModel());
+
+        slash.setText(bundle.getString("JudgemenMetadataExtra.slash.text")); // NOI18N
+
+        cboCities.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        cboCities.setModel(setCitiesModel());
+        cboCities.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboCitiesActionPerformed(evt);
+            }
+        });
+
+        cboCaseType.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        cboCaseType.setModel(setCaseTypesModel());
+
+        lblCaseType.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblCaseType.setText(bundle.getString("JudgemenMetadataExtra.lblCaseType.text")); // NOI18N
+
+        dt_official_date.setFormats("dd/MM/yyyy");
+        dt_official_date.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
         txtCaseNumber.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         txtCaseNumber.addActionListener(new java.awt.event.ActionListener() {
@@ -427,33 +500,38 @@ public class JudgemenMetadataExtra extends BaseEditorDocMetadataDialog {
             }
         });
 
-        dt_issuedOn.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        cboLanguage.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        cboLanguage.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboLanguage.setName("fld.BungeniLanguageID"); // NOI18N
 
-        courtNameCombobox.setModel(setCourtsNamesModel());
-        courtNameCombobox.addActionListener(new java.awt.event.ActionListener() {
+        lblOfficialDate.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblOfficialDate.setText(bundle.getString("JudgemenMetadataExtra.lblOfficialDate.text")); // NOI18N
+
+        lblCity.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblCity.setText(bundle.getString("JudgemenMetadataExtra.lblCity.text")); // NOI18N
+
+        lblFamily.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblFamily.setText(bundle.getString("JudgemenMetadataExtra.lblFamily.text")); // NOI18N
+
+        lblLanguage.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblLanguage.setText(bundle.getString("JudgemenMetadataExtra.lblLanguage.text")); // NOI18N
+        lblLanguage.setName("lbl.BungeniLanguageID"); // NOI18N
+
+        txtYear.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        txtYear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                courtNameComboboxActionPerformed(evt);
+                txtYearActionPerformed(evt);
             }
         });
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle"); // NOI18N
-        lblDomainNo.setText(bundle.getString("JudgemenMetadataExtra.lblDomainNo.text")); // NOI18N
+        cboDomain.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        cboDomain.setModel(setDomainsModel());
 
-        domain.setModel(setDomainNamesModel());
+        lblYear.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblYear.setText(bundle.getString("JudgemenMetadataExtra.lblYear.text")); // NOI18N
 
-        lblCourtType.setText(bundle.getString("JudgemenMetadataExtra.lblCourtType.text")); // NOI18N
-
-        lblCaseNo.setText(bundle.getString("JudgemenMetadataExtra.lblCaseNo.text")); // NOI18N
-
-        lblIssuedOn.setText(bundle.getString("JudgemenMetadataExtra.lblIssuedOn.text")); // NOI18N
-
-        litigationTybeCombobox.setModel(setLitigationNamesModel());
-
-        regionNameCombobox.setModel(settRegionNamesModel());
-
-        lblLitigationType.setText(bundle.getString("JudgemenMetadataExtra.lblLitigationType.text")); // NOI18N
-
-        lblRegion.setText(bundle.getString("JudgemenMetadataExtra.lblRegion.text")); // NOI18N
+        lblDomain.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        lblDomain.setText(bundle.getString("JudgemenMetadataExtra.lblDomain.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -462,156 +540,139 @@ public class JudgemenMetadataExtra extends BaseEditorDocMetadataDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dt_issuedOn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblIssuedOn)
-                            .addComponent(txtCaseNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCaseNo))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblLitigationType)
-                            .addComponent(lblCourtType)
-                            .addComponent(litigationTybeCombobox, 0, 123, Short.MAX_VALUE)
-                            .addComponent(courtNameCombobox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblRegion)
-                            .addComponent(lblDomainNo)
-                            .addComponent(domain, 0, 108, Short.MAX_VALUE)
-                            .addComponent(regionNameCombobox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(36, Short.MAX_VALUE))))
+                            .addComponent(lblCaseNo)
+                            .addComponent(txtCaseNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(10, 10, 10)
+                        .addComponent(slash, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblYear))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(dt_official_date, javax.swing.GroupLayout.DEFAULT_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblOfficialDate)
+                                    .addComponent(cboFamily, 0, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblFamily, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(cboLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblLanguage)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cboDomain, 0, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(1, 1, 1)
+                                        .addComponent(lblDomain))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblCaseType)
+                                    .addComponent(cboCaseType, 0, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cboCities, 0, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblCity, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(26, 26, 26))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCourtType)
-                    .addComponent(lblDomainNo))
-                .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(courtNameCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(domain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cboLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblFamily)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cboFamily, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblDomain)
+                                .addGap(9, 9, 9)
+                                .addComponent(cboDomain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(lblCaseType)
+                        .addGap(9, 9, 9)
+                        .addComponent(cboCaseType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblCity)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cboCities, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(14, 14, 14)
+                .addComponent(lblOfficialDate)
+                .addGap(6, 6, 6)
+                .addComponent(dt_official_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblCaseNo)
+                    .addComponent(lblYear))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblLitigationType)
-                    .addComponent(lblRegion))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(litigationTybeCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(regionNameCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(lblCaseNo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCaseNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblIssuedOn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(dt_issuedOn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addComponent(txtCaseNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(slash)
+                    .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * (rm, feb 2012) - This method updates the bill No text field once the relevant 
-     * bill is selected from the drop down menu
-     * @param evt
-     */
-    private void courtNameComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_courtNameComboboxActionPerformed
-        JComboBox cb = (JComboBox) evt.getSource() ;
-
-        // get the selected item and extract id for bill
-        // from vector
-        final String selectedBill = (String) cb.getSelectedItem() ;
-
-        if( null != selectedBill ) {
-            // get the bill & set it to the Bill #
-            // textfield
-           SwingWorker setBillNo = new SwingWorker() {
-                @Override
-                protected String doInBackground() throws Exception {
-                    String billNo = null ;
-
-                    BungeniConnector client = null ;
-
-                    // initialize the data store client
-                    client = CommonConnectorFunctions.getDSClient();
-
-                    // get the bills from the registry H2 db
-                    List<Bill> billsList = client.getBills() ;
-
-                    // search for the billNo
-                    for (Bill bill : billsList)
-                    {
-                        if (selectedBill.equals(bill.getNameByLang(Locale.getDefault().getLanguage()))) {
-                            billNo = bill.getId().toString() ;
-                            return billNo ;
-                        }
-                    }
-
-                    return billNo ;
-                }
-
-                public void done() {
-                    try {
-                        // set the bill No
-                        txtCaseNumber.setText((String) get());
-                    } catch (InterruptedException ex) {
-                        log.error(ex) ;
-                    } catch (ExecutionException ex) {
-                        log.error(ex) ;
-                    }
-                }
-
-           };
-           
-           setBillNo.execute();
-        }
-
-    }//GEN-LAST:event_courtNameComboboxActionPerformed
+    private void cboCitiesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboCitiesActionPerformed
+    }//GEN-LAST:event_cboCitiesActionPerformed
 
     private void txtCaseNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCaseNumberActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCaseNumberActionPerformed
 
-
+    private void txtYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtYearActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtYearActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox courtNameCombobox;
-    private javax.swing.JComboBox domain;
-    private org.jdesktop.swingx.JXDatePicker dt_issuedOn;
+    private javax.swing.JComboBox cboCaseType;
+    private javax.swing.JComboBox cboCities;
+    private javax.swing.JComboBox cboDomain;
+    private javax.swing.JComboBox cboFamily;
+    private javax.swing.JComboBox cboLanguage;
+    private org.jdesktop.swingx.JXDatePicker dt_official_date;
     private javax.swing.JLabel lblCaseNo;
-    private javax.swing.JLabel lblCourtType;
-    private javax.swing.JLabel lblDomainNo;
-    private javax.swing.JLabel lblIssuedOn;
-    private javax.swing.JLabel lblLitigationType;
-    private javax.swing.JLabel lblRegion;
-    private javax.swing.JComboBox litigationTybeCombobox;
-    private javax.swing.JComboBox regionNameCombobox;
+    private javax.swing.JLabel lblCaseType;
+    private javax.swing.JLabel lblCity;
+    private javax.swing.JLabel lblDomain;
+    private javax.swing.JLabel lblFamily;
+    private javax.swing.JLabel lblLanguage;
+    private javax.swing.JLabel lblOfficialDate;
+    private javax.swing.JLabel lblYear;
+    private javax.swing.JLabel slash;
     private javax.swing.JTextField txtCaseNumber;
+    private javax.swing.JTextField txtYear;
     // End of variables declaration//GEN-END:variables
-
 
     @Override
     public Dimension getFrameSize() {
-        int DIM_X = 229 ; int DIM_Y = 222 ;
+        int DIM_X = 229;
+        int DIM_Y = 222;
         return new Dimension(DIM_X, DIM_Y + 10);
     }
 
-    
     @Override
-     public ArrayList<String> validateSelectedMetadata(BungeniFileSavePathFormat spf) {
-         addFieldsToValidate (new TreeMap<String,Component>(){
+    public ArrayList<String> validateSelectedMetadata(BungeniFileSavePathFormat spf) {
+        addFieldsToValidate(new TreeMap<String, Component>() {
             {
-                //  (rm, feb 2012) - bill Names are placed in a JCombobox, replacing defined JTextField
-                put(java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle").getString("Bill_Name"), courtNameCombobox);
-                put(java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle").getString("Bill_No"), txtCaseNumber);
-              //  put(java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle").getString("Date_of_Assent"), dt_dateofassent);
-              //  put (java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle").getString("Date_of_Commencement"), dt_dateofcommencement);
+                put(lblLanguage.getText().replace("*", ""), cboLanguage);
+                put(lblFamily.getText().replace("*", ""), cboFamily);
+                put(lblDomain.getText().replace("*", ""), cboDomain);
+                put(lblCaseType.getText().replace("*", ""), cboCaseType);
+                put(lblCaseNo.getText().replace("*", ""), txtCaseNumber);
+                put(lblCity.getText().replace("*", ""), cboCities);
+                put(lblOfficialDate.getText().replace("*", ""), dt_official_date);
+                put(lblYear.getText().replace("*", ""), txtYear);
             }
-            });
+        });
         return super.validateSelectedMetadata(spf);
-     }
+    }
 }
-
