@@ -141,7 +141,7 @@ public class DateHijri {
         int month = (int)iDate[6];
         int day = (int)iDate[5];
         
-        String hijriDate = year + "-" + month + "-" + day;
+        String hijriDate = day + "/" + month + "/" + year;
         return hijriDate;  
     }  
 }
