@@ -56,7 +56,7 @@ public class BaseSystemConfig {
             "cache";
 
     /**
-     * 
+     * Paths to many configuration folders 
      */
     public final static String SYSTEM_TEMPLATES =
             BaseSystemConfig.SYSTEM_BASE + File.separator +
@@ -65,6 +65,10 @@ public class BaseSystemConfig {
     public final static String SYSTEM_TRANSFORMER =
             BaseSystemConfig.SYSTEM_BASE + File.separator +
             "transformer";
+    
+    public final static String SYSTEM_TRANSFORMER_XSL = 
+            BaseSystemConfig.SYSTEM_TRANSFORMER + File.separator + 
+            "xsl";
 
     public final static String SYSTEM_TRANSFORMER_ERROR =
             BaseSystemConfig.SYSTEM_BASE + File.separator +
