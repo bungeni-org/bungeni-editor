@@ -12,12 +12,15 @@
    * [ODF_to_AN_XML_Mapping How ODF metadata is mapped to Akoma Ntoso metadata]
    * [TransformerConfigurationArchitecture Transformer Configuration Architecture]
  * Editor Customization & Configuration
+   * [ConfigFolders Creating a Custom Configuration Folder]
+   * [DocTypeDefinition Doc Type Defintion]
    * [SectionTypeDefinition Section Type Defintion]
    * [InlineTypeDefinition Inline Type Definition]
    * [AnnotationTypeDefinition Annotation Type Definition]
    * [EditorTheming Theming the Bungeni Editor]
  * Developers Guide
    * [BuildingBungeniEditorFromSource Building the Bungeni Editor from Source]
+   * [RegisteringNewDocTypeForBungeniEditor Registering a new Document Type]
    * [ImplementingACompleteAction How to implement a complete Action]
    * [HowToWriteaRouterAction How to write a new editor Router Action]
    * [ConditionProcessorsInBungeniEditor Condition Processors in Bungeni Editor]
@@ -29,7 +32,6 @@
    * [UsingTheOocomponentHelperClass Using the Openoffice Helper API class]
  * Deployment & Implementation 
    * [EditorTheming Theming the Bungeni Editor]
-   * [RegisteringNewDocTypeForBungeniEditor Registering a new Document Type]
  * Miscellaneous Documents
    * [RunningOpenOfficeInServerMode Running OpenOffice in Server mode]
    * [RunningTheJODConverterServer Using JODConverter]
