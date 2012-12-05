@@ -1,7 +1,8 @@
-http://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/xsl/meta_language_add_bungeni_ns.xsl  meta_language_add_bungeni_ns.xsl
-http://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/xsl/meta_language_normalization.xsl  meta_language_normalization.xsl
-http://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/xsl/add_an_ns.xsl add_an_ns.xsl
-http://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/xsl/add_bungeni_ns.xsl add_bungeni_ns.xsl
-http://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/xsl/add_rdf_ns.xsl add_rdf_ns.xsl
-http://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/xsl/cleanup.xsl cleanup.xsl
-http://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/xsl/merge_styles.xsl merge_styles.xsl
+svn://bungeni-editor.googlecode.com/svn/apps/BungeniTransformer/trunk/resources/pipeline_xslt/common/meta_language_add_bungeni_ns.xsl  meta_language_add_bungeni_ns.xsl
+svn://bungeni-editor.googlecode.com/svn/apps/BungeniTransformer/trunk/resources/pipeline_xslt/common/meta_language_add_mlx_ns.xsl  meta_language_add_mlx_ns.xsl
+svn://bungeni-editor.googlecode.com/svn/apps/BungeniTransformer/trunk/resources/pipeline_xslt/common/meta_language_normalization.xsl  meta_language_normalization.xsl
+svn://bungeni-editor.googlecode.com/svn/apps/BungeniTransformer/trunk/resources/pipeline_xslt/common/add_an_ns.xsl add_an_ns.xsl
+svn://bungeni-editor.googlecode.com/svn/apps/BungeniTransformer/trunk/resources/pipeline_xslt/common/add_bungeni_ns.xsl add_bungeni_ns.xsl
+svn://bungeni-editor.googlecode.com/svn/apps/BungeniTransformer/trunk/resources/pipeline_xslt/common/add_rdf_ns.xsl add_rdf_ns.xsl
+svn://bungeni-editor.googlecode.com/svn/apps/BungeniTransformer/trunk/resources/pipeline_xslt/common/cleanup.xsl cleanup.xsl
+svn://bungeni-editor.googlecode.com/svn/apps/BungeniTransformer/trunk/resources/pipeline_xslt/common/merge_styles.xsl merge_styles.xsl
