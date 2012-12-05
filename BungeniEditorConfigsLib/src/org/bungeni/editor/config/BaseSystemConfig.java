@@ -49,12 +49,17 @@ public class BaseSystemConfig {
     /**
      * The Templates generated from system XSLT generator templates
      * are cached in this folder
-     * configs/system/cache
+     * The startup config generator intermediate XSLT is stored in gen_cache
+     * The XSLT used by the transformer is stored in trans_cache
      */
-    public final static String SYSTEM_CACHE =
+    public final static String SYSTEM_GENERATOR_CACHE =
             BaseSystemConfig.SYSTEM_BASE + File.separator +
-            "cache";
+            "gen_cache";
 
+    public final static String SYSTEM_TRANSFORMER_CACHE =
+            BaseSystemConfig.SYSTEM_BASE + File.separator +
+            "trans_cache";
+    
     /**
      * Paths to many configuration folders 
      */
@@ -79,8 +84,12 @@ public class BaseSystemConfig {
         return CommonFileFunctions.getURLPath(SYSTEM_TEMPLATES);
     }
 
-    public static String getHrefCache() throws MalformedURLException{
-        return CommonFileFunctions.getURLPath(SYSTEM_CACHE);
+    public static String getHrefTransformerCache() throws MalformedURLException{
+        return CommonFileFunctions.getURLPath(SYSTEM_TRANSFORMER_CACHE);
+    }
+
+    public static String getHrefGeneratorCache() throws MalformedURLException{
+        return CommonFileFunctions.getURLPath(SYSTEM_GENERATOR_CACHE);
     }
 
     public static String getHrefTransformer() throws MalformedURLException{
