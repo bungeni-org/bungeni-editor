@@ -1,7 +1,7 @@
-svn://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/xsl/meta_language_add_bungeni_ns.xsl  meta_language_add_bungeni_ns.xsl
-svn://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/xsl/meta_language_normalization.xsl  meta_language_normalization.xsl
-svn://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/xsl/add_an_ns.xsl add_an_ns.xsl
-svn://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/xsl/add_bungeni_ns.xsl add_bungeni_ns.xsl
-svn://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/xsl/add_rdf_ns.xsl add_rdf_ns.xsl
-svn://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/xsl/cleanup.xsl cleanup.xsl
-svn://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/xsl/merge_styles.xsl merge_styles.xsl
+https://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/xsl/meta_language_add_bungeni_ns.xsl  meta_language_add_bungeni_ns.xsl
+https://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/xsl/meta_language_normalization.xsl  meta_language_normalization.xsl
+https://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/xsl/add_an_ns.xsl add_an_ns.xsl
+https://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/xsl/add_bungeni_ns.xsl add_bungeni_ns.xsl
+https://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/xsl/add_rdf_ns.xsl add_rdf_ns.xsl
+https://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/xsl/cleanup.xsl cleanup.xsl
+https://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/xsl/merge_styles.xsl merge_styles.xsl
