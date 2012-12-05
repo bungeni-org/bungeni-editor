@@ -4,6 +4,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
+import org.bungeni.editor.config.BaseConfigReader;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.ooo.OOComponentHelper;
 import org.jdom.Element;
@@ -125,9 +126,11 @@ public final class DocumentSection {
                this.sectionBackground = Integer.decode(sectionBackground.trim());
             } else if (sectionBackground.startsWith("url:")) {
                 String urlPath = sectionBackground.replaceAll("url:", "");
-                String relPath = System.getProperty("user.dir");
+                //url: uses a relative path !+FIX_THIS support file:// urls too
+                String relPath = urlPath.replace('/', File.separatorChar);
+                relPath = BaseConfigReader.CONFIGS_FOLDER + File.separator + relPath;
                 this.sectionBackground = null;
-                this.sectionBackgroundURL = relPath + urlPath;
+                this.sectionBackgroundURL = relPath ;
                 this.isSectionBackgroundURL = true;
             } else {
                 this.sectionBackground = 0xffffff;

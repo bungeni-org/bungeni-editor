@@ -90,7 +90,7 @@ public class TransformerGenerator {
     public File typeTlcGeneratorTemplate(ConfigGeneratorError err, Document mergedConfigs, String docType) throws IOException {
         StreamSource xsltTypeGenerator = null;
         File ftypeGenerator =   new File(
-            BaseSystemConfig.SYSTEM_TEMPLATES + File.separator +
+            BaseSystemConfig.SYSTEM_GENERATOR_CACHE + File.separator +
             "type_tlc_transform_" + docType  + ".xsl"
         );
         createNewFileWhenPathNotExists(ftypeGenerator);
@@ -121,7 +121,7 @@ public class TransformerGenerator {
     public File typeGeneratorTemplate(ConfigGeneratorError err, Document mergedConfigs, String docType) throws JDOMException, IOException {
         StreamSource xsltTypeGenerator = null;
         File ftypeGenerator =   new File(
-            BaseSystemConfig.SYSTEM_TEMPLATES + File.separator +
+            BaseSystemConfig.SYSTEM_TRANSFORMER_CACHE + File.separator +
             "type_transform_" + docType  + ".xsl"
         );
         createNewFileWhenPathNotExists(ftypeGenerator);
@@ -170,7 +170,7 @@ public File typeMetaIdentifierGenerator(ConfigGeneratorError err, Document metad
         String generatorName = "type_meta_ident_publi";
 
         File ftypeGenerator =   new File(
-            BaseSystemConfig.SYSTEM_TEMPLATES + File.separator +
+            BaseSystemConfig.SYSTEM_GENERATOR_CACHE + File.separator +
             generatorName + "_" + docType  + ".xsl"
         );
         createNewFileWhenPathNotExists(ftypeGenerator);
@@ -202,6 +202,7 @@ public File typeMetaIdentifierGenerator(ConfigGeneratorError err, Document metad
     }
 
 
+    /**
     public List<File> typeGenerators(ConfigGeneratorError err, String docType) throws JDOMException, IOException {
         List<File> genFiles = new ArrayList<File>(0);
         ConfigurationProvider cp = ConfigurationProvider.getInstance();
@@ -210,7 +211,7 @@ public File typeMetaIdentifierGenerator(ConfigGeneratorError err, Document metad
         File f1 = typeGeneratorTemplate(err, doc, docType);
         File f2 = typeTlcGeneratorTemplate(err, doc, docType);
         return genFiles;
-    }
+    }**/
 
 
 }

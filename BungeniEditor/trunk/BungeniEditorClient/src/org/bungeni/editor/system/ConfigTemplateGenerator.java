@@ -18,7 +18,6 @@
 
 package org.bungeni.editor.system;
 
-import org.bungeni.editor.config.BaseSystemConfig;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.File;
@@ -30,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.io.IOUtils;
+import org.bungeni.editor.config.BaseSystemConfig;
 import org.bungeni.translators.configurations.steps.OAXSLTStep;
 
 /**
@@ -66,7 +66,8 @@ public class ConfigTemplateGenerator {
         objectMap.put("configname", configName);
         objectMap.put("doctype", docType);
         objectMap.put("cache_pipeline", Boolean.valueOf(cachePipeline));
-        objectMap.put("custom_trans_path", BaseSystemConfig.getHrefCache());
+        //objectMap.put("custom_trans_path", BaseSystemConfig.getHrefCache());
+        objectMap.put("cache_trans_path", BaseSystemConfig.getHrefTransformerCache());
         objectMap.put("sys_trans_path", BaseSystemConfig.getHrefTransformer());
         objectMap.put("input_xml_source", "ODF");
         objectMap.put("input_steps", customInputSteps);
@@ -76,7 +77,7 @@ public class ConfigTemplateGenerator {
         //if (!fcache.exists()){
         //    fcache.mkdirs();
         //}
-        String configFileName = BaseSystemConfig.SYSTEM_CACHE +
+        String configFileName = BaseSystemConfig.SYSTEM_TRANSFORMER_CACHE +
                 File.separator +
                 "config_" +
                 docType +

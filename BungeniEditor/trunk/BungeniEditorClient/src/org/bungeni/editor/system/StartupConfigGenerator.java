@@ -18,7 +18,7 @@
 
 package org.bungeni.editor.system;
 
-import org.bungeni.editor.config.BaseSystemConfig;
+import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,14 +28,16 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.apache.log4j.Logger;
+import org.bungeni.editor.config.BaseSystemConfig;
 import org.bungeni.editor.config.DocTypesReader;
 import org.bungeni.editor.config.DocumentMetadataReader;
-import org.bungeni.extutils.CommonFileFunctions;
-import org.bungeni.extutils.CommonXmlUtils;
-import org.bungeni.translators.configurations.steps.OAXSLTStep;
 import org.bungeni.extutils.CommonEditorXmlUtils;
+import org.bungeni.extutils.CommonFileFunctions;
+import org.bungeni.translators.configurations.steps.OAXSLTStep;
 import org.jdom.Content;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -61,10 +63,15 @@ public class StartupConfigGenerator {
 
     private void init(){
         //create cache folder if it doesnt exist
-        File fcache = new File(BaseSystemConfig.SYSTEM_CACHE);
-        if (!fcache.exists()){
-            fcache.mkdirs();
+        File fcacheTrans = new File(BaseSystemConfig.SYSTEM_TRANSFORMER_CACHE);
+        if (!fcacheTrans.exists()){
+            fcacheTrans.mkdirs();
         }
+        File fcacheGen = new File(BaseSystemConfig.SYSTEM_GENERATOR_CACHE);
+        if (!fcacheGen.exists()){
+            fcacheGen.mkdirs();
+        }
+
     }
     
     private File createODFMetaMasterXSLT(String docType,
@@ -191,7 +198,7 @@ public class StartupConfigGenerator {
             }
 
             XMLOutputter xout = new XMLOutputter();
-            outputFile = new File(BaseSystemConfig.SYSTEM_CACHE +
+            outputFile = new File(BaseSystemConfig.SYSTEM_TRANSFORMER_CACHE +
                     File.separator + "odf_meta_config_" + docType + ".xsl");
             FileWriter fw = new FileWriter (outputFile);
             xout.output( docXSLTtoMergeInto, fw);
@@ -210,6 +217,15 @@ public class StartupConfigGenerator {
                 //A merged configuration Document is created
                 ConfigurationProvider cp = ConfigurationProvider.getInstance();
                 cp.generateMergedConfiguration(this.generatorError, doctypeName);
+                //!+PROPRIETARY_METADATA(AH,03-12-2012)
+                //write merged configuration for test purposes
+                cp.writeMergedConfig(
+                        new File(
+                            BaseSystemConfig.SYSTEM_GENERATOR_CACHE +
+                            File.separator +
+                            doctypeName+"_cfg.xml"
+                        )
+                );
                 Document mergedConfigs = cp.getMergedDocument();
                 // generate configuraiton pipeline
                 // generate type transformation
@@ -263,8 +279,11 @@ public class StartupConfigGenerator {
                        );
 
                 }
-
+                // this will generate the config_XXTYPEXX.xml from config_tmpl.xml
                 ctg.process(doctypeName, doctypeName, false, inputSteps, outputSteps);
+                
+                //!+PROPRIETARY(ah, 05-12-2012) 
+                generateCustomXSLTfromTemplates();
 
             } catch (Exception ex) {
                 log.error(ex);
@@ -279,6 +298,76 @@ public class StartupConfigGenerator {
         this.generatorError.saveFile();
         checkConfigErrors();
     }
+
+    private void generateCustomXSLTfromTemplates(){
+        String metalangmlxTmplName = "meta_language_add_mlx_ns.xsl.tmpl";
+        try {
+            BaseTransformTemplateGenerator ttgen = BaseTransformTemplateGenerator.getInstance();
+            Template metalangmlxTmpl = ttgen.getTemplate("meta_language_add_mlx_ns.xsl.tmpl");
+            Map<String,Object> objMap = new HashMap<String,Object>();
+            objMap.put("namespace_uris", getProprietaryNSList());
+            FileWriter fw = new FileWriter(BaseSystemConfig.SYSTEM_TRANSFORMER_CACHE +
+                    File.separator + 
+                    "meta_language_add_mlx_ns.xsl"
+                    );
+            metalangmlxTmpl.process(objMap, fw);
+            fw.flush();
+        } catch (TemplateException ex) {
+            generatorError.add(
+                    "ALL",
+                    "Error will processing template : " + metalangmlxTmplName,
+                    ex
+                    );
+            log.error(
+                    "Error will processing template : " + metalangmlxTmplName
+                    );
+        } catch (IOException ex) {
+            generatorError.add(
+                    "ALL",
+                    "Error will getting template : " + metalangmlxTmplName,
+                    ex);
+            log.error(
+                    "Error while getting template : " + metalangmlxTmplName
+                    );
+        }
+    }
+     
+    /**
+    <namespace prefix="an" type="main" desc="Akoma Ntoso" uri="http://www.akomantoso.org/2.0" />
+    <namespace prefix="bg" type="proprietary" desc="Proprietary" uri="http://www.proprietary.org" />   
+     * @return 
+     */
+    /**
+    private String getProprietaryNSList(){
+        Element outputsBlock = DocTypesReader.getInstance().getOutputsBlock();
+        List<Element> nsElements = outputsBlock.getChildren("namespace");
+        StringBuilder sb = new StringBuilder("");
+        for (int i = 0; i < nsElements.size(); i++) {
+            Element nsElement = nsElements.get(i);
+            String uri = nsElement.getAttributeValue("uri");
+            // (namespace-uri() ne 'http://editor.bungeni.org/1.0/anx') 
+            sb.append(" and \n");
+            sb.append("(namespace-uri() ne '").append(uri).append("')");
+        }
+        return sb.toString();
+    }**/
+    
+      private List<String> getProprietaryNSList(){
+        List<String> nsList = new ArrayList<String>(0);
+        Element outputsBlock = DocTypesReader.getInstance().getOutputsBlock();
+        List<Element> nsElements = outputsBlock.getChildren("namespace");
+        StringBuilder sb = new StringBuilder("");
+        for (int i = 0; i < nsElements.size(); i++) {
+            Element nsElement = nsElements.get(i);
+            String uri = nsElement.getAttributeValue("uri");
+            // (namespace-uri() ne 'http://editor.bungeni.org/1.0/anx') 
+            nsList.add(uri);
+        }
+       return nsList;
+    }
+    
+    
+    
 
 
     private boolean checkConfigErrors() {

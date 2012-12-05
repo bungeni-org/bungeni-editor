@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.bungeni.editor.config.DocTypesReader;
 import org.bungeni.editor.config.InlineTypesReader;
 import org.bungeni.editor.config.SectionTypesReader;
 import org.jdom.Document;
@@ -89,6 +90,16 @@ public final class ConfigurationProvider {
         //This is the root element for the temporary merged config document
         Element allConfigs = new Element("allConfigs");
         Document docAllConfigs = new Document(allConfigs);
+        //!+PROP_METADATA_SUPPORT (ah, 03-12-2012) Adding proprietary metadata
+        //support - adding <prop> metadata from doctype 
+        try {
+            addDocTypesConfig(forDocType, allConfigs);
+        } catch (Exception ex){
+         log.error(ex);
+             err.add(forDocType, "Error while processing section type config "
+                     + "while merging section Type configuration", ex);
+        }
+        
         try {
          addSectionTypesConfig(forDocType, allConfigs);
         }  catch (Exception ex) {
@@ -112,6 +123,20 @@ public final class ConfigurationProvider {
         fout.close();
     }
 
+    private void addDocTypesConfig(String docType, Element allConfigs) {
+       // DocTypesReader.getInstance().get
+        Element docTypeElem = DocTypesReader.getInstance().getDocTypeByNameClone(docType);
+        Element outputs = DocTypesReader.getInstance().getOutputsBlock();
+        Element docOutputs = null;
+        if (outputs != null) {
+            docOutputs = (Element) outputs.clone();
+            allConfigs.addContent(docOutputs);
+        }
+        if (docTypeElem != null) {
+            allConfigs.addContent(docTypeElem);
+        }
+    }
+    
     private void addSectionTypesConfig(String docType, Element allConfigs) {
         List<Element> sectionTypes = new ArrayList<Element>(0);
         sectionTypes = SectionTypesReader.getInstance().getSectionTypesClone(docType);
