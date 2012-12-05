@@ -187,6 +187,8 @@
             <xmeta:apply-templates />
         </xmeta:element>
     </xsl:template>
-
+    
+	<xsl:template match="outputs" />
+	<xsl:template match="doctype" />
 
 </xsl:stylesheet>

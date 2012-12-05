@@ -69,6 +69,10 @@
 			<xsl:apply-templates select="*[@name != 'meta']"/>
 		</container>
 	</xsl:template>
+	
+	<xsl:template match="mcontainer[@name='proprietary']">
+		<xsl:copy-of select="." />
+	</xsl:template>
 
 	<xsl:template match="block[count(node()) = 0]">
 		<xsl:apply-templates/>

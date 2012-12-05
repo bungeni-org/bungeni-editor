@@ -176,6 +176,22 @@
         </references>
     </xsl:template>
     
+	<!-- match the proprietary block, we do a literal copy
+	of this element since it  is rendered natively in the desired
+	form
+	e.g. at this point the proprietary block appears as is :
+	    <proprietary xmlns:bg="http://www.prop.org">
+        <bg:propHello>Ashok</bg:propHello>
+        <bg:propWorld>Ulakam</bg:propWorld>
+    </proprietary>
+
+	
+	so we just copy it
+	-->
+    <xsl:template  match="*[@name='proprietary']">
+		<xsl:copy-of select="child::*" />
+    </xsl:template>
+    
     <xsl:template match="*[@name='TLCOrganization']">
         <TLCOrganization>
             <xsl:if test="@id">

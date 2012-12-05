@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <doctypes>
- 
+    <outputs>
+	   <namespace prefix="an" type="main" desc="Akoma Ntoso" uri="http://www.akomantoso.org/2.0" />
+	   <namespace prefix="bg" type="proprietary" desc="Proprietary" uri="http://www.proprietary.org" />
+	   
+	</outputs>
     <doctype name="judgement"
         template="templates/judgement.ott"
         state="1"
