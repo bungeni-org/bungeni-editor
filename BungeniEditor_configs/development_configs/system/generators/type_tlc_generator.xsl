@@ -190,7 +190,14 @@
                             <!-- we group them by type -->
                             <xsl:for-each select="current-group()">
                                 <!-- iterate through child elements -->
-                                <xsl:variable name="ns-attr" select="data(@ns)" />
+                                <!-- <xsl:variable name="ns-attr" select="data(@ns)" /> -->
+                                <!-- get the namespace uri of the first child element in the proprietary block -->
+                                <xsl:variable name="ns-uri" select="namespace-uri(./*[1])"></xsl:variable>
+                                <!-- get the namespace prefix of the first child element -->
+                                <xsl:variable name="ns-attr" select="name(namespace::*[string() eq $ns-uri])" />
+                                <!-- find the matching namespace element in the proprietary block -->
+                                <!-- the below is strictly not neccessary, we just resolve the ns prefix again from the 
+                                namespace node -->
                                 <xsl:variable name="local-ns" select="namespace::*[name() eq $ns-attr]" />
                                 <xsl:variable name="local-ns-prefix" select="local-name($local-ns)" />
                                 <!-- NOTE: we dont use the locally defined namespace prefix resolver ... only the prefix is important
@@ -202,15 +209,6 @@
                                         <xsl:with-param name="local-ns-prefix" select="$local-ns-prefix" />
                                         <xsl:with-param name="local-ns-url" select="$local-ns-url" />
                                     </xsl:call-template>
-                                    <!--
-                                    <xsl:for-each select="child::*">
-                                        <xmeta:element name="{$local-ns-prefix}:{local-name()}" 
-                                            namespace="{$local-ns-url}">
-                                            <xsl:call-template name="config-type-attribute-processor" />
-                                        </xmeta:element>
-                                    </xsl:for-each>    
-                                    -->
-                                    
                                 </xmeta:element>
                             </xsl:for-each>
                         </xmeta:for-each>
