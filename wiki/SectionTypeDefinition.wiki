@@ -145,7 +145,9 @@ output XML and also the header metadata.
 
 == Proprietary Namespaces == 
 
-Proprietary namespaces are a special case of metadata where the metadata resides in a different namespace from the main metadata. These are supported by a `proprietary` element in configuration :
+Proprietary namespaces are a special case of metadata where the metadata resides
+in a different namespace from the main metadata. These are supported by a 
+`proprietary` element in configuration :
 
 In the following example, a proprietary metadata is set by the Speech :
 
@@ -156,7 +158,7 @@ In the following example, a proprietary metadata is set by the Speech :
                <an:TLCPerson id="$BungeniPersonID" href="$BungeniSpeechByURI" showAs="$BungeniSpeechBy" />
                <an:TLCRole id="$BungeniSpeechAs" href="$BungeniSpeechAsURI" showAs="$BungeniSpeechAsDesc" />
              </references>
-             <proprietary ns="bg" xmlns:bg="#bg" >
+             <proprietary xmlns:bg="#bg" >
                  <bg:meta person="$BungeniSpeechBy" />
              </proprietary>
          </meta>
@@ -166,7 +168,9 @@ In the following example, a proprietary metadata is set by the Speech :
      </output>
 }}}
 
-The namespace prefix `bg` needs to be predefined in the [DocTypeDefinition#Outputs doc types outputs configuration].
+The namespace prefix `bg` needs to be predefined in the 
+[DocTypeDefinition#Outputs doc types outputs configuration] ,the local namespace uri for the prefix in the configuration
+(in this example : #bg ) is dropped by the middleware and swapped with the one defined in the doc-type outputs namespace configuration.
 
 
 = Configuration Examples = 
