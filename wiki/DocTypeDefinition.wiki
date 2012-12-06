@@ -1,5 +1,7 @@
 #summary How to define doc types for Bungeni editor 
 
+<wiki:toc max_depth="3" />
+
 = Introduction = 
 
 The Editor supports defining document types and providing them with different structures and different kinds of markup actions.
@@ -11,6 +13,14 @@ The doctype configuration resides within the [ConfigFolders Configuration Folder
 The following is an example doctype configuration for the Bill document type :
 
 {{{
+<doctypes>
+    <outputs>
+	   <namespace prefix="an" type="main" desc="Akoma Ntoso" uri="http://www.akomantoso.org/2.0" />
+		....
+	</outputs>
+
+....
+
     <doctype name="bill"
         template="templates/bill.ott"
         state="1"
@@ -41,6 +51,10 @@ The following is an example doctype configuration for the Bill document type :
             </part>
         </parts>
     </doctype>
+
+    <doctype name="debaterecord" ... 
+.....
+</doctypes>
 }}}
 
 The different configuration options are described below :
@@ -98,5 +112,6 @@ The doc types configuration file also allows specifying global namespaces in the
 
 }}}
 
+The output XML namespace and any other proprietary namespaces which appear in the output XML need to be listed here.
 This information is used during output generation to produce the final XML. The `proprietary` namespace is used to specify namespaces for proprietary metadata blocks.
 
