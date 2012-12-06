@@ -198,12 +198,19 @@
                                 <xsl:variable name="local-ns-url" select="/allConfigs//outputs/namespace[@prefix = $local-ns-prefix]/@uri" />
                                 <xmeta:element name="proprietary">
                                     <xmeta:namespace name="{$local-ns-prefix}"  select="'{$local-ns-url}'" />
+                                    <xsl:call-template name="proprietary-descendants-processor">
+                                        <xsl:with-param name="local-ns-prefix" select="$local-ns-prefix" />
+                                        <xsl:with-param name="local-ns-url" select="$local-ns-url" />
+                                    </xsl:call-template>
+                                    <!--
                                     <xsl:for-each select="child::*">
                                         <xmeta:element name="{$local-ns-prefix}:{local-name()}" 
                                             namespace="{$local-ns-url}">
                                             <xsl:call-template name="config-type-attribute-processor" />
                                         </xmeta:element>
                                     </xsl:for-each>    
+                                    -->
+                                    
                                 </xmeta:element>
                             </xsl:for-each>
                         </xmeta:for-each>
@@ -234,6 +241,26 @@
             
         </xmeta:stylesheet>
     </xsl:template>
+
+
+    <!--
+        Recursive proprietary element processor 
+        -->
+    <xsl:template name="proprietary-descendants-processor">
+        <xsl:param name="local-ns-prefix"></xsl:param>
+        <xsl:param name="local-ns-url"></xsl:param>
+        <xsl:for-each select="child::*">
+            <xmeta:element name="{$local-ns-prefix}:{local-name()}" 
+                namespace="{$local-ns-url}">
+                <xsl:call-template name="config-type-attribute-processor" />
+                <xsl:call-template name="proprietary-descendants-processor">
+                    <xsl:with-param name="local-ns-prefix" select="$local-ns-prefix" />
+                    <xsl:with-param name="local-ns-url" select="$local-ns-url" />
+                </xsl:call-template>
+            </xmeta:element>
+        </xsl:for-each>    
+    </xsl:template>
+     
 
     <!-- This template renders the XSLT template for output content and metadata -->
     <xsl:template name="config-type-attribute-processor">
