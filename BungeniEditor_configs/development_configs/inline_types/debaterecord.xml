@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<inlineTypes for="debaterecord">
+<inlineTypes for="debaterecord" xmlns:an="#an">
     <inlineType name="from">
              <output>
          <content>
-             <from />
+             <an:from />
          </content>
      </output>
 
+    </inlineType>
+    
+    <inlineType name="ref">
+       <output>
+          <metadatas>
+             <metadata name="BungeniRefURI" />
+          </metadatas>
+          <content>
+            <an:ref href="$BungeniRefURI" />
+          </content>
+       </output>
     </inlineType>
 
 </inlineTypes>

@@ -89,12 +89,6 @@
 
     </dialog>
 
-    <dialog id="classMain" >
-        <dialog
-            class="org.bungeni.editor.selectors.general.ref.RefClass"
-             />
-
-    </dialog>
 
     <dialog id="speechMain"
         class="org.bungeni.editor.selectors.debaterecord.speech.Main" >
@@ -170,6 +164,12 @@
             class="org.bungeni.editor.selectors.debaterecord.question.QuestionerNameAndURI"
              />
 
+    </dialog>
+
+    <dialog id="refinline" class="org.bungeni.editor.selectors.general.Main" >
+        <dialog
+            class="org.bungeni.editor.selectors.general.ref.RefURI"
+             />
     </dialog>
 
 

@@ -141,6 +141,7 @@
             />
     </action>
 
+    
     <!-- names conflict action name & router_name -->
     <action name="debatetime_entry" source="sectionType" metadata="Preface">
         <router class="org.bungeni.editor.actions.routers.routerDebateDateEntry"
@@ -304,6 +305,12 @@
     <action name="make_ref">
             <router class="org.bungeni.editor.actions.routers.routerActSelectRef"
                 dialog="org.bungeni.editor.selectors.debaterecord.ref.Main"
+            />
+    </action>
+
+    <action name="mark_reference" source="inlineType" metadata="ref">
+        <router class="org.bungeni.editor.actions.routers.routerInputReference" 
+                dialog="org.bungeni.editor.selectors.general.Main"
             />
     </action>
 

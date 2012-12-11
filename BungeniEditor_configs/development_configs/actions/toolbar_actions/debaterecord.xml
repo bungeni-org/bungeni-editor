@@ -181,7 +181,14 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
           visible="true"
           condition="cursorInSection:debatebody :and: textSelected:true"
           title="DEBATE_SECTION" tooltip="MARK_SELECTION_AS_DEBATE_SECTION"> </action>
+
+          <action name="ref.general" mode="TEXT_SELECTED_INSERT" target="mark_reference"
+          visible="true"
+          condition="textSelected:true"
+          title="REF_INLINE" tooltip="MARK_SELECTION_AS_INLINE_REF"> </action>
         
+
+          
       </blockAction>
       <blockAction name="Papers" target="null" visible="true" condition="none" title="PAPERS_LAID">
         <action name="Papers.new" mode="TEXT_SELECTED_INSERT" target="create_papers_laid_block"
