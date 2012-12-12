@@ -15,6 +15,8 @@ import java.util.concurrent.ExecutionException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingWorker;
+import org.bungeni.editor.actions.routers.CommonRouterActions;
+import org.bungeni.editor.actions.routers.CommonRouterActions.TypeCreationState;
 import org.bungeni.editor.config.DocumentActionsReader;
 import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.actions.toolbarAction;
@@ -742,6 +744,30 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
     }
 
 
+   public TypeCreationState initSectionType(){ 
+        TypeCreationState scs = null;  
+        if (theSubAction.getActionSource().equals(toolbarAction.actionSourceOrigin.sectionType)) {
+            scs =  CommonRouterActions.action_createSection(theSubAction, ooDocument);
+            this.mainSectionName = scs.typeName;
+         }
+        return scs;
+   }
+
+   public TypeCreationState initInlineType(){
+       HashMap<String, String> typeMap = null;
+       if (theSubAction.getActionSource().equals(toolbarAction.actionSourceOrigin.inlineType)) {
+           String inlineType = theSubAction.getInlineType();
+           if (inlineType.length() > 0 ) {
+               typeMap = new HashMap<String,String>();
+               typeMap.put("BungeniInlineType", theSubAction.getInlineType());
+               return new TypeCreationState(theSubAction.getInlineType(), "SUCCESS", typeMap);
+           }
+           return new TypeCreationState("","FAILURE_INLINE_TYPE_UNKNOWN", null );
+       }
+       return new TypeCreationState("","FAILURE_NOT_AN_INLINE_TYPE", null );
+   }
+    
+   @SuppressWarnings("empty-statement")
    protected String getActionSectionName() {
    
         // get the action naming convention

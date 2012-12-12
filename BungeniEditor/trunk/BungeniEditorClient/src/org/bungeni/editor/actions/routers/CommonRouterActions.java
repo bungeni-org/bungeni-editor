@@ -499,37 +499,45 @@ public class CommonRouterActions {
         }
     }
 
-    public static class SectionCreationState {
-        public String sectionName;
+    public static class TypeCreationState {
+        public String typeName;
         public String returnState;
-        
-        public SectionCreationState(String sName, String rState) {
-            this.sectionName = sName;
+        public HashMap<String,String> propsMap; 
+                
+        public TypeCreationState(String sName, String rState, HashMap<String,String> propsMap) {
+            this.typeName = sName;
             this.returnState = rState;
+            this.propsMap = propsMap;
         }
 
     }
 
-    public static SectionCreationState action_createSection(toolbarAction subAction, OOComponentHelper ooDocument){
-      String newSectionName = "";
-      HashMap<String,String> returnMap = new HashMap<String,String>();
-      newSectionName = CommonRouterActions.get_newSectionNameForAction(subAction, ooDocument);
 
-       if (newSectionName.length() == 0 ) {
+    public static TypeCreationState action_createSection(toolbarAction subAction, OOComponentHelper ooDocument){
+      HashMap<String,String> returnMap = new HashMap<String,String>();
+      String newSectionName = CommonRouterActions.get_newSectionNameForAction(subAction, ooDocument);
+
+      if (newSectionName.length() == 0 ) {
             log.error("New seciton name was empty for action "  + subAction);
-            return new SectionCreationState("", "FAILURE_CREATE_SECTION");
+            return new TypeCreationState("", "FAILURE_CREATE_SECTION", null);
        } else {
             boolean bAction = CommonRouterActions.action_createSystemContainerFromSelection(ooDocument, newSectionName);
             if (bAction ) {
-                //set section type metadata
+                //set properties for document section
                 CommonRouterActions.setSectionProperties(subAction, newSectionName, ooDocument);
-                ooDocument.setSectionMetadataAttributes(newSectionName, CommonRouterActions.get_newSectionMetadata(subAction));
+                //set section type metadata
+                HashMap<String,String> propMap = CommonRouterActions.get_newSectionMetadata(subAction);
+                ooDocument.setSectionMetadataAttributes(
+                        newSectionName, 
+                        propMap
+                        );
+                return new TypeCreationState(newSectionName, "SUCCESS", propMap);
             } else {
                 log.error("routeAction_TextSelectedInsertAction_CreateSection: error while creating section ");
-                return new SectionCreationState("","FAILURE_CREATE_SECTION");
+                return new TypeCreationState("","FAILURE_CREATE_SECTION", null);
             }
          }
-      return new SectionCreationState(newSectionName, "SUCCESS");
+
     }
        public static boolean action_createRootSection(OOComponentHelper ooDoc, String sectionName) {
         boolean bResult = false;

@@ -17,7 +17,11 @@ public class routerDebateRecordSelectSpeech extends defaultRouter {
   }
   
     @Override
-    public BungeniValidatorState route_TextSelectedInsert(toolbarAction subAction, javax.swing.JFrame pFrame, OOComponentHelper ooDocument) {
+    public BungeniValidatorState route_TextSelectedInsert(
+            toolbarAction subAction, 
+            javax.swing.JFrame pFrame, 
+            OOComponentHelper ooDocument
+            ) {
         
       BungeniValidatorState stateObj = CommonRouterActions.displaySelectorDialog(subAction, pFrame, ooDocument);
         

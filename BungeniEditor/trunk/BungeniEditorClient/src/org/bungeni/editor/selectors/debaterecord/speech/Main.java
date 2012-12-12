@@ -2,22 +2,11 @@ package org.bungeni.editor.selectors.debaterecord.speech;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import org.bungeni.editor.actions.routers.CommonRouterActions;
-import org.bungeni.editor.selectors.BaseMetadataContainerPanel;
-
-//~--- JDK imports ------------------------------------------------------------
-
-import com.sun.star.text.XText;
-import com.sun.star.text.XTextContent;
-import com.sun.star.text.XTextSection;
-import com.sun.star.text.XTextViewCursor;
-
 import java.awt.Component;
-import org.bungeni.editor.actions.routers.CommonRouterActions.SectionCreationState;
+import org.bungeni.editor.actions.routers.CommonRouterActions;
+import org.bungeni.editor.actions.routers.CommonRouterActions.TypeCreationState;
 import org.bungeni.editor.actions.toolbarAction.actionSourceOrigin;
-
-
-import javax.swing.JFrame;
+import org.bungeni.editor.selectors.BaseMetadataContainerPanel;
 
 /**
  *
@@ -46,8 +35,8 @@ public class Main extends BaseMetadataContainerPanel {
         makeMetaEditable();
 
         if (theSubAction.getActionSource().equals(actionSourceOrigin.sectionType)) {
-            SectionCreationState scs =  CommonRouterActions.action_createSection(theSubAction, ooDocument);
-            this.mainSectionName = scs.sectionName;
+            TypeCreationState scs =  CommonRouterActions.action_createSection(theSubAction, ooDocument);
+            this.mainSectionName = scs.typeName;
         }
         //!+FIX_THIS for other types
         /**

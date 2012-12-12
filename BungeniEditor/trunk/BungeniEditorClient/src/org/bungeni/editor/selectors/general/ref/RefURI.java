@@ -3,6 +3,7 @@ package org.bungeni.editor.selectors.general.ref;
 
 import java.awt.Component;
 import java.util.HashMap;
+import org.bungeni.editor.actions.routers.CommonRouterActions.TypeCreationState;
 import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.extutils.CommonUIFunctions;
 import org.bungeni.ooo.OOComponentHelper;
@@ -141,13 +142,11 @@ public class RefURI extends  BaseMetadataPanel {
     public boolean processSelectInsert() {
           OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
           final String strHref = this.txt_RefURI.getText();
-          HashMap<String,String> inlineMap = new HashMap<String,String>(){
-                {
-                    put("BungeniInlineType", "ref");
-                    put("BungeniRefURI", strHref );
-                }
-          };
-          ooDoc.setSelectedTextAttributes(inlineMap);
+          TypeCreationState tcs = getContainerPanel().initInlineType();
+          if (tcs.propsMap != null ) {
+             tcs.propsMap.put("BungeniRefURI", strHref );
+             ooDoc.setSelectedTextAttributes(tcs.propsMap);
+          }
         return true;
     }
 

@@ -151,10 +151,12 @@ public class toolbarAction {
             this.actionSource = actionSourceOrigin.valueOf(this.actionSourceType);
             if (this.actionSource != null) {
                   String metadataValue = actionElement.getAttributeValue("metadata");
-                  if (metadataValue != null)
-                      this.actionSourceValue = metadataValue.trim();
-                  else
-                      this.actionSourceValue = "";
+                  if (metadataValue != null) {
+                    this.actionSourceValue = metadataValue.trim();
+                   }
+                  else {
+                    this.actionSourceValue = "";
+                  }
                   if (actionSourceValue.length() > 0 ) {
                     if (this.actionSource.equals(actionSourceOrigin.sectionType)) {
                         this.setupSectionType(this.actionSourceValue);
