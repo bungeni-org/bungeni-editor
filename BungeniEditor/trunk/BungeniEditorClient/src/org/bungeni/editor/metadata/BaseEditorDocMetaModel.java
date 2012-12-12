@@ -36,6 +36,7 @@ public class BaseEditorDocMetaModel implements IEditorDocMetaModel {
         // FRBR Items
         // work
         docMeta.put("BungeniWorkAuthor", "");
+        docMeta.put("BungeniWorkAuthorAs", "");
         docMeta.put("BungeniWorkAuthorURI", "");
         docMeta.put("BungeniWorkDate", "");
         docMeta.put("BungeniWorkDateName", "");
@@ -43,6 +44,7 @@ public class BaseEditorDocMetaModel implements IEditorDocMetaModel {
 
         // expression
         docMeta.put("BungeniExpAuthor", "");
+         docMeta.put("BungeniExpAuthorAs", "");
         docMeta.put("BungeniExpAuthorURI", "");
         docMeta.put("BungeniExpDate", "");
         docMeta.put("BungeniExpDateName", "");
@@ -50,6 +52,7 @@ public class BaseEditorDocMetaModel implements IEditorDocMetaModel {
 
         // manifestation
         docMeta.put("BungeniManAuthor", "");
+        docMeta.put("BungeniManAuthorAs", "");
         docMeta.put("BungeniManAuthorURI", "");
         docMeta.put("BungeniManDate", "");
         docMeta.put("BungeniManDateName", "");
