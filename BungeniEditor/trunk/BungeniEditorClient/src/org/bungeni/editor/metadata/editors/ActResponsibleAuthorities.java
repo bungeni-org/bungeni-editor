@@ -412,6 +412,7 @@ public class ActResponsibleAuthorities extends BaseEditorDocMetadataDialog {
 
             //other metadata
             docMetaModel.updateItem("BungeniWorkAuthor", "pna");
+            docMetaModel.updateItem("BungeniWorkAuthorAs", "Issuing");
             docMetaModel.updateItem("BungeniWorkAuthorURI", "user.Samar");
             docMetaModel.updateItem("BungeniWorkDateName", "Issuing");
             docMetaModel.updateItem("BungeniWorkDate", sBungeniActReleaseDate);
@@ -420,11 +421,13 @@ public class ActResponsibleAuthorities extends BaseEditorDocMetadataDialog {
 
             //expression
             docMetaModel.updateItem("BungeniExpAuthor", "pna");
+            docMetaModel.updateItem("BungeniExpAuthorAs", "Issuing");
             docMetaModel.updateItem("BungeniExpAuthorURI", "user.Samar");
             docMetaModel.updateItem("BungeniExpDateName", "Issuing");
             docMetaModel.updateItem("BungeniExpDate", sBungeniActReleaseDate);
             //manifestation
             docMetaModel.updateItem("BungeniManAuthor", "IoL");
+            docMetaModel.updateItem("BungeniManAuthorAs", "publisher");
             docMetaModel.updateItem("BungeniManAuthorURI", "user.Samar");
             docMetaModel.updateItem("BungeniManDateName", "Generation");
             docMetaModel.updateItem("BungeniManDate", sBungeniActReleaseDate);
