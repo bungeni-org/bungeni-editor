@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="windows-1252"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <sectionTypes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="sectionTypes.xsd"
- for="bill">
+ for="bill" xmlns:an="#an">
 
     <sectionType name="CoverPage" 
         prefix="coverpage" 
@@ -9,7 +9,7 @@
         >
         <output>
             <content>
-                <coverPage/>
+                <an:coverPage/>
             </content>
         </output>
     </sectionType>
@@ -20,7 +20,7 @@
         >
         <output>
             <content>
-                <preamble/>
+                <an:preamble/>
             </content>
         </output>
     </sectionType>
@@ -31,7 +31,7 @@
          >
         <output>
             <content>
-                <preface/>
+                <an:preface/>
             </content>
         </output>
     </sectionType>
@@ -43,7 +43,7 @@
         >
         <output>
             <content>
-                <recital/>
+                <an:recital/>
             </content>
         </output>
     </sectionType>
@@ -60,7 +60,7 @@
         </metadatas>
         <output>
             <content>
-                <container name="$BungeniContainerName" /> 
+                <an:container name="$BungeniContainerName" /> 
             </content>
         </output>
     </sectionType>
@@ -75,7 +75,7 @@
         </metadatas>
         <output>
             <content>
-                <container name="$BungeniBlockName" /> 
+                <an:container name="$BungeniBlockName" /> 
             </content>
         </output>
     </sectionType>
@@ -88,18 +88,7 @@
         >
         <output>
             <content>
-                <recitals /> 
-            </content>
-        </output>
-    </sectionType>
-    
-    <sectionType name="Recitals" 
-        prefix="recitals" 
-        numstyle="serial" 
-        >
-        <output>
-            <content>
-                <recitals /> 
+                <an:recitals /> 
             </content>
         </output>
     </sectionType>
@@ -111,7 +100,7 @@
         >
         <output>
             <content>
-                <recital /> 
+                <an:recital /> 
             </content>
         </output>
     </sectionType>
@@ -123,7 +112,7 @@
         <numbering scheme="NUMERIC" decorator="flowerBracket"/>
         <output>
             <content>
-                <article />
+                <an:article />
             </content>
         </output>
     </sectionType>
@@ -133,7 +122,7 @@
         <numbering scheme="ROMAN-Upper" decorator="none"/>
         <output>
             <content>
-                <chapter />
+                <an:chapter />
             </content>
         </output>
     </sectionType>
@@ -143,7 +132,7 @@
         <numbering scheme="ROMAN" decorator="hashPrefix"/>
         <output>
             <content>
-                <clause />
+                <an:clause />
             </content>
         </output>
     </sectionType>
@@ -152,7 +141,7 @@
         indent-left=".3" indent-right="0" visibility="user"> 
         <output>
             <content>
-                <longTitle />
+                <an:longTitle />
             </content>
         </output>
     </sectionType>
@@ -167,7 +156,7 @@
         <numbering scheme="ALPHABETICAL-Lower" decorator="parens"/>
         <output>
             <content>
-                <paragraph />
+                <an:paragraph />
             </content>
         </output>
     </sectionType>
@@ -177,7 +166,7 @@
         <numbering scheme="ALPHABETICAL" decorator="postDashed"/>
         <output>
             <content>
-                <part/>
+                <an:part/>
             </content>
         </output>
     </sectionType>
@@ -187,7 +176,7 @@
         <numbering scheme="ALPHABETICAL-Lower" decorator="parens"/>
         <output>
             <content>
-                <section/>
+                <an:section/>
             </content>
         </output>
     </sectionType>
@@ -196,7 +185,7 @@
         <!-- this should perhaps be an inlinetype -->
         <output>
             <content>
-                <shortTitle/>
+                <an:shortTitle/>
             </content>
         </output>
 
@@ -207,7 +196,7 @@
         <numbering scheme="ROMAN-Upper" decorator="postDotted"/>
         <output>
             <content>
-                <subchapter/>
+                <an:subchapter/>
             </content>
         </output>
     </sectionType>
@@ -217,7 +206,7 @@
         <numbering scheme="ALPHABETICAL-Lower" decorator="hashPrefix"/>
         <output>
             <content>
-                <subclause/>
+                <an:subclause/>
             </content>
         </output>
     </sectionType>
@@ -227,7 +216,7 @@
         <numbering scheme="ROMAN-Lower" decorator="parens"/>
         <output>
             <content>
-                <subparagraph/>
+                <an:subparagraph/>
             </content>
         </output>
     </sectionType>
@@ -237,7 +226,7 @@
         <numbering scheme="ROMAN-Upper" decorator="square"/>
         <output>
             <content>
-                <subsection/>
+                <an:subsection/>
             </content>
         </output>
     </sectionType>
@@ -246,7 +235,7 @@
         indent-left=".1" indent-right="0" visibility="user">
         <output>
             <content>
-                <title/>
+                <an:title/>
             </content>
         </output>
     </sectionType>

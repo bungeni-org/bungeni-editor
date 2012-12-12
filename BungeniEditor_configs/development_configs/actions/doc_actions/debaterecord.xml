@@ -236,7 +236,7 @@
 
     <action name="select_tabled_documents" source="sectionType" metadata="PapersLaid">
         <router class="org.bungeni.editor.actions.routers.routerTabledDocuments"
-            dialog="org.bungeni.editor.selectors.debaterecord.tableddocuments.Main"/>
+            dialog="documentsMain"/>
     </action>
 
     <action name="markup_communication_heading" source="sectionType" metadata="Communication">
@@ -249,12 +249,12 @@
 
     <action name="make_proc_section" source="sectionType" metadata="PMotionsContainer">
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"
-            dialog="org.bungeni.editor.selectors.debaterecord.motions.MotionSelect"/>
+            dialog="motionsMain"/>
     </action>
 
     <action name="make_debate_section_question" source="sectionType" metadata="QuestionAnswer">
         <router class="org.bungeni.editor.actions.routers.routerDebateRecordSelectQuestion"
-            dialog="org.bungeni.editor.selectors.debaterecord.question.MainEdit"/>
+            dialog="questionEdit"/>
     </action>
 
     <action name="create_observation_section" source="sectionType" metadata="Observation">
@@ -275,7 +275,7 @@
 
     <action name="make_debate_question_group_section" source="sectionType" metadata="QuestionsContainer">
         <router class="org.bungeni.editor.actions.routers.routerDebateRecordSelectQuestionsType"
-            dialog="org.bungeni.editor.selectors.debaterecord.questions.Main"/>
+            dialog="questionsMain"/>
     </action>
 
     <action name="markup_official_date" source="sectionType" metadata="Preface">
@@ -284,33 +284,34 @@
 
     <action name="create_debate_block_section" source="sectionType" metadata="NoticeOfMotion">
         <router class="org.bungeni.editor.actions.routers.routerMotionSelectMotion"
-            dialog="org.bungeni.editor.selectors.debaterecord.motions.Main"/>
+            dialog="motionsMain"/>
     </action>
 
     <action name="make_procedural_motion_section" source="sectionType" metadata="NoticeOfMotion">
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"
-            dialog="org.bungeni.editor.selectors.debaterecord.motions.Main"/>
+            dialog="motionsMain"/>
     </action>
 
     <action name="create_debate_motion_block" source="sectionType" metadata="NoticeOfMotion">
         <router class="org.bungeni.editor.actions.routers.routerMotionSelectMotion"
-            dialog="org.bungeni.editor.selectors.debaterecord.motions.MainEdit"/>
+            dialog="motionsMainEdit"/>
     </action>
 
     <action name="create_question_section" source="sectionType" metadata="QuestionAnswer">
         <router class="org.bungeni.editor.actions.routers.routerDebateRecordSelectQuestion"
-            dialog="org.bungeni.editor.selectors.debaterecord.question.Main"/>
+            dialog="questionMain"/>
     </action>
 
+    <!--
     <action name="make_ref">
             <router class="org.bungeni.editor.actions.routers.routerActSelectRef"
                 dialog="org.bungeni.editor.selectors.debaterecord.ref.Main"
             />
     </action>
-
+    -->
     <action name="mark_reference" source="inlineType" metadata="ref">
         <router class="org.bungeni.editor.actions.routers.routerInputReference" 
-                dialog="org.bungeni.editor.selectors.general.Main"
+                dialog="refinline"
             />
     </action>
 

@@ -470,7 +470,7 @@
              </proprietary>
          </meta>
          <content>
-            <an:speech by="#$BungeniPersonID" as="#$BungeniSpeechAs" /> 
+            <an:speech by="#$BungeniPersonID" as="#$BungeniSpeechAs" asText="$BungeniSpeechAs" /> 
          </content>
      </output>
  </sectionType>
