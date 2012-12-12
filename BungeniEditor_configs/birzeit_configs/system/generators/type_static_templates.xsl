@@ -77,7 +77,7 @@
     </xsl:template>
     
      <xsl:template name="frbrauthor_generator">
-        <FRBRauthor href="#pna" as="{./*[@name='as']/@value}" /> 
+        <FRBRauthor href="#{./*[@name='author']/@value}" as="#{./*[@name='as']/@value}" /> 
     </xsl:template>
     
     <xsl:template name="frbrdate_generator">
@@ -175,7 +175,7 @@
     </mcontainer>-->
     
          
-    <xsl:template match="*[@name='TLCOrganization']">
+<!--    <xsl:template match="*[@name='TLCOrganization']">
         <TLCOrganization>
             <xsl:if test="./*[@name='id']/@value">
                 <xsl:attribute name="id"><xsl:value-of select="./*[@name='id']/@value"/></xsl:attribute>
@@ -189,7 +189,7 @@
             
             <xsl:apply-templates/>
         </TLCOrganization>
-    </xsl:template>
+    </xsl:template>-->
 
     <!--
     <xsl:template match="*[@name='TLCPerson']">
