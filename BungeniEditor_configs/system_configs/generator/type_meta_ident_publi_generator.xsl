@@ -262,19 +262,25 @@
              </container>
          </xmeta:template>
          
-         <xmeta:template match="text:meta">
-             <inline>
-                 <xmeta:attribute name="name">
-                     <xmeta:value-of select="./bungeni:bungenimeta/bungeni:BungeniInlineType" />
-                 </xmeta:attribute>
-                 <xmeta:element name="inlineContent">
-                     <xmeta:value-of select="content" />
-                 </xmeta:element>
-                 <!-- <xmeta:apply-templates /> -->
-             </inline>
-         </xmeta:template>
-         
-         <xmeta:template match="text:list">
+        <!-- INLINE_TYPE_IMPL(ah, 13-12-2012)  updated for inline type implementation -->
+        <xmeta:template match="text:meta">
+          <inline>
+             <xmeta:attribute name="name">
+                <xmeta:value-of select="./bungeni:bungenimeta/bungeni:BungeniInlineType" />
+             </xmeta:attribute>
+             <xmeta:attribute name="id">
+                <xmeta:value-of select="@id" />
+             </xmeta:attribute>
+             <!--
+             <xsl:element name="inlineContent">
+                <xsl:value-of select="content" />
+             </xsl:element>
+             -->
+             <xmeta:apply-templates />
+          </inline>
+        </xmeta:template>
+
+        <xmeta:template match="text:list">
              <container name="list">
                  <xmeta:attribute name="class" select="@style-name" />
                  <xmeta:attribute name="id" select="generate-id(.)" />
