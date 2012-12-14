@@ -2,21 +2,6 @@ package org.bungeni.ooo.transforms.loadable;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
-import org.bungeni.extutils.CommonFileFunctions;
-import org.bungeni.extutils.MessageBox;
-import org.bungeni.ooo.OOComponentHelper;
-import org.bungeni.ooo.transforms.impl.BungeniDocTransform;
-import org.bungeni.ooo.utils.CommonExceptionUtils;
-
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.input.SAXBuilder;
-import org.jdom.xpath.XPath;
-
-//~--- JDK imports ------------------------------------------------------------
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -25,13 +10,23 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.bungeni.editor.BungeniEditorClient;
 import org.bungeni.editor.config.BaseSystemConfig;
+import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
+import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonXmlConfigParams;
+import org.bungeni.extutils.MessageBox;
+import org.bungeni.ooo.OOComponentHelper;
+import org.bungeni.ooo.transforms.impl.BungeniDocTransform;
+import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.bungeni.plugins.translator.OdtTranslate;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.JDOMException;
+import org.jdom.input.SAXBuilder;
+import org.jdom.xpath.XPath;
 
 /**
  *
@@ -148,7 +143,7 @@ public class AnXmlTransform extends BungeniDocTransform {
                 //!+PIPELINE_SETTING (AH, 2011-09-20) Setting the pipeline manually is no longer required
                 // This needs to be removed.
 		//paramMap.put("TranslatorConfigFile", this.toOSPath("configfiles/configs/config_debaterecord.xml"));
-                paramMap.put("TranslatorConfigFile", this.toOSPath("cache/config_"+ currentDocType  +".xml"));
+                paramMap.put("TranslatorConfigFile", this.toOSPath("trans_cache/config_"+ currentDocType  +".xml"));
 
                 //!+UGLY_FIX !+FIX_THIS (ah, 01-05-2012)generate the pipeline name based on the doctype, but this is really ugly
                 //only a short term hack - to be fixed correctly with <pipeline> parameter in doctypes.xml
