@@ -1,9 +1,6 @@
 
 package org.bungeni.editor.metadata.editors;
 
-import org.bungeni.utils.BungeniFrame;
-import org.bungeni.editor.config.BungeniEditorProperties;
-import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -15,22 +12,25 @@ import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.bungeni.editor.config.BaseConfigReader;
+import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.config.DocTypesReader;
 import org.bungeni.editor.metadata.BaseEditorDocMetaModel;
-import org.bungeni.editor.selectors.SelectorDialogModes;
-import org.bungeni.ooo.transforms.impl.BungeniTransformationTargetFactory;
-import org.bungeni.ooo.transforms.impl.IBungeniDocTransform;
-import org.bungeni.utils.BungeniFileSavePathFormat;
 import org.bungeni.editor.metadata.EditorDocMetadataDialogFactory;
 import org.bungeni.editor.metadata.IEditorDocMetadataDialog;
 import org.bungeni.editor.noa.BungeniNoaTabbedPane;
+import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.extutils.*;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooDocMetadata;
+import org.bungeni.ooo.transforms.impl.BungeniTransformationTargetFactory;
+import org.bungeni.ooo.transforms.impl.IBungeniDocTransform;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
+import org.bungeni.utils.BungeniFileSavePathFormat;
+import org.bungeni.utils.BungeniFrame;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 
@@ -176,7 +176,9 @@ public class MetadataEditorContainer extends JPanel {
                     );
             //now load the newly created tabs
             for (IEditorDocMetadataDialog thisTab : this.metaTabs) {
-                metadataTabContainer.add(thisTab.getPanelComponent(), thisTab.getTabTitle());
+                JScrollPane scrollPaneContainer = new JScrollPane();
+                scrollPaneContainer.setViewportView(thisTab.getPanelComponent());
+                metadataTabContainer.add(scrollPaneContainer, thisTab.getTabTitle());
             }
         }
 
@@ -429,9 +431,9 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         btnNavigatePrev = new javax.swing.JButton();
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setPreferredSize(new java.awt.Dimension(475, 750));
+        setPreferredSize(new java.awt.Dimension(475, 550));
 
-        btnSave.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnSave.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle"); // NOI18N
         btnSave.setText(bundle.getString("MetadataEditorContainer.btnSave.text")); // NOI18N
         btnSave.addActionListener(new java.awt.event.ActionListener() {
@@ -440,7 +442,7 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
             }
         });
 
-        btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnCancel.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnCancel.setText(bundle.getString("MetadataEditorContainer.btnCancel.text")); // NOI18N
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -458,7 +460,7 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
         txtMsgArea.setBorder(null);
         jScrollPane1.setViewportView(txtMsgArea);
 
-        btnNavigateNext.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnNavigateNext.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         btnNavigateNext.setText(bundle.getString("MetadataEditorContainer.btnNavigateNext.text")); // NOI18N
 
         btnNavigatePrev.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
@@ -475,7 +477,7 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(metadataTabContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1))
-                        .addContainerGap(13, Short.MAX_VALUE))
+                        .addContainerGap(15, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                         .addComponent(btnNavigatePrev, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -493,7 +495,7 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(metadataTabContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
+                .addComponent(metadataTabContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
