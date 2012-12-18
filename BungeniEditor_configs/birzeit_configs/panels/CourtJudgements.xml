@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<panels for="CourtJudgements">
+    <panel name="actions" class="org.bungeni.editor.panels.loadable.documentActionPanel" state="1">
+        <title xml:lang="eng">markup</title>
+        <title xml:lang="ara"> العلامات للتشريع </title>
+    </panel>
+    <panel name="allmeta" class="org.bungeni.editor.panels.loadable.MetadataPanel" state="1">
+        <title xml:lang="eng">metadata</title>
+        <title xml:lang="ara"> المعلومات المرجعية </title>
+    </panel>
+    <panel name="transform" class="org.bungeni.editor.panels.loadable.transformXMLPanel" state="1">
+        <title xml:lang="eng">publish</title>
+        <title xml:lang="ara">إصدار</title>
+    </panel>
+  
+</panels>

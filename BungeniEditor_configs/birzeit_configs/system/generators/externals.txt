@@ -1,0 +1,5 @@
+https://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/generator/type_generator.xsl type_generator.xsl
+https://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/generator/type_meta_ident_publi_generator.xsl type_meta_ident_publi_generator.xsl
+https://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/generator/type_static_templates.xsl type_static_templates.xsl
+https://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/generator/type_tlc_generator.xsl type_tlc_generator.xsl
+

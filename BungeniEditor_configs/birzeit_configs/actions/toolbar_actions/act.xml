@@ -8,7 +8,8 @@ HTML is allowed in tooltip texts :
 NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
 
 -->
-<toolbar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" doctype="act">
+<toolbar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../src/xsd/toolbar.xsd" doctype="act">
     <root visible="true" style="tabbed">
 
          <actionGroup name="ActFav" uimodel="wrap" title="GENERIC">
@@ -53,7 +54,7 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                            title="CREATE_PREAMBLE_FROM_SELECTION">
                 </subaction> 
                 
-                <subaction tooltip="REF" target="make_ref"
+                <subaction tooltip="REF" target="mark_reference"
                            condition="cursorInSection:preamble :and: textSelected:true"
                            title="REF">
                 </subaction>

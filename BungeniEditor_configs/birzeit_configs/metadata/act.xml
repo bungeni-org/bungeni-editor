@@ -279,6 +279,16 @@
          <title xml:lang="eng">Work URI</title>
         <title xml:lang="ara">Work URI</title>
     </metadata>
+    
+    <metadata name="BungeniRefURI"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">BungeniRefURI</title>
+        <title xml:lang="ara"> الرابط المرجعي</title>
+    </metadata>
+    
    <!--
    <metadata name="BungeniDocType"
         type="document"

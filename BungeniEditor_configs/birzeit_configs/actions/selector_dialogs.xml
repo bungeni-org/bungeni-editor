@@ -48,4 +48,10 @@
 
     </dialog>
 
+ <dialog id="refinline" class="org.bungeni.editor.selectors.general.Main" >
+        <dialog
+            class="org.bungeni.editor.selectors.general.ref.RefURI"
+             />
+    </dialog>
+    
 </dialogs>

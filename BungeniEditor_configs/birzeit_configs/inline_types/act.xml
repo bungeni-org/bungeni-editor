@@ -1,21 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<inlineTypes for="act">
+<inlineTypes for="act" xmlns:an="#an">
+
+   
 
     <inlineType name="ref">
-        <metadatas>
-            <metadata name="BungeniRefHref"/>
-        </metadatas>
-        <output>
-            <content>
-                <ref href="$BungeniRefHref"/>
-            </content>
-        </output>
+       <output>
+          <metadatas>
+             <metadata name="BungeniRefURI" />
+          </metadatas>
+          <meta>
+              <TLCPerson id="$BungeniRefURI" />
+          </meta>
+          <content>
+            <an:ref href="$BungeniRefURI" />
+          </content>
+       </output>
     </inlineType>
+    
+     <inlineType name="LongTitle">
+             <output>
+         <content>
+             <an:longTitle />
+         </content>
+     </output>
 
+    </inlineType>
+    
     <inlineType name="Num">
         <output>
             <content>
-                <num/>
+                <an:num />
             </content>
         </output>
     </inlineType>

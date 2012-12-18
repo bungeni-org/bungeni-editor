@@ -261,8 +261,8 @@
 <!--            <meta name="number" value="33" />-->
         </mcontainer>
         
-          <mcontainer name="TLCOrganization">
-             <!--TLCOrganization id & href & showAs--> 
+<!--          <mcontainer name="TLCOrganization">
+             TLCOrganization id & href & showAs 
             <xsl:call-template name="meta-outputter">
                 <xsl:with-param name="meta-name">
                     <xsl:text>id</xsl:text>
@@ -288,7 +288,7 @@
                 </xsl:with-param>
             </xsl:call-template>
          
-        </mcontainer>
+        </mcontainer>-->
         
         </mcontainer> 
        </xmeta:template>

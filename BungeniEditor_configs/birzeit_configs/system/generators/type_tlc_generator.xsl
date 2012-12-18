@@ -74,73 +74,191 @@
             </sectionType>
             -->
             <xmeta:template match="office:meta">
-            <mcontainer name="references">
-            <xsl:for-each-group 
-                select=".//output/meta" 
-                group-by="
-                    ancestor::sectionType/@name | 
-                    ancestor::inlineType/@name | 
-                    ancestor::annotationType/@name
-                    "
-                >
-                <!-- 
-                    get the current grouping key, i.e. the name 
-                    !+WARNING(not sure how this will behave if
-                    we have section types and inline types sharing a
-                    type name )
+                
+                <mcontainer name="references">
+                <xsl:for-each-group 
+                    select=".//output/meta/references" 
+                    group-by="
+                        ancestor::sectionType/@name | 
+                        ancestor::inlineType/@name | 
+                        ancestor::annotationType/@name
+                        "
+                    >
+                    <!-- 
+                        get the current grouping key, i.e. the name 
+                        !+WARNING(not sure how this will behave if
+                        we have section types and inline types sharing a
+                        type name )
+                        -->
+                    <xsl:variable name="grp-key" select="current-grouping-key()" />
+                    
+                    <xsl:text>&#xa;</xsl:text>
+                    <xsl:comment><xsl:value-of select="$grp-key" /></xsl:comment>
+                    <xsl:text>&#xa;</xsl:text>
+                   
+                    <!--
+                        We have 3 sets of generated keys,
+                        we want to determine which is the key to query in the for loop.
+                        We determine that by querying the ancestor type and setting the 
+                        appropriate key to query 
                     -->
-                <xsl:variable name="grp-key" select="current-grouping-key()" />
-                
-                <xsl:text>&#xa;</xsl:text>
-                <xsl:comment><xsl:value-of select="$grp-key" /></xsl:comment>
-                <xsl:text>&#xa;</xsl:text>
-               
-                <!--
-                    We have 3 sets of generated keys,
-                    we want to determine which is the key to query in the for loop.
-                    We determine that by querying the ancestor type and setting the 
-                    appropriate key to query 
-                -->
-                
-                <xsl:variable name="key-by-what">
-                    <xsl:choose>
-                        <xsl:when test="ancestor::sectionType">
-                            <xsl:text>bySectionType</xsl:text>
-                        </xsl:when>
-                        <xsl:when test="ancestor::inlineType">
-                            <xsl:text>byInlineType</xsl:text>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:text>byAnnotationType</xsl:text>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:variable>
-                
-                <!-- 
-                    Run through each  type in configuration which has metadata headers 
-                    Render the xsl:for-each as a xmeta:for-each which will be converted
-                    to an XLST template
-                -->
-                <xmeta:for-each select="key('{$key-by-what}', '{$grp-key}')">
-                    <!-- we group them by type -->
-                    <xsl:for-each select="current-group()">
-                        <!-- iterate through child elements -->
-                        <xsl:for-each select="child::*">
-                            <!-- example, <TLCPerson> -->
-                            <xmeta:element name="{local-name()}" >
-                                <!-- iterate through the attributes -->
-                                <!-- attributes of the TLCPerson -->
-                                <xsl:call-template name="config-type-attribute-processor" />
-                            </xmeta:element>
+                    
+                    <xsl:variable name="key-by-what">
+                        <xsl:choose>
+                            <xsl:when test="ancestor::sectionType">
+                                <xsl:text>bySectionType</xsl:text>
+                            </xsl:when>
+                            <xsl:when test="ancestor::inlineType">
+                                <xsl:text>byInlineType</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>byAnnotationType</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+                    
+                    <!-- 
+                        Run through each  type in configuration which has metadata headers 
+                        Render the xsl:for-each as a xmeta:for-each which will be converted
+                        to an XLST template
+                    -->
+                    <xmeta:for-each select="key('{$key-by-what}', '{$grp-key}')">
+                        <!-- we group them by type -->
+                        <xsl:for-each select="current-group()">
+                            <!-- iterate through child elements -->
+                            <xsl:for-each select="child::*">
+                                <!-- example, <TLCPerson> -->
+                                <xmeta:element name="{local-name()}" >
+                                    <!-- iterate through the attributes -->
+                                    <!-- attributes of the TLCPerson -->
+                                    <xsl:call-template name="config-type-attribute-processor" />
+                                </xmeta:element>
+                            </xsl:for-each>
                         </xsl:for-each>
+                    </xmeta:for-each>
+                </xsl:for-each-group>
+                </mcontainer>
+
+                <mcontainer name="proprietary">
+                    <xsl:for-each-group 
+                        select=".//output/meta/proprietary" 
+                        group-by="
+                        ancestor::sectionType/@name | 
+                        ancestor::inlineType/@name | 
+                        ancestor::annotationType/@name
+                        "
+                        >
+                        <!-- 
+                            get the current grouping key, i.e. the name 
+                            !+WARNING(not sure how this will behave if
+                            we have section types and inline types sharing a
+                            type name )
+                        -->
+                        <xsl:variable name="grp-key" select="current-grouping-key()" />
+                        
+                        <xsl:text>&#xa;</xsl:text>
+                        <xsl:comment><xsl:value-of select="$grp-key" /></xsl:comment>
+                        <xsl:text>&#xa;</xsl:text>
+                        
+                        <!--
+                            We have 3 sets of generated keys,
+                            we want to determine which is the key to query in the for loop.
+                            We determine that by querying the ancestor type and setting the 
+                            appropriate key to query 
+                        -->
+                        
+                        <xsl:variable name="key-by-what">
+                            <xsl:choose>
+                                <xsl:when test="ancestor::sectionType">
+                                    <xsl:text>bySectionType</xsl:text>
+                                </xsl:when>
+                                <xsl:when test="ancestor::inlineType">
+                                    <xsl:text>byInlineType</xsl:text>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>byAnnotationType</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:variable>
+                        
+                        <!-- 
+                            Run through each  type in configuration which has metadata headers 
+                            Render the xsl:for-each as a xmeta:for-each which will be converted
+                            to an XLST template
+                        -->
+                        <xmeta:for-each select="key('{$key-by-what}', '{$grp-key}')">
+                            <!-- we group them by type -->
+                            <xsl:for-each select="current-group()">
+                                <!-- iterate through child elements -->
+                                <!-- <xsl:variable name="ns-attr" select="data(@ns)" /> -->
+                                <!-- get the namespace uri of the first child element in the proprietary block -->
+                                <xsl:variable name="ns-uri" select="namespace-uri(./*[1])"></xsl:variable>
+                                <!-- get the namespace prefix of the first child element -->
+                                <xsl:variable name="ns-attr" select="name(namespace::*[string() eq $ns-uri])" />
+                                <!-- find the matching namespace element in the proprietary block -->
+                                <!-- the below is strictly not neccessary, we just resolve the ns prefix again from the 
+                                namespace node -->
+                                <xsl:variable name="local-ns" select="namespace::*[name() eq $ns-attr]" />
+                                <xsl:variable name="local-ns-prefix" select="local-name($local-ns)" />
+                                <!-- NOTE: we dont use the locally defined namespace prefix resolver ... only the prefix is important
+                                    and selected from allConfigs/outputs/namespace -->
+                                <xsl:variable name="local-ns-url" select="/allConfigs//outputs/namespace[@prefix = $local-ns-prefix]/@uri" />
+                                <xmeta:element name="proprietary">
+                                    <xmeta:namespace name="{$local-ns-prefix}"  select="'{$local-ns-url}'" />
+                                    <xsl:call-template name="proprietary-descendants-processor">
+                                        <xsl:with-param name="local-ns-prefix" select="$local-ns-prefix" />
+                                        <xsl:with-param name="local-ns-url" select="$local-ns-url" />
+                                    </xsl:call-template>
+                                </xmeta:element>
+                            </xsl:for-each>
+                        </xmeta:for-each>
+                    </xsl:for-each-group>
+                </mcontainer>
+                
+                <!--
+                <mcontainer name="proprietary">
+                    <xsl:for-each select=".//output/meta/proprietary">
+                        <xsl:variable name="ns-attr" select="data(@ns)" />
+                        <xsl:variable name="local-ns" select="namespace::*[name() eq $ns-attr]" />
+                        <xsl:variable name="local-ns-prefix" select="local-name($local-ns)" />
+                        <xsl:variable name="local-ns-url" select="/allConfigs//outputs/namespace[@prefix = $local-ns-prefix]/@uri" />
+                        <xmeta:element name="proprietary">
+                            <xmeta:namespace name="{$local-ns-prefix}"  select="'{$local-ns-url}'" />
+                            <xsl:for-each select="child::*">
+                                <xmeta:element name="{$local-ns-prefix}:{local-name()}" 
+                                    namespace="{$local-ns-url}">
+                                    <xsl:call-template name="config-type-attribute-processor" />
+                                </xmeta:element>
+                            </xsl:for-each>    
+                        </xmeta:element>
                     </xsl:for-each>
-                </xmeta:for-each>
-            </xsl:for-each-group>
-            </mcontainer>
+                </mcontainer>
+                -->
+                
             </xmeta:template>
             
         </xmeta:stylesheet>
     </xsl:template>
+
+
+    <!--
+        Recursive proprietary element processor 
+        -->
+    <xsl:template name="proprietary-descendants-processor">
+        <xsl:param name="local-ns-prefix"></xsl:param>
+        <xsl:param name="local-ns-url"></xsl:param>
+        <xsl:for-each select="child::*">
+            <xmeta:element name="{$local-ns-prefix}:{local-name()}" 
+                namespace="{$local-ns-url}">
+                <xsl:call-template name="config-type-attribute-processor" />
+                <xsl:call-template name="proprietary-descendants-processor">
+                    <xsl:with-param name="local-ns-prefix" select="$local-ns-prefix" />
+                    <xsl:with-param name="local-ns-url" select="$local-ns-url" />
+                </xsl:call-template>
+            </xmeta:element>
+        </xsl:for-each>    
+    </xsl:template>
+     
 
     <!-- This template renders the XSLT template for output content and metadata -->
     <xsl:template name="config-type-attribute-processor">

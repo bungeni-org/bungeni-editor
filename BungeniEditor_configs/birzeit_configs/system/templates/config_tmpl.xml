@@ -59,7 +59,7 @@ ODT -> Akoma Ntoso
             href="${sys_trans_path}/xsl/meta_language_normalization.xsl"/>
         <!-- Add the Metalex namespace -->
         <xslt step="2" name="MetaLanguageAddNamespaceMetalex"
-           href="${sys_trans_path}/xsl/meta_language_add_mlx_ns.xsl"/>
+            href="${cache_trans_path}/meta_language_add_mlx_ns.xsl"/>
         <!-- Add the Bungeni namespace -->
         <xslt step="3" name="MetaLanguageAddNamespaceBungeni"
             href="${sys_trans_path}/xsl/meta_language_add_bungeni_ns.xsl"/>

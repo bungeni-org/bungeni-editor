@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<allConfigs><outputs>
+	   <namespace prefix="an" type="main" desc="Akoma Ntoso" uri="http://www.akomantoso.org/2.0" />
+	   <namespace prefix="bg" type="proprietary" desc="Proprietary" uri="http://www.proprietary.org" />
+	   
+	</outputs><doctype name="judgement" template="templates/judgement.ott" state="1" root="judgement" default-part="main">
+        <title xml:lang="eng">Judgement</title>
+        <title xml:lang="spa">dictamen</title>
+        <title xml:lang="ara">حكم</title>
+        <uri type="work">~CountryCode~DocumentType~Year-Month-Day</uri>
+        <uri type="expression">~CountryCode~DocumentType~Year-Month-Day~LanguageCode</uri>
+        <file-name-scheme>CountryCode~DocumentType~Year-Month-Day~LanguageCode</file-name-scheme>
+        <metadata-editors>
+           
+           <title xml:lang="eng">Judgement Metadata</title>
+           <title xml:lang="ara">المعلومات الواصفة للحكم</title>
+             <metadata-editor class="org.bungeni.editor.metadata.editors.GeneralMetadata">
+             <title xml:lang="eng">General</title>
+             <title xml:lang="ara">معلومات عامة</title>
+            </metadata-editor>
+           
+           
+           <metadata-editor class="org.bungeni.editor.metadata.editors.JudgemenMetadataExtra">
+             <title xml:lang="eng">Judgement</title>
+             <title xml:lang="ara">الحكم القضائي</title>
+            </metadata-editor>
+        </metadata-editors>
+        <parts>
+            <part name="main">
+                <title xml:lang="eng">Main</title>
+                <title xml:lang="spa">principal</title>
+            </part>
+            <part name="annex">
+                <title xml:lang="eng">Annex</title>
+                <title xml:lang="spa">adjuntar</title>
+            </part>
+        </parts>
+    </doctype><sectionTypes for="judgement">
+<sectionType name="Background" prefix="background" numstyle="single" background=" url:backgrounds/sand.png" indent-left="0.55" indent-right="0" visibility="user">
+     
+ </sectionType>
+<sectionType name="Conclusion" prefix="concl" numstyle="serial" background=" url:backgrounds/orange.png" indent-left="0.25" indent-right="0" visibility="user">
+     
+ </sectionType>
+<sectionType name="Decision" prefix="decision" numstyle="single" background=" url:backgrounds/orange-yellow.png" indent-left="0.55" indent-right="0" visibility="user">
+     
+ </sectionType>
+
+
+
+<sectionType name="JudgementBody" prefix="judgementBody" numstyle="single" background=" url:backgrounds/light-orange.png" indent-left="0.25" indent-right="0" visibility="user">
+     
+ </sectionType>
+
+<sectionType name="Header" prefix="header" numstyle="single" background=" url:backgrounds/light-orange.png" indent-left="0.25" indent-right="0" visibility="user">
+     
+ </sectionType>
+ 
+ 
+ <sectionType name="JudgementNo" prefix="judgementNo" numstyle="single" background="0xe8ee88" indent-left="0" indent-right="0" visibility="user">
+     
+ </sectionType>
+ 
+ <sectionType name="CaseNo" prefix="caseNo" numstyle="single" background="0xe8ee88" indent-left="0" indent-right="0" visibility="user">
+     
+ </sectionType>
+ 
+ 
+ 
+ 
+ 
+<sectionType name="Introduction" prefix="intro" numstyle="single" background=" url:backgrounds/lighter-green.png" indent-left="0.55" indent-right="0" visibility="user">
+     
+ </sectionType>
+<sectionType name="Motivation" prefix="motive" numstyle="single" background=" url:backgrounds/light-green.png" indent-left="0.55" indent-right="0" visibility="user">
+     
+ </sectionType>
+ 
+ 
+  <sectionType name="MotList" prefix="mot-lis" numstyle="serial" background="0xe80066" indent-left=".4" indent-right="0" visibility="user">
+     <numbering scheme="ROMAN-Upper" decorator="none" />
+ </sectionType>
+ 
+ 
+ <sectionType name="BackgList" prefix="bac-lis" numstyle="serial" background="0xe80066" indent-left=".4" indent-right="0" visibility="user">
+     <numbering scheme="ROMAN-Upper" decorator="none" />
+ </sectionType>
+
+ <sectionType name="IntroList" prefix="int-lis" numstyle="serial" background="0xe80066" indent-left=".4" indent-right="0" visibility="user">
+     <numbering scheme="ROMAN-Upper" decorator="none" />
+ </sectionType>
+ 
+ 
+ <sectionType name="DeciList" prefix="dec-lis" numstyle="serial" background="0xe80066" indent-left=".4" indent-right="0" visibility="user">
+     <numbering scheme="ROMAN-Upper" decorator="none" />
+ </sectionType>
+ 
+ 
+ 
+ 
+ <sectionType name="DecgListItem" prefix="ite" numstyle="serial" background="0xe80066" indent-left=".4" indent-right="0" visibility="user">
+      <numbering scheme="ROMAN-Upper" decorator="square" />
+ </sectionType>
+ 
+ <sectionType name="IntroListItem" prefix="ite" numstyle="serial" background="0xe80066" indent-left=".4" indent-right="0" visibility="user">
+      <numbering scheme="ROMAN-Upper" decorator="square" />
+ </sectionType>
+ 
+ 
+ <sectionType name="MotListItem" prefix="ite" numstyle="serial" background="0xe80066" indent-left=".4" indent-right="0" visibility="user">
+      <numbering scheme="ROMAN-Upper" decorator="square" />
+ </sectionType>
+ 
+ <sectionType name="BackgListItem" prefix="ite" numstyle="serial" background="0xe800ff" indent-left=".4" indent-right="0" visibility="user">
+       <numbering scheme="ROMAN-Upper" decorator="square" />
+ </sectionType>
+ 
+ 
+ 
+ 
+ 
+<sectionType name="Omissis" prefix="omissis" numstyle="serial" background="url:backgrounds/sand.png" indent-left="0.65" indent-right="0" visibility="user">
+     
+ </sectionType>
+ 
+ 
+ 
+ 
+ 
+</sectionTypes><inlineTypes for="debaterecord">
+    <inlineType name="from">
+        <output>
+            <content>
+                <from />
+            </content>
+        </output>
+    </inlineType>
+
+</inlineTypes></allConfigs>

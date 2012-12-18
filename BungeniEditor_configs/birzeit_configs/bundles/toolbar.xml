@@ -159,5 +159,70 @@
 <entry key="MARKUP_SHORT_TITLE">Markup Short Title</entry>
 <entry key="ISSUEDATE">Issue Date</entry>
  <entry key="LONGTITLE">long title </entry>
-
+ 
+ <!-- **************************************************** FAMILY COURT JUDGEMENT *************************************************** -->
+ 
+ <entry key="HEADING"> heading </entry>
+ <entry key="CREATE_JUDGEMENT_HEADING"> create judgement heading </entry>
+ <entry key="CASE_NAME"> case name </entry>
+ <entry key="JUDGES"> judges </entry> 
+ <entry key="JUDGE"> judge </entry>                                         
+ <entry key="PARTIES"> parties </entry>     
+ <entry key="BASIC_INFO"> basic info </entry>                                         
+ <entry key="CASE_SUBJECT"> case subject </entry>
+  
+ <entry key="CASE_CLASS-DATA"> case </entry>
+ <entry key="CASEDATEC"> case-date </entry>     
+ <entry key="CASENUMC"> case-number </entry>   
+ <entry key="CASECITYC"> case-city </entry>
+ 
+ <entry key="APPEAL_SECOND-CLASS-DATA"> appeal </entry>
+ <entry key="CASEDATEA"> appeal case-date </entry>     
+ <entry key="CASENUMA"> appeal case-number </entry>   
+ <entry key="CASECITYA"> appeal case-city </entry>   
+ 
+ <entry key="HIGH_THIRD-CLASS-DATA"> high </entry>
+ <entry key="CASEDATEH"> high case-date </entry>     
+ <entry key="CASENUMH"> high case-number </entry>   
+ <entry key="CASECITYH"> high case-city </entry>
+ <entry key="CASEPROIORITY"> case proiority </entry>
+ 
+ <entry key="CONTENTS"> contents </entry>
+ <entry key="CONTENT"> content </entry>
+  
+ <entry key="CONCLUSIONS"> conclusions </entry>
+ <entry key="CONCLUSIONF"> conclusionf </entry>
+ <entry key="CON_DATE"> conclusion Date </entry>
+ <entry key="CON_DATEH"> conclusion Hijri Date </entry>
+ <entry key="CON_JUDGES"> conclusion judges </entry>
+ <entry key="CON_NOTES"> conclusion notes </entry>
+ 
+ 
+ <!-- **************************************************** COURT JUDGEMENT *************************************************** -->
+ 
+ <entry key="HEADING"> heading </entry>
+ <entry key="CREATE_JUDGEMENT_HEADING"> create judgement heading  </entry>
+ <entry key="BASIC_INFO"> basic-info  </entry>
+ <entry key="JUDGES"> judges  </entry>
+ <entry key="PARTIES"> parties  </entry>
+ <entry key="ABSTRACT"> abstract  </entry>
+ <entry key="ADD-INFO"> additional info  </entry>
+ <entry key="CONTENTS"> cotents  </entry>
+ <entry key="CREATE_CONTENTS"> create judgement contents  </entry>
+ <entry key="TITLE"> title  </entry>
+ <entry key="FACTS"> facts  </entry>
+ <entry key="DEC-STATEMENT"> decision statement  </entry>
+ <entry key="CREATE_DEC-STATEMENT"> create judgement decision statement  </entry>
+ <entry key="REASONING"> reasoning  </entry>
+ <entry key="VERDICT"> verdict  </entry>
+ <entry key="CONCLUSIONS"> conclusions  </entry>
+ <entry key="CREATE_CONCLUSIONS"> create judgement conclusions </entry>
+ <entry key="CONCL-EXPLAIN-TEXT"> conclusion explain text  </entry>
+ <entry key="CONCL-EXPLAIN-JUDGES"> conclusion explain judges  </entry>
+ 
+ 
+ 
+ 
+ 
+ 
 </properties>

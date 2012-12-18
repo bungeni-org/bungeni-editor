@@ -14,7 +14,7 @@
     <prop name="locale.Language.iso639-2" value="eng" description="Default iso language mode for editor" />
     <prop name="logoPath" value="settings/logos" description="path to logo" />
     <prop name="messageBundlesPath" value="settings/bundles" description="message bundles path" />
-    <prop name="metadataDateFormat" value="yyyy-MM-dd" description="metadata date format" />
+    <prop name="metadataDateFormat" value="dd/MM/yyyy" description="metadata date format" />
     <prop name="metadataTimeFormat" value="HH:mm" description="metadata time format" />
     
     <prop name="parliament.DefaultPart" value="main" description="This is the default part set in the part selector for metadata; this part must exist in DOCUMENT_PARTS" />

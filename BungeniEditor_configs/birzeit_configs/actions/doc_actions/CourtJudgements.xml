@@ -1,0 +1,89 @@
+<?xml version="1.0" ?>
+<actions for="CourtJudgements">
+    
+    <action name="make_Judgement_Heading" source="sectionType" metadata="Heading" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_basic-info" source="sectionType" metadata="basic-info" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+       
+    <action name="create_judges" source="sectionType" metadata="Judges" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+   
+    <action name="create_parties" source="sectionType" metadata="Parties" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_absract" source="sectionType" metadata="Abstract" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_add-info" source="sectionType" metadata="add-info" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_judgementBody" source="sectionType" metadata="judgementBody" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_title" source="sectionType" metadata="title" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_facts" source="sectionType" metadata="facts" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_dec-statement" source="sectionType" metadata="dec-statement" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_reasoning" source="sectionType" metadata="reasoning" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_verdict" source="sectionType" metadata="verdict" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_casedatec" source="sectionType" metadata="casedatec" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_casenumberc" source="sectionType" metadata="casenumberc" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_casecityc" source="sectionType" metadata="casecityc" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_casedatea" source="sectionType" metadata="casedatea" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_casenumbera" source="sectionType" metadata="casenumbera" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_casecitya" source="sectionType" metadata="casecitya" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_conclusions" source="sectionType" metadata="conclusions" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_concl-explain-text" source="sectionType" metadata="concl-explain-text" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+        
+    <action name="create_concl-explain-judges" source="sectionType" metadata="concl-explain-judges" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+</actions>

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="windows-1252"?>
-<sectionTypes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:noNamespaceSchemaLocation="sectionTypes.xsd"
-              for="act">
+<sectionTypes for="act" xmlns:an="#an">
  
     <!-- root is mandatory, all mode="call" attributed calls need sectionType definitions -->
  
@@ -9,17 +7,18 @@
               prefix="act"
               numstyle="single"
               visibility="user" >
-        <output>
+            
+       <output>
             <content>
-                <akomaNtoso>
-                    <act>
-                        <meta mode="call"/>
-                        <preface mode="call" />
-                        <preamble mode="call" />
-                        <body  mode="call"/>
-                        <conclusions mode="call" />
-                    </act>
-                </akomaNtoso>
+                <an:akomaNtoso>
+                    <an:act>
+                        <an:meta mode="call"/>
+                        <an:preface mode="call" />
+                        <an:preamble mode="call" />
+                        <an:body  mode="call"/>
+                        <an:conclusions mode="call" />
+                    </an:act>
+                </an:akomaNtoso>
             </content>
         </output>
     </sectionType>
@@ -29,7 +28,7 @@
                 numstyle="single">
         <output>
             <content>
-                <meta/>
+                <an:meta/>
                
             </content>
         </output>
@@ -43,7 +42,7 @@
     >
         <output>
             <content>
-                <preface/>
+                <an:preface/>
             </content>
         </output>
     </sectionType>
@@ -56,7 +55,7 @@
     >
         <output>
             <content>
-                <preamble/>
+                <an:preamble/>
             </content>
         </output>
     </sectionType>
@@ -71,7 +70,7 @@
     >
         <output>
             <content>
-                <body />
+                <an:body />
             </content>
         </output>
     </sectionType>
@@ -85,7 +84,7 @@
                      visibility="user">
         <output>
             <content>
-                <conclusions />
+                <an:conclusions />
             </content>
         </output>
     </sectionType>	
@@ -95,7 +94,7 @@
         <numbering scheme="NUMERIC" decorator="flowerBracket"/>
         <output>
             <content>
-                <hcontainer />
+                <an:hcontainer />
             </content>
         </output>
     </sectionType>
@@ -105,7 +104,7 @@
         <numbering scheme="NUMERIC" decorator="flowerBracket"/>
         <output>
             <content>
-                <book />
+                <an:book />
             </content>
         </output>
     </sectionType>
@@ -115,7 +114,7 @@
         <numbering scheme="NUMERIC" decorator="flowerBracket"/>
         <output>
             <content>
-                <hcontainer />
+                <an:hcontainer />
             </content>
         </output>
     </sectionType>
@@ -125,7 +124,7 @@
         <numbering scheme="NUMERIC" decorator="flowerBracket"/>
         <output>
             <content>
-                <part />
+                <an:part />
             </content>
         </output>
     </sectionType>
@@ -135,7 +134,7 @@
         <numbering scheme="NUMERIC" decorator="flowerBracket"/>
         <output>
             <content>
-                <hcontainer />
+                <an:hcontainer />
             </content>
         </output>
     </sectionType>
@@ -145,7 +144,7 @@
         <numbering scheme="ROMAN-Upper" decorator="none"/>
         <output>
             <content>
-                <chapter />
+                <an:chapter />
             </content>
         </output>
     </sectionType>
@@ -155,7 +154,7 @@
         <numbering scheme="NUMERIC" decorator="flowerBracket"/>
         <output>
             <content>
-                <hcontainer />
+                <an:hcontainer />
             </content>
         </output>
     </sectionType>
@@ -165,7 +164,7 @@
         <numbering scheme="NUMERIC" decorator="flowerBracket"/>
         <output>
             <content>
-                <section />
+                <an:section />
             </content>
         </output>
     </sectionType>
@@ -175,7 +174,7 @@
         <numbering scheme="NUMERIC" decorator="flowerBracket"/>
         <output>
             <content>
-                <hcontainer />
+                <an:hcontainer />
             </content>
         </output>
     </sectionType>
@@ -185,7 +184,7 @@
         <numbering scheme="NUMERIC" decorator="flowerBracket"/>
         <output>
             <content>
-                <article />
+                <an:article />
             </content>
         </output>
     </sectionType>
@@ -194,7 +193,7 @@
                  indent-left=".3" indent-right="0" visibility="user"> 
         <output>
             <content>
-                <longTitle />
+                <an:longTitle />
             </content>
         </output>
     </sectionType>
@@ -203,7 +202,7 @@
                  indent-left=".3" indent-right="0" visibility="user"> 
         <output>
             <content>
-                <num />
+                <an:num />
             </content>
         </output>
     </sectionType>
@@ -212,7 +211,7 @@
                  indent-left=".1" indent-right="0" visibility="user">
         <output>
             <content>
-                <heading />
+                <an:heading />
             </content>
         </output>
     </sectionType>
@@ -221,7 +220,7 @@
                  indent-left=".1" indent-right="0" visibility="user">
         <output>
             <content>
-                <subheading />
+                <an:subheading />
             </content>
         </output>
     </sectionType>
@@ -230,7 +229,7 @@
                  indent-left=".1" indent-right="0" visibility="user">
         <output>
             <content>
-                <content />
+                <an:content />
             </content>
         </output>
     </sectionType>

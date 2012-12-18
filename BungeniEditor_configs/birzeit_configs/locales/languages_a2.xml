@@ -3,7 +3,20 @@
     http://www.loc.gov/standards/iso639-2/ISO-639-2_utf-8.txt
 -->
 <languages>
-    <language alpha3="aar" alpha2="aa">
+ 
+     <language alpha3="ara" alpha2="ar">
+        <name lang="en">Arabic</name>
+        <name lang="fr">arabe</name>
+        <name lang="ar">عربي</name>
+    </language>
+    <language alpha3="eng" alpha2="en">
+        <name lang="en">English</name>
+        <name lang="fr">anglais</name>
+         <name lang="ar">انجليزي</name>
+    </language>
+    
+
+<!--    <language alpha3="aar" alpha2="aa">
         <name lang="en">Afar</name>
         <name lang="fr">afar</name>
     </language>
@@ -33,12 +46,6 @@
         <name lang="fr">amharique</name>
     </language>
     
-    
-    
-    <language alpha3="ara" alpha2="ar">
-        <name lang="en">Arabic</name>
-        <name lang="fr">arabe</name>
-    </language>
     
     <language alpha3="arg" alpha2="an">
         <name lang="en">Aragonese</name>
@@ -221,15 +228,7 @@
         <name lang="fr">dzongkha</name>
     </language>
     
-    
-    
-    
-    <language alpha3="eng" alpha2="en">
-        <name lang="en">English</name>
-        <name lang="fr">anglais</name>
-    </language>
-    
-    <language alpha3="epo" alpha2="eo">
+      <language alpha3="epo" alpha2="eo">
         <name lang="en">Esperanto</name>
         <name lang="fr">espéranto</name>
     </language>
@@ -978,6 +977,6 @@
         <name lang="fr">zoulou</name>
     </language>
     
-    
+    -->
     
 </languages>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<toolbar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" doctype="FamilyCourtJudgements">
+    <root visible="true" style="tabbed">
+        <actionGroup name="JudgementFav" uimodel="wrap" title="FAVOURITES">
+        
+            
+            <blockAction title="HEADING">
+                <subaction tooltip="CREATE_JUDGEMENT_HEADING" target="make_Judgement_Heading"
+                           condition="cursorInSection:judgement :and: textSelected:true"
+                           title="CREATE_JUDGEMENT_HEADING"> 
+                </subaction> 
+               
+                <subaction tooltip="CASE_NAME" target="create_case-name"
+                           condition="cursorInSection:heading :and: textSelected:true" 
+                           title="CASE_NAME"> 
+                </subaction>
+          
+                <subaction tooltip="JUDGES" target="create_judges"
+                           condition="cursorInSection:heading :and: textSelected:true"
+                           title="JUDGES"> 
+                </subaction>
+                
+                <subaction tooltip="JUDGE" target="create_judge"
+                           condition="cursorInSection:judges :and: textSelected:true"
+                           title="JUDGE"> 
+                </subaction>
+                
+                <subaction tooltip="PARTIES" target="create_parties" 
+                           condition="cursorInSection:heading :and: textSelected:true"
+                           title="PARTIES"> 
+                </subaction>
+         
+                <subaction tooltip="BASIC_INFO" target="create_basic-info"
+                           condition="cursorInSection:heading :and: textSelected:true"
+                           title="BASIC_INFO" > 
+                </subaction>
+          
+                <subaction tooltip="CASE_SUBJECT" target="create_case-subject" 
+                           condition=" cursorInSection:basic-info :and: textSelected:true"
+                           title="CASE_SUBJECT" > 
+                </subaction>
+            </blockAction>
+                      
+        
+            <blockAction title="CASE_CLASS-DATA">
+                <subaction tooltip="CASEDATEC" target="create_casedatec"
+                            condition="cursorInSection:basic-info :and: textSelected:true"
+                            title="CASEDATEC"
+                > 
+                </subaction>
+          
+                <subaction tooltip="CASENUMC" target="create_casenumberc"
+                           condition="cursorInSection:basic-info :and: textSelected:true"
+                           title="CASENUMC" > 
+                </subaction>
+          
+                <subaction tooltip="CASECITYC" target="create_casecityc"
+                           condition="cursorInSection:basic-info :and: textSelected:true"
+                           title="CASECITYC" 
+                > 
+                </subaction>
+            </blockAction>
+            
+            
+            <blockAction title="APPEAL_SECOND-CLASS-DATA">
+                <subaction tooltip="CASEDATEA" target="create_casedatea"
+                           condition="cursorInSection:basic-info :and: textSelected:true"
+                           title="CASEDATEA"
+                > 
+                </subaction>
+          
+                <subaction tooltip="CASENUMA" target="create_casenumbera"
+                           condition="cursorInSection:basic-info :and: textSelected:true"
+                           title="CASENUMA" > 
+                </subaction>
+          
+                <subaction tooltip="CASECITYA" target="create_casecitya"
+                           condition="cursorInSection:basic-info :and: textSelected:true"
+                           title="CASECITYA" 
+                > 
+                </subaction>
+            </blockAction>
+            
+              
+            <blockAction title="HIGH_THIRD-CLASS-DATA">
+                <subaction tooltip="CASEDATEH" target="create_casedateh"
+                           condition="cursorInSection:basic-info :and: textSelected:true"
+                           title="CASEDATEH"
+                > 
+                </subaction>
+          
+                <subaction tooltip="CASENUMH" target="create_casenumberh"
+                           condition="cursorInSection:basic-info :and: textSelected:true"
+                           title="CASENUMH" > 
+                </subaction>
+          
+                <subaction tooltip="CASECITYH" target="create_casecityh"
+                           condition="cursorInSection:basic-info :and: textSelected:true"
+                           title="CASECITYH" 
+                > 
+                </subaction>
+                <subaction tooltip="CASEPROIORITY" target="create_casepriority"
+                            condition="cursorInSection:basic-info :and: textSelected:true"
+                            title="CASEPROIORITY" 
+                > 
+                </subaction>
+            </blockAction>
+      
+            
+            <blockAction title="CONTENTS">
+                <subaction tooltip="CONTENTS" target="create_contents"
+                           condition="cursorInSection:judgement :and: textSelected:true"
+                           title="CONTENTS"> 
+                </subaction> 
+                <subaction tooltip="CONTENT" target="create_content"
+                           condition="cursorInSection:contents :and: textSelected:true"
+                           title="CONTENT"> 
+                </subaction> 
+            </blockAction>
+            
+            <blockAction title="CONCLUSIONS">
+                <subaction tooltip="CONCLUSIONS" target="create_conclusions"
+                           condition="cursorInSection:judgement :and: textSelected:true"
+                           title="CONCLUSIONS"
+                          > 
+                </subaction>
+                <subaction tooltip="CONCLUSIONF" target="create_conclusionf"
+                           condition="cursorInSection:conclusions :and: textSelected:true"
+                           title="CONCLUSIONF"
+                          > 
+                </subaction>
+                <subaction tooltip="CON_DATE" target="create_con-date"
+                           condition="cursorInSection:conclusionf :and: textSelected:true"
+                           title="CON_DATE" 
+                           > 
+                </subaction>
+                <subaction tooltip="CON_DATEH" target="create_con-dateh"
+                           condition="cursorInSection:conclusionf :and: textSelected:true"
+                           title="CON_DATEH" 
+                           > 
+                </subaction>
+                <subaction tooltip="CON_JUDGES" target="create_con-judges"
+                           condition="cursorInSection:conclusionf :and: textSelected:true"
+                           title="CON_JUDGES" 
+                           > 
+                </subaction>
+                <subaction tooltip="CON_NOTES" target="create_con-notes"
+                           condition="cursorInSection:conclusionf :and: textSelected:true"
+                           title="CON_NOTES" 
+                           > 
+                </subaction>
+            </blockAction>
+            
+        </actionGroup>
+    
+    </root>
+</toolbar>

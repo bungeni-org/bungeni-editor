@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<sectionTypes for="CourtJudgements" xmlns:an="#an">
+ 
+    <!-- root is mandatory, all mode="call" attributed calls need sectionType definitions -->
+ 
+    <sectionType name="root"
+              prefix="CourtJudgements"
+              numstyle="single"
+              visibility="user" >
+        <output>
+            <content>
+                <an:akomaNtoso>
+                    <an:judgement>
+                        <an:meta mode="call"/>
+                        <an:heading mode="call" />
+                        <an:judgementBody  mode="call"/>
+                        <an:dec-statement mode="call"/>
+                        <an:conclusions mode="call" />
+                    </an:judgement>
+                </an:akomaNtoso>
+            </content>
+        </output>
+    </sectionType>
+	 
+    <sectionType name="meta"
+                prefix="meta"
+                numstyle="single">
+        <output>
+            <content>
+                <an:meta/>
+               
+            </content>
+        </output>
+    </sectionType>
+  
+    <sectionType name="Heading" 
+                 prefix="heading" 
+                 numstyle="single" 
+                 background="0xb5b5b5"
+    >
+        <output>
+            <content>
+                <an:heading/>
+            </content>
+        </output>
+    </sectionType>
+
+    <sectionType name="judgementBody"
+                     prefix="judgementBody"
+                     numstyle="single"
+                     background="0xb1b1b1"
+                     indent-left="0"
+                     indent-right="0"
+                     visibility="user"
+    >
+        <output>
+            <content>
+                <an:judgementBody />
+            </content>
+        </output>
+    </sectionType>
+    
+     <sectionType name="dec-statement" 
+                  prefix="dec-statement" 
+                  numstyle="single" 
+                  background="0x8d68d0"
+                  indent-left=".3" 
+                  indent-right="0" 
+                  visibility="user"
+     > 
+        <output>
+            <content>
+                <an:dec-statement />
+            </content>
+        </output>
+    </sectionType>
+    
+
+    <sectionType name="conclusions"
+                     prefix="conclusions"
+                     numstyle="single"
+                     background="0xffdfdf"
+                     indent-left="0"
+                     indent-right="0"
+                     visibility="user">
+        <output>
+            <content>
+                <an:conclusions />
+            </content>
+        </output>
+    </sectionType>	
+	      
+    <sectionType name="basic-info" prefix="basic-info" numstyle="single" background="0xf0f0f0"
+                      indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket"/>
+        <output>
+            <content>
+                <an:basic-info />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Judges" prefix="judges" numstyle="single" background="0x638657"
+                  indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket"/>
+        <output>
+            <content>
+                <an:judges />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Parties" prefix="parties" numstyle="single" background="0x99b98d"
+                  indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket"/>
+        <output>
+            <content>
+                <an:parties />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Abstract" prefix="abstract" numstyle="single" background="0xe8ee88"
+                 indent-left=".4" indent-right="0" visibility="user">
+        <numbering scheme="ROMAN-Upper" decorator="none"/>
+        <output>
+            <content>
+                <an:abstract />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="add-info" prefix="add-info" numstyle="single" background="0x3d94b0"
+                  indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket"/>
+        <output>
+            <content>
+                <an:add-info />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="title" prefix="title" numstyle="single" background="0x3d94b0"
+                  indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket"/>
+        <output>
+            <content>
+                <an:title />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="facts" prefix="facts" numstyle="single" background="0x8d68d0"
+                  indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket"/>
+        <output>
+            <content>
+                <an:facts />
+            </content>
+        </output>
+    </sectionType>
+  
+      <sectionType name="reasoning" prefix="reasoning" numstyle="single" background="0x8d68d0"
+                 indent-left=".3" indent-right="0" visibility="user"> 
+        <output>
+            <content>
+                <an:reasoning />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="verdict" prefix="verdict" numstyle="single" background="0xffffff"
+                 indent-left=".1" indent-right="0" visibility="user">
+        <output>
+            <content>
+                <an:verdict />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="casedatec" prefix="casedatec" numstyle="single" background="0x3d94b0"
+                  indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket"/>
+        <output>
+            <content>
+                <an:casedatec />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="casenumberc" prefix="casenumberc" numstyle="single" background="0x3d94b0"
+                  indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket"/>
+        <output>
+            <content>
+                <an:casenumberc />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="casecityc" prefix="casecityc" numstyle="single" background="0x3d94b0"
+                  indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket"/>
+        <output>
+            <content>
+                <an:casecityc />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="casedatea" prefix="casedatea" numstyle="single" background="0x8d68d0"
+                  indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket"/>
+        <output>
+            <content>
+                <an:casedatea />
+            </content>
+        </output>
+    </sectionType>
+  
+    <sectionType name="casenumbera" prefix="casenumbera" numstyle="single" background="0x8d68d0"
+                 indent-left=".3" indent-right="0" visibility="user"> 
+        <output>
+            <content>
+                <an:casenumbera />
+            </content>
+        </output>
+    </sectionType>
+    
+      <sectionType name="casecitya" prefix="casecitya" numstyle="single" background="0x8d68d0"
+                 indent-left=".3" indent-right="0" visibility="user"> 
+        <output>
+            <content>
+                <an:casecitya />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="concl-explain-text" prefix="concl-explain-text" numstyle="single" background="0xc04ebf"
+                 indent-left=".1" indent-right="0" visibility="user">
+        <output>
+            <content>
+                <an:concl-explain-text />
+            </content>
+        </output>
+    </sectionType>
+  
+  <sectionType name="concl-explain-judges" prefix="concl-explain-judges" numstyle="single" background="0xc04ebf"
+                 indent-left=".1" indent-right="0" visibility="user">
+        <output>
+            <content>
+                <an:concl-explain-judges />
+            </content>
+        </output>
+    </sectionType>
+    
+</sectionTypes>

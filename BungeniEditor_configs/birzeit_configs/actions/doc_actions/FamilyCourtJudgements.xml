@@ -1,0 +1,104 @@
+<?xml version="1.0" ?>
+<actions for="FamilyCourtJudgements">
+    
+    <action name="make_Judgement_Heading" source="sectionType" metadata="Heading" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_case-name" source="sectionType" metadata="casename" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+       
+    <action name="create_judges" source="sectionType" metadata="Judges" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_judge" source="sectionType" metadata="Judge" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    <action name="create_parties" source="sectionType" metadata="Parties" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_basic-info" source="sectionType" metadata="basic-info" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_case-subject" source="sectionType" metadata="casesubject" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_casedatec" source="sectionType" metadata="casedatec" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_casenumberc" source="sectionType" metadata="casenumberc" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_casecityc" source="sectionType" metadata="casecityc" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_casedatea" source="sectionType" metadata="casedatea" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_casenumbera" source="sectionType" metadata="casenumbera" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_casecitya" source="sectionType" metadata="casecitya" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_casedateh" source="sectionType" metadata="casedateh" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_casenumberh" source="sectionType" metadata="casenumberh" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_casecityh" source="sectionType" metadata="casecityh" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    
+    <action name="create_casepriority" source="sectionType" metadata="casepriority" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_contents" source="sectionType" metadata="contents" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+
+    <action name="create_content" source="sectionType" metadata="content" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+
+    <action name="create_conclusions" source="sectionType" metadata="conclusions" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+
+    <action name="create_conclusionf" source="sectionType" metadata="conclusionf" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+
+    <action name="create_con-date" source="sectionType" metadata="con-date" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+
+    <action name="create_con-dateh" source="sectionType" metadata="con-dateh" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+
+    <action name="create_con-judges" source="sectionType" metadata="con-judges" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+
+    <action name="create_con-notes" source="sectionType" metadata="con-notes" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+
+</actions>

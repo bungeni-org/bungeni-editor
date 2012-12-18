@@ -6,8 +6,8 @@
     </action>
     
 
-    <action name="make_preface_longTitle" source="sectionType" metadata="LongTitle" >
-        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    <action name="make_preface_longTitle" source="inlineType" metadata="LongTitle" >
+        <router class="org.bungeni.editor.actions.routers.routerInputReference" />
     </action>
             <!--
     <action name="make_preface_docTitle"  source="docTitle" metadata="DocTitle" >
@@ -34,10 +34,10 @@
         <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
     </action>
 
-    <action name="make_ref" source="sectionType" metadata="Ref" >
+<!--    <action name="make_ref" source="sectionType" metadata="Ref" >
         <router class="org.bungeni.editor.actions.routers.routerActSelectRef"
                 dialog="org.bungeni.editor.selectors.debaterecord.ref.Main" />
-    </action>
+    </action>-->
 
     <action name="make_act_body" source="sectionType" metadata="ActBody" >
         <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
@@ -103,8 +103,10 @@
         <router class="org.bungeni.editor.actions.routers.routerCreateSection"  />
     </action>
 
-<!--    <action name="make_conclusion_issueDate" source="sectionType" metadata="issueDate" >
-        <router class="org.bungeni.editor.actions.routers.RouterCreateInlineIssueDate"/>
-    </action>-->
+    <action name="mark_reference" source="inlineType" metadata="ref">
+        <router class="org.bungeni.editor.actions.routers.routerInputReference" 
+                dialog="refinline"
+            />
+    </action>
 
 </actions>

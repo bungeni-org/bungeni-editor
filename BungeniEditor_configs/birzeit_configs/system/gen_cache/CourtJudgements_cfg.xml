@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<allConfigs><outputs>
+        <namespace prefix="an" type="main" desc="Akoma Ntoso" uri="http://www.akomantoso.org/2.0" />
+        <namespace prefix="muqid" type="proprietary" desc="Proprietary" uri="http://www.proprietary.org" />        
+    </outputs><doctype name="CourtJudgements" template="templates/CourtJudgements.ott" state="1" root="CourtJudgements" default-part="main">
+        <title xml:lang="eng">Court Judgements</title>
+        <title xml:lang="spa">dictamen</title>
+        <title xml:lang="ara">حكم نظامي </title>
+        <uri type="work">~CountryCode~DocumentType~Year-Month-Day</uri>
+        <uri type="expression">~CountryCode~DocumentType~Year-Month-Day~LanguageCode</uri>
+        <file-name-scheme>CountryCode~DocumentType~Year-Month-Day~LanguageCode</file-name-scheme>
+        <metadata-editors>
+           
+            <title xml:lang="eng">Judgement Metadata</title>
+            <title xml:lang="ara">المعلومات الواصفة للحكم</title>
+
+            <metadata-editor class="org.bungeni.editor.metadata.editors.CourtJudgemenMetadata">
+                <title xml:lang="eng">Court Judgement</title>
+                <title xml:lang="ara"> الحكم النظامي  </title>
+            </metadata-editor>
+           
+        </metadata-editors>
+        <parts>
+            <part name="main">
+                <title xml:lang="eng">Main</title>
+                <title xml:lang="spa">principal</title>
+            </part>
+            <part name="annex">
+                <title xml:lang="eng">Annex</title>
+                <title xml:lang="spa">adjuntar</title>
+            </part>
+        </parts>
+    </doctype><sectionTypes xmlns:an="#an" for="CourtJudgements">
+ 
+    <!-- root is mandatory, all mode="call" attributed calls need sectionType definitions -->
+ 
+    <sectionType name="root" prefix="CourtJudgements" numstyle="single" visibility="user">
+        <output>
+            <content>
+                <an:akomaNtoso>
+                    <an:judgement>
+                        <an:meta mode="call" />
+                        <an:heading mode="call" />
+                        <an:judgementBody mode="call" />
+                        <an:dec-statement mode="call" />
+                        <an:conclusions mode="call" />
+                    </an:judgement>
+                </an:akomaNtoso>
+            </content>
+        </output>
+    </sectionType>
+	 
+    <sectionType name="meta" prefix="meta" numstyle="single">
+        <output>
+            <content>
+                <an:meta />
+               
+            </content>
+        </output>
+    </sectionType>
+  
+    <sectionType name="Heading" prefix="heading" numstyle="single" background="0xb5b5b5">
+        <output>
+            <content>
+                <an:heading />
+            </content>
+        </output>
+    </sectionType>
+
+    <sectionType name="judgementBody" prefix="judgementBody" numstyle="single" background="0xb1b1b1" indent-left="0" indent-right="0" visibility="user">
+        <output>
+            <content>
+                <an:judgementBody />
+            </content>
+        </output>
+    </sectionType>
+    
+     <sectionType name="dec-statement" prefix="dec-statement" numstyle="single" background="0x8d68d0" indent-left=".3" indent-right="0" visibility="user"> 
+        <output>
+            <content>
+                <an:dec-statement />
+            </content>
+        </output>
+    </sectionType>
+    
+
+    <sectionType name="conclusions" prefix="conclusions" numstyle="single" background="0xffdfdf" indent-left="0" indent-right="0" visibility="user">
+        <output>
+            <content>
+                <an:conclusions />
+            </content>
+        </output>
+    </sectionType>	
+	      
+    <sectionType name="basic-info" prefix="basic-info" numstyle="single" background="0xf0f0f0" indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket" />
+        <output>
+            <content>
+                <an:basic-info />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Judges" prefix="judges" numstyle="single" background="0x638657" indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket" />
+        <output>
+            <content>
+                <an:judges />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Parties" prefix="parties" numstyle="single" background="0x99b98d" indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket" />
+        <output>
+            <content>
+                <an:parties />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Abstract" prefix="abstract" numstyle="single" background="0xe8ee88" indent-left=".4" indent-right="0" visibility="user">
+        <numbering scheme="ROMAN-Upper" decorator="none" />
+        <output>
+            <content>
+                <an:abstract />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="add-info" prefix="add-info" numstyle="single" background="0x3d94b0" indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket" />
+        <output>
+            <content>
+                <an:add-info />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="title" prefix="title" numstyle="single" background="0x3d94b0" indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket" />
+        <output>
+            <content>
+                <an:title />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="facts" prefix="facts" numstyle="single" background="0x8d68d0" indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket" />
+        <output>
+            <content>
+                <an:facts />
+            </content>
+        </output>
+    </sectionType>
+  
+      <sectionType name="reasoning" prefix="reasoning" numstyle="single" background="0x8d68d0" indent-left=".3" indent-right="0" visibility="user"> 
+        <output>
+            <content>
+                <an:reasoning />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="verdict" prefix="verdict" numstyle="single" background="0xffffff" indent-left=".1" indent-right="0" visibility="user">
+        <output>
+            <content>
+                <an:verdict />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="casedatec" prefix="casedatec" numstyle="single" background="0x3d94b0" indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket" />
+        <output>
+            <content>
+                <an:casedatec />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="casenumberc" prefix="casenumberc" numstyle="single" background="0x3d94b0" indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket" />
+        <output>
+            <content>
+                <an:casenumberc />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="casecityc" prefix="casecityc" numstyle="single" background="0x3d94b0" indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket" />
+        <output>
+            <content>
+                <an:casecityc />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="casedatea" prefix="casedatea" numstyle="single" background="0x8d68d0" indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket" />
+        <output>
+            <content>
+                <an:casedatea />
+            </content>
+        </output>
+    </sectionType>
+  
+    <sectionType name="casenumbera" prefix="casenumbera" numstyle="single" background="0x8d68d0" indent-left=".3" indent-right="0" visibility="user"> 
+        <output>
+            <content>
+                <an:casenumbera />
+            </content>
+        </output>
+    </sectionType>
+    
+      <sectionType name="casecitya" prefix="casecitya" numstyle="single" background="0x8d68d0" indent-left=".3" indent-right="0" visibility="user"> 
+        <output>
+            <content>
+                <an:casecitya />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="concl-explain-text" prefix="concl-explain-text" numstyle="single" background="0xc04ebf" indent-left=".1" indent-right="0" visibility="user">
+        <output>
+            <content>
+                <an:concl-explain-text />
+            </content>
+        </output>
+    </sectionType>
+  
+  <sectionType name="concl-explain-judges" prefix="concl-explain-judges" numstyle="single" background="0xc04ebf" indent-left=".1" indent-right="0" visibility="user">
+        <output>
+            <content>
+                <an:concl-explain-judges />
+            </content>
+        </output>
+    </sectionType>
+    
+</sectionTypes><inlineTypes for="CourtJudgements">
+
+    <inlineType name="ref">
+        <metadatas>
+            <metadata name="BungeniRefHref" />
+        </metadatas>
+        <output>
+            <content>
+                <ref href="$BungeniRefHref" />
+            </content>
+        </output>
+    </inlineType>
+
+    <inlineType name="Num">
+        <output>
+            <content>
+                <num />
+            </content>
+        </output>
+    </inlineType>
+
+</inlineTypes></allConfigs>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="sectionTypes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="sectionType"/>
+      </xs:sequence>
+      <xs:attribute name="for" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sectionType">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:choice minOccurs="0">
+          <xs:element ref="metadatas"/>
+          <xs:element ref="numbering"/>
+        </xs:choice>
+        <xs:element minOccurs="0" ref="output"/>
+      </xs:sequence>
+      <xs:attribute name="background" type="xs:NMTOKEN"/>
+      <xs:attribute name="indent-left" type="xs:decimal"/>
+      <xs:attribute name="indent-right" type="xs:integer"/>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="numstyle" use="required" type="xs:NCName"/>
+      <xs:attribute name="prefix" use="required" type="xs:NCName"/>
+      <xs:attribute name="visibility" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="metadatas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="metadata"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="metadata">
+    <xs:complexType>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="numbering">
+    <xs:complexType>
+      <xs:attribute name="decorator" use="required" type="xs:NCName"/>
+      <xs:attribute name="scheme" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="output">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="meta"/>
+        <xs:element ref="content"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="meta">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="TLCPerson"/>
+        <xs:element ref="TLCRole"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="TLCPerson">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+      <xs:attribute name="id" use="required"/>
+      <xs:attribute name="showAs" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TLCRole">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+      <xs:attribute name="id" use="required"/>
+      <xs:attribute name="showAs" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="content">
+    <xs:complexType>
+      <xs:choice>
+        <xs:element ref="article"/>
+        <xs:element ref="chapter"/>
+        <xs:element ref="clause"/>
+        <xs:element ref="container"/>
+        <xs:element ref="coverPage"/>
+        <xs:element ref="longTitle"/>
+        <xs:element ref="paragraph"/>
+        <xs:element ref="part"/>
+        <xs:element ref="preamble"/>
+        <xs:element ref="preface"/>
+        <xs:element ref="recital"/>
+        <xs:element ref="section"/>
+        <xs:element ref="shortTitle"/>
+        <xs:element ref="subchapter"/>
+        <xs:element ref="subclause"/>
+        <xs:element ref="subparagraph"/>
+        <xs:element ref="subsection"/>
+        <xs:element ref="title"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="article">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="chapter">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="clause">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="container">
+    <xs:complexType>
+      <xs:attribute name="name" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="coverPage">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="longTitle">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="paragraph">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="part">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="preamble">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="preface">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="recital">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="section">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="shortTitle">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="subchapter">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="subclause">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="subparagraph">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="subsection">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="title">
+    <xs:complexType/>
+  </xs:element>
+</xs:schema>

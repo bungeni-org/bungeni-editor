@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+    !!!WARNING!!!!!!WARNING!!!!!!WARNING!!!!!!WARNING!!!!!!WARNING!!!!!!WARNING!!!!!!WARNING!!!!!!WARNING!!!!!!WARNING!!!!!!WARNING!!!
 
+    This is not a literal template - but is used to auto-generate the real XSLT , it contains freemarker template tags 
+
+    The proprietary URIS are injected into this variable : namespace_uris
+    
+    !!!WARNING!!!!!!WARNING!!!!!!WARNING!!!!!!WARNING!!!!!!WARNING!!!!!!WARNING!!!!!!WARNING!!!!!!WARNING!!!!!!WARNING!!!!!!WARNING!!!
+    -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0"
     xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0"
@@ -38,8 +46,13 @@
     Match all elements without a namespace - i.e. all elements in the default namespace.
     All these elements are placed in the metalex namespace
     -->
-    <xsl:template match="*[ (namespace-uri() ne 'http://www.metalex.org/1.0') 
-                               and (namespace-uri() ne 'http://editor.bungeni.org/1.0/anx') ]">
+    <xsl:template match="*[ 
+        (namespace-uri() ne 'http://www.metalex.org/1.0') and 
+        (namespace-uri() ne 'http://editor.bungeni.org/1.0/anx')
+        <#list namespace_uris as namespace_uri>
+          and (namespace-uri() ne '${namespace_uri}')
+        </#list>
+        ]">
         <xsl:element name="{name()}" namespace="http://www.metalex.org/1.0">
             <xsl:for-each select="@*">
                 <xsl:attribute name="{local-name(.)}">
@@ -58,6 +71,24 @@
             <xsl:apply-templates select="@* | node() " />
         </xsl:copy>
     </xsl:template>
+    
+    
+    <!--
+        !!!WARNING!!!!!!WARNING!!!!!!WARNING!!!!
+        The below structure is required by the system - do not edit it unless you 
+        know what your are doing.
+    -->
+    
+
+    <#list namespace_uris as namespace_uri>
+        
+    <xsl:template match="*[namespace-uri() eq '${namespace_uri}']">
+        <xsl:copy>
+            <xsl:apply-templates select="@* | node() " />
+        </xsl:copy>
+    </xsl:template>
+        
+    </#list>
     
 
 </xsl:stylesheet>
