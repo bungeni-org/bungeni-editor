@@ -49,8 +49,9 @@
     <xsl:template match="*[ 
         (namespace-uri() ne 'http://www.metalex.org/1.0') and 
         (namespace-uri() ne 'http://editor.bungeni.org/1.0/anx')
-                  and (namespace-uri() ne 'http://www.akomantoso.org/2.0')
-          and (namespace-uri() ne 'http://www.proprietary.org')
+        <#list namespace_uris as namespace_uri>
+          and (namespace-uri() ne '${namespace_uri}')
+        </#list>
         ]">
         <xsl:element name="{name()}" namespace="http://www.metalex.org/1.0">
             <xsl:for-each select="@*">
@@ -79,20 +80,15 @@
     -->
     
 
+    <#list namespace_uris as namespace_uri>
         
-    <xsl:template match="*[namespace-uri() eq 'http://www.akomantoso.org/2.0']">
+    <xsl:template match="*[namespace-uri() eq '${namespace_uri}']">
         <xsl:copy>
             <xsl:apply-templates select="@* | node() " />
         </xsl:copy>
     </xsl:template>
         
-        
-    <xsl:template match="*[namespace-uri() eq 'http://www.proprietary.org']">
-        <xsl:copy>
-            <xsl:apply-templates select="@* | node() " />
-        </xsl:copy>
-    </xsl:template>
-        
+    </#list>
     
 
 </xsl:stylesheet>
