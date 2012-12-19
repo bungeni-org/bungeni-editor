@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<allConfigs><outputs>
+        <namespace prefix="an" type="main" desc="Akoma Ntoso" uri="http://www.akomantoso.org/2.0" />
+        <namespace prefix="muqid" type="proprietary" desc="Proprietary" uri="http://www.proprietary.org" />        
+    </outputs><doctype name="act" template="templates/act.ott" state="1" root="act" default-part="main">
+        <title xml:lang="eng">Act</title>
+        <title xml:lang="ara">تشريع</title>
+        <uri type="work">CountryCode~ActType~BungeniActReleaseDate</uri>
+        <uri type="expression">CountryCode~ActType~BungeniActReleaseDate~LanguageCode@</uri>
+        <file-name-scheme>CountryCode~DocumentType~ActType~ActY~ActNo</file-name-scheme>
+        <metadata-editors>
+            <title xml:lang="eng">Act Metadata</title>
+            <metadata-editor class="org.bungeni.editor.metadata.editors.ActSource">
+                <title xml:lang="eng">Source metadata</title>
+                <title xml:lang="ara">معلومات المصدر</title>
+            </metadata-editor>
+            <metadata-editor class="org.bungeni.editor.metadata.editors.ActMainMetadata">
+                <title xml:lang="eng">Act</title>
+                <title xml:lang="ara"> معلومات التشريع الأساسية</title>
+            </metadata-editor>
+            <metadata-editor class="org.bungeni.editor.metadata.editors.ActResponsibleAuthorities">
+                <title xml:lang="eng">Act Responsible Authorities</title>
+                <title xml:lang="ara">  الجهات المسؤولة للتشريع</title>
+            </metadata-editor>
+          
+        </metadata-editors>
+        <parts>
+            <part name="main">
+                <title xml:lang="eng">Main</title>
+                <title xml:lang="spa">principal</title>
+            </part>
+        </parts>
+    </doctype><sectionTypes xmlns:an="http://www.akomantos.org/2.0" for="act">
+ 
+    <!-- root is mandatory, all mode="call" attributed calls need sectionType definitions -->
+ 
+    <sectionType name="root" prefix="act" numstyle="single" visibility="user">
+            
+       <output>
+            <content>
+                <an:akomaNtoso>
+                    <an:act>
+                        <an:meta mode="call" />
+                        <an:preface mode="call" />
+                        <an:preamble mode="call" />
+                        <an:body mode="call" />
+                        <an:conclusions mode="call" />
+                    </an:act>
+                </an:akomaNtoso>
+            </content>
+        </output>
+    </sectionType>
+	 
+    <sectionType name="meta" prefix="meta" numstyle="single">
+        <output>
+            <content>
+                <an:meta />
+               
+            </content>
+        </output>
+    </sectionType>
+	 
+   
+    <sectionType name="Preface" prefix="preface" numstyle="single" background="0xa1a1a1">
+        <output>
+            <content>
+                <an:preface />
+            </content>
+        </output>
+    </sectionType>
+
+  
+    <sectionType name="Preamble" prefix="preamble" numstyle="single" background="0xa1a1a1">
+        <output>
+            <content>
+                <an:preamble />
+            </content>
+        </output>
+    </sectionType>
+
+    <sectionType name="ActBody" prefix="body" numstyle="single" background="0xf0f0f0" indent-left="0" indent-right="0" visibility="user">
+        <output>
+            <content>
+                <an:body />
+            </content>
+        </output>
+    </sectionType>
+
+    <sectionType name="Conclusions" prefix="conclusion" numstyle="single" background="0xffdfdf" indent-left="0" indent-right="0" visibility="user">
+        <output>
+            <content>
+                <an:conclusions />
+            </content>
+        </output>
+    </sectionType>	
+	      
+    <sectionType name="Books" prefix="books" numstyle="serial" background="0xf0f0f0" indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket" />
+        <output>
+            <content>
+                <an:hcontainer />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Book" prefix="B" numstyle="serial" background="0xf0f0f0" indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket" />
+        <output>
+            <content>
+                <an:book />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Parts" prefix="parts" numstyle="serial" background="0xf0f0f0" indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket" />
+        <output>
+            <content>
+                <an:hcontainer />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Part" prefix="P" numstyle="serial" background="0xf0f0f0" indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket" />
+        <output>
+            <content>
+                <an:part />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Chapters" prefix="chapters" numstyle="serial" background="0xf0f0f0" indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket" />
+        <output>
+            <content>
+                <an:hcontainer />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Chapter" prefix="C" numstyle="serial" background="0xe8ee88" indent-left=".4" indent-right="0" visibility="user">
+        <numbering scheme="ROMAN-Upper" decorator="none" />
+        <output>
+            <content>
+                <an:chapter />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Sections" prefix="sections" numstyle="serial" background="0xf0f0f0" indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket" />
+        <output>
+            <content>
+                <an:hcontainer />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Section" prefix="S" numstyle="serial" background="0xf0f0f0" indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket" />
+        <output>
+            <content>
+                <an:section />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Articles" prefix="articles" numstyle="serial" background="0xf0f0f0" indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket" />
+        <output>
+            <content>
+                <an:hcontainer />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Article" prefix="A" numstyle="serial" background="0xf0f0f0" indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket" />
+        <output>
+            <content>
+                <an:article />
+            </content>
+        </output>
+    </sectionType>
+  
+    <sectionType name="LongTitle" prefix="longtitle" numstyle="single" background="0xffffff" indent-left=".3" indent-right="0" visibility="user"> 
+        <output>
+            <content>
+                <an:longTitle />
+            </content>
+        </output>
+    </sectionType>
+    
+      <sectionType name="Num" prefix="num" numstyle="single" background="0xffffff" indent-left=".3" indent-right="0" visibility="user"> 
+        <output>
+            <content>
+                <an:num />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Heading" prefix="heading" numstyle="single" background="0xffffff" indent-left=".1" indent-right="0" visibility="user">
+        <output>
+            <content>
+                <an:heading />
+            </content>
+        </output>
+    </sectionType>
+    
+     <sectionType name="Subheading" prefix="subheading" numstyle="single" background="0xffffff" indent-left=".1" indent-right="0" visibility="user">
+        <output>
+            <content>
+                <an:subheading />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Content" prefix="content" numstyle="single" background="0xffffff" indent-left=".1" indent-right="0" visibility="user">
+        <output>
+            <content>
+                <an:content />
+            </content>
+        </output>
+    </sectionType>
+  
+    
+    <!--
+     
+    <sectionType name="Ref" prefix="ref" numstyle="single" background="0xffffff"
+                 indent-left=".1" indent-right="0" visibility="user">
+        <output>
+            <content>
+                <ref />
+            </content>
+        </output>
+    </sectionType>
+    
+    
+    
+    
+    <sectionType name="Clause" prefix="clause" numstyle="serial" background="0xffdfdf"
+                 indent-left=".5" indent-right="0" visibility="user">
+        <numbering scheme="ROMAN" decorator="hashPrefix"/>
+        <output>
+            <content>
+                <clause />
+            </content>
+        </output>
+    </sectionType>
+    
+    
+    <sectionType name="Paragraph" prefix="para" numstyle="serial" background="0xffff00"
+                 indent-left=".7" indent-right="0" visibility="user">
+        <numbering scheme="ALPHABETICAL-Lower" decorator="parens"/>
+        <output>
+            <content>
+                <paragraph />
+            </content>
+        </output>
+    </sectionType>
+    
+    -->  
+</sectionTypes><inlineTypes xmlns:an="#an" for="act">
+
+   
+
+    <inlineType name="ref">
+       <output>
+          <metadatas>
+             <metadata name="BungeniRefURI" />
+          </metadatas>
+          <meta>
+              <TLCPerson id="$BungeniRefURI" />
+          </meta>
+          <content>
+            <an:ref href="$BungeniRefURI" />
+          </content>
+       </output>
+    </inlineType>
+    
+     <inlineType name="LongTitle">
+             <output>
+         <content>
+             <an:longTitle />
+         </content>
+     </output>
+
+    </inlineType>
+    
+    <inlineType name="Num">
+        <output>
+            <content>
+                <an:num />
+            </content>
+        </output>
+    </inlineType>
+
+</inlineTypes></allConfigs>
