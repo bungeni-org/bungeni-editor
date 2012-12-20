@@ -17,8 +17,11 @@
  */
 package org.bungeni.editor.input;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.bungeni.extpanels.bungeni.BungeniAppConnector;
 
 /**
  *
@@ -26,23 +29,28 @@ import org.apache.http.impl.client.DefaultHttpClient;
  */
 public class BungeniServiceAccess {
     
-    private BungeniServiceAccess instance = null;
+    private static BungeniServiceAccess instance = null;
     
     private boolean loggedIn = false;
     
     private String user = "";
     private String password = "";
+    BungeniAppConnector appConnector = null;
+    DefaultHttpClient client = null;
     
-    
-    
-    public BungeniServiceAccess getInstance(){
+    public static BungeniServiceAccess getInstance(){
         if (null == instance) {
             instance = new BungeniServiceAccess();
         }
         return instance;
     }
    
-    public DefaultHttpClient login(String appServer, String appBase, String user, String password) {
+    public DefaultHttpClient login(String appServer, String appPort, String appBase, String user, String password) throws UnsupportedEncodingException, IOException {
+        if (null == appConnector) {
+            appConnector = new BungeniAppConnector(appServer, appPort, appBase, user, password);
+            client =  appConnector.login();
+            return client;
+        }
         return null;
     }
    
@@ -51,6 +59,9 @@ public class BungeniServiceAccess {
     }
     
     public boolean authenticateDocument(String urlDocument) {
+        if (client != null ) {
+           
+        }
         return true;
     }
     

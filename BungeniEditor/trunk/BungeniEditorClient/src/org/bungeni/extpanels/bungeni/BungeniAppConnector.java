@@ -19,6 +19,7 @@
 package org.bungeni.extpanels.bungeni;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.NameValuePair;
@@ -64,13 +65,14 @@ public class BungeniAppConnector {
         loginUrl = "http://" + this.serverName + ":" + this.serverPort + "/" + loginPageURI;
         System.out.println("LOGIN:" + loginUrl + " user : " + this.user + " password :" +  this.password);
     }
+   
 
-       public DefaultHttpClient login(){
+       public DefaultHttpClient login() throws UnsupportedEncodingException, IOException{
         if (client != null) {
             return client;
         }
         client = new DefaultHttpClient();
-        try {
+      
             final HttpPost post = new HttpPost(loginUrl);
             final List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
             nameValuePairs.add(new BasicNameValuePair("login", this.user));
@@ -78,9 +80,7 @@ public class BungeniAppConnector {
             post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             ResponseHandler<String> responseHandler = new BasicResponseHandler();
             client.execute(post, responseHandler);
-        } catch (IOException ex) {
-            log.error("Extended exception while logging in ", ex);
-        }
+      
         return client;
     }
 

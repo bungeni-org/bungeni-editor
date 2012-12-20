@@ -754,7 +754,7 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
    }
 
    public TypeCreationState initInlineType(){
-       HashMap<String, String> typeMap = null;
+       HashMap<String, String> typeMap;
        if (theSubAction.getActionSource().equals(toolbarAction.actionSourceOrigin.inlineType)) {
            String inlineType = theSubAction.getInlineType();
            if (inlineType.length() > 0 ) {

@@ -32,6 +32,8 @@ import org.bungeni.editor.config.DocTypesReader;
 import org.bungeni.editor.config.PluggableConfigReader;
 import org.bungeni.editor.config.PluggableConfigReader.PluggableConfig;
 import org.bungeni.editor.input.FSDocumentReceiver;
+import org.bungeni.editor.input.IInputDocumentReceiver;
+import org.bungeni.editor.input.InputDocumentReceiverFactory;
 import org.bungeni.editor.locales.BungeniEditorLocale;
 import org.bungeni.editor.locales.BungeniEditorLocalesFactory;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
@@ -328,11 +330,11 @@ public class editorApplicationController extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(lblApplnTitle, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(lblLocale)
-                        .add(cboLocale, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(cboLocale, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(lblApplnTitle, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(3, 3, 3)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(lblConfiguration)
@@ -592,7 +594,13 @@ public class editorApplicationController extends javax.swing.JPanel {
 
     
     private boolean launchDocumentType(documentType thisDocType, String launchMode) throws IOException {
-
+        PluggableConfig cfg = null;
+        try {
+            cfg = PluggableConfigReader.getInstance().getDefaultConfig();
+        } catch (JDOMException ex) {
+            log.error("Error while getting default pluggable config ", ex) ;
+        }
+        
         //if it is a new document ....
         if (launchMode.equals("new")) {
             //check if the editor panel is open -- this will be non-null in all cases except for the first initial launch
@@ -615,19 +623,11 @@ public class editorApplicationController extends javax.swing.JPanel {
 
       if (launchMode.equals("edit")){ //edit
             if (editorTabbedPanel.isInstanceNull()) {
-                // !+IDOCUMENTRECEIVER_IMPL(ah, 24-10-2012)
-                // TO be fixed to use the interface
-                FSDocumentReceiver fsd = new FSDocumentReceiver();
-                PluggableConfig cfgDefault = null;
-                try {
-                    cfgDefault = PluggableConfigReader.getInstance().getDefaultConfig();
-                } catch (JDOMException ex) {
-                    log.error("Error while getting default config");
-                }
-                if (null != cfgDefault) {
-                String basePath = fsd.receiveDocument(parentFrame, 
-                        cfgDefault,
-                        new HashMap(){});
+                IInputDocumentReceiver ir = InputDocumentReceiverFactory.newInstance(cfg.receiverClass);
+                if (null != cfg) {
+                String basePath = ir.receiveDocument(parentFrame, 
+                                  cfg,
+                                  new HashMap(){});
                 if (null != basePath) {
                     File openFile = new File(basePath);
                     if (openFile != null) {

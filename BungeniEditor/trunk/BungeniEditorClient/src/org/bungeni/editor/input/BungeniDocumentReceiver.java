@@ -30,7 +30,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.http.HttpResponse;
@@ -63,11 +62,29 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
     BungeniAppConnector appConnector = null;
     DefaultHttpClient   client       = null;
 
+    
+    
     public String receiveDocument(final JFrame parentFrame, final PluggableConfig customConfig, HashMap inputParams) {
-        String sDocURL = (String) JOptionPane.showInputDialog(parentFrame, "Enter the URL of the document to Import",
-                             "Import document from Bungeni", JOptionPane.QUESTION_MESSAGE);
+        //String sDocURL = (String) JOptionPane.showInputDialog(parentFrame, "Enter the URL of the document to Import",
+        //                     "Import document from Bungeni", JOptionPane.QUESTION_MESSAGE);
 
-        return receive(parentFrame, customConfig, sDocURL);
+        if (login(parentFrame)) {
+            
+        }
+        
+        return null;
+        //return receive(parentFrame, customConfig, sDocURL);
+    }
+    
+    private boolean login(JFrame parentFrame) {
+        BungeniDialog frm = new BungeniDialog(parentFrame, "Login", true);
+        frm.initFrame();
+        BungeniLogin login = new BungeniLogin(frm);
+        frm.getContentPane().add(login);
+        frm.pack();
+        frm.setLocationRelativeTo(null);
+        frm.setVisible(true);
+        return login.loginSuccessful();
     }
 
     private String receive(final JFrame parentFrame, PluggableConfig config, final String sDocURL) {
@@ -100,7 +117,11 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
 
                         // login
                         if (client == null) {
-                            client = appConnector.login();
+                            try {
+                                client = appConnector.login();
+                            } catch(Exception ex) {
+                                
+                            }
                         }
 
                         // access the input URL
