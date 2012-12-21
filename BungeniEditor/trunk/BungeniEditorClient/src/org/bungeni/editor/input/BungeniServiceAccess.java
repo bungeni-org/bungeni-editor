@@ -31,10 +31,7 @@ public class BungeniServiceAccess {
     
     private static BungeniServiceAccess instance = null;
     
-    private boolean loggedIn = false;
     
-    private String user = "";
-    private String password = "";
     BungeniAppConnector appConnector = null;
     DefaultHttpClient client = null;
     
@@ -68,5 +65,7 @@ public class BungeniServiceAccess {
     public List getDocumentAttachments(String urlDocument) {
         return null;
     }
+    
+   
     
 }

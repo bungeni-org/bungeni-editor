@@ -19,8 +19,6 @@ package org.bungeni.editor.input;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.SwingUtilities;
 import org.apache.http.impl.client.DefaultHttpClient;

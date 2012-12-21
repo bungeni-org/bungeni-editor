@@ -45,6 +45,7 @@ import org.bungeni.extpanels.bungeni.BungeniAttachment;
 import org.bungeni.extpanels.bungeni.BungeniDocument;
 import org.bungeni.extpanels.bungeni.BungeniDocument.Attachment;
 import org.bungeni.extpanels.bungeni.BungeniDocumentAttListPanel;
+import org.bungeni.extpanels.bungeni.BungeniListDocuments;
 import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.extutils.TempFileManager;
 import org.bungeni.utils.BungeniDialog;
@@ -67,13 +68,62 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
     public String receiveDocument(final JFrame parentFrame, final PluggableConfig customConfig, HashMap inputParams) {
         //String sDocURL = (String) JOptionPane.showInputDialog(parentFrame, "Enter the URL of the document to Import",
         //                     "Import document from Bungeni", JOptionPane.QUESTION_MESSAGE);
-
         if (login(parentFrame)) {
-            
+             if (listDocuments(parentFrame, customConfig)) {
+                 
+             }   
         }
         
         return null;
         //return receive(parentFrame, customConfig, sDocURL);
+    }
+    
+    
+    private String searchURL(final PluggableConfig customConfig){
+        Element searchElem = customConfig.customConfigElement.getChild("search");
+        String sSearchBase = searchElem.getAttributeValue("base");
+        StringBuilder sUrl = new StringBuilder();
+        sUrl.append( "http://" ).append(
+                  BungeniServiceAccess.getInstance().appConnector.getServerName() 
+                ).append(":").append(
+                BungeniServiceAccess.getInstance().appConnector.getServerPort()
+                ).append(sSearchBase);
+        
+        return sUrl.toString();
+    }
+
+    private boolean listDocuments(JFrame parentFrame, final PluggableConfig customConfig) {
+        String sSearchBungeniURL = searchURL(customConfig);
+        // access the input URL
+        final HttpGet           geturl          = new HttpGet(sSearchBungeniURL);
+        ResponseHandler<String> responseHandler = new BasicResponseHandler();
+        String                  responseBody    = "";
+        boolean bState = false;
+        try {
+            responseBody = client.execute(geturl, responseHandler);
+            bState = true;
+        } catch (IOException ex) {
+            bState = false;
+            log.error("Error while accessin url : " + sSearchBungeniURL , ex);
+        }
+        // parse response Body
+        //parentFrame.setCursor(Cursor.getDefaultCursor());
+        if (bState) {
+            BungeniListDocuments bld = new BungeniListDocuments(sSearchBungeniURL, responseBody);
+            bld.getListDocuments();
+            
+          //  BungeniDocument          jdoc   = new BungeniDocument(sDocURL, doc);
+          //  Attachment               attDoc = promptForAttachment(parentFrame, jdoc);
+
+       // if (attDoc != null) {
+       //     importAttachment(jdoc, attDoc);
+       // }
+            
+        }
+
+
+        
+        return false;
     }
     
     private boolean login(JFrame parentFrame) {

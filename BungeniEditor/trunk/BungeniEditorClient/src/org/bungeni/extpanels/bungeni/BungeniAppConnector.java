@@ -49,7 +49,7 @@ public class BungeniAppConnector {
     private final String serverPort ;
     private final String loginPageURI ;
 
-    public DefaultHttpClient client = null;
+    private DefaultHttpClient client = null;
 
    public  BungeniAppConnector(
             String serverName,
@@ -68,19 +68,61 @@ public class BungeniAppConnector {
    
 
        public DefaultHttpClient login() throws UnsupportedEncodingException, IOException{
-        if (client != null) {
-            return client;
+        if (getClient() != null) {
+            return getClient();
         }
         client = new DefaultHttpClient();
       
             final HttpPost post = new HttpPost(loginUrl);
             final List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-            nameValuePairs.add(new BasicNameValuePair("login", this.user));
-            nameValuePairs.add(new BasicNameValuePair("password", this.password));
+            nameValuePairs.add(new BasicNameValuePair("login", this.getUser()));
+            nameValuePairs.add(new BasicNameValuePair("password", this.getPassword()));
             post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             ResponseHandler<String> responseHandler = new BasicResponseHandler();
-            client.execute(post, responseHandler);
+            getClient().execute(post, responseHandler);
       
+        return getClient();
+    }
+
+    /**
+     * @return the user
+     */
+    public String getUser() {
+        return user;
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @return the serverName
+     */
+    public String getServerName() {
+        return serverName;
+    }
+
+    /**
+     * @return the serverPort
+     */
+    public String getServerPort() {
+        return serverPort;
+    }
+
+    /**
+     * @return the loginPageURI
+     */
+    public String getLoginPageURI() {
+        return loginPageURI;
+    }
+
+    /**
+     * @return the client
+     */
+    public DefaultHttpClient getClient() {
         return client;
     }
 
