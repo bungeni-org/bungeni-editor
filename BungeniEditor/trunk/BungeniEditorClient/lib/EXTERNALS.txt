@@ -37,3 +37,4 @@ freemarker http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/
 jsoup http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/jsoup
 asm http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/asm
 clapper-utils http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/clapper-utils
+json-simple http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/json-simple
