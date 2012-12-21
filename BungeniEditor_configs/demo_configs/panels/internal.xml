@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : internal.xml
+    Created on : March 21, 2012, 2:02 PM
+    Author     : windows
+    Description:
+        Purpose of the document follows.
+-->
+
+<panels for="internal">
+<panel name="docmeta" class="org.bungeni.editor.panels.loadable.documentMetadataPanel" state="1">
+       <title xml:lang="eng">Document</title>
+</panel>
+<panel name="sectionmeta" class="org.bungeni.editor.panels.loadable.sectionTreeMetadataPanel" state="1">
+       <title xml:lang="eng">Section</title>
+</panel>
+</panels>

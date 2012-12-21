@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conditions for="debaterecord">
+    <condition name="cursorInSection"
+        class="org.bungeni.editor.toolbar.conditions.runnable.cursorInSection"/>
+    <condition name="cursorInSectionType"
+        class="org.bungeni.editor.toolbar.conditions.runnable.cursorInSectionType"/>
+    <condition name="fieldExists"
+        class="org.bungeni.editor.toolbar.conditions.runnable.fieldExists"/>
+    <condition name="fieldNotExists"
+        class="org.bungeni.editor.toolbar.conditions.runnable.fieldNotExists"/>
+    <condition name="imageSelected"
+        class="org.bungeni.editor.toolbar.conditions.runnable.imageSelected"/>
+    <condition name="imageSelectedIsNot"
+        class="org.bungeni.editor.toolbar.conditions.runnable.imageSelectedIsNot"/>
+    <condition name="sectionExists"
+        class="org.bungeni.editor.toolbar.conditions.runnable.sectionExists"/>
+    <condition name="sectionHasChild"
+        class="org.bungeni.editor.toolbar.conditions.runnable.sectionHasChild"/>
+    <condition name="sectionNotExists"
+        class="org.bungeni.editor.toolbar.conditions.runnable.sectionNotExists"/>
+    <condition name="textSelected"
+        class="org.bungeni.editor.toolbar.conditions.runnable.textSelected"/>
+</conditions>

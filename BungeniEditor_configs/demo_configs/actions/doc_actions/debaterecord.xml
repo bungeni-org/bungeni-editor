@@ -1,0 +1,318 @@
+<?xml version="1.0" ?>
+<actions for="debaterecord">
+
+    <action name="markup_motion_title">
+        <router class="org.bungeni.editor.actions.routers.routerApplyStyle"/>
+    </action>
+
+    <action name="create_point_of_order" source="sectionType" metadata="PointOfOrder">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
+    </action>
+
+    <action name="create_debatebody" source="sectionType" metadata="DebateBody">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
+    </action>
+    
+    <action name="create_debatesection" source="sectionType" metadata="DebateSection">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
+    </action>
+    
+    <action name="create_prayers" source="sectionType" metadata="Prayers">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
+    </action>
+    
+    <action name="markup_heading">
+        <router class="org.bungeni.editor.actions.routers.routerApplyStyle"/>
+    </action>
+    
+    <action name="markup_question_no">
+        <router class="org.bungeni.editor.actions.routers.routerCreateQuestionReference"
+         />
+    </action>
+
+    <action name="markup_question_by">
+        <router class="org.bungeni.editor.actions.routers.routerCreateQuestionByReference"
+            />
+    </action>
+
+    <action name="markup_question_to">
+        <router class="org.bungeni.editor.actions.routers.routerCreateQuestionToReference"
+            />
+    </action>
+
+    <action name="apply_questiontext_style">
+        <router class="org.bungeni.editor.actions.routers.routerApplyStyle"/>
+    </action>
+
+    <action name="create_point_of_order_heading">
+        <router class="org.bungeni.editor.actions.routers.routerApplyStyle"/>
+    </action>
+
+    <action name="create_adjournment_section">
+        <router class="org.bungeni.editor.actions.routers.routerMarkAsAction"/>
+    </action>
+
+    <action name="mark_as_notice_of_motion">
+        <router class="org.bungeni.editor.actions.routers.routerMarkAsAction"/>
+    </action>
+
+    <action name="mark_as_metadata_reference">
+        <router class="org.bungeni.editor.actions.routers.routerCreateUniqueReference"/>
+    </action>
+
+    <action name="markup_motion_title">
+        <router class="org.bungeni.editor.actions.routers.routerApplyStyle"/>
+    </action>
+
+    <action name="select_doc_link">
+        <router class="org.bungeni.editor.actions.routers.routerTabledDocuments"
+            dialog="documentsSingleSelect"/>
+    </action>
+
+    <action name="add_doc_link">
+        <router class="org.bungeni.editor.actions.routers.routerTabledDocuments"
+            dialog="documentsMain"/>
+    </action>
+
+    <action name="create_root_section">
+        <router class="org.bungeni.editor.actions.routers.routerCreateRoot"/>
+    </action>
+
+    <action name="create_ministerial_statement">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
+    </action>
+
+    <action name="make_action_event" source="sectionType" metadata="ActionEvent">
+        <router class="org.bungeni.editor.actions.routers.routerCreateEvent"/>
+    </action>
+
+    <action name="markup_committee">
+        <router class="org.bungeni.editor.actions.routers.routerSelectCommittee"
+            dialog="committeesMain"/>
+    </action>
+
+    <action name="markup_bill">
+        <router class="org.bungeni.editor.actions.routers.routerSelectBill"
+            dialog="billsMain"/>
+    </action>
+
+    <action name="create_personal_statement" source="sectionType" metadata="PersonalStatement">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
+    </action>
+
+    <action name="make_papers_laid_list_section" source="sectionType" metadata="PapersLaidList">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
+    </action>
+
+    <action name="make_debate_section_section" source="sectionType" metadata="Question">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+          />
+    </action>
+
+    <action name="apply_style" source="sectionType" metadata="Paper">
+        <router class="org.bungeni.editor.actions.routers.routerApplyStyle"
+          />
+    </action>
+    
+    <action name="import_tabled_documents" source="sectionType" metadata="Paper">
+        <router class="org.bungeni.editor.actions.routers.routerTabledDocuments"
+          />
+    </action>
+
+    <action name="create_paper_section" source="sectionType" metadata="Paper"
+        validator="org.bungeni.editor.actions.validators.validateCreateSection">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+          />
+    </action>
+    
+    <action name="create_QA_section" source="sectionType" metadata="QAContainer"
+        validator="org.bungeni.editor.actions.validators.validateCreateSection">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+           />
+    </action>
+
+    <action name="make_question_block_section" source="sectionType" metadata="QuestionContainer">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+         />
+    </action>
+
+    <action name="debatedate_entry" source="sectionType" metadata="Preface">
+        <router class="org.bungeni.editor.actions.routers.routerDebateDateEntry"
+            />
+    </action>
+
+    
+    <!-- names conflict action name & router_name -->
+    <action name="debatetime_entry" source="sectionType" metadata="Preface">
+        <router class="org.bungeni.editor.actions.routers.routerDebateDateEntry"
+           />
+    </action>
+
+    <action name="markup_logo" source="sectionType" metadata="Preface">
+        <router class="org.bungeni.editor.actions.routers.routerMarkupLogo"
+           />
+    </action>
+
+    <action name="make_prayer_section" source="sectionType" metadata="Preface"
+        validator="org.bungeni.editor.actions.validators.validateCreateSection">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+          />
+    </action>
+
+    <action name="char_style" source="sectionType" metadata="Preface">
+        <router class="org.bungeni.editor.actions.routers.routerApplyCharStyle"/>
+    </action>
+
+    <action name="create_mast_head_section" source="sectionType" metadata="Preface">
+       <router class="org.bungeni.editor.actions.routers.routerCreateRoot"/>
+    </action>
+
+    <action name="make_debatedate_section" source="sectionType" metadata="Preface">
+        <router class="org.bungeni.editor.actions.routers.routerDebateRecordDateEntry"
+           />
+    </action>
+
+    <action name="make_debatetime_section" source="sectionType" metadata="Preface">
+        <router class="org.bungeni.editor.actions.routers.routerDebateRecordTimeEntry"
+           />
+    </action>
+
+    <action name="markup_logo" source="sectionType" metadata="Preface">
+        <router class="org.bungeni.editor.actions.routers.routerMarkupLogo"
+           />
+    </action>
+
+    <action name="markup_preface_heading" source="sectionType" metadata="Preface">
+        <router class="org.bungeni.editor.actions.routers.routerApplyStyle"/>
+    </action>
+
+    <action name="create_preface" source="sectionType" metadata="Preface">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
+    </action>
+
+    <action name="make_group_activity_section" source="sectionType" metadata="GroupActivity">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
+    </action>
+
+    <action name="mark_house_closing" source="sectionType" metadata="Conclusion">
+        <router class="org.bungeni.editor.actions.routers.routerMarkHouseClosing"
+            dialog="conclusionMain"/>
+    </action>
+
+    <action name="make_adjournment_section" source="sectionType" metadata="Conclusion">
+        <router class="org.bungeni.editor.actions.routers.routerMarkAsAction"/>
+    </action>
+
+    <action name="create_speech" source="sectionType" metadata="Speech">
+        <router class="org.bungeni.editor.actions.routers.routerDebateRecordSelectSpeech"
+            dialog="speechMain"/>
+    </action>
+
+    <action name="speech_as" source="sectionType" metadata="Speech">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateSpeechAsReference"/>
+    </action>
+    <action name="speech_by" source="sectionType" metadata="Speech">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateSpeechByReference"/>
+    </action>
+
+    <action name="create_speech_body" source="sectionType" metadata="SpeechBody">
+
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
+    </action>
+
+    <action name="create_motion_group" source="sectionType" metadata="NMotionsContainer">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
+    </action>
+
+    <action name="markup_papers_heading" source="sectionType" metadata="PapersLaid">
+        <router class="org.bungeni.editor.actions.routers.routerApplyStyle" />
+    </action>
+
+    <action name="create_papers_laid_block" source="sectionType" metadata="PapersLaid">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
+    </action>
+
+    <action name="select_tabled_documents" source="sectionType" metadata="PapersLaid">
+        <router class="org.bungeni.editor.actions.routers.routerTabledDocuments"
+            dialog="documentsMain"/>
+    </action>
+
+    <action name="markup_communication_heading" source="sectionType" metadata="Communication">
+        <router class="org.bungeni.editor.actions.routers.routerApplyStyle"/>
+    </action>
+
+    <action name="create_communication_section" source="sectionType" metadata="Communication">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
+    </action>
+
+    <action name="make_proc_section" source="sectionType" metadata="PMotionsContainer">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+            dialog="motionsMain"/>
+    </action>
+
+    <action name="make_debate_section_question" source="sectionType" metadata="QuestionAnswer">
+        <router class="org.bungeni.editor.actions.routers.routerDebateRecordSelectQuestion"
+            dialog="questionEdit"/>
+    </action>
+
+    <action name="create_observation_section" source="sectionType" metadata="Observation">
+        <router class="org.bungeni.editor.actions.routers.routerCreateObservation"/>
+    </action>
+
+    <action name="make_narrative_section" source="sectionType" metadata="Narrative">
+        <router class="org.bungeni.editor.actions.routers.routerCreateNarrative"/>
+    </action>
+
+    <action name="make_question_body_section" source="sectionType" metadata="QuestionBody">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"/>
+    </action>
+
+    <action name="make_speech_block_section" source="sectionType" metadata="Speech">
+        <router class="org.bungeni.editor.actions.routers.routerApplyCharStyle"/>
+    </action>
+
+    <action name="make_debate_question_group_section" source="sectionType" metadata="QuestionsContainer">
+        <router class="org.bungeni.editor.actions.routers.routerDebateRecordSelectQuestionsType"
+            dialog="questionsMain"/>
+    </action>
+
+    <action name="markup_official_date" source="sectionType" metadata="Preface">
+        <router class="org.bungeni.editor.actions.routers.routerCreateOfficialDateReference"/>
+    </action>
+
+    <action name="create_debate_block_section" source="sectionType" metadata="NoticeOfMotion">
+        <router class="org.bungeni.editor.actions.routers.routerMotionSelectMotion"
+            dialog="motionsMain"/>
+    </action>
+
+    <action name="make_procedural_motion_section" source="sectionType" metadata="NoticeOfMotion">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"
+            dialog="motionsMain"/>
+    </action>
+
+    <action name="create_debate_motion_block" source="sectionType" metadata="NoticeOfMotion">
+        <router class="org.bungeni.editor.actions.routers.routerMotionSelectMotion"
+            dialog="motionsMainEdit"/>
+    </action>
+
+    <action name="create_question_section" source="sectionType" metadata="QuestionAnswer">
+        <router class="org.bungeni.editor.actions.routers.routerDebateRecordSelectQuestion"
+            dialog="questionMain"/>
+    </action>
+
+    <!--
+    <action name="make_ref">
+            <router class="org.bungeni.editor.actions.routers.routerActSelectRef"
+                dialog="org.bungeni.editor.selectors.debaterecord.ref.Main"
+            />
+    </action>
+    -->
+    <action name="mark_reference" source="inlineType" metadata="ref">
+        <router class="org.bungeni.editor.actions.routers.routerInputReference" 
+                dialog="refinline"
+            />
+    </action>
+
+</actions>

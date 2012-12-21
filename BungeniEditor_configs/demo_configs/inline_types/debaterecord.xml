@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inlineTypes for="debaterecord" xmlns:an="#an">
+    <inlineType name="from">
+             <output>
+         <content>
+             <an:from />
+         </content>
+     </output>
+
+    </inlineType>
+    
+    <inlineType name="ref">
+       <output>
+          <metadatas>
+             <metadata name="BungeniRefURI" />
+          </metadatas>
+          <content>
+            <an:ref href="$BungeniRefURI" />
+          </content>
+       </output>
+    </inlineType>
+
+</inlineTypes>
