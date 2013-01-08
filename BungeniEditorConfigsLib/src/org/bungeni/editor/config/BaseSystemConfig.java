@@ -37,6 +37,9 @@ public class BaseSystemConfig {
     public static final String SYSTEM_BASE =
             BaseConfigReader.CONFIGS_FOLDER + File.separator + "system";
 
+    public static final String CUSTOM_BASE =
+            BaseConfigReader.CONFIGS_FOLDER + File.separator + "custom";
+    
     /**
      * This has all the system XSLT generator templates
      * Generator templates generate other XSLT templates
@@ -46,6 +49,9 @@ public class BaseSystemConfig {
             BaseSystemConfig.SYSTEM_BASE + File.separator +
             "generators";
 
+    public final static String CUSTOM_GENERATOR = 
+            BaseSystemConfig.CUSTOM_BASE + File.separator + 
+            "generators";
     /**
      * The Templates generated from system XSLT generator templates
      * are cached in this folder
@@ -74,7 +80,11 @@ public class BaseSystemConfig {
     public final static String SYSTEM_TRANSFORMER_XSL = 
             BaseSystemConfig.SYSTEM_TRANSFORMER + File.separator + 
             "xsl";
-
+    
+    public final static String CUSTOM_TRANSFORMER_XSL = 
+            BaseSystemConfig.CUSTOM_BASE + File.separator + 
+            "xsl";
+    
     public final static String SYSTEM_TRANSFORMER_ERROR =
             BaseSystemConfig.SYSTEM_BASE + File.separator +
             "errors";
@@ -93,7 +103,6 @@ public class BaseSystemConfig {
     }
 
     public static String getHrefTransformer() throws MalformedURLException{
-        return CommonFileFunctions.getURLPath(SYSTEM_TRANSFORMER);
+        return CommonFileFunctions.getURLPath(CUSTOM_TRANSFORMER_XSL);
     }
-
 }
