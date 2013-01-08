@@ -18,16 +18,16 @@ ODT -> Akoma Ntoso
 
 
     <!-- Specfies the schema for the target xml document -->
-    <schema href="${sys_trans_path}/schema/akn-subschema-3195136.xsd" />
+    <schema href="${cache_trans_path}/schema/akn-subschema-3195136.xsd" />
 
     <!-- This steps are performed BEFORE the below regex replacement -->
     <input>
-        <xslt step="1" name="appendBungeniNS" href="${sys_trans_path}/xsl/add_bungeni_ns.xsl"/>
+        <xslt step="1" name="appendBungeniNS" href="${cache_trans_path}/add_bungeni_ns.xsl"/>
         <!-- Add RDF ns -->
 
-         <xslt step="2" name="appendRDFNS" href="${sys_trans_path}/xsl/add_rdf_ns.xsl"/>
+         <xslt step="2" name="appendRDFNS" href="${cache_trans_path}/add_rdf_ns.xsl"/>
         <!-- Extract the styles -->
-        <xslt step="3" name="mergeStyles" href="${sys_trans_path}/xsl/merge_styles.xsl"/>
+        <xslt step="3" name="mergeStyles" href="${cache_trans_path}/merge_styles.xsl"/>
         <!-- Transform the document to the META Language -->
         <!-- custom steps follow -->
         <!--{UNCOMMENT_MERGE_OPEN}
@@ -56,13 +56,13 @@ ODT -> Akoma Ntoso
     <output>
         <!-- Normalise the produced META document -->
         <xslt step="1" name="MetaLanguageNormalisation"
-            href="${sys_trans_path}/xsl/meta_language_normalization.xsl"/>
+            href="${cache_trans_path}/meta_language_normalization.xsl"/>
         <!-- Add the Metalex namespace -->
         <xslt step="2" name="MetaLanguageAddNamespaceMetalex"
             href="${cache_trans_path}/meta_language_add_mlx_ns.xsl"/>
         <!-- Add the Bungeni namespace -->
         <xslt step="3" name="MetaLanguageAddNamespaceBungeni"
-            href="${sys_trans_path}/xsl/meta_language_add_bungeni_ns.xsl"/>
+            href="${cache_trans_path}/meta_language_add_bungeni_ns.xsl"/>
         
         <!-- custom steps follow -->
         
@@ -82,8 +82,8 @@ ODT -> Akoma Ntoso
     <!-- Called after translate -->
     
     <postxml>
-        <xslt step="1" name="Cleanup" href="${sys_trans_path}/xsl/cleanup.xsl" />
-        <xslt step="2" name="AddNamespaceAkomaNtoso" href="${sys_trans_path}/xsl/add_an_ns.xsl" />
+        <xslt step="1" name="Cleanup" href="${cache_trans_path}/cleanup.xsl" />
+        <xslt step="2" name="AddNamespaceAkomaNtoso" href="${cache_trans_path}/add_an_ns.xsl" />
     </postxml>
     
 </config>
