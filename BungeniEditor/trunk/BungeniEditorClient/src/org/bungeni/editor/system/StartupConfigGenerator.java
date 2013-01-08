@@ -21,6 +21,7 @@ package org.bungeni.editor.system;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -31,6 +32,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.config.BaseSystemConfig;
 import org.bungeni.editor.config.DocTypesReader;
@@ -284,7 +286,10 @@ public class StartupConfigGenerator {
                 
                 //!+PROPRIETARY(ah, 05-12-2012) 
                 generateCustomXSLTfromTemplates();
-
+                
+                //Rewrite xsl:imports to full pathts
+                rewriteXSLImportsToFullPathsInCustom();
+                
             } catch (Exception ex) {
                 log.error(ex);
                 generatorError.add(
@@ -298,7 +303,56 @@ public class StartupConfigGenerator {
         this.generatorError.saveFile();
         checkConfigErrors();
     }
+    
+    /**
+     * We need to do this because - the xsl:import references in the custom override templates
+     * in custom/xsl use relative references to the systm template. 
+     * We rewrite this to absolute paths to the system templates at runtime since the base path
+     * is not known before runtime.
+     */
+    private void rewriteXSLImportsToFullPathsInCustom(){
+        //rewriteXSLImportInFolderRelativeToSystemFolder(
+        //         new File(BaseSystemConfig.CUSTOM_GENERATOR),
+        //         new File(BaseSystemConfig.SYSTEM_GENERATOR)
+        //        );
+        rewriteXSLImportInFolderRelativeToSystemFolder(
+                 new File(BaseSystemConfig.CUSTOM_TRANSFORMER_XSL),
+                 new File(BaseSystemConfig.SYSTEM_TRANSFORMER_XSL)
+                );
+    }
 
+    private void rewriteXSLImportInFolderRelativeToSystemFolder (File origFolder, File systemFolder) {
+        FileFilter fileFilter = new WildcardFileFilter("*.xsl");
+        File[] files = origFolder.listFiles(fileFilter);
+        for (int i = 0; i < files.length; i++) {
+           rewriteXSLImport(files[i], systemFolder.getAbsolutePath());
+        }  
+    }
+    
+    private void rewriteXSLImport(File fxsl, String absolutePath) {
+        try {
+            String fileName = fxsl.getName();
+            File fsystemXsl = new File(absolutePath + File.separator + fileName);
+            String sURLPath = fsystemXsl.toURI().toURL().toExternalForm();
+            Document doc = CommonEditorXmlUtils.loadFile(fxsl);
+            XPath xPath = XPath.newInstance("//xsl:import");
+            Element xslImport = (Element) xPath.selectSingleNode(doc);
+            xslImport.setAttribute("href", sURLPath );
+            XMLOutputter xout  = new XMLOutputter();
+            File ftransCacheCopy = new File(BaseSystemConfig.SYSTEM_TRANSFORMER_CACHE + File.separator + fileName);
+            FileWriter fw = new FileWriter(ftransCacheCopy);
+            xout.output(doc, fw);
+            fw.flush();
+        } catch (Exception ex) {
+            generatorError.add(
+                    "ALL",
+                    "Error will rewriting import on custom template : " + fxsl.getName(),
+                    ex);
+
+            log.error("Error while loading XSL " + fxsl.getName());
+        }
+    }
+    
     private void generateCustomXSLTfromTemplates(){
         String metalangmlxTmplName = "meta_language_add_mlx_ns.xsl.tmpl";
         try {

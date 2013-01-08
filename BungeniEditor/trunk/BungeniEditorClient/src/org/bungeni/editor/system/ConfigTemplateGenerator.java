@@ -66,9 +66,7 @@ public class ConfigTemplateGenerator {
         objectMap.put("configname", configName);
         objectMap.put("doctype", docType);
         objectMap.put("cache_pipeline", Boolean.valueOf(cachePipeline));
-        //objectMap.put("custom_trans_path", BaseSystemConfig.getHrefCache());
         objectMap.put("cache_trans_path", BaseSystemConfig.getHrefTransformerCache());
-        objectMap.put("sys_trans_path", BaseSystemConfig.getHrefTransformer());
         objectMap.put("input_xml_source", "ODF");
         objectMap.put("input_steps", customInputSteps);
         objectMap.put("output_steps", customOutputSteps);
