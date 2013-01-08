@@ -15,7 +15,6 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 package org.bungeni.editor.connectorutils;
 
 import java.io.IOException;
@@ -30,57 +29,52 @@ import org.bungeni.connector.server.DataSourceServer;
 import org.bungeni.extutils.CommonDataSourceFunctions;
 
 /**
- * Common library for interfacing with BungeniConnector 
+ * Common library for interfacing with BungeniConnector
+ *
  * @author Reagan
  */
 public class CommonConnectorFunctions {
 
     public static DataSourceServer startDSServer() throws IOException {
-         DataSourceServer dss = DataSourceServer.getInstance();
-         Properties dsProps = CommonDataSourceFunctions.getDataSourceProperties();
-         dss.loadProperties(dsProps);
-         dss.startServer();
-         return dss;
+        DataSourceServer dss = DataSourceServer.getInstance();
+        Properties dsProps = CommonDataSourceFunctions.getDataSourceProperties();
+        dss.loadProperties(dsProps);
+        dss.startServer();
+        return dss;
     }
-    
+
     // !+BUNGENI_CONNECTOR(Ashok ,05-01-2012)
     // This method changes the way classes acting as BungeniConnector
     // clients initialise themselves to ensure that they load
     //  the properties using the REST API rather than directly
-    public static BungeniConnector getDSClient() throws IOException{
+    public static BungeniConnector getDSClient() throws IOException {
         BungeniConnector client = new BungeniConnector();
         client.init(new ConnectorProperties(CommonDataSourceFunctions.getDataSourceProperties()));
         return client;
     }
 
-    public static ResultSet ConnectMMSM(String sqlStm) {
-        String connectionUrl = "jdbc:sqlserver://l-share;databaseName=Muqtafi2007;selectMethod=cursor";
-           
+    public static ResultSet ConnectMMSM(String dbName, String sqlStm) {
+        String connectionUrl = "jdbc:sqlserver://l-share;databaseName="+ dbName+ ";selectMethod=cursor";
+
         // Declare the JDBC objects.
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
 
-            try {
-                // Establish the connection.
-                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                   
-                    con = DriverManager.getConnection(connectionUrl, "sayesh", "QWE!@#qwe");
+        try {
+            // Establish the connection.
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
-                    // Create and execute an SQL statement that returns some data.
-                    stmt = con.createStatement();
-                    rs = stmt.executeQuery(sqlStm);   
-            }
+            con = DriverManager.getConnection(connectionUrl, "sayesh", "QWE!@#qwe");
 
-        // Handle any errors that may have occurred.
+            // Create and execute an SQL statement that returns some data.
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(sqlStm);
+        } // Handle any errors that may have occurred.
         catch (Exception e) {
             e.printStackTrace();
-        }
-
-        finally {
-                return rs;
+        } finally {
+            return rs;
         }
     }
-
-
 }
