@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadatas for="CourtJudgements">
+
+ <metadata name="BungeniLanguageCode"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng"> Language Code</title>
+         <title xml:lang="ara"> اللغة</title>
+    </metadata>
+   
+     <metadata name="BungeniFamily"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng"> Family</title>
+         <title xml:lang="ara"> العائلة</title>
+    </metadata>
+    
+     <metadata name="BungeniDomain"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Domain</title>
+         <title xml:lang="ara"> المجال  </title>
+    </metadata>
+    
+     <metadata name="BungeniCaseType"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng"> Case Type</title>
+         <title xml:lang="ara"> نوع المحكمة</title>
+    </metadata>
+    
+     <metadata name="BungeniCity"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">City</title>
+         <title xml:lang="ara">المدينة </title>
+    </metadata>
+    
+    <metadata name="BungeniCaseNo"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Case No</title>
+         <title xml:lang="ara">رقم القضية</title>
+    </metadata>
+    
+     <metadata name="BungeniDate"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng"> Date</title>
+         <title xml:lang="ara">  تاريخ الرفع  </title>
+    </metadata>
+    
+    <metadata name="BungeniYear"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+        <title xml:lang="eng">Year </title>
+        <title xml:lang="ara">السنة</title>
+    </metadata>
+    
+    
+</metadatas>

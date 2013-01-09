@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inlineTypes for="act" xmlns:an="http://www.akomantos.org/2.0">
+
+    <!-- ASHOK old wrong configuration -->
+    <!--<inlineType name="ref">
+       <output>
+          <metadatas>
+             <metadata name="BungeniRefURI" />
+          </metadatas>
+          <meta>
+              <TLCPerson id="$BungeniRefURI" />
+          </meta>
+          <content>
+            <an:ref href="$BungeniRefURI" />
+          </content>
+       </output>
+    </inlineType>
+    -->
+    <!-- ASHOK correct configuration -->
+    <inlineType name="refPerson">
+          <metadatas>
+             <metadata name="BungeniPersonURI" />
+             <metadata name="BungeniPersonID" />
+             <metadata name="BungeniPersonFullName" />
+          </metadatas>
+          <output>   
+              <meta>
+                  <references>
+                    <an:TLCPerson id="$BungeniPersonID" href="$BungeniPersonURI" as="$BungeniPersonFullName" />
+                  </references>
+              </meta>
+              <content>
+                 <an:ref href="#$BungeniPersonID" />
+               </content>
+          </output>
+    </inlineType>
+    
+    
+    
+    
+     <inlineType name="LongTitle">
+             <output>
+         <content>
+             <an:longTitle />
+         </content>
+     </output>
+
+    </inlineType>
+    
+     <inlineType name="Num">
+        <output>
+            <content>
+                <an:num />
+            </content>
+        </output>
+    </inlineType>
+    
+   <inlineType name="Heading">
+        <output>
+            <content>
+                <an:heading />
+            </content>
+        </output>
+    </inlineType>
+    
+    <inlineType name="Subheading">
+        <output>
+            <content>
+                <an:subheading />
+            </content>
+        </output>
+    </inlineType>
+    
+    <inlineType name="Content">
+        <output>
+            <content>
+                <an:content />
+            </content>
+        </output>
+    </inlineType>
+    
+</inlineTypes>

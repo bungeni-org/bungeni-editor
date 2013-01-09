@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctypes>
+    <outputs>
+        <namespace prefix="an" type="main" desc="Akoma Ntoso" uri="http://www.akomantoso.org/2.0" />
+        <namespace prefix="muqid" type="proprietary" desc="Proprietary" uri="http://www.proprietary.org" />        
+    </outputs>
+
+    <!--
+        <doctype name="act"
+               template="templates/act.ott"
+               state="1"
+               root="act"
+               default-part="main">
+        <title xml:lang="eng">Act</title>
+        <title xml:lang="ara">تشريع</title>
+        <uri type="work">CountryCode~ActType~BungeniActReleaseDate</uri>
+        <uri type="expression">CountryCode~ActType~BungeniActReleaseDate~LanguageCode@</uri>
+        <file-name-scheme>CountryCode~DocumentType~ActType~ActY~ActNo</file-name-scheme>
+        <metadata-editors>
+            <title xml:lang="eng">Act Metadata</title>
+            <metadata-editor class="org.bungeni.editor.metadata.editors.ActSource" >
+                <title xml:lang="eng">Source metadata</title>
+                <title xml:lang="ara">معلومات المصدر</title>
+            </metadata-editor>
+            <metadata-editor class="org.bungeni.editor.metadata.editors.ActMainMetadata" >
+                <title xml:lang="eng">Act</title>
+                <title xml:lang="ara"> معلومات التشريع الأساسية</title>
+            </metadata-editor>
+            <metadata-editor class="org.bungeni.editor.metadata.editors.ActResponsibleAuthorities" >
+                <title xml:lang="eng">Act Responsible Authorities</title>
+                <title xml:lang="ara">  الجهات المسؤولة للتشريع</title>
+            </metadata-editor>
+          
+        </metadata-editors>
+        <parts>
+            <part name="main">
+                <title xml:lang="eng">Main</title>
+                <title xml:lang="spa">principal</title>
+            </part>
+        </parts>
+    </doctype>
+    -->
+    
+    <!--ASHOK Just changed metadata editors for testing, since I don't have BirZeit's metadata
+    sources -->
+    <doctype name="act"
+               template="templates/act.ott"
+               state="1"
+               root="act"
+               default-part="main">
+        <title xml:lang="eng">Act</title>
+        <title xml:lang="ara">تشريع</title>
+        <uri type="work">~CountryCode~DocumentType~Year-Month-Day</uri>
+        <uri type="expression">~CountryCode~DocumentType~Year-Month-Day~LanguageCode</uri>
+        <file-name-scheme>CountryCode~DocumentType~Year-Month-Day~LanguageCode</file-name-scheme>
+        <metadata-editors>
+            <title xml:lang="eng">Act Metadata</title>
+            <metadata-editor class="org.bungeni.editor.metadata.editors.GeneralMetadata" >
+                <title xml:lang="eng">General</title>
+            </metadata-editor>
+            <metadata-editor class="org.bungeni.editor.metadata.editors.ParliamentMetadata" >
+                <title xml:lang="eng">Parliament</title>
+            </metadata-editor>
+        </metadata-editors>
+        <parts>
+            <part name="main">
+                <title xml:lang="eng">Main</title>
+                <title xml:lang="spa">principal</title>
+            </part>
+        </parts>
+    </doctype>
+	
+    <doctype name="FamilyCourtJudgements"
+             template="templates/FamilyCourtJudgements.ott"
+             state="1"
+             root="FamilyCourtJudgements"
+             default-part="main">
+        <title xml:lang="eng">Family Court Judgements</title>
+        <title xml:lang="spa">dictamen</title>
+        <title xml:lang="ara">حكم شرعي </title>
+        <uri type="work">~CountryCode~DocumentType~Year-Month-Day</uri>
+        <uri type="expression">~CountryCode~DocumentType~Year-Month-Day~LanguageCode@</uri>
+        <file-name-scheme>CountryCode~DocumentType~family~JCaseType~JCity~JIssuedOn~JCaseNo</file-name-scheme>
+        <metadata-editors>
+           
+            <title xml:lang="eng">Judgement Metadata</title>
+            <title xml:lang="ara">المعلومات الواصفة للحكم</title>
+
+            <metadata-editor class="org.bungeni.editor.metadata.editors.JudgemenMetadataExtra">
+                <title xml:lang="eng">Family Court Judgement</title>
+                <title xml:lang="ara">الحكم الشرعي</title>
+            </metadata-editor>
+           
+        </metadata-editors>
+        <parts>
+            <part name="main">
+                <title xml:lang="eng">Main</title>
+                <title xml:lang="spa">principal</title>
+            </part>
+            <part name="annex">
+                <title xml:lang="eng">Annex</title>
+                <title xml:lang="spa">adjuntar</title>
+            </part>
+        </parts>
+    </doctype>
+    
+    <doctype name="CourtJudgements"
+              template="templates/CourtJudgements.ott"
+              state="1"
+              root="CourtJudgements"
+              default-part="main">
+        <title xml:lang="eng">Court Judgements</title>
+        <title xml:lang="spa">dictamen</title>
+        <title xml:lang="ara">حكم نظامي </title>
+        <uri type="work">~CountryCode~DocumentType~Year-Month-Day</uri>
+        <uri type="expression">~CountryCode~DocumentType~Year-Month-Day~LanguageCode</uri>
+        <file-name-scheme>CountryCode~DocumentType~regular~JCaseType~JCity~JIssuedOn~JCaseNo</file-name-scheme>
+        <metadata-editors>
+           
+            <title xml:lang="eng">Judgement Metadata</title>
+            <title xml:lang="ara">المعلومات الواصفة للحكم</title>
+
+            <metadata-editor class="org.bungeni.editor.metadata.editors.CourtJudgemenMetadata">
+                <title xml:lang="eng">Court Judgement</title>
+                <title xml:lang="ara"> الحكم النظامي  </title>
+            </metadata-editor>
+           
+        </metadata-editors>
+        <parts>
+            <part name="main">
+                <title xml:lang="eng">Main</title>
+                <title xml:lang="spa">principal</title>
+            </part>
+            <part name="annex">
+                <title xml:lang="eng">Annex</title>
+                <title xml:lang="spa">adjuntar</title>
+            </part>
+        </parts>
+    </doctype>
+    
+</doctypes>

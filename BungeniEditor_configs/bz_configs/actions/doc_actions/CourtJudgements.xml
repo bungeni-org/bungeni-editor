@@ -1,0 +1,115 @@
+<?xml version="1.0" ?>
+<actions for="CourtJudgements">
+    
+    <action name="make_Judgement_Heading" source="sectionType" metadata="Heading" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_basic-info" source="sectionType" metadata="basic-info" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+       
+    <action name="create_judges" source="sectionType" metadata="Judges" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+   
+    <action name="create_parties" source="sectionType" metadata="Parties" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_absract" source="sectionType" metadata="Abstract" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_add-info" source="sectionType" metadata="add-info" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_judgementBody" source="sectionType" metadata="judgementBody" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_title" source="inlineType" metadata="title" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateInline" />
+    </action>
+    
+    <action name="create_facts" source="sectionType" metadata="facts" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_dec-statement" source="sectionType" metadata="dec-statement" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_reasoning" source="sectionType" metadata="reasoning" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_verdict" source="sectionType" metadata="verdict" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_casedatec" source="inlineType" metadata="casedatec" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateInline" />
+    </action>
+    
+    <action name="create_casenumberc" source="inlineType" metadata="casenumberc" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateInline" />
+    </action>
+    
+    <action name="create_casecityc" source="inlineType" metadata="casecityc" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateInline" />
+    </action>
+    
+    <action name="create_casedatea" source="inlineType" metadata="casedatea" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateInline" />
+    </action>
+    
+    <action name="create_casenumbera" source="inlineType" metadata="casenumbera" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateInline" />
+    </action>
+    
+    <action name="create_casecitya" source="inlineType" metadata="casecitya" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateInline" />
+    </action>
+    
+    <action name="create_conclusions" source="sectionType" metadata="conclusions" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="create_concl-explain-text" source="inlineType" metadata="concl-explain-text" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateInline" />
+    </action>
+        
+    <action name="create_concl-explain-judges" source="inlineType" metadata="concl-explain-judges" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateInline" />
+    </action>
+    
+    <action name="create_diss" source="sectionType" metadata="diss" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+     <action name="create_disstitle" source="inlineType" metadata="dissTitle" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateInline" />
+    </action>
+    
+     <action name="create_disssubject" source="inlineType" metadata="dissSubject" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateInline" />
+    </action>
+    
+     <action name="create_dissjudge" source="inlineType" metadata="dissJudge" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateInline" />
+    </action>
+    
+    
+    
+    
+    
+    
+     <action name="mark_reference" source="inlineType" metadata="ref">
+        <router class="org.bungeni.editor.actions.routers.routerInputReference" 
+                dialog="refinline"
+            />
+    </action>
+</actions>

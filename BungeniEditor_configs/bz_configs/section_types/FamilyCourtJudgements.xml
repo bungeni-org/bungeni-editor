@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<sectionTypes for="FamilyCourtJudgements" xmlns:an="#an">
+ 
+    <!-- root is mandatory, all mode="call" attributed calls need sectionType definitions -->
+ 
+    <sectionType name="root"
+              prefix="FamilyCourtJudgements"
+              numstyle="single"
+              visibility="user" >
+        <output>
+            <content>
+                <an:akomaNtoso>
+                    <an:judgement>
+                        <an:meta mode="call"/>
+                        <an:heading mode="call" />
+                        <an:contents  mode="call"/>
+                        <an:conclusions mode="call" />
+                    </an:judgement>
+                </an:akomaNtoso>
+            </content>
+        </output>
+    </sectionType>
+	 
+    <sectionType name="meta"
+                prefix="meta"
+                numstyle="single">
+        <output>
+            <content>
+                <an:meta/>
+               
+            </content>
+        </output>
+    </sectionType>
+  
+    <sectionType name="Heading" 
+                 prefix="heading" 
+                 numstyle="single" 
+                 background="0xb5b5b5"
+    >
+        <output>
+            <content>
+                <an:heading/>
+            </content>
+        </output>
+    </sectionType>
+
+    <sectionType name="contents"
+                     prefix="contents"
+                     numstyle="single"
+                     background="0xb1b1b1"
+                     indent-left="0"
+                     indent-right="0"
+                     visibility="user"
+    >
+        <output>
+            <content>
+                <an:contents />
+            </content>
+        </output>
+    </sectionType>
+
+    <sectionType name="conclusions"
+                     prefix="conclusions"
+                     numstyle="single"
+                     background="0xffdfdf"
+                     indent-left="0"
+                     indent-right="0"
+                     visibility="user">
+        <output>
+            <content>
+                <an:conclusions />
+            </content>
+        </output>
+    </sectionType>	
+	      
+    <sectionType name="Judges" prefix="judges" numstyle="single" background="0x638657"
+                  indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket"/>
+        <output>
+            <content>
+                <an:judges />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Parties" prefix="parties" numstyle="single" background="0x99b98d"
+                  indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket"/>
+        <output>
+            <content>
+                <an:parties />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="basic-info" prefix="basic-info" numstyle="single" background="0x638793"
+                  indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket"/>
+        <output>
+            <content>
+                <an:basic-info />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="content" prefix="content" numstyle="single" background="0xc04ebf"
+                 indent-left=".1" indent-right="0" visibility="user">
+        <output>
+            <content>
+                <an:content />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="conclusionf" prefix="conclusionf" numstyle="single" background="0xfeb5ff"
+                 indent-left=".1" indent-right="0" visibility="user">
+        <output>
+            <content>
+                <an:conclusionf />
+            </content>
+        </output>
+    </sectionType>
+    
+    
+    <sectionType name="con-notes" prefix="con-notes" numstyle="single" background="0xf7f6a2"
+                 indent-left=".1" indent-right="0" visibility="user">
+        <output>
+            <content>
+                <an:con-notes />
+            </content>
+        </output>
+    </sectionType> 
+    
+</sectionTypes>

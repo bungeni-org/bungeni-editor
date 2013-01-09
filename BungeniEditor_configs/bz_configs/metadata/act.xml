@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadatas for="act">
+
+ <!-- Source Information Metadata --> 
+ <metadata name="BungeniPublicationSrcName"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Source Name</title>
+         <title xml:lang="ara">اسم المصدر</title>
+    </metadata>
+   
+     <metadata name="BungeniPublicationDate"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Publication Date</title>
+         <title xml:lang="ara">تاريخ المصدر</title>
+    </metadata>
+    
+     <metadata name="BungeniPublicationDateHijri"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Publication Date Hijri</title>
+         <title xml:lang="ara"> تاريخ المصدر الهجري</title>
+    </metadata>
+    
+     <metadata name="BungeniPublicationArea"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Publication Area</title>
+         <title xml:lang="ara">مكان الصدور</title>
+    </metadata>
+    
+     <metadata name="BungeniSourceType"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Exclusive</title>
+         <title xml:lang="ara">ممتاز </title>
+    </metadata>
+    
+    <metadata name="BungeniSourceNo"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Source No</title>
+         <title xml:lang="ara">رقم العدد</title>
+    </metadata>
+    
+     <metadata name="BungeniPublicationSrcName_AN"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Publication Name (AN)</title>
+         <title xml:lang="ara">اسم المصدر (الرمز)  </title>
+    </metadata>
+    
+    
+    
+    <!-- Act Main Metadata -->  
+    <metadata name="BungeniLanguageCode"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+        <title xml:lang="eng">Language ID</title>
+        <title xml:lang="ara">اللغة</title>
+    </metadata>
+    
+    <metadata name="BungeniActName"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+        <title xml:lang="eng">Act Name</title>
+        <title xml:lang="ara">اسم التشريع</title>
+    </metadata>
+    
+    <metadata name="BungeniActNo"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+        <title xml:lang="eng">Act No</title>
+        <title xml:lang="ara">رقم التشريع</title>
+    </metadata>
+    
+    <metadata name="BungeniActYear"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+        <title xml:lang="eng">Act Year</title>
+        <title xml:lang="ara">سنة التشريع</title>
+    </metadata>
+    
+    <metadata name="BungeniActType"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Act Type</title>
+         <title xml:lang="ara">نوع التشريع </title>
+    </metadata>
+    
+    <metadata name="BungeniActState"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Act State</title>
+         <title xml:lang="ara"> حالة التشريع</title>
+    </metadata>
+    
+    <metadata name="BungeniActScope"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Act Scope</title>
+         <title xml:lang="ara"> نطاق التشريع</title>
+    </metadata>
+    
+     <metadata name="BungeniActHistoricalPeriod"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Act Historical Period</title>
+         <title xml:lang="ara">الحقبة التاريخية </title>
+    </metadata>
+    
+    
+      <metadata name="BungeniPageNo"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Page No</title>
+         <title xml:lang="ara"> رقم الصفحة </title>
+    </metadata> 
+     
+    <metadata name="BungeniActEffectiveDate"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Effective Date</title>
+         <title xml:lang="ara">تاريخ السريان</title>
+    </metadata>
+   
+   
+      <metadata name="BungeniPageCount"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Page Count</title>
+         <title xml:lang="ara"> عدد الصفحات  </title>
+    </metadata>
+       
+    <metadata name="BungeniActFamily"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Act Family</title>
+         <title xml:lang="ara">العائلة القانونية</title>
+    </metadata>
+    
+    <metadata name="BungeniActFamilyPossible"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Act Family Possible</title>
+         <title xml:lang="ara">العائلة القانونية الممكنة</title>
+    </metadata>
+    
+    
+    <metadata name="BungeniActCategory"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Act Category </title>
+         <title xml:lang="ara">تصنيف التشريع </title>
+    </metadata>
+    
+   
+    
+     <metadata name="BungeniActRelease"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Act Release </title>
+         <title xml:lang="ara"> الجهة التي أصدرت التشريع </title>
+    </metadata>
+    
+     <metadata name="BungeniActReleaseDate"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Released Date</title>
+         <title xml:lang="ara"> تاريخ الإصدار</title>
+    </metadata>
+    
+    <metadata name="BungeniActReleaseDateHijri"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Released Date Hijri</title>
+         <title xml:lang="ara"> تاريخ الإصدار الهجري</title>
+    </metadata>
+    
+     <metadata name="BungeniActDeveloped"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">The authority which developed the legislation</title>
+         <title xml:lang="ara"> الجهة التي اقترحت التشريع </title>
+    </metadata>
+    
+    <metadata name="BungeniActDevelopedDate"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Developed Date</title>
+         <title xml:lang="ara"> تاريخ الاقتراح</title>
+    </metadata>
+    
+    <metadata name="BungeniActApproved"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">The authority which approved the legislation</title>
+         <title xml:lang="ara">الجهة التي أقرت التشريع </title>
+    </metadata>
+    
+    <metadata name="BungeniActApprovedDate"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Approved Date</title>
+         <title xml:lang="ara">تاريخ الإقرار </title>
+    </metadata>
+    
+     <metadata name="BungeniWorkAuthor"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Work Author</title>
+        <title xml:lang="ara">Work Author</title>
+    </metadata>
+    
+     <metadata name="BungeniWorkURI"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Work URI</title>
+        <title xml:lang="ara">Work URI</title>
+    </metadata>
+    
+    <metadata name="BungeniRefURI"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">BungeniRefURI</title>
+        <title xml:lang="ara"> الرابط المرجعي</title>
+    </metadata>
+    
+   <!--
+   <metadata name="BungeniDocType"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">DocType</title>
+        <title xml:lang="ara">نوع الوثيقة</title>
+    </metadata>
+    
+      <metadata name="BungeniPublicationName"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng"> Publication Name</title>
+        <title xml:lang="ara">اسم المجلة</title>
+    </metadata>
+    
+      <metadata name="BungeniPublicationNameFull"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng"> Publication Name Full</title>
+        <title xml:lang="ara">Publication Name Full </title>
+    </metadata>
+    
+      <metadata name="BungeniDocPart"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng"> Doc Part</title>
+        <title xml:lang="ara"> Doc Part </title>
+    </metadata>
+    
+      <metadata name="BungeniCountryCode"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng"> Country Code</title>
+        <title xml:lang="ara"> Country Code</title>
+    </metadata>    
+   
+   <metadata name="BungeniDocAuthor"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Author</title>
+        <title xml:lang="ara">المؤلف</title>
+    </metadata>
+  
+   
+    <metadata name="BungeniExpURI"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Expression URI</title>
+        <title xml:lang="ara">Expression URI</title>
+    </metadata>
+    <metadata name="BungeniManURI"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Manifestation URI</title>
+        <title xml:lang="ara">Manifestation URI</title>
+    </metadata> 
+ 
+     
+      <metadata name="BungeniExpAuthor"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Expression Author</title>
+        <title xml:lang="ara">Expression Author</title>
+    </metadata>    
+  <metadata name="BungeniManAuthor"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Man Author</title>
+        <title xml:lang="ara">Man Author</title>
+    </metadata>
+    
+     <metadata name="BungeniWorkAuthorURI"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Work Author URI</title>
+        <title xml:lang="ara">Work Author URI</title>
+    </metadata>
+     <metadata name="BungeniExpAuthorURI"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Expression Author URI</title>
+        <title xml:lang="ara">Expression Author URI</title>
+    </metadata>
+     <metadata name="BungeniManAuthorURI"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Man Author URI</title>
+        <title xml:lang="ara">Man Author URI</title>
+    </metadata>
+   
+   <metadata name="BungeniWorkDate"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Work Date</title>
+        <title xml:lang="ara">Work Date</title>
+    </metadata>
+ 
+    <metadata name="BungeniWorkDateName"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Work Date Name</title>
+        <title xml:lang="ara">Work Date Name</title>
+    </metadata>
+   
+    <metadata name="BungeniExpDate"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Exp Date</title>
+        <title xml:lang="ara">Exp Date</title>
+    </metadata>
+ 
+    <metadata name="BungeniExpDateName"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Exp Date Name</title>
+        <title xml:lang="ara">Exp Date Name</title>
+    </metadata>
+    
+    <metadata name="BungeniManDate"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Man Date</title>
+        <title xml:lang="ara">Man Date</title>
+    </metadata>
+ 
+    <metadata name="BungeniManDateName"
+        type="document"
+        datatype="string"
+        visible="1"
+        namespace="bungeni">
+         <title xml:lang="eng">Man Date Name</title>
+        <title xml:lang="ara">Man Date Name</title>
+    </metadata> -->
+</metadatas>

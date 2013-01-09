@@ -1,0 +1,113 @@
+<?xml version="1.0" ?>
+<actions for="act">
+    
+    <action name="make_act_preface" source="sectionType" metadata="Preface" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+
+    <action name="make_preface_longTitle" source="inlineType" metadata="LongTitle" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateInline" />
+    </action>
+            <!--
+    <action name="make_preface_docTitle"  source="docTitle" metadata="DocTitle" >
+        <router class="org.bungeni.editor.actions.routers.RouterCreateInlineDocTitle" />
+    </action>
+
+    <action name="make_preface_docDate" source="sectionType" metadata="docDate" >
+        <router class="org.bungeni.editor.actions.routers.RouterCreateInlineDocDate" />
+    </action>
+    
+    <action name="make_preface_docNumber"  source="sectionType" metadata="docNumber" >
+        <router class="org.bungeni.editor.actions.routers.RouterCreateInlineDocNumber" />
+    </action>
+    
+    <action name="make_preface_docType"  source="sectionType" metadata="docType" >
+        <router class="org.bungeni.editor.actions.routers.RouterCreateInlineDocType" />
+    </action>
+
+    <action name="make_preface_toc" source="sectionType" metadata="toc" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>-->
+
+    <action name="make_act_preamble" source="sectionType" metadata="Preamble" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+
+    <action name="make_act_body" source="sectionType" metadata="ActBody" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+
+    <action name="make_act_books" source="sectionType" metadata="Books" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="make_act_book"  source="sectionType" metadata="Book" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="make_act_parts" source="sectionType" metadata="Parts">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="make_act_part" source="sectionType" metadata="Part"  >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="make_act_chapters" source="sectionType" metadata="Chapters" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="make_act_chapter" source="sectionType" metadata="Chapter"  >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="make_act_sections" source="sectionType" metadata="Sections" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="make_act_section" source="sectionType" metadata="Section" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+    <action name="make_act_articles" source="sectionType" metadata="Articles">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"  />
+    </action>
+    
+    <action name="make_act_article" source="sectionType" metadata="Article" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+
+    <action name="make_act_num" source="inlineType" metadata="Num" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateInline" />
+    </action>
+    
+    <action name="make_act_heading" source="inlineType" metadata="Heading" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateInline" />
+    </action>
+    
+    <action name="make_act_subheading" source="inlineType" metadata="Subheading" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateInline" />
+    </action>
+    
+    <action name="make_act_content" source="inlineType" metadata="Content">
+        <router class="org.bungeni.editor.actions.routers.routerCreateInline" />
+    </action>
+    
+    <action name="make_act_conclusions" source="sectionType" metadata="Conclusions" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection"  />
+    </action>
+
+    <action name="mark_reference" source="inlineType" metadata="ref">
+        <router class="org.bungeni.editor.actions.routers.routerInputReference" 
+                dialog="refinline"
+            />
+    </action>
+    
+    <action name="mark_refperson" source="inlineType" metadata="refPerson">
+        <router class="org.bungeni.editor.actions.routers.routerInputReference" 
+                dialog="refperson"
+            />
+    </action>
+
+</actions>

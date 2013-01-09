@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<toolbar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" doctype="CourtJudgements">
+    <root visible="true" style="tabbed">
+        <actionGroup name="JudgementFav" uimodel="wrap" title="FAVOURITES">
+        
+            
+            <blockAction title="HEADING">
+                <subaction tooltip="CREATE_JUDGEMENT_HEADING" target="make_Judgement_Heading"
+                           condition="cursorInSection:judgement :and: textSelected:true"
+                           title="CREATE_JUDGEMENT_HEADING"> 
+                </subaction> 
+               
+                 <subaction tooltip="BASIC_INFO" target="create_basic-info"
+                           condition="cursorInSection:heading :and: textSelected:true"
+                           title="BASIC_INFO" > 
+                </subaction>
+
+                <subaction tooltip="JUDGES" target="create_judges"
+                           condition="cursorInSection:heading :and: textSelected:true"
+                           title="JUDGES"> 
+                </subaction>
+                
+                <subaction tooltip="PARTIES" target="create_parties" 
+                           condition="cursorInSection:heading :and: textSelected:true"
+                           title="PARTIES"> 
+                </subaction>
+         
+                 <subaction tooltip="ABSTRACT" target="create_absract" 
+                           condition="cursorInSection:heading :and: textSelected:true"
+                           title="ABSTRACT"> 
+                </subaction>
+             
+          
+                <subaction tooltip="ADD-INFO" target="create_add-info" 
+                           condition=" cursorInSection:heading :and: textSelected:true"
+                           title="ADD-INFO" > 
+                </subaction>
+            </blockAction>
+                      
+        
+            <blockAction title="JUDGEMENTBODY">
+                <subaction tooltip="CREATE_JUDGEMENTBODY" target="create_judgementBody"
+                           condition="cursorInSection:judgement :and: textSelected:true"
+                           title="CREATE_JUDGEMENTBODY"> 
+                </subaction> 
+                
+                 <subaction tooltip="TITLE" target="create_title"
+                           condition="cursorInSection:judgementBody :and: textSelected:true"
+                           title="TITLE"> 
+                </subaction> 
+                
+                <subaction tooltip="FACTS" target="create_facts"
+                           condition="cursorInSection:judgementBody :and: textSelected:true"
+                           title="FACTS"> 
+                </subaction> 
+            </blockAction>
+            
+            
+            <blockAction title="DEC-STATEMENT">
+                <subaction tooltip="CREATE_DEC-STATEMENT" target="create_dec-statement"
+                           condition="cursorInSection:judgement :and: textSelected:true"
+                           title="CREATE_DEC-STATEMENT"
+                          > 
+                </subaction>
+                <subaction tooltip="REASONING" target="create_reasoning"
+                           condition="cursorInSection:dec-statement :and: textSelected:true"
+                           title="REASONING"
+                          > 
+                </subaction>
+                <subaction tooltip="VERDICT" target="create_verdict"
+                           condition="cursorInSection:dec-statement :and: textSelected:true"
+                           title="VERDICT" 
+                           > 
+                </subaction>
+               
+            </blockAction>
+            
+             
+              <blockAction title="CASE_CLASS-DATA">
+                <subaction tooltip="CASEDATEC" target="create_casedatec"
+                            condition="textSelected:true"
+                            title="CASEDATEC"
+                > 
+                </subaction>
+          
+                <subaction tooltip="CASENUMC" target="create_casenumberc"
+                           condition="textSelected:true"
+                           title="CASENUMC" > 
+                </subaction>
+          
+                <subaction tooltip="CASECITYC" target="create_casecityc"
+                           condition="textSelected:true"
+                           title="CASECITYC" 
+                > 
+                </subaction>
+            </blockAction>
+            
+            
+            <blockAction title="APPEAL_SECOND-CLASS-DATA">
+                <subaction tooltip="CASEDATEA" target="create_casedatea"
+                           condition="textSelected:true"
+                           title="CASEDATEA"
+                > 
+                </subaction>
+          
+                <subaction tooltip="CASENUMA" target="create_casenumbera"
+                           condition="textSelected:true"
+                           title="CASENUMA" > 
+                </subaction>
+          
+                <subaction tooltip="CASECITYA" target="create_casecitya"
+                           condition="textSelected:true"
+                           title="CASECITYA" 
+                > 
+                </subaction>
+            </blockAction>
+            
+            <blockAction title="CONCLUSIONS">
+                <subaction tooltip="CREATE_CONCLUSIONS" target="create_conclusions"
+                           condition="cursorInSection:judgement :and: textSelected:true"
+                           title="CREATE_CONCLUSIONS"
+                          > 
+                </subaction>
+              
+                <subaction tooltip="CONCL-EXPLAIN-TEXT" target="create_concl-explain-text"
+                           condition="cursorInSection:conclusions :and: textSelected:true"
+                           title="CONCL-EXPLAIN-TEXT" 
+                           > 
+                </subaction>
+                <subaction tooltip="CONCL-EXPLAIN-JUDGES" target="create_concl-explain-judges"
+                           condition="cursorInSection:conclusions :and: textSelected:true"
+                           title="CONCL-EXPLAIN-JUDGES" 
+                           > 
+                </subaction>
+            </blockAction>
+            
+            <blockAction title="VIOLATIONDECISION">
+                <subaction tooltip="CREATE_DISS" target="create_diss"
+                           condition="cursorInSection:judgement :and: textSelected:true"
+                           title="CREATE_DISS"
+                          > 
+                </subaction>
+                <subaction tooltip="CREATE_DISSTITLE" target="create_disstitle"
+                           condition="cursorInSection:diss :and: textSelected:true"
+                           title="CREATE_DISSTITLE"
+                          > 
+                </subaction>
+                <subaction tooltip="CREATE_DISSSUBJECT" target="create_disssubject"
+                           condition="cursorInSection:diss :and: textSelected:true"
+                           title="CREATE_DISSSUBJECT" 
+                           > 
+                </subaction>
+                <subaction tooltip="CREATE_DISSJUDGE" target="create_dissjudge"
+                           condition="cursorInSection:diss :and: textSelected:true"
+                           title="CREATE_DISSJUDGE" 
+                           > 
+                </subaction>
+            </blockAction>
+
+            <blockAction title="REFERENCES">
+                <subaction tooltip="REF" target="mark_reference"
+                             condition="textSelected:true"
+                             title="REF">
+                </subaction>
+            </blockAction>
+            
+        </actionGroup>
+    
+    </root>
+</toolbar>

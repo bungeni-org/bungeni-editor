@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<sectionTypes for="act" xmlns:an="http://www.akomantos.org/2.0">
+ 
+    <!-- root is mandatory, all mode="call" attributed calls need sectionType definitions -->
+ 
+    <sectionType name="root"
+              prefix="act"
+              numstyle="single"
+              visibility="user" >
+    
+       <output>
+            <content>
+                <an:akomaNtoso>
+                    <an:act>
+                        <an:meta mode="call"/>
+                        <an:preface mode="call" />
+                        <an:preamble mode="call" />
+                        <an:body  mode="call"/>
+                        <an:conclusions mode="call" />
+                    </an:act>
+                </an:akomaNtoso>
+            </content>
+        </output>
+    </sectionType>
+	 
+    <sectionType name="meta"
+                prefix="meta"
+                numstyle="single">
+        <output>
+            <content>
+                <an:meta/>
+               
+            </content>
+        </output>
+    </sectionType>
+	 
+   
+    <sectionType name="Preface" 
+                 prefix="preface" 
+                 numstyle="single" 
+                 background="0xa1a1a1"
+    >
+        <output>
+            <content>
+                <an:preface/>
+            </content>
+        </output>
+    </sectionType>
+
+  
+    <sectionType name="Preamble" 
+                 prefix="preamble" 
+                 numstyle="single" 
+                 background="0xa1a1a1"
+    >
+        <output>
+            <content>
+                <an:preamble/>
+            </content>
+        </output>
+    </sectionType>
+
+    <sectionType name="ActBody"
+                     prefix="body"
+                     numstyle="single"
+                     background="0xf0f0f0"
+                     indent-left="0"
+                     indent-right="0"
+                     visibility="user"
+    >
+        <output>
+            <content>
+                <an:body />
+            </content>
+        </output>
+    </sectionType>
+
+    <sectionType name="Conclusions"
+                     prefix="conclusion"
+                     numstyle="single"
+                     background="0xffdfdf"
+                     indent-left="0"
+                     indent-right="0"
+                     visibility="user">
+        <output>
+            <content>
+                <an:conclusions />
+            </content>
+        </output>
+    </sectionType>	
+	      
+    <sectionType name="Books" prefix="books" numstyle="serial" background="0xf0f0f0"
+                      indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket"/>
+        <output>
+            <content>
+                <an:hcontainer />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Book" prefix="B" numstyle="serial" background="0xf0f0f0"
+                  indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket"/>
+        <output>
+            <content>
+                <an:book />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Parts" prefix="parts" numstyle="serial" background="0xf0f0f0"
+                  indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket"/>
+        <output>
+            <content>
+                <an:hcontainer />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Part" prefix="P" numstyle="serial" background="0xf0f0f0"
+                  indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket"/>
+        <output>
+            <content>
+                <an:part />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Chapters" prefix="chapters" numstyle="serial" background="0xf0f0f0"
+                  indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket"/>
+        <output>
+            <content>
+                <an:hcontainer />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Chapter" prefix="C" numstyle="serial" background="0xe8ee88"
+                 indent-left=".4" indent-right="0" visibility="user">
+        <numbering scheme="ROMAN-Upper" decorator="none"/>
+        <output>
+            <content>
+                <an:chapter />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Sections" prefix="sections" numstyle="serial" background="0xf0f0f0"
+                  indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket"/>
+        <output>
+            <content>
+                <an:hcontainer />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Section" prefix="S" numstyle="serial" background="0xf0f0f0"
+                  indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket"/>
+        <output>
+            <content>
+                <an:section />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Articles" prefix="articles" numstyle="serial" background="0xf0f0f0"
+                  indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket"/>
+        <output>
+            <content>
+                <an:hcontainer />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="Article" prefix="A" numstyle="serial" background="0xf0f0f0"
+                  indent-left=".3" indent-right="0" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket"/>
+        <output>
+            <content>
+                <an:article />
+            </content>
+        </output>
+    </sectionType>
+ 
+</sectionTypes>

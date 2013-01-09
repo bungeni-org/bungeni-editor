@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inlineTypes for="FamilyCourtJudgements" xmlns:an="#an">
+
+    <inlineType name="ref">
+       <output>
+          <metadatas>
+             <metadata name="BungeniRefURI" />
+          </metadatas>
+          <meta>
+              <TLCPerson id="$BungeniRefURI" />
+          </meta>
+          <content>
+            <an:ref href="$BungeniRefURI" />
+          </content>
+       </output>
+    </inlineType>
+    
+    <sectionType name="casename">
+        <output>
+            <content>
+                <an:casename />
+            </content>
+        </output>
+    </sectionType>
+    
+     <sectionType name="Judge">
+        <output>
+            <content>
+                <an:judge />
+            </content>
+        </output>
+    </sectionType>
+    
+      <sectionType name="casesubject" >
+        <output>
+            <content>
+                <an:casesubject />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="casedatec">
+        <output>
+            <content>
+                <an:casedatec />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="casenumberc">
+        <output>
+            <content>
+                <an:casenumberc />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="casecityc">
+        <output>
+            <content>
+                <an:casecityc />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="casedatea">
+        <output>
+            <content>
+                <an:casedatea />
+            </content>
+        </output>
+    </sectionType>
+  
+    <sectionType name="casenumbera"> 
+        <output>
+            <content>
+                <an:casenumbera />
+            </content>
+        </output>
+    </sectionType>
+    
+      <sectionType name="casecitya"> 
+        <output>
+            <content>
+                <an:casecitya />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="casedateh">
+        <output>
+            <content>
+                <an:casedateh />
+            </content>
+        </output>
+    </sectionType>
+    
+     <sectionType name="casenumberh">
+        <output>
+            <content>
+                <an:casenumberh />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="casecityh">
+        <output>
+            <content>
+                <an:casecityh />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="con-date" >
+        <output>
+            <content>
+                <an:con-date />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="con-dateh">
+        <output>
+            <content>
+                <an:con-dateh />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="con-judges">
+        <output>
+            <content>
+                <an:con-judges />
+            </content>
+        </output>
+    </sectionType>
+    
+    
+</inlineTypes>

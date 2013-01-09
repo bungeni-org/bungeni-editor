@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inlineTypes for="CourtJudgements" xmlns:an="#an">
+
+    <inlineType name="ref">
+       <output>
+          <metadatas>
+             <metadata name="BungeniRefURI" />
+          </metadatas>
+          <meta>
+              <TLCPerson id="$BungeniRefURI" />
+          </meta>
+          <content>
+            <an:ref href="$BungeniRefURI" />
+          </content>
+       </output>
+    </inlineType>
+
+    <sectionType name="title">
+        <output>
+            <content>
+                <an:title />
+            </content>
+        </output>
+    </sectionType>
+
+ <sectionType name="casedatec">
+        <output>
+            <content>
+                <an:casedatec />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="casenumberc">
+        <output>
+            <content>
+                <an:casenumberc />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="casecityc">
+        <output>
+            <content>
+                <an:casecityc />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="casedatea">
+        <output>
+            <content>
+                <an:casedatea />
+            </content>
+        </output>
+    </sectionType>
+  
+    <sectionType name="casenumbera"> 
+        <output>
+            <content>
+                <an:casenumbera />
+            </content>
+        </output>
+    </sectionType>
+    
+      <sectionType name="casecitya"> 
+        <output>
+            <content>
+                <an:casecitya />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="concl-explain-text">
+        <output>
+            <content>
+                <an:concl-explain-text />
+            </content>
+        </output>
+    </sectionType>
+  
+  <sectionType name="concl-explain-judges">
+        <output>
+            <content>
+                <an:concl-explain-judges />
+            </content>
+        </output>
+    </sectionType>
+    
+    
+    <sectionType name="dissTitle">
+        <output>
+            <content>
+                <an:dissTitle />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="dissSubject">
+        <output>
+            <content>
+                <an:dissSubject />
+            </content>
+        </output>
+    </sectionType>
+    
+    <sectionType name="dissJudge">
+        <output>
+            <content>
+                <an:dissJudge />
+            </content>
+        </output>
+    </sectionType>
+    
+</inlineTypes>

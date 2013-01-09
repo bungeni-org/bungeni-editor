@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>ara</comment>
+    <entry key="OTHER_ACTIONS">اشياء اخرى</entry>
+    <entry key="ARTICLE">مادة</entry>
+    <entry key="HEARING_DATE">تاريخ الإستماع</entry>
+    <entry key="HEARING_DATE">تاريخ الاستماع</entry>
+    <entry key="HEADING">العنوان</entry>
+    <entry key="SUBHEADING">الواصفة</entry>
+    <entry key="REF">رابط مرجعي</entry>
+    <entry key="PREFACE">العنوان</entry>
+    <entry key="CHAPTER">باب</entry>
+    <entry key="BOOK">كتاب</entry>
+    <entry key="NUM">الرقم </entry>
+    <entry key="FAVOURITES">المفضلة</entry>
+    <entry key="JUDGEMENT_DATE">تاريخ الفصل</entry>
+    <entry key="NEW">جديد</entry>
+    
+    <entry key="MARK_NUMBERED_HEADING">ترقيم القرار</entry>
+    <entry key="CREATE_PREFACE_FROM_SELECTION">إنشاء العنوان من النص المظلل</entry>
+    <entry key="CREATE_PREAMBLE_FROM_SELECTION">إنشاء الديباجة من النص المظلل</entry>
+    <entry key="CREATE_BODY_FROM_SELECTION">إنشاء المحتوى من النص المظلل</entry>
+    <entry key="CREATE_BOOK_FROM_SELECTION">إنشاء الكتاب من النص المظلل</entry>
+    <entry key="CREATE_BOOKS_FROM_SELECTION">····→ تحديد مجموعة الكتب</entry>
+    
+    <entry key="CREATE_PARTS_FROM_SELECTION">····→ تحديد مجموعة الأجزاء</entry>
+    <entry key="CREATE_CHAPTERS_FROM_SELECTION">····→ تحديد مجموعة الأبواب</entry>
+    <entry key="CREATE_SECTIONS_FROM_SELECTION">تحديد مجموعة القسام····→ </entry>
+    <entry key="CREATE_ARTICLES_FROM_SELECTION">····→ تحديد مجموعة المواد</entry>
+    
+    <entry key="CREATE_PART_FROM_SELECTION">إنشاء الجزء من النص المظلل</entry>
+    <entry key="CREATE_CHAPTER_FROM_SELECTION">إنشاء الباب من النص المظلل</entry>
+    <entry key="CREATE_SECTION_FROM_SELECTION">إنشاء الفصل من النص المظلل</entry>
+    <entry key="CREATE_ARTICLE_FROM_SELECTION">إنشاء المادة من النص المظلل</entry>
+    <entry key="PART">جزء</entry>
+    <entry key="PREAMBLE">الديباجة</entry>
+    <entry key="CONCLUSTION_MAIN">الخاتمة</entry>
+    <entry key="BASIC_INFO">معلومات اساسية</entry>
+    <entry key="TITLE">عنوان المادة</entry>
+    <entry key="CONTENT">المحتوى</entry>
+    <entry key="CONTENT_TXT"> (نص) المحتوى </entry>
+    <entry key="CONTENT_LIST">المحتوى (قائمة) </entry>
+    <entry key="MARK_NUMBER">ترقيم فرعي</entry>
+    <entry key="GENERIC">بشكل عام</entry>
+    <entry key="JUDGEMENT_TITLE">عنوان الحكم</entry>
+    <entry key="DOCTITLE">العنوان المختصر</entry>
+    <entry key="BODY">المحتوى</entry>
+    <entry key="CONCLUSION">الخاتمة</entry>
+    <entry key="DOCDATE">سنة التشريع</entry>
+    <entry key="SUBHEADING">عنوان فرعي</entry>
+    <entry key="DOCNUMBER">رقم التشريع</entry>
+    <entry key="SECTION">فصل</entry>
+    <entry key="PARTIES">الأطراف</entry>
+    <entry key="DOCTYPE">نوع التشريع</entry>
+    <entry key="DESCRIPTOR">وصف المادة</entry>
+    <entry key="CONCLUSIONS">الخاتمة</entry>
+    
+    <entry key="JUDGEMENT_PREAMBLE"> الديباجة</entry>
+    <entry key="CREATE_JUDGEMENT_PREAMBLE">إنشاء الديباجة من النص المظلل</entry>
+    <entry key="CREATE_JUDGEMENT_CONCLUSION">إنشاء الخاتمة من النص المظلل</entry>
+    <entry key="JUDGEMENT_BODY">محتوى الحكم</entry>
+    <entry key="CREATE_JUDGEMENT_BODY">محتوى الحكم</entry>
+    
+    
+    <entry key="INTRODUCTION_ONE">بيانات الدرجة الأولى</entry>
+    <entry key="INTRODUCTION_TWO">بيانات الدرجة الثانية</entry>
+    <entry key="INTRODUCTION_THREE">بيانات الدرجةالثالثة(الحكم)</entry>
+    <entry key="CREATE_INTRO_ONE">إنشاء بيانات الدرجة الأولى </entry>
+    <entry key="CREATE_INTRO_TWO">إنشاء بيانات الدرجة الثانية </entry>
+    <entry key="CREATE_INTRO_THREE">إنشاء بيانات الدرجة الثالثة </entry>
+    
+    
+    
+    
+    <entry key="HEADER">عام</entry>
+    <entry key="JUDGEMENT_NO">رقم الحكم</entry>
+    <entry key="JUDGEMENT_YEAR">السنة</entry>
+    <entry key="JUDGEMENT_COURT">المحكمة</entry>
+    <entry key="JUDGES_HEADER">الهيئة الحاكمة </entry>
+    <entry key="JUDGES">قاضي</entry>
+    <entry key="APPELLANT">الطرف الأول</entry>
+    <entry key="RESPONDENT"> الطرف الثاني</entry>
+  
+    <entry key="LAWYER1">محامي الطرف الأول</entry>
+    <entry key="LAWYER2">محامي الطرف الثاني</entry>
+    <entry key="INTRODUCTION">المقدمة</entry>
+    <entry key="CREATE">إنشاء</entry>
+    <entry key="HIST_COURT">اسم المحكمة</entry>
+    <entry key="COURT_CITY">  المدينة</entry>
+    <entry key="HIST_DATE">التاريخ</entry>
+    <entry key="HIST_NUM">رقم القضية</entry>
+    <entry key="HIST_YEAR">السنة</entry>
+    <entry key="HIST_SUBJECT">موضوع القضية</entry>
+    <entry key="BACKGROUND">وقائع</entry>
+    <entry key="Background_create">تعيين</entry>
+    <entry key="MOTIVATION">المسببات</entry>
+   
+    <entry key="CREATE_MOTIVATION">إنشاء المسببات من النص المظلل</entry>
+    <entry key="Motivation_create">تعيين</entry>
+    <entry key="DECISION">القرار</entry>
+    
+    <entry key="CREATE_DECISION">إنشاء القرار من النص المظلل</entry>
+    <entry key="CAUSES"> الأسباب</entry>
+    <entry key="CREATE_CAUSES">إنشاء الأسباب من النص المظلل</entry>
+    <entry key="DATE">التاريخ</entry>
+    <entry key="CREATE_CONCLUSION_FROM_SELECTION">إنشاء الخاتمة من النص المظلل</entry>
+    
+    <entry key="ISSUEDATE">تاريخ الإصدار</entry>
+    <entry key="LONGTITLE">عنوان التشريع</entry>
+    <entry key="REFERENCES">رابط مرجعي</entry>
+    <!-- ****************************************************  أحكــــــــام شرعية  *************************************************** -->
+ 
+    <entry key="HEADING"> الديباجة </entry>
+    <entry key="CREATE_JUDGEMENT_HEADING"> إنشاء الديباجة من النص المظلل</entry>
+    <entry key="CASE_NAME"> اسم المحكمة </entry>
+    <entry key="JUDGES"> القضاة </entry> 
+    <entry key="JUDGE"> قاضي </entry>                                         
+    <entry key="PARTIES"> الأطراف </entry>     
+    <entry key="BASIC_INFO"> بيانات أساسية </entry>                                         
+    <entry key="CASE_SUBJECT"> موضوع الطعن ( القضية) </entry>
+  
+    <entry key="CASE_CLASS-DATA"> بيانات الدرجة الأولى </entry>
+    <entry key="CASEDATEC"> تاريخ الدعوى </entry>     
+    <entry key="CASENUMC"> رقم الدعوى </entry>   
+    <entry key="CASECITYC"> اسم المحكمة </entry>
+ 
+    <entry key="APPEAL_SECOND-CLASS-DATA"> بيانات محكمة الاستئناف</entry>
+    <entry key="CASEDATEA"> تاريخ الاستئناف </entry>     
+    <entry key="CASENUMA"> رقم الاستئناف </entry>   
+    <entry key="CASECITYA">  اسم محكمة الاستئناف </entry>   
+ 
+    <entry key="HIGH_THIRD-CLASS-DATA">  بيانات المحكمة العليا </entry>
+    <entry key="CASEDATEH"> تاريخ الرفع </entry>     
+    <entry key="CASENUMH"> رقم القضية </entry>   
+    <entry key="CASECITYH"> اسم المحكمة </entry>
+    <entry key="CASEPROIORITY"> الأهمية </entry>
+ 
+    <entry key="CONTENTS"> مضمون القضية </entry>
+    <entry key="CONTENT"> متن القضية </entry>
+  
+    <entry key="CONCLUSIONS"> الخاتمة </entry>
+    <entry key="CONCLUSIONF"> نص الخاتمة </entry>
+    <entry key="CON_DATE">  تاريخ الصدور الميلادي  </entry>
+    <entry key="CON_DATEH"> تاريخ الصدور الهجري </entry>
+    <entry key="CON_JUDGES"> مصدر الحكم </entry>
+    <entry key="CON_NOTES"> ملاحظات </entry>
+ 
+ 
+ 
+    <!-- **************************************************** أحكام نظامية  *************************************************** -->
+ 
+    <entry key="HEADING"> الديباجة </entry>
+    <entry key="CREATE_JUDGEMENT_HEADING"> إنشاء ديباجة الحكم  </entry>
+    <entry key="BASIC_INFO"> معلومات أساسية  </entry>
+    <entry key="JUDGES"> قضاه  </entry>
+    <entry key="PARTIES"> أطراف  </entry>
+    <entry key="ABSTRACT"> ملخص  </entry>
+    <entry key="ADD-INFO"> معلومات إضافية </entry>
+    <entry key="JUDGEMENTBODY"> المحتوى  </entry>
+    <entry key="CREATE_JUDGEMENTBODY"> إنشاء محتوى الحكم </entry>
+    <entry key="TITLE"> العنوان  </entry>
+    <entry key="FACTS"> الأسباب والوقائع  </entry>
+    <entry key="DEC-STATEMENT"> الفقرة الحكمية </entry>
+    <entry key="CREATE_DEC-STATEMENT">  إنشاء الفقرة الحكمية</entry>
+    <entry key="REASONING"> التسبيب  </entry>
+    <entry key="VERDICT"> منطوقة الحكم  </entry>
+    <entry key="CONCLUSIONS"> الخاتمة  </entry>
+    <entry key="CREATE_CONCLUSIONS"> إنشاء خاتمة الحكم </entry>
+    <entry key="CONCL-EXPLAIN-TEXT"> جملة الصدور </entry>
+    <entry key="CONCL-EXPLAIN-JUDGES"> القضاه </entry>
+
+    <entry key="VIOLATIONDECISION">قرار المخالفة  </entry>
+    <entry key="CREATE_DISS">  إنشاء قرار المخالفة  </entry>
+    <entry key="CREATE_DISSTITLE"> العنوان </entry>
+    <entry key="CREATE_DISSSUBJECT"> المضمون </entry>
+    <entry key="CREATE_DISSJUDGE"> القاضي المخالف </entry>
+
+</properties>
