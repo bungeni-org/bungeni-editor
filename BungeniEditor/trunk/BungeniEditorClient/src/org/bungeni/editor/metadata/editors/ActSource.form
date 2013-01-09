@@ -40,7 +40,7 @@
                                   <Component id="dt_publication_dateHijri" alignment="0" min="-2" pref="162" max="-2" attributes="1"/>
                                   <Component id="lblPublicationDateHijri" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="77" max="32767" attributes="0"/>
+                              <EmptySpace pref="140" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lblPublicationArea" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtPublicationArea" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
@@ -98,7 +98,7 @@
                       <Component id="txtSourceNo" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="171" max="32767" attributes="0"/>
+              <EmptySpace pref="180" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
