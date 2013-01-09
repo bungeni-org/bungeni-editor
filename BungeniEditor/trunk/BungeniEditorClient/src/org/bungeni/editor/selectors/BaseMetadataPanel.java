@@ -4,27 +4,20 @@ package org.bungeni.editor.selectors;
 
 
 
-import org.bungeni.editor.actions.toolbarAction;
-import org.bungeni.editor.selectors.BaseMetadataContainerPanel.ConditionSet;
-import org.bungeni.editor.config.BungeniEditorProperties;
-import org.bungeni.extutils.CommonUIFunctions;
-import org.bungeni.ooo.OOComponentHelper;
-
-//~--- JDK imports ------------------------------------------------------------
-
 import com.sun.star.lang.IllegalArgumentException;
 import com.sun.star.text.XText;
 import com.sun.star.text.XTextCursor;
 import com.sun.star.text.XTextRange;
 import com.sun.star.text.XTextSection;
-
 import java.awt.Component;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import org.bungeni.editor.actions.toolbarAction;
+import org.bungeni.editor.selectors.BaseMetadataContainerPanel.ConditionSet;
+import org.bungeni.extutils.CommonUIFunctions;
+import org.bungeni.ooo.OOComponentHelper;
 
 /**
  *
@@ -110,13 +103,13 @@ public abstract class BaseMetadataPanel extends JPanel implements IMetadataPanel
      * The following functions are called upon initalization of the panel, depening on the current mode,
      * the appropriate function is called.
      */
-    abstract protected void initFieldsSelectedEdit();
+    protected void initFieldsSelectedEdit(){};
 
-    abstract protected void initFieldsSelectedInsert();
+    protected void initFieldsSelectedInsert(){};
 
-    abstract protected void initFieldsInsert();
+    protected void initFieldsInsert(){};
 
-    abstract protected void initFieldsEdit();
+    protected void initFieldsEdit(){};
 
     abstract public String getPanelName();
 
@@ -200,11 +193,11 @@ public abstract class BaseMetadataPanel extends JPanel implements IMetadataPanel
         return true;
     }
 
-    abstract public boolean preFullEdit();
+    public boolean preFullEdit() {return true;};
 
-    abstract public boolean processFullEdit();
+    public boolean processFullEdit(){return true;};
 
-    abstract public boolean postFullEdit();
+    public boolean postFullEdit(){return true;};
 
     public boolean applyFullInsert() {
 
@@ -226,11 +219,11 @@ public abstract class BaseMetadataPanel extends JPanel implements IMetadataPanel
         return true;
     }
 
-    abstract public boolean preFullInsert();
+    public boolean preFullInsert(){return true;};
 
-    abstract public boolean processFullInsert();
+    public boolean processFullInsert(){return true;};
 
-    abstract public boolean postFullInsert();
+    public boolean postFullInsert(){return true;};
 
     public boolean applySelectEdit() {
 
@@ -252,11 +245,11 @@ public abstract class BaseMetadataPanel extends JPanel implements IMetadataPanel
         return true;
     }
 
-    abstract public boolean preSelectEdit();
+    public boolean preSelectEdit(){return true;};
 
-    abstract public boolean processSelectEdit();
+    public boolean processSelectEdit(){return true;};
 
-    abstract public boolean postSelectEdit();
+    public boolean postSelectEdit(){return true;};
 
     public boolean applySelectInsert() {
 
@@ -278,11 +271,11 @@ public abstract class BaseMetadataPanel extends JPanel implements IMetadataPanel
         return true;
     }
 
-    abstract public boolean preSelectInsert();
+    public boolean preSelectInsert(){return true;};
 
-    abstract public boolean processSelectInsert();
+    public boolean processSelectInsert(){return true;};
 
-    abstract public boolean postSelectInsert();
+    public boolean postSelectInsert(){return true;};
 
     public boolean doValidate() {
         return validateFields();
@@ -311,17 +304,17 @@ public abstract class BaseMetadataPanel extends JPanel implements IMetadataPanel
         }
     }
 
-    abstract public boolean validateSelectedEdit();
+    public boolean validateSelectedEdit(){return true;};
 
-    abstract public boolean validateSelectedInsert();
+    public boolean validateSelectedInsert(){return true;};
 
-    abstract public boolean validateFullInsert();
+    public boolean validateFullInsert(){return true;};
 
-    abstract public boolean validateFullEdit();
+    public boolean validateFullEdit(){return true;};
 
-    abstract public boolean doCancel();
+    public boolean doCancel(){return true;};
 
-    abstract public boolean doReset();
+    public boolean doReset(){return true;};
 
     public BungeniFormContext getFormContext() {
         return formContext;
