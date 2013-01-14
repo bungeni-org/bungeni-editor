@@ -22,9 +22,11 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -48,7 +50,8 @@ public class BungeniAppConnector {
     private final String serverName ;
     private final String serverPort ;
     private final String loginPageURI ;
-
+    private final String urlBase ; 
+    
     private DefaultHttpClient client = null;
 
    public  BungeniAppConnector(
@@ -62,8 +65,9 @@ public class BungeniAppConnector {
         this.serverPort = serverPort;
         this.password = password;
         this.user = user;
-        loginUrl = "http://" + this.serverName + ":" + this.serverPort + "/" + loginPageURI;
-        System.out.println("LOGIN:" + loginUrl + " user : " + this.user + " password :" +  this.password);
+        this.urlBase = "http://" + this.serverName + ":" + this.serverPort ;
+        loginUrl = this.urlBase + "/" + loginPageURI;
+        log.info("BungeniAppConnector : LOGIN:" + loginUrl + " user : " + this.user + " password :" +  this.password);
     }
    
 
@@ -84,6 +88,45 @@ public class BungeniAppConnector {
         return getClient();
     }
 
+    public class WebResponse {
+        private String responseBody;
+        private int statusCode;
+        
+        public WebResponse(int statusCode, String responseBody) {
+            this.statusCode = statusCode;
+            this.responseBody = responseBody;
+        }
+        
+        public String getResponseBody(){
+            return this.responseBody;
+        }
+        
+        public int getStatusCode(){
+            return this.statusCode;
+        }
+    }
+    
+    
+    public WebResponse getUrl(String sPage) {
+        WebResponse wr = null;
+        String pageURL = this.urlBase + sPage;
+        final HttpGet           geturl          = new HttpGet(pageURL);
+        boolean bState = false;
+        try {
+            HttpResponse response = client.execute(geturl);
+            ResponseHandler<String> responseHandler = new BasicResponseHandler();
+            String responseBody = responseHandler.handleResponse(response);
+            int nStatusCode = response.getStatusLine().getStatusCode();
+            wr = new WebResponse(nStatusCode, responseBody);
+        } catch (IOException ex) {
+            bState = false;
+            log.error("Error while accessin url : " + pageURL , ex);
+        }
+        return wr;
+    
+    }   
+       
+       
     /**
      * @return the user
      */
@@ -126,6 +169,13 @@ public class BungeniAppConnector {
         return client;
     }
 
+    /**
+     * 
+     * @return the url base  
+     */
+    public String getUrlBase(){
+        return this.urlBase;
+    }
 
 
 }

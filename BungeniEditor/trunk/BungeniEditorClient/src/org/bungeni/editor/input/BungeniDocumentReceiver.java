@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import org.apache.commons.lang.RandomStringUtils;
@@ -46,7 +47,9 @@ import org.bungeni.extpanels.bungeni.BungeniDocument;
 import org.bungeni.extpanels.bungeni.BungeniDocument.Attachment;
 import org.bungeni.extpanels.bungeni.BungeniDocumentAttListPanel;
 import org.bungeni.extpanels.bungeni.BungeniListDocuments;
+import org.bungeni.extpanels.bungeni.BungeniListDocuments.BungeniListDocument;
 import org.bungeni.extutils.FrameLauncher;
+import org.bungeni.extutils.MessageBox;
 import org.bungeni.extutils.TempFileManager;
 import org.bungeni.utils.BungeniDialog;
 import org.bungeni.utils.CommonEditorInterfaceFunctions;
@@ -60,17 +63,13 @@ import org.jsoup.Jsoup;
 public class BungeniDocumentReceiver implements IInputDocumentReceiver {
     private static org.apache.log4j.Logger log =
         org.apache.log4j.Logger.getLogger(BungeniDocumentReceiver.class.getName());
-    BungeniAppConnector appConnector = null;
-    DefaultHttpClient   client       = null;
-
-    
     
     public String receiveDocument(final JFrame parentFrame, final PluggableConfig customConfig, HashMap inputParams) {
         //String sDocURL = (String) JOptionPane.showInputDialog(parentFrame, "Enter the URL of the document to Import",
         //                     "Import document from Bungeni", JOptionPane.QUESTION_MESSAGE);
         if (login(parentFrame)) {
              if (listDocuments(parentFrame, customConfig)) {
-                 
+                    // do somethings
              }   
         }
         
@@ -82,36 +81,24 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
     private String searchURL(final PluggableConfig customConfig){
         Element searchElem = customConfig.customConfigElement.getChild("search");
         String sSearchBase = searchElem.getAttributeValue("base");
-        StringBuilder sUrl = new StringBuilder();
-        sUrl.append( "http://" ).append(
-                  BungeniServiceAccess.getInstance().appConnector.getServerName() 
-                ).append(":").append(
-                BungeniServiceAccess.getInstance().appConnector.getServerPort()
-                ).append(sSearchBase);
-        
-        return sUrl.toString();
+        return sSearchBase;
     }
 
     private boolean listDocuments(JFrame parentFrame, final PluggableConfig customConfig) {
         String sSearchBungeniURL = searchURL(customConfig);
         // access the input URL
-        final HttpGet           geturl          = new HttpGet(sSearchBungeniURL);
-        ResponseHandler<String> responseHandler = new BasicResponseHandler();
-        String                  responseBody    = "";
-        boolean bState = false;
+        List<BungeniListDocument> listDocuments = null;
         try {
-            responseBody = client.execute(geturl, responseHandler);
-            bState = true;
-        } catch (IOException ex) {
-            bState = false;
+            listDocuments = 
+                BungeniServiceAccess.getInstance().availableDocumentsForEditing(sSearchBungeniURL);
+            
+        } catch (Exception ex) {
             log.error("Error while accessin url : " + sSearchBungeniURL , ex);
         }
-        // parse response Body
-        //parentFrame.setCursor(Cursor.getDefaultCursor());
-        if (bState) {
-            BungeniListDocuments bld = new BungeniListDocuments(sSearchBungeniURL, responseBody);
-            bld.getListDocuments();
-            
+        if (listDocuments != null) {
+             MessageBox.OK(parentFrame, listDocuments.size() + " documents retrieved !");
+        } else {
+             MessageBox.OK(parentFrame, "Error while retrieving documents");
           //  BungeniDocument          jdoc   = new BungeniDocument(sDocURL, doc);
           //  Attachment               attDoc = promptForAttachment(parentFrame, jdoc);
 
@@ -137,6 +124,7 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
         return login.loginSuccessful();
     }
 
+   /**
     private String receive(final JFrame parentFrame, PluggableConfig config, final String sDocURL) {
 
         // If a string was returned, say so.
@@ -158,7 +146,7 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
 
                     if (null == appConnector) {
                         appConnector = new BungeniAppConnector(uhost, uport, uloginUri, username, upassword);
-                    }
+                }
                 }
 
                 // call the swingworker thread for the button event
@@ -171,37 +159,12 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
                                 client = appConnector.login();
                             } catch(Exception ex) {
                                 
-                            }
-                        }
-
-                        // access the input URL
-                        final HttpGet           geturl          = new HttpGet(sDocURL);
-                        ResponseHandler<String> responseHandler = new BasicResponseHandler();
-                        String                  responseBody    = "";
-
-                        try {
-                            responseBody = client.execute(geturl, responseHandler);
-                        } catch (IOException ex) {}
-
-                        // parse response Body
-                        parentFrame.setCursor(Cursor.getDefaultCursor());
-
-                        // retrieve the attachments
-                        org.jsoup.nodes.Document doc    = Jsoup.parse(responseBody);
-                        BungeniDocument          jdoc   = new BungeniDocument(sDocURL, doc);
-                        Attachment               attDoc = promptForAttachment(parentFrame, jdoc);
-
-                        if (attDoc != null) {
-                            importAttachment(jdoc, attDoc);
-                        }
-                    }
-                });
             }
         }
 
         return "";
     }
-
+ 
     private Attachment promptForAttachment(JFrame parentFrame, BungeniDocument jdoc) {
         BungeniDialog               dlgatts = new BungeniDialog(parentFrame, "Import an Attachment", true);
         BungeniDocumentAttListPanel docAtts = new BungeniDocumentAttListPanel(client, dlgatts, jdoc);
@@ -297,6 +260,7 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
             return fdownTemp;
         }
     }
+    ***/
 }
 
 

@@ -1,41 +1,34 @@
 package org.bungeni.editor;
 
 //~--- non-JDK imports --------------------------------------------------------
-import org.apache.log4j.BasicConfigurator;
-
-import org.bungeni.editor.dialogs.editorApplicationController;
-import org.bungeni.editor.interfaces.ui.ILookAndFeel;
-import org.bungeni.editor.ui.LookAndFeelFactory;
-import org.bungeni.ooo.utils.CommonExceptionUtils;
-import org.bungeni.utils.Installation;
-
-//~--- JDK imports ------------------------------------------------------------
-
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
-
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
+import org.apache.log4j.BasicConfigurator;
 import org.bungeni.editor.config.BaseConfigReader;
+import org.bungeni.editor.dialogs.editorApplicationController;
+import org.bungeni.editor.interfaces.ui.ILookAndFeel;
 import org.bungeni.editor.noa.BungeniNoaApp;
 import org.bungeni.editor.noa.ext.BungeniLocalOfficeApplication;
 import org.bungeni.editor.system.StartupConfigGenerator;
+import org.bungeni.editor.ui.LookAndFeelFactory;
 import org.bungeni.extutils.BungeniRuntimeProperties;
+import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.bungeni.utils.CommonBungeniTreeFunctions;
+import org.bungeni.utils.Installation;
 
 /**
  *

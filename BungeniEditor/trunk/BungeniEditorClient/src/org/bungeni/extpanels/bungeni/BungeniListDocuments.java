@@ -28,7 +28,8 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 /**
- *
+ *This class processes the JSON feed of Bungeni documents available for Editing by the Clerk within 
+ * the BungeniEditor 
  * @author Ashok Hariharan
  */
 public class BungeniListDocuments {
@@ -57,7 +58,7 @@ public class BungeniListDocuments {
         init();
     }
 
-    class BungeniListDocument {
+    public class BungeniListDocument {
         String title;
         String idBase;
         String statusDate;

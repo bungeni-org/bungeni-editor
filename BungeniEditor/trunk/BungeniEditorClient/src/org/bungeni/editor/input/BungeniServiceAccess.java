@@ -19,18 +19,27 @@ package org.bungeni.editor.input;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.bungeni.extpanels.bungeni.BungeniAppConnector;
+import org.bungeni.extpanels.bungeni.BungeniAppConnector.WebResponse;
+import org.bungeni.extpanels.bungeni.BungeniListDocuments;
+import org.bungeni.extpanels.bungeni.BungeniListDocuments.BungeniListDocument;
 
 /**
- *
+ *  This is the class that implements all interaction with Bungeni and abstracts that
+ * interaction to the rest of the Bungeni Editor.
  * @author Ashok Hariharan
  */
 public class BungeniServiceAccess {
     
     private static BungeniServiceAccess instance = null;
     
+    private static org.apache.log4j.Logger log =
+        org.apache.log4j.Logger.getLogger(BungeniServiceAccess.class.getName());
+    
+
     
     BungeniAppConnector appConnector = null;
     DefaultHttpClient client = null;
@@ -44,13 +53,29 @@ public class BungeniServiceAccess {
    
     public DefaultHttpClient login(String appServer, String appPort, String appBase, String user, String password) throws UnsupportedEncodingException, IOException {
         if (null == appConnector) {
-            appConnector = new BungeniAppConnector(appServer, appPort, appBase, user, password);
-            client =  appConnector.login();
-            return client;
+            this.appConnector = new BungeniAppConnector(appServer, appPort, appBase, user, password);
+            this.client =  appConnector.login();
+            return this.client;
         }
         return null;
     }
+    
+     
    
+    public List<BungeniListDocument> availableDocumentsForEditing(String sSearchBungeniURL) {
+           List<BungeniListDocument> bungeniDocs = new ArrayList<BungeniListDocument>(0);
+           WebResponse wr = appConnector.getUrl(sSearchBungeniURL);
+           if (wr != null) {
+               if (wr.getStatusCode() == 200 ) {
+                   String sResponseBody = wr.getResponseBody();
+                   BungeniListDocuments bld = new BungeniListDocuments(sSearchBungeniURL, sResponseBody);
+                   bungeniDocs = bld.getListDocuments();
+               }
+           }
+           return bungeniDocs;
+    }
+
+    
     public List searchDocuments(String searchServer, String docType, String status) {
         return null;
     }
