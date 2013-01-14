@@ -18,14 +18,11 @@
 
 package org.bungeni.editor.system;
 
-import org.bungeni.editor.config.BaseSystemConfig;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -33,10 +30,9 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-
 import org.apache.log4j.Logger;
+import org.bungeni.editor.config.BaseSystemConfig;
 import org.bungeni.editor.config.SysTransformsReader;
-import org.bungeni.extutils.CommonXmlUtils;
 import org.bungeni.extutils.CommonEditorXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -168,7 +164,8 @@ public File typeMetaIdentifierGenerator(ConfigGeneratorError err, Document metad
         StreamSource xsltTypeGenerator = null;
         
         String generatorName = "type_meta_ident_publi";
-
+        // type_meta_identi_publi_generator.xsl
+        String generatorSourceXSL = generatorName + "_generator.xsl" ;    
         File ftypeGenerator =   new File(
             BaseSystemConfig.SYSTEM_GENERATOR_CACHE + File.separator +
             generatorName + "_" + docType  + ".xsl"
@@ -182,8 +179,7 @@ public File typeMetaIdentifierGenerator(ConfigGeneratorError err, Document metad
                    metadataDocument
             );
             xsltTypeGenerator = SysTransformsReader.getInstance().getXslt(
-                    generatorName +
-                    "_generator.xsl"
+                    generatorSourceXSL
                );
             Transformer transformer = thisTransFactory.newTransformer(xsltTypeGenerator);
             FileWriter fwTypeGen = new FileWriter(ftypeGenerator);

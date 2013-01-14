@@ -19,15 +19,9 @@
 package org.bungeni.editor.system;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.transform.stream.StreamSource;
 import org.apache.log4j.Logger;
-import org.bungeni.editor.config.DocumentMetadataReader;
-import org.bungeni.editor.config.SysTransformsReader;
-import org.bungeni.extutils.CommonFileFunctions;
-import org.jdom.Document;
 
 /**
  * This class is used to generate the ODF to Meta Language XSLT file.
@@ -87,17 +81,6 @@ public class ODFBridgeFormatGenerator {
          bridgeXSLTs.add(new BridgeXSLT(XSLT, inputFile, outputFile));
      }
 
-     public void process (
-            String docType
-            ) throws FileNotFoundException{
-
-         for (BridgeXSLT bxslt : bridgeXSLTs) {
-             StreamSource xsltFile = SysTransformsReader.getInstance().getXslt(bxslt.XSLT);
-
-         }
-
-         return;
-     }
 
      public static void main(String[] args){
          /***
