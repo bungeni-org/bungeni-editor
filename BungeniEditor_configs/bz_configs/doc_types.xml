@@ -2,7 +2,7 @@
 <doctypes>
     <outputs>
         <namespace prefix="an" type="main" desc="Akoma Ntoso" uri="http://www.akomantoso.org/2.0" />
-        <namespace prefix="muqid" type="proprietary" desc="Proprietary" uri="http://www.proprietary.org" />        
+        <namespace prefix="muqid" type="proprietary" desc="Proprietary" uri="http://birzeit.edu/muqid" />        
     </outputs>
 
     <!--

@@ -28,6 +28,11 @@
                   <references>
                     <an:TLCPerson id="$BungeniPersonID" href="$BungeniPersonURI" as="$BungeniPersonFullName" />
                   </references>
+                  <proprietary ns="muqid" xmlns:muqid="#muqid" >
+                    <muqid:additionalInfo>
+                        <muqid:meta person="$BungeniFullName" />
+                    </muqid:additionalInfo>
+                  </proprietary>
               </meta>
               <content>
                  <an:ref href="#$BungeniPersonID" />
