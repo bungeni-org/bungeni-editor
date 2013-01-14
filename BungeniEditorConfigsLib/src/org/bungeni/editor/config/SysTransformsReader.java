@@ -59,7 +59,8 @@ public class SysTransformsReader extends BaseConfigReader {
 
     public StreamSource getXslt(String xsltName ) throws FileNotFoundException {
         if (!thisXsltMap.containsKey(xsltName)){
-            String relativePathtoXSLT = BaseSystemConfig.SYSTEM_GENERATOR + File.separator + xsltName;
+            // !+CUSTOM_CONFIG - changed to support custom generators 11-01-2013
+            String relativePathtoXSLT = BaseSystemConfig.CUSTOM_GENERATOR + File.separator + xsltName;
             //String sFullPath = CommonFileFunctions.convertRelativePathToFullPath(relativePathtoXSLT);
             File xsltFile = new File(relativePathtoXSLT);
             if (xsltFile.exists()) {
