@@ -68,10 +68,11 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
         //String sDocURL = (String) JOptionPane.showInputDialog(parentFrame, "Enter the URL of the document to Import",
         //                     "Import document from Bungeni", JOptionPane.QUESTION_MESSAGE);
         if (login(parentFrame)) {
-             if (listDocuments(parentFrame, customConfig)) {
-                    // do somethings
-             }   
-        }
+            List<BungeniListDocument> listDocs = listDocuments(parentFrame, customConfig);
+            if(listDocs.size() > 0 ) {
+                
+            }
+        }   
         
         return null;
         //return receive(parentFrame, customConfig, sDocURL);
@@ -84,7 +85,7 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
         return sSearchBase;
     }
 
-    private boolean listDocuments(JFrame parentFrame, final PluggableConfig customConfig) {
+    private List<BungeniListDocument> listDocuments(JFrame parentFrame, final PluggableConfig customConfig) {
         String sSearchBungeniURL = searchURL(customConfig);
         // access the input URL
         List<BungeniListDocument> listDocuments = null;
@@ -95,24 +96,15 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
         } catch (Exception ex) {
             log.error("Error while accessin url : " + sSearchBungeniURL , ex);
         }
-        if (listDocuments != null) {
-             MessageBox.OK(parentFrame, listDocuments.size() + " documents retrieved !");
-        } else {
-             MessageBox.OK(parentFrame, "Error while retrieving documents");
-          //  BungeniDocument          jdoc   = new BungeniDocument(sDocURL, doc);
+        return listDocuments;
+        //  BungeniDocument          jdoc   = new BungeniDocument(sDocURL, doc);
           //  Attachment               attDoc = promptForAttachment(parentFrame, jdoc);
 
        // if (attDoc != null) {
        //     importAttachment(jdoc, attDoc);
        // }
-            
-        }
-
-
-        
-        return false;
     }
-    
+
     private boolean login(JFrame parentFrame) {
         BungeniDialog frm = new BungeniDialog(parentFrame, "Login", true);
         frm.initFrame();
