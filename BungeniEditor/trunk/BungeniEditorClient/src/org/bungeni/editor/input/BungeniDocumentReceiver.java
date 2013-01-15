@@ -48,6 +48,7 @@ import org.bungeni.extpanels.bungeni.BungeniDocument.Attachment;
 import org.bungeni.extpanels.bungeni.BungeniDocumentAttListPanel;
 import org.bungeni.extpanels.bungeni.BungeniListDocuments;
 import org.bungeni.extpanels.bungeni.BungeniListDocuments.BungeniListDocument;
+import org.bungeni.extpanels.bungeni.BungeniSelectDocument;
 import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.extutils.MessageBox;
 import org.bungeni.extutils.TempFileManager;
@@ -70,7 +71,12 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
         if (login(parentFrame)) {
             List<BungeniListDocument> listDocs = listDocuments(parentFrame, customConfig);
             if(listDocs.size() > 0 ) {
-                
+                //show list documents
+                BungeniListDocument selectedDocument =  selectDocument(parentFrame, listDocs);
+                if (selectedDocument != null){
+                    selectAttachment(parentFrame, selectedDocument, customConfig);
+                    
+                }
             }
         }   
         
@@ -79,10 +85,40 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
     }
     
     
+    private BungeniListDocument selectDocument(final JFrame parentFrame, List<BungeniListDocument> listDocuments) {
+        BungeniDialog               dlgdocs = new BungeniDialog(parentFrame, "Select a Bungeni Document", true);
+        BungeniSelectDocument       panelSelectDocument = new BungeniSelectDocument(dlgdocs, listDocuments);
+        dlgdocs.getContentPane().add(panelSelectDocument);
+        dlgdocs.pack();
+        FrameLauncher.CenterFrame(dlgdocs);
+        dlgdocs.setVisible(true);
+        return panelSelectDocument.getSelectedListDocument();
+    }
+    
+    private BungeniDocument selectAttachment(final JFrame parentFrame, BungeniListDocument selectedDocument, final PluggableConfig customConfig) {
+         String docUrlBase = this.documentURLBase(customConfig);
+         BungeniDialog               dlgdoc = new BungeniDialog(parentFrame, selectedDocument.title, true);
+         BungeniDocumentAttListPanel  panelShowDocument = new BungeniDocumentAttListPanel(
+                    dlgdoc, 
+                    selectedDocument,
+                    docUrlBase + selectedDocument.idBase
+                    );
+         //!+CONTINUE_HERE
+         dlgdoc.view(panelShowDocument);
+         
+         return null;
+    }
+    
     private String searchURL(final PluggableConfig customConfig){
         Element searchElem = customConfig.customConfigElement.getChild("search");
         String sSearchBase = searchElem.getAttributeValue("base");
         return sSearchBase;
+    }
+
+    private String documentURLBase(final PluggableConfig customConfig){
+        Element docElem = customConfig.customConfigElement.getChild("document");
+        String sDocBase = docElem.getAttributeValue("base");
+        return sDocBase;
     }
 
     private List<BungeniListDocument> listDocuments(JFrame parentFrame, final PluggableConfig customConfig) {

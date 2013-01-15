@@ -21,11 +21,19 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.SwingWorker;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.bungeni.extpanels.bungeni.BungeniAppConnector;
 import org.bungeni.extpanels.bungeni.BungeniAppConnector.WebResponse;
+import org.bungeni.extpanels.bungeni.BungeniDocument;
 import org.bungeni.extpanels.bungeni.BungeniListDocuments;
 import org.bungeni.extpanels.bungeni.BungeniListDocuments.BungeniListDocument;
+import org.bungeni.extutils.MessageBox;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 /**
  *  This is the class that implements all interaction with Bungeni and abstracts that
@@ -51,6 +59,10 @@ public class BungeniServiceAccess {
         return instance;
     }
    
+    public BungeniAppConnector getAppConnector(){
+        return this.appConnector;
+    }
+    
     public DefaultHttpClient login(String appServer, String appPort, String appBase, String user, String password) throws UnsupportedEncodingException, IOException {
         if (null == appConnector) {
             this.appConnector = new BungeniAppConnector(appServer, appPort, appBase, user, password);
@@ -74,7 +86,11 @@ public class BungeniServiceAccess {
            }
            return bungeniDocs;
     }
-
+    
+    
+    
+    
+    
     
     public List searchDocuments(String searchServer, String docType, String status) {
         return null;
