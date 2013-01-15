@@ -4,7 +4,9 @@ import java.awt.Dimension;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import org.bungeni.extutils.CommonUIFunctions;
+import org.bungeni.extutils.FrameLauncher;
 
 /**
  * Extended JFrame class that abstracts regular boiler plate code for Bungeni Frames
@@ -46,7 +48,13 @@ public class BungeniDialog extends JDialog {
            setIconImage(iconApp.getImage());
 
         }
-
+        
+        public void view(JPanel aPanel) {
+                this.getContentPane().add(aPanel);
+                this.pack();
+                FrameLauncher.CenterFrame(this);
+                this.setVisible(true);
+        }
 
 
 }
