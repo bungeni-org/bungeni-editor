@@ -88,6 +88,13 @@ public class BungeniDocument {
         init();
     }
     
+    private void init() {
+        parseTitle();
+        parseDesc();
+        parseStatus();
+        parseAttachments();
+        parseTransitions();
+    }
 
     private void parseTitle(){
         Elements  titles = doc.select("h2.title");
@@ -139,13 +146,7 @@ public class BungeniDocument {
          }
      }
 
-    private void init() {
-        parseTitle();
-        parseDesc();
-        parseStatus();
-        parseAttachments();
-        parseTransitions();
-    }
+
 
     /**
      * @return the title

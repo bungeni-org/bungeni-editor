@@ -59,10 +59,23 @@ public class BungeniListDocuments {
     }
 
     public class BungeniListDocument {
-        String title;
-        String idBase;
-        String statusDate;
-        String status; 
+        public final String title;
+        public final String idBase;
+        public final String statusDate;
+        public final  String status; 
+        
+        public BungeniListDocument(String title,  String idBase, String statusDate, String status) {
+            this.title = title;
+            this.idBase = idBase;
+            this.statusDate = statusDate;
+            this.status = status;
+        }
+        
+        @Override
+        public String toString(){
+            return title + " - [ " +  status + " ] " ;
+        }
+        
     }
     
     List<BungeniListDocument> listDocuments = new ArrayList<BungeniListDocument>(0);
@@ -93,11 +106,12 @@ public class BungeniListDocuments {
         **/
         while(nodesIter.hasNext()) {
             Map aNode = (Map) nodesIter.next();
-            BungeniListDocument aDoc = new BungeniListDocument();
-            aDoc.title = (String) aNode.get("title");
-            aDoc.status = (String) aNode.get("status");
-            aDoc.statusDate = (String) aNode.get("status_date");
-            aDoc.idBase = (String) aNode.get("object_id");
+            BungeniListDocument aDoc = new BungeniListDocument(  
+                    (String) aNode.get("title"),
+                    (String) aNode.get("object_id"),
+                    (String) aNode.get("status_date"),
+                    (String) aNode.get("status")
+                    );
             listDocuments.add(aDoc);
         }
         

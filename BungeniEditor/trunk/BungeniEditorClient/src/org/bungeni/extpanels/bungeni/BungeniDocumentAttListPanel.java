@@ -25,14 +25,23 @@ package org.bungeni.extpanels.bungeni;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JRootPane;
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.log4j.Logger;
+import org.bungeni.editor.input.BungeniServiceAccess;
 
 import org.bungeni.extpanels.bungeni.BungeniDocument.Attachment;
+import org.bungeni.extpanels.bungeni.BungeniListDocuments.BungeniListDocument;
+import org.bungeni.extutils.DisabledGlassPane;
 import org.bungeni.extutils.MessageBox;
 import org.bungeni.utils.BungeniDialog;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 /**
  *
@@ -42,19 +51,78 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
 
     private static org.apache.log4j.Logger log = Logger.getLogger(BungeniDocumentAttListPanel.class.getName());
     private BungeniDialog parentDialog = null;
+    private String documentURL = null;
+    private BungeniListDocument listDoc = null;
     private BungeniDocument doc = null;
     private Attachment selectedAttachment = null;
-    private final DefaultHttpClient client;
-
+    private DisabledGlassPane glassPane = new DisabledGlassPane();
+   
     /** Creates new form BungeniDocumentAttListPanel */
-    public BungeniDocumentAttListPanel(DefaultHttpClient client, BungeniDialog dlg, BungeniDocument doc) {
+    public BungeniDocumentAttListPanel(BungeniDialog dlg, BungeniListDocument listDocument, String docURL) {
         this.parentDialog = dlg;
-        this.doc = doc;
-        this.client = client;
+        this.listDoc= listDocument;
+        this.documentURL = docURL;
         initComponents();
     }
 
-    public void init() {
+    public void init(){
+        this.infoTitle.setText(this.listDoc.title);
+        this.infoStatus.setText(this.listDoc.status);
+        disablePanel();
+        LoadDocument ldexec = new LoadDocument(this.documentURL);
+        ldexec.execute();
+    }
+    
+    private void disablePanel(){
+        JRootPane rootPane = SwingUtilities.getRootPane(parentDialog);
+        rootPane.setGlassPane(glassPane);
+        glassPane.activate("Loading ....");
+    }
+    
+    class LoadDocument extends SwingWorker<BungeniDocument, BungeniDocument>
+    {
+        String urlDocument ;
+        BungeniDocument loadedDocument ; 
+        
+        public LoadDocument(String urlDocument) {
+            this.urlDocument = urlDocument;
+        }
+        
+        @Override
+        protected BungeniDocument doInBackground() throws Exception
+        {
+            BungeniAppConnector.WebResponse wr = 
+                    BungeniServiceAccess.getInstance().getAppConnector().getUrl(urlDocument);
+            if (wr.getStatusCode() == 200) {
+                String responseBody = wr.getResponseBody();
+                if (null != responseBody) {
+                    Document doc  = Jsoup.parse(responseBody);
+                    BungeniDocument aDocument = new BungeniDocument(urlDocument, doc);
+                    return aDocument;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void done()
+        {
+            try {
+                loadedDocument = get();
+                if (loadedDocument != null ) {
+                    glassPane.deactivate();
+                    MessageBox.OK(null, "Document loaded : " + loadedDocument.getTitle());
+                }
+            } catch (InterruptedException ex) {
+               log.error("Error while parsing document ", ex);
+            } catch (ExecutionException ex) {
+               log.error("Error while parsing document ", ex);
+            }
+        }
+}
+    
+    
+    private void setupFields() {
         this.infoStatus.setText(doc.getStatus());
         this.infoTitle.setText(doc.getTitle());
         this.txtDescription.setText(doc.getDescription());
