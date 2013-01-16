@@ -63,11 +63,13 @@ public class BungeniDocument {
         public String title ;
         public String url ;
         public String downloadUrl;
+        public boolean isSelected;
 
         public Attachment () {
             title = "";
             url = "";
             downloadUrl = "";
+            isSelected = false;
         }
         public Attachment(String title, String url, String downloadUrl) {
             this.title = title;
@@ -183,5 +185,17 @@ public class BungeniDocument {
         return transitions;
     }
 
+    /**
+     * Returns the selected Attachment
+     * @return 
+     */
+    public Attachment getSelectedAttachment(){
+        for (Attachment attachment : attachments) {
+            if (attachment.isSelected) {
+                return attachment;
+            }
+        }
+        return null;
+    }
 
 }

@@ -26,17 +26,13 @@ package org.bungeni.extpanels.bungeni;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.ExecutionException;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
-import javax.swing.event.ListDataEvent;
-import javax.swing.event.ListDataListener;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.input.BungeniServiceAccess;
-
 import org.bungeni.extpanels.bungeni.BungeniDocument.Attachment;
 import org.bungeni.extpanels.bungeni.BungeniListDocuments.BungeniListDocument;
 import org.bungeni.extutils.DisabledGlassPane;
@@ -155,6 +151,7 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
                 if (null == selectedAttachment) {
                     MessageBox.OK("You need to select an attachment to import it !");
                 } else {
+                    selectedAttachment.isSelected = true;
                     parentDialog.dispose();
                 }
             }
@@ -168,6 +165,10 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
 
     }
 
+    public BungeniDocument getDocument(){
+        return this.doc;
+    }
+    
     public Attachment getSelectedAttachment() {
         return this.selectedAttachment;
     }

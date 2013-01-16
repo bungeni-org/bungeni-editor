@@ -106,7 +106,13 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
          panelShowDocument.init();
          //!+CONTINUE_HERE
          dlgdoc.view(panelShowDocument);
-         
+         BungeniDocument aDoc = panelShowDocument.getDocument();
+         if (aDoc != null ){
+             Attachment attDoc = aDoc.getSelectedAttachment();
+             if (attDoc != null) {
+                 MessageBox.OK(parentFrame, attDoc.title);
+             }
+         }
          return null;
     }
     

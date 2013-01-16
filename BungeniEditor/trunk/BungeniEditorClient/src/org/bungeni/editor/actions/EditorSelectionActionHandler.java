@@ -58,7 +58,6 @@ public class EditorSelectionActionHandler implements IEditorActionEvent {
         this.m_parentAction.setSelectorDialogMode(action.getSelectorDialogMode());
         */
         int nValid = -1;
-
         // BungeniMessage theMessage ;
         // all error returns < 0 indicate failure and stoppagte
         // all error returns > 0 indicate that processing can go ahead
