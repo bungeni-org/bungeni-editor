@@ -103,6 +103,7 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
                     selectedDocument,
                     docUrlBase + selectedDocument.idBase
                     );
+         panelShowDocument.init();
          //!+CONTINUE_HERE
          dlgdoc.view(panelShowDocument);
          

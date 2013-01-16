@@ -28,10 +28,12 @@ import java.awt.event.ActionListener;
 import java.util.concurrent.ExecutionException;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
-import org.apache.http.impl.client.DefaultHttpClient;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.input.BungeniServiceAccess;
 
@@ -76,7 +78,7 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
     private void disablePanel(){
         JRootPane rootPane = SwingUtilities.getRootPane(parentDialog);
         rootPane.setGlassPane(glassPane);
-        glassPane.activate("Loading ....");
+        glassPane.activate("Retrieving Document Information from Bungeni ....");
     }
     
     class LoadDocument extends SwingWorker<BungeniDocument, BungeniDocument>
@@ -110,8 +112,9 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
             try {
                 loadedDocument = get();
                 if (loadedDocument != null ) {
+                    doc = loadedDocument;
+                    setupFields();
                     glassPane.deactivate();
-                    MessageBox.OK(null, "Document loaded : " + loadedDocument.getTitle());
                 }
             } catch (InterruptedException ex) {
                log.error("Error while parsing document ", ex);
@@ -126,9 +129,22 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
         this.infoStatus.setText(doc.getStatus());
         this.infoTitle.setText(doc.getTitle());
         this.txtDescription.setText(doc.getDescription());
-
+        
+        DefaultListModel attModel = new DefaultListModel();
+        for (Attachment att : doc.getAttachments()){
+            attModel.addElement(att);
+        }
+        
         this.cboListAttachments.setModel(
-                new DefaultComboBoxModel(doc.getAttachments().toArray()));
+                attModel
+                );
+        if (cboListAttachments.getModel().getSize() == 0) {
+            btnImportAttachment.setEnabled(false);
+            MessageBox.OK(parentDialog, "There are no attachments to import !");
+        } else {
+            btnImportAttachment.setEnabled(true);
+        }
+
         this.cboTransitions.setModel(
                 new DefaultComboBoxModel(doc.getTransitions().toArray()));
 
