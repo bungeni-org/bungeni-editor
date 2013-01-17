@@ -11,11 +11,26 @@ The following steps describe the config entries required to register a new docum
 
 == Adding the DocType configuration ==
 
- See [DocTypeDefiniton Doc Type Definition]
+ See [DocTypeDefinition Doc Type Definition]
 
 == Create the template for the document type == 
 
-The templates for the different document types are stored under the workspace/templates folder.  Templates are standard OpenOffice ott templates.
+The templates for the different document types are stored under the <your_config_folder>/templates folder.  Templates are standard OpenOffice ott templates, with some default mandatory content. 
+
+The easiest way to setup a new doctype template is to copy an existing one and modify it.
+
+Lets say you added a new type called `Petition`, and so to create a new doctype template for this, do the following :
+
+ # Copy an existing template e.g. `development_configs/templates/debaterecord.ott` as `<your_config_folder>/templates/petition.ott`
+ # Open the template for editing in OpenOffice ; To do that:
+    * Launch OpenOffice
+    * Go to File->Templates->Edit and browse to `<your_config_folder>/templates/petition.ott` and open it
+    * Then go to Format->Sections, to open the `Edit Sections` screen. Click on the top level section, which should read `debaterecord`, rename it to petition , click OK and save the document.
+ # The template is ready for use now.
+ 
+ Note: The root section has the SectionType property set to `body`. This is neccessary for the system to function correctly.
+ Also remember that the section name you specify must match with the `doctype/@root` attribute in the doctype definition.    
+    
 
 Create a template for the new document type (you can modify and renmae the templates for the hansard or bill). The root section of the document must be renamed to the name of the document type. e.g. the root section of the bill document type is called 'bill' ; for the debaterecord document type it is called 'debaterecord'
 
