@@ -11,11 +11,13 @@ The following steps describe the config entries required to register a new docum
 
 == Adding the DocType configuration ==
 
- See [DocTypeDefinition Doc Type Definition]
+Assuming you have created your [ConfigFolders custom configuration folder].
+
+See [DocTypeDefinition Doc Type Definition]
 
 == Create the template for the document type == 
 
-The templates for the different document types are stored under the <your_config_folder>/templates folder.  Templates are standard OpenOffice ott templates, with some default mandatory content. 
+The templates for the different document types are stored under the `<your_config_folder>/templates folder`.  Templates are standard OpenOffice ott templates, with some default mandatory content. 
 
 The easiest way to setup a new doctype template is to copy an existing one and modify it.
 
@@ -146,10 +148,5 @@ Condition processors are activated per document type, and this done in the `sett
 </conditions>
 
 }}}
-
-
-== Registering an Action set for the document type == 
-
-  ==== TO DO ====
 
 
