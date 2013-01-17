@@ -76,7 +76,7 @@ public class BungeniServiceAccess {
    
     public List<BungeniListDocument> availableDocumentsForEditing(String sSearchBungeniURL) {
            List<BungeniListDocument> bungeniDocs = new ArrayList<BungeniListDocument>(0);
-           WebResponse wr = appConnector.getUrl(sSearchBungeniURL);
+           WebResponse wr = appConnector.getUrl(sSearchBungeniURL, true);
            if (wr != null) {
                if (wr.getStatusCode() == 200 ) {
                    String sResponseBody = wr.getResponseBody();

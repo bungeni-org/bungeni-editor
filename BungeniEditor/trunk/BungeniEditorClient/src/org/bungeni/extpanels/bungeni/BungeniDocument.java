@@ -60,11 +60,20 @@ public class BungeniDocument {
     }
 
     public class Attachment {
+        //listed attributes
         public String title ;
         public String url ;
         public String downloadUrl;
         public boolean isSelected;
-
+        //document attributes
+        public String attType;
+        public String fileName ; 
+        public String mimeType ;
+        public String status;
+        public String statusDate; 
+        public String language;
+        public String description;
+        
         public Attachment () {
             title = "";
             url = "";
@@ -78,6 +87,10 @@ public class BungeniDocument {
 
         }
 
+        public void parseAttachment(Document attDoc) {
+            
+        }
+        
         @Override
         public String toString(){
             return this.title;
@@ -91,6 +104,7 @@ public class BungeniDocument {
     }
     
     private void init() {
+        parseType();
         parseTitle();
         parseDesc();
         parseStatus();
@@ -98,6 +112,15 @@ public class BungeniDocument {
         parseTransitions();
     }
 
+    private void parseType(){
+        // e.g. /ke/workspace/my-documents/external/bill-23/ 
+        String[] urlParts = this.url.split("/");
+        // bill-23
+        String sLast = urlParts[urlParts.length -1 ];
+        String[] sTypeAndID = sLast.split("-");
+        this.type = sTypeAndID[0];
+    }
+    
     private void parseTitle(){
         Elements  titles = doc.select("h2.title");
         if (titles.size() > 0 ) {

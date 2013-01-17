@@ -22,40 +22,19 @@ package org.bungeni.editor.input;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import java.awt.Cursor;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import org.apache.commons.lang.RandomStringUtils;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.bungeni.editor.config.PluggableConfigReader.PluggableConfig;
-import org.bungeni.editor.panels.impl.IMainContainerPanel;
-import org.bungeni.editor.panels.impl.ITabbedPanel;
-import org.bungeni.extpanels.bungeni.BungeniAppConnector;
-import org.bungeni.extpanels.bungeni.BungeniAttachment;
+import org.bungeni.extpanels.bungeni.BungeniAttLoadingPanel;
 import org.bungeni.extpanels.bungeni.BungeniDocument;
 import org.bungeni.extpanels.bungeni.BungeniDocument.Attachment;
 import org.bungeni.extpanels.bungeni.BungeniDocumentAttListPanel;
-import org.bungeni.extpanels.bungeni.BungeniListDocuments;
 import org.bungeni.extpanels.bungeni.BungeniListDocuments.BungeniListDocument;
 import org.bungeni.extpanels.bungeni.BungeniSelectDocument;
 import org.bungeni.extutils.FrameLauncher;
-import org.bungeni.extutils.MessageBox;
-import org.bungeni.extutils.TempFileManager;
 import org.bungeni.utils.BungeniDialog;
-import org.bungeni.utils.CommonEditorInterfaceFunctions;
 import org.jdom.Element;
-import org.jsoup.Jsoup;
 
 /**
  *
@@ -74,8 +53,9 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
                 //show list documents
                 BungeniListDocument selectedDocument =  selectDocument(parentFrame, listDocs);
                 if (selectedDocument != null){
-                    selectAttachment(parentFrame, selectedDocument, customConfig);
+                    BungeniDocument bungeniDoc = selectAttachment(parentFrame, selectedDocument, customConfig);
                     
+                    loadAttachment(parentFrame, bungeniDoc, customConfig);
                 }
             }
         }   
@@ -110,10 +90,24 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
          if (aDoc != null ){
              Attachment attDoc = aDoc.getSelectedAttachment();
              if (attDoc != null) {
-                 MessageBox.OK(parentFrame, attDoc.title);
+                 return aDoc;
              }
          }
          return null;
+    }
+    
+    public BungeniDocument loadAttachment(JFrame pFrame, BungeniDocument bungeniDocument, final PluggableConfig customConfig){
+        //first get the properties of the document 
+         BungeniDialog  dlgatt = new BungeniDialog(pFrame, bungeniDocument.getSelectedAttachment().title, true);
+         BungeniAttLoadingPanel  panelShowAtt = new BungeniAttLoadingPanel(
+                 dlgatt,
+                 bungeniDocument
+                 );
+         panelShowAtt.init();
+         dlgatt.view(panelShowAtt);
+                 // and then load the document
+        
+        return null;
     }
     
     private String searchURL(final PluggableConfig customConfig){

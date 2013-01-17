@@ -107,9 +107,15 @@ public class BungeniAppConnector {
     }
     
     
-    public WebResponse getUrl(String sPage) {
+    public WebResponse getUrl(String sPage,  boolean prefix) {
         WebResponse wr = null;
-        String pageURL = this.urlBase + sPage;
+        
+        String pageURL = (
+                prefix ? 
+                    this.urlBase + sPage :
+                    sPage
+                );
+
         final HttpGet           geturl          = new HttpGet(pageURL);
         boolean bState = false;
         try {

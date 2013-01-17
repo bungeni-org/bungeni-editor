@@ -90,7 +90,11 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
         protected BungeniDocument doInBackground() throws Exception
         {
             BungeniAppConnector.WebResponse wr = 
-                    BungeniServiceAccess.getInstance().getAppConnector().getUrl(urlDocument);
+                    BungeniServiceAccess.getInstance().
+                        getAppConnector().getUrl(
+                            urlDocument,
+                            true
+                    );
             if (wr.getStatusCode() == 200) {
                 String responseBody = wr.getResponseBody();
                 if (null != responseBody) {
