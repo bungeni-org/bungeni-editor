@@ -24,7 +24,6 @@ import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
-import org.bungeni.editor.input.BungeniServiceAccess;
 import org.bungeni.extutils.DisabledGlassPane;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.document.properties.BungeniOdfPropertiesHelper;
@@ -48,6 +47,7 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
     private BungeniDialog parentDialog;
     private BungeniDocument doc;
     private DisabledGlassPane glassPane = new DisabledGlassPane();
+    private    File fodfDocument ; 
 
     /**
      * Creates new form BungeniAttLoadingPanel
@@ -68,6 +68,9 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
         ldexec.execute();
     }
     
+    public File getOdfDocument(){
+        return this.fodfDocument;
+    }
     private void disablePanel(){
         JRootPane rootPane = SwingUtilities.getRootPane(parentDialog);
         rootPane.setGlassPane(glassPane);
@@ -263,7 +266,6 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
     class EditAttachment extends SwingWorker<File, BungeniDocument>
     {
         BungeniDocument loadedDocument;
-        File fodfDocument ; 
         
         
         public EditAttachment(BungeniDocument inputDoc) {
@@ -293,7 +295,7 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
             try {
                 File fodt = get();
                 if (fodt != null ) {
-                    this.fodfDocument = fodt;
+                    fodfDocument = fodt;
                     glassPane.deactivate();
                 }
             } catch (InterruptedException ex) {

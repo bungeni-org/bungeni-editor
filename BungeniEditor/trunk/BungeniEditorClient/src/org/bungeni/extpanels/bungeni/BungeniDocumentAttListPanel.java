@@ -32,7 +32,6 @@ import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import org.apache.log4j.Logger;
-import org.bungeni.editor.input.BungeniServiceAccess;
 import org.bungeni.extpanels.bungeni.BungeniDocument.Attachment;
 import org.bungeni.extpanels.bungeni.BungeniListDocuments.BungeniListDocument;
 import org.bungeni.extutils.DisabledGlassPane;

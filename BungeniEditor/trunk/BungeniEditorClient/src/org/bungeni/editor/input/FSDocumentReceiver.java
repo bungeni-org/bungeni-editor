@@ -24,8 +24,6 @@ import java.util.HashMap;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import org.apache.log4j.Logger;
-
-
 import org.bungeni.editor.config.BaseConfigReader;
 import org.bungeni.editor.config.PluggableConfigReader.PluggableConfig;
 import org.bungeni.extutils.CommonFileFunctions;
@@ -43,8 +41,9 @@ public class FSDocumentReceiver implements IInputDocumentReceiver {
         try {
             String basePath = BaseConfigReader.getWorkspaceFolder();
             File openFile = CommonFileFunctions.getFileFromChooser(basePath, new ODTFileFilter(), JFileChooser.FILES_ONLY, null);
-            if (null != openFile)
+            if (null != openFile) {
                 aDocument =  openFile.getAbsolutePath();
+            }
         } catch (IOException ex) {
            log.error("Error whil attempting to open file", ex);
         }

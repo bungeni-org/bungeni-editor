@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package org.bungeni.editor.input;
+package org.bungeni.extpanels.bungeni;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -25,8 +25,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.bungeni.extutils.MessageBox;
 
 /**
- *
- * @author PC
+ *  Login screen for Bungeni
+ * @author Ashok HAriharan
  */
 public class BungeniLogin extends javax.swing.JPanel {
 

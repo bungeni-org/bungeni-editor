@@ -18,26 +18,24 @@
 
 
 
-package org.bungeni.editor.input;
+package org.bungeni.extpanels.bungeni;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JFrame;
 import org.bungeni.editor.config.PluggableConfigReader.PluggableConfig;
-import org.bungeni.extpanels.bungeni.BungeniAttLoadingPanel;
-import org.bungeni.extpanels.bungeni.BungeniDocument;
+import org.bungeni.editor.input.IInputDocumentReceiver;
 import org.bungeni.extpanels.bungeni.BungeniDocument.Attachment;
-import org.bungeni.extpanels.bungeni.BungeniDocumentAttListPanel;
 import org.bungeni.extpanels.bungeni.BungeniListDocuments.BungeniListDocument;
-import org.bungeni.extpanels.bungeni.BungeniSelectDocument;
 import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.utils.BungeniDialog;
 import org.jdom.Element;
 
 /**
- *
+ * Reciever class for importing files from Bungeni
  * @author Ashok
  */
 public class BungeniDocumentReceiver implements IInputDocumentReceiver {
@@ -54,14 +52,14 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
                 BungeniListDocument selectedDocument =  selectDocument(parentFrame, listDocs);
                 if (selectedDocument != null){
                     BungeniDocument bungeniDoc = selectAttachment(parentFrame, selectedDocument, customConfig);
-                    
-                    loadAttachment(parentFrame, bungeniDoc, customConfig);
+                    File fodf = loadAttachment(parentFrame, bungeniDoc, customConfig);
+                    if (null != fodf ) {
+                         return fodf.getAbsolutePath();   
+                    }
                 }
             }
         }   
-        
         return null;
-        //return receive(parentFrame, customConfig, sDocURL);
     }
     
     
@@ -96,7 +94,7 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
          return null;
     }
     
-    public BungeniDocument loadAttachment(JFrame pFrame, BungeniDocument bungeniDocument, final PluggableConfig customConfig){
+    public File loadAttachment(JFrame pFrame, BungeniDocument bungeniDocument, final PluggableConfig customConfig){
         //first get the properties of the document 
          BungeniDialog  dlgatt = new BungeniDialog(pFrame, bungeniDocument.getSelectedAttachment().title, true);
          BungeniAttLoadingPanel  panelShowAtt = new BungeniAttLoadingPanel(
@@ -105,9 +103,8 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
                  );
          panelShowAtt.init();
          dlgatt.view(panelShowAtt);
-                 // and then load the document
-        
-        return null;
+         File fOdf = panelShowAtt.getOdfDocument();
+        return fOdf;
     }
     
     private String searchURL(final PluggableConfig customConfig){
