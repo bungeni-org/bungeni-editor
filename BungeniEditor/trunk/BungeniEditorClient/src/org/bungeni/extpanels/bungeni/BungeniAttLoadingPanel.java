@@ -17,6 +17,8 @@
  */
 package org.bungeni.extpanels.bungeni;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
@@ -25,6 +27,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.bungeni.extutils.DisabledGlassPane;
+import org.bungeni.extutils.MessageBox;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.document.properties.BungeniOdfPropertiesHelper;
 import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
@@ -129,6 +132,23 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
          this.txtStatus.setText(this.doc.getSelectedAttachment().status);
          this.txtStatusDate.setText(this.doc.getSelectedAttachment().statusDate);
          this.txtTitle.setText(this.doc.getSelectedAttachment().title);
+         
+         this.btnLoadEditAttachment.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                disablePanel();
+                EditAttachment eaExec = new EditAttachment(doc);
+                eaExec.execute();
+            }
+        });
+        this.btnCancel.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                parentDialog.dispose();
+            }
+        });
+
+
     }
 
     
@@ -297,6 +317,8 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
                 if (fodt != null ) {
                     fodfDocument = fodt;
                     glassPane.deactivate();
+                    MessageBox.OK(parentDialog, "The document will be opened for editing now  !" );
+                    parentDialog.dispose();
                 }
             } catch (InterruptedException ex) {
                log.error("Error while parsing document ", ex);
