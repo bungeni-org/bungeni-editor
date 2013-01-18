@@ -2,26 +2,29 @@
   <!--
   config/@url - can be either http://file.zip , file:/folder
   -->
+  <config name="bz_config"
+    title="All Types Development"
+    url="http://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/alltypesdev.zip"
+    folder-base="../../Editor_configs/bz_configs"
+    receiver="org.bungeni.editor.input.FSDocumentReceiver"
+    />
+
   <config name="allTypesDev"
     title="All Types Development"
     url="http://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/alltypesdev.zip"
     folder-base="../../Editor_configs/development_configs"
     receiver="org.bungeni.editor.input.FSDocumentReceiver"
-	default="true"
-    />
+	/>
   <config name="Bill-Bungeni"
     title="Bill Bungeni Integration"
     url="http://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/bill-bungeni.zip"
     folder-base="../../Editor_configs/bungeni_configs"
-    
-    receiver="org.bungeni.editor.input.BungeniDocumentReceiver"
-    >
+    receiver="org.bungeni.extpanels.bungeni.BungeniDocumentReceiver"
+    default="true"
+   >
     <custom>
-       <bungeni user="clerk.p1_01"
-        password="member"
-        host="10.0.2.2"
-        port="8081"
-        loginuri="login" />
+       <search base="/workspace/my-documents/external/jsonlisting?start=0&amp;limit=100" />
+       <document base="/workspace/my-documents/external/" />
     </custom>
     </config>
 </configs>
