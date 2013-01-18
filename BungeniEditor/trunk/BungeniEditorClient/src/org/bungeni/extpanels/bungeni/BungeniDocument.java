@@ -88,9 +88,79 @@ public class BungeniDocument {
         }
 
         public void parseAttachment(Document attDoc) {
-            
+                parseMimeType(attDoc);
+                parseFileName(attDoc);
+                parseTitle(attDoc);
+                parseDescription(attDoc);
+                parseStatus(attDoc);
+                parseStatusDate(attDoc);
+                parseLanguage(attDoc);
+        }
+
+        private void parseMimeType(Document attDoc){
+            Elements elemMimeType = attDoc.select("div#mimetype > div.content-right-column > div.widget");
+            if (elemMimeType.size() > 0 ) {
+                 this.mimeType =  elemMimeType.get(0).text();
+              } else {
+                 this.mimeType = "";
+              }
         }
         
+        private void parseFileName(Document attDoc){
+            Elements elemFileName = attDoc.select("div#name > div.content-right-column > div.widget");
+            if (elemFileName.size() > 0 ) {
+                 this.fileName =  elemFileName.get(0).text();
+              } else {
+                 this.fileName = "";
+              }
+        }
+        
+        private void parseStatus(Document attDoc){
+            Elements elem = attDoc.select("div#status > div.content-right-column > div.widget");
+            if (elem.size() > 0 ) {
+                 this.status =  elem.get(0).text();
+              } else {
+                 this.status = "";
+              }
+        }
+        
+         private void parseStatusDate(Document attDoc){
+            Elements elem = attDoc.select("div#status_date > div.content-right-column > div.widget");
+            if (elem.size() > 0 ) {
+                 this.statusDate =  elem.get(0).text();
+              } else {
+                 this.statusDate = "";
+              }
+        }
+         
+         private void parseLanguage(Document attDoc){
+            Elements elem = attDoc.select("div#language > div.content-right-column > div.widget");
+            if (elem.size() > 0 ) {
+                 this.language =  elem.get(0).text();
+              } else {
+                 this.language = "";
+              }
+        }
+         
+         private void parseDescription(Document attDoc){
+            Elements elem = attDoc.select("div#description > div.content-right-column > div.widget");
+            if (elem.size() > 0 ) {
+                 this.description =  elem.get(0).text();
+              } else {
+                 this.description = "";
+              }
+        }
+         
+         private void parseTitle(Document attDoc){
+            Elements elem = attDoc.select("div#title > div.content-right-column > div.widget");
+            if (elem.size() > 0 ) {
+                 this.title =  elem.get(0).text();
+              } else {
+                 this.title = "";
+              }
+        }
+        
+
         @Override
         public String toString(){
             return this.title;
@@ -221,4 +291,7 @@ public class BungeniDocument {
         return null;
     }
 
+    public String getURL(){
+        return this.url;
+    }
 }

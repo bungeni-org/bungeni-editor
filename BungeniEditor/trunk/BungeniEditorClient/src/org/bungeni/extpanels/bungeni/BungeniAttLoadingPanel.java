@@ -17,15 +17,24 @@
  */
 package org.bungeni.extpanels.bungeni;
 
+import java.io.File;
+import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
+import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.input.BungeniServiceAccess;
 import org.bungeni.extutils.DisabledGlassPane;
+import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
+import org.bungeni.odfdom.document.properties.BungeniOdfPropertiesHelper;
+import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
 import org.bungeni.utils.BungeniDialog;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.odftoolkit.odfdom.doc.OdfDocument;
+import org.odftoolkit.odfdom.dom.element.text.TextSectionElement;
+import org.w3c.dom.NodeList;
 
 /**
  *
@@ -85,8 +94,9 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
             if (wr.getStatusCode() == 200) {
                 String responseBody = wr.getResponseBody();
                 if (null != responseBody) {
-                    Document doc  = Jsoup.parse(responseBody);
-                    loadedDocument.getSelectedAttachment().parseAttachment(doc);
+                    Document attDoc  = Jsoup.parse(responseBody);
+                    loadedDocument.getSelectedAttachment().parseAttachment(attDoc);
+                    setupFields();
                     return Boolean.TRUE;
                 }
             }
@@ -111,8 +121,11 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
 }
 
     public void setupFields(){
-       String s =  this.doc.getSelectedAttachment().mimeType;
-       System.out.println(s);
+         this.txtDescription.setText(this.doc.getSelectedAttachment().description);
+         this.txtFileName.setText(this.doc.getSelectedAttachment().fileName);
+         this.txtStatus.setText(this.doc.getSelectedAttachment().status);
+         this.txtStatusDate.setText(this.doc.getSelectedAttachment().statusDate);
+         this.txtTitle.setText(this.doc.getSelectedAttachment().title);
     }
 
     
@@ -145,12 +158,21 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
 
         lblTitle.setText("Attachment Title");
 
+        txtTitle.setEditable(false);
+
         lblFileName.setText("File Name");
+
+        txtFileName.setEditable(false);
+
+        txtStatus.setEditable(false);
+
+        txtStatusDate.setEditable(false);
 
         lblStatus.setText("Status");
 
         lblStatusDate.setText("Status Date");
 
+        txtDescription.setEditable(false);
         txtDescription.setColumns(20);
         txtDescription.setRows(5);
         jScrollPane1.setViewportView(txtDescription);
@@ -237,4 +259,89 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtStatusDate;
     private javax.swing.JTextField txtTitle;
     // End of variables declaration//GEN-END:variables
+
+    class EditAttachment extends SwingWorker<File, BungeniDocument>
+    {
+        BungeniDocument loadedDocument;
+        File fodfDocument ; 
+        
+        
+        public EditAttachment(BungeniDocument inputDoc) {
+            this.loadedDocument = inputDoc;
+        }
+        
+        @Override
+        protected File doInBackground() throws Exception
+        {
+            File fodt = null;
+            File ftempAtt = BungeniServiceAccess.getInstance().getAppConnector().
+                    getDownloadUrl(
+                        this.loadedDocument.getSelectedAttachment().downloadUrl,
+                        true
+                    );
+            
+            if (ftempAtt != null) {
+                 // initialize the file
+                 fodt = checkOdfDocument(ftempAtt);
+            }
+            return fodt;
+        }
+
+        @Override
+        protected void done()
+        {
+            try {
+                File fodt = get();
+                if (fodt != null ) {
+                    this.fodfDocument = fodt;
+                    glassPane.deactivate();
+                }
+            } catch (InterruptedException ex) {
+               log.error("Error while parsing document ", ex);
+            } catch (ExecutionException ex) {
+               log.error("Error while parsing document ", ex);
+            }
+        }
+        
+        private File checkOdfDocument(File fodf) throws Exception {
+            OdfDocument odf = OdfDocument.loadDocument(fodf);
+            BungeniOdfDocumentHelper odfhelper = new BungeniOdfDocumentHelper(odf);
+            BungeniOdfPropertiesHelper propshelper = odfhelper.getPropertiesHelper();
+            //check if the document has been edited in bungeni editor .. look for some properties
+            HashMap<String,String> docPropsMap = propshelper.getUserDefinedPropertyValues();
+            //check for root section
+            boolean rootSectionExists = false;
+            BungeniOdfSectionHelper sechelper = odfhelper.getSectionHelper();
+            NodeList sections = sechelper.getDocumentSections();
+            if (sections.getLength() > 0 ) {
+                TextSectionElement sectionElement = (TextSectionElement)sections.item(0);
+                //check for body section Type
+                String sBody = sechelper.getSectionMetadataValue(sectionElement, "BungeniSectionType");
+                if (sBody.equals("body")) {
+                    rootSectionExists = true;
+                }
+            }
+             
+            if (docPropsMap.containsKey("BungeniDocType") && rootSectionExists ) {
+                // this is a bungeni document ... load for editing
+            } else {
+                //first prepare the document
+                propshelper.setUserDefinedPropertyValue("BungeniDocType", BungeniEditorPropertiesHelper.getCurrentDocType());
+                propshelper.setUserDefinedPropertyValue("DocSource", "BungeniPortal");
+                propshelper.setUserDefinedPropertyValue("DocInit", "False");
+                propshelper.setUserDefinedPropertyValue("PortalSourceDoc", loadedDocument.getURL());
+                propshelper.setUserDefinedPropertyValue("PortalAttSource", loadedDocument.getSelectedAttachment().url);
+                propshelper.setUserDefinedPropertyValue("PortalAttFileName", loadedDocument.getSelectedAttachment().fileName);
+                odfhelper.saveDocument();
+                // create the root section after opening and set initial metadata properties
+            }
+            return fodf;
+        }
+    
+ }
+
+
+
+
+
 }

@@ -185,7 +185,7 @@ public boolean applySelectedMetadata(BungeniFileSavePathFormat spf){
     
         docMetaModel.updateItem("BungeniOfficialTime", strTimeOfHansard);
         docMetaModel.updateItem("BungeniDocPart", selPart.getPartName());
-    
+        docMetaModel.updateItem("BungeniDocType", BungeniEditorPropertiesHelper.getCurrentDocType());
         //other metadata
         docMetaModel.updateItem("BungeniWorkAuthor", "user.Ashok");
         docMetaModel.updateItem("BungeniWorkAuthorURI", "user.Ashok");
