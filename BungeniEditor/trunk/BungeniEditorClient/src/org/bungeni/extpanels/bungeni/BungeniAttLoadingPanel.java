@@ -21,6 +21,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
@@ -52,6 +53,8 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
     private DisabledGlassPane glassPane = new DisabledGlassPane();
     private    File fodfDocument ; 
 
+    ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("org/bungeni/extpanels/bungeni/Bundle");
+
     /**
      * Creates new form BungeniAttLoadingPanel
      */
@@ -69,6 +72,9 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
         disablePanel();
         LoadAttachment ldexec = new LoadAttachment(this.doc);
         ldexec.execute();
+        this.lblInfo.setText(
+                "<html><body style='width:350px;'>" + BUNDLE.getString("LOADING_PANEL_HELP_TEXT")
+                );
     }
     
     public File getOdfDocument(){
@@ -77,7 +83,7 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
     private void disablePanel(){
         JRootPane rootPane = SwingUtilities.getRootPane(parentDialog);
         rootPane.setGlassPane(glassPane);
-        glassPane.activate(java.util.ResourceBundle.getBundle("org/bungeni/extpanels/bungeni/Bundle").getString("RETRIEVE_DOCS_MESSAGE"));
+        glassPane.activate(BUNDLE.getString("RETRIEVE_DOCS_MESSAGE"));
     }
     
     class LoadAttachment extends SwingWorker<Boolean, BungeniDocument>
@@ -214,9 +220,12 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -236,13 +245,12 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
                                     .addComponent(lblFileName)
                                     .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(69, 69, 69)
                         .addComponent(btnLoadEditAttachment)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCancel)
-                        .addGap(0, 93, Short.MAX_VALUE))
-                    .addComponent(lblInfo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 93, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -308,7 +316,7 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
             File ftempAtt = BungeniServiceAccess.getInstance().getAppConnector().
                     getDownloadUrl(
                         this.loadedDocument.getSelectedAttachment().downloadUrl,
-                        true
+                        false
                     );
             
             if (ftempAtt != null) {
@@ -326,7 +334,7 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
                 if (fodt != null ) {
                     fodfDocument = fodt;
                     glassPane.deactivate();
-                    MessageBox.OK(parentDialog, java.util.ResourceBundle.getBundle("org/bungeni/extpanels/bungeni/Bundle").getString("DOC_OPEN_FOR_EDIT") );
+                    MessageBox.OK(parentDialog, BUNDLE.getString("DOC_OPEN_FOR_EDIT") );
                     parentDialog.dispose();
                 }
             } catch (InterruptedException ex) {

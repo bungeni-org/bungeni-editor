@@ -141,6 +141,7 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
             btnImportAttachment.setEnabled(false);
             MessageBox.OK(parentDialog, "There are no attachments to import !");
         } else {
+            cboListAttachments.setSelectedIndex(0);
             btnImportAttachment.setEnabled(true);
         }
 

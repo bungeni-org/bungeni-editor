@@ -18,6 +18,8 @@
 
 package org.bungeni.extpanels.bungeni;
 
+import java.io.BufferedOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
@@ -39,6 +41,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.bungeni.extutils.TempFileManager;
 
@@ -81,10 +84,10 @@ public class BungeniAppConnector {
    
 
        public DefaultHttpClient login() throws UnsupportedEncodingException, IOException{
-        if (getClient() != null) {
-            return getClient();
-        }
-        client = new DefaultHttpClient();
+            if (getClient() != null) {
+                return getClient();
+            }
+            client = new DefaultHttpClient();
       
             final HttpPost post = new HttpPost(loginUrl);
             final List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
@@ -92,8 +95,9 @@ public class BungeniAppConnector {
             nameValuePairs.add(new BasicNameValuePair("password", this.getPassword()));
             post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             ResponseHandler<String> responseHandler = new BasicResponseHandler();
-            getClient().execute(post, responseHandler);
-      
+            HttpResponse response = getClient().execute(post);
+            responseHandler.handleResponse(response);
+            consumeContent(response.getEntity());
         return getClient();
     }
 
@@ -135,15 +139,33 @@ public class BungeniAppConnector {
             HttpEntity entity = response.getEntity();
             if (entity != null && nStatusCode == 200 ) {
                 InputStream istream = entity.getContent();
-                FileWriter fw = new FileWriter(fTempODT);
-                IOUtils.copy(istream, fw);
-                fw.close();
-                return fTempODT;
+                DataOutputStream dos = new DataOutputStream(
+                        new BufferedOutputStream(
+                            new FileOutputStream(fTempODT)
+                        )
+                   );
+                //FileWriter fw = new FileWriter(fTempODT);
+                byte[] rawFiles = IOUtils.toByteArray(istream);
+                dos.write(rawFiles);
+                dos.close();
             }
+            consumeContent(entity);
+            return fTempODT;
         } catch (IOException ex) {
             log.error("Error while accessin url : " + pageURL , ex);
+           
         }
         return null;
+    }
+    
+    private void consumeContent(HttpEntity entity) {
+        try {
+            if (entity != null) {
+                EntityUtils.consume(entity);
+            }
+        } catch (IOException ex) {
+            log.error("Error while releasing connection");
+        }
     }
     
     public WebResponse getUrl(String sPage,  boolean prefix) {
@@ -162,6 +184,7 @@ public class BungeniAppConnector {
             ResponseHandler<String> responseHandler = new BasicResponseHandler();
             String responseBody = responseHandler.handleResponse(response);
             int nStatusCode = response.getStatusLine().getStatusCode();
+            consumeContent(response.getEntity());
             wr = new WebResponse(nStatusCode, responseBody);
         } catch (IOException ex) {
             bState = false;
