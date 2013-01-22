@@ -203,7 +203,8 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
         lblTransit = new javax.swing.JLabel();
         cboTransitions = new javax.swing.JComboBox();
 
-        btnTransit.setText("Transit");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/extpanels/bungeni/Bundle"); // NOI18N
+        btnTransit.setText(bundle.getString("BungeniDocumentAttListPanel.btnTransit.text")); // NOI18N
 
         cboListAttachments.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -212,31 +213,31 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(cboListAttachments);
 
-        btnImportAttachment.setText("Import Attachment");
+        btnImportAttachment.setText(bundle.getString("BungeniDocumentAttListPanel.btnImportAttachment.text")); // NOI18N
 
-        btnCancel.setText("Cancel");
+        btnCancel.setText(bundle.getString("BungeniDocumentAttListPanel.btnCancel.text")); // NOI18N
 
-        lblDocInfo.setFont(new java.awt.Font("Tahoma", 0, 14));
-        lblDocInfo.setText("Document Information");
+        lblDocInfo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblDocInfo.setText(bundle.getString("BungeniDocumentAttListPanel.lblDocInfo.text")); // NOI18N
 
-        infoTitle.setText("Kenya Information and Communications Bill  - [received by clerk]");
+        infoTitle.setText(bundle.getString("BungeniDocumentAttListPanel.infoTitle.text")); // NOI18N
 
-        lblTitle.setText("Title:");
+        lblTitle.setText(bundle.getString("BungeniDocumentAttListPanel.lblTitle.text")); // NOI18N
 
-        lblStatus.setText("Status: ");
+        lblStatus.setText(bundle.getString("BungeniDocumentAttListPanel.lblStatus.text")); // NOI18N
 
-        infoStatus.setText("Kenya Information and Communications Bill  - [received by clerk]");
+        infoStatus.setText(bundle.getString("BungeniDocumentAttListPanel.infoStatus.text")); // NOI18N
 
-        lblDesc.setText("Desc:");
+        lblDesc.setText(bundle.getString("BungeniDocumentAttListPanel.lblDesc.text")); // NOI18N
 
         txtDescription.setColumns(20);
         txtDescription.setRows(5);
         jScrollPane2.setViewportView(txtDescription);
 
-        jLabel1.setText("Attachments");
+        jLabel1.setText(bundle.getString("BungeniDocumentAttListPanel.jLabel1.text")); // NOI18N
 
         lblTransit.setLabelFor(cboTransitions);
-        lblTransit.setText("Possible Transitions : ");
+        lblTransit.setText(bundle.getString("BungeniDocumentAttListPanel.lblTransit.text")); // NOI18N
 
         cboTransitions.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboTransitions.setEnabled(false);
@@ -248,31 +249,31 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblDocInfo)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblStatus)
                             .addComponent(lblTitle)
                             .addComponent(lblDesc))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(infoTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(infoStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addComponent(btnImportAttachment)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnCancel))
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDocInfo)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(117, 117, 117)
+                                .addComponent(btnImportAttachment)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnCancel))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblTransit)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cboTransitions, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(253, 253, 253)))
+                        .addGap(245, 245, 245)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

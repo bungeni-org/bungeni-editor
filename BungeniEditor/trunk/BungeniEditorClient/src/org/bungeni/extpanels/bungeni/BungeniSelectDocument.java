@@ -101,11 +101,12 @@ public class BungeniSelectDocument extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(listDocs);
 
-        lblDocSelect.setText("Select a Document");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/extpanels/bungeni/Bundle"); // NOI18N
+        lblDocSelect.setText(bundle.getString("BungeniSelectDocument.lblDocSelect.text")); // NOI18N
 
-        btnLoadDocument.setText("View Attachments for Editing ");
+        btnLoadDocument.setText(bundle.getString("BungeniSelectDocument.btnLoadDocument.text")); // NOI18N
 
-        btnCancel.setText("Cancel");
+        btnCancel.setText(bundle.getString("BungeniSelectDocument.btnCancel.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

@@ -77,7 +77,7 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
     private void disablePanel(){
         JRootPane rootPane = SwingUtilities.getRootPane(parentDialog);
         rootPane.setGlassPane(glassPane);
-        glassPane.activate("Retrieving Document Information from Bungeni ....");
+        glassPane.activate(java.util.ResourceBundle.getBundle("org/bungeni/extpanels/bungeni/Bundle").getString("RETRIEVE_DOCS_MESSAGE"));
     }
     
     class LoadAttachment extends SwingWorker<Boolean, BungeniDocument>
@@ -178,12 +178,14 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
         lblDescription = new javax.swing.JLabel();
         btnLoadEditAttachment = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
+        lblInfo = new javax.swing.JLabel();
 
-        lblTitle.setText("Attachment Title");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/extpanels/bungeni/Bundle"); // NOI18N
+        lblTitle.setText(bundle.getString("BungeniAttLoadingPanel.lblTitle.text")); // NOI18N
 
         txtTitle.setEditable(false);
 
-        lblFileName.setText("File Name");
+        lblFileName.setText(bundle.getString("BungeniAttLoadingPanel.lblFileName.text")); // NOI18N
 
         txtFileName.setEditable(false);
 
@@ -191,57 +193,63 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
 
         txtStatusDate.setEditable(false);
 
-        lblStatus.setText("Status");
+        lblStatus.setText(bundle.getString("BungeniAttLoadingPanel.lblStatus.text")); // NOI18N
 
-        lblStatusDate.setText("Status Date");
+        lblStatusDate.setText(bundle.getString("BungeniAttLoadingPanel.lblStatusDate.text")); // NOI18N
 
         txtDescription.setEditable(false);
         txtDescription.setColumns(20);
         txtDescription.setRows(5);
         jScrollPane1.setViewportView(txtDescription);
 
-        lblDescription.setText("Description");
+        lblDescription.setText(bundle.getString("BungeniAttLoadingPanel.lblDescription.text")); // NOI18N
 
-        btnLoadEditAttachment.setText("Load and Edit Attachment");
+        btnLoadEditAttachment.setText(bundle.getString("BungeniAttLoadingPanel.btnLoadEditAttachment.text")); // NOI18N
 
-        btnCancel.setText("Cancel");
+        btnCancel.setText(bundle.getString("BungeniAttLoadingPanel.btnCancel.text")); // NOI18N
+
+        lblInfo.setText(bundle.getString("BungeniAttLoadingPanel.lblInfo.text_1")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addComponent(btnLoadEditAttachment)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCancel)
-                .addContainerGap(103, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)
-                    .addComponent(txtFileName, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtTitle)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(lblStatus, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                            .addComponent(txtStatus, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1)
+                            .addComponent(txtFileName, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtTitle)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(lblStatus, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                                    .addComponent(txtStatus, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtStatusDate)
+                                    .addComponent(lblStatusDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblFileName)
+                                    .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(btnLoadEditAttachment)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtStatusDate)
-                            .addComponent(lblStatusDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblFileName)
-                            .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(btnCancel)
+                        .addGap(0, 93, Short.MAX_VALUE))
+                    .addComponent(lblInfo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -273,6 +281,7 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblDescription;
     private javax.swing.JLabel lblFileName;
+    private javax.swing.JLabel lblInfo;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblStatusDate;
     private javax.swing.JLabel lblTitle;
@@ -317,7 +326,7 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
                 if (fodt != null ) {
                     fodfDocument = fodt;
                     glassPane.deactivate();
-                    MessageBox.OK(parentDialog, "The document will be opened for editing now  !" );
+                    MessageBox.OK(parentDialog, java.util.ResourceBundle.getBundle("org/bungeni/extpanels/bungeni/Bundle").getString("DOC_OPEN_FOR_EDIT") );
                     parentDialog.dispose();
                 }
             } catch (InterruptedException ex) {
