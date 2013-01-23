@@ -195,7 +195,7 @@ public class BaseExceptionManager implements IExceptionManager{
                 try {
                     configStream.close();
                 } catch (IOException ex1) {
-                    logger.error("config stream not open");
+                    logger.error("config stream not open", ex1);
                 }
             }
         }

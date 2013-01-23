@@ -4,24 +4,16 @@
 package org.bungeni.plugins.translator;
 
 //~--- non-JDK imports --------------------------------------------------------
-import org.apache.log4j.Logger;
-
-import org.bungeni.plugins.IEditorPlugin;
-
-import org.bungeni.translators.globalconfigurations.GlobalConfigurations;
-import org.bungeni.translators.translator.OATranslator;
-import org.bungeni.translators.utility.files.FileUtility;
-
-//~--- JDK imports ------------------------------------------------------------
-
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
+import org.apache.log4j.Logger;
+import org.bungeni.plugins.IEditorPlugin;
+import org.bungeni.translators.globalconfigurations.GlobalConfigurations;
+import org.bungeni.translators.translator.OATranslator;
+import org.bungeni.translators.utility.files.FileUtility;
 
 /**
  * Bridging class that implements the IEditorPlugin interface for interacting with the bungeni editor.

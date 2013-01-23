@@ -26,6 +26,7 @@ import org.bungeni.translators.configurations.steps.OAReplaceStep;
 import org.bungeni.translators.configurations.steps.OAXSLTStep;
 import org.bungeni.translators.interfaces.ConfigurationReader;
 import org.bungeni.translators.utility.dom.DOMUtility;
+import org.bungeni.translators.utility.runtime.CloseHandle;
 import org.bungeni.translators.utility.transformer.GenericTransformer;
 import org.bungeni.translators.utility.xpathresolver.XPathResolver;
 import org.w3c.dom.Document;
@@ -85,25 +86,32 @@ public class OAConfigurationReader implements ConfigurationReader {
      */
     public Properties getProperties() throws XPathExpressionException,
             TransformerConfigurationException, TransformerException, IOException {
-        XPathResolver xresolver = XPathResolver.getInstance();
-        // get the properties node in teh configuration
-        Node propertiesNode = (Node) xresolver.evaluate(this.configXML,
-                "//properties", XPathConstants.NODE);
-        Source xmlSource = new DOMSource(propertiesNode);
-        // convert the properties node to a string
-        StringWriter sw = new StringWriter();
-        //we use a new transformer for the configuration instead of the cached one to ensure
-        //sepeation of configuration from data
-        Transformer tconfig = GenericTransformer.getInstance().getTransformerFactory().newTransformer();
-        tconfig.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-        tconfig.transform(xmlSource, new StreamResult(sw));
-        //we need to append the properties DOCTYPE dtd for this to work
-        byte[] bytes =
-                ("<!DOCTYPE properties SYSTEM \"http://java.sun.com/dtd/properties.dtd\">" +
-                sw.toString()).getBytes("UTF8");
-        ByteArrayInputStream propBytes = new ByteArrayInputStream(bytes);
         Properties props = new Properties();
-        props.loadFromXML(propBytes);
+        ByteArrayInputStream propBytes = null;
+        try {
+            XPathResolver xresolver = XPathResolver.getInstance();
+            // get the properties node in teh configuration
+            Node propertiesNode = (Node) xresolver.evaluate(this.configXML,
+                    "//properties", XPathConstants.NODE);
+            Source xmlSource = new DOMSource(propertiesNode);
+            // convert the properties node to a string
+            StringWriter sw = new StringWriter();
+            //we use a new transformer for the configuration instead of the cached one to ensure
+            //sepeation of configuration from data
+            Transformer tconfig = GenericTransformer.getInstance().getTransformerFactory().newTransformer();
+            tconfig.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+            tconfig.transform(xmlSource, new StreamResult(sw));
+            //we need to append the properties DOCTYPE dtd for this to work
+            byte[] bytes =
+                    ("<!DOCTYPE properties SYSTEM \"http://java.sun.com/dtd/properties.dtd\">" +
+                    sw.toString()).getBytes("UTF8");
+            propBytes = new ByteArrayInputStream(bytes);
+            props.loadFromXML(propBytes);
+        } catch(Exception ex) {
+            log.error("Error loading properties", ex);
+        } finally {
+            CloseHandle.closeQuietly(propBytes);
+        }
         return props;
     }
 

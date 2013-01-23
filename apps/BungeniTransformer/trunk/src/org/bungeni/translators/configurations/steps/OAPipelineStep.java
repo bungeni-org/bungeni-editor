@@ -1,7 +1,5 @@
 package org.bungeni.translators.configurations.steps;
 
-import org.bungeni.translators.globalconfigurations.GlobalConfigurations;
-
 /**
  * This class reads the pipetoxml entry in the config.xml file
  * @author Ashok

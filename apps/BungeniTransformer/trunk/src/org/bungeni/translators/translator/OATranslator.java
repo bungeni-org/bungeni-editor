@@ -29,11 +29,13 @@ import org.bungeni.translators.utility.dom.DOMUtility;
 import org.bungeni.translators.utility.exceptionmanager.ValidationError;
 import org.bungeni.translators.utility.files.FileUtility;
 import org.bungeni.translators.utility.files.OutputXML;
+import org.bungeni.translators.utility.runtime.CloseHandle;
 import org.bungeni.translators.utility.runtime.Outputs;
 import org.bungeni.translators.utility.schemavalidator.SchemaValidator;
 import org.bungeni.translators.utility.streams.StreamSourceUtility;
 import org.bungeni.translators.utility.transformer.XSLTTransformer;
 import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /***
@@ -399,11 +401,25 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
      */
     private void setupTranslatorConfiguration(String aConfigurationPath) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException{
             // get the File of the configuration
-            Document configurationDoc = OADocumentBuilderFactory.getInstance().getDBF().newDocumentBuilder().parse(
-                                            FileUtility.getInstance().FileAsInputSource(aConfigurationPath));
-            // create the configuration
-            OAConfiguration configuration = OAConfiguration.getInstance();
-            configuration.setConfiguration(configurationDoc);
+            InputSource isourceConfiguration = null ;
+            try {
+                isourceConfiguration = FileUtility.getInstance().FileAsInputSource(
+                        aConfigurationPath
+                        );
+
+                Document configurationDoc = OADocumentBuilderFactory.getInstance().
+                        getDBF().newDocumentBuilder().
+                            parse(
+                                isourceConfiguration
+                            );
+                // create the configuration
+                OAConfiguration configuration = OAConfiguration.getInstance();
+                configuration.setConfiguration(configurationDoc);
+            } catch (Exception ex) {
+                log.error("Error in setupTranslatorConfiguration ", ex);
+            } finally {
+                CloseHandle.closeQuietly(isourceConfiguration);
+            }
     }
 
 
@@ -478,8 +494,11 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             if (OAConfiguration.getInstance().hasWriteInputsStream() &&
                     this.writeIntermediateOutputs == true) {
                 // write output to file
-                OutputXML oxmlInput = StreamSourceUtility.getInstance().writeStreamSourceToFile(iteratedDocument, "inp", ".xml");
+                OutputXML oxmlInput = StreamSourceUtility.getInstance().writeStreamSourceToFile(
+                        iteratedDocument, "inp", ".xml"
+                        );
                 translatedFiles.put("input", oxmlInput.outputxmlFile);
+                
                 iteratedDocument = oxmlInput.outputxmlStream;
             }
             return iteratedDocument;

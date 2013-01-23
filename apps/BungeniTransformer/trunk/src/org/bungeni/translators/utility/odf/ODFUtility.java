@@ -11,6 +11,7 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import org.bungeni.translators.utility.runtime.CloseHandle;
 import org.bungeni.translators.utility.runtime.TempFileManager;
 import org.bungeni.translators.utility.transformer.GenericTransformer;
 import org.odftoolkit.odfdom.doc.OdfDocument;
@@ -76,14 +77,14 @@ public class ODFUtility {
         // get the ODF package
         OdfDocument odf        = OdfDocument.loadDocument(anODFPath);
         File        returnFile = commonMergeODF(odf);
-
+        CloseHandle.closeQuietly(odf);
         return returnFile;
     }
 
     public File mergeODF(File aDocumentHandle) throws TransformerFactoryConfigurationError, Exception {
         OdfDocument odf        = OdfDocument.loadDocument(aDocumentHandle);
         File        returnFile = commonMergeODF(odf);
-
+        CloseHandle.closeQuietly(odf);
         return returnFile;
     }
 

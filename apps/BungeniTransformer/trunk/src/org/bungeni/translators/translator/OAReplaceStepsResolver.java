@@ -42,45 +42,58 @@ public final class OAReplaceStepsResolver {
      */
     protected static StreamSource resolve(StreamSource anODFDocument, OAConfiguration aConfiguration)
             throws XPathExpressionException, TransformerException, IOException {
+        BufferedWriter out = null;
+        StreamSource tempStreamSource = null;
+        File tempFile = null;
+        try {
+            // get the replacement step from the configuration
+            TreeMap<Integer, OAReplaceStep> replaceSteps = aConfiguration.getReplaceSteps();
 
-        // get the replacement step from the configuration
-        TreeMap<Integer, OAReplaceStep> replaceSteps = aConfiguration.getReplaceSteps();
+            // create an iterator on the hash map
+            Iterator<OAReplaceStep> replaceIterator = replaceSteps.values().iterator();
 
-        // create an iterator on the hash map
-        Iterator<OAReplaceStep> replaceIterator = replaceSteps.values().iterator();
+            // get the Document String
+            String iteratedStringDocument = StreamSourceUtility.getInstance().writeToString(anODFDocument);
 
-        // get the Document String
-        String iteratedStringDocument = StreamSourceUtility.getInstance().writeToString(anODFDocument);
+            // while the Iterator has replacement steps apply the replacement
+            while (replaceIterator.hasNext()) {
 
-        // while the Iterator has replacement steps apply the replacement
-        while (replaceIterator.hasNext()) {
+                // get the next step
+                OAReplaceStep nextStep = (OAReplaceStep) replaceIterator.next();
+                log.debug("executing replace step  :" + nextStep.getName()  );
+                // get the pattern of the replace
+                String pattern = nextStep.getPattern();
 
-            // get the next step
-            OAReplaceStep nextStep = (OAReplaceStep) replaceIterator.next();
-            log.debug("executing replace step  :" + nextStep.getName()  );
-            // get the pattern of the replace
-            String pattern = nextStep.getPattern();
+                // get the replacement of the step
+                String replacement = nextStep.getReplacement();
 
-            // get the replacement of the step
-            String replacement = nextStep.getReplacement();
+                // apply the replacement
+                iteratedStringDocument = iteratedStringDocument.replaceAll(pattern, replacement);
+            }
 
-            // apply the replacement
-            iteratedStringDocument = iteratedStringDocument.replaceAll(pattern, replacement);
+            // create a file for the result
+            tempFile = TempFileManager.createTempFile("temp", ".xml");
+
+            // write the result on the temporary file
+            out = new BufferedWriter(new FileWriter(tempFile));
+            out.write(iteratedStringDocument);
+            out.flush();
+        } catch (Exception ex ) {
+            log.error("Error in resolve", ex);
+        } finally {
+            try {
+                if (out != null  ) {
+                    out.close();
+                    }
+            } catch (IOException ex ){
+                log.error("OAReplaceStepsResolver : Error WHILE_CLOSING_FILE ", ex);
+            }
         }
-
-        // create a file for the result
-        File tempFile = TempFileManager.createTempFile("temp", ".xml");
-
-        // write the result on the temporary file
-        BufferedWriter out = new BufferedWriter(new FileWriter(tempFile));
-
-        out.write(iteratedStringDocument);
-        out.close();
-
         // create a new StremSource
-        StreamSource tempStreamSource = FileUtility.getInstance().FileAsStreamSource(tempFile);
-
-        // return the string of the new created document
+        if (tempFile != null) {
+            tempStreamSource = FileUtility.getInstance().FileAsStreamSource(tempFile);
+        }
+       // return the string of the new created document
         return tempStreamSource;
     }
 }

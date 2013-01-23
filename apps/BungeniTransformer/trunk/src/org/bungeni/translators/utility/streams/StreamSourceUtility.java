@@ -4,8 +4,9 @@ package org.bungeni.translators.utility.streams;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMResult;
@@ -14,6 +15,7 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.lang.RandomStringUtils;
 import org.bungeni.translators.utility.files.FileUtility;
 import org.bungeni.translators.utility.files.OutputXML;
+import org.bungeni.translators.utility.runtime.CloseHandle;
 import org.bungeni.translators.utility.runtime.TempFileManager;
 import org.bungeni.translators.utility.transformer.GenericTransformer;
 import org.w3c.dom.Document;
@@ -55,26 +57,32 @@ public class StreamSourceUtility {
 
     /**
      * This method write a Stream Source to a string
-     * @param aStreamSource the Stream Source to transform into string
+     * @param aStreamSource the Stream Source to transform into string, this is closed after reading
      * @return a string representing the given Stream Source
      * @throws TransformerException
      */
     public String writeToString(StreamSource aStreamSource) throws TransformerException {
+        
+        String resultStringDocument = "";
+        try {
+            // create the writer for the transformation
+            StringWriter resultString = new StringWriter();
 
-        // create the writer for the transformation
-        StringWriter resultString = new StringWriter();
+            // perform the transformation
+            GenericTransformer.getInstance().getTransformer().transform(
+                    aStreamSource,
+                    new StreamResult(
+                        resultString
+                        )
+            );
 
-        // perform the transformation
-        GenericTransformer.getInstance().getTransformer().transform(
-                aStreamSource,
-                new StreamResult(
-                    resultString
-                    )
-        );
-
-        // copy the obtained string into the string to iterate
-        String resultStringDocument = resultString.toString();
-
+            // copy the obtained string into the string to iterate
+            resultStringDocument = resultString.toString();
+        } catch (Exception ex) {
+            log.error("Error while writing streamSource to string", ex);
+        } finally {
+            CloseHandle.closeQuietly(aStreamSource);
+        }
         // return the string of the Stream Source
         return resultStringDocument;
     }
@@ -99,11 +107,22 @@ public class StreamSourceUtility {
         File resultFile = TempFileManager.createTempFile(randomFileName, ".xml");
 
         // write the result on the temporary file
-        BufferedWriter outresult = new BufferedWriter(new FileWriter(resultFile));
+        BufferedWriter outresult = new BufferedWriter(
+                new OutputStreamWriter(
+                    new FileOutputStream(resultFile),
+                    "UTF-8"
+                    )
+                );
 
-        outresult.write(resultDocumentString);
-        outresult.close();
-
+        try {
+            outresult.write(resultDocumentString);
+            outresult.flush();
+        } catch (Exception ex) {
+            log.error("Error while writing to file", ex);
+        } finally {
+            CloseHandle.closeQuietly(aStreamSource);
+            CloseHandle.closeQuietly(outresult);
+        }
         // return the string of the Stream Source
         return resultFile;
     }
@@ -126,9 +145,22 @@ public class StreamSourceUtility {
         String resultDocumentString = this.writeToString(aStreamSource);
         File resultFile = TempFileManager.createTempFile(prefix, ext);
         // write the result on the temporary file
-        BufferedWriter outresult = new BufferedWriter(new FileWriter(resultFile));
-        outresult.write(resultDocumentString);
-        outresult.close();
+        BufferedWriter outresult = new BufferedWriter(
+                new OutputStreamWriter(
+                    new FileOutputStream(resultFile),
+                    "UTF-8"
+                    )
+                );
+        try {
+            outresult.write(resultDocumentString);
+            outresult.flush();
+            CloseHandle.closeQuietly(outresult);
+        } catch(Exception ex) {
+            log.error("Error while writing to file " + resultFile, ex);
+        }  finally {
+            CloseHandle.closeQuietly(aStreamSource);
+        }
+       
         //Create a new StreamSource object based on the file and return the
         // StreamSource and the File in a combined OutputXML object
         StreamSource ss = FileUtility.getInstance().FileAsStreamSource(resultFile);
@@ -139,16 +171,27 @@ public class StreamSourceUtility {
 
     /**
      * Write a StreamSource to DOM
+     * Closes the input StreamSource
      * @param aStreamSource
      * @return
      * @throws TransformerException
      */
     public Document writeToDOM(StreamSource aStreamSource) throws TransformerException {
          // create an instance of TransformerFactory
-        DOMResult aDOMResult = new DOMResult();
-        GenericTransformer.getInstance().getTransformer().transform(aStreamSource, aDOMResult);
-        Document document = (Document) aDOMResult.getNode();
+        Document document = null;
+        try {
+            DOMResult aDOMResult = new DOMResult();
+            GenericTransformer.getInstance().getTransformer().transform(aStreamSource, aDOMResult);
+            document = (Document) aDOMResult.getNode();
+        } catch (TransformerException ex) {
+            throw ex;
+        } finally {
+            CloseHandle.closeQuietly(aStreamSource);
+        }
         return document;
     }
 
+
+    
+    
 }

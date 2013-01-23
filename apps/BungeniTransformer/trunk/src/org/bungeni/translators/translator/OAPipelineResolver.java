@@ -1,25 +1,21 @@
 package org.bungeni.translators.translator;
 
 //~--- non-JDK imports --------------------------------------------------------
-import org.bungeni.translators.utility.files.FileUtility;
-import org.bungeni.translators.utility.xpathresolver.XPathResolver;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import org.xml.sax.SAXException;
-
-//~--- JDK imports ------------------------------------------------------------
-
 import java.io.File;
 import java.io.IOException;
-
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import org.apache.log4j.Logger;
+import org.bungeni.translators.utility.files.FileUtility;
+import org.bungeni.translators.utility.runtime.CloseHandle;
+import org.bungeni.translators.utility.xpathresolver.XPathResolver;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 public final class OAPipelineResolver implements org.bungeni.translators.interfaces.PipelineResolver {
 
@@ -66,8 +62,15 @@ public final class OAPipelineResolver implements org.bungeni.translators.interfa
             throws SAXException, IOException, ParserConfigurationException, XPathExpressionException {
         log.debug("resolving pipeline path = " + aPipelinePath);
         // open the XSLT file into a DOM document
+        InputSource isource = FileUtility.getInstance().FileAsInputSource(
+                FileUtility.getInstance().resolveHref(
+                aPipelinePath
+                )
+            );
         Document pipeline = OADocumentBuilderFactory.getInstance().getDBF().newDocumentBuilder().parse(
-                FileUtility.getInstance().FileAsInputSource(FileUtility.getInstance().resolveHref(aPipelinePath)));    // new File(aPipelinePath));
+                isource
+                );    // new File(aPipelinePath));
+        CloseHandle.closeQuietly(isource);
         //This is the <xsl:stylesheet > element 
         Element stylesheetElement = pipeline.getDocumentElement();
         //get all the <bp:template> elements in the pipeline
@@ -89,9 +92,12 @@ public final class OAPipelineResolver implements org.bungeni.translators.interfa
             File XSLTFile = FileUtility.getInstance().resolveHref(xsltURI);
             if (XSLTFile.exists()) {
                 // open the pointed XSLT as a DOM document
+                InputSource isourceFile = FileUtility.getInstance().FileAsInputSource(XSLTFile);
                 Document XSLTDoc = OADocumentBuilderFactory.getInstance().
                         getDBF().newDocumentBuilder().parse(
-                        FileUtility.getInstance().FileAsInputSource(XSLTFile));
+                            isourceFile
+                        );
+                CloseHandle.closeQuietly(isourceFile);
                 // get the content of the template of the XSLT
                 //!+PIPELINE_FORMAT_CHANGE(ah,oct-2011) Find the XSLT template matchign the bp:name attribute
                 //multiple template matches are supported -- see comment below

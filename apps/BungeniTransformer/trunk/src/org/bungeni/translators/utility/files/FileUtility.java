@@ -9,10 +9,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URI;
@@ -20,6 +20,7 @@ import java.net.URISyntaxException;
 import java.nio.channels.FileChannel;
 import javax.xml.transform.stream.StreamSource;
 import org.bungeni.translators.globalconfigurations.GlobalConfigurations;
+import org.bungeni.translators.utility.runtime.CloseHandle;
 import org.xml.sax.InputSource;
 
 /**
@@ -110,21 +111,9 @@ public class FileUtility {
         } catch (IOException ioException) {
             log.error("FileToString: file not found ", ioException);
         } finally {
-
             // Good practice: Close the readers to free up any resources.
-            try {
-                if (bufferedReader != null) {
-                    bufferedReader.close();
-                }
-
-                if (fileReader != null) {
-                    fileReader.close();
-                }
-            } catch (IOException ioExceptionIgnore) {
-
-                // Problems while closing the Readers.
-                // Nothing much we can do and so we ignore.
-            }
+            CloseHandle.closeQuietly(bufferedReader);
+            CloseHandle.closeQuietly(fileReader);
         }
 
         return textFromFile.toString();
@@ -137,15 +126,22 @@ public class FileUtility {
      * @throws IOException
      */
     public void StringToFile(String aFilePath, String aFileContent) throws IOException {
-
         // create the buffered Writer
-        BufferedWriter out = new BufferedWriter(new FileWriter(aFilePath));
-
-        // write the content of the File
-        out.write(aFileContent);
-
-        // close the file
-        out.close();
+        BufferedWriter out = new BufferedWriter(
+                    new OutputStreamWriter(
+                        new FileOutputStream(aFilePath),
+                        "UTF-8"
+                    )
+                );
+        try {
+            // write the content of the File
+            out.write(aFileContent);
+            out.flush();
+        } catch (Exception ex) {
+            log.error("Error while writing to :" + aFilePath, ex);
+        } finally {
+            CloseHandle.closeQuietly(out);
+        }
     }
 
     /**
@@ -174,13 +170,8 @@ public class FileUtility {
         } catch (IOException e) {
             throw e;
         } finally {
-            if (inChannel != null) {
-                inChannel.close();
-            }
-
-            if (outChannel != null) {
-                outChannel.close();
-            }
+            CloseHandle.closeQuietly(inChannel);
+            CloseHandle.closeQuietly(outChannel);
         }
     }
 
@@ -205,7 +196,6 @@ public class FileUtility {
      */
     public BufferedReader BufferedFileReader(String sPath) throws FileNotFoundException {
         File fFile = new File(sPath);
-
         return BufferedFileReader(fFile);
     }
 
@@ -246,7 +236,7 @@ public class FileUtility {
         if (bReader != null) {
             iFileSource = new InputSource(bReader);
         }
-
+        
         return iFileSource;
     }
 
@@ -309,7 +299,7 @@ public class FileUtility {
         BufferedReader bReader = BufferedFileReader(fPath);
 
         sSource = new StreamSource(bReader);
-
+        
         return sSource;
     }
 
@@ -355,7 +345,5 @@ public class FileUtility {
         }
       return fstepFile;
   }
-
-
 
 }

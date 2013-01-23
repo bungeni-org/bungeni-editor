@@ -6,30 +6,25 @@ package org.bungeni.translators.translator;
  */
 //~--- non-JDK imports --------------------------------------------------------
 import java.io.File;
-import java.io.IOException;
-import org.bungeni.translators.configurations.steps.OAXSLTStep;
-import org.bungeni.translators.utility.files.FileUtility;
-import org.bungeni.translators.utility.transformer.XSLTTransformer;
-
-//~--- JDK imports ------------------------------------------------------------
-
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.TreeMap;
-
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPathExpressionException;
 import org.apache.log4j.Logger;
 import org.bungeni.translators.configurations.OAConfiguration;
 import org.bungeni.translators.configurations.steps.OAProcessStep;
+import org.bungeni.translators.configurations.steps.OAXSLTStep;
 import org.bungeni.translators.process.actions.ProcessUnescape;
 import org.bungeni.translators.utility.dom.DOMUtility;
+import org.bungeni.translators.utility.files.FileUtility;
 import org.bungeni.translators.utility.streams.StreamSourceUtility;
+import org.bungeni.translators.utility.transformer.XSLTTransformer;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -181,6 +176,16 @@ public class OAXSLTStepsResolver {
         return this.resolve(anODFDocument, stepsMap);
     }
 
+    /**
+     * Apply a referenced Processor 
+     * @param iteratedDocument - this will be closed in writeToDOM()
+     * @param preProc
+     * @return
+     * @throws XPathExpressionException
+     * @throws TransformerException
+     * @throws SAXException
+     * @throws IOException 
+     */
     private StreamSource applyProcessorByRef(StreamSource iteratedDocument, String preProc)
             throws XPathExpressionException, TransformerException, SAXException, IOException {
         String sIdAttrValue = preProc.replace("#", "").trim();
