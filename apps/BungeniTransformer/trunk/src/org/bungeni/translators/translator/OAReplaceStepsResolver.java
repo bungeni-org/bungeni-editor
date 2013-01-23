@@ -21,6 +21,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPathExpressionException;
 import org.apache.log4j.Logger;
+import org.bungeni.translators.utility.runtime.CloseHandle;
 import org.bungeni.translators.utility.runtime.TempFileManager;
 
 /**
@@ -81,13 +82,8 @@ public final class OAReplaceStepsResolver {
         } catch (Exception ex ) {
             log.error("Error in resolve", ex);
         } finally {
-            try {
-                if (out != null  ) {
-                    out.close();
-                    }
-            } catch (IOException ex ){
-                log.error("OAReplaceStepsResolver : Error WHILE_CLOSING_FILE ", ex);
-            }
+            CloseHandle.closeQuietly(out);
+            CloseHandle.closeQuietly(anODFDocument);
         }
         // create a new StremSource
         if (tempFile != null) {

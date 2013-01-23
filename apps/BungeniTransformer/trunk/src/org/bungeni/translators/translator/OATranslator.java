@@ -309,7 +309,8 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             //will be exactly the same
             OutputXML oxmlFinal = StreamSourceUtility.getInstance().writeStreamSourceToFile(anXmlFinalStream, "akoma_", ".xml");
             translatedFiles.put("final", oxmlFinal.outputxmlFile);
-            
+            //!+WARNING_CHECK_CLOSE
+            oxmlFinal.closeHandles();
             // validate the produced document
             //AH-8-03-11 COMMENTED OUT FOR NOW UNTIL TESTED
             //SchemaValidator.getInstance().validate(fileToReturn, aDocumentPath, this.akomantosoSchemaPath);
@@ -638,9 +639,22 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
 
     public StreamSource translateToAkomantoso(File xsltFile, StreamSource xmlStream)
             throws FileNotFoundException, TransformerException, UnsupportedEncodingException{
-            StreamSource    ssXslt  = FileUtility.getInstance().FileAsStreamSource(xsltFile);
+           StreamSource result = null;
+           StreamSource ssXslt = null;
+            try {
+            ssXslt  = FileUtility.getInstance().FileAsStreamSource(xsltFile);
             XSLTTransformer xsltTransformer = XSLTTransformer.getInstance();
-            StreamSource result = xsltTransformer.transform(xmlStream, ssXslt);
+            result = xsltTransformer.transform(xmlStream, ssXslt);
+            } catch (FileNotFoundException ex) {
+                throw ex;
+            } catch (TransformerException ex) {
+                throw ex;
+            } catch (UnsupportedEncodingException ex) {
+                throw ex;
+            } finally {
+                CloseHandle.closeQuietly(ssXslt);
+                CloseHandle.closeQuietly(xmlStream);
+            }
             return result;
     }
 

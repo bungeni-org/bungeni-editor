@@ -23,6 +23,7 @@ import org.bungeni.translators.configurations.steps.OAXSLTStep;
 import org.bungeni.translators.process.actions.ProcessUnescape;
 import org.bungeni.translators.utility.dom.DOMUtility;
 import org.bungeni.translators.utility.files.FileUtility;
+import org.bungeni.translators.utility.runtime.CloseHandle;
 import org.bungeni.translators.utility.streams.StreamSourceUtility;
 import org.bungeni.translators.utility.transformer.XSLTTransformer;
 import org.w3c.dom.Document;
@@ -121,7 +122,7 @@ public class OAXSLTStepsResolver {
                             //usually we call transform() but since we want to call with a parameter,
                             //we use transformWithParam()
                             iteratedDocument = XSLTTransformer.getInstance().transformWithParam(iteratedDocument, xsltStream, this.pipelineInputParams);
-
+                            CloseHandle.closeQuietly(xsltStream);
                         } catch (Exception ex) {
                             log.error("Error while transformWithParam", ex);
                         } finally {
@@ -130,11 +131,15 @@ public class OAXSLTStepsResolver {
                         }
                     } else {
                         iteratedDocument = XSLTTransformer.getInstance().transform(iteratedDocument, xsltStream);
+                        CloseHandle.closeQuietly(xsltStream);
                     }
                 } else {
                     // start the transformation
                     iteratedDocument = XSLTTransformer.getInstance().transform(iteratedDocument, xsltStream);
+                    CloseHandle.closeQuietly(xsltStream);
                 }
+                
+                
             }
 
             if (nextStep.hasPostProc()) {
