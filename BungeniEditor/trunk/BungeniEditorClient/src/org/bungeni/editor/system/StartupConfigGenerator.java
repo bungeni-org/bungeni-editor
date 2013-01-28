@@ -75,6 +75,109 @@ public class StartupConfigGenerator {
         }
 
     }
+
+    public void startupGenerate(){
+        DocTypesReader reader = DocTypesReader.getInstance();
+        List<String> doctypeNames = reader.getDocTypeNames();
+        for (String doctypeName : doctypeNames) {
+            // process generators per type
+            try {
+                //A merged configuration Document is created
+                ConfigurationProvider cp = ConfigurationProvider.getInstance();
+                cp.generateMergedConfiguration(this.generatorError, doctypeName);
+                //!+PROPRIETARY_METADATA(AH,03-12-2012)
+                //write merged configuration for test purposes
+                // !+PIPE_INPUT: debaterecord_cfg.xml
+                cp.writeMergedConfig(
+                        new File(
+                            BaseSystemConfig.SYSTEM_GENERATOR_CACHE +
+                            File.separator +
+                            doctypeName+"_cfg.xml"
+                        )
+                );
+                Document mergedConfigs = cp.getMergedDocument();
+                // generate configuraiton pipeline
+                // generate type transformation
+                // !+PIPE_ITEM : TYPE_TRANSFORM_<TYPE>.XSL
+                File typeGeneratorTemplate = TransformerGenerator.getInstance().
+                        typeGeneratorTemplate(
+                            this.generatorError,
+                            mergedConfigs,
+                            doctypeName
+                        );
+                // generate tlc generator template
+                // !+PIPE_ITEM : TYPE_TLC_TRANSFORM_<TYPE>.XSL
+                // This is used to create the master template
+                File typeTlcGeneratorTemplate = TransformerGenerator.getInstance().
+                        typeTlcGeneratorTemplate(
+                            this.generatorError,
+                            mergedConfigs,
+                            doctypeName
+                        );
+                // generate identity metadata generate template
+                // !+PIPE_ITEM : TYPE_META_IDENTI_PUBLI_<TYPE>.XSL
+                // This is used to create the master template
+                File typeMetaIdentPubliGeneratorTemplate = TransformerGenerator.getInstance().
+                        typeMetaIdentifierGenerator(
+                            this.generatorError,
+                            DocumentMetadataReader.getInstance().getDocument(doctypeName),
+                            doctypeName
+                        );
+                
+                //This is the odf to meta master template
+                // !+PIPE_ITEM : ODF_META_CONFIG_<TYPE>.XSL 
+                // THis is the master template
+                File odfMetaMasterXSLT = this.createODFMetaMasterXSLT(
+                        doctypeName,
+                        typeMetaIdentPubliGeneratorTemplate,
+                        typeTlcGeneratorTemplate
+                        );
+                ConfigTemplateGenerator ctg = new ConfigTemplateGenerator();
+                List<OAXSLTStep> inputSteps = new ArrayList<OAXSLTStep>(0);
+                List<OAXSLTStep> outputSteps = new ArrayList<OAXSLTStep>(0);
+
+                if (odfMetaMasterXSLT != null ) {
+
+                    inputSteps.add(
+                        new OAXSLTStep(
+                            "odf_meta_lang_master",
+                            odfMetaMasterXSLT.toURI().toURL().toExternalForm(),
+                            99
+                            )
+                       );
+
+                    outputSteps.add(
+                        new OAXSLTStep(
+                            "full_convert",
+                            typeGeneratorTemplate.toURI().toURL().toExternalForm(),
+                            98
+                            )
+                       );
+
+                }
+                // this will generate the config_XXTYPEXX.xml from config_tmpl.xml
+                ctg.process(doctypeName, doctypeName, false, inputSteps, outputSteps);
+                
+                //!+PROPRIETARY(ah, 05-12-2012) 
+                generateCustomXSLTfromTemplates();
+                
+                //Rewrite xsl:imports to full pathts
+                rewriteXSLImportsToFullPathsInCustom();
+                
+            } catch (Exception ex) {
+                log.error(ex);
+                generatorError.add(
+                    doctypeName,
+                    "Error while generating configuration file ",
+                    ex
+                    );
+            } 
+
+        }
+        this.generatorError.saveFile();
+        checkConfigErrors();
+    }
+    
     
     private File createODFMetaMasterXSLT(String docType,
             File baseTemplate,
@@ -210,100 +313,6 @@ public class StartupConfigGenerator {
         return outputFile;
     }
 
-    public void startupGenerate(){
-        DocTypesReader reader = DocTypesReader.getInstance();
-        List<String> doctypeNames = reader.getDocTypeNames();
-        for (String doctypeName : doctypeNames) {
-            // process generators per type
-            try {
-                //A merged configuration Document is created
-                ConfigurationProvider cp = ConfigurationProvider.getInstance();
-                cp.generateMergedConfiguration(this.generatorError, doctypeName);
-                //!+PROPRIETARY_METADATA(AH,03-12-2012)
-                //write merged configuration for test purposes
-                cp.writeMergedConfig(
-                        new File(
-                            BaseSystemConfig.SYSTEM_GENERATOR_CACHE +
-                            File.separator +
-                            doctypeName+"_cfg.xml"
-                        )
-                );
-                Document mergedConfigs = cp.getMergedDocument();
-                // generate configuraiton pipeline
-                // generate type transformation
-                File typeGeneratorTemplate = TransformerGenerator.getInstance().
-                        typeGeneratorTemplate(
-                            this.generatorError,
-                            mergedConfigs,
-                            doctypeName
-                        );
-                // generate tlc generator template
-                File typeTlcGeneratorTemplate = TransformerGenerator.getInstance().
-                        typeTlcGeneratorTemplate(
-                            this.generatorError,
-                            mergedConfigs,
-                            doctypeName
-                        );
-                // generate identity metadata generate template
-                File typeMetaIdentPubliGeneratorTemplate = TransformerGenerator.getInstance().
-                        typeMetaIdentifierGenerator(
-                            this.generatorError,
-                            DocumentMetadataReader.getInstance().getDocument(doctypeName),
-                            doctypeName
-                        );
-                
-                //This is the odf to meta master template
-                File odfMetaMasterXSLT = this.createODFMetaMasterXSLT(
-                        doctypeName,
-                        typeMetaIdentPubliGeneratorTemplate,
-                        typeTlcGeneratorTemplate
-                        );
-                ConfigTemplateGenerator ctg = new ConfigTemplateGenerator();
-                List<OAXSLTStep> inputSteps = new ArrayList<OAXSLTStep>(0);
-                List<OAXSLTStep> outputSteps = new ArrayList<OAXSLTStep>(0);
-
-                if (odfMetaMasterXSLT != null ) {
-
-                    inputSteps.add(
-                        new OAXSLTStep(
-                            "odf_meta_lang_master",
-                            odfMetaMasterXSLT.toURI().toURL().toExternalForm(),
-                            99
-                            )
-                       );
-
-                    outputSteps.add(
-                        new OAXSLTStep(
-                            "full_convert",
-                            typeGeneratorTemplate.toURI().toURL().toExternalForm(),
-                            98
-                            )
-                       );
-
-                }
-                // this will generate the config_XXTYPEXX.xml from config_tmpl.xml
-                ctg.process(doctypeName, doctypeName, false, inputSteps, outputSteps);
-                
-                //!+PROPRIETARY(ah, 05-12-2012) 
-                generateCustomXSLTfromTemplates();
-                
-                //Rewrite xsl:imports to full pathts
-                rewriteXSLImportsToFullPathsInCustom();
-                
-            } catch (Exception ex) {
-                log.error(ex);
-                generatorError.add(
-                    doctypeName,
-                    "Error while generating configuration file ",
-                    ex
-                    );
-            } 
-
-        }
-        this.generatorError.saveFile();
-        checkConfigErrors();
-    }
-    
     /**
      * We need to do this because - the xsl:import references in the custom override templates
      * in custom/xsl use relative references to the systm template. 
@@ -366,6 +375,7 @@ public class StartupConfigGenerator {
                     );
             metalangmlxTmpl.process(objMap, fw);
             fw.flush();
+            fw.close();
         } catch (TemplateException ex) {
             generatorError.add(
                     "ALL",
@@ -419,10 +429,6 @@ public class StartupConfigGenerator {
         }
        return nsList;
     }
-    
-    
-    
-
 
     private boolean checkConfigErrors() {
       URL[] urls = CommonFileFunctions.findInFiles(
