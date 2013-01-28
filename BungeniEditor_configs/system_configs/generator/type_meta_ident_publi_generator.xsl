@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xmeta="http://meta.w3.org/1999/XSL/Transform"
+    xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0"
     version="2.0">
     
     <xsl:output indent="yes" method="xml" />
@@ -82,9 +83,8 @@
         <mcontainer name="meta">
         <mcontainer name="identification">
          <mcontainer name="all">
-           <xsl:apply-templates  mode="all" />
+            <xsl:call-template name="output-all-metadata" />
          </mcontainer>
-        
          <!-- the below expects some mandatory metadata to be set --> 
          <mcontainer name="frbrwork">
              
@@ -412,12 +412,26 @@
          
      </xmeta:stylesheet>
     </xsl:template>
-    
+
+    <!--
     <xsl:template match="metadata" mode="all">
         <xsl:call-template name="meta-outputter">
             <xsl:with-param name="meta-name" select="@name" />
             <xsl:with-param name="meta-value" select="@name" />
          </xsl:call-template>
+    </xsl:template>
+    -->
+    
+    <xsl:template name="output-all-metadata">
+        <!-- outputs all the metadata into the intermediate xml
+            !+GLOBAL_META_SUPPORT(ah, 28-01-2013)
+        -->
+        <xsl:for-each select="meta:user-defined">
+            <xsl:call-template name="meta-outputter">
+                <xsl:with-param name="meta-name" select="@name" />
+                <xsl:with-param name="meta-value" select="@name" />
+            </xsl:call-template>
+        </xsl:for-each>
     </xsl:template>
 
    <xsl:template name="meta-outputter">

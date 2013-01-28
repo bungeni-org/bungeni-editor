@@ -76,8 +76,29 @@
             <xmeta:template match="office:meta">
                 
                 <mcontainer name="references">
+                <!-- the meta sectionType config is a special case since its a 'virtual' section configuration 
+                    and doesnt have a corresponding visual equivalent, the metadata output here is rendered from 
+                    document level metadata properties unlike all the other metadata which is from the section 
+                    level storage 
+                    !+GLOBAL_META_SUPPORT(ah, 28-01-2013)
+                -->
+                <xsl:for-each select=".//output/meta/references[ancestor::sectionType[@name eq 'meta']]">
+                    <!-- generate global metadata matcher -->
+                    <xsl:for-each select="child::*">
+                        <!-- example, <TLCPerson> -->
+                        <xmeta:element name="{local-name()}" >
+                            <!-- iterate through the attributes -->
+                            <!-- attributes of the TLCPerson -->
+                            <!-- Adapt config type attribute processor to work with this -->
+                            <!-- add a check if metadata is referenced locally , if not , refer to global metadata -->
+                            <xsl:call-template name="config-type-attribute-processor" />
+                        </xmeta:element>
+                    </xsl:for-each>
+                </xsl:for-each>
+                    
+                <!-- look for everything except meta -->
                 <xsl:for-each-group 
-                    select=".//output/meta/references" 
+                    select=".//output/meta/references[ancestor::sectionType[@name ne 'meta']]" 
                     group-by="
                         ancestor::sectionType/@name | 
                         ancestor::inlineType/@name | 
@@ -131,6 +152,7 @@
                                 <xmeta:element name="{local-name()}" >
                                     <!-- iterate through the attributes -->
                                     <!-- attributes of the TLCPerson -->
+                                    <!-- generates attribute values in place -->
                                     <xsl:call-template name="config-type-attribute-processor" />
                                 </xmeta:element>
                             </xsl:for-each>
@@ -259,36 +281,84 @@
         </xsl:for-each>    
     </xsl:template>
      
+     
 
     <!-- This template renders the XSLT template for output content and metadata -->
     <xsl:template name="config-type-attribute-processor">
         <!-- !+FIX_THIS(code_duplication, ah, 2012-06-26) copied from type_generator.xsl -->
-        <xsl:for-each select="@*">
-            <!-- process attributes -->
-            <xmeta:attribute name="{local-name()}" >
-                <xsl:choose>
-                    <!-- 
-                        Attributes are processed as follows :
-                        values starting with #$
-                        values starting with $
-                        values with literals
-                    -->
-                    <xsl:when test="starts-with(.,'#')">
-                        <!-- possibly add a check to see if the metadata exists in the parent ? -->
-                        <!-- !+NODEREF_FIX(ah, 10/10/2012) made node-ref from for-each iteration to 
-                            be relative to key matcher bungeni:bungenimeta -->
-                        <xmeta:text>#</xmeta:text>
-                        <xmeta:value-of select="{concat('./bungeni:', substring-after(.,'#$') )}" />
-                    </xsl:when>
-                    <xsl:when test="starts-with(.,'$')">
-                        <xmeta:value-of select="{concat('./bungeni:', substring-after(.,'$') )}" />
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xmeta:text><xsl:value-of select="." /></xmeta:text>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xmeta:attribute>
-        </xsl:for-each>
+        <xsl:variable name="dquote">&#39;</xsl:variable>
+        <xsl:choose>
+            <!-- special processing for meta section type 
+                !+GLOBAL_META_SUPPORT(ah, 28-01-2013)
+            -->
+            <xsl:when test="ancestor::sectionType[@name eq 'meta']">
+                <xsl:for-each select="@*">
+                    <!-- process attributes -->
+                    <xmeta:attribute name="{local-name()}" >
+                        <xsl:choose>
+                            <!-- 
+                                Attributes are processed as follows :
+                                values starting with #$
+                                values starting with $
+                                values with literals
+                            -->
+                            <xsl:when test="starts-with(.,'#')">
+                                <!-- possibly add a check to see if the metadata exists in the parent ? -->
+                                <xmeta:text>#</xmeta:text>
+                                <xmeta:value-of select="{concat(
+                                    '//meta:user-defined[@name=', 
+                                    $dquote, 
+                                    substring-after(.,'#$'), 
+                                    $dquote,
+                                    ']'
+                                    )}" />
+                            </xsl:when>
+                            <xsl:when test="starts-with(.,'$')">
+                                <xmeta:value-of select="{concat(
+                                    '//meta:user-defined[@name=', 
+                                    $dquote, 
+                                    substring-after(.,'$'), 
+                                    $dquote,
+                                    ']'
+                                    )}" />
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <!-- do nothing -->
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xmeta:attribute>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:for-each select="@*">
+                    <!-- process attributes -->
+                    <xmeta:attribute name="{local-name()}" >
+                        <xsl:choose>
+                            <!-- 
+                                Attributes are processed as follows :
+                                values starting with #$
+                                values starting with $
+                                values with literals
+                            -->
+                            <xsl:when test="starts-with(.,'#')">
+                                <!-- possibly add a check to see if the metadata exists in the parent ? -->
+                                <!-- !+NODEREF_FIX(ah, 10/10/2012) made node-ref from for-each iteration to 
+                                    be relative to key matcher bungeni:bungenimeta -->
+                                <xmeta:text>#</xmeta:text>
+                                <xmeta:value-of select="{concat('./bungeni:', substring-after(.,'#$') )}" />
+                            </xsl:when>
+                            <xsl:when test="starts-with(.,'$')">
+                                <xmeta:value-of select="{concat('./bungeni:', substring-after(.,'$') )}" />
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xmeta:text><xsl:value-of select="." /></xmeta:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xmeta:attribute>
+                </xsl:for-each>
+            </xsl:otherwise>
+        </xsl:choose>
+        
         
     </xsl:template>
 
