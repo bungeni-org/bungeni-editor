@@ -50,6 +50,15 @@
         prefix="meta"
         numstyle="single">
         <output>
+           <metadatas>
+              <metadata name="BungeniExpAuthor" />
+              <metadata name="BungeniExpAuthorURI" />
+           </metadatas>
+           <meta>
+            <references>
+                <an:TLCPerson name="$BungeniExpAuthor"  href="$BungeniExpAuthorURI" />
+            </references>
+            </meta>
             <content>
                 <an:meta />
             </content>
