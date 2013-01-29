@@ -27,6 +27,7 @@ import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
+import org.bungeni.extpanels.bungeni.BungeniDocument.Attachment;
 import org.bungeni.extutils.DisabledGlassPane;
 import org.bungeni.extutils.MessageBox;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
@@ -367,12 +368,14 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
                 // this is a bungeni document ... load for editing
             } else {
                 //first prepare the document
+                Attachment att = loadedDocument.getSelectedAttachment();
                 propshelper.setUserDefinedPropertyValue("BungeniDocType", BungeniEditorPropertiesHelper.getCurrentDocType());
                 propshelper.setUserDefinedPropertyValue("DocSource", "BungeniPortal");
                 propshelper.setUserDefinedPropertyValue("DocInit", "False");
                 propshelper.setUserDefinedPropertyValue("PortalSourceDoc", loadedDocument.getURL());
-                propshelper.setUserDefinedPropertyValue("PortalAttSource", loadedDocument.getSelectedAttachment().url);
-                propshelper.setUserDefinedPropertyValue("PortalAttFileName", loadedDocument.getSelectedAttachment().fileName);
+                propshelper.setUserDefinedPropertyValue("PortalAttSource", att.url);
+                propshelper.setUserDefinedPropertyValue("PortalAttFileName", att.fileName);
+                propshelper.setUserDefinedPropertyValue("PortalAttTitle", att.title);
                 odfhelper.saveDocument();
                 // create the root section after opening and set initial metadata properties
             }
