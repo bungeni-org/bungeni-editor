@@ -168,12 +168,7 @@ public class BungeniOdfPropertiesHelper {
         try {
 
             OdfOfficeMeta odfMeta = this.getOdfDocumentHelper().getOdfDocument().getOfficeMetadata();
-            String value = odfMeta.getUserDefinedDataValue(propName);
-            if (value == null) {
-                List<String> metaNames = odfMeta.getUserDefinedDataNames();
-                metaNames.add(propName);
-                odfMeta.setUserDefinedData(propName, Value.STRING.toString(), propValue);
-            }
+            odfMeta.setUserDefinedData(propName, Value.STRING.toString(), propValue);
             bState = true;
         } catch (Exception ex) {
             log.error("setUserDefinedPropertyValue : " + ex.getMessage());
