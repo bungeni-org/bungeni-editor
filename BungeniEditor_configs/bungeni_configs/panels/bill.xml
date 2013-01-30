@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <panels for="bill">
+
 <panel name="bungeni" class="org.bungeni.extpanels.bungeni.BungeniIntegrationPanel" state="1">
        <title xml:lang="eng">bungeni</title>
-</panel>
-<panel name="actions" class="org.bungeni.editor.panels.loadable.documentActionPanel" state="1">
-       <title xml:lang="eng">markup</title>
 </panel>
 <panel name="actions" class="org.bungeni.editor.panels.loadable.documentActionPanel" state="1">
        <title xml:lang="eng">markup</title>
@@ -13,19 +11,25 @@
 <panel name="metadata" class="org.bungeni.editor.panels.loadable.MetadataPanel" state="1">
        <title xml:lang="eng">metadata</title>
 </panel>
+
 <panel name="sectionmeta" class="org.bungeni.editor.panels.loadable.documentStructurePanel" state="1">
        <title xml:lang="eng">structure</title>
 </panel>
+
 <panel name="numbering" class="org.bungeni.editor.panels.loadable.sectionNumbererPanel" state="1">
        <title xml:lang="eng">numbering</title>
 </panel>
+
 <panel name="validate" class="org.bungeni.editor.panels.loadable.validateAndCheckPanel2" state="1">
        <title xml:lang="eng">validate</title>
 </panel>
+
 <panel name="transform" class="org.bungeni.editor.panels.loadable.transformXMLPanel" state="1">
        <title xml:lang="eng">publish</title>
 </panel>
+
 <panel name="notes" class="org.bungeni.editor.panels.loadable.documentNotesPanel" state="1">
        <title xml:lang="eng">notes</title>
 </panel>
+
 </panels>
