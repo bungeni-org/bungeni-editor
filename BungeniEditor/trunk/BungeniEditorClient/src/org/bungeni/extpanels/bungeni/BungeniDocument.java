@@ -75,6 +75,7 @@ public class BungeniDocument {
             parseFileName(attDoc);
             parseTitle(attDoc);
             parseDescription(attDoc);
+            parseType(attDoc);
             parseStatus(attDoc);
             parseTransitions(attDoc);
             parseStatusDate(attDoc);
@@ -102,6 +103,16 @@ public class BungeniDocument {
 
         }
 
+        
+        private void parseType(Document attDoc) {
+            Elements elemType = attDoc.select("div#type > div.content-right-column > div.widget");
+            if (elemType.size() > 0) {
+                this.attType = elemType.get(0).text();
+            } else {
+                this.attType = "";
+            }
+        }
+        
         private void parseFileName(Document attDoc) {
             Elements elemFileName = attDoc.select("div#name > div.content-right-column > div.widget");
             if (elemFileName.size() > 0) {

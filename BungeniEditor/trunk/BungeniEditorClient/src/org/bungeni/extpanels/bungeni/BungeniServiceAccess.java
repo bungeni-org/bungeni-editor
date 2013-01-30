@@ -96,8 +96,14 @@ public class BungeniServiceAccess {
            return bungeniDocs;
     }
     
-    
-      public File checkOdfDocument(File fodf, BungeniDocument aDocument) throws Exception {
+   /**
+    * Service api called from BungeniAttLoadingPanel
+    * @param fodf
+    * @param aDocument
+    * @return
+    * @throws Exception 
+    */ 
+   public File checkOdfDocument(File fodf, BungeniDocument aDocument) throws Exception {
             OdfDocument odf = OdfDocument.loadDocument(fodf);
             BungeniOdfDocumentHelper odfhelper = new BungeniOdfDocumentHelper(odf);
             BungeniOdfPropertiesHelper propshelper = odfhelper.getPropertiesHelper();
@@ -137,6 +143,17 @@ public class BungeniServiceAccess {
                 propshelper.setUserDefinedPropertyValue("PortalAttStatusDate", att.statusDate);
                 propshelper.setUserDefinedPropertyValue("PortalAttDownURL", att.downloadUrl);
                 propshelper.setUserDefinedPropertyValue("PortalAttDesc", att.description);
+                propshelper.setUserDefinedPropertyValue("PortalAttTransCount", Integer.toString(att.transitions.size()));
+
+                int i=0;
+                for (Transition transition :att.transitions){
+                    i++;
+                    //Not more than 99 transitions !!!
+                    String snum = String.format("%02d", i);
+                    propshelper.setUserDefinedPropertyValue("PortalAttTransName"+snum, transition.title);
+                    propshelper.setUserDefinedPropertyValue("PortalAttTransURL"+snum, transition.url);
+                }
+                                
                 odfhelper.saveDocument();
                 // create the root section after opening and set initial metadata properties
             }
