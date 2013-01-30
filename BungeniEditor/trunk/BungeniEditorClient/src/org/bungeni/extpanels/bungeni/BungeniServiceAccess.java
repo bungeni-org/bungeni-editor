@@ -17,23 +17,32 @@
  */
 package org.bungeni.extpanels.bungeni;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingWorker;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.bungeni.extpanels.bungeni.BungeniAppConnector;
 import org.bungeni.extpanels.bungeni.BungeniAppConnector.WebResponse;
 import org.bungeni.extpanels.bungeni.BungeniDocument;
 import org.bungeni.extpanels.bungeni.BungeniListDocuments;
 import org.bungeni.extpanels.bungeni.BungeniListDocuments.BungeniListDocument;
 import org.bungeni.extutils.MessageBox;
+import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
+import org.bungeni.odfdom.document.properties.BungeniOdfPropertiesHelper;
+import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.odftoolkit.odfdom.doc.OdfDocument;
+import org.odftoolkit.odfdom.dom.element.text.TextSectionElement;
+import org.w3c.dom.NodeList;
 
 /**
  *  This is the class that implements all interaction with Bungeni and abstracts that
@@ -88,25 +97,54 @@ public class BungeniServiceAccess {
     }
     
     
-    
-    
-    
-    
-    public List searchDocuments(String searchServer, String docType, String status) {
-        return null;
-    }
-    
-    public boolean authenticateDocument(String urlDocument) {
-        if (client != null ) {
-           
+      public File checkOdfDocument(File fodf, BungeniDocument aDocument) throws Exception {
+            OdfDocument odf = OdfDocument.loadDocument(fodf);
+            BungeniOdfDocumentHelper odfhelper = new BungeniOdfDocumentHelper(odf);
+            BungeniOdfPropertiesHelper propshelper = odfhelper.getPropertiesHelper();
+            //check if the document has been edited in bungeni editor .. look for some properties
+            HashMap<String,String> docPropsMap = propshelper.getUserDefinedPropertyValues();
+            //check for root section
+            boolean rootSectionExists = false;
+            BungeniOdfSectionHelper sechelper = odfhelper.getSectionHelper();
+            NodeList sections = sechelper.getDocumentSections();
+            if (sections.getLength() > 0 ) {
+                TextSectionElement sectionElement = (TextSectionElement)sections.item(0);
+                //check for body section Type
+                String sBody = sechelper.getSectionMetadataValue(sectionElement, "BungeniSectionType");
+                if (sBody.equals("body")) {
+                    rootSectionExists = true;
+                }
+            }
+             
+            if (docPropsMap.containsKey("BungeniDocType") && rootSectionExists ) {
+                // this is a bungeni document ... load for editing
+            } else {
+                //first prepare the document
+                BungeniDocument.Attachment att = aDocument.getSelectedAttachment();
+                propshelper.setUserDefinedPropertyValue("BungeniDocType", BungeniEditorPropertiesHelper.getCurrentDocType());
+                propshelper.setUserDefinedPropertyValue("DocSource", "BungeniPortal");
+                propshelper.setUserDefinedPropertyValue("DocInit", "False");
+                propshelper.setUserDefinedPropertyValue("PortalSourceDoc", aDocument.getStatus());
+                propshelper.setUserDefinedPropertyValue("PortalSourceTitle", aDocument.getTitle());
+                propshelper.setUserDefinedPropertyValue("PortalSourceURL", aDocument.getURL());
+                propshelper.setUserDefinedPropertyValue("PortalAttSource", att.url);
+                propshelper.setUserDefinedPropertyValue("PortalAttFileName", att.fileName);
+                propshelper.setUserDefinedPropertyValue("PortalAttTitle", att.title);
+                propshelper.setUserDefinedPropertyValue("PortalAttType", att.attType);
+                propshelper.setUserDefinedPropertyValue("PortalAttMimeType", att.mimeType);
+                propshelper.setUserDefinedPropertyValue("PortalAttLang", att.language);
+                propshelper.setUserDefinedPropertyValue("PortalAttStatus", att.status);
+                propshelper.setUserDefinedPropertyValue("PortalAttStatusDate", att.statusDate);
+                propshelper.setUserDefinedPropertyValue("PortalAttDownURL", att.downloadUrl);
+                propshelper.setUserDefinedPropertyValue("PortalAttDesc", att.description);
+                odfhelper.saveDocument();
+                // create the root section after opening and set initial metadata properties
+            }
+            return fodf;
         }
-        return true;
-    }
-    
-    public List getDocumentAttachments(String urlDocument) {
-        return null;
-    }
+
     
    
+    
     
 }

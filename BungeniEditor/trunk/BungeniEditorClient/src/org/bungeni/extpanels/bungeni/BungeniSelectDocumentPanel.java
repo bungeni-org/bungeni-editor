@@ -29,18 +29,18 @@ import org.bungeni.utils.BungeniDialog;
  *
  * @author PC
  */
-public class BungeniSelectDocument extends javax.swing.JPanel {
+public class BungeniSelectDocumentPanel extends javax.swing.JPanel {
 
     BungeniListDocument selectedListDocument = null;
     BungeniDialog parentDialog = null;
     /**
      * Creates new form BungeniSelectDocument
      */
-    private BungeniSelectDocument() {
+    private BungeniSelectDocumentPanel() {
         initComponents();
     }
     
-    public BungeniSelectDocument(BungeniDialog parentDialog, List<BungeniListDocument> listDocuments) {
+    public BungeniSelectDocumentPanel(BungeniDialog parentDialog, List<BungeniListDocument> listDocuments) {
         this();
         this.parentDialog = parentDialog;
         init(listDocuments);
@@ -102,11 +102,11 @@ public class BungeniSelectDocument extends javax.swing.JPanel {
         jScrollPane1.setViewportView(listDocs);
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/extpanels/bungeni/Bundle"); // NOI18N
-        lblDocSelect.setText(bundle.getString("BungeniSelectDocument.lblDocSelect.text")); // NOI18N
+        lblDocSelect.setText(bundle.getString("BungeniSelectDocumentPanel.lblDocSelect.text")); // NOI18N
 
-        btnLoadDocument.setText(bundle.getString("BungeniSelectDocument.btnLoadDocument.text")); // NOI18N
+        btnLoadDocument.setText(bundle.getString("BungeniSelectDocumentPanel.btnLoadDocument.text")); // NOI18N
 
-        btnCancel.setText(bundle.getString("BungeniSelectDocument.btnCancel.text")); // NOI18N
+        btnCancel.setText(bundle.getString("BungeniSelectDocumentPanel.btnCancel.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

@@ -28,18 +28,27 @@ import org.bungeni.extutils.MessageBox;
  *  Login screen for Bungeni
  * @author Ashok HAriharan
  */
-public class BungeniLogin extends javax.swing.JPanel {
+public class BungeniLoginPanel extends javax.swing.JPanel {
 
     JDialog parentDialog  ; 
     BungeniServiceAccess bungeniService ; 
+    private LoginInfo loginInfo;
     private boolean bConnection = false;
     /**
      * Creates new form BungeniLogin
      */
-    public BungeniLogin(JDialog parentDialog) {
+    public BungeniLoginPanel(JDialog parentDialog, LoginInfo loginInfo) {
         initComponents();
+        this.loginInfo = loginInfo;
         this.parentDialog = parentDialog;
         bungeniService = BungeniServiceAccess.getInstance();
+        init();
+    }
+    
+    private void init(){
+        this.txtLoginBase.setText(loginInfo.loginBase);
+        this.txtServer.setText(loginInfo.server);
+        this.txtServerPort.setText(loginInfo.port);
     }
     
     private void closeDialog(){
@@ -75,32 +84,32 @@ public class BungeniLogin extends javax.swing.JPanel {
         txtUser.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/extpanels/bungeni/Bundle"); // NOI18N
-        lblUser.setText(bundle.getString("BungeniLogin.lblUser.text")); // NOI18N
+        lblUser.setText(bundle.getString("BungeniLoginPanel.lblUser.text")); // NOI18N
 
-        lblPassword.setText(bundle.getString("BungeniLogin.lblPassword.text")); // NOI18N
+        lblPassword.setText(bundle.getString("BungeniLoginPanel.lblPassword.text")); // NOI18N
 
         txtPassword.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
 
-        lblLoginLabel.setText(bundle.getString("BungeniLogin.lblLoginLabel.text")); // NOI18N
+        lblLoginLabel.setText(bundle.getString("BungeniLoginPanel.lblLoginLabel.text")); // NOI18N
 
-        lblPassword1.setText(bundle.getString("BungeniLogin.lblPassword1.text")); // NOI18N
+        lblPassword1.setText(bundle.getString("BungeniLoginPanel.lblPassword1.text")); // NOI18N
 
         txtLoginBase.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
 
-        btnLogin.setText(bundle.getString("BungeniLogin.btnLogin.text")); // NOI18N
+        btnLogin.setText(bundle.getString("BungeniLoginPanel.btnLogin.text")); // NOI18N
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
             }
         });
 
-        lblServerName.setText(bundle.getString("BungeniLogin.lblServerName.text")); // NOI18N
+        lblServerName.setText(bundle.getString("BungeniLoginPanel.lblServerName.text")); // NOI18N
 
         txtServer.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
 
         txtServerPort.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
 
-        lblPort.setText(bundle.getString("BungeniLogin.lblPort.text")); // NOI18N
+        lblPort.setText(bundle.getString("BungeniLoginPanel.lblPort.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

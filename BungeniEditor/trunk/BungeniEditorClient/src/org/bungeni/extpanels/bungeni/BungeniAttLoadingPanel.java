@@ -322,7 +322,7 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
             
             if (ftempAtt != null) {
                  // initialize the file
-                 fodt = checkOdfDocument(ftempAtt);
+                 fodt = BungeniServiceAccess.getInstance().checkOdfDocument(ftempAtt, this.loadedDocument);
             }
             return fodt;
         }
@@ -345,42 +345,6 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
             }
         }
         
-        private File checkOdfDocument(File fodf) throws Exception {
-            OdfDocument odf = OdfDocument.loadDocument(fodf);
-            BungeniOdfDocumentHelper odfhelper = new BungeniOdfDocumentHelper(odf);
-            BungeniOdfPropertiesHelper propshelper = odfhelper.getPropertiesHelper();
-            //check if the document has been edited in bungeni editor .. look for some properties
-            HashMap<String,String> docPropsMap = propshelper.getUserDefinedPropertyValues();
-            //check for root section
-            boolean rootSectionExists = false;
-            BungeniOdfSectionHelper sechelper = odfhelper.getSectionHelper();
-            NodeList sections = sechelper.getDocumentSections();
-            if (sections.getLength() > 0 ) {
-                TextSectionElement sectionElement = (TextSectionElement)sections.item(0);
-                //check for body section Type
-                String sBody = sechelper.getSectionMetadataValue(sectionElement, "BungeniSectionType");
-                if (sBody.equals("body")) {
-                    rootSectionExists = true;
-                }
-            }
-             
-            if (docPropsMap.containsKey("BungeniDocType") && rootSectionExists ) {
-                // this is a bungeni document ... load for editing
-            } else {
-                //first prepare the document
-                Attachment att = loadedDocument.getSelectedAttachment();
-                propshelper.setUserDefinedPropertyValue("BungeniDocType", BungeniEditorPropertiesHelper.getCurrentDocType());
-                propshelper.setUserDefinedPropertyValue("DocSource", "BungeniPortal");
-                propshelper.setUserDefinedPropertyValue("DocInit", "False");
-                propshelper.setUserDefinedPropertyValue("PortalSourceDoc", loadedDocument.getURL());
-                propshelper.setUserDefinedPropertyValue("PortalAttSource", att.url);
-                propshelper.setUserDefinedPropertyValue("PortalAttFileName", att.fileName);
-                propshelper.setUserDefinedPropertyValue("PortalAttTitle", att.title);
-                odfhelper.saveDocument();
-                // create the root section after opening and set initial metadata properties
-            }
-            return fodf;
-        }
     
  }
 

@@ -45,7 +45,7 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
     public String receiveDocument(final JFrame parentFrame, final PluggableConfig customConfig, HashMap inputParams) {
         //String sDocURL = (String) JOptionPane.showInputDialog(parentFrame, "Enter the URL of the document to Import",
         //                     "Import document from Bungeni", JOptionPane.QUESTION_MESSAGE);
-        if (login(parentFrame)) {
+        if (login(parentFrame, customConfig)) {
             List<BungeniListDocument> listDocs = listDocuments(parentFrame, customConfig);
             if(listDocs.size() > 0 ) {
                 //show list documents
@@ -61,11 +61,35 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
         }   
         return null;
     }
+
+    
+    private boolean login(JFrame parentFrame, PluggableConfig customConfig) {
+        LoginInfo linfo = loginInfo(customConfig);
+        BungeniDialog frm = new BungeniDialog(parentFrame, "Login", true);
+        frm.initFrame();
+        BungeniLoginPanel login = new BungeniLoginPanel(frm, linfo);
+        frm.getContentPane().add(login);
+        frm.pack();
+        frm.setLocationRelativeTo(null);
+        frm.setVisible(true);
+        return login.loginSuccessful();
+    }
+
+    
+    private LoginInfo loginInfo(PluggableConfig customConfig) {
+        Element loginElem = customConfig.customConfigElement.getChild("login");
+        LoginInfo li = new LoginInfo(
+                loginElem.getAttributeValue("server"),
+                loginElem.getAttributeValue("port"),
+                loginElem.getAttributeValue("baseurl")
+                );
+        return li;
+    }
     
     
     private BungeniListDocument selectDocument(final JFrame parentFrame, List<BungeniListDocument> listDocuments) {
         BungeniDialog               dlgdocs = new BungeniDialog(parentFrame, "Select a Bungeni Document", true);
-        BungeniSelectDocument       panelSelectDocument = new BungeniSelectDocument(dlgdocs, listDocuments);
+        BungeniSelectDocumentPanel       panelSelectDocument = new BungeniSelectDocumentPanel(dlgdocs, listDocuments);
         dlgdocs.getContentPane().add(panelSelectDocument);
         dlgdocs.pack();
         FrameLauncher.CenterFrame(dlgdocs);
@@ -119,6 +143,7 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
         return sDocBase;
     }
 
+    
     private List<BungeniListDocument> listDocuments(JFrame parentFrame, final PluggableConfig customConfig) {
         String sSearchBungeniURL = searchURL(customConfig);
         // access the input URL
@@ -131,24 +156,8 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
             log.error("Error while accessin url : " + sSearchBungeniURL , ex);
         }
         return listDocuments;
-        //  BungeniDocument          jdoc   = new BungeniDocument(sDocURL, doc);
-          //  Attachment               attDoc = promptForAttachment(parentFrame, jdoc);
-
-       // if (attDoc != null) {
-       //     importAttachment(jdoc, attDoc);
-       // }
     }
 
-    private boolean login(JFrame parentFrame) {
-        BungeniDialog frm = new BungeniDialog(parentFrame, "Login", true);
-        frm.initFrame();
-        BungeniLogin login = new BungeniLogin(frm);
-        frm.getContentPane().add(login);
-        frm.pack();
-        frm.setLocationRelativeTo(null);
-        frm.setVisible(true);
-        return login.loginSuccessful();
-    }
 
 }
 
