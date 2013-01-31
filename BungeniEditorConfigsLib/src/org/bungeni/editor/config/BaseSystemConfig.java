@@ -35,10 +35,10 @@ public class BaseSystemConfig {
      * configs/system
      */
     public static final String SYSTEM_BASE =
-            BaseConfigReader.CONFIGS_FOLDER + File.separator + "system";
+            BaseConfigReader.configsFolder() + File.separator + "system";
 
     public static final String CUSTOM_BASE =
-            BaseConfigReader.CONFIGS_FOLDER + File.separator + "custom";
+            BaseConfigReader.configsFolder() + File.separator + "custom";
     
     /**
      * This has all the system XSLT generator templates

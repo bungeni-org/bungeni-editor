@@ -36,7 +36,7 @@ import org.jdom.xpath.XPath;
 public class ConditionsReader extends BaseConfigReader {
     private static Logger log = Logger.getLogger(ConditionsReader.class.getName());
 
-    public final static String SETTINGS_FOLDER = CONFIGS_FOLDER + File.separator + "actions"  + File.separator + "conditions";
+    public final static String SETTINGS_FOLDER = configsFolder() + File.separator + "actions"  + File.separator + "conditions";
     
     private static ConditionsReader thisInstance = null;
 

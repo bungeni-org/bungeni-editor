@@ -37,7 +37,7 @@ import org.jdom.xpath.XPath;
 public class LocalesReader extends BaseConfigReader {
     private static Logger log = Logger.getLogger(LocalesReader.class.getName());
 
-    public final static String SETTINGS_FOLDER = CONFIGS_FOLDER + File.separator + "locales";
+    public final static String SETTINGS_FOLDER = configsFolder() + File.separator + "locales";
     public final static String LOCALES_FILE = "locales.xml";
     public final static String RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE = SETTINGS_FOLDER + File.separator + LOCALES_FILE;
 

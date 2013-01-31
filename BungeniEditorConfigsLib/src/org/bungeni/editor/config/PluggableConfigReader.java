@@ -20,6 +20,7 @@ package org.bungeni.editor.config;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import org.bungeni.extutils.CommonEditorXmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
+import org.jdom.output.XMLOutputter;
 import org.jdom.xpath.XPath;
 
 /**
@@ -58,11 +60,13 @@ public class PluggableConfigReader {
         public final String url;
         public final String folderBase;
         public final String receiverClass ;
-        public final  boolean configDefault;
+        public  boolean configDefault;
         public final boolean customConfig ;
-        public final Element customConfigElement ;
+        public Element configElement;
+        public Element customConfigElement ;
 
         public PluggableConfig(Element configElement) {
+            this.configElement = configElement;
             this.name = configElement.getAttributeValue("name");
             this.title = configElement.getAttributeValue("title");
             this.url = configElement.getAttributeValue("url");
@@ -86,7 +90,7 @@ public class PluggableConfigReader {
 
         @Override
         public String toString() {
-            return this.name + " - " + this.title;
+            return   (this.configDefault?"[DEFAULT] ":"") + this.name + " - " + this.title;
         }
 
     }
@@ -116,7 +120,42 @@ public class PluggableConfigReader {
        Element elementConfig = (Element) xpath.selectSingleNode(getDocument());
        return new PluggableConfig(elementConfig);
    }
+   
+   public void makeDefault(PluggableConfig cfg) throws JDOMException{
+       if (!cfg.configDefault){
+           PluggableConfig cfgDefault = getDefaultConfig();
+           cfgDefault.configDefault = false;
+           cfgDefault.configElement.setAttribute("default", "false");
+           cfg.configDefault = true;
+           cfg.configElement.setAttribute("default", "true");
+           updateConfigs();
+       }
+   }
 
+   private void updateConfigs(){
+       XMLOutputter out = new XMLOutputter();
+       FileWriter fw=  null; 
+       try {
+       fw = new FileWriter(new File(               
+               BaseConfigReader.BASE_SETTINGS_FOLDER + 
+               File.separator + 
+               PLUGGABLE_CONFIGS_FILE
+         ));
+       out.output(this.pluggableConfigDocument, fw );
+       fw.flush();
+       } catch (IOException ex) {
+           log.error("Error while writing config file");
+       } finally {
+           if (fw != null ) {
+               try {
+               fw.close();
+               } catch (Exception ex) {
+                   log.error("Error while closing pluggable config file");
+               }
+           }
+       }
+   }
+   
     private XPath getXPath() throws JDOMException {
         if (this.xpathInstance == null) {
             this.xpathInstance = XPath.newInstance("//locale");

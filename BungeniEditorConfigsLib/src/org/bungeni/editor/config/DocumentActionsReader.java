@@ -40,9 +40,9 @@ public class DocumentActionsReader extends BaseConfigReader {
 
     //private final static String SETTINGS_FOLDER = CONFIGS_FOLDER + File.separator + "actions" + File.separator  + "doc_actions";
 
-    private final static String DOC_ACTIONS_FOLDER =  CONFIGS_FOLDER + File.separator + "actions" + File.separator + "doc_actions";
+    private final static String DOC_ACTIONS_FOLDER =  configsFolder() + File.separator + "actions" + File.separator + "doc_actions";
 
-    private final static String SELECTOR_DIALOGS_FILE = CONFIGS_FOLDER + File.separator + "actions" + File.separator + "selector_dialogs.xml";
+    private final static String SELECTOR_DIALOGS_FILE = configsFolder() + File.separator + "actions" + File.separator + "selector_dialogs.xml";
 
     private HashMap<String,Document> cachedActions = new HashMap<String,Document>();
 

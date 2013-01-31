@@ -37,7 +37,7 @@ import org.jdom.xpath.XPath;
 public class BundlesReader extends BaseConfigReader {
     private static Logger log = Logger.getLogger(BundlesReader.class.getName());
 
-    public final static String SETTINGS_FOLDER = CONFIGS_FOLDER + File.separator + "bundles";
+    public final static String SETTINGS_FOLDER = configsFolder() + File.separator + "bundles";
     public final static String BUNDLES_FILE = "bundles.xml";
     public final static String RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE = SETTINGS_FOLDER + File.separator + BUNDLES_FILE;
 

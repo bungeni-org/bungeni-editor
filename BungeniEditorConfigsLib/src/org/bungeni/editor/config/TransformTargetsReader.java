@@ -38,7 +38,7 @@ import org.jdom.xpath.XPath;
 public class TransformTargetsReader extends BaseConfigReader {
     private static Logger log = Logger.getLogger(TransformTargetsReader.class.getName());
 
-    public final static String SETTINGS_FOLDER = CONFIGS_FOLDER + File.separator + "transform";
+    public final static String SETTINGS_FOLDER = configsFolder() + File.separator + "transform";
     public final static String TRANSFORM_TARGETS_FILE = "transform_targets.xml";
     public final static String RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE = SETTINGS_FOLDER + File.separator + TRANSFORM_TARGETS_FILE;
 

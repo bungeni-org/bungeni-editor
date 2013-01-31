@@ -42,7 +42,7 @@ public class SectionTypesReader extends BaseConfigReader {
 
  private static SectionTypesReader thisInstance = null;
 
-    private final static String SETTINGS_FOLDER = CONFIGS_FOLDER + File.separator + "section_types";
+    private final static String SETTINGS_FOLDER = configsFolder() + File.separator + "section_types";
 
     private HashMap<String,Document> cachedTypes = new HashMap<String,Document>();
 

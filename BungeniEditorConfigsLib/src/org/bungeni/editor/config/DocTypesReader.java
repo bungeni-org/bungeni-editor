@@ -39,7 +39,7 @@ import org.jdom.xpath.XPath;
 public class DocTypesReader extends BaseConfigReader {
     private static Logger log = Logger.getLogger(DocTypesReader.class.getName());
 
-    public final static String SETTINGS_FOLDER = CONFIGS_FOLDER;
+    public final static String SETTINGS_FOLDER = configsFolder();
     public final static String DOCTYPES_FILE = "doc_types.xml";
     public final static String RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE = SETTINGS_FOLDER + File.separator + DOCTYPES_FILE;
 

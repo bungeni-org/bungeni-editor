@@ -41,7 +41,7 @@ public class SystemParameterReader extends BaseConfigReader {
 
     private static Logger log = Logger.getLogger(SystemParameterReader.class.getName());
 
-    public final static String SETTINGS_FOLDER = CONFIGS_FOLDER;
+    public final static String SETTINGS_FOLDER = configsFolder();
     public final static String SYSTEM_PARAMETER_FILE_NAME = "system-parameters.xml";
     public final static String PATH_TO_SYSTEM_PARAMETERS_FILE = SETTINGS_FOLDER + File.separator + SYSTEM_PARAMETER_FILE_NAME;
 

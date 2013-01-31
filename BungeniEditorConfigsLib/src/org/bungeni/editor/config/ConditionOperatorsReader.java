@@ -37,7 +37,7 @@ import org.jdom.xpath.XPath;
 public class ConditionOperatorsReader extends BaseConfigReader {
     private static Logger log = Logger.getLogger(ConditionOperatorsReader.class.getName());
 
-    public final static String SETTINGS_FOLDER = CONFIGS_FOLDER + File.separator + "actions";
+    public final static String SETTINGS_FOLDER = configsFolder() + File.separator + "actions";
     public final static String CONDITION_OPERATORS_FILE = "condition_operators.xml";
     public final static String RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE = SETTINGS_FOLDER + File.separator + CONDITION_OPERATORS_FILE;
 

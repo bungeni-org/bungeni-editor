@@ -41,7 +41,7 @@ public class PanelsReader extends BaseConfigReader {
 
     private SAXBuilder saxBuilder ;
 
-    private final static String SETTINGS_FOLDER = CONFIGS_FOLDER  + File.separator + "panels";
+    private final static String SETTINGS_FOLDER = configsFolder()  + File.separator + "panels";
 
     private HashMap<String,Document> cachedPanels = new HashMap<String,Document>();
 

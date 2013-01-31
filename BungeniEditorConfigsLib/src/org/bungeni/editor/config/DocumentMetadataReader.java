@@ -39,7 +39,7 @@ import org.jdom.xpath.XPath;
 public class DocumentMetadataReader extends BaseConfigReader {
     private static Logger log = Logger.getLogger(DocumentMetadataReader.class.getName());
 
-    public final static String SETTINGS_FOLDER = CONFIGS_FOLDER + File.separator + "metadata";
+    public final static String SETTINGS_FOLDER = configsFolder() + File.separator + "metadata";
 
     private static DocumentMetadataReader thisInstance = null;
 

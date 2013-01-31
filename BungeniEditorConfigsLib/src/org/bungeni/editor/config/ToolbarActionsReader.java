@@ -26,7 +26,7 @@ import java.io.File;
  */
 public class ToolbarActionsReader extends BaseConfigReader {
 
-    public static final String SETTINGS_FOLDER = BaseConfigReader.CONFIGS_FOLDER +
+    public static final String SETTINGS_FOLDER = BaseConfigReader.configsFolder() +
             File.separator + "actions" +
             File.separator + "toolbar_actions" ;
     public static final String TOOLBAR_ACTIONS_FILE = SETTINGS_FOLDER + File.separator + 

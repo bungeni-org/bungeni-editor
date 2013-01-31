@@ -42,7 +42,7 @@ public class InlineTypesReader extends BaseConfigReader {
 
     private static final Logger log = Logger.getLogger(InlineTypesReader.class.getName());
 
-    private final static String SETTINGS_FOLDER = CONFIGS_FOLDER + File.separator + "inline_types";
+    private final static String SETTINGS_FOLDER = configsFolder() + File.separator + "inline_types";
 
     private HashMap<String,Document> cachedTypes = new HashMap<String,Document>();
 

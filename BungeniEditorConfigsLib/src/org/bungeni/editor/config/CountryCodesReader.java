@@ -37,7 +37,7 @@ import org.jdom.xpath.XPath;
 public class CountryCodesReader extends BaseConfigReader{
     private static Logger log = Logger.getLogger(CountryCodesReader.class.getName());
 
-    public final static String SETTINGS_FOLDER = CONFIGS_FOLDER + File.separator + "locales";
+    public final static String SETTINGS_FOLDER = configsFolder() + File.separator + "locales";
     public final static String COUNTRY_CODES_FILE = "country_codes_iso_3166-1.xml";
     public final static String RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE = SETTINGS_FOLDER + File.separator + COUNTRY_CODES_FILE;
 

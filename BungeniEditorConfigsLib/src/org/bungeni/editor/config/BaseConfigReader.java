@@ -39,7 +39,7 @@ public class BaseConfigReader {
 
     private static final Logger log = Logger.getLogger(BaseConfigReader.class.getName());
     public static final String BASE_SETTINGS_FOLDER = "settings" ;
-    public static final String CONFIGS_FOLDER =  getConfigsFolder() ;
+    private static  String CONFIGS_FOLDER =  getConfigsFolder() ;
     public static final String WORKSPACE_PROPS_FILE = "workspace.properties" ;
     public static final String SYSTEM_PROPS_FILE = "system.properties";
     private static String PLUGGABLE_CONFIGS_FOLDER = null;
@@ -80,8 +80,11 @@ public class BaseConfigReader {
       return MAIN_PANEL_IMPL;
     }
 
+   public static void refreshConfigsFolder(){
+       BaseConfigReader.CONFIGS_FOLDER = getConfigsFolder();
+   }
+      
     private static String getConfigsFolder(){
-        if (null == PLUGGABLE_CONFIGS_FOLDER) {
             try {
               PluggableConfig cfg = PluggableConfigReader.getInstance().getDefaultConfig();
               String folderBase = cfg.folderBase;
@@ -111,8 +114,14 @@ public class BaseConfigReader {
             } catch (JDOMException ex) {
               log.error("Error getting configs folder", ex);
             }
-        }
-      return PLUGGABLE_CONFIGS_FOLDER;
+        return PLUGGABLE_CONFIGS_FOLDER;
+    }
+
+    /**
+     * @return the CONFIGS_FOLDER
+     */
+    public static String configsFolder() {
+        return CONFIGS_FOLDER;
     }
 
 
