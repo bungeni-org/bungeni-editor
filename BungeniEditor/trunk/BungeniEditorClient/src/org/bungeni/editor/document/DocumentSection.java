@@ -128,7 +128,7 @@ public final class DocumentSection {
                 String urlPath = sectionBackground.replaceAll("url:", "");
                 //url: uses a relative path !+FIX_THIS support file:// urls too
                 String relPath = urlPath.replace('/', File.separatorChar);
-                relPath = BaseConfigReader.CONFIGS_FOLDER + File.separator + relPath;
+                relPath = BaseConfigReader.configsFolder() + File.separator + relPath;
                 this.sectionBackground = null;
                 this.sectionBackgroundURL = relPath ;
                 this.isSectionBackgroundURL = true;

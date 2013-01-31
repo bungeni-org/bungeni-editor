@@ -19,6 +19,7 @@ import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 import org.apache.log4j.BasicConfigurator;
 import org.bungeni.editor.config.BaseConfigReader;
+import org.bungeni.editor.config.PluggableConfigReader;
 import org.bungeni.editor.dialogs.editorApplicationController;
 import org.bungeni.editor.interfaces.ui.ILookAndFeel;
 import org.bungeni.editor.noa.BungeniNoaApp;
@@ -27,6 +28,7 @@ import org.bungeni.editor.system.StartupConfigGenerator;
 import org.bungeni.editor.ui.LookAndFeelFactory;
 import org.bungeni.extutils.BungeniRuntimeProperties;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
+import org.bungeni.utils.BungeniDialog;
 import org.bungeni.utils.CommonBungeniTreeFunctions;
 import org.bungeni.utils.Installation;
 
@@ -240,6 +242,17 @@ public class BungeniEditorClient {
         }
     }
 
+    private static void selectConfig(){
+        BungeniDialog frm = new BungeniDialog(null, "Select Config", true);
+        frm.initFrame();
+        ConfigSelectPanel cfgPanel = new ConfigSelectPanel(frm);
+        frm.getContentPane().add(cfgPanel);
+        frm.pack();
+        frm.setLocationRelativeTo(null);
+        frm.setVisible(true);
+        BaseConfigReader.refreshConfigsFolder();
+    }
+    
     /**
      * This is called by the Loader class and never invoked directly
      * @param args
@@ -249,10 +262,13 @@ public class BungeniEditorClient {
 
             // parse the command line options
             cmdOptions = new BungeniEditorClientCmdOptions();
+            //for log4j
             BasicConfigurator.configure();
-            System.out.println("Editor configuration folder set to : " + BaseConfigReader.CONFIGS_FOLDER);
+            System.out.println("Editor configuration folder set to : " + BaseConfigReader.configsFolder());
             cmdOptions.doMain(args);
-
+            
+            selectConfig();
+            
             // launch the editor
             javax.swing.SwingUtilities.invokeLater(new Runnable() {
 

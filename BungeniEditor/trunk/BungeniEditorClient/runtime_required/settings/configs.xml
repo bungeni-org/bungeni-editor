@@ -3,7 +3,7 @@
   config/@url - can be either http://file.zip , file:/folder
   -->
   <config name="bz_config"
-    title="All Types Development"
+    title="Birzeit Test Config"
     url="http://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/alltypesdev.zip"
     folder-base="../../Editor_configs/bz_configs"
     receiver="org.bungeni.editor.input.FSDocumentReceiver"
@@ -14,6 +14,7 @@
     url="http://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/alltypesdev.zip"
     folder-base="../../Editor_configs/development_configs"
     receiver="org.bungeni.editor.input.FSDocumentReceiver"
+  default="true"
 
 	/>
   <config name="Bill-Bungeni"
@@ -21,8 +22,7 @@
     url="http://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/bill-bungeni.zip"
     folder-base="../../Editor_configs/bungeni_configs"
     receiver="org.bungeni.extpanels.bungeni.BungeniDocumentReceiver"
-    default="true"
-
+  
   >
     <custom>
        <login server="10.0.2.2" port="8081" baseurl="login" />

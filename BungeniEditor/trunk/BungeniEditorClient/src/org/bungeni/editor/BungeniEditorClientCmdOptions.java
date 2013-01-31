@@ -2,17 +2,13 @@ package org.bungeni.editor;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.util.ArrayList;
+import java.util.List;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
-import org.kohsuke.args4j.Option;
-
 import static org.kohsuke.args4j.ExampleMode.ALL;
-
-//~--- JDK imports ------------------------------------------------------------
-
-import java.util.ArrayList;
-import java.util.List;
+import org.kohsuke.args4j.Option;
 
 /**
  * Class that describes and parses command line options for bungeni editor

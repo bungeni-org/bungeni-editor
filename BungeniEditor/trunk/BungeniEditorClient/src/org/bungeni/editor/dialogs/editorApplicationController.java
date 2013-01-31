@@ -410,7 +410,7 @@ public class editorApplicationController extends javax.swing.JPanel {
                 } else {
                     //path relative to configs folder
                     String normalizedPath = templatePath.replace('/', File.separatorChar);
-                    normalizedPath = BaseConfigReader.CONFIGS_FOLDER + File.separator + normalizedPath;
+                    normalizedPath = BaseConfigReader.configsFolder() + File.separator + normalizedPath;
                     return normalizedPath;
                 }
         }
