@@ -9,9 +9,7 @@ import com.sun.star.frame.XDesktop;
 import com.sun.star.lang.XMultiComponentFactory;
 import com.sun.star.uno.Exception;
 import com.sun.star.uno.XComponentContext;
-
 import java.io.File;
-
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
@@ -123,7 +121,7 @@ public class BungenioOoHelper {
     public static String convertPathToURL(String path) {
         File   file   = new File(path);
         String strURL = "";
-        URL    url    = null;
+        URL    url  ;
         try {
             // file.toURL() was deprecated for JDK 1.6
             URI fileURI = file.toURI();
@@ -137,74 +135,6 @@ public class BungenioOoHelper {
         }
     }
 
-    /**
-     * openDocument()
-     * @param strDocument
-     * @return
-     */
-  /*
-    public XComponent openDocument(String strDocument) {
-        try {
-            XComponent      xComponent    = null;
-            PropertyValue[] loadProps     = new com.sun.star.beans.PropertyValue[1];
-            PropertyValue   xOpenProperty = new com.sun.star.beans.PropertyValue();
-
-            xOpenProperty.Name  = "MacroExecutionMode";
-            xOpenProperty.Value = com.sun.star.document.MacroExecMode.ALWAYS_EXECUTE;
-            loadProps[0]        = xOpenProperty;
-            m_ooComponent       = m_ooComponentLoader.loadComponentFromURL(strDocument, "_blank", 0, loadProps);
-            positionWindow();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (IllegalArgumentException ex) {
-            ex.printStackTrace();
-        } finally {
-            return m_ooComponent;
-        }
-    }
-*/
-    /**
-     * newDocument()
-     * @param strTemplatePath
-     * @return
-     */
-
-    /**
-    public XComponent newDocument(String strTemplatePath) {
-        XComponent xComponent = null;
-
-        try {
-            PropertyValue[] loadProps         = new com.sun.star.beans.PropertyValue[2];
-            PropertyValue   xTemplateProperty = new com.sun.star.beans.PropertyValue();
-
-            xTemplateProperty.Name  = "Template";
-            xTemplateProperty.Value = true;
-            loadProps[0]            = xTemplateProperty;
-
-            com.sun.star.beans.PropertyValue xMacroExecProperty = new com.sun.star.beans.PropertyValue();
-
-            xMacroExecProperty.Name  = "MacroExecutionMode";
-            xMacroExecProperty.Value = com.sun.star.document.MacroExecMode.ALWAYS_EXECUTE;
-            loadProps[1]             = xMacroExecProperty;
-
-            if (strTemplatePath.equals("")) {
-                strTemplatePath = "private:factory/swriter";
-            }
-
-            // launch window
-            m_ooComponent = m_ooComponentLoader.loadComponentFromURL(strTemplatePath, "_blank", 0, loadProps);
-
-            // now maximize document frame
-            positionWindow();
-        } catch (IOException ex) {
-            Logger.getLogger("global").log(Level.SEVERE, null, ex);
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger("global").log(Level.SEVERE, null, ex);
-        } finally {
-            return m_ooComponent;
-        }
-    }
-     */
 
     /**
      * Positions the OpenOffice.org editor window to maximise and centered on the screen
