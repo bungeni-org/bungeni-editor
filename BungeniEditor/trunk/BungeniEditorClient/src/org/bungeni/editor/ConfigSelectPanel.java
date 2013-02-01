@@ -17,7 +17,11 @@
  */
 package org.bungeni.editor;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import org.bungeni.editor.config.PluggableConfigReader;
 import org.bungeni.editor.config.PluggableConfigReader.PluggableConfig;
 import org.bungeni.utils.BungeniDialog;
@@ -55,9 +59,32 @@ public class ConfigSelectPanel extends javax.swing.JPanel {
        } catch(JDOMException ex ) {
            log.error("Error while loading config info ", ex);
        }
+        this.listConfigs.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent evt) {
+                JList list = (JList)evt.getSource();
+                if (evt.getClickCount() == 2) {
+                    int index = list.locationToIndex(evt.getPoint());
+                    if (index != -1) {
+                       selectAction();
+                    }
+                }
+            }   
+        });
     }
     
     
+    private void selectAction(){
+        PluggableConfig cfg = (PluggableConfig) this.listConfigs.getSelectedValue();
+        try {
+            //write to pluggable config
+            PluggableConfigReader.getInstance().makeDefault(cfg);
+        } catch (JDOMException ex) {
+            log.error("Error while setting default config" , ex);
+        } finally {
+            parentDialog.dispose();
+        }
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -107,15 +134,7 @@ public class ConfigSelectPanel extends javax.swing.JPanel {
 
     private void btnSelectConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectConfigActionPerformed
         // TODO add your handling code here:
-        PluggableConfig cfg = (PluggableConfig) this.listConfigs.getSelectedValue();
-        try {
-            //write to pluggable config
-            PluggableConfigReader.getInstance().makeDefault(cfg);
-        } catch (JDOMException ex) {
-            log.error("Error while setting default config" , ex);
-        } finally {
-            parentDialog.dispose();
-        }
+        selectAction();
     }//GEN-LAST:event_btnSelectConfigActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

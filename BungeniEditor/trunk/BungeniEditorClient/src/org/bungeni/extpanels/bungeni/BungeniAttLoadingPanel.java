@@ -20,25 +20,16 @@ package org.bungeni.extpanels.bungeni;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
-import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
-import org.bungeni.extpanels.bungeni.BungeniDocument.Attachment;
 import org.bungeni.extutils.DisabledGlassPane;
 import org.bungeni.extutils.MessageBox;
-import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
-import org.bungeni.odfdom.document.properties.BungeniOdfPropertiesHelper;
-import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
 import org.bungeni.utils.BungeniDialog;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.odftoolkit.odfdom.doc.OdfDocument;
-import org.odftoolkit.odfdom.dom.element.text.TextSectionElement;
-import org.w3c.dom.NodeList;
 
 /**
  *
@@ -76,6 +67,7 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
         this.lblInfo.setText(
                 "<html><body style='width:350px;'>" + BUNDLE.getString("LOADING_PANEL_HELP_TEXT")
                 );
+        this.parentDialog.getRootPane().setDefaultButton(this.btnLoadEditAttachment);
     }
     
     public File getOdfDocument(){

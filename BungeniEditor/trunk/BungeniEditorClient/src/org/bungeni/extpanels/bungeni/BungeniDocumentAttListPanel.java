@@ -68,6 +68,7 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
         disablePanel();
         LoadDocument ldexec = new LoadDocument(this.documentURL);
         ldexec.execute();
+        parentDialog.getRootPane().setDefaultButton(this.btnImportAttachment);
     }
     
     private void disablePanel(){

@@ -44,7 +44,6 @@ public class BungeniSelectDocumentPanel extends javax.swing.JPanel {
         this();
         this.parentDialog = parentDialog;
         init(listDocuments);
-       
     }
     
     public BungeniListDocument getSelectedListDocument(){
@@ -77,7 +76,7 @@ public class BungeniSelectDocumentPanel extends javax.swing.JPanel {
                 parentDialog.dispose();
             }
         });
-
+        this.parentDialog.getRootPane().setDefaultButton(this.btnLoadDocument);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -121,7 +120,7 @@ public class BungeniSelectDocumentPanel extends javax.swing.JPanel {
                 .addComponent(btnLoadDocument)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCancel)
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

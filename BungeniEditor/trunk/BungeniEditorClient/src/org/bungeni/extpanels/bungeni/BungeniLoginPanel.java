@@ -19,21 +19,34 @@ package org.bungeni.extpanels.bungeni;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
 import javax.swing.JDialog;
+import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.bungeni.extutils.DisabledGlassPane;
 import org.bungeni.extutils.MessageBox;
 
 /**
- *  Login screen for Bungeni
+ * Login screen for Bungeni
+ *
  * @author Ashok HAriharan
  */
 public class BungeniLoginPanel extends javax.swing.JPanel {
 
-    JDialog parentDialog  ; 
-    BungeniServiceAccess bungeniService ; 
+     private static org.apache.log4j.Logger log =
+        org.apache.log4j.Logger.getLogger(BungeniLoginPanel.class.getName());
+   
+    
+    JDialog parentDialog;
+    BungeniServiceAccess bungeniService;
     private LoginInfo loginInfo;
     private boolean bConnection = false;
+    private DisabledGlassPane glassPane = new DisabledGlassPane();
+    ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("org/bungeni/extpanels/bungeni/Bundle");
+
     /**
      * Creates new form BungeniLogin
      */
@@ -44,21 +57,91 @@ public class BungeniLoginPanel extends javax.swing.JPanel {
         bungeniService = BungeniServiceAccess.getInstance();
         init();
     }
-    
-    private void init(){
+
+    private void init() {
         this.txtLoginBase.setText(loginInfo.loginBase);
         this.txtServer.setText(loginInfo.server);
         this.txtServerPort.setText(loginInfo.port);
-    }
-    
-    private void closeDialog(){
-       this.parentDialog.dispose();
+        this.parentDialog.getRootPane().setDefaultButton(this.btnLogin);
     }
 
-    public boolean loginSuccessful(){
+    private void closeDialog() {
+        this.parentDialog.dispose();
+    }
+
+    public boolean loginSuccessful() {
         return bConnection;
     }
+
+    private void disablePanel() {
+        JRootPane rootPane = SwingUtilities.getRootPane(parentDialog);
+        rootPane.setGlassPane(glassPane);
+        glassPane.activate(BUNDLE.getString("LOGGING_IN"));
+    }
+
     
+    class LoginStatus {
+        String message ; 
+        Boolean state ; 
+        
+        public LoginStatus(Boolean b, String s) {
+            this.message = s;
+            this.state = b;
+        }
+    }
+    
+    class LoginWorker extends SwingWorker<LoginStatus, Boolean> {
+
+
+        public LoginWorker() {
+        }
+
+        @Override
+        protected LoginStatus doInBackground() throws Exception {
+            DefaultHttpClient client = null;
+            bConnection = false;
+            String failureMessage;
+            try {
+                bConnection = true;
+                client = bungeniService.login(
+                        txtServer.getText(),
+                        txtServerPort.getText(),
+                        txtLoginBase.getText(),
+                        txtUser.getText(),
+                        txtPassword.getText());
+                failureMessage = "login successful";
+            } catch (UnsupportedEncodingException ex) {
+                bConnection = false;
+                failureMessage = ex.getMessage();
+            } catch (IOException ex) {
+                bConnection = false;
+                failureMessage = ex.getMessage();
+            } catch (Exception ex) {
+                bConnection = false;
+                failureMessage = ex.getMessage();
+            }
+            return new LoginStatus(bConnection, failureMessage);
+        }
+
+        @Override
+        protected void done() {
+            try {
+                LoginStatus loginState = get();
+                glassPane.deactivate();
+                if (loginState.state == false) {
+                     MessageBox.OK("Login to Bungeni Failed ! : \n" + loginState.message);
+                } else {
+                     closeDialog();
+                }
+            } catch (InterruptedException ex) {
+                log.error("Error while login ", ex);
+            } catch (ExecutionException ex) {
+                log.error("Error while login  ", ex);
+            }
+        }
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -176,46 +259,45 @@ public class BungeniLoginPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        btnLogin.setEnabled(false);
-        SwingUtilities.invokeLater(new Runnable(){
+        disablePanel();
+        LoginWorker lwExec = new LoginWorker();
+        lwExec.execute();
+      /***  SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-               DefaultHttpClient client = null;
-               bConnection = false;
-               String failureMessage = "";
+                DefaultHttpClient client = null;
+                bConnection = false;
+                String failureMessage = "";
                 try {
                     bConnection = true;
                     client = bungeniService.login(
-                            txtServer.getText(), 
+                            txtServer.getText(),
                             txtServerPort.getText(),
                             txtLoginBase.getText(),
                             txtUser.getText(),
-                            txtPassword.getText()
-                            );
+                            txtPassword.getText());
                 } catch (UnsupportedEncodingException ex) {
-                  bConnection = false;
-                  failureMessage = ex.getMessage();
+                    bConnection = false;
+                    failureMessage = ex.getMessage();
                 } catch (IOException ex) {
-                  bConnection = false;
-                  failureMessage = ex.getMessage();
+                    bConnection = false;
+                    failureMessage = ex.getMessage();
                 } catch (Exception ex) {
-                  bConnection = false;
-                  failureMessage = ex.getMessage();
+                    bConnection = false;
+                    failureMessage = ex.getMessage();
                 }
-             
-               if (false == bConnection ) {
-                   btnLogin.setEnabled(true);
-                   MessageBox.OK("Login to Bungeni Failed !");
-               }  else {
-                   btnLogin.setEnabled(true);
-                   MessageBox.OK("Login successful, will retrieve documents now ");
-                   closeDialog();
-               }
-            }
-       }
-    ); 
-       
-    }//GEN-LAST:event_btnLoginActionPerformed
 
+                if (false == bConnection) {
+                    btnLogin.setEnabled(true);
+                    MessageBox.OK("Login to Bungeni Failed !");
+                } else {
+                    btnLogin.setEnabled(true);
+                    MessageBox.OK("Login successful, will retrieve documents now ");
+                    closeDialog();
+                }
+            }
+        }); **/
+
+    }//GEN-LAST:event_btnLoginActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel lblLoginLabel;
