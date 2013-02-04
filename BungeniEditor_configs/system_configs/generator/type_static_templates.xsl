@@ -162,6 +162,12 @@
         </references>
     </xsl:template>
     
+    <xsl:template match="*[@name='proprietary']">
+      <xsl:copy-of select="child::*" />
+    </xsl:template>
+  
+
+    
 <!--    <mcontainer name="TLCOrganization">
             <meta name="id" value="pna"/>
             <meta name="href" value="/ontology/organization/ps/palestinianNationalAuthority"/>
