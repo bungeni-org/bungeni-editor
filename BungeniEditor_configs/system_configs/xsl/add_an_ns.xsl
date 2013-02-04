@@ -18,15 +18,35 @@ This template :
 
     <xsl:template match="*">
         <!-- attach the AN and BODF namespaces to the root element -->
-        <xsl:element name="{node-name(.)}" namespace="http://www.akomantoso.org/2.0">
-            <xsl:namespace name="bodf" select="'http://editor.bungeni.org/1.0/odf/'"/>
-            <xsl:for-each select="@*">
-                <xsl:attribute name="{name(.)}">
-                    <xsl:value-of select="."/>
-                </xsl:attribute>
-            </xsl:for-each>
-            <xsl:apply-templates />
-        </xsl:element>
+        <xsl:choose>
+            <!-- match default namespaces -->
+            <xsl:when test="namespace-uri() eq '' or namespace-uri() eq 'http://www.metalex.org/1.0'">
+                <xsl:element name="{node-name(.)}" namespace="http://www.akomantoso.org/2.0">
+                    <xsl:namespace name="bodf" select="'http://editor.bungeni.org/1.0/odf/'"/>
+                    <xsl:for-each select="@*">
+                        <xsl:attribute name="{name(.)}">
+                            <xsl:value-of select="."/>
+                        </xsl:attribute>
+                    </xsl:for-each>
+                    <xsl:apply-templates />
+                </xsl:element>               
+            </xsl:when>
+            <xsl:otherwise>
+            <!-- match proprietary namespaces 
+                !+PROP_NS(ah, 04-02-2013)
+            -->
+                <xsl:element name="{node-name(.)}" namespace="{namespace-uri()}">
+                    <xsl:namespace name="bodf" select="'http://editor.bungeni.org/1.0/odf/'"/>
+                    <xsl:for-each select="@*">
+                        <xsl:attribute name="{name(.)}">
+                            <xsl:value-of select="."/>
+                        </xsl:attribute>
+                    </xsl:for-each>
+                    <xsl:apply-templates />
+                </xsl:element>               
+            </xsl:otherwise>
+        </xsl:choose>
+ 
     </xsl:template>
 
     <xsl:template match="text()">

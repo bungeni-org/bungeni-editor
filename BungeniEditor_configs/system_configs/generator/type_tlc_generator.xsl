@@ -162,10 +162,44 @@
                 </mcontainer>
 
                 <mcontainer name="proprietary">
+                    
+                    <!--
+                        Special treatment for proprietary section type
+                        !+PROP_NS(ah, 04-02-2013)
+                        -->
+                        
+                    <xsl:for-each select=".//output/meta/proprietary[ancestor::sectionType/@name eq 'meta']" >
+                        <xsl:text>&#xa;</xsl:text>
+                        <xsl:comment>meta section</xsl:comment>
+                        <xsl:text>&#xa;</xsl:text>
+                        <xsl:variable name="ns-uri" select="namespace-uri(./*[1])"></xsl:variable>
+                        <!-- get the namespace prefix of the first child element -->
+                        <xsl:variable name="ns-attr" select="name(namespace::*[string() eq $ns-uri])" />
+                        <!-- find the matching namespace element in the proprietary block -->
+                        <!-- the below is strictly not neccessary, we just resolve the ns prefix again from the 
+                            namespace node -->
+                        <xsl:variable name="local-ns" select="namespace::*[name() eq $ns-attr]" />
+                        <xsl:variable name="local-ns-prefix" select="local-name($local-ns)" />
+                        <!-- NOTE: we dont use the locally defined namespace prefix resolver ... only the prefix is important
+                            and selected from allConfigs/outputs/namespace -->
+                        <xsl:variable name="local-ns-url" select="/allConfigs//outputs/namespace[@prefix = $local-ns-prefix]/@uri" />
+                        <xmeta:element name="proprietary">
+                            <xmeta:namespace name="{$local-ns-prefix}"  select="'{$local-ns-url}'" />
+                            <xsl:call-template name="proprietary-descendants-processor">
+                                <xsl:with-param name="local-ns-prefix" select="$local-ns-prefix" />
+                                <xsl:with-param name="local-ns-url" select="$local-ns-url" />
+                            </xsl:call-template>
+                        </xmeta:element>
+                    </xsl:for-each>
+                    
+                    <!-- 
+                        We dont want to output this for the meta section type since its a virtual section type
+                        !+PROP_NS(ah, 04-02-2013)
+                    -->
                     <xsl:for-each-group 
                         select=".//output/meta/proprietary" 
                         group-by="
-                        ancestor::sectionType/@name | 
+                        ancestor::sectionType/@name[. ne 'meta'] | 
                         ancestor::inlineType/@name | 
                         ancestor::annotationType/@name
                         "

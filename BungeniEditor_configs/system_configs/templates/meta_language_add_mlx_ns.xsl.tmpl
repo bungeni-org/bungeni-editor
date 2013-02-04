@@ -80,14 +80,21 @@
     -->
     
 
+    <!-- matchers for proprietary and default namespaces 
+        !+PROP_NS(ah, 04-02-2013) -->
     <#list namespace_uris as namespace_uri>
-        
+    
     <xsl:template match="*[namespace-uri() eq '${namespace_uri}']">
-        <xsl:copy>
-            <xsl:apply-templates select="@* | node() " />
-        </xsl:copy>
+        <xsl:element name="{name()}" namespace="${namespace_uri}">
+        <xsl:for-each select="@*">
+            <xsl:attribute name="{local-name(.)}">
+                <xsl:value-of select="."/>
+            </xsl:attribute>
+        </xsl:for-each>
+        <xsl:apply-templates/>
+        </xsl:element>
     </xsl:template>
-        
+
     </#list>
     
 
