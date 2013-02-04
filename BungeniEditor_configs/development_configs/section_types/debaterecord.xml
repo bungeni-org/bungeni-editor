@@ -58,8 +58,11 @@
             <references>
                 <an:TLCPerson name="$BungeniExpAuthor"  href="$BungeniExpAuthorURI" />
             </references>
-            </meta>
-            <content>
+            <proprietary ns="bg" xmlns:bg="http://prop.org" >
+               <bg:Speicial author="$BungeniExpAuthor" from="$BungeniExpAuthorURI" />
+           </proprietary>
+           </meta>
+           <content>
                 <an:meta />
             </content>
         </output>
