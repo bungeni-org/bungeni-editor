@@ -27,11 +27,13 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
@@ -136,6 +138,7 @@ public class BungeniAppConnector {
     }
     
     
+    
 
     public File getDownloadUrl(String sPage, boolean prefix) {
         
@@ -183,6 +186,33 @@ public class BungeniAppConnector {
             log.error("Error while releasing connection");
         }
     }
+    
+    
+    public WebResponse postUrl(String sPage, boolean prefix, List<BasicNameValuePair> nameValuePairs ) throws UnsupportedEncodingException {
+        WebResponse wr = null;
+
+        String pageURL = (
+                prefix ? 
+                    this.urlBase + sPage :
+                    sPage
+                );
+        HttpPost webPost = new HttpPost(pageURL);
+        HttpEntity postEntity = new UrlEncodedFormEntity(nameValuePairs);
+        webPost.setEntity(postEntity);
+        HttpResponse response = null;
+        try {
+            response = getClient().execute(webPost);
+            ResponseHandler<String> responseHandler = new BasicResponseHandler();
+            String sBody = responseHandler.handleResponse(response);
+            wr = new WebResponse(response.getStatusLine().getStatusCode(), sBody);
+        } catch (IOException ex) {
+            log.error("Error while posting transition " , ex);
+        } finally {
+            consumeContent(response.getEntity());
+        }
+        return wr;
+    }
+    
     
     public WebResponse getUrl(String sPage,  boolean prefix) {
         WebResponse wr = null;

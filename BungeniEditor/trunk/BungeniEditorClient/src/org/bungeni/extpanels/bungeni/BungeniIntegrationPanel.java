@@ -211,7 +211,7 @@ import org.bungeni.utils.BungeniDialog;
                 true
                 );
         BungeniTransitionConfirmationPanel       panelSelectDocument
-                = new BungeniTransitionConfirmationPanel(dlg, transition, txtStatus.getText(), txtTitle.getText());
+                = new BungeniTransitionConfirmationPanel(dlg, ooDocument, transition, txtStatus.getText(), txtTitle.getText());
         dlg.getContentPane().add(panelSelectDocument);
         dlg.pack();
         FrameLauncher.CenterFrame(dlg);

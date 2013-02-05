@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 PC
+ * Copyright (C) 2013 Africa i-Parliaments
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -17,17 +17,44 @@
  */
 package org.bungeni.extpanels.bungeni;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
+import javax.swing.JRootPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
+import org.apache.http.message.BasicNameValuePair;
+import org.bungeni.extpanels.bungeni.BungeniAppConnector.WebResponse;
+import org.bungeni.extutils.DisabledGlassPane;
+import org.bungeni.extutils.MessageBox;
+import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.utils.BungeniDialog;
 
 /**
  *
- * @author PC
+ * @author Ashok Hariharan
  */
 public class BungeniTransitionConfirmationPanel extends javax.swing.JPanel {
 
+        private static org.apache.log4j.Logger log =
+        org.apache.log4j.Logger.getLogger(BungeniTransitionConfirmationPanel.class.getName());
+
+    
+       private DisabledGlassPane glassPane = new DisabledGlassPane();
+ 
+          ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("org/bungeni/extpanels/bungeni/Bundle");
+
+    
     /**
      * Creates new form BungeniTransitionConfirmationPanel
      */
@@ -39,13 +66,16 @@ public class BungeniTransitionConfirmationPanel extends javax.swing.JPanel {
     private Transition transition = null;
     private String status = null;
     private String title = null;
+    private OOComponentHelper ooDocument = null;
+    private String sAttURL = null;
     
-    public BungeniTransitionConfirmationPanel(BungeniDialog dlg, Transition transition, String strStatus, String strTitle){
+    public BungeniTransitionConfirmationPanel(BungeniDialog dlg, OOComponentHelper ooDoc, Transition transition, String strStatus, String strTitle){
         this();
         this.status = strStatus;
         this.title = strTitle;
         this.parentDialog = dlg;
         this.transition = transition;
+        this.ooDocument = ooDoc;
     }
     
     public void init(){
@@ -61,7 +91,111 @@ public class BungeniTransitionConfirmationPanel extends javax.swing.JPanel {
         JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(spnTime, "HH:mm:ss");
         spnTime.setEditor(timeEditor);
         spnTime.setValue(now);
+        
+        this.sAttURL = ooDocument.getPropertyValue("PortalAttSource");
     }
+    
+    private void disablePanel(){
+        JRootPane rootPane = SwingUtilities.getRootPane(parentDialog);
+        rootPane.setGlassPane(glassPane);
+        glassPane.activate(BUNDLE.getString("RETRIEVE_DOCS_MESSAGE"));
+    }
+    
+     private static Map<String, String> getQueryMap(String query)
+    {
+        String[] params = query.split("&");
+        Map<String, String> map = new HashMap<String, String>();
+        for (String param : params)
+        {
+            String name = param.split("=")[0];
+            String value = param.split("=")[1];
+            map.put(name, value);
+        }
+        return map;
+    }
+
+     private String getTargetTransitionId(String transitionURL) throws MalformedURLException{
+        URL url = new URL(transitionURL);
+        String sUrlQuery = url.getQuery();
+        Map<String,String> urlMap = getQueryMap(sUrlQuery);
+        
+        String sTransition = urlMap.get("transition_id");
+        String[] arrTrans = sTransition.split("-");
+        String targetTransitionId = arrTrans[0];
+        return targetTransitionId;
+    }
+     
+     
+    public String getTransitionTime(){
+           Date dTime = (Date)spnTime.getValue();
+            Calendar c = Calendar.getInstance();
+            c.setTime(dTime);
+            StringBuilder sTime = new StringBuilder();
+            sTime.append(c.get(Calendar.HOUR));
+            sTime.append(":");
+            sTime.append(c.get(Calendar.MINUTE));
+            return sTime.toString();
+    }
+
+    public String getTransitionDate(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(dtDate.getDate());
+    }
+ 
+    
+    
+    public List<BasicNameValuePair> preparePostQuery() throws MalformedURLException{
+            
+            String sWfURL =     this.sAttURL + "/workflow";
+            List<BasicNameValuePair> postpairs = new ArrayList<BasicNameValuePair>(0);
+
+         
+
+            return postpairs;
+    }
+    
+    class TransitionExec extends SwingWorker<Boolean, Boolean>{
+        @Override
+        protected Boolean doInBackground() throws Exception {
+            List<BasicNameValuePair> postParams = BungeniServiceAccess.getInstance().attachmentWorkflowTransitPostQuery(
+                    transition, 
+                    getTransitionDate(), 
+                    getTransitionTime()
+                    );
+            WebResponse wr = BungeniServiceAccess.getInstance().doTransition(
+                    sAttURL, 
+                    postParams 
+                    );
+            if (wr.getStatusCode() == 200) {
+                // transition successfully happened get
+                String sURL = ooDocument.getPropertyValue("PortalAttSource");
+                MessageBox.OK(parentDialog, sURL);
+            }
+            
+            return Boolean.TRUE;
+        }
+
+        @Override
+        protected void done()
+        {
+            try {
+                Boolean bState = get();
+                if (bState != null ) {
+                    glassPane.deactivate();
+                    MessageBox.OK(parentDialog, BUNDLE.getString("DOC_OPEN_FOR_EDIT") );
+                    parentDialog.dispose();
+                }
+            } catch (InterruptedException ex) {
+               log.error("Error while parsing document ", ex);
+            } catch (ExecutionException ex) {
+               log.error("Error while parsing document ", ex);
+            }
+        }
+        
+    
+ }
+
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -109,8 +243,18 @@ public class BungeniTransitionConfirmationPanel extends javax.swing.JPanel {
         txtFromStatus.setEnabled(false);
 
         btnTransit.setText("Transit");
+        btnTransit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTransitActionPerformed(evt);
+            }
+        });
 
         btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -172,6 +316,18 @@ public class BungeniTransitionConfirmationPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnTransitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransitActionPerformed
+        // TODO add your handling code here:
+        disablePanel();
+        TransitionExec exec = new TransitionExec();
+        exec.execute();
+    }//GEN-LAST:event_btnTransitActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        // TODO add your handling code here:
+        this.parentDialog.dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;

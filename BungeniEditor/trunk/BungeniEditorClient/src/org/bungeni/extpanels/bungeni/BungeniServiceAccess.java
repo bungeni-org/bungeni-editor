@@ -20,10 +20,14 @@ package org.bungeni.extpanels.bungeni;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.bungeni.extpanels.bungeni.BungeniAppConnector.WebResponse;
@@ -73,8 +77,67 @@ public class BungeniServiceAccess {
     }
     
     
-    public WebResponse doTransition(Transition transition) {
-        WebResponse wr = appConnector.getUrl(transition.url, false);
+            
+    private static Map<String, String> getQueryMap(String query)
+    {
+        String[] params = query.split("&");
+        Map<String, String> map = new HashMap<String, String>();
+        for (String param : params)
+        {
+            String name = param.split("=")[0];
+            String value = param.split("=")[1];
+            map.put(name, value);
+        }
+        return map;
+    }
+
+    
+    private String getTargetTransitionId(String transitionURL) throws MalformedURLException{
+        URL url = new URL(transitionURL);
+        String sUrlQuery = url.getQuery();
+        Map<String,String> urlMap = getQueryMap(sUrlQuery);
+        
+        String sTransition = urlMap.get("transition_id");
+        String[] arrTrans = sTransition.split("-");
+        String targetTransitionId = arrTrans[0];
+        return targetTransitionId;
+    }
+    
+    public List<BasicNameValuePair> attachmentWorkflowTransitPostQuery(Transition transObj, String sDate, String sTime) throws MalformedURLException{
+            
+            List<BasicNameValuePair> nvPair = new ArrayList<BasicNameValuePair>(0);
+        
+            nvPair.add(new BasicNameValuePair("next_url", "./workflow-redirect"));
+            
+            nvPair.add(
+                    new BasicNameValuePair(
+                    "form.date_active", 
+                    sDate
+                    )
+                );
+            
+            nvPair.add(new BasicNameValuePair(
+                    "form__date_active__time", 
+                    sTime
+                    )
+                );
+            
+            
+            nvPair.add(new BasicNameValuePair(
+                    "form.actions.publish", 
+                    getTargetTransitionId(transObj.url)
+                    )
+                );
+            
+            return nvPair;
+
+    }
+    
+    public WebResponse doTransition(String docURL , List<BasicNameValuePair> nvp) throws UnsupportedEncodingException  {
+ 
+        String wfUrl = docURL + "/worfklow";
+        
+        WebResponse wr = appConnector.postUrl(wfUrl, false, nvp);
         if (wr != null) {
             if (wr.getStatusCode() == 200 ) {
                 // transition happened
