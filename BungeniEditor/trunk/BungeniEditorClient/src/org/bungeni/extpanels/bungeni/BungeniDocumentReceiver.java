@@ -52,9 +52,11 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
                 BungeniListDocument selectedDocument =  selectDocument(parentFrame, listDocs);
                 if (selectedDocument != null){
                     BungeniDocument bungeniDoc = selectAttachment(parentFrame, selectedDocument, customConfig);
-                    File fodf = loadAttachment(parentFrame, bungeniDoc, customConfig);
-                    if (null != fodf ) {
-                         return fodf.getAbsolutePath();   
+                    if (null != bungeniDoc) {
+                        File fodf = loadAttachment(parentFrame, bungeniDoc, customConfig);
+                        if (null != fodf ) {
+                             return fodf.getAbsolutePath();   
+                        }
                     }
                 }
             }

@@ -29,6 +29,8 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
+import org.bungeni.extutils.FrameLauncher;
+import org.bungeni.utils.BungeniDialog;
 
 /**
  *
@@ -141,6 +143,11 @@ import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 
         btnTransit.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnTransit.setText(bundle.getString("BungeniIntegrationPanel.btnTransit.text")); // NOI18N
+        btnTransit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTransitActionPerformed(evt);
+            }
+        });
 
         lblWorkingDoc3.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         lblWorkingDoc3.setText(bundle.getString("BungeniIntegrationPanel.lblWorkingDoc3.text")); // NOI18N
@@ -193,6 +200,32 @@ import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnTransitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransitActionPerformed
+        // TODO add your handling code here:
+        Transition transition = (Transition) this.cboTransit.getSelectedItem();
+
+        BungeniDialog               dlg = new BungeniDialog(
+                parentFrame, 
+                "Transit Workflow - " + txtTitle.getText(), 
+                true
+                );
+        BungeniTransitionConfirmationPanel       panelSelectDocument
+                = new BungeniTransitionConfirmationPanel(dlg, transition, txtStatus.getText(), txtTitle.getText());
+        dlg.getContentPane().add(panelSelectDocument);
+        dlg.pack();
+        FrameLauncher.CenterFrame(dlg);
+        dlg.setVisible(true);
+
+        /***
+        WebResponse wr = BungeniServiceAccess.getInstance().doTransition(transition);
+        if (wr.getStatusCode() == 200) {
+            // transition successfully happened get
+            String sURL = ooDocument.getPropertyValue("PortalAttSource");
+            MessageBox.OK(parentFrame, sURL);
+        }
+        ***/
+    }//GEN-LAST:event_btnTransitActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

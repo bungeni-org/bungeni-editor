@@ -246,6 +246,9 @@
           <ResourceString bundle="org/bungeni/extpanels/bungeni/Bundle.properties" key="BungeniIntegrationPanel.btnTransit.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTransitActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblWorkingDoc3">
       <Properties>

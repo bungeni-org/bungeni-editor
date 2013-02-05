@@ -23,23 +23,14 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.SwingWorker;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
-import org.bungeni.extpanels.bungeni.BungeniAppConnector;
 import org.bungeni.extpanels.bungeni.BungeniAppConnector.WebResponse;
-import org.bungeni.extpanels.bungeni.BungeniDocument;
-import org.bungeni.extpanels.bungeni.BungeniListDocuments;
 import org.bungeni.extpanels.bungeni.BungeniListDocuments.BungeniListDocument;
-import org.bungeni.extutils.MessageBox;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.document.properties.BungeniOdfPropertiesHelper;
 import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.odftoolkit.odfdom.doc.OdfDocument;
 import org.odftoolkit.odfdom.dom.element.text.TextSectionElement;
 import org.w3c.dom.NodeList;
@@ -81,6 +72,17 @@ public class BungeniServiceAccess {
         return null;
     }
     
+    
+    public WebResponse doTransition(Transition transition) {
+        WebResponse wr = appConnector.getUrl(transition.url, false);
+        if (wr != null) {
+            if (wr.getStatusCode() == 200 ) {
+                // transition happened
+                return wr;
+            }
+        }
+        return wr;
+    }
      
    
     public List<BungeniListDocument> availableDocumentsForEditing(String sSearchBungeniURL) {
