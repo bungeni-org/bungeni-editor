@@ -1,0 +1,24 @@
+<userInput>
+  <!-- Install -->
+    <panel order="0">
+        <createForPack name="Base" />
+        <createForPack name="Configs" />
+        <createForPack name="Workspace" />
+    <field type="title" 
+        txt="Select the Configuration Folder and the Workspace Folder" bold="true" size="1" />
+    <field type="title"
+        txt="Both these folders must be user writable !" bold="true" size="1" />
+    <field type="divider" align="top"/>
+    <field type="staticText" align="left" txt="Select the Configuration Folder"/>
+     <field type="dir" align="left" variable="config.folder.home">
+        <spec txt="" size="25" set=""  mustExist="true" create="true" />
+     </field>
+    <field type="space" />
+    <field type="staticText" align="left" txt="Select the Workspace Folder"/>
+     <field type="dir" align="left" variable="ws.folder.home">
+        <spec txt="" size="25" set="" mustExist="true" create="true" />
+     </field>
+
+</panel>
+
+</userInput>

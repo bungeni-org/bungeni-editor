@@ -1,0 +1,13 @@
+<configs>
+  <!--
+  config/@url - can be either http://file.zip , file:/folder
+  -->
+
+  <config name="allTypesDev"
+    title="All Types Development"
+    url="http://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/alltypesdev.zip"
+    folder-base="${config.folder.home}${FILE_SEPARATOR}editor_configs"
+    receiver="org.bungeni.editor.input.FSDocumentReceiver"
+    default="true"
+	/>
+</configs>

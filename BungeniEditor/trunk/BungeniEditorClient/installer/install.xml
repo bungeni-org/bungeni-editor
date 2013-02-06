@@ -39,7 +39,10 @@
     <locale>
         <langpack iso3="eng"/>
     </locale>
-
+    <variables>
+            <variable name="config.folder.home" value=""/>
+            <variable name="ws.folder.home" value=""/>
+    </variables>
     <!--
         The resources section.
         The ids must be these ones if you want to use the LicencePanel and/or the InfoPanel.
@@ -47,6 +50,7 @@
     <resources>
         <res id="LicencePanel.licence" src="LICENCE.TXT"/>
         <res id="InfoPanel.info" src="README.TXT"/>
+        <res id="userInputSpec.xml" src="userInputSpec.xml" />
     </resources>
 
     <!--
@@ -59,7 +63,8 @@
         <panel classname="LicencePanel"/>
         <panel classname="TargetPanel"/>
         <panel classname="PacksPanel"/>
-	<panel classname="SummaryPanel"/>
+        <panel classname="UserInputPanel" id="UserInputPanel.0"/>
+        <panel classname="SummaryPanel"/>
         <panel classname="InstallPanel"/>
 	<panel classname="ShortcutPanel" />
  	<panel classname="SimpleFinishPanel" />
@@ -70,33 +75,32 @@
         We specify here our packs.
     -->
     <packs>
+        <pack name="Configs" required="yes">
+           <description>Editor Configurations (user writable)</description>
+           <file src="editor_configs" targetdir="${config.folder.home}" />
+           <file src="izpack_tmpl/configs.xml" targetdir="$INSTALL_PATH/base/settings" />
+            <parsable targetfile="$INSTALL_PATH/base/settings/configs.xml" 
+                type="xml" parse="yes" />
+
+           
+        </pack>
+        <pack name="Workspace" required="yes">
+           <description>Editor Workspace (user writable)</description>
+           <file src="editor_workspace" targetdir="${ws.folder.home}" />
+           <file src="izpack_tmpl/workspace.properties" targetdir="$INSTALL_PATH/base/settings" />
+            <parsable targetfile="$INSTALL_PATH/base/settings/workspace.properties" 
+                type="javaprop" parse="yes" />
+           
+        </pack>
         <pack name="Base" required="yes">
             <description>BungeniEditor core files</description>
             <file src="README.TXT" targetdir="$INSTALL_PATH"/>
             <file src="LICENCE.TXT" targetdir="$INSTALL_PATH"/>
- 	     <file src="linux.sh" targetdir="$INSTALL_PATH" />
- 	     <file src="windows.vbs" targetdir="$INSTALL_PATH" />
+ 	         <file src="linux.sh" targetdir="$INSTALL_PATH" />
+   	        <file src="windows.vbs" targetdir="$INSTALL_PATH" />
+            <file src="base" targetdir="$INSTALL_PATH"/>
 
-
-		<!-- linux primary launchers -->
-            <!--
-            <file src="linux/run_gui.sh" targetdir="$INSTALL_PATH/linux"/>
-            <file src="linux/run_debate_new.sh" targetdir="$INSTALL_PATH/linux"/>
-            <file src="linux/run_debate_edit.sh" targetdir="$INSTALL_PATH/linux"/>
-            <file src="linux/run_judgement_edit.sh" targetdir="$INSTALL_PATH/linux"/>
-            <file src="linux/run_judgement_new.sh" targetdir="$INSTALL_PATH/linux"/>
-            <file src="linux/run_bill_edit.sh" targetdir="$INSTALL_PATH/linux"/>
-            <file src="linux/run_bill_new.sh" targetdir="$INSTALL_PATH/linux"/>
-	     <file src="linux/settingsEditor.sh" targetdir="$INSTALL_PATH/linux"/>
-		-->
-		<!-- windoze primary launchers -->
-		<!--
-            <file src="win/run_debate_new.bat" targetdir="$INSTALL_PATH/win"/>
-            <file src="win/run_debate_edit.bat" targetdir="$INSTALL_PATH/win"/>
-            <file src="win/settingsEditor.bat" targetdir="$INSTALL_PATH/win"/>
-			-->
-
-		<!-- config launcher scripts linux -->
+         <!-- config launcher scripts linux -->
             <file src="scripts/main.sh" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/config.sh" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/gui.sh" targetdir="$INSTALL_PATH/scripts"/>
@@ -119,10 +123,9 @@
             <file src="scripts/bill_new.bat" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/judgement_edit.bat" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/judgement_new.bat" targetdir="$INSTALL_PATH/scripts"/>
-
-            <file src="base" targetdir="$INSTALL_PATH"/>
+            
   		<!-- parse all the target files -->
-           <parsable targetfile="$INSTALL_PATH/scripts/config.sh"/>
+            <parsable targetfile="$INSTALL_PATH/scripts/config.sh"/>
             <parsable targetfile="$INSTALL_PATH/scripts/main.sh"/>
             <parsable targetfile="$INSTALL_PATH/scripts/config.bat"/>
             <parsable targetfile="$INSTALL_PATH/scripts/main.bat"/>
