@@ -28,7 +28,6 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.config.PluggableConfigReader.PluggableConfig;
 import org.bungeni.extutils.CommonFileFunctions;
-
 import org.jdom.JDOMException;
 
 /**
@@ -56,7 +55,9 @@ public class BaseConfigReader {
           String wsProps = getSettingsFolder() + File.separator + WORKSPACE_PROPS_FILE ;
           pini.load(new FileInputStream(wsProps));
           String workspaceFolder = pini.getProperty("workspace", "./workspace").trim();
-          WORKSPACE_FOLDER = workspaceFolder;
+          // we do the replace below to make windows paths work correctly
+          // IZPACK sets local OS paths 
+          WORKSPACE_FOLDER = workspaceFolder.replace("\\", "/");
           File f = new File(WORKSPACE_FOLDER);
           if (f.exists()) {
               if (!f.isDirectory()) {
@@ -102,11 +103,14 @@ public class BaseConfigReader {
                       } catch(URISyntaxException ex){
                         f = new File(fileURL.getPath());
                       }
-                      PLUGGABLE_CONFIGS_FOLDER = f.getAbsolutePath();
+                      PLUGGABLE_CONFIGS_FOLDER = f.getAbsolutePath().replace("\\", "/");
                   } else {
                       //otherwise assume its a regular path
                       File f = new File(folderBase);
-                      PLUGGABLE_CONFIGS_FOLDER = f.getAbsolutePath();
+                      // convert windows paths to neutral paths, because IZPACK sets windows
+                      // paths
+                      String sPluggableFolder = f.getAbsolutePath().replace("\\", "/");
+                      PLUGGABLE_CONFIGS_FOLDER = sPluggableFolder;
                   }
               }
             } catch (MalformedURLException ex) {
