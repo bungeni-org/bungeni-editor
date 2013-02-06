@@ -678,6 +678,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         //m_FullTemplatesPath
         //m_settings_CurrentTemplate = "hansard.ott";
         createNewDocument.setEnabled(false);
+        updateCurrentDocTypeMode();
         documentType selectedDocType = (documentType) cboDocumentTypes.getSelectedItem();
         try {
             launchDocumentType(selectedDocType, "new");
@@ -693,6 +694,7 @@ public class editorApplicationController extends javax.swing.JPanel {
     private void btnOpenExistingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenExistingActionPerformed
 // TODO add your handling code here:
         this.btnOpenExisting.setEnabled(false);
+        updateCurrentDocTypeMode();
         documentType selectedDocType = (documentType) cboDocumentTypes.getSelectedItem();
         try {
             if (launchDocumentType(selectedDocType, "edit")) {
