@@ -6,3 +6,4 @@ commons-io  http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs
 commons-logging http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/commons-logging
 swingx http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/swingx
 xerces http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/xerces
+twinkle http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/twinkle
