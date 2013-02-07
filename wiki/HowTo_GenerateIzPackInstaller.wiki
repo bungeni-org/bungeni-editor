@@ -4,9 +4,8 @@
 
 This page documents how to package and distribute the Editor in a installer package.
 
- * You will need to download and install [IzPack http://www.izpack.org]. 
-Currently IzPack 4.x series is supported.
- * You will also need a developer install of Bungeni Editor, which has been successfully built
+ * You will need to download and install [IzPack http://www.izpack.org]. Currently IzPack 4.x series is supported.
+ * You will also need a developer install of Bungeni Editor, which is upto date and has been successfully built
  
 = Preparing = 
 
