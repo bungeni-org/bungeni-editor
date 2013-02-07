@@ -38,6 +38,9 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.PoolingClientConnectionManager;
@@ -187,6 +190,37 @@ public class BungeniAppConnector {
         }
     }
     
+    public WebResponse multipartPostUrl(String sPage, boolean prefix, List<BasicNameValuePair> nameValuePairs ) throws UnsupportedEncodingException  {
+        WebResponse wr = null;
+        String pageURL = (
+                prefix ? 
+                    this.urlBase + sPage :
+                    sPage
+                );
+        MultipartEntity entity = 
+                new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+        for (BasicNameValuePair nv : nameValuePairs) {
+            entity.addPart(nv.getName(), new StringBody(nv.getValue()));
+        }
+        HttpPost webPost = new HttpPost(pageURL);
+        webPost.setEntity(entity);
+        HttpResponse response = null ;
+        try {
+            response = client.execute(webPost);
+            ResponseHandler<String> responseHandler = new BasicResponseHandler();
+            String sBody = responseHandler.handleResponse(response);
+            wr = new WebResponse(response.getStatusLine().getStatusCode(), sBody);
+        } catch (IOException ex) {
+            log.error(ex.getMessage(), ex);
+        } finally {
+            if (response != null) {
+                consumeContent(
+                    response.getEntity()
+                );
+            }
+        }
+        return wr;
+    }
     
     public WebResponse postUrl(String sPage, boolean prefix, List<BasicNameValuePair> nameValuePairs ) throws UnsupportedEncodingException {
         WebResponse wr = null;

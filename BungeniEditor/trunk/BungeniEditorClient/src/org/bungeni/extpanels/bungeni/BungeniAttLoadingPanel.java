@@ -327,7 +327,7 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
                 if (fodt != null ) {
                     fodfDocument = fodt;
                     glassPane.deactivate();
-                    MessageBox.OK(parentDialog, BUNDLE.getString("DOC_OPEN_FOR_EDIT") );
+                    //MessageBox.OK(parentDialog, BUNDLE.getString("DOC_OPEN_FOR_EDIT") );
                     parentDialog.dispose();
                 }
             } catch (InterruptedException ex) {

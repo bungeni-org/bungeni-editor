@@ -210,21 +210,17 @@ import org.bungeni.utils.BungeniDialog;
                 "Transit Workflow - " + txtTitle.getText(), 
                 true
                 );
-        BungeniTransitionConfirmationPanel       panelSelectDocument
+        BungeniTransitionConfirmationPanel  transPanel
                 = new BungeniTransitionConfirmationPanel(dlg, ooDocument, transition, txtStatus.getText(), txtTitle.getText());
-        dlg.getContentPane().add(panelSelectDocument);
+        transPanel.init();
+        dlg.getContentPane().add(transPanel);
         dlg.pack();
         FrameLauncher.CenterFrame(dlg);
         dlg.setVisible(true);
-
-        /***
-        WebResponse wr = BungeniServiceAccess.getInstance().doTransition(transition);
-        if (wr.getStatusCode() == 200) {
-            // transition successfully happened get
-            String sURL = ooDocument.getPropertyValue("PortalAttSource");
-            MessageBox.OK(parentFrame, sURL);
+        if (transPanel.getTransitionSuccessful()) {
+            // if the transition is successful update 
+            //the document transition information on this page
         }
-        ***/
     }//GEN-LAST:event_btnTransitActionPerformed
 
 

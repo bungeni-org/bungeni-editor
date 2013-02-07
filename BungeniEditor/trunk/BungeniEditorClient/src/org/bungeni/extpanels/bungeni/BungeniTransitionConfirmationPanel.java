@@ -17,15 +17,8 @@
  */
 package org.bungeni.extpanels.bungeni;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import javax.swing.JRootPane;
@@ -68,6 +61,7 @@ public class BungeniTransitionConfirmationPanel extends javax.swing.JPanel {
     private String title = null;
     private OOComponentHelper ooDocument = null;
     private String sAttURL = null;
+    private boolean transitionSuccessful = false;
     
     public BungeniTransitionConfirmationPanel(BungeniDialog dlg, OOComponentHelper ooDoc, Transition transition, String strStatus, String strTitle){
         this();
@@ -80,8 +74,8 @@ public class BungeniTransitionConfirmationPanel extends javax.swing.JPanel {
     
     public void init(){
         //status
-        this.txtToStatus.setText(this.status);
-        
+        this.txtFromStatus.setText(this.status);
+        this.txtToStatus.setText(this.transition.title);
         // set date
         Date now = new Date();
         this.dtDate.setDate(now);
@@ -91,7 +85,7 @@ public class BungeniTransitionConfirmationPanel extends javax.swing.JPanel {
         JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(spnTime, "HH:mm:ss");
         spnTime.setEditor(timeEditor);
         spnTime.setValue(now);
-        
+        // this is the url of the attachment
         this.sAttURL = ooDocument.getPropertyValue("PortalAttSource");
     }
     
@@ -101,101 +95,67 @@ public class BungeniTransitionConfirmationPanel extends javax.swing.JPanel {
         glassPane.activate(BUNDLE.getString("RETRIEVE_DOCS_MESSAGE"));
     }
     
-     private static Map<String, String> getQueryMap(String query)
-    {
-        String[] params = query.split("&");
-        Map<String, String> map = new HashMap<String, String>();
-        for (String param : params)
-        {
-            String name = param.split("=")[0];
-            String value = param.split("=")[1];
-            map.put(name, value);
-        }
-        return map;
-    }
+    class TransitionExec extends SwingWorker<WebResponse, Boolean>{
 
-     private String getTargetTransitionId(String transitionURL) throws MalformedURLException{
-        URL url = new URL(transitionURL);
-        String sUrlQuery = url.getQuery();
-        Map<String,String> urlMap = getQueryMap(sUrlQuery);
+        String transitionDate;
+        String transitionTime;
         
-        String sTransition = urlMap.get("transition_id");
-        String[] arrTrans = sTransition.split("-");
-        String targetTransitionId = arrTrans[0];
-        return targetTransitionId;
-    }
-     
-     
-    public String getTransitionTime(){
-           Date dTime = (Date)spnTime.getValue();
-            Calendar c = Calendar.getInstance();
-            c.setTime(dTime);
-            StringBuilder sTime = new StringBuilder();
-            sTime.append(c.get(Calendar.HOUR));
-            sTime.append(":");
-            sTime.append(c.get(Calendar.MINUTE));
-            return sTime.toString();
-    }
-
-    public String getTransitionDate(){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return sdf.format(dtDate.getDate());
-    }
- 
-    
-    
-    public List<BasicNameValuePair> preparePostQuery() throws MalformedURLException{
-            
-            String sWfURL =     this.sAttURL + "/workflow";
-            List<BasicNameValuePair> postpairs = new ArrayList<BasicNameValuePair>(0);
-
-         
-
-            return postpairs;
-    }
-    
-    class TransitionExec extends SwingWorker<Boolean, Boolean>{
+        public TransitionExec(Date transitionDate, Date transitionTime){
+            this.transitionDate = BungeniServiceAccess.getInstance().getTransitionDate(
+                    transitionDate
+                    );
+            this.transitionTime = BungeniServiceAccess.getInstance().getTransitionTime(
+                    transitionTime
+                    );
+        }
+        
         @Override
-        protected Boolean doInBackground() throws Exception {
+        protected WebResponse doInBackground() throws Exception {
+            // get the form information for posting 
+            
+            
+            //get the post parameters
             List<BasicNameValuePair> postParams = BungeniServiceAccess.getInstance().attachmentWorkflowTransitPostQuery(
                     transition, 
-                    getTransitionDate(), 
-                    getTransitionTime()
+                    this.transitionDate, 
+                    this.transitionTime
                     );
+            // post
             WebResponse wr = BungeniServiceAccess.getInstance().doTransition(
                     sAttURL, 
                     postParams 
                     );
-            if (wr.getStatusCode() == 200) {
-                // transition successfully happened get
-                String sURL = ooDocument.getPropertyValue("PortalAttSource");
-                MessageBox.OK(parentDialog, sURL);
-            }
-            
-            return Boolean.TRUE;
+            return wr;
         }
 
         @Override
         protected void done()
         {
             try {
-                Boolean bState = get();
-                if (bState != null ) {
-                    glassPane.deactivate();
-                    MessageBox.OK(parentDialog, BUNDLE.getString("DOC_OPEN_FOR_EDIT") );
-                    parentDialog.dispose();
+                WebResponse wr = get();
+                if (wr != null ) {
+                    if (wr.getStatusCode() == 200 ) {
+                        glassPane.deactivate();
+                        transitionSuccessful = true;
+                        MessageBox.OK(parentDialog, "Transited !" );
+                        parentDialog.dispose();
+                    }
+                } else {
+                    MessageBox.OK(parentDialog, "Could not Transit !" );
                 }
             } catch (InterruptedException ex) {
                log.error("Error while parsing document ", ex);
             } catch (ExecutionException ex) {
                log.error("Error while parsing document ", ex);
+            } finally {
+                glassPane.deactivate();
             }
         }
-        
-    
  }
 
-    
+    public boolean getTransitionSuccessful(){
+        return this.transitionSuccessful;
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -319,8 +279,21 @@ public class BungeniTransitionConfirmationPanel extends javax.swing.JPanel {
 
     private void btnTransitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransitActionPerformed
         // TODO add your handling code here:
+        //validate 
+        String sComment = this.txtComment.getText();
+        if (sComment != null ) {
+            if (sComment.trim().length() ==  0 ) {
+                MessageBox.OK(this.parentDialog, "Please enter a comment !");
+                return;
+            }
+        } else {
+            MessageBox.OK(this.parentDialog, "Please enter a comment !");
+        }
         disablePanel();
-        TransitionExec exec = new TransitionExec();
+        TransitionExec exec = new TransitionExec(
+                dtDate.getDate(), 
+                (Date)spnTime.getValue()
+                );
         exec.execute();
     }//GEN-LAST:event_btnTransitActionPerformed
 
