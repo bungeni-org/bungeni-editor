@@ -18,12 +18,12 @@
     <info>
         <appname>BungeniEditor installation</appname>
         <appversion>1.1.1978</appversion>
-	<appsubpath>BungeniEditor-$APP_VER</appsubpath>
+        <appsubpath>BungeniEditor-$APP_VER</appsubpath>
         <authors>
             <author name="UNDESA" email="undesa@parliaments.info"/>
         </authors>
         <url>http://www.bungeni.org</url>
-	<javaversion>1.6</javaversion>
+        <javaversion>1.6</javaversion>
     </info>
 
     <!--
@@ -40,8 +40,8 @@
         <langpack iso3="eng"/>
     </locale>
     <variables>
-            <variable name="config.folder.home" value=""/>
-            <variable name="ws.folder.home" value=""/>
+        <variable name="config.folder.home" value=""/>
+        <variable name="ws.folder.home" value=""/>
     </variables>
     <!--
         The resources section.
@@ -50,7 +50,7 @@
     <resources>
         <res id="LicencePanel.licence" src="LICENCE.TXT"/>
         <res id="InfoPanel.info" src="README.TXT"/>
-        <res id="userInputSpec.xml" src="userInputSpec.xml" />
+        <res id="userInputSpec.xml" src="userInputSpec.xml"/>
     </resources>
 
     <!--
@@ -66,57 +66,46 @@
         <panel classname="UserInputPanel" id="UserInputPanel.0"/>
         <panel classname="SummaryPanel"/>
         <panel classname="InstallPanel"/>
-	<panel classname="ShortcutPanel" />
- 	<panel classname="SimpleFinishPanel" />
+        <panel classname="ShortcutPanel"/>
+        <panel classname="SimpleFinishPanel"/>
     </panels>
-
     <!--
         The packs section.
         We specify here our packs.
     -->
     <packs>
         <pack name="Configs" required="yes">
-           <description>Editor Configurations (user writable)</description>
-           <file src="editor_configs" targetdir="${config.folder.home}" />
-           <file src="izpack_tmpl/configs.xml" targetdir="$INSTALL_PATH/base/settings" />
-            <parsable targetfile="$INSTALL_PATH/base/settings/configs.xml" 
-                type="xml" parse="yes" />
-
-           
+            <description>Editor Configurations (user writable)</description>
+     
         </pack>
         <pack name="Workspace" required="yes">
-           <description>Editor Workspace (user writable)</description>
-           <file src="editor_workspace" targetdir="${ws.folder.home}" />
-           <file src="izpack_tmpl/workspace.properties" targetdir="$INSTALL_PATH/base/settings" />
-            <parsable targetfile="$INSTALL_PATH/base/settings/workspace.properties" 
-                type="javaprop" parse="yes" />
-           
-        </pack>
+            <description>Editor Workspace (user writable)</description>
+               </pack> 
         <pack name="Base" required="yes">
             <description>BungeniEditor core files</description>
             <file src="README.TXT" targetdir="$INSTALL_PATH"/>
             <file src="LICENCE.TXT" targetdir="$INSTALL_PATH"/>
- 	         <file src="linux.sh" targetdir="$INSTALL_PATH" />
-   	        <file src="windows.vbs" targetdir="$INSTALL_PATH" />
+            <file src="linux.sh" targetdir="$INSTALL_PATH"/>
+            <file src="windows.vbs" targetdir="$INSTALL_PATH"/>
             <file src="base" targetdir="$INSTALL_PATH"/>
 
-         <!-- config launcher scripts linux -->
+            <!-- config launcher scripts linux -->
             <file src="scripts/main.sh" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/config.sh" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/gui.sh" targetdir="$INSTALL_PATH/scripts"/>
-		<!-- config launcher scripts windoze -->
+            <!-- config launcher scripts windoze -->
             <file src="scripts/main.bat" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/config.bat" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/gui.bat" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/windows.bat" targetdir="$INSTALL_PATH/scripts"/>
-        	<!-- linux run scripts -->
+            <!-- linux run scripts -->
             <file src="scripts/debate_new.sh" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/debate_edit.sh" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/bill_edit.sh" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/bill_new.sh" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/judgement_edit.sh" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/judgement_new.sh" targetdir="$INSTALL_PATH/scripts"/>
-		<!-- windows run scripts -->
+            <!-- windows run scripts -->
             <file src="scripts/debate_new.bat" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/debate_edit.bat" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/bill_edit.bat" targetdir="$INSTALL_PATH/scripts"/>
@@ -124,27 +113,28 @@
             <file src="scripts/judgement_edit.bat" targetdir="$INSTALL_PATH/scripts"/>
             <file src="scripts/judgement_new.bat" targetdir="$INSTALL_PATH/scripts"/>
             
-  		<!-- parse all the target files -->
+            <file src="editor_configs" targetdir="${config.folder.home}" override="true" />
+            <file src="editor_workspace" targetdir="${ws.folder.home}" override="true" />
+            
+            <file src="izpack_tmpl/workspace.properties" targetdir="$INSTALL_PATH/base/settings"
+                override="true" />
+            <file src="izpack_tmpl/configs.xml" targetdir="$INSTALL_PATH/base/settings"
+                override="true" />
+            <parsable targetfile="$INSTALL_PATH/base/settings/configs.xml" type="xml" 
+                parse="yes"/>
+            <parsable targetfile="$INSTALL_PATH/base/settings/workspace.properties" type="javaprop"
+                parse="yes"/>
+
+            
+            <!-- parse all the target files -->
             <parsable targetfile="$INSTALL_PATH/scripts/config.sh"/>
             <parsable targetfile="$INSTALL_PATH/scripts/main.sh"/>
             <parsable targetfile="$INSTALL_PATH/scripts/config.bat"/>
             <parsable targetfile="$INSTALL_PATH/scripts/main.bat"/>
             <parsable targetfile="$INSTALL_PATH/scripts/gui.sh"/>
             <parsable targetfile="$INSTALL_PATH/scripts/gui.bat"/>
-            <!-- <parsable targetfile="$INSTALL_PATH/linux/settingsEditor.sh"/>
-            <parsable targetfile="$INSTALL_PATH/win/settingsEditor.bat"/> -->
-		<!-- linux launchers -->
-		<!--
-		<executable targetfile="$INSTALL_PATH/linux/run_gui.sh"/>
-            <executable targetfile="$INSTALL_PATH/linux/run_debate_edit.sh"/>
-            <executable targetfile="$INSTALL_PATH/linux/run_debate_new.sh"/>
-            <executable targetfile="$INSTALL_PATH/linux/run_judgement_edit.sh"/>
-            <executable targetfile="$INSTALL_PATH/linux/run_judgement_new.sh"/>
-            <executable targetfile="$INSTALL_PATH/linux/run_bill_edit.sh"/>
-            <executable targetfile="$INSTALL_PATH/linux/run_bill_new.sh"/>
-            <executable targetfile="$INSTALL_PATH/linux/settingsEditor.sh"/>
-		-->
-		<executable targetfile="$INSTALL_PATH/linux.sh" />
+            
+            <executable targetfile="$INSTALL_PATH/linux.sh"/>
             <!-- The file will be parsed -->
         </pack>
     </packs>
