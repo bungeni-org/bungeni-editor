@@ -17,7 +17,8 @@ public class NotifyBox {
 
     private static NotificationBuilder infoBuilder = null;
     private static NotificationBuilder errorBuilder = null;
-    
+    private final static int INFO_WAIT_TIME = 2000;
+    private final static int ERR_WAIT_TIME = 3000;
     
     /**
      * Initializes notification system
@@ -35,14 +36,14 @@ public class NotifyBox {
             // Now lets build the notification
             infoBuilder = new NotificationBuilder()
                     .withStyle(infoStyle) // Required. here we set the previously set style
-                    .withDisplayTime(2000) // Optional
+                    .withDisplayTime(INFO_WAIT_TIME) // Optional
                     .withIcon(UIManager.getIcon("OptionPane.informationIcon"))
                     .withPosition(Positions.CENTER); // Optional. Show it at the center of the screen
             
             errorBuilder = new NotificationBuilder()
                     .withStyle(infoStyle) // Required. here we set the previously set style
                     .withIcon(UIManager.getIcon("OptionPane.errorIcon"))
-                    .withDisplayTime(3000) // Optional
+                    .withDisplayTime(ERR_WAIT_TIME) // Optional
                     .withPosition(Positions.CENTER); // Optional. Show it at the center of the screen
     }
     
@@ -53,6 +54,17 @@ public class NotifyBox {
                     .showNotification();
     }
 
+    public static void infoTimed(String title, String message, int nTime) {
+            
+            infoBuilder
+                    .withTitle(title)
+                    .withMessage(message)
+                    .withDisplayTime(nTime)
+                    .showNotification();
+            infoBuilder
+                     .withDisplayTime(INFO_WAIT_TIME);
+    }
+    
     public static void error(String message, String title) {
             errorBuilder
                     .withTitle(title)
