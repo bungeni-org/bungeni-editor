@@ -17,9 +17,9 @@ public class AutumnLAF implements ILookAndFeel {
             sbslFeel = new SubstanceAutumnLookAndFeel();
         } catch (Exception ex) {
             log.error("AutumnLAF:newLAFInstance :" + ex.getMessage());
-        } finally {
+        } 
             return sbslFeel;
-        }
+        
     }
 
 }

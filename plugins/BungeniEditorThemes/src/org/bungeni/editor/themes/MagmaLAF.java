@@ -18,9 +18,8 @@ public class MagmaLAF implements ILookAndFeel {
             sbslFeel = new SubstanceMagellanLookAndFeel();
         } catch (Exception ex) {
             log.error("MagmaLAF:newLAFInstance :" + ex.getMessage());
-        } finally {
-            return sbslFeel;
-        }
+        }   return sbslFeel;
+        
     }
 
 }

@@ -23,8 +23,7 @@ public class ModerateLAF implements ILookAndFeel {
             sbslFeel = new SubstanceModerateLookAndFeel();
         } catch (Exception ex) {
             log.error("ModerateLAF:newLAFInstance :" + ex.getMessage());
-        } finally {
-            return sbslFeel;
-        }
+        }   return sbslFeel;
+        
     }
 }

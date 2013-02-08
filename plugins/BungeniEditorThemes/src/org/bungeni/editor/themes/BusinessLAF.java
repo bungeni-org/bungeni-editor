@@ -22,9 +22,8 @@ public class BusinessLAF implements ILookAndFeel {
             sbslFeel = new SubstanceBusinessLookAndFeel();
         } catch (Exception ex) {
             log.error("BusinessLAF:newLAFInstance :" + ex.getMessage());
-        } finally {
-            return sbslFeel;
-        }
+        }   return sbslFeel;
+        
     }
 
 }

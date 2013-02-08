@@ -23,9 +23,8 @@ public class CafeCremeLAF implements ILookAndFeel {
             sbslFeel = new SubstanceCremeCoffeeLookAndFeel();
         } catch (Exception ex) {
             log.error("CafeCremeLAF:newLAFInstance :" + ex.getMessage());
-        } finally {
-            return sbslFeel;
-        }
+        }   return sbslFeel;
+        
     }
 
 }

@@ -18,9 +18,8 @@ public class OfficeBlue2007LAF implements ILookAndFeel {
             sbslFeel = new SubstanceOfficeBlue2007LookAndFeel();
         } catch (Exception ex) {
             log.error("OfficeBlue2007LAF:newLAFInstance :" + ex.getMessage());
-        } finally {
-            return sbslFeel;
-        }
+        }   return sbslFeel;
+        
     }
 
 }

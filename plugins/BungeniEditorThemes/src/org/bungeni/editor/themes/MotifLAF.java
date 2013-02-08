@@ -24,9 +24,8 @@ public class MotifLAF implements ILookAndFeel {
             sbslFeel = new MotifLookAndFeel();
         } catch (Exception ex) {
             log.error("MotifLAF:newLAFInstance :" + ex.getMessage());
-        } finally {
-            return sbslFeel;
-        }
+        }   return sbslFeel;
+        
     }
 
 

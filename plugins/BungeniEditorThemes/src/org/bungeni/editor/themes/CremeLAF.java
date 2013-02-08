@@ -22,9 +22,8 @@ public class CremeLAF implements ILookAndFeel {
             sbslFeel = new SubstanceCremeLookAndFeel();
         } catch (Exception ex) {
             log.error("CremeLAF:newLAFInstance :" + ex.getMessage());
-        } finally {
-            return sbslFeel;
-        }
+        }   return sbslFeel;
+        
     }
 
 }

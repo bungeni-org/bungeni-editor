@@ -20,8 +20,7 @@ public class NebulaBrickWallLAF implements ILookAndFeel {
             sbslFeel = new SubstanceNebulaBrickWallLookAndFeel();
         } catch (Exception ex) {
             log.error("NebulaBrickWallLAF:newLAFInstance :" + ex.getMessage());
-        } finally {
-            return sbslFeel;
-        }
+        }   return sbslFeel;
+        
     }
 }

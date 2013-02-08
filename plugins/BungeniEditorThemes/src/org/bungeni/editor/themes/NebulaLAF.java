@@ -20,9 +20,8 @@ public class NebulaLAF implements ILookAndFeel {
             sbslFeel = new SubstanceNebulaLookAndFeel();
         } catch (Exception ex) {
             log.error("NebulaLAF:newLAFInstance :" + ex.getMessage());
-        } finally {
-            return sbslFeel;
-        }
+        }   return sbslFeel;
+        
     }
     
 }

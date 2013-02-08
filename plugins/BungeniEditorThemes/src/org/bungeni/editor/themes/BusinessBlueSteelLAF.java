@@ -18,9 +18,9 @@ public class BusinessBlueSteelLAF implements ILookAndFeel {
             sbslFeel = new SubstanceBusinessBlueSteelLookAndFeel();
         } catch (Exception ex) {
             log.error("BusinessBlueSteelLAF:newLAFInstance :" + ex.getMessage());
-        } finally {
+        } 
             return sbslFeel;
-        }
+        
     }
 
 }
