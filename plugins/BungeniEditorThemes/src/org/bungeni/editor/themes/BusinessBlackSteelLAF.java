@@ -1,8 +1,8 @@
 package org.bungeni.editor.themes;
 
-import org.bungeni.editor.interfaces.ui.ILookAndFeel;
 import javax.swing.LookAndFeel;
-import org.jvnet.substance.skin.SubstanceBusinessBlackSteelLookAndFeel;
+import org.bungeni.editor.interfaces.ui.ILookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceBusinessBlackSteelLookAndFeel;
 
 /**
  *

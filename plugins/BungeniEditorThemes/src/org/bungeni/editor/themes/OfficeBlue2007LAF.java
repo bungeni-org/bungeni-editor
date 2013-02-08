@@ -2,7 +2,7 @@ package org.bungeni.editor.themes;
 
 import org.bungeni.editor.interfaces.ui.ILookAndFeel;
 import javax.swing.LookAndFeel;
-import org.jvnet.substance.skin.SubstanceOfficeBlue2007LookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceOfficeBlue2007LookAndFeel;
 
 /**
  *

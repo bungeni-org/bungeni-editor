@@ -1,13 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package org.bungeni.editor.themes;
 
-import org.bungeni.editor.interfaces.ui.ILookAndFeel;
 import javax.swing.LookAndFeel;
-import org.jvnet.substance.skin.SubstanceMagmaLookAndFeel;
+import org.bungeni.editor.interfaces.ui.ILookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceMagellanLookAndFeel;
 
 /**
  *
@@ -17,9 +13,9 @@ public class MagmaLAF implements ILookAndFeel {
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(MagmaLAF.class.getName());
 
     public LookAndFeel newLAFInstance() {
-        SubstanceMagmaLookAndFeel sbslFeel = null;
+        SubstanceMagellanLookAndFeel sbslFeel = null;
         try {
-            sbslFeel = new SubstanceMagmaLookAndFeel();
+            sbslFeel = new SubstanceMagellanLookAndFeel();
         } catch (Exception ex) {
             log.error("MagmaLAF:newLAFInstance :" + ex.getMessage());
         } finally {

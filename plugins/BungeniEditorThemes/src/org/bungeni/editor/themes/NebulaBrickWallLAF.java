@@ -2,7 +2,7 @@ package org.bungeni.editor.themes;
 
 import org.bungeni.editor.interfaces.ui.ILookAndFeel;
 import javax.swing.LookAndFeel;
-import org.jvnet.substance.skin.SubstanceNebulaBrickWallLookAndFeel;
+import org.pushingpixels.substance.api.skin.SubstanceNebulaBrickWallLookAndFeel;
 
 /**
  *
