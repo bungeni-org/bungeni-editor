@@ -1,5 +1,6 @@
 bungeni http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeni
 bungeniooolib http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeniooolib
+bungenieditor-themes http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungenieditor-themes
 bungenieditor-panelsimpl http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungenieditor-panelsimpl
 bungeniodfdom http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungeniodfdom
 bungenistructrules http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/bungenistructrules
@@ -38,3 +39,4 @@ jsoup http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/jsoup
 asm http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/asm
 clapper-utils http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/clapper-utils
 json-simple http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/json-simple
+twinkle http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/twinkle
