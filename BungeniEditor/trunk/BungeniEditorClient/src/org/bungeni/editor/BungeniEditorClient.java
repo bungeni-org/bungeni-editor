@@ -217,7 +217,7 @@ public class BungeniEditorClient {
             // BungeniUIManager bungeniUI = new BungeniUIManager();
             // bungeniUI.loadBungeniUI();
             // Initialize the notifications system
-            NotifyBox.init();
+            
         } catch (Exception ex) {
             log.error("initUI : " + ex.getMessage());
             log.error("InitUI : " + CommonExceptionUtils.getStackTrace(ex));
@@ -243,7 +243,7 @@ public class BungeniEditorClient {
         }
     }
 
-    private static void selectConfig(){
+    private static boolean selectConfig(){
         BungeniDialog frm = new BungeniDialog(null, "Select Config", true);
         frm.initFrame();
         ConfigSelectPanel cfgPanel = new ConfigSelectPanel(frm);
@@ -252,6 +252,7 @@ public class BungeniEditorClient {
         frm.setLocationRelativeTo(null);
         frm.setVisible(true);
         BaseConfigReader.refreshConfigsFolder();
+        return cfgPanel.getConfigSelected();
     }
     
     /**
@@ -268,30 +269,40 @@ public class BungeniEditorClient {
             System.out.println("Editor configuration folder set to : " + BaseConfigReader.configsFolder());
             cmdOptions.doMain(args);
             
-            selectConfig();
-            
-            // launch the editor
-            javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            if (selectConfig()) {
+                // launch the editor
+                javax.swing.SwingUtilities.invokeLater(new Runnable() {
 
-                public void run() {
-                    try {
-                        // set the default language and locale
-                        setIniProperties();
-                        initOOo();
-                        // This is the startup Config generator -- we call it during initialization
-                        StartupConfigGenerator sconfig = new StartupConfigGenerator();
-                        sconfig.startupGenerate();
-                    } catch (FileNotFoundException ex) {
-                        log.error("editor.ini not found", ex);
-                    } catch (IOException ex) {
-                        log.error("editor.ini not found", ex);
+                    public void run() {
+                        NotifyBox.init();
+                        NotifyBox.infoTimed("Starting Up Editor", "Initializing...", 4000);
                     }
-                    // show the UI
-                    createAndShowGUI();
-                }
-            });
+                });
+
+                javax.swing.SwingUtilities.invokeLater(new Runnable() {
+
+                    public void run() {
+                        try {
+                            // set the default language and locale
+                            setIniProperties();
+                            initOOo();
+                            // This is the startup Config generator -- we call it during initialization
+                            StartupConfigGenerator sconfig = new StartupConfigGenerator();
+                            sconfig.startupGenerate();
+                        } catch (FileNotFoundException ex) {
+                            log.error("editor.ini not found", ex);
+                        } catch (IOException ex) {
+                            log.error("editor.ini not found", ex);
+                        }
+                        // show the UI
+                        createAndShowGUI();
+                    }
+                });
+            } else {
+                System.exit(0);
+            }
         } catch (java.lang.Exception e) {
-            e.printStackTrace();
+                e.printStackTrace();
         }
     }
 }

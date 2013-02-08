@@ -27,6 +27,7 @@ package org.bungeni.extpanels.bungeni;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.SwingUtilities;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.extutils.FrameLauncher;
@@ -220,6 +221,7 @@ import org.bungeni.utils.BungeniDialog;
         if (transPanel.getTransitionSuccessful()) {
             // if the transition is successful update 
             //the document transition information on this page
+            updateTransitionsList();
         }
     }//GEN-LAST:event_btnTransitActionPerformed
 
@@ -275,7 +277,18 @@ import org.bungeni.utils.BungeniDialog;
         this.cboTransit.setModel(
                 new DefaultComboBoxModel(deserializeTransitions().toArray())
                 );
-        
+    }
+    
+    private void updateTransitionsList(){
+            SwingUtilities.invokeLater(new Runnable(){
+                public void run() {
+                    // update the combo box here 
+                    String sAttURL = ooDocument.getPropertyValue("PortalAttSource");
+                    List<Transition> transitions = BungeniServiceAccess.getInstance().getUpdatedTransitionsForAttachment(sAttURL);
+                    cboTransit.setModel(new DefaultComboBoxModel(transitions.toArray()));
+                }
+            });
+
     }
     
     private List<Transition> deserializeTransitions(){

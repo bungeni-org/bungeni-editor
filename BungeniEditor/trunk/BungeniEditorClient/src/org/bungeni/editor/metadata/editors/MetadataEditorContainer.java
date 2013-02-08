@@ -401,7 +401,7 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
                     bf.append(msg).append("\n");
                 }
                 //MessageBox.OK(parentFrame, bf.toString(), bundle.getString("incomplete_fields"), JOptionPane.ERROR_MESSAGE);
-                NotifyBox.error(bf.toString(), bundle.getString("incomplete_fields"));
+                MessageBox.OK(parentFrame, bf.toString(), bundle.getString("incomplete_fields"), JOptionPane.ERROR_MESSAGE);
             }
 
         }

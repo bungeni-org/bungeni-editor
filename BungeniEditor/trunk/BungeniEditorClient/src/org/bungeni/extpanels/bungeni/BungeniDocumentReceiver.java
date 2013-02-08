@@ -28,7 +28,6 @@ import java.util.List;
 import javax.swing.JFrame;
 import org.bungeni.editor.config.PluggableConfigReader.PluggableConfig;
 import org.bungeni.editor.input.IInputDocumentReceiver;
-import org.bungeni.extpanels.bungeni.BungeniDocument.Attachment;
 import org.bungeni.extpanels.bungeni.BungeniListDocuments.BungeniListDocument;
 import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.utils.BungeniDialog;
@@ -112,7 +111,7 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
          dlgdoc.view(panelShowDocument);
          BungeniDocument aDoc = panelShowDocument.getDocument();
          if (aDoc != null ){
-             Attachment attDoc = aDoc.getSelectedAttachment();
+             BungeniAttachment attDoc = aDoc.getSelectedAttachment();
              if (attDoc != null) {
                  return aDoc;
              }

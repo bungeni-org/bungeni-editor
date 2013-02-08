@@ -27,6 +27,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import org.bungeni.extutils.DisabledGlassPane;
 import org.bungeni.extutils.MessageBox;
+import org.bungeni.extutils.NotifyBox;
 import org.bungeni.utils.BungeniDialog;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -101,6 +102,7 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
                 if (null != responseBody) {
                     Document attDoc  = Jsoup.parse(responseBody);
                     loadedDocument.getSelectedAttachment().parseAttachment(attDoc);
+                    System.out.println(loadedDocument.getSelectedAttachment().transitions.size());
                     setupFields();
                     return Boolean.TRUE;
                 }
@@ -300,6 +302,7 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
         
         public EditAttachment(BungeniDocument inputDoc) {
             this.loadedDocument = inputDoc;
+            //NotifyBox.info("Loading Document in Editor");
         }
         
         @Override

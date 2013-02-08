@@ -275,14 +275,15 @@ public class documentActionPanel extends  BaseClassForITabbedPanel {
                 CollapsibleRootPanel crp = (CollapsibleRootPanel) couter;
                 List<CollapsiblePanel> panels = crp.getCollapsiblePanels();
                 for (CollapsiblePanel panel : panels) {
-                   if (panel.isVisible())
-                    if (panel.isExpanded()) {
-                        Component c = panel.getComponent(0);
-                        String s = c.getClass().getCanonicalName();
-                        System.out.println("Class NAME XXXXX : " + s);
-                        buttonContainerPanel buttonsPanel = (buttonContainerPanel) panel.getComponent(0);
-                        Component[] components = buttonsPanel.getComponents();
-                        return components;
+                   if (panel.isVisible()) {
+                        if (panel.isExpanded()) {
+                            Component c = panel.getComponent(0);
+                            String s = c.getClass().getCanonicalName();
+                            System.out.println("Class NAME XXXXX : " + s);
+                            buttonContainerPanel buttonsPanel = (buttonContainerPanel) panel.getComponent(0);
+                            Component[] components = buttonsPanel.getComponents();
+                            return components;
+                        }
                     }
                 }
             }

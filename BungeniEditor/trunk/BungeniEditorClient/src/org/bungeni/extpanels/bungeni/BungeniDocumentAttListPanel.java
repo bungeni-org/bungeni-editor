@@ -32,10 +32,8 @@ import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import org.apache.log4j.Logger;
-import org.bungeni.extpanels.bungeni.BungeniDocument.Attachment;
 import org.bungeni.extpanels.bungeni.BungeniListDocuments.BungeniListDocument;
 import org.bungeni.extutils.DisabledGlassPane;
-import org.bungeni.extutils.MessageBox;
 import org.bungeni.extutils.NotifyBox;
 import org.bungeni.utils.BungeniDialog;
 import org.jsoup.Jsoup;
@@ -52,7 +50,7 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
     private String documentURL = null;
     private BungeniListDocument listDoc = null;
     private BungeniDocument doc = null;
-    private Attachment selectedAttachment = null;
+    private BungeniAttachment selectedAttachment = null;
     private DisabledGlassPane glassPane = new DisabledGlassPane();
    
     /** Creates new form BungeniDocumentAttListPanel */
@@ -132,7 +130,7 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
         this.txtDescription.setText(doc.getDescription());
         
         DefaultListModel attModel = new DefaultListModel();
-        for (Attachment att : doc.getAttachments()){
+        for (BungeniAttachment att : doc.getAttachments()){
             attModel.addElement(att);
         }
         
@@ -153,7 +151,7 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
         this.btnImportAttachment.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                selectedAttachment = (Attachment) cboListAttachments.getSelectedValue();
+                selectedAttachment = (BungeniAttachment) cboListAttachments.getSelectedValue();
                 if (null == selectedAttachment) {
                     NotifyBox.error("You need to select an attachment to import it !");
                 } else {
@@ -175,7 +173,7 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
         return this.doc;
     }
     
-    public Attachment getSelectedAttachment() {
+    public BungeniAttachment getSelectedAttachment() {
         return this.selectedAttachment;
     }
 

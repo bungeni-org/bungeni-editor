@@ -19,7 +19,6 @@ package org.bungeni.editor;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import org.bungeni.editor.config.PluggableConfigReader;
@@ -35,6 +34,7 @@ public class ConfigSelectPanel extends javax.swing.JPanel {
 
   private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ConfigSelectPanel.class.getName());
   private BungeniDialog parentDialog = null;
+  private boolean configSelected = false;
     /**
      * Creates new form ConfigSelectPanel
      */
@@ -73,9 +73,13 @@ public class ConfigSelectPanel extends javax.swing.JPanel {
         });
     }
     
+    public boolean getConfigSelected(){
+        return configSelected ; 
+    }
     
     private void selectAction(){
         PluggableConfig cfg = (PluggableConfig) this.listConfigs.getSelectedValue();
+        configSelected = true;
         try {
             //write to pluggable config
             PluggableConfigReader.getInstance().makeDefault(cfg);

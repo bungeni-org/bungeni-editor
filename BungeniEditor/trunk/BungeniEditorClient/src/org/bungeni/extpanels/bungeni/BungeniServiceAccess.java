@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -120,7 +121,7 @@ public class BungeniServiceAccess {
         return sdf.format(dtDate);
     }
 
-    public List<BasicNameValuePair> attachmentWorkflowTransitPostQuery(Transition transObj, String sDate, String sTime) throws MalformedURLException {
+    public List<BasicNameValuePair> attachmentWorkflowTransitPostQuery(Transition transObj, String sDate, String sTime, List<BasicNameValuePair> inputFormFields) throws MalformedURLException {
 
         List<BasicNameValuePair> nvPair = new ArrayList<BasicNameValuePair>(0);
 
@@ -134,7 +135,17 @@ public class BungeniServiceAccess {
         nvPair.add(new BasicNameValuePair(
                 "form__date_active__time",
                 sTime));
+      
+        for (BasicNameValuePair inputFormField : inputFormFields) {
+            // !+WARNING+WARNING - assumption is that 2 transitions dont have the same
+            // name !
+            if (inputFormField.getValue().equalsIgnoreCase(transObj.title)){
+                nvPair.add(inputFormField);
+                break;
+            }
+        }
         
+        /**        
         String actionTransitionName = transObj.title ;
         try {
             actionTransitionName = this.transitionNameAsciiAble(actionTransitionName);
@@ -145,7 +156,8 @@ public class BungeniServiceAccess {
         nvPair.add(new BasicNameValuePair(
                 "form.actions." + actionTransitionName  ,
                 transObj.title));
-
+                */
+        
         return nvPair;
     }
 
@@ -172,25 +184,26 @@ public class BungeniServiceAccess {
     }
     
     
-    /**
-    public WebResponse getWfTransitionInformation(String docURL) {
-        WebResponse wr = null;
-        wr = appConnector.getUrl( makeWFurl(docURL), false);
+    
+    public List<BasicNameValuePair>  getWfTransitionInputTypeSubmitInfo(String docURL) {
+        List<BasicNameValuePair> nvp = new ArrayList<BasicNameValuePair>();
+        WebResponse wr = appConnector.getUrl( makeWFurl(docURL), false);
         if (wr.getStatusCode() == 200 ) {
             Document wfDoc = Jsoup.parse(wr.getResponseBody());
             Elements inputList = wfDoc.select("div#actionsView input");
             for (int i = 0; i < inputList.size(); i++) {
                 Element inputItem = inputList.get(i);
-                inputItem.attr("name");
-                intputItem.attr("")
+                nvp.add(
+                        new BasicNameValuePair(
+                            inputItem.attr("name"),
+                            inputItem.attr("value")
+                        )
+                );
             }
-        
         }
-        
-        return null;
-        
+        return nvp;
     }
-    **/
+    
     public String makeWFurl(String docURL) {
         return docURL + "/workflow";
     }
@@ -245,7 +258,7 @@ public class BungeniServiceAccess {
             // this is a bungeni document ... load for editing
         } else {
             //first prepare the document
-            BungeniDocument.Attachment att = aDocument.getSelectedAttachment();
+            BungeniAttachment att = aDocument.getSelectedAttachment();
             propshelper.setUserDefinedPropertyValue("BungeniDocType", BungeniEditorPropertiesHelper.getCurrentDocType());
             propshelper.setUserDefinedPropertyValue("DocSource", "BungeniPortal");
             propshelper.setUserDefinedPropertyValue("DocInit", "False");
@@ -277,5 +290,25 @@ public class BungeniServiceAccess {
             // create the root section after opening and set initial metadata properties
         }
         return fodf;
+    }
+    
+    public List<Transition> getUpdatedTransitionsForAttachment(String sURL ){
+        List<Transition> trans = new ArrayList<Transition>();
+        WebResponse wr = 
+            appConnector.getUrl(
+                    sURL,
+                    false
+            );
+        if (wr.getStatusCode() == 200) {
+            String responseBody = wr.getResponseBody();
+            if (null != responseBody) {
+                Document attDoc  = Jsoup.parse(responseBody);
+                // create a dummy document
+                BungeniAttachment att = new BungeniAttachment();
+                att.parseAttachment(attDoc);
+                trans =  att.transitions;
+            }
+        }
+        return trans;
     }
 }
