@@ -18,6 +18,7 @@ import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonXmlConfigParams;
 import org.bungeni.extutils.MessageBox;
+import org.bungeni.extutils.NotifyBox;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.transforms.impl.BungeniDocTransform;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
@@ -183,7 +184,7 @@ public class AnXmlTransform extends BungeniDocTransform {
                     bState = true;
                 }**/
             } else {
-                MessageBox.OK("Please save the document before trying to transform it!");
+                NotifyBox.error("Please save the document before trying to transform it!");
                 bState = false;
             }
         } catch (Exception ex) {

@@ -30,6 +30,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.bungeni.extpanels.bungeni.BungeniAppConnector.WebResponse;
 import org.bungeni.extutils.DisabledGlassPane;
 import org.bungeni.extutils.MessageBox;
+import org.bungeni.extutils.NotifyBox;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.utils.BungeniDialog;
 
@@ -137,11 +138,11 @@ public class BungeniTransitionConfirmationPanel extends javax.swing.JPanel {
                     if (wr.getStatusCode() == 200 ) {
                         glassPane.deactivate();
                         transitionSuccessful = true;
-                        MessageBox.OK(parentDialog, "Transited !" );
+                        NotifyBox.info("Transited !" );
                         parentDialog.dispose();
                     }
                 } else {
-                    MessageBox.OK(parentDialog, "Could not Transit !" );
+                    NotifyBox.error("Could not Transit !" );
                 }
             } catch (InterruptedException ex) {
                log.error("Error while parsing document ", ex);
@@ -283,11 +284,11 @@ public class BungeniTransitionConfirmationPanel extends javax.swing.JPanel {
         String sComment = this.txtComment.getText();
         if (sComment != null ) {
             if (sComment.trim().length() ==  0 ) {
-                MessageBox.OK(this.parentDialog, "Please enter a comment !");
+                NotifyBox.error("Please enter a comment !");
                 return;
             }
         } else {
-            MessageBox.OK(this.parentDialog, "Please enter a comment !");
+            NotifyBox.error("Please enter a comment !");
         }
         disablePanel();
         TransitionExec exec = new TransitionExec(

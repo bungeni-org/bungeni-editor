@@ -47,6 +47,7 @@ import org.bungeni.ooo.transforms.impl.BungeniTransformationTarget;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTargetFactory;
 import org.bungeni.ooo.transforms.impl.IBungeniDocTransform;
 import org.bungeni.extutils.MessageBox;
+import org.bungeni.extutils.NotifyBox;
 import org.bungeni.ooo.transforms.impl.BungeniTransformationTargets;
 import org.bungeni.utils.externalplugin.ExternalPlugin;
 import org.bungeni.utils.externalplugin.ExternalPluginLoader;
@@ -140,9 +141,9 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
                     log.error("done(),", ex);
                 }
                 if (bState) {
-                    MessageBox.OK(parentFrame, bundle.getString("Document_was_successfully_Exported_to_the_workspace_folder"));
+                    NotifyBox.info(bundle.getString("Document_was_successfully_Exported_to_the_workspace_folder"));
                 } else {
-                    MessageBox.OK(parentFrame, bundle.getString("Document_export_failed"));
+                    NotifyBox.error(bundle.getString("Document_export_failed"));
                 }
             }
         }
@@ -191,7 +192,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
                     retValue = get();
                     if (retValue != null) {
                         if (retValue.equals("save_the_document")) {
-                            MessageBox.OK(parentFrame, bundle.getString("Please_save_the_document"), bundle.getString("Save_the_document"), JOptionPane.ERROR_MESSAGE);
+                            NotifyBox.error(bundle.getString("Please_save_the_document"), bundle.getString("Save_the_document"));
                         } else {
                             String outputFilePath = (String) retValue;
                             File fFile = CommonFileFunctions.convertUrlToFile(outputFilePath);
@@ -220,7 +221,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         public synchronized void actionPerformed(ActionEvent e) {
             //check if document has been saved
             if (ooDocument.documentRequiresSaving()) {
-                MessageBox.OK(parentFrame, bundle.getString("Please_save_the_document"), bundle.getString("Save_the_document"), JOptionPane.ERROR_MESSAGE);
+                NotifyBox.error(bundle.getString("Please_save_the_document"), bundle.getString("Save_the_document"));
                 return;
             }
             //get the button originating the event
@@ -266,7 +267,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
                     parentFrame.setCursor(Cursor.getDefaultCursor());
                     retValue = get();
                     if (retValue != null) {
-                        MessageBox.OK(parentFrame, bundle.getString(retValue));
+                        NotifyBox.info(bundle.getString(retValue));
                     }
                 } catch (InterruptedException ex) {
                     log.error("done(),", ex);
@@ -279,7 +280,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
         public synchronized void actionPerformed(ActionEvent e) {
             //check if document has been saved
             if (ooDocument.documentRequiresSaving()) {
-                MessageBox.OK(parentFrame, bundle.getString("Please_save_the_document"), bundle.getString("Save_the_document"), JOptionPane.ERROR_MESSAGE);
+                NotifyBox.error(bundle.getString("Please_save_the_document"), bundle.getString("Save_the_document"));
                 return;
             }
             //get the button originating the event
@@ -326,7 +327,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
                 // MessageBox.OK(parentFrame, "A plain document was generated, it can be found at : \n" + outputFilePath, "Plain Document generation", JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
-            MessageBox.OK(parentFrame, bundle.getString("Please_save_the_document"), bundle.getString("Save_the_document"), JOptionPane.ERROR_MESSAGE);
+            NotifyBox.error(bundle.getString("Please_save_the_document"), bundle.getString("Save_the_document"));
         }
 
     }
@@ -366,12 +367,12 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
                             return;
                         } catch (ParserConfigurationException ex) {
                             log.error("viewXmlDoc ", ex);
-                            MessageBox.OK(parentFrame, bundle.getString("xml_not_wellformed"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
+                            NotifyBox.error(bundle.getString("xml_not_wellformed"), bundle.getString("xml_viewer_error"));
                             return;
                         }
                     }
                 }
-                MessageBox.OK(parentFrame, bundle.getString("xml_does_not_exist"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
+                NotifyBox.error(bundle.getString("xml_does_not_exist"), bundle.getString("xml_viewer_error"));
                 return;
             }
             if (e.getActionCommand().equals("METALEX")) {
@@ -386,12 +387,12 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
                             return;
                         } catch (ParserConfigurationException ex) {
                             log.error("viewXmlDoc ", ex);
-                            MessageBox.OK(parentFrame, bundle.getString("xml_not_wellformed"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
+                            NotifyBox.error(bundle.getString("xml_not_wellformed"), bundle.getString("xml_viewer_error"));
                             return;
                         }
                     }
                 }
-                MessageBox.OK(parentFrame, bundle.getString("xml_does_not_exist"), bundle.getString("xml_viewer_error"), JOptionPane.ERROR_MESSAGE);
+                NotifyBox.error(bundle.getString("xml_does_not_exist"), bundle.getString("xml_viewer_error"));
                 return;
             }
         }
@@ -423,7 +424,7 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
             xmlPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
 
         } else {
-            MessageBox.OK(parentFrame, bundle.getString("save_document_before_transform"));
+            NotifyBox.error(bundle.getString("save_document_before_transform"));
         }
     }
 
@@ -508,11 +509,11 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
                 }
             }
             if (bNoErrors) {
-                MessageBox.OK(parentFrame, bundle.getString("no_validation_errors"));
+                NotifyBox.info(bundle.getString("no_validation_errors"));
             }
 
         } else {
-            MessageBox.OK(parentFrame, bundle.getString("save_document_before_transform"));
+            NotifyBox.error(bundle.getString("save_document_before_transform"));
         }
     }
 

@@ -27,6 +27,7 @@ import org.bungeni.editor.noa.ext.BungeniLocalOfficeApplication;
 import org.bungeni.editor.system.StartupConfigGenerator;
 import org.bungeni.editor.ui.LookAndFeelFactory;
 import org.bungeni.extutils.BungeniRuntimeProperties;
+import org.bungeni.extutils.NotifyBox;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.bungeni.utils.BungeniDialog;
 import org.bungeni.utils.CommonBungeniTreeFunctions;
@@ -118,7 +119,6 @@ public class BungeniEditorClient {
      * @param args the command line arguments
      */
     private static void createAndShowGUI() {
-
         // Use the Java look and feel.
         JFrame.setDefaultLookAndFeelDecorated(true);
         JDialog.setDefaultLookAndFeelDecorated(true);
@@ -196,7 +196,7 @@ public class BungeniEditorClient {
      */
     private static void initUI() {
         try {
-
+            System.setProperty("swing.aatext", "true");
             // invoke look and feel from UI manager
             // set the class loader to be used by the UI manager, so that the UI manager
             // uses the appropriate thread context class loader
@@ -210,13 +210,14 @@ public class BungeniEditorClient {
 
             if (lafInstance == null) {
                 log.error("lafInstance is null");
+            } else {
+                UIManager.setLookAndFeel(lafInstance);
             }
-
-            UIManager.setLookAndFeel(lafInstance);
-
             // override theme colors if required
             // BungeniUIManager bungeniUI = new BungeniUIManager();
             // bungeniUI.loadBungeniUI();
+            // Initialize the notifications system
+            NotifyBox.init();
         } catch (Exception ex) {
             log.error("initUI : " + ex.getMessage());
             log.error("InitUI : " + CommonExceptionUtils.getStackTrace(ex));
@@ -284,7 +285,7 @@ public class BungeniEditorClient {
                         log.error("editor.ini not found", ex);
                     } catch (IOException ex) {
                         log.error("editor.ini not found", ex);
-}
+                    }
                     // show the UI
                     createAndShowGUI();
                 }

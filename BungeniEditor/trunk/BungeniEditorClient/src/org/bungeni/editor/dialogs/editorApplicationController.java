@@ -3,6 +3,10 @@ package org.bungeni.editor.dialogs;
 import ag.ion.bion.officelayer.application.OfficeApplicationException;
 import ag.ion.bion.officelayer.document.DocumentException;
 import ag.ion.noa.NOAException;
+import ch.swingfx.twinkle.NotificationBuilder;
+import ch.swingfx.twinkle.style.INotificationStyle;
+import ch.swingfx.twinkle.style.theme.LightDefaultNotification;
+import ch.swingfx.twinkle.window.Positions;
 import com.sun.star.lang.XComponent;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -21,6 +25,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
 import org.bungeni.editor.SplashPage;
 import org.bungeni.editor.config.BaseConfigReader;
@@ -44,6 +49,7 @@ import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.CommonUIFunctions;
 import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.extutils.MessageBox;
+import org.bungeni.extutils.NotifyBox;
 import org.bungeni.ooo.BungenioOoHelper;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.utils.BungeniFrame;
@@ -124,6 +130,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         initLaunchLabels();
 
         CommonUIFunctions.compOrientation(this);
+        
     }
 
     private void initLaunchLabels() {
@@ -385,7 +392,7 @@ public class editorApplicationController extends javax.swing.JPanel {
         pEditorIni.setProperty("lang", selectedLocale.getLocale().getLanguage());
         pEditorIni.setProperty("region", selectedLocale.getLocale().getCountry());
         pEditorIni.store(new FileOutputStream(BungeniRuntimeProperties.getProperty("EDITOR_INI")), "Updating locale in editor.ini");
-        MessageBox.OK(this.parentFrame, bundle.getString("change_locale"));
+        NotifyBox.info( bundle.getString("change_locale"));
     }
 
     class documentType extends Object {
@@ -648,7 +655,8 @@ public class editorApplicationController extends javax.swing.JPanel {
         }
       return false;
     }
-   
+    
+    
     public void launchDocumentType(String docType, String launchMode)  {
         documentType thisDocType = null;
         for (int i = 0; i < cboDocumentTypes.getModel().getSize(); i++) {

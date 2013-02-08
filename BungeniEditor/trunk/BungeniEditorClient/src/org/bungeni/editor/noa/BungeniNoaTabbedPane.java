@@ -19,12 +19,8 @@
 package org.bungeni.editor.noa;
 
 import java.awt.Dimension;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import org.jvnet.substance.SubstanceLookAndFeel;
 
 /**
  *

@@ -40,3 +40,4 @@ asm http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/asm
 clapper-utils http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/clapper-utils
 json-simple http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/json-simple
 twinkle http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/twinkle
+mssql-jdbc http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/mssql-jdbc

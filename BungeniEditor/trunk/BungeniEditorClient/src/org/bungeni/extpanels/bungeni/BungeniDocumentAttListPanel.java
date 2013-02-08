@@ -36,6 +36,7 @@ import org.bungeni.extpanels.bungeni.BungeniDocument.Attachment;
 import org.bungeni.extpanels.bungeni.BungeniListDocuments.BungeniListDocument;
 import org.bungeni.extutils.DisabledGlassPane;
 import org.bungeni.extutils.MessageBox;
+import org.bungeni.extutils.NotifyBox;
 import org.bungeni.utils.BungeniDialog;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -140,7 +141,7 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
                 );
         if (cboListAttachments.getModel().getSize() == 0) {
             btnImportAttachment.setEnabled(false);
-            MessageBox.OK(parentDialog, "There are no attachments to import !");
+            NotifyBox.error("There are no attachments to import !");
         } else {
             cboListAttachments.setSelectedIndex(0);
             btnImportAttachment.setEnabled(true);
@@ -154,7 +155,7 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
             public void actionPerformed(ActionEvent e) {
                 selectedAttachment = (Attachment) cboListAttachments.getSelectedValue();
                 if (null == selectedAttachment) {
-                    MessageBox.OK("You need to select an attachment to import it !");
+                    NotifyBox.error("You need to select an attachment to import it !");
                 } else {
                     selectedAttachment.isSelected = true;
                     parentDialog.dispose();

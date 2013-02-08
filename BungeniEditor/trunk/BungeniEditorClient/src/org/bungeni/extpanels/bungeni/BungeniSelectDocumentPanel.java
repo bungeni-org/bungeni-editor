@@ -23,6 +23,7 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import org.bungeni.extpanels.bungeni.BungeniListDocuments.BungeniListDocument;
 import org.bungeni.extutils.MessageBox;
+import org.bungeni.extutils.NotifyBox;
 import org.bungeni.utils.BungeniDialog;
 
 /**
@@ -64,7 +65,7 @@ public class BungeniSelectDocumentPanel extends javax.swing.JPanel {
                 public void actionPerformed(ActionEvent e) {
                     selectedListDocument = (BungeniListDocument) listDocs.getSelectedValue();
                     if (null == selectedListDocument) {
-                        MessageBox.OK("You need to select a document to import it !");
+                        NotifyBox.error("You need to select a document to import it !");
                     } else {
                         parentDialog.dispose();
                     }

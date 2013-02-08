@@ -49,8 +49,8 @@ import org.bungeni.ooo.BungenioOoHelper;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooQueryInterface;
 import org.bungeni.utils.CommonBungeniTreeFunctions;
-import org.jvnet.substance.SubstanceLookAndFeel;
-import org.jvnet.substance.api.tabbed.VetoableTabCloseListener;
+import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.tabbed.VetoableTabCloseListener;
 
 /**
  * This is an extended BungeniFrame which acts as a frame for :

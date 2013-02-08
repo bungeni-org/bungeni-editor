@@ -28,6 +28,7 @@ import javax.swing.SwingWorker;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.bungeni.extutils.DisabledGlassPane;
 import org.bungeni.extutils.MessageBox;
+import org.bungeni.extutils.NotifyBox;
 
 /**
  * Login screen for Bungeni
@@ -129,7 +130,7 @@ public class BungeniLoginPanel extends javax.swing.JPanel {
                 LoginStatus loginState = get();
                 glassPane.deactivate();
                 if (loginState.state == false) {
-                     MessageBox.OK("Login to Bungeni Failed ! : \n" + loginState.message);
+                     NotifyBox.error("Login to Bungeni Failed ! : \n" + loginState.message);
                 } else {
                      closeDialog();
                 }
@@ -262,41 +263,7 @@ public class BungeniLoginPanel extends javax.swing.JPanel {
         disablePanel();
         LoginWorker lwExec = new LoginWorker();
         lwExec.execute();
-      /***  SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                DefaultHttpClient client = null;
-                bConnection = false;
-                String failureMessage = "";
-                try {
-                    bConnection = true;
-                    client = bungeniService.login(
-                            txtServer.getText(),
-                            txtServerPort.getText(),
-                            txtLoginBase.getText(),
-                            txtUser.getText(),
-                            txtPassword.getText());
-                } catch (UnsupportedEncodingException ex) {
-                    bConnection = false;
-                    failureMessage = ex.getMessage();
-                } catch (IOException ex) {
-                    bConnection = false;
-                    failureMessage = ex.getMessage();
-                } catch (Exception ex) {
-                    bConnection = false;
-                    failureMessage = ex.getMessage();
-                }
-
-                if (false == bConnection) {
-                    btnLogin.setEnabled(true);
-                    MessageBox.OK("Login to Bungeni Failed !");
-                } else {
-                    btnLogin.setEnabled(true);
-                    MessageBox.OK("Login successful, will retrieve documents now ");
-                    closeDialog();
-                }
-            }
-        }); **/
-
+ 
     }//GEN-LAST:event_btnLoginActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;

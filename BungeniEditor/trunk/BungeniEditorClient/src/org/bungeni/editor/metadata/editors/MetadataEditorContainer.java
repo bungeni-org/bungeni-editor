@@ -317,7 +317,7 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
                     //storeAsURL to new path
                     if (fFile.exists()) {
                             //error message and abort
-                            MessageBox.OK(parentFrame, bundle.getString("file_exists"));
+                            NotifyBox.error(bundle.getString("file_exists"));
                             bState = false;
                             return false;
                     } else {    
@@ -339,7 +339,7 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
 
                 if (fFile.exists()) {
                     //error message and abort
-                    MessageBox.OK(parentFrame, bundle.getString("file_exists2"));
+                    NotifyBox.error( bundle.getString("file_exists2"));
                     bState = false;
                     return false;
                 } else {
@@ -372,7 +372,7 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
            /// Update - End
            return true;
         } else {
-            MessageBox.OK(parentFrame, bundle.getString("doc_not_saved"));
+            NotifyBox.error(bundle.getString("doc_not_saved"));
             return false;
         }
 }
@@ -400,7 +400,8 @@ private boolean saveDocumentToDisk(BungeniFileSavePathFormat spf){
                 for (String msg : formErrors) {
                     bf.append(msg).append("\n");
                 }
-                MessageBox.OK(parentFrame, bf.toString(), bundle.getString("incomplete_fields"), JOptionPane.ERROR_MESSAGE);
+                //MessageBox.OK(parentFrame, bf.toString(), bundle.getString("incomplete_fields"), JOptionPane.ERROR_MESSAGE);
+                NotifyBox.error(bf.toString(), bundle.getString("incomplete_fields"));
             }
 
         }
