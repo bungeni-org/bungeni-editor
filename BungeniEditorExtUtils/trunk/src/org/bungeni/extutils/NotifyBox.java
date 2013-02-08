@@ -22,7 +22,7 @@ public class NotifyBox {
     /**
      * Initializes notification system
      */
-    private static void init(){
+    public static void init(){
             INotificationStyle infoStyle = new LightDefaultNotification()
                     .withWidth(400) // Optional
                     .withAlpha(0.9f) // Optional
