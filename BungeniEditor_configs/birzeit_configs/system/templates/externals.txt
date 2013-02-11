@@ -1,2 +1,0 @@
-https://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/templates/meta_language_add_mlx_ns.xsl.tmpl meta_language_add_mlx_ns.xsl.tmpl
-https://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/system_configs/templates/config_tmpl.xml config_tmpl.xml
