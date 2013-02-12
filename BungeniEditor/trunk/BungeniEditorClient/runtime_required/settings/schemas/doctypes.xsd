@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace"  schemaLocation="./xml.xsd"/>
+  
+  <xs:include schemaLocation="./common.xsd" />
+
+  <xs:element name="doctypes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="outputs"/>
+        <xs:element ref="doctype"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="outputs">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="unbounded" ref="namespace"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="namespace">
+    <xs:complexType>
+      <xs:attribute name="desc" use="required"/>
+      <xs:attribute name="prefix" use="required" type="xs:string"/>
+      <xs:attribute name="type" use="required" type="xs:string"/>
+      <xs:attribute name="uri" use="required" type="namespaceType">
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="doctype">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="1" minOccurs="1" ref="title"/>
+        <xs:element maxOccurs="1" minOccurs="1" ref="uri"/>
+        <xs:element ref="file-name-scheme"/>
+        <xs:element ref="metadata-editors"/>
+        <xs:element ref="parts"/>
+      </xs:sequence>
+      <xs:attribute name="default-part" use="required" type="xs:string"/>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+      <xs:attribute name="root" use="required" type="xs:string"/>
+      <xs:attribute name="state" use="required" type="xs:integer"/>
+      <xs:attribute name="template" use="required"/>
+    </xs:complexType>
+
+  </xs:element>
+
+  <xs:element name="uri">
+    <xs:complexType mixed="true">
+      <xs:attribute name="type" use="required"  type="frbrClassification" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="file-name-scheme" type="xs:string"/>
+
+  <xs:element name="metadata-editors">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="title"/>
+        <xs:element maxOccurs="unbounded" ref="metadata-editor"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="metadata-editor">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="title"/>
+      </xs:sequence>
+      <xs:attribute name="class" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="parts">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="part"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="part">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="title"/>
+      </xs:sequence>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="title">
+    <xs:complexType mixed="true">
+      <xs:attribute ref="xml:lang" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

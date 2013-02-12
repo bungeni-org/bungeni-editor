@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  
+  <xs:include schemaLocation="./common.xsd" />
+  
+  <xs:element name="inlineTypes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="inlineType"/>
+      </xs:sequence>
+      <xs:attribute name="for" use="required" type="documentType" />
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="inlineType">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="metadatas"/>
+        <xs:element minOccurs="1" maxOccurs="1" ref="output" />
+        <xs:element minOccurs="1" maxOccurs="1" ref="output" />
+      </xs:sequence>
+      <xs:attribute name="background" type="xs:string"/>
+      <xs:attribute name="indent-left" type="xs:decimal"/>
+      <xs:attribute name="indent-right" type="xs:decimal"/>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+      <xs:attribute name="numstyle" use="required" type="xs:string"/>
+      <xs:attribute name="prefix" use="required" type="xs:string"/>
+      <xs:attribute name="visibility" use="optional" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="metadatas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="unbounded" ref="metadata"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="metadata">
+    <xs:complexType>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="output">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="meta"/>
+        <xs:element ref="content"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="meta">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="references" minOccurs="0"/>
+        <xs:element ref="proprietary" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="references">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="lax" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="proprietary">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded"  processContents="lax" />
+      </xs:sequence>
+      <xs:attribute name="ns" type="xs:anyURI" />
+    </xs:complexType>
+    
+  </xs:element>
+  
+  <xs:element name="content">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded"  processContents="lax" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
