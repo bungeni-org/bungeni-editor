@@ -16,6 +16,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.LookAndFeel;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import org.apache.log4j.BasicConfigurator;
 import org.bungeni.editor.config.BaseConfigReader;
@@ -25,6 +26,7 @@ import org.bungeni.editor.interfaces.ui.ILookAndFeel;
 import org.bungeni.editor.noa.BungeniNoaApp;
 import org.bungeni.editor.noa.ext.BungeniLocalOfficeApplication;
 import org.bungeni.editor.system.StartupConfigGenerator;
+import org.bungeni.editor.system.ValidateConfiguration;
 import org.bungeni.editor.ui.LookAndFeelFactory;
 import org.bungeni.extutils.BungeniRuntimeProperties;
 import org.bungeni.extutils.NotifyBox;
@@ -270,6 +272,10 @@ public class BungeniEditorClient {
             cmdOptions.doMain(args);
             
             if (selectConfig()) {
+                // validate configuration !
+                ValidateConfiguration valconfig = new ValidateConfiguration();
+                valconfig.validateAll();
+                
                 // launch the editor
                 javax.swing.SwingUtilities.invokeLater(new Runnable() {
 

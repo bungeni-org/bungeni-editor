@@ -49,6 +49,10 @@ import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.utils.BungeniFrame;
 import org.jdom.Element;
 import org.jdom.JDOMException;
+import org.jtelegraph.Telegraph;
+import org.jtelegraph.TelegraphConfig;
+import org.jtelegraph.TelegraphPosition;
+import org.jtelegraph.TelegraphQueue;
 
 /**
  * Controller Class for Main Swing Openoffice UNO management application
