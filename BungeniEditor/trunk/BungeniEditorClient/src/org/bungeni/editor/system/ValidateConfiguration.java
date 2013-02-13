@@ -114,7 +114,7 @@ public class ValidateConfiguration {
             this.errors.add(info);
         }
         
-        
+        List<ErrorInfo> realErrors = null;
 
         public boolean hasExceptions() {
             if (this.errors == null) {
@@ -122,14 +122,27 @@ public class ValidateConfiguration {
             } else if (this.errors.isEmpty()) {
                 return false;
             } else {
-                return true;
+                if (getExceptions().isEmpty()) {
+                    return false;
+                } else {
+                    return true;
+                }
             }
         }
 
         public List<ErrorInfo> getExceptions() {
-            return this.errors;
+            if (realErrors == null ) {
+                realErrors = new ArrayList<ErrorInfo>(0);
+                for(ErrorInfo info : this.errors) {
+                    if (!info.exceptions.isEmpty()) {
+                        realErrors.add(info);
+                    }
+                }
+            } 
+            return realErrors;
         }
         
+        @Override
         public String toString(){
             return this.xsdFor;
         }

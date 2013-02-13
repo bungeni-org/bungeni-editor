@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2013 PC
+ * Copyright (C) 2013 Africa i-Parliaments
+ * 
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -53,7 +54,7 @@ public class ConfigValidationErrorsPanel extends javax.swing.JPanel {
         initPanel();
     }
 
-    public void initPanel(){
+    private void initPanel(){
         this.listExceptions.setCellRenderer(new WrappedCellRenderer(600));
         this.txtExceptionInfo.setContentType("text/html");
         List<ErrorInfo> typesWithErrors = new ArrayList<ErrorInfo>(0);

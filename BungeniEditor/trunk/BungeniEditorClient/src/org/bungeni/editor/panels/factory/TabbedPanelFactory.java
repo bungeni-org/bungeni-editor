@@ -1,10 +1,10 @@
 
 package org.bungeni.editor.panels.factory;
 
-import org.bungeni.editor.config.PanelsReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.bungeni.editor.config.PanelsReader;
 import org.bungeni.editor.panels.impl.ITabbedPanel;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.jdom.Element;
