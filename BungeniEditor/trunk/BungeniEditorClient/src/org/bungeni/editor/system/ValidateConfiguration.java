@@ -36,8 +36,10 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
+import org.apache.commons.io.FileUtils;
 import org.bungeni.editor.config.BaseConfigReader;
 import org.bungeni.editor.config.DocTypesReader;
+import org.bungeni.editor.config.SectionTypesReader;
 import org.bungeni.utils.BungeniDialog;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
@@ -78,8 +80,22 @@ public class ValidateConfiguration {
 
         String xsdName;
         String xsdFor;
-        List<SAXParseException> exceptions =
-                new ArrayList<SAXParseException>(0);
+        List<ErrorInfo> errors = new ArrayList<ErrorInfo>(0);
+        
+        public class ErrorInfo {
+            String fileName  ; 
+            List<SAXParseException> exceptions =
+                    new ArrayList<SAXParseException>(0);
+            public ErrorInfo(String fileName, List<SAXParseException> exceptions) {
+                this.fileName = fileName;
+                this.exceptions = exceptions;
+            }
+            
+            @Override
+            public String toString(){
+                return xsdFor + ":" +  fileName;
+            }
+        }
 
         ConfigInfo(String xsdName, String xsdFor) {
             this.xsdFor = xsdFor;
@@ -95,22 +111,29 @@ public class ValidateConfiguration {
                     new File(getXsdPath()));
         }
 
-        public void setExceptions(List<SAXParseException> exceptions) {
-            this.exceptions = exceptions;
+        public void setExceptions(String fileName, List<SAXParseException> exceptions) {
+            ErrorInfo info = new ErrorInfo(fileName, exceptions);
+            this.errors.add(info);
         }
+        
+        
 
         public boolean hasExceptions() {
-            if (this.exceptions == null) {
+            if (this.errors == null) {
                 return false;
-            } else if (this.exceptions.size() == 0) {
+            } else if (this.errors.isEmpty()) {
                 return false;
             } else {
                 return true;
             }
         }
 
-        public List<SAXParseException> getExceptions() {
-            return this.exceptions;
+        public List<ErrorInfo> getExceptions() {
+            return this.errors;
+        }
+        
+        public String toString(){
+            return this.xsdFor;
         }
     }
 
@@ -129,7 +152,26 @@ public class ValidateConfiguration {
         // start with the doc type 
         String docTypesFile = DocTypesReader.RELATIVE_PATH_TO_SYSTEM_PARAMETERS_FILE;
         List<SAXParseException> dtypeExceptions = validate(new File(docTypesFile), this.xsdConfigInfo.get("docTypes"));
-        this.xsdConfigInfo.get("docTypes").setExceptions(dtypeExceptions);
+        this.xsdConfigInfo.get("docTypes").setExceptions(
+                DocTypesReader.DOCTYPES_FILE,
+                dtypeExceptions
+                );
+        String [] extensions = {"xml"};
+        // sectionTypes 
+        String sectionTypesFolder = SectionTypesReader.getSettingsFolder();
+        Iterator<File> fileSectionTypes = FileUtils.iterateFiles(
+                new File(sectionTypesFolder), 
+                extensions, 
+                false
+                );
+        while(fileSectionTypes.hasNext()) {
+            //ignore common.xml 
+            File f = fileSectionTypes.next();
+            if (!f.getName().equals("common.xml")) {
+                List<SAXParseException> stypeExceptions = validate(f, this.xsdConfigInfo.get("sectionTypes"));
+                this.xsdConfigInfo.get("sectionTypes").setExceptions(f.getName(), stypeExceptions);
+            }
+        }
         if (areThereExceptions()) {
             showExceptions();
         }

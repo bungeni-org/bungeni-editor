@@ -29,6 +29,7 @@ import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.bungeni.editor.system.ValidateConfiguration.ConfigInfo;
+import org.bungeni.editor.system.ValidateConfiguration.ConfigInfo.ErrorInfo;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 import org.bungeni.utils.BungeniDialog;
 import org.xml.sax.SAXParseException;
@@ -55,12 +56,12 @@ public class ConfigValidationErrorsPanel extends javax.swing.JPanel {
     public void initPanel(){
         this.listExceptions.setCellRenderer(new WrappedCellRenderer(600));
         this.txtExceptionInfo.setContentType("text/html");
-        List<String> typesWithErrors = new ArrayList<String>(0);
+        List<ErrorInfo> typesWithErrors = new ArrayList<ErrorInfo>(0);
         Iterator<String> types = configInfo.keySet().iterator();
         while(types.hasNext()) {
             String aType = types.next();
             if (configInfo.get(aType).hasExceptions()){
-                typesWithErrors.add(aType);
+                typesWithErrors.addAll(configInfo.get(aType).getExceptions());
             }
         }
         this.cboErrorTypes.setModel(new DefaultComboBoxModel(typesWithErrors.toArray()));
@@ -148,8 +149,8 @@ public class ConfigValidationErrorsPanel extends javax.swing.JPanel {
     
     private void cboErrorTypesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboErrorTypesActionPerformed
         // TODO add your handling code here:
-        String sType = (String) this.cboErrorTypes.getSelectedItem();
-        List<SAXParseException> exceptions = this.configInfo.get(sType).getExceptions();
+        ErrorInfo sType = (ErrorInfo) this.cboErrorTypes.getSelectedItem();
+        List<SAXParseException> exceptions = sType.exceptions;
         model = new ExceptionsListModel(exceptions);
         this.listExceptions.setModel(model);
         this.listExceptions.addListSelectionListener(new ListSelectionListener(){
