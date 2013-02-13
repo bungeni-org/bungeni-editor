@@ -49,11 +49,11 @@
     <sectionType name="meta"
         prefix="meta"
         numstyle="single">
+        <metadatas>
+            <metadata name="BungeniExpAuthor" />
+            <metadata name="BungeniExpAuthorURI" />
+        </metadatas>
         <output>
-           <metadatas>
-              <metadata name="BungeniExpAuthor" />
-              <metadata name="BungeniExpAuthorURI" />
-           </metadatas>
            <meta>
             <references>
                 <an:TLCPerson name="$BungeniExpAuthor"  href="$BungeniExpAuthorURI" />
@@ -239,7 +239,8 @@
                 <an:container />
             </content>
            </output>
- </sectionType>
+</sectionType>
+    <!--
 <sectionType name="None"
     prefix=""
     numstyle=""
@@ -248,7 +249,7 @@
     indent-right="0"
     visibility="user" >
      
- </sectionType>
+ </sectionType> -->
 <sectionType name="NoticeOfMotion"
     prefix="noticeofmotion"
     numstyle="serial"
@@ -352,7 +353,8 @@
                 <an:personalStatement />
             </content>
            </output>
- </sectionType>
+</sectionType>
+    
 <sectionType name="Petitions"
     prefix="petit"
     numstyle="serial"
@@ -413,6 +415,7 @@
     visibility="user" >
      
  </sectionType>
+
 <sectionType name="QuestionAnswer"
     prefix="qa"
     numstyle="serial"
@@ -425,17 +428,18 @@
         <metadata name="BungeniEventName" />
         <metadata name="BungeniSectionID" />
     </metadatas>
-    <meta>
-        <references>
-        <an:TLCEvent id="$BungeniSectionID" href="$BungeniEventURI" showAs="$BungeniEventName" />
-        </references>
-    </meta>
     <output>
+        <meta>
+            <references>
+                <an:TLCEvent id="$BungeniSectionID" href="$BungeniEventURI" showAs="$BungeniEventName" />
+            </references>
+        </meta>
         <content>
             <an:container/>
         </content>
     </output>     
- </sectionType>
+</sectionType>
+    
 <sectionType name="QuestionBody"
     prefix="quebody"
     numstyle="serial"
@@ -500,7 +504,8 @@
              <container />
          </content>
      </output> -->
- </sectionType>
+</sectionType>
+    <!--
 <sectionType name="SystemDateTimeMetadata"
     prefix=""
     numstyle=""
@@ -518,7 +523,7 @@
     indent-right="0"
     visibility="user" >
      
- </sectionType>
+ </sectionType> -->
 <sectionType name="body"
     prefix="debaterecord"
     numstyle="single"
