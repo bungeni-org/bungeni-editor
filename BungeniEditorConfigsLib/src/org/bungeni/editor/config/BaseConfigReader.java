@@ -45,7 +45,11 @@ public class BaseConfigReader {
     private static String WORKSPACE_FOLDER = null;
     private static String MAIN_PANEL_IMPL = null;
 
-    private static String getSettingsFolder(){
+    /**
+      Gets the Settings folder root
+     * @return
+     */
+    public static String getSettingsFolder(){
         return CommonFileFunctions.getAbsoluteInstallDir() + File.separator + BASE_SETTINGS_FOLDER ;
     }
 
