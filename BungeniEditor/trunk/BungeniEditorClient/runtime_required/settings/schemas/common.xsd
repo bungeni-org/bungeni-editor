@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
+    <!-- 
+        The below ought to be generared from a valid doc_types.xml
+        -->
     <xs:simpleType name="documentType">
         <xs:restriction base="xs:string">
             <xs:enumeration value="debaterecord" />
             <xs:enumeration value="bill" />
             <xs:enumeration value="act" />
+            <xs:enumeration value="judgement" />
         </xs:restriction>
     </xs:simpleType>
     
@@ -25,5 +29,11 @@
         </xs:restriction>
     </xs:simpleType>
     
+    <xs:simpleType name="stateType">
+        <xs:restriction base="xs:integer">
+            <xs:enumeration value="1" />
+            <xs:enumeration value="0" />
+        </xs:restriction>
+    </xs:simpleType>
 
 </xs:schema>

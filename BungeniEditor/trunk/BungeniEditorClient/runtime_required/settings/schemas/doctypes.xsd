@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
-  
+  <!--
+    Schema for doc_types.xml 
+    -->
   <xs:import namespace="http://www.w3.org/XML/1998/namespace"  schemaLocation="xml.xsd"/>
   
   <xs:include schemaLocation="common.xsd" />
@@ -8,8 +10,8 @@
   <xs:element name="doctypes">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="outputs"/>
-        <xs:element ref="doctype"/>
+        <xs:element ref="outputs" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="doctype" minOccurs="1" maxOccurs="unbounded" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -26,8 +28,8 @@
     <xs:complexType>
       <xs:attribute name="desc" use="required"/>
       <xs:attribute name="prefix" use="required" type="xs:string"/>
-      <xs:attribute name="type" use="required" type="xs:string"/>
-      <xs:attribute name="uri" use="required" type="namespaceType">
+      <xs:attribute name="type" use="required" type="namespaceType"/>
+      <xs:attribute name="uri" use="required" type="xs:anyURI">
       </xs:attribute>
     </xs:complexType>
   </xs:element>
@@ -35,8 +37,8 @@
   <xs:element name="doctype">
     <xs:complexType>
       <xs:sequence>
-        <xs:element maxOccurs="1" minOccurs="1" ref="title"/>
-        <xs:element maxOccurs="1" minOccurs="1" ref="uri"/>
+        <xs:element maxOccurs="unbounded" minOccurs="1" ref="title"/>
+        <xs:element maxOccurs="3" minOccurs="1" ref="uri"/>
         <xs:element ref="file-name-scheme"/>
         <xs:element ref="metadata-editors"/>
         <xs:element ref="parts"/>
@@ -44,7 +46,7 @@
       <xs:attribute name="default-part" use="required" type="xs:string"/>
       <xs:attribute name="name" use="required" type="xs:string"/>
       <xs:attribute name="root" use="required" type="xs:string"/>
-      <xs:attribute name="state" use="required" type="xs:integer"/>
+      <xs:attribute name="state" use="required" type="stateType"/>
       <xs:attribute name="template" use="required"/>
     </xs:complexType>
 
@@ -61,7 +63,7 @@
   <xs:element name="metadata-editors">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="title"/>
+        <xs:element ref="title" minOccurs="1" maxOccurs="unbounded" />
         <xs:element maxOccurs="unbounded" ref="metadata-editor"/>
       </xs:sequence>
     </xs:complexType>
@@ -70,7 +72,7 @@
   <xs:element name="metadata-editor">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="title"/>
+        <xs:element ref="title" minOccurs="1" maxOccurs="unbounded" />
       </xs:sequence>
       <xs:attribute name="class" use="required"/>
     </xs:complexType>

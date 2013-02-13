@@ -16,9 +16,8 @@
   <xs:element name="sectionType">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" ref="metadatas"/>
-        <xs:element minOccurs="1" maxOccurs="1" ref="output" />
-        <xs:element minOccurs="1" maxOccurs="1" ref="output" />
+        <xs:element minOccurs="0" maxOccurs="1" ref="metadatas"/>
+        <xs:element minOccurs="0" maxOccurs="1" ref="output" />
       </xs:sequence>
       <xs:attribute name="background" type="xs:string"/>
       <xs:attribute name="indent-left" type="xs:decimal"/>

@@ -41,3 +41,4 @@ clapper-utils http://bungeni-editor.googlecode.com/svn/external_imports/trunk/li
 json-simple http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/json-simple
 twinkle http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/twinkle
 mssql-jdbc http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/mssql-jdbc
+jmodalwindow http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/jmodalwindow

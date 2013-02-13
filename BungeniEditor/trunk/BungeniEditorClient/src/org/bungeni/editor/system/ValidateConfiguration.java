@@ -29,18 +29,16 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
+import nl.jj.swingx.gui.modal.JModalFrame;
 import org.apache.commons.io.FileUtils;
 import org.bungeni.editor.config.BaseConfigReader;
 import org.bungeni.editor.config.DocTypesReader;
 import org.bungeni.editor.config.SectionTypesReader;
-import org.bungeni.utils.BungeniDialog;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.ErrorHandler;
@@ -178,14 +176,14 @@ public class ValidateConfiguration {
     }
 
     public void showExceptions() {
-        BungeniDialog frm = new BungeniDialog(null, "View Config Errors", true);
-        frm.initFrame();
+        JModalFrame frm = new JModalFrame();
+        frm.setTitle("Configuration Errors");
         ConfigValidationErrorsPanel cfgPanel = new ConfigValidationErrorsPanel(frm, this.xsdConfigInfo);
         frm.getContentPane().add(cfgPanel);
         frm.pack();
-        frm.setLocationRelativeTo(null);
+        frm.centerOfScreen();
         frm.setVisible(true);
-
+        frm.waitForClose();
     }
 
     public class ResourceResolver implements LSResourceResolver {
@@ -195,10 +193,11 @@ public class ValidateConfiguration {
             InputStream resourceAsStream = null;
             try {
                 resourceAsStream = new FileInputStream(
-            new File(
-            configSchemasPath + File.separator + systemId
-            )
-            );  return new Input(publicId, systemId, resourceAsStream);
+                        new File(
+                        configSchemasPath + File.separator + systemId
+                        )
+                        );  
+                return new Input(publicId, systemId, resourceAsStream);
             } catch (FileNotFoundException ex) {
                 log.error(ex.getMessage());
             } finally {

@@ -28,10 +28,10 @@ import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import nl.jj.swingx.gui.modal.JModalFrame;
 import org.bungeni.editor.system.ValidateConfiguration.ConfigInfo;
 import org.bungeni.editor.system.ValidateConfiguration.ConfigInfo.ErrorInfo;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
-import org.bungeni.utils.BungeniDialog;
 import org.xml.sax.SAXParseException;
 
 /**
@@ -40,13 +40,13 @@ import org.xml.sax.SAXParseException;
  */
 public class ConfigValidationErrorsPanel extends javax.swing.JPanel {
 
-    BungeniDialog parentDlg = null;
+    JModalFrame parentDlg = null;
     HashMap<String, ConfigInfo> configInfo = null;
     
     /**
      * Creates new form ConfigValidationErrorsPanel
      */
-    public ConfigValidationErrorsPanel(BungeniDialog dlg, HashMap<String, ConfigInfo> configInfo) {
+    public ConfigValidationErrorsPanel(JModalFrame dlg, HashMap<String, ConfigInfo> configInfo) {
         initComponents();
         this.parentDlg  = dlg;
         this.configInfo = configInfo;
@@ -78,11 +78,12 @@ public class ConfigValidationErrorsPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         cboErrorTypes = new javax.swing.JComboBox();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listExceptions = new javax.swing.JList();
         btnClose = new javax.swing.JButton();
         lblTitle = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        splitPane = new javax.swing.JSplitPane();
+        scrollExcept = new javax.swing.JScrollPane();
+        listExceptions = new javax.swing.JList();
+        scrollTxtExcept = new javax.swing.JScrollPane();
         txtExceptionInfo = new javax.swing.JTextPane();
 
         cboErrorTypes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -91,13 +92,6 @@ public class ConfigValidationErrorsPanel extends javax.swing.JPanel {
                 cboErrorTypesActionPerformed(evt);
             }
         });
-
-        listExceptions.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(listExceptions);
 
         btnClose.setText("Close");
         btnClose.addActionListener(new java.awt.event.ActionListener() {
@@ -109,7 +103,20 @@ public class ConfigValidationErrorsPanel extends javax.swing.JPanel {
         lblTitle.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblTitle.setText("The Active Configuration has Errors !!");
 
-        jScrollPane3.setViewportView(txtExceptionInfo);
+        splitPane.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+
+        listExceptions.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        scrollExcept.setViewportView(listExceptions);
+
+        splitPane.setLeftComponent(scrollExcept);
+
+        scrollTxtExcept.setViewportView(txtExceptionInfo);
+
+        splitPane.setRightComponent(scrollTxtExcept);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -118,8 +125,7 @@ public class ConfigValidationErrorsPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(splitPane)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnClose))
@@ -136,9 +142,7 @@ public class ConfigValidationErrorsPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cboErrorTypes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnClose))
         );
@@ -237,10 +241,11 @@ class WrappedCellRenderer extends DefaultListCellRenderer {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JComboBox cboErrorTypes;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JList listExceptions;
+    private javax.swing.JScrollPane scrollExcept;
+    private javax.swing.JScrollPane scrollTxtExcept;
+    private javax.swing.JSplitPane splitPane;
     private javax.swing.JTextPane txtExceptionInfo;
     // End of variables declaration//GEN-END:variables
 }
