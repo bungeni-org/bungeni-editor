@@ -42,7 +42,7 @@ public class SectionTypesReader extends BaseConfigReader {
 
  private static SectionTypesReader thisInstance = null;
 
-    private final static String SETTINGS_FOLDER = configsFolder() + File.separator + "section_types";
+    public final static String SETTINGS_FOLDER = configsFolder() + File.separator + "section_types";
 
     private HashMap<String,Document> cachedTypes = new HashMap<String,Document>();
 
@@ -50,6 +50,10 @@ public class SectionTypesReader extends BaseConfigReader {
     private SectionTypesReader() {
     }
 
+    public static String getSettingsFolder(){
+        return SETTINGS_FOLDER;
+    }
+    
     public static SectionTypesReader getInstance() {
         if (thisInstance == null ) {
             thisInstance = new SectionTypesReader();
@@ -112,5 +116,7 @@ public class SectionTypesReader extends BaseConfigReader {
         return (Element) xPath.selectSingleNode(this.cachedTypes.get(docType));
     }
 
+    
+    
 
 }
