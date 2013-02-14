@@ -16,15 +16,9 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" ref="metadatas"/>
-        <xs:element minOccurs="1" maxOccurs="1" ref="output" />
-        <xs:element minOccurs="1" maxOccurs="1" ref="output" />
+        <xs:element minOccurs="0" maxOccurs="1" ref="output" />
       </xs:sequence>
-      <xs:attribute name="background" type="xs:string"/>
-      <xs:attribute name="indent-left" type="xs:decimal"/>
-      <xs:attribute name="indent-right" type="xs:decimal"/>
       <xs:attribute name="name" use="required" type="xs:string"/>
-      <xs:attribute name="numstyle" use="required" type="xs:string"/>
-      <xs:attribute name="prefix" use="required" type="xs:string"/>
       <xs:attribute name="visibility" use="optional" type="xs:string"/>
     </xs:complexType>
   </xs:element>
