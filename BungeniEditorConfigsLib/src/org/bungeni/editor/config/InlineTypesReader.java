@@ -56,6 +56,10 @@ public class InlineTypesReader extends BaseConfigReader {
         }
         return thisInstance ;
     }
+    
+    public static String getSettingsFolder(){
+        return SETTINGS_FOLDER;
+    }
 
     private Document getDocument(String docType) {
        if (!this.cachedTypes.containsKey(docType)) {
