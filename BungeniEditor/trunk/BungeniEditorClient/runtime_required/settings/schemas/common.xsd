@@ -6,10 +6,12 @@
         -->
     <xs:simpleType name="documentType">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="debaterecord" />
-            <xs:enumeration value="bill" />
-            <xs:enumeration value="act" />
-            <xs:enumeration value="judgement" />
+			<xs:enumeration value="debaterecord" />
+			<xs:enumeration value="bill" />
+			<xs:enumeration value="act" />
+			<xs:enumeration value="judgement" />
+			<xs:enumeration value="FamilyCourtJudgements" />
+			<xs:enumeration value="CourtJudgements" />
         </xs:restriction>
     </xs:simpleType>
     
@@ -25,7 +27,6 @@
             <xs:enumeration value="work" />
             <xs:enumeration value="expression" />
             <xs:enumeration value="manifestation" />
-            
         </xs:restriction>
     </xs:simpleType>
     
@@ -35,5 +36,28 @@
             <xs:enumeration value="0" />
         </xs:restriction>
     </xs:simpleType>
+    
+    <xs:simpleType name="numberingType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="NUMERIC" />
+            <xs:enumeration value="ROMAN" />
+            <xs:enumeration value="ROMAN-Lower" />
+            <xs:enumeration value="ROMAN-Upper" />
+            <xs:enumeration value="ALPHABETICAL-Upper" />
+            <xs:enumeration value="ALPHABETICAL-Lower" />
+            <xs:enumeration value="ALPHABETICAL" />
+        </xs:restriction>
+    </xs:simpleType>
 
+    <xs:simpleType name="decoratorType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="flowerBracket" />
+            <xs:enumeration value="hashPrefix" />
+            <xs:enumeration value="parens" />
+            <xs:enumeration value="postDashed" />
+            <xs:enumeration value="square" />
+            <xs:enumeration value="none" />
+        </xs:restriction>
+    </xs:simpleType>
+    
 </xs:schema>

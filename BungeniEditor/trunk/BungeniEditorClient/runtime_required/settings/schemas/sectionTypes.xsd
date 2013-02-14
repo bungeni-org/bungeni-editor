@@ -16,6 +16,7 @@
   <xs:element name="sectionType">
     <xs:complexType>
       <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" ref="numbering" />
         <xs:element minOccurs="0" maxOccurs="1" ref="metadatas"/>
         <xs:element minOccurs="0" maxOccurs="1" ref="output" />
       </xs:sequence>
@@ -26,6 +27,13 @@
       <xs:attribute name="numstyle" use="required" type="xs:string"/>
       <xs:attribute name="prefix" use="required" type="xs:string"/>
       <xs:attribute name="visibility" use="optional" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="numbering">
+    <xs:complexType>
+      <xs:attribute name="scheme" type="numberingType" />
+      <xs:attribute name="decorator" type="xs:string" />
     </xs:complexType>
   </xs:element>
   
