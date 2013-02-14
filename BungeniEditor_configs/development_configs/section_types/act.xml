@@ -18,8 +18,6 @@
     indent-right=".3"
     indent-left="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
  </sectionType>
 
 <sectionType name="MastHead"
@@ -29,8 +27,7 @@
     indent-right="0"
     indent-left="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="postDashed" />
+ 
  </sectionType>
 <sectionType name="NumberedContainer"
     prefix="num_"
@@ -39,8 +36,6 @@
     indent-right="0"
     indent-left="0"
     visibility="system" >
-     <numbering scheme="none"
-            decorator="postDotted" />
  </sectionType>
 <sectionType name="Paragraph"
     prefix="para"
@@ -49,8 +44,6 @@
     indent-right=".7"
     indent-left="0"
     visibility="user" >
-     <numbering scheme="ALPHABETICAL-Lower"
-            decorator="parens" />
  </sectionType>
 
  <sectionType name="Person"
@@ -60,8 +53,6 @@
     indent-right=".3"
     indent-left="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
  </sectionType>
 
  <sectionType name="Preamble"
@@ -71,8 +62,6 @@
     indent-right=".1"
     indent-left="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
  </sectionType>
 
  <sectionType name="Preface"
@@ -82,8 +71,6 @@
     indent-left="0.4"
     indent-right="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
  </sectionType>
 
  <sectionType name="docTitle"
@@ -93,8 +80,6 @@
     indent-right=".1"
     indent-left="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
  </sectionType>
 
  <sectionType name="Ref"
@@ -104,8 +89,6 @@
     indent-right=".1"
     indent-left="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
  </sectionType>
 
  <sectionType name="docDate"
@@ -115,8 +98,6 @@
     indent-right=".1"
     indent-left="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
  </sectionType>
  <sectionType name="docType"
     prefix="type"
@@ -147,8 +128,6 @@
     indent-right=".2"
     indent-left="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
  </sectionType>
 <sectionType name="SubChapter"
     prefix="subchapter"
@@ -197,8 +176,7 @@
     indent-right=".1"
     indent-left="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
+ 
  </sectionType>
 
  <sectionType name="Body"
@@ -208,8 +186,6 @@
     indent-right=".4"
     indent-left="0"
     visibility="user" >
-     <numbering scheme="none"
-            decorator="none" />
  </sectionType>
 <sectionType name="Book"
     prefix="book"

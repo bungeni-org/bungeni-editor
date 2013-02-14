@@ -10,10 +10,10 @@
     </inlineType>
     
     <inlineType name="ref">
-       <output>
-          <metadatas>
-             <metadata name="BungeniRefURI" />
-          </metadatas>
+        <metadatas>
+            <metadata name="BungeniRefURI" />
+        </metadatas>
+        <output>
           <content>
             <an:ref href="$BungeniRefURI" />
           </content>

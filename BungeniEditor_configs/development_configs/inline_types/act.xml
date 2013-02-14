@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<inlineTypes for="act">
+<inlineTypes for="act" xmlns:an="#an">
     <inlineType name="span">
         <output>
             <content>
-                <span />
+                <an:span />
             </content>
         </output>
     </inlineType>
