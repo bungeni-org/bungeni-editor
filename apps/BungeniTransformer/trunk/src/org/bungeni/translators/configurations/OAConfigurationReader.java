@@ -53,6 +53,11 @@ public class OAConfigurationReader implements ConfigurationReader {
 
     // the XML that contains the configurations
     private Document configXML;
+    
+    public enum ParameterType {
+        text,
+        xml
+    }
 
     /**
      * Create a new Configuration reader object builded on the given Config XML file
@@ -127,10 +132,44 @@ public class OAConfigurationReader implements ConfigurationReader {
 
     /**
      * This API retrieves the input parameter NAMES for an input or output steps
+     * 
+     * The format for parameters looks like : 
+     * 
+     * 1)
+     * <parameter name="x" value="y" />
+     * 
+     * value is a text value
+     * 
+     * 2)
+     * <parameter name="x" >
+     *   <value>
+     *      <some-info />
+     *   </value>
+     * </parameter>
+     * 
+     * Here value encapsulates XML content as a parameter
+     * 
+     * !+BICAMERAL 19-02-2013 (make value a dynamically settable parameter) - 
+     * the new format will look like : 
+     * 
+     * 1) 
+     * <parameter name="x" value="y" type="text />
+     * 
+     * type will default to text
+     * 
+     * 2)
+     * <parameter name="x" type="xml">
+     *    <value>
+     *      <xml-content />
+     *      <xml-content />
+     *    </value>
+     * 
+     * </parameter>
+     * !+FIX_THIS
      * @param forStep
      * @return
      */
-    public HashMap<String,Object> getParameters(String forStep) throws XPathExpressionException {
+    public HashMap<String,Object> getParameters(String forStep) throws XPathExpressionException, Exception {
         HashMap<String,Object> map = new HashMap<String,Object>();
         XPathResolver xresolver = XPathResolver.getInstance();
         NodeList paramNodes = (NodeList) xresolver.evaluate(
@@ -140,12 +179,38 @@ public class OAConfigurationReader implements ConfigurationReader {
         for (int i = 0; i < paramNodes.getLength(); i++) {
             Element paramNode = (Element) paramNodes.item(i);
             String paramName = paramNode.getAttribute("name");
+            String paramType = paramNode.getAttribute("type");
+            // set the default on the enum
+            ParameterType type = ParameterType.text;
+            if (paramType != null ) {
+                // if a value was set the get the value of "type"
+                type = ParameterType.valueOf(paramType);
+            }
+            if (type.equals(ParameterType.text)) {
+                //process the text value node
+                if (paramNode.hasAttribute("value")){
+                    map.put(paramName, paramNode.getAttribute("value"));
+                } else {
+                    throw new Exception(
+                           "No value was specified for parameter name " + 
+                            paramName + 
+                            " of Type "+ type);
+                }
+            } else if (type.equals(ParameterType.xml)) {
+                // there are 2 options supported here - either 
+                
+                
+            } else {
+                // throw an error
+            }
+            
             /**
              * !+XSLT_PARAM_XML (ah, 12-04-2012) - XML value parameter is supported.
              *
              * The config file now supports an XML document in the value parameter.
              */
             if (paramNode.hasAttribute("value")) {
+                // if attribute always a text value
                 map.put(paramName, paramNode.getAttribute("value"));
             } else if (paramNode.hasChildNodes()) {
                 NodeList valueNodes = paramNode.getElementsByTagName("value");
