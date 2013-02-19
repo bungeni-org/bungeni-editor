@@ -2,7 +2,6 @@ package org.bungeni.translators.configurations;
 
 //~--- non-JDK imports --------------------------------------------------------
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -198,7 +197,8 @@ public class OAConfigurationReader implements ConfigurationReader {
                 }
             } else if (type.equals(ParameterType.xml)) {
                 // there are 2 options supported here - either 
-                
+                // the embedded value parameter in the document
+                // or an "injected" value pushed in as a string parameter
                 
             } else {
                 // throw an error

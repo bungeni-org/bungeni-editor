@@ -1,30 +1,43 @@
 package org.bungeni.translators.translator;
 
-//~--- non-JDK imports --------------------------------------------------------
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
+
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.*;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPathExpressionException;
+
+import org.w3c.dom.Document;
+
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
+//~--- non-JDK imports --------------------------------------------------------
+
 import org.bungeni.translators.configurations.OAConfiguration;
 import org.bungeni.translators.configurations.steps.OAPipelineStep;
+
 import org.bungeni.translators.exceptions.DocumentNotFoundException;
 import org.bungeni.translators.exceptions.TranslationFailedException;
 import org.bungeni.translators.exceptions.TranslationStepFailedException;
 import org.bungeni.translators.exceptions.ValidationFailedException;
 import org.bungeni.translators.exceptions.XSLTBuildingException;
+
 import org.bungeni.translators.globalconfigurations.GlobalConfigurations;
+
 import org.bungeni.translators.translator.XMLSourceFactory.XMLSourceType;
+
 import org.bungeni.translators.utility.dom.DOMUtility;
 import org.bungeni.translators.utility.exceptionmanager.ValidationError;
 import org.bungeni.translators.utility.files.FileUtility;
@@ -34,9 +47,7 @@ import org.bungeni.translators.utility.runtime.Outputs;
 import org.bungeni.translators.utility.schemavalidator.SchemaValidator;
 import org.bungeni.translators.utility.streams.StreamSourceUtility;
 import org.bungeni.translators.utility.transformer.XSLTTransformer;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
+
 
 /***
 
@@ -67,7 +78,8 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
     /**
      * This is the input parameter passed from the caller to the pipeline
      */
-    private HashMap<String, String> pipelineInputParameters;
+    //!+BICAMERAL made value Object type
+    private HashMap<String, Object> pipelineInputParameters;
 
     /**
      * Private constructor used to create the Translator instance
@@ -79,7 +91,8 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         //!+TRANSLATOR_PROPERTIES(ah, oct-2011) Translator properties were moved into the main configuration
         //file -- translators are now configured via a single configurationfile
         //use OAConfiguration.getProperties() to get the propeties object of the translation
-        this.pipelineInputParameters = new HashMap<String,String>();
+        //!+BICAMERAL made value object type
+        this.pipelineInputParameters = new HashMap<String,Object>();
     }
 
     /**
@@ -307,7 +320,11 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
              */
             //!+PIPELINE (ah, oct-2011) -- if there is no pipeline and no output steps then the 2 outputs
             //will be exactly the same
-            OutputXML oxmlFinal = StreamSourceUtility.getInstance().writeStreamSourceToFile(anXmlFinalStream, "akoma_", ".xml");
+            OutputXML oxmlFinal = StreamSourceUtility.getInstance().writeStreamSourceToFile(
+                    anXmlFinalStream, 
+                    "akoma_", 
+                    ".xml"
+                    );
             translatedFiles.put("final", oxmlFinal.outputxmlFile);
             //!+WARNING_CHECK_CLOSE
             oxmlFinal.closeHandles();
@@ -505,7 +522,14 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
             return iteratedDocument;
     }
 
-    private HashMap<String,Object> resolveParameterMap(String forStep) throws XPathExpressionException {
+    /**
+     * This API resolves the incoming parameters with the ones declared in configuration
+     * @param forStep
+     * @return
+     * @throws XPathExpressionException
+     * @throws Exception 
+     */
+    private HashMap<String,Object> resolveParameterMap(String forStep) throws XPathExpressionException, Exception {
         //We merge the input parameter map with the parameters specified in Configuration
         HashMap<String,Object> resolvedMap = new HashMap<String,Object>();
 
@@ -514,7 +538,6 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
 
         //Validate the pipeline parameters - we cannot input parameters which are
         //not declared in the config
-
         //Now iterate through the input parameter map and identify parameters to merge
 
         for (String key : this.pipelineInputParameters.keySet()){
@@ -544,8 +567,6 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
                     // wrapped in a saxon document wrapper 
                     resolvedMap.put(key, defaultConfigValue);
                 }
-              
-
             }
         }
 
@@ -620,22 +641,6 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
          return resultStream;
     }
 
-
-    //!+METALEX - Removed below API
-    /**
-    private OutputXML writeOutputXML(StreamSource metalexDocument) throws TransformerException, IOException {
-            File metalextmpFile = StreamSourceUtility.getInstance().writeToFile(metalexDocument);
-            //!+FIX_THIS_LATER(ah,oct-2011) the cached intermediate outputfile has been
-            //left as metalex.xml so it doesnt break the editor which expects that intermediate
-            //output -- fix editor and then change this appropriately
-            //File metalexFile = FileUtility.getInstance().copyFile(metalextmpFile,
-            //        Outputs.getInstance().File("metalex.xml"));
-            // Stream for metalex file
-            //FIXED - this has been changed to the dynamic input parameter
-            StreamSource ssMetalex =
-                    FileUtility.getInstance().FileAsStreamSource(metalextmpFile);
-            return new OutputXML(ssMetalex, metalextmpFile);
-    }**/
 
     public StreamSource translateToAkomantoso(File xsltFile, StreamSource xmlStream)
             throws FileNotFoundException, TransformerException, UnsupportedEncodingException{
