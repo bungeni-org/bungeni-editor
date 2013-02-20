@@ -19,6 +19,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
+import org.bungeni.translators.configurations.Parameter.ParameterType;
 import org.bungeni.translators.configurations.steps.OAPipelineStep;
 import org.bungeni.translators.configurations.steps.OAProcessStep;
 import org.bungeni.translators.configurations.steps.OAReplaceStep;
@@ -53,11 +54,7 @@ public class OAConfigurationReader implements ConfigurationReader {
     // the XML that contains the configurations
     private Document configXML;
     
-    public enum ParameterType {
-        text,
-        xml
-    }
-
+  
     /**
      * Create a new Configuration reader object builded on the given Config XML file
      * @param aConfigXML the XML file that contains the configuration
@@ -129,6 +126,9 @@ public class OAConfigurationReader implements ConfigurationReader {
         return inputNodes.getLength() > 0 ? true : false;
     }
 
+  
+    
+    
     /**
      * This API retrieves the input parameter NAMES for an input or output steps
      * 
@@ -168,47 +168,48 @@ public class OAConfigurationReader implements ConfigurationReader {
      * @param forStep
      * @return
      */
-    public HashMap<String,Object> getParameters(String forStep) throws XPathExpressionException, Exception {
-        HashMap<String,Object> map = new HashMap<String,Object>();
+    public HashMap<String, Parameter> getParameters(String forStep) throws XPathExpressionException, Exception {
+        HashMap<String, Parameter> map = new HashMap<String, Parameter>();
         XPathResolver xresolver = XPathResolver.getInstance();
         NodeList paramNodes = (NodeList) xresolver.evaluate(
                 this.configXML,
                 "//"+forStep+"/parameters/parameter" , XPathConstants.NODESET
         );
         for (int i = 0; i < paramNodes.getLength(); i++) {
+            
             Element paramNode = (Element) paramNodes.item(i);
+            
             String paramName = paramNode.getAttribute("name");
             String paramType = paramNode.getAttribute("type");
-            // set the default on the enum
-            ParameterType type = ParameterType.text;
-            if (paramType != null ) {
-                // if a value was set the get the value of "type"
-                type = ParameterType.valueOf(paramType);
-            }
-            if (type.equals(ParameterType.text)) {
-                //process the text value node
-                if (paramNode.hasAttribute("value")){
-                    map.put(paramName, paramNode.getAttribute("value"));
-                } else {
-                    throw new Exception(
-                           "No value was specified for parameter name " + 
-                            paramName + 
-                            " of Type "+ type);
-                }
-            } else if (type.equals(ParameterType.xml)) {
+            
+            Parameter configParameter = new Parameter(paramName, paramType);
+            
+            if (configParameter.getType().equals(ParameterType.text)) {
+                map = setTextValueParam(paramNode, configParameter, map);
+            } else /** if (type.equals(ParameterType.xml)) **/ {
                 // there are 2 options supported here - either 
                 // the embedded value parameter in the document
                 // or an "injected" value pushed in as a string parameter
-                
-            } else {
-                // throw an error
-            }
+                Element valueNode = this.hasValueChildElement(paramNode);
+                if (valueNode != null) {
+                    // XML is present in the configuration pipeline
+                    map = setXMLValueParam(valueNode, configParameter, map) ;//configParameter.setValue(valueNode);
+                    //map.put(paramName, configParameter);
+                } else {
+                    // XML is being injected in via a parameter
+                    map.put(paramName, configParameter);
+                }
+            } /** else {
+                // else default to text type
+                map = setTextValueParam(paramNode, paramName, map);
+            }**/
             
             /**
              * !+XSLT_PARAM_XML (ah, 12-04-2012) - XML value parameter is supported.
              *
              * The config file now supports an XML document in the value parameter.
              */
+            /**
             if (paramNode.hasAttribute("value")) {
                 // if attribute always a text value
                 map.put(paramName, paramNode.getAttribute("value"));
@@ -236,10 +237,40 @@ public class OAConfigurationReader implements ConfigurationReader {
                 }
             } else {
                 map.put(paramName, "");
-            }
+            } */
+        } 
+        return map;
+    }
+    
+    private HashMap<String,Parameter> setXMLValueParam(Element valueNode, Parameter configParameter, HashMap<String,Parameter> map) {
+        configParameter.setValue(valueNode);
+        map.put(configParameter.getName(), configParameter);
+        return map;
+    }
+    
+    private HashMap<String,Parameter> setTextValueParam(Element paramNode, Parameter configParameter, HashMap<String,Parameter> map){
+        //process the text value node
+        if (paramNode.hasAttribute("value")){
+            configParameter.setValue(paramNode.getAttribute("value"));
+            map.put(configParameter.getName(), configParameter);
+        } else {
+            map.put(configParameter.getName(), configParameter);
         }
         return map;
     }
+    
+    private Element hasValueChildElement(Element paramNode) {
+        if (paramNode.hasChildNodes()){
+            NodeList valueNodes = paramNode.getElementsByTagName("value");
+            if (valueNodes != null ) {
+                if (valueNodes.getLength() > 0 ) {
+                    return (Element)valueNodes.item(0);
+                }
+            }
+        }
+        return null;
+    }
+    
 
     /**
      * Checks if the input steps exist in the translator configuration

@@ -124,7 +124,7 @@ public class DOMUtility {
         try {
           doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().
                   parse(
-                    new ByteArrayInputStream(getNodeAsString(aNode).getBytes())
+                    new ByteArrayInputStream(getNodeAsString(aNode).getBytes("UTF8"))
                     );
         } catch (ParserConfigurationException ex) {
             log.error("Error while parsing config doc", ex);
@@ -137,8 +137,33 @@ public class DOMUtility {
         return dwSaxon;
     }
 
-    /**
-     * Returns a String representation for a NOde
+        /**
+     * Creates a SAXON DocumentWrapper object around a String
+     * @param aNode
+     * @return
+     * @throws TransformerConfigurationException
+     */
+    public DocumentWrapper getSaxonDocumentWrapperForString(String aNodeString) throws TransformerConfigurationException {
+        Document doc = null;
+        try {
+          doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().
+                  parse(
+                    new ByteArrayInputStream(aNodeString.getBytes("UTF8"))
+                    );
+        } catch (ParserConfigurationException ex) {
+            log.error("Error while parsing config doc", ex);
+        } catch (SAXException ex) {
+            log.error("Error while parsing config doc", ex);
+        } catch (IOException ex) {
+            log.error("Error while parsing config doc", ex);
+        }
+        DocumentWrapper dwSaxon = new DocumentWrapper(doc, doc.getBaseURI(), GenericTransformer.getInstance().getTransformerFactoryImpl().getConfiguration());
+        return dwSaxon;
+    }
+
+    
+    /** 
+    * Returns a String representation for a NOde
      * @param aNode
      * @return
      */

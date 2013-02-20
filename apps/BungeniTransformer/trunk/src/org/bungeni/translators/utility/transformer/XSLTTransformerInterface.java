@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
+import org.bungeni.translators.configurations.Parameter;
 
 /**
  * This is the interface for the java XSLT transformer object.
@@ -35,6 +36,6 @@ public interface XSLTTransformerInterface {
      * @throws TransformerException
      */
     public StreamSource transformWithParam(StreamSource aDocumentSource, StreamSource anXSLTSource,
-            HashMap<String, Object> aParamSet)
+            HashMap<String, Parameter> aParamSet)
             throws TransformerException;
 }

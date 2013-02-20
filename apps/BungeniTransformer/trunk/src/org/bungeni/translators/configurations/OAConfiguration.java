@@ -74,7 +74,7 @@ public class OAConfiguration implements Configuration {
         return this.reader.hasParameters(forStep);
     }
 
-    public HashMap<String,Object> getParameters(String forStep) throws XPathExpressionException, Exception {
+    public HashMap<String,Parameter> getParameters(String forStep) throws XPathExpressionException, Exception {
         return this.reader.getParameters(forStep);
     }
 

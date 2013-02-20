@@ -2,11 +2,6 @@ package org.bungeni.translators.utility.transformer;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import net.sf.saxon.Configuration;
-import net.sf.saxon.TransformerFactoryImpl;
-
-//~--- JDK imports ------------------------------------------------------------
-
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 
@@ -17,6 +12,11 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+
+import net.sf.saxon.Configuration;
+import net.sf.saxon.TransformerFactoryImpl;
+
+import org.bungeni.translators.configurations.Parameter;
 
 /**
  * This is the  XSLT transformer object.
@@ -109,7 +109,7 @@ public class XSLTTransformer implements XSLTTransformerInterface {
      * @throws TransformerException
      */
     public StreamSource transformWithParam(StreamSource aDocumentSource, StreamSource anXSLTSource,
-            HashMap aParamSet)
+            HashMap<String,Parameter> aParamSet)
             throws TransformerException {
 
         // create a new transformer
@@ -126,7 +126,8 @@ public class XSLTTransformer implements XSLTTransformerInterface {
 
             // add the parameter to the transformer
             //!+XSLT_PARAM_XML (ah, 12-04-2012) - Remove the String cast since Object xml values are allowed
-            trans.setParameter(nextKey, aParamSet.get(nextKey));
+            // !+BICAMERAL 
+            trans.setParameter(nextKey, aParamSet.get(nextKey).getValue());
         }
 
         // create the writer for the transformation

@@ -18,6 +18,7 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPathExpressionException;
 import org.apache.log4j.Logger;
 import org.bungeni.translators.configurations.OAConfiguration;
+import org.bungeni.translators.configurations.Parameter;
 import org.bungeni.translators.configurations.steps.OAProcessStep;
 import org.bungeni.translators.configurations.steps.OAXSLTStep;
 import org.bungeni.translators.process.actions.ProcessUnescape;
@@ -37,12 +38,12 @@ import org.xml.sax.SAXException;
 public class OAXSLTStepsResolver {
 
     private static org.apache.log4j.Logger log = Logger.getLogger(OAXSLTStepsResolver.class.getName());
-    private HashMap<String,Object> pipelineInputParams ;
+    private HashMap<String,Parameter> pipelineInputParams ;
 
     private static OAXSLTStepsResolver thisInstance = null;
 
     private OAXSLTStepsResolver() {
-        this.pipelineInputParams = new HashMap<String,Object>();
+        this.pipelineInputParams = new HashMap<String,Parameter>();
     }
 
     public static OAXSLTStepsResolver getInstance() {
@@ -173,7 +174,7 @@ public class OAXSLTStepsResolver {
      */
     public StreamSource resolve(
             StreamSource anODFDocument,
-            HashMap<String, Object> paramsMap,
+            HashMap<String, Parameter> paramsMap,
             TreeMap<Integer,OAXSLTStep> stepsMap
             )
             throws XPathExpressionException, TransformerException, UnsupportedEncodingException {

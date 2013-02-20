@@ -26,6 +26,7 @@ import org.xml.sax.SAXException;
 //~--- non-JDK imports --------------------------------------------------------
 
 import org.bungeni.translators.configurations.OAConfiguration;
+import org.bungeni.translators.configurations.Parameter;
 import org.bungeni.translators.configurations.steps.OAPipelineStep;
 
 import org.bungeni.translators.exceptions.DocumentNotFoundException;
@@ -79,7 +80,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
      * This is the input parameter passed from the caller to the pipeline
      */
     //!+BICAMERAL made value Object type
-    private HashMap<String, Object> pipelineInputParameters;
+    private HashMap<String, String> pipelineInputParameters;
 
     /**
      * Private constructor used to create the Translator instance
@@ -92,7 +93,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         //file -- translators are now configured via a single configurationfile
         //use OAConfiguration.getProperties() to get the propeties object of the translation
         //!+BICAMERAL made value object type
-        this.pipelineInputParameters = new HashMap<String,Object>();
+        this.pipelineInputParameters = new HashMap<String,String>();
     }
 
     /**
@@ -504,7 +505,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
     public StreamSource applyInputSteps(HashMap<String, File> translatedFiles, StreamSource ODFDocument)
             throws TransformerFactoryConfigurationError, Exception {
            // applies the input steps to the StreamSource of the ODF document
-            HashMap<String,Object> resolvedParameterMap = this.resolveParameterMap("input");
+            HashMap<String,Parameter> resolvedParameterMap = this.resolveParameterMap("input");
             StreamSource iteratedDocument = OAXSLTStepsResolver.getInstance().resolve(ODFDocument,
                                                     resolvedParameterMap,
                                                     OAConfiguration.getInstance().getInputSteps());
@@ -524,26 +525,41 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
 
     /**
      * This API resolves the incoming parameters with the ones declared in configuration
+     * 
+     * Input parameters are declared on the pipe using the parameter syntax.
+     * 
+     * Declared parameters can be set by the caller of the pipe or by declaring defaults on the pipe.
+     * 
+     * This api merges the input parameters with the defaults - i.e. if you specify an input parameter,
+     * it will use the specified input param instead of the default.
+     * 
      * @param forStep
      * @return
      * @throws XPathExpressionException
      * @throws Exception 
      */
-    private HashMap<String,Object> resolveParameterMap(String forStep) throws XPathExpressionException, Exception {
+    private HashMap<String,Parameter> resolveParameterMap(String forStep) throws XPathExpressionException, Exception {
         //We merge the input parameter map with the parameters specified in Configuration
-        HashMap<String,Object> resolvedMap = new HashMap<String,Object>();
+        HashMap<String,Parameter> resolvedMap = new HashMap<String,Parameter>();
 
-        //first get the parameters from Config
-        HashMap<String,Object> configParameters = OAConfiguration.getInstance().getParameters(forStep);
+        //first get the parameters from Configuration
+        //this will include default declarations
+        HashMap<String,Parameter> configParameters = 
+                OAConfiguration.getInstance().getParameters(forStep);
 
         //Validate the pipeline parameters - we cannot input parameters which are
         //not declared in the config
         //Now iterate through the input parameter map and identify parameters to merge
-
+        // first get the parameters specified by the caller and set them on the resolvedMap
         for (String key : this.pipelineInputParameters.keySet()){
             //if the input parameter exists in configuration
             if (configParameters.containsKey(key)) {
-               resolvedMap.put(key,this.pipelineInputParameters.get(key));
+                Parameter configParameter = configParameters.get(key);
+                String inputParamValue = this.pipelineInputParameters.get(key);
+                // set the value in the map - the setValue coerces the value 
+                // into the correct format based on the type
+                configParameter.setValue(inputParamValue);
+                resolvedMap.put(key, configParameter);
             } else {
                 log.warn("WARNING !!!!: an undeclared paramter: "+ key +"  was passed as an input parameter "
                         + "This parameter will be ignored until declared in the configuraiton xml ");
@@ -554,8 +570,9 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
         for (String key : configParameters.keySet()) {
             if (!resolvedMap.containsKey(key)) {
                 //config parameters support String values and XML nodes
-                Object defaultConfigValue = configParameters.get(key);
-                if (defaultConfigValue.getClass().equals(String.class)) {
+                Parameter defaultConfigValue = configParameters.get(key);
+                resolvedMap.put(key, defaultConfigValue);
+                /**if (defaultConfigValue.getClass().equals(String.class)) {
                     String defaultConfigValueString = ((String)defaultConfigValue).trim();
                     if (defaultConfigValueString.isEmpty()) {
                        log.warn("WARNING !!!!: One of the default parameters : " + key + " has a empty default value in configuration ");
@@ -566,7 +583,7 @@ public class OATranslator implements org.bungeni.translators.interfaces.Translat
                     //!+XSLT_PARAM_XML (ah, 12-04-2012) - if its not a string class, its an xml document
                     // wrapped in a saxon document wrapper 
                     resolvedMap.put(key, defaultConfigValue);
-                }
+                }**/
             }
         }
 
