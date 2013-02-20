@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config name="testConfigParams">
+    <properties>
+        <entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
+        <entry key="cachePipelineXSLT">false</entry>
+        <entry key="inputXmlSource">XML</entry>
+    </properties>
+    
+    <!-- Specfies the schema for the xml document being created -->
+    <schema href="configfiles/schema/akomantoso20.xsd" />
+    
+    <!-- This steps are performed BEFORE the above regex replacement -->
+    <input>
+        
+        <!-- INPUT PARAMETERS are passed ONLY into Step 1, it is upto step to decide
+            what it wants to do with input parameters, since they can be carried over,
+            by serializing them into the document being pipelined -->
+        <parameters>
+            <parameter name="text-param-defval" type="text" value="default input value" />
+            <parameter name="text-param-defval-or" type="text" value="this value will be overriden" />
+            <!-- "overriden value" -->
+            <parameter name="text-param-input" type="text" />
+            <!-- "input param from transformer" --> 
+            <parameter name="xml-param-input" type="xml" />
+            <!-- <hello><world name="Earth" /></hello> -->
+            <parameter name="xml-param-defval" type="xml">
+                <value>
+                    
+                    <map from="address" uri-name="Address" element-name="address" />
+                    
+                </value>
+            </parameter>            
+            <parameter name="xml-param-defval-or" type="xml">
+                <value>
+                    <hello name="Salve" />
+                </value>
+            </parameter>
+            <!-- "namaskar" -->
+        </parameters>
+        
+        <xslt   step="1" 
+            name="step1" 
+            href="pipeline_xslt/test_configparams/01_step.xsl"/>
+        
+    </input>
+    
+</config>
