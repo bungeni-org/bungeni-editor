@@ -81,18 +81,24 @@ public class DebateRecordMetadata extends BaseEditorDocMetadataDialog {
                     SimpleDateFormat timeFormat = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
                     this.dt_publication_date.setDate(timeFormat.parse(sPublicationDate));
                 }
-                if (!CommonStringFunctions.emptyOrNull(sParlId))
+                if (!CommonStringFunctions.emptyOrNull(sParlId)) {
                     this.BungeniParliamentID.setText(sParlId);
-                if (!CommonStringFunctions.emptyOrNull(sParlSession))
+                }
+                if (!CommonStringFunctions.emptyOrNull(sParlSession)) {
                     this.txtParliamentSession.setText(sParlSession);
-                if (!CommonStringFunctions.emptyOrNull(sParlSitting))
+                }
+                if (!CommonStringFunctions.emptyOrNull(sParlSitting)) {
                     this.txtParliamentSitting.setText(sParlSitting);
-                if (!CommonStringFunctions.emptyOrNull(sCountryCode))
+                }
+                if (!CommonStringFunctions.emptyOrNull(sCountryCode)) {
                     this.cboCountry.setSelectedItem(findCountryCode(sCountryCode));
-                if (!CommonStringFunctions.emptyOrNull(sLanguageCode))
+                }
+                if (!CommonStringFunctions.emptyOrNull(sLanguageCode)) {
                     this.cboLanguage.setSelectedItem(findLanguageCodeAlpha2(sLanguageCode));
-                if (!CommonStringFunctions.emptyOrNull(sPartName)) 
+                }
+                if (!CommonStringFunctions.emptyOrNull(sPartName)) {
                     this.cboDocumentPart.setSelectedItem(findDocumentPart(sPartName));
+                }
                 if (!CommonStringFunctions.emptyOrNull(sPublicationName)) {
                     this.txtPublicationName.setText(sPublicationName);
                 }
@@ -107,88 +113,6 @@ public class DebateRecordMetadata extends BaseEditorDocMetadataDialog {
     public Component getPanelComponent() {
         return this;
     }
-    /** Creates new form DebateRecordMetadata */
-    /*
-    public DebateRecordMetadata(OOComponentHelper ooDoc, JFrame parentFrame, SelectorDialogModes aMode) {
-        this.parentFrame = parentFrame;
-        this.ooDocument = ooDoc;
-        initComponents();
-        
-     //   dlgMode = aMode;
-   
-        initMetadata();
-        initControls();
-        
-        if (aMode == SelectorDialogModes.TEXT_EDIT) {
-            try {
-                //retrieve metadata... and set in controls....
-                docMetaModel.loadModel(ooDoc);
-               String sParlId = docMetaModel.getItem("BungeniParliamentID");
-                String sParlSitting = docMetaModel.getItem("BungeniParliamentSitting");
-                String sParlSession = docMetaModel.getItem("BungeniParliamentSession");
-                String sCountryCode = docMetaModel.getItem("BungeniCountryCode");
-                String sLanguageCode = docMetaModel.getItem("BungeniLanguageCode");
-                String sOfficDate =docMetaModel.getItem("BungeniDebateOfficialDate");
-                String sOfficTime = docMetaModel.getItem("BungeniDebateOfficialTime");
-                String sPartName = docMetaModel.getItem("BungeniDocPart");
-                String sPublicationName = docMetaModel.getItem("BungeniPublicationName");
-                String sPublicationDate = docMetaModel.getItem("BungeniPublicationDate");
-                //official date
-                if (!emptyOrNull(sOfficDate)) {
-                SimpleDateFormat formatter = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
-                this.dt_initdebate_hansarddate.setDate(formatter.parse(sOfficDate));
-                }
-                //official time
-                if (!emptyOrNull(sOfficTime) ) {
-                    SimpleDateFormat timeFormat = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataTimeFormat"));
-                    dt_initdebate_timeofhansard.setValue(timeFormat.parse(sOfficTime));
-                }
-                if (!emptyOrNull(sPublicationDate)) {
-                    SimpleDateFormat timeFormat = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
-                    this.dt_publication_date.setDate(timeFormat.parse(sPublicationDate));
-                }
-                if (!emptyOrNull(sParlId))
-                    this.BungeniParliamentID.setText(sParlId);
-                if (!emptyOrNull(sParlSession))
-                    this.txtParliamentSession.setText(sParlSession);
-                if (!emptyOrNull(sParlSitting))
-                    this.txtParliamentSitting.setText(sParlSitting);
-                if (!emptyOrNull(sCountryCode))
-                    this.cboCountry.setSelectedItem(findCountryCode(sCountryCode));
-                if (!emptyOrNull(sLanguageCode))
-                    this.cboLanguage.setSelectedItem(findLanguageCode(sLanguageCode));
-                if (!emptyOrNull(sPartName)) 
-                    this.cboDocumentPart.setSelectedItem(findDocumentPart(sPartName));
-                if (!emptyOrNull(sPublicationName)) {
-                    this.txtPublicationName.setText(sPublicationName);
-                }
-                
-            } catch (ParseException ex) {
-                Logger.getLogger(DebateRecordMetadata.class.getName()).log(Level.SEVERE, null, ex);
-            }
-         
-        }
-       // getComponentWithNames(this);
-    }
-*/
-        
-/*
-    private void initMetadata(){
-        countryCodes.add(new CountryCode("ken", "Kenya"));
-        countryCodes.add(new CountryCode("uga", "Uganda"));
-        countryCodes.add(new CountryCode("tza", "Tanzania"));
-        
-        languageCodes.add(new LanguageCode("eng", "English"));
-        languageCodes.add(new LanguageCode("fra", "French"));
-        
-        documentParts.add(new DocumentPart("main", "Main"));
-        documentParts.add(new DocumentPart("annex", "Annex"));
-        documentParts.add(new DocumentPart("attachment", "Attachment"));
-        
-        
-        this.docMetaModel.setup();
-    }
-  */  
  
     
     private void initControls(){

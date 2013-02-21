@@ -38,6 +38,7 @@ import nl.jj.swingx.gui.modal.JModalFrame;
 import org.apache.commons.io.FileUtils;
 import org.bungeni.editor.config.BaseConfigReader;
 import org.bungeni.editor.config.DocTypesReader;
+import org.bungeni.editor.config.InlineTypesReader;
 import org.bungeni.editor.config.SectionTypesReader;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
@@ -183,6 +184,24 @@ public class ValidateConfiguration {
                 this.xsdConfigInfo.get("sectionTypes").setExceptions(f.getName(), stypeExceptions);
             }
         }
+        
+        String inlineTypesFolder = InlineTypesReader.getSettingsFolder();
+        
+        Iterator<File> fileInlineTypes = FileUtils.iterateFiles(
+                new File(inlineTypesFolder), 
+                extensions, 
+                false
+                );
+        while(fileInlineTypes.hasNext()) {
+            //ignore common.xml 
+            File f = fileInlineTypes.next();
+            if (!f.getName().equals("common.xml")) {
+                List<SAXParseException> stypeExceptions = validate(f, this.xsdConfigInfo.get("inlineTypes"));
+                this.xsdConfigInfo.get("inlineTypes").setExceptions(f.getName(), stypeExceptions);
+            }
+        }
+        
+        
         if (areThereExceptions()) {
             showExceptions();
         }
