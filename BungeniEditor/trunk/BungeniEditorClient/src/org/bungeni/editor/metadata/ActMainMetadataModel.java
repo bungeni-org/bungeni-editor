@@ -19,67 +19,93 @@ package org.bungeni.editor.metadata;
 
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.ooo.ooDocMetadata;
+
 /**
  *
  * @author bzuadmin
  */
-public class ActMainMetadataModel extends BaseEditorDocMetaModel{
-    public static final String[] GROUPED_METADATA = { };
-    
+public class ActMainMetadataModel extends BaseEditorDocMetaModel {
+
+    public static final String[] GROUPED_METADATA = {};
+    private String BungeniMainDocID = "";
     private String BungeniLanguageCode = "";
     private String BungeniActName = "";
     private String BungeniActNo = "";
     private String BungeniActYear = "";
     private String BungeniActEffectiveDate = "";
     private String BungeniActType = "";
+    private String BungeniActTypeID = "";
     private String BungeniActScope = "";
+    private String BungeniActScopeID = "";
     private String BungeniActCategory = "";
-    private String BungeniActState="";
-    private String BungeniActFamily="";
-    private String BungeniActFamilyPossible="";
-    private String BungeniActHistoricalPeriod="";
+    private String BungeniActCategoryID = "";
+    private String BungeniActCategoryBasic = "";
+    private String BungeniActCategoryBasicID = "";
+    private String BungeniActState = "";
+    private String BungeniActFamily = "";
+    private String BungeniActFamilyID = "";
+    private String BungeniActFamilyPossible = "";
+    private String BungeniActFamilyPossibleID = "";
+    private String BungeniActHistoricalPeriod = "";
+    private String BungeniActHistoricalPeriodID = "";
     private String BungeniPageNo = "";
     private String BungeniPageCount = "";
-    
-    
-    
     public static final String[] THIS_METAMODEL = {
+        "BungeniMainDocID",
         "BungeniLanguageCode",
         "BungeniActName",
         "BungeniActNo",
         "BungeniActYear",
         "BungeniActType",
+        "BungeniActTypeID",
         "BungeniActScope",
+        "BungeniActScopeID",
         "BungeniActState",
         "BungeniActFamily",
+        "BungeniActFamilyID",
         "BungeniActFamilyPossible",
+        "BungeniActFamilyPossibleID",
         "BungeniActEffectiveDate",
+        "BungeniActHistoricalPeriod",
+        "BungeniActHistoricalPeriodID",
         "BungeniActCategory",
+        "BungeniActCategoryID",
+        "BungeniActCategoryBasic",
+        "BungeniActCategoryBasicID",
         "BungeniPageNo",
         "BungeniPageCount"
     };
-  
-    public ActMainMetadataModel(){
+
+    public ActMainMetadataModel() {
         super();
     }
-    
+
     @Override
-    public void setup(){
-       super.setup();
+    public void setup() {
+        super.setup();
+        this.docMeta.put("BungeniMainDocID", BungeniMainDocID);
         this.docMeta.put("BungeniLanguageCode", BungeniLanguageCode);
         this.docMeta.put("BungeniActName", BungeniActName);
         this.docMeta.put("BungeniActNo", BungeniActNo);
         this.docMeta.put("BungeniActYear", BungeniActYear);
         this.docMeta.put("BungeniActType", BungeniActType);
         this.docMeta.put("BungeniActScope", BungeniActScope);
+        this.docMeta.put("BungeniActTypeID", BungeniActTypeID);
+        this.docMeta.put("BungeniActScopeID", BungeniActScopeID);
         this.docMeta.put("BungeniActEffectiveDate", BungeniActEffectiveDate);
         this.docMeta.put("BungeniActCategory", BungeniActCategory);
+        this.docMeta.put("BungeniActCategoryID", BungeniActCategoryID);
+        this.docMeta.put("BungeniActCategoryBasic", BungeniActCategoryBasic);
+        this.docMeta.put("BungeniActCategoryBasicID", BungeniActCategoryBasicID);
         this.docMeta.put("BungeniActState", BungeniActState);
         this.docMeta.put("BungeniActFamily", BungeniActFamily);
         this.docMeta.put("BungeniActFamilyPossible", BungeniActFamilyPossible);
         this.docMeta.put("BungeniActHistoricalPeriod", BungeniActHistoricalPeriod);
+        this.docMeta.put("BungeniActFamilyID", BungeniActFamilyID);
+        this.docMeta.put("BungeniActFamilyPossibleID", BungeniActFamilyPossibleID);
+        this.docMeta.put("BungeniActHistoricalPeriodID", BungeniActHistoricalPeriodID);
         this.docMeta.put("BungeniPageNo", BungeniPageNo);
-        this.docMeta.put("BungeniPageCount", BungeniPageCount);  
+        this.docMeta.put("BungeniPageCount", BungeniPageCount);
         this.docMeta.put("ActType", "");
     }
 
@@ -91,8 +117,15 @@ public class ActMainMetadataModel extends BaseEditorDocMetaModel{
 //            docM.AddProperty(sMeta, docMeta.get(sMeta));
 //        }
 //    }
-    
-     public String getBungeniLanguageCode() {
+    public String getBungeniMainDocID() {
+        return BungeniMainDocID;
+    }
+
+    public void setBungeniMainDocID(String BungeniMainDocID) {
+        this.BungeniMainDocID = BungeniMainDocID;
+    }
+
+    public String getBungeniLanguageCode() {
         return BungeniLanguageCode;
     }
 
@@ -100,98 +133,107 @@ public class ActMainMetadataModel extends BaseEditorDocMetaModel{
         this.BungeniLanguageCode = BungeniLanguageCode;
     }
 
-    public String getBungeniActName(){
+    public String getBungeniActName() {
         return BungeniActName;
     }
-    public void setBungeniActName(String BungeniActName){
+
+    public void setBungeniActName(String BungeniActName) {
         this.BungeniActName = BungeniActName;
     }
-    
-    public String getBungeniActNo(){
+
+    public String getBungeniActNo() {
         return BungeniActNo;
     }
-    public void setBungeniActNo(String BungeniActNo){
+
+    public void setBungeniActNo(String BungeniActNo) {
         this.BungeniActNo = BungeniActNo;
     }
-    
-     public String getBungeniActYear(){
+
+    public String getBungeniActYear() {
         return BungeniActYear;
     }
-    public void setBungeniActYear(String BungeniActYear){
+
+    public void setBungeniActYear(String BungeniActYear) {
         this.BungeniActYear = BungeniActYear;
     }
-    
+
     public String getBungeniActType() {
         return BungeniActType;
     }
+
     public void setBungeniActType(String BungeniActType) {
         this.BungeniActType = BungeniActType;
     }
-    
+
     public String getBungeniActFamily() {
         return BungeniActFamily;
     }
+
     public void setBungeniActFamily(String BungeniActFamily) {
         this.BungeniActFamily = BungeniActFamily;
     }
-    
-    
+
     public String getBungeniActFamilyPossible() {
         return BungeniActFamilyPossible;
     }
+
     public void setBungeniActFamilyPossible(String BungeniActFamilyPossible) {
         this.BungeniActFamilyPossible = BungeniActFamilyPossible;
     }
-    
+
     public String getBungeniActHistoricalPeriod() {
         return BungeniActHistoricalPeriod;
     }
+
     public void setBungeniActHistoricalPeriod(String BungeniActHistoricalPeriod) {
         this.BungeniActHistoricalPeriod = BungeniActHistoricalPeriod;
     }
-    
+
     public String getBungeniActScope() {
         return BungeniActType;
     }
+
     public void setBungeniActScope(String BungeniActScope) {
         this.BungeniActScope = BungeniActScope;
     }
-    
+
     public String getBungeniActState() {
         return BungeniActState;
     }
+
     public void setBungeniActState(String BungeniActState) {
         this.BungeniActState = BungeniActState;
     }
-    
-    
+
     public String getBungeniActEffectiveDate() {
         return BungeniActEffectiveDate;
     }
+
     public void setBungeniActEffectiveDate(String BungeniActEffectiveDate) {
         this.BungeniActEffectiveDate = BungeniActEffectiveDate;
     }
-    
+
     public String getBungeniActCategory() {
         return BungeniActCategory;
     }
+
     public void setBungeniActCategory(String BungeniActCategory) {
         this.BungeniActCategory = BungeniActCategory;
     }
 
-     public void setBungeniPageNo(String BungeniPageNo) {
+    public void setBungeniPageNo(String BungeniPageNo) {
         this.BungeniPageNo = BungeniPageNo;
     }
-   
-      public String getBungeniPageNo() {
+
+    public String getBungeniPageNo() {
         return BungeniPageNo;
     }
-      
+
     public void setBungeniPageCount(String BungeniPageCount) {
         this.BungeniPageCount = BungeniPageCount;
     }
-   
-      public String getBungeniPageCount() {
+
+    public String getBungeniPageCount() {
         return BungeniPageCount;
     }
 }

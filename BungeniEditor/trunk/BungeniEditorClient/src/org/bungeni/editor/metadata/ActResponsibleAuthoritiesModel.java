@@ -24,16 +24,16 @@ package org.bungeni.editor.metadata;
 public class ActResponsibleAuthoritiesModel extends BaseEditorDocMetaModel {
 
     private String BungeniActRelease = "";
+    private String BungeniActReleaseID = "";
     private String BungeniActReleaseDate = "";
     private String BungeniActReleaseDateHijri = "";
     private String BungeniActDeveloped = "";
     private String BungeniActDevelopedDate = "";
     private String BungeniActApproved = "";
     private String BungeniActApprovedDate = "";
-    
     public static final String[] THIS_METAMODEL = {
-        
         "BungeniActRelease",
+        "BungeniActReleaseID",
         "BungeniActReleaseDate",
         "BungeniActReleaseDateHijri",
         "BungeniActDeveloped",
@@ -41,34 +41,36 @@ public class ActResponsibleAuthoritiesModel extends BaseEditorDocMetaModel {
         "BungeniActApproved",
         "BungeniActAprovedDate"
     };
-    
-    public ActResponsibleAuthoritiesModel(){
+
+    public ActResponsibleAuthoritiesModel() {
         super();
     }
-    
+
     @Override
-    public void setup(){
+    public void setup() {
         super.setup();
         this.docMeta.put("BungeniActRelease", BungeniActRelease);
+        this.docMeta.put("BungeniActReleaseID", BungeniActReleaseID);
         this.docMeta.put("BungeniActReleaseDate", BungeniActReleaseDate);
         this.docMeta.put("BungeniActReleaseDateHijri", BungeniActReleaseDateHijri);
         this.docMeta.put("BungeniActDeveloped", BungeniActDeveloped);
-        this.docMeta.put("BungeniActDevelopedDate", BungeniActDevelopedDate); 
+        this.docMeta.put("BungeniActDevelopedDate", BungeniActDevelopedDate);
         this.docMeta.put("BungeniActApproved", BungeniActApproved);
         this.docMeta.put("BungeniActApprovedDate", BungeniActApprovedDate);
-       
+        
+        
         // FRBR Items
         // work
-        this.docMeta.put("BungeniWorkAuthor", "");
-        this.docMeta.put("BungeniWorkAuthorURI", "");
-        this.docMeta.put("BungeniWorkDate", "");
-        this.docMeta.put("BungeniWorkDateName", "");
-        this.docMeta.put("BungeniWorkURI", "");
-        
-        this.docMeta.put("BungeniDocPart", "");
-        
+        docMeta.put("BungeniWorkAuthor", "");
+        docMeta.put("BungeniWorkAuthorAs", "");
+        docMeta.put("BungeniWorkAuthorURI", "");
+        docMeta.put("BungeniWorkDate", "");
+        docMeta.put("BungeniWorkDateName", "");
+        docMeta.put("BungeniWorkURI", "");
+
         // expression
         docMeta.put("BungeniExpAuthor", "");
+         docMeta.put("BungeniExpAuthorAs", "");
         docMeta.put("BungeniExpAuthorURI", "");
         docMeta.put("BungeniExpDate", "");
         docMeta.put("BungeniExpDateName", "");
@@ -76,10 +78,11 @@ public class ActResponsibleAuthoritiesModel extends BaseEditorDocMetaModel {
 
         // manifestation
         docMeta.put("BungeniManAuthor", "");
+        docMeta.put("BungeniManAuthorAs", "");
         docMeta.put("BungeniManAuthorURI", "");
         docMeta.put("BungeniManDate", "");
         docMeta.put("BungeniManDateName", "");
-        docMeta.put("BungeniManURI", "");    
+        docMeta.put("BungeniManURI", "");
     }
 
     public String getBungeniActRelease() {
@@ -89,8 +92,7 @@ public class ActResponsibleAuthoritiesModel extends BaseEditorDocMetaModel {
     public void setBungeniActRelease(String BungeniActRelease) {
         this.BungeniActRelease = BungeniActRelease;
     }
-    
-    
+
     public String getBungeniBungeniActReleaseDate() {
         return BungeniActReleaseDate;
     }
@@ -98,8 +100,7 @@ public class ActResponsibleAuthoritiesModel extends BaseEditorDocMetaModel {
     public void setBungeniActReleaseDate(String BungeniActReleaseDate) {
         this.BungeniActReleaseDate = BungeniActReleaseDate;
     }
-    
-    
+
     public String getBungeniBungeniActReleaseDateHijri() {
         return BungeniActReleaseDateHijri;
     }
@@ -107,7 +108,7 @@ public class ActResponsibleAuthoritiesModel extends BaseEditorDocMetaModel {
     public void setBungeniActReleaseDateHijri(String BungeniActReleaseDateHijri) {
         this.BungeniActReleaseDateHijri = BungeniActReleaseDateHijri;
     }
-    
+
     public String getBungeniActDeveloped() {
         return BungeniActDeveloped;
     }
@@ -115,15 +116,15 @@ public class ActResponsibleAuthoritiesModel extends BaseEditorDocMetaModel {
     public void setBungeniActDeveloped(String BungeniActDeveloped) {
         this.BungeniActDeveloped = BungeniActDeveloped;
     }
-    
-     public String getBungeniActDevelopedDate() {
+
+    public String getBungeniActDevelopedDate() {
         return BungeniActDevelopedDate;
     }
 
     public void setBungeniActDevelopedDate(String BungeniActDevelopedDate) {
         this.BungeniActDevelopedDate = BungeniActDevelopedDate;
     }
-    
+
     public String getBungeniActApproved() {
         return BungeniActApproved;
     }
@@ -131,7 +132,7 @@ public class ActResponsibleAuthoritiesModel extends BaseEditorDocMetaModel {
     public void setBungeniActApproved(String BungeniActApproved) {
         this.BungeniActApproved = BungeniActApproved;
     }
-    
+
     public String getBungeniActApprovedDate() {
         return BungeniActApprovedDate;
     }

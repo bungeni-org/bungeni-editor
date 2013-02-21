@@ -9,30 +9,33 @@ import org.bungeni.ooo.ooDocMetadata;
  *
  * @author undesa
  */
-public class JudgementMetadataModel extends BaseEditorDocMetaModel {
+public class CourtJudgementMetadataModel extends BaseEditorDocMetaModel {
 
     public static final String[] GROUPED_METADATA = {};
     private String BungeniLanguageCode = "";
-    private String BungeniFamily = "";
+    private String BungeniRegion = "";
     private String BungeniDomain = "";
     private String BungeniCaseType = "";
+    private String BungeniCourtType = "";
     private String BungeniCity = "";
     private String BungeniCaseNo = "";
-    private String BungeniIssuedOn = "";
+    private String BungeniDate = "";
     private String BungeniYear = "";
-    
+    private String BungeniImportance = "";
     public static final String[] THIS_METAMODEL = {
         "BungeniLanguageCode",
-        "BungeniFamily",
+        "BungeniRegion",
         "BungeniDomain",
         "BungeniCaseType",
+        "BungeniCourtType",
         "BungeniCity",
         "BungeniCaseNo",
-        "BungeniIssuedOn",
-        "BungeniYear"
+        "BungeniDate",
+        "BungeniYear",
+        "BungeniImportance"
     };
 
-    public JudgementMetadataModel() {
+    public CourtJudgementMetadataModel() {
         super();
     }
 
@@ -40,13 +43,15 @@ public class JudgementMetadataModel extends BaseEditorDocMetaModel {
     public void setup() {
         super.setup();
         this.docMeta.put("BungeniLanguageCode", BungeniLanguageCode);
-        this.docMeta.put("BungeniFamily", BungeniFamily);
+        this.docMeta.put("BungeniRegion", BungeniRegion);
         this.docMeta.put("BungeniDomain", BungeniDomain);
         this.docMeta.put("BungeniCaseType", BungeniCaseType);
+        this.docMeta.put("BungeniCourtType", BungeniCourtType);
         this.docMeta.put("BungeniCity", BungeniCity);
         this.docMeta.put("BungeniCaseNo", BungeniCaseNo);
-        this.docMeta.put("BungeniIssuedOn", BungeniIssuedOn);
+        this.docMeta.put("BungeniDate", BungeniDate);
         this.docMeta.put("BungeniYear", BungeniYear);
+        this.docMeta.put("BungeniImportance", BungeniImportance);
     }
 
     public String getBungeniLanguageCode() {
@@ -57,12 +62,12 @@ public class JudgementMetadataModel extends BaseEditorDocMetaModel {
         this.BungeniLanguageCode = BungeniLangCode;
     }
 
-    public void setBungeniFamily(String BungeniFamily) {
-        this.BungeniFamily = BungeniFamily;
+    public void setBungeniRegion(String BungeniRegion) {
+        this.BungeniRegion = BungeniRegion;
     }
 
-    public String getBungeniFamily() {
-        return BungeniFamily;
+    public String getBungeniRegion() {
+        return BungeniRegion;
     }
 
     public String getBungeniDomain() {
@@ -79,6 +84,14 @@ public class JudgementMetadataModel extends BaseEditorDocMetaModel {
 
     public void setBungeniCaseType(String BungeniCaseType) {
         this.BungeniCaseType = BungeniCaseType;
+    }
+
+    public String getBungeniCourtType() {
+        return BungeniCourtType;
+    }
+
+    public void setBungeniCourtType(String BungeniCourtType) {
+        this.BungeniCourtType = BungeniCourtType;
     }
 
     public String getBungeniCity() {
@@ -98,11 +111,11 @@ public class JudgementMetadataModel extends BaseEditorDocMetaModel {
     }
 
     public String getBungeniDate() {
-        return BungeniIssuedOn;
+        return BungeniDate;
     }
 
     public void setBungeniDate(String BungeniDate) {
-        this.BungeniIssuedOn = BungeniDate;
+        this.BungeniDate = BungeniDate;
     }
 
     public String getBungeniYear() {
@@ -111,5 +124,13 @@ public class JudgementMetadataModel extends BaseEditorDocMetaModel {
 
     public void setBungeniYear(String BungeniYear) {
         this.BungeniYear = BungeniYear;
+    }
+    
+     public String getBungeniImportance() {
+        return BungeniImportance;
+    }
+
+    public void setBungeniImportance(String BungeniImportance) {
+        this.BungeniImportance = BungeniImportance;
     }
 }
