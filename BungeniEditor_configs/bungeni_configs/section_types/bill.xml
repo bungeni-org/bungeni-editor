@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="windows-1252"?>
 <sectionTypes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:noNamespaceSchemaLocation="sectionTypes.xsd"
- for="bill">
+ for="bill" xmlns:an="#an" >
  
  <!-- root is mandatory, all mode="call" attributed calls need sectionType definitions -->
  
@@ -11,15 +10,15 @@
 		visibility="user" >
 		<output>
 		<content>
-			<akomaNtoso>
-				<bill>
-					<meta mode="call"/>
-					<preface mode="call" />
-					<preamble mode="call" />
-					<body  mode="call"/>
-					<conclusions mode="call" />
-				</bill>
-			</akomaNtoso>
+			<an:akomaNtoso>
+				<an:bill>
+					<an:meta mode="call"/>
+					<an:preface mode="call" />
+					<an:preamble mode="call" />
+					<an:body  mode="call"/>
+					<an:conclusions mode="call" />
+				</an:bill>
+			</an:akomaNtoso>
 		</content>
 	   </output>
 	 </sectionType>
@@ -29,7 +28,7 @@
         numstyle="single">
         <output>
             <content>
-                <meta />
+                <an:meta />
             </content>
         </output>
     </sectionType>
@@ -40,7 +39,7 @@
         >
         <output>
             <content>
-                <preamble/>
+                <an:preamble/>
             </content>
         </output>
     </sectionType>
@@ -51,7 +50,7 @@
          >
         <output>
             <content>
-                <preface/>
+                <an:preface/>
             </content>
         </output>
     </sectionType>
@@ -66,7 +65,7 @@
 		 >
      <output>
          <content>
-             <body />
+             <an:body />
          </content>
      </output>
     </sectionType>
@@ -80,7 +79,7 @@
      visibility="user">
      <output>
          <content>
-             <conclusions />
+             <an:conclusions />
          </content>
      </output>
   </sectionType>	
@@ -90,7 +89,7 @@
         <numbering scheme="NUMERIC" decorator="flowerBracket"/>
         <output>
             <content>
-                <article />
+                <an:article />
             </content>
         </output>
     </sectionType>
@@ -100,7 +99,7 @@
         <numbering scheme="ROMAN-Upper" decorator="none"/>
         <output>
             <content>
-                <chapter />
+                <an:chapter />
             </content>
         </output>
     </sectionType>
@@ -110,7 +109,7 @@
         <numbering scheme="ROMAN" decorator="hashPrefix"/>
         <output>
             <content>
-                <clause />
+                <an:clause />
             </content>
         </output>
     </sectionType>
@@ -119,7 +118,7 @@
         indent-left=".3" indent-right="0" visibility="user"> 
         <output>
             <content>
-                <longTitle />
+                <an:longTitle />
             </content>
         </output>
     </sectionType>
@@ -129,7 +128,7 @@
         <numbering scheme="ALPHABETICAL-Lower" decorator="parens"/>
         <output>
             <content>
-                <paragraph />
+                <an:paragraph />
             </content>
         </output>
     </sectionType>
@@ -139,7 +138,7 @@
         <numbering scheme="ALPHABETICAL" decorator="postDashed"/>
         <output>
             <content>
-                <part/>
+                <an:part/>
             </content>
         </output>
     </sectionType>
@@ -149,7 +148,7 @@
         <numbering scheme="ALPHABETICAL-Lower" decorator="parens"/>
         <output>
             <content>
-                <section/>
+                <an:section/>
             </content>
         </output>
     </sectionType>
@@ -159,7 +158,7 @@
         <!-- this should perhaps be an inlinetype -->
         <output>
             <content>
-                <shortTitle/>
+                <an:shortTitle/>
             </content>
         </output>
 
@@ -170,7 +169,7 @@
         <numbering scheme="ROMAN-Upper" decorator="postDotted"/>
         <output>
             <content>
-                <subchapter/>
+                <an:subchapter/>
             </content>
         </output>
     </sectionType>
@@ -180,7 +179,7 @@
         <numbering scheme="ALPHABETICAL-Lower" decorator="hashPrefix"/>
         <output>
             <content>
-                <subclause/>
+                <an:subclause/>
             </content>
         </output>
     </sectionType>
@@ -190,7 +189,7 @@
         <numbering scheme="ROMAN-Lower" decorator="parens"/>
         <output>
             <content>
-                <subparagraph/>
+                <an:subparagraph/>
             </content>
         </output>
     </sectionType>
@@ -200,7 +199,7 @@
         <numbering scheme="ROMAN-Upper" decorator="square"/>
         <output>
             <content>
-                <subsection/>
+                <an:subsection/>
             </content>
         </output>
     </sectionType>
@@ -209,7 +208,7 @@
         indent-left=".1" indent-right="0" visibility="user">
         <output>
             <content>
-                <title/>
+                <an:title/>
             </content>
         </output>
     </sectionType>
