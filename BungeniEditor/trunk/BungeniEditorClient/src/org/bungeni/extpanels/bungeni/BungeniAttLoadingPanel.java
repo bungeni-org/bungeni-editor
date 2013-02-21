@@ -26,8 +26,6 @@ import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import org.bungeni.extutils.DisabledGlassPane;
-import org.bungeni.extutils.MessageBox;
-import org.bungeni.extutils.NotifyBox;
 import org.bungeni.utils.BungeniDialog;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -62,9 +60,10 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
     }
     
     public void init(){
-        disablePanel();
-        LoadAttachment ldexec = new LoadAttachment(this.doc);
-        ldexec.execute();
+        //disablePanel();
+        //LoadAttachment ldexec = new LoadAttachment(this.doc);
+        //ldexec.execute();
+        this.setupFields();
         this.lblInfo.setText(
                 "<html><body style='width:350px;'>" + BUNDLE.getString("LOADING_PANEL_HELP_TEXT")
                 );

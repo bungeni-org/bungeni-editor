@@ -25,6 +25,7 @@ package org.bungeni.extpanels.bungeni;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashSet;
 import java.util.concurrent.ExecutionException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -52,6 +53,12 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
     private BungeniDocument doc = null;
     private BungeniAttachment selectedAttachment = null;
     private DisabledGlassPane glassPane = new DisabledGlassPane();
+    
+    private HashSet<String> mimeTypeFilter = new HashSet<String>(){
+        {
+            add("application/vnd.oasis.opendocument.text");
+        }  
+    };
    
     /** Creates new form BungeniDocumentAttListPanel */
     public BungeniDocumentAttListPanel(BungeniDialog dlg, BungeniListDocument listDocument, String docURL) {
@@ -73,9 +80,12 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
     private void disablePanel(){
         JRootPane rootPane = SwingUtilities.getRootPane(parentDialog);
         rootPane.setGlassPane(glassPane);
-        glassPane.activate("Retrieving Document Information from Bungeni ....");
+        glassPane.activate("Retrieving Document,Attachment Info from Bungeni ....");
     }
-    
+
+    /***
+     * Parse the Document and its Attachments Here
+     ***/ 
     class LoadDocument extends SwingWorker<BungeniDocument, BungeniDocument>
     {
         String urlDocument ;
@@ -99,6 +109,22 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
                 if (null != responseBody) {
                     Document doc  = Jsoup.parse(responseBody);
                     BungeniDocument aDocument = new BungeniDocument(urlDocument, doc);
+                    if (aDocument.hasAttachments()) {
+                        for (BungeniAttachment att : aDocument.getAttachments()) {
+                            BungeniAppConnector.WebResponse wrAtt = BungeniServiceAccess.getInstance().getAppConnector().getUrl(
+                                   att.url,
+                                   false
+                               );
+                            if (wrAtt.getStatusCode() == 200) {
+                                String attBody = wrAtt.getResponseBody();
+                                if (null != attBody) {
+                                    Document attDoc  = Jsoup.parse(attBody);
+                                    att.parseAttachment(attDoc);
+                                }
+                            }
+
+                        }
+                    }
                     return aDocument;
                 }
             }
@@ -131,9 +157,10 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
         
         DefaultListModel attModel = new DefaultListModel();
         for (BungeniAttachment att : doc.getAttachments()){
-            attModel.addElement(att);
+            if (this.mimeTypeFilter.contains(att.mimeType) ) {
+                attModel.addElement(att);
+            }
         }
-        
         this.cboListAttachments.setModel(
                 attModel
                 );
@@ -145,8 +172,13 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
             btnImportAttachment.setEnabled(true);
         }
 
+        DefaultListModel transitionsModel = new DefaultListModel();
+        for (Transition t : doc.getTransitions()) {
+            transitionsModel.addElement(t);
+        }
         this.cboTransitions.setModel(
-                new DefaultComboBoxModel(doc.getTransitions().toArray()));
+                transitionsModel
+                );
 
         this.btnImportAttachment.addActionListener(new ActionListener() {
 
@@ -202,16 +234,12 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
         txtDescription = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         lblTransit = new javax.swing.JLabel();
-        cboTransitions = new javax.swing.JComboBox();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        cboTransitions = new javax.swing.JList();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/extpanels/bungeni/Bundle"); // NOI18N
         btnTransit.setText(bundle.getString("BungeniDocumentAttListPanel.btnTransit.text")); // NOI18N
 
-        cboListAttachments.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(cboListAttachments);
 
         btnImportAttachment.setText(bundle.getString("BungeniDocumentAttListPanel.btnImportAttachment.text")); // NOI18N
@@ -240,8 +268,7 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
         lblTransit.setLabelFor(cboTransitions);
         lblTransit.setText(bundle.getString("BungeniDocumentAttListPanel.lblTransit.text")); // NOI18N
 
-        cboTransitions.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cboTransitions.setEnabled(false);
+        jScrollPane3.setViewportView(cboTransitions);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -250,32 +277,37 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblStatus)
-                            .addComponent(lblTitle)
-                            .addComponent(lblDesc))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(infoTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(infoStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblDocInfo)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblDocInfo)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblStatus)
+                                    .addComponent(lblTitle)
+                                    .addComponent(lblDesc))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(infoTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(infoStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(117, 117, 117)
-                                .addComponent(btnImportAttachment)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnCancel))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblTransit)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cboTransitions, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(245, 245, 245)))
-                .addContainerGap())
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 90, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblTransit)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(134, 134, 134)
+                .addComponent(btnImportAttachment)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCancel)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,18 +326,19 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblDesc)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTransit)
-                    .addComponent(cboTransitions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
+                .addComponent(lblTransit)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnImportAttachment)
-                    .addComponent(btnCancel)))
+                    .addComponent(btnCancel))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -314,12 +347,13 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnImportAttachment;
     private javax.swing.JButton btnTransit;
     private javax.swing.JList cboListAttachments;
-    private javax.swing.JComboBox cboTransitions;
+    private javax.swing.JList cboTransitions;
     private javax.swing.JLabel infoStatus;
     private javax.swing.JLabel infoTitle;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblDesc;
     private javax.swing.JLabel lblDocInfo;
     private javax.swing.JLabel lblStatus;

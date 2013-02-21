@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.SwingUtilities;
+import nl.jj.swingx.gui.modal.JModalFrame;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.extutils.FrameLauncher;
@@ -141,6 +142,11 @@ import org.bungeni.utils.BungeniDialog;
 
         btnExport.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnExport.setText(bundle.getString("BungeniIntegrationPanel.btnExport.text")); // NOI18N
+        btnExport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportActionPerformed(evt);
+            }
+        });
 
         btnTransit.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         btnTransit.setText(bundle.getString("BungeniIntegrationPanel.btnTransit.text")); // NOI18N
@@ -224,6 +230,23 @@ import org.bungeni.utils.BungeniDialog;
             updateTransitionsList();
         }
     }//GEN-LAST:event_btnTransitActionPerformed
+
+    private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
+        // TODO add your handling code here:
+        // 1st we version the existing bill 
+        JModalFrame frm = new JModalFrame();
+        frm.setTitle("Configuration Errors");
+        AttachmentVersionPanel panel = new AttachmentVersionPanel(frm);
+        frm.getContentPane().add(panel);
+        frm.pack();
+        frm.centerOfScreen();
+        frm.setVisible(true);
+        frm.waitForClose();
+       
+        // 2nd we upload the bill and replace the existing attachment
+        frm = new JModalFrame();
+        
+    }//GEN-LAST:event_btnExportActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

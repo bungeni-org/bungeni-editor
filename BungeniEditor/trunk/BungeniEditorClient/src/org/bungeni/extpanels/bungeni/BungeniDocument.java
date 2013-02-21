@@ -149,6 +149,10 @@ public class BungeniDocument {
         return transitions;
     }
 
+    public boolean hasAttachments(){
+        return (attachments.size() > 0) ;
+    }
+    
     /**
      * Returns the selected Attachment
      *
